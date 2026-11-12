@@ -33,6 +33,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleovens:empty", maxTicks = 400)
+    public void boostBurnsFuelWithTheSpeed(GameTestHelper h) {
+        OvensTests.ALL.get("boost_burns_fuel_with_the_speed").accept(h);
+    }
+
+    @GameTest(structure = "simpleovens:empty", maxTicks = 400)
     public void tiersCookFaster(GameTestHelper h) {
         OvensTests.ALL.get("tiers_cook_faster").accept(h);
     }

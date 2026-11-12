@@ -88,7 +88,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Bündel-Stufen und Köcher, abgestellte Bündel, Astral-/Nihil-Gewölbe (Deckel öffnet wie die Endertruhe, seit W24-6); Mod-Trichter mit Filter-Prinzip seit MACH32-MOD Stufe 3 in Simple Machines (26.3).
 - **Fahrzeuge (26.3):** Trichterloren in den Stufen Verstärkt/Netherit/Enderit – Tempo wie der Trichter der Stufe,
   Filter-Prinzip (seit MACH32-MOD Stufe 3: Simple Machines; Antriebsloren: Simple Ovens; Güterloren und Truhenboote: Simple Storage, Stufe 8b-2).
-- **Maschinen:** schnellere Öfen (3 Stufen je Ofenart; auf 26.3 aus der Pflicht-Sub-Mod Simple Ovens), Auto-Schmied, Autonomer Crafter, Befiederungstisch (26.3 seit 04.11. in Simple Arrows) und
+- **Maschinen:** schnellere Öfen (3 Stufen je Ofenart; auf 26.3 aus der Pflicht-Sub-Mod Simple Ovens; Brennstoff je Gegenstand wie Vanilla, Ersparnis per Config `fuelEfficiency`; Ofenboote aller Vanilla-Hölzer inkl. Pappel), Auto-Schmied, Autonomer Crafter, Befiederungstisch (26.3 seit 04.11. in Simple Arrows) und
   Schmiedetisch mit Rezeptbuch, stärkere Kolben, Astral-/Nihil-Kolben.
 - **Schmelztiegel-Teil** (Tiegel, Seelen-Lava und Eimer selbst in Simple Crucibles, Stufe 5/5b): Vorschlaghammer-Wege
   (Tiegel bauen, Fass anbringen, Aufwerten), Quarz zerschlagen, Advancements „Heißer Topf“/„Seelenschöpfer“/„Bodenloser Eimer“.

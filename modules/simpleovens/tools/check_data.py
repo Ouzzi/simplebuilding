@@ -17,7 +17,7 @@ BOATS = [(t + '_' if t else '') + w + ('_furnace_raft' if w == 'bamboo' else '_f
 
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OvensConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert config_keys == ['enabled', 'enableSimpleFoundry', 'enableSimpleCrucibles', 'reinforcedSpeed', 'netheriteSpeed', 'enderiteSpeed'], config_keys
+assert config_keys == ['enabled', 'enableSimpleFoundry', 'enableSimpleCrucibles', 'reinforcedSpeed', 'netheriteSpeed', 'enderiteSpeed', 'fuelEfficiency'], config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))

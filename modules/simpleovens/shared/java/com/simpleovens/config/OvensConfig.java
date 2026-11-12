@@ -22,7 +22,7 @@ public final class OvensConfig {
     /** SimpleBuilding's config the speeds came from (split plan stage 4). */
     public static final String LEGACY_FILE = "simplebuilding.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("enabled", "enableSimpleFoundry", "enableSimpleCrucibles", "reinforcedSpeed", "netheriteSpeed", "enderiteSpeed");
+    public static final List<String> KEYS = List.of("enabled", "enableSimpleFoundry", "enableSimpleCrucibles", "reinforcedSpeed", "netheriteSpeed", "enderiteSpeed", "fuelEfficiency");
     /** Speed of a tier against the Vanilla machine of its family; the most a server may set. */
     public static final int MAX_SPEED = 8;
     public static final int REINFORCED_DEFAULT = 2, NETHERITE_DEFAULT = 4, ENDERITE_DEFAULT = 8;
@@ -35,6 +35,11 @@ public final class OvensConfig {
     public static int reinforcedSpeed = REINFORCED_DEFAULT;
     public static int netheriteSpeed = NETHERITE_DEFAULT;
     public static int enderiteSpeed = ENDERITE_DEFAULT;
+    /**
+     * PLAN40 simpleovens-2 (owner A): false = the fuel burns as fast as the tier cooks (fuel per item as in Vanilla); true = the
+     * old saving, the fuel burns at the Vanilla pace while the tier cooks 2/4/8x faster (fuel per item / speed).
+     */
+    public static boolean fuelEfficiency = false;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -85,6 +90,7 @@ public final class OvensConfig {
         reinforcedSpeed = clamp(integer(json, "reinforcedSpeed", REINFORCED_DEFAULT));
         netheriteSpeed = clamp(integer(json, "netheriteSpeed", NETHERITE_DEFAULT));
         enderiteSpeed = clamp(integer(json, "enderiteSpeed", ENDERITE_DEFAULT));
+        fuelEfficiency = bool(json, "fuelEfficiency", false);
     }
 
     public static JsonObject toJson() {
@@ -95,6 +101,7 @@ public final class OvensConfig {
         o.addProperty("reinforcedSpeed", reinforcedSpeed);
         o.addProperty("netheriteSpeed", netheriteSpeed);
         o.addProperty("enderiteSpeed", enderiteSpeed);
+        o.addProperty("fuelEfficiency", fuelEfficiency);
         return o;
     }
 

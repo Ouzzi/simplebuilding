@@ -25,7 +25,7 @@
         "details": [
           "Nine blocks: Reinforced, Netherite and Enderite Furnace, Smoker and Blast Furnace (simpleovens:<tier>_<kind>).",
           "Every tier runs the Vanilla furnace logic first and uses the Vanilla menu of its family (FurnaceMenu, SmokerMenu, BlastFurnaceMenu); one block entity type per family (simpleovens:furnace, smoker, blast_furnace) serves all three tiers.",
-          "Speed-up: while fuel burns and a cook has started, each tick adds speed - 1 extra progress ticks (config reinforcedSpeed, netheriteSpeed, enderiteSpeed; default 2, 4, 8). The progress never reaches the full cook time, so the last step and the result stay Vanilla's.",
+          "Speed-up: while fuel burns and a cook has started, each tick adds speed - 1 extra progress ticks (config reinforcedSpeed, netheriteSpeed, enderiteSpeed; default 2, 4, 8). The progress never reaches the full cook time, so the last step and the result stay Vanilla's. The fuel burns as many extra ticks as the progress gains, so one fuel item smelts as many items as in the Vanilla machine (faster, not cheaper - like the Vanilla blast furnace); fuelEfficiency brings back the old saving.",
           "The smokers and blast furnaces cook at the Vanilla speed of their family (26.3 speeds those up through the fuel only for the two Vanilla blocks) and the tier speed on top.",
           "Reinforced recipe: 3 Cracked Diamonds, 3 Vanilla machines, 3 Cracked Diamonds in three rows yield 3 (recipe book category Redstone).",
           "Netherite and Enderite tiers have no crafting recipe: they are upgraded in place (see In-World Upgrade).",
@@ -43,7 +43,7 @@
         "details": [
           "Neun Blöcke: Verstärkter, Netherit- und Enderit-Ofen, -Räucherofen und -Schmelzofen (simpleovens:<stufe>_<art>).",
           "Jede Stufe führt zuerst die Vanilla-Ofenlogik aus und nutzt das Vanilla-Menü ihrer Familie (FurnaceMenu, SmokerMenu, BlastFurnaceMenu); ein Block-Entity-Typ je Familie (simpleovens:furnace, smoker, blast_furnace) bedient alle drei Stufen.",
-          "Beschleunigung: solange Brennstoff brennt und ein Garvorgang läuft, kommen je Tick Tempo - 1 Fortschrittsticks dazu (Config reinforcedSpeed, netheriteSpeed, enderiteSpeed; Standard 2, 4, 8). Der Fortschritt erreicht nie die volle Garzeit, den letzten Schritt und das Ergebnis macht Vanilla.",
+          "Beschleunigung: solange Brennstoff brennt und ein Garvorgang läuft, kommen je Tick Tempo - 1 Fortschrittsticks dazu (Config reinforcedSpeed, netheriteSpeed, enderiteSpeed; Standard 2, 4, 8). Der Fortschritt erreicht nie die volle Garzeit, den letzten Schritt und das Ergebnis macht Vanilla. Der Brennstoff brennt so viele Ticks mehr, wie der Fortschritt gewinnt: ein Brennstoff schmilzt so viele Gegenstände wie in der Vanilla-Maschine (schneller, nicht billiger - wie der Vanilla-Schmelzofen); fuelEfficiency holt die alte Ersparnis zurück.",
           "Räucheröfen und Schmelzöfen garen im Vanilla-Tempo ihrer Familie (26.3 beschleunigt die beiden Vanilla-Blöcke nur über den Brennstoff) plus das Stufentempo.",
           "Verstärktes Rezept: 3 Rissige Diamanten, 3 Vanilla-Geräte, 3 Rissige Diamanten in drei Reihen ergeben 3 (Rezeptbuch-Kategorie Redstone).",
           "Netherit- und Enderit-Stufe haben kein Werkbankrezept: sie werden an Ort und Stelle aufgewertet (siehe Aufwertung in der Welt).",
@@ -257,6 +257,7 @@
           "enableSimpleFoundry (default true): the switch \"Enable Simple Foundry\" of the sub-mod Simple Foundry; off = its foundry stops working, its blocks stay.",
           "enableSimpleCrucibles (default true): the switch \"Enable Simple Crucibles\" of the sub-mod Simple Crucibles (a sub-mod of Simple Ovens since IG31-15, still playable alone, own ids); off = no crucibles, buckets or guide book in the tabs, no village kitchen and no axe or hammer ways (build, attach, upgrade); the registrations stay and crucibles already built keep working.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (defaults 2, 4, 8; 1 to 8): the speed against the Vanilla machine; the furnace carts' fuel factor follows it.",
+          "fuelEfficiency (default false): off = the fuel burns as fast as the tier cooks (fuel per item as in Vanilla); on = the fuel burns at the Vanilla pace while the tier cooks faster, so each fuel item smelts 2, 4 or 8 times as many items.",
           "On the first start the speeds are taken over from SimpleBuilding's config (server.machines.*FurnaceSpeed in config/simplebuilding.json), which stays unchanged."
         ]
       },
@@ -268,6 +269,7 @@
           "enableSimpleFoundry (Standard true): der Schalter \"Simple Foundry aktivieren\" des Sub-Mods Simple Foundry; aus = seine Gießerei arbeitet nicht mehr, die Blöcke bleiben.",
           "enableSimpleCrucibles (Standard true): der Schalter \"Simple Crucibles aktivieren\" des Sub-Mods Simple Crucibles (seit IG31-15 ein Sub-Mod von Simple Ovens, bleibt allein spielbar, eigene IDs); aus = keine Tiegel, Eimer oder Handbuch in den Tabs, keine Dorfküche und keine Axt- oder Hammer-Wege (Bauen, Andocken, Aufwerten); die Registrierungen bleiben, gebaute Tiegel arbeiten weiter.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (Standard 2, 4, 8; 1 bis 8): das Tempo gegenüber der Vanilla-Maschine; der Brennstofffaktor der Antriebsloren folgt ihm.",
+          "fuelEfficiency (Standard false): aus = der Brennstoff brennt so schnell, wie die Stufe gart (Brennstoff je Gegenstand wie in Vanilla); an = der Brennstoff brennt im Vanilla-Tempo, während die Stufe schneller gart, jeder Brennstoff schmilzt also 2-, 4- oder 8-mal so viele Gegenstände.",
           "Beim ersten Start werden die Tempi aus SimpleBuildings Config übernommen (server.machines.*FurnaceSpeed in config/simplebuilding.json), die unverändert bleibt."
         ]
       }

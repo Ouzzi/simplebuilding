@@ -1,6 +1,7 @@
 package com.simpleovens;
 
 import com.simpleovens.block.OvenBlock;
+import com.simpleovens.config.OvensConfig;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
@@ -12,8 +13,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * What the tiers change (moved from SimpleBuilding's {@code FurnaceTierPerks}): extra cooking ticks per game tick
- * without extra fuel, and double experience for Netherite and Enderite. Output counts always come from the recipe.
+ * What the tiers change (moved from SimpleBuilding's {@code FurnaceTierPerks}): extra cooking ticks per game tick, and
+ * double experience for Netherite and Enderite. Output counts always come from the recipe. PLAN40 simpleovens-2 (owner A):
+ * the fuel burns along with the extra ticks, so one fuel item smelts as many items as in the Vanilla machine (like the
+ * Vanilla blast furnace: faster, not cheaper); {@code fuelEfficiency} in the config brings back the old saving.
  * Inputs in {@code #simpleovens:furnace_bonus_excluded} (cracked diamonds: a lossless crafting cycle would farm
  * experience) get no extra experience.
  */
@@ -41,7 +44,8 @@ public final class OvenPerks {
 
     /**
      * After the Vanilla server tick: while the furnace burns and cooks, adds the tier's extra ticks to the cooking
-     * progress, never reaching the full cook time (Vanilla finishes the item on its own tick).
+     * progress, never reaching the full cook time (Vanilla finishes the item on its own tick), and burns as many extra fuel
+     * ticks (unless {@code fuelEfficiency}); a furnace whose fuel runs out this way lights the next fuel on the next tick.
      */
     public static void boost(BlockState state, ContainerData data) {
         OvenTier tier = tierOf(state);
@@ -51,7 +55,9 @@ public final class OvenPerks {
         if (data.get(0) <= 0 || cookTime <= 0 || totalTime <= 0) return;
         int extraTicks = tier.extraCookTicks();
         if (extraTicks <= 0) return;
-        data.set(2, Math.min(cookTime + extraTicks, totalTime - 1));
+        int boosted = Math.min(cookTime + extraTicks, totalTime - 1);
+        data.set(2, boosted);
+        if (!OvensConfig.fuelEfficiency && boosted > cookTime) data.set(0, Math.max(0, data.get(0) - (boosted - cookTime)));
     }
 
     @SuppressWarnings("deprecation")
