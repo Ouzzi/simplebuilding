@@ -551,6 +551,29 @@ ALL.put("config_command", h -> {
             h.assertTrue(StrongUpgrades.strike(h.getLevel(), pos, player, InteractionHand.MAIN_HAND) == null, "other blocks: Vanilla use");
             h.succeed();
         });
+        // a-audsb31e2 (simplebeacons-P2-1): the in-world upgrade asks the framework protection (claims) itself.
+        ALL.put("upgrade_respects_claims", h -> {
+            BeaconsConfig.reset();
+            h.setBlock(CENTER, Blocks.BEACON);
+            BlockPos pos = h.absolutePos(CENTER);
+            ServerPlayer player = upgrader(h, true);
+            var server = h.getLevel().getServer();
+            com.simplebuilding.framework.api.Protection.register(server, "simplebeacons-claims-test", target -> false);
+            try {
+                for (int i = 0; i < BeaconsConfig.upgradeStrikes; i++) {
+                    h.assertTrue(StrongUpgrades.strike(h.getLevel(), pos, player, InteractionHand.MAIN_HAND) == InteractionResult.FAIL, "a claim refuses strike " + i);
+                    InWorldStrikes.allowNextStrike(h.getLevel(), pos);
+                }
+            } finally {
+                com.simplebuilding.framework.api.Protection.unregister(server, "simplebeacons-claims-test");
+            }
+            h.assertTrue(h.getBlockState(CENTER).is(Blocks.BEACON), "the beacon stays Vanilla");
+            h.assertTrue(InWorldStrikes.done(h.getLevel(), pos) == 0, "no strike was counted");
+            h.assertTrue(StrongUpgrades.starSlot(player) >= 0 && !player.getOffhandItem().isEmpty(), "star and template are kept");
+            InteractionResult free = StrongUpgrades.strike(h.getLevel(), pos, player, InteractionHand.MAIN_HAND);
+            h.assertTrue(free != null && free.consumesAction() && InWorldStrikes.done(h.getLevel(), pos) == 1, "without the claim a strike counts");
+            h.succeed();
+        });
         ALL.put("conduit_upgrade_keeps_water", h -> {
             BeaconsConfig.reset();
             h.setBlock(CENTER, Blocks.CONDUIT.defaultBlockState().setValue(net.minecraft.world.level.block.ConduitBlock.WATERLOGGED, true));

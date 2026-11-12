@@ -3,11 +3,15 @@ package com.simplebeacons.upgrade;
 import com.simplebeacons.BeaconsRegistry;
 import com.simplebeacons.SimpleBeacons;
 import com.simplebeacons.config.BeaconsConfig;
+import com.simplebuilding.framework.api.Protection;
+import com.simplelib.api.HammerActions;
 import com.simplelib.api.InWorldStrikes;
 import com.simplelib.api.SimpleLibApi;
+import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
@@ -69,7 +73,7 @@ public final class StrongUpgrades {
         BlockState state = level.getBlockState(pos);
         Block target = targetFor(state, player.getOffhandItem());
         if (target == null) return null;
-        if (!player.mayBuild() || !level.mayInteract(player, pos)) return InteractionResult.FAIL;
+        if (!mayUpgrade(level, player, pos)) return InteractionResult.FAIL;
         if (!player.hasInfiniteMaterials() && starSlot(player) < 0) {
             level.playSound(null, pos, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 0.5F, 1.4F);
             return InteractionResult.FAIL;
@@ -84,6 +88,22 @@ public final class StrongUpgrades {
             finish(level, pos, player, target);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /**
+     * Who may swap the block at {@code pos}: what a block placement asks (adventure mode, spawn protection), framework
+     * {@link Protection} (claims of any Simple mod) and the partner permissions of SimpleLib {@link HammerActions}, like every
+     * other in-world change of the family. The claims' own mixin sits on the same {@code useItemOn} head as {@code
+     * ServerPlayerGameModeMixin}, so the order of the two is not guaranteed: this module asks itself.
+     */
+    public static boolean mayUpgrade(ServerLevel level, Player player, BlockPos pos) {
+        if (!player.mayBuild() || !level.mayInteract(player, pos)) return false;
+        if (player instanceof ServerPlayer serverPlayer && Protection.active(level.getServer())) {
+            boolean admin = Commands.hasPermission(Commands.LEVEL_OWNERS).test(serverPlayer.createCommandSourceStack());
+            var target = new Protection.Target(serverPlayer.getUUID(), level.dimension().identifier().toString(), pos.getX(), pos.getY(), pos.getZ(), admin);
+            if (!Protection.allows(level.getServer(), target, Protection.Action.ANY)) return false;
+        }
+        return HammerActions.mayChange(level, player, pos);
     }
 
     private static void finish(ServerLevel level, BlockPos pos, Player player, Block target) {

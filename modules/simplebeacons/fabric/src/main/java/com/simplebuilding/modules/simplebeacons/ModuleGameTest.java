@@ -77,6 +77,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void upgradeRespectsClaims(GameTestHelper h) {
+        BeaconsTests.ALL.get("upgrade_respects_claims").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
     public void upgradeNeedsStarAndStance(GameTestHelper h) {
         BeaconsTests.ALL.get("upgrade_needs_star_and_stance").accept(h);
     }
