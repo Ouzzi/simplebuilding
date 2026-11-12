@@ -34,14 +34,14 @@ import net.minecraft.server.level.ServerPlayer;
  */
 public final class SimplebuildingCommand {
 
-    /** Nur Operatoren; die Konsole und Befehlsbloecke haben keinen Spieler und bleiben draussen. */
-    public static final Predicate<CommandSourceStack> OPERATOR_ONLY = source -> {
-        try {
-            return source.getServer().getPlayerList().isOp(source.getPlayerOrException().nameAndId());
-        } catch (Exception e) {
-            return false;
-        }
-    };
+    /**
+     * Nur Operator-Spieler ab Stufe 2 ("gamemaster", wie Vanillas {@code /gamerule} und SimpleLibs Config-Befehl); die
+     * Konsole und Befehlsbloecke haben keinen Spieler und bleiben draussen. Vorher {@code PlayerList#isOp}: auch ein
+     * Operator der Stufe 1 (darf in Vanilla nur den Spawnschutz umgehen) durfte die ganze Server-Config setzen, Boote und
+     * Loren entfernen und den Weltspawn setzen (Audit simplebuilding-P2-1).
+     */
+    public static final Predicate<CommandSourceStack> OPERATOR_ONLY = source -> source.isPlayer()
+            && Commands.hasPermission(Commands.LEVEL_GAMEMASTERS).test(source);
 
     private SimplebuildingCommand() {
     }

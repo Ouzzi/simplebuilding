@@ -56,6 +56,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_boost_packet_budget", HardenTests::boostPacketBudget).maxTicks(220).build(),
             GameTestSpec.named("tweaks_game_test_recipe_rename", HardenTests::recipeRename).build(),
 
+            GameTestSpec.named("core_audit_game_test_operator_only_needs_gamemaster_level", CoreAuditTests::operatorOnlyNeedsGamemasterLevel).build(),
             GameTestSpec.named("end_structure_game_test_structures_are_registered", EndStructureTests::structuresAreRegistered).build(),
             GameTestSpec.named("end_structure_game_test_templates_load", EndStructureTests::templatesLoad).build(),
             GameTestSpec.named("end_structure_game_test_well_places_from_endstone_bricks", EndStructureTests::wellPlacesFromEndstoneBricks).build(),
