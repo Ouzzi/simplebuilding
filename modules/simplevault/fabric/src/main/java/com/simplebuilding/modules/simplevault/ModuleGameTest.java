@@ -52,8 +52,18 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplevault:empty")
+    public void vaultFriezeHoldsWithoutEffect(GameTestHelper h) {
+        VaultTests.ALL.get("vault_frieze_holds_without_effect").accept(h);
+    }
+
+    @GameTest(structure = "simplevault:empty")
     public void vaultGapGenerated(GameTestHelper h) {
         VaultTests.ALL.get("vault_gap_generated").accept(h);
+    }
+
+    @GameTest(structure = "simplevault:empty")
+    public void configCommand(GameTestHelper h) {
+        VaultTests.ALL.get("config_command").accept(h);
     }
 
     @GameTest(structure = "simplevault:empty")
