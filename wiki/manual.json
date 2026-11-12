@@ -2240,7 +2240,8 @@
           "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
           "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
-          "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload.",
+          "Servers with land claims: in a shared world (dedicated server or a world opened to LAN) where a claims mod is active (the claims of Simple Tweaks or any provider of the framework protection contract), a vault opens only on claimed land where you may use containers; elsewhere it stays shut with a hint in the action bar and the locked-chest sound. Otherwise anybody could place an own vault in the wilderness and empty the shared contents. Single player and servers without claims open it everywhere, so there it is a public chest for everybody on the server. server.features.nihilVaultClaimOnly (default true) turns the rule off."
         ]
       },
       "de": {
@@ -2250,7 +2251,8 @@
           "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe öffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem früheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
           "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und ändert an jedem Gewoelbe dieselben Gegenstände; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darüber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
-          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Server mit Grundstücken: in einer geteilten Welt (Dedicated Server oder für LAN geöffnete Welt) mit aktiver Grundstücks-Mod (die Claims von Simple Tweaks oder ein anderer Anbieter des Framework-Schutzvertrags) öffnet ein Gewölbe nur auf geschütztem Land, auf dem du Behälter benutzen darfst; sonst bleibt es zu, mit Hinweis in der Aktionsleiste und dem Klang einer verschlossenen Truhe. Sonst könnte jeder ein eigenes Gewölbe in die Wildnis stellen und den geteilten Inhalt leeren. Im Einzelspieler und auf Servern ohne Grundstücke öffnet es überall und ist dort eine öffentliche Truhe für alle. server.features.nihilVaultClaimOnly (Standard true) schaltet die Regel ab."
         ]
       }
     },
@@ -4442,7 +4444,8 @@
           "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
           "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
-          "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload.",
+          "Servers with land claims: in a shared world (dedicated server or a world opened to LAN) where a claims mod is active (the claims of Simple Tweaks or any provider of the framework protection contract), a vault opens only on claimed land where you may use containers; elsewhere it stays shut with a hint in the action bar and the locked-chest sound. Otherwise anybody could place an own vault in the wilderness and empty the shared contents. Single player and servers without claims open it everywhere, so there it is a public chest for everybody on the server. server.features.nihilVaultClaimOnly (default true) turns the rule off."
         ]
       },
       "de": {
@@ -4452,7 +4455,8 @@
           "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe öffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem früheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
           "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und ändert an jedem Gewoelbe dieselben Gegenstände; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darüber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
-          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Server mit Grundstücken: in einer geteilten Welt (Dedicated Server oder für LAN geöffnete Welt) mit aktiver Grundstücks-Mod (die Claims von Simple Tweaks oder ein anderer Anbieter des Framework-Schutzvertrags) öffnet ein Gewölbe nur auf geschütztem Land, auf dem du Behälter benutzen darfst; sonst bleibt es zu, mit Hinweis in der Aktionsleiste und dem Klang einer verschlossenen Truhe. Sonst könnte jeder ein eigenes Gewölbe in die Wildnis stellen und den geteilten Inhalt leeren. Im Einzelspieler und auf Servern ohne Grundstücke öffnet es überall und ist dort eine öffentliche Truhe für alle. server.features.nihilVaultClaimOnly (Standard true) schaltet die Regel ab."
         ]
       }
     },
