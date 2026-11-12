@@ -11,8 +11,9 @@ import java.security.SecureRandom;
 import java.util.HexFormat;
 
 /**
- * Server config {@code config/simplelivemap.json}, four groups (categories): {@code general}, {@code record} (what counts as
- * explored), {@code render} (tile budget), {@code web} (built-in web server: on, local only, private). Missing or broken keys use the
+ * Server config {@code config/simplelivemap.json}, five groups (categories): {@code general}, {@code record} (what counts as
+ * explored), {@code render} (tile budget), {@code web} (built-in web server: on, local only, private), {@code hosted} (service
+ * address for {@code /simplelivemap connect}, N34; the key of a connected world lives in the world folder, never here). Missing or broken keys use the
  * defaults and the file is rewritten complete; every number is clamped (server authority, A9). Plans
  * {@code docs/ai/PLAN-B-LIVE32-2026-10-31.md}, {@code docs/ai/PLAN-B-LIVEMAP29-2026-11-11.md} (web server on by default since
  * N29: only on this machine, private with the key; an existing file keeps its written {@code "enabled": false}).
@@ -52,6 +53,9 @@ public final class LivemapConfig {
     public static int liveSeconds;
     /** Single player / LAN host: one clickable "open the live map" chat line per session. */
     public static boolean chatHint;
+    // hosted (N34)
+    /** Service for {@code /simplelivemap connect}: https only (http only to this machine, tests). */
+    public static String hostedEndpoint;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private static final SecureRandom RANDOM = new SecureRandom();
@@ -104,7 +108,7 @@ public final class LivemapConfig {
     }
 
     public static void apply(JsonObject json) {
-        JsonObject g = group(json, "general"), r = group(json, "record"), d = group(json, "render"), w = group(json, "web");
+        JsonObject g = group(json, "general"), r = group(json, "record"), d = group(json, "render"), w = group(json, "web"), h = group(json, "hosted");
         enabled = bool(g, "enabled", true);
         radius = integer(r, "radius", 2, 0, RADIUS_MAX);
         intervalTicks = integer(r, "intervalTicks", 20, 5, 200);
@@ -124,6 +128,9 @@ public final class LivemapConfig {
         requestsPerMinute = integer(w, "requestsPerMinute", RATE_DEFAULT, RATE_MIN, RATE_MAX);
         liveSeconds = integer(w, "liveSeconds", 2, 1, 60);
         chatHint = bool(w, "chatHint", true);
+        String endpoint = com.simplebuilding.modules.simplelivemap.hosted.HostedClient.checkEndpoint(
+                string(h, "endpoint", com.simplebuilding.modules.simplelivemap.hosted.HostedClient.DEFAULT_ENDPOINT));
+        hostedEndpoint = endpoint == null ? com.simplebuilding.modules.simplelivemap.hosted.HostedClient.DEFAULT_ENDPOINT : endpoint;
     }
 
     public static JsonObject toJson() {
@@ -152,6 +159,9 @@ public final class LivemapConfig {
         w.addProperty("liveSeconds", liveSeconds);
         w.addProperty("chatHint", chatHint);
         o.add("web", w);
+        JsonObject h = new JsonObject();
+        h.addProperty("endpoint", hostedEndpoint);
+        o.add("hosted", h);
         return o;
     }
 

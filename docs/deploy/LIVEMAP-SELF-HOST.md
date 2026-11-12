@@ -31,6 +31,23 @@ as `https://example.org/map/` (with the trailing slash).
 `#t=`; browsers never send the part after `#`, the viewer reads it and sends it only as that header. So the key never
 appears in a server or proxy access log.
 
+### Exactly one map per installation (N34)
+
+Self-hosting serves **exactly one** live map per installation and server: one web server, one world.
+- The first world that starts its web map holds `config/simplelivemap-web.lock` (an operating-system file lock, gone
+  when the game stops or crashes; who holds it stands in `config/simplelivemap-web.owner.json`). A second world of the
+  same installation - another game process, a second server started in the same folder - keeps its web map off and
+  says so in the log and in `/simplelivemap status`.
+- Every answer carries `X-Simple-Livemap: 1`. When the configured port is held by **another Simple Livemap**, the mod
+  does not move to the next port (the 8125–8134 fallback only skips other programs).
+- Proxies that merge several worlds or servers under one address are **not supported**. More maps, sharing with
+  accounts and a map that stays online when the server is off: the hosted tiers on `https://livemap.simplemods.de`
+  (`/simplelivemap connect <code>`).
+
+*Deutsch:* Selbst hosten = genau eine Karte je Installation/Server. Zweite Welt derselben Installation → Webkarte bleibt
+aus (Sperrdatei `config/simplelivemap-web.lock`); belegt eine andere Simple Livemap den Port, kein Ausweichen auf den
+nächsten Port; Multi-Welt-Proxys werden nicht unterstützt. Mehr Karten: livemap.simplemods.de.
+
 ## 2. Reverse proxy (live map, players, recommended)
 
 The proxy is the only thing on the internet; the game server stays on `127.0.0.1` (proxy on the same machine) or on its

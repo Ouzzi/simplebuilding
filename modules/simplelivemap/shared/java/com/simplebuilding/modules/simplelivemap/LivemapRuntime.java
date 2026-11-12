@@ -2,7 +2,10 @@ package com.simplebuilding.modules.simplelivemap;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.simplebuilding.modules.simplelivemap.hosted.HostedLink;
+import com.simplebuilding.modules.simplelivemap.hosted.HostedUploader;
 import com.simplebuilding.modules.simplelivemap.web.LivemapWeb;
+import com.simplebuilding.modules.simplelivemap.web.SelfHostLock;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,6 +53,12 @@ public final class LivemapRuntime {
     private static final Map<Integer, Integer> mapRead = new HashMap<>();
     /** Players that got the "open the live map" chat line in this session (N29). */
     private static final Set<UUID> hinted = new HashSet<>();
+    /** N34: the one-live-map-per-installation lock (held while this world serves its web map), the world fingerprint,
+     * why the web map stays off ("" = it does not), and the upload to livemap.simplemods.de of a connected world. */
+    private static SelfHostLock selfLock;
+    private static String worldId;
+    private static volatile String blocked = "";
+    private static volatile HostedUploader hosted;
 
     private LivemapRuntime() {}
 
@@ -67,6 +76,37 @@ public final class LivemapRuntime {
 
     public static String live() {
         return live;
+    }
+
+    public static String worldId() {
+        return worldId;
+    }
+
+    /** Why the web map is off although it is wanted: "" (it is not), "lock" or "port:<n>" (another live map, N34). */
+    public static String blocked() {
+        return blocked;
+    }
+
+    public static HostedUploader hosted() {
+        return hosted;
+    }
+
+    /** Starts uploading this world to the hosted live map (after connect, or on start with a saved link). */
+    public static void startHosted(HostedLink link) {
+        stopHosted(false);
+        if (link == null || root == null || !SimpleLivemap.on()) return;
+        hosted = new HostedUploader(link, root.resolve("tiles"), LivemapRuntime::live, () -> {
+            HostedLink.delete(root);
+            hosted = null;
+        }).start();
+    }
+
+    /** Stops the upload; {@code forget} also deletes the link of this world (disconnect). */
+    public static void stopHosted(boolean forget) {
+        HostedUploader h = hosted;
+        hosted = null;
+        if (h != null) h.close();
+        if (forget && root != null) HostedLink.delete(root);
     }
 
     public static Path root(MinecraftServer s) {
@@ -88,6 +128,12 @@ public final class LivemapRuntime {
             store = new VisitedStore();
         }
         tiles = new TileStore(root.resolve("tiles"));
+        tiles.listener(path -> {
+            HostedUploader h = hosted;
+            if (h != null) h.changed(path);
+        });
+        worldId = WorldId.of(root);
+        blocked = "";
         queue.clear();
         drawn.clear();
         lastChunk.clear();
@@ -96,14 +142,17 @@ public final class LivemapRuntime {
         tick = 0;
         webRetryTick = 0;
         syncWeb(s);
+        startHosted(HostedLink.load(root));
     }
 
     public static void stopping(MinecraftServer s) {
         if (s != server) return;
+        stopHosted(false);
         if (web != null) {
             web.close();
             web = null;
         }
+        releaseLock();
         save();
         if (tiles != null) tiles.close();
         tiles = null;
@@ -286,13 +335,23 @@ public final class LivemapRuntime {
         return SimpleLivemap.on() && LivemapConfig.webEnabled;
     }
 
-    /** Starts, restarts (changed settings) or stops the web server to match the config; a failed bind retries after 60 s. */
+    private static void releaseLock() {
+        if (selfLock != null) selfLock.close();
+        selfLock = null;
+    }
+
+    /**
+     * Starts, restarts (changed settings) or stops the web server to match the config; a failed bind retries after 60 s.
+     * N34: only while this world holds the installation's live-map lock, and never next to another Simple Livemap on the port.
+     */
     public static void syncWeb(MinecraftServer s) {
         if (!webWanted() || tiles == null) {
             if (web != null) {
                 web.close();
                 web = null;
             }
+            releaseLock();
+            blocked = "";
             return;
         }
         LivemapWeb.Settings wanted = new LivemapWeb.Settings(LivemapConfig.bind, LivemapConfig.port, LivemapConfig.isPublic() ? "" : LivemapConfig.token,
@@ -303,15 +362,39 @@ public final class LivemapRuntime {
             web = null;
         }
         if (tick < webRetryTick) return;
+        if (selfLock == null || !selfLock.valid()) {
+            releaseLock();
+            selfLock = SelfHostLock.acquire(SimpleLivemap.configDir, worldId, wanted.port());
+            if (selfLock == null) {
+                if (!"lock".equals(blocked)) {
+                    SelfHostLock.Holder h = SelfHostLock.holder(SimpleLivemap.configDir);
+                    SimpleLivemap.LOG.warn("Simple Livemap: another live map of this installation already runs (world {}, port {}); self-hosting serves "
+                            + "exactly one map, so this world's web map stays off. More maps: livemap.simplemods.de", h == null ? "?" : h.world(), h == null ? "?" : h.port());
+                }
+                blocked = "lock";
+                webRetryTick = tick + 1200;
+                return;
+            }
+        }
         int[] ports = LivemapConfig.candidates(wanted.port());
         try {
             live = buildLive(s);
             web = LivemapWeb.start(wanted, ports, LivemapRuntime::live, s::isRunning);
+            selfLock.port(worldId, web.port());
+            blocked = "";
             if (web.port() != wanted.port()) {
                 SimpleLivemap.LOG.info("Simple Livemap: port {} is busy, the web map uses port {} this session", wanted.port(), web.port());
             }
             SimpleLivemap.LOG.info("Simple Livemap: web map on http://{}:{}/ ({})", wanted.bind(), web.port(), LivemapConfig.visibility);
             if (s.isDedicatedServer()) SimpleLivemap.LOG.info(dedicatedHint(wanted.bind()));
+        } catch (LivemapWeb.AnotherLivemap e) {
+            webRetryTick = tick + 1200;
+            if (!blocked.equals("port:" + e.port)) {
+                SimpleLivemap.LOG.warn("Simple Livemap: another Simple Livemap already serves port {}; self-hosting serves exactly one map, so this one stays off "
+                        + "(no other port). More maps: livemap.simplemods.de", e.port);
+            }
+            blocked = "port:" + e.port;
+            releaseLock();
         } catch (IOException | RuntimeException e) {
             webRetryTick = tick + 1200;
             SimpleLivemap.LOG.warn("Simple Livemap: web server could not start on {} port {}: {}", wanted.bind(),

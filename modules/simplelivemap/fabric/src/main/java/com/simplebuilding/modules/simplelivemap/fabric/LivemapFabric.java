@@ -13,6 +13,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class LivemapFabric implements ModInitializer {
     @Override public void onInitialize() {
         FabricLoader loader = FabricLoader.getInstance();
+        loader.getModContainer(SimpleLivemap.MOD_ID).ifPresent(c -> SimpleLivemap.version = c.getMetadata().getVersion().getFriendlyString());
         SimpleLivemap.init(loader.getConfigDir(), loader::isModLoaded);
         ServerLifecycleEvents.SERVER_STARTED.register(LivemapRuntime::started);
         ServerLifecycleEvents.SERVER_STOPPING.register(LivemapRuntime::stopping);

@@ -19,4 +19,9 @@ public final class ModuleGameTest {
     @GameTest public void httpTraversal(GameTestHelper h) { LivemapTests.httpTraversal(h); }
     @GameTest public void httpPlayersFields(GameTestHelper h) { LivemapTests.httpPlayersFields(h); }
     @GameTest public void httpRateLimit(GameTestHelper h) { LivemapTests.httpRateLimit(h); }
+    @GameTest public void selfHostLock(GameTestHelper h) { LivemapTests.selfHostLock(h); }
+    @GameTest public void selfHostPortProbe(GameTestHelper h) { LivemapTests.selfHostPortProbe(h); }
+    @GameTest public void hostedParts(GameTestHelper h) { LivemapTests.hostedParts(h); }
+    @GameTest(maxTicks = 400) public void hostedConnect(GameTestHelper h) { LivemapTests.hostedConnect(h); }
+    @GameTest public void connectPermission(GameTestHelper h) { LivemapTests.connectPermission(h); }
 }

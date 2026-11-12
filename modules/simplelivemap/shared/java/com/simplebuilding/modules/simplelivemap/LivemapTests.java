@@ -3,7 +3,10 @@ package com.simplebuilding.modules.simplelivemap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.simplebuilding.modules.simplelivemap.hosted.HostedClient;
+import com.simplebuilding.modules.simplelivemap.hosted.HostedLink;
 import com.simplebuilding.modules.simplelivemap.web.LivemapWeb;
+import com.simplebuilding.modules.simplelivemap.web.SelfHostLock;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -468,6 +471,204 @@ public final class LivemapTests {
             web.close();
             delete(dir);
         }
+        h.succeed();
+    }
+
+    // ---------------------------------------------------------------- N34: one map per installation, hosted connect
+
+    /** The installation lock: the first holder wins, a second world (also in this process) is refused and learns who holds it. */
+    public static void selfHostLock(GameTestHelper h) {
+        Path dir = temp();
+        try {
+            SelfHostLock a = SelfHostLock.acquire(dir, "world-a", 8125);
+            h.assertTrue(a != null && a.valid(), "first live map takes the lock");
+            SelfHostLock.Holder holder = SelfHostLock.holder(dir);
+            h.assertTrue(holder != null && holder.world().equals("world-a") && holder.port() == 8125 && holder.pid() == ProcessHandle.current().pid(),
+                    "holder note: world, port, process");
+            h.assertTrue(SelfHostLock.acquire(dir, "world-b", 8126) == null, "a second live map of the same installation is refused");
+            a.port("world-a", 8127);
+            h.assertTrue(SelfHostLock.holder(dir).port() == 8127, "port note follows a web restart");
+            a.close();
+            h.assertTrue(SelfHostLock.holder(dir) == null, "note removed on release");
+            SelfHostLock b = SelfHostLock.acquire(dir, "world-b", 8126);
+            h.assertTrue(b != null, "free again after the first one stopped");
+            b.close();
+        } finally {
+            delete(dir);
+        }
+        h.succeed();
+    }
+
+    /** Every answer names itself; a port held by another Simple Livemap is not skipped (no second map on the next port). */
+    public static void selfHostPortProbe(GameTestHelper h) {
+        Path dir = temp();
+        LivemapWeb first = server(dir, "", true, 1000, "{}");
+        try (java.net.ServerSocket other = new java.net.ServerSocket(0, 1, InetAddress.getByName(LOCAL))) {
+            Reply r = get(first.port(), "/");
+            h.assertTrue(r.headers().contains(LivemapWeb.HEADER + ": 1"), "answers carry " + LivemapWeb.HEADER);
+            InetAddress local = InetAddress.getByName(LOCAL);
+            h.assertTrue(LivemapWeb.probe(local, first.port()), "probe recognises a live map");
+            h.assertTrue(!LivemapWeb.probe(local, other.getLocalPort()), "another program on a port is no live map");
+            int free = freePort();
+            boolean refused = false;
+            try {
+                LivemapWeb.start(new LivemapWeb.Settings(LOCAL, first.port(), "", true, 1000, dir), new int[] {first.port(), free}, () -> "{}", () -> true).close();
+            } catch (LivemapWeb.AnotherLivemap e) {
+                refused = e.port == first.port();
+            } catch (IOException e) {
+                refused = false;
+            }
+            h.assertTrue(refused, "a second live map does not move to the next port");
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            first.close();
+            delete(dir);
+        }
+        h.succeed();
+    }
+
+    /** Endpoint rules (https, http only locally), code format, the world link file (key hidden), bundles and the tile manifest. */
+    public static void hostedParts(GameTestHelper h) {
+        h.assertTrue("https://livemap.simplemods.de".equals(HostedClient.checkEndpoint("https://livemap.simplemods.de/")), "https ok, slash trimmed");
+        h.assertTrue(HostedClient.checkEndpoint("http://livemap.simplemods.de") == null, "plain http to the internet refused");
+        h.assertTrue(HostedClient.checkEndpoint("http://127.0.0.1:8095") != null && HostedClient.checkEndpoint("http://localhost:1") != null, "http to this machine ok");
+        h.assertTrue(HostedClient.checkEndpoint("https://user:pw@x.example") == null && HostedClient.checkEndpoint("https://x.example/api") == null
+                && HostedClient.checkEndpoint("ftp://x.example") == null && HostedClient.checkEndpoint(null) == null, "no user info, path or other scheme");
+        h.assertTrue("ABCDEFGH".equals(HostedClient.normalizeCode(" abcd-efgh ")) && HostedClient.normalizeCode("ABCD-EFG0") == null
+                && HostedClient.normalizeCode("ABC") == null, "connect code format");
+        Path dir = temp();
+        try {
+            String key = "slm_" + "k".repeat(43);
+            new HostedLink("https://livemap.simplemods.de", "abc", "https://livemap.simplemods.de/m/abc/", key).save(dir);
+            HostedLink back = HostedLink.load(dir);
+            h.assertTrue(back != null && key.equals(back.key()) && "abc".equals(back.map()), "link saved per world and read back");
+            h.assertTrue(!back.toString().contains(key), "the key never shows in text");
+            if (java.nio.file.FileSystems.getDefault().supportedFileAttributeViews().contains("posix")) {
+                h.assertTrue(java.nio.file.Files.getPosixFilePermissions(dir.resolve(HostedLink.FILE)).equals(java.nio.file.attribute.PosixFilePermissions.fromString("rw-------")),
+                        "link file only for the owner");
+            }
+            HostedLink.delete(dir);
+            h.assertTrue(HostedLink.load(dir) == null, "disconnect forgets it");
+            Path tiles = dir.resolve("tiles");
+            java.nio.file.Files.createDirectories(tiles.resolve("minecraft_overworld/4/0"));
+            java.nio.file.Files.write(tiles.resolve("minecraft_overworld/4/0/0.png"), new byte[] {1, 2, 3});
+            java.nio.file.Files.write(tiles.resolve("minecraft_overworld/4/0/1.png.tmp"), new byte[] {4});
+            java.nio.file.Files.write(tiles.resolve("minecraft_overworld/4/0/bad.png"), new byte[] {5});
+            java.util.Map<String, String> manifest = com.simplebuilding.modules.simplelivemap.hosted.HostedUploader.manifest(tiles);
+            h.assertTrue(manifest.size() == 1 && "039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81".equals(manifest.get("minecraft_overworld/4/0/0")),
+                    "manifest: SHA-256 of tile files only, no temp files or odd names: " + manifest);
+            byte[] zip = HostedClient.bundle(java.util.Map.of("minecraft_overworld/4/0/0", new byte[] {1, 2, 3}));
+            try (java.util.zip.ZipInputStream in = new java.util.zip.ZipInputStream(new java.io.ByteArrayInputStream(zip))) {
+                java.util.zip.ZipEntry e = in.getNextEntry();
+                h.assertTrue(e != null && e.getName().equals("minecraft_overworld/4/0/0.png") && Arrays.equals(in.readAllBytes(), new byte[] {1, 2, 3})
+                        && in.getNextEntry() == null, "bundle: one entry per tile, path + .png");
+            }
+            boolean refused = false;
+            try {
+                HostedClient.bundle(java.util.Map.of("../../etc/passwd", new byte[0]));
+            } catch (IOException e) {
+                refused = true;
+            }
+            h.assertTrue(refused, "bundle refuses paths that are no tiles");
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            delete(dir);
+        }
+        h.succeed();
+    }
+
+    /**
+     * {@code /simplelivemap connect <code>} against a small fake service on this machine: the code and the world id go out,
+     * the key comes back into the world folder (never into the config), the upload starts; disconnect forgets it.
+     */
+    public static void hostedConnect(GameTestHelper h) {
+        var srv = h.getLevel().getServer();
+        String key = "slm_" + "t".repeat(43);
+        java.util.List<String> seen = java.util.Collections.synchronizedList(new java.util.ArrayList<>());
+        java.net.ServerSocket fake;
+        try {
+            fake = new java.net.ServerSocket(0, 8, InetAddress.getByName(LOCAL));
+            fake.setSoTimeout(20_000);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+        Thread t = new Thread(() -> {
+            for (int i = 0; i < 40 && !fake.isClosed(); i++) {
+                try (Socket c = fake.accept()) {
+                    c.setSoTimeout(5000);
+                    var in = c.getInputStream();
+                    long deadline = System.nanoTime() + 5_000_000_000L;
+                    String line = LivemapWeb.readLine(in, deadline);
+                    int length = 0;
+                    StringBuilder head = new StringBuilder(line == null ? "" : line);
+                    for (String hd; (hd = LivemapWeb.readLine(in, deadline)) != null && !hd.isEmpty(); ) {
+                        head.append('\n').append(hd);
+                        if (hd.regionMatches(true, 0, "Content-Length:", 0, 15)) length = Integer.parseInt(hd.substring(15).trim());
+                    }
+                    String body = new String(in.readNBytes(length), StandardCharsets.UTF_8);
+                    seen.add(head + "\n\n" + body);
+                    String answer = line != null && line.startsWith("POST /api/v1/connect ")
+                            ? "{\"map\":\"testmap\",\"viewer\":\"https://livemap.simplemods.de/m/testmap/\",\"key\":\"" + key + "\",\"state\":\"preparing\",\"progress\":0,\"wait\":60,"
+                                    + "\"limits\":{\"liveSeconds\":60,\"tileSeconds\":900,\"batchBytes\":2097152,\"batchTiles\":300}}"
+                            : "{\"need\":[],\"state\":\"preparing\",\"progress\":0,\"wait\":60,\"limits\":{\"liveSeconds\":60,\"tileSeconds\":900,\"batchBytes\":2097152,\"batchTiles\":300}}";
+                    byte[] out = answer.getBytes(StandardCharsets.UTF_8);
+                    c.getOutputStream().write(("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: " + out.length + "\r\nConnection: close\r\n\r\n")
+                            .getBytes(StandardCharsets.US_ASCII));
+                    c.getOutputStream().write(out);
+                } catch (IOException | RuntimeException e) {
+                    if (fake.isClosed()) return;
+                }
+            }
+        }, "simplelivemap-fake-service");
+        t.setDaemon(true);
+        t.start();
+        String endpoint = LivemapConfig.hostedEndpoint;
+        Path root = LivemapRuntime.root(srv);
+        LivemapRuntime.stopHosted(true);
+        LivemapConfig.hostedEndpoint = "http://127.0.0.1:" + fake.getLocalPort();
+        h.assertTrue(LivemapCommands.connect(srv.createCommandSourceStack().withSuppressedOutput(), "nope") == 0, "a wrong code is refused before any request");
+        h.assertTrue(LivemapCommands.connect(srv.createCommandSourceStack().withSuppressedOutput(), "abcd-efgh") == 1, "connect starts");
+        h.succeedWhen(() -> {
+            h.assertTrue(LivemapRuntime.hosted() != null, "upload running after connect");
+            HostedLink link = HostedLink.load(root);
+            h.assertTrue(link != null && key.equals(link.key()) && "testmap".equals(link.map()), "key stored in the world folder");
+            String first;
+            synchronized (seen) {
+                h.assertTrue(seen.size() >= 2, "connect and the first manifest reached the service");
+                first = seen.get(0);
+            }
+            h.assertTrue(first.startsWith("POST /api/v1/connect ") && first.contains("\"code\":\"ABCDEFGH\"") && first.contains("\"world\":\"" + LivemapRuntime.worldId() + "\"")
+                    && !first.contains("Authorization"), "connect sends code + world id, no key");
+            String second;
+            synchronized (seen) {
+                second = seen.get(1);
+            }
+            h.assertTrue(second.startsWith("POST /api/v1/manifest ") && second.contains("Authorization: Bearer " + key) && !second.split("\n")[0].contains(key),
+                    "the key only in the Authorization header");
+            h.assertTrue(!LivemapConfig.toJson().toString().contains(key), "the key is not in the server config");
+            h.assertTrue(LivemapCommands.disconnect(srv.createCommandSourceStack().withSuppressedOutput()) == 1 && LivemapRuntime.hosted() == null
+                    && HostedLink.load(root) == null, "disconnect stops the upload and forgets the key");
+            LivemapConfig.hostedEndpoint = endpoint;
+            try {
+                fake.close();
+            } catch (IOException ignored) {
+            }
+        });
+    }
+
+    /** connect/disconnect need game master rights (or the single-player owner); hide stays open to everyone. */
+    public static void connectPermission(GameTestHelper h) {
+        var srv = h.getLevel().getServer();
+        var root = srv.getCommands().getDispatcher().getRoot().getChild(SimpleLivemap.MOD_ID);
+        var none = srv.createCommandSourceStack().withPermission(net.minecraft.server.permissions.PermissionSet.NO_PERMISSIONS);
+        var gm = srv.createCommandSourceStack().withPermission(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER);
+        for (String admin : List.of("connect", "disconnect")) {
+            h.assertTrue(root.getChild(admin) != null && !root.getChild(admin).canUse(none) && root.getChild(admin).canUse(gm), admin + " needs game master rights");
+        }
+        h.assertTrue(root.getChild("connect").getChild("code") != null, "connect takes the code");
+        h.assertTrue(root.getChild("hide").canUse(none), "hide stays open");
         h.succeed();
     }
 }

@@ -41,6 +41,8 @@ public final class LivemapWeb implements AutoCloseable {
     public static final long MAX_FILE = 1L << 20;
     private static final boolean WINDOWS = System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT).startsWith("windows");
     public static final String INDEX = "index.html", LIVE = "live.json";
+    /** Every answer names itself, so a second Simple Livemap can see that a busy port is a live map (N34). */
+    public static final String HEADER = "X-Simple-Livemap";
     private static final Pattern TILE = Pattern.compile("tiles/[a-z0-9_.-]{1,96}/[0-4]/-?\\d{1,7}/-?\\d{1,7}\\.png");
     private static final String CSP = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' blob:; "
             + "connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
@@ -81,7 +83,9 @@ public final class LivemapWeb implements AutoCloseable {
 
     /**
      * Like {@link #start(Settings, Supplier, BooleanSupplier)}, but binds the first free port of {@code ports} (N29: a busy
-     * default port moves to the next free one); {@link #port()} tells which. All busy: the last bind error.
+     * default port moves to the next free one); {@link #port()} tells which. All busy: the last bind error. A port held by
+     * another Simple Livemap is no "busy port" (N34, strictly one live map per installation/server): then nothing moves on and
+     * {@link AnotherLivemap} is thrown.
      */
     public static LivemapWeb start(Settings settings, int[] ports, Supplier<String> live, BooleanSupplier alive) throws IOException {
         InetAddress address = InetAddress.getByName(settings.bind());
@@ -96,6 +100,7 @@ public final class LivemapWeb implements AutoCloseable {
                 socket.setSoTimeout(1000);
             } catch (IOException e) {
                 socket.close();
+                if (port == ports[0] && probe(address, port)) throw new AnotherLivemap(port);
                 failed = e;
                 continue;
             } catch (RuntimeException e) {
@@ -105,6 +110,40 @@ public final class LivemapWeb implements AutoCloseable {
             return new LivemapWeb(settings, socket, live, alive);
         }
         throw failed != null ? failed : new IOException("no port to bind");
+    }
+
+    /** Another Simple Livemap answers on the wanted port (N34): this one stays off instead of taking the next port. */
+    public static final class AnotherLivemap extends IOException {
+        public final int port;
+
+        public AnotherLivemap(int port) {
+            super("another Simple Livemap already serves port " + port);
+            this.port = port;
+        }
+    }
+
+    /**
+     * Whether a Simple Livemap answers on {@code address:port}: one HEAD request with short timeouts, true when the answer
+     * carries {@link #HEADER}. A wildcard bind address is asked on this machine.
+     */
+    public static boolean probe(InetAddress address, int port) {
+        InetAddress target = address.isAnyLocalAddress() ? InetAddress.getLoopbackAddress() : address;
+        try (Socket s = new Socket()) {
+            s.connect(new InetSocketAddress(target, port), 1000);
+            s.setSoTimeout(1500);
+            s.getOutputStream().write("HEAD / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n".getBytes(StandardCharsets.US_ASCII));
+            s.getOutputStream().flush();
+            InputStream in = s.getInputStream();
+            long deadline = System.nanoTime() + 1_500_000_000L;
+            for (int i = 0; i < MAX_HEADERS; i++) {
+                String line = readLine(in, deadline);
+                if (line == null || line.isEmpty()) return false;
+                if (line.regionMatches(true, 0, HEADER + ":", 0, HEADER.length() + 1)) return true;
+            }
+        } catch (IOException | RuntimeException ignored) {
+            // nothing or something else answers: not a live map
+        }
+        return false;
     }
 
     public Settings settings() {
@@ -250,6 +289,7 @@ public final class LivemapWeb implements AutoCloseable {
                 .append("Content-Type: ").append(type).append("\r\n")
                 .append("Content-Length: ").append(body.length).append("\r\n")
                 .append("Connection: close\r\n")
+                .append(HEADER).append(": 1\r\n")
                 .append("X-Content-Type-Options: nosniff\r\n")
                 .append("Referrer-Policy: no-referrer\r\n")
                 .append("Content-Security-Policy: ").append(CSP).append("\r\n");
@@ -261,7 +301,7 @@ public final class LivemapWeb implements AutoCloseable {
     }
 
     /** One CRLF/LF terminated line of at most {@link #MAX_LINE} bytes; null at end of stream, when too long or late. */
-    static String readLine(InputStream in, long deadlineNanos) throws IOException {
+    public static String readLine(InputStream in, long deadlineNanos) throws IOException {
         ByteArrayOutputStream line = new ByteArrayOutputStream();
         for (int b; (b = in.read()) != -1; ) {
             if (System.nanoTime() - deadlineNanos > 0) return null;

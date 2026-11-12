@@ -16,6 +16,8 @@ public final class SimpleLivemap {
     public static Path configDir = Path.of("config");
     /** Set by the loader adapter. */
     public static Predicate<String> modLoaded = id -> false;
+    /** Mod version (loader metadata), sent with {@code /simplelivemap connect}. */
+    public static String version = "dev";
 
     private SimpleLivemap() {}
 
