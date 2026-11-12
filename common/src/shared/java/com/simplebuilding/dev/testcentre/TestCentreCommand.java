@@ -167,6 +167,12 @@ public final class TestCentreCommand {
                                 .executes(ctx -> build(ctx.getSource(), BlockPos.containing(ctx.getSource().getPosition()), TestCentreLayout.Options.ALL)))
                         .then(Commands.argument("origin", BlockPosArgument.blockPos())
                                 .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), TestCentreLayout.Options.ALL)))))
+                // TZ38: die vier geordneten Bereiche (Familien, Metalle, Items je Mod, kompakt je Mod) als eigene Flaeche.
+                .then(Commands.literal("order").then(Commands.literal("build")
+                        .executes(ctx -> buildOrder(ctx.getSource(), here(ctx.getSource())))
+                        .then(Commands.literal("here").executes(ctx -> buildOrder(ctx.getSource(), here(ctx.getSource()))))
+                        .then(Commands.argument("origin", BlockPosArgument.blockPos())
+                                .executes(ctx -> buildOrder(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"))))))
                 .then(Commands.literal("mods").then(galleryBuild(ctx -> ModBlockGallery.namespaces())))
                 .then(Commands.literal("mod").then(Commands.argument("id", StringArgumentType.word())
                         .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(ModBlockGallery.namespaces(), builder))
@@ -209,6 +215,19 @@ public final class TestCentreCommand {
                 mods.size(), origin.getX(), origin.getY(), origin.getZ(), gallery.canvas().width(), gallery.canvas().depth(),
                 result.millis()).withStyle(ChatFormatting.GREEN), true);
         return Math.max(1, gallery.cells().size());
+    }
+
+    /** TZ38: baut die geordneten Bereiche ({@link OrderAreas#all}) an {@code origin} (vordere linke Ecke), Bereich vorher geleert. */
+    static int buildOrder(CommandSourceStack source, BlockPos origin) {
+        if (outsideOverworld(source)) {
+            return 0;
+        }
+        TcCanvas canvas = OrderAreas.all(new TcContext(source.getLevel().registryAccess()));
+        TestCentreBuilder.Result result = TestCentreBuilder.buildCanvas(source.getLevel(), origin, canvas);
+        source.sendSuccess(() -> TcText.t("command.order_built", "Order areas built at %s %s %s (%s x %s, %s ms)",
+                origin.getX(), origin.getY(), origin.getZ(), canvas.width(), canvas.depth(), result.millis())
+                .withStyle(ChatFormatting.GREEN), true);
+        return Math.max(1, result.ops());
     }
 
     /** {@code tp <anchor>}: to a named place of the plan (e.g. a mob cell {@code mob/simplemobs/shellker}), facing south into it. */
@@ -276,7 +295,7 @@ public final class TestCentreCommand {
                 TcText.t("help.without", "build [here|x y z] without <areas> - all but these, e.g. without structures"),
                 TcText.t("help.section", "section <id> - rebuild one section; stats [only|without ...] - size without building"),
                 TcText.t("help.more", "kit, give <station>, fill <section> (containers + ender chest), tp [place], coverage, help"),
-                TcText.t("help.testcenter", "/testcenter all|mods|mod <id> build [here|x y z] - whole centre or the block families"),
+                TcText.t("help.testcenter", "/testcenter all|order|mods|mod <id> build [here|x y z] - whole centre, order areas, block families"),
                 TcText.t("help.areas", "Areas: %s, or any section id", String.join(", ", TestCentreLayout.DISTRICT_NAMES))
                         .withStyle(ChatFormatting.GRAY));
         for (net.minecraft.network.chat.Component line : lines) {

@@ -55,8 +55,9 @@ Alle unter `/sbtestcentre`, Befehlsrechte Stufe 2 (Operator/Cheats; Befehlsblöc
 `/testcenter all build [here|x y z]` = ganze Zentrale (wie `/sbtestcentre build`), `/testcenter mods build [here|x y z]` =
 nur die Block-Familien aller Mods, `/testcenter mod <id> build [here|x y z]` = ein Mod (Vorschläge per Tab). `here` (und ohne
 Ort bei `mods`/`mod`): der Bereich beginnt zwei Felder vor den Füßen (Blick nach Süden). Der Befehl leert seinen Bereich
-vorher (Entities, Behälter, Blöcke) und legt Boden. In der Zentrale steht derselbe Inhalt als Abschnitt/Bezirk `mod_blocks`
-(baut beim Erzeugen der Testwelt automatisch mit). Aufbau (`ModBlockGallery`): je Mod ein beschilderter Bereich; eine Spalte
+vorher (Entities, Behälter, Blöcke) und legt Boden. Seit TZ38 steht dieser Inhalt nicht mehr in der Zentrale (ersetzt
+durch die Ordnungs-Bereiche, siehe unten); `/testcenter order build [here|x y z]` baut die vier Ordnungs-Bereiche als eigene
+Fläche. Aufbau (`ModBlockGallery`): je Mod ein beschilderter Bereich; eine Spalte
 je Material-Familie (Basisblock + Varianten wie rissig, bemoost, gemeißelt, poliert, Ziegel; passende Vanilla-Blöcke als
 Bezug), Zeilen von vorn nach hinten Octet, Stufe, Treppe, Mauer, Zaun, Zauntor, Scheibe, Falltür, Tür, Vollblock – gleiche
 Form auf gleicher Zeile, bis 4 gestapelt; Spalten nach Kartenfarbe gereiht. Dahinter weitere Blöcke und nicht setzbare
@@ -100,8 +101,24 @@ es auch im Kit. Stationen, die nichts zeigen (heute `devices`, `gallery`, `unsor
 
 ## Übersicht der Abschnitte
 
+**Ordnung (TZ38, Besitzer 12.11.2026, `OrderAreas`, Plan `docs/ai/PLAN-A-TZ38-2026-11-12.md`):** direkt nach dem Eingang
+der Bezirk `order` mit vier Bereichen, danach die Teststationen (Bereich 5, jetzt 1 Feld Abstand zwischen Abschnitten,
+`GAP = 1`). Jeder Bereich zeigt für sich alles seiner Art (zwischen den Bereichen doppelt gewollt, innerhalb genau einmal);
+wie die Tab-Wände zählen sie nicht für die Abdeckung.
+
+| Id | Inhalt |
+|---|---|
+| `order_families` | **Block-Familien:** je Variante eine Reihe vom Gang in die Tiefe, feste Spalten Zaun, Druckplatte, Octet, Mauer, Stufe, Treppe, Block, rissig, gemeißelt, Säule/Sonder (Tiefenschiefer-Ziegel → verstärkter Tiefenschiefer, Tiefenschiefer-Fliesen → Sculk-Fliesen), danach benutzte Zusatzformen (Zauntor, Knopf, Falltür, Tür, Scheibe) und „weitere“; bemooste/farbige/polierte Varianten eigene Reihen direkt nebeneinander, eine leere Spalte zwischen Familien (Familie = `materialKey`), Vanilla-Glieder als Bezug in derselben Reihe; Bänder paarweise um eine Linie grauer Betonstufen, das Gegenband gespiegelt (Zaun am hinteren Gang). Schmelzendes Eis im Rahmen |
+| `order_metals` | **Rohstoffe & Metalle:** Wand bei x = 0, je Metall eine Reihe (Schild an der Wand), Spalten `OrderAreas.MSlot`: Speicherblock, Rohblock, Stein-/Tiefenschiefer-/Nether-/End-Erz, Kies/Sand-Erz, 2 frei, Platte, Octet (cut), Gitter, cut-Stufe/-Treppe/-Block, Rost, gemeißelt, Säule, Fliesen, frei, Falltür, Stange (Kupfer: Blitzableiter), Kette, Laterne, Lampe, Truhe, Tür, Sonder, Trichter, Rohr, Core, Pferde-/Nautilus-/Tier-Rüstung, Hufeisen, Werkzeuge (Schwert … Speer, Meißel, Hammer, Baustab, Spachtel), Rüstung, Barren, Nugget, Roh-Item, Schrott, dann „weitere Objekte“ (übrige Ids mit dem Metall-Wort). Reihenfolge Kupfer (+ Anlauf-Stufen) … Astralit, Nihilith, gegenüber Silber … Edelstahl, danach Redstone, Lapis, Quarz, Kohle, Amethyst. Fehlende Glieder bleiben leer |
+| `order_items` | **Items je Mod:** zuerst Besatz-Ständer (je Muster ein Eisen-Satz in Gold, je Material ein Eisen-Satz mit „Sentry“), dann je Mod (Wiki-Reihenfolge `OrderAreas.WIKI_ORDER`) eine Linie, Setzbares gesetzt, sonst Rahmen flach am Boden; dahinter die Mobs der Mod (`TcOp.Mob`: ohne KI, unverwundbar, still, dauerhaft, Tag `sb_testcentre_mob`) |
+| `order_compact` | **Kompakt je Mod:** alle Blöcke einer Mod dicht (fast quadratisch, Schildpfosten im ersten Feld), 1 Feld Abstand zur nächsten Mod |
+
+Prüfung: `order_areas_show_everything_in_owner_order` (ohne Welt: Vollständigkeit Items/Blöcke, Wiki-Reihenfolge, Besatz-Ständer
+und Mobs, Spaltenfolge Familien/Metalle, Betonlinie, Eis im Rahmen, Sonderblock, Eisen/Kupfer/Gold/Netherit an ihren Plätzen);
+der Bau-Test zählt zusätzlich die gespawnten Mobs (still, unverwundbar, ohne KI).
+
 **Bezirke (TZ22-5, 22.10.2026):** Die Abschnitte gehören zu Themen-Bezirken (`TestCentreLayout.DISTRICTS`):
-Eingang & Werkzeuge, Zustände & Umwandlungen, Baublöcke, Technik & Lager, Kampf & Bewegung, Module, Mobs, Strukturen,
+Eingang & Werkzeuge, Ordnung (TZ38), Zustände & Umwandlungen, Baublöcke, Technik & Lager, Kampf & Bewegung, Module, Mobs, Strukturen,
 Crafting-Rezepte (N13), Katalog (Tabs), Rest. Jeder Bezirk wird für sich in Reihen gepackt (höchstens 120 Blöcke breit, vor jeder Reihe ein Gang von 7 Blöcken
 in -z); die Bezirke liegen in einem Raster aus zwei Spalten (Abstand 127 in x), Bezirks-Reihen mit einem Gang dazwischen.
 Wände sind höchstens 6 hoch (Ausnahme: Fallturm des Sinkdämpfers); längere Tafeln laufen auf parallele Wände dahinter

@@ -93,6 +93,8 @@ public final class TestCentreKits {
                 }
                 case TcOp.Structure structure -> {
                 }
+                case TcOp.Mob mob -> {
+                }
             }
         }
         List<ItemStack> candidates = new ArrayList<>();

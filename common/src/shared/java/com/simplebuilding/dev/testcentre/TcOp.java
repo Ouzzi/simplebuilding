@@ -97,6 +97,17 @@ public sealed interface TcOp {
     }
 
     /**
+     * TZ38: ein Mob, beim Bau gespawnt ohne KI, unverwundbar, still und dauerhaft (Blick {@code yaw}); traegt den Tag
+     * {@link OrderAreas#MOB_TAG}. Mobs sind keine Items: sie zaehlen nicht fuer Abdeckung und Kits.
+     */
+    record Mob(BlockPos pos, float yaw, net.minecraft.resources.Identifier entity) implements TcOp {
+        @Override
+        public TcOp moved(BlockPos offset) {
+            return new Mob(pos.offset(offset), yaw, entity);
+        }
+    }
+
+    /**
      * Ein Wandschild, das nach {@code facing} zeigt; bis zu vier Zeilen. {@code way} (TZ22-8): der Weg (Rezept,
      * Umwandlung), den das Schild beschreibt - seine Zeilen sind daraus erzeugt, der Test prueft ihn gegen die Daten.
      */

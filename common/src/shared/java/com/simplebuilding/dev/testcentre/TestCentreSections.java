@@ -179,21 +179,21 @@ public final class TestCentreSections {
         return materials.getFirst();
     }
 
-    private static List<Holder<TrimPattern>> patterns(TcContext ctx) {
+    static List<Holder<TrimPattern>> patterns(TcContext ctx) {
         List<Holder<TrimPattern>> out = new ArrayList<>();
         ctx.lookup().lookupOrThrow(Registries.TRIM_PATTERN).listElements().forEach(out::add);
         out.sort(Comparator.comparing(h -> h.unwrapKey().map(k -> k.identifier().toString()).orElse("")));
         return out;
     }
 
-    private static List<Holder<TrimMaterial>> trimMaterials(TcContext ctx) {
+    static List<Holder<TrimMaterial>> trimMaterials(TcContext ctx) {
         List<Holder<TrimMaterial>> out = new ArrayList<>();
         ctx.lookup().lookupOrThrow(Registries.TRIM_MATERIAL).listElements().forEach(out::add);
         out.sort(Comparator.comparing(h -> h.unwrapKey().map(k -> k.identifier().toString()).orElse("")));
         return out;
     }
 
-    private static ItemStack trimmed(Item item, Holder<TrimMaterial> material, Holder<TrimPattern> pattern) {
+    static ItemStack trimmed(Item item, Holder<TrimMaterial> material, Holder<TrimPattern> pattern) {
         ItemStack stack = new ItemStack(item);
         if (stack.is(ItemTags.TRIMMABLE_ARMOR)) {
             stack.set(DataComponents.TRIM, new ArmorTrim(material, pattern));

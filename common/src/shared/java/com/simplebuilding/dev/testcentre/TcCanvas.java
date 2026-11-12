@@ -160,6 +160,11 @@ public final class TcCanvas {
         add(new TcOp.Stand(new BlockPos(x, y, z), yaw, copy, name, false));
     }
 
+    /** TZ38: ein Mob ohne KI, unverwundbar und still ({@link TcOp.Mob}). */
+    public void mob(int x, int y, int z, float yaw, net.minecraft.resources.Identifier entity) {
+        add(new TcOp.Mob(new BlockPos(x, y, z), yaw, entity));
+    }
+
     /** Trainingspuppe (nur mit {@code McVersion.TRAINING_DUMMY}); {@code gear} wie bei {@link #stand}. */
     public void dummy(int x, int y, int z, float yaw, List<ItemStack> gear, Component name) {
         List<ItemStack> copy = new ArrayList<>();
