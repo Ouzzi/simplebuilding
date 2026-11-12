@@ -117,4 +117,14 @@ public final class ModuleGameTest {
     public void dinoCoatState(GameTestHelper h) {
         DinosTests.ALL.get("dino_coat_state").accept(h);
     }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexBiteFollowsConfig(GameTestHelper h) {
+        DinosTests.ALL.get("trex_bite_follows_config").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void trexDefendsOnlyHunted(GameTestHelper h) {
+        DinosTests.ALL.get("trex_defends_only_hunted").accept(h);
+    }
 }

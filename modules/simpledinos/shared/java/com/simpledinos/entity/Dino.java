@@ -161,12 +161,22 @@ public abstract class Dino extends AbstractHorse {
         this.goalSelector.addGoal(5, new FollowOwnerLiteGoal(this, 1.1, 10.0, 3.0));
         // Defends the owner: only monsters that have the owner or the dinosaur as their target, scanned every 10 ticks.
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<Monster>(this, Monster.class, 10, true, false,
-                (target, level) -> target instanceof Monster m && (m.getTarget() == getOwner() || m.getTarget() == this)) {
+                (target, level) -> target instanceof Monster m && defends(m)) {
             @Override
             public boolean canUse() {
                 return Dino.this.isTamed() && !Dino.this.isBaby() && !Dino.this.isVehicle() && super.canUse();
             }
         });
+    }
+
+    /**
+     * Whether {@code monster} is a reason to bite: it hunts the owner or this dinosaur. An idle monster is none - also while the
+     * owner is offline or in another dimension, where {@link #getOwner()} is null and a plain {@code getTarget() == getOwner()}
+     * would be true for every monster without a target.
+     */
+    public boolean defends(Monster monster) {
+        LivingEntity hunted = monster.getTarget();
+        return hunted != null && (hunted == getOwner() || hunted == this);
     }
 
     /** Walks toward the owner when farther than {@code start} blocks until within {@code stop} blocks (Vanilla goals need a TamableAnimal). */

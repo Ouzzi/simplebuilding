@@ -9,6 +9,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
 
 /**
  * Tyrannosaurus rex (concept 3.4): the combat mount. Life size (12 m long, about 3.7 m at the hips) with a core hitbox of
@@ -18,8 +19,28 @@ import net.minecraft.world.level.Level;
 public class Trex extends Dino {
     public Trex(EntityType<? extends Trex> type, Level level) {
         super(type, level);
+        applyBite();
+    }
+
+    /**
+     * The bite follows the server config (server authority): the attribute is saved with the entity, so without this a T. rex would
+     * keep the value of its last save for ever and {@code trexBiteDamage} would only reach dinosaurs hatched afterwards.
+     */
+    public void applyBite() {
         var bite = getAttribute(Attributes.ATTACK_DAMAGE);
-        if (bite != null) bite.setBaseValue(DinosConfig.trexBiteDamage);
+        if (bite != null && bite.getBaseValue() != DinosConfig.trexBiteDamage) bite.setBaseValue(DinosConfig.trexBiteDamage);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        applyBite();
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (!level().isClientSide() && this.tickCount % 20 == 0) applyBite();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
