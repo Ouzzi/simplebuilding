@@ -32,5 +32,8 @@
   },
   "mixins": [
     "simpleoptserver.mixins.json"
-  ]
+  ],
+  "custom": {
+    "simplelib:content": []
+  }
 }

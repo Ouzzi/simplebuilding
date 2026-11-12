@@ -90,6 +90,8 @@
   "text.autoconfig.simplelib.option.freeLookServerRelease.@Tooltip": "Die Wahl des Servers; sie gilt für die\nSpieler nur, solange „Bei Clients\nerzwingen“ an ist.\nStandard: Kamera dreht zurück.",
   "text.autoconfig.simplelib.option.freeLookEnforce": "Bei Clients erzwingen",
   "text.autoconfig.simplelib.option.freeLookEnforce.@Tooltip": "An: alle Spieler nutzen die Server-Wahl\noben; die Client-Einstellung wird\nignoriert. Wird beim Betreten gesendet.\nStandard: aus.",
+  "text.autoconfig.simplelib.option.alwaysRegisterContent": "Inhalte immer registrieren",
+  "text.autoconfig.simplelib.option.alwaysRegisterContent.@Tooltip": "An: SimpleLib registriert seine Blöcke und\nItems, auch wenn kein installierter Mod sie\nbraucht (bleiben in alten Welten erhalten;\nVanilla-Clients werden dann abgewiesen).\nDedizierter Server, Neustart nötig.\nStandard: aus.",
   "item.simplelib.modpack_guide": "Simple Modpack",
   "tooltip.simplelib.modpack_guide": "Deine ersten Schritte in die SimpleMods",
   "gui.simplelib.modpack_guide.contents": "Inhalt",

@@ -43,5 +43,8 @@
     "simplevisuals": "*",
     "simplebuilding": "*",
     "modmenu": "*"
+  },
+  "custom": {
+    "simplelib:content": []
   }
 }

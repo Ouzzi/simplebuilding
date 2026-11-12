@@ -31,5 +31,8 @@
   },
   "mixins": [
     "simpleoptrender.mixins.json"
-  ]
+  ],
+  "custom": {
+    "simplelib:content": []
+  }
 }

@@ -42,5 +42,8 @@
   "suggests": {
     "simplequalityoflife": "*",
     "modmenu": "*"
+  },
+  "custom": {
+    "simplelib:content": []
   }
 }

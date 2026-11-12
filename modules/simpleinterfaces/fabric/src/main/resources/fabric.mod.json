@@ -42,5 +42,8 @@
   "suggests": {
     "simplebuilding": "*",
     "modmenu": "*"
+  },
+  "custom": {
+    "simplelib:content": []
   }
 }

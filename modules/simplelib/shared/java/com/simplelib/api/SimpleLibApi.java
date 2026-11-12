@@ -94,6 +94,7 @@ public final class SimpleLibApi {
 
     /** Game time until which warm food {@code stack} stays warm; 0 when it has no warmth. */
     public static long warmUntil(ItemStack stack) {
+        if (com.simplelib.registry.LibComponents.WARM == null) return 0; // VANILLA36: content not registered
         com.simplelib.warm.Warm warm = stack.get(com.simplelib.registry.LibComponents.WARM);
         return warm == null ? 0 : warm.until();
     }
@@ -115,7 +116,8 @@ public final class SimpleLibApi {
      * anvil crushing), {@code "netherite_nugget"}, {@code "upgrade_templates"} (basic upgrade), {@code "polished_end_stone"},
      * {@code "cores"} (the six building cores), {@code "strong_upgrade"} (Strong Upgrade template and shard, the Vanilla Wither's
      * drop, WF25-10). {@code "enderite"} belongs to Simple Ores since IG31-13: a request of it
-     * changes nothing, the group counts as requested while its owner provides it ({@link #provideMaterial}). The items are always registered; their
+     * changes nothing, the group counts as requested while its owner provides it ({@link #provideMaterial}). The items are registered while SimpleLib's
+     * content is on ({@code LibContent}; a mod that declares {@code "simplelib:content": []} in its fabric.mod.json must not call this); their
      * recipes (condition {@code simplelib:material_requested}) and the anvil crushing only exist once a loaded mod
      * requested the group. Call it in the mod constructor / initializer, before data packs load.
      */

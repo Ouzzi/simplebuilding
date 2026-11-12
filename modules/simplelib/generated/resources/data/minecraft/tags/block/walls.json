@@ -1,5 +1,8 @@
 {
   "values": [
-    "simplelib:polished_end_stone_wall"
+    {
+      "id": "simplelib:polished_end_stone_wall",
+      "required": false
+    }
   ]
 }

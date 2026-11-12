@@ -85,6 +85,35 @@
       }
     },
     {
+      "id": "content_on_request",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibContent.java",
+        "modules/simplelib/fabric/src/main/java/com/simplebuilding/modules/simplelib/SimpleLibFabric.java",
+        "modules/simplelib/shared/java/com/simplelib/config/LibConfig.java",
+        "tools/testrunner/server_solo.py"
+      ],
+      "en": {
+        "title": "Content only on request (Vanilla clients)",
+        "summary": "SimpleLib registers its blocks, items, item components, the warped potion and the legendary sound only when an installed mod asks for them. A dedicated server that runs only logic mods (Challenges, Earth, Farming, Interfaces, Live Map, Loot, Movement, Optimization and its three parts, Sounds, Visuals, Weather) therefore lets Vanilla clients without Fabric join. Fabric only; NeoForge and Forge register everything as before.",
+        "details": [
+          "A mod asks in its fabric.mod.json: \"custom\": {\"simplelib:content\": [...]} - a non-empty list asks, an empty list needs nothing. A mod without this entry asks when it depends on SimpleLib or its id starts with \"simple\", so every content mod keeps all SimpleLib items. One request registers all of them.",
+          "A game client always registers everything (singleplayer and LAN worlds stay unchanged; a client joins servers with and without the content).",
+          "Old worlds: on a server without content, saved warped wart becomes nether wart, the warped potion becomes an awkward potion and the Simple Modpack guide becomes a book. To keep SimpleLib items in an old world, set alwaysRegisterContent (default false) in config/simplelib-server.json or with /simplelib config; it is read at start (restart). Vanilla clients are turned away again while it is on.",
+          "Vanilla players only get what the server does (weather, farming, loot, movement rules, world generation, challenges); client parts such as Visuals or Sounds need the mod on the client."
+        ]
+      },
+      "de": {
+        "title": "Inhalte nur auf Anforderung (Vanilla-Clients)",
+        "summary": "SimpleLib registriert seine Blöcke, Items, Item-Komponenten, den Wirren Trank und den legendären Klang nur, wenn ein installierter Mod sie anfordert. Ein dedizierter Server nur mit Logik-Mods (Challenges, Earth, Farming, Interfaces, Live Map, Loot, Movement, Optimization mit seinen drei Teilen, Sounds, Visuals, Weather) lässt deshalb Vanilla-Clients ohne Fabric herein. Nur Fabric; NeoForge und Forge registrieren weiter alles.",
+        "details": [
+          "Ein Mod fordert in seiner fabric.mod.json an: \"custom\": {\"simplelib:content\": [...]} - eine nicht leere Liste fordert an, eine leere Liste braucht nichts. Ein Mod ohne diesen Eintrag fordert an, wenn er von SimpleLib abhängt oder seine Id mit \"simple\" beginnt; so behält jeder Inhalts-Mod alle SimpleLib-Items. Eine Anforderung registriert alle.",
+          "Ein Spiel-Client registriert immer alles (Einzelspieler- und LAN-Welten bleiben unverändert; ein Client betritt Server mit und ohne die Inhalte).",
+          "Alte Welten: Auf einem Server ohne Inhalte wird gespeicherte Wirrwarze zu Netherwarze, der Wirre Trank zu einem seltsamen Trank und das Simple-Modpack-Handbuch zu einem Buch. Wer SimpleLib-Items in einer alten Welt behalten will, setzt alwaysRegisterContent (Standard aus) in config/simplelib-server.json oder mit /simplelib config; der Wert wird beim Start gelesen (Neustart). Solange er an ist, werden Vanilla-Clients wieder abgewiesen.",
+          "Vanilla-Spieler bekommen nur, was der Server macht (Wetter, Landwirtschaft, Beute, Bewegungsregeln, Weltgenerierung, Challenges); Client-Teile wie Visuals oder Sounds brauchen den Mod auf dem Client."
+        ]
+      }
+    },
+    {
       "id": "rarity_tiers",
       "en": {
         "title": "Cursed and Mythic rarity",

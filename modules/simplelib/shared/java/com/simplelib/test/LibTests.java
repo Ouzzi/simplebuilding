@@ -79,6 +79,8 @@ public final class LibTests {
         ALL.put("modpack_guide_chapter_jump", ModpackGuideTests::chapterJump);
         ALL.put("modpack_guide_creative_tabs", ModpackGuideTests::creativeTabs);
         ALL.put("orbit_camera", LibTests::orbitCamera);
+        ALL.put("content_request_rule", ContentRequestTests::rule);
+        ALL.put("content_matches_registries", ContentRequestTests::matchesRegistries);
     }
 
     // ------------------------------------------------------------ helpers

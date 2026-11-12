@@ -29,7 +29,8 @@ import net.minecraft.world.level.material.MapColor;
 
 /**
  * Shared materials (split plan stage 3d, §2.5): one owner for the base materials several Simple mods use. SimpleLib
- * always registers them, so a world stays loadable whichever mod is missing; their ways into the world (recipes with the
+ * registers them whenever its content is on ({@link LibContent}: any installed content mod, a client, or the server switch
+ * {@code alwaysRegisterContent}), so a world stays loadable whichever content mod is missing; their ways into the world (recipes with the
  * condition {@code simplelib:material_requested}, the anvil crushing) only run when a loaded mod requested the group
  * ({@code SimpleLibApi.requestMaterial}). SimpleLib names none of its users.
  *
@@ -75,8 +76,9 @@ public final class LibMaterials {
         if (REQUESTED.add(group)) SimpleLib.LOG.info("SimpleLib material '{}' requested", group);
     }
 
+    /** VANILLA36: a request only counts while SimpleLib's content is registered ({@link LibContent}); provided groups always. */
     public static boolean requested(String group) {
-        return REQUESTED.contains(group) || PROVIDED.contains(group);
+        return (REQUESTED.contains(group) && LibContent.enabled()) || PROVIDED.contains(group);
     }
 
     /** The owner of a provided group ({@link #PROVIDED_GROUPS}) announces it, in its constructor / initializer. */
@@ -92,6 +94,9 @@ public final class LibMaterials {
 
     public static synchronized void ensureBlocks() {
         if (!BLOCKS.isEmpty()) return;
+        if (!LibContent.enabled()) {
+            SimpleLib.LOG.warn("SimpleLib materials registered although no installed mod declared \"{}\" - Vanilla clients will be turned away", LibContent.KEY);
+        }
         block("cracked_diamond_block", BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).strength(7.0F, 14.0F));
         block("polished_end_stone", BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops()
                 .strength(3.0F, 9.0F).sound(SoundType.STONE));

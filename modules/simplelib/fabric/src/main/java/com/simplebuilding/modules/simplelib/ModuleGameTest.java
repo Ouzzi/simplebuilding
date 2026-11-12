@@ -304,4 +304,14 @@ public final class ModuleGameTest {
     public void portalPulseFades(GameTestHelper h) {
         LibTests.ALL.get("portal_pulse_fades").accept(h);
     }
+
+    @GameTest
+    public void contentRequestRule(GameTestHelper h) {
+        LibTests.ALL.get("content_request_rule").accept(h);
+    }
+
+    @GameTest
+    public void contentMatchesRegistries(GameTestHelper h) {
+        LibTests.ALL.get("content_matches_registries").accept(h);
+    }
 }

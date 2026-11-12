@@ -44,9 +44,14 @@ CACHE = WORK / "cache"
 MC = "26.3"
 #: Released modules only; the wiring example is a template, not a mod (prio26 #1 takes it out of the release).
 SKIP_MODULES = {"wiringexample"}
-#: Mods that must let a vanilla client in (server-side only by design). Empty until the owner names them
-#: (Folgepunkt in docs/ai/PLAN-B-SERVER26-2026-11-10.md); a rejection elsewhere is recorded as "known".
-VANILLA_JOIN_REQUIRED: set[str] = set()
+#: Mods that must let a vanilla client in (server-side only by design); a rejection elsewhere is recorded as "known".
+#: VANILLA36 (owner 12.11., VANILLA27 = A; docs/ai/PLAN-A-VANILLA36-2026-11-12.md): SimpleLib registers its content only
+#: on request, and these logic mods declare "simplelib:content": [] in their fabric.mod.json.
+VANILLA_JOIN_REQUIRED: set[str] = {
+    "simplelib", "simplechallenges", "simpleearth", "simplefarming", "simpleinterfaces", "simplelivemap", "simpleloot",
+    "simplemovement", "simpleoptimization", "simpleoptmemory", "simpleoptrender", "simpleoptserver", "simplesounds",
+    "simplevisuals", "simpleweather",
+}
 #: depends keys the loader itself provides.
 PROVIDED = {"minecraft", "java", "fabricloader", "fabric-loader"}
 XMX = os.environ.get("SIMPLEBUILDING_SERVER_SOLO_XMX", "1G")
