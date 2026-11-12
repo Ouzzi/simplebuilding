@@ -4,7 +4,9 @@ import com.simplelib.api.StackLimits;
 import com.simplestorage.registry.StorageMenus;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -28,6 +30,17 @@ public class BarrelMenu extends ChestMenu {
     /** Client constructor: a mirror with the tier's stack limit. */
     public static BarrelMenu client(BarrelTier tier, int id, Inventory inventory) {
         return new BarrelMenu(tier, id, inventory, StackLimits.mirror(tier.slots(), tier::stackMultiplier));
+    }
+
+    /**
+     * An Enderite barrel's 128 never leave a slot whole: number key = one normal stack into an empty hotbar place, a click with
+     * another item is refused (SimpleLib's guard; before, the whole stack went to the hotbar or cursor and the rest above 99 was
+     * lost with the next save - a-audsb31, simplecrucibles-P3-5).
+     */
+    @Override
+    public void clicked(int slotIndex, int buttonNum, ContainerInput input, Player player) {
+        if (StackLimits.guardOversizedClick(this, slotIndex, buttonNum, input, player)) return;
+        super.clicked(slotIndex, buttonNum, input, player);
     }
 
     /**

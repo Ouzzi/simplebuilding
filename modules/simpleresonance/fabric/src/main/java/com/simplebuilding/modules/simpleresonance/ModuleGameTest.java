@@ -21,6 +21,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleresonance:empty") public void ownerDistributionSeeded(GameTestHelper h) { ResonanceTests.ALL.get("owner_distribution_seeded").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void newcomerCaps(GameTestHelper h) { ResonanceTests.ALL.get("newcomer_caps").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void spawnServiceLevels(GameTestHelper h) { ResonanceTests.ALL.get("spawn_service_levels").accept(h); }
+    @GameTest(structure = "simpleresonance:empty") public void sampleOffServerThread(GameTestHelper h) { ResonanceTests.ALL.get("sample_off_server_thread").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void migrationLegacyBlock(GameTestHelper h) { ResonanceTests.ALL.get("migration_legacy_block").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void migrationTickConsumes(GameTestHelper h) { ResonanceTests.ALL.get("migration_tick_consumes").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void contractValues(GameTestHelper h) { ResonanceTests.ALL.get("contract_values").accept(h); }

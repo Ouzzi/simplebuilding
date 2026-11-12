@@ -699,6 +699,42 @@ public final class BlueprintTests {
         helper.succeed();
     }
 
+    /**
+     * Im Ueberlebensmodus steht die kostenlose Haelfte nur an ihrer eigenen, bezahlten Haelfte (Audit a-audsb31,
+     * simplebuildingtools-P1-1): ein Bettkopf aus der Blaupause neben dem Kopf eines schon stehenden Betts bleibt aus -
+     * er liesse beim Abbau ein Bett fallen (Bett-Items aus dem Nichts). Kopf und Fussteil zusammen kosten weiter ein Bett.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Partnerpruefung, der derselbe Block genuegt (Kopf an Kopf).
+     */
+    public static void freeBedHeadStandsOnlyAtItsOwnFoot(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        net.minecraft.world.level.block.Block bed = net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                .getValue(net.minecraft.resources.Identifier.withDefaultNamespace("red_bed"));
+        BlockState foot = bed.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH);
+        BlockState head = foot.setValue(BlockStateProperties.BED_PART, net.minecraft.world.level.block.state.properties.BedPart.HEAD);
+        helper.setBlock(TARGET.south(2), foot);
+        helper.setBlock(TARGET.south(), head);
+        ItemStack wand = new ItemStack(BtItems.DIAMOND_BUILDING_WAND);
+        ItemStack headOnly = blueprint("red_bed[part=head,facing=north] 0,0,0");
+        hold(player, wand, headOnly);
+        build(helper, player, wand, headOnly);
+        build(helper, player, wand, headOnly);
+        helper.assertTrue(helper.getBlockState(TARGET).isAir(),
+                "a free bed head was built against another bed's head: " + helper.getBlockState(TARGET));
+
+        clear(helper);
+        ItemStack beds = new ItemStack(bed.asItem(), 1);
+        ItemStack pair = blueprint("red_bed[part=head,facing=north] 0,0,0\nred_bed[part=foot,facing=north] 0,0,1");
+        hold(player, wand, pair, beds);
+        BlueprintBuilder.Result built = build(helper, player, wand, pair);
+        helper.assertTrue(built != null && built.placed() == 2 && helper.getBlockState(TARGET).is(bed)
+                        && helper.getBlockState(TARGET.south()).is(bed) && beds.isEmpty(),
+                "head and foot from one bed did not build: " + built);
+        clear(helper);
+        helper.succeed();
+    }
+
     // =====================================================================================
     // SCAN AM KARTENTISCH
     // =====================================================================================

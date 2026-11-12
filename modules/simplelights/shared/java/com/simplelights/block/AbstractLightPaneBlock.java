@@ -126,7 +126,8 @@ public abstract class AbstractLightPaneBlock extends Block implements SimpleWate
         }
         BlockState next = applySignal(state, level, pos);
         if (next != state) {
-            level.setBlock(pos, next, Block.UPDATE_CLIENTS);
+            // The copper panes give an analog output (15 while lit): a comparator reading them needs the neighbor update, like the Copper Bulb (flag 3).
+            level.setBlock(pos, next, next.hasAnalogOutputSignal() ? Block.UPDATE_ALL : Block.UPDATE_CLIENTS);
         }
     }
 

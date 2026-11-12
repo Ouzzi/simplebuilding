@@ -5,6 +5,7 @@ import com.simplehammers.HammerTiers;
 import com.simplehammers.SimpleHammers;
 import com.simplehammers.config.HammerConfig;
 import com.simplehammers.engine.HammerCorners;
+import com.simplehammers.engine.HammerEnchantments;
 import com.simplehammers.engine.SledgehammerCrafting;
 import com.simplehammers.engine.SledgehammerUpgrades;
 import com.simplehammers.engine.SledgehammerUtils;
@@ -39,6 +40,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -184,6 +186,23 @@ public final class HammerTests {
             player.setShiftKeyDown(true);
             stoneLayer(h);
             h.assertTrue(SledgehammerItem.getBlocksToBeDestroyed(1, center, player).size() == 1, "sneaking breaks one block");
+            h.succeed();
+        });
+        ALL.put("area_break_skips_fluids", h -> {
+            // a-audsb31 simplehammers-P2-1: Override II means "any breakable block", but water and lava are no blocks to break - an
+            // area swing next to a fluid counted it (slower mining) and spent wear on it, while destroyBlock changed nothing.
+            stoneLayer(h);
+            h.setBlock(SPOT.offset(1, 0, 1), Blocks.WATER);
+            h.setBlock(SPOT.offset(-1, 0, -1), Blocks.OAK_SLAB.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true));
+            ItemStack tool = new ItemStack(HammerRegistry.hammer(HammerTiers.IRON));
+            tool.enchant(h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(HammerEnchantments.OVERRIDE), 2);
+            ServerPlayer player = lookingDown(h, tool);
+            BlockPos center = h.absolutePos(SPOT);
+            h.assertTrue(HammerEnchantments.level(tool, h.getLevel(), HammerEnchantments.OVERRIDE) == 2, "the test hammer has Override II");
+            h.assertFalse(SledgehammerUtils.shouldBreak(h.getLevel(), h.absolutePos(SPOT.offset(1, 0, 1)), center, tool), "water is not broken");
+            h.assertTrue(SledgehammerUtils.shouldBreak(h.getLevel(), h.absolutePos(SPOT.offset(-1, 0, -1)), center, tool),
+                    "a waterlogged slab is still a block to break");
+            h.assertTrue(SledgehammerUtils.countBlocksBroken(player, center) == 8, "8 of the 9 cells count: " + SledgehammerUtils.countBlocksBroken(player, center));
             h.succeed();
         });
         ALL.put("carving_makes_stairs", h -> {

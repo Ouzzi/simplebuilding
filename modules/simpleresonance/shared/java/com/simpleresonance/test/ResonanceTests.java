@@ -427,6 +427,43 @@ public final class ResonanceTests {
             });
             h.succeed();
         });
+        // a-audsb31 simpleresonance-P2-1: Simple Mobs asks from Mob#finalizeSpawn, which Vanilla also runs on a world generation worker
+        // (chunk generation spawns). The service's maps are server thread only: off that thread it must touch nothing and treat the
+        // spawn as ownerless, even with a player standing right there; on the server thread the same call still finds the owner.
+        add("sample_off_server_thread", h -> {
+            guarded(() -> {
+                ResonanceConfig.reset();
+                var svc = ResonanceService.INSTANCE;
+                ServerPlayer owner = mock(h, 2, 2);
+                ResonanceService.testPlayers = List.of(owner);
+                BlockPos at = owner.blockPosition();
+                var onThread = svc.sample(OVERWORLD, at.getX(), at.getY(), at.getZ(), 0.0, 0.5);
+                check(onThread.owner().isPresent() && onThread.owner().get().equals(owner.getUUID()), "on the server thread the player owns it");
+                Object[] result = new Object[2];
+                Thread worker = new Thread(() -> {
+                    try {
+                        result[0] = svc.sample(OVERWORLD, at.getX(), at.getY(), at.getZ(), 0.0, 0.5);
+                        result[1] = svc.pickOwner(OVERWORLD, at.getX(), at.getY(), at.getZ(), 0.0);
+                    } catch (Throwable t) {
+                        result[0] = t;
+                    }
+                }, "resonance-test-worker");
+                worker.start();
+                try {
+                    worker.join(5000L);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new AssertionError("interrupted", e);
+                }
+                check(!worker.isAlive(), "the worker call returns");
+                check(result[0] instanceof com.simplebuilding.framework.api.ResonanceContracts.Spawn, "off-thread sample answers: " + result[0]);
+                var off = (com.simplebuilding.framework.api.ResonanceContracts.Spawn) result[0];
+                check(off.owner().isEmpty(), "off the server thread nobody owns a spawn: " + off.owner());
+                near(off.level(), Math.min(off.zone(), ResonanceConfig.ownerlessCap), 1e-6, "off-thread spawn gets the ownerless level");
+                check(result[1] instanceof java.util.Optional<?> picked && picked.isEmpty(), "off-thread pickOwner finds nobody: " + result[1]);
+            });
+            h.succeed();
+        });
         add("migration_legacy_block", h -> {
             guarded(() -> {
                 ResonanceConfig.reset();

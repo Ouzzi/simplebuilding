@@ -471,6 +471,34 @@ public final class FletchingTests {
         helper.succeed();
     }
 
+    /**
+     * a-audsb31 (simplearrows-P2-1): Vanilla discards a non-piercing arrow inside {@code onHitEntity}, so the impact effects must be
+     * decided before the hit. A direct hit with an amethyst tip hurts the mob next to the target (1 damage), a breeze rod shaft pushes it
+     * (wind burst); a plain iron arrow does neither.
+     */
+    public static void impactEffectsHappenOnADirectHit(GameTestHelper helper) {
+        // Three pairs of cows (a target and a mob 1 cell beside it), well apart (the burst reaches 2.4 cells), one arrow each: iron (control), amethyst, breeze rod.
+        Mob ironTarget = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(1, 2, 1));
+        Mob ironNear = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(2, 2, 1));
+        Mob amethystTarget = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(1, 2, 4));
+        Mob amethystNear = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(2, 2, 4));
+        Mob breezeTarget = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(6, 2, 6));
+        Mob breezeNear = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(7, 2, 6));
+        float ironBefore = ironNear.getHealth();
+        float amethystBefore = amethystNear.getHealth();
+        arrow(helper, parts(ArrowParts.Tip.IRON, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER))
+                .hitForTest(new net.minecraft.world.phys.EntityHitResult(ironTarget));
+        arrow(helper, parts(ArrowParts.Tip.AMETHYST, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER))
+                .hitForTest(new net.minecraft.world.phys.EntityHitResult(amethystTarget));
+        arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.BREEZE_ROD, ArrowParts.Fletching.FEATHER))
+                .hitForTest(new net.minecraft.world.phys.EntityHitResult(breezeTarget));
+        helper.assertValueEqual(ironNear.getHealth(), ironBefore, "an iron arrow hurts the mob next to its target");
+        helper.assertTrue(ironNear.getDeltaMovement().lengthSqr() < 1.0E-6, "an iron arrow pushes the mob next to its target");
+        helper.assertTrue(amethystBefore - amethystNear.getHealth() > 0.9F, "the amethyst splash missed the mob next to the target: " + amethystNear.getHealth());
+        helper.assertTrue(breezeNear.getDeltaMovement().lengthSqr() > 0.01, "the breeze rod burst did not push the mob next to the target: " + breezeNear.getDeltaMovement());
+        helper.succeed();
+    }
+
     /** With SimpleBuilding: a Training Dummy counts as its head's mob for the tips (iron +2 against zombies, gold against undead). */
     public static void dummyHeadCountsForTips(GameTestHelper helper) {
         var type = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.fromNamespaceAndPath(SimpleArrows.SB_NAMESPACE, "training_dummy"));

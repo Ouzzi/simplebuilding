@@ -83,6 +83,10 @@ public final class CrucibleTests {
         ALL.put("reinforced_crucible_loads_old_nine_slots", CrucibleTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("crucible_barrel_beside_inventory_centred", CrucibleTests::barrelBesideInventoryCentred);
         ALL.put("hammer_upgrade_steps_ship_with_the_module", CrucibleTests::hammerUpgradeStepsShipWithTheModule);
+        // AUDSB31 (modules/simplecrucibles/AUDIT.md): raised stacks, experience from the barrel fields, recipe searches.
+        ALL.put("oversized_stack_never_leaves_whole", CrucibleTests::oversizedStackNeverLeavesWhole);
+        ALL.put("barrel_field_take_pays_experience", CrucibleTests::barrelFieldTakePaysExperience);
+        ALL.put("no_recipe_slots_search_seldom", CrucibleTests::noRecipeSlotsSearchSeldom);
         // Split stage 5b: soul lava, the buckets and the JEI/Jade data (were SimpleBuilding's tests).
         BucketTests.register(ALL, MAX_TICKS);
     }
@@ -822,6 +826,63 @@ public final class CrucibleTests {
         var iron = com.simplecrucibles.crucible.CrucibleMenu.client(com.simplecrucibles.crucible.CrucibleTier.IRON, 0, player.getInventory());
         check(h, iron.slots.get(0).getMaxStackSize(cobble) == 64, "iron crucible slot on the client: 64");
         check(h, com.simplelib.api.StackLimits.max(new ItemStack(Items.IRON_SWORD), 2) == 1, "unstackable items stay single");
+        h.succeed();
+    }
+
+    /**
+     * AUDSB31 simplecrucibles-P2-1: a raised stack (Enderite: 128) never leaves whole - the number key takes one normal stack into
+     * an empty hotbar place (more than 99 cannot be saved with the player), a click with another item does not take it.
+     */
+    private static void oversizedStackNeverLeavesWhole(GameTestHelper h) {
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        var menu = com.simplecrucibles.crucible.CrucibleMenu.client(com.simplecrucibles.crucible.CrucibleTier.ENDERITE, 0, player.getInventory());
+        menu.slots.get(0).set(new ItemStack(Items.IRON_INGOT, 128));
+        check(h, menu.slots.get(0).getItem().getCount() == 128, "the Enderite slot holds 128");
+        menu.clicked(0, 0, net.minecraft.world.inventory.ContainerInput.SWAP, player);
+        ItemStack hotbar = player.getInventory().getItem(0);
+        check(h, hotbar.is(Items.IRON_INGOT) && hotbar.getCount() == 64 && menu.slots.get(0).getItem().getCount() == 64,
+                "number key: one normal stack out, got hotbar " + hotbar.getCount() + ", slot " + menu.slots.get(0).getItem().getCount());
+        menu.slots.get(1).set(new ItemStack(Items.GOLD_INGOT, 100));
+        menu.setCarried(new ItemStack(Items.DIRT));
+        menu.clicked(1, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, player);
+        check(h, menu.getCarried().is(Items.DIRT) && menu.slots.get(1).getItem().getCount() == 100,
+                "another item on the cursor does not take the raised stack, cursor " + menu.getCarried());
+        menu.setCarried(ItemStack.EMPTY);
+        menu.slots.get(2).set(new ItemStack(Items.COPPER_INGOT, 10));
+        menu.clicked(2, 1, net.minecraft.world.inventory.ContainerInput.SWAP, player);
+        check(h, player.getInventory().getItem(1).is(Items.COPPER_INGOT) && player.getInventory().getItem(1).getCount() == 10
+                && menu.slots.get(2).getItem().isEmpty(), "a normal stack swaps like Vanilla");
+        h.succeed();
+    }
+
+    /** AUDSB31 simplecrucibles-P2-2: results go into the attached barrel first; taking from its fields pays the stored experience (owner F20). */
+    private static void barrelFieldTakePaysExperience(GameTestHelper h) {
+        CrucibleBlockEntity be = crucible(h, new BlockPos(1, 2, 1), Blocks.LAVA_CAULDRON.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);
+        be.setItem(0, new ItemStack(Items.RAW_IRON));
+        run(h, be, 270);
+        check(h, be.storedExperience() > 0, "experience stored: " + debug(be));
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        var menu = new com.simplecrucibles.crucible.CrucibleMenu(0, player.getInventory(), be);
+        menu.slots.get(menu.barrelStart()).onTake(player, new ItemStack(Items.IRON_INGOT));
+        check(h, be.storedExperience() == 0, "taking from a barrel field pays out, still stored " + be.storedExperience());
+        h.succeed();
+    }
+
+    /** AUDSB31 simplecrucibles-P2-3: a slot without recipe is searched again every 20 ticks, not on every tick; a new item at once. */
+    private static void noRecipeSlotsSearchSeldom(GameTestHelper h) {
+        CrucibleBlockEntity be = crucible(h, new BlockPos(1, 2, 1), Blocks.LAVA_CAULDRON.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);
+        int n = be.getContainerSize();
+        for (int i = 0; i < n; i++) be.setItem(i, new ItemStack(Items.BEDROCK));
+        run(h, be, 1);
+        check(h, be.slotState(0) == CrucibleBlockEntity.NO_RECIPE, "bedrock has no recipe: " + debug(be));
+        int before = be.recipeSearches();
+        run(h, be, 40);
+        int searches = be.recipeSearches() - before;
+        check(h, searches <= 2 * n, n + " slots without recipe: at most " + 2 * n + " searches in 40 ticks, got " + searches);
+        check(h, be.slotState(0) == CrucibleBlockEntity.NO_RECIPE, "still no recipe");
+        be.setItem(0, new ItemStack(Items.RAW_IRON));
+        run(h, be, 1);
+        check(h, be.slotState(0) == CrucibleBlockEntity.COOKING, "a new item is searched on the next tick: " + debug(be));
         h.succeed();
     }
 

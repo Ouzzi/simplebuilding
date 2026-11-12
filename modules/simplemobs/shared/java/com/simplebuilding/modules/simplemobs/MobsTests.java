@@ -135,6 +135,26 @@ public final class MobsTests {
             check(DeceiverLogic.mayNaturallySpawn(true, false, false, true, 3, 0, 0.004f), "villages too, rarely");
             h.succeed();
         });
+        // Audit simplemobs-P2-1 (a-audsb31): Deceiver, Hollow Watcher and Soulfire Blaze spawn only where Vanilla monsters may.
+        add("natural_spawn_rules", h -> {
+            check(MobsServer.naturalSpawns(true, false, true, true), "default world: own natural spawns run");
+            check(!MobsServer.naturalSpawns(true, true, true, true), "never on Peaceful");
+            check(!MobsServer.naturalSpawns(true, false, false, true), "game rule spawnMobs off stops them");
+            check(!MobsServer.naturalSpawns(true, false, true, false), "game rule spawnMonsters off stops them");
+            check(!MobsServer.naturalSpawns(false, false, true, true), "sub-mod switch off stops them");
+            var level = h.getLevel();
+            var rules = level.getGameRules();
+            boolean oldMonsters = rules.get(net.minecraft.world.level.gamerules.GameRules.SPAWN_MONSTERS);
+            boolean before = MobsServer.naturalSpawns(level);
+            try {
+                rules.set(net.minecraft.world.level.gamerules.GameRules.SPAWN_MONSTERS, false, level.getServer());
+                check(!MobsServer.naturalSpawns(level), "the level's spawnMonsters rule is read");
+            } finally {
+                rules.set(net.minecraft.world.level.gamerules.GameRules.SPAWN_MONSTERS, oldMonsters, level.getServer());
+            }
+            check(MobsServer.naturalSpawns(level) == before, "rule restored");
+            h.succeed();
+        });
         add("fight", h -> {
             var level = h.getLevel();
             for (int x = -10; x < 35; x++) for (int z = -10; z < 35; z++) level.setBlock(h.absolutePos(new BlockPos(x, 0, z)), Blocks.STONE.defaultBlockState(), 3);
@@ -162,6 +182,8 @@ public final class MobsTests {
                     check(m.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == null
                             || m.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == 0.0, "a fake deals no damage");
                     check(m.isSilent(), "a fake makes no step sounds");
+                    // audit simplemobs-P2-3 (a-audsb31): summons have no loot, so killing them gives no Mob Essence either
+                    check(m.entityTags().contains(BroodRitual.NO_ESSENCE), "a Deceiver summon gives no Mob Essence");
                 }
             }
             h.succeed();

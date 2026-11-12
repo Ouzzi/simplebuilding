@@ -179,7 +179,10 @@ public class SledgehammerUtils {
     public static boolean shouldBreak(Level world, BlockPos pos, BlockState originState, ItemStack stack, int overrideLevel) {
         BlockState targetState = world.getBlockState(pos);
 
-        if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F) {
+        // Water and lava are no blocks to break (Override II means "any breakable block"): destroyBlock on a source changes
+        // nothing, yet counted as a break and cost wear (a-audsb31, simplehammers-P2-1).
+        if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F
+                || targetState.getBlock() instanceof net.minecraft.world.level.block.LiquidBlock) {
             return false;
         }
         // an octet cell counts as its full block (tool tier, same block): it mines exactly like it (Fund a-mech23a)

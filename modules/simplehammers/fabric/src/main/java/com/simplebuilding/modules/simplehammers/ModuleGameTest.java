@@ -37,6 +37,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplehammers:empty")
+    public void areaBreakSkipsFluids(GameTestHelper h) {
+        HammerTests.ALL.get("area_break_skips_fluids").accept(h);
+    }
+
+    @GameTest(structure = "simplehammers:empty")
     public void carvingMakesStairs(GameTestHelper h) {
         HammerTests.ALL.get("carving_makes_stairs").accept(h);
     }

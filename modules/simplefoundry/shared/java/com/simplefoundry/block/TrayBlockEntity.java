@@ -67,6 +67,12 @@ public class TrayBlockEntity extends BlockEntity implements com.simplefoundry.Ca
         setChanged();
     }
 
+    /** AUDSB31 (simplefoundry-P2-1): every removal gives the ingots back, hot or not - also an explosion, a command or another mod's tool. */
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (level != null && !level.isClientSide()) drop(level, pos);
+    }
+
     private void refresh() {
         setChanged();
         if (level != null && !level.isClientSide()) {

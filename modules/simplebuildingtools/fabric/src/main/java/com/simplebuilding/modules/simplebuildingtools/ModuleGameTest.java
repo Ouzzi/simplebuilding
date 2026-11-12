@@ -215,6 +215,12 @@ public final class ModuleGameTest {
         com.simplebuildingtools.test.BlueprintTests.buildConsumesEveryCandleAndPickleItNeeds(helper);
     }
 
+    /** Audit a-audsb31, simplebuildingtools-P1-1: a free bed head needs its own foot (no beds out of nothing). */
+    @GameTest
+    public void freeBedHeadStandsOnlyAtItsOwnFoot(GameTestHelper helper) {
+        com.simplebuildingtools.test.BlueprintTests.freeBedHeadStandsOnlyAtItsOwnFoot(helper);
+    }
+
     @GameTest
     public void missingBlocksCheckHasNoCapAndRunsOverSeveralTicks(GameTestHelper helper) {
         com.simplebuildingtools.test.BlueprintTests.missingBlocksCheckHasNoCapAndRunsOverSeveralTicks(helper);
@@ -398,6 +404,12 @@ public final class ModuleGameTest {
     @GameTest(rotation = Rotation.NONE)
     public void undoTakesBackOnlyTheLastActionAndOnlyUnchangedBlocks(GameTestHelper helper) {
         com.simplebuildingtools.test.WandModeTests.undoTakesBackOnlyTheLastActionAndOnlyUnchangedBlocks(helper);
+    }
+
+    /** Audit a-audsb31, simplebuildingtools-P1-2: undo of a bed or door refunds once and drops nothing. */
+    @GameTest(rotation = Rotation.NONE)
+    public void undoOfTwoPartBlocksRefundsOnceAndDropsNothing(GameTestHelper helper) {
+        com.simplebuildingtools.test.WandModeTests.undoOfTwoPartBlocksRefundsOnceAndDropsNothing(helper);
     }
 
     @GameTest(rotation = Rotation.NONE)

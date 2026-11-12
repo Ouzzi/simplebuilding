@@ -212,10 +212,15 @@ public final class ResonanceService implements ResonanceContracts.Service {
         return p.level().dimension().identifier().toString();
     }
 
-    /** Players that may own a spawn attempt: same dimension, in {@code ownerRadius}, no spectators, no long AFK; with their chances. */
+    /**
+     * Players that may own a spawn attempt: same dimension, in {@code ownerRadius}, no spectators, no long AFK; with their chances.
+     * Server thread only: the live map, the saved records and the player list are not thread safe. A caller on another thread (Simple
+     * Mobs asks from {@code Mob#finalizeSpawn}, which Vanilla also runs on a world generation worker for chunk generation spawns)
+     * gets nobody - the spawn counts as ownerless, which is what chunk generation spawns are meant to be (a-audsb31 simpleresonance-P2-1).
+     */
     public List<Candidate> candidates(String dimension, double x, double y, double z) {
         List<Candidate> out = new ArrayList<>();
-        if (this.server == null) return out;
+        if (this.server == null || !this.server.isSameThread()) return out;
         long now = this.server.getTickCount();
         double radius2 = ResonanceConfig.ownerRadius * ResonanceConfig.ownerRadius;
         List<ServerPlayer> near = new ArrayList<>();
@@ -261,7 +266,7 @@ public final class ResonanceService implements ResonanceContracts.Service {
 
     /** Caps of the other players standing within {@code nearbyRadius} of the spawn (AFK ones count: they stand there). */
     public double[] nearbyCaps(String dimension, double x, double y, double z, UUID owner) {
-        if (!ResonanceConfig.nearbyCap || this.server == null) return new double[0];
+        if (!ResonanceConfig.nearbyCap || this.server == null || !this.server.isSameThread()) return new double[0];
         double radius2 = ResonanceConfig.nearbyRadius * ResonanceConfig.nearbyRadius;
         List<Double> caps = new ArrayList<>();
         for (ServerPlayer p : players()) {

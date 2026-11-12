@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -228,6 +229,16 @@ public class CrucibleMenu extends AbstractContainerMenu {
         container.stopOpen(player);
     }
 
+    /**
+     * AUDSB31 (simplecrucibles-P2-1): a raised stack (Enderite crucible, attached Enderite barrel: up to 128) never leaves whole
+     * (number key: one normal stack into an empty hotbar place; a click with another item is refused), see SimpleLib's guard.
+     */
+    @Override
+    public void clicked(int slotIndex, int buttonNum, ContainerInput input, Player player) {
+        if (com.simplelib.api.StackLimits.guardOversizedClick(this, slotIndex, buttonNum, input, player)) return;
+        super.clicked(slotIndex, buttonNum, input, player);
+    }
+
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
         int n = tier.slots();
@@ -290,6 +301,19 @@ public class CrucibleMenu extends AbstractContainerMenu {
         @Override public boolean isActive() { return barrelAttached(); }
         @Override public boolean mayPlace(ItemStack stack) { return barrelAttached(); }
         @Override public boolean mayPickup(Player player) { return barrelAttached(); }
+
+        /**
+         * AUDSB31 (simplecrucibles-P2-2): results go into the attached barrel first (owner wish round 2), so taking from its
+         * fields pays out the stored experience like taking a result from a crucible slot (owner F20); before, it waited for
+         * the crucible to be broken.
+         */
+        @Override
+        public void onTake(Player player, ItemStack stack) {
+            if (crucible != null && player.level() instanceof ServerLevel server && crucible.storedExperience() > 0) {
+                crucible.awardExperience(server, Vec3.atCenterOf(crucible.getBlockPos()));
+            }
+            super.onTake(player, stack);
+        }
     }
 
     /** Hidden slot that only syncs the reserved result to the client screen. */

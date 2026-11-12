@@ -31,6 +31,17 @@ final class BossTests {
         for (int x = x0; x <= x1; x++) for (int z = z0; z <= z1; z++) h.getLevel().setBlock(h.absolutePos(new BlockPos(x, 1, z)), Blocks.STONE.defaultBlockState(), 3);
     }
 
+    /** Counts and removes the Mob Essence items around {@code e}. */
+    private static int essenceAround(ServerLevel l, net.minecraft.world.entity.Entity e) {
+        var items = l.getEntitiesOfClass(ItemEntity.class, e.getBoundingBox().inflate(2.0), i -> i.getItem().is(BossMobs.ESSENCE));
+        int n = 0;
+        for (ItemEntity i : items) {
+            n += i.getItem().getCount();
+            i.discard();
+        }
+        return n;
+    }
+
     private static <T extends LivingEntity> T still(T e) {
         if (e instanceof net.minecraft.world.entity.Mob m) m.setNoAi(true);
         return e;
@@ -248,6 +259,37 @@ final class BossTests {
             h.assertTrue(natural != null && !natural.entityTags().contains(BroodRitual.NO_ESSENCE), "natural zombie is not");
             fromSpawner.discard();
             natural.discard();
+            h.succeed();
+        });
+        // Audit simplemobs-P2-3 (a-audsb31): the Blighted Wither's minions (no loot) give no Mob Essence; the Deceiver's summons are checked in "fight".
+        add.accept("brood_no_essence_from_summons", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h, 0, 0, 7, 7);
+            float oldChance = MobsConfig.essenceChance;
+            boolean oldRitual = MobsConfig.eggRitualEnabled;
+            var player = h.makeMockServerPlayerInLevel();
+            List<net.minecraft.world.entity.Entity> cleanup = new java.util.ArrayList<>();
+            try {
+                MobsConfig.essenceChance = 1.0f;
+                MobsConfig.eggRitualEnabled = true;
+                var natural = EntityTypes.ZOMBIE.spawn(l, h.absolutePos(new BlockPos(1, 2, 1)), EntitySpawnReason.NATURAL);
+                h.assertTrue(natural != null, "a natural zombie for the control");
+                cleanup.add(natural);
+                BroodRitual.onDeath(natural, player);
+                h.assertTrue(essenceAround(l, natural) == 1, "control: a natural kill drops its essence at chance 1");
+                BlightedWither wither = still(h.spawn(WitherMobs.BLIGHTED_WITHER, 5, 2, 5));
+                cleanup.add(wither);
+                var minion = wither.summonMinion(l, Vec3.atBottomCenterOf(h.absolutePos(new BlockPos(2, 2, 6))));
+                h.assertTrue(minion instanceof LivingEntity, "the Wither called a minion");
+                cleanup.add(minion);
+                h.assertTrue(minion.entityTags().contains(BroodRitual.NO_ESSENCE), "a Wither minion is marked: no essence");
+                BroodRitual.onDeath((LivingEntity) minion, player);
+                h.assertTrue(essenceAround(l, minion) == 0, "killing a Wither minion drops no essence");
+            } finally {
+                MobsConfig.essenceChance = oldChance;
+                MobsConfig.eggRitualEnabled = oldRitual;
+                cleanup.forEach(net.minecraft.world.entity.Entity::discard);
+            }
             h.succeed();
         });
         add.accept("brood_ritual", h -> {

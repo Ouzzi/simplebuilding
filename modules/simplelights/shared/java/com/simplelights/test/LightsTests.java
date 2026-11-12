@@ -65,6 +65,7 @@ public final class LightsTests {
         ALL.put("panes_have_their_recipes", LightsTests::panesHaveTheirRecipes);
         ALL.put("copper_pane_flips_on_every_rising_edge", LightsTests::copperPaneFlipsOnEveryRisingEdge);
         ALL.put("copper_redstone_pane_colors_and_flips", LightsTests::copperRedstonePaneColorsAndFlips);
+        ALL.put("copper_pane_tells_a_comparator_when_it_flips", LightsTests::copperPaneTellsAComparatorWhenItFlips);
         ALL.put("discover_recipe_unlocks", com.simplelights.discover.LightsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplelights.discover.LightsDiscover::behaviourHints);
         ALL.put("guide_book", com.simplelights.guide.LightsGuide::gameTest);
@@ -418,6 +419,35 @@ public final class LightsTests {
         if (helper.getBlockState(at).getValue(CopperLightPaneBlock.LIT)) {
             problems.add("placed without power it is lit");
         }
+    }
+
+    /**
+     * a-audsb31 (simplelights-P2-1): a comparator that reads a copper pane (analog output 15 while lit) is told when the pane flips: the
+     * pane sets its state with the neighbor update (like the Copper Bulb), so the comparator schedules its output change.
+     */
+    public static void copperPaneTellsAComparatorWhenItFlips(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        for (Block pane : List.of(LightsRegistry.COPPER_LIGHT_PANE, LightsRegistry.COPPER_REDSTONE_LIGHT_PANE)) {
+            clear(helper);
+            BlockPos at = CENTER.above();
+            BlockPos comparator = at.east();
+            helper.setBlock(CENTER, Blocks.STONE);
+            helper.setBlock(comparator.below(), Blocks.STONE);
+            helper.setBlock(at, pane.defaultBlockState().setValue(AbstractLightPaneBlock.FACING, Direction.UP));
+            helper.setBlock(comparator, Blocks.COMPARATOR.defaultBlockState().setValue(ComparatorBlock.FACING, Direction.WEST));
+            BlockPos comparatorAbs = helper.absolutePos(comparator);
+            if (helper.getLevel().getBlockTicks().hasScheduledTick(comparatorAbs, Blocks.COMPARATOR)) {
+                problems.add(id(pane) + ": the comparator already had a tick before the pane flipped");
+            }
+            helper.setBlock(at.north(), Blocks.REDSTONE_BLOCK); // the rising edge: the pane lights up and its output goes to 15
+            if (!helper.getBlockState(at).getValue(CopperLightPaneBlock.LIT)) {
+                problems.add(id(pane) + ": did not light up");
+            } else if (!helper.getLevel().getBlockTicks().hasScheduledTick(comparatorAbs, Blocks.COMPARATOR)) {
+                problems.add(id(pane) + ": the comparator reading the pane was not told that it lit up");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "comparator problems: " + String.join("; ", problems));
+        helper.succeed();
     }
 
     /** N68: the copper multicolor pane: color per signal strength like the plain one, on/off per rising edge, right-click moves the start color. */
