@@ -68,6 +68,7 @@ public final class EnchantingTests {
         ALL.put("blazewood_family_registered", EnchantingTests::blazewoodFamilyRegistered);
         ALL.put("blazewood_recipes", EnchantingTests::blazewoodRecipes);
         ALL.put("blazewood_door_has_two_halves", EnchantingTests::blazewoodDoorHasTwoHalves);
+        ALL.put("config_labels", EnchantingTests::configLabels);
         ALL.put("discover_recipe_unlocks", com.simpleenchanting.discover.EnchantingDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleenchanting.discover.EnchantingDiscover::behaviourHints);
         ALL.put("guide_book", com.simpleenchanting.guide.EnchantingGuide::gameTest);
@@ -1001,6 +1002,15 @@ public final class EnchantingTests {
             helper.assertValueEqual(count(drops, item), 1, wood + " door drops once");
             drops.forEach(ItemEntity::discard);
         }
+        helper.succeed();
+    }
+
+    // ------------------------------------------------------------------ PLAN40 simpleenchanting-3
+
+    /** The config screen names the title, the category and every option (simplelib-6: no raw paths on screen). */
+    public static void configLabels(GameTestHelper helper) {
+        List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleEnchanting.MOD_ID);
+        helper.assertTrue(missing.isEmpty(), "config screen labels missing (text.autoconfig.simpleenchanting.*): " + missing);
         helper.succeed();
     }
 

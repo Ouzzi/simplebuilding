@@ -93,5 +93,9 @@
   "simpleenchanting.guide.page.6.title": "Commands",
   "simpleenchanting.guide.page.6": "/simpleenchanting config [list | get | set | reset | help] (operators).",
   "simpleenchanting.guide.page.7.title": "Settings",
-  "simpleenchanting.guide.page.7": "More settings are in the mod's config screen."
+  "simpleenchanting.guide.page.7": "More settings are in the mod's config screen.",
+  "text.autoconfig.simpleenchanting.title": "Simple Enchanting",
+  "text.autoconfig.simpleenchanting.category.features": "Features",
+  "text.autoconfig.simpleenchanting.option.features.endgameLevels": "Endgame Enchantment Levels",
+  "text.autoconfig.simpleenchanting.option.features.endgameLevels.@Tooltip": "Protection V and Feather Falling V at the\nAstral Enchanter's top strength (60); off:\nVanilla maximum. Default: on."
 }

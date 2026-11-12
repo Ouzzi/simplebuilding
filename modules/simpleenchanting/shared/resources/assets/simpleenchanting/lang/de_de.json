@@ -93,5 +93,9 @@
   "simpleenchanting.guide.page.6.title": "Befehle",
   "simpleenchanting.guide.page.6": "/simpleenchanting config [list | get | set | reset | help] (Operatoren).",
   "simpleenchanting.guide.page.7.title": "Einstellungen",
-  "simpleenchanting.guide.page.7": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpleenchanting.guide.page.7": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "text.autoconfig.simpleenchanting.title": "Simple Enchanting",
+  "text.autoconfig.simpleenchanting.category.features": "Funktionen",
+  "text.autoconfig.simpleenchanting.option.features.endgameLevels": "Endgame-Verzauberungsstufen",
+  "text.autoconfig.simpleenchanting.option.features.endgameLevels.@Tooltip": "Schutz V und Federfall V am Astral Enchanter\nauf höchster Stärke (60); aus: nur das\nVanilla-Maximum. Standard: an."
 }

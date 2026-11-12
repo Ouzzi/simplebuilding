@@ -102,6 +102,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleenchanting:empty")
+    public void configLabels(GameTestHelper h) {
+        EnchantingTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
     public void discoverRecipeUnlocks(GameTestHelper h) {
         EnchantingTests.ALL.get("discover_recipe_unlocks").accept(h);
     }
