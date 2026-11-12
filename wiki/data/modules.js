@@ -513,7 +513,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 12
     },
-    "dataHash": "0ee3ef0bfc2b"
+    "dataHash": "ca7461192cba"
   },
   {
     "id": "simplesandwiches",
@@ -1352,7 +1352,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 13
     },
-    "dataHash": "4137910c5c38"
+    "dataHash": "4c674278853e"
   },
   {
     "id": "simplewanderers",
@@ -1786,13 +1786,13 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwElEQVR42mOIclb+TwlmABFvTk4nGT9YEYFqwJMt+f8/3tgCpglhkOaFlfaYBsCwspwGBkbWDLIIwwBkxXZmHhgYWR7DBciaAt3iwBhZM7oYSD3cAJhmdE33Dn36PyPpDBijGwYzBKcBMI0CfEIYhuA0AJchaXYzsMqjGKChrEdSGIDUww0AEcICYmBBGMYWC8jyIPUY0QgShGFkxciaYBhnQgJJgDCyYmRNyBjDAFDqQleED6MYABMgFcMNoAQDABEaFxrtfuqxAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 13,
+      "items": 18,
       "blocks": 18,
       "recipes": 36,
       "config": 12,
       "features": 16
     },
-    "dataHash": "b5a4076a76f9"
+    "dataHash": "f440f3ef922d"
   },
   {
     "id": "simplelights",
