@@ -216,6 +216,13 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     @Override
     protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
         super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+        // Audit simplebuilding-P2-2: after a targeted player break (N37) the pile standing here again is the one destroy
+        // put back - its eggs were not broken, the broken part's egg already hatched in playerWillDestroy.
+        Restore restored = RESTORED.get();
+        if (restored != null && restored.level() == level && restored.pos().equals(pos)) {
+            RESTORED.remove();
+            return;
+        }
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && !PlacedSmallParts.silkTouch(level, tool)) {
             PlacedSmallParts.breakEggs(level, pos, pile.parts(), level.getRandom());
         }
@@ -236,11 +243,12 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     @Override
     public BlockState playerWillDestroy(net.minecraft.world.level.Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.player.Player player) {
         RESTORE.remove();
+        RESTORED.remove();
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && pile.parts().size() > 1) {
             List<ItemStack> rest = new java.util.ArrayList<>(pile.parts());
             ItemStack target = rest.remove(PlacedSmallParts.lookedAtPart(player, rest, state.getValue(FACING), pos, state.getValue(FLAT)));
             pile.keepOnly(target);
-            RESTORE.set(new Restore(level, pos.immutable(), state, List.copyOf(rest)));
+            RESTORE.set(new Restore(level, pos.immutable(), state, List.copyOf(rest), !player.isCreative()));
         }
         if (level instanceof ServerLevel server && !player.isCreative() && level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile
                 && !PlacedSmallParts.silkTouch(server, player.getMainHandItem())) {
@@ -250,10 +258,15 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     }
 
     /** Was ein gezielter Abbau zuruecklegt; je Thread, damit Client und eingebauter Server sich nicht stoeren. */
-    private record Restore(LevelAccessor level, BlockPos pos, BlockState state, List<ItemStack> parts) {
+    private record Restore(LevelAccessor level, BlockPos pos, BlockState state, List<ItemStack> parts, boolean survival) {
     }
 
     private static final ThreadLocal<Restore> RESTORE = new ThreadLocal<>();
+    /**
+     * The pile {@link #destroy} just put back after a survival break: Vanilla's {@code playerDestroy} then drops the broken
+     * part and calls {@link #spawnAfterBreak} at the same position, which must not break the eggs of the parts put back.
+     */
+    private static final ThreadLocal<Restore> RESTORED = new ThreadLocal<>();
 
     /** Nach dem Entfernen durch einen Spieler: die nicht angeschauten Teile liegen wieder da (N37). */
     @Override
@@ -267,6 +280,9 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         level.setBlock(pos, withCounts(restore.state(), restore.parts()), Block.UPDATE_ALL);
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile) {
             pile.setParts(restore.parts());
+        }
+        if (restore.survival()) {
+            RESTORED.set(restore);
         }
     }
 

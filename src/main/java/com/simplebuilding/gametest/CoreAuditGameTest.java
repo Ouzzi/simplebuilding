@@ -4,4 +4,5 @@ import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric adapters of the core audit fixes (AUDIT.md, simplebuilding-8). */
 public final class CoreAuditGameTest {
     @GameTest public void operatorOnlyNeedsGamemasterLevel(GameTestHelper helper) { CoreAuditTests.operatorOnlyNeedsGamemasterLevel(helper); }
+    @GameTest public void brokenPilePartLeavesTheOtherEggsWhole(GameTestHelper helper) { CoreAuditTests.brokenPilePartLeavesTheOtherEggsWhole(helper); }
 }
