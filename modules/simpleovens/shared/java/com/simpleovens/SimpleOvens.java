@@ -59,7 +59,10 @@ public final class SimpleOvens {
     public static void init(Path configDir) {
         OvensConfig.load(configDir);
         // CMD24: /simpleovens config for every option.
-        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(OvensConfig::toJson, OvensConfig::apply).file(configDir, OvensConfig.FILE).register();
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(OvensConfig::toJson, OvensConfig::apply).file(configDir, OvensConfig.FILE)
+                // PLAN40 simpleovens-3: ranges for the generic config screen (the clamps of OvensConfig.apply)
+                .range("reinforcedSpeed", 1, OvensConfig.MAX_SPEED).range("netheriteSpeed", 1, OvensConfig.MAX_SPEED)
+                .range("enderiteSpeed", 1, OvensConfig.MAX_SPEED).register();
         registerIdMoves();
         MATERIALS.forEach(SimpleLibApi::requestMaterial);
         // The shipped upgrade file (data/simpleovens/in_world_upgrades) applies before datapack files of other namespaces.

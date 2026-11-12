@@ -234,7 +234,7 @@ public class EchoSounderItem extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer serverPlayer) {
-            if (!canJump(serverPlayer, stack)) {
+            if (!canJump(serverPlayer, stack, true)) {
                 return InteractionResult.FAIL;
             }
             player.startUsingItem(hand);
@@ -286,9 +286,10 @@ public class EchoSounderItem extends Item {
      * Alle Vorbedingungen des Sprungs (Server); eine Ablehnung ist hoerbar ({@link #failCue}, einmal je
      * Tastendruck), nie ein Bildschirmtext. Scheitert ein verknuepftes Echolot, sperrt der Versuch es kurz.
      */
-    private static boolean canJump(ServerPlayer player, ItemStack stack) {
+    private static boolean canJump(ServerPlayer player, ItemStack stack, boolean start) {
         if (!GadgetsConfig.echoEnabled) {
-            player.sendOverlayMessage(Component.translatable("message.simplegadgets.feature_disabled").withStyle(ChatFormatting.RED));
+            // PLAN40 simplegadgets-3 (rule 4, owner 12.11.: no text on the screen): switched off sounds like a blocked dimension.
+            failCue(player, SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), 0.6f, 0.7f);
             return false;
         }
         GlobalPos target = target(stack);
@@ -309,7 +310,9 @@ public class EchoSounderItem extends Item {
             return false;
         }
         ServerLevel targetLevel = player.level().getServer().getLevel(target.dimension());
-        if (targetLevel == null || !targetLevel.getBlockState(target.pos()).is(Blocks.LODESTONE)) {
+        Boolean there = targetLevel == null ? Boolean.FALSE : lodestoneThere(targetLevel, target.pos(), start);
+        if (there == null) return true; // far away: it loads in the background while the charge runs, the jump checks again
+        if (!there) {
             failCue(player, SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), 0.6f, 1.4f);
             lockAfterAttempt(player, stack);
             return false;
@@ -319,11 +322,25 @@ public class EchoSounderItem extends Item {
     }
 
     /**
+     * Whether the lodestone stands at {@code pos} (PLAN40 simplegadgets-3, audit simplegadgets-P3-1): read only from a loaded
+     * chunk, never by loading the far chunk on the server thread. Not loaded: at the start of a charge ({@code request}) a
+     * short portal ticket loads it in the background and the answer is null (unknown, the charge may run); at the jump an
+     * unloaded target counts as missing.
+     */
+    static @Nullable Boolean lodestoneThere(ServerLevel level, BlockPos pos, boolean request) {
+        net.minecraft.world.level.ChunkPos chunk = net.minecraft.world.level.ChunkPos.containing(pos);
+        if (level.getChunkSource().hasChunk(chunk.x(), chunk.z())) return level.getBlockState(pos).is(Blocks.LODESTONE);
+        if (!request) return Boolean.FALSE;
+        level.getChunkSource().addTicketWithRadius(net.minecraft.server.level.TicketType.PORTAL, chunk, 1);
+        return null;
+    }
+
+    /**
      * Der eigentliche Sprung am Ende der Ladezeit; true, wenn teleportiert wurde. Danach ist der
      * Kompass leer (voll repariert) oder zersprungen (nicht voll repariert).
      */
     public static boolean teleport(ServerPlayer player, InteractionHand hand, ItemStack stack) {
-        if (!canJump(player, stack)) {
+        if (!canJump(player, stack, false)) {
             return false;
         }
         GlobalPos target = target(stack);

@@ -1256,13 +1256,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 44,
+      "items": 48,
       "blocks": 9,
-      "recipes": 48,
-      "config": 6,
+      "recipes": 52,
+      "config": 7,
       "features": 9
     },
-    "dataHash": "098ac77c6a18"
+    "dataHash": "b1448d1e0e90"
   },
   {
     "id": "simplemobheads",
@@ -1276,8 +1276,7 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "simplelib",
-      "cloth_config"
+      "simplelib"
     ],
     "optional": [
       "simplebuilding",
@@ -1285,7 +1284,8 @@ window.WIKI_MODULES = [
       "simpleend",
       "simpleenddragonfight",
       "jei",
-      "modmenu"
+      "modmenu",
+      "cloth_config"
     ],
     "stage": "done",
     "parent": "simplebuilding",
@@ -1499,10 +1499,10 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 7,
       "recipes": 1,
-      "config": 11,
-      "features": 8
+      "config": 37,
+      "features": 9
     },
-    "dataHash": "10ada0361221"
+    "dataHash": "9018e66821a2"
   },
   {
     "id": "simpleoctets",
@@ -1583,7 +1583,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "05d38edc82e8"
+    "dataHash": "5e973feefcc2"
   },
   {
     "id": "simpleoptimization",
@@ -1828,7 +1828,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplegadgets",
     "displayName": "Simple Gadgets",
-    "description": "Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.",
+    "description": "Gadgets you hold and use: Gauge (speed dial, altimeter with fall-damage warning, auto-walk), Transposer, Resonance Rod, Detector, Attractor and Echo Sounder, moved from SimpleBuilding (ids migrate); the Color Brush follows later, the Octant lives in Simple Building Tools. Fabric only for now.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1852,9 +1852,9 @@ window.WIKI_MODULES = [
       "items": 7,
       "recipes": 12,
       "config": 31,
-      "features": 7
+      "features": 9
     },
-    "dataHash": "008d13f825e2"
+    "dataHash": "deda358208ec"
   },
   {
     "id": "simpleearth",

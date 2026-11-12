@@ -107,6 +107,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplehammers:empty")
+    public void anvilHammerTooExpensive(GameTestHelper h) {
+        HammerTests.ALL.get("anvil_hammer_too_expensive").accept(h);
+    }
+
+    @GameTest(structure = "simplehammers:empty")
+    public void overrideLevels(GameTestHelper h) {
+        HammerTests.ALL.get("override_levels").accept(h);
+    }
+
+    @GameTest(structure = "simplehammers:empty")
     public void jeiStandaloneWays(GameTestHelper h) {
         HammerTests.ALL.get("jei_standalone_ways").accept(h);
     }

@@ -19,7 +19,8 @@ import org.jetbrains.annotations.Nullable;
  * The crucible API moved to {@code com.simplecrucibles.api.SimpleCruciblesApi} (split stage 5).
  */
 public final class SimpleLibApi {
-    private static volatile boolean axeWaysDisabled;
+    /** PLAN40 simplehammers-1: the axe ways are off while this says so (a hammer mod passes its own on-switch). */
+    private static volatile java.util.function.BooleanSupplier axeWaysDisabled = () -> false;
 
     /**
      * A tool way on a block of a Simple mod (e.g. Simple Hammers' sledgehammer upgrade, the axe way of the crucibles): when
@@ -49,11 +50,19 @@ public final class SimpleLibApi {
      * Vanilla axe ways off.
      */
     public static void disableAxeWays() {
-        axeWaysDisabled = true;
+        disableAxeWays(() -> true);
+    }
+
+    /**
+     * As {@link #disableAxeWays()}, but only while {@code whileOn} is true (PLAN40 simplehammers-1): a hammer mod that is
+     * loaded but switched off gives the axe ways back, so the in-world upgrades never become a dead end.
+     */
+    public static void disableAxeWays(java.util.function.BooleanSupplier whileOn) {
+        axeWaysDisabled = whileOn;
     }
 
     public static boolean axeWaysEnabled() {
-        return !axeWaysDisabled;
+        return !axeWaysDisabled.getAsBoolean();
     }
 
     /** Whether {@code stack} is a hammer of any mod ({@code #simplelib:hammers}, filled by the hammer mod). */

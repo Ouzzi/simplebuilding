@@ -33,9 +33,9 @@ Gives every mob a collectible head for decoration and note blocks, dropped when 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib, Cloth Config
-- **Optional:** SimpleBuilding, Simple Mobs, Simple End, Simple End Dragon Fight, JEI, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+- **Required:** Fabric API, SimpleLib
+- **Optional:** SimpleBuilding, Simple Mobs, Simple End, Simple End Dragon Fight, JEI, Mod Menu, Cloth Config
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25

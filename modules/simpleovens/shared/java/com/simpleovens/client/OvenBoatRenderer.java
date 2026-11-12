@@ -50,6 +50,7 @@ public final class OvenBoatRenderer extends BoatRenderer {
             case "mangrove" -> ModelLayers.MANGROVE_BOAT;
             case "cherry" -> ModelLayers.CHERRY_BOAT;
             case "pale_oak" -> ModelLayers.PALE_OAK_BOAT;
+            case "poplar" -> ModelLayers.POPLAR_BOAT;
             case "bamboo" -> ModelLayers.BAMBOO_RAFT;
             default -> ModelLayers.OAK_BOAT;
         };

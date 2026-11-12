@@ -1,8 +1,6 @@
 package com.simplehammers.mixin;
 
 import com.simplehammers.engine.HammerAnvil;
-import com.simplehammers.item.SledgehammerItem;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -23,7 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Sledgehammers at the anvil ({@link HammerAnvil}: hammer + hammer, hammer + material); moved from SimpleBuilding's
  * {@code AnvilScreenHandlerMixin} (REV24-F-18), whose hammer part only runs on 26.2 ({@code McVersion.HAMMERS_IN_SB}),
  * so with or without SimpleBuilding exactly this mixin handles hammers. Vanilla's {@code mayPickup} takes the result,
- * the cost is always at least one level.
+ * the cost is always at least one level. PLAN40 simplehammers-2 (owner A): the prior work penalty counts like Vanilla's,
+ * and from 40 levels on the result is "too expensive" outside creative, as Vanilla's own {@code createResult} does.
  */
 @Mixin(AnvilMenu.class)
 public abstract class HammerAnvilMixin extends ItemCombinerMenu {
@@ -40,18 +39,10 @@ public abstract class HammerAnvilMixin extends ItemCombinerMenu {
     private void simplehammers$hammerResult(CallbackInfo ci) {
         HammerAnvil.Result result = HammerAnvil.result(this.inputSlots.getItem(0), this.inputSlots.getItem(1), this.itemName);
         if (result == null) return;
-        this.resultSlots.setItem(0, result.stack());
         this.cost.set(result.cost());
         this.repairItemCountCost = result.materials();
+        boolean tooExpensive = result.cost() >= 40 && !this.player.hasInfiniteMaterials(); // Vanilla's "too expensive" limit
+        this.resultSlots.setItem(0, tooExpensive ? ItemStack.EMPTY : result.stack());
         ci.cancel();
-    }
-
-    /** Whatever made a hammer result (vanilla included): it never raises the repair cost and is never "too expensive". */
-    @Inject(method = "createResult", at = @At("RETURN"))
-    private void simplehammers$hammerRepairCost(CallbackInfo ci) {
-        ItemStack output = this.resultSlots.getItem(0);
-        if (output.isEmpty() || !SledgehammerItem.isHammer(output)) return;
-        output.set(DataComponents.REPAIR_COST, 0);
-        if (this.cost.get() >= 40) this.cost.set(39);
     }
 }

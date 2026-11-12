@@ -13,11 +13,11 @@ TIERS = ('reinforced', 'netherite', 'enderite')
 KINDS = ('furnace', 'smoker', 'blast_furnace')
 BLOCKS = [f'{t}_{k}' for t in TIERS for k in KINDS]
 CARTS = [f'{t}_furnace_minecart' for t in TIERS]
-BOATS = [(t + '_' if t else '') + w + ('_furnace_raft' if w == 'bamboo' else '_furnace_boat') for t in ('',) + TIERS for w in ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'bamboo')]
+BOATS = [(t + '_' if t else '') + w + ('_furnace_raft' if w == 'bamboo' else '_furnace_boat') for t in ('',) + TIERS for w in ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar', 'bamboo')]
 
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OvensConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert config_keys == ['enabled', 'enableSimpleFoundry', 'enableSimpleCrucibles', 'reinforcedSpeed', 'netheriteSpeed', 'enderiteSpeed'], config_keys
+assert config_keys == ['enabled', 'enableSimpleFoundry', 'enableSimpleCrucibles', 'reinforcedSpeed', 'netheriteSpeed', 'enderiteSpeed', 'fuelEfficiency'], config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))

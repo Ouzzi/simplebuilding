@@ -67,7 +67,7 @@ public final class OvensTests {
         ALL.put("config_defaults", h -> {
             OvensConfig.reset();
             h.assertTrue(OvensConfig.enabled && OvensConfig.reinforcedSpeed == 2 && OvensConfig.netheriteSpeed == 4
-                    && OvensConfig.enderiteSpeed == 8, "defaults 2/4/8");
+                    && OvensConfig.enderiteSpeed == 8 && !OvensConfig.fuelEfficiency, "defaults 2/4/8, fuel burns with the speed");
             JsonObject json = new JsonObject();
             json.addProperty("reinforcedSpeed", 99);
             json.addProperty("netheriteSpeed", 0);
@@ -180,6 +180,35 @@ public final class OvensTests {
             h.succeed();
         });
         MAX_TICKS.put("tiers_cook_faster", 400);
+        // PLAN40 simpleovens-2 (owner A): the boost burns as many extra fuel ticks as it adds cook ticks (fuel per item as in
+        // Vanilla), never past the full cook time; fuelEfficiency keeps the fuel at the Vanilla pace (the old saving).
+        ALL.put("boost_burns_fuel_with_the_speed", h -> {
+            OvensConfig.reset();
+            List<String> problems = new ArrayList<>();
+            var state = OvensRegistry.FURNACES.get(OvenTier.NETHERITE).defaultBlockState();
+            var data = new net.minecraft.world.inventory.SimpleContainerData(4);
+            data.set(0, 1000); data.set(1, 1600); data.set(2, 10); data.set(3, 200);
+            com.simpleovens.OvenPerks.boost(state, data);
+            if (data.get(2) != 13 || data.get(0) != 997) problems.add("netherite x4: cook " + data.get(2) + " fuel " + data.get(0));
+            data.set(2, 198);
+            com.simpleovens.OvenPerks.boost(state, data);
+            if (data.get(2) != 199 || data.get(0) != 996) problems.add("capped below the cook time: cook " + data.get(2) + " fuel " + data.get(0));
+            data.set(0, 2); data.set(2, 50);
+            com.simpleovens.OvenPerks.boost(state, data);
+            if (data.get(0) != 0) problems.add("fuel never below 0: " + data.get(0));
+            JsonObject json = new JsonObject();
+            json.addProperty("fuelEfficiency", true);
+            OvensConfig.apply(json);
+            data.set(0, 1000); data.set(2, 10);
+            com.simpleovens.OvenPerks.boost(state, data);
+            if (data.get(2) != 13 || data.get(0) != 1000) problems.add("fuelEfficiency: cook " + data.get(2) + " fuel " + data.get(0));
+            OvensConfig.reset();
+            data.set(0, 1000); data.set(2, 10);
+            com.simpleovens.OvenPerks.boost(Blocks.FURNACE.defaultBlockState(), data);
+            if (data.get(2) != 10 || data.get(0) != 1000) problems.add("a Vanilla furnace is not touched");
+            h.assertTrue(problems.isEmpty(), "fuel: " + problems);
+            h.succeed();
+        });
         ALL.put("tiers_cook_faster", h -> {
             OvensConfig.reset();
             List<String> problems = new ArrayList<>();

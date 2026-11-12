@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplecrucibles:empty")
+    public void subModSwitch(GameTestHelper h) {
+        CrucibleTests.ALL.get("sub_mod_switch").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
     public void configCommand(GameTestHelper h) {
         CrucibleTests.ALL.get("config_command").accept(h);
     }

@@ -276,11 +276,13 @@ Starker Leuchtturm, starke Conduit, Upgrade-Vorlage.
 Verstärkte, Netherit- und Enderit-Öfen, Räucher- und Hochöfen, Ofen-Loren; Pflicht-Sub-Mod von SimpleBuilding.
 
 - In-World-Upgrades: Axt allein, Vorschlaghammer in SimpleBuilding. Ids wanderten aus SimpleBuilding (IdMoves).
+- **A12 (PLAN40 simpleovens-3):** Nutzen: schneller schmelzen, räuchern und erzschmelzen im Mittel- und Spätspiel (2×/4×/8×), doppelte Erfahrung ab Netherit, dazu Antriebsloren und Ofenboote aller Vanilla-Hölzer. Ändert die Vanilla-Öfen nicht: die Stufen sind eigene Blöcke (Vanilla-Unterklassen mit Vanilla-Menüs, Trichter, Komparator und Abbau wie Vanilla); einziger Mixin `AbstractFurnaceMenuMixin` teilt nur Garzeiten über 32767 für die Anzeige. Balance: Brennstoff je Gegenstand wie in der Vanilla-Maschine (schneller, nicht billiger; PLAN40 simpleovens-2), die frühere Ersparnis nur per Config `fuelEfficiency`; keine Erfahrung aus dem Rissdiamant-Kreislauf (`#simpleovens:furnace_bonus_excluded`). Eingriff in Vanilla: gering, abschaltbar (`enabled`, „Enable Simple Ovens“).
 
 ### Simple Mobheads (`simplemobheads`)
 Kopf für jeden Mob; Pflicht-Sub-Mod von SimpleBuilding.
 
-- keine eigenen Regeln bisher
+- Abhängigkeiten: nur SimpleLib; Cloth Config ist optional (nur der Einstellungsbildschirm über Mod Menu braucht es, `ModMenuIntegration` prüft es; PLAN40 simplemobheads-2).
+- **A12 (PLAN40 simplemobheads-2, Besitzer-Entscheide 29.09./13.10./KONZ20/EH21 bleiben):** Nutzen: Sammel- und Deko-Ziel für jeden Mob (Notenblock spielt den Mob-Klang), Köpfe fallen nach Vanilla-Regel (Explosion eines geladenen Creepers, ein Kopf je Explosion); kleine Trage-Fähigkeiten, je Fähigkeit abschaltbar (`abilities`). Eingriffe, standardmäßig an und begründet: (1) **Zusatz-Kopfplatz** (SimpleBuilding, N49): Kopf und Helm zugleich – Fähigkeit plus voller Rüstungsschutz; bewusst, weil die Fähigkeiten klein sind und sonst kein Kopf getragen würde; nur mit SimpleBuilding. (2) **Easter-Spawns**: Killerkaninchen (1 : 1000 in Blumenwald/Wiese), Riesenzombie (natürlicher Blitz bei Vollmond), Riesenkuh (1 : 5000 je gefressenem Heuballen) – selten, nur Spaß, einzeln abschaltbar (`killerBunnies`, `giantZombies`, `giantCows`); der Riesenkopf prüft beim Wachsen den Platz (AUDSB31B F8, a-audsb31b). (3) **Herobrine**: Ritual nur auf ausdrückliche Tat des Spielers (goldener Schrein bei Nacht), danach fünf Minuten Spuk nur für diesen Spieler ohne Weltänderung (`herobrineRitual`, `hauntPhase`, Hinweisbuch `hintBook`). Keine Vanilla-Beutetabelle wird ersetzt, Wither-Kopf standardmäßig aus. Eingriff in Vanilla: gering bis mittel (seltene Zusatz-Spawns), alles abschaltbar außer dem Zusatz-Kopfplatz (SimpleBuilding).
 
 ### Simple Shops (`simpleshops`)
 Spieler-Shops: Verkaufsblock mit Preis, Vitrine mit Waren.
@@ -353,9 +355,11 @@ Achtelblöcke (kleine 1/8-Blöcke), gemischte Zellen, Steinsäge-Rezepte (Stufe 
 - Schach-Achtel bleiben in SimpleBuilding (F3); die Zellen-Basisklasse gehört dem Modul.
 
 ### Simple Crucibles (`simplecrucibles`)
-Eisen-, verstärkte, Netherit- und Enderit-Tiegel und -Fässer, verstärkter Kessel, Dorfküchen; Pflicht-Sub-Mod von SimpleBuilding.
+Eisen-, verstärkte, Netherit- und Enderit-Tiegel, verstärkter Kessel, Kupfer- und Seelen-Lava-Eimer, Seelen-Lava, Dorf-Feldküchen; Sub-Mod von Simple Ovens (seit IG31-15, optional gebündelt), allein spielbar. Die Fässer gehören seit WH26-6 Simple Storage und docken nur an einen Tiegel an.
 
-- In-World-Upgrades: Axt allein, Vorschlaghammer in SimpleBuilding. Ids wanderten aus SimpleLib/SimpleBuilding (IdMoves).
+- In-World-Upgrades: Axt allein, Vorschlaghammer mit Simple Hammers (solange die Hämmer an sind). Ids wanderten aus SimpleLib/SimpleBuilding (IdMoves). Der Schalter „Enable Simple Crucibles“ (Config von Simple Ovens) nimmt Tab-Einträge, Handbuch, Dorfküche und Axt-/Hammer-Wege weg; gebaute Tiegel arbeiten weiter.
+- **A12 (PLAN40 simplecrucibles-2):** Nutzen: brennstofffreies Garen vieler Stapel zugleich im Mittel- und Spätspiel, ein stabilerer Kessel, Seelen-Lava als seltene Nether-Flüssigkeit. Eingriffe: (1) Seelen-Lava in der Nether-Weltgenerierung (Anteil der Lava-Quellen `soulLava.springChance` 0,5 %, Festungs-Brunnen `soulLava.fortressChance` 10 %, 0 = aus, nur neue Chunks; Mixins `SoulLavaSpringMixin`, `SoulLavaFortressMixin`, Nebel `SoulLavaFogMixin`); (2) der Vanilla-Eisen-Eimer zerbricht an Seelen-Lava – dafür Kupfer-Eimer (nur für die neue Flüssigkeit, Vanilla-Lava/Wasser unverändert); (3) Kupfer-Eimer funktionieren auch am Vanilla-Kessel und altern nur in Schnellleiste/Nebenhand; (4) Dorf-Feldküchen in den Häuser-Pools aller fünf Dorfarten (`villageKitchenWeight`, 0 = aus, nur neue Dörfer); (5) Axt-Bau auf dem leeren Vanilla-Kessel (Mixin `AxeBuildMixin`, nur mit Teil in der Nebenhand). Eingriff in Vanilla: mittel (Weltgenerierung), alles abschaltbar.
+- **Balance Tiegel ↔ Simple Ovens (Besitzer F4/F5/N30/N37, begründet):** Tiegel garen ohne Brennstoff alle Plätze zugleich (6/12/18/30 Plätze, Tempo 1/2/4/8) und sind damit stärker als Öfen. Ausgleich: eine feste Hitzequelle unter dem Tiegel ist Pflicht (Mittel ×0,5, Hoch ×0,75, nur Seelen-Lava extrem ×1,0; Schmelzen/Erzschmelzen erst ab hoher Hitze), Bau in der Welt (16 Eisenbarren) und Aufwertung mit Rissdiamanten, Netherit- bzw. Enderit-Klumpen. Öfen bleiben die einfache, überall stellbare Lösung mit Vanilla-Brennstoff je Gegenstand. Keine Zahl ohne Besitzer-Entscheid ändern.
 
 ### Simple Building Tools (`simplebuildingtools`)
 Bauzauberstäbe, Octant in 17 Farben, Bauplan mit Editor und Bildimport; Pflicht-Sub-Mod von SimpleBuilding.
@@ -396,6 +400,7 @@ Hand-Werkzeuge: Messgerät, Transposer, Detektor, Attraktor, Resonanzstab.
 Sieben Vorschlaghämmer (3x3 abbauen, umformen, Octets schnitzen, Blöcke aufwerten) und die Verzauberungen Durchbruch, Überschreiben, Radius.
 
 - **A12:** Nutzen: schneller Abbau und Umbau. Mixins an Abbau-Tempo, Amboss, Treppenform, Rezepten und Rendern. Eingriff in Vanilla: mittel (Abbau-Hook), nur mit Hammer in der Hand.
+- **Balance (PLAN40 simplehammers-2):** Steinhammer ohne Eisen (Steinblock + `#minecraft:stone_tool_materials`, wie Vanillas Steinwerkzeuge); Amboss mit Vanillas Arbeitskosten (Vorbelastung steigt, ab 40 Stufen zu teuer); Aufwertungs-Leiter mit SimpleBuilding bleibt bei der Familienregel der einfachen Aufwertung (doppeltes Handwerksmaterial, 22; Leiter über Gold wie bei den Vanilla-Werkzeugen), Neubau bleibt billiger, die Aufwertung behält Verzauberungen. Übersteuerung II (Allzweck-Hammer) ist der stärkste Eingriff, nur über die Verzauberung Stufe II, getestet (`override_levels`).
 
 ### Simple Layers (`simplelayers`)
 Wolkenmeer über y 700 und Backrooms als eigene Dimension mit zehn Ebenen (Eingänge: Keller eines verlassenen Hauses, Riss im gestörten Grundgestein).

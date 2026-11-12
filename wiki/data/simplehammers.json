@@ -40,7 +40,7 @@
         "title": "Sledgehammers: mining a whole area",
         "summary": "Seven sledgehammers from Stone to Enderite. Each mines like a pickaxe of its tier, but one swing takes the 3x3 area in front of you along; sneaking mines just the aimed block. Bigger areas take longer: the first block costs 1.5 times a same-tier pickaxe, blocks 2 to 9 another 0.8 each, every further block 0.7.",
         "details": [
-          "Recipes: a block and two ingots (or gems) of the material in the top row, two sticks below (Stone: cobblestone and an iron ingot). Netherite: smithing table with a Netherite Upgrade and a Netherite Ingot on the Diamond Sledgehammer; Enderite: Enderite Upgrade template and an Enderite Ingot on the Netherite Sledgehammer. With SimpleBuilding a Basic Upgrade template and 22 ingots also take Copper to Iron, Iron to Gold and Gold to Diamond.",
+          "Recipes: a block and two ingots (or gems) of the material in the top row, two sticks below (Stone: a stone block and two cobblestone, blackstone or cobbled deepslate, like Vanilla's stone tools). Netherite: smithing table with a Netherite Upgrade and a Netherite Ingot on the Diamond Sledgehammer; Enderite: Enderite Upgrade template and an Enderite Ingot on the Netherite Sledgehammer. With SimpleBuilding a Basic Upgrade template and 22 ingots also take Copper to Iron, Iron to Gold and Gold to Diamond (the family rule of the Basic Upgrade: twice the crafting material of the target, the same ladder as the Vanilla tools; the upgrade keeps enchantments and name).",
           "The area lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you. Without an enchantment it takes only blocks of the same type that need a pickaxe and that the hammer may harvest.",
           "Durability is four times a pickaxe of the tier (Stone 760 ... Enderite 10000); every broken block costs 2, a block of the area it is not the right tool for one more. Netherite and Enderite hammers do not burn.",
           "Mining time: the area time is computed on client and server alike; switching between sneaking (one block) and the area while mining converts the progress, so it never jumps ahead.",
@@ -53,7 +53,7 @@
         "title": "Vorschlaghämmer: eine ganze Fläche abbauen",
         "summary": "Sieben Vorschlaghämmer von Stein bis Enderit. Jeder baut ab wie eine Spitzhacke seiner Stufe, nimmt aber mit einem Schlag die 3x3-Fläche vor dir mit; Schleichen baut nur den angezielten Block ab. Größere Flächen dauern länger: der erste Block kostet das 1,5-fache einer Spitzhacke derselben Stufe, Block 2 bis 9 je 0,8 mehr, jeder weitere 0,7.",
         "details": [
-          "Rezepte: oben ein Block und zwei Barren (oder Edelsteine) des Materials, darunter zwei Stöcke (Stein: Bruchstein und ein Eisenbarren). Netherit: Schmiedetisch mit Netherit-Aufwertung und Netheritbarren auf dem Diamant-Vorschlaghammer; Enderit: Enderit-Aufwertungsvorlage und Enderitbarren auf dem Netherit-Vorschlaghammer. Mit SimpleBuilding werten eine einfache Aufwertungsvorlage und 22 Barren auch Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant auf.",
+          "Rezepte: oben ein Block und zwei Barren (oder Edelsteine) des Materials, darunter zwei Stöcke (Stein: ein Steinblock und zwei Bruchstein, Schwarzstein oder Bruchtiefenschiefer, wie bei Vanillas Steinwerkzeugen). Netherit: Schmiedetisch mit Netherit-Aufwertung und Netheritbarren auf dem Diamant-Vorschlaghammer; Enderit: Enderit-Aufwertungsvorlage und Enderitbarren auf dem Netherit-Vorschlaghammer. Mit SimpleBuilding werten eine einfache Aufwertungsvorlage und 22 Barren auch Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant auf (Familienregel der einfachen Aufwertung: doppeltes Handwerksmaterial des Ziels, dieselbe Leiter wie bei den Vanilla-Werkzeugen; die Aufwertung behält Verzauberungen und Namen).",
           "Die Fläche liegt flach, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie aufrecht vor dir. Ohne Verzauberung nimmt sie nur Blöcke derselben Art, die eine Spitzhacke brauchen und die der Hammer ernten darf.",
           "Haltbarkeit: das Vierfache einer Spitzhacke der Stufe (Stein 760 ... Enderit 10000); jeder abgebaute Block kostet 2, ein Block der Fläche, für den er nicht das richtige Werkzeug ist, einen mehr. Netherit- und Enderit-Hämmer verbrennen nicht.",
           "Abbauzeit: Client und Server rechnen die Flächenzeit gleich; wer beim Abbauen zwischen Schleichen (ein Block) und Fläche wechselt, behält die Abbauzeit, der Fortschritt springt nie vor.",
@@ -194,7 +194,7 @@
         "title": "In-world upgrades with the hammer",
         "summary": "Hammer in the main hand, the upgrade material in the off hand, hold use on an upgradable block: one strike per tick-gap of the hammer tier (about one per second, 5 by default), the last one turns it into the next tier with its contents. Which blocks go up is SimpleLib's data type in_world_upgrades - every Simple mod ships its own (crucibles, furnaces, beacons, SimpleBuilding's chests, hoppers and pistons).",
         "details": [
-          "While Simple Hammers is loaded the axe ways of the other Simple mods are off: building crucibles, attaching barrels and upgrading run with the hammer only.",
+          "While Simple Hammers is loaded and switched on, the axe ways of the other Simple mods are off: building crucibles, attaching barrels and upgrading run with the hammer only. Switched off (enabled false or \"Enable Simple Hammers\" off), the axe takes these ways again.",
           "Netherite tiers need at least a Diamond Sledgehammer, Enderite tiers a Netherite one (min_tool). Each strike costs 2 (to reinforced), 4 (Netherite) or 10 (Enderite) durability (config).",
           "Strikes are saved with the world and shown as cracks; anyone continues where it stopped. Letting go, looking away, a changed block or missing material stops it without using the material.",
           "Crucibles go up strike by strike with one material unit every few strikes (Simple Crucibles); a double chest needs the material twice (SimpleBuilding).",
@@ -207,7 +207,7 @@
         "title": "Aufwerten in der Welt mit dem Hammer",
         "summary": "Hammer in der Haupthand, das Aufwertungsmaterial in der Nebenhand, Benutzen auf einem aufwertbaren Block halten: ein Schlag im Takt der Hammerstufe (etwa einer je Sekunde, Standard 5), der letzte macht ihn samt Inhalt zur nächsten Stufe. Welche Blöcke aufsteigen, sagt SimpleLibs Datentyp in_world_upgrades - jede Simple-Mod bringt ihre eigenen mit (Tiegel, Öfen, Leuchtfeuer, SimpleBuildings Truhen, Trichter und Kolben).",
         "details": [
-          "Solange Simple Hammers geladen ist, sind die Axt-Wege der anderen Simple-Mods aus: Tiegel bauen, Fässer andocken und Aufwerten gehen nur mit dem Hammer.",
+          "Solange Simple Hammers geladen und eingeschaltet ist, sind die Axt-Wege der anderen Simple-Mods aus: Tiegel bauen, Fässer andocken und Aufwerten gehen nur mit dem Hammer. Abgeschaltet (enabled false oder „Enable Simple Hammers“ aus) übernimmt wieder die Axt.",
           "Netherit-Stufen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Stufen einen aus Netherit (min_tool). Jeder Schlag kostet 2 (zu verstärkt), 4 (Netherit) oder 10 (Enderit) Haltbarkeit (Config).",
           "Die Schläge werden mit der Welt gespeichert und als Risse gezeigt; jeder setzt dort fort. Loslassen, Wegschauen, ein anderer Block oder fehlendes Material bricht ab, ohne Material zu verbrauchen.",
           "Tiegel steigen Schlag für Schlag auf, alle paar Schläge eine Materialeinheit (Simple Crucibles); eine Doppeltruhe braucht das Material doppelt (SimpleBuilding).",
@@ -273,12 +273,12 @@
       ],
       "en": {
         "title": "Sledgehammers at the anvil",
-        "summary": "Two sledgehammers combine for 1 level: both durabilities plus 12 % of the maximum, enchantments merged like vanilla (incompatible ones from the right hammer are dropped). With its repair material a damaged hammer mends one eleventh per piece for 1 level per piece (+1 for a new name, at most 39). Hammer results never raise the repair cost.",
+        "summary": "Two sledgehammers combine for 1 level: both durabilities plus 12 % of the maximum, enchantments merged like vanilla (incompatible ones from the right hammer are dropped). With its repair material a damaged hammer mends one eleventh per piece for 1 level per piece (+1 for a new name). Like vanilla, every anvil use raises the hammer's repair cost (prior work: the cost adds it, the result carries twice the old value plus one), and from 40 levels on the anvil is too expensive outside creative.",
         "details": []
       },
       "de": {
         "title": "Vorschlaghämmer am Amboss",
-        "summary": "Zwei Vorschlaghämmer verbinden sich für 1 Stufe: beide Haltbarkeiten plus 12 % des Höchstwerts, Verzauberungen wie in Vanilla vereint (unverträgliche des rechten Hammers fallen weg). Mit seinem Reparaturmaterial wird ein beschädigter Hammer je Stück um ein Elftel repariert, 1 Stufe je Stück (+1 für einen neuen Namen, höchstens 39). Hammer-Ergebnisse erhöhen die Arbeitskosten nie.",
+        "summary": "Zwei Vorschlaghämmer verbinden sich für 1 Stufe: beide Haltbarkeiten plus 12 % des Höchstwerts, Verzauberungen wie in Vanilla vereint (unverträgliche des rechten Hammers fallen weg). Mit seinem Reparaturmaterial wird ein beschädigter Hammer je Stück um ein Elftel repariert, 1 Stufe je Stück (+1 für einen neuen Namen). Wie in Vanilla erhöht jede Amboss-Nutzung die Arbeitskosten des Hammers (Vorbelastung: sie kommt auf die Kosten, das Ergebnis trägt das Doppelte plus eins), ab 40 Stufen ist der Amboss außerhalb des Kreativmodus zu teuer.",
         "details": []
       }
     },
@@ -291,14 +291,14 @@
         "title": "Server Config",
         "summary": "config/simplehammers-server.json: enabled, upgradeSeconds (1-30, default 5), reinforcedDamagePerHit (2), netheriteDamagePerHit (4), enderiteDamagePerHit (10) (0-64 each) and diamondBlockPebbles (1-81, default 81). On the first start it takes these values from SimpleBuilding's config (server.tools); missing or broken keys use the defaults.",
         "details": [
-          "enabled false makes the hammers plain pickaxes of their tier (no area, no reshaping, no upgrades)."
+          "enabled false makes the hammers plain pickaxes of their tier (no area, no reshaping, no upgrades); the axe ways of the other Simple mods come back."
         ]
       },
       "de": {
         "title": "Server-Config",
         "summary": "config/simplehammers-server.json: enabled, upgradeSeconds (1-30, Standard 5), reinforcedDamagePerHit (2), netheriteDamagePerHit (4), enderiteDamagePerHit (10) (je 0-64) und diamondBlockPebbles (1-81, Standard 81). Beim ersten Start übernimmt sie diese Werte aus SimpleBuildings Config (server.tools); fehlende oder kaputte Schlüssel nehmen die Standardwerte.",
         "details": [
-          "enabled false macht die Hämmer zu einfachen Spitzhacken ihrer Stufe (keine Fläche, kein Umformen, keine Aufwertung)."
+          "enabled false macht die Hämmer zu einfachen Spitzhacken ihrer Stufe (keine Fläche, kein Umformen, keine Aufwertung); die Axt-Wege der anderen Simple-Mods kommen zurück."
         ]
       }
     },
@@ -760,9 +760,9 @@
       },
       "source": "modules/simplehammers/shared/resources/data/simplehammers/recipe/stone_sledgehammer.json",
       "ingredients": [
-        "minecraft:cobblestone",
-        "minecraft:iron_ingot",
-        "minecraft:stick"
+        "#minecraft:stone_tool_materials",
+        "minecraft:stick",
+        "minecraft:stone"
       ],
       "pattern": [
         "BMM",
@@ -771,10 +771,10 @@
       ],
       "key": {
         "B": [
-          "minecraft:iron_ingot"
+          "minecraft:stone"
         ],
         "M": [
-          "minecraft:cobblestone"
+          "#minecraft:stone_tool_materials"
         ],
         "S": [
           "minecraft:stick"
@@ -788,13 +788,16 @@
             "count": 2
           },
           {
-            "id": "minecraft:iron_ingot",
+            "id": "minecraft:stone",
             "count": 1
           },
           {
             "id": "minecraft:oak_log",
             "count": 0.25
           }
+        ],
+        "tagExamples": [
+          "#minecraft:stone_tool_materials"
         ]
       }
     },
@@ -1454,10 +1457,10 @@
           "modules/simplehammers/shared/resources/data/simplehammers/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Hammers\" of the Simple Modpack guide (SimpleLib): 26 pages taken from this wiki, shown in your language. Unlocked by picking up: iron ingot. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Hammers\" of the Simple Modpack guide (SimpleLib): 28 pages taken from this wiki, shown in your language. Unlocked by picking up: iron ingot. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Hammers\" im Simple-Modpack-Handbuch (SimpleLib): 26 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Eisenbarren. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Hammers\" im Simple-Modpack-Handbuch (SimpleLib): 28 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Eisenbarren. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplehammers/item/guide_book.png",
@@ -1655,8 +1658,8 @@
       "groupDe": null,
       "label": "Enable Simple Hammers",
       "labelDe": "Simple Hammers aktivieren",
-      "tooltip": "Off: hammers work like a plain pickaxe (no\narea mining, no upgrades). Default: true.",
-      "tooltipDe": "Aus: Hämmer arbeiten wie eine einfache\nSpitzhacke (kein Flächenabbau, keine\nAufwertungen). Standard: true."
+      "tooltip": "Off: hammers work like a plain pickaxe (no\narea mining, no upgrades); the axe takes\nthe upgrades of the Simple mods. Default: true.",
+      "tooltipDe": "Aus: Hämmer arbeiten wie eine einfache\nSpitzhacke (kein Flächenabbau, keine\nAufwertungen); die Axt übernimmt die\nAufwertungen der Simple-Mods. Standard: true."
     },
     {
       "range": [

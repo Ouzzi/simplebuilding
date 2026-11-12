@@ -796,7 +796,10 @@ public final class FurnaceTests {
     // =====================================================================================
 
     /**
-     * The boost is free: it speeds the cook up without touching what the fuel slot pays.
+     * The boost needs no second piece of fuel within the window. On 26.3 (Simple Ovens, PLAN40 simpleovens-2) the boost
+     * burns the lit time along with the extra cook ticks, so fuel per item is Vanilla's; on 26.2 the SimpleBuilding tiers keep
+     * the old free boost. One coal (1600 ticks) covers the 230 tick window either way (26.3: about 920 burnt), so the
+     * count below holds on both lines; Simple Ovens' own test {@code boost_burns_fuel_with_the_speed} pins the fuel rule.
      *
      * <p>A vanilla furnace and a netherite furnace are each given eight raw iron and exactly ONE
      * piece of coal, then ticked side by side. That single piece is the whole design. Coal burns for
@@ -806,11 +809,9 @@ public final class FurnaceTests {
      * slot with eight coal, so a device that burned through several of them would still finish on
      * time.
      *
-     * <p><b>Which half is load bearing.</b> Only the output ratio is. The mod's tick writes
-     * container data index 2 and nothing else - it never touches the fuel slot and never touches
-     * {@code litTimeRemaining} - so "both fuel slots are empty" and "both blocks are still lit" are
-     * vanilla's doing, and no edit to the four lines under test can turn either of them red on its
-     * own. They are kept as controls, not as coverage: when the ratio fails they say at a glance
+     * <p><b>Which half is load bearing.</b> Only the output ratio is. The mod's tick never touches
+     * the fuel slot, so "both fuel slots are empty" is vanilla's doing; "both blocks are still lit"
+     * holds as long as the boost burns at most its own speed in lit time (26.3) or none (26.2). They are kept as controls, not as coverage: when the ratio fails they say at a glance
      * whether the run went wrong because a furnace never lit, went out early or reached for a second
      * piece of coal.
      *
@@ -833,9 +834,9 @@ public final class FurnaceTests {
      * extra points give three ingots, four give five, six give seven).
      *
      * <p>What breaks this test: the netherite step size moving in either direction, the boost
-     * stopping altogether, and any change that makes the boost cost fuel - a second
-     * {@code consumeFuel}, a shortened burn duration for the mod tiers - because with one piece of
-     * coal in the slot there is nothing to fall back on.
+     * stopping altogether, and any change that makes the boost cost more fuel than its speed - a
+     * second {@code consumeFuel}, a shortened burn duration for the mod tiers - because with one piece
+     * of coal in the slot there is nothing to fall back on.
      */
     public static void oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne(GameTestHelper helper) {
         BlockPos vanilla = new BlockPos(1, 1, 1);

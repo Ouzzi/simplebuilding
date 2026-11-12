@@ -63,6 +63,7 @@ public final class GadgetsDiscover {
             "simplegadgets:guide_book",
             "simplegadgets:magnet",
             "simplegadgets:migration",
+            "simplegadgets:resonance_rod",
             "simplegadgets:rotator",
             "simplegadgets:velocity_gauge",
             "simplehammers:radius");

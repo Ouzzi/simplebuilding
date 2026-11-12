@@ -4,13 +4,13 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Held gadgets, starting with the Gauge: speed dial, altimeter with fall-damage warning and auto-walk.
+Six held gadgets: Gauge, Transposer, Resonance Rod, Detector, Attractor and an Echo Sounder that jumps back to a lodestone.
 
 ## Description (Markdown)
 
 # Simple Gadgets
 
-Simple Gadgets collects tools you hold and use. The Gauge is the first one; more gadgets are planned and are not claimed here.
+Simple Gadgets collects tools you hold and use: the Gauge (speed, altimeter, auto-walk), the Transposer that turns blocks and poses armor stands, the Resonance Rod with its aiming dot that melts and lights, the Detector that points to ores, the Attractor that pulls loose items, and the Echo Sounder that jumps you back to a linked lodestone. They tell you things with sounds, particles and the item itself, never with text on the screen.
 
 ## Features
 
@@ -18,6 +18,8 @@ Simple Gadgets collects tools you hold and use. The Gauge is the first one; more
 - **Transposer** - The Transposer is a handy tool for turning orientable blocks right where they are in the world, without breaking and replacing them.
 - **Detector**
 - **Attractor: Collecting Items From a Distance** - The Attractor pulls loose items while held in either hand.
+- **Echo Sounder** - Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels.
+- **Resonance Rod** - The Resonance Rod projects a light amethyst aiming dot while held in use.
 - **Readout box**
 - **Moved from SimpleBuilding** - The Gauge, the Transposer and the Resonance Rod, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).

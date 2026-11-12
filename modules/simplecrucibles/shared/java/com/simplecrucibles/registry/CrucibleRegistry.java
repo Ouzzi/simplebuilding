@@ -24,8 +24,10 @@ public final class CrucibleRegistry {
                         .build());
     }
 
+    /** The blocks of the tab; empty while the module is switched off. */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
+        if (!SimpleCrucibles.on()) return out;
         out.add(new ItemStack(CrucibleItems.IRON_CRUCIBLE));
         out.add(new ItemStack(CrucibleItems.REINFORCED_CRUCIBLE));
         out.add(new ItemStack(CrucibleItems.NETHERITE_CRUCIBLE));
@@ -41,6 +43,7 @@ public final class CrucibleRegistry {
      */
     public static List<ItemStack> bucketStacks() {
         List<ItemStack> out = new ArrayList<>();
+        if (!SimpleCrucibles.on()) return out;
         com.simplecrucibles.fluid.CrucibleFluids.buckets().forEach(item -> out.add(new ItemStack(item)));
         return out;
     }

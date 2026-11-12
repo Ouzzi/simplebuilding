@@ -43,7 +43,7 @@
         "details": [
           "Nine blocks: Reinforced, Netherite and Enderite Furnace, Smoker and Blast Furnace (simpleovens:<tier>_<kind>).",
           "Every tier runs the Vanilla furnace logic first and uses the Vanilla menu of its family (FurnaceMenu, SmokerMenu, BlastFurnaceMenu); one block entity type per family (simpleovens:furnace, smoker, blast_furnace) serves all three tiers.",
-          "Speed-up: while fuel burns and a cook has started, each tick adds speed - 1 extra progress ticks (config reinforcedSpeed, netheriteSpeed, enderiteSpeed; default 2, 4, 8). The progress never reaches the full cook time, so the last step and the result stay Vanilla's.",
+          "Speed-up: while fuel burns and a cook has started, each tick adds speed - 1 extra progress ticks (config reinforcedSpeed, netheriteSpeed, enderiteSpeed; default 2, 4, 8). The progress never reaches the full cook time, so the last step and the result stay Vanilla's. The fuel burns as many extra ticks as the progress gains, so one fuel item smelts as many items as in the Vanilla machine (faster, not cheaper - like the Vanilla blast furnace); fuelEfficiency brings back the old saving.",
           "The smokers and blast furnaces cook at the Vanilla speed of their family (26.3 speeds those up through the fuel only for the two Vanilla blocks) and the tier speed on top.",
           "Reinforced recipe: 3 Cracked Diamonds, 3 Vanilla machines, 3 Cracked Diamonds in three rows yield 3 (recipe book category Redstone).",
           "Netherite and Enderite tiers have no crafting recipe: they are upgraded in place (see In-World Upgrade).",
@@ -61,7 +61,7 @@
         "details": [
           "Neun Blöcke: Verstärkter, Netherit- und Enderit-Ofen, -Räucherofen und -Schmelzofen (simpleovens:<stufe>_<art>).",
           "Jede Stufe führt zuerst die Vanilla-Ofenlogik aus und nutzt das Vanilla-Menü ihrer Familie (FurnaceMenu, SmokerMenu, BlastFurnaceMenu); ein Block-Entity-Typ je Familie (simpleovens:furnace, smoker, blast_furnace) bedient alle drei Stufen.",
-          "Beschleunigung: solange Brennstoff brennt und ein Garvorgang läuft, kommen je Tick Tempo - 1 Fortschrittsticks dazu (Config reinforcedSpeed, netheriteSpeed, enderiteSpeed; Standard 2, 4, 8). Der Fortschritt erreicht nie die volle Garzeit, den letzten Schritt und das Ergebnis macht Vanilla.",
+          "Beschleunigung: solange Brennstoff brennt und ein Garvorgang läuft, kommen je Tick Tempo - 1 Fortschrittsticks dazu (Config reinforcedSpeed, netheriteSpeed, enderiteSpeed; Standard 2, 4, 8). Der Fortschritt erreicht nie die volle Garzeit, den letzten Schritt und das Ergebnis macht Vanilla. Der Brennstoff brennt so viele Ticks mehr, wie der Fortschritt gewinnt: ein Brennstoff schmilzt so viele Gegenstände wie in der Vanilla-Maschine (schneller, nicht billiger - wie der Vanilla-Schmelzofen); fuelEfficiency holt die alte Ersparnis zurück.",
           "Räucheröfen und Schmelzöfen garen im Vanilla-Tempo ihrer Familie (26.3 beschleunigt die beiden Vanilla-Blöcke nur über den Brennstoff) plus das Stufentempo.",
           "Verstärktes Rezept: 3 Rissige Diamanten, 3 Vanilla-Geräte, 3 Rissige Diamanten in drei Reihen ergeben 3 (Rezeptbuch-Kategorie Redstone).",
           "Netherit- und Enderit-Stufe haben kein Werkbankrezept: sie werden an Ort und Stelle aufgewertet (siehe Aufwertung in der Welt).",
@@ -202,6 +202,7 @@
         "simpleovens:mangrove_furnace_boat",
         "simpleovens:cherry_furnace_boat",
         "simpleovens:pale_oak_furnace_boat",
+        "simpleovens:poplar_furnace_boat",
         "simpleovens:bamboo_furnace_raft",
         "simpleovens:reinforced_oak_furnace_boat",
         "simpleovens:reinforced_spruce_furnace_boat",
@@ -212,6 +213,7 @@
         "simpleovens:reinforced_mangrove_furnace_boat",
         "simpleovens:reinforced_cherry_furnace_boat",
         "simpleovens:reinforced_pale_oak_furnace_boat",
+        "simpleovens:reinforced_poplar_furnace_boat",
         "simpleovens:reinforced_bamboo_furnace_raft",
         "simpleovens:netherite_oak_furnace_boat",
         "simpleovens:netherite_spruce_furnace_boat",
@@ -222,6 +224,7 @@
         "simpleovens:netherite_mangrove_furnace_boat",
         "simpleovens:netherite_cherry_furnace_boat",
         "simpleovens:netherite_pale_oak_furnace_boat",
+        "simpleovens:netherite_poplar_furnace_boat",
         "simpleovens:netherite_bamboo_furnace_raft",
         "simpleovens:enderite_oak_furnace_boat",
         "simpleovens:enderite_spruce_furnace_boat",
@@ -232,6 +235,7 @@
         "simpleovens:enderite_mangrove_furnace_boat",
         "simpleovens:enderite_cherry_furnace_boat",
         "simpleovens:enderite_pale_oak_furnace_boat",
+        "simpleovens:enderite_poplar_furnace_boat",
         "simpleovens:enderite_bamboo_furnace_raft"
       ]
     },
@@ -269,8 +273,9 @@
         "details": [
           "enabled (default true): off makes the machines plain Vanilla-speed furnaces, keeps them registered and hides the tab contents; the super-mod switch \"Enable Simple Ovens\" of SimpleBuilding does the same.",
           "enableSimpleFoundry (default true): the switch \"Enable Simple Foundry\" of the sub-mod Simple Foundry; off = its foundry stops working, its blocks stay.",
-          "enableSimpleCrucibles (default true): the switch \"Enable Simple Crucibles\" of the sub-mod Simple Crucibles (a sub-mod of Simple Ovens since IG31-15, still playable alone, own ids); off = no crucible guide book in the tab and no village kitchen, the blocks stay.",
+          "enableSimpleCrucibles (default true): the switch \"Enable Simple Crucibles\" of the sub-mod Simple Crucibles (a sub-mod of Simple Ovens since IG31-15, still playable alone, own ids); off = no crucibles, buckets or guide book in the tabs, no village kitchen and no axe or hammer ways (build, attach, upgrade); the registrations stay and crucibles already built keep working.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (defaults 2, 4, 8; 1 to 8): the speed against the Vanilla machine; the furnace carts' fuel factor follows it.",
+          "fuelEfficiency (default false): off = the fuel burns as fast as the tier cooks (fuel per item as in Vanilla); on = the fuel burns at the Vanilla pace while the tier cooks faster, so each fuel item smelts 2, 4 or 8 times as many items.",
           "On the first start the speeds are taken over from SimpleBuilding's config (server.machines.*FurnaceSpeed in config/simplebuilding.json), which stays unchanged."
         ]
       },
@@ -280,8 +285,9 @@
         "details": [
           "enabled (Standard true): aus macht die Maschinen zu einfachen Öfen im Vanilla-Tempo, sie bleiben registriert und der Tab leer; der Super-Mod-Schalter \"Simple Ovens aktivieren\" von SimpleBuilding wirkt genauso.",
           "enableSimpleFoundry (Standard true): der Schalter \"Simple Foundry aktivieren\" des Sub-Mods Simple Foundry; aus = seine Gießerei arbeitet nicht mehr, die Blöcke bleiben.",
-          "enableSimpleCrucibles (Standard true): der Schalter \"Simple Crucibles aktivieren\" des Sub-Mods Simple Crucibles (seit IG31-15 ein Sub-Mod von Simple Ovens, bleibt allein spielbar, eigene IDs); aus = kein Tiegel-Handbuch im Tab und keine Dorfküche, die Blöcke bleiben.",
+          "enableSimpleCrucibles (Standard true): der Schalter \"Simple Crucibles aktivieren\" des Sub-Mods Simple Crucibles (seit IG31-15 ein Sub-Mod von Simple Ovens, bleibt allein spielbar, eigene IDs); aus = keine Tiegel, Eimer oder Handbuch in den Tabs, keine Dorfküche und keine Axt- oder Hammer-Wege (Bauen, Andocken, Aufwerten); die Registrierungen bleiben, gebaute Tiegel arbeiten weiter.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (Standard 2, 4, 8; 1 bis 8): das Tempo gegenüber der Vanilla-Maschine; der Brennstofffaktor der Antriebsloren folgt ihm.",
+          "fuelEfficiency (Standard false): aus = der Brennstoff brennt so schnell, wie die Stufe gart (Brennstoff je Gegenstand wie in Vanilla); an = der Brennstoff brennt im Vanilla-Tempo, während die Stufe schneller gart, jeder Brennstoff schmilzt also 2-, 4- oder 8-mal so viele Gegenstände.",
           "Beim ersten Start werden die Tempi aus SimpleBuildings Config übernommen (server.machines.*FurnaceSpeed in config/simplebuilding.json), die unverändert bleibt."
         ]
       }
@@ -942,6 +948,42 @@
       }
     },
     {
+      "id": "simpleovens:enderite_poplar_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_poplar_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_poplar_furnace_boat.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:poplar_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleovens:enderite_spruce_furnace_boat",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1462,6 +1504,42 @@
       }
     },
     {
+      "id": "simpleovens:netherite_poplar_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_poplar_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_poplar_furnace_boat.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:poplar_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleovens:netherite_spruce_furnace_boat",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1564,6 +1642,42 @@
           },
           {
             "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:poplar_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "furnace_boat",
+      "result": {
+        "id": "simpleovens:poplar_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/poplar_furnace_boat.json",
+      "ingredients": [
+        "minecraft:furnace",
+        "minecraft:poplar_boat"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:poplar_boat"
+        ],
+        [
+          "minecraft:furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:poplar_log",
             "count": 1.25
           }
         ]
@@ -2054,6 +2168,46 @@
           },
           {
             "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_poplar_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_poplar_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_poplar_furnace_boat.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:poplar_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:poplar_log",
             "count": 1.25
           }
         ]
@@ -2762,6 +2916,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleovens:enderite_poplar_furnace_boat",
+      "name": {
+        "en_us": "Enderite Poplar Furnace Boat",
+        "de_de": "Enderit-Pappel-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Poplar boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Pappelholzboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_poplar_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleovens:enderite_spruce_furnace_boat",
       "name": {
         "en_us": "Enderite Spruce Furnace Boat",
@@ -3112,6 +3289,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleovens:netherite_poplar_furnace_boat",
+      "name": {
+        "en_us": "Netherite Poplar Furnace Boat",
+        "de_de": "Netherit-Pappel-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Poplar boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Pappelholzboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_poplar_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleovens:netherite_spruce_furnace_boat",
       "name": {
         "en_us": "Netherite Spruce Furnace Boat",
@@ -3177,6 +3377,29 @@
       },
       "craftedBy": [
         "simpleovens:pale_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:poplar_furnace_boat",
+      "name": {
+        "en_us": "Poplar Furnace Boat",
+        "de_de": "Pappel-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Poplar boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+        },
+        "de": {
+          "summary": "Pappelholzboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:poplar_furnace_boat"
       ],
       "usedIn": []
     },
@@ -3438,6 +3661,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleovens:reinforced_poplar_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Poplar Furnace Boat",
+        "de_de": "Verstärktes Pappel-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Poplar boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Pappelholzboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_poplar_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleovens:reinforced_spruce_furnace_boat",
       "name": {
         "en_us": "Reinforced Spruce Furnace Boat",
@@ -3584,6 +3830,7 @@
         "simpleovens:enderite_mangrove_furnace_boat",
         "simpleovens:enderite_oak_furnace_boat",
         "simpleovens:enderite_pale_oak_furnace_boat",
+        "simpleovens:enderite_poplar_furnace_boat",
         "simpleovens:enderite_spruce_furnace_boat"
       ]
     },
@@ -3731,6 +3978,7 @@
         "simpleovens:netherite_mangrove_furnace_boat",
         "simpleovens:netherite_oak_furnace_boat",
         "simpleovens:netherite_pale_oak_furnace_boat",
+        "simpleovens:netherite_poplar_furnace_boat",
         "simpleovens:netherite_spruce_furnace_boat"
       ]
     },
@@ -3882,6 +4130,7 @@
         "simpleovens:reinforced_mangrove_furnace_boat",
         "simpleovens:reinforced_oak_furnace_boat",
         "simpleovens:reinforced_pale_oak_furnace_boat",
+        "simpleovens:reinforced_poplar_furnace_boat",
         "simpleovens:reinforced_spruce_furnace_boat"
       ]
     },
@@ -3949,10 +4198,10 @@
       "categoryDe": "Simple Ovens",
       "group": null,
       "groupDe": null,
-      "label": "Enable simple crucibles",
-      "labelDe": "Enable simple crucibles",
-      "tooltip": "Super-mod switch \"Enable Simple Crucibles\" (sub-mod, framework SubMods); off = no crucible guide book / village kitchen, the blocks stay.",
-      "tooltipDe": "Super-mod switch \"Enable Simple Crucibles\" (sub-mod, framework SubMods); off = no crucible guide book / village kitchen, the blocks stay."
+      "label": "Enable Simple Crucibles",
+      "labelDe": "Simple Crucibles aktivieren",
+      "tooltip": "Switch of the sub-mod Simple Crucibles. Off:\nno crucibles in the tabs, no village kitchen,\nno building or upgrading in the world; built\ncrucibles keep working. Default: true.",
+      "tooltipDe": "Schalter des Sub-Mods Simple Crucibles. Aus:\nkeine Tiegel in den Tabs, keine Dorfküche,\nkein Bauen oder Aufwerten in der Welt;\ngebaute Tiegel arbeiten weiter.\nStandard: true."
     },
     {
       "range": null,
@@ -3968,10 +4217,10 @@
       "categoryDe": "Simple Ovens",
       "group": null,
       "groupDe": null,
-      "label": "Enable simple foundry",
-      "labelDe": "Enable simple foundry",
-      "tooltip": "Super-mod switch \"Enable Simple Foundry\" (sub-mod, framework SubMods); off = the foundry does not work, blocks stay.",
-      "tooltipDe": "Super-mod switch \"Enable Simple Foundry\" (sub-mod, framework SubMods); off = the foundry does not work, blocks stay."
+      "label": "Enable Simple Foundry",
+      "labelDe": "Simple Foundry aktivieren",
+      "tooltip": "Switch of the sub-mod Simple Foundry. Off:\nthe foundry stops working, its blocks stay.\nDefault: true.",
+      "tooltipDe": "Schalter des Sub-Mods Simple Foundry. Aus:\ndie Gießerei arbeitet nicht mehr, ihre\nBlöcke bleiben. Standard: true."
     },
     {
       "range": null,
@@ -3987,10 +4236,10 @@
       "categoryDe": "Simple Ovens",
       "group": null,
       "groupDe": null,
-      "label": "Enabled",
-      "labelDe": "Enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Enable Simple Ovens",
+      "labelDe": "Simple Ovens aktivieren",
+      "tooltip": "Off: the tier furnaces work like Vanilla\nfurnaces (no speed-up, no double experience,\nno upgrades) and leave the creative tab.\nDefault: true.",
+      "tooltipDe": "Aus: die Stufen-Öfen arbeiten wie Vanilla-\nÖfen (kein Tempo, keine doppelte Erfahrung,\nkeine Aufwertung) und verlassen den\nKreativ-Tab. Standard: true."
     },
     {
       "range": null,
@@ -4006,10 +4255,29 @@
       "categoryDe": "Simple Ovens",
       "group": null,
       "groupDe": null,
-      "label": "Enderite speed",
-      "labelDe": "Enderite speed",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Enderite Speed",
+      "labelDe": "Tempo Enderit",
+      "tooltip": "How many times faster than the Vanilla\nmachine the Enderite tier cooks; the\nEnderite furnace cart follows it.\nDefault: 8. Range: 1–8.",
+      "tooltipDe": "Wie viel schneller als die Vanilla-Maschine\ndie Stufe Enderit gart; die Enderit-\nAntriebslore folgt ihm.\nStandard: 8. Bereich: 1–8."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simpleovens/shared/java/com/simpleovens/config/OvensConfig.java",
+      "name": "fuelEfficiency",
+      "shortName": "fuelEfficiency",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Simple Ovens",
+      "categoryDe": "Simple Ovens",
+      "group": null,
+      "groupDe": null,
+      "label": "Fuel Efficiency",
+      "labelDe": "Brennstoff-Ersparnis",
+      "tooltip": "Off: fuel burns as fast as the tier cooks,\nso one fuel item smelts as many items as in\nVanilla. On: fuel burns at the Vanilla pace,\neach item smelts 2, 4 or 8 times as many.\nDefault: false.",
+      "tooltipDe": "Aus: Brennstoff brennt so schnell, wie die\nStufe gart; ein Brennstoff schmilzt so viel\nwie in Vanilla. An: Brennstoff brennt im\nVanilla-Tempo, jeder schmilzt 2-, 4- oder\n8-mal so viel. Standard: false."
     },
     {
       "range": null,
@@ -4025,10 +4293,10 @@
       "categoryDe": "Simple Ovens",
       "group": null,
       "groupDe": null,
-      "label": "Netherite speed",
-      "labelDe": "Netherite speed",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Netherite Speed",
+      "labelDe": "Tempo Netherit",
+      "tooltip": "How many times faster than the Vanilla\nmachine the Netherite tier cooks; the\nNetherite furnace cart follows it.\nDefault: 4. Range: 1–8.",
+      "tooltipDe": "Wie viel schneller als die Vanilla-Maschine\ndie Stufe Netherit gart; die Netherit-\nAntriebslore folgt ihm.\nStandard: 4. Bereich: 1–8."
     },
     {
       "range": null,
@@ -4044,10 +4312,10 @@
       "categoryDe": "Simple Ovens",
       "group": null,
       "groupDe": null,
-      "label": "Reinforced speed",
-      "labelDe": "Reinforced speed",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Reinforced Speed",
+      "labelDe": "Tempo Verstärkt",
+      "tooltip": "How many times faster than the Vanilla\nmachine the Reinforced tier cooks; the\nReinforced furnace cart follows it.\nDefault: 2. Range: 1–8.",
+      "tooltipDe": "Wie viel schneller als die Vanilla-Maschine\ndie Stufe Verstärkt gart; die verstärkte\nAntriebslore folgt ihm.\nStandard: 2. Bereich: 1–8."
     }
   ],
   "quests": [],
@@ -4268,15 +4536,15 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 48,
+    "recipes": 52,
     "lootTables": 9,
     "tags": 1,
     "advancements": 1,
     "enchantments": 0,
-    "items": 44,
+    "items": 48,
     "blocks": 9,
     "trades": 0,
-    "config": 6,
+    "config": 7,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

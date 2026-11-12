@@ -9,7 +9,7 @@
       "title": "simplehammers.guide.chapter",
       "icon": "minecraft:iron_ingot",
       "page_key": "simplehammers.guide.page",
-      "pages": 26,
+      "pages": 28,
       "advancement": "simplehammers:guide/chapter",
       "hint": "minecraft:iron_ingot"
     }

@@ -87,7 +87,7 @@
           "Tooltip: two gray hints - recharging (anvil + ender pearls, 16 = full) and the swap (off-hand block + click) - plus a red \"Empty\" line when the charge is used up.",
           "Found in the creative tab \"SimpleTools\", right after the Attractor.",
           "The item id is simplegadgets:rotator (until 25.10.2026 simplebuilding:rotator; old worlds migrate). Recipe with SimpleBuilding: its Iron Core and four Iron Rods; without it (simplegadgets:rotator_without_simplebuilding) iron ingots take their place. Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start); the maximum charge is read when the items register.",
-          "Armor stands (BA03-5, owner 2026-11-03, like Bedrock): right-click an armor stand with the Transposer for the next of 13 poses (Default, None, Solemn, Athena, Brandish, Honor, Entertain, Salute, Riposte, Zombie, Cancan A, Cancan B, Hero), sneak + right-click for the previous one; the pose name shows above the hotbar. Each change shows the arms and costs 1 charge like a turn (an empty Transposer only clicks; claims and protection are asked as for any change to the stand). A stand broken by a player drops as an item that keeps its pose and arms: the item's tooltip names the pose, and placing it again restores them (Vanilla's entity-data component, so a named stand keeps its name too). Vanilla use: a free pose tool without commands; Vanilla only has the fixed default stance, so there is no overlap."
+          "Armor stands (BA03-5, owner 2026-11-03, like Bedrock): right-click an armor stand with the Transposer for the next of 13 poses (Default, None, Solemn, Athena, Brandish, Honor, Entertain, Salute, Riposte, Zombie, Cancan A, Cancan B, Hero), sneak + right-click for the previous one; the stand takes the pose with a hit sound, no text on the screen (gadget rule). Each change shows the arms and costs 1 charge like a turn (an empty Transposer only clicks; claims and protection are asked as for any change to the stand). A stand broken by a player drops as an item that keeps its pose and arms: the item's tooltip names the pose, and placing it again restores them (Vanilla's entity-data component, so a named stand keeps its name too). Vanilla use: a free pose tool without commands; Vanilla only has the fixed default stance, so there is no overlap."
         ]
       },
       "de": {
@@ -109,7 +109,7 @@
           "Tooltip: zwei graue Hinweise - Aufladen (Amboss + Enderperlen, 16 = voll) und das Tauschen (Nebenhand-Block + Klick) - dazu eine rote Zeile „Leer“, wenn die Ladung verbraucht ist.",
           "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Attraktor.",
           "Die Item-ID ist simplegadgets:rotator (bis 25.10.2026 simplebuilding:rotator; alte Welten wandern mit). Rezept mit SimpleBuilding: dessen Eisenkern und vier Eisenstäbe; ohne (simplegadgets:rotator_without_simplebuilding) nehmen Eisenbarren deren Platz. Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen); die Höchstladung wird beim Registrieren gelesen.",
-          "Rüstungsständer (BA03-5, Besitzer 03.11.2026, wie in Bedrock): Rechtsklick mit dem Transponierer auf einen Rüstungsständer schaltet zur nächsten von 13 Posen (Standard, Keine, Feierlich, Athene, Schwingen, Ehre, Vorführen, Salut, Riposte, Zombie, Cancan A, Cancan B, Held), Schleichen + Rechtsklick zur vorigen; der Posenname erscheint über der Schnellleiste. Jeder Wechsel zeigt die Arme und kostet 1 Ladung wie eine Drehung (leer klickt er nur; Claims und Schutz werden wie bei jeder Änderung am Ständer gefragt). Ein von einem Spieler abgebauter Ständer fällt als Item, das Pose und Arme behält: der Tooltip nennt die Pose, beim Platzieren kehren sie zurück (Vanillas Entity-Daten-Komponente, ein benannter Ständer behält auch seinen Namen). Vanilla-Nutzen: ein Pose-Werkzeug ohne Befehle; Vanilla kennt nur die feste Standardhaltung, es gibt keine Überschneidung."
+          "Rüstungsständer (BA03-5, Besitzer 03.11.2026, wie in Bedrock): Rechtsklick mit dem Transponierer auf einen Rüstungsständer schaltet zur nächsten von 13 Posen (Standard, Keine, Feierlich, Athene, Schwingen, Ehre, Vorführen, Salut, Riposte, Zombie, Cancan A, Cancan B, Held), Schleichen + Rechtsklick zur vorigen; der Ständer nimmt die Pose mit einem Schlag-Geräusch ein, ohne Text auf dem Bildschirm (Gadget-Regel). Jeder Wechsel zeigt die Arme und kostet 1 Ladung wie eine Drehung (leer klickt er nur; Claims und Schutz werden wie bei jeder Änderung am Ständer gefragt). Ein von einem Spieler abgebauter Ständer fällt als Item, das Pose und Arme behält: der Tooltip nennt die Pose, beim Platzieren kehren sie zurück (Vanillas Entity-Daten-Komponente, ein benannter Ständer behält auch seinen Namen). Vanilla-Nutzen: ein Pose-Werkzeug ohne Befehle; Vanilla kennt nur die feste Standardhaltung, es gibt keine Überschneidung."
         ]
       }
     },
@@ -213,6 +213,97 @@
           "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 8 Blöcken vor dem Serverfaktor.",
           "Keine Haltbarkeit. Der gehaltene Attraktor schützt Ausstellungsitems, fremd reservierte Items und Todesbeute anderer Spieler. Beide Formen beachten simplebuilding:attractor_ignore.",
           "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. attractorMinimumDistance (simplegadgets-server.json) beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
+        ]
+      }
+    },
+    {
+      "id": "echo_sounder",
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/echo/EchoSounderItem.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/EchoFov.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/mixin/client/EchoFovMixin.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/config/GadgetsConfig.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/test/EchoTests.java",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/echo_sounder.json",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/echo_sounder_without_simplebuilding.json",
+        "tools/textures/echo_sounder_textures.py"
+      ],
+      "en": {
+        "title": "Echo Sounder",
+        "summary": "Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels. A jump empties its default 1500 charge; Mending or echo shards recharge it. A jump before full recharge takes 6 seconds and shatters it.",
+        "details": [
+          "Right-click a lodestone to link it; the needle then points there. Clicking the lodestone it is already linked to does nothing (no sound, no effects). If the lodestone is removed the link is lost.",
+          "Jump cooldown: echoJumpCooldownTicks in config/simplegadgets-server.json, default 480 ticks (24 seconds). Linking and unsuccessful attempts lock it for 20–100 ticks by default, depending on distance; the maximum uses echoAttemptLockTicks. Re-clicking the same lodestone does not relink it.",
+          "Charge: the echo sounder has 1500 repair points by default (echoMaxCharge in config/simplegadgets-server.json). One successful jump empties its entire charge, even with Unbreaking. Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
+          "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
+          "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"ENN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom left - with SimpleBuilding and Simple Ores, whose Enderite it is.",
+          "The item id is simplegadgets:echo_sounder (until 06.11.2026 simplebuilding:echo_sounder, before 28.09.2026 echo_compass; old worlds migrate). Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start): echoEnabled, echoMaxCharge (needs a restart), echoJumpCooldownTicks, echoAttemptLockTicks and echoBlockedDimensions (dimensions it neither leaves nor enters). Without SimpleBuilding or Simple Ores the recipe takes amethyst shards for the nuggets and a netherite ingot for the core. The advancements and the Teleports statistic stay SimpleBuilding's.",
+          "Replaces the 'Echo Compass' data pack Simple Tweaks shipped.",
+          "A far lodestone is never loaded on the server thread just to check it: if its chunk is not loaded, the charge starts and the chunk loads in the background; the jump at the end of the charge counts a lodestone it still cannot see as missing (a dull sound and the attempt lock, no text on the screen).",
+          "Switched off (echoEnabled false) it only gives the dull sound of a blocked jump - gadgets show no text on the screen."
+        ]
+      },
+      "de": {
+        "title": "Echolot",
+        "summary": "Echolot am Leitstein verknüpfen, dann Benutzen 3 Sekunden zum Springen halten; frühes Loslassen bricht ab. Ein Sprung leert standardmäßig 1500 Ladung; Reparatur oder Echoscherben laden nach. Vor voller Ladung dauert der Sprung 6 Sekunden und zerbricht es.",
+        "details": [
+          "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Ein Klick auf den schon verknüpften Leitstein tut nichts (kein Klang, keine Effekte). Wird der Leitstein entfernt, ist die Verknüpfung weg.",
+          "Sprung-Abklingzeit: echoJumpCooldownTicks in config/simplegadgets-server.json, Standard 480 Ticks (24 Sekunden). Verknüpfen und Fehlversuche sperren standardmäßig 20–100 Ticks je Entfernung; Maximum über echoAttemptLockTicks. Derselbe Leitstein wird nicht erneut verknüpft.",
+          "Ladung: Das Echolot hat standardmäßig 1500 Reparaturpunkte (echoMaxCharge in config/simplegadgets-server.json). Ein erfolgreicher Sprung leert die gesamte Ladung, auch mit Haltbarkeit (Unbreaking). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
+          "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
+          "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"ENN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten links - mit SimpleBuilding und Simple Ores, dem das Enderit gehört.",
+          "Die Item-ID ist simplegadgets:echo_sounder (bis 06.11.2026 simplebuilding:echo_sounder, vor dem 28.09.2026 echo_compass; alte Welten wandern mit). Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen): echoEnabled, echoMaxCharge (Neustart nötig), echoJumpCooldownTicks, echoAttemptLockTicks und echoBlockedDimensions (Dimensionen, aus denen es nicht herausspringt und in die es nicht hineinspringt). Ohne SimpleBuilding oder Simple Ores nimmt das Rezept Amethystscherben statt der Klumpen und einen Netheritbarren statt des Kerns. Die Erfolge und die Statistik Teleports bleiben SimpleBuildings.",
+          "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks.",
+          "Ein ferner Leitstein wird nie auf dem Server-Thread geladen, nur um ihn zu prüfen: ist sein Chunk nicht geladen, beginnt das Laden und der Chunk lädt im Hintergrund; der Sprung am Ende des Ladens zählt einen Leitstein, den er dann noch nicht sieht, als fehlend (dumpfer Klang und Sperre nach dem Versuch, kein Text auf dem Bildschirm).",
+          "Abgeschaltet (echoEnabled false) gibt es nur den dumpfen Klang eines gesperrten Sprungs - Gadgets zeigen keinen Text auf dem Bildschirm."
+        ]
+      }
+    },
+    {
+      "id": "resonance_rod",
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/rod/ResonanceRodItem.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/rod/RodBeam.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/RodRenderer.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/network/RodNetwork.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/network/LaserPayload.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/rod/LensMeasurement.java",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens.json",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens_without_simplebuilding.json"
+      ],
+      "en": {
+        "title": "Resonance Rod",
+        "summary": "The Resonance Rod projects a light amethyst aiming dot while held in use. The rod tilts far forward (60 degrees) so the beam seems to leave its tip, and emits particles; the normal crosshair is hidden while aiming.",
+        "details": [
+          "Range, color and dot size come from config/simplegadgets-server.json: rodRange (default 512 blocks), rodColor (default light amethyst #B38EF3; a file that still holds the former default red #FF0000 switches to amethyst on load, other picked colors stay) and rodScale (0.05-1 block). The dot keeps its size in the world and only grows far away so it stays about three pixels wide. Each side reads its own file: the server decides the effects and its range, the client draws the dot with its own color and size; the server passes a dot on only while the player really uses the rod, at most 12 times a second.",
+          "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
+          "Distance: the dwell time grows moderately with the distance from your eyes to the dot: base x (1 + 0.096 x max(0, d - 5)^0.773). Up to 5 blocks the base applies (3 s to ignite), at 10 blocks it is about 1 s more (4 s), at 200 blocks about 20 s; it keeps growing smoothly up to the lens range. More than range + 8 blocks away nothing happens.",
+          "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
+          "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
+          "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
+          "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Pole). One nugget and one redstone; the fields right of and below the core are empty.",
+          "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge. On 26.3 the repair material tag simplebuilding:repairs_resonance_rod contains amethyst shards and controls both the repair component and anvil recharging.",
+          "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
+          "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe.",
+          "The item id is simplegadgets:amethyst_lens (until 25.10.2026 simplebuilding:amethyst_lens; old worlds migrate, the measurement component too). Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start; colour and size are the client's own). Constructor's Touch is SimpleBuilding's enchantment: without SimpleBuilding the rod only points. Without SimpleBuilding iron ingots replace the Iron Core and Iron Rod in the recipe.",
+          "Why the id is amethyst_lens: the rod started as the Amethyst Lens (a laser pointer) and kept its id when it was renamed, so old worlds keep their rods."
+        ]
+      },
+      "de": {
+        "title": "Resonanzstab",
+        "summary": "Der Resonanzstab zeigt beim Benutzen einen hell-amethystfarbenen Zielpunkt. Er neigt sich weit nach vorn (60 Grad), sodass der Strahl aus der Spitze zu kommen scheint, und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
+        "details": [
+          "Reichweite, Farbe und Punktgröße stehen in config/simplegadgets-server.json: rodRange (Standard 512 Blöcke), rodColor (Standard helles Amethyst #B38EF3; eine Datei mit dem früheren Standard Rot #FF0000 wechselt beim Laden auf Amethyst, andere gewählte Farben bleiben) und rodScale (0,05-1 Block). Der Punkt behält in der Welt seine Größe und wächst nur in der Ferne, damit er etwa drei Pixel breit bleibt. Jede Seite liest ihre eigene Datei: der Server entscheidet die Wirkungen und seine Reichweite, der Client zeichnet den Punkt mit eigener Farbe und Größe; der Server gibt einen Punkt nur weiter, solange der Spieler den Stab wirklich benutzt, höchstens 12-mal pro Sekunde.",
+          "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
+          "Abstand: die Verweildauer wächst mäßig mit dem Abstand zwischen Auge und Punkt: Basis x (1 + 0,096 x max(0, d - 5)^0,773). Bis 5 Blöcke gilt die Basis (3 s zum Anzünden), bei 10 Blöcken etwa 1 s mehr (4 s), bei 200 Blöcken rund 20 s; darüber wächst sie stetig bis zur Reichweite. Mehr als Reichweite + 8 Blöcke entfernt passiert nichts.",
+          "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
+          "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
+          "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
+          "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung. Auf 26.3 enthält der Reparaturmaterial-Tag simplebuilding:repairs_resonance_rod Amethystscherben und steuert sowohl die Reparaturkomponente als auch das Aufladen am Amboss.",
+          "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
+          "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstange). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren).",
+          "Die Item-ID ist simplegadgets:amethyst_lens (bis 25.10.2026 simplebuilding:amethyst_lens; alte Welten wandern mit, die Messungs-Komponente auch). Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen; Farbe und Größe gelten je Client). Berührung des Konstrukteurs ist SimpleBuildings Verzauberung: ohne SimpleBuilding zeigt der Stab nur den Punkt. Ohne SimpleBuilding ersetzen Eisenbarren Eisenkern und Eisenstab im Rezept.",
+          "Warum die ID amethyst_lens heißt: der Stab begann als Amethystlinse (Laserpointer) und behielt beim Umbenennen seine ID, damit alte Welten ihre Stäbe behalten."
         ]
       }
     },
@@ -1028,35 +1119,10 @@
           "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens_without_simplebuilding.json"
         ],
         "en": {
-          "summary": "The Resonance Rod projects a light amethyst aiming dot while held in use. The rod tilts far forward (60 degrees) so the beam seems to leave its tip, and emits particles; the normal crosshair is hidden while aiming.",
-          "details": [
-            "Range, color and dot size come from the config section tweaks.laserPointer (default 512 blocks, light amethyst #B38EF3; a config file that still holds the former default red #FF0000 switches to amethyst on load, other picked colors stay). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
-            "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
-            "Distance: the dwell time grows moderately with the distance from your eyes to the dot: base x (1 + 0.096 x max(0, d - 5)^0.773). Up to 5 blocks the base applies (3 s to ignite), at 10 blocks it is about 1 s more (4 s), at 200 blocks about 20 s; it keeps growing smoothly up to the lens range. More than range + 8 blocks away nothing happens.",
-            "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
-            "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
-            "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-            "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Pole). One nugget and one redstone; the fields right of and below the core are empty.",
-            "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge. On 26.3 the repair material tag simplebuilding:repairs_resonance_rod contains amethyst shards and controls both the repair component and anvil recharging.",
-            "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
-            "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe.",
-            "The item id is simplegadgets:amethyst_lens (until 25.10.2026 simplebuilding:amethyst_lens; old worlds migrate, the measurement component too). Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start; colour and size are the client's own). Constructor's Touch is SimpleBuilding's enchantment: without SimpleBuilding the rod only points. Without SimpleBuilding iron ingots replace the Iron Core and Iron Rod in the recipe."
-          ]
+          "summary": "The Resonance Rod projects a light amethyst aiming dot while held in use. The rod tilts far forward (60 degrees) so the beam seems to leave its tip, and emits particles; the normal crosshair is hidden while aiming. See the chapter Resonance Rod."
         },
         "de": {
-          "summary": "Der Resonanzstab zeigt beim Benutzen einen hell-amethystfarbenen Zielpunkt. Er neigt sich weit nach vorn (60 Grad), sodass der Strahl aus der Spitze zu kommen scheint, und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
-          "details": [
-            "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, helles Amethyst #B38EF3; eine Config-Datei mit dem früheren Standard Rot #FF0000 wechselt beim Laden auf Amethyst, andere gewählte Farben bleiben). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
-            "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
-            "Abstand: die Verweildauer wächst mäßig mit dem Abstand zwischen Auge und Punkt: Basis x (1 + 0,096 x max(0, d - 5)^0,773). Bis 5 Blöcke gilt die Basis (3 s zum Anzünden), bei 10 Blöcken etwa 1 s mehr (4 s), bei 200 Blöcken rund 20 s; darüber wächst sie stetig bis zur Reichweite. Mehr als Reichweite + 8 Blöcke entfernt passiert nichts.",
-            "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
-            "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
-            "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
-            "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung. Auf 26.3 enthält der Reparaturmaterial-Tag simplebuilding:repairs_resonance_rod Amethystscherben und steuert sowohl die Reparaturkomponente als auch das Aufladen am Amboss.",
-            "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
-            "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstange). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren).",
-            "Die Item-ID ist simplegadgets:amethyst_lens (bis 25.10.2026 simplebuilding:amethyst_lens; alte Welten wandern mit, die Messungs-Komponente auch). Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen; Farbe und Größe gelten je Client). Berührung des Konstrukteurs ist SimpleBuildings Verzauberung: ohne SimpleBuilding zeigt der Stab nur den Punkt. Ohne SimpleBuilding ersetzen Eisenbarren Eisenkern und Eisenstab im Rezept."
-          ]
+          "summary": "Der Resonanzstab zeigt beim Benutzen einen hell-amethystfarbenen Zielpunkt. Er neigt sich weit nach vorn (60 Grad), sodass der Strahl aus der Spitze zu kommen scheint, und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet. Siehe Kapitel Resonanzstab."
         }
       },
       "texture": "assets/textures/simplegadgets/item/amethyst_lens.png",
@@ -1226,28 +1292,10 @@
       },
       "note": {
         "en": {
-          "summary": "Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels. A jump empties its default 1500 charge; Mending or echo shards recharge it. A jump before full recharge takes 6 seconds and shatters it.",
-          "details": [
-            "Right-click a lodestone to link it; the needle then points there. Clicking the lodestone it is already linked to does nothing (no sound, no effects). If the lodestone is removed the link is lost.",
-            "Jump cooldown: echoJumpCooldownTicks in config/simplegadgets-server.json, default 480 ticks (24 seconds). Linking and unsuccessful attempts lock it for 20–100 ticks by default, depending on distance; the maximum uses echoAttemptLockTicks. Re-clicking the same lodestone does not relink it.",
-            "Charge: the echo sounder has 1500 repair points by default (echoMaxCharge in config/simplegadgets-server.json). One successful jump empties its entire charge, even with Unbreaking. Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
-            "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
-            "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"ENN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom left.",
-            "The item id is simplegadgets:echo_sounder (until 06.11.2026 simplebuilding:echo_sounder, before 28.09.2026 echo_compass; old worlds migrate). Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start): echoEnabled, echoMaxCharge (needs a restart), echoJumpCooldownTicks, echoAttemptLockTicks and echoBlockedDimensions (dimensions it neither leaves nor enters). Without SimpleBuilding the recipe takes amethyst shards for the nuggets and a netherite ingot for the core. The advancements and the Teleports statistic stay SimpleBuilding's.",
-            "Replaces the 'Echo Compass' data pack Simple Tweaks shipped."
-          ]
+          "summary": "Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels. A jump empties its default 1500 charge; Mending or echo shards recharge it. A jump before full recharge takes 6 seconds and shatters it. See the chapter Echo Sounder."
         },
         "de": {
-          "summary": "Echolot am Leitstein verknüpfen, dann Benutzen 3 Sekunden zum Springen halten; frühes Loslassen bricht ab. Ein Sprung leert standardmäßig 1500 Ladung; Reparatur oder Echoscherben laden nach. Vor voller Ladung dauert der Sprung 6 Sekunden und zerbricht es.",
-          "details": [
-            "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Ein Klick auf den schon verknüpften Leitstein tut nichts (kein Klang, keine Effekte). Wird der Leitstein entfernt, ist die Verknüpfung weg.",
-            "Sprung-Abklingzeit: echoJumpCooldownTicks in config/simplegadgets-server.json, Standard 480 Ticks (24 Sekunden). Verknüpfen und Fehlversuche sperren standardmäßig 20–100 Ticks je Entfernung; Maximum über echoAttemptLockTicks. Derselbe Leitstein wird nicht erneut verknüpft.",
-            "Ladung: Das Echolot hat standardmäßig 1500 Reparaturpunkte (echoMaxCharge in config/simplegadgets-server.json). Ein erfolgreicher Sprung leert die gesamte Ladung, auch mit Haltbarkeit (Unbreaking). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
-            "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
-            "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"ENN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten links.",
-            "Die Item-ID ist simplegadgets:echo_sounder (bis 06.11.2026 simplebuilding:echo_sounder, vor dem 28.09.2026 echo_compass; alte Welten wandern mit). Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen): echoEnabled, echoMaxCharge (Neustart nötig), echoJumpCooldownTicks, echoAttemptLockTicks und echoBlockedDimensions (Dimensionen, aus denen es nicht herausspringt und in die es nicht hineinspringt). Ohne SimpleBuilding nimmt das Rezept Amethystscherben statt der Klumpen und einen Netheritbarren statt des Kerns. Die Erfolge und die Statistik Teleports bleiben SimpleBuildings.",
-            "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks."
-          ]
+          "summary": "Echolot am Leitstein verknüpfen, dann Benutzen 3 Sekunden zum Springen halten; frühes Loslassen bricht ab. Ein Sprung leert standardmäßig 1500 Ladung; Reparatur oder Echoscherben laden nach. Vor voller Ladung dauert der Sprung 6 Sekunden und zerbricht es. Siehe Kapitel Echolot."
         },
         "sources": [
           "modules/simplegadgets/shared/java/com/simplegadgets/echo/EchoSounderItem.java",
@@ -1303,10 +1351,10 @@
           "modules/simplegadgets/shared/resources/data/simplegadgets/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Gadgets\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: clock. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Gadgets\" of the Simple Modpack guide (SimpleLib): 25 pages taken from this wiki, shown in your language. Unlocked by picking up: clock. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Gadgets\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Uhr. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Gadgets\" im Simple-Modpack-Handbuch (SimpleLib): 25 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Uhr. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplegadgets/item/guide_book.png",
@@ -1608,10 +1656,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Attractor enabled",
-      "labelDe": "Attractor enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Enable Attractor",
+      "labelDe": "Attraktor aktivieren",
+      "tooltip": "Off: the Attractor pulls no items, held or\nplaced. Default: true.",
+      "tooltipDe": "Aus: der Attraktor zieht keine Items an, weder\ngehalten noch abgelegt. Standard: true."
     },
     {
       "range": [
@@ -1630,10 +1678,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Attractor minimum distance",
-      "labelDe": "Attractor minimum distance",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Attractor: Minimum Distance",
+      "labelDe": "Attraktor: Mindestabstand",
+      "tooltip": "Dead zone around the Attractor, in blocks:\nitems inside it slow down without pull or\nlift. Default: 1.25. Range: 0.5–2.",
+      "tooltipDe": "Ruhezone um den Attraktor in Blöcken: Items\ndarin werden abgebremst, ohne Zug oder\nAnheben. Standard: 1.25. Bereich: 0.5–2."
     },
     {
       "range": [
@@ -1652,10 +1700,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Attractor range multiplier",
-      "labelDe": "Attractor range multiplier",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Attractor: Range Multiplier",
+      "labelDe": "Attraktor: Reichweiten-Faktor",
+      "tooltip": "Factor on how far the Attractor pulls (4\nblocks, +2 per Range level, at most 9; never\nbeyond 15 after the factor). 0 = it pulls\nnothing. Default: 1.0. Range: 0–4.",
+      "tooltipDe": "Faktor darauf, wie weit der Attraktor zieht (4\nBlöcke, +2 je Stufe Reichweite, höchstens 9;\nnach dem Faktor nie über 15). 0 = er zieht\nnichts. Standard: 1.0. Bereich: 0–4."
     },
     {
       "range": null,
@@ -1671,10 +1719,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Detector enabled",
-      "labelDe": "Detector enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Enable Detector",
+      "labelDe": "Detektor aktivieren",
+      "tooltip": "Off: the Detector stops scanning, held or\nplaced, and its needle rests. Default: true.",
+      "tooltipDe": "Aus: der Detektor sucht nicht mehr, weder\ngehalten noch abgelegt, und seine Nadel ruht.\nStandard: true."
     },
     {
       "range": [
@@ -1693,10 +1741,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Detector range multiplier",
-      "labelDe": "Detector range multiplier",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Detector: Range Multiplier",
+      "labelDe": "Detektor: Reichweiten-Faktor",
+      "tooltip": "Factor on range and search sphere of every ore\nclass (24/20/16/16 blocks, more with Radius).\nDefault: 1.0. Range: 0.25–1.5.",
+      "tooltipDe": "Faktor auf Reichweite und Suchkugel jeder\nErzklasse (24/20/16/16 Blöcke, mehr mit\nRadius). Standard: 1.0. Bereich: 0.25–1.5."
     },
     {
       "range": [
@@ -1715,10 +1763,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Detector scan interval ticks",
-      "labelDe": "Detector scan interval ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Detector: Scan Interval (Ticks)",
+      "labelDe": "Detektor: Suchabstand (Ticks)",
+      "tooltip": "Ticks between two pings in the main hand; the\noff hand and a placed Detector ping half as\noften. Default: 20. Range: 10–200.",
+      "tooltipDe": "Ticks zwischen zwei Pings in der Haupthand;\nNebenhand und abgelegter Detektor pingen halb\nso oft. Standard: 20. Bereich: 10–200."
     },
     {
       "range": [
@@ -1737,10 +1785,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Echo attempt lock ticks",
-      "labelDe": "Echo attempt lock ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Echo Sounder: Attempt Lock (Ticks)",
+      "labelDe": "Echolot: Sperre nach Versuch (Ticks)",
+      "tooltip": "Longest lock after linking or an attempt that\ndoes not jump, in ticks (20 = 1 s): 1 s right\nnext to the lodestone, the full time from 1000\nblocks away or in another dimension. 0 = no\nlock. Default: 100. Range: 0–12000.",
+      "tooltipDe": "Längste Sperre nach dem Verknüpfen oder einem\nVersuch ohne Sprung, in Ticks (20 = 1 s): 1 s\ndirekt am Leitstein, die volle Zeit ab 1000\nBlöcken Entfernung oder in einer anderen\nDimension. 0 = keine Sperre. Standard: 100.\nBereich: 0–12000."
     },
     {
       "range": null,
@@ -1756,10 +1804,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Echo blocked dimensions",
-      "labelDe": "Echo blocked dimensions",
-      "tooltip": "Dimensions the Echo Sounder neither leaves nor enters (ids separated by comma, semicolon or space; \"minecraft:\" may be left out).",
-      "tooltipDe": "Dimensions the Echo Sounder neither leaves nor enters (ids separated by comma, semicolon or space; \"minecraft:\" may be left out)."
+      "label": "Echo Sounder: Blocked Dimensions",
+      "labelDe": "Echolot: gesperrte Dimensionen",
+      "tooltip": "The Echo Sounder jumps neither out of nor into\nthese dimensions. IDs separated by comma,\nsemicolon or space; the namespace minecraft:\nmay be left out. Empty = allowed everywhere.\nDefault: empty.",
+      "tooltipDe": "Das Echolot springt weder aus diesen\nDimensionen heraus noch in sie hinein. IDs\ngetrennt durch Komma, Semikolon oder\nLeerzeichen; der Namensraum minecraft: darf\nfehlen. Leer = überall erlaubt.\nStandard: leer."
     },
     {
       "range": null,
@@ -1775,10 +1823,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Echo enabled",
-      "labelDe": "Echo enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Enable Echo Sounder",
+      "labelDe": "Echolot aktivieren",
+      "tooltip": "Off: the Echo Sounder no longer jumps (it\ntells you it is switched off). Default: true.",
+      "tooltipDe": "Aus: das Echolot springt nicht mehr (es\nmeldet, dass es abgeschaltet ist).\nStandard: true."
     },
     {
       "range": [
@@ -1797,10 +1845,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Echo jump cooldown ticks",
-      "labelDe": "Echo jump cooldown ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Echo Sounder: Jump Cooldown (Ticks)",
+      "labelDe": "Echolot: Abklingzeit nach Sprung (Ticks)",
+      "tooltip": "Cooldown after a jump to the lodestone, in\nticks (20 = 1 s). 0 = none. Default: 480.\nRange: 0–12000.",
+      "tooltipDe": "Abklingzeit nach einem Sprung zum Leitstein,\nin Ticks (20 = 1 s). 0 = keine. Standard: 480.\nBereich: 0–12000."
     },
     {
       "range": [
@@ -1819,10 +1867,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Echo max charge",
-      "labelDe": "Echo max charge",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Echo Sounder: Maximum Charge",
+      "labelDe": "Echolot: Höchstladung",
+      "tooltip": "Repair points an emptied Echo Sounder needs to\nbe fully charged again; it is the item's\ndurability. Clients need the same value.\nDefault: 1500. Range: 150–6000.",
+      "tooltipDe": "Reparaturpunkte, die ein geleertes Echolot bis\nzur vollen Ladung braucht; das ist die\nHaltbarkeit des Items. Clients brauchen\ndenselben Wert. Standard: 1500.\nBereich: 150–6000."
     },
     {
       "range": [
@@ -1841,10 +1889,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod charge per second",
-      "labelDe": "Rod charge per second",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Charge per Second",
+      "labelDe": "Resonanzstab: Ladung je Sekunde",
+      "tooltip": "Charge the rod uses up for every started\nsecond of beaming, even when pointing into the\nair. 0 = beaming is free. Default: 4.\nRange: 0–2560.",
+      "tooltipDe": "Ladung, die der Stab je angefangener Sekunde\nStrahlen verbraucht, auch beim Zeigen ins\nLeere. 0 = Strahlen kostet nichts.\nStandard: 4. Bereich: 0–2560."
     },
     {
       "range": null,
@@ -1854,16 +1902,16 @@
       "name": "rodColor",
       "shortName": "rodColor",
       "type": "int",
-      "default": null,
+      "default": "11767539",
       "note": null,
       "category": "Simple Gadgets",
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod color",
-      "labelDe": "Rod color",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Dot Color",
+      "labelDe": "Resonanzstab: Punktfarbe",
+      "tooltip": "Color of the beam dot as an RGB number (light\namethyst = B38EF3 in hex). Your own setting\n(client). Pure red (16711680), the former\ndefault, switches to the default.\nDefault: 11767539. Range: 0–16777215.",
+      "tooltipDe": "Farbe des Strahlpunkts als RGB-Zahl (helles\nAmethyst = B38EF3 hexadezimal). Gilt für dich\n(Client). Reines Rot (16711680), der frühere\nStandard, wechselt zum Standard.\nStandard: 11767539. Bereich: 0–16777215."
     },
     {
       "range": [
@@ -1882,10 +1930,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod effect cost",
-      "labelDe": "Rod effect cost",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Charge per Effect",
+      "labelDe": "Resonanzstab: Ladung je Wirkung",
+      "tooltip": "Charge used up each time the beam melts,\nlights, dries, ignites or scans something. 0 =\neffects are free. Default: 5. Range: 0–2560.",
+      "tooltipDe": "Ladung, die jedes Schmelzen, Anzünden,\nTrocknen oder Scannen durch den Strahl\nverbraucht. 0 = Wirkungen kosten nichts.\nStandard: 5. Bereich: 0–2560."
     },
     {
       "range": null,
@@ -1901,10 +1949,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod enabled",
-      "labelDe": "Rod enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Enable Resonance Rod",
+      "labelDe": "Resonanzstab aktivieren",
+      "tooltip": "Off: the rod does nothing (no beam, no dots).\nDefault: true.",
+      "tooltipDe": "Aus: der Stab tut nichts (kein Strahl, keine\nPunkte). Standard: true."
     },
     {
       "range": null,
@@ -1920,10 +1968,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod ignite entities",
-      "labelDe": "Rod ignite entities",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Ignite Creatures",
+      "labelDe": "Resonanzstab: Lebewesen anzünden",
+      "tooltip": "Off: the beam no longer sets mobs and players\non fire (players only where you may hurt\nthem). Default: true.",
+      "tooltipDe": "Aus: der Strahl setzt keine Mobs und Spieler\nmehr in Brand (Spieler nur, wo man ihnen\nschaden darf). Standard: true."
     },
     {
       "range": null,
@@ -1939,10 +1987,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod ignite flammables",
-      "labelDe": "Rod ignite flammables",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Ignite Flammable Blocks",
+      "labelDe": "Resonanzstab: Brennbares entzünden",
+      "tooltip": "Off: the beam no longer sets flammable blocks\non fire or lights soul fire (melting, drying,\ncampfires and candles still work).\nDefault: true.",
+      "tooltipDe": "Aus: der Strahl setzt keine brennbaren Blöcke\nin Brand und zündet kein Seelenfeuer\n(Schmelzen, Trocknen, Lagerfeuer und Kerzen\ngehen weiter). Standard: true."
     },
     {
       "range": null,
@@ -1958,10 +2006,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod ignite tnt",
-      "labelDe": "Rod ignite tnt",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Ignite TNT",
+      "labelDe": "Resonanzstab: TNT zünden",
+      "tooltip": "Off: the beam no longer primes TNT.\nDefault: true.",
+      "tooltipDe": "Aus: der Strahl zündet kein TNT mehr.\nStandard: true."
     },
     {
       "range": [
@@ -1980,10 +2028,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod max charge",
-      "labelDe": "Rod max charge",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Maximum Charge",
+      "labelDe": "Resonanzstab: Höchstladung",
+      "tooltip": "Full charge of the rod; it is the item's\ndurability. One amethyst shard restores 1/16\nof it. Clients need the same value.\nDefault: 640. Range: 64–2560.",
+      "tooltipDe": "Volle Ladung des Stabs; das ist die\nHaltbarkeit des Items. Eine Amethystscherbe\nlädt 1/16 davon auf. Clients brauchen\ndenselben Wert. Standard: 640.\nBereich: 64–2560."
     },
     {
       "range": [
@@ -2002,10 +2050,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod range",
-      "labelDe": "Rod range",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Range (Blocks)",
+      "labelDe": "Resonanzstab: Reichweite (Blöcke)",
+      "tooltip": "How far the beam reaches, in blocks. On the\nserver it never acts beyond the server's view\ndistance. Default: 512. Range: 1–1024.",
+      "tooltipDe": "Wie weit der Strahl reicht, in Blöcken. Auf\ndem Server wirkt er nie weiter als dessen\nSichtweite. Standard: 512. Bereich: 1–1024."
     },
     {
       "range": [
@@ -2024,10 +2072,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod scale",
-      "labelDe": "Rod scale",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Dot Size (Blocks)",
+      "labelDe": "Resonanzstab: Punktgröße (Blöcke)",
+      "tooltip": "Size of the beam dot in blocks; far away it\nonly grows so it stays visible. Your own\nsetting (client). Default: 0.25.\nRange: 0.05–1.",
+      "tooltipDe": "Größe des Strahlpunkts in Blöcken; in der\nFerne wächst er nur, damit er sichtbar bleibt.\nGilt für dich (Client). Standard: 0.25.\nBereich: 0.05–1."
     },
     {
       "range": null,
@@ -2043,10 +2091,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod scan entities",
-      "labelDe": "Rod scan entities",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Scan Creatures",
+      "labelDe": "Resonanzstab: Lebewesen scannen",
+      "tooltip": "On: a creature held in the beam starts to glow\n(after half the time it takes to ignite) and\nkeeps glowing while the beam stays on it.\nCosts charge like any effect. Default: true.",
+      "tooltipDe": "An: ein Lebewesen im Strahl beginnt zu\nleuchten (nach der halben Zeit bis zum\nAnzünden) und leuchtet weiter, solange der\nStrahl auf ihm bleibt. Kostet Ladung wie jede\nWirkung. Standard: true."
     },
     {
       "range": [
@@ -2065,10 +2113,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod scan interval ticks",
-      "labelDe": "Rod scan interval ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Scan Interval (Ticks)",
+      "labelDe": "Resonanzstab: Scan-Abstand (Ticks)",
+      "tooltip": "Ticks between two scans of a creature in the\nbeam; the glow lasts 10 ticks longer. Shorter\nintervals cost charge more often.\nDefault: 100. Range: 20–100.",
+      "tooltipDe": "Ticks zwischen zwei Scans eines Lebewesens im\nStrahl; das Leuchten hält 10 Ticks länger.\nKürzere Abstände kosten öfter Ladung.\nStandard: 100. Bereich: 20–100."
     },
     {
       "range": null,
@@ -2084,10 +2132,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rod scan players",
-      "labelDe": "Rod scan players",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Resonance Rod: Scan Players",
+      "labelDe": "Resonanzstab: Spieler scannen",
+      "tooltip": "On: other players glow too, but only where you\nmay hurt them (PvP, teams). Off: players are\nnever scanned. Needs Scan Creatures.\nDefault: false.",
+      "tooltipDe": "An: auch andere Spieler leuchten, aber nur, wo\nman ihnen schaden darf (PvP, Teams). Aus:\nSpieler werden nie gescannt. Braucht Lebewesen\nscannen. Standard: false."
     },
     {
       "range": [
@@ -2106,10 +2154,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rotator charge per turn",
-      "labelDe": "Rotator charge per turn",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Transposer: Charge per Turn",
+      "labelDe": "Transponierer: Ladung je Drehung",
+      "tooltip": "Charge one turn uses up; a block swap costs\ndouble. 0 = turning is free. Unbreaking can\nsave charge. Default: 1. Range: 0–4096.",
+      "tooltipDe": "Ladung, die eine Drehung verbraucht; ein\nBlocktausch kostet das Doppelte. 0 = Drehen\nkostet nichts. Haltbarkeit kann Ladung sparen.\nStandard: 1. Bereich: 0–4096."
     },
     {
       "range": [
@@ -2128,10 +2176,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rotator max charge",
-      "labelDe": "Rotator max charge",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Transposer: Maximum Charge",
+      "labelDe": "Transponierer: Höchstladung",
+      "tooltip": "Full charge of the Transposer; it is the\nitem's durability. 16 ender pearls refill it.\nClients need the same value. Default: 1024.\nRange: 64–4096.",
+      "tooltipDe": "Volle Ladung des Transponierers; das ist die\nHaltbarkeit des Items. 16 Enderperlen laden\nihn voll auf. Clients brauchen denselben Wert.\nStandard: 1024. Bereich: 64–4096."
     },
     {
       "range": null,
@@ -2147,10 +2195,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rotator swap blacklist",
-      "labelDe": "Rotator swap blacklist",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Transposer: Swap Blacklist",
+      "labelDe": "Transponierer: Tausch-Blacklist",
+      "tooltip": "Block tags (#minecraft:logs) and IDs\n(minecraft:glass), comma separated, that the\nTransposer never swaps. Wins over the\nwhitelist and the hardness rule.\nDefault: empty.",
+      "tooltipDe": "Block-Tags (#minecraft:logs) und IDs\n(minecraft:glass), kommagetrennt, die der\nTransponierer nie tauscht. Hat Vorrang vor der\nWhitelist und der Härte-Regel. Standard: leer."
     },
     {
       "range": null,
@@ -2166,10 +2214,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rotator swap enabled",
-      "labelDe": "Rotator swap enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Transposer: Block Swap",
+      "labelDe": "Transponierer: Blocktausch",
+      "tooltip": "On: a placeable block in the off hand + click\nswaps the clicked block (the old one goes to\nyour inventory). Off: the Transposer only\nturns blocks. Default: true.",
+      "tooltipDe": "An: ein platzierbarer Block in der Nebenhand +\nKlick tauscht den angeklickten Block (der alte\nlandet im Inventar). Aus: der Transponierer\ndreht nur Blöcke. Standard: true."
     },
     {
       "range": [
@@ -2188,10 +2236,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rotator swap max hardness",
-      "labelDe": "Rotator swap max hardness",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Transposer: Swap Max Hardness",
+      "labelDe": "Transponierer: Maximalhärte beim Tausch",
+      "tooltip": "Harder blocks are not swapped (stone 1.5, iron\nblock 5, obsidian 50). A stone tool must also\nbe able to harvest the block. A whitelist\nentry skips both rules. Default: 6.0.\nRange: 0–50.",
+      "tooltipDe": "Härtere Blöcke werden nicht getauscht (Stein\n1,5, Eisenblock 5, Obsidian 50). Ein\nSteinwerkzeug muss sie außerdem abbauen\nkönnen. Ein Whitelist-Eintrag überspringt\nbeide Regeln. Standard: 6.0. Bereich: 0–50."
     },
     {
       "range": null,
@@ -2207,10 +2255,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rotator swap whitelist",
-      "labelDe": "Rotator swap whitelist",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Transposer: Swap Whitelist",
+      "labelDe": "Transponierer: Tausch-Whitelist",
+      "tooltip": "Block tags (#minecraft:logs) and IDs\n(minecraft:glass), comma separated, that the\nTransposer may always swap, even if too hard.\nFilled containers, beacons, spawners and\nunbreakable blocks stay protected.\nDefault: empty.",
+      "tooltipDe": "Block-Tags (#minecraft:logs) und IDs\n(minecraft:glass), kommagetrennt, die der\nTransponierer immer tauschen darf, auch wenn\nsie zu hart sind. Gefüllte Container,\nLeuchtfeuer, Spawner und unzerstörbare Blöcke\nbleiben geschützt. Standard: leer."
     },
     {
       "range": [
@@ -2229,10 +2277,10 @@
       "categoryDe": "Simple Gadgets",
       "group": null,
       "groupDe": null,
-      "label": "Rotator swap windup ticks",
-      "labelDe": "Rotator swap windup ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Transposer: Swap Wind-up (Ticks)",
+      "labelDe": "Transponierer: Ausholzeit beim Tausch (Ticks)",
+      "tooltip": "Wind-up before a swap in ticks (20 = 1 s),\nlonger for harder blocks. Efficiency shortens\nit, Efficiency V and creative mode swap at\nonce. 0 = always at once. Default: 20.\nRange: 0–200.",
+      "tooltipDe": "Ausholzeit vor einem Tausch in Ticks\n(20 = 1 s), bei härteren Blöcken länger.\nEffizienz verkürzt sie, Effizienz V und der\nKreativmodus tauschen sofort. 0 = immer\nsofort. Standard: 20. Bereich: 0–200."
     }
   ],
   "quests": [],
@@ -2247,7 +2295,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 7,
+    "features": 9,
     "recipes": 12,
     "lootTables": 0,
     "tags": 1,

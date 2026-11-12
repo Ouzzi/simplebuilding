@@ -41,7 +41,28 @@ public final class SimpleGadgets {
         com.simplegadgets.config.GadgetsConfig.load(configDir);
         // CMD24: /simplegadgets config for every option.
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplegadgets.config.GadgetsConfig::toJson, com.simplegadgets.config.GadgetsConfig::apply)
-                .file(configDir, com.simplegadgets.config.GadgetsConfig.FILE).register();
+                .file(configDir, com.simplegadgets.config.GadgetsConfig.FILE)
+                // Ranges for the generic config screen (the clamps of GadgetsConfig.apply); rodColor is masked to 24 bits there.
+                .range("rotatorMaxCharge", com.simplegadgets.config.GadgetsConfig.ROTATOR_MIN_CHARGE, com.simplegadgets.config.GadgetsConfig.ROTATOR_MAX_CHARGE)
+                .range("rotatorChargePerTurn", 0, com.simplegadgets.config.GadgetsConfig.ROTATOR_TURN_COST_MAX)
+                .range("rotatorSwapWindupTicks", 0, com.simplegadgets.config.GadgetsConfig.ROTATOR_WINDUP_MAX)
+                .range("rotatorSwapMaxHardness", 0, com.simplegadgets.config.GadgetsConfig.ROTATOR_HARDNESS_MAX)
+                .range("rodMaxCharge", com.simplegadgets.config.GadgetsConfig.ROD_MIN_CHARGE, com.simplegadgets.config.GadgetsConfig.ROD_MAX_CHARGE)
+                .range("rodRange", 1, com.simplegadgets.config.GadgetsConfig.ROD_RANGE_MAX)
+                .range("rodChargePerSecond", 0, com.simplegadgets.config.GadgetsConfig.ROD_COST_MAX)
+                .range("rodEffectCost", 0, com.simplegadgets.config.GadgetsConfig.ROD_COST_MAX)
+                .range("rodColor", 0, 0xFFFFFF)
+                .range("rodScale", 0.05, 1.0)
+                .range("rodScanIntervalTicks", com.simplegadgets.config.GadgetsConfig.ROD_SCAN_MIN, com.simplegadgets.config.GadgetsConfig.ROD_SCAN_MAX)
+                .range("echoMaxCharge", com.simplegadgets.config.GadgetsConfig.ECHO_MIN_CHARGE, com.simplegadgets.config.GadgetsConfig.ECHO_MAX_CHARGE)
+                .range("echoJumpCooldownTicks", 0, com.simplegadgets.config.GadgetsConfig.ECHO_COOLDOWN_MAX)
+                .range("echoAttemptLockTicks", 0, com.simplegadgets.config.GadgetsConfig.ECHO_COOLDOWN_MAX)
+                .range("attractorRangeMultiplier", 0, com.simplegadgets.config.GadgetsConfig.ATTRACTOR_RANGE_MAX)
+                .range("attractorMinimumDistance", com.simplegadgets.config.GadgetsConfig.ATTRACTOR_DISTANCE_MIN, com.simplegadgets.config.GadgetsConfig.ATTRACTOR_DISTANCE_MAX)
+                .range("detectorRangeMultiplier", com.simplegadgets.config.GadgetsConfig.DETECTOR_RANGE_MIN, com.simplegadgets.config.GadgetsConfig.DETECTOR_RANGE_MAX)
+                .range("detectorScanIntervalTicks", com.simplegadgets.config.GadgetsConfig.DETECTOR_SCAN_MIN, com.simplegadgets.config.GadgetsConfig.DETECTOR_SCAN_MAX)
+                // The maximum charges are the items' durability, read when the items register.
+                .restart("rotatorMaxCharge", "rodMaxCharge", "echoMaxCharge").register();
         registerIdMoves();
         com.simplegadgets.rotator.RotatorItem.publishFacts();
         GadgetsViewer.register();   // a-fix09b: JEI info pages (were SimpleBuilding's until the split; Transposer new)

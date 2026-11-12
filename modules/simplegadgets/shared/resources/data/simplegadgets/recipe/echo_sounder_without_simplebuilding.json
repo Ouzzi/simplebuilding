@@ -5,7 +5,8 @@
       "value": {
         "condition": "fabric:all_mods_loaded",
         "values": [
-          "simplebuilding"
+          "simplebuilding",
+          "simpleores"
         ]
       }
     }
@@ -14,16 +15,34 @@
     {
       "type": "neoforge:not",
       "value": {
-        "type": "neoforge:mod_loaded",
-        "modid": "simplebuilding"
+        "type": "neoforge:and",
+        "values": [
+          {
+            "type": "neoforge:mod_loaded",
+            "modid": "simplebuilding"
+          },
+          {
+            "type": "neoforge:mod_loaded",
+            "modid": "simpleores"
+          }
+        ]
       }
     }
   ],
   "forge:condition": {
     "type": "forge:not",
     "value": {
-      "type": "forge:mod_loaded",
-      "modid": "simplebuilding"
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "simplebuilding"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "simpleores"
+        }
+      ]
     }
   },
   "type": "minecraft:crafting_shaped",

@@ -20,7 +20,7 @@ public final class CrucibleBlocks {
     public static CrucibleBlock IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, ENDERITE_CRUCIBLE;
     public static CrucibleBlankBlock CRUCIBLE_BLANK;
     public static com.simplecrucibles.cauldron.ReinforcedCauldronBlock REINFORCED_CAULDRON;
-    /** Every crucible block, including those partners register through the API (Enderite in SimpleBuilding). */
+    /** Every crucible block: the four of this module plus any a partner registers through the API. */
     public static final List<CrucibleBlock> CRUCIBLES = new ArrayList<>();
 
     public static void register() {

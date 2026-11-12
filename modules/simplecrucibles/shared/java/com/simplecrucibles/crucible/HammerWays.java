@@ -56,7 +56,7 @@ public final class HammerWays {
 
     /** A hammer click on a crucible/barrel reaches the hammer instead of the menu when it upgrades or attaches. */
     private static boolean wants(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-        if (hand != InteractionHand.MAIN_HAND || !SimpleLibApi.isHammer(player.getMainHandItem())) return false;
+        if (hand != InteractionHand.MAIN_HAND || !com.simplecrucibles.SimpleCrucibles.on() || !SimpleLibApi.isHammer(player.getMainHandItem())) return false;
         if (HammerActions.upgradeTakesClick(state, level, pos, player, hand)) return true;
         return SimpleCruciblesApi.canAttach(level, pos, state);
     }
@@ -64,7 +64,7 @@ public final class HammerWays {
     /** Build the iron crucible on an iron block (off hand: walls, then handles) or attach a barrel; null otherwise. */
     private static @Nullable InteractionResult use(UseOnContext context) {
         Player player = context.getPlayer();
-        if (player == null || context.getHand() != InteractionHand.MAIN_HAND) return null;
+        if (player == null || context.getHand() != InteractionHand.MAIN_HAND || !com.simplecrucibles.SimpleCrucibles.on()) return null;
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);

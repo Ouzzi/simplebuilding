@@ -9,7 +9,7 @@
       "title": "simplegadgets.guide.chapter",
       "icon": "minecraft:clock",
       "page_key": "simplegadgets.guide.page",
-      "pages": 21,
+      "pages": 25,
       "advancement": "simplegadgets:guide/chapter",
       "hint": "minecraft:clock"
     }

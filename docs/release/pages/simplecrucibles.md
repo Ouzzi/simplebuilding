@@ -10,14 +10,14 @@ Fuel-free crucibles from Iron to Enderite, the reinforced cauldron and village f
 
 # Simple Crucibles
 
-Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel), the reinforced cauldron and village field kitchens. Ids from older versions migrate.
+Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel, heated by the block below), the reinforced cauldron, copper and soul lava buckets, soul lava in the Nether and village field kitchens. Barrels of Simple Storage dock onto a crucible. Ids from older versions migrate.
 
 ## Features
 
 - **Crucibles** - A cooking station without fuel that cooks every slot at once, heated by the block below.
 - **Village field kitchens** - Villages of all five types can have a small field kitchen: an iron crucible on an unlit campfire with cooked food, a barrel of raw meat and a seat.
 - **Reinforced cauldron** - A cauldron for water, lava, powder snow and soul lava; lava in it heats a crucible like a lava source.
-- **Soul lava** - A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Seelenbrand (soul burn).
+- **Soul lava** - A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Soul Burn.
 - **Copper and soul lava buckets** - Buckets for the crucible's fluids: the iron bucket breaks on soul lava, copper oxidizes.
 - **Recipe book** - Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
@@ -25,7 +25,7 @@ Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cook
 
 ## Vanilla use
 
-Adds a fuel-free cooking station and sturdier cauldron and barrel tiers for the mid game; the Vanilla cauldron is not changed.
+Adds a fuel-free cooking station for the mid game, a sturdier cauldron and soul lava, a rare Nether fluid in the world generation (can be switched off); the iron bucket breaks on soul lava, so copper buckets carry it, and they also work on the Vanilla cauldron.
 
 ## Dependencies
 
