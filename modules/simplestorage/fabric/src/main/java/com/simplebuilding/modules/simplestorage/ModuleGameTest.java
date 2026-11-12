@@ -866,6 +866,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void barrelOversizedStackNeverLeavesWhole(GameTestHelper h) {
+        StorageTests.ALL.get("barrel_oversized_stack_never_leaves_whole").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void barrelUpgradeKeepsContents(GameTestHelper h) {
         StorageTests.ALL.get("barrel_upgrade_keeps_contents").accept(h);
     }

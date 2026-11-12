@@ -772,6 +772,7 @@ public final class StorageTests {
         ALL.put("barrel_placement_tiers", BarrelTests::placement);
         ALL.put("loose_barrel_faces_like_vanilla_and_opens", BarrelTests::looseBarrelFacesLikeVanillaAndOpens);
         ALL.put("loose_barrel_menu_keeps_the_raised_limit", BarrelTests::looseBarrelMenu);
+        ALL.put("barrel_oversized_stack_never_leaves_whole", BarrelTests::oversizedStackNeverLeavesWhole);
         ALL.put("barrel_upgrade_keeps_contents", BarrelTests::upgradeKeepsContents);
         ALL.put("barrel_dock_contract", BarrelTests::dockContract);
     }

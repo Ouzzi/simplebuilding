@@ -111,10 +111,5 @@ public class DeskBlock extends BaseEntityBlock {
         return Component.translatable("simplefoundry.status." + (r == null ? "no_chamber" : r.reason()));
     }
 
-    /** Breaking the desk gives the fuel back. */
-    @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof DeskBlockEntity desk) desk.dropContents(level, pos);
-        return super.playerWillDestroy(level, pos, state, player);
-    }
+    // Breaking the desk drops its slot items: DeskBlockEntity#preRemoveSideEffects (every removal, AUDSB31).
 }

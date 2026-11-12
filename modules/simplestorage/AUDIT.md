@@ -39,10 +39,11 @@ wiederholt wurden: `docs/AUDIT-2026-09-26.md` (Nummern #17, #25, #32, #47 u. a. 
 | simplestorage-P3-1 | P3 (Tick-Kosten) | `ControllerMenu.clickMenuButton` und jeder Zellenklick rechnen die ganze Liste sofort neu (`refresh`, 1-2x je Paket). Ein Client kann das per Paket-Spam vervielfachen; Kosten = Summe aller Slots des Netzes (max. Kisten der Stufe). | Liste: auf hoechstens 1 Neuberechnung je Tick drosseln (dirty-Flag + Tick-Stempel) |
 | simplestorage-P3-2 | P3 | Rucksack -> Buendel -> Items mit grossen Komponenten (beschriebene Buecher) ergibt sehr grosse Item-Komponenten am getragenen Stapel - wie Vanillas Shulker+Buendel, keine eigene Grenze. | Hinweis |
 | simplestorage-P3-3 | P3 | Controller-Schift-Klick bei vollem Inventar wirft den Rest jetzt ab statt ihn abzulehnen (Vanilla-Verhalten bei vollem Inventar). | Hinweis (bewusst) |
+| simplestorage-P2-3 | P2 (Verlust) | Nachtrag a-audsb31 (12.11., aus simplecrucibles-P3-5): das lose Enderit-Fass (`BarrelMenu`, 128 je Slot) liess per Zifferntaste den ganzen Stapel in die Hotbar und per Klick mit anderem Item auf den Cursor; ueber 99 kann der Spieler nicht speichern, der Rest war nach dem naechsten Speichern weg. | **gefixt**: `BarrelMenu#clicked` -> `StackLimits.guardOversizedClick` (SimpleLib, gleiche Regel wie `TieredChestMenu`); Gametest `barrel_oversized_stack_never_leaves_whole` |
 | simplestorage-P3-4 | P3 | 52 Kern-Dubletten (7979 Zeilen): jeder Fix muss im 26.2-Kern nachgezogen werden (die beiden Fixes hier betreffen nur Modul-Klassen ohne Kern-Paar). | Liste (REV24-F-17) |
 
 ## Urteil
-**shipbar** (0 P1, 2 P2 gefixt, 4 P3). Der Mod ist durch fruehere Audits deutlich gehaertet (Payload-Pruefungen, Identitaetspruefung beim Rucksack, Codec-Grenzen).
+**shipbar** (0 P1, 3 P2 gefixt - P2-3 Nachtrag a-audsb31 -, 4 P3). Der Mod ist durch fruehere Audits deutlich gehaertet (Payload-Pruefungen, Identitaetspruefung beim Rucksack, Codec-Grenzen).
 
 ## Testergebnis
 Lokal: javac der geaenderten Dateien gegen 26.3 + Fabric-API (nur bekannte Access-Widener-Meldungen, keine in geaenderten Dateien),

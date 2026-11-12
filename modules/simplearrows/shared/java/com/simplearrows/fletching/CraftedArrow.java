@@ -128,6 +128,8 @@ public class CraftedArrow extends AbstractArrow {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
+        // Vanilla discards a non-piercing arrow inside onHitEntity itself: ask BEFORE the hit, or the impact effects never run on a direct hit.
+        boolean alive = !this.isRemoved();
         if (parts().tip() == ArrowParts.Tip.AMETHYST) {
             // It shatters on this hit (afterHit): never hand it back - SimpleBuilding's arrow recovery only takes ALLOWED arrows.
             this.pickup = AbstractArrow.Pickup.DISALLOWED;
@@ -137,13 +139,14 @@ public class CraftedArrow extends AbstractArrow {
         super.setBaseDamage(base + bonus);
         super.onHitEntity(result);
         super.setBaseDamage(base);
-        afterHit(result.getLocation(), result.getEntity());
+        if (alive) afterHit(result.getLocation(), result.getEntity());
     }
 
     @Override
     protected void onHitBlock(BlockHitResult result) {
+        boolean alive = !this.isRemoved();
         super.onHitBlock(result);
-        afterHit(result.getLocation(), null);
+        if (alive) afterHit(result.getLocation(), null);
     }
 
     @Override
@@ -159,7 +162,7 @@ public class CraftedArrow extends AbstractArrow {
     }
 
     private void afterHit(Vec3 at, net.minecraft.world.entity.Entity directTarget) {
-        if (!(this.level() instanceof ServerLevel server) || this.isRemoved()) {
+        if (!(this.level() instanceof ServerLevel server)) {
             return;
         }
         ArrowParts.Parts parts = parts();

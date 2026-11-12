@@ -214,7 +214,7 @@ common/src/shared/java/com/simplebuilding/tweaks/spawn/ElytraDamageRules.java mo
 common/src/shared/java/com/simplebuilding/tweaks/spawn/LaunchSafety.java modules/simplepads/shared/java/com/simplepads/spawn/LaunchSafety.java
 common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java modules/simplepads/shared/java/com/simplepads/spawn/SpawnElytra.java
 common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnSetup.java modules/simplepads/shared/java/com/simplepads/spawn/SpawnSetup.java allow: onLevelLoad/1 resolveWorldSpawn/4
-common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java modules/simplelib/shared/java/com/simplelib/api/StackLimits.java allow: cap/1 getMaxStackSize/0 getMaxStackSize/1 limit/2 limit/3 max/2 mirror/2 tryRemove/3
+common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java modules/simplelib/shared/java/com/simplelib/api/StackLimits.java allow: cap/1 getMaxStackSize/0 getMaxStackSize/1 guardOversizedClick/5 limit/2 limit/3 max/2 mirror/2 tryRemove/3
 common/src/shared/java/com/simplebuilding/util/AttractorFilter.java modules/simplegadgets/shared/java/com/simplegadgets/attractor/AttractorFilter.java
 common/src/shared/java/com/simplebuilding/util/BuildPermissions.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/BuildPermissions.java allow: isProbing/0 mayAct/3 mayAct/4 mayBreak/4 mayChange/3 probeAutomation/4 setPlaceProbe/1
 common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java

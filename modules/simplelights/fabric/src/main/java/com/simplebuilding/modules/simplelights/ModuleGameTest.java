@@ -77,6 +77,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplelights:empty")
+    public void copperPaneTellsAComparatorWhenItFlips(GameTestHelper h) {
+        LightsTests.ALL.get("copper_pane_tells_a_comparator_when_it_flips").accept(h);
+    }
+
+    @GameTest(structure = "simplelights:empty")
     public void discoverRecipeUnlocks(GameTestHelper h) {
         LightsTests.ALL.get("discover_recipe_unlocks").accept(h);
     }

@@ -4,7 +4,10 @@ import java.util.Optional;
 import java.util.function.IntSupplier;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -44,6 +47,28 @@ public final class StackLimits {
             @Override public int getMaxStackSize() { return cap(multiplier.getAsInt()); }
             @Override public int getMaxStackSize(ItemStack stack) { return max(stack, multiplier.getAsInt()); }
         };
+    }
+
+    /**
+     * Click guard for menus with {@link LimitedSlot}s: a raised stack never leaves its slot whole. Vanilla's number-key swap
+     * would move all of it into the hotbar and a click with another item would hand it to the cursor; more than 99 cannot be
+     * saved with the player, so the rest would be gone after the next save (a-audsb31, simplecrucibles-P2-1/-P3-5). The number
+     * key takes one normal stack into an empty hotbar (or off-hand) place, a click with another item is refused - the rule of
+     * Simple Storage's tier chests. Call first in {@code clicked}; {@code true} = handled, do not call super.
+     */
+    public static boolean guardOversizedClick(AbstractContainerMenu menu, int slotIndex, int buttonNum, ContainerInput input, Player player) {
+        if (slotIndex < 0 || slotIndex >= menu.slots.size() || !(menu.slots.get(slotIndex) instanceof LimitedSlot slot)) return false;
+        ItemStack inSlot = slot.getItem();
+        if (inSlot.isEmpty() || inSlot.getCount() <= inSlot.getMaxStackSize()) return false;
+        if (input == ContainerInput.SWAP) {
+            Inventory inventory = player.getInventory();
+            if ((buttonNum >= 0 && buttonNum < 9 || buttonNum == Inventory.SLOT_OFFHAND) && inventory.getItem(buttonNum).isEmpty()) {
+                ItemStack taken = slot.safeTake(inSlot.getMaxStackSize(), Integer.MAX_VALUE, player);
+                if (!taken.isEmpty()) inventory.setItem(buttonNum, taken);
+            }
+            return true;
+        }
+        return input == ContainerInput.PICKUP && !menu.getCarried().isEmpty() && !ItemStack.isSameItemSameComponents(menu.getCarried(), inSlot);
     }
 
     /** The first half of a Vanilla {@code CompoundContainer} (mixin {@code CompoundContainerHalves}). */

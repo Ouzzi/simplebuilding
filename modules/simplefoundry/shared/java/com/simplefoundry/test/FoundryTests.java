@@ -453,6 +453,37 @@ public final class FoundryTests {
             }
             h.succeed();
         });
+        // AUDSB31 simplefoundry-P2-1: an explosion, a command or another mod's tool removes the desk and the tray without the
+        // player path (playerWillDestroy); the slot items and the cast ingots must drop all the same.
+        ALL.put("removal_without_player_drops_slots_and_ingots", h -> {
+            ServerLevel level = h.getLevel();
+            net.minecraft.world.phys.AABB area = new net.minecraft.world.phys.AABB(h.absolutePos(new BlockPos(3, 2, 3))).inflate(6);
+            try {
+                BlockPos desk = build(h, 1);
+                DeskBlockEntity be = (DeskBlockEntity) level.getBlockEntity(desk);
+                be.items.setItem(0, new ItemStack(Items.GOLD_INGOT, 5));
+                be.items.setItem(DeskBlockEntity.FUEL_SLOT, new ItemStack(Items.COAL, 7));
+                BlockPos tray = spout(h, 0);
+                TrayBlockEntity cast = (TrayBlockEntity) level.getBlockEntity(tray);
+                for (int i = 0; i < 3; i++) cast.add(Metal.COPPER, level.getGameTime(), 20);
+                level.setBlock(desk, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                level.setBlock(tray, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                check(h, dropped(level, area, Items.GOLD_INGOT) == 5 && dropped(level, area, Items.COAL) == 7,
+                        "the desk's slot items drop: gold " + dropped(level, area, Items.GOLD_INGOT) + ", coal " + dropped(level, area, Items.COAL));
+                check(h, dropped(level, area, Items.COPPER_INGOT) == 3, "the tray's ingots drop: " + dropped(level, area, Items.COPPER_INGOT));
+            } finally {
+                clear(h);
+                level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, area).forEach(net.minecraft.world.entity.Entity::discard);
+            }
+            h.succeed();
+        });
+    }
+
+    /** Items of {@code item} lying as item entities in {@code area}. */
+    private static int dropped(ServerLevel level, net.minecraft.world.phys.AABB area, net.minecraft.world.item.Item item) {
+        int n = 0;
+        for (var drop : level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, area, it -> it.getItem().is(item))) n += drop.getItem().getCount();
+        return n;
     }
 
     private FoundryTests() {}

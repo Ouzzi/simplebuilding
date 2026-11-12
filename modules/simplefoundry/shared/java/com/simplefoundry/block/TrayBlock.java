@@ -54,10 +54,5 @@ public class TrayBlock extends BaseEntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-    /** Breaking the tray gives its ingots back, hot or not. */
-    @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof TrayBlockEntity tray) tray.drop(level, pos);
-        return super.playerWillDestroy(level, pos, state, player);
-    }
+    // Breaking the tray gives its ingots back, hot or not: TrayBlockEntity#preRemoveSideEffects (every removal, AUDSB31).
 }

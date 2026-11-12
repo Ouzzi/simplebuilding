@@ -55,6 +55,13 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     private final ItemStack[] lastInput;
     private final CrucibleJob[] jobs;
     private final HeatLevel[] jobHeat;
+    /**
+     * AUDSB31 (simplecrucibles-P2-3): the slot's item was searched and has no recipe; it is searched again only with the
+     * regular check every 20 ticks (or a new item, other heat), not on every tick (four recipe types per slot and tick).
+     */
+    private final boolean[] noRecipe;
+    /** Recipe searches of the ticks so far (tests: the throttle above). */
+    private int recipeSearches;
     private float experience;
     private HeatLevel heat = HeatLevel.NONE;
     private double heatMultiplier = 1.0;
@@ -107,6 +114,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         Arrays.fill(lastInput, ItemStack.EMPTY);
         this.jobs = new CrucibleJob[n];
         this.jobHeat = new HeatLevel[n];
+        this.noRecipe = new boolean[n];
     }
 
     public CrucibleTier tier() { return tier; }
@@ -119,6 +127,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     public int target(int slot) { return target[slot]; }
     public ItemStack ghost(int slot) { return ghost[slot]; }
     public float storedExperience() { return experience; }
+    public int recipeSearches() { return recipeSearches; }
 
     public int percent(int slot) {
         CrucibleJob job = jobs[slot];
@@ -164,6 +173,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
                 progress[i] = 0;
                 target[i] = -1;
                 jobs[i] = null;
+                noRecipe[i] = false;
                 lastInput[i] = ItemStack.EMPTY;
                 continue;
             }
@@ -174,6 +184,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
                 progress[i] = 0;
                 target[i] = -1;
                 jobs[i] = null;
+                noRecipe[i] = false;
             }
             lastInput[i] = stack.copyWithCount(1);
         }
@@ -189,14 +200,16 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
                 continue;
             }
             CrucibleJob job = jobs[i];
-            if (job == null || jobHeat[i] != heat || age % 20 == 0) {
+            if (job == null && !noRecipe[i] || jobHeat[i] != heat || age % 20 == 0) {
                 CrucibleJob found = CrucibleJob.find(level, stack, heat);
+                recipeSearches++;
                 if (job != null && (found == null || !ItemStack.isSameItemSameComponents(found.result(), job.result()))) {
                     target[i] = -1;
                     progress[i] = 0;
                 }
                 job = jobs[i] = found;
                 jobHeat[i] = heat;
+                noRecipe[i] = found == null;
             }
             if (job == null) { state[i] = NO_RECIPE; target[i] = -1; continue; }
             if (!job.allowedAt(heat)) { state[i] = COLD; continue; }

@@ -52,4 +52,7 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
     public void windowSlots(GameTestHelper h) { FoundryTests.ALL.get("window_slots").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void removalWithoutPlayerDropsSlotsAndIngots(GameTestHelper h) { FoundryTests.ALL.get("removal_without_player_drops_slots_and_ingots").accept(h); }
 }

@@ -267,6 +267,32 @@ final class BarrelTests {
     }
 
     /**
+     * a-audsb31 (simplecrucibles-P3-5): an Enderite barrel's raised stack never leaves whole - the number key moves one normal stack
+     * into an empty hotbar place (none into an occupied one), a click with another item on the cursor is refused.
+     */
+    static void oversizedStackNeverLeavesWhole(GameTestHelper h) {
+        Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        BarrelTier tier = BarrelTier.ENDERITE;
+        var barrel = com.simplelib.api.StackLimits.mirror(tier.slots(), tier::stackMultiplier);
+        var menu = new BarrelMenu(tier, 0, player.getInventory(), barrel);
+        barrel.setItem(0, new ItemStack(Items.IRON_INGOT, 128));
+        menu.clicked(0, 0, net.minecraft.world.inventory.ContainerInput.SWAP, player);
+        ItemStack hotbar = player.getInventory().getItem(0);
+        h.assertTrue(hotbar.is(Items.IRON_INGOT) && hotbar.getCount() == 64 && barrel.getItem(0).getCount() == 64,
+                "number key: one normal stack out, got hotbar " + hotbar.getCount() + ", slot " + barrel.getItem(0).getCount());
+        barrel.setItem(1, new ItemStack(Items.GOLD_INGOT, 100));
+        player.getInventory().setItem(1, new ItemStack(Items.STONE));
+        menu.clicked(1, 1, net.minecraft.world.inventory.ContainerInput.SWAP, player);
+        h.assertTrue(barrel.getItem(1).getCount() == 100 && player.getInventory().getItem(1).is(Items.STONE),
+                "number key onto an occupied hotbar place changes nothing, got slot " + barrel.getItem(1).getCount());
+        menu.setCarried(new ItemStack(Items.DIRT));
+        menu.clicked(1, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, player);
+        h.assertTrue(menu.getCarried().is(Items.DIRT) && barrel.getItem(1).getCount() == 100,
+                "a click with another item is refused, got cursor " + menu.getCarried() + ", slot " + barrel.getItem(1).getCount());
+        h.succeed();
+    }
+
+    /**
      * The barrel line is data-driven (in_world_upgrades/barrels.json): copper -> reinforced -> netherite -> enderite in SimpleLib's table,
      * the handler keeps contents and lid, an axe with the material in the off hand takes the click (while the axe ways are on).
      */

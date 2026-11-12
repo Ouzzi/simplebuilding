@@ -438,6 +438,15 @@ public class DeskBlockEntity extends BlockEntity {
         shown.clear();
     }
 
+    /**
+     * AUDSB31 (simplefoundry-P2-1): every removal drops the slot items - also an explosion, a command or another mod's tool,
+     * which never call the block's {@code playerWillDestroy} (the desk is no {@code Container}, so Vanilla drops nothing itself).
+     */
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (level != null && !level.isClientSide()) dropContents(level, pos);
+    }
+
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);

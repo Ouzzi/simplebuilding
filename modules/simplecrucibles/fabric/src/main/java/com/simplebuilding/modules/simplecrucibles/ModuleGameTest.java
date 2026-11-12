@@ -322,4 +322,19 @@ public final class ModuleGameTest {
     public void jeiBuildAttachAndUpgrades(GameTestHelper h) {
         CrucibleTests.ALL.get("jei_build_attach_and_upgrades").accept(h);
     }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void oversizedStackNeverLeavesWhole(GameTestHelper h) {
+        CrucibleTests.ALL.get("oversized_stack_never_leaves_whole").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void barrelFieldTakePaysExperience(GameTestHelper h) {
+        CrucibleTests.ALL.get("barrel_field_take_pays_experience").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void noRecipeSlotsSearchSeldom(GameTestHelper h) {
+        CrucibleTests.ALL.get("no_recipe_slots_search_seldom").accept(h);
+    }
 }
