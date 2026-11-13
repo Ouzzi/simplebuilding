@@ -23,6 +23,8 @@ public final class OctetsFabric implements ModInitializer {
     public void onInitialize() {
         FabricLoader loader = FabricLoader.getInstance();
         SimpleOctets.init(loader.getConfigDir(), loader::isModLoaded);
+        com.simplelib.api.config.ConfigCommands.server(SimpleOctets.MOD_ID).json(com.simpleoctets.OctetsConfig::toJson, com.simpleoctets.OctetsConfig::apply)
+                .file(loader.getConfigDir(), com.simpleoctets.OctetsConfig.FILE).register();
         OctetRegistry.registerBlocks();
         OctetRegistry.registerItems();
         OctetRegistry.registerBlockEntity(new BlockEntityType<>(MixedOctetBlockEntity::new, Set.of(OctetRegistry.MIXED_OCTET)));

@@ -12,6 +12,17 @@
       "chance": 0.1
     },
     {
+      "item": "simpleblocks:levitating_red_sand",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simpleblocks:levitating_sand",
       "tier": 4,
       "hours": 25.0,
@@ -24,6 +35,17 @@
     },
     {
       "item": "simpleblocks:suspended_gravel",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleblocks:suspended_red_sand",
       "tier": 4,
       "hours": 25.0,
       "craft": 9,

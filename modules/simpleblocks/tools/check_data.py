@@ -17,7 +17,7 @@ registry = set(re.findall(r'add\("([a-z_]+)"', java))
 registry |= {m for m in re.findall(r'"([a-z_]+_(?:stairs|slab|wall))"', java.split('SHAPES = List.of(')[1].split(');')[0])}
 registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_:]+"\}', java)}
 assert registry == set(g.BLOCKS), (sorted(registry ^ set(g.BLOCKS)))
-assert len(g.BLOCKS) == 137, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09) + 19 PAL14 + 12 ice bricks (a-icebricks38) + 20 metal row (PAL35b)
+assert len(g.BLOCKS) == 141, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05) + smooth stone wall + 5 chiseled (a-pal09) + 19 PAL14 + 12 ice bricks (a-icebricks38) + 20 metal row (PAL35b) + 3 sculk tile shapes + chiseled blue nether bricks (PLAN40 simpleblocks-3)
 
 assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '--check']).returncode == 0
 
@@ -26,7 +26,7 @@ assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '
 # of the module's data names a simplebuilding: id outside a simplebuilding load condition.
 nature_java = (MODULE / 'shared/java/com/simpleblocks/nature/NatureBlocks.java').read_text(encoding='utf-8')
 assert re.findall(r'(?:add|froglight)\("([a-z_]+)"', nature_java) == g.MOVED, (re.findall(r'(?:add|froglight)\("([a-z_]+)"', nature_java), g.MOVED)
-assert len(g.MOVED) == 17
+assert len(g.MOVED) == 20  # 15 from SimpleBuilding + 2 cracked hard ices (ABN30-7) + 3 red sand variants (PLAN40 simpleblocks-3)
 for name in g.MOVED:
     for rel in (f'assets/{NS}/blockstates/{name}.json', f'assets/{NS}/items/{name}.json', f'data/{NS}/loot_table/blocks/{name}.json'):
         assert (RES / rel).exists(), rel
@@ -135,8 +135,18 @@ for c in g.COPPER_CHAINS:
             assert (tex / f'{word}_{sprite}.png').exists(), f'{word}_{sprite}'
 for name in pal35b.GEMS:
     assert f'block/{name}.png' in vanilla_derived.MODULE_OUTPUTS[NS] and not (tex / f'{name}.png').exists(), f'{name} is Vanilla-derived'
+# PLAN40 simpleblocks-3: the chiseled blue nether bricks are OWN art (the PAL16 flame on our blue bricks), committed with layers and current.
+import blue_chiseled_2026_11_12 as blue_chiseled  # noqa: E402
+assert blue_chiseled.OUT == tex / 'chiseled_blue_nether_bricks.png' and blue_chiseled.OUT.exists() and blue_chiseled.OUT.with_suffix('.layers.json').exists()
+assert 'block/chiseled_blue_nether_bricks.png' not in vanilla_derived.MODULE_OUTPUTS[NS], 'chiseled blue nether bricks are own art'
+from PIL import Image  # noqa: E402
+assert Image.open(blue_chiseled.OUT).convert('RGBA').tobytes() == blue_chiseled.build().convert('RGBA').tobytes(), \
+    'chiseled_blue_nether_bricks.png differs from tools/textures/blue_chiseled_2026_11_12.py'
 mc_tags = RES / 'data/minecraft/tags/block'
 tier = {t: json.loads((mc_tags / f'{t}.json').read_text(encoding='utf-8'))['values'] for t in ('needs_stone_tool', 'needs_iron_tool', 'needs_diamond_tool')}
 assert f'{NS}:cut_gold' in tier['needs_iron_tool'] and f'{NS}:cut_iron' in tier['needs_stone_tool'] and f'{NS}:chiseled_netherite' in tier['needs_diamond_tool']
 assert all(f'{NS}:{n}' in tier['needs_stone_tool'] for n in ['copper_tiles', 'copper_pillar'] + g.metal_chain_blocks())
-print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + 30 pale blocks + 57 compressed/dense/collapsed blocks + 20+14 metal row (PAL35b) + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+# PLAN40 simpleblocks-4: the counts come from the generator, so the summary cannot go stale again (it said "38 blocks" for 141).
+print(f'simpleblocks: {len(g.BLOCKS)} blocks (metal row of PAL35b included) + {len(g.MOVED)} nature blocks (15 moved from SimpleBuilding) '
+      f'+ {len(g.metal_chain_blocks())} aged copper stages + {len(g.PALE)} pale blocks + {len(g.COMPACT)} compressed/dense/collapsed blocks '
+      f'+ Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')

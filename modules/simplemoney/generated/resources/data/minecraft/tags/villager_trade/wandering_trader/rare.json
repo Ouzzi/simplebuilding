@@ -6,11 +6,19 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simpleblocks/levitating_red_sand",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simpleblocks/levitating_sand",
       "required": false
     },
     {
       "id": "simplemoney:links/simpleblocks/suspended_gravel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleblocks/suspended_red_sand",
       "required": false
     },
     {

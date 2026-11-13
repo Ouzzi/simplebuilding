@@ -1,6 +1,7 @@
 {
   "values": [
     "simpleblocks:hushed_deepslate_tile_wall",
+    "simpleblocks:sculk_tile_wall",
     "simpleblocks:calcite_wall",
     "simpleblocks:netherrack_wall",
     "simpleblocks:smooth_basalt_wall",

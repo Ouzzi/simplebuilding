@@ -51,7 +51,9 @@ import net.minecraft.world.phys.Vec3;
 public final class BlocksTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
-    public static final int BLOCK_COUNT = 125;   // PAL35b: + 20 of the metal row (BlocksRegistry.METALS)
+    // PAL35b: + 20 of the metal row (BlocksRegistry.METALS); the 12 ice bricks (a-icebricks38) were lost in the bundle-188 merge (125 -> 137);
+    // PLAN40 simpleblocks-3: + 3 sculk tile shapes + chiseled blue nether bricks.
+    public static final int BLOCK_COUNT = 141;
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 
@@ -237,7 +239,7 @@ public final class BlocksTests {
             if (holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r && r.matches(one, level)) shapes++;
         }
         // Simple Octets' octet cut is a Shapecutter recipe while Simple Blocks is loaded (principle A4b), never the stonecutter's.
-        h.assertTrue(shapes == 3, "stonecutter: stairs, slab, wall (the octet only in the Shapecutter), got " + shapes);
+        h.assertTrue(shapes == 4, "stonecutter: stairs, slab, wall, chiseled (the octet only in the Shapecutter), got " + shapes);
         if (net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
                 net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", "blue_nether_bricks_octet"))) {
             h.assertTrue(com.simpleblocks.saw.Sawing.serverEntries(level.getServer().getRecipeManager()).stream().anyMatch(e -> e.sawOnly()
@@ -245,6 +247,62 @@ public final class BlocksTests {
                     && "simpleoctets:blue_nether_bricks_octet".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(e.result().item().value()).toString())),
                     "the Shapecutter cuts the blue nether bricks octet");
         }
+        h.succeed();
+    }
+
+    /**
+     * PLAN40 simpleblocks-3: the chiseled blue nether bricks like the chiseled red ones - 2 blue nether brick slabs on top of each other
+     * make 1, the stonecutter (and so the Shapecutter) cuts 1 from 1 block; red nether brick properties; in the Vanilla tab right behind
+     * the cracked blue nether bricks; no fence of the family.
+     */
+    private static void chiseledBlueNetherBricks(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        Block chiseled = BlocksRegistry.CHISELED_BLUE_NETHER_BRICKS;
+        h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleBlocks.id("chiseled_blue_nether_bricks")) == chiseled && chiseled.asItem() != Items.AIR,
+                "block and item registered");
+        h.assertTrue(chiseled.defaultBlockState().getSoundType() == Blocks.RED_NETHER_BRICKS.defaultBlockState().getSoundType()
+                && chiseled.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), "red nether brick sound, mined with a pickaxe");
+        ItemStack slab = new ItemStack(BlocksRegistry.BLUE_NETHER_BRICK_SLAB);
+        expectCraft(h, level, 1, 2, List.of(slab, slab.copy()), chiseled, 1);
+        h.assertTrue(cuts(level, new ItemStack(BlocksRegistry.BLUE_NETHER_BRICKS)).getOrDefault(chiseled.asItem(), 0) == 1,
+                "stonecutter: blue nether bricks -> 1 chiseled");
+        h.assertTrue(com.simpleblocks.saw.Sawing.forInput(com.simpleblocks.saw.Sawing.entries(level), new ItemStack(BlocksRegistry.BLUE_NETHER_BRICKS)).stream()
+                .anyMatch(e -> e.result().item().value() == chiseled.asItem() && e.result().count() == 1), "the Shapecutter cuts it too");
+        List<String> placed = BlocksRegistry.placements().stream().flatMap(p -> p.names().stream()).toList();
+        h.assertTrue(placed.indexOf("chiseled_blue_nether_bricks") == placed.indexOf("cracked_blue_nether_bricks") + 1,
+                "chiseled right behind the cracked blue nether bricks in the Vanilla tab: " + placed);
+        h.assertTrue(!BuiltInRegistries.BLOCK.containsKey(SimpleBlocks.id("blue_nether_brick_fence")), "no fence (Vanilla's red nether bricks have none)");
+        h.succeed();
+    }
+
+    /**
+     * PLAN40 simpleblocks-3: stairs, slab and wall of the sculk tiles like the hushed tiles' shapes - their classes, deepslate tile
+     * properties, crafting (stairs 6 -> 4, slab 3 -> 6, wall 6 -> 6), the stonecutter (and so the Shapecutter) 1 / 2 / 1 from a block,
+     * the same animated texture as the tiles, and their place right behind the tiles (own tab and Vanilla tab).
+     */
+    private static void sculkTileShapes(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        h.assertTrue(BlocksRegistry.SCULK_TILE_STAIRS instanceof StairBlock && BlocksRegistry.SCULK_TILE_SLAB instanceof SlabBlock
+                && BlocksRegistry.SCULK_TILE_WALL instanceof WallBlock, "stairs, slab and wall classes");
+        for (Block shape : List.of(BlocksRegistry.SCULK_TILE_STAIRS, BlocksRegistry.SCULK_TILE_SLAB, BlocksRegistry.SCULK_TILE_WALL)) {
+            h.assertTrue(shape.defaultBlockState().getSoundType() == Blocks.DEEPSLATE_TILES.defaultBlockState().getSoundType()
+                    && shape.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), shape + ": deepslate tile sound, pickaxe");
+            h.assertTrue(!shape.defaultBlockState().is(BlockTags.DAMPENS_VIBRATIONS), shape + " does not dampen vibrations (unlike the hushed tiles)");
+        }
+        ItemStack tiles = new ItemStack(BlocksRegistry.SCULK_TILES);
+        ItemStack air = ItemStack.EMPTY;
+        expectCraft(h, level, 3, 3, List.of(tiles, air, air, tiles, tiles, air, tiles, tiles, tiles), BlocksRegistry.SCULK_TILE_STAIRS, 4);
+        expectCraft(h, level, 3, 1, java.util.Collections.nCopies(3, tiles), BlocksRegistry.SCULK_TILE_SLAB, 6);
+        expectCraft(h, level, 3, 2, java.util.Collections.nCopies(6, tiles), BlocksRegistry.SCULK_TILE_WALL, 6);
+        java.util.Map<Item, Integer> made = cuts(level, tiles);
+        h.assertTrue(made.getOrDefault(BlocksRegistry.SCULK_TILE_STAIRS.asItem(), 0) == 1 && made.getOrDefault(BlocksRegistry.SCULK_TILE_SLAB.asItem(), 0) == 2
+                && made.getOrDefault(BlocksRegistry.SCULK_TILE_WALL.asItem(), 0) == 1, "stonecutter: 1 stairs, 2 slabs, 1 wall from sculk tiles: " + made);
+        int at = BlocksRegistry.NAMES.indexOf("sculk_tiles");
+        h.assertTrue(BlocksRegistry.NAMES.subList(at + 1, at + 4).equals(List.of("sculk_tile_stairs", "sculk_tile_slab", "sculk_tile_wall")),
+                "own tab: the shapes right behind the tiles");
+        List<String> placed = BlocksRegistry.placements().stream().flatMap(p -> p.names().stream()).toList();
+        h.assertTrue(placed.indexOf("sculk_tile_stairs") == placed.indexOf("sculk_tiles") + 1 && placed.indexOf("sculk_tile_wall") == placed.indexOf("sculk_tiles") + 3,
+                "Vanilla tab: the shapes right behind the tiles");
         h.succeed();
     }
 
@@ -404,6 +462,8 @@ public final class BlocksTests {
         ALL.put("icebricks38_family", BlocksTests::iceBrickFamily);
         ALL.put("blue_nether_bricks_recipes", BlocksTests::blueNetherBricksRecipes);
         ALL.put("sculk_tiles", BlocksTests::sculkTiles);
+        ALL.put("sculk_tile_shapes", BlocksTests::sculkTileShapes);   // PLAN40 simpleblocks-3
+        ALL.put("chiseled_blue_nether_bricks", BlocksTests::chiseledBlueNetherBricks);
         ALL.put("discover_recipe_unlocks", com.simpleblocks.discover.BlocksDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleblocks.discover.BlocksDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleblocks.discover.BlocksDiscover::firstPickupTips);

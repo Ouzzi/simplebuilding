@@ -1418,35 +1418,43 @@
       "id": "money_links_simpleblocks",
       "en": {
         "title": "Linked Price Table: simpleblocks",
-        "summary": "4 item prices; loaded-mod condition: simpleblocks.",
+        "summary": "6 item prices; loaded-mod condition: simpleblocks.",
         "details": [
           "simpleblocks:levitating_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleblocks:levitating_red_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simpleblocks:levitating_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simpleblocks:suspended_gravel: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simpleblocks:suspended_red_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simpleblocks:suspended_sand: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1."
         ]
       },
       "de": {
         "title": "Verknüpfte Preisliste: simpleblocks",
-        "summary": "4 Itempreise; Mod-Ladebedingung: simpleblocks.",
+        "summary": "6 Itempreise; Mod-Ladebedingung: simpleblocks.",
         "details": [
           "simpleblocks:levitating_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleblocks:levitating_red_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simpleblocks:levitating_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simpleblocks:suspended_gravel: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simpleblocks:suspended_red_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simpleblocks:suspended_sand: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
         ]
       },
       "sources": [
         "modules/simplemoney/shared/resources/data/simplemoney/money/simpleblocks/prices.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_gravel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_red_sand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_sand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_gravel.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_red_sand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_sand.json"
       ],
       "related": [
         "simpleblocks:levitating_gravel",
+        "simpleblocks:levitating_red_sand",
         "simpleblocks:levitating_sand",
         "simpleblocks:suspended_gravel",
+        "simpleblocks:suspended_red_sand",
         "simpleblocks:suspended_sand"
       ]
     },
@@ -2922,7 +2930,7 @@
       "id": "money_links_simplepads",
       "en": {
         "title": "Linked Price Table: simplepads",
-        "summary": "31 item prices; loaded-mod condition: simplepads (5 of them also need simpleores).",
+        "summary": "37 item prices; loaded-mod condition: simplepads (6 of them also need simpleores).",
         "details": [
           "simplepads:chunk_loader: tier 1, hours 6.7, craft 3; 13 bills; mason 2; stock 2; chance 1.",
           "simplepads:copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
@@ -2930,25 +2938,31 @@
           "simplepads:elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
           "simplepads:enderite_chunk_loader: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:enderite_elytra_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:enderite_flypad: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:enderite_launchpad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:enderite_pressure_plate: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:enderite_spawn_teleporter: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:exposed_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:fine_elytra_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:flypad: tier 5, hours 38.1, craft 4; 58 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:funny_stick: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
           "simplepads:infused_potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:launchpad: tier 1, hours 6.7, craft 3; 13 bills; mason 2; stock 2; chance 1.",
           "simplepads:netherite_chunk_loader: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:netherite_elytra_pad: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:netherite_flypad: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:netherite_launchpad: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:netherite_pressure_plate: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:oxidized_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
           "simplepads:potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:reinforced_elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
           "simplepads:reinforced_flypad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:reinforced_potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:spawn_elytra: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:spawn_teleporter: tier 3, hours 15.0, craft 3; 27 bills; mason 4; stock 1; chance 1.",
           "simplepads:spawn_teleporter_tier_2: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplepads:spawn_teleporter_tier_3: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
+          "simplepads:spawn_teleporter_tier_4: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
           "simplepads:stellar_flypad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplepads:waxed_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
           "simplepads:waxed_exposed_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
@@ -2959,7 +2973,7 @@
       },
       "de": {
         "title": "Verknüpfte Preisliste: simplepads",
-        "summary": "31 Itempreise; Mod-Ladebedingung: simplepads (5 davon brauchen zusätzlich simpleores).",
+        "summary": "37 Itempreise; Mod-Ladebedingung: simplepads (6 davon brauchen zusätzlich simpleores).",
         "details": [
           "simplepads:chunk_loader: Stufe 1, Stunden 6.7, Rezeptplaetze 3; 13 Scheine; mason 2; Vorrat 2; Chance 1.",
           "simplepads:copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
@@ -2967,25 +2981,31 @@
           "simplepads:elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplepads:enderite_chunk_loader: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:enderite_elytra_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:enderite_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:enderite_launchpad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:enderite_pressure_plate: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:enderite_spawn_teleporter: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:exposed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:fine_elytra_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 4; 58 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:funny_stick: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplepads:infused_potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:launchpad: Stufe 1, Stunden 6.7, Rezeptplaetze 3; 13 Scheine; mason 2; Vorrat 2; Chance 1.",
           "simplepads:netherite_chunk_loader: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:netherite_elytra_pad: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:netherite_flypad: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:netherite_launchpad: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:netherite_pressure_plate: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:oxidized_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplepads:potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:reinforced_elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplepads:reinforced_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:reinforced_potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:spawn_elytra: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:spawn_teleporter: Stufe 3, Stunden 15.0, Rezeptplaetze 3; 27 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplepads:spawn_teleporter_tier_2: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplepads:spawn_teleporter_tier_3: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplepads:spawn_teleporter_tier_4: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplepads:stellar_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplepads:waxed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplepads:waxed_exposed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
@@ -3002,25 +3022,31 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/elytra_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_chunk_loader.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_elytra_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_flypad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_launchpad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_spawn_teleporter.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/exposed_copper_pressure_plate.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/fine_elytra_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/flypad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/funny_stick.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/infused_potion_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/launchpad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_chunk_loader.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_elytra_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_flypad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_launchpad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/oxidized_copper_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/potion_pad.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_elytra_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_flypad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_potion_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_elytra.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_2.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_3.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_4.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/stellar_flypad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_copper_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/waxed_exposed_copper_pressure_plate.json",
@@ -3035,25 +3061,31 @@
         "simplepads:elytra_pad",
         "simplepads:enderite_chunk_loader",
         "simplepads:enderite_elytra_pad",
+        "simplepads:enderite_flypad",
         "simplepads:enderite_launchpad",
         "simplepads:enderite_pressure_plate",
         "simplepads:enderite_spawn_teleporter",
         "simplepads:exposed_copper_pressure_plate",
+        "simplepads:fine_elytra_pad",
         "simplepads:flypad",
         "simplepads:funny_stick",
         "simplepads:infused_potion_pad",
         "simplepads:launchpad",
         "simplepads:netherite_chunk_loader",
         "simplepads:netherite_elytra_pad",
+        "simplepads:netherite_flypad",
         "simplepads:netherite_launchpad",
         "simplepads:netherite_pressure_plate",
         "simplepads:oxidized_copper_pressure_plate",
         "simplepads:potion_pad",
+        "simplepads:reinforced_elytra_pad",
         "simplepads:reinforced_flypad",
         "simplepads:reinforced_potion_pad",
         "simplepads:spawn_elytra",
         "simplepads:spawn_teleporter",
         "simplepads:spawn_teleporter_tier_2",
+        "simplepads:spawn_teleporter_tier_3",
+        "simplepads:spawn_teleporter_tier_4",
         "simplepads:stellar_flypad",
         "simplepads:waxed_copper_pressure_plate",
         "simplepads:waxed_exposed_copper_pressure_plate",
@@ -5718,6 +5750,31 @@
       "link": "simpleblocks"
     },
     {
+      "id": "simplemoney:links/simpleblocks/levitating_red_sand",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 46
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simpleblocks:levitating_red_sand",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simpleblocks",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/levitating_red_sand.json",
+      "link": "simpleblocks"
+    },
+    {
       "id": "simplemoney:links/simpleblocks/levitating_sand",
       "profession": "wandering_trader",
       "level": null,
@@ -5765,6 +5822,31 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_gravel.json",
+      "link": "simpleblocks"
+    },
+    {
+      "id": "simplemoney:links/simpleblocks/suspended_red_sand",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 46
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simpleblocks:suspended_red_sand",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simpleblocks",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleblocks/suspended_red_sand.json",
       "link": "simpleblocks"
     },
     {
@@ -13968,6 +14050,31 @@
       "link": "simplepads"
     },
     {
+      "id": "simplemoney:links/simplepads/enderite_flypad",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 54
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplepads:enderite_flypad",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplepads",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/enderite_flypad.json",
+      "link": "simplepads"
+    },
+    {
       "id": "simplemoney:links/simplepads/enderite_launchpad",
       "profession": "wandering_trader",
       "level": null,
@@ -14065,6 +14172,31 @@
         "enableVillagerTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/exposed_copper_pressure_plate.json",
+      "link": "simplepads"
+    },
+    {
+      "id": "simplemoney:links/simplepads/fine_elytra_pad",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 57
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplepads:fine_elytra_pad",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplepads",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/fine_elytra_pad.json",
       "link": "simplepads"
     },
     {
@@ -14218,6 +14350,31 @@
       "link": "simplepads"
     },
     {
+      "id": "simplemoney:links/simplepads/netherite_flypad",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 37
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplepads:netherite_flypad",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplepads",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/netherite_flypad.json",
+      "link": "simplepads"
+    },
+    {
       "id": "simplemoney:links/simplepads/netherite_launchpad",
       "profession": "wandering_trader",
       "level": null,
@@ -14315,6 +14472,31 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/potion_pad.json",
+      "link": "simplepads"
+    },
+    {
+      "id": "simplemoney:links/simplepads/reinforced_elytra_pad",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 33
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplepads:reinforced_elytra_pad",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplepads",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/reinforced_elytra_pad.json",
       "link": "simplepads"
     },
     {
@@ -14440,6 +14622,56 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_2.json",
+      "link": "simplepads"
+    },
+    {
+      "id": "simplemoney:links/simplepads/spawn_teleporter_tier_3",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplepads:spawn_teleporter_tier_3",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplepads",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_3.json",
+      "link": "simplepads"
+    },
+    {
+      "id": "simplemoney:links/simplepads/spawn_teleporter_tier_4",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplepads:spawn_teleporter_tier_4",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplepads",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplepads/spawn_teleporter_tier_4.json",
       "link": "simplepads"
     },
     {
@@ -16038,7 +16270,7 @@
     "enchantments": 0,
     "items": 8,
     "blocks": 0,
-    "trades": 445,
+    "trades": 453,
     "config": 11,
     "quests": 0,
     "recipesOtherLines": 0,

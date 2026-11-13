@@ -52,10 +52,12 @@ public final class LightsDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simplelights:*light_pane",
+            "simplelights:copper_light_panes",
             "simplelights:creative_tab_switch",
             "simplelights:guide_book",
             "simplelights:light_panes",
-            "simplelights:migration");
+            "simplelights:migration",
+            "simplelights:redstone_light_pane");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {

@@ -20,7 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * Besitzer SP22-1: schleichend die Ecke eines Vollblocks mit Achteln abbauen ({@link OctetCellBlock#startCornerBreak}).
  * Die drei Schritte jedes Loaders: {@code playerWillDestroy} merkt sich das Achtel, {@code destroy} legt die 7 uebrigen
  * zurueck (Vanilla, Fabric und Forge rufen es am Vollblock, NeoForge an der Zelle), {@code playerDestroy} droppt ueber
- * die Zelle nur das eine Achtel. Achtelzellen selbst haben ihre eigene Logik und fallen hier durch.
+ * die Zelle nur das eine Achtel. Achtelzellen selbst haben ihre eigene Logik und fallen hier durch. Abschaltbar mit
+ * {@code features.cornerBreaking} ({@link com.simpleoctets.OctetsConfig}, PLAN40 simpleoctets-4): aus beginnt kein Ecken-Abbau,
+ * die beiden anderen Haken finden dann nichts gemerkt und lassen den Vanilla-Abbau unverändert.
  */
 @Mixin(Block.class)
 public abstract class BlockCornerBreakMixin {

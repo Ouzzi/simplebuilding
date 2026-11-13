@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:sculk_tiles",
+  "result": {
+    "id": "simpleblocks:sculk_tile_stairs"
+  }
+}

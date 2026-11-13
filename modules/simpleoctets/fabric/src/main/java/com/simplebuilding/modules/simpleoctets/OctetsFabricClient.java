@@ -8,5 +8,7 @@ public final class OctetsFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(OctetRegistry.MIXED_OCTET_BE, MixedOctetRenderer::new);
+        // PLAN40 simpleoctets-5: real-mouse probe (aim, place, sneak-break, melon), inert without simpleoctets-octets-probe.json.
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simpleoctets.client.OctetsProbe::tick);
     }
 }

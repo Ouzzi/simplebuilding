@@ -63,7 +63,7 @@
         "summary": "Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.",
         "details": [
           "Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.",
-          "Rose Gold (the best of the two): durability 250 like iron, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.",
+          "Rose Gold (the better of the two): durability 225 (iron lasts longer: 250), speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.",
           "Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry)."
         ]
       },
@@ -72,7 +72,7 @@
         "summary": "Schwert, Spitzhacke, Axt, Schaufel, Hacke und ein ganzer Rüstungssatz jeder Legierung. Beide bauen wie Eisen ab; keine schlägt Diamant.",
         "details": [
           "Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.",
-          "Roségold (das bessere): Haltbarkeit 250 wie Eisen, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.",
+          "Roségold (das bessere): Haltbarkeit 225 (Eisen hält länger: 250), Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.",
           "Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers)."
         ]
       }
@@ -482,7 +482,8 @@
         "details": [
           "On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.",
           "Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.",
-          "Other mods ask for Enderite through SimpleLib (it is \"provided\" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them."
+          "Other mods ask for Enderite through SimpleLib (it is \"provided\" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them.",
+          "What it is for: on its own (Vanilla + Simple Ores) Enderite is a rare treasure for building - the Block of Enderite (also a beacon base), the chiseled block, the weighted pressure plate - and the first step of the rift alloys (a Terranite ingot needs an Enderite ingot). Its gear lives in the other Simple mods: tools, armor, apples and the smithing upgrade in SimpleBuilding, the sledgehammer in Simple Hammers, chests, backpacks, bundles, furnaces, pistons and hoppers in Simple Storage, Ovens and Machines. Without them Enderite is a material, not a tier."
         ]
       },
       "de": {
@@ -491,7 +492,8 @@
         "details": [
           "Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.",
           "Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.",
-          "Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie."
+          "Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie.",
+          "Wozu es dient: allein (Vanilla + Simple Ores) ist Enderit ein seltener Schatz zum Bauen - der Enderitblock (auch als Leuchtfeuer-Sockel), der gemeißelte Block, die Wägeplatte - und der erste Schritt der Riss-Legierungen (ein Terranitbarren braucht einen Enderitbarren). Die Ausrüstung liegt in den anderen Simple-Mods: Werkzeuge, Rüstung, Äpfel und die Schmiede-Aufwertung in SimpleBuilding, der Vorschlaghammer in Simple Hammers, Truhen, Rucksäcke, Bündel, Öfen, Kolben und Trichter in Simple Storage, Ovens und Machines. Ohne sie ist Enderit ein Material, keine Ausrüstungsstufe."
         ]
       }
     },
@@ -3311,10 +3313,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold sword: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold sword: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldschwert: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldschwert: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_pickaxe": {
@@ -3322,10 +3324,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold pickaxe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold pickaxe: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldspitzhacke: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldspitzhacke: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_axe": {
@@ -3333,10 +3335,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold axe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold axe: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldaxt: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldaxt: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_shovel": {
@@ -3344,10 +3346,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold shovel: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold shovel: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldschaufel: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldschaufel: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_hoe": {
@@ -3355,10 +3357,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Gold hoe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        "summary": "Rose Gold hoe: durability 225 (iron: 250), speed 12 (like gold), enchantability 22. Mines like iron."
       },
       "de": {
-        "summary": "Roségoldhacke: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        "summary": "Roségoldhacke: Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
       }
     },
     "simpleores:rose_gold_helmet": {

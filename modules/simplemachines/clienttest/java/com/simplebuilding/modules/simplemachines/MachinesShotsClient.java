@@ -101,10 +101,54 @@ public final class MachinesShotsClient implements FabricClientGameTest {
             stepUntil(context, world, c -> ext(c, a) == 0);
             context.takeScreenshot(TestScreenshotOptions.of("simplemachines-mach05-move8-stage0").withSize(1920, 1080));
             world.getServer().runOnServer(server -> run(server, "tick unfreeze"));
+            hopperCarts(context, world);
             context.runOnClient(c -> {
                 if (c.gui.hud.isHidden()) c.gui.hud.toggle();
             });
         }
+    }
+
+    /**
+     * PLAN40 simplemachines-3: the hopper carts in the client for the first time - Vanilla's hopper cart and the three tier carts side by
+     * side, in front on a rail under a chest (the cart pulls from the container above it), behind on a rail on a hopper above a chest (the
+     * hopper empties the cart into the chest). From the front and at an angle from the west.
+     */
+    private static void hopperCarts(ClientGameTestContext context, TestSingleplayerContext world) {
+        world.getServer().runOnServer(server -> {
+            ServerLevel l = (ServerLevel) server.getPlayerList().getPlayers().getFirst().level();
+            for (int x = -4; x <= 22; x++) {
+                for (int z = 17; z <= 30; z++) {
+                    for (int y = -3; y <= 6; y++) set(l, base.offset(x, y, z), y < 0 ? Blocks.SMOOTH_STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+                }
+            }
+            java.util.List<String> carts = new java.util.ArrayList<>(java.util.List.of("minecraft:hopper_minecart"));
+            for (com.simplemachines.hopper.HopperTier tier : com.simplemachines.hopper.HopperTier.values()) {
+                carts.add(net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(com.simplemachines.hopper.Hoppers.CARTS.get(tier)).toString());
+            }
+            for (int i = 0; i < carts.size(); i++) {
+                int x = 2 + 5 * i;
+                // front row: rail on the floor, chest above the cart
+                set(l, base.offset(x, 0, 22), Blocks.RAIL.defaultBlockState());
+                set(l, base.offset(x, 1, 22), Blocks.CHEST.defaultBlockState());
+                // back row: chest, hopper on it, rail on the hopper, cart on the rail
+                set(l, base.offset(x, 0, 26), Blocks.CHEST.defaultBlockState());
+                set(l, base.offset(x, 1, 26), Blocks.HOPPER.defaultBlockState());
+                set(l, base.offset(x, 2, 26), Blocks.RAIL.defaultBlockState());
+                for (int[] at : new int[][]{{x, 0, 22}, {x, 2, 26}}) {
+                    run(server, String.format(java.util.Locale.ROOT, "summon %s %.2f %.2f %.2f", carts.get(i),
+                            base.getX() + at[0] + 0.5, base.getY() + at[1] + 0.1, base.getZ() + at[2] + 0.5));
+                }
+                if (!l.getBlockState(base.offset(x, 2, 26)).is(Blocks.RAIL)) System.out.println("[mach05] carts: no rail on the hopper at " + x);
+            }
+            System.out.println("[mach05] carts: " + carts);
+        });
+        world.getConnection().waitForClientboundPackets();
+        world.getConnection().waitForChunksRender();
+        context.waitTicks(40);
+        look(context, world, 9.5, 4.5, 15.0, 9.5, 1.2, 24.0);
+        context.takeScreenshot(TestScreenshotOptions.of("simplemachines-hopper-carts-front").withSize(1920, 1080));
+        look(context, world, -3.0, 5.0, 17.0, 9.5, 1.2, 24.0);
+        context.takeScreenshot(TestScreenshotOptions.of("simplemachines-hopper-carts-side").withSize(1920, 1080));
     }
 
     /** True while the client has a moving block at {@code pos} that is somewhere between start and end. */

@@ -3568,7 +3568,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Octets",
-      "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+      "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -4255,6 +4255,14 @@
               "report": "integration/build/standalone/simplelights-junit.xml"
             }
           }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplelights.LightsClientSmoke"
+          ],
+          "sources": "modules/simplelights/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
         }
       },
       "paths": {
@@ -4747,7 +4755,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Machines",
-      "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts. Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
+      "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts; since stage 4 the Smither (smithing table worked by a redstone pulse) and since 10.11. the Auto Crafter (a Crafter that crafts by itself into the hopper below, unlike the Vanilla Crafter without a redstone clock; ids moved from SimpleBuilding). Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
       "loaders": [
         "fabric"
       ],

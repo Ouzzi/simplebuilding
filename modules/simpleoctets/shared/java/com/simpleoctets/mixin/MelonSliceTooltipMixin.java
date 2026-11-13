@@ -20,7 +20,7 @@ public abstract class MelonSliceTooltipMixin {
     private void simpleoctets$melonSliceHint(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,
                                             Consumer<Component> out, TooltipFlag flag, CallbackInfo ci) {
         if ((Object) this == Items.MELON_SLICE && com.simpleoctets.registry.OctetRegistry.MELON_OCTET != null
-                && com.simpleoctets.SimpleOctets.on()) {
+                && com.simpleoctets.SimpleOctets.on() && com.simpleoctets.OctetsConfig.melonSlicePlacing) {
             out.accept(Component.translatable("tooltip.simpleoctets.melon_slice.place").withStyle(ChatFormatting.GRAY));
         }
     }

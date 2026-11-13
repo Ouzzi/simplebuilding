@@ -83,10 +83,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 486,
-      "blocks": 279,
-      "recipes": 809,
-      "config": 156,
+      "items": 488,
+      "blocks": 281,
+      "recipes": 807,
+      "config": 153,
       "features": 42
     }
   },
@@ -161,7 +161,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 80
     },
-    "dataHash": "308de9904891"
+    "dataHash": "c758cb697d55"
   },
   {
     "id": "simpleriding",
@@ -591,7 +591,7 @@ window.WIKI_MODULES = [
       "config": 20,
       "features": 8
     },
-    "dataHash": "ea9b897b9142"
+    "dataHash": "a61a3a144414"
   },
   {
     "id": "simpleinterfaces",
@@ -738,7 +738,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplemobs",
     "displayName": "Simple Mobs",
-    "description": "New mobs (Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Dread, Deceiver) and summoned bosses (Void Runner, Brimguard, the armored Blighted and Abyssal Wither). Weathered Trials with the Evil and Void Omen chain (trials, raids, vaults, keys), Wings tiers 1 to 4 with Nether Heart, Red Nether Gem, Ender Heart and Ender Gem, Spawner Fragments and the Makeshift Spawner, Strong Gunpowder, TNT and Rocket, the Trumpet, the Cloak of Deception and Trick Mirror, combat effects, armor trim abilities, the brood hollow with Mob Essence and the Potion of Silence. Requires Simple Resonance.",
+    "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Red Nether Gem, and the Potion of Silence.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -767,10 +767,10 @@ window.WIKI_MODULES = [
       "items": 55,
       "blocks": 8,
       "recipes": 119,
-      "config": 82,
+      "config": 61,
       "features": 25
     },
-    "dataHash": "a6a83fca3361"
+    "dataHash": "c230856a23e4"
   },
   {
     "id": "simpleweather",
@@ -1140,12 +1140,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mOQk9D+TwlmABET2paQjH1sclANSA1v/L9u+d7/Jy8eBrOxYZgcSLO5th+mAcgKZy2dCueD2MiaQRbhNQCGc6uywRjGB2mGYaIN8HIKwNBM0IC4kKT/r59+AOPTh66AMUiMKAOQNYPwxq7TYAOWzt6AYghOA5A1w2wHaQbhupIO/AYg2w6zGWYASDMIw1yB0wCYJlya8RoAwshOhmkGuQZZM04DQBIgRciakW3GawAodcEkQQrRNeKNRpgAMkbXjC6PYgAlGADBDC0kWCrJGAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 9,
-      "blocks": 53,
+      "blocks": 51,
       "recipes": 39,
       "config": 9,
       "features": 9
     },
-    "dataHash": "753c34ea6c78"
+    "dataHash": "6abffcfd0b8d"
   },
   {
     "id": "simplerespawn",
@@ -1256,13 +1256,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 48,
+      "items": 44,
       "blocks": 9,
-      "recipes": 52,
-      "config": 7,
+      "recipes": 48,
+      "config": 6,
       "features": 9
     },
-    "dataHash": "b1448d1e0e90"
+    "dataHash": "098ac77c6a18"
   },
   {
     "id": "simplemobheads",
@@ -1276,7 +1276,8 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "simplelib"
+      "simplelib",
+      "cloth_config"
     ],
     "optional": [
       "simplebuilding",
@@ -1284,8 +1285,7 @@ window.WIKI_MODULES = [
       "simpleend",
       "simpleenddragonfight",
       "jei",
-      "modmenu",
-      "cloth_config"
+      "modmenu"
     ],
     "stage": "done",
     "parent": "simplebuilding",
@@ -1309,7 +1309,7 @@ window.WIKI_MODULES = [
       "config": 22,
       "features": 16
     },
-    "dataHash": "6e1d0c60e05a"
+    "dataHash": "febf6b2ee921"
   },
   {
     "id": "simpleshops",
@@ -1454,12 +1454,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 259,
-      "recipes": 682,
-      "config": 5,
+      "blocks": 266,
+      "recipes": 696,
+      "config": 12,
       "features": 19
     },
-    "dataHash": "0a49413f3c61"
+    "dataHash": "75985410f365"
   },
   {
     "id": "simplecrucibles",
@@ -1499,15 +1499,15 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 7,
       "recipes": 1,
-      "config": 37,
-      "features": 9
+      "config": 11,
+      "features": 8
     },
-    "dataHash": "7a2b8fc85024"
+    "dataHash": "10ada0361221"
   },
   {
     "id": "simpleoctets",
     "displayName": "Simple Octets",
-    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1522,7 +1522,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend",
       "simpleores",
-      "simpleenchanting",
       "jei"
     ],
     "stage": "done",
@@ -1539,11 +1538,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 213,
-      "recipes": 619,
-      "features": 6
+      "blocks": 234,
+      "recipes": 681,
+      "config": 2,
+      "features": 8
     },
-    "dataHash": "2c202ceefb9c"
+    "dataHash": "70c71e85b54a"
   },
   {
     "id": "simplehammers",
@@ -1584,7 +1584,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "5e973feefcc2"
+    "dataHash": "05d38edc82e8"
   },
   {
     "id": "simpleoptimization",
@@ -1746,12 +1746,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABw0lEQVR42qWTV0tDQRCF/RW+2LAhKGpM7BoSu8YWo9gQG4pdYu9YsSESFERRISgidg32XmJ78Enf/SnHzMgNmqxPPpw7e3fmfDu77DpEatT4jxzoc/5uFmoxX84S5Qynxt8A4/0O3j4/OLZEeXC0HUsic/VIiz2ApPVxZBNF27FkpoWEACp6nSzAy0Q+nsfy8DSai8eRHJiHs/EwpLOChB1QgoruB7NwN6DFbX8mbvsycNObjuueNFx1p2IuR4biQCeuFQKo6LJLg4tODc47UnDWnozTtiSctCbiuDkBhkx/BlCkejvAeIovFx41xeNQH8f7NzXE4KBezblJjR8DKP4C0A+ZqEgSmaXxoQXao/Zmc12Ym/0WaIJWmskOgkEngyFLBvONCdPaAExlBMCkT0CXygubawuoCfkDsFerwk61ks+BNDXWx3G1JAz7jXHoUHpyB1XBrmLAdlU0NiujYCwKsdNufSxao78BlQoXMWCjIhLr5RFYKpDbSIGt2hg0W86EAOVyZzFgrSyc2/15kKSF3CBs1Kigj3BHqcxZfJFoghIrxaHc8nKhgh/RvMVMl2dWF2i9hWSUZAVIkopE+us5fwF7/ihD39cG0AAAAABJRU5ErkJggg==",
     "counts": {
       "items": 18,
-      "blocks": 52,
-      "recipes": 185,
+      "blocks": 51,
+      "recipes": 184,
       "config": 9,
       "features": 16
     },
-    "dataHash": "fded98d362d5"
+    "dataHash": "0f8f85dbbeaf"
   },
   {
     "id": "simplemusic",
@@ -1822,14 +1822,14 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 37,
       "recipes": 37,
-      "features": 3
+      "features": 5
     },
-    "dataHash": "11cae6c9f00b"
+    "dataHash": "d3829d5a2cf0"
   },
   {
     "id": "simplegadgets",
     "displayName": "Simple Gadgets",
-    "description": "Gadgets you hold and use: Gauge (speed dial, altimeter with fall-damage warning, auto-walk), Transposer, Resonance Rod, Detector, Attractor and Echo Sounder, moved from SimpleBuilding (ids migrate); the Color Brush follows later, the Octant lives in Simple Building Tools. Fabric only for now.",
+    "description": "Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1853,9 +1853,9 @@ window.WIKI_MODULES = [
       "items": 7,
       "recipes": 12,
       "config": 31,
-      "features": 9
+      "features": 7
     },
-    "dataHash": "deda358208ec"
+    "dataHash": "008d13f825e2"
   },
   {
     "id": "simpleearth",
@@ -1976,8 +1976,8 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex, Triceratops or Stegosaurus.",
-      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex, Triceratops oder Stegosaurus großziehen."
+      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
+      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen."
     },
     "purpose": {
       "en": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar.",
@@ -1985,13 +1985,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMI8zL4TwlmABHPL68mGd/YUYFqwN1D3f/f3j8EprVkBLBikBwIgzTPaQnDNACmedaBKhT87cMFMAbJgTSDLMJqADbNyAbkzQqCG0LQgBcPdqAYAtKM1wBctqMbADOEaANgLiHJAHTnIxvgV2VFmgvQbcdrAEgBIefjNAAWC8iK0TFMM95oBGGQQlyacRoASl0gCRDGlZRh8hgGwARIxXADKMEAraJkFqb3qvwAAAAASUVORK5CYII=",
     "counts": {
-      "items": 16,
+      "items": 5,
       "blocks": 6,
-      "recipes": 15,
-      "config": 8,
-      "features": 8
+      "recipes": 4,
+      "config": 1,
+      "features": 6
     },
-    "dataHash": "7ca7030dd1a7"
+    "dataHash": "0ec8316a3a40"
   },
   {
     "id": "simpleores",
@@ -2030,12 +2030,12 @@ window.WIKI_MODULES = [
       "config": 16,
       "features": 23
     },
-    "dataHash": "f9c5d1a77c10"
+    "dataHash": "bd530377a453"
   },
   {
     "id": "simplemachines",
     "displayName": "Simple Machines",
-    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts. Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
+    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts; since stage 4 the Smither (smithing table worked by a redstone pulse) and since 10.11. the Auto Crafter (a Crafter that crafts by itself into the hopper below, unlike the Vanilla Crafter without a redstone clock; ids moved from SimpleBuilding). Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -2062,9 +2062,10 @@ window.WIKI_MODULES = [
       "items": 4,
       "blocks": 16,
       "recipes": 12,
+      "config": 10,
       "features": 10
     },
-    "dataHash": "d2c77368b695"
+    "dataHash": "533e0d8cbfad"
   },
   {
     "id": "simplearrows",
@@ -2096,7 +2097,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "3227fd1d6d5f"
+    "dataHash": "66bb382af884"
   },
   {
     "id": "simpleresonance",
@@ -2128,10 +2129,9 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPQUnb7TwlmABGLp5/DiqWEDMAYm1xWxAZUA+rzd//fs+U2mIZpPLHhAxjD+CA5EAZp9rGvxzQAphmmER2D5ECaQRZhNQCmGWbYrLoHYAzjIxuCYQCyZphGdAzSCDOEoAEgGgQ+vPgP1ojXAGR/w2yDaYZhmDhyeOA1AFkzQQOweQHkXJhmgl6gSiAiRyNIIcxWmEZkzTgTEkiCmISE1QBQ6oJJ4krKMHkMA2AC6BimEZscigGUYAAdGmaSr7d4OgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "config": 32,
       "features": 9
     },
-    "dataHash": "0f8b43358a00"
+    "dataHash": "a2831e1ef436"
   },
   {
     "id": "simplefoundry",
@@ -2163,7 +2163,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 2
     },
-    "dataHash": "d4f04d690792"
+    "dataHash": "80ac24ac0fac"
   },
   {
     "id": "simpleenchanting",
@@ -2192,12 +2192,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mNQETf4TwlmABEzW1eTjKOsKlANKAzr/r912SEwTQiDNDtqhWEaAMJSXEJ4MUgzyCKsBoAUbHAw+P/l1QUwrlLQAGMYHyQHMwSnATANLzZ4wA0AsWEG4jWAWC/gNQBbgGHDGAYQshkdYzUA5FdiME4DrEQU/kcpGBCkcRpAjGYQTTsXkB2IsGghFcMNoAQDAHSQ0Ezrx2wLAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 26,
-      "recipes": 36,
-      "config": 1,
-      "features": 6
+      "blocks": 10,
+      "recipes": 8,
+      "features": 5
     },
-    "dataHash": "3ab121b2dd18"
+    "dataHash": "9fbee25393b8"
   },
   {
     "id": "simplepads",
@@ -2221,18 +2220,18 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite and copper pressure plates and the Enderite Owner Plate.",
-      "de": "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, Netherit- und Kupfer-Druckplatten und die Enderit-Besitzerplatte."
+      "en": "Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite, Enderite and copper pressure plates.",
+      "de": "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
     "counts": {
       "items": 3,
-      "blocks": 29,
+      "blocks": 35,
       "recipes": 26,
       "config": 34,
-      "features": 9
+      "features": 1
     },
-    "dataHash": "60c22ec8a536"
+    "dataHash": "d49aea547a66"
   },
   {
     "id": "simplebuildingtools",
@@ -2264,10 +2263,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 27,
       "recipes": 28,
-      "config": 9,
+      "config": 7,
       "features": 6
     },
-    "dataHash": "e3647e49d318"
+    "dataHash": "92936ba9af6e"
   },
   {
     "id": "simplechisels",
@@ -2297,10 +2296,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 10,
-      "config": 8,
-      "features": 8
+      "config": 1,
+      "features": 7
     },
-    "dataHash": "37272b87906b"
+    "dataHash": "0f4fce8b092a"
   },
   {
     "id": "simplelayers",

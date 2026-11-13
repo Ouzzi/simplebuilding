@@ -224,7 +224,10 @@ public final class SnowTests {
         helper.succeed();
     }
 
-    /** Grass under snow freezes above ice (any biome) and in the cold; without ice in a warm biome, without snow, or switched off it stays grass. */
+    /**
+     * Grass under snow freezes above ice (any biome) and in the cold; without ice in a warm biome, without snow, or switched off it
+     * stays grass. The switch is off by default (PLAN40 simpleblocks-2), so a fresh config never freezes grass.
+     */
     public static void frostGrassFreezes(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         RandomSource random = level.getRandom();
@@ -241,6 +244,7 @@ public final class SnowTests {
         boolean on = SnowConfig.frostGrass;
         try {
             SnowConfig.freezeOneIn = 1;
+            SnowConfig.frostGrass = true;   // default off since PLAN40 simpleblocks-2: switched on for the run
             for (BlockPos grass : List.of(onIce, onStone, bare)) {
                 helper.getBlockState(grass).randomTick(level, helper.absolutePos(grass), random);
             }

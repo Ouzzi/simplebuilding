@@ -19,7 +19,8 @@ One octet cell + item for every block that has stairs and slabs (vanilla + Simpl
   lang en_us/de_de                                           names of all cells and items (generated block after melon_octet)
   data: recipe/<cell>_from_<base>_sawing (simpleblocks:sawing, only with Simple Blocks) + <cell>_from_<base>_stonecutting
         (fallback, only without Simple Blocks) + <base>_from_octets (+ recipe advancements under recipes/building_blocks),
-        tags minecraft:mineable/axe|pickaxe; blocks of another mod (simplebuilding, simpleend) only while it is loaded
+        tags minecraft:mineable/axe|pickaxe, minecraft:occludes_vibration_signals|dampens_vibrations (wool, hushed tiles);
+        blocks of another mod (simplebuilding, simpleend) only while it is loaded
         (load conditions, optional tag entries)
 
 --check compares instead of writing. --preview DIR renders octet examples (needs the vanilla textures in --vanilla DIR,
@@ -561,7 +562,17 @@ def data_files(mats):
                          if n.endswith('.json') and n != 'guide_book.json' and os.path.join(folder, n) not in files)
     for tool, values in tags.items():
         d(f'minecraft/tags/block/mineable/{tool}.json', {'values': values})
+    # PLAN40 simpleoctets-2: an octet of a block that swallows vibrations does so too - the wool octets like Vanilla wool, the
+    # Hushed Deepslate Tiles octet like its block (Simple Blocks' dampens_vibrations/occludes_vibration_signals; optional entry).
+    damp = [f'{NS}:{m["key"]}_octet' if m['ns'] == 'minecraft' else {'id': f'{NS}:{m["key"]}_octet', 'required': False}
+            for m in mats if m['group'] == 'wool' or (m['ns'], m['base']) in VIBRATION_DAMPENING]
+    for tag in ('occludes_vibration_signals', 'dampens_vibrations'):
+        d(f'minecraft/tags/block/{tag}.json', {'values': damp})
     return files
+
+
+# Blocks of other mods that dampen vibrations like wool; their octets get the two Vanilla tags as well (wool: group 'wool').
+VIBRATION_DAMPENING = {('simpleblocks', 'hushed_deepslate_tiles')}
 
 
 # SimpleBuilding's chess octets (checker_octet cells, docs/ai/PLAN-SCHACH-2026-10-06.md): 8 from a checker (quartz: the

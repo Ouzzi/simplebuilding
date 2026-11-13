@@ -1293,8 +1293,8 @@ def note_summaries():
                                      f'{de}-Karotte, eine Stufe über der goldenen Karotte (6 Hunger): {carrot} Hunger, Sättigung {carrot * 2.4:.1f}, keine Effekte, nicht verzaubert. 8 {de}klumpen um eine Karotte, wie die goldene Karotte aus Vanilla mit Goldklumpen; {"besser" if soft else "etwas schwächer"} als die {"Rosenkupfer" if soft else "Roségold"}-Karotte.')
         for part in TOOL_PARTS + ARMOR_PARTS:
             pen, pde = PARTS[part]
-            stats_en = 'durability 190 (like copper), speed 8, enchantability 15' if not soft else 'durability 250 (like iron), speed 12 (like gold), enchantability 22'
-            stats_de = 'Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15' if not soft else 'Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22'
+            stats_en = 'durability 190 (like copper), speed 8, enchantability 15' if not soft else 'durability 225 (iron: 250), speed 12 (like gold), enchantability 22'
+            stats_de = 'Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15' if not soft else 'Haltbarkeit 225 (Eisen: 250), Tempo 12 (wie Gold), Verzauberbarkeit 22'
             if part in ARMOR_PARTS:
                 prot = {'rose_bronze': (2, 4, 3, 1), 'rose_gold': (2, 5, 3, 1)}[a][ARMOR_PARTS.index(part)]
                 notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: protection {prot}, durability factor {11 if not soft else 15}, enchantability {12 if not soft else 25}.',
@@ -1385,11 +1385,11 @@ FEATURES = [
     feature('rose_gold_gear', [f'{JAVA}/OresMaterials.java', f'{JAVA}/OresRegistry.java'],
             ('Rose gold tools and armor', 'Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.',
              ['Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.',
-              'Rose Gold (the best of the two): durability 250 like iron, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.',
+              'Rose Gold (the better of the two): durability 225 (iron lasts longer: 250), speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.',
               'Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry).']),
             ('Roségold-Werkzeuge und -Rüstung', 'Schwert, Spitzhacke, Axt, Schaufel, Hacke und ein ganzer Rüstungssatz jeder Legierung. Beide bauen wie Eisen ab; keine schlägt Diamant.',
              ['Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.',
-              'Roségold (das bessere): Haltbarkeit 250 wie Eisen, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.',
+              'Roségold (das bessere): Haltbarkeit 225 (Eisen hält länger: 250), Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.',
               'Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).'])),
     feature('rose_gold_apples', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_apple.json', f'{DATAP}/recipe/enchanted_rose_gold_apple.json'],
             ('Rose gold apples', 'A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.',
@@ -1540,11 +1540,13 @@ FEATURES = [
             ('Enderite', 'The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.',
              ['On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.',
               'Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.',
-              'Other mods ask for Enderite through SimpleLib (it is "provided" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them.']),
+              'Other mods ask for Enderite through SimpleLib (it is "provided" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them.',
+              'What it is for: on its own (Vanilla + Simple Ores) Enderite is a rare treasure for building - the Block of Enderite (also a beacon base), the chiseled block, the weighted pressure plate - and the first step of the rift alloys (a Terranite ingot needs an Enderite ingot). Its gear lives in the other Simple mods: tools, armor, apples and the smithing upgrade in SimpleBuilding, the sledgehammer in Simple Hammers, chests, backpacks, bundles, furnaces, pistons and hoppers in Simple Storage, Ovens and Machines. Without them Enderite is a material, not a tier.']),
             ('Enderit', 'Die Stufe über Netherit (von SimpleLib hierher umgezogen, IG31-13). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.',
              ['Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.',
               'Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.',
-              'Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie.'])),
+              'Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie.',
+              'Wozu es dient: allein (Vanilla + Simple Ores) ist Enderit ein seltener Schatz zum Bauen - der Enderitblock (auch als Leuchtfeuer-Sockel), der gemeißelte Block, die Wägeplatte - und der erste Schritt der Riss-Legierungen (ein Terranitbarren braucht einen Enderitbarren). Die Ausrüstung liegt in den anderen Simple-Mods: Werkzeuge, Rüstung, Äpfel und die Schmiede-Aufwertung in SimpleBuilding, der Vorschlaghammer in Simple Hammers, Truhen, Rucksäcke, Bündel, Öfen, Kolben und Trichter in Simple Storage, Ovens und Machines. Ohne sie ist Enderit ein Material, keine Ausrüstungsstufe.'])),
     feature('nether_rose_gold', [f'{JAVA}/RoseGoldVeinFeature.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/feature/nether_gold_rose.json'],
             ('Nether Rose Gold Ore', 'A rare rose gold find hidden in the Nether gold veins, deep down in the heat.',
              ['Worldgen: the Vanilla Nether gold veins (Nether and Basalt Deltas, same numbers) can hold ONE Nether Rose Gold Ore each: every gold ore block of a vein has a chance (config roseGoldOreChance, 2 % by default, 0 to 10) to be rose gold ore instead, but only below Y 31, the level of the lava ocean (deeper means hotter), and never more than one per vein.',

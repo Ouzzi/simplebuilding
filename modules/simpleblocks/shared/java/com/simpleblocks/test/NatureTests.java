@@ -90,17 +90,20 @@ public final class NatureTests {
         all.put("suspended_blocks_stay_levitating_blocks_rise", NatureTests::suspendedBlocksStayLevitatingBlocksRise);
         maxTicks.put("suspended_blocks_stay_levitating_blocks_rise", GRAVITY_MAX_TICKS);
         all.put("moved_blocks_in_the_tab", NatureTests::movedBlocksInTheTab);
+        all.put("red_sand_variants_fall_merge_hang_and_rise", NatureTests::redSandVariantsFallMergeHangAndRise);   // PLAN40 simpleblocks-3
+        maxTicks.put("red_sand_variants_fall_merge_hang_and_rise", GRAVITY_MAX_TICKS);
     }
 
     /**
-     * Werkbank: 3 Erde/Grasblock/Sand/Kies nebeneinander -> 6 Stufen; 2x2 Nautilusschalen -> Block, Block -> 4 Schalen;
+     * Werkbank: 3 Erde/Grasblock/Sand/Roter Sand/Kies nebeneinander -> 6 Stufen; 2x2 Nautilusschalen -> Block, Block -> 4 Schalen;
      * Froschlicht (Vanilla oder Mod) + Rot/Cyan/Blau -> Scharlach/Aqua/Azur. Steinmetz: Eis -> rissiges Eis,
      * Packeis/Blaueis -> gemeisselt. Die Froschlichter leuchten wie Vanillas mit 15.
      */
     public static void natureVariantsHaveTheirRecipes(GameTestHelper helper) {
         List<String> missing = new ArrayList<>();
         Object[][] slabs = {{Items.DIRT, NatureBlocks.DIRT_SLAB.asItem()}, {Items.GRASS_BLOCK, NatureBlocks.GRASS_SLAB.asItem()},
-                {Items.SAND, NatureBlocks.SAND_SLAB.asItem()}, {Items.GRAVEL, NatureBlocks.GRAVEL_SLAB.asItem()}};
+                {Items.SAND, NatureBlocks.SAND_SLAB.asItem()}, {Items.RED_SAND, NatureBlocks.RED_SAND_SLAB.asItem()},
+                {Items.GRAVEL, NatureBlocks.GRAVEL_SLAB.asItem()}};
         for (Object[] pair : slabs) {
             ItemStack base = new ItemStack((Item) pair[0]);
             craft(helper, CraftingInput.of(3, 1, List.of(base, base, base)), "6 " + path((Item) pair[1]), missing);
@@ -527,7 +530,7 @@ public final class NatureTests {
 
     // ===================================================================================== moved from SimpleBuilding
 
-    /** The 15 blocks with their items, the rising block entity and their tags (shovel/pickaxe, slabs, ice, froglights). */
+    /** The 20 blocks with their items, the rising block entity and their tags (shovel/pickaxe, slabs, ice, froglights). */
     public static void movedBlocksRegistered(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         if (!NatureBlocks.NAMES.equals(com.simpleblocks.nature.NatureIds.NAMES)) problems.add("NatureIds.NAMES differs from the registered blocks: " + NatureBlocks.NAMES);
@@ -538,7 +541,7 @@ public final class NatureTests {
         if (NatureBlocks.LEVITATING_BLOCK == null || BuiltInRegistries.ENTITY_TYPE.getValue(SimpleBlocks.id(NatureBlocks.LEVITATING_ENTITY)) != NatureBlocks.LEVITATING_BLOCK) {
             problems.add("entity type levitating_block");
         }
-        for (Block slab : List.of(NatureBlocks.DIRT_SLAB, NatureBlocks.GRASS_SLAB, NatureBlocks.SAND_SLAB, NatureBlocks.GRAVEL_SLAB)) {
+        for (Block slab : List.of(NatureBlocks.DIRT_SLAB, NatureBlocks.GRASS_SLAB, NatureBlocks.SAND_SLAB, NatureBlocks.RED_SAND_SLAB, NatureBlocks.GRAVEL_SLAB)) {
             BlockState state = slab.defaultBlockState();
             if (!state.is(net.minecraft.tags.BlockTags.SLABS) || !state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)
                     || !new ItemStack(slab).is(net.minecraft.tags.TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.withDefaultNamespace("slabs")))) problems.add("slab tags of " + slab);
@@ -549,7 +552,8 @@ public final class NatureTests {
         }
         if (!NatureBlocks.NAUTILUS_SHELL_BLOCK.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add("nautilus shell block pickaxe");
         // Sand/gravel copies dig like Vanilla sand: fast with a shovel (AUDM24).
-        for (Block gravity : List.of(NatureBlocks.SUSPENDED_SAND, NatureBlocks.SUSPENDED_GRAVEL, NatureBlocks.LEVITATING_SAND, NatureBlocks.LEVITATING_GRAVEL)) {
+        for (Block gravity : List.of(NatureBlocks.SUSPENDED_SAND, NatureBlocks.SUSPENDED_RED_SAND, NatureBlocks.SUSPENDED_GRAVEL, NatureBlocks.LEVITATING_SAND,
+                NatureBlocks.LEVITATING_RED_SAND, NatureBlocks.LEVITATING_GRAVEL)) {
             if (!gravity.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)) problems.add("shovel tag of " + gravity);
         }
         var froglights = net.minecraft.tags.TagKey.create(Registries.ITEM, SimpleBlocks.id("froglights"));
@@ -598,7 +602,7 @@ public final class NatureTests {
         boolean sb = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "nihilith_shard"));
         Item suspend = sb ? BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "nihilith_shard")) : Items.PHANTOM_MEMBRANE;
         Item lift = sb ? BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "astralit_dust")) : Items.BREEZE_ROD;
-        for (Item base : List.of(Items.SAND, Items.GRAVEL)) {
+        for (Item base : List.of(Items.SAND, Items.RED_SAND, Items.GRAVEL)) {
             String kind = path(base);
             craft(helper, ring(base, suspend), "8 suspended_" + kind, missing);
             craft(helper, ring(base, lift), "8 levitating_" + kind, missing);
@@ -672,6 +676,54 @@ public final class NatureTests {
         helper.assertTrue(placed == !SimpleBlocks.simplebuildingLoaded, "Vanilla tab placement of the moved blocks only without SimpleBuilding (placed="
                 + placed + ", simplebuilding=" + SimpleBlocks.simplebuildingLoaded + ")");
         helper.succeed();
+    }
+
+    /**
+     * PLAN40 simpleblocks-3: the red sand variants behave like the sand ones - the red sand slab falls (a lower slab lands as a lower
+     * slab, a falling slab joins a lying one into Red Sand, a second slab placed onto one gives Red Sand), suspended red sand stays in the
+     * air, levitating red sand rises and lands under a ceiling; a shovel tag and the tab place right behind Red Sand.
+     */
+    public static void redSandVariantsFallMergeHangAndRise(GameTestHelper helper) {
+        for (int x = 0; x <= 4; x++) {
+            helper.setBlock(new BlockPos(x, 1, 1), Blocks.STONE);
+        }
+        helper.setBlock(new BlockPos(1, 5, 1), NatureBlocks.RED_SAND_SLAB.defaultBlockState());
+        helper.setBlock(new BlockPos(3, 2, 1), NatureBlocks.RED_SAND_SLAB.defaultBlockState());
+        helper.setBlock(new BlockPos(3, 6, 1), NatureBlocks.RED_SAND_SLAB.defaultBlockState());
+        // A second slab placed onto a lying one gives the full block (Besitzer N31), like the sand slab.
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        BlockPos placed = new BlockPos(6, 2, 3);
+        helper.setBlock(placed.below(), Blocks.STONE);
+        helper.setBlock(placed, NatureBlocks.RED_SAND_SLAB.defaultBlockState());
+        ItemStack stack = new ItemStack(NatureBlocks.RED_SAND_SLAB.asItem(), 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        BlockPos abs = helper.absolutePos(placed);
+        stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false)));
+        helper.assertTrue(helper.getBlockState(placed).is(Blocks.RED_SAND), "two red sand slabs gave " + helper.getBlockState(placed));
+        helper.assertValueEqual(stack.getCount(), 1, "slabs left after placing the second red sand slab");
+        BlockPos suspended = new BlockPos(1, 4, 5);
+        helper.setBlock(suspended, NatureBlocks.SUSPENDED_RED_SAND);
+        BlockPos start = new BlockPos(3, 1, 5);
+        helper.setBlock(start.below(), Blocks.STONE);
+        helper.setBlock(start.above(5), Blocks.STONE);
+        helper.setBlock(start, NatureBlocks.LEVITATING_RED_SAND);
+        helper.assertTrue(NatureBlocks.RED_SAND_SLAB.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)
+                && NatureBlocks.SUSPENDED_RED_SAND.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL), "dug with a shovel like red sand");
+        List<String> tab = com.simpleblocks.BlocksRegistry.placements().stream().filter(p -> p.after() && p.before() == Items.RED_SAND)
+                .flatMap(p -> p.names().stream()).toList();
+        helper.assertTrue(tab.equals(List.of("red_sand_slab", "suspended_red_sand", "levitating_red_sand")), "Vanilla tab behind Red Sand: " + tab);
+        helper.succeedWhen(() -> {
+            expectSlab(helper, new BlockPos(1, 2, 1), NatureBlocks.RED_SAND_SLAB, SlabType.BOTTOM);
+            helper.assertTrue(helper.getBlockState(new BlockPos(3, 2, 1)).is(Blocks.RED_SAND),
+                    "a falling red sand slab did not join the lying one into red sand: " + helper.getBlockState(new BlockPos(3, 2, 1)));
+            helper.assertTrue(helper.getBlockState(new BlockPos(1, 5, 1)).isAir() && helper.getBlockState(new BlockPos(3, 6, 1)).isAir(),
+                    "a falling slab left its old place filled");
+            helper.assertTrue(helper.getBlockState(suspended).is(NatureBlocks.SUSPENDED_RED_SAND), "suspended red sand stays where it was put");
+            helper.assertTrue(helper.getBlockState(start.above(4)).is(NatureBlocks.LEVITATING_RED_SAND) && helper.getBlockState(start).isAir(),
+                    "levitating red sand rose and landed under the ceiling: " + helper.getBlockState(start.above(4)));
+            helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds()).isEmpty(), "a landing block broke into an item");
+        });
     }
 
     private static void expectSlab(GameTestHelper helper, BlockPos pos, Block slab, SlabType type) {

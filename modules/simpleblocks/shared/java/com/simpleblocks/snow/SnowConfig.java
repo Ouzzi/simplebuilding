@@ -12,7 +12,8 @@ import java.util.List;
 
 /**
  * Server config {@code config/simpleblocks-server.json}, group {@code snow} (b-snow32, docs/ai/PLAN-B-SNOW32-2026-10-31.md):
- * {@code snowlogging}, {@code snowCaps} and {@code frostGrass} (both default on) and the chances of frost grass, 1 in N per random tick. Missing
+ * {@code snowlogging} and {@code snowCaps} (default on), {@code frostGrass} (default off since PLAN40 simpleblocks-2: turning snowy grass
+ * into a mod block across whole biomes is a strong world change, A12) and the chances of frost grass, 1 in N per random tick. Missing
  * or broken keys use the defaults and the file is rewritten complete; numbers are clamped to 1-100. Group {@code pale}: see
  * {@link com.simpleblocks.pale.PaleConfig} (DW04B).
  */
@@ -29,8 +30,11 @@ public final class SnowConfig {
     public static boolean snowlogging = true;
     /** Falling snow leaves one snow layer on top of fences, walls, stairs and slabs (SNOW32-FALL). */
     public static boolean snowCaps = true;
-    /** Grass blocks under snow freeze to frost grass (cold biome or ice below). */
-    public static boolean frostGrass = true;
+    /**
+     * Grass blocks under snow freeze to frost grass (cold biome or ice below). Default off (PLAN40 simpleblocks-2, A12): when on,
+     * snowy biomes slowly turn into a mod block, which leaves holes in the world once the mod is removed.
+     */
+    public static boolean frostGrass = false;
     /** A grass block under snow freezes with a chance of 1 in this per random tick (about 68 s per tick at randomTickSpeed 3). */
     public static int freezeOneIn = FREEZE_DEFAULT;
     /** Frost grass without snow thaws back to grass with a chance of 1 in this per random tick. */
@@ -59,7 +63,7 @@ public final class SnowConfig {
         JsonObject s = group != null && group.isJsonObject() ? group.getAsJsonObject() : new JsonObject();
         snowlogging = bool(s, "snowlogging", true);
         snowCaps = bool(s, "snowCaps", true);
-        frostGrass = bool(s, "frostGrass", true);
+        frostGrass = bool(s, "frostGrass", false);
         freezeOneIn = number(s, "freezeOneIn", FREEZE_DEFAULT);
         thawOneIn = number(s, "thawOneIn", THAW_DEFAULT);
         // DW04B: the pale group (com.simpleblocks.pale.PaleConfig) lives in the same file.

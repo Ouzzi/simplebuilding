@@ -102,6 +102,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void octetsKeepTheirBlocksRules(GameTestHelper h) {
+        OctetTests.ALL.get("octets_keep_their_blocks_rules").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
+    public void vanillaInputSwitches(GameTestHelper h) {
+        OctetTests.ALL.get("vanilla_input_switches").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void logOctetsMineWithTheAxe(GameTestHelper h) {
         OctetTests.ALL.get("log_octets_mine_with_the_axe").accept(h);
     }

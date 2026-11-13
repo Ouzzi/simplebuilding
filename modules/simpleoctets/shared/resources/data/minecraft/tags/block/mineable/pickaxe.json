@@ -84,6 +84,10 @@
     "simpleoctets:exposed_copper_octet",
     "simpleoctets:weathered_copper_octet",
     "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:waxed_copper_block_octet",
+    "simpleoctets:waxed_exposed_copper_octet",
+    "simpleoctets:waxed_weathered_copper_octet",
+    "simpleoctets:waxed_oxidized_copper_octet",
     "simpleoctets:cut_copper_octet",
     "simpleoctets:exposed_cut_copper_octet",
     "simpleoctets:weathered_cut_copper_octet",
@@ -107,8 +111,65 @@
     },
     "simpleoctets:lapis_block_octet",
     "simpleoctets:netherite_block_octet",
+    "simpleoctets:redstone_block_octet",
+    "simpleoctets:amethyst_block_octet",
+    "simpleoctets:raw_iron_block_octet",
+    "simpleoctets:raw_copper_block_octet",
+    "simpleoctets:raw_gold_block_octet",
     {
       "id": "simpleoctets:lead_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:silver_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:zinc_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:nickel_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:tin_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:brass_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:bronze_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:stainless_steel_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:rose_gold_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:rose_bronze_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:enderite_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:terranite_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:infernite_block_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:zenithite_block_octet",
       "required": false
     },
     {
@@ -250,6 +311,10 @@
     },
     {
       "id": "simpleoctets:hushed_deepslate_tiles_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:sculk_tiles_octet",
       "required": false
     },
     "simpleoctets:bone_block_octet",

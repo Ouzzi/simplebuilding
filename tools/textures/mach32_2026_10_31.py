@@ -13,6 +13,8 @@ Endwood process (PRINZIPIEN A8/A8b): ramps of 8-12 tones, light top-left, soft m
 adjacent opaque pixel pairs with a brightness step above HARD_STEP; for the overlays on the composite with Vanilla's texture).
 
 Variants (owner choice on the preview page, codes MACH32-DAEMPFER-A|B|C and MACH32-KOLBEN-A|B): A is written into the repository.
+The Signal Dampener's variant A is final, not a placeholder (12.11., PLAN40 simplemachines-1: the owner's rule "no objection =
+accepted"); it is only redrawn on an objection.
 
   python3 tools/textures/mach32_2026_10_31.py                       # writes variant A into mc26_3/overlay/resources
   python3 tools/textures/mach32_2026_10_31.py --check               # exit 1 when a repository file is stale

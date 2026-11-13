@@ -49,6 +49,7 @@ public final class SimpleOctets {
 
     public static void init(java.nio.file.Path configDir, Predicate<String> modLoaded) {
         loaded = modLoaded;
+        OctetsConfig.load(configDir);   // PLAN40 simpleoctets-4: the two Vanilla-input switches
         registerIdMoves();
         // Test centre station (framework contract, no import of the test centre): every octet item by id (missing ones skipped).
         List<String> items = new ArrayList<>();

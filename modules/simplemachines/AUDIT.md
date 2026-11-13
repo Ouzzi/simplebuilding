@@ -24,7 +24,7 @@ Umfang: 70 Java-Dateien / 12,1k Zeilen (davon ~45 % Tests). Risikogeleitet gepru
 | C6 Leaks | `ADDITION_COUNT` (Klasse -> Methode) waechst nur mit Rezeptklassen. |
 | C7 Schutz | `PistonGuard.mayAutomate/mayMove/mayBreak` je Aktion; Admin-Bypass nur LEVEL_OWNERS. Grundgestein-Durchbruch ist Feature (bezahlt, Tags `piston_breach_immune`). |
 | C8 Unabhaengigkeit | allein spielbar (Standalone-Target). |
-| C9 Doku | 12 Kern-Dubletten (AUDIT-A); Daempfer-Textur Platzhalter (AUDIT-A). |
+| C9 Doku | 12 Kern-Dubletten (AUDIT-A); Daempfer-Textur Variante A ist final (12.11., PLAN40 simplemachines-1: Grundregel ohne Einwand = abgenommen; frueher als Platzhalter vermerkt). |
 
 ## Befunde
 | ID | Schwere | Befund | Stand |

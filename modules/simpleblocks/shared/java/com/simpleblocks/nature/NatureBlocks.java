@@ -27,7 +27,8 @@ import net.minecraft.world.level.material.MapColor;
 /**
  * The building blocks that moved here from SimpleBuilding (docs/ai/PLAN-B-BLOCKSMOVE-2026-10-18.md): sand and gravel
  * without gravity (suspended) and with reversed gravity (levitating, rising as {@link LevitatingBlockEntity}), dirt, grass,
- * sand and gravel slabs (two make the full Vanilla block; sand and gravel slabs fall), cracked ice (cracks under whoever
+ * sand and gravel slabs (two make the full Vanilla block; sand and gravel slabs fall), the same for red sand (new, PLAN40
+ * simpleblocks-3), cracked ice (cracks under whoever
  * stands on it), chiseled packed and blue ice, the nautilus shell block and three more froglight colors. Old worlds keep
  * them: {@link SimpleBlocks#registerIdMoves} maps every {@code simplebuilding:} id here. Properties are copied from the
  * Vanilla block they vary, like in SimpleBuilding.
@@ -42,8 +43,11 @@ public final class NatureBlocks {
 
     // Both suspended blocks have a full collision box: you stand on them, items stay on top and rising blocks land below.
     public static final Block SUSPENDED_SAND = add("suspended_sand", Blocks.SAND, Block::new);
+    /** PLAN40 simpleblocks-3: the red sand variants, new here (not from SimpleBuilding), each right behind its sand variant. */
+    public static final Block SUSPENDED_RED_SAND = add("suspended_red_sand", Blocks.RED_SAND, Block::new);
     public static final Block SUSPENDED_GRAVEL = add("suspended_gravel", Blocks.GRAVEL, Block::new);
     public static final Block LEVITATING_SAND = add("levitating_sand", Blocks.SAND, LevitatingBlock::new);
+    public static final Block LEVITATING_RED_SAND = add("levitating_red_sand", Blocks.RED_SAND, LevitatingBlock::new);
     public static final Block LEVITATING_GRAVEL = add("levitating_gravel", Blocks.GRAVEL, LevitatingBlock::new);
     /** Turns into a grass slab next to grass like Vanilla dirt (B23-M3, {@link GrassSlabBlock}). */
     public static final Block DIRT_SLAB = add("dirt_slab", Blocks.DIRT, GrassSlabBlock.DirtSlabBlock::new);
@@ -54,6 +58,7 @@ public final class NatureBlocks {
     public static final Block GRASS_SLAB = add("grass_slab", Blocks.GRASS_BLOCK, GrassSlabBlock::new);
     /** Fall like sand and gravel ({@link FallingSlabBlock}); two slabs make the full Vanilla block ({@link MergingSlabBlock}). */
     public static final Block SAND_SLAB = add("sand_slab", Blocks.SAND, s -> new FallingSlabBlock(s, Blocks.SAND));
+    public static final Block RED_SAND_SLAB = add("red_sand_slab", Blocks.RED_SAND, s -> new FallingSlabBlock(s, Blocks.RED_SAND));
     public static final Block GRAVEL_SLAB = add("gravel_slab", Blocks.GRAVEL, s -> new FallingSlabBlock(s, Blocks.GRAVEL));
     /** Cracks in four stages under living entities and then breaks away ({@link CrackedIceBlock}). */
     public static final Block CRACKED_ICE = add("cracked_ice", Blocks.ICE, CrackedIceBlock::new);
@@ -74,8 +79,8 @@ public final class NatureBlocks {
     /** Every moved block path in registration (and tab) order. */
     public static final List<String> NAMES = List.copyOf(BLOCKS.keySet());
     /** Groups of the creative tab, in order. */
-    public static final List<List<String>> ROWS = List.of(NAMES.subList(0, 4), NAMES.subList(4, 8), NAMES.subList(8, 12), NAMES.subList(12, 15),
-            NAMES.subList(15, 17));
+    public static final List<List<String>> ROWS = List.of(NAMES.subList(0, 6), NAMES.subList(6, 11), NAMES.subList(11, 15), NAMES.subList(15, 18),
+            NAMES.subList(18, 20));
 
     /** Recipe ids that came from SimpleBuilding ({@link NatureIds#MOVED_RECIPES}). */
     public static final Map<String, String> MOVED_RECIPES = NatureIds.MOVED_RECIPES;
@@ -122,7 +127,7 @@ public final class NatureBlocks {
         LEVITATING_BLOCK = Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type);
     }
 
-    /** Suspended and levitating sand/gravel: one line on what the block does (it looks like plain sand). */
+    /** Suspended and levitating sand/red sand/gravel: one line on what the block does (it looks like plain sand). */
     static final class GravityBlockItem extends BlockItem {
         private final String tooltip;
 

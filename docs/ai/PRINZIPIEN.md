@@ -27,7 +27,7 @@ Alle Baublöcke gehören zur SimpleBuilding-Familie, nie in fachfremde Mods. **S
 ### A4 Octet-Regel (O1, 17.10.)
 Jeder Block, der Treppen- oder Stufen-Varianten (stairs/slab) hat, bekommt auch einen Octet-Block (Achtelblock) – Vanilla-Blöcke, SimpleBuilding-Blöcke und alle Blöcke,
 denen Simple Blocks Treppe/Stufe gibt. Das Octet liefert `simpleoctets` (bei Fremdblöcken als optionale Integration, nur wenn der Besitzer-Mod geladen ist; jeder Mod bleibt allein spielbar).
-**Ausnahme (Besitzer 17.10.):** Naturstufen (Erde, Gras, Sand, Kies) bekommen keine Octets. Neue Treppen/Stufen in irgendeinem Modul ohne Octet-Eintrag sind ein Fehler (Abdeckungstest). Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
+**Ausnahme (Besitzer 17.10.):** Naturstufen (Erde, Gras, Sand, Kies; Roter Sand zählt als Sand, PLAN40) bekommen keine Octets. Neue Treppen/Stufen/Mauern in irgendeinem Modul ohne Octet-Eintrag sind ein Fehler (Abdeckungstest `stairs_and_slabs_have_octets`, Ausnahmen seit 12.11. als exakte Ids, Formen nach Klasse und Id-Endung). Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
 
 ### A4b Formsäge (Besitzer 17.10.)
 Alles, was Treppen-, Stufen- oder Octet-Varianten hat (Stein, Holz und Blöcke, die die Vanilla-Steinsäge nicht kann), lässt sich in der fortgeschrittenen Säge schneiden („Formsäge“, EN „Shapecutter“ seit 21.10., `simpleblocks:shapecutter`, Simple Blocks; Bildschirm = Vanilla-Steinsäge). Neue Formen müssen dort auftauchen.
@@ -372,20 +372,30 @@ Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.
 - keine eigenen Regeln bisher
 
 ### Simple Blocks (`simpleblocks`)
-Fehlende Baublöcke: Hushed Deepslate Tiles, Sculk-Tiefenschiefer, fehlende Vanilla-Treppen/-Stufen/-Mauern, rissige/bemooste Ziegel; allein mit Vanilla spielbar.
+Fehlende Baublöcke: Hushed Deepslate Tiles, Sculk-Tiefenschiefer und -Fliesen, fehlende Vanilla-Treppen/-Stufen/-Mauern, rissige/bemooste/gemeißelte Varianten, Eis-Bausteine, Naturstufen, Blasse und komprimierte Blöcke, die Formsäge; allein mit Vanilla spielbar.
 
 - **B1 (17.10.):** Simple Blocks enthält alle Baublöcke der Familie, die keinen anderen fachlichen Ort haben (Deko-/Bauvarianten ohne Themen-Sub-Mod). Lager, Maschinen und Werkzeuge bleiben, wo sie sind. Bestand und Verschiebe-Liste: `docs/ai/INVENTAR-BAUBLOECKE-2026-10-17.md`.
-- Gibt Simple Blocks einem Block Treppe oder Stufe, gilt Regel O1: der Block bekommt ein Achtel (Eintrag im Octet-Generator von `simpleoctets`; Simple Blocks kennt Simple Octets nicht).
+- Gibt Simple Blocks einem Block Treppe oder Stufe, gilt Regel O1: der Block bekommt ein Achtel (Eintrag im Octet-Generator von `simpleoctets`; Simple Blocks kennt Simple Octets nicht). Ausgenommen sind nur die Naturstufen Erde, Gras, Sand, Roter Sand und Kies (Besitzer 17.10.).
 - Genau **ein** Kreativtab „Simple Blocks“ für alle Baublöcke der Familie (Plan im Baublock-Inventar, Abschnitt „Plan: ein Kreativtab“); Standalone-SimpleBuilding behält seinen eigenen Tab.
 - Nur öffentliche Registry-Ids und Tags nach außen; verschobene Blöcke mit IdMoves/Alias, Registrierung nie vom Laden anderer Mods abhängig.
+- **A12 (PLAN40 simpleblocks-4, 12.11.):** Nutzen: die Formen und Varianten, die Vanilla-Familien fehlen (Treppe/Stufe/Mauer, rissig/bemoost/gemeißelt, Säulen, Eis-Bausteine, Naturstufen), plus Formsäge – Bauen ohne Lücken in den Paletten; kein Vanilla-Block ändert sein Verhalten. Was am Spielgeschehen hängt und wie stark:
+  - *Formsäge* – Rechtsklick mit Axt/Hammer auf eine Vanilla-Steinsäge wertet sie auf (Spieler-Aktion, Claims/Bauerlaubnis geprüft); sie zeigt alle Steinsägen-Rezepte und mehr, die Vanilla-Steinsäge bleibt Vanilla (A4b). Gering.
+  - *Verschneien* – nur von Hand (Schneeschicht auf Zaun/Pflanze); Mixin nur für Zaun-Verbindungen zur Schneezelle. Gering, Schalter `snow.snowlogging`.
+  - *Schneeauflagen* – fallender Schnee legt eine Schicht auf Zäune, Mauern, Treppen und Stufen (Mixin an `tickPrecipitation`, auch an natürlichen Blöcken; der Block darunter bleibt unverändert). Gering bis mittel, Schalter `snow.snowCaps`.
+  - *Frostgras* – würde verschneite Biome flächig in einen Mod-Block wandeln (Mixin am Gras-Zufallstick): stark, daher **Standard aus** (simpleblocks-2), Schalter `snow.frostGrass`.
+  - *Blasse Blöcke* – Kürbisse, Melonen und Heuballen altern nur im Blassen Garten (wie Kupfer, auch natürlich gewachsene); Mixin nur für den Golem-Kopf. Gering, Schalter `pale.enabled` + Chance je Kette.
+  - *Kollabierte Blöcke* – verlangsamen ihren Träger (nur diese Mod-Blöcke, SlotAlert zeigt die Quelle, A14). Gering, Schalter `collapsed.enabled`.
+  - Mod entfernen: Mod-Blöcke (auch Schneezellen, Frostgras, blasse Stufen) fehlen danach in der Welt – im Wiki je Feature beschrieben.
 
 ### Simple Octets (`simpleoctets`)
-Achtelblöcke (kleine 1/8-Blöcke), gemischte Zellen, Steinsäge-Rezepte (Stufe 6, Branch `claude-s6-octets`, noch nicht in `claude-wave1`).
+Achtelblöcke (kleine 1/8-Blöcke), gemischte Zellen, Melonen-Achtel, Ecken-Abbau mit dem Vorschlaghammer; geschnitten in der Formsäge von Simple Blocks (ohne Simple Blocks im Steinmetz); Pflicht-Sub-Mod von SimpleBuilding, allein mit Vanilla spielbar.
 
 - **O1 (17.10.):** Jeder Block, der Treppen- oder Stufen-Varianten (stairs/slab) hat, bekommt auch einen Octet-Block (Achtelblock). Gilt für Vanilla-Blöcke, SimpleBuilding-Blöcke und alle Blöcke, denen Simple Blocks Treppe/Stufe gibt. Fremdblöcke nur bedingt bei geladenem Besitzer-Mod (`SimpleOctets.isLoaded`).
-- Quelle der Wahrheit ist die Generator-Liste (`tools/textures/octets_2026_10_09.py`, `octet_materials.json`, `OctetMaterials`); der Abdeckungstest soll fehlende Familien automatisch melden. Stand und Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md` (23 fehlende).
-- Bretter gehören dazu (frühere Ausnahme „ohne Bretter“ entfällt). Die Regel gilt einseitig: Octets ohne Treppe-Familie (Obsidian, Metallblöcke, Stämme, Terrakotta) bleiben.
+- Quelle der Wahrheit ist die Generator-Liste (`tools/textures/octets_2026_10_09.py`, `octet_materials.json`, `OctetMaterials`); der Abdeckungstest `stairs_and_slabs_have_octets` meldet fehlende Familien automatisch (die 23 Lücken aus `docs/ai/INVENTAR-OCTETS-2026-10-17.md` sind geschlossen).
+- Bretter gehören dazu (frühere Ausnahme „ohne Bretter“ entfällt). Die Regel gilt einseitig: Octets ohne Treppe-Familie (Obsidian, Metallblöcke, Stämme, Terrakotta) bleiben. Ein Achtel behält die Regeln seines Blocks (Vibrationsdämpfung von Wolle/gedämpften Fliesen, Bleidämmung, Licht, Feuerfestigkeit, Klang).
 - Schach-Achtel bleiben in SimpleBuilding (F3); die Zellen-Basisklasse gehört dem Modul.
+- **A12 (PLAN40 simpleoctets-4, 12.11.):** Nutzen: feinere Details beim Bauen (halbe Kanten, Simse, Schrägen), ohne Vanilla-Blöcke zu ändern; Achtel entstehen nur aus ihrem Vollblock (1 Block = 8 Achtel, verlustfrei). Eingriffe in Vanilla und ihre Schalter (`config/simpleoctets-server.json`, `/simpleoctets config`, Standard an): (1) Melonenscheibe schleichend auf einen Block setzt ein Melonen-Achtel statt zu essen (`features.melonSlicePlacing`); (2) Ecken-Abbau mit dem Vorschlaghammer hängt per Mixin am Abbau jedes Blocks (`features.cornerBreaking`, aus = Mixin kehrt sofort zurück). Sonst keine Mixins außer Tooltip-Hinweis und Feuer-Accessor. Eingriff: gering bis mittel, beide abschaltbar.
+- **Fremd-Mod entfernen:** Achtel aus Blöcken einer anderen Mod gibt es nur, solange sie geladen ist; wird sie entfernt, verschwinden ihre gesetzten Zellen und Items wie ihre übrigen Blöcke, eine gemischte Zelle verliert nur die Achtel des fehlenden Materials (Test `mixed_cell_keeps_readable_materials`). Steht im Wiki (Abschnitt „Achtel aus Blöcken anderer Mods“).
 
 ### Simple Crucibles (`simplecrucibles`)
 Eisen-, verstärkte, Netherit- und Enderit-Tiegel, verstärkter Kessel, Kupfer- und Seelen-Lava-Eimer, Seelen-Lava, Dorf-Feldküchen; Sub-Mod von Simple Ovens (seit IG31-15, optional gebündelt), allein spielbar. Die Fässer gehören seit WH26-6 Simple Storage und docken nur an einen Tiegel an.
@@ -449,6 +459,11 @@ Wolkenmeer über y 700 und Backrooms als eigene Dimension mit zehn Ebenen (Eing�
 Doppelkolben, Signaldämpfer, verstärkte/Netherit-/Enderit-Kolben, schnellere Trichter und Trichterloren, Schmied und Auto-Crafter.
 
 - **A12:** Nutzen: größere Redstone-Maschinen und schnellerer Itemtransport. Mixins an Kolben-Logik (Verschieben, Explosion, Rendern); Vanilla-Kolben und -Trichter bleiben. Eingriff in Vanilla: mittel (Kolben-Hooks), greifen nur bei den neuen Kolben.
+- **A12 je Teil (PLAN40 simplemachines-2, 12.11.):**
+  - *Auto-Crafter* – der Vanilla-Crafter stellt je Redstone-Puls genau ein Ergebnis her und wirft es aus; der Auto-Crafter arbeitet ohne Takt-Schaltung von selbst (alle 4 Ticks, solange ein Trichter darunter steht, ein Signal hält ihn an), legt Ergebnis und Reste direkt in diesen Trichter und hält mit dem Filter-Knopf je Platz ein Rezept-Item fest (A6). Mehrwert: Dauer-Fertigung ohne Redstone-Uhr und ohne Verlust des Rezepts. Eingriff: keiner, eigener Block, der Vanilla-Crafter bleibt unverändert.
+  - *Schmied* – Vanilla hat keinen automatischen Schmiedetisch; er schmiedet auf eine steigende Flanke (frühestens nach 4 Ticks wie der Crafter). Eingriff: keiner.
+  - *Verstärkter (klebriger) Kolben* – schiebt 18 statt 12 Blöcke und genau einen unzerstörbaren Block (Grundgestein, Verstärkter Tiefenschiefer), aber nur gegen einen verbrauchten Redstone-Block direkt am Kolben, nie Blöcke mit Block-Entity oder Portale, Endportalrahmen nur per Schalter (aus). Begründung: Vanilla lässt Grundgestein schon über Kolben-Tricks brechen; hier ist es planbar, kostet etwas und bleibt begrenzt. Eingriff: mittel (Mixin an der Schiebe-Prüfung), wirkt nur bei den eigenen Kolben.
+  - *Netherit-/Enderit-Kolben* – bauen den Block vor sich je nach Signalstärke ab: Komfort für Endgame-Bauer (Tunnel, Farmen), dafür nutzen sie sich wie Werkzeuge ab (Schalter), werden mit ihrem Klumpen repariert und fragen Claim-Mods vorher über das Abbau-Ereignis (Schalter `pistons.fireBreakEvents`, an). Eingriff: mittel, nur bei diesen Kolben.
 
 ### Simple Music (`simplemusic`)
 Notenblätter (Textcode, .txt/.nbs), Plattenpresse, hochgeladene Ogg-Platten, Taschen-Jukebox.

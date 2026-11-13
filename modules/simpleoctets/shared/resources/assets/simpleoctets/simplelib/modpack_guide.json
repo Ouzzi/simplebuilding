@@ -9,7 +9,7 @@
       "title": "simpleoctets.guide.chapter",
       "icon": "minecraft:stonecutter",
       "page_key": "simpleoctets.guide.page",
-      "pages": 14,
+      "pages": 16,
       "advancement": "simpleoctets:guide/chapter",
       "hint": "minecraft:stonecutter"
     }

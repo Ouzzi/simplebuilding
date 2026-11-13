@@ -1,6 +1,6 @@
 {
   "module": "simpleblocks",
-  "derivation": "Building-block variants of Vanilla materials (shapes, cracked/mossy, Blue Nether Bricks, hushed and sculk deepslate), crafted cheaply from their base block; like Vanilla building blocks they are not traded. The four gravity blocks moved here from SimpleBuilding with the same rows (b-blocksmove); they keep their wandering-trader offer.",
+  "derivation": "Building-block variants of Vanilla materials (shapes, cracked/mossy, Blue Nether Bricks, hushed and sculk deepslate), crafted cheaply from their base block; like Vanilla building blocks they are not traded. The four gravity blocks moved here from SimpleBuilding with the same rows (b-blocksmove); they keep their wandering-trader offer; the two red sand variants (PLAN40 simpleblocks-3) get the same rows.",
   "excluded": {
     "simpleblocks:aqua_froglight": "Crafted or cut from Vanilla material (moved from SimpleBuilding); no trade.",
     "simpleblocks:azure_froglight": "Crafted or cut from Vanilla material (moved from SimpleBuilding); no trade.",
@@ -157,9 +157,13 @@
     "simpleblocks:quartz_brick_wall": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:quartz_wall": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:sand_slab": "Crafted or cut from Vanilla material (moved from SimpleBuilding); no trade.",
+    "simpleblocks:red_sand_slab": "Crafted or cut from Vanilla material; no trade, like the sand slab.",
     "simpleblocks:scarlet_froglight": "Crafted or cut from Vanilla material (moved from SimpleBuilding); no trade.",
     "simpleblocks:sculk_deepslate": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:sculk_tiles": "Crafted from its Vanilla base blocks; no trade.",
+    "simpleblocks:sculk_tile_stairs": "Crafted from its base block; no trade.",
+    "simpleblocks:sculk_tile_slab": "Crafted from its base block; no trade.",
+    "simpleblocks:sculk_tile_wall": "Crafted from its base block; no trade.",
     "simpleblocks:shapecutter": "A crafting station like the Vanilla stonecutter, crafted cheaply from copper, iron and stone; no trade.",
     "simpleblocks:smooth_basalt_slab": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:smooth_basalt_stairs": "Crafted from its Vanilla base block; no trade.",
@@ -172,6 +176,7 @@
     "simpleblocks:chiseled_polished_granite": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:chiseled_prismarine": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:chiseled_red_nether_bricks": "Crafted from its Vanilla base block; no trade.",
+    "simpleblocks:chiseled_blue_nether_bricks": "Crafted from its base block; no trade.",
     "simpleblocks:smooth_stone_wall": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:smooth_stone_stairs": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:stone_wall": "Crafted from its Vanilla base block; no trade.",
@@ -269,6 +274,17 @@
       "chance": 0.1
     },
     {
+      "item": "simpleblocks:levitating_red_sand",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simpleblocks:levitating_sand",
       "tier": 4,
       "hours": 25.0,
@@ -281,6 +297,17 @@
     },
     {
       "item": "simpleblocks:suspended_gravel",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleblocks:suspended_red_sand",
       "tier": 4,
       "hours": 25.0,
       "craft": 9,
