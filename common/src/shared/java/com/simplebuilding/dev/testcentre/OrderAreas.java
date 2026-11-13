@@ -37,10 +37,12 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
  * N42 + Erweiterung, Plan {@code docs/ai/PLAN-A-TZ38D-2026-11-13.md}): die geordneten Bereiche vor den Teststationen, in zwei
  * waehlbaren Varianten ({@link Variant}); jedes Glied steht in einer Variante genau einmal:
  * <ol>
- *   <li>{@link #FAMILIES} (Variante "lines"): graue Mittellinie, Seite A Metalle/Rohstoffe, Holz, Rest, gegenueber Seite B
- *       alles Steinige; je Variante/Material eine Reihe, die neben der Linie mit Knopf, Druckplatte ... beginnt (gemeinsamer
- *       Spaltenplan {@link #CORE}, Holz und Metalle mit eigenen Zusatzspalten); fehlende Glieder als Platzhalter (rot = sollte
- *       existieren, hellgrau = soll nicht).</li>
+ *   <li>{@link #FAMILIES} (Variante "lines", Runde 2 TZ38E {@code docs/ai/PLAN-A-TZ38E-2026-11-13.md}): graue Mittellinie mit
+ *       Steh-Schildern, Seite A Metalle/Rohstoffe, Holz, eine Reihe verwitternde Bloecke, Rest, dunkler Stein; gegenueber Seite B
+ *       der uebrige Stein, beide gleich breit; je Variante/Material eine Reihe, die am Weg mit Knopf, Druckplatte ... beginnt
+ *       (gemeinsamer Spaltenplan {@link #CORE}, Holz und Metalle mit eigenen Zusatzspalten, dahinter gemeinsame Zusatzspalten je
+ *       Art und der Sonderbereich); jede Seite ein lueckenloses Rechteck aus Gliedern und Platzhaltern (rot = sollte existieren,
+ *       hellgrau = soll nicht, grau = Weg).</li>
  *   <li>{@link #COMPACT} (Variante "blocks"): alle Bloecke je Mod dicht beieinander, ein Feld Abstand zur naechsten Mod.</li>
  *   <li>{@link #ITEMS} (beide): Besatz-Staender (je Muster, je Material ein voller Satz), dann je Mod eine Linie in
  *       Wiki-Reihenfolge mit allem, was der Block-Bereich der Variante nicht zeigt (setzbar = gesetzt, sonst Rahmen); dahinter
@@ -1153,7 +1155,7 @@ public final class OrderAreas {
     /** Glieder-Saetze: hat eine Reihe eines, sollen alle da sein (rot, wenn eins fehlt). */
     private static final List<List<Slot>> PAIRS = List.of(List.of(Slot.BUTTON, Slot.PLATE), List.of(Slot.DOOR, Slot.TRAPDOOR),
             List.of(Slot.FENCE, Slot.FENCE_GATE));
-    private static final List<List<Slot>> METAL_SETS = List.of(List.of(Slot.ORE, Slot.DEEPSLATE_ORE),
+    private static final List<List<Slot>> METAL_SETS = List.of(
             List.of(Slot.STORAGE, Slot.INGOT), List.of(Slot.SWORD, Slot.SPEAR, Slot.PICKAXE, Slot.AXE, Slot.SHOVEL, Slot.HOE),
             List.of(Slot.HELMET, Slot.CHESTPLATE, Slot.LEGGINGS, Slot.BOOTS), List.of(Slot.HORSE_ARMOR, Slot.NAUTILUS_ARMOR),
             List.of(Slot.CHISEL, Slot.SLEDGEHAMMER), List.of(Slot.DOOR, Slot.TRAPDOOR));
@@ -1179,7 +1181,7 @@ public final class OrderAreas {
      * Welche Glieder eine Reihe haben sollte (rote Platzhalter, wenn sie fehlen; N42-2), begruendet in
      * {@code docs/ai/PLAN-A-TZ38D-2026-11-13.md} E2: Paare (Knopf+Druckplatte, Tuer+Falltuer, Zaun+Zauntor); Bauform-Familie
      * (Stufe oder Treppe vorhanden: Stufe, Treppe, Block, Achtel nach der Octet-Regel - Naturstufen nicht; Stein mit Stufe und
-     * Treppe auch eine Mauer, ausser weich/lose); Metalle der Grundstufe: Erz+Tiefenschiefer-Erz, Roh+Rohblock, Speicher+Barren
+     * Treppe auch eine Mauer, ausser weich/lose); Metalle der Grundstufe: Erz -> Tiefenschiefer-Erz (TZ38E: nicht umgekehrt), Roh+Rohblock, Speicher+Barren
      * (+Nugget bei {@code _ingot}), Werkzeuge, Ruestung, Pferde-+Nautilus-Ruestung, Meissel+Hammer, Tuer+Falltuer; Holz: was
      * mindestens die Haelfte der Hoelzer hat (Baumteile nur bei Hoelzern mit Stamm, bei Vanilla-Hoelzern nur die Zusaetze der
      * Familie; abgeleitete Hoelzer wie Lohenholz/Nihilit-Bretter wie Stein-Familien).
@@ -1230,6 +1232,10 @@ public final class OrderAreas {
                 if (set.stream().anyMatch(fixed::containsKey)) {
                     out.addAll(set);
                 }
+            }
+            // Erz im Stein -> auch im Tiefenschiefer (wie jedes Vanilla-Erz); nur tiefe Erze (Dimensions-Schrott, Nickel) nicht umgekehrt.
+            if (fixed.containsKey(Slot.ORE)) {
+                out.add(Slot.DEEPSLATE_ORE);
             }
             Item rawBlock = fixed.get(Slot.RAW_BLOCK);
             if (fixed.containsKey(Slot.RAW) || rawBlock != null && TcContext.id(rawBlock).getPath().startsWith("raw_")) {
