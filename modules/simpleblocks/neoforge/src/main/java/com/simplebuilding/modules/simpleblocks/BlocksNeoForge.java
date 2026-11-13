@@ -4,13 +4,9 @@ import com.simpleblocks.BlocksLoot;
 import com.simpleblocks.BlocksRegistry;
 import com.simpleblocks.SimpleBlocks;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 /** NeoForge entry: Vanilla Registry.register works inside the matching RegisterEvent. */
@@ -53,22 +49,7 @@ public final class BlocksNeoForge {
         if (dist == net.neoforged.api.distmarker.Dist.CLIENT) BlocksNeoClient.init(bus);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.LootTableLoadEvent e) -> BlocksLoot.apply(
                 net.minecraft.resources.ResourceKey.create(Registries.LOOT_TABLE, e.getName()), pool -> e.getTable().addPool(pool.build())));
-        bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleBlocks.on()) {
-                event.accept(com.simpleblocks.guide.BlocksGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS) && SimpleBlocks.on()) {
-                var saw = new ItemStack(com.simpleblocks.saw.Sawing.SAW_ITEM);
-                var stonecutter = new ItemStack(net.minecraft.world.item.Items.STONECUTTER);
-                if (event.getParentEntries().contains(saw) || event.getSearchEntries().contains(saw)) return;
-                if (event.getParentEntries().contains(stonecutter) && event.getSearchEntries().contains(stonecutter)) {
-                    event.insertAfter(stonecutter, saw, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                } else {
-                    event.accept(saw, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                }
-                return;
-            }
-        });
+        // PLAN40 simpleblocks-4: no Vanilla-tab hooks any more (IG31-3/QW11: the Shapecutter and the guide live in the Simple Blocks tab).
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simpleblocks.guide.BlocksGuide.installQuests(FMLPaths.CONFIGDIR.get());
     }
 }

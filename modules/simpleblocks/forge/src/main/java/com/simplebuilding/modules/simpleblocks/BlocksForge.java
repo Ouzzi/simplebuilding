@@ -3,9 +3,6 @@ package com.simplebuilding.modules.simpleblocks;
 import com.simpleblocks.BlocksRegistry;
 import com.simpleblocks.SimpleBlocks;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -53,19 +50,7 @@ public final class BlocksForge {
             }
         }));
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) BlocksForgeClient.init(context);
-        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleBlocks.on()) {
-                event.getEntries().put(com.simpleblocks.guide.BlocksGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS) && SimpleBlocks.on()) {
-                var saw = new ItemStack(com.simpleblocks.saw.Sawing.SAW_ITEM);
-                var stonecutter = new ItemStack(net.minecraft.world.item.Items.STONECUTTER);
-                if (event.getEntries().contains(saw)) return;
-                if (event.getEntries().contains(stonecutter)) event.getEntries().putAfter(stonecutter, saw, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                else event.getEntries().put(saw, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                return;
-            }
-        });
+        // PLAN40 simpleblocks-4: no Vanilla-tab hooks any more (IG31-3/QW11: the Shapecutter and the guide live in the Simple Blocks tab).
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simpleblocks.guide.BlocksGuide.installQuests(FMLPaths.CONFIGDIR.get());
     }
 }

@@ -146,4 +146,7 @@ mc_tags = RES / 'data/minecraft/tags/block'
 tier = {t: json.loads((mc_tags / f'{t}.json').read_text(encoding='utf-8'))['values'] for t in ('needs_stone_tool', 'needs_iron_tool', 'needs_diamond_tool')}
 assert f'{NS}:cut_gold' in tier['needs_iron_tool'] and f'{NS}:cut_iron' in tier['needs_stone_tool'] and f'{NS}:chiseled_netherite' in tier['needs_diamond_tool']
 assert all(f'{NS}:{n}' in tier['needs_stone_tool'] for n in ['copper_tiles', 'copper_pillar'] + g.metal_chain_blocks())
-print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + 30 pale blocks + 57 compressed/dense/collapsed blocks + 20+14 metal row (PAL35b) + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+# PLAN40 simpleblocks-4: the counts come from the generator, so the summary cannot go stale again (it said "38 blocks" for 141).
+print(f'simpleblocks: {len(g.BLOCKS)} blocks (metal row of PAL35b included) + {len(g.MOVED)} nature blocks (15 moved from SimpleBuilding) '
+      f'+ {len(g.metal_chain_blocks())} aged copper stages + {len(g.PALE)} pale blocks + {len(g.COMPACT)} compressed/dense/collapsed blocks '
+      f'+ Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')

@@ -337,12 +337,20 @@ Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.
 - keine eigenen Regeln bisher
 
 ### Simple Blocks (`simpleblocks`)
-Fehlende Baublöcke: Hushed Deepslate Tiles, Sculk-Tiefenschiefer, fehlende Vanilla-Treppen/-Stufen/-Mauern, rissige/bemooste Ziegel; allein mit Vanilla spielbar.
+Fehlende Baublöcke: Hushed Deepslate Tiles, Sculk-Tiefenschiefer und -Fliesen, fehlende Vanilla-Treppen/-Stufen/-Mauern, rissige/bemooste/gemeißelte Varianten, Eis-Bausteine, Naturstufen, Blasse und komprimierte Blöcke, die Formsäge; allein mit Vanilla spielbar.
 
 - **B1 (17.10.):** Simple Blocks enthält alle Baublöcke der Familie, die keinen anderen fachlichen Ort haben (Deko-/Bauvarianten ohne Themen-Sub-Mod). Lager, Maschinen und Werkzeuge bleiben, wo sie sind. Bestand und Verschiebe-Liste: `docs/ai/INVENTAR-BAUBLOECKE-2026-10-17.md`.
 - Gibt Simple Blocks einem Block Treppe oder Stufe, gilt Regel O1: der Block bekommt ein Achtel (Eintrag im Octet-Generator von `simpleoctets`; Simple Blocks kennt Simple Octets nicht). Ausgenommen sind nur die Naturstufen Erde, Gras, Sand, Roter Sand und Kies (Besitzer 17.10.).
 - Genau **ein** Kreativtab „Simple Blocks“ für alle Baublöcke der Familie (Plan im Baublock-Inventar, Abschnitt „Plan: ein Kreativtab“); Standalone-SimpleBuilding behält seinen eigenen Tab.
 - Nur öffentliche Registry-Ids und Tags nach außen; verschobene Blöcke mit IdMoves/Alias, Registrierung nie vom Laden anderer Mods abhängig.
+- **A12 (PLAN40 simpleblocks-4, 12.11.):** Nutzen: die Formen und Varianten, die Vanilla-Familien fehlen (Treppe/Stufe/Mauer, rissig/bemoost/gemeißelt, Säulen, Eis-Bausteine, Naturstufen), plus Formsäge – Bauen ohne Lücken in den Paletten; kein Vanilla-Block ändert sein Verhalten. Was am Spielgeschehen hängt und wie stark:
+  - *Formsäge* – Rechtsklick mit Axt/Hammer auf eine Vanilla-Steinsäge wertet sie auf (Spieler-Aktion, Claims/Bauerlaubnis geprüft); sie zeigt alle Steinsägen-Rezepte und mehr, die Vanilla-Steinsäge bleibt Vanilla (A4b). Gering.
+  - *Verschneien* – nur von Hand (Schneeschicht auf Zaun/Pflanze); Mixin nur für Zaun-Verbindungen zur Schneezelle. Gering, Schalter `snow.snowlogging`.
+  - *Schneeauflagen* – fallender Schnee legt eine Schicht auf Zäune, Mauern, Treppen und Stufen (Mixin an `tickPrecipitation`, auch an natürlichen Blöcken; der Block darunter bleibt unverändert). Gering bis mittel, Schalter `snow.snowCaps`.
+  - *Frostgras* – würde verschneite Biome flächig in einen Mod-Block wandeln (Mixin am Gras-Zufallstick): stark, daher **Standard aus** (simpleblocks-2), Schalter `snow.frostGrass`.
+  - *Blasse Blöcke* – Kürbisse, Melonen und Heuballen altern nur im Blassen Garten (wie Kupfer, auch natürlich gewachsene); Mixin nur für den Golem-Kopf. Gering, Schalter `pale.enabled` + Chance je Kette.
+  - *Kollabierte Blöcke* – verlangsamen ihren Träger (nur diese Mod-Blöcke, SlotAlert zeigt die Quelle, A14). Gering, Schalter `collapsed.enabled`.
+  - Mod entfernen: Mod-Blöcke (auch Schneezellen, Frostgras, blasse Stufen) fehlen danach in der Welt – im Wiki je Feature beschrieben.
 
 ### Simple Octets (`simpleoctets`)
 Achtelblöcke (kleine 1/8-Blöcke), gemischte Zellen, Melonen-Achtel, Ecken-Abbau mit dem Vorschlaghammer; geschnitten in der Formsäge von Simple Blocks (ohne Simple Blocks im Steinmetz); Pflicht-Sub-Mod von SimpleBuilding, allein mit Vanilla spielbar.

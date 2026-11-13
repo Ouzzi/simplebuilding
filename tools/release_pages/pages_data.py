@@ -194,7 +194,7 @@ V = {
 "simplebuilding": "Bundles the building, storage and workstation sub-mods so a normal survival world gets better tools and containers; it adds items and blocks and leaves Vanilla recipes, loot and worlds as they are.",
 "simplearrows": "Gives archers a new arrow workbench plus a light and a silver arrow; Vanilla arrows, bows and the Vanilla fletching table keep working unchanged.",
 "simplebeacons": "Gives late-game players a stronger beacon and conduit to build towards; the Vanilla beacon and conduit stay as they are.",
-"simpleblocks": "Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need; no Vanilla block is changed.",
+"simpleblocks": "Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need; no Vanilla block changes how it works. Falling snow leaves a thin snow cap on fences, walls, stairs and slabs, and pumpkins, melons and hay age in the Pale Garden; both can be switched off, and Frost Grass, which would turn snowy grass into a mod block, is off by default.",
 "simplebuildingtools": "Speeds up large builds with wands, colored octants and the Blueprint; it only acts when you hold the tool, and it hooks the cartography table for blueprint copies.",
 "simplechallenges": "Offers an optional world mode with free and locked areas for players who want a harder start; without a chosen challenge it changes nothing.",
 "simplechisels": "Lets you step a block along its family (stone, chiseled, cracked, stairs, slabs) in the world instead of crafting it; no Vanilla recipe or block is replaced.",
