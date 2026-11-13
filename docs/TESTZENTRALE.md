@@ -37,7 +37,8 @@ Alle unter `/sbtestcentre`, Befehlsrechte Stufe 2 (Operator/Cheats; Befehlsblöc
 | Befehl | Wirkung |
 |---|---|
 | (ohne Argument), `help` | Hilfe: alle Befehle und die Bereichsnamen (TZ22-4) |
-| `build` | ganze Zentrale am gespeicherten Ursprung neu bauen (sonst über 0/0, Oberfläche) - **der Standard baut immer alles** |
+| `build` | ganze Zentrale am gespeicherten Ursprung neu bauen (sonst über 0/0, Oberfläche) - **der Standard baut immer alles** (in der Variante des letzten Baus) |
+| `build lines` \| `build blocks` | **Variante** (TZ38D, 13.11.2026): `lines` (Standard) ordnet alle Blöcke in Reihen an der grauen Mittellinie, `blocks` zeigt sie kompakt je Mod; alle übrigen Bereiche gleich. Kombinierbar: `build blocks here`, `build lines only order`. Die Variante steht mit in `simplebuilding_testcentre.txt` und auf den Neu-bauen-Knöpfen |
 | `build [here\|<x y z>] only <bereiche>` | Teilbau (TZ22-4): nur diese Bereiche (plus Steuerwand), z. B. `build only mobs,structures` |
 | `build [here\|<x y z>] without <bereiche>` | Teilbau: alles außer diesen, z. B. `build without structures`; kombinierbar: `build only workshop without chisel` |
 | `build here` | an den eigenen Füßen bauen, Ursprung merken |
@@ -56,7 +57,7 @@ Alle unter `/sbtestcentre`, Befehlsrechte Stufe 2 (Operator/Cheats; Befehlsblöc
 nur die Block-Familien aller Mods, `/testcenter mod <id> build [here|x y z]` = ein Mod (Vorschläge per Tab). `here` (und ohne
 Ort bei `mods`/`mod`): der Bereich beginnt zwei Felder vor den Füßen (Blick nach Süden). Der Befehl leert seinen Bereich
 vorher (Entities, Behälter, Blöcke) und legt Boden. Seit TZ38 steht dieser Inhalt nicht mehr in der Zentrale (ersetzt
-durch die Ordnungs-Bereiche, siehe unten); `/testcenter order build [here|x y z]` baut die vier Ordnungs-Bereiche als eigene
+durch die Ordnungs-Bereiche, siehe unten); `/testcenter order build [lines|blocks] [here|x y z]` baut die Ordnungs-Bereiche einer Variante als eigene
 Fläche. Aufbau (`ModBlockGallery`): je Mod ein beschilderter Bereich; eine Spalte
 je Material-Familie (Basisblock + Varianten wie rissig, bemoost, gemeißelt, poliert, Ziegel; passende Vanilla-Blöcke als
 Bezug), Zeilen von vorn nach hinten Octet, Stufe, Treppe, Mauer, Zaun, Zauntor, Scheibe, Falltür, Tür, Vollblock – gleiche
@@ -65,7 +66,9 @@ Items (Rahmen flach am Boden) in Gruppen nach Namensmuster. Abgeleitet aus Block
 
 **Teilbau (TZ22-4, 22.10.2026).** Bereiche sind die Bezirke (`TestCentreLayout.DISTRICT_NAMES`: `workshop` = Steuerwand,
 Werkzeuge, Meißel, Planung, Abbau, Verzauberungen; `states`; `blocks`; `technics`; `combat`; `modules`; `mobs`;
-`structures`; `recipes` = Crafting-Rezepte (N13); `catalog` = Tab-Wände; `rest` = Galerie/Unsortiert) oder einzelne Abschnitts-Ids; durch Komma oder Leerzeichen
+`structures`; `recipes` = Crafting-Rezepte (N13); `catalog` = Tab-Wände, Ausstellung `blocks`, Wand `materials` – **nur auf Wunsch**
+mit `build only catalog`, TZ38D: alles steht schon einmal im Bereich `order`; `building` = Holzwerk, Simple End, Schach, Astral,
+Dunkelraum, Erze (hieß bis TZ38D `blocks`); `rest` = Galerie/Unsortiert) oder einzelne Abschnitts-Ids; durch Komma oder Leerzeichen
 getrennt, unbekannte Namen geben eine Fehlermeldung mit der Liste. Die Steuerwand ist immer dabei. Geplant wird trotzdem
 alles (Abdeckung, Kits, Galerie bleiben gleich), gepackt und gebaut nur das Gewählte - die Zentrale wird dadurch kleiner und
 schneller gebaut. Die Optionen stehen hinter dem Fingerabdruck in `simplebuilding_testcentre.txt`
@@ -101,26 +104,32 @@ es auch im Kit. Stationen, die nichts zeigen (heute `devices`, `gallery`, `unsor
 
 ## Übersicht der Abschnitte
 
-**Ordnung (TZ38, Besitzer 12.11.2026, `OrderAreas`, Plan `docs/ai/PLAN-A-TZ38-2026-11-12.md`; Spaltenplan TZ38b/TZ38c,
-`docs/ai/PLAN-A-TZ38C-2026-11-12.md`):** direkt nach dem Eingang der Bezirk `order` mit drei Bereichen, danach die
-Teststationen (Bereich 5, jetzt 1 Feld Abstand zwischen Abschnitten, `GAP = 1`). Jeder Bereich zeigt für sich alles seiner
-Art (zwischen den Bereichen doppelt gewollt, innerhalb genau einmal); wie die Tab-Wände zählen sie nicht für die Abdeckung.
+**Ordnung (TZ38/TZ38D, Besitzer 12./13.11.2026, `OrderAreas`, Pläne `docs/ai/PLAN-A-TZ38-2026-11-12.md`,
+`docs/ai/PLAN-A-TZ38D-2026-11-13.md`):** direkt nach dem Eingang der Bezirk `order`. Je **Variante** ein Block-Bereich und
+„Items je Mod“; jedes Familien-Item steht darin **genau einmal** (N42 Erweiterung: Redundanz aufgehoben). Die Bereiche zählen
+für die Abdeckung; Galerie und „unsorted“ bleiben dadurch leer, die Modul-Buchten zeigen nur ihre Stationen.
 
-| Id | Inhalt |
-|---|---|
-| `order_families` | **Block-Familien und Metalle in einem Spaltenplan** (`OrderAreas.Slot`, TZ38b F1–F5 = A): je Variante eine Reihe vom Gang in die Tiefe. Kern für ALLE Reihen: Octet, Mauer (Metall: Gitter; Scheibe, wenn keine Mauer), Stufe, Treppe, Block (Metall: geschnitten), rissig (Metall: Rost), gemeißelt, Säule/Sonder (Tiefenschiefer-Ziegel → verstärkter Tiefenschiefer, Tiefenschiefer-Fliesen → Sculk-Fliesen); Zusatz in Vanilla-Folge: Zaun, Zauntor, Tür, Falltür, Blech/Platte (Holz-Platten, Silberblech, Bleiplatte), Druckplatte, Knopf; normale Familien hängen danach nur „weitere“ an. Bemooste/farbige/polierte Varianten eigene Reihen direkt nebeneinander, eine leere Spalte zwischen Familien (Familie = `materialKey`), Vanilla-Glieder als Bezug in derselben Reihe; Bänder paarweise um eine Linie grauer Betonstufen, das Gegenband gespiegelt; schmelzendes Eis im Rahmen. **Metalle** als letztes Band-Paar (eigener Gang, Schild je Reihe am Gang): vorn Kupfer mit Anlauf- und Wachs-Stufen, Eisen, Gold, Roségold … Astralit, Nihilith; gegenüber Silber … Edelstahl, dann Redstone, Lapis, Quarz, Kohle, Amethyst. Ihr Anhang ab Feld 16: Fliesen, Gitterblock, Stange (Kupfer: Blitzableiter), Kette, Laterne, Lampe/Birne, Truhe, Sonder (Statue, Spiegel), Trichter, Rohr → Speicherblock, Speicher-Octet, Rohblock, Stein-/Tiefenschiefer-/Nether-/End-/Kies-Erz → Roh-Item, Barren, Nugget, Schrott, Core → Pferde-/Nautilus-/Tier-Rüstung, Hufeisen, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Hammer, Baustab, Helm … Schuhe → „weitere“ (übrige Ids mit dem Metall-Wort). Keine Spachtel-/frei-Spalten; fehlende Glieder bleiben leer; Metall-Formen stehen nicht zusätzlich als Familien-Reihen (eigene Stein-Familien wie glatter Quarz/Quarzziegel bleiben Familien) |
-| `order_items` | **Items je Mod:** zuerst Besatz-Ständer (je Muster ein Eisen-Satz in Gold, je Material ein Eisen-Satz mit „Sentry“), dann je Mod (Wiki-Reihenfolge `OrderAreas.WIKI_ORDER`) eine Linie, Setzbares gesetzt, sonst Rahmen flach am Boden; dahinter die Mobs der Mod (`TcOp.Mob`: ohne KI, unverwundbar, still, dauerhaft, Tag `sb_testcentre_mob`) |
-| `order_compact` | **Kompakt je Mod:** alle Blöcke einer Mod dicht (fast quadratisch, Schildpfosten im ersten Feld), 1 Feld Abstand zur nächsten Mod |
+| Id | Variante | Inhalt |
+|---|---|---|
+| `order_families` | `lines` | **Linien an der grauen Mittellinie** (N42): Mittellinie aus grauen Betonstufen in x; **Seite A** (−z) Metalle und Rohstoffe (Kupfer nur in den vier gewachsten Stufen, Eisen, Gold, Roségold … Astralit, Nihilith, Mod-Erze Silber … Edelstahl, Redstone, Lapis, Quarz, Kohle, Amethyst), anschließend die **Hölzer** (Vanilla-Folge, dann Familien-Hölzer, jedes `x_planks`), danach **Rest** (Familien ohne steinigen Klang: Moos, Schlamm, Schleim, Sculk …); **Seite B** (+z) alles Steinige (Stein, Ziegel, Sand, Wolle, Eis, Glas, Beton, Terrakotta …, nach Klang des Grundblocks, Familien nach Farbe). Jede Reihe beginnt **ein Feld neben der Linie** und läuft nach außen; gemeinsame Kernspalten (`OrderAreas.CORE`): Knopf, Druckplatte, Blech, Zaun (Metall: Stange/Blitzableiter), Zauntor (Metall: Kette), Falltür, Tür, Octet, Mauer (Metall: Gitter, Glas: Scheibe), Stufe, Treppe, Block (Metall: geschnitten, Holz: Bretter), rissig (Metall: Rost), gemeißelt, Säule (Holz: Stamm; Tiefenschiefer-Ziegel → verstärkter Tiefenschiefer, Tiefenschiefer-Fliesen → Sculk-Fliesen). Holz hängt an: entrindeter Stamm, Holz, entrindetes Holz, Laub, Setzling, Schild, Hängeschild, Regal, Bücherregal, Boot, Kistenboot; Metalle: Fliesen, Gitterblock, Laterne, Lampe, Truhe, Sonder, Trichter, Rohr, Speicherblock, Rohblock, Erze, Roh, Barren, Nugget, Schrott, Core, Tier-Rüstungen, Hufeisen, Werkzeuge, Meißel, Hammer, Baustab, Rüstung; danach „weitere“. Reihen direkt nebeneinander, Felder lückenlos; **Platzhalter** je leerem festen Feld: **rot** = sollte existieren (Fehlliste; Sätze Knopf+Druckplatte, Tür+Falltür, Zaun+Zauntor, Bauform-Familie nach Octet-Regel, Stein mit Stufe+Treppe auch Mauer, Metall-Sätze Erz/Roh/Barren/Werkzeug/Rüstung, Holz: was die Hälfte der Hölzer hat), **hellgrau** = soll nicht existieren. Gesetzt statt Rahmen: Stangen und Blitzableiter aufrecht, Druckplatten, Knöpfe, Ketten, Laternen; Rohblock-, Speicher- und Stamm-Achtel stehen auf ihrem Block. Schild je Metall-/Holz-Reihe bzw. je Familie am Reihenende. Mehr als 114 Reihen: weitere Linien-Paare dahinter |
+| `order_compact` | `blocks` | **Kompakt je Mod:** alle Blöcke einer Mod dicht (fast quadratisch, Schildpfosten im ersten Feld), 1 Feld Abstand zur nächsten Mod |
+| `order_items` | beide | **Items je Mod:** zuerst Besatz-Ständer (je Muster ein Eisen-Satz in Gold, je Material ein Eisen-Satz mit „Sentry“), dann je Mod (Wiki-Reihenfolge `OrderAreas.WIKI_ORDER`) eine Linie mit allem, was der Block-Bereich der Variante nicht zeigt (Setzbares gesetzt, sonst Rahmen flach am Boden); dahinter die Mobs der Mod (`TcOp.Mob`: ohne KI, unverwundbar, still, dauerhaft, Tag `sb_testcentre_mob`) |
 
-Prüfung: `order_areas_show_everything_in_owner_order` (ohne Welt: Vollständigkeit Items/Blöcke, Wiki-Reihenfolge, Besatz-Ständer
-und Mobs, gemeinsamer Spaltenplan je Band, feste Spalten nur mit Items ihrer Form, Betonlinie, Eis im Rahmen, Sonderblock, kein
-Doppel zwischen Familien- und Metall-Reihen, Metall-Folge und eigenes Band-Paar, Eisen/Kupfer/Gold/Netherit/Quarz an ihren Plätzen);
-der Bau-Test zählt zusätzlich die gespawnten Mobs (still, unverwundbar, ohne KI).
+Prüfung: `OrderAreas.problems` – im Gametest `order_areas_show_everything_in_owner_order` (SimpleBuilding) und im
+Integrationstest `sbintegration:cross_mod_game_test_test_centre_plan_with_all_modules` (alle Module wie in der Welt des Besitzers):
+Linien dicht, kein Item doppelt, Platzhalterfarben nach Erwartung, Mittellinie und freier Abstand, Stangen aufrecht,
+Setzbares gesetzt, Kupfer nur gewachst, Achtel auf ihrem Block, Seite A Metalle | Holz | Rest, Seite B Stein; je Variante jedes
+Familien-Item genau einmal; kompakt mit Abstand; dazu Varianten-Befehle, Wiki-Reihenfolge, Besatz-Ständer, Mobs und die
+Besitzer-Beispiele (Eisen, gewachstes Kupfer, Gold, Netherit, Quarz, Eichenholz-Zaun in der Stangen-Spalte, Netherziegel-Zauntor
+rot, verstärkter Tiefenschiefer, Rohblock-Achtel auf dem Rohblock). Mit `SB_TC_DUMP=1` schreibt der Integrationstest die Planung
+beider Varianten und die Linien-Reihen als Tabellen nach `integration/run-fabric-263/testcentre-dump/` (Vorschau, Fehlliste).
 
 **Bezirke (TZ22-5, 22.10.2026):** Die Abschnitte gehören zu Themen-Bezirken (`TestCentreLayout.DISTRICTS`):
 Eingang & Werkzeuge, Ordnung (TZ38), Zustände & Umwandlungen, Baublöcke, Technik & Lager, Kampf & Bewegung, Module, Mobs, Strukturen,
-Crafting-Rezepte (N13), Katalog (Tabs), Rest. Jeder Bezirk wird für sich in Reihen gepackt (höchstens 120 Blöcke breit, vor jeder Reihe ein Gang von 7 Blöcken
-in -z); die Bezirke liegen in einem Raster aus zwei Spalten (Abstand 127 in x), Bezirks-Reihen mit einem Gang dazwischen.
+Crafting-Rezepte (N13), Katalog (nur auf Wunsch), Rest. Jeder Bezirk wird für sich in Reihen gepackt (höchstens 120 Blöcke breit, vor jeder Reihe ein Gang von 7 Blöcken
+in -z); die Bezirke liegen in einem Raster aus zwei Spalten (Abstand 127 in x) und fallen wie Mauersteine jeweils in die Spalte,
+deren Ende am weitesten vorn liegt, mit einem Gang dazwischen (TZ38D: vorher war jede Bezirks-Reihe so tief wie ihr tiefster
+Bezirk, neben dem tiefen Bereich `order` lag eine riesige leere Fläche).
 Wände sind höchstens 6 hoch (Ausnahme: Fallturm des Sinkdämpfers); längere Tafeln laufen auf parallele Wände dahinter
 weiter (Regalgänge, `TcCanvas.shelves`). Der Ursprung ist die Standhöhe am Anfang des ersten Gangs. Die genaue Lage
 steht im Log des Bau-Tests und von `/sbtestcentre stats` (`test centre ... sections:`), weil sie aus den Inhalten folgt.
@@ -138,7 +147,7 @@ unter Glas. Eine Station rahmt nichts, was sie schon gesetzt oder abgelegt zeigt
 | Id | Inhalt | Quelle der Inhalte |
 |---|---|---|
 | `controls` | Befehlsblöcke mit Knopf: alles/je Abschnitt neu bauen, Kit, Tag/Nacht, Wetter, Gewitter (Eisenstab), Kreativ/Überleben, Zombie/Skelett/Creeper im Dunkelraum, Mobs und Drops entfernen; Reihen zu 16 Knöpfen, Reihen 4 Blöcke hintereinander (TZ22-5, vorher eine 172 Blöcke lange Wand). Jeder Befehlsblock steht auf Glas, links Luft, rechts eine Glassäule (Abstand 3), kein Stein verbindet zwei Blöcke: ein Knopf versorgt seinen Träger stark, und ein stark versorgter Leiter löst jeden Befehlsblock daneben mit aus (bis 2026-09-25 feuerte jeder Knopf zwei Befehle). Geprüft statisch und im Lauf, siehe unten | Abschnittsliste, Anker `mob_spawn` |
-| `armour` | Ständer: jede Rüstungsstufe (mit Schwert), Enderit mit leuchtendem / strahlendem / beidem Besatz, je Besatzmuster ein Enderit-Satz; Wand (6 hoch): alle Schmiedevorlagen, alle Besatzmaterialien (die frühere Rahmenwand mit denselben vier Teilen je Muster fiel weg, TZ22-2) | Tab-Zeilen helmets…boots/swords, Register `trim_pattern`/`trim_material`, alle `SmithingTemplateItem`, alle Items mit `provides_trim_material` |
+| `armour` | Ständer: jede Rüstungsstufe (mit Schwert), Enderit mit leuchtendem / strahlendem / beidem Besatz; Wand (6 hoch): alle Schmiedevorlagen, alle Besatzmaterialien (TZ38D: die Reihe „je Besatzmuster ein Enderit-Satz“ fiel weg – die Besatz-Ständer in `order_items` zeigen jedes Muster und Material) | Tab-Zeilen helmets…boots/swords, Register `trim_pattern`/`trim_material`, alle `SmithingTemplateItem`, alle Items mit `provides_trim_material` |
 | `books` | jede Verzauberung (Mod, dann Vanilla, auch Flüche) als Buch auf Höchststufe mit Schild | Register `enchantment` |
 | `tools` | je Familie eine Zeile unverzaubert und eine max. verzaubert (Meißel, Baustäbe, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Geräte), alte Spachtel; daneben alle Varianten des Entwickler-Tabs (jede exklusive Auswahl); je Wand höchstens vier Familien, weitere auf Regalen dahinter | `ModItemGroupsContent.toolsRows`, `DevEnchantedTab` |
 | `states` | **Kaputt neben heil** (B12): vorn Amboss mit Truhe voller Lade- und Reparaturmaterial (Amethystsplitter, Enderperlen, Echosplitter, Erfahrungsfläschchen, Barren, Weisheitskugeln), rissiger neben heilem Diamantblock, Hochofen mit rissigen Diamanten (→ Diamant), abgenutzter neben neuem Enderit-Ständer, drehbare Blöcke für den Rotator; Wand: Resonanzstab und Rotator leer/halb/voll mit Lade-Material, Echolot in allen drei Riss-Stufen und repariert, Mending-Zeile (rissiges Echolot, abgenutzte Spitzhacke, EP), rissiger Diamant → Kiesel → Diamant; Haltbarkeits-Tafeln: jedes abnutzbare Werkzeug, Gerät und Rüstungsteil fast verbraucht direkt neben dem neuen; Tafeln auf Regalen (vier Zeilen je Wand) | `FeatureStations.states`, Tab-Zeilen `DURABILITY_ROWS` |

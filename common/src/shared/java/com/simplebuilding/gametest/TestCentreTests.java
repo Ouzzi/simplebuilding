@@ -163,8 +163,9 @@ public final class TestCentreTests {
                 problems.add("exclusion " + excluded + " names nothing that is registered - remove it");
             }
         }
-        helper.assertTrue(plan.sections().size() == TestCentreLayout.sectionIds().size(),
-                "planned sections " + plan.sections().size() + " but sectionIds() lists " + TestCentreLayout.sectionIds().size());
+        long built = TestCentreLayout.sectionIds().stream().filter(TestCentreLayout.Options.ALL::includes).count();
+        helper.assertTrue(plan.sections().size() == built,
+                "planned sections " + plan.sections().size() + " but sectionIds() builds " + built + " by default");
         helper.assertTrue(helper.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("sbtestcentre") != null,
                 "/sbtestcentre is not registered on this loader");
         helper.assertTrue(problems.isEmpty(), problems.size() + " test centre coverage problem(s): " + String.join("; ", problems));
@@ -408,7 +409,7 @@ public final class TestCentreTests {
             boolean first = true;
             int column = -1;
             for (String id : district) {
-                if (!TestCentreLayout.sectionIds().contains(id) || plan.section(id).ops().isEmpty()) {
+                if (plan.sections().stream().noneMatch(section -> section.id().equals(id)) || plan.section(id).ops().isEmpty()) {
                     continue;
                 }
                 int x = plan.section(id).offset().getX();
@@ -807,7 +808,7 @@ public final class TestCentreTests {
         TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         helper.assertTrue(without.sections().stream().map(TestCentreLayout.Section::id).toList().equals(baselineIds),
                 "after unregistering the test station the plan differs from before");
-        helper.assertTrue(TestCentreLayout.SECTION_IDS.stream().allMatch(baselineIds::contains),
+        helper.assertTrue(TestCentreLayout.SECTION_IDS.stream().filter(TestCentreLayout.Options.ALL::includes).allMatch(baselineIds::contains),
                 "the plan lost sections of SECTION_IDS: " + baselineIds);
         helper.succeed();
     }
@@ -927,7 +928,9 @@ public final class TestCentreTests {
         }
         // TZ22-2: was eine Station gesetzt zeigt, rahmt die Tab-Wand nicht noch einmal.
         Set<Item> placedAnywhere = new HashSet<>();
-        for (TestCentreLayout.Section section : full.sections()) {
+        List<TestCentreLayout.Section> stations = new ArrayList<>(full.sections());
+        stations.addAll(plan.sections().stream().filter(section -> full.sections().stream().noneMatch(f -> f.id().equals(section.id()))).toList());
+        for (TestCentreLayout.Section section : stations) {
             // DW04D-1: the mod block families are planned after the tab walls (like them a second, ordered view).
             // TZ38: the order areas likewise.
             if (!section.id().startsWith(TabBrowser.PREFIX) && !section.id().equals(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION)

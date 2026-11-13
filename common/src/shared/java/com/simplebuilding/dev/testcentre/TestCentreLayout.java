@@ -532,11 +532,12 @@ public final class TestCentreLayout {
         // genau einmal - der Block-Bereich (Linien oder kompakt je Mod) und Items je Mod mit dem Rest. Sie zaehlen fuer die
         // Abdeckung (Galerie und "unsorted" bleiben dadurch leer); die Modul-Buchten zeigen nur noch ihre Stationen.
         OrderAreas.Variant variant = options.variant();
-        TcCanvas blockArea = variant == OrderAreas.Variant.LINES ? OrderAreas.families().canvas() : OrderAreas.compact().canvas();
-        Set<Item> orderShown = OrderAreas.blockAreaItems(variant);
+        OrderAreas.Area lines = OrderAreas.families();
+        TcCanvas blockArea = variant == OrderAreas.Variant.LINES ? lines.canvas() : OrderAreas.compact().canvas();
+        Set<Item> orderShown = OrderAreas.blockAreaItems(variant == OrderAreas.Variant.LINES ? lines : null);
         Map<String, TcCanvas> order = new LinkedHashMap<>();
         order.put(variant.blockSection(), blockArea);
-        order.put(OrderAreas.ITEMS, OrderAreas.items(ctx, orderShown).canvas());
+        order.put(OrderAreas.ITEMS, OrderAreas.items(ctx, Set.copyOf(orderShown), new java.util.HashSet<>(lines.hidden())).canvas());
         for (TcCanvas canvas : order.values()) {
             visible(canvas.ops(), orderShown);
         }

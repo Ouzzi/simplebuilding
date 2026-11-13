@@ -576,7 +576,8 @@ public final class OrderAreas {
 
     /**
      * Steinig (Seite B, N42-3: "alle steinigen/nicht-hoelzernen Bloecke: Stein, Ziegel, Sand, Wolle, Eis, Beton, Terrakotta"):
-     * nach dem Klang des Grundblocks. Alles andere ohne Holz und Metall (Pflanzen, Moos, Schleim, Honig ...) ist "Rest" (Seite A).
+     * nach dem Klang des Grundblocks oder weil er mit der Spitzhacke abgebaut wird (Mod-Gestein mit eigenem Klang). Alles andere
+     * ohne Holz und Metall (Kuerbisse, Melonen, Heu, Moos, Schleim ...) ist "Rest" (Seite A).
      */
     static boolean stony(BlockState state) {
         if (state == null) {
@@ -588,7 +589,7 @@ public final class OrderAreas {
         } catch (RuntimeException e) {
             return true;
         }
-        return STONY_SOUNDS.contains(sound);
+        return STONY_SOUNDS.contains(sound) || state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE);
     }
 
     private static final Set<net.minecraft.world.level.block.SoundType> STONY_SOUNDS = Set.of(
@@ -759,7 +760,9 @@ public final class OrderAreas {
         keys.addAll(mod);
         List<Material> out = new ArrayList<>();
         for (String key : keys) {
-            out.add(new Material(key, Kind.WOOD, "", List.of(""), List.of(key), 0, Map.of()));
+            // Vanilla nennt das Karmesin-"Laub" Netherwarzenblock.
+            Map<Slot, List<String>> extra = key.equals("crimson") ? Map.of(Slot.LEAVES, List.of("minecraft:nether_wart_block")) : Map.of();
+            out.add(new Material(key, Kind.WOOD, "", List.of(""), List.of(key), 0, extra));
         }
         return out;
     }
@@ -834,7 +837,7 @@ public final class OrderAreas {
                     String path = (exact ? pattern.substring(1) : pattern).replace("{p}", prefix).replace("{m}", word);
                     for (Item item : pool) {
                         if (!used.contains(item) && TcContext.id(item).getPath().equals(path) && fits(item, slot)
-                                && (!exact || material.kind() != Kind.METAL || (slot == Slot.STORAGE) == (item instanceof BlockItem))) {
+                                && (!exact || slot != Slot.STORAGE || item instanceof BlockItem)) {
                             return item;
                         }
                     }
@@ -985,47 +988,84 @@ public final class OrderAreas {
     /** Glieder-Saetze: hat eine Reihe eines, sollen alle da sein (rot, wenn eins fehlt). */
     private static final List<List<Slot>> PAIRS = List.of(List.of(Slot.BUTTON, Slot.PLATE), List.of(Slot.DOOR, Slot.TRAPDOOR),
             List.of(Slot.FENCE, Slot.FENCE_GATE));
-    private static final List<List<Slot>> METAL_SETS = List.of(List.of(Slot.ORE, Slot.DEEPSLATE_ORE), List.of(Slot.RAW, Slot.RAW_BLOCK),
+    private static final List<List<Slot>> METAL_SETS = List.of(List.of(Slot.ORE, Slot.DEEPSLATE_ORE),
             List.of(Slot.STORAGE, Slot.INGOT), List.of(Slot.SWORD, Slot.SPEAR, Slot.PICKAXE, Slot.AXE, Slot.SHOVEL, Slot.HOE),
             List.of(Slot.HELMET, Slot.CHESTPLATE, Slot.LEGGINGS, Slot.BOOTS), List.of(Slot.HORSE_ARMOR, Slot.NAUTILUS_ARMOR),
-            List.of(Slot.CHISEL, Slot.SLEDGEHAMMER));
+            List.of(Slot.CHISEL, Slot.SLEDGEHAMMER), List.of(Slot.DOOR, Slot.TRAPDOOR));
+    /** Holz-Spalten eines Baums (nur Hoelzer mit Stamm erwarten sie). */
+    private static final Set<Slot> TREE = EnumSet.of(Slot.PILLAR, Slot.STRIPPED_LOG, Slot.WOOD, Slot.STRIPPED_WOOD, Slot.LEAVES, Slot.SAPLING);
+    /** Holz-Spalten, die Vanilla fuer seine Hoelzer festlegt (dort nie rot: Vanilla entscheidet, etwa keine Nether-Boote). */
+    private static final Set<Slot> VANILLA_DECIDES = EnumSet.of(Slot.PILLAR, Slot.STRIPPED_LOG, Slot.WOOD, Slot.STRIPPED_WOOD, Slot.LEAVES,
+            Slot.SAPLING, Slot.SIGN, Slot.HANGING_SIGN, Slot.SHELF, Slot.BOOKSHELF, Slot.BOAT, Slot.CHEST_BOAT, Slot.BUTTON, Slot.PLATE,
+            Slot.FENCE, Slot.FENCE_GATE, Slot.DOOR, Slot.TRAPDOOR, Slot.SLAB, Slot.STAIRS, Slot.BLOCK);
+    /** Kein Mauer-Wunsch fuer weiche/lose Bloecke (Wolle, Sand, Kies, Schnee, Glas). */
+    private static final Set<net.minecraft.world.level.block.SoundType> SOFT_SOUNDS = Set.of(net.minecraft.world.level.block.SoundType.WOOL,
+            net.minecraft.world.level.block.SoundType.SAND, net.minecraft.world.level.block.SoundType.GRAVEL,
+            net.minecraft.world.level.block.SoundType.SNOW, net.minecraft.world.level.block.SoundType.GLASS,
+            net.minecraft.world.level.block.SoundType.SOUL_SAND, net.minecraft.world.level.block.SoundType.SOUL_SOIL);
+
+    /** Was eine Reihe ueber ihre Art hinaus weiss (fuer die Erwartung). */
+    private record Context(Material material, BlockState base, boolean special, boolean derived, Map<Slot, Integer> woodShare,
+                           int woods) {
+        static final Context NONE = new Context(null, null, false, false, Map.of(), 0);
+    }
 
     /**
      * Welche Glieder eine Reihe haben sollte (rote Platzhalter, wenn sie fehlen; N42-2), begruendet in
-     * {@code docs/ai/PLAN-A-TZ38D-2026-11-13.md}: Paare/Saetze (Knopf+Druckplatte, Tuer+Falltuer, Zaun+Zauntor; Metalle: Erz,
-     * Roh, Speicher+Barren(+Nugget), Werkzeuge, Ruestung, Tier-Ruestung, Meissel+Hammer), Bauform-Familie (Stufe, Treppe, Block,
-     * Achtel nach der Octet-Regel; Stein mit Stufe und Treppe auch die Mauer), Holz: was die Mehrheit der Hoelzer hat.
+     * {@code docs/ai/PLAN-A-TZ38D-2026-11-13.md} E2: Paare (Knopf+Druckplatte, Tuer+Falltuer, Zaun+Zauntor); Bauform-Familie
+     * (Stufe oder Treppe vorhanden: Stufe, Treppe, Block, Achtel nach der Octet-Regel - Naturstufen nicht; Stein mit Stufe und
+     * Treppe auch eine Mauer, ausser weich/lose); Metalle der Grundstufe: Erz+Tiefenschiefer-Erz, Roh+Rohblock, Speicher+Barren
+     * (+Nugget bei {@code _ingot}), Werkzeuge, Ruestung, Pferde-+Nautilus-Ruestung, Meissel+Hammer, Tuer+Falltuer; Holz: was
+     * mindestens die Haelfte der Hoelzer hat (Baumteile nur bei Hoelzern mit Stamm, bei Vanilla-Hoelzern nur die Zusaetze der
+     * Familie; abgeleitete Hoelzer wie Lohenholz/Nihilit-Bretter wie Stein-Familien).
      */
-    private static Set<Slot> expected(Kind kind, String row, Material material, Map<Slot, Item> fixed, Map<Slot, Integer> woodShare,
-                                      int woods) {
+    private static Set<Slot> expected(Kind kind, String row, Map<Slot, Item> fixed, Map<Slot, Item> tops, Context ctx) {
         Set<Slot> out = EnumSet.noneOf(Slot.class);
-        if (kind == Kind.WOOD) {
-            woodShare.forEach((slot, n) -> {
-                if (n * 2 >= woods) {
+        if (kind == Kind.WOOD && !ctx.derived()) {
+            boolean vanilla = ctx.material() != null && VANILLA_WOODS.contains(ctx.material().key());
+            ctx.woodShare().forEach((slot, n) -> {
+                if (n * 2 >= ctx.woods() && !(vanilla && VANILLA_DECIDES.contains(slot))
+                        && !(TREE.contains(slot) && !fixed.containsKey(Slot.PILLAR))) {
                     out.add(slot);
                 }
             });
             return out;
         }
-        for (List<Slot> pair : PAIRS) {
-            if (pair.stream().anyMatch(fixed::containsKey)) {
-                out.addAll(pair);
+        if (kind != Kind.METAL) {
+            for (List<Slot> pair : PAIRS) {
+                if (pair.stream().anyMatch(fixed::containsKey)) {
+                    out.addAll(pair);
+                }
             }
         }
-        if (fixed.containsKey(Slot.SLAB) || fixed.containsKey(Slot.STAIRS) || fixed.containsKey(Slot.OCTET)) {
-            out.addAll(List.of(Slot.SLAB, Slot.STAIRS, Slot.BLOCK));
-            if (!natural(row)) {
+        boolean shapes = fixed.containsKey(Slot.SLAB) || fixed.containsKey(Slot.STAIRS);
+        if (shapes && !natural(row)) {
+            out.addAll(List.of(Slot.SLAB, Slot.STAIRS));
+            boolean octet = fixed.containsKey(Slot.OCTET) || !tops.isEmpty();
+            if (!octet) {
                 out.add(Slot.OCTET);
             }
-            if (kind == Kind.STONE && fixed.containsKey(Slot.SLAB) && fixed.containsKey(Slot.STAIRS)) {
+            if (kind != Kind.METAL && !ctx.special()) {
+                out.add(Slot.BLOCK);
+            }
+            if (kind == Kind.METAL && java.util.stream.Stream.of(fixed.get(Slot.SLAB), fixed.get(Slot.STAIRS))
+                    .anyMatch(item -> item != null && TcContext.id(item).getPath().contains("cut_"))) {
+                out.add(Slot.BLOCK); // geschnittene Stufe/Treppe: der geschnittene Block gehoert dazu
+            }
+            if (kind == Kind.STONE && fixed.containsKey(Slot.SLAB) && fixed.containsKey(Slot.STAIRS)
+                    && (ctx.base() == null || !SOFT_SOUNDS.contains(soundOf(ctx.base())))) {
                 out.add(Slot.WALL);
             }
         }
-        if (kind == Kind.METAL && material != null && !material.stage()) {
+        if (kind == Kind.METAL && ctx.material() != null && !ctx.material().stage()) {
             for (List<Slot> set : METAL_SETS) {
                 if (set.stream().anyMatch(fixed::containsKey)) {
                     out.addAll(set);
                 }
+            }
+            Item rawBlock = fixed.get(Slot.RAW_BLOCK);
+            if (fixed.containsKey(Slot.RAW) || rawBlock != null && TcContext.id(rawBlock).getPath().startsWith("raw_")) {
+                out.addAll(List.of(Slot.RAW, Slot.RAW_BLOCK)); // ein Schrott-Block ist kein Rohblock (Netherit)
             }
             Item ingot = fixed.get(Slot.INGOT);
             if (ingot != null && TcContext.id(ingot).getPath().endsWith("_ingot")) {
@@ -1036,8 +1076,16 @@ public final class OrderAreas {
         return out;
     }
 
+    private static net.minecraft.world.level.block.SoundType soundOf(BlockState state) {
+        try {
+            return state.getSoundType();
+        } catch (RuntimeException e) {
+            return null;
+        }
+    }
+
     /** Familien-Reihe: je Kernspalte das erste Glied (echte Mauer vor Scheibe), Ueberzaehlige nach Form in "weitere". */
-    private static RowPlan familyPlan(String key, List<Member> members, Kind kind, String family, Component label) {
+    private static RowPlan familyPlan(String key, List<Member> members, Kind kind, String family, Component label, Context context) {
         List<Member> ordered = new ArrayList<>(members);
         ordered.sort(Comparator.comparing(Member::weak));
         Map<Slot, Item> fixed = new EnumMap<>(Slot.class);
@@ -1052,7 +1100,7 @@ public final class OrderAreas {
         extra.sort(Comparator.comparingInt(m -> m.slot().ordinal()));
         List<Item> others = new ArrayList<>();
         extra.forEach(m -> others.add(m.item()));
-        return new RowPlan(key, kind, family, fixed, Map.of(), others, expected(kind, key, null, fixed, Map.of(), 0), label);
+        return new RowPlan(key, kind, family, fixed, Map.of(), others, expected(kind, key, fixed, Map.of(), context), label);
     }
 
     /** Name einer Reihe auf dem Schild: Barren/Speicherblock (Metall), Bretter (Holz). */
@@ -1090,17 +1138,34 @@ public final class OrderAreas {
         Set<Item> inFamilies = new HashSet<>();
         families.forEach(family -> family.values().forEach(members -> members.forEach(m -> inFamilies.add(m.item()))));
 
-        // Holz: Anteil der Hoelzer je Spalte (fuer die Erwartung "was die Mehrheit hat").
+        // Holz: abgeleitete Hoelzer (Lohenholz aus Karmesin, Nihilit-Bretter aus Eschenholz) stehen direkt hinter ihrem Grundholz;
+        // Anteil der eigenstaendigen Hoelzer je Spalte (fuer die Erwartung "was die Mehrheit hat").
+        List<String> woodKeys = new ArrayList<>();
+        materialRows.forEach(row -> {
+            if (row.material().kind() == Kind.WOOD) {
+                woodKeys.add(row.material().key());
+            }
+        });
+        Map<String, String> baseOf = new HashMap<>();
+        for (String key : woodKeys) {
+            for (String other : woodKeys) {
+                if (!other.equals(key) && subsequence(tokens(other), tokens(key))
+                        && (!baseOf.containsKey(key) || tokens(other).size() > tokens(baseOf.get(key)).size())) {
+                    baseOf.put(key, other);
+                }
+            }
+        }
         Map<Slot, Integer> woodShare = new EnumMap<>(Slot.class);
         int woods = 0;
         for (MaterialRow row : materialRows) {
-            if (row.material().kind() == Kind.WOOD) {
+            if (row.material().kind() == Kind.WOOD && !baseOf.containsKey(row.material().key())) {
                 woods++;
                 row.slots().keySet().forEach(slot -> woodShare.merge(slot, 1, Integer::sum));
             }
         }
         List<RowPlan> sideA = new ArrayList<>();
         List<RowPlan> wood = new ArrayList<>();
+        Map<String, List<RowPlan>> derived = new HashMap<>();
         for (MaterialRow row : materialRows) {
             List<Item> others = new ArrayList<>(row.others());
             for (Item item : row.deferred()) {
@@ -1109,12 +1174,26 @@ public final class OrderAreas {
                 }
             }
             Material m = row.material();
-            RowPlan plan = new RowPlan(m.key(), m.kind(), m.kind() == Kind.METAL ? m.words().getFirst() : m.key(), row.slots(), row.tops(),
-                    others, expected(m.kind(), m.key(), m, row.slots(), woodShare, woods),
+            boolean isDerived = baseOf.containsKey(m.key());
+            RowPlan plan = new RowPlan(m.key(), m.kind(), m.kind() == Kind.METAL ? m.words().getFirst() : isDerived ? baseOf.get(m.key()) : m.key(),
+                    row.slots(), row.tops(), others,
+                    expected(m.kind(), m.key(), row.slots(), row.tops(), new Context(m, null, false, isDerived, woodShare, woods)),
                     m.kind() == Kind.METAL ? label(row.slots(), Slot.INGOT, Slot.STORAGE) : label(row.slots(), Slot.BLOCK, Slot.PILLAR));
-            (m.kind() == Kind.METAL ? sideA : wood).add(plan);
+            if (m.kind() == Kind.METAL) {
+                sideA.add(plan);
+            } else if (isDerived) {
+                derived.computeIfAbsent(baseOf.get(m.key()), key -> new ArrayList<>()).add(plan);
+            } else {
+                wood.add(plan);
+            }
         }
-        sideA.addAll(wood);
+        for (RowPlan plan : wood) {
+            sideA.add(plan);
+            sideA.addAll(derived.getOrDefault(plan.group(), List.of()));
+        }
+        // Sonderbloecke (Besitzer-Beispiele) fehlen ihrer eigenen Reihe nicht als "rot".
+        Set<String> specialSources = new HashSet<>();
+        SPECIAL.values().forEach(id -> specialSources.add(rowKey(Identifier.parse(id).getPath())));
         List<RowPlan> rest = new ArrayList<>();
         List<RowPlan> stone = new ArrayList<>();
         for (Map<String, List<Member>> family : families) {
@@ -1127,7 +1206,8 @@ public final class OrderAreas {
                 if (first && state != null) {
                     label = TcText.bold(new ItemStack(state.getBlock().asItem()).getHoverName());
                 }
-                (kind == Kind.STONE ? stone : rest).add(familyPlan(entry.getKey(), entry.getValue(), kind, familyKey, label));
+                Context context = new Context(null, state, specialSources.contains(entry.getKey()), false, Map.of(), 0);
+                (kind == Kind.STONE ? stone : rest).add(familyPlan(entry.getKey(), entry.getValue(), kind, familyKey, label, context));
                 first = false;
             }
         }
@@ -1375,11 +1455,16 @@ public final class OrderAreas {
 
     /** Was der Block-Bereich einer Variante zeigt (gesetzt, gerahmt oder als gewachster Zwilling vertreten). */
     public static Set<Item> blockAreaItems(Variant variant) {
+        return blockAreaItems(variant == Variant.LINES ? families() : null);
+    }
+
+    /** Wie oben mit schon geplanten Linien ({@code null} = Variante "blocks"). */
+    public static Set<Item> blockAreaItems(Area lines) {
         Set<Item> out = new HashSet<>();
-        if (variant == Variant.LINES) {
-            Area lines = families();
+        if (lines != null) {
+            // Ausgelassene ungewachste Kupfer-Zwillinge der Familie stehen im Rahmen bei Items je Mod (TZ22-1: jeder Registereintrag
+            // ist zu sehen; N42-6: nicht gesetzt, "ungewachste optional in Rahmen").
             lines.cells().forEach(cell -> out.add(cell.item()));
-            out.addAll(lines.hidden());
         } else {
             for (String ns : namespaces()) {
                 out.addAll(blocks(ns));
@@ -1405,6 +1490,11 @@ public final class OrderAreas {
      * {@code skip} (der Block-Bereich der Variante) nicht zeigt, dahinter ihre Mobs.
      */
     public static Area items(TcContext ctx, Set<Item> skip) {
+        return items(ctx, skip, new HashSet<>(families().hidden()));
+    }
+
+    /** Wie oben; {@code framed} = in den Linien ausgelassene Kupfer-Zwillinge, die hier im Rahmen haengen statt zu stehen. */
+    public static Area items(TcContext ctx, Set<Item> skip, Set<Item> framed) {
         TcCanvas c = new TcCanvas();
         List<Cell> cells = new ArrayList<>();
         c.wallSign(0, 0, 1, TcText.bold(TcText.t("order.items", "Items per mod")),
@@ -1435,7 +1525,11 @@ public final class OrderAreas {
             for (int i = 0; i < list.size(); i++) {
                 int x = START_X + i % perLine;
                 int iz = z + 2 * (i / perLine);
-                put(c, list.get(i), x, iz);
+                if (framed.contains(list.get(i))) {
+                    c.frame(x, 0, iz, Direction.UP, new ItemStack(list.get(i)));
+                } else {
+                    put(c, list.get(i), x, iz);
+                }
                 cells.add(new Cell(ns, i, list.get(i), new BlockPos(x, 0, iz)));
             }
             z += 2 * Math.max(1, (list.size() + perLine - 1) / perLine);
@@ -1547,8 +1641,8 @@ public final class OrderAreas {
 
     /**
      * Pruefung beider Varianten (Gametest SimpleBuilding, Integration mit allen Modulen): die Linien ({@link #check}); je
-     * Variante steht jedes Item jeder Familien-Mod genau einmal im Block-Bereich oder in Items je Mod (ein ausgelassener
-     * ungewachster Kupfer-Zwilling ist durch den gewachsten vertreten); kompakt: jeder Block einmal, Mods mit Abstand.
+     * Variante steht jedes Item jeder Familien-Mod genau einmal im Block-Bereich oder in Items je Mod (ein in den Linien
+     * ausgelassener ungewachster Kupfer-Zwilling der Familie haengt dort im Rahmen); kompakt: jeder Block einmal, Mods mit Abstand.
      */
     public static List<String> problems(TcContext ctx) {
         Area lines = families();
@@ -1556,11 +1650,10 @@ public final class OrderAreas {
         Area compact = compact();
         for (Variant variant : Variant.values()) {
             Area blocks = variant == Variant.LINES ? lines : compact;
-            Set<Item> skip = blockAreaItems(variant);
-            Area items = items(ctx, skip);
+            Set<Item> skip = blockAreaItems(variant == Variant.LINES ? lines : null);
+            Area items = items(ctx, skip, new HashSet<>(lines.hidden()));
             Map<Item, Integer> shown = new HashMap<>();
             blocks.cells().forEach(cell -> shown.merge(cell.item(), 1, Integer::sum));
-            blocks.hidden().forEach(item -> shown.merge(item, 1, Integer::sum));
             items.cells().forEach(cell -> shown.merge(cell.item(), 1, Integer::sum));
             for (String ns : namespaces()) {
                 for (Item item : items(ns)) {
@@ -1609,8 +1702,10 @@ public final class OrderAreas {
     public static TcCanvas all(TcContext ctx, Variant variant) {
         TcCanvas c = new TcCanvas();
         int z = 0;
-        TcCanvas blocks = variant == Variant.LINES ? families().canvas() : compact().canvas();
-        for (TcCanvas area : List.of(blocks, items(ctx, blockAreaItems(variant)).canvas())) {
+        Area lines = families();
+        TcCanvas blocks = variant == Variant.LINES ? lines.canvas() : compact().canvas();
+        Set<Item> skip = blockAreaItems(variant == Variant.LINES ? lines : null);
+        for (TcCanvas area : List.of(blocks, items(ctx, skip, new HashSet<>(lines.hidden())).canvas())) {
             if (area.ops().isEmpty()) {
                 continue;
             }
