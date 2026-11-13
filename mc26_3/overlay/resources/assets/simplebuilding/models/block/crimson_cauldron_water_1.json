@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_cauldron_level1",
+  "parent": "simplebuilding:block/template_wooden_cauldron_level1",
   "textures": {
     "particle": "minecraft:block/crimson_stem",
     "side": "minecraft:block/crimson_stem",

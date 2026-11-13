@@ -356,6 +356,36 @@ def block_item(name: str, model: str | None = None) -> None:
     put_json(f"{NS}/items/{name}.json", {"model": {"type": "minecraft:model", "model": model or sb(f"block/{name}")}})
 
 
+def cauldron_templates() -> None:
+    """Wooden cauldron shells (a-fix13b, owner 13.11.: bark only outside). The Vanilla cauldron boxes with one change: the four inner
+    wall faces show #inside (stripped wood, or planks for the stripped cauldrons). The Vanilla model shows #side there, which is the
+    bark of the unstripped cauldrons. Rim (#top), feet (#bottom) and outer walls are as in Vanilla. Water/powder snow/lava level
+    templates add the content plane."""
+    def box(frm, to, faces):
+        return {"from": frm, "to": to, "faces": {d: {"texture": t} for d, t in faces.items()}}
+    all4 = {"north": "#side", "east": "#side", "south": "#side", "west": "#side"}
+    shell = [
+        box([0, 3, 0], [2, 16, 16], all4 | {"east": "#inside", "up": "#top", "down": "#inside"}),
+        box([2, 3, 2], [14, 4, 14], {"up": "#inside", "down": "#inside"}),
+        box([14, 3, 0], [16, 16, 16], all4 | {"west": "#inside", "up": "#top", "down": "#inside"}),
+        box([2, 3, 0], [14, 16, 2], {"north": "#side", "south": "#inside", "up": "#top", "down": "#inside"}),
+        box([2, 3, 14], [14, 16, 16], {"north": "#inside", "south": "#side", "up": "#top", "down": "#inside"}),
+        box([0, 0, 0], [4, 3, 2], all4 | {"down": "#bottom"}),
+        box([0, 0, 2], [2, 3, 4], {"east": "#side", "south": "#side", "west": "#side", "down": "#bottom"}),
+        box([12, 0, 0], [16, 3, 2], all4 | {"down": "#bottom"}),
+        box([14, 0, 2], [16, 3, 4], {"east": "#side", "south": "#side", "west": "#side", "down": "#bottom"}),
+        box([0, 0, 14], [4, 3, 16], all4 | {"down": "#bottom"}),
+        box([0, 0, 12], [2, 3, 14], {"north": "#side", "east": "#side", "west": "#side", "down": "#bottom"}),
+        box([12, 0, 14], [16, 3, 16], all4 | {"down": "#bottom"}),
+        box([14, 0, 12], [16, 3, 14], {"north": "#side", "east": "#side", "west": "#side", "down": "#bottom"}),
+    ]
+    put_json(f"{NS}/models/block/template_wooden_cauldron.json", {"parent": "minecraft:block/block", "textures": {"particle": "#side"}, "elements": shell})
+    for name, top in (("level1", 9), ("level2", 12), ("full", 15)):
+        content = {"from": [2, 4, 2], "to": [14, top, 14], "faces": {"up": {"texture": "#content", "tintindex": 0}}}
+        put_json(f"{NS}/models/block/template_wooden_cauldron_{name}.json", {
+            "parent": "minecraft:block/block", "textures": {"particle": "#side"}, "elements": shell + [content]})
+
+
 def templates() -> None:
     put_crate_json(f"{STORAGE_NS}/models/block/template_crate.json", {
         "parent": "minecraft:block/block", "textures": {"particle": "#planks"}, "elements": crate_elements()})
@@ -475,16 +505,16 @@ def wood_assets(wood: str, log: str) -> None:
     name = f"{wood}_cauldron"
     ctex = {"particle": tex["log"], "side": tex["log"], "top": tex["log_top"], "bottom": tex["log_top"],
             "inside": tex["stripped"]}
-    put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/cauldron", "textures": ctex})
+    put_json(f"{NS}/models/block/{name}.json", {"parent": sb("block/template_wooden_cauldron"), "textures": ctex})
     # Inventory: Vanilla block/cauldron has no parent, hence no GUI transform and a flat icon; give the item the block-style display.
     put_json(f"{NS}/models/item/{name}.json", {"parent": sb(f"block/{name}"), "display": CAULDRON_ITEM_DISPLAY})
     contents = {"water": mc("block/water_still"), "powder_snow": mc("block/powder_snow")}
     for content, content_tex in contents.items():
-        for level, template in ((1, "template_cauldron_level1"), (2, "template_cauldron_level2"), (3, "template_cauldron_full")):
+        for level, template in ((1, "template_wooden_cauldron_level1"), (2, "template_wooden_cauldron_level2"), (3, "template_wooden_cauldron_full")):
             put_json(f"{NS}/models/block/{name}_{content}_{level}.json",
-                     {"parent": mc(f"block/{template}"), "textures": ctex | {"content": content_tex}})
+                     {"parent": sb(f"block/{template}"), "textures": ctex | {"content": content_tex}})
     put_json(f"{NS}/models/block/{name}_lava.json",
-             {"parent": mc("block/template_cauldron_full"), "textures": ctex | {"content": mc("block/lava_still")}})
+             {"parent": sb("block/template_wooden_cauldron_full"), "textures": ctex | {"content": mc("block/lava_still")}})
     variants = {}
     for content in ("empty", "water", "lava", "powder_snow"):
         for level in (1, 2, 3):
@@ -564,13 +594,13 @@ def stripped_cauldron(wood: str, log: str) -> None:
     ctex = {"particle": wood_ns(wood, f"block/{stripped}"), "side": wood_ns(wood, f"block/{stripped}"),
             "top": wood_ns(wood, f"block/{stripped}_top"), "bottom": wood_ns(wood, f"block/{stripped}_top"),
             "inside": wood_ns(wood, f"block/{wood}_planks")}
-    put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/cauldron", "textures": ctex})
+    put_json(f"{NS}/models/block/{name}.json", {"parent": sb("block/template_wooden_cauldron"), "textures": ctex})
     for content, content_tex in {"water": mc("block/water_still"), "powder_snow": mc("block/powder_snow")}.items():
-        for level, template in ((1, "template_cauldron_level1"), (2, "template_cauldron_level2"), (3, "template_cauldron_full")):
+        for level, template in ((1, "template_wooden_cauldron_level1"), (2, "template_wooden_cauldron_level2"), (3, "template_wooden_cauldron_full")):
             put_json(f"{NS}/models/block/{name}_{content}_{level}.json",
-                     {"parent": mc(f"block/{template}"), "textures": ctex | {"content": content_tex}})
+                     {"parent": sb(f"block/{template}"), "textures": ctex | {"content": content_tex}})
     put_json(f"{NS}/models/block/{name}_lava.json",
-             {"parent": mc("block/template_cauldron_full"), "textures": ctex | {"content": mc("block/lava_still")}})
+             {"parent": sb("block/template_wooden_cauldron_full"), "textures": ctex | {"content": mc("block/lava_still")}})
     variants = {}
     for content in ("empty", "water", "lava", "powder_snow"):
         for level in (1, 2, 3):
@@ -638,6 +668,7 @@ def preview(jar: str, out: Path) -> None:
 
 def main() -> int:
     templates()
+    cauldron_templates()
     palettes()
     for wood, log, _c in WOODS:
         wood_assets(wood, log)

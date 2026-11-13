@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cauldron",
+  "parent": "simplebuilding:block/template_wooden_cauldron",
   "textures": {
     "particle": "minecraft:block/cherry_log",
     "side": "minecraft:block/cherry_log",

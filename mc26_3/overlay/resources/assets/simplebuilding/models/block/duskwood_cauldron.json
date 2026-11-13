@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cauldron",
+  "parent": "simplebuilding:block/template_wooden_cauldron",
   "textures": {
     "particle": "simpleend:block/duskwood_log",
     "side": "simpleend:block/duskwood_log",
