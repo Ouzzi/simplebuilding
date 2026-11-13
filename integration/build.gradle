@@ -221,8 +221,10 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def guidechap = requested == 'guidechap'
         // 'compat26' is no module either: b-compat26, all modules next to Lithium + JEI + Mod Menu (Compat26ClientTest, tools/testrunner target compat26-client-263).
         def compat26 = requested == 'compat26'
-        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
-        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && !rel10 && !guidechap && !compat26 && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        // 'tz38d' is no module either: a-tz38d, the test centre order areas (lines | blocks) photographed from above and along the line.
+        def tz38d = requested == 'tz38d'
+        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || tz38d || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
+        if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && !rel10 && !guidechap && !compat26 && !tz38d && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
@@ -234,8 +236,9 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
                 : rel10 ? ['com.simplebuilding.integration.clienttest.Rel10ClientTest']
                 : guidechap ? ['com.simplebuilding.integration.clienttest.GuideChapterClientTest']
                 : compat26 ? ['com.simplebuilding.integration.clienttest.Compat26ClientTest']
+                : tz38d ? ['com.simplebuilding.integration.clienttest.Tz38dClientTest']
                 : entries.collectMany { it.tests.client.entrypoints } + (vis ? ['com.simplebuilding.integration.clienttest.Vis24ClientTest'] : [])],
-            depends:(audit || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
+            depends:(audit || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || tz38d || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]

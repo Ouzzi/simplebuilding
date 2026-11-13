@@ -1513,18 +1513,39 @@ public final class OrderAreas {
                     i -> materials.get(i).value().description());
         }
         z += 1;
+        // TZ38D ("kaum Luecken"): je Mod eine Reihe, die Mods wie Regalbretter nebeneinander (Wiki-Reihenfolge von links nach
+        // rechts, dann das naechste Brett), ein Feld Abstand; die Mobs der Mod direkt dahinter in ihrem Abschnitt (TZ38-7).
+        int perLine = MAX_WIDTH - START_X - 1;
+        int x0 = START_X;
+        int shelfDepth = 0;
+        z += 1; // Schildreihe vor dem ersten Brett
         for (String ns : namespaces()) {
             List<Item> list = items(ns, skip);
             List<EntityType<?>> mobs = mobs(ns);
             if (list.isEmpty() && mobs.isEmpty()) {
                 continue;
             }
-            c.wallSign(0, 0, z, TcText.bold(TcText.lit(ModBlockGallery.modName(ns))), TcText.t("order.items.count", "%s items", list.size()),
+            int lines = Math.max(1, (list.size() + perLine - 1) / perLine);
+            int itemWidth = Math.min(perLine, Math.max(1, list.size()));
+            int mobWidth = 0;
+            int mobDepth = 0;
+            for (EntityType<?> type : mobs) {
+                int size = Math.max(1, (int) Math.ceil(type.getWidth()));
+                mobWidth += size + 1;
+                mobDepth = Math.max(mobDepth, size);
+            }
+            int width = 1 + Math.max(itemWidth, Math.min(perLine, mobWidth));
+            int depth = lines + (mobs.isEmpty() ? 0 : 1 + mobDepth * Math.max(1, (mobWidth + perLine - 1) / perLine));
+            if (x0 > START_X && x0 + width > MAX_WIDTH) {
+                x0 = START_X;
+                z += shelfDepth + 2;
+                shelfDepth = 0;
+            }
+            c.wallSign(x0, 0, z, TcText.bold(TcText.lit(ModBlockGallery.modName(ns))), TcText.t("order.items.count", "%s items", list.size()),
                     TcText.t("order.items.mobcount", "%s mobs", mobs.size()));
-            int perLine = MAX_WIDTH - START_X;
             for (int i = 0; i < list.size(); i++) {
-                int x = START_X + i % perLine;
-                int iz = z + 2 * (i / perLine);
+                int x = x0 + 1 + i % perLine;
+                int iz = z + i / perLine;
                 if (framed.contains(list.get(i))) {
                     c.frame(x, 0, iz, Direction.UP, new ItemStack(list.get(i)));
                 } else {
@@ -1532,25 +1553,26 @@ public final class OrderAreas {
                 }
                 cells.add(new Cell(ns, i, list.get(i), new BlockPos(x, 0, iz)));
             }
-            z += 2 * Math.max(1, (list.size() + perLine - 1) / perLine);
-            // Mobs: eigener Streifen hinter den Linien der Mod.
-            if (!mobs.isEmpty()) {
-                int x = START_X;
-                int depth = 1;
-                for (EntityType<?> type : mobs) {
-                    int size = Math.max(1, (int) Math.ceil(type.getWidth()));
-                    if (x > START_X && x + size > MAX_WIDTH) {
-                        x = START_X;
-                        z += depth + 1;
-                        depth = 1;
-                    }
-                    c.mob(x + (size - 1) / 2, 0, z + (size - 1) / 2, 180F, BuiltInRegistries.ENTITY_TYPE.getKey(type));
-                    x += size + 1;
-                    depth = Math.max(depth, size);
+            // Mobs: eigener Streifen hinter der Reihe der Mod.
+            int mx = x0 + 1;
+            int mz = z + lines + 1;
+            int depthHere = 1;
+            for (EntityType<?> type : mobs) {
+                int size = Math.max(1, (int) Math.ceil(type.getWidth()));
+                if (mx > x0 + 1 && mx + size > x0 + width) {
+                    mx = x0 + 1;
+                    mz += depthHere + 1;
+                    depthHere = 1;
                 }
-                z += depth + 1;
+                c.mob(mx + (size - 1) / 2, 0, mz + (size - 1) / 2, 180F, BuiltInRegistries.ENTITY_TYPE.getKey(type));
+                mx += size + 1;
+                depthHere = Math.max(depthHere, size);
             }
-            z += 1;
+            if (!mobs.isEmpty()) {
+                depth = Math.max(depth, mz + depthHere - z);
+            }
+            shelfDepth = Math.max(shelfDepth, depth);
+            x0 += width + 1;
         }
         return new Area(c, cells);
     }

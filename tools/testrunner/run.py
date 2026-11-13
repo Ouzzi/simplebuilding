@@ -316,6 +316,12 @@ INTEGRATION_TARGETS = (Target(
     mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
     gradle_args=("-PmoduleClientTest=rel10",), audit=True,
 ), Target(
+    # a-tz38d (13.11.): the test centre order areas of both variants (lines | blocks) photographed from above and along the
+    # grey line (Tz38dClientTest). Opt in.
+    id="tz38d-client-263", label="Testzentrale TZ38D: Ordnungs-Bereiche im Client - MC 26.3", loader="fabric", kind="client",
+    mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
+    gradle_args=("-PmoduleClientTest=tz38d",), audit=True,
+), Target(
     # b-guidechap14 (09.11.): an old mod handbook opens the Simple Modpack guide at the start page (switch off) or at its
     # chapter (guideOpensChapter on), two books, one screenshot each (GuideChapterClientTest). Opt in.
     id="guidechap-client-263", label="Handbuch-Kapitelsprung (Schalter aus/an) - MC 26.3", loader="fabric", kind="client",
@@ -925,7 +931,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
             error = compat26_check(output)
         elif log_faults:
             error = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (siehe {log_path.name})"
-        elif "[vis24] screens shot:" in output or "[rel10] screens shot:" in output or "[guidechap] faults: 0" in output:
+        elif "[vis24] screens shot:" in output or "[rel10] screens shot:" in output or "[guidechap] faults: 0" in output \
+                or "[tz38d] screens shot:" in output and "[tz38d] FAIL" not in output:
             pass
         elif "[mixinaudit] audit done without error" in output:
             pass  # mixinaudit target: its proof line (no model audit summary)
