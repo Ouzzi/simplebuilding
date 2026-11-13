@@ -92260,6 +92260,10 @@
           "required": true
         },
         {
+          "id": "simpleores:enderite_pressure_plate",
+          "required": true
+        },
+        {
           "id": "simpleores:enderite_scrap_block",
           "required": true
         },
@@ -92519,6 +92523,10 @@
           "required": true
         },
         {
+          "id": "simpleores:chiseled_enderite",
+          "required": true
+        },
+        {
           "id": "simpleores:enderite_block",
           "required": true
         },
@@ -92528,6 +92536,10 @@
         },
         {
           "id": "simpleores:enderite_nugget",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_pressure_plate",
           "required": true
         },
         {

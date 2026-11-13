@@ -1939,10 +1939,6 @@
             "minecraft:crimson_planks"
           ],
           [
-            "minecraft:cut_copper",
-            "minecraft:copper_block"
-          ],
-          [
             "minecraft:cut_red_sandstone",
             "minecraft:smooth_red_sandstone"
           ],
@@ -2467,10 +2463,6 @@
           [
             "minecraft:cobblestone_stairs",
             "minecraft:mossy_cobblestone_stairs"
-          ],
-          [
-            "minecraft:copper_block",
-            "minecraft:cut_copper"
           ],
           [
             "minecraft:cracked_deepslate_bricks",
@@ -3821,10 +3813,6 @@
             "minecraft:obsidian"
           ],
           [
-            "minecraft:cut_copper",
-            "minecraft:copper_block"
-          ],
-          [
             "minecraft:cut_red_sandstone",
             "minecraft:smooth_red_sandstone"
           ],
@@ -4457,10 +4445,6 @@
           [
             "minecraft:cobblestone_stairs",
             "minecraft:mossy_cobblestone_stairs"
-          ],
-          [
-            "minecraft:copper_block",
-            "minecraft:cut_copper"
           ],
           [
             "minecraft:cracked_deepslate_bricks",
@@ -5895,10 +5879,6 @@
             "minecraft:obsidian"
           ],
           [
-            "minecraft:cut_copper",
-            "minecraft:copper_block"
-          ],
-          [
             "minecraft:cut_red_sandstone",
             "minecraft:smooth_red_sandstone"
           ],
@@ -6531,10 +6511,6 @@
           [
             "minecraft:cobblestone_stairs",
             "minecraft:mossy_cobblestone_stairs"
-          ],
-          [
-            "minecraft:copper_block",
-            "minecraft:cut_copper"
           ],
           [
             "minecraft:cracked_deepslate_bricks",
