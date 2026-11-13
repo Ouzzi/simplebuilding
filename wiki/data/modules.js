@@ -513,7 +513,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 12
     },
-    "dataHash": "ca7461192cba"
+    "dataHash": "6c6a0f8b727b"
   },
   {
     "id": "simplesandwiches",
@@ -2269,7 +2269,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "e3647e49d318"
+    "dataHash": "45f8460fa083"
   },
   {
     "id": "simplechisels",
