@@ -1,6 +1,7 @@
 package com.simplebuildingtools.blueprint;
 
 import com.simplebuildingtools.component.BtComponents;
+import com.simplebuildingtools.config.BtTuning;
 import com.simplebuildingtools.items.custom.BlueprintItem;
 import com.simplebuildingtools.items.custom.OctantItem;
 import com.simplebuildingtools.util.OctantShape;
@@ -20,7 +21,8 @@ import net.minecraft.world.phys.AABB;
  *
  * <p>Regeln: gescannt wird genau die <b>Figur</b> des Oktanten (Quader, Zylinder, Kugel, Pyramide,
  * Prisma ...; {@link OctantShape}, dieselbe Quelle wie die Vorschau im Client). Ihre Bounding Box
- * ist hoechstens {@value BlueprintCode#GRID} Bloecke je Kante gross und geladen, und der Kartentisch
+ * ist hoechstens {@value BlueprintCode#GRID} Bloecke je Kante gross (eine normale Blaupause nimmt ausserdem nur bis
+ * {@code blueprint.scanMaxVolume} Stellen, eine Kreativ-Blaupause beliebig viele) und geladen, und der Kartentisch
  * steht hoechstens {@value #MAX_TABLE_DISTANCE} Bloecke von ihr entfernt. Luft wird uebersprungen,
  * von Block-Entities wird nur der Zustand uebernommen (kein Truheninhalt). Die Koordinaten beginnen
  * bei der kleinsten belegten Stelle.
@@ -89,6 +91,12 @@ public final class BlueprintScanner {
         int sx = max.getX() - min.getX() + 1, sy = max.getY() - min.getY() + 1, sz = max.getZ() - min.getZ() + 1;
         if (sx > BlueprintCode.GRID || sy > BlueprintCode.GRID || sz > BlueprintCode.GRID) {
             return Outcome.fail("too_large", sx, sy, sz, BlueprintCode.GRID);
+        }
+        // a13b: normal blueprints take selections up to blueprint.scanMaxVolume cells (the Octant shows this number); a creative
+        // blueprint has no volume limit. What a scan may hold in the end is the Bausprache (MAX_EXPANDED_CELLS, MAX_STORED_CODE_LENGTH).
+        long volume = (long) sx * sy * sz;
+        if (!BlueprintItem.isCreative(blueprint) && volume > BtTuning.scanMaxVolume()) {
+            return Outcome.fail("too_big_volume", volume, BtTuning.scanMaxVolume());
         }
         if (!box.inflate(MAX_TABLE_DISTANCE).contains(table.getX() + 0.5, table.getY() + 0.5, table.getZ() + 0.5)) {
             return Outcome.fail("too_far", MAX_TABLE_DISTANCE);
@@ -202,8 +210,8 @@ public final class BlueprintScanner {
                 return Outcome.fail("nothing");
             }
             String code = BlueprintCode.serialize(model.normalized());
-            if (code.length() > BlueprintCode.MAX_CODE_LENGTH) {
-                return Outcome.fail("too_complex", code.length(), BlueprintCode.MAX_CODE_LENGTH);
+            if (code.length() > BlueprintCode.MAX_STORED_CODE_LENGTH) {
+                return Outcome.fail("too_complex", code.length(), BlueprintCode.MAX_STORED_CODE_LENGTH);
             }
             ItemStack result = blueprint.copyWithCount(1);
             BlueprintContent old = result.getOrDefault(BtComponents.BLUEPRINT, BlueprintContent.EMPTY);

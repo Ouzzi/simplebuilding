@@ -49,6 +49,11 @@ public final class BtTuning {
         return true;
     }
 
+    /** Largest selection volume a normal blueprint scans (a creative blueprint has none); on a client the server's value. */
+    public static int scanMaxVolume() {
+        return SimpleBuildingTools.config().blueprint.scanMaxVolume;
+    }
+
     public static boolean wandHungerCost() {
         return SimpleBuildingTools.config().wands.hungerCost;
     }

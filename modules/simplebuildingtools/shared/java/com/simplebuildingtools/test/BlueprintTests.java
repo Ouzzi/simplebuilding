@@ -151,9 +151,12 @@ public final class BlueprintTests {
      * gezaehlt wird, eine vertauschte Stufenzuordnung, eine falsche Scan-Grenze.
      */
     public static void sizeLimitsCapTheCodeAndMapWandTiers(GameTestHelper helper) {
-        String tooLong = "stone 0,0,0\n" + "#".repeat(BlueprintCode.MAX_CODE_LENGTH);
+        String tooLong = "stone 0,0,0\n" + "#".repeat(BlueprintCode.MAX_STORED_CODE_LENGTH);
         List<String> keys = BlueprintCode.parse(tooLong).problems().stream().map(BlueprintCode.Problem::key).toList();
         helper.assertTrue(keys.contains("too_long"), "an over-long code was accepted: " + keys);
+        // a13b: a scan result may be longer than what one types (MAX_CODE_LENGTH) and still reads back.
+        BlueprintCode.ParseResult scanSized = BlueprintCode.parse("stone 0,0,0\n#" + "x".repeat(BlueprintCode.MAX_CODE_LENGTH + 8_000));
+        helper.assertTrue(scanSized.ok() && scanSized.model().size() == 1, "a code over the typing limit was refused: " + scanSized.problems());
 
         BlueprintCode.ParseResult corner = BlueprintCode.parse("stone 255,255,255 0,0,0");
         helper.assertTrue(corner.ok() && corner.model().maxEdge() == 256, "the far corner 255,255,255 is not part of the grid: " + corner.problems());
@@ -2208,6 +2211,119 @@ public final class BlueprintTests {
         } finally {
             config.largeBuildCells = savedCells;
             config.largeBuildPermission = savedPermission;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * a-fix13b (owner 13.11.): the cartography table takes a varied selection. A 3D checkerboard of stone and glass over
+     * 8 x 64 x 8 (4096 cells, every cell its own box) makes a code far over the 32 000 characters one types; the scan of a
+     * normal blueprint must still succeed, the code must read back to the same model, survive the save (NBT strings hold
+     * 65 535 bytes, so it is stored in pieces) and the network (item sync), while a short code stays one string.
+     *
+     * <p><strong>What breaks this test:</strong> the old {@code too_complex} limit of 32 000 characters, a parser or stream
+     * codec that still stops there, or a persistent codec that writes one huge NBT string.
+     */
+    public static void scanTakesBigVariedSelection(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockState stone = Blocks.STONE.defaultBlockState();
+        BlockState glass = Blocks.GLASS.defaultBlockState();
+        int top = helper.absolutePos(BlockPos.ZERO).getY() + 20;
+        helper.assertTrue(top + 64 <= level.getMaxY(), "no room above the structure for the probe");
+        BlueprintModel expected = new BlueprintModel();
+        BlockPos origin = helper.absolutePos(BlockPos.ZERO);
+        try {
+            for (int x = 0; x < 8; x++) {
+                for (int y = 0; y < 64; y++) {
+                    for (int z = 0; z < 8; z++) {
+                        BlockState state = (x + y + z) % 2 == 0 ? stone : glass;
+                        level.setBlock(new BlockPos(origin.getX() + x, top + y, origin.getZ() + z), state, 2);
+                        expected.set(x, y, z, state);
+                    }
+                }
+            }
+            BlockPos table = helper.absolutePos(new BlockPos(3, 1, 3));
+            ItemStack octant = octant(helper, new BlockPos(0, 20, 0), new BlockPos(7, 83, 7));
+            BlueprintScanner.Outcome outcome = BlueprintScanner.scanAtTable(level, table, octant, new ItemStack(BtItems.BLUEPRINT));
+            helper.assertTrue(outcome.error() == null, "a varied selection of 4096 cells was refused: " + outcome.error());
+            BlueprintContent content = BlueprintItem.content(outcome.result());
+            String code = content.code();
+            helper.assertTrue(code.length() > BlueprintCode.MAX_CODE_LENGTH && code.length() <= BlueprintCode.MAX_STORED_CODE_LENGTH,
+                    "the probe should be longer than one types but within the stored limit: " + code.length());
+            BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+            helper.assertTrue(parsed.ok() && parsed.model().equals(expected.normalized()), "the scanned code does not read back: " + parsed.problems());
+
+            // Saved: no NBT string over 65 535 bytes (writing would throw), reads back identical.
+            net.minecraft.nbt.Tag saved = BlueprintContent.CODEC.encodeStart(NbtOps.INSTANCE, content).getOrThrow();
+            CompoundTag compound = (CompoundTag) saved;
+            helper.assertTrue(compound.contains("more") && compound.getStringOr("code", "").length() == BlueprintContent.CHUNK,
+                    "a long code should be saved in pieces: " + compound.keySet());
+            try {
+                net.minecraft.nbt.NbtIo.write(compound, new java.io.DataOutputStream(java.io.OutputStream.nullOutputStream()));
+            } catch (java.io.IOException e) {
+                helper.assertTrue(false, "the saved long code could not be written as NBT: " + e);
+            }
+            BlueprintContent loaded = BlueprintContent.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
+            helper.assertTrue(loaded.equals(content), "the saved long code did not load back identical");
+            CompoundTag shortSaved = (CompoundTag) BlueprintContent.CODEC.encodeStart(NbtOps.INSTANCE,
+                    new BlueprintContent("stone 0,0,0", "T", "A", true)).getOrThrow();
+            helper.assertTrue(!shortSaved.contains("more") && shortSaved.getStringOr("code", "").equals("stone 0,0,0"),
+                    "a short code must stay one string as before: " + shortSaved);
+
+            // Synced: the item crosses the network (container sync) with its long code.
+            net.minecraft.network.RegistryFriendlyByteBuf buf = new net.minecraft.network.RegistryFriendlyByteBuf(
+                    io.netty.buffer.Unpooled.buffer(), level.registryAccess());
+            ItemStack.STREAM_CODEC.encode(buf, outcome.result());
+            ItemStack received = ItemStack.STREAM_CODEC.decode(buf);
+            helper.assertTrue(BlueprintItem.content(received).code().equals(code), "the long code did not survive the item sync");
+        } finally {
+            for (int x = 0; x < 8; x++) {
+                for (int y = 0; y < 64; y++) {
+                    for (int z = 0; z < 8; z++) {
+                        level.setBlock(new BlockPos(origin.getX() + x, top + y, origin.getZ() + z), Blocks.AIR.defaultBlockState(), 2);
+                    }
+                }
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * a-fix13b: a normal blueprint scans selections up to {@code blueprint.scanMaxVolume} (counted in cells, the volume the
+     * Octant shows), a creative blueprint has no volume limit; the default takes the Testzentrale selection (51 x 2 x 42).
+     *
+     * <p><strong>What breaks this test:</strong> a limit that counts block kinds again, a creative blueprint that is stopped by
+     * the volume limit, a default below 4284.
+     */
+    public static void scanVolumeLimitSparesCreative(GameTestHelper helper) {
+        var config = com.simplebuildingtools.SimpleBuildingTools.config().blueprint;
+        int saved = config.scanMaxVolume;
+        try {
+            helper.assertTrue(new com.simplebuildingtools.config.BtConfig().blueprint.scanMaxVolume >= 51 * 2 * 42,
+                    "the default scan volume does not take the Testzentrale selection of 4284 cells");
+            clear(helper);
+            for (int x = 1; x <= 3; x++) {
+                for (int y = 1; y <= 3; y++) {
+                    for (int z = 1; z <= 3; z++) {
+                        helper.setBlock(new BlockPos(x, y, z), (x + y + z) % 2 == 0 ? Blocks.STONE : Blocks.GLASS);
+                    }
+                }
+            }
+            BlockPos table = helper.absolutePos(new BlockPos(7, 1, 7));
+            ItemStack octant = octant(helper, new BlockPos(1, 1, 1), new BlockPos(3, 3, 3));
+
+            config.scanMaxVolume = 26;
+            helper.assertTrue("too_big_volume".equals(scanError(BlueprintScanner.start(helper.getLevel(), table, octant, new ItemStack(BtItems.BLUEPRINT)))),
+                    "27 cells over a limit of 26 were not refused for a normal blueprint");
+            BlueprintScanner.Outcome creative = BlueprintScanner.scanAtTable(helper.getLevel(), table, octant, new ItemStack(BtItems.CREATIVE_BLUEPRINT));
+            helper.assertTrue(creative.error() == null && BlueprintCode.parse(BlueprintItem.content(creative.result()).code()).model().size() == 27,
+                    "a creative blueprint was stopped by the volume limit: " + creative.error());
+            config.scanMaxVolume = 27;
+            BlueprintScanner.Outcome atLimit = BlueprintScanner.scanAtTable(helper.getLevel(), table, octant, new ItemStack(BtItems.BLUEPRINT));
+            helper.assertTrue(atLimit.error() == null, "27 cells at a limit of 27 were refused: " + atLimit.error());
+        } finally {
+            config.scanMaxVolume = saved;
+            clear(helper);
         }
         helper.succeed();
     }

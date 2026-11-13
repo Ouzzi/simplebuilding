@@ -97,13 +97,15 @@ oak_fence 0,5,0*3@2,0,0
 
 | Grenze | Wert | Wo |
 |---|---|---|
-| Codelänge | 32 000 Zeichen | `BlueprintCode.MAX_CODE_LENGTH` – passt in `STRING_UTF8`, Fehler `too_long` |
+| Codelänge (tippen/Editor/Import) | 32 000 Zeichen | `BlueprintCode.MAX_CODE_LENGTH` – ein c2s-Paket fasst in Vanilla ~32 KB |
+| Codelänge (gespeichert, Scan) | 1 000 000 Zeichen | `BlueprintCode.MAX_STORED_CODE_LENGTH`, Fehler `too_long`/`too_complex`; längere Codes (nur durch Scan) öffnen im Editor schreibgeschützt, gespeichert in 20 000er-Stücken (`BlueprintContent.CODEC`, NBT-Strings ≤ 65 535 Bytes) |
+| Scan-Volumen (Octant-Box) | normal `blueprint.scanMaxVolume` (262 144), Kreativ-Blaupause unbegrenzt | Fehler `too_big_volume`; zählt Stellen, nicht Blockarten |
 | Koordinaten | 0..255 | Fehler `coordinate_range` |
 | Wiederholungen | 1..256 | Fehler `repeat_range` |
 | ausgerollte Stellen gesamt = belegte Stellen | 4 194 304 (256 × 256 × 64) | Fehler `too_many_cells`, geprüft *vor* dem Ausrollen; beim Scan `too_many_blocks` |
 | Formen: Summe der Box-Volumen | 16 777 216 (256³) | `BlueprintCode.MAX_SHAPE_VOLUME`, Fehler `shape_volume` – begrenzt die Prüfarbeit kurzer Codes mit Riesenformen |
 | Zahlen und Zwischenergebnisse | ±999 999 (6 Ziffern) | Fehler `number_range`; Klammern/Vorzeichen höchstens 32 tief (`bad_expression`) |
-| Item-Daten | ≤ 32 000 Zeichen Code ≈ 32 KB je Blaupause | durch die Codelänge begrenzt, nicht durch die Blockzahl |
+| Item-Daten | ≤ 1 000 000 Zeichen Code je Blaupause (bunte Scans), Handarbeit ≤ 32 000 | durch die Codelänge begrenzt |
 | Titel | 1..32 Zeichen | Editor und Server |
 
 ### 1.5 Fehler
@@ -253,7 +255,7 @@ JUnit `BlueprintEditorLayoutTest`: alles im Blatt, nichts überlappt). Oben die 
 - **Code**: scrollbares Feld mit Bildlaufleiste, Zeilennummern, Syntax-Farben und rot
   unterstrichenen Fehlern (Schrift bei GUI-Maßstab ≥ 3 kleiner). **Darunter** der Status („Code
   in Ordnung“ grün, „Ungültig: Zeile n: …“ rot, „Leer“) und in der nächsten Zeile die Zeichenzahl
-  `n / 32000 Zeichen`; **rechtsbündig daneben** der Buch-Knopf (Hilfe, 2.1).
+  `n / 32000 Zeichen` (bei einem Scan-Code über 32 000: `n / 1000000`); **rechtsbündig daneben** der Buch-Knopf (Hilfe, 2.1).
 - **Preview** (breiteste Spalte): das Bauwerk in 3D – Ziehen dreht frei (Trackball), **Strg +
   Ziehen verschiebt**, Mausrad zoomt, Doppelklick oder das **Reset-Icon** (Kreispfeil oben rechts
   im Fenster) setzt zurück. Ein Klick auf die freie Vorschau startet den Zug, bevor die Widgets
@@ -414,7 +416,10 @@ bleibt. Umschalt-Klick legt beide in ihre Slots.
   4 194 304 belegte Stellen → Abbruch (`too_many_blocks`).
 - Luft (und `moving_piston`) wird übersprungen; von Block-Entities wird nur der Zustand
   übernommen, kein Inhalt. Koordinaten beginnen an der kleinsten belegten Stelle.
-- Ergebnis-Code länger als 32 000 Zeichen → kein Ergebnis ("zu komplex").
+- Auswahl (Octant-Box) größer als `blueprint.scanMaxVolume` (262 144) → sofort abgelehnt (`too_big_volume`); eine
+  Kreativ-Blaupause hat keine Volumengrenze (a-fix13b, Besitzer 13.11.: die Grenze zählt Stellen, nicht Blockarten).
+- Ergebnis-Code länger als 1 000 000 Zeichen → kein Ergebnis ("zu komplex"); bis dahin geht auch eine bunte Auswahl
+  (Testzentrale 51 × 2 × 42). Codes über 32 000 Zeichen öffnen im Editor schreibgeschützt.
 - Ablehnungsgründe erscheinen in der Aktionsleiste.
 - Solange der Oktant im Tisch liegt, zeichnet der Client seine Auswahl (Ecken + Figur) in der Welt.
 

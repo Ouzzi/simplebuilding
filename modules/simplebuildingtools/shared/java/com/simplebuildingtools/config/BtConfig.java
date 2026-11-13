@@ -25,10 +25,12 @@ public class BtConfig {
     public static final int MIN_PICTURE_SIDE = 16, MAX_PICTURE_SIDE = 128;
     /** Highest {@code blueprint.largeBuildCells}: the blueprint cell budget. */
     public static final int MAX_LARGE_BUILD_CELLS = com.simplebuildingtools.blueprint.BlueprintCode.MAX_EXPANDED_CELLS;
+    /** Default and highest {@code blueprint.scanMaxVolume}: 262 144 (64^3) by default, up to the whole 256^3 grid. */
+    public static final int DEFAULT_SCAN_MAX_VOLUME = 262_144, MAX_SCAN_MAX_VOLUME = 256 * 256 * 256;
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("blueprint.enabled", "blueprint.maxBlocksPerTick", "blueprint.pictureImport",
             "blueprint.picturePermission", "blueprint.pictureMaxSide", "blueprint.largeBuildCells", "blueprint.largeBuildPermission",
-            "wands.hungerCost", "wands.hungerMultiplier");
+            "blueprint.scanMaxVolume", "wands.hungerCost", "wands.hungerMultiplier");
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -44,6 +46,7 @@ public class BtConfig {
         blueprint.pictureMaxSide = Math.max(MIN_PICTURE_SIDE, Math.min(MAX_PICTURE_SIDE, blueprint.pictureMaxSide));
         blueprint.largeBuildCells = Math.max(0, Math.min(MAX_LARGE_BUILD_CELLS, blueprint.largeBuildCells));
         blueprint.largeBuildPermission = Math.max(0, Math.min(4, blueprint.largeBuildPermission));
+        blueprint.scanMaxVolume = Math.max(1, Math.min(MAX_SCAN_MAX_VOLUME, blueprint.scanMaxVolume));
         if (!Double.isFinite(wands.hungerMultiplier)) wands.hungerMultiplier = 1.0;
         wands.hungerMultiplier = Math.max(0, Math.min(10, wands.hungerMultiplier));
         return this;
@@ -133,6 +136,11 @@ public class BtConfig {
         public int largeBuildCells = MAX_BLUEPRINT_BLOCKS_PER_TICK;
         /** Permission level for free builds above {@link #largeBuildCells} (0 = everyone .. 4, default 2 = operators). */
         public int largeBuildPermission = 2;
+        /**
+         * Largest selection (volume of the Octant box, the number it shows) the cartography table scans into a normal blueprint
+         * (a13b, owner 13.11.: the limit counts cells, not block kinds). A creative blueprint has no volume limit.
+         */
+        public int scanMaxVolume = DEFAULT_SCAN_MAX_VOLUME;
     }
 
     /** The building wands. */
