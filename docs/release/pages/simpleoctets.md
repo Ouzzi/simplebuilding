@@ -10,20 +10,21 @@ Octets: half-block cubes of every wood and block with stairs and slabs that mix 
 
 # Simple Octets
 
-Simple Octets adds 0.5 x 0.5 x 0.5 cubes you cut in the stonecutter and craft back into the full block. Different octets mix in one cell.
+Simple Octets adds 0.5 x 0.5 x 0.5 cubes you cut from a full block in the Shapecutter of Simple Blocks (in the stonecutter without it) and craft back into the block. Different octets mix in one cell; a sledgehammer breaks one corner off a full block.
 
 ## Features
 
 - **Octets: half-block cubes of every material** - An octet is a cube of 0.5 x 0.5 x 0.5 blocks.
-- **Shapecutter and back**
-- **Mixed cells**
+- **Shapecutter and back** - The Shapecutter of Simple Blocks cuts 8 octets from a full block, and 8 octets of one material craft back into it.
+- **Mixed cells** - Octets of different materials share one cell.
 - **Melon octets** - Sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten).
+- **Breaking a corner off a block** - Sneaking with a sledgehammer, you break only the looked-at corner off a full block that has octets: a cell of 7 octets stays and one octet drops.
 - **Octets of other mods' blocks** - Octets of another mod's blocks exist only while that mod is loaded, with their recipes; without it neither the cells nor the recipes are there.
-- **Worlds from SimpleBuilding**
+- **Worlds from SimpleBuilding** - Octets from worlds of older SimpleBuilding versions keep working.
 
 ## Vanilla use
 
-Adds eighth-size blocks cut in the stonecutter so builders get finer detail; the Vanilla blocks stay as they are.
+Adds eighth-size blocks cut from their full block so builders get finer detail; the Vanilla blocks stay as they are. Two changes to Vanilla inputs - sneak-placing a melon slice and corner breaking with a sledgehammer - can each be switched off in the server config.
 
 ## Dependencies
 

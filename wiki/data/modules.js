@@ -1456,10 +1456,10 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 266,
       "recipes": 696,
-      "config": 5,
+      "config": 12,
       "features": 19
     },
-    "dataHash": "2a9ebe449613"
+    "dataHash": "75985410f365"
   },
   {
     "id": "simplecrucibles",
@@ -1507,7 +1507,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleoctets",
     "displayName": "Simple Octets",
-    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1538,11 +1538,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 211,
-      "recipes": 613,
-      "features": 6
+      "blocks": 234,
+      "recipes": 681,
+      "config": 2,
+      "features": 8
     },
-    "dataHash": "7b7e6a541538"
+    "dataHash": "70c71e85b54a"
   },
   {
     "id": "simplehammers",

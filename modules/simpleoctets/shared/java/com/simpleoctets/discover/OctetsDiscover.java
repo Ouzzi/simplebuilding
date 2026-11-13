@@ -52,6 +52,8 @@ public final class OctetsDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simpleoctets:*_octet",
+            "simpleoctets:config_server",
+            "simpleoctets:corner_breaking",
             "simpleoctets:guide_book",
             "simpleoctets:melon",
             "simpleoctets:melon_octet",
