@@ -1,9 +1,8 @@
 package com.simplebuilding.blocks.custom;
 
 import com.simplebuilding.config.ServerTuning;
-import com.simplebuilding.framework.api.Protection;
+import com.simplebuilding.api.WorldPermissions;
 import com.simplebuilding.util.NihilVaultStorage;
-import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -34,7 +33,7 @@ import java.util.function.Predicate;
  * Astral-Gewoelbe (Besitzer N16).
  *
  * <p>simplebuilding-7 (PLAN40, Empfehlung A): in einer geteilten Welt (Dedicated Server oder fuer LAN geoeffnet) mit aktivem
- * Schutz-Anbieter (framework {@link Protection}, z. B. die Claims von Simple Tweaks) oeffnet es nur auf geschuetztem Land, auf
+ * Schutz-Anbieter (framework-Schutz ueber {@link WorldPermissions}, z. B. die Claims von Simple Tweaks) oeffnet es nur auf geschuetztem Land, auf
  * dem der Spieler Behaelter benutzen darf - sonst stellte ein Fremder sein eigenes Gewoelbe in die Wildnis und laese alles.
  * Einzelspieler und Server ohne Schutz-Anbieter wie bisher; Schalter {@code server.features.nihilVaultClaimOnly}.
  */
@@ -68,19 +67,25 @@ public class NihilVaultBlock extends EnderChestBlock {
         if (!ServerTuning.get().features.nihilVaultClaimOnly) return true;
         MinecraftServer server = level.getServer();
         if (!server.isDedicatedServer() && !server.isPublished()) return true; // single player: nobody else can reach it
-        if (!Protection.active(server)) return true; // no claims on this server: shared like before (handbook warns)
-        boolean admin = Commands.hasPermission(Commands.LEVEL_OWNERS).test(player.createCommandSourceStack());
-        return decide(target -> Protection.allows(server, target, Protection.Action.CONTAINER),
-                level.dimension().identifier().toString(), pos, player.getUUID(), admin);
+        if (!WorldPermissions.active(level)) return true; // no claims on this server: shared like before (handbook warns)
+        // N44-1: through the WorldPermissions bridge (26.3 overlay) - the shared tree also compiles for 26.2 without the
+        // framework; the bridge adds the administrator flag (LEVEL_OWNERS) itself.
+        return decide(access -> access.actor() == null
+                        ? WorldPermissions.anyoneMay(level, pos, WorldPermissions.Action.CONTAINER)
+                        : WorldPermissions.mayAct(level, player, pos, WorldPermissions.Action.CONTAINER),
+                level.dimension().identifier().toString(), pos, player.getUUID(), false);
     }
+
+    /** Who wants to use the vault where (same fields as the framework target; actor null = nobody/automation). */
+    public record Access(UUID actor, String dimension, int x, int y, int z, boolean administrator) {}
 
     /**
      * The rule alone (testable without registering a provider on the shared test server): the land must be protected -
      * nobody (no actor) may use containers there - and the player must be allowed to.
      */
-    public static boolean decide(Predicate<Protection.Target> allows, String dimension, BlockPos pos, UUID player, boolean admin) {
-        if (allows.test(new Protection.Target(null, dimension, pos.getX(), pos.getY(), pos.getZ(), false))) return false;
-        return allows.test(new Protection.Target(player, dimension, pos.getX(), pos.getY(), pos.getZ(), admin));
+    public static boolean decide(Predicate<Access> allows, String dimension, BlockPos pos, UUID player, boolean admin) {
+        if (allows.test(new Access(null, dimension, pos.getX(), pos.getY(), pos.getZ(), false))) return false;
+        return allows.test(new Access(player, dimension, pos.getX(), pos.getY(), pos.getZ(), admin));
     }
 
     /**

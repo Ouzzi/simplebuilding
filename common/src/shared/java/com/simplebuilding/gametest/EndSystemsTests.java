@@ -505,7 +505,7 @@ public final class EndSystemsTests {
         String dim = helper.getLevel().dimension().identifier().toString();
         // One claimed column at pos: its owner (and an administrator, like Simple Tweaks' opBypass) may use containers there;
         // everywhere else is wilderness where everybody may.
-        java.util.function.Predicate<com.simplebuilding.framework.api.Protection.Target> claim = t ->
+        java.util.function.Predicate<com.simplebuilding.blocks.custom.NihilVaultBlock.Access> claim = t ->
                 t.x() != pos.getX() || t.z() != pos.getZ() || owner.equals(t.actor()) || t.administrator();
         helper.assertTrue(com.simplebuilding.blocks.custom.NihilVaultBlock.decide(claim, dim, pos, owner, false), "owner cannot open the vault in his claim");
         helper.assertFalse(com.simplebuilding.blocks.custom.NihilVaultBlock.decide(claim, dim, pos, stranger, false), "a stranger opened the vault in a foreign claim");

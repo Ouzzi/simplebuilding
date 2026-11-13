@@ -21,9 +21,15 @@ public final class WorldPermissions {
         boolean allows(ServerPlayer player,ServerLevel level,BlockPos target);
         default boolean allows(ServerPlayer player,ServerLevel level,BlockPos target,Action action){return allows(player,level,target);}
         default boolean allowsAutomation(ServerLevel level,BlockPos source,BlockPos target){return false;}
+        /** Whether everybody - no player, no administrator - may do this here (unprotected land). Unknown: yes. */
+        default boolean allowsAnyone(ServerLevel level,BlockPos target,Action action){return true;}
     }
     private static final Bridge BRIDGE=ServiceLoader.load(Bridge.class,WorldPermissions.class.getClassLoader()).findFirst().orElse(null);
     public static boolean active(Level level) {return level instanceof ServerLevel server && BRIDGE!=null && BRIDGE.active(server);}
+    /** Whether {@code target} is unprotected for {@code action}: no provider installed, or the providers let anybody do it. */
+    public static boolean anyoneMay(Level level,BlockPos target,Action action) {
+        return !(level instanceof ServerLevel serverLevel) || !active(level) || BRIDGE.allowsAnyone(serverLevel,target.immutable(),action);
+    }
     /** No action given: strict, like every caller before actions existed. */
     public static boolean mayAct(Level level,Player player,BlockPos target) {return mayAct(level,player,target,Action.ANY);}
     public static boolean mayAct(Level level,Player player,BlockPos target,Action action) {
