@@ -27,10 +27,8 @@ public final class Tz38dClientTest implements FabricClientGameTest {
                     "gamerule advance_weather false", "gamerule spawn_mobs false"}) {
                 world.getServer().runCommand(command);
             }
-            context.runOnClient(c -> {
-                c.options.hideGui = true;
-                c.options.renderDistance().set(16);
-            });
+            // Zuschauer-Modus: kein Hotbar-HUD vor dem Bild; weite Sicht fuer die Draufsicht.
+            context.runOnClient(c -> c.options.renderDistance().set(16));
             BlockPos base = world.getServer().computeOnServer(server -> server.getPlayerList().getPlayers().getFirst().blockPosition());
             BlockPos lines = base.offset(8, 0, 8);
             guard("lines", () -> {
