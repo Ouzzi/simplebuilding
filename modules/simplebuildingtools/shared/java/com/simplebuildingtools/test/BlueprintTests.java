@@ -2217,7 +2217,7 @@ public final class BlueprintTests {
 
     /**
      * a-fix13b (owner 13.11.): the cartography table takes a varied selection. A 3D checkerboard of stone and glass over
-     * 8 x 64 x 8 (4096 cells, every cell its own box) makes a code far over the 32 000 characters one types; the scan of a
+     * 8 x 192 x 8 (12 288 cells, every cell its own box, about 90 000 characters) makes a code far over the 32 000 characters one types; the scan of a
      * normal blueprint must still succeed, the code must read back to the same model, survive the save (NBT strings hold
      * 65 535 bytes, so it is stored in pieces) and the network (item sync), while a short code stays one string.
      *
@@ -2229,12 +2229,12 @@ public final class BlueprintTests {
         BlockState stone = Blocks.STONE.defaultBlockState();
         BlockState glass = Blocks.GLASS.defaultBlockState();
         int top = helper.absolutePos(BlockPos.ZERO).getY() + 20;
-        helper.assertTrue(top + 64 <= level.getMaxY(), "no room above the structure for the probe");
+        helper.assertTrue(top + 192 <= level.getMaxY(), "no room above the structure for the probe");
         BlueprintModel expected = new BlueprintModel();
         BlockPos origin = helper.absolutePos(BlockPos.ZERO);
         try {
             for (int x = 0; x < 8; x++) {
-                for (int y = 0; y < 64; y++) {
+                for (int y = 0; y < 192; y++) {
                     for (int z = 0; z < 8; z++) {
                         BlockState state = (x + y + z) % 2 == 0 ? stone : glass;
                         level.setBlock(new BlockPos(origin.getX() + x, top + y, origin.getZ() + z), state, 2);
@@ -2243,13 +2243,13 @@ public final class BlueprintTests {
                 }
             }
             BlockPos table = helper.absolutePos(new BlockPos(3, 1, 3));
-            ItemStack octant = octant(helper, new BlockPos(0, 20, 0), new BlockPos(7, 83, 7));
+            ItemStack octant = octant(helper, new BlockPos(0, 20, 0), new BlockPos(7, 211, 7));
             BlueprintScanner.Outcome outcome = BlueprintScanner.scanAtTable(level, table, octant, new ItemStack(BtItems.BLUEPRINT));
-            helper.assertTrue(outcome.error() == null, "a varied selection of 4096 cells was refused: " + outcome.error());
+            helper.assertTrue(outcome.error() == null, "a varied selection of 12288 cells was refused: " + outcome.error());
             BlueprintContent content = BlueprintItem.content(outcome.result());
             String code = content.code();
-            helper.assertTrue(code.length() > BlueprintCode.MAX_CODE_LENGTH && code.length() <= BlueprintCode.MAX_STORED_CODE_LENGTH,
-                    "the probe should be longer than one types but within the stored limit: " + code.length());
+            helper.assertTrue(code.length() > 65_535 && code.length() <= BlueprintCode.MAX_STORED_CODE_LENGTH,
+                    "the probe should be longer than an NBT string holds (65 535) but within the stored limit: " + code.length());
             BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
             helper.assertTrue(parsed.ok() && parsed.model().equals(expected.normalized()), "the scanned code does not read back: " + parsed.problems());
 
@@ -2278,7 +2278,7 @@ public final class BlueprintTests {
             helper.assertTrue(BlueprintItem.content(received).code().equals(code), "the long code did not survive the item sync");
         } finally {
             for (int x = 0; x < 8; x++) {
-                for (int y = 0; y < 64; y++) {
+                for (int y = 0; y < 192; y++) {
                     for (int z = 0; z < 8; z++) {
                         level.setBlock(new BlockPos(origin.getX() + x, top + y, origin.getZ() + z), Blocks.AIR.defaultBlockState(), 2);
                     }

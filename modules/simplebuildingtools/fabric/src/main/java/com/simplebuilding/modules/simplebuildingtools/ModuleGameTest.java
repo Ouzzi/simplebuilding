@@ -221,7 +221,7 @@ public final class ModuleGameTest {
         com.simplebuildingtools.test.BlueprintTests.largeFreeBuildNeedsPermission(helper);
     }
 
-    /** a-fix13b: a varied 4096-cell selection (code far over 32 000 characters) scans, reads back, saves in pieces and syncs. */
+    /** a-fix13b: a varied 12288-cell selection (code far over 32 000 characters) scans, reads back, saves in pieces and syncs. */
     @GameTest
     public void scanTakesBigVariedSelection(GameTestHelper helper) {
         com.simplebuildingtools.test.BlueprintTests.scanTakesBigVariedSelection(helper);
