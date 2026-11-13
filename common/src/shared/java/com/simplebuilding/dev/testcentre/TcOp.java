@@ -111,14 +111,19 @@ public sealed interface TcOp {
      * Ein Wandschild, das nach {@code facing} zeigt; bis zu vier Zeilen. {@code way} (TZ22-8): der Weg (Rezept,
      * Umwandlung), den das Schild beschreibt - seine Zeilen sind daraus erzeugt, der Test prueft ihn gegen die Daten.
      */
-    record Sign(BlockPos pos, Direction facing, List<Component> lines, @org.jetbrains.annotations.Nullable TcWays.Way way) implements TcOp {
+    record Sign(BlockPos pos, Direction facing, List<Component> lines, @org.jetbrains.annotations.Nullable TcWays.Way way,
+                boolean standing) implements TcOp {
         public Sign(BlockPos pos, Direction facing, List<Component> lines) {
-            this(pos, facing, lines, null);
+            this(pos, facing, lines, null, false);
+        }
+
+        public Sign(BlockPos pos, Direction facing, List<Component> lines, @org.jetbrains.annotations.Nullable TcWays.Way way) {
+            this(pos, facing, lines, way, false);
         }
 
         @Override
         public TcOp moved(BlockPos offset) {
-            return new Sign(pos.offset(offset), facing, lines, way);
+            return new Sign(pos.offset(offset), facing, lines, way, standing);
         }
     }
 

@@ -80,6 +80,9 @@ public final class TestCentreBuilder {
             int[] done = apply(level, section.ops());
             ops += done[0];
             entities += done[1];
+            if (OrderAreas.SECTIONS.contains(section.id())) {
+                settle(level, section.ops(), section.box(origin));
+            }
         }
         return new Result(ops, entities, System.currentTimeMillis() - start);
     }
@@ -91,6 +94,9 @@ public final class TestCentreBuilder {
         clear(level, section.box(plan.origin()));
         sectionFloor(level, plan.origin(), section);
         int[] done = apply(level, section.ops());
+        if (OrderAreas.SECTIONS.contains(id)) {
+            settle(level, section.ops(), section.box(plan.origin()));
+        }
         return new Result(done[0], done[1], System.currentTimeMillis() - start);
     }
 
@@ -111,7 +117,45 @@ public final class TestCentreBuilder {
         List<TcOp> ops = new ArrayList<>();
         canvas.ops().forEach(op -> ops.add(op.moved(origin)));
         int[] done = apply(level, ops);
+        settle(level, ops, box);
         return new Result(done[0], done[1], System.currentTimeMillis() - start);
+    }
+
+    /**
+     * TZ38E-11 (Besitzer 13.11.: "Block-Updates nach dem Bau: Licht neu berechnen, Formen/Verbindungen aktualisieren - heute
+     * verbinden Zaeune erst nach Neu-Setzen, Licht verbuggt"): nach dem stillen Setzen einer Ausstellungsflaeche (Ordnungs-
+     * Bereiche, {@code /testcenter order|mods build}) bekommt jeder gesetzte Block die Form zu seinen Nachbarn (Zaeune, Mauern,
+     * Scheiben, Gitter, Redstone, Treppen-Ecken); was dabei zerfiele, bleibt wie gesetzt (kein Abbau beim Bau), Beobachter bleiben
+     * still. Danach rechnet die Licht-Engine die Chunks des Kastens neu (Lichtquellen und Himmelslicht).
+     */
+    static int settle(ServerLevel level, List<TcOp> ops, BoundingBox box) {
+        int changed = 0;
+        for (TcOp op : ops) {
+            if (!(op instanceof TcOp.Place place)) {
+                continue;
+            }
+            BlockState placed = level.getBlockState(place.pos());
+            if (placed.isAir() || placed.getBlock() instanceof net.minecraft.world.level.block.ObserverBlock) {
+                continue;
+            }
+            BlockState shaped;
+            try {
+                shaped = Block.updateFromNeighbourShapes(placed, level, place.pos());
+            } catch (RuntimeException e) {
+                continue;
+            }
+            if (!shaped.isAir() && shaped.getBlock() == placed.getBlock() && shaped != placed) {
+                level.setBlock(place.pos(), shaped, QUIET);
+                changed++;
+            }
+        }
+        var light = level.getChunkSource().getLightEngine();
+        for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
+            for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
+                light.lightChunk(level.getChunk(cx, cz), false);
+            }
+        }
+        return changed;
     }
 
     /** Der Kasten, den {@link #buildCanvas} leert: die Flaeche mit einem Feld Rand, vom Boden bis zwei ueber die Hoehe. */
@@ -198,7 +242,7 @@ public final class TestCentreBuilder {
         for (TcOp op : ops) {
             switch (op) {
                 case TcOp.Sign sign -> {
-                    placeSign(level, sign.pos(), sign.facing(), sign.lines());
+                    placeSign(level, sign.pos(), sign.facing(), sign.lines(), sign.standing());
                     count++;
                 }
                 case TcOp.Fill fill -> {
@@ -548,7 +592,16 @@ public final class TestCentreBuilder {
     }
 
     private static void placeSign(ServerLevel level, BlockPos pos, Direction facing, List<net.minecraft.network.chat.Component> lines) {
-        level.setBlock(pos, Blocks.OAK_WALL_SIGN.defaultBlockState().setValue(WallSignBlock.FACING, facing), QUIET);
+        placeSign(level, pos, facing, lines, false);
+    }
+
+    /** Wandschild (haengt am Block hinter sich) oder Steh-Schild auf dem Boden (TZ38E-10), Schrift nach {@code facing}. */
+    private static void placeSign(ServerLevel level, BlockPos pos, Direction facing, List<net.minecraft.network.chat.Component> lines,
+                                  boolean standing) {
+        level.setBlock(pos, standing
+                ? Blocks.OAK_SIGN.defaultBlockState().setValue(net.minecraft.world.level.block.StandingSignBlock.ROTATION,
+                        net.minecraft.world.level.block.state.properties.RotationSegment.convertToSegment(facing))
+                : Blocks.OAK_WALL_SIGN.defaultBlockState().setValue(WallSignBlock.FACING, facing), QUIET);
         if (level.getBlockEntity(pos) instanceof SignBlockEntity sign) {
             McVersion.setSignFrontText(sign, lines);
             sign.setWaxed(true);

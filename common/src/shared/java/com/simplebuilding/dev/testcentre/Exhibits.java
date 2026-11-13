@@ -124,6 +124,9 @@ public final class Exhibits {
      * braucht (Laternen, Fackeln, Kerzen, Knoepfe und Druckplatten, Teppiche, Koepfe, Achtel, Kessel ...).
      */
     public static List<BlockState> floorStates(ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem item && falls(item.getBlock())) {
+            return List.of(); // TZ38E-7: faellt ohne Decke/Wand/Erde beim naechsten Block-Update ab - in den Rahmen
+        }
         if (stack.getItem() instanceof BlockItem item && stack.getComponentsPatch().isEmpty() && levitating(item.getBlock())) {
             // Steigt ohne Decke auf; unter Glas bleibt er liegen (wie bisher im Abschnitt "blocks").
             return List.of(item.getBlock().defaultBlockState(), net.minecraft.world.level.block.Blocks.GLASS.defaultBlockState());
@@ -169,7 +172,7 @@ public final class Exhibits {
      * Leer fuer Fluessigkeiten und alles, was {@link #base} nicht ruhig stehen laesst.
      */
     public static List<BlockState> blockStates(Block block) {
-        if (block instanceof net.minecraft.world.level.block.LiquidBlock) {
+        if (block instanceof net.minecraft.world.level.block.LiquidBlock || falls(block)) {
             return List.of();
         }
         BlockState state = block.defaultBlockState();
@@ -206,8 +209,44 @@ public final class Exhibits {
         return safe(item.getBlock());
     }
 
+    /**
+     * TZ38E-7 (Besitzer 13.11.: "was bei Block-Update zerfaellt - Wurzeln, Amethyst-Knospen/-Cluster, aehnliche - in Item-Rahmen"):
+     * Bloecke, die auf freiem Boden ohne ihren Halt (Decke, Wand, Erde, Stamm) beim naechsten Block-Update abfallen. Ihre
+     * Ausstellung auf dem Boden waere nur bis zum ersten Nachbar-Update heil; sie haengen im Rahmen. An Waenden
+     * ({@link #wallFrontState}: Leitern) gilt das nicht.
+     */
+    public static boolean falls(Block block) {
+        return block instanceof net.minecraft.world.level.block.AmethystClusterBlock
+                || block instanceof net.minecraft.world.level.block.HangingRootsBlock
+                || block instanceof net.minecraft.world.level.block.SporeBlossomBlock
+                || block instanceof net.minecraft.world.level.block.HangingMossBlock
+                || block instanceof net.minecraft.world.level.block.MultifaceBlock
+                || block instanceof net.minecraft.world.level.block.VineBlock
+                || block instanceof net.minecraft.world.level.block.GrowingPlantBlock
+                || block instanceof net.minecraft.world.level.block.VegetationBlock
+                || block instanceof net.minecraft.world.level.block.LadderBlock
+                || block instanceof net.minecraft.world.level.block.LeverBlock
+                || block instanceof net.minecraft.world.level.block.CocoaBlock
+                || block instanceof net.minecraft.world.level.block.CeilingHangingSignBlock;
+    }
+
+    /**
+     * Wie {@link #safe}, aber auch fuer Signalquellen (Redstone-Staub, -Block, -Fackel, Verstaerker ...): nur fuer Flaechen ohne
+     * Befehlsbloecke und Kolben-Stationen (TZ38E-7, Linien der Ordnungs-Bereiche). Null, wenn der Block nicht ruhig steht.
+     */
+    public static BlockState signalState(Block block) {
+        if (falls(block)) {
+            return null;
+        }
+        return safe(block, true);
+    }
+
     /** Der Grundzustand eines Blocks, der ruhig stehen bleibt (Front zum Gang), sonst null. */
     private static BlockState safe(Block block) {
+        return safe(block, false);
+    }
+
+    private static BlockState safe(Block block, boolean signals) {
         String id = TcContext.id(block).toString();
         if (TestCentreLayout.frameOnly(block) || TestCentreLayout.EXCLUDED.containsKey(id) || block instanceof TntBlock
                 || block instanceof LightningRodBlock || block instanceof IceBlock || block instanceof FrostedIceBlock
@@ -221,7 +260,7 @@ public final class Exhibits {
                 state = with(state, BlockStateProperties.FACING, Direction.UP);
             }
             // Zufaellig tickend: Kupfer darf altern, ein Kessel reift oder fuellt sich in sich selbst (Milch zu Kaese).
-            if (state.isSignalSource() || state.isRandomlyTicking() && !(block instanceof WeatheringCopper)
+            if (state.isSignalSource() && !signals || state.isRandomlyTicking() && !(block instanceof WeatheringCopper)
                     && !(block instanceof AbstractCauldronBlock)) {
                 return null;
             }

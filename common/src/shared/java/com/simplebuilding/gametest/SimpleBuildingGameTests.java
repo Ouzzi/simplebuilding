@@ -198,6 +198,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_order_areas_show_everything_in_owner_order", TestCentreTests::orderAreasShowEverythingInOwnerOrder)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_order_areas_settle_shapes_and_frame_what_falls", TestCentreTests::orderAreasSettleShapesAndFrameWhatFalls)
+                    .build(),
             GameTestSpec.named("test_centre_game_test_testcenter_command_clears_and_builds_the_mod_area", TestCentreTests::testcenterCommandClearsAndBuildsTheModArea)
                     .build(),
             GameTestSpec.named("test_centre_game_test_mob_buttons_summon_and_remove_the_still_mobs", TestCentreTests::mobButtonsSummonAndRemoveTheStillMobs)

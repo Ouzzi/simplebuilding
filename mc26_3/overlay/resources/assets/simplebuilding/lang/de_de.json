@@ -3744,7 +3744,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleVault": "Grundgewölbe (Simple Vault) aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleVault.@Tooltip": "Schaltet das Modul Simple Vault (Grundgewölbe; eigener Download, falls installiert) an oder aus. Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an.",
   "simplebuilding.testcentre.command.built_variant": "Variante %s – die andere: /sbtestcentre build %s",
-  "simplebuilding.testcentre.order.lines.a": "Metalle, Holz, Rest",
+  "simplebuilding.testcentre.order.lines.a": "Metalle, Holz, Verwitterndes, Stein",
+  "simplebuilding.testcentre.order.lines.aging": "Verwitternde Blöcke",
   "simplebuilding.testcentre.order.lines.a.sub": "kleine Teile an der Linie",
   "simplebuilding.testcentre.order.lines.b": "Stein & Co.",
   "simplebuilding.testcentre.order.lines.key": "rot = fehlt, hellgrau = gibt es nicht"

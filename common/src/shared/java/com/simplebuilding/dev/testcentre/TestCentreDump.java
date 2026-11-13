@@ -58,7 +58,8 @@ public final class TestCentreDump {
                     }
                     case TcOp.Sign sign -> {
                         id = "sign";
-                        extra = String.join(" | ", sign.lines().stream().map(line -> line.getString()).toList());
+                        extra = (sign.standing() ? "standing " + sign.facing() + ": " : "")
+                                + String.join(" | ", sign.lines().stream().map(line -> line.getString()).toList());
                     }
                     case TcOp.Command command -> {
                         id = "command";
@@ -117,15 +118,22 @@ public final class TestCentreDump {
     static void writeLines(OrderAreas.Area lines, String name) {
         List<String> out = new ArrayList<>();
         out.add("#lineZ\t" + lines.lineZ());
+        for (OrderAreas.Band band : lines.bands()) {
+            out.add("#band\t" + band.x0() + "\t" + band.width() + "\t" + band.zA() + "\t" + band.nearA() + "\t" + band.lineZ() + "\t"
+                    + band.nearB() + "\t" + band.depthB());
+        }
         for (OrderAreas.Row row : lines.rows()) {
-            for (int col = 0; col < row.length(); col++) {
+            for (int col = 0; col < row.depth(); col++) {
                 OrderAreas.Slot slot = col < row.columns().size() ? row.columns().get(col) : OrderAreas.Slot.OTHER;
-                net.minecraft.world.item.Item item = col < row.columns().size() ? row.fixed().get(slot) : row.others().get(col - row.columns().size());
+                int other = col - row.columns().size();
+                net.minecraft.world.item.Item item = col < row.columns().size() ? row.fixed().get(slot)
+                        : other < row.others().size() ? row.others().get(other) : null;
                 net.minecraft.world.item.Item top = col < row.columns().size() ? row.tops().get(slot) : null;
+                String key = col < row.columns().size() ? slot.name() : other < row.otherKeys().size() ? row.otherKeys().get(other) : "-";
                 String what = item != null ? BuiltInRegistries.ITEM.getKey(item).toString()
-                        : row.expected().contains(slot) ? "MISSING" : "NONE";
+                        : col < row.columns().size() && row.expected().contains(slot) ? "MISSING" : "NONE";
                 out.add(row.group() + "\t" + row.kind() + "\t" + row.family() + "\t" + (row.step() < 0 ? "A" : "B") + "\t" + row.x()
-                        + "\t" + row.z(col) + "\t" + col + "\t" + slot + "\t" + what + "\t" + (top == null ? "" : BuiltInRegistries.ITEM.getKey(top)));
+                        + "\t" + row.z(col) + "\t" + col + "\t" + key + "\t" + what + "\t" + (top == null ? "" : BuiltInRegistries.ITEM.getKey(top)));
             }
         }
         lines.hidden().forEach(item -> out.add("#hidden\t" + BuiltInRegistries.ITEM.getKey(item)));

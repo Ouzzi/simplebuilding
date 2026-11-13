@@ -9,7 +9,8 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContex
 import net.minecraft.core.BlockPos;
 
 /**
- * TZ38D (owner 13.11., N42: "Client-Screenshot von oben + Gang-Ansicht"): the order areas of both test centre variants built by
+ * TZ38D/TZ38E (owner 13.11., N42: "Client-Screenshot von oben + Gang-Ansicht"; round 2 adds the wooden fences close up and a
+ * night view of the light over the placeholders): the order areas of both test centre variants built by
  * the real command ({@code /testcenter order build lines|blocks x y z}) with every module loaded and photographed - from above
  * and walking along the grey centre line. Only vanilla, Fabric and commands (like Rel10). Log {@code [tz38d] OK|FAIL}; the
  * pictures are judged by eye (integration/run-fabric-263/screenshots, tools/testrunner target tz38d-client-263).
@@ -34,15 +35,20 @@ public final class Tz38dClientTest implements FabricClientGameTest {
             guard("lines", () -> {
                 world.getServer().runCommand(String.format(Locale.ROOT, "testcenter order build lines %d %d %d",
                         lines.getX(), lines.getY(), lines.getZ()));
-                // Die Mittellinie liegt am Ende der Seite A (Metalle bis ~100 tief): erst von oben, dann den Gang entlang.
+                // TZ38E: Seite A (Metalle ~100 tief, dann Holz, Verwitterndes, dunkler Stein) liegt vor der Linie, Seite B dahinter.
                 int lineZ = lineZ(world, lines);
-                view(context, world, lines.offset(30, 48, lineZ - 12), 90, 0, "lines-top-metals");
-                view(context, world, lines.offset(85, 48, lineZ - 12), 90, 0, "lines-top-wood-rest");
-                view(context, world, lines.offset(40, 48, lineZ + 14), 90, 0, "lines-top-stone");
+                view(context, world, lines.offset(22, 62, lineZ - 40), 90, 0, "lines-top-metals");
+                view(context, world, lines.offset(22, 62, lineZ - 12), 90, 0, "lines-top-metals-near");
+                view(context, world, lines.offset(52, 62, lineZ - 18), 90, 0, "lines-top-wood-aging-stone");
+                view(context, world, lines.offset(38, 48, lineZ + 10), 90, 0, "lines-top-stone");
                 view(context, world, lines.offset(1, 2, lineZ), 15, -90, "lines-aisle-start");
                 view(context, world, lines.offset(40, 2, lineZ), 15, -90, "lines-aisle-wood");
                 view(context, world, lines.offset(6, 4, lineZ), 35, 180, "lines-metals-close");
                 view(context, world, lines.offset(6, 4, lineZ), 35, 0, "lines-stone-close");
+                view(context, world, lines.offset(38, 5, lineZ - 2), 55, 180, "lines-wood-fences-close");
+                world.getServer().runCommand("time set midnight");
+                view(context, world, lines.offset(30, 50, lineZ - 20), 90, 0, "lines-night-light");
+                world.getServer().runCommand("time set noon");
             });
             BlockPos blocks = base.offset(8, 0, -260);
             guard("blocks", () -> {
@@ -55,14 +61,14 @@ public final class Tz38dClientTest implements FabricClientGameTest {
         System.out.println("[tz38d] screens shot: " + shots + ", faults: " + faults.size());
     }
 
-    /** z of the grey line relative to the area origin: the first grey concrete slab in the column x+1. */
+    /** z of the grey line relative to the area origin: the title signs stand at x 0 right before and after it (TZ38E). */
     private static int lineZ(TestSingleplayerContext world, BlockPos origin) {
         return world.getServer().computeOnServer(server -> {
             var level = server.overworld();
             for (int z = 0; z < 400; z++) {
-                var id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(level.getBlockState(origin.offset(1, 0, z)).getBlock());
-                if (id.getPath().equals("gray_concrete_slab") || id.getPath().equals("gray_concrete_octet")) {
-                    return z;
+                var id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(level.getBlockState(origin.offset(0, 0, z)).getBlock());
+                if (id.getPath().equals("oak_sign")) {
+                    return z + 1;
                 }
             }
             return 100;
@@ -80,7 +86,7 @@ public final class Tz38dClientTest implements FabricClientGameTest {
             System.out.println("[tz38d] INFO chunks still rendering for " + name);
         }
         context.waitTicks(20);
-        String file = String.format(Locale.ROOT, "tz38d-%02d-%s", shots, name);
+        String file = String.format(Locale.ROOT, "tz38e-%02d-%s", shots, name);
         context.takeScreenshot(file);
         shots++;
         System.out.println("[tz38d] OK " + file);

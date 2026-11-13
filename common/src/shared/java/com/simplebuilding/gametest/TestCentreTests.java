@@ -2120,7 +2120,7 @@ public final class TestCentreTests {
                 {"copper", "STAIRS", "waxed_cut_copper_stairs"}, {"copper", "BLOCK", "waxed_cut_copper"}, {"copper", "CHISELED", "waxed_chiseled_copper"},
                 {"copper", "STORAGE", "waxed_copper_block"}, {"copper", "RAW_BLOCK", "raw_copper_block"}, {"copper", "GRATE", "waxed_copper_grate"},
                 {"copper", "LAMP", "waxed_copper_bulb"}, {"copper", "POLE", "waxed_lightning_rod"}, {"copper", "INGOT", "copper_ingot"},
-                {"oxidized_copper", "BLOCK", "waxed_oxidized_cut_copper"},
+                {"redstone", "STORAGE", Items.REDSTONE_BLOCK}, {"redstone", "INGOT", Items.REDSTONE},
                 {"gold", "SWORD", Items.GOLDEN_SWORD}, {"gold", "PLATE", Items.LIGHT_WEIGHTED_PRESSURE_PLATE},
                 {"netherite", "NETHER_ORE", Items.ANCIENT_DEBRIS}, {"quartz", "SLAB", Items.QUARTZ_SLAB}, {"quartz", "STORAGE", Items.QUARTZ_BLOCK},
                 {"oak", "BLOCK", Items.OAK_PLANKS}, {"oak", "FENCE", Items.OAK_FENCE}, {"oak", "FENCE_GATE", Items.OAK_FENCE_GATE},
@@ -2152,8 +2152,9 @@ public final class TestCentreTests {
         if (!lines.hidden().contains(copperBlock) || lines.cells().stream().anyMatch(cell -> cell.item() == cutCopper)) {
             problems.add("lines: unwaxed copper is shown instead of the waxed stages");
         }
-        if (lines.rows().stream().filter(row -> row.group().contains("copper") && row.kind() == com.simplebuilding.dev.testcentre.OrderAreas.Kind.METAL).count() != 4) {
-            problems.add("lines: copper does not stand in exactly its four waxed stages");
+        // TZ38E-2: Kupfer nur in der normalen gewachsten Stufe (eine Reihe).
+        if (lines.rows().stream().filter(row -> row.group().contains("copper") && row.kind() == com.simplebuilding.dev.testcentre.OrderAreas.Kind.METAL).count() != 1) {
+            problems.add("lines: copper does not stand in exactly one row (the normal waxed stage)");
         }
         // Rohblock-Achtel auf dem Rohblock (N42-7), wenn Simple Octets geladen ist.
         Item rawIronOctet = BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath("simpleoctets", "raw_iron_block_octet")).orElse(Items.AIR);
@@ -2182,6 +2183,81 @@ public final class TestCentreTests {
                 red, lines.hidden().size(), items.cells().size(), stands, mobs, namespaces.size());
         helper.assertTrue(problems.isEmpty(), problems.size() + " order area problem(s): "
                 + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * TZ38E (Besitzer 13.11. Runde 2): nach dem Bau einer Ausstellungsflaeche verbinden sich Zaeune, Scheiben und Redstone ohne
+     * Neu-Setzen (Punkt 11, Form-Durchgang in {@code TestCentreBuilder.settle}); was beim Block-Update abfiele (Amethyst-Haufen,
+     * haengende Wurzeln), haengt im Rahmen statt zu stehen (7); in den Linien stehen Redstone-Block und -Staub (7); Farbserien
+     * behalten eine Farbe (1: Beton weiss, Checker Schwarzstein-Quarz; rote/blaue Netherziegel sind keine Serie); Muster der
+     * gemeinsamen Zusatzspalten (6); Achtel als drei getrennte Achtel (9).
+     */
+    public static void orderAreasSettleShapesAndFrameWhatFalls(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        com.simplebuilding.dev.testcentre.TcCanvas canvas = new com.simplebuilding.dev.testcentre.TcCanvas();
+        canvas.place(0, 0, 0, Blocks.OAK_FENCE.defaultBlockState());
+        canvas.place(1, 0, 0, Blocks.OAK_FENCE.defaultBlockState());
+        canvas.place(0, 0, 2, Blocks.GLASS_PANE.defaultBlockState());
+        canvas.place(1, 0, 2, Blocks.GLASS_PANE.defaultBlockState());
+        canvas.place(3, 0, 0, Blocks.REDSTONE_WIRE.defaultBlockState());
+        canvas.place(4, 0, 0, Blocks.REDSTONE_WIRE.defaultBlockState());
+        canvas.place(3, 0, 2, Blocks.COBBLESTONE_WALL.defaultBlockState());
+        canvas.place(4, 0, 2, Blocks.COBBLESTONE_WALL.defaultBlockState());
+        BlockPos origin = new BlockPos(24200, helper.absolutePos(BlockPos.ZERO).getY() + 1, 24000);
+        List<String> problems = new ArrayList<>();
+        try {
+            TestCentreBuilder.buildCanvas(level, origin, canvas);
+            if (!level.getBlockState(origin).getValue(net.minecraft.world.level.block.FenceBlock.EAST)) {
+                problems.add("the fences do not connect after the build");
+            }
+            if (!level.getBlockState(origin.offset(0, 0, 2)).getValue(net.minecraft.world.level.block.IronBarsBlock.EAST)) {
+                problems.add("the panes do not connect after the build");
+            }
+            if (level.getBlockState(origin.offset(3, 0, 0)).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.EAST_REDSTONE)
+                    == net.minecraft.world.level.block.state.properties.RedstoneSide.NONE) {
+                problems.add("the redstone dust does not connect after the build");
+            }
+            if (level.getBlockState(origin.offset(3, 0, 2)).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.EAST_WALL)
+                    == net.minecraft.world.level.block.state.properties.WallSide.NONE) {
+                problems.add("the walls do not connect after the build");
+            }
+        } finally {
+            TestCentreBuilder.clear(level, TestCentreBuilder.canvasBox(origin, canvas));
+        }
+        for (Block falls : List.of(Blocks.AMETHYST_CLUSTER, Blocks.SMALL_AMETHYST_BUD, Blocks.HANGING_ROOTS, Blocks.GLOW_LICHEN)) {
+            if (!com.simplebuilding.dev.testcentre.Exhibits.blockStates(falls).isEmpty()
+                    || !com.simplebuilding.dev.testcentre.Exhibits.floorStates(new ItemStack(falls)).isEmpty()
+                    || !com.simplebuilding.dev.testcentre.OrderAreas.lineStates(falls.asItem()).isEmpty()) {
+                problems.add(BuiltInRegistries.BLOCK.getKey(falls) + " stands although it falls off on a block update");
+            }
+        }
+        for (Item loud : List.of(Items.REDSTONE_BLOCK, Items.REDSTONE, Items.REDSTONE_TORCH)) {
+            if (com.simplebuilding.dev.testcentre.OrderAreas.lineStates(loud).isEmpty()) {
+                problems.add(BuiltInRegistries.ITEM.getKey(loud) + " would hang in a frame in the lines");
+            }
+        }
+        List<String> rest = com.simplebuilding.dev.testcentre.OrderAreas.colourSeriesRest(List.of("white_concrete", "red_concrete",
+                "blue_concrete", "light_blue_concrete", "red_nether_brick", "nether_brick", "blue_nether_brick", "red_sand",
+                "nether_brick_quartz_checker", "blackstone_quartz_checker"));
+        if (!new java.util.HashSet<>(rest).equals(Set.of("red_concrete", "blue_concrete", "light_blue_concrete", "nether_brick_quartz_checker"))) {
+            problems.add("colour series keep the wrong rows: " + rest);
+        }
+        String hollow = com.simplebuilding.dev.testcentre.OrderAreas.patternOf("hollow_dark_oak_log", List.of(List.of("dark", "oak")));
+        String apple = com.simplebuilding.dev.testcentre.OrderAreas.patternOf("enchanted_golden_apple", List.of(List.of("gold"), List.of("golden")));
+        if (!"hollow_{m}_log".equals(hollow) || !"enchanted_{m}_apple".equals(apple)) {
+            problems.add("shared column patterns: " + hollow + ", " + apple);
+        }
+        Block octet = BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath("simpleoctets", "stone_octet")).orElse(null);
+        if (octet != null) {
+            BlockState shown = com.simplebuilding.dev.testcentre.OrderAreas.lineOctet(octet.defaultBlockState());
+            long cells = shown.getProperties().stream().filter(p -> p.getName().matches("o[01]{3}")
+                    && shown.getValue(p) instanceof Boolean on && on).count();
+            if (cells != 3) {
+                problems.add("a line octet shows " + cells + " eighths instead of 3");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), String.join("; ", problems));
         helper.succeed();
     }
 

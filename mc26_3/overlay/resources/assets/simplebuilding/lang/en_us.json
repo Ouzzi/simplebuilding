@@ -3744,7 +3744,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleVault": "Enable Simple Vault",
   "text.autoconfig.simplebuilding.option.enableSimpleVault.@Tooltip": "Turns the Simple Vault module (separate download, if installed) on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on.",
   "simplebuilding.testcentre.command.built_variant": "Variant %s - the other one: /sbtestcentre build %s",
-  "simplebuilding.testcentre.order.lines.a": "Metals, wood, rest",
+  "simplebuilding.testcentre.order.lines.a": "Metals, wood, aging, stone",
+  "simplebuilding.testcentre.order.lines.aging": "Aging blocks",
   "simplebuilding.testcentre.order.lines.a.sub": "small parts next to the line",
   "simplebuilding.testcentre.order.lines.b": "Stone & co.",
   "simplebuilding.testcentre.order.lines.key": "red = missing, light gray = none"

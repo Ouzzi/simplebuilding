@@ -119,6 +119,11 @@ public final class TestCentreGameTest {
     }
 
     @GameTest
+    public void orderAreasSettleShapesAndFrameWhatFalls(GameTestHelper helper) {
+        TestCentreTests.orderAreasSettleShapesAndFrameWhatFalls(helper);
+    }
+
+    @GameTest
     public void testcenterCommandClearsAndBuildsTheModArea(GameTestHelper helper) {
         TestCentreTests.testcenterCommandClearsAndBuildsTheModArea(helper);
     }
