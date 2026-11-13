@@ -7,7 +7,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.screens.MenuScreens;
 
-/** Fabric client: the Shapecutter screen and the receiver of its recipe list, the rising block renderer, the grass slab tint, the snowlogged cell's renderer. */
+/** Fabric client: the Shapecutter screen and the receiver of its recipe list, the rising block renderer, the grass slab tint, the snowlogged cell's renderer, the saw probe. */
 public final class BlocksFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
@@ -23,5 +23,7 @@ public final class BlocksFabricClient implements ClientModInitializer {
                 com.simpleblocks.snow.client.SnowloggedRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()),
                 com.simpleblocks.nature.NatureBlocks.GRASS_SLAB);
+        // PLAN40 simpleblocks-5: real-mouse probe of the Shapecutter window, inert without simpleblocks-saw-probe.json.
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simpleblocks.saw.client.SawProbe::tick);
     }
 }
