@@ -3,7 +3,6 @@
 # The 26.2 line still uses them until the port run.
 assets/simplebuilding/textures/block/chunk_loader.png
 assets/simplebuilding/textures/block/elytra_pad.png
-assets/simplebuilding/textures/block/fine_elytra_pad.png
 assets/simplebuilding/textures/block/flypad.png
 assets/simplebuilding/textures/block/infused_potion_pad.png
 assets/simplebuilding/textures/block/launchpad.png
@@ -13,7 +12,6 @@ assets/simplebuilding/textures/block/launchpad_charge_3.png
 assets/simplebuilding/textures/block/potion_pad.png
 assets/simplebuilding/textures/block/reinforced_blast_furnace_front_on.png
 assets/simplebuilding/textures/block/reinforced_blast_furnace_front_on.png.mcmeta
-assets/simplebuilding/textures/block/reinforced_elytra_pad.png
 assets/simplebuilding/textures/block/reinforced_flypad.png
 assets/simplebuilding/textures/block/reinforced_furnace_front_on.png
 assets/simplebuilding/textures/block/reinforced_potion_pad.png
