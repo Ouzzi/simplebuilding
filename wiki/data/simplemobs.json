@@ -34,7 +34,7 @@
         "details": [
           "Figure: a Sculk block at the bottom, on it a T of three Sculk Catalysts, on the middle catalyst a jaw (a Sculk Shrieker; with SimpleBuilding also its Sculk Jaw - block tag simplemobs:howler_jaw), on the jaw a skeleton skull. The arms may point either way.",
           "A sculk sensor anywhere within 5 blocks of the middle catalyst must hear the call: blow any goat horn within 16 blocks. Light at the skull (block and sky light) must be 7 or less, not on Peaceful, Overworld only by default.",
-          "The manifestation takes 5 seconds. Breaking the sensor or lighting up the skull aborts it with smoke, a fading click and a message - every block stays. Only at the end are the figure's blocks used up; the sensor stays and the ground around turns to sculk.",
+          "The manifestation takes 5 seconds. Breaking the sensor or lighting up the skull aborts it with smoke, a fading click and a muffled sniff (no text on screen; too much light adds white glints) - every block stays. The same cue answers a call on Peaceful or in a dimension that is not allowed (there with reversed portal sparks). Only at the end are the figure's blocks used up; the sensor stays and the ground around turns to sculk.",
           "550 health, 8 armor, knockback resistance 1, speed 0.3 - a little stronger than the Warden (500 health, no armor). Bite 20 (Darkness 4 s), jaws open 0.6 s before they snap. Blind like the Warden: it hunts what it hears (sneaking and wool hide you) and its own steps are silent. Hits while its jaws open for a bite deal 1.5x damage.",
           "Special attacks, each announced by sound and particles, with a 1.5 s pause after each: ground shockwave when you stay close (1 s wind-up, a ring marks 5 blocks; 10 damage - jump or step out), echo shriek every 12 s at 6-10 blocks (1 s wind-up, 8 damage and push - cover in its line of sight blocks it), charge at 6-16 blocks (crouches 0.8 s on a locked line, 12 damage - sidestep; into a wall it staggers 1.5 s), sculk tendrils (marks under and around you pulse 1.5 s, then 4 damage and Slowness II 3 s - step off). Below 50 % it hungers: faster, longer reach and traps around you every 15 s (SimpleBuilding Sculk Jaws for 20 s, otherwise sculk snares). Below 20 % it rages: shrieks every 6 s, other attacks a third more often. It never calls reinforcements.",
           "Drops: 3-5 echo shards, one Echo Core, (with SimpleBuilding) 1-2 Sculk Jaws plus Looting, at most 4 - without SimpleBuilding one more echo shard instead. 50 XP. Never spawns naturally.",
@@ -48,7 +48,7 @@
         "details": [
           "Figur: unten ein Sculk-Block, darauf ein T aus drei Sculk-Katalysatoren, auf dem mittleren ein Kiefer (Sculk-Kreischer; mit SimpleBuilding auch dessen Sculk-Kiefer – Block-Tag simplemobs:howler_jaw), auf dem Kiefer ein Skelettschädel. Die Arme dürfen in beide Richtungen zeigen.",
           "Ein Sculk-Sensor höchstens 5 Blöcke vom mittleren Katalysator entfernt muss den Ruf hören: ein beliebiges Ziegenhorn in bis zu 16 Blöcken Abstand blasen. Licht am Schädel (Block- und Himmelslicht) höchstens 7, nicht auf Friedlich, standardmäßig nur in der Oberwelt.",
-          "Die Manifestation dauert 5 Sekunden. Wird der Sensor abgebaut oder der Schädel zu hell, bricht sie mit Rauch, verhallendem Klicken und einer Meldung ab – alle Blöcke bleiben. Erst am Ende werden die Blöcke der Figur verbraucht; der Sensor bleibt, der Boden ringsum wird zu Sculk.",
+          "Die Manifestation dauert 5 Sekunden. Wird der Sensor abgebaut oder der Schädel zu hell, bricht sie mit Rauch, verhallendem Klicken und gedämpftem Schnüffeln ab (kein Text auf dem Bildschirm; zu viel Licht zeigt weiße Funken) – alle Blöcke bleiben. Dasselbe Zeichen antwortet auf einen Ruf auf Friedlich oder in einer nicht erlaubten Dimension (dort mit umgekehrten Portalfunken). Erst am Ende werden die Blöcke der Figur verbraucht; der Sensor bleibt, der Boden ringsum wird zu Sculk.",
           "550 Leben, 8 Rüstung, Rückstoßresistenz 1, Tempo 0,3 – etwas stärker als der Wärter (500 Leben, keine Rüstung). Biss 20 (Dunkelheit 4 s), die Kiefer öffnen sich 0,6 s vor dem Zuschnappen. Blind wie der Wärter: Er jagt, was er hört (Schleichen und Wolle verbergen dich), seine eigenen Schritte sind lautlos. Treffer, während sich seine Kiefer zum Biss öffnen, machen 1,5-fachen Schaden.",
           "Spezialangriffe, jeweils per Geräusch und Partikeln angekündigt, danach 1,5 s Pause: Boden-Schockwelle, wenn du nah bleibst (1 s Aufladen, ein Ring markiert 5 Blöcke; 10 Schaden – springen oder rausgehen), Echo-Schrei alle 12 s auf 6–10 Blöcke (1 s Aufladen, 8 Schaden und Rückstoß – Deckung in seiner Sichtlinie blockt ihn), Ansturm auf 6–16 Blöcke (duckt sich 0,8 s auf einer festen Linie, 12 Schaden – zur Seite ausweichen; gegen eine Wand taumelt er 1,5 s), Sculk-Ranken (Markierungen unter und neben dir pulsieren 1,5 s, dann 4 Schaden und Langsamkeit II 3 s – runtergehen). Unter 50 % hungert er: schneller, mehr Reichweite und alle 15 s Fallen um dich (SimpleBuilding-Sculk-Kiefer für 20 s, sonst Sculk-Schlingen). Unter 20 % tobt er: Schrei alle 6 s, übrige Angriffe ein Drittel öfter. Er ruft nie Verstärkung.",
           "Beute: 3–5 Echosplitter, ein Echokern, (mit SimpleBuilding) 1–2 Sculk-Kiefer plus Plünderung, höchstens 4 – ohne SimpleBuilding stattdessen ein Echosplitter mehr. 50 EP. Spawnt nie natürlich.",
@@ -817,7 +817,7 @@
         "details": [
           "Mob Essence: when you kill a mob, 5 % chance (monsters; other mobs 2 %), Looting +1 % per level, for one essence of its kind. Never from mobs out of a spawner, trial spawner, spawn egg, dispenser or command. Config: eggRitualEnabled, essenceChance.",
           "The hollow: a Purpur Block in the middle of a 3 x 3 ring of Soul Sand, a Soul Torch on each of the 4 corner blocks.",
-          "Throw onto the Purpur Block: 1 Blank Egg (Egg + Ender Pearl + Amethyst Shard), the essence of ONE kind and the catalyst, then light it with Flint and Steel. Missing something: smoke and a hint, nothing is used.",
+          "Throw onto the Purpur Block: 1 Blank Egg (Egg + Ender Pearl + Amethyst Shard), the essence of ONE kind and the catalyst, then light it with Flint and Steel. Missing something: smoke and a hiss, nothing is used.",
           "Classes: I small animals 4 essence + Wheat, 30 s. II strong animals, villagers, golems, Endermen 12 + Emerald, 2 min. III monsters 16 + Soul Sand + Lapis Lazuli, 3 min. IV elite (Wither Skeleton, Ravager, Ghast, Shellker, ...) 32 + Netherite Scrap + Eye of Ender, 6 min. V minibosses (Deceiver, Howler, Elder Guardian, Dread, Watcher) 64 + Nether Star, 12 min.",
           "When it is done the Vanilla spawn egg pops out. If a torch goes out or the hollow breaks, the brood stops and everything comes back. Bosses (Wither, Ender Dragon, Warden, Void Runner, Brimguard) never."
         ]
@@ -828,7 +828,7 @@
         "details": [
           "Mob-Essenz: Wenn du einen Mob tötest, 5 % Chance (Monster; andere Mobs 2 %), Plünderung +1 % je Stufe, auf eine Essenz seiner Art. Nie von Mobs aus Spawner, Prüfungs-Spawner, Spawn-Ei, Werfer oder Befehl. Config: eggRitualEnabled, essenceChance.",
           "Die Mulde: ein Purpurblock in der Mitte eines 3 x 3 Rings aus Seelensand, auf jedem der 4 Eckblöcke eine Seelenfackel.",
-          "Auf den Purpurblock werfen: 1 Eirohling (Ei + Enderperle + Amethystscherbe), die Essenz EINER Art und den Katalysator, dann mit dem Feuerzeug anzünden. Fehlt etwas: Rauch und ein Hinweis, nichts wird verbraucht.",
+          "Auf den Purpurblock werfen: 1 Eirohling (Ei + Enderperle + Amethystscherbe), die Essenz EINER Art und den Katalysator, dann mit dem Feuerzeug anzünden. Fehlt etwas: Rauch und ein Zischen, nichts wird verbraucht.",
           "Klassen: I kleine Tiere 4 Essenz + Weizen, 30 s. II starke Tiere, Dorfbewohner, Golems, Enderman 12 + Smaragd, 2 min. III Monster 16 + Seelensand + Lapislazuli, 3 min. IV Elite (Witherskelett, Verwüster, Ghast, Shellker, ...) 32 + Netheritplatten-Schrott + Enderauge, 6 min. V Minibosse (Täuscher, Hohler Heuler, Großer Wächter, Schreckensritter, Hohler Wächter) 64 + Netherstern, 12 min.",
           "Ist die Brut fertig, springt das Vanilla-Spawn-Ei heraus. Geht eine Fackel aus oder bricht die Mulde, endet die Brut und alles kommt zurück. Bosse (Wither, Enderdrache, Warden, Leerenläufer, Schirmling) nie."
         ]
@@ -5913,17 +5913,18 @@
     {
       "id": "simplemobs:forbidden_fire",
       "name": {
-        "en_us": "Fire",
-        "de_de": "Feuer"
+        "en_us": "Forbidden Fire",
+        "de_de": "Verbotenes Feuer"
       },
       "note": {
         "en": {
-          "summary": "Easter egg from the armored Wither: a Wither summoned with a chainmail helmet on a side skull drops this instead of the helmet's material - a nod to the old chainmail recipe that used fire. No use yet."
+          "summary": "Easter egg from the armored Wither: a Wither summoned with a chainmail helmet on a side skull drops this instead of the helmet's material - a nod to the old chainmail recipe that used fire. Its own item (Cursed rarity) that works like a Fire Charge: it lights fire, campfires and candles, and a dispenser shoots it as a small fireball."
         },
         "de": {
-          "summary": "Easter Egg des gepanzerten Withers: Trägt ein äußerer Schädel einen Kettenhelm, droppt der Wither dieses Item statt des Helm-Materials – eine Anspielung auf das alte Kettenrüstungs-Rezept mit Feuer. Noch ohne Nutzen."
+          "summary": "Easter Egg des gepanzerten Withers: Trägt ein äußerer Schädel einen Kettenhelm, droppt der Wither dieses Item statt des Helm-Materials – eine Anspielung auf das alte Kettenrüstungs-Rezept mit Feuer. Ein eigenes Item (Seltenheit „Verflucht“), das wie eine Feuerkugel wirkt: Es entzündet Feuer, Lagerfeuer und Kerzen, ein Werfer schießt es als kleinen Feuerball."
         }
       },
+      "texture": "assets/textures/simplemobs/item/forbidden_fire.png",
       "craftedBy": [],
       "usedIn": []
     },
@@ -6464,10 +6465,10 @@
       },
       "note": {
         "en": {
-          "summary": "Spawner Fragment: a Vanilla spawner mined with a pickaxe (not Silk Touch) leaves one with 30 % chance (spawnerFragmentChance, 0 = off). 9 Fragments make 1 Spawner Chunk."
+          "summary": "Spawner Fragment: a Vanilla spawner mined with a pickaxe (not Silk Touch) leaves one with 30 % chance (spawnerFragmentChance, 0 = off). 9 Fragments make 1 Spawner Chunk. Why 30 %: in Vanilla a spawner can never be taken along; here one Makeshift Spawner needs 81 Fragments, about 270 mined Vanilla spawners, and then runs 3 times slower - a long-term reward for clearing dungeons, not a shortcut. Only Vanilla spawners you mine change (they drop a Fragment instead of nothing); everything else stays Vanilla."
         },
         "de": {
-          "summary": "Spawner-Fragment: Ein Vanilla-Spawner, mit der Spitzhacke abgebaut (nicht mit Behutsamkeit), hinterlässt mit 30 % Chance eines (spawnerFragmentChance, 0 = aus). 9 Fragmente ergeben 1 Spawner-Brocken."
+          "summary": "Spawner-Fragment: Ein Vanilla-Spawner, mit der Spitzhacke abgebaut (nicht mit Behutsamkeit), hinterlässt mit 30 % Chance eines (spawnerFragmentChance, 0 = aus). 9 Fragmente ergeben 1 Spawner-Brocken. Warum 30 %: In Vanilla lässt sich ein Spawner nie mitnehmen; hier braucht ein Behelfsmäßiger Spawner 81 Fragmente, also rund 270 abgebaute Vanilla-Spawner, und läuft dann 3-mal langsamer – ein Fernziel fürs Ausräumen von Verliesen, keine Abkürzung. Es ändert sich nur, dass ein abgebauter Vanilla-Spawner ein Fragment statt nichts hinterlässt; alles andere bleibt Vanilla."
         }
       },
       "texture": "assets/textures/simplemobs/item/spawner_fragment.png",
@@ -7151,6 +7152,310 @@
   "config": [
     {
       "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.deflection.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.25",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.deflection",
+      "groupDe": "zoneEffects.deflection",
+      "label": "Deflection: Chance at Level 5",
+      "labelDe": "Abwehr: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Deflection; lower levels get\nless (chance x (level / 5)^1.3).\nDefault: 0.25. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Abwehr bekommt; niedrigere\nStufen weniger (Chance x (Stufe / 5)^1,3).\nStandard: 0,25. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.deflection.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "5",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.deflection",
+      "groupDe": "zoneEffects.deflection",
+      "label": "Deflection: Max Level",
+      "labelDe": "Abwehr: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Deflection from\nthe zones; 0 = this effect is off.\nDefault: 5. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Abwehr aus den\nZonen; 0 = dieser Effekt ist aus.\nStandard: 5. Bereich: 0–5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.extra_hearts.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.3",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.extra_hearts",
+      "groupDe": "zoneEffects.extra_hearts",
+      "label": "Extra Hearts: Chance at Level 5",
+      "labelDe": "Extra-Herzen: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Absorption (extra hearts);\nlower levels get less\n(chance x (level / 5)^1.3).\nDefault: 0.3. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Absorption (Extra-Herzen)\nbekommt; niedrigere Stufen weniger\n(Chance x (Stufe / 5)^1,3).\nStandard: 0,3. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.extra_hearts.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "2",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.extra_hearts",
+      "groupDe": "zoneEffects.extra_hearts",
+      "label": "Extra Hearts: Max Level",
+      "labelDe": "Extra-Herzen: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Absorption from\nthe zones; 0 = this effect is off.\nDefault: 2. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Absorption aus\nden Zonen; 0 = dieser Effekt ist aus.\nStandard: 2. Bereich: 0–5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.infested.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.2",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.infested",
+      "groupDe": "zoneEffects.infested",
+      "label": "Infested: Chance at Level 5",
+      "labelDe": "Befall: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Infested; lower levels get less\n(chance x (level / 5)^1.3).\nDefault: 0.2. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Befall bekommt; niedrigere\nStufen weniger (Chance x (Stufe / 5)^1,3).\nStandard: 0,2. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.infested.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "1",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.infested",
+      "groupDe": "zoneEffects.infested",
+      "label": "Infested: Max Level",
+      "labelDe": "Befall: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Infested from the\nzones; 0 = this effect is off.\nDefault: 1. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Befall aus den\nZonen; 0 = dieser Effekt ist aus.\nStandard: 1. Bereich: 0–5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.mirror.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.1",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.mirror",
+      "groupDe": "zoneEffects.mirror",
+      "label": "Mirror: Chance at Level 5",
+      "labelDe": "Spiegel: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Mirror; lower levels get less\n(chance x (level / 5)^1.3).\nDefault: 0.1. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Spiegel bekommt;\nniedrigere Stufen weniger\n(Chance x (Stufe / 5)^1,3).\nStandard: 0,1. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.mirror.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "5",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.mirror",
+      "groupDe": "zoneEffects.mirror",
+      "label": "Mirror: Max Level",
+      "labelDe": "Spiegel: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Mirror from the\nzones; 0 = this effect is off.\nDefault: 5. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Spiegel aus den\nZonen; 0 = dieser Effekt ist aus.\nStandard: 5. Bereich: 0–5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.oozing.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.2",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.oozing",
+      "groupDe": "zoneEffects.oozing",
+      "label": "Oozing: Chance at Level 5",
+      "labelDe": "Verschleimung: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Oozing; lower levels get less\n(chance x (level / 5)^1.3).\nDefault: 0.2. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Verschleimung bekommt;\nniedrigere Stufen weniger\n(Chance x (Stufe / 5)^1,3).\nStandard: 0,2. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.oozing.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "1",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.oozing",
+      "groupDe": "zoneEffects.oozing",
+      "label": "Oozing: Max Level",
+      "labelDe": "Verschleimung: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Oozing from the\nzones; 0 = this effect is off.\nDefault: 1. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Verschleimung\naus den Zonen; 0 = dieser Effekt ist aus.\nStandard: 1. Bereich: 0–5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.speed.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.25",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.speed",
+      "groupDe": "zoneEffects.speed",
+      "label": "Speed: Chance at Level 5",
+      "labelDe": "Schnelligkeit: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Speed; lower levels get less\n(chance x (level / 5)^1.3).\nDefault: 0.25. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Schnelligkeit bekommt;\nniedrigere Stufen weniger\n(Chance x (Stufe / 5)^1,3).\nStandard: 0,25. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.speed.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "2",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.speed",
+      "groupDe": "zoneEffects.speed",
+      "label": "Speed: Max Level",
+      "labelDe": "Schnelligkeit: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Speed from the\nzones; 0 = this effect is off.\nDefault: 2. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Schnelligkeit\naus den Zonen; 0 = dieser Effekt ist aus.\nStandard: 2. Bereich: 0–5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.strength.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.35",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.strength",
+      "groupDe": "zoneEffects.strength",
+      "label": "Strength: Chance at Level 5",
+      "labelDe": "Stärke: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Strength; lower levels get less\n(chance x (level / 5)^1.3).\nDefault: 0.35. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Stärke bekommt; niedrigere\nStufen weniger (Chance x (Stufe / 5)^1,3).\nStandard: 0,35. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.strength.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "3",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.strength",
+      "groupDe": "zoneEffects.strength",
+      "label": "Strength: Max Level",
+      "labelDe": "Stärke: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Strength from the\nzones; 0 = this effect is off.\nDefault: 3. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Stärke aus den\nZonen; 0 = dieser Effekt ist aus.\nStandard: 3. Bereich: 0–5."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.volatile.chance",
+      "shortName": "chance",
+      "type": null,
+      "default": "0.15",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.volatile",
+      "groupDe": "zoneEffects.volatile",
+      "label": "Volatile: Chance at Level 5",
+      "labelDe": "Explosiv: Chance bei Stufe 5",
+      "tooltip": "Chance that a new monster in a zone of\nlevel 5 gets Volatile; lower levels get less\n(chance x (level / 5)^1.3).\nDefault: 0.15. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein neues Monster in einer\nZone der Stufe 5 Explosiv bekommt;\nniedrigere Stufen weniger\n(Chance x (Stufe / 5)^1,3).\nStandard: 0,15. Bereich: 0–1."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "zoneEffects.volatile.levelCap",
+      "shortName": "levelCap",
+      "type": null,
+      "default": "5",
+      "note": null,
+      "category": "Danger Zones: Effect Pools",
+      "categoryDe": "Gefahrenzonen: Effekt-Pools",
+      "group": "zoneEffects.volatile",
+      "groupDe": "zoneEffects.volatile",
+      "label": "Volatile: Max Level",
+      "labelDe": "Explosiv: höchste Stufe",
+      "tooltip": "Highest level (I to V) of Volatile from the\nzones; 0 = this effect is off.\nDefault: 5. Range: 0–5.",
+      "tooltipDe": "Höchste Stufe (I bis V) von Explosiv aus\nden Zonen; 0 = dieser Effekt ist aus.\nStandard: 5. Bereich: 0–5."
+    },
+    {
+      "range": null,
       "side": "server",
       "reload": null,
       "source": "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
@@ -7163,10 +7468,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Boss bar range",
-      "labelDe": "Boss bar range",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Boss Bar Range",
+      "labelDe": "Bossleisten-Reichweite",
+      "tooltip": "A boss bar shows for players within this\nmany blocks of its boss.\nDefault: 48. Range: 8–256.",
+      "tooltipDe": "Eine Bossleiste erscheint für Spieler in so\nvielen Blöcken um ihren Boss.\nStandard: 48. Bereich: 8–256."
     },
     {
       "range": null,
@@ -7182,10 +7487,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Boss rituals end only",
-      "labelDe": "Boss rituals end only",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Boss Summoning Only in the End",
+      "labelDe": "Boss-Beschwörung nur im End",
+      "tooltip": "The Void Runner and the Brimguard can only\nbe summoned in the End. Off: in every\ndimension (never on Peaceful).\nDefault: on.",
+      "tooltipDe": "Leerenläufer und Schirmling lassen sich nur\nim End beschwören. Aus: in jeder Dimension\n(nie auf Friedlich).\nStandard: an."
     },
     {
       "range": null,
@@ -7201,10 +7506,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Brimguard summon enabled",
-      "labelDe": "Brimguard summon enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Brimguard Summoning",
+      "labelDe": "Schirmling-Beschwörung",
+      "tooltip": "A 3 x 3 obsidian platform with 3 Shellker\nShells and a Nether Star summons the\nBrimguard.\nDefault: on.",
+      "tooltipDe": "Eine 3 x 3 Obsidianfläche mit 3\nShellker-Schalen und einem Netherstern ruft\nden Schirmling.\nStandard: an."
     },
     {
       "range": null,
@@ -7220,10 +7525,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Dread summon enabled",
-      "labelDe": "Dread summon enabled",
-      "tooltip": "Dread: the summoning figure on/off (the mob and its spawn egg stay registered).",
-      "tooltipDe": "Dread: the summoning figure on/off (the mob and its spawn egg stay registered)."
+      "label": "Dread Summoning",
+      "labelDe": "Schreckensritter-Beschwörung",
+      "tooltip": "The Dread figure (an iron T with an anvil\nand a skeleton skull) summons the Dread.\nOff: the figure does nothing; the mob and\nits spawn egg stay.\nDefault: on.",
+      "tooltipDe": "Die Schreckensritter-Figur (ein Eisen-T mit\nAmboss und Skelettschädel) ruft den\nSchreckensritter. Aus: die Figur tut nichts;\nMob und Spawn-Ei bleiben.\nStandard: an."
     },
     {
       "range": null,
@@ -7239,10 +7544,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Egg ritual enabled",
-      "labelDe": "Egg ritual enabled",
-      "tooltip": "Brood hollow (K1): spawn eggs from mob essence on/off, and the essence chance of a monster kill (others 40 % of it).",
-      "tooltipDe": "Brood hollow (K1): spawn eggs from mob essence on/off, and the essence chance of a monster kill (others 40 % of it)."
+      "label": "Mob Essence and Brood Hollow",
+      "labelDe": "Mob-Essenz und Brutmulde",
+      "tooltip": "Mob Essence drops and the brood hollow that\nturns it into spawn eggs. Off: no essence,\nthe hollow does nothing.\nDefault: on.",
+      "tooltipDe": "Mob-Essenz als Beute und die Brutmulde, die\nsie zu Spawn-Eiern macht. Aus: keine Essenz,\ndie Mulde tut nichts.\nStandard: an."
     },
     {
       "range": null,
@@ -7258,10 +7563,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "End wings speed factor",
-      "labelDe": "End wings speed factor",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "End Wings Speed",
+      "labelDe": "End-Schwingen: Tempo",
+      "tooltip": "How many times Vanilla's top rocket speed\nthe End Wings reach (1 = Vanilla).\nDefault: 6. Range: 1–8.",
+      "tooltipDe": "Vielfaches des Vanilla-Höchsttempos mit\nRakete, das die End-Schwingen erreichen\n(1 = Vanilla).\nStandard: 6. Bereich: 1–8."
     },
     {
       "range": null,
@@ -7277,10 +7582,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Essence chance",
-      "labelDe": "Essence chance",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Mob Essence Chance",
+      "labelDe": "Mob-Essenz-Chance",
+      "tooltip": "Chance that a monster killed by a player\ndrops Mob Essence; other mobs 40 % of it,\nplus 1 % per Looting level.\nDefault: 0.05. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein von einem Spieler\ngetötetes Monster Mob-Essenz fallen lässt;\nandere Mobs 40 % davon, dazu 1 % je Stufe\nPlünderung.\nStandard: 0,05. Bereich: 0–1."
     },
     {
       "range": null,
@@ -7296,10 +7601,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Evil hit effects",
-      "labelDe": "Evil hit effects",
-      "tooltip": "Trials (TR31-R): hits of Evil / Void mobs on players - Wither (stage 2), slowing arrows (stage 3), Darkness (stage 5).",
-      "tooltipDe": "Trials (TR31-R): hits of Evil / Void mobs on players - Wither (stage 2), slowing arrows (stage 3), Darkness (stage 5)."
+      "label": "Evil Mob Hit Effects",
+      "labelDe": "Treffer-Effekte Böser Mobs",
+      "tooltip": "Hits of Evil and Void mobs on players:\nWither (stage 2), slowing arrows (stage 3),\nDarkness (stage 5).\nDefault: on.",
+      "tooltipDe": "Treffer Böser und Leere-Mobs auf Spieler:\nWither (Stufe 2), verlangsamende Pfeile\n(Stufe 3), Dunkelheit (Stufe 5).\nStandard: an."
     },
     {
       "range": null,
@@ -7315,10 +7620,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Evil omen",
-      "labelDe": "Evil omen",
-      "tooltip": "Evil Omen (BS27-3): the master switch of Evil Potion brewing, Evil Omen, Evil Trials / Raids and the Evil Vault; the Weathered Trials themselves stay.",
-      "tooltipDe": "Evil Omen (BS27-3): the master switch of Evil Potion brewing, Evil Omen, Evil Trials / Raids and the Evil Vault; the Weathered Trials themselves stay."
+      "label": "Evil Chain",
+      "labelDe": "Böse Kette",
+      "tooltip": "Master switch of the Evil chain: Evil Potion\nbrewing, Evil Omen, Evil Trials and Raids,\nthe Evil Vault. The Weathered Trials stay.\nDefault: on.",
+      "tooltipDe": "Hauptschalter der Bösen Kette: Böse Tränke\nbrauen, Böses Omen, Böse Prüfungen und\nÜberfälle, der Böse Tresor. Die Verwitterten\nPrüfungen bleiben.\nStandard: an."
     },
     {
       "range": null,
@@ -7334,10 +7639,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Evil on vanilla spawners",
-      "labelDe": "Evil on vanilla spawners",
-      "tooltip": "Trials (TR31-R): the Evil Omen also turns Vanilla Trial Spawners (Vanilla chambers) evil; off = only Weathered Trials (A12).",
-      "tooltipDe": "Trials (TR31-R): the Evil Omen also turns Vanilla Trial Spawners (Vanilla chambers) evil; off = only Weathered Trials (A12)."
+      "label": "Evil Omen at Vanilla Spawners",
+      "labelDe": "Böses Omen an Vanilla-Spawnern",
+      "tooltip": "The Evil Omen also turns Vanilla Trial\nSpawners (in Trial Chambers) evil. Off:\nonly Weathered Trials.\nDefault: off.",
+      "tooltipDe": "Das Böse Omen macht auch Vanillas\nPrüfungs-Spawner (in Prüfungskammern) böse.\nAus: nur Verwitterte Prüfungen.\nStandard: aus."
     },
     {
       "range": null,
@@ -7353,10 +7658,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Evil raid extras",
-      "labelDe": "Evil raid extras",
-      "tooltip": "Trials (TR31-R): an Evil / Void Raid has one more wave and leaves a Looter Chest after the victory.",
-      "tooltipDe": "Trials (TR31-R): an Evil / Void Raid has one more wave and leaves a Looter Chest after the victory."
+      "label": "Evil Raid Extras",
+      "labelDe": "Extras Böser Überfälle",
+      "tooltip": "An Evil or Void Raid has one more wave and\nleaves a Looter Chest after the victory.\nDefault: on.",
+      "tooltipDe": "Ein Böser oder Leere-Überfall hat eine\nWelle mehr und hinterlässt nach dem Sieg\neine Plündererbeute-Truhe.\nStandard: an."
     },
     {
       "range": null,
@@ -7372,10 +7677,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Hollow watcher chance",
-      "labelDe": "Hollow watcher chance",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Hollow Watcher Spawn Chance",
+      "labelDe": "Hohler Wächter: Spawn-Chance",
+      "tooltip": "Chance per roll (every 30 s) on the outer\nEnd islands that a Hollow Watcher appears.\nDefault: 0.04. Range: 0–1.",
+      "tooltipDe": "Chance je Wurf (alle 30 s) auf den äußeren\nEnd-Inseln, dass ein Hohler Wächter kommt.\nStandard: 0,04. Bereich: 0–1."
     },
     {
       "range": null,
@@ -7391,10 +7696,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Hollow watcher forest chance",
-      "labelDe": "Hollow watcher forest chance",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Watcher Forest Chance",
+      "labelDe": "Wächter-Wald: Chance",
+      "tooltip": "Chance per roll (every 30 s) once a player\nhas stayed that long in a Watcher core\nbiome.\nDefault: 0.25. Range: 0–1.",
+      "tooltipDe": "Chance je Wurf (alle 30 s), sobald ein\nSpieler so lange in einem Wächter-Kernbiom\nwar.\nStandard: 0,25. Bereich: 0–1."
     },
     {
       "range": null,
@@ -7410,10 +7715,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Hollow watcher forest seconds",
-      "labelDe": "Hollow watcher forest seconds",
-      "tooltip": "Hollow Watcher forest rule (N66): seconds in a Watcher core biome without a break, then this chance per 30 s roll.",
-      "tooltipDe": "Hollow Watcher forest rule (N66): seconds in a Watcher core biome without a break, then this chance per 30 s roll."
+      "label": "Watcher Forest Time (Seconds)",
+      "labelDe": "Wächter-Wald: Zeit (Sekunden)",
+      "tooltip": "Seconds a player must stay in a Watcher\ncore biome without a break before the\nforest chance applies.\nDefault: 120. Range: 10–3600.",
+      "tooltipDe": "So viele Sekunden muss ein Spieler ohne\nPause in einem Wächter-Kernbiom bleiben,\nbevor die Wald-Chance gilt.\nStandard: 120. Bereich: 10–3600."
     },
     {
       "range": null,
@@ -7429,10 +7734,29 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Hollow watcher spawns",
-      "labelDe": "Hollow watcher spawns",
-      "tooltip": "Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll.",
-      "tooltipDe": "Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll."
+      "label": "Hollow Watcher Spawning",
+      "labelDe": "Hohler Wächter erscheint",
+      "tooltip": "Hollow Watchers spawn naturally on the outer\nEnd islands (more than 1000 blocks from the\ncenter).\nDefault: on.",
+      "tooltipDe": "Hohle Wächter erscheinen natürlich auf den\näußeren End-Inseln (über 1000 Blöcke von\nder Mitte).\nStandard: an."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+      "name": "howlerAllowDimensions",
+      "shortName": "howlerAllowDimensions",
+      "type": "List",
+      "default": "minecraft:overworld",
+      "note": null,
+      "category": "Simple Mobs",
+      "categoryDe": "Simple Mobs",
+      "group": null,
+      "groupDe": null,
+      "label": "Howler Ritual Dimensions",
+      "labelDe": "Heuler-Ritual: Dimensionen",
+      "tooltip": "Dimensions where the ritual works, one id\nper line (e.g. minecraft:overworld).\nDefault: minecraft:overworld.",
+      "tooltipDe": "Dimensionen, in denen das Ritual wirkt, eine\nId je Zeile (z. B. minecraft:overworld).\nStandard: minecraft:overworld."
     },
     {
       "range": null,
@@ -7442,16 +7766,16 @@
       "name": "howlerAttack",
       "shortName": "howlerAttack",
       "type": "int",
-      "default": null,
+      "default": "34",
       "note": null,
       "category": "Simple Mobs",
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler attack",
-      "labelDe": "Howler attack",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Howler Attack Damage",
+      "labelDe": "Heuler-Angriffsschaden",
+      "tooltip": "Melee damage of a newly spawned Hollow\nHowler (the Warden deals 30).\nDefault: 34. Range: 1–500.",
+      "tooltipDe": "Nahkampfschaden eines neu erscheinenden\nTiefenheulers (der Wärter macht 30).\nStandard: 34. Bereich: 1–500."
     },
     {
       "range": null,
@@ -7467,10 +7791,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler despawn minutes",
-      "labelDe": "Howler despawn minutes",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Idle Howler Despawn (Minutes)",
+      "labelDe": "Untätiger Heuler verschwindet (Minuten)",
+      "tooltip": "A Hollow Howler without a target vanishes\nafter this many minutes without a player\nwithin 64 blocks.\nDefault: 10. Range: 1–1440.",
+      "tooltipDe": "Ein Tiefenheuler ohne Ziel verschwindet\nnach so vielen Minuten ohne Spieler in\n64 Blöcken.\nStandard: 10. Bereich: 1–1440."
     },
     {
       "range": null,
@@ -7486,10 +7810,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler enabled",
-      "labelDe": "Howler enabled",
-      "tooltip": "Server config config/simplemobs-server.json. Read once at start; an unreadable file is renamed to .broken and the defaults are written instead (same policy as the other modules, without the framework jar). /\npublic final class MobsConfig {\n    public static final String FILE = \"simplemobs-server.json\";\n    private static final Logger LOG = LoggerFactory.getLogger(\"simplemobs\");\n    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();\n\n    /** Hollow Howler: the summoning ritual on/off (the mob itself and its spawn egg stay registered).",
-      "tooltipDe": "Server config config/simplemobs-server.json. Read once at start; an unreadable file is renamed to .broken and the defaults are written instead (same policy as the other modules, without the framework jar). /\npublic final class MobsConfig {\n    public static final String FILE = \"simplemobs-server.json\";\n    private static final Logger LOG = LoggerFactory.getLogger(\"simplemobs\");\n    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();\n\n    /** Hollow Howler: the summoning ritual on/off (the mob itself and its spawn egg stay registered)."
+      "label": "Hollow Howler Ritual",
+      "labelDe": "Tiefenheuler-Ritual",
+      "tooltip": "Blowing a goat horn at the Howler figure\nsummons the Hollow Howler. Off: the ritual\ndoes nothing; the mob and its spawn egg stay.\nDefault: on.",
+      "tooltipDe": "Ein Ziegenhorn an der Heuler-Figur ruft den\nTiefenheuler. Aus: das Ritual tut nichts;\nMob und Spawn-Ei bleiben.\nStandard: an."
     },
     {
       "range": null,
@@ -7499,16 +7823,16 @@
       "name": "howlerHealth",
       "shortName": "howlerHealth",
       "type": "int",
-      "default": null,
+      "default": "600",
       "note": null,
       "category": "Simple Mobs",
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler health",
-      "labelDe": "Howler health",
-      "tooltip": "Miniboss stats of the Hollow Howler (Nachtrag 68; Warden: 500 health, 0 armor, 30 attack): applied when it spawns. Size in percent.",
-      "tooltipDe": "Miniboss stats of the Hollow Howler (Nachtrag 68; Warden: 500 health, 0 armor, 30 attack): applied when it spawns. Size in percent."
+      "label": "Howler Health",
+      "labelDe": "Heuler-Leben",
+      "tooltip": "Maximum health of a newly spawned Hollow\nHowler (the Warden has 500).\nDefault: 600. Range: 20–10000.",
+      "tooltipDe": "Höchstes Leben eines neu erscheinenden\nTiefenheulers (der Wärter hat 500).\nStandard: 600. Bereich: 20–10000."
     },
     {
       "range": null,
@@ -7524,10 +7848,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler hunger",
-      "labelDe": "Howler hunger",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Howler Sculk Jaws",
+      "labelDe": "Heuler-Sculk-Kiefer",
+      "tooltip": "From phase 2 the Hollow Howler spits sculk\njaws under the players it hunts.\nDefault: on.",
+      "tooltipDe": "Ab Phase 2 spuckt der Tiefenheuler\nSculk-Kiefer unter die Spieler, die er jagt.\nStandard: an."
     },
     {
       "range": null,
@@ -7543,10 +7867,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler jaw interval",
-      "labelDe": "Howler jaw interval",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Howler Jaws: Interval (Ticks)",
+      "labelDe": "Heuler-Kiefer: Abstand (Ticks)",
+      "tooltip": "Ticks between two new sculk jaws.\nDefault: 100 (5 s). Range: 20–1200.",
+      "tooltipDe": "Ticks zwischen zwei neuen Sculk-Kiefern.\nStandard: 100 (5 s). Bereich: 20–1200."
     },
     {
       "range": null,
@@ -7562,10 +7886,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler jaw max",
-      "labelDe": "Howler jaw max",
-      "tooltip": "Phase 2+ sculk jaws under the hunted players: at most howlerJawMax alive at once, one new every howlerJawInterval ticks.",
-      "tooltipDe": "Phase 2+ sculk jaws under the hunted players: at most howlerJawMax alive at once, one new every howlerJawInterval ticks."
+      "label": "Howler Jaws: Max at Once",
+      "labelDe": "Heuler-Kiefer: höchstens gleichzeitig",
+      "tooltip": "At most this many sculk jaws of one Hollow\nHowler at once.\nDefault: 6. Range: 1–30.",
+      "tooltipDe": "Höchstens so viele Sculk-Kiefer eines\nTiefenheulers gleichzeitig.\nStandard: 6. Bereich: 1–30."
     },
     {
       "range": null,
@@ -7581,10 +7905,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler max light",
-      "labelDe": "Howler max light",
-      "tooltip": "Highest light (block + sky, like monster spawns) at the skull for the ritual to start and keep running.",
-      "tooltipDe": "Highest light (block + sky, like monster spawns) at the skull for the ritual to start and keep running."
+      "label": "Howler Ritual: Max Light",
+      "labelDe": "Heuler-Ritual: höchstes Licht",
+      "tooltip": "Highest light (block and sky light, like\nmonster spawns) at the figure's skull for\nthe ritual to start and keep running.\nDefault: 7. Range: 0–15.",
+      "tooltipDe": "Höchstes Licht (Block- und Himmelslicht, wie\nbeim Monster-Spawn) am Schädel der Figur,\ndamit das Ritual startet und weiterläuft.\nStandard: 7. Bereich: 0–15."
     },
     {
       "range": null,
@@ -7600,10 +7924,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler pulse interval",
-      "labelDe": "Howler pulse interval",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Darkness Pulse Interval (Ticks)",
+      "labelDe": "Dunkelheitspuls: Abstand (Ticks)",
+      "tooltip": "Ticks between two Darkness pulses\n(20 ticks = 1 s).\nDefault: 120 (6 s). Range: 20–1200.",
+      "tooltipDe": "Ticks zwischen zwei Dunkelheitspulsen\n(20 Ticks = 1 s).\nStandard: 120 (6 s). Bereich: 20–1200."
     },
     {
       "range": null,
@@ -7619,10 +7943,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler pulse radius",
-      "labelDe": "Howler pulse radius",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Darkness Pulse Radius",
+      "labelDe": "Dunkelheitspuls: Radius",
+      "tooltip": "Hunted players within this many blocks get\nthe Darkness.\nDefault: 20. Range: 4–64.",
+      "tooltipDe": "Gejagte Spieler in so vielen Blöcken\nbekommen die Dunkelheit.\nStandard: 20. Bereich: 4–64."
     },
     {
       "range": null,
@@ -7638,10 +7962,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler pulse ticks",
-      "labelDe": "Howler pulse ticks",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Darkness Pulse Length (Ticks)",
+      "labelDe": "Dunkelheitspuls: Dauer (Ticks)",
+      "tooltip": "How long the Darkness of one pulse lasts,\nin ticks.\nDefault: 260 (13 s). Range: 20–1200.",
+      "tooltipDe": "So lange hält die Dunkelheit eines Pulses,\nin Ticks.\nStandard: 260 (13 s). Bereich: 20–1200."
     },
     {
       "range": null,
@@ -7657,10 +7981,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler rage pulse",
-      "labelDe": "Howler rage pulse",
-      "tooltip": "Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase.",
-      "tooltipDe": "Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase."
+      "label": "Howler Darkness Pulse",
+      "labelDe": "Heuler-Dunkelheitspuls",
+      "tooltip": "In its rage phase the Hollow Howler gives\nhunted players nearby Darkness on a\nheartbeat, like the Warden.\nDefault: on.",
+      "tooltipDe": "In der Wut-Phase gibt der Tiefenheuler\ngejagten Spielern in der Nähe im Herzschlag\nDunkelheit, wie der Wärter.\nStandard: an."
     },
     {
       "range": null,
@@ -7670,16 +7994,16 @@
       "name": "howlerScalePercent",
       "shortName": "howlerScalePercent",
       "type": "int",
-      "default": null,
+      "default": "130",
       "note": null,
       "category": "Simple Mobs",
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler scale percent",
-      "labelDe": "Howler scale percent",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Howler Size (%)",
+      "labelDe": "Heuler-Größe (%)",
+      "tooltip": "Size of a newly spawned Hollow Howler in\npercent, hit box and model together.\nDefault: 130. Range: 50–300.",
+      "tooltipDe": "Größe eines neu erscheinenden Tiefenheulers\nin Prozent, Hitbox und Modell zusammen.\nStandard: 130. Bereich: 50–300."
     },
     {
       "range": null,
@@ -7695,10 +8019,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler sculk trail",
-      "labelDe": "Howler sculk trail",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Howler Sculk Trail",
+      "labelDe": "Heuler-Sculkspur",
+      "tooltip": "The Hollow Howler turns the ground it walks\non into sculk, one block every 3 s (needs\nthe mobGriefing game rule).\nDefault: on.",
+      "tooltipDe": "Der Tiefenheuler macht den Boden, über den\ner läuft, zu Sculk – ein Block alle 3 s\n(braucht die Spielregel mobGriefing).\nStandard: an."
     },
     {
       "range": null,
@@ -7714,10 +8038,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler sculk trail max",
-      "labelDe": "Howler sculk trail max",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Howler Sculk Trail: Max Blocks",
+      "labelDe": "Heuler-Sculkspur: höchstens Blöcke",
+      "tooltip": "At most this many sculk blocks of trail per\nHollow Howler.\nDefault: 25. Range: 0–200.",
+      "tooltipDe": "Höchstens so viele Sculk-Blöcke Spur je\nTiefenheuler.\nStandard: 25. Bereich: 0–200."
     },
     {
       "range": null,
@@ -7733,10 +8057,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Howler transform sculk",
-      "labelDe": "Howler transform sculk",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Sculk Around the Summoning",
+      "labelDe": "Sculk rund um die Beschwörung",
+      "tooltip": "When the Hollow Howler appears, the ground\naround the figure (5 x 5) turns into sculk\n(needs the mobGriefing game rule).\nDefault: on.",
+      "tooltipDe": "Erscheint der Tiefenheuler, wird der Boden\num die Figur (5 x 5) zu Sculk (braucht die\nSpielregel mobGriefing).\nStandard: an."
     },
     {
       "range": null,
@@ -7752,10 +8076,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Makeshift spawner slowdown",
-      "labelDe": "Makeshift spawner slowdown",
-      "tooltip": "a Makeshift Spawner works this many times slower than a Vanilla spawner (1 = as fast, 1-10).",
-      "tooltipDe": "a Makeshift Spawner works this many times slower than a Vanilla spawner (1 = as fast, 1-10)."
+      "label": "Makeshift Spawner Slowdown",
+      "labelDe": "Behelfs-Spawner: Verlangsamung",
+      "tooltip": "A Makeshift Spawner works this many times\nslower than a Vanilla spawner (1 = as fast).\nDefault: 3. Range: 1–10.",
+      "tooltipDe": "Ein Behelfsmäßiger Spawner arbeitet um\ndiesen Faktor langsamer als ein\nVanilla-Spawner (1 = gleich schnell).\nStandard: 3. Bereich: 1–10."
     },
     {
       "range": null,
@@ -7771,10 +8095,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Miniboss bars",
-      "labelDe": "Miniboss bars",
-      "tooltip": "Boss bars of the bosses and minibosses (phase notches, colors); the bar shows for players within this many blocks.",
-      "tooltipDe": "Boss bars of the bosses and minibosses (phase notches, colors); the bar shows for players within this many blocks."
+      "label": "Boss Bars",
+      "labelDe": "Bossleisten",
+      "tooltip": "Boss bars with phase notches for the Hollow\nHowler, Dread, Blighted and Abyssal Wither,\nVoid Runner and Brimguard.\nDefault: on.",
+      "tooltipDe": "Bossleisten mit Phasen-Kerben für\nTiefenheuler, Schreckensritter, Verdorrten\nund Abgrund-Wither, Leerenläufer und\nSchirmling.\nStandard: an."
     },
     {
       "range": null,
@@ -7790,10 +8114,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Mirror reflect chance",
-      "labelDe": "Mirror reflect chance",
-      "tooltip": "Mirror effect (MOB27-1, MOB-MIRROR \"stufe\"): chance per hit that the attacker takes damage back instead of the bearer taking more. Rises linearly with the level from mirrorReflectChanceMin (I, default 0.2) to mirrorReflectChance (V, default 0.5); 0..1.",
-      "tooltipDe": "Mirror effect (MOB27-1, MOB-MIRROR \"stufe\"): chance per hit that the attacker takes damage back instead of the bearer taking more. Rises linearly with the level from mirrorReflectChanceMin (I, default 0.2) to mirrorReflectChance (V, default 0.5); 0..1."
+      "label": "Mirror Effect: Chance at V",
+      "labelDe": "Spiegel-Effekt: Chance bei V",
+      "tooltip": "Mirror V: chance per hit that the attacker\ntakes the damage back instead of the bearer\ntaking more. Levels II to IV lie between\nI and V.\nDefault: 0.5. Range: 0–1.",
+      "tooltipDe": "Spiegel V: Chance je Treffer, dass der\nAngreifer den Schaden zurückbekommt, statt\ndass der Träger mehr erleidet. Die Stufen\nII bis IV liegen zwischen I und V.\nStandard: 0,5. Bereich: 0–1."
     },
     {
       "range": null,
@@ -7809,10 +8133,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Mirror reflect chance min",
-      "labelDe": "Mirror reflect chance min",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Mirror Effect: Chance at I",
+      "labelDe": "Spiegel-Effekt: Chance bei I",
+      "tooltip": "Mirror I: chance per hit that the attacker\ntakes the damage back.\nDefault: 0.2. Range: 0–1.",
+      "tooltipDe": "Spiegel I: Chance je Treffer, dass der\nAngreifer den Schaden zurückbekommt.\nStandard: 0,2. Bereich: 0–1."
     },
     {
       "range": null,
@@ -7828,10 +8152,29 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Nether wings speed factor",
-      "labelDe": "Nether wings speed factor",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Nether Wings Speed",
+      "labelDe": "Nether-Schwingen: Tempo",
+      "tooltip": "How many times Vanilla's top rocket speed\nthe Nether Wings reach (1 = Vanilla).\nDefault: 4. Range: 1–8.",
+      "tooltipDe": "Vielfaches des Vanilla-Höchsttempos mit\nRakete, das die Nether-Schwingen erreichen\n(1 = Vanilla).\nStandard: 4. Bereich: 1–8."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+      "name": "reduceMotion",
+      "shortName": "reduceMotion",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Simple Mobs",
+      "categoryDe": "Simple Mobs",
+      "group": null,
+      "groupDe": null,
+      "label": "Reduce Motion",
+      "labelDe": "Bewegung reduzieren",
+      "tooltip": "Turns off the camera shake of the Hollow\nHowler's shockwave and shriek.\nClient-side. Default: off.",
+      "tooltipDe": "Schaltet das Kamerawackeln bei Schockwelle\nund Schrei des Tiefenheulers ab.\nClientseitig. Standard: aus."
     },
     {
       "range": null,
@@ -7847,10 +8190,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Shellker gateway guards",
-      "labelDe": "Shellker gateway guards",
-      "tooltip": "Shellker: four guards at every newly placed End gateway.",
-      "tooltipDe": "Shellker: four guards at every newly placed End gateway."
+      "label": "Shellker Gateway Guards",
+      "labelDe": "Shellker-Torwächter",
+      "tooltip": "Every newly generated End gateway gets four\nShellkers as guards.\nDefault: on.",
+      "tooltipDe": "Jedes neu entstehende Endtransitportal\nbekommt vier Shellker als Wächter.\nStandard: an."
     },
     {
       "range": null,
@@ -7866,10 +8209,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Soulfire blaze chance",
-      "labelDe": "Soulfire blaze chance",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Soulfire Blaze Spawn Chance",
+      "labelDe": "Seelenfeuer-Lohe: Spawn-Chance",
+      "tooltip": "Chance per roll (every 10 s per player in a\nSoul Sand Valley) that a Soulfire Blaze\nspawns.\nDefault: 0.2. Range: 0–1.",
+      "tooltipDe": "Chance je Wurf (alle 10 s je Spieler in\neinem Seelensandtal), dass eine\nSeelenfeuer-Lohe erscheint.\nStandard: 0,2. Bereich: 0–1."
     },
     {
       "range": null,
@@ -7885,10 +8228,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Soulfire blaze spawns",
-      "labelDe": "Soulfire blaze spawns",
-      "tooltip": "Soulfire Blaze: natural spawning in Soul Sand Valleys and its chance per 10 s roll.",
-      "tooltipDe": "Soulfire Blaze: natural spawning in Soul Sand Valleys and its chance per 10 s roll."
+      "label": "Soulfire Blaze Spawning",
+      "labelDe": "Seelenfeuer-Lohe erscheint",
+      "tooltip": "Soulfire Blazes spawn naturally in Soul\nSand Valleys.\nDefault: on.",
+      "tooltipDe": "Seelenfeuer-Lohen erscheinen natürlich in\nSeelensandtälern.\nStandard: an."
     },
     {
       "range": null,
@@ -7904,10 +8247,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Spawner fragment chance",
-      "labelDe": "Spawner fragment chance",
-      "tooltip": "chance that a Vanilla spawner mined with a pickaxe (no Silk Touch) drops a Spawner Fragment (0 = never, 1 = always).",
-      "tooltipDe": "chance that a Vanilla spawner mined with a pickaxe (no Silk Touch) drops a Spawner Fragment (0 = never, 1 = always)."
+      "label": "Spawner Fragment Chance",
+      "labelDe": "Spawner-Fragment-Chance",
+      "tooltip": "Chance that a Vanilla spawner mined with a\npickaxe (no Silk Touch) drops a Spawner\nFragment. 0 = never, 1 = always.\nDefault: 0.3. Range: 0–1.",
+      "tooltipDe": "Chance, dass ein Vanilla-Spawner, mit der\nSpitzhacke abgebaut (ohne Behutsamkeit), ein\nSpawner-Fragment fallen lässt. 0 = nie,\n1 = immer.\nStandard: 0,3. Bereich: 0–1."
     },
     {
       "range": null,
@@ -7923,10 +8266,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Strong tnt power",
-      "labelDe": "Strong tnt power",
-      "tooltip": "Strong TNT (BS25-21): explosion power (Vanilla TNT 4, charged Creeper 6); 4 to 16.",
-      "tooltipDe": "Strong TNT (BS25-21): explosion power (Vanilla TNT 4, charged Creeper 6); 4 to 16."
+      "label": "Strong TNT Power",
+      "labelDe": "Starkes TNT: Sprengkraft",
+      "tooltip": "Explosion power of Strong TNT (Vanilla TNT\n4, a charged Creeper 6).\nDefault: 6. Range: 4–16.",
+      "tooltipDe": "Sprengkraft von Starkem TNT (Vanilla-TNT 4,\nein geladener Creeper 6).\nStandard: 6. Bereich: 4–16."
     },
     {
       "range": null,
@@ -7942,10 +8285,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Trial loot no repeat",
-      "labelDe": "Trial loot no repeat",
-      "tooltip": "Trials (TR31-R): the Evil / Void Vaults draw every item at most once per opening and at least two loot categories (Vanilla loot tables draw with replacement).",
-      "tooltipDe": "Trials (TR31-R): the Evil / Void Vaults draw every item at most once per opening and at least two loot categories (Vanilla loot tables draw with replacement)."
+      "label": "Vault Loot Without Repeats",
+      "labelDe": "Tresor-Beute ohne Wiederholung",
+      "tooltip": "Evil and Void Vaults give every item at most\nonce per opening and at least two kinds of\nloot (resource, healing, magic, cosmetic).\nDefault: on.",
+      "tooltipDe": "Böse und Leere-Tresore geben jeden\nGegenstand höchstens einmal je Öffnung und\nmindestens zwei Beute-Arten (Ressource,\nHeilung, Magie, Kosmetik).\nStandard: an."
     },
     {
       "range": null,
@@ -7961,10 +8304,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Trial spawner cap",
-      "labelDe": "Trial spawner cap",
-      "tooltip": "Trials (TR31-R): at most this many Weathered Trial Spawners of one structure are active at once (0 = no limit).",
-      "tooltipDe": "Trials (TR31-R): at most this many Weathered Trial Spawners of one structure are active at once (0 = no limit)."
+      "label": "Active Weathered Spawners per Trial",
+      "labelDe": "Aktive Verwitterte Spawner je Prüfung",
+      "tooltip": "At most this many Weathered Trial Spawners\nof one structure are active at once.\n0 = no limit.\nDefault: 3. Range: 0–8.",
+      "tooltipDe": "Höchstens so viele Verwitterte\nPrüfungs-Spawner einer Struktur sind\ngleichzeitig aktiv. 0 = keine Grenze.\nStandard: 3. Bereich: 0–8."
     },
     {
       "range": null,
@@ -7980,10 +8323,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Trick mirror enabled",
-      "labelDe": "Trick mirror enabled",
-      "tooltip": "Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on.",
-      "tooltipDe": "Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on."
+      "label": "Trick Mirror",
+      "labelDe": "Trugbild-Spiegel",
+      "tooltip": "On: the Trick Mirror has its recipe and\ndrop, shows in the creative tab and reveals\nfakes. Off: none of that.\nDefault: off.",
+      "tooltipDe": "An: der Trugbild-Spiegel hat Rezept und\nBeute, steht im Kreativ-Tab und enttarnt\nTrugbilder. Aus: nichts davon.\nStandard: aus."
     },
     {
       "range": null,
@@ -7999,10 +8342,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Trim strength",
-      "labelDe": "Trim strength",
-      "tooltip": "Armour trim abilities (QW-07): overall strength factor of every trim bonus, 0 (off) to 2, designed 1.0. Multiplies the strength of the SimpleBuilding host (server.trimStrengths) when there is one, so those per-bonus values are taken over as they are.",
-      "tooltipDe": "Armour trim abilities (QW-07): overall strength factor of every trim bonus, 0 (off) to 2, designed 1.0. Multiplies the strength of the SimpleBuilding host (server.trimStrengths) when there is one, so those per-bonus values are taken over as they are."
+      "label": "Trim Ability Strength",
+      "labelDe": "Stärke der Besatz-Fähigkeiten",
+      "tooltip": "Overall factor of every armor trim bonus:\n0 = off, 1 = as designed, 2 = double. With\nSimpleBuilding it multiplies its own\nper-bonus strengths.\nDefault: 1.0. Range: 0–2.",
+      "tooltipDe": "Gesamtfaktor aller Rüstungsbesatz-Boni:\n0 = aus, 1 = wie geplant, 2 = doppelt. Mit\nSimpleBuilding multipliziert er dessen\nStärken je Bonus.\nStandard: 1,0. Bereich: 0–2."
     },
     {
       "range": null,
@@ -8018,10 +8361,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Trumpet enabled",
-      "labelDe": "Trumpet enabled",
-      "tooltip": "Trumpet (TROMP-3): hold use to play notes, pitch by the look angle. Off = the item does nothing (recipe stays).",
-      "tooltipDe": "Trumpet (TROMP-3): hold use to play notes, pitch by the look angle. Off = the item does nothing (recipe stays)."
+      "label": "Trumpet",
+      "labelDe": "Trompete",
+      "tooltip": "Hold use to play notes; the pitch follows\nyour look angle. Off: the Trumpet does\nnothing (the recipe stays).\nDefault: on.",
+      "tooltipDe": "Benutzen halten spielt Töne; die Tonhöhe\nfolgt deinem Blickwinkel. Aus: die Trompete\ntut nichts (das Rezept bleibt).\nStandard: an."
     },
     {
       "range": null,
@@ -8037,10 +8380,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Void chain",
-      "labelDe": "Void chain",
-      "tooltip": "Void chain (BS27-6): Void Potion / Omen / Trial / Vault; off until the Ender Heart has a source (concept R9). Needs #evilOmen.",
-      "tooltipDe": "Void chain (BS27-6): Void Potion / Omen / Trial / Vault; off until the Ender Heart has a source (concept R9). Needs #evilOmen."
+      "label": "Void Chain",
+      "labelDe": "Leere-Kette",
+      "tooltip": "Void Potion, Void Omen, Void Trials and the\nVoid Vault. Needs the Evil chain.\nDefault: off.",
+      "tooltipDe": "Leere-Trank, Leere-Omen, Leere-Prüfungen und\nder Leere-Tresor. Braucht die Böse Kette.\nStandard: aus."
     },
     {
       "range": null,
@@ -8056,10 +8399,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Void mob tricks",
-      "labelDe": "Void mob tricks",
-      "tooltip": "Trials (TR31-R): Void mobs darken the air 6 blocks around them, Void archers teleport when hit. Needs #voidChain.",
-      "tooltipDe": "Trials (TR31-R): Void mobs darken the air 6 blocks around them, Void archers teleport when hit. Needs #voidChain."
+      "label": "Void Mob Tricks",
+      "labelDe": "Tricks der Leere-Mobs",
+      "tooltip": "Void mobs darken the air 6 blocks around\nthem; Void archers may teleport when hit.\nNeeds the Void chain.\nDefault: on.",
+      "tooltipDe": "Leere-Mobs verdunkeln die Luft 6 Blöcke um\nsich; Leere-Schützen können sich bei einem\nTreffer wegteleportieren. Braucht die\nLeere-Kette.\nStandard: an."
     },
     {
       "range": null,
@@ -8075,10 +8418,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Void runner summon enabled",
-      "labelDe": "Void runner summon enabled",
-      "tooltip": "WP-19 End bosses: the Void Runner column and the Brimguard platform on/off, and whether they only work in the End.",
-      "tooltipDe": "WP-19 End bosses: the Void Runner column and the Brimguard platform on/off, and whether they only work in the End."
+      "label": "Void Runner Summoning",
+      "labelDe": "Leerenläufer-Beschwörung",
+      "tooltip": "Three purpur blocks on End Stone with an Eye\nof Ender, 4 Chorus Fruit and Dragon's Breath\nsummon the Void Runner.\nDefault: on.",
+      "tooltipDe": "Drei Purpurblöcke auf Endstein mit\nEnderauge, 4 Chorusfrüchten und Drachenatem\nrufen den Leerenläufer.\nStandard: an."
     },
     {
       "range": null,
@@ -8094,10 +8437,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Void wings speed factor",
-      "labelDe": "Void wings speed factor",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Void Wings Speed",
+      "labelDe": "Leeren-Schwingen: Tempo",
+      "tooltip": "How many times Vanilla's top rocket speed\nthe Void Wings reach (1 = Vanilla).\nDefault: 8. Range: 1–8.",
+      "tooltipDe": "Vielfaches des Vanilla-Höchsttempos mit\nRakete, das die Leeren-Schwingen erreichen\n(1 = Vanilla).\nStandard: 8. Bereich: 1–8."
     },
     {
       "range": null,
@@ -8113,10 +8456,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Watcher gaze direct",
-      "labelDe": "Watcher gaze direct",
-      "tooltip": "Hollow Watcher gaze zones: half angles in degrees at FOV 70 (scaled with the player's FOV): stands still / slow retreat / direct retreat. */\n    /** Hollow Watcher: direct-look half angle (aggressive), follow/teleport range in blocks, teleport interval in seconds.",
-      "tooltipDe": "Hollow Watcher gaze zones: half angles in degrees at FOV 70 (scaled with the player's FOV): stands still / slow retreat / direct retreat. */\n    /** Hollow Watcher: direct-look half angle (aggressive), follow/teleport range in blocks, teleport interval in seconds."
+      "label": "Watcher Gaze: Direct Look (°)",
+      "labelDe": "Wächter-Blick: direkter Blick (°)",
+      "tooltip": "Half angle in degrees around its eyes that\ncounts as a direct look: it does not freeze\nbut turns aggressive (not scaled).\nDefault: 4. Range: 0.5 up to the stare zone.",
+      "tooltipDe": "Halber Winkel in Grad um seine Augen, der\nals direkter Blick zählt: er erstarrt nicht,\nsondern wird angriffslustig (nicht skaliert).\nStandard: 4. Bereich: 0,5 bis zur Starr-Zone."
     },
     {
       "range": null,
@@ -8132,10 +8475,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Watcher gaze edge",
-      "labelDe": "Watcher gaze edge",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Watcher Gaze: Edge Zone (°)",
+      "labelDe": "Wächter-Blick: Rand-Zone (°)",
+      "tooltip": "Half angle of the edge zone, in which it\nbacks off directly; beyond it, it stalks\nfreely (at FOV 70, scaled).\nDefault: 35. Range: slow zone up to 120.",
+      "tooltipDe": "Halber Winkel der Rand-Zone, in der er\ndirekt zurückweicht; dahinter schleicht er\nfrei (bei FOV 70, skaliert).\nStandard: 35. Bereich: Langsam-Zone bis 120."
     },
     {
       "range": null,
@@ -8151,10 +8494,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Watcher gaze slow",
-      "labelDe": "Watcher gaze slow",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Watcher Gaze: Slow Zone (°)",
+      "labelDe": "Wächter-Blick: Langsam-Zone (°)",
+      "tooltip": "Half angle of the slow zone, in which it\nbacks off slowly (at FOV 70, scaled).\nDefault: 25. Range: stare zone up to 80.",
+      "tooltipDe": "Halber Winkel der Langsam-Zone, in der er\nlangsam zurückweicht (bei FOV 70, skaliert).\nStandard: 25. Bereich: Starr-Zone bis 80."
     },
     {
       "range": null,
@@ -8170,10 +8513,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Watcher gaze stare",
-      "labelDe": "Watcher gaze stare",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Watcher Gaze: Stare Zone (°)",
+      "labelDe": "Wächter-Blick: Starr-Zone (°)",
+      "tooltip": "Half angle in degrees around your view\ncenter in which the Hollow Watcher stands\nstill (at FOV 70, scaled with your FOV).\nDefault: 10. Range: 1–60.",
+      "tooltipDe": "Halber Winkel in Grad um deine Blickmitte,\nin dem der Hohle Wächter stillsteht (bei\nFOV 70, wächst mit deinem FOV).\nStandard: 10. Bereich: 1–60."
     },
     {
       "range": null,
@@ -8189,10 +8532,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Watcher range",
-      "labelDe": "Watcher range",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Watcher Range",
+      "labelDe": "Wächter-Reichweite",
+      "tooltip": "Farther away than this many blocks the\nHollow Watcher neither follows nor\nteleports.\nDefault: 48. Range: 8–128.",
+      "tooltipDe": "Weiter als so viele Blöcke entfernt folgt\nder Hohle Wächter nicht und teleportiert\nnicht.\nStandard: 48. Bereich: 8–128."
     },
     {
       "range": null,
@@ -8208,10 +8551,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Watcher teleport seconds",
-      "labelDe": "Watcher teleport seconds",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Watcher Teleport Interval (Seconds)",
+      "labelDe": "Wächter-Teleport: Abstand (Sekunden)",
+      "tooltip": "Seconds between its teleports to a target\nin range.\nDefault: 6. Range: 1–120.",
+      "tooltipDe": "Sekunden zwischen seinen Teleports zu einem\nZiel in Reichweite.\nStandard: 6. Bereich: 1–120."
     },
     {
       "range": null,
@@ -8227,10 +8570,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Weathered decay percent",
-      "labelDe": "Weathered decay percent",
-      "tooltip": "Trials (TR31-R): how many percent of the Weathered Trials' copper and tuff blocks are missing in new structures (0-100, Vanilla-like 11).",
-      "tooltipDe": "Trials (TR31-R): how many percent of the Weathered Trials' copper and tuff blocks are missing in new structures (0-100, Vanilla-like 11)."
+      "label": "Weathered Trials Decay (%)",
+      "labelDe": "Verwitterte Prüfungen: Verfall (%)",
+      "tooltip": "How many percent of the copper and tuff\nblocks are missing in new Weathered Trials.\nDefault: 11. Range: 0–100.",
+      "tooltipDe": "So viel Prozent der Kupfer- und Tuffblöcke\nfehlen in neuen Verwitterten Prüfungen.\nStandard: 11. Bereich: 0–100."
     },
     {
       "range": null,
@@ -8246,10 +8589,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Weathered structures",
-      "labelDe": "Weathered structures",
-      "tooltip": "Trials (TR31-R): Weathered Trials generate in new chunks; off = none (existing ones stay).",
-      "tooltipDe": "Trials (TR31-R): Weathered Trials generate in new chunks; off = none (existing ones stay)."
+      "label": "Generate Weathered Trials",
+      "labelDe": "Verwitterte Prüfungen erzeugen",
+      "tooltip": "Weathered Trials generate in new chunks.\nOff: no new ones; existing ones stay.\nDefault: on.",
+      "tooltipDe": "Verwitterte Prüfungen entstehen in neuen\nChunks. Aus: keine neuen; vorhandene\nbleiben.\nStandard: an."
     },
     {
       "range": null,
@@ -8265,10 +8608,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Wither summon enabled",
-      "labelDe": "Wither summon enabled",
-      "tooltip": "Blighted/Abyssal Wither: the helmet on the middle skull on/off (off: the figure summons the Vanilla Wither).",
-      "tooltipDe": "Blighted/Abyssal Wither: the helmet on the middle skull on/off (off: the figure summons the Vanilla Wither)."
+      "label": "Armored Wither Summoning",
+      "labelDe": "Gepanzerter Wither: Beschwörung",
+      "tooltip": "A Netherite Helmet (Abyssal: an Enderite\nhelmet) on the middle skull of the Wither\nfigure summons the Blighted Wither. Off: the\nfigure summons the Vanilla Wither.\nDefault: on.",
+      "tooltipDe": "Ein Netherithelm (Abgrund: ein Enderit-Helm)\nauf dem mittleren Schädel der Wither-Figur\nruft den Verdorrten Wither. Aus: die Figur\nruft den Vanilla-Wither.\nStandard: an."
     },
     {
       "range": null,
@@ -8284,10 +8627,10 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Wither wilt",
-      "labelDe": "Wither wilt",
-      "tooltip": "Blighted Wither phase 3 wilts plants and natural leaves (also needs the mobGriefing game rule).",
-      "tooltipDe": "Blighted Wither phase 3 wilts plants and natural leaves (also needs the mobGriefing game rule)."
+      "label": "Blighted Wither Wilts Plants",
+      "labelDe": "Verdorrter Wither lässt Pflanzen welken",
+      "tooltip": "In phase 3 the Blighted Wither wilts plants\nand natural leaves (also needs the\nmobGriefing game rule).\nDefault: on.",
+      "tooltipDe": "In Phase 3 lässt der Verdorrte Wither\nPflanzen und natürliches Laub welken\n(braucht auch die Spielregel mobGriefing).\nStandard: an."
     },
     {
       "range": null,
@@ -8303,10 +8646,67 @@
       "categoryDe": "Simple Mobs",
       "group": null,
       "groupDe": null,
-      "label": "Wither wings speed factor",
-      "labelDe": "Wither wings speed factor",
-      "tooltip": "Wither/Nether/End/Void Wings (EL24-1, WA24-2, WB24-2): how many times Vanilla's top rocket speed they reach (1 = Vanilla, at most 8).",
-      "tooltipDe": "Wither/Nether/End/Void Wings (EL24-1, WA24-2, WB24-2): how many times Vanilla's top rocket speed they reach (1 = Vanilla, at most 8)."
+      "label": "Wither Wings Speed",
+      "labelDe": "Wither-Schwingen: Tempo",
+      "tooltip": "How many times Vanilla's top rocket speed\nthe Wither Wings reach (1 = Vanilla).\nDefault: 2. Range: 1–8.",
+      "tooltipDe": "Vielfaches des Vanilla-Höchsttempos mit\nRakete, das die Wither-Schwingen erreichen\n(1 = Vanilla).\nStandard: 2. Bereich: 1–8."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+      "name": "zoneMaxEffects",
+      "shortName": "zoneMaxEffects",
+      "type": "int",
+      "default": "3",
+      "note": null,
+      "category": "Simple Mobs",
+      "categoryDe": "Simple Mobs",
+      "group": null,
+      "groupDe": null,
+      "label": "Danger Zones: Max Effects",
+      "labelDe": "Gefahrenzonen: höchstens Effekte",
+      "tooltip": "At most this many zone effects per monster.\nDefault: 3. Range: 0–8.",
+      "tooltipDe": "Höchstens so viele Zonen-Effekte je Monster.\nStandard: 3. Bereich: 0–8."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+      "name": "zoneMobsEnabled",
+      "shortName": "zoneMobsEnabled",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Simple Mobs",
+      "categoryDe": "Simple Mobs",
+      "group": null,
+      "groupDe": null,
+      "label": "Danger Zone Effects",
+      "labelDe": "Gefahrenzonen-Effekte",
+      "tooltip": "New monsters get status effects by the\nSimple Resonance level of their spawn place\n(never more health). Needs Simple Resonance.\nDefault: off.",
+      "tooltipDe": "Neue Monster bekommen Statuseffekte nach\nder Simple-Resonance-Stufe ihres Spawn-Orts\n(nie mehr Leben). Braucht Simple Resonance.\nStandard: aus."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+      "name": "zoneSpawnReasons",
+      "shortName": "zoneSpawnReasons",
+      "type": "List",
+      "default": "natural, patrol, chunk_generation",
+      "note": null,
+      "category": "Simple Mobs",
+      "categoryDe": "Simple Mobs",
+      "group": null,
+      "groupDe": null,
+      "label": "Danger Zones: Spawn Reasons",
+      "labelDe": "Gefahrenzonen: Spawn-Gründe",
+      "tooltip": "Only monsters with these spawn reasons get\nzone effects, one per line (natural, patrol,\nchunk_generation, ...).\nDefault: natural, patrol, chunk_generation.",
+      "tooltipDe": "Nur Monster mit diesen Spawn-Gründen\nbekommen Zonen-Effekte, einer je Zeile\n(natural, patrol, chunk_generation, ...).\nStandard: natural, patrol, chunk_generation."
     }
   ],
   "quests": [],
@@ -8433,7 +8833,7 @@
     "items": 55,
     "blocks": 8,
     "trades": 0,
-    "config": 61,
+    "config": 82,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
