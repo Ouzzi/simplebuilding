@@ -2,4 +2,6 @@ plugins {
     id 'java-library'
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
+// SimpleLib (InteractionGuard: Dino-Pflug/Herden-Ruf nur mit Baurecht) nested next to framework (principle 6a); compiled against.
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')
