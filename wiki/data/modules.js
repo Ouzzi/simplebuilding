@@ -513,7 +513,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 12
     },
-    "dataHash": "6c6a0f8b727b"
+    "dataHash": "ca7461192cba"
   },
   {
     "id": "simplesandwiches",
@@ -2266,7 +2266,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 27,
       "recipes": 28,
-      "config": 9,
+      "config": 10,
       "features": 6
     },
     "dataHash": "e3647e49d318"
