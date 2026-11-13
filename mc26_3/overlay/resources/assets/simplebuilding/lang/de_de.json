@@ -64,6 +64,8 @@
   "simplebuilding.testcentre.command.order_built": "Ordnungs-Bereiche gebaut bei %s %s %s (%s x %s, %s ms)",
   "simplebuilding.testcentre.command.mobs_spawned": "%s stille Mobs beschworen (%s standen schon)",
   "simplebuilding.testcentre.command.mobs_removed": "%s stille Mobs entfernt",
+  "simplebuilding.testcentre.command.mobs_busy": "Der Mob-Knopf arbeitet noch - kurz warten",
+  "simplebuilding.testcentre.command.mobs_working": "Lade die Chunks von %s stillen Mobs ...",
   "simplebuilding.testcentre.command.overworld_only": "Die Testzentrale steht in der Oberwelt - erst dorthin wechseln",
   "simplebuilding.testcentre.command.unsorted": "%s Mod-Items stehen noch in keinem Abschnitt (siehe 'Unsortiert')",
   "simplebuilding.testcentre.controls.clear": "Klares Wetter",

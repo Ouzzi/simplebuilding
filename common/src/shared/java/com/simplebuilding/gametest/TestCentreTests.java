@@ -2333,12 +2333,16 @@ public final class TestCentreTests {
         helper.succeed();
     }
 
+    /** Ticks fuer {@link #mobButtonsSummonAndRemoveTheStillMobs}: Chunks laden, vier Auftraege nacheinander. */
+    public static final int MOB_BUTTONS_MAX_TICKS = 600;
+
     /**
      * a-fix13 (TZ38D=ok, Besitzer 13.11.): in der Steuerwand BEIDER Varianten (lines|blocks) stehen zwei Befehlsbloecke - einer
      * beschwoert ALLE stillen Mobs ({@code sbtestcentre mobs spawn}), einer entfernt sie wieder ({@code mobs remove}) - und der
-     * Knopf "Mobs entfernen" fuer lebende Mobs verschont sie. Die Logik dahinter an drei Mobs in zwei Chunks mit einem fremden Tier
-     * daneben: beschwoeren = alle da, still, unverwundbar, mit dem Tag; nochmal = nichts doppelt; entfernen = alle weg, das fremde
-     * Tier bleibt; der Rueckweg bringt wieder genau drei.
+     * Knopf "Mobs entfernen" fuer lebende Mobs verschont sie. Die Logik dahinter (der Auftrag ueber mehrere Ticks, der die Chunks
+     * erzwingt und auf ihre Entities wartet) an drei Mobs in zwei Chunks mit einem fremden Tier daneben: beschwoeren = alle da, still,
+     * unverwundbar, mit dem Tag; nochmal = nichts doppelt; entfernen = alle weg, das fremde Tier bleibt; der Rueckweg bringt wieder
+     * genau drei; ein zweiter Auftrag waehrend eines laufenden wird abgelehnt.
      */
     public static void mobButtonsSummonAndRemoveTheStillMobs(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -2359,42 +2363,75 @@ public final class TestCentreTests {
 
         BlockPos origin = new BlockPos(28000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 28000);
         com.simplebuilding.dev.testcentre.TcCanvas canvas = new com.simplebuilding.dev.testcentre.TcCanvas();
-        Identifier pig = BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.PIG);
-        Identifier cow = BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.COW);
-        Identifier sheep = BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.SHEEP);
-        canvas.mob(1, 0, 1, 180F, pig);
-        canvas.mob(5, 0, 1, 180F, cow);
-        canvas.mob(3, 0, 40, 180F, sheep); // another chunk row: the button reaches mobs far from each other
+        canvas.mob(1, 0, 1, 180F, BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.PIG));
+        canvas.mob(5, 0, 1, 180F, BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.COW));
+        // another chunk row: the button reaches mobs far from each other
+        canvas.mob(3, 0, 40, 180F, BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.SHEEP));
         List<TcOp> ops = new ArrayList<>();
         canvas.ops().forEach(op -> ops.add(op.moved(origin)));
         AABB area = new AABB(origin.getX() - 2, level.getMinY(), origin.getZ() - 2, origin.getX() + 12, level.getMaxY() + 1, origin.getZ() + 45);
         java.util.function.Supplier<List<net.minecraft.world.entity.Entity>> tagged = () -> level.getEntitiesOfClass(
                 net.minecraft.world.entity.Entity.class, area,
                 entity -> entity.entityTags().contains(com.simplebuilding.dev.testcentre.OrderAreas.MOB_TAG));
-        level.getChunkAt(origin);
-        net.minecraft.world.entity.Entity bystander = net.minecraft.world.entity.EntityTypes.COW.create(level,
-                net.minecraft.world.entity.EntitySpawnReason.COMMAND);
-        bystander.setPos(origin.getX() + 9.5, origin.getY(), origin.getZ() + 1.5);
-        level.addFreshEntity(bystander);
-        try {
-            helper.assertTrue(TestCentreBuilder.spawnMobs(level, ops) == 3 && tagged.get().size() == 3,
-                    "summon all: expected 3 still mobs, alive " + tagged.get().size());
+        // The test holds the chunks itself (like the button test), so the checks between the jobs still see the entities.
+        List<net.minecraft.world.level.ChunkPos> chunks = List.of(net.minecraft.world.level.ChunkPos.containing(origin),
+                net.minecraft.world.level.ChunkPos.containing(origin.offset(3, 0, 40)));
+        List<net.minecraft.world.level.ChunkPos> forced = new ArrayList<>();
+        for (net.minecraft.world.level.ChunkPos chunk : chunks) {
+            if (level.setChunkForced(chunk.x(), chunk.z(), true)) {
+                forced.add(chunk);
+            }
+        }
+        net.minecraft.world.entity.Entity[] bystander = new net.minecraft.world.entity.Entity[1];
+        int[] result = {-1};
+        Runnable cleanup = () -> {
+            TestCentreBuilder.removeMobs(level, ops);
+            if (bystander[0] != null) {
+                bystander[0].discard();
+            }
+            for (net.minecraft.world.level.ChunkPos chunk : forced) {
+                level.setChunkForced(chunk.x(), chunk.z(), false);
+            }
+        };
+        helper.runBeforeTestEnd(cleanup);
+        Runnable waitForJob = () -> helper.assertTrue(result[0] >= 0, "waiting for the mob job");
+        var sequence = helper.startSequence().thenWaitUntil(() -> {
+            for (net.minecraft.world.level.ChunkPos chunk : chunks) {
+                helper.assertTrue(level.areEntitiesLoaded(chunk.pack()), "waiting for the entities of chunk " + chunk);
+            }
+        }).thenExecute(cleanupOnFailure(cleanup, () -> {
+            bystander[0] = net.minecraft.world.entity.EntityTypes.COW.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+            bystander[0].setPos(origin.getX() + 9.5, origin.getY(), origin.getZ() + 1.5);
+            level.addFreshEntity(bystander[0]);
+            helper.assertTrue(TestCentreBuilder.queueMobs(level, ops, true, count -> result[0] = count), "the first mob job was refused");
+            helper.assertTrue(TestCentreBuilder.mobJobPending() && !TestCentreBuilder.queueMobs(level, ops, true, count -> { }),
+                    "a second mob job while one is running must be refused");
+        })).thenWaitUntil(waitForJob).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(result[0] == 3 && tagged.get().size() == 3,
+                    "summon all: expected 3 still mobs, job says " + result[0] + ", alive " + tagged.get().size());
             for (net.minecraft.world.entity.Entity entity : tagged.get()) {
                 helper.assertTrue(entity.isInvulnerable() && entity.isSilent() && entity instanceof net.minecraft.world.entity.Mob mob
                                 && mob.isNoAi() && mob.isPersistenceRequired(),
                         BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()) + " is not a still, unhurt, silent, persistent mob");
             }
-            helper.assertTrue(TestCentreBuilder.spawnMobs(level, ops) == 0 && tagged.get().size() == 3,
-                    "summoning again must not double the mobs, alive " + tagged.get().size());
-            helper.assertTrue(TestCentreBuilder.removeMobs(level, ops) == 3 && tagged.get().isEmpty(),
-                    "remove all: expected 3 removed, left " + tagged.get().size());
-            helper.assertTrue(!bystander.isRemoved(), "remove all must only take the tagged mobs, the other cow is gone");
-            helper.assertTrue(TestCentreBuilder.spawnMobs(level, ops) == 3 && tagged.get().size() == 3,
-                    "summon after remove: expected 3, alive " + tagged.get().size());
-        } finally {
-            TestCentreBuilder.removeMobs(level, ops);
-            bystander.discard();
-        }
-        helper.succeed();
+            result[0] = -1;
+            TestCentreBuilder.queueMobs(level, ops, true, count -> result[0] = count);
+        })).thenWaitUntil(waitForJob).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(result[0] == 0 && tagged.get().size() == 3,
+                    "summoning again must not double the mobs: job says " + result[0] + ", alive " + tagged.get().size());
+            result[0] = -1;
+            TestCentreBuilder.queueMobs(level, ops, false, count -> result[0] = count);
+        })).thenWaitUntil(waitForJob).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(result[0] == 3 && tagged.get().isEmpty(),
+                    "remove all: expected 3 removed, job says " + result[0] + ", left " + tagged.get().size());
+            helper.assertTrue(!bystander[0].isRemoved(), "remove all must only take the tagged mobs, the other cow is gone");
+            result[0] = -1;
+            TestCentreBuilder.queueMobs(level, ops, true, count -> result[0] = count);
+        })).thenWaitUntil(waitForJob).thenExecute(cleanupOnFailure(cleanup, () -> {
+            helper.assertTrue(result[0] == 3 && tagged.get().size() == 3,
+                    "summon after remove: expected 3, job says " + result[0] + ", alive " + tagged.get().size());
+            helper.assertTrue(!TestCentreBuilder.mobJobPending(), "the mob job did not finish");
+        }));
+        sequence.thenExecute(cleanup).thenSucceed();
     }
 }

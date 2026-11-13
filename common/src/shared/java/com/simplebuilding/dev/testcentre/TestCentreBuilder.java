@@ -410,7 +410,7 @@ public final class TestCentreBuilder {
         return removeMobs(level, mobOps(plan));
     }
 
-    private static List<TcOp> mobOps(TestCentreLayout.Plan plan) {
+    static List<TcOp> mobOps(TestCentreLayout.Plan plan) {
         List<TcOp> out = new ArrayList<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             for (TcOp op : section.ops()) {
@@ -428,6 +428,79 @@ public final class TestCentreBuilder {
                 .getOptional(mob.entity()).orElse(null);
         return type == null ? List.of() : level.getEntitiesOfClass(Entity.class, new AABB(mob.pos()),
                 entity -> entity.getType() == type && entity.entityTags().contains(OrderAreas.MOB_TAG));
+    }
+
+    // ------------------------------------------------------------------ a-fix13: Mob-Knoepfe als kurzer Auftrag ueber mehrere Ticks
+
+    /**
+     * Der Knopf steht weit von den Mobs: deren Chunks sind oft nicht geladen, und die Entities eines Chunks kommen erst einige Ticks
+     * nach dem Chunk (Entity-Speicher laedt asynchron; vorher wuerde "beschwoeren" die schon gespeicherten Mobs doppeln und "entfernen"
+     * sie nicht finden). Darum erzwingt der Auftrag die Chunks, wartet auf {@code areEntitiesLoaded}, arbeitet dann in einem Tick und
+     * gibt die Chunks wieder frei; nach {@link #MOB_JOB_TIMEOUT_TICKS} Ticks mit dem, was geladen ist.
+     */
+    static final int MOB_JOB_TIMEOUT_TICKS = 400;
+
+    private record MobJob(ServerLevel level, List<TcOp> mobs, boolean spawn, List<net.minecraft.world.level.ChunkPos> chunks,
+                          List<net.minecraft.world.level.ChunkPos> forced, int deadline, java.util.function.IntConsumer done) {
+    }
+
+    private static MobJob pendingMobs;
+
+    /** Ob ein Mob-Auftrag noch laeuft (es laeuft hoechstens einer). */
+    public static boolean mobJobPending() {
+        return pendingMobs != null;
+    }
+
+    /**
+     * Stellt einen Auftrag ein: {@code spawn} beschwoert alle {@link TcOp.Mob}-Schritte von {@code ops}, sonst entfernt es die
+     * stillen Mobs dort ({@link #spawnMobs}/{@link #removeMobs}); {@code done} bekommt die Zahl, im selben Tick vor der Freigabe der
+     * Chunks. False, wenn schon ein Auftrag laeuft.
+     */
+    public static boolean queueMobs(ServerLevel level, Iterable<? extends TcOp> ops, boolean spawn, java.util.function.IntConsumer done) {
+        if (pendingMobs != null) {
+            return false;
+        }
+        List<TcOp> mobs = new ArrayList<>();
+        java.util.Set<net.minecraft.world.level.ChunkPos> chunks = new java.util.LinkedHashSet<>();
+        for (TcOp op : ops) {
+            if (op instanceof TcOp.Mob mob) {
+                mobs.add(mob);
+                chunks.add(net.minecraft.world.level.ChunkPos.containing(mob.pos()));
+            }
+        }
+        List<net.minecraft.world.level.ChunkPos> forced = new ArrayList<>();
+        for (net.minecraft.world.level.ChunkPos chunk : chunks) {
+            if (level.setChunkForced(chunk.x(), chunk.z(), true)) {
+                forced.add(chunk); // only what this job forced is released again
+            }
+        }
+        pendingMobs = new MobJob(level, mobs, spawn, List.copyOf(chunks), forced,
+                level.getServer().getTickCount() + MOB_JOB_TIMEOUT_TICKS, done);
+        return true;
+    }
+
+    /** Jeden Server-Tick ({@link TestCentreCommand#serverTick}): ein wartender Mob-Auftrag laeuft, sobald alle Chunks ihre Entities haben. */
+    static void tickMobJobs(net.minecraft.server.MinecraftServer server) {
+        MobJob job = pendingMobs;
+        if (job == null) {
+            return;
+        }
+        boolean sameServer = job.level().getServer() == server;
+        boolean ready = sameServer && job.chunks().stream().allMatch(chunk -> job.level().areEntitiesLoaded(chunk.pack()));
+        if (sameServer && !ready && server.getTickCount() < job.deadline()) {
+            return;
+        }
+        pendingMobs = null;
+        try {
+            if (sameServer) {
+                int count = job.spawn() ? spawnMobs(job.level(), job.mobs()) : removeMobs(job.level(), job.mobs());
+                job.done().accept(count);
+            }
+        } finally {
+            for (net.minecraft.world.level.ChunkPos chunk : job.forced()) {
+                job.level().setChunkForced(chunk.x(), chunk.z(), false);
+            }
+        }
     }
 
     /**

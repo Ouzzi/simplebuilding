@@ -429,24 +429,26 @@ public final class TestCentreCommand {
      * {@code mobs spawn|remove} (a-fix13): beschwoert alle Mob-Schritte der Planung am gespeicherten Ursprung ohne KI,
      * unverwundbar, still und dauerhaft (was schon steht, bleibt), bzw. entfernt alle Entities mit dem Tag
      * {@link OrderAreas#MOB_TAG}. Die Planung traegt die Variante (lines|blocks) des letzten Baus, die Knoepfe passen also
-     * zu beiden.
+     * zu beiden. Die Mobs stehen weit weg: ein Auftrag ueber einige Ticks ({@link TestCentreBuilder#queueMobs}), das Ergebnis
+     * kommt danach als Antwort.
      */
     static int mobs(CommandSourceStack source, boolean spawn) {
         if (outsideOverworld(source)) {
             return 0;
         }
         ServerLevel level = source.getLevel();
-        TestCentreLayout.Plan plan = plan(level, savedOrDefaultOrigin(level));
-        if (spawn) {
-            long planned = plan.sections().stream().flatMap(section -> section.ops().stream()).filter(op -> op instanceof TcOp.Mob).count();
-            int spawned = TestCentreBuilder.spawnMobs(level, plan);
-            source.sendSuccess(() -> TcText.t("command.mobs_spawned", "%s still mobs summoned (%s were already standing)",
-                    spawned, planned - spawned).withStyle(ChatFormatting.GREEN), true);
-            return spawned;
+        List<TcOp> ops = TestCentreBuilder.mobOps(plan(level, savedOrDefaultOrigin(level)));
+        int planned = ops.size();
+        boolean queued = TestCentreBuilder.queueMobs(level, ops, spawn, count -> source.sendSuccess(() -> spawn
+                ? TcText.t("command.mobs_spawned", "%s still mobs summoned (%s were already standing)", count, planned - count)
+                        .withStyle(ChatFormatting.GREEN)
+                : TcText.t("command.mobs_removed", "%s still mobs removed", count).withStyle(ChatFormatting.GREEN), true));
+        if (!queued) {
+            source.sendFailure(TcText.t("command.mobs_busy", "The mob button is still working - wait a moment"));
+            return 0;
         }
-        int removed = TestCentreBuilder.removeMobs(level, plan);
-        source.sendSuccess(() -> TcText.t("command.mobs_removed", "%s still mobs removed", removed).withStyle(ChatFormatting.GREEN), true);
-        return removed;
+        source.sendSuccess(() -> TcText.t("command.mobs_working", "Loading the chunks of %s still mobs ...", planned), false);
+        return Math.max(1, planned);
     }
 
     /** Die wichtigsten Werkzeuge: je Familie die hoechste Stufe, dazu die Geraete und eine Blaupause. */
@@ -643,6 +645,7 @@ public final class TestCentreCommand {
 
     /** Jeden Server-Tick (ueber TweaksContent#onServerTick auf allen Loadern): faelligen Neubau ausfuehren. */
     public static void serverTick(MinecraftServer server) {
+        TestCentreBuilder.tickMobJobs(server);
         PendingRebuild job = pending;
         if (job == null) {
             return;

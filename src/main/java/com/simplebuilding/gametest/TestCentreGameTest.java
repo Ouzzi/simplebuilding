@@ -123,7 +123,7 @@ public final class TestCentreGameTest {
         TestCentreTests.testcenterCommandClearsAndBuildsTheModArea(helper);
     }
 
-    @GameTest
+    @GameTest(maxTicks = TestCentreTests.MOB_BUTTONS_MAX_TICKS)
     public void mobButtonsSummonAndRemoveTheStillMobs(GameTestHelper helper) {
         TestCentreTests.mobButtonsSummonAndRemoveTheStillMobs(helper);
     }

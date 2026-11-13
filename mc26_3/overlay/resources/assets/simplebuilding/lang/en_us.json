@@ -64,6 +64,8 @@
   "simplebuilding.testcentre.command.order_built": "Order areas built at %s %s %s (%s x %s, %s ms)",
   "simplebuilding.testcentre.command.mobs_spawned": "%s still mobs summoned (%s were already standing)",
   "simplebuilding.testcentre.command.mobs_removed": "%s still mobs removed",
+  "simplebuilding.testcentre.command.mobs_busy": "The mob button is still working - wait a moment",
+  "simplebuilding.testcentre.command.mobs_working": "Loading the chunks of %s still mobs ...",
   "simplebuilding.testcentre.command.overworld_only": "The test center lives in the Overworld - go there first",
   "simplebuilding.testcentre.command.unsorted": "%s mod items are not in a section yet (see 'Unsorted')",
   "simplebuilding.testcentre.controls.clear": "Clear weather",
