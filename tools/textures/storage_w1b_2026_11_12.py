@@ -12,11 +12,8 @@ Targets (modules/simplestorage/shared/resources/assets/simplestorage/textures/):
     barrel pixels (crucible_art_v2.wood_to / copper_barrels.copperize): newly drawn with own pixels, the accepted
     chest-style motif kept (staves in the tier's chest tones, two hoops at rows 3-4 / 11-12 with rivets and corner
     studs, lock on the upper hoop; lid with frame, corner studs, planks and the handle; bottom with cross planks).
-  * item/enderite_{bundle,quiver}_dyed{,_overlay}.png - the 26.3 dye layers follow the accepted TEXRATE20 design A
-    (tools/textures/texrate20_2026_11_10.py) instead of the old tools/textures/hand/ templates: the leather goes to the
-    neutral grey *_dyed layer (same recipe as generate_textures.split_dyed + storage_dye_palette.neutral: enderite
-    DYE_STYLE, keep = the darkest leather tone shows the tier), outline, enderite ring/bands, glimmer and arrows stay in
-    *_dyed_overlay (with the WA24-4 feather outline of the quiver).
+  * item/enderite_{bundle,quiver}_dyed{,_overlay}.png were drawn here until a-bundlequiver (13.11.2026); the owner
+    objected (A-W1B T12/T13), they are bundlequiver_2026_11_13.py targets now.
 
     python3 tools/textures/storage_w1b_2026_11_12.py --write        write every target (+ .layers.json)
     python3 tools/textures/storage_w1b_2026_11_12.py --check        every target equals the design (exit 1 if not)
@@ -336,66 +333,6 @@ def lid(tier, part):
     return g.t
 
 
-# --------------------------------------------------------------------------------------------- dyed bundle/quiver
-DYE = {'lo': 0x40, 'hi': 0xa4, 'hue': '#a07ae0', 'sat': 0.6, 'keep': 0.2}  # generate_textures.DYE_STYLE['enderite']
-FEATHER_GREYS = {(0xc6, 0xc6, 0xc6), (0xe0, 0xe0, 0xe0), (0x88, 0x88, 0x88), (0x3f, 0x3f, 0x3f)}
-
-
-def dye_base(t):
-    v = DYE['lo'] + (DYE['hi'] - DYE['lo']) * max(0.0, min(1.0, t))
-    hue = H(DYE['hue'])
-    lh = lum(hue)
-    return tuple(min(255, round(v * ((1 - DYE['sat']) + DYE['sat'] * c / lh))) for c in hue[:3])
-
-
-TOP = lum(dye_base(1.0))  # storage_dye_palette.write_neutral_layers: brightest dyed pixel of the group (t = 1)
-
-
-def neutral(c):
-    v = round(245 * (lum(c) / TOP) ** 0.8)
-    return (v, v, v, 255)
-
-
-LEATHER = {T20.END_PAL[k][:3] for k in 'abcd'}
-
-
-def dyed_pair(t, quiver):
-    """(dyed, overlay) Tex of a TEXRATE20 design: leather (a-d) whose relative brightness is >= keep -> neutral grey."""
-    px = t.p
-    leather = [i for i, c in enumerate(px) if c and c[:3] in LEATHER]
-    lums = [lum(px[i]) for i in leather]
-    lo, hi = min(lums), max(lums)
-    dyed, over = T20.Tex(), T20.Tex()
-    for i, c in enumerate(px):
-        if c is None:
-            continue
-        r = (lum(c) - lo) / (hi - lo)
-        if i in leather and r >= DYE['keep']:
-            dyed.p[i] = neutral(dye_base(r))
-        else:
-            over.p[i] = c
-    dyed.snap('Leder (wird gefaerbt)')
-    over.snap('Umriss, Beschlag, Glimmer, dunkelstes Leder')
-    if quiver:  # WA24-4: dark outline on the free neighbours of the grey feathers (generate_textures.quiver_feather_outline)
-        edge = px[3 * 16 + 3]
-        feather = [i for i, c in enumerate(over.p) if c and c[:3] in FEATHER_GREYS]
-        for i in feather:
-            x, y = i % 16, i // 16
-            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                nx, ny = x + dx, y + dy
-                if 0 <= nx < 16 and 0 <= ny < 16 and px[ny * 16 + nx] is None and over.p[ny * 16 + nx] is None:
-                    over.p[ny * 16 + nx] = edge
-        over.snap('Federumriss (WA24-4)')
-    return dyed, over
-
-
-def dyed(kind, layer):
-    def make():
-        t = T20.design(f'{ITEM}/enderite_{kind}.png')
-        return dyed_pair(t, kind == 'quiver')[layer]
-    return make
-
-
 # --------------------------------------------------------------------------------------------- targets
 DESIGNS = {}
 for _tier in ('reinforced', 'netherite'):
@@ -404,25 +341,8 @@ for _tier in ('copper', 'reinforced', 'netherite'):
     DESIGNS[f'{BLOCK}/{_tier}_barrel_side.png'] = (lambda tr: lambda: side(tr))(_tier)
     DESIGNS[f'{BLOCK}/{_tier}_barrel_top.png'] = (lambda tr: lambda: lid(tr, 'top'))(_tier)
     DESIGNS[f'{BLOCK}/{_tier}_barrel_bottom.png'] = (lambda tr: lambda: lid(tr, 'bottom'))(_tier)
-for _kind in ('bundle', 'quiver'):
-    DESIGNS[f'{ITEM}/enderite_{_kind}_dyed.png'] = dyed(_kind, 0)
-    DESIGNS[f'{ITEM}/enderite_{_kind}_dyed_overlay.png'] = dyed(_kind, 1)
-
-
-def dyed_problems():
-    """26.3 dye rules (as dyed_storage_preview.problems, which only reads the SimpleBuilding trees): the *_dyed layer is
-    neutral grey, the two layers never overlap and together cover every opaque pixel of the undyed item."""
-    out = []
-    for kind in ('bundle', 'quiver'):
-        base = T20.design(f'{ITEM}/enderite_{kind}.png').p
-        dy, ov = (DESIGNS[f'{ITEM}/enderite_{kind}{s}.png']().p for s in ('_dyed', '_dyed_overlay'))
-        if any(c and max(c[:3]) - min(c[:3]) > 0 for c in dy):
-            out.append(f'enderite_{kind}_dyed: not neutral grey')
-        if any(a and b for a, b in zip(dy, ov)):
-            out.append(f'enderite_{kind}: dyed and overlay overlap')
-        if any(c and not (a or b) for c, a, b in zip(base, dy, ov)):
-            out.append(f'enderite_{kind}: a pixel of the undyed item is in neither layer')
-    return out
+# a-bundlequiver (13.11.): the Enderite bundle/quiver dye layers (and their dye rules) moved to
+# bundlequiver_2026_11_13.py (owner objection A-W1B T12/T13).
 
 
 def write(rel, t):
@@ -452,7 +372,6 @@ def main(argv=None):
                 bad.append(rel)
             elif not L.layers_path(png).is_file():
                 bad.append(rel + ' (.layers.json fehlt)')
-        bad += dyed_problems()
         print('\n'.join('nicht aktuell: ' + b for b in bad) or f'OK: storage_w1b-Ziele aktuell ({len(DESIGNS)})')
         return 1 if bad else 0
     if a.write:
