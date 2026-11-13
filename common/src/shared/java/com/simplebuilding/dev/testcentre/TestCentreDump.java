@@ -85,6 +85,20 @@ public final class TestCentreDump {
         }
     }
 
+    /**
+     * Integration (alle Module geladen, {@code sbintegration} ruft per Reflexion): plant die Zentrale wie die Welt des
+     * Besitzers und liefert die Probleme der Planung (leer = gut); schreibt die Tabellen, wenn {@link #wanted()}.
+     */
+    public static List<String> allModules(net.minecraft.server.level.ServerLevel level) {
+        List<String> problems = new ArrayList<>();
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, net.minecraft.core.BlockPos.ZERO);
+        if (wanted()) {
+            write(plan, "base");
+        }
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre with all modules: {}", plan.summary().lines().findFirst().orElse(""));
+        return problems;
+    }
+
     private static String item(ItemStack stack) {
         return stack.isEmpty() ? "-" : BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
     }

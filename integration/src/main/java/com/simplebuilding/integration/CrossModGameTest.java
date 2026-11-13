@@ -450,6 +450,27 @@ public final class CrossModGameTest {
     }
 
     /**
+     * TZ38D (owner 13.11.: the test centre as the owner sees it, every module loaded): SimpleBuilding plans the whole centre
+     * and checks its order areas ({@code TestCentreDump.allModules}, by reflection - the dev package ships in the jar, the
+     * SimpleBuilding gametests do not). With {@code SB_TC_DUMP} set it also writes the plan tables for the preview.
+     */
+    @GameTest(maxTicks = 200)
+    public void testCentrePlanWithAllModules(GameTestHelper helper) {
+        List<String> problems;
+        try {
+            @SuppressWarnings("unchecked")
+            List<String> found = (List<String>) Class.forName("com.simplebuilding.dev.testcentre.TestCentreDump")
+                    .getMethod("allModules", net.minecraft.server.level.ServerLevel.class).invoke(null, helper.getLevel());
+            problems = found;
+        } catch (ReflectiveOperationException e) {
+            throw helper.assertionException("TestCentreDump.allModules: " + e + (e.getCause() == null ? "" : " / " + e.getCause()));
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " test centre problem(s) with all modules: "
+                + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
      * IG31-3: the mod tabs follow the mod tree (super-mod, then its sub-mods): walking the displayed mod tabs by page, row and
      * column, the rank of their namespaces never falls. Fabric only (the page comes from Fabric's tab pagination).
      */
