@@ -67,18 +67,10 @@ public final class TestCentreCommand {
                 .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .executes(ctx -> help(ctx.getSource()))
                 .then(Commands.literal("help").executes(ctx -> help(ctx.getSource())))
-                .then(Commands.literal("build")
-                        .executes(ctx -> build(ctx.getSource(), savedOrDefaultOrigin(ctx.getSource().getLevel()), TestCentreLayout.Options.ALL))
-                        .then(option("only", ctx -> savedOrDefaultOrigin(ctx.getSource().getLevel())))
-                        .then(option("without", ctx -> savedOrDefaultOrigin(ctx.getSource().getLevel())))
-                        .then(Commands.literal("here")
-                                .executes(ctx -> build(ctx.getSource(), BlockPos.containing(ctx.getSource().getPosition()), TestCentreLayout.Options.ALL))
-                                .then(option("only", ctx -> BlockPos.containing(ctx.getSource().getPosition())))
-                                .then(option("without", ctx -> BlockPos.containing(ctx.getSource().getPosition()))))
-                        .then(Commands.argument("origin", BlockPosArgument.blockPos())
-                                .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), TestCentreLayout.Options.ALL))
-                                .then(option("only", ctx -> BlockPosArgument.getBlockPos(ctx, "origin")))
-                                .then(option("without", ctx -> BlockPosArgument.getBlockPos(ctx, "origin")))))
+                .then(buildTree(Commands.literal("build"), null)
+                        // TZ38D (N42 Erweiterung): zwei Varianten der ganzen Zentrale, build lines|blocks [here|x y z] [only|without ...].
+                        .then(buildTree(Commands.literal(OrderAreas.Variant.LINES.id()), OrderAreas.Variant.LINES))
+                        .then(buildTree(Commands.literal(OrderAreas.Variant.BLOCKS.id()), OrderAreas.Variant.BLOCKS)))
                 .then(Commands.literal("section")
                         .then(Commands.argument("id", StringArgumentType.word())
                                 .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(TestCentreLayout.sectionIds(), builder))
@@ -146,6 +138,31 @@ public final class TestCentreCommand {
     }
 
     /**
+     * Die Aeste von {@code build} ({@code [here|x y z] [only|without ...]}); {@code variant} null = die Variante des letzten Baus
+     * dieser Welt (sonst die Standard-Variante), sonst genau diese.
+     */
+    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> buildTree(
+            com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> node, OrderAreas.Variant variant) {
+        return node
+                .executes(ctx -> build(ctx.getSource(), savedOrDefaultOrigin(ctx.getSource().getLevel()), all(ctx.getSource(), variant)))
+                .then(option("only", ctx -> savedOrDefaultOrigin(ctx.getSource().getLevel()), variant))
+                .then(option("without", ctx -> savedOrDefaultOrigin(ctx.getSource().getLevel()), variant))
+                .then(Commands.literal("here")
+                        .executes(ctx -> build(ctx.getSource(), BlockPos.containing(ctx.getSource().getPosition()), all(ctx.getSource(), variant)))
+                        .then(option("only", ctx -> BlockPos.containing(ctx.getSource().getPosition()), variant))
+                        .then(option("without", ctx -> BlockPos.containing(ctx.getSource().getPosition()), variant)))
+                .then(Commands.argument("origin", BlockPosArgument.blockPos())
+                        .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), all(ctx.getSource(), variant)))
+                        .then(option("only", ctx -> BlockPosArgument.getBlockPos(ctx, "origin"), variant))
+                        .then(option("without", ctx -> BlockPosArgument.getBlockPos(ctx, "origin"), variant)));
+    }
+
+    /** Die ganze Zentrale in {@code variant}; null = die Variante des letzten Baus dieser Welt. */
+    private static TestCentreLayout.Options all(CommandSourceStack source, OrderAreas.Variant variant) {
+        return TestCentreLayout.Options.ALL.with(variant != null ? variant : savedOptions(source.getServer()).variant());
+    }
+
+    /**
      * DW04D-1 (Besitzer 04.11.: "/testcenter mods build here oder /testcenter all build here"): {@code /testcenter}
      * <ul>
      *   <li>{@code all build [here|x y z]} - die ganze Zentrale (wie {@code /sbtestcentre build}); ohne Ort am gespeicherten
@@ -167,16 +184,24 @@ public final class TestCentreCommand {
                                 .executes(ctx -> build(ctx.getSource(), BlockPos.containing(ctx.getSource().getPosition()), TestCentreLayout.Options.ALL)))
                         .then(Commands.argument("origin", BlockPosArgument.blockPos())
                                 .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), TestCentreLayout.Options.ALL)))))
-                // TZ38: die vier geordneten Bereiche (Familien, Metalle, Items je Mod, kompakt je Mod) als eigene Flaeche.
-                .then(Commands.literal("order").then(Commands.literal("build")
-                        .executes(ctx -> buildOrder(ctx.getSource(), here(ctx.getSource())))
-                        .then(Commands.literal("here").executes(ctx -> buildOrder(ctx.getSource(), here(ctx.getSource()))))
-                        .then(Commands.argument("origin", BlockPosArgument.blockPos())
-                                .executes(ctx -> buildOrder(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"))))))
+                // TZ38/TZ38D: die geordneten Bereiche einer Variante (lines: Linien + Items je Mod; blocks: kompakt + Items je Mod).
+                .then(Commands.literal("order").then(orderTree(Commands.literal("build"), OrderAreas.DEFAULT)
+                        .then(orderTree(Commands.literal(OrderAreas.Variant.LINES.id()), OrderAreas.Variant.LINES))
+                        .then(orderTree(Commands.literal(OrderAreas.Variant.BLOCKS.id()), OrderAreas.Variant.BLOCKS))))
                 .then(Commands.literal("mods").then(galleryBuild(ctx -> ModBlockGallery.namespaces())))
                 .then(Commands.literal("mod").then(Commands.argument("id", StringArgumentType.word())
                         .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(ModBlockGallery.namespaces(), builder))
                         .then(galleryBuild(ctx -> List.of(StringArgumentType.getString(ctx, "id")))))));
+    }
+
+    /** {@code /testcenter order build [lines|blocks] [here|x y z]}. */
+    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> orderTree(
+            com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> node, OrderAreas.Variant variant) {
+        return node
+                .executes(ctx -> buildOrder(ctx.getSource(), here(ctx.getSource()), variant))
+                .then(Commands.literal("here").executes(ctx -> buildOrder(ctx.getSource(), here(ctx.getSource()), variant)))
+                .then(Commands.argument("origin", BlockPosArgument.blockPos())
+                        .executes(ctx -> buildOrder(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), variant)));
     }
 
     @FunctionalInterface
@@ -217,12 +242,12 @@ public final class TestCentreCommand {
         return Math.max(1, gallery.cells().size());
     }
 
-    /** TZ38: baut die geordneten Bereiche ({@link OrderAreas#all}) an {@code origin} (vordere linke Ecke), Bereich vorher geleert. */
-    static int buildOrder(CommandSourceStack source, BlockPos origin) {
+    /** TZ38D: baut die geordneten Bereiche einer Variante ({@link OrderAreas#all}) an {@code origin}, Bereich vorher geleert. */
+    static int buildOrder(CommandSourceStack source, BlockPos origin, OrderAreas.Variant variant) {
         if (outsideOverworld(source)) {
             return 0;
         }
-        TcCanvas canvas = OrderAreas.all(new TcContext(source.getLevel().registryAccess()));
+        TcCanvas canvas = OrderAreas.all(new TcContext(source.getLevel().registryAccess()), variant);
         TestCentreBuilder.Result result = TestCentreBuilder.buildCanvas(source.getLevel(), origin, canvas);
         source.sendSuccess(() -> TcText.t("command.order_built", "Order areas built at %s %s %s (%s x %s, %s ms)",
                 origin.getX(), origin.getY(), origin.getZ(), canvas.width(), canvas.depth(), result.millis())
@@ -255,11 +280,13 @@ public final class TestCentreCommand {
     }
 
     /** {@code only <bereiche>} bzw. {@code without <bereiche>} hinter einem Bau-Befehl (TZ22-4). */
-    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> option(String word, OriginSource origin) {
+    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> option(String word, OriginSource origin,
+                                                                                               OrderAreas.Variant variant) {
         return Commands.literal(word).then(Commands.argument("areas", StringArgumentType.greedyString())
                 .suggests(TestCentreCommand::suggestAreas)
                 .executes(ctx -> {
-                    TestCentreLayout.Options options = parse(ctx.getSource(), word + " " + StringArgumentType.getString(ctx, "areas"));
+                    String prefix = (variant != null ? variant : savedOptions(ctx.getSource().getServer()).variant()).id() + " ";
+                    TestCentreLayout.Options options = parse(ctx.getSource(), prefix + word + " " + StringArgumentType.getString(ctx, "areas"));
                     return options == null ? 0 : build(ctx.getSource(), origin.get(ctx), options);
                 }));
     }
@@ -290,12 +317,12 @@ public final class TestCentreCommand {
     static int help(CommandSourceStack source) {
         List<net.minecraft.network.chat.Component> lines = List.of(
                 TcText.t("help.title", "Test centre (/sbtestcentre):").withStyle(ChatFormatting.GOLD),
-                TcText.t("help.build", "build [here|x y z] - build everything (default)"),
+                TcText.t("help.build", "build [lines|blocks] [here|x y z] - build everything (lines: blocks along the grey line, blocks: compact per mod)"),
                 TcText.t("help.only", "build [here|x y z] only <areas> - only these areas, e.g. only mobs,structures"),
                 TcText.t("help.without", "build [here|x y z] without <areas> - all but these, e.g. without structures"),
                 TcText.t("help.section", "section <id> - rebuild one section; stats [only|without ...] - size without building"),
                 TcText.t("help.more", "kit, give <station>, fill <section> (containers + ender chest), tp [place], coverage, help"),
-                TcText.t("help.testcenter", "/testcenter all|order|mods|mod <id> build [here|x y z] - whole centre, order areas, block families"),
+                TcText.t("help.testcenter", "/testcenter all|order|mods|mod <id> build [lines|blocks] [here|x y z] - whole centre, order areas, block families"),
                 TcText.t("help.areas", "Areas: %s, or any section id", String.join(", ", TestCentreLayout.DISTRICT_NAMES))
                         .withStyle(ChatFormatting.GRAY));
         for (net.minecraft.network.chat.Component line : lines) {
@@ -341,6 +368,9 @@ public final class TestCentreCommand {
         saveOrigin(level.getServer(), origin, plan.fingerprint(), options);
         source.sendSuccess(() -> TcText.t("command.built", "Test centre built at %s %s %s (%s steps, %s ms)",
                 origin.getX(), origin.getY(), origin.getZ(), result.ops(), result.millis()).withStyle(ChatFormatting.GREEN), true);
+        OrderAreas.Variant other = options.variant() == OrderAreas.Variant.LINES ? OrderAreas.Variant.BLOCKS : OrderAreas.Variant.LINES;
+        source.sendSuccess(() -> TcText.t("command.built_variant", "Variant %s - the other one: /sbtestcentre build %s",
+                options.variant().id(), other.id()).withStyle(ChatFormatting.GRAY), false);
         if (!options.isAll()) {
             source.sendSuccess(() -> TcText.t("command.built_partial", "Partial build: %s (%s of %s sections) - /sbtestcentre build builds everything",
                     options.text(), plan.sections().size(), TestCentreLayout.sectionIds().size()).withStyle(ChatFormatting.GOLD), false);
@@ -523,7 +553,7 @@ public final class TestCentreCommand {
     static void saveOrigin(MinecraftServer server, BlockPos origin, String fingerprint, TestCentreLayout.Options options) {
         try {
             Files.writeString(originFile(server), origin.getX() + " " + origin.getY() + " " + origin.getZ() + " " + fingerprint
-                    + (options.isAll() ? "" : " " + options.text()) + "\n", StandardCharsets.UTF_8);
+                    + (options.text().isEmpty() ? "" : " " + options.text()) + "\n", StandardCharsets.UTF_8);
         } catch (IOException e) {
             Simplebuilding.LOGGER.warn("Could not store the test centre origin", e);
         }

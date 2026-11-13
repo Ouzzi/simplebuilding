@@ -75,7 +75,7 @@ public final class TestCentreSections {
 
     public static TcCanvas armour(TcContext ctx) {
         TcCanvas c = new TcCanvas();
-        int wallZ = 9;
+        int wallZ = 5; // TZ38D: eine Staender-Reihe weniger, die Wand rueckt nach vorn
         List<Item> helmets = ctx.rowItems("helmets");
         List<Item> chests = ctx.rowItems("chestplates");
         List<Item> legs = ctx.rowItems("leggings");
@@ -130,20 +130,8 @@ public final class TestCentreSections {
             }
         }
 
-        // Reihe 2: je Besatzmuster ein Enderit-Satz, Material reihum.
-        if (tiers > 0) {
-            int top = tiers - 1;
-            int px = 1;
-            for (int i = 0; i < patterns.size() && !materials.isEmpty(); i++) {
-                Holder<TrimPattern> pattern = patterns.get(i);
-                Holder<TrimMaterial> material = materials.get(i % materials.size());
-                c.stand(px, 0, 5, 180F, List.of(trimmed(helmets.get(top), material, pattern),
-                        trimmed(chests.get(top), material, pattern), trimmed(legs.get(top), material, pattern),
-                        trimmed(boots.get(top), material, pattern), ItemStack.EMPTY, ItemStack.EMPTY),
-                        pattern.value().description());
-                px += 2;
-            }
-        }
+        // TZ38D (N42 "jede Station nur einmal"): die Reihe "je Besatzmuster ein Enderit-Satz" fiel weg - die Besatz-Staender
+        // im Bereich "Items je Mod" zeigen jedes Muster und jedes Material.
 
         // Rueckwand: Vorlagen und Besatzmaterialien.
         List<ItemStack> templates = new ArrayList<>();
@@ -161,8 +149,8 @@ public final class TestCentreSections {
         }
         c.title(0, TcCanvas.SHELF_LINES, wallZ, TcText.t("section.armour", "Armour & Trims"),
                 TcText.t("section.armour.sub", "sets, upgrades, patterns"));
-        // TZ22-2: die Besatzmuster zeigen die Staender der zweiten Reihe (je Muster ein Enderit-Satz); die Rahmenwand mit
-        // denselben vier Teilen je Muster fiel weg. An der Wand: Vorlagen und Besatzmaterialien.
+        // TZ22-2/TZ38D: die Besatzmuster zeigen die Besatz-Staender im Bereich "Items je Mod". An der Wand: Vorlagen und
+        // Besatzmaterialien.
         int end = c.rowsPanel(0, TcCanvas.SHELF_LINES - 1, wallZ, List.of(
                 new TcCanvas.Line(TcText.t("armour.templates", "Templates"), templates),
                 new TcCanvas.Line(TcText.t("armour.materials", "Trim materials"), materialItems)));
@@ -1703,6 +1691,14 @@ public final class TestCentreSections {
      * nicht doppelt. Buchten-Reihen hoechstens {@link #MODULE_ROW_WIDTH} breit.
      */
     public static TcCanvas modules(List<ModuleStations.Station> stations, Set<Item> shown, Set<Block> placed) {
+        return modules(stations, shown, placed, Set.of());
+    }
+
+    /**
+     * Wie oben; {@code elsewhere} = was die geordneten Bereiche schon zeigen (TZ38D, N42 "jedes Glied nur einmal"): die Bucht
+     * zeigt dann nur die Stationen des Moduls, nicht noch einmal alles uebrige aus seinem Register.
+     */
+    public static TcCanvas modules(List<ModuleStations.Station> stations, Set<Item> shown, Set<Block> placed, Set<Item> elsewhere) {
         Map<String, List<TcCanvas.Group>> bays = new LinkedHashMap<>();
         Set<Item> taken = new HashSet<>(shown);
         taken.add(net.minecraft.world.item.Items.AIR);
@@ -1722,7 +1718,7 @@ public final class TestCentreSections {
         for (Item item : sortedItems()) {
             net.minecraft.resources.Identifier id = TcContext.id(item);
             if (TcContext.isFamily(id) && !TcContext.isMod(id) && !TestCentreLayout.EXCLUDED.containsKey(id.toString())
-                    && !TcContext.isSpacer(item) && taken.add(item)) {
+                    && !TcContext.isSpacer(item) && !elsewhere.contains(item) && taken.add(item)) {
                 rest.computeIfAbsent(id.getNamespace(), ns -> new ArrayList<>()).add(new ItemStack(item));
             }
         }

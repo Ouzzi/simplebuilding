@@ -697,7 +697,7 @@ public final class TestCentreTests {
         var root = helper.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("sbtestcentre");
         helper.assertTrue(root != null && root.getChild("give") != null && root.getChild("give").getChild("station") != null,
                 "/sbtestcentre give <station> is not registered");
-        TestCentreKits.Kit blocksKit = plan.kits().get("blocks");
+        TestCentreKits.Kit blocksKit = plan.kits().get("tools"); // TZ38D: "blocks" steht im Katalog (nur auf Wunsch)
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         try {
             player.getInventory().setItem(20, new ItemStack(Items.DIRT, 5));
@@ -917,12 +917,17 @@ public final class TestCentreTests {
      * nicht fuer die Abdeckung: jedes Item braucht trotzdem eine Station.
      */
     public static void everyCreativeTabHasItsItemBrowserWall(GameTestHelper helper) {
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        // TZ38D: der Katalog ist ein Doppel zum Bereich "order" und wird nur auf Wunsch gebaut (build only catalog).
+        TestCentreLayout.Plan full = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO, TestCentreLayout.Options.parse("only catalog"));
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
+        if (full.sections().stream().anyMatch(section -> TestCentreLayout.CATALOG.equals(TestCentreLayout.districtOf(section.id())))) {
+            problems.add("the catalog (a second copy of the order areas) is built by default");
+        }
         // TZ22-2: was eine Station gesetzt zeigt, rahmt die Tab-Wand nicht noch einmal.
         Set<Item> placedAnywhere = new HashSet<>();
-        for (TestCentreLayout.Section section : plan.sections()) {
+        for (TestCentreLayout.Section section : full.sections()) {
             // DW04D-1: the mod block families are planned after the tab walls (like them a second, ordered view).
             // TZ38: the order areas likewise.
             if (!section.id().startsWith(TabBrowser.PREFIX) && !section.id().equals(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION)
@@ -1035,6 +1040,8 @@ public final class TestCentreTests {
         }
 
         // Metallstaebe (Eisen, Gold, Netherit, Enderit) unter freiem Himmel.
+        BoundingBox linesBox = plan.sections().stream().anyMatch(section -> section.id().equals(com.simplebuilding.dev.testcentre.OrderAreas.FAMILIES))
+                ? plan.section(com.simplebuilding.dev.testcentre.OrderAreas.FAMILIES).box(origin) : new BoundingBox(0, -9999, 0, 0, -9999, 0);
         Map<BlockPos, BlockState> blocks = new HashMap<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             for (TcOp op : section.ops()) {
@@ -1046,8 +1053,11 @@ public final class TestCentreTests {
         int rods = 0;
         Set<Object> metalRods = new HashSet<>();
         for (Map.Entry<BlockPos, BlockState> entry : blocks.entrySet()) {
+            // TZ38D (N42-4): in den Linien stehen die Kupfer-Blitzableiter aufrecht (Besitzer-Wunsch); sie teilen die Blitze mit
+            // den Metallstaeben, das Eisen in der Linie steht daneben. Ausserhalb der Linien bleibt die Regel.
             if (entry.getValue().getBlock() instanceof net.minecraft.world.level.block.LightningRodBlock
-                    && !(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)) {
+                    && !(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)
+                    && !linesBox.isInside(entry.getKey())) {
                 problems.add("a copper lightning rod at " + entry.getKey().toShortString() + " would take the iron rods' lightning");
             }
             if (!(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)) {
@@ -1995,50 +2005,59 @@ public final class TestCentreTests {
     }
 
     /**
-     * TZ38 (Besitzer 12.11.: "Testzentrale neu ordnen"), Spaltenplan TZ38b/TZ38c: die drei geordneten Bereiche stehen im Bezirk
-     * "order" vor den Testflaechen. Items je Mod: jedes Familien-Item genau einmal (gesetzt oder gerahmt), Mods in
-     * Wiki-Reihenfolge, je Besatzmuster und -material ein Staender mit vier besetzten Teilen, je Familien-Mob ein Mob. Kompakt:
-     * jeder Familien-Block genau einmal, Mods mit mindestens einem Feld Abstand. Familien + Metalle: ein Spaltenplan (Kern
-     * Octet ... Saeule, Zusatz Zaun ... Knopf, keine Spachtel-/frei-Spalten), jede Reihe in einer Spalte, Spalte c bei
-     * frontZ + step * c in jedem Band, feste Spalten nur mit Items ihrer Form, Betonlinie, kein Item doppelt (auch keine
-     * Eisen-/Kupfer-Form in Familien- UND Metall-Reihe), schmelzendes Eis im Rahmen, verstaerkter Tiefenschiefer als Sonderblock;
-     * Metalle als eigenes letztes Band-Paar in Besitzer-Reihenfolge, Vanilla-Glieder (Eisen, Kupfer, Gold, Netherit, Quarz) an
-     * ihren Plaetzen. {@code /testcenter order}.
+     * TZ38/TZ38D (Besitzer 12./13.11., N42 + Erweiterung): die geordneten Bereiche. Gemeinsame Pruefung
+     * ({@code OrderAreas.problems}, laeuft auch in der Integration mit allen Modulen): Linien dicht, kein Item doppelt,
+     * Platzhalter rot/hellgrau nach Erwartung, Mittellinie und Abstand, Stangen aufrecht, Setzbares gesetzt, Kupfer nur
+     * gewachst, Achtel auf ihrem Block, Seite A Metalle | Holz | Rest, Seite B Stein; je Variante jedes Familien-Item genau
+     * einmal (Block-Bereich oder Items je Mod); kompakt mit Abstand. Dazu hier: Bezirk direkt nach dem Eingang, Varianten im
+     * Teilbau, Wiki-Reihenfolge, Besatz-Staender und Mobs, die Glieder der Besitzer-Beispiele an ihren Plaetzen (Eisen, Kupfer
+     * gewachst, Gold, Netherit, Quarz, Tiefenschiefer-Ziegel mit verstaerktem Tiefenschiefer, Rohblock-Achtel auf dem Rohblock,
+     * Holz-Zaun in der Stangen-Spalte, Netherziegel-Zauntor rot). {@code /testcenter order}.
      */
     public static void orderAreasShowEverythingInOwnerOrder(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
         if (com.simplebuilding.dev.testcentre.TestCentreDump.wanted()) {
-            com.simplebuilding.dev.testcentre.TestCentreDump.write(plan, "base");
+            com.simplebuilding.dev.testcentre.TestCentreDump.write(plan, "fabric-lines");
         }
         for (String id : com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS) {
             if (!TestCentreLayout.sectionIds().contains(id)) {
                 problems.add(id + " is not a section of the test centre");
-            } else if (!id.equals(com.simplebuilding.dev.testcentre.OrderAreas.FAMILIES) && plan.section(id).ops().isEmpty()) {
-                problems.add(id + " plans nothing");
             }
+        }
+        List<String> built = plan.sections().stream().map(TestCentreLayout.Section::id).toList();
+        TestCentreLayout.Plan blocksPlan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO,
+                TestCentreLayout.Options.parse("blocks"));
+        List<String> builtBlocks = blocksPlan.sections().stream().map(TestCentreLayout.Section::id).toList();
+        if (!built.contains(com.simplebuilding.dev.testcentre.OrderAreas.FAMILIES) || built.contains(com.simplebuilding.dev.testcentre.OrderAreas.COMPACT)
+                || !builtBlocks.contains(com.simplebuilding.dev.testcentre.OrderAreas.COMPACT) || builtBlocks.contains(com.simplebuilding.dev.testcentre.OrderAreas.FAMILIES)
+                || !built.contains(com.simplebuilding.dev.testcentre.OrderAreas.ITEMS) || !builtBlocks.contains(com.simplebuilding.dev.testcentre.OrderAreas.ITEMS)) {
+            problems.add("the variants do not build their own block area: lines " + built + ", blocks " + builtBlocks);
+        }
+        if (!TestCentreLayout.Options.parse("blocks without mobs").text().equals("blocks without mobs")
+                || TestCentreLayout.Options.parse("blocks").variant() != com.simplebuilding.dev.testcentre.OrderAreas.Variant.BLOCKS
+                || !TestCentreLayout.Options.parse("").text().isEmpty()) {
+            problems.add("the variant does not read back from the options");
         }
         helper.assertTrue("order".equals(TestCentreLayout.districtOf(com.simplebuilding.dev.testcentre.OrderAreas.ITEMS))
                 && TestCentreLayout.DISTRICTS.indexOf(com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS) == 1,
                 "the order areas are not the district right after the entrance");
-        var root = helper.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("testcenter");
-        helper.assertTrue(root != null && root.getChild("order") != null, "/testcenter order is not registered");
+        var root = helper.getLevel().getServer().getCommands().getDispatcher().getRoot();
+        helper.assertTrue(root.getChild("testcenter") != null && root.getChild("testcenter").getChild("order") != null
+                && root.getChild("testcenter").getChild("order").getChild("build").getChild("blocks") != null,
+                "/testcenter order build [lines|blocks] is not registered");
+        helper.assertTrue(root.getChild("sbtestcentre").getChild("build").getChild("lines") != null
+                && root.getChild("sbtestcentre").getChild("build").getChild("blocks").getChild("here") != null,
+                "/sbtestcentre build [lines|blocks] is not registered");
         List<String> namespaces = com.simplebuilding.dev.testcentre.OrderAreas.namespaces();
-
-        // 3. Items je Mod.
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
+        problems.addAll(com.simplebuilding.dev.testcentre.OrderAreas.problems(ctx));
+
+        // Items je Mod: Wiki-Reihenfolge, Besatz-Staender, Mobs.
         com.simplebuilding.dev.testcentre.OrderAreas.Area items = com.simplebuilding.dev.testcentre.OrderAreas.items(ctx);
-        Map<Item, Integer> shown = orderShown(items.canvas().ops());
         int expectedMobs = 0;
         int previousZ = Integer.MIN_VALUE;
         for (String ns : namespaces) {
-            List<Item> list = com.simplebuilding.dev.testcentre.OrderAreas.items(ns);
-            for (Item item : list) {
-                int n = shown.getOrDefault(item, 0);
-                if (n != 1) {
-                    problems.add("items: " + BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
-                }
-            }
             expectedMobs += com.simplebuilding.dev.testcentre.OrderAreas.mobs(ns).size();
             int firstZ = items.cells().stream().filter(cell -> cell.group().equals(ns)).mapToInt(cell -> cell.pos().getZ()).min()
                     .orElse(previousZ);
@@ -2068,206 +2087,81 @@ public final class TestCentreTests {
             problems.add("items: " + mobs + " mobs planned, the family has " + expectedMobs);
         }
 
-        // 4. Kompakt je Mod.
-        com.simplebuilding.dev.testcentre.OrderAreas.Area compact = com.simplebuilding.dev.testcentre.OrderAreas.compact();
-        Map<Item, Integer> compactShown = orderShown(compact.canvas().ops());
-        Map<String, int[]> boxes = new LinkedHashMap<>();
-        for (String ns : namespaces) {
-            for (Item item : com.simplebuilding.dev.testcentre.OrderAreas.blocks(ns)) {
-                int n = compactShown.getOrDefault(item, 0);
-                if (n != 1) {
-                    problems.add("compact: " + BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
-                }
-            }
-        }
-        for (var cell : compact.cells()) {
-            boxes.merge(cell.group(), new int[] {cell.pos().getX(), cell.pos().getZ(), cell.pos().getX(), cell.pos().getZ()},
-                    (a, b) -> new int[] {Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])});
-        }
-        List<Map.Entry<String, int[]>> boxList = new ArrayList<>(boxes.entrySet());
-        for (int i = 0; i < boxList.size(); i++) {
-            for (int j = i + 1; j < boxList.size(); j++) {
-                int[] a = boxList.get(i).getValue();
-                int[] b = boxList.get(j).getValue();
-                if (a[0] <= b[2] + 1 && b[0] <= a[2] + 1 && a[1] <= b[3] + 1 && b[1] <= a[3] + 1) {
-                    problems.add("compact: " + boxList.get(i).getKey() + " touches " + boxList.get(j).getKey());
-                }
-            }
-        }
-
-        // 1. Block-Familien und Metalle in einem Spaltenplan (TZ38b: F1-F5 = A).
-        com.simplebuilding.dev.testcentre.OrderAreas.Area families = com.simplebuilding.dev.testcentre.OrderAreas.families();
-        BlockState line = com.simplebuilding.dev.testcentre.OrderAreas.lineState();
-        List<com.simplebuilding.dev.testcentre.OrderAreas.Slot> slots = List.of(com.simplebuilding.dev.testcentre.OrderAreas.Slot.values());
-        int fixedColumns = com.simplebuilding.dev.testcentre.OrderAreas.Slot.FIXED;
-        int metalColumns = com.simplebuilding.dev.testcentre.OrderAreas.Slot.METAL;
-        int pillar = com.simplebuilding.dev.testcentre.OrderAreas.Slot.PILLAR.ordinal();
-        Set<String> metalKeys = new HashSet<>();
-        com.simplebuilding.dev.testcentre.OrderAreas.METAL_LIST.forEach(metal -> metalKeys.add(metal.key()));
-        if (slots.getFirst() != com.simplebuilding.dev.testcentre.OrderAreas.Slot.OCTET || pillar != 7
-                || slots.get(fixedColumns) != com.simplebuilding.dev.testcentre.OrderAreas.Slot.TILES
-                || slots.stream().anyMatch(slot -> slot.name().equals("SPATULA") || slot.name().startsWith("FREE"))) {
-            problems.add("families: the column plan is not octet ... pillar | fence ... button | metal parts (no spatula, no free fields)");
-        }
-        Map<Item, Integer> familyShown = new HashMap<>();
-        int lines = 0;
-        for (TcOp op : families.canvas().ops()) {
-            if (op instanceof TcOp.Place place && place.state().equals(line)) {
-                lines++;
-            }
-        }
-        for (var band : families.bands()) {
-            if (!band.columns().subList(0, fixedColumns).equals(slots.subList(0, fixedColumns))) {
-                problems.add("families: a band at z " + band.frontZ() + " does not start with the shared columns " + slots.subList(0, fixedColumns));
-            }
-        }
-        Map<String, Set<Integer>> rowX = new HashMap<>();
-        Map<String, Map<Integer, Item>> byColumn = new HashMap<>();
-        Map<String, int[]> metalAt = new LinkedHashMap<>();
-        int lastFamilyBand = -1;
-        boolean reinforced = false;
-        boolean deepslateBricks = false;
-        Set<BlockPos> frameAt = new HashSet<>();
-        for (TcOp op : families.canvas().ops()) {
-            if (op instanceof TcOp.Frame frame) {
-                frameAt.add(frame.pos());
-            }
-        }
-        for (var cell : families.cells()) {
-            familyShown.merge(cell.item(), 1, Integer::sum);
-            rowX.computeIfAbsent(cell.group(), key -> new HashSet<>()).add(cell.pos().getX());
-            int bandIndex = -1;
-            for (int b = 0; b < families.bands().size(); b++) {
-                var band = families.bands().get(b);
-                if (cell.pos().getX() >= band.x0() && cell.pos().getX() <= band.x1()
-                        && (cell.pos().getZ() - band.lineZ()) * band.step() < 0
-                        && Math.abs(cell.pos().getZ() - band.lineZ()) <= band.columns().size()) {
-                    bandIndex = b;
-                    break;
-                }
-            }
-            if (bandIndex < 0) {
-                problems.add("families: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " lies in no band at " + cell.pos());
-                continue;
-            }
-            var band = families.bands().get(bandIndex);
-            if (cell.pos().getZ() != band.frontZ() + band.step() * cell.column()) {
-                problems.add("families: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " is not in column " + cell.column());
-            }
-            boolean metal = metalKeys.contains(cell.group());
-            if (metal) {
-                byColumn.computeIfAbsent(cell.group(), key -> new HashMap<>()).put(cell.column(), cell.item());
-                metalAt.putIfAbsent(cell.group(), new int[] {bandIndex, cell.pos().getX()});
-                if (band.columns().size() < metalColumns) {
-                    problems.add("families: metal row " + cell.group() + " stands in a band without the metal columns");
-                }
-            } else {
-                lastFamilyBand = Math.max(lastFamilyBand, bandIndex);
-                if (cell.column() >= fixedColumns && band.columns().get(cell.column()) != com.simplebuilding.dev.testcentre.OrderAreas.Slot.OTHER) {
-                    problems.add("families: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " uses metal column " + cell.column());
-                }
-            }
-            // Kern und Zusatz: jede Reihe (Familie wie Metall) hat in Spalte c nur Items dieser Form - Saeule/Sonder frei.
-            var slot = com.simplebuilding.dev.testcentre.OrderAreas.slotOf(cell.item());
-            if (cell.column() < fixedColumns && cell.column() != pillar && (slot == null || slot.ordinal() != cell.column())) {
-                problems.add("families: " + BuiltInRegistries.ITEM.getKey(cell.item()) + " (" + slot + ") stands in fixed column " + cell.column());
-            }
-            if (cell.item() instanceof net.minecraft.world.item.BlockItem blockItem
-                    && blockItem.getBlock() instanceof net.minecraft.world.level.block.IceBlock && !frameAt.contains(cell.pos())) {
-                problems.add("families: melting " + BuiltInRegistries.ITEM.getKey(cell.item()) + " is placed instead of framed");
-            }
-            if (cell.group().equals("deepslate_brick")) {
-                deepslateBricks = true;
-                reinforced |= cell.item() == Items.REINFORCED_DEEPSLATE && cell.column() == pillar;
-            }
-        }
-        // Keine Doppel (TZ38b Ae6): auch nicht zwischen Familien- und Metall-Reihen - Eisen-/Kupfer-Formen stehen nur einmal.
-        familyShown.forEach((item, n) -> {
-            if (n != 1) {
-                problems.add("families: " + BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
-            }
-        });
-        rowX.forEach((row, xs) -> {
-            if (xs.size() != 1) {
-                problems.add("families: row " + row + " spreads over columns " + xs);
-            }
-        });
-        if (!families.cells().isEmpty() && (lines == 0 || families.bands().isEmpty())) {
-            problems.add("families: no concrete line between the bands");
-        }
-        if (deepslateBricks && !reinforced) {
-            problems.add("families: the deepslate brick row has no reinforced deepslate as its special block");
-        }
-
-        // Metalle: letztes Band-Paar, feste Spalten, Vanilla-Glieder an ihren Plaetzen (laeuft auch ohne Familien-Module).
+        // Linien: die Glieder der Besitzer-Beispiele an ihren Plaetzen (laeuft auch ohne Familien-Module).
+        com.simplebuilding.dev.testcentre.OrderAreas.Area lines = com.simplebuilding.dev.testcentre.OrderAreas.families();
+        Map<String, com.simplebuilding.dev.testcentre.OrderAreas.Row> rows = new HashMap<>();
+        lines.rows().forEach(row -> rows.putIfAbsent(row.group(), row));
         Object[][] expectations = {
                 {"iron", "STORAGE", Items.IRON_BLOCK}, {"iron", "INGOT", Items.IRON_INGOT}, {"iron", "DEEPSLATE_ORE", Items.DEEPSLATE_IRON_ORE},
                 {"iron", "WALL", Items.IRON_BARS}, {"iron", "DOOR", Items.IRON_DOOR}, {"iron", "PLATE", Items.HEAVY_WEIGHTED_PRESSURE_PLATE},
-                {"copper", "WALL", "copper_bars"}, {"copper", "SLAB", "cut_copper_slab"},
-                {"copper", "STAIRS", "cut_copper_stairs"}, {"copper", "BLOCK", "cut_copper"}, {"copper", "CHISELED", "chiseled_copper"},
-                {"copper", "STORAGE", "copper_block"}, {"copper", "RAW_BLOCK", "raw_copper_block"}, {"copper", "GRATE", "copper_grate"},
-                {"copper", "LAMP", "copper_bulb"}, {"copper", "POLE", "lightning_rod"}, {"copper", "INGOT", "copper_ingot"},
-                {"oxidized_copper", "BLOCK", "oxidized_cut_copper"}, {"waxed_copper", "STORAGE", "waxed_copper_block"},
+                {"iron", "RAW_BLOCK", Items.RAW_IRON_BLOCK},
+                {"copper", "WALL", "waxed_copper_bars"}, {"copper", "SLAB", "waxed_cut_copper_slab"},
+                {"copper", "STAIRS", "waxed_cut_copper_stairs"}, {"copper", "BLOCK", "waxed_cut_copper"}, {"copper", "CHISELED", "waxed_chiseled_copper"},
+                {"copper", "STORAGE", "waxed_copper_block"}, {"copper", "RAW_BLOCK", "raw_copper_block"}, {"copper", "GRATE", "waxed_copper_grate"},
+                {"copper", "LAMP", "waxed_copper_bulb"}, {"copper", "POLE", "waxed_lightning_rod"}, {"copper", "INGOT", "copper_ingot"},
+                {"oxidized_copper", "BLOCK", "waxed_oxidized_cut_copper"},
                 {"gold", "SWORD", Items.GOLDEN_SWORD}, {"gold", "PLATE", Items.LIGHT_WEIGHTED_PRESSURE_PLATE},
-                {"netherite", "NETHER_ORE", Items.ANCIENT_DEBRIS}, {"quartz", "SLAB", Items.QUARTZ_SLAB}, {"quartz", "STORAGE", Items.QUARTZ_BLOCK}};
+                {"netherite", "NETHER_ORE", Items.ANCIENT_DEBRIS}, {"quartz", "SLAB", Items.QUARTZ_SLAB}, {"quartz", "STORAGE", Items.QUARTZ_BLOCK},
+                {"oak", "BLOCK", Items.OAK_PLANKS}, {"oak", "FENCE", Items.OAK_FENCE}, {"oak", "FENCE_GATE", Items.OAK_FENCE_GATE},
+                {"oak", "PILLAR", Items.OAK_LOG}, {"oak", "BUTTON", Items.OAK_BUTTON}, {"oak", "PLATE", Items.OAK_PRESSURE_PLATE}};
         for (Object[] e : expectations) {
             Item want = e[2] instanceof Item item ? item : BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace((String) e[2]));
-            Item at = byColumn.getOrDefault((String) e[0], Map.of()).get(com.simplebuilding.dev.testcentre.OrderAreas.Slot.valueOf((String) e[1]).ordinal());
+            var row = rows.get((String) e[0]);
+            Item at = row == null ? null : row.fixed().get(com.simplebuilding.dev.testcentre.OrderAreas.Slot.valueOf((String) e[1]));
             if (at != want) {
-                problems.add("metals: " + e[0] + " " + e[1] + " shows " + (at == null ? "nothing" : BuiltInRegistries.ITEM.getKey(at))
+                problems.add("lines: " + e[0] + " " + e[1] + " shows " + (at == null ? "nothing" : BuiltInRegistries.ITEM.getKey(at))
                         + " instead of " + BuiltInRegistries.ITEM.getKey(want));
             }
         }
-        // Reihenfolge: vorn Kupfer ... Nihilith, gegenueber Silber ... Edelstahl, dann die Mineralien; alles hinter den Familien.
-        List<com.simplebuilding.dev.testcentre.OrderAreas.Metal> order = com.simplebuilding.dev.testcentre.OrderAreas.METAL_LIST.stream()
-                .filter(metal -> metalAt.containsKey(metal.key())).toList();
-        for (int i = 0; i < order.size(); i++) {
-            int[] at = metalAt.get(order.get(i).key());
-            if (at[0] <= lastFamilyBand) {
-                problems.add("metals: " + order.get(i).key() + " stands among the block families, not in its own band pair");
-            }
-            if (i > 0) {
-                int[] before = metalAt.get(order.get(i - 1).key());
-                boolean later = at[0] > before[0] || at[0] == before[0] && at[1] > before[1];
-                boolean newSide = order.get(i).group() > 0 && order.get(i - 1).group() == 0;
-                if (!later || newSide && at[0] == before[0]) {
-                    problems.add("metals: " + order.get(i).key() + " does not follow " + order.get(i - 1).key());
-                }
-            }
+        // Spalten geteilt (N42-5): Holz-Zaun/-Zauntor stehen in den Spalten, die bei Metallen Stange/Kette belegen.
+        var ironRow = rows.get("iron");
+        var oakRow = rows.get("oak");
+        if (ironRow != null && oakRow != null && (ironRow.columns().indexOf(com.simplebuilding.dev.testcentre.OrderAreas.Slot.POLE)
+                != oakRow.columns().indexOf(com.simplebuilding.dev.testcentre.OrderAreas.Slot.FENCE)
+                || ironRow.columns().indexOf(com.simplebuilding.dev.testcentre.OrderAreas.Slot.CHAIN)
+                != oakRow.columns().indexOf(com.simplebuilding.dev.testcentre.OrderAreas.Slot.FENCE_GATE))) {
+            problems.add("lines: wood fence/gate do not share the metal pole/chain columns");
         }
-        if (!metalAt.containsKey("iron") || !metalAt.containsKey("copper")) {
-            problems.add("metals: no iron or copper row");
+        if (oakRow != null && (oakRow.kind() != com.simplebuilding.dev.testcentre.OrderAreas.Kind.WOOD || oakRow.step() >= 0)) {
+            problems.add("lines: oak is no wood row on the metal side");
+        }
+        // Kupfer nur gewachst (N42-6), die ungewachsten Zwillinge ausgelassen.
+        Item copperBlock = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_block"));
+        Item cutCopper = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("cut_copper"));
+        if (!lines.hidden().contains(copperBlock) || lines.cells().stream().anyMatch(cell -> cell.item() == cutCopper)) {
+            problems.add("lines: unwaxed copper is shown instead of the waxed stages");
+        }
+        if (lines.rows().stream().filter(row -> row.group().contains("copper") && row.kind() == com.simplebuilding.dev.testcentre.OrderAreas.Kind.METAL).count() != 4) {
+            problems.add("lines: copper does not stand in exactly its four waxed stages");
+        }
+        // Rohblock-Achtel auf dem Rohblock (N42-7), wenn Simple Octets geladen ist.
+        Item rawIronOctet = BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath("simpleoctets", "raw_iron_block_octet")).orElse(Items.AIR);
+        if (rawIronOctet != Items.AIR && (ironRow == null || ironRow.tops().get(com.simplebuilding.dev.testcentre.OrderAreas.Slot.RAW_BLOCK) != rawIronOctet)) {
+            problems.add("lines: the raw iron octet does not stand on the raw iron block");
+        }
+        // Netherziegel: Zaun in der Zaun-Spalte, das fehlende Zauntor rot (N42-5).
+        var nether = rows.get("nether_brick");
+        if (nether != null && (nether.fixed().get(com.simplebuilding.dev.testcentre.OrderAreas.Slot.FENCE) != Items.NETHER_BRICK_FENCE
+                || !nether.expected().contains(com.simplebuilding.dev.testcentre.OrderAreas.Slot.FENCE_GATE)
+                || nether.kind() != com.simplebuilding.dev.testcentre.OrderAreas.Kind.STONE)) {
+            problems.add("lines: nether bricks: fence not in the fence column or the missing gate not red");
+        }
+        var deepslate = rows.get("deepslate_brick");
+        if (deepslate != null && deepslate.fixed().get(com.simplebuilding.dev.testcentre.OrderAreas.Slot.PILLAR) != Items.REINFORCED_DEEPSLATE) {
+            problems.add("lines: the deepslate brick row has no reinforced deepslate as its special block");
         }
         for (String id : com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS) {
-            if (TestCentreLayout.sectionIds().contains(id) && plan.section(id).width() > TestCentreLayout.MAX_ROW_WIDTH) {
+            if (built.contains(id) && plan.section(id).width() > TestCentreLayout.MAX_ROW_WIDTH) {
                 problems.add(id + " is " + plan.section(id).width() + " wide");
             }
         }
-        com.simplebuilding.Simplebuilding.LOGGER.info("order areas: families+metals {} cells in {} rows / {} bands ({} metal rows),"
-                        + " items {} cells {} stands {} mobs, compact {} cells, {} mods", families.cells().size(), rowX.size(),
-                families.bands().size(), metalAt.size(), items.cells().size(), stands, mobs, compact.cells().size(), namespaces.size());
+        long red = lines.placeholders().stream().filter(com.simplebuilding.dev.testcentre.OrderAreas.Placeholder::missing).count();
+        com.simplebuilding.Simplebuilding.LOGGER.info("order areas: lines {} rows, {} cells, {} placeholders ({} red), {} hidden twins;"
+                        + " items {} cells {} stands {} mobs, {} mods", lines.rows().size(), lines.cells().size(), lines.placeholders().size(),
+                red, lines.hidden().size(), items.cells().size(), stands, mobs, namespaces.size());
         helper.assertTrue(problems.isEmpty(), problems.size() + " order area problem(s): "
                 + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
         helper.succeed();
-    }
-
-    /** Wie oft jedes Item in Schritten steht: gesetzt (untere Haelfte bei Tueren) oder im Rahmen. */
-    private static Map<Item, Integer> orderShown(List<TcOp> ops) {
-        Map<Item, Integer> counts = new HashMap<>();
-        for (TcOp op : ops) {
-            if (op instanceof TcOp.Place place) {
-                BlockState state = place.state();
-                boolean upper = state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF)
-                        && state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF)
-                        == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
-                if (!upper) {
-                    counts.merge(TcContext.itemOf(state.getBlock()), 1, Integer::sum);
-                }
-            } else if (op instanceof TcOp.Frame frame) {
-                counts.merge(frame.stack().getItem(), 1, Integer::sum);
-            }
-        }
-        return counts;
     }
 
     /**

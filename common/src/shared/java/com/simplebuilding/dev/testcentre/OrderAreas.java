@@ -3,6 +3,7 @@ package com.simplebuilding.dev.testcentre;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -32,29 +33,60 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 /**
- * TZ38 (Besitzer 12.11.: "Testzentrale neu ordnen", Plan {@code docs/ai/PLAN-A-TZ38-2026-11-12.md}; Spaltenplan TZ38b/TZ38c,
- * {@code docs/ai/PLAN-A-TZ38C-2026-11-12.md}): drei geordnete Bereiche vor den Teststationen. Jeder Bereich zeigt fuer sich
- * alles seiner Art (Doppel zwischen den Bereichen sind gewollt, innerhalb eines Bereichs steht jedes Item genau einmal):
+ * TZ38 (Besitzer 12.11.: "Testzentrale neu ordnen", Plan {@code docs/ai/PLAN-A-TZ38-2026-11-12.md}), TZ38D (Besitzer 13.11.
+ * N42 + Erweiterung, Plan {@code docs/ai/PLAN-A-TZ38D-2026-11-13.md}): die geordneten Bereiche vor den Teststationen, in zwei
+ * waehlbaren Varianten ({@link Variant}); jedes Glied steht in einer Variante genau einmal:
  * <ol>
- *   <li>{@link #FAMILIES}: je Block-Variante eine Reihe vom Gang in die Tiefe im gemeinsamen Spaltenplan {@link Slot}
- *       (Kern Octet | Mauer | Stufe | Treppe | Block | rissig | gemeisselt | Saeule/Sonder, Zusatz Zaun | Zauntor | Tuer |
- *       Falltuer | Blech | Druckplatte | Knopf, dann "weitere"); eine leere Spalte zwischen Familien; graue Betonstufen als
- *       Linie zum gespiegelten Gegenband. Als letztes Band-Paar die Rohstoffe/Metalle in denselben Spalten (Metall: Gitter in
- *       der Mauer-, Rost in der rissig-Spalte, Block = geschnitten), ihr Anhang (Bauteile, Material/Erze, Material-Items,
- *       Ausruestung) laeuft dahinter weiter; fehlende Glieder bleiben leer.</li>
- *   <li>{@link #ITEMS}: Besatz-Staender (je Muster, je Material ein voller Satz), dann je Mod eine Linie in
- *       Wiki-Reihenfolge, setzbar = gesetzt, sonst Rahmen; dahinter die Mobs der Mod (ohne KI, unverwundbar, still).</li>
- *   <li>{@link #COMPACT}: alle Bloecke je Mod dicht beieinander, ein Feld Abstand zur naechsten Mod.</li>
+ *   <li>{@link #FAMILIES} (Variante "lines"): graue Mittellinie, Seite A Metalle/Rohstoffe, Holz, Rest, gegenueber Seite B
+ *       alles Steinige; je Variante/Material eine Reihe, die neben der Linie mit Knopf, Druckplatte ... beginnt (gemeinsamer
+ *       Spaltenplan {@link #CORE}, Holz und Metalle mit eigenen Zusatzspalten); fehlende Glieder als Platzhalter (rot = sollte
+ *       existieren, hellgrau = soll nicht).</li>
+ *   <li>{@link #COMPACT} (Variante "blocks"): alle Bloecke je Mod dicht beieinander, ein Feld Abstand zur naechsten Mod.</li>
+ *   <li>{@link #ITEMS} (beide): Besatz-Staender (je Muster, je Material ein voller Satz), dann je Mod eine Linie in
+ *       Wiki-Reihenfolge mit allem, was der Block-Bereich der Variante nicht zeigt (setzbar = gesetzt, sonst Rahmen); dahinter
+ *       die Mobs der Mod (ohne KI, unverwundbar, still).</li>
  * </ol>
- * Wie die Tab-Waende kommen die Bereiche nach der Abdeckung: sie ordnen, die Stationen bleiben der Ort zum Ausprobieren.
  */
 public final class OrderAreas {
 
     public static final String FAMILIES = "order_families";
     public static final String ITEMS = "order_items";
     public static final String COMPACT = "order_compact";
-    /** Reihenfolge in der Welt. */
-    public static final List<String> SECTIONS = List.of(FAMILIES, ITEMS, COMPACT);
+    /** Reihenfolge in der Welt: Block-Bereich der Variante, dann Items je Mod. */
+    public static final List<String> SECTIONS = List.of(FAMILIES, COMPACT, ITEMS);
+
+    /**
+     * Die zwei Varianten der Zentrale (N42 Erweiterung, {@code /sbtestcentre build [lines|blocks]}): "lines" ordnet alle
+     * Bloecke in Reihen an der grauen Mittellinie ({@link #FAMILIES}), "blocks" je Mod kompakt ({@link #COMPACT}). Alle
+     * uebrigen Bereiche (Stationen, Testflaechen, Strukturen, Mobs, Items je Mod) bauen beide gleich.
+     */
+    public enum Variant {
+        LINES, BLOCKS;
+
+        /** Befehlswort. */
+        public String id() {
+            return name().toLowerCase(java.util.Locale.ROOT);
+        }
+
+        /** Der Block-Bereich der Variante. */
+        public String blockSection() {
+            return this == LINES ? FAMILIES : COMPACT;
+        }
+
+        /** Variante zu einem Befehlswort, sonst null. */
+        public static Variant of(String word) {
+            for (Variant variant : values()) {
+                if (variant.id().equals(word)) {
+                    return variant;
+                }
+            }
+            return null;
+        }
+    }
+
+    /** Standard ohne Angabe: die Linien (N42 ist der Wunsch, "blocks" die bisherige kompakte Form). */
+    public static final Variant DEFAULT = Variant.LINES;
+
     /** Breite des Inhalts (der Abschnitt mit Ausgabe-Knopf bleibt unter {@link TestCentreLayout#MAX_ROW_WIDTH}). */
     public static final int MAX_WIDTH = ModBlockGallery.MAX_WIDTH;
     /** Tag jedes Mobs, den die Bereiche spawnen ({@link TcOp.Mob}). */
@@ -82,18 +114,6 @@ public final class OrderAreas {
 
     /** Ein Eintrag eines Bereichs (fuer Tests): Gruppe (Reihe, Metall, Mod), Spalte, Item, Platz (unterster Block/Rahmen). */
     public record Cell(String group, int column, Item item, BlockPos pos) {
-    }
-
-    /**
-     * Ein Band des Familien-Bereichs (fuer Tests): Spalte 0 (Octet) liegt bei {@code frontZ}, jede weitere Spalte
-     * {@code step} (+1 vorderes, -1 gespiegeltes Band) weiter; {@code lineZ} ist die Betonlinie; {@code columns} = Spalten
-     * des Bands ({@link Slot#FIXED} bei Familien, {@link Slot#METAL} bei Metallen, dann die "weiteren").
-     */
-    public record Band(int x0, int x1, int frontZ, int step, int lineZ, List<Slot> columns) {
-    }
-
-    /** Ergebnis eines Bereichs. */
-    public record Area(TcCanvas canvas, List<Cell> cells, List<Band> bands) {
     }
 
     private OrderAreas() {
@@ -150,61 +170,122 @@ public final class OrderAreas {
         return List.of(path.split("_"));
     }
 
-    // ------------------------------------------------------------------ 1. Block-Familien und Metalle (ein Spaltenplan)
+    // ------------------------------------------------------------------ 1. Linien: Block-Familien, Metalle, Holz (TZ38D)
 
     /**
-     * Gemeinsamer Spaltenplan aller Reihen des Familien-Bereichs (TZ38b, Besitzer 12.11. ~21:00: F1-F5 = A, Plan
-     * {@code docs/ai/PLAN-A-TZ38C-2026-11-12.md}). Der Kern {@link #OCTET} ... {@link #PILLAR} ist fuer jede Reihe gleich
-     * (Metall: Mauer = Gitter, Block = geschnitten, rissig = Rost), dahinter die Zusatzformen in der Folge des
-     * Vanilla-Kreativ-Tabs ({@link #FENCE} ... {@link #BUTTON}). Normale Familien enden dort ({@link #FIXED}) und haengen nur
-     * noch "weitere" an; Metall-Reihen laufen weiter: Bauteile, Material und Fundort, Material-Items, Ausruestung, dann
-     * "weitere" ({@link #OTHER}).
-     * <p>Muster (nur fuer Metall-Reihen): {@code {p}} Praefix der Stufe ({@code exposed_}, {@code waxed_} ...), {@code {m}}
-     * Metall-Wort; {@code =} am Anfang: genau diese Id, bei {@link #STORAGE} nur Bloecke, sonst nur Nicht-Bloecke.
+     * Gemeinsamer Spaltenplan aller Linien-Reihen (TZ38D, Besitzer 13.11. N42): jede Reihe beginnt ein Feld neben der grauen
+     * Mittellinie mit den kleinen Gliedern und laeuft nach aussen. Die Kernspalten {@link #CORE} sind auf beiden Seiten gleich:
+     * Knopf | Druckplatte | Blech | Zaun (Metall: Stange) | Zauntor (Metall: Kette) | Falltuer | Tuer | Octet | Mauer (Metall:
+     * Gitter, Glas: Scheibe) | Stufe | Treppe | Block (Metall: geschnitten, Holz: Bretter) | rissig (Metall: Rost) | gemeisselt |
+     * Saeule (Holz: Stamm, Sonderblock). Holz und Metalle haengen ihre eigenen Spalten an ({@link #WOOD_EXTRA},
+     * {@link #METAL_EXTRA}), danach "weitere" ({@link #OTHER}).
+     * <p>Muster (Holz/Metall): {@code {p}} Praefix der Stufe ({@code waxed_exposed_} ...), {@code {m}} Metall- bzw. Holz-Wort;
+     * {@code =} am Anfang: genau diese Id, bei {@link #STORAGE} nur Bloecke, sonst nur Nicht-Bloecke.
      */
     public enum Slot {
-        // Kern - alle Reihen.
+        // Kern - alle Reihen; Metalle setzen in die Zaun-/Zauntor-Spalten Stange und Kette (Holz hat keine Kette/Stange).
+        BUTTON("{p}{m}_button"), PLATE("{p}{m}_pressure_plate"), SHEET("{p}{m}_sheet", "{p}{m}_plate"),
+        FENCE("{p}{m}_fence"), FENCE_GATE("{p}{m}_fence_gate"), POLE("{p}{m}_pole", "{p}{m}_rod"), CHAIN("{p}{m}_chain"),
+        TRAPDOOR("{p}{m}_trapdoor"), DOOR("{p}{m}_door"),
         OCTET("{p}cut_{m}_octet", "{p}cut_{m}_block_octet"),
         WALL("{p}{m}_bars", "{p}cut_{m}_wall", "{p}{m}_wall"),
-        SLAB("{p}cut_{m}_slab", "{p}{m}_slab"),
-        STAIRS("{p}cut_{m}_stairs", "{p}{m}_stairs"),
+        SLAB("{p}cut_{m}_slab", "{p}{m}_slab"), STAIRS("{p}cut_{m}_stairs", "{p}{m}_stairs"),
         BLOCK("{p}cut_{m}", "{p}cut_{m}_block"),
         CRACKED("{p}rusty_{m}", "{p}rusted_{m}", "{p}{m}_rust", "{p}cracked_{m}", "{p}cracked_{m}_block"),
         CHISELED("{p}chiseled_{m}", "{p}chiseled_{m}_block"),
         PILLAR("{p}{m}_pillar"),
-        // Zusatz - alle Reihen (Vanilla-Folge Zaun, Zauntor, Tuer, Falltuer, Druckplatte, Knopf; Blech vor der Druckplatte).
-        FENCE("{p}{m}_fence"), FENCE_GATE("{p}{m}_fence_gate"), DOOR("{p}{m}_door"), TRAPDOOR("{p}{m}_trapdoor"),
-        SHEET("{p}{m}_sheet", "{p}{m}_plate"), PLATE("{p}{m}_pressure_plate"), BUTTON("{p}{m}_button"),
+        // Nur Holz (Vanilla-Folge des Kreativ-Tabs).
+        STRIPPED_LOG("stripped_{m}_log", "stripped_{m}_stem", "stripped_{m}_block"), WOOD("{m}_wood", "{m}_hyphae"),
+        STRIPPED_WOOD("stripped_{m}_wood", "stripped_{m}_hyphae"), LEAVES("{m}_leaves", "{m}_wart_block"),
+        SAPLING("{m}_sapling", "{m}_propagule", "{m}_fungus", "{m}"), SIGN("{m}_sign"), HANGING_SIGN("{m}_hanging_sign"),
+        SHELF("{m}_shelf"), BOOKSHELF("{m}_bookshelf"), BOAT("{m}_boat", "{m}_raft"), CHEST_BOAT("{m}_chest_boat", "{m}_chest_raft"),
         // Nur Metalle: weitere Bauteile.
-        TILES("{p}{m}_tiles"), GRATE("{p}{m}_grate"), POLE("{p}{m}_pole", "{p}{m}_rod"), CHAIN("{p}{m}_chain"),
-        LANTERN("{p}{m}_lantern"), LAMP("{p}{m}_bulb", "{p}{m}_lamp"), CHEST("{p}{m}_chest"),
-        SPECIAL("{p}{m}_golem_statue", "{m}_mirror"), HOPPER("{m}_hopper"), PIPE("{m}_pipe"),
-        // Nur Metalle: Material und Fundort.
-        STORAGE("{p}{m}_block", "={p}{m}"), STORAGE_OCTET("{p}{m}_block_octet", "{p}{m}_octet"),
-        RAW_BLOCK("raw_{m}_block", "{m}_scrap_block", "layered_raw_{m}"), ORE("{m}_ore"), DEEPSLATE_ORE("deepslate_{m}_ore"),
-        NETHER_ORE("nether_{m}_ore"), END_ORE("end_{m}_ore"), LOOSE_ORE("{m}_bearing_gravel", "{m}_bearing_sand"),
-        // Nur Metalle: Material-Items (Rohstoff-Kette Roh -> Barren -> Nugget).
+        TILES("{p}{m}_tiles"), GRATE("{p}{m}_grate"), LANTERN("{p}{m}_lantern"), LAMP("{p}{m}_bulb", "{p}{m}_lamp"),
+        CHEST("{p}{m}_chest"), SPECIAL("{p}{m}_golem_statue", "{m}_mirror"), HOPPER("{m}_hopper"), PIPE("{m}_pipe"),
+        // Nur Metalle: Material und Fundort (Achtel stehen auf ihrem Block, siehe TOPS).
+        STORAGE("{p}{m}_block", "={p}{m}"), RAW_BLOCK("raw_{m}_block", "{m}_scrap_block", "layered_raw_{m}"), ORE("{m}_ore"),
+        DEEPSLATE_ORE("deepslate_{m}_ore"), NETHER_ORE("nether_{m}_ore"), END_ORE("end_{m}_ore"),
+        LOOSE_ORE("{m}_bearing_gravel", "{m}_bearing_sand"),
+        // Nur Metalle: Material-Items (Roh -> Barren -> Nugget).
         RAW("raw_{m}"), INGOT("{m}_ingot", "={m}", "{m}_gem", "{m}_shard", "{m}_crystal", "{m}_lazuli", "{m}_dust"),
         NUGGET("{m}_nugget"), SCRAP("{m}_scrap"), CORE("{m}_core"),
-        // Nur Metalle: Ausruestung (Waffen zusammen, keine Spachtel-Spalte: Spachteln sind seit 09/2026 Meissel).
+        // Nur Metalle: Ausruestung (keine Spachtel-Spalte: Spachteln sind seit 09/2026 Meissel).
         HORSE_ARMOR("{m}_horse_armor"), NAUTILUS_ARMOR("{m}_nautilus_armor"), ANIMAL_ARMOR("trex_armor_{m}", "{m}_wolf_armor"),
         HORSESHOE("{m}_horseshoe"), SWORD("{m}_sword"), SPEAR("{m}_spear"), PICKAXE("{m}_pickaxe"), AXE("{m}_axe"),
         SHOVEL("{m}_shovel"), HOE("{m}_hoe"), CHISEL("{m}_chisel"), SLEDGEHAMMER("{m}_sledgehammer"),
         BUILDING_WAND("{m}_building_wand"), HELMET("{m}_helmet"), CHESTPLATE("{m}_chestplate"), LEGGINGS("{m}_leggings"),
         BOOTS("{m}_boots"),
-        /** "weitere": alles Uebrige einer Reihe, so viele Spalten, wie die laengste Reihe des Bands braucht. */
+        /** "weitere": alles Uebrige einer Reihe, hinter ihren festen Spalten. */
         OTHER;
-
-        /** Kern + Zusatz (Feld 1-15): so weit reichen die festen Spalten einer normalen Familien-Reihe. */
-        public static final int FIXED = TILES.ordinal();
-        /** Feste Spalten einer Metall-Reihe (alles vor {@link #OTHER}). */
-        public static final int METAL = OTHER.ordinal();
 
         final List<String> patterns;
 
         Slot(String... patterns) {
             this.patterns = List.of(patterns);
         }
+    }
+
+    /** Kernspalten (Feld 0 = neben dem Abstand zur Mittellinie), fuer Stein-, Rest- und Holz-Reihen. */
+    public static final List<Slot> CORE = List.of(Slot.BUTTON, Slot.PLATE, Slot.SHEET, Slot.FENCE, Slot.FENCE_GATE, Slot.TRAPDOOR,
+            Slot.DOOR, Slot.OCTET, Slot.WALL, Slot.SLAB, Slot.STAIRS, Slot.BLOCK, Slot.CRACKED, Slot.CHISELED, Slot.PILLAR);
+    /** Holz nach dem Kern. */
+    public static final List<Slot> WOOD_EXTRA = List.of(Slot.STRIPPED_LOG, Slot.WOOD, Slot.STRIPPED_WOOD, Slot.LEAVES, Slot.SAPLING,
+            Slot.SIGN, Slot.HANGING_SIGN, Slot.SHELF, Slot.BOOKSHELF, Slot.BOAT, Slot.CHEST_BOAT);
+    /** Metalle nach dem Kern (TZ38b F4: Bauteile, Material und Fundort, Material-Items, Ausruestung). */
+    public static final List<Slot> METAL_EXTRA;
+    /** Achtel, die auf ihrem Block stehen (N42-7: "Rohblock-Achtel beim Rohblock"; Speicher- und Stamm-Achtel ebenso). */
+    static final Map<Slot, List<String>> TOPS = Map.of(
+            Slot.STORAGE, List.of("{p}{m}_block_octet", "{p}{m}_octet"),
+            Slot.RAW_BLOCK, List.of("raw_{m}_block_octet", "raw_{m}_octet"),
+            Slot.PILLAR, List.of("{m}_log_octet", "{m}_stem_octet"),
+            Slot.STRIPPED_LOG, List.of("stripped_{m}_log_octet", "stripped_{m}_stem_octet"));
+    /** Holz-Muster der Kernspalten, die anders heissen als bei Metallen (Bretter, Stamm, Mosaik). */
+    static final Map<Slot, List<String>> WOOD_PATTERNS = Map.of(
+            Slot.OCTET, List.of("{m}_octet", "{m}_planks_octet"),
+            Slot.BLOCK, List.of("{m}_planks"),
+            Slot.CRACKED, List.of("cracked_{m}_planks"),
+            Slot.CHISELED, List.of("chiseled_{m}_planks", "{m}_mosaic"),
+            Slot.PILLAR, List.of("{m}_log", "{m}_stem", "{m}_block"),
+            Slot.WALL, List.of("{m}_wall"),
+            Slot.SLAB, List.of("{m}_slab"),
+            Slot.STAIRS, List.of("{m}_stairs"));
+
+    /** Muster einer Spalte fuer eine Material-Art. */
+    static List<String> patterns(Kind kind, Slot slot) {
+        return kind == Kind.WOOD ? WOOD_PATTERNS.getOrDefault(slot, slot.patterns) : slot.patterns;
+    }
+
+    static {
+        List<Slot> metal = new ArrayList<>();
+        for (Slot slot : Slot.values()) {
+            if (slot.ordinal() >= Slot.TILES.ordinal() && slot != Slot.OTHER) {
+                metal.add(slot);
+            }
+        }
+        METAL_EXTRA = List.copyOf(metal);
+    }
+
+    /** Art einer Reihe: Seite A Metalle, Holz, Rest; Seite B Stein (alles Steinige, Nicht-Hoelzerne). */
+    public enum Kind {
+        METAL, WOOD, REST, STONE;
+
+        /** Seite A (Metalle, Holz, Rest) oder B (gegenueber: Stein). */
+        public boolean sideA() {
+            return this != STONE;
+        }
+    }
+
+    /** Feste Spalten einer Reihe dieser Art. */
+    public static List<Slot> columns(Kind kind) {
+        List<Slot> out = new ArrayList<>(CORE);
+        if (kind == Kind.METAL) {
+            out.set(CORE.indexOf(Slot.FENCE), Slot.POLE);
+            out.set(CORE.indexOf(Slot.FENCE_GATE), Slot.CHAIN);
+            out.addAll(METAL_EXTRA);
+        } else if (kind == Kind.WOOD) {
+            out.addAll(WOOD_EXTRA);
+        }
+        return List.copyOf(out);
     }
 
     /** Sonderblock einer Reihe in der Saeulen-Spalte (Besitzer: Tiefenschiefer-Ziegel, Tiefenschiefer-Fliesen). */
@@ -250,23 +331,22 @@ public final class OrderAreas {
         return path.endsWith("_sheet") || path.endsWith("_plate") && !path.endsWith("_pressure_plate");
     }
 
-    /** Spalte eines Items in seiner Reihe, null = keine Familien-Form (Maschinen, Lichter, Items ...). */
+    /** Spalte eines Items in seiner Familien-Reihe nach Form, null = keine Familien-Form (Maschinen, Lichter, Items ...). */
     static Slot slot(Item item, List<BlockState> states) {
         String path = TcContext.id(item).getPath();
         if (item instanceof BlockItem && isSheet(path)) {
             return Slot.SHEET;
         }
+        Block block = item instanceof BlockItem blockItem ? blockItem.getBlock() : null;
+        // Druckplatten und Knoepfe auch nach Namen (Simple Pads: Kupfer-Druckplatte ist ein PadBlock) und ungesetzt (Signalquellen).
+        if (block instanceof BasePressurePlateBlock || block != null && path.endsWith("_pressure_plate")) {
+            return Slot.PLATE;
+        }
+        if (block instanceof ButtonBlock || block != null && path.endsWith("_button")) {
+            return Slot.BUTTON;
+        }
         if (!states.isEmpty()) {
-            BlockState state = states.getFirst();
-            Block block = state.getBlock();
-            // Auch Druckplatten mit eigener Klasse (Simple Pads: Kupfer-Druckplatte ist ein PadBlock) zaehlen nach Namen.
-            if (block instanceof BasePressurePlateBlock || path.endsWith("_pressure_plate")) {
-                return Slot.PLATE;
-            }
-            if (block instanceof ButtonBlock || path.endsWith("_button")) {
-                return Slot.BUTTON;
-            }
-            ModBlockGallery.Form form = ModBlockGallery.formOf(state);
+            ModBlockGallery.Form form = ModBlockGallery.formOf(states.getFirst());
             if (form == null) {
                 return null;
             }
@@ -284,7 +364,7 @@ public final class OrderAreas {
             };
         }
         // Im Rahmen (schmelzendes Eis, Pads ...): die Form steht im Namen.
-        if (!(item instanceof BlockItem)) {
+        if (block == null) {
             return null;
         }
         Map<String, Slot> bySuffix = new LinkedHashMap<>();
@@ -296,8 +376,6 @@ public final class OrderAreas {
         bySuffix.put("_bars", Slot.WALL);
         bySuffix.put("_fence_gate", Slot.FENCE_GATE);
         bySuffix.put("_fence", Slot.FENCE);
-        bySuffix.put("_pressure_plate", Slot.PLATE);
-        bySuffix.put("_button", Slot.BUTTON);
         bySuffix.put("_trapdoor", Slot.TRAPDOOR);
         bySuffix.put("_door", Slot.DOOR);
         for (Map.Entry<String, Slot> entry : bySuffix.entrySet()) {
@@ -305,7 +383,7 @@ public final class OrderAreas {
                 return entry.getValue();
             }
         }
-        BlockState state = ((BlockItem) item).getBlock().defaultBlockState();
+        BlockState state = block.defaultBlockState();
         try {
             return state.isCollisionShapeFullBlock(EmptyBlockGetter.INSTANCE, BlockPos.ZERO) && !state.hasBlockEntity()
                     ? blockSlot(path) : null;
@@ -314,7 +392,7 @@ public final class OrderAreas {
         }
     }
 
-    /** Spalte eines Items im Familien-Bereich nach seiner Form (ohne Sonderblock-Zuordnung), null = keine Familien-Form. */
+    /** Spalte eines Items nach seiner Form (ohne Sonderblock-Zuordnung), null = keine Familien-Form. */
     public static Slot slotOf(Item item) {
         return slot(item, ModBlockGallery.states(item));
     }
@@ -357,8 +435,8 @@ public final class OrderAreas {
     }
 
     /**
-     * Alle Familien-Reihen vor Abzug der Metall-Reihen: Reihen-Schluessel -> Glieder (Familien-Mod-Items, Vanilla als Bezug
-     * in vorhandenen Reihen, Sonderbloecke in der Saeulen-Spalte); nur Reihen mit mindestens einem Familien-Mod-Glied.
+     * Alle Familien-Reihen vor Abzug der Metall- und Holz-Reihen: Reihen-Schluessel -> Glieder (Familien-Mod-Items, Vanilla als
+     * Bezug in vorhandenen Reihen, Sonderbloecke in der Saeulen-Spalte); nur Reihen mit mindestens einem Familien-Mod-Glied.
      */
     static Map<String, List<Member>> rawRows() {
         Map<String, List<Member>> rows = new LinkedHashMap<>();
@@ -411,8 +489,8 @@ public final class OrderAreas {
     }
 
     /**
-     * Die Reihen des Familien-Bereichs ohne die Items der Metall-Reihen (TZ38b Ae6: keine Doppel), je Familie gruppiert
-     * (Familien nach Farbe, Reihen nach Variante).
+     * Die Familien-Reihen ohne die Items der Metall- und Holz-Reihen (keine Doppel), je Familie gruppiert (Familien nach Farbe,
+     * Reihen nach Variante).
      */
     static List<Map<String, List<Member>>> familyRows(Map<String, List<Member>> raw, Set<Item> claimed) {
         Map<String, List<Member>> rows = new LinkedHashMap<>();
@@ -427,7 +505,6 @@ public final class OrderAreas {
                 rows.put(key, left);
             }
         });
-        // Familien gruppieren.
         Map<String, Map<String, List<Member>>> families = new LinkedHashMap<>();
         rows.forEach((row, members) -> families.computeIfAbsent(members.getFirst().family(), key -> new java.util.TreeMap<>(
                 Comparator.comparing(OrderAreas::rowOrder))).put(row, members));
@@ -452,17 +529,28 @@ public final class OrderAreas {
     }
 
     private static double colour(Map<String, List<Member>> family) {
+        BlockState state = familyState(family);
+        return state == null ? 3.0 : hue(state);
+    }
+
+    /** Der Zustand des ersten gesetzten Vollblocks (sonst des ersten gesetzten Glieds) einer Familie. */
+    private static BlockState familyState(Map<String, List<Member>> family) {
+        BlockState any = null;
         for (List<Member> row : family.values()) {
             for (Member m : row) {
+                List<BlockState> states = ModBlockGallery.states(m.item());
+                if (states.isEmpty()) {
+                    continue;
+                }
                 if (m.slot() == Slot.BLOCK) {
-                    List<BlockState> states = ModBlockGallery.states(m.item());
-                    if (!states.isEmpty()) {
-                        return hue(states.getFirst());
-                    }
+                    return states.getFirst();
+                }
+                if (any == null) {
+                    any = states.getFirst();
                 }
             }
         }
-        return 3.0;
+        return any;
     }
 
     /** Wie die Galerie: bunte nach Farbton (0..1), graue nach Helligkeit (1..2, hell zuerst). */
@@ -487,18 +575,65 @@ public final class OrderAreas {
     }
 
     /**
-     * Graue Betonstufe der Trennlinie: Vanilla-Betonstufe (26.3: {@code minecraft:gray_concrete_slab}), sonst das Beton-Achtel
-     * mit voller unterer Lage (Simple Octets), sonst grauer Beton. Per Id, damit es auf jeder Linie kompiliert.
+     * Steinig (Seite B, N42-3: "alle steinigen/nicht-hoelzernen Bloecke: Stein, Ziegel, Sand, Wolle, Eis, Beton, Terrakotta"):
+     * nach dem Klang des Grundblocks. Alles andere ohne Holz und Metall (Pflanzen, Moos, Schleim, Honig ...) ist "Rest" (Seite A).
      */
+    static boolean stony(BlockState state) {
+        if (state == null) {
+            return true;
+        }
+        net.minecraft.world.level.block.SoundType sound;
+        try {
+            sound = state.getSoundType();
+        } catch (RuntimeException e) {
+            return true;
+        }
+        return STONY_SOUNDS.contains(sound);
+    }
+
+    private static final Set<net.minecraft.world.level.block.SoundType> STONY_SOUNDS = Set.of(
+            net.minecraft.world.level.block.SoundType.STONE, net.minecraft.world.level.block.SoundType.DEEPSLATE,
+            net.minecraft.world.level.block.SoundType.DEEPSLATE_BRICKS, net.minecraft.world.level.block.SoundType.DEEPSLATE_TILES,
+            net.minecraft.world.level.block.SoundType.POLISHED_DEEPSLATE, net.minecraft.world.level.block.SoundType.TUFF,
+            net.minecraft.world.level.block.SoundType.TUFF_BRICKS, net.minecraft.world.level.block.SoundType.POLISHED_TUFF,
+            net.minecraft.world.level.block.SoundType.NETHER_BRICKS, net.minecraft.world.level.block.SoundType.NETHERRACK,
+            net.minecraft.world.level.block.SoundType.BASALT, net.minecraft.world.level.block.SoundType.CALCITE,
+            net.minecraft.world.level.block.SoundType.DRIPSTONE_BLOCK, net.minecraft.world.level.block.SoundType.MUD_BRICKS,
+            net.minecraft.world.level.block.SoundType.PACKED_MUD, net.minecraft.world.level.block.SoundType.SAND,
+            net.minecraft.world.level.block.SoundType.GRAVEL, net.minecraft.world.level.block.SoundType.WOOL,
+            net.minecraft.world.level.block.SoundType.SNOW, net.minecraft.world.level.block.SoundType.GLASS,
+            net.minecraft.world.level.block.SoundType.BONE_BLOCK, net.minecraft.world.level.block.SoundType.CORAL_BLOCK,
+            net.minecraft.world.level.block.SoundType.AMETHYST, net.minecraft.world.level.block.SoundType.LODESTONE,
+            net.minecraft.world.level.block.SoundType.GILDED_BLACKSTONE, net.minecraft.world.level.block.SoundType.NETHER_ORE,
+            net.minecraft.world.level.block.SoundType.NETHER_GOLD_ORE, net.minecraft.world.level.block.SoundType.ANCIENT_DEBRIS,
+            net.minecraft.world.level.block.SoundType.RESIN_BRICKS, net.minecraft.world.level.block.SoundType.SOUL_SOIL,
+            net.minecraft.world.level.block.SoundType.SOUL_SAND, net.minecraft.world.level.block.SoundType.NYLIUM);
+
+    /** Graue Betonstufe der Mittellinie (26.3 {@code gray_concrete_slab}), sonst Beton-Achtel, sonst grauer Beton. */
     public static BlockState lineState() {
-        Block slab = BuiltInRegistries.BLOCK.getOptional(Identifier.withDefaultNamespace("gray_concrete_slab")).orElse(null);
+        return concrete("gray");
+    }
+
+    /** Platzhalter "soll nicht existieren": hellgraue Betonstufe (N42-2). */
+    public static BlockState absentState() {
+        return concrete("light_gray");
+    }
+
+    /** Platzhalter "sollte existieren, fehlt": rote Betonstufe (N42-2, Fehlliste). */
+    public static BlockState missingState() {
+        return concrete("red");
+    }
+
+    /** Betonstufe der Farbe: Vanilla-Stufe (26.3), sonst Beton-Achtel mit voller unterer Lage (Simple Octets), sonst Beton. */
+    private static BlockState concrete(String colour) {
+        Block slab = BuiltInRegistries.BLOCK.getOptional(Identifier.withDefaultNamespace(colour + "_concrete_slab")).orElse(null);
         if (slab != null) {
             return slab.defaultBlockState();
         }
-        Block octet = BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath("simpleoctets", "gray_concrete_octet"))
+        Block octet = BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath("simpleoctets", colour + "_concrete_octet"))
                 .orElse(null);
         if (octet == null) {
-            return BuiltInRegistries.BLOCK.getOptional(Identifier.withDefaultNamespace("gray_concrete")).orElse(Blocks.STONE)
+            return BuiltInRegistries.BLOCK.getOptional(Identifier.withDefaultNamespace(colour + "_concrete")).orElse(Blocks.STONE)
                     .defaultBlockState();
         }
         BlockState state = octet.defaultBlockState();
@@ -510,256 +645,137 @@ public final class OrderAreas {
         return state;
     }
 
-    /** Eine Reihe im Band: feste Spalten, danach die weiteren in Reihenfolge; Schild am Gang nur bei Metall-Reihen. */
-    private record RowPlan(String group, Map<Slot, Item> fixed, List<Item> others, Component label) {
-    }
-
-    /** Familien-Reihe: je Kern-/Zusatzspalte das erste Glied (echte Mauer vor Scheibe), Ueberzaehlige nach Form in "weitere". */
-    private static RowPlan familyRow(String key, List<Member> members) {
-        List<Member> ordered = new ArrayList<>(members);
-        ordered.sort(Comparator.comparing(Member::weak));
-        Map<Slot, Item> fixed = new EnumMap<>(Slot.class);
-        List<Member> extra = new ArrayList<>();
-        for (Member m : ordered) {
-            if (m.slot().ordinal() < Slot.FIXED && !fixed.containsKey(m.slot())) {
-                fixed.put(m.slot(), m.item());
-            } else {
-                extra.add(m);
-            }
-        }
-        extra.sort(Comparator.comparingInt(m -> m.slot().ordinal()));
-        List<Item> others = new ArrayList<>();
-        extra.forEach(m -> others.add(m.item()));
-        return new RowPlan(key, fixed, others, null);
-    }
-
-    /** Familien auf Baender verteilen: hoechstens {@link #MAX_WIDTH} breit, eine leere Spalte zwischen zwei Familien. */
-    private static List<List<List<RowPlan>>> bands(List<List<RowPlan>> families) {
-        List<List<List<RowPlan>>> perBand = new ArrayList<>();
-        List<List<RowPlan>> current = new ArrayList<>();
-        int x = START_X;
-        for (List<RowPlan> family : families) {
-            int width = family.size();
-            if (!current.isEmpty() && x + width > MAX_WIDTH) {
-                perBand.add(current);
-                current = new ArrayList<>();
-                x = START_X;
-            }
-            current.add(family);
-            x += width + 1;
-        }
-        if (!current.isEmpty()) {
-            perBand.add(current);
-        }
-        return perBand;
-    }
+    // ------------------------------------------------------------------ Material-Reihen (Metalle, Holz)
 
     /**
-     * Baender paarweise um eine Linie grauer Betonstufen, ab {@code z0}: das vordere Band vom Gang zur Linie (+z), das
-     * Gegenband gespiegelt. Jedes Band ist {@code fixed} feste Spalten plus so viele "weitere" tief, wie seine laengste Reihe
-     * braucht (Vorder- und Gegenband unabhaengig). Liefert das z nach dem Gang hinter dem letzten Paar.
+     * Ein Material mit eigenen Spalten: Anzeige-Schluessel, Art, Stufen-Praefix ({@code exposed_} ...), Praefixe in
+     * Vorzugsfolge (Kupfer: gewachst zuerst, N42-6), Woerter (erstes = Name, weitere = Aliasse wie {@code golden}), Gruppe
+     * (Metalle: 0 Vanilla/SimpleBuilding, 1 Mod-Erze, 2 Mineralien), feste Extras je Spalte (Vanilla-Ids ohne das Wort).
      */
-    private static int pairs(TcCanvas c, List<Cell> cells, List<Band> bands, List<List<List<RowPlan>>> perBand, int fixed, int z0) {
-        BlockState line = lineState();
-        for (int pair = 0; pair * 2 < perBand.size(); pair++) {
-            List<List<List<RowPlan>>> both = perBand.subList(pair * 2, Math.min(perBand.size(), pair * 2 + 2));
-            List<List<Slot>> columns = new ArrayList<>();
-            for (List<List<RowPlan>> band : both) {
-                int others = 0;
-                for (List<RowPlan> family : band) {
-                    for (RowPlan row : family) {
-                        others = Math.max(others, row.others().size());
-                    }
-                }
-                List<Slot> list = new ArrayList<>(List.of(Slot.values()).subList(0, fixed));
-                for (int i = 0; i < others; i++) {
-                    list.add(Slot.OTHER);
-                }
-                columns.add(List.copyOf(list));
-            }
-            int lineZ = z0 + columns.getFirst().size();
-            int maxX = START_X;
-            for (int side = 0; side < both.size(); side++) {
-                int step = side == 0 ? 1 : -1;
-                int frontZ = side == 0 ? z0 : lineZ + columns.get(side).size();
-                int bx = START_X;
-                for (List<RowPlan> family : both.get(side)) {
-                    for (RowPlan row : family) {
-                        for (Map.Entry<Slot, Item> entry : row.fixed().entrySet()) {
-                            int col = entry.getKey().ordinal();
-                            put(c, entry.getValue(), bx, frontZ + step * col);
-                            cells.add(new Cell(row.group(), col, entry.getValue(), new BlockPos(bx, 0, frontZ + step * col)));
-                        }
-                        for (int i = 0; i < row.others().size(); i++) {
-                            int col = fixed + i;
-                            put(c, row.others().get(i), bx, frontZ + step * col);
-                            cells.add(new Cell(row.group(), col, row.others().get(i), new BlockPos(bx, 0, frontZ + step * col)));
-                        }
-                        if (row.label() != null) {
-                            // Am Gang vor der Reihe, am Octet-Feld haengend (Zinn/Nickel/Silber sehen sich aehnlich).
-                            c.sign(bx, 0, frontZ - step, step > 0 ? Direction.NORTH : Direction.SOUTH, row.label());
-                        }
-                        bx++;
-                    }
-                    bx++; // leere Spalte zwischen Familien
-                }
-                bands.add(new Band(START_X, bx - 2, frontZ, step, lineZ, columns.get(side)));
-                maxX = Math.max(maxX, bx - 2);
-            }
-            for (int lx = START_X; lx <= maxX; lx++) {
-                c.place(lx, 0, lineZ, line);
-            }
-            z0 = lineZ + (both.size() > 1 ? columns.get(1).size() : 0) + 1 + AISLE;
-        }
-        return z0;
-    }
-
-    /**
-     * Bereich 1: zuerst die Familien-Band-Paare (Reihe vom Gang zur Betonlinie: Kern, Zusatz, weitere), dahinter als letztes
-     * Band-Paar die Metalle im selben Spaltenplan (TZ38b Ae2/F5 = A: vorn Kupfer ... Nihilith, gegenueber gespiegelt die
-     * Mod-Erze und Mineralien), ihr Anhang laeuft hinter Feld 15 weiter.
-     */
-    public static Area families() {
-        TcCanvas c = new TcCanvas();
-        List<Cell> cells = new ArrayList<>();
-        List<Band> bands = new ArrayList<>();
-        Map<String, List<Member>> raw = rawRows();
-        Map<Item, String> rowOf = new HashMap<>();
-        raw.forEach((key, members) -> members.forEach(m -> rowOf.putIfAbsent(m.item(), key)));
-        List<MetalRow> metals = metalRows(rowOf);
-        Set<Item> claimed = new HashSet<>();
-        for (MetalRow row : metals) {
-            claimed.addAll(row.slots().values());
-            claimed.addAll(row.others());
-        }
-        List<Map<String, List<Member>>> families = familyRows(raw, claimed);
-        // E3: was eine eigene Stein-Familie haette, aber dort nicht mehr steht, faellt nicht heraus - es kommt zu den weiteren.
-        Set<Item> inFamilies = new HashSet<>();
-        families.forEach(family -> family.values().forEach(members -> members.forEach(m -> inFamilies.add(m.item()))));
-        List<List<RowPlan>> familyPlans = new ArrayList<>();
-        int rowCount = 0;
-        for (Map<String, List<Member>> family : families) {
-            List<RowPlan> plans = new ArrayList<>();
-            family.forEach((key, members) -> plans.add(familyRow(key, members)));
-            rowCount += plans.size();
-            familyPlans.add(plans);
-        }
-        int z = pairs(c, cells, bands, bands(familyPlans), Slot.FIXED, START_Z);
-        // Metalle: Stufen eines Metalls (Kupfer, angelaufen ..., gewachst ...) ohne Luecke, sonst eine leere Spalte dazwischen.
-        List<List<RowPlan>> front = new ArrayList<>();
-        List<List<RowPlan>> back = new ArrayList<>();
-        String lastFamily = null;
-        for (MetalRow row : metals) {
-            List<Item> others = new ArrayList<>(row.others());
-            for (Item item : row.deferred()) {
-                if (!inFamilies.contains(item)) {
-                    others.add(item);
-                }
-            }
-            Item label = row.slots().getOrDefault(Slot.INGOT, row.slots().getOrDefault(Slot.STORAGE, row.slots().values().iterator().next()));
-            RowPlan plan = new RowPlan(row.metal().key(), row.slots(), others, TcText.bold(new ItemStack(label).getHoverName()));
-            List<List<RowPlan>> side = row.metal().group() == 0 ? front : back;
-            if (side.isEmpty() || !row.metal().family().equals(lastFamily)) {
-                side.add(new ArrayList<>());
-            }
-            side.getLast().add(plan);
-            lastFamily = row.metal().family();
-        }
-        if (!metals.isEmpty()) {
-            c.wallSign(0, 0, z, TcText.bold(TcText.t("order.metals", "Raw materials & metals")),
-                    TcText.t("order.metals.sub", "same columns, extras behind"),
-                    TcText.t("order.metals.empty", "empty field = missing"));
-            List<List<List<RowPlan>>> metalBands = new ArrayList<>(bands(front));
-            metalBands.addAll(bands(back));
-            pairs(c, cells, bands, metalBands, Slot.METAL, z);
-        }
-        c.wallSign(0, 0, 1, TcText.bold(TcText.t("order.families", "Block families")),
-                TcText.t("order.families.sub", "%s families, %s rows", families.size(), rowCount),
-                TcText.t("order.families.cols", "octet > wall > slab > stairs"),
-                TcText.t("order.families.cols2", "block > cracked > chiseled > pillar"));
-        return new Area(c, cells, bands);
-    }
-
-    // ------------------------------------------------------------------ Metall-Reihen
-
-    /**
-     * Ein Rohstoff: Anzeige-Schluessel, Stufen-Praefix ({@code exposed_}, {@code waxed_} ...), Metall-Woerter (erstes = Name,
-     * weitere = Aliasse wie {@code golden}), Gruppe (0 Vanilla/SimpleBuilding vorn, 1 Mod-Erze gegenueber, 2 Mineralien), feste
-     * Extras je Spalte (Vanilla-Ids ohne Metall-Wort).
-     */
-    public record Metal(String key, String prefix, List<String> words, int group, Map<Slot, List<String>> extra) {
-        Metal(String key, int group, String... words) {
-            this(key, "", List.of(words), group, Map.of());
+    public record Material(String key, Kind kind, String prefix, List<String> prefixes, List<String> words, int group,
+                           Map<Slot, List<String>> extra) {
+        Material(String key, int group, String... words) {
+            this(key, Kind.METAL, "", List.of(""), List.of(words), group, Map.of());
         }
 
+        /** Wortfolge, an der Items erkannt werden ({@code exposed}+{@code copper}; gewachst zaehlt nicht mit). */
         List<String> seq(String word) {
             List<String> out = new ArrayList<>(prefix.isEmpty() ? List.of() : tokens(prefix.substring(0, prefix.length() - 1)));
             out.addAll(tokens(word));
             return out;
         }
 
-        /** Reihen-Schluessel, die ganz zu dieser Metall-Reihe gehoeren ({@code {p}{m}}, {@code {p}cut_{m}}). */
+        /** Reihen-Schluessel, die ganz zu dieser Reihe gehoeren ({@code {p}{m}}, {@code {p}cut_{m}}). */
         Set<String> ownRows() {
             Set<String> out = new HashSet<>();
-            for (String word : words) {
-                out.add(prefix + word);
-                out.add(prefix + "cut_" + word);
+            for (String p : prefixes) {
+                for (String word : words) {
+                    out.add(p + word);
+                    out.add(p + "cut_" + word);
+                }
             }
             return out;
         }
 
-        /** Familie im Band: alle Stufen eines Metalls stehen ohne Luecke nebeneinander. */
-        public String family() {
-            return words.getFirst();
+        /** Eine Kupfer-Stufe (nicht die Grundstufe): nur Bauformen, keine Material-/Ausruestungs-Erwartungen. */
+        boolean stage() {
+            return !prefix.isEmpty();
         }
     }
 
-    private static Metal copperStage(String prefix) {
-        return new Metal(prefix + "copper", prefix, List.of("copper"), 0,
-                Map.of(Slot.POLE, List.of("minecraft:" + prefix + "lightning_rod")));
+    private static Material copperStage(String prefix) {
+        return new Material(prefix + "copper", Kind.METAL, prefix, List.of("waxed_" + prefix, prefix), List.of("copper"), 0,
+                Map.of(Slot.POLE, List.of("minecraft:waxed_" + prefix + "lightning_rod", "minecraft:" + prefix + "lightning_rod")));
     }
 
     /**
-     * Reihenfolge des Besitzers: Vanilla/SB-Metalle bis Astralit/Nihilith (Kupfer mit Anlauf- und Wachs-Stufen in der Folge des
-     * Vanilla-Kreativ-Tabs), gegenueber die Mod-Erze, danach die Mineralien.
+     * Reihenfolge des Besitzers: Vanilla/SB-Metalle bis Astralit/Nihilith (Kupfer nur mit den vier gewachsten Stufen, N42-6),
+     * dann die Mod-Erze, dann die Mineralien - alle auf Seite A, danach Holz und Rest.
      */
-    public static final List<Metal> METAL_LIST = List.of(
+    public static final List<Material> METAL_LIST = List.of(
             copperStage(""), copperStage("exposed_"), copperStage("weathered_"), copperStage("oxidized_"),
-            copperStage("waxed_"), copperStage("waxed_exposed_"), copperStage("waxed_weathered_"), copperStage("waxed_oxidized_"),
-            new Metal("iron", "", List.of("iron"), 0, Map.of(Slot.PLATE, List.of("minecraft:heavy_weighted_pressure_plate"),
-                    Slot.LANTERN, List.of("minecraft:lantern"), Slot.HOPPER, List.of("minecraft:hopper"), Slot.CHAIN, List.of("minecraft:chain"))),
-            new Metal("gold", "", List.of("gold", "golden"), 0, Map.of(Slot.PLATE, List.of("minecraft:light_weighted_pressure_plate"))),
-            new Metal("rose_gold", 0, "rose_gold"),
-            new Metal("rose_bronze", 0, "rose_bronze"),
-            new Metal("diamond", 0, "diamond"),
-            new Metal("emerald", 0, "emerald"),
-            new Metal("netherite", "", List.of("netherite"), 0, Map.of(Slot.NETHER_ORE, List.of("minecraft:ancient_debris"))),
-            new Metal("enderite", 0, "enderite"),
-            new Metal("dimensional", 0, "dimensional"),
-            new Metal("terranite", 0, "terranite"),
-            new Metal("zenithite", 0, "zenithite"),
-            new Metal("infernite", 0, "infernite"),
-            new Metal("rift", 0, "rift"),
-            new Metal("sage", 0, "sage"),
-            new Metal("astralit", 0, "astralit"),
-            new Metal("nihilith", 0, "nihilith"),
-            new Metal("silver", 1, "silver"),
-            new Metal("lead", 1, "lead"),
-            new Metal("zinc", 1, "zinc"),
-            new Metal("nickel", 1, "nickel"),
-            new Metal("tin", 1, "tin"),
-            new Metal("brass", 1, "brass"),
-            new Metal("bronze", 1, "bronze"),
-            new Metal("stainless_steel", 1, "stainless_steel"),
-            new Metal("redstone", 2, "redstone"),
-            new Metal("lapis", 2, "lapis"),
-            new Metal("quartz", 2, "quartz"),
-            new Metal("coal", 2, "coal"),
-            new Metal("amethyst", 2, "amethyst"));
+            new Material("iron", Kind.METAL, "", List.of(""), List.of("iron"), 0, Map.of(Slot.PLATE,
+                    List.of("minecraft:heavy_weighted_pressure_plate"), Slot.LANTERN, List.of("minecraft:lantern"),
+                    Slot.HOPPER, List.of("minecraft:hopper"), Slot.CHAIN, List.of("minecraft:iron_chain", "minecraft:chain"))),
+            new Material("gold", Kind.METAL, "", List.of(""), List.of("gold", "golden"), 0,
+                    Map.of(Slot.PLATE, List.of("minecraft:light_weighted_pressure_plate"))),
+            new Material("rose_gold", 0, "rose_gold"),
+            new Material("rose_bronze", 0, "rose_bronze"),
+            new Material("diamond", 0, "diamond"),
+            new Material("emerald", 0, "emerald"),
+            new Material("netherite", Kind.METAL, "", List.of(""), List.of("netherite"), 0,
+                    Map.of(Slot.NETHER_ORE, List.of("minecraft:ancient_debris"))),
+            new Material("enderite", 0, "enderite"),
+            new Material("dimensional", 0, "dimensional"),
+            new Material("terranite", 0, "terranite"),
+            new Material("zenithite", 0, "zenithite"),
+            new Material("infernite", 0, "infernite"),
+            new Material("rift", 0, "rift"),
+            new Material("sage", 0, "sage"),
+            new Material("astralit", 0, "astralit"),
+            new Material("nihilith", 0, "nihilith"),
+            new Material("silver", 1, "silver"),
+            new Material("lead", 1, "lead"),
+            new Material("zinc", 1, "zinc"),
+            new Material("nickel", 1, "nickel"),
+            new Material("tin", 1, "tin"),
+            new Material("brass", 1, "brass"),
+            new Material("bronze", 1, "bronze"),
+            new Material("stainless_steel", 1, "stainless_steel"),
+            new Material("redstone", 2, "redstone"),
+            new Material("lapis", 2, "lapis"),
+            new Material("quartz", 2, "quartz"),
+            new Material("coal", 2, "coal"),
+            new Material("amethyst", 2, "amethyst"));
+
+    /** Vanilla-Hoelzer in der Folge des Kreativ-Tabs; Familien-Hoelzer ({@code x_planks}) folgen nach Mod und Id. */
+    static final List<String> VANILLA_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry",
+            "pale_oak", "bamboo", "crimson", "warped");
+
+    /** Alle Hoelzer: jedes {@code x_planks} (Vanilla und Familie) ist ein Holz {@code x}. */
+    static List<Material> woods() {
+        List<String> namespaces = new ArrayList<>(List.of("minecraft"));
+        namespaces.addAll(namespaces());
+        List<String> keys = new ArrayList<>();
+        List<String> mod = new ArrayList<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = TcContext.id(item);
+            String path = id.getPath();
+            if (!path.endsWith("_planks") || !namespaces.contains(id.getNamespace()) || foreign(path)
+                    || !id.getNamespace().equals("minecraft") && !ModBlockGallery.shown(id)) {
+                continue;
+            }
+            String key = path.substring(0, path.length() - "_planks".length());
+            if (VANILLA_WOODS.contains(key) || keys.contains(key) || mod.contains(key)) {
+                continue;
+            }
+            mod.add(key);
+        }
+        for (String key : VANILLA_WOODS) {
+            if (BuiltInRegistries.ITEM.containsKey(Identifier.withDefaultNamespace(key + "_planks"))) {
+                keys.add(key);
+            }
+        }
+        keys.addAll(mod);
+        List<Material> out = new ArrayList<>();
+        for (String key : keys) {
+            out.add(new Material(key, Kind.WOOD, "", List.of(""), List.of(key), 0, Map.of()));
+        }
+        return out;
+    }
 
     /** Woerter, die ein Item einem anderen Thema zuordnen (Farben, Schach, Lichtscheiben, Ender-/Astral-/Nihil-Bloecke). */
     private static final Set<String> FOREIGN = Set.of("white", "orange", "magenta", "light", "yellow", "lime", "pink", "gray",
             "cyan", "purple", "blue", "brown", "green", "red", "black", "checker", "chess", "ender", "astral", "nihil");
+
+    private static boolean foreign(String path) {
+        for (String word : tokens(path)) {
+            if (FOREIGN.contains(word)) {
+                return true;
+            }
+        }
+        return path.endsWith("_spawn_egg");
+    }
 
     /** Ob die Woerter {@code seq} in {@code words} in dieser Reihenfolge vorkommen. */
     private static boolean subsequence(List<String> seq, List<String> words) {
@@ -772,21 +788,19 @@ public final class OrderAreas {
         return i == seq.size();
     }
 
-    /** Das Metall einer Id: das mit der laengsten passenden Wortfolge, bei Gleichstand das fruehere; sonst null. */
-    static Metal metalOf(String path) {
-        List<String> words = tokens(path);
-        for (String word : words) {
-            if (FOREIGN.contains(word)) {
-                return null;
-            }
+    /** Das Material einer Id: das mit der laengsten passenden Wortfolge, bei Gleichstand das fruehere; sonst null. */
+    static Material materialOf(String path, List<Material> materials) {
+        if (foreign(path)) {
+            return null;
         }
-        Metal best = null;
+        List<String> words = tokens(path);
+        Material best = null;
         int bestLength = 0;
-        for (Metal metal : METAL_LIST) {
-            for (String alias : metal.words()) {
-                List<String> seq = metal.seq(alias);
+        for (Material material : materials) {
+            for (String alias : material.words()) {
+                List<String> seq = material.seq(alias);
                 if (seq.size() > bestLength && subsequence(seq, words)) {
-                    best = metal;
+                    best = material;
                     bestLength = seq.size();
                 }
             }
@@ -794,25 +808,51 @@ public final class OrderAreas {
         return best;
     }
 
-    /**
-     * Eine Metall-Reihe: feste Spalten bis {@link Slot#METAL}, weitere Objekte, und zurueckgestellte Items, die in einer
-     * eigenen Stein-Familie stehen sollen (E3; fehlen sie dort, kommen sie doch zu den weiteren).
-     */
-    record MetalRow(Metal metal, Map<Slot, Item> slots, List<Item> others, List<Item> deferred) {
+    /** Das Metall einer Id (nur Metalle), sonst null. */
+    static Material metalOf(String path) {
+        return materialOf(path, METAL_LIST);
     }
 
-    /** Kern- und Zusatzspalten nehmen nur Items ihrer Familienform (E1); Saeule/Sonder und die Metall-Spalten jedes. */
+    /**
+     * Eine Material-Reihe: feste Spalten, Achtel auf ihrem Block ({@link #TOPS}), weitere Objekte, zurueckgestellte Items
+     * (stehen in einer eigenen Stein-Familie, E3) und ausgelassene ungewachste Kupfer-Zwillinge (N42-6).
+     */
+    record MaterialRow(Material material, Map<Slot, Item> slots, Map<Slot, Item> tops, List<Item> others, List<Item> deferred,
+                       List<Item> hidden) {
+    }
+
+    /** Kern- und Zusatzformen nehmen nur Items ihrer Familienform; Blech, Saeule und die Material-Spalten jedes. */
     private static boolean fits(Item item, Slot slot) {
-        return slot.ordinal() >= Slot.FIXED || slot == Slot.PILLAR || slotOf(item) == slot;
+        return slot == Slot.SHEET || slot == Slot.PILLAR || !CORE.contains(slot) || slotOf(item) == slot;
+    }
+
+    private static Item find(List<Item> pool, Set<Item> used, Material material, Slot slot, List<String> patterns) {
+        for (String pattern : patterns) {
+            boolean exact = pattern.startsWith("=");
+            for (String prefix : material.prefixes()) {
+                for (String word : material.words()) {
+                    String path = (exact ? pattern.substring(1) : pattern).replace("{p}", prefix).replace("{m}", word);
+                    for (Item item : pool) {
+                        if (!used.contains(item) && TcContext.id(item).getPath().equals(path) && fits(item, slot)
+                                && (!exact || material.kind() != Kind.METAL || (slot == Slot.STORAGE) == (item instanceof BlockItem))) {
+                            return item;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
-     * Die Metall-Reihen in {@link #METAL_LIST}-Folge: Kandidaten = Vanilla und Familien-Items mit dem Metall-Wort (Vanilla
-     * zuerst), je Spalte das erste passende Muster; uebrige Items in die weiteren, ausser sie stehen in einer anderen
-     * Familien-Reihe ({@code rowOf}) als {@code {p}{m}}/{@code {p}cut_{m}} (glatter Quarz, Quarzziegel ...).
+     * Die Metall- und Holz-Reihen: Kandidaten = Vanilla und Familien-Items mit dem Wort (Vanilla zuerst), je Spalte das erste
+     * passende Muster (Kupfer gewachst vor ungewachst); uebrige Items in die weiteren, ausser sie stehen in einer anderen
+     * Familien-Reihe ({@code rowOf}, nur Metalle: glatter Quarz, Quarzziegel ...).
      */
-    static List<MetalRow> metalRows(Map<Item, String> rowOf) {
-        Map<Metal, List<Item>> candidates = new LinkedHashMap<>();
+    static List<MaterialRow> materialRows(Map<Item, String> rowOf) {
+        List<Material> materials = new ArrayList<>(METAL_LIST);
+        materials.addAll(woods());
+        Map<Material, List<Item>> candidates = new LinkedHashMap<>();
         List<String> order = new ArrayList<>(List.of("minecraft"));
         order.addAll(namespaces());
         List<Item> all = new ArrayList<>();
@@ -826,73 +866,496 @@ public final class OrderAreas {
         }
         all.sort(Comparator.comparingInt((Item item) -> order.indexOf(TcContext.id(item).getNamespace())));
         for (Item item : all) {
-            Metal metal = metalOf(TcContext.id(item).getPath());
-            if (metal != null) {
-                candidates.computeIfAbsent(metal, key -> new ArrayList<>()).add(item);
+            Material material = materialOf(TcContext.id(item).getPath(), materials);
+            if (material != null) {
+                candidates.computeIfAbsent(material, key -> new ArrayList<>()).add(item);
             }
         }
-        Set<Item> claimed = new HashSet<>();
-        List<MetalRow> out = new ArrayList<>();
-        for (Metal metal : METAL_LIST) {
-            List<Item> pool = new ArrayList<>(candidates.getOrDefault(metal, List.of()));
-            pool.removeIf(claimed::contains);
+        List<MaterialRow> out = new ArrayList<>();
+        for (Material material : materials) {
+            List<Item> pool = new ArrayList<>(candidates.getOrDefault(material, List.of()));
             Map<Slot, Item> slots = new EnumMap<>(Slot.class);
+            Map<Slot, Item> tops = new EnumMap<>(Slot.class);
             Set<Item> used = new LinkedHashSet<>();
-            for (Slot slot : Slot.values()) {
-                if (slot == Slot.OTHER) {
-                    break;
-                }
+            for (Slot slot : columns(material.kind())) {
                 Item found = null;
-                for (String extra : metal.extra().getOrDefault(slot, List.of())) {
+                for (String extra : material.extra().getOrDefault(slot, List.of())) {
                     Item item = BuiltInRegistries.ITEM.getOptional(Identifier.parse(extra)).orElse(Items.AIR);
-                    if (item != Items.AIR && !used.contains(item) && !claimed.contains(item) && fits(item, slot)) {
+                    if (item != Items.AIR && !used.contains(item) && fits(item, slot)) {
                         found = item;
                         break;
                     }
                 }
-                for (String pattern : slot.patterns) {
-                    if (found != null) {
-                        break;
-                    }
-                    boolean exact = pattern.startsWith("=");
-                    for (String word : metal.words()) {
-                        String path = (exact ? pattern.substring(1) : pattern).replace("{p}", metal.prefix()).replace("{m}", word);
-                        for (Item item : pool) {
-                            if (!used.contains(item) && TcContext.id(item).getPath().equals(path)
-                                    && (!exact || (slot == Slot.STORAGE) == (item instanceof BlockItem)) && fits(item, slot)) {
-                                found = item;
-                                break;
-                            }
-                        }
-                        if (found != null) {
-                            break;
-                        }
-                    }
+                if (found == null) {
+                    found = find(pool, used, material, slot, patterns(material.kind(), slot));
                 }
                 if (found != null) {
                     slots.put(slot, found);
                     used.add(found);
+                    if (TOPS.containsKey(slot) && (material.kind() == Kind.WOOD) == (slot == Slot.PILLAR || slot == Slot.STRIPPED_LOG)) {
+                        Item top = find(pool, used, material, Slot.OTHER, TOPS.get(slot));
+                        if (top != null && !ModBlockGallery.states(top).isEmpty()) {
+                            tops.put(slot, top);
+                            used.add(top);
+                        }
+                    }
                 }
             }
             if (slots.isEmpty()) {
                 continue;
             }
-            // Weitere Objekte: was das Metall im Namen traegt und keine Spalte hat (Aepfel, Eimer, Kopf, Oefen ...).
-            Set<String> own = metal.ownRows();
-            List<Item> others = new ArrayList<>();
-            List<Item> deferred = new ArrayList<>();
+            // Gewachstes Kupfer steht, die ungewachsten Zwillinge nicht (N42-6: sieht gleich aus, wuerde altern).
+            Set<String> shownPaths = new HashSet<>();
+            used.forEach(item -> shownPaths.add(TcContext.id(item).getPath()));
+            List<Item> hidden = new ArrayList<>();
+            List<Item> rest = new ArrayList<>();
             for (Item item : pool) {
                 if (used.contains(item)) {
                     continue;
                 }
-                String row = rowOf.get(item);
-                (row != null && !own.contains(row) ? deferred : others).add(item);
+                rest.add(item);
             }
-            claimed.addAll(used);
-            claimed.addAll(others);
-            out.add(new MetalRow(metal, slots, others, deferred));
+            rest.forEach(item -> {
+                String path = TcContext.id(item).getPath();
+                if (path.startsWith("waxed_")) {
+                    shownPaths.add(path);
+                }
+            });
+            List<Item> others = new ArrayList<>();
+            List<Item> deferred = new ArrayList<>();
+            Set<String> own = material.ownRows();
+            for (Item item : rest) {
+                String path = TcContext.id(item).getPath();
+                if (material.kind() == Kind.METAL && !path.startsWith("waxed_") && shownPaths.contains("waxed_" + path)) {
+                    hidden.add(item);
+                    continue;
+                }
+                String row = rowOf.get(item);
+                boolean defer = material.kind() == Kind.METAL && row != null && !own.contains(row);
+                (defer ? deferred : others).add(item);
+            }
+            // Ungewachste Stufen-Bloecke, deren gewachster Zwilling in einer Spalte steht, sind ebenso ausgelassen.
+            out.add(new MaterialRow(material, slots, tops, others, deferred, hidden));
         }
         return out;
+    }
+
+    // ------------------------------------------------------------------ Linien-Aufbau
+
+    /** Eine Reihe der Linien (fuer Tests und Vorschau): Lage, Spalten, Inhalt, erwartete Glieder. */
+    public record Row(String group, Kind kind, String family, int x, int nearZ, int step, List<Slot> columns, Map<Slot, Item> fixed,
+                      Map<Slot, Item> tops, List<Item> others, Set<Slot> expected) {
+        /** z des Felds in Spalte {@code column}. */
+        public int z(int column) {
+            return nearZ + step * column;
+        }
+
+        /** Laenge der Reihe: feste Spalten plus weitere. */
+        public int length() {
+            return columns.size() + others.size();
+        }
+    }
+
+    /** Ein Platzhalter-Feld: {@code missing} = rot (sollte existieren), sonst hellgrau (soll nicht existieren). */
+    public record Placeholder(BlockPos pos, String group, Slot slot, boolean missing) {
+    }
+
+    /** Ergebnis eines Bereichs: Schritte, gesetzte/gerahmte Items, Reihen und Platzhalter (Linien), ausgelassene Zwillinge. */
+    public record Area(TcCanvas canvas, List<Cell> cells, List<Row> rows, List<Placeholder> placeholders, List<Item> hidden,
+                       int lineZ) {
+        Area(TcCanvas canvas, List<Cell> cells) {
+            this(canvas, cells, List.of(), List.of(), List.of(), -1);
+        }
+    }
+
+    /** Geplante Reihe vor der Lage. */
+    private record RowPlan(String group, Kind kind, String family, Map<Slot, Item> fixed, Map<Slot, Item> tops, List<Item> others,
+                        Set<Slot> expected, Component label) {
+        int length() {
+            return columns(kind).size() + others.size();
+        }
+    }
+
+    /** Naturstufen bekommen keine Achtel (Octet-Regel, Ausnahme Besitzer 17.10.). */
+    private static boolean natural(String row) {
+        List<String> words = tokens(row);
+        return words.contains("dirt") || words.contains("grass") || words.contains("sand") || words.contains("gravel");
+    }
+
+    /** Glieder-Saetze: hat eine Reihe eines, sollen alle da sein (rot, wenn eins fehlt). */
+    private static final List<List<Slot>> PAIRS = List.of(List.of(Slot.BUTTON, Slot.PLATE), List.of(Slot.DOOR, Slot.TRAPDOOR),
+            List.of(Slot.FENCE, Slot.FENCE_GATE));
+    private static final List<List<Slot>> METAL_SETS = List.of(List.of(Slot.ORE, Slot.DEEPSLATE_ORE), List.of(Slot.RAW, Slot.RAW_BLOCK),
+            List.of(Slot.STORAGE, Slot.INGOT), List.of(Slot.SWORD, Slot.SPEAR, Slot.PICKAXE, Slot.AXE, Slot.SHOVEL, Slot.HOE),
+            List.of(Slot.HELMET, Slot.CHESTPLATE, Slot.LEGGINGS, Slot.BOOTS), List.of(Slot.HORSE_ARMOR, Slot.NAUTILUS_ARMOR),
+            List.of(Slot.CHISEL, Slot.SLEDGEHAMMER));
+
+    /**
+     * Welche Glieder eine Reihe haben sollte (rote Platzhalter, wenn sie fehlen; N42-2), begruendet in
+     * {@code docs/ai/PLAN-A-TZ38D-2026-11-13.md}: Paare/Saetze (Knopf+Druckplatte, Tuer+Falltuer, Zaun+Zauntor; Metalle: Erz,
+     * Roh, Speicher+Barren(+Nugget), Werkzeuge, Ruestung, Tier-Ruestung, Meissel+Hammer), Bauform-Familie (Stufe, Treppe, Block,
+     * Achtel nach der Octet-Regel; Stein mit Stufe und Treppe auch die Mauer), Holz: was die Mehrheit der Hoelzer hat.
+     */
+    private static Set<Slot> expected(Kind kind, String row, Material material, Map<Slot, Item> fixed, Map<Slot, Integer> woodShare,
+                                      int woods) {
+        Set<Slot> out = EnumSet.noneOf(Slot.class);
+        if (kind == Kind.WOOD) {
+            woodShare.forEach((slot, n) -> {
+                if (n * 2 >= woods) {
+                    out.add(slot);
+                }
+            });
+            return out;
+        }
+        for (List<Slot> pair : PAIRS) {
+            if (pair.stream().anyMatch(fixed::containsKey)) {
+                out.addAll(pair);
+            }
+        }
+        if (fixed.containsKey(Slot.SLAB) || fixed.containsKey(Slot.STAIRS) || fixed.containsKey(Slot.OCTET)) {
+            out.addAll(List.of(Slot.SLAB, Slot.STAIRS, Slot.BLOCK));
+            if (!natural(row)) {
+                out.add(Slot.OCTET);
+            }
+            if (kind == Kind.STONE && fixed.containsKey(Slot.SLAB) && fixed.containsKey(Slot.STAIRS)) {
+                out.add(Slot.WALL);
+            }
+        }
+        if (kind == Kind.METAL && material != null && !material.stage()) {
+            for (List<Slot> set : METAL_SETS) {
+                if (set.stream().anyMatch(fixed::containsKey)) {
+                    out.addAll(set);
+                }
+            }
+            Item ingot = fixed.get(Slot.INGOT);
+            if (ingot != null && TcContext.id(ingot).getPath().endsWith("_ingot")) {
+                out.add(Slot.NUGGET);
+            }
+        }
+        out.retainAll(columns(kind));
+        return out;
+    }
+
+    /** Familien-Reihe: je Kernspalte das erste Glied (echte Mauer vor Scheibe), Ueberzaehlige nach Form in "weitere". */
+    private static RowPlan familyPlan(String key, List<Member> members, Kind kind, String family, Component label) {
+        List<Member> ordered = new ArrayList<>(members);
+        ordered.sort(Comparator.comparing(Member::weak));
+        Map<Slot, Item> fixed = new EnumMap<>(Slot.class);
+        List<Member> extra = new ArrayList<>();
+        for (Member m : ordered) {
+            if (CORE.contains(m.slot()) && !fixed.containsKey(m.slot())) {
+                fixed.put(m.slot(), m.item());
+            } else {
+                extra.add(m);
+            }
+        }
+        extra.sort(Comparator.comparingInt(m -> m.slot().ordinal()));
+        List<Item> others = new ArrayList<>();
+        extra.forEach(m -> others.add(m.item()));
+        return new RowPlan(key, kind, family, fixed, Map.of(), others, expected(kind, key, null, fixed, Map.of(), 0), label);
+    }
+
+    /** Name einer Reihe auf dem Schild: Barren/Speicherblock (Metall), Bretter (Holz). */
+    private static Component label(Map<Slot, Item> slots, Slot... preferred) {
+        for (Slot slot : preferred) {
+            if (slots.containsKey(slot)) {
+                return TcText.bold(new ItemStack(slots.get(slot)).getHoverName());
+            }
+        }
+        return TcText.bold(new ItemStack(slots.values().iterator().next()).getHoverName());
+    }
+
+    /**
+     * Bereich 1 "Linien" (TZ38D, N42): eine graue Mittellinie aus Betonstufen; Seite A (-z) Metalle und Rohstoffe, anschliessend
+     * Holz, danach Rest; gegenueber Seite B (+z) alles Steinige. Jede Reihe beginnt ein Feld neben der Linie mit Knopf,
+     * Druckplatte ... (kleine Glieder am Weg) und laeuft nach aussen; Reihen direkt nebeneinander, Felder ohne Luecke; fehlende
+     * Glieder als Platzhalter (rot = sollte existieren, hellgrau = soll nicht). Laenger als {@link #MAX_WIDTH}: weitere
+     * Linien-Paare dahinter.
+     */
+    public static Area families() {
+        Map<String, List<Member>> raw = rawRows();
+        Map<Item, String> rowOf = new HashMap<>();
+        raw.forEach((key, members) -> members.forEach(m -> rowOf.putIfAbsent(m.item(), key)));
+        List<MaterialRow> materialRows = materialRows(rowOf);
+        Set<Item> claimed = new HashSet<>();
+        List<Item> hidden = new ArrayList<>();
+        for (MaterialRow row : materialRows) {
+            claimed.addAll(row.slots().values());
+            claimed.addAll(row.tops().values());
+            claimed.addAll(row.others());
+            claimed.addAll(row.hidden());
+            hidden.addAll(row.hidden());
+        }
+        List<Map<String, List<Member>>> families = familyRows(raw, claimed);
+        Set<Item> inFamilies = new HashSet<>();
+        families.forEach(family -> family.values().forEach(members -> members.forEach(m -> inFamilies.add(m.item()))));
+
+        // Holz: Anteil der Hoelzer je Spalte (fuer die Erwartung "was die Mehrheit hat").
+        Map<Slot, Integer> woodShare = new EnumMap<>(Slot.class);
+        int woods = 0;
+        for (MaterialRow row : materialRows) {
+            if (row.material().kind() == Kind.WOOD) {
+                woods++;
+                row.slots().keySet().forEach(slot -> woodShare.merge(slot, 1, Integer::sum));
+            }
+        }
+        List<RowPlan> sideA = new ArrayList<>();
+        List<RowPlan> wood = new ArrayList<>();
+        for (MaterialRow row : materialRows) {
+            List<Item> others = new ArrayList<>(row.others());
+            for (Item item : row.deferred()) {
+                if (!inFamilies.contains(item)) {
+                    others.add(item); // E3: hat keine eigene Familien-Reihe mehr - dann doch zu den weiteren
+                }
+            }
+            Material m = row.material();
+            RowPlan plan = new RowPlan(m.key(), m.kind(), m.kind() == Kind.METAL ? m.words().getFirst() : m.key(), row.slots(), row.tops(),
+                    others, expected(m.kind(), m.key(), m, row.slots(), woodShare, woods),
+                    m.kind() == Kind.METAL ? label(row.slots(), Slot.INGOT, Slot.STORAGE) : label(row.slots(), Slot.BLOCK, Slot.PILLAR));
+            (m.kind() == Kind.METAL ? sideA : wood).add(plan);
+        }
+        sideA.addAll(wood);
+        List<RowPlan> rest = new ArrayList<>();
+        List<RowPlan> stone = new ArrayList<>();
+        for (Map<String, List<Member>> family : families) {
+            BlockState state = familyState(family);
+            Kind kind = stony(state) ? Kind.STONE : Kind.REST;
+            boolean first = true;
+            for (Map.Entry<String, List<Member>> entry : family.entrySet()) {
+                String familyKey = entry.getValue().getFirst().family();
+                Component label = null;
+                if (first && state != null) {
+                    label = TcText.bold(new ItemStack(state.getBlock().asItem()).getHoverName());
+                }
+                (kind == Kind.STONE ? stone : rest).add(familyPlan(entry.getKey(), entry.getValue(), kind, familyKey, label));
+                first = false;
+            }
+        }
+        sideA.addAll(rest);
+
+        TcCanvas c = new TcCanvas();
+        List<Cell> cells = new ArrayList<>();
+        List<Row> rows = new ArrayList<>();
+        List<Placeholder> placeholders = new ArrayList<>();
+        int perPair = MAX_WIDTH - START_X;
+        int pairs = Math.max(1, Math.max((sideA.size() + perPair - 1) / perPair, (stone.size() + perPair - 1) / perPair));
+        int z0 = 0;
+        int firstLine = -1;
+        BlockState line = lineState();
+        for (int p = 0; p < pairs; p++) {
+            List<RowPlan> a = sideA.subList(Math.min(sideA.size(), p * perPair), Math.min(sideA.size(), (p + 1) * perPair));
+            List<RowPlan> b = stone.subList(Math.min(stone.size(), p * perPair), Math.min(stone.size(), (p + 1) * perPair));
+            int depthA = a.stream().mapToInt(RowPlan::length).max().orElse(1);
+            int depthB = b.stream().mapToInt(RowPlan::length).max().orElse(1);
+            // z0: Schildreihe A | A-Reihen (Feld 0 bei nearA) | Abstand | Linie | Abstand | B-Reihen | Schildreihe B.
+            int nearA = z0 + depthA;
+            int lineZ = nearA + 2;
+            int nearB = lineZ + 2;
+            if (firstLine < 0) {
+                firstLine = lineZ;
+            }
+            int maxX = START_X;
+            for (int side = 0; side < 2; side++) {
+                List<RowPlan> plans = side == 0 ? a : b;
+                int near = side == 0 ? nearA : nearB;
+                int step = side == 0 ? -1 : 1;
+                int x = START_X;
+                for (RowPlan plan : plans) {
+                    List<Slot> columns = columns(plan.kind());
+                    for (int col = 0; col < columns.size(); col++) {
+                        Slot slot = columns.get(col);
+                        int z = near + step * col;
+                        Item item = plan.fixed().get(slot);
+                        if (item == null) {
+                            boolean missing = plan.expected().contains(slot);
+                            c.place(x, 0, z, missing ? missingState() : absentState());
+                            placeholders.add(new Placeholder(new BlockPos(x, 0, z), plan.group(), slot, missing));
+                            continue;
+                        }
+                        linePut(c, item, x, z);
+                        cells.add(new Cell(plan.group(), col, item, new BlockPos(x, 0, z)));
+                        Item top = plan.tops().get(slot);
+                        if (top != null) {
+                            List<BlockState> states = ModBlockGallery.states(top);
+                            c.place(x, 1, z, states.getFirst());
+                            cells.add(new Cell(plan.group(), col, top, new BlockPos(x, 1, z)));
+                        }
+                    }
+                    for (int i = 0; i < plan.others().size(); i++) {
+                        int col = columns.size() + i;
+                        int z = near + step * col;
+                        linePut(c, plan.others().get(i), x, z);
+                        cells.add(new Cell(plan.group(), col, plan.others().get(i), new BlockPos(x, 0, z)));
+                    }
+                    if (plan.label() != null) {
+                        // Am Reihenende, zur Linie gewandt (N42: das Feld neben der Linie bleibt frei).
+                        c.sign(x, 0, near + step * plan.length(), side == 0 ? Direction.SOUTH : Direction.NORTH, plan.label());
+                    }
+                    rows.add(new Row(plan.group(), plan.kind(), plan.family(), x, near, step, columns, plan.fixed(), plan.tops(),
+                            plan.others(), plan.expected()));
+                    maxX = Math.max(maxX, x);
+                    x++;
+                }
+            }
+            for (int lx = 0; lx <= maxX + 1; lx++) {
+                c.place(lx, 0, lineZ, line);
+            }
+            // Titel am Anfang der Linie (x 0, vor der ersten Reihe).
+            c.place(0, 0, nearA, TcCanvas.WALL);
+            c.sign(0, 0, nearA - 1, Direction.NORTH, TcText.bold(TcText.t("order.lines.a", "Metals, wood, rest")),
+                    TcText.t("order.lines.a.sub", "small parts next to the line"));
+            c.place(0, 0, nearB, TcCanvas.WALL);
+            c.sign(0, 0, nearB + 1, Direction.SOUTH, TcText.bold(TcText.t("order.lines.b", "Stone & co.")),
+                    TcText.t("order.lines.key", "red = missing, light gray = none"));
+            z0 = nearB + depthB + 1 + AISLE;
+        }
+        return new Area(c, cells, rows, placeholders, hidden, firstLine);
+    }
+
+    /**
+     * Setzt ein Item in eine Linien-Reihe (N42-4: gesetzt statt Rahmen): Stangen und Blitzableiter aufrecht, Druckplatten und
+     * Knoepfe flach auf dem Boden, Ketten senkrecht; sonst wie die Ausstellungen ({@link #put}); nur Nicht-Setzbares im Rahmen.
+     */
+    static void linePut(TcCanvas c, Item item, int x, int z) {
+        BlockState state = lineState(item);
+        if (state != null) {
+            c.place(x, 0, z, state);
+            return;
+        }
+        put(c, item, x, z);
+    }
+
+    /** Der Zustand, mit dem ein Item nur in den Linien steht (sonst null = wie ueberall): siehe {@link #linePut}. */
+    static BlockState lineState(Item item) {
+        if (!(item instanceof BlockItem blockItem)) {
+            return null;
+        }
+        Block block = blockItem.getBlock();
+        if (TestCentreLayout.frameOnly(block) && !(block instanceof BasePressurePlateBlock || TcContext.id(block).getPath().endsWith("_pressure_plate"))) {
+            return null;
+        }
+        BlockState state = block.defaultBlockState();
+        try {
+            if (block instanceof net.minecraft.world.level.block.RodBlock || block instanceof net.minecraft.world.level.block.LightningRodBlock) {
+                return withValue(state, net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING, Direction.UP);
+            }
+            if (block instanceof ButtonBlock) {
+                return withValue(withValue(state, ButtonBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR),
+                        ButtonBlock.FACING, Direction.NORTH);
+            }
+            if (block instanceof BasePressurePlateBlock || TcContext.id(block).getPath().endsWith("_pressure_plate")
+                    || block instanceof net.minecraft.world.level.block.ChainBlock) {
+                return state.isRandomlyTicking() && !(block instanceof net.minecraft.world.level.block.WeatheringCopper) ? null : state;
+            }
+        } catch (RuntimeException e) {
+            return null;
+        }
+        return null;
+    }
+
+    private static <T extends Comparable<T>> BlockState withValue(BlockState state,
+                                                                  net.minecraft.world.level.block.state.properties.Property<T> property, T value) {
+        return state.hasProperty(property) && property.getPossibleValues().contains(value) ? state.setValue(property, value) : state;
+    }
+
+    /**
+     * Die Pruefung der Linien (Gametest SimpleBuilding und Integration mit allen Modulen): dicht (jedes feste Feld gefuellt,
+     * Reihen direkt nebeneinander), kein Item doppelt, Platzhalterfarben passend zur Erwartung, Mittellinie und Abstand frei,
+     * Stangen aufrecht, Druckplatten/Knoepfe/Ketten/Stangen gesetzt statt im Rahmen, Kupfer nur gewachst, Achtel auf ihrem Block,
+     * Seite A Metalle | Holz | Rest, Seite B Stein. Liefert die Probleme (leer = gut).
+     */
+    public static List<String> check(Area area) {
+        List<String> problems = new ArrayList<>();
+        Map<BlockPos, List<TcOp>> at = new HashMap<>();
+        for (TcOp op : area.canvas().ops()) {
+            at.computeIfAbsent(op.pos(), pos -> new ArrayList<>()).add(op);
+        }
+        Map<Item, Integer> count = new HashMap<>();
+        area.cells().forEach(cell -> count.merge(cell.item(), 1, Integer::sum));
+        count.forEach((item, n) -> {
+            if (n != 1) {
+                problems.add("lines: " + TcContext.id(item) + " stands " + n + " times");
+            }
+        });
+        Map<BlockPos, Placeholder> holders = new HashMap<>();
+        area.placeholders().forEach(p -> holders.put(p.pos(), p));
+        Map<String, Integer> lastX = new HashMap<>();
+        String lastKind = "";
+        for (Row row : area.rows()) {
+            String side = row.step() < 0 ? "A" : "B";
+            if (row.kind().sideA() != side.equals("A")) {
+                problems.add("lines: " + row.group() + " (" + row.kind() + ") stands on side " + side);
+            }
+            Integer before = lastX.get(side + row.nearZ());
+            if (before != null && before + 1 != row.x()) {
+                problems.add("lines: gap before row " + row.group() + " (x " + before + " -> " + row.x() + ")");
+            }
+            lastX.put(side + row.nearZ(), row.x());
+            if (side.equals("A")) {
+                String kind = row.kind().name();
+                if (lastKind.equals("WOOD") && kind.equals("METAL") || lastKind.equals("REST") && !kind.equals("REST")) {
+                    problems.add("lines: side A is not metals | wood | rest at " + row.group());
+                }
+                lastKind = kind;
+            }
+            for (int col = 0; col < row.length(); col++) {
+                BlockPos pos = new BlockPos(row.x(), 0, row.z(col));
+                List<TcOp> ops = at.getOrDefault(pos, List.of());
+                if (ops.isEmpty()) {
+                    problems.add("lines: row " + row.group() + " has an empty field in column " + col);
+                    continue;
+                }
+                if (col < row.columns().size()) {
+                    Slot slot = row.columns().get(col);
+                    Placeholder holder = holders.get(pos);
+                    if (row.fixed().containsKey(slot) == (holder != null)) {
+                        problems.add("lines: row " + row.group() + " " + slot + " is " + (holder == null ? "empty" : "filled and a placeholder"));
+                    } else if (holder != null) {
+                        boolean red = ops.stream().anyMatch(op -> op instanceof TcOp.Place place && place.state().equals(missingState()));
+                        if (holder.missing() != row.expected().contains(slot) || red != holder.missing()) {
+                            problems.add("lines: placeholder " + row.group() + " " + slot + " has the wrong colour");
+                        }
+                    }
+                }
+            }
+            // Abstand zur Linie frei, Linie grau.
+            BlockPos gap = new BlockPos(row.x(), 0, row.nearZ() - row.step());
+            if (at.containsKey(gap)) {
+                problems.add("lines: the field between line and row " + row.group() + " is not free");
+            }
+            BlockPos lineAt = new BlockPos(row.x(), 0, row.nearZ() - 2 * row.step());
+            if (at.getOrDefault(lineAt, List.of()).stream().noneMatch(op -> op instanceof TcOp.Place place && place.state().equals(lineState()))) {
+                problems.add("lines: no grey line next to row " + row.group());
+            }
+        }
+        for (TcOp op : area.canvas().ops()) {
+            if (op instanceof TcOp.Place place) {
+                BlockState state = place.state();
+                Block block = state.getBlock();
+                boolean rod = block instanceof net.minecraft.world.level.block.RodBlock || block instanceof net.minecraft.world.level.block.LightningRodBlock;
+                if (rod && state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING)
+                        && state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING) != Direction.UP) {
+                    problems.add("lines: the pole " + TcContext.id(block) + " is not upright");
+                }
+                String path = TcContext.id(block).getPath();
+                if (block instanceof net.minecraft.world.level.block.WeatheringCopper && !path.startsWith("waxed_")
+                        && BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath(TcContext.id(block).getNamespace(), "waxed_" + path))) {
+                    problems.add("lines: unwaxed " + TcContext.id(block) + " stands although its waxed twin exists");
+                }
+            } else if (op instanceof TcOp.Frame frame && frame.stack().getItem() instanceof BlockItem blockItem
+                    && lineState(frame.stack().getItem()) != null) {
+                problems.add("lines: " + TcContext.id(blockItem) + " hangs in a frame although it can be placed");
+            }
+        }
+        // Achtel auf ihrem Block (N42-7).
+        for (Row row : area.rows()) {
+            row.tops().forEach((slot, top) -> {
+                if (!row.fixed().containsKey(slot)) {
+                    problems.add("lines: octet " + TcContext.id(top) + " floats without its block");
+                }
+            });
+        }
+        return problems;
     }
 
     // ------------------------------------------------------------------ 3. Items je Mod (+ Besatz, Mobs)
@@ -910,8 +1373,38 @@ public final class OrderAreas {
         return out;
     }
 
-    /** Bereich 3: Besatz-Staender (je Muster, je Material ein Eisen-Satz), dann je Mod eine Linie, dahinter ihre Mobs. */
+    /** Was der Block-Bereich einer Variante zeigt (gesetzt, gerahmt oder als gewachster Zwilling vertreten). */
+    public static Set<Item> blockAreaItems(Variant variant) {
+        Set<Item> out = new HashSet<>();
+        if (variant == Variant.LINES) {
+            Area lines = families();
+            lines.cells().forEach(cell -> out.add(cell.item()));
+            out.addAll(lines.hidden());
+        } else {
+            for (String ns : namespaces()) {
+                out.addAll(blocks(ns));
+            }
+        }
+        return out;
+    }
+
+    /** Items je Mod, die {@code skip} (der Block-Bereich der Variante) nicht schon zeigt. */
+    public static List<Item> items(String ns, Set<Item> skip) {
+        List<Item> out = new ArrayList<>(items(ns));
+        out.removeIf(skip::contains);
+        return out;
+    }
+
+    /** Bereich "Items je Mod" der Standard-Variante. */
     public static Area items(TcContext ctx) {
+        return items(ctx, blockAreaItems(DEFAULT));
+    }
+
+    /**
+     * Bereich Items je Mod: Besatz-Staender (je Muster, je Material ein Eisen-Satz), dann je Mod eine Linie mit allem, was
+     * {@code skip} (der Block-Bereich der Variante) nicht zeigt, dahinter ihre Mobs.
+     */
+    public static Area items(TcContext ctx, Set<Item> skip) {
         TcCanvas c = new TcCanvas();
         List<Cell> cells = new ArrayList<>();
         c.wallSign(0, 0, 1, TcText.bold(TcText.t("order.items", "Items per mod")),
@@ -931,7 +1424,7 @@ public final class OrderAreas {
         }
         z += 1;
         for (String ns : namespaces()) {
-            List<Item> list = items(ns);
+            List<Item> list = items(ns, skip);
             List<EntityType<?>> mobs = mobs(ns);
             if (list.isEmpty() && mobs.isEmpty()) {
                 continue;
@@ -965,7 +1458,7 @@ public final class OrderAreas {
             }
             z += 1;
         }
-        return new Area(c, cells, List.of());
+        return new Area(c, cells);
     }
 
     /** Der Eintrag mit diesem Pfad, sonst der erste. */
@@ -1047,16 +1540,77 @@ public final class OrderAreas {
             x += cols + 1;
             shelfDepth = Math.max(shelfDepth, rows);
         }
-        return new Area(c, cells, List.of());
+        return new Area(c, cells);
     }
 
     // ------------------------------------------------------------------ alles
 
-    /** Die drei Bereiche untereinander (fuer {@code /testcenter order build}), je mit Gang dazwischen. */
-    public static TcCanvas all(TcContext ctx) {
+    /**
+     * Pruefung beider Varianten (Gametest SimpleBuilding, Integration mit allen Modulen): die Linien ({@link #check}); je
+     * Variante steht jedes Item jeder Familien-Mod genau einmal im Block-Bereich oder in Items je Mod (ein ausgelassener
+     * ungewachster Kupfer-Zwilling ist durch den gewachsten vertreten); kompakt: jeder Block einmal, Mods mit Abstand.
+     */
+    public static List<String> problems(TcContext ctx) {
+        Area lines = families();
+        List<String> problems = new ArrayList<>(check(lines));
+        Area compact = compact();
+        for (Variant variant : Variant.values()) {
+            Area blocks = variant == Variant.LINES ? lines : compact;
+            Set<Item> skip = blockAreaItems(variant);
+            Area items = items(ctx, skip);
+            Map<Item, Integer> shown = new HashMap<>();
+            blocks.cells().forEach(cell -> shown.merge(cell.item(), 1, Integer::sum));
+            blocks.hidden().forEach(item -> shown.merge(item, 1, Integer::sum));
+            items.cells().forEach(cell -> shown.merge(cell.item(), 1, Integer::sum));
+            for (String ns : namespaces()) {
+                for (Item item : items(ns)) {
+                    int n = shown.getOrDefault(item, 0);
+                    if (n != 1) {
+                        problems.add(variant.id() + ": " + TcContext.id(item) + " stands " + n + " times in the order areas");
+                    }
+                }
+            }
+        }
+        Map<String, int[]> boxes = new LinkedHashMap<>();
+        for (Cell cell : compact.cells()) {
+            boxes.merge(cell.group(), new int[] {cell.pos().getX(), cell.pos().getZ(), cell.pos().getX(), cell.pos().getZ()},
+                    (a, b) -> new int[] {Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])});
+        }
+        List<Map.Entry<String, int[]>> list = new ArrayList<>(boxes.entrySet());
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                int[] a = list.get(i).getValue();
+                int[] b = list.get(j).getValue();
+                if (a[0] <= b[2] + 1 && b[0] <= a[2] + 1 && a[1] <= b[3] + 1 && b[1] <= a[3] + 1) {
+                    problems.add("compact: " + list.get(i).getKey() + " touches " + list.get(j).getKey());
+                }
+            }
+        }
+        for (TcCanvas canvas : List.of(lines.canvas(), compact.canvas())) {
+            if (canvas.width() > MAX_WIDTH + 1) {
+                problems.add("an order area is " + canvas.width() + " wide");
+            }
+        }
+        return problems;
+    }
+
+    /** Die Fehlliste (rote Platzhalter) der Linien: Reihe, Art, Spalte - fuer Log, Tabelle und Vorschau. */
+    public static List<String> missingList(Area lines) {
+        List<String> out = new ArrayList<>();
+        for (Placeholder p : lines.placeholders()) {
+            if (p.missing()) {
+                out.add(p.group() + "\t" + p.slot().name().toLowerCase(java.util.Locale.ROOT));
+            }
+        }
+        return out;
+    }
+
+    /** Die Bereiche einer Variante untereinander (fuer {@code /testcenter order build [lines|blocks]}), mit Gang dazwischen. */
+    public static TcCanvas all(TcContext ctx, Variant variant) {
         TcCanvas c = new TcCanvas();
         int z = 0;
-        for (TcCanvas area : List.of(families().canvas(), items(ctx).canvas(), compact().canvas())) {
+        TcCanvas blocks = variant == Variant.LINES ? families().canvas() : compact().canvas();
+        for (TcCanvas area : List.of(blocks, items(ctx, blockAreaItems(variant)).canvas())) {
             if (area.ops().isEmpty()) {
                 continue;
             }

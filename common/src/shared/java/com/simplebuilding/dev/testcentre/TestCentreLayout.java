@@ -56,17 +56,17 @@ public final class TestCentreLayout {
     public static final List<List<String>> DISTRICTS = List.of(
             // Eingang: Steuerwand, Werkzeuge und Bauen.
             List.of("controls", "tools", "chisel", "planning", "mining", "enchants"),
-            // TZ38 (Besitzer 12.11.): die geordneten Bereiche vor den Testflaechen - Block-Familien mit den Rohstoffen/Metallen
-            // im selben Spaltenplan (TZ38b), Items je Mod (mit Besatz-Staendern und Mobs), kompakt je Mod (OrderAreas).
+            // TZ38/TZ38D (Besitzer 12./13.11.): die geordneten Bereiche vor den Testflaechen - je Variante ein Block-Bereich
+            // (lines: Linien an der grauen Mittellinie; blocks: kompakt je Mod) und Items je Mod (mit Besatz und Mobs).
             OrderAreas.SECTIONS,
             // Zustaende, Umwandlungen, Ablegen, Buecher.
             List.of("states", "inworld", "upgrades", "templates", "placeables", "books"),
-            // Baubloecke und Material.
-            List.of("blocks", "woodwork", "simpleend", "chess", "astral", "lightroom", "ores"),
+            // Baubloecke und Material (TZ38D: die Ausstellung "blocks" steht im Katalog - jeder Block steht schon im Bereich "order").
+            List.of("woodwork", "simpleend", "chess", "astral", "lightroom", "ores"),
             // Technik und Lager.
             List.of("storage", UiStation.SECTION, "devices", "machines", "crucible", "music", "vehicles"),
             // Kampf, Bewegung, Vorraete.
-            List.of("armour", "archery", "arrows", "sinkdamper", "riding", "tweaks", "deathvault", "respawn", "food", "materials"),
+            List.of("armour", "archery", "arrows", "sinkdamper", "riding", "tweaks", "deathvault", "respawn", "food"),
             // Die Module der Familie (Modulaufteilung 3c, TZ22-1); nur mit Modulen.
             List.of(MODULES_SECTION),
             // DW04D-1 (alle Bloecke je Mod als Familien-Spalten) ist seit TZ38 durch "order" ersetzt; einzeln bleibt
@@ -77,14 +77,19 @@ public final class TestCentreLayout {
             List.of(StructureStation.SECTION),
             // Jedes Crafting-Rezept der Familie als Crafter (Nachtrag 13); leer ohne Server (Planung nur aus den Registern).
             List.of(RecipeStation.SECTION),
-            // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
-            List.of("tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads"),
+            // Katalog (TZ38D, N42 "Redundanz aufheben"): je Kreativ-Tab eine Wand (TabBrowser), die Ausstellung der SB-Baubloecke
+            // und die Materialien-Wand - alles steht schon einmal im Bereich "order". Nur auf Wunsch: build only catalog.
+            List.of("blocks", "materials", "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food",
+                    "tab_functional", "tab_pads"),
             // Was noch keinen Abschnitt hat.
             List.of("gallery", "unsorted"));
 
+    /** Bezirk, der nur auf ausdruecklichen Wunsch gebaut wird ({@code build only catalog}, TZ38D: Doppel zum Bereich "order"). */
+    public static final String CATALOG = "catalog";
+
     /** Namen der Bezirke fuer {@code /sbtestcentre build only|without} (TZ22-4), in der Reihenfolge von {@link #DISTRICTS}. */
-    public static final List<String> DISTRICT_NAMES = List.of("workshop", "order", "states", "blocks", "technics", "combat",
-            "modules", "mobs", "structures", RecipeStation.SECTION, "catalog", "rest");
+    public static final List<String> DISTRICT_NAMES = List.of("workshop", "order", "states", "building", "technics", "combat",
+            "modules", "mobs", "structures", RecipeStation.SECTION, CATALOG, "rest");
 
     /**
      * Teilbau (TZ22-4, Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die
@@ -92,35 +97,60 @@ public final class TestCentreLayout {
      * {@code only} leer = alle. Die Steuerwand gehoert immer dazu. Geplant wird trotzdem alles (Abdeckung, Kits, Galerie
      * bleiben gleich), gepackt und gebaut nur das Gewaehlte - die Zentrale wird also wirklich kleiner.
      */
-    public record Options(Set<String> only, Set<String> without) {
-        public static final Options ALL = new Options(Set.of(), Set.of());
+    public record Options(Set<String> only, Set<String> without, OrderAreas.Variant variant) {
+        public static final Options ALL = new Options(Set.of(), Set.of(), OrderAreas.DEFAULT);
 
         public Options {
             only = Set.copyOf(new java.util.TreeSet<>(only));
             without = Set.copyOf(new java.util.TreeSet<>(without));
+            variant = variant == null ? OrderAreas.DEFAULT : variant;
         }
 
+        public Options(Set<String> only, Set<String> without) {
+            this(only, without, OrderAreas.DEFAULT);
+        }
+
+        /** Dieselben Bereiche in einer anderen Variante (TZ38D). */
+        public Options with(OrderAreas.Variant other) {
+            return new Options(only, without, other);
+        }
+
+        /** Die ganze Zentrale (ohne only/without), in welcher Variante auch immer. */
         public boolean isAll() {
             return only.isEmpty() && without.isEmpty();
         }
 
-        /** Ob ein Abschnitt gebaut wird. */
+        /**
+         * Ob ein Abschnitt gebaut wird: die Steuerwand immer; der Block-Bereich nur in seiner Variante (TZ38D); der Katalog nur,
+         * wenn {@code only} ihn nennt; sonst nach only/without.
+         */
         public boolean includes(String section) {
             if (section.equals("controls")) {
                 return true;
             }
+            for (OrderAreas.Variant other : OrderAreas.Variant.values()) {
+                if (other != variant && section.equals(other.blockSection())) {
+                    return false;
+                }
+            }
             String district = districtOf(section);
+            if (district.equals(CATALOG) && !only.contains(section) && !only.contains(district)) {
+                return false;
+            }
             if (!only.isEmpty() && !only.contains(section) && !only.contains(district)) {
                 return false;
             }
             return !without.contains(section) && !without.contains(district);
         }
 
-        /** Kanonischer Text ({@code ""} fuer alles), wie ihn {@link #parse} liest: {@code only a,b without c}. */
+        /**
+         * Kanonischer Text ({@code ""} fuer alles in der Standard-Variante), wie ihn {@link #parse} liest:
+         * {@code [blocks] only a,b without c}.
+         */
         public String text() {
-            StringBuilder out = new StringBuilder();
+            StringBuilder out = new StringBuilder(variant == OrderAreas.DEFAULT ? "" : variant.id());
             if (!only.isEmpty()) {
-                out.append("only ").append(String.join(",", new java.util.TreeSet<>(only)));
+                out.append(out.isEmpty() ? "" : " ").append("only ").append(String.join(",", new java.util.TreeSet<>(only)));
             }
             if (!without.isEmpty()) {
                 out.append(out.isEmpty() ? "" : " ").append("without ").append(String.join(",", new java.util.TreeSet<>(without)));
@@ -129,13 +159,15 @@ public final class TestCentreLayout {
         }
 
         /**
-         * Liest {@code [only <bereiche>] [without <bereiche>]}; Bereiche durch Komma oder Leerzeichen getrennt, {@code all}
-         * oder leer = alles. Unbekannte Bereiche: {@link IllegalArgumentException} mit dem Namen.
+         * Liest {@code [lines|blocks] [only <bereiche>] [without <bereiche>]}; Bereiche durch Komma oder Leerzeichen getrennt,
+         * {@code all} oder leer = alles. Die Variante steht vor only/without. Unbekannte Bereiche: {@link IllegalArgumentException}
+         * mit dem Namen.
          */
         public static Options parse(String text) {
             Set<String> only = new java.util.TreeSet<>();
             Set<String> without = new java.util.TreeSet<>();
             Set<String> target = null;
+            OrderAreas.Variant variant = OrderAreas.DEFAULT;
             for (String token : text.trim().toLowerCase(java.util.Locale.ROOT).split("[\\s,]+")) {
                 switch (token) {
                     case "", "all" -> {
@@ -143,6 +175,10 @@ public final class TestCentreLayout {
                     case "only" -> target = only;
                     case "without" -> target = without;
                     default -> {
+                        if (target == null && OrderAreas.Variant.of(token) != null) {
+                            variant = OrderAreas.Variant.of(token);
+                            continue;
+                        }
                         if (!areas().contains(token)) {
                             throw new IllegalArgumentException(token);
                         }
@@ -153,7 +189,7 @@ public final class TestCentreLayout {
                     }
                 }
             }
-            return new Options(only, without);
+            return new Options(only, without, variant);
         }
     }
 
@@ -492,6 +528,19 @@ public final class TestCentreLayout {
             canvases.put(entry.getKey(), canvas);
         }
 
+        // TZ38D (N42 Erweiterung, "jedes Glied nur einmal"): die geordneten Bereiche der Variante zeigen jedes Item der Familie
+        // genau einmal - der Block-Bereich (Linien oder kompakt je Mod) und Items je Mod mit dem Rest. Sie zaehlen fuer die
+        // Abdeckung (Galerie und "unsorted" bleiben dadurch leer); die Modul-Buchten zeigen nur noch ihre Stationen.
+        OrderAreas.Variant variant = options.variant();
+        TcCanvas blockArea = variant == OrderAreas.Variant.LINES ? OrderAreas.families().canvas() : OrderAreas.compact().canvas();
+        Set<Item> orderShown = OrderAreas.blockAreaItems(variant);
+        Map<String, TcCanvas> order = new LinkedHashMap<>();
+        order.put(variant.blockSection(), blockArea);
+        order.put(OrderAreas.ITEMS, OrderAreas.items(ctx, orderShown).canvas());
+        for (TcCanvas canvas : order.values()) {
+            visible(canvas.ops(), orderShown);
+        }
+
         // Modul-Ausstellung (TZ22-1): je Modul der Familie seine Stationen und alles Weitere aus seinem Register, ohne was
         // eine Station schon sichtbar zeigt (TZ22-2: nichts doppelt).
         if (allIds.contains(MODULES_SECTION)) {
@@ -510,13 +559,16 @@ public final class TestCentreLayout {
                     }
                 });
             }
-            canvases.put(MODULES_SECTION, TestCentreSections.modules(ModuleStations.all(), visible, placedBlocks));
+            canvases.put(MODULES_SECTION, TestCentreSections.modules(ModuleStations.all(), visible, placedBlocks, orderShown));
         }
 
-        // Abdeckung ohne "unsorted" und ohne die Steuerwand (die zeigt keine Mod-Inhalte).
+        // Abdeckung ohne "unsorted" und ohne die Steuerwand (die zeigt keine Mod-Inhalte), mit den geordneten Bereichen.
         Set<Item> coveredItems = new LinkedHashSet<>();
         Set<Block> coveredBlocks = new LinkedHashSet<>();
         for (TcCanvas canvas : canvases.values()) {
+            collect(canvas.ops(), coveredItems, coveredBlocks);
+        }
+        for (TcCanvas canvas : order.values()) {
             collect(canvas.ops(), coveredItems, coveredBlocks);
         }
         List<Item> leftovers = new ArrayList<>();
@@ -554,11 +606,10 @@ public final class TestCentreLayout {
             canvases.put(TabBrowser.sectionId(tab), wall);
         }
 
-        // TZ38: die geordneten Bereiche - wie die Tab-Waende nach der Abdeckung (zeigen alles noch einmal geordnet, nehmen
-        // Stationen, Modul-Buchten und Galerie nichts weg).
-        canvases.put(OrderAreas.FAMILIES, OrderAreas.families().canvas());
-        canvases.put(OrderAreas.ITEMS, OrderAreas.items(ctx).canvas());
-        canvases.put(OrderAreas.COMPACT, OrderAreas.compact().canvas());
+        // TZ38D: die geordneten Bereiche der Variante (der andere Block-Bereich bleibt leer und wird nicht gebaut).
+        canvases.put(OrderAreas.FAMILIES, new TcCanvas());
+        canvases.put(OrderAreas.COMPACT, new TcCanvas());
+        canvases.putAll(order);
 
         // Crafting-Rezepte (Nachtrag 13): wie die Tab-Waende nach der Abdeckung - Zutaten im Crafter zaehlen nicht als Platz.
         canvases.put(RecipeStation.SECTION, RecipeStation.build(ctx));
@@ -710,15 +761,15 @@ public final class TestCentreLayout {
 
     /**
      * Offsets je Abschnitt. Jeder Bezirk ({@link #DISTRICTS}) wird fuer sich in Reihen gepackt (in +x, hoechstens
-     * {@link #MAX_ROW_WIDTH} breit, vor jeder Reihe ein Gang in -z); die Bezirke liegen dann in einem Raster aus
-     * {@link #DISTRICT_COLUMNS} Spalten ({@link #DISTRICT_PITCH} breit), Bezirks-Reihen mit einem Gang dazwischen. Leere
-     * Abschnitte (ohne Schritte) nehmen keinen Platz ein, ein ganz leerer Bezirk auch keinen Rasterplatz.
+     * {@link #MAX_ROW_WIDTH} breit, vor jeder Reihe ein Gang in -z). TZ38D (N42 "kaum Luecken, riesige leere Flaeche"): die
+     * Bezirke fallen wie Mauersteine in die Raster-Spalte ({@link #DISTRICT_COLUMNS}, {@link #DISTRICT_PITCH} breit), deren
+     * Ende am weitesten vorn liegt (gleich weit: die linke), mit einem Gang dazwischen - vorher stand jede Bezirks-Reihe so
+     * tief wie ihr tiefster Bezirk, und neben dem tiefen Bereich "order" blieb eine riesige leere Bodenflaeche. Leere Abschnitte
+     * (ohne Schritte) nehmen keinen Platz ein, ein ganz leerer Bezirk auch keinen Rasterplatz.
      */
     private static Map<String, BlockPos> pack(Map<String, TcCanvas> canvases, List<String> sectionIds) {
         Map<String, BlockPos> offsets = new LinkedHashMap<>();
-        int column = 0;
-        int bandZ = 0;
-        int bandDepth = 0;
+        int[] columnZ = new int[DISTRICT_COLUMNS];
         for (List<String> district : DISTRICTS) {
             Map<String, BlockPos> local = new LinkedHashMap<>();
             int x = 0;
@@ -743,16 +794,16 @@ public final class TestCentreLayout {
                 x += canvas.width() + GAP;
                 rowDepth = Math.max(rowDepth, canvas.depth());
             }
-            if (any && column == DISTRICT_COLUMNS) {
-                bandZ += bandDepth + CORRIDOR;
-                bandDepth = 0;
-                column = 0;
+            int column = 0;
+            for (int c = 1; c < DISTRICT_COLUMNS; c++) {
+                if (columnZ[c] < columnZ[column]) {
+                    column = c;
+                }
             }
-            BlockPos corner = new BlockPos(column * DISTRICT_PITCH, 0, bandZ);
+            BlockPos corner = new BlockPos(column * DISTRICT_PITCH, 0, columnZ[column]);
             local.forEach((id, pos) -> offsets.put(id, corner.offset(pos)));
             if (any) {
-                bandDepth = Math.max(bandDepth, z + rowDepth);
-                column++;
+                columnZ[column] += z + rowDepth + CORRIDOR;
             }
         }
         return offsets;
@@ -782,7 +833,7 @@ public final class TestCentreLayout {
                                                      List<String> sectionIds, Options options) {
         String at = origin.getX() + " " + origin.getY() + " " + origin.getZ();
         // TZ22-4: Neubauten tragen die Optionen des Teilbaus mit, sonst saehen sie eine andere Planung.
-        String with = options.isAll() ? "" : " " + options.text();
+        String with = options.text().isEmpty() ? "" : " " + options.text();
         List<TestCentreSections.Control> out = new ArrayList<>();
         out.add(new TestCentreSections.Control("sbtestcentre build " + at + with,
                 TcText.t("controls.rebuild", "Rebuild all"), options.isAll() ? TcText.t("controls.rebuild.sub", "whole centre")

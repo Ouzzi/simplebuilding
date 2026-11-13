@@ -90,13 +90,52 @@ public final class TestCentreDump {
      * Besitzers und liefert die Probleme der Planung (leer = gut); schreibt die Tabellen, wenn {@link #wanted()}.
      */
     public static List<String> allModules(net.minecraft.server.level.ServerLevel level) {
-        List<String> problems = new ArrayList<>();
-        TestCentreLayout.Plan plan = TestCentreLayout.plan(level, net.minecraft.core.BlockPos.ZERO);
-        if (wanted()) {
-            write(plan, "base");
+        List<String> problems = new ArrayList<>(OrderAreas.problems(new TcContext(level.registryAccess())));
+        for (OrderAreas.Variant variant : OrderAreas.Variant.values()) {
+            TestCentreLayout.Plan plan = TestCentreLayout.plan(level, net.minecraft.core.BlockPos.ZERO,
+                    TestCentreLayout.Options.ALL.with(variant));
+            if (!plan.leftovers().isEmpty()) {
+                problems.add(variant.id() + ": " + plan.leftovers().size() + " items without a place, e.g. " + TcContext.id(plan.leftovers().getFirst()));
+            }
+            if (wanted()) {
+                write(plan, variant.id());
+            }
+            com.simplebuilding.Simplebuilding.LOGGER.info("test centre with all modules ({}): {}", variant.id(),
+                    plan.summary().lines().findFirst().orElse(""));
         }
-        com.simplebuilding.Simplebuilding.LOGGER.info("test centre with all modules: {}", plan.summary().lines().findFirst().orElse(""));
+        OrderAreas.Area lines = OrderAreas.families();
+        List<String> missing = OrderAreas.missingList(lines);
+        com.simplebuilding.Simplebuilding.LOGGER.info("test centre lines: {} rows, {} placeholders, {} red (missing)", lines.rows().size(),
+                lines.placeholders().size(), missing.size());
+        if (wanted()) {
+            writeLines(lines, "lines-rows");
+        }
         return problems;
+    }
+
+    /** Die Reihen der Linien als Tabelle (Vorschau, Fehlliste): Reihe, Art, Seite, x, Spalte, Slot, Item oder Platzhalter. */
+    static void writeLines(OrderAreas.Area lines, String name) {
+        List<String> out = new ArrayList<>();
+        out.add("#lineZ\t" + lines.lineZ());
+        for (OrderAreas.Row row : lines.rows()) {
+            for (int col = 0; col < row.length(); col++) {
+                OrderAreas.Slot slot = col < row.columns().size() ? row.columns().get(col) : OrderAreas.Slot.OTHER;
+                net.minecraft.world.item.Item item = col < row.columns().size() ? row.fixed().get(slot) : row.others().get(col - row.columns().size());
+                net.minecraft.world.item.Item top = col < row.columns().size() ? row.tops().get(slot) : null;
+                String what = item != null ? BuiltInRegistries.ITEM.getKey(item).toString()
+                        : row.expected().contains(slot) ? "MISSING" : "NONE";
+                out.add(row.group() + "\t" + row.kind() + "\t" + row.family() + "\t" + (row.step() < 0 ? "A" : "B") + "\t" + row.x()
+                        + "\t" + row.z(col) + "\t" + col + "\t" + slot + "\t" + what + "\t" + (top == null ? "" : BuiltInRegistries.ITEM.getKey(top)));
+            }
+        }
+        lines.hidden().forEach(item -> out.add("#hidden\t" + BuiltInRegistries.ITEM.getKey(item)));
+        try {
+            Path dir = Path.of("testcentre-dump");
+            Files.createDirectories(dir);
+            Files.write(dir.resolve(name + ".tsv"), out, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            com.simplebuilding.Simplebuilding.LOGGER.warn("test centre dump {} failed", name, e);
+        }
     }
 
     private static String item(ItemStack stack) {
