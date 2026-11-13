@@ -1623,8 +1623,6 @@ modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/ches
 modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/chest/reinforced_trapped.png
 modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/chest/reinforced_trapped_left.png
 modules/simplestorage/shared/resources/assets/simplestorage/textures/entity/chest/reinforced_trapped_right.png
-modules/simplestorage/shared/resources/assets/simplestorage/textures/item/enderite_bundle_open_back.png
-modules/simplestorage/shared/resources/assets/simplestorage/textures/item/enderite_bundle_open_front.png
 modules/simplestorage/shared/resources/assets/simplestorage/textures/item/netherite_bundle_open_back.png
 modules/simplestorage/shared/resources/assets/simplestorage/textures/item/netherite_bundle_open_front.png
 modules/simplestorage/shared/resources/assets/simplestorage/textures/item/reinforced_bundle.png
@@ -1870,8 +1868,6 @@ wiki/assets/textures/sheets/simplestorage/simplestorage/entity/chest/reinforced_
 wiki/assets/textures/sheets/simplestorage/simplestorage/entity/chest/reinforced_trapped.png
 wiki/assets/textures/sheets/simplestorage/simplestorage/entity/chest/reinforced_trapped_left.png
 wiki/assets/textures/sheets/simplestorage/simplestorage/entity/chest/reinforced_trapped_right.png
-wiki/assets/textures/sheets/simplestorage/simplestorage/item/enderite_bundle_open_back.png
-wiki/assets/textures/sheets/simplestorage/simplestorage/item/enderite_bundle_open_front.png
 wiki/assets/textures/sheets/simplestorage/simplestorage/item/netherite_bundle_open_back.png
 wiki/assets/textures/sheets/simplestorage/simplestorage/item/netherite_bundle_open_front.png
 wiki/assets/textures/sheets/simplestorage/simplestorage/item/reinforced_bundle_open_back.png
@@ -1972,8 +1968,6 @@ wiki/assets/textures/sheets/simplebuilding/simplestorage/entity/chest/reinforced
 wiki/assets/textures/sheets/simplebuilding/simplestorage/entity/chest/reinforced_trapped.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/entity/chest/reinforced_trapped_left.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/entity/chest/reinforced_trapped_right.png
-wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_bundle_open_back.png
-wiki/assets/textures/sheets/simplebuilding/simplestorage/item/enderite_bundle_open_front.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/item/netherite_bundle_open_back.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/item/netherite_bundle_open_front.png
 wiki/assets/textures/sheets/simplebuilding/simplestorage/item/reinforced_bundle_open_back.png

@@ -657,10 +657,10 @@ DESIGNS = {
     CHESS + '/purpur.png': chess_purpur,
     CHESS + '/quartz_accent.png': chess_quartz_accent,
     CORE + '/block/cracked_astralit_bricks.png': cracked_astralit,
+    # the 26.2 copies only; the live Simple Storage textures are drawn by bundlequiver_2026_11_13.py (a-bundlequiver,
+    # owner objection A-W1B T12/T13 13.11.)
     CORE + '/item/enderite_bundle.png': bundle,
-    STORAGE + '/enderite_bundle.png': bundle,  # the live copy (items moved to Simple Storage)
     CORE + '/item/enderite_quiver.png': quiver,
-    STORAGE + '/enderite_quiver.png': quiver,
     ORES + '/infernite_block.png': lambda v: metal('infernite', v),
     ORES + '/terranite_block.png': lambda v: metal('terranite', v),
     ORES + '/zenithite_block.png': lambda v: metal('zenithite', v),
