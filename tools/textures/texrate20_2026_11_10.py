@@ -403,7 +403,7 @@ def truffle_soup(variant):
     return layered(SOUP_A if variant == 'A' else SOUP_B, SOUP_PAL, [('Suppe', 'sSdw'), ('Trueffel', 'tTv')], 'Schale')
 
 
-# ===================================================================== core/simplestorage: enderite bundle + quiver
+# ===================================================================== enderite bundle + quiver (rejected, no targets - see DESIGNS)
 END_PAL = {'o': H('#170c18'), 'a': H('#2a1a31'), 'b': H('#3b2745'), 'c': H('#51365f'), 'd': H('#6c4c7e'),
            'e': H('#1f1424'), 'm': H('#3e3848'), 'M': H('#6a6176'), 'k': H('#8c5fd0'), 'K': H('#d2b0ff'),
            'p': H('#4c4258'), 'P': H('#7c7090'), 'f': H('#bba98a'), 'F': H('#e4d8bc')}
@@ -657,10 +657,8 @@ DESIGNS = {
     CHESS + '/purpur.png': chess_purpur,
     CHESS + '/quartz_accent.png': chess_quartz_accent,
     CORE + '/block/cracked_astralit_bricks.png': cracked_astralit,
-    # the 26.2 copies only; the live Simple Storage textures are drawn by bundlequiver_2026_11_13.py (a-bundlequiver,
-    # owner objection A-W1B T12/T13 13.11.)
-    CORE + '/item/enderite_bundle.png': bundle,
-    CORE + '/item/enderite_quiver.png': quiver,
+    # enderite_bundle / enderite_quiver are NOT targets any more: the owner rejected the designs below (A-W1B T12/T13,
+    # BUNDLEQUIVER 13.11.) and the textures from before TEXRATE20 are back (a-fix13). bundle()/quiver() stay as reference only.
     ORES + '/infernite_block.png': lambda v: metal('infernite', v),
     ORES + '/terranite_block.png': lambda v: metal('terranite', v),
     ORES + '/zenithite_block.png': lambda v: metal('zenithite', v),

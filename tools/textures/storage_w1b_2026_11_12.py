@@ -12,8 +12,9 @@ Targets (modules/simplestorage/shared/resources/assets/simplestorage/textures/):
     barrel pixels (crucible_art_v2.wood_to / copper_barrels.copperize): newly drawn with own pixels, the accepted
     chest-style motif kept (staves in the tier's chest tones, two hoops at rows 3-4 / 11-12 with rivets and corner
     studs, lock on the upper hoop; lid with frame, corner studs, planks and the handle; bottom with cross planks).
-  * item/enderite_{bundle,quiver}_dyed{,_overlay}.png were drawn here until a-bundlequiver (13.11.2026); the owner
-    objected (A-W1B T12/T13), they are bundlequiver_2026_11_13.py targets now.
+  * item/enderite_{bundle,quiver}_dyed{,_overlay}.png were drawn here (TEXRATE20-A) until a-bundlequiver; the owner
+    rejected both attempts (A-W1B T12/T13, BUNDLEQUIVER 13.11.): since a-fix13 the textures from before TEXRATE20 are
+    back and no generator owns the Enderite bundle/quiver textures.
 
     python3 tools/textures/storage_w1b_2026_11_12.py --write        write every target (+ .layers.json)
     python3 tools/textures/storage_w1b_2026_11_12.py --check        every target equals the design (exit 1 if not)
@@ -341,8 +342,7 @@ for _tier in ('copper', 'reinforced', 'netherite'):
     DESIGNS[f'{BLOCK}/{_tier}_barrel_side.png'] = (lambda tr: lambda: side(tr))(_tier)
     DESIGNS[f'{BLOCK}/{_tier}_barrel_top.png'] = (lambda tr: lambda: lid(tr, 'top'))(_tier)
     DESIGNS[f'{BLOCK}/{_tier}_barrel_bottom.png'] = (lambda tr: lambda: lid(tr, 'bottom'))(_tier)
-# a-bundlequiver (13.11.): the Enderite bundle/quiver dye layers (and their dye rules) moved to
-# bundlequiver_2026_11_13.py (owner objection A-W1B T12/T13).
+# a-fix13 (13.11.): no Enderite bundle/quiver targets (restored originals, see the module docstring).
 
 
 def write(rel, t):

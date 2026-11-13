@@ -1,5 +1,8 @@
 # PLAN a-bundlequiver – Enderit-Bündel und Enderit-Köcher neu (13.11.2026)
 
+> **Abgelöst 13.11. (a-fix13):** Besitzer BUNDLEQUIVER = Einwand, alle neuen Enderit-Bündel/-Köcher-Texturen verworfen; Stand vor
+> TEXRATE20 (587e4ec4c^) ist zurück, der Generator `bundlequiver_2026_11_13.py` ist entfernt (docs/ai/PLAN-A-FIX13-2026-11-13.md).
+
 Auftrag: /root/sb-tools-a/agenten-1530.md §20. Besitzer 13.11. ~00:30 UTC: „A-W1B=ok außer bundle und quivers“
 (T12 Enderit-Bündel gefärbt, T13 Enderit-Köcher gefärbt → neue Texturen); schon TEXRATE16 (10.11.) hatte Einwand zu
 `enderite_bundle`/`enderite_quiver`. Basis `hub/b-bundle191` 4c7a3078b, Branch `a-bundlequiver`, Ziel Bündel 192.
