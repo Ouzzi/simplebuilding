@@ -591,7 +591,7 @@ window.WIKI_MODULES = [
       "config": 20,
       "features": 8
     },
-    "dataHash": "a61a3a144414"
+    "dataHash": "ea9b897b9142"
   },
   {
     "id": "simpleinterfaces",
@@ -1256,13 +1256,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 44,
+      "items": 48,
       "blocks": 9,
-      "recipes": 48,
-      "config": 6,
+      "recipes": 52,
+      "config": 7,
       "features": 9
     },
-    "dataHash": "098ac77c6a18"
+    "dataHash": "b1448d1e0e90"
   },
   {
     "id": "simplemobheads",
@@ -1276,8 +1276,7 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "simplelib",
-      "cloth_config"
+      "simplelib"
     ],
     "optional": [
       "simplebuilding",
@@ -1285,7 +1284,8 @@ window.WIKI_MODULES = [
       "simpleend",
       "simpleenddragonfight",
       "jei",
-      "modmenu"
+      "modmenu",
+      "cloth_config"
     ],
     "stage": "done",
     "parent": "simplebuilding",
@@ -1459,7 +1459,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 19
     },
-    "dataHash": "0f663294a269"
+    "dataHash": "0a49413f3c61"
   },
   {
     "id": "simplecrucibles",
@@ -1499,10 +1499,10 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 7,
       "recipes": 1,
-      "config": 11,
-      "features": 8
+      "config": 37,
+      "features": 9
     },
-    "dataHash": "10ada0361221"
+    "dataHash": "9018e66821a2"
   },
   {
     "id": "simpleoctets",
@@ -1522,6 +1522,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend",
       "simpleores",
+      "simpleenchanting",
       "jei"
     ],
     "stage": "done",
@@ -1538,11 +1539,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 211,
-      "recipes": 613,
+      "blocks": 213,
+      "recipes": 619,
       "features": 6
     },
-    "dataHash": "7b7e6a541538"
+    "dataHash": "2c202ceefb9c"
   },
   {
     "id": "simplehammers",
@@ -1583,7 +1584,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "05d38edc82e8"
+    "dataHash": "5e973feefcc2"
   },
   {
     "id": "simpleoptimization",
@@ -1828,7 +1829,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplegadgets",
     "displayName": "Simple Gadgets",
-    "description": "Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.",
+    "description": "Gadgets you hold and use: Gauge (speed dial, altimeter with fall-damage warning, auto-walk), Transposer, Resonance Rod, Detector, Attractor and Echo Sounder, moved from SimpleBuilding (ids migrate); the Color Brush follows later, the Octant lives in Simple Building Tools. Fabric only for now.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1852,9 +1853,9 @@ window.WIKI_MODULES = [
       "items": 7,
       "recipes": 12,
       "config": 31,
-      "features": 7
+      "features": 9
     },
-    "dataHash": "008d13f825e2"
+    "dataHash": "deda358208ec"
   },
   {
     "id": "simpleearth",
@@ -2029,7 +2030,7 @@ window.WIKI_MODULES = [
       "config": 16,
       "features": 23
     },
-    "dataHash": "a6e2500f4c03"
+    "dataHash": "f9c5d1a77c10"
   },
   {
     "id": "simplemachines",
@@ -2127,9 +2128,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPQUnb7TwlmABGLp5/DiqWEDMAYm1xWxAZUA+rzd//fs+U2mIZpPLHhAxjD+CA5EAZp9rGvxzQAphmmER2D5ECaQRZhNQCmGWbYrLoHYAzjIxuCYQCyZphGdAzSCDOEoAEgGgQ+vPgP1ojXAGR/w2yDaYZhmDhyeOA1AFkzQQOweQHkXJhmgl6gSiAiRyNIIcxWmEZkzTgTEkiCmISE1QBQ6oJJ4krKMHkMA2AC6BimEZscigGUYAAdGmaSr7d4OgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
+      "config": 32,
       "features": 9
     },
-    "dataHash": "8b3b16323006"
+    "dataHash": "0f8b43358a00"
   },
   {
     "id": "simplefoundry",
@@ -2190,11 +2192,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mNQETf4TwlmABEzW1eTjKOsKlANKAzr/r912SEwTQiDNDtqhWEaAMJSXEJ4MUgzyCKsBoAUbHAw+P/l1QUwrlLQAGMYHyQHMwSnATANLzZ4wA0AsWEG4jWAWC/gNQBbgGHDGAYQshkdYzUA5FdiME4DrEQU/kcpGBCkcRpAjGYQTTsXkB2IsGghFcMNoAQDAHSQ0Ezrx2wLAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 10,
-      "recipes": 8,
-      "features": 5
+      "blocks": 26,
+      "recipes": 36,
+      "config": 1,
+      "features": 6
     },
-    "dataHash": "9fbee25393b8"
+    "dataHash": "3ab121b2dd18"
   },
   {
     "id": "simplepads",
@@ -2294,10 +2297,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 10,
-      "config": 1,
-      "features": 7
+      "config": 8,
+      "features": 8
     },
-    "dataHash": "e248c2460e6c"
+    "dataHash": "37272b87906b"
   },
   {
     "id": "simplelayers",

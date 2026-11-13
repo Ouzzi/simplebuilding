@@ -18,6 +18,7 @@ Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by 
 - **Dinosaur eggs** - One egg per dinosaur: T.
 - **T. rex** - The combat mount: three-quarter life size, a core hitbox of 3.6 x 3.5 blocks (head and tail reach beyond it).
 - **Triceratops** - The tree shaker: a heavy quadruped mount that hatches tame like the T.
+- **Stegosaurus** - The plow animal: a slow, heavy quadruped mount that hatches tame like the T.
 - **Large saddle and dinosaur armor** - The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider.
 - **Commands** - /simpledinos config shows and changes every option of config/simpledinos-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
