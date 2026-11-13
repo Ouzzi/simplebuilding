@@ -1,5 +1,6 @@
 """Simple Dinosaurs: item sprites of DINO-REST step 1 (a-dinorest1, concept KONZEPT-A-DINO36 6): the Triceratops armor in three tiers
-and the eggshells of the four dinosaurs that leave one (Triceratops, Stegosaurus, Utahraptor, Parasaurolophus).
+and the eggshells of the four dinosaurs that leave one (Triceratops, Stegosaurus, Utahraptor, Parasaurolophus); step 2 the Stegosaurus
+armor and the Dino Plow, step 3 the Parasaurolophus armor.
 
 Own pixel art drawn from code (ASCII sprites, tools/textures/optik32_engine.py shading after A8b: lit top/left, shaded bottom/right,
 rim in the darkest tones of the same ramp, no black outline). The armor follows the T. rex armor (owner choice IG31-23, variant C:
@@ -152,12 +153,50 @@ def plow(rows=None):
     return paint(rows or PLOW, ramps, seed=37)
 
 
+# ---------------------------------------------------------------- a-dinorest3: Parasaurolophus armor
+# Parasaurolophus armor (side view, facing left; rounds in docs/ai/PLAN-A-DINOREST3-2026-11-12.md): the crest hood c over the skull and the
+# long crest tube sweeping back and up, its rim k in the trim tone, the eye hole b, the duck bill a in the dinosaur's own skin tone (so the
+# shape reads as a Parasaurolophus), the chin strap n; below it the hip blanket h with its rim r, a trim band n, tier details v and fringe f
+PARA_ARMOR = ['................',
+              '............kcc.',
+              '..........kcccc.',
+              '........kcccc...',
+              '......kcccc.....',
+              '.....kccc.......',
+              '...kccccc.......',
+              '..kcbccccc......',
+              '.aacccccck......',
+              'aaaannnnk.......',
+              '................',
+              '......rrrrrrrr..',
+              '.....rhhhhhhhhr.',
+              '.....rnnnnnnnnr.',
+              '.....rhhvhhvhhr.',
+              '......f.f.f.f...']
+
+
+def _toward(a: str, b: str, t: float) -> str:
+    """Hex colour a moved the share t toward b."""
+    pa, pb = [int(a[i:i + 2], 16) for i in (0, 2, 4)], [int(b[i:i + 2], 16) for i in (0, 2, 4)]
+    return '%02x%02x%02x' % tuple(round(pa[i] + (pb[i] - pa[i]) * t) for i in range(3))
+
+
+def para_armor(tier: str, rows=None, trim_mix=0.35):
+    """Round 4: the trim tone moved 35 % toward the main tone (hard transitions 25 -> 7-10 %, A8b), the shapes of round 3."""
+    main, trim = TIERS[tier]
+    trim = _toward(trim, main, trim_mix)
+    ramps = {'c': ramp(main, N), 'k': ramp(trim, N), 'h': ramp(main, N), 'r': ramp(main, N, spread=0.2, sat_shift=0.05), 'n': ramp(trim, N),
+             'v': ramp(main, N, spread=0.1), 'f': ramp(trim, N), 'a': ramp('6e7a48', N, spread=0.12), 'b': ramp('3a4024', N, spread=0.1)}
+    return paint(rows or PARA_ARMOR, ramps, seed=41, base={'v': N // 2 + 1})
+
+
 def all_sprites():
     """{name: image} of every sprite this file draws."""
     out = {f'triceratops_armor_{t}': armor(t) for t in ARMOR_TIERS}
     out.update({f'{k}_eggshell': eggshell(k) for k in SHELL_KINDS})
     out.update({f'stegosaurus_armor_{t}': stego_armor(t) for t in ARMOR_TIERS})
     out['dino_plow'] = plow()
+    out.update({f'parasaurolophus_armor_{t}': para_armor(t) for t in ARMOR_TIERS})
     return out
 
 

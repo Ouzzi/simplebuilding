@@ -1975,8 +1975,8 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex, Triceratops or Stegosaurus.",
-      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex, Triceratops oder Stegosaurus großziehen."
+      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex, Triceratops, Stegosaurus or Parasaurolophus.",
+      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex, Triceratops, Stegosaurus oder Parasaurolophus großziehen."
     },
     "purpose": {
       "en": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar.",
@@ -1984,13 +1984,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMI8zL4TwlmABHPL68mGd/YUYFqwN1D3f/f3j8EprVkBLBikBwIgzTPaQnDNACmedaBKhT87cMFMAbJgTSDLMJqADbNyAbkzQqCG0LQgBcPdqAYAtKM1wBctqMbADOEaANgLiHJAHTnIxvgV2VFmgvQbcdrAEgBIefjNAAWC8iK0TFMM95oBGGQQlyacRoASl0gCRDGlZRh8hgGwARIxXADKMEAraJkFqb3qvwAAAAASUVORK5CYII=",
     "counts": {
-      "items": 16,
+      "items": 19,
       "blocks": 6,
-      "recipes": 15,
-      "config": 8,
-      "features": 8
+      "recipes": 18,
+      "config": 13,
+      "features": 9
     },
-    "dataHash": "7ca7030dd1a7"
+    "dataHash": "d20fd423bfcb"
   },
   {
     "id": "simpleores",

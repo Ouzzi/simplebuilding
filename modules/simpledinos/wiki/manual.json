@@ -13,7 +13,7 @@
         "summary": "A very rare find in the underground of deserts, badlands and swamps. Mined with Silk Touch it stays a block; without it, it breaks into up to two bones and the find is lost. Brush it with the Vanilla brush: after about a minute of brushing, a dinosaur egg falls out.",
         "details": [
           "Brushing fills a progress of 45 seconds (setting brushSeconds); ten visible stages show the bones coming out. If you stop for more than a quarter of a second, the progress runs back at twice the speed: a pause of 1 second takes 2 seconds of progress away.",
-          "Which egg is inside follows from the block's position, so stopping and starting again never changes it. Only dinosaurs that already hatch are found: the T. rex and the Triceratops (weights 10 : 25). The find site shifts the odds: in deserts the T. rex and the Triceratops count 1.5 times, in badlands the Utahraptor twice and the Stegosaurus 1.5 times, in swamps and mangrove swamps the Parasaurolophus twice.",
+          "Which egg is inside follows from the block's position, so stopping and starting again never changes it. Only dinosaurs that already hatch are found: the T. rex, the Triceratops, the Stegosaurus and the Parasaurolophus (weights 10 : 25 : 25 : 20). The find site shifts the odds: in deserts the T. rex and the Triceratops count 1.5 times, in badlands the Utahraptor twice and the Stegosaurus 1.5 times, in swamps and mangrove swamps the Parasaurolophus twice.",
           "Generation: one cluster of up to 3 blocks in roughly every fourth chunk of desert, badlands, swamp and mangrove swamp, height -10 to 50, in stone and sandstone. After brushing, a sandstone block is left, and sometimes a bone."
         ]
       },
@@ -22,7 +22,7 @@
         "summary": "Ein sehr seltener Fund im Untergrund von Wüsten, Badlands und Sümpfen. Mit Behutsamkeit abgebaut bleibt er ein Block; ohne bricht er in bis zu zwei Knochen und der Fund geht verloren. Mit dem Vanilla-Pinsel freilegen: nach etwa einer Minute Pinseln fällt ein Dinosaurier-Ei heraus.",
         "details": [
           "Das Pinseln füllt einen Fortschritt von 45 Sekunden (Einstellung brushSeconds); zehn sichtbare Stufen zeigen, wie die Knochen herauskommen. Hörst du länger als eine Viertelsekunde auf, läuft der Fortschritt doppelt so schnell zurück: 1 Sekunde Pause nimmt 2 Sekunden Fortschritt weg.",
-          "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. Es stecken nur Dinosaurier darin, die schon schlüpfen: T-Rex und Triceratops (Gewichte 10 : 25). Der Fundort verschiebt die Chancen: in Wüsten zählen T-Rex und Triceratops 1,5-fach, in Badlands der Utahraptor doppelt und der Stegosaurus 1,5-fach, in Sümpfen und Mangrovensümpfen der Parasaurolophus doppelt.",
+          "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. Es stecken nur Dinosaurier darin, die schon schlüpfen: T-Rex, Triceratops, Stegosaurus und Parasaurolophus (Gewichte 10 : 25 : 25 : 20). Der Fundort verschiebt die Chancen: in Wüsten zählen T-Rex und Triceratops 1,5-fach, in Badlands der Utahraptor doppelt und der Stegosaurus 1,5-fach, in Sümpfen und Mangrovensümpfen der Parasaurolophus doppelt.",
           "Generierung: ein Vorkommen von bis zu 3 Blöcken in etwa jedem vierten Chunk von Wüste, Badlands, Sumpf und Mangrovensumpf, Höhe -10 bis 50, in Stein und Sandstein. Nach dem Pinseln bleibt ein Sandsteinblock übrig, manchmal ein Knochen."
         ]
       }
@@ -40,7 +40,7 @@
         "details": [
           "Twelve visible brooding stages; standing up (sneak) makes the progress run back at twice the speed. A brooded egg does not run back, cracks now and then and shows three crack stages before it hatches.",
           "A brooded egg hatches only for its owner (the player who sat longest): while the owner is offline, in another dimension or more than 16 blocks away it stays brooded and keeps cracking, without losing anything, and hatches as soon as the owner is back within 16 blocks. With hatchWaitsForOwner off, the old rule applies: an offline owner is replaced by the nearest player within 16 blocks. Times: incubateSeconds (300) and hatchSeconds (600). No spawn egg exists.",
-          "The T. rex, the Triceratops and the Stegosaurus hatch. The eggs of the Utahraptor and the Parasaurolophus can be placed and brooded, but stay eggs until their dinosaur is built. Every dinosaur except the T. rex leaves three eggshells when it hatches; one eggshell makes three bone meal."
+          "The T. rex, the Triceratops, the Stegosaurus and the Parasaurolophus hatch. The egg of the Utahraptor can be placed and brooded, but stays an egg until its dinosaur is built. Every dinosaur except the T. rex leaves three eggshells when it hatches; one eggshell makes three bone meal."
         ]
       },
       "de": {
@@ -49,7 +49,7 @@
         "details": [
           "Zwölf sichtbare Brutstufen; Aufstehen (Schleichen) lässt den Fortschritt doppelt so schnell zurücklaufen. Ein bebrütetes Ei läuft nicht mehr zurück, knackt ab und zu und zeigt vor dem Schlüpfen drei Rissstufen.",
           "Ein bebrütetes Ei schlüpft nur für seinen Besitzer (den Spieler, der am längsten gesessen hat): solange der Besitzer offline, in einer anderen Dimension oder weiter als 16 Blöcke weg ist, bleibt es bebrütet und knackt weiter, ohne etwas zu verlieren, und schlüpft, sobald der Besitzer wieder in 16 Blöcken ist. Mit hatchWaitsForOwner aus gilt die alte Regel: ein Besitzer, der offline ist, wird durch den nächsten Spieler in 16 Blöcken ersetzt. Zeiten: incubateSeconds (300) und hatchSeconds (600). Ein Spawn-Ei gibt es nicht.",
-          "T-Rex, Triceratops und Stegosaurus schlüpfen. Die Eier von Utahraptor und Parasaurolophus lassen sich platzieren und bebrüten, bleiben aber Eier, bis ihr Dinosaurier gebaut ist. Jeder Dinosaurier außer dem T-Rex lässt beim Schlüpfen drei Eierschalen zurück; eine Eierschale ergibt drei Knochenmehl."
+          "T-Rex, Triceratops, Stegosaurus und Parasaurolophus schlüpfen. Das Ei des Utahraptors lässt sich platzieren und bebrüten, bleibt aber ein Ei, bis sein Dinosaurier gebaut ist. Jeder Dinosaurier außer dem T-Rex lässt beim Schlüpfen drei Eierschalen zurück; eine Eierschale ergibt drei Knochenmehl."
         ]
       }
     },
@@ -153,27 +153,65 @@
       }
     },
     {
+      "id": "parasaurolophus",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Parasaurolophus.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Dino.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/part/PartRig.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/ParasaurolophusModel.java",
+        "modules/simpledinos/shared/resources/data/simpledinos/tags/entity_type/herd_followers.json",
+        "modules/simpledinos/shared/resources/data/minecraft/tags/entity_type/can_float_while_ridden.json"
+      ],
+      "en": {
+        "title": "Parasaurolophus",
+        "summary": "The lead animal: a quick quadruped mount that hatches tame like the T. rex and never jumps. With a saddle the jump key blows its crest call: farm animals within 24 blocks follow it for two minutes, also through water, and it swims with its rider. It never fights.",
+        "details": [
+          "The call: which animals follow depends on the rider's main hand, as when luring them: wheat calls cows, sheep and goats, carrots pigs and rabbits, seeds chickens, and so on; an empty hand calls every farm animal (cow, mooshroom, sheep, pig, chicken, goat, rabbit, horse, donkey, mule, llama, camel, armadillo, sniffer; with Simple Animals also deer, zebra and zorse; tag simpledinos:herd_followers). Another item: nobody follows. At most 24 animals, the nearest first.",
+          "Animals tamed by someone else, leashed, ridden or riding, with a name tag, or standing in a claim the rider may not use (claim mods are asked like for breaking a block) stay. The animals walk after it on their own legs; their breeding and their own behaviour stay Vanilla. A follower that is leashed, ridden or more than 64 blocks away drops out; the herd ends after the time, when the Parasaurolophus is unloaded or dies.",
+          "The call is heard 64 blocks away; the head goes up and notes ring around the crest, and a note shows over every follower every 2 seconds. Then the call cools down for 20 seconds (jump bar); during the first 5 seconds the jump bar stays free: a second press dismisses the herd. Settings callRadius, callSeconds, callMaxAnimals, callCooldownSeconds and callIgnoreNamed.",
+          "Swimming: in deep water it floats with its back out of the water and carries its rider without throwing them off (horses and camels throw their rider off when the rider's head goes under water); it swims at about 0.6 times its land speed (0.24). So it leads a herd across rivers.",
+          "It never fights: hurt, it gives a warning call (sound only) and runs away when nobody rides it. Food: sweet berries (favourite, heal 4 hearts), wheat, hay bale and beetroot (2 hearts); feeding a hatchling speeds its growth up. 60 health, core hitbox 2.2 x 2.5 blocks (body, legs and hip ridge).",
+          "Head and tail have part hitboxes. The neck base stands in front of the shoulders, so the head is solid: it stops the walk at walls (leaves and one-block steps excepted); when something stands in front, the long neck rises and the head comes back. The tail bends to the free side.",
+          "Large saddle (the rider sits in the middle of the back, clear of the crest) and Parasaurolophus armor (leather, iron, diamond: crest hood and hip blanket) go on like on a horse. Sounds are Vanilla sounds for now (goat horn for the call, camel, deeper)."
+        ]
+      },
+      "de": {
+        "title": "Parasaurolophus",
+        "summary": "Das Leittier: ein flottes vierbeiniges Reittier, das wie der T-Rex zahm schlüpft und nie springt. Mit Sattel bläst die Sprungtaste seinen Kamm-Ruf: Nutztiere in 24 Blöcken folgen ihm zwei Minuten lang, auch durchs Wasser, und es schwimmt mit seinem Reiter. Es kämpft nie.",
+        "details": [
+          "Der Ruf: welche Tiere folgen, bestimmt die Haupthand des Reiters wie beim Locken: Weizen ruft Kühe, Schafe und Ziegen, Karotten Schweine und Kaninchen, Samen Hühner und so weiter; eine leere Hand ruft alle Nutztiere (Kuh, Mooshroom, Schaf, Schwein, Huhn, Ziege, Kaninchen, Pferd, Esel, Maultier, Lama, Kamel, Gürteltier, Schnüffler; mit Simple Animals auch Hirsch, Zebra und Zorse; Tag simpledinos:herd_followers). Ein anderer Gegenstand: niemand folgt. Höchstens 24 Tiere, die nächsten zuerst.",
+          "Von anderen gezähmte, angeleinte, gerittene oder selbst reitende Tiere, Tiere mit Namensschild und Tiere in einem Claim, den der Reiter nicht nutzen darf (Claim-Mods werden gefragt wie beim Abbauen), bleiben. Die Tiere laufen auf eigenen Beinen hinterher; Zucht und eigenes Verhalten bleiben Vanilla. Ein Folger, der angeleint, geritten oder weiter als 64 Blöcke weg ist, fällt heraus; die Herde endet nach der Zeit und wenn der Parasaurolophus entladen wird oder stirbt.",
+          "Der Ruf ist 64 Blöcke weit zu hören; der Kopf geht hoch, Noten kreisen um den Kamm, und über jedem Folger zeigt sich alle 2 Sekunden eine Note. Danach braucht der Ruf 20 Sekunden (Sprungbalken); in den ersten 5 Sekunden bleibt der Sprungbalken frei: ein zweiter Druck entlässt die Herde. Einstellungen callRadius, callSeconds, callMaxAnimals, callCooldownSeconds und callIgnoreNamed.",
+          "Schwimmen: in tiefem Wasser treibt er mit dem Rücken über Wasser und trägt seinen Reiter, ohne ihn abzuwerfen (Pferde und Kamele werfen ihren Reiter ab, wenn dessen Kopf unter Wasser gerät); er schwimmt mit etwa 0,6-fachem Landtempo (0,24). So führt er eine Herde über Flüsse.",
+          "Er kämpft nie: verletzt stößt er einen Warnruf aus (nur Ton) und läuft davon, wenn ihn niemand reitet. Futter: Süßbeeren (Lieblingsfutter, heilen 4 Herzen), Weizen, Heuballen und Rote Bete (2 Herzen); Füttern lässt ein Jungtier schneller wachsen. 60 Lebenspunkte, Kern-Hitbox 2,2 x 2,5 Blöcke (Rumpf, Beine und Hüftkamm).",
+          "Kopf und Schwanz haben Teil-Hitboxen. Der Halsansatz steht vor den Schultern, darum ist der Kopf fest: er hält den Lauf an Wänden an (Blätter und Stufen von einem Block ausgenommen); steht etwas davor, hebt sich der lange Hals und der Kopf kommt zurück. Der Schwanz biegt zur freien Seite.",
+          "Großer Sattel (der Reiter sitzt mitten auf dem Rücken, frei vom Kamm) und Parasaurolophus-Rüstung (Leder, Eisen, Diamant: Kammhaube und Hüftdecke) legt man wie beim Pferd an. Klänge sind vorerst Vanilla-Klänge (Ziegenhorn für den Ruf, Kamel, tiefer)."
+        ]
+      }
+    },
+    {
       "id": "gear",
       "sources": [
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java",
         "modules/simpledinos/shared/java/com/simpledinos/client/TrexRenderer.java",
         "modules/simpledinos/shared/java/com/simpledinos/client/TriceratopsModel.java",
-        "modules/simpledinos/shared/java/com/simpledinos/client/StegosaurusModel.java"
+        "modules/simpledinos/shared/java/com/simpledinos/client/StegosaurusModel.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/ParasaurolophusModel.java"
       ],
       "en": {
         "title": "Large saddle and dinosaur armor",
-        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell, Stegosaurus armor around a Stegosaurus eggshell.",
+        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell, Stegosaurus armor around a Stegosaurus eggshell, Parasaurolophus armor around a Parasaurolophus eggshell.",
         "details": [
-          "Saddle and armor go on like on a horse: use them on a tamed adult dinosaur. The saddle shows as a seat on its back, the armor as plates (T. rex: head and back; Triceratops: frill shield, horn caps and chest plate; Stegosaurus: neck guard and flank plates), a different texture per material.",
-          "Hatchlings take neither. Each armor fits only its own dinosaur. The T. rex recipes unlock when you hold a saddle, leather, iron or diamonds, the Triceratops and Stegosaurus recipes when you hold their eggshell (like the turtle shell)."
+          "Saddle and armor go on like on a horse: use them on a tamed adult dinosaur. The saddle shows as a seat on its back, the armor as plates (T. rex: head and back; Triceratops: frill shield, horn caps and chest plate; Stegosaurus: neck guard and flank plates; Parasaurolophus: crest hood and hip blanket), a different texture per material.",
+          "Hatchlings take neither. Each armor fits only its own dinosaur. The T. rex recipes unlock when you hold a saddle, leather, iron or diamonds, the Triceratops, Stegosaurus and Parasaurolophus recipes when you hold their eggshell (like the turtle shell)."
         ]
       },
       "de": {
         "title": "Großer Sattel und Dinosaurier-Rüstung",
-        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale, Stegosaurus-Rüstung um eine Stegosaurus-Eierschale.",
+        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale, Stegosaurus-Rüstung um eine Stegosaurus-Eierschale, Parasaurolophus-Rüstung um eine Parasaurolophus-Eierschale.",
         "details": [
-          "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen Dinosaurier an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten (T-Rex: Kopf und Rücken; Triceratops: Kragenschild, Hornkappen und Brustplatte; Stegosaurus: Halsschutz und Flankenplatten), je Material eine andere Textur.",
-          "Jungtiere tragen keins von beiden. Jede Rüstung passt nur auf ihren eigenen Dinosaurier. Die T-Rex-Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst, die Triceratops- und Stegosaurus-Rezepte mit ihrer Eierschale (wie der Schildkrötenpanzer)."
+          "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen Dinosaurier an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten (T-Rex: Kopf und Rücken; Triceratops: Kragenschild, Hornkappen und Brustplatte; Stegosaurus: Halsschutz und Flankenplatten; Parasaurolophus: Kammhaube und Hüftdecke), je Material eine andere Textur.",
+          "Jungtiere tragen keins von beiden. Jede Rüstung passt nur auf ihren eigenen Dinosaurier. Die T-Rex-Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst, die Triceratops-, Stegosaurus- und Parasaurolophus-Rezepte mit ihrer Eierschale (wie der Schildkrötenpanzer)."
         ]
       }
     },
@@ -191,6 +229,7 @@
           "growMinutes (40, 1 to 600): minutes a hatchling needs to grow up. trexBiteDamage (10, 1 to 40): bite damage of an adult T. rex.",
           "triceratopsShake (true): a Triceratops charge shakes natural trees. shakeShare (0.5, 0 to 1): share of the natural leaves whose hand drops fall per shake. shakeAppleChance (0.35, 0 to 1): chance of the windfall apple on oak and dark oak. shakeTreeCooldownSeconds (600, 60 to 3600): seconds a shaken tree rests. ramCooldownSeconds (3, 1 to 30): seconds between two charges.",
           "stegosaurusPlowWidth (3, 1 to 3): blocks the lowered Dino Plow tills side by side. stegosaurusSow (true): the lowered plow sows seeds from the rider's off hand.",
+          "callRadius (24, 8 to 48): blocks around a Parasaurolophus in which its call gathers farm animals. callSeconds (120, 30 to 600): seconds they follow. callMaxAnimals (24, 1 to 64): animals per call, the nearest first. callCooldownSeconds (20, 5 to 300): seconds between two calls. callIgnoreNamed (true): animals with a name tag do not follow.",
           "With SimpleBuilding the switch Enable Simple Dinosaurs in its config turns the bundled module on or off."
         ]
       },
@@ -203,6 +242,7 @@
           "growMinutes (40, 1 bis 600): Minuten, die ein Jungtier zum Erwachsenwerden braucht. trexBiteDamage (10, 1 bis 40): Bissschaden eines erwachsenen T-Rex.",
           "triceratopsShake (true): ein Triceratops-Anlauf schüttelt natürliche Bäume. shakeShare (0.5, 0 bis 1): Anteil der natürlichen Blätter, deren Hand-Drops je Schütteln fallen. shakeAppleChance (0.35, 0 bis 1): Chance auf den Fallobst-Apfel bei Eiche und Schwarzeiche. shakeTreeCooldownSeconds (600, 60 bis 3600): Sekunden, die ein geschüttelter Baum ruht. ramCooldownSeconds (3, 1 bis 30): Sekunden zwischen zwei Anläufen.",
           "stegosaurusPlowWidth (3, 1 bis 3): Blöcke, die der gesenkte Dino-Pflug nebeneinander pflügt. stegosaurusSow (true): der gesenkte Pflug sät Saatgut aus der Nebenhand des Reiters.",
+          "callRadius (24, 8 bis 48): Blöcke um einen Parasaurolophus, in denen sein Ruf Nutztiere sammelt. callSeconds (120, 30 bis 600): Sekunden, die sie folgen. callMaxAnimals (24, 1 bis 64): Tiere je Ruf, die nächsten zuerst. callCooldownSeconds (20, 5 bis 300): Sekunden zwischen zwei Rufen. callIgnoreNamed (true): Tiere mit Namensschild folgen nicht.",
           "Mit SimpleBuilding schaltet der Schalter Simple Dinosaurs aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -236,10 +276,10 @@
         "modules/simpledinos/shared/resources/data/simpledinos/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 18 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 18 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpledinos:fossil_block": {
@@ -303,10 +343,10 @@
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
       ],
       "en": {
-        "summary": "Egg of the Parasaurolophus. Can be placed and brooded; hatches once the Parasaurolophus is built (not in stage 1)."
+        "summary": "Egg of the Parasaurolophus. Place it and sit on it: a tame Parasaurolophus hatches for the player who sat longest. Swamp fossils hold more of these eggs."
       },
       "de": {
-        "summary": "Ei des Parasaurolophus. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Parasaurolophus gebaut ist (nicht in Stufe 1)."
+        "summary": "Ei des Parasaurolophus. Platzieren und daraufsetzen: ein zahmer Parasaurolophus schlüpft für den Spieler, der am längsten gesessen hat. Sumpf-Fossilien enthalten öfter diese Eier."
       }
     },
     "simpledinos:large_saddle": {
@@ -428,10 +468,10 @@
         "modules/simpledinos/shared/java/com/simpledinos/block/DinoEggBlockEntity.java"
       ],
       "en": {
-        "summary": "Three fall when a Parasaurolophus hatches; one makes three bone meal. The Parasaurolophus itself is not built yet."
+        "summary": "Three fall when a Parasaurolophus hatches; one makes three bone meal. The middle of the Parasaurolophus armor recipes."
       },
       "de": {
-        "summary": "Drei fallen, wenn ein Parasaurolophus schlüpft; eine ergibt drei Knochenmehl. Der Parasaurolophus selbst ist noch nicht gebaut."
+        "summary": "Drei fallen, wenn ein Parasaurolophus schlüpft; eine ergibt drei Knochenmehl. Die Mitte der Parasaurolophus-Rüstungsrezepte."
       }
     },
     "simpledinos:stegosaurus_armor_leather": {
@@ -477,6 +517,39 @@
       },
       "de": {
         "summary": "Pflug für den Stegosaurus: pflügt drei Blöcke breit wie eine Hacke, mit der Sprungtaste gesenkt und gehoben. Haltbarkeit 750, Reparatur mit Eisenbarren, nimmt Haltbarkeit und Reparatur an. Rezept: Eisenbarren, Eisenkette, Eisenbarren über drei Eisenhacken."
+      }
+    },
+    "simpledinos:parasaurolophus_armor_leather": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Leather armor for the Parasaurolophus (protection 3): a hood over the crest and a blanket over the hips. 8 leather around a Parasaurolophus eggshell."
+      },
+      "de": {
+        "summary": "Lederrüstung für den Parasaurolophus (Schutz 3): Kammhaube und Hüftdecke. 8 Leder um eine Parasaurolophus-Eierschale."
+      }
+    },
+    "simpledinos:parasaurolophus_armor_iron": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Iron armor for the Parasaurolophus (protection 5): a hood over the crest and a blanket over the hips. 8 iron ingots around a Parasaurolophus eggshell."
+      },
+      "de": {
+        "summary": "Eisenrüstung für den Parasaurolophus (Schutz 5): Kammhaube und Hüftdecke. 8 Eisenbarren um eine Parasaurolophus-Eierschale."
+      }
+    },
+    "simpledinos:parasaurolophus_armor_diamond": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Diamond armor for the Parasaurolophus (protection 11): a hood over the crest and a blanket over the hips. 8 diamonds around a Parasaurolophus eggshell."
+      },
+      "de": {
+        "summary": "Diamantrüstung für den Parasaurolophus (Schutz 11): Kammhaube und Hüftdecke. 8 Diamanten um eine Parasaurolophus-Eierschale."
       }
     }
   }

@@ -59,10 +59,10 @@
       "Ein türkisfarbenes Ei mit hellen Punkten."
     ],
     "use": [
-      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Parasaurolophus selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+      "Platzieren und mit leerer Hand daraufsetzen: nach 5 Minuten Sitzen ist es bebrütet, 10 Minuten später schlüpft ein zahmer Parasaurolophus für den Spieler, der am längsten gesessen hat. Drei Eierschalen bleiben liegen."
     ],
     "secret": [
-      "Es wartet auf seinen Dinosaurier."
+      "Sumpf-Fossilien enthalten öfter diese Eier."
     ]
   },
   "large_saddle": {
@@ -186,6 +186,39 @@
       "Haltbarkeit und Reparatur wirken auf ihn wie auf jedes Werkzeug."
     ]
   },
+  "parasaurolophus_armor_leather": {
+    "lore": [
+      "Eine weiche Lederhaube für den Kamm und eine Decke für die Hüften."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Parasaurolophus anlegen: Schutz wie Leder-Pferderüstung. Acht Leder um eine Parasaurolophus-Eierschale."
+    ],
+    "secret": [
+      "Die Haube lässt das Kammende frei, damit der Ruf noch klingt."
+    ]
+  },
+  "parasaurolophus_armor_iron": {
+    "lore": [
+      "Eine eiserne Kammhaube und eine genietete Hüftdecke."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Parasaurolophus anlegen: Schutz wie Eisen-Pferderüstung. Acht Eisenbarren um eine Parasaurolophus-Eierschale."
+    ],
+    "secret": [
+      "Die Herde folgt dem Ruf, nicht dem Glanz."
+    ]
+  },
+  "parasaurolophus_armor_diamond": {
+    "lore": [
+      "Eine Diamant-Kammhaube, die beim Rufen funkelt."
+    ],
+    "use": [
+      "Einem erwachsenen, zahmen Parasaurolophus anlegen: Schutz wie Diamant-Pferderüstung. Acht Diamanten um eine Parasaurolophus-Eierschale."
+    ],
+    "secret": [
+      "Kühe sind nicht beeindruckt. Schafe ein bisschen."
+    ]
+  },
   "triceratops_eggshell": {
     "lore": [
       "Eine halbe Schale, noch warm vom Jungtier."
@@ -224,10 +257,10 @@
       "Eine halbe türkise Schale mit hellen Tupfen."
     ],
     "use": [
-      "Fällt, wenn ein Parasaurolophus schlüpft; eine ergibt drei Knochenmehl. Seine Rüstung kommt mit dem Parasaurolophus."
+      "Fällt, wenn ein Parasaurolophus schlüpft; eine ergibt drei Knochenmehl. Acht Leder, Eisenbarren oder Diamanten darum ergeben Parasaurolophus-Rüstung."
     ],
     "secret": [
-      "Der Parasaurolophus selbst ist noch nicht gebaut."
+      "Die Rüstungsrezepte erscheinen, sobald du eine hältst."
     ]
   },
   "guide_book": {

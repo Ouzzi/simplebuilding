@@ -45,6 +45,7 @@ public final class DinosFabric implements ModInitializer {
         FabricDefaultAttributeRegistry.register(DinosRegistry.TREX, DinosRegistry.trexAttributes());
         FabricDefaultAttributeRegistry.register(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes());
         FabricDefaultAttributeRegistry.register(DinosRegistry.STEGOSAURUS, DinosRegistry.stegosaurusAttributes());
+        FabricDefaultAttributeRegistry.register(DinosRegistry.PARASAUROLOPHUS, DinosRegistry.parasaurolophusAttributes());
         // a-dinorest2: the Dino Plow asks claim mods like a block break would (SimpleLib InteractionGuard). Simple Tools and Simple Farming
         // install the same probe; Simple Dinosaurs does it too, so the plow respects claims when it is played on its own.
         com.simplelib.api.InteractionGuard.permission = (p, pos) -> {
@@ -76,7 +77,9 @@ public final class DinosFabric implements ModInitializer {
                     new ItemStack(DinosRegistry.TREX_ARMOR_IRON), new ItemStack(DinosRegistry.TREX_ARMOR_DIAMOND),
                     new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_LEATHER), new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON),
                     new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND), new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_LEATHER),
-                    new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON), new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_DIAMOND)));
+                    new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON), new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_DIAMOND),
+                    new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_LEATHER), new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_IRON),
+                    new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_DIAMOND)));
         });
         // a-dinorest1: the eggshells next to the turtle scute (the same idea: what a hatchling leaves behind)
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
