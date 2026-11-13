@@ -18,7 +18,8 @@
     {
       "blocks": [
         "simpleblocks:blue_nether_bricks",
-        "simpleblocks:cracked_blue_nether_bricks"
+        "simpleblocks:cracked_blue_nether_bricks",
+        "simpleblocks:chiseled_blue_nether_bricks"
       ]
     }
   ]

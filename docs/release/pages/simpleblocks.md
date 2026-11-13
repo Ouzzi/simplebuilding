@@ -18,18 +18,18 @@ Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Ti
 - **Hushed Deepslate Tiles** - Deepslate tiles that swallow vibrations like wool: a Sculk Sensor or Warden does not hear a vibration that passes through the block, and walking on it makes none.
 - **Sculk Deepslate** - Deepslate with sculk veins.
 - **Sculk Tiles** - Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly.
-- **Missing Stairs, Slabs and Walls**
-- **Cracked and Mossy Bricks**
-- **Chiseled Blocks** - Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine, Chiseled Dark Prismarine and Chiseled Red Nether Bricks: the carved cousins Vanilla lacks.
+- **Missing Stairs, Slabs and Walls** - The stairs, slabs and walls that about twenty Vanilla families lack.
+- **Cracked and Mossy Bricks** - Cracked and mossy variants of the Vanilla bricks that have none.
+- **Chiseled Blocks** - The carved cousins Vanilla lacks: Chiseled Polished Andesite, Diorite and Granite, Chiseled Prismarine and Dark Prismarine, Chiseled Red Nether Bricks.
 - **Sandstone Pillars** - Sandstone Pillar and Red Sandstone Pillar: the pillar Vanilla gives quartz and purpur, now for both sandstones.
 - **Ice Building Blocks** - Polished ice and ice bricks of ice, packed ice and blue ice, chiseled ice, and stairs, slabs and walls of all three ices.
 - **Ice Brick Families** - Ice bricks, packed ice bricks and blue ice bricks are families of their own: cracked bricks, stairs, slabs, walls and an octet (Simple Octets).
-- **Blue Nether Bricks** - A blue counterpart to Red Nether Bricks, with stairs, slab and wall.
-- **Natural Block Variants** - Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.
+- **Blue Nether Bricks** - A blue counterpart to Red Nether Bricks, with stairs, slab, wall and a chiseled block.
+- **Natural Block Variants** - Slabs of dirt, grass, sand, red sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.
 
 ## Vanilla use
 
-Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need; no Vanilla block is changed.
+Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need; no Vanilla block changes how it works. Falling snow leaves a thin snow cap on fences, walls, stairs and slabs, and pumpkins, melons and hay age in the Pale Garden; both can be switched off, and Frost Grass, which would turn snowy grass into a mod block, is off by default.
 
 ## Dependencies
 

@@ -34454,6 +34454,28 @@
         "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
       },
       {
+        "id": "chisel/simpleblocks:cracked_blue_nether_bricks/simpleblocks:chiseled_blue_nether_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simpleblocks:cracked_blue_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:chiseled_blue_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
+      },
+      {
         "id": "chisel/simpleblocks:cracked_cinnabar_bricks/simpleblocks:mossy_cinnabar_bricks",
         "kind": "chisel",
         "inputs": [
@@ -36037,6 +36059,28 @@
           "tier": "diamond"
         },
         "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/diamond_chisel.json"
+      },
+      {
+        "id": "chisel_reverse/simpleblocks:chiseled_blue_nether_bricks/simpleblocks:cracked_blue_nether_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simpleblocks:chiseled_blue_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simpleblocks:cracked_blue_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "tier": "netherite"
+        },
+        "source": "modules/simpleblocks/shared/resources/data/simpleblocks/chisel_transformations/netherite_chisel.json"
       },
       {
         "id": "chisel_reverse/simpleblocks:chiseled_coal/minecraft:coal_block",
@@ -38028,7 +38072,7 @@
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
-    "inWorld": 208,
+    "inWorld": 210,
     "incompleteProse": 0
   }
 }
