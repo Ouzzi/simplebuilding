@@ -2008,6 +2008,9 @@ public final class TestCentreTests {
     public static void orderAreasShowEverythingInOwnerOrder(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        if (com.simplebuilding.dev.testcentre.TestCentreDump.wanted()) {
+            com.simplebuilding.dev.testcentre.TestCentreDump.write(plan, "base");
+        }
         for (String id : com.simplebuilding.dev.testcentre.OrderAreas.SECTIONS) {
             if (!TestCentreLayout.sectionIds().contains(id)) {
                 problems.add(id + " is not a section of the test centre");
