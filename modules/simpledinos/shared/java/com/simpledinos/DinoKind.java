@@ -13,7 +13,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * The five dinosaurs of the concept (3.4) with the egg weights of R10. A kind hatches once its dinosaur is built ({@link #entity};
- * a-dinorest1: T. rex and Triceratops, a-dinorest2: Stegosaurus), so a find only rolls among the {@link #hatchable} kinds. The find site shifts the odds a
+ * a-dinorest1: T. rex and Triceratops, a-dinorest2: Stegosaurus, a-dinorest3: Parasaurolophus), so a find only rolls among the {@link #hatchable} kinds. The find site shifts the odds a
  * little toward the kinds of the matching rock layers (concept DINO36 7, owner: recommendation accepted): badlands Utahraptor x2 and
  * Stegosaurus x1.5 (Morrison and Cedar Mountain formations), desert Triceratops and T. rex x1.5 (Hell Creek), swamp and mangrove swamp
  * Parasaurolophus x2 (river delta deposits).
@@ -39,6 +39,7 @@ public enum DinoKind {
             case TREX -> DinosRegistry.TREX;
             case TRICERATOPS -> DinosRegistry.TRICERATOPS;
             case STEGOSAURUS -> DinosRegistry.STEGOSAURUS;
+            case PARASAUROLOPHUS -> DinosRegistry.PARASAUROLOPHUS;
             default -> null;
         };
     }

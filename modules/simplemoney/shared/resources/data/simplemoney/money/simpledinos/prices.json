@@ -23,6 +23,9 @@
     "simpledinos:stegosaurus_armor_iron": "Crafted from iron ingots around a Stegosaurus eggshell.",
     "simpledinos:stegosaurus_armor_diamond": "Crafted from diamonds around a Stegosaurus eggshell.",
     "simpledinos:dino_plow": "Crafted from iron ingots, an iron chain and three iron hoes.",
+    "simpledinos:parasaurolophus_armor_leather": "Crafted from leather around a Parasaurolophus eggshell.",
+    "simpledinos:parasaurolophus_armor_iron": "Crafted from iron ingots around a Parasaurolophus eggshell.",
+    "simpledinos:parasaurolophus_armor_diamond": "Crafted from diamonds around a Parasaurolophus eggshell.",
     "simpledinos:guide_book": "Crafted from a book and a bone."
   },
   "prices": []

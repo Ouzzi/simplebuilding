@@ -1,0 +1,30 @@
+{
+  "values": [
+    "minecraft:cow",
+    "minecraft:mooshroom",
+    "minecraft:sheep",
+    "minecraft:pig",
+    "minecraft:chicken",
+    "minecraft:goat",
+    "minecraft:rabbit",
+    "minecraft:horse",
+    "minecraft:donkey",
+    "minecraft:mule",
+    "minecraft:llama",
+    "minecraft:camel",
+    "minecraft:armadillo",
+    "minecraft:sniffer",
+    {
+      "id": "simpleanimals:deer",
+      "required": false
+    },
+    {
+      "id": "simpleanimals:zebra",
+      "required": false
+    },
+    {
+      "id": "simpleanimals:zorse",
+      "required": false
+    }
+  ]
+}

@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simpledinos;
 
 import com.simpledinos.DinosRegistry;
 import com.simpledinos.client.DinosClient;
+import com.simpledinos.client.ParasaurolophusRenderer;
 import com.simpledinos.client.StegosaurusRenderer;
 import com.simpledinos.client.TrexRenderer;
 import com.simpledinos.client.TriceratopsRenderer;
@@ -17,6 +18,7 @@ final class DinosNeoClient {
             event.registerEntityRenderer(DinosRegistry.TREX, TrexRenderer::new);
             event.registerEntityRenderer(DinosRegistry.TRICERATOPS, TriceratopsRenderer::new);
             event.registerEntityRenderer(DinosRegistry.STEGOSAURUS, StegosaurusRenderer::new);
+            event.registerEntityRenderer(DinosRegistry.PARASAUROLOPHUS, ParasaurolophusRenderer::new);
         });
     }
 

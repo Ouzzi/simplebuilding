@@ -19,7 +19,8 @@ public final class DinosConfig {
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "brushSeconds", "incubateSeconds", "hatchSeconds", "hatchWaitsForOwner",
             "growMinutes", "trexBiteDamage", "triceratopsShake", "shakeShare", "shakeAppleChance", "shakeTreeCooldownSeconds",
-            "ramCooldownSeconds", "stegosaurusPlowWidth", "stegosaurusSow");
+            "ramCooldownSeconds", "stegosaurusPlowWidth", "stegosaurusSow", "callRadius", "callSeconds", "callMaxAnimals",
+            "callCooldownSeconds", "callIgnoreNamed");
 
     public static final int BRUSH_DEFAULT = 45, BRUSH_MIN = 5, BRUSH_MAX = 600;
     public static final int INCUBATE_DEFAULT = 300, INCUBATE_MIN = 10, INCUBATE_MAX = 3600;
@@ -30,6 +31,10 @@ public final class DinosConfig {
     public static final int TREE_REST_DEFAULT = 600, TREE_REST_MIN = 60, TREE_REST_MAX = 3600;
     public static final int RAM_COOLDOWN_DEFAULT = 3, RAM_COOLDOWN_MIN = 1, RAM_COOLDOWN_MAX = 30;
     public static final int PLOW_WIDTH_DEFAULT = 3, PLOW_WIDTH_MIN = 1, PLOW_WIDTH_MAX = 3;
+    public static final int CALL_RADIUS_DEFAULT = 24, CALL_RADIUS_MIN = 8, CALL_RADIUS_MAX = 48;
+    public static final int CALL_SECONDS_DEFAULT = 120, CALL_SECONDS_MIN = 30, CALL_SECONDS_MAX = 600;
+    public static final int CALL_ANIMALS_DEFAULT = 24, CALL_ANIMALS_MIN = 1, CALL_ANIMALS_MAX = 64;
+    public static final int CALL_COOLDOWN_DEFAULT = 20, CALL_COOLDOWN_MIN = 5, CALL_COOLDOWN_MAX = 300;
 
     public static boolean enabled = true;
     /** Seconds of brushing that free a fossil (45 = 75 % of the former minute, a pause costs twice its length). */
@@ -62,6 +67,16 @@ public final class DinosConfig {
     public static int stegosaurusPlowWidth = PLOW_WIDTH_DEFAULT;
     /** a-dinorest2: the lowered plow sows seeds from the rider's off hand on the empty fields of its strip. */
     public static boolean stegosaurusSow = true;
+    /** a-dinorest3: blocks around a Parasaurolophus in which its crest call gathers farm animals. */
+    public static int callRadius = CALL_RADIUS_DEFAULT;
+    /** Seconds the called animals follow the Parasaurolophus. */
+    public static int callSeconds = CALL_SECONDS_DEFAULT;
+    /** Animals one call gathers at most (the nearest first). */
+    public static int callMaxAnimals = CALL_ANIMALS_DEFAULT;
+    /** Seconds between two calls (shown in the jump bar; the first 5 seconds a second press dismisses the herd). */
+    public static int callCooldownSeconds = CALL_COOLDOWN_DEFAULT;
+    /** Animals with a name tag ignore the call. */
+    public static boolean callIgnoreNamed = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -87,6 +102,14 @@ public final class DinosConfig {
 
     public static int treeRestTicks() {
         return shakeTreeCooldownSeconds * 20;
+    }
+
+    public static int callTicks() {
+        return callSeconds * 20;
+    }
+
+    public static int callCooldownTicks() {
+        return callCooldownSeconds * 20;
     }
 
     public static void load(Path dir) {
@@ -120,6 +143,11 @@ public final class DinosConfig {
         ramCooldownSeconds = (int) clamp(number(json, "ramCooldownSeconds", RAM_COOLDOWN_DEFAULT), RAM_COOLDOWN_MIN, RAM_COOLDOWN_MAX);
         stegosaurusPlowWidth = (int) clamp(number(json, "stegosaurusPlowWidth", PLOW_WIDTH_DEFAULT), PLOW_WIDTH_MIN, PLOW_WIDTH_MAX);
         stegosaurusSow = bool(json, "stegosaurusSow", true);
+        callRadius = (int) clamp(number(json, "callRadius", CALL_RADIUS_DEFAULT), CALL_RADIUS_MIN, CALL_RADIUS_MAX);
+        callSeconds = (int) clamp(number(json, "callSeconds", CALL_SECONDS_DEFAULT), CALL_SECONDS_MIN, CALL_SECONDS_MAX);
+        callMaxAnimals = (int) clamp(number(json, "callMaxAnimals", CALL_ANIMALS_DEFAULT), CALL_ANIMALS_MIN, CALL_ANIMALS_MAX);
+        callCooldownSeconds = (int) clamp(number(json, "callCooldownSeconds", CALL_COOLDOWN_DEFAULT), CALL_COOLDOWN_MIN, CALL_COOLDOWN_MAX);
+        callIgnoreNamed = bool(json, "callIgnoreNamed", true);
     }
 
     public static JsonObject toJson() {
@@ -138,6 +166,11 @@ public final class DinosConfig {
         o.addProperty("ramCooldownSeconds", ramCooldownSeconds);
         o.addProperty("stegosaurusPlowWidth", stegosaurusPlowWidth);
         o.addProperty("stegosaurusSow", stegosaurusSow);
+        o.addProperty("callRadius", callRadius);
+        o.addProperty("callSeconds", callSeconds);
+        o.addProperty("callMaxAnimals", callMaxAnimals);
+        o.addProperty("callCooldownSeconds", callCooldownSeconds);
+        o.addProperty("callIgnoreNamed", callIgnoreNamed);
         return o;
     }
 

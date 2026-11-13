@@ -468,6 +468,123 @@ def stegosaurus_spec(coat, belly, dark, tier=0, name='stegosaurus', pattern='A')
     return dict(name=name, w=256, parts=parts)
 
 
+# ---------------------------------------------------------------- Parasaurolophus (a-dinorest3, concept KONZEPT-A-DINO36 4.4)
+# Crest pattern variants (owner preview DINOREST3, UI first as an example): A a dark band with a light edge along the tube (built in),
+# B a light tube with a dark tip, C dark rings across the tube.
+CREST_VARIANTS = ('A', 'B', 'C')
+CREST_CHOSEN = 'A'
+
+
+def para_skin(base, belly, dark, seed, belly_from=0.6, stripes=True):
+    """Parasaurolophus hide: the dino skin with soft vertical shadow stripes on the flanks (2 px wide, every 5 px, fading to the belly)."""
+    inner = skin(base, belly, dark, seed, belly_from=belly_from)
+
+    def f(face, x, y, w, h):
+        c = inner(face, x, y, w, h)
+        t = y / max(1, h - 1)
+        if stripes and face in ('right', 'left') and t < belly_from and (x + (y // 6)) % 6 in (0, 1):
+            fade = 1.0 - t / max(0.01, belly_from)
+            c = lit(mix(c, dark, 0.12 + 0.12 * fade), face, hsh(x, y, seed + 4), 0.02)
+        return c
+    return f
+
+
+def crest_paint(coat, belly, dark, variant, seed, t0=0.0, t1=1.0):
+    """One box of the tubular crest (its long axis is the box depth, so on the side faces x runs along the tube). A: the coat with a dark
+    band along the middle of the tube and a light edge above it; B: a light tube that darkens to the tip; C: the coat with dark rings across.
+    (t0, t1) place this box along the whole crest (0 = base at the skull, 1 = tip), so the pattern runs across the three boxes."""
+    light = mix(belly, coat, 0.25)
+    band = mix(coat, dark, 0.7)
+
+    def f(face, x, y, w, h):
+        if face in ('right', 'left'):
+            along = t0 + (t1 - t0) * x / max(1, w - 1)
+        elif face in ('top', 'bottom'):
+            along = t0 + (t1 - t0) * y / max(1, h - 1)
+        else:
+            along = t0 if face == 'front' else t1
+        c = mix(coat, belly, 0.15)
+        if variant == 'A':
+            if face in ('right', 'left'):
+                mid = (h - 1) / 2.0
+                if abs(y - mid) <= 0.6:
+                    c = band
+                elif y == int(mid) - 1:
+                    c = mix(light, H('efe6cc'), 0.35)
+            elif face == 'top':
+                c = mix(c, dark, 0.25)
+        elif variant == 'B':
+            c = mix(light, band, min(1.0, max(0.0, (along - 0.55) / 0.45)) * 0.85)
+        else:
+            if int(along * 27) % 6 in (0, 1):   # 2 px rings every 6 px along the 27 px crest
+                c = band
+        if hsh(x // 2, y // 2, seed + 5) > 0.82:
+            c = mix(c, dark, 0.12)
+        return lit(c, face, hsh(x, y, seed + len(face)), 0.03)
+    return f
+
+
+def parasaurolophus_spec(coat, belly, dark, tier=0, name='parasaurolophus', crest='A'):
+    """Parasaurolophus, 1 px = 1/16 block at life size: about 9 m from the duck bill to the tail tip, 2.3 m at the hips, the crest a tube of
+    1.5 m sweeping back from the skull (drawn at 75 %, as the others). A hadrosaur on four legs: slender front legs, strong hind legs, the
+    back rising to the hips, a long neck carried up and forward, the head with a flat beak, a lower jaw that opens for the call, and a deep,
+    narrow tail. Saddle (on the back, in front of the hips) and armor (a hood over the crest and a blanket over the hips) are always in the
+    layout and shown only when worn."""
+    body_p = para_skin(coat, belly, dark, 71, belly_from=0.68)
+    hump_p = skin(coat, belly, dark, 72, belly_from=1.1)
+    neck_p = para_skin(coat, belly, dark, 73, belly_from=0.62, stripes=False)
+    skull_p = with_marks(skin(coat, belly, dark, 74, belly_from=0.72), {('right', 8, 3): H('2a2118'), ('left', 2, 3): H('2a2118'),
+                                                                      ('right', 8, 2): H('d8a020'), ('left', 2, 2): H('d8a020')})
+    snout_p = skin(coat, belly, dark, 75, belly_from=0.6)
+    bill_p = horned((H('7a6a52'), H('4e4234')), 76, tip_down=True)   # duck bill: horn, a little lighter than the beaks (own tone ramp)
+    jaw_p = skin(coat, belly, belly, 77, belly_from=0.2)
+    leg_p = para_skin(coat, belly, dark, 78, belly_from=0.9, stripes=False)
+    foot_p = clawed(skin(coat, belly, dark, 79, belly_from=1.1), mix(H('d8ccb0'), dark, 0.3))
+    tail_p = para_skin(coat, belly, dark, 80, belly_from=0.72)
+    crest_a = crest_paint(coat, belly, dark, crest, 81, 0.0, 0.4)
+    crest_b = crest_paint(coat, belly, dark, crest, 82, 0.4, 0.75)
+    crest_c = crest_paint(coat, belly, dark, crest, 83, 0.75, 1.0)
+    seat_p = solid(H('6a4024'), 0.06, 20)
+    pommel_p = solid(H('8a8f96'), 0.05, 21)
+    plate_a = plate(max(1, tier), 84)
+    parts = [
+        P('body', [B((-12, -12, -24), (24, 24, 46), body_p, share='body')], pose=(0, Y(33), 2), rot=(0.1, 0, 0)),
+        P('hump', [B((-10, -16, 8), (20, 4, 14), hump_p, share='hump'), B((-6, -18, 11), (12, 2, 8), hump_p, share='ridge')], parent='body'),
+        P('neck', [B((-6, -6, -22), (12, 12, 22), neck_p, share='neck'), B((-7, -5, -6), (14, 14, 8), neck_p, share='neck_base')],
+          pose=(0, -5, -21), rot=(-1.0, 0, 0), parent='body'),
+        P('head', [B((-5, -5.5, -11), (10, 10, 12), skull_p, share='skull'), B((-4, -2, -20), (8, 7, 9), snout_p, share='snout'),
+                   B((-4.5, 2, -23), (9, 3, 4), bill_p, share='bill')], pose=(0, 0, -21), rot=(1.05, 0, 0), parent='neck'),
+        P('jaw', [B((-4, 0, -17), (8, 3, 17), jaw_p, share='jaw')], pose=(0, 3.5, -3), rot=(0.04, 0, 0), parent='head'),
+        P('crest', [B((-2.5, -3, 0), (5, 6, 10), crest_a, share='crest1')], pose=(0, -4.5, -6), rot=(0.25, 0, 0), parent='head'),
+        P('crest_mid', [B((-2.25, -2.75, 0), (4.5, 5.5, 9), crest_b, share='crest2')], pose=(0, 0, 9.5), rot=(0.03, 0, 0), parent='crest'),
+        P('crest_tip', [B((-2, -2.5, 0), (4, 5, 7), crest_c, share='crest3')], pose=(0, 0, 8.5), rot=(0.18, 0, 0), parent='crest_mid'),
+        P('tail1', [B((-6, -7.5, 0), (12, 15, 20), tail_p, share='tail1')], pose=(0, -5, 21), rot=(-0.12, 0, 0), parent='body'),
+        P('tail2', [B((-4.5, -6, 0), (9, 12, 20), tail_p, share='tail2')], pose=(0, 0, 19), rot=(-0.03, 0, 0), parent='tail1'),
+        P('tail3', [B((-3, -4.5, 0), (6, 9, 18), tail_p, share='tail3')], pose=(0, 0, 19), rot=(-0.04, 0, 0), parent='tail2'),
+        P('front_right_leg', [B((-3.5, 0, -3.5), (7, 12, 7), leg_p, share='front_upper')], pose=(-7, Y(24), -16)),
+        P('front_right_shin', [B((-3, 0, -3), (6, 12, 6), leg_p, share='front_shin'), B((-3.5, 10, -4.5), (7, 2, 8), foot_p, share='front_foot')],
+          pose=(0, 12, 0), parent='front_right_leg'),
+        P('front_left_leg', [B((-3.5, 0, -3.5), (7, 12, 7), leg_p, share='front_upper')], pose=(7, Y(24), -16)),
+        P('front_left_shin', [B((-3, 0, -3), (6, 12, 6), leg_p, share='front_shin'), B((-3.5, 10, -4.5), (7, 2, 8), foot_p, share='front_foot')],
+          pose=(0, 12, 0), parent='front_left_leg'),
+        P('back_right_leg', [B((-5.5, 0, -7), (11, 19, 14), leg_p, share='back_upper')], pose=(-8.5, Y(36), 12)),
+        P('back_right_shin', [B((-4, 0, -4), (8, 17, 8), leg_p, share='back_shin'), B((-5, 15, -8), (10, 2, 12), foot_p, share='back_foot')],
+          pose=(0, 19, 0), parent='back_right_leg'),
+        P('back_left_leg', [B((-5.5, 0, -7), (11, 19, 14), leg_p, share='back_upper')], pose=(8.5, Y(36), 12)),
+        P('back_left_shin', [B((-4, 0, -4), (8, 17, 8), leg_p, share='back_shin'), B((-5, 15, -8), (10, 2, 12), foot_p, share='back_foot')],
+          pose=(0, 19, 0), parent='back_left_leg'),
+        P('saddle', [B((-9, -15, -5), (18, 3, 12), seat_p, share='saddle_seat'), B((-2.5, -18, -7), (5, 3, 2), pommel_p, share='saddle_pommel')],
+          parent='body'),
+        # armor: a hood over the base and the middle of the crest, a blanket over the hips (the hump) with drapes down both flanks
+        P('armor_crest', [B((-2.5, -3, 0), (5, 6, 10), plate_a, share='armor_crest', grow=0.5)], parent='crest'),
+        P('armor_crest_mid', [B((-2.25, -2.75, 0), (4.5, 5.5, 9), plate_a, share='armor_crest_mid', grow=0.5)], parent='crest_mid'),
+        P('armor_back', [B((-10.5, -16.6, 7.5), (21, 1, 15), plate_a, share='armor_blanket'),
+                         B((-12.6, -13, 8), (1, 10, 14), plate_a, share='armor_drape'), B((11.6, -13, 8), (1, 10, 14), plate_a, share='armor_drape')],
+          parent='body'),
+    ]
+    return dict(name=name, w=256, parts=parts)
+
+
 # ---------------------------------------------------------------- the textures
 # Coat variants by rearing biome (DinoVariants.COATS, same names and order): earthy tones, dark back, light belly.
 COATS = {
@@ -484,10 +601,13 @@ for _coat, (_c, _b, _d) in COATS.items():
         PALETTES[f'trex_{_coat}_{_tier}'] = trex_spec(_c, _b, _d, _tier)
         PALETTES[f'triceratops_{_coat}_{_tier}'] = triceratops_spec(_c, _b, _d, _tier, frill=FRILL_CHOSEN)
         PALETTES[f'stegosaurus_{_coat}_{_tier}'] = stegosaurus_spec(_c, _b, _d, _tier, pattern=PLATE_CHOSEN)
-MODELS = {'trex': 'trex_olive_0', 'triceratops': 'triceratops_olive_0', 'stegosaurus': 'stegosaurus_olive_0'}
+        PALETTES[f'parasaurolophus_{_coat}_{_tier}'] = parasaurolophus_spec(_c, _b, _d, _tier, crest=CREST_CHOSEN)
+MODELS = {'trex': 'trex_olive_0', 'triceratops': 'triceratops_olive_0', 'stegosaurus': 'stegosaurus_olive_0',
+          'parasaurolophus': 'parasaurolophus_olive_0'}
 TONES = 16
 # a-dinorest1: the Triceratops has more regions (horns, beak, frill pattern), so it keeps a few more tones (A8b soft ramps)
-EXTRA_TONES = {'trex': 0, 'triceratops': 6, 'stegosaurus': 8}  # a-dinorest2: plates, spikes and the plow (wood, iron) need their own ramps
+EXTRA_TONES = {'trex': 0, 'triceratops': 6, 'stegosaurus': 8,  # a-dinorest2: plates, spikes and the plow (wood, iron) need their own ramps
+               'parasaurolophus': 6}  # a-dinorest3: crest band, bill and flank stripes
 
 
 def finish(img, tones):

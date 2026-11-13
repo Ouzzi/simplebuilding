@@ -11,6 +11,7 @@ import com.simpledinos.block.FossilBlock;
 import com.simpledinos.block.FossilBlockEntity;
 import com.simpledinos.config.DinosConfig;
 import com.simpledinos.entity.Dino;
+import com.simpledinos.entity.Parasaurolophus;
 import com.simpledinos.entity.Stegosaurus;
 import com.simpledinos.entity.Trex;
 import com.simpledinos.entity.Triceratops;
@@ -159,6 +160,36 @@ public final class DinosTests {
         return stego;
     }
 
+    /** a-dinorest3: an adult Parasaurolophus without AI, facing +z (yaw 0), tame. */
+    private static Parasaurolophus standingPara(GameTestHelper h, int x, int z) {
+        Parasaurolophus para = h.spawn(DinosRegistry.PARASAUROLOPHUS, at(x, z));
+        para.setPersistenceRequired();
+        para.setTamed(true);
+        para.setAge(0);
+        para.setNoAi(true);
+        Vec3 p = para.position();
+        para.snapTo(p.x, p.y, p.z, 0.0F, 0.0F);
+        para.setYBodyRot(0.0F);
+        para.setYHeadRot(0.0F);
+        return para;
+    }
+
+    /**
+     * a-dinorest3: call radius in the call tests. Neighbouring test structures start 5 blocks beyond the arena (GameTest grid), so a radius of
+     * 8 around the arena centre never reaches animals of other tests; every animal of these tests stands within 8 blocks of the
+     * Parasaurolophus at (8, 8).
+     */
+    private static final int TEST_CALL_RADIUS = 8;
+
+    /** a-dinorest3: a farm animal (or any mob) without AI standing on the arena floor at a block (on the ground: its navigation works). */
+    private static <T extends net.minecraft.world.entity.Mob> T still(GameTestHelper h, net.minecraft.world.entity.EntityType<T> type, int x, int z) {
+        T mob = h.spawn(type, at(x, z));
+        mob.setNoAi(true);
+        mob.setPersistenceRequired();
+        mob.setOnGround(true);
+        return mob;
+    }
+
     /**
      * a-dinorest2: a saddled adult Stegosaurus at (8, z) facing +z with a lowered plow and {@code rider} on it; its plow strip lies at
      * block row z - 2 (x 7, 8, 9; the stego stands at z + 0.5, the shares 1.95 behind), the ground there is y 0.
@@ -216,25 +247,29 @@ public final class DinosTests {
                     "large_saddle", "trex_armor_leather", "trex_armor_iron", "trex_armor_diamond", "guide_book",
                     "triceratops_armor_leather", "triceratops_armor_iron", "triceratops_armor_diamond", "triceratops_eggshell",
                     "stegosaurus_eggshell", "utahraptor_eggshell", "parasaurolophus_eggshell", "stegosaurus_armor_leather", "stegosaurus_armor_iron",
-                    "stegosaurus_armor_diamond", "dino_plow"}) {
+                    "stegosaurus_armor_diamond", "dino_plow", "parasaurolophus_armor_leather", "parasaurolophus_armor_iron",
+                    "parasaurolophus_armor_diamond"}) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleDinos.id(id)), "item " + id);
             }
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("trex")), "entity trex");
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("triceratops")), "entity triceratops");
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("stegosaurus")), "entity stegosaurus");
+            h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("parasaurolophus")), "entity parasaurolophus");
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("triceratops_spawn_egg")) && !BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_eggshell")),
                     "no spawn egg, no T. rex eggshell (concept DINO36 6)");
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_spawn_egg")), "no spawn egg (owner)");
             h.assertTrue(DinosRegistry.FOSSIL_BE != null && DinosRegistry.EGG_BE != null, "block entity types");
             h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX) && DefaultAttributes.hasSupplier(DinosRegistry.TRICERATOPS)
-                    && DefaultAttributes.hasSupplier(DinosRegistry.STEGOSAURUS), "attributes");
+                    && DefaultAttributes.hasSupplier(DinosRegistry.STEGOSAURUS) && DefaultAttributes.hasSupplier(DinosRegistry.PARASAUROLOPHUS), "attributes");
             h.assertTrue(DinosConfig.enabled && DinosConfig.BRUSH_DEFAULT == 45 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
                     && DinosConfig.growMinutes == 40 && DinosConfig.trexBiteDamage == 10.0, "config defaults = concept times");
             h.assertTrue(DinosConfig.triceratopsShake && DinosConfig.shakeShare == 0.5 && DinosConfig.shakeAppleChance == 0.35
                     && DinosConfig.shakeTreeCooldownSeconds == 600 && DinosConfig.ramCooldownSeconds == 3, "Triceratops defaults = concept 4.1");
             h.assertTrue(DinoKind.TREX.hatchable() && DinoKind.TRICERATOPS.hatchable() && DinoKind.STEGOSAURUS.hatchable()
-                    && !DinoKind.UTAHRAPTOR.hatchable() && !DinoKind.PARASAUROLOPHUS.hatchable() && DinoKind.hatchableKinds().size() == 3,
-                    "DINO-REST step 2: T. rex, Triceratops and Stegosaurus hatch");
+                    && DinoKind.PARASAUROLOPHUS.hatchable() && !DinoKind.UTAHRAPTOR.hatchable() && DinoKind.hatchableKinds().size() == 4,
+                    "DINO-REST step 3: T. rex, Triceratops, Stegosaurus and Parasaurolophus hatch, the Utahraptor not yet");
+            h.assertTrue(DinosConfig.callRadius == 24 && DinosConfig.callSeconds == 120 && DinosConfig.callMaxAnimals == 24
+                    && DinosConfig.callCooldownSeconds == 20 && DinosConfig.callIgnoreNamed, "Parasaurolophus defaults = concept 4.4");
             h.assertTrue(DinosConfig.stegosaurusPlowWidth == 3 && DinosConfig.stegosaurusSow, "Stegosaurus defaults = concept 4.2");
             h.assertTrue(new ItemStack(DinosRegistry.DINO_PLOW).getMaxDamage() == 750 && new ItemStack(DinosRegistry.DINO_PLOW).isEnchantable()
                     && new ItemStack(DinosRegistry.DINO_PLOW).is(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE)
@@ -250,10 +285,14 @@ public final class DinosTests {
             try {
                 DinosConfig.apply(com.google.gson.JsonParser.parseString("{\"brushSeconds\":99999,\"incubateSeconds\":0,\"hatchSeconds\":\"x\",\"growMinutes\":-5,\"trexBiteDamage\":1000,"
                         + "\"shakeShare\":7,\"shakeAppleChance\":-1,\"shakeTreeCooldownSeconds\":1,\"ramCooldownSeconds\":999,\"triceratopsShake\":\"no\","
-                        + "\"stegosaurusPlowWidth\":9,\"stegosaurusSow\":\"x\"}").getAsJsonObject());
+                        + "\"stegosaurusPlowWidth\":9,\"stegosaurusSow\":\"x\",\"callRadius\":2,\"callSeconds\":99999,\"callMaxAnimals\":0,"
+                        + "\"callCooldownSeconds\":1,\"callIgnoreNamed\":7}").getAsJsonObject());
                 h.assertTrue(DinosConfig.shakeShare == 1.0 && DinosConfig.shakeAppleChance == 0.0 && DinosConfig.shakeTreeCooldownSeconds == DinosConfig.TREE_REST_MIN
                         && DinosConfig.ramCooldownSeconds == DinosConfig.RAM_COOLDOWN_MAX && DinosConfig.triceratopsShake, "Triceratops keys clamped, garbage = default");
                 h.assertTrue(DinosConfig.stegosaurusPlowWidth == DinosConfig.PLOW_WIDTH_MAX && DinosConfig.stegosaurusSow, "Stegosaurus keys clamped, garbage = default");
+                h.assertTrue(DinosConfig.callRadius == DinosConfig.CALL_RADIUS_MIN && DinosConfig.callSeconds == DinosConfig.CALL_SECONDS_MAX
+                        && DinosConfig.callMaxAnimals == DinosConfig.CALL_ANIMALS_MIN && DinosConfig.callCooldownSeconds == DinosConfig.CALL_COOLDOWN_MIN
+                        && DinosConfig.callIgnoreNamed, "Parasaurolophus keys clamped, garbage = default");
                 h.assertTrue(DinosConfig.brushSeconds == DinosConfig.BRUSH_MAX && DinosConfig.incubateSeconds == DinosConfig.INCUBATE_MIN
                         && DinosConfig.hatchSeconds == DinosConfig.HATCH_DEFAULT && DinosConfig.growMinutes == DinosConfig.GROW_MIN
                         && DinosConfig.trexBiteDamage == DinosConfig.BITE_MAX, "clamps, garbage = default");
@@ -795,16 +834,19 @@ public final class DinosTests {
             h.assertTrue(DinoKind.UTAHRAPTOR.siteHalves(badlands) == 4 && DinoKind.STEGOSAURUS.siteHalves(badlands) == 3, "badlands: Utahraptor x2, Stegosaurus x1.5");
             h.assertTrue(DinoKind.PARASAUROLOPHUS.siteHalves(swamp) == 4 && DinoKind.TRICERATOPS.siteHalves(swamp) == 2, "mangrove swamp: Parasaurolophus x2");
             RandomSource random = RandomSource.create(42L);
-            int tri = 0, stego = 0;
+            int tri = 0, stego = 0, para = 0;
             for (int i = 0; i < 2000; i++) {
                 DinoKind k = DinoKind.roll(random, badlands);
                 h.assertTrue(k.hatchable(), "only hatchable kinds are rolled");
                 if (k == DinoKind.TRICERATOPS) tri++;
                 if (k == DinoKind.STEGOSAURUS) stego++;
             }
-            // a-dinorest2: badlands T. rex 10 x1, Triceratops 25 x1, Stegosaurus 25 x1.5 -> 13.8 % : 34.5 % : 51.7 %
-            h.assertTrue(stego > 2000 * 45 / 100 && stego < 2000 * 59 / 100, "badlands favour the Stegosaurus (" + stego + " of 2000)");
-            h.assertTrue(tri > 2000 * 28 / 100 && tri < 2000 * 41 / 100, "R10 weights between the built kinds: Triceratops (" + tri + " of 2000)");
+            // a-dinorest3: badlands T. rex 10 x1, Triceratops 25 x1, Stegosaurus 25 x1.5, Parasaurolophus 20 x1 -> 10.8 % : 27.0 % : 40.5 % : 21.6 %
+            h.assertTrue(stego > 2000 * 34 / 100 && stego < 2000 * 47 / 100, "badlands favour the Stegosaurus (" + stego + " of 2000)");
+            h.assertTrue(tri > 2000 * 21 / 100 && tri < 2000 * 33 / 100, "R10 weights between the built kinds: Triceratops (" + tri + " of 2000)");
+            for (int i = 0; i < 2000; i++) if (DinoKind.roll(random, swamp) == DinoKind.PARASAUROLOPHUS) para++;
+            // mangrove swamp: T. rex 10, Triceratops 25, Stegosaurus 25, Parasaurolophus 20 x2 -> the Parasaurolophus 40 %
+            h.assertTrue(para > 2000 * 33 / 100 && para < 2000 * 47 / 100, "swamps favour the Parasaurolophus (" + para + " of 2000)");
             h.succeed();
         });
         ALL.put("triceratops_core_hitbox_and_stats", h -> {
@@ -1364,6 +1406,353 @@ public final class DinosTests {
             stego.hurtServer(level, level.damageSources().playerAttack(p), 1.0F);
             h.assertTrue(p.getHealth() == ph, "a player is never hurt");
             zombie.discard();
+            h.succeed();
+        });
+        // --- Parasaurolophus (a-dinorest3, concept KONZEPT-A-DINO36 4.4) -----------------------------------------------------------
+        ALL.put("parasaurolophus_core_hitbox_and_stats", h -> {
+            Parasaurolophus para = standingPara(h, 8, 8);
+            h.assertTrue(para.getBbWidth() == 2.2F && para.getBbHeight() == 2.5F, "core hitbox 2.2 x 2.5 (body, legs, hip ridge)");
+            h.assertTrue(para.getMaxHealth() == 60.0F && para.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED) == 0.24
+                    && para.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) == 1.0
+                    && para.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.WATER_MOVEMENT_EFFICIENCY) == 1.0,
+                    "60 health, speed 0.24, step 1, water movement 1 (swims)");
+            h.assertTrue(!para.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE), "no attack: only the T. rex fights");
+            h.assertTrue(para.kind() == DinoKind.PARASAUROLOPHUS && !para.canMate(para), "kind, no breeding");
+            h.assertTrue(Parasaurolophus.RIG.solidHead && Parasaurolophus.RIG.reach > 2.45 && Parasaurolophus.RIG.reach < 2.7,
+                    "solid head (the neck base stands in front of the shoulders), the bill reaches 2.57 (" + Parasaurolophus.RIG.reach + ")");
+            double front0 = 0.0, front4 = 0.0, top0 = 0.0;
+            for (AABB b : para.headBoxes(0)) {
+                front0 = Math.max(front0, b.maxZ - para.getZ());
+                top0 = Math.max(top0, b.maxY - para.getY());
+            }
+            for (AABB b : para.headBoxes(com.simpledinos.entity.part.PartRig.TUCK_STEPS)) front4 = Math.max(front4, b.maxZ - para.getZ());
+            h.assertTrue(front4 < front0 - 0.3, "pulled in, the long neck rises and the bill comes back (" + front0 + " -> " + front4 + ")");
+            h.assertTrue(top0 > 3.0 && top0 < 3.5, "the crest tip stands about 3.2 blocks high (" + top0 + ")");
+            double back = 0.0, side = 0.0;
+            for (AABB b : para.tailBoxes(0)) {
+                back = Math.max(back, para.getZ() - b.minZ);
+                side = Math.max(side, Math.max(b.maxX - para.getX(), para.getX() - b.minX));
+            }
+            h.assertTrue(back > 3.4 && side < 0.4, "a long, narrow tail (" + back + " back, " + side + " to the side)");
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_head_and_tail_parts", h -> {
+            Parasaurolophus para = standingPara(h, 8, 2);
+            for (int x = 5; x <= 11; x++) for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(x, y, 6), Blocks.STONE);
+            Vec3 allowed = para.clipHead(new Vec3(0.0, 0.0, 2.0));
+            h.assertTrue(allowed.z < 1.9 && allowed.z > 0.4, "the bill stops the walk in front of the wall (" + allowed.z + " of 2.0)");
+            for (int x = 5; x <= 11; x++) for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(x, y, 6), Blocks.OAK_LEAVES);
+            h.assertTrue(para.clipHead(new Vec3(0.0, 0.0, 2.0)).z == 2.0, "leaves do not stop the head");
+            para.discard();
+            Parasaurolophus other = standingPara(h, 8, 11);
+            other.updateParts();
+            h.assertTrue(other.headTuck() == 0 && other.tailBend() == 0, "in the open field: head stretched, tail straight");
+            for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(8, y, 7), Blocks.STONE);
+            h.assertTrue(!clearOfBlocks(h, other, other.tailBoxes(0)), "the straight tail would stick in the pillar");
+            other.updateParts();
+            h.assertTrue(other.tailBend() != 0 && clearOfBlocks(h, other, other.tailBoxes(other.tailBend())), "the tail bends away (" + other.tailBend() + ")");
+            ServerPlayer p = player(h, 8, 14);
+            Vec3 at = h.absoluteVec(new Vec3(8.5, 2.0, 14.3));
+            p.setPos(at.x, at.y, at.z);
+            AABB body = p.getBoundingBox();
+            h.assertTrue(other.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched bill would touch the player");
+            other.updateParts();
+            h.assertTrue(other.headTuck() > 0 && other.headBoxes(other.headTuck()).stream().noneMatch(b -> b.intersects(body)),
+                    "the neck rises and the head comes back before the player (step " + other.headTuck() + ")");
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_hatches_tame_with_eggshells", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos pos = at(4, 4);
+            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.PARASAUROLOPHUS));
+            DinoEggBlockEntity be = (DinoEggBlockEntity) level.getBlockEntity(h.absolutePos(pos));
+            ServerPlayer owner = player(h, 5, 5);
+            brood(level, be, owner.getUUID());
+            be.advance(level, be.hatchAt(), null);
+            h.assertTrue(h.getBlockState(pos).isAir(), "the Parasaurolophus egg hatches");
+            var found = level.getEntitiesOfClass(Parasaurolophus.class, new AABB(h.absolutePos(pos)).inflate(3.0));
+            h.assertTrue(found.size() == 1, "one Parasaurolophus hatchling");
+            Parasaurolophus baby = found.get(0);
+            h.assertTrue(baby.isBaby() && baby.isTamed() && baby.getOwner() != null && baby.getOwner().getUUID().equals(owner.getUUID()),
+                    "tame from the first second, imprinted on the sitter");
+            int shells = itemsNear(h, pos, 3.0).stream().filter(e -> e.getItem().is(DinosRegistry.eggshell(DinoKind.PARASAUROLOPHUS)))
+                    .mapToInt(e -> e.getItem().getCount()).sum();
+            h.assertTrue(shells == 3, "three Parasaurolophus eggshells stay behind (" + shells + ")");
+            h.assertTrue(!baby.canJump() && baby.press(owner) == Parasaurolophus.Press.NONE && baby.herd().isEmpty(), "a hatchling has no call");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SWEET_BERRIES, 2));
+            int before = baby.getAge();
+            baby.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(baby.getAge() > before && owner.getItemInHand(InteractionHand.MAIN_HAND).getCount() == 1, "feeding speeds the growth up (Vanilla)");
+            baby.discard();
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        MAX_TICKS.put("parasaurolophus_hatches_tame_with_eggshells", 100);
+        ALL.put("parasaurolophus_food_heals", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            para.setOwner(owner);
+            for (Item food : new Item[] {Items.SWEET_BERRIES, Items.WHEAT, Items.HAY_BLOCK, Items.BEETROOT}) {
+                h.assertTrue(para.isFood(new ItemStack(food)), "food: " + food);
+            }
+            h.assertTrue(!para.isFood(new ItemStack(Items.BEEF)) && !para.isFood(new ItemStack(Items.FERN)) && !para.isFood(new ItemStack(Items.APPLE)),
+                    "no meat, no fern (the Stegosaurus'), no apple (the Triceratops')");
+            para.setHealth(40.0F);
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SWEET_BERRIES, 1));
+            para.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(para.getHealth() == 48.0F, "sweet berries (favourite) heal 8");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BEETROOT, 1));
+            para.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(para.getHealth() == 52.0F && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "other food heals 4");
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_saddle_armor_riding", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            para.setOwner(owner);
+            h.assertTrue(DinosRegistry.LARGE_SADDLE.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable big
+                    && big.canBeEquippedBy(para.typeHolder()), "the large saddle fits the Parasaurolophus");
+            for (Item armor : new Item[] {DinosRegistry.PARASAUROLOPHUS_ARMOR_LEATHER, DinosRegistry.PARASAUROLOPHUS_ARMOR_IRON, DinosRegistry.PARASAUROLOPHUS_ARMOR_DIAMOND}) {
+                h.assertTrue(para.isEquippableInSlot(new ItemStack(armor), EquipmentSlot.BODY), "Parasaurolophus armor fits: " + BuiltInRegistries.ITEM.getKey(armor));
+                h.assertTrue(!(armor.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable e
+                        && (e.canBeEquippedBy(DinosRegistry.STEGOSAURUS.builtInRegistryHolder()) || e.canBeEquippedBy(DinosRegistry.TRICERATOPS.builtInRegistryHolder()))),
+                        "but not the Stegosaurus or the Triceratops (each dinosaur its own armor)");
+            }
+            h.assertTrue(!para.isEquippableInSlot(new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON), EquipmentSlot.BODY), "Stegosaurus armor does not fit");
+            para.setItemSlot(EquipmentSlot.BODY, new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_DIAMOND));
+            h.assertTrue(para.armorTier() == 3, "diamond armor: tier 3");
+            h.assertTrue(!para.canJump(), "without a saddle the jump key does nothing");
+            para.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            h.assertTrue(para.isSaddled() && para.canJump(), "saddled: the jump key is the call");
+            owner.startRiding(para, true, false);
+            h.assertTrue(para.getControllingPassenger() == owner, "the owner rides and steers");
+            para.positionRider(owner);
+            Vec3 seat = owner.position().subtract(para.position());
+            h.assertTrue(seat.y > 1.4 && Math.abs(seat.z) < 0.4, "the rider sits on the middle of the back, clear of the crest (" + seat + ")");
+            double y = para.getY();
+            para.onPlayerJump(100);
+            h.assertTrue(para.getDeltaMovement().y <= 0.0 && para.getY() == y, "the Parasaurolophus never jumps");
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_call_picks_by_food", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 2, 13);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            para.setOwner(rider);
+            var cow = still(h, net.minecraft.world.entity.EntityTypes.COW, 3, 3);
+            var cow2 = still(h, net.minecraft.world.entity.EntityTypes.COW, 5, 3);
+            var pig = still(h, net.minecraft.world.entity.EntityTypes.PIG, 7, 3);
+            var chicken = still(h, net.minecraft.world.entity.EntityTypes.CHICKEN, 9, 3);
+            var sheep = still(h, net.minecraft.world.entity.EntityTypes.SHEEP, 11, 3);
+            var wolf = still(h, net.minecraft.world.entity.EntityTypes.WOLF, 13, 3);
+            java.util.function.Function<List<? extends net.minecraft.world.entity.Entity>, java.util.Set<UUID>> ids =
+                    list -> list.stream().map(net.minecraft.world.entity.Entity::getUUID).collect(java.util.stream.Collectors.toSet());
+            DinosConfig.callRadius = TEST_CALL_RADIUS;
+            try {
+                rider.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WHEAT));
+                var picked = para.call(level, rider);
+                h.assertTrue(ids.apply(picked).equals(java.util.Set.of(cow.getUUID(), cow2.getUUID(), sheep.getUUID())), "wheat calls the cows and the sheep (" + picked + ")");
+                h.assertTrue(para.herd().equals(picked.stream().map(net.minecraft.world.entity.Entity::getUUID).toList())
+                        && para.herdUntil() == level.getGameTime() + 2400L, "they follow for 120 seconds");
+                rider.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.CARROT));
+                h.assertTrue(ids.apply(para.call(level, rider)).equals(java.util.Set.of(pig.getUUID())), "a carrot calls the pig; a new call replaces the herd");
+                rider.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WHEAT_SEEDS));
+                h.assertTrue(ids.apply(para.call(level, rider)).equals(java.util.Set.of(chicken.getUUID())), "seeds call the chicken");
+                rider.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                var all = ids.apply(para.call(level, rider));
+                h.assertTrue(all.equals(java.util.Set.of(cow.getUUID(), cow2.getUUID(), pig.getUUID(), chicken.getUUID(), sheep.getUUID())),
+                        "an empty hand calls every farm animal, never the wolf (not a herd animal)");
+                h.assertTrue(!all.contains(wolf.getUUID()) && !all.contains(para.getUUID()), "not the wolf, not itself");
+                rider.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND));
+                h.assertTrue(para.call(level, rider).isEmpty() && para.herd().isEmpty(), "an item nobody eats: nobody follows");
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_call_excludes", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 2, 13), stranger = player(h, 14, 13);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            para.setOwner(rider);
+            var foreign = still(h, net.minecraft.world.entity.EntityTypes.HORSE, 2, 3);
+            foreign.setTamed(true);
+            foreign.setOwner(stranger);
+            var own = still(h, net.minecraft.world.entity.EntityTypes.HORSE, 5, 3);
+            own.setTamed(true);
+            own.setOwner(rider);
+            var leashed = still(h, net.minecraft.world.entity.EntityTypes.COW, 8, 3);
+            leashed.setLeashedTo(stranger, true);
+            var named = still(h, net.minecraft.world.entity.EntityTypes.COW, 11, 3);
+            named.setCustomName(net.minecraft.network.chat.Component.literal("Bessie"));
+            var ridden = still(h, net.minecraft.world.entity.EntityTypes.HORSE, 2, 13);
+            stranger.startRiding(ridden, true, false);
+            var free = still(h, net.minecraft.world.entity.EntityTypes.COW, 13, 13);
+            var old = com.simplelib.api.InteractionGuard.permission;
+            DinosConfig.callRadius = TEST_CALL_RADIUS;
+            try {
+                var picked = para.call(level, rider).stream().map(net.minecraft.world.entity.Entity::getUUID).collect(java.util.stream.Collectors.toSet());
+                h.assertTrue(picked.equals(java.util.Set.of(own.getUUID(), free.getUUID())),
+                        "only the own horse and the free cow: not tamed by someone else, not leashed, not named, not ridden (" + picked + ")");
+                DinosConfig.callIgnoreNamed = false;
+                h.assertTrue(para.call(level, rider).stream().anyMatch(a -> a == named), "callIgnoreNamed off: the named cow follows too");
+                DinosConfig.callIgnoreNamed = true;
+                int[] probes = {0};
+                com.simplelib.api.InteractionGuard.permission = (p, pos) -> {
+                    probes[0]++;
+                    return false; // a claim mod says no everywhere
+                };
+                h.assertTrue(para.call(level, rider).isEmpty(), "animals in a claim the rider may not use stay");
+                h.assertTrue(probes[0] >= 1 && probes[0] <= 4, "the claim probe runs once per chunk (" + probes[0] + ")");
+            } finally {
+                com.simplelib.api.InteractionGuard.permission = old;
+                DinosConfig.reset();
+                stranger.stopRiding();
+            }
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_call_max_animals", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 1, 14);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            List<net.minecraft.world.entity.animal.chicken.Chicken> chickens = new java.util.ArrayList<>();
+            for (int z : new int[] {3, 4, 13}) for (int x = 2; x <= 14; x++) chickens.add(still(h, net.minecraft.world.entity.EntityTypes.CHICKEN, x, z));
+            DinosConfig.callRadius = TEST_CALL_RADIUS;
+            try {
+                h.assertTrue(chickens.stream().allMatch(c -> para.distanceToSqr(c) <= 64.0), "39 chickens within 8 blocks");
+                var picked = para.call(level, rider);
+                h.assertTrue(picked.size() == 24, "at most 24 animals (" + picked.size() + " of 39)");
+                double farIn = 0.0, nearOut = Double.MAX_VALUE;
+                for (var c : chickens) {
+                    if (picked.contains(c)) farIn = Math.max(farIn, para.distanceToSqr(c));
+                    else nearOut = Math.min(nearOut, para.distanceToSqr(c));
+                }
+                h.assertTrue(farIn <= nearOut + 1.0E-6, "the nearest ones first (" + farIn + " <= " + nearOut + ")");
+                DinosConfig.callMaxAnimals = 5;
+                h.assertTrue(para.call(level, rider).size() == 5, "callMaxAnimals 5: five follow");
+                DinosConfig.callMaxAnimals = DinosConfig.CALL_ANIMALS_DEFAULT;
+                DinosConfig.callRadius = 6;
+                long within = chickens.stream().filter(c -> para.distanceToSqr(c) <= 36.0).count();
+                var close = para.call(level, rider);
+                h.assertTrue(within > 0 && within < 24 && close.size() == within && close.stream().allMatch(c -> para.distanceToSqr(c) <= 36.0),
+                        "callRadius 6: only the animals within 6 blocks (" + close.size() + " of " + within + ")");
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_call_cooldown_and_dismiss", h -> {
+            ServerPlayer rider = player(h, 3, 3);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            para.setOwner(rider);
+            still(h, net.minecraft.world.entity.EntityTypes.COW, 3, 13);
+            para.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            rider.startRiding(para, true, false);
+            DinosConfig.callRadius = TEST_CALL_RADIUS;
+            try {
+                h.assertTrue(para.canJump() && para.getJumpCooldown() == 0, "saddled and ridden: the call is ready");
+                para.handleStartJump(60);
+                h.assertTrue(para.herd().size() == 1 && para.abilityCooldown() == 400 && para.dismissTicks() == Parasaurolophus.DISMISS_TICKS,
+                        "the jump key calls (server): one cow follows, 20 s cooldown, 5 s to dismiss");
+                h.assertTrue(para.getJumpCooldown() == 0, "the jump bar stays free while a second press dismisses");
+                h.assertTrue(para.press(rider) == Parasaurolophus.Press.DISMISSED && para.herd().isEmpty() && para.getJumpCooldown() > 0,
+                        "a second press right after the call dismisses the herd; then the cooldown shows");
+                h.assertTrue(para.press(rider) == Parasaurolophus.Press.COOLING && para.herd().isEmpty(), "no new call while it cools down");
+                para.setAbilityCooldown(0);
+                h.assertTrue(para.press(rider) == Parasaurolophus.Press.CALLED && para.herd().size() == 1, "after the cooldown it calls again");
+                for (int i = 0; i < Parasaurolophus.DISMISS_TICKS; i++) para.aiStep();
+                h.assertTrue(para.dismissTicks() == 0 && para.getJumpCooldown() > 0 && para.getJumpCooldown() == para.abilityCooldown(),
+                        "after 5 s the jump bar shows the rest of the cooldown (" + para.getJumpCooldown() + ")");
+                h.assertTrue(para.press(rider) == Parasaurolophus.Press.COOLING && para.herd().size() == 1, "and the herd keeps following");
+            } finally {
+                DinosConfig.reset();
+                rider.stopRiding();
+                para.release();
+            }
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_herd_follows_and_ends", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer rider = player(h, 1, 14);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            var cow = still(h, net.minecraft.world.entity.EntityTypes.COW, 8, 1);
+            var chicken = still(h, net.minecraft.world.entity.EntityTypes.CHICKEN, 8, 11);
+            DinosConfig.callRadius = TEST_CALL_RADIUS;
+            try {
+                h.assertTrue(para.call(level, rider).size() == 2, "the cow and the chicken follow");
+                para.lead(level, cow, true);
+                h.assertTrue(cow.getNavigation().isInProgress(), "the far cow walks toward the Parasaurolophus (its own navigation)");
+                chicken.getNavigation().moveTo(chicken.getX() + 2.0, chicken.getY(), chicken.getZ(), 1.0);
+                para.lead(level, chicken, false);
+                h.assertTrue(!chicken.getNavigation().isInProgress(), "the chicken close by stops");
+                long now = level.getGameTime();
+                for (int k = 0; k < Parasaurolophus.FOLLOW_STEP; k++) para.herdStep(level, now + k);
+                h.assertTrue(para.herd().size() == 2, "every follower had its turn and stays");
+                cow.setLeashedTo(rider, true);
+                for (int k = 0; k < Parasaurolophus.FOLLOW_STEP; k++) para.herdStep(level, now + k);
+                h.assertTrue(para.herd().equals(List.of(chicken.getUUID())), "a leashed follower drops out");
+                cow.removeLeash();
+                para.herdStep(level, para.herdUntil());
+                h.assertTrue(para.herd().isEmpty() && para.herdUntil() == 0L, "after 120 s the herd goes its own way");
+                h.assertTrue(para.call(level, rider).size() == 2, "called again");
+                para.lead(level, cow, false);
+                para.discard();
+                h.assertTrue(para.herd().isEmpty() && !cow.getNavigation().isInProgress(), "the herd ends with the Parasaurolophus (never saved)");
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_swims_with_rider", h -> {
+            for (int i = 1; i <= 14; i++) {
+                for (int y = 1; y <= 5; y++) {
+                    h.setBlock(new BlockPos(i, y, 1), Blocks.STONE);
+                    h.setBlock(new BlockPos(i, y, 14), Blocks.STONE);
+                    h.setBlock(new BlockPos(1, y, i), Blocks.STONE);
+                    h.setBlock(new BlockPos(14, y, i), Blocks.STONE);
+                }
+            }
+            for (int x = 2; x <= 13; x++) for (int z = 2; z <= 13; z++) for (int y = 1; y <= 4; y++) h.setBlock(new BlockPos(x, y, z), Blocks.WATER);
+            ServerPlayer rider = player(h, 3, 3);
+            Parasaurolophus para = standingPara(h, 8, 8);
+            para.setOwner(rider);
+            para.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            rider.startRiding(para, true, false);
+            h.assertTrue(para.is(net.minecraft.tags.EntityTypeTags.CAN_FLOAT_WHILE_RIDDEN) && !para.dismountsUnderwater(),
+                    "it floats while ridden like a horse, but never throws its rider off in water");
+            double floor = h.absolutePos(new BlockPos(0, 1, 0)).getY(), surface = h.absolutePos(new BlockPos(0, 4, 0)).getY() + 8.0 / 9.0;
+            para.setDeltaMovement(Vec3.ZERO);
+            // the rider's client moves a ridden animal: its travel, tick by tick (Vanilla floats a can_float_while_ridden vehicle up to getFluidJumpThreshold)
+            for (int i = 0; i < 120; i++) {
+                para.baseTick();
+                para.travel(Vec3.ZERO);
+            }
+            double depth = surface - para.getY();
+            h.assertTrue(para.isInWater() && para.getY() > floor + 1.5 && depth > 0.5 && depth < 1.8,
+                    "it rose from the pool floor and swims with its back out of the water (depth " + depth + ")");
+            para.positionRider(rider);
+            h.assertTrue(rider.getVehicle() == para && rider.getEyeY() > surface + 1.0, "the rider stays on, high and dry (eyes " + (rider.getEyeY() - surface) + " above)");
+            h.assertTrue(Math.abs(para.getRiddenSpeed(rider) - 0.24F * Parasaurolophus.WATER_SPEED) < 1.0E-4F, "slower in the water (0.8 x, swimming about 0.6 x)");
+            rider.stopRiding();
+            h.succeed();
+        });
+        ALL.put("parasaurolophus_warns_and_flees", h -> {
+            ServerLevel level = h.getLevel();
+            Parasaurolophus para = standingPara(h, 8, 8);
+            net.minecraft.world.entity.monster.Monster zombie = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 12));
+            zombie.setNoAi(true);
+            float health = zombie.getHealth();
+            h.assertTrue(para.hurtServer(level, level.damageSources().mobAttack(zombie), 2.0F), "the zombie hits it");
+            h.assertTrue(!para.warn(level), "the warning call came with the hit (and waits 3 s before the next)");
+            h.assertTrue(zombie.getHealth() == health && para.getTarget() == null, "it never fights back");
+            zombie.discard();
+            ServerPlayer rider = player(h, 3, 3);
+            Parasaurolophus other = standingPara(h, 3, 12);
+            other.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            rider.startRiding(other, true, false);
+            other.hurtServer(level, level.damageSources().playerAttack(rider), 1.0F);
+            h.assertTrue(other.warn(level), "a slap by its own rider is no danger: no warning call");
+            rider.stopRiding();
             h.succeed();
         });
         ALL.put("guide_book", com.simpledinos.guide.DinosGuide::gameTest);

@@ -307,4 +307,64 @@ public final class ModuleGameTest {
     public void stegosaurusTailSpikesHurtMonstersNotPlayers(GameTestHelper h) {
         DinosTests.ALL.get("stegosaurus_tail_spikes_hurt_monsters_not_players").accept(h);
     }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusCoreHitboxAndStats(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_core_hitbox_and_stats").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusHeadAndTailParts(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_head_and_tail_parts").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusHatchesTameWithEggshells(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_hatches_tame_with_eggshells").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusFoodHeals(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_food_heals").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusSaddleArmorRiding(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_saddle_armor_riding").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusCallPicksByFood(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_call_picks_by_food").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusCallExcludes(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_call_excludes").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusCallMaxAnimals(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_call_max_animals").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusCallCooldownAndDismiss(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_call_cooldown_and_dismiss").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusHerdFollowsAndEnds(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_herd_follows_and_ends").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusSwimsWithRider(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_swims_with_rider").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void parasaurolophusWarnsAndFlees(GameTestHelper h) {
+        DinosTests.ALL.get("parasaurolophus_warns_and_flees").accept(h);
+    }
 }

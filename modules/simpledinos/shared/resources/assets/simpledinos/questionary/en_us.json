@@ -59,10 +59,10 @@
       "A teal egg with light dots."
     ],
     "use": [
-      "Can be placed and brooded like every dinosaur egg. The Parasaurolophus itself is not built yet, so it stays an egg for now."
+      "Place it and sit on it with an empty hand: 5 minutes of sitting broods it, 10 minutes later a tame Parasaurolophus hatchling hatches for the player who sat longest. Three eggshells stay behind."
     ],
     "secret": [
-      "It is waiting for its dinosaur."
+      "Swamp fossils hold more of these eggs."
     ]
   },
   "large_saddle": {
@@ -186,6 +186,39 @@
       "Unbreaking and Mending work on it like on any tool."
     ]
   },
+  "parasaurolophus_armor_leather": {
+    "lore": [
+      "A soft leather hood for the crest and a blanket for the hips."
+    ],
+    "use": [
+      "Put it on a grown, tamed Parasaurolophus: protection like leather horse armor. Eight leather around a Parasaurolophus eggshell."
+    ],
+    "secret": [
+      "The hood leaves the crest open at the end, so the call still rings."
+    ]
+  },
+  "parasaurolophus_armor_iron": {
+    "lore": [
+      "An iron crest hood and a riveted hip blanket."
+    ],
+    "use": [
+      "Put it on a grown, tamed Parasaurolophus: protection like iron horse armor. Eight iron ingots around a Parasaurolophus eggshell."
+    ],
+    "secret": [
+      "The herd follows the call, not the shine."
+    ]
+  },
+  "parasaurolophus_armor_diamond": {
+    "lore": [
+      "A diamond crest hood that sparkles when it calls."
+    ],
+    "use": [
+      "Put it on a grown, tamed Parasaurolophus: protection like diamond horse armor. Eight diamonds around a Parasaurolophus eggshell."
+    ],
+    "secret": [
+      "Cows are not impressed. Sheep a little."
+    ]
+  },
   "triceratops_eggshell": {
     "lore": [
       "Half a shell, still warm from the hatchling."
@@ -224,10 +257,10 @@
       "Half a teal shell with light dots."
     ],
     "use": [
-      "Falls when a Parasaurolophus hatches; one makes three bone meal. Its armor comes with the Parasaurolophus."
+      "Falls when a Parasaurolophus hatches; one makes three bone meal. Eight leather, iron ingots or diamonds around it make Parasaurolophus armor."
     ],
     "secret": [
-      "The Parasaurolophus itself is not built yet."
+      "The armor recipes show up once you hold one."
     ]
   },
   "guide_book": {
