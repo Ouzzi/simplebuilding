@@ -164,7 +164,8 @@ public class BlueprintScreen extends Screen {
         this.slot = slot;
         this.placedPos = placedPos;
         this.original = BlueprintItem.content(stack);
-        this.readOnly = original.signed();
+        // a13b: a scanned code longer than the editor may send (MAX_CODE_LENGTH) opens read-only, like a signed one.
+        this.readOnly = original.signed() || original.code().length() > BlueprintCode.MAX_CODE_LENGTH;
         this.code = original.code();
         this.lastSent = code;
         this.parsed = BlueprintCode.parse(code);
@@ -203,7 +204,8 @@ public class BlueprintScreen extends Screen {
 
         String current = codeArea != null ? codeArea.getValue() : code;
         Rect c = layout.code;
-        codeArea = new BlueprintCodeArea(font, c.x(), c.y(), c.w(), c.h(), codeScale(), readOnly, current, this::onCodeChanged);
+        codeArea = new BlueprintCodeArea(font, c.x(), c.y(), c.w(), c.h(), codeScale(), readOnly, current, this::onCodeChanged,
+                Math.max(BlueprintCode.MAX_CODE_LENGTH, current.length()));
         codeArea.setHighlight(parsed.styles(), parsed.problems());
         addRenderableWidget(codeArea);
 
@@ -674,8 +676,9 @@ public class BlueprintScreen extends Screen {
         Rect status = layout.status;
         g.text(font, font.plainSubstrByWidth(text, status.w()), status.x(), status.y(), colour, false);
         Rect chars = layout.chars;
-        fitted(g, Component.translatable("simplebuildingtools.blueprint.editor.chars", code.length(), BlueprintCode.MAX_CODE_LENGTH),
-                chars.x(), chars.y(), chars.w(), code.length() > BlueprintCode.MAX_CODE_LENGTH * 9 / 10 ? ERROR : INK_SOFT);
+        int charLimit = original.code().length() > BlueprintCode.MAX_CODE_LENGTH ? BlueprintCode.MAX_STORED_CODE_LENGTH : BlueprintCode.MAX_CODE_LENGTH;
+        fitted(g, Component.translatable("simplebuildingtools.blueprint.editor.chars", code.length(), charLimit),
+                chars.x(), chars.y(), chars.w(), code.length() > charLimit * 9 / 10 ? ERROR : INK_SOFT);
     }
 
     private void drawView(GuiGraphicsExtractor g) {

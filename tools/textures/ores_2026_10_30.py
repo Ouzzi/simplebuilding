@@ -450,6 +450,9 @@ def stretched(src: Image.Image, ramp: list[str], shift: float = 0.0) -> Image.Im
 # Mixes (TEX07B): shares of the three materials in a pressing, the amounts of the recipes (rose gold = 1 gold + 2 copper + 1 silver, rose bronze = 2 gold +
 # 1 rose gold + 1 silver). Colours: the Vanilla gold / copper ingot, the silver ramp, the soft rose gold ramp.
 PRESS_MIX = {'rose_gold': (('gold', 1), ('copper', 2), ('silver', 1)), 'rose_bronze': (('gold', 2), ('rose', 1), ('silver', 1))}
+# FIX13B (owner 13.11.): the two pressings looked swapped (Rose Gold looked like copper + gold, Rose Copper like gold + rose gold). The item and
+# the block of each alloy now show the picture of the other one: PRESS_LOOK[alloy] is the mix (and pattern) drawn for that alloy's pressing.
+PRESS_LOOK = {'rose_gold': 'rose_bronze', 'rose_bronze': 'rose_gold'}
 
 
 def material_ramps(j: 'Jar') -> dict:
@@ -540,8 +543,8 @@ def derived(jar) -> dict:
     for alloy, ramp in ALLOYS.items():
         out[f'block/{alloy}_block.png'] = recolor(j.img('block/gold_block'), ramp)
         out[f'item/{alloy}_ingot.png'] = recolor(j.img('item/gold_ingot'), ramp)
-        out[f'item/{alloy}_pressling.png'] = press_item(j, alloy, PRESS_VARIANT)
-        out[f'block/{alloy}_pressling_block.png'] = press_block(j, alloy, PRESS_VARIANT)
+        out[f'item/{alloy}_pressling.png'] = press_item(j, PRESS_LOOK[alloy], PRESS_VARIANT)
+        out[f'block/{alloy}_pressling_block.png'] = press_block(j, PRESS_LOOK[alloy], PRESS_VARIANT)
         out[f'item/{alloy}_nugget.png'] = recolor(j.img('item/gold_nugget'), ramp)
         out[f'item/{alloy}_carrot.png'] = carrot_image(j, ramp)
         for part in ITEM_TOOLS:

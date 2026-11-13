@@ -46,8 +46,19 @@ public final class BlueprintCode {
 
     /** Kantenlaenge des lokalen Rasters (= Obergrenze der groessten Baustab-Stufe, Enderit). */
     public static final int GRID = 256;
-    /** Laengste erlaubte Bausprache in Zeichen; passt in {@code ByteBufCodecs.STRING_UTF8}. */
+    /**
+     * Laengste Bausprache, die man tippt, einfuegt oder aus dem Editor an den Server schickt, in Zeichen (ein c2s-Paket
+     * fasst in Vanilla nur rund 32 KB). Laengere Codes entstehen nur durch den Kartentisch-Scan
+     * ({@link #MAX_STORED_CODE_LENGTH}) und sind im Editor schreibgeschuetzt.
+     */
     public static final int MAX_CODE_LENGTH = 32000;
+    /**
+     * Technische Obergrenze fuer einen gespeicherten Code (vom Server geschrieben, Parser, Datenkomponente): eine bunte
+     * Auswahl braucht je Blockzustand und Quader Zeichen, die Grenze haengt daher an der Vielfalt, nicht am Volumen
+     * (Besitzer 13.11.: Testzentrale 51 x 2 x 42 muss gehen). 1 000 000 liegt unter dem 2-MiB-Rahmen des Netzwerks;
+     * gespeichert wird in Stuecken ({@code BlueprintContent#CODEC}, NBT-Strings fassen nur 65 535 Bytes).
+     */
+    public static final int MAX_STORED_CODE_LENGTH = 1_000_000;
     /** Laengster Titel einer signierten Blaupause (wie beim Buch). */
     public static final int MAX_TITLE_LENGTH = 32;
     /**
@@ -190,7 +201,8 @@ public final class BlueprintCode {
     private static long cacheWeight;
 
     private static long weight(ParseResult r) {
-        return 1L + r.model().size();
+        // Stellen (je rund 16 Byte) plus der Code selbst (Schluessel und Einfaerbung, rund 2 Byte je Zeichen).
+        return 1L + r.model().size() + r.styles().length / 8;
     }
 
     /**
@@ -307,9 +319,9 @@ public final class BlueprintCode {
         }
 
         void run() {
-            if (code.length() > MAX_CODE_LENGTH) {
-                problems.add(new Problem(0, MAX_CODE_LENGTH, code.length(), "too_long",
-                        List.of(String.valueOf(code.length()), String.valueOf(MAX_CODE_LENGTH))));
+            if (code.length() > MAX_STORED_CODE_LENGTH) {
+                problems.add(new Problem(0, MAX_STORED_CODE_LENGTH, code.length(), "too_long",
+                        List.of(String.valueOf(code.length()), String.valueOf(MAX_STORED_CODE_LENGTH))));
             }
             int lineStart = 0;
             line = 0;

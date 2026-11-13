@@ -221,6 +221,18 @@ public final class ModuleGameTest {
         com.simplebuildingtools.test.BlueprintTests.largeFreeBuildNeedsPermission(helper);
     }
 
+    /** a-fix13b: a varied 12288-cell selection (code far over 32 000 characters) scans, reads back, saves in pieces and syncs. */
+    @GameTest
+    public void scanTakesBigVariedSelection(GameTestHelper helper) {
+        com.simplebuildingtools.test.BlueprintTests.scanTakesBigVariedSelection(helper);
+    }
+
+    /** a-fix13b: blueprint.scanMaxVolume limits a normal blueprint's scan by cells, a creative blueprint has no limit. */
+    @GameTest
+    public void scanVolumeLimitSparesCreative(GameTestHelper helper) {
+        com.simplebuildingtools.test.BlueprintTests.scanVolumeLimitSparesCreative(helper);
+    }
+
     /** Audit a-audsb31, simplebuildingtools-P1-1: a free bed head needs its own foot (no beds out of nothing). */
     @GameTest
     public void freeBedHeadStandsOnlyAtItsOwnFoot(GameTestHelper helper) {

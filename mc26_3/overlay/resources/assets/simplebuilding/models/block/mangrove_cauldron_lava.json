@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_cauldron_full",
+  "parent": "simplebuilding:block/template_wooden_cauldron_full",
   "textures": {
     "particle": "minecraft:block/mangrove_log",
     "side": "minecraft:block/mangrove_log",
