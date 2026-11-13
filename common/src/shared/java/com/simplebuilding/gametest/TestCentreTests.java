@@ -518,6 +518,24 @@ public final class TestCentreTests {
                                 && (!(entity instanceof net.minecraft.world.entity.Mob mob) || mob.isNoAi() && mob.isPersistenceRequired()),
                         BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()) + " in the order area is not still/unhurt/silent");
             }
+            // a-fix13 (TZ38D=ok): the two mob buttons on the real plan - everything stands already (summoning doubles nothing),
+            // "remove all" clears exactly the planned mobs, "summon all" brings back exactly the planned ones, still.
+            java.util.function.Supplier<List<net.minecraft.world.entity.Entity>> tagged = () -> level.getEntitiesOfClass(
+                    net.minecraft.world.entity.Entity.class, area,
+                    entity -> entity.entityTags().contains(com.simplebuilding.dev.testcentre.OrderAreas.MOB_TAG));
+            helper.assertTrue(TestCentreBuilder.spawnMobs(level, plan) == 0 && tagged.get().size() == mobs,
+                    "summoning the standing mobs again must not add any: planned " + mobs + ", alive " + tagged.get().size());
+            int removedMobs = TestCentreBuilder.removeMobs(level, plan);
+            helper.assertTrue(removedMobs == mobs && tagged.get().isEmpty(),
+                    "remove all: planned " + mobs + ", removed " + removedMobs + ", left " + tagged.get().size());
+            int summoned = TestCentreBuilder.spawnMobs(level, plan);
+            helper.assertTrue(summoned == mobs && tagged.get().size() == mobs,
+                    "summon all: planned " + mobs + ", summoned " + summoned + ", alive " + tagged.get().size());
+            for (net.minecraft.world.entity.Entity entity : tagged.get()) {
+                helper.assertTrue(entity.isInvulnerable() && entity.isSilent()
+                                && (!(entity instanceof net.minecraft.world.entity.Mob mob) || mob.isNoAi() && mob.isPersistenceRequired()),
+                        BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()) + " summoned by the button is not still/unhurt/silent");
+            }
             // TZ22-2: Setzbares steht als Block; Rahmen bleiben fuer Werkzeuge, Ruestung, Buecher, Eimer ... (vorher 2630).
             helper.assertTrue(frames > 100, "suspiciously few frames planned: " + frames);
             // Die Blaupause im Rahmen wurde beim Bau wirklich gescannt, der Oktant daneben traegt seine Auswahl.
@@ -2311,6 +2329,71 @@ public final class TestCentreTests {
             helper.assertTrue(placedFrames == frames, "/testcenter mod " + ns + ": frames planned " + frames + ", placed " + placedFrames);
         } finally {
             TestCentreBuilder.clear(level, TestCentreBuilder.canvasBox(origin, gallery.canvas()));
+        }
+        helper.succeed();
+    }
+
+    /**
+     * a-fix13 (TZ38D=ok, Besitzer 13.11.): in der Steuerwand BEIDER Varianten (lines|blocks) stehen zwei Befehlsbloecke - einer
+     * beschwoert ALLE stillen Mobs ({@code sbtestcentre mobs spawn}), einer entfernt sie wieder ({@code mobs remove}) - und der
+     * Knopf "Mobs entfernen" fuer lebende Mobs verschont sie. Die Logik dahinter an drei Mobs in zwei Chunks mit einem fremden Tier
+     * daneben: beschwoeren = alle da, still, unverwundbar, mit dem Tag; nochmal = nichts doppelt; entfernen = alle weg, das fremde
+     * Tier bleibt; der Rueckweg bringt wieder genau drei.
+     */
+    public static void mobButtonsSummonAndRemoveTheStillMobs(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        var root = level.getServer().getCommands().getDispatcher().getRoot().getChild("sbtestcentre");
+        helper.assertTrue(root != null && root.getChild("mobs") != null && root.getChild("mobs").getChild("spawn") != null
+                && root.getChild("mobs").getChild("remove") != null, "/sbtestcentre mobs spawn|remove is not registered");
+        for (com.simplebuilding.dev.testcentre.OrderAreas.Variant variant : com.simplebuilding.dev.testcentre.OrderAreas.Variant.values()) {
+            TestCentreLayout.Plan plan = TestCentreLayout.plan(level, new BlockPos(0, 64, 0), TestCentreLayout.Options.ALL.with(variant));
+            for (String command : List.of("sbtestcentre mobs spawn", "sbtestcentre mobs remove")) {
+                helper.assertTrue(plan.section("controls").ops().stream()
+                                .anyMatch(op -> op instanceof TcOp.Command c && c.command().equals(command) && !c.label().isEmpty()),
+                        variant.id() + ": the entrance wall has no labelled button for '" + command + "'");
+            }
+            helper.assertTrue(plan.section("controls").ops().stream().anyMatch(op -> op instanceof TcOp.Command c
+                            && c.command().startsWith("kill @e[") && c.command().contains("tag=!" + com.simplebuilding.dev.testcentre.OrderAreas.MOB_TAG)),
+                    variant.id() + ": 'Remove mobs' must spare the still mobs (tag=!" + com.simplebuilding.dev.testcentre.OrderAreas.MOB_TAG + ")");
+        }
+
+        BlockPos origin = new BlockPos(28000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 28000);
+        com.simplebuilding.dev.testcentre.TcCanvas canvas = new com.simplebuilding.dev.testcentre.TcCanvas();
+        Identifier pig = BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.PIG);
+        Identifier cow = BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.COW);
+        Identifier sheep = BuiltInRegistries.ENTITY_TYPE.getKey(net.minecraft.world.entity.EntityTypes.SHEEP);
+        canvas.mob(1, 0, 1, 180F, pig);
+        canvas.mob(5, 0, 1, 180F, cow);
+        canvas.mob(3, 0, 40, 180F, sheep); // another chunk row: the button reaches mobs far from each other
+        List<TcOp> ops = new ArrayList<>();
+        canvas.ops().forEach(op -> ops.add(op.moved(origin)));
+        AABB area = new AABB(origin.getX() - 2, level.getMinY(), origin.getZ() - 2, origin.getX() + 12, level.getMaxY() + 1, origin.getZ() + 45);
+        java.util.function.Supplier<List<net.minecraft.world.entity.Entity>> tagged = () -> level.getEntitiesOfClass(
+                net.minecraft.world.entity.Entity.class, area,
+                entity -> entity.entityTags().contains(com.simplebuilding.dev.testcentre.OrderAreas.MOB_TAG));
+        level.getChunkAt(origin);
+        net.minecraft.world.entity.Entity bystander = net.minecraft.world.entity.EntityTypes.COW.create(level,
+                net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+        bystander.setPos(origin.getX() + 9.5, origin.getY(), origin.getZ() + 1.5);
+        level.addFreshEntity(bystander);
+        try {
+            helper.assertTrue(TestCentreBuilder.spawnMobs(level, ops) == 3 && tagged.get().size() == 3,
+                    "summon all: expected 3 still mobs, alive " + tagged.get().size());
+            for (net.minecraft.world.entity.Entity entity : tagged.get()) {
+                helper.assertTrue(entity.isInvulnerable() && entity.isSilent() && entity instanceof net.minecraft.world.entity.Mob mob
+                                && mob.isNoAi() && mob.isPersistenceRequired(),
+                        BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()) + " is not a still, unhurt, silent, persistent mob");
+            }
+            helper.assertTrue(TestCentreBuilder.spawnMobs(level, ops) == 0 && tagged.get().size() == 3,
+                    "summoning again must not double the mobs, alive " + tagged.get().size());
+            helper.assertTrue(TestCentreBuilder.removeMobs(level, ops) == 3 && tagged.get().isEmpty(),
+                    "remove all: expected 3 removed, left " + tagged.get().size());
+            helper.assertTrue(!bystander.isRemoved(), "remove all must only take the tagged mobs, the other cow is gone");
+            helper.assertTrue(TestCentreBuilder.spawnMobs(level, ops) == 3 && tagged.get().size() == 3,
+                    "summon after remove: expected 3, alive " + tagged.get().size());
+        } finally {
+            TestCentreBuilder.removeMobs(level, ops);
+            bystander.discard();
         }
         helper.succeed();
     }

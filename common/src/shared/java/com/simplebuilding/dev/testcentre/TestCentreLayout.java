@@ -863,9 +863,15 @@ public final class TestCentreLayout {
         }
         String area = bounds == null ? "distance=..1" : "x=" + bounds.minX() + ",y=" + bounds.minY() + ",z=" + bounds.minZ()
                 + ",dx=" + (bounds.maxX() - bounds.minX()) + ",dy=" + (bounds.maxY() - bounds.minY()) + ",dz=" + (bounds.maxZ() - bounds.minZ());
+        // a-fix13: the still mobs of the order areas (tag OrderAreas.MOB_TAG) have their own two buttons below and are not killed here.
         out.add(new TestCentreSections.Control("kill @e[type=!minecraft:player,type=!minecraft:armor_stand,"
-                + "type=!minecraft:item_frame,type=!minecraft:glow_item_frame," + area + "]",
+                + "type=!minecraft:item_frame,type=!minecraft:glow_item_frame,tag=!" + OrderAreas.MOB_TAG + "," + area + "]",
                 TcText.t("controls.kill", "Remove mobs"), TcText.t("controls.kill.sub", "and dropped items")));
+        // a-fix13 (TZ38D=ok): all still mobs of the order areas (NoAI, invulnerable, silent, tag MOB_TAG) in place / away again.
+        out.add(new TestCentreSections.Control("sbtestcentre mobs spawn",
+                TcText.t("controls.mobs_spawn", "Summon all mobs"), TcText.t("controls.mobs_spawn.sub", "no AI, in place")));
+        out.add(new TestCentreSections.Control("sbtestcentre mobs remove",
+                TcText.t("controls.mobs_remove", "Remove all mobs"), TcText.t("controls.mobs_remove.sub", "the still ones")));
         return out;
     }
 

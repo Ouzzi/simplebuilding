@@ -356,6 +356,81 @@ public final class TestCentreBuilder {
     }
 
     /**
+     * a-fix13 (TZ38D, Besitzer 13.11.: ein Befehlsblock, der alle Mobs ohne KI beschwoert): spawnt jeden {@link TcOp.Mob}-Schritt
+     * von {@code ops} an seinem Platz, wie der Bau ({@link #spawnMob}). Was dort schon steht (gleicher Typ mit dem Tag
+     * {@link OrderAreas#MOB_TAG} im Block des Schritts), bleibt - ein zweiter Druck verdoppelt nichts. Die Chunks werden geladen,
+     * der Knopf steht ja weit weg von den Mobs. Liefert die Zahl der neu beschworenen Mobs.
+     */
+    public static int spawnMobs(ServerLevel level, Iterable<? extends TcOp> ops) {
+        int spawned = 0;
+        for (TcOp op : ops) {
+            if (!(op instanceof TcOp.Mob mob)) {
+                continue;
+            }
+            level.getChunkAt(mob.pos());
+            if (!stillMobsAt(level, mob).isEmpty()) {
+                continue;
+            }
+            if (spawnMob(level, mob)) {
+                spawned++;
+            }
+        }
+        return spawned;
+    }
+
+    /** Wie {@link #spawnMobs(ServerLevel, Iterable)}, fuer alle Abschnitte einer Planung. */
+    public static int spawnMobs(ServerLevel level, TestCentreLayout.Plan plan) {
+        return spawnMobs(level, mobOps(plan));
+    }
+
+    /**
+     * a-fix13: entfernt alle Entities mit dem Tag {@link OrderAreas#MOB_TAG} in den Chunks der {@link TcOp.Mob}-Schritte von
+     * {@code ops} (ohne Drops und Erfahrung, {@code discard}); alles ohne den Tag bleibt. Liefert die Zahl der entfernten.
+     */
+    public static int removeMobs(ServerLevel level, Iterable<? extends TcOp> ops) {
+        java.util.Set<net.minecraft.world.level.ChunkPos> chunks = new java.util.LinkedHashSet<>();
+        for (TcOp op : ops) {
+            if (op instanceof TcOp.Mob mob) {
+                chunks.add(net.minecraft.world.level.ChunkPos.containing(mob.pos()));
+            }
+        }
+        java.util.Set<Entity> found = new java.util.LinkedHashSet<>();
+        for (net.minecraft.world.level.ChunkPos chunk : chunks) {
+            level.getChunk(chunk.x(), chunk.z());
+            AABB column = new AABB(chunk.getMinBlockX(), level.getMinY(), chunk.getMinBlockZ(),
+                    chunk.getMaxBlockX() + 1, level.getMaxY() + 1, chunk.getMaxBlockZ() + 1);
+            found.addAll(level.getEntitiesOfClass(Entity.class, column, entity -> entity.entityTags().contains(OrderAreas.MOB_TAG)));
+        }
+        found.forEach(Entity::discard);
+        return found.size();
+    }
+
+    /** Wie {@link #removeMobs(ServerLevel, Iterable)}, fuer alle Abschnitte einer Planung. */
+    public static int removeMobs(ServerLevel level, TestCentreLayout.Plan plan) {
+        return removeMobs(level, mobOps(plan));
+    }
+
+    private static List<TcOp> mobOps(TestCentreLayout.Plan plan) {
+        List<TcOp> out = new ArrayList<>();
+        for (TestCentreLayout.Section section : plan.sections()) {
+            for (TcOp op : section.ops()) {
+                if (op instanceof TcOp.Mob) {
+                    out.add(op);
+                }
+            }
+        }
+        return out;
+    }
+
+    /** Die schon stehenden Mobs eines Schritts: gleicher Typ, Tag {@link OrderAreas#MOB_TAG}, im Block des Schritts. */
+    private static List<Entity> stillMobsAt(ServerLevel level, TcOp.Mob mob) {
+        net.minecraft.world.entity.EntityType<?> type = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE
+                .getOptional(mob.entity()).orElse(null);
+        return type == null ? List.of() : level.getEntitiesOfClass(Entity.class, new AABB(mob.pos()),
+                entity -> entity.getType() == type && entity.entityTags().contains(OrderAreas.MOB_TAG));
+    }
+
+    /**
      * Setzt eine Vorlage wie ein Pool-Teil, unrotiert: Strukturbloecke fallen weg, Jigsaw-Bloecke werden durch ihren
      * Endzustand ersetzt, Entities (etwa der Rahmen im Wrack) und Beutetabellen kommen mit; leise wie der Rest des Baus.
      */

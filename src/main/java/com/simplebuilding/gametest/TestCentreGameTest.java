@@ -122,4 +122,9 @@ public final class TestCentreGameTest {
     public void testcenterCommandClearsAndBuildsTheModArea(GameTestHelper helper) {
         TestCentreTests.testcenterCommandClearsAndBuildsTheModArea(helper);
     }
+
+    @GameTest
+    public void mobButtonsSummonAndRemoveTheStillMobs(GameTestHelper helper) {
+        TestCentreTests.mobButtonsSummonAndRemoveTheStillMobs(helper);
+    }
 }

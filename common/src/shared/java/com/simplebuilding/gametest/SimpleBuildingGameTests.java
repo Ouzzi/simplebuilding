@@ -200,6 +200,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_testcenter_command_clears_and_builds_the_mod_area", TestCentreTests::testcenterCommandClearsAndBuildsTheModArea)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_mob_buttons_summon_and_remove_the_still_mobs", TestCentreTests::mobButtonsSummonAndRemoveTheStillMobs)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)

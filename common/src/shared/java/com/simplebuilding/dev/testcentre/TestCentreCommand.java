@@ -102,6 +102,11 @@ public final class TestCentreCommand {
                                 .executes(ctx -> fill(ctx, List.of(ctx.getSource().getPlayerOrException())))
                                 .then(Commands.argument("targets", EntityArgument.players())
                                         .executes(ctx -> fill(ctx, EntityArgument.getPlayers(ctx, "targets"))))))
+                // a-fix13 (TZ38D=ok): die stillen Mobs der Zentrale (TcOp.Mob) alle beschwoeren / alle entfernen; so rufen die
+                // zwei Knoepfe der Steuerwand.
+                .then(Commands.literal("mobs")
+                        .then(Commands.literal("spawn").executes(ctx -> mobs(ctx.getSource(), true)))
+                        .then(Commands.literal("remove").executes(ctx -> mobs(ctx.getSource(), false))))
                 .then(Commands.literal("tp")
                         .executes(ctx -> {
                             ServerPlayer player = ctx.getSource().getPlayerOrException();
@@ -321,7 +326,7 @@ public final class TestCentreCommand {
                 TcText.t("help.only", "build [here|x y z] only <areas> - only these areas, e.g. only mobs,structures"),
                 TcText.t("help.without", "build [here|x y z] without <areas> - all but these, e.g. without structures"),
                 TcText.t("help.section", "section <id> - rebuild one section; stats [only|without ...] - size without building"),
-                TcText.t("help.more", "kit, give <station>, fill <section> (containers + ender chest), tp [place], coverage, help"),
+                TcText.t("help.more", "kit, give <station>, fill <section> (containers + ender chest), mobs spawn|remove (the still mobs), tp [place], coverage, help"),
                 TcText.t("help.testcenter", "/testcenter all|order|mods|mod <id> build [lines|blocks] [here|x y z] - whole centre, order areas, block families"),
                 TcText.t("help.areas", "Areas: %s, or any section id", String.join(", ", TestCentreLayout.DISTRICT_NAMES))
                         .withStyle(ChatFormatting.GRAY));
@@ -418,6 +423,30 @@ public final class TestCentreCommand {
         ctx.getSource().sendSuccess(() -> TcText.t("command.fill", "%s containers filled, ender chest of %s player(s)", filled,
                 players.size()), false);
         return Math.max(1, filled);
+    }
+
+    /**
+     * {@code mobs spawn|remove} (a-fix13): beschwoert alle Mob-Schritte der Planung am gespeicherten Ursprung ohne KI,
+     * unverwundbar, still und dauerhaft (was schon steht, bleibt), bzw. entfernt alle Entities mit dem Tag
+     * {@link OrderAreas#MOB_TAG}. Die Planung traegt die Variante (lines|blocks) des letzten Baus, die Knoepfe passen also
+     * zu beiden.
+     */
+    static int mobs(CommandSourceStack source, boolean spawn) {
+        if (outsideOverworld(source)) {
+            return 0;
+        }
+        ServerLevel level = source.getLevel();
+        TestCentreLayout.Plan plan = plan(level, savedOrDefaultOrigin(level));
+        if (spawn) {
+            long planned = plan.sections().stream().flatMap(section -> section.ops().stream()).filter(op -> op instanceof TcOp.Mob).count();
+            int spawned = TestCentreBuilder.spawnMobs(level, plan);
+            source.sendSuccess(() -> TcText.t("command.mobs_spawned", "%s still mobs summoned (%s were already standing)",
+                    spawned, planned - spawned).withStyle(ChatFormatting.GREEN), true);
+            return spawned;
+        }
+        int removed = TestCentreBuilder.removeMobs(level, plan);
+        source.sendSuccess(() -> TcText.t("command.mobs_removed", "%s still mobs removed", removed).withStyle(ChatFormatting.GREEN), true);
+        return removed;
     }
 
     /** Die wichtigsten Werkzeuge: je Familie die hoechste Stufe, dazu die Geraete und eine Blaupause. */
