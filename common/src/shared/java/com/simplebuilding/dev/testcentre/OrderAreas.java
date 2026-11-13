@@ -148,7 +148,8 @@ public final class OrderAreas {
             return;
         }
         for (int s = 0; s < states.size(); s++) {
-            c.place(x, s, z, states.get(s));
+            // TZ38E-8 (auch Variante blocks): Treppen zeigen ihre Stufen zum Gang im Norden, wie alle Vorderseiten.
+            c.place(x, s, z, lineTurn(states.get(s), true));
         }
     }
 
@@ -1794,9 +1795,14 @@ public final class OrderAreas {
         return out;
     }
 
-    /** Seite B: um 180 Grad gedreht. */
-    static BlockState lineTurn(BlockState state, boolean turned) {
-        if (!turned) {
+    /**
+     * Ausrichtung zur Linie (TZ38E-8, beide Seiten gespiegelt): Treppen zeigen ihre Stufen zur Linie (Seite A wie bisher nach
+     * Norden ansteigend, Seite B um 180 Grad gedreht), alles mit Vorderseite (Truhen, Oefen, Schilder ...) schaut zur Linie.
+     * Die Ausstellungs-Grundform ({@link Exhibits}) schaut nach Norden: auf Seite A drehen die Vorderseiten, auf Seite B die Treppen.
+     */
+    static BlockState lineTurn(BlockState state, boolean sideB) {
+        boolean stairs = state.getBlock() instanceof net.minecraft.world.level.block.StairBlock;
+        if (sideB != stairs) {
             return state;
         }
         try {
