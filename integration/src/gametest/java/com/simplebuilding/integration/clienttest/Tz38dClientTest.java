@@ -28,7 +28,7 @@ public final class Tz38dClientTest implements FabricClientGameTest {
                 world.getServer().runCommand(command);
             }
             // Zuschauer-Modus: kein Hotbar-HUD vor dem Bild; weite Sicht fuer die Draufsicht.
-            context.runOnClient(c -> c.options.renderDistance().set(16));
+            context.runOnClient(c -> c.options.renderDistance().set(10));
             BlockPos base = world.getServer().computeOnServer(server -> server.getPlayerList().getPlayers().getFirst().blockPosition());
             BlockPos lines = base.offset(8, 0, 8);
             guard("lines", () -> {
@@ -36,9 +36,9 @@ public final class Tz38dClientTest implements FabricClientGameTest {
                         lines.getX(), lines.getY(), lines.getZ()));
                 // Die Mittellinie liegt am Ende der Seite A (Metalle bis ~100 tief): erst von oben, dann den Gang entlang.
                 int lineZ = lineZ(world, lines);
-                view(context, world, lines.offset(30, 70, lineZ - 10), 90, 0, "lines-top-metals");
-                view(context, world, lines.offset(80, 70, lineZ - 10), 90, 0, "lines-top-wood-rest");
-                view(context, world, lines.offset(40, 70, lineZ + 40), 90, 0, "lines-top-stone");
+                view(context, world, lines.offset(30, 48, lineZ - 12), 90, 0, "lines-top-metals");
+                view(context, world, lines.offset(85, 48, lineZ - 12), 90, 0, "lines-top-wood-rest");
+                view(context, world, lines.offset(40, 48, lineZ + 14), 90, 0, "lines-top-stone");
                 view(context, world, lines.offset(1, 2, lineZ), 15, -90, "lines-aisle-start");
                 view(context, world, lines.offset(40, 2, lineZ), 15, -90, "lines-aisle-wood");
                 view(context, world, lines.offset(6, 4, lineZ), 35, 180, "lines-metals-close");
@@ -48,7 +48,7 @@ public final class Tz38dClientTest implements FabricClientGameTest {
             guard("blocks", () -> {
                 world.getServer().runCommand(String.format(Locale.ROOT, "testcenter order build blocks %d %d %d",
                         blocks.getX(), blocks.getY(), blocks.getZ()));
-                view(context, world, blocks.offset(60, 70, 20), 90, 0, "blocks-top");
+                view(context, world, blocks.offset(60, 48, 20), 90, 0, "blocks-top");
             });
         }
         faults.forEach(line -> System.out.println("[tz38d] FAULT " + line));
@@ -72,9 +72,14 @@ public final class Tz38dClientTest implements FabricClientGameTest {
     private void view(ClientGameTestContext context, TestSingleplayerContext world, BlockPos at, float pitch, float yaw, String name) {
         world.getServer().runCommand(String.format(Locale.ROOT, "tp @a %d.5 %d %d.5 %.1f %.1f", at.getX(), at.getY(), at.getZ(), yaw, pitch));
         world.getConnection().waitForClientboundPackets();
-        context.waitTicks(10);
-        world.getConnection().waitForChunksRender();
-        context.waitTicks(10);
+        context.waitTicks(40);
+        try {
+            world.getConnection().waitForChunksRender();
+        } catch (AssertionError e) {
+            // Software-Rendering (xvfb) wird mit weiten Blicken nicht immer fertig: das Bild trotzdem nehmen.
+            System.out.println("[tz38d] INFO chunks still rendering for " + name);
+        }
+        context.waitTicks(20);
         String file = String.format(Locale.ROOT, "tz38d-%02d-%s", shots, name);
         context.takeScreenshot(file);
         shots++;
