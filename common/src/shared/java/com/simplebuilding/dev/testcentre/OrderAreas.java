@@ -1225,7 +1225,7 @@ public final class OrderAreas {
         for (int p = 0; p < pairs; p++) {
             List<RowPlan> a = sideA.subList(Math.min(sideA.size(), p * perPair), Math.min(sideA.size(), (p + 1) * perPair));
             List<RowPlan> b = stone.subList(Math.min(stone.size(), p * perPair), Math.min(stone.size(), (p + 1) * perPair));
-            int depthA = a.stream().mapToInt(RowPlan::length).max().orElse(1);
+            int depthA = a.stream().mapToInt(RowPlan::length).max().orElse(0);
             int depthB = b.stream().mapToInt(RowPlan::length).max().orElse(1);
             // z0: Schildreihe A | A-Reihen (Feld 0 bei nearA) | Abstand | Linie | Abstand | B-Reihen | Schildreihe B.
             int nearA = z0 + depthA;
@@ -1280,13 +1280,17 @@ public final class OrderAreas {
             for (int lx = 0; lx <= maxX + 1; lx++) {
                 c.place(lx, 0, lineZ, line);
             }
-            // Titel am Anfang der Linie (x 0, vor der ersten Reihe).
-            c.place(0, 0, nearA, TcCanvas.WALL);
-            c.sign(0, 0, nearA - 1, Direction.NORTH, TcText.bold(TcText.t("order.lines.a", "Metals, wood, rest")),
-                    TcText.t("order.lines.a.sub", "small parts next to the line"));
-            c.place(0, 0, nearB, TcCanvas.WALL);
-            c.sign(0, 0, nearB + 1, Direction.SOUTH, TcText.bold(TcText.t("order.lines.b", "Stone & co.")),
-                    TcText.t("order.lines.key", "red = missing, light gray = none"));
+            // Titel am Anfang der Linie (x 0, vor der ersten Reihe), je Seite nur, wenn sie Reihen hat.
+            if (!a.isEmpty()) {
+                c.place(0, 0, nearA, TcCanvas.WALL);
+                c.sign(0, 0, nearA - 1, Direction.NORTH, TcText.bold(TcText.t("order.lines.a", "Metals, wood, rest")),
+                        TcText.t("order.lines.a.sub", "small parts next to the line"));
+            }
+            if (!b.isEmpty()) {
+                c.place(0, 0, nearB, TcCanvas.WALL);
+                c.sign(0, 0, nearB + 1, Direction.SOUTH, TcText.bold(TcText.t("order.lines.b", "Stone & co.")),
+                        TcText.t("order.lines.key", "red = missing, light gray = none"));
+            }
             z0 = nearB + depthB + 1 + AISLE;
         }
         return new Area(c, cells, rows, placeholders, hidden, firstLine);
