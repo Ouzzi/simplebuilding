@@ -210,6 +210,8 @@ public final class StorageTests {
         ALL.put("rare_finds_shell_recipes_and_config_caps", RareFindsTests::shellRecipesAndConfigCaps);
         ALL.put("rare_finds_registered", RareFindsTests::registered);
         ALL.put("rare_finds_migration_from_simplebuilding", RareFindsTests::migrationFromSimplebuilding);
+        ALL.put("storage_enchantments_obtainable_alone", RareFindsTests::storageEnchantmentsObtainableAlone);
+        ALL.put("rare_finds_enderite_only_with_simple_ores", RareFindsTests::enderiteFindsOnlyWithSimpleOres);
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             boolean end = loaded(CrateWood.SIMPLE_END);
@@ -410,6 +412,7 @@ public final class StorageTests {
         ALL.put("network_take_amounts_are_stacks_and_halves", NetworkTests::takeAmountsAreStacksAndHalves);
         ALL.put("network_search_filters_by_words_and_mod", NetworkTests::searchFiltersByWordsAndMod);
         ALL.put("network_window_search_scroll_and_stack_takes", NetworkTests::windowSearchScrollAndStackTakes);
+        ALL.put("network_controller_recounts_at_most_once_per_tick", NetworkTests::controllerRecountsAtMostOncePerTick);
         crates();
         tables();
         ALL.put("guide_book", com.simplestorage.guide.StorageGuide::gameTest);

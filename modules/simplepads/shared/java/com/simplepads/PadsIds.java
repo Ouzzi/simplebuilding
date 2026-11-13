@@ -1,19 +1,31 @@
 package com.simplepads;
 
 import java.util.List;
+import java.util.Map;
 
 /** The ids that moved from {@code simplebuilding:} to {@code simplepads:} on 04.11.2026 (paths unchanged; {@link SimplePads#registerIdMoves}). */
 final class PadsIds {
     static final List<String> BLOCKS = List.of(
-            "spawn_teleporter", "spawn_teleporter_tier_2", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4",
+            "spawn_teleporter", "spawn_teleporter_tier_2",
             "enderite_spawn_teleporter", "launchpad", "netherite_launchpad", "enderite_launchpad", "diamond_pressure_plate",
-            "netherite_pressure_plate", "enderite_pressure_plate", "elytra_pad", "reinforced_elytra_pad",
-            "netherite_elytra_pad", "enderite_elytra_pad", "fine_elytra_pad", "flypad", "reinforced_flypad", "stellar_flypad",
-            "netherite_flypad", "enderite_flypad", "chunk_loader", "netherite_chunk_loader", "enderite_chunk_loader",
+            "netherite_pressure_plate", "enderite_pressure_plate", "elytra_pad",
+            "netherite_elytra_pad", "enderite_elytra_pad", "flypad", "reinforced_flypad", "stellar_flypad",
+            "chunk_loader", "netherite_chunk_loader", "enderite_chunk_loader",
             "potion_pad", "reinforced_potion_pad", "infused_potion_pad", "copper_pressure_plate",
             "exposed_copper_pressure_plate", "weathered_copper_pressure_plate", "oxidized_copper_pressure_plate",
             "waxed_copper_pressure_plate", "waxed_exposed_copper_pressure_plate", "waxed_weathered_copper_pressure_plate",
             "waxed_oxidized_copper_pressure_plate");
+    /**
+     * The retired tiers of the five-tier time (old path -> path of the tier that replaced it). Their blocks and items were removed
+     * before the first release (simplepads-4, owner N23 precedent); worlds and inventories that still name them get the new tier.
+     */
+    static final Map<String, String> RETIRED = Map.of(
+            "spawn_teleporter_tier_3", "spawn_teleporter_tier_2",
+            "spawn_teleporter_tier_4", "enderite_spawn_teleporter",
+            "reinforced_elytra_pad", "elytra_pad",
+            "fine_elytra_pad", "enderite_elytra_pad",
+            "netherite_flypad", "reinforced_flypad",
+            "enderite_flypad", "stellar_flypad");
     static final List<String> BLOCK_ENTITY_TYPES = List.of(
             "spawn_teleporter_be", "launchpad_be", "elytra_pad_be", "flypad_be", "chunk_loader_be", "copper_pressure_plate_be",
             "netherite_pressure_plate_be", "potion_pad_be");

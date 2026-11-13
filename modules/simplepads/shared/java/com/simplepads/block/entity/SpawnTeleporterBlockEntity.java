@@ -4,7 +4,6 @@ import com.simplepads.util.PlayerScan;
 import com.simplepads.SimplePads;
 import com.simplepads.PadsClientHooks;
 import com.simplepads.PadsConfig;
-import com.simplepads.block.LegacySpawnTeleporterBlock;
 import com.simplepads.block.SpawnTeleporterBlock;
 import com.simplepads.easter.EasterEggs;
 import java.util.HashMap;
@@ -141,10 +140,6 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadS
     }
 
     private static void tickPlayers(Level level, BlockPos pos, BlockState state, SpawnTeleporterBlockEntity be) {
-        if (state.getBlock() instanceof LegacySpawnTeleporterBlock legacy) {
-            legacy.migrate(level, pos, state, be);
-            return;
-        }
         if (!SimplePads.config().pads.enableSpawnTeleporters) {
             // Abgeschaltet (Config): keine Wartezeit, kein Sprung. Redstone schaltet nicht ab, es waehlt das Ziel.
             be.timeStanding.clear();

@@ -37,7 +37,7 @@ public final class PadsItems {
             // Netherit UNCOMMON, Enderit EPIC, sonst COMMON; beides brennt nicht (wie Netherit-Gegenstaende).
             Rarity rarity = padRarity(path);
             boolean fireproof = rarity != Rarity.COMMON;
-            // Alle Pads (jede Familie, jede Stufe, auch Easter- und alte Stufen) stapeln nicht (Besitzer
+            // Alle Pads (jede Familie, jede Stufe, auch Easter-Stufen) stapeln nicht (Besitzer
             // 2026-09-28): jedes Pad traegt Besitz, Easter-Stufe, Trank oder Abklingzeit als Einzelstueck.
             boolean pad = isPad(block);
             Item item = register(path, p -> {
@@ -50,10 +50,6 @@ public final class PadsItems {
                 }
                 if (rarity != Rarity.COMMON) {
                     props = props.rarity(rarity);
-                }
-                // Alte Stufenbloecke tauschen sich im Inventar gegen ihre neue Stufe (LegacyTierBlockItem).
-                if (block instanceof com.simplepads.block.LegacyTierBlock legacy) {
-                    return new LegacyTierBlockItem(block, props, () -> legacy.target().asItem());
                 }
                 if (block instanceof com.simplepads.block.PotionPadBlock) {
                     return new PotionPadItem(block, props);
@@ -72,8 +68,7 @@ public final class PadsItems {
      * mit Netherit gebaut UNCOMMON, mit Enderit gebaut EPIC, sonst COMMON (wie bisher in SimpleBuilding).
      */
     static Rarity padRarity(String path) {
-        if (path.startsWith("enderite_") || (path.endsWith("flypad") && !path.startsWith("netherite_"))
-                || path.equals("fine_elytra_pad") || path.equals("infused_potion_pad")) {
+        if (path.startsWith("enderite_") || path.endsWith("flypad") || path.equals("infused_potion_pad")) {
             return Rarity.EPIC;
         }
         if (path.startsWith("netherite_") || path.startsWith("spawn_teleporter_tier_") || path.equals("potion_pad")
@@ -87,8 +82,8 @@ public final class PadsItems {
     }
 
     /**
-     * Ob der Block ein Pad ist (Elytra-Pad, Flypad, Launchpad, Chunk-Loader, Spawn-Teleporter, Trank-Pad,
-     * alte Flypad-Stufen) - nicht die Druckplatten, auch nicht die Kupferplatten, die technisch
+     * Ob der Block ein Pad ist (Elytra-Pad, Flypad, Launchpad, Chunk-Loader, Spawn-Teleporter, Trank-Pad)
+     * - nicht die Druckplatten, auch nicht die Kupferplatten, die technisch
      * {@link com.simplepads.block.PadBlock} sind.
      */
     public static boolean isPad(Block block) {

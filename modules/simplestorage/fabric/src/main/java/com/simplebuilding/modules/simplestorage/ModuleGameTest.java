@@ -835,6 +835,21 @@ public final class ModuleGameTest {
         StorageTests.ALL.get("network_window_search_scroll_and_stack_takes").accept(h);
     }
 
+    @GameTest(structure = "simplestorage:empty", maxTicks = 400)
+    public void storageEnchantmentsObtainableAlone(GameTestHelper h) {
+        StorageTests.ALL.get("storage_enchantments_obtainable_alone").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void rareFindsEnderiteOnlyWithSimpleOres(GameTestHelper h) {
+        StorageTests.ALL.get("rare_finds_enderite_only_with_simple_ores").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkControllerRecountsAtMostOncePerTick(GameTestHelper h) {
+        StorageTests.ALL.get("network_controller_recounts_at_most_once_per_tick").accept(h);
+    }
+
     @GameTest(structure = "simplestorage:empty")
     public void barrelsRegistered(GameTestHelper h) {
         StorageTests.ALL.get("barrels_registered").accept(h);

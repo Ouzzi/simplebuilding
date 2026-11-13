@@ -92711,10 +92711,6 @@
           "required": true
         },
         {
-          "id": "simplepads:enderite_flypad",
-          "required": true
-        },
-        {
           "id": "simplepads:enderite_launchpad",
           "required": true
         },
@@ -92724,10 +92720,6 @@
         },
         {
           "id": "simplepads:enderite_spawn_teleporter",
-          "required": true
-        },
-        {
-          "id": "simplepads:fine_elytra_pad",
           "required": true
         },
         {

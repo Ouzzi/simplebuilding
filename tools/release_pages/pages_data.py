@@ -128,7 +128,7 @@ P = {
   "Simple Opt Server adapts view distance to the server's tick time (MSPT) within the bounds of server.properties, and steps back for ServerCore.",
   "optimization", "performance, server, view-distance"),
 "simplestorage": ("Crates, tiered chests, shulker boxes and barrels, chest carts and boats, bundles, quivers and backpacks.",
-  "Simple Storage adds crates, the Storage Crafting Table, tiered and trapped chests, tier shulker boxes with more slots and bigger stacks, barrels, chest carts and chest boats, bundles, quivers, backpacks, and the Drawer, Deep Pockets and Funnel enchantments. Ids from older versions migrate.",
+  "Simple Storage adds crates, the Storage Crafting Table, tiered and trapped chests, tier shulker boxes and barrels with more slots and bigger stacks, chest carts and chest boats, bundles, quivers, backpacks, item pipes, a chest network with a controller chest, and the Drawer, Deep Pockets and Funnel enchantments. New structures sometimes hold a better chest or a rare tiered shulker. Ids from older versions migrate.",
   "storage, utility", "storage, chests, backpacks, bundles"),
 "simplemusic": ("Write sheet music in a text note code, press it onto discs and play uploaded Ogg discs in jukeboxes.",
   "Simple Music adds sheet music with a text note code (editor with test listening, .txt and .nbs import), a Disc Press, uploaded mono Ogg discs (quota and operator approval) and a Pocket Jukebox.",
@@ -226,4 +226,9 @@ V = {
 "simpletweaks": "Keeps older worlds loading and adds server claims that are on by default; the claim rules change who may build where on a server.",
 "simplevault": "Gives explorers a rare find in the bedrock with riddles and a reward; the Vanilla bedrock stays except at the rare gap, and a few hooks handle its pistons and block states.",
 "simplewanderers": "Gives every village a wandering trader with a horse; it works with Vanilla alone and splits goods from the Vanilla traveling trader.",
+}
+
+# Store-page links per mod (wiki, issues, source); a mod without an entry keeps the placeholders until the owner decides.
+LINKS = {
+"simplestorage": ("https://wiki.simplemods.de/?mod=simplestorage", "https://github.com/Ouzzi/simplebuilding/issues", "https://github.com/Ouzzi/simplebuilding"),
 }

@@ -6,8 +6,7 @@ import net.minecraft.world.level.block.Block;
 /**
  * Die Stufen jeder Pad-Familie, aufsteigend (docs/SIMPLETWEAKS-UEBERNAHME.md, Abschnitt 2). Die
  * letzte Stufe einer Familie ist {@link #lastTier(Family)} - dort setzen spaetere Erweiterungen an
- * (z. B. eine Kette ueber den Endstufen), ohne die Stufen selbst kennen zu muessen. Alte, abgeloeste
- * Bloecke ({@link PadsBlocks#legacy()}) gehoeren zu keiner Familie.
+ * (z. B. eine Kette ueber den Endstufen), ohne die Stufen selbst kennen zu muessen.
  */
 public final class PadFamilies {
 

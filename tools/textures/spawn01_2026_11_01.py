@@ -3,7 +3,10 @@
 Method (A8b, Endholz process): a ramp of 9 soft tones (dark -> light), shape first, light from the upper left, shadow lower right, a few
 hard accent pixels (about 7 %) for the glint. b-tex03 (owner 02.11.): iron look like the Vanilla iron items, the fragment smaller.
 
-  python3.12 tools/textures/spawn01_2026_11_01.py --write MODULE_TEXTURES_DIR   (also writes the .layers.json beside each PNG)"""
+  python3.12 tools/textures/spawn01_2026_11_01.py --write MODULE_TEXTURES_DIR   (also writes the .layers.json beside each PNG)
+
+a-w1b (12.11.): block() below is the old opaque face (kept for the before/after preview); the built-in Makeshift Spawner is the
+cage of tools/textures/mobs_w1b_2026_11_12.py, --write no longer writes it."""
 from __future__ import annotations
 
 import argparse
@@ -89,6 +92,8 @@ def main():
     ap.add_argument('--write', required=True)
     a = ap.parse_args()
     for rel, im in sheet().items():
+        if rel == 'block/makeshift_spawner.png':
+            continue  # a-w1b (12.11.): the Makeshift Spawner cage is drawn by tools/textures/mobs_w1b_2026_11_12.py
         p = Path(a.write) / rel
         p.parent.mkdir(parents=True, exist_ok=True)
         layers.save(im, p)

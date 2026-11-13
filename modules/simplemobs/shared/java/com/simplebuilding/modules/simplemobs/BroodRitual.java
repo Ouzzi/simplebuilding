@@ -142,7 +142,7 @@ public final class BroodRitual {
         return species;
     }
 
-    /** Flint and Steel on the hollow: starts the brood if figure and offerings are complete (server). */
+    /** Flint and Steel on the hollow: starts the brood if figure and offerings are complete (server); {@code player} is the igniter (no text is sent to it). */
     public static boolean tryStart(Level level, BlockPos hollow, @Nullable ServerPlayer player) {
         if (!(level instanceof ServerLevel server) || !MobsRegistry.on() || !MobsConfig.eggRitualEnabled || !figure(level, hollow)) return false;
         if (!server.getEntitiesOfClass(BroodRitualEntity.class, new net.minecraft.world.phys.AABB(hollow.above())).isEmpty()) return false;
@@ -150,8 +150,8 @@ public final class BroodRitual {
         String[] why = {""};
         EntityType<?> species = recipe(items, why);
         if (species == null) {
+            // GADGET (owner 01.11., PLAN40 simplemobs-2): something is missing - smoke and a hiss at the hollow, no action bar text.
             BossRituals.fizzle(level, hollow);
-            if (player != null) player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplemobs.brood.missing." + why[0]));
             return true; // the click is used, nothing consumed
         }
         int cls = eggClass(species);

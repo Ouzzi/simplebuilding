@@ -15,7 +15,7 @@
       ],
       "en": {
         "title": "Crates",
-        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
+        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food. They take at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
         "details": [
           "Crafting: 7 planks of one wood in a U shape.",
           "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplestorage:crate_storable).",
@@ -27,7 +27,7 @@
       },
       "de": {
         "title": "Kisten",
-        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
+        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aufnehmen. Sie fassen höchstens 9 Sorten; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
         "details": [
           "Herstellung: 7 Bretter einer Holzart in U-Form.",
           "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplestorage:crate_storable).",
@@ -65,43 +65,6 @@
           "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter (mit SimpleBuilding).",
           "Rezept (formlos): Werkbank + Truhe."
         ]
-      }
-    },
-    {
-      "id": "migration",
-      "sources": [
-        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java",
-        "modules/simplestorage/shared/java/com/simplestorage/test/StorageTests.java"
-      ],
-      "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The crates of every wood and the Storage Crafting Table, their block entities, recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplestorage:* through SimpleLib's id moves and save the new ids; placed crates keep their food and tables their grid.",
-        "details": [
-          "SimpleBuilding needs Simple Storage and bundles it; Simple Storage runs on its own with SimpleLib, which it bundles. Tiered chests and shulker boxes (stage 8b), bundles and quivers (8c-1) and the backpacks (8c-2) followed."
-        ]
-      },
-      "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die Kisten aller Hölzer und die Werkbank mit Lager, ihre Block-Entities, Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* und speichern die neuen Ids; gesetzte Kisten behalten ihr Essen, Werkbänke ihr Raster.",
-        "details": [
-          "SimpleBuilding braucht Simple Storage und bündelt es; Simple Storage läuft allein mit SimpleLib, das es mitbringt. Stufen-Truhen und Shulker-Kisten (Stufe 8b), Bündel und Köcher (8c-1) und die Rucksäcke (8c-2) folgten."
-        ]
-      }
-    },
-    {
-      "id": "creative_tab_switch",
-      "sources": [
-        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageRegistry.java"
-      ],
-      "en": {
-        "title": "Creative tabs",
-        "summary": "Own tab with the Storage Crafting Table, the crates and the guide. Without SimpleBuilding the table also sits behind the crafting table and the crates behind the barrel in the Vanilla functional blocks tab (switch addItemsToVanillaTabs); with SimpleBuilding its tabs list them in their old places. Switched off (SimpleBuilding's Enable Simple Storage), the tab and the Vanilla tab entries are empty; the blocks keep working.",
-        "details": []
-      },
-      "de": {
-        "title": "Kreativ-Tabs",
-        "summary": "Eigener Tab mit der Werkbank mit Lager, den Kisten und dem Handbuch. Ohne SimpleBuilding steht die Werkbank zusätzlich hinter der Werkbank und stehen die Kisten hinter dem Fass im Vanilla-Tab Gebrauchsblöcke (Schalter addItemsToVanillaTabs); mit SimpleBuilding führen dessen Tabs sie an ihren alten Plätzen. Ausgeschaltet (SimpleBuildings Simple Storage aktivieren) bleiben Tab und Vanilla-Tab-Einträge leer; die Blöcke funktionieren weiter.",
-        "details": []
       }
     },
     {
@@ -151,7 +114,7 @@
       ],
       "en": {
         "title": "Chest tiers",
-        "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside.",
+        "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier and bigger stacks from netherite on. Slots 27/36/45/54 (double chests twice that), stacks x2 (netherite) and x4 (enderite). Each step is done in the world with the sledgehammer and keeps everything inside.",
         "details": [
           "Upgrading: hold right-click on the placed chest for 5 seconds with a sledgehammer in the main hand and the tier material in the off hand - Cracked Diamond (any sledgehammer) for copper -> reinforced, Netherite Nugget (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nugget (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name and lock stay; a double chest is upgraded as a whole and takes two pieces of material.",
           "Without Simple Hammers (Simple Storage on its own) an axe in the main hand takes the hammer's place: the same material in the off hand, SimpleLib's in-world strikes, the contents stay.",
@@ -166,7 +129,7 @@
       },
       "de": {
         "title": "Truhen-Stufen",
-        "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt.",
+        "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe und ab Netherit größere Stapel. Plätze 27/36/45/54 (Doppeltruhen doppelt so viele), Stapel x2 (Netherit) und x4 (Enderit). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt.",
         "details": [
           "Aufwerten: 5 Sekunden Rechtsklick auf die gesetzte Truhe halten, Vorschlaghammer in der Haupthand und das Stufenmaterial in der Nebenhand - Rissiger Diamant (jeder Vorschlaghammer) für Kupfer -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name und Schloss bleiben; eine Doppeltruhe wird als Ganzes aufgewertet und braucht zwei Stück Material.",
           "Ohne Simple Hammers (Simple Storage allein) übernimmt eine Axt in der Haupthand die Rolle des Hammers: dasselbe Material in der Nebenhand, die In-World-Schläge von SimpleLib, der Inhalt bleibt.",
@@ -215,7 +178,7 @@
       ],
       "en": {
         "title": "Shulker box tiers",
-        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step.",
+        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers in a box that keeps everything when broken. 36/45/54 slots, x2 and x4 stacks from netherite on. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step.",
         "details": [
           "Upgrading: hold right-click on the placed box for 10 seconds with a sledgehammer in the main hand and 2 pieces of the tier material in the off hand - Cracked Diamonds (any sledgehammer) for a vanilla shulker box of any color -> reinforced, Netherite Nuggets (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nuggets (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name, lock, facing and color stay; an interrupted upgrade keeps its blows.",
           "Without Simple Hammers (Simple Storage on its own) an axe in the main hand takes the hammer's place: the same material in the off hand, SimpleLib's in-world strikes, the contents stay.",
@@ -228,7 +191,7 @@
       },
       "de": {
         "title": "Shulkerkisten-Stufen",
-        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe.",
+        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen in einer Kiste, die beim Abbauen alles behält. 36/45/54 Plätze, ab Netherit x2 und x4. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe.",
         "details": [
           "Aufwerten: 10 Sekunden Rechtsklick auf die gesetzte Kiste halten, Vorschlaghammer in der Haupthand und 2 Stück des Stufenmaterials in der Nebenhand - Rissige Diamanten (jeder Vorschlaghammer) für eine Vanilla-Shulkerkiste jeder Farbe -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name, Schloss, Blickrichtung und Farbe bleiben; eine abgebrochene Aufwertung behält ihre Schläge.",
           "Ohne Simple Hammers (Simple Storage allein) übernimmt eine Axt in der Haupthand die Rolle des Hammers: dasselbe Material in der Nebenhand, die In-World-Schläge von SimpleLib, der Inhalt bleibt.",
@@ -241,54 +204,32 @@
       }
     },
     {
-      "id": "rare_structure_finds",
+      "id": "barrels",
       "sources": [
-        "modules/simplestorage/shared/java/com/simplestorage/rare/BetterChests.java",
-        "modules/simplestorage/shared/java/com/simplestorage/rare/RareShulkers.java",
-        "modules/simplestorage/shared/java/com/simplestorage/mixin/StructurePieceBetterChestMixin.java",
-        "modules/simplestorage/shared/java/com/simplestorage/mixin/EndCityPieceMixin.java",
-        "modules/simplestorage/shared/java/com/simplestorage/mixin/StructureTemplateBetterChestMixin.java",
-        "modules/simplestorage/shared/java/com/simplestorage/mixin/RareShulkerMobMixin.java",
-        "modules/simplestorage/shared/java/com/simplestorage/mixin/client/ShulkerRendererMixin.java",
-        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
-        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
-        "modules/simplestorage/shared/java/com/simplestorage/mixin/ShulkerEscortMixin.java",
-        "modules/simplestorage/shared/java/com/simplestorage/test/RareFindsTests.java"
-      ],
-      "related": [
-        "simplestorage:reinforced_chest",
-        "simplestorage:netherite_chest",
-        "simplestorage:enderite_chest",
-        "simplestorage:reinforced_shulker_shell",
-        "simplestorage:netherite_shulker_shell",
-        "simplestorage:enderite_shulker_shell"
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelMenu.java",
+        "modules/simplelib/shared/java/com/simplelib/api/BarrelDock.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/in_world_upgrades/barrels.json"
       ],
       "en": {
-        "title": "Rare structure finds",
-        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced, netherite or enderite.",
+        "title": "Barrels",
+        "summary": "Copper, Reinforced, Netherite and Enderite barrels with the slots and stacks of the chest tiers, upgraded in place. They are also the docking barrel of the Simple Crucibles.",
         "details": [
-          "Better chests (betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships. It keeps the chest's loot table and rolls it twice.",
-          "Double chests: the first half rolls; only if the second half then rolls again with the same chance do both become better, otherwise both stay normal chests.",
-          "The roll is fixed by world seed and position, so both halves of a double chest always agree. Existing worlds and already generated structures do not change.",
-          "Rare shulkers (reinforcedShulkerPercent 2 %, at most 10 %; netheriteShulkerPercent 1 %, at most 5 %; enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, a netherite shulker 2x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
-          "Besides the vanilla drop they drop 0-2 shells of their own tier.",
-          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again.",
-          "A living shulker also takes the nugget of its next tier (iron, netherite, enderite nugget; one per step). A shulker upgraded this way drops no tier shells and calls no endermites.",
-          "The chances are server settings in config/simplestorage.json (betterChestPercent, reinforcedShulkerPercent, netheriteShulkerPercent, enderiteShulkerPercent, endermitesPerRareShulker), each clamped to the limits above; on the first start Simple Storage takes them over from SimpleBuilding's config."
+          "Copper 27 slots (a Vanilla barrel surrounded by four copper ingots), Reinforced 36, Netherite 45 with double stacks, Enderite 54 with fourfold stacks (256 of a 64-stack item) - the same as the chest of the tier. The barrels were Simple Crucibles' (before that SimpleLib's, the Enderite one SimpleBuilding's); they belong to Simple Storage now and old worlds migrate.",
+          "A loose barrel is placed like Vanilla's barrel, its lid towards the player (all six sides), opens its lid while someone looks in, and takes the chest interface (tag c:barrels). Raised stack limits hold in the menu, for shift-clicks and for hoppers; taking from such a slot gives at most one normal stack.",
+          "Upgrade in place like the chests: with an axe in the main hand and the material in the off hand (ten strikes; with Simple Hammers the sledgehammer): Copper to Reinforced with two cracked diamonds, Reinforced to Netherite with two netherite nuggets, Netherite to Enderite with two Enderite nuggets (Simple Ores). Contents, lid and docking stay.",
+          "With Simple Crucibles, a barrel next to a crucible attaches with six strikes: it then offers as many slots as the crucible has (6/12/18/30; the rest stays stored, hidden, and comes back when detached), opens the crucible screen, and the crucible puts its results there first. Breaking the crucible makes the barrel a normal barrel again."
         ]
       },
       "de": {
-        "title": "Seltene Strukturfunde",
-        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt, aus Netherit oder aus Enderit.",
+        "title": "Fässer",
+        "summary": "Kupfer-, Verstärkte, Netherit- und Enderit-Fässer mit Plätzen und Stapeln der Truhenstufen, in der Welt aufwertbar. Sie sind zugleich das andockende Fass der Schmelztiegel von Simple Crucibles.",
         "details": [
-          "Bessere Truhen (betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff. Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
-          "Doppeltruhen: die erste Hälfte würfelt; nur wenn danach auch die zweite Hälfte mit derselben Chance trifft, werden beide besser, sonst bleiben beide normale Truhen.",
-          "Der Wurf steht durch Weltseed und Position fest, beide Hälften einer Doppeltruhe sind sich also immer einig. Bestehende Welten und schon erzeugte Strukturen ändern sich nicht.",
-          "Seltene Shulker (reinforcedShulkerPercent 2 %, höchstens 10 %; netheriteShulkerPercent 1 %, höchstens 5 %; enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Netherit-Shulker 2-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
-          "Neben der Vanilla-Beute lassen sie 0–2 Schalen ihrer eigenen Stufe fallen.",
-          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder.",
-          "Auch ein lebender Shulker nimmt den Klumpen seiner nächsten Stufe an (Eisen-, Netherit-, Enderitklumpen; einer je Stufe). Ein so aufgewerteter Shulker lässt keine Stufen-Schalen fallen und ruft keine Endermiten.",
-          "Die Chancen sind Server-Einstellungen in config/simplestorage.json (betterChestPercent, reinforcedShulkerPercent, netheriteShulkerPercent, enderiteShulkerPercent, endermitesPerRareShulker), je auf die Obergrenzen oben begrenzt; beim ersten Start übernimmt Simple Storage sie aus der Config von SimpleBuilding."
+          "Kupfer 27 Plätze (ein Vanilla-Fass umringt von vier Kupferbarren), Verstärkt 36, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln (256 eines 64er-Items) - wie die Truhe der Stufe. Die Fässer gehörten Simple Crucibles (davor SimpleLib, das Enderit-Fass SimpleBuilding); sie gehören jetzt zu Simple Storage, alte Welten werden migriert.",
+          "Ein loses Fass wird wie das Vanilla-Fass gesetzt, der Deckel zum Spieler (alle sechs Seiten), öffnet den Deckel, solange jemand hineinschaut, und nimmt die Truhen-Schnittstelle an (Tag c:barrels). Erhöhte Stapelgrenzen gelten im Menü, beim Shift-Klick und für Trichter; Herausnehmen gibt höchstens einen normalen Stapel.",
+          "Aufwerten in der Welt wie bei den Truhen: Axt in der Haupthand und das Material in der Nebenhand (zehn Schläge; mit Simple Hammers der Vorschlaghammer): Kupfer zu Verstärkt mit zwei rissigen Diamanten, Verstärkt zu Netherit mit zwei Netheritklumpen, Netherit zu Enderit mit zwei Enderitklumpen (Simple Ores). Inhalt, Deckel und Andockzustand bleiben.",
+          "Mit Simple Crucibles wird ein Fass neben einem Tiegel mit sechs Schlägen angedockt: es bietet dann so viele Plätze wie der Tiegel (6/12/18/30; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da), öffnet das Tiegel-Fenster, und der Tiegel legt seine Ergebnisse zuerst dort ab. Wird der Tiegel abgebaut, ist das Fass wieder ein normales Fass."
         ]
       }
     },
@@ -330,7 +271,7 @@
       ],
       "en": {
         "title": "Bundles: Reinforced, Netherite, Enderite",
-        "summary": "Simple Storage extends the vanilla bundle into a three-tier family: the Reinforced Bundle holds 1.5x as much (96 items), the Netherite Bundle twice that (192) and the Enderite Bundle three times as much (288). All three handle the same way, let you pick an entry with the mouse wheel and take the storage enchantments Deep Pockets, Funnel and Drawer; with SimpleBuilding also its Master Builder and Color Palette.",
+        "summary": "Three bundle tiers above the vanilla bundle: Reinforced 96 items, Netherite 192 and Enderite 288. All three handle the same way, let you pick an entry with the mouse wheel and take the storage enchantments Deep Pockets, Funnel and Drawer; with SimpleBuilding also its Master Builder and Color Palette.",
         "details": [
           "Upgrade path: Reinforced Bundle at a crafting table from a bundle, string, six Diamond Pebbles and a Leather Sheet (the bundle's contents, enchantments and name carry over); Netherite Bundle at a smithing table with a Netherite Upgrade and a netherite ingot; Enderite Bundle at a smithing table with an Enderite Upgrade and an Enderite Ingot (both from SimpleLib).",
           "Capacity: 96 / 192 / 288 items of stack size 64; items with a smaller stack size take up correspondingly more room.",
@@ -351,7 +292,7 @@
       },
       "de": {
         "title": "Bündel: Verstärkt, Netherit, Enderit",
-        "summary": "Simple Storage erweitert das Vanilla-Bündel zu einer dreistufigen Familie: Das Verstärkte Bündel fasst das 1,5-fache (96 Gegenstände), das Netheritbündel das Doppelte davon (192) und das Enderitbündel das Dreifache (288). Alle drei bedienen sich gleich, lassen per Mausrad einen Eintrag auswählen und nehmen die Lager-Verzauberungen Tiefe Taschen, Trichter und Schublade an; mit SimpleBuilding auch dessen Baumeister und Farbpalette.",
+        "summary": "Drei Bündel-Stufen über dem Vanilla-Bündel: Verstärkt 96 Gegenstände, Netherit 192 und Enderit 288. Alle drei bedienen sich gleich, lassen per Mausrad einen Eintrag auswählen und nehmen die Lager-Verzauberungen Tiefe Taschen, Trichter und Schublade an; mit SimpleBuilding auch dessen Baumeister und Farbpalette.",
         "details": [
           "Aufstieg: Verstärktes Bündel in der Werkbank aus Bündel, Faden, sechs Diamantkieseln und einem Ledertuch (Inhalt, Verzauberungen und Name des Bündels bleiben erhalten); Netheritbündel am Schmiedetisch mit Netherit-Aufwertung und Netheritbarren; Enderitbündel am Schmiedetisch mit Enderit-Aufwertung und Enderitbarren (beide aus SimpleLib).",
           "Kapazität: 96 / 192 / 288 Gegenstände der Stapelgröße 64; Gegenstände mit kleinerer Stapelgröße belegen entsprechend mehr Platz.",
@@ -410,7 +351,7 @@
       ],
       "en": {
         "title": "Quivers",
-        "summary": "Quivers are arrow bundles: they take only arrows and supply a bow automatically as soon as they sit in the off-hand, in the chest slot, in the hotbar or - with SimpleBuilding's Constructor's Touch - anywhere in the inventory. There are four tiers with the capacity factors 1, 3/2, 2 and 3: the Quiver and the Reinforced Quiver come from the crafting table, the Netherite and the Enderite Quiver build on them at the smithing table. Drawer, Deep Pockets and Funnel work on all four tiers.",
+        "summary": "Quivers are arrow bundles that take only arrows and supply a bow automatically. They work in the off-hand, in the chest slot, in the hotbar or - with SimpleBuilding's Constructor's Touch - anywhere in the inventory. There are four tiers with the capacity factors 1, 3/2, 2 and 3: the Quiver and the Reinforced Quiver come from the crafting table, the Netherite and the Enderite Quiver build on them at the smithing table. Drawer, Deep Pockets and Funnel work on all four tiers.",
         "details": [
           "Getting started: craft the Quiver at the crafting table from a Bundle, String, 2 Leather Sheets and a Copper Nugget, and upgrade it at the crafting table to the Reinforced Quiver - the Reinforced Bundle's pattern with the Quiver where the bundle goes (string on top, a Leather Sheet below, six Diamond Pebbles in the side columns); arrows, enchantments and name carry over. After that the Netherite Quiver (Netherite Upgrade + Reinforced Quiver + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade + Netherite Quiver + Enderite Ingot) at the smithing table. The plain Quiver has no smithing recipe; no tier can be skipped.",
           "Capacity: Quiver factor 1, Reinforced Quiver factor 3/2, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 96 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus on top of their tier factor - the Reinforced Quiver's 3/2 is its tier factor.",
@@ -430,7 +371,7 @@
       },
       "de": {
         "title": "Köcher",
-        "summary": "Köcher sind Pfeil-Bündel: Sie nehmen nur Pfeile auf und versorgen den Bogen automatisch, sobald sie in der Nebenhand, im Brustpanzer-Slot, in der Schnellzugriffsleiste oder - mit SimpleBuildings Berührung des Konstrukteurs - irgendwo im Inventar liegen. Es gibt vier Stufen mit den Kapazitätsfaktoren 1, 3/2, 2 und 3: Köcher und Verstärkter Köcher entstehen an der Werkbank, Netherit- und Enderitköcher bauen am Schmiedetisch darauf auf. Schublade, Tiefe Taschen und Trichter wirken auf allen vier Stufen.",
+        "summary": "Köcher sind Pfeil-Bündel, die nur Pfeile aufnehmen und den Bogen automatisch versorgen. Sie wirken in der Nebenhand, im Brustpanzer-Slot, in der Schnellzugriffsleiste oder - mit SimpleBuildings Berührung des Konstrukteurs - irgendwo im Inventar. Es gibt vier Stufen mit den Kapazitätsfaktoren 1, 3/2, 2 und 3: Köcher und Verstärkter Köcher entstehen an der Werkbank, Netherit- und Enderitköcher bauen am Schmiedetisch darauf auf. Schublade, Tiefe Taschen und Trichter wirken auf allen vier Stufen.",
         "details": [
           "Einstieg: Köcher an der Werkbank aus Bündel, Faden, 2 Ledertüchern und Kupferklumpen bauen und ebenfalls an der Werkbank zum Verstärkten Köcher aufwerten - das Muster des Verstärkten Bündels mit dem Köcher an der Stelle des Bündels (Faden oben, ein Ledertuch unten, sechs Diamantkiesel in den Seitenspalten); Pfeile, Verzauberungen und Name bleiben erhalten. Danach Netheritköcher (Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren) und Enderitköcher (Enderit-Aufwertung + Netheritköcher + Enderitbarren) am Schmiedetisch. Für den einfachen Köcher gibt es kein Schmiederezept; keine Stufe lässt sich überspringen.",
           "Kapazität: Köcher Faktor 1, Verstärkter Köcher Faktor 3/2, Netheritköcher Faktor 2, Enderitköcher Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 96 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus zusätzlich zu ihrem Stufenfaktor - die 3/2 des Verstärkten Köchers sind sein Stufenfaktor.",
@@ -601,50 +542,33 @@
         "modules/simplestorage/shared/java/com/simplestorage/mixin/ItemEntityBundleMixin.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
-        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json"
+        "mc26_3/overlay/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
+        "modules/simplestorage/shared/java/com/simplestorage/rare/StorageLoot.java"
       ],
       "en": {
         "title": "Storage enchantments: Deep Pockets, Drawer, Funnel",
-        "summary": "Three enchantments for the bundles, quivers and backpacks: Deep Pockets gives them more room, Drawer much more room for one kind of item, Funnel picks items up off the ground. None is in the enchanting table tag; they go on at the anvil.",
+        "summary": "Three enchantments for bundles, quivers and backpacks: Deep Pockets, Drawer and Funnel. Deep Pockets gives them more room, Drawer much more room for one kind of item, Funnel picks items up off the ground. None is in the enchanting table tag; the books come from chest loot and go on at the anvil.",
         "details": [
           "Deep Pockets (I-II) and Funnel (I-II) go on all three bundle tiers, all four quiver tiers and the four backpacks (tags simplestorage:deep_pockets_enchantable and funnel_enchantable); Drawer (I-VIII) only on bundles and quivers (simplestorage:bundle_enchantable), not on backpacks or chests.",
           "Capacity: bundles count in stack fractions and start at 96 (Reinforced), 192 (Netherite) and 288 (Enderite) items; quivers only get their tier factor (64/96/128/192 arrows). Deep Pockets (x2 or x4) and Drawer (x(16 + level)/8) multiply together. In a backpack Deep Pockets doubles or quadruples the stack limit of stackable items.",
           "Funnel turns the container into a vacuum cleaner: level I only picks up item types already inside, level II everything; sneaking pauses it; quivers only take arrows; your hands are checked before the rest of the inventory, a worn backpack comes after the bundles.",
           "Drawer holds only the one kind of item already inside and cannot be combined with Master Builder or Color Palette (SimpleBuilding's; exclusive set simplestorage:exclusive_set/builder_group).",
           "Where they come from: this mod alone has no source (creative inventory and commands). With SimpleBuilding: Deep Pockets II in Ancient Cities, Deep Pockets I as a fishing treasure, Funnel I in bastions, Nether fortresses, dungeons and from the master librarian, Drawer I in woodland mansions and from the level 4 librarian; SimpleBuilding's randomly enchanted Quivers and Reinforced Bundles can carry any of them. Their enchanted books show their own picture only with SimpleBuilding (else the vanilla book).",
-          "Old worlds: simplebuilding:deep_pockets, drawer and funnel on items become these (id moves). On Minecraft 26.2 they are still SimpleBuilding's."
+          "Old worlds: simplebuilding:deep_pockets, drawer and funnel on items become these (id moves). On Minecraft 26.2 they are still SimpleBuilding's.",
+          "Where the books come from: with SimpleBuilding from its chest loot and librarians; on its own Simple Storage puts them into Vanilla chests itself (one book per chest at about 4-9 %): Funnel I in dungeons, nether fortresses and bastions, Deep Pockets I in dungeons, Deep Pockets II in ancient cities, Drawer I in woodland mansions and stronghold libraries."
         ]
       },
       "de": {
         "title": "Lager-Verzauberungen: Tiefe Taschen, Schublade, Trichter",
-        "summary": "Drei Verzauberungen für Bündel, Köcher und Rucksäcke: Tiefe Taschen gibt ihnen mehr Platz, Schublade viel mehr Platz für eine Sorte, Trichter sammelt Gegenstände vom Boden auf. Keine steht im Zaubertisch-Tag; sie kommen am Amboss drauf.",
+        "summary": "Drei Verzauberungen für Bündel, Köcher und Rucksäcke: Tiefe Taschen, Schublade und Trichter. Tiefe Taschen gibt ihnen mehr Platz, Schublade viel mehr Platz für eine Sorte, Trichter sammelt Gegenstände vom Boden auf. Keine steht im Zaubertisch-Tag; die Bücher kommen aus Truhen-Beute und am Amboss drauf.",
         "details": [
           "Tiefe Taschen (I-II) und Trichter (I-II) gehen auf alle drei Bündel-, alle vier Köcher-Stufen und die vier Rucksäcke (Tags simplestorage:deep_pockets_enchantable und funnel_enchantable); Schublade (I-VIII) nur auf Bündel und Köcher (simplestorage:bundle_enchantable), nicht auf Rucksäcke oder Truhen.",
           "Kapazität: Bündel zählen in Stapel-Anteilen und beginnen bei 96 (Verstärkt), 192 (Netherit) und 288 (Enderit) Items; Köcher haben nur ihren Stufenfaktor (64/96/128/192 Pfeile). Tiefe Taschen (mal 2 oder 4) und Schublade (mal (16 + Stufe)/8) multiplizieren sich. Im Rucksack verdoppelt bzw. vervierfacht Tiefe Taschen die Stapelgrenze stapelbarer Items.",
           "Trichter macht den Behälter zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert; Köcher nehmen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft, ein getragener Rucksack kommt nach den Bündeln.",
           "Schublade hält nur die eine Sorte, die schon darin liegt, und ist nicht mit Baumeister oder Farbpalette kombinierbar (SimpleBuildings; exklusive Gruppe simplestorage:exclusive_set/builder_group).",
           "Herkunft: diese Mod allein hat keine Quelle (Kreativ-Inventar und Befehle). Mit SimpleBuilding: Tiefe Taschen II in Antiken Städten, Tiefe Taschen I als Angel-Schatz, Trichter I in Bastionen, Netherfestungen, Verliesen und beim Meister-Bibliothekar, Schublade I in Waldanwesen und beim Bibliothekar Stufe 4; SimpleBuildings zufällig verzauberte Köcher und Verstärkte Bündel können jede davon tragen. Ihre verzauberten Bücher zeigen nur mit SimpleBuilding ein eigenes Bild (sonst das Vanilla-Buch).",
-          "Alte Welten: simplebuilding:deep_pockets, drawer und funnel auf Items werden zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören sie weiter SimpleBuilding."
-        ]
-      }
-    },
-    {
-      "id": "commands",
-      "sources": [
-        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java"
-      ],
-      "en": {
-        "title": "Commands",
-        "summary": "/simplestorage config shows and changes every option of config/simplestorage.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
-        "details": [
-          "Example: /simplestorage config get <option> shows the value, the default and the type; /simplestorage config reset <option> brings the default back; a wrong type is refused and nothing is saved."
-        ]
-      },
-      "de": {
-        "title": "Befehle",
-        "summary": "/simplestorage config zeigt und ändert jede Option von config/simplestorage.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
-        "details": [
-          "Beispiel: /simplestorage config get <Option> zeigt Wert, Standard und Typ; /simplestorage config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+          "Alte Welten: simplebuilding:deep_pockets, drawer und funnel auf Items werden zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören sie weiter SimpleBuilding.",
+          "Woher die Bücher kommen: mit SimpleBuilding aus dessen Truhen-Beute und von Bibliothekaren; allein legt Simple Storage sie selbst in Vanilla-Truhen (ein Buch je Truhe zu etwa 4-9 %): Trichter I in Verliesen, Netherfestungen und Bastionen, Tiefe Taschen I in Verliesen, Tiefe Taschen II in antiken Städten, Schublade I in Waldanwesen und Festungsbibliotheken."
         ]
       }
     },
@@ -726,7 +650,7 @@
         "modules/simplestorage/shared/java/com/simplestorage/test/NetworkTests.java"
       ],
       "en": {
-        "title": "Chest network (prototype)",
+        "title": "Chest network",
         "summary": "Copper cables connect chests, each with a chest interface on its side, to one controller chest. The controller's window lists every kind of item in all connected chests: take stacks out, click with an item to store it, shift-click in the inventory to store.",
         "details": [
           "Wiring: an interface plate sits in the cell next to a chest, barrel (also the Simple Crucibles barrels, any block tagged c:barrels) or shulker box and points at it; it connects to cables and other interfaces on its other five sides. Its form follows the block: flush with a barrel or shulker box; on a chest the chest's width, beside it only the part below the lid (in front the lock stays free) and moved up to the chest, under it in its own cell. It cannot be placed on top of a chest (the lid). The controller chest needs an interface too. The cable is also a decoration block that draws arms like a chorus plant (lines, corners, pillars).",
@@ -739,7 +663,7 @@
         ]
       },
       "de": {
-        "title": "Truhen-Netzwerk (Prototyp)",
+        "title": "Truhen-Netzwerk",
         "summary": "Kupferkabel verbinden Truhen, jede mit einer Truhen-Schnittstelle an der Seite, mit einer Controller-Truhe. Das Fenster des Controllers listet jede Sorte aller verbundenen Truhen: Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein.",
         "details": [
           "Verdrahtung: eine Schnittstellen-Platte sitzt in der Zelle neben einer Truhe, einem Fass (auch den Fässern von Simple Crucibles, jedem Block mit dem Tag c:barrels) oder einer Shulkerkiste und zeigt darauf; auf ihren anderen fünf Seiten verbindet sie sich mit Kabeln und anderen Schnittstellen. Ihre Form folgt dem Block: bündig mit Fass oder Shulkerkiste; an einer Truhe in Truhenbreite, seitlich nur am Teil unter dem Deckel (vorne bleibt das Schloss frei) und an die Truhe herangerückt, darunter in der eigenen Zelle. Oben auf eine Truhe lässt sie sich nicht setzen (der Deckel). Auch die Controller-Truhe braucht eine. Das Kabel ist zugleich ein Dekoblock, der wie eine Chorus-Pflanze Arme zeichnet (Linien, Ecken, Säulen).",
@@ -753,32 +677,111 @@
       }
     },
     {
-      "id": "barrels",
+      "id": "rare_structure_finds",
       "sources": [
-        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java",
-        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlockEntity.java",
-        "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelMenu.java",
-        "modules/simplelib/shared/java/com/simplelib/api/BarrelDock.java",
-        "modules/simplestorage/shared/resources/data/simplestorage/in_world_upgrades/barrels.json"
+        "modules/simplestorage/shared/java/com/simplestorage/rare/BetterChests.java",
+        "modules/simplestorage/shared/java/com/simplestorage/rare/RareShulkers.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/StructurePieceBetterChestMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/EndCityPieceMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/StructureTemplateBetterChestMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/RareShulkerMobMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/client/ShulkerRendererMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
+        "modules/simplestorage/shared/java/com/simplestorage/mixin/ShulkerEscortMixin.java",
+        "modules/simplestorage/shared/java/com/simplestorage/test/RareFindsTests.java"
+      ],
+      "related": [
+        "simplestorage:reinforced_chest",
+        "simplestorage:netherite_chest",
+        "simplestorage:enderite_chest",
+        "simplestorage:reinforced_shulker_shell",
+        "simplestorage:netherite_shulker_shell",
+        "simplestorage:enderite_shulker_shell"
       ],
       "en": {
-        "title": "Barrels",
-        "summary": "Copper, Reinforced, Netherite and Enderite barrels: bigger than Vanilla's, upgraded in place, and the docking barrel of the Simple Crucibles.",
+        "title": "Rare structure finds",
+        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced, netherite or enderite.",
         "details": [
-          "Copper 27 slots (a Vanilla barrel surrounded by four copper ingots), Reinforced 36, Netherite 45, Enderite 54 with double stacks (128 of a 64-stack item). The barrels were Simple Crucibles' (before that SimpleLib's, the Enderite one SimpleBuilding's); they belong to Simple Storage now and old worlds migrate.",
-          "A loose barrel is placed like Vanilla's barrel, its lid towards the player (all six sides), opens its lid while someone looks in, and takes the chest interface (tag c:barrels). Raised stack limits hold in the menu, for shift-clicks and for hoppers; taking from such a slot gives at most one normal stack.",
-          "Upgrade in place like the chests: with an axe in the main hand and the material in the off hand (ten strikes; with Simple Hammers the sledgehammer): Copper to Reinforced with two cracked diamonds, Reinforced to Netherite with two netherite nuggets, Netherite to Enderite with two Enderite nuggets (Simple Ores). Contents, lid and docking stay.",
-          "With Simple Crucibles, a barrel next to a crucible attaches with six strikes: it then offers as many slots as the crucible has (6/12/18/30; the rest stays stored, hidden, and comes back when detached), opens the crucible screen, and the crucible puts its results there first. Breaking the crucible makes the barrel a normal barrel again."
+          "Better chests (betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships (with Simple Ores; without it a Netherite Chest, and no Enderite shulkers). It keeps the chest's loot table and rolls it twice.",
+          "Double chests: the first half rolls; only if the second half then rolls again with the same chance do both become better, otherwise both stay normal chests.",
+          "The roll is fixed by world seed and position, so both halves of a double chest always agree. Existing worlds and already generated structures do not change.",
+          "Rare shulkers (reinforcedShulkerPercent 2 %, at most 10 %; netheriteShulkerPercent 1 %, at most 5 %; enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, a netherite shulker 2x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
+          "Besides the vanilla drop they drop 0-2 shells of their own tier.",
+          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again.",
+          "A living shulker also takes the nugget of its next tier (iron, netherite, enderite nugget; one per step). A shulker upgraded this way drops no tier shells and calls no endermites.",
+          "The chances are server settings in config/simplestorage.json (betterChestPercent, reinforcedShulkerPercent, netheriteShulkerPercent, enderiteShulkerPercent, endermitesPerRareShulker), each clamped to the limits above; on the first start Simple Storage takes them over from SimpleBuilding's config."
         ]
       },
       "de": {
-        "title": "Fässer",
-        "summary": "Kupfer-, Verstärkte, Netherit- und Enderit-Fässer: größer als das Vanilla-Fass, in der Welt aufwertbar und das andockende Fass der Schmelztiegel von Simple Crucibles.",
+        "title": "Seltene Strukturfunde",
+        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt, aus Netherit oder aus Enderit.",
         "details": [
-          "Kupfer 27 Plätze (ein Vanilla-Fass umringt von vier Kupferbarren), Verstärkt 36, Netherit 45, Enderit 54 mit doppelten Stapeln (128 eines 64er-Items). Die Fässer gehörten Simple Crucibles (davor SimpleLib, das Enderit-Fass SimpleBuilding); sie gehören jetzt zu Simple Storage, alte Welten werden migriert.",
-          "Ein loses Fass wird wie das Vanilla-Fass gesetzt, der Deckel zum Spieler (alle sechs Seiten), öffnet den Deckel, solange jemand hineinschaut, und nimmt die Truhen-Schnittstelle an (Tag c:barrels). Erhöhte Stapelgrenzen gelten im Menü, beim Shift-Klick und für Trichter; Herausnehmen gibt höchstens einen normalen Stapel.",
-          "Aufwerten in der Welt wie bei den Truhen: Axt in der Haupthand und das Material in der Nebenhand (zehn Schläge; mit Simple Hammers der Vorschlaghammer): Kupfer zu Verstärkt mit zwei rissigen Diamanten, Verstärkt zu Netherit mit zwei Netheritklumpen, Netherit zu Enderit mit zwei Enderitklumpen (Simple Ores). Inhalt, Deckel und Andockzustand bleiben.",
-          "Mit Simple Crucibles wird ein Fass neben einem Tiegel mit sechs Schlägen angedockt: es bietet dann so viele Plätze wie der Tiegel (6/12/18/30; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da), öffnet das Tiegel-Fenster, und der Tiegel legt seine Ergebnisse zuerst dort ab. Wird der Tiegel abgebaut, ist das Fass wieder ein normales Fass."
+          "Bessere Truhen (betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff (mit Simple Ores; ohne eine Netherit-Truhe, und keine Enderit-Shulker). Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
+          "Doppeltruhen: die erste Hälfte würfelt; nur wenn danach auch die zweite Hälfte mit derselben Chance trifft, werden beide besser, sonst bleiben beide normale Truhen.",
+          "Der Wurf steht durch Weltseed und Position fest, beide Hälften einer Doppeltruhe sind sich also immer einig. Bestehende Welten und schon erzeugte Strukturen ändern sich nicht.",
+          "Seltene Shulker (reinforcedShulkerPercent 2 %, höchstens 10 %; netheriteShulkerPercent 1 %, höchstens 5 %; enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Netherit-Shulker 2-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
+          "Neben der Vanilla-Beute lassen sie 0–2 Schalen ihrer eigenen Stufe fallen.",
+          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder.",
+          "Auch ein lebender Shulker nimmt den Klumpen seiner nächsten Stufe an (Eisen-, Netherit-, Enderitklumpen; einer je Stufe). Ein so aufgewerteter Shulker lässt keine Stufen-Schalen fallen und ruft keine Endermiten.",
+          "Die Chancen sind Server-Einstellungen in config/simplestorage.json (betterChestPercent, reinforcedShulkerPercent, netheriteShulkerPercent, enderiteShulkerPercent, endermitesPerRareShulker), je auf die Obergrenzen oben begrenzt; beim ersten Start übernimmt Simple Storage sie aus der Config von SimpleBuilding."
+        ]
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplestorage config shows and changes every option of config/simplestorage.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": [
+          "Example: /simplestorage config get <option> shows the value, the default and the type; /simplestorage config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplestorage config zeigt und ändert jede Option von config/simplestorage.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplestorage config get <Option> zeigt Wert, Standard und Typ; /simplestorage config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
+    },
+    {
+      "id": "creative_tab_switch",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageRegistry.java"
+      ],
+      "en": {
+        "title": "Creative tabs",
+        "summary": "Own tab with the Storage Crafting Table, the crates and the guide. Without SimpleBuilding the table also sits behind the crafting table and the crates behind the barrel in the Vanilla functional blocks tab (switch addItemsToVanillaTabs); with SimpleBuilding its tabs list them in their old places. Switched off (SimpleBuilding's Enable Simple Storage), the tab and the Vanilla tab entries are empty; the blocks keep working.",
+        "details": []
+      },
+      "de": {
+        "title": "Kreativ-Tabs",
+        "summary": "Eigener Tab mit der Werkbank mit Lager, den Kisten und dem Handbuch. Ohne SimpleBuilding steht die Werkbank zusätzlich hinter der Werkbank und stehen die Kisten hinter dem Fass im Vanilla-Tab Gebrauchsblöcke (Schalter addItemsToVanillaTabs); mit SimpleBuilding führen dessen Tabs sie an ihren alten Plätzen. Ausgeschaltet (SimpleBuildings Simple Storage aktivieren) bleiben Tab und Vanilla-Tab-Einträge leer; die Blöcke funktionieren weiter.",
+        "details": []
+      }
+    },
+    {
+      "id": "migration",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java",
+        "modules/simplestorage/shared/java/com/simplestorage/test/StorageTests.java"
+      ],
+      "en": {
+        "title": "Moved from SimpleBuilding",
+        "summary": "The crates of every wood and the Storage Crafting Table, their block entities, recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplestorage:* through SimpleLib's id moves and save the new ids; placed crates keep their food and tables their grid.",
+        "details": [
+          "SimpleBuilding needs Simple Storage and bundles it; Simple Storage runs on its own with SimpleLib, which it bundles. Tiered chests and shulker boxes (stage 8b), bundles and quivers (8c-1) and the backpacks (8c-2) followed."
+        ]
+      },
+      "de": {
+        "title": "Aus SimpleBuilding umgezogen",
+        "summary": "Die Kisten aller Hölzer und die Werkbank mit Lager, ihre Block-Entities, Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* und speichern die neuen Ids; gesetzte Kisten behalten ihr Essen, Werkbänke ihr Raster.",
+        "details": [
+          "SimpleBuilding braucht Simple Storage und bündelt es; Simple Storage läuft allein mit SimpleLib, das es mitbringt. Stufen-Truhen und Shulker-Kisten (Stufe 8b), Bündel und Köcher (8c-1) und die Rucksäcke (8c-2) folgten."
         ]
       }
     }
@@ -791,10 +794,10 @@
         "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 37 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 36 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 37 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 36 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplestorage:*_crate": {
@@ -810,10 +813,10 @@
         "modules/simplestorage/shared/resources/data/minecraft/tags/block/mineable/axe.json"
       ],
       "en": {
-        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
+        "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food. They take at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats."
       },
       "de": {
-        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
+        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aufnehmen. Sie fassen höchstens 9 Sorten; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar."
       }
     },
     "simplestorage:storage_crafting_table": {
@@ -841,10 +844,10 @@
         "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
       ],
       "en": {
-        "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier and bigger stacks from netherite on. Slots 27/36/45/54 (double chests twice that), stacks x2 (netherite) and x4 (enderite). Each step is done in the world with the sledgehammer and keeps everything inside."
       },
       "de": {
-        "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe und ab Netherit größere Stapel. Plätze 27/36/45/54 (Doppeltruhen doppelt so viele), Stapel x2 (Netherit) und x4 (Enderit). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
       }
     },
     "simplestorage:*_shulker_box": {
@@ -855,10 +858,10 @@
         "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
       ],
       "en": {
-        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step."
+        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers in a box that keeps everything when broken. 36/45/54 slots, x2 and x4 stacks from netherite on. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step."
       },
       "de": {
-        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe."
+        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen in einer Kiste, die beim Abbauen alles behält. 36/45/54 Plätze, ab Netherit x2 und x4. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe."
       }
     },
     "simplestorage:*_chest_minecart": {
@@ -2214,10 +2217,10 @@
     },
     "simplestorage:netherite_barrel": {
       "en": {
-        "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots on its own, 9 when attached to a crucible; survives fire and lava as an item."
+        "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots with double stacks on its own, 9 when attached to a crucible; survives fire and lava as an item."
       },
       "de": {
-        "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
+        "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze mit doppelten Stapeln, am Tiegel 9; als Gegenstand feuer- und lavafest."
       },
       "sources": [
         "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"
@@ -2225,10 +2228,10 @@
     },
     "simplestorage:enderite_barrel": {
       "en": {
-        "summary": "Barrel with 54 slots and double stacks; docks onto a crucible like the other barrels and offers as many slots as the crucible has (see Crucibles)."
+        "summary": "Barrel with 54 slots and fourfold stacks; docks onto a crucible like the other barrels and offers as many slots as the crucible has (see Crucibles)."
       },
       "de": {
-        "summary": "Fass mit 54 Plätzen und doppelten Stapeln; dockt wie die anderen Fässer an einen Tiegel an und bietet so viele Plätze wie der Tiegel (siehe Schmelztiegel)."
+        "summary": "Fass mit 54 Plätzen und vierfachen Stapeln; dockt wie die anderen Fässer an einen Tiegel an und bietet so viele Plätze wie der Tiegel (siehe Schmelztiegel)."
       },
       "sources": [
         "modules/simplestorage/shared/java/com/simplestorage/barrel/BarrelBlock.java"

@@ -212,6 +212,19 @@ final class DisguiseTests {
             h.assertTrue(!MobsConfig.trickMirrorEnabled, "the mirror is off by default");
             h.succeed();
         });
+        // PLAN40 simplemobs-1 (audit P2-5): the Deceiver's fakes are never written to the chunk, so no unload or restart keeps them.
+        add.accept("deceiver_fakes_are_never_saved", h -> {
+            floor(h, 0, 8);
+            var fake = mob(h, EntityTypes.ZOMBIE, 2, 2);
+            fake.addTag(DeceiverEntity.TAG_FAKE);   // the marks DeceiverEntity#makeFake sets
+            fake.setPersistenceRequired();
+            var plain = mob(h, EntityTypes.ZOMBIE, 5, 5);
+            plain.setPersistenceRequired();
+            h.assertTrue(fake.isPersistenceRequired(), "a fake still does not despawn during the fight");
+            h.assertTrue(!fake.shouldBeSaved(), "a fake is never saved");
+            h.assertTrue(plain.shouldBeSaved(), "a normal (persistent) mob is saved as usual");
+            h.succeed();
+        });
         // TROMP-3: the look angle picks a C major step (15 steps over two octaves), two samples, pitch inside Vanilla's range.
         add.accept("trumpet_notes", h -> {
             h.assertTrue(TrumpetItem.note(15f) == 0 && TrumpetItem.note(-15f) == 24 && TrumpetItem.note(40f) == 0 && TrumpetItem.note(-80f) == 24,
@@ -411,6 +424,75 @@ final class DisguiseTests {
                 try { doubleCap(h, level); } finally { for (ChunkPos c : held) ChunkHolds.release(level, c.x(), c.z()); }
             }, () -> { for (ChunkPos c : held) ChunkHolds.release(level, c.x(), c.z()); });
         });
+        // PLAN40 simplemobs-2 (AGENTS 3.4): cloak, Howler ritual, brood hollow and Evil Vault answer with sound + particles, never with
+        // an action bar text. A really joined player (embedded connection) records every overlay message the server sends it.
+        add.accept("rituals_and_cloak_send_no_screen_text", h -> {
+            var level = h.getLevel();
+            floor(h, 0, 12);
+            List<net.minecraft.network.chat.Component> overlays = new ArrayList<>();
+            List<Runnable> cleanup = new ArrayList<>();
+            boolean oldRitual = MobsConfig.eggRitualEnabled;
+            try {
+                ServerPlayer spy = overlaySpy(h, overlays, cleanup);
+                BlockPos at = h.absolutePos(new BlockPos(2, 1, 2));
+                spy.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, -90f, 0f);
+                spy.setItemSlot(Disguise.CLOAK_SLOT, new ItemStack(DisguiseRegistry.CLOAK));
+                // Cloak: a boss sees through it; an Iron Golem's shape has no room under a two block high ceiling.
+                var guardian = mob(h, EntityTypes.ELDER_GUARDIAN, 6, 2);
+                h.assertTrue(!Disguise.morph(spy, guardian), "the Elder Guardian sees through the cloak");
+                for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) level.setBlock(h.absolutePos(new BlockPos(2 + dx, 3, 2 + dz)), Blocks.STONE.defaultBlockState(), 3);
+                var golem = mob(h, EntityTypes.IRON_GOLEM, 9, 9);
+                h.assertTrue(!Disguise.morph(spy, golem), "no room for the golem's shape");
+                h.assertTrue(!Disguise.disguised(spy), "still in the own shape");
+                // Howler ritual: every abort and refusal reason, the spy within 16 blocks of the figure.
+                for (String reason : List.of("fades", "too_bright", "too_peaceful", "wrong_dimension")) {
+                    HowlerRitual.abortEffects(level, h.absolutePos(new BlockPos(4, 1, 4)), reason);
+                }
+                // Brood hollow without offerings: it fizzles, the click is used.
+                MobsConfig.eggRitualEnabled = true;
+                BlockPos c = new BlockPos(8, 1, 3);
+                for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) {
+                    level.setBlock(h.absolutePos(c.offset(dx, 0, dz)), (dx == 0 && dz == 0 ? Blocks.PURPUR_BLOCK : Blocks.SOUL_SAND).defaultBlockState(), 3);
+                    if (dx != 0 && dz != 0) level.setBlock(h.absolutePos(c.offset(dx, 1, dz)), Blocks.SOUL_TORCH.defaultBlockState(), 3);
+                }
+                h.assertTrue(BroodRitual.tryStart(level, h.absolutePos(c), spy), "an empty hollow uses the click");
+                h.assertTrue(h.getEntities(BossMobs.BROOD_RITUAL).isEmpty(), "nothing brews");
+                // Evil Vault: a plain Trial Key is the wrong key.
+                BlockPos vault = h.absolutePos(new BlockPos(4, 1, 8));
+                var state = com.simplebuilding.modules.simplemobs.trials.Trials.EVIL_VAULT.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.VaultBlock.STATE, net.minecraft.world.level.block.entity.vault.VaultState.ACTIVE);
+                level.setBlock(vault, state, 3);
+                var hit = new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(vault), net.minecraft.core.Direction.NORTH, vault, false);
+                ((com.simplebuilding.modules.simplemobs.trials.TrialVaultBlock) com.simplebuilding.modules.simplemobs.trials.Trials.EVIL_VAULT)
+                        .useItemOn(new ItemStack(Items.TRIAL_KEY), state, level, vault, spy, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+                h.assertTrue(overlays.isEmpty(), "no action bar text: " + overlays);
+            } finally {
+                MobsConfig.eggRitualEnabled = oldRitual;
+                cleanup.forEach(Runnable::run);
+            }
+            h.succeed();
+        });
+    }
+
+    /** A really joined player (connection over an embedded channel, like GameTestHelper's mock) that records every action bar text. */
+    private static ServerPlayer overlaySpy(GameTestHelper h, List<net.minecraft.network.chat.Component> overlays, List<Runnable> cleanup) {
+        var server = h.getLevel().getServer();
+        var profile = new com.mojang.authlib.GameProfile(UUID.randomUUID(), "overlay-spy");
+        ServerPlayer spy = new ServerPlayer(server, h.getLevel(), profile, net.minecraft.server.level.ClientInformation.createDefault()) {
+            @Override
+            public void sendSystemMessage(net.minecraft.network.chat.Component message, boolean overlay) {
+                if (overlay) overlays.add(message);
+                super.sendSystemMessage(message, overlay);
+            }
+        };
+        var connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND);
+        var channel = new io.netty.channel.embedded.EmbeddedChannel(connection);
+        server.getPlayerList().placeNewPlayer(connection, spy, net.minecraft.server.network.CommonListenerCookie.createInitial(profile, false));
+        cleanup.add(() -> {
+            server.getPlayerList().remove(spy);
+            channel.finishAndReleaseAll();
+        });
+        return spy;
     }
 
     /** Polls once per tick until all chunks and their entities are loaded, then runs the body; fails (after {@code left} ticks) via {@code giveUp}. */

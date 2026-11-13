@@ -1641,7 +1641,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mobs",
-      "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Red Nether Gem, and the Potion of Silence.",
+      "description": "New mobs (Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Dread, Deceiver) and summoned bosses (Void Runner, Brimguard, the armored Blighted and Abyssal Wither). Weathered Trials with the Evil and Void Omen chain (trials, raids, vaults, keys), Wings tiers 1 to 4 with Nether Heart, Red Nether Gem, Ender Heart and Ender Gem, Spawner Fragments and the Makeshift Spawner, Strong Gunpowder, TNT and Rocket, the Trumpet, the Cloak of Deception and Trick Mirror, combat effects, armor trim abilities, the brood hollow with Mob Essence and the Potion of Silence. Requires Simple Resonance.",
       "loaders": [
         "fabric",
         "neoforge",

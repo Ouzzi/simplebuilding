@@ -66,7 +66,7 @@ final class BarrelTests {
         if (BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleStorage.id("barrel")) != StorageBlockEntities.BARREL) problems.add("block entity type");
         if (SimpleStorage.BARRELS.size() != 4) problems.add("four barrels, got " + SimpleStorage.BARRELS);
         int[] rows = {3, 4, 5, 6};
-        int[] stacks = {1, 1, 1, 2};
+        int[] stacks = {1, 1, 2, 4}; // PLAN40 simplestorage-4: like the chest of the tier
         for (BarrelTier tier : BarrelTier.values()) {
             if (tier.rows() != rows[tier.ordinal()] || tier.stackMultiplier() != stacks[tier.ordinal()]) problems.add("shape of " + tier);
             Block block = barrel(tier);
@@ -166,7 +166,7 @@ final class BarrelTests {
         h.succeed();
     }
 
-    /** Placing: every tier opens as a chest of its size, with the raised limit (Enderite 128), comparator signal, hopper-ready container. */
+    /** Placing: every tier opens as a chest of its size, with the raised limit (Netherite 128, Enderite 256), comparator signal, hopper-ready container. */
     static void placement(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
         BlockPos rel = new BlockPos(2, 2, 2);
@@ -181,7 +181,7 @@ final class BarrelTests {
             if (barrel.getContainerSize() != sizes[tier.ordinal()]) problems.add(tier + " size " + barrel.getContainerSize());
             if (barrel.tier() != tier) problems.add("tier " + tier);
             ItemStack cobble = new ItemStack(Items.COBBLESTONE);
-            int expected = tier == BarrelTier.ENDERITE ? 128 : 64;
+            int expected = 64 * tier.stackMultiplier(); // copper/reinforced 64, netherite 128, enderite 256
             if (barrel.getMaxStackSize(cobble) != expected) problems.add(tier + " limit " + barrel.getMaxStackSize(cobble));
             if (barrel.attached()) problems.add(tier + " attached by itself");
             barrel.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
@@ -235,16 +235,17 @@ final class BarrelTests {
     }
 
     /**
-     * Owner N15: a loose barrel opens a chest menu whose slots keep the barrel's limit on both sides - the Enderite mirror takes 128,
-     * a shift-click of two full stacks fills one slot, picking up gives a normal stack, and a copper barrel stays at 64.
+     * Owner N15: a loose barrel opens a chest menu whose slots keep the barrel's limit on both sides - the Enderite mirror takes 256
+     * (PLAN40 simplestorage-4), a shift-click of two full stacks fills one slot, picking up gives a normal stack, and a copper barrel
+     * stays at 64.
      */
     static void looseBarrelMenu(GameTestHelper h) {
         Player player = h.makeMockPlayer(GameType.SURVIVAL);
         ItemStack cobble = new ItemStack(Items.COBBLESTONE);
         BarrelTier tier = BarrelTier.ENDERITE;
         var client = BarrelMenu.client(tier, 0, player.getInventory());
-        h.assertTrue(client.slots.get(0).getMaxStackSize(cobble) == 128 && client.getRowCount() == 6,
-                "enderite barrel on the client: 6 rows of 128, got " + client.getRowCount() + " rows of " + client.slots.get(0).getMaxStackSize(cobble));
+        h.assertTrue(client.slots.get(0).getMaxStackSize(cobble) == 256 && client.getRowCount() == 6,
+                "enderite barrel on the client: 6 rows of 256, got " + client.getRowCount() + " rows of " + client.slots.get(0).getMaxStackSize(cobble));
         var barrel = com.simplelib.api.StackLimits.mirror(tier.slots(), tier::stackMultiplier);
         var menu = new BarrelMenu(tier, 0, player.getInventory(), barrel);
         player.getInventory().setItem(0, new ItemStack(Items.COBBLESTONE, 64));

@@ -37,7 +37,8 @@
     "BlockRotProcessorMixin",
     "StructureWeatheredMixin",
     "ItemBossRitualMixin",
-    "FlintAndSteelBroodMixin"
+    "FlintAndSteelBroodMixin",
+    "DeceiverFakeSaveMixin"
   ],
   "client": [
     "DeceiverLookMixin",
@@ -49,7 +50,8 @@
     "InventoryScreenDisguiseMixin",
     "LivingEntityRendererAccessor",
     "AvatarRendererCloakMixin",
-    "CapeLayerCloakMixin"
+    "CapeLayerCloakMixin",
+    "WingsLayerLookMixin"
   ],
   "injectors": {
     "defaultRequire": 1

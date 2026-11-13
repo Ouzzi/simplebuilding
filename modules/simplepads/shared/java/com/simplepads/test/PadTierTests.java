@@ -341,42 +341,7 @@ public final class PadTierTests {
         helper.succeed();
     }
 
-    /**
-     * Welt-Upgrade der Flypads (fuenf Stufen -> drei): ein altes Netherit-Flypad (alt III) wird beim
-     * ersten Tick zum Flypad II, ein altes Enderit-Flypad (alt IV) zum Stellaren Flypad III, beide mit
-     * ihrem Besitzer; ihre Items tauschen sich im Inventar um (Anzahl bleibt). Kein Kreativ-Tab.
-     */
-    public static void oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory(GameTestHelper helper) {
-        Block[] old = {PadsBlocks.NETHERITE_FLYPAD, PadsBlocks.ENDERITE_FLYPAD};
-        Block[] now = {PadsBlocks.REINFORCED_FLYPAD, PadsBlocks.STELLAR_FLYPAD};
-        java.util.UUID owner = java.util.UUID.randomUUID();
-        for (int i = 0; i < 2; i++) {
-            BlockPos pos = new BlockPos(2 + i * 3, 1, 3);
-            helper.setBlock(pos, old[i]);
-            com.simplepads.block.entity.FlypadBlockEntity be = helper.getBlockEntity(pos, com.simplepads.block.entity.FlypadBlockEntity.class);
-            be.setOwner(owner);
-            com.simplepads.block.entity.FlypadBlockEntity.serverTick(helper.getLevel(), helper.absolutePos(pos), helper.getBlockState(pos), be);
-            helper.assertTrue(helper.getBlockState(pos).is(now[i]), old[i] + " became " + helper.getBlockState(pos).getBlock() + " instead of " + now[i]);
-            com.simplepads.block.entity.FlypadBlockEntity fresh = helper.getBlockEntity(pos, com.simplepads.block.entity.FlypadBlockEntity.class);
-            helper.assertTrue(owner.equals(fresh.getOwner()), "the migrated " + now[i] + " lost its owner");
-        }
-        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
-        for (int i = 0; i < 2; i++) {
-            ItemStack stack = new ItemStack(old[i], 3);
-            player.getInventory().setItem(10 + i, stack);
-            stack.getItem().inventoryTick(stack, helper.getLevel(), player, null);
-            ItemStack after = player.getInventory().getItem(10 + i);
-            helper.assertTrue(after.is(now[i].asItem()) && after.getCount() == 3, "an old " + old[i] + " stack in the inventory became " + after);
-        }
-        for (com.simplepads.item.PadsItems.Row row : com.simplepads.item.PadsItems.padsRows()) {
-            for (ItemStack stack : row.stacks()) {
-                helper.assertTrue(!stack.is(old[0].asItem()) && !stack.is(old[1].asItem()), "an old flypad is still in the creative tab row " + row.name());
-            }
-        }
-        helper.succeed();
-    }
-
-    /** Jede Familie nennt ihre Stufen aufsteigend und damit ihre hoechste Stufe; alte Bloecke gehoeren zu keiner. */
+    /** Jede Familie nennt ihre Stufen aufsteigend und damit ihre hoechste Stufe. */
     public static void everyFamilyNamesItsLastTier(GameTestHelper helper) {
         java.util.Map<PadFamilies.Family, Block> last = java.util.Map.of(
                 PadFamilies.Family.ELYTRA_PAD, PadsBlocks.ENDERITE_ELYTRA_PAD,
@@ -388,9 +353,6 @@ public final class PadTierTests {
                 PadFamilies.Family.POTION_PAD, PadsBlocks.INFUSED_POTION_PAD);
         for (PadFamilies.Family family : PadFamilies.Family.values()) {
             helper.assertTrue(PadFamilies.lastTier(family) == last.get(family), family + " names " + PadFamilies.lastTier(family) + " as its last tier");
-            for (Block legacy : PadsBlocks.legacy()) {
-                helper.assertTrue(!PadFamilies.tiers(family).contains(legacy), family + " lists the old block " + legacy);
-            }
         }
         helper.assertTrue(PadFamilies.tiers(PadFamilies.Family.FLYPAD).size() == PadTiers.FLYPAD_MAX
                 && PadFamilies.tiers(PadFamilies.Family.ELYTRA_PAD).size() == PadTiers.MAX, "family sizes do not match the pad tiers");

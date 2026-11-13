@@ -270,7 +270,7 @@ final class WitherTests {
             }
             h.assertTrue(low >= 10 && high <= 15 && high > low, "two Diamond Helmets give 10 to 15 Diamonds: " + low + ".." + high);
             var chain = ArmoredWither.loot(java.util.List.of(Items.CHAINMAIL_HELMET), random);
-            h.assertTrue(chain.size() == 1 && chain.getFirst().is(Items.FIRE_CHARGE)
+            h.assertTrue(chain.size() == 1 && chain.getFirst().is(ArmoredWither.FORBIDDEN_FIRE)
                     && com.simplelib.api.SimpleRarity.of(chain.getFirst()) == com.simplelib.api.SimpleRarity.CURSED, "the Chainmail Helmet gives the forbidden fire");
             // the figure: side helmets come from Simple Mobheads (its component); without it there are none (standalone run)
             var type = BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Identifier.fromNamespaceAndPath("simplemobheads", "helmet"));
@@ -304,6 +304,36 @@ final class WitherTests {
             clearBosses(h);
             h.succeed();
         }));
+        // PLAN40 simplemobs-2 (a-w1b): the forbidden fire is an own item (was a renamed Fire Charge) that works like a Fire Charge
+        add.accept("forbidden_fire_is_its_own_item", h -> {
+            ServerLevel level = h.getLevel();
+            Item fire = ArmoredWither.FORBIDDEN_FIRE;
+            h.assertTrue(BuiltInRegistries.ITEM.getKey(fire).equals(Identifier.fromNamespaceAndPath(MobsRegistry.ID, "forbidden_fire"))
+                    && fire != Items.FIRE_CHARGE && fire instanceof net.minecraft.world.item.FireChargeItem, "registered as simplemobs:forbidden_fire, a Fire Charge kind");
+            ItemStack stack = ArmoredWither.forbiddenFire();
+            h.assertTrue(stack.is(fire) && fire.getDescriptionId().equals("item.simplemobs.forbidden_fire")
+                    && com.simplelib.api.SimpleRarity.of(stack) == com.simplelib.api.SimpleRarity.CURSED, "loot stack: own item, own name key, Cursed");
+            h.assertTrue(MobsRegistry.TAB_ITEMS.contains("forbidden_fire"), "in the Simple Mobs tab");
+            // dispenser: registered like the Fire Charge and shot as a small fireball that carries the forbidden fire
+            h.assertTrue(net.minecraft.world.level.block.DispenserBlock.DISPENSER_REGISTRY.containsKey(fire), "a dispenser shoots it");
+            var ball = ((net.minecraft.world.item.ProjectileItem) fire).asProjectile(level, new Vec3(0, 0, 0), stack, net.minecraft.core.Direction.EAST);
+            h.assertTrue(ball instanceof net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball small && small.getItem().is(fire),
+                    "flies as a small fireball drawn as the forbidden fire");
+            // use on a block: places fire and is used up, like the Fire Charge
+            BlockPos ground = new BlockPos(1, 1, 1);
+            h.setBlock(ground, Blocks.STONE);
+            h.setBlock(ground.above(), Blocks.AIR);
+            var player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+            ItemStack held = new ItemStack(fire, 2);
+            player.setItemInHand(InteractionHand.MAIN_HAND, held);
+            BlockPos abs = h.absolutePos(ground);
+            var hit = new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), net.minecraft.core.Direction.UP, abs, false);
+            var result = held.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit));
+            h.assertTrue(result.consumesAction() && level.getBlockState(abs.above()).is(Blocks.FIRE) && held.getCount() == 1,
+                    "lights fire and is used up (" + result + ", above=" + level.getBlockState(abs.above()) + ", left=" + held.getCount() + ")");
+            h.setBlock(ground.above(), Blocks.AIR);
+            h.succeed();
+        });
         add.accept("wither_minion_armor", h -> normal(h, () -> {
             ServerLevel level = h.getLevel();
             floor(h, 0, 0, 7, 7);

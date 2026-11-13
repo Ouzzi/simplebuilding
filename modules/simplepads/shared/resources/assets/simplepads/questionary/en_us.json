@@ -4,7 +4,7 @@
       "{name}: A little patch of sky you may stand on."
     ],
     "use": [
-      "Grants creative flight inside its area (tier I: 4x4x8 blocks, width, depth, height) and takes it back when you leave. Tier I is crafted shapeless from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending."
+      "Grants creative flight inside its area (tier I: 4x4x8 blocks, width, depth, height) and takes it back when you leave. Tier I is crafted shapeless from an Enderite Core, an Enderite Owner Plate, a Shulker Head and an elytra with Mending."
     ],
     "secret": [
       "Three tiers exist: Flypad I, Reinforced Flypad II and Stellar Flypad III. Pads do not stack, each is a single piece."
@@ -103,7 +103,7 @@
       "{name}: a gust that waits for you to arrive."
     ],
     "use": [
-      "Charge it with wind charges (tier III: up to 16) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Enderite Upgrade, Launchpad II and an Enderite Pressure Plate, smithed."
+      "Charge it with wind charges (tier III: up to 16) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Enderite Upgrade, Launchpad II and an Enderite Owner Plate, smithed."
     ],
     "secret": [
       "Three tiers: Launchpad I, Netherite Launchpad II and Enderite Launchpad III. Pads do not stack."
@@ -169,7 +169,7 @@
       "{name}: a lantern for the land, so it does not forget to be there."
     ],
     "use": [
-      "Keeps chunks loaded. Tier III: 9 chunks in a 3x3 square. With default server settings, an assigned owner must be online. Smithing: Enderite Upgrade, Chunk Loader II and an Enderite Pressure Plate."
+      "Keeps chunks loaded. Tier III: 9 chunks in a 3x3 square. With default server settings, an assigned owner must be online. Smithing: Enderite Upgrade, Chunk Loader II and an Enderite Owner Plate."
     ],
     "secret": [
       "Three tiers: Chunk Loader I, Netherite II and Enderite III."

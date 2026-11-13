@@ -15,7 +15,7 @@ en = json.loads((RES / f'assets/{NS}/lang/en_us.json').read_text(encoding='utf-8
 de = json.loads((RES / f'assets/{NS}/lang/de_de.json').read_text(encoding='utf-8'))
 assert set(en) == set(de), sorted(set(en) ^ set(de))
 blocks = re.findall(r'register\("([a-z0-9_]+)"', (JAVA / 'block/PadsBlocks.java').read_text(encoding='utf-8'))
-assert len(blocks) == 35, len(blocks)
+assert len(blocks) == 29, len(blocks)
 pickaxe = json.loads((RES / 'data/minecraft/tags/block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
 for b in blocks:
     assert (RES / f'assets/{NS}/blockstates/{b}.json').is_file(), b

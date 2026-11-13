@@ -778,6 +778,44 @@ public final class NetworkTests {
         h.succeed();
     }
 
+    /**
+     * PLAN40 simplestorage-5 (audit P3-1): a burst of clicks within one tick counts the network once - search, scroll and sort only
+     * filter the last count at once, takes mark it dirty - and the next tick counts again with the real totals.
+     */
+    public static void controllerRecountsAtMostOncePerTick(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
+        container(h, UP_CHEST).setItem(0, new ItemStack(Items.STONE, 64));
+        container(h, UP_CHEST).setItem(1, new ItemStack(Items.STONE, 64));
+        container(h, SOUTH_CHEST).setItem(0, new ItemStack(Items.GOLD_INGOT, 3));
+        ServerPlayer player = player(h);
+        ControllerMenu menu = ControllerMenu.server(1, player.getInventory(), controller);
+        List<String> problems = new ArrayList<>();
+        int opened = menu.refreshCount();
+        if (opened != 1) problems.add("opening counted " + opened + " times");
+        for (int i = 0; i < 20; i++) {
+            menu.clicked(0, 1, ContainerInput.PICKUP, player); // half a stack of stone each
+            menu.setCarried(ItemStack.EMPTY);
+            menu.broadcastChanges(); // the server calls it after every click packet
+        }
+        for (char c : "gold".toCharArray()) menu.clickMenuButton(player, ControllerMenu.CHAR + c);
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SORT);
+        menu.broadcastChanges();
+        if (menu.refreshCount() != opened) problems.add("a burst in one tick counted " + (menu.refreshCount() - opened) + " more times");
+        if (!menu.search().equals("gold") || menu.kinds() != 1) problems.add("the search did not filter at once: kinds " + menu.kinds());
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SEARCH_CLEAR);
+        long stone = networkCount(h, controller, Items.STONE);
+        if (stone != 0) problems.add("20 half-stack takes left " + stone + " stone (the old count must not limit what is taken)");
+        h.runAfterDelay(1, () -> {
+            menu.broadcastChanges();
+            if (menu.refreshCount() != opened + 1) problems.add("the next tick counted " + (menu.refreshCount() - opened) + " times");
+            if (menu.kinds() != 1 || !menu.getSlot(0).getItem().is(Items.GOLD_INGOT) || menu.countAt(0) != 3) {
+                problems.add("after the recount: kinds " + menu.kinds() + ", cell 0 " + menu.getSlot(0).getItem() + " x" + menu.countAt(0));
+            }
+            h.assertTrue(problems.isEmpty(), "controller throttle: " + problems);
+            h.succeed();
+        });
+    }
+
     /** The window as a player drives it: search by menu clicks, backspace, clear, scrollbar jumps, half and full stacks. */
     public static void windowSearchScrollAndStackTakes(GameTestHelper h) {
         ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);

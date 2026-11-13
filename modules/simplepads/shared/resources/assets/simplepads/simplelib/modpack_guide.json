@@ -9,7 +9,7 @@
       "title": "simplepads.guide.chapter",
       "icon": "minecraft:stone_pressure_plate",
       "page_key": "simplepads.guide.page",
-      "pages": 6,
+      "pages": 21,
       "advancement": "simplepads:guide/chapter",
       "hint": "minecraft:stone_pressure_plate"
     }

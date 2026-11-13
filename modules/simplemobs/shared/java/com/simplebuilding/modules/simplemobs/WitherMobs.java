@@ -94,6 +94,7 @@ public final class WitherMobs {
         sink.accept(HEART_KEY, HEART);
         sink.accept(GEM_KEY, GEM);
         WitherWings.items(sink);
+        ArmoredWither.items(sink);
         StrongExplosives.items(sink);
         SpawnerParts.items(sink);
         com.simplebuilding.modules.simplemobs.trials.Trials.items(sink);

@@ -310,8 +310,8 @@ public final class PotionPadTests {
 
     /**
      * Jedes Pad-Item stapelt nicht (Stapelgroesse 1): alle Stufen aller Familien (Elytra-Pad, Flypad,
-     * Spawn-Teleporter, Launchpad, Chunk-Loader, Trank-Pad), ihre Easter-Stufen, ein abklingendes
-     * Trank-Pad und die alten Flypads. Gegenprobe: die Druckplatten sind keine Pads und stapeln bis 64.
+     * Spawn-Teleporter, Launchpad, Chunk-Loader, Trank-Pad), ihre Easter-Stufen und ein abklingendes
+     * Trank-Pad. Gegenprobe: die Druckplatten sind keine Pads und stapeln bis 64.
      */
     public static void everyPadItemStacksToOne(GameTestHelper helper) {
         List<Block> pads = new java.util.ArrayList<>();
@@ -320,8 +320,7 @@ public final class PotionPadTests {
                 pads.addAll(PadFamilies.tiers(family));
             }
         }
-        pads.addAll(PadsBlocks.legacy());
-        helper.assertTrue(pads.size() == 24, "expected 24 pad blocks (18 tiers + 6 legacy pads), found " + pads.size());
+        helper.assertTrue(pads.size() == 18, "expected 18 pad blocks (6 families x 3 tiers), found " + pads.size());
         for (Block pad : pads) {
             ItemStack stack = new ItemStack(pad);
             helper.assertTrue(stack.getMaxStackSize() == 1, pad + " stacks to " + stack.getMaxStackSize() + " instead of 1");

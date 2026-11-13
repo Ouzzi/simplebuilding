@@ -140,16 +140,16 @@ public final class SimplePads {
                     || (!p.enableLaunchpads && path.contains("launchpad")) || (!p.enablePotionPads && path.contains("potion_pad"));
         });
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "pads", "simplepads.testcentre.station",
-                PadsItems.all().stream().map(i -> BuiltInRegistries.ITEM.getKey(i).toString())
-                        .filter(s -> !PadsBlocks.legacy().stream().anyMatch(b -> BuiltInRegistries.BLOCK.getKey(b).toString().equals(s)))
-                        .toList());
+                PadsItems.all().stream().map(i -> BuiltInRegistries.ITEM.getKey(i).toString()).toList());
     }
 
     /**
-     * Every {@code simplebuilding:} id of the pads resolves to {@code simplepads:}: blocks and items (also the legacy tiers, the
-     * Spawn Elytra and the Funny Stick), the eight block entity types (same NBT keys), the item components, the two recipe
-     * serializers, every pad recipe and its recipe advancement, the advancements {@code pads/*} (not the two head ones, those are
-     * Simple Mobheads') and {@code easter/*}.
+     * Every {@code simplebuilding:} id of the pads resolves to {@code simplepads:}: blocks and items (also the Spawn Elytra and
+     * the Funny Stick), the eight block entity types (same NBT keys), the item components, the two recipe serializers, every pad
+     * recipe and its recipe advancement, the advancements {@code pads/*} (not the two head ones, those are Simple Mobheads') and
+     * {@code easter/*}. The six retired tiers of the five-tier time ({@link PadsIds#RETIRED}, removed before the first release,
+     * simplepads-4) resolve to their new tier, block and item, from {@code simplepads:} and straight from {@code simplebuilding:};
+     * their block entity type ids never changed, so a placed pad keeps its owner and state.
      */
     public static synchronized void registerIdMoves() {
         if (movesRegistered) return;
@@ -158,6 +158,12 @@ public final class SimplePads {
             move(Registries.BLOCK, path);
             move(Registries.ITEM, path);
         }
+        PadsIds.RETIRED.forEach((old, now) -> {
+            for (ResourceKey<? extends Registry<?>> registry : List.<ResourceKey<? extends Registry<?>>>of(Registries.BLOCK, Registries.ITEM)) {
+                IdMoves.move(registry, id(old), id(now));
+                IdMoves.move(registry, Identifier.fromNamespaceAndPath(SB_NAMESPACE, old), id(now));
+            }
+        });
         move(Registries.ITEM, "spawn_elytra");
         move(Registries.ITEM, "funny_stick");
         for (String path : PadsIds.BLOCK_ENTITY_TYPES) move(Registries.BLOCK_ENTITY_TYPE, path);
@@ -175,5 +181,10 @@ public final class SimplePads {
     /** Ids moved from SimpleBuilding (the old paths are the new ones). */
     public static List<String> movedBlocks() {
         return PadsIds.BLOCKS;
+    }
+
+    /** The retired tiers of the five-tier time: old path -> path of the tier its id resolves to (simplepads-4). */
+    public static java.util.Map<String, String> retiredTiers() {
+        return PadsIds.RETIRED;
     }
 }

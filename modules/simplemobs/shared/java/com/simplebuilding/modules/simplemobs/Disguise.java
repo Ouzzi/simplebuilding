@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.UUID;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -102,9 +101,13 @@ public final class Disguise {
         }
     }
 
-    private static void tell(Player p, Component message) {
-        if (p instanceof net.minecraft.server.level.ServerPlayer sp && sp.connection == null) return; // test players
-        p.sendOverlayMessage(message);
+    /**
+     * GADGET (owner 01.11., PLAN40 simplemobs-2): a refused shape is smoke where it failed ({@code at}: the mob that sees through,
+     * or the player where the shape has no room) and a dull ring of the cloak (a shape taken rings bright), no action bar text.
+     */
+    private static void refuse(ServerLevel level, Player p, Entity at) {
+        level.sendParticles(ParticleTypes.SMOKE, at.getX(), at.getY() + at.getBbHeight() * 0.8, at.getZ(), 10, 0.25, 0.2, 0.25, 0.01);
+        level.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.PLAYERS, 1.0f, 0.6f);
     }
 
     public static boolean seesThrough(EntityType<?> type) {
@@ -118,11 +121,11 @@ public final class Disguise {
 
     // ---- server side ------------------------------------------------------------------
 
-    /** Takes the shape of {@code target}; false (with a hint) when it is a boss or the shape has no room here. */
+    /** Takes the shape of {@code target}; false (smoke and a dull ring, see {@link #refuse}) when it is a boss or the shape has no room here. */
     public static boolean morph(Player p, LivingEntity target) {
         if (!(p.level() instanceof ServerLevel level) || !wearsCloak(p)) return false;
         if (seesThrough(target.getType()) || !(target instanceof Mob || target instanceof Player)) {
-            tell(p, Component.translatable("message.simplemobs.disguise.refused", target.getType().getDescription()));
+            refuse(level, p, target);
             return false;
         }
         String spec;
@@ -133,7 +136,7 @@ public final class Disguise {
         } else {
             EntityType<?> type = target.getType();
             if (!level.noCollision(p, type.getDimensions().makeBoundingBox(p.position()))) {
-                tell(p, Component.translatable("message.simplemobs.disguise.no_room"));
+                refuse(level, p, p);
                 return false;
             }
             spec = BuiltInRegistries.ENTITY_TYPE.getKey(type).toString();

@@ -72,7 +72,9 @@ public final class RareShulkers {
         if (!SimpleStorage.on()) {
             return;
         }
-        ChestTier tier = tierFor(random.nextDouble(), StorageConfig.enderiteShulkerChance(), StorageConfig.netheriteShulkerChance(),
+        // PLAN40 simplestorage-1: no Enderite shulkers without Simple Ores (owner of Enderite).
+        double enderite = BetterChests.enderiteFinds() ? StorageConfig.enderiteShulkerChance() : 0.0;
+        ChestTier tier = tierFor(random.nextDouble(), enderite, StorageConfig.netheriteShulkerChance(),
                 StorageConfig.reinforcedShulkerChance());
         if (tier != null) {
             apply(shulker, tier);

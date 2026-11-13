@@ -40,11 +40,6 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity implements PadSignalS
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ElytraPadBlockEntity be) {
-        // Alte Stufe im geladenen Weltbereich (vor 2026-10-07 gab es fuenf Elytra-Pad-Stufen): einmalig zur neuen Stufe.
-        if (state.getBlock() instanceof com.simplepads.block.LegacyElytraPadBlock legacy) {
-            legacy.migrate(level, pos, be);
-            return;
-        }
         if (level.getGameTime() % 10 == 0) {
             int count = applyArea(level, pos, state);
             // Sichtbarer Zustand (Besitzer 2026-09-29): leuchtet, solange es jemanden versorgt.

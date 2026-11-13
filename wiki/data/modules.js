@@ -161,7 +161,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 80
     },
-    "dataHash": "000436829e46"
+    "dataHash": "308de9904891"
   },
   {
     "id": "simpleriding",
@@ -738,7 +738,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplemobs",
     "displayName": "Simple Mobs",
-    "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted and Abyssal Wither with Nether Heart and Red Nether Gem, and the Potion of Silence.",
+    "description": "New mobs (Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Dread, Deceiver) and summoned bosses (Void Runner, Brimguard, the armored Blighted and Abyssal Wither). Weathered Trials with the Evil and Void Omen chain (trials, raids, vaults, keys), Wings tiers 1 to 4 with Nether Heart, Red Nether Gem, Ender Heart and Ender Gem, Spawner Fragments and the Makeshift Spawner, Strong Gunpowder, TNT and Rocket, the Trumpet, the Cloak of Deception and Trick Mirror, combat effects, armor trim abilities, the brood hollow with Mob Essence and the Potion of Silence. Requires Simple Resonance.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -767,10 +767,10 @@ window.WIKI_MODULES = [
       "items": 55,
       "blocks": 8,
       "recipes": 119,
-      "config": 61,
+      "config": 82,
       "features": 25
     },
-    "dataHash": "c230856a23e4"
+    "dataHash": "bc9989cc662b"
   },
   {
     "id": "simpleweather",
@@ -1502,7 +1502,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 8
     },
-    "dataHash": "10ada0361221"
+    "dataHash": "1e665930e947"
   },
   {
     "id": "simpleoctets",
@@ -1745,12 +1745,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABw0lEQVR42qWTV0tDQRCF/RW+2LAhKGpM7BoSu8YWo9gQG4pdYu9YsSESFERRISgidg32XmJ78Enf/SnHzMgNmqxPPpw7e3fmfDu77DpEatT4jxzoc/5uFmoxX84S5Qynxt8A4/0O3j4/OLZEeXC0HUsic/VIiz2ApPVxZBNF27FkpoWEACp6nSzAy0Q+nsfy8DSai8eRHJiHs/EwpLOChB1QgoruB7NwN6DFbX8mbvsycNObjuueNFx1p2IuR4biQCeuFQKo6LJLg4tODc47UnDWnozTtiSctCbiuDkBhkx/BlCkejvAeIovFx41xeNQH8f7NzXE4KBezblJjR8DKP4C0A+ZqEgSmaXxoQXao/Zmc12Ym/0WaIJWmskOgkEngyFLBvONCdPaAExlBMCkT0CXygubawuoCfkDsFerwk61ks+BNDXWx3G1JAz7jXHoUHpyB1XBrmLAdlU0NiujYCwKsdNufSxao78BlQoXMWCjIhLr5RFYKpDbSIGt2hg0W86EAOVyZzFgrSyc2/15kKSF3CBs1Kigj3BHqcxZfJFoghIrxaHc8nKhgh/RvMVMl2dWF2i9hWSUZAVIkopE+us5fwF7/ihD39cG0AAAAABJRU5ErkJggg==",
     "counts": {
       "items": 18,
-      "blocks": 51,
-      "recipes": 184,
+      "blocks": 52,
+      "recipes": 185,
       "config": 9,
       "features": 16
     },
-    "dataHash": "0f8f85dbbeaf"
+    "dataHash": "fded98d362d5"
   },
   {
     "id": "simplemusic",
@@ -2218,18 +2218,18 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite, Enderite and copper pressure plates.",
-      "de": "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten."
+      "en": "Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite and copper pressure plates and the Enderite Owner Plate.",
+      "de": "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, Netherit- und Kupfer-Druckplatten und die Enderit-Besitzerplatte."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
     "counts": {
       "items": 3,
-      "blocks": 35,
+      "blocks": 29,
       "recipes": 26,
       "config": 34,
-      "features": 1
+      "features": 9
     },
-    "dataHash": "d49aea547a66"
+    "dataHash": "60c22ec8a536"
   },
   {
     "id": "simplebuildingtools",

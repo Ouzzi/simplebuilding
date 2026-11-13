@@ -6,7 +6,6 @@ import com.simplepads.PadsConfig;
 import com.simplepads.block.LaunchpadBlock;
 import com.simplepads.block.PadBlock;
 import com.simplepads.block.PotionPadBlock;
-import com.simplepads.block.LegacyTierBlock;
 import com.simplepads.block.PadsBlocks;
 import com.simplepads.block.PadFamilies;
 import com.simplepads.block.entity.ElytraPadBlockEntity;
@@ -134,117 +133,6 @@ public final class PadOverhaulTests {
                     helper.assertTrue(players.get(0).position().distanceTo(starts.get(0)) > 2.0, "spawn teleporter I did not send its player away");
                 })
                 .thenSucceed();
-    }
-
-    /**
-     * Welt-Upgrade (fuenf Stufen -> drei): ein alter Teleporter III wird beim ersten Tick Stufe II, ein
-     * alter IV Stufe III (wie das alte V, das seine Id behaelt) - Besitzer bleibt, eine Easter-Stufe wird
-     * auf die neue Stufe umgerechnet (alt IV mit Easter-Stufe 4 ist danach die letzte Stufe 3, doppelt so
-     * schnell). Im Inventar tauschen sich die Items samt Anzahl und Easter-Stufe; die alten Stufen stehen
-     * nicht im Kreativ-Tab, sind in JEI ausgeblendet und gehoeren zu keiner Familie.
-     */
-    public static void oldSpawnTeleportersBecomeTheirNewTierInTheWorldAndTheInventory(GameTestHelper helper) {
-        Block[] old = {PadsBlocks.SPAWN_TELEPORTER_TIER_3, PadsBlocks.SPAWN_TELEPORTER_TIER_4};
-        Block[] now = {PadsBlocks.SPAWN_TELEPORTER_TIER_2, PadsBlocks.ENDERITE_SPAWN_TELEPORTER};
-        int[] oldStage = {3, 4};
-        int[] newStage = {2, 3};
-        UUID owner = UUID.randomUUID();
-        ServerLevel level = helper.getLevel();
-        for (int i = 0; i < 2; i++) {
-            BlockPos pos = new BlockPos(2 + i * 3, 1, 3);
-            helper.setBlock(pos, old[i]);
-            SpawnTeleporterBlockEntity be = helper.getBlockEntity(pos, SpawnTeleporterBlockEntity.class);
-            be.setOwner(owner);
-            be.setEasterStage(oldStage[i]);
-            SpawnTeleporterBlockEntity.serverTick(level, helper.absolutePos(pos), helper.getBlockState(pos), be);
-            helper.assertTrue(helper.getBlockState(pos).is(now[i]), old[i] + " became " + helper.getBlockState(pos).getBlock() + " instead of " + now[i]);
-            OwnedBlockEntity fresh = helper.getBlockEntity(pos, OwnedBlockEntity.class);
-            helper.assertTrue(owner.equals(fresh.getOwner()), "the migrated " + now[i] + " lost its owner");
-            helper.assertValueEqual(fresh.easterStage(), newStage[i], "easter stage of the migrated " + now[i]);
-            helper.assertTrue(((LegacyTierBlock) old[i]).target() == now[i], old[i] + " names the wrong new tier");
-        }
-        helper.assertTrue(EasterEggs.isBoosted(level, helper.absolutePos(new BlockPos(5, 1, 3))),
-                "the old easter IV did not become the final (doubled) easter stage of tier III");
-
-        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
-        for (int i = 0; i < 2; i++) {
-            ItemStack stack = new ItemStack(old[i], 1);
-            if (i == 1) {
-                stack.set(EasterEggs.EASTER_STAGE, 4);
-            }
-            player.getInventory().setItem(10 + i, stack);
-            stack.getItem().inventoryTick(stack, level, player, null);
-            ItemStack after = player.getInventory().getItem(10 + i);
-            helper.assertTrue(after.is(now[i].asItem()) && after.getCount() == 1, "an old " + old[i] + " stack in the inventory became " + after);
-            if (i == 1) {
-                helper.assertValueEqual(EasterEggs.stageOf(after), 3, "easter stage of the swapped old spawn teleporter IV");
-            }
-        }
-        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
-        for (Block legacy : old) {
-            helper.assertTrue(PadsBlocks.legacy().contains(legacy), legacy + " is not listed as a legacy block");
-            helper.assertTrue(new ItemStack(legacy).is(hidden), legacy + " is not hidden from recipe viewers");
-            for (PadsItems.Row row : PadsItems.padsRows()) {
-                for (ItemStack stack : row.stacks()) {
-                    helper.assertTrue(!stack.is(legacy.asItem()), legacy + " is still in the creative tab row " + row.name());
-                }
-            }
-        }
-        helper.succeed();
-    }
-
-    /**
-     * Welt-Upgrade der Elytra-Pads (fuenf Stufen -> drei, 2026-10-07): ein altes Pad II wird beim ersten
-     * Tick Stufe I, ein altes V Stufe III - Besitzer bleibt, eine Easter-Stufe wird auf die neue Stufe
-     * umgerechnet (alt V mit Easter-Stufe 5 ist danach die letzte Stufe 3, doppelt so stark). Im Inventar
-     * tauschen sich die Items samt Anzahl und Easter-Stufe; die alten Stufen stehen nicht im Kreativ-Tab,
-     * sind in JEI ausgeblendet und gehoeren zu keiner Familie.
-     */
-    public static void oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory(GameTestHelper helper) {
-        Block[] old = {PadsBlocks.REINFORCED_ELYTRA_PAD, PadsBlocks.FINE_ELYTRA_PAD};
-        Block[] now = {PadsBlocks.ELYTRA_PAD, PadsBlocks.ENDERITE_ELYTRA_PAD};
-        int[] oldStage = {2, 5};
-        int[] newStage = {1, 3};
-        UUID owner = UUID.randomUUID();
-        ServerLevel level = helper.getLevel();
-        for (int i = 0; i < 2; i++) {
-            BlockPos pos = new BlockPos(2 + i * 3, 1, 3);
-            helper.setBlock(pos, old[i]);
-            com.simplepads.block.entity.ElytraPadBlockEntity be = helper.getBlockEntity(pos,
-                    com.simplepads.block.entity.ElytraPadBlockEntity.class);
-            be.setOwner(owner);
-            be.setEasterStage(oldStage[i]);
-            com.simplepads.block.entity.ElytraPadBlockEntity.serverTick(level, helper.absolutePos(pos), helper.getBlockState(pos), be);
-            helper.assertTrue(helper.getBlockState(pos).is(now[i]), old[i] + " became " + helper.getBlockState(pos).getBlock() + " instead of " + now[i]);
-            OwnedBlockEntity fresh = helper.getBlockEntity(pos, OwnedBlockEntity.class);
-            helper.assertTrue(owner.equals(fresh.getOwner()), "the migrated " + now[i] + " lost its owner");
-            helper.assertValueEqual(fresh.easterStage(), newStage[i], "easter stage of the migrated " + now[i]);
-            helper.assertTrue(((LegacyTierBlock) old[i]).target() == now[i], old[i] + " names the wrong new tier");
-        }
-        helper.assertTrue(EasterEggs.isBoosted(level, helper.absolutePos(new BlockPos(5, 1, 3))),
-                "the old easter V did not become the final (doubled) easter stage of tier III");
-
-        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
-        for (int i = 0; i < 2; i++) {
-            ItemStack stack = new ItemStack(old[i], 3);
-            stack.set(EasterEggs.EASTER_STAGE, oldStage[i]);
-            player.getInventory().setItem(10 + i, stack);
-            stack.getItem().inventoryTick(stack, level, player, null);
-            ItemStack after = player.getInventory().getItem(10 + i);
-            helper.assertTrue(after.is(now[i].asItem()) && after.getCount() == 3, "an old " + old[i] + " stack in the inventory became " + after);
-            helper.assertValueEqual(EasterEggs.stageOf(after), newStage[i], "easter stage of the swapped old elytra pad");
-        }
-        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
-        for (Block legacy : old) {
-            helper.assertTrue(PadsBlocks.legacy().contains(legacy), legacy + " is not listed as a legacy block");
-            helper.assertTrue(new ItemStack(legacy).is(hidden), legacy + " is not hidden from recipe viewers");
-            for (PadsItems.Row row : PadsItems.padsRows()) {
-                for (ItemStack stack : row.stacks()) {
-                    helper.assertTrue(!stack.is(legacy.asItem()), legacy + " is still in the creative tab row " + row.name());
-                }
-            }
-        }
-        helper.succeed();
     }
 
     // =====================================================================================
@@ -578,7 +466,7 @@ public final class PadOverhaulTests {
         helper.assertFalse(helper.getBlockState(potion).getValue(potionActive), "a fresh potion pad is active");
 
         // Blockstates and models (resources of this line).
-        for (String id : List.of("elytra_pad", "reinforced_elytra_pad", "netherite_elytra_pad", "enderite_elytra_pad", "fine_elytra_pad",
+        for (String id : List.of("elytra_pad", "netherite_elytra_pad", "enderite_elytra_pad",
                 "spawn_teleporter", "spawn_teleporter_tier_2", "enderite_spawn_teleporter", "potion_pad", "reinforced_potion_pad", "infused_potion_pad")) {
             String blockstate = resource(helper, "/assets/simplepads/blockstates/" + id + ".json");
             helper.assertTrue(blockstate.contains("simplepads:block/" + id + "_active"), "the blockstate of " + id + " has no active model");
@@ -645,7 +533,6 @@ public final class PadOverhaulTests {
                     || block instanceof com.simplepads.block.SpawnTeleporterBlock
                     || block instanceof PotionPadBlock) {
                 helper.assertValueEqual(block.defaultBlockState().getValue(PadBlock.FADE), 0, "default fade of " + block);
-                if (block instanceof com.simplepads.block.LegacyTierBlock) continue;
                 var active = block instanceof com.simplepads.block.ElytraPadBlock ? com.simplepads.block.ElytraPadBlock.ACTIVE
                         : block instanceof com.simplepads.block.FlypadBlock ? com.simplepads.block.FlypadBlock.ACTIVE
                         : block instanceof com.simplepads.block.SpawnTeleporterBlock ? com.simplepads.block.SpawnTeleporterBlock.ACTIVE

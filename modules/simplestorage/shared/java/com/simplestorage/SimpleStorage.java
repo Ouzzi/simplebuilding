@@ -98,7 +98,10 @@ public final class SimpleStorage {
     public static final List<String> DYES = List.of("white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
             "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black");
 
-    /** Every block (and block item) that moved: 8a the crates of all woods (also the End woods) and the table, 8b the chests and boxes. */
+    /**
+     * Every block (and block item) that moved: 8a the crates of all woods (also the End woods) and the table, 8b the chests and boxes.
+     * The poplar crate (PLAN40 simplestorage-2) never was SimpleBuilding's; its {@code simplebuilding:} move is a harmless redirect.
+     */
     public static List<String> movedBlocks() {
         List<String> out = new ArrayList<>();
         for (com.simplestorage.crate.CrateWood wood : com.simplestorage.crate.CrateWood.values()) out.add(wood.crateId());

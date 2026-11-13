@@ -7,7 +7,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * The woods with a crate ({@code <id>_crate}, ids as in SimpleBuilding's woodwork family before split stage 8a): the
- * twelve Vanilla woods, and Ashwood and Duskwood of Simple End only while that mod is loaded. An End wood's crate copies
+ * thirteen Vanilla woods (poplar since 26.3, PLAN40 simplestorage-2), and Ashwood and Duskwood of Simple End only while that mod is loaded. An End wood's crate copies
  * the oak planks' properties with its own map colour (its planks may register after this mod; Fabric does not order the
  * mods' entrypoints). Nether woods do not burn and are no fuel.
  */
@@ -21,6 +21,7 @@ public enum CrateWood {
     MANGROVE("mangrove", Blocks.MANGROVE_PLANKS),
     CHERRY("cherry", Blocks.CHERRY_PLANKS),
     PALE_OAK("pale_oak", Blocks.PALE_OAK_PLANKS),
+    POPLAR("poplar", Blocks.POPLAR_PLANKS),
     CRIMSON("crimson", Blocks.CRIMSON_PLANKS),
     WARPED("warped", Blocks.WARPED_PLANKS),
     BAMBOO("bamboo", Blocks.BAMBOO_PLANKS),

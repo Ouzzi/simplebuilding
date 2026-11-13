@@ -119,6 +119,8 @@ public class StrongTntBlock extends Block {
             }
             player.awardStat(Stats.ITEM_USED.get(item));
         } else if (level instanceof ServerLevel serverLevel && !serverLevel.getGameRules().get(GameRules.TNT_EXPLODES)) {
+            // Stays on purpose (PLAN40 simplemobs-2): the same Vanilla key and path as Vanilla TNT when the game rule forbids explosions,
+            // so Strong TNT behaves like the block it extends; no Simple Mobs text of its own.
             player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
             return InteractionResult.PASS;
         }

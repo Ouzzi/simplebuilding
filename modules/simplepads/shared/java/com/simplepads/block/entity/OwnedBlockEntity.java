@@ -62,11 +62,6 @@ public abstract class OwnedBlockEntity extends BlockEntity {
         return EasterEggs.fits(block, stage) ? stage : 0;
     }
 
-    /** Die gespeicherte Easter-Stufe ohne Pruefung (fuer den Umbau alter Stufenbloecke). */
-    public int rawEasterStage() {
-        return easterStage;
-    }
-
     public void setEasterStage(int stage) {
         this.easterStage = Math.max(0, stage);
         setChanged();

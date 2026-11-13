@@ -922,10 +922,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplepads/enderite_flypad",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplepads/enderite_launchpad",
       "required": false
     },
@@ -935,10 +931,6 @@
     },
     {
       "id": "simplemoney:links/simplepads/enderite_spawn_teleporter",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplepads/fine_elytra_pad",
       "required": false
     },
     {
@@ -955,10 +947,6 @@
     },
     {
       "id": "simplemoney:links/simplepads/netherite_elytra_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplepads/netherite_flypad",
       "required": false
     },
     {

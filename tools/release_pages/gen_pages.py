@@ -3,6 +3,8 @@
 import json, re, sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from pages_data import P, V
+import pages_data
+LINKS = getattr(pages_data, "LINKS", {})
 from check_pages import FORBIDDEN
 R = pathlib.Path(__file__).resolve().parents[2]
 mods = json.load(open(R / "modules/modules.json"))["modules"]
@@ -56,7 +58,7 @@ for m in mods:
         "## Compatibility", "", "- Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25",
         "- Fabric only for now.", "", "## Part of the Simple family", "", rel, "",
         "## License", "", "All Rights Reserved with source-available code. Contributions need the contributor license agreement (CLA). Earlier SimpleBuilding versions stay CC0.", "",
-        "## Links", "", f"- Wiki: https://wiki.simplemods.de/?mod={i}", "- Issues: https://github.com/Ouzzi/simplebuilding/issues", "- Source: https://github.com/Ouzzi/simplebuilding", "",
+        "## Links", "", *[f"- {k}: {u}" for k, u in zip(("Wiki", "Issues", "Source"), LINKS.get(i, (f"https://wiki.simplemods.de/?mod={i}", "https://github.com/Ouzzi/simplebuilding/issues", "https://github.com/Ouzzi/simplebuilding")))], "",
         "## Categories and tags (suggestion)", "", f"- Modrinth categories: {cats}", f"- Tags: {tags}", "- Environment: client and server", ""]
     (R / "docs/release/pages").mkdir(parents=True, exist_ok=True)
     (R / f"docs/release/pages/{i}.md").write_text("\n".join(l for l in lines if l is not None) + "\n")

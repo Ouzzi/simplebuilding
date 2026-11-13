@@ -9,6 +9,11 @@ of stage 3 became stage 4, the Void Wings.
     python tools/textures/wa24wings_textures.py --check         # fail when a committed wings PNG/source differs
     python tools/textures/wa24wings_textures.py --variants DIR  # all stage/variant PNGs + sheets + data (preview page, tools/)
     python tools/textures/wa24wings_textures.py --vanilla JAR   # (with --variants) read the Vanilla masks from the client jar
+
+a-w1b (12.11., PLAN40 simplemobs-4): the look variant 2 (Dev variants panel, `simplemobs:wings_look`) is built in as well -
+item icon, broken icon and the worn sheet `<name>_v2` of all four stages, so the worn wings follow the chosen look
+(client hook WingsLayerLookMixin). Stage 4 (Void Wings) got its own variant 2, a starfield (pattern 4, rounds in
+VOID_V2_ROUNDS, the last is built in); the other three use their WA24-2 variant 2 unchanged.
 """
 from __future__ import annotations
 
@@ -24,6 +29,10 @@ ROOT = el.ROOT
 MOBS = el.MOBS
 # built-in looks: file name -> (stage pattern, variant)
 BUILT_IN = {'wither_wings': (1, 1), 'nether_wings': (2, 1), 'end_wings': (3, 1), 'void_wings': (3, 2)}
+# look variant 2 (a-w1b): file name -> (stage pattern, variant); Void v2 = pattern 4 in its last round
+VOID_V2_ROUNDS = (1, 2, 3, 4)
+VOID_V2_FINAL = VOID_V2_ROUNDS[-1]
+BUILT_IN_V2 = {'wither_wings_v2': (1, 2), 'nether_wings_v2': (2, 2), 'end_wings_v2': (3, 2), 'void_wings_v2': (4, VOID_V2_FINAL)}
 
 # Vanilla's wing plate (south face of the 64x32 sheet, 10x20) and item icon (16x16) as silhouette masks. Stored so the generator
 # runs without the Vanilla jar; --vanilla JAR re-reads and verifies them.
@@ -50,6 +59,12 @@ PALS = {
         'H': '#d9d0f0', 'h': '#8ff0e6'},
 }
 PAL3_V2 = {'V': '#c056e0', 'h': '#f0a8ff'}
+# stage 4, variant 2 (Void): night-black membrane, cold bone edge, stars in the lavender of the Void rarity (Simple Lib #b69cff);
+# per round the tones that changed (see void_v2)
+PALS[4] = {'O': '#08060f', 'B': '#958fb2', 'b': '#67618a', 'L': '#221c3a', 'M': '#151127', 'D': '#0a0815', 'V': '#b69cff',
+           'H': '#c9c2e6', 'h': '#f2ecff'}
+PAL4_ROUNDS = {1: {}, 2: {'L': '#2a2147', 'M': '#18132c'}, 3: {'L': '#2a2147', 'M': '#18132c', 'N': '#3a2d63'}}
+PAL4_ROUNDS[4] = PAL4_ROUNDS[3]
 
 
 def verify_vanilla(jar: str) -> None:
@@ -81,7 +96,7 @@ def edge(mask, y, x):
 
 
 # ---------------------------------------------------------------- patterns: (stage, variant, x, y) -> body char / vein char
-def body(stage, var, x, y, w=10):
+def body(stage, var, x, y, w=10, icon=False):
     """Pattern char of an interior pixel of the plate (S orientation: x 0 = body side, y 0 = shoulder edge)."""
     if stage == 1:
         if var == 1:        # vertical feathers, 2 px wide, light vein on the left px (Look A)
@@ -91,9 +106,36 @@ def body(stage, var, x, y, w=10):
         if var == 1:        # diagonal ember cracks over dark scales
             return 'V' if (x + y) % 6 == 0 and y >= 4 else ('h' if (x + y) % 6 == 0 and y % 4 == 0 else ('M' if (x // 2 + y // 2) % 2 else 'L'))
         return 'V' if y % 4 == 3 and y >= 5 else ('M' if (x + y // 4) % 2 else 'L')   # ember rows between feather rows
+    if stage == 4:
+        return void_v2(var, x, y, icon)
     if var == 1:            # End: long pale veins running to the tip, sparkles
         return 'h' if (x * 7 + y * 3) % 23 == 0 else ('V' if (x - y // 2) % 4 == 0 and y >= 4 else ('L' if (x + y) % 3 == 0 else 'M'))
     return 'V' if (x * x + (y - 2) * (y - 2)) // 12 % 2 == 0 and y >= 4 and x % 2 == 0 else ('h' if (x + y) % 11 == 0 else 'M')   # rings
+
+
+# Void v2 stars (S orientation of the plate, x 0 = body side): 2 px groups (no single-pixel crumbs, A8d 3), a few with a bright core
+STARS_R1 = {(2, 6), (3, 6), (6, 8), (6, 9), (3, 11), (4, 11), (8, 12), (1, 14), (1, 15), (5, 15), (6, 15), (7, 17), (3, 18), (4, 18)}
+STARS_R2 = {(2, 5), (3, 5), (7, 7), (7, 8), (4, 10), (5, 10), (1, 13), (1, 14), (8, 12), (6, 15), (6, 16), (3, 17), (4, 17)}
+BRIGHT = {(3, 5), (7, 8), (4, 10), (6, 16)}
+# round 4: the icon (x = distance from the outer side, interior lx 2-5 / 3-5) gets its own two stars per half, the plate keeps round 3
+ICON_STARS = {(3, 6), (3, 7), (4, 9), (5, 9)}
+
+
+def void_v2(r, x, y, icon=False):
+    """Pattern 4 (Void Wings, look 2): round 1 a plain starfield; round 2 the stars regrouped so each wing half of the icon
+    gets two, a faint diagonal band of the lighter tone (nebula, 2-3 px wide); round 3 the band gets its own deeper violet N
+    and the stars a bright core, so the dark plate is no longer one flat tone (A8d 1)."""
+    stars = STARS_R1 if r == 1 else ICON_STARS if r >= 4 and icon else STARS_R2
+    if (x, y) in stars:
+        return 'h' if r >= 3 and (x, y) in BRIGHT else 'V'
+    if r == 1:
+        return 'L' if (x + y) % 4 == 0 else 'M'
+    band = (x + 9 - y // 2) % 9          # a diagonal from the shoulder at the body side to the outer tip
+    if band in (0, 1):
+        return 'N' if r >= 3 and (x + y) % 3 else 'L'
+    if band == 2 and r >= 3:
+        return 'L'
+    return 'L' if (x * 3 + y) % 7 == 0 else 'M'
 
 
 def plate(stage, var):
@@ -135,7 +177,7 @@ def icon(stage, var):
             elif y == 3 or (y == 4 and lx >= 2):
                 c, l = 'B', ('H' if lx < 5 else '.')
             else:
-                c = body(stage, var, lx, y)
+                c = body(stage, var, lx, y, icon=True)
                 l = 'h' if c == 'V' and y % 5 == 1 else ('H' if not solid(mask, y - 1, x - 1) and x < 8 else '.')
                 if c == 'h':
                     c = 'V'
@@ -145,10 +187,12 @@ def icon(stage, var):
 
 
 def palette(stage, var):
+    if stage == 4:
+        return {**PALS[4], **PAL4_ROUNDS[var]}
     return {**PALS[stage], **(PAL3_V2 if stage == 3 and var == 2 else {})}
 
 
-STAGE_NAMES = {1: 'wither_wings', 2: 'nether_wings', 3: 'end_wings'}
+STAGE_NAMES = {1: 'wither_wings', 2: 'nether_wings', 3: 'end_wings', 4: 'void_wings_v2'}
 
 
 def textures(stage: int, var: int, name: str | None = None) -> dict[str, dict]:
@@ -170,14 +214,14 @@ def main(argv: list[str]) -> int:
         if '--vanilla' in argv:
             verify_vanilla(argv[argv.index('--vanilla') + 1])
         for stage in STAGE_NAMES:
-            for var in (1, 2):
+            for var in (VOID_V2_ROUNDS if stage == 4 else (1, 2)):
                 for name, d in textures(stage, var).items():
                     base = f's{stage}v{var}_' + name.replace('/', '_')
                     (out / f'{base}.png').write_bytes(el.scaled(d, 1))
         print(f'variants in {out}')
         return 0
     bad = []
-    built = {k: v for n, (st, var) in BUILT_IN.items() for k, v in textures(st, var, n).items()}
+    built = {k: v for n, (st, var) in {**BUILT_IN, **BUILT_IN_V2}.items() for k, v in textures(st, var, n).items()}
     for name, d in built.items():
         png = MOBS / f'{name}.png'
         src = layers.layers_path(png)

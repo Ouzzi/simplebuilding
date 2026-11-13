@@ -80,6 +80,38 @@ public final class WitherWings {
         sink.accept(ENDER_GEM_KEY, ENDER_GEM);
     }
 
+    /**
+     * Look variant of the wings (ABN30-9, Dev variants panel of Simple Lib, id {@value}): "v1" built in (default), "v2" the
+     * second look. The item icon follows it ({@code client.WingsLookModelProperty}, {@code simplemobs:wings_look_v2}), the worn
+     * wings too (a-w1b, PLAN40 simplemobs-4: {@code mixin.WingsLayerLookMixin} draws {@link #wornAsset}).
+     */
+    public static final String LOOK_VARIANT = "simplemobs:wings_look";
+
+    /** Whether the second wings look is chosen (false when the variant is unknown, e.g. the panel is not registered). */
+    public static boolean lookV2() {
+        return com.simplelib.api.DevVariants.is(LOOK_VARIANT, "v2");
+    }
+
+    /** The equipment asset the worn wings are drawn with: {@link #wornAsset(ResourceKey, boolean)} for the chosen look. */
+    public static ResourceKey<EquipmentAsset> wornAsset(ResourceKey<EquipmentAsset> asset) {
+        return wornAsset(asset, lookV2());
+    }
+
+    /**
+     * Look 2 of the four wings is the asset {@code simplemobs:<wings>_v2} (equipment/*_wings_v2.json, worn sheet
+     * textures/entity/equipment/wings/*_wings_v2.png); look 1 and every other asset (Vanilla Elytra, other mods) stay unchanged.
+     */
+    public static ResourceKey<EquipmentAsset> wornAsset(ResourceKey<EquipmentAsset> asset, boolean v2) {
+        return v2 ? LOOK_V2.getOrDefault(asset, asset) : asset;
+    }
+
+    private static final java.util.Map<ResourceKey<EquipmentAsset>, ResourceKey<EquipmentAsset>> LOOK_V2 = java.util.Map.of(
+            WITHER_ASSET, v2(WITHER_ASSET), NETHER_ASSET, v2(NETHER_ASSET), END_ASSET, v2(END_ASSET), VOID_ASSET, v2(VOID_ASSET));
+
+    private static ResourceKey<EquipmentAsset> v2(ResourceKey<EquipmentAsset> asset) {
+        return ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, asset.identifier().getPath() + "_v2"));
+    }
+
     /** Whether a firework rocket stack is a strong rocket: flight duration {@value #STRONG_FLIGHT} or more. */
     public static boolean strongRocket(ItemStack rocket) {
         var fireworks = rocket.get(DataComponents.FIREWORKS);
