@@ -34,7 +34,7 @@ def features(i):
 rows = []
 for m in mods:
     i = m["id"]
-    if i not in P: continue
+    if i not in P or m.get("example"): continue  # developer examples (wiringexample) never get a store page
     summ, over, cats, tags = P[i]
     req = [nm(x) for x in m.get("requires", [])]
     opt = [nm(x) for x in m.get("optional", [])]

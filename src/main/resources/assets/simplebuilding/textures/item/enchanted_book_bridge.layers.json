@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#38114bfc", "#55376cfc", "#8b65a4fc", "#8d67a4fc", "#654c7dfc", "#2c093cfc", "#614c87fc", "#4d2f6afc", "#401c51fc", "#300d43fc", "#55366cfc", "#513167fc", "#9471adfc", "#9875affc", "#795791fc", "#87679efc", "#38114dfc", "#573c71fc", "#695385fc", "#52346afc", "#9774b0fc", "#916eabfc", "#2c0a3dfc", "#563a72fc", "#906ca8fc", "#523368fc", "#320e41fc", "#5e447afc", "#53366afc", "#5b5b5bfc", "#b7b7b7fc", "#2d0a3dfc", "#7c5a96fc", "#573a6efc", "#361447fc", "#371548fc", "#999999fc", "#472360fc", "#d6d6d6fc", "#84639afc", "#8d69a4fc", "#8f69a4fc", "#9e9e9efc", "#401b57fc", "#909090fc"],
+  "palette": ["#38114bff", "#55376cff", "#8b65a4ff", "#8d67a4ff", "#654c7dff", "#2c093cff", "#614c87ff", "#4d2f6aff", "#401c51ff", "#300d43ff", "#55366cff", "#513167ff", "#9471adff", "#9875afff", "#795791ff", "#87679eff", "#38114dff", "#573c71ff", "#695385ff", "#52346aff", "#9774b0ff", "#916eabff", "#2c0a3dff", "#563a72ff", "#906ca8ff", "#523368ff", "#320e41ff", "#5e447aff", "#53366aff", "#5b5b5bff", "#b7b7b7ff", "#2d0a3dff", "#7c5a96ff", "#573a6eff", "#361447ff", "#371548ff", "#999999ff", "#472360ff", "#d6d6d6ff", "#84639aff", "#8d69a4ff", "#8f69a4ff", "#9e9e9eff", "#401b57ff", "#909090ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "................................",

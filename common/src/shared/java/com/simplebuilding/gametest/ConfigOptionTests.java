@@ -570,6 +570,8 @@ public final class ConfigOptionTests {
             "root.enableSimpleEnd boolean=true",
             "root.enableSimpleRespawn boolean=true",
             "root.enableSimpleBeacons boolean=true",
+            "root.enableSimpleOvens boolean=true",
+            "root.enableSimpleMobheads boolean=true",
             "root.enableSimpleShops boolean=true",
             "root.enableSimpleWanderers boolean=true",
             "root.enableSimpleBlocks boolean=true",
@@ -740,6 +742,7 @@ public final class ConfigOptionTests {
             "server.features.astralVault boolean=true",
             "server.features.blazingHeat boolean=true",
             "server.features.nihilVault boolean=true",
+            "server.features.nihilVaultClaimOnly boolean=true",
             "server.features.dynamicLight boolean=true",
             "server.features.anvilRepairKeepsCost boolean=true",
             "server.features.placeVanillaItems boolean=true",
@@ -1219,6 +1222,8 @@ public final class ConfigOptionTests {
                 {"enableSimpleEnd", "simpleend"},
                 {"enableSimpleRespawn", "simplerespawn"},
                 {"enableSimpleBeacons", "simplebeacons"},
+                {"enableSimpleOvens", "simpleovens"},
+                {"enableSimpleMobheads", "simplemobheads"},
                 {"enableSimpleShops", "simpleshops"},
                 {"enableSimpleWanderers", "simplewanderers"},
                 {"enableSimpleBlocks", "simpleblocks"},
@@ -1592,7 +1597,7 @@ public final class ConfigOptionTests {
         List<String> problems = new ArrayList<>();
         try {
             com.simplebuilding.config.ConfigSaving.setSaver(() -> saves[0]++);
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
             var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
             var source = player.createCommandSourceStack().withSuppressedOutput();
             for (com.simplebuilding.config.ConfigOptions.Option option : com.simplebuilding.config.ConfigOptions.all()) {
@@ -1893,7 +1898,7 @@ public final class ConfigOptionTests {
             Vec3 at = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
             player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
             tweaks.commands.enableKillBoatsCommand = true;
-            players.op(player.nameAndId());
+            players.op(player.nameAndId(), java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), java.util.Optional.empty()); // level 2: OPERATOR_ONLY (audit simplebuilding-P2-1)
             var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
             var source = player.createCommandSourceStack().withSuppressedOutput();
             net.minecraft.world.entity.Entity boat = spawnBoat(helper, new BlockPos(6, 1, 1));

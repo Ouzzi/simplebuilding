@@ -86,6 +86,14 @@ public class SimplebuildingConfig implements ConfigData {
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleOvens = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleMobheads = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleShops = true;
 
     @ConfigEntry.Category("modules")
@@ -196,6 +204,8 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpleend", c.enableSimpleEnd);
         setSubMod("simplerespawn", c.enableSimpleRespawn);
         setSubMod("simplebeacons", c.enableSimpleBeacons);
+        setSubMod("simpleovens", c.enableSimpleOvens);
+        setSubMod("simplemobheads", c.enableSimpleMobheads);
         setSubMod("simpleshops", c.enableSimpleShops);
         setSubMod("simplewanderers", c.enableSimpleWanderers);
         setSubMod("simpleblocks", c.enableSimpleBlocks);

@@ -113,6 +113,8 @@ public final class ConfigOptions {
             "enableSimpleEnd",
             "enableSimpleRespawn",
             "enableSimpleBeacons",
+            "enableSimpleOvens",
+            "enableSimpleMobheads",
             "enableSimpleShops",
             "enableSimpleWanderers",
             "enableSimpleBlocks",

@@ -4,17 +4,17 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Building tools, storage, machines and enchantments: the super mod that bundles the Simple family's building content.
+Super mod of the Simple family: bundles the required sub-mods for building, storage and tools, plus End blocks, Enderite gear, loot and trades.
 
 ## Description (Markdown)
 
 # SimpleBuilding
 
-SimpleBuilding is the core of the Simple family. It bundles the required sub-mods for building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more, and adds its own enchantments and progression on top.
+SimpleBuilding is the core of the Simple family. It bundles the required sub-mods (building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more) and adds its own content on top: End building palettes, Astral and Nihil redstone lines, Enderite tools and armor, enchantments for mining and building, music discs, hammocks and chess. Optional Simple mods (for example Simple Maps or Simple Money) are separate downloads and are not part of this file; each bundled sub-mod can be switched off in the config.
 
 ## Vanilla use
 
-Bundles the building, storage and workstation sub-mods so a normal survival world gets better tools and containers; it adds items and blocks and leaves Vanilla recipes, loot and worlds as they are.
+Adds tools, blocks and gear on top of a normal survival world, but it also reaches into Vanilla: its pools join the loot of 14 kinds of structure chests and of fishing treasure (switchable per structure, scalable with one factor); its offers join the villagers and the wandering trader (switchable); world generation adds two End ores, four small End structures, cracked-ice fields and sculk jaws (ores and ice fields switchable); new armor stands get arms and swap armor with you, sneaking with small items such as sticks or ingots places them on blocks, XP orbs merge, and repairs without a new enchantment keep the anvil cost (each switchable); hammocks speed up the time of day while enough players rest in them (factor 1 turns it off).
 
 ## Dependencies
 

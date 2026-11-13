@@ -146,7 +146,8 @@
       "com.simplebuilding.gametest.Mech23GameTest",
       "com.simplebuilding.gametest.Mech24GameTest",
       "com.simplebuilding.gametest.WideDoorGameTest",
-      "com.simplebuilding.gametest.EndStructureGameTest"
+      "com.simplebuilding.gametest.EndStructureGameTest",
+      "com.simplebuilding.gametest.CoreAuditGameTest"
     ]
   },
   "mixins": [

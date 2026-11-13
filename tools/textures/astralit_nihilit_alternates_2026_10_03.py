@@ -11,8 +11,11 @@ The body colours and accent specks come from the own Astralit/Nihilith block tex
 (tools/textures/hand/alternates_2026_10_03/, commit 259a382d1): the textures stay pixel-identical to the approved ones
 although the base blocks were reworked since (texrate15/16).
 
+Since 12.11. (simplebuilding-6) crystalline_astralit/crystalline_nihilith are own pixel art (crystalline_2026_11_12.py,
+committed); this generator builds the other four.
+
     python3 tools/textures/vanilla_derived.py --out DIR      # builds them with every other Vanilla-derived texture
-    python3 tools/textures/astralit_nihilit_alternates_2026_10_03.py [--jar client.jar] OUTDIR   # only these six
+    python3 tools/textures/astralit_nihilit_alternates_2026_10_03.py [--jar client.jar] OUTDIR   # only these four
 """
 import io
 import os
@@ -23,11 +26,10 @@ from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, 'hand', 'alternates_2026_10_03')
+# crystalline_* (B, amethyst block) left this list on 12.11. (simplebuilding-6): own pixel art, tools/textures/crystalline_2026_11_12.py.
 NAMES = {
-    'astralit_block': ('pink', ('calcite', 'amethyst_block', 'dripstone_block'),
-                       ('veined_astralit', 'crystalline_astralit', 'layered_astralit')),
-    'nihilith_block': ('blue', ('calcite', 'amethyst_block', 'packed_ice'),
-                       ('veined_nihilith', 'crystalline_nihilith', 'frosted_nihilith')),
+    'astralit_block': ('pink', ('calcite', 'dripstone_block'), ('veined_astralit', 'layered_astralit')),
+    'nihilith_block': ('blue', ('calcite', 'packed_ice'), ('veined_nihilith', 'frosted_nihilith')),
 }
 
 

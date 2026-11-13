@@ -12,6 +12,7 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.item.ItemStack;
@@ -54,14 +55,7 @@ public final class EndStructureTests {
 
     public static void templatesLoad(GameTestHelper helper) {
         if (!active(helper)) return;
-        // 26.3 renamed ServerLevel#getStructureManager() to getStructureTemplateManager(); this test only runs on 26.3.
-        net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager manager;
-        try {
-            manager = (net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager)
-                    helper.getLevel().getClass().getMethod("getStructureTemplateManager").invoke(helper.getLevel());
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException("no structure template manager", e);
-        }
+        var manager = templates(helper);
         for (String t : TEMPLATES) {
             var template = manager.get(id("end/" + t));
             helper.assertTrue(template.isPresent(), "template missing: " + t);
@@ -134,46 +128,103 @@ public final class EndStructureTests {
         helper.succeed();
     }
 
+    /** 26.3 renamed ServerLevel#getStructureManager() to getStructureTemplateManager(); the callers only run on 26.3. */
+    private static net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager templates(GameTestHelper helper) {
+        try {
+            return (net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager)
+                    helper.getLevel().getClass().getMethod("getStructureTemplateManager").invoke(helper.getLevel());
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("no structure template manager", e);
+        }
+    }
+
+    /** The blocks a template occupies when {@link #place placed} at {@code pos} (no rotation, no mirror). */
+    private static BoundingBox templateBox(GameTestHelper helper, String template, BlockPos pos) {
+        var size = templates(helper).get(id("end/" + template)).orElseThrow(() -> new IllegalStateException("template missing: " + template)).getSize();
+        return BoundingBox.fromCorners(pos, pos.offset(size.getX() - 1, size.getY() - 1, size.getZ() - 1));
+    }
+
+    /**
+     * Wreck with chests, mound and the broken-elytra frame; the frame-less variant spawns no frame.
+     *
+     * <p>Flaky until 12.11. (gate 94, 03.11.; simplebuilding-8, reasons in AUDIT.md): (1) the wreck (15x12x17 and
+     * 19x11x13 blocks) is much larger than the 8x8 test room and lies mostly in chunks the runner neither force-loads nor
+     * waits for - it only waits until the room's own chunks tick entities. The frame (template z 8) sits outside the room;
+     * an entity added to a chunk whose entity visibility is not confirmed yet lands in a HIDDEN section, and
+     * {@code getEntitiesOfClass} skips it ("found 0"). The test now force-loads every chunk under the wreck and waits until
+     * their entities tick. (2) The frame search {@code AABB(base).inflate(14)} reached 14 blocks below and beside the wreck
+     * into the air space of up to eight neighbour tests; every check and the clean-up now stay inside the template boxes.
+     * (3) A failed check left the wreck standing; the clean-up now runs in {@code finally}.
+     */
     public static void wreckHasLootChestsAndFrame(GameTestHelper helper) {
         if (!active(helper)) return;
-        // The wrecks (with their mound) are much larger than the 8x8 test room: build them high above it, one after
-        // the other, and clear them again so neighbouring tests of the batch never see the blocks.
+        // build high above the 8x8 room so its own blocks never mix with the wreck
         BlockPos base = helper.absolutePos(new BlockPos(0, 48, 0));
+        BoundingBox stern = templateBox(helper, "wreck_stern_elytra", base), bow = templateBox(helper, "wreck_bow_none", base);
+        BoundingBox both = BoundingBox.encapsulating(stern, bow);
+        var level = helper.getLevel();
+        java.util.List<int[]> chunks = new java.util.ArrayList<>(), forced = new java.util.ArrayList<>();
+        for (int cx = both.minX() >> 4; cx <= both.maxX() >> 4; cx++)
+            for (int cz = both.minZ() >> 4; cz <= both.maxZ() >> 4; cz++) {
+                chunks.add(new int[]{cx, cz});
+                if (level.setChunkForced(cx, cz, true)) forced.add(new int[]{cx, cz}); // only release what this test forced
+            }
+        Runnable release = () -> forced.forEach(c -> level.setChunkForced(c[0], c[1], false));
+        helper.runBeforeTestEnd(release); // timeout while waiting: nothing was placed yet
+        helper.startSequence().thenWaitUntil(() -> {
+            for (int[] c : chunks)
+                helper.assertTrue(level.areEntitiesActuallyLoadedAndTicking(new net.minecraft.world.level.ChunkPos(c[0], c[1])),
+                        "wreck chunk " + c[0] + "," + c[1] + " does not tick entities yet");
+        }).thenExecute(() -> {
+            try {
+                checkWrecks(helper, base, stern, bow);
+            } finally {
+                clear(helper, both);
+                release.run();
+            }
+        }).thenSucceed();
+    }
+
+    private static void checkWrecks(GameTestHelper helper, BlockPos base, BoundingBox stern, BoundingBox bow) {
+        var level = helper.getLevel();
+        BoundingBox both = BoundingBox.encapsulating(stern, bow);
+        var before = level.getEntitiesOfClass(ItemFrame.class, AABB.of(both));
+        helper.assertTrue(before.isEmpty(), "item frames in the wreck box before placing (other test?): "
+                + before.stream().map(f -> f.getItem() + "@" + f.blockPosition()).toList() + " box " + both);
         place(helper, "wreck_stern_elytra", base);
         int chests = 0;
-        for (BlockPos p : BlockPos.betweenClosed(base, base.offset(16, 14, 18))) {
-            if (helper.getLevel().getBlockEntity(p) instanceof RandomizableContainer c && c.getLootTable() != null) {
-                helper.assertTrue(c.getLootTable().identifier().equals(id("chests/end_wreck")), "chest has wrong loot table");
+        for (BlockPos p : BlockPos.betweenClosed(stern.minX(), stern.minY(), stern.minZ(), stern.maxX(), stern.maxY(), stern.maxZ())) {
+            if (level.getBlockEntity(p) instanceof RandomizableContainer c && c.getLootTable() != null) {
+                helper.assertTrue(c.getLootTable().identifier().equals(id("chests/end_wreck")), "chest at " + p + " has wrong loot table " + c.getLootTable().identifier());
                 chests++;
             }
         }
         helper.assertTrue(chests >= 1 && chests <= 2, "wreck must hold 1-2 loot chests, found " + chests);
         // half buried: an end-stone mound fills the lower layers (the structure starts GROUND = 9 blocks below the surface, about 80 % of the hull)
         int mound = 0;
-        for (BlockPos p : BlockPos.betweenClosed(base, base.offset(16, 3, 18)))
-            if (helper.getLevel().getBlockState(p).is(Blocks.END_STONE)) mound++;
+        for (BlockPos p : BlockPos.betweenClosed(stern.minX(), stern.minY(), stern.minZ(), stern.maxX(), stern.minY() + 3, stern.maxZ()))
+            if (level.getBlockState(p).is(Blocks.END_STONE)) mound++;
         helper.assertTrue(mound > 150, "wreck is not buried in an end-stone mound, found " + mound);
-        var frames = helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(base).inflate(14));
+        var frames = level.getEntitiesOfClass(ItemFrame.class, AABB.of(stern));
         helper.assertTrue(frames.size() == 1 && frames.get(0).getItem().is(Items.ELYTRA)
                 && frames.get(0).getItem().getDamageValue() == frames.get(0).getItem().getMaxDamage() - 1,
                 "expected one frame with a broken elytra, found " + frames.size() + " " + frames.stream().map(f -> f.getItem() + "@" + f.blockPosition()).toList() + " base " + base);
-        frames.forEach(f -> f.discard());
-        clear(helper, base);
+        clear(helper, both);
         place(helper, "wreck_bow_none", base);
-        boolean noFrame = helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(base).inflate(14)).isEmpty();
-        clear(helper, base);
-        helper.assertTrue(noFrame, "frame-less wreck spawned a frame");
-        helper.succeed();
+        var bowFrames = level.getEntitiesOfClass(ItemFrame.class, AABB.of(bow));
+        helper.assertTrue(bowFrames.isEmpty(), "frame-less wreck spawned a frame: " + bowFrames.stream().map(f -> f.getItem() + "@" + f.blockPosition()).toList());
     }
 
-    private static void clear(GameTestHelper helper, BlockPos base) {
-        for (BlockPos p : BlockPos.betweenClosed(base, base.offset(24, 16, 28)))
-            if (!helper.getLevel().getBlockState(p).isAir()) {
-                if (helper.getLevel().getBlockEntity(p) instanceof RandomizableContainer r) r.setLootTable(null); // no loot spill
-                if (helper.getLevel().getBlockEntity(p) instanceof net.minecraft.world.Clearable c) c.clearContent();
-                helper.getLevel().setBlock(p, Blocks.AIR.defaultBlockState(), 2 | 16);
+    /** Removes everything a wreck test placed inside {@code box} (no loot spill, no drops, no neighbour updates). */
+    private static void clear(GameTestHelper helper, BoundingBox box) {
+        var level = helper.getLevel();
+        level.getEntitiesOfClass(ItemFrame.class, AABB.of(box)).forEach(f -> f.discard());
+        for (BlockPos p : BlockPos.betweenClosed(box.minX(), box.minY(), box.minZ(), box.maxX(), box.maxY(), box.maxZ()))
+            if (!level.getBlockState(p).isAir()) {
+                if (level.getBlockEntity(p) instanceof RandomizableContainer r) r.setLootTable(null); // no loot spill
+                if (level.getBlockEntity(p) instanceof net.minecraft.world.Clearable c) c.clearContent();
+                level.setBlock(p, Blocks.AIR.defaultBlockState(), 2 | 16);
             }
-        helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(base).inflate(30)).forEach(f -> f.discard());
     }
 
     public static void gatewayAndPathPlace(GameTestHelper helper) {

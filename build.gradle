@@ -358,7 +358,9 @@ tasks.named('check') { dependsOn 'testLivemapWeb' }
  // simplechisels-1 (PLAN40): chisel chains - known blocks, no silently replaced link, no dupe, every Simple variant reachable
  'checkChiselChains': 'tools/check_chisel_chains.py',
  // B1 (b-lib01): sub-mod switches/suggests generated from modules/modules.json; stale -> python tools/submods/sync.py
- 'checkSubMods': 'tools/submods/sync.py --check'].each { taskName, script ->
+ 'checkSubMods': 'tools/submods/sync.py --check',
+ // simplebuilding-1 (a-w1a): SB files not shipped on 26.3 (moved content) must stay unused there; stale -> tools/release/dead_assets_263.py
+ 'checkNotShipped263': 'tools/release/dead_assets_263.py --check'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."

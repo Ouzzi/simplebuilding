@@ -13,6 +13,9 @@ dependencies {
     implementation project(':framework')
 }
 processResources { inputs.property('version', project.version.toString()); filesMatching('fabric.mod.json') { expand version: project.version } }
+// simplebuilding-1 (PLAN40): the texture editor's layer sources (<texture>.layers.json, read from the source tree by the wiki
+// pixel editor and tools/textures) never ship in a module jar or its dev runs.
+processResources { exclude '**/*.layers.json' }
 
 sourceSets.main.resources.srcDir '../generated/resources'
 

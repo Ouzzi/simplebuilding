@@ -83,10 +83,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 486,
-      "blocks": 279,
-      "recipes": 809,
-      "config": 153,
+      "items": 488,
+      "blocks": 281,
+      "recipes": 807,
+      "config": 156,
       "features": 42
     }
   },
@@ -591,7 +591,7 @@ window.WIKI_MODULES = [
       "config": 20,
       "features": 8
     },
-    "dataHash": "ea9b897b9142"
+    "dataHash": "a61a3a144414"
   },
   {
     "id": "simpleinterfaces",
@@ -770,7 +770,7 @@ window.WIKI_MODULES = [
       "config": 61,
       "features": 25
     },
-    "dataHash": "f68d0403a2d6"
+    "dataHash": "c230856a23e4"
   },
   {
     "id": "simpleweather",
@@ -1140,12 +1140,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mOQk9D+TwlmABET2paQjH1sclANSA1v/L9u+d7/Jy8eBrOxYZgcSLO5th+mAcgKZy2dCueD2MiaQRbhNQCGc6uywRjGB2mGYaIN8HIKwNBM0IC4kKT/r59+AOPTh66AMUiMKAOQNYPwxq7TYAOWzt6AYghOA5A1w2wHaQbhupIO/AYg2w6zGWYASDMIw1yB0wCYJlya8RoAwshOhmkGuQZZM04DQBIgRciakW3GawAodcEkQQrRNeKNRpgAMkbXjC6PYgAlGADBDC0kWCrJGAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 9,
-      "blocks": 53,
+      "blocks": 51,
       "recipes": 39,
       "config": 9,
       "features": 9
     },
-    "dataHash": "753c34ea6c78"
+    "dataHash": "6abffcfd0b8d"
   },
   {
     "id": "simplerespawn",
@@ -1256,13 +1256,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 48,
+      "items": 44,
       "blocks": 9,
-      "recipes": 52,
-      "config": 7,
+      "recipes": 48,
+      "config": 6,
       "features": 9
     },
-    "dataHash": "b1448d1e0e90"
+    "dataHash": "098ac77c6a18"
   },
   {
     "id": "simplemobheads",
@@ -1276,7 +1276,8 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "simplelib"
+      "simplelib",
+      "cloth_config"
     ],
     "optional": [
       "simplebuilding",
@@ -1284,8 +1285,7 @@ window.WIKI_MODULES = [
       "simpleend",
       "simpleenddragonfight",
       "jei",
-      "modmenu",
-      "cloth_config"
+      "modmenu"
     ],
     "stage": "done",
     "parent": "simplebuilding",
@@ -1309,7 +1309,7 @@ window.WIKI_MODULES = [
       "config": 22,
       "features": 16
     },
-    "dataHash": "6e1d0c60e05a"
+    "dataHash": "febf6b2ee921"
   },
   {
     "id": "simpleshops",
@@ -1459,7 +1459,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 19
     },
-    "dataHash": "0a49413f3c61"
+    "dataHash": "0f663294a269"
   },
   {
     "id": "simplecrucibles",
@@ -1499,10 +1499,10 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 7,
       "recipes": 1,
-      "config": 37,
-      "features": 9
+      "config": 11,
+      "features": 8
     },
-    "dataHash": "9018e66821a2"
+    "dataHash": "10ada0361221"
   },
   {
     "id": "simpleoctets",
@@ -1522,7 +1522,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend",
       "simpleores",
-      "simpleenchanting",
       "jei"
     ],
     "stage": "done",
@@ -1539,11 +1538,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 213,
-      "recipes": 619,
+      "blocks": 211,
+      "recipes": 613,
       "features": 6
     },
-    "dataHash": "2c202ceefb9c"
+    "dataHash": "7b7e6a541538"
   },
   {
     "id": "simplehammers",
@@ -1584,7 +1583,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "5e973feefcc2"
+    "dataHash": "05d38edc82e8"
   },
   {
     "id": "simpleoptimization",
@@ -1829,7 +1828,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplegadgets",
     "displayName": "Simple Gadgets",
-    "description": "Gadgets you hold and use: Gauge (speed dial, altimeter with fall-damage warning, auto-walk), Transposer, Resonance Rod, Detector, Attractor and Echo Sounder, moved from SimpleBuilding (ids migrate); the Color Brush follows later, the Octant lives in Simple Building Tools. Fabric only for now.",
+    "description": "Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1853,9 +1852,9 @@ window.WIKI_MODULES = [
       "items": 7,
       "recipes": 12,
       "config": 31,
-      "features": 9
+      "features": 7
     },
-    "dataHash": "deda358208ec"
+    "dataHash": "008d13f825e2"
   },
   {
     "id": "simpleearth",
@@ -1976,8 +1975,8 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex, Triceratops or Stegosaurus.",
-      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex, Triceratops oder Stegosaurus großziehen."
+      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
+      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen."
     },
     "purpose": {
       "en": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar.",
@@ -1985,13 +1984,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMI8zL4TwlmABHPL68mGd/YUYFqwN1D3f/f3j8EprVkBLBikBwIgzTPaQnDNACmedaBKhT87cMFMAbJgTSDLMJqADbNyAbkzQqCG0LQgBcPdqAYAtKM1wBctqMbADOEaANgLiHJAHTnIxvgV2VFmgvQbcdrAEgBIefjNAAWC8iK0TFMM95oBGGQQlyacRoASl0gCRDGlZRh8hgGwARIxXADKMEAraJkFqb3qvwAAAAASUVORK5CYII=",
     "counts": {
-      "items": 16,
+      "items": 5,
       "blocks": 6,
-      "recipes": 15,
-      "config": 8,
-      "features": 8
+      "recipes": 4,
+      "config": 1,
+      "features": 6
     },
-    "dataHash": "7ca7030dd1a7"
+    "dataHash": "0ec8316a3a40"
   },
   {
     "id": "simpleores",
@@ -2030,7 +2029,7 @@ window.WIKI_MODULES = [
       "config": 16,
       "features": 23
     },
-    "dataHash": "f9c5d1a77c10"
+    "dataHash": "a6e2500f4c03"
   },
   {
     "id": "simplemachines",
@@ -2096,7 +2095,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "3227fd1d6d5f"
+    "dataHash": "66bb382af884"
   },
   {
     "id": "simpleresonance",
@@ -2128,10 +2127,9 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPQUnb7TwlmABGLp5/DiqWEDMAYm1xWxAZUA+rzd//fs+U2mIZpPLHhAxjD+CA5EAZp9rGvxzQAphmmER2D5ECaQRZhNQCmGWbYrLoHYAzjIxuCYQCyZphGdAzSCDOEoAEgGgQ+vPgP1ojXAGR/w2yDaYZhmDhyeOA1AFkzQQOweQHkXJhmgl6gSiAiRyNIIcxWmEZkzTgTEkiCmISE1QBQ6oJJ4krKMHkMA2AC6BimEZscigGUYAAdGmaSr7d4OgAAAABJRU5ErkJggg==",
     "counts": {
       "items": 1,
-      "config": 32,
       "features": 9
     },
-    "dataHash": "0f8b43358a00"
+    "dataHash": "a2831e1ef436"
   },
   {
     "id": "simplefoundry",
@@ -2163,7 +2161,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 2
     },
-    "dataHash": "d4f04d690792"
+    "dataHash": "80ac24ac0fac"
   },
   {
     "id": "simpleenchanting",
@@ -2192,12 +2190,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mNQETf4TwlmABEzW1eTjKOsKlANKAzr/r912SEwTQiDNDtqhWEaAMJSXEJ4MUgzyCKsBoAUbHAw+P/l1QUwrlLQAGMYHyQHMwSnATANLzZ4wA0AsWEG4jWAWC/gNQBbgGHDGAYQshkdYzUA5FdiME4DrEQU/kcpGBCkcRpAjGYQTTsXkB2IsGghFcMNoAQDAHSQ0Ezrx2wLAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 26,
-      "recipes": 36,
-      "config": 1,
-      "features": 6
+      "blocks": 10,
+      "recipes": 8,
+      "features": 5
     },
-    "dataHash": "3ab121b2dd18"
+    "dataHash": "9fbee25393b8"
   },
   {
     "id": "simplepads",
@@ -2264,10 +2261,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 27,
       "recipes": 28,
-      "config": 9,
+      "config": 7,
       "features": 6
     },
-    "dataHash": "e3647e49d318"
+    "dataHash": "92936ba9af6e"
   },
   {
     "id": "simplechisels",
@@ -2297,10 +2294,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 10,
-      "config": 8,
-      "features": 8
+      "config": 1,
+      "features": 7
     },
-    "dataHash": "37272b87906b"
+    "dataHash": "0f4fce8b092a"
   },
   {
     "id": "simplelayers",

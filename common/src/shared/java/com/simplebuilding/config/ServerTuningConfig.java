@@ -200,6 +200,12 @@ public class ServerTuningConfig {
         /** Nihil-Gewoelbe (weltweit geteilter Inhalt); aus: Oeffnen gesperrt, Inhalt bleibt, Rezept faellt weg. */
         @ConfigEntry.Gui.Tooltip
         public boolean nihilVault = true;
+        /**
+         * simplebuilding-7: in a shared world with claims (framework Protection provider) the Nihil Vault opens only on
+         * protected land where the player may use containers; off = everywhere (a public world chest).
+         */
+        @ConfigEntry.Gui.Tooltip
+        public boolean nihilVaultClaimOnly = true;
         /** Die Verzauberung Luftsprung wirkt (unabhaengig vom Client-Schalter enableDoubleJump). */
         @ConfigEntry.Gui.Tooltip
         public boolean airJump = true;
