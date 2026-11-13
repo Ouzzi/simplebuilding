@@ -102,7 +102,6 @@ assets/simplebuilding/textures/item/layered_raw_enderite.png
 assets/simplebuilding/textures/item/magnet.png
 assets/simplebuilding/textures/item/octant.png
 assets/simplebuilding/textures/item/quiver.png
-assets/simplebuilding/textures/item/raw_enderite.png
 assets/simplebuilding/textures/item/reinforced_quiver.png
 assets/simplebuilding/textures/item/rotator.png
 assets/simplebuilding/textures/item/velocity_gauge.png
