@@ -15,6 +15,10 @@ Cloud blocks break instantly and soften falls. Works on its own with Vanilla and
 - Blocks: cloud block, cloud stone, mist block, glitched bedrock, wallpaper (plain, striped, dotted), damp carpet, ceiling tiles, neon light, exit sign
 - Ambient sounds (generated with ElevenLabs under a commercial licence, see CREDITS.md)
 
+## Changed
+
+- Backrooms levels that are still placeholders are sealed: doors and travel into them stay dormant (config backrooms.lockUnfinishedLevels, default on).
+
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API, SimpleLib

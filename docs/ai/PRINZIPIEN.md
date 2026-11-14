@@ -455,6 +455,7 @@ Sieben Vorschlaghämmer (3x3 abbauen, umformen, Octets schnitzen, Blöcke aufwer
 Wolkenmeer über y 700 und Backrooms als eigene Dimension mit zehn Ebenen (Eingänge: Keller eines verlassenen Hauses, Riss im gestörten Grundgestein).
 
 - **A12:** Nutzen: zwei zusätzliche Erkundungsorte. Betreten über Höhe bzw. seltene Eingänge; Overworld sonst Vanilla (Mixins nur Kolben und Blockzustand für die neuen Blöcke). Eingriff in Vanilla: mittel (Höhenübergang), Wolken und Backrooms je abschaltbar (`cloudsEnabled`, `backroomsEnabled`).
+- Platzhalter-Ebenen (`StubBand`, heute u. a. Archiv, Elektro, Lichtlos, Vorstadt, Weizenfeld) sind versiegelt: Türen und Reisen dorthin bleiben ruhend (`backrooms.lockUnfinishedLevels`, Standard an); eine gebaute Ebene öffnet sich von selbst (PLAN40 simplelayers-2). Simple Layers gehört nicht ins erste Release-Paket (pausiert).
 
 ### Simple Lights (`simplelights`)
 1-px-Lampen für jede Blockseite, 16 Farben, Redstone-Scheibe, Kupferscheiben.

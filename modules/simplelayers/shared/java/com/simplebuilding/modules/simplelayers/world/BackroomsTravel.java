@@ -52,7 +52,7 @@ public final class BackroomsTravel {
     /** Sends {@code entity} to the arrival spot of level {@code band} above its x/z (null when the stack is not loaded). */
     public static @Nullable Entity travel(MinecraftServer server, Entity entity, int band) {
         ServerLevel to = server.getLevel(SimpleLayers.STACK);
-        if (to == null) return null;
+        if (to == null || Bands.sealed(band)) return null; // SL-2: placeholder levels are sealed
         if (entity instanceof ServerPlayer player && !SimpleLayers.inBackrooms(player.level())) {
             BackroomsEntries.get(server).put(player.getUUID(), player.blockPosition());
         }

@@ -27,6 +27,8 @@
   "text.autoconfig.simplelayers.option.backrooms.shaftRarity.@Tooltip": "Einer von so vielen neuen Oberwelt-Chunks (0-100000, 0 = keiner) bekommt ein verlassenes Haus, dessen zubetonierter Keller den Wartungsschacht in die Backrooms verbirgt; nur auf flachem, trockenem Boden. Standard: 200.",
   "text.autoconfig.simplelayers.option.backrooms.ambientVolume": "Backrooms-Geräusche",
   "text.autoconfig.simplelayers.option.backrooms.ambientVolume.@Tooltip": "Lautstärke der leisen, zufälligen Geräusche in den Backrooms in Prozent (0-100, 0 = still); kein Dauerton, alle 20-60 s ein Geräusch. Der Umgebungs-Regler wirkt zusätzlich. Standard: 50.",
+  "text.autoconfig.simplelayers.option.backrooms.lockUnfinishedLevels": "Unfertige Ebenen versiegeln",
+  "text.autoconfig.simplelayers.option.backrooms.lockUnfinishedLevels.@Tooltip": "An: Türen, Treppen und Wege in Backrooms-Ebenen, die noch Platzhalter sind (ein schlichtes Raster aus Vanilla-Blöcken), bleiben ruhend; eine Ebene öffnet sich von selbst, sobald sie gebaut ist. Aus: alle zehn Ebenen sind erreichbar. Standard: an.",
   "block.simplelayers.cloud_block": "Wolkenblock",
   "block.simplelayers.cloud_stone": "Wolkenstein",
   "block.simplelayers.mist_block": "Nebelblock",
