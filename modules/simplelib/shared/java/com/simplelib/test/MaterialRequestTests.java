@@ -31,6 +31,8 @@ public final class MaterialRequestTests {
     static final Map<String, String> RECIPES = Map.ofEntries(
             Map.entry("cracked_diamond", "cracked_diamond"), Map.entry("diamond_from_blasting_cracked_diamond", "cracked_diamond"),
             Map.entry("cracked_diamond_block", "cracked_diamond"), Map.entry("cracked_diamond_from_cracked_diamond_block", "cracked_diamond"),
+            Map.entry("cracked_emerald", "cracked_emerald"), Map.entry("emerald_from_blasting_cracked_emerald", "cracked_emerald"),
+            Map.entry("cracked_emerald_block", "cracked_emerald"), Map.entry("cracked_emerald_from_cracked_emerald_block", "cracked_emerald"),
             Map.entry("basic_upgrade_template", "upgrade_templates"),
             Map.entry("strong_upgrade_template_from_shards", "strong_upgrade"),
             Map.entry("netherite_nugget", "netherite_nugget"), Map.entry("netherite_ingot", "netherite_nugget"),
@@ -65,16 +67,16 @@ public final class MaterialRequestTests {
                 if (item == null || item != SimpleLibApi.materialItem(id)) problems.add("item " + id + " is not registered");
             }
         }
-        for (String block : List.of("cracked_diamond_block", "polished_end_stone", "diamond_pressure_plate", "netherite_pressure_plate",
-                "enderite_pressure_plate", "emerald_pressure_plate", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall",
-                "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf")) {
+        for (String block : List.of("cracked_diamond_block", "cracked_emerald_block", "polished_end_stone", "diamond_pressure_plate",
+                "netherite_pressure_plate", "enderite_pressure_plate", "emerald_pressure_plate", "polished_end_stone_stairs", "polished_end_stone_slab",
+                "polished_end_stone_wall", "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf")) {
             if (!(SimpleLibApi.materialItem(block) instanceof BlockItem item) || item.getBlock() != SimpleLibApi.materialBlock(block)
                     || BuiltInRegistries.BLOCK.getValue(SimpleLib.id(block)) != SimpleLibApi.materialBlock(block)) {
                 problems.add("block " + block + " has no matching block item");
             }
         }
         // IG31-13: the building cores are SimpleLib's (not stackable, Netherite/Enderite fire resistant); Enderite left for Simple Ores.
-        for (String core : LibMaterials.CORES) {
+        for (String core : LibMaterials.GROUPS.get("cores")) {
             ItemStack stack = new ItemStack(SimpleLibApi.materialItem(core));
             if (!(stack.getItem() instanceof com.simplelib.item.CoreItem) || stack.getMaxStackSize() != 1) problems.add("core " + core + " is no single core item");
             boolean fire = core.startsWith("netherite") || core.startsWith("enderite");
@@ -173,5 +175,52 @@ public final class MaterialRequestTests {
             h.assertValueEqual(pebbles, on ? SimpleLibApi.anvilPebbles() : 0, "pebbles with cracked_diamond requested=" + on);
             h.assertTrue(h.getBlockState(target).is(Blocks.DIAMOND_BLOCK) != on, "the diamond block is consumed only when requested");
         }).thenSucceed();
+    }
+
+    /** PAL35c: an anvil falling onto an emerald block crushes it into 72 emerald pebbles only while cracked_emerald is requested. */
+    public static void anvilCrushingEmerald(GameTestHelper h) {
+        boolean on = SimpleLibApi.materialRequested("cracked_emerald");
+        BlockPos target = new BlockPos(1, 2, 1);
+        h.setBlock(target.below(), Blocks.STONE);
+        h.setBlock(target, Blocks.EMERALD_BLOCK);
+        BlockPos start = target.above(3);
+        h.setBlock(start, Blocks.ANVIL);
+        FallingBlockEntity.fall(h.getLevel(), h.absolutePos(start), Blocks.ANVIL.defaultBlockState());
+        Item pebble = SimpleLibApi.materialItem("emerald_pebble");
+        h.startSequence().thenExecuteAfter(40, () -> {
+            int pebbles = 0;
+            for (ItemEntity drop : h.getLevel().getEntitiesOfClass(ItemEntity.class, h.getBounds())) {
+                if (drop.getItem().is(pebble)) pebbles += drop.getItem().getCount();
+            }
+            h.assertValueEqual(pebbles, on ? SimpleLibApi.anvilPebbles() : 0, "emerald pebbles with cracked_emerald requested=" + on);
+            h.assertTrue(h.getBlockState(target).is(Blocks.EMERALD_BLOCK) != on, "the emerald block is consumed only when requested");
+        }).thenSucceed();
+    }
+
+    /**
+     * PAL35c: the rose cores are single, rare, not fire resistant core items and share the tag of their tier with the base core
+     * (simplelib:copper_cores, simplelib:gold_cores), so every recipe that takes the tag takes them; the cracked emerald is corrupted.
+     */
+    public static void roseCoresShareTags(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        Map<String, List<String>> tiers = Map.of("copper_cores", List.of("copper_core", "rose_bronze_core"),
+                "gold_cores", List.of("gold_core", "rose_gold_core"));
+        tiers.forEach((tag, cores) -> {
+            TagKey<Item> key = TagKey.create(Registries.ITEM, SimpleLib.id(tag));
+            for (String core : cores) {
+                if (!new ItemStack(SimpleLibApi.materialItem(core)).is(key)) problems.add(core + " is not in simplelib:" + tag);
+            }
+        });
+        for (String core : LibMaterials.ROSE_CORES) {
+            ItemStack stack = new ItemStack(SimpleLibApi.materialItem(core));
+            if (!(stack.getItem() instanceof com.simplelib.item.CoreItem) || stack.getMaxStackSize() != 1) problems.add(core + " is no single core item");
+            if (stack.has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT)) problems.add(core + " is fire resistant");
+            if (stack.getRarity() != net.minecraft.world.item.Rarity.RARE) problems.add(core + " rarity " + stack.getRarity());
+        }
+        for (String cracked : List.of("cracked_emerald", "cracked_emerald_block")) {
+            if (SimpleRarity.of(new ItemStack(SimpleLibApi.materialItem(cracked))) != SimpleRarity.CORRUPTED) problems.add(cracked + " is not corrupted");
+        }
+        h.assertTrue(problems.isEmpty(), "rose cores / cracked emerald: " + problems);
+        h.succeed();
     }
 }

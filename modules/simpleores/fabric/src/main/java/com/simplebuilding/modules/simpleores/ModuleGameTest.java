@@ -137,6 +137,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void roseCoreRecipes(GameTestHelper h) {
+        OresTests.ALL.get("rose_core_recipes").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void roseGoldVeinRule(GameTestHelper h) {
         OresTests.ALL.get("rose_gold_vein_rule").accept(h);
     }

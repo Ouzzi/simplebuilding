@@ -34,7 +34,7 @@ public final class MaterialLoot {
 
     /** One pool per bastion chest: 35 % chance for 2-5 warped wart (treasure chests: 60 %, 3-7). */
     public static void applyWarpedWart(ResourceKey<LootTable> key, Consumer<LootPool.Builder> add) {
-        if (!BASTION_CHESTS.contains(key)) return;
+        if (!BASTION_CHESTS.contains(key) || com.simplelib.registry.LibItems.WARPED_WART == null) return; // VANILLA36: not without content
         boolean treasure = BuiltInLootTables.BASTION_TREASURE.equals(key);
         add.accept(LootPool.lootPool().setRolls(ContextIntProviders.binomial(1, treasure ? 0.6F : 0.35F))
                 .add(LootItem.lootTableItem(com.simplelib.registry.LibItems.WARPED_WART)

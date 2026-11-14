@@ -42,5 +42,8 @@
     "simplebuilding": "*",
     "simplemodels": "*",
     "modmenu": "*"
+  },
+  "custom": {
+    "simplelib:content": []
   }
 }

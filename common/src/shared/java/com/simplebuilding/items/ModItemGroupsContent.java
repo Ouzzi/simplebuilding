@@ -384,9 +384,9 @@ public final class ModItemGroupsContent {
                         ModBlocks.ENDER_COATED.stoneStairs(), ModBlocks.ENDER_COATED.stoneSlab(), ModBlocks.ENDER_COATED.stoneWall(),
                         ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab(),
                         ModBlocks.ENDER_COATED.purpurWall()),
-                CreativeTabLayout.Row.of("storage_and_light",
-                        ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, CreativeTabLayout.GAP,
-                        ModItems.CONSTRUCTION_LIGHT)));
+                CreativeTabLayout.Row.of("storage_and_light", present(
+                        ModItems.CRACKED_DIAMOND_BLOCK, libMaterial("cracked_emerald_block"), ModItems.ENDERITE_BLOCK_ITEM, CreativeTabLayout.GAP,
+                        ModItems.CONSTRUCTION_LIGHT))));
         if (com.simplebuilding.version.McVersion.CHESS_IN_SB) {
             // 26.2: die Quarz-Schachbretter vor Lager und Licht; 26.3: im Tab von Simple Chess (b-chess47).
             rows.add(rows.size() - 1, CreativeTabLayout.Row.of("checkers",
@@ -475,15 +475,21 @@ public final class ModItemGroupsContent {
                 // Vanilla-Diamant und -Netherit gehoeren zur Werkstoffkette (Besitzer 2026-10-01): je Material
                 // eine Zeile vom Rohstoff zum fertigen Werkstoff, der Lederfetzen hinter Netherit.
                 CreativeTabLayout.Row.of("resources_diamond",
-                        ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
+                        ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND)));
+        // PAL35c (14.11.): the emerald chain of SimpleLib (26.3) in its own row behind the diamond one.
+        if (libMaterial("emerald_pebble") != null) {
+            rows.add(CreativeTabLayout.Row.of("resources_emerald", libMaterial("emerald_pebble"), libMaterial("cracked_emerald")));
+        }
+        rows.addAll(List.of(
                 CreativeTabLayout.Row.of("resources_netherite",
                         Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, ModItems.NETHERITE_NUGGET, Items.NETHERITE_INGOT,
                         CreativeTabLayout.GAP, com.simplebuilding.util.StorageRefs.item("leather_sheet")),
                 CreativeTabLayout.Row.of("resources_enderite",
                         ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT),
-                CreativeTabLayout.Row.of("building_cores",
-                        ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
-                        ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
+                // PAL35c: the rose cores (SimpleLib, 26.3) stand behind the core of their tier.
+                CreativeTabLayout.Row.of("building_cores", present(
+                        ModItems.COPPER_CORE, libMaterial("rose_bronze_core"), ModItems.IRON_CORE, ModItems.GOLD_CORE, libMaterial("rose_gold_core"),
+                        ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE)),
                 CreativeTabLayout.Row.of("upgrade_templates",
                         ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
                 CreativeTabLayout.Row.of("trim_templates", trims.toArray(ItemLike[]::new))));
@@ -705,5 +711,16 @@ public final class ModItemGroupsContent {
             book.set(DataComponents.STORED_ENCHANTMENTS, builder.toImmutable());
             entries.add(book);
         });
+    }
+
+    /** PAL35c (14.11.): a SimpleLib material by id path (the emerald chain, the rose cores; 26.3 only), null while not registered. */
+    static net.minecraft.world.level.ItemLike libMaterial(String path) {
+        return net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", path))
+                .orElse(null);
+    }
+
+    /** The given entries without the missing ones (null), gaps ({@link CreativeTabLayout#GAP}) kept. */
+    static net.minecraft.world.level.ItemLike[] present(net.minecraft.world.level.ItemLike... items) {
+        return java.util.Arrays.stream(items).filter(java.util.Objects::nonNull).toArray(net.minecraft.world.level.ItemLike[]::new);
     }
 }

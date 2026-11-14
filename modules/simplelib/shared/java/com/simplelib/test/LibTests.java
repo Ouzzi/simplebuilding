@@ -50,6 +50,8 @@ public final class LibTests {
         ALL.put("material_requests_registered", MaterialRequestTests::registered);
         ALL.put("material_requests_recipes", MaterialRequestTests::recipesFollowRequests);
         ALL.put("material_requests_anvil_crushing", MaterialRequestTests::anvilCrushingFollowsRequest);
+        ALL.put("material_requests_anvil_emerald", MaterialRequestTests::anvilCrushingEmerald);
+        ALL.put("rose_cores_share_tags", MaterialRequestTests::roseCoresShareTags);
         ALL.put("strong_upgrade_wither_drop", MaterialRequestTests::strongUpgradeWitherDrop);
         ALL.put("material_plates_registered_and_moved", PlateTests::registeredAndMoved);
         ALL.put("emerald_plate_villagers_only", PlateTests::emeraldPlateVillagersOnly);
@@ -88,6 +90,8 @@ public final class LibTests {
         ALL.put("modpack_guide_chapter_jump", ModpackGuideTests::chapterJump);
         ALL.put("modpack_guide_creative_tabs", ModpackGuideTests::creativeTabs);
         ALL.put("orbit_camera", LibTests::orbitCamera);
+        ALL.put("content_request_rule", ContentRequestTests::rule);
+        ALL.put("content_matches_registries", ContentRequestTests::matchesRegistries);
     }
 
     // ------------------------------------------------------------ helpers

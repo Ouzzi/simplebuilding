@@ -5,5 +5,5 @@
   "result": {
     "id": "simplepads:spawn_teleporter"
   },
-  "template": "simplelib:gold_core"
+  "template": "#simplelib:gold_cores"
 }

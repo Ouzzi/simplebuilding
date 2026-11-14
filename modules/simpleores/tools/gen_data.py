@@ -634,6 +634,16 @@ for a in ALLOYS:
     recipe(f'enchanted_{a}_apple', 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{a}_block'), 'A': 'minecraft:apple'},
                                             'pattern': ['###', '#A#', '###'], 'result': result(f'enchanted_{a}_apple')}, item(f'{a}_block'))
 
+# PAL35c (14.11.): the rose cores (SimpleLib items) - like the golden apple, 8 alloy ingots round the base core of the same tier
+# (rose copper = copper core, rose gold = gold core); only while a mod requested SimpleLib's cores (condition material_requested).
+CORE_CONDITION = {'fabric:load_conditions': [{'condition': 'simplelib:material_requested', 'material': 'cores'}],
+                  'neoforge:conditions': [{'type': 'simplelib:material_requested', 'material': 'cores'}]}
+ROSE_CORES = {'rose_bronze': 'copper_core', 'rose_gold': 'gold_core'}
+for a, base in ROSE_CORES.items():
+    recipe(f'{a}_core', 'misc', {**CORE_CONDITION, 'type': 'minecraft:crafting_shaped', 'category': 'misc',
+                                 'key': {'#': item(f'{a}_ingot'), 'C': f'simplelib:{base}'}, 'pattern': ['###', '#C#', '###'],
+                                 'result': {'id': f'simplelib:{a}_core'}}, f'simplelib:{base}')
+
 # RG30-2: the plain set of every new metal (storage both ways, nine nuggets, smelting and blasting of raw and ores) and the three alloys.
 for m in METALS:
     storage(f'raw_{m}', f'raw_{m}_block')
@@ -753,6 +763,7 @@ for a in ALLOYS:
 for name, (folder, data, trigger) in RECIPES.items():
     put(DATA / f'recipe/{name}.json', data)
     put(DATA / f'advancement/recipes/{folder}/{name}.json', {
+        **{k: v for k, v in data.items() if k in ('fabric:load_conditions', 'neoforge:conditions')},
         'parent': 'minecraft:recipes/root',
         'criteria': {'has_item': {'conditions': {'items': [{'items': trigger}]}, 'trigger': 'minecraft:inventory_changed'},
                      'has_the_recipe': {'conditions': {'recipes': f'{NS}:{name}'}, 'trigger': 'minecraft:recipe_unlocked'}},

@@ -32,6 +32,7 @@ public record Warm(long until, boolean insulated) {
 
     /** Remaining warm ticks at {@code now}; 0 when cold. */
     public static long remaining(ItemStack stack, long now) {
+        if (LibComponents.WARM == null) return 0; // VANILLA36: SimpleLib's content is not registered
         Warm warm = stack.get(LibComponents.WARM);
         return warm == null ? 0 : Math.max(0, warm.until() - now);
     }
@@ -42,6 +43,7 @@ public record Warm(long until, boolean insulated) {
 
     /** Warms the stack for the full duration from {@code now}. */
     public static void warm(ItemStack stack, long now) {
+        if (LibComponents.WARM == null) return;
         stack.set(LibComponents.WARM, new Warm(now + LibConfig.warmDurationTicks));
     }
 
@@ -52,6 +54,7 @@ public record Warm(long until, boolean insulated) {
 
     /** Entering a bundle: the remaining time is stretched by the insulation factor. */
     public static void insulate(ItemStack stack, long now) {
+        if (LibComponents.WARM == null) return;
         Warm warm = stack.get(LibComponents.WARM);
         if (warm == null || warm.insulated()) return;
         long left = Math.max(0, warm.until() - now);
@@ -61,6 +64,7 @@ public record Warm(long until, boolean insulated) {
 
     /** Leaving a bundle: back to the normal cooling speed. */
     public static void uninsulate(ItemStack stack, long now) {
+        if (LibComponents.WARM == null) return;
         Warm warm = stack.get(LibComponents.WARM);
         if (warm == null || !warm.insulated()) return;
         long left = Math.max(0, warm.until() - now);

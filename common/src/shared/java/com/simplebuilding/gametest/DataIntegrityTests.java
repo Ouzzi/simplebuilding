@@ -3257,9 +3257,9 @@ public final class DataIntegrityTests {
                         ModBlocks.ENDER_COATED.stoneStairs(), ModBlocks.ENDER_COATED.stoneSlab(), ModBlocks.ENDER_COATED.stoneWall(),
                         ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab(),
                         ModBlocks.ENDER_COATED.purpurWall()),
-                CreativeTabLayout.Row.of("storage_and_light",
-                        ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, gap,
-                        ModItems.CONSTRUCTION_LIGHT)));
+                CreativeTabLayout.Row.of("storage_and_light", pal35cPresent(
+                        ModItems.CRACKED_DIAMOND_BLOCK, pal35cLib("cracked_emerald_block"), ModItems.ENDERITE_BLOCK_ITEM, gap,
+                        ModItems.CONSTRUCTION_LIGHT))));
         if (McVersion.CHESS_IN_SB) {
             // 26.2: die Quarz-Schachbretter vor Lager und Licht; 26.3: im Tab von Simple Chess (b-chess47).
             expected.add(expected.size() - 1, CreativeTabLayout.Row.of("checkers",
@@ -3370,16 +3370,21 @@ public final class DataIntegrityTests {
             expected.add(CreativeTabLayout.Row.besides("warden_tendril", ModItems.WARDEN_TENDRIL));
         }
         expected.addAll(List.of(
-                CreativeTabLayout.Row.of("resources_diamond", ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
+                CreativeTabLayout.Row.of("resources_diamond", ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND)));
+        // PAL35c (14.11.): SimpleLib's emerald chain (26.3) in its own row behind the diamond one.
+        if (pal35cLib("emerald_pebble") != null) {
+            expected.add(CreativeTabLayout.Row.of("resources_emerald", pal35cLib("emerald_pebble"), pal35cLib("cracked_emerald")));
+        }
+        expected.addAll(List.of(
                 CreativeTabLayout.Row.of("resources_netherite",
                         Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, ModItems.NETHERITE_NUGGET, Items.NETHERITE_INGOT,
                         gap, com.simplebuilding.util.StorageRefs.item("leather_sheet")),
                 CreativeTabLayout.Row.of("resources_enderite",
                         ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET,
                         ModItems.ENDERITE_INGOT),
-                CreativeTabLayout.Row.of("building_cores",
-                        ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
-                        ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
+                CreativeTabLayout.Row.of("building_cores", pal35cPresent(
+                        ModItems.COPPER_CORE, pal35cLib("rose_bronze_core"), ModItems.IRON_CORE, ModItems.GOLD_CORE, pal35cLib("rose_gold_core"),
+                        ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE)),
                 CreativeTabLayout.Row.of("upgrade_templates",
                         ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
                 CreativeTabLayout.Row.of("trim_templates", trims.toArray(ItemLike[]::new))));
@@ -5514,5 +5519,14 @@ public final class DataIntegrityTests {
             count++;
         }
         return count;
+    }
+
+    /** PAL35c (14.11.): a SimpleLib item by id path (emerald chain, rose cores; 26.3 only), null while not registered. */
+    private static ItemLike pal35cLib(String path) {
+        return BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath("simplelib", path)).orElse(null);
+    }
+
+    private static ItemLike[] pal35cPresent(ItemLike... items) {
+        return java.util.Arrays.stream(items).filter(java.util.Objects::nonNull).toArray(ItemLike[]::new);
     }
 }

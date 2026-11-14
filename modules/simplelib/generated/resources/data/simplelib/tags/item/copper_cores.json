@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "simplelib:copper_core",
+      "required": false
+    },
+    {
+      "id": "simplelib:rose_bronze_core",
+      "required": false
+    }
+  ]
+}

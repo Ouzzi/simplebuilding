@@ -287,9 +287,19 @@ public class SledgehammerItem extends Item {
         return isCrushableDiamondBlock(state) && canCrushDiamondBlock(item);
     }
 
-    /** Diamond block or (N55, owner 2026-10-14) Cracked Diamond Block: both break into the same diamond pebbles. */
+    /**
+     * Diamond block or (N55, owner 2026-10-14) Cracked Diamond Block: both break into the same diamond pebbles. PAL35c (14.11.):
+     * the emerald block and the Cracked Emerald Block break the same way into emerald pebbles.
+     */
     public static boolean isCrushableDiamondBlock(BlockState state) {
-        return state.is(Blocks.DIAMOND_BLOCK) || state.is(SimpleLibApi.materialBlock("cracked_diamond_block"));
+        return pebbleOf(state) != null;
+    }
+
+    /** The SimpleLib pebble a crushable gem block breaks into ({@code diamond_pebble}, {@code emerald_pebble}), else null. */
+    public static String pebbleOf(BlockState state) {
+        if (state.is(Blocks.DIAMOND_BLOCK) || state.is(SimpleLibApi.materialBlock("cracked_diamond_block"))) return "diamond_pebble";
+        if (state.is(Blocks.EMERALD_BLOCK) || state.is(SimpleLibApi.materialBlock("cracked_emerald_block"))) return "emerald_pebble";
+        return null;
     }
 
     @Override
@@ -763,7 +773,7 @@ public class SledgehammerItem extends Item {
     public static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack, long now) {
         BlockState state = world.getBlockState(pos);
         // Schrittweise (Besitzer 2026-10-06): jeder Schlag zeigt seinen Teil der Kiesel, der letzte gibt alle frei.
-        var strike = InWorldStrikes.strikeYield(world, pos, "diamond_crush", state, diamondPebbles(),
+        var strike = InWorldStrikes.strikeYield(world, pos, "diamond_crush", state, diamondPebbles(state),
                 DIAMOND_BLOCK_STRIKES, now, SledgehammerUpgrades.hitInterval(stack));
         if (strike == null) {
             return 0;
@@ -774,12 +784,14 @@ public class SledgehammerItem extends Item {
         return strike.done();
     }
 
-    private static ItemStack diamondPebbles() {
-        return new ItemStack(SimpleLibApi.materialItem("diamond_pebble"), Math.max(0, HammerConfig.diamondBlockPebbles));
+    private static ItemStack diamondPebbles(BlockState state) {
+        String pebble = pebbleOf(state);
+        return new ItemStack(SimpleLibApi.materialItem(pebble == null ? "diamond_pebble" : pebble), Math.max(0, HammerConfig.diamondBlockPebbles));
     }
 
     private static void crushDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
-        if (!strikesDiamondBlock(world.getBlockState(pos), stack.getItem())) {
+        BlockState crushed = world.getBlockState(pos);
+        if (!strikesDiamondBlock(crushed, stack.getItem())) {
             InWorldStrikes.clear(world, pos);
             return;
         }
@@ -789,7 +801,7 @@ public class SledgehammerItem extends Item {
         world.destroyBlock(pos, false, player);
         HammerActions.fire(HammerActions.DIAMOND_CRUSH, player);
 
-        InWorldStrikes.release(world, pos, diamondPebbles());
+        InWorldStrikes.release(world, pos, diamondPebbles(crushed));
 
         world.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 

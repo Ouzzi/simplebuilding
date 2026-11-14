@@ -9,7 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Server config {@code config/simplelib-server.json} (the warm food options, legendary moments, hang watchdog, free look rules). Every value is clamped to its hard bounds when
+ * Server config {@code config/simplelib-server.json} (the warm food options, legendary moments, hang watchdog, free look rules,
+ * the content switch {@code alwaysRegisterContent}). Every value is clamped to its hard bounds when
  * loaded (plan section 13), so an edited file can never exceed them; missing keys use the defaults
  * and the file is rewritten with the clamped values.
  */
@@ -38,6 +39,11 @@ public final class LibConfig {
     /** IG31-29 free look: release mode the server offers ("camera" = camera eases back, "player" = player turns to the camera) and whether it enforces it. */
     public static String freeLookRelease = "camera";
     public static boolean freeLookEnforce = false;
+    /**
+     * VANILLA36: register SimpleLib's blocks/items even when no installed mod asks for them (a dedicated server with only logic
+     * mods then turns Vanilla clients away again, but keeps old worlds' SimpleLib content). Read once at start (restart).
+     */
+    public static boolean alwaysRegisterContent = false;
     /** Called after every save (the loader entry sends the free look rules to the players again). */
     public static volatile Runnable onSaved = () -> {};
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -45,7 +51,7 @@ public final class LibConfig {
     /** The keys this class owns (the config command lists only these, CMD24). */
     public static final java.util.List<String> KEYS = java.util.List.of("warmBaseTicks", "warmDurationTicks", "warmBundleDurationTicks",
             "eatSpeedBonus", "legendaryEffects", "legendaryAllChallenges", "legendaryMuteToast", "legendaryAdvancements", "legendaryEnchantments",
-            "hangWatchdog", "hangWatchdogSeconds", "freeLookRelease", "freeLookEnforce");
+            "hangWatchdog", "hangWatchdogSeconds", "freeLookRelease", "freeLookEnforce", "alwaysRegisterContent");
     /** Keys this class does not own (the crucible options before split stage 5): written back unchanged so Simple Crucibles can still take them over. */
     private static JsonObject kept = new JsonObject();
     private static Path file;
@@ -88,6 +94,7 @@ public final class LibConfig {
         hangWatchdogSeconds = clamp(getInt(json, "hangWatchdogSeconds", HANG_SECONDS_DEFAULT), HANG_SECONDS_MIN, HANG_SECONDS_MAX);
         freeLookRelease = freeLookPlayerTurns(getString(json, "freeLookRelease")) ? "player" : "camera";
         freeLookEnforce = getBool(json, "freeLookEnforce", false);
+        alwaysRegisterContent = getBool(json, "alwaysRegisterContent", false);
     }
 
     /** {@code "player"} (case-insensitive) = the player turns to the camera; anything else = the camera eases back. */
@@ -140,6 +147,7 @@ public final class LibConfig {
         o.addProperty("hangWatchdogSeconds", hangWatchdogSeconds);
         o.addProperty("freeLookRelease", freeLookRelease);
         o.addProperty("freeLookEnforce", freeLookEnforce);
+        o.addProperty("alwaysRegisterContent", alwaysRegisterContent);
         return o;
     }
 

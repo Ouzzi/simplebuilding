@@ -505,10 +505,10 @@
       },
       "source": "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/detector.json",
       "ingredients": [
+        "#simplelib:gold_cores",
         "minecraft:calibrated_sculk_sensor",
         "minecraft:echo_shard",
-        "minecraft:recovery_compass",
-        "simplelib:gold_core"
+        "minecraft:recovery_compass"
       ],
       "pattern": [
         " ES",
@@ -523,39 +523,10 @@
           "minecraft:echo_shard"
         ],
         "G": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "S": [
           "minecraft:calibrated_sculk_sensor"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:echo_shard",
-            "count": 12
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:amethyst_shard",
-            "count": 3
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sculk_sensor",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          }
         ]
       }
     },
@@ -951,10 +922,10 @@
       },
       "source": "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/velocity_gauge.json",
       "ingredients": [
+        "#simplelib:copper_cores",
         "minecraft:amethyst_shard",
         "minecraft:clock",
-        "minecraft:copper_nugget",
-        "simplelib:copper_core"
+        "minecraft:copper_nugget"
       ],
       "pattern": [
         "NAN",
@@ -969,35 +940,10 @@
           "minecraft:clock"
         ],
         "K": [
-          "simplelib:copper_core"
+          "#simplelib:copper_cores"
         ],
         "N": [
           "minecraft:copper_nugget"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:amethyst_shard",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "simplelib:copper_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 0.667
-          }
         ]
       }
     },

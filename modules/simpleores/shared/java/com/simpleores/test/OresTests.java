@@ -399,6 +399,22 @@ public final class OresTests {
             }
             h.succeed();
         });
+        // PAL35c (14.11.): 8 alloy ingots round the base core of the same tier refine it into the rose core (SimpleLib item) - only while
+        // a mod requested SimpleLib's cores; the other tier's core or a missing ingot gives nothing.
+        ALL.put("rose_core_recipes", h -> {
+            boolean on = com.simplelib.api.SimpleLibApi.materialRequested("cores");
+            for (String[] pair : new String[][] {{"rose_bronze", "copper_core", "gold_core"}, {"rose_gold", "gold_core", "copper_core"}}) {
+                ItemStack ring = stack(pair[0] + "_ingot");
+                List<ItemStack> slots = new ArrayList<>();
+                for (int i = 0; i < 9; i++) slots.add(i == 4 ? new ItemStack(com.simplelib.api.SimpleLibApi.materialItem(pair[1])) : ring.copy());
+                ItemStack out = craft(h, CraftingInput.of(3, 3, slots));
+                Item rose = com.simplelib.api.SimpleLibApi.materialItem(pair[0] + "_core");
+                check(h, on ? out.is(rose) && out.getCount() == 1 : out.isEmpty(), pair[0] + " ingots round a " + pair[1] + " (cores requested=" + on + "): " + out);
+                slots.set(4, new ItemStack(com.simplelib.api.SimpleLibApi.materialItem(pair[2])));
+                check(h, craft(h, CraftingInput.of(3, 3, slots)).isEmpty(), pair[0] + " ingots round a " + pair[2] + " give nothing");
+            }
+            h.succeed();
+        });
         ALL.put("storage_block_recipes", h -> {
             // BLOCKS07: nine of the material <-> block, both ways; no recipe melts a block.
             Map<String, Item> materials = new LinkedHashMap<>();

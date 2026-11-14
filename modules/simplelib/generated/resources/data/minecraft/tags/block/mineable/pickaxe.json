@@ -1,13 +1,44 @@
 {
   "values": [
-    "simplelib:cracked_diamond_block",
-    "simplelib:polished_end_stone",
-    "simplelib:polished_end_stone_stairs",
-    "simplelib:polished_end_stone_slab",
-    "simplelib:polished_end_stone_wall",
-    "simplelib:diamond_pressure_plate",
-    "simplelib:netherite_pressure_plate",
-    "simplelib:enderite_pressure_plate",
-    "simplelib:emerald_pressure_plate"
+    {
+      "id": "simplelib:cracked_diamond_block",
+      "required": false
+    },
+    {
+      "id": "simplelib:cracked_emerald_block",
+      "required": false
+    },
+    {
+      "id": "simplelib:polished_end_stone",
+      "required": false
+    },
+    {
+      "id": "simplelib:polished_end_stone_stairs",
+      "required": false
+    },
+    {
+      "id": "simplelib:polished_end_stone_slab",
+      "required": false
+    },
+    {
+      "id": "simplelib:polished_end_stone_wall",
+      "required": false
+    },
+    {
+      "id": "simplelib:diamond_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplelib:netherite_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplelib:enderite_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplelib:emerald_pressure_plate",
+      "required": false
+    }
   ]
 }

@@ -18,7 +18,9 @@ import net.minecraft.world.level.block.Block;
 public final class SharedMaterials {
     /** Every material group SimpleBuilding uses (all of them): their recipes and the anvil crushing stay on. */
     public static final List<String> GROUPS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates",
-            "polished_end_stone", "cores", "nether_bookshelves");
+            "polished_end_stone", "cores", "nether_bookshelves",
+            // PAL35c (14.11.): the emerald chain (new SimpleLib ids, nothing moved from SimpleBuilding).
+            "cracked_emerald");
 
     /** Item ids that moved from {@code simplebuilding:} to {@code simplelib:} (same paths). */
     public static final List<String> ITEMS = List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block", "netherite_nugget",
@@ -29,6 +31,12 @@ public final class SharedMaterials {
             "copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core",
             // N48 (14.11.): the plain Nether blazewood bookshelves (group nether_bookshelves); the rest of the blazewood is Simple Enchanting's.
             "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
+    /**
+     * PAL35c (14.11.): SimpleLib materials that never were SimpleBuilding's (no id move) but stand in its materials tab: the emerald
+     * chain and the rose cores. Shared like the moved ones ({@link #isShared}), not part of {@link #ITEMS}.
+     */
+    public static final List<String> LIB_ITEMS = List.of("emerald_pebble", "cracked_emerald", "cracked_emerald_block",
+            "rose_bronze_core", "rose_gold_core");
     /** Block ids that moved. */
     public static final List<String> BLOCKS = List.of("cracked_diamond_block", "polished_end_stone",
             "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
@@ -125,13 +133,13 @@ public final class SharedMaterials {
     /** Whether {@code item} is one of the shared materials (SimpleLib's or Simple Ores', not SimpleBuilding's own registration). */
     public static boolean isShared(Item item) {
         var id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item);
-        return id != null && ("simplelib".equals(id.getNamespace()) && ITEMS.contains(id.getPath())
+        return id != null && ("simplelib".equals(id.getNamespace()) && (ITEMS.contains(id.getPath()) || LIB_ITEMS.contains(id.getPath()))
                 || ORES.equals(id.getNamespace()) && ORES_ITEMS.contains(id.getPath()));
     }
 
     public static boolean isShared(Block block) {
         var id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
-        return id != null && ("simplelib".equals(id.getNamespace()) && BLOCKS.contains(id.getPath())
+        return id != null && ("simplelib".equals(id.getNamespace()) && (BLOCKS.contains(id.getPath()) || "cracked_emerald_block".equals(id.getPath()))
                 || ORES.equals(id.getNamespace()) && ORES_BLOCKS.contains(id.getPath()));
     }
 

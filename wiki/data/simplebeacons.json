@@ -674,11 +674,11 @@
       },
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_beacon.json",
       "ingredients": [
+        "#simplelib:copper_cores",
+        "#simplelib:gold_cores",
         "simplebeacons:strong_beacon",
-        "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
-        "simplelib:gold_core",
         "simplelib:iron_core",
         "simplelib:netherite_core",
         "simplelib:strong_upgrade_template"
@@ -690,13 +690,13 @@
       ],
       "key": {
         "c": [
-          "simplelib:copper_core"
+          "#simplelib:copper_cores"
         ],
         "i": [
           "simplelib:iron_core"
         ],
         "g": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "d": [
           "simplelib:diamond_core"
@@ -712,55 +712,6 @@
         ],
         "U": [
           "simplelib:strong_upgrade_template"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sand",
-            "count": 5
-          },
-          {
-            "id": "minecraft:obsidian",
-            "count": 3
-          },
-          {
-            "id": "simplelib:strong_upgrade_template",
-            "count": 3
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "simplelib:copper_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:diamond_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:iron_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 1
-          }
         ]
       }
     },
@@ -876,11 +827,11 @@
       },
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_conduit.json",
       "ingredients": [
+        "#simplelib:copper_cores",
+        "#simplelib:gold_cores",
         "simplebeacons:strong_conduit",
-        "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
-        "simplelib:gold_core",
         "simplelib:iron_core",
         "simplelib:netherite_core",
         "simplelib:strong_upgrade_template"
@@ -898,13 +849,13 @@
           "simplelib:strong_upgrade_template"
         ],
         "c": [
-          "simplelib:copper_core"
+          "#simplelib:copper_cores"
         ],
         "i": [
           "simplelib:iron_core"
         ],
         "g": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "d": [
           "simplelib:diamond_core"
@@ -914,51 +865,6 @@
         ],
         "e": [
           "simplelib:enderite_core"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:nautilus_shell",
-            "count": 8
-          },
-          {
-            "id": "simplelib:strong_upgrade_template",
-            "count": 3
-          },
-          {
-            "id": "minecraft:heart_of_the_sea",
-            "count": 1
-          },
-          {
-            "id": "simplelib:copper_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:diamond_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:iron_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 1
-          }
         ]
       }
     },
@@ -1070,11 +976,11 @@
       },
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_beacon.json",
       "ingredients": [
+        "#simplelib:copper_cores",
+        "#simplelib:gold_cores",
         "simplebeacons:evil_beacon",
-        "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
-        "simplelib:gold_core",
         "simplelib:iron_core",
         "simplelib:netherite_core",
         "simplelib:strong_upgrade_template"
@@ -1086,13 +992,13 @@
       ],
       "key": {
         "c": [
-          "simplelib:copper_core"
+          "#simplelib:copper_cores"
         ],
         "i": [
           "simplelib:iron_core"
         ],
         "g": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "d": [
           "simplelib:diamond_core"
@@ -1108,63 +1014,6 @@
         ],
         "U": [
           "simplelib:strong_upgrade_template"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sand",
-            "count": 5
-          },
-          {
-            "id": "minecraft:obsidian",
-            "count": 3
-          },
-          {
-            "id": "simplelib:strong_upgrade_template",
-            "count": 3
-          },
-          {
-            "id": "simplemobs:nether_gem",
-            "count": 2
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "simplelib:copper_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:diamond_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:iron_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 1
-          }
         ]
       }
     },
@@ -1288,11 +1137,11 @@
       },
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_conduit.json",
       "ingredients": [
+        "#simplelib:copper_cores",
+        "#simplelib:gold_cores",
         "simplebeacons:evil_conduit",
-        "simplelib:copper_core",
         "simplelib:diamond_core",
         "simplelib:enderite_core",
-        "simplelib:gold_core",
         "simplelib:iron_core",
         "simplelib:netherite_core",
         "simplelib:strong_upgrade_template"
@@ -1310,13 +1159,13 @@
           "simplelib:strong_upgrade_template"
         ],
         "c": [
-          "simplelib:copper_core"
+          "#simplelib:copper_cores"
         ],
         "i": [
           "simplelib:iron_core"
         ],
         "g": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "d": [
           "simplelib:diamond_core"
@@ -1326,59 +1175,6 @@
         ],
         "e": [
           "simplelib:enderite_core"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:nautilus_shell",
-            "count": 8
-          },
-          {
-            "id": "simplelib:strong_upgrade_template",
-            "count": 3
-          },
-          {
-            "id": "simplemobs:nether_gem",
-            "count": 2
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 1
-          },
-          {
-            "id": "minecraft:heart_of_the_sea",
-            "count": 1
-          },
-          {
-            "id": "simplelib:copper_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:diamond_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:iron_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 1
-          }
         ]
       }
     },

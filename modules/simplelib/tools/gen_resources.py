@@ -13,6 +13,17 @@ OUTPUT = MODULE / "generated/resources"
 NS = "simplelib"
 CRLF, LF = b"\r\n", b"\n"
 
+
+def opt(ident):
+    """VANILLA36: a SimpleLib entry in a shared tag is optional - without SimpleLib's content (LibContent) the tag still loads."""
+    return {"id": ident, "required": False}
+
+
+def registered(registry, ident):
+    """VANILLA36: a file that names SimpleLib content loads only while that content is registered (Fabric condition;
+    NeoForge/Forge ignore the key and register everything)."""
+    return {"fabric:load_conditions": [{"condition": "fabric:registry_contains", "registry": f"minecraft:{registry}", "values": [ident]}]}
+
 # Owner 37: everything that is eaten or served warm.
 WARMABLE = (
     "cooked_beef", "cooked_porkchop", "cooked_chicken", "cooked_mutton", "cooked_rabbit",
@@ -34,12 +45,12 @@ def files():
     plates(out)
     warped_wart(out)
     modpack_guide(out)
-    out["data/minecraft/tags/block/mineable/axe.json"] = {"values": [f"{NS}:{b}" for b in SHELVES]}
-    out["data/minecraft/tags/block/enchantment_power_provider.json"] = {"values": [f"{NS}:{b}" for b in SHELVES]}
-    out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [f"{NS}:{b}" for b in (*MATERIAL_BLOCKS, *SHAPES, *PLATES)]}
-    out["data/minecraft/tags/block/pressure_plates.json"] = {"values": [f"{NS}:{b}" for b in PLATES]}
+    out["data/minecraft/tags/block/mineable/axe.json"] = {"values": [opt(f"{NS}:{b}") for b in SHELVES]}
+    out["data/minecraft/tags/block/enchantment_power_provider.json"] = {"values": [opt(f"{NS}:{b}") for b in SHELVES]}
+    out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [opt(f"{NS}:{b}") for b in (*MATERIAL_BLOCKS, *SHAPES, *PLATES)]}
+    out["data/minecraft/tags/block/pressure_plates.json"] = {"values": [opt(f"{NS}:{b}") for b in PLATES]}
     for kind, tag in (("stairs", "stairs"), ("slab", "slabs"), ("wall", "walls")):
-        members = [f"{NS}:{n}" for n, k in SHAPES.items() if k == kind]
+        members = [opt(f"{NS}:{n}") for n, k in SHAPES.items() if k == kind]
         out[f"data/minecraft/tags/block/{tag}.json"] = {"values": members}
         out[f"data/minecraft/tags/item/{tag}.json"] = {"values": members}
     return out
@@ -48,12 +59,14 @@ def files():
 # Shared materials (split stage 3d, PLAN-MODULAUFTEILUNG §2.5): group -> items; the blocks have block items.
 MATERIAL_GROUPS = {
     "cracked_diamond": ("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
+    # PAL35c (14.11.): the same chain for emerald.
+    "cracked_emerald": ("emerald_pebble", "cracked_emerald", "cracked_emerald_block"),
     "netherite_nugget": ("netherite_nugget",),
     # IG31-13: Enderite (and its upgrade template) moved to Simple Ores; the building cores came from SimpleBuilding.
     "upgrade_templates": ("basic_upgrade_template",),
     # WF25-10 (07.11.): the Strong Upgrade template ("chart") and its shard came from Simple Beacons (Beacons, wings of Simple Mobs).
     "strong_upgrade": ("strong_upgrade_template", "strong_upgrade_shard"),
-    "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core"),
+    "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core", "rose_bronze_core", "rose_gold_core"),
     # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
     "polished_end_stone": ("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
     # N48 (14.11.): the plain Nether blazewood bookshelves; the planks of the same wood belong to Simple Enchanting.
@@ -69,7 +82,9 @@ PLATES = {
     "emerald_pressure_plate": f"{NS}:block/emerald_pressure_plate",
 }
 SHELVES = MATERIAL_GROUPS["nether_bookshelves"]
-MATERIAL_BLOCKS = ("cracked_diamond_block", "polished_end_stone")
+MATERIAL_BLOCKS = ("cracked_diamond_block", "cracked_emerald_block", "polished_end_stone")
+# PAL35c: the rose cores count as their tier in every recipe that takes a copper or gold core (item tags, optional entries).
+CORE_TAGS = {"copper_cores": ("copper_core", "rose_bronze_core"), "gold_cores": ("gold_core", "rose_gold_core")}
 # Stairs, slab, wall of the polished end stone (octet rule): cut from the full block with the existing texture.
 SHAPE_BASE = "polished_end_stone"
 SHAPES = {f"{SHAPE_BASE}_{kind}": kind for kind in ("stairs", "slab", "wall")}
@@ -103,6 +118,15 @@ def material_recipes():
          shaped({"C": m("cracked_diamond")}, ["CCC", "CCC", "CCC"], m("cracked_diamond_block"), category="building"), [m("cracked_diamond")]),
         ("misc", "cracked_diamond_from_cracked_diamond_block", "cracked_diamond",
          shapeless([m("cracked_diamond_block")], m("cracked_diamond"), 9, group="cracked_diamond_from_block"), [m("cracked_diamond_block")]),
+        # PAL35c: the emerald chain, same numbers as the diamond chain.
+        ("misc", "cracked_emerald", "cracked_emerald", shaped({"P": m("emerald_pebble")}, ["PPP", "PPP", "PPP"], m("cracked_emerald")),
+         [m("emerald_pebble")]),
+        ("misc", "emerald_from_blasting_cracked_emerald", "cracked_emerald",
+         blasting(m("cracked_emerald"), v("emerald"), 200, 1.0, "emerald_from_cracked"), [m("cracked_emerald")]),
+        ("building_blocks", "cracked_emerald_block", "cracked_emerald",
+         shaped({"C": m("cracked_emerald")}, ["CCC", "CCC", "CCC"], m("cracked_emerald_block"), category="building"), [m("cracked_emerald")]),
+        ("misc", "cracked_emerald_from_cracked_emerald_block", "cracked_emerald",
+         shapeless([m("cracked_emerald_block")], m("cracked_emerald"), 9, group="cracked_emerald_from_block"), [m("cracked_emerald_block")]),
         ("misc", "basic_upgrade_template", "upgrade_templates",
          shaped({"A": v("diamond"), "B": m("basic_upgrade_template"), "C": v("iron_block")}, ["ABA", "ACA", "AAA"],
                 m("basic_upgrade_template"), 2), [m("basic_upgrade_template")]),
@@ -247,7 +271,7 @@ def shapes(out):
         else:
             loot = {"type": "minecraft:block", "pools": [{"condition": {"type": "minecraft:survives_explosion"},
                                                           "entries": [{"type": "minecraft:item", "name": item}], "rolls": 1}]}
-        out[f"data/{NS}/loot_table/blocks/{name}.json"] = loot
+        out[f"data/{NS}/loot_table/blocks/{name}.json"] = {**registered("block", item), **loot}
 
 
 def plates(out):
@@ -259,7 +283,7 @@ def plates(out):
         out[f"{a}/blockstates/{name}.json"] = {"variants": {"powered=false": {"model": f"{NS}:block/{name}"},
                                                              "powered=true": {"model": f"{NS}:block/{name}_down"}}}
         out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
-        out[f"{d}/loot_table/blocks/{name}.json"] = {"type": "minecraft:block", "pools": [{
+        out[f"{d}/loot_table/blocks/{name}.json"] = {**registered("block", f"{NS}:{name}"), "type": "minecraft:block", "pools": [{
             "condition": {"type": "minecraft:survives_explosion"}, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}], "rolls": 1}]}
 
 
@@ -284,7 +308,7 @@ def nether_bookshelves(out):
         out[f"{a}/blockstates/{name}.json"] = {"variants": {"": {"model": f"{NS}:block/{name}"}}}
         out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
         # Like Vanilla's bookshelf: the block with Silk Touch, otherwise three books.
-        out[f"{d}/loot_table/blocks/{name}.json"] = {"type": "minecraft:block", "pools": [{"entries": [{"type": "minecraft:alternatives", "children": [
+        out[f"{d}/loot_table/blocks/{name}.json"] = {**registered("block", f"{NS}:{name}"), "type": "minecraft:block", "pools": [{"entries": [{"type": "minecraft:alternatives", "children": [
             {"type": "minecraft:item", "condition": "minecraft:tool/can_silk_touch", "name": f"{NS}:{name}"},
             {"type": "minecraft:item", "modifier": [{"type": "minecraft:set_count", "count": 3}, {"type": "minecraft:explosion_decay"}],
              "name": "minecraft:book"}]}], "rolls": 1}]}
@@ -304,6 +328,7 @@ def materials(out):
         out[f"{a}/blockstates/{block}.json"] = {"variants": {"": {"model": f"{NS}:block/{block}"}}}
         out[f"{a}/items/{block}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{block}"}}
         out[f"{d}/loot_table/blocks/{block}.json"] = {
+            **registered("block", f"{NS}:{block}"),
             "type": "minecraft:block",
             "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{block}"}],
                        "condition": {"type": "minecraft:survives_explosion"}}],
@@ -323,14 +348,18 @@ def materials(out):
     # Common tags (principle 6: other mods use the tag, never the id).
     c = "data/c/tags"
     # IG31-13: the Enderite tags (c:ingots/enderite ...) belong to Simple Ores now.
-    out[f"{c}/item/nuggets/netherite.json"] = {"values": [f"{NS}:netherite_nugget"]}
+    out[f"{c}/item/nuggets/netherite.json"] = {"values": [opt(f"{NS}:netherite_nugget")]}
     out[f"{c}/item/nuggets.json"] = {"values": ["#c:nuggets/netherite"]}
-    out[f"{c}/item/gems/cracked_diamond.json"] = {"values": [f"{NS}:cracked_diamond"]}
-    out[f"{c}/item/gems.json"] = {"values": ["#c:gems/cracked_diamond"]}
+    out[f"{c}/item/gems/cracked_diamond.json"] = {"values": [opt(f"{NS}:cracked_diamond")]}
+    out[f"{c}/item/gems/cracked_emerald.json"] = {"values": [opt(f"{NS}:cracked_emerald")]}
+    out[f"{c}/item/gems.json"] = {"values": ["#c:gems/cracked_diamond", "#c:gems/cracked_emerald"]}
     for kind in ("item", "block"):
-        out[f"{c}/{kind}/storage_blocks/cracked_diamond.json"] = {"values": [f"{NS}:cracked_diamond_block"]}
-        out[f"{c}/{kind}/storage_blocks.json"] = {"values": ["#c:storage_blocks/cracked_diamond"]}
-    out["data/minecraft/tags/block/needs_iron_tool.json"] = {"values": [f"{NS}:cracked_diamond_block"]}
+        for gem in ("cracked_diamond", "cracked_emerald"):
+            out[f"{c}/{kind}/storage_blocks/{gem}.json"] = {"values": [opt(f"{NS}:{gem}_block")]}
+        out[f"{c}/{kind}/storage_blocks.json"] = {"values": ["#c:storage_blocks/cracked_diamond", "#c:storage_blocks/cracked_emerald"]}
+    out["data/minecraft/tags/block/needs_iron_tool.json"] = {"values": [opt(f"{NS}:cracked_diamond_block"), opt(f"{NS}:cracked_emerald_block")]}
+    for tag, cores in CORE_TAGS.items():
+        out[f"data/{NS}/tags/item/{tag}.json"] = {"values": [opt(f"{NS}:{core}") for core in cores]}
 
 
 def modpack_guide(out):
@@ -339,11 +368,12 @@ def modpack_guide(out):
     a, d = f"assets/{NS}", f"data/{NS}"
     out[f"{a}/models/item/modpack_guide.json"] = {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/modpack_guide"}}
     out[f"{a}/items/modpack_guide.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/modpack_guide"}}
-    out[f"{d}/recipe/modpack_guide.json"] = {"type": "minecraft:crafting_shapeless", "category": "misc",
+    guide = registered("item", f"{NS}:modpack_guide")
+    out[f"{d}/recipe/modpack_guide.json"] = {**guide, "type": "minecraft:crafting_shapeless", "category": "misc",
                                              "ingredients": ["minecraft:book", "minecraft:crafting_table"],
                                              "result": {"count": 1, "id": f"{NS}:modpack_guide"}}
     out[f"{d}/advancement/recipes/misc/modpack_guide.json"] = {
-        "parent": "minecraft:recipes/root",
+        **guide, "parent": "minecraft:recipes/root",
         "criteria": {
             "has_book": {"conditions": {"items": [{"items": "minecraft:book"}]}, "trigger": "minecraft:inventory_changed"},
             "has_crafting_table": {"conditions": {"items": [{"items": "minecraft:crafting_table"}]}, "trigger": "minecraft:inventory_changed"},
@@ -366,8 +396,9 @@ def warped_wart(out):
     out[f"{a}/items/warped_wart.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/warped_wart"}}
     # Same drops as nether wart (26.3 loot format, copied from Vanilla): 1 when young, 2-4 (+ fortune) when fully grown.
     mature = {"type": "minecraft:match_block", "blocks": f"{NS}:warped_wart", "state": {"age": "3"}}
+    wart = registered("item", f"{NS}:warped_wart")
     out[f"{d}/loot_table/blocks/warped_wart.json"] = {
-        "type": "minecraft:block",
+        **wart, "type": "minecraft:block",
         "pools": [{"entries": [{"type": "minecraft:item", "name": f"{NS}:warped_wart", "modifier": [
             {"type": "minecraft:set_count", "condition": mature, "count": {"type": "minecraft:uniform", "min": 2, "max": 4}},
             {"type": "minecraft:apply_bonus", "condition": mature, "enchantment": "minecraft:fortune",
@@ -378,7 +409,7 @@ def warped_wart(out):
     # Brewing (26.3, data driven): water bottle + warped wart = warped potion, in all three bottles like Vanilla's awkward.
     for container in ("potion", "splash_potion", "lingering_potion"):
         out[f"{d}/recipe/brewing/{container}_water_warped_wart.json"] = {
-            "type": "minecraft:brewing",
+            **wart, "type": "minecraft:brewing",
             "input": {"item": f"minecraft:{container}", "potion_contents": {"potions": "minecraft:water"}},
             "output": {"components": {"minecraft:potion_contents": {"potion": f"{NS}:warped"}}, "id": f"minecraft:{container}"},
             "reagent": {"item": f"{NS}:warped_wart"}}
@@ -391,11 +422,11 @@ def warped_wart(out):
                               "ingredients": [block], "result": {"count": 9, "id": f"{NS}:warped_wart"}}, [block]),
     }
     for rid, (category, recipe, unlocking) in recipes.items():
-        out[f"{d}/recipe/{rid}.json"] = recipe
+        out[f"{d}/recipe/{rid}.json"] = {**wart, **recipe}
         criteria = {f"has_{i.split(':')[1]}": {"conditions": {"items": [{"items": i}]}, "trigger": "minecraft:inventory_changed"} for i in unlocking}
         criteria["has_the_recipe"] = {"conditions": {"recipes": f"{NS}:{rid}"}, "trigger": "minecraft:recipe_unlocked"}
         out[f"{d}/advancement/recipes/{category}/{rid}.json"] = {
-            "parent": "minecraft:recipes/root", "criteria": criteria,
+            **wart, "parent": "minecraft:recipes/root", "criteria": criteria,
             "requirements": [["has_the_recipe"] + [f"has_{i.split(':')[1]}" for i in unlocking]], "rewards": {"recipes": [f"{NS}:{rid}"]}}
 
 

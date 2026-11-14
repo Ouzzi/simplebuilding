@@ -512,8 +512,8 @@
       },
       "source": "modules/simplebuildingtools/shared/resources/data/simplebuildingtools/recipe/copper_building_wand.json",
       "ingredients": [
-        "minecraft:stick",
-        "simplelib:copper_core"
+        "#simplelib:copper_cores",
+        "minecraft:stick"
       ],
       "pattern": [
         "  C",
@@ -522,23 +522,10 @@
       ],
       "key": {
         "C": [
-          "simplelib:copper_core"
+          "#simplelib:copper_cores"
         ],
         "S": [
           "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:copper_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
         ]
       }
     },
@@ -650,8 +637,8 @@
       },
       "source": "modules/simplebuildingtools/shared/resources/data/simplebuildingtools/recipe/gold_building_wand.json",
       "ingredients": [
-        "minecraft:stick",
-        "simplelib:gold_core"
+        "#simplelib:gold_cores",
+        "minecraft:stick"
       ],
       "pattern": [
         "  C",
@@ -660,23 +647,10 @@
       ],
       "key": {
         "C": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "S": [
           "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
         ]
       }
     },
@@ -780,11 +754,11 @@
       },
       "source": "modules/simplebuildingtools/shared/resources/data/simplebuildingtools/recipe/octant.json",
       "ingredients": [
+        "#simplelib:gold_cores",
         "minecraft:compass",
         "minecraft:gold_nugget",
         "minecraft:lead",
-        "minecraft:lightning_rod",
-        "simplelib:gold_core"
+        "minecraft:lightning_rod"
       ],
       "pattern": [
         " NR",
@@ -796,7 +770,7 @@
           "minecraft:compass"
         ],
         "G": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "L": [
           "minecraft:lead"
@@ -806,35 +780,6 @@
         ],
         "R": [
           "minecraft:lightning_rod"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
-          }
         ]
       }
     },
@@ -864,32 +809,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:ink_sac",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -920,32 +845,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:lapis_lazuli",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -976,32 +881,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:cocoa_beans",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1032,23 +917,7 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
+            "id": "simplebuildingtools:octant",
             "count": 1
           },
           {
@@ -1058,10 +927,6 @@
           {
             "id": "minecraft:lapis_lazuli",
             "count": 0.5
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1092,32 +957,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
+            "id": "simplebuildingtools:octant",
             "count": 1
           },
           {
             "id": "minecraft:ink_sac",
             "count": 0.5
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           },
           {
             "id": "minecraft:bone",
@@ -1152,32 +997,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:cactus",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1208,32 +1033,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:blue_orchid",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1264,32 +1069,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:azure_bluet",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1320,32 +1105,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
+            "id": "simplebuildingtools:octant",
             "count": 1
           },
           {
             "id": "minecraft:cactus",
             "count": 0.5
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           },
           {
             "id": "minecraft:bone",
@@ -1380,32 +1145,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:allium",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1436,32 +1181,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:open_eyeblossom",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1492,32 +1217,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:cactus_flower",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1548,23 +1253,7 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
+            "id": "simplebuildingtools:octant",
             "count": 1
           },
           {
@@ -1574,10 +1263,6 @@
           {
             "id": "minecraft:lapis_lazuli",
             "count": 0.5
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1608,32 +1293,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:beetroot",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1664,28 +1329,8 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           },
           {
             "id": "minecraft:bone",
@@ -1720,32 +1365,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:string",
-            "count": 2.5
-          },
-          {
             "id": "minecraft:dandelion",
             "count": 1
           },
           {
-            "id": "minecraft:redstone",
+            "id": "simplebuildingtools:octant",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.444
           }
         ]
       }
@@ -1781,20 +1406,16 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuildingtools:copper_building_wand",
             "count": 1
           },
           {
-            "id": "simplelib:copper_core",
+            "id": "simplelib:basic_upgrade_template",
             "count": 1
           },
           {
             "id": "simplelib:iron_core",
             "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -1830,20 +1451,16 @@
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuildingtools:gold_building_wand",
+            "count": 1
+          },
+          {
             "id": "simplelib:basic_upgrade_template",
             "count": 1
           },
           {
             "id": "simplelib:diamond_core",
             "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
           }
         ]
       }
@@ -1859,9 +1476,9 @@
       },
       "source": "modules/simplebuildingtools/shared/resources/data/simplebuildingtools/recipe/upgrade_iron_building_wand_to_gold_building_wand.json",
       "ingredients": [
+        "#simplelib:gold_cores",
         "simplebuildingtools:iron_building_wand",
-        "simplelib:basic_upgrade_template",
-        "simplelib:gold_core"
+        "simplelib:basic_upgrade_template"
       ],
       "slots": {
         "template": [
@@ -1871,31 +1488,10 @@
           "simplebuildingtools:iron_building_wand"
         ],
         "addition": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ]
       },
-      "addition_count": 1,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:basic_upgrade_template",
-            "count": 1
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplelib:iron_core",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
+      "addition_count": 1
     }
   ],
   "lootTables": [],

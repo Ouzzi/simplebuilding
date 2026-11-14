@@ -25,7 +25,7 @@ public final class WarmMerge {
 
     /** Equal apart from the warm component? Remembers the pair for the following grow. */
     public static boolean sameIgnoringWarm(ItemStack a, ItemStack b) {
-        if (COMPARING.get() || a.isEmpty() || b.isEmpty() || a.getItem() != b.getItem()) return false;
+        if (LibComponents.WARM == null || COMPARING.get() || a.isEmpty() || b.isEmpty() || a.getItem() != b.getItem()) return false;
         if (!a.has(LibComponents.WARM) && !b.has(LibComponents.WARM)) return false;
         COMPARING.set(true);
         try {
@@ -47,6 +47,7 @@ public final class WarmMerge {
      * comparison inside {@code matches} is dropped then (no grow follows an equality check).
      */
     public static boolean sameWarmth(ItemStack a, ItemStack b) {
+        if (LibComponents.WARM == null) return true; // VANILLA36: no warm component without SimpleLib's content
         if (java.util.Objects.equals(a.get(LibComponents.WARM), b.get(LibComponents.WARM))) return true;
         ItemStack[] pair = PENDING.get();
         if (pair != null && (pair[0] == a || pair[0] == b) && (pair[1] == a || pair[1] == b)) PENDING.remove();
@@ -65,6 +66,7 @@ public final class WarmMerge {
 
     /** Sets the mean warmth of {@code targetCount} items of target and {@code amount} items of source. */
     public static void blend(ItemStack target, int targetCount, ItemStack source, int amount, long at) {
+        if (LibComponents.WARM == null) return;
         long a = Warm.remaining(target, at);
         long b = Warm.remaining(source, at);
         long mean = (a * targetCount + b * amount) / Math.max(1, targetCount + amount);

@@ -10715,6 +10715,47 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_core",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplelib:rose_bronze_core",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_core.json",
+      "ingredients": [
+        "simplelib:copper_core",
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#C#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_ingot"
+        ],
+        "C": [
+          "simplelib:copper_core"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 8
+          },
+          {
+            "id": "simplelib:copper_core",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_helmet",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -11615,6 +11656,47 @@
           {
             "id": "simpleores:rose_gold_ingot",
             "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_core",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplelib:rose_gold_core",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_core.json",
+      "ingredients": [
+        "simplelib:gold_core",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#C#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "C": [
+          "simplelib:gold_core"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "simplelib:gold_core",
+            "count": 1
           }
         ]
       }
@@ -21965,6 +22047,7 @@
         "simpleores:rose_bronze_block",
         "simpleores:rose_bronze_boots",
         "simpleores:rose_bronze_chestplate",
+        "simpleores:rose_bronze_core",
         "simpleores:rose_bronze_helmet",
         "simpleores:rose_bronze_hoe",
         "simpleores:rose_bronze_leggings",
@@ -22314,6 +22397,7 @@
         "simpleores:rose_gold_block",
         "simpleores:rose_gold_boots",
         "simpleores:rose_gold_chestplate",
+        "simpleores:rose_gold_core",
         "simpleores:rose_gold_helmet",
         "simpleores:rose_gold_hoe",
         "simpleores:rose_gold_leggings",
@@ -31142,7 +31226,7 @@
   "incompleteProse": {},
   "counts": {
     "features": 27,
-    "recipes": 456,
+    "recipes": 458,
     "lootTables": 221,
     "tags": 12,
     "advancements": 1,

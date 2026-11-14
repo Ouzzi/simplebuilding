@@ -79,26 +79,55 @@
       ],
       "en": {
         "title": "Shared materials",
-        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the six building cores. Enderite belongs to Simple Ores (IG31-13).",
+        "summary": "Base materials several Simple mods use: diamond and emerald pebble, cracked diamond and cracked emerald with their blocks, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the building cores (six tiers plus the two rose cores). Enderite belongs to Simple Ores (IG31-13).",
         "details": [
           "SimpleLib always registers them, so worlds keep them whichever mod is missing. Their recipes and the anvil crushing only exist while a loaded mod asks for the material (with SimpleBuilding: all of them).",
-          "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond.",
+          "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond. Emerald blocks crush the same way into 72 emerald pebbles (cracked emerald, blasts into one emerald).",
           "Netherite nuggets and ingots convert 9:1; the basic upgrade template duplicates like Vanilla templates.",
-          "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore.",
-          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond and c:storage_blocks/cracked_diamond. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids.",
+          "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore. The rose copper and rose gold cores count as copper and gold core in every recipe (tags simplelib:copper_cores, simplelib:gold_cores); Simple Ores refines a base core with 8 alloy ingots into one.",
+          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond, c:storage_blocks/cracked_diamond, c:gems/cracked_emerald and c:storage_blocks/cracked_emerald. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids.",
           "Strong Upgrade (template and shard, WF25-10, formerly Simple Beacons): upgrades beacons and conduits (Simple Beacons) and the elytra and wings (Simple Mobs). While a mod requests it, the Vanilla Wither drops one shard next to its Nether Star when a mod offers its own way to the first template (Simple Mobs: Nether Heart recipe), otherwise the whole template - never both. Nine shards craft a template. Old worlds load the Simple Beacons items under their new ids."
         ]
       },
       "de": {
         "title": "Gemeinsame Materialien",
-        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die sechs Baukerne. Enderit gehört Simple Ores (IG31-13).",
+        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamant- und Smaragdkiesel, Rissiger Diamant und Rissiger Smaragd mit ihren Blöcken, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die Baukerne (sechs Stufen und die zwei Rosé-Kerne). Enderit gehört Simple Ores (IG31-13).",
         "details": [
           "SimpleLib registriert sie immer, damit Welten sie behalten, egal welche Mod fehlt. Ihre Rezepte und das Amboss-Zerschlagen gibt es nur, solange eine geladene Mod das Material anfordert (mit SimpleBuilding: alle).",
-          "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
+          "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird. Smaragdblöcke zerfallen genauso zu 72 Smaragdkieseln (Rissiger Smaragd, wird im Schmelzofen zu einem Smaragd).",
           "Netheritklumpen und -barren tauschen 9:1; die Basis-Aufwertungsvorlage lässt sich wie Vanilla-Vorlagen vervielfältigen.",
-          "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz.",
-          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond und c:storage_blocks/cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids.",
+          "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz. Rosenkupfer- und Roségoldkern zählen in jedem Rezept als Kupfer- bzw. Goldkern (Tags simplelib:copper_cores, simplelib:gold_cores); Simple Ores veredelt einen Grundkern mit 8 Legierungsbarren zu einem.",
+          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond, c:storage_blocks/cracked_diamond, c:gems/cracked_emerald und c:storage_blocks/cracked_emerald. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids.",
           "Starke Aufwertung (Vorlage und Splitter, WF25-10, vorher Simple Beacons): wertet Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs) auf. Solange eine Mod sie anfordert, lässt der Vanilla-Wither neben seinem Netherstern einen Splitter fallen, wenn eine Mod einen eigenen Weg zur ersten Vorlage bietet (Simple Mobs: Netherherz-Rezept), sonst die ganze Vorlage - nie beides. Neun Splitter ergeben eine Vorlage. Alte Welten laden die Simple-Beacons-Items unter den neuen IDs."
+        ]
+      }
+    },
+    {
+      "id": "content_on_request",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibContent.java",
+        "modules/simplelib/fabric/src/main/java/com/simplebuilding/modules/simplelib/SimpleLibFabric.java",
+        "modules/simplelib/shared/java/com/simplelib/config/LibConfig.java",
+        "tools/testrunner/server_solo.py"
+      ],
+      "en": {
+        "title": "Content only on request (Vanilla clients)",
+        "summary": "SimpleLib registers its blocks, items, item components, the warped potion and the legendary sound only when an installed mod asks for them. A dedicated server that runs only logic mods (Challenges, Earth, Farming, Interfaces, Live Map, Loot, Movement, Optimization and its three parts, Sounds, Visuals, Weather) therefore lets Vanilla clients without Fabric join. Fabric only; NeoForge and Forge register everything as before.",
+        "details": [
+          "A mod asks in its fabric.mod.json: \"custom\": {\"simplelib:content\": [...]} - a non-empty list asks, an empty list needs nothing. A mod without this entry asks when it depends on SimpleLib or its id starts with \"simple\", so every content mod keeps all SimpleLib items. One request registers all of them.",
+          "A game client always registers everything (singleplayer and LAN worlds stay unchanged; a client joins servers with and without the content).",
+          "Old worlds: on a server without content, saved warped wart becomes nether wart, the warped potion becomes an awkward potion and the Simple Modpack guide becomes a book. To keep SimpleLib items in an old world, set alwaysRegisterContent (default false) in config/simplelib-server.json or with /simplelib config; it is read at start (restart). Vanilla clients are turned away again while it is on.",
+          "Vanilla players only get what the server does (weather, farming, loot, movement rules, world generation, challenges); client parts such as Visuals or Sounds need the mod on the client."
+        ]
+      },
+      "de": {
+        "title": "Inhalte nur auf Anforderung (Vanilla-Clients)",
+        "summary": "SimpleLib registriert seine Blöcke, Items, Item-Komponenten, den Wirren Trank und den legendären Klang nur, wenn ein installierter Mod sie anfordert. Ein dedizierter Server nur mit Logik-Mods (Challenges, Earth, Farming, Interfaces, Live Map, Loot, Movement, Optimization mit seinen drei Teilen, Sounds, Visuals, Weather) lässt deshalb Vanilla-Clients ohne Fabric herein. Nur Fabric; NeoForge und Forge registrieren weiter alles.",
+        "details": [
+          "Ein Mod fordert in seiner fabric.mod.json an: \"custom\": {\"simplelib:content\": [...]} - eine nicht leere Liste fordert an, eine leere Liste braucht nichts. Ein Mod ohne diesen Eintrag fordert an, wenn er von SimpleLib abhängt oder seine Id mit \"simple\" beginnt; so behält jeder Inhalts-Mod alle SimpleLib-Items. Eine Anforderung registriert alle.",
+          "Ein Spiel-Client registriert immer alles (Einzelspieler- und LAN-Welten bleiben unverändert; ein Client betritt Server mit und ohne die Inhalte).",
+          "Alte Welten: Auf einem Server ohne Inhalte wird gespeicherte Wirrwarze zu Netherwarze, der Wirre Trank zu einem seltsamen Trank und das Simple-Modpack-Handbuch zu einem Buch. Wer SimpleLib-Items in einer alten Welt behalten will, setzt alwaysRegisterContent (Standard aus) in config/simplelib-server.json oder mit /simplelib config; der Wert wird beim Start gelesen (Neustart). Solange er an ist, werden Vanilla-Clients wieder abgewiesen.",
+          "Vanilla-Spieler bekommen nur, was der Server macht (Wetter, Landwirtschaft, Beute, Bewegungsregeln, Weltgenerierung, Challenges); Client-Teile wie Visuals oder Sounds brauchen den Mod auf dem Client."
         ]
       }
     },
@@ -404,6 +433,100 @@
       }
     },
     {
+      "id": "simplelib:cracked_emerald",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:cracked_emerald",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/cracked_emerald.json",
+      "ingredients": [
+        "simplelib:emerald_pebble"
+      ],
+      "pattern": [
+        "PPP",
+        "PPP",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "simplelib:emerald_pebble"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:emerald_pebble",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:cracked_emerald_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplelib:cracked_emerald_block",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/cracked_emerald_block.json",
+      "ingredients": [
+        "simplelib:cracked_emerald"
+      ],
+      "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "simplelib:cracked_emerald"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:emerald_pebble",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:cracked_emerald_from_cracked_emerald_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "cracked_emerald_from_block",
+      "result": {
+        "id": "simplelib:cracked_emerald",
+        "count": 9
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/cracked_emerald_from_cracked_emerald_block.json",
+      "ingredients": [
+        "simplelib:cracked_emerald_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplelib:cracked_emerald_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplelib:cracked_emerald_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplelib:crimson_blazewood_bookshelf",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -505,6 +628,36 @@
           {
             "id": "minecraft:diamond",
             "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:emerald_from_blasting_cracked_emerald",
+      "type": "minecraft:blasting",
+      "category": null,
+      "group": "emerald_from_cracked",
+      "result": {
+        "id": "minecraft:emerald",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/emerald_from_blasting_cracked_emerald.json",
+      "ingredients": [
+        "simplelib:cracked_emerald"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:cracked_emerald"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 1.0,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:emerald_pebble",
+            "count": 9
           }
         ]
       }
@@ -1196,6 +1349,24 @@
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/cracked_diamond_block.json"
     },
     {
+      "id": "simplelib:blocks/cracked_emerald_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:cracked_emerald_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/cracked_emerald_block.json"
+    },
+    {
       "id": "simplelib:blocks/crimson_blazewood_bookshelf",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1411,6 +1582,36 @@
       "source": "modules/simplelib/shared/resources/data/simplelib/tags/enchantment/legendary.json"
     },
     {
+      "id": "simplelib:item/copper_cores",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelib:copper_core",
+          "required": false
+        },
+        {
+          "id": "simplelib:rose_bronze_core",
+          "required": false
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/copper_cores.json"
+    },
+    {
+      "id": "simplelib:item/gold_cores",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelib:gold_core",
+          "required": false
+        },
+        {
+          "id": "simplelib:rose_gold_core",
+          "required": false
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/gold_cores.json"
+    },
+    {
       "id": "simplelib:item/hammers",
       "replace": false,
       "values": [],
@@ -1574,6 +1775,30 @@
       ]
     },
     {
+      "id": "simplelib:cracked_emerald",
+      "name": {
+        "en_us": "Cracked Emerald",
+        "de_de": "Rissiger Smaragd"
+      },
+      "note": {
+        "en": {
+          "summary": "Nine emerald pebbles; blasts into one emerald."
+        },
+        "de": {
+          "summary": "Neun Smaragdkiesel; wird im Schmelzofen zu einem Smaragd."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/cracked_emerald.png",
+      "craftedBy": [
+        "simplelib:cracked_emerald",
+        "simplelib:cracked_emerald_from_cracked_emerald_block"
+      ],
+      "usedIn": [
+        "simplelib:cracked_emerald_block",
+        "simplelib:emerald_from_blasting_cracked_emerald"
+      ]
+    },
+    {
       "id": "simplelib:diamond_core",
       "name": {
         "en_us": "Diamond Core",
@@ -1613,6 +1838,26 @@
       "craftedBy": [],
       "usedIn": [
         "simplelib:cracked_diamond"
+      ]
+    },
+    {
+      "id": "simplelib:emerald_pebble",
+      "name": {
+        "en_us": "Emerald Pebble",
+        "de_de": "Smaragdkiesel"
+      },
+      "note": {
+        "en": {
+          "summary": "A ninth of a cracked emerald; anvils crush emerald blocks into 72 (with Simple Hammers also the sledgehammer)."
+        },
+        "de": {
+          "summary": "Ein Neuntel eines Rissigen Smaragds; Ambosse zerschlagen Smaragdblöcke zu 72 (mit Simple Hammers auch der Vorschlaghammer)."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/emerald_pebble.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplelib:cracked_emerald"
       ]
     },
     {
@@ -1746,6 +1991,50 @@
       ]
     },
     {
+      "id": "simplelib:rose_bronze_core",
+      "name": {
+        "en_us": "Rose Copper Core",
+        "de_de": "Rosenkupferkern"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
+        "en": {
+          "summary": "Rose copper building core: counts as a copper core in every recipe (tag simplelib:copper_cores). With Simple Ores: 8 rose copper ingots round a copper core."
+        },
+        "de": {
+          "summary": "Rosenkupferkern: zählt in jedem Rezept als Kupferkern (Tag simplelib:copper_cores). Mit Simple Ores: 8 Rosenkupferbarren um einen Kupferkern."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/rose_bronze_core.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:rose_gold_core",
+      "name": {
+        "en_us": "Rose Gold Core",
+        "de_de": "Roségoldkern"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
+        "en": {
+          "summary": "Rose gold building core: counts as a gold core in every recipe (tag simplelib:gold_cores). With Simple Ores: 8 rose gold ingots round a gold core."
+        },
+        "de": {
+          "summary": "Roségoldkern: zählt in jedem Rezept als Goldkern (Tag simplelib:gold_cores). Mit Simple Ores: 8 Roségoldbarren um einen Goldkern."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/rose_gold_core.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplelib:strong_upgrade_shard",
       "name": {
         "en_us": "Strong Upgrade Shard",
@@ -1857,6 +2146,28 @@
       ],
       "usedIn": [
         "simplelib:cracked_diamond_from_cracked_diamond_block"
+      ]
+    },
+    {
+      "id": "simplelib:cracked_emerald_block",
+      "name": {
+        "en_us": "Block of Cracked Emerald",
+        "de_de": "Rissiger Smaragdblock"
+      },
+      "note": {
+        "en": {
+          "summary": "Storage block of nine cracked emeralds (iron pickaxe)."
+        },
+        "de": {
+          "summary": "Speicherblock aus neun Rissigen Smaragden (Eisenspitzhacke)."
+        }
+      },
+      "texture": "assets/textures/simplelib/block/cracked_emerald_block.png",
+      "craftedBy": [
+        "simplelib:cracked_emerald_block"
+      ],
+      "usedIn": [
+        "simplelib:cracked_emerald_from_cracked_emerald_block"
       ]
     },
     {
@@ -2157,6 +2468,25 @@
   ],
   "trades": [],
   "config": [
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplelib/shared/java/com/simplelib/config/LibConfig.java",
+      "name": "alwaysRegisterContent",
+      "shortName": "alwaysRegisterContent",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "SimpleLib",
+      "categoryDe": "SimpleLib",
+      "group": null,
+      "groupDe": null,
+      "label": "Always Register Content",
+      "labelDe": "Inhalte immer registrieren",
+      "tooltip": "On: SimpleLib registers its blocks and items\neven when no installed mod needs them (keeps\nthem in old worlds; Vanilla clients are then\nturned away). Dedicated server, needs a\nrestart. Default: false.",
+      "tooltipDe": "An: SimpleLib registriert seine Blöcke und\nItems, auch wenn kein installierter Mod sie\nbraucht (bleiben in alten Welten erhalten;\nVanilla-Clients werden dann abgewiesen).\nDedizierter Server, Neustart nötig.\nStandard: aus."
+    },
     {
       "range": [
         0.0,
@@ -2559,16 +2889,16 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
-    "recipes": 30,
-    "lootTables": 12,
-    "tags": 5,
+    "features": 9,
+    "recipes": 34,
+    "lootTables": 13,
+    "tags": 7,
     "advancements": 0,
     "enchantments": 0,
-    "items": 13,
-    "blocks": 12,
+    "items": 17,
+    "blocks": 13,
     "trades": 0,
-    "config": 20,
+    "config": 21,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

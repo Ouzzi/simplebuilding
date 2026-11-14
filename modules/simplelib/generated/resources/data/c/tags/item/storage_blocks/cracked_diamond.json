@@ -1,5 +1,8 @@
 {
   "values": [
-    "simplelib:cracked_diamond_block"
+    {
+      "id": "simplelib:cracked_diamond_block",
+      "required": false
+    }
   ]
 }

@@ -41,7 +41,7 @@ public final class SimpleHammers {
             Map.entry("upgrade_iron_sledgehammer_to_gold_sledgehammer", "misc"),
             Map.entry("upgrade_gold_sledgehammer_to_diamond_sledgehammer", "misc"));
     /** SimpleLib materials the hammers are made from, crush into or upgrade with (their recipes and sources go on). */
-    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
+    public static final List<String> MATERIALS = List.of("cracked_diamond", "cracked_emerald", "netherite_nugget", "upgrade_templates");
     /**
      * Owner rule F3 (PLAN-MODULFAMILIE §5): the Enderite tier is unlocked only with the mod that provides Enderite. That is Simple
      * Ores (MACH32-ENDSYS; the planned Simple Enderite was never built): the smithing recipe and its unlock carry a

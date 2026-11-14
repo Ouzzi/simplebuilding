@@ -64,12 +64,16 @@ public final class HammersViewer {
                 Component.translatable(NOTE + "crush.iron"),
                 Component.translatable(NOTE + "durability", SledgehammerItem.DIAMOND_CRUSH_DAMAGE));
         if (pebble != null && pebble != Items.AIR && !strong.isEmpty() && HammerConfig.diamondBlockPebbles > 0) {
-            List<Item> blocks = new ArrayList<>(List.of(Items.DIAMOND_BLOCK));
-            Block cracked = SimpleLibApi.materialBlock("cracked_diamond_block");
-            if (cracked != null && cracked.asItem() != Items.AIR) blocks.add(cracked.asItem());
-            for (Item block : blocks) {
-                out.add(new InWorldUpgrade("simplehammers/crush/" + BuiltInRegistries.ITEM.getKey(block).getPath(),
-                        List.of(InWorldUpgrade.Input.of(block, 1)), strong, new ItemStack(pebble, HammerConfig.diamondBlockPebbles), diamondNotes));
+            // PAL35c: the emerald chain crushes the same way (emerald block, cracked emerald block -> emerald pebbles).
+            for (String gem : List.of("diamond", "emerald")) {
+                Item gemPebble = SimpleLibApi.materialItem(gem + "_pebble");
+                List<Item> blocks = new ArrayList<>(List.of(gem.equals("diamond") ? Items.DIAMOND_BLOCK : Items.EMERALD_BLOCK));
+                Block cracked = SimpleLibApi.materialBlock("cracked_" + gem + "_block");
+                if (cracked != null && cracked.asItem() != Items.AIR) blocks.add(cracked.asItem());
+                for (Item block : blocks) {
+                    out.add(new InWorldUpgrade("simplehammers/crush/" + BuiltInRegistries.ITEM.getKey(block).getPath(),
+                            List.of(InWorldUpgrade.Input.of(block, 1)), strong, new ItemStack(gemPebble, HammerConfig.diamondBlockPebbles), diamondNotes));
+                }
             }
         }
         out.add(new InWorldUpgrade("simplehammers/crush/quartz_block", List.of(InWorldUpgrade.Input.of(Items.QUARTZ_BLOCK, 1)), hammers,

@@ -14,7 +14,7 @@ import org.jspecify.annotations.Nullable;
  *   <li>LEGENDARY: End endgame: Enderite ingot, block, template, tools, armor and everything made of it, End Wings, Ender Heart;
  *       Terranite, Infernite, Zenithite ingots and blocks (IG31-58).</li>
  *   <li>MYTHIC: Astral things (the counterpart of Nihil) and the Strong things of Simple Beacons, the Strong Upgrade (SimpleLib), Ender Gem.</li>
- *   <li>CORRUPTED: broken things: the cracked diamond and its block.</li>
+ *   <li>CORRUPTED: broken things: the cracked diamond and the cracked emerald (PAL35c) with their blocks.</li>
  *   <li>CURSED: set explicitly where it is meant (Biome Brush, Wither items).</li>
  * </ul>
  */
@@ -27,7 +27,7 @@ public final class RarityRules {
     /** IG31-58: the end materials of the Dimensional Scrap stand beside Enderite (ingots and their blocks); the rift shards stay plain like Enderite scrap. */
     private static final Set<String> RIFT_METALS = Set.of("terranite_ingot", "terranite_block", "infernite_ingot", "infernite_block",
             "zenithite_ingot", "zenithite_block");
-    private static final Set<String> CORRUPTED = Set.of("cracked_diamond", "cracked_diamond_block");
+    private static final Set<String> CORRUPTED = Set.of("cracked_diamond", "cracked_diamond_block", "cracked_emerald", "cracked_emerald_block");
 
     private RarityRules() {}
 

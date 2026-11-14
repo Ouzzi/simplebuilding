@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplelib;
 
 import com.simplelib.SimpleLib;
 import com.simplelib.registry.LibComponents;
+import com.simplelib.registry.LibContent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -12,39 +13,13 @@ public final class SimpleLibFabric implements ModInitializer {
         // simplelib-3: features a mod must ask for (free look's default key, legendary moments) - before any client entrypoint.
         LibFeaturesFabric.decide();
         SimpleLib.init(FabricLoader.getInstance().getConfigDir());
-        LibComponents.register();
-        com.simplelib.registry.LibBlocks.register();
-        com.simplelib.registry.LibMaterials.ensureBlocks();
-        com.simplelib.registry.LibMaterials.ensureItems();
-        com.simplelib.registry.LibItems.register();
-        com.simplelib.api.ModTabs.register(SimpleLib.MOD_ID, "lib", "itemgroup.simplelib.lib", () -> new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART), com.simplelib.api.ModpackGuide.ITEM_ID.getPath());
-        com.simplelib.registry.LibPotions.register();
-        com.simplelib.registry.LibSounds.register();
-        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(entries -> {
-            entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART));
-            // WF25-10: the Strong Upgrade (template, shard) while a mod requested it; the tab rules move both into the Simple Lib tab.
-            if (com.simplelib.registry.LibMaterials.requested(com.simplelib.material.StrongUpgradeDrops.GROUP)) {
-                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item("strong_upgrade_template")));
-                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item("strong_upgrade_shard")));
-            }
-        });
-        // N48: the material pressure plates in the Redstone tab after the heavy weighted plate, while a mod requested the group.
-        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> {
-            if (!com.simplelib.registry.LibMaterials.requested("material_pressure_plates")) return;
-            var plates = com.simplelib.registry.LibMaterials.PLATES.stream()
-                    .map(id -> new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item(id))).toList();
-            if (entries.getDisplayStacks().stream().anyMatch(s -> s.is(net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE))) {
-                entries.insertAfter(net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE, plates,
-                        net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            } else {
-                plates.forEach(s -> entries.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-            }
-        });
-        // b-guide01: the Simple Modpack guide - Vanilla Tools tab (SimpleBuilding shows it in its own tab instead, and the tab
-        // rules then drop it here), the chapter unlock query, and the FTB Quests start chapter when SimpleBuilding is absent
-        // (SimpleBuilding's own first quest gives the guide).
-        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries ->
-                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.MODPACK_GUIDE)));
+        // VANILLA36: the content (blocks, items, components, potion, sound) only while an installed mod asks for it, on a
+        // client or with the server switch alwaysRegisterContent - otherwise Vanilla clients may join (LibContent).
+        LibContent.decide(com.simplelib.config.LibConfig.alwaysRegisterContent,
+                FabricLoader.getInstance().getEnvironmentType() == net.fabricmc.api.EnvType.CLIENT, requesters());
+        if (LibContent.enabled()) registerContent();
+        // b-guide01: the chapter unlock query of the Simple Modpack guide, and the FTB Quests start chapter when SimpleBuilding
+        // is absent (SimpleBuilding's own first quest gives the guide).
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(
                 com.simplelib.net.ModpackGuideQueryPayload.TYPE, com.simplelib.net.ModpackGuideQueryPayload.CODEC);
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(
@@ -58,7 +33,7 @@ public final class SimpleLibFabric implements ModInitializer {
                     }
                 }));
         var loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("ftbquests") && !loader.isModLoaded("simplebuilding")) {
+        if (LibContent.enabled() && loader.isModLoaded("ftbquests") && !loader.isModLoaded("simplebuilding")) {
             com.simplelib.guide.ModpackGuideQuests.install(loader.getConfigDir());
         }
         MaterialConditionFabric.register();
@@ -118,6 +93,66 @@ public final class SimpleLibFabric implements ModInitializer {
                 com.simplelib.api.config.ConfigCommands.registerAll(dispatcher, false,
                         net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_GAMEMASTERS),
                         com.simplelib.api.config.ConfigCommands.SERVER_IO));
+    }
+
+    /** Everything that puts SimpleLib entries into synced registries, plus their creative tab entries (VANILLA36: only with content). */
+    private static void registerContent() {
+        LibComponents.register();
+        com.simplelib.registry.LibBlocks.register();
+        com.simplelib.registry.LibMaterials.ensureBlocks();
+        com.simplelib.registry.LibMaterials.ensureItems();
+        com.simplelib.registry.LibItems.register();
+        com.simplelib.api.ModTabs.register(SimpleLib.MOD_ID, "lib", "itemgroup.simplelib.lib", () -> new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART), com.simplelib.api.ModpackGuide.ITEM_ID.getPath());
+        com.simplelib.registry.LibPotions.register();
+        com.simplelib.registry.LibSounds.register();
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(entries -> {
+            entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART));
+            // WF25-10: the Strong Upgrade (template, shard) while a mod requested it; the tab rules move both into the Simple Lib tab.
+            if (com.simplelib.registry.LibMaterials.requested(com.simplelib.material.StrongUpgradeDrops.GROUP)) {
+                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item("strong_upgrade_template")));
+                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item("strong_upgrade_shard")));
+            }
+        });
+        // N48: the material pressure plates in the Redstone tab after the heavy weighted plate, while a mod requested the group.
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> {
+            if (!com.simplelib.registry.LibMaterials.requested("material_pressure_plates")) return;
+            var plates = com.simplelib.registry.LibMaterials.PLATES.stream()
+                    .map(id -> new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item(id))).toList();
+            if (entries.getDisplayStacks().stream().anyMatch(s -> s.is(net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE))) {
+                entries.insertAfter(net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE, plates,
+                        net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            } else {
+                plates.forEach(s -> entries.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            }
+        });
+        // b-guide01: the Simple Modpack guide in the Vanilla Tools tab (SimpleBuilding shows it in its own tab instead, and the
+        // tab rules then drop it here).
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries ->
+                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.MODPACK_GUIDE)));
+    }
+
+    /** Loaded mods that ask for SimpleLib's content ({@link LibContent#requests}: the custom key, else dependency or a "simple" id). */
+    private static java.util.List<String> requesters() {
+        var out = new java.util.ArrayList<String>();
+        for (var mod : FabricLoader.getInstance().getAllMods()) {
+            var meta = mod.getMetadata();
+            java.util.List<String> declared = null;
+            var custom = meta.getCustomValue(LibContent.KEY);
+            if (custom != null) {
+                declared = new java.util.ArrayList<>();
+                if (custom.getType() == net.fabricmc.loader.api.metadata.CustomValue.CvType.ARRAY) {
+                    for (var v : custom.getAsArray()) declared.add(v.getType() == net.fabricmc.loader.api.metadata.CustomValue.CvType.STRING ? v.getAsString() : "?");
+                } else {
+                    declared.add("?"); // not a list: counts as a request, never as "needs nothing"
+                }
+            }
+            boolean depends = meta.getDependencies().stream().anyMatch(d -> SimpleLib.MOD_ID.equals(d.getModId())
+                    && d.getKind() != net.fabricmc.loader.api.metadata.ModDependency.Kind.BREAKS
+                    && d.getKind() != net.fabricmc.loader.api.metadata.ModDependency.Kind.CONFLICTS);
+            if (LibContent.requests(meta.getId(), depends, declared)) out.add(meta.getId());
+        }
+        out.sort(null);
+        return out;
     }
 
     private static void sendFreeLookRules(net.minecraft.server.level.ServerPlayer player) {

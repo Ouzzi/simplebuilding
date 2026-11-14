@@ -1,6 +1,12 @@
 {
   "values": [
-    "simplelib:crimson_blazewood_bookshelf",
-    "simplelib:warped_blazewood_bookshelf"
+    {
+      "id": "simplelib:crimson_blazewood_bookshelf",
+      "required": false
+    },
+    {
+      "id": "simplelib:warped_blazewood_bookshelf",
+      "required": false
+    }
   ]
 }

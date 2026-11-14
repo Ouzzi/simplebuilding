@@ -40,6 +40,7 @@
     "simplebuilding": "*"
   },
   "custom": {
-    "simplelib:features": ["free_look"]
+    "simplelib:features": ["free_look"],
+    "simplelib:content": []
   }
 }

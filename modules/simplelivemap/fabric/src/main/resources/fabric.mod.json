@@ -32,5 +32,8 @@
   },
   "suggests": {
     "simplemaps": "*"
+  },
+  "custom": {
+    "simplelib:content": []
   }
 }

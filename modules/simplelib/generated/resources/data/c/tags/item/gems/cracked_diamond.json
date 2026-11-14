@@ -1,5 +1,8 @@
 {
   "values": [
-    "simplelib:cracked_diamond"
+    {
+      "id": "simplelib:cracked_diamond",
+      "required": false
+    }
   ]
 }

@@ -82,14 +82,17 @@ public class BuildingCoreItem extends Item {
     // IG31-13: on 26.3 the cores are SimpleLib's items (simplelib:*_core, a neutral CoreItem); SimpleBuilding gives them their
     // show through SimpleLib's CoreHooks (util/LibServices). The helpers below find a core and its numbers by id, on both lines.
 
-    /** Colour and ore chance of each core tier, by id path. */
+    /** Colour and ore chance of each core tier, by id path (the rose cores count as copper and gold). */
     private static final java.util.Map<String, int[]> SPECS = java.util.Map.of(
             "copper_core", new int[]{0xE77C56, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE},
             "iron_core", new int[]{0xD8D8D8, CoreOreTransmutation.IRON_CORE_ORE_CHANCE},
             "gold_core", new int[]{0xFAD64A, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE},
             "diamond_core", new int[]{0x1BE7C7, CoreOreTransmutation.DIAMOND_CORE_ORE_CHANCE},
             "netherite_core", new int[]{0x8A878A, CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE},
-            "enderite_core", new int[]{0xA57DE9, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE});
+            "enderite_core", new int[]{0xA57DE9, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE},
+            // PAL35c (14.11.): the rose cores (SimpleLib, 26.3 only) play like their tier (copper, gold) in a rose-quartz pink.
+            "rose_bronze_core", new int[]{0xE57FA3, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE},
+            "rose_gold_core", new int[]{0xF5B3C8, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE});
 
     private static int[] spec(Item item) {
         if (item instanceof BuildingCoreItem core) return new int[]{core.color, core.oreChanceOneIn};
@@ -97,7 +100,7 @@ public class BuildingCoreItem extends Item {
         return id != null && com.simplebuilding.version.McVersion.CORE_NAMESPACE.equals(id.getNamespace()) ? SPECS.get(id.getPath()) : null;
     }
 
-    /** Whether {@code item} is one of the six building cores (SimpleBuilding's on 26.2, SimpleLib's on 26.3). */
+    /** Whether {@code item} is one of the building cores (SimpleBuilding's on 26.2, SimpleLib's on 26.3, with the two rose cores). */
     public static boolean isCore(Item item) {
         return spec(item) != null;
     }

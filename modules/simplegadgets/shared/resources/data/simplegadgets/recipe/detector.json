@@ -22,7 +22,7 @@
   "key": {
     "C": "minecraft:recovery_compass",
     "E": "minecraft:echo_shard",
-    "G": "simplelib:gold_core",
+    "G": "#simplelib:gold_cores",
     "S": "minecraft:calibrated_sculk_sensor"
   },
   "pattern": [

@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "cracked_emerald"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "cracked_emerald"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "cracked_emerald_from_block",
+  "ingredients": [
+    "simplelib:cracked_emerald_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simplelib:cracked_emerald"
+  }
+}

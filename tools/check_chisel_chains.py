@@ -33,6 +33,8 @@ EXEMPT = {
     # diamond_block <-> cracked_diamond_block would turn cracked diamonds into diamonds.
     "simplelib:cracked_diamond_block": "storage block of a material, not a variant",
     "simplebuilding:cracked_diamond_block": "26.2 id of the same storage block",
+    # PAL35c: emerald_block <-> cracked_emerald_block would turn cracked emeralds into emeralds.
+    "simplelib:cracked_emerald_block": "storage block of a material, not a variant",
 }
 # (file id, block, block) links between blocks of different worth that are accepted on purpose (none).
 VALUE_OK = set()

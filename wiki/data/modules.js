@@ -588,13 +588,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3klEQVR42mMIC3D4TwlmABHP7x4hGd84sQDVgLsX1v5/++wKmMaG3VUawBjEBmmeM6EY0wBcmkD444v//5fWvvwvw2UMtginAciaQBpAuC/5DgoGGYJiAC5NXy79x9BcHXgSjEGGgA0AaTq/6TdWm0D4eO1/FI0gtSBsp1gMNgRsQK7rDrAgNptgGmA41GAWGGMYADMEXSNMA8g7MI0wDDYARMAMgBmCrBHkBWRNMI3wMAARyIYgOxGbJhDGmg5ghuDThIyxpgNkDdg04TUAlLrwacBrAEyAVAw3gBIMAI2ehfZwc0OFAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 13,
-      "blocks": 12,
-      "recipes": 30,
-      "config": 20,
-      "features": 8
+      "items": 17,
+      "blocks": 13,
+      "recipes": 34,
+      "config": 21,
+      "features": 9
     },
-    "dataHash": "a8d8896e6043"
+    "dataHash": "c36418484683"
   },
   {
     "id": "simpleinterfaces",
@@ -1214,7 +1214,7 @@ window.WIKI_MODULES = [
       "config": 29,
       "features": 17
     },
-    "dataHash": "2d5032bd054f"
+    "dataHash": "d33dbd2f9498"
   },
   {
     "id": "simpleovens",
@@ -1579,7 +1579,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "5e973feefcc2"
+    "dataHash": "057ea37a7611"
   },
   {
     "id": "simpleoptimization",
@@ -1851,7 +1851,7 @@ window.WIKI_MODULES = [
       "config": 31,
       "features": 9
     },
-    "dataHash": "f57c00545f99"
+    "dataHash": "b53198001838"
   },
   {
     "id": "simpleearth",
@@ -2023,11 +2023,11 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 95,
       "blocks": 228,
-      "recipes": 456,
+      "recipes": 458,
       "config": 26,
       "features": 27
     },
-    "dataHash": "1860ef700ba3"
+    "dataHash": "19810459cf64"
   },
   {
     "id": "simplemachines",
@@ -2231,7 +2231,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 9
     },
-    "dataHash": "750d99161eb4"
+    "dataHash": "3803e5358fca"
   },
   {
     "id": "simplebuildingtools",
@@ -2266,7 +2266,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "372004c9aef6"
+    "dataHash": "50c6c4925888"
   },
   {
     "id": "simplechisels",
