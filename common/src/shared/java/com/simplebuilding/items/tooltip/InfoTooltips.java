@@ -197,25 +197,38 @@ public final class InfoTooltips {
             return null;
         }
         return switch (id.getPath()) {
-            case "rose_bronze_core" -> coreUses().get(ModItems.COPPER_CORE);
-            case "rose_gold_core" -> coreUses().get(ModItems.GOLD_CORE);
+            case "rose_bronze_core" -> without(coreUses().get(ModItems.COPPER_CORE), item);
+            case "rose_gold_core" -> without(coreUses().get(ModItems.GOLD_CORE), item);
             default -> null;
         };
     }
 
     public static Map<Item, List<Item>> coreUses() {
         Map<Item, List<Item>> uses = new LinkedHashMap<>();
-        uses.put(ModItems.COPPER_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("copper"), com.simplebuilding.util.GadgetRefs.gauge(),
-                TweaksBlocks.CHUNK_LOADER.asItem()));
+        uses.put(ModItems.COPPER_CORE, withRoseCore(List.of(com.simplebuilding.util.BuildingToolRefs.wand("copper"), com.simplebuilding.util.GadgetRefs.gauge(),
+                TweaksBlocks.CHUNK_LOADER.asItem()), "rose_bronze_core"));
         uses.put(ModItems.IRON_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("iron"), com.simplebuilding.util.GadgetRefs.rod(), com.simplebuilding.util.GadgetRefs.magnet(),
                 com.simplebuilding.util.GadgetRefs.rotator(), TweaksBlocks.LAUNCHPAD.asItem()));
-        uses.put(ModItems.GOLD_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("gold"), com.simplebuilding.util.GadgetRefs.detector(), com.simplebuilding.util.BuildingToolRefs.octant(),
-                TweaksBlocks.SPAWN_TELEPORTER.asItem()));
+        uses.put(ModItems.GOLD_CORE, withRoseCore(List.of(com.simplebuilding.util.BuildingToolRefs.wand("gold"), com.simplebuilding.util.GadgetRefs.detector(), com.simplebuilding.util.BuildingToolRefs.octant(),
+                TweaksBlocks.SPAWN_TELEPORTER.asItem()), "rose_gold_core"));
         uses.put(ModItems.DIAMOND_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("diamond"), ModItems.NETHERITE_CORE,
                 TweaksBlocks.ELYTRA_PAD.asItem()));
         uses.put(ModItems.NETHERITE_CORE, List.of(ModItems.ENDERITE_CORE, TweaksBlocks.POTION_PAD.asItem()));
         uses.put(ModItems.ENDERITE_CORE, List.of(com.simplebuilding.util.GadgetRefs.echo(), TweaksBlocks.FLYPAD.asItem()));
         return uses;
+    }
+
+    /** PAL35c: the rose core is crafted from the plain core (Simple Ores recipe), so the plain core's list names it when it is registered. */
+    private static List<Item> withRoseCore(List<Item> uses, String rose) {
+        var id = net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.CORE_NAMESPACE, rose);
+        return net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(id)
+                .map(item -> { List<Item> all = new java.util.ArrayList<>(uses); all.add(item); return List.copyOf(all); })
+                .orElse(uses);
+    }
+
+    /** The rose core's own tooltip does not list itself. */
+    private static List<Item> without(List<Item> uses, Item item) {
+        return uses.stream().filter(use -> use != item).toList();
     }
 
     /** "Used in:" and one item name per line, including long translated names. */

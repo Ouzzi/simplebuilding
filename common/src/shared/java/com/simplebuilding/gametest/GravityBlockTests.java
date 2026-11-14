@@ -1315,10 +1315,14 @@ public final class GravityBlockTests {
         // Red sand stands in for the whole #minecraft:sand tag. It is the one ingredient that
         // separates "the key names the block" from "the key names the tag the block is in", and
         // nothing above can see the difference because nothing above offers a wrong ingredient.
-        assertMatchesNothing(helper, level, coatingGrid(Items.RED_SAND, ModItems.NIHILITH_SHARD),
+        // simpleblocks-3: red sand has its own variants (suspended/levitating red sand), so the red grid may craft
+        // something - just never the plain sand block.
+        assertDoesNotCraft(helper, level, coatingGrid(Items.RED_SAND, ModItems.NIHILITH_SHARD),
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND).toString(),
                 "red sand crafts suspended sand, so the recipe's B key has been widened from "
                         + "minecraft:sand to a tag");
-        assertMatchesNothing(helper, level, coatingGrid(Items.RED_SAND, ModItems.ASTRALIT_DUST),
+        assertDoesNotCraft(helper, level, coatingGrid(Items.RED_SAND, ModItems.ASTRALIT_DUST),
+                com.simplebuilding.util.BlockRefs.id(com.simplebuilding.util.BlockRefs.LEVITATING_SAND).toString(),
                 "red sand crafts levitating sand, so the recipe's B key has been widened from "
                         + "minecraft:sand to a tag");
 
@@ -1520,6 +1524,13 @@ public final class GravityBlockTests {
                 level.getServer().getRecipeManager()
                         .getRecipeFor(RecipeType.CRAFTING, grid, level).isEmpty(),
                 message);
+    }
+
+    private static void assertDoesNotCraft(GameTestHelper helper, ServerLevel level, CraftingInput grid,
+                                           String recipeId, String message) {
+        Optional<RecipeHolder<CraftingRecipe>> match =
+                level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, level);
+        helper.assertTrue(match.isEmpty() || !match.get().id().identifier().toString().equals(recipeId), message);
     }
 
     private static void assertCrafts(GameTestHelper helper, ServerLevel level, CraftingInput grid,

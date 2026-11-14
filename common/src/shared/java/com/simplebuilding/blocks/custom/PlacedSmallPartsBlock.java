@@ -218,9 +218,8 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         super.spawnAfterBreak(state, level, pos, tool, dropExperience);
         // Audit simplebuilding-P2-2: after a targeted player break (N37) the pile standing here again is the one destroy
         // put back - its eggs were not broken, the broken part's egg already hatched in playerWillDestroy.
-        Restore restored = RESTORED.get();
-        if (restored != null && restored.level() == level && restored.pos().equals(pos)) {
-            RESTORED.remove();
+        // The mark sits on the block entity (b-fix194): the thread-local was consumed by the first call and missed later ones.
+        if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && pile.restoredAt == level.getGameTime()) {
             return;
         }
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && !PlacedSmallParts.silkTouch(level, tool)) {
@@ -243,7 +242,6 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     @Override
     public BlockState playerWillDestroy(net.minecraft.world.level.Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.player.Player player) {
         RESTORE.remove();
-        RESTORED.remove();
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && pile.parts().size() > 1) {
             List<ItemStack> rest = new java.util.ArrayList<>(pile.parts());
             ItemStack target = rest.remove(PlacedSmallParts.lookedAtPart(player, rest, state.getValue(FACING), pos, state.getValue(FLAT)));
@@ -262,11 +260,6 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     }
 
     private static final ThreadLocal<Restore> RESTORE = new ThreadLocal<>();
-    /**
-     * The pile {@link #destroy} just put back after a survival break: Vanilla's {@code playerDestroy} then drops the broken
-     * part and calls {@link #spawnAfterBreak} at the same position, which must not break the eggs of the parts put back.
-     */
-    private static final ThreadLocal<Restore> RESTORED = new ThreadLocal<>();
 
     /** Nach dem Entfernen durch einen Spieler: die nicht angeschauten Teile liegen wieder da (N37). */
     @Override
@@ -280,9 +273,10 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         level.setBlock(pos, withCounts(restore.state(), restore.parts()), Block.UPDATE_ALL);
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile) {
             pile.setParts(restore.parts());
-        }
-        if (restore.survival()) {
-            RESTORED.set(restore);
+            // Vanilla's playerDestroy then calls spawnAfterBreak here: the eggs put back must not hatch (audit P2-2).
+            if (restore.survival() && level instanceof net.minecraft.world.level.Level world) {
+                pile.restoredAt = world.getGameTime();
+            }
         }
     }
 

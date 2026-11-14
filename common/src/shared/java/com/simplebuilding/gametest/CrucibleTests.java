@@ -212,7 +212,7 @@ public final class CrucibleTests {
         Block crucible = CrucibleCompat.enderiteCrucible();
         helper.assertTrue(crucible != null && CrucibleCompat.crucibleSlots(crucible) == 30, "enderite crucible needs 30 slots (5x6, N37)");
         helper.assertTrue(CrucibleCompat.stackMultiplier(crucible) == 2, "enderite crucible holds double stacks");
-        helper.assertTrue(CrucibleCompat.stackMultiplier(CrucibleCompat.enderiteBarrel()) == 2, "enderite barrel holds double stacks");
+        helper.assertTrue(CrucibleCompat.stackMultiplier(CrucibleCompat.enderiteBarrel()) == 4, "enderite barrel holds quadruple stacks (simplestorage-4: like the enderite chest)");
         helper.setBlock(new BlockPos(1, 1, 1), crucible);
         helper.assertTrue(helper.getLevel().getBlockEntity(helper.absolutePos(new BlockPos(1, 1, 1))) != null, "enderite crucible has a block entity");
         helper.assertTrue(!CrucibleCompat.axeWaysEnabled(), "SimpleBuilding switches the axe ways off (principle 5a)");
@@ -257,8 +257,8 @@ public final class CrucibleTests {
     }
 
     /**
-     * Owner N15: a loose Enderite barrel keeps its double stacks everywhere - its menu slot takes 128, a hopper tops a
-     * slot of 127 up to 128 and moves on, and a slot of 64 is not "full" for a hopper.
+     * Owner N15: a loose Enderite barrel keeps its raised stacks everywhere - its menu slot takes 256 (x4 since
+     * simplestorage-4, like the Enderite chest), a hopper tops a slot of 255 up to 256 and moves on.
      */
     public static void aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
@@ -269,12 +269,12 @@ public final class CrucibleTests {
         ServerPlayer player = player(helper, ItemStack.EMPTY, ItemStack.EMPTY);
         var menu = ((net.minecraft.world.MenuProvider) be).createMenu(0, player.getInventory(), player);
         ItemStack cobble = new ItemStack(Items.COBBLESTONE);
-        helper.assertTrue(menu != null && menu.slots.get(0).getMaxStackSize(cobble) == 128,
-                "the loose enderite barrel's menu slot takes 128, got " + (menu == null ? "no menu" : menu.slots.get(0).getMaxStackSize(cobble)));
-        barrel.setItem(0, new ItemStack(Items.COBBLESTONE, 127));
+        helper.assertTrue(menu != null && menu.slots.get(0).getMaxStackSize(cobble) == 256,
+                "the loose enderite barrel's menu slot takes 256, got " + (menu == null ? "no menu" : menu.slots.get(0).getMaxStackSize(cobble)));
+        barrel.setItem(0, new ItemStack(Items.COBBLESTONE, 255));
         ItemStack rest = net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(null, barrel, new ItemStack(Items.COBBLESTONE, 2), Direction.UP);
         String line = barrel.getItem(0).getCount() + "+" + barrel.getItem(1).getCount() + " rest " + rest.getCount();
-        helper.assertTrue(line.equals("128+1 rest 0"), "hopper into a loose enderite barrel slot of 127 plus 2: " + line);
+        helper.assertTrue(line.equals("256+1 rest 0"), "hopper into a loose enderite barrel slot of 255 plus 2: " + line);
         helper.succeed();
     }
 

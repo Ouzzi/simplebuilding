@@ -31,10 +31,14 @@ public final class EndSystemsTests {
         for (var entry : java.util.Map.of("astralit_powder", "astral_redstone",
                 "nihilith_powder", "nihil_redstone").entrySet()) {
             var oldId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", entry.getKey());
-            var newId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", entry.getValue());
+            // CIRC46: the redstone lines live in Simple Ores; both old SimpleBuilding ids resolve to the Simple Ores id.
+            var newId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", entry.getValue());
+            var movedId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", entry.getValue());
             helper.assertTrue(items.get(newId).isPresent() && blocks.get(newId).isPresent(), "new redstone id missing: " + newId);
             assertAlias(helper, items, oldId, newId);
             assertAlias(helper, blocks, oldId, newId);
+            assertAlias(helper, items, movedId, newId);
+            assertAlias(helper, blocks, movedId, newId);
         }
         var itemOnly = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "ore_detector");
         helper.assertTrue(com.simplebuilding.datafix.LegacyItemIds.renamedIn(blocks, itemOnly) == null,

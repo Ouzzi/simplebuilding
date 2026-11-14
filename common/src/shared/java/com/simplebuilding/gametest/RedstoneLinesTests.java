@@ -43,7 +43,9 @@ public final class RedstoneLinesTests {
         }
         for (var entry : java.util.Map.of("astralit_lamp", ModBlocks.ASTRALIT_LAMP, "nihilith_lamp", ModBlocks.NIHILITH_LAMP).entrySet()) {
             Identifier id = Identifier.fromNamespaceAndPath("simplebuilding", entry.getKey());
-            helper.assertTrue(blocks.getValue(id) == entry.getValue() && BuiltInRegistries.BLOCK.getKey(entry.getValue()).equals(id),
+            // CIRC46: the lamps are Simple Ores blocks now; the old SimpleBuilding id still loads them.
+            Identifier canonical = Identifier.fromNamespaceAndPath("simpleores", entry.getKey());
+            helper.assertTrue(blocks.getValue(id) == entry.getValue() && BuiltInRegistries.BLOCK.getKey(entry.getValue()).equals(canonical),
                     id + " is not the lamp block again: " + blocks.getValue(id));
             helper.assertTrue(items.getValue(id) == entry.getValue().asItem() && entry.getValue().asItem() != Items.AIR,
                     id + " is not the lamp item again: " + items.getValue(id));

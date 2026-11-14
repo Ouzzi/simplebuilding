@@ -77,7 +77,15 @@ public final class ModItemGroupsContent {
         boolean merged = mergedIntoSimpleBlocks();
         // 26.3 (b-pads01): the "Simple Pads" tab is the module's own (simplepads:pads).
         return java.util.Arrays.stream(Tab.values()).filter(tab -> !(merged && tab == Tab.BUILDING_BLOCKS))
-                .filter(tab -> tab != Tab.PADS || com.simplebuilding.version.McVersion.PADS_IN_SB).toList();
+                .filter(tab -> tab != Tab.PADS || com.simplebuilding.version.McVersion.PADS_IN_SB)
+                // b-circ46 (26.3): the Enderite gear and the Netherite/Enderite food are Simple Ores items; SimpleLib's tab rule (QW11)
+                // shows them in Simple Ores' tab, so these two tabs would stay empty (b-fix194).
+                .filter(tab -> !(gearInSimpleOres() && (tab == Tab.COMBAT || tab == Tab.FOOD))).toList();
+    }
+
+    /** 26.3: Enderite gear and the special food belong to Simple Ores (b-circ46); 26.2 keeps them in SimpleBuilding. */
+    public static boolean gearInSimpleOres() {
+        return !"simplebuilding".equals(com.simplebuilding.version.McVersion.ORES_NAMESPACE);
     }
 
     /** Loader-Hook fuer {@link #SIMPLE_BLOCKS_TAB}: haengt die Baublock-Zeilen hinter die eigenen Bloecke von Simple Blocks. */

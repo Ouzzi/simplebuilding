@@ -823,7 +823,7 @@ public final class TrimWiringTests {
             helper.assertTrue(loader.getResource("assets/simplebuilding/textures/palettes/trim/enderite_darker.png") != null,
                     "26.3 ships no simplebuilding:trim/enderite_darker palette texture");
             String overrides = "none";
-            try (java.io.InputStream in = loader.getResourceAsStream("assets/simplebuilding/equipment/enderite.json")) {
+            try (java.io.InputStream in = loader.getResourceAsStream("assets/simpleores/equipment/enderite.json")) {
                 if (in != null) {
                     com.google.gson.JsonObject json = com.google.gson.JsonParser.parseReader(
                             new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();

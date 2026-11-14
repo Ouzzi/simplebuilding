@@ -35,6 +35,12 @@ public class PlacedSmallPartsBlockEntity extends BlockEntity {
     private @Nullable VoxelShape shape;
     private @Nullable Direction shapeFacing;
     private boolean shapeFlat;
+    /**
+     * Audit P2-2 (b-fix194): game time at which {@link PlacedSmallPartsBlock#destroy} put this pile back after a targeted
+     * survival break; {@code spawnAfterBreak} in the same tick leaves its eggs whole, however often and in whatever order
+     * the loader calls it. Not saved.
+     */
+    public long restoredAt = Long.MIN_VALUE;
 
     public PlacedSmallPartsBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PLACED_SMALL_PARTS_BE, pos, state);

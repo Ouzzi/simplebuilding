@@ -47,7 +47,8 @@ import net.minecraft.world.phys.Vec3;
 public final class ChiselTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     /** Not a look of another block: the storage block of the Cracked Diamond material (a chain would turn cracked diamonds into diamonds). */
-    static final java.util.Set<String> OWN_VARIANTS_EXEMPT = java.util.Set.of("simplelib:cracked_diamond_block", "simplebuilding:cracked_diamond_block");
+    static final java.util.Set<String> OWN_VARIANTS_EXEMPT = java.util.Set.of("simplelib:cracked_diamond_block", "simplebuilding:cracked_diamond_block",
+            "simplelib:cracked_emerald_block"); // storage blocks of a material (cracked diamond/emerald), not chisel variants
     static final BlockPos SPOT = new BlockPos(1, 1, 1);
 
     private ChiselTests() {}
