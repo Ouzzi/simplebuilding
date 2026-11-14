@@ -41,11 +41,12 @@ public class ModWorldGen {
     /** The registry the ore features live in; datagen and NeoForge register through this. */
     public static final ResourceKey<Registry<Feature>> FEATURE_REGISTRY = Registries.FEATURE;
 
-    public static final ResourceKey<Feature> ASTRALIT_ORE_KEY = registerConfiguredKey("astralit_ore");
-    public static final ResourceKey<Feature> NIHILITH_ORE_KEY = registerConfiguredKey("nihilith_ore");
+    // N46/M2 (b-circ46): the End ore features are Simple Ores' data (simpleores:*); the keys stay for the ore checks.
+    public static final ResourceKey<Feature> ASTRALIT_ORE_KEY = ResourceKey.create(Registries.FEATURE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "astralit_ore"));
+    public static final ResourceKey<Feature> NIHILITH_ORE_KEY = ResourceKey.create(Registries.FEATURE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "nihilith_ore"));
 
-    public static final ResourceKey<PlacedFeature> ASTRALIT_ORE_PLACED_KEY = registerPlacedKey("astralit_ore_placed");
-    public static final ResourceKey<PlacedFeature> NIHILITH_ORE_PLACED_KEY = registerPlacedKey("nihilith_ore_placed");
+    public static final ResourceKey<PlacedFeature> ASTRALIT_ORE_PLACED_KEY = ResourceKey.create(Registries.PLACED_FEATURE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "astralit_ore_placed"));
+    public static final ResourceKey<PlacedFeature> NIHILITH_ORE_PLACED_KEY = ResourceKey.create(Registries.PLACED_FEATURE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "nihilith_ore_placed"));
 
     /**
      * Truebe End-Erze (W23-2, Besitzer 2026-10-23): ein Fuenftel der Erzbloecke einer Ader ist truebes Erz, die echte Menge
@@ -136,10 +137,6 @@ public class ModWorldGen {
     }
 
     public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
-        context.register(ASTRALIT_ORE_KEY, endOre(ModBlocks.DULL_ASTRALIT_ORE, ASTRALIT_DULL_CHANCE,
-                ModBlocks.ASTRALIT_ORE, ASTRALIT_REAL_CHANCE, ASTRALIT_VEIN_SIZE));
-        context.register(NIHILITH_ORE_KEY, endOre(ModBlocks.DULL_NIHILITH_ORE, NIHILITH_DULL_CHANCE,
-                ModBlocks.NIHILITH_ORE, NIHILITH_REAL_CHANCE, NIHILITH_VEIN_SIZE));
         // IG31-13: Dimensional Scrap and Sage Ore are Simple Ores' features (data there), not registered here.
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             // Cracked ice belongs to Simple Blocks since b-blocksmove (by id; datagen loads the required sub-mod).
@@ -169,26 +166,6 @@ public class ModWorldGen {
     public static void bootstrapPlacedFeatures(BootstrapContext<PlacedFeature> context) {
         var features = context.lookup(Registries.FEATURE);
 
-        register(context, ASTRALIT_ORE_PLACED_KEY, features.getOrThrow(ASTRALIT_ORE_KEY),
-                List.of(
-                        CountPlacement.of(1),
-                        InSquarePlacement.spread(),
-                        PlacementUtils.HEIGHTMAP,
-                        BlockPredicateFilter.forPredicate(new ReplaceablePredicate(Direction.UP.getUnitVec3i())),
-                        BiomeFilter.biome()
-                ));
-
-        register(context, NIHILITH_ORE_PLACED_KEY, features.getOrThrow(NIHILITH_ORE_KEY),
-                List.of(
-                        CountPlacement.of(64),
-                        InSquarePlacement.spread(),
-                        HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(60)),
-                        BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
-                                BlockPredicate.matchesBlocks(Blocks.END_STONE),
-                                new ReplaceablePredicate(Direction.DOWN.getUnitVec3i()))),
-                        OffsetPlacement.vertical(ConstantInt.of(1)),
-                        BiomeFilter.biome()
-                ));
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             register(context, CRACKED_ICE_PATCH_PLACED_KEY, features.getOrThrow(CRACKED_ICE_PATCH_KEY), List.of(
                     net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),

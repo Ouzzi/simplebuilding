@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simpleores:block/astral_redstone_torch_off"
+    },
+    "lit=true": {
+      "model": "simpleores:block/astral_redstone_torch"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simpleores:block/astralit_lamp"
+    },
+    "lit=true": {
+      "model": "simpleores:block/astralit_lamp_on"
+    }
+  }
+}

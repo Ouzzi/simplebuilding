@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "simpleores:block/nihilith_ore_brushed_1"
+  }
+}

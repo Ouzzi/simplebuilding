@@ -65,16 +65,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT)).add(key(ModBlocks.NIHIL_VAULT))
                     .add(key(ModBlocks.ASTRAL_PISTON)).add(key(ModBlocks.NIHIL_PISTON))
                     .add(key(ModBlocks.ASTRAL_REDSTONE_BLOCK)).add(key(ModBlocks.NIHIL_REDSTONE_BLOCK)).add(key(ModBlocks.BRIDGE_REDSTONE_BLOCK));
-            // Astral-/Nihil-Kolben: zusaetzlich zu ihren festen Regeln (unzerstoerbar, Block-Entity, Kolben,
-            // Doppelbloecke, BLOCK/DESTROY) nie bewegt - Portalrahmen, verstaerkter Tiefenschiefer, Durchbruch-Extras.
-            builder(ModTags.Blocks.END_PISTON_IMMOVABLE)
-                    .add(key(Blocks.END_PORTAL_FRAME))
-                    .add(key(Blocks.REINFORCED_DEEPSLATE))
-                    .add(key(Blocks.BEDROCK))
-                    .add(key(Blocks.ENDER_CHEST))
-                    .add(key(ModBlocks.ASTRAL_VAULT))
-                    .add(key(ModBlocks.NIHIL_VAULT))
-                    .forceAddTag(ModTags.Blocks.PISTON_BREACHABLE_EXTRA);
+            // N46/M2: the End pistons' immovable tag is Simple Ores' data (simpleores:end_piston_immovable).
         }
         // Dimensions-Schrott: Spitzhacke (Enderit prueft der Block selbst), immun gegen Wither und Drache.
         // IG31-13: on 26.3 these tags of the scrap and the sage ore are Simple Ores' (its data), not SimpleBuilding's.

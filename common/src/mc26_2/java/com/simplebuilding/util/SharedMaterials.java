@@ -28,6 +28,15 @@ public final class SharedMaterials {
         return own.get();
     }
 
+    /** 26.3 only (the line in Simple Ores); 26.2 never calls it (McVersion.END_SYSTEMS off). */
+    public static Block oresBlock(String id) {
+        throw new IllegalStateException("26.2 has no Simple Ores line block " + id);
+    }
+
+    public static Item oresItem(String id) {
+        throw new IllegalStateException("26.2 has no Simple Ores line item " + id);
+    }
+
     public static void request() {
     }
 }

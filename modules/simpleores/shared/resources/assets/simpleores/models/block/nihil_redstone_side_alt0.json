@@ -1,0 +1,10 @@
+{
+  "parent": "simpleores:block/end_redstone_dust_side_alt",
+  "textures": {
+    "particle": "simpleores:block/nihil_redstone_dot",
+    "line": {
+      "sprite": "simpleores:block/nihil_redstone_line0",
+      "force_translucent": true
+    }
+  }
+}

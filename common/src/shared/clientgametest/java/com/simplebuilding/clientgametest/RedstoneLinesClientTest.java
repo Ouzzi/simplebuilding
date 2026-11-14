@@ -1,7 +1,7 @@
 package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.SignalDustBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import com.simplebuilding.version.McVersion;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
@@ -60,8 +60,8 @@ public final class RedstoneLinesClientTest {
                             .append(level.hasNeighborSignal(new BlockPos(X0 + 13, 0, LANES[i]))).append("); lane:");
                     for (int x = X0; x <= X0 + 13; x++) {
                         BlockState state = level.getBlockState(new BlockPos(x, 0, LANES[i]));
-                        out.append(' ').append(state.hasProperty(SignalDustBlock.POWER) ? state.getValue(SignalDustBlock.POWER) + "/"
-                                + state.getValue(SignalDustBlock.EAST) : state.toString());
+                        out.append(' ').append(state.hasProperty(BlockStateProperties.POWER) ? state.getValue(BlockStateProperties.POWER) + "/"
+                                + state.getValue(BlockStateProperties.EAST_REDSTONE) : state.toString());
                     }
                     out.append(". ");
                 }
@@ -90,7 +90,7 @@ public final class RedstoneLinesClientTest {
         for (int i = 0; i < 12; i++) {
             BlockPos pos = new BlockPos(X0 + 1 + i, 0, z);
             BlockState state = level.getBlockState(pos);
-            if (SignalDustBlock.lineOf(state) != null) level.setBlock(pos, Block.updateFromNeighbourShapes(state, level, pos), Block.UPDATE_ALL);
+            if (com.simplebuilding.util.OresLine.lineOf(state) != null) level.setBlock(pos, Block.updateFromNeighbourShapes(state, level, pos), Block.UPDATE_ALL);
         }
         // Like a player's placement (RedstoneLampBlock#getStateForPlacement): a lamp set by setBlock is only checked on
         // a neighbour update, and the finished lane sends it none - vanilla dust behaves the same.

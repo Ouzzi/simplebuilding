@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simpleores:block/nihilith_lamp"
+    },
+    "lit=true": {
+      "model": "simpleores:block/nihilith_lamp_on"
+    }
+  }
+}

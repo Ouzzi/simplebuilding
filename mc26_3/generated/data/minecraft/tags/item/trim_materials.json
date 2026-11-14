@@ -1,7 +1,7 @@
 {
   "values": [
-    "simplebuilding:astralit_dust",
-    "simplebuilding:nihilith_shard",
+    "simpleores:astralit_dust",
+    "simpleores:nihilith_shard",
     "simpleores:enderite_ingot",
     "minecraft:glow_ink_sac",
     "minecraft:glowstone_dust"

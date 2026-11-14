@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:astralit_dust"
+            "items": "simpleores:astralit_dust"
           }
         ]
       },

@@ -1,0 +1,648 @@
+{
+ "sounds": {
+  "block.astral_redstone.break": {
+   "sounds": [
+    "simpleores:block/astral_redstone/dig1",
+    "simpleores:block/astral_redstone/dig2",
+    "simpleores:block/astral_redstone/dig3",
+    "simpleores:block/astral_redstone/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.break"
+  },
+  "block.astral_redstone.place": {
+   "sounds": [
+    "simpleores:block/astral_redstone/dig1",
+    "simpleores:block/astral_redstone/dig2",
+    "simpleores:block/astral_redstone/dig3",
+    "simpleores:block/astral_redstone/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.place"
+  },
+  "block.astral_redstone.step": {
+   "sounds": [
+    "simpleores:block/astral_redstone/step1",
+    "simpleores:block/astral_redstone/step2",
+    "simpleores:block/astral_redstone/step3",
+    "simpleores:block/astral_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.astral_redstone.hit": {
+   "sounds": [
+    "simpleores:block/astral_redstone/step1",
+    "simpleores:block/astral_redstone/step2",
+    "simpleores:block/astral_redstone/step3",
+    "simpleores:block/astral_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.astral_redstone.fall": {
+   "sounds": [
+    "simpleores:block/astral_redstone/step1",
+    "simpleores:block/astral_redstone/step2",
+    "simpleores:block/astral_redstone/step3",
+    "simpleores:block/astral_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.nihil_redstone.break": {
+   "sounds": [
+    "simpleores:block/nihil_redstone/dig1",
+    "simpleores:block/nihil_redstone/dig2",
+    "simpleores:block/nihil_redstone/dig3",
+    "simpleores:block/nihil_redstone/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.break"
+  },
+  "block.nihil_redstone.place": {
+   "sounds": [
+    "simpleores:block/nihil_redstone/dig1",
+    "simpleores:block/nihil_redstone/dig2",
+    "simpleores:block/nihil_redstone/dig3",
+    "simpleores:block/nihil_redstone/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.place"
+  },
+  "block.nihil_redstone.step": {
+   "sounds": [
+    "simpleores:block/nihil_redstone/step1",
+    "simpleores:block/nihil_redstone/step2",
+    "simpleores:block/nihil_redstone/step3",
+    "simpleores:block/nihil_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.nihil_redstone.hit": {
+   "sounds": [
+    "simpleores:block/nihil_redstone/step1",
+    "simpleores:block/nihil_redstone/step2",
+    "simpleores:block/nihil_redstone/step3",
+    "simpleores:block/nihil_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.nihil_redstone.fall": {
+   "sounds": [
+    "simpleores:block/nihil_redstone/step1",
+    "simpleores:block/nihil_redstone/step2",
+    "simpleores:block/nihil_redstone/step3",
+    "simpleores:block/nihil_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.bridge_redstone.break": {
+   "sounds": [
+    "simpleores:block/bridge_redstone/dig1",
+    "simpleores:block/bridge_redstone/dig2",
+    "simpleores:block/bridge_redstone/dig3",
+    "simpleores:block/bridge_redstone/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.break"
+  },
+  "block.bridge_redstone.place": {
+   "sounds": [
+    "simpleores:block/bridge_redstone/dig1",
+    "simpleores:block/bridge_redstone/dig2",
+    "simpleores:block/bridge_redstone/dig3",
+    "simpleores:block/bridge_redstone/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.place"
+  },
+  "block.bridge_redstone.step": {
+   "sounds": [
+    "simpleores:block/bridge_redstone/step1",
+    "simpleores:block/bridge_redstone/step2",
+    "simpleores:block/bridge_redstone/step3",
+    "simpleores:block/bridge_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.bridge_redstone.hit": {
+   "sounds": [
+    "simpleores:block/bridge_redstone/step1",
+    "simpleores:block/bridge_redstone/step2",
+    "simpleores:block/bridge_redstone/step3",
+    "simpleores:block/bridge_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.bridge_redstone.fall": {
+   "sounds": [
+    "simpleores:block/bridge_redstone/step1",
+    "simpleores:block/bridge_redstone/step2",
+    "simpleores:block/bridge_redstone/step3",
+    "simpleores:block/bridge_redstone/step4"
+   ],
+   "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.astralit_lamp.break": {
+   "sounds": [
+    "simpleores:block/astralit_lamp/dig1",
+    "simpleores:block/astralit_lamp/dig2",
+    "simpleores:block/astralit_lamp/dig3",
+    "simpleores:block/astralit_lamp/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.break"
+  },
+  "block.astralit_lamp.place": {
+   "sounds": [
+    "simpleores:block/astralit_lamp/dig1",
+    "simpleores:block/astralit_lamp/dig2",
+    "simpleores:block/astralit_lamp/dig3",
+    "simpleores:block/astralit_lamp/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.place"
+  },
+  "block.astralit_lamp.step": {
+   "sounds": [
+    "simpleores:block/astralit_lamp/step1",
+    "simpleores:block/astralit_lamp/step2",
+    "simpleores:block/astralit_lamp/step3",
+    "simpleores:block/astralit_lamp/step4"
+   ],
+   "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.astralit_lamp.hit": {
+   "sounds": [
+    "simpleores:block/astralit_lamp/step1",
+    "simpleores:block/astralit_lamp/step2",
+    "simpleores:block/astralit_lamp/step3",
+    "simpleores:block/astralit_lamp/step4"
+   ],
+   "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.astralit_lamp.fall": {
+   "sounds": [
+    "simpleores:block/astralit_lamp/step1",
+    "simpleores:block/astralit_lamp/step2",
+    "simpleores:block/astralit_lamp/step3",
+    "simpleores:block/astralit_lamp/step4"
+   ],
+   "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.astralit_lamp.turn_on": {
+   "sounds": [
+    {
+     "name": "simpleores:block/astralit_lamp/toggle_on",
+     "attenuation_distance": 6
+    }
+   ],
+   "subtitle": "subtitles.simpleores.block.astralit_lamp.turn_on"
+  },
+  "block.astralit_lamp.turn_off": {
+   "sounds": [
+    {
+     "name": "simpleores:block/astralit_lamp/toggle_off",
+     "attenuation_distance": 6
+    }
+   ],
+   "subtitle": "subtitles.simpleores.block.astralit_lamp.turn_off"
+  },
+  "block.nihilith_lamp.break": {
+   "sounds": [
+    "simpleores:block/nihilith_lamp/dig1",
+    "simpleores:block/nihilith_lamp/dig2",
+    "simpleores:block/nihilith_lamp/dig3",
+    "simpleores:block/nihilith_lamp/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.break"
+  },
+  "block.nihilith_lamp.place": {
+   "sounds": [
+    "simpleores:block/nihilith_lamp/dig1",
+    "simpleores:block/nihilith_lamp/dig2",
+    "simpleores:block/nihilith_lamp/dig3",
+    "simpleores:block/nihilith_lamp/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.place"
+  },
+  "block.nihilith_lamp.step": {
+   "sounds": [
+    "simpleores:block/nihilith_lamp/step1",
+    "simpleores:block/nihilith_lamp/step2",
+    "simpleores:block/nihilith_lamp/step3",
+    "simpleores:block/nihilith_lamp/step4"
+   ],
+   "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.nihilith_lamp.hit": {
+   "sounds": [
+    "simpleores:block/nihilith_lamp/step1",
+    "simpleores:block/nihilith_lamp/step2",
+    "simpleores:block/nihilith_lamp/step3",
+    "simpleores:block/nihilith_lamp/step4"
+   ],
+   "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.nihilith_lamp.fall": {
+   "sounds": [
+    "simpleores:block/nihilith_lamp/step1",
+    "simpleores:block/nihilith_lamp/step2",
+    "simpleores:block/nihilith_lamp/step3",
+    "simpleores:block/nihilith_lamp/step4"
+   ],
+   "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.nihilith_lamp.turn_on": {
+   "sounds": [
+    {
+     "name": "simpleores:block/nihilith_lamp/toggle_on",
+     "attenuation_distance": 6
+    }
+   ],
+   "subtitle": "subtitles.simpleores.block.nihilith_lamp.turn_on"
+  },
+  "block.nihilith_lamp.turn_off": {
+   "sounds": [
+    {
+     "name": "simpleores:block/nihilith_lamp/toggle_off",
+     "attenuation_distance": 6
+    }
+   ],
+   "subtitle": "subtitles.simpleores.block.nihilith_lamp.turn_off"
+  },
+  "block.astral_piston.break": {
+   "sounds": [
+    "simpleores:block/astral_piston/dig1",
+    "simpleores:block/astral_piston/dig2",
+    "simpleores:block/astral_piston/dig3",
+    "simpleores:block/astral_piston/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.break"
+  },
+  "block.astral_piston.place": {
+   "sounds": [
+    "simpleores:block/astral_piston/dig1",
+    "simpleores:block/astral_piston/dig2",
+    "simpleores:block/astral_piston/dig3",
+    "simpleores:block/astral_piston/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.place"
+  },
+  "block.astral_piston.step": {
+   "sounds": [
+    "simpleores:block/astral_piston/step1",
+    "simpleores:block/astral_piston/step2",
+    "simpleores:block/astral_piston/step3",
+    "simpleores:block/astral_piston/step4"
+   ],
+   "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.astral_piston.hit": {
+   "sounds": [
+    "simpleores:block/astral_piston/step1",
+    "simpleores:block/astral_piston/step2",
+    "simpleores:block/astral_piston/step3",
+    "simpleores:block/astral_piston/step4"
+   ],
+   "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.astral_piston.fall": {
+   "sounds": [
+    "simpleores:block/astral_piston/step1",
+    "simpleores:block/astral_piston/step2",
+    "simpleores:block/astral_piston/step3",
+    "simpleores:block/astral_piston/step4"
+   ],
+   "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.astral_piston.move": {
+   "sounds": [
+    {
+     "name": "minecraft:block.piston.extend",
+     "type": "event",
+     "pitch": 1.2
+    }
+   ],
+   "subtitle": "subtitles.simpleores.block.astral_piston.move"
+  },
+  "block.nihil_piston.break": {
+   "sounds": [
+    "simpleores:block/nihil_piston/dig1",
+    "simpleores:block/nihil_piston/dig2",
+    "simpleores:block/nihil_piston/dig3",
+    "simpleores:block/nihil_piston/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.break"
+  },
+  "block.nihil_piston.place": {
+   "sounds": [
+    "simpleores:block/nihil_piston/dig1",
+    "simpleores:block/nihil_piston/dig2",
+    "simpleores:block/nihil_piston/dig3",
+    "simpleores:block/nihil_piston/dig4"
+   ],
+   "subtitle": "subtitles.block.generic.place"
+  },
+  "block.nihil_piston.step": {
+   "sounds": [
+    "simpleores:block/nihil_piston/step1",
+    "simpleores:block/nihil_piston/step2",
+    "simpleores:block/nihil_piston/step3",
+    "simpleores:block/nihil_piston/step4"
+   ],
+   "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.nihil_piston.hit": {
+   "sounds": [
+    "simpleores:block/nihil_piston/step1",
+    "simpleores:block/nihil_piston/step2",
+    "simpleores:block/nihil_piston/step3",
+    "simpleores:block/nihil_piston/step4"
+   ],
+   "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.nihil_piston.fall": {
+   "sounds": [
+    "simpleores:block/nihil_piston/step1",
+    "simpleores:block/nihil_piston/step2",
+    "simpleores:block/nihil_piston/step3",
+    "simpleores:block/nihil_piston/step4"
+   ],
+   "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.nihil_piston.move": {
+   "sounds": [
+    {
+     "name": "minecraft:block.piston.contract",
+     "type": "event",
+     "pitch": 0.85
+    }
+   ],
+   "subtitle": "subtitles.simpleores.block.nihil_piston.move"
+  }
+ },
+ "lang": {
+  "block.simpleores.nihilith_ore": [
+   "Nihilit Ore",
+   "Nihiliterz"
+  ],
+  "block.simpleores.astralit_ore": [
+   "Astralit Ore",
+   "Astraliterz"
+  ],
+  "item.simpleores.astralit_dust": [
+   "Astralit Dust",
+   "Astralitstaub"
+  ],
+  "item.simpleores.nihilith_shard": [
+   "Nihilit Shard",
+   "Nihilitsplitter"
+  ],
+  "subtitles.simpleores.block.astralit_lamp.turn_on": [
+   "Astral Lamp turns on",
+   "Astral-Lampe geht an"
+  ],
+  "subtitles.simpleores.block.astralit_lamp.turn_off": [
+   "Astral Lamp turns off",
+   "Astral-Lampe geht aus"
+  ],
+  "subtitles.simpleores.block.nihilith_lamp.turn_on": [
+   "Nihilit Lamp turns on",
+   "Nihilit-Lampe geht an"
+  ],
+  "subtitles.simpleores.block.nihilith_lamp.turn_off": [
+   "Nihilit Lamp turns off",
+   "Nihilit-Lampe geht aus"
+  ],
+  "subtitles.simpleores.block.astral_piston.move": [
+   "Astral Piston pushes",
+   "Astral-Kolben drückt"
+  ],
+  "subtitles.simpleores.block.nihil_piston.move": [
+   "Nihil Piston pulls",
+   "Nihil-Kolben zieht"
+  ],
+  "jei.simpleores.info.astralit_ore": [
+   "Generates in end stone near the top of the End islands, hardly visible; needs a diamond pickaxe. Brush it free like an archaeology find: the full Astralit Dust only from a freed ore, otherwise a 70% chance; Fortune helps both (Silk Touch: the ore itself).",
+   "Entsteht in Endstein nahe der Oberseite der End-Inseln, kaum sichtbar; braucht eine Diamantspitzhacke. Mit dem Pinsel freilegen wie einen Archäologie-Fund: voller Astralitstaub nur aus freigelegtem Erz, sonst zu 70 %; Glück hilft in beiden Fällen (Behutsamkeit: das Erz selbst)."
+  ],
+  "jei.simpleores.info.nihilith_ore": [
+   "Generates in end stone on the underside of the End islands, hardly visible; needs a diamond pickaxe. Brush it free like an archaeology find: the full Nihilit Shards only from a freed ore, otherwise a 70% chance; Fortune helps both (Silk Touch: the ore itself).",
+   "Entsteht in Endstein an der Unterseite der End-Inseln, kaum sichtbar; braucht eine Diamantspitzhacke. Mit dem Pinsel freilegen wie einen Archäologie-Fund: volle Nihilitsplitter nur aus freigelegtem Erz, sonst zu 70 %; Glück hilft in beiden Fällen (Behutsamkeit: das Erz selbst)."
+  ],
+  "block.simpleores.dull_astralit_ore": [
+   "Dull Astralit Ore",
+   "Trübes Astraliterz"
+  ],
+  "block.simpleores.dull_nihilith_ore": [
+   "Dull Nihilit Ore",
+   "Trübes Nihiliterz"
+  ],
+  "item.simpleores.dull_astralit_dust": [
+   "Dull Astralit Dust",
+   "Trüber Astralitstaub"
+  ],
+  "item.simpleores.dull_nihilith_shard": [
+   "Dull Nihilit Shard",
+   "Trüber Nihilitsplitter"
+  ],
+  "block.simpleores.nihil_redstone": [
+   "Nihil Redstone",
+   "Nihil-Redstone"
+  ],
+  "block.simpleores.astral_redstone": [
+   "Astral Redstone",
+   "Astral-Redstone"
+  ],
+  "block.simpleores.bridge_redstone": [
+   "Bridge Redstone",
+   "Brücken-Redstone"
+  ],
+  "block.simpleores.nihilith_lamp": [
+   "Nihilit Lamp",
+   "Nihilit-Lampe"
+  ],
+  "block.simpleores.astralit_lamp": [
+   "Astral Lamp",
+   "Astral-Lampe"
+  ],
+  "block.simpleores.astral_redstone_block": [
+   "Block of Astral Redstone",
+   "Astral-Redstone-Block"
+  ],
+  "block.simpleores.nihil_redstone_block": [
+   "Block of Nihil Redstone",
+   "Nihil-Redstone-Block"
+  ],
+  "block.simpleores.astral_redstone_torch": [
+   "Astral Redstone Torch",
+   "Astral-Redstone-Fackel"
+  ],
+  "block.simpleores.astral_redstone_wall_torch": [
+   "Astral Redstone Torch",
+   "Astral-Redstone-Fackel"
+  ],
+  "block.simpleores.nihil_redstone_torch": [
+   "Nihil Redstone Torch",
+   "Nihil-Redstone-Fackel"
+  ],
+  "block.simpleores.nihil_redstone_wall_torch": [
+   "Nihil Redstone Torch",
+   "Nihil-Redstone-Fackel"
+  ],
+  "block.simpleores.astralit_end_rod": [
+   "Astralit End Rod",
+   "Astralit-Endstab"
+  ],
+  "block.simpleores.nihilith_end_rod": [
+   "Nihilit End Rod",
+   "Nihilit-Endstab"
+  ],
+  "block.simpleores.bridge_redstone_block": [
+   "Block of Bridge Redstone",
+   "Brücken-Redstone-Block"
+  ],
+  "block.simpleores.astral_piston": [
+   "Astral Piston",
+   "Astral-Kolben"
+  ],
+  "block.simpleores.nihil_piston": [
+   "Nihil Piston",
+   "Nihil-Kolben"
+  ],
+  "block.simpleores.astral_rail": [
+   "Astral Rail",
+   "Astral-Schiene"
+  ],
+  "block.simpleores.nihil_rail": [
+   "Nihil Rail",
+   "Nihil-Schiene"
+  ],
+  "jei.simpleores.info.dull_end_ores": [
+   "Hides in the veins of Astralit and Nihilit Ore: about one ore block in five is dull. Looks alike but unrefined - a little softer, weaker glow - and needs a diamond pickaxe too. Drops dull dust or a dull shard (Silk Touch: the ore itself).",
+   "Steckt in den Adern von Astralit- und Nihiliterz: etwa jeder fünfte Erzblock ist trüb. Sieht ähnlich aus, ist aber unraffiniert – etwas weicher, schwächerer Schein – und braucht ebenfalls eine Diamantspitzhacke. Lässt trüben Staub bzw. einen trüben Splitter fallen (Behutsamkeit: das Erz selbst)."
+  ],
+  "jei.simpleores.info.dull_end_drops": [
+   "Unrefined End material from dull ore. Four of them craft one real Astralit Dust or Nihilit Shard.",
+   "Unraffiniertes End-Material aus trübem Erz. Vier davon ergeben einen echten Astralitstaub bzw. Nihilitsplitter."
+  ]
+ },
+ "config": {
+  "endSignals": {
+   "label": [
+    "Astral/Nihil Redstone",
+    "Astral-/Nihil-Redstone"
+   ],
+   "tip": [
+    "Astral, Nihil and Bridge Redstone conduct.\nRecipes update on datapack reload. Default: true.",
+    "Astral-, Nihil- und Brücken-Redstone leiten.\nRezepte nach Datenpaket-Neuladen. Standard: true."
+   ]
+  },
+  "endPistons": {
+   "label": [
+    "End Pistons",
+    "End-Kolben"
+   ],
+   "tip": [
+    "Astral and Nihil pistons move blocks.\nRecipes update on datapack reload.\nDefault: true.",
+    "Astral- und Nihil-Kolben bewegen Blöcke.\nRezepte nach Datenpaket-Neuladen.\nStandard: true."
+   ]
+  },
+  "endRails": {
+   "label": [
+    "End Rails",
+    "End-Schienen"
+   ],
+   "tip": [
+    "Astral rails boost and Nihil rails brake.\nOff: they act as plain rails. Recipes\nupdate on datapack reload. Default: true.",
+    "Astral-Schienen beschleunigen, Nihil-Schienen\nbremsen. Aus: normale Schienen. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
+   ]
+  },
+  "endPistonCooldownTicks": {
+   "label": [
+    "End Piston Cooldown (4–100)",
+    "End-Kolben-Abklingzeit (4–100)"
+   ],
+   "tip": [
+    "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",
+    "Ticks Wartezeit nach dem Auslösen,\nbegrenzt auf 4-100. Standard: 8."
+   ]
+  },
+  "astralRailMaxSpeed": {
+   "label": [
+    "Astral Rail Top Speed (8–20)",
+    "Astral-Schiene Höchsttempo (8–20)"
+   ],
+   "tip": [
+    "Blocks per second on flat Astral rails,\nlimited to 8-20 (vanilla 8). Default: 16.",
+    "Blöcke pro Sekunde auf flachen Astral-Schienen,\nbegrenzt auf 8-20 (Vanilla 8). Standard: 16."
+   ]
+  },
+  "astralRailBoost": {
+   "label": [
+    "Astral Rail Boost (0.07–0.25)",
+    "Astral-Schiene Schub (0,07–0,25)"
+   ],
+   "tip": [
+    "Push per tick at standstill, shrinking\nwith (speed/top speed)². Powered rail: 0.06.\nDefault: 0.12.",
+    "Schub je Tick aus dem Stand, sinkt mit\n(Tempo/Höchsttempo)². Antriebsschiene: 0,06.\nStandard: 0,12."
+   ]
+  },
+  "nihilRailBrake": {
+   "label": [
+    "Nihil Rail Brake (0.02–0.4)",
+    "Nihil-Schiene Bremse (0,02–0,4)"
+   ],
+   "tip": [
+    "Fixed braking per tick on top of 20%\nfriction, limited to 0.02-0.4. Default: 0.08.",
+    "Feste Bremsung je Tick zusätzlich zu 20 %\nReibung, begrenzt auf 0,02-0,4. Standard: 0,08."
+   ]
+  }
+ },
+ "tags": {
+  "c/tags/block/ores/astralit.json": [
+   "simpleores:astralit_ore"
+  ],
+  "c/tags/block/ores/nihilith.json": [
+   "simpleores:nihilith_ore"
+  ],
+  "c/tags/block/ores_in_ground/end_stone.json": [
+   "simpleores:nihilith_ore",
+   "simpleores:astralit_ore"
+  ],
+  "c/tags/item/dusts/astralit.json": [
+   "simpleores:astralit_dust"
+  ],
+  "c/tags/item/gems/nihilith.json": [
+   "simpleores:nihilith_shard"
+  ],
+  "c/tags/item/ores/astralit.json": [
+   "simpleores:astralit_ore"
+  ],
+  "c/tags/item/ores/nihilith.json": [
+   "simpleores:nihilith_ore"
+  ],
+  "c/tags/item/ores_in_ground/end_stone.json": [
+   "simpleores:nihilith_ore",
+   "simpleores:astralit_ore"
+  ],
+  "minecraft/tags/block/mineable/pickaxe.json": [
+   "simpleores:astral_rail",
+   "simpleores:nihil_rail",
+   "simpleores:astral_piston",
+   "simpleores:nihil_piston",
+   "simpleores:astral_redstone_block",
+   "simpleores:nihil_redstone_block",
+   "simpleores:bridge_redstone_block",
+   "simpleores:dull_astralit_ore",
+   "simpleores:dull_nihilith_ore",
+   "simpleores:nihilith_ore",
+   "simpleores:astralit_ore"
+  ],
+  "minecraft/tags/block/needs_diamond_tool.json": [
+   "simpleores:dull_astralit_ore",
+   "simpleores:dull_nihilith_ore",
+   "simpleores:nihilith_ore",
+   "simpleores:astralit_ore"
+  ],
+  "minecraft/tags/block/rails.json": [
+   "simpleores:astral_rail",
+   "simpleores:nihil_rail"
+  ],
+  "minecraft/tags/item/rails.json": [
+   "simpleores:astral_rail",
+   "simpleores:nihil_rail"
+  ]
+ }
+}

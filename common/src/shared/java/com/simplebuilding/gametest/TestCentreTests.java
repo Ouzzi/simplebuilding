@@ -64,6 +64,9 @@ import net.minecraft.world.phys.AABB;
  * {@code TestCentreLayout.EXCLUDED}.
  */
 public final class TestCentreTests {
+    /** Vanilla minecart top speed in blocks per tick (Simple Ores' EndRailPhysics.VANILLA_MAX_SPEED; copied, the core cannot import it). */
+    private static final double VANILLA_CART_MAX_SPEED = 0.4;
+
 
     private TestCentreTests() {
     }
@@ -1529,7 +1532,7 @@ public final class TestCentreTests {
         double launchEnd = origin.getX() + com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_LAUNCH_END + 0.5;
         int brakeStart = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_BRAKE_START;
         int end = com.simplebuilding.dev.testcentre.TestCentreSections.RAIL_END;
-        double cap = com.simplebuilding.blocks.custom.EndRailPhysics.maxSpeedPerTick();
+        double cap = com.simplebuilding.util.OresLine.railTopSpeed() / 20.0; // Simple Ores' EndRailPhysics.maxSpeedPerTick (whole blocks per second in the config)
         List<int[]> forced = new ArrayList<>();
         for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
             for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
@@ -1558,7 +1561,7 @@ public final class TestCentreTests {
         };
         java.util.function.Predicate<Integer> railPowered = x -> {
             BlockState state = level.getBlockState(origin.offset(x, 0, laneA));
-            return state.hasProperty(com.simplebuilding.blocks.custom.EndRailBlock.POWERED) && state.getValue(com.simplebuilding.blocks.custom.EndRailBlock.POWERED);
+            return state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED) && state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED);
         };
         CartRun astral = new CartRun(), vanilla = new CartRun();
         int[] now = {0};
@@ -1608,10 +1611,10 @@ public final class TestCentreTests {
                     + "; at the launch end after " + astral.launchedAt + " / " + vanilla.launchedAt + " ticks";
             com.simplebuilding.Simplebuilding.LOGGER.info("End rail track: {}; Astral stopped at {}, vanilla at {}", run,
                     astral.cart.getX() - origin.getX(), vanilla.cart.getX() - origin.getX());
-            helper.assertTrue(astral.fastest > com.simplebuilding.blocks.custom.EndRailPhysics.VANILLA_MAX_SPEED + 0.05,
+            helper.assertTrue(astral.fastest > VANILLA_CART_MAX_SPEED + 0.05,
                     "the Astral cart never got past vanilla speed: " + run);
             helper.assertTrue(astral.fastest <= cap + 1e-6, "the Astral cart passed the configured top speed: " + run);
-            helper.assertTrue(vanilla.fastest > 0.2 && vanilla.fastest <= com.simplebuilding.blocks.custom.EndRailPhysics.VANILLA_MAX_SPEED + 0.02,
+            helper.assertTrue(vanilla.fastest > 0.2 && vanilla.fastest <= VANILLA_CART_MAX_SPEED + 0.02,
                     "the vanilla cart should run at up to 0.4 blocks per tick: " + run);
             helper.assertTrue(astral.launchedAt > 0 && (vanilla.launchedAt < 0 || astral.launchedAt < vanilla.launchedAt),
                     "the Astral cart should reach the end of the launch first: " + run);

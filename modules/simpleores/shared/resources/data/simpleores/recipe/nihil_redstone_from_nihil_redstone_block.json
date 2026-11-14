@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simpleores:nihil_redstone_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simpleores:nihil_redstone"
+  }
+}

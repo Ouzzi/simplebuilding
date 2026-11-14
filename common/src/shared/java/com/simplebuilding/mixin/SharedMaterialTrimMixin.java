@@ -19,12 +19,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Item.Properties.class)
 public class SharedMaterialTrimMixin {
     private static final Identifier SIMPLEBUILDING$LIB_ENDERITE_INGOT = Identifier.fromNamespaceAndPath("simpleores", "enderite_ingot");
+    /** N47-M2 (b-circ46): Astralit dust and Nihilit shard are Simple Ores' too; their trim materials stay SimpleBuilding's. */
+    private static final Identifier SIMPLEBUILDING$ORES_ASTRALIT_DUST = Identifier.fromNamespaceAndPath("simpleores", "astralit_dust");
+    private static final Identifier SIMPLEBUILDING$ORES_NIHILITH_SHARD = Identifier.fromNamespaceAndPath("simpleores", "nihilith_shard");
 
     @Inject(method = "finalizeInitializer", at = @At("HEAD"))
     private void simplebuilding$enderiteTrimMaterial(Component name, Identifier modelId,
                                                     CallbackInfoReturnable<DataComponentInitializers.Initializer<Item>> cir) {
         if (modelId.equals(SIMPLEBUILDING$LIB_ENDERITE_INGOT)) {
             ((Item.Properties) (Object) this).trimMaterial(ModTrimMaterials.ENDERITE);
+        } else if (modelId.equals(SIMPLEBUILDING$ORES_ASTRALIT_DUST)) {
+            ((Item.Properties) (Object) this).trimMaterial(ModTrimMaterials.ASTRALIT);
+        } else if (modelId.equals(SIMPLEBUILDING$ORES_NIHILITH_SHARD)) {
+            ((Item.Properties) (Object) this).trimMaterial(ModTrimMaterials.NIHILITH);
         }
     }
 }

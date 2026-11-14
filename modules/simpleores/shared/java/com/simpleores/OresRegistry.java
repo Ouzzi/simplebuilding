@@ -467,5 +467,22 @@ public final class OresRegistry {
             "rose_bronze_carrot", "rose_gold_carrot", "terranite_apple", "terranite_carrot", "infernite_apple", "infernite_carrot",
             "zenithite_apple", "zenithite_carrot"};
 
+    /** N46/M2 (b-circ46): the Astralit/Nihilit line registers after every block above (its items are its own, see LineBlocks#init). */
+    static {
+        com.simpleores.line.LineBlocks.init();
+    }
+
+    /** A block of another group of this mod (line, gear), kept in {@link #BLOCKS} like the own ones; no automatic block item. */
+    public static Block putBlock(String path, Block base, Function<BlockBehaviour.Properties, Block> factory) {
+        return block(path, base, factory);
+    }
+
+    /** An item of another group of this mod: rarity rule and id applied, kept in {@link #ITEMS}. */
+    public static Item putItem(String path, Function<Item.Properties, Item> factory) {
+        Item item = factory.apply(com.simplelib.api.RarityRules.apply(path, new Item.Properties()).setId(itemKey(path)));
+        ITEMS.put(path, item);
+        return item;
+    }
+
     private OresRegistry() {}
 }

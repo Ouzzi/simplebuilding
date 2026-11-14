@@ -134,54 +134,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Befiederungstisch (B14, N16): die Teil-Rezepte sind seit 04.11. Daten von Simple Arrows (simplearrows:fletching/*).
 
-                // Astral-/Nihil-Kolben (2026-10-03): Kolben in der Mitte, Kanal-Redstone an den Kanten, polierter
-                // Stein der Farbe in den Ecken; der Nihil-Kolben zieht und bekommt deshalb den Klebekolben.
-                if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-                    for (boolean astral : new boolean[]{true, false}) {
-                        shaped(RecipeCategory.REDSTONE, astral ? ModItems.ASTRAL_PISTON : ModItems.NIHIL_PISTON)
-                                .pattern("PRP")
-                                .pattern("RKR")
-                                .pattern("PRP")
-                                .define('P', astral ? ModItems.POLISHED_ASTRALIT : ModItems.POLISHED_NIHILITH)
-                                .define('R', astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE)
-                                .define('K', astral ? Items.PISTON : Items.STICKY_PISTON)
-                                .unlockedBy(getHasName(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE),
-                                        has(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE))
-                                .save(output);
-                    }
-                    // Redstone-Bloecke der Linien (N51, 2026-10-13): 9 Staub <-> 1 Block wie der Redstone-Block.
-                    Item[][] blocks = {{ModItems.ASTRAL_REDSTONE, ModItems.ASTRAL_REDSTONE_BLOCK},
-                            {ModItems.NIHIL_REDSTONE, ModItems.NIHIL_REDSTONE_BLOCK}, {ModItems.BRIDGE_REDSTONE, ModItems.BRIDGE_REDSTONE_BLOCK}};
-                    for (Item[] pair : blocks) {
-                        shaped(RecipeCategory.REDSTONE, pair[1])
-                                .pattern("###")
-                                .pattern("###")
-                                .pattern("###")
-                                .define('#', pair[0])
-                                .unlockedBy(getHasName(pair[0]), has(pair[0]))
-                                .save(output);
-                        shapeless(RecipeCategory.REDSTONE, pair[0], 9)
-                                .requires(pair[1])
-                                .unlockedBy(getHasName(pair[1]), has(pair[1]))
-                                .save(output, getConversionRecipeName(pair[0], pair[1]));
-                    }
-                }
-                // Astral-/Nihil-Schienen (2026-10-04) wie die Antriebsschiene: 6 Gold, Stock, und statt Redstone der
-                // Redstone des Kanals (Astralitstaub bzw. Nihilitsplitter steckt darin) - 6 Stueck.
-                if (com.simplebuilding.version.McVersion.END_RAILS) {
-                    for (boolean astral : new boolean[]{true, false}) {
-                        Item redstone = astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE;
-                        shaped(RecipeCategory.TRANSPORTATION, astral ? ModItems.ASTRAL_RAIL : ModItems.NIHIL_RAIL, 6)
-                                .pattern("G G")
-                                .pattern("GSG")
-                                .pattern("GRG")
-                                .define('G', Items.GOLD_INGOT)
-                                .define('S', Items.STICK)
-                                .define('R', redstone)
-                                .unlockedBy(getHasName(redstone), has(redstone))
-                                .save(output);
-                    }
-                }
+                // N46/M2 (b-circ46): the line's recipes (End pistons, line redstone blocks, End rails) are Simple Ores' data.
                 // Naturvarianten (N24/N25): seit b-blocksmove Bloecke von Simple Blocks mit ihren Rezepten dort; hier bleibt die Sculk-Kiefer.
                 if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
                     // Sculk-Kiefer: Fangzaehne (Knochen), Echo-Splitter und Sculk - der Splitter gibt es nur in Ancient Cities.

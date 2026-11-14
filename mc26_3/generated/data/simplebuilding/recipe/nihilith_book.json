@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "K": "minecraft:book",
-    "N": "simplebuilding:nihilith_shard"
+    "N": "simpleores:nihilith_shard"
   },
   "pattern": [
     " N ",

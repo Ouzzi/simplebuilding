@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "#": "#minecraft:planks",
-    "X": "simplebuilding:astralit_dust"
+    "X": "simpleores:astralit_dust"
   },
   "pattern": [
     "###",

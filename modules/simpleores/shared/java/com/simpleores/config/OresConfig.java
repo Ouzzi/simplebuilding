@@ -19,7 +19,9 @@ public final class OresConfig {
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords",
             "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
-            "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers");
+            "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers",
+            "endOres", "astralitOre", "nihilitOre", "endSignals", "endPistons", "endRails", "endPistonCooldownTicks", "astralRailMaxSpeed",
+            "astralRailBoost", "nihilRailBrake");
 
     /** Simple Arrows' option since 03.11. (simplearrows-server.json); an old file keeps it for that one takeover. */
     public static final String LEGACY_ARROW_KEY = "silverArrowUndeadBonus";
@@ -52,6 +54,29 @@ public final class OresConfig {
     public static boolean tinOre = true;
     /** Tin-bearing gravel and sand in river and beach beds. */
     public static boolean tinPlacers = true;
+
+    /**
+     * N46/N47-M2 (b-circ46, 14.11.): the Astralit/Nihilit line moved here from SimpleBuilding with its switches (before
+     * {@code server.oreGeneration.endOres/astralitOre/nihilitOre}, {@code server.features.endSignals/endPistons/endRails} and
+     * {@code server.machines.*} of SimpleBuilding's server config; same defaults and bounds). End ores: new veins only.
+     */
+    public static boolean endOres = true;
+    public static boolean astralitOre = true;
+    public static boolean nihilitOre = true;
+    /** Astral/Nihil/Bridge Redstone carry a signal; off: the line is dead, its pistons and rails stand still. */
+    public static boolean endSignals = true;
+    /** Astral/Nihil pistons move blocks (only with endSignals). */
+    public static boolean endPistons = true;
+    /** Astral/Nihil rails boost and brake (only with endSignals). */
+    public static boolean endRails = true;
+    /** Ticks between two moves of one End piston (4 to 100). */
+    public static int endPistonCooldownTicks = 8;
+    /** Top speed on Astral rails in blocks per second (8 to 20). */
+    public static int astralRailMaxSpeed = 16;
+    /** Boost of a powered Astral rail per tick (0.07 to 0.25). */
+    public static double astralRailBoost = 0.12;
+    /** Constant part of the Nihil brake per tick (0.02 to 0.4). */
+    public static double nihilRailBrake = 0.08;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -91,6 +116,16 @@ public final class OresConfig {
         nickelOre = bool(json, "nickelOre", true);
         tinOre = bool(json, "tinOre", true);
         tinPlacers = bool(json, "tinPlacers", true);
+        endOres = bool(json, "endOres", true);
+        astralitOre = bool(json, "astralitOre", true);
+        nihilitOre = bool(json, "nihilitOre", true);
+        endSignals = bool(json, "endSignals", true);
+        endPistons = bool(json, "endPistons", true);
+        endRails = bool(json, "endRails", true);
+        endPistonCooldownTicks = (int) Math.round(number(json, "endPistonCooldownTicks", 8, 4, 100));
+        astralRailMaxSpeed = (int) Math.round(number(json, "astralRailMaxSpeed", 16, 8, 20));
+        astralRailBoost = number(json, "astralRailBoost", 0.12, 0.07, 0.25);
+        nihilRailBrake = number(json, "nihilRailBrake", 0.08, 0.02, 0.4);
     }
 
     private static boolean bool(JsonObject json, String key, boolean fallback) {
@@ -122,6 +157,16 @@ public final class OresConfig {
         o.addProperty("nickelOre", nickelOre);
         o.addProperty("tinOre", tinOre);
         o.addProperty("tinPlacers", tinPlacers);
+        o.addProperty("endOres", endOres);
+        o.addProperty("astralitOre", astralitOre);
+        o.addProperty("nihilitOre", nihilitOre);
+        o.addProperty("endSignals", endSignals);
+        o.addProperty("endPistons", endPistons);
+        o.addProperty("endRails", endRails);
+        o.addProperty("endPistonCooldownTicks", endPistonCooldownTicks);
+        o.addProperty("astralRailMaxSpeed", astralRailMaxSpeed);
+        o.addProperty("astralRailBoost", astralRailBoost);
+        o.addProperty("nihilRailBrake", nihilRailBrake);
         return o;
     }
 

@@ -35,6 +35,8 @@ public final class SimpleOres {
         // IG31-13: Simple Ores owns Enderite now - other mods switch their Enderite variants on through SimpleLib's flag.
         com.simplelib.api.SimpleLibApi.provideMaterial("enderite");
         registerIdMoves();
+        // N46/M2: switched-off line devices lose their recipes too (datapack reload), as in SimpleBuilding before the move.
+        com.simplelib.api.RecipeFilters.register(MOD_ID, com.simpleores.line.LineBlocks::recipeRemoved);
         OresViewer.register();   // a-fix09b: JEI info pages of Sage Ore, Sage Orb, Dimensional Scrap (were SimpleBuilding's)
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "ores", "simpleores.testcentre.station", OresRegistry.itemIds());

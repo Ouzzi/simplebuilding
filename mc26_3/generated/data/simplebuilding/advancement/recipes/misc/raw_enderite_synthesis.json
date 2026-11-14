@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:astralit_dust"
+            "items": "simpleores:astralit_dust"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:nihilith_shard"
+            "items": "simpleores:nihilith_shard"
           }
         ]
       },

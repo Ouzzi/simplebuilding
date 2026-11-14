@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "B": "simplelib:polished_end_stone",
-    "M": "simplebuilding:nihilith_shard"
+    "M": "simpleores:nihilith_shard"
   },
   "pattern": [
     "BBB",

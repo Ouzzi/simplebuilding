@@ -87,6 +87,15 @@ public final class OresFabric implements ModInitializer {
         BiomeModifications.addFeature(BiomeSelectors.tag(END_SAGE_BIOMES).and(ctx -> SimpleOres.on() && com.simpleores.config.OresConfig.sageOreOtherDimensions), GenerationStep.Decoration.UNDERGROUND_ORES, END_SAGE);
         // Enderite in End city treasure on its own (SimpleBuilding feeds it itself: SimpleLibApi.materialLootByPartner).
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) -> com.simpleores.OresLoot.apply(key, table::withPool));
+        // N46/M2 (b-circ46): the End veins of the Astralit/Nihilit line (before SimpleBuilding's ModOreGeneration).
+        BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd().or(BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_END)).and(ctx -> SimpleOres.on() && com.simpleores.config.OresConfig.endOres && com.simpleores.config.OresConfig.astralitOre),
+                GenerationStep.Decoration.UNDERGROUND_ORES, ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("astralit_ore_placed")));
+        BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd().or(BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_END)).and(ctx -> SimpleOres.on() && com.simpleores.config.OresConfig.endOres && com.simpleores.config.OresConfig.nihilitOre),
+                GenerationStep.Decoration.UNDERGROUND_ORES, ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("nihilith_ore_placed")));
+        tab(CreativeModeTabs.NATURAL_BLOCKS, Items.END_STONE, com.simpleores.line.LineBlocks.NATURAL);
+        tab(CreativeModeTabs.INGREDIENTS, Items.GLOWSTONE_DUST, com.simpleores.line.LineBlocks.INGREDIENTS);
+        tab(CreativeModeTabs.REDSTONE_BLOCKS, Items.COMPARATOR, com.simpleores.line.LineBlocks.REDSTONE);
+        tab(CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.END_ROD, com.simpleores.line.LineBlocks.DECORATIONS);
         tab(CreativeModeTabs.NATURAL_BLOCKS, Items.GOLD_ORE, OresRegistry.NATURAL);
         tab(CreativeModeTabs.BUILDING_BLOCKS, Items.GOLD_BLOCK, OresRegistry.BUILDING);
         tab(CreativeModeTabs.INGREDIENTS, Items.GOLD_INGOT, OresRegistry.INGREDIENTS);

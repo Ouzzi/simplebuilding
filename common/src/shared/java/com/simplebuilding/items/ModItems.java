@@ -101,24 +101,25 @@ import static net.minecraft.world.item.Rarity.UNCOMMON;
  */
 
 public class ModItems {
-    public static final Item NIHIL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone", s -> new BlockItem(ModBlocks.NIHIL_REDSTONE, s)) : null;
-    public static final Item ASTRAL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone", s -> new BlockItem(ModBlocks.ASTRAL_REDSTONE, s)) : null;
-    public static final Item BRIDGE_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE, s)) : null;
-    public static final Item NIHILITH_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_lamp", s -> new BlockItem(ModBlocks.NIHILITH_LAMP, s)) : null;
-    public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
-    public static final Item ASTRAL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_block", s -> new BlockItem(ModBlocks.ASTRAL_REDSTONE_BLOCK, s)) : null;
-    public static final Item NIHIL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_block", s -> new BlockItem(ModBlocks.NIHIL_REDSTONE_BLOCK, s)) : null;
+    // N46/N47-M2 (b-circ46, 14.11.): Simple Ores' line items (simpleores:*); the fields point at them.
+    public static final Item NIHIL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_redstone") : null;
+    public static final Item ASTRAL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_redstone") : null;
+    public static final Item BRIDGE_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("bridge_redstone") : null;
+    public static final Item NIHILITH_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihilith_lamp") : null;
+    public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astralit_lamp") : null;
+    public static final Item ASTRAL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_redstone_block") : null;
+    public static final Item NIHIL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_redstone_block") : null;
     /** Astral/Nihil Redstone Torch (B23-M1): standing and on the wall like Vanilla's redstone torch. */
-    public static final Item ASTRAL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.ASTRAL_REDSTONE_TORCH, ModBlocks.ASTRAL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
-    public static final Item NIHIL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.NIHIL_REDSTONE_TORCH, ModBlocks.NIHIL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
+    public static final Item ASTRAL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_redstone_torch") : null;
+    public static final Item NIHIL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_redstone_torch") : null;
     /** Astralit/Nihilit End Rod (W24-4): Vanilla's End rod in the line colours. */
-    public static final Item ASTRALIT_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_end_rod", s -> new BlockItem(ModBlocks.ASTRALIT_END_ROD, s)) : null;
-    public static final Item NIHILITH_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_end_rod", s -> new BlockItem(ModBlocks.NIHILITH_END_ROD, s)) : null;
-    public static final Item BRIDGE_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone_block", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE_BLOCK, s)) : null;
-    public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
-    public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;
-    public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("nihil_rail", s -> new BlockItem(ModBlocks.NIHIL_RAIL, s)) : null;
-    public static final Item ASTRAL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("astral_rail", s -> new BlockItem(ModBlocks.ASTRAL_RAIL, s)) : null;
+    public static final Item ASTRALIT_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astralit_end_rod") : null;
+    public static final Item NIHILITH_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihilith_end_rod") : null;
+    public static final Item BRIDGE_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("bridge_redstone_block") : null;
+    public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_piston") : null;
+    public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_piston") : null;
+    public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_rail") : null;
+    public static final Item ASTRAL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_rail") : null;
     public static final Item ASTRAL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_vault", s -> new BlockItem(ModBlocks.ASTRAL_VAULT, s)) : null;
     public static final Item NIHIL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_vault", s -> new BlockItem(ModBlocks.NIHIL_VAULT, s)) : null;
 
@@ -502,13 +503,13 @@ public class ModItems {
 
 
 
-        public static final Item NIHILITH_SHARD = registerItem("nihilith_shard", s -> new Item(s
+        public static final Item NIHILITH_SHARD = com.simplebuilding.util.SharedMaterials.item("nihilith_shard", () -> registerItem("nihilith_shard", s -> new Item(s
 
-            .trimMaterial(ModTrimMaterials.NIHILITH)));
+            .trimMaterial(ModTrimMaterials.NIHILITH))));
 
-        public static final Item ASTRALIT_DUST = registerItem("astralit_dust", s -> new Item(s
+        public static final Item ASTRALIT_DUST = com.simplebuilding.util.SharedMaterials.item("astralit_dust", () -> registerItem("astralit_dust", s -> new Item(s
 
-            .trimMaterial(ModTrimMaterials.ASTRALIT)));
+            .trimMaterial(ModTrimMaterials.ASTRALIT))));
 
     // Enderquarz: 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz ergeben 2; Material der violetten End-Palette.
     public static final Item ENDER_QUARTZ = registerItem("ender_quartz", s -> new Item(s));
@@ -529,18 +530,18 @@ public class ModItems {
 
     public static final Item ENDERITE_BLOCK_ITEM = com.simplebuilding.util.SharedMaterials.item("enderite_block", () -> registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s.fireResistant())));
 
-    public static final Item NIHILITH_ORE_ITEM = registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s));
+    public static final Item NIHILITH_ORE_ITEM = com.simplebuilding.util.SharedMaterials.item("nihilith_ore", () -> registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s)));
 
-    public static final Item ASTRALIT_ORE_ITEM = registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s));
+    public static final Item ASTRALIT_ORE_ITEM = com.simplebuilding.util.SharedMaterials.item("astralit_ore", () -> registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s)));
     /** Truebe End-Erze und ihr Drop (W23-2): 4 trueber Staub / Splitter ergeben 1 echten (Rezept im 26.3-Overlay). */
     public static final Item DULL_ASTRALIT_ORE_ITEM = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_astralit_ore", s -> new BlockItem(ModBlocks.DULL_ASTRALIT_ORE, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_astralit_ore", () -> registerItem("dull_astralit_ore", s -> new BlockItem(ModBlocks.DULL_ASTRALIT_ORE, s))) : null;
     public static final Item DULL_NIHILITH_ORE_ITEM = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_nihilith_ore", s -> new BlockItem(ModBlocks.DULL_NIHILITH_ORE, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_nihilith_ore", () -> registerItem("dull_nihilith_ore", s -> new BlockItem(ModBlocks.DULL_NIHILITH_ORE, s))) : null;
     public static final Item DULL_ASTRALIT_DUST = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_astralit_dust", s -> new Item(s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_astralit_dust", () -> registerItem("dull_astralit_dust", s -> new Item(s))) : null;
     public static final Item DULL_NIHILITH_SHARD = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_nihilith_shard", s -> new Item(s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_nihilith_shard", () -> registerItem("dull_nihilith_shard", s -> new Item(s))) : null;
 
     public static final Item AUTO_SMITHER = com.simplebuilding.version.McVersion.AUTO_SMITHER
             ? registerItem("auto_smither", s -> new BlockItem(ModBlocks.AUTO_SMITHER, s))

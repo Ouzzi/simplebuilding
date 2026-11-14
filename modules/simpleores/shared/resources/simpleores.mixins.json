@@ -4,6 +4,10 @@
   "package": "com.simpleores.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "AbstractMinecartEndRailMixin",
+    "HiddenOreBrushMixin",
+    "MinecartBehaviorEndRailMixin",
+    "RedstoneWireEvaluatorLinesMixin",
     "SoundproofMixin"
   ],
   "client": [],

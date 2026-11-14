@@ -99,6 +99,8 @@ assets/simplebuilding/blockstates/waxed_oxidized_copper_pressure_plate.json
 assets/simplebuilding/blockstates/waxed_weathered_copper_pressure_plate.json
 assets/simplebuilding/blockstates/weathered_copper_pressure_plate.json
 assets/simplebuilding/items/amethyst_lens.json
+assets/simplebuilding/items/astralit_dust.json
+assets/simplebuilding/items/astralit_ore.json
 assets/simplebuilding/items/backpack.json
 assets/simplebuilding/items/basic_upgrade_template.json
 assets/simplebuilding/items/blaze_head.json
@@ -207,6 +209,8 @@ assets/simplebuilding/items/netherite_shulker_box.json
 assets/simplebuilding/items/netherite_sledgehammer.json
 assets/simplebuilding/items/netherite_smoker.json
 assets/simplebuilding/items/netherite_spatula.json
+assets/simplebuilding/items/nihilith_ore.json
+assets/simplebuilding/items/nihilith_shard.json
 assets/simplebuilding/items/octant.json
 assets/simplebuilding/items/octant_black.json
 assets/simplebuilding/items/octant_blue.json
@@ -459,6 +463,7 @@ assets/simplebuilding/models/block/weathered_copper_pressure_plate.json
 assets/simplebuilding/models/block/weathered_copper_pressure_plate_down.json
 assets/simplebuilding/models/item/amethyst_lens.json
 assets/simplebuilding/models/item/amethyst_lens_empty.json
+assets/simplebuilding/models/item/astralit_dust.json
 assets/simplebuilding/models/item/backpack.json
 assets/simplebuilding/models/item/backpack_dyed.json
 assets/simplebuilding/models/item/basic_upgrade_template.json
@@ -609,6 +614,7 @@ assets/simplebuilding/models/item/netherite_quiver_dyed.json
 assets/simplebuilding/models/item/netherite_shulker_box.json
 assets/simplebuilding/models/item/netherite_sledgehammer.json
 assets/simplebuilding/models/item/netherite_spatula.json
+assets/simplebuilding/models/item/nihilith_shard.json
 assets/simplebuilding/models/item/octant.json
 assets/simplebuilding/models/item/octant_black.json
 assets/simplebuilding/models/item/octant_blue.json
@@ -1251,3 +1257,5 @@ data/simplebuilding/tags/enchantment/exclusive_set/cover_group.json
 data/simplebuilding/tags/enchantment/exclusive_set/wand_modifier_group.json
 data/simplebuilding/worldgen/configured_feature/astralit_ore.json
 data/simplebuilding/worldgen/configured_feature/nihilith_ore.json
+data/simplebuilding/worldgen/placed_feature/astralit_ore_placed.json
+data/simplebuilding/worldgen/placed_feature/nihilith_ore_placed.json

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleores:block/nihilith_lamp_top",
+    "side": "simpleores:block/nihilith_lamp"
+  }
+}

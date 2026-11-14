@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simpleores:astralit_dust",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "simpleores:astral_redstone",
+    "count": 2
+  }
+}

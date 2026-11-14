@@ -192,6 +192,17 @@
     "simpleores:deepslate_sage_ore",
     "simpleores:dimensional_scrap",
     "simpleores:nether_dimensional_scrap",
-    "simpleores:end_dimensional_scrap"
+    "simpleores:end_dimensional_scrap",
+    "simpleores:astral_rail",
+    "simpleores:nihil_rail",
+    "simpleores:astral_piston",
+    "simpleores:nihil_piston",
+    "simpleores:astral_redstone_block",
+    "simpleores:nihil_redstone_block",
+    "simpleores:bridge_redstone_block",
+    "simpleores:dull_astralit_ore",
+    "simpleores:dull_nihilith_ore",
+    "simpleores:nihilith_ore",
+    "simpleores:astralit_ore"
   ]
 }

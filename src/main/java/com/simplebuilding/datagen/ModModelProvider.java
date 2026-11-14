@@ -153,14 +153,6 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(ModBlocks.CONSTRUCTION_LIGHT);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelLocationUtils.getModelLocation(ModBlocks.CONSTRUCTION_LIGHT));
 
-        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            // Redstone-Bloecke der Linien (N51); Texturen aus tools/textures/end_redstone_blocks_2026_10_13.py.
-            for (net.minecraft.world.level.block.Block block : new net.minecraft.world.level.block.Block[]{
-                    ModBlocks.ASTRAL_REDSTONE_BLOCK, ModBlocks.NIHIL_REDSTONE_BLOCK, ModBlocks.BRIDGE_REDSTONE_BLOCK}) {
-                blockStateModelGenerator.createTrivialCube(block);
-                blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
-            }
-        }
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib's block
         blockStateModelGenerator.createTrivialCube(ModBlocks.CRACKED_DIAMOND_BLOCK);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.CRACKED_DIAMOND_BLOCK));
@@ -174,10 +166,10 @@ public class ModModelProvider extends FabricModelProvider {
 
         // W24-4: on 26.3 the brushed stages come from the overlay (blockstate + 4 models).
         if (!com.simplebuilding.version.McVersion.BRUSHED_ORES) blockStateModelGenerator.createTrivialCube(ModBlocks.NIHILITH_ORE);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NIHILITH_ORE, ModelLocationUtils.getModelLocation(ModBlocks.NIHILITH_ORE));
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NIHILITH_ORE, ModelLocationUtils.getModelLocation(ModBlocks.NIHILITH_ORE)); // 26.3: Simple Ores (N47-M2)
 
         if (!com.simplebuilding.version.McVersion.BRUSHED_ORES) blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRALIT_ORE);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ASTRALIT_ORE, ModelLocationUtils.getModelLocation(ModBlocks.ASTRALIT_ORE));
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ASTRALIT_ORE, ModelLocationUtils.getModelLocation(ModBlocks.ASTRALIT_ORE)); // 26.3: Simple Ores (N47-M2)
 
 
         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens ships the furnace models
@@ -872,8 +864,8 @@ public class ModModelProvider extends FabricModelProvider {
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HORSE_ARMOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NAUTILUS_ARMOR, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M2)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M2)
         itemModelGenerator.generateFlatItem(ModItems.ENDER_QUARTZ, ModelTemplates.FLAT_ITEM);
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
 

@@ -226,7 +226,7 @@ public final class TestCentreBuilder {
         }
         // Redstone dust of every line is placed without neighbour updates: give it its connections afterwards.
         for (TcOp op : ops) {
-            if (op instanceof TcOp.Place place && com.simplebuilding.blocks.custom.SignalDustBlock.lineOf(place.state()) != null) {
+            if (op instanceof TcOp.Place place && com.simplebuilding.util.OresLine.lineOf(place.state()) != null) {
                 BlockState placed = level.getBlockState(place.pos());
                 level.setBlock(place.pos(), Block.updateFromNeighbourShapes(placed, level, place.pos()), QUIET);
             }

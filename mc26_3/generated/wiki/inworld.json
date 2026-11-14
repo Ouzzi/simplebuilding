@@ -7629,11 +7629,11 @@
         "host": "end_stone",
         "ores": [
           {
-            "id": "simplebuilding:nihilith_ore",
+            "id": "simpleores:nihilith_ore",
             "weight": 92
           },
           {
-            "id": "simplebuilding:astralit_ore",
+            "id": "simpleores:astralit_ore",
             "weight": 8
           }
         ]

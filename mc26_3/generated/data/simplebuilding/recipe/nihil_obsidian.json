@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "N": "simplebuilding:nihilith_shard",
+    "N": "simpleores:nihilith_shard",
     "O": "minecraft:crying_obsidian"
   },
   "pattern": [

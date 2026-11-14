@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:ore",
+  "discard_chance_on_air_exposure": 0.0,
+  "size": 6,
+  "targets": [
+    {
+      "state": "simpleores:dull_nihilith_ore",
+      "target": {
+        "block": "minecraft:end_stone",
+        "predicate_type": "minecraft:random_block_match",
+        "probability": 0.194
+      }
+    },
+    {
+      "state": "simpleores:nihilith_ore",
+      "target": {
+        "block": "minecraft:end_stone",
+        "predicate_type": "minecraft:random_block_match",
+        "probability": 0.966
+      }
+    }
+  ]
+}

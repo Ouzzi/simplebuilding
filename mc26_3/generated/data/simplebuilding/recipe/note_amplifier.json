@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "#": "#minecraft:planks",
-    "X": "simplebuilding:nihilith_shard"
+    "X": "simpleores:nihilith_shard"
   },
   "pattern": [
     "###",
