@@ -3676,8 +3676,10 @@ public final class DataIntegrityTests {
                 if (equippable.canBeEquippedBy(stranger.builtInRegistryHolder())) {
                     problems.add(name + " can be worn by " + BuiltInRegistries.ENTITY_TYPE.getKey(stranger));
                 }
-                if (!equippable.assetId().map(key -> key.identifier().toString()).orElse("").equals(MOD_ID + ":enderite")) {
-                    problems.add(name + " is drawn with " + equippable.assetId() + " instead of " + MOD_ID + ":enderite");
+                // b-circ46 (N47-M3): on 26.3 the armor and its equipment asset belong to Simple Ores.
+                String owner = BuiltInRegistries.ITEM.getKey(enderite.getItem()).getNamespace();
+                if (!equippable.assetId().map(key -> key.identifier().toString()).orElse("").equals(owner + ":enderite")) {
+                    problems.add(name + " is drawn with " + equippable.assetId() + " instead of " + owner + ":enderite");
                 }
             }
             if (!isFireResistant(helper, enderite)) {
@@ -3732,9 +3734,10 @@ public final class DataIntegrityTests {
             Optional<RecipeHolder<SmithingRecipe>> match = recipes.getRecipeFor(RecipeType.SMITHING, input, level);
             if (match.isEmpty()) {
                 problems.add("no smithing recipe turns netherite_" + kind + " into enderite_" + kind);
-            } else if (!match.get().id().toString().contains(MOD_ID + ":enderite_" + kind + "_smithing")) {
+            } else if (!match.get().id().toString().contains(BuiltInRegistries.ITEM.getKey(enderite).getNamespace() + ":enderite_" + kind + "_smithing")) {
+                // b-circ46 (N47-M3): the recipe lives where the gear lives (Simple Ores on 26.3).
                 problems.add("netherite_" + kind + " + enderite ingot matches " + match.get().id()
-                        + " instead of " + MOD_ID + ":enderite_" + kind + "_smithing");
+                        + " instead of " + BuiltInRegistries.ITEM.getKey(enderite).getNamespace() + ":enderite_" + kind + "_smithing");
             }
         }
         helper.assertTrue(problems.isEmpty(), String.join("; ", problems));
@@ -4251,7 +4254,7 @@ public final class DataIntegrityTests {
             Identifier id = BuiltInRegistries.ITEM.getKey(item);
             // Only vanilla and SimpleBuilding armour: another mod (e.g. a bundled sub-mod like simplemobs on Forge) must
             // stay playable alone and cannot select on SimpleBuilding's client property (PRINZIPIEN-MODUL-UNABHAENGIGKEIT).
-            if (!id.getNamespace().equals("minecraft") && !id.getNamespace().equals(MOD_ID)) continue;
+            if (!id.getNamespace().equals("minecraft") && !com.simplebuilding.items.VisibleTrimIcons.isModArmour(id)) continue;
             String slot = holder.is(ItemTags.HEAD_ARMOR) ? "helmet" : holder.is(ItemTags.CHEST_ARMOR) ? "chestplate"
                     : holder.is(ItemTags.LEG_ARMOR) ? "leggings" : holder.is(ItemTags.FOOT_ARMOR) ? "boots" : null;
             var equippable = new ItemStack(item).get(DataComponents.EQUIPPABLE);

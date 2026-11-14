@@ -98,7 +98,9 @@ public final class DevEnchantedTab {
     private static boolean isFamilyItem(Identifier id) {
         // b-btools07: on 26.3 also Simple Building Tools' wands and octants (they left SimpleBuilding, WF25-9).
         return Simplebuilding.MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.GADGETS_NAMESPACE.equals(id.getNamespace())
-                || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(id.getNamespace());
+                || com.simplebuilding.version.McVersion.BTOOLS_NAMESPACE.equals(id.getNamespace())
+                // b-circ46 (N47-M3): the Enderite tools and armor live in Simple Ores on 26.3.
+                || ("simpleores".equals(id.getNamespace()) && id.getPath().startsWith("enderite_"));
     }
 
     private static boolean isMod(Holder<Enchantment> enchantment) {
