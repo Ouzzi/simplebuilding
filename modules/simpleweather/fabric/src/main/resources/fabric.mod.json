@@ -3,7 +3,7 @@
   "id": "simpleweather",
   "version": "${version}",
   "name": "Simple Weather",
-  "icon": "assets/simpleweather/icon.png",
+  "icon": { "16": "assets/simpleweather/icon.png", "128": "assets/simpleweather/icon_128.png" },
   "authors": [
     "Ouzzi"
   ],
