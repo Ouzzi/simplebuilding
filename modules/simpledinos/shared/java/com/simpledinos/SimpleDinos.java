@@ -28,6 +28,7 @@ public final class SimpleDinos {
 
     public static void init(Path configDir) {
         DinosConfig.load(configDir);
+        DinosViewer.register();
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "dinos", "simpledinos.testcentre.station",
                 java.util.List.of("simpledinos:fossil_block", "simpledinos:trex_egg", "simpledinos:triceratops_egg",

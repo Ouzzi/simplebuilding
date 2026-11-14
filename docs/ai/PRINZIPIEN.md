@@ -192,6 +192,7 @@ Konfigurierbare Dimensionen, Lichtbögen, sichere verknüpfte Portale.
   Dieselben Regeln gelten für die eigenen Dimensions-Portale; ein Pack legt je Portal/Rezept `shape` (rectangle|arch|any,
   Maße) oder ein festes Muster fest. Obsidian bleibt für Vanilla reserviert. Abgelehnte Versuche nennen den Grund in der
   Aktionsleiste (Besitzer-Ausnahme zu AGENTS 3.4).
+- **A12 (PLAN40 simpledimensions-2):** Nutzen: drei eigene Reise-Welten (Skyblock, Rohstoffwelt Mining, Reise-Welt Travel mit Abkürzung 10:1 statt Nether 8:1) und Portale in Bogenform, ohne dass Vanilla-Dimensionen verändert werden; die Welten und Portalrezepte sind per Datenpack/`server.json` anpassbar. Eingriff in Vanilla: gering bis mittel. Immer an (Schalter „Enable Simple Dimensions“, je Welt `skyblockEnabled`/`miningEnabled`/`travelEnabled`): eigene Dimensionen und Portalblock; Bogen-Netherportal (nur 40 % dunkler, wo Vanilla es nicht annimmt; Mixin `BaseFireBlockMixin`). Bewusste Abweichung: es reisen nur Spieler ohne Reittier und ohne Passagier (Tiere und Items reisen nicht mit, sonst Dupe-/Absturzgefahr); Feuerzeug/Feuerkugel-Klicks werden nur an einem echten Portalrahmen gedrosselt (Vanilla-Anzünden bleibt unberührt). Die Rettung in Mod-Dimensionen (Notfall-Rückkehr unter der Weltgrenze) ist per Config wählbar. Abhängigkeiten: nur SimpleLib; Cloth Config ist optional (nur der Einstellungsbildschirm braucht es). Alte Planungsdateien liegen archiviert unter `docs/ai/PLAN-DIMENSIONS-*-ARCHIV.md`.
 
 ### Simple Sandwiches (`simplesandwiches`)
 Sandwiches auf dem Schneidebrett, Küchenmesser, Käse und Butter.
@@ -309,7 +310,7 @@ Endholz (Aschholz, Dämmerholz), Knospen, Bäume, Endgras, Biome auf den äußer
 ### Simple Respawn (`simplerespawn`)
 Niedergeschlagen statt tot: Teamkameraden können wiederbeleben.
 
-- keine eigenen Regeln bisher
+- **A12 (PLAN40 simplerespawn-2):** Nutzen: Mehrspieler-Teamwork – wer tödlich getroffen wird, liegt 60 s am Boden und kann von einem Mitspieler wiederbelebt werden, statt Inventar zu verlieren. Eingriff in Vanilla: stark (der Tod selbst), deshalb begrenzt: wirkt nur, wenn ein anderer Spieler in derselben Dimension und höchstens 128 Blöcke entfernt helfen könnte (`onlyWithOtherPlayers`, `helperMaxDistance`; allein gilt der Vanilla-Tod); Totem, Void und `/kill` gehen vor; der echte Tod bleibt der Vanilla-Tod (Drops, Statistik, Loader-Ereignisse). Abwägung: Monster ignorieren Niedergeschlagene (`mobsIgnoreDowned`, abschaltbar für mehr Härte). Alles abschaltbar (`enabled`, „Enable Simple Respawn“). Ohne die Mod im Client gibt es keinen Bildschirm; Ausweg ist `/simplerespawn giveup` (im Handbuch genannt).
 
 ### Simple Beacons (`simplebeacons`)
 Starker Leuchtturm, starke Conduit, Upgrade-Vorlage.
@@ -487,6 +488,7 @@ Doppelkolben, Signaldämpfer, verstärkte/Netherit-/Enderit-Kolben, schnellere T
 Notenblätter (Textcode, .txt/.nbs), Plattenpresse, hochgeladene Ogg-Platten, Taschen-Jukebox.
 
 - **A12:** Nutzen: eigene Musik im Spiel. Mixins an Jukebox, Sound-Laden und Kartentisch/Bündel-Anzeige; Vanilla-Platten laufen weiter. Eingriff in Vanilla: mittel (Jukebox-Hook), Upload mit Quote und Operator-Freigabe, abschaltbar (`enabled`).
+- **Texturen (PLAN40 simplemusic-4):** Die Etiketten eigener Platten (Lied Amethyst, Komposition Papier) sind bewusst zweifarbig: sie sind Färbe-Masken und werden im Spiel je Platte/Farbstoff getönt; feinere Verläufe würden dabei matschig (A8-Ausnahme, Besitzer-Abnahme W2C).
 
 ### Simple Pads (`simplepads`)
 Startpad, Elytra-Pad, Flugpad, Trankpad, Spawn-Teleporter, Chunk-Lader, stärkere Druckplatten, Spawn-Elytra.

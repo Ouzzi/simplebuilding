@@ -1008,12 +1008,12 @@
         "forge"
       ],
       "requires": [
-        "cloth_config",
         "simplelib"
       ],
       "optional": [
         "simplebuilding",
-        "modmenu"
+        "modmenu",
+        "cloth_config"
       ],
       "checks": [
         "modules/simpledimensions/tools/check_data.py"

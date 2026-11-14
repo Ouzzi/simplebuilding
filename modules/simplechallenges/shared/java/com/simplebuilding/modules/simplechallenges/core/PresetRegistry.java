@@ -121,6 +121,18 @@ public final class PresetRegistry {
         }
     }
 
+    /** Largest accepted user preset file (PLAN40 simplechallenges-2). */
+    public static final long MAX_PRESET_BYTES = 256 * 1024;
+
+    /** Whether a preset file is above {@link #MAX_PRESET_BYTES} (an unreadable size counts as too large). */
+    public static boolean tooLarge(Path file) {
+        try {
+            return Files.size(file) > MAX_PRESET_BYTES;
+        } catch (IOException e) {
+            return true;
+        }
+    }
+
     private static void loadUser(Path configDir) {
         if (configDir != null) {
             Path folder = configDir.resolve(SimpleChallenges.MOD_ID).resolve("presets");
@@ -129,6 +141,11 @@ public final class PresetRegistry {
                     for (Path p : (Iterable<Path>) files.filter(f -> f.getFileName().toString().endsWith(".json")).sorted()::iterator) {
                         String name = p.getFileName().toString();
                         try {
+                            // PLAN40 simplechallenges-2: a preset is a few KiB; a huge file in the folder must not be read into memory.
+                            if (tooLarge(p)) {
+                                PROBLEMS.add(p + ": preset file larger than " + MAX_PRESET_BYTES / 1024 + " KiB, skipped");
+                                continue;
+                            }
                             add("user/" + name.substring(0, name.length() - 5), Files.readString(p, StandardCharsets.UTF_8), p.toString());
                         } catch (IOException e) {
                             PROBLEMS.add(p + ": " + e);

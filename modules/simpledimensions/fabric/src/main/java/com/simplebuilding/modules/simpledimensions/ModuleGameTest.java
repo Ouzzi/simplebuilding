@@ -37,6 +37,7 @@ public final class ModuleGameTest {
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void coordinateRules(GameTestHelper h){DimensionTests.coordinateRules(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void platformGeometry(GameTestHelper h){DimensionTests.platformGeometry(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void safeGround(GameTestHelper h){DimensionTests.safeGround(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=240) public void igniterThrottleOnlyForFrames(GameTestHelper h){DimensionFollowUpTests.igniterThrottleOnlyForFrames(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void realTravelAndReturn(GameTestHelper h){DimensionTests.realTravelAndReturn(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void disabledReturn(GameTestHelper h){DimensionTests.disabledReturn(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsAndCosts(GameTestHelper h){DimensionTests.claimsAndCosts(h);}

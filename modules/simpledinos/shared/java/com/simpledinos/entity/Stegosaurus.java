@@ -468,17 +468,17 @@ public class Stegosaurus extends Dino {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.SNIFFER_IDLE;
+        return com.simpledinos.DinoSounds.STEGOSAURUS_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.SNIFFER_HURT;
+        return com.simpledinos.DinoSounds.STEGOSAURUS_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.SNIFFER_DEATH;
+        return com.simpledinos.DinoSounds.STEGOSAURUS_DEATH;
     }
 
     @Override

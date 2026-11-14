@@ -62,6 +62,22 @@ public final class ChallengeService {
         if (!"none".equals(wanted) && server.overworld().getGameTime() == 0) {
             Result r = activate(server, wanted, true);
             SimpleChallenges.LOG.info("{} '{}' for the new world: {}", chosen != null ? "Chosen challenge" : "defaultChallenge", wanted, r);
+            warnIfNotVoid(server, wanted);
+        }
+    }
+
+    /**
+     * PLAN40 simplechallenges-2: a Skyblock-family or Skyline challenge builds into an empty world. Started on a normal world (a dedicated
+     * server's level-type, or defaultChallenge on an existing generator) the island would stand in the middle of the generated terrain,
+     * so the log says so once.
+     */
+    static void warnIfNotVoid(MinecraftServer server, String presetId) {
+        Preset preset = PresetRegistry.get(presetId);
+        if (preset == null || preset.world() == null && preset.skyline() == null) return;
+        if (!(server.overworld().getChunkSource().getGenerator() instanceof net.minecraft.world.level.levelgen.FlatLevelSource)) {
+            SimpleChallenges.LOG.warn("Challenge '{}' needs an empty (void) overworld but this world has a normal generator: the start "
+                    + "island and blocks are built into the generated terrain. Create the world with level-type minecraft:flat and the "
+                    + "'The Void' preset (generator-settings) or choose another challenge.", presetId);
         }
     }
 

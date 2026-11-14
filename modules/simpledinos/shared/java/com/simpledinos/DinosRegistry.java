@@ -290,6 +290,7 @@ public final class DinosRegistry {
         blocks((k, v) -> Registry.register(BuiltInRegistries.BLOCK, k, v));
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
         entityTypes((k, v) -> Registry.register(BuiltInRegistries.ENTITY_TYPE, k, v));
+        DinoSounds.registerAll();
     }
 
     /** Creative stacks of the module (empty while it is switched off). */

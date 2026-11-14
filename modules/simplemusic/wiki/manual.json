@@ -65,7 +65,7 @@
       ],
       "en": {
         "title": "Editor",
-        "summary": "Coloured code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib). Listen plays the code on your client only.",
+        "summary": "Colored code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib). Listen plays the code on your client only.",
         "details": [
           "Buttons: Listen/Stop, Import, Add example (loads one of nine ready-made pieces, simple to complex, into the sheet and the grid; there are no single example items), Copy (code to the clipboard), Sign, Upload, Done. Closing saves the draft.",
           "Upload opens the upload window: it lists the .ogg files in config/simplemusic/upload/; choose a file, give a title, Upload. The client checks the file first, then sends it in parts. Only upload your own or free music.",
@@ -272,7 +272,7 @@
         "title": "Pocket Jukebox",
         "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
         "details": [
-          "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the colour comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
+          "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the color comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
           "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
           "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
           "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
@@ -334,18 +334,20 @@
       ],
       "en": {
         "title": "Moderation",
-        "summary": "Everyone may upload up to 5 tracks; others hear a track only after an operator approves it, until then only the uploader. In single player and for the LAN host it is approved at once.",
+        "summary": "Everyone may upload up to 5 tracks; others hear a track only after an operator approves it, until then only the uploader. In single player and for the LAN host it is approved at once. For server operators: uploaded songs are a moderation and copyright matter - you decide what is approved; operators are reminded of waiting uploads when they join.",
         "details": [
           "Operators: /simplemusic list [pending], /simplemusic approve|reject|delete <hash>, /simplemusic info <hash> (hash or its first 6+ characters), /simplemusic ban|unban <player>.",
-          "Tracks live in <world>/simplemusic/tracks/ with an index.json; the same file is stored once."
+          "Tracks live in <world>/simplemusic/tracks/ with an index.json; the same file is stored once.",
+          "Uploads setting: everyone (no approval), approve (default: an operator approves each song), op (only operators), off. Public servers should keep approve or stricter; the server owner is responsible for what is stored."
         ]
       },
       "de": {
         "title": "Moderation",
-        "summary": "Jeder darf bis zu 5 Titel hochladen; andere hören einen Titel erst nach Freigabe durch einen Operator, bis dahin nur der Hochladende. Im Einzelspieler und für den LAN-Host ist er sofort frei.",
+        "summary": "Jeder darf bis zu 5 Titel hochladen; andere hören einen Titel erst nach Freigabe durch einen Operator, bis dahin nur der Hochladende. Im Einzelspieler und für den LAN-Host ist er sofort frei. Für Server-Betreiber: Hochgeladene Lieder sind eine Moderations- und Urheberrechtsfrage – du entscheidest, was freigegeben wird; Operatoren werden beim Beitritt an wartende Uploads erinnert.",
         "details": [
           "Operatoren: /simplemusic list [pending], /simplemusic approve|reject|delete <hash>, /simplemusic info <hash> (Hash oder seine ersten 6+ Zeichen), /simplemusic ban|unban <spieler>.",
-          "Titel liegen in <welt>/simplemusic/tracks/ mit einer index.json; dieselbe Datei wird einmal gespeichert."
+          "Titel liegen in <welt>/simplemusic/tracks/ mit einer index.json; dieselbe Datei wird einmal gespeichert.",
+          "Einstellung uploads: everyone (ohne Freigabe), approve (Standard: ein Operator gibt jedes Lied frei), op (nur Operatoren), off. Öffentliche Server sollten approve oder strenger lassen; der Betreiber ist für das Gespeicherte verantwortlich."
         ]
       }
     },
@@ -431,10 +433,10 @@
         "modules/simplemusic/shared/resources/data/simplemusic/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Music\" of the Simple Modpack guide (SimpleLib): 23 pages taken from this wiki, shown in your language. Unlocked by picking up: note block. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Music\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: note block. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Music\" im Simple-Modpack-Handbuch (SimpleLib): 23 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Notenblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Music\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Notenblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplemusic:*_pocket_jukebox": {
@@ -443,7 +445,7 @@
         "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
       ],
       "en": {
-        "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+        "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
       },
       "de": {
         "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."

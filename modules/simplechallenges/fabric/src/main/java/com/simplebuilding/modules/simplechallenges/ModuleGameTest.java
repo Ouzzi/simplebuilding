@@ -150,4 +150,9 @@ public final class ModuleGameTest {
     public void guidePages(GameTestHelper h) {
         com.simplebuilding.modules.simplechallenges.guide.ChallengesGuide.gameTest(h);
     }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 100)
+    public void presetFileLimit(GameTestHelper h) {
+        com.simplebuilding.modules.simplechallenges.test.ChallengeFollowUpTests.presetFileLimit(h);
+    }
 }

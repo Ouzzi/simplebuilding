@@ -162,6 +162,7 @@ DISC_FORM = {'A': 1.0, 'B': 0.68}
 BLANK = {'o': (54, 54, 58), 'b': (136, 136, 140), 'g': (116, 116, 120), 'h': (186, 186, 190), 'H': (214, 214, 218),
          'l': (150, 150, 154), 'L': (96, 96, 100), 'x': (34, 34, 38)}
 VINYL = {'o': (18, 18, 20), 'b': (46, 46, 50), 'g': (32, 32, 36), 'h': (96, 96, 102), 'H': (140, 140, 146), 'x': (12, 12, 14)}
+# PLAN40 simplemusic-4: the two-tone labels are an A8 exception on purpose - the game tints them per disc/dye (tint mask), finer ramps would turn muddy.
 LABEL_TRACK = {'l': (160, 112, 204), 'L': (116, 76, 158)}  # amethyst: the blank's recipe shard
 LABEL_SHEET = {'l': (232, 224, 200), 'L': (190, 178, 148)}  # sheet music paper
 # W24-3 (owner 23.10.): the six ElevenLabs music discs - the chosen disc form, like Vanilla's structure discs (Pigstep's
@@ -622,7 +623,7 @@ def flatten(w, h, layers):
 PRESS_PALETTE = {'I': (222, 222, 226), 'i': (178, 178, 184), 'j': (126, 126, 132), 'J': (82, 82, 88),
                  'p': (176, 140, 92), 'P': (140, 108, 66), 'q': (204, 166, 112),
                  's': (168, 168, 168), 'S': (146, 146, 146), 't': (190, 190, 190), 'u': (118, 118, 118),
-                 'd': (30, 30, 34), 'D': (70, 70, 76), 'c': (198, 116, 76), 'C': (232, 160, 112), 'k': (140, 74, 46)}
+                 'd': (30, 30, 34), 'D': (70, 70, 76), 'e': (46, 46, 52), 'm': (166, 166, 172), 'n': (150, 150, 156), 'c': (198, 116, 76), 'C': (232, 160, 112), 'k': (140, 74, 46)}
 PRESS_SIDE = {
     'A': [
         'JJJJJJJJJJJJJJJJ',
@@ -680,21 +681,21 @@ PRESS_TOP = {
         'JijjjjjjjjjjjjjJ',
         'JJJJJJJJJJJJJJJJ',
     ],
-    'B': [
+    'B': [  # PLAN40 simplemusic-4 (W2C): light stone with a few mottles, riveted corners, grooved record in a copper rim, copper label
         'JJJJJJJJJJJJJJJJ',
         'JCIIIIIIIIIIIICJ',
-        'JIiiiiiiiiiiiijJ',
-        'JIiiikkkkkkiiijJ',
-        'JIiikDddddDkiijJ',
-        'JIikDddddddDkijJ',
-        'JIikdddDDdddkijJ',
-        'JIikddDCCDddkijJ',
-        'JIikddDCCDddkijJ',
-        'JIikdddDDdddkijJ',
-        'JIikDddddddDkijJ',
-        'JIiikDddddDkiijJ',
-        'JIiiikkkkkkiiijJ',
-        'JIiiiiiiiiiiiijJ',
+        'JIiiiikkkkiiiijJ',
+        'JIiikDDddDDkimjJ',
+        'JInkDdeeeedDkijJ',
+        'JIiDdedDDdedDijJ',
+        'JIkDedDccDdeDkjJ',
+        'JIkdeDcCCcDedkjJ',
+        'JIkdeDcCCcDedkjJ',
+        'JIkDedDccDdeDkjJ',
+        'JIiDdedDDdedDijJ',
+        'JIikDdeeeedDkmjJ',
+        'JIimkDDddDDkiijJ',
+        'JIiiiikkkkiniijJ',
         'JCjjjjjjjjjjjjCJ',
         'JJJJJJJJJJJJJJJJ',
     ],
@@ -704,7 +705,7 @@ PRESS_TOP = {
 def press_texs(variant):
     side = Tex(PRESS_PALETTE, split(PRESS_SIDE[variant], [('rahmen', 'JIij'), ('kolben', 'pPq'), ('platte', 'dD'),
                                                           ('sockel', 'stuS'), ('kupfer', 'kcC')]))
-    top = Tex(PRESS_PALETTE, split(PRESS_TOP[variant], [('rahmen', 'JIij'), ('pressform', 'dD'), ('kupfer', 'kcC')]))
+    top = Tex(PRESS_PALETTE, split(PRESS_TOP[variant], [('rahmen', 'JIijmn'), ('pressform', 'dDe'), ('kupfer', 'kcC')]))
     return {'disc_press_side': side, 'disc_press_top': top}
 
 
