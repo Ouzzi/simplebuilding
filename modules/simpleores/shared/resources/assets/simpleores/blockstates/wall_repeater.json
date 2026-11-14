@@ -1,0 +1,764 @@
+{
+  "variants": {
+    "delay=1,powered=false,facing=north,out=0": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 270,
+      "y": 180
+    },
+    "delay=1,powered=true,facing=north,out=0": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 270,
+      "y": 180
+    },
+    "delay=2,powered=false,facing=north,out=0": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 270,
+      "y": 180
+    },
+    "delay=2,powered=true,facing=north,out=0": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 270,
+      "y": 180
+    },
+    "delay=3,powered=false,facing=north,out=0": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 270,
+      "y": 180
+    },
+    "delay=3,powered=true,facing=north,out=0": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 270,
+      "y": 180
+    },
+    "delay=4,powered=false,facing=north,out=0": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 270,
+      "y": 180
+    },
+    "delay=4,powered=true,facing=north,out=0": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 270,
+      "y": 180
+    },
+    "delay=1,powered=false,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 90
+    },
+    "delay=1,powered=true,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 90
+    },
+    "delay=2,powered=false,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 90
+    },
+    "delay=2,powered=true,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 90
+    },
+    "delay=3,powered=false,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 90
+    },
+    "delay=3,powered=true,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 90
+    },
+    "delay=4,powered=false,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 90
+    },
+    "delay=4,powered=true,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 90
+    },
+    "delay=1,powered=false,facing=north,out=2": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 90
+    },
+    "delay=1,powered=true,facing=north,out=2": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 90
+    },
+    "delay=2,powered=false,facing=north,out=2": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 90
+    },
+    "delay=2,powered=true,facing=north,out=2": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 90
+    },
+    "delay=3,powered=false,facing=north,out=2": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 90
+    },
+    "delay=3,powered=true,facing=north,out=2": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 90
+    },
+    "delay=4,powered=false,facing=north,out=2": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 90
+    },
+    "delay=4,powered=true,facing=north,out=2": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 90
+    },
+    "delay=1,powered=false,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=1,powered=true,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=2,powered=false,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=2,powered=true,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=3,powered=false,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=3,powered=true,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=4,powered=false,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=4,powered=true,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "delay=1,powered=false,facing=south,out=0": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 270
+    },
+    "delay=1,powered=true,facing=south,out=0": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 270
+    },
+    "delay=2,powered=false,facing=south,out=0": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 270
+    },
+    "delay=2,powered=true,facing=south,out=0": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 270
+    },
+    "delay=3,powered=false,facing=south,out=0": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 270
+    },
+    "delay=3,powered=true,facing=south,out=0": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 270
+    },
+    "delay=4,powered=false,facing=south,out=0": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 270
+    },
+    "delay=4,powered=true,facing=south,out=0": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 270
+    },
+    "delay=1,powered=false,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=1,powered=true,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=2,powered=false,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=2,powered=true,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=3,powered=false,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=3,powered=true,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=4,powered=false,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=4,powered=true,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "delay=1,powered=false,facing=south,out=2": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 90,
+      "y": 180
+    },
+    "delay=1,powered=true,facing=south,out=2": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 90,
+      "y": 180
+    },
+    "delay=2,powered=false,facing=south,out=2": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 90,
+      "y": 180
+    },
+    "delay=2,powered=true,facing=south,out=2": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 90,
+      "y": 180
+    },
+    "delay=3,powered=false,facing=south,out=2": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 90,
+      "y": 180
+    },
+    "delay=3,powered=true,facing=south,out=2": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 90,
+      "y": 180
+    },
+    "delay=4,powered=false,facing=south,out=2": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 90,
+      "y": 180
+    },
+    "delay=4,powered=true,facing=south,out=2": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 90,
+      "y": 180
+    },
+    "delay=1,powered=false,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 270
+    },
+    "delay=1,powered=true,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 270
+    },
+    "delay=2,powered=false,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 270
+    },
+    "delay=2,powered=true,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 270
+    },
+    "delay=3,powered=false,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 270
+    },
+    "delay=3,powered=true,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 270
+    },
+    "delay=4,powered=false,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 270
+    },
+    "delay=4,powered=true,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 270
+    },
+    "delay=1,powered=false,facing=west,out=0": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 270,
+      "y": 90
+    },
+    "delay=1,powered=true,facing=west,out=0": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 270,
+      "y": 90
+    },
+    "delay=2,powered=false,facing=west,out=0": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 270,
+      "y": 90
+    },
+    "delay=2,powered=true,facing=west,out=0": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 270,
+      "y": 90
+    },
+    "delay=3,powered=false,facing=west,out=0": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 270,
+      "y": 90
+    },
+    "delay=3,powered=true,facing=west,out=0": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 270,
+      "y": 90
+    },
+    "delay=4,powered=false,facing=west,out=0": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 270,
+      "y": 90
+    },
+    "delay=4,powered=true,facing=west,out=0": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 270,
+      "y": 90
+    },
+    "delay=1,powered=false,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=1,powered=true,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=2,powered=false,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=2,powered=true,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=3,powered=false,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=3,powered=true,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=4,powered=false,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=4,powered=true,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "delay=1,powered=false,facing=west,out=2": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 90,
+      "y": 270
+    },
+    "delay=1,powered=true,facing=west,out=2": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 90,
+      "y": 270
+    },
+    "delay=2,powered=false,facing=west,out=2": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 90,
+      "y": 270
+    },
+    "delay=2,powered=true,facing=west,out=2": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 90,
+      "y": 270
+    },
+    "delay=3,powered=false,facing=west,out=2": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 90,
+      "y": 270
+    },
+    "delay=3,powered=true,facing=west,out=2": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 90,
+      "y": 270
+    },
+    "delay=4,powered=false,facing=west,out=2": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 90,
+      "y": 270
+    },
+    "delay=4,powered=true,facing=west,out=2": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 90,
+      "y": 270
+    },
+    "delay=1,powered=false,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=1,powered=true,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=2,powered=false,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=2,powered=true,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=3,powered=false,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=3,powered=true,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=4,powered=false,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=4,powered=true,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "delay=1,powered=false,facing=east,out=0": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 270,
+      "y": 270
+    },
+    "delay=1,powered=true,facing=east,out=0": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 270,
+      "y": 270
+    },
+    "delay=2,powered=false,facing=east,out=0": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 270,
+      "y": 270
+    },
+    "delay=2,powered=true,facing=east,out=0": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 270,
+      "y": 270
+    },
+    "delay=3,powered=false,facing=east,out=0": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 270,
+      "y": 270
+    },
+    "delay=3,powered=true,facing=east,out=0": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 270,
+      "y": 270
+    },
+    "delay=4,powered=false,facing=east,out=0": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 270,
+      "y": 270
+    },
+    "delay=4,powered=true,facing=east,out=0": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 270,
+      "y": 270
+    },
+    "delay=1,powered=false,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=1,powered=true,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=2,powered=false,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=2,powered=true,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=3,powered=false,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=3,powered=true,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=4,powered=false,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=4,powered=true,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "delay=1,powered=false,facing=east,out=2": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 90,
+      "y": 90
+    },
+    "delay=1,powered=true,facing=east,out=2": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 90,
+      "y": 90
+    },
+    "delay=2,powered=false,facing=east,out=2": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 90,
+      "y": 90
+    },
+    "delay=2,powered=true,facing=east,out=2": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 90,
+      "y": 90
+    },
+    "delay=3,powered=false,facing=east,out=2": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 90,
+      "y": 90
+    },
+    "delay=3,powered=true,facing=east,out=2": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 90,
+      "y": 90
+    },
+    "delay=4,powered=false,facing=east,out=2": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 90,
+      "y": 90
+    },
+    "delay=4,powered=true,facing=east,out=2": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 90,
+      "y": 90
+    },
+    "delay=1,powered=false,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=1,powered=true,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_1tick_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=2,powered=false,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=2,powered=true,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_2tick_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=3,powered=false,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=3,powered=true,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_3tick_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=4,powered=false,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=4,powered=true,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/repeater_4tick_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "delay=1,powered=false,facing=down,out=0": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 180,
+      "y": 180
+    },
+    "delay=1,powered=true,facing=down,out=0": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 180,
+      "y": 180
+    },
+    "delay=2,powered=false,facing=down,out=0": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 180,
+      "y": 180
+    },
+    "delay=2,powered=true,facing=down,out=0": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 180,
+      "y": 180
+    },
+    "delay=3,powered=false,facing=down,out=0": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 180,
+      "y": 180
+    },
+    "delay=3,powered=true,facing=down,out=0": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 180,
+      "y": 180
+    },
+    "delay=4,powered=false,facing=down,out=0": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 180,
+      "y": 180
+    },
+    "delay=4,powered=true,facing=down,out=0": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 180,
+      "y": 180
+    },
+    "delay=1,powered=false,facing=down,out=1": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 180,
+      "y": 270
+    },
+    "delay=1,powered=true,facing=down,out=1": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 180,
+      "y": 270
+    },
+    "delay=2,powered=false,facing=down,out=1": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 180,
+      "y": 270
+    },
+    "delay=2,powered=true,facing=down,out=1": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 180,
+      "y": 270
+    },
+    "delay=3,powered=false,facing=down,out=1": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 180,
+      "y": 270
+    },
+    "delay=3,powered=true,facing=down,out=1": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 180,
+      "y": 270
+    },
+    "delay=4,powered=false,facing=down,out=1": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 180,
+      "y": 270
+    },
+    "delay=4,powered=true,facing=down,out=1": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 180,
+      "y": 270
+    },
+    "delay=1,powered=false,facing=down,out=2": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 180
+    },
+    "delay=1,powered=true,facing=down,out=2": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 180
+    },
+    "delay=2,powered=false,facing=down,out=2": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 180
+    },
+    "delay=2,powered=true,facing=down,out=2": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 180
+    },
+    "delay=3,powered=false,facing=down,out=2": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 180
+    },
+    "delay=3,powered=true,facing=down,out=2": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 180
+    },
+    "delay=4,powered=false,facing=down,out=2": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 180
+    },
+    "delay=4,powered=true,facing=down,out=2": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 180
+    },
+    "delay=1,powered=false,facing=down,out=3": {
+      "model": "minecraft:block/repeater_1tick",
+      "x": 180,
+      "y": 90
+    },
+    "delay=1,powered=true,facing=down,out=3": {
+      "model": "minecraft:block/repeater_1tick_on",
+      "x": 180,
+      "y": 90
+    },
+    "delay=2,powered=false,facing=down,out=3": {
+      "model": "minecraft:block/repeater_2tick",
+      "x": 180,
+      "y": 90
+    },
+    "delay=2,powered=true,facing=down,out=3": {
+      "model": "minecraft:block/repeater_2tick_on",
+      "x": 180,
+      "y": 90
+    },
+    "delay=3,powered=false,facing=down,out=3": {
+      "model": "minecraft:block/repeater_3tick",
+      "x": 180,
+      "y": 90
+    },
+    "delay=3,powered=true,facing=down,out=3": {
+      "model": "minecraft:block/repeater_3tick_on",
+      "x": 180,
+      "y": 90
+    },
+    "delay=4,powered=false,facing=down,out=3": {
+      "model": "minecraft:block/repeater_4tick",
+      "x": 180,
+      "y": 90
+    },
+    "delay=4,powered=true,facing=down,out=3": {
+      "model": "minecraft:block/repeater_4tick_on",
+      "x": 180,
+      "y": 90
+    }
+  }
+}

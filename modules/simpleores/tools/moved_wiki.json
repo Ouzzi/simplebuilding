@@ -1,0 +1,1176 @@
+{
+  "_readme": "b-circ46: wiki entries of the Astralit/Nihilit line, the poles, the Enderite gear/food (moved from wiki/manual.json of SimpleBuilding, N47-M2/M3) and the circuits (N46); gen_data.py merges them into wiki/manual.json.",
+  "features": [
+    {
+      "id": "end_ores",
+      "related": [
+        "simpleores:astralit_ore",
+        "simpleores:nihilith_ore",
+        "simpleores:astralit_dust",
+        "simpleores:nihilith_shard",
+        "simpleores:dull_astralit_ore",
+        "simpleores:dull_nihilith_ore",
+        "simpleores:dull_astralit_dust",
+        "simpleores:dull_nihilith_shard"
+      ],
+      "sources": [
+        "modules/simpleores/shared/resources/assets/simpleores/items/astralit_ore.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/dull_astralit_ore.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihilith_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/astralit_ore_placed.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/nihilith_ore_placed.json",
+        "modules/simpleores/shared/resources/assets/simpleores/lang/en_us.json",
+        "modules/simpleores/shared/java/com/simpleores/block/HiddenOreBlock.java"
+      ],
+      "en": {
+        "title": "Ore Generation in the End (Astralit and Nihilit)",
+        "summary": "Two new ores generate in end stone in the End: Astralit Ore on the surface of the islands and Nihilit Ore on their underside. Both need at least a diamond pickaxe and yield the trim materials Astralit Dust and Nihilit Shard.",
+        "details": [
+          "Both ores generate in every End biome in the \"underground_ores\" step (Fabric: BiomeSelectors.foundInTheEnd; NeoForge and Forge: a biome modifier with the biome tag #minecraft:is_end). The Forge biome modifiers are covered by no test: the Forge module is parked and has never been started.",
+          "Both ores replace end stone only; veins are not discarded on air exposure (discard_chance_on_air_exposure 0).",
+          "Astralit Ore: vein size 5 (4 before W23-2, 23.10.); one attempt per chunk (count 1, no rarity filter); anchored on the surface heightmap (MOTION_BLOCKING, one block above the topmost motion-blocking block) and only where the block above that anchor is replaceable. The vein can only reach from three blocks below the anchor up to the anchor's own height, so it sits in the top layers of the island.",
+          "Nihilit Ore: vein size 6 (5 before W23-2); 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
+          "Astralit Ore: hardness 20, blast resistance 1200, emits light level 5, requires a diamond or better pickaxe (tags mineable/pickaxe and needs_diamond_tool), drops 3-7 experience.",
+          "Nihilit Ore: hardness 25, blast resistance 1200, requires a diamond or better pickaxe, drops 3-7 experience.",
+          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Silk Touch yields the ore block itself. W24-4 (owner 23.10.2026): the ores hide in the end stone (a few faint crystal splinters) until a brush frees them like an archaeology find: every brush stroke (every 10 ticks of brushing) adds one step to the block state brushed (0-6); after six strokes the ore shows its full crystals with a soft glimmer (animated texture) and the brush loses one durability. Only a freed ore (brushed=6) drops the full amount - one item, raised by Fortune with the ore formula (ore_drops: on average 1, 1.33, 1.75, 2.2 for Fortune 0-III); a hidden or half-brushed ore drops the same with a 70% chance (on average 0.7, 0.93, 1.23, 1.54). Progress stays where brushing stopped; Silk Touch gives the hidden ore block. Dull ores do not react to the brush.",
+          "The ores also exist as block items (astralit_ore, nihilith_ore) and appear in the creative tab \"SimpleMaterials\" (simplebuilding:materials).",
+          "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilit Ore / Nihilit-Erz, Astralit Dust / Astralitstaub, Nihilit Shard / Nihilit-Splitter); every other language falls back to the English names.",
+          "Dull ore (W23-2, owner 23.10.2026): about one ore block in five of every vein is Dull Astralit Ore or Dull Nihilit Ore. The vein has two targets - first a random end stone match with the dull chance (Astralit 0.162, Nihilit 0.194), then one with the real chance (0.773 / 0.966); the rest stays end stone. The bigger veins keep the expected amount of real ore as before (a re-implementation of OreFeature in the placement surroundings: Astralit 1.89, Nihilit 1.58 real blocks per vein; a gametest measures 600 veins each).",
+          "Dull ores look alike but unrefined (milky, no glint), need a diamond pickaxe as well, are a little softer (hardness 15 / 20), drop 1-3 experience, Dull Astralit Ore glows at light level 3. They drop Dull Astralit Dust / Dull Nihilit Shard (Fortune like the real ore, Silk Touch the block); four dull pieces craft one real dust / shard. The Ore Detector only finds the real ores."
+        ]
+      },
+      "de": {
+        "title": "Erzgenerierung im End (Astralit und Nihilit)",
+        "summary": "Im End entstehen zwei neue Erze in Endstein: Astralit Ore an der Oberfläche der Inseln und Nihilit Ore an deren Unterseite. Beide brauchen mindestens eine Diamantspitzhacke und liefern die Besatzmaterialien Astralitstaub bzw. Nihilitsplitter.",
+        "details": [
+          "Beide Erze werden in allen End-Biomen im Schritt „underground_ores“ erzeugt (Fabric: BiomeSelectors.foundInTheEnd; NeoForge und Forge: Biom-Modifier mit Biom-Tag #minecraft:is_end). Die Forge-Biom-Modifier deckt kein Test ab: Das Forge-Modul ist zurückgestellt und wurde nie gestartet.",
+          "Beide Erze ersetzen ausschließlich Endstein; Adern werden bei Luftkontakt nicht verworfen (discard_chance_on_air_exposure 0).",
+          "Astralit Ore: Adergröße 5 (vor W23-2, 23.10.: 4); ein Versuch pro Chunk (count 1, kein Seltenheitsfilter); verankert auf der Oberflächen-Höhenkarte (MOTION_BLOCKING, ein Block über dem obersten bewegungshemmenden Block) und nur dort, wo der Block über diesem Anker ersetzbar ist. Die Ader reicht nur von drei Blöcken unter dem Anker bis auf dessen eigene Höhe, sitzt also in den obersten Schichten der Insel.",
+          "Nihilit Ore: Adergröße 6 (vor W23-2: 5); 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
+          "Astralit Ore: Härte 20, Explosionswiderstand 1200, leuchtet mit Lichtstärke 5, benötigt eine Spitzhacke aus Diamant oder besser (Tags mineable/pickaxe und needs_diamond_tool), gibt 3–7 Erfahrungspunkte.",
+          "Nihilit Ore: Härte 25, Explosionswiderstand 1200, benötigt eine Spitzhacke aus Diamant oder besser, gibt 3–7 Erfahrungspunkte.",
+          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Behutsamkeit liefert den Erzblock selbst. W24-4 (Besitzer 23.10.2026): die Erze verstecken sich im Endstein (nur einzelne blasse Kristallsplitter), bis ein Pinsel sie wie einen Archäologie-Fund freilegt: jeder Pinselstrich (alle 10 Ticks Pinseln) erhöht den Blockzustand brushed (0–6) um eins; nach sechs Strichen zeigt das Erz seine vollen Kristalle mit dezentem Glimmen (animierte Textur) und der Pinsel verliert einen Haltbarkeitspunkt. Nur freigelegtes Erz (brushed=6) gibt die volle Menge – ein Item, mit Glück nach der Erz-Formel erhöht (ore_drops: im Mittel 1; 1,33; 1,75; 2,2 bei Glück 0–III); verstecktes oder halb gepinseltes Erz gibt dasselbe mit 70 % Wahrscheinlichkeit (im Mittel 0,7; 0,93; 1,23; 1,54). Der Fortschritt bleibt stehen, wo das Pinseln aufhörte; Behutsamkeit liefert den versteckten Erzblock. Trübe Erze reagieren nicht auf den Pinsel.",
+          "Die Erze existieren auch als Blockitems (astralit_ore, nihilith_ore) und stehen im Kreativ-Tab „SimpleMaterials“ (simplebuilding:materials).",
+          "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilit Ore / Nihiliterz, Astralitstaub / Astralitstaub, Nihilitsplitter / Nihilitsplitter); andere Sprachen fallen auf die englischen Namen zurück.",
+          "Trübes Erz (W23-2, Besitzer 23.10.2026): etwa jeder fünfte Erzblock einer Ader ist Trübes Astraliterz bzw. Trübes Nihiliterz. Die Ader hat zwei Ziele – zuerst ein zufälliger Endstein-Treffer mit der Trüb-Wahrscheinlichkeit (Astralit 0,162, Nihilit 0,194), dann einer mit der Echt-Wahrscheinlichkeit (0,773 / 0,966); der Rest bleibt Endstein. Die größeren Adern halten die erwartete Menge echten Erzes wie vorher (Nachbildung von OreFeature im Platzierungs-Umfeld: Astralit 1,89, Nihilit 1,58 echte Blöcke je Ader; ein Gametest misst je 600 Adern).",
+          "Trübe Erze sehen ähnlich, aber unraffiniert aus (milchig, ohne Glanz), brauchen ebenfalls eine Diamantspitzhacke, sind etwas weicher (Härte 15 / 20), geben 1–3 Erfahrungspunkte, Trübes Astraliterz leuchtet mit Lichtstärke 3. Sie lassen Trüben Astralitstaub bzw. Trüben Nihilitsplitter fallen (Glück wie beim echten Erz, Behutsamkeit den Block); vier trübe Stücke ergeben einen echten Staub bzw. Splitter. Der Erzdetektor findet nur die echten Erze."
+        ]
+      }
+    },
+    {
+      "id": "end_signals",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/RedstoneWireEvaluatorLinesMixin.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndSignalBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndSignalLampBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonMoves.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/bridge_redstone.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astral_piston.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihil_piston.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astral_redstone_block.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihil_redstone_block.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/bridge_redstone_block.json",
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneTorchBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneWallTorchBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astral_redstone_torch.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihil_redstone_torch.json"
+      ],
+      "related": [
+        "simpleores:nihil_redstone",
+        "simpleores:astral_redstone",
+        "simpleores:bridge_redstone",
+        "simpleores:nihil_redstone_block",
+        "simpleores:astral_redstone_block",
+        "simpleores:bridge_redstone_block",
+        "simpleores:astralit_lamp",
+        "simpleores:nihilith_lamp",
+        "simpleores:astral_piston",
+        "simpleores:nihil_piston",
+        "simpleores:nihil_redstone_torch",
+        "simpleores:astral_redstone_torch",
+        "simpleores:nihilith_end_rod",
+        "simpleores:astralit_end_rod"
+      ],
+      "en": {
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three; devices take every line, and each line has its own redstone block.",
+        "details": [
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
+          "Nine Astral, Nihil or Bridge Redstone craft a Block of Astral, Nihil or Bridge Redstone, and the block gives the nine back. Like the redstone block it is a permanent source (signal 15 to every side, no strong power, pistons push it): it feeds dust of its own line and Bridge Redstone only - the Block of Bridge Redstone feeds all three lines - and every device next to it. Switched off with server.features.endSignals.",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
+          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take every line - dust of any line lying next to them, levers, redstone blocks and the line blocks - and relay nothing; they fire when the signal switches on, not while it stays on.",
+          "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
+          "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload.",
+          "Astral and Nihil Redstone Torch (line dust over a stick): Vanilla's redstone torch - an inverter that goes out when the block it stands on or hangs from is powered by any line, burns out when toggled too often, glows with light 7 and strongly powers the block above - but its output belongs to its line like the line's redstone block: dust of its own line and Bridge Redstone take it, redstone dust and the other line's dust do not, neither directly nor through the block above it; every device reacts. With server.features.endSignals off it gives no signal."
+        ]
+      },
+      "de": {
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei; Geräte nehmen jede Linie an, und jede Linie hat ihren eigenen Redstone-Block.",
+        "details": [
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
+          "Neun Astral-, Nihil- oder Brücken-Redstone ergeben einen Astral-, Nihil- oder Brücken-Redstone-Block, der Block gibt die neun zurück. Wie der Redstone-Block ist er eine dauerhafte Quelle (Signal 15 zu jeder Seite, kein starkes Signal, Kolben schieben ihn): Er speist nur Staub seiner eigenen Linie und Brücken-Redstone - der Brücken-Redstone-Block alle drei Linien - und jedes Gerät daneben. Abschaltbar mit server.features.endSignals.",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen jede Linie an - Staub jeder Linie direkt daneben, Hebel, Redstone-Blöcke und die Blöcke der Linien - und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
+          "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Kolben, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
+          "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Astral- und Nihil-Redstone-Fackel (Linien-Staub über einem Stock): Vanillas Redstone-Fackel - ein Inverter, der ausgeht, wenn der Block, auf oder an dem sie sitzt, von irgendeiner Linie gespeist wird, bei zu häufigem Schalten durchbrennt, mit Licht 7 leuchtet und den Block über sich stark speist - aber ihr Ausgang gehört ihrer Linie wie der Redstone-Block der Linie: Staub ihrer Linie und Brücken-Redstone nehmen ihn an, Redstone-Staub und Staub der anderen Linie nicht, weder direkt noch über den Block über ihr; jedes Gerät reagiert. Mit server.features.endSignals aus gibt sie kein Signal."
+        ]
+      }
+    },
+    {
+      "id": "end_rails",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/EndRailBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndRailPhysics.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndSignalBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/MinecartBehaviorEndRailMixin.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/AbstractMinecartEndRailMixin.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astral_rail.json",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihil_rail.json"
+      ],
+      "related": [
+        "simpleores:astral_rail",
+        "simpleores:nihil_rail",
+        "simpleores:astral_redstone",
+        "simpleores:nihil_redstone",
+        "simpleores:bridge_redstone"
+      ],
+      "en": {
+        "title": "Astral and Nihil Rails",
+        "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
+        "details": [
+          "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
+          "Every redstone line powers it: any vanilla signal (levers, redstone blocks, the line blocks) and dust of any line - redstone, Astral, Nihil or Bridge Redstone - on a horizontal neighbor. Neighboring rails do not power it. The rail checks its neighbors every two game ticks while dust lies next to it.",
+          "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
+          "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most a quarter of the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
+          "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
+          "server.features.endRails (default true) needs server.features.endSignals as well; switched off, both rails act as plain rails and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral- und Nihil-Schienen",
+        "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
+        "details": [
+          "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
+          "Jede Redstone-Linie speist sie: jedes Vanilla-Signal (Hebel, Redstone-Blöcke, die Blöcke der Linien) und Staub jeder Linie - Redstone, Astral-, Nihil- oder Brücken-Redstone - auf einem waagerechten Nachbarfeld. Benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange Staub daneben liegt.",
+          "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
+          "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens ein Viertel des Höchsttempos). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
+          "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
+          "server.features.endRails (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet sind beide Schienen normale Schienen und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
+      "id": "circuits",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/circuit/CircuitBlocks.java",
+        "modules/simpleores/shared/java/com/simpleores/circuit/WallSignalDustBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/circuit/WallDiodeBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/circuit/AstralRelayBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/circuit/NihilCoreBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/WallDiodePlacementMixin.java"
+      ],
+      "related": [
+        "simpleores:astral_relay",
+        "simpleores:nihil_core",
+        "simpleores:astral_redstone",
+        "simpleores:bridge_redstone"
+      ],
+      "en": {
+        "title": "Circuits: wall redstone, Astral Relay, Nihil Core",
+        "summary": "Astral and Bridge Redstone stick to walls and ceilings, so do the Repeater, the Comparator and the Signal Dampener; the Astral Relay is a copper bulb that sends a signal, Nihil Cores switch as one group.",
+        "details": [
+          "Wall and ceiling: Astral Redstone or Bridge Redstone used on the side or the underside of a block sticks to that face (on top it lies as floor dust). It carries the signal like floor dust (one less per step), connects to floor dust of its line at the edge, goes round the outer edge of its block to the next face or onto the top, and powers its block strongly. Plain redstone dust stays Vanilla.",
+          "Repeater, Comparator and Signal Dampener (Simple Machines) go onto a side or the underside of a block where the floor version cannot stand (nothing solid below), or anywhere while sneaking. The output points away from you in the plane of the wall; right click sets the delay, the mode or the stage. They drop the Vanilla item. The wall repeater does not lock; the wall comparator reads a container directly behind it.",
+          "Astral Relay: a rising signal edge toggles it (like the copper bulb). While on it lights up and gives redstone strength 15 to every side; a comparator reads 15. Recipe: a copper bulb surrounded by four Astral Redstone.",
+          "Nihil Core: touching cores form one group; a rising edge at any core toggles the whole group. While on every core gives strength 15 to all sides, off nothing. Neighbouring cores draw one surface with a rim only around the outside (connected texture, no extra mod). Recipe: Nihilit Shard, four Nihil Redstone, four End stone bricks give 4 cores.",
+          "All of it follows the server switch endSignals in simpleores-server.json."
+        ]
+      },
+      "de": {
+        "title": "Schaltungen: Wand-Redstone, Astral-Relais, Nihil-Kern",
+        "summary": "Astral- und Brücken-Redstone haften an Wänden und Decken, ebenso Verstärker, Komparator und Signaldämpfer; das Astral-Relais ist eine Kupferbirne mit Signalausgang, Nihil-Kerne schalten als Gruppe.",
+        "details": [
+          "Wand und Decke: Astral- oder Brücken-Redstone auf die Seite oder Unterseite eines Blocks gesetzt haftet an dieser Fläche (oben liegt es wie Bodenstaub). Es leitet wie Bodenstaub (je Schritt eins weniger), verbindet sich an der Kante mit Bodenstaub seiner Linie, läuft um die Außenkante seines Blocks auf die nächste Fläche oder nach oben und speist seinen Block stark. Normaler Redstone-Staub bleibt Vanilla.",
+          "Verstärker, Komparator und Signaldämpfer (Simple Machines) kommen auf die Seite oder Unterseite eines Blocks, wo die Bodenversion nicht stehen kann (nichts Festes darunter), oder überall beim Schleichen. Der Ausgang zeigt in der Wandebene von dir weg; Rechtsklick stellt Verzögerung, Modus oder Stufe. Sie lassen den Vanilla-Gegenstand fallen. Der Wand-Verstärker sperrt nicht; der Wand-Komparator liest einen Behälter direkt dahinter.",
+          "Astral-Relais: eine steigende Signalflanke schaltet es um (wie die Kupferbirne). An leuchtet es und gibt Redstone-Stärke 15 an alle Seiten; ein Komparator liest 15. Rezept: Kupferbirne mit vier Astral-Redstone.",
+          "Nihil-Kern: sich berührende Kerne bilden eine Gruppe; eine steigende Flanke an irgendeinem Kern schaltet die ganze Gruppe um. An gibt jeder Kern Stärke 15 an alle Seiten, aus nichts. Benachbarte Kerne zeigen eine Fläche mit Rand nur außen herum (verbundene Textur, ohne Zusatz-Mod). Rezept: Nihilit-Splitter, vier Nihil-Redstone, vier Endsteinziegel ergeben 4 Kerne.",
+          "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "simpleores:enderite_*_armor": {
+      "en": {
+        "summary": "Enderite Horse Armor and Enderite Nautilus Armor are the top tier of mount armor, one step above vanilla's netherite versions: 22 armor on the body slot instead of 19, armor toughness 4 instead of 3 and knockback resistance 0.2 instead of 0.1.",
+        "details": [
+          "Smithing: Enderite Upgrade Smithing Template + Netherite Horse Armor (or Netherite Nautilus Armor) + Enderite Ingot, the same pattern as every other enderite upgrade.",
+          "Worn like vanilla's: the horse armor fits the animals in the vanilla tag can_wear_horse_armor, the nautilus armor those in can_wear_nautilus_armor; no durability, can be sheared off.",
+          "Fire resistant, safe from the void and twice as long-lived as a dropped item, like every enderite item (tag simplebuilding:enderite_items).",
+          "On the animal it is drawn with the enderite equipment asset (layers horse_body and nautilus_body)."
+        ]
+      },
+      "de": {
+        "summary": "Enderitrossharnisch und Enderit-Nautilusrüstung sind die höchste Stufe der Reittier-Rüstung, eine Stufe über Vanillas Netherit-Varianten: 22 Rüstungspunkte am Körper statt 19, Rüstungshärte 4 statt 3 und Rückstoßwiderstand 0,2 statt 0,1.",
+        "details": [
+          "Schmiede: Enderit-Aufwertung + Netheritrossharnisch (bzw. Netherit-Nautilusrüstung) + Enderitbarren, nach demselben Muster wie jede andere Enderit-Aufwertung.",
+          "Getragen wie bei Vanilla: der Rossharnisch passt den Tieren im Vanilla-Tag can_wear_horse_armor, die Nautilusrüstung denen in can_wear_nautilus_armor; keine Haltbarkeit, mit der Schere abnehmbar.",
+          "Feuerfest, vor der Leere geschützt und als fallengelassener Gegenstand doppelt so lange liegend, wie jeder Enderit-Gegenstand (Tag simplebuilding:enderite_items).",
+          "Am Tier wird sie mit dem Enderit-Ausrüstungsmodell gezeichnet (Ebenen horse_body und nautilus_body)."
+        ]
+      },
+      "sources": [
+        "modules/simpleores/shared/resources/assets/simpleores/equipment/enderite.json"
+      ],
+      "items": {
+        "simplebuilding:enderite_horse_armor": {
+          "en": "Enderite Horse Armor: upgrade Netherite Horse Armor with an Enderite Upgrade and an Enderite Ingot at the smithing table.",
+          "de": "Enderitrossharnisch: Am Schmiedetisch aus Netheritrossharnisch, Enderit-Aufwertung und Enderitbarren hergestellt.",
+          "sources": [
+            "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          ]
+        },
+        "simplebuilding:enderite_nautilus_armor": {
+          "en": "Enderite Nautilus Armor: upgrade Netherite Nautilus Armor with an Enderite Upgrade and an Enderite Ingot at the smithing table.",
+          "de": "Enderit-Nautilusrüstung: Am Schmiedetisch aus Netherit-Nautilusrüstung, Enderit-Aufwertung und Enderitbarren hergestellt.",
+          "sources": [
+            "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          ]
+        }
+      }
+    },
+    "simpleores:nihil_redstone": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java"
+      ],
+      "en": {
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+        "details": [
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+        "details": [
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      },
+      "items": {
+        "simplebuilding:nihil_redstone": {
+          "en": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; the Nihil redstone line.",
+          "de": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; die Nihil-Redstone-Linie.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
+          ]
+        }
+      }
+    },
+    "simpleores:astral_redstone": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java"
+      ],
+      "en": {
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+        "details": [
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+        "details": [
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      },
+      "items": {
+        "simplebuilding:astral_redstone": {
+          "en": "Astral Redstone: craft 2 from Astralit Dust and redstone; the Astral redstone line.",
+          "de": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; die Astral-Redstone-Linie.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
+          ]
+        }
+      }
+    },
+    "simpleores:bridge_redstone": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java"
+      ],
+      "en": {
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+        "details": [
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+        "details": [
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      },
+      "items": {
+        "simplebuilding:bridge_redstone": {
+          "en": "Bridge Redstone: craft 3 from Astralit Dust, a Nihilit Shard and redstone; links all three redstone lines.",
+          "de": "Brücken-Redstone: Aus Astralitstaub, einem Nihilitsplitter und Redstone entstehen 3 Stück; verbindet alle drei Redstone-Linien.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
+          ]
+        }
+      }
+    },
+    "simpleores:astralit_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/EndSignalLampBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astralit_lamp.json"
+      ],
+      "en": {
+        "title": "Astral Lamp",
+        "summary": "The lamp of the Astral line: a redstone lamp plus Astral Redstone crafts one; it toggles like a copper bulb on each pulse of any redstone line.",
+        "details": [
+          "It takes every redstone line: redstone, Astral, Nihil or Bridge Redstone beside it or on top of it, a lever or button on it, a redstone block or a line block next to it.",
+          "Each rising signal switches it on or off, like a copper bulb; while lit it gives light 15. It is no redstone conductor.",
+          "server.features.endSignals (default true) switched off: the lamp does not switch and its recipe disappears on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral-Lampe",
+        "summary": "Die Lampe der Astral-Linie: Redstone-Lampe und Astral-Redstone ergeben eine; sie schaltet bei jedem Puls einer beliebigen Redstone-Linie um wie eine Kupferlampe.",
+        "details": [
+          "Sie nimmt jede Redstone-Linie an: Redstone, Astral-, Nihil- oder Brücken-Redstone daneben oder obendrauf, einen Hebel oder Knopf an ihr, einen Redstone-Block oder Block einer Linie daneben.",
+          "Jedes einschaltende Signal schaltet sie an oder aus, wie eine Kupferlampe; leuchtend gibt sie Licht 15. Sie leitet kein Redstone weiter.",
+          "server.features.endSignals (Standard an) abgeschaltet: Die Lampe schaltet nicht, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    "simpleores:nihilith_lamp": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/EndSignalLampBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihilith_lamp.json"
+      ],
+      "en": {
+        "title": "Nihilith Lamp",
+        "summary": "The lamp of the Nihil line: a redstone lamp plus Nihil Redstone crafts one; it toggles like a copper bulb on each pulse of any redstone line.",
+        "details": [
+          "It takes every redstone line: redstone, Astral, Nihil or Bridge Redstone beside it or on top of it, a lever or button on it, a redstone block or a line block next to it.",
+          "Each rising signal switches it on or off, like a copper bulb; while lit it gives light 15. It is no redstone conductor.",
+          "server.features.endSignals (default true) switched off: the lamp does not switch and its recipe disappears on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Nihilith-Lampe",
+        "summary": "Die Lampe der Nihil-Linie: Redstone-Lampe und Nihil-Redstone ergeben eine; sie schaltet bei jedem Puls einer beliebigen Redstone-Linie um wie eine Kupferlampe.",
+        "details": [
+          "Sie nimmt jede Redstone-Linie an: Redstone, Astral-, Nihil- oder Brücken-Redstone daneben oder obendrauf, einen Hebel oder Knopf an ihr, einen Redstone-Block oder Block einer Linie daneben.",
+          "Jedes einschaltende Signal schaltet sie an oder aus, wie eine Kupferlampe; leuchtend gibt sie Licht 15. Sie leitet kein Redstone weiter.",
+          "server.features.endSignals (Standard an) abgeschaltet: Die Lampe schaltet nicht, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    "simpleores:astral_redstone_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astral_redstone_block.json"
+      ],
+      "en": {
+        "title": "Block of Astral Redstone",
+        "summary": "Nine Astral Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Astral) and Bridge Redstone and every device.",
+        "details": [
+          "Nine Astral Redstone craft one; one gives the nine back.",
+          "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of its own line (Astral) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+          "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral-Redstone-Block",
+        "summary": "Neun Astral-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von seiner Linie (Astral) und Brücken-Redstone und jedes Gerät speist.",
+        "details": [
+          "Neun Astral-Redstone ergeben einen; einer gibt die neun zurück.",
+          "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von seiner Linie (Astral) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+          "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    "simpleores:nihil_redstone_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihil_redstone_block.json"
+      ],
+      "en": {
+        "title": "Block of Nihil Redstone",
+        "summary": "Nine Nihil Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Nihil) and Bridge Redstone and every device.",
+        "details": [
+          "Nine Nihil Redstone craft one; one gives the nine back.",
+          "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of its own line (Nihil) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+          "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Nihil-Redstone-Block",
+        "summary": "Neun Nihil-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von seiner Linie (Nihil) und Brücken-Redstone und jedes Gerät speist.",
+        "details": [
+          "Neun Nihil-Redstone ergeben einen; einer gibt die neun zurück.",
+          "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von seiner Linie (Nihil) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+          "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    "simpleores:astral_redstone_torch": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneTorchBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astral_redstone_torch.json"
+      ],
+      "en": {
+        "title": "Astral Redstone Torch",
+        "summary": "Vanilla's redstone torch for the Astral line: an inverter whose signal feeds only Astral dust, Bridge Redstone and every device.",
+        "details": [
+          "Astral Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+          "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+          "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral-Redstone-Fackel",
+        "summary": "Vanillas Redstone-Fackel für die Astral-Linie: ein Inverter, dessen Signal nur Astral-Staub, Brücken-Redstone und jedes Gerät speist.",
+        "details": [
+          "Astral-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+          "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+          "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    "simpleores:nihil_redstone_torch": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneTorchBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihil_redstone_torch.json"
+      ],
+      "en": {
+        "title": "Nihil Redstone Torch",
+        "summary": "Vanilla's redstone torch for the Nihil line: an inverter whose signal feeds only Nihil dust, Bridge Redstone and every device.",
+        "details": [
+          "Nihil Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+          "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+          "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Nihil-Redstone-Fackel",
+        "summary": "Vanillas Redstone-Fackel für die Nihil-Linie: ein Inverter, dessen Signal nur Nihil-Staub, Brücken-Redstone und jedes Gerät speist.",
+        "details": [
+          "Nihil-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+          "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+          "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    "simpleores:bridge_redstone_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/bridge_redstone_block.json"
+      ],
+      "en": {
+        "title": "Block of Bridge Redstone",
+        "summary": "Nine Bridge Redstone as a block: a permanent source like the redstone block that feeds the dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone and every device.",
+        "details": [
+          "Nine Bridge Redstone craft one; one gives the nine back.",
+          "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+          "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Brücken-Redstone-Block",
+        "summary": "Neun Brücken-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von allen drei Linien (Redstone, Astral, Nihil) und Brücken-Redstone und jedes Gerät speist.",
+        "details": [
+          "Neun Brücken-Redstone ergeben einen; einer gibt die neun zurück.",
+          "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von allen drei Linien (Redstone, Astral, Nihil) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+          "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    "simpleores:iron_pole": {
+      "en": {
+        "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Pole.",
+        "details": [
+          "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles (iron, gold, diamond, netherite, enderite) reach the strike, the nearest one wins.",
+          "One Iron Pole in the crafting grid gives the three iron ingots back.",
+          "Ingredient of the Resonance Rod and the Transposer. Needs a stone pickaxe or better.",
+          "Formerly the Iron Rod (renamed in October 2026): old items and placed blocks load as the pole."
+        ]
+      },
+      "de": {
+        "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben eine Eisenstange.",
+        "details": [
+          "Sie sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen (Eisen, Gold, Diamant, Netherit, Enderit) den Einschlag, gewinnt die nächste.",
+          "Eine Eisenstange im Handwerksfeld gibt die drei Eisenbarren zurück.",
+          "Zutat für den Resonanzstab und den Transponierer. Braucht mindestens eine Steinspitzhacke.",
+          "Früher Eisenstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+        ]
+      },
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/MetalRodBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/MetalRodLightningMixin.java"
+      ]
+    },
+    "simpleores:gold_pole": {
+      "en": {
+        "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Pole.",
+        "details": [
+          "It works like the Iron Pole - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles (iron, gold, diamond, netherite, enderite) reach the strike, the nearest one wins.",
+          "One Gold Pole in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block.",
+          "Formerly the Gold Rod (renamed in October 2026): old items and placed blocks load as the pole."
+        ]
+      },
+      "de": {
+        "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben eine Goldstange.",
+        "details": [
+          "Sie arbeitet wie die Eisenstange - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: sie zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen (Eisen, Gold, Diamant, Netherit, Enderit) den Einschlag, gewinnt die nächste.",
+          "Eine Goldstange im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke.",
+          "Früher Goldstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+        ]
+      },
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/MetalRodBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/MetalRodLightningMixin.java"
+      ]
+    },
+    "simpleores:diamond_pole": {
+      "en": {
+        "summary": "A lightning rod made of diamond (MC 26.3, owner N41): three diamonds stacked give one Diamond Pole.",
+        "details": [
+          "It works like the Iron and Gold Pole - placed on any face, a redstone signal when lightning strikes it, no oxidizing - and attracts lightning within 80 blocks (iron: 32, gold: 64, netherite: 96, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
+          "One Diamond Pole in the crafting grid gives the three diamonds back. Needs an iron pickaxe or better. At the smithing table it becomes the Netherite Pole.",
+          "Not to be confused with the Diamond Rod (two diamonds, an arrow shaft)."
+        ]
+      },
+      "de": {
+        "summary": "Ein Blitzableiter aus Diamant (MC 26.3, Besitzer N41): drei Diamanten übereinander ergeben eine Diamantstange.",
+        "details": [
+          "Sie arbeitet wie Eisen- und Goldstange - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht - und zieht Blitze im Umkreis von 80 Blöcken an (Eisen: 32, Gold: 64, Netherit: 96, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+          "Eine Diamantstange im Handwerksfeld gibt die drei Diamanten zurück. Braucht mindestens eine Eisenspitzhacke. Am Schmiedetisch wird sie zur Netheritstange.",
+          "Nicht zu verwechseln mit dem Diamantstab (zwei Diamanten, ein Pfeilschaft)."
+        ]
+      },
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/MetalRodBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/MetalRodLightningMixin.java"
+      ]
+    },
+    "simpleores:netherite_pole": {
+      "en": {
+        "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Pole + Netherite Ingot give the Netherite Pole.",
+        "details": [
+          "It works like the other metal poles - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, diamond: 80, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
+          "Like netherite items the item does not burn. There is no way back to the Diamond Pole, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
+          "At the smithing table it becomes the Enderite Pole.",
+          "Formerly the Netherite Rod (renamed in October 2026): old items and placed blocks load as the pole."
+        ]
+      },
+      "de": {
+        "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstange + Netheritbarren ergeben die Netheritstange.",
+        "details": [
+          "Sie arbeitet wie die anderen Metallstangen - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: sie zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Diamant: 80, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+          "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zur Diamantstange, und sie ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
+          "Am Schmiedetisch wird sie zur Enderitstange.",
+          "Früher Netheritstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+        ]
+      },
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/MetalRodBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/MetalRodLightningMixin.java"
+      ]
+    },
+    "simpleores:enderite_pole": {
+      "en": {
+        "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Pole + Enderite Ingot give the Enderite Pole.",
+        "details": [
+          "It works like the other metal poles and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal poles reach the strike, the nearest one wins.",
+          "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block.",
+          "Formerly the Enderite Rod (renamed in October 2026): old items and placed blocks load as the pole."
+        ]
+      },
+      "de": {
+        "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstange + Enderitbarren ergeben die Enderitstange.",
+        "details": [
+          "Sie arbeitet wie die anderen Metallstangen und reicht so weit wie der Kupfer-Blitzableiter: sie zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+          "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke.",
+          "Früher Enderitstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+        ]
+      },
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/MetalRodBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/MetalRodLightningMixin.java"
+      ]
+    },
+    "simpleores:astralit_end_rod": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineEndRodBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/astralit_end_rod.json"
+      ],
+      "en": {
+        "title": "Astralit End Rod",
+        "summary": "Vanilla's End rod in the colours of the Astral line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+        "details": [
+          "A blaze rod over Astralit Dust crafts four, like the End rod from a blaze rod over popped chorus fruit.",
+          "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a white-pink crystal rod, brightest in the middle, on a dark pink base."
+        ]
+      },
+      "de": {
+        "title": "Astralit-Endstab",
+        "summary": "Vanillas Endstab in den Farben der Astral-Linie: Licht 14, der Endstab-Funke an der Spitze, zeigt beim Platzieren von der angeklickten Fläche weg.",
+        "details": [
+          "Eine Lohenrute über Astralitstaub ergibt vier, wie der Endstab aus Lohenrute über Ploppfrucht.",
+          "Verhält sich genau wie der Endstab (Blockeigenschaften kopiert): sofort abgebaut, droppt sich selbst, dreht sich gegen einen gleichen Endstab, an den er gesetzt wird. Optik: ein weiß-rosa Kristallstab, in der Mitte am hellsten, auf dunkelrosa Fuß."
+        ]
+      }
+    },
+    "simpleores:nihilith_end_rod": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineEndRodBlock.java",
+        "modules/simpleores/shared/resources/assets/simpleores/items/nihilith_end_rod.json"
+      ],
+      "en": {
+        "title": "Nihilit End Rod",
+        "summary": "Vanilla's End rod in the colours of the Nihil line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+        "details": [
+          "A blaze rod over a Nihilit Shard crafts four, like the End rod from a blaze rod over popped chorus fruit.",
+          "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a pale cyan rod around a dark void middle, on a dark teal base."
+        ]
+      },
+      "de": {
+        "title": "Nihilit-Endstab",
+        "summary": "Vanillas Endstab in den Farben der Nihil-Linie: Licht 14, der Endstab-Funke an der Spitze, zeigt beim Platzieren von der angeklickten Fläche weg.",
+        "details": [
+          "Eine Lohenrute über einem Nihilitsplitter ergibt vier, wie der Endstab aus Lohenrute über Ploppfrucht.",
+          "Verhält sich genau wie der Endstab (Blockeigenschaften kopiert): sofort abgebaut, droppt sich selbst, dreht sich gegen einen gleichen Endstab, an den er gesetzt wird. Optik: ein blass-cyanfarbener Stab um eine dunkle Leere in der Mitte, auf dunkel-petrolfarbenem Fuß."
+        ]
+      }
+    },
+    "simpleores:astralit_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/HiddenOreBlock.java"
+      ],
+      "en": {
+        "summary": "Astralit Ore generates in the End stone on the surface of the outer islands and drops Astralit Dust (3 to 7 experience). It needs a diamond pickaxe or better; hardness 20, blast resistance 1200, light level 5.",
+        "details": [
+          "The ore is hidden in the stone until a brush frees it: six brush strokes show its crystals. A freed ore drops its full amount (raised by Fortune), a hidden or half-brushed one drops it with a 70 % chance; Silk Touch keeps the block.",
+          "About one block in five of every vein is Dull Astralit Ore instead. The ore generation can be switched off with server.oreGeneration.endOres and server.oreGeneration.astralitOre; more in Ore Generation in the End."
+        ]
+      },
+      "de": {
+        "summary": "Astraliterz entsteht im Endstein an der Oberfläche der äußeren Inseln und lässt Astralitstaub fallen (3 bis 7 Erfahrung). Es braucht eine Diamantspitzhacke oder besser; Härte 20, Explosionsfestigkeit 1200, Lichtstufe 5.",
+        "details": [
+          "Das Erz steckt im Stein verborgen, bis ein Pinsel es freilegt: Sechs Pinselstriche zeigen seine Kristalle. Ein freigelegtes Erz gibt die volle Menge (mit Glück mehr), ein verborgenes oder halb gebürstetes gibt sie mit 70 % Wahrscheinlichkeit; Behutsamkeit behält den Block.",
+          "Etwa jeder fünfte Block einer Ader ist stattdessen Trübes Astraliterz. Die Erzgenerierung lässt sich mit server.oreGeneration.endOres und server.oreGeneration.astralitOre abschalten; mehr unter Erzgenerierung im End."
+        ]
+      }
+    },
+    "simpleores:nihilith_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/HiddenOreBlock.java"
+      ],
+      "en": {
+        "summary": "Nihilit Ore generates in the End stone on the underside of the islands and drops a Nihilit Shard (3 to 7 experience). It needs a diamond pickaxe or better; hardness 25, blast resistance 1200.",
+        "details": [
+          "Like Astralit Ore it is hidden until a brush frees it (six strokes; a freed ore drops its full amount, a hidden one with a 70 % chance, Fortune raises it). About one block in five of a vein is Dull Nihilit Ore.",
+          "The ore generation can be switched off with server.oreGeneration.endOres and server.oreGeneration.nihilitOre; more in Ore Generation in the End."
+        ]
+      },
+      "de": {
+        "summary": "Nihiliterz entsteht im Endstein an der Unterseite der Inseln und lässt einen Nihilitsplitter fallen (3 bis 7 Erfahrung). Es braucht eine Diamantspitzhacke oder besser; Härte 25, Explosionsfestigkeit 1200.",
+        "details": [
+          "Wie Astraliterz ist es verborgen, bis ein Pinsel es freilegt (sechs Striche; ein freigelegtes Erz gibt die volle Menge, ein verborgenes mit 70 % Wahrscheinlichkeit, Glück erhöht sie). Etwa jeder fünfte Block einer Ader ist Trübes Nihiliterz.",
+          "Die Erzgenerierung lässt sich mit server.oreGeneration.endOres und server.oreGeneration.nihilitOre abschalten; mehr unter Erzgenerierung im End."
+        ]
+      }
+    },
+    "simpleores:astralit_dust": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Dropped by Astralit Ore (Fortune adds more). 4 dust in a square make a Block of Astralit; 4 Dull Astralit Dust craft 1 dust.",
+        "details": [
+          "Also the trim material \"Astralit\", the heart of Astral Redstone and of the Jukebox Amplifier, an ingredient of the Astralit End Rod, and the middle of the ring recipes of the coated Astral blocks."
+        ]
+      },
+      "de": {
+        "summary": "Fällt aus Astraliterz (Glück gibt mehr). 4 Staub im Quadrat ergeben einen Astralitblock; 4 Trüber Astralitstaub ergeben 1 Staub.",
+        "details": [
+          "Außerdem das Besatzmaterial „Astralit“, das Herz von Astral-Redstone und des Jukebox-Verstärkers, eine Zutat des Astralit-Endstabs und die Mitte der Ring-Rezepte der beschichteten Astral-Blöcke."
+        ]
+      }
+    },
+    "simpleores:nihilith_shard": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Dropped by Nihilit Ore (Fortune adds more). 4 shards in a square make a Block of Nihilit; 4 Dull Nihilit Shards craft 1 shard.",
+        "details": [
+          "Also the trim material \"Nihilit\", the heart of Nihil Redstone and of the Note Amplifier, and the ring ingredient of the coated Nihil blocks."
+        ]
+      },
+      "de": {
+        "summary": "Fällt aus Nihiliterz (Glück gibt mehr). 4 Splitter im Quadrat ergeben einen Nihilitblock; 4 Trübe Nihilitsplitter ergeben 1 Splitter.",
+        "details": [
+          "Außerdem das Besatzmaterial „Nihilit“, das Herz von Nihil-Redstone und des Noten-Verstärkers sowie die Mitte der Ring-Rezepte der beschichteten Nihil-Blöcke."
+        ]
+      }
+    },
+    "simpleores:dull_astralit_dust": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/HiddenOreBlock.java"
+      ],
+      "en": {
+        "summary": "Dull Astralit Dust is the unrefined dust of Dull Astralit Ore (Fortune like the real ore). 4 of it craft 1 Astralit Dust."
+      },
+      "de": {
+        "summary": "Trüber Astralitstaub ist der unraffinierte Staub des Trüben Astraliterzes (Glück wie beim echten Erz). 4 davon ergeben 1 Astralitstaub."
+      }
+    },
+    "simpleores:dull_nihilith_shard": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/HiddenOreBlock.java"
+      ],
+      "en": {
+        "summary": "The Dull Nihilit Shard is the unrefined shard of Dull Nihilit Ore (Fortune like the real ore). 4 of them craft 1 Nihilit Shard."
+      },
+      "de": {
+        "summary": "Der Trübe Nihilitsplitter ist der unraffinierte Splitter des Trüben Nihiliterzes (Glück wie beim echten Erz). 4 davon ergeben 1 Nihilitsplitter."
+      }
+    },
+    "simpleores:astral_piston": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonMoves.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndRailBlock.java"
+      ],
+      "en": {
+        "summary": "The piston of the Astral line: on a rising redstone signal (any line) it pushes the block next to it one cell away, in all six directions at once, at most one block per direction and never a chain.",
+        "details": [
+          "It has no facing and no block entity, needs a movable block and a free cell behind it, and waits 8 ticks after firing (server.machines.endPistonCooldownTicks, 4 to 100). Crafted from a Piston, 4 Astral Redstone and 4 Polished Astralit; hardness 1.5.",
+          "Switched off with server.features.endPistons (needs server.features.endSignals): it then stays put and its recipe disappears."
+        ]
+      },
+      "de": {
+        "summary": "Der Kolben der Astral-Linie: Bei steigendem Redstone-Signal (jeder Linie) schiebt er den Block neben sich eine Zelle weiter weg, in alle sechs Richtungen gleichzeitig, höchstens einen Block je Richtung und nie eine Kette.",
+        "details": [
+          "Er hat keine Ausrichtung und keine Block-Entity, braucht einen beweglichen Block und eine freie Zelle dahinter und wartet nach dem Auslösen 8 Ticks (server.machines.endPistonCooldownTicks, 4 bis 100). Gebaut aus einem Kolben, 4 Astral-Redstone und 4 poliertem Astralit; Härte 1,5.",
+          "Mit server.features.endPistons abschaltbar (braucht server.features.endSignals): Er bleibt dann stehen, und sein Rezept fällt weg."
+        ]
+      }
+    },
+    "simpleores:nihil_piston": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonMoves.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndRailBlock.java"
+      ],
+      "en": {
+        "summary": "The piston of the Nihil line: on a rising redstone signal (any line) it pulls the block that sits across a one-cell gap next to the piston, in all six directions at once, at most one block per direction and never a chain; a block that already touches it stays.",
+        "details": [
+          "It has no facing and no block entity and waits 8 ticks after firing (server.machines.endPistonCooldownTicks, 4 to 100). Crafted from a Sticky Piston, 4 Nihil Redstone and 4 Polished Nihilit; hardness 1.5.",
+          "Switched off with server.features.endPistons (needs server.features.endSignals): it then stays put and its recipe disappears."
+        ]
+      },
+      "de": {
+        "summary": "Der Kolben der Nihil-Linie: Bei steigendem Redstone-Signal (jeder Linie) zieht er den Block, der hinter einer Ein-Zellen-Lücke neben dem Kolben sitzt, heran, in alle sechs Richtungen gleichzeitig, höchstens einen Block je Richtung und nie eine Kette; ein Block, der ihn schon berührt, bleibt.",
+        "details": [
+          "Er hat keine Ausrichtung und keine Block-Entity und wartet nach dem Auslösen 8 Ticks (server.machines.endPistonCooldownTicks, 4 bis 100). Gebaut aus einem Klebrigen Kolben, 4 Nihil-Redstone und 4 poliertem Nihilit; Härte 1,5.",
+          "Mit server.features.endPistons abschaltbar (braucht server.features.endSignals): Er bleibt dann stehen, und sein Rezept fällt weg."
+        ]
+      }
+    },
+    "simpleores:astral_rail": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonMoves.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndRailBlock.java"
+      ],
+      "en": {
+        "summary": "The Astral Rail raises the minecart top speed and boosts towards it: 6 gold ingots, a stick and Astral Redstone make 6 rails. Straight only; any redstone line powers it, a neighboring rail does not.",
+        "details": [
+          "Powered, a cart on a flat Astral Rail gains speed up to a top speed of 16 blocks per second by default (server.machines.astralRailMaxSpeed, 8 to 20; Vanilla 8), with a boost that fades near the top (server.machines.astralRailBoost). On slopes, in water and on other rails the Vanilla limit applies; unpowered it is a plain rail.",
+          "Switched off with server.features.endRails (needs server.features.endSignals): both rails then act as plain rails and their recipes disappear."
+        ]
+      },
+      "de": {
+        "summary": "Die Astral-Schiene erhöht das Höchsttempo der Lore und beschleunigt darauf zu: 6 Goldbarren, ein Stock und Astral-Redstone ergeben 6 Schienen. Nur gerade; jede Redstone-Linie speist sie, eine Nachbarschiene nicht.",
+        "details": [
+          "Unter Strom gewinnt eine Lore auf einer ebenen Astral-Schiene Tempo bis zu einem Höchsttempo von standardmäßig 16 Blöcken pro Sekunde (server.machines.astralRailMaxSpeed, 8 bis 20; Vanilla 8), mit einem Schub, der zum Höchsttempo hin nachlässt (server.machines.astralRailBoost). An Steigungen, im Wasser und auf anderen Schienen gilt die Vanilla-Grenze; ohne Strom ist sie eine einfache Schiene.",
+          "Mit server.features.endRails abschaltbar (braucht server.features.endSignals): Beide Schienen verhalten sich dann wie einfache Schienen, und ihre Rezepte fallen weg."
+        ]
+      }
+    },
+    "simpleores:nihil_rail": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonMoves.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndRailBlock.java"
+      ],
+      "en": {
+        "summary": "The Nihil Rail brakes carts to a stop: 6 gold ingots, a stick and Nihil Redstone make 6 rails. Straight only; any redstone line powers it, a neighboring rail does not.",
+        "details": [
+          "Powered, a cart keeps 80 % of its speed each tick minus a small amount (server.machines.nihilRailBrake, 0.02 to 0.4), stops and is held while the power stays on. Unpowered, carts roll through.",
+          "Switched off with server.features.endRails (needs server.features.endSignals): both rails then act as plain rails and their recipes disappear."
+        ]
+      },
+      "de": {
+        "summary": "Die Nihil-Schiene bremst Loren bis zum Stillstand: 6 Goldbarren, ein Stock und Nihil-Redstone ergeben 6 Schienen. Nur gerade; jede Redstone-Linie speist sie, eine Nachbarschiene nicht.",
+        "details": [
+          "Unter Strom behält eine Lore je Tick 80 % ihres Tempos abzüglich eines kleinen Betrags (server.machines.nihilRailBrake, 0,02 bis 0,4), bleibt stehen und wird gehalten, solange der Strom anliegt. Ohne Strom rollen Loren durch.",
+          "Mit server.features.endRails abschaltbar (braucht server.features.endSignals): Beide Schienen verhalten sich dann wie einfache Schienen, und ihre Rezepte fallen weg."
+        ]
+      }
+    },
+    "simpleores:enderite_pickaxe": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Pickaxe: the tool tier above Netherite. It is smithed from the Netherite pickaxe with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "Durability 2530 (Netherite 2031), mining speed 10, attack damage 7, attack speed 1.2, enchantability 18. It is fire resistant and safe from the void like every Enderite item; repair needs Enderite Ingots."
+        ]
+      },
+      "de": {
+        "summary": "Die Enderitspitzhacke: die Werkzeugstufe über Netherit, geschmiedet aus der Netheritspitzhacke mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "Haltbarkeit 2530 (Netherit 2031), Abbautempo 10, Angriffsschaden 7, Angriffstempo 1,2, Verzauberbarkeit 18. Feuerfest und, wie jeder Enderit-Gegenstand, leeresicher; zum Reparieren braucht es Enderitbarren."
+        ]
+      }
+    },
+    "simpleores:enderite_axe": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Axe: the tool tier above Netherite. It is smithed from the Netherite axe with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "Durability 2530 (Netherite 2031), mining speed 10, attack damage 11, attack speed 1.0, enchantability 18. It is fire resistant and safe from the void like every Enderite item; repair needs Enderite Ingots."
+        ]
+      },
+      "de": {
+        "summary": "Die Enderitaxt: die Werkzeugstufe über Netherit, geschmiedet aus der Netheritaxt mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "Haltbarkeit 2530 (Netherit 2031), Abbautempo 10, Angriffsschaden 11, Angriffstempo 1,0, Verzauberbarkeit 18. Feuerfest und, wie jeder Enderit-Gegenstand, leeresicher; zum Reparieren braucht es Enderitbarren."
+        ]
+      }
+    },
+    "simpleores:enderite_shovel": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Shovel: the tool tier above Netherite. It is smithed from the Netherite shovel with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "Durability 2530 (Netherite 2031), mining speed 10, attack damage 7.5, attack speed 1.0, enchantability 18. It is fire resistant and safe from the void like every Enderite item; repair needs Enderite Ingots."
+        ]
+      },
+      "de": {
+        "summary": "Die Enderitschaufel: die Werkzeugstufe über Netherit, geschmiedet aus der Netheritschaufel mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "Haltbarkeit 2530 (Netherit 2031), Abbautempo 10, Angriffsschaden 7,5, Angriffstempo 1,0, Verzauberbarkeit 18. Feuerfest und, wie jeder Enderit-Gegenstand, leeresicher; zum Reparieren braucht es Enderitbarren."
+        ]
+      }
+    },
+    "simpleores:enderite_hoe": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Hoe: the tool tier above Netherite. It is smithed from the Netherite hoe with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "Durability 2530 (Netherite 2031), mining speed 10, attack damage 2, attack speed 4.0, enchantability 18. It is fire resistant and safe from the void like every Enderite item; repair needs Enderite Ingots."
+        ]
+      },
+      "de": {
+        "summary": "Die Enderithacke: die Werkzeugstufe über Netherit, geschmiedet aus der Netherithacke mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "Haltbarkeit 2530 (Netherit 2031), Abbautempo 10, Angriffsschaden 2, Angriffstempo 4,0, Verzauberbarkeit 18. Feuerfest und, wie jeder Enderit-Gegenstand, leeresicher; zum Reparieren braucht es Enderitbarren."
+        ]
+      }
+    },
+    "simpleores:enderite_sword": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Sword: the tool tier above Netherite. It is smithed from the Netherite sword with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "Durability 2530 (Netherite 2031), mining speed 10, attack damage 9, attack speed 1.6, enchantability 18. It is fire resistant and safe from the void like every Enderite item; repair needs Enderite Ingots."
+        ]
+      },
+      "de": {
+        "summary": "Das Enderitschwert: die Werkzeugstufe über Netherit, geschmiedet aus dem Netheritschwert mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "Haltbarkeit 2530 (Netherit 2031), Abbautempo 10, Angriffsschaden 9, Angriffstempo 1,6, Verzauberbarkeit 18. Feuerfest und, wie jeder Enderit-Gegenstand, leeresicher; zum Reparieren braucht es Enderitbarren."
+        ]
+      }
+    },
+    "simpleores:enderite_spear": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Spear: the tool tier above Netherite. It is smithed from the Netherite spear with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "Durability 2530 (Netherite 2031), mining speed 10, attack damage 6, attack speed 0.87, enchantability 18. It is fire resistant and safe from the void like every Enderite item; repair needs Enderite Ingots."
+        ]
+      },
+      "de": {
+        "summary": "Der Enderitspeer: die Werkzeugstufe über Netherit, geschmiedet aus dem Netheritspeer mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "Haltbarkeit 2530 (Netherit 2031), Abbautempo 10, Angriffsschaden 6, Angriffstempo 0,87, Verzauberbarkeit 18. Feuerfest und, wie jeder Enderit-Gegenstand, leeresicher; zum Reparieren braucht es Enderitbarren."
+        ]
+      }
+    },
+    "simpleores:enderite_helmet": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Helmet: the armor tier above Netherite. It is smithed from the Netherite helmet with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "4 armor points (Netherite 3), toughness 4.0 (Netherite 3.0), knockback resistance 0.2 (Netherite 0.1), durability 462 (Netherite 407), enchantability 18. Fire resistant, safe from the void, and it can carry armor trims."
+        ]
+      },
+      "de": {
+        "summary": "Enderithelm: die Rüstungsstufe über Netherit, geschmiedet aus dem Netherit-Gegenstück (Netherithelm) mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "4 Rüstungspunkte (Netherit 3), Zähigkeit 4,0 (Netherit 3,0), Rückstoßresistenz 0,2 (Netherit 0,1), Haltbarkeit 462 (Netherit 407), Verzauberbarkeit 18. Feuerfest, leeresicher, und er kann Rüstungsbesätze tragen."
+        ]
+      }
+    },
+    "simpleores:enderite_chestplate": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Chestplate: the armor tier above Netherite. It is smithed from the Netherite chestplate with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "9 armor points (Netherite 8), toughness 4.0 (Netherite 3.0), knockback resistance 0.2 (Netherite 0.1), durability 672 (Netherite 592), enchantability 18. Fire resistant, safe from the void, and it can carry armor trims."
+        ]
+      },
+      "de": {
+        "summary": "Enderitharnisch: die Rüstungsstufe über Netherit, geschmiedet aus dem Netherit-Gegenstück (Netheritharnisch) mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "9 Rüstungspunkte (Netherit 8), Zähigkeit 4,0 (Netherit 3,0), Rückstoßresistenz 0,2 (Netherit 0,1), Haltbarkeit 672 (Netherit 592), Verzauberbarkeit 18. Feuerfest, leeresicher, und er kann Rüstungsbesätze tragen."
+        ]
+      }
+    },
+    "simpleores:enderite_leggings": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Leggings: the armor tier above Netherite. It is smithed from the Netherite leggings with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "7 armor points (Netherite 6), toughness 4.0 (Netherite 3.0), knockback resistance 0.2 (Netherite 0.1), durability 630 (Netherite 555), enchantability 18. Fire resistant, safe from the void, and it can carry armor trims."
+        ]
+      },
+      "de": {
+        "summary": "Enderitbeinschutz: die Rüstungsstufe über Netherit, geschmiedet aus dem Netherit-Gegenstück (Netheritbeinschutz) mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "7 Rüstungspunkte (Netherit 6), Zähigkeit 4,0 (Netherit 3,0), Rückstoßresistenz 0,2 (Netherit 0,1), Haltbarkeit 630 (Netherit 555), Verzauberbarkeit 18. Feuerfest, leeresicher, und er kann Rüstungsbesätze tragen."
+        ]
+      }
+    },
+    "simpleores:enderite_boots": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "Enderite Boots: the armor tier above Netherite. It is smithed from the Netherite boots with an Enderite Ingot and the Enderite Upgrade template (needs Simple Ores, which is bundled).",
+        "details": [
+          "4 armor points (Netherite 3), toughness 4.0 (Netherite 3.0), knockback resistance 0.2 (Netherite 0.1), durability 546 (Netherite 481), enchantability 18. Fire resistant, safe from the void, and it can carry armor trims."
+        ]
+      },
+      "de": {
+        "summary": "Enderitstiefel: die Rüstungsstufe über Netherit, geschmiedet aus dem Netherit-Gegenstück (Netheritstiefel) mit einem Enderitbarren und der Enderit-Aufwertung (braucht Simple Ores, das mitgeliefert wird).",
+        "details": [
+          "4 Rüstungspunkte (Netherit 3), Zähigkeit 4,0 (Netherit 3,0), Rückstoßresistenz 0,2 (Netherit 0,1), Haltbarkeit 546 (Netherit 481), Verzauberbarkeit 18. Feuerfest, leeresicher, und er kann Rüstungsbesätze tragen."
+        ]
+      }
+    },
+    "simpleores:netherite_apple": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "The Netherite Apple: an apple ringed by 8 Netherite Nuggets. It restores 8 hunger points and can always be eaten; it gives Resistance I (1:00), Absorption II (0:30) and Regeneration II (0:10).",
+        "details": [
+          "Found in ancient city chests, Bastion treasure rooms and ominous and rare trial vaults (with the loot changes switched on)."
+        ]
+      },
+      "de": {
+        "summary": "Der Netheritapfel: ein Apfel, umringt von 8 Netheritklumpen. Er stellt 8 Hungerpunkte her und lässt sich immer essen; er gibt Resistenz I (1:00), Absorption II (0:30) und Regeneration II (0:10).",
+        "details": [
+          "Zu finden in Truhen Antiker Städte, in den Schatzräumen von Bastionen und in unheilvollen und seltenen Prüfungstresoren (bei eingeschalteten Beute-Änderungen)."
+        ]
+      }
+    },
+    "simpleores:enchanted_netherite_apple": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "The Enchanted Netherite Apple has no recipe; it is found in ancient city chests, Bastion treasure rooms and ominous and rare trial vaults (with the loot changes switched on). It restores 8 hunger points and can always be eaten.",
+        "details": [
+          "Effects: Regeneration II (0:40), Resistance I (5:00), Fire Resistance (5:00), Absorption IV (2:00) and Strength II (2:00). Rare, with an enchantment glint."
+        ]
+      },
+      "de": {
+        "summary": "Der Verzauberte Netheritapfel hat kein Rezept; er liegt in Truhen Antiker Städte, in den Schatzräumen von Bastionen und in unheilvollen und seltenen Prüfungstresoren (bei eingeschalteten Beute-Änderungen). Er stellt 8 Hungerpunkte her und lässt sich immer essen.",
+        "details": [
+          "Wirkungen: Regeneration II (0:40), Resistenz I (5:00), Feuerresistenz (5:00), Absorption IV (2:00) und Stärke II (2:00). Selten, mit Verzauberungsschimmer."
+        ]
+      }
+    },
+    "simpleores:enderite_apple": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "The Enderite Apple: an apple ringed by 8 Enderite Nuggets. It restores 14 hunger points and can always be eaten; it gives Regeneration II (0:20), Resistance I (2:30), Absorption IV (2:00) and Health Boost III (2:00).",
+        "details": [
+          "Also found in End city treasure chests (with the loot changes switched on). Epic, fire resistant and void-safe like every Enderite item."
+        ]
+      },
+      "de": {
+        "summary": "Der Enderitapfel: ein Apfel, umringt von 8 Enderitklumpen. Er stellt 14 Hungerpunkte her und lässt sich immer essen; er gibt Regeneration II (0:20), Resistenz I (2:30), Absorption IV (2:00) und Extraenergie III (2:00).",
+        "details": [
+          "Liegt außerdem in Schatztruhen von Endsiedlungen (bei eingeschalteten Beute-Änderungen). Episch, feuerfest und wie jeder Enderit-Gegenstand leeresicher."
+        ]
+      }
+    },
+    "simpleores:enchanted_enderite_apple": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "The Enchanted Enderite Apple has no recipe; it is found in End city treasure chests (with the loot changes switched on). It restores 14 hunger points and can always be eaten.",
+        "details": [
+          "Effects: Regeneration III (1:00), Resistance II (5:00), Fire Resistance (10:00), Absorption V (3:00), Health Boost V (3:00) and Night Vision (5:00). Epic, with an enchantment glint."
+        ]
+      },
+      "de": {
+        "summary": "Der Verzauberte Enderitapfel hat kein Rezept; er liegt in Schatztruhen von Endsiedlungen (bei eingeschalteten Beute-Änderungen). Er stellt 14 Hungerpunkte her und lässt sich immer essen.",
+        "details": [
+          "Wirkungen: Regeneration III (1:00), Resistenz II (5:00), Feuerresistenz (10:00), Absorption V (3:00), Extraenergie V (3:00) und Nachtsicht (5:00). Episch, mit Verzauberungsschimmer."
+        ]
+      }
+    },
+    "simpleores:netherite_carrot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "The Netherite Carrot: a carrot with 4 Netherite Nuggets around it in a plus shape. It restores 6 hunger points and can always be eaten; it gives Fire Resistance (2:00) and Night Vision (2:00).",
+        "details": [
+          "Found in Bastion chests, nether fortress chests and ruined portals (with the loot changes switched on)."
+        ]
+      },
+      "de": {
+        "summary": "Die Netheritkarotte: eine Karotte mit 4 Netheritklumpen im Plus darum. Sie stellt 6 Hungerpunkte her und lässt sich immer essen; sie gibt Feuerresistenz (2:00) und Nachtsicht (2:00).",
+        "details": [
+          "Zu finden in Bastionstruhen, Netherfestungstruhen und Ruinierten Portalen (bei eingeschalteten Beute-Änderungen)."
+        ]
+      }
+    },
+    "simpleores:enderite_carrot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "The Enderite Carrot: a carrot with 4 Enderite Nuggets around it in a plus shape. It restores 12 hunger points and can always be eaten; it gives Night Vision (5:00), Speed II (1:00), Jump Boost II (1:00) and a tick of Saturation.",
+        "details": [
+          "Epic, fire resistant and void-safe like every Enderite item."
+        ]
+      },
+      "de": {
+        "summary": "Die Enderitkarotte: eine Karotte mit 4 Enderitklumpen im Plus darum. Sie stellt 12 Hungerpunkte her und lässt sich immer essen; sie gibt Nachtsicht (5:00), Schnelligkeit II (1:00), Sprungkraft II (1:00) und einen Tick Sättigung.",
+        "details": [
+          "Episch, feuerfest und wie jeder Enderit-Gegenstand leeresicher."
+        ]
+      }
+    },
+    "simpleores:dull_*_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/line/LineBlocks.java"
+      ],
+      "en": {
+        "summary": "The unrefined sibling of the real End ore: it sits in the same veins (about one block in five), looks alike but milky, and needs a diamond pickaxe as well. It drops 1 to 3 experience and the dull material; Silk Touch keeps the block.",
+        "details": [
+          "Dull Astralit Ore: hardness 15, light level 3. Dull Nihilit Ore: hardness 20, no light. Four dull dust or shards craft one real one."
+        ]
+      },
+      "de": {
+        "summary": "Das unraffinierte Geschwister des echten End-Erzes: Es sitzt in denselben Adern (etwa jeder fünfte Block), sieht ähnlich aus, aber milchig, und braucht ebenfalls eine Diamantspitzhacke. Es lässt 1 bis 3 Erfahrung und das trübe Material fallen; Behutsamkeit behält den Block.",
+        "details": [
+          "Trübes Astraliterz: Härte 15, Lichtstufe 3. Trübes Nihiliterz: Härte 20, kein Licht. Vier trübe Stäube oder Splitter ergeben einen echten."
+        ]
+      },
+      "items": {
+        "simpleores:dull_astralit_ore": {
+          "en": "Dull Astralit Ore drops Dull Astralit Dust.",
+          "de": "Trübes Astraliterz lässt Trüben Astralitstaub fallen."
+        },
+        "simpleores:dull_nihilith_ore": {
+          "en": "Dull Nihilit Ore drops Dull Nihilit Shards.",
+          "de": "Trübes Nihiliterz lässt Trübe Nihilitsplitter fallen."
+        }
+      }
+    }
+  }
+}

@@ -11,7 +11,8 @@
     "MetalRodLightningMixin",
     "MinecartBehaviorEndRailMixin",
     "RedstoneWireEvaluatorLinesMixin",
-    "SoundproofMixin"
+    "SoundproofMixin",
+    "WallDiodePlacementMixin"
   ],
   "client": [],
   "server": [],

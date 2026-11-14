@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """N46 (b-circ46): models, blockstates, item definitions, loot tables and recipes of the circuit blocks of Simple Ores
-(com.simpleores.circuit): Astral Relay, Nihil Core (connected texture), wall/ceiling Astral and Bridge Redstone.
+(com.simpleores.circuit): Astral Relay, Nihil Core (connected texture), wall/ceiling Astral and Bridge Redstone, wall/ceiling Repeater, Comparator
+and Signal Dampener (rotated copies of the floor models: Vanilla from the MC jar, the Dampener from Simple Machines; without
+the jar those copies are neither written nor checked).
 
 Nihil Core, connected texture without a texture mod: every face is four quadrant quads; a quadrant takes the border of each
 of its two edges only when the neighbour on that side is no core (blockstate properties north..down). The texture is a
@@ -12,6 +14,7 @@ border (16,16); a quadrant picks the same quadrant of the tile that fits its two
 """
 import json
 import sys
+import zipfile
 from pathlib import Path
 
 MODULE = Path(__file__).resolve().parents[1]
@@ -99,6 +102,118 @@ for line in ('astral', 'bridge'):
     put(A / f'blockstates/{line}_wall_redstone.json', {'variants': {
         f'facing={f},power={p}': {'model': f'{NS}:block/{line}_wall_redstone/{f}{"_on" if p > 0 else ""}'} for f in WALL for p in range(16)}})
 
+# ---------------------------------------------------------------- wall / ceiling diodes
+# Blockstate rotations are only x then y, so a wall diode whose output runs along the wall (not up/down) needs the floor
+# model turned a quarter in its own plane first: "<model>_r90" = the floor model rotated like y=90 (north -> east).
+MC_JAR = Path('/root/sb-tools-b/jar/client263.jar')
+MACHINES = MODULE.parent / 'simplemachines/shared/resources/assets/simplemachines/models/block'
+TURN = {'north': 'east', 'east': 'south', 'south': 'west', 'west': 'north', 'up': 'up', 'down': 'down'}
+
+
+def auto_uv(face, f, t):
+    x1, y1, z1 = f
+    x2, y2, z2 = t
+    return {'up': [x1, z1, x2, z2], 'down': [x1, 16 - z2, x2, 16 - z1], 'north': [16 - x2, 16 - y2, 16 - x1, 16 - y1],
+            'south': [x1, 16 - y2, x2, 16 - y1], 'west': [z1, 16 - y2, z2, 16 - y1], 'east': [16 - z2, 16 - y2, 16 - z1, 16 - y1]}[face]
+
+
+def turn_model(model):
+    out = dict(model)
+    elements = []
+    for e in model['elements']:
+        assert 'rotation' not in e, 'element rotation not handled'
+        (x1, y1, z1), (x2, y2, z2) = e['from'], e['to']
+        faces = {}
+        for name, face in e['faces'].items():
+            face = dict(face)
+            face.setdefault('uv', auto_uv(name, e['from'], e['to']))
+            if name in ('up', 'down'):
+                face['rotation'] = (face.get('rotation', 0) + (90 if name == 'up' else 270)) % 360
+            if 'cullface' in face:
+                face['cullface'] = TURN[face['cullface']]
+            faces[TURN[name]] = face
+        ne = dict(e)
+        ne['from'], ne['to'], ne['faces'] = [16 - z2, y1, x1], [16 - z1, y2, x2], faces
+        elements.append(ne)
+    out['elements'] = elements
+    return out
+
+
+def source_model(ns, name):
+    if ns == 'minecraft':
+        if not MC_JAR.exists():
+            return None
+        with zipfile.ZipFile(MC_JAR) as jar:
+            return json.loads(jar.read(f'assets/minecraft/models/block/{name}.json'))
+    path = MACHINES / f'{name}.json'
+    return json.loads(path.read_text(encoding='utf-8')) if path.exists() else None
+
+
+VEC = {'north': (0, 0, -1), 'south': (0, 0, 1), 'west': (-1, 0, 0), 'east': (1, 0, 0), 'up': (0, 1, 0), 'down': (0, -1, 0)}
+NAME = {v: k for k, v in VEC.items()}
+
+
+def rot_x(v):  # blockstate x=90: down -> south
+    return (v[0], v[2], -v[1])
+
+
+def rot_y(v):  # blockstate y=90: north -> east
+    return (-v[2], v[1], v[0])
+
+
+def orient(facing, out, base_out):
+    """(turned, x, y) that bring a floor model (top up, output base_out) to facing (away from the support) and out."""
+    for turned in (False, True):
+        o0 = rot_y(VEC[base_out]) if turned else VEC[base_out]
+        for x in range(4):
+            for y in range(4):
+                n, o = VEC['up'], o0
+                for _ in range(x):
+                    n, o = rot_x(n), rot_x(o)
+                for _ in range(y):
+                    n, o = rot_y(n), rot_y(o)
+                if NAME[n] == facing and NAME[o] == out:
+                    return turned, x * 90, y * 90
+    raise ValueError((facing, out))
+
+
+def plane_dirs(facing):  # WallDiodeBlock.planeDirs
+    if facing == 'down':
+        return ['north', 'east', 'south', 'west']
+    cw = {'north': 'east', 'east': 'south', 'south': 'west', 'west': 'north'}
+    ccw = {v: k for k, v in cw.items()}
+    return ['up', cw[facing], 'down', ccw[facing]]
+
+
+def wall_diode(block, ns, base_out, models):
+    """models: {extra blockstate key part: floor model name}."""
+    sources = {key: source_model(ns, name) for key, name in models.items()}
+    if any(v is None for v in sources.values()):
+        return
+    for key, name in models.items():
+        put(A / f'models/block/wall_diode/{name}_r90.json', turn_model(sources[key]))
+    variants = {}
+    for facing in WALL:
+        for i, out in enumerate(plane_dirs(facing)):
+            turned, x, y = orient(facing, out, base_out)
+            for key, name in models.items():
+                model = f'{NS}:block/wall_diode/{name}_r90' if turned else f'{ns}:block/{name}'
+                v = {'model': model}
+                if x:
+                    v['x'] = x
+                if y:
+                    v['y'] = y
+                variants[f'{key},facing={facing},out={i}'] = v
+    put(A / f'blockstates/{block}.json', {'variants': variants})
+
+
+wall_diode('wall_repeater', 'minecraft', 'north', {f'delay={d},powered={str(p).lower()}': f'repeater_{d}tick{"_on" if p else ""}'
+                                                   for d in range(1, 5) for p in (False, True)})
+wall_diode('wall_comparator', 'minecraft', 'north', {f'powered={str(p).lower()},subtract={str(s).lower()}':
+                                                     f'comparator{"_on" if p else ""}{"_subtract" if s else ""}' for p in (False, True) for s in (False, True)})
+wall_diode('wall_signal_dampener', 'simplemachines', 'south', {f'powered={str(p).lower()},stage={st}': f'signal_dampener_{st}{"_on" if p else ""}'
+                                                               for p in (False, True) for st in range(4)})
+
 # ---------------------------------------------------------------- loot and recipes
 for block in ('astral_relay', 'nihil_core'):
     put(D / f'loot_table/blocks/{block}.json', {'type': 'minecraft:block', 'random_sequence': f'{NS}:blocks/{block}', 'pools': [
@@ -110,7 +225,7 @@ def recipe(name, data, unlock):
     put(D / f'recipe/{name}.json', data)
     put(D / f'advancement/recipes/redstone/{name}.json', {
         'parent': 'minecraft:recipes/root',
-        'criteria': {'has_the_recipe': {'trigger': 'minecraft:recipe_unlocked', 'conditions': {'recipe': f'{NS}:{name}'}},
+        'criteria': {'has_the_recipe': {'trigger': 'minecraft:recipe_unlocked', 'conditions': {'recipes': f'{NS}:{name}'}},
                      f'has_{unlock}': {'trigger': 'minecraft:inventory_changed', 'conditions': {'items': [{'items': f'{NS}:{unlock}'}]}}},
         'requirements': [['has_the_recipe', f'has_{unlock}']], 'rewards': {'recipes': [f'{NS}:{name}']}})
 

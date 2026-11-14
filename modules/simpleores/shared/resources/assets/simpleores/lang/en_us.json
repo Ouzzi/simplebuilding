@@ -463,6 +463,20 @@
   "simpleores.guide.page.24": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
   "simpleores.guide.page.25.title": "Rift alloys",
   "simpleores.guide.page.25": "The Dimensional Scrap of each dimension melts into rift shards; with a partner ingot they make Terranite, Infernite and Zenithite, a chain through all three dimensions that starts at Enderite (IG31-58).",
-  "simpleores.guide.page.26.title": "Settings",
-  "simpleores.guide.page.26": "More settings are in the mod's config screen."
+  "simpleores.guide.page.26.title": "Ore Generation in the End (Astralit and Nihilit)",
+  "simpleores.guide.page.26": "Two new ores generate in end stone in the End: Astralit Ore on the surface of the islands and Nihilit Ore on their underside.",
+  "simpleores.guide.page.27.title": "Ore Generation in the End (Astralit and Nihilit)",
+  "simpleores.guide.page.27": "Both need at least a diamond pickaxe and yield the trim materials Astralit Dust and Nihilit Shard.",
+  "simpleores.guide.page.28.title": "Astral, Nihil and Bridge Redstone",
+  "simpleores.guide.page.28": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three;",
+  "simpleores.guide.page.29.title": "Astral, Nihil and Bridge Redstone",
+  "simpleores.guide.page.29": "devices take every line, and each line has its own redstone block.",
+  "simpleores.guide.page.30.title": "Astral and Nihil Rails",
+  "simpleores.guide.page.30": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
+  "simpleores.guide.page.31.title": "Circuits: wall redstone, Astral Relay, Nihil Core",
+  "simpleores.guide.page.31": "Astral and Bridge Redstone stick to walls and ceilings, so do the Repeater, the Comparator and the Signal Dampener;",
+  "simpleores.guide.page.32.title": "Circuits: wall redstone, Astral Relay, Nihil Core",
+  "simpleores.guide.page.32": "the Astral Relay is a copper bulb that sends a signal, Nihil Cores switch as one group.",
+  "simpleores.guide.page.33.title": "Settings",
+  "simpleores.guide.page.33": "More settings are in the mod's config screen."
 }

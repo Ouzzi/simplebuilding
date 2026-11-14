@@ -30,6 +30,20 @@ public final class CircuitBlocks {
             s -> new NihilCoreBlock(s.strength(3.0F, 6.0F).mapColor(MapColor.COLOR_CYAN).sound(SoundType.AMETHYST).isRedstoneConductor((state, level, pos) -> false)
                     .lightLevel(state -> state.getValue(NihilCoreBlock.LIT) ? 9 : 0)));
 
+    /**
+     * Repeater, Comparator and Signal Dampener on walls and ceilings (N46 wording): placed by the Vanilla items / Simple Machines'
+     * Dampener ({@link WallDiodeBlock#placement}, hook {@code WallDiodePlacementMixin}), dropping that item; no item of their own.
+     */
+    public static final Block WALL_REPEATER = OresRegistry.putBlock("wall_repeater", Blocks.REPEATER,
+            s -> new WallDiodeBlock.Repeater(diode(s, Blocks.REPEATER.getLootTable(), Blocks.REPEATER.getDescriptionId())));
+    public static final Block WALL_COMPARATOR = OresRegistry.putBlock("wall_comparator", Blocks.COMPARATOR,
+            s -> new WallDiodeBlock.Comparator(diode(s, Blocks.COMPARATOR.getLootTable(), Blocks.COMPARATOR.getDescriptionId())));
+    /** Id of Simple Machines' Dampener (optional mod: looked up by id, never by class). */
+    public static final net.minecraft.resources.Identifier DAMPENER_ID = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemachines", "signal_dampener");
+    public static final Block WALL_SIGNAL_DAMPENER = OresRegistry.putBlock("wall_signal_dampener", Blocks.REPEATER,
+            s -> new WallDiodeBlock.Dampener(diode(s, java.util.Optional.of(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                    DAMPENER_ID.withPrefix("blocks/"))), "block.simplemachines.signal_dampener")));
+
     /** Creative order (Redstone tab, behind the line). */
     public static final String[] REDSTONE = {"astral_relay", "nihil_core"};
 
@@ -38,6 +52,18 @@ public final class CircuitBlocks {
     /** The block items of the relay and the core (the wall dust is placed by the dust items, LineDustItem). */
     public static void items() {
         for (String path : REDSTONE) OresRegistry.putItem(path, p -> new BlockItem(OresRegistry.BLOCKS.get(path), p.useBlockDescriptionPrefix()));
+    }
+
+    /** The wall diode for a floor diode item's block, or null (WallDiodePlacementMixin). */
+    public static @org.jspecify.annotations.Nullable Block wallDiodeFor(Block floor) {
+        if (floor == Blocks.REPEATER) return WALL_REPEATER;
+        if (floor == Blocks.COMPARATOR) return WALL_COMPARATOR;
+        return DAMPENER_ID.equals(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(floor)) ? WALL_SIGNAL_DAMPENER : null;
+    }
+
+    private static net.minecraft.world.level.block.state.BlockBehaviour.Properties diode(net.minecraft.world.level.block.state.BlockBehaviour.Properties s,
+            java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> loot, String description) {
+        return s.instabreak().pushReaction(PushReaction.POPPED).noOcclusion().overrideLootTable(loot).overrideDescription(description);
     }
 
     private static net.minecraft.world.level.block.state.BlockBehaviour.Properties wallDust(net.minecraft.world.level.block.state.BlockBehaviour.Properties s, Block floor, SoundType sound) {

@@ -1382,7 +1382,10 @@ def manual():
         kind, p = key.split(':')
         notes[f'{NS}:{p}'] = {'sources': NOTE_SRC, 'en': {'summary': en}, 'de': {'summary': de}}
     notes = dict(sorted(notes.items(), key=lambda kv: (kv[0] == f'{NS}:guide_book', 0)))
-    features = FEATURES
+    moved = json.loads((MODULE / 'tools/moved_wiki.json').read_text(encoding='utf-8'))  # b-circ46: line, gear, circuits
+    for key, note in moved['notes'].items():
+        notes.setdefault(key, note)
+    features = FEATURES + moved['features']
     existing_guide = {k: v for k, v in existing['notes'].items() if k == f'{NS}:guide_book'}
     return {'features': features, 'notes': {**notes, **existing_guide}}
 
@@ -1618,14 +1621,14 @@ FEATURES = [
               'soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.',
               'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).',
               'Ore deposits (all true, new chunks after the next world start): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (stone, granite and mountain tin), tinPlacers (tin-bearing gravel and sand).',
-              'Astralit/Nihilit line (N46, before in SimpleBuilding\'s config): endOres, astralitOre, nihilitOre (true, new End veins); endSignals (true): Astral, Nihil and Bridge Redstone conduct; endPistons, endRails (true, only with endSignals); endPistonCooldownTicks (8, range 4 to 100); astralRailMaxSpeed (16, range 8 to 20 blocks per second); astralRailBoost (0.12, range 0.07 to 0.25); nihilRailBrake (0.08, range 0.02 to 0.4). Switched-off devices also lose their recipes (datapack reload).',
+              'Astralit/Nihilit line (N46, before in SimpleBuilding\'s config; on the first start without simpleores-server.json the values of simplebuilding.json are taken over once): endOres, astralitOre, nihilitOre (true, new End veins); endSignals (true): Astral, Nihil and Bridge Redstone conduct; endPistons, endRails (true, only with endSignals); endPistonCooldownTicks (8, range 4 to 100); astralRailMaxSpeed (16, range 8 to 20 blocks per second); astralRailBoost (0.12, range 0.07 to 0.25); nihilRailBrake (0.08, range 0.02 to 0.4). Switched-off devices also lose their recipes (datapack reload).',
               'With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off.']),
             ('Server-Einstellungen', 'config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.',
              ['enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
               'soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.',
               'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).',
               'Erzvorkommen (alle true, neue Chunks nach dem nächsten Weltstart): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (Stein-, Granit- und Berg-Zinn), tinPlacers (Zinnseifen-Kies und -Sand).',
-              'Astralit-/Nihilit-Linie (N46, vorher in der Config von SimpleBuilding): endOres, astralitOre, nihilitOre (true, neue End-Adern); endSignals (true): Astral-, Nihil- und Brücken-Redstone leiten; endPistons, endRails (true, nur mit endSignals); endPistonCooldownTicks (8, Bereich 4 bis 100); astralRailMaxSpeed (16, Bereich 8 bis 20 Blöcke je Sekunde); astralRailBoost (0,12, Bereich 0,07 bis 0,25); nihilRailBrake (0,08, Bereich 0,02 bis 0,4). Abgeschaltete Geräte verlieren auch ihre Rezepte (Datenpaket neu laden).',
+              'Astralit-/Nihilit-Linie (N46, vorher in der Config von SimpleBuilding; beim ersten Start ohne simpleores-server.json werden die Werte aus simplebuilding.json einmal übernommen): endOres, astralitOre, nihilitOre (true, neue End-Adern); endSignals (true): Astral-, Nihil- und Brücken-Redstone leiten; endPistons, endRails (true, nur mit endSignals); endPistonCooldownTicks (8, Bereich 4 bis 100); astralRailMaxSpeed (16, Bereich 8 bis 20 Blöcke je Sekunde); astralRailBoost (0,12, Bereich 0,07 bis 0,25); nihilRailBrake (0,08, Bereich 0,02 bis 0,4). Abgeschaltete Geräte verlieren auch ihre Rezepte (Datenpaket neu laden).',
               'Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus.'])),
 ]
 # N46/M2: the End veins of the line (on 26.3 SimpleBuilding's own modifiers are neoforge:none overlays).

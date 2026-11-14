@@ -29,8 +29,9 @@ import org.jspecify.annotations.Nullable;
  * <p>Signal, kept close to floor dust: it takes every vanilla signal of its non-dust neighbours and the power of linked dust
  * next to it (floor dust of its line, other wall dust) minus one; it powers the supporting block strongly (as floor dust
  * powers the block below) and every other neighbour weakly; linked dust reads it one step weaker. It counts as dust of its
- * line for floor dust ({@link SignalDustBlock#lineOf}), so both connect. Not covered (documented, PLAN-B-CIRC46): dust going
- * round an outer corner of a wall (diagonal neighbours) and the connection drawing - wall dust always shows its cross.
+ * line for floor dust ({@link SignalDustBlock#lineOf}), so both connect. Round an outer edge of the support it links to wall
+ * dust on the next face and to floor dust on top ({@link #cornerStrength}). Not covered (PLAN-B-CIRC46): the connection
+ * drawing - wall dust always shows its cross.
  */
 public class WallSignalDustBlock extends Block {
     public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, d -> d != Direction.UP);
@@ -102,7 +103,26 @@ public class WallSignalDustBlock extends Block {
             best = Math.max(best, n.getSignal(level, at, d));
             if (best >= 15) return 15;
         }
+        best = Math.max(best, cornerStrength(level, pos, level.getBlockState(pos)));
         return Math.max(0, best);
+    }
+
+    /**
+     * Round an outer edge of the supporting block: linked wall dust on the neighbouring face of the same block (its facing is
+     * the step direction) and, over the top edge, linked floor dust lying on the support. Floor dust reads this dust over the
+     * edge by itself (it looks one block down past a non-conductor, like Vanilla wire).
+     */
+    private int cornerStrength(Level level, BlockPos pos, BlockState self) {
+        if (!(self.getBlock() instanceof WallSignalDustBlock)) return 0;
+        Direction facing = self.getValue(FACING);
+        int best = 0;
+        for (Direction d : WallDiodeBlock.planeDirs(facing)) {
+            BlockState n = level.getBlockState(pos.relative(d).relative(facing.getOpposite()));
+            boolean corner = n.getBlock() instanceof WallSignalDustBlock ? n.getValue(FACING) == d
+                    : d == Direction.UP && n.getBlock() instanceof SignalDustBlock;
+            if (corner && linked(n)) best = Math.max(best, n.getValue(POWER) - 1);
+        }
+        return best;
     }
 
     private void updatePower(Level level, BlockPos pos, BlockState state) {
