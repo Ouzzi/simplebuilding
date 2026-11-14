@@ -5,6 +5,9 @@ plugins {
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 // framework (SubMods switch of the SimpleBuilding super-mod) nested per principle 3.
 dependencies { jarJar project(':framework') }
+// SimpleLib nested per principle 6a; compiled against (the shared code uses com.simplelib).
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
 // Super-mod level 2 (docs/ai/PLAN-SIMPLE-END-2026-10-12.md): nests its optional sub-mod; no class imports.
 dependencies { jarJar project(':modules:simpleenddragonfight:neoforge') }
 

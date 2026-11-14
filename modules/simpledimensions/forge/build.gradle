@@ -4,6 +4,8 @@ plugins {
 }
 ext.forgeMixinConfigs = ['simpledimensions.mixins.json', 'simpledimensions.forge.mixins.json']
 ext.forgeExcludedSources = []
+// SimpleLib nested next to framework (principle 6a); the shared code uses com.simplelib.
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')
 
 ext.forgeNativeConfig = [id: 'simpledimensions', modId: 'simpledimensions', root: 'modules/simpledimensions/shared/java', screens: ['com/simplebuilding/modules/simpledimensions/client/DimensionConfigScreen.java'], factory: 'com.simplebuilding.modules.simpledimensions.client.DimensionConfigScreen.create(parent)']

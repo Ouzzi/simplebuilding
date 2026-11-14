@@ -5,4 +5,6 @@ plugins {
 ext.moduleVersion = '1.0.0'
 // Super-mod (PLAN-MODULAUFTEILUNG stage 1c): nests its sub-mods next to framework.
 ext.forgeBundleModules = [':modules:simplevisuals:forge', ':modules:simplesounds:forge', ':modules:simplemodels:forge']
+// SimpleLib nested next to framework (principle 6a); the shared code uses com.simplelib.
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')
