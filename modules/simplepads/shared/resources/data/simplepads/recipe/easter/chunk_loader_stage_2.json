@@ -1,6 +1,6 @@
 {
   "type": "simplepads:easter_smithing",
-  "addition": "simplepads:netherite_pressure_plate",
+  "addition": "simplelib:netherite_pressure_plate",
   "base": "simplepads:chunk_loader",
   "base_stage": 1,
   "result": "simplepads:netherite_chunk_loader",

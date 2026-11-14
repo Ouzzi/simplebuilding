@@ -48,16 +48,12 @@ public final class PadsBlocks {
     public static final Block ENDERITE_LAUNCHPAD = register("enderite_launchpad",
             p -> new LaunchpadBlock(sturdy(p).lightLevel(s -> 7).mapColor(MapColor.COLOR_PURPLE).strength(4.0f).sound(SoundType.NETHERITE_BLOCK), LaunchpadBlock.ENDERITE_TIER));
 
-    // --- Druckplatten ---
-    public static final Block DIAMOND_PRESSURE_PLATE = register("diamond_pressure_plate",
-            p -> new DiamondPressurePlateBlock(BlockSetType.IRON,
-                    p.mapColor(MapColor.DIAMOND).noCollision().strength(0.5f).pushReaction(PadsVersion.PUSH_BLOCKED)));
-    public static final Block NETHERITE_PRESSURE_PLATE = register("netherite_pressure_plate",
-            p -> new FilterPressurePlateBlock(BlockSetType.IRON,
-                    p.mapColor(MapColor.COLOR_BLACK).noCollision().strength(4.0f).pushReaction(PadsVersion.PUSH_BLOCKED), false));
-    public static final Block ENDERITE_PRESSURE_PLATE = register("enderite_pressure_plate",
-            p -> new FilterPressurePlateBlock(BlockSetType.IRON,
-                    p.mapColor(MapColor.COLOR_PURPLE).noCollision().strength(5.0f).pushReaction(PadsVersion.PUSH_BLOCKED), true));
+    // --- Druckplatten: Diamant, Netherit, Enderit gehoeren seit N48 (14.11.2026) SimpleLib (Gruppe material_pressure_plates, Ids simplelib:*);
+    // Simple Pads fordert die Gruppe an (SimplePads#init) und nutzt die Bloecke von dort. ---
+    public static final Block DIAMOND_PRESSURE_PLATE = com.simplelib.api.SimpleLibApi.materialBlock("diamond_pressure_plate");
+    public static final Block NETHERITE_PRESSURE_PLATE = com.simplelib.api.SimpleLibApi.materialBlock("netherite_pressure_plate");
+    public static final Block ENDERITE_PRESSURE_PLATE = com.simplelib.api.SimpleLibApi.materialBlock("enderite_pressure_plate");
+    public static final Block EMERALD_PRESSURE_PLATE = com.simplelib.api.SimpleLibApi.materialBlock("emerald_pressure_plate");
 
     // --- Elytra-Pads I-III (seit 2026-10-07 drei Stufen) ---
     public static final Block ELYTRA_PAD = register("elytra_pad",

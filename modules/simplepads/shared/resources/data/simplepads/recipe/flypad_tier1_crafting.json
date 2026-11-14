@@ -5,7 +5,7 @@
   "enchantment": "minecraft:mending",
   "ingredients": [
     "simplelib:enderite_core",
-    "simplepads:enderite_pressure_plate",
+    "simplelib:enderite_pressure_plate",
     "simplemobheads:shulker_head",
     "minecraft:elytra"
   ],

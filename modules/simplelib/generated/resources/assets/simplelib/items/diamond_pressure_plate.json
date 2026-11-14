@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplelib:block/diamond_pressure_plate"
+  }
+}

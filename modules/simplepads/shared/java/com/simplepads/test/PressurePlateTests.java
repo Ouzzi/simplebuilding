@@ -60,6 +60,9 @@ public final class PressurePlateTests {
                 plates.add(block);
             }
         }
+        // N48: the Diamond, Netherite, Enderite (and Emerald) plates are SimpleLib's (ids simplelib:*), Simple Pads uses them.
+        plates.addAll(0, List.of(PadsBlocks.DIAMOND_PRESSURE_PLATE, PadsBlocks.NETHERITE_PRESSURE_PLATE, PadsBlocks.ENDERITE_PRESSURE_PLATE,
+                PadsBlocks.EMERALD_PRESSURE_PLATE));
         return plates;
     }
 
@@ -192,8 +195,8 @@ public final class PressurePlateTests {
         double vanillaUp = stone.getShape(helper.getLevel(), origin).max(Direction.Axis.Y);
         double vanillaDown = stone.setValue(PressurePlateBlock.POWERED, true).getShape(helper.getLevel(), origin).max(Direction.Axis.Y);
         List<Block> plates = modPlates();
-        if (plates.size() != 11) {
-            problems.add("expected 11 mod pressure plates (diamond, netherite, enderite, 4 copper, 4 waxed copper) but found " + plates.size());
+        if (plates.size() != 12) {
+            problems.add("expected 12 mod pressure plates (diamond, netherite, enderite, emerald, 4 copper, 4 waxed copper) but found " + plates.size());
         }
         for (Block block : plates) {
             String id = BuiltInRegistries.BLOCK.getKey(block).getPath();
@@ -207,7 +210,7 @@ public final class PressurePlateTests {
             if (up != vanillaUp || down != vanillaDown) {
                 problems.add(id + " is " + up + " high and " + down + " pressed instead of " + vanillaUp + " and " + vanillaDown);
             }
-            JsonObject blockstate = json("/assets/simplepads/blockstates/" + id + ".json", problems);
+            JsonObject blockstate = json("/assets/" + BuiltInRegistries.BLOCK.getKey(block).getNamespace() + "/blockstates/" + id + ".json", problems);
             if (blockstate == null) {
                 continue;
             }
@@ -233,7 +236,12 @@ public final class PressurePlateTests {
         List<String> problems = new ArrayList<>();
         JsonObject en = json("/assets/simplepads/lang/en_us.json", problems);
         JsonObject de = json("/assets/simplepads/lang/de_de.json", problems);
-        if (en != null && de != null) {
+        JsonObject libEn = json("/assets/simplelib/lang/en_us.json", problems);
+        JsonObject libDe = json("/assets/simplelib/lang/de_de.json", problems);
+        if (en != null && de != null && libEn != null && libDe != null) {
+            // N48: the names of the SimpleLib plates are SimpleLib's.
+            libEn.entrySet().forEach(e -> en.add(e.getKey(), e.getValue()));
+            libDe.entrySet().forEach(e -> de.add(e.getKey(), e.getValue()));
             for (Block block : modPlates()) {
                 String key = block.getDescriptionId();
                 String enName = en.has(key) ? en.get(key).getAsString() : null;
@@ -262,40 +270,9 @@ public final class PressurePlateTests {
         helper.succeed();
     }
 
-    /** The names of the owner-locked Enderite plate (simplepads-4), apart from Simple Ores' Enderite weighted plate. */
+    /** The names of the owner-locked Enderite plate (simplepads-4; since N48 the only Enderite plate, SimpleLib's). */
     static final String OWNER_PLATE_EN = "Enderite Owner Plate";
     static final String OWNER_PLATE_DE = "Enderit-Besitzerplatte";
-
-    /**
-     * Zwei Bloecke hiessen "Enderite Pressure Plate": die Besitzer-Platte hier und Simple Ores' Enderit-Waegeplatte
-     * (simpleores:enderite_pressure_plate; Simple Ores ist Pflicht). Seit simplepads-4 heisst die hiesige "Enderite Owner Plate" /
-     * "Enderit-Besitzerplatte"; beide Namen unterscheiden sich in EN und DE. Nur die Sprachdateien werden verglichen, keine Klasse
-     * von Simple Ores.
-     */
-    public static void ownerPlateNameDiffersFromOresPlate(GameTestHelper helper) {
-        List<String> problems = new ArrayList<>();
-        String key = PadsBlocks.ENDERITE_PRESSURE_PLATE.getDescriptionId();
-        String oresKey = "block.simpleores.enderite_pressure_plate";
-        for (String[] lang : new String[][] {{"en_us", OWNER_PLATE_EN}, {"de_de", OWNER_PLATE_DE}}) {
-            JsonObject pads = json("/assets/simplepads/lang/" + lang[0] + ".json", problems);
-            JsonObject ores = json("/assets/simpleores/lang/" + lang[0] + ".json", problems);
-            if (pads == null || ores == null) {
-                continue;
-            }
-            String own = pads.has(key) ? pads.get(key).getAsString() : null;
-            String other = ores.has(oresKey) ? ores.get(oresKey).getAsString() : null;
-            if (!lang[1].equals(own)) {
-                problems.add(lang[0] + ": " + key + " is \"" + own + "\", not \"" + lang[1] + "\"");
-            }
-            if (other == null) {
-                problems.add(lang[0] + ": Simple Ores has no " + oresKey);
-            } else if (other.equals(own)) {
-                problems.add(lang[0] + ": both Enderite plates are called \"" + own + "\"");
-            }
-        }
-        helper.assertTrue(problems.isEmpty(), "owner plate name: " + problems);
-        helper.succeed();
-    }
 
     private static InteractionResult use(GameTestHelper helper, ServerPlayer player, BlockPos plate, ItemStack stack) {
         BlockPos abs = helper.absolutePos(plate);

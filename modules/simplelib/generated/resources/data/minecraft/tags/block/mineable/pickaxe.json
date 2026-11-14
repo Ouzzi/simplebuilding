@@ -4,6 +4,10 @@
     "simplelib:polished_end_stone",
     "simplelib:polished_end_stone_stairs",
     "simplelib:polished_end_stone_slab",
-    "simplelib:polished_end_stone_wall"
+    "simplelib:polished_end_stone_wall",
+    "simplelib:diamond_pressure_plate",
+    "simplelib:netherite_pressure_plate",
+    "simplelib:enderite_pressure_plate",
+    "simplelib:emerald_pressure_plate"
   ]
 }

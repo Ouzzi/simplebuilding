@@ -777,7 +777,7 @@ public final class OresTests {
             List<String> building = List.of(OresRegistry.BUILDING);
             BlockPos pos = h.absolutePos(new BlockPos(4, 1, 12));
             ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE), e = ItemStack.EMPTY;
-            check(h, OresRegistry.LIGHTS.length == 8 && OresRegistry.POLES.length == 10 && OresRegistry.PLATE_METALS.length == 14, "8 metals, 10 poles, 14 plates");
+            check(h, OresRegistry.LIGHTS.length == 8 && OresRegistry.POLES.length == 10 && OresRegistry.PLATE_METALS.length == 13, "8 metals, 10 poles, 13 plates (Enderite has SimpleLib's)");
             for (String m : OresRegistry.LIGHTS) {
                 Block lamp = OresRegistry.BLOCKS.get(m + "_lamp"), lantern = OresRegistry.BLOCKS.get(m + "_lantern"), chain = OresRegistry.BLOCKS.get(m + "_chain");
                 check(h, lamp instanceof net.minecraft.world.level.block.CopperBulbBlock && lantern instanceof net.minecraft.world.level.block.LanternBlock

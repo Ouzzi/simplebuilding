@@ -158,9 +158,9 @@ common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java modu
 common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java modules/simplepads/shared/java/com/simplepads/PotionPadRules.java
 common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java modules/simplepads/shared/java/com/simplepads/block/ChunkLoaderBlock.java allow: ambient/1 neighborChanged/6
 common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/CopperPressurePlateBlock.java
-common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/DiamondPressurePlateBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java modules/simplelib/shared/java/com/simplelib/block/DiamondPressurePlateBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java modules/simplepads/shared/java/com/simplepads/block/ElytraPadBlock.java
-common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/FilterPressurePlateBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java modules/simplelib/shared/java/com/simplelib/block/FilterPressurePlateBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java modules/simplepads/shared/java/com/simplepads/block/FlypadBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java modules/simplepads/shared/java/com/simplepads/block/LaunchpadBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/PadBlock.java modules/simplepads/shared/java/com/simplepads/block/PadBlock.java
@@ -173,7 +173,7 @@ common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEn
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderRegistry.java allow: Entry/5 Entry/6 exempt/2 shouldRun/2 update/5 update/6 wantsToRun/0 withinLimit/3
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/CopperPressurePlateBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/ElytraPadBlockEntity.java
-common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FilterPlateBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java modules/simplelib/shared/java/com/simplelib/block/FilterPlateBlockEntity.java allow: getUpdatePacket/0 getUpdateTag/1 isOwner/1 loadAdditional/1 saveAdditional/1 setOwner/1
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FlypadBlockEntity.java allow: sweepStaleFlight/1
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/LaunchpadBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/OwnedBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/OwnedBlockEntity.java allow: rawEasterStage/0

@@ -52,7 +52,6 @@ public final class PadsDiscover {
             "simplepads:easter_smithing");
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
-            "simpleores:enderite_pressure_plate",
             "simplepads:*chunk_loader",
             "simplepads:*copper_pressure_plate",
             "simplepads:*elytra_pad",
@@ -63,13 +62,11 @@ public final class PadsDiscover {
             "simplepads:chunk_loader",
             "simplepads:chunk_loaders",
             "simplepads:copper_pressure_plate",
-            "simplepads:diamond_pressure_plate",
             "simplepads:elytra_pad",
             "simplepads:elytra_pads",
             "simplepads:enderite_chunk_loader",
             "simplepads:enderite_elytra_pad",
             "simplepads:enderite_launchpad",
-            "simplepads:enderite_pressure_plate",
             "simplepads:enderite_spawn_teleporter",
             "simplepads:exposed_copper_pressure_plate",
             "simplepads:flypad",
@@ -82,7 +79,6 @@ public final class PadsDiscover {
             "simplepads:netherite_chunk_loader",
             "simplepads:netherite_elytra_pad",
             "simplepads:netherite_launchpad",
-            "simplepads:netherite_pressure_plate",
             "simplepads:oxidized_copper_pressure_plate",
             "simplepads:pads",
             "simplepads:potion_pad",

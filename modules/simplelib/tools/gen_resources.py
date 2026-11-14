@@ -30,9 +30,11 @@ def files():
     out[f"{d}/tags/item/upgrade_tools.json"] = {"values": [f"#{NS}:hammers"]}
     materials(out)
     shapes(out)
+    plates(out)
     warped_wart(out)
     modpack_guide(out)
-    out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [f"{NS}:{b}" for b in (*MATERIAL_BLOCKS, *SHAPES)]}
+    out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [f"{NS}:{b}" for b in (*MATERIAL_BLOCKS, *SHAPES, *PLATES)]}
+    out["data/minecraft/tags/block/pressure_plates.json"] = {"values": [f"{NS}:{b}" for b in PLATES]}
     for kind, tag in (("stairs", "stairs"), ("slab", "slabs"), ("wall", "walls")):
         members = [f"{NS}:{n}" for n, k in SHAPES.items() if k == kind]
         out[f"data/minecraft/tags/block/{tag}.json"] = {"values": members}
@@ -51,6 +53,15 @@ MATERIAL_GROUPS = {
     "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core"),
     # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
     "polished_end_stone": ("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
+    # N48 (14.11.): the plates of materials (Simple Pads' Diamond/Netherite/Enderite, Simple Ores' second Enderite plate, new Emerald).
+    "material_pressure_plates": ("diamond_pressure_plate", "netherite_pressure_plate", "enderite_pressure_plate", "emerald_pressure_plate"),
+}
+# Pressure plates: block -> (texture of the unpressed plate, "up" model texture). The pressed texture is <name>_active in this mod.
+PLATES = {
+    "diamond_pressure_plate": "minecraft:block/diamond_block",
+    "netherite_pressure_plate": "minecraft:block/netherite_block",
+    "enderite_pressure_plate": f"{NS}:block/enderite_pressure_plate",
+    "emerald_pressure_plate": f"{NS}:block/emerald_pressure_plate",
 }
 MATERIAL_BLOCKS = ("cracked_diamond_block", "polished_end_stone")
 # Stairs, slab, wall of the polished end stone (octet rule): cut from the full block with the existing texture.
@@ -104,7 +115,34 @@ def material_recipes():
         ("building_blocks", "polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone",
          {"type": "minecraft:stonecutting", "ingredient": v("end_stone_bricks"), "result": {"id": m("polished_end_stone")}},
          [v("end_stone_bricks")]),
-    ] + shape_recipes()
+    ] + shape_recipes() + plate_recipes()
+
+
+def plate_recipes():
+    """N48: the plates' recipes, Simple Pads' (Diamond: two diamonds; Netherite and Enderite: smithing up the ladder) and Simple Ores'
+    two-ingot Enderite recipe, plus the new Emerald plate (two emeralds, like Vanilla's plates). The Enderite recipes need the
+    provided group "enderite" (Simple Ores' ingot and template) as well."""
+    m = lambda i: f"{NS}:{i}"
+    both = ("material_pressure_plates", "enderite")
+    return [
+        ("redstone", "diamond_pressure_plate", "material_pressure_plates",
+         {"type": "minecraft:crafting_shaped", "category": "redstone", "key": {"D": "minecraft:diamond"}, "pattern": ["DD"],
+          "result": {"id": m("diamond_pressure_plate")}}, ["minecraft:diamond"]),
+        ("tools", "netherite_pressure_plate_smithing", "material_pressure_plates",
+         {"type": "minecraft:smithing_transform", "addition": "minecraft:netherite_ingot", "base": m("diamond_pressure_plate"),
+          "result": {"id": m("netherite_pressure_plate")}, "template": "minecraft:netherite_upgrade_smithing_template"},
+         [m("diamond_pressure_plate")]),
+        ("tools", "enderite_pressure_plate_smithing", both,
+         {"type": "minecraft:smithing_transform", "addition": "simpleores:enderite_ingot", "base": m("netherite_pressure_plate"),
+          "result": {"id": m("enderite_pressure_plate")}, "template": "simpleores:enderite_upgrade_template"},
+         [m("netherite_pressure_plate")]),
+        ("redstone", "enderite_pressure_plate", both,
+         {"type": "minecraft:crafting_shaped", "category": "redstone", "key": {"#": "simpleores:enderite_ingot"}, "pattern": ["##"],
+          "result": {"id": m("enderite_pressure_plate")}}, ["simpleores:enderite_ingot"]),
+        ("redstone", "emerald_pressure_plate", "material_pressure_plates",
+         {"type": "minecraft:crafting_shaped", "category": "redstone", "key": {"E": "minecraft:emerald"}, "pattern": ["EE"],
+          "result": {"id": m("emerald_pressure_plate")}}, ["minecraft:emerald"]),
+    ]
 
 
 def shape_recipes():
@@ -194,9 +232,24 @@ def shapes(out):
         out[f"data/{NS}/loot_table/blocks/{name}.json"] = loot
 
 
+def plates(out):
+    """Blockstates (powered), the two models, item model and loot table of every material pressure plate."""
+    a, d = f"assets/{NS}", f"data/{NS}"
+    for name, up in PLATES.items():
+        out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/pressure_plate_up", "textures": {"texture": up}}
+        out[f"{a}/models/block/{name}_down.json"] = {"parent": "minecraft:block/pressure_plate_down", "textures": {"texture": f"{NS}:block/{name}_active"}}
+        out[f"{a}/blockstates/{name}.json"] = {"variants": {"powered=false": {"model": f"{NS}:block/{name}"},
+                                                             "powered=true": {"model": f"{NS}:block/{name}_down"}}}
+        out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
+        out[f"{d}/loot_table/blocks/{name}.json"] = {"type": "minecraft:block", "pools": [{
+            "condition": {"type": "minecraft:survives_explosion"}, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}], "rolls": 1}]}
+
+
 def material_condition(group):
-    return {"fabric:load_conditions": [{"condition": f"{NS}:material_requested", "material": group}],
-            "neoforge:conditions": [{"type": f"{NS}:material_requested", "material": group}]}
+    """One group, or several (all must be requested/provided)."""
+    groups = (group,) if isinstance(group, str) else group
+    return {"fabric:load_conditions": [{"condition": f"{NS}:material_requested", "material": g} for g in groups],
+            "neoforge:conditions": [{"type": f"{NS}:material_requested", "material": g} for g in groups]}
 
 
 def materials(out):
@@ -204,7 +257,7 @@ def materials(out):
     d = f"data/{NS}"
     for group, ids in MATERIAL_GROUPS.items():
         for item in ids:
-            if item in MATERIAL_BLOCKS or item in SHAPES:
+            if item in MATERIAL_BLOCKS or item in SHAPES or item in PLATES:
                 continue
             out[f"{a}/models/item/{item}.json"] = {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{item}"}}
             out[f"{a}/items/{item}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/{item}"}}

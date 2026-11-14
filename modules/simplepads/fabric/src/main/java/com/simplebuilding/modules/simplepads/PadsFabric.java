@@ -71,18 +71,7 @@ public final class PadsFabric implements ModInitializer {
                             output.accept(com.simplepads.guide.PadsGuide.stack());
                         })
                         .build());
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(out -> {
-            if (!SimplePads.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(
-                    FabricLoader.getInstance().getConfigDir(), SimplePads.MOD_ID)) return;
-            var stacks = java.util.List.of(new ItemStack(com.simplepads.block.PadsBlocks.DIAMOND_PRESSURE_PLATE),
-                    new ItemStack(com.simplepads.block.PadsBlocks.NETHERITE_PRESSURE_PLATE),
-                    new ItemStack(com.simplepads.block.PadsBlocks.ENDERITE_PRESSURE_PLATE));
-            if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.HEAVY_WEIGHTED_PRESSURE_PLATE))) {
-                out.insertAfter(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            } else {
-                stacks.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-            }
-        });
+        // N48: the Diamond, Netherite, Enderite and Emerald plates sit in the vanilla Redstone tab through SimpleLib (SimpleLibFabric).
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (!SimplePads.on()) return;
             var book = java.util.List.of(com.simplepads.guide.PadsGuide.stack());

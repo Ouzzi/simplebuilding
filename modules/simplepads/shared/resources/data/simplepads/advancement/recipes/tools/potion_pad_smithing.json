@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplepads:netherite_pressure_plate"
+            "items": "simplelib:netherite_pressure_plate"
           }
         ]
       },

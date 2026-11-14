@@ -42,6 +42,11 @@
     "simplebuilding": "*",
     "jade": "*"
   },
+  "custom": {
+    "simplelib:content": [
+      "material_pressure_plates"
+    ]
+  },
   "mixins": [
     "simplepads.mixins.json"
   ]

@@ -2670,17 +2670,6 @@
         "summary": "Eine Wägeplatte aus Rosenkupfer: leicht wie die Goldplatte (eine Signalstufe je Objekt, bis 15). Zwei Rosenkupferbarren nebeneinander ergeben 1. Jede Spitzhacke."
       }
     },
-    "simpleores:enderite_pressure_plate": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-      ],
-      "en": {
-        "summary": "A weighted pressure plate of enderite: heavy like the iron plate (one signal level per 10 entities, up to 150). Two enderite ingots side by side make 1. Any pickaxe."
-      },
-      "de": {
-        "summary": "Eine Wägeplatte aus Enderit: schwer wie die Eisenplatte (eine Signalstufe je 10 Objekte, bis 150). Zwei Enderitbarren nebeneinander ergeben 1. Jede Spitzhacke."
-      }
-    },
     "simpleores:terranite_pressure_plate": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
