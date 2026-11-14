@@ -31,8 +31,8 @@ public final class SoundClient {
    boolean active=switch(e.id()){
     case "footstep_dust"->p.onGround()&&!p.isInWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.015;
     case "cold_breath"->!p.isUnderWater()&&mc.level.getBiome(pos).value().coldEnoughToSnow(pos,mc.level.getSeaLevel());
-    case "fireflies"->mc.level.getOverworldClockTime()%24000>=13000&&mc.level.getOverworldClockTime()%24000<=23000&&mc.level.getBlockState(pos.below()).is(BlockTags.DIRT);
-    case "pollen"->mc.level.getOverworldClockTime()%24000<12000&&nearby(mc,pos,BlockTags.FLOWERS,null);
+    case "fireflies"->SoundsRegistry.dayTime(mc.level)>=13000&&SoundsRegistry.dayTime(mc.level)<=23000&&mc.level.getBlockState(pos.below()).is(BlockTags.DIRT);
+    case "pollen"->SoundsRegistry.dayTime(mc.level)>=0&&SoundsRegistry.dayTime(mc.level)<12000&&nearby(mc,pos,BlockTags.FLOWERS,null);
     case "fire_sparks"->nearby(mc,pos,null,Blocks.FIRE)||nearby(mc,pos,null,Blocks.LAVA)||nearby(mc,pos,null,Blocks.CAMPFIRE);
     case "water_ripples"->p.isInWater()&&!p.isUnderWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.005;
     case "water_droplets"->p.isInWater()&&p.getDeltaMovement().lengthSqr()>.01;

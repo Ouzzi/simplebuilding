@@ -10,6 +10,8 @@ public final class SoundsRegistry {
  public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled("simplesounds");}
  /** Pure gate of the playback decision: audible volume and the super-mod switch on. */
  public static boolean plays(float volume){return on()&&volume>0;}
+ /** simplesounds-2 (PLAN40): the time of day (0..23999) of the level's own default clock, or -1 in a dimension without a day and night cycle (Nether, End). */
+ public static long dayTime(net.minecraft.world.level.Level level){return level.dimensionType().defaultClock().isPresent()?Math.floorMod(level.getDefaultClockTime(),24000L):-1L;}
  public static List<Effect> load() {
   try(var stream=SoundsRegistry.class.getResourceAsStream("/assets/simplesounds/effects.json")) {
    if(stream==null) throw new IllegalStateException("Missing sound mappings");
