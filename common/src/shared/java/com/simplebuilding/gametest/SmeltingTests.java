@@ -207,7 +207,8 @@ public final class SmeltingTests {
                             timerLine(LIT_REMAINING - 5, LIT_TOTAL, COOK_SPENT + 5, SCRAP_COOK_TICKS),
                             "the four timers of the vanilla blast furnace 5 ticks after the load");
                     helper.assertValueEqual(timers(helper, furnace(helper, netherite)),
-                            timerLine(LIT_REMAINING - 5, LIT_TOTAL, COOK_SPENT + 5 * 4, SCRAP_COOK_TICKS),
+                            // simpleovens-2 (owner A): the fuel burns with the tier speed too, 4 per tick like the cook.
+                            timerLine(LIT_REMAINING - 5 * 4, LIT_TOTAL, COOK_SPENT + 5 * 4, SCRAP_COOK_TICKS),
                             "the four timers of the netherite blast furnace 5 ticks after the load");
                 })
                 .thenSucceed();

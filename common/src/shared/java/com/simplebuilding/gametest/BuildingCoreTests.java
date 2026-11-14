@@ -354,7 +354,7 @@ public final class BuildingCoreTests {
                     case STONE -> id.startsWith("minecraft:") && id.endsWith("_ore") && !id.contains("deepslate") && !id.contains("nether");
                     case DEEPSLATE -> id.startsWith("minecraft:deepslate_") && id.endsWith("_ore");
                     case NETHERRACK -> id.equals("minecraft:nether_quartz_ore") || id.equals("minecraft:nether_gold_ore") || id.equals("minecraft:ancient_debris");
-                    case END_STONE -> id.equals("simplebuilding:nihilith_ore") || id.equals("simplebuilding:astralit_ore");
+                    case END_STONE -> id.equals("simpleores:nihilith_ore") || id.equals("simpleores:astralit_ore");
                 };
                 helper.assertTrue(valid, id + " is no ore of " + host);
             }

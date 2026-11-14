@@ -171,7 +171,9 @@ public final class LibMaterials {
         item("cracked_emerald_block", p -> new BlockItem(BLOCKS.get("cracked_emerald_block"), p.useBlockDescriptionPrefix()));
         item("netherite_nugget", p -> new Item(p.fireResistant()));
         for (String name : PLATES) {
-            item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
+            // Netherite and Enderite plates do not burn, like every Netherite item (as in Simple Pads before N48).
+            boolean fireproof = name.startsWith("netherite_") || name.startsWith("enderite_");
+            item(name, p -> new BlockItem(BLOCKS.get(name), fireproof ? p.useBlockDescriptionPrefix().fireResistant() : p.useBlockDescriptionPrefix()));
         }
         for (String name : List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
             item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));

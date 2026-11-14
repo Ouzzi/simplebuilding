@@ -129,22 +129,6 @@
 			]
 		},
 		{
-			"id": "1323A898FCF1A07F",
-			"x": 2.0,
-			"y": -0.75,
-			"dependencies": [
-				"64ABD46EBD9692AA"
-			],
-			"tasks": [
-				{
-					"id": "20D2162DF35FE062",
-					"type": "advancement",
-					"advancement": "simplebuilding:building/checkmate",
-					"criterion": ""
-				}
-			]
-		},
-		{
 			"id": "4E33E195CC3BD7A4",
 			"x": 2.0,
 			"y": 0.75,
