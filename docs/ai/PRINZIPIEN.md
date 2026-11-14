@@ -324,7 +324,9 @@ Spieler-Shops: Verkaufsblock mit Preis, Vitrine mit Waren.
 ### Simple Wanderers (`simplewanderers`)
 Dorf-Wanderer: ein fahrender Händler je Dorf mit Pferd, Warenwechsel alle 3 Tage.
 
-- keine eigenen Regeln bisher
+- **A12:** Nutzen: jedes Dorf bekommt einen Händler mit Pferd; der Alltagskram (47 von 78 Waren) liegt dort, der fahrende Händler behält die exotische Hälfte. Eingriff in Vanilla: ein kleiner Mixin (`WanderingTraderSplitMixin`) wählt die Händler-Hälfte nur bei eingeschalteter Mod; Vanilla-Listen bleiben unverändert, Waren fremder Mods im Vanilla-Tag bleiben beim fahrenden Händler (SW2B-2). Mod aus = Vanilla-Händler wie zuvor.
+- Kein Wanderer ohne Dorf-Glocke einer Dorfstruktur; das Pferd ist einfangbar (Besitzer W4), nie ein Spawn-Ei-Spam: höchstens ein Pferd je Dorf und Respawn-Zeit.
+- Pflicht: SimpleLib (Fabric-API ohnehin); Simple Money / Simple Building / Simple Mobheads nur als optionale Waren.
 
 ### Simple Animals (`simpleanimals`)
 Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein, Igel, Krebs, Zebra (mit unfruchtbarem Zorse); allein mit Vanilla spielbar.

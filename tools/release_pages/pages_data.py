@@ -98,7 +98,7 @@ P = {
   "Simple Shops adds a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Buying needs no claim rights.",
   "economy, game-mechanics", "shops, trading, multiplayer"),
 "simplewanderers": ("One Village Wanderer per village with a leashed horse, split from the traveling trader, with regular restocks.",
-  "Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goods are split from the traveling trader, with a new stock every 3 days and a restock every 1.5 days. It works with Vanilla alone.",
+  "Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goods are split from the traveling trader, with a new stock every 3 days and a restock every 1.5 days. Besides Fabric API it only needs SimpleLib; no other Simple mod is required.",
   "mobs, economy", "villagers, trading, wandering-trader"),
 "simplestats": ("Every tool, weapon and armor piece keeps its own statistics with an item-specific statistics screen.",
   "Simple Stats records blocks mined, kills by mob and variant, damage absorbed, distances and catches per item and shows them in a statistics screen.",
@@ -225,7 +225,7 @@ V = {
 "simpletrims": "Adds three armor trim templates, placeable templates and trim upgrades for players who like armor looks; Vanilla trims are unchanged.",
 "simpletweaks": "Keeps older worlds loading and adds server claims that are on by default; the claim rules change who may build where on a server.",
 "simplevault": "Gives explorers a rare find in the bedrock with riddles and a reward; the Vanilla bedrock stays except at the rare gap, and a few hooks handle its pistons and block states.",
-"simplewanderers": "Gives every village a wandering trader with a horse; it works with Vanilla alone and splits goods from the Vanilla traveling trader.",
+"simplewanderers": "Gives every village a wandering trader with a horse and, in return, moves the everyday half (47 of 78) of the Vanilla Wandering Trader's goods to him; the traveling trader keeps the rest, plus anything other mods add to the Vanilla trade lists. Off in the config, the Vanilla trader is untouched.",
 }
 
 # Store-page links per mod (wiki, issues, source); a mod without an entry keeps the placeholders until the owner decides.
