@@ -3,7 +3,7 @@
   "id": "simpleloot",
   "version": "${version}",
   "name": "Simple Loot",
-  "icon": "assets/simpleloot/icon.png",
+  "icon": { "16": "assets/simpleloot/icon.png", "128": "assets/simpleloot/icon_128.png" },
   "authors": [
     "Ouzzi"
   ],

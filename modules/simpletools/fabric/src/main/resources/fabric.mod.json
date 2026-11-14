@@ -3,7 +3,7 @@
   "id": "simpletools",
   "version": "${version}",
   "name": "Simple Tools",
-  "icon": "assets/simpletools/icon.png",
+  "icon": { "16": "assets/simpletools/icon.png", "128": "assets/simpletools/icon_128.png" },
   "authors": [
     "Ouzzi"
   ],

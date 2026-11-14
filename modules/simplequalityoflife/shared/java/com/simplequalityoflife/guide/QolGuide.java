@@ -141,6 +141,8 @@ public final class QolGuide {
         try {
             return ModuleQuestDefaults.install(configDir.resolve("ftbquests").resolve("quests"), NAMESPACE, QolGuide::questResource);
         } catch (IOException | RuntimeException e) {
+            // simplequalityoflife-5 (QOL-P3-2): say why the start chapter is missing instead of failing silently.
+            org.slf4j.LoggerFactory.getLogger(NAMESPACE).warn("Could not install the FTB Quests start chapter in {}: {}", configDir, e.toString());
             return -1;
         }
     }

@@ -5,6 +5,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from pages_data import P, V
 import pages_data
 LINKS = getattr(pages_data, "LINKS", {})
+G = getattr(pages_data, "G", {})
 from check_pages import FORBIDDEN
 R = pathlib.Path(__file__).resolve().parents[2]
 mods = json.load(open(R / "modules/modules.json"))["modules"]
@@ -51,6 +52,7 @@ for m in mods:
     f = features(i)
     if f: lines += ["## Features", ""] + f + [""]
     if i in V: lines += ["## Vanilla use", "", V[i], ""]
+    if i in G: lines += ["## Good to know", "", f"- {G[i]}", ""]
     lines += ["## Dependencies", "",
         "- **Required:** Fabric API" + "".join(f", {x}" for x in req) + ("" if req else " (no other mods)"),
         "- **Optional:** " + (", ".join(opt) if opt else "none"),
