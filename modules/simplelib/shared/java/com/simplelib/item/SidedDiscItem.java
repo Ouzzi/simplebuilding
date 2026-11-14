@@ -2,8 +2,6 @@ package com.simplelib.item;
 
 import com.simplelib.api.DiscSides;
 import java.util.function.UnaryOperator;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -27,11 +25,6 @@ public class SidedDiscItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        ItemStack turned = turner.apply(player.getItemInHand(hand));
-        if (turned.isEmpty()) return InteractionResult.PASS;
-        player.getCooldowns().addCooldown(turned, DiscSides.TURN_COOLDOWN);
-        // the player hears it at once on the client, the others from the server
-        level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FRAME_ROTATE_ITEM, SoundSource.PLAYERS, 0.6F, 1.2F);
-        return InteractionResult.SUCCESS.heldItemTransformedTo(turned);
+        return DiscSides.turnInHand(level, player, hand, turner);
     }
 }

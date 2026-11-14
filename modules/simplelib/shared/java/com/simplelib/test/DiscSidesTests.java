@@ -1,7 +1,6 @@
 package com.simplelib.test;
 
 import com.simplelib.api.DiscSides;
-import com.simplelib.item.SidedDiscItem;
 import java.util.List;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
@@ -39,15 +38,15 @@ final class DiscSidesTests {
 
     /** The right click turns A to B, starts the cooldown and passes when the turner has nothing. */
     static void rightClick(GameTestHelper h) {
-        SidedDiscItem item = new SidedDiscItem(new Item.Properties(),
-                s -> s.is(Items.MUSIC_DISC_13) ? DiscSides.turned(s, Items.MUSIC_DISC_CAT) : ItemStack.EMPTY);
+        java.util.function.UnaryOperator<ItemStack> turner =
+                s -> s.is(Items.MUSIC_DISC_13) ? DiscSides.turned(s, Items.MUSIC_DISC_CAT) : ItemStack.EMPTY;
         Player player = h.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MUSIC_DISC_13));
-        InteractionResult result = item.use(h.getLevel(), player, InteractionHand.MAIN_HAND);
+        InteractionResult result = DiscSides.turnInHand(h.getLevel(), player, InteractionHand.MAIN_HAND, turner);
         h.assertTrue(result instanceof InteractionResult.Success, "turned: " + result);
         h.assertTrue(player.getCooldowns().isOnCooldown(new ItemStack(Items.MUSIC_DISC_CAT)), "cooldown after turning");
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STONE));
-        h.assertTrue(item.use(h.getLevel(), player, InteractionHand.MAIN_HAND) instanceof InteractionResult.Pass, "nothing to turn passes");
+        h.assertTrue(DiscSides.turnInHand(h.getLevel(), player, InteractionHand.MAIN_HAND, turner) instanceof InteractionResult.Pass, "nothing to turn passes");
         h.succeed();
     }
 }
