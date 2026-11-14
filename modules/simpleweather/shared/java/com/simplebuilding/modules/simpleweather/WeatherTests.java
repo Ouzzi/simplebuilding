@@ -61,13 +61,16 @@ public final class WeatherTests {
             advance(h);
             var data = h.getLevel().getWeatherData();
             h.assertTrue(!data.isRaining() && !data.isThundering(), "server weather hook clears both");
+            var rules = h.getLevel().getGameRules();
+            h.assertTrue(!rules.get(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER), "simpleweather-2: switch sets the Vanilla advance_weather rule");
+            rules.set(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER, true, h.getLevel().getServer());
         });
         h.succeed();
     }
 
     public static void config(GameTestHelper h) {
         var c = new WeatherConfig();
-        h.assertTrue(!c.disableWeather && c.clientRainParticleDensity == 20, "defaults like Simple QoL");
+        h.assertTrue(!c.disableWeather && c.clientRainParticleDensity == 100, "defaults: Vanilla rain density 100 (simpleweather-1)");
         c.clientRainParticleDensity = 999; c.normalize();
         h.assertTrue(c.clientRainParticleDensity == 100, "density capped");
         c.clientRainParticleDensity = -5; c.normalize();
@@ -88,7 +91,7 @@ public final class WeatherTests {
             var own = SimpleWeather.read(dir);
             h.assertTrue(!own.disableWeather && own.clientRainParticleDensity == 7, "own file wins over QoL");
             var empty = SimpleWeather.read(Files.createTempDirectory("simpleweather-empty"));
-            h.assertTrue(!empty.disableWeather && empty.clientRainParticleDensity == 20, "no file: defaults");
+            h.assertTrue(!empty.disableWeather && empty.clientRainParticleDensity == 100, "no file: defaults");
         } catch (java.io.IOException e) {
             h.fail("migration io: " + e);
         }

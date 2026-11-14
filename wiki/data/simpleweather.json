@@ -25,11 +25,11 @@
       ],
       "en": {
         "title": "Disable weather",
-        "summary": "disableWeather (default false, server) clears rain and thunder and skips weather progression."
+        "summary": "disableWeather (default false, server) clears rain and thunder and stops weather progression by setting the Vanilla game rule advance_weather to false (like /gamerule advance_weather false; /weather still works). Switching the option off again does not turn the rule back on."
       },
       "de": {
         "title": "Wetter abschalten",
-        "summary": "disableWeather (Standard false, Server) löscht Regen und Gewitter und stoppt den Wetterfortschritt."
+        "summary": "disableWeather (Standard false, Server) löscht Regen und Gewitter und stoppt den Wetterfortschritt, indem die Vanilla-Spielregel advance_weather auf false gesetzt wird (wie /gamerule advance_weather false; /weather geht weiter). Beim Ausschalten der Option bleibt die Regel unverändert."
       }
     },
     {
@@ -54,11 +54,11 @@
       ],
       "en": {
         "title": "Rain density",
-        "summary": "clientRainParticleDensity is a local visual preference, default 20, bounded 0–100: thins rain in the air, ground particles and rain sounds; it never changes server weather."
+        "summary": "clientRainParticleDensity is a local visual preference, default 100 like Vanilla, bounded 0–100: thins rain in the air, ground particles and rain sounds; it never changes server weather."
       },
       "de": {
         "title": "Regendichte",
-        "summary": "clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 20, Grenze 0–100: dünnt Regen in der Luft, Bodenpartikel und Regengeräusche aus; Serverwetter bleibt davon unabhängig."
+        "summary": "clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 100 wie Vanilla, Grenze 0–100: dünnt Regen in der Luft, Bodenpartikel und Regengeräusche aus; Serverwetter bleibt davon unabhängig."
       }
     },
     {
@@ -114,7 +114,7 @@
       "name": "clientRainParticleDensity",
       "shortName": "clientRainParticleDensity",
       "type": "int",
-      "default": "20",
+      "default": "100",
       "note": null,
       "category": "Simple Weather",
       "categoryDe": "Simple Weather",
@@ -122,8 +122,8 @@
       "groupDe": null,
       "label": "Rain Disturbance (Client)",
       "labelDe": "Regen-Störung (Client)",
-      "tooltip": "Reduces rain particles and sounds. 100 = All\nparticles/sounds 0 = No particles/sounds\n(Silent). Default: 20. Allowed range: 0–100.",
-      "tooltipDe": "Reduziert Regen-Partikel und -Geräusche. 100\n= Alle Partikel/Geräusche 0 = Keine\nPartikel/Geräusche (still). Standard: 20.\nErlaubter Bereich: 0–100."
+      "tooltip": "Reduces rain particles and sounds. 100 = All\nparticles/sounds 0 = No particles/sounds\n(Silent). Default: 100 (like Vanilla). Allowed range: 0–100.",
+      "tooltipDe": "Reduziert Regen-Partikel und -Geräusche. 100\n= Alle Partikel/Geräusche 0 = Keine\nPartikel/Geräusche (still). Standard: 100 (wie Vanilla).\nErlaubter Bereich: 0–100."
     },
     {
       "range": null,

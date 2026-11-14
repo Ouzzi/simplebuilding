@@ -806,7 +806,7 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 5
     },
-    "dataHash": "6a65005dd9fe"
+    "dataHash": "867e1f6a2d79"
   },
   {
     "id": "simplemovement",
