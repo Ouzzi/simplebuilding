@@ -186,6 +186,11 @@ P = {
   "adventure, worldgen", "dungeon, bedrock, riddles, exploration"),
 }
 
+# Optional "Good to know" note per mod (store page): things a player or server owner must know before installing.
+G = {
+"simplevisuals": "**Needed on the client too:** chiselled (tilted) item frames send an extra value that a game without Simple Visuals does not understand. The chisels need Simple Building on the client anyway, so this only means: install Simple Visuals there as well.",
+}
+
 # One sentence per mod: what it is good for in a Vanilla survival game and how far it reaches into Vanilla. Facts from code and manuals only.
 V = {
 "simplelib": "Shared base of the Simple mods with a modpack guide and warped wart (found in bastion chests); it reorders creative tabs and hooks hoppers, anvils and the Wither, but anvil crushing, the Wither drop, the legendary choir and the Free Look key switch on only when a Simple mod asks.",
