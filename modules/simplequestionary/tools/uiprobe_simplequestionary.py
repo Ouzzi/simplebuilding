@@ -66,6 +66,9 @@ def _right_page_xy(g):
 def _active_tab(s, name):
     """Screenshot named <name>, then which bookmark is raised. Returns (index or None, detail)."""
     s.shot(name)
+    page = s.st().get('fields', {}).get('page')  # SortProbe reads the screen's private page field by reflection
+    if page is not None:
+        return int(page), f'page field = {page}'
     if Image is None:
         return None, 'PIL missing'
     path = s.out / 'shots' / f'{s.scenario}-{name}.png'
@@ -145,6 +148,9 @@ def questionary(s):
 
     # ---- shift click (quickMoveStack): occupied item slot refuses, item slot -> inventory, diamond -> item slot (1 piece)
     st = s.st()
+    if not s.slot_xy(st, 1, True) or not s.slot_xy(st, 0, False):
+        s.check('Questionary screen still open for the shift-click part', False, f"{st.get('screen')} / {len(st.get('slots', []))} slots")
+        return
     before = s.slot_xy(st, 1, True)['stack']
     st = s.click_slot(cslot=1, own=True, shift=True)
     s.check('shift click on diamonds while the slot is occupied does nothing', st and s.slot_xy(st, 1, True)['stack'] == before and

@@ -188,6 +188,17 @@ public final class SortProbe {
         JsonArray widgets = new JsonArray();
         if (screen != null) collectWidgets(screen.children(), scale, widgets, 0);
         o.add("widgets", widgets);
+        // a-w4c: a few well-known state fields of the open screen (page, scroll ... when the screen has them), read by reflection.
+        JsonObject fields = new JsonObject();
+        if (screen != null) {
+            for (String n : new String[] {"page", "scroll", "selected", "tab", "mode", "index"}) {
+                Object v = field(screen, n);
+                if (v instanceof Number num) fields.addProperty(n, num);
+                else if (v instanceof Boolean b) fields.addProperty(n, b);
+                else if (v instanceof String str) fields.addProperty(n, str);
+            }
+        }
+        o.add("fields", fields);
         JsonArray inv = new JsonArray();
         for (int i = 0; i < 36; i++) inv.add(describe(mc.player.getInventory().getItem(i)));
         o.add("inventory", inv);
