@@ -6,6 +6,7 @@
   "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory.@Tooltip": "Turns the Simple Opt Memory sub-mod on or off.\nDefault: true.",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptServer": "Enable Simple Opt Server",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptServer.@Tooltip": "Turns the Simple Opt Server sub-mod on or off.\nDefault: true.",
+  "text.autoconfig.simpleoptimization.title": "Simple Optimization",
   "simpleoptimization.guide.chapter": "Simple Optimization",
   "simpleoptimization.guide.page.1.title": "Simple Optimization",
   "simpleoptimization.guide.page.1": "Bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one switch each. Each has its own chapter here.",
