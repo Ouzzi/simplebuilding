@@ -153,6 +153,12 @@ public final class MusicTests {
             MusicConfig.reset();
             h.succeed();
         });
+        // simplemusic-5 (PLAN40): the settings screen names every option (no raw paths).
+        ALL.put("config_labels", h -> {
+            java.util.List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleMusic.MOD_ID);
+            h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
+            h.succeed();
+        });
         ALL.put("registered", h -> {
             for (String id : List.of("sheet_music", "disc_press", "blank_disc", "custom_disc", "guide_book", "pocket_jukebox", "black_pocket_jukebox")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleMusic.id(id)), "item " + id);

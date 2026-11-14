@@ -13,6 +13,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        MusicTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void registered(GameTestHelper h) {
         MusicTests.ALL.get("registered").accept(h);
     }

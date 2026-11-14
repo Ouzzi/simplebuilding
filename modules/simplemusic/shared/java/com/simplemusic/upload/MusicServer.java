@@ -118,6 +118,13 @@ public final class MusicServer {
         com.simplemusic.pocket.PocketPlayback.clear();
     }
 
+    /** Join hook (PLAN40 simplemusic-5, audit P3-14): an OP is told once per login how many uploads wait for approval. */
+    public static void notifyPending(ServerPlayer player) {
+        if (!SimpleMusic.on() || MusicConfig.uploads != MusicConfig.Uploads.APPROVE || !op(player)) return;
+        int waiting = store(player.level().getServer()).pending().size();
+        if (waiting > 0) player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("simplemusic.pending_notice", waiting));
+    }
+
     private static boolean op(ServerPlayer player) {
         return Commands.LEVEL_GAMEMASTERS.check(player.permissions());
     }

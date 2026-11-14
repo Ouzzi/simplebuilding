@@ -86,6 +86,7 @@ public final class MusicFabric implements ModInitializer {
         };
         CommandRegistrationCallback.EVENT.register((dispatcher, context, selection) -> MusicCommands.register(dispatcher));
         ServerTickEvents.END_SERVER_TICK.register(MusicServer::tick);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> MusicServer.notifyPending(handler.getPlayer()));
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> MusicServer.stopped());
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplemusic.guide.MusicGuide.installQuests(FabricLoader.getInstance().getConfigDir());
     }
