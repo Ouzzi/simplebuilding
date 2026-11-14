@@ -2365,6 +2365,30 @@
         }
       },
       "texture": "assets/textures/simplebuildingtools/item/blueprint.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A whole building folded into a few lines of text."
+          ],
+          "use": [
+            "A Blueprint stores a structure as a short readable build code. Write the code in the map-style editor with a live 3D preview or scan an existing building with an Octant at a cartography table, then build it anywhere with a building wand."
+          ],
+          "secret": [
+            "The code is plain text, so blueprints can be shared in chat."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein ganzes Gebäude, zu ein paar Zeilen Text gefaltet."
+          ],
+          "use": [
+            "Eine Blaupause speichert ein Bauwerk als kurzen lesbaren Baucode. Den Code im Karteneditor mit 3D-Vorschau schreiben oder ein bestehendes Gebäude mit einem Oktanten am Kartentisch einscannen, dann mit einem Baustab überall bauen."
+          ],
+          "secret": [
+            "Der Code ist reiner Text, Blaupausen lassen sich also im Chat teilen."
+          ]
+        }
+      },
       "craftedBy": [
         "simplebuildingtools:blueprint",
         "simplebuildingtools:blueprint_standalone"
@@ -2649,6 +2673,30 @@
         ]
       },
       "texture": "assets/textures/simplebuildingtools/item/creative_blueprint.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A blueprint that never asks about the bill."
+          ],
+          "use": [
+            "The creative version of the Blueprint: build from the stored code without taking blocks from your inventory."
+          ],
+          "secret": [
+            "It is a creative-mode tool."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Blaupause, die nie nach der Rechnung fragt."
+          ],
+          "use": [
+            "Die Kreativ-Version der Blaupause: baut aus dem gespeicherten Code, ohne Blöcke aus dem Inventar zu nehmen."
+          ],
+          "secret": [
+            "Ein Werkzeug für den Kreativmodus."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -3656,6 +3704,30 @@
         }
       },
       "texture": "assets/textures/simplebuildingtools/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A small book for people who plan before they build."
+          ],
+          "use": [
+            "The Simple Building Tools Guide explains the wands, the Octant and the Blueprint. Craft it shapeless from a book and a building wand."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kleines Buch für Leute, die planen, bevor sie bauen."
+          ],
+          "use": [
+            "Das Simple Building Tools-Handbuch erklärt die Baustäbe, den Oktanten und die Blaupause. Formlos aus einem Buch und einem Baustab herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },

@@ -22,7 +22,7 @@
       "id": "sandwiches",
       "en": {
         "title": "Sandwiches",
-        "summary": "One bread plus up to five ingredients, with optional butter first; matching components stack to 16.",
+        "summary": "One bread plus up to five ingredients, with optional butter first; matching components stack to 16. Food of other Simple mods (rose gold and rose copper apples and carrots, crab, truffle, drift fruit) counts as an ingredient when that mod is installed.",
         "details": [
           "Hunger and saturation (formula IG31-28): bread (5 / 6.0) and every ingredient are ranked by value, highest first. The highest counts in full; each further one adds a falling share of its own value (10%, 5%, 2.5% ...), so the total stays below the sum of the single foods. A sandwich therefore restores less than the same foods eaten one by one; its use is the merged effects of all ingredients in one meal, the room (up to five ingredients and the bread in one item, 16 sandwiches per stack) and the butter bonus. Hunger is rounded to whole points, saturation to half points and is at most 1.2 x hunger. Vanilla limits restoration when eating. Ingredients use their item's default components, not custom stack components.",
           "Butter adds 10% to hunger (rounded), saturation and effect durations by default. Server bounds: butterBonus 0–0.25; maxIngredients 1–5 (default 5). Eating takes 1.6 seconds plus 0.2 seconds per ingredient.",
@@ -32,7 +32,7 @@
       },
       "de": {
         "title": "Sandwiches",
-        "summary": "Ein Brot plus bis zu fünf Zutaten, optional zuerst Butter; bei gleichen Komponenten bis 16 stapelbar.",
+        "summary": "Ein Brot plus bis zu fünf Zutaten, optional zuerst Butter; bei gleichen Komponenten bis 16 stapelbar. Essen anderer Simple-Mods (Roségold-/Rosébronze-Äpfel und -Karotten, Krabbe, Trüffel, Driftfrucht) zählt als Zutat, wenn die Mod installiert ist.",
         "details": [
           "Hunger und Sättigung (Formel IG31-28): Brot (5 / 6,0) und jede Zutat werden nach Wert absteigend gereiht. Der höchste Wert zählt voll; jeder weitere bringt einen fallenden Anteil seines eigenen Werts (10 %, 5 %, 2,5 % ...), die Summe bleibt damit unter der Summe der einzelnen Speisen. Ein Sandwich sättigt daher weniger als dieselben Speisen einzeln gegessen; sein Nutzen sind die zusammengeführten Effekte aller Zutaten in einer Mahlzeit, der Platz (bis zu fünf Zutaten und das Brot in einem Item, 16 Sandwiches je Stapel) und der Butter-Bonus. Hunger wird auf ganze Punkte, Sättigung auf halbe Punkte gerundet und ist höchstens 1,2 x Hunger. Vanilla begrenzt die Wiederherstellung beim Essen. Zutaten verwenden ihre Standard-Itemkomponenten, keine angepassten Stapelkomponenten.",
           "Butter erhöht standardmäßig Hunger (gerundet), Sättigung und Effektdauern um 10 %. Servergrenzen: butterBonus 0–0,25; maxIngredients 1–5 (Standard 5). Esszeit: 1,6 Sekunden plus 0,2 Sekunden je Zutat.",
@@ -1565,6 +1565,46 @@
         {
           "id": "simplebuilding:enderite_carrot",
           "required": false
+        },
+        {
+          "id": "simpleores:rose_gold_apple",
+          "required": false
+        },
+        {
+          "id": "simpleores:enchanted_rose_gold_apple",
+          "required": false
+        },
+        {
+          "id": "simpleores:rose_bronze_apple",
+          "required": false
+        },
+        {
+          "id": "simpleores:enchanted_rose_bronze_apple",
+          "required": false
+        },
+        {
+          "id": "simpleores:rose_gold_carrot",
+          "required": false
+        },
+        {
+          "id": "simpleores:rose_bronze_carrot",
+          "required": false
+        },
+        {
+          "id": "simpleanimals:raw_crab",
+          "required": false
+        },
+        {
+          "id": "simpleanimals:cooked_crab",
+          "required": false
+        },
+        {
+          "id": "simpleanimals:truffle",
+          "required": false
+        },
+        {
+          "id": "simpleend:drift_fruit",
+          "required": false
         }
       ],
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/item/sandwich_ingredients.json"
@@ -1993,6 +2033,30 @@
           "summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Weitere Butterscheiben darauf stapeln ihn wie Schnee, ein Pixel pro Scheibe; die 16. ergibt einen ganzen Butterblock (der wieder geschnitten werden muss). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt eine Scheibe pro Schicht zurück."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A thin golden layer, the closest a floor will ever get to breakfast."
+          ],
+          "use": [
+            "Butter that has been sliced thin: the cut-off layers of a butter block lie flat like a carpet. Cut a butter block with a kitchen knife to get slices."
+          ],
+          "secret": [
+            "It is the cut stage of the butter block, not a separate ingredient."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine dünne goldene Schicht, das Nächste, was ein Boden je an ein Frühstück herankommt."
+          ],
+          "use": [
+            "Dünn geschnittene Butter: die abgeschnittenen Schichten eines Butterblocks liegen flach wie ein Teppich. Einen Butterblock mit dem Küchenmesser schneiden, um Scheiben zu erhalten."
+          ],
+          "secret": [
+            "Sie ist die Schnittstufe des Butterblocks, keine eigene Zutat."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -2049,6 +2113,30 @@
         },
         "de": {
           "summary": "Mit einer Käsescheibe Schleichen und Rechtsklick legt sie als 1 px dünner Käse-Teppich ab (ein normaler Klick isst sie). Weitere Käsescheiben darauf stapeln ihn wie Schnee (ein Pixel pro Scheibe, begehbar); die 16. ergibt einen ganzen Käseblock, der wieder geschnitten werden muss. Abbauen gibt eine Scheibe pro Schicht zurück."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A flat layer of cheese, patient as a cellar floor."
+          ],
+          "use": [
+            "Cheese that has been sliced thin: the cut-off layers of a cheese block lie flat like a carpet. Cut a cheese block with a kitchen knife to get slices."
+          ],
+          "secret": [
+            "It is the cut stage of the cheese block, not a separate ingredient."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine flache Käseschicht, geduldig wie ein Kellerboden."
+          ],
+          "use": [
+            "Dünn geschnittener Käse: die abgeschnittenen Schichten eines Käseblocks liegen flach wie ein Teppich. Einen Käseblock mit dem Küchenmesser schneiden, um Scheiben zu erhalten."
+          ],
+          "secret": [
+            "Sie ist die Schnittstufe des Käseblocks, keine eigene Zutat."
+          ]
         }
       },
       "craftedBy": [],
@@ -2287,6 +2375,30 @@
         },
         "de": {
           "summary": "Käse- und Butterscheiben in einem Stapel: die andere Sorte auf einen Käse- oder Butter-Teppich legen (jeder Klick, schleichend oder nicht), der Stapel merkt sich die Sorte jeder Schicht, 1 px pro Scheibe, bis zu 8 Schichten. Begehbar bis zur höchsten Käseschicht, oben liegende Butter behält den Rutschig-Effekt. Abbauen gibt je Schicht eine Scheibe der richtigen Sorte zurück."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A tidy pile of slices that wishes it were a sandwich."
+          ],
+          "use": [
+            "Mixed slices of cheese, butter and cake share this layer block. It is a stage of cutting slices off a block, not something you craft."
+          ],
+          "secret": [
+            "What it shows depends on the slices it holds."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein ordentlicher Stapel Scheiben, der gern ein Sandwich wäre."
+          ],
+          "use": [
+            "Gemischte Scheiben aus Käse, Butter und Kuchen teilen sich diesen Schichtblock. Er ist eine Stufe beim Abschneiden von Scheiben, nichts zum Herstellen."
+          ],
+          "secret": [
+            "Was er zeigt, hängt von den enthaltenen Scheiben ab."
+          ]
         }
       },
       "craftedBy": [],

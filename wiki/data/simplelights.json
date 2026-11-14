@@ -2703,6 +2703,30 @@
         }
       },
       "texture": "assets/textures/simplelights/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A slim book that knows every switch of the flat lamps."
+          ],
+          "use": [
+            "The Simple Lights Guide explains the Light Panes and their colours. Craft it shapeless from a book and a light pane."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein schlankes Buch, das jeden Schalter der flachen Lampen kennt."
+          ],
+          "use": [
+            "Das Simple Lights-Handbuch erklärt die Lichtscheiben und ihre Farben. Formlos aus einem Buch und einer Lichtscheibe herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     }
@@ -4185,6 +4209,30 @@
           "details": [
             "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
             "Rezept: eine Scheibe + Redstone-Staub = Redstone-Scheibe."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pane that talks in colours instead of words."
+          ],
+          "use": [
+            "Its colour follows the redstone signal strength: each of the 15 strengths shows another dye colour, no signal is dark."
+          ],
+          "secret": [
+            "Place it on any side of a block; it is only 1 pixel thick and shines only while powered."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Scheibe, die in Farben statt in Worten spricht."
+          ],
+          "use": [
+            "Ihre Farbe folgt der Redstone-Signalstärke: jede der 15 Stärken zeigt einen anderen Farbstoff, ohne Signal ist sie dunkel."
+          ],
+          "secret": [
+            "Auf jede Seite eines Blocks setzbar; nur 1 Pixel dick und leuchtet nur mit Strom."
           ]
         }
       },

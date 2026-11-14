@@ -2556,6 +2556,30 @@
         }
       },
       "texture": "assets/textures/simplefun/item/bubble_wand.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A stick, a loop of string and a cheerful breath: the oldest way to make small rainbows."
+          ],
+          "use": [
+            "Craft a stick, string and a water bucket; the bucket stays. Hold use and a soap bubble rises every 0.7 seconds, up to 8 blocks, and pops at a ceiling. At most 12 bubbles per player, 64 uses."
+          ],
+          "secret": [
+            "The bubbles are pure particles: they block nothing and carry nothing, so they are safe near redstone and sleepers."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Stock, eine Fadenschlaufe und ein fröhlicher Atem: die älteste Art, kleine Regenbögen zu machen."
+          ],
+          "use": [
+            "Aus Stock, Faden und Wassereimer herstellbar; der Eimer bleibt. Gedrückt halten lässt alle 0,7 Sekunden eine Seifenblase bis zu 8 Blöcke aufsteigen, sie platzt an der Decke. Höchstens 12 Blasen je Spieler, 64 Benutzungen."
+          ],
+          "secret": [
+            "Die Blasen sind reine Partikel: sie blockieren und tragen nichts, also ungefährlich neben Redstone und Schläfern."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:bubble_wand"
       ],
@@ -2584,6 +2608,30 @@
         }
       },
       "texture": "assets/textures/simplefun/item/dice.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Two bone-white cubes that have settled more arguments than any council."
+          ],
+          "use": [
+            "Craft two bone meal with black dye. Use to roll 1 to 6, sneak to roll two dice. The server rolls and the number floats above your head and appears in chat within 16 blocks; 1 second cooldown."
+          ],
+          "secret": [
+            "Nobody can load them: the roll is made by the server, so even the owner cannot cheat."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Zwei knochenweiße Würfel, die mehr Streit beendet haben als jeder Rat."
+          ],
+          "use": [
+            "Aus zwei Knochenmehl und schwarzem Farbstoff herstellbar. Benutzen würfelt 1 bis 6, Schleichen würfelt zwei Würfel. Der Server würfelt, die Zahl schwebt über dem Kopf und erscheint im Chat im Umkreis von 16 Blöcken; 1 Sekunde Abklingzeit."
+          ],
+          "secret": [
+            "Sie lassen sich nicht manipulieren: der Server würfelt, selbst der Besitzer kann nicht schummeln."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:dice"
       ],
@@ -2651,6 +2699,30 @@
         }
       },
       "texture": "assets/textures/simplefun/item/lucky_coin.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A copper coin with a golden nugget in its heart, flipped before more journeys than anyone can count."
+          ],
+          "use": [
+            "Craft a copper ingot with a gold nugget. Use it to flip: heads or tails floats above your head and shows in chat within 16 blocks; 1 second cooldown."
+          ],
+          "secret": [
+            "It never lands on its edge, and it brings no actual luck. The server flips it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Kupfermünze mit einem Goldnugget im Herzen, vor mehr Reisen geworfen, als man zählen kann."
+          ],
+          "use": [
+            "Aus einem Kupferbarren und einem Goldnugget herstellbar. Benutzen wirft: Kopf oder Zahl schwebt über dem Kopf und erscheint im Chat im Umkreis von 16 Blöcken; 1 Sekunde Abklingzeit."
+          ],
+          "secret": [
+            "Sie landet nie auf der Kante und bringt kein echtes Glück. Der Server wirft sie."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:lucky_coin"
       ],
@@ -2679,6 +2751,30 @@
         }
       },
       "texture": "assets/textures/simplefun/item/paper_plane.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "One sheet, a few clever folds, and a very short career as an aircraft."
+          ],
+          "use": [
+            "Craft one paper. Throw it: it glides, flies through creatures without harm and lands as an item (it floats on water). Best range is about 20 degrees upward, at most 60 seconds in the air."
+          ],
+          "secret": [
+            "Hold a book and quill or a written book in the other hand and its first page (up to 200 characters) is folded into the plane; sneak and use reads the note."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Blatt, ein paar kluge Falze und eine sehr kurze Karriere als Flugzeug."
+          ],
+          "use": [
+            "Aus einem Papier herstellbar. Geworfen gleitet es, fliegt ohne Schaden durch Lebewesen und landet als Item (es schwimmt auf Wasser). Die beste Weite hat es bei etwa 20 Grad nach oben, höchstens 60 Sekunden in der Luft."
+          ],
+          "secret": [
+            "Hält man ein Buch mit Feder oder ein beschriebenes Buch in der anderen Hand, wird die erste Seite (bis 200 Zeichen) ins Flugzeug gefaltet; Schleichen und Benutzen liest die Notiz."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:paper_plane"
       ],
@@ -2707,6 +2803,30 @@
         }
       },
       "texture": "assets/textures/simplefun/item/party_popper.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Born at a birthday nobody remembers, this paper tube still goes off with the same cheerful pop."
+          ],
+          "use": [
+            "Craft paper, string and a dye for two. Use it: confetti in the dye's colour rises (at most 40 particles) with a pop. It is used up, 3 seconds cooldown."
+          ],
+          "secret": [
+            "It does nothing but celebrate. No damage, no block changes, and it works in any world where fun is allowed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Entstanden auf einer Geburtstagsfeier, an die sich keiner erinnert, knallt die Papierrolle noch immer fröhlich."
+          ],
+          "use": [
+            "Aus Papier, Faden und einem Farbstoff werden zwei hergestellt. Benutzen: Konfetti in der Farbe des Farbstoffs steigt auf (höchstens 40 Partikel) mit einem Knall. Sie wird verbraucht, 3 Sekunden Abklingzeit."
+          ],
+          "secret": [
+            "Sie tut nichts außer feiern. Kein Schaden, keine Blockänderung."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:party_popper_black",
         "simplefun:party_popper_blue",
@@ -2750,6 +2870,30 @@
         }
       },
       "texture": "assets/textures/simplefun/item/skipping_stone.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The flattest stones always lie near water, as if they had been waiting for a thrower."
+          ],
+          "use": [
+            "One cobblestone, tuff, andesite or cobbled deepslate makes four. Throw it flat over water and it skips up to five times with a splash and a count; too steep or too slow, it sinks."
+          ],
+          "secret": [
+            "Skipping has a record: the longest run is kept as a statistic. It causes no damage and changes no blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Die flachsten Steine liegen immer am Wasser, als hätten sie auf einen Werfer gewartet."
+          ],
+          "use": [
+            "Ein Bruchstein, Tuff, Andesit oder Tiefenschiefer-Bruchstein ergibt vier. Flach über Wasser geworfen hüpft er bis zu fünfmal mit Spritzer und Zählung; zu steil oder zu langsam geht er unter."
+          ],
+          "secret": [
+            "Das Hüpfen hat einen Rekord: die längste Serie steht in der Statistik. Kein Schaden, keine Blockänderung."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:skipping_stone"
       ],
@@ -2778,6 +2922,30 @@
         }
       },
       "texture": "assets/textures/simplefun/item/water_balloon.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A leather skin full of lake and good intentions, made for hot days and hotter pranks."
+          ],
+          "use": [
+            "Craft leather, string and a water bucket for four; the bucket stays. It hits players and blocks only: it douses fire, lit candles and campfires within one block, fills a hit cauldron by one level and wets a hit player. 5 second cooldown."
+          ],
+          "secret": [
+            "Mobs are safe from it, and in the Nether it only makes steam."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Lederhaut voll See und guter Absichten, gemacht für heiße Tage und heißere Streiche."
+          ],
+          "use": [
+            "Aus Leder, Faden und einem Wassereimer werden vier hergestellt; der Eimer bleibt. Er trifft nur Spieler und Blöcke: löscht Feuer, brennende Kerzen und Lagerfeuer im Umkreis von einem Block, füllt einen getroffenen Kessel um eine Stufe und macht einen getroffenen Spieler nass. 5 Sekunden Abklingzeit."
+          ],
+          "secret": [
+            "Mobs bleiben verschont, und im Nether entsteht nur Dampf."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:water_balloon"
       ],
@@ -2808,6 +2976,30 @@
         }
       },
       "texture": "assets/textures/simplefun/block/rubber_duck.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "It floats, it squeaks, and it has solved more bath-time problems than any wizard."
+          ],
+          "use": [
+            "Craft yellow dye, a slimeball and a gold nugget. Place it on a water surface (like a lily pad) or on solid ground; clicking it squeaks and makes it hop, touching does nothing."
+          ],
+          "secret": [
+            "Placed on soul sand it becomes the pirate duck. It is purely decorative and harmless."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Sie schwimmt, sie quietscht, und sie hat mehr Badeprobleme gelöst als jeder Zauberer."
+          ],
+          "use": [
+            "Aus gelbem Farbstoff, Schleimball und Goldnugget herstellbar. Auf eine Wasseroberfläche (wie ein Seerosenblatt) oder auf festen Boden stellbar; ein Klick quietscht und lässt sie hüpfen, Berühren tut nichts."
+          ],
+          "secret": [
+            "Auf Seelensand gestellt wird sie zur Piratenente. Sie ist rein dekorativ und harmlos."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:rubber_duck"
       ],

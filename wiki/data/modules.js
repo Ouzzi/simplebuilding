@@ -161,12 +161,12 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 80
     },
-    "dataHash": "b3459a83e384"
+    "dataHash": "cd3d70321a96"
   },
   {
     "id": "simpleriding",
     "displayName": "Simple Riding",
-    "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.",
+    "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, horseshoes, loot, and trades.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -284,7 +284,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "7400d6b85566"
+    "dataHash": "c24a3c27089c"
   },
   {
     "id": "simplevisuals",
@@ -417,7 +417,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletweaks",
     "displayName": "Simple Tweaks",
-    "description": "Legacy compatibility and server-authoritative claims, on by default.",
+    "description": "Legacy compatibility, server-authoritative claims, admin tools (block log, backups, anti-X-ray) and player and protection tweaks, on by default.",
     "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
@@ -531,7 +531,10 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "simpleend"
+      "simpleend",
+      "simplecrucibles",
+      "simpleores",
+      "simpleanimals"
     ],
     "stage": "new",
     "parent": "simplebuilding",
@@ -551,7 +554,7 @@ window.WIKI_MODULES = [
       "recipes": 16,
       "features": 7
     },
-    "dataHash": "395a3f930a70"
+    "dataHash": "691aa47bf56d"
   },
   {
     "id": "simplelib",
@@ -667,9 +670,9 @@ window.WIKI_MODULES = [
       "items": 5,
       "recipes": 6,
       "config": 26,
-      "features": 10
+      "features": 11
     },
-    "dataHash": "c9d631db9d05"
+    "dataHash": "d8967caa4fac"
   },
   {
     "id": "simplelivemap",
@@ -699,7 +702,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletrims",
     "displayName": "Simple Trims",
-    "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
+    "description": "Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1030,9 +1033,9 @@ window.WIKI_MODULES = [
     "counts": {
       "blocks": 1,
       "recipes": 1,
-      "features": 3
+      "features": 5
     },
-    "dataHash": "33deba19b1fe"
+    "dataHash": "8fb396e1ac00"
   },
   {
     "id": "simpleaesthetics",
@@ -1825,7 +1828,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 5
     },
-    "dataHash": "d3829d5a2cf0"
+    "dataHash": "9f51507a9954"
   },
   {
     "id": "simplegadgets",
@@ -2165,7 +2168,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 2
     },
-    "dataHash": "d4f04d690792"
+    "dataHash": "b10f9cdc4339"
   },
   {
     "id": "simpleenchanting",
@@ -2269,7 +2272,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "45f8460fa083"
+    "dataHash": "372004c9aef6"
   },
   {
     "id": "simplechisels",
@@ -2302,7 +2305,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 8
     },
-    "dataHash": "37272b87906b"
+    "dataHash": "f3583389fe85"
   },
   {
     "id": "simplelayers",
