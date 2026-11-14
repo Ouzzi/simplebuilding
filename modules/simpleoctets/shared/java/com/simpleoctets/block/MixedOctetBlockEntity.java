@@ -67,27 +67,40 @@ public class MixedOctetBlockEntity extends BlockEntity {
         }
     }
 
+    /**
+     * a-hang50 (owner 14.11.: the world hung, closing hung, reopening took ages): setLevel runs while the chunk is still in its
+     * FULL step ({@code SerializableChunkData.postLoadChunk -> LevelChunk.setBlockEntity}). {@code server.execute} ran the check
+     * INLINE there (the server thread was not inside a task), and its {@code level.getBlockEntity} waited for exactly that chunk
+     * ({@code ServerChunkCache.getChunk -> managedBlock}) forever. {@code schedule} always queues; the check itself never loads.
+     */
     @Override
     public void setLevel(net.minecraft.world.level.Level level) {
         super.setLevel(level);
         if (!level.isClientSide() && level.getServer() != null) {
-            level.getServer().execute(this::dropGhostBits);
+            net.minecraft.server.MinecraftServer server = level.getServer();
+            server.schedule(new net.minecraft.server.TickTask(server.getTickCount(), this::dropGhostBits));
         }
     }
 
     /**
      * REV2-B-5: bits the state sets but no readable material backs (a removed mod's material, a damaged file) made an
-     * invisible ghost cell with collision; after the load they are cleared (nothing left = air or water).
+     * invisible ghost cell with collision; after the load they are cleared (nothing left = air or water). a-hang50: only on a
+     * chunk that is already FULL ({@code getChunkNow}, never a blocking load - a chunk still loading is skipped, the next load
+     * repairs it), and without neighbour or shape updates, so no other chunk is touched.
      */
-    private void dropGhostBits() {
-        net.minecraft.world.level.Level level = this.level;
-        if (level == null || this.isRemoved() || !level.hasChunkAt(this.worldPosition) || level.getBlockEntity(this.worldPosition) != this) {
+    void dropGhostBits() {
+        if (!(this.level instanceof net.minecraft.server.level.ServerLevel level) || this.isRemoved()) {
             return;
         }
-        BlockState state = getBlockState();
-        BlockState[] parts = OctetCells.parts(level, this.worldPosition, state);
+        BlockPos pos = this.worldPosition;
+        net.minecraft.world.level.chunk.LevelChunk chunk = level.getChunkSource().getChunkNow(pos.getX() >> 4, pos.getZ() >> 4);
+        if (chunk == null || chunk.getBlockEntity(pos, net.minecraft.world.level.chunk.LevelChunk.EntityCreationType.CHECK) != this) {
+            return;
+        }
+        BlockState state = chunk.getBlockState(pos);
+        BlockState[] parts = OctetCells.parts(chunk, pos, state);
         if (OctetCells.mask(parts) != OctetCellBlock.mask(state)) {
-            OctetCells.set(level, this.worldPosition, parts, OctetCells.wet(state), Block.UPDATE_ALL);
+            OctetCells.set(level, pos, parts, OctetCells.wet(state), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
         }
     }
 
