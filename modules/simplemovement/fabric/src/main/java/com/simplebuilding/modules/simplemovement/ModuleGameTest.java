@@ -12,7 +12,8 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void keyMigration(GameTestHelper h){MovementTests.keyMigration(h);}
  @GameTest(maxTicks=100) public void sync(GameTestHelper h){MovementTests.sync(h);}
  @GameTest(maxTicks=100) public void configBounds(GameTestHelper h){MovementTests.configBounds(h);}
- @GameTest(maxTicks=100) public void crawl(GameTestHelper h){MovementTests.crawl(h);}
+  @GameTest(maxTicks=100) public void crawl(GameTestHelper h){MovementTests.crawl(h);}
+ @GameTest(maxTicks=100) public void crawlDimension(GameTestHelper h){MovementTests.crawlDimension(h);}
  @GameTest(maxTicks=100) public void climbPackets(GameTestHelper h){MovementTests.climbPackets(h);}
  @GameTest(maxTicks=100) public void climbMechanics(GameTestHelper h){MovementTests.climbMechanics(h);}
  @GameTest(maxTicks=100) public void powderSnow(GameTestHelper h){MovementTests.powderSnow(h);}

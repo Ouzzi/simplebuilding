@@ -22,7 +22,9 @@ public final class ContainersFabricClient implements ClientModInitializer {
         com.simplebuilding.modules.simpleinterfaces.client.SortClient.toServer = payload -> {
             if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
         };
-        KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.ZoomState.KEY);
+        // simpleinterfaces-2 (R-INT-1): the zoom key (V) only exists while zoomHotkey is on at game start, so it blocks no key otherwise.
+        if (com.simplebuilding.modules.simpleinterfaces.client.ContainersClient.config().zoomHotkey)
+            KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.ZoomState.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.ZoomState::tick);
         // DW04A-2: the Free Look wheel zoom (simplelib) stays out of the way while the spyglass or the zoom key zooms
         com.simplelib.api.client.FreeLook.otherZoom = () -> {

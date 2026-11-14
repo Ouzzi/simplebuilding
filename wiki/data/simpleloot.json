@@ -7,7 +7,7 @@
   "mod": {
     "id": "simpleloot",
     "name": "Simple Loot",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraftLines": [
       "26.3"
     ],

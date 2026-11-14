@@ -367,7 +367,7 @@ window.WIKI_MODULES = [
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
     "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -375,7 +375,6 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth_config",
       "simpleweather",
       "simpleinterfaces",
       "simpleloot",
@@ -412,7 +411,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 9
     },
-    "dataHash": "64f43e49db6a"
+    "dataHash": "0b3f58ad30d1"
   },
   {
     "id": "simpletweaks",
@@ -597,7 +596,7 @@ window.WIKI_MODULES = [
     "id": "simpleinterfaces",
     "displayName": "Simple Interfaces",
     "description": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -605,14 +604,13 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth_config",
       "simplelib"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -628,7 +626,7 @@ window.WIKI_MODULES = [
       "config": 46,
       "features": 55
     },
-    "dataHash": "a1e65b067304"
+    "dataHash": "71e1932a9e2f"
   },
   {
     "id": "simplemaps",
@@ -776,21 +774,19 @@ window.WIKI_MODULES = [
     "id": "simpleweather",
     "displayName": "Simple Weather",
     "description": "Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "cloth_config"
-    ],
+    "requires": [],
     "optional": [
       "simplequalityoflife",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -806,27 +802,25 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 5
     },
-    "dataHash": "867e1f6a2d79"
+    "dataHash": "bfc55d6e3a10"
   },
   {
     "id": "simplemovement",
     "displayName": "Simple Movement",
-    "description": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
-    "version": "0.1.0",
+    "description": "Manual crawling, server-allowed autowalk, faster ladders (Vanilla 0.2, default 0.4) and Frost Walker on powder snow, plus the Step Height (I-II) and Sprint (I-III) treasure enchantments and a Jump Boost step-up; a sub-mod of Simple QoL, also playable alone.",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "cloth_config"
-    ],
+    "requires": [],
     "optional": [
       "simplequalityoflife",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -845,28 +839,26 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "d21fd81ccad0"
+    "dataHash": "d073a5d7b8d8"
   },
   {
     "id": "simpletools",
     "displayName": "Simple Tools",
     "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "cloth_config"
-    ],
+    "requires": [],
     "optional": [
       "simplebuilding",
       "simplequalityoflife",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -885,28 +877,26 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "e614b9e1e1fa"
+    "dataHash": "6d33d6f0048b"
   },
   {
     "id": "simplefarming",
     "displayName": "Simple Farming",
     "description": "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "cloth_config"
-    ],
+    "requires": [],
     "optional": [
       "simplebuilding",
       "simplequalityoflife",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -922,27 +912,25 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 12
     },
-    "dataHash": "a02bc7cf1c99"
+    "dataHash": "9fa7e73f4b67"
   },
   {
     "id": "simplemobmanners",
     "displayName": "Simple Mob Manners",
     "description": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "cloth_config"
-    ],
+    "requires": [],
     "optional": [
       "simplequalityoflife",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -959,27 +947,25 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 11
     },
-    "dataHash": "2244a94ff298"
+    "dataHash": "5f984a85c7e5"
   },
   {
     "id": "simpleloot",
     "displayName": "Simple Loot",
     "description": "Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "cloth_config"
-    ],
+    "requires": [],
     "optional": [
       "simplequalityoflife",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -995,7 +981,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "dcc743e32c9c"
+    "dataHash": "0627cb98285c"
   },
   {
     "id": "simplequestionary",
