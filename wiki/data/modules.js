@@ -883,9 +883,9 @@ window.WIKI_MODULES = [
       "blocks": 2,
       "recipes": 7,
       "config": 23,
-      "features": 36
+      "features": 32
     },
-    "dataHash": "93924fab75a1"
+    "dataHash": "e614b9e1e1fa"
   },
   {
     "id": "simplefarming",

@@ -35,6 +35,7 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void vaultPersistence(GameTestHelper h){DeathTests.vaultPersistence(h);}
  @GameTest(maxTicks=100) public void vaultFates(GameTestHelper h){DeathTests.vaultFates(h);}
  @GameTest(maxTicks=100) public void vaultLastDeath(GameTestHelper h){DeathTests.vaultLastDeath(h);}
+ @GameTest(maxTicks=100) public void portalDrop(GameTestHelper h){DeathTests.portalDrop(h);}
  @GameTest(maxTicks=100) public void vaultMenuRows(GameTestHelper h){DeathTests.vaultMenuRows(h);}
  @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpletools.discover.ToolsDiscover.recipeUnlocks(h); }
  @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpletools.discover.ToolsDiscover.behaviourHints(h); }

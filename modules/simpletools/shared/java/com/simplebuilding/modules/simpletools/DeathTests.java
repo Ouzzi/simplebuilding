@@ -527,6 +527,32 @@ public final class DeathTests {
     }
 
     /**
+     * simpletools-1 (P3-4): a recorded drop that falls through a portal is the same entity in the other dimension (Vanilla keeps its UUID),
+     * so its entry stays tracked there and gets its real fate afterwards instead of staying "lying" for ever.
+     */
+    public static void portalDrop(GameTestHelper h) {
+        configured(() -> {
+            ServerLevel nether = h.getLevel().getServer().getLevel(net.minecraft.world.level.Level.NETHER);
+            if (nether == null) return;
+            UUID owner = UUID.randomUUID();
+            ItemEntity drop = spawn(h, new ItemStack(Items.IRON_INGOT, 3), new BlockPos(2, 2, 2));
+            UUID id = drop.getUUID();
+            ledger(h).record(owner, h.getLevel().getGameTime(), Optional.empty(), List.of(drop));
+            try {
+                var moved = drop.teleport(new net.minecraft.world.level.portal.TeleportTransition(nether, new Vec3(8, 100, 8), Vec3.ZERO, 0, 0,
+                        net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
+                h.assertTrue(moved instanceof ItemEntity && moved.level() == nether && moved.getUUID().equals(id), "the drop keeps its UUID in the other dimension");
+                h.assertTrue(ledger(h).tracked(id) && lying(h, owner) == 1, "still tracked and lying after the portal");
+                moved.discard();
+                h.assertTrue(!ledger(h).tracked(id) && lying(h, owner) == 0 && fateOf(h, owner, Items.IRON_INGOT) != Fate.LYING, "its end in the other dimension is recorded");
+            } finally {
+                ledger(h).clear(owner);
+            }
+        });
+        h.succeed();
+    }
+
+    /**
      * The menu sends fate, age and timer state: lying first, a loaded entity runs only in an entity-ticking chunk, an unloaded
      * one keeps its last age and does not run, never-despawning items are flagged, other fates are sorted after and coloured.
      */

@@ -13,7 +13,7 @@ public final class ToolsScreen {
         var b = me.shedaniel.clothconfig2.api.ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("simpletools.title"));
         var e = b.entryBuilder();
         var general = b.getOrCreateCategory(Component.translatable("simpletools.tab.general"));
-        general.addEntry(e.startBooleanToggle(name("enableFullDurabilityBonus"), c.enableFullDurabilityBonus).setDefaultValue(true)
+        general.addEntry(e.startBooleanToggle(name("enableFullDurabilityBonus"), c.enableFullDurabilityBonus).setDefaultValue(false)
                 .setTooltip(tip("enableFullDurabilityBonus")).setSaveConsumer(v -> c.enableFullDurabilityBonus = v).build());
         general.addEntry(e.startDoubleField(name("fullDurabilityThreshold"), c.fullDurabilityThreshold).setMin(0.8).setMax(1)
                 .setDefaultValue(ToolsConfig.DEFAULT_DURABILITY_THRESHOLD).setTooltip(tip("fullDurabilityThreshold"))
@@ -43,8 +43,6 @@ public final class ToolsScreen {
                 .setTooltip(tip("enableSoulbound")).setSaveConsumer(v -> c.enableSoulbound = v).build());
         death.addEntry(e.startBooleanToggle(name("enableDeathVault"), c.enableDeathVault).setDefaultValue(true)
                 .setTooltip(tip("enableDeathVault")).setSaveConsumer(v -> c.enableDeathVault = v).build());
-        death.addEntry(e.startBooleanToggle(name("deathVaultRedeem"), c.deathVaultRedeem).setDefaultValue(false)
-                .setTooltip(tip("deathVaultRedeem")).setSaveConsumer(v -> c.deathVaultRedeem = v).build());
         death.addEntry(e.startIntField(name("deathDurabilityCap"), c.deathDurabilityCap).setMin(1).setMax(2031).setDefaultValue(50)
                 .setTooltip(tip("deathDurabilityCap")).setSaveConsumer(v -> c.deathDurabilityCap = v).build());
         death.addEntry(e.startIntField(name("soulboundAnvilCost"), c.soulboundAnvilCost).setMin(1).setMax(39).setDefaultValue(35)
@@ -53,12 +51,7 @@ public final class ToolsScreen {
                 .setTooltip(tip("soulboundTraderChance")).setSaveConsumer(v -> c.soulboundTraderChance = v).build());
         death.addEntry(e.startDoubleField(name("soulboundEndCityChance"), c.soulboundEndCityChance).setMin(0).setMax(1).setDefaultValue(0.02)
                 .setTooltip(tip("soulboundEndCityChance")).setSaveConsumer(v -> c.soulboundEndCityChance = v).build());
-        death.addEntry(e.startIntField(name("deathVaultCostPerItem"), c.deathVaultCostPerItem).setMin(1).setMax(64).setDefaultValue(4)
-                .setTooltip(tip("deathVaultCostPerItem")).setSaveConsumer(v -> c.deathVaultCostPerItem = v).build());
-        death.addEntry(e.startIntField(name("deathVaultMaxPerOffering"), c.deathVaultMaxPerOffering).setMin(1).setMax(27).setDefaultValue(3)
-                .setTooltip(tip("deathVaultMaxPerOffering")).setSaveConsumer(v -> c.deathVaultMaxPerOffering = v).build());
-        death.addEntry(e.startIntField(name("deathVaultMaxDeaths"), c.deathVaultMaxDeaths).setMin(1).setMax(100).setDefaultValue(20)
-                .setTooltip(tip("deathVaultMaxDeaths")).setSaveConsumer(v -> c.deathVaultMaxDeaths = v).build());
+        // simpletools-1: the buy-back options (deathVaultRedeem, CostPerItem, MaxPerOffering, MaxDeaths) stay hidden until the buy-back is finished.
         b.setSavingRunnable(() -> {
             SimpleTools.CONFIG = c;
             SimpleTools.save();

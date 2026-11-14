@@ -33,7 +33,8 @@
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
     "java": ">=25",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "simplelib": ">=0.4.0"
   },
   "mixins": [
     "simpletools.mixins.json"

@@ -4,12 +4,12 @@ package com.simplebuilding.modules.simpletools;
 public final class ToolsConfig {
     public static final double MAX_BONUS = 1.5;
     public static final double DEFAULT_DURABILITY_THRESHOLD = 0.8;
-    public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.0;
-    /** A tool above the threshold gets the damage/mining bonus. */
-    public boolean enableFullDurabilityBonus = true;
+    public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.2;
+    /** A tool above the threshold gets the damage/mining bonus. Off by default (A12: changes combat values); simpletools-4. */
+    public boolean enableFullDurabilityBonus = false;
     /** Share of durability left from which the bonus applies, 0.8-1. */
     public double fullDurabilityThreshold = DEFAULT_DURABILITY_THRESHOLD;
-    /** Damage and mining speed factor, 1.0-1.5 (1.0 = no bonus). */
+    /** Damage and mining speed factor, 1.0-1.5 (1.0 = no bonus), default 1.2 once the bonus is switched on. */
     public double fullDurabilityBonusMultiplier = DEFAULT_DURABILITY_BONUS_MULTIPLIER;
     /** Repairing without a new enchantment keeps the anvil work cost (2026-10-02). */
     public boolean anvilRepairKeepsCost = true;
@@ -25,8 +25,8 @@ public final class ToolsConfig {
     public boolean enableSoulbound = true;
     /** Death Vault block: shows what became of the items dropped at your last death. */
     public boolean enableDeathVault = true;
-    /** Future feature, off by default: buy lost death drops (despawned, burned) back with an offering at the Death Vault. */
-    public boolean deathVaultRedeem = false;
+    /** Hidden until finished: transient, so not in the config file, screen, /simpletools config or manual (simpletools-1). Future feature, off by default: buy lost death drops (despawned, burned) back with an offering at the Death Vault. */
+    public transient boolean deathVaultRedeem = false;
     /** Soulbound items and Death Vault returns keep at most this much durability, 1-2031. */
     public int deathDurabilityCap = 50;
     /** Anvil levels for every combination that applies Soulbound, 1-39 (Vanilla refuses 40+). */
@@ -36,11 +36,11 @@ public final class ToolsConfig {
     /** Chance of a Soulbound book in an End City treasure chest, 0-1 (applied on data reload). */
     public double soulboundEndCityChance = 0.02;
     /** Future redeem option: offering points (diamonds, Simple Money bills) per returned item, 1-64. */
-    public int deathVaultCostPerItem = 4;
+    public transient int deathVaultCostPerItem = 4;
     /** Future redeem option: items returned by one offering at most, 1-27. */
-    public int deathVaultMaxPerOffering = 3;
+    public transient int deathVaultMaxPerOffering = 3;
     /** Future redeem option: deaths kept per player, 1-100 (the oldest are forgotten); without it only the last death is kept. */
-    public int deathVaultMaxDeaths = 20;
+    public transient int deathVaultMaxDeaths = 20;
     /** Strip station (IG31-59): a cage in which an axe works a whole stack of blocks at once. */
     public boolean enableStripStation = true;
     /** Strip station: a hopper above fills it, a hopper below takes only the worked blocks. */
