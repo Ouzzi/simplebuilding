@@ -839,7 +839,7 @@ ALL.put("config_command", h -> {
             for (com.simplebeacons.conduit.ConduitKind kind : List.of(com.simplebeacons.conduit.ConduitKind.EVIL, com.simplebeacons.conduit.ConduitKind.MIGHTY_EVIL)) {
                 int frame = kind.mighty() ? 90 : 66;
                 h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, stranger).isEmpty() && !player.hasEffect(MobEffects.MINING_FATIGUE),
-                        kind + ": a foreign claim is spared");
+                        kind + ": a foreign claim is spared (effects " + player.getActiveEffects() + ", players " + h.getLevel().players() + ")");
                 h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, null).isEmpty() && !player.hasEffect(MobEffects.MINING_FATIGUE),
                         kind + ": no owner, claim spared");
                 h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, holder).contains(player) && player.hasEffect(MobEffects.MINING_FATIGUE),
