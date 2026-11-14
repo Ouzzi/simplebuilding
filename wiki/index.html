@@ -3182,6 +3182,7 @@ function pageOverview() {
     }).join('') + '</div></details></div>';
   }
 
+  h += conv51Box(MODID);
   h += moduleInfo();
 
   var state = '<dl class="kv" style="margin:.2rem 0"><dt>' + esc(T('kvMcLine')) + '</dt><dd>' + esc(g.line || '?') + '</dd><dt>' + esc(T('kvGenerator')) + '</dt><dd><code>' + esc(g.generator || '?') + '</code></dd><dt>' + esc(T('kvRegenerate')) + '</dt><dd><code>' + esc(g.howToRegenerate || '?') + '</code></dd>' + (g.warning ? '<dt>' + esc(T('kvHint')) + '</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl>' +
@@ -5577,6 +5578,21 @@ var DEV_QUERY = (function () {
 })();
 function isDevSite() {
   return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || DEV_QUERY;
+}
+/* N51 Konverter-Seiten (bauwerke.html, modelle.html): bis zur Freigabe nur im Dev-Wiki verlinkt; zur Freigabe hier und in
+   assets/conv/conv-ui.js auf true setzen (Plan docs/ai/PLAN-B-CONV51-2026-11-14.md, Abschnitt 12/13). */
+var CONV51_PUBLIC = false;
+var CONV51_PAGES = {
+  simplebuildingtools: { href: 'bauwerke.html', en: ['Buildings converter', 'Turn .nbt, .schem, .litematic and .schematic files into blueprint codes, and codes back into files.'],
+    de: ['Bauwerke-Konverter', '.nbt-, .schem-, .litematic- und .schematic-Dateien in Blaupausen-Codes umwandeln und Codes zurück in Dateien.'] },
+  simplemodels: { href: 'modelle.html', en: ['3D models converter', 'Turn .json, .bbmodel, .obj and .gltf/.glb models into model code, and code back into .bbmodel or a resource pack.'],
+    de: ['3D-Modelle-Konverter', '.json-, .bbmodel-, .obj- und .gltf/.glb-Modelle in Modell-Code umwandeln und Code zurück in .bbmodel oder ein Ressourcenpaket.'] }
+};
+function conv51Box(modId) {
+  var c = CONV51_PAGES[modId];
+  if (!c || !(CONV51_PUBLIC || isDevSite())) return '';
+  var t = c[LANG] || c.en;
+  return '<div class="box' + (CONV51_PUBLIC ? '' : ' sb-dev') + '"><div class="box-title"><a href="' + esc(c.href) + (CONV51_PUBLIC ? '' : '?dev=1') + '">' + esc(t[0]) + '</a>' + (CONV51_PUBLIC ? '' : ' <span class="muted tiny">DEV</span>') + '</div><p style="margin:.2rem 0">' + esc(t[1]) + '</p></div>';
 }
 
 /* Items und Bloecke aller geladenen Mods: Bild und Name auch fuer fremde Ids (Handbuch, Fragentisch, Rezepte). */

@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Independent reference (Python port of BlueprintCode.serialize) for the N51 tests. Usage: ref_blueprint.py <structure.nbt>
-Reads a vanilla structure .nbt (gzip) and prints the blueprint code the Java serializer would write
-(defaults table limited to the rules in conv-core.js; same omission rule)."""
-import gzip, re, struct, sys
+"""Independent reference (Python port of BlueprintCode.serialize) for the N51 tests.
+Usage: ref_blueprint.py <file>   (.nbt structure, Sponge .schem v1-v3, .litematic, MCEdit .schematic; gzip or plain)
+Prints the blueprint code the Java serializer would write. The readers here are written separately from conv-formats.js;
+only the tables (defaults, renames, MCEdit ids) come from the same generated wiki/assets/conv/conv-data.js."""
+import gzip, json, os, re, struct, sys
+
+_DATA_JS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'wiki', 'assets', 'conv', 'conv-data.js')
+_t = open(_DATA_JS, encoding='utf-8').read()
+DATA = json.loads(_t[_t.index('/*DATA*/') + 8:_t.index('/*END*/')])
+KNOWN = {ns + ':' + b for ns, v in DATA['blocks'].items() for b in v.split(' ')}
 
 def read_nbt(data):
     if data[:2] == b'\x1f\x8b': data = gzip.decompress(data)
@@ -32,27 +38,32 @@ def read_nbt(data):
         raise ValueError(t)
     assert take(1)[0] == 10; s(); return val(10)
 
-F4 = dict(north='false', east='false', south='false', west='false')
-def d(**k): return dict(waterlogged='false', **k)
-RULES = [
- (r'_stairs$', d(facing='north', half='bottom', shape='straight')), (r'_slab$', d(type='bottom')),
- (r'_fence_gate$', dict(facing='north', in_wall='false', open='false', powered='false')), (r'_fence$', d(**F4)),
- (r'_wall$', d(east='none', north='none', south='none', west='none', up='true')),
- (r'_trapdoor$', d(facing='north', half='bottom', open='false', powered='false')),
- (r'_door$', dict(facing='north', half='lower', hinge='left', open='false', powered='false')),
- (r'(_log|_wood|_stem|_hyphae|_pillar|hay_block|bone_block)$|^(basalt|deepslate|quartz_pillar|purpur_pillar)$', dict(axis='y')),
- (r'_leaves$', d(distance='7', persistent='false')), (r'^(glass_pane|iron_bars)$|_glass_pane$', d(**F4)),
- (r'^(lantern|soul_lantern)$', d(hanging='false')), (r'^(ladder|chest|trapped_chest|ender_chest)$', d(facing='north', type='single')),
- (r'^(furnace|blast_furnace|smoker)$', dict(facing='north', lit='false')), (r'^(wall_torch|soul_wall_torch|redstone_wall_torch)$', dict(facing='north')),
- (r'_wall_sign$', d(facing='north')), (r'_sign$', d(rotation='0')), (r'_button$', dict(face='wall', facing='north', powered='false')),
- (r'_bed$', dict(facing='north', occupied='false', part='foot'))]
+RULES = [(re.compile(p), d) for p, d in DATA['defaults']]
+
+
+def upgrade(name, props, dv):
+    if ':' not in name: name = 'minecraft:' + name
+    if not name.startswith('minecraft:'): return name, props
+    path = name[10:]
+    if name not in KNOWN and path in DATA['renames']: path = DATA['renames'][path]
+    for below, old, new in DATA['renamesBelow']:
+        if dv is not None and dv < below and path == old: path = new
+    for pat, keys, vmap in DATA['valueMaps']:
+        if re.search(pat, path):
+            props = {k: vmap.get(v, v) if k in keys else v for k, v in props.items()}
+    if path == 'cauldron' and 'level' in props:
+        props = dict(props); lv = props.pop('level')
+        if lv != '0': path = 'water_cauldron'; props['level'] = lv
+    return 'minecraft:' + path, props
+
 
 def spec(name, props):
     ns, _, path = name.partition(':')
     out = path if ns == 'minecraft' else name
-    defs = next((r for pat, r in RULES if re.search(pat, path)), None) if ns == 'minecraft' else None
+    defs = next((r for pat, r in RULES if pat.search(path)), None) if ns == 'minecraft' else None
     parts = [f'{k}={v}' for k, v in sorted(props.items()) if not (defs and defs.get(k) == v)]
     return f'{out}[{",".join(parts)}]' if parts else out
+
 
 def boxes(cells):  # cells: set of (x,y,z); greedy as BlueprintCode.boxes
     rem = set(cells); out = []
@@ -97,9 +108,144 @@ def serialize(blocks):
         body += ''.join(l + '\n' for l in lines)
     return (head + al + body).rstrip()
 
+SKIP = re.compile(r'^minecraft:(air|cave_air|void_air|structure_void|moving_piston)$')
+
+
+def state(name, props, dv):
+    name, props = upgrade(name, {k: str(v) for k, v in props.items()}, dv)
+    return None if SKIP.match(name) else spec(name, props)
+
+
+def parse_state(text):
+    m = re.match(r'^([^\[]+)(?:\[(.*)\])?$', text.strip())
+    props = dict(kv.split('=', 1) for kv in m.group(2).split(',') if '=' in kv) if m.group(2) else {}
+    return m.group(1), {k.strip(): v.strip() for k, v in props.items()}
+
+
+def read_structure(n):
+    dv = n.get('DataVersion'); pal = n.get('palette') or n['palettes'][0]
+    sp = [state(e['Name'], e.get('Properties', {}), dv) for e in pal]
+    return {tuple(b['pos']): sp[b['state']] for b in n['blocks'] if sp[b['state']]}
+
+
+def read_sponge(n):
+    s = n['Schematic'] if isinstance(n.get('Schematic'), dict) else n
+    v3 = s.get('Version') == 3
+    blk = s['Blocks'] if v3 else s
+    pal, data = blk['Palette'], bytes(b & 255 for b in (blk['Data'] if v3 else s['BlockData']))
+    w, h, l = (s[k] & 0xffff for k in ('Width', 'Height', 'Length'))
+    dv = s.get('DataVersion')
+    sp = {}
+    for text, i in pal.items():
+        name, props = parse_state(text); sp[i] = state(name, props, dv)
+    out, i, p = {}, 0, 0
+    while p < len(data) and i < w * h * l:
+        v = shift = 0
+        while True:
+            b = data[p]; p += 1; v |= (b & 127) << shift; shift += 7
+            if not b & 128: break
+        y, rest = divmod(i, w * l); z, x = divmod(rest, w)
+        if sp.get(v): out[(x, y, z)] = sp[v]
+        i += 1
+    return out
+
+
+def read_litematic(n, only=None):
+    dv = n.get('MinecraftDataVersion'); regs = []
+    for name, r in n['Regions'].items():
+        pos = [r['Position'][a] for a in 'xyz']; size = [r['Size'][a] for a in 'xyz']
+        regs.append((name, r, [pos[i] + (size[i] + 1 if size[i] < 0 else 0) for i in range(3)], [abs(v) for v in size]))
+    base = [min(g[2][i] for g in regs) for i in range(3)]
+    out = {}
+    for name, r, mn, (sx, sy, sz) in regs:
+        if only is not None and name != only: continue
+        pal = r['BlockStatePalette']; sp = [state(e['Name'], e.get('Properties', {}), dv) for e in pal]
+        bits = max(2, (len(pal) - 1).bit_length()); longs = [v & 0xffffffffffffffff for v in r['BlockStates']]
+        big = sum(v << (64 * i) for i, v in enumerate(longs))  # whole array as one integer, bit k = bit k of the stream
+        for i in range(sx * sy * sz):
+            v = (big >> (i * bits)) & ((1 << bits) - 1)
+            y, rest = divmod(i, sx * sz); z, x = divmod(rest, sx)
+            if sp[v]: out[(mn[0] - base[0] + x, mn[1] - base[1] + y, mn[2] - base[2] + z)] = sp[v]
+    return out
+
+
+RAIL = ['north_south', 'east_west', 'ascending_east', 'ascending_west', 'ascending_north', 'ascending_south', 'south_east', 'south_west', 'north_west', 'north_east']
+
+
+def legacy(i, m, below):
+    e = DATA['legacy'].get(str(i))
+    if e is None: return 'legacy:id_%d' % i, {}
+    if isinstance(e, str): return e, {}
+    names, mask, kind = e[0], e[1], (e[2] if len(e) > 2 else '')
+    lst = isinstance(names, list)
+    pick = lambda k: (names[k] if k < len(names) else names[0]) if lst else names
+    name, p = pick(m & mask), {}
+    if kind == 'level': p['level'] = str(m & 15)
+    elif kind == 'log':
+        ax = (m >> 2) & 3
+        if ax == 3: name = re.sub(r'_log$', '_wood', name); p['axis'] = 'y'
+        else: p['axis'] = 'yxz'[ax]
+    elif kind == 'leaves': p['persistent'] = 'true' if m & 4 else 'false'
+    elif kind == 'facing6': p['facing'] = ['down', 'up', 'north', 'south', 'west', 'east', 'north', 'north'][m & 7]
+    elif kind == 'prail': p['shape'] = RAIL[m & 7] if (m & 7) < 6 else 'north_south'; p['powered'] = 'true' if m & 8 else 'false'
+    elif kind == 'rail': p['shape'] = RAIL[m] if m < 10 else 'north_south'
+    elif kind == 'dslab': name = pick(m & 7); p['type'] = 'double'
+    elif kind == 'slab': p['type'] = 'top' if m & 8 else 'bottom'
+    elif kind in ('torch', 'torch_off'):
+        if 1 <= m <= 4: name = re.sub(r'torch$', 'wall_torch', name); p['facing'] = ['east', 'west', 'south', 'north'][m - 1]
+        if kind == 'torch_off': p['lit'] = 'false'
+    elif kind == 'stairs': p['facing'] = ['east', 'west', 'south', 'north'][m & 3]; p['half'] = 'top' if m & 4 else 'bottom'
+    elif kind in ('facing4', 'litfacing4'):
+        p['facing'] = {2: 'north', 3: 'south', 4: 'west', 5: 'east'}.get(m & 7, 'north')
+        if kind == 'litfacing4': p['lit'] = 'true'
+    elif kind == 'age': p['age'] = str(m & 7)
+    elif kind == 'rot16': p['rotation'] = str(m & 15)
+    elif kind == 'door':
+        low = (below or 0) if m & 8 else m
+        p['facing'] = ['east', 'south', 'west', 'north'][low & 3]; p['open'] = 'true' if low & 4 else 'false'
+        p['half'] = 'upper' if m & 8 else 'lower'
+        if m & 8: p['hinge'] = 'right' if m & 1 else 'left'
+    elif kind == 'dplant':
+        if m & 8: name = names[(2 if below is None else below) & 7] if ((2 if below is None else below) & 7) < len(names) else names[2]; p['half'] = 'upper'
+        else: name = names[m & 7] if (m & 7) < len(names) else names[2]
+    elif kind == 'pumpkin': p['facing'] = ['south', 'west', 'north', 'east'][m & 3]
+    elif kind == 'snow': p['layers'] = str((m & 7) + 1)
+    elif kind == 'lit': p['lit'] = 'true'
+    elif kind == 'inverted': p['inverted'] = 'true'
+    elif kind == 'quartz':
+        if 2 <= m <= 4: p['axis'] = 'yxz'[m - 2]
+    elif kind == 'axis': p['axis'] = ('yxz' + 'y')[(m >> 2) & 3]
+    return name, p
+
+
+def read_mcedit(n):
+    w, h, l = (n[k] & 0xffff for k in ('Width', 'Height', 'Length'))
+    ids, meta, add = n['Blocks'], n.get('Data') or [0] * len(n['Blocks']), n.get('AddBlocks')
+    def bid(i):
+        b = ids[i] & 255
+        if add and (i >> 1) < len(add): b |= ((add[i >> 1] & 0x0f) << 8) if i % 2 == 0 else ((add[i >> 1] & 0xf0) << 4)
+        return b
+    out = {}
+    for i in range(min(w * h * l, len(ids))):
+        b = bid(i)
+        if b == 0: continue
+        m = meta[i] & 15; below = None
+        e = DATA['legacy'].get(str(b))
+        if isinstance(e, list) and len(e) > 2 and e[2] in ('door', 'dplant') and m & 8 and i >= w * l and bid(i - w * l) == b: below = meta[i - w * l] & 15
+        name, props = legacy(b, m, below)
+        s = state(name, props, 1343)
+        y, rest = divmod(i, w * l); z, x = divmod(rest, w)
+        if s: out[(x, y, z)] = s
+    return out
+
+
+def read_any(n):
+    if isinstance(n.get('Regions'), dict): return read_litematic(n)
+    s = n['Schematic'] if isinstance(n.get('Schematic'), dict) else n
+    if ('Palette' in s and 'BlockData' in s) or isinstance(s.get('Blocks'), dict): return read_sponge(n)
+    if isinstance(n.get('Blocks'), list): return read_mcedit(n)
+    return read_structure(n)
+
+
 if __name__ == '__main__':
-    n = read_nbt(open(sys.argv[1], 'rb').read())
-    skip = re.compile(r'^minecraft:(air|cave_air|void_air|structure_void|moving_piston)$')
-    pal = n.get('palette') or n['palettes'][0]
-    sp = [None if skip.match(e['Name']) else spec(e['Name'], {k: str(v) for k, v in e.get('Properties', {}).items()}) for e in pal]
-    print(serialize({tuple(b['pos']): sp[b['state']] for b in n['blocks'] if sp[b['state']]}), end='')
+    print(serialize(read_any(read_nbt(open(sys.argv[1], 'rb').read()))), end='')

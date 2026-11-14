@@ -1,0 +1,126 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "SimpleBuilding conv51 tests"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0,
+   "translation": [
+    10,
+    0,
+    0
+   ],
+   "scale": [
+    2,
+    2,
+    2
+   ]
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "attributes": {
+      "POSITION": 0
+     },
+     "indices": 1,
+     "material": 0
+    },
+    {
+     "attributes": {
+      "POSITION": 0
+     },
+     "indices": 2,
+     "material": 1
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "wall",
+   "pbrMetallicRoughness": {
+    "baseColorFactor": [
+     0.8,
+     0.7,
+     0.45,
+     1
+    ]
+   }
+  },
+  {
+   "name": "roof",
+   "pbrMetallicRoughness": {
+    "baseColorFactor": [
+     0.35,
+     0.02,
+     0.01,
+     1
+    ]
+   }
+  }
+ ],
+ "buffers": [
+  {
+   "byteLength": 216,
+   "uri": "data:application/octet-stream;base64,AAAAAAAAAAAAAAAAAACAQAAAAAAAAAAAAACAQAAAAAAAAIBAAAAAAAAAAAAAAIBAAAAAAAAAQEAAAAAAAACAQAAAQEAAAAAAAACAQAAAQEAAAIBAAAAAAAAAQEAAAIBAAAAAQAAAoEAAAAAAAAAAQAAAoEAAAIBAAAABAAUAAAAFAAQAAQACAAYAAQAGAAUAAgADAAcAAgAHAAYAAwAAAAQAAwAEAAcAAAADAAIAAAACAAEABAAFAAgABgAHAAkABQAGAAkABQAJAAgABwAEAAgABwAIAAkA"
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 120
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 120,
+   "byteLength": 60
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 180,
+   "byteLength": 36
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 10,
+   "type": "VEC3",
+   "min": [
+    0,
+    0,
+    0
+   ],
+   "max": [
+    4,
+    5,
+    4
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5123,
+   "count": 30,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5123,
+   "count": 18,
+   "type": "SCALAR"
+  }
+ ]
+}
