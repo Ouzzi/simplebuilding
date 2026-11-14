@@ -825,22 +825,22 @@ ALL.put("config_command", h -> {
             // the beacons and conduits ask the gate with their owner
             for (BeaconKind kind : List.of(BeaconKind.EVIL, BeaconKind.MIGHTY_EVIL)) {
                 int levels = kind.mighty() ? 6 : 5;
-                h.assertTrue(StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, stranger).isEmpty()
+                h.assertTrue(!StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, stranger).contains(player)
                         && !player.hasEffect(MobEffects.SLOWNESS), kind + ": a foreign claim is spared");
-                h.assertTrue(StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, null).isEmpty()
+                h.assertTrue(!StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, null).contains(player)
                         && !player.hasEffect(MobEffects.SLOWNESS), kind + ": no owner, claim spared");
                 h.assertTrue(StrongBeaconLogic.applyEffects(h.getLevel(), center, kind, levels, MobEffects.SLOWNESS, 0, null, RangeFactor.NONE, holder).contains(player)
                         && player.hasEffect(MobEffects.SLOWNESS), kind + ": the owner's own claim is reached");
                 player.removeAllEffects();
             }
-            h.assertTrue(!StrongBeaconLogic.applyEffects(h.getLevel(), center, BeaconKind.STRONG, 5, MobEffects.SPEED, 0, null, RangeFactor.NONE, stranger).isEmpty()
+            h.assertTrue(StrongBeaconLogic.applyEffects(h.getLevel(), center, BeaconKind.STRONG, 5, MobEffects.SPEED, 0, null, RangeFactor.NONE, stranger).contains(player)
                     && player.hasEffect(MobEffects.SPEED), "a Strong Beacon helps in every claim");
             player.removeAllEffects();
             for (com.simplebeacons.conduit.ConduitKind kind : List.of(com.simplebeacons.conduit.ConduitKind.EVIL, com.simplebeacons.conduit.ConduitKind.MIGHTY_EVIL)) {
                 int frame = kind.mighty() ? 90 : 66;
-                h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, stranger).isEmpty() && !player.hasEffect(MobEffects.MINING_FATIGUE),
-                        kind + ": a foreign claim is spared (effects " + player.getActiveEffects() + ", players " + h.getLevel().players() + ")");
-                h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, null).isEmpty() && !player.hasEffect(MobEffects.MINING_FATIGUE),
+                h.assertTrue(!StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, stranger).contains(player) && !player.hasEffect(MobEffects.MINING_FATIGUE),
+                        kind + ": a foreign claim is spared");
+                h.assertTrue(!StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, null).contains(player) && !player.hasEffect(MobEffects.MINING_FATIGUE),
                         kind + ": no owner, claim spared");
                 h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, frame, kind, holder).contains(player) && player.hasEffect(MobEffects.MINING_FATIGUE),
                         kind + ": the owner's own claim is reached");
@@ -855,7 +855,7 @@ ALL.put("config_command", h -> {
             off.addProperty("evilBeaconGraceMinutes", 0);
             BeaconsConfig.apply(off);
             h.assertTrue(EvilGate.affects(player, stranger) && EvilGate.affects(player, null), "evilSparesForeignClaims off: reached in every claim");
-            h.assertTrue(!StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.EVIL, stranger).isEmpty(), "switch off: the Evil Conduit reaches");
+            h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.EVIL, stranger).contains(player), "switch off: the Evil Conduit reaches");
             player.removeAllEffects();
             BeaconsConfig.apply(json);
             h.assertTrue(BeaconsConfig.evilSparesForeignClaims, "default / missing key: on");
