@@ -1,4 +1,4 @@
-# Simple Opt Memory 0.1.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Opt Memory 1.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 

@@ -1,4 +1,4 @@
-# Simple Aesthetics 0.9.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Aesthetics 1.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 

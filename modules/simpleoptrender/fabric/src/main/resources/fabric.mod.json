@@ -3,7 +3,7 @@
   "id": "simpleoptrender",
   "version": "${version}",
   "name": "Simple Opt Render",
-  "icon": "assets/simpleoptrender/icon.png",
+  "icon": { "16": "assets/simpleoptrender/icon.png", "128": "assets/simpleoptrender/icon_128.png" },
   "description": "Client optimizations of Simple Optimization: leaf culling, light-map cache, more culling (sign text, item frames, beacon beams), fast IP ping, telemetry off, optional detail switches (particles, texture animations, air fog). Each area steps back when a known optimization mod covers it.",
   "authors": [
     "Ouzzi"

@@ -37,7 +37,7 @@
   "mixins": [
     "simplevisuals.mixins.json"
   ],
-  "icon": "assets/simplevisuals/icon.png",
+  "icon": { "16": "assets/simplevisuals/icon.png", "128": "assets/simplevisuals/icon_128.png" },
   "suggests": {
     "simplebuilding": "*",
     "simplemodels": "*",

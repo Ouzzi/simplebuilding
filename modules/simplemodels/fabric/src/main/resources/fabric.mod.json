@@ -3,7 +3,7 @@
   "id": "simplemodels",
   "version": "${version}",
   "name": "Simple Models",
-  "icon": "assets/simplemodels/icon.png",
+  "icon": { "16": "assets/simplemodels/icon.png", "128": "assets/simplemodels/icon_128.png" },
   "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
   "authors": [
     "Ouzzi"

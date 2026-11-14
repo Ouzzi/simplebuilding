@@ -3,7 +3,7 @@
   "id": "simplelivemap",
   "version": "${version}",
   "name": "Simple Livemap",
-  "icon": "assets/simplelivemap/icon.png",
+  "icon": { "16": "assets/simplelivemap/icon.png", "128": "assets/simplelivemap/icon_128.png" },
   "description": "Live web map of the world as the players really explored it (visited chunks and held maps): top-down tiles with map relief, player positions on request, built-in web server (on out of the box, only on this computer, private with a key; own website possible).",
   "authors": [
     "Ouzzi"
