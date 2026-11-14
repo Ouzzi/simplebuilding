@@ -86,6 +86,11 @@ public final class SortProbe {
                         expected = ContainerSort.sorted(in, 99).stream().map(SortProbe::describe).toList();
                     }
                     case "shot" -> Screenshot.grab(mc, false);
+                    // a-w4c: opens SimpleLib's generic config screen of a mod directly (by reflection, the class lives in the Fabric part)
+                    case "config" -> {
+                        var create = Class.forName("com.simplelib.config.screen.GenericConfigScreen").getMethod("create", String.class, net.minecraft.client.gui.screens.Screen.class);
+                        mc.setScreen((net.minecraft.client.gui.screens.Screen) create.invoke(null, c.get("value").getAsString(), mc.gui.screen()));
+                    }
                     case "quit" -> mc.stop();
                     default -> org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("sort probe: unknown command {}", c);
                 }
@@ -191,6 +196,9 @@ public final class SortProbe {
         o.add("expected", exp);
         if (mc.hitResult instanceof BlockHitResult h && h.getType() == HitResult.Type.BLOCK) {
             o.addProperty("hitBlock", BuiltInRegistries.BLOCK.getKey(mc.level.getBlockState(h.getBlockPos()).getBlock()).toString());
+        }
+        if (mc.hitResult instanceof net.minecraft.world.phys.EntityHitResult eh) {
+            o.addProperty("hitEntity", BuiltInRegistries.ENTITY_TYPE.getKey(eh.getEntity().getType()).toString());
         }
         o.addProperty("pos", mc.player.blockPosition().toShortString());
         Path tmp = dir.resolve("simpleinterfaces-sort-status.tmp");

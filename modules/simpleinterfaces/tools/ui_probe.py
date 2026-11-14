@@ -96,7 +96,7 @@ class Session:
     def face(self, bx, by, bz):
         st = self.st()
         x, y, z = [int(v) for v in st['pos'].replace(',', ' ').split()]
-        self.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {bx + 0.5} {by + 0.5:.2f} {bz + 0.5}', 0.8)
+        self.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {bx + 0.5} {by + 0.5 - 1.62:.2f} {bz + 0.5}', 0.8)
         time.sleep(0.5)
         return self.st()
 
@@ -112,7 +112,7 @@ class Session:
                 dest = self.out / 'shots'
                 dest.mkdir(parents=True, exist_ok=True)
                 time.sleep(0.4)
-                shutil.copy(sorted(new)[-1], dest / f'{self.scenario}-{name}.png')
+                shutil.copy(sorted(new)[-1], dest / f"{self.scenario.replace('/', '-')}-{name}.png")
                 return
         self.check(f'shot {name} written', False, 'no new screenshot')
 
@@ -203,6 +203,12 @@ class Session:
     def type_text(self, text):
         for ch in text:
             self.io.key({' ': 'space', '-': 'minus', '_': 'underscore', '.': 'period', ',': 'comma', '/': 'slash'}.get(ch, ch), 0.15)
+        return self.st()
+
+    def open_config(self, mod_id, wait=2.0):
+        """Opens SimpleLib's generic config screen of a mod through the probe (no Mod Menu route needed)."""
+        sp.command('config', value=mod_id)
+        time.sleep(wait)
         return self.st()
 
     def close(self):
