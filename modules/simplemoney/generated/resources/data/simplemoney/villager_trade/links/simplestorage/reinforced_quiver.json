@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 39
+    "count": 13
   },
   "gives": {
     "id": "simplestorage:reinforced_quiver",

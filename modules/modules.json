@@ -263,7 +263,7 @@
         "forge": ":modules:simpleriding:forge"
       },
       "displayName": "Simple Riding",
-      "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.",
+      "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, horseshoes, loot, and trades.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -876,7 +876,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tweaks",
-      "description": "Legacy compatibility and server-authoritative claims, on by default.",
+      "description": "Legacy compatibility, server-authoritative claims, admin tools (block log, backups, anti-X-ray) and player and protection tweaks, on by default.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -1548,7 +1548,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Trims",
-      "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
+      "description": "Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
       "loaders": [
         "fabric",
         "neoforge",

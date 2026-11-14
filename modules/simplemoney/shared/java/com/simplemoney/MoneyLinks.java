@@ -37,20 +37,26 @@ public final class MoneyLinks {
                 continue;
             }
             if (price.tier() < 0 || price.tier() > 5 || !Double.isFinite(price.hours()) || price.hours() < 0 || price.hours() > 45
-                    || price.craft() < 0 || price.craft() > 64 || price.safetyFloor() < 8 || price.safetyFloor() > MAX_PRICE
+                    || price.craft() < 0 || price.craft() > 64 || price.safetyFloor() < 1 || price.safetyFloor() > MAX_PRICE
                     || price.stock() < 1 || price.stock() > MAX_STOCK || prices.put(price.item(), price) != null)
                 throw new IllegalArgumentException("Invalid linked price: " + price.item());
         }
         return Collections.unmodifiableMap(prices);
     }
+    /** PLAN40 simplemoney-3: 1 bill = 3 diamonds; the weighted sum is in diamond-like units (tools/generate_links.py PRICE_DIVISOR). */
+    public static final int PRICE_DIVISOR = 3;
     public static int buy(Price price) {
         var c = SimpleMoney.config.links;
         c.normalize();
-        return Math.clamp((int)Math.ceil(price.hours() * c.billsPerHour + price.tier() * c.rarityStep + price.craft() * c.craftWeight),
+        return Math.clamp((int)Math.ceil((price.hours() * c.billsPerHour + price.tier() * c.rarityStep + price.craft() * c.craftWeight) / PRICE_DIVISOR),
                 price.safetyFloor(), MAX_PRICE);
     }
     public static Price price(MerchantOffer offer) {
-        if (offer == null || !SimpleMoney.on() || !offer.getBaseCostA().is(MoneyItems.ITEMS.get("money_bill"))) return null;
+        return SimpleMoney.on() ? linkPrice(offer) : null;
+    }
+    /** The table price of a bill-priced link offer, regardless of the Super-Mod switch (simplemoney-3: off must lock existing offers). */
+    private static Price linkPrice(MerchantOffer offer) {
+        if (offer == null || !offer.getBaseCostA().is(MoneyItems.ITEMS.get("money_bill"))) return null;
         return priceOf(offer.getResult().getItem());
     }
     private static volatile Map<net.minecraft.world.item.Item, Price> byItem;
@@ -76,8 +82,9 @@ public final class MoneyLinks {
         return SimpleMoney.config.links.enabled && loaded.test(module);
     }
     public static boolean allowed(ServerPlayer player, MerchantOffer offer) {
-        Price price = price(offer);
+        Price price = linkPrice(offer);
         if (price == null) return true;
+        if (!SimpleMoney.on()) return false;
         String mod = Identifier.parse(price.item()).getNamespace();
         return SimpleMoney.enabled(SimpleMoney.merchantFlag(price.merchant())) && enabled(mod)
                 && offer.getResult().getCount() == 1 && offer.getCostB().isEmpty()

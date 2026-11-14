@@ -28,7 +28,7 @@ def features(i):
             if x.get("id", "").startswith("config_"): continue
             en = x.get("en") or {}
             t = clean(en.get("title", ""))
-            if not t: continue
+            if not t or t.startswith("Trade: "): continue  # raw trade ids read badly; the Vanilla-use text describes the offers
             s = clean((en.get("summary", "").split(". ")[0]).rstrip("."))
             out.append(f"- **{t}**" + (f" - {s}." if s and len(s) <= 170 else ""))
     return out[:12]

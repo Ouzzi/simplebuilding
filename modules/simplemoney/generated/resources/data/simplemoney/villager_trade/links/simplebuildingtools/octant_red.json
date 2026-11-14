@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 21
+    "count": 7
   },
   "gives": {
     "id": "simplebuildingtools:octant_red",

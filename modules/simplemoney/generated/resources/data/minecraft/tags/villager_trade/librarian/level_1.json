@@ -24,6 +24,10 @@
     {
       "id": "simplemoney:links/simpletrims/pulsating_trim_template",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simpletrims/inverting_trim_template",
+      "required": false
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 57
+    "count": 19
   },
   "gives": {
     "id": "simplepads:reinforced_potion_pad",

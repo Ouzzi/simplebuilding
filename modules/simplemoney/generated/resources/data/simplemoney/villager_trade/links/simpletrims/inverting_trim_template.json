@@ -1,37 +1,33 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 37
+    "count": 3
   },
   "gives": {
-    "id": "simplebuilding:netherite_chest",
+    "id": "simpletrims:inverting_trim_template",
     "count": 1
   },
-  "max_uses": 1,
+  "max_uses": 2,
   "xp": 0,
   "reputation_discount": 0,
   "fabric:load_conditions": [
     {
       "condition": "simplemoney:config",
-      "flag": "links:simplebuilding"
+      "flag": "links:simpletrims"
     },
     {
       "condition": "simplemoney:config",
-      "flag": "enableWanderingTrades"
+      "flag": "enableVillagerTrades"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "simplemoney:config",
-      "flag": "links:simplebuilding"
+      "flag": "links:simpletrims"
     },
     {
       "type": "simplemoney:config",
-      "flag": "enableWanderingTrades"
+      "flag": "enableVillagerTrades"
     }
-  ],
-  "merchant_predicate": {
-    "type": "minecraft:random_chance",
-    "chance": 0.1
-  }
+  ]
 }

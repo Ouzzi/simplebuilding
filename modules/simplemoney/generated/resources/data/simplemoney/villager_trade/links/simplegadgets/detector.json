@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 26
+    "count": 9
   },
   "gives": {
     "id": "simplegadgets:detector",

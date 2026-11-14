@@ -8,7 +8,7 @@
       "tier": 0,
       "hours": 0.5,
       "craft": 0,
-      "safetyFloor": 8,
+      "safetyFloor": 3,
       "merchant": "mason",
       "level": 1,
       "stock": 2,

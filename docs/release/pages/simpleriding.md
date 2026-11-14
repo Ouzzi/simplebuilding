@@ -29,7 +29,7 @@ Simple Riding improves mounts: saddle speed, horse jumps, nautilus dashes and mo
 
 ## Vanilla use
 
-Improves mounts (faster saddles, higher jumps, mount armor) so riding is worth it; the Vanilla mounts stay and are only tuned.
+Improves mounts (faster saddles, higher jumps, nautilus dashes, mount armor and horseshoes) so riding is worth it; the Vanilla mounts stay and are only tuned. The server checks how fast a mount may move, so fast saddles cannot be abused to teleport.
 
 ## Dependencies
 

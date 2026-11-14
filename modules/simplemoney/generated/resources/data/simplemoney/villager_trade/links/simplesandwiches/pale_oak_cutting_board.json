@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 8
+    "count": 3
   },
   "gives": {
     "id": "simplesandwiches:pale_oak_cutting_board",

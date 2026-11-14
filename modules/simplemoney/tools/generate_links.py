@@ -9,6 +9,8 @@ ROOT = MODULE.parents[1]
 DATA = MODULE / "generated/resources/data"
 # Config switch per merchant (SimpleMoney.merchantFlag); every villager profession uses enableVillagerTrades.
 # village_wanderer = Simple Wanderers' Village Wanderer (a-small22): its own switch, no wandering trader tag.
+# PLAN40 simplemoney-3: link prices follow the unified price logic (1 bill = 3 diamonds); MoneyLinks.PRICE_DIVISOR must match.
+PRICE_DIVISOR = 3
 FLAGS = {"wandering_trader": "enableWanderingTrades", "village_wanderer": "enableWandererTrades"}
 
 
@@ -23,10 +25,10 @@ def outputs():
             assert row["item"].startswith(mod + ":")
             assert "sell" not in row, "No reverse money edge is permitted"
             assert 0 <= row["tier"] <= 5 and 0 <= row["hours"] <= 45
-            assert 0 <= row["craft"] <= 64 and 8 <= row["safetyFloor"] <= 64
+            assert 0 <= row["craft"] <= 64 and 1 <= row["safetyFloor"] <= 64
             assert row["stock"] in range(1, 5) and row["level"] in range(1, 6)
             assert 0 < row["chance"] <= 1
-            price = min(64, max(row["safetyFloor"], math.ceil(row["hours"] + row["tier"] * 3 + row["craft"])))
+            price = min(64, max(row["safetyFloor"], math.ceil((row["hours"] + row["tier"] * 3 + row["craft"]) / PRICE_DIVISOR)))
             identity = "links/" + row["item"].replace(":", "/")
             flag = FLAGS.get(row["merchant"], "enableVillagerTrades")
             trade = {"wants": {"id": "simplemoney:money_bill", "count": price},
@@ -62,7 +64,12 @@ def main():
     check = argparse.ArgumentParser()
     check.add_argument("--check", action="store_true")
     args = check.parse_args()
-    for path, value in outputs().items():
+    outs = outputs()
+    stale = [p for p in (DATA / "simplemoney/villager_trade/links").rglob("*.json") if p not in outs]
+    assert not args.check or not stale, f"Orphaned linked offers (no price row): {[p.name for p in stale]}"
+    for p in stale:
+        p.unlink()
+    for path, value in outs.items():
         text = json.dumps(value, indent=2, ensure_ascii=False) + "\n"
         if args.check:
             assert path.read_text(encoding="utf-8") == text, f"Stale linked output: {path}"

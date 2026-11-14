@@ -109,7 +109,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
   - **Simple Respawn** `simplerespawn` (optional) [neu]: Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.
     - required: SimpleLib
-  - **Simple Riding** `simpleriding` (optional) [fertig]: Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.
+  - **Simple Riding** `simpleriding` (optional) [fertig]: Saddle speed, horse jumps, nautilus dashes, mount armor utilities, horseshoes, loot, and trades.
     - required: SimpleLib
     - optional: SimpleBuilding, modmenu, Simple Ores
   - **Simple Sandwiches** `simplesandwiches` (optional) [neu]: Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.
@@ -118,10 +118,10 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
   - **Simple Shops** `simpleshops` (optional) [neu]: Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Money, Simple Tweaks
-  - **Simple Trims** `simpletrims` (optional) [neu]: Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.
+  - **Simple Trims** `simpletrims` (optional) [neu]: Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.
     - required: SimpleLib
     - optional: SimpleBuilding, jei
-  - **Simple Tweaks** `simpletweaks` (optional) [fertig]: Legacy compatibility and server-authoritative claims, on by default.
+  - **Simple Tweaks** `simpletweaks` (optional) [fertig]: Legacy compatibility, server-authoritative claims, admin tools (block log, backups, anti-X-ray) and player and protection tweaks, on by default.
     - required: SimpleLib
     - optional: Simple Dimensions, SimpleBuilding, Simple Money, Simple Weather, Simple Maps
   - **Simple Vault** `simplevault` (optional) [neu]: The Bedrock Vault (Grundgewoelbe): a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock; three riddles and an ascent altar are the only way out.

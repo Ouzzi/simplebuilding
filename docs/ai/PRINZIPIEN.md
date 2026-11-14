@@ -134,11 +134,13 @@ Währung, gewichtete Dorfbewohner-Handel, Schatz-Loot.
 
 - Preise nehmen fremde Items nur über `prices.json` je Modul (`modules/<id>/…/money/<ns>/prices.json`), nie über Klassen.
 - Eine Preislogik (Besitzer 12.11., E1ANS F7): 1 Schein = 3 Diamanten = 16 Smaragde; alle eigenen Angebote folgen den Regeln in `modules/simplemoney/tools/source_prices.py` (dort ändern, nicht in den Handelsdateien). Angebote, die Vanilla-Knappheit aufheben, nur hinter eigenem Schalter (Standard aus).
+- **A12 (PLAN40 simplemoney-2, 14.11.):** Nutzen: eine Wirtschaft für Survival-Welten (Schein herstellen, damit bei Dorfbewohnern und fahrendem Händler kaufen, Schein im Schatz-Loot). Änderung: eigene Items, zusätzliche Handelsangebote (Vanilla-Angebote bleiben im Pool) und ein Loot-Eintrag; Vanilla-Loot wird nicht ersetzt. Die Herstellkette ist bewusst teuer (Spezialfaser = Diamanten, dazu Gold, Eisen, Kupfer, Amethyst, Harz, Honigwabe, Hochofen-Zeit, etwa 3 Diamanten je Schein), damit der Schein eine Diamant-/Goldsenke ist und kein Loop entsteht (`tools/check_data.py` prüft Gewinn über Rezeptketten). Seltenes aus Vanilla (Knospender Amethyst, Diamanterz) nur hinter eigenem Schalter, Standard aus. Eingriff in Vanilla: gering bis mittel (Mixins nur auf Angebote mit Schein-Preis, Ergebnis-Slot und Schnellverschieben; bei „Enable Simple Money“ aus tun sie nichts, schon vorhandene Zusatzangebote sind dann gesperrt).
+- **Zusatzangebote für andere Mods (PLAN40 simplemoney-3):** die Preistabellen folgen derselben Preislogik: Summe aus Modellstunden, Seltenheit und Rezeptplätzen in diamantähnlichen Einheiten, geteilt durch 3 (`PRICE_DIVISOR` in `MoneyLinks.java` und `tools/generate_links.py`), Mindestpreis je Zeile 1–11 (früher einheitlich 8). Verwaiste Angebotsdateien löscht der Generator und meldet sie in `--check`.
 
 ### Simple Riding (`simpleriding`)
 Sattel-Tempo, Pferdesprünge, Nautilus-Dashes, Reittier-Rüstungen.
 
-- keine eigenen Regeln bisher
+- **A12 (PLAN40 simpleriding-2, 14.11.):** Nutzen: Reiten lohnt sich länger (schnellere Sättel, höhere Sprünge, Nautilus-Dashes, Reittier-Rüstungen und Hufeisen mit Geländebonus). Änderung: die Vanilla-Reittiere bleiben, ihre Attribute werden über Sattel, Rüstung und Hufeisen angepasst; neue Hufplätze im Pferde-Menü. Eingriff in Vanilla: mittel – der Server prüft die Reittier-Bewegung selbst (`RidingSecurity`: Fahrpakete nach dem Thread-Wechsel, Horizontalbudget je Tick = min(Grenze, 0,125 + 3 × Tempo), Sprungpakete begrenzt), damit schnelle Sättel keine Teleport-Lücke öffnen. Schalter: „Enable Simple Riding“ und `/simpleriding config`. Offen: Latenz-Probe (PLAN40 simpleriding-3).
 
 ### Simple Models (`simplemodels`)
 Server-genehmigte Item-Modelle, Amboss-Zuweisung, Modellbrowser.
@@ -148,7 +150,7 @@ Server-genehmigte Item-Modelle, Amboss-Zuweisung, Modellbrowser.
 ### Simple Fun (`simplefun`)
 Spielerische Mechaniken (Wurfziegel, kosmetische Verwandlungen).
 
-- keine eigenen Regeln bisher
+- **A12 (PLAN40 simplefun-2, 14.11.):** Nutzen: kleine Spaß-Funktionen für Survival, jede begrenzt (`MAX_YEET_STRENGTH` 3, Schaden ≤ 4, Wurftempo ≤ 1,5, Abklingzeit 10 Ticks). Standard an (Besitzer-Entscheide F12 u. a.): **Schleichwurf** (Werfen beim Schleichen, `enableYeet`, Stärke 3, gedeckelt auf 1,5 Blöcke je Tick) · **Ziegelwurf per Rechtsklick** (`enableThrowableBricks`; Glas zerbrechen `throwableBricksBreakBlocks` Standard aus) · **Schweine-Verwandlung** nach Schweinefleisch (`enablePiggyEffect`, 6000 Ticks, Milch hebt auf) · **Rückstoß IV** (`enableHigherKnockback`, Grenze `maxKnockback`) nur als Verzauberung per Schalter. Eingriff in Vanilla: gering bis mittel (Werfen/Rechtsklick sind Vanilla-Eingaben mit neuer Wirkung, jede Funktion einzeln abschaltbar; „Enable Simple Fun“ schaltet alles). Die 10 Spielzeuge (Konfetti-Knaller, Würfel, Abklatschen, Streicheln, Steinehüpfen, Wasserbombe, Seifenblasen, Papierflieger, Quietscheente, Schneeengel) sind eigene Items bzw. Gesten ohne Weltschaden.
 
 ### Simple Visuals (`simplevisuals`)
 Client-HUD, Tooltips, Amboss-Formatierung, Immersions-Partikel.
@@ -173,6 +175,13 @@ Legacy-Kompatibilität, serverautoritäre Claims (Standard an).
 - Server-Werkzeuge (Besitzer 12.11., E1ANS F1): Block-Log, Auto-Backup und Anti-X-Ray standardmäßig nur auf Dedicated Servern (`onlyDedicated`), im Einzelspieler/LAN aus. Claims machen Besucher nicht wehrlos (F2: Monster, eigene Items/XP, Projektile zurück); Event-Abstimmungen ab 2 aktiven Spielern (F3).
 - Schutz (17.10.): Anti-X-Ray Standard an (seit E1ANS nur auf Dedicated Servern), jede andere Schutzfunktion eigener Schalter Standard aus; Prüfungen nur protokollieren (kein Auto-Bann) und Grenzen immer aus den echten Serverwerten des Spielers (Attribute, Werkzeug, Verzauberungen, unsere Mixins) ableiten, nie aus festen Vanilla-Zahlen – serverseitige Mod-Aktionen (Hammer-Fläche, Baustab, Blaupause) werden nie gemeldet.
 - Befehle (Besitzer 17.10.): Alle Befehle auch unter `/simpletweaks <befehl>` (ein Wort, ohne Bindestrich; Redirect auf dieselben Knoten, gleiche Rechte). Neue Befehle per `TweakCommands.add(dispatcher, literal(...))` registrieren (oder `TweakCommands.alias(...)` nach der Registrierung; `/tweaks`-Zweige werden automatisch übernommen) und den Register-Aufruf der Gruppe im Gametest (`AdminTests`) ergänzen; `/simpletweaks help` listet nur erlaubte; Doku und Wiki nennen die `/simpletweaks`-Form.
+- **A12-Steckbrief (PLAN40 simpletweaks-3, 14.11.)** – je Tweak Nutzen · Änderung · Eingriff · Schalter (`config/simpletweaks-*.json`, `/simpletweaks config`):
+  - **T27 Teil-Keep-Inventory** (`keepInventory`): Nutzen: Tod ist weniger frustrierend · Modi `hotbar_armor` (Hotbar, Rüstung, Nebenhand bleiben), `xp`, `custom` (je Teil + `keepXpPercent`); nur bei ausgeschalteter Vanilla-Regel `keep_inventory`, nie in Hardcore · mittel (ändert die Vanilla-Todesregel; Reihenfolge mit Seelengebunden/Totenspeicher-Mods dokumentiert in `KeepInventory`; offen: simpletweaks-2).
+  - **Todes-Hinweis** (`deathHint`): Nutzen: man findet die Todesstelle · nur der Gestorbene erhält eine Zeile mit Ort (Klick kopiert), Dimension, Ursache und Restzeit der Items (5 Min) · gering.
+  - **AFK zählt nicht beim Schlafen** (`afk.excludeFromSleep`, `afk.minutes`): Nutzen: ein AFK-Spieler hält die Nacht nicht auf · nur die Schlaf-Prozentzahl, sonst Vanilla · gering; Kick ist eigener Schalter, Standard aus.
+  - **Neulingsschutz** (`newPlayerShield`, `minutes`, `attackEnds`): Nutzen: neue Spieler werden nicht sofort von anderen Spielern getötet · solange die Spielzeit unter `minutes` liegt, verletzt kein Spieler sie und sie keinen (Nahkampf, Pfeile, schädliche Tränke); endet einmalig, auch bei eigenem Angriff (`attackEnds`); Mobs bleiben Vanilla · gering bis mittel (abschaltbar).
+  - **Drachenei bei jedem Kampf** (`dragonEgg`): Nutzen: jeder Drachenkampf lohnt sich · Vanilla setzt das Ei nur nach dem ersten Kampf; jeder weitere Kill legt es auf das Portalpodest (oder wirft es als Item, wenn dort schon eins liegt) · mittel (Vanilla-Seltenheit entfällt), abschaltbar.
+  - Admin-, Spieler- und Schutz-Teile stehen in der Store-Seite getrennt; Sub-Mod-Schalter „Enable Simple Tweaks“ schaltet alles ab.
 
 ### Simple Dimensions (`simpledimensions`)
 Konfigurierbare Dimensionen, Lichtbögen, sichere verknüpfte Portale.
@@ -205,7 +214,7 @@ Container-Bildschirme im Kastenstil, verknüpfte Container, Easy Shulkers / Ende
 ### Simple Maps (`simplemaps`)
 Wegweiser-Karten, Wegpunkte, gerahmte Ansichten, Kartentisch-Upgrades.
 
-- keine eigenen Regeln bisher
+- **A12 (PLAN40 simplemaps-4, 14.11.):** Nutzen: Entdecker bekommen endlose Karten je Dimension mit Zoom, Wegpunkten in der Ortungsleiste und Kartentisch-Upgrades; Bildkarten (PNG-Kartenwand) für Bauer. Änderung: eigene Kartenart, Vanilla-Karten funktionieren unverändert weiter (Kartentisch bekommt zusätzliche Upgrade-Rezepte). Eingriff in Vanilla: gering bis mittel (Kartenbildschirm und Ortungsleiste bekommen Client-Hooks; Web-Export Standard aus). Schalter: „Enable Simple Maps“ und `/simplemaps config`.
 
 ### Simple Livemap (`simplelivemap`)
 Live-Webkarte der wirklich erkundeten Welt (Besitzer ABN30-12: eigener Mod parallel zu Simple Maps, kein Sub-Mod).
@@ -218,6 +227,8 @@ Live-Webkarte der wirklich erkundeten Welt (Besitzer ABN30-12: eigener Mod paral
 Leuchtende/Emittierende/Pulsierende Besatzvorlagen, platzierbare Vorlagen, Besatz-Upgrades.
 
 - In-World-Upgrades: Axt allein, Vorschlaghammer mit SimpleBuilding.
+- Hammer-Regel: In-World-Upgrade per Axt allein; Hammer-Partner nur über den Tag `#simplelib:hammers` (optional, z. B. Simple Hammers), kein Zwang zu SimpleBuilding.
+- **A12 (PLAN40 simpletrims-4, 14.11.):** Nutzen: vier Besatz-Vorlagen (Leuchtend, Emittierend, Pulsierend, Invertierend) für Spieler, die Rüstungsoptik mögen; platzierbare Vorlagen und Upgrades. Änderung: Vanilla-Besatz bleibt unverändert; leuchtende Rüstung und Fackeln in der Hand setzen **unsichtbare Lichtblöcke** in die Welt (Eingriff in Weltblöcke, Handlicht getrennt abschaltbar, falls die Serverlast-Messung es verlangt; PLAN40 simpletrims-2). Eingriff in Vanilla: gering bis mittel.
 
 ### Simple Mobs (`simplemobs`)
 Mobs: Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Dread, Deceiver. Bosse: Void Runner, Brimguard, gepanzerte Wither (Blighted/Abyssal).
@@ -275,7 +286,7 @@ Tresor-Abklingzeit in Tagen; Sub-Mod von QoL.
 ### Simple Questionary (`simplequestionary`)
 Fragentisch: Item einlegen, Lore und Geheimnis im offenen Buch.
 
-- keine eigenen Regeln bisher
+- **A12 (PLAN40 simplequestionary-3, 14.11.):** Nutzen: Einsteiger lesen zu jedem Item Herkunft, Nutzen und Geheimnis. Änderung: ein eigener Block (Fragetisch) mit Buch-Bildschirm; für Items ohne Text stehen Ersatztexte und automatisch erzeugte Rezept-Fakten. Eingriff in Vanilla: keiner (kein Mixin auf Vanilla-Verhalten, keine geänderten Vanilla-Daten).
 
 ### Simple Aesthetics (`simpleaesthetics`)
 Super-Mod ohne eigenen Inhalt: Visuals, Sounds, Models mit je einem Schalter.

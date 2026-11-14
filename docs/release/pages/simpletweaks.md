@@ -29,7 +29,7 @@ Simple Tweaks keeps older worlds compatible and adds server-side claims that are
 
 ## Vanilla use
 
-Keeps older worlds loading and adds server claims that are on by default; the claim rules change who may build where on a server.
+Keeps older worlds loading and adds server claims that are on by default; the claim rules change who may build where on a server. Also on by default: partial keep inventory (hotbar and armor stay on death), a death hint, AFK players not counting for sleeping, newcomer protection and a dragon egg after every dragon fight; each can be switched off.
 
 ## Dependencies
 

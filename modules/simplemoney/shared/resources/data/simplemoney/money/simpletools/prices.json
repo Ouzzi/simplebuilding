@@ -21,7 +21,7 @@
       "tier": 5,
       "hours": 38.1,
       "craft": 0,
-      "safetyFloor": 8,
+      "safetyFloor": 3,
       "merchant": "wandering_trader",
       "level": 5,
       "stock": 1,

@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 59
+    "count": 20
   },
   "gives": {
     "id": "simplebuilding:enderite_carrot",

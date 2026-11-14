@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 40
+    "count": 14
   },
   "gives": {
     "id": "simplepads:spawn_teleporter_tier_2",

@@ -112,7 +112,7 @@ for p in linked:
     offer = read(data / f"villager_trade/links/{p['item'].replace(':', '/')}.json")
     assert offer["wants"]["id"] == "simplemoney:money_bill" and offer["gives"]["count"] == 1
     assert offer["reputation_discount"] == 0 and offer["xp"] == 0
-    assert 8 <= offer["wants"]["count"] <= 64 and offer["max_uses"] <= 4
+    assert 1 <= offer["wants"]["count"] <= 64 and offer["max_uses"] <= 4
     assert any(c["flag"] == "links:" + p["item"].split(":")[0] for c in offer["fabric:load_conditions"])
 tables = {p.parent.name for p in (MODULE / "shared/resources/data/simplemoney/money").glob("*/prices.json")}
 assert tables == {e["id"] for e in manifest["modules"] if e["id"] != "simplemoney"}, "Missing module price table"
@@ -125,7 +125,7 @@ for language in languages:
 print(f"Money links: {len(linked)} bounded buy-only prices, {len(tables)} conditional module tables, additive tags and bilingual options")
 
 # Conservative salvage audit against unchanged Money diamond exchanges: assume
-# the old offer is discounted all the way to ONE diamond for TWO bills. Follow
+# the diamond exchange pays its fixed rate (see below). Follow
 # single-material crafting/smelting/stonecutting chains including uncrafting.
 from fractions import Fraction
 recipe_rows = {}
@@ -144,7 +144,8 @@ for recipe in recipe_rows.values():
     names = [x if isinstance(x, str) else x.get("item") if isinstance(x, dict) else None for x in ingredients]
     if names and all(names) and len(set(names)) == 1 and not names[0].startswith("#"):
         edges.append((names[0], output["id"], Fraction(output.get("count", 1), len(names))))
-salvage = {"minecraft:diamond": Fraction(2)}
+# E1ANS F7 / simplemoney-3: the exchange buys 10 diamonds for 2 bills (price factor 0, no discount) = 1/5 bill per diamond.
+salvage = {"minecraft:diamond": Fraction(1, 5)}
 for _ in range(len(edges) + 1):
     changed = False
     for source, result, factor in edges:
@@ -159,7 +160,7 @@ else:
 for row in linked:
     offer = read(data / f"villager_trade/links/{row['item'].replace(':', '/')}.json")
     import math
-    minimum = min(64, max(row["safetyFloor"], math.ceil(row["hours"] + row["tier"] * 2 + row["craft"])))
+    minimum = min(64, max(row["safetyFloor"], math.ceil((row["hours"] + row["tier"] * 2 + row["craft"]) / 3)))
     assert salvage.get(row["item"], 0) < minimum, f"Salvage can profit at minimum allowed configuration: {row['item']}"
 print("Money links salvage audit: no diamond-exchange profit through single-material recipe/uncrafting chains")
 # E1ANS F7: the 47 own offers follow one price logic (tools/source_prices.py); trade files, expectations and manual agree.

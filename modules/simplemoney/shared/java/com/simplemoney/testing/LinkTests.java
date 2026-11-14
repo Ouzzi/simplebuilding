@@ -86,6 +86,10 @@ public final class LinkTests {
         config.stock = -1; config.dailyLimit = -1; config.cooldownTicks = Integer.MAX_VALUE; config.normalize();
         h.assertTrue(config.billsPerHour == 2 && config.rarityStep == 8 && config.craftWeight == 4 && config.stock == 1 && config.dailyLimit == 1 && config.cooldownTicks == 1200, "opposite bounds clamped");
         for (var price : MoneyLinks.PRICES.values()) h.assertTrue(MoneyLinks.buy(price) >= price.safetyFloor() && MoneyLinks.buy(price) <= 64, "price cap");
+        // PLAN40 simplemoney-3: link prices follow 1 bill = 3 diamonds (amethyst lens was 19 bills), the inverting template is offered too.
+        var lens = MoneyLinks.PRICES.get("simplegadgets:amethyst_lens");
+        h.assertTrue(lens != null && MoneyLinks.buy(lens) <= 8, "amethyst lens priced on the unified logic: " + (lens == null ? -1 : MoneyLinks.buy(lens)));
+        h.assertTrue(MoneyLinks.PRICES.containsKey("simpletrims:inverting_trim_template"), "inverting template has a price");
         h.succeed();
     }
     public static void rarity(GameTestHelper h) {

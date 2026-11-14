@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 57
+    "count": 19
   },
   "gives": {
     "id": "simplebuildingtools:enderite_building_wand",

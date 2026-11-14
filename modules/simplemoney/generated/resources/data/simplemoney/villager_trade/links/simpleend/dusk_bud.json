@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 16
+    "count": 6
   },
   "gives": {
     "id": "simpleend:dusk_bud",

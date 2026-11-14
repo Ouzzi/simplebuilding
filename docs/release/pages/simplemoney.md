@@ -22,14 +22,14 @@ Simple Money adds a currency you can produce, weighted villager trades and money
 - **Raw Bill** - A rare crafting result.
 - **Money Bill** - Currency for the added villager and wandering trader offers.
 - **One price logic** - All 47 own offers follow one rule: one money bill is worth 3 diamonds or 16 emeralds (making a bill costs two diamonds plus gold, iron, resin and blast furnace time).
-- **Trade: armorer/25** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/26** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/27** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/28** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
+- **Treasure currency** - One independent roll per chest.
+- **Server configuration**
+- **Experimental Forge 26.3** - Opt-in Forge adapter with shared items, recipes, trades, loot, JSON configuration, and the same server test catalogue.
+- **Money Links: Add-on Trades** - Adds buy-only money offers for loaded mods without removing their original trades.
 
 ## Vanilla use
 
-Adds a currency, weighted villager trades and treasure loot so survival worlds get an economy; Vanilla trades are not removed.
+Adds a currency, weighted villager trades and treasure loot so survival worlds get an economy. Making a bill is deliberately expensive (about 3 diamonds each), so money is a sink for diamonds and gold, not a loophole. Villagers and the wandering trader get extra offers (a few Vanilla goods for bills, goods of other Simple mods for bills, bills for diamonds); Vanilla offers stay in the pool and no Vanilla loot table is replaced. Offers that remove Vanilla scarcity (budding amethyst, diamond ore) are off by default.
 
 ## Dependencies
 
