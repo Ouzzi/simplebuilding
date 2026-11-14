@@ -27,7 +27,7 @@ A head for every mob: dropped when a charged creeper's explosion kills it, worn 
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: SimpleLib, Cloth Config
+- Required mods: SimpleLib (Cloth Config optional: config screen only)
 - Optional integrations: simplebuilding, simplemobs, simpleend, simpleenddragonfight, jei, modmenu
 
 ## Notes
