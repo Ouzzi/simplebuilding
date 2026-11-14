@@ -209,7 +209,7 @@ window.WIKI_MODULES = [
     "id": "simplemodels",
     "displayName": "Simple Models",
     "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -221,7 +221,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -290,7 +290,7 @@ window.WIKI_MODULES = [
     "id": "simplevisuals",
     "displayName": "Simple Visuals",
     "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -330,7 +330,7 @@ window.WIKI_MODULES = [
     "id": "simplesounds",
     "displayName": "Simple Sounds",
     "description": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -345,7 +345,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "stage": "new",
+    "stage": "done",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -675,7 +675,7 @@ window.WIKI_MODULES = [
     "id": "simplelivemap",
     "displayName": "Simple Livemap",
     "description": "Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and a built-in web server (on out of the box, only on this computer, private with a key; own website possible).",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -684,7 +684,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplemaps"
     ],
-    "stage": "new",
+    "stage": "done",
     "intro": {
       "en": "A live web map of the world as the players really explored it, with map relief, optional player positions and an optional built-in web server.",
       "de": "Eine Live-Webkarte der Welt, so wie die Spieler sie wirklich erkundet haben, mit Kartenrelief, wahlweise Spielerpositionen und einem wahlweise eingebauten Webserver."
@@ -1038,7 +1038,7 @@ window.WIKI_MODULES = [
     "id": "simpleaesthetics",
     "displayName": "Simple Aesthetics",
     "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1395,7 +1395,7 @@ window.WIKI_MODULES = [
     "id": "simplestats",
     "displayName": "Simple Stats",
     "description": "Every tool, weapon and piece of armor keeps its own statistics (blocks mined, kills by mob and variant, damage absorbed, distances, catches) with an item-specific statistics screen.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1406,7 +1406,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "stage": "new",
+    "stage": "done",
     "intro": {
       "en": "Every tool, weapon and piece of armor counts its own blocks, kills, absorbed damage, distances and catches, with an item-specific statistics screen.",
       "de": "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil zählt eigene Blöcke, Kills, abgefangenen Schaden, Strecken und Fänge, mit einem Statistik-Bildschirm je Gegenstand."
@@ -1591,7 +1591,7 @@ window.WIKI_MODULES = [
     "id": "simpleoptimization",
     "displayName": "Simple Optimization",
     "description": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1602,7 +1602,7 @@ window.WIKI_MODULES = [
       "simpleoptserver"
     ],
     "optional": [],
-    "stage": "new",
+    "stage": "done",
     "overview": {
       "status": "in Arbeit",
       "open": "13",
@@ -1628,14 +1628,14 @@ window.WIKI_MODULES = [
     "id": "simpleoptrender",
     "displayName": "Simple Opt Render",
     "description": "Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
     ],
     "requires": [],
     "optional": [],
-    "stage": "new",
+    "stage": "done",
     "parent": "simpleoptimization",
     "bundle": "required",
     "intro": {
@@ -1655,15 +1655,15 @@ window.WIKI_MODULES = [
   {
     "id": "simpleoptmemory",
     "displayName": "Simple Opt Memory",
-    "description": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
-    "version": "0.1.0",
+    "description": "Memory optimization: shares the property and face tables of block states (O4, same idea as FerriteCore, which it yields to), with switch, config and mod detection.",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
     ],
     "requires": [],
     "optional": [],
-    "stage": "new",
+    "stage": "done",
     "parent": "simpleoptimization",
     "bundle": "required",
     "intro": {
@@ -1684,14 +1684,14 @@ window.WIKI_MODULES = [
     "id": "simpleoptserver",
     "displayName": "Simple Opt Server",
     "description": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
     ],
     "requires": [],
     "optional": [],
-    "stage": "new",
+    "stage": "done",
     "parent": "simpleoptimization",
     "bundle": "required",
     "intro": {
