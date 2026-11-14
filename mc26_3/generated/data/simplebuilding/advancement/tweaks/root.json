@@ -6,7 +6,7 @@
           {
             "items": [
               "simplepads:copper_pressure_plate",
-              "simplepads:diamond_pressure_plate",
+              "simplelib:diamond_pressure_plate",
               "simplegadgets:magnet",
               "simplegadgets:detector",
               "simplegadgets:velocity_gauge",
