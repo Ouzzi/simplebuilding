@@ -3399,7 +3399,7 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("resources_diamond", ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND)));
         // PAL35c (14.11.): SimpleLib's emerald chain (26.3) in its own row behind the diamond one.
         if (pal35cLib("emerald_pebble") != null) {
-            expected.add(CreativeTabLayout.Row.of("resources_emerald", pal35cLib("emerald_pebble"), pal35cLib("cracked_emerald"), Items.EMERALD));
+            expected.add(CreativeTabLayout.Row.of("resources_emerald", pal35cLib("emerald_pebble"), pal35cLib("cracked_emerald")));
         }
         expected.addAll(List.of(
                 CreativeTabLayout.Row.of("resources_netherite",

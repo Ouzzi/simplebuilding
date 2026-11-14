@@ -500,7 +500,7 @@ public final class ModItemGroupsContent {
                         ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND)));
         // PAL35c (14.11.): the emerald chain of SimpleLib (26.3) in its own row behind the diamond one.
         if (libMaterial("emerald_pebble") != null) {
-            rows.add(CreativeTabLayout.Row.of("resources_emerald", libMaterial("emerald_pebble"), libMaterial("cracked_emerald"), Items.EMERALD));
+            rows.add(CreativeTabLayout.Row.of("resources_emerald", libMaterial("emerald_pebble"), libMaterial("cracked_emerald")));
         }
         rows.addAll(List.of(
                 CreativeTabLayout.Row.of("resources_netherite",

@@ -29,6 +29,12 @@ public final class SharedMaterials {
             "polished_end_stone",
             // IG31-13: the building cores.
             "copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core");
+    /**
+     * PAL35c (14.11.): SimpleLib materials that never were SimpleBuilding's (no id move) but stand in its materials tab: the emerald
+     * chain and the rose cores. Shared like the moved ones ({@link #isShared}), not part of {@link #ITEMS}.
+     */
+    public static final List<String> LIB_ITEMS = List.of("emerald_pebble", "cracked_emerald", "cracked_emerald_block",
+            "rose_bronze_core", "rose_gold_core");
     /** Block ids that moved. */
     public static final List<String> BLOCKS = List.of("cracked_diamond_block", "polished_end_stone");
     /** IG31-13: item ids that moved from {@code simplebuilding:} to {@code simpleores:} (same paths; the blocks have block items). */
@@ -59,13 +65,13 @@ public final class SharedMaterials {
     /** Whether {@code item} is one of the shared materials (SimpleLib's or Simple Ores', not SimpleBuilding's own registration). */
     public static boolean isShared(Item item) {
         var id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item);
-        return id != null && ("simplelib".equals(id.getNamespace()) && ITEMS.contains(id.getPath())
+        return id != null && ("simplelib".equals(id.getNamespace()) && (ITEMS.contains(id.getPath()) || LIB_ITEMS.contains(id.getPath()))
                 || ORES.equals(id.getNamespace()) && ORES_ITEMS.contains(id.getPath()));
     }
 
     public static boolean isShared(Block block) {
         var id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
-        return id != null && ("simplelib".equals(id.getNamespace()) && BLOCKS.contains(id.getPath())
+        return id != null && ("simplelib".equals(id.getNamespace()) && (BLOCKS.contains(id.getPath()) || "cracked_emerald_block".equals(id.getPath()))
                 || ORES.equals(id.getNamespace()) && ORES_BLOCKS.contains(id.getPath()));
     }
 
