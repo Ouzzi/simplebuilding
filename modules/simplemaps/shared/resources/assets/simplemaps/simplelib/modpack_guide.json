@@ -9,7 +9,7 @@
       "title": "simplemaps.guide.chapter",
       "icon": "minecraft:compass",
       "page_key": "simplemaps.guide.page",
-      "pages": 12,
+      "pages": 13,
       "advancement": "simplemaps:guide/chapter",
       "hint": "minecraft:compass"
     }

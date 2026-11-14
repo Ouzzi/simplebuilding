@@ -32,8 +32,12 @@
   "simplequestionary.guide.page.2": "Put an item into the slot on the left: the open book on the right tells its lore, its use and a secret.",
   "simplequestionary.guide.page.3.title": "Questionary texts",
   "simplequestionary.guide.page.3": "Every mod describes its own items in assets/<namespace>/questionary/<language>.json; resource packs can add or replace entries.",
-  "simplequestionary.guide.page.4.title": "Commands",
-  "simplequestionary.guide.page.4": "/simplequestionary config shows and changes every option of config/simplequestionary.json (list [group], get, set, reset, help; Tab completes options and values).",
-  "simplequestionary.guide.page.5.title": "Commands",
-  "simplequestionary.guide.page.5": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
+  "simplequestionary.guide.page.4.title": "Placeholder texts",
+  "simplequestionary.guide.page.4": "Items without their own text still get a page: a short mood text picked from eight variants per item class, so the same item reads the same in every world.",
+  "simplequestionary.guide.page.5.title": "Recipe facts (read recipes)",
+  "simplequestionary.guide.page.5": "The book reads the recipes of the world for the item in the slot and lists what it is made from and what it makes, with the crafting station.",
+  "simplequestionary.guide.page.6.title": "Commands",
+  "simplequestionary.guide.page.6": "/simplequestionary config shows and changes every option of config/simplequestionary.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simplequestionary.guide.page.7.title": "Commands",
+  "simplequestionary.guide.page.7": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
 }

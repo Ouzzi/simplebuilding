@@ -1892,6 +1892,25 @@
       "tooltipDe": "Seltene Schritte, die sich hinter dir nähern und verstummen; kein Wesen, kein Schaden. Standard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/config/LayersConfig.java",
+      "name": "backrooms.lockUnfinishedLevels",
+      "shortName": "lockUnfinishedLevels",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Backrooms",
+      "categoryDe": "Backrooms",
+      "group": null,
+      "groupDe": null,
+      "label": "Seal unfinished levels",
+      "labelDe": "Unfertige Ebenen versiegeln",
+      "tooltip": "On: doors, stairs and ways into Backrooms levels that are still placeholders (a plain grid of Vanilla blocks) stay dormant; a level opens by itself once it is built. Off: all ten levels are reachable. Default: on.",
+      "tooltipDe": "An: Türen, Treppen und Wege in Backrooms-Ebenen, die noch Platzhalter sind (ein schlichtes Raster aus Vanilla-Blöcken), bleiben ruhend; eine Ebene öffnet sich von selbst, sobald sie gebaut ist. Aus: alle zehn Ebenen sind erreichbar. Standard: an."
+    },
+    {
       "range": [
         0,
         100000
@@ -2071,7 +2090,7 @@
     "items": 8,
     "blocks": 20,
     "trades": 0,
-    "config": 12,
+    "config": 13,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

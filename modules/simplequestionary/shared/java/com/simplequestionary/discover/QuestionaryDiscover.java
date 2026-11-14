@@ -52,8 +52,10 @@ public final class QuestionaryDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simplequestionary:commands",
+            "simplequestionary:placeholder_texts",
             "simplequestionary:questionary_table",
-            "simplequestionary:questionary_texts");
+            "simplequestionary:questionary_texts",
+            "simplequestionary:recipe_facts");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {

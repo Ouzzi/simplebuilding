@@ -9,7 +9,7 @@
       "title": "simpleend.guide.chapter",
       "icon": "minecraft:chorus_fruit",
       "page_key": "simpleend.guide.page",
-      "pages": 22,
+      "pages": 24,
       "advancement": "simpleend:guide/chapter",
       "hint": "minecraft:chorus_fruit"
     }

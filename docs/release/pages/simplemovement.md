@@ -16,7 +16,7 @@ Simple Movement adds crawling on demand, an autowalk the server can allow, faste
 
 - **Manual crawling** - C (default) or /simplemovement crawl sets the synchronized swimming pose.
 - **Auto-walk** - The Auto Walk key (unbound by default) toggles ordinary forward input only when the server enables enableAutowalk (default false).
-- **Climbing and sliding** - Climbing speed defaults to 0.4 blocks/tick (range 0.2–0.4).
+- **Climbing and sliding** - Climbing speed defaults to 0.4 blocks/tick, twice the Vanilla 0.2 (range 0.2–0.4; 0.2 = Vanilla).
 - **Frost Walker on powder snow** - Frost Walker permits walking on powder snow.
 - **Jump Boost steps up** - While Jump Boost is active (potion, beacon or command), the step_height attribute is topped up to at least 1 block, so you walk up a full block without jumping.
 - **Commands** - /simplemovement crawl is available to players.
@@ -26,9 +26,9 @@ Simple Movement adds crawling on demand, an autowalk the server can allow, faste
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
+- **Required:** Fabric API (no other mods)
 - **Optional:** Simple Quality of Life, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25

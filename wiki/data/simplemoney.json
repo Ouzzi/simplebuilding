@@ -9604,6 +9604,231 @@
       "link": "simplebuildingtools"
     },
     {
+      "id": "simplemoney:links/simplechess/astralit_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 14
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:astralit_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/astralit_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/blackstone_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:blackstone_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/blackstone_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/ender_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 14
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:ender_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/ender_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/lapis_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:lapis_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/lapis_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/nether_brick_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:nether_brick_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/nether_brick_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/nihilith_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 14
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:nihilith_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 1,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": 0.1,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableWanderingTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/nihilith_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/purpur_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:purpur_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/purpur_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/red_nether_brick_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:red_nether_brick_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/red_nether_brick_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
+      "id": "simplemoney:links/simplechess/resin_quartz_checker",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechess:resin_quartz_checker",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechess",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/resin_quartz_checker.json",
+      "link": "simplechess"
+    },
+    {
       "id": "simplemoney:links/simplechisels/copper_chisel",
       "profession": "wandering_trader",
       "level": null,
@@ -15524,7 +15749,7 @@
     "enchantments": 0,
     "items": 8,
     "blocks": 0,
-    "trades": 424,
+    "trades": 433,
     "config": 11,
     "quests": 0,
     "recipesOtherLines": 0,

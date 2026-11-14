@@ -15,7 +15,7 @@ Simple Enchanting adds the Dark Enchanter (three random enchantments with slider
 ## Features
 
 - **Dark and Astral Enchanter** - Pick your enchantments yourself: three random ones that fit the item, each with a slider up to its maximum, paid from a level budget the shelves and the floor set.
-- **Floors and shelves** - SimpleBuilding owns the building blocks the tables need: Blazing and Nihil Obsidian, blazewood planks and bookshelves.
+- **Floors and shelves**
 - **Blazewood family**
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpleenchanting config [list | get | set | reset | help] (operators).

@@ -27,10 +27,6 @@ Simple Visuals tweaks how the game looks on the client: HUD, tooltips, anvil tex
 - **Biome notifications** - Optional biome name on transition, with display duration, offset and re-entry cooldown.
 - **Anvil formatting and uses** - Valid & or section-sign color/style codes are accepted only under server formatting policy.
 
-## Good to know
-
-- **Needed on the client too:** chiselled (tilted) item frames send an extra value that a game without Simple Visuals does not understand. The chisels need Simple Building on the client anyway, so this only means: install Simple Visuals there as well.
-
 ## Dependencies
 
 - **Required:** Fabric API, Cloth Config

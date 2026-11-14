@@ -349,7 +349,6 @@ public final class MoneyDiscover {
             "simplemoney:money_links_simpleblocks",
             "simplemoney:money_links_simplebuilding",
             "simplemoney:money_links_simplebuildingtools",
-            "simplemoney:money_links_simplechess",
             "simplemoney:money_links_simplechisels",
             "simplemoney:money_links_simplecrucibles",
             "simplemoney:money_links_simpleend",
@@ -508,7 +507,6 @@ public final class MoneyDiscover {
             "simpletools:enderite_bucket",
             "simpletrims:emitting_trim_template",
             "simpletrims:glowing_trim_template",
-            "simpletrims:inverting_trim_template",
             "simpletrims:pulsating_trim_template");
     static final List<Tip> TIPS = List.of();
 

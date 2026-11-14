@@ -575,24 +575,24 @@
       "questionary": {
         "en": {
           "lore": [
-            "A flat bed where liquid metal learns to be an ingot."
+            "A shallow tray for ingots."
           ],
           "use": [
-            "Place it under a spout: the melt cools in it into a shape you can pick up."
+            "Place it below a spout; it takes up to nine ingots, which set after a few seconds and can then be taken out."
           ],
           "secret": [
-            "Keep it level and empty before the next pour."
+            "Breaking it drops what is inside."
           ]
         },
         "de": {
           "lore": [
-            "Ein flaches Bett, in dem flüssiges Metall lernt, ein Barren zu sein."
+            "Eine flache Schale für Barren."
           ],
           "use": [
-            "Unter eine Gusstülle stellen: die Schmelze kühlt darin zu einer Form aus, die man aufnehmen kann."
+            "Unter eine Tülle stellen; es nimmt bis zu neun Barren auf, die nach einigen Sekunden erstarren und dann entnommen werden können."
           ],
           "secret": [
-            "Eben halten und vor dem nächsten Guss leeren."
+            "Abbauen lässt den Inhalt fallen."
           ]
         }
       },
@@ -623,24 +623,24 @@
       "questionary": {
         "en": {
           "lore": [
-            "The grate under the melt: nothing fancy, but everything depends on it."
+            "Where the fire lives."
           ],
           "use": [
-            "Place it in the hull and feed it fuel from the foundry desk to light the chambers."
+            "Put it in the hull; fuel in the desk's fuel slot burns here: coal, charcoal and logs give medium heat, lava buckets, blaze rods and coal blocks high heat."
           ],
           "secret": [
-            "It is the fire's door: if the grate is missing, nothing glows."
+            "Iron needs high heat; gold and copper melt at medium heat."
           ]
         },
         "de": {
           "lore": [
-            "Der Feuerrost unter der Schmelze: nichts Besonderes, aber alles hängt daran."
+            "Wo das Feuer wohnt."
           ],
           "use": [
-            "In die Hülle setzen und vom Hüttenpult mit Brennstoff füttern, so zünden die Kammern."
+            "In die Hülle setzen; Brennstoff im Brennstoff-Platz des Pults brennt hier: Kohle, Holzkohle und Holz geben mittlere Hitze, Lavaeimer, Lohenruten und Kohleblöcke hohe Hitze."
           ],
           "secret": [
-            "Es ist die Tür des Feuers: ohne Feuerrost glüht nichts."
+            "Eisen braucht hohe Hitze; Gold und Kupfer schmelzen bei mittlerer Hitze."
           ]
         }
       },
@@ -671,24 +671,24 @@
       "questionary": {
         "en": {
           "lore": [
-            "Fired in a hurry and meant to hold a fire for a long, long time."
+            "Hard-baked hull of the foundry."
           ],
           "use": [
-            "The building block of the foundry hull: a closed hull of foundry bricks holds the melting chambers and keeps the heat in."
+            "Every side of the tank must be closed by brick, desk, fire grate, spout or glass."
           ],
           "secret": [
-            "Gaps in the hull are the foundry's only real enemy."
+            "It is the cheap part; the hull decides whether the foundry is ready."
           ]
         },
         "de": {
           "lore": [
-            "In Eile gebrannt und gemacht, um sehr lange ein Feuer zu halten."
+            "Hart gebrannte Hülle der Gießerei."
           ],
           "use": [
-            "Der Baustein der Hütten-Hülle: eine geschlossene Hülle aus Hüttenziegeln umschließt die Schmelzkammern und hält die Hitze."
+            "Jede Seite des Tanks muss durch Ziegel, Pult, Feuerrost, Tülle oder Glas geschlossen sein."
           ],
           "secret": [
-            "Lücken in der Hülle sind der einzige echte Feind der Hütte."
+            "Der günstige Teil; die Hülle entscheidet, ob die Gießerei bereit ist."
           ]
         }
       },
@@ -724,24 +724,24 @@
       "questionary": {
         "en": {
           "lore": [
-            "The desk where the foundry master reads the fire like a book."
+            "The brain of a foundry."
           ],
           "use": [
-            "Light the foundry with fuel on the desk, watch melt and fuel tank, throw in ore and pour by layer. A broken desk keeps its tier on the item; its melt and fuel tank are lost."
+            "Place it in the brick hull, put fuel in the fuel slot and throw ore, raw metal, ingots or old gear into its places. The window shows the tank layer by layer; pick a layer and pour it."
           ],
           "secret": [
-            "Pour carefully: the melt in the tank is lost when you break the desk."
+            "A desk keeps its tier when broken (melt and fuel are lost). Stone has 3 places; right-click with an iron block (6), a diamond block (9) and a netherite ingot (12) raises it, one piece each, taken."
           ]
         },
         "de": {
           "lore": [
-            "Das Pult, an dem der Hüttenmeister das Feuer wie ein Buch liest."
+            "Das Hirn einer Gießerei."
           ],
           "use": [
-            "Mit Brennstoff am Pult die Hütte anzünden, Schmelze und Brennstofftank beobachten, Erz einwerfen und schichtweise ausgießen. Ein abgebautes Pult behält seine Stufe im Item; Schmelze und Brennstofftank gehen verloren."
+            "In die Ziegelhülle stellen, Brennstoff in den Brennstoff-Platz legen und Erz, Rohmetall, Barren oder alte Ausrüstung auf die Plätze werfen. Das Fenster zeigt den Tank Schicht für Schicht; Schicht wählen und gießen."
           ],
           "secret": [
-            "Vorsichtig gießen: die Schmelze im Tank ist weg, wenn man das Pult abbaut."
+            "Ein Pult behält seine Stufe beim Abbauen (Schmelze und Brennstoff gehen verloren). Stein hat 3 Plätze; Rechtsklick mit einem Eisenblock (6), einem Diamantblock (9) und einem Netheritbarren (12) steigert es, je ein Stück, wird verbraucht."
           ]
         }
       },
@@ -771,24 +771,24 @@
       "questionary": {
         "en": {
           "lore": [
-            "A spout with one job: let the molten metal out exactly where you want it."
+            "Pours the melt out."
           ],
           "use": [
-            "Attach it to the hull to pour the melt, layer by layer, into a casting tray or onto the ground."
+            "Place it on the hull above a casting tray; it draws nine units per ingot from the chosen layer."
           ],
           "secret": [
-            "It only pours; it never melts anything by itself."
+            "A reinforced cauldron of Simple Crucibles works as a target too."
           ]
         },
         "de": {
           "lore": [
-            "Ein Eine Gusstülle mit einer Aufgabe: das flüssige Metall genau dorthin zu lassen, wo man es will."
+            "Gießt die Schmelze aus."
           ],
           "use": [
-            "An die Hülle setzen, um die Schmelze Schicht für Schicht in eine Gussschale oder auf den Boden zu gießen."
+            "Auf die Hülle über ein Gießtablett setzen; sie zieht neun Einheiten je Barren aus der gewählten Schicht."
           ],
           "secret": [
-            "Er gießt nur; von allein schmilzt er nichts."
+            "Auch ein verstärkter Kessel aus Simple Crucibles ist ein Ziel."
           ]
         }
       },
@@ -819,24 +819,24 @@
       "questionary": {
         "en": {
           "lore": [
-            "A small fiery room that has seen more ore than any miner."
+            "A brick belly that holds molten metal."
           ],
           "use": [
-            "Stack melting chambers into a tank inside a closed hull; thrown-in ore melts there and you pour the melt by layer."
+            "Build chambers in any shape inside a closed hull of foundry brick (up to 256, 32 per axis); together they are the tank (27 ingots each)."
           ],
           "secret": [
-            "A tank is only as large as its hull is tight."
+            "They must touch the desk and sit in loaded chunks; gold sinks to the bottom, then copper, then iron."
           ]
         },
         "de": {
           "lore": [
-            "Eine kleine feurige Kammer, die mehr Erz gesehen hat als jeder Bergmann."
+            "Ein Ziegelbauch für flüssiges Metall."
           ],
           "use": [
-            "Schmelzkammern werden in einer geschlossenen Hülle zu einem Tank gestapelt; eingeworfenes Erz schmilzt dort, und die Schmelze wird schichtweise ausgegossen."
+            "Kammern in beliebiger Form in einer geschlossenen Hülle aus Hüttenziegeln bauen (bis 256, 32 je Achse); zusammen sind sie der Tank (je 27 Barren)."
           ],
           "secret": [
-            "Ein Tank ist nur so groß, wie seine Hülle dicht ist."
+            "Sie müssen das Pult berühren und in geladenen Chunks liegen; Gold sinkt nach unten, dann Kupfer, dann Eisen."
           ]
         }
       },
@@ -847,7 +847,84 @@
     }
   ],
   "trades": [],
-  "config": [],
+  "config": [
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
+      "name": "castTicks",
+      "shortName": "castTicks",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Simple Foundry",
+      "categoryDe": "Simple Foundry",
+      "group": null,
+      "groupDe": null,
+      "label": "Casting time (ticks)",
+      "labelDe": "Gießzeit (Ticks)",
+      "tooltip": "Ticks between two pours and the time an ingot needs to set in the tray (20 ticks = 1 second). Default: 100.",
+      "tooltipDe": "Ticks zwischen zwei Güssen und die Zeit, die ein Barren im Tablett zum Erstarren braucht (20 Ticks = 1 Sekunde). Standard: 100."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
+      "name": "enabled",
+      "shortName": "enabled",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Foundry",
+      "categoryDe": "Simple Foundry",
+      "group": null,
+      "groupDe": null,
+      "label": "Foundry enabled",
+      "labelDe": "Gießerei aktiv",
+      "tooltip": "Off: the foundry blocks leave the creative tab; built foundries keep working. Default: on.",
+      "tooltipDe": "Aus: die Gießerei-Blöcke verschwinden aus dem Kreativ-Tab; gebaute Gießereien arbeiten weiter. Standard: an."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
+      "name": "maxChambers",
+      "shortName": "maxChambers",
+      "type": "int",
+      "default": "256",
+      "note": null,
+      "category": "Simple Foundry",
+      "categoryDe": "Simple Foundry",
+      "group": null,
+      "groupDe": null,
+      "label": "Most melting chambers",
+      "labelDe": "Höchstzahl Schmelzkammern",
+      "tooltip": "Most melting chambers one foundry may have (the hard limit is 512, 32 per axis). Range 1 to 512. Default: 256.",
+      "tooltipDe": "Höchstzahl Schmelzkammern einer Gießerei (die harte Grenze ist 512, 32 je Achse). Bereich 1 bis 512. Standard: 256."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
+      "name": "meltTicksPerUnit",
+      "shortName": "meltTicksPerUnit",
+      "type": "int",
+      "default": "4",
+      "note": null,
+      "category": "Simple Foundry",
+      "categoryDe": "Simple Foundry",
+      "group": null,
+      "groupDe": null,
+      "label": "Melting time per unit (ticks)",
+      "labelDe": "Schmelzzeit je Einheit (Ticks)",
+      "tooltip": "Ticks to melt one unit; an ingot is nine units (20 ticks = 1 second). Default: 4.",
+      "tooltipDe": "Ticks, um eine Einheit zu schmelzen; ein Barren sind neun Einheiten (20 Ticks = 1 Sekunde). Standard: 4."
+    }
+  ],
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
@@ -869,7 +946,7 @@
     "items": 0,
     "blocks": 6,
     "trades": 0,
-    "config": 0,
+    "config": 4,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

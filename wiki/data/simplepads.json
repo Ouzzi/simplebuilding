@@ -33,9 +33,9 @@
         "simplepads:potion_pad",
         "simplepads:spawn_teleporter",
         "simplepads:chunk_loader",
-        "simplepads:diamond_pressure_plate",
-        "simplepads:netherite_pressure_plate",
-        "simplepads:enderite_pressure_plate",
+        "simplelib:diamond_pressure_plate",
+        "simplelib:netherite_pressure_plate",
+        "simplelib:enderite_pressure_plate",
         "simplepads:copper_pressure_plate",
         "simplepads:spawn_elytra"
       ],
@@ -85,7 +85,7 @@
         "simplepads:netherite_elytra_pad",
         "simplepads:enderite_elytra_pad",
         "simplepads:spawn_elytra",
-        "simplepads:diamond_pressure_plate",
+        "simplelib:diamond_pressure_plate",
         "spawn_elytra"
       ],
       "sources": [
@@ -134,7 +134,7 @@
         "simplepads:flypad",
         "simplepads:reinforced_flypad",
         "simplepads:stellar_flypad",
-        "simplepads:enderite_pressure_plate"
+        "simplelib:enderite_pressure_plate"
       ],
       "sources": [
         "modules/simplepads/shared/java/com/simplepads/block/FlypadBlock.java",
@@ -375,9 +375,9 @@
     {
       "id": "pressure_plates",
       "related": [
-        "simplepads:diamond_pressure_plate",
-        "simplepads:netherite_pressure_plate",
-        "simplepads:enderite_pressure_plate",
+        "simplelib:diamond_pressure_plate",
+        "simplelib:netherite_pressure_plate",
+        "simplelib:enderite_pressure_plate",
         "simplepads:copper_pressure_plate",
         "simplepads:exposed_copper_pressure_plate",
         "simplepads:weathered_copper_pressure_plate",
@@ -389,15 +389,15 @@
         "simpleores:enderite_pressure_plate"
       ],
       "sources": [
-        "modules/simplepads/shared/java/com/simplepads/block/DiamondPressurePlateBlock.java",
-        "modules/simplepads/shared/java/com/simplepads/block/FilterPressurePlateBlock.java",
-        "modules/simplepads/shared/java/com/simplepads/block/entity/FilterPlateBlockEntity.java",
+        "modules/simplelib/shared/java/com/simplelib/block/DiamondPressurePlateBlock.java",
+        "modules/simplelib/shared/java/com/simplelib/block/FilterPressurePlateBlock.java",
+        "modules/simplelib/shared/java/com/simplelib/block/FilterPlateBlockEntity.java",
         "modules/simplepads/shared/java/com/simplepads/block/CopperPressurePlateBlock.java",
         "modules/simplepads/shared/java/com/simplepads/block/entity/CopperPressurePlateBlockEntity.java",
         "modules/simplepads/shared/java/com/simplepads/PadsConfig.java",
-        "modules/simplepads/shared/resources/data/simplepads/recipe/diamond_pressure_plate.json",
-        "modules/simplepads/shared/resources/data/simplepads/recipe/netherite_pressure_plate_smithing.json",
-        "modules/simplepads/shared/resources/data/simplepads/recipe/enderite_pressure_plate_smithing.json",
+        "modules/simplelib/generated/resources/data/simplelib/recipe/diamond_pressure_plate.json",
+        "modules/simplelib/generated/resources/data/simplelib/recipe/netherite_pressure_plate_smithing.json",
+        "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_pressure_plate_smithing.json",
         "modules/simplepads/shared/resources/data/simplepads/recipe/copper_pressure_plate.json",
         "modules/simplepads/shared/resources/data/simplepads/recipe/waxed_copper_pressure_plate_from_honeycomb.json",
         "modules/simplepads/shared/resources/assets/simplepads/lang/en_us.json",
@@ -527,37 +527,6 @@
       }
     },
     {
-      "id": "simplepads:diamond_pressure_plate",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplepads:diamond_pressure_plate",
-        "count": 1
-      },
-      "source": "modules/simplepads/shared/resources/data/simplepads/recipe/diamond_pressure_plate.json",
-      "ingredients": [
-        "minecraft:diamond"
-      ],
-      "pattern": [
-        "DD"
-      ],
-      "key": {
-        "D": [
-          "minecraft:diamond"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 2
-          }
-        ]
-      }
-    },
-    {
       "id": "simplepads:elytra_pad_crafting",
       "type": "simplepads:enchanted_shapeless",
       "category": "equipment",
@@ -570,14 +539,14 @@
       "ingredients": [
         "minecraft:elytra",
         "simplelib:diamond_core",
-        "simplepads:diamond_pressure_plate"
+        "simplelib:diamond_pressure_plate"
       ],
       "ingredientGroups": [
         [
           "simplelib:diamond_core"
         ],
         [
-          "simplepads:diamond_pressure_plate"
+          "simplelib:diamond_pressure_plate"
         ],
         [
           "minecraft:elytra"
@@ -595,8 +564,8 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/enderite_chunk_loader_smithing.json",
       "ingredients": [
+        "simplelib:enderite_pressure_plate",
         "simpleores:enderite_upgrade_template",
-        "simplepads:enderite_pressure_plate",
         "simplepads:netherite_chunk_loader"
       ],
       "slots": {
@@ -607,30 +576,26 @@
           "simplepads:netherite_chunk_loader"
         ],
         "addition": [
-          "simplepads:enderite_pressure_plate"
+          "simplelib:enderite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 3
+            "count": 1
           },
           {
-            "id": "minecraft:netherite_ingot",
-            "count": 2
+            "id": "simplelib:enderite_pressure_plate",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_pressure_plate",
+            "count": 1
           },
           {
             "id": "simpleores:enderite_upgrade_template",
-            "count": 2
-          },
-          {
-            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
@@ -651,8 +616,8 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/enderite_elytra_pad_smithing.json",
       "ingredients": [
+        "simplelib:enderite_pressure_plate",
         "simpleores:enderite_upgrade_template",
-        "simplepads:enderite_pressure_plate",
         "simplepads:netherite_elytra_pad"
       ],
       "slots": {
@@ -663,30 +628,26 @@
           "simplepads:netherite_elytra_pad"
         ],
         "addition": [
-          "simplepads:enderite_pressure_plate"
+          "simplelib:enderite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 3
+            "count": 1
           },
           {
-            "id": "minecraft:netherite_ingot",
-            "count": 2
+            "id": "simplelib:enderite_pressure_plate",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_pressure_plate",
+            "count": 1
           },
           {
             "id": "simpleores:enderite_upgrade_template",
-            "count": 2
-          },
-          {
-            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
@@ -707,8 +668,8 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/enderite_launchpad_smithing.json",
       "ingredients": [
+        "simplelib:enderite_pressure_plate",
         "simpleores:enderite_upgrade_template",
-        "simplepads:enderite_pressure_plate",
         "simplepads:netherite_launchpad"
       ],
       "slots": {
@@ -719,86 +680,30 @@
           "simplepads:netherite_launchpad"
         ],
         "addition": [
-          "simplepads:enderite_pressure_plate"
+          "simplelib:enderite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 3
+            "count": 1
           },
           {
-            "id": "minecraft:netherite_ingot",
-            "count": 2
+            "id": "simplelib:enderite_pressure_plate",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_pressure_plate",
+            "count": 1
           },
           {
             "id": "simpleores:enderite_upgrade_template",
-            "count": 2
-          },
-          {
-            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
             "id": "simplepads:launchpad",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplepads:enderite_pressure_plate_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplepads:enderite_pressure_plate",
-        "count": 1
-      },
-      "source": "modules/simplepads/shared/resources/data/simplepads/recipe/enderite_pressure_plate_smithing.json",
-      "ingredients": [
-        "simpleores:enderite_ingot",
-        "simpleores:enderite_upgrade_template",
-        "simplepads:netherite_pressure_plate"
-      ],
-      "slots": {
-        "template": [
-          "simpleores:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplepads:netherite_pressure_plate"
-        ],
-        "addition": [
-          "simpleores:enderite_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -815,8 +720,8 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/enderite_spawn_teleporter_smithing.json",
       "ingredients": [
+        "simplelib:enderite_pressure_plate",
         "simpleores:enderite_upgrade_template",
-        "simplepads:enderite_pressure_plate",
         "simplepads:spawn_teleporter_tier_2"
       ],
       "slots": {
@@ -827,34 +732,30 @@
           "simplepads:spawn_teleporter_tier_2"
         ],
         "addition": [
-          "simplepads:enderite_pressure_plate"
+          "simplelib:enderite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 3
-          },
-          {
             "id": "minecraft:gold_ingot",
             "count": 2
           },
           {
-            "id": "minecraft:netherite_ingot",
-            "count": 2
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
           },
           {
-            "id": "simpleores:enderite_upgrade_template",
-            "count": 2
+            "id": "simplelib:enderite_pressure_plate",
+            "count": 1
           },
           {
             "id": "simplelib:gold_core",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_pressure_plate",
             "count": 1
           },
           {
@@ -862,7 +763,7 @@
             "count": 1
           },
           {
-            "id": "simpleores:enderite_ingot",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -881,15 +782,15 @@
       "ingredients": [
         "minecraft:elytra",
         "simplelib:enderite_core",
-        "simplemobheads:shulker_head",
-        "simplepads:enderite_pressure_plate"
+        "simplelib:enderite_pressure_plate",
+        "simplemobheads:shulker_head"
       ],
       "ingredientGroups": [
         [
           "simplelib:enderite_core"
         ],
         [
-          "simplepads:enderite_pressure_plate"
+          "simplelib:enderite_pressure_plate"
         ],
         [
           "simplemobheads:shulker_head"
@@ -910,8 +811,8 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/flypad_tier2_smithing.json",
       "ingredients": [
+        "simplelib:enderite_pressure_plate",
         "simpleores:enderite_upgrade_template",
-        "simplepads:enderite_pressure_plate",
         "simplepads:flypad"
       ],
       "slots": {
@@ -922,30 +823,18 @@
           "simplepads:flypad"
         ],
         "addition": [
-          "simplepads:enderite_pressure_plate"
+          "simplelib:enderite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 2
+            "id": "simplelib:enderite_pressure_plate",
+            "count": 1
           },
           {
             "id": "simpleores:enderite_upgrade_template",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
@@ -966,8 +855,8 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/infused_potion_pad_smithing.json",
       "ingredients": [
+        "simplelib:enderite_pressure_plate",
         "simpleores:enderite_upgrade_template",
-        "simplepads:enderite_pressure_plate",
         "simplepads:reinforced_potion_pad"
       ],
       "slots": {
@@ -978,27 +867,23 @@
           "simplepads:reinforced_potion_pad"
         ],
         "addition": [
-          "simplepads:enderite_pressure_plate"
+          "simplelib:enderite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 6
+            "id": "simplelib:netherite_pressure_plate",
+            "count": 2
           },
           {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 4
+            "count": 1
           },
           {
-            "id": "minecraft:netherite_ingot",
-            "count": 3
-          },
-          {
-            "id": "simpleores:enderite_upgrade_template",
-            "count": 2
+            "id": "simplelib:enderite_pressure_plate",
+            "count": 1
           },
           {
             "id": "simplelib:netherite_core",
@@ -1009,7 +894,7 @@
             "count": 1
           },
           {
-            "id": "simpleores:enderite_ingot",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -1054,8 +939,8 @@
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/netherite_chunk_loader_smithing.json",
       "ingredients": [
         "minecraft:netherite_upgrade_smithing_template",
-        "simplepads:chunk_loader",
-        "simplepads:netherite_pressure_plate"
+        "simplelib:netherite_pressure_plate",
+        "simplepads:chunk_loader"
       ],
       "slots": {
         "template": [
@@ -1065,22 +950,18 @@
           "simplepads:chunk_loader"
         ],
         "addition": [
-          "simplepads:netherite_pressure_plate"
+          "simplelib:netherite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 2
+            "count": 1
           },
           {
-            "id": "minecraft:netherite_ingot",
+            "id": "simplelib:netherite_pressure_plate",
             "count": 1
           },
           {
@@ -1102,8 +983,8 @@
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/netherite_elytra_pad_smithing.json",
       "ingredients": [
         "minecraft:netherite_upgrade_smithing_template",
-        "simplepads:elytra_pad",
-        "simplepads:netherite_pressure_plate"
+        "simplelib:netherite_pressure_plate",
+        "simplepads:elytra_pad"
       ],
       "slots": {
         "template": [
@@ -1113,22 +994,18 @@
           "simplepads:elytra_pad"
         ],
         "addition": [
-          "simplepads:netherite_pressure_plate"
+          "simplelib:netherite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 2
+            "count": 1
           },
           {
-            "id": "minecraft:netherite_ingot",
+            "id": "simplelib:netherite_pressure_plate",
             "count": 1
           },
           {
@@ -1150,8 +1027,8 @@
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/netherite_launchpad_smithing.json",
       "ingredients": [
         "minecraft:netherite_upgrade_smithing_template",
-        "simplepads:launchpad",
-        "simplepads:netherite_pressure_plate"
+        "simplelib:netherite_pressure_plate",
+        "simplepads:launchpad"
       ],
       "slots": {
         "template": [
@@ -1161,70 +1038,22 @@
           "simplepads:launchpad"
         ],
         "addition": [
-          "simplepads:netherite_pressure_plate"
+          "simplelib:netherite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 2
+            "count": 1
           },
           {
-            "id": "minecraft:netherite_ingot",
+            "id": "simplelib:netherite_pressure_plate",
             "count": 1
           },
           {
             "id": "simplepads:launchpad",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplepads:netherite_pressure_plate_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplepads:netherite_pressure_plate",
-        "count": 1
-      },
-      "source": "modules/simplepads/shared/resources/data/simplepads/recipe/netherite_pressure_plate_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_ingot",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplepads:diamond_pressure_plate"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplepads:diamond_pressure_plate"
-        ],
-        "addition": [
-          "minecraft:netherite_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
             "count": 1
           }
         ]
@@ -1242,15 +1071,15 @@
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/potion_pad_smithing.json",
       "ingredients": [
         "simplelib:netherite_core",
-        "simplemobheads:blaze_head",
-        "simplepads:netherite_pressure_plate"
+        "simplelib:netherite_pressure_plate",
+        "simplemobheads:blaze_head"
       ],
       "slots": {
         "template": [
           "simplelib:netherite_core"
         ],
         "base": [
-          "simplepads:netherite_pressure_plate"
+          "simplelib:netherite_pressure_plate"
         ],
         "addition": [
           "simplemobheads:blaze_head"
@@ -1260,19 +1089,11 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
             "id": "simplelib:netherite_core",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_pressure_plate",
             "count": 1
           },
           {
@@ -1294,7 +1115,7 @@
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/reinforced_potion_pad_smithing.json",
       "ingredients": [
         "minecraft:netherite_upgrade_smithing_template",
-        "simplepads:netherite_pressure_plate",
+        "simplelib:netherite_pressure_plate",
         "simplepads:potion_pad"
       ],
       "slots": {
@@ -1305,23 +1126,19 @@
           "simplepads:potion_pad"
         ],
         "addition": [
-          "simplepads:netherite_pressure_plate"
+          "simplelib:netherite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 4
+            "id": "simplelib:netherite_pressure_plate",
+            "count": 2
           },
           {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 3
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 2
+            "count": 1
           },
           {
             "id": "simplelib:netherite_core",
@@ -1390,7 +1207,7 @@
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/spawn_teleporter_tier2_smithing.json",
       "ingredients": [
         "minecraft:netherite_upgrade_smithing_template",
-        "simplepads:netherite_pressure_plate",
+        "simplelib:netherite_pressure_plate",
         "simplepads:spawn_teleporter"
       ],
       "slots": {
@@ -1401,30 +1218,26 @@
           "simplepads:spawn_teleporter"
         ],
         "addition": [
-          "simplepads:netherite_pressure_plate"
+          "simplelib:netherite_pressure_plate"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:diamond",
-            "count": 2
-          },
-          {
             "id": "minecraft:gold_ingot",
             "count": 2
           },
           {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
             "count": 1
           },
           {
             "id": "simplelib:gold_core",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_pressure_plate",
             "count": 1
           },
           {
@@ -1464,22 +1277,10 @@
         "materials": [
           {
             "id": "simpleores:enderite_upgrade_template",
-            "count": 5
+            "count": 3
           },
           {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 2
-          },
-          {
-            "id": "simpleores:enderite_ingot",
+            "id": "simplelib:enderite_pressure_plate",
             "count": 2
           },
           {
@@ -1672,24 +1473,6 @@
       "source": "modules/simplepads/shared/resources/data/simplepads/loot_table/blocks/copper_pressure_plate.json"
     },
     {
-      "id": "simplepads:blocks/diamond_pressure_plate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplepads:diamond_pressure_plate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplepads/shared/resources/data/simplepads/loot_table/blocks/diamond_pressure_plate.json"
-    },
-    {
       "id": "simplepads:blocks/elytra_pad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1760,24 +1543,6 @@
         }
       ],
       "source": "modules/simplepads/shared/resources/data/simplepads/loot_table/blocks/enderite_launchpad.json"
-    },
-    {
-      "id": "simplepads:blocks/enderite_pressure_plate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplepads:enderite_pressure_plate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplepads/shared/resources/data/simplepads/loot_table/blocks/enderite_pressure_plate.json"
     },
     {
       "id": "simplepads:blocks/enderite_spawn_teleporter",
@@ -1922,24 +1687,6 @@
         }
       ],
       "source": "modules/simplepads/shared/resources/data/simplepads/loot_table/blocks/netherite_launchpad.json"
-    },
-    {
-      "id": "simplepads:blocks/netherite_pressure_plate",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplepads:netherite_pressure_plate"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplepads/shared/resources/data/simplepads/loot_table/blocks/netherite_pressure_plate.json"
     },
     {
       "id": "simplepads:blocks/oxidized_copper_pressure_plate",
@@ -2595,9 +2342,9 @@
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplepads:copper_pressure_plate",
-            "simplepads:diamond_pressure_plate",
-            "simplepads:netherite_pressure_plate",
-            "simplepads:enderite_pressure_plate"
+            "simplelib:diamond_pressure_plate",
+            "simplelib:netherite_pressure_plate",
+            "simplelib:enderite_pressure_plate"
           ]
         }
       ],
@@ -2633,7 +2380,7 @@
     {
       "id": "simplepads:pads/under_pressure",
       "parent": "simplepads:pads/root",
-      "icon": "simplepads:diamond_pressure_plate",
+      "icon": "simplelib:diamond_pressure_plate",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -2649,7 +2396,7 @@
           "name": "diamond_pressure_plate",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplepads:diamond_pressure_plate"
+            "simplelib:diamond_pressure_plate"
           ]
         }
       ],
@@ -2934,68 +2681,6 @@
       "usedIn": [
         "simplepads:chunk_loader_smithing",
         "simplepads:waxed_copper_pressure_plate_from_honeycomb"
-      ]
-    },
-    {
-      "id": "simplepads:diamond_pressure_plate",
-      "name": {
-        "en_us": "Diamond Pressure Plate",
-        "de_de": "Diamant-Druckplatte"
-      },
-      "note": {
-        "en": {
-          "summary": "The Diamond Pressure Plate (from Simple Tweaks) reacts to players only - mobs and items do not press it.",
-          "details": [
-            "Crafting: two diamonds side by side. Waterloggable. Pistons cannot move it.",
-            "Players who ignore block triggers (spectators) do not press it either."
-          ]
-        },
-        "de": {
-          "summary": "Die Diamant-Druckplatte (aus Simple Tweaks) reagiert nur auf Spieler - Mobs und Gegenstände drücken sie nicht.",
-          "details": [
-            "Werkbank: zwei Diamanten nebeneinander. Wasserfüllbar. Kolben bewegen sie nicht.",
-            "Spieler, die Auslöser ignorieren (Zuschauer), drücken sie auch nicht."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "docs/SIMPLETWEAKS-UEBERNAHME.md",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A plate that only cares about you."
-          ],
-          "use": [
-            "Reacts to players only: mobs and items do not press it."
-          ],
-          "secret": [
-            "It is a quiet way to keep a farm from triggering its own door."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Platte, der nur du etwas bedeutest."
-          ],
-          "use": [
-            "Reagiert nur auf Spieler: Mobs und Gegenstände lösen sie nicht aus."
-          ],
-          "secret": [
-            "Ein leiser Weg, damit eine Farm ihre eigene Tür nicht auslöst."
-          ]
-        }
-      },
-      "craftedBy": [
-        "simplepads:diamond_pressure_plate"
-      ],
-      "usedIn": [
-        "simplepads:elytra_pad_crafting",
-        "simplepads:netherite_pressure_plate_smithing"
       ]
     },
     {
@@ -3310,77 +2995,6 @@
         "simplepads:enderite_launchpad_smithing"
       ],
       "usedIn": []
-    },
-    {
-      "id": "simplepads:enderite_pressure_plate",
-      "name": {
-        "en_us": "Enderite Owner Plate",
-        "de_de": "Enderit-Besitzerplatte"
-      },
-      "note": {
-        "en": {
-          "summary": "The Enderite Owner Plate is new: a Netherite plate with a player lock. Its owner always presses it; without a barrel nobody else does; with a barrel below, also everyone whose name is on a renamed name tag in the barrel, or who carries one of the other items in it.",
-          "details": [
-            "Smithing: enderite upgrade template + Netherite Pressure Plate + enderite ingot.",
-            "A named name tag in the barrel counts as a name, not as a whitelisted item.",
-            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
-          ]
-        },
-        "de": {
-          "summary": "Die Enderit-Besitzerplatte ist neu: eine Netherit-Platte mit Spielerschloss. Ihr Besitzer löst sie immer aus; ohne Fass sonst niemand; mit Fass darunter auch jeder, dessen Name auf einem umbenannten Namensschild im Fass steht oder der einen der anderen Gegenstände daraus trägt.",
-          "details": [
-            "Schmiede: Enderit-Aufwertung + Netherit-Druckplatte + Enderitbarren.",
-            "Ein benanntes Namensschild im Fass zählt als Name, nicht als Whitelist-Gegenstand.",
-            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "docs/SIMPLETWEAKS-UEBERNAHME.md",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      },
-      "texture": "assets/textures/simplepads/block/enderite_pressure_plate.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A plate that was made for one person, and means it."
-          ],
-          "use": [
-            "A Netherite plate with a player lock. Its owner always presses it; without a barrel nobody else does. With a barrel below, also everyone whose name is on a renamed name tag in the barrel, or who carries one of the other items in it."
-          ],
-          "secret": [
-            "Put a name tag with a player's name in the barrel to give them access without a key item."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Platte, die für eine Person gemacht wurde und es ernst meint."
-          ],
-          "use": [
-            "Eine Netherit-Platte mit Spielerschloss. Ihr Besitzer löst sie immer aus; ohne Fass sonst niemand. Mit einem Fass darunter auch jeder, dessen Name auf einem umbenannten Namensschild im Fass steht oder der einen der anderen Gegenstände darin trägt."
-          ],
-          "secret": [
-            "Lege ein Namensschild mit dem Namen eines Spielers ins Fass, um ihm ohne Schlüsselgegenstand Zutritt zu geben."
-          ]
-        }
-      },
-      "craftedBy": [
-        "simplepads:enderite_pressure_plate_smithing"
-      ],
-      "usedIn": [
-        "simplepads:enderite_chunk_loader_smithing",
-        "simplepads:enderite_elytra_pad_smithing",
-        "simplepads:enderite_launchpad_smithing",
-        "simplepads:enderite_spawn_teleporter_smithing",
-        "simplepads:flypad_tier1_crafting",
-        "simplepads:flypad_tier2_smithing",
-        "simplepads:infused_potion_pad_smithing"
-      ]
     },
     {
       "id": "simplepads:enderite_spawn_teleporter",
@@ -3968,76 +3582,6 @@
       ],
       "usedIn": [
         "simplepads:enderite_launchpad_smithing"
-      ]
-    },
-    {
-      "id": "simplepads:netherite_pressure_plate",
-      "name": {
-        "en_us": "Netherite Pressure Plate",
-        "de_de": "Netherit-Druckplatte"
-      },
-      "note": {
-        "en": {
-          "summary": "The Netherite Pressure Plate (from Simple Tweaks) reacts to every player - unless a barrel sits below it: then only players carrying one of the items in the barrel press it.",
-          "details": [
-            "Smithing: netherite upgrade + Diamond Pressure Plate + netherite ingot.",
-            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
-            "Can be switched off together with the Enderite Owner Plate (pads.enableFilterPlates)."
-          ]
-        },
-        "de": {
-          "summary": "Die Netherit-Druckplatte (aus Simple Tweaks) reagiert auf jeden Spieler - außer ein Fass steht darunter: dann nur auf Spieler, die einen der Gegenstände aus dem Fass bei sich tragen.",
-          "details": [
-            "Schmiede: Netherit-Aufwertung + Diamant-Druckplatte + Netheritbarren.",
-            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
-            "Zusammen mit der Enderit-Besitzerplatte abschaltbar (pads.enableFilterPlates)."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "docs/SIMPLETWEAKS-UEBERNAHME.md",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A plate that decides who counts."
-          ],
-          "use": [
-            "Reacts to every player, unless a barrel sits below it: then only players carrying one of the items in the barrel press it."
-          ],
-          "secret": [
-            "The barrel below is the guest list: put in the items that act as a key. It ignores mobs."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Platte, die entscheidet, wer zählt."
-          ],
-          "use": [
-            "Reagiert auf jeden Spieler, es sei denn, unter ihr steht ein Fass: Dann lösen sie nur Spieler aus, die einen der Gegenstände im Fass tragen."
-          ],
-          "secret": [
-            "Das Fass darunter ist die Gästeliste: Lege die Gegenstände hinein, die als Schlüssel dienen. Mobs ignoriert sie."
-          ]
-        }
-      },
-      "craftedBy": [
-        "simplepads:netherite_pressure_plate_smithing"
-      ],
-      "usedIn": [
-        "simplepads:enderite_pressure_plate_smithing",
-        "simplepads:netherite_chunk_loader_smithing",
-        "simplepads:netherite_elytra_pad_smithing",
-        "simplepads:netherite_launchpad_smithing",
-        "simplepads:potion_pad_smithing",
-        "simplepads:reinforced_potion_pad_smithing",
-        "simplepads:spawn_teleporter_tier2_smithing"
       ]
     },
     {
@@ -5423,13 +4967,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 26,
-    "lootTables": 29,
+    "recipes": 23,
+    "lootTables": 26,
     "tags": 3,
     "advancements": 15,
     "enchantments": 0,
     "items": 3,
-    "blocks": 29,
+    "blocks": 26,
     "trades": 0,
     "config": 34,
     "quests": 0,

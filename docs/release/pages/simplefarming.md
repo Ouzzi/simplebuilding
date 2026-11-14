@@ -22,9 +22,9 @@ Simple Farming makes common farming chores smoother: Feather Falling protects fa
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
+- **Required:** Fabric API (no other mods)
 - **Optional:** SimpleBuilding, Simple Quality of Life, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25

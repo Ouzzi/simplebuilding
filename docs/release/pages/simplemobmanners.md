@@ -18,14 +18,14 @@ Simple Mob Manners gives you control over annoying mob behavior: mute mobs, keep
 - **Permanent babies (golden dandelion)** - Minecraft 26.3 and newer: off.
 - **Piglin gold equipment** - Gold armor trims or a golden sword, spear, pickaxe, axe, shovel, or hoe in either hand count as safe equipment.
 - **Bucket of Frog** - A water bucket used on a frog catches it like an axolotl or tadpole.
-- **Commands** - Permission level 2: /simplemobmanners muteSuffixes, babySuffixes and mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims and piglinsIgnoreGoldTools <true|false>.
+- **Commands**
 - **Sub-mod of Simple QoL** - Playable alone (config/simplemobmanners.json).
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
+- **Required:** Fabric API (no other mods)
 - **Optional:** Simple Quality of Life, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25

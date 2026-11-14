@@ -33,9 +33,9 @@ Lets server owners add and tune extra dimensions and safe portals; the three Van
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config, SimpleLib
-- **Optional:** SimpleBuilding, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+- **Required:** Fabric API, SimpleLib
+- **Optional:** SimpleBuilding, Mod Menu, Cloth Config
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25

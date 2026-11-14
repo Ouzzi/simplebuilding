@@ -7,7 +7,7 @@
   "mod": {
     "id": "simplemodels",
     "name": "Simple Models",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraftLines": [
       "26.3"
     ],
@@ -158,10 +158,10 @@
         "de": "Nur Operatoren"
       },
       "en": {
-        "summary": "Only operators with game master permission may assign or remove models. Default: true."
+        "summary": "Only operators with game master permission may assign or remove models; in a single-player world its owner always may, cheats or not. Default: true."
       },
       "de": {
-        "summary": "Nur Operatoren mit Spielleiterrechten dürfen Modelle zuweisen oder entfernen. Standard: true."
+        "summary": "Nur Operatoren mit Spielleiterrechten dürfen Modelle zuweisen oder entfernen; in einer Einzelspielerwelt darf es der Besitzer immer, auch ohne Cheats. Standard: true."
       }
     },
     {
@@ -495,8 +495,8 @@
       "groupDe": null,
       "label": "Operators Only",
       "labelDe": "Nur Operatoren",
-      "tooltip": "Only operators with game master permission\nmay assign or remove models. Default: true.",
-      "tooltipDe": "Nur Operatoren mit Spielleiterrechten dürfen\nModelle zuweisen oder entfernen.\nStandard: true."
+      "tooltip": "Only operators with game master permission\nmay assign or remove models (and the owner\nof a single-player world). Default: true.",
+      "tooltipDe": "Nur Operatoren mit Spielleiterrechten dürfen\nModelle zuweisen oder entfernen (und der Besitzer\neiner Einzelspielerwelt). Standard: true."
     }
   ],
   "quests": [],

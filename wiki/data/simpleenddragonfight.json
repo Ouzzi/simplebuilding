@@ -27,7 +27,7 @@
       ],
       "en": {
         "title": "One health bar per player",
-        "summary": "Every player on the main End island adds one full dragon health bar: 300 health per player (300, 600, 900 ...), or the Vanilla 200 per player with \"raiseBaseHealth\" off.",
+        "summary": "Every player on the main End island adds one full dragon health bar: 200 health per player as in Vanilla (200, 400, 600 ...), or 300 per player with \"raiseBaseHealth\" on. Alone you fight a Vanilla dragon.",
         "details": [
           "Counted are all survival and adventure players within 160 blocks of the exit portal; creative players and spectators do not count (config countCreative). Solo stays one bar.",
           "A newcomer raises the health at once (checked every second); the dragon keeps its current share, so a half-dead dragon stays half dead. The boss bar shows the share correctly.",
@@ -38,7 +38,7 @@
       },
       "de": {
         "title": "Eine Lebensleiste je Spieler",
-        "summary": "Jeder Spieler auf der End-Hauptinsel gibt dem Drachen eine volle Lebensleiste mehr: 300 Leben je Spieler (300, 600, 900 ...), mit \"raiseBaseHealth\" aus die Vanilla-200 je Spieler.",
+        "summary": "Jeder Spieler auf der End-Hauptinsel gibt dem Drachen eine volle Lebensleiste mehr: 200 Leben je Spieler wie in Vanilla (200, 400, 600 ...), mit \"raiseBaseHealth\" an 300 je Spieler. Allein kämpfst du gegen einen Vanilla-Drachen.",
         "details": [
           "Es zählen alle Spieler im Überlebens- und Abenteuermodus bis 160 Blöcke vom Ausgangsportal; Kreativ-Spieler und Zuschauer zählen nicht (Config countCreative). Allein bleibt es eine Leiste.",
           "Ein Neuer hebt das Leben sofort an (Prüfung jede Sekunde); der Drache behält seinen Lebensanteil, ein halb toter Drache bleibt also halb tot. Die Bossleiste zeigt den Anteil richtig.",
@@ -56,14 +56,14 @@
       ],
       "en": {
         "title": "Faster dragon",
-        "summary": "The dragon flies and turns 20 % faster, plus 1.5 % per further player, at most 35 %.",
+        "summary": "Alone the dragon flies at Vanilla speed; every further player adds 1.5 %, at most 35 % (setting speedMultiplier raises the base, e.g. 1.2 = 20 % faster).",
         "details": [
           "Only in the flying phases; perching, breath attacks and landing keep their Vanilla timing so the fight is not cut short."
         ]
       },
       "de": {
         "title": "Schnellerer Drache",
-        "summary": "Der Drache fliegt und wendet 20 % schneller, dazu 1,5 % je weiterem Spieler, höchstens 35 %.",
+        "summary": "Allein fliegt der Drache mit Vanilla-Tempo; jeder weitere Spieler gibt 1,5 % dazu, höchstens 35 % (die Einstellung speedMultiplier hebt die Basis an, z. B. 1,2 = 20 % schneller).",
         "details": [
           "Nur in den Flugphasen; Sitzen, Atem-Angriffe und Landung behalten ihr Vanilla-Tempo, damit der Kampf nicht zu kurz wird."
         ]
@@ -78,18 +78,18 @@
       ],
       "en": {
         "title": "Harder with every summoning",
-        "summary": "Every further dragon summoned with End crystals is harder for good: +15 % health, damage and speed per summoning, at most x3. Multiplies with the player bars.",
+        "summary": "Optional (off by default so that farming dragon breath is not punished): every further dragon summoned with End crystals is harder for good, e.g. +15 % health, damage and speed per summoning at summonScaling 0.15, at most x3. Multiplies with the player bars.",
         "details": [
           "The count is world-wide and saved with the world; the first dragon is not counted, each respawned one adds one. Example: 2 players after 2 summonings face 600 x 1.3 = 780 health.",
-          "Damage covers head and wing hits, breath and fireballs. Speed stops at summonSpeedCap (2.0). Config: summonScaling 0.15, summonMaxMultiplier 3.0."
+          "Damage covers head and wing hits, breath and fireballs. Speed stops at summonSpeedCap (2.0). Config: summonScaling (default 0 = off; 0.15 gives +15 %), summonMaxMultiplier 3.0."
         ]
       },
       "de": {
         "title": "Schwerer mit jeder Beschwörung",
-        "summary": "Jeder weitere mit End-Kristallen beschworene Drache ist dauerhaft schwerer: +15 % Leben, Schaden und Tempo je Beschwörung, höchstens x3. Wirkt multiplikativ mit den Spieler-Leisten.",
+        "summary": "Optional (standardmäßig aus, damit das Farmen von Drachenatem nicht bestraft wird): jeder weitere mit End-Kristallen beschworene Drache ist dauerhaft schwerer, z. B. +15 % Leben, Schaden und Tempo je Beschwörung bei summonScaling 0,15, höchstens x3. Wirkt multiplikativ mit den Spieler-Leisten; Standard: aus.",
         "details": [
           "Der Zähler gilt weltweit und wird mit der Welt gespeichert; der erste Drache zählt nicht, jeder wiederbelebte zählt eins. Beispiel: 2 Spieler nach 2 Beschwörungen kämpfen gegen 600 x 1,3 = 780 Leben.",
-          "Schaden umfasst Kopf- und Flügeltreffer, Atem und Feuerbälle. Das Tempo endet bei summonSpeedCap (2,0). Config: summonScaling 0,15, summonMaxMultiplier 3,0."
+          "Schaden umfasst Kopf- und Flügeltreffer, Atem und Feuerbälle. Das Tempo endet bei summonSpeedCap (2,0). Config: summonScaling (Standard 0 = aus; 0,15 gibt +15 %), summonMaxMultiplier 3,0."
         ]
       }
     },
@@ -126,7 +126,7 @@
         "summary": "From half health on, the dragon calls Dragonmites near the exit portal: a first wave at once, then one every 30 seconds.",
         "details": [
           "2 mites per wave, one more for every two further players (4 players: 3, 8 players: 5); at most 8 + players alive at once, never more than 16.",
-          "Dragonmite: 14 health, 3 damage, armor 2, fast; a hit may slow you for 2 seconds. Endermen ignore it. Drops Dragon Chitin (killed by a player) and 3 experience.",
+          "Dragonmite: 14 health, 3 damage, armor 2, fast; a hit may slow you for 2 seconds. Endermen ignore it. Drops Dragon Chitin (killed by a player; it repairs the Elytra at the anvil like Phantom Membrane) and 3 experience.",
           "When the dragon dies or the module is switched off, every called mite dissolves in smoke without drops. They spawn only through the fight; the spawn egg shows in the creative tab only with exposeSpawnEgg."
         ]
       },
@@ -135,7 +135,7 @@
         "summary": "Ab halbem Leben ruft der Drache Dragonmites nahe dem Ausgangsportal: eine erste Welle sofort, dann alle 30 Sekunden eine.",
         "details": [
           "2 Mites je Welle, eine mehr für je zwei weitere Spieler (4 Spieler: 3, 8 Spieler: 5); höchstens 8 + Spielerzahl gleichzeitig, nie mehr als 16.",
-          "Dragonmite: 14 Leben, 3 Schaden, Rüstung 2, flink; ein Treffer kann 2 Sekunden verlangsamen. Endermen beachten sie nicht. Lässt Drachen-Chitin (von Spielern getötet) und 3 Erfahrung fallen.",
+          "Dragonmite: 14 Leben, 3 Schaden, Rüstung 2, flink; ein Treffer kann 2 Sekunden verlangsamen. Endermen beachten sie nicht. Lässt Drachen-Chitin (von Spielern getötet; repariert am Amboss die Elytren wie Phantomhaut) und 3 Erfahrung fallen.",
           "Stirbt der Drache oder wird das Modul abgeschaltet, lösen sich alle gerufenen Mites ohne Beute in Rauch auf. Sie entstehen nur durch den Kampf; das Spawn-Ei zeigt der Kreativtab nur mit exposeSpawnEgg."
         ]
       }
@@ -149,20 +149,20 @@
         "title": "Config",
         "summary": "Server file config/simpleenddragonfight.json; with SimpleBuilding the module is also switched by \"Enable Simple End Dragon Fight\".",
         "details": [
-          "enabled, raiseBaseHealth (300 instead of 200 per player), maxPlayers (0 = all), countCreative, leaveGraceSeconds 60, islandRadius 160.",
-          "speedMultiplier 1.2, speedPerPlayer 0.015, speedCap 1.35, crystalHealScaling.",
+          "enabled, raiseBaseHealth (off = 200 per player as in Vanilla, on = 300), maxPlayers (0 = all), countCreative, leaveGraceSeconds 60, islandRadius 160.",
+          "speedMultiplier 1.0, speedPerPlayer 0.015, speedCap 1.35, crystalHealScaling.",
           "mitesEnabled, waveIntervalSeconds 30, miteBase 2, miteExtraPerTwoPlayers 1, maxAliveMites 16, animationEnabled, animationTicks 60, maxQueued 16, exposeSpawnEgg.",
-          "summonScaling 0.15, summonMaxMultiplier 3.0, summonSpeedCap 2.0, summonAttackCap 2.0 (further summonings); xpPerFight 250, xpMax 5000, miteExtraPerSummons 3; rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, tintFromDragon 4, tintJewelFromDragon 10."
+          "summonScaling 0 (off; 0.15 = +15 % per summoning), summonMaxMultiplier 3.0, summonSpeedCap 2.0, summonAttackCap 2.0 (further summonings); xpPerFight 250, xpMax 5000, miteExtraPerSummons 3; rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, rewardXpFallback 1500 (XP instead of the items without Simple Mobs), tintFromDragon 4, tintJewelFromDragon 10."
         ]
       },
       "de": {
         "title": "Config",
         "summary": "Server-Datei config/simpleenddragonfight.json; mit SimpleBuilding schaltet zusätzlich \"Simple End Dragon Fight aktivieren\" das Modul.",
         "details": [
-          "enabled, raiseBaseHealth (300 statt 200 je Spieler), maxPlayers (0 = alle), countCreative, leaveGraceSeconds 60, islandRadius 160.",
-          "speedMultiplier 1,2, speedPerPlayer 0,015, speedCap 1,35, crystalHealScaling.",
+          "enabled, raiseBaseHealth (aus = 200 je Spieler wie in Vanilla, an = 300), maxPlayers (0 = alle), countCreative, leaveGraceSeconds 60, islandRadius 160.",
+          "speedMultiplier 1,0, speedPerPlayer 0,015, speedCap 1,35, crystalHealScaling.",
           "mitesEnabled, waveIntervalSeconds 30, miteBase 2, miteExtraPerTwoPlayers 1, maxAliveMites 16, animationEnabled, animationTicks 60, maxQueued 16, exposeSpawnEgg.",
-          "summonScaling 0,15, summonMaxMultiplier 3,0, summonSpeedCap 2,0, summonAttackCap 2,0 (weitere Beschwörungen); xpPerFight 250, xpMax 5000, miteExtraPerSummons 3; rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, tintFromDragon 4, tintJewelFromDragon 10."
+          "summonScaling 0 (aus; 0,15 = +15 % je Beschwörung), summonMaxMultiplier 3,0, summonSpeedCap 2,0, summonAttackCap 2,0 (weitere Beschwörungen); xpPerFight 250, xpMax 5000, miteExtraPerSummons 3; rewardEnabled, rewardFromDragon 4, rewardItem, rewardJewelFromDragon 10, rewardJewelItem, rewardXpFallback 1500 (XP statt der Items ohne Simple Mobs), tintFromDragon 4, tintJewelFromDragon 10."
         ]
       }
     },
@@ -245,10 +245,10 @@
       },
       "note": {
         "en": {
-          "summary": "Plate shed by Dragonmites during the dragon fight. A material for now - later for recipes."
+          "summary": "Plate shed by Dragonmites during the dragon fight. Repairs the Elytra at the anvil like Phantom Membrane (also tradable goods for other mods)."
         },
         "de": {
-          "summary": "Platte, die Dragonmites im Drachenkampf abwerfen. Vorerst ein Material - später für Rezepte."
+          "summary": "Platte, die Dragonmites im Drachenkampf abwerfen. Repariert die Elytren am Amboss wie Phantomhaut."
         }
       },
       "texture": "assets/textures/simpleenddragonfight/item/dragon_chitin.png",
@@ -667,7 +667,7 @@
       "name": "raiseBaseHealth",
       "shortName": "raiseBaseHealth",
       "type": "boolean",
-      "default": "true",
+      "default": "false",
       "note": null,
       "category": "Simple End Dragon Fight",
       "categoryDe": "Simple End Dragon Fight",
@@ -675,8 +675,8 @@
       "groupDe": null,
       "label": "Raise base health",
       "labelDe": "Basis-Leben erhöhen",
-      "tooltip": "On: the dragon has 300 health per counted player; off: the Vanilla 200 per player. Default: on.",
-      "tooltipDe": "An: der Drache hat 300 Leben je zählendem Spieler; aus: die Vanilla-200 je Spieler. Standard: an."
+      "tooltip": "On: the dragon has 300 health per counted player; off: the Vanilla 200 per player. Default: off (Vanilla 200; a lone player fights a Vanilla-strength dragon, every further player adds one bar).",
+      "tooltipDe": "An: der Drache hat 300 Leben je zählendem Spieler; aus: die Vanilla-200 je Spieler. Standard: aus (Vanilla-200; ein Einzelspieler kämpft gegen einen Vanilla-starken Drachen, jeder weitere Spieler gibt eine Leiste mehr)."
     },
     {
       "range": null,
@@ -778,6 +778,25 @@
       "side": null,
       "reload": null,
       "source": "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/DragonFightConfig.java",
+      "name": "rewardXpFallback",
+      "shortName": "rewardXpFallback",
+      "type": "int",
+      "default": "1500",
+      "note": null,
+      "category": "Simple End Dragon Fight",
+      "categoryDe": "Simple End Dragon Fight",
+      "group": null,
+      "groupDe": null,
+      "label": "Reward XP without Simple Mobs",
+      "labelDe": "Belohnungs-XP ohne Simple Mobs",
+      "tooltip": "Without the reward items (Simple Mobs not installed) the reward fights pay this much XP per participant instead, once; the Ender Gem fight pays twice as much. 0 = nothing. Default: 1500.",
+      "tooltipDe": "Ohne die Belohnungs-Items (Simple Mobs nicht installiert) zahlen die Belohnungs-Kämpfe stattdessen so viel Erfahrung je Teilnehmer, einmalig; der Ender-Juwel-Kampf doppelt so viel. 0 = nichts. Standard: 1500."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/DragonFightConfig.java",
       "name": "speedCap",
       "shortName": "speedCap",
       "type": "double",
@@ -800,7 +819,7 @@
       "name": "speedMultiplier",
       "shortName": "speedMultiplier",
       "type": "double",
-      "default": "1.2",
+      "default": "1.0",
       "note": null,
       "category": "Simple End Dragon Fight",
       "categoryDe": "Simple End Dragon Fight",
@@ -808,8 +827,8 @@
       "groupDe": null,
       "label": "Dragon speed",
       "labelDe": "Drachen-Tempo",
-      "tooltip": "Flight speed and turn rate of the dragon in its flying phases. Default: 1.2.",
-      "tooltipDe": "Fluggeschwindigkeit und Wendetempo des Drachen in den Flugphasen. Standard: 1,2."
+      "tooltip": "Flight speed and turn rate of the dragon in its flying phases (1.0 = Vanilla). Default: 1.0.",
+      "tooltipDe": "Fluggeschwindigkeit und Wendetempo des Drachen in den Flugphasen (1,0 = Vanilla). Standard: 1,0."
     },
     {
       "range": null,
@@ -876,7 +895,7 @@
       "name": "summonScaling",
       "shortName": "summonScaling",
       "type": "double",
-      "default": "0.15",
+      "default": "0.0",
       "note": null,
       "category": "Simple End Dragon Fight",
       "categoryDe": "Simple End Dragon Fight",
@@ -884,8 +903,8 @@
       "groupDe": null,
       "label": "Harder per summoning",
       "labelDe": "Schwerer je Beschwörung",
-      "tooltip": "Every further dragon summoned with End crystals adds this share to health, damage and speed, for good (world-wide count). 0 = off. Default: 0.15 (+15 %).",
-      "tooltipDe": "Jeder weitere mit End-Kristallen beschworene Drache bekommt diesen Anteil mehr Leben, Schaden und Tempo, dauerhaft (weltweiter Zähler). 0 = aus. Standard: 0,15 (+15 %)."
+      "tooltip": "Every further dragon summoned with End crystals adds this share to health, damage and speed, for good (world-wide count; e.g. 0.15 = +15 %). 0 = off. Default: 0 (off, so dragon farming is not punished).",
+      "tooltipDe": "Jeder weitere mit End-Kristallen beschworene Drache bekommt diesen Anteil mehr Leben, Schaden und Tempo, dauerhaft (weltweiter Zähler; z. B. 0,15 = +15 %). 0 = aus. Standard: 0 (aus, damit Drachen-Farmen nicht bestraft wird)."
     },
     {
       "range": null,
@@ -1023,7 +1042,7 @@
     "items": 3,
     "blocks": 0,
     "trades": 0,
-    "config": 33,
+    "config": 34,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

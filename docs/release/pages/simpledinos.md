@@ -20,6 +20,7 @@ Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by 
 - **Triceratops** - The tree shaker: a heavy quadruped mount that hatches tame like the T.
 - **Stegosaurus** - The plow animal: a slow, heavy quadruped mount that hatches tame like the T.
 - **Parasaurolophus** - The lead animal: a quick quadruped mount that hatches tame like the T.
+- **Utahraptor** - The climber: a quick, slim two-legged mount that hatches tame like the T.
 - **Large saddle and dinosaur armor** - The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider.
 - **Commands** - /simpledinos config shows and changes every option of config/simpledinos-server.json (list [group], get, set, reset, help; Tab completes options and values).
 

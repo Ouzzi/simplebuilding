@@ -14,9 +14,8 @@ import generate as g
 # '*backpack' moved to Simple Storage's manual (split stage 8c-2).
 # b-pads01 (04.11.): the pad families ('*elytra_pad', '*flypad', ...) moved to Simple Pads' manual (modules/simplepads/wiki/manual.json).
 FAMILIES = [  # IG31-13: '*_core' moved to SimpleLib's wiki; b-chisels07/b-btools07: chisels, wands to their modules
-            '*_quartz_checker', 'chiseled_*_bricks',
-            'enderite_*_armor', 'guide_book*', 'nihil_redstone', 'astral_redstone',
-            'bridge_redstone']
+            # b-chess47: '*_quartz_checker' moved to Simple Chess; b-circ46 (N46/M2/M3): the redstone line and Enderite armor to Simple Ores
+            'chiseled_*_bricks', 'guide_book*']
 
 
 class ItemNoteTests(unittest.TestCase):
@@ -103,9 +102,9 @@ class ItemNoteTests(unittest.TestCase):
         pads = ROOT / 'modules/simplepads/shared/resources/data/simplepads/recipe'
         for name, ingredients in [
                 ('elytra_pad_crafting', ['simplelib:diamond_core',
-                                         'simplepads:diamond_pressure_plate', 'minecraft:elytra']),
+                                         'simplelib:diamond_pressure_plate', 'minecraft:elytra']),
                 ('flypad_tier1_crafting', ['simplelib:enderite_core',
-                                          'simplepads:enderite_pressure_plate',
+                                          'simplelib:enderite_pressure_plate',  # N48: the basic Enderite plate lives in SimpleLib
                                           'simplemobheads:shulker_head', 'minecraft:elytra'])]:
             value = json.loads((pads / (name + '.json')).read_text())
             self.assertEqual(value['type'], 'simplepads:enchanted_shapeless')
@@ -114,4 +113,5 @@ class ItemNoteTests(unittest.TestCase):
         vault = recipe('astral_vault')
         self.assertEqual(vault['key']['N'], 'simpleores:enderite_nugget')
         self.assertEqual(''.join(vault['pattern']).count('N'), 6)
-        self.assertEqual(recipe('resin_quartz_checker')['key']['B'], 'minecraft:resin_bricks')
+        chess = ROOT / 'modules/simplechess/shared/resources/data/simplechess/recipe/resin_quartz_checker.json'  # b-chess47
+        self.assertEqual(json.loads(chess.read_text())['key']['B'], 'minecraft:resin_bricks')

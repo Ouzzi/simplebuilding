@@ -105,6 +105,7 @@ public final class EndDiscover {
             "simpleend:end_bush",
             "simpleend:end_grass",
             "simpleend:end_painting",
+            "simpleend:end_paintings",
             "simpleend:end_wood",
             "simpleend:guide_book",
             "simpleend:leaves_and_fruit",
@@ -120,6 +121,7 @@ public final class EndDiscover {
             "simpleend:stripped_duskwood_log",
             "simpleend:stripped_duskwood_wood",
             "simpleend:submods",
+            "simpleend:vanilla_use",
             "simpleend:void_safe");
     static final List<Tip> TIPS = List.of();
 

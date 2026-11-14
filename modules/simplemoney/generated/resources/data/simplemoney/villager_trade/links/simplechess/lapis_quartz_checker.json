@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 3
+    "count": 8
   },
   "gives": {
     "id": "simplechess:lapis_quartz_checker",

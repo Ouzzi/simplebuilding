@@ -97,7 +97,7 @@ class ConfigMetadataTests(unittest.TestCase):
         self.assertEqual('client', configs['hudScale']['side'])
         self.assertEqual('server', configs['worldGen.enableLootTableChanges']['side'])
         self.assertEqual('yes', configs['worldGen.enableLootTableChanges']['reload'])
-        self.assertEqual('recipes', configs['server.features.endSignals']['reload'])
+        # b-circ46: endSignals moved to Simple Ores' own config (simpleores option endSignals)
         self.assertEqual('recipes', legacy['server.features.attractor']['reload'])  # b-gadg14: Simple Gadgets' on 26.3
         # Split stage 9: options a sub-mod took over are left out on 26.3 only (ConfigOptions.MOVED_TO_*).
         self.assertEqual('recipes', legacy['server.features.backpack']['reload'])

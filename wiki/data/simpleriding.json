@@ -1216,7 +1216,7 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_horse_armor",
+          "id": "simpleores:enderite_horse_armor",
           "required": false
         }
       ],
@@ -1293,7 +1293,7 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_nautilus_armor",
+          "id": "simpleores:enderite_nautilus_armor",
           "required": false
         }
       ],

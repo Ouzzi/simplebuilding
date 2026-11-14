@@ -484,10 +484,10 @@
         "modules/simplebeacons/shared/resources/data/simplebeacons/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Beacons\" of the Simple Modpack guide (SimpleLib): 31 pages taken from this wiki, shown in your language. Unlocked by picking up: prismarine shard. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Beacons\" of the Simple Modpack guide (SimpleLib): 33 pages taken from this wiki, shown in your language. Unlocked by picking up: prismarine shard. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Beacons\" im Simple-Modpack-Handbuch (SimpleLib): 31 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Prismarinscherbe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Beacons\" im Simple-Modpack-Handbuch (SimpleLib): 33 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Prismarinscherbe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }

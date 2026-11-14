@@ -14,7 +14,7 @@ Simple Weather lets the server switch weather and lets each player change rain d
 
 ## Features
 
-- **Disable weather** - disableWeather (default false, server) clears rain and thunder and skips weather progression.
+- **Disable weather**
 - **Rain and thunder frequency**
 - **Rain density**
 - **Sub-mod of Simple QoL** - Playable alone (config/simpleweather.json).
@@ -22,9 +22,9 @@ Simple Weather lets the server switch weather and lets each player change rain d
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
+- **Required:** Fabric API (no other mods)
 - **Optional:** Simple Quality of Life, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25

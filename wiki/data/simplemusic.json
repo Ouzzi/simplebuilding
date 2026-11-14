@@ -83,7 +83,7 @@
       ],
       "en": {
         "title": "Editor",
-        "summary": "Coloured code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib). Listen plays the code on your client only.",
+        "summary": "Colored code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib). Listen plays the code on your client only.",
         "details": [
           "Buttons: Listen/Stop, Import, Add example (loads one of nine ready-made pieces, simple to complex, into the sheet and the grid; there are no single example items), Copy (code to the clipboard), Sign, Upload, Done. Closing saves the draft.",
           "Upload opens the upload window: it lists the .ogg files in config/simplemusic/upload/; choose a file, give a title, Upload. The client checks the file first, then sends it in parts. Only upload your own or free music.",
@@ -290,7 +290,7 @@
         "title": "Pocket Jukebox",
         "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
         "details": [
-          "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the colour comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
+          "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the color comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
           "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
           "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
           "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
@@ -352,18 +352,20 @@
       ],
       "en": {
         "title": "Moderation",
-        "summary": "Everyone may upload up to 5 tracks; others hear a track only after an operator approves it, until then only the uploader. In single player and for the LAN host it is approved at once.",
+        "summary": "Everyone may upload up to 5 tracks; others hear a track only after an operator approves it, until then only the uploader. In single player and for the LAN host it is approved at once. For server operators: uploaded songs are a moderation and copyright matter - you decide what is approved; operators are reminded of waiting uploads when they join.",
         "details": [
           "Operators: /simplemusic list [pending], /simplemusic approve|reject|delete <hash>, /simplemusic info <hash> (hash or its first 6+ characters), /simplemusic ban|unban <player>.",
-          "Tracks live in <world>/simplemusic/tracks/ with an index.json; the same file is stored once."
+          "Tracks live in <world>/simplemusic/tracks/ with an index.json; the same file is stored once.",
+          "Uploads setting: everyone (no approval), approve (default: an operator approves each song), op (only operators), off. Public servers should keep approve or stricter; the server owner is responsible for what is stored."
         ]
       },
       "de": {
         "title": "Moderation",
-        "summary": "Jeder darf bis zu 5 Titel hochladen; andere hören einen Titel erst nach Freigabe durch einen Operator, bis dahin nur der Hochladende. Im Einzelspieler und für den LAN-Host ist er sofort frei.",
+        "summary": "Jeder darf bis zu 5 Titel hochladen; andere hören einen Titel erst nach Freigabe durch einen Operator, bis dahin nur der Hochladende. Im Einzelspieler und für den LAN-Host ist er sofort frei. Für Server-Betreiber: Hochgeladene Lieder sind eine Moderations- und Urheberrechtsfrage – du entscheidest, was freigegeben wird; Operatoren werden beim Beitritt an wartende Uploads erinnert.",
         "details": [
           "Operatoren: /simplemusic list [pending], /simplemusic approve|reject|delete <hash>, /simplemusic info <hash> (Hash oder seine ersten 6+ Zeichen), /simplemusic ban|unban <spieler>.",
-          "Titel liegen in <welt>/simplemusic/tracks/ mit einer index.json; dieselbe Datei wird einmal gespeichert."
+          "Titel liegen in <welt>/simplemusic/tracks/ mit einer index.json; dieselbe Datei wird einmal gespeichert.",
+          "Einstellung uploads: everyone (ohne Freigabe), approve (Standard: ein Operator gibt jedes Lied frei), op (nur Operatoren), off. Öffentliche Server sollten approve oder strenger lassen; der Betreiber ist für das Gespeicherte verantwortlich."
         ]
       }
     },
@@ -2336,10 +2338,10 @@
           "modules/simplemusic/shared/resources/data/simplemusic/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Music\" of the Simple Modpack guide (SimpleLib): 23 pages taken from this wiki, shown in your language. Unlocked by picking up: note block. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Music\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: note block. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Music\" im Simple-Modpack-Handbuch (SimpleLib): 23 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Notenblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Music\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Notenblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
@@ -2738,7 +2740,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2762,7 +2764,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2786,7 +2788,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2810,7 +2812,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2889,7 +2891,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2913,7 +2915,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2937,7 +2939,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2961,7 +2963,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -2985,7 +2987,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3009,7 +3011,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3033,7 +3035,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3057,7 +3059,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3080,7 +3082,7 @@
           "title": "Pocket Jukebox",
           "summary": "A bundle for up to 20 discs (Vanilla discs and track discs). Use it in the main hand to play or pause; only you hear it, at full volume wherever you go. Sneak + right click on a block puts it down (see Placed Pocket Jukebox).",
           "details": [
-            "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the colour comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
+            "Recipe: 8 copper nuggets around an empty bundle, a diamond on top (the color comes from the bundle). A bundle with anything inside does not fit, so nothing in it is lost: empty it first. Dye it any time with a dye in the crafting grid: the discs stay in.",
             "Discs go in and out like a bundle: left click puts one in, the mouse wheel over it selects a disc, right click with an empty hand takes the selected one out (without a selection the newest). The tooltip grid reads in play order.",
             "Plays the discs in the order they went in and starts over after the last; a disc put in later goes to the end. Pausing keeps the position. Starting and pausing click like a record player. Starting it stops other music and pauses another pocket jukebox.",
             "It goes on playing while you move it around your inventory, when you drop it (then everyone near the item hears it, and whoever picks it up carries it on) and when you put it down or break it. It stops when the playing disc is taken out or the jukebox stays gone for a while (in a chest). The off hand only holds it.",
@@ -3116,7 +3118,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3140,7 +3142,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3164,7 +3166,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3188,7 +3190,7 @@
           "modules/simplemusic/shared/java/com/simplemusic/registry/MusicRegistry.java"
         ],
         "en": {
-          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that colour or dyed in the crafting grid; the discs stay in."
+          "summary": "A dyed Pocket Jukebox: same as the undyed one (see Pocket Jukebox). Crafted from an empty bundle of that color or dyed in the crafting grid; the discs stay in."
         },
         "de": {
           "summary": "Eine gefärbte Taschen-Jukebox: wie die ungefärbte (siehe Taschen-Jukebox). Aus einem leeren Bündel dieser Farbe gefertigt oder im Handwerksfeld gefärbt; die Platten bleiben drin."
@@ -3289,6 +3291,25 @@
   ],
   "config": [
     {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplemusic/shared/java/com/simplemusic/config/MusicConfig.java",
+      "name": "blockedSounds",
+      "shortName": "blockedSounds",
+      "type": "List",
+      "default": "music, discs,",
+      "note": null,
+      "category": "Simple Music",
+      "categoryDe": "Simple Music",
+      "group": null,
+      "groupDe": null,
+      "label": "Blocked sounds",
+      "labelDe": "Gesperrte Klänge",
+      "tooltip": "Sound ids (prefix match) a sheet may never play, e.g. music, discs and sounds that carry over the whole world.\nDefault: music, discs, UI, global events.",
+      "tooltipDe": "Klang-IDs (Präfix), die ein Notenblatt nie spielen darf, z. B. Musik, Platten und weltweit hörbare Klänge.\nStandard: Musik, Platten, UI, weltweite Ereignisse."
+    },
+    {
       "range": [
         32,
         4096
@@ -3305,10 +3326,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Download ki bper second",
-      "labelDe": "Download ki bper second",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Download speed (KiB/s)",
+      "labelDe": "Download-Tempo (KiB/s)",
+      "tooltip": "Streaming speed limit per player for songs.\nDefault: 512.",
+      "tooltipDe": "Streaming-Tempo je Spieler für Lieder.\nStandard: 512."
     },
     {
       "range": null,
@@ -3324,10 +3345,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Enabled",
-      "labelDe": "Enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Simple Music enabled",
+      "labelDe": "Simple Music aktiv",
+      "tooltip": "On: songs, sheets, disc press and Pocket Jukebox work. Off: the module does nothing.\nDefault: true.",
+      "tooltipDe": "An: Lieder, Notenblätter, Plattenpresse und Taschen-Jukebox funktionieren. Aus: das Modul tut nichts.\nStandard: true."
     },
     {
       "range": null,
@@ -3343,10 +3364,29 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Jukebox custom discs",
-      "labelDe": "Jukebox custom discs",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Custom discs in jukeboxes",
+      "labelDe": "Eigene Platten in Jukeboxen",
+      "tooltip": "On: own song discs also play in a normal jukebox. Off: only the disc press and Pocket Jukebox play them.\nDefault: true.",
+      "tooltipDe": "An: eigene Lieder-Platten spielen auch in einer normalen Jukebox. Aus: nur Plattenpresse und Taschen-Jukebox spielen sie.\nStandard: true."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplemusic/shared/java/com/simplemusic/config/MusicClientConfig.java",
+      "name": "loadForeignMusic",
+      "shortName": "loadForeignMusic",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Music",
+      "categoryDe": "Simple Music",
+      "group": null,
+      "groupDe": null,
+      "label": "Load songs of other players",
+      "labelDe": "Lieder anderer Spieler laden",
+      "tooltip": "Client setting. On: songs uploaded by other players are downloaded and played. Off: you only hear your own and the built-in songs.\nDefault: true.",
+      "tooltipDe": "Client-Einstellung. An: von anderen Spielern hochgeladene Lieder werden geladen und gespielt. Aus: du hörst nur eigene und mitgelieferte Lieder.\nStandard: true."
     },
     {
       "range": [
@@ -3365,10 +3405,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Max tones per tick",
-      "labelDe": "Max tones per tick",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Tones per tick",
+      "labelDe": "Töne pro Tick",
+      "tooltip": "Most tones one disc plays per game tick (1-8). Lower is gentler on the server.\nDefault: 8.",
+      "tooltipDe": "Höchstens so viele Töne spielt eine Platte je Spiel-Tick (1-8). Weniger schont den Server.\nStandard: 8."
     },
     {
       "range": [
@@ -3387,10 +3427,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Max upload mi B",
-      "labelDe": "Max upload mi B",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Upload size (MiB)",
+      "labelDe": "Upload-Größe (MiB)",
+      "tooltip": "Largest song file in MiB (1-16).\nDefault: 4.",
+      "tooltipDe": "Größte Lieddatei in MiB (1-16).\nStandard: 4."
     },
     {
       "range": [
@@ -3409,10 +3449,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Max upload seconds",
-      "labelDe": "Max upload seconds",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Song length (seconds)",
+      "labelDe": "Liedlänge (Sekunden)",
+      "tooltip": "Longest song in seconds (10-900).\nDefault: 300.",
+      "tooltipDe": "Längstes Lied in Sekunden (10-900).\nStandard: 300."
     },
     {
       "range": [
@@ -3431,10 +3471,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Quota per player",
-      "labelDe": "Quota per player",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Songs per player",
+      "labelDe": "Lieder pro Spieler",
+      "tooltip": "How many songs one player may keep on the server (0-50).\nDefault: 5.",
+      "tooltipDe": "Wie viele Lieder ein Spieler auf dem Server behalten darf (0-50).\nStandard: 5."
     },
     {
       "range": null,
@@ -3444,16 +3484,16 @@
       "name": "sheetSounds",
       "shortName": "sheetSounds",
       "type": null,
-      "default": null,
+      "default": "all",
       "note": null,
       "category": "Simple Music",
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Sheet sounds",
-      "labelDe": "Sheet sounds",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Sounds on a sheet",
+      "labelDe": "Klänge auf dem Notenblatt",
+      "tooltip": "Which sounds a sheet may name: instruments only, instruments and mob heads, or all (minus the block list).\nDefault: all.",
+      "tooltipDe": "Welche Klänge ein Notenblatt nennen darf: nur Instrumente, Instrumente und Mob-Köpfe oder alle (ohne die Sperrliste).\nStandard: alle."
     },
     {
       "range": [
@@ -3472,10 +3512,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Store limit mi B",
-      "labelDe": "Store limit mi B",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Server song store (MiB)",
+      "labelDe": "Lagergröße der Lieder (MiB)",
+      "tooltip": "Total size of all stored songs on the server in MiB (16-2048).\nDefault: 256.",
+      "tooltipDe": "Gesamtgröße aller gespeicherten Lieder auf dem Server in MiB (16-2048).\nStandard: 256."
     },
     {
       "range": [
@@ -3494,10 +3534,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Tone range",
-      "labelDe": "Tone range",
-      "tooltip": "Blocks a composition disc's tones carry (B23-M9: was orchestrionRange, the old key is still read).",
-      "tooltipDe": "Blocks a composition disc's tones carry (B23-M9: was orchestrionRange, the old key is still read)."
+      "label": "Tone range (blocks)",
+      "labelDe": "Tonreichweite (Blöcke)",
+      "tooltip": "How far the tones of a composition disc carry (16-64 blocks).\nDefault: 48.",
+      "tooltipDe": "Wie weit die Töne einer Kompositionsplatte zu hören sind (16-64 Blöcke).\nStandard: 48."
     },
     {
       "range": [
@@ -3516,10 +3556,10 @@
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Upload ki bper second",
-      "labelDe": "Upload ki bper second",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Upload speed (KiB/s)",
+      "labelDe": "Upload-Tempo (KiB/s)",
+      "tooltip": "Upload speed limit per player, so uploads do not clog the connection.\nDefault: 256.",
+      "tooltipDe": "Upload-Tempo je Spieler, damit Uploads die Leitung nicht verstopfen.\nStandard: 256."
     },
     {
       "range": null,
@@ -3529,16 +3569,16 @@
       "name": "uploads",
       "shortName": "uploads",
       "type": null,
-      "default": null,
+      "default": "approve",
       "note": null,
       "category": "Simple Music",
       "categoryDe": "Simple Music",
       "group": null,
       "groupDe": null,
-      "label": "Uploads",
-      "labelDe": "Uploads",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Song uploads",
+      "labelDe": "Lieder-Uploads",
+      "tooltip": "Who may burn own songs: everyone, everyone with an OP approving each song, OPs only, or nobody. Uploaded songs are a moderation and copyright question for the server.\nDefault: approve.",
+      "tooltipDe": "Wer eigene Lieder brennen darf: alle, alle mit Freigabe jedes Liedes durch einen OP, nur OPs oder niemand. Hochgeladene Lieder sind für den Server eine Moderations- und Urheberrechtsfrage.\nStandard: approve (Freigabe durch OP)."
     }
   ],
   "quests": [],
@@ -3562,7 +3602,7 @@
     "items": 18,
     "blocks": 18,
     "trades": 4,
-    "config": 12,
+    "config": 14,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

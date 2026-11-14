@@ -16,6 +16,7 @@ Simple Maps adds endless maps per dimension with zoom, waypoints shown in the lo
 
 - **Wayfinder maps** - Endless maps, one per dimension: the plain map for the Overworld and other dimensions, a Nether map and an End map.
 - **Mega wayfinder map**
+- **Picture maps** - Turn a PNG into a wall of locked maps: /simplemaps picture opens a dialog, the picture is split into up to 4 x 4 Vanilla maps that you hang in item frames.
 - **Map screen** - Use the map to open it: drag to move, mouse wheel or +/− to zoom (1, 4, 8, 16 and 64 blocks per pixel).
 - **Claims layer** - With Simple Tweaks installed, the layers button of the map screen offers a Claims layer: claimed land as colored strips on explored terrain, your own land framed.
 - **Waypoints** - Up to eight waypoints belong to the map itself; they show in the locator bar while the map is in the main or off hand.

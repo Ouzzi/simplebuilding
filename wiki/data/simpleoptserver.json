@@ -7,7 +7,7 @@
   "mod": {
     "id": "simpleoptserver",
     "name": "Simple Opt Server",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraftLines": [
       "26.3"
     ],
@@ -43,11 +43,11 @@
       ],
       "en": {
         "title": "Activation range (off by default)",
-        "summary": "Changes gameplay, so it starts with mode off in config/simpleoptserver.json; set mode auto to use it (restart needed). A mob with no living player within range blocks (default 32, 16 to 128) then runs its full tick only every interval-th tick (default 4, 2 to 20); its age counter keeps running. Mobs stay fully active while they ride or carry others, are leashed, have a target, are hurt, airborne, in water or lava, burning, babies, in love or tamed; villagers, traders and bosses always stay active. ServerCore covers the same area and wins; another mod hooking the same class switches it off too (target check)."
+        "summary": "Changes gameplay, so it starts with mode off in config/simpleoptserver.json; set mode auto to use it (restart needed). A mob with no living player within range blocks (default 32, 16 to 128) then runs its full tick only every interval-th tick (default 4, 2 to 20); its age counter keeps running. Mobs stay fully active while they ride or carry others, are leashed, have a target, are hurt, airborne, in water or lava, burning, babies, in love or tamed; villagers, traders and bosses always stay active. ServerCore covers the same area and wins; another mod hooking the same class switches it off too (target check). Side effects: for mobs far from every player, conversion, growth and despawn timers and sunburn run slower too (about 15 % less server load); that is why the area starts off."
       },
       "de": {
         "title": "Aktivierungsbereich (Standard aus)",
-        "summary": "Verändert das Spiel, deshalb steht er in config/simpleoptserver.json auf mode off; mit mode auto einschalten (Neustart nötig). Ein Mob ohne lebenden Spieler im Umkreis von range Blöcken (Standard 32, 16 bis 128) läuft dann nur jeden interval-ten Tick voll (Standard 4, 2 bis 20); sein Alterszähler läuft weiter. Voll aktiv bleiben Mobs, die reiten oder getragen werden, angeleint sind, ein Ziel haben, verletzt sind, in der Luft, in Wasser oder Lava, brennen, Babys, verliebt oder zahm sind; Dorfbewohner, Händler und Bosse bleiben immer aktiv. ServerCore deckt denselben Bereich ab und gewinnt; ändert ein anderer Mod dieselbe Klasse, schaltet er sich ebenfalls ab (Zielprüfung)."
+        "summary": "Verändert das Spiel, deshalb steht er in config/simpleoptserver.json auf mode off; mit mode auto einschalten (Neustart nötig). Ein Mob ohne lebenden Spieler im Umkreis von range Blöcken (Standard 32, 16 bis 128) läuft dann nur jeden interval-ten Tick voll (Standard 4, 2 bis 20); sein Alterszähler läuft weiter. Voll aktiv bleiben Mobs, die reiten oder getragen werden, angeleint sind, ein Ziel haben, verletzt sind, in der Luft, in Wasser oder Lava, brennen, Babys, verliebt oder zahm sind; Dorfbewohner, Händler und Bosse bleiben immer aktiv. ServerCore deckt denselben Bereich ab und gewinnt; ändert ein anderer Mod dieselbe Klasse, schaltet er sich ebenfalls ab (Zielprüfung). Nebenwirkungen: bei Mobs fern jedes Spielers laufen auch Umwandlungs-, Wachstums- und Despawn-Zeiten und Sonnenbrand langsamer (etwa 15 % weniger Serverlast); deshalb startet der Bereich aus."
       }
     },
     {
@@ -79,7 +79,27 @@
   "items": [],
   "blocks": [],
   "trades": [],
-  "config": [],
+  "config": [
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": null,
+      "name": "areas.activation_range.mode",
+      "shortName": "mode",
+      "type": null,
+      "default": "off",
+      "note": null,
+      "category": "areas",
+      "categoryDe": "areas",
+      "group": "areas.activation_range",
+      "groupDe": "areas.activation_range",
+      "label": "Activation range mode",
+      "labelDe": "Modus Aktivierungsbereich",
+      "tooltip": "Far mobs tick less often (about 15% less server load).\\nSide effects: conversions, growth and despawn timers and sunburn of mobs far from every player run slower too.\\nDefault: off.",
+      "tooltipDe": "Ferne Mobs rechnen seltener (etwa 15 % weniger Serverlast).\\nNebenwirkungen: Umwandlungen, Wachstums- und Despawn-Zeiten und Sonnenbrand von Mobs fern jedes Spielers laufen auch langsamer.\\nStandard: off."
+    }
+  ],
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
@@ -101,7 +121,7 @@
     "items": 0,
     "blocks": 0,
     "trades": 0,
-    "config": 0,
+    "config": 1,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

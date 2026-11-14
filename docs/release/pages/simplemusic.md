@@ -16,7 +16,7 @@ Simple Music adds sheet music with a text note code (editor with test listening,
 
 - **Sheet Music** - Shapeless from paper, an ink sac and a feather.
 - **Note code** - Text lines: "tempo 4" (ticks per step, 1-20), "$h = harp" or "$k = sound minecraft:entity.cat.ambient" (aliases), "$h: c4 e4 g4 -.
-- **Editor** - Coloured code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib).
+- **Editor** - Colored code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib).
 - **Import** - Put .txt note code or Note Block Studio .nbs files into config/simplemusic/sheets/ and pick one in the editor; the import only creates text.
 - **Copying at the cartography table** - Like a blueprint: a signed sheet on top, an empty sheet below gives a copy; only the empty sheet is used up.
 - **Blank Disc** - Four coal or charcoal and four blackstone around an amethyst shard.

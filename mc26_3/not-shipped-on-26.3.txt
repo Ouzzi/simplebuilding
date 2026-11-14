@@ -30,6 +30,7 @@ assets/simplebuilding/textures/gui/sprites/resonance_heart_iron.png
 assets/simplebuilding/textures/gui/sprites/resonance_heart_netherite.png
 assets/simplebuilding/textures/gui/sprites/resonance_heart_stone.png
 assets/simplebuilding/textures/item/amethyst_lens.png
+assets/simplebuilding/textures/item/astralit_dust.png
 assets/simplebuilding/textures/item/backpack.png
 assets/simplebuilding/textures/item/cracked_diamond.png
 assets/simplebuilding/textures/item/creative_blueprint.png

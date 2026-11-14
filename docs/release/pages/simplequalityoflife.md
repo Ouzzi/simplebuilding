@@ -19,9 +19,9 @@ Simple Quality of Life bundles seven sub-mods with one switch each, plus a guide
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config, Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
+- **Required:** Fabric API, Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
 - **Optional:** SimpleBuilding, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25

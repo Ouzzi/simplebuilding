@@ -34,7 +34,8 @@
           "The bleed-out time is 60 seconds (bleedOutSeconds). Every point of damage taken while downed costs one second (secondsLostPerDamage); when the time is up the player dies.",
           "Monsters do not target or chase a downed player (mobsIgnoreDowned). Everyone reads in chat who is down (announce).",
           "Only a mate in the same dimension and within 128 blocks counts as a possible helper (helperMaxDistance, 0 = no limit); without one a lethal hit is the Vanilla death.",
-          "Knocked down again within 5 minutes, the bleed-out time is 15 seconds shorter each time (repeatPenaltySeconds, 0 = off), but never below 15 seconds. The counter lapses after 5 minutes without a knock-down and with the real death; a revive does not reset it."
+          "Knocked down again within 5 minutes, the bleed-out time is 15 seconds shorter each time (repeatPenaltySeconds, 0 = off), but never below 15 seconds. The counter lapses after 5 minutes without a knock-down and with the real death; a revive does not reset it.",
+          "Trade-off: with mobsIgnoreDowned on, monsters leave a downed player alone, which makes reviving safer but also lets a downed player be safe; turn it off for a harder game."
         ]
       },
       "de": {
@@ -46,7 +47,8 @@
           "Die Ausblutzeit beträgt 60 Sekunden (bleedOutSeconds). Jeder Schadenspunkt im Zustand kostet eine Sekunde (secondsLostPerDamage); ist die Zeit um, stirbt der Spieler.",
           "Monster greifen Niedergeschlagene nicht an und verfolgen sie nicht (mobsIgnoreDowned). Alle lesen im Chat, wer niedergeschlagen ist (announce).",
           "Nur ein Mitspieler in derselben Dimension und höchstens 128 Blöcke entfernt zählt als möglicher Helfer (helperMaxDistance, 0 = keine Grenze); ohne einen ist ein tödlicher Treffer der Vanilla-Tod.",
-          "Wer binnen 5 Minuten erneut niedergeschlagen wird, blutet jedes Mal 15 Sekunden kürzer aus (repeatPenaltySeconds, 0 = aus), aber nie unter 15 Sekunden. Der Zähler verfällt nach 5 Minuten ohne Niederschlagen und mit dem echten Tod; ein Wiederbeleben setzt ihn nicht zurück."
+          "Wer binnen 5 Minuten erneut niedergeschlagen wird, blutet jedes Mal 15 Sekunden kürzer aus (repeatPenaltySeconds, 0 = aus), aber nie unter 15 Sekunden. Der Zähler verfällt nach 5 Minuten ohne Niederschlagen und mit dem echten Tod; ein Wiederbeleben setzt ihn nicht zurück.",
+          "Abwägung: mit mobsIgnoreDowned lassen Monster Niedergeschlagene in Ruhe, das macht das Wiederbeleben sicherer, aber auch den Zustand ungefährlicher; abschalten für ein härteres Spiel."
         ]
       }
     },
@@ -142,18 +144,20 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters.",
+        "summary": "/simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters. Without the mod in the client, giveup is the only way out.",
         "details": [
           "down and revive need permission level 2 and are meant for testing (test centre).",
-          "/simplerespawn config shows and changes every option of config/simplerespawn.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
+          "/simplerespawn config shows and changes every option of config/simplerespawn.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+          "Server operators: a player whose client does not have the mod sees no downed screen; the only way out for them is the command /simplerespawn giveup (or bleeding out). Players with the mod use the Give up button."
         ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "/simplerespawn giveup für den Niedergeschlagenen (der Knopf Aufgeben); /simplerespawn down <Spieler> und /simplerespawn revive <Spieler> für Spielleiter.",
+        "summary": "/simplerespawn giveup für den Niedergeschlagenen (der Knopf Aufgeben); /simplerespawn down <Spieler> und /simplerespawn revive <Spieler> für Spielleiter. Ohne die Mod im Client ist giveup der einzige Ausweg.",
         "details": [
           "down und revive brauchen Berechtigungsstufe 2 und sind zum Testen gedacht (Testzentrale).",
-          "/simplerespawn config zeigt und ändert jede Option von config/simplerespawn.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
+          "/simplerespawn config zeigt und ändert jede Option von config/simplerespawn.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+          "Für Server-Betreiber: Wer die Mod im Client nicht hat, sieht keinen Niedergeschlagen-Bildschirm; sein einziger Ausweg ist der Befehl /simplerespawn giveup (oder das Ausbluten). Mit der Mod nutzt man den Knopf „Aufgeben“."
         ]
       }
     },

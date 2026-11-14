@@ -387,8 +387,8 @@
         "minecraft:amethyst_shard",
         "minecraft:iron_nugget",
         "minecraft:redstone",
-        "simplebuilding:iron_pole",
-        "simplelib:iron_core"
+        "simplelib:iron_core",
+        "simpleores:iron_pole"
       ],
       "pattern": [
         " NA",
@@ -403,7 +403,7 @@
           "simplelib:iron_core"
         ],
         "I": [
-          "simplebuilding:iron_pole"
+          "simpleores:iron_pole"
         ],
         "N": [
           "minecraft:iron_nugget"
@@ -424,11 +424,11 @@
             "count": 1
           },
           {
-            "id": "simplebuilding:iron_pole",
+            "id": "simplelib:iron_core",
             "count": 1
           },
           {
-            "id": "simplelib:iron_core",
+            "id": "simpleores:iron_pole",
             "count": 1
           },
           {
@@ -751,8 +751,8 @@
       "ingredients": [
         "minecraft:lapis_lazuli",
         "minecraft:redstone",
-        "simplebuilding:iron_pole",
-        "simplelib:iron_core"
+        "simplelib:iron_core",
+        "simpleores:iron_pole"
       ],
       "pattern": [
         " R ",
@@ -764,7 +764,7 @@
           "simplelib:iron_core"
         ],
         "I": [
-          "simplebuilding:iron_pole"
+          "simpleores:iron_pole"
         ],
         "L": [
           "minecraft:lapis_lazuli"
@@ -777,7 +777,7 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:iron_pole",
+            "id": "simpleores:iron_pole",
             "count": 2
           },
           {
@@ -859,8 +859,8 @@
       "source": "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/rotator.json",
       "ingredients": [
         "minecraft:ender_pearl",
-        "simplebuilding:iron_pole",
-        "simplelib:iron_core"
+        "simplelib:iron_core",
+        "simpleores:iron_pole"
       ],
       "pattern": [
         " I ",
@@ -872,7 +872,7 @@
           "simplelib:iron_core"
         ],
         "I": [
-          "simplebuilding:iron_pole"
+          "simpleores:iron_pole"
         ],
         "P": [
           "minecraft:ender_pearl"
@@ -882,7 +882,7 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simplebuilding:iron_pole",
+            "id": "simpleores:iron_pole",
             "count": 4
           },
           {

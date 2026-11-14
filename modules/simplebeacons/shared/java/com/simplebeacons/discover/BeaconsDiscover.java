@@ -67,7 +67,8 @@ public final class BeaconsDiscover {
             "simplebeacons:strong_beacon_screen",
             "simplebeacons:strong_conduit",
             "simplebeacons:strong_upgrade_in_world",
-            "simplebeacons:strong_upgrade_template");
+            "simplebeacons:strong_upgrade_template",
+            "simplebeacons:vanilla_use");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {

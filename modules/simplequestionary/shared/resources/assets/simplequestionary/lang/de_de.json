@@ -32,8 +32,12 @@
   "simplequestionary.guide.page.2": "Leg links einen Gegenstand ins Feld: das aufgeschlagene Buch rechts erzählt seine Überlieferung, seinen Nutzen und ein Geheimnis.",
   "simplequestionary.guide.page.3.title": "Fragentisch-Texte",
   "simplequestionary.guide.page.3": "Jede Mod beschreibt ihre eigenen Gegenstände in assets/<Namensraum>/questionary/<Sprache>.json; Ressourcenpakete können Einträge ergänzen oder ersetzen.",
-  "simplequestionary.guide.page.4.title": "Befehle",
-  "simplequestionary.guide.page.4": "/simplequestionary config zeigt und ändert jede Option von config/simplequestionary.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
-  "simplequestionary.guide.page.5.title": "Befehle",
-  "simplequestionary.guide.page.5": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
+  "simplequestionary.guide.page.4.title": "Ersatztexte",
+  "simplequestionary.guide.page.4": "Items ohne eigenen Text bekommen trotzdem eine Seite: einen kurzen Stimmungstext, aus acht Varianten je Item-Klasse gewählt, sodass dasselbe Item in jeder Welt gleich liest.",
+  "simplequestionary.guide.page.5.title": "Rezept-Fakten (Rezepte lesen)",
+  "simplequestionary.guide.page.5": "Das Buch liest die Rezepte der Welt für das Item im Platz und listet auf, woraus es besteht und was man daraus macht, samt Werkbank.",
+  "simplequestionary.guide.page.6.title": "Befehle",
+  "simplequestionary.guide.page.6": "/simplequestionary config zeigt und ändert jede Option von config/simplequestionary.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
+  "simplequestionary.guide.page.7.title": "Befehle",
+  "simplequestionary.guide.page.7": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
 }

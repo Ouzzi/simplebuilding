@@ -9,7 +9,7 @@
       "title": "simplesandwiches.guide.chapter",
       "icon": "minecraft:bread",
       "page_key": "simplesandwiches.guide.page",
-      "pages": 9,
+      "pages": 10,
       "advancement": "simplesandwiches:guide/chapter",
       "hint": "minecraft:bread"
     }
