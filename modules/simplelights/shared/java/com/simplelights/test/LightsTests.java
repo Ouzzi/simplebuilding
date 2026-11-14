@@ -62,11 +62,11 @@ public final class LightsTests {
         ALL.put("pane_light_reaches_the_world_and_goes_out", LightsTests::paneLightReachesTheWorldAndGoesOut);
         ALL.put("redstone_pane_color_follows_signal_strength", LightsTests::redstonePaneColorFollowsSignalStrength);
         ALL.put("right_click_cycles_the_start_color", LightsTests::rightClickCyclesTheStartColor);
-        ALL.put("right_click_with_a_block_tunes_and_sneaking_places", LightsTests::rightClickWithABlockTunesAndSneakingPlaces);
+        ALL.put("right_click_with_block_tunes_and_sneaking_places", LightsTests::rightClickWithBlockTunesAndSneakingPlaces);
         ALL.put("panes_have_their_recipes", LightsTests::panesHaveTheirRecipes);
         ALL.put("copper_pane_flips_on_every_rising_edge", LightsTests::copperPaneFlipsOnEveryRisingEdge);
         ALL.put("copper_redstone_pane_colors_and_flips", LightsTests::copperRedstonePaneColorsAndFlips);
-        ALL.put("copper_pane_tells_a_comparator_when_it_flips", LightsTests::copperPaneTellsAComparatorWhenItFlips);
+        ALL.put("copper_pane_tells_the_comparator_when_it_flips", LightsTests::copperPaneTellsTheComparatorWhenItFlips);
         ALL.put("discover_recipe_unlocks", com.simplelights.discover.LightsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplelights.discover.LightsDiscover::behaviourHints);
         ALL.put("guide_book", com.simplelights.guide.LightsGuide::gameTest);
@@ -372,7 +372,7 @@ public final class LightsTests {
      * with the block places it in front of the pane and leaves the start color alone. The plain and copper panes have no use: the
      * click places the block in front of them.
      */
-    public static void rightClickWithABlockTunesAndSneakingPlaces(GameTestHelper helper) {
+    public static void rightClickWithBlockTunesAndSneakingPlaces(GameTestHelper helper) {
         ServerPlayer player = player(helper);
         List<String> problems = new ArrayList<>();
         for (Block pane : List.of(LightsRegistry.REDSTONE_LIGHT_PANE, LightsRegistry.COPPER_REDSTONE_LIGHT_PANE, LightsRegistry.LIGHT_PANE,
@@ -477,13 +477,16 @@ public final class LightsTests {
      * a-audsb31 (simplelights-P2-1): a comparator that reads a copper pane (analog output 15 while lit) is told when the pane flips: the
      * pane sets its state with the neighbor update (like the Copper Bulb), so the comparator schedules its output change.
      */
-    public static void copperPaneTellsAComparatorWhenItFlips(GameTestHelper helper) {
+    public static void copperPaneTellsTheComparatorWhenItFlips(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
+        int run = 0;
         for (Block pane : List.of(LightsRegistry.COPPER_LIGHT_PANE, LightsRegistry.COPPER_REDSTONE_LIGHT_PANE)) {
             clear(helper);
-            BlockPos at = CENTER.above();
+            // another spot per pane: the scheduled comparator tick of the first run would still sit at the same position
+            BlockPos base = CENTER.west(run++);
+            BlockPos at = base.above();
             BlockPos comparator = at.east();
-            helper.setBlock(CENTER, Blocks.STONE);
+            helper.setBlock(base, Blocks.STONE);
             helper.setBlock(comparator.below(), Blocks.STONE);
             helper.setBlock(at, pane.defaultBlockState().setValue(AbstractLightPaneBlock.FACING, Direction.UP));
             helper.setBlock(comparator, Blocks.COMPARATOR.defaultBlockState().setValue(ComparatorBlock.FACING, Direction.WEST));

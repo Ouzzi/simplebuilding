@@ -112,6 +112,9 @@ public final class RespawnTests {
         });
         add("helper_in_other_dimension_does_not_count", h -> {
             // Audit simplerespawn-P2-1: a mate in another dimension cannot revive within the bleed-out time, so it is no helper.
+            int before = RespawnConfig.helperMaxDistance;
+            RespawnConfig.helperMaxDistance = 8; // small: players of other, parallel tests must not count
+            try {
             ServerPlayer victim = player(h, "dim", 1.5, 1.5);
             ServerPlayer mate = player(h, "dim-mate", 3.5, 1.5);
             h.assertTrue(RespawnServer.otherPlayers(victim) == 1 && RespawnServer.couldHelp(victim, mate), "a mate in the same dimension counts");
@@ -123,23 +126,26 @@ public final class RespawnTests {
             h.assertTrue(RespawnServer.otherPlayers(victim) == 0 && !RespawnServer.couldHelp(victim, mate), "a mate in another dimension does not count");
             lethal(h, victim);
             h.assertTrue(!RespawnServer.isDowned(victim) && victim.isDeadOrDying(), "nobody can reach the player: the Vanilla death");
+            } finally {
+                RespawnConfig.helperMaxDistance = before;
+            }
             h.succeed();
         });
         add("helper_too_far_does_not_count", h -> {
             // AUDSB31E2 F1=B: a mate farther away than helperMaxDistance cannot arrive within the bleed-out time, so it is no helper.
             int before = RespawnConfig.helperMaxDistance;
             try {
-                RespawnConfig.helperMaxDistance = 128;
+                RespawnConfig.helperMaxDistance = 8; // small: players of other, parallel tests must not count
                 ServerPlayer victim = player(h, "far-victim", 1.5, 1.5);
                 ServerPlayer mate = player(h, "far-mate", 3.5, 1.5);
                 h.assertTrue(RespawnServer.otherPlayers(victim) == 1 && RespawnServer.couldHelp(victim, mate), "a mate nearby counts");
                 Vec3 far = h.absoluteVec(new Vec3(3.5, 1.0, 1.5 + 200.0));
                 mate.snapTo(far.x, far.y, far.z, 0f, 0f);
-                h.assertTrue(victim.distanceTo(mate) > 128f, "the mate is more than 128 blocks away");
-                h.assertTrue(RespawnServer.otherPlayers(victim) == 0 && !RespawnServer.couldHelp(victim, mate), "a mate more than 128 blocks away does not count");
+                h.assertTrue(victim.distanceTo(mate) > 8f, "the mate is more than 8 blocks away");
+                h.assertTrue(RespawnServer.otherPlayers(victim) == 0 && !RespawnServer.couldHelp(victim, mate), "a mate more than 8 blocks away does not count");
                 RespawnConfig.helperMaxDistance = 0;
-                h.assertTrue(RespawnServer.otherPlayers(victim) == 1, "0 = no distance limit: the far mate counts again");
-                RespawnConfig.helperMaxDistance = 128;
+                h.assertTrue(RespawnServer.couldHelp(victim, mate), "0 = no distance limit: the far mate counts again");
+                RespawnConfig.helperMaxDistance = 8;
                 lethal(h, victim);
                 h.assertTrue(!RespawnServer.isDowned(victim) && victim.isDeadOrDying(), "nobody can arrive in time: the Vanilla death");
             } finally {

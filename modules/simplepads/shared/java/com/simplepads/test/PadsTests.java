@@ -103,7 +103,7 @@ public final class PadsTests {
         ALL.put("placing_pads_makes_the_placer_the_owner", PadTweaksTests::placingPadsMakesThePlacerTheOwner);
         ALL.put("chunk_loaders_force_their_chunks_and_release_only_their_own", PadTweaksTests::chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn);
         ALL.put("chunk_loaders_stop_at_the_per_player_limit_except_for_operators", PadTweaksTests::chunkLoadersStopAtThePerPlayerLimitExceptForOperators);
-        ALL.put("redstone_switches_a_chunk_loader_off_and_on_again", PadTweaksTests::redstoneSwitchesAChunkLoaderOffAndOnAgain);
+        ALL.put("redstone_switches_the_chunk_loader_off_and_on_again", PadTweaksTests::redstoneSwitchesTheChunkLoaderOffAndOnAgain);
         ALL.put("the_first_join_gift_comes_once_and_honours_simple_tweaks_players", PadTweaksTests::theFirstJoinGiftComesOnceAndHonoursSimpleTweaksPlayers);
         ALL.put("spawn_elytras_vanish_as_soon_as_they_leave_the_chest_slot", PadTweaksTests::spawnElytrasVanishAsSoonAsTheyLeaveTheChestSlot);
         ALL.put("the_spawn_area_lies_only_in_the_spawn_dimension_and_fall_protection_covers_all_of_it", PadTweaksTests::theSpawnAreaLiesOnlyInTheSpawnDimensionAndFallProtectionCoversAllOfIt);

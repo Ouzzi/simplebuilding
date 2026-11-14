@@ -1215,12 +1215,16 @@ public final class DinosTests {
             stego.setOwner(owner);
             stranger.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(DinosRegistry.DINO_PLOW));
             stego.mobInteract(stranger, InteractionHand.MAIN_HAND);
+            stranger.stopRiding(); // a tamed horse lets any player ride (Vanilla); the owner puts the plow on a free mount
             h.assertTrue(!stego.hasPlow(), "only the owner puts a plow on");
             ItemStack plow = new ItemStack(DinosRegistry.DINO_PLOW);
             plow.setDamageValue(17);
             owner.setItemInHand(InteractionHand.MAIN_HAND, plow);
-            h.assertTrue(stego.mobInteract(owner, InteractionHand.MAIN_HAND).consumesAction() && stego.hasPlow() && !stego.plowDown()
-                    && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "the owner puts the plow on (raised)");
+            boolean took = stego.mobInteract(owner, InteractionHand.MAIN_HAND).consumesAction();
+            h.assertTrue(took && stego.hasPlow() && !stego.plowDown()
+                    && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "the owner puts the plow on (raised): took " + took + ", plow " + stego.hasPlow()
+                    + ", down " + stego.plowDown() + ", hand " + owner.getItemInHand(InteractionHand.MAIN_HAND) + ", tamed " + stego.isTamed() + ", owner " + stego.getOwner()
+                    + ", baby " + stego.isBaby() + ", vehicle " + stego.isVehicle());
             h.assertTrue(stego.plowStack().getDamageValue() == 17, "the plow keeps its wear");
             stego.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
             owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));

@@ -62,8 +62,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplelights:empty")
-    public void rightClickWithABlockTunesAndSneakingPlaces(GameTestHelper h) {
-        LightsTests.ALL.get("right_click_with_a_block_tunes_and_sneaking_places").accept(h);
+    public void rightClickWithBlockTunesAndSneakingPlaces(GameTestHelper h) {
+        LightsTests.ALL.get("right_click_with_block_tunes_and_sneaking_places").accept(h);
     }
 
     @GameTest(structure = "simplelights:empty")
@@ -82,8 +82,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplelights:empty")
-    public void copperPaneTellsAComparatorWhenItFlips(GameTestHelper h) {
-        LightsTests.ALL.get("copper_pane_tells_a_comparator_when_it_flips").accept(h);
+    public void copperPaneTellsTheComparatorWhenItFlips(GameTestHelper h) {
+        LightsTests.ALL.get("copper_pane_tells_the_comparator_when_it_flips").accept(h);
     }
 
     @GameTest(structure = "simplelights:empty")

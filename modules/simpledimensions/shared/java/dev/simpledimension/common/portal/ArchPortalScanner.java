@@ -154,6 +154,9 @@ public final class ArchPortalScanner {
         queue.add(new int[]{startAlong, y});
         int minA = startAlong, maxA = startAlong, minY = y, maxY = y;
         int[][] steps = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        // A foreign block only counts once the fill stays bounded: an open frame on the ground would otherwise
+        // reach the ground outside the frame and report a gap instead of "open".
+        boolean foreign = false;
         while (!queue.isEmpty()) {
             int[] cell = queue.poll();
             cells.add(cell);
@@ -185,9 +188,12 @@ public final class ArchPortalScanner {
                     seen[index] = 2;
                     ring.add(new BlockPos3i(wx, ny, wz));
                 } else {
-                    return Result.fail(Verdict.GAP, axis);
+                    foreign = true;
                 }
             }
+        }
+        if (foreign) {
+            return Result.fail(Verdict.GAP, axis);
         }
         // Rule 3: every cell above the bottom row stands on an interior cell. A frame block rising from the floor
         // between bottom-row cells is a bump in the bottom edge; anything else is a side that widens or overhangs.

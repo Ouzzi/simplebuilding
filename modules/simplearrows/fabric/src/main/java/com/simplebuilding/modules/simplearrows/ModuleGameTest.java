@@ -128,8 +128,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplearrows:empty")
-    public void fletchingImpactEffectsHappenOnADirectHit(GameTestHelper h) {
-        ArrowsTests.ALL.get("fletching_impact_effects_happen_on_a_direct_hit").accept(h);
+    public void fletchingImpactEffectsHappenOnDirectHit(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_impact_effects_happen_on_direct_hit").accept(h);
     }
 
     @GameTest(structure = "simplearrows:empty")
