@@ -177,7 +177,6 @@ public final class OresDiscover {
             "simpleores:enderite_nugget",
             "simpleores:enderite_pickaxe",
             "simpleores:enderite_pole",
-            "simpleores:enderite_pressure_plate",
             "simpleores:enderite_scrap",
             "simpleores:enderite_scrap_block",
             "simpleores:enderite_shovel",

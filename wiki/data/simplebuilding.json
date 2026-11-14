@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 439,
+      "count": 430,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -2161,8 +2161,7 @@
         "simplecrucibles:iron_crucible",
         "simplecrucibles:enderite_crucible",
         "simplecrucibles:enderite_barrel",
-        "simplecrucibles:reinforced_cauldron",
-        "simplebuilding:blazing_obsidian"
+        "simplecrucibles:reinforced_cauldron"
       ],
       "en": {
         "title": "Crucibles: SimpleBuilding's part",
@@ -5003,134 +5002,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blaze_book",
-      "name": {
-        "en_us": "Blaze Book",
-        "de_de": "Lohenbuch"
-      },
-      "texture": "assets/textures/item/blaze_book.png",
-      "craftedBy": [
-        "simplebuilding:blaze_book"
-      ],
-      "usedIn": [
-        "simplebuilding:crimson_blazewood_bookshelf",
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A book bound with blaze powder instead of leather. It never quite cools down."
-          ],
-          "use": [
-            "Three of them go into a blazewood bookshelf."
-          ],
-          "secret": [
-            "Blazewood shelves reward the {item:simpleenchanting:dark_enchanter}: each counts for two ordinary shelves there."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Buch, mit Lohenstaub statt Leder gebunden. Es kühlt nie ganz ab."
-          ],
-          "use": [
-            "Drei davon gehören in ein Lohenholz-Bücherregal."
-          ],
-          "secret": [
-            "Lohenholz-Regale belohnt der {item:simpleenchanting:dark_enchanter}: Dort zählt jedes für zwei gewöhnliche."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Book.",
-            "In a chiseled bookshelf it shows its own ember-coloured spines; every slot position has its own colour (red, orange, gold, crimson, amber, rose), like Vanilla's books."
-          ]
-        },
-        "de": {
-          "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Buch.",
-            "In einem gemeißelten Regal zeigt es eigene Glut-Buchrücken; jede Fachposition hat ihre eigene Farbe (Rot, Orange, Gold, Karmesin, Bernstein, Rosa), wie bei Vanillas Büchern."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:blazing_obsidian",
-      "name": {
-        "en_us": "Blazing Obsidian",
-        "de_de": "Lohen-Obsidian"
-      },
-      "texture": "assets/textures/block/blazing_obsidian.png",
-      "craftedBy": [
-        "simplebuilding:blazing_obsidian",
-        "simplebuilding:blazing_obsidian_from_blazing_obsidian_chips"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blazing_obsidian.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "Crying obsidian's glowing sibling: where the other weeps, this one burns."
-          ],
-          "use": [
-            "A decorative block that gives light. Its job is at the Dark Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30. Under the Astral Enchanter it works only half."
-          ],
-          "secret": [
-            "The floor only counts under the enchanters, not the vanilla table, so build it once the shelves are complete."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
-          ],
-          "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Dark Enchanter: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern. Unter dem Astral Enchanter wirkt er nur halb."
-          ],
-          "secret": [
-            "Der Boden zählt nur unter den Verzauberern, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under Simple Enchanting's Dark Enchanter adds 10 strength once the shelves give 30; under the Astral Enchanter only half.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under a Dark or Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
-            "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
-            "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
-          ]
-        },
-        "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Dark Enchanter (Simple Enchanting) gibt 10 Stärke dazu, sobald die Regale 30 ergeben; unter dem Astral Enchanter nur halb so viel.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Dark oder Astral Enchanter (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
-            "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
-            "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:blazing_obsidian_chip",
       "name": {
         "en_us": "Blazing Obsidian Chip",
@@ -5956,39 +5827,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf",
-      "name": {
-        "en_us": "Chiseled Crimson Blazewood Bookshelf",
-        "de_de": "Gemeißeltes Karmesin-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/chiseled_crimson_blazewood_bookshelf_side.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_crimson_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_crimson_blazewood_bookshelf.png",
-      "note": {
-        "en": {
-          "summary": "A chiseled bookshelf of crimson blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
-          "details": [
-            "Recipe like the chiseled bookshelf: 6 Crimson Blazewood Planks around 3 Crimson Slabs."
-          ]
-        },
-        "de": {
-          "summary": "Ein gemeißeltes Bücherregal aus Karmesin-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
-          "details": [
-            "Rezept wie das gemeißelte Bücherregal: 6 Karmesin-Lohenholzbretter um 3 Karmesinstufen."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "name": {
         "en_us": "Chiseled Ender Quartz Bricks",
@@ -6070,39 +5908,6 @@
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:chiseled_warped_blazewood_bookshelf",
-      "name": {
-        "en_us": "Chiseled Warped Blazewood Bookshelf",
-        "de_de": "Gemeißeltes Wirr-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/chiseled_warped_blazewood_bookshelf_side.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_warped_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_warped_blazewood_bookshelf.png",
-      "note": {
-        "en": {
-          "summary": "A chiseled bookshelf of warped blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
-          "details": [
-            "Recipe like the chiseled bookshelf: 6 Warped Blazewood Planks around 3 Warped Slabs."
-          ]
-        },
-        "de": {
-          "summary": "Ein gemeißeltes Bücherregal aus Wirr-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
-          "details": [
-            "Rezept wie das gemeißelte Bücherregal: 6 Wirr-Lohenholzbretter um 3 Wirrstufen."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json"
-        ]
       },
       "hasCustomBehaviour": true
     },
@@ -6408,78 +6213,6 @@
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf",
-      "name": {
-        "en_us": "Crimson Blazewood Bookshelf",
-        "de_de": "Karmesin-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
-      "note": {
-        "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
-          "details": [
-            "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-          ]
-        },
-        "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-          "details": [
-            "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks",
-      "name": {
-        "en_us": "Crimson Blazewood Planks",
-        "de_de": "Karmesin-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:chiseled_crimson_blazewood_bookshelf",
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_planks.png",
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crimson Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:crimson_cauldron",
@@ -13019,69 +12752,6 @@
             "Er hat eigene Treppe (6 ergeben 4), Stufe (3 ergeben 6) und Mauer (6 ergeben 6); der Steinmetz schneidet ihn 1 zu 1 zu den Blöcken der Palette (Stufe 1 zu 2). Er übernimmt den polierten Endstein (Härte 3, Explosionsfestigkeit 9, für den Drop wird eine Spitzhacke gebraucht), kein Licht, und die Mauern verbinden sich wie Vanilla-Mauern."
           ]
         }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nihil_obsidian",
-      "name": {
-        "en_us": "Nihil Obsidian",
-        "de_de": "Nihil-Obsidian"
-      },
-      "texture": "assets/textures/block/nihil_obsidian.png",
-      "craftedBy": [
-        "simplebuilding:nihil_obsidian"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/nihil_obsidian.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "Blazing Obsidian that met the void: the embers went out and navy light stayed."
-          ],
-          "use": [
-            "Eight Nihilith Shards around crying obsidian make it. A 5 x 5 floor of it under the Astral Enchanter adds 20 strength once the shelves give 30, enough for 60; under the Dark Enchanter it counts like Blazing Obsidian."
-          ],
-          "secret": [
-            "Mixing both obsidians still makes a floor, but the Astral Enchanter then counts it only half."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Lohen-Obsidian, der der Leere begegnet ist: Die Glut erlosch, navyblaues Licht blieb."
-          ],
-          "use": [
-            "Acht Nihilith-Splitter um weinenden Obsidian ergeben ihn. Ein 5 x 5 großer Boden unter dem Astral Enchanter gibt 20 Stärke dazu, sobald die Regale 30 liefern, genug für 60; unter dem Dark Enchanter zählt er wie Lohen-Obsidian."
-          ],
-          "secret": [
-            "Gemischt aus beiden Obsidianen ist es noch ein Boden, aber der Astral Enchanter zählt ihn dann nur halb."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Blazing Obsidian with Nihilith (owner 03.11.): navy/void light instead of embers. A 5x5 floor of it under Simple Enchanting's Astral Enchanter adds 20 strength once the shelves give 30 (60 with 15 blazewood bookshelves); under the Dark Enchanter it counts like Blazing Obsidian.",
-          "details": [
-            "Recipe: 8 Nihilith Shards around 1 Crying Obsidian.",
-            "Light level 10, mined with a diamond pickaxe or better; navy motes rise from every free face and fly to the book of an enchanter standing on the 5x5 around it.",
-            "A floor mixed of Blazing and Nihil Obsidian counts at the Dark Enchanter in full and at the Astral Enchanter only half (block tags simpleenchanting:obsidian_floor and simpleenchanting:nihil_floor)."
-          ]
-        },
-        "de": {
-          "summary": "Lohen-Obsidian mit Nihilit (Besitzer 03.11.): Navy-/Void-Licht statt Glut. Ein 5x5-Boden daraus unter dem Astral Enchanter (Simple Enchanting) gibt 20 Stärke dazu, sobald die Regale 30 ergeben (60 mit 15 Lohen-Bücherregalen); unter dem Dark Enchanter zählt er wie Lohen-Obsidian.",
-          "details": [
-            "Rezept: 8 Nihilith-Splitter um 1 weinenden Obsidian.",
-            "Lichtstufe 10, abbaubar ab Diamant-Spitzhacke; navyblaue Funken steigen aus jeder freien Seite und fliegen zum Buch eines Verzauberers auf der 5x5-Fläche darum.",
-            "Ein aus Lohen- und Nihil-Obsidian gemischter Boden zählt am Dark Enchanter voll, am Astral Enchanter nur halb (Block-Tags simpleenchanting:obsidian_floor und simpleenchanting:nihil_floor)."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
-          "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json"
-        ]
       },
       "hasCustomBehaviour": false
     },
@@ -23011,78 +22681,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:warped_blazewood_bookshelf",
-      "name": {
-        "en_us": "Warped Blazewood Bookshelf",
-        "de_de": "Wirr-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/warped_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
-      "note": {
-        "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
-          "details": [
-            "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-          ]
-        },
-        "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-          "details": [
-            "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "name": {
-        "en_us": "Warped Blazewood Planks",
-        "de_de": "Wirr-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/warped_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:chiseled_warped_blazewood_bookshelf",
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_planks.png",
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Warped Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Wirrbretter."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:warped_cauldron",
       "name": {
         "en_us": "Warped Cauldron",
@@ -24875,77 +24473,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blazing_obsidian",
-      "name": {
-        "en_us": "Blazing Obsidian",
-        "de_de": "Lohen-Obsidian"
-      },
-      "texture": "assets/textures/block/blazing_obsidian.png",
-      "craftedBy": [
-        "simplebuilding:blazing_obsidian",
-        "simplebuilding:blazing_obsidian_from_blazing_obsidian_chips"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blazing_obsidian.png",
-      "lootTable": "simplebuilding:blocks/blazing_obsidian",
-      "drops": [
-        "simplebuilding:blazing_obsidian"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "Crying obsidian's glowing sibling: where the other weeps, this one burns."
-          ],
-          "use": [
-            "A decorative block that gives light. Its job is at the Dark Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30. Under the Astral Enchanter it works only half."
-          ],
-          "secret": [
-            "The floor only counts under the enchanters, not the vanilla table, so build it once the shelves are complete."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
-          ],
-          "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Dark Enchanter: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern. Unter dem Astral Enchanter wirkt er nur halb."
-          ],
-          "secret": [
-            "Der Boden zählt nur unter den Verzauberern, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under Simple Enchanting's Dark Enchanter adds 10 strength once the shelves give 30; under the Astral Enchanter only half.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under a Dark or Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
-            "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
-            "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
-          ]
-        },
-        "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Dark Enchanter (Simple Enchanting) gibt 10 Stärke dazu, sobald die Regale 30 ergeben; unter dem Astral Enchanter nur halb so viel.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Dark oder Astral Enchanter (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
-            "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
-            "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "name": {
         "en_us": "Blue Hammock",
@@ -25878,43 +25405,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf",
-      "name": {
-        "en_us": "Chiseled Crimson Blazewood Bookshelf",
-        "de_de": "Gemeißeltes Karmesin-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/chiseled_crimson_blazewood_bookshelf_side.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_crimson_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_crimson_blazewood_bookshelf.png",
-      "lootTable": "simplebuilding:blocks/chiseled_crimson_blazewood_bookshelf",
-      "drops": [
-        "simplebuilding:chiseled_crimson_blazewood_bookshelf"
-      ],
-      "note": {
-        "en": {
-          "summary": "A chiseled bookshelf of crimson blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
-          "details": [
-            "Recipe like the chiseled bookshelf: 6 Crimson Blazewood Planks around 3 Crimson Slabs."
-          ]
-        },
-        "de": {
-          "summary": "Ein gemeißeltes Bücherregal aus Karmesin-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
-          "details": [
-            "Rezept wie das gemeißelte Bücherregal: 6 Karmesin-Lohenholzbretter um 3 Karmesinstufen."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "name": {
         "en_us": "Chiseled Ender Quartz Bricks",
@@ -26004,43 +25494,6 @@
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:chiseled_warped_blazewood_bookshelf",
-      "name": {
-        "en_us": "Chiseled Warped Blazewood Bookshelf",
-        "de_de": "Gemeißeltes Wirr-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/chiseled_warped_blazewood_bookshelf_side.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_warped_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_warped_blazewood_bookshelf.png",
-      "lootTable": "simplebuilding:blocks/chiseled_warped_blazewood_bookshelf",
-      "drops": [
-        "simplebuilding:chiseled_warped_blazewood_bookshelf"
-      ],
-      "note": {
-        "en": {
-          "summary": "A chiseled bookshelf of warped blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
-          "details": [
-            "Recipe like the chiseled bookshelf: 6 Warped Blazewood Planks around 3 Warped Slabs."
-          ]
-        },
-        "de": {
-          "summary": "Ein gemeißeltes Bücherregal aus Wirr-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
-          "details": [
-            "Rezept wie das gemeißelte Bücherregal: 6 Wirr-Lohenholzbretter um 3 Wirrstufen."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json"
-        ]
       },
       "hasCustomBehaviour": true
     },
@@ -26276,87 +25729,6 @@
           "details": [
             "Rezept: 1 Nihilitziegel im Ofen schmelzen (wie Vanillas rissige Steinziegel).",
             "Mit der Spitzhacke abbaubar, gleiche Härte und gleiches Licht wie die glatten Ziegel; keine eigene Treppe, Stufe oder Mauer (die bleiben bei den glatten Ziegeln)."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf",
-      "name": {
-        "en_us": "Crimson Blazewood Bookshelf",
-        "de_de": "Karmesin-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
-      "lootTable": "simplebuilding:blocks/crimson_blazewood_bookshelf",
-      "drops": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "note": {
-        "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
-          "details": [
-            "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-          ]
-        },
-        "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-          "details": [
-            "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks",
-      "name": {
-        "en_us": "Crimson Blazewood Planks",
-        "de_de": "Karmesin-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:chiseled_crimson_blazewood_bookshelf",
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_planks.png",
-      "lootTable": "simplebuilding:blocks/crimson_blazewood_planks",
-      "drops": [
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crimson Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
           ]
         },
         "sources": [
@@ -30274,73 +29646,6 @@
             "Er hat eigene Treppe (6 ergeben 4), Stufe (3 ergeben 6) und Mauer (6 ergeben 6); der Steinmetz schneidet ihn 1 zu 1 zu den Blöcken der Palette (Stufe 1 zu 2). Er übernimmt den polierten Endstein (Härte 3, Explosionsfestigkeit 9, für den Drop wird eine Spitzhacke gebraucht), kein Licht, und die Mauern verbinden sich wie Vanilla-Mauern."
           ]
         }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nihil_obsidian",
-      "name": {
-        "en_us": "Nihil Obsidian",
-        "de_de": "Nihil-Obsidian"
-      },
-      "texture": "assets/textures/block/nihil_obsidian.png",
-      "craftedBy": [
-        "simplebuilding:nihil_obsidian"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/nihil_obsidian.png",
-      "lootTable": "simplebuilding:blocks/nihil_obsidian",
-      "drops": [
-        "simplebuilding:nihil_obsidian"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "Blazing Obsidian that met the void: the embers went out and navy light stayed."
-          ],
-          "use": [
-            "Eight Nihilith Shards around crying obsidian make it. A 5 x 5 floor of it under the Astral Enchanter adds 20 strength once the shelves give 30, enough for 60; under the Dark Enchanter it counts like Blazing Obsidian."
-          ],
-          "secret": [
-            "Mixing both obsidians still makes a floor, but the Astral Enchanter then counts it only half."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Lohen-Obsidian, der der Leere begegnet ist: Die Glut erlosch, navyblaues Licht blieb."
-          ],
-          "use": [
-            "Acht Nihilith-Splitter um weinenden Obsidian ergeben ihn. Ein 5 x 5 großer Boden unter dem Astral Enchanter gibt 20 Stärke dazu, sobald die Regale 30 liefern, genug für 60; unter dem Dark Enchanter zählt er wie Lohen-Obsidian."
-          ],
-          "secret": [
-            "Gemischt aus beiden Obsidianen ist es noch ein Boden, aber der Astral Enchanter zählt ihn dann nur halb."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "Blazing Obsidian with Nihilith (owner 03.11.): navy/void light instead of embers. A 5x5 floor of it under Simple Enchanting's Astral Enchanter adds 20 strength once the shelves give 30 (60 with 15 blazewood bookshelves); under the Dark Enchanter it counts like Blazing Obsidian.",
-          "details": [
-            "Recipe: 8 Nihilith Shards around 1 Crying Obsidian.",
-            "Light level 10, mined with a diamond pickaxe or better; navy motes rise from every free face and fly to the book of an enchanter standing on the 5x5 around it.",
-            "A floor mixed of Blazing and Nihil Obsidian counts at the Dark Enchanter in full and at the Astral Enchanter only half (block tags simpleenchanting:obsidian_floor and simpleenchanting:nihil_floor)."
-          ]
-        },
-        "de": {
-          "summary": "Lohen-Obsidian mit Nihilit (Besitzer 03.11.): Navy-/Void-Licht statt Glut. Ein 5x5-Boden daraus unter dem Astral Enchanter (Simple Enchanting) gibt 20 Stärke dazu, sobald die Regale 30 ergeben (60 mit 15 Lohen-Bücherregalen); unter dem Dark Enchanter zählt er wie Lohen-Obsidian.",
-          "details": [
-            "Rezept: 8 Nihilith-Splitter um 1 weinenden Obsidian.",
-            "Lichtstufe 10, abbaubar ab Diamant-Spitzhacke; navyblaue Funken steigen aus jeder freien Seite und fliegen zum Buch eines Verzauberers auf der 5x5-Fläche darum.",
-            "Ein aus Lohen- und Nihil-Obsidian gemischter Boden zählt am Dark Enchanter voll, am Astral Enchanter nur halb (Block-Tags simpleenchanting:obsidian_floor und simpleenchanting:nihil_floor)."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
-          "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json"
-        ]
       },
       "hasCustomBehaviour": false
     },
@@ -35290,87 +34595,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:warped_blazewood_bookshelf",
-      "name": {
-        "en_us": "Warped Blazewood Bookshelf",
-        "de_de": "Wirr-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/warped_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
-      "lootTable": "simplebuilding:blocks/warped_blazewood_bookshelf",
-      "drops": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "note": {
-        "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
-          "details": [
-            "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-          ]
-        },
-        "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-          "details": [
-            "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "name": {
-        "en_us": "Warped Blazewood Planks",
-        "de_de": "Wirr-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/warped_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:chiseled_warped_blazewood_bookshelf",
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_planks.png",
-      "lootTable": "simplebuilding:blocks/warped_blazewood_planks",
-      "drops": [
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Warped Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Wirrbretter."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:warped_cauldron",
       "name": {
         "en_us": "Warped Cauldron",
@@ -39886,104 +39110,12 @@
       }
     },
     {
-      "id": "simplebuilding:blaze_book",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:blaze_book",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/blaze_book.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:book"
-      ],
-      "pattern": [
-        "BBB",
-        "BKB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "K": [
-          "minecraft:book"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:blazing_obsidian",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:blazing_obsidian",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/blazing_obsidian.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:crying_obsidian"
-      ],
-      "pattern": [
-        "BBB",
-        "BOB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "O": [
-          "minecraft:crying_obsidian"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:blazing_obsidian_from_blazing_obsidian_chips",
       "type": "minecraft:crafting_shaped",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:blazing_obsidian",
+        "id": "simpleenchanting:blazing_obsidian",
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/blazing_obsidian_from_blazing_obsidian_chips.json",
@@ -42271,50 +41403,6 @@
       }
     },
     {
-      "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json",
-      "ingredients": [
-        "minecraft:crimson_slab",
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "pattern": [
-        "WWW",
-        "SSS",
-        "WWW"
-      ],
-      "key": {
-        "S": [
-          "minecraft:crimson_slab"
-        ],
-        "W": [
-          "simplebuilding:crimson_blazewood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 24
-          },
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 1.875
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:chiseled_duskwood_bookshelf",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -42797,50 +41885,6 @@
       }
     },
     {
-      "id": "simplebuilding:chiseled_warped_blazewood_bookshelf",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:chiseled_warped_blazewood_bookshelf",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json",
-      "ingredients": [
-        "minecraft:warped_slab",
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "pattern": [
-        "WWW",
-        "SSS",
-        "WWW"
-      ],
-      "key": {
-        "S": [
-          "minecraft:warped_slab"
-        ],
-        "W": [
-          "simplebuilding:warped_blazewood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 24
-          },
-          {
-            "id": "minecraft:warped_stem",
-            "count": 1.875
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:cobblestone_from_stone_pebbles",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -43157,102 +42201,6 @@
           {
             "id": "simpleores:nihilith_shard",
             "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:crimson_blazewood_bookshelf",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_blazewood_bookshelf.json",
-      "ingredients": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "pattern": [
-        "WWW",
-        "KKK",
-        "WWW"
-      ],
-      "key": {
-        "K": [
-          "simplebuilding:blaze_book"
-        ],
-        "W": [
-          "simplebuilding:crimson_blazewood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 36
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 9
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 3
-          },
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 1.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:crimson_blazewood_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_blazewood_planks.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:crimson_planks"
-      ],
-      "pattern": [
-        "BBB",
-        "BPB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "P": [
-          "minecraft:crimson_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 0.25
           }
         ]
       }
@@ -52097,50 +51045,6 @@
           {
             "id": "simpleores:nihilith_shard",
             "count": 0.125
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:nihil_obsidian",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nihil_obsidian",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_obsidian.json",
-      "ingredients": [
-        "minecraft:crying_obsidian",
-        "simpleores:nihilith_shard"
-      ],
-      "pattern": [
-        "NNN",
-        "NON",
-        "NNN"
-      ],
-      "key": {
-        "N": [
-          "simpleores:nihilith_shard"
-        ],
-        "O": [
-          "minecraft:crying_obsidian"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:nihilith_shard",
-            "count": 8
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 1
           }
         ]
       }
@@ -67091,102 +65995,6 @@
       }
     },
     {
-      "id": "simplebuilding:warped_blazewood_bookshelf",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:warped_blazewood_bookshelf",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_blazewood_bookshelf.json",
-      "ingredients": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "pattern": [
-        "WWW",
-        "KKK",
-        "WWW"
-      ],
-      "key": {
-        "K": [
-          "simplebuilding:blaze_book"
-        ],
-        "W": [
-          "simplebuilding:warped_blazewood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 36
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 9
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 3
-          },
-          {
-            "id": "minecraft:warped_stem",
-            "count": 1.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:warped_blazewood_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_blazewood_planks.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:warped_planks"
-      ],
-      "pattern": [
-        "BBB",
-        "BPB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "P": [
-          "minecraft:warped_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
-            "id": "minecraft:warped_stem",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:warped_cauldron",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -77720,24 +76528,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blackstone_quartz_checker_stairs.json"
     },
     {
-      "id": "simplebuilding:blocks/blazing_obsidian",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:blazing_obsidian"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blazing_obsidian.json"
-    },
-    {
       "id": "simplebuilding:blocks/blue_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -78080,24 +76870,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_astralit_bricks.json"
     },
     {
-      "id": "simplebuilding:blocks/chiseled_crimson_blazewood_bookshelf",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:chiseled_crimson_blazewood_bookshelf"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_crimson_blazewood_bookshelf.json"
-    },
-    {
       "id": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -78132,24 +76904,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
-    },
-    {
-      "id": "simplebuilding:blocks/chiseled_warped_blazewood_bookshelf",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:chiseled_warped_blazewood_bookshelf"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_warped_blazewood_bookshelf.json"
     },
     {
       "id": "simplebuilding:blocks/construction_light",
@@ -78222,41 +76976,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_nihilith_bricks.json"
-    },
-    {
-      "id": "simplebuilding:blocks/crimson_blazewood_bookshelf",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:crimson_blazewood_bookshelf",
-            "simplebuilding:blaze_book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_blazewood_bookshelf.json"
-    },
-    {
-      "id": "simplebuilding:blocks/crimson_blazewood_planks",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:crimson_blazewood_planks"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_blazewood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/crimson_cauldron",
@@ -79699,24 +78418,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone_wall.json"
-    },
-    {
-      "id": "simplebuilding:blocks/nihil_obsidian",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nihil_obsidian"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_obsidian.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_purpur_block",
@@ -81518,41 +80219,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/veined_nihilith.json"
-    },
-    {
-      "id": "simplebuilding:blocks/warped_blazewood_bookshelf",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:warped_blazewood_bookshelf",
-            "simplebuilding:blaze_book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_blazewood_bookshelf.json"
-    },
-    {
-      "id": "simplebuilding:blocks/warped_blazewood_planks",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:warped_blazewood_planks"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_blazewood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/warped_cauldron",
@@ -92286,7 +90952,7 @@
         "kind": "diamond_crush",
         "inputs": [
           {
-            "id": "simplebuilding:blazing_obsidian",
+            "id": "simpleenchanting:blazing_obsidian",
             "count": 1
           }
         ],
@@ -106719,10 +105385,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 439,
-    "blocks": 252,
-    "recipes": 767,
-    "lootTables": 273,
+    "items": 430,
+    "blocks": 244,
+    "recipes": 758,
+    "lootTables": 265,
     "trades": 20,
     "enchantments": 9,
     "tags": 52,

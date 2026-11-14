@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Block;
 public final class SharedMaterials {
     /** Every material group SimpleBuilding uses (all of them): their recipes and the anvil crushing stay on. */
     public static final List<String> GROUPS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates",
-            "polished_end_stone", "cores");
+            "polished_end_stone", "cores", "nether_bookshelves");
 
     /** Item ids that moved from {@code simplebuilding:} to {@code simplelib:} (same paths). */
     public static final List<String> ITEMS = List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block", "netherite_nugget",
@@ -26,9 +26,12 @@ public final class SharedMaterials {
             // Module family stage 3 (AGENTS rule 16): the shared End building block.
             "polished_end_stone",
             // IG31-13: the building cores.
-            "copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core");
+            "copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core",
+            // N48 (14.11.): the plain Nether blazewood bookshelves (group nether_bookshelves); the rest of the blazewood is Simple Enchanting's.
+            "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
     /** Block ids that moved. */
-    public static final List<String> BLOCKS = List.of("cracked_diamond_block", "polished_end_stone");
+    public static final List<String> BLOCKS = List.of("cracked_diamond_block", "polished_end_stone",
+            "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
     /** IG31-13: item ids that moved from {@code simplebuilding:} to {@code simpleores:} (same paths; the blocks have block items). */
     public static final List<String> ORES_ITEMS = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap",
             "enderite_ingot", "enderite_block", "enderite_upgrade_template", "sage_ore", "deepslate_sage_ore", "sage_orb",

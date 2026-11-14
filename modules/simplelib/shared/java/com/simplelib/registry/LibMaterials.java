@@ -52,6 +52,8 @@ public final class LibMaterials {
 
     /** N48: the material pressure plates (block ids; the block items have the same ids). */
     public static final List<String> PLATES = List.of("diamond_pressure_plate", "netherite_pressure_plate", "enderite_pressure_plate", "emerald_pressure_plate");
+    /** N48: the two Nether bookshelves of the group {@code nether_bookshelves}. */
+    public static final List<String> NETHER_BOOKSHELVES = List.of("crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
 
     /** Group -> ids (items; the blocks have block items of the same id). */
     public static final Map<String, List<String>> GROUPS = Map.of(
@@ -65,7 +67,10 @@ public final class LibMaterials {
             // Module family stage 3 (rule 16): the building block several family mods share (Blocks, End, Enderite, Octets).
             "polished_end_stone", List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
             // N48 (14.11.): the pressure plates of materials, formerly Simple Pads' (diamond, netherite, enderite) and Simple Ores' (enderite); Emerald is new.
-            "material_pressure_plates", PLATES);
+            "material_pressure_plates", PLATES,
+            // N48 (14.11.): the plain Crimson/Warped blazewood bookshelves, building blocks for Simple Blocks and SimpleBuilding; Simple Enchanting
+            // counts them as strong shelves. Always registered; the crafting recipe (without Simple Enchanting) only on request.
+            "nether_bookshelves", NETHER_BOOKSHELVES);
 
     /** Groups another mod owns and registers itself; it announces them with {@link #provide}. */
     public static final Set<String> PROVIDED_GROUPS = Set.of("enderite");
@@ -110,6 +115,8 @@ public final class LibMaterials {
         shape("polished_end_stone_stairs", polished, p -> new StairBlock(polished.defaultBlockState(), p));
         shape("polished_end_stone_slab", polished, SlabBlock::new);
         shape("polished_end_stone_wall", polished, p -> new WallBlock(p.forceSolidOn()));
+        // N48: Nether bookshelves (a full copy of Vanilla's bookshelf with the Nether wood sound).
+        for (String name : NETHER_BOOKSHELVES) shape(name, Blocks.BOOKSHELF, p -> new Block(p.sound(SoundType.NETHER_WOOD)));
     }
 
     /**
@@ -153,6 +160,7 @@ public final class LibMaterials {
         for (String name : List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
             item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
         }
+        for (String name : NETHER_BOOKSHELVES) item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
         // IG31-13: the building cores, numbers as SimpleBuilding had them (not stackable, rare; Netherite/Enderite fire resistant, Enderite epic).
         for (String name : CORES) {
             boolean fire = name.startsWith("netherite") || name.startsWith("enderite");

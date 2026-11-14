@@ -15,6 +15,7 @@ public final class BlocksNeoForge {
     public BlocksNeoForge(IEventBus bus, net.neoforged.api.distmarker.Dist dist) {
         // Old simplebuilding: ids of the moved building blocks resolve here (before the registry events).
         SimpleBlocks.registerIdMoves();
+        com.simplelib.api.SimpleLibApi.requestMaterial("nether_bookshelves"); // N48: the plain blazewood bookshelves (SimpleLib content) are building blocks of this module's tab
         SimpleBlocks.simplebuildingLoaded = net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {

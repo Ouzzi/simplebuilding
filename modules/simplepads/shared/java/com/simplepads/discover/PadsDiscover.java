@@ -52,6 +52,10 @@ public final class PadsDiscover {
             "simplepads:easter_smithing");
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simplelib:diamond_pressure_plate",
+            "simplelib:enderite_pressure_plate",
+            "simplelib:netherite_pressure_plate",
+            "simpleores:enderite_pressure_plate",
             "simplepads:*chunk_loader",
             "simplepads:*copper_pressure_plate",
             "simplepads:*elytra_pad",

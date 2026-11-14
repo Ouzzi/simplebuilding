@@ -29,10 +29,13 @@ def files():
     out[f"{d}/tags/item/hammers.json"] = {"values": []}
     out[f"{d}/tags/item/upgrade_tools.json"] = {"values": [f"#{NS}:hammers"]}
     materials(out)
+    nether_bookshelves(out)
     shapes(out)
     plates(out)
     warped_wart(out)
     modpack_guide(out)
+    out["data/minecraft/tags/block/mineable/axe.json"] = {"values": [f"{NS}:{b}" for b in SHELVES]}
+    out["data/minecraft/tags/block/enchantment_power_provider.json"] = {"values": [f"{NS}:{b}" for b in SHELVES]}
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [f"{NS}:{b}" for b in (*MATERIAL_BLOCKS, *SHAPES, *PLATES)]}
     out["data/minecraft/tags/block/pressure_plates.json"] = {"values": [f"{NS}:{b}" for b in PLATES]}
     for kind, tag in (("stairs", "stairs"), ("slab", "slabs"), ("wall", "walls")):
@@ -53,6 +56,8 @@ MATERIAL_GROUPS = {
     "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core"),
     # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
     "polished_end_stone": ("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
+    # N48 (14.11.): the plain Nether blazewood bookshelves; the planks of the same wood belong to Simple Enchanting.
+    "nether_bookshelves": ("crimson_blazewood_bookshelf", "warped_blazewood_bookshelf"),
     # N48 (14.11.): the plates of materials (Simple Pads' Diamond/Netherite/Enderite, Simple Ores' second Enderite plate, new Emerald).
     "material_pressure_plates": ("diamond_pressure_plate", "netherite_pressure_plate", "enderite_pressure_plate", "emerald_pressure_plate"),
 }
@@ -63,6 +68,7 @@ PLATES = {
     "enderite_pressure_plate": f"{NS}:block/enderite_pressure_plate",
     "emerald_pressure_plate": f"{NS}:block/emerald_pressure_plate",
 }
+SHELVES = MATERIAL_GROUPS["nether_bookshelves"]
 MATERIAL_BLOCKS = ("cracked_diamond_block", "polished_end_stone")
 # Stairs, slab, wall of the polished end stone (octet rule): cut from the full block with the existing texture.
 SHAPE_BASE = "polished_end_stone"
@@ -115,7 +121,19 @@ def material_recipes():
         ("building_blocks", "polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone",
          {"type": "minecraft:stonecutting", "ingredient": v("end_stone_bricks"), "result": {"id": m("polished_end_stone")}},
          [v("end_stone_bricks")]),
-    ] + shape_recipes() + plate_recipes()
+    ] + shelf_recipes() + shape_recipes() + plate_recipes()
+
+
+def shelf_recipes():
+    """N48: without Simple Enchanting a shelf is Vanilla's recipe with the Nether planks (Simple Enchanting: blazewood planks)."""
+    out = []
+    for name in SHELVES:
+        wood = name.split("_")[0]
+        planks = f"minecraft:{wood}_planks"
+        out.append(("building_blocks", name, "nether_bookshelves",
+                    {"type": "minecraft:crafting_shaped", "category": "building", "key": {"K": "minecraft:book", "W": planks},
+                     "pattern": ["WWW", "KKK", "WWW"], "result": {"id": f"{NS}:{name}"}}, [planks]))
+    return out
 
 
 def plate_recipes():
@@ -245,11 +263,31 @@ def plates(out):
             "condition": {"type": "minecraft:survives_explosion"}, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}], "rolls": 1}]}
 
 
-def material_condition(group):
-    """One group, or several (all must be requested/provided)."""
+def material_condition(group, without_enchanting=False):
+    """One group, or several (all must be requested/provided); shelves also need Simple Enchanting absent."""
     groups = (group,) if isinstance(group, str) else group
-    return {"fabric:load_conditions": [{"condition": f"{NS}:material_requested", "material": g} for g in groups],
-            "neoforge:conditions": [{"type": f"{NS}:material_requested", "material": g} for g in groups]}
+    fabric = [{"condition": f"{NS}:material_requested", "material": g} for g in groups]
+    neo = [{"type": f"{NS}:material_requested", "material": g} for g in groups]
+    if without_enchanting:
+        fabric.append({"condition": "fabric:not", "value": {"condition": "fabric:all_mods_loaded", "values": ["simpleenchanting"]}})
+        neo.append({"type": "neoforge:not", "value": {"type": "neoforge:mod_loaded", "modid": "simpleenchanting"}})
+    return {"fabric:load_conditions": fabric, "neoforge:conditions": neo}
+
+
+def nether_bookshelves(out):
+    """N48: models, blockstates, item models and loot of the Nether bookshelves (the Simple Enchanting twin's files, simplelib: ids)."""
+    a, d = f"assets/{NS}", f"data/{NS}"
+    for name in SHELVES:
+        wood = name.split("_")[0]
+        out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/cube_column", "textures": {
+            "end": f"{NS}:block/{wood}_blazewood_planks", "side": f"{NS}:block/{name}"}}
+        out[f"{a}/blockstates/{name}.json"] = {"variants": {"": {"model": f"{NS}:block/{name}"}}}
+        out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
+        # Like Vanilla's bookshelf: the block with Silk Touch, otherwise three books.
+        out[f"{d}/loot_table/blocks/{name}.json"] = {"type": "minecraft:block", "pools": [{"entries": [{"type": "minecraft:alternatives", "children": [
+            {"type": "minecraft:item", "condition": "minecraft:tool/can_silk_touch", "name": f"{NS}:{name}"},
+            {"type": "minecraft:item", "modifier": [{"type": "minecraft:set_count", "count": 3}, {"type": "minecraft:explosion_decay"}],
+             "name": "minecraft:book"}]}], "rolls": 1}]}
 
 
 def materials(out):
@@ -257,7 +295,7 @@ def materials(out):
     d = f"data/{NS}"
     for group, ids in MATERIAL_GROUPS.items():
         for item in ids:
-            if item in MATERIAL_BLOCKS or item in SHAPES or item in PLATES:
+            if item in MATERIAL_BLOCKS or item in SHAPES or item in PLATES or item in SHELVES:
                 continue
             out[f"{a}/models/item/{item}.json"] = {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{item}"}}
             out[f"{a}/items/{item}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/{item}"}}
@@ -272,12 +310,14 @@ def materials(out):
             "random_sequence": f"{NS}:blocks/{block}",
         }
     for category, rid, group, recipe, unlocking in material_recipes():
-        out[f"{d}/recipe/{rid}.json"] = {**material_condition(group), **recipe}
+        # N48: the standalone shelf recipe exists only without Simple Enchanting (which crafts the same block with blazewood planks).
+        cond = material_condition(group, without_enchanting=rid in SHELVES)
+        out[f"{d}/recipe/{rid}.json"] = {**cond, **recipe}
         criteria = {f"has_{i.split(':')[1]}": {"conditions": {"items": [{"items": i}]}, "trigger": "minecraft:inventory_changed"}
                     for i in unlocking}
         criteria["has_the_recipe"] = {"conditions": {"recipes": f"{NS}:{rid}"}, "trigger": "minecraft:recipe_unlocked"}
         out[f"{d}/advancement/recipes/{category}/{rid}.json"] = {
-            **material_condition(group), "parent": "minecraft:recipes/root", "criteria": criteria,
+            **cond, "parent": "minecraft:recipes/root", "criteria": criteria,
             "requirements": [["has_the_recipe"] + [f"has_{i.split(':')[1]}" for i in unlocking]],
             "rewards": {"recipes": [f"{NS}:{rid}"]}}
     # Common tags (principle 6: other mods use the tag, never the id).

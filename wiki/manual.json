@@ -2132,8 +2132,7 @@
         "simplecrucibles:iron_crucible",
         "simplecrucibles:enderite_crucible",
         "simplecrucibles:enderite_barrel",
-        "simplecrucibles:reinforced_cauldron",
-        "simplebuilding:blazing_obsidian"
+        "simplecrucibles:reinforced_cauldron"
       ],
       "en": {
         "title": "Crucibles: SimpleBuilding's part",
@@ -3925,104 +3924,6 @@
         ]
       }
     },
-    "crimson_blazewood_planks": {
-      "en": {
-        "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
-        "details": [
-          "Recipe: 8 Blaze Powder around 1 Crimson Planks."
-        ]
-      },
-      "de": {
-        "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-        "details": [
-          "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
-        ]
-      },
-      "sources": [
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-      ]
-    },
-    "crimson_blazewood_bookshelf": {
-      "en": {
-        "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
-        "details": [
-          "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
-          "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-        ]
-      },
-      "de": {
-        "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-        "details": [
-          "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
-          "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-        ]
-      },
-      "sources": [
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
-      ]
-    },
-    "warped_blazewood_planks": {
-      "en": {
-        "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
-        "details": [
-          "Recipe: 8 Blaze Powder around 1 Warped Planks."
-        ]
-      },
-      "de": {
-        "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-        "details": [
-          "Rezept: 8 Lohenstaub um 1 Wirrbretter."
-        ]
-      },
-      "sources": [
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-      ]
-    },
-    "warped_blazewood_bookshelf": {
-      "en": {
-        "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
-        "details": [
-          "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
-          "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-        ]
-      },
-      "de": {
-        "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-        "details": [
-          "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
-          "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-        ]
-      },
-      "sources": [
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "modules/simpleenchanting/shared/java/com/simpleenchanting/SimpleEnchanting.java"
-      ]
-    },
-    "blaze_book": {
-      "en": {
-        "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
-        "details": [
-          "Recipe: 8 Blaze Powder around 1 Book.",
-          "In a chiseled bookshelf it shows its own ember-coloured spines; every slot position has its own colour (red, orange, gold, crimson, amber, rose), like Vanilla's books."
-        ]
-      },
-      "de": {
-        "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
-        "details": [
-          "Rezept: 8 Lohenstaub um 1 Buch.",
-          "In einem gemeißelten Regal zeigt es eigene Glut-Buchrücken; jede Fachposition hat ihre eigene Farbe (Rot, Orange, Gold, Karmesin, Bernstein, Rosa), wie bei Vanillas Büchern."
-        ]
-      },
-      "sources": [
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-      ]
-    },
     "nihilith_book": {
       "en": {
         "summary": "A book with four Nihilit Shards in a plus around it; three go into an End bookshelf (Simple End), together with six Nihilit planks.",
@@ -4042,57 +3943,6 @@
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "common/src/shared/java/com/simplebuilding/client/render/ChiseledBooksRenderer.java",
         "tools/textures/shelves01_2026_11_04.py"
-      ]
-    },
-    "blazing_obsidian": {
-      "en": {
-        "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under Simple Enchanting's Dark Enchanter adds 10 strength once the shelves give 30; under the Astral Enchanter only half.",
-        "details": [
-          "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-          "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under a Dark or Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
-          "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
-          "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
-        ]
-      },
-      "de": {
-        "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Dark Enchanter (Simple Enchanting) gibt 10 Stärke dazu, sobald die Regale 30 ergeben; unter dem Astral Enchanter nur halb so viel.",
-        "details": [
-          "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-          "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Dark oder Astral Enchanter (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
-          "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
-          "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
-        ]
-      },
-      "sources": [
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
-        "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-        "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java"
-      ]
-    },
-    "nihil_obsidian": {
-      "en": {
-        "summary": "Blazing Obsidian with Nihilith (owner 03.11.): navy/void light instead of embers. A 5x5 floor of it under Simple Enchanting's Astral Enchanter adds 20 strength once the shelves give 30 (60 with 15 blazewood bookshelves); under the Dark Enchanter it counts like Blazing Obsidian.",
-        "details": [
-          "Recipe: 8 Nihilith Shards around 1 Crying Obsidian.",
-          "Light level 10, mined with a diamond pickaxe or better; navy motes rise from every free face and fly to the book of an enchanter standing on the 5x5 around it.",
-          "A floor mixed of Blazing and Nihil Obsidian counts at the Dark Enchanter in full and at the Astral Enchanter only half (block tags simpleenchanting:obsidian_floor and simpleenchanting:nihil_floor)."
-        ]
-      },
-      "de": {
-        "summary": "Lohen-Obsidian mit Nihilit (Besitzer 03.11.): Navy-/Void-Licht statt Glut. Ein 5x5-Boden daraus unter dem Astral Enchanter (Simple Enchanting) gibt 20 Stärke dazu, sobald die Regale 30 ergeben (60 mit 15 Lohen-Bücherregalen); unter dem Dark Enchanter zählt er wie Lohen-Obsidian.",
-        "details": [
-          "Rezept: 8 Nihilith-Splitter um 1 weinenden Obsidian.",
-          "Lichtstufe 10, abbaubar ab Diamant-Spitzhacke; navyblaue Funken steigen aus jeder freien Seite und fliegen zum Buch eines Verzauberers auf der 5x5-Fläche darum.",
-          "Ein aus Lohen- und Nihil-Obsidian gemischter Boden zählt am Dark Enchanter voll, am Astral Enchanter nur halb (Block-Tags simpleenchanting:obsidian_floor und simpleenchanting:nihil_floor)."
-        ]
-      },
-      "sources": [
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
-        "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json"
       ]
     },
     "warden_tendril": {
@@ -5372,42 +5222,6 @@
       "sources": [
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-      ]
-    },
-    "chiseled_crimson_blazewood_bookshelf": {
-      "en": {
-        "summary": "A chiseled bookshelf of crimson blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
-        "details": [
-          "Recipe like the chiseled bookshelf: 6 Crimson Blazewood Planks around 3 Crimson Slabs."
-        ]
-      },
-      "de": {
-        "summary": "Ein gemeißeltes Bücherregal aus Karmesin-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
-        "details": [
-          "Rezept wie das gemeißelte Bücherregal: 6 Karmesin-Lohenholzbretter um 3 Karmesinstufen."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json"
-      ]
-    },
-    "chiseled_warped_blazewood_bookshelf": {
-      "en": {
-        "summary": "A chiseled bookshelf of warped blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
-        "details": [
-          "Recipe like the chiseled bookshelf: 6 Warped Blazewood Planks around 3 Warped Slabs."
-        ]
-      },
-      "de": {
-        "summary": "Ein gemeißeltes Bücherregal aus Wirr-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
-        "details": [
-          "Rezept wie das gemeißelte Bücherregal: 6 Wirr-Lohenholzbretter um 3 Wirrstufen."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json"
       ]
     },
     "astralit_block": {

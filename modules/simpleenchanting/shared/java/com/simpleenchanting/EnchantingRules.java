@@ -65,7 +65,7 @@ public final class EnchantingRules {
     public static final int FLOOR_RADIUS = 2;
     /** Kinds of floor: none, Blazing Obsidian (or mixed with Nihil), all Nihil Obsidian. */
     public static final int FLOOR_NONE = 0, FLOOR_BLAZING = 1, FLOOR_NIHIL = 2;
-    /** Bookshelves worth {@value #BLAZE_SHELF} (SimpleBuilding's blazewood shelves or this module's twins). */
+    /** Bookshelves worth {@value #BLAZE_SHELF} (SimpleLib's plain blazewood shelves, group nether_bookshelves). */
     public static final TagKey<net.minecraft.world.level.block.Block> BLAZE_SHELVES = tag("blaze_shelves");
     /** Simple End's Ashwood/Duskwood bookshelves (DW04C-3): worth {@value #BLAZE_SHELF} like the blazewood shelves. */
     public static final TagKey<net.minecraft.world.level.block.Block> END_SHELVES = tag("end_shelves");

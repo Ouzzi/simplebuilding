@@ -56,6 +56,7 @@ public final class LibDiscover {
             "simplelib:copper_core",
             "simplelib:cracked_diamond",
             "simplelib:cracked_diamond_block",
+            "simplelib:crimson_blazewood_bookshelf",
             "simplelib:diamond_core",
             "simplelib:diamond_pebble",
             "simplelib:diamond_pressure_plate",
@@ -80,6 +81,7 @@ public final class LibDiscover {
             "simplelib:strong_upgrade_shard",
             "simplelib:strong_upgrade_template",
             "simplelib:warm_food",
+            "simplelib:warped_blazewood_bookshelf",
             "simplelib:warped_wart");
     static final List<Tip> TIPS = List.of();
 

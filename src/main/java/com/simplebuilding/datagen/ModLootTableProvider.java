@@ -71,18 +71,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         if (ModBlocks.IRON_POLE != null && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) dropSelf(ModBlocks.IRON_POLE); // N47-M3: Simple Ores' on 26.3
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) dropSelf(ModBlocks.AUTO_SMITHER); // 26.3: Simple Machines' loot
         if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER); // 26.3: Simple Machines' loot
-        if (ModBlocks.BLAZING_OBSIDIAN != null) {
-            // Astral-Verzauberung (Queue N27): der Tisch gibt den Vanilla-Tisch und einen Enderit-Barren zurueck (Besitzer 15.10.)
-            // (gelagerter Lapis/Lohenstaub faellt als Inhalt heraus), Lohen-Regale drei Lohenbuecher wie Vanilla-Regale.
-            // ENCH02: the tables' loot is Simple Enchanting's (data/simpleenchanting/loot_table).
-            for (Block planks : ModBlocks.BLAZEWOOD_PLANKS) dropSelf(planks);
-            for (Block shelf : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
-                add(shelf, createSingleItemTableWithSilkTouch(shelf, ModItems.BLAZE_BOOK, LootNumbers.exactly(3)));
-            }
-            for (Block shelf : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) dropSelf(shelf); // the books drop via the block entity
-            dropSelf(ModBlocks.BLAZING_OBSIDIAN);
-            dropSelf(ModBlocks.NIHIL_OBSIDIAN);
-        }
+        // N48 (14.11.): Lohenholz, Regale und Obsidiane haben ihre Beute bei Simple Enchanting / SimpleLib.
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
         if (ModBlocks.GOLD_POLE != null && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) dropSelf(ModBlocks.GOLD_POLE); // N47-M3: Simple Ores' on 26.3

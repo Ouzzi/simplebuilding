@@ -40,9 +40,9 @@ public final class ShelvesShotsClient implements FabricClientGameTest {
                 run(server, "weather clear");
                 run(server, "gamerule advance_time false");
                 build(l);
-                String[] hot = {"minecraft:book", "simplebuilding:blaze_book", "simplebuilding:nihilith_book", "simpleend:ashwood_bookshelf",
+                String[] hot = {"minecraft:book", "simpleenchanting:blaze_book", "simplebuilding:nihilith_book", "simpleend:ashwood_bookshelf",
                         "simpleend:chiseled_ashwood_bookshelf", "simpleend:duskwood_bookshelf", "simpleend:chiseled_duskwood_bookshelf",
-                        "simplebuilding:chiseled_crimson_blazewood_bookshelf", "simplebuilding:chiseled_warped_blazewood_bookshelf"};
+                        "simpleenchanting:chiseled_crimson_blazewood_bookshelf", "simpleenchanting:chiseled_warped_blazewood_bookshelf"};
                 for (int i = 0; i < hot.length; i++) p.getInventory().setItem(i, new ItemStack(item(hot[i])));
                 p.getAbilities().flying = true;
                 p.onUpdateAbilities();
@@ -86,14 +86,14 @@ public final class ShelvesShotsClient implements FabricClientGameTest {
             }
         }
         String[][] rows = {{"minecraft:bookshelf", "minecraft:chiseled_bookshelf"},
-                {"simplebuilding:crimson_blazewood_bookshelf", "simplebuilding:chiseled_crimson_blazewood_bookshelf"},
-                {"simplebuilding:warped_blazewood_bookshelf", "simplebuilding:chiseled_warped_blazewood_bookshelf"},
+                {"simplelib:crimson_blazewood_bookshelf", "simpleenchanting:chiseled_crimson_blazewood_bookshelf"},
+                {"simplelib:warped_blazewood_bookshelf", "simpleenchanting:chiseled_warped_blazewood_bookshelf"},
                 {"simpleend:ashwood_bookshelf", "simpleend:chiseled_ashwood_bookshelf"},
                 {"simpleend:duskwood_bookshelf", "simpleend:chiseled_duskwood_bookshelf"}};
         ItemStack[] vanilla = {new ItemStack(Items.BOOK), new ItemStack(Items.BOOK), new ItemStack(Items.ENCHANTED_BOOK),
                 new ItemStack(Items.BOOK), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.BOOK)};
-        ItemStack[] mixed = {new ItemStack(item("simplebuilding:blaze_book")), new ItemStack(Items.BOOK), new ItemStack(item("simplebuilding:nihilith_book")),
-                new ItemStack(item("simplebuilding:nihilith_book")), new ItemStack(item("simplebuilding:blaze_book")), new ItemStack(Items.ENCHANTED_BOOK)};
+        ItemStack[] mixed = {new ItemStack(item("simpleenchanting:blaze_book")), new ItemStack(Items.BOOK), new ItemStack(item("simplebuilding:nihilith_book")),
+                new ItemStack(item("simplebuilding:nihilith_book")), new ItemStack(item("simpleenchanting:blaze_book")), new ItemStack(Items.ENCHANTED_BOOK)};
         for (int r = 0; r < rows.length; r++) {
             Block shelf = block(rows[r][0]), chiseled = block(rows[r][1]);
             BlockPos row = base.offset(0, r, 0);

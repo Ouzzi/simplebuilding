@@ -26,6 +26,11 @@
       "com.simplebuilding.modules.simpleenchanting.EnchantingFabricClient"
     ]
   },
+  "custom": {
+    "simplelib:content": [
+      "nether_bookshelves"
+    ]
+  },
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",

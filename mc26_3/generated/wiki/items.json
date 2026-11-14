@@ -32,7 +32,6 @@
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blackstone_quartz_checker_slab",
     "simplebuilding:blackstone_quartz_checker_stairs",
-    "simplebuilding:blazing_obsidian",
     "simplebuilding:blue_hammock",
     "simplebuilding:brown_hammock",
     "simplebuilding:carved_acacia_log",
@@ -52,17 +51,13 @@
     "simplebuilding:cherry_sheet",
     "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
-    "simplebuilding:chiseled_crimson_blazewood_bookshelf",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
-    "simplebuilding:chiseled_warped_blazewood_bookshelf",
     "simplebuilding:construction_light",
     "simplebuilding:copper_fire",
     "simplebuilding:cracked_astralit_bricks",
     "simplebuilding:cracked_ender_quartz_bricks",
     "simplebuilding:cracked_nihilith_bricks",
-    "simplebuilding:crimson_blazewood_bookshelf",
-    "simplebuilding:crimson_blazewood_planks",
     "simplebuilding:crimson_cauldron",
     "simplebuilding:crimson_sheet",
     "simplebuilding:crystalline_astralit",
@@ -140,7 +135,6 @@
     "simplebuilding:nihil_end_stone_slab",
     "simplebuilding:nihil_end_stone_stairs",
     "simplebuilding:nihil_end_stone_wall",
-    "simplebuilding:nihil_obsidian",
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihil_purpur_pillar",
     "simplebuilding:nihil_purpur_slab",
@@ -246,8 +240,6 @@
     "simplebuilding:sulfur_wall_torch",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
-    "simplebuilding:warped_blazewood_bookshelf",
-    "simplebuilding:warped_blazewood_planks",
     "simplebuilding:warped_cauldron",
     "simplebuilding:warped_sheet",
     "simplebuilding:white_hammock",
@@ -457,12 +449,6 @@
       "id": "simplebuilding:blackstone_quartz_checker_stairs"
     },
     {
-      "id": "simplebuilding:blaze_book"
-    },
-    {
-      "id": "simplebuilding:blazing_obsidian"
-    },
-    {
       "id": "simplebuilding:blazing_obsidian_chip"
     },
     {
@@ -519,16 +505,10 @@
       "id": "simplebuilding:chiseled_astralit_bricks"
     },
     {
-      "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf"
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks"
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks"
-    },
-    {
-      "id": "simplebuilding:chiseled_warped_blazewood_bookshelf"
     },
     {
       "durability": 256,
@@ -550,12 +530,6 @@
     {
       "id": "simplebuilding:creative_spacer",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf"
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks"
     },
     {
       "id": "simplebuilding:crimson_cauldron"
@@ -1010,9 +984,6 @@
     },
     {
       "id": "simplebuilding:nihil_end_stone_wall"
-    },
-    {
-      "id": "simplebuilding:nihil_obsidian"
     },
     {
       "id": "simplebuilding:nihil_purpur_block"
@@ -1753,12 +1724,6 @@
     },
     {
       "id": "simplebuilding:warden_tendril"
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_bookshelf"
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks"
     },
     {
       "id": "simplebuilding:warped_cauldron"

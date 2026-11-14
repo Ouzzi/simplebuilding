@@ -122,6 +122,7 @@ public final class SimpleLibApi {
     /**
      * Requests a shared material group: {@code "cracked_diamond"} (diamond pebble, cracked diamond and its block, the
      * anvil crushing), {@code "netherite_nugget"}, {@code "upgrade_templates"} (basic upgrade), {@code "polished_end_stone"},
+     * {@code "nether_bookshelves"} (N48: the plain Crimson/Warped blazewood bookshelves; always registered, the Vanilla-cost recipe only without Simple Enchanting),
      * {@code "cores"} (the six building cores), {@code "strong_upgrade"} (Strong Upgrade template and shard, the Vanilla Wither's
      * drop, WF25-10). {@code "enderite"} belongs to Simple Ores since IG31-13: a request of it
      * changes nothing, the group counts as requested while its owner provides it ({@link #provideMaterial}). The items are always registered; their

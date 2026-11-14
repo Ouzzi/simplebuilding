@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * This module's own Blazing and Nihil Obsidian, registered only without SimpleBuilding (which owns both blocks, ENCH01): the floor
+ * Blazing and Nihil Obsidian (this module's since N48, 14.11.; SimpleBuilding's until then, ids move): the floor
  * of the enchanters. Blazing: small flames and now and then a fire crackle; Nihil (navy/void): reverse-portal motes. Both send a
  * spark from their top to the book of an enchanter standing on the 5x5 around them.
  */
@@ -25,6 +25,10 @@ public class ObsidianFloorBlock extends Block {
         this.nihil = nihil;
     }
 
+    public boolean isNihil() {
+        return this.nihil;
+    }
+
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         SimpleParticleType mote = this.nihil ? ParticleTypes.REVERSE_PORTAL : ParticleTypes.SMALL_FLAME;
@@ -33,7 +37,11 @@ public class ObsidianFloorBlock extends Block {
             double x = pos.getX() + 0.5 + (face.getStepX() == 0 ? random.nextDouble() - 0.5 : face.getStepX() * 0.52);
             double y = pos.getY() + 0.5 + (face.getStepY() == 0 ? random.nextDouble() - 0.5 : face.getStepY() * 0.52);
             double z = pos.getZ() + 0.5 + (face.getStepZ() == 0 ? random.nextDouble() - 0.5 : face.getStepZ() * 0.52);
-            level.addParticle(mote, x, y, z, face.getStepX() * 0.01, 0.015, face.getStepZ() * 0.01);
+            if (!this.nihil && face == Direction.UP && random.nextInt(10) == 0) {
+                level.addParticle(ParticleTypes.LAVA, x, y, z, 0.0, 0.0, 0.0);   // an ember pops off the top now and then
+            } else {
+                level.addParticle(mote, x, y, z, face.getStepX() * 0.01, 0.015, face.getStepZ() * 0.01);
+            }
         }
         if (!this.nihil && random.nextInt(40) == 0) {
             level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS,

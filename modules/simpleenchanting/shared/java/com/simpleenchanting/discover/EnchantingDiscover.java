@@ -60,6 +60,7 @@ public final class EnchantingDiscover {
             "simpleenchanting:*_blazewood_stairs",
             "simpleenchanting:*_blazewood_trapdoor",
             "simpleenchanting:astral_enchanter",
+            "simpleenchanting:blaze_book",
             "simpleenchanting:blazewood_family",
             "simpleenchanting:blazing_obsidian",
             "simpleenchanting:building_blocks",
@@ -68,13 +69,11 @@ public final class EnchantingDiscover {
             "simpleenchanting:commands",
             "simpleenchanting:config_server",
             "simpleenchanting:creative_tab_switch",
-            "simpleenchanting:crimson_blazewood_bookshelf",
             "simpleenchanting:crimson_blazewood_planks",
             "simpleenchanting:dark_enchanter",
             "simpleenchanting:enchanters",
             "simpleenchanting:guide_book",
             "simpleenchanting:nihil_obsidian",
-            "simpleenchanting:warped_blazewood_bookshelf",
             "simpleenchanting:warped_blazewood_planks");
     static final List<Tip> TIPS = List.of();
 

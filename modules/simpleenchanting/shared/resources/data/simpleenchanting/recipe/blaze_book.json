@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": "minecraft:blaze_powder",
+    "K": "minecraft:book"
+  },
+  "pattern": [
+    "BBB",
+    "BKB",
+    "BBB"
+  ],
+  "result": {
+    "id": "simpleenchanting:blaze_book"
+  }
+}

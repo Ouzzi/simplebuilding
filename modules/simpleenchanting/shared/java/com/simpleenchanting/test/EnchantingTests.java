@@ -8,6 +8,7 @@ import com.simpleenchanting.SimpleEnchanting;
 import com.simpleenchanting.block.EnchanterBlockEntity;
 import com.simpleenchanting.config.EnchantingConfig;
 import com.simpleenchanting.menu.EnchanterMenu;
+import com.simplelib.api.IdMoves;
 import com.simplelib.api.InWorldUpgrades;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -52,6 +53,11 @@ public final class EnchantingTests {
         ALL.put("registered", EnchantingTests::registered);
         ALL.put("old_ids_move", EnchantingTests::oldIdsMove);
         ALL.put("building_blocks_by_installation", EnchantingTests::buildingBlocksByInstallation);
+        ALL.put("blazewood_ids_migrate", EnchantingTests::blazewoodIdsMigrate);
+        ALL.put("lib_shelves_are_strong_shelves", EnchantingTests::libShelvesAreStrongShelves);
+        ALL.put("blaze_book_and_shelf_recipes", EnchantingTests::blazeBookAndShelfRecipes);
+        ALL.put("chiseled_blazewood_shelves_store_books", EnchantingTests::chiseledBlazewoodShelvesStoreBooks);
+        ALL.put("blazing_obsidian_keeps_fire_burning", EnchantingTests::blazingObsidianKeepsFireBurning);
         ALL.put("budget_and_cost_rules", EnchantingTests::budgetAndCostRules);
         ALL.put("shelves_and_floor_set_the_tier", EnchantingTests::shelvesAndFloorSetTheTier);
         ALL.put("upgrades_are_loaded", EnchantingTests::upgradesAreLoaded);
@@ -108,23 +114,181 @@ public final class EnchantingTests {
     }
 
     /**
-     * The building blocks (owner 03.11.): with SimpleBuilding they are its own and this module registers no twins (a twin id of a
-     * world played alone resolves to SimpleBuilding's block); alone this module brings them and SimpleBuilding's ids resolve to
-     * the twins. Either way they are in the floor and shelf tags and the twins' recipes load only without SimpleBuilding.
+     * N48 migration: every id SimpleBuilding had (blocks, items, recipes, recipe advancements) and the former twin ids resolve to the new
+     * owner through {@link IdMoves}: planks, chiseled shelves, obsidians and the Blaze Book to this module, the plain shelves to SimpleLib;
+     * the registry answers an old id with the new object.
+     */
+    public static void blazewoodIdsMigrate(GameTestHelper helper) {
+        List<String> problems = new java.util.ArrayList<>();
+        for (String path : SimpleEnchanting.MOVED_OWN) {
+            for (var registry : List.of(Registries.BLOCK, Registries.ITEM)) {
+                if (!SimpleEnchanting.id(path).equals(IdMoves.target(registry, SimpleEnchanting.old(path)))) problems.add(registry.identifier() + " " + path);
+            }
+        }
+        if (!SimpleEnchanting.id("blaze_book").equals(IdMoves.target(Registries.ITEM, SimpleEnchanting.old("blaze_book")))) problems.add("blaze_book");
+        for (String path : SimpleEnchanting.SHELVES) {
+            Identifier lib = Identifier.fromNamespaceAndPath("simplelib", path);
+            for (var registry : List.of(Registries.BLOCK, Registries.ITEM)) {
+                if (!lib.equals(IdMoves.target(registry, SimpleEnchanting.old(path))) || !lib.equals(IdMoves.target(registry, SimpleEnchanting.id(path)))) {
+                    problems.add(registry.identifier() + " shelf " + path);
+                }
+            }
+            if (BuiltInRegistries.BLOCK.getValue(SimpleEnchanting.old(path)) != BuiltInRegistries.BLOCK.getValue(lib)) problems.add("old shelf block resolves wrongly " + path);
+        }
+        SimpleEnchanting.MOVED_RECIPES.forEach((path, folder) -> {
+            if (!SimpleEnchanting.id(path).equals(IdMoves.target(Registries.RECIPE, SimpleEnchanting.old(path)))) problems.add("recipe " + path);
+            if (!SimpleEnchanting.id("recipes/" + folder + "/" + path).equals(IdMoves.target(Registries.ADVANCEMENT, SimpleEnchanting.old("recipes/" + folder + "/" + path)))) {
+                problems.add("advancement " + path);
+            }
+        });
+        helper.assertTrue(problems.isEmpty(), "old ids that do not move: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * N48: SimpleLib's plain Nether bookshelves are the strong shelves of the enchanters: in the shelf and power-provider tags, worth
+     * {@value EnchantingRules#BLAZE_SHELF} at the table (one at Vanilla's), they drop three books without Silk Touch and the block itself
+     * with it (the loot table is SimpleLib's); the group is requested (this module asks for it), the plain-planks recipe is not loaded
+     * with this module (blazewood planks and Blaze Books craft the shelf instead).
+     */
+    public static void libShelvesAreStrongShelves(GameTestHelper helper) {
+        BlockPos offset = EnchantingTableBlock.BOOKSHELF_OFFSETS.getFirst();
+        BlockPos table = helper.absolutePos(TABLE);
+        helper.setBlock(TABLE, EnchantingRegistry.DARK_ENCHANTER);
+        var recipes = helper.getLevel().getServer().getRecipeManager();
+        helper.assertTrue(com.simplelib.api.SimpleLibApi.materialRequested("nether_bookshelves"), "this module requests nether_bookshelves");
+        for (String path : SimpleEnchanting.SHELVES) {
+            Block shelf = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simplelib", path));
+            helper.assertTrue(shelf != Blocks.AIR, path + " is registered by SimpleLib");
+            helper.assertTrue(shelf.defaultBlockState().is(EnchantingRules.BLAZE_SHELVES), path + " in blaze_shelves");
+            helper.assertTrue(shelf.defaultBlockState().is(net.minecraft.tags.BlockTags.ENCHANTMENT_POWER_PROVIDER), path + " counts at the Vanilla table");
+            helper.setBlock(TABLE.offset(offset), shelf);
+            int value = EnchantingRules.shelfValue(helper.getLevel(), table, offset);
+            helper.assertTrue(value == EnchantingRules.BLAZE_SHELF, path + " worth " + EnchantingRules.BLAZE_SHELF + " at the enchanter, got " + value);
+            helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplelib", path))).isEmpty(),
+                    path + ": the plain-planks recipe of SimpleLib is off with Simple Enchanting");
+            BlockPos at = new BlockPos(5, 2, 5);
+            helper.setBlock(at, shelf);
+            helper.getLevel().destroyBlock(helper.absolutePos(at), true);
+            AABB box = new AABB(helper.absolutePos(at)).inflate(2);
+            int books = helper.getLevel().getEntitiesOfClass(ItemEntity.class, box).stream()
+                    .filter(e -> e.getItem().is(Items.BOOK)).mapToInt(e -> e.getItem().getCount()).sum();
+            helper.assertTrue(books == 3, path + " drops 3 books, got " + books);
+            helper.getLevel().getEntitiesOfClass(ItemEntity.class, box).forEach(net.minecraft.world.entity.Entity::discard);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * N48: the Blaze Book is 8 blaze powder around a book (not the old paper recipe), fits chiseled bookshelves, and three of them with six
+     * blazewood planks craft the plain shelf of SimpleLib (this module's recipe, not the Vanilla-cost one).
+     */
+    public static void blazeBookAndShelfRecipes(GameTestHelper helper) {
+        var recipes = helper.getLevel().getServer().getRecipeManager();
+        var book = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id("blaze_book"))).orElseThrow().value();
+        ItemStack powder = new ItemStack(Items.BLAZE_POWDER);
+        var ring = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(powder.copy(), powder.copy(), powder.copy(),
+                powder.copy(), new ItemStack(Items.BOOK), powder.copy(), powder.copy(), powder.copy(), powder.copy()));
+        helper.assertTrue(book.matches(ring, helper.getLevel()) && book.assemble(ring).is(EnchantingRegistry.BLAZE_BOOK), "8 blaze powder + book craft the blaze book");
+        var old = net.minecraft.world.item.crafting.CraftingInput.of(2, 2, List.of(new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), powder.copy()));
+        helper.assertFalse(book.matches(old, helper.getLevel()), "the old paper recipe still crafts the blaze book");
+        helper.assertTrue(new ItemStack(EnchantingRegistry.BLAZE_BOOK).is(net.minecraft.tags.ItemTags.BOOKSHELF_BOOKS), "the blaze book fits chiseled bookshelves");
+        for (String wood : BlazewoodFamily.WOODS) {
+            String path = wood + "_blazewood_bookshelf";
+            var shelf = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(path))).orElseThrow().value();
+            ItemStack planks = new ItemStack(BuiltInRegistries.ITEM.getValue(SimpleEnchanting.id(wood + "_blazewood_planks")));
+            ItemStack blaze = new ItemStack(EnchantingRegistry.BLAZE_BOOK);
+            var grid = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(planks.copy(), planks.copy(), planks.copy(), blaze.copy(), blaze.copy(), blaze.copy(),
+                    planks.copy(), planks.copy(), planks.copy()));
+            var plain = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(new ItemStack(Items.CRIMSON_PLANKS), new ItemStack(Items.CRIMSON_PLANKS), new ItemStack(Items.CRIMSON_PLANKS),
+                    new ItemStack(Items.BOOK), new ItemStack(Items.BOOK), new ItemStack(Items.BOOK), new ItemStack(Items.CRIMSON_PLANKS), new ItemStack(Items.CRIMSON_PLANKS), new ItemStack(Items.CRIMSON_PLANKS)));
+            helper.assertTrue(shelf.matches(grid, helper.getLevel()) && shelf.assemble(grid).is(building(path).asItem()), "6 blazewood planks + 3 blaze books craft " + path);
+            helper.assertFalse(shelf.matches(plain, helper.getLevel()), "plain planks and books do not craft " + path + " with Simple Enchanting");
+            helper.assertTrue("simplelib".equals(BuiltInRegistries.ITEM.getKey(shelf.assemble(grid).getItem()).getNamespace()), path + " is SimpleLib's block");
+        }
+        helper.succeed();
+    }
+
+    /** BS25-1 (moved from SimpleBuilding): the chiseled blazewood bookshelves take a book into slot 0 and the occupied state follows; a stick is refused. */
+    public static void chiseledBlazewoodShelvesStoreBooks(GameTestHelper helper) {
+        int i = 0;
+        for (String wood : BlazewoodFamily.WOODS) {
+            Block shelf = building("chiseled_" + wood + "_blazewood_bookshelf");
+            BlockPos pos = new BlockPos(1 + 2 * i++, 1, 1);
+            helper.setBlock(pos, shelf);
+            var be = helper.getBlockEntity(pos, net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.class);
+            helper.assertTrue(be.acceptsItemType(new ItemStack(Items.BOOK)) && !be.acceptsItemType(new ItemStack(Items.STICK)), "only books fit the chiseled blazewood bookshelf");
+            be.setItem(0, new ItemStack(Items.BOOK));
+            helper.assertTrue(helper.getBlockState(pos).getValue(net.minecraft.world.level.block.ChiseledBookShelfBlock.SLOT_0_OCCUPIED), "slot 0 is not occupied after setting a book");
+            helper.assertFalse(helper.getBlockState(pos).getValue(net.minecraft.world.level.block.ChiseledBookShelfBlock.SLOT_1_OCCUPIED), "slot 1 occupied by itself");
+        }
+        helper.succeed();
+    }
+
+    /**
+     * LOHEN17 V2 (moved from SimpleBuilding): Blazing Obsidian is in {@code minecraft:infiniburn_overworld}, fire on it burns forever; twenty
+     * fire ticks at age 15 (the spread gamerule opened for the synchronous ticks only): the fire on Blazing Obsidian stays, on plain obsidian it goes out.
+     */
+    public static void blazingObsidianKeepsFireBurning(GameTestHelper helper) {
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        Block blazingBlock = building("blazing_obsidian");
+        helper.assertTrue(blazingBlock.defaultBlockState().is(net.minecraft.tags.BlockTags.INFINIBURN_OVERWORLD), "blazing obsidian is not in minecraft:infiniburn_overworld");
+        BlockPos blazing = new BlockPos(1, 1, 1);
+        BlockPos plain = new BlockPos(4, 1, 1);
+        helper.setBlock(blazing, blazingBlock);
+        helper.setBlock(plain, Blocks.OBSIDIAN);
+        var fire = Blocks.FIRE.defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_15, 15);
+        helper.setBlock(blazing.above(), fire);
+        helper.setBlock(plain.above(), fire);
+        List<BlockPos> fires = List.of(helper.absolutePos(blazing.above()), helper.absolutePos(plain.above()));
+        var rules = level.getGameRules();
+        var rule = net.minecraft.world.level.gamerules.GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER;
+        int radius = rules.get(rule);
+        try {
+            rules.set(rule, -1, level.getServer());
+            for (int i = 0; i < 20; i++) {
+                for (BlockPos pos : fires) {
+                    var state = level.getBlockState(pos);
+                    if (state.is(Blocks.FIRE)) state.tick(level, pos, level.getRandom());
+                }
+            }
+        } finally {
+            rules.set(rule, radius, level.getServer());
+        }
+        helper.assertTrue(level.getBlockState(fires.get(0)).is(Blocks.FIRE), "fire on blazing obsidian went out");
+        helper.assertFalse(level.getBlockState(fires.get(1)).is(Blocks.FIRE), "control: fire on plain obsidian should go out");
+        helper.succeed();
+    }
+
+    /**
+     * N48 (14.11.): the building blocks of the tables are this module's in every installation (no twins any more, no SimpleBuilding
+     * switch): obsidians, blazewood planks and chiseled shelves under {@code simpleenchanting:}, the plain Nether bookshelves under
+     * {@code simplelib:}; SimpleBuilding's and the old twin ids move onto them (blocks and items, recipe book and advancements), the recipes
+     * always load (Nihil Obsidian: shards with Simple Ores, chorus fruit without) and the blocks are in the floor and shelf tags.
      */
     public static void buildingBlocksByInstallation(GameTestHelper helper) {
         var recipes = helper.getLevel().getServer().getRecipeManager();
-        for (String path : SimpleEnchanting.BUILDING_BLOCKS) {
-            Block sb = BuiltInRegistries.BLOCK.getValue(SimpleEnchanting.old(path));
-            Block own = BuiltInRegistries.BLOCK.getValue(SimpleEnchanting.id(path));
-            helper.assertTrue(sb != Blocks.AIR && sb == own, path + ": both ids give the same block");
-            String ns = BuiltInRegistries.BLOCK.getKey(sb).getNamespace();
-            helper.assertTrue(ns.equals(SimpleEnchanting.buildingNamespace()), path + " is registered by " + ns);
-            boolean twinRecipe = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(path))).isPresent();
-            helper.assertTrue(twinRecipe != SimpleEnchanting.simpleBuilding(), path + ": the twin recipe loads only alone");
+        boolean ores = BuiltInRegistries.ITEM.containsKey(Identifier.parse("simpleores:nihilith_shard"));
+        for (String full : SimpleEnchanting.BUILDING_BLOCKS) {
+            Identifier id = Identifier.parse(full);
+            Block block = BuiltInRegistries.BLOCK.getValue(id);
+            helper.assertTrue(block != Blocks.AIR && BuiltInRegistries.BLOCK.getKey(block).equals(id), full + " is registered");
+            helper.assertTrue(BuiltInRegistries.ITEM.getValue(id) != Items.AIR, full + " has an item");
+            Identifier old = SimpleEnchanting.old(id.getPath());
+            helper.assertTrue(BuiltInRegistries.BLOCK.getValue(old) == block && BuiltInRegistries.ITEM.getValue(old) == block.asItem(),
+                    id.getPath() + ": SimpleBuilding's old id moves onto it");
+            helper.assertTrue(id.getPath().equals("nihil_obsidian") || recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(id.getPath()))).isPresent(),
+                    id.getPath() + ": recipe loads without a SimpleBuilding condition");
         }
-        helper.assertTrue(SimpleEnchanting.simpleBuilding() || EnchantingRegistry.ownBuildingBlocks().size() == SimpleEnchanting.BUILDING_BLOCKS.size(),
-                "twins registered alone");
+        for (String path : SimpleEnchanting.SHELVES) {
+            helper.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleEnchanting.id(path)) == building(path), path + ": the former twin id moves to SimpleLib");
+        }
+        helper.assertTrue(EnchantingRegistry.ownBuildingBlocks().size() == SimpleEnchanting.MOVED_OWN.size(), "the module registers its own six building blocks");
+        helper.assertTrue(BuiltInRegistries.ITEM.getValue(SimpleEnchanting.old("blaze_book")) == EnchantingRegistry.BLAZE_BOOK && EnchantingRegistry.BLAZE_BOOK != Items.AIR,
+                "the Blaze Book is this module's, the old id moves");
+        helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(ores ? "nihil_obsidian" : "nihil_obsidian_without_ores"))).isPresent()
+                && recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleEnchanting.id(ores ? "nihil_obsidian_without_ores" : "nihil_obsidian"))).isEmpty(),
+                "exactly one Nihil Obsidian recipe: shards with Simple Ores (" + ores + "), chorus fruit without");
         helper.assertTrue(building("nihil_obsidian").defaultBlockState().is(EnchantingRules.NIHIL_FLOOR), "Nihil floor tag");
         helper.assertTrue(building("blazing_obsidian").defaultBlockState().is(EnchantingRules.OBSIDIAN_FLOOR), "obsidian floor tag");
         helper.assertTrue(building("warped_blazewood_bookshelf").defaultBlockState().is(EnchantingRules.BLAZE_SHELVES), "blaze shelf tag");
@@ -324,7 +488,6 @@ public final class EnchantingTests {
         return EnchantingRules.tierAt(helper.getLevel(), helper.absolutePos(TABLE), EnchanterStage.ASTRAL);
     }
 
-    /** A building block of this installation: SimpleBuilding's, or this module's twin without it. */
     // ------------------------------------------------------------------ DW04C-3: End bookshelves, chiseled bookshelves, mod books
 
     private static Block byId(String id) {
@@ -373,10 +536,10 @@ public final class EnchantingTests {
         shelves.removeIf(b -> b == Blocks.AIR);
         helper.assertTrue(shelves.size() >= 3, "Vanilla's and both blazewood chiseled bookshelves exist");
         List<ItemStack> books = new java.util.ArrayList<>(List.of(new ItemStack(Items.BOOK), new ItemStack(Items.ENCHANTED_BOOK)));
-        for (String id : new String[] {"simplebuilding:blaze_book", "simplebuilding:nihilith_book"}) {
+        for (String id : new String[] {"simpleenchanting:blaze_book", "simplebuilding:nihilith_book"}) {
             var item = itemById(id);
             if (item != Items.AIR) books.add(new ItemStack(item));
-            helper.assertTrue(item != Items.AIR || !SimpleEnchanting.simpleBuilding(), id + " exists with SimpleBuilding");
+            helper.assertTrue(item != Items.AIR || (!SimpleEnchanting.simpleBuilding() && id.startsWith("simplebuilding")), id + " exists");
         }
         BlockPos at = new BlockPos(1, 2, 1);
         for (Block block : shelves) {
@@ -417,8 +580,9 @@ public final class EnchantingTests {
         helper.succeed();
     }
 
+    /** A building block of the tables by path: SimpleLib's plain shelves, else this module's (N48). */
     static Block building(String path) {
-        return BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), path));
+        return BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.SHELVES.contains(path) ? "simplelib" : SimpleEnchanting.MOD_ID, path));
     }
 
     static net.minecraft.world.item.Item item(String namespace, String path) {
@@ -909,7 +1073,7 @@ public final class EnchantingTests {
         if (SimpleEnchanting.on()) {
             List<net.minecraft.world.item.Item> tab = EnchantingRegistry.tabStacks().stream().map(ItemStack::getItem).toList();
             for (String wood : BlazewoodFamily.WOODS) {
-                int planks = tab.indexOf(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), wood + "_blazewood_planks")));
+                int planks = tab.indexOf(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.MOD_ID, wood + "_blazewood_planks")));
                 List<String> paths = BlazewoodFamily.paths(wood);
                 for (int i = 0; i < paths.size(); i++) {
                     if (planks < 0 || planks + 1 + i >= tab.size() || tab.get(planks + 1 + i) != BlazewoodFamily.items().get(paths.get(i))) problems.add("tab order " + paths.get(i));
@@ -933,7 +1097,7 @@ public final class EnchantingTests {
         boolean saw = BuiltInRegistries.RECIPE_TYPE.containsKey(Identifier.parse("simpleblocks:sawing"));
         for (String wood : BlazewoodFamily.WOODS) {
             String planksPath = wood + "_blazewood_planks";
-            net.minecraft.world.item.Item planks = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), planksPath));
+            net.minecraft.world.item.Item planks = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.MOD_ID, planksPath));
             if (planks == Items.AIR || BuiltInRegistries.ITEM.getValue(SimpleEnchanting.id(planksPath)) != planks
                     || BuiltInRegistries.ITEM.getValue(SimpleEnchanting.old(planksPath)) != planks) {
                 problems.add(planksPath + ": both ids must name the installation's planks");

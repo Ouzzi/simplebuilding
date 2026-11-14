@@ -168,56 +168,13 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .save(output);
                 }
 
-                // Astral-Verzauberung (Queue N27, docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md): Lohenholz = 8 Lohenstaub um
-                // ein Nether-Brett je Holzart, Lohenbuch wie das Buch mit Lohenstaub statt Leder, Lohen-Regal wie das
-                // Buecherregal, Lohen-Obsidian = 8 Lohenstaub um weinenden Obsidian. Der Tisch selbst entsteht mit dem Hammer.
+                // Astral-Verzauberung (Queue N27): N48 (14.11.): Lohenholz, Lohenbuch, Lohen-Regale und die Obsidiane (Rezepte) gehoeren
+                // Simple Enchanting / SimpleLib. Hier bleibt das Nihilit-Buch (a-nihilplanks / M1: Simple End kennt Nihilit nicht ohne Ores).
                 if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
-                    net.minecraft.world.level.ItemLike[][] woods = {
-                            {Items.CRIMSON_PLANKS, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF,
-                                    ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, Items.CRIMSON_SLAB},
-                            {Items.WARPED_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
-                                    ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, Items.WARPED_SLAB}};
-                    for (net.minecraft.world.level.ItemLike[] wood : woods) {
-                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[1])
-                                .pattern("BBB").pattern("BPB").pattern("BBB")
-                                .define('B', Items.BLAZE_POWDER).define('P', wood[0])
-                                .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
-                                .save(output);
-                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[2])
-                                .pattern("WWW").pattern("KKK").pattern("WWW")
-                                .define('W', wood[1]).define('K', ModItems.BLAZE_BOOK)
-                                .unlockedBy(getHasName(ModItems.BLAZE_BOOK), has(ModItems.BLAZE_BOOK))
-                                .save(output);
-                        // BS25-1: like Vanilla's chiseled bookshelf (6 planks around 3 slabs), with the blazewood planks and the Nether slab.
-                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[3])
-                                .pattern("WWW").pattern("SSS").pattern("WWW")
-                                .define('W', wood[1]).define('S', wood[4])
-                                .unlockedBy(getHasName(wood[1]), has(wood[1]))
-                                .save(output);
-                    }
-                    // a-end07 (Wunsch 8): die Nihilit-Bretter je End-Holzart und die Nihilit-Regale brauchen ein End-Brett aus
-                    // Simple End: ihre Rezepte stehen mit Ladebedingung in mc26_3/overlay (wie simplebuilding:ashwood_bookshelf).
-                    // Nachtrag 60 (Besitzer 15.10.): 8 Lohenstaub um 1 normales Buch (ersetzt 3 Papier + 1 Lohenstaub).
-                    shaped(RecipeCategory.MISC, ModItems.BLAZE_BOOK)
-                            .pattern("BBB").pattern("BKB").pattern("BBB")
-                            .define('B', Items.BLAZE_POWDER).define('K', Items.BOOK)
-                            .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
-                            .save(output);
                     // DW04C-3 (b-shelves01): Nihilit-Buch = Buch mit 4 Nihilitsplittern im Plus (Splitter sind seltener als Lohenstaub).
                     shaped(RecipeCategory.MISC, ModItems.NIHILITH_BOOK)
                             .pattern(" N ").pattern("NKN").pattern(" N ")
                             .define('N', ModItems.NIHILITH_SHARD).define('K', Items.BOOK)
-                            .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
-                            .save(output);
-                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.BLAZING_OBSIDIAN)
-                            .pattern("BBB").pattern("BOB").pattern("BBB")
-                            .define('B', Items.BLAZE_POWDER).define('O', Items.CRYING_OBSIDIAN)
-                            .unlockedBy(getHasName(Items.CRYING_OBSIDIAN), has(Items.CRYING_OBSIDIAN))
-                            .save(output);
-                    // ENCH02 (Besitzer 03.11.): Nihil-Obsidian = Lohen-Obsidian mit Nihilit: 8 Nihilith-Splitter um weinenden Obsidian.
-                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.NIHIL_OBSIDIAN)
-                            .pattern("NNN").pattern("NON").pattern("NNN")
-                            .define('N', ModItems.NIHILITH_SHARD).define('O', Items.CRYING_OBSIDIAN)
                             .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
                             .save(output);
                 }

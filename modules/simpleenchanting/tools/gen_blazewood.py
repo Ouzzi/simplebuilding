@@ -2,7 +2,7 @@
 
 Pattern of Simple End's gen_data.py: Vanilla 26.3's crimson/warped files of the eight shapes (blockstates, item definitions,
 block/item models, block loot, crafting recipes) are the *format template* (no pixels), renamed to crimson/warped blazewood. The
-planks ingredient becomes the item tag simpleenchanting:<wood>_blazewood_planks, which names SimpleBuilding's and this module's
+planks ingredient becomes the item tag simpleenchanting:<wood>_blazewood_planks, which names this module's (SimpleBuilding's until N48)
 planks (both required:false - whichever is installed). Written by code: the recipe advancements (Discover format), the tags
 (Vanilla's wooden_* / fence_gates / non_flammable_wood, never logs_that_burn: Nether wood does not burn), the Shapecutter recipes
 (simpleblocks:sawing, only with Simple Blocks) and their stonecutter fallback (only without Simple Blocks, PRINZIPIEN A4b) for
@@ -113,8 +113,7 @@ def code_files(recipes):
     put = lambda rel, data: out.__setitem__(RES / rel, js(data))
     for wood in WOODS:
         # The planks of either installation (SimpleBuilding owns them, alone this module's twins): optional entries.
-        put(f'data/{NS}/tags/item/{wood}_blazewood_planks.json', {'values': [
-            {'id': f'simplebuilding:{wood}_blazewood_planks', 'required': False}, {'id': f'{NS}:{wood}_blazewood_planks', 'required': False}]})
+        put(f'data/{NS}/tags/item/{wood}_blazewood_planks.json', {'values': [{'id': f'{NS}:{wood}_blazewood_planks', 'required': False}]})
         for shape in SHAPES:
             rid = path(wood, shape)
             recipe = recipes.get(rid)

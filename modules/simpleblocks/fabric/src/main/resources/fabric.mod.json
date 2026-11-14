@@ -29,6 +29,11 @@
       "com.simpleblocks.compat.jei.BlocksJeiPlugin"
     ]
   },
+  "custom": {
+    "simplelib:content": [
+      "nether_bookshelves"
+    ]
+  },
   "mixins": [
     "simpleblocks.mixins.json"
   ],
