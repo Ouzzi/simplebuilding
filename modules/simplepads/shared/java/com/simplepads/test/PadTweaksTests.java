@@ -4,13 +4,13 @@ import com.mojang.authlib.GameProfile;
 import com.simplepads.SimplePads;
 import com.simplepads.PadsConfig;
 import com.simplepads.block.CopperPressurePlateBlock;
-import com.simplepads.block.FilterPressurePlateBlock;
+import com.simplelib.block.FilterPressurePlateBlock;
 import com.simplepads.block.PadOwnership;
 import com.simplepads.block.PadTiers;
 import com.simplepads.block.PadsBlocks;
 import com.simplepads.block.entity.ChunkLoaderBlockEntity;
 import com.simplepads.block.entity.ElytraPadBlockEntity;
-import com.simplepads.block.entity.FilterPlateBlockEntity;
+import com.simplelib.block.FilterPlateBlockEntity;
 import com.simplepads.block.entity.FlypadBlockEntity;
 import com.simplepads.block.entity.LaunchpadBlockEntity;
 import com.simplepads.block.entity.OwnedBlockEntity;
@@ -482,8 +482,8 @@ public final class PadTweaksTests {
         // Mock-Spieler bewegen sich nicht selbst (die Bewegung kommt sonst vom Client), loesen also
         // Vanillas entityInside nicht aus - die Signalfrage wird deshalb direkt gestellt. Zombie und
         // Gegenstand bewegen sich echt und liegen die ganze Zeit auf der ersten Platte.
-        com.simplepads.block.DiamondPressurePlateBlock block =
-                (com.simplepads.block.DiamondPressurePlateBlock) PadsBlocks.DIAMOND_PRESSURE_PLATE;
+        com.simplelib.block.DiamondPressurePlateBlock block =
+                (com.simplelib.block.DiamondPressurePlateBlock) PadsBlocks.DIAMOND_PRESSURE_PLATE;
         helper.startSequence()
                 .thenExecuteAfter(20, () -> {
                     helper.assertFalse(helper.getBlockState(plate).getValue(powered), "the diamond plate reacted to a zombie or an item");
@@ -1181,7 +1181,7 @@ public final class PadTweaksTests {
 
         List<Block> pads = new ArrayList<>();
         for (Block block : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
-            if (block.getClass().getPackageName().startsWith("com.simplepads.block")
+            if ((block.getClass().getPackageName().startsWith("com.simplepads.block") || block == PadsBlocks.DIAMOND_PRESSURE_PLATE) // N48: the plate is SimpleLib's now
                     && block.defaultBlockState().hasProperty(BlockStateProperties.WATERLOGGED)) {
                 pads.add(block);
             }

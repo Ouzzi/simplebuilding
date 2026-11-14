@@ -37,7 +37,7 @@ public final class RidingClientGameTest implements FabricClientGameTest {
     var lookup=level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
     var saddle=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SADDLE);
     saddle.enchant(lookup.getOrThrow(net.minecraft.resources.ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("simpleriding:tailwind"))),3);
-    var armor=new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_nautilus_armor")));
+    var armor=new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simpleores:enderite_nautilus_armor")));
     armor.enchant(lookup.getOrThrow(net.minecraft.resources.ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("simpleriding:leaping"))),3);
     mount.setItemSlot(net.minecraft.world.entity.EquipmentSlot.SADDLE,saddle);mount.setItemSlot(net.minecraft.world.entity.EquipmentSlot.BODY,armor);
     level.addFreshEntity(mount);player.startRiding(mount,true,true);

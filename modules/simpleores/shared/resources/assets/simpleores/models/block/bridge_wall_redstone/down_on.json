@@ -1,0 +1,92 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "dot": {
+      "sprite": "simpleores:block/bridge_redstone_dot_on",
+      "force_translucent": true
+    },
+    "line0": {
+      "sprite": "simpleores:block/bridge_redstone_line0_on",
+      "force_translucent": true
+    },
+    "line1": {
+      "sprite": "simpleores:block/bridge_redstone_line1_on",
+      "force_translucent": true
+    },
+    "particle": "simpleores:block/bridge_redstone_dot_on"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        15.75,
+        0
+      ],
+      "to": [
+        16,
+        15.75,
+        16
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#dot"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        15.74,
+        0
+      ],
+      "to": [
+        16,
+        15.74,
+        16
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#line0"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        15.73,
+        0
+      ],
+      "to": [
+        16,
+        15.73,
+        16
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#line1"
+        }
+      }
+    }
+  ]
+}

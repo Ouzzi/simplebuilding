@@ -16,7 +16,9 @@ keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OresConfig.java
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords',
                        'sageOre', 'dimensionalScrap', 'sageOreOtherDimensions', 'roseGoldOreChance',
-                       'leadOre', 'endLeadOre', 'zincGeodes', 'endZincGeodes', 'nickelOre', 'tinOre', 'tinPlacers'], config_keys
+                       'leadOre', 'endLeadOre', 'zincGeodes', 'endZincGeodes', 'nickelOre', 'tinOre', 'tinPlacers',
+                       'endOres', 'astralitOre', 'nihilitOre', 'endSignals', 'endPistons', 'endRails', 'endPistonCooldownTicks', 'astralRailMaxSpeed',
+                       'astralRailBoost', 'nihilRailBrake'], config_keys
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
           'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block', 'rose_bronze_pressling_block', 'rose_gold_pressling_block',
           'netherite_scrap_block', 'enderite_scrap_block', 'sage_orb_block')
@@ -77,7 +79,8 @@ for f in RIFT_FOOD:
         assert (RES / rel).is_file(), rel
     assert f'item/{f}.png' in derived and not (RES / f'assets/{NS}/textures/item/{f}.png').exists(), f
     assert all(langs[l].get(f'item.{NS}.{f}') for l in langs), f
-assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED) + len(N4_DERIVED) + len(RIFT_FOOD), len(derived)
+MOVED_DERIVED = 30   # N47-M2/M3 (b-circ46): End ores, rails, dust, poles, Enderite gear and food moved from SimpleBuilding
+assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED) + len(N4_DERIVED) + len(RIFT_FOOD) + MOVED_DERIVED, len(derived)
 assert not any('silver_arrow' in d for d in derived), 'the silver arrow moved to Simple Arrows (03.11.)'
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
@@ -182,7 +185,7 @@ lantern_tag = json.loads((mc / 'block/lanterns.json').read_text(encoding='utf-8'
 chain_tag = json.loads((mc / 'block/chains.json').read_text(encoding='utf-8'))['values']
 plate_tag = json.loads((mc / 'block/pressure_plates.json').read_text(encoding='utf-8'))['values']
 POLE_METALS = COSMETIC + ALLOYS
-PLATE_METALS = POLE_METALS + ('enderite', 'terranite', 'infernite', 'zenithite')
+PLATE_METALS = POLE_METALS + ('terranite', 'infernite', 'zenithite')
 for b, tier, tags_ in ([(f'{m}_lamp', stone_tier, None) for m in COSMETIC] + [(f'{m}_lantern', None, lantern_tag) for m in COSMETIC]
                        + [(f'{m}_chain', None, chain_tag) for m in COSMETIC] + [(f'{m}_pole', stone_tier, None) for m in POLE_METALS]
                        + [(f'{m}_pressure_plate', None, plate_tag) for m in PLATE_METALS]):
@@ -214,7 +217,7 @@ for lang in langs.values():
     for key in config_keys:
         assert ('Default:' in lang[f'text.autoconfig.{NS}.option.{key}.@Tooltip']) or ('Standard:' in lang[f'text.autoconfig.{NS}.option.{key}.@Tooltip']), key
 mixins = json.loads((RES / 'simpleores.mixins.json').read_text(encoding='utf-8'))
-assert mixins['mixins'] == ['SoundproofMixin'] and (JAVA / 'mixin/SoundproofMixin.java').is_file()
+assert 'SoundproofMixin' in mixins['mixins'] and all((JAVA / f'mixin/{m}.java').is_file() for m in mixins['mixins'])  # N46/M2: line mixins
 mod = json.loads((MODULE / 'fabric/src/main/resources/fabric.mod.json').read_text(encoding='utf-8'))
 assert mod['mixins'] == ['simpleores.mixins.json'] and 'client' in mod['entrypoints']
 
@@ -356,9 +359,14 @@ for m in BAR_METALS:
     assert json.loads((RES / f'data/{NS}/recipe/{m}_bars.json').read_text(encoding='utf-8'))['result'] == {'id': f'{NS}:{m}_bars', 'count': 16}
     assert json.loads((RES / f'data/{NS}/recipe/{m}_grate_from_{m}_block_stonecutting.json').read_text(encoding='utf-8'))['result']['count'] == 4
 sounds = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
-assert set(sounds) == {f'block.{m}.{k}' for m in BAR_METALS for k in ('break', 'step', 'place', 'hit', 'fall')}, sorted(sounds)
+LINE_SOUNDS = set(json.loads((MODULE / 'tools/moved_line.json').read_text(encoding='utf-8'))['sounds'])   # N46/M2: the line's own sounds
+assert LINE_SOUNDS <= set(sounds) and set(sounds) - LINE_SOUNDS == {f'block.{m}.{k}' for m in BAR_METALS for k in ('break', 'step', 'place', 'hit', 'fall')}, sorted(sounds)
 for event in sounds.values():
     for snd in event['sounds']:
+        if isinstance(snd, str):
+            snd = {'name': snd}
+        if snd.get('type') == 'event':
+            continue
         name = snd['name']
         assert name.startswith('minecraft:') or (RES / f'assets/{NS}/sounds/{name.split(":")[1]}.ogg').is_file(), name
         assert snd.get('volume', 1.0) <= 1.0, name   # quiet (owner: "leise, nicht nervig")

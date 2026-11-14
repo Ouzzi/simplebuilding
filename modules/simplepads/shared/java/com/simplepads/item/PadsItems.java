@@ -131,7 +131,8 @@ public final class PadsItems {
         return List.of(
                 Row.of("pressure_plates", Items.OAK_PRESSURE_PLATE, Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE,
                         Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
-                        PadsBlocks.DIAMOND_PRESSURE_PLATE, PadsBlocks.NETHERITE_PRESSURE_PLATE, PadsBlocks.ENDERITE_PRESSURE_PLATE),
+                        PadsBlocks.DIAMOND_PRESSURE_PLATE, PadsBlocks.NETHERITE_PRESSURE_PLATE, PadsBlocks.ENDERITE_PRESSURE_PLATE,
+                        PadsBlocks.EMERALD_PRESSURE_PLATE),
                 Row.of("copper_pressure_plates", PadsBlocks.COPPER_PRESSURE_PLATE, PadsBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
                         PadsBlocks.WEATHERED_COPPER_PRESSURE_PLATE, PadsBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                         PadsBlocks.WAXED_COPPER_PRESSURE_PLATE, PadsBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,

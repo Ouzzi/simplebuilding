@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "simpleores:block/astralit_end_rod",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "simpleores:block/astralit_end_rod",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simpleores:block/astralit_end_rod",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "simpleores:block/astralit_end_rod",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "simpleores:block/astralit_end_rod"
+    },
+    "facing=west": {
+      "model": "simpleores:block/astralit_end_rod",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

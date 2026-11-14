@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:iron_pole"
+            "items": "simpleores:iron_pole"
           }
         ]
       },

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:nihilith_shard"
+            "items": "simpleores:nihilith_shard"
           }
         ]
       },

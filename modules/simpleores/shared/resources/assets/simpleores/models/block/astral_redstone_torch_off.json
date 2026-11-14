@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch_unlit",
+  "textures": {
+    "torch": "simpleores:block/astral_redstone_torch_off"
+  }
+}

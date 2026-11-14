@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleores:block/bridge_redstone_block"
+    }
+  }
+}

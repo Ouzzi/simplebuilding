@@ -90,6 +90,7 @@ public final class SledgehammerChips {
         } else if (state.is(Blocks.CRYING_OBSIDIAN)) {
             result = new ItemStack(ModItems.CRYING_OBSIDIAN_CHIP, CRYING_OBSIDIAN_CHIPS);
         } else if (com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN != null
+                && !com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN.defaultBlockState().isAir() // N48: air without Simple Enchanting (NeoForge/Forge)
                 && state.is(com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN)) {
             result = new ItemStack(ModItems.BLAZING_OBSIDIAN_CHIP, BLAZING_OBSIDIAN_CHIPS);
         } else if (entity instanceof PlacedSmallPartsBlockEntity pile) {

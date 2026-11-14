@@ -96,13 +96,18 @@ public final class OresTests {
     }
 
     static {
+        com.simpleores.line.test.LineTests.register(ALL, MAX_TICKS);
+        com.simpleores.gear.test.GearTests.register(ALL, MAX_TICKS);   // N47-M3
+        com.simpleores.circuit.test.CircuitTests.register(ALL, MAX_TICKS);   // N46
         ALL.put("registered", h -> {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ + 16 /* N25: bars and grates */ + 12 + 16 /* N28: two alloy families, doors and trapdoors */ + 64 /* PAL35: lamps, lanterns, chains, poles, plates, copper tiles, chiseled blocks */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4 + 16 + 3 /* N25: their items, three nuggets */ + 12 + 16 /* N28 */ + 70 /* PAL35 */, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ + 16 /* N25: bars and grates */ + 12 + 16 /* N28: two alloy families, doors and trapdoors */ + 22 /* N46/M2: the line */ + 4 /* N46: wall dust x2, relay, core */ + 5 /* N47-M3: the poles */ + 64 /* PAL35a/b: plates, lamps, lanterns, chains, poles, rose families, chiseled */ - 1 /* N48: the Enderite plate went to SimpleLib */ + 3 /* N46: wall repeater, comparator, dampener */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4 + 16 + 3 /* N25: their items, three nuggets */ + 12 + 16 /* N28 */ + 24 /* N46/M2: 18 block items, 2 torches, 4 dusts */ + 2 /* N46: relay, core */ + 23 /* N47-M3: 12 tools and armor, 6 food, 5 poles */ + 70 /* PAL35a/b: their items and the extra nuggets/chains */ - 1 /* N48 */, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
-                            "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers"))
+                            "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers",
+                            "endOres", "astralitOre", "nihilitOre", "endSignals", "endPistons", "endRails", "endPistonCooldownTicks", "astralRailMaxSpeed",
+                            "astralRailBoost", "nihilRailBrake"))
                     && OresConfig.leadOre && OresConfig.endLeadOre && OresConfig.zincGeodes && OresConfig.endZincGeodes && OresConfig.nickelOre && OresConfig.tinOre && OresConfig.tinPlacers
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     , "config defaults");
@@ -772,7 +777,7 @@ public final class OresTests {
             List<String> building = List.of(OresRegistry.BUILDING);
             BlockPos pos = h.absolutePos(new BlockPos(4, 1, 12));
             ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE), e = ItemStack.EMPTY;
-            check(h, OresRegistry.LIGHTS.length == 8 && OresRegistry.POLES.length == 10 && OresRegistry.PLATE_METALS.length == 14, "8 metals, 10 poles, 14 plates");
+            check(h, OresRegistry.LIGHTS.length == 8 && OresRegistry.POLES.length == 10 && OresRegistry.PLATE_METALS.length == 13, "8 metals, 10 poles, 13 plates (Enderite has SimpleLib's)");
             for (String m : OresRegistry.LIGHTS) {
                 Block lamp = OresRegistry.BLOCKS.get(m + "_lamp"), lantern = OresRegistry.BLOCKS.get(m + "_lantern"), chain = OresRegistry.BLOCKS.get(m + "_chain");
                 check(h, lamp instanceof net.minecraft.world.level.block.CopperBulbBlock && lantern instanceof net.minecraft.world.level.block.LanternBlock

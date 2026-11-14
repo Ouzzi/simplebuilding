@@ -91,7 +91,7 @@ public final class Mech24Tests {
             ItemStack brush = new ItemStack(Items.BRUSH);
             for (int stroke = 1; stroke <= HiddenOreBlock.STROKES + 2; stroke++) {
                 brushOnce(player, abs, brush);
-                int got = level.getBlockState(abs).getValue(HiddenOreBlock.BRUSHED);
+                int got = HiddenOreBlock.brushed(level.getBlockState(abs));
                 helper.assertTrue(got == Math.min(stroke, HiddenOreBlock.STROKES), block + " after " + stroke + " strokes is at " + got);
                 helper.assertTrue(brush.getDamageValue() == (stroke >= HiddenOreBlock.STROKES ? 1 : 0),
                         block + ": brush damage " + brush.getDamageValue() + " after " + stroke + " strokes");
@@ -138,8 +138,8 @@ public final class Mech24Tests {
             Block ore = (Block) pair[0];
             Item drop = (Item) pair[1];
             BlockState hidden = ore.defaultBlockState();
-            BlockState freed = hidden.setValue(HiddenOreBlock.BRUSHED, HiddenOreBlock.STROKES);
-            BlockState half = hidden.setValue(HiddenOreBlock.BRUSHED, 3);
+            BlockState freed = HiddenOreBlock.withBrushed(hidden, HiddenOreBlock.STROKES);
+            BlockState half = HiddenOreBlock.withBrushed(hidden, 3);
             double freedPlain = mean(helper, level, freed, abs, plain, drop), freedLuck = mean(helper, level, freed, abs, fortune, drop);
             double hiddenPlain = mean(helper, level, hidden, abs, plain, drop), hiddenLuck = mean(helper, level, hidden, abs, fortune, drop);
             double halfPlain = mean(helper, level, half, abs, plain, drop);

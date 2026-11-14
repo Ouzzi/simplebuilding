@@ -27,8 +27,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Enchanting registers (Fabric: directly in the initializer), in this order: blocks (the two enchanters, without
- * SimpleBuilding also the building-block twins), items, block entity type, menu type, creative tab. Numbers as SimpleBuilding's
+ * Everything Simple Enchanting registers (Fabric: directly in the initializer), in this order: blocks (the two enchanters, the
+ * building blocks of the tables), items, block entity type, menu type, creative tab. Numbers as SimpleBuilding's
  * Astral Enchanting Table before the move (hardness 10, blast resistance 1200, light 10).
  */
 public final class EnchantingRegistry {
@@ -39,7 +39,9 @@ public final class EnchantingRegistry {
     public static BlockEntityType<EnchanterBlockEntity> ENCHANTER_BE;
     public static MenuType<EnchanterMenu> ENCHANTER_MENU;
     public static CreativeModeTab TAB;
-    /** This module's building-block twins (empty with SimpleBuilding, which owns them). */
+    /** N48: the Blaze Book (8 blaze powder around a book; three of them and six blazewood planks make a strong shelf). Was SimpleBuilding's. */
+    public static Item BLAZE_BOOK;
+    /** This module's building blocks (obsidians, blazewood planks, chiseled shelves). */
     private static final List<Block> OWN_BLOCKS = new ArrayList<>();
     private static final List<Block> OWN_CHISELED = new ArrayList<>();
 
@@ -50,15 +52,13 @@ public final class EnchantingRegistry {
         ASTRAL_ENCHANTER = enchanter(EnchanterStage.ASTRAL);
         // PLAN40 simpleenchanting-1: the blazewood family is this module's own in every installation.
         BlazewoodFamily.registerBlocks();
-        if (SimpleEnchanting.simpleBuilding()) return;
-        // Without SimpleBuilding: the building blocks the tables need (SimpleBuilding's own when it is installed, ids move along).
+        // N48 (14.11.): the building blocks the tables stand on and around are this module's, no twins any more (SimpleBuilding's old
+        // ids move here); the plain Crimson/Warped bookshelves are SimpleLib's (group nether_bookshelves).
         OWN_BLOCKS.add(block("blazing_obsidian", Blocks.CRYING_OBSIDIAN, p -> new ObsidianFloorBlock(false, p.lightLevel(s -> 12))));
         OWN_BLOCKS.add(block("nihil_obsidian", Blocks.CRYING_OBSIDIAN, p -> new ObsidianFloorBlock(true, p.lightLevel(s -> 10))));
         OWN_BLOCKS.add(block("crimson_blazewood_planks", Blocks.CRIMSON_PLANKS, Block::new));
         OWN_BLOCKS.add(block("warped_blazewood_planks", Blocks.WARPED_PLANKS, Block::new));
-        OWN_BLOCKS.add(block("crimson_blazewood_bookshelf", Blocks.BOOKSHELF, p -> new Block(p.sound(SoundType.NETHER_WOOD))));
-        OWN_BLOCKS.add(block("warped_blazewood_bookshelf", Blocks.BOOKSHELF, p -> new Block(p.sound(SoundType.NETHER_WOOD))));
-        // DW04C-3 (b-shelves01): the chiseled twins, Vanilla's block and block entity (the loader entry adds them to its valid blocks).
+        // DW04C-3 (b-shelves01): the chiseled shelves, Vanilla's block and block entity (the loader entry adds them to its valid blocks).
         for (String wood : new String[] {"crimson", "warped"}) {
             Block chiseled = block("chiseled_" + wood + "_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF,
                     p -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(p.sound(SoundType.NETHER_WOOD)));
@@ -67,7 +67,7 @@ public final class EnchantingRegistry {
         }
     }
 
-    /** This module's chiseled bookshelf twins (empty with SimpleBuilding); they use Vanilla's chiseled bookshelf block entity. */
+    /** This module's chiseled bookshelves; they use Vanilla's chiseled bookshelf block entity. */
     public static List<Block> ownChiseledBookshelves() {
         return List.copyOf(OWN_CHISELED);
     }
@@ -76,6 +76,7 @@ public final class EnchantingRegistry {
         DARK_ENCHANTER_ITEM = item("dark_enchanter", p -> new BlockItem(DARK_ENCHANTER, p.fireResistant()));
         ASTRAL_ENCHANTER_ITEM = item("astral_enchanter", p -> new BlockItem(ASTRAL_ENCHANTER, p.fireResistant()));
         BlazewoodFamily.registerItems();
+        BLAZE_BOOK = item("blaze_book", Item::new);
         for (Block block : OWN_BLOCKS) {
             boolean chiseled = OWN_CHISELED.contains(block);
             item(BuiltInRegistries.BLOCK.getKey(block).getPath(), p -> new BlockItem(block, chiseled
@@ -100,17 +101,18 @@ public final class EnchantingRegistry {
     }
 
     /**
-     * The two enchanters, the building blocks of this installation (SimpleBuilding's or the twins) with the blazewood family after each
-     * planks, the partner items, then the guide; empty while switched off.
+     * The two enchanters, the building blocks (this module's and SimpleLib's shelves) with the blazewood family after each
+     * planks, the Blaze Book, the partner items, then the guide; empty while switched off.
      */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleEnchanting.on()) return out;
         out.addAll(tableStacks());
-        for (String path : SimpleEnchanting.BUILDING_BLOCKS) {
-            Item item = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), path));
+        for (String full : SimpleEnchanting.BUILDING_BLOCKS) {
+            Item item = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse(full));
             if (item != Items.AIR) out.add(new ItemStack(item));
             // PLAN40 simpleenchanting-1: the blazewood family right after its planks.
+            String path = full.substring(full.indexOf(':') + 1);
             if (path.endsWith("_blazewood_planks")) {
                 for (String shape : BlazewoodFamily.paths(path.substring(0, path.indexOf("_blazewood_planks")))) {
                     Item member = BlazewoodFamily.items().get(shape);
@@ -118,7 +120,8 @@ public final class EnchantingRegistry {
                 }
             }
         }
-        // DW04C-3: the books of the strong shelves (SimpleBuilding) and the End bookshelves (Simple End), by id, when installed.
+        // DW04C-3/N48: the Blaze Book (the strong shelves' book), then the Nihilit Book (SimpleBuilding) and the End bookshelves (Simple End), by id, when installed.
+        out.add(new ItemStack(BLAZE_BOOK));
         for (String id : SimpleEnchanting.PARTNER_ITEMS) {
             Item item = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse(id));
             if (item != Items.AIR) out.add(new ItemStack(item));
@@ -137,7 +140,7 @@ public final class EnchantingRegistry {
         return out;
     }
 
-    /** This module's building-block twins (empty with SimpleBuilding). */
+    /** This module's building blocks. */
     public static List<Block> ownBuildingBlocks() {
         return List.copyOf(OWN_BLOCKS);
     }

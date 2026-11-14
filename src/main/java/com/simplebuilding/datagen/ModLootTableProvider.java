@@ -57,17 +57,6 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             dropSelf(ModBlocks.SILENT_DANDELION);
             dropPottedContents(ModBlocks.POTTED_SILENT_DANDELION);
         }
-        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            dropSelf(ModBlocks.ASTRAL_PISTON);
-            dropSelf(ModBlocks.NIHIL_PISTON);
-            dropSelf(ModBlocks.ASTRAL_REDSTONE_BLOCK);
-            dropSelf(ModBlocks.NIHIL_REDSTONE_BLOCK);
-            dropSelf(ModBlocks.BRIDGE_REDSTONE_BLOCK);
-        }
-        if (com.simplebuilding.version.McVersion.END_RAILS) {
-            dropSelf(ModBlocks.ASTRAL_RAIL);
-            dropSelf(ModBlocks.NIHIL_RAIL);
-        }
         // Aus Simple Tweaks: jede Platte droppt sich selbst (wie dort).
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(this::dropSelf);
         // Mob-Koepfe: der Wandkopf teilt die Tabelle des stehenden (wie Vanillas wallVariant).
@@ -79,27 +68,16 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
 
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
-        if (ModBlocks.IRON_POLE != null) dropSelf(ModBlocks.IRON_POLE);
+        if (ModBlocks.IRON_POLE != null && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) dropSelf(ModBlocks.IRON_POLE); // N47-M3: Simple Ores' on 26.3
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) dropSelf(ModBlocks.AUTO_SMITHER); // 26.3: Simple Machines' loot
         if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER); // 26.3: Simple Machines' loot
-        if (ModBlocks.BLAZING_OBSIDIAN != null) {
-            // Astral-Verzauberung (Queue N27): der Tisch gibt den Vanilla-Tisch und einen Enderit-Barren zurueck (Besitzer 15.10.)
-            // (gelagerter Lapis/Lohenstaub faellt als Inhalt heraus), Lohen-Regale drei Lohenbuecher wie Vanilla-Regale.
-            // ENCH02: the tables' loot is Simple Enchanting's (data/simpleenchanting/loot_table).
-            for (Block planks : ModBlocks.BLAZEWOOD_PLANKS) dropSelf(planks);
-            for (Block shelf : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
-                add(shelf, createSingleItemTableWithSilkTouch(shelf, ModItems.BLAZE_BOOK, LootNumbers.exactly(3)));
-            }
-            for (Block shelf : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) dropSelf(shelf); // the books drop via the block entity
-            dropSelf(ModBlocks.BLAZING_OBSIDIAN);
-            dropSelf(ModBlocks.NIHIL_OBSIDIAN);
-        }
+        // N48 (14.11.): Lohenholz, Regale und Obsidiane haben ihre Beute bei Simple Enchanting / SimpleLib.
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
-        if (ModBlocks.GOLD_POLE != null) dropSelf(ModBlocks.GOLD_POLE);
-        if (ModBlocks.DIAMOND_POLE != null) dropSelf(ModBlocks.DIAMOND_POLE);
-        if (ModBlocks.NETHERITE_POLE != null) dropSelf(ModBlocks.NETHERITE_POLE);
-        if (ModBlocks.ENDERITE_POLE != null) dropSelf(ModBlocks.ENDERITE_POLE);
+        if (ModBlocks.GOLD_POLE != null && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) dropSelf(ModBlocks.GOLD_POLE); // N47-M3: Simple Ores' on 26.3
+        if (ModBlocks.DIAMOND_POLE != null && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) dropSelf(ModBlocks.DIAMOND_POLE); // N47-M3: Simple Ores' on 26.3
+        if (ModBlocks.NETHERITE_POLE != null && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) dropSelf(ModBlocks.NETHERITE_POLE); // N47-M3: Simple Ores' on 26.3
+        if (ModBlocks.ENDERITE_POLE != null && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) dropSelf(ModBlocks.ENDERITE_POLE); // N47-M3: Simple Ores' on 26.3
         // Haengematten wie Betten: nur das Kopfteil des Tuchs gibt das Item (die anderen Teile fallen mit).
         for (net.minecraft.world.level.block.Block hammock : ModBlocks.HAMMOCKS) {
             add(hammock, createSinglePropConditionTable(hammock, com.simplebuilding.blocks.custom.HammockBlock.PART,

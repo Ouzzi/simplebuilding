@@ -51,6 +51,9 @@ public final class LibTests {
         ALL.put("material_requests_recipes", MaterialRequestTests::recipesFollowRequests);
         ALL.put("material_requests_anvil_crushing", MaterialRequestTests::anvilCrushingFollowsRequest);
         ALL.put("strong_upgrade_wither_drop", MaterialRequestTests::strongUpgradeWitherDrop);
+        ALL.put("material_plates_registered_and_moved", PlateTests::registeredAndMoved);
+        ALL.put("emerald_plate_villagers_only", PlateTests::emeraldPlateVillagersOnly);
+        ALL.put("emerald_plate_inverts_when_powered", PlateTests::emeraldPlateInvertsWhenPowered);
         ALL.put("pixel_palette_lab_nearest", PixelArtTests::labNearest);
         ALL.put("pixel_dither_deterministic", PixelArtTests::ditherDeterministic);
         ALL.put("pixel_rle_round_trip", PixelArtTests::rleRoundTrip);

@@ -9,7 +9,7 @@
       "title": "simpleenchanting.guide.chapter",
       "icon": "minecraft:lapis_lazuli",
       "page_key": "simpleenchanting.guide.page",
-      "pages": 9,
+      "pages": 11,
       "advancement": "simpleenchanting:guide/chapter",
       "hint": "minecraft:lapis_lazuli"
     }

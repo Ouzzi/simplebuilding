@@ -134,54 +134,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Befiederungstisch (B14, N16): die Teil-Rezepte sind seit 04.11. Daten von Simple Arrows (simplearrows:fletching/*).
 
-                // Astral-/Nihil-Kolben (2026-10-03): Kolben in der Mitte, Kanal-Redstone an den Kanten, polierter
-                // Stein der Farbe in den Ecken; der Nihil-Kolben zieht und bekommt deshalb den Klebekolben.
-                if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-                    for (boolean astral : new boolean[]{true, false}) {
-                        shaped(RecipeCategory.REDSTONE, astral ? ModItems.ASTRAL_PISTON : ModItems.NIHIL_PISTON)
-                                .pattern("PRP")
-                                .pattern("RKR")
-                                .pattern("PRP")
-                                .define('P', astral ? ModItems.POLISHED_ASTRALIT : ModItems.POLISHED_NIHILITH)
-                                .define('R', astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE)
-                                .define('K', astral ? Items.PISTON : Items.STICKY_PISTON)
-                                .unlockedBy(getHasName(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE),
-                                        has(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE))
-                                .save(output);
-                    }
-                    // Redstone-Bloecke der Linien (N51, 2026-10-13): 9 Staub <-> 1 Block wie der Redstone-Block.
-                    Item[][] blocks = {{ModItems.ASTRAL_REDSTONE, ModItems.ASTRAL_REDSTONE_BLOCK},
-                            {ModItems.NIHIL_REDSTONE, ModItems.NIHIL_REDSTONE_BLOCK}, {ModItems.BRIDGE_REDSTONE, ModItems.BRIDGE_REDSTONE_BLOCK}};
-                    for (Item[] pair : blocks) {
-                        shaped(RecipeCategory.REDSTONE, pair[1])
-                                .pattern("###")
-                                .pattern("###")
-                                .pattern("###")
-                                .define('#', pair[0])
-                                .unlockedBy(getHasName(pair[0]), has(pair[0]))
-                                .save(output);
-                        shapeless(RecipeCategory.REDSTONE, pair[0], 9)
-                                .requires(pair[1])
-                                .unlockedBy(getHasName(pair[1]), has(pair[1]))
-                                .save(output, getConversionRecipeName(pair[0], pair[1]));
-                    }
-                }
-                // Astral-/Nihil-Schienen (2026-10-04) wie die Antriebsschiene: 6 Gold, Stock, und statt Redstone der
-                // Redstone des Kanals (Astralitstaub bzw. Nihilitsplitter steckt darin) - 6 Stueck.
-                if (com.simplebuilding.version.McVersion.END_RAILS) {
-                    for (boolean astral : new boolean[]{true, false}) {
-                        Item redstone = astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE;
-                        shaped(RecipeCategory.TRANSPORTATION, astral ? ModItems.ASTRAL_RAIL : ModItems.NIHIL_RAIL, 6)
-                                .pattern("G G")
-                                .pattern("GSG")
-                                .pattern("GRG")
-                                .define('G', Items.GOLD_INGOT)
-                                .define('S', Items.STICK)
-                                .define('R', redstone)
-                                .unlockedBy(getHasName(redstone), has(redstone))
-                                .save(output);
-                    }
-                }
+                // N46/M2 (b-circ46): the line's recipes (End pistons, line redstone blocks, End rails) are Simple Ores' data.
                 // Naturvarianten (N24/N25): seit b-blocksmove Bloecke von Simple Blocks mit ihren Rezepten dort; hier bleibt die Sculk-Kiefer.
                 if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
                     // Sculk-Kiefer: Fangzaehne (Knochen), Echo-Splitter und Sculk - der Splitter gibt es nur in Ancient Cities.
@@ -215,56 +168,13 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .save(output);
                 }
 
-                // Astral-Verzauberung (Queue N27, docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md): Lohenholz = 8 Lohenstaub um
-                // ein Nether-Brett je Holzart, Lohenbuch wie das Buch mit Lohenstaub statt Leder, Lohen-Regal wie das
-                // Buecherregal, Lohen-Obsidian = 8 Lohenstaub um weinenden Obsidian. Der Tisch selbst entsteht mit dem Hammer.
+                // Astral-Verzauberung (Queue N27): N48 (14.11.): Lohenholz, Lohenbuch, Lohen-Regale und die Obsidiane (Rezepte) gehoeren
+                // Simple Enchanting / SimpleLib. Hier bleibt das Nihilit-Buch (a-nihilplanks / M1: Simple End kennt Nihilit nicht ohne Ores).
                 if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
-                    net.minecraft.world.level.ItemLike[][] woods = {
-                            {Items.CRIMSON_PLANKS, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF,
-                                    ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, Items.CRIMSON_SLAB},
-                            {Items.WARPED_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
-                                    ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, Items.WARPED_SLAB}};
-                    for (net.minecraft.world.level.ItemLike[] wood : woods) {
-                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[1])
-                                .pattern("BBB").pattern("BPB").pattern("BBB")
-                                .define('B', Items.BLAZE_POWDER).define('P', wood[0])
-                                .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
-                                .save(output);
-                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[2])
-                                .pattern("WWW").pattern("KKK").pattern("WWW")
-                                .define('W', wood[1]).define('K', ModItems.BLAZE_BOOK)
-                                .unlockedBy(getHasName(ModItems.BLAZE_BOOK), has(ModItems.BLAZE_BOOK))
-                                .save(output);
-                        // BS25-1: like Vanilla's chiseled bookshelf (6 planks around 3 slabs), with the blazewood planks and the Nether slab.
-                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[3])
-                                .pattern("WWW").pattern("SSS").pattern("WWW")
-                                .define('W', wood[1]).define('S', wood[4])
-                                .unlockedBy(getHasName(wood[1]), has(wood[1]))
-                                .save(output);
-                    }
-                    // a-end07 (Wunsch 8): die Nihilit-Bretter je End-Holzart und die Nihilit-Regale brauchen ein End-Brett aus
-                    // Simple End: ihre Rezepte stehen mit Ladebedingung in mc26_3/overlay (wie simplebuilding:ashwood_bookshelf).
-                    // Nachtrag 60 (Besitzer 15.10.): 8 Lohenstaub um 1 normales Buch (ersetzt 3 Papier + 1 Lohenstaub).
-                    shaped(RecipeCategory.MISC, ModItems.BLAZE_BOOK)
-                            .pattern("BBB").pattern("BKB").pattern("BBB")
-                            .define('B', Items.BLAZE_POWDER).define('K', Items.BOOK)
-                            .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
-                            .save(output);
                     // DW04C-3 (b-shelves01): Nihilit-Buch = Buch mit 4 Nihilitsplittern im Plus (Splitter sind seltener als Lohenstaub).
                     shaped(RecipeCategory.MISC, ModItems.NIHILITH_BOOK)
                             .pattern(" N ").pattern("NKN").pattern(" N ")
                             .define('N', ModItems.NIHILITH_SHARD).define('K', Items.BOOK)
-                            .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
-                            .save(output);
-                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.BLAZING_OBSIDIAN)
-                            .pattern("BBB").pattern("BOB").pattern("BBB")
-                            .define('B', Items.BLAZE_POWDER).define('O', Items.CRYING_OBSIDIAN)
-                            .unlockedBy(getHasName(Items.CRYING_OBSIDIAN), has(Items.CRYING_OBSIDIAN))
-                            .save(output);
-                    // ENCH02 (Besitzer 03.11.): Nihil-Obsidian = Lohen-Obsidian mit Nihilit: 8 Nihilith-Splitter um weinenden Obsidian.
-                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.NIHIL_OBSIDIAN)
-                            .pattern("NNN").pattern("NON").pattern("NNN")
-                            .define('N', ModItems.NIHILITH_SHARD).define('O', Items.CRYING_OBSIDIAN)
                             .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
                             .save(output);
                 }
@@ -592,19 +502,21 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Crucible P5: Kupfer-, Enderit- und Keramik-Eimer-Rezepte liegen seit Stufe 5b in Simple Crucibles.
                 // Eisenstange (2026-10-02, N41 "Pole"): wie der Blitzableiter, drei Eisenbarren uebereinander.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-                    shaped(RecipeCategory.REDSTONE, ModItems.IRON_POLE)
-                            .pattern("I")
-                            .pattern("I")
-                            .pattern("I")
-                            .define('I', Items.IRON_INGOT)
-                            .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
-                            .save(output);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) { // N47-M3: the pole recipes are Simple Ores' on 26.3
+                        shaped(RecipeCategory.REDSTONE, ModItems.IRON_POLE)
+                                .pattern("I")
+                                .pattern("I")
+                                .pattern("I")
+                                .define('I', Items.IRON_INGOT)
+                                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                                .save(output);
+                    }
                     // Stangen (2026-10-02, N41): Gold- und Diamantstange ebenso aus drei uebereinander und zurueck in ihre
                     // drei Teile. Netherit- und Enderitstange (Bloecke seit 2026-10-03) nur am Schmiedetisch (Einbahn wie
                     // jede Aufwertung), die Netheritstange seit N41 aus der Diamantstange. Der Diamantstab (Item,
                     // Pfeilschaft) ist seit N41 getrennt: zwei Diamanten uebereinander, zurueck zwei.
-                    rod(ModItems.GOLD_POLE, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
-                    rod(ModItems.DIAMOND_POLE, Items.DIAMOND, RecipeCategory.REDSTONE);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) rod(ModItems.GOLD_POLE, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) rod(ModItems.DIAMOND_POLE, Items.DIAMOND, RecipeCategory.REDSTONE);
                     shaped(RecipeCategory.MISC, ModItems.DIAMOND_ROD)
                             .pattern("M")
                             .pattern("M")
@@ -615,10 +527,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     rodBack(ModItems.GOLD_POLE, Items.GOLD_INGOT, 3);
                     rodBack(ModItems.DIAMOND_POLE, Items.DIAMOND, 3);
                     rodBack(ModItems.DIAMOND_ROD, Items.DIAMOND, 2);
-                    createSmithingTransform(output, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.DIAMOND_POLE,
-                            Items.NETHERITE_INGOT, RecipeCategory.MISC, ModItems.NETHERITE_POLE);
-                    createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_POLE,
-                            ModItems.ENDERITE_INGOT, RecipeCategory.MISC, ModItems.ENDERITE_POLE);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
+                        createSmithingTransform(output, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.DIAMOND_POLE,
+                                Items.NETHERITE_INGOT, RecipeCategory.MISC, ModItems.NETHERITE_POLE);
+                        createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_POLE,
+                                ModItems.ENDERITE_INGOT, RecipeCategory.MISC, ModItems.ENDERITE_POLE);
+                    }
                 }
 
                 // =================================================================
@@ -1025,39 +939,41 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // NETHERITE FOOD RECIPES
                 // =================================================================
-                shaped(RecipeCategory.FOOD, ModItems.NETHERITE_CARROT)
-                        .pattern(" N ")
-                        .pattern("NCN")
-                        .pattern(" N ")
-                        .define('N', ModItems.NETHERITE_NUGGET)
-                        .define('C', Items.CARROT)
-                        .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
-                        .save(output);
-                shaped(RecipeCategory.FOOD, ModItems.NETHERITE_APPLE)
-                        .pattern("NNN")
-                        .pattern("NAN")
-                        .pattern("NNN")
-                        .define('N', ModItems.NETHERITE_NUGGET)
-                        .define('A', Items.APPLE)
-                        .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
-                        .save(output);
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) { // N47-M3: Simple Ores' recipes on 26.3
+                    shaped(RecipeCategory.FOOD, ModItems.NETHERITE_CARROT)
+                            .pattern(" N ")
+                            .pattern("NCN")
+                            .pattern(" N ")
+                            .define('N', ModItems.NETHERITE_NUGGET)
+                            .define('C', Items.CARROT)
+                            .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
+                            .save(output);
+                    shaped(RecipeCategory.FOOD, ModItems.NETHERITE_APPLE)
+                            .pattern("NNN")
+                            .pattern("NAN")
+                            .pattern("NNN")
+                            .define('N', ModItems.NETHERITE_NUGGET)
+                            .define('A', Items.APPLE)
+                            .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
+                            .save(output);
 
-                shaped(RecipeCategory.FOOD, ModItems.ENDERITE_CARROT)
-                        .pattern(" N ")
-                        .pattern("NCN")
-                        .pattern(" N ")
-                        .define('N', ModItems.ENDERITE_NUGGET)
-                        .define('C', Items.CARROT)
-                        .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
-                        .save(output);
-                shaped(RecipeCategory.FOOD, ModItems.ENDERITE_APPLE)
-                        .pattern("NNN")
-                        .pattern("NAN")
-                        .pattern("NNN")
-                        .define('N', ModItems.ENDERITE_NUGGET)
-                        .define('A', Items.APPLE)
-                        .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
-                        .save(output);
+                    shaped(RecipeCategory.FOOD, ModItems.ENDERITE_CARROT)
+                            .pattern(" N ")
+                            .pattern("NCN")
+                            .pattern(" N ")
+                            .define('N', ModItems.ENDERITE_NUGGET)
+                            .define('C', Items.CARROT)
+                            .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
+                            .save(output);
+                    shaped(RecipeCategory.FOOD, ModItems.ENDERITE_APPLE)
+                            .pattern("NNN")
+                            .pattern("NAN")
+                            .pattern("NNN")
+                            .define('N', ModItems.ENDERITE_NUGGET)
+                            .define('A', Items.APPLE)
+                            .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
+                            .save(output);
+                }
 
 
 
@@ -1210,7 +1126,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     enderiteItems.remove(wand);
                 }
 
-                for (int i = 0; i < netheriteItems.size(); i++) {
+                // N47-M3 (b-circ46): on 26.3 the twelve Enderite tools/armor pieces (the first twelve pairs) and their recipes are Simple Ores'.
+                int skipOres = com.simplebuilding.version.McVersion.MATERIALS_IN_ORES ? 12 : 0;
+                for (int i = skipOres; i < netheriteItems.size(); i++) {
                     createSmithingTransform(output,
                             ModItems.ENDERITE_UPGRADE_TEMPLATE,
                             netheriteItems.get(i),

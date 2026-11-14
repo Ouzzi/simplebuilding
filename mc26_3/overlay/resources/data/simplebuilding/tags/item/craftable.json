@@ -122,8 +122,8 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:ender_quartz_wall",
-    "simplebuilding:enderite_apple",
-    "simplebuilding:enderite_axe",
+    "simpleores:enderite_apple",
+    "simpleores:enderite_axe",
     {
       "id": "simplestorage:enderite_backpack",
       "required": false
@@ -132,37 +132,37 @@
       "id": "simpleores:enderite_block",
       "required": false
     },
-    "simplebuilding:enderite_boots",
+    "simpleores:enderite_boots",
     "simplebuildingtools:enderite_building_wand",
     "simplestorage:enderite_bundle",
-    "simplebuilding:enderite_carrot",
-    "simplebuilding:enderite_chestplate",
+    "simpleores:enderite_carrot",
+    "simpleores:enderite_chestplate",
     "simplechisels:enderite_chisel",
     "simplepads:enderite_chunk_loader",
     "simplelib:enderite_core",
     "simplepads:enderite_elytra_pad",
-    "simplebuilding:enderite_helmet",
-    "simplebuilding:enderite_hoe",
-    "simplebuilding:enderite_horse_armor",
+    "simpleores:enderite_helmet",
+    "simpleores:enderite_hoe",
+    "simpleores:enderite_horse_armor",
     {
       "id": "simpleores:enderite_ingot",
       "required": false
     },
     "simplepads:enderite_launchpad",
-    "simplebuilding:enderite_leggings",
-    "simplebuilding:enderite_nautilus_armor",
+    "simpleores:enderite_leggings",
+    "simpleores:enderite_nautilus_armor",
     {
       "id": "simpleores:enderite_nugget",
       "required": false
     },
-    "simplebuilding:enderite_pickaxe",
+    "simpleores:enderite_pickaxe",
     "simplepads:enderite_pressure_plate",
     "simplestorage:enderite_quiver",
     {
       "id": "simpleores:enderite_scrap",
       "required": false
     },
-    "simplebuilding:enderite_shovel",
+    "simpleores:enderite_shovel",
     {
       "id": "simplestorage:enderite_shulker_box",
       "required": false
@@ -172,8 +172,8 @@
       "required": false
     },
     "simplepads:enderite_spawn_teleporter",
-    "simplebuilding:enderite_spear",
-    "simplebuilding:enderite_sword",
+    "simpleores:enderite_spear",
+    "simpleores:enderite_sword",
     {
       "id": "simpleores:enderite_upgrade_template",
       "required": false
@@ -237,14 +237,14 @@
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
-    "simplebuilding:netherite_apple",
+    "simpleores:netherite_apple",
     {
       "id": "simplestorage:netherite_backpack",
       "required": false
     },
     "simplebuildingtools:netherite_building_wand",
     "simplestorage:netherite_bundle",
-    "simplebuilding:netherite_carrot",
+    "simpleores:netherite_carrot",
     "simplechisels:netherite_chisel",
     "simplepads:netherite_chunk_loader",
     "simplelib:netherite_core",

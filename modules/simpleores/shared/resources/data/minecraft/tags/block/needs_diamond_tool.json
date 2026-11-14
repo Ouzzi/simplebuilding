@@ -15,6 +15,12 @@
     "simpleores:chiseled_enderite",
     "simpleores:chiseled_terranite",
     "simpleores:chiseled_infernite",
-    "simpleores:chiseled_zenithite"
+    "simpleores:chiseled_zenithite",
+    "simpleores:dull_astralit_ore",
+    "simpleores:dull_nihilith_ore",
+    "simpleores:nihilith_ore",
+    "simpleores:astralit_ore",
+    "simpleores:netherite_pole",
+    "simpleores:enderite_pole"
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simpleores:enderite_ingot",
+  "base": "minecraft:netherite_shovel",
+  "result": {
+    "id": "simpleores:enderite_shovel"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

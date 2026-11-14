@@ -1,0 +1,46 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nihil_redstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleores:nihil_redstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleores:nihil_piston"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nihil_redstone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleores:nihil_piston"
+    ]
+  }
+}

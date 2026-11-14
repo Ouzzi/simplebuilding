@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simpleores:nihilith_shard",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "simpleores:nihil_redstone",
+    "count": 2
+  }
+}

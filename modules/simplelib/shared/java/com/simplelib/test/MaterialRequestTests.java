@@ -40,7 +40,14 @@ public final class MaterialRequestTests {
             Map.entry("polished_end_stone_wall", "polished_end_stone"),
             Map.entry("polished_end_stone_stairs_from_polished_end_stone_stonecutting", "polished_end_stone"),
             Map.entry("polished_end_stone_slab_from_polished_end_stone_stonecutting", "polished_end_stone"),
-            Map.entry("polished_end_stone_wall_from_polished_end_stone_stonecutting", "polished_end_stone"));
+            Map.entry("polished_end_stone_wall_from_polished_end_stone_stonecutting", "polished_end_stone"),
+            Map.entry("diamond_pressure_plate", "material_pressure_plates"), Map.entry("netherite_pressure_plate_smithing", "material_pressure_plates"),
+            Map.entry("enderite_pressure_plate_smithing", "material_pressure_plates"), Map.entry("enderite_pressure_plate", "material_pressure_plates"),
+            Map.entry("emerald_pressure_plate", "material_pressure_plates"),
+    /** N48: the two Enderite plate recipes need the provided group "enderite" (Simple Ores' ingot and template) on top. */
+            // N48: the shelf recipes additionally need Simple Enchanting to be absent (it crafts the same blocks with blazewood planks)
+            Map.entry("crimson_blazewood_bookshelf", "nether_bookshelves"), Map.entry("warped_blazewood_bookshelf", "nether_bookshelves"));
+    static final java.util.Set<String> NEEDS_ENDERITE = java.util.Set.of("enderite_pressure_plate_smithing", "enderite_pressure_plate");
 
     private MaterialRequestTests() {
     }
@@ -58,8 +65,9 @@ public final class MaterialRequestTests {
                 if (item == null || item != SimpleLibApi.materialItem(id)) problems.add("item " + id + " is not registered");
             }
         }
-        for (String block : List.of("cracked_diamond_block", "polished_end_stone",
-                "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
+        for (String block : List.of("cracked_diamond_block", "polished_end_stone", "diamond_pressure_plate", "netherite_pressure_plate",
+                "enderite_pressure_plate", "emerald_pressure_plate", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall",
+                "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf")) {
             if (!(SimpleLibApi.materialItem(block) instanceof BlockItem item) || item.getBlock() != SimpleLibApi.materialBlock(block)
                     || BuiltInRegistries.BLOCK.getValue(SimpleLib.id(block)) != SimpleLibApi.materialBlock(block)) {
                 problems.add("block " + block + " has no matching block item");
@@ -88,7 +96,13 @@ public final class MaterialRequestTests {
         TagKey<Item> nuggets = TagKey.create(Registries.ITEM, Identifier.parse("c:nuggets/netherite"));
         if (!new ItemStack(SimpleLibApi.materialItem("netherite_nugget")).is(nuggets)) problems.add("c:nuggets/netherite misses the nugget");
         boolean sb = simplebuilding();
+        // N48: Simple Pads and Simple Ores (fabric.mod.json "simplelib:content" + requestMaterial) request the plates group too.
+        boolean plateAsker = ores || BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath("simplepads", "launchpad"));
         for (String group : LibMaterials.GROUPS.keySet()) {
+            if (group.equals("material_pressure_plates") && plateAsker) {
+                if (!SimpleLibApi.materialRequested(group)) problems.add("group " + group + " not requested although Simple Pads or Simple Ores is there");
+                continue;
+            }
             if (SimpleLibApi.materialRequested(group) != sb) problems.add("group " + group + " requested=" + SimpleLibApi.materialRequested(group) + " with SimpleBuilding=" + sb);
         }
         h.assertTrue(problems.isEmpty(), "shared materials: " + problems);
@@ -101,7 +115,9 @@ public final class MaterialRequestTests {
         List<String> problems = new ArrayList<>();
         RECIPES.forEach((id, group) -> {
             boolean present = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleLib.id(id))).isPresent();
-            if (present != SimpleLibApi.materialRequested(group)) {
+            boolean expected = SimpleLibApi.materialRequested(group) && (!NEEDS_ENDERITE.contains(id) || SimpleLibApi.materialPresent("enderite"))
+                    && !(LibMaterials.NETHER_BOOKSHELVES.contains(id) && BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simpleenchanting", "dark_enchanter")));
+            if (present != expected) {
                 problems.add(id + (present ? " exists although " : " is missing although ") + group + " requested=" + SimpleLibApi.materialRequested(group));
             }
         });

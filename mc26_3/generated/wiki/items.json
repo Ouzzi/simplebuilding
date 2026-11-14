@@ -6,26 +6,17 @@
     "simplebuilding:astral_end_stone_slab",
     "simplebuilding:astral_end_stone_stairs",
     "simplebuilding:astral_end_stone_wall",
-    "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
     "simplebuilding:astral_purpur_pillar",
     "simplebuilding:astral_purpur_slab",
     "simplebuilding:astral_purpur_stairs",
     "simplebuilding:astral_purpur_wall",
-    "simplebuilding:astral_rail",
-    "simplebuilding:astral_redstone",
-    "simplebuilding:astral_redstone_block",
-    "simplebuilding:astral_redstone_torch",
-    "simplebuilding:astral_redstone_wall_torch",
     "simplebuilding:astral_vault",
     "simplebuilding:astralit_block",
     "simplebuilding:astralit_brick_slab",
     "simplebuilding:astralit_brick_stairs",
     "simplebuilding:astralit_brick_wall",
     "simplebuilding:astralit_bricks",
-    "simplebuilding:astralit_end_rod",
-    "simplebuilding:astralit_lamp",
-    "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:astralit_quartz_checker_slab",
@@ -41,10 +32,7 @@
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blackstone_quartz_checker_slab",
     "simplebuilding:blackstone_quartz_checker_stairs",
-    "simplebuilding:blazing_obsidian",
     "simplebuilding:blue_hammock",
-    "simplebuilding:bridge_redstone",
-    "simplebuilding:bridge_redstone_block",
     "simplebuilding:brown_hammock",
     "simplebuilding:carved_acacia_log",
     "simplebuilding:carved_bamboo_block",
@@ -63,17 +51,13 @@
     "simplebuilding:cherry_sheet",
     "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
-    "simplebuilding:chiseled_crimson_blazewood_bookshelf",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
-    "simplebuilding:chiseled_warped_blazewood_bookshelf",
     "simplebuilding:construction_light",
     "simplebuilding:copper_fire",
     "simplebuilding:cracked_astralit_bricks",
     "simplebuilding:cracked_ender_quartz_bricks",
     "simplebuilding:cracked_nihilith_bricks",
-    "simplebuilding:crimson_blazewood_bookshelf",
-    "simplebuilding:crimson_blazewood_planks",
     "simplebuilding:crimson_cauldron",
     "simplebuilding:crimson_sheet",
     "simplebuilding:crystalline_astralit",
@@ -81,9 +65,6 @@
     "simplebuilding:cyan_hammock",
     "simplebuilding:dark_oak_cauldron",
     "simplebuilding:dark_oak_sheet",
-    "simplebuilding:diamond_pole",
-    "simplebuilding:dull_astralit_ore",
-    "simplebuilding:dull_nihilith_ore",
     "simplebuilding:ender_end_stone",
     "simplebuilding:ender_end_stone_slab",
     "simplebuilding:ender_end_stone_stairs",
@@ -105,10 +86,8 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:ender_quartz_wall",
-    "simplebuilding:enderite_pole",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
-    "simplebuilding:gold_pole",
     "simplebuilding:gray_hammock",
     "simplebuilding:green_hammock",
     "simplebuilding:hammock_rope",
@@ -136,7 +115,6 @@
     "simplebuilding:hollow_stripped_spruce_log",
     "simplebuilding:hollow_stripped_warped_stem",
     "simplebuilding:hollow_warped_stem",
-    "simplebuilding:iron_pole",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:jungle_cauldron",
     "simplebuilding:jungle_sheet",
@@ -153,32 +131,21 @@
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
-    "simplebuilding:netherite_pole",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_end_stone_slab",
     "simplebuilding:nihil_end_stone_stairs",
     "simplebuilding:nihil_end_stone_wall",
-    "simplebuilding:nihil_obsidian",
-    "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihil_purpur_pillar",
     "simplebuilding:nihil_purpur_slab",
     "simplebuilding:nihil_purpur_stairs",
     "simplebuilding:nihil_purpur_wall",
-    "simplebuilding:nihil_rail",
-    "simplebuilding:nihil_redstone",
-    "simplebuilding:nihil_redstone_block",
-    "simplebuilding:nihil_redstone_torch",
-    "simplebuilding:nihil_redstone_wall_torch",
     "simplebuilding:nihil_vault",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
     "simplebuilding:nihilith_brick_wall",
     "simplebuilding:nihilith_bricks",
-    "simplebuilding:nihilith_end_rod",
-    "simplebuilding:nihilith_lamp",
-    "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:nihilith_quartz_checker_slab",
@@ -273,8 +240,6 @@
     "simplebuilding:sulfur_wall_torch",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
-    "simplebuilding:warped_blazewood_bookshelf",
-    "simplebuilding:warped_blazewood_planks",
     "simplebuilding:warped_cauldron",
     "simplebuilding:warped_sheet",
     "simplebuilding:white_hammock",
@@ -301,9 +266,6 @@
       "id": "simplebuilding:astral_end_stone_wall"
     },
     {
-      "id": "simplebuilding:astral_piston"
-    },
-    {
       "id": "simplebuilding:astral_purpur_block"
     },
     {
@@ -317,18 +279,6 @@
     },
     {
       "id": "simplebuilding:astral_purpur_wall"
-    },
-    {
-      "id": "simplebuilding:astral_rail"
-    },
-    {
-      "id": "simplebuilding:astral_redstone"
-    },
-    {
-      "id": "simplebuilding:astral_redstone_block"
-    },
-    {
-      "id": "simplebuilding:astral_redstone_torch"
     },
     {
       "id": "simplebuilding:astral_vault"
@@ -397,20 +347,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:astralit_dust"
-    },
-    {
-      "id": "simplebuilding:astralit_end_rod"
-    },
-    {
-      "id": "simplebuilding:astralit_lamp"
-    },
-    {
       "id": "simplebuilding:astralit_octet",
       "maxStackSize": 99
-    },
-    {
-      "id": "simplebuilding:astralit_ore"
     },
     {
       "id": "simplebuilding:astralit_pillar"
@@ -511,23 +449,11 @@
       "id": "simplebuilding:blackstone_quartz_checker_stairs"
     },
     {
-      "id": "simplebuilding:blaze_book"
-    },
-    {
-      "id": "simplebuilding:blazing_obsidian"
-    },
-    {
       "id": "simplebuilding:blazing_obsidian_chip"
     },
     {
       "id": "simplebuilding:blue_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:bridge_redstone"
-    },
-    {
-      "id": "simplebuilding:bridge_redstone_block"
     },
     {
       "id": "simplebuilding:brown_hammock",
@@ -579,16 +505,10 @@
       "id": "simplebuilding:chiseled_astralit_bricks"
     },
     {
-      "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf"
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks"
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks"
-    },
-    {
-      "id": "simplebuilding:chiseled_warped_blazewood_bookshelf"
     },
     {
       "durability": 256,
@@ -610,12 +530,6 @@
     {
       "id": "simplebuilding:creative_spacer",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf"
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks"
     },
     {
       "id": "simplebuilding:crimson_cauldron"
@@ -643,28 +557,7 @@
       "id": "simplebuilding:dark_oak_sheet"
     },
     {
-      "id": "simplebuilding:diamond_pole"
-    },
-    {
       "id": "simplebuilding:diamond_rod"
-    },
-    {
-      "id": "simplebuilding:dull_astralit_dust"
-    },
-    {
-      "id": "simplebuilding:dull_astralit_ore"
-    },
-    {
-      "id": "simplebuilding:dull_nihilith_ore"
-    },
-    {
-      "id": "simplebuilding:dull_nihilith_shard"
-    },
-    {
-      "id": "simplebuilding:enchanted_enderite_apple"
-    },
-    {
-      "id": "simplebuilding:enchanted_netherite_apple"
     },
     {
       "id": "simplebuilding:ender_end_stone"
@@ -785,96 +678,7 @@
       "id": "simplebuilding:ender_quartz_wall"
     },
     {
-      "id": "simplebuilding:enderite_apple"
-    },
-    {
-      "attackDamage": 11.0,
-      "attackSpeed": 1.0,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_axe",
-      "maxStackSize": 1
-    },
-    {
-      "durability": 546,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_boots",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_carrot"
-    },
-    {
-      "durability": 672,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_chestplate",
-      "maxStackSize": 1
-    },
-    {
-      "durability": 462,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_helmet",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 2.0,
-      "attackSpeed": 4.0,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_hoe",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_horse_armor",
-      "maxStackSize": 1
-    },
-    {
-      "durability": 630,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_leggings",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_nautilus_armor",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enderite_paint_box",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 7.0,
-      "attackSpeed": 1.2,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_pickaxe",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_pole"
-    },
-    {
-      "attackDamage": 7.5,
-      "attackSpeed": 1.0,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_shovel",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 6.0,
-      "attackSpeed": 0.87,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_spear",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 9.0,
-      "attackSpeed": 1.6,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_sword",
       "maxStackSize": 1
     },
     {
@@ -885,9 +689,6 @@
     },
     {
       "id": "simplebuilding:frosted_nihilith"
-    },
-    {
-      "id": "simplebuilding:gold_pole"
     },
     {
       "id": "simplebuilding:gray_hammock",
@@ -975,9 +776,6 @@
     },
     {
       "id": "simplebuilding:ice_chip"
-    },
-    {
-      "id": "simplebuilding:iron_pole"
     },
     {
       "id": "simplebuilding:jukebox_amplifier"
@@ -1172,17 +970,8 @@
       "id": "simplebuilding:nether_brick_quartz_checker_stairs"
     },
     {
-      "id": "simplebuilding:netherite_apple"
-    },
-    {
-      "id": "simplebuilding:netherite_carrot"
-    },
-    {
       "id": "simplebuilding:netherite_paint_box",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_pole"
     },
     {
       "id": "simplebuilding:nihil_end_stone"
@@ -1195,12 +984,6 @@
     },
     {
       "id": "simplebuilding:nihil_end_stone_wall"
-    },
-    {
-      "id": "simplebuilding:nihil_obsidian"
-    },
-    {
-      "id": "simplebuilding:nihil_piston"
     },
     {
       "id": "simplebuilding:nihil_purpur_block"
@@ -1216,18 +999,6 @@
     },
     {
       "id": "simplebuilding:nihil_purpur_wall"
-    },
-    {
-      "id": "simplebuilding:nihil_rail"
-    },
-    {
-      "id": "simplebuilding:nihil_redstone"
-    },
-    {
-      "id": "simplebuilding:nihil_redstone_block"
-    },
-    {
-      "id": "simplebuilding:nihil_redstone_torch"
     },
     {
       "id": "simplebuilding:nihil_vault"
@@ -1299,17 +1070,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:nihilith_end_rod"
-    },
-    {
-      "id": "simplebuilding:nihilith_lamp"
-    },
-    {
       "id": "simplebuilding:nihilith_octet",
       "maxStackSize": 99
-    },
-    {
-      "id": "simplebuilding:nihilith_ore"
     },
     {
       "id": "simplebuilding:nihilith_pillar"
@@ -1322,9 +1084,6 @@
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker_stairs"
-    },
-    {
-      "id": "simplebuilding:nihilith_shard"
     },
     {
       "id": "simplebuilding:nihilith_slab"
@@ -1965,12 +1724,6 @@
     },
     {
       "id": "simplebuilding:warden_tendril"
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_bookshelf"
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks"
     },
     {
       "id": "simplebuilding:warped_cauldron"

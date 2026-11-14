@@ -1,0 +1,1924 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "up": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "down": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "south": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_11"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_10"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_01"
+      }
+    },
+    {
+      "when": {
+        "lit": "false",
+        "north": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_00"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_tr_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_bl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/north_br_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_tr_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_bl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/south_br_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_tr_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_bl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/west_br_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "up": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_tr_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "south": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_bl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "north": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "down": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/east_br_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_tr_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_bl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/up_br_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "south": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_tr_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_bl_00_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_11_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_10_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_01_on"
+      }
+    },
+    {
+      "when": {
+        "lit": "true",
+        "north": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "simpleores:block/nihil_core/down_br_00_on"
+      }
+    }
+  ]
+}

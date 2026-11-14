@@ -1,6 +1,6 @@
 {
   "type": "simplepads:easter_smithing",
-  "addition": "simplepads:netherite_pressure_plate",
+  "addition": "simplelib:netherite_pressure_plate",
   "base": "simplepads:spawn_teleporter",
   "base_stage": 1,
   "result": "simplepads:spawn_teleporter_tier_2",

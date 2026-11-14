@@ -1,6 +1,6 @@
 {
   "type": "simplepads:easter_smithing",
-  "addition": "simplepads:enderite_pressure_plate",
+  "addition": "simplelib:enderite_pressure_plate",
   "base": "simplepads:flypad",
   "base_stage": 1,
   "result": "simplepads:reinforced_flypad",

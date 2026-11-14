@@ -7629,11 +7629,11 @@
         "host": "end_stone",
         "ores": [
           {
-            "id": "simplebuilding:nihilith_ore",
+            "id": "simpleores:nihilith_ore",
             "weight": 92
           },
           {
-            "id": "simplebuilding:astralit_ore",
+            "id": "simpleores:astralit_ore",
             "weight": 8
           }
         ]
@@ -7684,7 +7684,7 @@
       {
         "count": 9,
         "damage": 1,
-        "input": "simplebuilding:blazing_obsidian",
+        "input": "simpleenchanting:blazing_obsidian",
         "result": "simplebuilding:blazing_obsidian_chip",
         "strikes": 9
       },

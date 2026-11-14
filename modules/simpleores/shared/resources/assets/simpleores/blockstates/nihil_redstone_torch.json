@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simpleores:block/nihil_redstone_torch_off"
+    },
+    "lit=true": {
+      "model": "simpleores:block/nihil_redstone_torch"
+    }
+  }
+}

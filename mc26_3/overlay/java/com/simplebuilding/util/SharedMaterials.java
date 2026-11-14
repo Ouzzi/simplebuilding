@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Block;
 public final class SharedMaterials {
     /** Every material group SimpleBuilding uses (all of them): their recipes and the anvil crushing stay on. */
     public static final List<String> GROUPS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates",
-            "polished_end_stone", "cores");
+            "polished_end_stone", "cores", "nether_bookshelves");
 
     /** Item ids that moved from {@code simplebuilding:} to {@code simplelib:} (same paths). */
     public static final List<String> ITEMS = List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block", "netherite_nugget",
@@ -26,21 +26,89 @@ public final class SharedMaterials {
             // Module family stage 3 (AGENTS rule 16): the shared End building block.
             "polished_end_stone",
             // IG31-13: the building cores.
-            "copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core");
+            "copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core",
+            // N48 (14.11.): the plain Nether blazewood bookshelves (group nether_bookshelves); the rest of the blazewood is Simple Enchanting's.
+            "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
     /** Block ids that moved. */
-    public static final List<String> BLOCKS = List.of("cracked_diamond_block", "polished_end_stone");
+    public static final List<String> BLOCKS = List.of("cracked_diamond_block", "polished_end_stone",
+            "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
     /** IG31-13: item ids that moved from {@code simplebuilding:} to {@code simpleores:} (same paths; the blocks have block items). */
     public static final List<String> ORES_ITEMS = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap",
             "enderite_ingot", "enderite_block", "enderite_upgrade_template", "sage_ore", "deepslate_sage_ore", "sage_orb",
-            "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap");
+            "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap",
+            // N46/N47-M2 (b-circ46, 14.11.): the Astralit/Nihilit line with its ores, dust and devices.
+            "astralit_ore", "nihilith_ore", "dull_astralit_ore", "dull_nihilith_ore", "astralit_dust", "dull_astralit_dust", "nihilith_shard",
+            "dull_nihilith_shard", "astral_redstone", "nihil_redstone", "bridge_redstone", "astral_redstone_block", "nihil_redstone_block",
+            "bridge_redstone_block", "astral_redstone_torch", "nihil_redstone_torch", "astralit_lamp", "nihilith_lamp", "astralit_end_rod",
+            "nihilith_end_rod", "astral_piston", "nihil_piston", "astral_rail", "nihil_rail",
+            // N47-M3 (b-circ46, 14.11.): the Enderite gear, the Netherite/Enderite food and the five lightning poles.
+            "enderite_sword", "enderite_spear", "enderite_pickaxe", "enderite_axe", "enderite_shovel", "enderite_hoe", "enderite_helmet",
+            "enderite_chestplate", "enderite_leggings", "enderite_boots", "enderite_horse_armor", "enderite_nautilus_armor",
+            "enderite_apple", "enchanted_enderite_apple", "enderite_carrot", "netherite_apple", "enchanted_netherite_apple",
+            "netherite_carrot", "iron_pole", "gold_pole", "diamond_pole", "netherite_pole", "enderite_pole");
     /** IG31-13: block ids that moved to Simple Ores. */
     public static final List<String> ORES_BLOCKS = List.of("enderite_block", "sage_ore", "deepslate_sage_ore", "dimensional_scrap",
-            "nether_dimensional_scrap", "end_dimensional_scrap");
-    /** IG31-13: recipe ids (stage 3d: SimpleBuilding's, then SimpleLib's) that moved to Simple Ores -> advancement folder. */
-    public static final java.util.Map<String, String> ORES_RECIPES = java.util.Map.of("enderite_nugget_from_ingot", "misc",
-            "enderite_ingot_from_nugget", "misc", "layered_raw_enderite", "misc", "enderite_scrap_from_blasting_layered_raw_enderite", "misc",
-            "enderite_ingot_from_scrap", "misc", "enderite_block", "decorations", "enderite_ingot", "building_blocks",
-            "enderite_upgrade_template", "misc");
+            "nether_dimensional_scrap", "end_dimensional_scrap",
+            // N46/N47-M2 (b-circ46): the line's blocks (the wall torches have no item).
+            "astralit_ore", "nihilith_ore", "dull_astralit_ore", "dull_nihilith_ore", "astral_redstone", "nihil_redstone", "bridge_redstone",
+            "astral_redstone_block", "nihil_redstone_block", "bridge_redstone_block", "astral_redstone_torch", "astral_redstone_wall_torch",
+            "nihil_redstone_torch", "nihil_redstone_wall_torch", "astralit_lamp", "nihilith_lamp", "astralit_end_rod", "nihilith_end_rod",
+            "astral_piston", "nihil_piston", "astral_rail", "nihil_rail",
+            // N47-M3: the lightning poles.
+            "iron_pole", "gold_pole", "diamond_pole", "netherite_pole", "enderite_pole");
+    /** IG31-13: recipe ids (stage 3d: SimpleBuilding's, then SimpleLib's) that moved to Simple Ores -> advancement folder; N46/M2: the line's recipes. */
+    public static final java.util.Map<String, String> ORES_RECIPES = java.util.Map.ofEntries(
+            java.util.Map.entry("enderite_nugget_from_ingot", "misc"),
+            java.util.Map.entry("enderite_ingot_from_nugget", "misc"),
+            java.util.Map.entry("layered_raw_enderite", "misc"),
+            java.util.Map.entry("enderite_scrap_from_blasting_layered_raw_enderite", "misc"),
+            java.util.Map.entry("enderite_ingot_from_scrap", "misc"),
+            java.util.Map.entry("enderite_block", "decorations"),
+            java.util.Map.entry("enderite_ingot", "building_blocks"),
+            java.util.Map.entry("enderite_upgrade_template", "misc"),
+            java.util.Map.entry("astral_piston", "redstone"),
+            java.util.Map.entry("astral_rail", "transportation"),
+            java.util.Map.entry("astral_redstone", "redstone"),
+            java.util.Map.entry("astral_redstone_block", "redstone"),
+            java.util.Map.entry("astral_redstone_from_astral_redstone_block", "redstone"),
+            java.util.Map.entry("astral_redstone_torch", "redstone"),
+            java.util.Map.entry("astralit_dust_from_dull_astralit_dust", "misc"),
+            java.util.Map.entry("astralit_end_rod", "decorations"),
+            java.util.Map.entry("astralit_lamp", "redstone"),
+            java.util.Map.entry("bridge_redstone", "redstone"),
+            java.util.Map.entry("bridge_redstone_block", "redstone"),
+            java.util.Map.entry("bridge_redstone_from_bridge_redstone_block", "redstone"),
+            java.util.Map.entry("nihil_piston", "redstone"),
+            java.util.Map.entry("nihil_rail", "transportation"),
+            java.util.Map.entry("nihil_redstone", "redstone"),
+            java.util.Map.entry("nihil_redstone_block", "redstone"),
+            java.util.Map.entry("nihil_redstone_from_nihil_redstone_block", "redstone"),
+            java.util.Map.entry("nihil_redstone_torch", "redstone"),
+            java.util.Map.entry("nihilith_end_rod", "decorations"),
+            java.util.Map.entry("nihilith_lamp", "redstone"),
+            java.util.Map.entry("nihilith_shard_from_dull_nihilith_shard", "misc"),
+            // N47-M3: the gear smithing, food and pole recipes.
+            java.util.Map.entry("diamond_pole", "redstone"),
+            java.util.Map.entry("enderite_apple", "food"),
+            java.util.Map.entry("enderite_axe_smithing", "combat"),
+            java.util.Map.entry("enderite_boots_smithing", "combat"),
+            java.util.Map.entry("enderite_carrot", "food"),
+            java.util.Map.entry("enderite_chestplate_smithing", "combat"),
+            java.util.Map.entry("enderite_helmet_smithing", "combat"),
+            java.util.Map.entry("enderite_hoe_smithing", "combat"),
+            java.util.Map.entry("enderite_horse_armor_smithing", "combat"),
+            java.util.Map.entry("enderite_leggings_smithing", "combat"),
+            java.util.Map.entry("enderite_nautilus_armor_smithing", "combat"),
+            java.util.Map.entry("enderite_pickaxe_smithing", "combat"),
+            java.util.Map.entry("enderite_pole_smithing", "misc"),
+            java.util.Map.entry("enderite_shovel_smithing", "combat"),
+            java.util.Map.entry("enderite_spear_smithing", "combat"),
+            java.util.Map.entry("enderite_sword_smithing", "combat"),
+            java.util.Map.entry("gold_pole", "redstone"),
+            java.util.Map.entry("iron_pole", "redstone"),
+            java.util.Map.entry("netherite_apple", "food"),
+            java.util.Map.entry("netherite_carrot", "food"),
+            java.util.Map.entry("netherite_pole_smithing", "misc"));
     /** Recipe ids that moved -> folder of their recipe advancement ({@code recipes/<folder>/<id>}, same path in SimpleLib). */
     public static final java.util.Map<String, String> RECIPES = java.util.Map.ofEntries(
             java.util.Map.entry("cracked_diamond", "misc"), java.util.Map.entry("diamond_from_blasting_cracked_diamond", "misc"),
@@ -78,6 +146,16 @@ public final class SharedMaterials {
     public static Block block(String id, Supplier<Block> own) {
         if (ORES_BLOCKS.contains(id)) return ores(net.minecraft.core.registries.BuiltInRegistries.BLOCK, id);
         return SimpleLibApi.materialBlock(id);
+    }
+
+    /** N46/M2: a Simple Ores block that only 26.3 has (the line); the 26.2 twin never registers one (McVersion.END_SYSTEMS off). */
+    public static Block oresBlock(String id) {
+        return ores(net.minecraft.core.registries.BuiltInRegistries.BLOCK, id);
+    }
+
+    /** N46/M2: a Simple Ores item that only 26.3 has (the line). */
+    public static Item oresItem(String id) {
+        return ores(net.minecraft.core.registries.BuiltInRegistries.ITEM, id);
     }
 
     /** A Simple Ores object by id; it must be registered already (Simple Ores' initializer runs first), else this is a load-order bug. */

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simpleores:astralit_dust",
+    "simpleores:nihilith_shard",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "simpleores:bridge_redstone",
+    "count": 3
+  }
+}

@@ -69,7 +69,7 @@ public final class McVersion {
     public static final boolean AUTONOMOUS_CRAFTER = false;
     /** MACH32-MOD stage 4b: the Autonomous Crafter is the required sub-mod Simple Machines' ({@code simplemachines:autonomous_crafter}). */
     public static final boolean AUTONOMOUS_CRAFTER_IN_MACHINES = true;
-    /** Enchanting building blocks: blazewood, blaze books and shelves, Blazing and Nihil Obsidian (owner 2026-10-09, queue N27). Since ENCH02 (03.11.) the tables (Dark/Astral Enchanter) are the required sub-mod Simple Enchanting's ({@code util/EnchantingRefs}); SB keeps the blocks and its endgame option is hidden. */
+    /** Enchanting building blocks: blazewood, blaze books and shelves, Blazing and Nihil Obsidian (owner 2026-10-09, queue N27). Since ENCH02 (03.11.) the tables (Dark/Astral Enchanter) are the required sub-mod Simple Enchanting's ({@code util/EnchantingRefs}); since N48 (14.11.2026) the blazewood planks, chiseled shelves, Blaze Book and Blazing/Nihil Obsidian are Simple Enchanting's too (IdMoves there; the plain Nether shelves are SimpleLib's, group nether_bookshelves) and the {@code ModBlocks}/{@code ModItems} fields point at them; the Nihilit Book stays in SB. Its endgame option is hidden. */
     public static final boolean ASTRAL_ENCHANTING = true;
     /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26); since split stage 8a it is Simple Storage's ({@link #STORAGE_NAMESPACE}). */
     public static final boolean STORAGE_CRAFTING_TABLE = true;
@@ -370,7 +370,8 @@ public final class McVersion {
                 && suffix.equals(armour.getPath()) && DARKER_ON_OWN_MATERIAL.contains(suffix)) {
             return suffix + "_darker";
         }
-        if (armour.getNamespace().equals("simplebuilding") && material.paletteId().getNamespace().equals("simplebuilding")
+        // b-circ46 (N47-M3): the Enderite armor (equipment asset simpleores:enderite) moved to Simple Ores, its trim material stayed.
+        if ((armour.getNamespace().equals("simplebuilding") || armour.getNamespace().equals("simpleores")) && material.paletteId().getNamespace().equals("simplebuilding")
                 && suffix.equals(armour.getPath()) && MOD_DARKER_ON_OWN_MATERIAL.contains(suffix)) {
             return suffix + "_darker";
         }

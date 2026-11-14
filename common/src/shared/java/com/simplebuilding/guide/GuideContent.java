@@ -304,8 +304,9 @@ public final class GuideContent {
             BookStyle old = STYLES.get(book);
             var chapters = new ArrayList<>(old.chapters());
             // ENCH02: the tables are Simple Enchanting's (its own guide); SB's chapter shows the building blocks they stand on.
-            chapters.add(ch("simplebuilding:blazing_obsidian", List.of("simplebuilding:crimson_blazewood_planks", "simplebuilding:blaze_book",
-                    "simplebuilding:crimson_blazewood_bookshelf", "simplebuilding:blazing_obsidian", "simplebuilding:nihil_obsidian"),
+            // N48: Lohenholz, Lohenbuch und Obsidiane sind Simple Enchanting's, das normale Lohen-Regal SimpleLib's.
+            chapters.add(ch("simpleenchanting:blazing_obsidian", List.of("simpleenchanting:crimson_blazewood_planks", "simpleenchanting:blaze_book",
+                    "simplelib:crimson_blazewood_bookshelf", "simpleenchanting:blazing_obsidian", "simpleenchanting:nihil_obsidian"),
                     List.of("minecraft:enchanting_table", "simpleenchanting:dark_enchanter", "simpleenchanting:astral_enchanter")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }

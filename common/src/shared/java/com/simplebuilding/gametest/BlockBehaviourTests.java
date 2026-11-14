@@ -948,70 +948,7 @@ public final class BlockBehaviourTests {
                 ? "dark" : "too bright";
     }
 
-    /**
-     * Iron, Gold, Netherite and Enderite Rod (owner 2026-10-02/03): lightning rods of metal - powered by a strike like the
-     * copper rod, but each only attracts lightning within its own range (iron 32, gold 64, netherite 96, enderite 128 =
-     * copper), found as the top block of its column. Among the metal rods that reach the strike the nearest wins, even
-     * against a rod with more range.
-     */
-    public static void metalRodsAttractLightningWithinTheirOwnRange(GameTestHelper helper) {
-        if (ModBlocks.IRON_POLE == null) {
-            helper.succeed();
-            return;
-        }
-        ServerLevel level = helper.getLevel();
-        helper.assertTrue(ModBlocks.IRON_POLE instanceof net.minecraft.world.level.block.LightningRodBlock, "the iron rod is a lightning rod");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.IRON_POLE).range(), 32, "iron rod range");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.GOLD_POLE).range(), 64, "gold rod range");
-        helper.assertTrue(ModBlocks.DIAMOND_POLE instanceof net.minecraft.world.level.block.LightningRodBlock, "the diamond pole is a lightning rod");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.DIAMOND_POLE).range(), 80, "diamond pole range");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.NETHERITE_POLE).range(), 96, "netherite rod range");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.ENDERITE_POLE).range(), 128, "enderite rod range");
-        helper.assertValueEqual(com.simplebuilding.blocks.custom.MetalRodBlock.MAX_RANGE, 128, "no metal rod reaches further than copper");
-        BlockPos iron = onTop(level, helper.absolutePos(new BlockPos(1, 1, 1)), ModBlocks.IRON_POLE);
-        java.util.Optional<BlockPos> near = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(12, 0, 12));
-        helper.assertTrue(near.isPresent() && near.get().equals(iron.above()), "an iron rod 17 blocks away attracts the bolt, got " + near);
-        java.util.Optional<BlockPos> far = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(40, 0, 0));
-        helper.assertTrue(far.isEmpty() || !far.get().equals(iron.above()), "an iron rod 40 blocks away does not");
-
-        BlockPos gold = onTop(level, iron.offset(2, 0, 0), ModBlocks.GOLD_POLE);
-        java.util.Optional<BlockPos> goldOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(50, 0, 0));
-        helper.assertTrue(goldOnly.isPresent() && goldOnly.get().equals(gold.above()),
-                "a gold rod 48 blocks away attracts the bolt the iron rod no longer reaches, got " + goldOnly);
-        java.util.Optional<BlockPos> nearest = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(-10, 0, 0));
-        helper.assertTrue(nearest.isPresent() && nearest.get().equals(iron.above()),
-                "the nearer iron rod wins over the gold rod with more range, got " + nearest);
-        java.util.Optional<BlockPos> beyond = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, gold.offset(70, 0, 0));
-        helper.assertTrue(beyond.isEmpty() || !(beyond.get().equals(gold.above()) || beyond.get().equals(iron.above())),
-                "a gold rod 70 blocks away still attracts the bolt, got " + beyond);
-
-        // Netherit rechts vom Eisenstab, Enderit links davon: jeder erreicht, was die kleineren nicht mehr erreichen.
-        BlockPos netherite = onTop(level, iron.offset(4, 0, 0), ModBlocks.NETHERITE_POLE);
-        BlockPos enderite = onTop(level, iron.offset(-2, 0, 0), ModBlocks.ENDERITE_POLE);
-        java.util.Optional<BlockPos> netheriteOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, netherite.offset(90, 0, 0));
-        helper.assertTrue(netheriteOnly.isPresent() && netheriteOnly.get().equals(netherite.above()),
-                "a netherite rod 90 blocks away wins over the enderite rod 96 blocks away, got " + netheriteOnly);
-        java.util.Optional<BlockPos> enderiteOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, enderite.offset(-120, 0, 0));
-        helper.assertTrue(enderiteOnly.isPresent() && enderiteOnly.get().equals(enderite.above()),
-                "an enderite rod 120 blocks away attracts the bolt the netherite rod (126) no longer reaches, got " + enderiteOnly);
-        java.util.Optional<BlockPos> outOfReach = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, enderite.offset(-130, 0, 0));
-        helper.assertTrue(outOfReach.isEmpty() || !outOfReach.get().equals(enderite.above()), "an enderite rod 130 blocks away still attracts the bolt");
-
-        for (BlockPos rod : List.of(iron, gold, netherite, enderite)) {
-            BlockState state = level.getBlockState(rod);
-            ((net.minecraft.world.level.block.LightningRodBlock) state.getBlock()).onLightningStrike(state, level, rod);
-            helper.assertTrue(level.getBlockState(rod).getValue(net.minecraft.world.level.block.LightningRodBlock.POWERED), "a strike powers " + state.getBlock());
-            level.setBlock(rod, Blocks.AIR.defaultBlockState(), 3);
-        }
-        helper.succeed();
-    }
-
-    /** Stands {@code block} on top of the column at {@code column} (the test structure may have a roof). */
-    private static BlockPos onTop(ServerLevel level, BlockPos column, Block block) {
-        BlockPos pos = new BlockPos(column.getX(), level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, column.getX(), column.getZ()), column.getZ());
-        level.setBlock(pos, block.defaultBlockState(), 3);
-        return pos;
-    }
+    // N47-M3 (b-circ46): metalRodsAttractLightningWithinTheirOwnRange moved to Simple Ores (OresTests.poleLightning; MetalRodBlock lives there).
 
     /**
      * Poles and the Diamond Rod (owner 2026-10-02, N41): Iron, Gold and Diamond Pole from three stacked, and back into their
@@ -1030,9 +967,9 @@ public final class BlockBehaviourTests {
         Item netherite = com.simplebuilding.items.ModItems.NETHERITE_POLE;
         Item enderite = com.simplebuilding.items.ModItems.ENDERITE_POLE;
         Item iron = com.simplebuilding.items.ModItems.IRON_POLE;
-        expectCraft(helper, stacked(Items.IRON_INGOT), iron, 1, "simplebuilding:iron_pole");
-        expectCraft(helper, stacked(Items.GOLD_INGOT), gold, 1, "simplebuilding:gold_pole");
-        expectCraft(helper, stacked(Items.DIAMOND), diamond, 1, "simplebuilding:diamond_pole");
+        expectCraft(helper, stacked(Items.IRON_INGOT), iron, 1, "simpleores:iron_pole");
+        expectCraft(helper, stacked(Items.GOLD_INGOT), gold, 1, "simpleores:gold_pole");
+        expectCraft(helper, stacked(Items.DIAMOND), diamond, 1, "simpleores:diamond_pole");
         expectCraft(helper, net.minecraft.world.item.crafting.CraftingInput.of(1, 2, List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.DIAMOND))),
                 diamondRod, 1, "simplebuilding:diamond_rod");
         expectCraft(helper, single(iron), Items.IRON_INGOT, 3, "simplebuilding:iron_ingot_from_iron_pole");

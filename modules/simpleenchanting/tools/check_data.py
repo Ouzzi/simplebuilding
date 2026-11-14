@@ -9,9 +9,10 @@ NS = 'simpleenchanting'
 RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simpleenchanting'
 TABLES = ['dark_enchanter', 'astral_enchanter']
-# the building-block twins (registered only without SimpleBuilding)
-TWINS = ['blazing_obsidian', 'nihil_obsidian', 'crimson_blazewood_planks', 'warped_blazewood_planks', 'crimson_blazewood_bookshelf',
-         'warped_blazewood_bookshelf', 'chiseled_crimson_blazewood_bookshelf', 'chiseled_warped_blazewood_bookshelf']
+# N48: the building blocks of the tables are this module's (no twins; SimpleBuilding's ids move here); the plain bookshelves are SimpleLib's
+TWINS = ['blazing_obsidian', 'nihil_obsidian', 'crimson_blazewood_planks', 'warped_blazewood_planks',
+         'chiseled_crimson_blazewood_bookshelf', 'chiseled_warped_blazewood_bookshelf']
+SHELVES = ['crimson_blazewood_bookshelf', 'warped_blazewood_bookshelf']
 # PLAN40 simpleenchanting-1: the blazewood family (always this module's ids, tools/gen_blazewood.py)
 FAMILY_SHAPES = ['stairs', 'slab', 'fence', 'fence_gate', 'door', 'trapdoor', 'pressure_plate', 'button']
 FAMILY = [f'{w}_blazewood_{s}' for w in ('crimson', 'warped') for s in FAMILY_SHAPES]
@@ -31,6 +32,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     need = sorted(used) + [f'block.{NS}.{b}' for b in BLOCKS] + [f'item.{NS}.{b}' for b in BLOCKS]
+    need += [f'item.{NS}.blaze_book']
     need += [f'itemgroup.{NS}.enchanting', f'{NS}.testcentre.station', f'item.{NS}.guide_book']
     need += [f'container.{NS}.{t}' for t in TABLES] + [f'container.{NS}.enchanter.tier_hint.{t}' for t in TABLES]
     need += [f'container.{NS}.enchanter.next.{i}' for i in range(6)] + [f'container.{NS}.enchanter.floor.{i}' for i in range(3)]
@@ -41,20 +43,27 @@ for b in BLOCKS:
     assert (RES / f'assets/{NS}/blockstates/{b}.json').is_file(), b
     assert (RES / f'assets/{NS}/items/{b}.json').is_file(), b
     assert (RES / f'data/{NS}/loot_table/blocks/{b}.json').is_file(), b
-for b in TWINS:
+for b in TWINS + SHELVES + ['blaze_book']:
     recipe = json.loads((RES / f'data/{NS}/recipe/{b}.json').read_text(encoding='utf-8'))
-    # the twins' recipes and loot only load without SimpleBuilding (it owns the blocks)
-    cond = json.dumps(recipe.get('fabric:load_conditions'))
-    assert 'fabric:not' in cond and 'simplebuilding' in cond, b
-    loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{b}.json').read_text(encoding='utf-8'))
-    assert 'simplebuilding' in json.dumps(loot.get('fabric:load_conditions')), b
+    # N48: always loaded, no SimpleBuilding condition any more
+    assert 'simplebuilding' not in json.dumps(recipe), b
+    if b in TWINS:
+        loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{b}.json').read_text(encoding='utf-8'))
+        assert 'simplebuilding' not in json.dumps(loot), b
+for b in SHELVES:
+    # the shelves are SimpleLib's (group nether_bookshelves): recipe here makes the simplelib block, no own assets
+    recipe = json.loads((RES / f'data/{NS}/recipe/{b}.json').read_text(encoding='utf-8'))
+    assert recipe['result']['id'] == f'simplelib:{b}' and recipe['key']['K'] == f'{NS}:blaze_book', b
+    assert not (RES / f'assets/{NS}/blockstates/{b}.json').exists() and not (RES / f'data/{NS}/loot_table/blocks/{b}.json').exists(), b
+for b in ('nihil_obsidian_without_ores',):
+    assert (RES / f'data/{NS}/recipe/{b}.json').is_file(), b
 # The family: crafting recipes always load (no condition) and take the planks by the item tag that names both ids;
 # Shapecutter only with Simple Blocks, stonecutter fallback only without it (PRINZIPIEN A4b); Vanilla's wood tags.
 java_family = (JAVA / 'BlazewoodFamily.java').read_text(encoding='utf-8')
 assert all(f'"{s}"' in java_family for s in FAMILY_SHAPES), 'BlazewoodFamily.SHAPES out of step with check_data'
 for w in ('crimson', 'warped'):
     tag = json.loads((RES / f'data/{NS}/tags/item/{w}_blazewood_planks.json').read_text(encoding='utf-8'))['values']
-    assert tag == [{'id': f'simplebuilding:{w}_blazewood_planks', 'required': False}, {'id': f'{NS}:{w}_blazewood_planks', 'required': False}], tag
+    assert tag == [{'id': f'{NS}:{w}_blazewood_planks', 'required': False}], tag
     for s_ in ('stairs', 'slab', 'fence'):
         stem = f'{w}_blazewood_{s_}_from_{w}_blazewood_planks'
         saw = json.loads((RES / f'data/{NS}/recipe/{stem}_sawing.json').read_text(encoding='utf-8'))

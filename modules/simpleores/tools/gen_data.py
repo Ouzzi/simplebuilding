@@ -18,8 +18,26 @@ DATA = RES / f'data/{NS}'
 OUT = {}
 
 
+# N46/N47-M2 (b-circ46, 14.11.): data of the Astralit/Nihilit line moved from SimpleBuilding (tools/moved_line.json, taken
+# from SimpleBuilding's 26.3 files): sound events, names, tag entries and config texts. Models, loot tables, recipes and
+# worldgen of the line are plain files (moved, not generated here).
+MOVED_LINE = json.loads((MODULE / 'tools/moved_line.json').read_text(encoding='utf-8'))
+# N47-M3 (b-circ46, 14.11.): the same for the Enderite gear, the Netherite/Enderite food and the five lightning poles (tools/moved_gear.json:
+# lang keys and the minecraft: tag entries); merged into the line's tables so put() and lang() treat both alike.
+_GEAR = json.loads((MODULE / 'tools/moved_gear.json').read_text(encoding='utf-8'))
+MOVED_LINE['lang'].update(_GEAR['lang'])
+for _rel, _values in _GEAR['tags'].items():
+    MOVED_LINE['tags'][_rel] = MOVED_LINE['tags'].get(_rel, []) + [v for v in _values if v not in MOVED_LINE['tags'].get(_rel, [])]
+
+
 def put(path, data):
-    OUT[Path(path)] = json.dumps(data, indent=2, ensure_ascii=False) + '\n'
+    path = Path(path)
+    rel = path.relative_to(RES).as_posix() if path.is_relative_to(RES) else None
+    if rel == f'assets/{NS}/sounds.json':
+        data = {**data, **MOVED_LINE['sounds']}
+    elif rel is not None and rel.startswith('data/') and rel[5:] in MOVED_LINE['tags'] and isinstance(data, dict) and 'values' in data:
+        data = {'values': data['values'] + [v for v in MOVED_LINE['tags'][rel[5:]] if v not in data['values']]}
+    OUT[path] = json.dumps(data, indent=2, ensure_ascii=False) + '\n'
 
 
 # ---------------------------------------------------------------- names
@@ -175,7 +193,7 @@ LANTERNS = [f'{m}_lantern' for m in BAR_METALS]
 CHAINS = [f'{m}_chain' for m in BAR_METALS]
 POLE_METALS = {**BAR_METALS, 'rose_gold': ALLOYS['rose_gold'], 'rose_bronze': ALLOYS['rose_bronze']}
 POLES = [f'{m}_pole' for m in POLE_METALS]
-PLATE_METALS = {**POLE_METALS, 'enderite': ('Enderite', 'Enderit'), **{v[2]: v[3] for v in RIFTS.values()}}
+PLATE_METALS = {**POLE_METALS, **{v[2]: v[3] for v in RIFTS.values()}}  # N48: no Enderite - its plate is SimpleLib's
 LIGHT_PLATES = ('silver', 'rose_gold', 'rose_bronze')   # precious metals count like the gold plate, the others like the iron plate
 PRESSURE_PLATES = [f'{m}_pressure_plate' for m in PLATE_METALS]
 LIGHTS_ALL = LAMPS + LANTERNS + CHAINS + POLES + PRESSURE_PLATES
@@ -1063,6 +1081,18 @@ JEI_N4 = {
                            'Seltene kleine Flecken unter Wasser im Fluss- und Strandgrund (einer in jedem 3. Chunk dieser Biome): Sand wird Zinnseifen-Sand, Kies, Erde und Ton werden Zinnseifen-Kies. Mit der Schaufel abbauen: 2 bis 5 Zinnklumpen (Glück hilft, Behutsamkeit behält den Block).'),
 }
 
+
+# N46/M2 (b-circ46): the line's switches (texts as in SimpleBuilding's config before the move).
+CONFIG_CATEGORIES['line'] = ('Astralit and Nihilit line', 'Astralit- und Nihilit-Linie')
+CONFIG_OPTIONS.update({
+    'endOres': deposit(('End ores', 'End-Erze'), 'Off: no new Astralit and Nihilit veins in the End.', 'Aus: keine neuen Astralit- und Nihilit-Adern im End.'),
+    'astralitOre': deposit(('Astralit ore', 'Astralit-Erz'), 'Astralit veins on the End islands (needs End ores).', 'Astralit-Adern auf den End-Inseln (braucht End-Erze).'),
+    'nihilitOre': deposit(('Nihilit ore', 'Nihilit-Erz'), 'Nihilit veins under the End islands (needs End ores).', 'Nihilit-Adern unter den End-Inseln (braucht End-Erze).'),
+})
+for key, texts in MOVED_LINE['config'].items():
+    CONFIG_OPTIONS[key] = ('line', tuple(texts['label']), tuple(texts['tip']))
+
+
 # ---------------------------------------------------------------- lang (guide keys are written by module_guides.py)
 def lang(locale):
     i = 0 if locale == 'en_us' else 1
@@ -1081,6 +1111,7 @@ def lang(locale):
     out['jei.{NS}.info.dimensional_scrap'.replace('{NS}', NS)] = ("Found in every dimension, rarer than ancient debris. Only an Enderite Pickaxe or Sledgehammer can mine it. No use yet.", "Kommt in jeder Dimension vor, seltener als Antiker Schrott. Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer baut ihn ab. Noch ohne Nutzen.")[i]
     for key, texts in JEI_N4.items():
         out[f'jei.{NS}.info.{key}'] = texts[i]
+    out.update({k: v[i] for k, v in MOVED_LINE['lang'].items()})
     out[f'text.autoconfig.{NS}.title'] = ('Simple Ores', 'Simple Ores')[i]
     for cat, texts in CONFIG_CATEGORIES.items():
         out[f'text.autoconfig.{NS}.category.{cat}'] = texts[i]
@@ -1351,7 +1382,10 @@ def manual():
         kind, p = key.split(':')
         notes[f'{NS}:{p}'] = {'sources': NOTE_SRC, 'en': {'summary': en}, 'de': {'summary': de}}
     notes = dict(sorted(notes.items(), key=lambda kv: (kv[0] == f'{NS}:guide_book', 0)))
-    features = FEATURES
+    moved = json.loads((MODULE / 'tools/moved_wiki.json').read_text(encoding='utf-8'))  # b-circ46: line, gear, circuits
+    for key, note in moved['notes'].items():
+        notes.setdefault(key, note)
+    features = FEATURES + moved['features']
     existing_guide = {k: v for k, v in existing['notes'].items() if k == f'{NS}:guide_book'}
     return {'features': features, 'notes': {**notes, **existing_guide}}
 
@@ -1587,14 +1621,22 @@ FEATURES = [
               'soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.',
               'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).',
               'Ore deposits (all true, new chunks after the next world start): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (stone, granite and mountain tin), tinPlacers (tin-bearing gravel and sand).',
+              'Astralit/Nihilit line (N46, before in SimpleBuilding\'s config; on the first start without simpleores-server.json the values of simplebuilding.json are taken over once): endOres, astralitOre, nihilitOre (true, new End veins); endSignals (true): Astral, Nihil and Bridge Redstone conduct; endPistons, endRails (true, only with endSignals); endPistonCooldownTicks (8, range 4 to 100); astralRailMaxSpeed (16, range 8 to 20 blocks per second); astralRailBoost (0.12, range 0.07 to 0.25); nihilRailBrake (0.08, range 0.02 to 0.4). Switched-off devices also lose their recipes (datapack reload).',
               'With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off.']),
             ('Server-Einstellungen', 'config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.',
              ['enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
               'soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.',
               'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).',
               'Erzvorkommen (alle true, neue Chunks nach dem nächsten Weltstart): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (Stein-, Granit- und Berg-Zinn), tinPlacers (Zinnseifen-Kies und -Sand).',
+              'Astralit-/Nihilit-Linie (N46, vorher in der Config von SimpleBuilding; beim ersten Start ohne simpleores-server.json werden die Werte aus simplebuilding.json einmal übernommen): endOres, astralitOre, nihilitOre (true, neue End-Adern); endSignals (true): Astral-, Nihil- und Brücken-Redstone leiten; endPistons, endRails (true, nur mit endSignals); endPistonCooldownTicks (8, Bereich 4 bis 100); astralRailMaxSpeed (16, Bereich 8 bis 20 Blöcke je Sekunde); astralRailBoost (0,12, Bereich 0,07 bis 0,25); nihilRailBrake (0,08, Bereich 0,02 bis 0,4). Abgeschaltete Geräte verlieren auch ihre Rezepte (Datenpaket neu laden).',
               'Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus.'])),
 ]
+# N46/M2: the End veins of the line (on 26.3 SimpleBuilding's own modifiers are neoforge:none overlays).
+neoforge('astralit_ore_placed', '#minecraft:is_end')
+neoforge('nihilith_ore_placed', '#minecraft:is_end')
+for _rel in MOVED_LINE['tags']:   # tag files only the line needs (the others merge in put)
+    if DATA.parent / _rel not in OUT:
+        put(DATA.parent / _rel, {'values': []})
 put(MODULE / 'wiki/manual.json', manual())
 
 

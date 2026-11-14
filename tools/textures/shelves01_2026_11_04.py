@@ -263,6 +263,11 @@ def derived_end(jar) -> dict:
 
 def derived_enchanting(jar) -> dict:
     out = {}
+    # N48 (14.11.): the Blaze Book moved from SimpleBuilding to Simple Enchanting (n41_round3 art, Vanilla written_book layout).
+    import os
+    os.environ['SB_CLIENT_JAR'] = str(jar_of(jar).path)
+    import n41_round3_2026_10_12 as n41
+    out['item/blaze_book.png'] = n41.blaze_book(2)
     for wood in BLAZE_WOODS:
         for k, im in blaze_chiseled(jar, wood).items():
             if k != 'top':

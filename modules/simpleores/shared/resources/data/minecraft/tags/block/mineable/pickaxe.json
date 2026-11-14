@@ -183,7 +183,6 @@
     "simpleores:stainless_steel_pressure_plate",
     "simpleores:rose_gold_pressure_plate",
     "simpleores:rose_bronze_pressure_plate",
-    "simpleores:enderite_pressure_plate",
     "simpleores:terranite_pressure_plate",
     "simpleores:infernite_pressure_plate",
     "simpleores:zenithite_pressure_plate",
@@ -192,6 +191,24 @@
     "simpleores:deepslate_sage_ore",
     "simpleores:dimensional_scrap",
     "simpleores:nether_dimensional_scrap",
-    "simpleores:end_dimensional_scrap"
+    "simpleores:end_dimensional_scrap",
+    "simpleores:astral_rail",
+    "simpleores:nihil_rail",
+    "simpleores:astral_piston",
+    "simpleores:nihil_piston",
+    "simpleores:astral_redstone_block",
+    "simpleores:nihil_redstone_block",
+    "simpleores:bridge_redstone_block",
+    "simpleores:dull_astralit_ore",
+    "simpleores:dull_nihilith_ore",
+    "simpleores:nihilith_ore",
+    "simpleores:astralit_ore",
+    "simpleores:astral_relay",
+    "simpleores:nihil_core",
+    "simpleores:iron_pole",
+    "simpleores:gold_pole",
+    "simpleores:diamond_pole",
+    "simpleores:netherite_pole",
+    "simpleores:enderite_pole"
   ]
 }

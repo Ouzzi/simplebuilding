@@ -20,15 +20,13 @@ public class ModOreGeneration {
             BiomeSelectors.foundInTheEnd().or(BiomeSelectors.tag(BiomeTags.IS_END));
 
     public static void generateOres() {
-        // Füge Astralit zu allen End-Biomen hinzu
-        BiomeModifications.addFeature((END_BIOMES).and(context -> com.simplebuilding.config.ConfigFlags.oreEnabled(true)),
-                GenerationStep.Decoration.UNDERGROUND_ORES,
-                ModWorldGen.ASTRALIT_ORE_PLACED_KEY);
-
-        // Füge Nihilith zu allen End-Biomen hinzu
-        BiomeModifications.addFeature((END_BIOMES).and(context -> com.simplebuilding.config.ConfigFlags.oreEnabled(false)),
-                GenerationStep.Decoration.UNDERGROUND_ORES,
-                ModWorldGen.NIHILITH_ORE_PLACED_KEY);
+        // Astralit und Nihilith in allen End-Biomen; N46/M2 (b-circ46): on 26.3 Simple Ores places them (its own switches).
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
+            BiomeModifications.addFeature((END_BIOMES).and(context -> com.simplebuilding.config.ConfigFlags.oreEnabled(true)),
+                    GenerationStep.Decoration.UNDERGROUND_ORES, ModWorldGen.ASTRALIT_ORE_PLACED_KEY);
+            BiomeModifications.addFeature((END_BIOMES).and(context -> com.simplebuilding.config.ConfigFlags.oreEnabled(false)),
+                    GenerationStep.Decoration.UNDERGROUND_ORES, ModWorldGen.NIHILITH_ORE_PLACED_KEY);
+        }
 
         // Weisheitserz in jedem Oberwelt-Biom (Besitzer 2026-10-01), nur auf der Hauptlinie. Der Tag wie bei
         // END_BIOMES: die flache Testwelt meldet ihre Biome nicht ueber foundInOverworld().

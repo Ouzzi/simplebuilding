@@ -20,7 +20,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "N": "simplebuilding:nihilith_shard",
+    "N": "simpleores:nihilith_shard",
     "P": "simpleend:ashwood_planks"
   },
   "pattern": [

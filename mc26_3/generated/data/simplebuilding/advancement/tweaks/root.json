@@ -11,8 +11,8 @@
               "simplegadgets:detector",
               "simplegadgets:velocity_gauge",
               "simplegadgets:amethyst_lens",
-              "simplebuilding:netherite_apple",
-              "simplebuilding:netherite_carrot",
+              "simpleores:netherite_apple",
+              "simpleores:netherite_carrot",
               "simplemobheads:blaze_head"
             ]
           }

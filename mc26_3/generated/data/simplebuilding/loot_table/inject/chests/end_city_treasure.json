@@ -92,7 +92,7 @@
               "min": 2
             }
           },
-          "name": "simplebuilding:astralit_dust",
+          "name": "simpleores:astralit_dust",
           "weight": 6
         },
         {
@@ -105,7 +105,7 @@
               "min": 1
             }
           },
-          "name": "simplebuilding:nihilith_shard",
+          "name": "simpleores:nihilith_shard",
           "weight": 6
         },
         {
@@ -226,12 +226,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enderite_apple",
+          "name": "simpleores:enderite_apple",
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enchanted_enderite_apple"
+          "name": "simpleores:enchanted_enderite_apple"
         },
         {
           "type": "minecraft:empty",

@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "brushed=0": {
+      "model": "simpleores:block/astralit_ore"
+    },
+    "brushed=1": {
+      "model": "simpleores:block/astralit_ore_brushed_1"
+    },
+    "brushed=2": {
+      "model": "simpleores:block/astralit_ore_brushed_1"
+    },
+    "brushed=3": {
+      "model": "simpleores:block/astralit_ore_brushed_2"
+    },
+    "brushed=4": {
+      "model": "simpleores:block/astralit_ore_brushed_2"
+    },
+    "brushed=5": {
+      "model": "simpleores:block/astralit_ore_brushed_2"
+    },
+    "brushed=6": {
+      "model": "simpleores:block/astralit_ore_exposed"
+    }
+  }
+}

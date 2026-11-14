@@ -6,9 +6,9 @@
           {
             "items": [
               "simplepads:copper_pressure_plate",
-              "simplepads:diamond_pressure_plate",
-              "simplepads:netherite_pressure_plate",
-              "simplepads:enderite_pressure_plate"
+              "simplelib:diamond_pressure_plate",
+              "simplelib:netherite_pressure_plate",
+              "simplelib:enderite_pressure_plate"
             ]
           }
         ]

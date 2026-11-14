@@ -52,6 +52,21 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void materialPlatesRegisteredAndMoved(GameTestHelper h) {
+        LibTests.ALL.get("material_plates_registered_and_moved").accept(h);
+    }
+
+    @GameTest(maxTicks = 100)
+    public void emeraldPlateVillagersOnly(GameTestHelper h) {
+        LibTests.ALL.get("emerald_plate_villagers_only").accept(h);
+    }
+
+    @GameTest(maxTicks = 100)
+    public void emeraldPlateInvertsWhenPowered(GameTestHelper h) {
+        LibTests.ALL.get("emerald_plate_inverts_when_powered").accept(h);
+    }
+
+    @GameTest
     public void inWorldUpgradesDataType(GameTestHelper h) {
         LibTests.ALL.get("in_world_upgrades_data_type").accept(h);
     }

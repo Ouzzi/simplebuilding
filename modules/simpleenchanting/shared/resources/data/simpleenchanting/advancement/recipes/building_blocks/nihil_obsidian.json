@@ -1,22 +1,19 @@
 {
   "fabric:load_conditions": [
     {
-      "condition": "fabric:not",
-      "value": {
-        "condition": "fabric:all_mods_loaded",
-        "values": [
-          "simplebuilding"
-        ]
-      }
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_popped_chorus_fruit": {
+    "has_nihilith_shard": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:popped_chorus_fruit"
+            "items": "simpleores:nihilith_shard"
           }
         ]
       },
@@ -42,7 +39,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_popped_chorus_fruit",
+      "has_nihilith_shard",
       "has_crying_obsidian"
     ]
   ],

@@ -1,0 +1,764 @@
+{
+  "variants": {
+    "powered=false,stage=0,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 90
+    },
+    "powered=false,stage=1,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 90
+    },
+    "powered=false,stage=2,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 90
+    },
+    "powered=false,stage=3,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 90
+    },
+    "powered=true,stage=0,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 90
+    },
+    "powered=true,stage=1,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 90
+    },
+    "powered=true,stage=2,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 90
+    },
+    "powered=true,stage=3,facing=north,out=0": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 90
+    },
+    "powered=false,stage=0,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=1,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=2,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=3,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=0,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=1,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=2,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=3,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=0,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=1,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=2,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=3,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=0,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=1,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=2,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,stage=3,facing=north,out=2": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,stage=0,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 90
+    },
+    "powered=false,stage=1,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 90
+    },
+    "powered=false,stage=2,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 90
+    },
+    "powered=false,stage=3,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 90
+    },
+    "powered=true,stage=0,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 90
+    },
+    "powered=true,stage=1,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 90
+    },
+    "powered=true,stage=2,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 90
+    },
+    "powered=true,stage=3,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 90
+    },
+    "powered=false,stage=0,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=1,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=2,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=3,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=0,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=1,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=2,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=3,facing=south,out=0": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=0,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 270
+    },
+    "powered=false,stage=1,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 270
+    },
+    "powered=false,stage=2,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 270
+    },
+    "powered=false,stage=3,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 270
+    },
+    "powered=true,stage=0,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 270
+    },
+    "powered=true,stage=1,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 270
+    },
+    "powered=true,stage=2,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 270
+    },
+    "powered=true,stage=3,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 270
+    },
+    "powered=false,stage=0,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 270
+    },
+    "powered=false,stage=1,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 270
+    },
+    "powered=false,stage=2,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 270
+    },
+    "powered=false,stage=3,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 270
+    },
+    "powered=true,stage=0,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 270
+    },
+    "powered=true,stage=1,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 270
+    },
+    "powered=true,stage=2,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 270
+    },
+    "powered=true,stage=3,facing=south,out=2": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 270
+    },
+    "powered=false,stage=0,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=1,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=2,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=3,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=0,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=1,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=2,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,stage=3,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,stage=0,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=1,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=2,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=3,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=0,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=1,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=2,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=3,facing=west,out=0": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=0,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=1,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=2,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=3,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=0,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=1,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=2,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=3,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=0,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=1,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=2,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=3,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=0,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=1,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=2,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,stage=3,facing=west,out=2": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,stage=0,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=1,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=2,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=3,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=0,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=1,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=2,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,stage=3,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,stage=0,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=1,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=2,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=3,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=0,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=1,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=2,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=3,facing=east,out=0": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=0,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=1,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=2,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=3,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=0,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=1,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=2,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=3,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=0,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=1,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=2,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=3,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=0,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=1,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=2,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,stage=3,facing=east,out=2": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,stage=0,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=1,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=2,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=3,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=0,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_0_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=1,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_1_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=2,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_2_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,stage=3,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/signal_dampener_3_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,stage=0,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 180
+    },
+    "powered=false,stage=1,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 180
+    },
+    "powered=false,stage=2,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 180
+    },
+    "powered=false,stage=3,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 180
+    },
+    "powered=true,stage=0,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 180
+    },
+    "powered=true,stage=1,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 180
+    },
+    "powered=true,stage=2,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 180
+    },
+    "powered=true,stage=3,facing=down,out=0": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 180
+    },
+    "powered=false,stage=0,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 180,
+      "y": 90
+    },
+    "powered=false,stage=1,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 180,
+      "y": 90
+    },
+    "powered=false,stage=2,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 180,
+      "y": 90
+    },
+    "powered=false,stage=3,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 180,
+      "y": 90
+    },
+    "powered=true,stage=0,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 180,
+      "y": 90
+    },
+    "powered=true,stage=1,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 180,
+      "y": 90
+    },
+    "powered=true,stage=2,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 180,
+      "y": 90
+    },
+    "powered=true,stage=3,facing=down,out=1": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 180,
+      "y": 90
+    },
+    "powered=false,stage=0,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 180,
+      "y": 180
+    },
+    "powered=false,stage=1,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 180,
+      "y": 180
+    },
+    "powered=false,stage=2,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 180,
+      "y": 180
+    },
+    "powered=false,stage=3,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 180,
+      "y": 180
+    },
+    "powered=true,stage=0,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 180,
+      "y": 180
+    },
+    "powered=true,stage=1,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 180,
+      "y": 180
+    },
+    "powered=true,stage=2,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 180,
+      "y": 180
+    },
+    "powered=true,stage=3,facing=down,out=2": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 180,
+      "y": 180
+    },
+    "powered=false,stage=0,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_0",
+      "x": 180,
+      "y": 270
+    },
+    "powered=false,stage=1,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_1",
+      "x": 180,
+      "y": 270
+    },
+    "powered=false,stage=2,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_2",
+      "x": 180,
+      "y": 270
+    },
+    "powered=false,stage=3,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_3",
+      "x": 180,
+      "y": 270
+    },
+    "powered=true,stage=0,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_0_on",
+      "x": 180,
+      "y": 270
+    },
+    "powered=true,stage=1,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_1_on",
+      "x": 180,
+      "y": 270
+    },
+    "powered=true,stage=2,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_2_on",
+      "x": 180,
+      "y": 270
+    },
+    "powered=true,stage=3,facing=down,out=3": {
+      "model": "simplemachines:block/signal_dampener_3_on",
+      "x": 180,
+      "y": 270
+    }
+  }
+}

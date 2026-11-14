@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleores:block/astralit_lamp_top_on",
+    "side": "simpleores:block/astralit_lamp_on"
+  }
+}

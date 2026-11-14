@@ -9,7 +9,7 @@ public final class ModuleGameTest {
     @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleores", false); }
 
     /** JEI24 (a-fix09b): Sage Ore, Sage Orb and Dimensional Scrap pages, N4 (b-ores13): six deposit pages; texts in EN and DE. */
-    @GameTest public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleores", 9); }
+    @GameTest public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleores", 13); }  // N46/M2: +4 End ore pages
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
@@ -252,5 +252,237 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void metalSounds(GameTestHelper h) {
         OresTests.ALL.get("metal_sounds").accept(h);
+    }
+
+    // Enderite gear, food and poles (N47-M3, moved from the core): bodies in com.simpleores.gear.test.GearTests, registered via OresTests.
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearValuesEqualTheOldCoreValues(GameTestHelper h) {
+        OresTests.ALL.get("gear_values_equal_the_old_core_values").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearFoodEffectsEqualTheOldCoreValues(GameTestHelper h) {
+        OresTests.ALL.get("gear_food_effects_equal_the_old_core_values").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearPolesPullLightningWithinTheirRange(GameTestHelper h) {
+        OresTests.ALL.get("gear_poles_pull_lightning_within_their_range").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearOldSimplebuildingIdsLoadAsSimpleOresIds(GameTestHelper h) {
+        OresTests.ALL.get("gear_old_simplebuilding_ids_load_as_simple_ores_ids").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearEnderiteArmorDampensSneakingFall(GameTestHelper h) {
+        OresTests.ALL.get("gear_enderite_armor_dampens_sneaking_fall").accept(h);
+    }
+
+    // Redstone line (moved from the core with the line): bodies in com.simpleores.line.test.LineTests, registered via OresTests.
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineLinesStaySeparateSideBySide(GameTestHelper h) {
+        OresTests.ALL.get("line_lines_stay_separate_side_by_side").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineLinesStaySeparateThroughTheBlock(GameTestHelper h) {
+        OresTests.ALL.get("line_lines_stay_separate_through_the_block").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineVanillaSourcesFeedAstralAndNihil(GameTestHelper h) {
+        OresTests.ALL.get("line_vanilla_sources_feed_astral_and_nihil").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineAstralPowersLampAndPiston(GameTestHelper h) {
+        OresTests.ALL.get("line_astral_powers_lamp_and_piston").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineBridgeLinksAllLines(GameTestHelper h) {
+        OresTests.ALL.get("line_bridge_links_all_lines").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineLampsToggleOnEveryLine(GameTestHelper h) {
+        OresTests.ALL.get("line_lamps_toggle_on_every_line").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineEveryDeviceTakesRedstone(GameTestHelper h) {
+        OresTests.ALL.get("line_every_device_takes_redstone").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineEveryDeviceTakesAstral(GameTestHelper h) {
+        OresTests.ALL.get("line_every_device_takes_astral").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineEveryDeviceTakesNihil(GameTestHelper h) {
+        OresTests.ALL.get("line_every_device_takes_nihil").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineEveryDeviceTakesBridge(GameTestHelper h) {
+        OresTests.ALL.get("line_every_device_takes_bridge").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 140)
+    public void lineLineBlocksPowerEveryDevice(GameTestHelper h) {
+        OresTests.ALL.get("line_line_blocks_power_every_device").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineLineBlocksFeedOnlyTheirLine(GameTestHelper h) {
+        OresTests.ALL.get("line_line_blocks_feed_only_their_line").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineLineTorchesFeedOnlyTheirLine(GameTestHelper h) {
+        OresTests.ALL.get("line_line_torches_feed_only_their_line").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void lineLineTorchPowersTheBlockAboveAndInverts(GameTestHelper h) {
+        OresTests.ALL.get("line_line_torch_powers_the_block_above_and_inverts").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineLineTorchRecipeAndDrop(GameTestHelper h) {
+        OresTests.ALL.get("line_line_torch_recipe_and_drop").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineLineBlockRecipesRoundTrip(GameTestHelper h) {
+        OresTests.ALL.get("line_line_block_recipes_round_trip").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineLineBlocksHaveOwnSounds(GameTestHelper h) {
+        OresTests.ALL.get("line_line_blocks_have_own_sounds").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineRedstoneRecipesYieldTwo(GameTestHelper h) {
+        OresTests.ALL.get("line_redstone_recipes_yield_two").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 220)
+    public void lineChannelsStayIsolatedAndStopAtFifteen(GameTestHelper h) {
+        OresTests.ALL.get("line_channels_stay_isolated_and_stop_at_fifteen").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 220)
+    public void linePowderConnectsLikeRedstoneWire(GameTestHelper h) {
+        OresTests.ALL.get("line_powder_connects_like_redstone_wire").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void linePistonPushesAllSixAtOnce(GameTestHelper h) {
+        OresTests.ALL.get("line_piston_pushes_all_six_at_once").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void linePistonNeverChains(GameTestHelper h) {
+        OresTests.ALL.get("line_piston_never_chains").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineNihilPullsAcrossTheGap(GameTestHelper h) {
+        OresTests.ALL.get("line_nihil_pulls_across_the_gap").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void linePistonLeavesImmovablesAlone(GameTestHelper h) {
+        OresTests.ALL.get("line_piston_leaves_immovables_alone").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineTwoPistonsMoveOneBlockOnce(GameTestHelper h) {
+        OresTests.ALL.get("line_two_pistons_move_one_block_once").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void linePistonFiresOnRisingEdgeOnly(GameTestHelper h) {
+        OresTests.ALL.get("line_piston_fires_on_rising_edge_only").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void linePistonTakesEveryLine(GameTestHelper h) {
+        OresTests.ALL.get("line_piston_takes_every_line").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineAstralBoostApproachesTopSpeedWithoutPassingIt(GameTestHelper h) {
+        OresTests.ALL.get("line_astral_boost_approaches_top_speed_without_passing_it").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineAstralBoostsMoreThanThePoweredRail(GameTestHelper h) {
+        OresTests.ALL.get("line_astral_boosts_more_than_the_powered_rail").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineNihilBrakeStopsSmoothly(GameTestHelper h) {
+        OresTests.ALL.get("line_nihil_brake_stops_smoothly").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineEndRailConfigIsClamped(GameTestHelper h) {
+        OresTests.ALL.get("line_end_rail_config_is_clamped").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineEndRailIsFedByEveryLine(GameTestHelper h) {
+        OresTests.ALL.get("line_end_rail_is_fed_by_every_line").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 140)
+    public void lineAstralRailLaunchesTheCartPastVanillaSpeed(GameTestHelper h) {
+        OresTests.ALL.get("line_astral_rail_launches_the_cart_past_vanilla_speed").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 120)
+    public void lineNihilRailStopsAndFastCartTakesTheCurve(GameTestHelper h) {
+        OresTests.ALL.get("line_nihil_rail_stops_and_fast_cart_takes_the_curve").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitRelayTogglesAndSends(GameTestHelper h) {
+        OresTests.ALL.get("circuit_relay_toggles_and_sends").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitCoreGroupSwitchesTogether(GameTestHelper h) {
+        OresTests.ALL.get("circuit_core_group_switches_together").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitWallDustSticksAndPowers(GameTestHelper h) {
+        OresTests.ALL.get("circuit_wall_dust_sticks_and_powers").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitWallDiodesPlaceAndSwitch(GameTestHelper h) {
+        OresTests.ALL.get("circuit_wall_diodes_place_and_switch").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void circuitWallDustRoundsTheEdge(GameTestHelper h) {
+        OresTests.ALL.get("circuit_wall_dust_rounds_the_edge").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 20)
+    public void circuitConfigTakesOverSimplebuilding(GameTestHelper h) {
+        OresTests.ALL.get("circuit_config_takes_over_simplebuilding").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 40)
+    public void circuitLineIdsMigrate(GameTestHelper h) {
+        OresTests.ALL.get("circuit_line_ids_migrate").accept(h);
     }
 }

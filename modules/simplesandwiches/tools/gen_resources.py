@@ -258,7 +258,7 @@ def resources():
 
     tag("item", "sandwich_ingredients", [f"minecraft:{name}" for name in FOODS]
         + [f"{NS}:cheese_slice", f"{NS}:cake_slice"]
-        + [{"id": f"simplebuilding:{name}", "required": False} for name in (
+        + [{"id": f"simpleores:{name}", "required": False} for name in (
             "netherite_apple", "enchanted_netherite_apple", "netherite_carrot",
             "enderite_apple", "enchanted_enderite_apple", "enderite_carrot")]
         # PLAN40 simplesandwiches-3: food of other Simple mods, only when installed (required false).

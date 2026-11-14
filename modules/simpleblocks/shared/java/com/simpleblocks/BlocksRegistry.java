@@ -364,6 +364,11 @@ public final class BlocksRegistry {
         if (com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM != null) out.add(new ItemStack(com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM));
         out.addAll(com.simpleblocks.pale.PaleBlocks.tabStacks()); // DW04B: the pale stages and their waxed copies
         out.addAll(com.simpleblocks.compact.CompactBlocks.tabStacks()); // WH26-10: Compact and Dense blocks
+        // N48 (14.11.): the plain Crimson/Warped blazewood bookshelves are SimpleLib content (group nether_bookshelves, requested by this
+        // module); with SimpleBuilding they stand in its blazewood row (appended behind this tab), so only list them alone.
+        if (!SimpleBlocks.simplebuildingLoaded) {
+            for (String shelf : com.simplelib.registry.LibMaterials.NETHER_BOOKSHELVES) out.add(new ItemStack(com.simplelib.api.SimpleLibApi.materialItem(shelf)));
+        }
         out.add(com.simpleblocks.guide.BlocksGuide.stack());
         return out;
     }

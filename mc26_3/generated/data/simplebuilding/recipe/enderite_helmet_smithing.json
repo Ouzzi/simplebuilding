@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "simpleores:enderite_ingot",
-  "base": "minecraft:netherite_helmet",
-  "result": {
-    "id": "simplebuilding:enderite_helmet"
-  },
-  "template": "simpleores:enderite_upgrade_template"
-}

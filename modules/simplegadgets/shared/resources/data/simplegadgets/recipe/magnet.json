@@ -21,7 +21,7 @@
   "category": "equipment",
   "key": {
     "C": "simplelib:iron_core",
-    "I": "simplebuilding:iron_pole",
+    "I": "simpleores:iron_pole",
     "L": "minecraft:lapis_lazuli",
     "R": "minecraft:redstone"
   },

@@ -38,27 +38,27 @@
     "simplesandwiches:cheese_slice",
     "simplesandwiches:cake_slice",
     {
-      "id": "simplebuilding:netherite_apple",
+      "id": "simpleores:netherite_apple",
       "required": false
     },
     {
-      "id": "simplebuilding:enchanted_netherite_apple",
+      "id": "simpleores:enchanted_netherite_apple",
       "required": false
     },
     {
-      "id": "simplebuilding:netherite_carrot",
+      "id": "simpleores:netherite_carrot",
       "required": false
     },
     {
-      "id": "simplebuilding:enderite_apple",
+      "id": "simpleores:enderite_apple",
       "required": false
     },
     {
-      "id": "simplebuilding:enchanted_enderite_apple",
+      "id": "simpleores:enchanted_enderite_apple",
       "required": false
     },
     {
-      "id": "simplebuilding:enderite_carrot",
+      "id": "simpleores:enderite_carrot",
       "required": false
     },
     {

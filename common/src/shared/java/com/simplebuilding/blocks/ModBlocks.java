@@ -32,33 +32,34 @@ public class ModBlocks {
     public static final Block POTTED_SILENT_DANDELION = McVersion.SILENT_DANDELION
             ? registerBlock("potted_silent_dandelion", Blocks.POTTED_DANDELION,
                     s -> new net.minecraft.world.level.block.FlowerPotBlock(SILENT_DANDELION, s)) : null;
-    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, signalDust(s, com.simplebuilding.util.LineSounds.NIHIL_DUST))) : null;
-    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, signalDust(s, com.simplebuilding.util.LineSounds.ASTRAL_DUST))) : null;
+    // N46/N47-M2 (b-circ46, 14.11.): the Astralit/Nihilit line lives in Simple Ores (simpleores:*, com.simpleores.line); the fields point at its blocks.
+    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihil_redstone") : null;
+    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("astral_redstone") : null;
     /** Astral/Nihilith Lamp (Nachtrag 44, 2026-10-12): toggles like a copper bulb on a pulse of its own line's dust. */
-    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalLampBlock(false, endLamp(s, com.simplebuilding.util.LineSounds.NIHIL_LAMP))) : null;
-    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalLampBlock(true, endLamp(s, com.simplebuilding.util.LineSounds.ASTRAL_LAMP))) : null;
+    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihilith_lamp") : null;
+    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("astralit_lamp") : null;
     /** Bridge Redstone (2026-10-11): links redstone, Astral and Nihil like one shared wire. */
-    public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, signalDust(s, com.simplebuilding.util.LineSounds.BRIDGE_DUST))) : null;
+    public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("bridge_redstone") : null;
     /** Astral/Nihil/Bridge Redstone Block (N51, 2026-10-13): nine dust, a permanent source of its line(s) like the redstone block. */
-    public static final Block ASTRAL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
-    public static final Block NIHIL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
-    public static final Block BRIDGE_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, s.mapColor(MapColor.COLOR_MAGENTA))) : null;
+    public static final Block ASTRAL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("astral_redstone_block") : null;
+    public static final Block NIHIL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihil_redstone_block") : null;
+    public static final Block BRIDGE_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("bridge_redstone_block") : null;
     /** Astral/Nihil Redstone Torch (B23-M1, 2026-10-23): Vanilla's redstone torch whose output belongs to its line. */
-    public static final Block ASTRAL_REDSTONE_TORCH = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
-    public static final Block ASTRAL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_wall_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneWallTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, wallTorch(s, ASTRAL_REDSTONE_TORCH).mapColor(MapColor.COLOR_PINK))) : null;
-    public static final Block NIHIL_REDSTONE_TORCH = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
-    public static final Block NIHIL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_wall_torch", Blocks.REDSTONE_TORCH, s -> new com.simplebuilding.blocks.custom.LineRedstoneWallTorchBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, wallTorch(s, NIHIL_REDSTONE_TORCH).mapColor(MapColor.COLOR_CYAN))) : null;
+    public static final Block ASTRAL_REDSTONE_TORCH = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("astral_redstone_torch") : null;
+    public static final Block ASTRAL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("astral_redstone_wall_torch") : null;
+    public static final Block NIHIL_REDSTONE_TORCH = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihil_redstone_torch") : null;
+    public static final Block NIHIL_REDSTONE_WALL_TORCH = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihil_redstone_wall_torch") : null;
     /** Astralit/Nihilit End Rod (W24-4, 2026-10-23): Vanilla's End rod in the colours of its line. */
-    public static final Block ASTRALIT_END_ROD = McVersion.END_SYSTEMS ? registerBlock("astralit_end_rod", Blocks.END_ROD, s -> new com.simplebuilding.blocks.custom.LineEndRodBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
-    public static final Block NIHILITH_END_ROD = McVersion.END_SYSTEMS ? registerBlock("nihilith_end_rod", Blocks.END_ROD, s -> new com.simplebuilding.blocks.custom.LineEndRodBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
+    public static final Block ASTRALIT_END_ROD = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("astralit_end_rod") : null;
+    public static final Block NIHILITH_END_ROD = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihilith_end_rod") : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
-    public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(com.simplebuilding.util.LineSounds.NIHIL_PISTON).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
-    public static final Block ASTRAL_PISTON = McVersion.END_SYSTEMS ? registerBlock("astral_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(true, s.strength(1.5F).sound(com.simplebuilding.util.LineSounds.ASTRAL_PISTON).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
+    public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihil_piston") : null;
+    public static final Block ASTRAL_PISTON = McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresBlock("astral_piston") : null;
     // Astral-/Nihil-Schienen (2026-10-04, docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md): gerade Schienen mit den
     // Eigenschaften der Antriebsschiene, gespeist ueber den eigenen End-Kanal; Physik in EndRailPhysics.
-    public static final Block NIHIL_RAIL = McVersion.END_RAILS ? registerBlock("nihil_rail", Blocks.POWERED_RAIL, s -> new com.simplebuilding.blocks.custom.EndRailBlock(false, s)) : null;
-    public static final Block ASTRAL_RAIL = McVersion.END_RAILS ? registerBlock("astral_rail", Blocks.POWERED_RAIL, s -> new com.simplebuilding.blocks.custom.EndRailBlock(true, s)) : null;
+    public static final Block NIHIL_RAIL = McVersion.END_RAILS ? com.simplebuilding.util.SharedMaterials.oresBlock("nihil_rail") : null;
+    public static final Block ASTRAL_RAIL = McVersion.END_RAILS ? com.simplebuilding.util.SharedMaterials.oresBlock("astral_rail") : null;
     public static final Block ASTRAL_VAULT = McVersion.END_SYSTEMS ? registerBlock("astral_vault", Blocks.ENDER_CHEST, s -> new AstralVaultBlock(s.strength(50.0F, 1200.0F))) : null;
     // Nihil-Gewoelbe (2026-10-04, docs/ai/PLAN-NIHIL-GEWOELBE-2026-10-02.md): eine weltweit geteilte Endertruhe.
     public static final Block NIHIL_VAULT = McVersion.END_SYSTEMS ? registerBlock("nihil_vault", Blocks.ENDER_CHEST, s -> new com.simplebuilding.blocks.custom.NihilVaultBlock(s.strength(50.0F, 1200.0F))) : null;
@@ -270,21 +271,21 @@ public class ModBlocks {
     // der Dark Enchanter); SB behaelt die Baubloecke darunter. Die Felder zeigen per Id auf die Modul-Bloecke (Luft ohne Modul).
     public static final Block DARK_ENCHANTER = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("dark_enchanter") : null;
     public static final Block ASTRAL_ENCHANTER = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("astral_enchanter") : null;
-    /** Lohenholz je Nether-Holzart: 8 Lohenstaub um ein Brett. */
-    public static final Block CRIMSON_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("crimson_blazewood_planks", Blocks.CRIMSON_PLANKS, Block::new) : null;
-    public static final Block WARPED_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("warped_blazewood_planks", Blocks.WARPED_PLANKS, Block::new) : null;
-    /** Lohen-Buecherregale: zaehlen am Astral-Tisch doppelt (am Vanilla-Tisch wie ein Regal). */
+    // N48 (14.11.): Lohenholz gehoert dem Pflicht-Sub-Mod Simple Enchanting (simpleenchanting:*, IdMoves dort, keine Zwillinge mehr):
+    // Bretter, gemeisselte Regale, Lohen- und Nihil-Obsidian. Die normalen Lohen-Buecherregale (crimson/warped) sind SimpleLib-Inhalt
+    // (simplelib:*, Gruppe nether_bookshelves, per SharedMaterials). Die Felder zeigen per Id auf die Objekte (Luft ohne Simple Enchanting).
+    public static final Block CRIMSON_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("crimson_blazewood_planks") : null;
+    public static final Block WARPED_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("warped_blazewood_planks") : null;
+    /** Lohen-Buecherregale: zaehlen am Astral-Tisch doppelt (am Vanilla-Tisch wie ein Regal). SimpleLib's. */
     public static final Block CRIMSON_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("crimson_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.SharedMaterials.block("crimson_blazewood_bookshelf", () -> null) : null;
     public static final Block WARPED_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("warped_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.SharedMaterials.block("warped_blazewood_bookshelf", () -> null) : null;
     /** Gemeisselte Lohen-Buecherregale (BS25-1): Vanillas gemeisseltes Buecherregal (sechs Buecher-Plaetze, gleiche Bedienung), vorerst ohne Zusatznutzen. */
     public static final Block CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("chiseled_crimson_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.EnchantingRefs.block("chiseled_crimson_blazewood_bookshelf") : null;
     public static final Block CHISELED_WARPED_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("chiseled_warped_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.EnchantingRefs.block("chiseled_warped_blazewood_bookshelf") : null;
     public static final List<Block> CHISELED_BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
             ? List.of(CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, CHISELED_WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
     // a-nihilplanks (Besitzer 12.11.): die Nihilit-Bretter je End-Holzart (a-end07) gehoeren Simple End
@@ -293,12 +294,10 @@ public class ModBlocks {
             ? List.of(CRIMSON_BLAZEWOOD_PLANKS, WARPED_BLAZEWOOD_PLANKS) : List.of();
     public static final List<Block> BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
             ? List.of(CRIMSON_BLAZEWOOD_BOOKSHELF, WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
-    /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Dark Enchanter fuer Stufe 40/50. */
-    public static final Block BLAZING_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("blazing_obsidian", Blocks.CRYING_OBSIDIAN,
-            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(false, s.lightLevel(state -> 12))) : null;
-    /** Nihil-Obsidian (ENCH02, Besitzer 03.11.): Lohen-Obsidian mit Nihilit, Navy/Void statt Glut; voller Boden des Astral Enchanters. */
-    public static final Block NIHIL_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("nihil_obsidian", Blocks.CRYING_OBSIDIAN,
-            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(true, s.lightLevel(state -> 10))) : null;
+    /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Dark Enchanter fuer Stufe 40/50. Simple Enchanting's. */
+    public static final Block BLAZING_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("blazing_obsidian") : null;
+    /** Nihil-Obsidian (ENCH02, Besitzer 03.11.): Lohen-Obsidian mit Nihilit, Navy/Void statt Glut; voller Boden des Astral Enchanters. Simple Enchanting's. */
+    public static final Block NIHIL_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("nihil_obsidian") : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)
@@ -309,31 +308,16 @@ public class ModBlocks {
             .pushReaction(McVersion.PUSH_DESTROYS)));
 
     // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (MetalRodBlock).
-    public static final Block IRON_POLE = McVersion.GADGET_REWORK ? registerBlock("iron_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
-            com.simplebuilding.blocks.custom.MetalRodBlock.IRON_RANGE, s
-            .mapColor(MapColor.METAL).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
-            .sound(SoundType.METAL).noOcclusion())) : null;
+    public static final Block IRON_POLE = McVersion.GADGET_REWORK ? com.simplebuilding.util.SharedMaterials.oresBlock("iron_pole") : null;
     // Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an (MetalRodBlock).
-    public static final Block GOLD_POLE = McVersion.GADGET_REWORK ? registerBlock("gold_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
-            com.simplebuilding.blocks.custom.MetalRodBlock.GOLD_RANGE, s
-            .mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.0F, 6.0F)
-            .sound(SoundType.METAL).noOcclusion())) : null;
+    public static final Block GOLD_POLE = McVersion.GADGET_REWORK ? com.simplebuilding.util.SharedMaterials.oresBlock("gold_pole") : null;
     // Diamantstange (Besitzer N41): Blitzableiter aus drei Diamanten wie die anderen Stangen, Reichweite 80; Haerte, Klang
     // und Kartenfarbe wie der Diamantblock. Der Diamantstab (Item, Pfeilschaft) bleibt getrennt.
-    public static final Block DIAMOND_POLE = McVersion.GADGET_REWORK ? registerBlock("diamond_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
-            com.simplebuilding.blocks.custom.MetalRodBlock.DIAMOND_RANGE, s
-            .mapColor(MapColor.DIAMOND).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
-            .sound(SoundType.METAL).noOcclusion())) : null;
+    public static final Block DIAMOND_POLE = McVersion.GADGET_REWORK ? com.simplebuilding.util.SharedMaterials.oresBlock("diamond_pole") : null;
     // Netherit- und Enderitstab (Besitzer 2026-10-03): Blitzableiter wie Eisen-/Goldstab, Reichweite 96 bzw. 128;
     // Haerte, Klang und Kartenfarbe wie der Netherit- bzw. Enderitblock.
-    public static final Block NETHERITE_POLE = McVersion.GADGET_REWORK ? registerBlock("netherite_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
-            com.simplebuilding.blocks.custom.MetalRodBlock.NETHERITE_RANGE, s
-            .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
-            .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
-    public static final Block ENDERITE_POLE = McVersion.GADGET_REWORK ? registerBlock("enderite_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
-            com.simplebuilding.blocks.custom.MetalRodBlock.ENDERITE_RANGE, s
-            .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
-            .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
+    public static final Block NETHERITE_POLE = McVersion.GADGET_REWORK ? com.simplebuilding.util.SharedMaterials.oresBlock("netherite_pole") : null;
+    public static final Block ENDERITE_POLE = McVersion.GADGET_REWORK ? com.simplebuilding.util.SharedMaterials.oresBlock("enderite_pole") : null;
 
     // Aufgestellte Staebe (2026-10-04, McVersion.STANDING_RODS): Stock, Knochen, Lohen-/Boeen-/Diamantstab senkrecht;
     // ein Block, der Zustand rod waehlt Modell, Licht, Klang und Drop (StandingRodBlock). Kein Block-Item.
@@ -690,7 +674,7 @@ public class ModBlocks {
                     .sound(net.minecraft.world.level.block.SoundType.EMPTY))) : null;
 
     public static final Block ENDERITE_BLOCK = com.simplebuilding.util.SharedMaterials.block("enderite_block", () -> registerBlock("enderite_block", unused -> new Block(BlockBehaviour.Properties.of().setId(keyOf("enderite_block")).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK))));
-    public static final Block NIHILITH_ORE = registerBlock("nihilith_ore", unused -> new com.simplebuilding.blocks.custom.HiddenOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("nihilith_ore")).strength(25.0f, 1200.0f).requiresCorrectToolForDrops()));
+    public static final Block NIHILITH_ORE = com.simplebuilding.util.SharedMaterials.block("nihilith_ore", () -> registerBlock("nihilith_ore", unused -> new com.simplebuilding.blocks.custom.HiddenOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("nihilith_ore")).strength(25.0f, 1200.0f).requiresCorrectToolForDrops())));
     /**
      * Weisheitserz (Besitzer 2026-10-01): selten wie Diamant, droppt nur Erfahrung (3-7 wie Diamanterz) und
      * selten eine Weisheitskugel (Beutetabelle). Abbau ab Eisen, wie Diamanterz. 26.3 (IG31-13): Simple Ores' Bloecke (SharedMaterials),
@@ -712,40 +696,24 @@ public class ModBlocks {
                 .pushReaction(McVersion.immovable()))));
     }
 
-    public static final Block ASTRALIT_ORE = registerBlock("astralit_ore", unused -> new com.simplebuilding.blocks.custom.HiddenOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("astralit_ore")).strength(20.0f, 1200.0f).lightLevel(state -> 5).requiresCorrectToolForDrops()));
+    public static final Block ASTRALIT_ORE = com.simplebuilding.util.SharedMaterials.block("astralit_ore", () -> registerBlock("astralit_ore", unused -> new com.simplebuilding.blocks.custom.HiddenOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("astralit_ore")).strength(20.0f, 1200.0f).lightLevel(state -> 5).requiresCorrectToolForDrops())));
     /**
      * Truebe (falsche) End-Erze (W23-2, Besitzer 2026-10-23): sitzen in denselben Adern wie die echten (ein Fuenftel der
      * Erzbloecke, {@code ModWorldGen}), sehen aehnlich aus, sind aber "unraffiniert" - etwas weicher, weniger Erfahrung,
      * truebes Astralit leuchtet schwaecher - und droppen nur truebes Material (Beutetabelle, austauschbar).
      */
-    public static final Block DULL_ASTRALIT_ORE = McVersion.DULL_ORES ? registerBlock("dull_astralit_ore", unused -> new DropExperienceBlock(UniformInt.of(1, 3),
-            BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("dull_astralit_ore")).strength(15.0f, 1200.0f).lightLevel(state -> 3).requiresCorrectToolForDrops())) : null;
-    public static final Block DULL_NIHILITH_ORE = McVersion.DULL_ORES ? registerBlock("dull_nihilith_ore", unused -> new DropExperienceBlock(UniformInt.of(1, 3),
-            BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("dull_nihilith_ore")).strength(20.0f, 1200.0f).requiresCorrectToolForDrops())) : null;
+    public static final Block DULL_ASTRALIT_ORE = McVersion.DULL_ORES ? com.simplebuilding.util.SharedMaterials.block("dull_astralit_ore", () -> registerBlock("dull_astralit_ore", unused -> new DropExperienceBlock(UniformInt.of(1, 3),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("dull_astralit_ore")).strength(15.0f, 1200.0f).lightLevel(state -> 3).requiresCorrectToolForDrops()))) : null;
+    public static final Block DULL_NIHILITH_ORE = McVersion.DULL_ORES ? com.simplebuilding.util.SharedMaterials.block("dull_nihilith_ore", () -> registerBlock("dull_nihilith_ore", unused -> new DropExperienceBlock(UniformInt.of(1, 3),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("dull_nihilith_ore")).strength(20.0f, 1200.0f).requiresCorrectToolForDrops()))) : null;
 
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
-    /** Astral/Nihilith Lamp: redstone lamp strength, no conductor (like the copper bulb), light 15 while lit; own crystal sound (SP22-5). */
-    private static BlockBehaviour.Properties endLamp(BlockBehaviour.Properties s, SoundType sound) {
-        return s.strength(0.3F).sound(sound).mapColor(MapColor.COLOR_PURPLE)
-                .isRedstoneConductor((state, world, pos) -> false)
-                .lightLevel(state -> state.getValue(EndSignalLampBlock.LIT) ? 15 : 0);
-    }
 
     // Light Panes (N57): since WB24-6 in Simple Lights (simplelights:*, util/LightRefs).
 
-    /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it), own powder sound (SP22-5). */
-    private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s, SoundType sound) {
-        return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(sound)
-                .isRedstoneConductor((state, world, pos) -> false)
-                .lightLevel(state -> state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.POWER) > 0 ? 3 : 0);
-    }
 
-    /** Like Vanilla's wall torch: drops and is named as the standing torch (copied properties of the standing torch). */
-    private static BlockBehaviour.Properties wallTorch(BlockBehaviour.Properties s, Block standing) {
-        return s.overrideLootTable(standing.getLootTable()).overrideDescription(standing.getDescriptionId());
-    }
 
     private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> factory) {
         return registerBlock(name, Blocks.GLASS, factory);

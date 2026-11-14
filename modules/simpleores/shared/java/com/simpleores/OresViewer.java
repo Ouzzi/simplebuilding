@@ -27,6 +27,11 @@ public final class OresViewer {
         page(out, "sage_ore", OresRegistry.SAGE_ORE, OresRegistry.DEEPSLATE_SAGE_ORE);
         page(out, "sage_orb", OresRegistry.item("sage_orb"));
         page(out, "dimensional_scrap", OresRegistry.DIMENSIONAL_SCRAP, OresRegistry.NETHER_DIMENSIONAL_SCRAP, OresRegistry.END_DIMENSIONAL_SCRAP);
+        // N46/M2 (b-circ46): the End ores (hidden until brushed) and their dull twins with the drop (were SimpleBuilding's pages).
+        page(out, "astralit_ore", com.simpleores.line.LineBlocks.ASTRALIT_ORE);
+        page(out, "nihilith_ore", com.simpleores.line.LineBlocks.NIHILITH_ORE);
+        page(out, "dull_end_ores", com.simpleores.line.LineBlocks.DULL_ASTRALIT_ORE, com.simpleores.line.LineBlocks.DULL_NIHILITH_ORE);
+        page(out, "dull_end_drops", OresRegistry.item("dull_astralit_dust"), OresRegistry.item("dull_nihilith_shard"));
         // N4 (b-ores13, 09.11.): where the deposits of lead, zinc, nickel and tin are found.
         page(out, "lead_ore", OresRegistry.LEAD_ORE, OresRegistry.END_LEAD_ORE);
         page(out, "zinc_ore", OresRegistry.BLOCKS.get("zinc_ore"), OresRegistry.END_ZINC_ORE);

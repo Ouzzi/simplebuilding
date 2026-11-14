@@ -153,14 +153,6 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(ModBlocks.CONSTRUCTION_LIGHT);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelLocationUtils.getModelLocation(ModBlocks.CONSTRUCTION_LIGHT));
 
-        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            // Redstone-Bloecke der Linien (N51); Texturen aus tools/textures/end_redstone_blocks_2026_10_13.py.
-            for (net.minecraft.world.level.block.Block block : new net.minecraft.world.level.block.Block[]{
-                    ModBlocks.ASTRAL_REDSTONE_BLOCK, ModBlocks.NIHIL_REDSTONE_BLOCK, ModBlocks.BRIDGE_REDSTONE_BLOCK}) {
-                blockStateModelGenerator.createTrivialCube(block);
-                blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
-            }
-        }
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib's block
         blockStateModelGenerator.createTrivialCube(ModBlocks.CRACKED_DIAMOND_BLOCK);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.CRACKED_DIAMOND_BLOCK));
@@ -174,10 +166,10 @@ public class ModModelProvider extends FabricModelProvider {
 
         // W24-4: on 26.3 the brushed stages come from the overlay (blockstate + 4 models).
         if (!com.simplebuilding.version.McVersion.BRUSHED_ORES) blockStateModelGenerator.createTrivialCube(ModBlocks.NIHILITH_ORE);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NIHILITH_ORE, ModelLocationUtils.getModelLocation(ModBlocks.NIHILITH_ORE));
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NIHILITH_ORE, ModelLocationUtils.getModelLocation(ModBlocks.NIHILITH_ORE)); // 26.3: Simple Ores (N47-M2)
 
         if (!com.simplebuilding.version.McVersion.BRUSHED_ORES) blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRALIT_ORE);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ASTRALIT_ORE, ModelLocationUtils.getModelLocation(ModBlocks.ASTRALIT_ORE));
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ASTRALIT_ORE, ModelLocationUtils.getModelLocation(ModBlocks.ASTRALIT_ORE)); // 26.3: Simple Ores (N47-M2)
 
 
         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens ships the furnace models
@@ -840,12 +832,11 @@ public class ModModelProvider extends FabricModelProvider {
         }
 
         // --- NEW: ENDERITE TOOLS (HANDHELD) ---
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
-
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_AXE, ModelTemplates.FLAT_HANDHELD_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOE, ModelTemplates.FLAT_HANDHELD_ITEM); // 26.3: Simple Ores (N47-M3)
         // --- ENDERITE ARMOR (TRIM-AWARE) ---
         // Nur die Modelle (unbesetzt + je Material): die Item-Definition schreibt
         // ArmorTrimModelProvider, weil sie zusaetzlich nach dem Besatz-MUSTER waehlt und dieser
@@ -870,10 +861,10 @@ public class ModModelProvider extends FabricModelProvider {
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.LAYERED_RAW_ENDERITE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_INGOT, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HORSE_ARMOR, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NAUTILUS_ARMOR, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HORSE_ARMOR, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NAUTILUS_ARMOR, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M2)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M2)
         itemModelGenerator.generateFlatItem(ModItems.ENDER_QUARTZ, ModelTemplates.FLAT_ITEM);
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
 
@@ -940,10 +931,8 @@ public class ModModelProvider extends FabricModelProvider {
         for (Item disc : com.simplebuilding.util.MusicDiscs.items()) {
             itemModelGenerator.generateFlatItem(disc, ModelTemplates.FLAT_ITEM);
         }
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CARROT, ModelTemplates.FLAT_ITEM);
-
-
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CARROT, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
         String[] enchants = {
                 "fast_chiseling", "constructors_touch", "color_palette", "master_builder",
                 "break_through", "radius", "cover", "bridge", "linear",
@@ -979,18 +968,16 @@ public class ModModelProvider extends FabricModelProvider {
             generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_BACKPACK);
             generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_BACKPACK);
         }
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CARROT, ModelTemplates.FLAT_ITEM);
-
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CARROT, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
         // Die verzauberten Aepfel borgen sich die Textur ihrer gewoehnlichen Variante.
         // Wichtig ist die ZWEIARMIGE generateFlatItem-Variante: sie schreibt nicht nur das Modell
         // unter models/item/, sondern auch die seit MC 1.21.4 noetige Item-Definition unter
         // assets/simplebuilding/items/. Ohne die zeigt der Client "No model loaded for default
         // item model ID" und rendert das Platzhaltermodell - und beide Aepfel sind ueber
         // ModLootTableModifications erreichbar, der Fehler waere also sichtbar gewesen.
-        itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
-
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM); // 26.3: Simple Ores (N47-M3)
         // Aus Simple Tweaks: Spawn-Elytra, Laserpointer, Echo-Kompass
         com.simplebuilding.tweaks.datagen.TweaksModelGen.items(itemModelGenerator);
     }

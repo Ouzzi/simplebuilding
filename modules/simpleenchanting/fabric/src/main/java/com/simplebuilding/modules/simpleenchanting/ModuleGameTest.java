@@ -22,6 +22,31 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleenchanting:empty")
+    public void blazewoodIdsMigrate(GameTestHelper h) {
+        EnchantingTests.ALL.get("blazewood_ids_migrate").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void libShelvesAreStrongShelves(GameTestHelper h) {
+        EnchantingTests.ALL.get("lib_shelves_are_strong_shelves").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void blazeBookAndShelfRecipes(GameTestHelper h) {
+        EnchantingTests.ALL.get("blaze_book_and_shelf_recipes").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void chiseledBlazewoodShelvesStoreBooks(GameTestHelper h) {
+        EnchantingTests.ALL.get("chiseled_blazewood_shelves_store_books").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void blazingObsidianKeepsFireBurning(GameTestHelper h) {
+        EnchantingTests.ALL.get("blazing_obsidian_keeps_fire_burning").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
     public void budgetAndCostRules(GameTestHelper h) {
         EnchantingTests.ALL.get("budget_and_cost_rules").accept(h);
     }

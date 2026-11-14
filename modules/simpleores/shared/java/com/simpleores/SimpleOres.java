@@ -34,7 +34,11 @@ public final class SimpleOres {
         OresConfig.load(configDir);
         // IG31-13: Simple Ores owns Enderite now - other mods switch their Enderite variants on through SimpleLib's flag.
         com.simplelib.api.SimpleLibApi.provideMaterial("enderite");
+        // N48: the plates of the materials (Diamond, Netherite, Enderite, Emerald) are SimpleLib's group; Simple Ores asks for it.
+        com.simplelib.api.SimpleLibApi.requestMaterial("material_pressure_plates");
         registerIdMoves();
+        // N46/M2: switched-off line devices lose their recipes too (datapack reload), as in SimpleBuilding before the move.
+        com.simplelib.api.RecipeFilters.register(MOD_ID, com.simpleores.line.LineBlocks::recipeRemoved);
         OresViewer.register();   // a-fix09b: JEI info pages of Sage Ore, Sage Orb, Dimensional Scrap (were SimpleBuilding's)
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "ores", "simpleores.testcentre.station", OresRegistry.itemIds());
@@ -54,6 +58,8 @@ public final class SimpleOres {
         com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.BLOCK, lib("enderite_block"), id("enderite_block"));
         moveBlossomGold();
         moveRetiredOres();
+        com.simpleores.line.LineIds.registerIdMoves();   // N47-M2: no class load of the blocks (static id lists)
+        com.simpleores.gear.GearIds.registerIdMoves();   // N47-M3: the Enderite gear, the food and the poles (static id lists)
         OresRegistry.RECIPES_FROM_SIMPLELIB.forEach((path, folder) -> {
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.RECIPE, lib(path), id(path));
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.ADVANCEMENT, lib("recipes/" + folder + "/" + path),

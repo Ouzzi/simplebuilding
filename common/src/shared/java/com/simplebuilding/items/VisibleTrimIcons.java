@@ -30,7 +30,8 @@ public final class VisibleTrimIcons {
 
     /** Ruestung der Mod (Namensraum simplebuilding) statt Vanilla-Ruestung. */
     public static boolean isModArmour(Identifier item) {
-        return Simplebuilding.MOD_ID.equals(item.getNamespace());
+        // b-circ46 (N47-M3): the Enderite armor lives in Simple Ores on 26.3, its trim icons still come from SimpleBuilding.
+        return Simplebuilding.MOD_ID.equals(item.getNamespace()) || ("simpleores".equals(item.getNamespace()) && item.getPath().startsWith("enderite_"));
     }
 
     /** Select-Wert fuer das Item {@code item} bei den gegebenen Optionen. */

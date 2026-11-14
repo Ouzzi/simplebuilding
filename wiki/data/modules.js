@@ -83,11 +83,11 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 486,
-      "blocks": 279,
-      "recipes": 809,
-      "config": 156,
-      "features": 42
+      "items": 430,
+      "blocks": 244,
+      "recipes": 758,
+      "config": 149,
+      "features": 39
     }
   },
   {
@@ -2159,7 +2159,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleenchanting",
     "displayName": "Simple Enchanting",
-    "description": "The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. SimpleBuilding owns the building blocks; alone this module brings its own Blazing and Nihil Obsidian and blazewood planks and bookshelves. Fabric only for now.",
+    "description": "The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. Blazing and Nihil Obsidian, blazewood planks and chiseled shelves are this module's (moved from SimpleBuilding 14.11.), the plain blazewood bookshelves SimpleLib's. Fabric only for now.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [

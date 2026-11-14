@@ -37,3 +37,9 @@ def derived(jar) -> dict:
     for (x, y), colour in gt.glimmer_pixels(ender, 'item/enderite_apple.png').items():
         ender.putpixel((x, y), tuple(colour) + (255,))
     return {'item/netherite_apple.png': nether, 'item/enderite_apple.png': ender}
+
+
+def derived_module(jar, module: str) -> dict:
+    """Module simpleores (b-circ46): the same pixels; SimpleBuilding keeps its copy for the 26.2 line."""
+    assert module == 'simpleores', module
+    return derived(jar)

@@ -6,6 +6,7 @@ common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modul
 common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
 common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java
 common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/EnderitePistonBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/HiddenOreBlock.java modules/simpleores/shared/java/com/simpleores/block/HiddenOreBlock.java allow: brushed/1 withBrushed/2
 common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/ModPistonHeadBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/ModPistonHeadBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheriteBreakerPistonBlock.java allow: codec/0 durabilityIn/1
@@ -113,6 +114,7 @@ common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java m
 common/src/shared/java/com/simplebuilding/mixin/CarvedStairMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/CarvedStairMixin.java
 common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/CrossbowItemMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/DisplayStrikeAccessor.java
+common/src/shared/java/com/simplebuilding/mixin/EnderiteSinkDamperMixin.java modules/simpleores/shared/java/com/simpleores/mixin/EnderiteSinkDamperMixin.java
 common/src/shared/java/com/simplebuilding/mixin/ItemDisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/ItemDisplayStrikeAccessor.java
 common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/ItemEntityMixin.java allow: getItem/0
 common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java modules/simpletrims/shared/java/com/simpletrims/mixin/ItemUseOnMixin.java
@@ -156,9 +158,9 @@ common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java modu
 common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java modules/simplepads/shared/java/com/simplepads/PotionPadRules.java
 common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java modules/simplepads/shared/java/com/simplepads/block/ChunkLoaderBlock.java allow: ambient/1 neighborChanged/6
 common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/CopperPressurePlateBlock.java
-common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/DiamondPressurePlateBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java modules/simplelib/shared/java/com/simplelib/block/DiamondPressurePlateBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java modules/simplepads/shared/java/com/simplepads/block/ElytraPadBlock.java
-common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/FilterPressurePlateBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java modules/simplelib/shared/java/com/simplelib/block/FilterPressurePlateBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java modules/simplepads/shared/java/com/simplepads/block/FlypadBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java modules/simplepads/shared/java/com/simplepads/block/LaunchpadBlock.java
 common/src/shared/java/com/simplebuilding/tweaks/block/PadBlock.java modules/simplepads/shared/java/com/simplepads/block/PadBlock.java
@@ -171,7 +173,7 @@ common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEn
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderRegistry.java allow: Entry/5 Entry/6 exempt/2 shouldRun/2 update/5 update/6 wantsToRun/0 withinLimit/3
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/CopperPressurePlateBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/ElytraPadBlockEntity.java
-common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FilterPlateBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java modules/simplelib/shared/java/com/simplelib/block/FilterPlateBlockEntity.java allow: getUpdatePacket/0 getUpdateTag/1 isOwner/1 loadAdditional/1 saveAdditional/1 setOwner/1
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FlypadBlockEntity.java allow: sweepStaleFlight/1
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/LaunchpadBlockEntity.java
 common/src/shared/java/com/simplebuilding/tweaks/block/entity/OwnedBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/OwnedBlockEntity.java allow: rawEasterStage/0
@@ -214,6 +216,7 @@ common/src/shared/java/com/simplebuilding/util/AttractorFilter.java modules/simp
 common/src/shared/java/com/simplebuilding/util/BuildPermissions.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/BuildPermissions.java allow: isProbing/0 mayAct/3 mayAct/4 mayBreak/4 mayChange/3 probeAutomation/4 setPlaceProbe/1
 common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java
 common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/EnchantmentHelper.java allow: getDrawerLevel/1 getFastChiselingLevel/1 getMagnetRangeLevel/2 getOverrideLevel/1 hasColorPalette/2 hasConstructorsTouch/2 hasMasterBuilder/2
+common/src/shared/java/com/simplebuilding/util/EnderiteSinkDamper.java modules/simpleores/shared/java/com/simpleores/gear/EnderiteSinkDamper.java
 common/src/shared/java/com/simplebuilding/util/Feedback.java modules/simplepads/shared/java/com/simplepads/util/Feedback.java
 common/src/shared/java/com/simplebuilding/util/FilterHopper.java modules/simplemachines/shared/java/com/simplemachines/hopper/FilterHopper.java
 common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java

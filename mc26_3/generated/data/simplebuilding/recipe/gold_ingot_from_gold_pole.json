@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "simplebuilding:gold_pole"
+    "simpleores:gold_pole"
   ],
   "result": {
     "count": 3,

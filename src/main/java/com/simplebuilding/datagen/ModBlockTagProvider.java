@@ -65,16 +65,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT)).add(key(ModBlocks.NIHIL_VAULT))
                     .add(key(ModBlocks.ASTRAL_PISTON)).add(key(ModBlocks.NIHIL_PISTON))
                     .add(key(ModBlocks.ASTRAL_REDSTONE_BLOCK)).add(key(ModBlocks.NIHIL_REDSTONE_BLOCK)).add(key(ModBlocks.BRIDGE_REDSTONE_BLOCK));
-            // Astral-/Nihil-Kolben: zusaetzlich zu ihren festen Regeln (unzerstoerbar, Block-Entity, Kolben,
-            // Doppelbloecke, BLOCK/DESTROY) nie bewegt - Portalrahmen, verstaerkter Tiefenschiefer, Durchbruch-Extras.
-            builder(ModTags.Blocks.END_PISTON_IMMOVABLE)
-                    .add(key(Blocks.END_PORTAL_FRAME))
-                    .add(key(Blocks.REINFORCED_DEEPSLATE))
-                    .add(key(Blocks.BEDROCK))
-                    .add(key(Blocks.ENDER_CHEST))
-                    .add(key(ModBlocks.ASTRAL_VAULT))
-                    .add(key(ModBlocks.NIHIL_VAULT))
-                    .forceAddTag(ModTags.Blocks.PISTON_BREACHABLE_EXTRA);
+            // N46/M2: the End pistons' immovable tag is Simple Ores' data (simpleores:end_piston_immovable).
         }
         // Dimensions-Schrott: Spitzhacke (Enderit prueft der Block selbst), immun gegen Wither und Drache.
         // IG31-13: on 26.3 these tags of the scrap and the sage ore are Simple Ores' (its data), not SimpleBuilding's.
@@ -87,7 +78,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             }
         }
         // Weisheitserz wie Diamanterz: Spitzhacke ab Eisen.
-        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+        // N47-M3: the five poles are Simple Ores' on 26.3 (its tags, gen_data moved_gear.json).
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.IRON_POLE));
             builder(BlockTags.NEEDS_STONE_TOOL).add(key(ModBlocks.IRON_POLE));
             // Goldstab wie der Goldblock: Spitzhacke ab Eisen.
@@ -104,21 +96,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.AUTONOMOUS_CRAFTER));
         }
-        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
-            // Astral-Verzauberung (Queue N27): Tisch und Lohen-Obsidian mit der Spitzhacke (Obsidian ab Diamant),
-            // Lohenholz und Lohen-Regale mit der Axt; die Regale zaehlen auch am Vanilla-Tisch (als ein Regal).
-            // ENCH02: the tables are Simple Enchanting's (its own mineable tag); Nihil Obsidian like Blazing Obsidian.
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
-            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
-            // LOHEN17 V2 (owner 2026-10-21): fire on blazing obsidian burns forever, like on netherrack or magma.
-            builder(BlockTags.INFINIBURN_OVERWORLD).add(key(ModBlocks.BLAZING_OBSIDIAN));
-            for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_PLANKS) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
-            for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
-                builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
-                builder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(key(block));
-            }
-            for (net.minecraft.world.level.block.Block block : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
-        }
+        // N48 (14.11.): Lohen-Obsidian, Lohenholz und die Lohen-Regale gehoeren Simple Enchanting / SimpleLib (deren Tags).
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher wie Notenblock und Plattenspieler: Axt.
             builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.JUKEBOX_AMPLIFIER)).add(key(ModBlocks.NOTE_AMPLIFIER));

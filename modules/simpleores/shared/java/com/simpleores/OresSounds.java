@@ -52,5 +52,7 @@ public final class OresSounds {
 
     public static void events(BiConsumer<ResourceKey<SoundEvent>, SoundEvent> sink) {
         EVENTS.forEach((path, event) -> sink.accept(ResourceKey.create(Registries.SOUND_EVENT, SimpleOres.id(path)), event));
+        // N46/M2 (b-circ46): the sounds of the Astral/Nihil/Bridge line (moved from SimpleBuilding with the line).
+        com.simpleores.line.LineSounds.EVENTS.forEach(event -> sink.accept(ResourceKey.create(Registries.SOUND_EVENT, event.location()), event));
     }
 }

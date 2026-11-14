@@ -1586,9 +1586,9 @@ public final class TestCentreSections {
         TcCanvas c = new TcCanvas();
         int a = RAIL_LANE_ASTRAL, b = RAIL_LANE_VANILLA;
         BlockState astral = ModBlocks.ASTRAL_RAIL.defaultBlockState()
-                .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.RAIL_SHAPE_STRAIGHT, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
         BlockState nihil = ModBlocks.NIHIL_RAIL.defaultBlockState()
-                .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.RAIL_SHAPE_STRAIGHT, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
         BlockState powered = Blocks.POWERED_RAIL.defaultBlockState()
                 .setValue(net.minecraft.world.level.block.PoweredRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
         BlockState rail = Blocks.RAIL.defaultBlockState()
@@ -1627,7 +1627,7 @@ public final class TestCentreSections {
         // Schilder an einer niedrigen Wand hinter Bahn B.
         int wallZ = b + 2;
         for (int x = 0; x <= RAIL_END; x++) c.place(x, 0, wallZ, TcCanvas.WALL);
-        int topSpeed = (int) Math.round(com.simplebuilding.blocks.custom.EndRailPhysics.maxSpeedPerTick() * 20);
+        int topSpeed = com.simplebuilding.util.OresLine.railTopSpeed();
         c.wallSign(1, 1, wallZ, TcText.bold(TcText.t("end_rails.title", "End rails")), TcText.t("end_rails.how", "1. button: carts"),
                 TcText.t("end_rails.how2", "2. lever: go"), TcText.t("end_rails.how3", "front: Astral, back: vanilla"));
         c.wallSign(8, 1, wallZ, TcText.bold(TcText.t("end_rails.launch", "Astral launch")), TcText.t("end_rails.launch.sub", "Astral Redstone,"),

@@ -40,12 +40,34 @@ public class HiddenOreBlock extends DropExperienceBlock {
 
     /** The freed state of a hidden ore (the full drop), any other block's default state - for drop checks. */
     public static BlockState freedOrDefault(Block block) {
-        return block instanceof HiddenOreBlock ? block.defaultBlockState().setValue(BRUSHED, STROKES) : block.defaultBlockState();
+        return withBrushed(block.defaultBlockState(), STROKES);
+    }
+
+    /**
+     * N47-M2 (b-circ46): on 26.3 the ores are Simple Ores' own class with its own {@code brushed} property; these helpers find the
+     * property by name, so SimpleBuilding's checks and tests work with either block. A state without it is returned unchanged.
+     */
+    public static BlockState withBrushed(BlockState state, int strokes) {
+        IntegerProperty property = brushedProperty(state);
+        return property == null ? state : state.setValue(property, Math.min(strokes, STROKES));
+    }
+
+    /** The brush strokes of a hidden ore state, -1 for any other block. */
+    public static int brushed(BlockState state) {
+        IntegerProperty property = brushedProperty(state);
+        return property == null ? -1 : state.getValue(property);
+    }
+
+    private static IntegerProperty brushedProperty(BlockState state) {
+        for (var property : state.getProperties()) {
+            if (property instanceof IntegerProperty integer && property.getName().equals("brushed")) return integer;
+        }
+        return null;
     }
 
     /** True for a fully brushed (freed) hidden ore. */
     public static boolean freed(BlockState state) {
-        return state.getBlock() instanceof HiddenOreBlock && state.getValue(BRUSHED) == STROKES;
+        return brushed(state) == STROKES;
     }
 
     /**

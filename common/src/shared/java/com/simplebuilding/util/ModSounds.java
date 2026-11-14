@@ -26,24 +26,13 @@ public final class ModSounds {
      */
     public static final java.util.List<SoundEvent> MUSIC_DISCS = registerMusicDiscs();
 
-    /** Die eigenen Klaenge der Redstone-Linien ({@link LineSounds}), nur mit {@code McVersion.END_SYSTEMS}. */
-    public static final java.util.List<SoundEvent> REDSTONE_LINES = registerLineSounds();
+    // N46/M2 (b-circ46, 14.11.): the redstone line sounds moved to Simple Ores with the line (com.simpleores.line.LineSounds).
 
     private ModSounds() {
     }
 
     private static SoundEvent register(Identifier id) {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
-    }
-
-    private static java.util.List<SoundEvent> registerLineSounds() {
-        if (!com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            return java.util.List.of();
-        }
-        for (SoundEvent event : LineSounds.EVENTS) {
-            Registry.register(BuiltInRegistries.SOUND_EVENT, event.location(), event);
-        }
-        return java.util.List.copyOf(LineSounds.EVENTS);
     }
 
     private static java.util.List<SoundEvent> registerMusicDiscs() {

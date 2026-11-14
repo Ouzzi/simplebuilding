@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpleores:dull_astralit_dust",
+    "simpleores:dull_astralit_dust",
+    "simpleores:dull_astralit_dust",
+    "simpleores:dull_astralit_dust"
+  ],
+  "result": {
+    "id": "simpleores:astralit_dust",
+    "count": 1
+  }
+}

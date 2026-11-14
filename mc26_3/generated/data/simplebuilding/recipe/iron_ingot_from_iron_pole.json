@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "simplebuilding:iron_pole"
+    "simpleores:iron_pole"
   ],
   "result": {
     "count": 3,

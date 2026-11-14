@@ -24,39 +24,6 @@
       "Verlierst du den Boden darunter oder schiebt ihn ein Kolben, fallen alle Figuren auf einmal. Nichts geht verloren, aber das Brett ist weg."
     ]
   },
-  "blaze_book": {
-    "lore": [
-      "Ein Buch, mit Lohenstaub statt Leder gebunden. Es kühlt nie ganz ab."
-    ],
-    "use": [
-      "Drei davon gehören in ein Lohenholz-Bücherregal."
-    ],
-    "secret": [
-      "Lohenholz-Regale belohnt der {item:simpleenchanting:dark_enchanter}: Dort zählt jedes für zwei gewöhnliche."
-    ]
-  },
-  "blazing_obsidian": {
-    "lore": [
-      "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
-    ],
-    "use": [
-      "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Dark Enchanter: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern. Unter dem Astral Enchanter wirkt er nur halb."
-    ],
-    "secret": [
-      "Der Boden zählt nur unter den Verzauberern, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
-    ]
-  },
-  "nihil_obsidian": {
-    "lore": [
-      "Lohen-Obsidian, der der Leere begegnet ist: Die Glut erlosch, navyblaues Licht blieb."
-    ],
-    "use": [
-      "Acht Nihilith-Splitter um weinenden Obsidian ergeben ihn. Ein 5 x 5 großer Boden unter dem Astral Enchanter gibt 20 Stärke dazu, sobald die Regale 30 liefern, genug für 60; unter dem Dark Enchanter zählt er wie Lohen-Obsidian."
-    ],
-    "secret": [
-      "Gemischt aus beiden Obsidianen ist es noch ein Boden, aber der Astral Enchanter zählt ihn dann nur halb."
-    ]
-  },
   "hammock_rope": {
     "lore": [
       "Das Seil, das eine Hängematte trägt, von wenigen gesehen und von keinem erinnert."
@@ -2131,34 +2098,6 @@
     ],
     "secret": [
       "Die Scherbe wird nicht verbraucht, der Meißel verliert 1 Haltbarkeit. Klickst du geschnitztes Holz mit einer anderen Scherbe an, wechselt das Motiv. Abgebaut behält der Stamm sein Motiv; neu gesetzt blickt es dich an."
-    ]
-  },
-  "family:blazewood_planks": {
-    "items": [
-      "regex:(crimson|warped)_blazewood_planks"
-    ],
-    "lore": [
-      "{name}: Holz, dem man Feuer zu hüten gab, und es hütet es still."
-    ],
-    "use": [
-      "Acht Lohenstaub um ein Karmesin- oder Wirrbrett ergeben ein Lohenholzbrett. Es ist das Material für Lohenholz-Bücherregale."
-    ],
-    "secret": [
-      "Nur Karmesin- und Wirrbretter nehmen den Lohenstaub an, denn nur Netherholz ist in der Hitze zu Hause."
-    ]
-  },
-  "family:blazewood_bookshelf": {
-    "items": [
-      "regex:(crimson|warped)_blazewood_bookshelf"
-    ],
-    "lore": [
-      "{name} birgt Bücher, die mit Feuer gebunden sind, und ihre Seiten sind warm unter den Fingern."
-    ],
-    "use": [
-      "Ein Bücherregal aus Lohenholz: Am Verzauberer zählt es wie zwei Bücherregale, am Vanilla-Zaubertisch wie eines. Drei {item:simplebuilding:blaze_book} kommen hinein."
-    ],
-    "secret": [
-      "Um den Verzauberer gibt ein 5 x 5 großer Boden aus {item:simplebuilding:blazing_obsidian} zusätzliche Stärke, sobald die Regale 30 geben."
     ]
   },
   "family:hammock": {

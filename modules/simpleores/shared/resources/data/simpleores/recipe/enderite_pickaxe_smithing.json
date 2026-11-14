@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simpleores:enderite_ingot",
+  "base": "minecraft:netherite_pickaxe",
+  "result": {
+    "id": "simpleores:enderite_pickaxe"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

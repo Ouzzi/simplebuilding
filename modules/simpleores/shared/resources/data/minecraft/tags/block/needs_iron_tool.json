@@ -86,6 +86,8 @@
     "simpleores:rose_gold_pillar",
     "simpleores:chiseled_rose_gold",
     "simpleores:sage_ore",
-    "simpleores:deepslate_sage_ore"
+    "simpleores:deepslate_sage_ore",
+    "simpleores:gold_pole",
+    "simpleores:diamond_pole"
   ]
 }

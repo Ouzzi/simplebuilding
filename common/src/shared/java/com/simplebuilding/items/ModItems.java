@@ -101,24 +101,25 @@ import static net.minecraft.world.item.Rarity.UNCOMMON;
  */
 
 public class ModItems {
-    public static final Item NIHIL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone", s -> new BlockItem(ModBlocks.NIHIL_REDSTONE, s)) : null;
-    public static final Item ASTRAL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone", s -> new BlockItem(ModBlocks.ASTRAL_REDSTONE, s)) : null;
-    public static final Item BRIDGE_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE, s)) : null;
-    public static final Item NIHILITH_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_lamp", s -> new BlockItem(ModBlocks.NIHILITH_LAMP, s)) : null;
-    public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
-    public static final Item ASTRAL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_block", s -> new BlockItem(ModBlocks.ASTRAL_REDSTONE_BLOCK, s)) : null;
-    public static final Item NIHIL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_block", s -> new BlockItem(ModBlocks.NIHIL_REDSTONE_BLOCK, s)) : null;
+    // N46/N47-M2 (b-circ46, 14.11.): Simple Ores' line items (simpleores:*); the fields point at them.
+    public static final Item NIHIL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_redstone") : null;
+    public static final Item ASTRAL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_redstone") : null;
+    public static final Item BRIDGE_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("bridge_redstone") : null;
+    public static final Item NIHILITH_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihilith_lamp") : null;
+    public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astralit_lamp") : null;
+    public static final Item ASTRAL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_redstone_block") : null;
+    public static final Item NIHIL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_redstone_block") : null;
     /** Astral/Nihil Redstone Torch (B23-M1): standing and on the wall like Vanilla's redstone torch. */
-    public static final Item ASTRAL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.ASTRAL_REDSTONE_TORCH, ModBlocks.ASTRAL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
-    public static final Item NIHIL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(ModBlocks.NIHIL_REDSTONE_TORCH, ModBlocks.NIHIL_REDSTONE_WALL_TORCH, net.minecraft.core.Direction.DOWN, s)) : null;
+    public static final Item ASTRAL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_redstone_torch") : null;
+    public static final Item NIHIL_REDSTONE_TORCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_redstone_torch") : null;
     /** Astralit/Nihilit End Rod (W24-4): Vanilla's End rod in the line colours. */
-    public static final Item ASTRALIT_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_end_rod", s -> new BlockItem(ModBlocks.ASTRALIT_END_ROD, s)) : null;
-    public static final Item NIHILITH_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_end_rod", s -> new BlockItem(ModBlocks.NIHILITH_END_ROD, s)) : null;
-    public static final Item BRIDGE_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone_block", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE_BLOCK, s)) : null;
-    public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
-    public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;
-    public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("nihil_rail", s -> new BlockItem(ModBlocks.NIHIL_RAIL, s)) : null;
-    public static final Item ASTRAL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("astral_rail", s -> new BlockItem(ModBlocks.ASTRAL_RAIL, s)) : null;
+    public static final Item ASTRALIT_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astralit_end_rod") : null;
+    public static final Item NIHILITH_END_ROD = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihilith_end_rod") : null;
+    public static final Item BRIDGE_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("bridge_redstone_block") : null;
+    public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_piston") : null;
+    public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_piston") : null;
+    public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? com.simplebuilding.util.SharedMaterials.oresItem("nihil_rail") : null;
+    public static final Item ASTRAL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? com.simplebuilding.util.SharedMaterials.oresItem("astral_rail") : null;
     public static final Item ASTRAL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_vault", s -> new BlockItem(ModBlocks.ASTRAL_VAULT, s)) : null;
     public static final Item NIHIL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_vault", s -> new BlockItem(ModBlocks.NIHIL_VAULT, s)) : null;
 
@@ -394,10 +395,10 @@ public class ModItems {
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
     public static final Item IRON_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("iron_pole", settings -> new BlockItem(ModBlocks.IRON_POLE, settings)) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("iron_pole") : null;
     /** Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an. */
     public static final Item GOLD_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("gold_pole", settings -> new BlockItem(ModBlocks.GOLD_POLE, settings)) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("gold_pole") : null;
     // Haengematten (2026-10-02, McVersion.HAMMOCK): HammockItem haengt alle Bloecke auf einmal auf.
     public static final Item WHITE_HAMMOCK = hammockItem(ModBlocks.WHITE_HAMMOCK);
     public static final Item ORANGE_HAMMOCK = hammockItem(ModBlocks.ORANGE_HAMMOCK);
@@ -427,13 +428,13 @@ public class ModItems {
             ? registerItem("diamond_rod", settings -> new Item(settings)) : null;
     /** Diamantstange (N41): Blitzableiter (80 Bloecke) aus drei Diamanten, Basis der Netheritstange. */
     public static final Item DIAMOND_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("diamond_pole", settings -> new BlockItem(ModBlocks.DIAMOND_POLE, settings)) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("diamond_pole") : null;
     /** Netheritstange (2026-10-03 Block): Blitzableiter (96 Bloecke), geschmiedet aus der Diamantstange (N41), feuerfest. */
     public static final Item NETHERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("netherite_pole", settings -> new BlockItem(ModBlocks.NETHERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("netherite_pole") : null;
     /** Enderitstab (2026-10-03 Block): Blitzableiter (128 Bloecke), geschmiedet aus dem Netheritstab, feuerfest. */
     public static final Item ENDERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("enderite_pole", settings -> new BlockItem(ModBlocks.ENDERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("enderite_pole") : null;
 
     // Pfeil vom Befiederungstisch: seit 04.11. simplearrows:crafted_arrow (Simple Arrows, b-arrows03; util/ArrowRefs).
 
@@ -502,13 +503,13 @@ public class ModItems {
 
 
 
-        public static final Item NIHILITH_SHARD = registerItem("nihilith_shard", s -> new Item(s
+        public static final Item NIHILITH_SHARD = com.simplebuilding.util.SharedMaterials.item("nihilith_shard", () -> registerItem("nihilith_shard", s -> new Item(s
 
-            .trimMaterial(ModTrimMaterials.NIHILITH)));
+            .trimMaterial(ModTrimMaterials.NIHILITH))));
 
-        public static final Item ASTRALIT_DUST = registerItem("astralit_dust", s -> new Item(s
+        public static final Item ASTRALIT_DUST = com.simplebuilding.util.SharedMaterials.item("astralit_dust", () -> registerItem("astralit_dust", s -> new Item(s
 
-            .trimMaterial(ModTrimMaterials.ASTRALIT)));
+            .trimMaterial(ModTrimMaterials.ASTRALIT))));
 
     // Enderquarz: 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz ergeben 2; Material der violetten End-Palette.
     public static final Item ENDER_QUARTZ = registerItem("ender_quartz", s -> new Item(s));
@@ -529,18 +530,18 @@ public class ModItems {
 
     public static final Item ENDERITE_BLOCK_ITEM = com.simplebuilding.util.SharedMaterials.item("enderite_block", () -> registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s.fireResistant())));
 
-    public static final Item NIHILITH_ORE_ITEM = registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s));
+    public static final Item NIHILITH_ORE_ITEM = com.simplebuilding.util.SharedMaterials.item("nihilith_ore", () -> registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s)));
 
-    public static final Item ASTRALIT_ORE_ITEM = registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s));
+    public static final Item ASTRALIT_ORE_ITEM = com.simplebuilding.util.SharedMaterials.item("astralit_ore", () -> registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s)));
     /** Truebe End-Erze und ihr Drop (W23-2): 4 trueber Staub / Splitter ergeben 1 echten (Rezept im 26.3-Overlay). */
     public static final Item DULL_ASTRALIT_ORE_ITEM = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_astralit_ore", s -> new BlockItem(ModBlocks.DULL_ASTRALIT_ORE, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_astralit_ore", () -> registerItem("dull_astralit_ore", s -> new BlockItem(ModBlocks.DULL_ASTRALIT_ORE, s))) : null;
     public static final Item DULL_NIHILITH_ORE_ITEM = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_nihilith_ore", s -> new BlockItem(ModBlocks.DULL_NIHILITH_ORE, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_nihilith_ore", () -> registerItem("dull_nihilith_ore", s -> new BlockItem(ModBlocks.DULL_NIHILITH_ORE, s))) : null;
     public static final Item DULL_ASTRALIT_DUST = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_astralit_dust", s -> new Item(s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_astralit_dust", () -> registerItem("dull_astralit_dust", s -> new Item(s))) : null;
     public static final Item DULL_NIHILITH_SHARD = com.simplebuilding.version.McVersion.DULL_ORES
-            ? registerItem("dull_nihilith_shard", s -> new Item(s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dull_nihilith_shard", () -> registerItem("dull_nihilith_shard", s -> new Item(s))) : null;
 
     public static final Item AUTO_SMITHER = com.simplebuilding.version.McVersion.AUTO_SMITHER
             ? registerItem("auto_smither", s -> new BlockItem(ModBlocks.AUTO_SMITHER, s))
@@ -554,25 +555,26 @@ public class ModItems {
             ? com.simplebuilding.util.EnchantingRefs.item("dark_enchanter") : null;
     public static final Item ASTRAL_ENCHANTER = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? com.simplebuilding.util.EnchantingRefs.item("astral_enchanter") : null;
+    // N48: Lohenholz, Obsidiane und das Lohenbuch sind Simple Enchanting's (simpleenchanting:*), die normalen Lohen-Regale SimpleLib's.
     public static final Item CRIMSON_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("crimson_blazewood_planks", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_PLANKS, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("crimson_blazewood_planks") : null;
     public static final Item WARPED_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("warped_blazewood_planks", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_PLANKS, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("warped_blazewood_planks") : null;
     public static final Item CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("crimson_blazewood_bookshelf", () -> null) : null;
     public static final Item WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("warped_blazewood_bookshelf", () -> null) : null;
     public static final Item CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("chiseled_crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("chiseled_crimson_blazewood_bookshelf") : null;
     public static final Item CHISELED_WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("chiseled_warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("chiseled_warped_blazewood_bookshelf") : null;
     public static final Item BLAZING_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("blazing_obsidian", s -> new BlockItem(ModBlocks.BLAZING_OBSIDIAN, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("blazing_obsidian") : null;
     public static final Item NIHIL_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("nihil_obsidian", s -> new BlockItem(ModBlocks.NIHIL_OBSIDIAN, s)) : null;
-    /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
+            ? com.simplebuilding.util.EnchantingRefs.item("nihil_obsidian") : null;
+    /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. Simple Enchanting's. */
     public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("blaze_book", s -> new Item(s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("blaze_book") : null;
     /**
      * Nihilit-Buch (DW04C-3, docs/ai/PLAN-B-SHELVES01-2026-11-04.md): ein Buch mit 4 Nihilitsplittern; drei davon und sechs
      * Asch-/Daemmerholzbretter (Simple End) ergeben dessen End-Buecherregal. Passt wie das Lohenbuch in gemeisselte Regale.
@@ -633,23 +635,23 @@ public class ModItems {
 
     // =================================================================================
 
-    public static final Item ENDERITE_SWORD = registerItem("enderite_sword", s -> new Item(s.fireResistant().sword(ModToolMaterials.ENDERITE, 3.0F, -2.4F)));
+    public static final Item ENDERITE_SWORD = com.simplebuilding.util.SharedMaterials.item("enderite_sword", () -> registerItem("enderite_sword", s -> new Item(s.fireResistant().sword(ModToolMaterials.ENDERITE, 3.0F, -2.4F))));
 
-    public static final Item ENDERITE_SPEAR = registerItem("enderite_spear", s -> new Item(s
+    public static final Item ENDERITE_SPEAR = com.simplebuilding.util.SharedMaterials.item("enderite_spear", () -> registerItem("enderite_spear", s -> new Item(s
 
             .fireResistant()
 
             // Mirror vanilla spear setup so the item receives actual spear mechanics/components.
 
-            .spear(ModToolMaterials.ENDERITE, 1.15F, 1.2F, 0.4F, 2.5F, 7.0F, 5.5F, 5.1F, 8.75F, 4.6F)));
+            .spear(ModToolMaterials.ENDERITE, 1.15F, 1.2F, 0.4F, 2.5F, 7.0F, 5.5F, 5.1F, 8.75F, 4.6F))));
 
-    public static final Item ENDERITE_PICKAXE = registerItem("enderite_pickaxe", s -> new Item(s.fireResistant().pickaxe(ModToolMaterials.ENDERITE, 1.0F, -2.8F)));
+    public static final Item ENDERITE_PICKAXE = com.simplebuilding.util.SharedMaterials.item("enderite_pickaxe", () -> registerItem("enderite_pickaxe", s -> new Item(s.fireResistant().pickaxe(ModToolMaterials.ENDERITE, 1.0F, -2.8F))));
 
-    public static final Item ENDERITE_AXE = registerItem("enderite_axe", s -> new Item(s.fireResistant().axe(ModToolMaterials.ENDERITE, 5.0F, -3.0F)));
+    public static final Item ENDERITE_AXE = com.simplebuilding.util.SharedMaterials.item("enderite_axe", () -> registerItem("enderite_axe", s -> new Item(s.fireResistant().axe(ModToolMaterials.ENDERITE, 5.0F, -3.0F))));
 
-    public static final Item ENDERITE_SHOVEL = registerItem("enderite_shovel", s -> new Item(s.fireResistant().shovel(ModToolMaterials.ENDERITE, 1.5F, -3.0F)));
+    public static final Item ENDERITE_SHOVEL = com.simplebuilding.util.SharedMaterials.item("enderite_shovel", () -> registerItem("enderite_shovel", s -> new Item(s.fireResistant().shovel(ModToolMaterials.ENDERITE, 1.5F, -3.0F))));
 
-    public static final Item ENDERITE_HOE = registerItem("enderite_hoe", s -> new Item(s.fireResistant().hoe(ModToolMaterials.ENDERITE, -4.0F, 0.0F)));
+    public static final Item ENDERITE_HOE = com.simplebuilding.util.SharedMaterials.item("enderite_hoe", () -> registerItem("enderite_hoe", s -> new Item(s.fireResistant().hoe(ModToolMaterials.ENDERITE, -4.0F, 0.0F))));
 
     public static final Item COLOR_BRUSH = registerItem("color_brush", s -> new ColorBrushItem(s));
     // Farbkasten (Besitzer 2026-10-09): je Farbe ein Stapel mal Stufenfaktor 1/2/4/8, Seltenheiten wie die Buendel.
@@ -959,23 +961,23 @@ public class ModItems {
 
 
 
-    public static final Item ENDERITE_HELMET = registerArmor("enderite_helmet", ModArmorMaterials.ENDERITE, ArmorType.HELMET, 42);
+    public static final Item ENDERITE_HELMET = com.simplebuilding.util.SharedMaterials.item("enderite_helmet", () -> registerArmor("enderite_helmet", ModArmorMaterials.ENDERITE, ArmorType.HELMET, 42));
 
-    public static final Item ENDERITE_CHESTPLATE = registerArmor("enderite_chestplate", ModArmorMaterials.ENDERITE, ArmorType.CHESTPLATE, 42);
+    public static final Item ENDERITE_CHESTPLATE = com.simplebuilding.util.SharedMaterials.item("enderite_chestplate", () -> registerArmor("enderite_chestplate", ModArmorMaterials.ENDERITE, ArmorType.CHESTPLATE, 42));
 
-    public static final Item ENDERITE_LEGGINGS = registerArmor("enderite_leggings", ModArmorMaterials.ENDERITE, ArmorType.LEGGINGS, 42);
+    public static final Item ENDERITE_LEGGINGS = com.simplebuilding.util.SharedMaterials.item("enderite_leggings", () -> registerArmor("enderite_leggings", ModArmorMaterials.ENDERITE, ArmorType.LEGGINGS, 42));
 
-    public static final Item ENDERITE_BOOTS = registerArmor("enderite_boots", ModArmorMaterials.ENDERITE, ArmorType.BOOTS, 42);
+    public static final Item ENDERITE_BOOTS = com.simplebuilding.util.SharedMaterials.item("enderite_boots", () -> registerArmor("enderite_boots", ModArmorMaterials.ENDERITE, ArmorType.BOOTS, 42));
 
     // Pferde- und Nautilusruestung (Besitzer 2026-09-28): eine Stufe ueber Vanillas Netherit-Ruestung
     // (Koerper-Schutz 22 statt 19, Haerte 4 statt 3, Rueckstoss 0,2 statt 0,1 - ModArmorMaterials),
     // am Schmiedetisch aus der Netherit-Variante mit Enderit-Aufwertung + Enderit-Barren. Wie Vanilla
     // ohne Haltbarkeit, feuerfest wie alles aus Enderit.
-    public static final Item ENDERITE_HORSE_ARMOR = registerItem("enderite_horse_armor",
-            settings -> new Item(settings.horseArmor(ModArmorMaterials.ENDERITE).fireResistant()));
+    public static final Item ENDERITE_HORSE_ARMOR = com.simplebuilding.util.SharedMaterials.item("enderite_horse_armor", () -> registerItem("enderite_horse_armor",
+            settings -> new Item(settings.horseArmor(ModArmorMaterials.ENDERITE).fireResistant())));
 
-    public static final Item ENDERITE_NAUTILUS_ARMOR = registerItem("enderite_nautilus_armor",
-            settings -> new Item(settings.nautilusArmor(ModArmorMaterials.ENDERITE).fireResistant()));
+    public static final Item ENDERITE_NAUTILUS_ARMOR = com.simplebuilding.util.SharedMaterials.item("enderite_nautilus_armor", () -> registerItem("enderite_nautilus_armor",
+            settings -> new Item(settings.nautilusArmor(ModArmorMaterials.ENDERITE).fireResistant())));
 
 
 
@@ -1105,17 +1107,17 @@ public class ModItems {
 
 
 
-    public static final Item NETHERITE_CARROT = registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_CARROT = com.simplebuilding.util.SharedMaterials.item("netherite_carrot", () -> registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireResistant().rarity(UNCOMMON))));
 
-    public static final Item NETHERITE_APPLE = registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("netherite_apple", () -> registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireResistant().rarity(UNCOMMON))));
 
-    public static final Item ENDERITE_CARROT = registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_CARROT = com.simplebuilding.util.SharedMaterials.item("enderite_carrot", () -> registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireResistant().rarity(Rarity.EPIC))));
 
-    public static final Item ENDERITE_APPLE = registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("enderite_apple", () -> registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireResistant().rarity(Rarity.EPIC))));
 
 
 
-    public static final Item ENCHANTED_NETHERITE_APPLE = registerItem("enchanted_netherite_apple", settings -> new Item(settings
+    public static final Item ENCHANTED_NETHERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("enchanted_netherite_apple", () -> registerItem("enchanted_netherite_apple", settings -> new Item(settings
 
             .food(NETHERITE_APPLE_FOOD, createEnchantedNetheriteFoodEffects())
 
@@ -1124,11 +1126,11 @@ public class ModItems {
             // RARE wie Vanillas verzauberter goldener Apfel (docs/RARITAETEN.md)
             .rarity(RARE)
 
-            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))); // Aktiviert den Schimmer
+            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)))); // Aktiviert den Schimmer
 
 
 
-    public static final Item ENCHANTED_ENDERITE_APPLE = registerItem("enchanted_enderite_apple", settings -> new Item(settings
+    public static final Item ENCHANTED_ENDERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("enchanted_enderite_apple", () -> registerItem("enchanted_enderite_apple", settings -> new Item(settings
 
             .food(ENDERITE_APPLE_FOOD, createEnchantedEnderiteFoodEffects())
 
@@ -1136,7 +1138,7 @@ public class ModItems {
 
             .rarity(Rarity.EPIC)
 
-            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
+            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))));
 
 
 

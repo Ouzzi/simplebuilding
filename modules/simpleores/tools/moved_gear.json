@@ -1,0 +1,175 @@
+{
+ "lang": {
+  "item.simpleores.enderite_sword": [
+   "Enderite Sword",
+   "Enderitschwert"
+  ],
+  "item.simpleores.enderite_spear": [
+   "Enderite Spear",
+   "Enderitspeer"
+  ],
+  "item.simpleores.enderite_shovel": [
+   "Enderite Shovel",
+   "Enderitschaufel"
+  ],
+  "item.simpleores.enderite_pickaxe": [
+   "Enderite Pickaxe",
+   "Enderitspitzhacke"
+  ],
+  "item.simpleores.enderite_axe": [
+   "Enderite Axe",
+   "Enderitaxt"
+  ],
+  "item.simpleores.enderite_hoe": [
+   "Enderite Hoe",
+   "Enderithacke"
+  ],
+  "item.simpleores.netherite_apple": [
+   "Netherite Apple",
+   "Netheritapfel"
+  ],
+  "item.simpleores.enderite_apple": [
+   "Enderite Apple",
+   "Enderitapfel"
+  ],
+  "item.simpleores.netherite_carrot": [
+   "Netherite Carrot",
+   "Netheritkarotte"
+  ],
+  "item.simpleores.enderite_carrot": [
+   "Enderite Carrot",
+   "Enderitkarotte"
+  ],
+  "item.simpleores.enderite_helmet": [
+   "Enderite Helmet",
+   "Enderithelm"
+  ],
+  "item.simpleores.enderite_chestplate": [
+   "Enderite Chestplate",
+   "Enderitharnisch"
+  ],
+  "item.simpleores.enderite_leggings": [
+   "Enderite Leggings",
+   "Enderitbeinschutz"
+  ],
+  "item.simpleores.enderite_boots": [
+   "Enderite Boots",
+   "Enderitstiefel"
+  ],
+  "item.simpleores.enderite_horse_armor": [
+   "Enderite Horse Armor",
+   "Enderitrossharnisch"
+  ],
+  "item.simpleores.enderite_nautilus_armor": [
+   "Enderite Nautilus Armor",
+   "Enderit-Nautilusrüstung"
+  ],
+  "item.simpleores.enchanted_netherite_apple": [
+   "Enchanted Netherite Apple",
+   "Verzauberter Netheritapfel"
+  ],
+  "item.simpleores.enchanted_enderite_apple": [
+   "Enchanted Enderite Apple",
+   "Verzauberter Enderitapfel"
+  ],
+  "block.simpleores.iron_pole": [
+   "Iron Pole",
+   "Eisenstange"
+  ],
+  "item.simpleores.iron_pole": [
+   "Iron Pole",
+   "Eisenstange"
+  ],
+  "block.simpleores.gold_pole": [
+   "Gold Pole",
+   "Goldstange"
+  ],
+  "item.simpleores.gold_pole": [
+   "Gold Pole",
+   "Goldstange"
+  ],
+  "block.simpleores.diamond_pole": [
+   "Diamond Pole",
+   "Diamantstange"
+  ],
+  "item.simpleores.diamond_pole": [
+   "Diamond Pole",
+   "Diamantstange"
+  ],
+  "block.simpleores.netherite_pole": [
+   "Netherite Pole",
+   "Netheritstange"
+  ],
+  "item.simpleores.netherite_pole": [
+   "Netherite Pole",
+   "Netheritstange"
+  ],
+  "block.simpleores.enderite_pole": [
+   "Enderite Pole",
+   "Enderitstange"
+  ],
+  "item.simpleores.enderite_pole": [
+   "Enderite Pole",
+   "Enderitstange"
+  ]
+ },
+ "tags": {
+  "minecraft/tags/item/axes.json": [
+   "simpleores:enderite_axe"
+  ],
+  "minecraft/tags/item/chest_armor.json": [
+   "simpleores:enderite_chestplate"
+  ],
+  "minecraft/tags/item/foot_armor.json": [
+   "simpleores:enderite_boots"
+  ],
+  "minecraft/tags/item/head_armor.json": [
+   "simpleores:enderite_helmet"
+  ],
+  "minecraft/tags/item/hoes.json": [
+   "simpleores:enderite_hoe"
+  ],
+  "minecraft/tags/item/leg_armor.json": [
+   "simpleores:enderite_leggings"
+  ],
+  "minecraft/tags/item/pickaxes.json": [
+   "simpleores:enderite_pickaxe"
+  ],
+  "minecraft/tags/item/shovels.json": [
+   "simpleores:enderite_shovel"
+  ],
+  "minecraft/tags/item/swords.json": [
+   "simpleores:enderite_sword"
+  ],
+  "minecraft/tags/item/trimmable_armor.json": [
+   "simpleores:enderite_helmet",
+   "simpleores:enderite_chestplate",
+   "simpleores:enderite_leggings",
+   "simpleores:enderite_boots"
+  ],
+  "minecraft/tags/block/mineable/pickaxe.json": [
+   "simpleores:iron_pole",
+   "simpleores:gold_pole",
+   "simpleores:diamond_pole",
+   "simpleores:netherite_pole",
+   "simpleores:enderite_pole"
+  ],
+  "minecraft/tags/block/needs_diamond_tool.json": [
+   "simpleores:netherite_pole",
+   "simpleores:enderite_pole"
+  ],
+  "minecraft/tags/block/needs_iron_tool.json": [
+   "simpleores:gold_pole",
+   "simpleores:diamond_pole"
+  ],
+  "minecraft/tags/block/needs_stone_tool.json": [
+   "simpleores:iron_pole"
+  ],
+  "minecraft/tags/item/enchantable/durability.json": [
+   "simpleores:enderite_spear"
+  ],
+  "minecraft/tags/item/spears.json": [
+   "simpleores:enderite_spear"
+  ]
+ }
+}

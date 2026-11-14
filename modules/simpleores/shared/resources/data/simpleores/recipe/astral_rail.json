@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "R": "simpleores:astral_redstone",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "G G",
+    "GSG",
+    "GRG"
+  ],
+  "result": {
+    "count": 6,
+    "id": "simpleores:astral_rail"
+  }
+}

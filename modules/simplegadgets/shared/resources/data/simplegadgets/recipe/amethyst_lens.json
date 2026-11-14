@@ -22,7 +22,7 @@
   "key": {
     "A": "minecraft:amethyst_shard",
     "C": "simplelib:iron_core",
-    "I": "simplebuilding:iron_pole",
+    "I": "simpleores:iron_pole",
     "N": "minecraft:iron_nugget",
     "R": "minecraft:redstone"
   },

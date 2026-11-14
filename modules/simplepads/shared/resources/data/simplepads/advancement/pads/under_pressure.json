@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplepads:diamond_pressure_plate"
+            "items": "simplelib:diamond_pressure_plate"
           }
         ]
       },
@@ -17,7 +17,7 @@
       "translate": "advancements.simplepads.pads.under_pressure.description"
     },
     "icon": {
-      "id": "simplepads:diamond_pressure_plate"
+      "id": "simplelib:diamond_pressure_plate"
     },
     "title": {
       "translate": "advancements.simplepads.pads.under_pressure.title"

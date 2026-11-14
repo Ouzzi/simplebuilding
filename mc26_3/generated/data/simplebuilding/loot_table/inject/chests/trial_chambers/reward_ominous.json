@@ -31,12 +31,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:netherite_apple",
+          "name": "simpleores:netherite_apple",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enchanted_netherite_apple"
+          "name": "simpleores:enchanted_netherite_apple"
         },
         {
           "type": "minecraft:empty",

@@ -106,6 +106,11 @@ public final class SimplePads {
         registerIdMoves();
         // The building cores of the first tiers are SimpleLib's shared material (recipes only once requested).
         com.simplelib.api.SimpleLibApi.requestMaterial("cores");
+        // N48: the Diamond, Netherite and Enderite plates (and the new Emerald plate) are SimpleLib's material group; the old config
+        // switch and the stranger break time keep ruling the filter plates through SimpleLib's hooks.
+        com.simplelib.api.SimpleLibApi.requestMaterial("material_pressure_plates");
+        com.simplelib.block.PlateHooks.filterPlatesEnabled = () -> config().pads.enableFilterPlates;
+        com.simplelib.block.PlateHooks.strangerPlateProgress = () -> config().tuning.strangerBreakProgress(true);
         // In-world upgrade data of this namespace (none yet: the pads climb at the smithing table), as in Simple Machines.
         com.simplelib.api.InWorldUpgrades.registerDefaults(MOD_ID);
         PadTriggers.register();

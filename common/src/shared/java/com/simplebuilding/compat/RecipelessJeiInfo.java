@@ -28,8 +28,11 @@ public final class RecipelessJeiInfo {
 
     public static Map<String, List<ItemLike>> pages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
-        map.put("astralit_ore", List.of(ModBlocks.ASTRALIT_ORE));
-        map.put("nihilith_ore", List.of(ModBlocks.NIHILITH_ORE));
+        // N47-M2 (b-circ46): on 26.3 the End ores and their dull twins are Simple Ores' with its own pages (OresViewer).
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
+            map.put("astralit_ore", List.of(ModBlocks.ASTRALIT_ORE));
+            map.put("nihilith_ore", List.of(ModBlocks.NIHILITH_ORE));
+        }
         if (!com.simplebuilding.version.McVersion.DULL_ORES) {
             // W23-2: on 26.3 four dull pieces craft one real dust / shard, so JEI shows a recipe for them.
             map.put("astralit_dust", List.of(ModItems.ASTRALIT_DUST));
@@ -37,7 +40,7 @@ public final class RecipelessJeiInfo {
         }
         map.put("enchanted_netherite_apple", List.of(ModItems.ENCHANTED_NETHERITE_APPLE));
         map.put("enchanted_enderite_apple", List.of(ModItems.ENCHANTED_ENDERITE_APPLE));
-        if (com.simplebuilding.version.McVersion.DULL_ORES) {
+        if (com.simplebuilding.version.McVersion.DULL_ORES && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             // Truebe End-Erze (W23-2): keine Rezeptquelle, nur Weltgenerierung; der Drop hat ein Rezept, die Seite erklaert ihn.
             map.put("dull_end_ores", List.of(ModBlocks.DULL_ASTRALIT_ORE, ModBlocks.DULL_NIHILITH_ORE));
             map.put("dull_end_drops", List.of(ModItems.DULL_ASTRALIT_DUST, ModItems.DULL_NIHILITH_SHARD));

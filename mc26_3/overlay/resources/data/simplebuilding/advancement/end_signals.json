@@ -2,7 +2,7 @@
   "parent": "simplebuilding:guides/root",
   "display": {
     "icon": {
-      "id": "simplebuilding:nihil_redstone"
+      "id": "simpleores:nihil_redstone"
     },
     "title": {
       "translate": "advancements.simplebuilding.end_signals.title"
@@ -18,7 +18,7 @@
       "trigger": "minecraft:recipe_crafted",
       "conditions": {
         "recipes": [
-          "simplebuilding:nihil_redstone"
+          "simpleores:nihil_redstone"
         ]
       }
     },
@@ -26,7 +26,7 @@
       "trigger": "minecraft:recipe_crafted",
       "conditions": {
         "recipes": [
-          "simplebuilding:astral_redstone"
+          "simpleores:astral_redstone"
         ]
       }
     }
