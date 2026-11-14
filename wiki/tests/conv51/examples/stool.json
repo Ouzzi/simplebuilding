@@ -1,0 +1,148 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "top": "mymodels:block/stool_top",
+    "leg": "mymodels:block/stool_leg",
+    "particle": "#leg"
+  },
+  "elements": [
+    {
+      "name": "seat",
+      "from": [
+        2,
+        8,
+        2
+      ],
+      "to": [
+        14,
+        10,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#top",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "north": {
+          "uv": [
+            2,
+            6,
+            14,
+            8
+          ],
+          "texture": "#leg"
+        },
+        "south": {
+          "uv": [
+            2,
+            6,
+            14,
+            8
+          ],
+          "texture": "#leg"
+        },
+        "west": {
+          "uv": [
+            2,
+            6,
+            14,
+            8
+          ],
+          "texture": "#leg"
+        },
+        "east": {
+          "uv": [
+            2,
+            6,
+            14,
+            8
+          ],
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "name": "leg",
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        5,
+        8,
+        5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            8,
+            5,
+            16
+          ],
+          "texture": "#leg"
+        },
+        "south": {
+          "uv": [
+            3,
+            8,
+            5,
+            16
+          ],
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "name": "brace",
+      "from": [
+        7,
+        3,
+        7.5
+      ],
+      "to": [
+        9,
+        4.25,
+        8.5
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          3,
+          8
+        ],
+        "axis": "y",
+        "angle": 22.5
+      },
+      "faces": {
+        "up": {
+          "texture": "#leg",
+          "uv": [
+            0,
+            0,
+            2,
+            1
+          ]
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  }
+}

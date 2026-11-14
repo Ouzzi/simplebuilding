@@ -1,0 +1,170 @@
+{
+ "meta": {
+  "format_version": "4.10",
+  "model_format": "java_block",
+  "box_uv": false
+ },
+ "name": "stool",
+ "resolution": {
+  "width": 16,
+  "height": 16
+ },
+ "elements": [
+  {
+   "name": "seat",
+   "type": "cube",
+   "from": [
+    2,
+    8,
+    2
+   ],
+   "to": [
+    14,
+    10,
+    14
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "origin": [
+    8,
+    8,
+    8
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      2,
+      6,
+      14,
+      8
+     ],
+     "texture": 1
+    },
+    "east": {
+     "uv": [
+      2,
+      6,
+      14,
+      8
+     ],
+     "texture": 1
+    },
+    "south": {
+     "uv": [
+      2,
+      6,
+      14,
+      8
+     ],
+     "texture": 1
+    },
+    "west": {
+     "uv": [
+      2,
+      6,
+      14,
+      8
+     ],
+     "texture": 1
+    },
+    "up": {
+     "uv": [
+      2,
+      2,
+      14,
+      14
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      2,
+      2,
+      14,
+      14
+     ],
+     "texture": 0,
+     "cullface": "down"
+    }
+   }
+  },
+  {
+   "name": "leg",
+   "type": "cube",
+   "from": [
+    3,
+    0,
+    3
+   ],
+   "to": [
+    5,
+    8,
+    5
+   ],
+   "rotation": [
+    0,
+    22.5,
+    0
+   ],
+   "origin": [
+    4,
+    0,
+    4
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      3,
+      8,
+      5,
+      16
+     ],
+     "texture": 1
+    },
+    "south": {
+     "uv": [
+      3,
+      8,
+      5,
+      16
+     ],
+     "texture": 1
+    },
+    "up": {
+     "uv": [
+      3,
+      3,
+      5,
+      5
+     ],
+     "texture": null
+    }
+   }
+  }
+ ],
+ "textures": [
+  {
+   "name": "stool_top.png"
+  },
+  {
+   "name": "stool_leg.png"
+  }
+ ],
+ "display": {
+  "gui": {
+   "rotation": [
+    30,
+    225,
+    0
+   ],
+   "scale": [
+    0.625,
+    0.625,
+    0.625
+   ]
+  }
+ }
+}
