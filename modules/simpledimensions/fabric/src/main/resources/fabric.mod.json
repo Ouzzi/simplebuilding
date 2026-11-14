@@ -41,6 +41,7 @@
   ],
   "suggests": {
     "simplebuilding": "*",
-    "modmenu": "*"
+    "modmenu": "*",
+    "cloth_config": "*"
   }
 }

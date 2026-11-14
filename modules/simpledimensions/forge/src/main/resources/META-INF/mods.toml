@@ -41,3 +41,10 @@ side="CLIENT"
 
 
 
+
+[[dependencies.simpledimensions]]
+modId="cloth_config"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

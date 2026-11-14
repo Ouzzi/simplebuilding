@@ -74,7 +74,7 @@ public final class ChallengeService {
     static void warnIfNotVoid(MinecraftServer server, String presetId) {
         Preset preset = PresetRegistry.get(presetId);
         if (preset == null || preset.world() == null && preset.skyline() == null) return;
-        if (!(server.overworld().getChunkSource().getGenerator() instanceof net.minecraft.world.level.levelgen.flat.FlatLevelSource)) {
+        if (!(server.overworld().getChunkSource().getGenerator() instanceof net.minecraft.world.level.levelgen.FlatLevelSource)) {
             SimpleChallenges.LOG.warn("Challenge '{}' needs an empty (void) overworld but this world has a normal generator: the start "
                     + "island and blocks are built into the generated terrain. Create the world with level-type minecraft:flat and the "
                     + "'The Void' preset (generator-settings) or choose another challenge.", presetId);
