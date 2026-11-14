@@ -185,7 +185,7 @@ lantern_tag = json.loads((mc / 'block/lanterns.json').read_text(encoding='utf-8'
 chain_tag = json.loads((mc / 'block/chains.json').read_text(encoding='utf-8'))['values']
 plate_tag = json.loads((mc / 'block/pressure_plates.json').read_text(encoding='utf-8'))['values']
 POLE_METALS = COSMETIC + ALLOYS
-PLATE_METALS = POLE_METALS + ('enderite', 'terranite', 'infernite', 'zenithite')
+PLATE_METALS = POLE_METALS + ('terranite', 'infernite', 'zenithite')
 for b, tier, tags_ in ([(f'{m}_lamp', stone_tier, None) for m in COSMETIC] + [(f'{m}_lantern', None, lantern_tag) for m in COSMETIC]
                        + [(f'{m}_chain', None, chain_tag) for m in COSMETIC] + [(f'{m}_pole', stone_tier, None) for m in POLE_METALS]
                        + [(f'{m}_pressure_plate', None, plate_tag) for m in PLATE_METALS]):

@@ -377,6 +377,100 @@
       "de": {
         "summary": "Schmiedevorlage für Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs). Neun Splitter ergeben eine; mit Simple Mobs auch ein Netherherz-Rezept; ohne Simple Mobs lässt der Vanilla-Wither sie fallen."
       }
+    },
+    "simplelib:diamond_pressure_plate": {
+      "en": {
+        "summary": "The Diamond Pressure Plate (Simple Lib) reacts to players only - mobs and items do not press it.",
+        "details": [
+          "Part of the SimpleLib material group material_pressure_plates (with Simple Pads or Simple Ores).",
+          "Crafting: two diamonds side by side. Waterloggable. Pistons cannot move it.",
+          "Players who ignore block triggers (spectators) do not press it either."
+        ]
+      },
+      "de": {
+        "summary": "Die Diamant-Druckplatte (Simple Lib) reagiert nur auf Spieler - Mobs und Gegenstände drücken sie nicht.",
+        "details": [
+          "Teil der SimpleLib-Materialgruppe material_pressure_plates (mit Simple Pads oder Simple Ores).",
+          "Werkbank: zwei Diamanten nebeneinander. Wasserfüllbar. Kolben bewegen sie nicht.",
+          "Spieler, die Auslöser ignorieren (Zuschauer), drücken sie auch nicht."
+        ]
+      },
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/block/DiamondPressurePlateBlock.java",
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/tools/gen_resources.py"
+      ]
+    },
+    "simplelib:netherite_pressure_plate": {
+      "en": {
+        "summary": "The Netherite Pressure Plate (Simple Lib) reacts to every player - unless a barrel sits below it: then only players carrying one of the items in the barrel press it.",
+        "details": [
+          "Smithing: netherite upgrade + Diamond Pressure Plate + netherite ingot.",
+          "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
+          "Can be switched off together with the Enderite Owner Plate (pads.enableFilterPlates)."
+        ]
+      },
+      "de": {
+        "summary": "Die Netherit-Druckplatte (Simple Lib) reagiert auf jeden Spieler - außer ein Fass steht darunter: dann nur auf Spieler, die einen der Gegenstände aus dem Fass bei sich tragen.",
+        "details": [
+          "Schmiede: Netherit-Aufwertung + Diamant-Druckplatte + Netheritbarren.",
+          "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
+          "Zusammen mit der Enderit-Besitzerplatte abschaltbar (pads.enableFilterPlates)."
+        ]
+      },
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/block/FilterPressurePlateBlock.java",
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/tools/gen_resources.py"
+      ]
+    },
+    "simplelib:enderite_pressure_plate": {
+      "en": {
+        "summary": "The Enderite Owner Plate is new: a Netherite plate with a player lock. Its owner always presses it; without a barrel nobody else does; with a barrel below, also everyone whose name is on a renamed name tag in the barrel, or who carries one of the other items in it.",
+        "details": [
+          "Part of the SimpleLib material group material_pressure_plates: it exists as soon as Simple Pads or Simple Ores is installed (Simple Ores sells no pads, Simple Pads no ore). Also craftable from two enderite ingots side by side.",
+          "Smithing: enderite upgrade template + Netherite Pressure Plate + enderite ingot.",
+          "A named name tag in the barrel counts as a name, not as a whitelisted item.",
+          "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+        ]
+      },
+      "de": {
+        "summary": "Die Enderit-Besitzerplatte ist neu: eine Netherit-Platte mit Spielerschloss. Ihr Besitzer löst sie immer aus; ohne Fass sonst niemand; mit Fass darunter auch jeder, dessen Name auf einem umbenannten Namensschild im Fass steht oder der einen der anderen Gegenstände daraus trägt.",
+        "details": [
+          "Teil der SimpleLib-Materialgruppe material_pressure_plates: sie gibt es, sobald Simple Pads oder Simple Ores installiert ist (Simple Ores bringt keine Pads, Simple Pads keine Erze). Auch aus zwei Enderitbarren nebeneinander herstellbar.",
+          "Schmiede: Enderit-Aufwertung + Netherit-Druckplatte + Enderitbarren.",
+          "Ein benanntes Namensschild im Fass zählt als Name, nicht als Whitelist-Gegenstand.",
+          "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+        ]
+      },
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/block/FilterPressurePlateBlock.java",
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/tools/gen_resources.py"
+      ]
+    },
+    "simplelib:emerald_pressure_plate": {
+      "en": {
+        "summary": "The Emerald Pressure Plate reacts to villagers only (Villager; the Wandering Trader does not count) - and the other way round once redstone powers the plate itself: then every living thing except villagers presses it.",
+        "details": [
+          "Crafting: two emeralds side by side (Vanilla's stone plate pattern). Part of the SimpleLib material group material_pressure_plates (with Simple Pads or Simple Ores).",
+          "Powered means a redstone signal reaching the block from below or from a side, not its own output signal, so it never feeds itself; pressing it does not flip the mode.",
+          "Items never press it; players press the powered plate like any living thing."
+        ]
+      },
+      "de": {
+        "summary": "Die Smaragd-Druckplatte reagiert nur auf Dorfbewohner (Villager; der Fahrende Händler zählt nicht) - und genau umgekehrt, sobald Redstone die Platte selbst bestromt: dann löst jedes Lebewesen außer Dorfbewohnern sie aus.",
+        "details": [
+          "Werkbank: zwei Smaragde nebeneinander (Muster der Vanilla-Steinplatte). Teil der SimpleLib-Materialgruppe material_pressure_plates (mit Simple Pads oder Simple Ores).",
+          "Bestromt heißt: ein Redstone-Signal erreicht den Block von unten oder von einer Seite, nicht das eigene Ausgangssignal - so speist sie sich nie selbst; das Drücken kippt den Modus nicht.",
+          "Gegenstände lösen nie aus; Spieler drücken die bestromte Platte wie jedes Lebewesen."
+        ]
+      },
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/block/EmeraldPressurePlateBlock.java",
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/tools/gen_resources.py"
+      ]
     }
   }
 }

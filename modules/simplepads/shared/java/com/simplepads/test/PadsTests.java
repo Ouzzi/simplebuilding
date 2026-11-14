@@ -68,7 +68,6 @@ public final class PadsTests {
         ALL.put("copper_plates_release_as_late_as_they_press", PressurePlateTests::copperPlatesReleaseAsLateAsTheyPress);
         ALL.put("every_mod_pressure_plate_visibly_sinks_when_pressed", PressurePlateTests::everyModPressurePlateVisiblySinksWhenPressed);
         ALL.put("every_mod_pressure_plate_is_named_like_the_vanilla_ones", PressurePlateTests::everyModPressurePlateIsNamedLikeTheVanillaOnes);
-        ALL.put("owner_plate_name_differs_from_ores_plate", PressurePlateTests::ownerPlateNameDiffersFromOresPlate);
         ALL.put("launchpad_tiers_hold_four_eight_and_sixteen_wind_charges", PadTierTests::launchpadTiersHoldFourEightAndSixteenWindCharges);
         ALL.put("sneaking_with_wind_charges_loads_the_whole_hand_up_to_capacity", PadTierTests::sneakingWithWindChargesLoadsTheWholeHandUpToCapacity);
         ALL.put("launch_strength_per_charge_is_doubled_so_full_tiers_launch_like_twice_the_old_charges", PadTierTests::launchStrengthPerChargeIsDoubledSoFullTiersLaunchLikeTwiceTheOldCharges);
@@ -127,14 +126,23 @@ public final class PadsTests {
             if (!SimplePads.MOD_ID.equals(id.getNamespace())) problems.add("block " + id);
             if (block.asItem() == Items.AIR) problems.add("no item for " + id);
         }
-        if (PadsBlocks.all().size() != 29) problems.add("29 blocks expected, found " + PadsBlocks.all().size());
+        if (PadsBlocks.all().size() != 26) problems.add("26 blocks expected (the Diamond, Netherite and Enderite plates are SimpleLib's since N48), found " + PadsBlocks.all().size());
         for (String path : List.of("spawn_elytra", "funny_stick", "guide_book")) {
             if (!BuiltInRegistries.ITEM.containsKey(SimplePads.id(path))) problems.add("item " + path);
         }
         if (!BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimplePads.id("pads"))) problems.add("tab simplepads:pads");
         for (String path : List.of("launchpad_be", "elytra_pad_be", "flypad_be", "potion_pad_be", "spawn_teleporter_be", "chunk_loader_be",
-                "copper_pressure_plate_be", "netherite_pressure_plate_be")) {
+                "copper_pressure_plate_be")) {
             if (!BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(SimplePads.id(path))) problems.add("block entity type " + path);
+        }
+        // N48: the filter plates' block entity type is SimpleLib's; the old Simple Pads and SimpleBuilding ids resolve to it.
+        if (!BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(com.simplelib.SimpleLib.id("filter_pressure_plate_be"))) problems.add("block entity type simplelib:filter_pressure_plate_be");
+        for (String old : List.of("netherite_pressure_plate_be")) {
+            for (String ns : List.of(SimplePads.MOD_ID, SimplePads.SB_NAMESPACE)) {
+                if (BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(Identifier.fromNamespaceAndPath(ns, old)) != BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(com.simplelib.SimpleLib.id("filter_pressure_plate_be"))) {
+                    problems.add(ns + ":" + old + " does not resolve to simplelib:filter_pressure_plate_be");
+                }
+            }
         }
         if (PadsItems.tabStacks().size() < 30) problems.add("tab has only " + PadsItems.tabStacks().size() + " stacks");
         h.assertTrue(problems.isEmpty(), "registration: " + problems);
@@ -149,6 +157,15 @@ public final class PadsTests {
             Identifier old = Identifier.fromNamespaceAndPath(SimplePads.SB_NAMESPACE, path);
             if (BuiltInRegistries.BLOCK.getValue(old) != block) problems.add("block " + path);
             if (BuiltInRegistries.ITEM.getValue(old) != block.asItem()) problems.add("item " + path);
+        }
+        // N48: the Diamond, Netherite and Enderite plates live in SimpleLib now; SimpleBuilding's and Simple Pads' ids chain onto simplelib:.
+        for (Block plate : List.of(PadsBlocks.DIAMOND_PRESSURE_PLATE, PadsBlocks.NETHERITE_PRESSURE_PLATE, PadsBlocks.ENDERITE_PRESSURE_PLATE)) {
+            String path = BuiltInRegistries.BLOCK.getKey(plate).getPath();
+            for (String ns : List.of(SimplePads.SB_NAMESPACE, SimplePads.MOD_ID)) {
+                Identifier old = Identifier.fromNamespaceAndPath(ns, path);
+                if (BuiltInRegistries.BLOCK.getValue(old) != plate) problems.add("block " + ns + ":" + path);
+                if (BuiltInRegistries.ITEM.getValue(old) != plate.asItem()) problems.add("item " + ns + ":" + path);
+            }
         }
         if (BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimplePads.SB_NAMESPACE, "spawn_elytra")) != PadsItems.SPAWN_ELYTRA) {
             problems.add("item spawn_elytra");
@@ -266,7 +283,7 @@ public final class PadsTests {
         List<String> problems = new ArrayList<>();
         for (String path : List.of("enderite_launchpad_smithing", "enderite_elytra_pad_smithing", "enderite_chunk_loader_smithing",
                 "enderite_spawn_teleporter_smithing", "enderite_pressure_plate_smithing")) {
-            var holder = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimplePads.id(path)));
+            var holder = recipes.byKey(ResourceKey.create(Registries.RECIPE, path.equals("enderite_pressure_plate_smithing") ? com.simplelib.SimpleLib.id(path) : SimplePads.id(path)));
             if (holder.isEmpty()) {
                 problems.add(path + " missing");
                 continue;

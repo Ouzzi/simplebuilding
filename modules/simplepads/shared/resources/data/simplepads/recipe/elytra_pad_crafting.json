@@ -5,7 +5,7 @@
   "enchantment": "minecraft:mending",
   "ingredients": [
     "simplelib:diamond_core",
-    "simplepads:diamond_pressure_plate",
+    "simplelib:diamond_pressure_plate",
     "minecraft:elytra"
   ],
   "result": {

@@ -477,9 +477,10 @@ public final class PadOverhaulTests {
         }
         for (String id : List.of("diamond_pressure_plate", "netherite_pressure_plate", "enderite_pressure_plate", "copper_pressure_plate",
                 "exposed_copper_pressure_plate", "weathered_copper_pressure_plate", "oxidized_copper_pressure_plate")) {
-            String model = resource(helper, "/assets/simplepads/models/block/" + id + "_down.json");
-            helper.assertTrue(model.contains("simplepads:block/" + id + "_active"), "the pressed " + id + " does not glow");
-            helper.assertTrue(PadOverhaulTests.class.getResource("/assets/simplepads/textures/block/" + id + "_active.png") != null,
+            String ns = id.startsWith("copper") || id.contains("_copper") ? "simplepads" : "simplelib"; // N48: the Diamond, Netherite, Enderite plates are SimpleLib's
+            String model = resource(helper, "/assets/" + ns + "/models/block/" + id + "_down.json");
+            helper.assertTrue(model.contains(ns + ":block/" + id + "_active"), "the pressed " + id + " does not glow");
+            helper.assertTrue(PadOverhaulTests.class.getResource("/assets/" + ns + "/textures/block/" + id + "_active.png") != null,
                     "no glowing texture for the pressed " + id);
         }
 

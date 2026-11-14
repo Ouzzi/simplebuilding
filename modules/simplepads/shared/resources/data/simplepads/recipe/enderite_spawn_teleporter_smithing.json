@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplepads:enderite_pressure_plate",
+  "addition": "simplelib:enderite_pressure_plate",
   "base": "simplepads:spawn_teleporter_tier_2",
   "result": {
     "id": "simplepads:enderite_spawn_teleporter"

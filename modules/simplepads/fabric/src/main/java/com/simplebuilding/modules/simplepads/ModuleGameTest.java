@@ -219,11 +219,6 @@ public final class ModuleGameTest {
     }
 
     @GameTest
-    public void ownerPlateNameDiffersFromOresPlate(GameTestHelper h) {
-        PadsTests.ALL.get("owner_plate_name_differs_from_ores_plate").accept(h);
-    }
-
-    @GameTest
     public void launchpadTiersHoldFourEightAndSixteenWindCharges(GameTestHelper h) {
         PadsTests.ALL.get("launchpad_tiers_hold_four_eight_and_sixteen_wind_charges").accept(h);
     }

@@ -1,0 +1,21 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "material_pressure_plates"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "material_pressure_plates"
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplelib:diamond_pressure_plate",
+  "result": {
+    "id": "simplelib:netherite_pressure_plate"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}
