@@ -25,6 +25,11 @@ public final class SimpleMovement {
     public static MovementConfig CONFIG = new MovementConfig();
     /** Runs after a command or the config screen changed the values (loader entries sync them to players). */
     public static Runnable onChange = () -> {};
+    /** Server: a crawling player who changes dimension stops crawling (the client player is rebuilt there; simplemovement-1). */
+    public static void resetCrawlOnDimensionChange(net.minecraft.world.entity.player.Player player, net.minecraft.server.level.ServerLevel target) {
+        if (player.level() != target && player instanceof CrawlAccessor crawler && crawler.simpleQualityOfLife$isCrawling()) crawler.simpleQualityOfLife$setCrawling(false);
+    }
+
     /** Server: sends a player's crawl pose to that player and everyone tracking them (set by the loader entry). */
     public static java.util.function.BiConsumer<net.minecraft.world.entity.player.Player, Boolean> crawlSync = (p, c) -> {};
 

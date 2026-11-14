@@ -24,7 +24,7 @@ public final class FarmingTests {
   ALL.put("launch",FarmingTests::launch);ALL.put("config",FarmingTests::config);ALL.put("qol_migration",FarmingTests::qolMigration);ALL.put("super_switch",FarmingTests::superSwitch);
   ALL.put("hoe_switch",FarmingTests::hoeSwitch);ALL.put("cross_mod",FarmingTests::crossMod);ALL.put("sync",FarmingTests::sync);
   ALL.put("farmland",FarmingTests::farmland);
-  ALL.put("hoe_harvest",FarmingTests::hoeHarvest);
+  ALL.put("hoe_harvest",FarmingTests::hoeHarvest);ALL.put("hoe_creative",FarmingTests::hoeCreative);
   ALL.put("vegetation",FarmingTests::vegetation);
   ALL.put("sharpness_action",FarmingTests::sharpnessAction);
   ALL.put("grass_through",FarmingTests::grassThrough);
@@ -63,6 +63,19 @@ public final class FarmingTests {
    h.assertTrue(!HoeHarvestHandler.wouldHarvest(p,InteractionHand.MAIN_HAND,absolute),"No hand hint on the replanted "+b);
    var after=h.getLevel().getBlockState(absolute);h.assertTrue(after.is(b)&&!(b instanceof CropBlock c&&c.isMaxAge(after)),"Replanted "+b);h.assertTrue(p.getMainHandItem().getDamageValue()==1,"Exactly one durability cost");
    h.assertTrue(HoeHarvestHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,absolute,Direction.UP)==InteractionResult.PASS,"No repeated immature harvest");
+  }
+ });h.succeed();}
+ /** simplefarming-2: the hoe harvest drops items in survival but nothing in creative (like a Vanilla break), and still replants. */
+ public static void hoeCreative(GameTestHelper h){configured(()->{
+  var pos=new BlockPos(2,2,2);var absolute=h.absolutePos(pos);var box=new net.minecraft.world.phys.AABB(absolute).inflate(2);
+  for(var type:new GameType[]{GameType.SURVIVAL,GameType.CREATIVE}){
+   h.setBlock(pos.below(),Blocks.FARMLAND);h.setBlock(pos,Blocks.WHEAT.defaultBlockState().setValue(CropBlock.AGE,7));
+   var p=h.makeMockPlayer(type);p.setPos(Vec3.atCenterOf(absolute));p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.DIAMOND_HOE));
+   h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,box).forEach(net.minecraft.world.entity.Entity::discard);
+   h.assertTrue(HoeHarvestHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,absolute,Direction.UP)==InteractionResult.SUCCESS,"Harvest in "+type);
+   int dropped=h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,box).size();
+   h.assertTrue(type==GameType.CREATIVE?dropped==0:dropped>0,type+": drops "+dropped);
+   h.assertTrue(h.getLevel().getBlockState(absolute).is(Blocks.WHEAT)&&h.getLevel().getBlockState(absolute).getValue(CropBlock.AGE)==0,"Replanted in "+type);
   }
  });h.succeed();}
  public static void vegetation(GameTestHelper h){h.assertTrue(VegetationUtil.isCuttable(Blocks.SHORT_GRASS.defaultBlockState())&&VegetationUtil.isCuttable(Blocks.DANDELION.defaultBlockState()),"Grass/flowers supported");h.assertTrue(!VegetationUtil.isCuttable(Blocks.WATER.defaultBlockState())&&!VegetationUtil.isCuttable(Blocks.STONE.defaultBlockState()),"Fluids and building blocks excluded");h.succeed();}

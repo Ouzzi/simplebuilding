@@ -18,7 +18,8 @@ public final class MobMannersScreen {
                 .setTooltip(tip("mutedEntities")).setSaveConsumer(v -> c.mutedEntities = new java.util.ArrayList<>(v)).build());
         general.addEntry(e.startStrList(name("nametagMuteSuffixes"), c.nametagMuteSuffixes).setDefaultValue(d.nametagMuteSuffixes)
                 .setTooltip(tip("nametagMuteSuffixes")).setSaveConsumer(v -> c.nametagMuteSuffixes = new java.util.ArrayList<>(v)).build());
-        general.addEntry(e.startStrList(name("nametagBabySuffixes"), c.nametagBabySuffixes).setDefaultValue(d.nametagBabySuffixes)
+        // simplemobmanners-2: only the 26.2/1.21.11 ports have baby suffixes; on 26.3+ Vanilla's golden dandelion does it.
+        if (SimpleMobManners.BABY_NAMETAG_LEGACY) general.addEntry(e.startStrList(name("nametagBabySuffixes"), c.nametagBabySuffixes).setDefaultValue(d.nametagBabySuffixes)
                 .setTooltip(tip("nametagBabySuffixes")).setSaveConsumer(v -> c.nametagBabySuffixes = new java.util.ArrayList<>(v)).build());
         general.addEntry(e.startBooleanToggle(name("piglinsIgnoreGoldTrims"), c.piglinsIgnoreGoldTrims).setDefaultValue(true)
                 .setTooltip(tip("piglinsIgnoreGoldTrims")).setSaveConsumer(v -> c.piglinsIgnoreGoldTrims = v).build());

@@ -64,27 +64,35 @@ public final class ContainersScreen {
         general.addEntry(e.startIntField(name("zoomMaxMagnification"), c.zoomMaxMagnification).setMin(2).setMax(100).setDefaultValue(30)
                 .setTooltip(tip("zoomMaxMagnification")).setSaveConsumer(v -> c.zoomMaxMagnification = v).build());
         // Server values (formerly Simple QoL): linked containers and Easy Shulkers / Ender Chests.
+        // simpleinterfaces-5 (INT-P3-4): on a foreign server they only change the local file and have no effect, so the tab is shown only
+        // in the main menu, in single player and as LAN host.
+        var mc = net.minecraft.client.Minecraft.getInstance();
+        boolean showServer = mc.level == null || mc.hasSingleplayerServer();
         var s = gson.fromJson(gson.toJson(SimpleInterfaces.CONFIG), LinkedConfig.class);
-        var server = b.getOrCreateCategory(Component.translatable("simpleinterfaces.tab.server"));
-        server.addEntry(e.startBooleanToggle(name("enableLinkedContainers"), s.enableLinkedContainers).setDefaultValue(true)
-                .setTooltip(tip("enableLinkedContainers")).setSaveConsumer(v -> s.enableLinkedContainers = v).build());
-        server.addEntry(e.startIntField(name("linkedContainerRange"), s.linkedContainerRange).setMin(LinkedConfig.MIN_LINKED_RANGE)
-                .setMax(LinkedConfig.MAX_LINKED_RANGE).setDefaultValue(LinkedConfig.DEFAULT_LINKED_RANGE).setTooltip(tip("linkedContainerRange"))
-                .setSaveConsumer(v -> s.linkedContainerRange = v).build());
-        server.addEntry(e.startBooleanToggle(name("enableEasyShulkers"), s.enableEasyShulkers).setDefaultValue(true)
-                .setTooltip(tip("enableEasyShulkers")).setSaveConsumer(v -> s.enableEasyShulkers = v).build());
-        server.addEntry(e.startBooleanToggle(name("enableEasyEnderChests"), s.enableEasyEnderChests).setDefaultValue(true)
-                .setTooltip(tip("enableEasyEnderChests")).setSaveConsumer(v -> s.enableEasyEnderChests = v).build());
-        server.addEntry(e.startBooleanToggle(name("enableEnderChestTooltip"), s.enableEnderChestTooltip).setDefaultValue(true)
-                .setTooltip(tip("enableEnderChestTooltip")).setSaveConsumer(v -> s.enableEnderChestTooltip = v).build());
+        if (showServer) {
+            var server = b.getOrCreateCategory(Component.translatable("simpleinterfaces.tab.server"));
+            server.addEntry(e.startBooleanToggle(name("enableLinkedContainers"), s.enableLinkedContainers).setDefaultValue(true)
+                    .setTooltip(tip("enableLinkedContainers")).setSaveConsumer(v -> s.enableLinkedContainers = v).build());
+            server.addEntry(e.startIntField(name("linkedContainerRange"), s.linkedContainerRange).setMin(LinkedConfig.MIN_LINKED_RANGE)
+                    .setMax(LinkedConfig.MAX_LINKED_RANGE).setDefaultValue(LinkedConfig.DEFAULT_LINKED_RANGE).setTooltip(tip("linkedContainerRange"))
+                    .setSaveConsumer(v -> s.linkedContainerRange = v).build());
+            server.addEntry(e.startBooleanToggle(name("enableEasyShulkers"), s.enableEasyShulkers).setDefaultValue(true)
+                    .setTooltip(tip("enableEasyShulkers")).setSaveConsumer(v -> s.enableEasyShulkers = v).build());
+            server.addEntry(e.startBooleanToggle(name("enableEasyEnderChests"), s.enableEasyEnderChests).setDefaultValue(true)
+                    .setTooltip(tip("enableEasyEnderChests")).setSaveConsumer(v -> s.enableEasyEnderChests = v).build());
+            server.addEntry(e.startBooleanToggle(name("enableEnderChestTooltip"), s.enableEnderChestTooltip).setDefaultValue(true)
+                    .setTooltip(tip("enableEnderChestTooltip")).setSaveConsumer(v -> s.enableEnderChestTooltip = v).build());
+        }
         b.setSavingRunnable(() -> {
             c.normalize();
             ContainersClient.CONFIG = c;
             ContainersClient.save();
             com.simplelib.api.client.ui.UiBrightness.set(brightness[0]);
             com.simplelib.api.client.ui.UiBrightness.save();
-            SimpleInterfaces.CONFIG = s;
-            SimpleInterfaces.save();
+            if (showServer) {
+                SimpleInterfaces.CONFIG = s;
+                SimpleInterfaces.save();
+            }
         });
         return b.build();
     }

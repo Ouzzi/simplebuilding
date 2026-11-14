@@ -95,7 +95,7 @@
   "text.autoconfig.simpleinterfaces.option.scopeWheelZoom": "Mouse wheel zoom",
   "text.autoconfig.simpleinterfaces.option.scopeWheelZoom.@Tooltip": "The mouse wheel zooms steplessly while looking\nthrough the spyglass or zooming, instead of\nscrolling the hotbar. Default: on.",
   "text.autoconfig.simpleinterfaces.option.zoomHotkey": "Zoom key without spyglass",
-  "text.autoconfig.simpleinterfaces.option.zoomHotkey.@Tooltip": "The zoom key (default V, change it in the controls)\nzooms without a spyglass, with the same overlay.\nOff: zoom only with the spyglass. Default: off.",
+  "text.autoconfig.simpleinterfaces.option.zoomHotkey.@Tooltip": "The zoom key (default V, change it in the controls)\nzooms without a spyglass, with the same overlay.\nOff: zoom only with the spyglass, and the key V is not\nassigned at all. Takes effect after a restart. Default: off.",
   "text.autoconfig.simpleinterfaces.option.zoomMaxMagnification": "Strongest zoom",
   "text.autoconfig.simpleinterfaces.option.zoomMaxMagnification.@Tooltip": "Strongest magnification the mouse wheel reaches.\nDefault: 30. Allowed range: 2–100.",
   "key.simpleinterfaces.zoom": "Zoom",

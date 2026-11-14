@@ -3,7 +3,7 @@
   "id": "simpletools",
   "version": "${version}",
   "name": "Simple Tools",
-  "icon": "assets/simpletools/icon.png",
+  "icon": "assets/simpletools/icon_128.png",
   "authors": [
     "Ouzzi"
   ],
@@ -33,7 +33,8 @@
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
     "java": ">=25",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "simplelib": ">=0.4.0"
   },
   "mixins": [
     "simpletools.mixins.json"

@@ -1121,14 +1121,14 @@
       ],
       "en": {
         "title": "Zoom key without spyglass",
-        "summary": "The zoom key (default V, change it in the controls) zooms without a spyglass, with the same overlay. Off: zoom only with the spyglass. Default: off.",
+        "summary": "The zoom key (default V, change it in the controls) zooms without a spyglass, with the same overlay. Off: zoom only with the spyglass and the key V is not assigned at all (takes effect after a restart). Default: off.",
         "details": [
           "Local value in config/simpleinterfaces.json (client only)."
         ]
       },
       "de": {
         "title": "Zoom-Taste ohne Fernrohr",
-        "summary": "Die Zoom-Taste (Standard V, in den Steuerungen änderbar) zoomt ohne Fernrohr, mit demselben Overlay. Aus: Zoom nur mit dem Fernrohr. Standard: aus.",
+        "summary": "Die Zoom-Taste (Standard V, in den Steuerungen änderbar) zoomt ohne Fernrohr, mit demselben Overlay. Aus: Zoom nur mit dem Fernrohr, die Taste V ist dann gar nicht belegt (wirkt nach einem Neustart). Standard: aus.",
         "details": [
           "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
         ]

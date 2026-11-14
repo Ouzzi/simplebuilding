@@ -17,6 +17,9 @@ public final class MobMannersConfig {
     /** Piglins accept a golden tool in either hand as gold. */
     public boolean piglinsIgnoreGoldTools = true;
 
+    /** List limits: longer values and entries beyond the limit are dropped on load. */
+    public static final int MAX_LENGTH = 64, MAX_ENTRIES = 64;
+
     public void normalizeNumbers() {
         if (mutedEntities == null) mutedEntities = new ArrayList<>();
         if (nametagMuteSuffixes == null) nametagMuteSuffixes = new ArrayList<>();
@@ -31,6 +34,6 @@ public final class MobMannersConfig {
 
     private static List<String> boundedList(List<String> values) {
         if (values == null) return new ArrayList<>();
-        return new ArrayList<>(values.stream().filter(v -> v != null && !v.isBlank() && v.length() <= 64).distinct().limit(64).toList());
+        return new ArrayList<>(values.stream().filter(v -> v != null && !v.isBlank() && v.length() <= MAX_LENGTH).distinct().limit(MAX_ENTRIES).toList());
     }
 }

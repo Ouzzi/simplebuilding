@@ -7,7 +7,7 @@
   "mod": {
     "id": "simpletools",
     "name": "Simple Tools",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "minecraftLines": [
       "26.3"
     ],
@@ -56,11 +56,11 @@
       ],
       "en": {
         "title": "Durability bonus",
-        "summary": "Damageable held Vanilla and mod tools above the durability threshold can gain attack damage and mining speed. The default multiplier is 1.0 (no bonus), with a server-enforced range of 1–1.5. The threshold defaults to 80% (range 80–100%). Item durability itself is unchanged."
+        "summary": "Damageable held Vanilla and mod tools above the durability threshold can gain attack damage and mining speed. The bonus is off by default (enableFullDurabilityBonus); once switched on the multiplier defaults to 1.2 (+20 %), with a server-enforced range of 1–1.5. The threshold defaults to 80% (range 80–100%). Item durability itself is unchanged."
       },
       "de": {
         "title": "Haltbarkeitsbonus",
-        "summary": "Gehaltene beschädigbare Vanilla- und Mod-Werkzeuge über der Haltbarkeitsschwelle können mehr Angriffsschaden und Abbaugeschwindigkeit erhalten. Standardfaktor 1.0 (kein Bonus), serverseitiger Bereich 1–1.5. Schwelle standardmäßig 80% (Bereich 80–100%). Die Haltbarkeit selbst bleibt unverändert."
+        "summary": "Gehaltene beschädigbare Vanilla- und Mod-Werkzeuge über der Haltbarkeitsschwelle können mehr Angriffsschaden und Abbaugeschwindigkeit erhalten. Der Bonus ist standardmäßig aus (enableFullDurabilityBonus); eingeschaltet gilt Faktor 1.2 (+20 %), serverseitiger Bereich 1–1.5. Schwelle standardmäßig 80% (Bereich 80–100%). Die Haltbarkeit selbst bleibt unverändert."
       }
     },
     {
@@ -84,11 +84,11 @@
       ],
       "en": {
         "title": "enableFullDurabilityBonus",
-        "summary": "Server setting. Default: true."
+        "summary": "Server setting. Default: false (off, it changes combat values)."
       },
       "de": {
         "title": "enableFullDurabilityBonus",
-        "summary": "Servereinstellung. Standard: true."
+        "summary": "Servereinstellung. Standard: false (aus, verändert Kampfwerte)."
       }
     },
     {
@@ -112,11 +112,11 @@
       ],
       "en": {
         "title": "fullDurabilityBonusMultiplier",
-        "summary": "Server setting. Default: 1.0 (no bonus). Range: 1.0–1.5. Saved 1.5 remains 1.5; absent keys use 1.0. Nonfinite values fall back to 1.0; finite out-of-range values are clamped."
+        "summary": "Server setting. Default: 1.2 (+20 % once the bonus is on; 1.0 = no bonus). Range: 1.0–1.5. Saved 1.5 remains 1.5; absent keys use 1.2. Nonfinite values fall back to 1.2; finite out-of-range values are clamped."
       },
       "de": {
         "title": "fullDurabilityBonusMultiplier",
-        "summary": "Servereinstellung. Standard: 1.0 (kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schlüssel nutzen 1.0. Nicht endliche Werte fallen auf 1.0 zurück; endliche Werte ausserhalb des Bereichs werden begrenzt."
+        "summary": "Servereinstellung. Standard: 1.2 (+20 % sobald der Bonus an ist; 1.0 = kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schlüssel nutzen 1.2. Nicht endliche Werte fallen auf 1.2 zurück; endliche Werte ausserhalb des Bereichs werden begrenzt."
       }
     },
     {
@@ -385,11 +385,11 @@
       ],
       "en": {
         "title": "Death Vault",
-        "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, color coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. Buying lost items back with an offering is a future feature: the code stays, option deathVaultRedeem is off by default."
+        "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, color coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. An item that falls through a portal keeps its entry: the vault follows it into the other dimension and shows what finally became of it."
       },
       "de": {
         "title": "Todesgewölbe",
-        "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde, farbcodiert mit Legende: liegt noch (grün), von dir (blau) oder einem anderen Spieler (rot, der Name steht im Tooltip) aufgehoben, in Lava, Feuer oder durch einen Kaktus verbrannt (orange), verschwunden (grau), ins Leere gefallen (lila), anders weg (gelb). Ein liegender Gegenstand hat einen Balken wie eine Haltbarkeitsleiste: wie viel von seinen fünf Minuten übrig ist. Ist sein Chunk nicht geladen, steht der Timer und das Feld zeigt ein Pausen-Zeichen. Rückkauf verlorener Gegenstände gegen ein Opfer ist eine zukünftige Funktion: der Code bleibt, die Option deathVaultRedeem ist standardmäßig aus."
+        "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde, farbcodiert mit Legende: liegt noch (grün), von dir (blau) oder einem anderen Spieler (rot, der Name steht im Tooltip) aufgehoben, in Lava, Feuer oder durch einen Kaktus verbrannt (orange), verschwunden (grau), ins Leere gefallen (lila), anders weg (gelb). Ein liegender Gegenstand hat einen Balken wie eine Haltbarkeitsleiste: wie viel von seinen fünf Minuten übrig ist. Ist sein Chunk nicht geladen, steht der Timer und das Feld zeigt ein Pausen-Zeichen. Ein Gegenstand, der durch ein Portal fällt, behält seinen Eintrag: das Gewölbe folgt ihm in die andere Dimension und zeigt, was zuletzt aus ihm wurde."
       }
     },
     {
@@ -534,62 +534,6 @@
       "de": {
         "title": "soulboundEndCityChance",
         "summary": "Servereinstellung. Standard: 0.02 (0-1). Chance auf ein Seelengebunden-Buch in einer Endsiedlungs-Schatztruhe (wirkt nach dem Neuladen der Daten)."
-      }
-    },
-    {
-      "id": "config_deathVaultCostPerItem",
-      "sources": [
-        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
-      ],
-      "en": {
-        "title": "deathVaultCostPerItem",
-        "summary": "Server setting. Default: 4 (1-64). Future buy-back (deathVaultRedeem): offering points (diamonds, money bills) per returned item."
-      },
-      "de": {
-        "title": "deathVaultCostPerItem",
-        "summary": "Servereinstellung. Standard: 4 (1-64). Zukünftiger Rückkauf (deathVaultRedeem): Opferpunkte (Diamanten, Geldscheine) je zurückgegebenem Gegenstand."
-      }
-    },
-    {
-      "id": "config_deathVaultMaxPerOffering",
-      "sources": [
-        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
-      ],
-      "en": {
-        "title": "deathVaultMaxPerOffering",
-        "summary": "Server setting. Default: 3 (1-27). Future buy-back (deathVaultRedeem): items one offering returns at most."
-      },
-      "de": {
-        "title": "deathVaultMaxPerOffering",
-        "summary": "Servereinstellung. Standard: 3 (1-27). Zukünftiger Rückkauf (deathVaultRedeem): so viele Gegenstände gibt ein Opfer höchstens zurück."
-      }
-    },
-    {
-      "id": "config_deathVaultRedeem",
-      "sources": [
-        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
-      ],
-      "en": {
-        "title": "deathVaultRedeem",
-        "summary": "Server setting. Default: false (off). Future feature: buy lost death drops back with an offering at the Death Vault. The code stays, only the switch is off; also /simpletools deathVaultRedeem <true|false>."
-      },
-      "de": {
-        "title": "deathVaultRedeem",
-        "summary": "Servereinstellung. Standard: false (aus). Zukünftige Funktion: verlorene Todes-Drops mit einem Opfer am Todesgewölbe zurückkaufen. Der Code bleibt, nur der Schalter ist aus; auch /simpletools deathVaultRedeem <true|false>."
-      }
-    },
-    {
-      "id": "config_deathVaultMaxDeaths",
-      "sources": [
-        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
-      ],
-      "en": {
-        "title": "deathVaultMaxDeaths",
-        "summary": "Server setting. Default: 20 (1-100). Future buy-back (deathVaultRedeem): deaths remembered per player, older ones are forgotten; without it only the last death is kept."
-      },
-      "de": {
-        "title": "deathVaultMaxDeaths",
-        "summary": "Servereinstellung. Standard: 20 (1-100). Zukünftiger Rückkauf (deathVaultRedeem): gemerkte Tode je Spieler, ältere werden vergessen; ohne ihn wird nur der letzte Tod gemerkt."
       }
     }
   ],
@@ -1536,11 +1480,11 @@
       "note": {
         "en": {
           "title": "Death Vault",
-          "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, color coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. Buying lost items back with an offering is a future feature: the code stays, option deathVaultRedeem is off by default."
+          "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, color coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. An item that falls through a portal keeps its entry: the vault follows it into the other dimension and shows what finally became of it."
         },
         "de": {
           "title": "Todesgewölbe",
-          "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde, farbcodiert mit Legende: liegt noch (grün), von dir (blau) oder einem anderen Spieler (rot, der Name steht im Tooltip) aufgehoben, in Lava, Feuer oder durch einen Kaktus verbrannt (orange), verschwunden (grau), ins Leere gefallen (lila), anders weg (gelb). Ein liegender Gegenstand hat einen Balken wie eine Haltbarkeitsleiste: wie viel von seinen fünf Minuten übrig ist. Ist sein Chunk nicht geladen, steht der Timer und das Feld zeigt ein Pausen-Zeichen. Rückkauf verlorener Gegenstände gegen ein Opfer ist eine zukünftige Funktion: der Code bleibt, die Option deathVaultRedeem ist standardmäßig aus."
+          "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde, farbcodiert mit Legende: liegt noch (grün), von dir (blau) oder einem anderen Spieler (rot, der Name steht im Tooltip) aufgehoben, in Lava, Feuer oder durch einen Kaktus verbrannt (orange), verschwunden (grau), ins Leere gefallen (lila), anders weg (gelb). Ein liegender Gegenstand hat einen Balken wie eine Haltbarkeitsleiste: wie viel von seinen fünf Minuten übrig ist. Ist sein Chunk nicht geladen, steht der Timer und das Feld zeigt ein Pausen-Zeichen. Ein Gegenstand, der durch ein Portal fällt, behält seinen Eintrag: das Gewölbe folgt ihm in die andere Dimension und zeigt, was zuletzt aus ihm wurde."
         }
       },
       "questionary": {
@@ -1818,7 +1762,7 @@
       "name": "enableFullDurabilityBonus",
       "shortName": "enableFullDurabilityBonus",
       "type": "boolean",
-      "default": "true",
+      "default": "false",
       "note": null,
       "category": "Simple Tools",
       "categoryDe": "Simple Tools",
@@ -1826,8 +1770,8 @@
       "groupDe": null,
       "label": "Full Durability Bonus",
       "labelDe": "Voll-Haltbarkeits-Bonus",
-      "tooltip": "Grants a bonus to mining speed and damage\nwhen tools/weapons are near full durability.\nDefault: true.",
-      "tooltipDe": "Gewährt einen Bonus auf Abbaugeschwindigkeit\nund Schaden, wenn Werkzeuge/Waffen nahezu\nvolle Haltbarkeit haben. Standard: true."
+      "tooltip": "Grants a bonus to mining speed and damage\nwhen tools/weapons are near full durability.\nDefault: false (off).",
+      "tooltipDe": "Gewährt einen Bonus auf Abbaugeschwindigkeit\nund Schaden, wenn Werkzeuge/Waffen nahezu\nvolle Haltbarkeit haben. Standard: false (aus)."
     },
     {
       "range": null,
@@ -1951,7 +1895,7 @@
       "name": "fullDurabilityBonusMultiplier",
       "shortName": "fullDurabilityBonusMultiplier",
       "type": "double",
-      "default": "1.0",
+      "default": "1.2",
       "note": null,
       "category": "Simple Tools",
       "categoryDe": "Simple Tools",
@@ -1959,8 +1903,8 @@
       "groupDe": null,
       "label": "Bonus Multiplier",
       "labelDe": "Bonus-Multiplikator",
-      "tooltip": "The multiplier applied to speed/damage (e.g.,\n1.15 for +15%). Default: 1.0. Allowed range:\n1.0–1.5. Applies to Vanilla and mod tools.\n1.0 means no bonus; saved values are\nretained.",
-      "tooltipDe": "Multiplikator für Geschwindigkeit/Schaden\n(z.B. 1.15 für +15%). Standard: 1.0.\nErlaubter Bereich: 1.0–1.5. Gilt für Vanilla-\nund Mod-Werkzeuge. 1.0 bedeutet keinen Bonus;\ngespeicherte Werte bleiben erhalten."
+      "tooltip": "The multiplier applied to speed/damage (e.g.,\n1.15 for +15%). Default: 1.2. Allowed range:\n1.0–1.5. Applies to Vanilla and mod tools.\n1.0 means no bonus; saved values are\nretained.",
+      "tooltipDe": "Multiplikator für Geschwindigkeit/Schaden\n(z.B. 1.15 für +15%). Standard: 1.2.\nErlaubter Bereich: 1.0–1.5. Gilt für Vanilla-\nund Mod-Werkzeuge. 1.0 bedeutet keinen Bonus;\ngespeicherte Werte bleiben erhalten."
     },
     {
       "range": null,
@@ -2070,7 +2014,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 36,
+    "features": 32,
     "recipes": 7,
     "lootTables": 2,
     "tags": 3,

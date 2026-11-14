@@ -753,7 +753,7 @@
     {
       "id": "simplequalityoflife",
       "name": "Simple Quality of Life",
-      "version": "0.9.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Quality of Life",
@@ -764,7 +764,6 @@
         "forge"
       ],
       "requires": [
-        "cloth_config",
         "simpleweather",
         "simpleinterfaces",
         "simpleloot",
@@ -1281,7 +1280,7 @@
     {
       "id": "simpleinterfaces",
       "name": "Simple Interfaces",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Interfaces",
@@ -1292,7 +1291,6 @@
         "forge"
       ],
       "requires": [
-        "cloth_config",
         "simplelib"
       ],
       "optional": [
@@ -1737,7 +1735,7 @@
     {
       "id": "simpleweather",
       "name": "Simple Weather",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Weather",
@@ -1747,9 +1745,7 @@
         "neoforge",
         "forge"
       ],
-      "requires": [
-        "cloth_config"
-      ],
+      "requires": [],
       "optional": [
         "simplequalityoflife",
         "modmenu"
@@ -1832,19 +1828,17 @@
     {
       "id": "simplemovement",
       "name": "Simple Movement",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Movement",
-      "description": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
+      "description": "Manual crawling, server-allowed autowalk, faster ladders (Vanilla 0.2, default 0.4) and Frost Walker on powder snow, plus the Step Height (I-II) and Sprint (I-III) treasure enchantments and a Jump Boost step-up; a sub-mod of Simple QoL, also playable alone.",
       "loaders": [
         "fabric",
         "neoforge",
         "forge"
       ],
-      "requires": [
-        "cloth_config"
-      ],
+      "requires": [],
       "optional": [
         "simplequalityoflife",
         "modmenu"
@@ -1927,7 +1921,7 @@
     {
       "id": "simpletools",
       "name": "Simple Tools",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tools",
@@ -1937,9 +1931,7 @@
         "neoforge",
         "forge"
       ],
-      "requires": [
-        "cloth_config"
-      ],
+      "requires": [],
       "optional": [
         "simplebuilding",
         "simplequalityoflife",
@@ -2027,7 +2019,7 @@
     {
       "id": "simplefarming",
       "name": "Simple Farming",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Farming",
@@ -2037,9 +2029,7 @@
         "neoforge",
         "forge"
       ],
-      "requires": [
-        "cloth_config"
-      ],
+      "requires": [],
       "optional": [
         "simplebuilding",
         "simplequalityoflife",
@@ -2127,7 +2117,7 @@
     {
       "id": "simplemobmanners",
       "name": "Simple Mob Manners",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mob Manners",
@@ -2137,9 +2127,7 @@
         "neoforge",
         "forge"
       ],
-      "requires": [
-        "cloth_config"
-      ],
+      "requires": [],
       "optional": [
         "simplequalityoflife",
         "modmenu"
@@ -2222,7 +2210,7 @@
     {
       "id": "simpleloot",
       "name": "Simple Loot",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Loot",
@@ -2232,9 +2220,7 @@
         "neoforge",
         "forge"
       ],
-      "requires": [
-        "cloth_config"
-      ],
+      "requires": [],
       "optional": [
         "simplequalityoflife",
         "modmenu"

@@ -95,7 +95,7 @@
   "text.autoconfig.simpleinterfaces.option.scopeWheelZoom": "Mausrad-Zoom",
   "text.autoconfig.simpleinterfaces.option.scopeWheelZoom.@Tooltip": "Das Mausrad zoomt stufenlos beim Blick durchs\nFernrohr oder Zoomen, statt die Hotbar zu\nscrollen. Standard: an.",
   "text.autoconfig.simpleinterfaces.option.zoomHotkey": "Zoom-Taste ohne Fernrohr",
-  "text.autoconfig.simpleinterfaces.option.zoomHotkey.@Tooltip": "Die Zoom-Taste (Standard V, in den Steuerungen\nänderbar) zoomt ohne Fernrohr, mit demselben\nOverlay. Aus: Zoom nur mit dem Fernrohr.\nStandard: aus.",
+  "text.autoconfig.simpleinterfaces.option.zoomHotkey.@Tooltip": "Die Zoom-Taste (Standard V, in den Steuerungen\nänderbar) zoomt ohne Fernrohr, mit demselben\nOverlay. Aus: Zoom nur mit dem Fernrohr, die Taste V\nist dann gar nicht belegt. Wirkt nach einem\nNeustart. Standard: aus.",
   "text.autoconfig.simpleinterfaces.option.zoomMaxMagnification": "Stärkster Zoom",
   "text.autoconfig.simpleinterfaces.option.zoomMaxMagnification.@Tooltip": "Stärkste Vergrößerung, die das Mausrad erreicht.\nStandard: 30. Erlaubter Bereich: 2–100.",
   "key.simpleinterfaces.zoom": "Zoom",

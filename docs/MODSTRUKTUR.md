@@ -135,28 +135,22 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 ## Simple Quality of Life
 
 - **Simple Quality of Life** `simplequalityoflife` [fertig]: Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.
-  - required: cloth_config, Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
+  - required: Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
   - optional: SimpleBuilding, modmenu
-  - **Simple Farming** `simplefarming` (required) [neu]: Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.
-    - required: cloth_config
+  - **Simple Farming** `simplefarming` (required) [fertig]: Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.
     - optional: SimpleBuilding, Simple Quality of Life, modmenu
-  - **Simple Interfaces** `simpleinterfaces` (required) [neu]: Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.
-    - required: cloth_config, SimpleLib
+  - **Simple Interfaces** `simpleinterfaces` (required) [fertig]: Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.
+    - required: SimpleLib
     - optional: SimpleBuilding, modmenu
-  - **Simple Loot** `simpleloot` (required) [neu]: Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.
-    - required: cloth_config
+  - **Simple Loot** `simpleloot` (required) [fertig]: Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.
     - optional: Simple Quality of Life, modmenu
-  - **Simple Mob Manners** `simplemobmanners` (required) [neu]: Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.
-    - required: cloth_config
+  - **Simple Mob Manners** `simplemobmanners` (required) [fertig]: Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.
     - optional: Simple Quality of Life, modmenu
-  - **Simple Movement** `simplemovement` (required) [neu]: Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.
-    - required: cloth_config
+  - **Simple Movement** `simplemovement` (required) [fertig]: Manual crawling, server-allowed autowalk, faster ladders (Vanilla 0.2, default 0.4) and Frost Walker on powder snow, plus the Step Height (I-II) and Sprint (I-III) treasure enchantments and a Jump Boost step-up; a sub-mod of Simple QoL, also playable alone.
     - optional: Simple Quality of Life, modmenu
-  - **Simple Tools** `simpletools` (required) [neu]: Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.
-    - required: cloth_config
+  - **Simple Tools** `simpletools` (required) [fertig]: Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.
     - optional: SimpleBuilding, Simple Quality of Life, modmenu
-  - **Simple Weather** `simpleweather` (required) [neu]: Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.
-    - required: cloth_config
+  - **Simple Weather** `simpleweather` (required) [fertig]: Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.
     - optional: Simple Quality of Life, modmenu
 
 ## Simple Aesthetics

@@ -21,11 +21,11 @@
       ],
       "en": {
         "title": "Hoe harvest and replant",
-        "summary": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability. Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced."
+        "summary": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability; in creative mode nothing drops, like a Vanilla break. Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced."
       },
       "de": {
         "title": "Mit Hacke ernten und nachpflanzen",
-        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Überleben kostet es eine Haltbarkeit. Server prüft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
+        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Überleben kostet es eine Haltbarkeit; im Kreativmodus fällt nichts, wie beim Vanilla-Abbau. Server prüft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
       }
     },
     {

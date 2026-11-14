@@ -171,8 +171,16 @@ public final class DeathLedger extends SavedData {
         })));
     }
 
+    /** simpletools-1 (P3-3): the ledger of the last server asked, so the per-item merge check skips the storage lookup. */
+    private record Cached(java.lang.ref.WeakReference<MinecraftServer> server, DeathLedger ledger) {}
+    private static volatile Cached cached = new Cached(new java.lang.ref.WeakReference<>(null), null);
+
     public static DeathLedger get(MinecraftServer server) {
-        return server.overworld().getDataStorage().computeIfAbsent(TYPE);
+        Cached c = cached;
+        if (c.server.get() == server && c.ledger != null) return c.ledger;
+        DeathLedger ledger = server.overworld().getDataStorage().computeIfAbsent(TYPE);
+        cached = new Cached(new java.lang.ref.WeakReference<>(server), ledger);
+        return ledger;
     }
 
     /** The ledger of the entity's server, or null on the client / without a server. */
@@ -219,7 +227,7 @@ public final class DeathLedger extends SavedData {
 
     /** True while the entity is a recorded death drop that is still lying (it must not merge). */
     public boolean tracked(UUID entity) {
-        return index.containsKey(entity);
+        return !index.isEmpty() && index.containsKey(entity);
     }
 
     /**

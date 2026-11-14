@@ -1,4 +1,5 @@
 plugins { id 'net.fabricmc.fabric-loom' }
+ext.moduleVersion = '1.0.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // SimpleLib (shared UI style blocks, com.simplelib.api.client.ui) nested per principle 6a; compiled against.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

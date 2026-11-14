@@ -34,7 +34,7 @@
   "simplemovement.guide.page.4.title": "Automatisch laufen",
   "simplemovement.guide.page.4": "Kein Tempo- oder Reichweitenbonus. Alte Simple-QoL-Tasten werden einmalig übernommen.",
   "simplemovement.guide.page.5.title": "Klettern und Rutschen",
-  "simplemovement.guide.page.5": "Klettertempo standardmäßig 0.4 Blöcke/Tick (0.2–0.4), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen.",
+  "simplemovement.guide.page.5": "Klettertempo standardmäßig 0.4 Blöcke/Tick, doppelt so schnell wie Vanilla (0.2) (Bereich 0.2–0.4; 0.2 = Vanilla), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen.",
   "simplemovement.guide.page.6.title": "Klettern und Rutschen",
   "simplemovement.guide.page.6": "Der Server weist überhöhte Bewegung auf kletterbaren Blöcken mit begrenztem Latenzspielraum ab.",
   "simplemovement.guide.page.7.title": "Eisläufer auf Pulverschnee",
