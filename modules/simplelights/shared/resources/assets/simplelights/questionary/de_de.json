@@ -1,0 +1,52 @@
+{
+  "redstone_light_pane": {
+    "lore": [
+      "Eine Scheibe, die in Farben statt in Worten spricht."
+    ],
+    "use": [
+      "Ihre Farbe folgt der Redstone-Signalstärke: jede der 15 Stärken zeigt einen anderen Farbstoff, ohne Signal ist sie dunkel."
+    ],
+    "secret": [
+      "Auf jede Seite eines Blocks setzbar; nur 1 Pixel dick und leuchtet nur mit Strom."
+    ]
+  },
+  "family:copper_pane": {
+    "items": [
+      "regex:.*copper_light_pane"
+    ],
+    "lore": [
+      "Eine Scheibe mit der Gewohnheit der Kupferbirne: sie merkt sich etwas."
+    ],
+    "use": [
+      "Jeder Redstone-Impuls schaltet sie an oder aus, und sie behält den Zustand ohne Signal. Gibt es einfach, durchsichtig oder in den 16 Farbstoff-Farben."
+    ],
+    "secret": [
+      "Sie arbeitet wie die Vanilla-Kupferbirne, nur flach."
+    ]
+  },
+  "family:light_pane": {
+    "items": [
+      "regex:.*light_pane"
+    ],
+    "lore": [
+      "{name} ist eine Lampe, die vergessen hat, dick zu sein."
+    ],
+    "use": [
+      "Eine flache 1-Pixel-Lampe für jede Seite eines Blocks: einfach, durchsichtig oder in den 16 Farbstoff-Farben; sie leuchtet nur mit einem Redstone-Signal."
+    ],
+    "secret": [
+      "Mit Farbstoff färbt man die einfache Scheibe um; eine durchsichtige lässt die Sicht durch."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein schlankes Buch, das jeden Schalter der flachen Lampen kennt."
+    ],
+    "use": [
+      "Das Simple Lights-Handbuch erklärt die Lichtscheiben und ihre Farben. Formlos aus einem Buch und einer Lichtscheibe herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  }
+}

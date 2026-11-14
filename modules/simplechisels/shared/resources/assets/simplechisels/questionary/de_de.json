@@ -1,0 +1,27 @@
+{
+  "family:chisels": {
+    "items": [
+      "regex:.*_chisel"
+    ],
+    "lore": [
+      "{name} formt Blöcke in ihre feineren Verwandten um, mit je einem bedachten Schlag."
+    ],
+    "use": [
+      "Rechtsklick auf einen Block macht ihn an Ort und Stelle zum nächsten Block seiner Kette (Stein zu gemeißelten Steinziegeln, Bretter zu Treppen, Treppen zu Stufen). Schleichen und Rechtsklick geht einen Schritt zurück und kostet 2 Haltbarkeit. Die Stufe bestimmt, welche Ketten das Meißel bearbeiten kann."
+    ],
+    "secret": [
+      "Die Ketten sind Datenpaket-Dateien, andere Mods und Pakete können eigene Blöcke ergänzen. Die Verzauberung Schnelles Meißeln verkürzt die Abklingzeit auf 70 % (I) oder 40 % (II)."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch voller Meißelketten und kleiner Korrekturen."
+    ],
+    "use": [
+      "Das Simple Chisels-Handbuch erklärt die sieben Meißel, die Stufen und Schnelles Meißeln. Formlos aus einem Buch und einem Meißel herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  }
+}

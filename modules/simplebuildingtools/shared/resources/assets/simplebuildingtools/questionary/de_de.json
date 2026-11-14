@@ -1,0 +1,63 @@
+{
+  "family:wands": {
+    "items": [
+      "regex:.*_building_wand"
+    ],
+    "lore": [
+      "{name} baut in Ebenen, denn wer hat Zeit, einzelne Blöcke zu setzen."
+    ],
+    "use": [
+      "Auf eine Blockfläche klicken: eine quadratische Ebene vor der Fläche wird mit Blöcken aus dem Inventar gefüllt, Ring für Ring von der Mitte nach außen, jeder Block so ausgerichtet, wie man ihn selbst setzen würde. Die Stufe bestimmt die Ebenengröße."
+    ],
+    "secret": [
+      "Die Blöcke kommen aus dem Inventar, also genug mitnehmen; der Kreativ-Baustab braucht keine."
+    ]
+  },
+  "blueprint": {
+    "lore": [
+      "Ein ganzes Gebäude, zu ein paar Zeilen Text gefaltet."
+    ],
+    "use": [
+      "Eine Blaupause speichert ein Bauwerk als kurzen lesbaren Baucode. Den Code im Karteneditor mit 3D-Vorschau schreiben oder ein bestehendes Gebäude mit einem Oktanten am Kartentisch einscannen, dann mit einem Baustab überall bauen."
+    ],
+    "secret": [
+      "Der Code ist reiner Text, Blaupausen lassen sich also im Chat teilen."
+    ]
+  },
+  "creative_blueprint": {
+    "lore": [
+      "Eine Blaupause, die nie nach der Rechnung fragt."
+    ],
+    "use": [
+      "Die Kreativ-Version der Blaupause: baut aus dem gespeicherten Code, ohne Blöcke aus dem Inventar zu nehmen."
+    ],
+    "secret": [
+      "Ein Werkzeug für den Kreativmodus."
+    ]
+  },
+  "family:octant": {
+    "items": [
+      "regex:octant.*"
+    ],
+    "lore": [
+      "{name} ist ein Maßband für Leute, die in Volumen träumen."
+    ],
+    "use": [
+      "Zwei Klicks setzen zwei Eckpunkte; die Anzeige rechnet Strecke, Fläche oder Volumen aus, und farbige Umrisse zeigen die Auswahl in der Welt. Die 16 Farbstoff-Farben ändern nur das Aussehen."
+    ],
+    "secret": [
+      "Wer die Verzauberung Berührung des Konstrukteurs hat, kann dieselben Maße ablesen."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein kleines Buch für Leute, die planen, bevor sie bauen."
+    ],
+    "use": [
+      "Das Simple Building Tools-Handbuch erklärt die Baustäbe, den Oktanten und die Blaupause. Formlos aus einem Buch und einem Baustab herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  }
+}

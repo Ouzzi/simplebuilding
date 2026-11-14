@@ -1,0 +1,68 @@
+{
+  "foundry_brick": {
+    "lore": [
+      "In Eile gebrannt und gemacht, um sehr lange ein Feuer zu halten."
+    ],
+    "use": [
+      "Der Baustein der Hütten-Hülle: eine geschlossene Hülle aus Hüttenziegeln umschließt die Schmelzkammern und hält die Hitze."
+    ],
+    "secret": [
+      "Lücken in der Hülle sind der einzige echte Feind der Hütte."
+    ]
+  },
+  "melting_chamber": {
+    "lore": [
+      "Eine kleine feurige Kammer, die mehr Erz gesehen hat als jeder Bergmann."
+    ],
+    "use": [
+      "Schmelzkammern werden in einer geschlossenen Hülle zu einem Tank gestapelt; eingeworfenes Erz schmilzt dort, und die Schmelze wird schichtweise ausgegossen."
+    ],
+    "secret": [
+      "Ein Tank ist nur so groß, wie seine Hülle dicht ist."
+    ]
+  },
+  "fire_grate": {
+    "lore": [
+      "Der Feuerrost unter der Schmelze: nichts Besonderes, aber alles hängt daran."
+    ],
+    "use": [
+      "In die Hülle setzen und vom Hüttenpult mit Brennstoff füttern, so zünden die Kammern."
+    ],
+    "secret": [
+      "Es ist die Tür des Feuers: ohne Feuerrost glüht nichts."
+    ]
+  },
+  "foundry_desk": {
+    "lore": [
+      "Das Pult, an dem der Hüttenmeister das Feuer wie ein Buch liest."
+    ],
+    "use": [
+      "Mit Brennstoff am Pult die Hütte anzünden, Schmelze und Brennstofftank beobachten, Erz einwerfen und schichtweise ausgießen. Ein abgebautes Pult behält seine Stufe im Item; Schmelze und Brennstofftank gehen verloren."
+    ],
+    "secret": [
+      "Vorsichtig gießen: die Schmelze im Tank ist weg, wenn man das Pult abbaut."
+    ]
+  },
+  "foundry_spout": {
+    "lore": [
+      "Ein Eine Gusstülle mit einer Aufgabe: das flüssige Metall genau dorthin zu lassen, wo man es will."
+    ],
+    "use": [
+      "An die Hülle setzen, um die Schmelze Schicht für Schicht in eine Gussschale oder auf den Boden zu gießen."
+    ],
+    "secret": [
+      "Er gießt nur; von allein schmilzt er nichts."
+    ]
+  },
+  "casting_tray": {
+    "lore": [
+      "Ein flaches Bett, in dem flüssiges Metall lernt, ein Barren zu sein."
+    ],
+    "use": [
+      "Unter eine Gusstülle stellen: die Schmelze kühlt darin zu einer Form aus, die man aufnehmen kann."
+    ],
+    "secret": [
+      "Eben halten und vor dem nächsten Guss leeren."
+    ]
+  }
+}

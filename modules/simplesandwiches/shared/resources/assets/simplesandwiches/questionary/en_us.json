@@ -111,5 +111,38 @@
     "items": [
       "regex:.*_cutting_board"
     ]
+  },
+  "butter_carpet": {
+    "lore": [
+      "A thin golden layer, the closest a floor will ever get to breakfast."
+    ],
+    "use": [
+      "Butter that has been sliced thin: the cut-off layers of a butter block lie flat like a carpet. Cut a butter block with a kitchen knife to get slices."
+    ],
+    "secret": [
+      "It is the cut stage of the butter block, not a separate ingredient."
+    ]
+  },
+  "cheese_carpet": {
+    "lore": [
+      "A flat layer of cheese, patient as a cellar floor."
+    ],
+    "use": [
+      "Cheese that has been sliced thin: the cut-off layers of a cheese block lie flat like a carpet. Cut a cheese block with a kitchen knife to get slices."
+    ],
+    "secret": [
+      "It is the cut stage of the cheese block, not a separate ingredient."
+    ]
+  },
+  "slice_stack": {
+    "lore": [
+      "A tidy pile of slices that wishes it were a sandwich."
+    ],
+    "use": [
+      "Mixed slices of cheese, butter and cake share this layer block. It is a stage of cutting slices off a block, not something you craft."
+    ],
+    "secret": [
+      "What it shows depends on the slices it holds."
+    ]
   }
 }

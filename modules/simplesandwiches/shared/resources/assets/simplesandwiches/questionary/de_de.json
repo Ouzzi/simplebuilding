@@ -111,5 +111,38 @@
     "items": [
       "regex:.*_cutting_board"
     ]
+  },
+  "butter_carpet": {
+    "lore": [
+      "Eine dünne goldene Schicht, das Nächste, was ein Boden je an ein Frühstück herankommt."
+    ],
+    "use": [
+      "Dünn geschnittene Butter: die abgeschnittenen Schichten eines Butterblocks liegen flach wie ein Teppich. Einen Butterblock mit dem Küchenmesser schneiden, um Scheiben zu erhalten."
+    ],
+    "secret": [
+      "Sie ist die Schnittstufe des Butterblocks, keine eigene Zutat."
+    ]
+  },
+  "cheese_carpet": {
+    "lore": [
+      "Eine flache Käseschicht, geduldig wie ein Kellerboden."
+    ],
+    "use": [
+      "Dünn geschnittener Käse: die abgeschnittenen Schichten eines Käseblocks liegen flach wie ein Teppich. Einen Käseblock mit dem Küchenmesser schneiden, um Scheiben zu erhalten."
+    ],
+    "secret": [
+      "Sie ist die Schnittstufe des Käseblocks, keine eigene Zutat."
+    ]
+  },
+  "slice_stack": {
+    "lore": [
+      "Ein ordentlicher Stapel Scheiben, der gern ein Sandwich wäre."
+    ],
+    "use": [
+      "Gemischte Scheiben aus Käse, Butter und Kuchen teilen sich diesen Schichtblock. Er ist eine Stufe beim Abschneiden von Scheiben, nichts zum Herstellen."
+    ],
+    "secret": [
+      "Was er zeigt, hängt von den enthaltenen Scheiben ab."
+    ]
   }
 }
