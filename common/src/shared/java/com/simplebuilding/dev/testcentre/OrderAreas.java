@@ -846,8 +846,8 @@ public final class OrderAreas {
                     Map.of(Slot.NETHER_ORE, List.of("minecraft:ancient_debris"))),
             new Material("enderite", 0, "enderite"),
             dimensionMetal("terranite", "rift_shard", Slot.DEEPSLATE_ORE, "dimensional_scrap"),
+            dimensionMetal("infernite", "nether_rift_shard", Slot.NETHER_ORE, "nether_dimensional_scrap"),  // TZ38G=B: recipe order Terranite, Infernite, Zenithite
             dimensionMetal("zenithite", "end_rift_shard", Slot.END_ORE, "end_dimensional_scrap"),
-            dimensionMetal("infernite", "nether_rift_shard", Slot.NETHER_ORE, "nether_dimensional_scrap"),
             sageFamily(),
             new Material("astralit", 0, "astralit"),
             new Material("nihilith", 0, "nihilith"),
