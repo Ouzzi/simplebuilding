@@ -22,7 +22,7 @@
   "simplefarming.guide.page.2.title": "Feather Falling farmland protection",
   "simplefarming.guide.page.2": "Feather Falling boots prevent trampling. This complements SimpleBuilding Breeze head protection. Enabled by preventFarmlandTrampleWithFeatherFalling, default true.",
   "simplefarming.guide.page.3.title": "Hoe harvest and replant",
-  "simplefarming.guide.page.3": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability.",
+  "simplefarming.guide.page.3": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability; in creative mode nothing drops, like a Vanilla break.",
   "simplefarming.guide.page.4.title": "Hoe harvest and replant",
   "simplefarming.guide.page.4": "Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced.",
   "simplefarming.guide.page.5.title": "Cut through grass",

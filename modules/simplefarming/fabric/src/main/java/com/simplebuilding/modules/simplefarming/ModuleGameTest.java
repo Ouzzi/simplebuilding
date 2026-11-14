@@ -13,6 +13,7 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void sync(GameTestHelper h){FarmingTests.sync(h);}
  @GameTest(maxTicks=100) public void farmland(GameTestHelper h){FarmingTests.farmland(h);}
  @GameTest(maxTicks=100) public void hoeHarvest(GameTestHelper h){FarmingTests.hoeHarvest(h);}
+ @GameTest(maxTicks=100) public void hoeCreative(GameTestHelper h){FarmingTests.hoeCreative(h);}
  @GameTest(maxTicks=100) public void vegetation(GameTestHelper h){FarmingTests.vegetation(h);}
  @GameTest(maxTicks=100) public void sharpnessAction(GameTestHelper h){FarmingTests.sharpnessAction(h);}
  @GameTest(maxTicks=100) public void grassThrough(GameTestHelper h){FarmingTests.grassThrough(h);}

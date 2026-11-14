@@ -100,7 +100,8 @@ public class HoeHarvestHandler {
         }
 
         if (!level.setBlockAndUpdate(pos, newState)) return InteractionResult.PASS;
-        for (ItemStack drop : drops) Block.popResource(level, pos, drop);
+        // simplefarming-2: like Vanilla, creative mode breaks crops without drops.
+        if (!player.isCreative()) for (ItemStack drop : drops) Block.popResource(level, pos, drop);
 
         level.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.0f, 1.0f);
         // A few crop crumbs like a vanilla break (not levelEvent 2001: that would play the break sound twice).

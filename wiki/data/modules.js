@@ -922,7 +922,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 12
     },
-    "dataHash": "4674dae119c0"
+    "dataHash": "a02bc7cf1c99"
   },
   {
     "id": "simplemobmanners",
