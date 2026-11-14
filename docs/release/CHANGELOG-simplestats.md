@@ -1,4 +1,4 @@
-# Simple Stats 0.1.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Stats 1.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 

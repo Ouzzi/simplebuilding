@@ -1,4 +1,4 @@
-# Simple Optimization 0.1.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Optimization 1.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 

@@ -8,6 +8,7 @@ public final class ModuleGameTest {
  @GameTest public void launchSmoke(GameTestHelper h){SoundTests.launch(h);}
  @GameTest public void configBounds(GameTestHelper h){SoundTests.bounds(h);}
  @GameTest public void soundFloodSafety(GameTestHelper h){SoundTests.flood(h);}
+ @GameTest public void dayClockPerDimension(GameTestHelper h){SoundTests.dayClock(h);}
  @GameTest public void cooldownAndWorldReset(GameTestHelper h){SoundTests.cooldown(h);}
  @GameTest public void simpleBuildingIntegration(GameTestHelper h){
   h.assertTrue(net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplevisuals") ==

@@ -80,7 +80,7 @@ Durchgesehene Dateien (56 Dateien, 2704 Zeilen; PNG/Binaerdateien nur auf Herkun
 | simplemodels-P2-1 | P2 | `CataloguePayload.current()` serialisierte den Katalog mit eingerueckter Ausgabe; die Serverbudget-Pruefung (24000 Zeichen) zaehlt die Eintraege einzeln, im Snapshot kommt je Zeile Einrueckung dazu. Bei vielen Modellen mit vielen Tags kann der Snapshot ueber das Paketlimit 28000 wachsen -> `writeUtf` wirft beim Join. | **gefixt** (kompaktes JSON; Test `launch` prueft die Grenze weiter) |
 | simplemodels-P3-1 | P3 | Kein `LICENSE` im Modulordner | Hinweis |
 | simplemodels-P3-2 | P3 | Zu viele Katalogdateien (>256) schalten das ganze Modul aus (fail-closed, im Log) | Hinweis (Absicht) |
-| simplemodels-P3-3 | P3 | Jeder Spieler, der im Amboss exakt `@model:...` tippt, bekommt keine Amboss-Ausgabe (Anfrage wird abgefangen, auch bei abgeschaltetem Katalog) | Hinweis |
+| simplemodels-P3-3 | P3 | Jeder Spieler, der im Amboss exakt `@model:...` tippt, bekommt keine Amboss-Ausgabe (Anfrage wird abgefangen, auch bei abgeschaltetem Katalog) | **gefixt** (simplemodels-1: nur bei aktivem Katalog abgefangen, Test `singleplayer_owner`) |
 | simplemodels-P3-4 | P3 | Version 0.1.0, kein `ext.moduleVersion` | Rueckfrage Versionsschema |
 | simplemodels-P3-5 | P3 | `ModelsDiscover` generierter Code mit leeren Tip-Listen (tote Teile) | Hinweis (Generator) |
 

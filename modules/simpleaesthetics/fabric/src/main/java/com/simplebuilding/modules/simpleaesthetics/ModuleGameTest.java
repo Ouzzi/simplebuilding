@@ -4,5 +4,6 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleaesthetics", false); }
     @GameTest public void subModSwitch(GameTestHelper helper) { AestheticsTests.subModSwitch(helper); }
+    @GameTest public void configLabels(GameTestHelper helper) { AestheticsTests.configLabels(helper); }
     @GameTest public void configFile(GameTestHelper helper) { AestheticsTests.configFile(helper); }
 }

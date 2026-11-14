@@ -53,6 +53,35 @@ public final class MixinGuardTests {
         h.succeed();
     }
 
+    /**
+     * simpleoptrender-3 (PLAN40): the telemetry mixin does more than "the area is active" - it replaces the event sender (head of
+     * {@code createEventSender}, cancelling) by Vanilla's {@code TelemetryEventSender.DISABLED}, so no session sender exists that could send.
+     * The Minecraft client class is not on a test server, so the compiled mixin is read with ASM; the real sender check is in the client smoke.
+     */
+    public static void telemetryReplacesSender(GameTestHelper h) throws java.io.IOException {
+        String name = "com/simplebuilding/modules/simpleoptrender/mixin/no_telemetry/ClientTelemetryManagerMixin.class";
+        ClassNode c = new ClassNode();
+        try (var in = MixinGuardTests.class.getClassLoader().getResourceAsStream(name)) {
+            h.assertTrue(in != null, "telemetry mixin class present");
+            new org.objectweb.asm.ClassReader(in).accept(c, 0);
+        }
+        boolean disabled = false;
+        boolean onSender = false;
+        for (MethodNode m : c.methods) {
+            if (m.visibleAnnotations == null || m.visibleAnnotations.stream().noneMatch(a -> a.desc.equals("Lorg/spongepowered/asm/mixin/injection/Inject;"))) continue;
+            for (var a : m.visibleAnnotations) {
+                if (a.values != null) for (int i = 0; i + 1 < a.values.size(); i += 2)
+                    if ("method".equals(a.values.get(i)) && a.values.get(i + 1) instanceof List<?> l && l.contains("createEventSender")) onSender = true;
+            }
+            for (var insn : m.instructions)
+                if (insn instanceof org.objectweb.asm.tree.FieldInsnNode f && f.name.equals("DISABLED") && f.owner.endsWith("TelemetryEventSender")) disabled = true;
+        }
+        h.assertTrue(onSender, "mixin hooks createEventSender");
+        h.assertTrue(disabled, "mixin returns TelemetryEventSender.DISABLED");
+        h.assertTrue(RenderOpt.live(RenderOpt.NO_TELEMETRY), "area live by default");
+        h.succeed();
+    }
+
     public static void failureSwitchesAreaOff(GameTestHelper h) {
         List<OptCompat.Decision> live = OptCompat.decisions(RenderOpt.MOD_ID);
         int depth = RenderOpt.leafDepth();

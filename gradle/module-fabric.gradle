@@ -2,7 +2,7 @@
 // resolve one module in place of another (e.g. a module that nests SimpleLib, principle 6a).
 group = 'com.simplebuilding.modules.' + project.parent.name
 base { archivesName = project.parent.name + '-26.3-' + project.name }
-version = project.findProperty('moduleVersion') ?: '0.1.0'
+version = project.findProperty('moduleVersion') ?: (new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules.find { it.id == project.parent.name }?.version ?: '0.1.0') // single source: modules.json (new modules start 0.1.0 there)
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
 sourceSets.main.java.srcDir '../shared/java'
 sourceSets.main.resources.srcDir '../shared/resources'

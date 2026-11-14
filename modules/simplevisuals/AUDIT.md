@@ -99,8 +99,8 @@ Durchgesehene Dateien (76 Dateien, 4644 Zeilen; PNG/Binaerdateien nur auf Herkun
 |---|---|---|---|
 | simplevisuals-P2-1 | P2 | `depends cloth-config` gilt auch auf dem Dedicated Server (Anvil-Farben/Rahmen sind Server-Funktionen), Server-Admin muss Cloth Config nachinstallieren | Rueckfrage (siehe simplesounds-P2-1) |
 | simplevisuals-P3-1 | P3 | `Visuals.initialize` ueberschrieb eine kaputte `simplevisuals.json` beim naechsten Speichern ohne Sicherung | **gefixt** (`ConfigFiles.readOrQuarantine`) |
-| simplevisuals-P3-2 | P3 | Testfixtures `cit/test_stick*.json` im Release-Jar | Hinweis (Client-Test braucht sie; spaeter in Testressourcen) |
-| simplevisuals-P3-3 | P3 | Synchronisiertes Rahmen-Byte: Vanilla-Client ohne Mod vertraegt es nicht, sobald gemeisselt | Hinweis, Release-Notiz "Mod auch auf dem Client" |
+| simplevisuals-P3-2 | P3 | Testfixtures `cit/test_stick*.json` im Release-Jar | **gefixt** (simplevisuals-3: nur mit `-PsbRelease` aus dem Jar ausgeschlossen, Dev/Test-Läufe behalten sie für den Client-Test) |
+| simplevisuals-P3-3 | P3 | Synchronisiertes Rahmen-Byte: Vanilla-Client ohne Mod vertraegt es nicht, sobald gemeisselt | **gefixt** (simplevisuals-4: Handbuch, Mod-Seite, Changelog) |
 | simplevisuals-P3-4 | P3 | `LocatorMixin` zielt auf Lambda-Namen, `ItemFrameRendererMixin` auf `ordinal`-Treffer; beide `require 1` (Spielende bei Mojang-Patch), im Gegensatz zu den Opt-Mods | Rueckfrage: wie Opt auf `required:false`/`defaultRequire:0` umstellen? |
 | simplevisuals-P3-5 | P3 | Schadens-Partikel/-Zahl fuer alle Lebewesen im Umkreis 16 (bewusst), Immersion-Tick iteriert bis 128 Entitaeten | Hinweis, Kosten klein |
 

@@ -26,6 +26,16 @@ public final class SoundTests {
   h.assertTrue(SoundConfig.Level.values().length==com.simplebuilding.framework.api.CosmeticIntensity.Level.values().length,"Mapping is one-to-one");
   c.volumeCap=-1;c.soundsPerTick=-1;c.soundsPerPlayer=-1;c.cooldownTicks=Integer.MAX_VALUE;c.normalize();h.assertTrue(c.volumeCap==0&&c.soundsPerTick==0&&c.soundsPerPlayer==0&&c.cooldownTicks==1200,"Lower/upper bounds");h.succeed();}
  public static void flood(GameTestHelper h){var c=new SoundConfig();c.soundsPerTick=999;c.soundsPerPlayer=999;c.cooldownTicks=-1;var b=new SoundBudget();b.begin();int accepted=0;for(int n=0;n<1000;n++)if(b.claim(n%8,SoundsRegistry.ALL.get(n%12).id(),100,c,40))accepted++;h.assertTrue(accepted==4&&b.used()==4,"Tick flood");b.reset();b.begin();accepted=0;for(var e:SoundsRegistry.ALL)if(b.claim(1,e.id(),100,c,40))accepted++;h.assertTrue(accepted==2,"Player flood");b.begin();h.assertTrue(!b.claim(1,"unknown",200,c,20),"Unknown id");h.succeed();}
+ /** simplesounds-2: fireflies/pollen follow the clock of their own dimension - a time of day in the Overworld, none in the Nether and End. */
+ public static void dayClock(GameTestHelper h){
+  var server=h.getLevel().getServer();
+  long overworld=SoundsRegistry.dayTime(server.overworld());
+  h.assertTrue(overworld>=0&&overworld<24000,"Overworld has a time of day: "+overworld);
+  for(var key:java.util.List.of(net.minecraft.world.level.Level.NETHER,net.minecraft.world.level.Level.END)){
+   var level=server.getLevel(key);
+   if(level!=null)h.assertTrue(SoundsRegistry.dayTime(level)==-1,"No day and night in "+key.identifier());
+  }
+  h.succeed();}
  public static void cooldown(GameTestHelper h){var c=new SoundConfig();var b=new SoundBudget();h.assertTrue(b.claim(1,"cold_breath",100,c,40),"First sound");b.begin();h.assertTrue(!b.claim(1,"cold_breath",139,c,40),"Early replay");b.begin();h.assertTrue(b.claim(1,"cold_breath",140,c,40),"Cooldown never expires");b.reset();h.assertTrue(b.claim(1,"cold_breath",0,c,40),"World reset");c.soundsPerTick=0;b.begin();h.assertTrue(!b.claim(2,"cold_breath",100,c,40),"Disabled budget");h.succeed();}
  public static void integration(GameTestHelper h){if(isModLoaded("simplebuilding"))h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:backpack")),"SimpleBuilding content visible when loaded");var b=new SoundBudget();var c=new SoundConfig();var player=h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);var before=player.getInventory().getItem(0).copy();b.claim(player.getId(),"footstep_dust",100,c,40);h.assertTrue(net.minecraft.world.item.ItemStack.matches(before,player.getInventory().getItem(0)),"Cosmetic budget changes inventory");
   var effect=SoundsRegistry.ALL.getFirst();

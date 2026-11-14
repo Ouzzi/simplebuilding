@@ -17,7 +17,7 @@
   "text.autoconfig.simplemodels.option.enabled": "Zuweisung erlauben",
   "text.autoconfig.simplemodels.option.enabled.@Tooltip": "Kosmetische Modellwechsel am Amboss erlauben.\nStandard: true.",
   "text.autoconfig.simplemodels.option.operatorsOnly": "Nur Operatoren",
-  "text.autoconfig.simplemodels.option.operatorsOnly.@Tooltip": "Nur Operatoren mit Spielleiterrechten dürfen\nModelle zuweisen oder entfernen.\nStandard: true.",
+  "text.autoconfig.simplemodels.option.operatorsOnly.@Tooltip": "Nur Operatoren mit Spielleiterrechten dürfen\nModelle zuweisen oder entfernen (und der Besitzer\neiner Einzelspielerwelt). Standard: true.",
   "text.autoconfig.simplemodels.option.allowModItems": "Mod-Items erlauben",
   "text.autoconfig.simplemodels.option.allowModItems.@Tooltip": "Ausdrücklich freigegebene Mod-Items erlauben;\nSpielkomponenten bleiben unverändert.\nStandard: false.",
   "text.autoconfig.simplemodels.option.legacyNameMatching": "Alte Namenszuweisung",

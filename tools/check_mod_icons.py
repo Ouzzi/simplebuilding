@@ -50,6 +50,8 @@ def problems(entries: list[dict]) -> list[str]:
             text = path.read_text(encoding="utf-8")
             if loader == "fabric":
                 value, want = json.loads(text).get("icon"), icon
+                if isinstance(value, dict) and value.get("16") == icon and value.get("128") == logo:
+                    value = icon  # size map: 16 px pixel icon + the 128 px copy (Mod Menu picks the larger one)
                 key = "icon"
             else:
                 # plain line match: the root descriptors carry ${...} placeholders that are no valid TOML

@@ -13,6 +13,8 @@ public final class MemoryOptMixinPlugin implements IMixinConfigPlugin {
     @Override public void onLoad(String mixinPackage) {
         FabricLoader loader = FabricLoader.getInstance();
         MemoryOpt.boot(loader.getConfigDir(), loader::isModLoaded);
+        // simpleoptmemory-2 (PLAN40): like Simple Opt Render, a mixin that does not apply switches its area off and visible (never a crash).
+        org.spongepowered.asm.mixin.Mixins.registerErrorHandlerClass(MixinGuard.Handler.class.getName());
     }
     @Override public String getRefMapperConfig() { return null; }
     @Override public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
@@ -23,5 +25,7 @@ public final class MemoryOptMixinPlugin implements IMixinConfigPlugin {
     }
     @Override public List<String> getMixins() { return null; }
     @Override public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
-    @Override public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
+    @Override public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+        MixinGuard.check(targetClass, mixinClassName, mixinInfo);
+    }
 }

@@ -7,6 +7,9 @@ public final class StatsFabric implements ModInitializer {
     public void onInitialize() {
         SimpleStats.configDir = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
         SimpleStats.load();
+        // simplestats-4 (PLAN40): Mod Menu screen and /simplestats config from SimpleLib (RELSB31 f2=A); saved to the same file.
+        com.simplelib.api.config.ConfigCommands.server(SimpleStats.MOD_ID).gson(StatsConfig.class, SimpleStats::config, SimpleStats::restore, StatsConfig::new)
+                .file(SimpleStats.configDir, SimpleStats.MOD_ID + ".json").range("maxBytes", 2048, 262144).register();
         StatsComponents.register();
         com.simplebuilding.modules.simplestats.guide.StatsGuide.register();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {

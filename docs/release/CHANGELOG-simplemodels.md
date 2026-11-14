@@ -1,4 +1,4 @@
-# Simple Models 0.1.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Models 1.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 

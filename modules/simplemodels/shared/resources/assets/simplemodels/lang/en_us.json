@@ -17,7 +17,7 @@
   "text.autoconfig.simplemodels.option.enabled": "Enable Assignment",
   "text.autoconfig.simplemodels.option.enabled.@Tooltip": "Allow cosmetic model changes at anvils.\nDefault: true.",
   "text.autoconfig.simplemodels.option.operatorsOnly": "Operators Only",
-  "text.autoconfig.simplemodels.option.operatorsOnly.@Tooltip": "Only operators with game master permission\nmay assign or remove models. Default: true.",
+  "text.autoconfig.simplemodels.option.operatorsOnly.@Tooltip": "Only operators with game master permission\nmay assign or remove models (and the owner\nof a single-player world). Default: true.",
   "text.autoconfig.simplemodels.option.allowModItems": "Allow Mod Items",
   "text.autoconfig.simplemodels.option.allowModItems.@Tooltip": "Allow explicitly approved mod items; gameplay\ncomponents remain unchanged. Default: false.",
   "text.autoconfig.simplemodels.option.legacyNameMatching": "Legacy Names",

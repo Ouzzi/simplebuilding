@@ -33,6 +33,7 @@ public final class ModelTests {
         ALL.put("edit_history", ModelTests::editHistory);
         ALL.put("editor_layout", EditorTests::layout); ALL.put("editor_geometry", EditorTests::geometry);
         ALL.put("editor_gizmo", EditorTests::gizmo); ALL.put("editor_state", EditorTests::state);
+        ALL.put("singleplayer_owner", ModelTests::singleplayerOwner);
         ALL.put("editor_snap_help", EditorTests::snapHelp); ALL.put("editor_uv", EditorTests::uv);
         ALL.put("editor_textures", EditorTests::textures); ALL.put("editor_export", EditorTests::export);
     }
@@ -63,6 +64,22 @@ public final class ModelTests {
         } finally { com.simplebuilding.framework.api.SubMods.set("simplemodels", sw); }
         h.assertTrue(Models.on() == sw, "Switch restored");
         h.assertTrue(Models.request(Models.RESET) == sw, "Anvil request works again once restored");
+        h.succeed();
+    }
+    /** simplemodels-1: the owner of a single-player world assigns without operator rights; the catalogue off leaves "@model:" names alone. */
+    public static void singleplayerOwner(GameTestHelper h) {
+        h.assertTrue(Models.mayAssign(true, false) && Models.mayAssign(false, true) && Models.mayAssign(true, true), "Operator or world owner may assign");
+        h.assertTrue(!Models.mayAssign(false, false), "Anyone else may not");
+        var player = h.makeMockServerPlayerInLevel();
+        h.assertTrue(!Models.mayAssign(player), "A mock player without permissions on a test server is neither");
+        var original = Models.server;
+        try {
+            var policy = new ModelPolicy(); policy.enabled = false;
+            Models.server = new ModelCatalogue.Snapshot(policy, List.of());
+            h.assertTrue(!Models.request(Models.PREFIX + "renamed:tomato") && !Models.request(Models.RESET), "Catalogue off: anvil name not intercepted");
+            policy.enabled = true;
+            h.assertTrue(Models.request(Models.RESET), "Catalogue on: intercepted again");
+        } finally { Models.server = original; }
         h.succeed();
     }
     public static void launch(GameTestHelper h) {

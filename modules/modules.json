@@ -356,7 +356,7 @@
     {
       "id": "simplemodels",
       "name": "Simple Models",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Models",
@@ -553,7 +553,7 @@
     {
       "id": "simplevisuals",
       "name": "Simple Visuals",
-      "version": "0.9.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Visuals",
@@ -653,7 +653,7 @@
     {
       "id": "simplesounds",
       "name": "Simple Sounds",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Sounds",
@@ -1486,7 +1486,7 @@
     {
       "id": "simplelivemap",
       "name": "Simple Livemap",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Livemap",
@@ -2393,7 +2393,7 @@
     {
       "id": "simpleaesthetics",
       "name": "Simple Aesthetics",
-      "version": "0.9.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Aesthetics",
@@ -3241,7 +3241,7 @@
     {
       "id": "simplestats",
       "name": "Simple Stats",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Stats",
@@ -3762,7 +3762,7 @@
     {
       "id": "simpleoptimization",
       "name": "Simple Optimization",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Optimization",
@@ -3830,7 +3830,7 @@
     {
       "id": "simpleoptrender",
       "name": "Simple Opt Render",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Opt Render",
@@ -3897,11 +3897,11 @@
     {
       "id": "simpleoptmemory",
       "name": "Simple Opt Memory",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Opt Memory",
-      "description": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
+      "description": "Memory optimization: shares the property and face tables of block states (O4, same idea as FerriteCore, which it yields to), with switch, config and mod detection.",
       "loaders": [
         "fabric"
       ],
@@ -3956,7 +3956,7 @@
     {
       "id": "simpleoptserver",
       "name": "Simple Opt Server",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Opt Server",

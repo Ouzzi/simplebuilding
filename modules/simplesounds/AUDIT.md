@@ -59,7 +59,7 @@ Das Jar enthaelt **keine einzige Audiodatei** (`find modules/simplesounds -name 
 | C6 A12 | rein lokal-kosmetisch, Standard `SUBTLE`, Lautstaerkendeckel 0,25; kein Eingriff in Gameplay. |
 | C7 Netzwerk | keine Pakete (nur lokaler Spielerzustand). Dedicated Server: Mod-Main registriert nur den Befehls-Spec; `depends cloth-config` gilt aber auch auf dem Server (P2-1, Rueckfrage). |
 | C8 Lizenz/Assets | siehe oben; CC0-1.0; kein LICENSE-Datei im Modulordner (P3-3). |
-| C9 Offen | `docs/next-small-plan.md` ist ein veraltetes, themenfremdes Plan-Dokument (QoL-Haltbarkeit, Branch codex-next-small) - P3-4, nicht im Jar. |
+| C9 Offen | (erledigt simplesounds-2: gelöscht) `docs/next-small-plan.md` war ein veraltetes, themenfremdes Plan-Dokument (QoL-Haltbarkeit, Branch codex-next-small) - P3-4, nicht im Jar. |
 
 ## Befunde
 | ID | Schwere | Befund | Stand |
@@ -68,8 +68,8 @@ Das Jar enthaelt **keine einzige Audiodatei** (`find modules/simplesounds -name 
 | simplesounds-P3-1 | P3 | `SoundClient.tick` berechnete `CONFIG.volume()` (normalisiert + allokiert ein HashSet) fuer alle 12 Effekte in jedem Tick, auch inaktive | **gefixt** (nur fuer aktive Effekte) |
 | simplesounds-P3-2 | P3 | `SoundClient.load` schluckte Lesefehler, kaputte Datei wurde beim naechsten Speichern ueberschrieben | **gefixt** (`ConfigFiles.readOrQuarantine`) |
 | simplesounds-P3-3 | P3 | Kein `LICENSE` im Modulordner | Hinweis |
-| simplesounds-P3-4 | P3 | veraltetes `docs/next-small-plan.md` | Hinweis (loeschen, nicht noetig fuers Jar) |
-| simplesounds-P3-5 | P3 | "fireflies"/"pollen" nutzen die Overworld-Uhr auch im Nether/End (nur kosmetisch) | Hinweis |
+| simplesounds-P3-4 | P3 | veraltetes `docs/next-small-plan.md` | **gefixt** (simplesounds-2, Datei gelöscht) |
+| simplesounds-P3-5 | P3 | "fireflies"/"pollen" nutzten die Overworld-Uhr auch im Nether/End (nur kosmetisch) | **gefixt** (simplesounds-2: Uhr je Dimension, `SoundsRegistry.dayTime`, Test `dayClockPerDimension`; gleiche Korrektur in Simple Visuals `Immersion`) |
 
 ## Urteil
 **shipbar** (0 P1, 1 P2 als Rueckfrage, 5 P3; 2 gefixt). Kein Lizenzrisiko bei den Sounds.

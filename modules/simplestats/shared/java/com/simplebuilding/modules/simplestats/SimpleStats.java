@@ -30,6 +30,13 @@ public final class SimpleStats {
         CONFIG = read(configDir.resolve(MOD_ID + ".json"));
     }
 
+    /** The Mod Menu screen / {@code /simplestats config} replace the live settings through here (clamped like a file read). */
+    public static void restore(StatsConfig config) {
+        if (config == null) return;
+        config.normalize();
+        CONFIG = config;
+    }
+
     static StatsConfig read(Path file) {
         StatsConfig config = null;
         try {

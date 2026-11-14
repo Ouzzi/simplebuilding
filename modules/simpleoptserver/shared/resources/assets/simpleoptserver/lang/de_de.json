@@ -4,6 +4,8 @@
   "simpleoptserver.status.area": "%s %s: %s (%s)",
   "simpleoptserver.status.distance": "Sichtweite %s von %s, Simulation %s von %s, MSPT %s",
   "simpleoptserver.area.activation_range": "Aktivierungsbereich",
+  "text.autoconfig.simpleoptserver.option.areas.activation_range.mode": "Modus Aktivierungsbereich",
+  "text.autoconfig.simpleoptserver.option.areas.activation_range.mode.@Tooltip": "Ferne Mobs rechnen seltener (etwa 15 % weniger Serverlast).\\nNebenwirkungen: Umwandlungen, Wachstums- und Despawn-Zeiten und Sonnenbrand von Mobs fern jedes Spielers laufen auch langsamer.\\nStandard: off.",
   "simpleoptserver.guide.chapter": "Simple Opt Server",
   "simpleoptserver.guide.page.1.title": "Simple Opt Server",
   "simpleoptserver.guide.page.1": "Server-Optimierungen: die Sichtweite folgt der Serverlast innerhalb der Grenzen aus server.properties.",
@@ -23,8 +25,10 @@
   "simpleoptserver.guide.page.8": "Voll aktiv bleiben Mobs, die reiten oder getragen werden, angeleint sind, ein Ziel haben, verletzt sind, in der Luft, in Wasser oder Lava, brennen, Babys, verliebt oder zahm sind;",
   "simpleoptserver.guide.page.9.title": "Aktivierungsbereich (Standard aus)",
   "simpleoptserver.guide.page.9": "Dorfbewohner, Händler und Bosse bleiben immer aktiv. ServerCore deckt denselben Bereich ab und gewinnt; ändert ein anderer Mod dieselbe Klasse, schaltet er sich ebenfalls ab (Zielprüfung).",
-  "simpleoptserver.guide.page.10.title": "Befehle",
-  "simpleoptserver.guide.page.10": "/simpleoptserver config zeigt und ändert jede Option von config/simpleoptserver.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Die Datei wird einmal beim Start gelesen:",
+  "simpleoptserver.guide.page.10.title": "Aktivierungsbereich (Standard aus)",
+  "simpleoptserver.guide.page.10": "Nebenwirkungen: bei Mobs fern jedes Spielers laufen auch Umwandlungs-, Wachstums- und Despawn-Zeiten und Sonnenbrand langsamer (etwa 15 % weniger Serverlast); deshalb startet der Bereich aus.",
   "simpleoptserver.guide.page.11.title": "Befehle",
-  "simpleoptserver.guide.page.11": "Eine Änderung wird sofort gespeichert, wirkt aber erst nach einem Neustart (jede Antwort sagt das). Berechtigung 2."
+  "simpleoptserver.guide.page.11": "/simpleoptserver config zeigt und ändert jede Option von config/simpleoptserver.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Die Datei wird einmal beim Start gelesen:",
+  "simpleoptserver.guide.page.12.title": "Befehle",
+  "simpleoptserver.guide.page.12": "Eine Änderung wird sofort gespeichert, wirkt aber erst nach einem Neustart (jede Antwort sagt das). Berechtigung 2."
 }

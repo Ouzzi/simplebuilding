@@ -1,4 +1,4 @@
-# Simple Opt Server 0.1.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Opt Server 1.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 

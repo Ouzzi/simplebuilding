@@ -157,9 +157,9 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **Simple Aesthetics** `simpleaesthetics` [fertig]: Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.
   - required: Simple Visuals, Simple Sounds, Simple Models
-  - **Simple Models** `simplemodels` (required) [neu]: Server-approved custom item models, anvil assignment, and a searchable model browser.
+  - **Simple Models** `simplemodels` (required) [fertig]: Server-approved custom item models, anvil assignment, and a searchable model browser.
     - optional: SimpleBuilding, modmenu
-  - **Simple Sounds** `simplesounds` (required) [neu]: Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.
+  - **Simple Sounds** `simplesounds` (required) [fertig]: Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.
     - required: cloth_config
     - optional: Simple Visuals, SimpleBuilding, modmenu
   - **Simple Visuals** `simplevisuals` (required) [fertig]: Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.
@@ -168,16 +168,16 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 ## Simple Optimization
 
-- **Simple Optimization** `simpleoptimization` [neu]: Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.
+- **Simple Optimization** `simpleoptimization` [fertig]: Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.
   - required: Simple Opt Render, Simple Opt Memory, Simple Opt Server
-  - **Simple Opt Memory** `simpleoptmemory` (required) [neu]: Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.
-  - **Simple Opt Render** `simpleoptrender` (required) [neu]: Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.
-  - **Simple Opt Server** `simpleoptserver` (required) [neu]: Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.
+  - **Simple Opt Memory** `simpleoptmemory` (required) [fertig]: Memory optimization: shares the property and face tables of block states (O4, same idea as FerriteCore, which it yields to), with switch, config and mod detection.
+  - **Simple Opt Render** `simpleoptrender` (required) [fertig]: Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.
+  - **Simple Opt Server** `simpleoptserver` (required) [fertig]: Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.
 
 ## Eigenstaendige Mods
 
-- **Simple Livemap** `simplelivemap` [neu]: Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and a built-in web server (on out of the box, only on this computer, private with a key; own website possible).
+- **Simple Livemap** `simplelivemap` [fertig]: Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and a built-in web server (on out of the box, only on this computer, private with a key; own website possible).
   - optional: Simple Maps
-- **Simple Stats** `simplestats` [neu]: Every tool, weapon and piece of armor keeps its own statistics (blocks mined, kills by mob and variant, damage absorbed, distances, catches) with an item-specific statistics screen.
+- **Simple Stats** `simplestats` [fertig]: Every tool, weapon and piece of armor keeps its own statistics (blocks mined, kills by mob and variant, damage absorbed, distances, catches) with an item-specific statistics screen.
   - optional: SimpleBuilding
 - **Wiring Example** `wiringexample` [neu]: Minimal module used to verify loader and integration wiring.
