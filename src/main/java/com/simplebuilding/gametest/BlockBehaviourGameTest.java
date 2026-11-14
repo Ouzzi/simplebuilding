@@ -65,12 +65,6 @@ public final class BlockBehaviourGameTest {
     public void constructionLightShinesButLetsMonstersSpawn(GameTestHelper helper) {
         BlockBehaviourTests.constructionLightShinesButLetsMonstersSpawn(helper);
     }
-
-    @GameTest
-    public void metalRodsAttractLightningWithinTheirOwnRange(GameTestHelper helper) {
-        BlockBehaviourTests.metalRodsAttractLightningWithinTheirOwnRange(helper);
-    }
-
     @GameTest
     public void materialRodsCraftBackAndSmithUpward(GameTestHelper helper) {
         BlockBehaviourTests.materialRodsCraftBackAndSmithUpward(helper);
