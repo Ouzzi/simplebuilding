@@ -2,7 +2,7 @@
 Facts come from modules/modules.json, fabric.mod.json and wiki manual.json; nothing here may claim more than the code does."""
 P = {
 "simplebuilding": ("Super mod of the Simple family: bundles the required sub-mods for building, storage and tools, plus End blocks, Enderite gear, loot and trades.",
-  "SimpleBuilding is the core of the Simple family. It bundles the required sub-mods (building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more) and adds its own content on top: End building palettes, Astral and Nihil redstone lines, Enderite tools and armor, enchantments for mining and building, music discs, hammocks and chess. Optional Simple mods (for example Simple Maps or Simple Money) are separate downloads and are not part of this file; each bundled sub-mod can be switched off in the config.",
+  "SimpleBuilding is the core of the Simple family. It bundles the required sub-mods (building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more) and adds its own content on top: End building palettes, Astral and Nihil redstone lines, Enderite tools and armor, enchantments for mining and building, music discs and hammocks. Optional Simple mods (for example Simple Maps or Simple Money) are separate downloads and are not part of this file; each bundled sub-mod can be switched off in the config.",
   "equipment, storage, utility", "building, tools, storage, enchantments, survival"),
 "simplemoney": ("Currency production, weighted villager trades and treasure loot for survival worlds.",
   "Simple Money adds a currency you can produce, weighted villager trades and money in treasure loot.",
@@ -181,6 +181,9 @@ P = {
 "simplelayers": ("World layers: the Cloud Sea sky dimension above y 700 and the Backrooms below the bedrock.",
   "Simple Layers adds the Cloud Sea above y 700 and the Backrooms below the bedrock, with cloud blocks, wallpaper, carpet and neon lights.",
   "adventure, worldgen", "dimensions, backrooms, clouds"),
+"simplechess": ("Chess on any build: 156 pieces in 13 colors, 3D or flat, up to four on a block, on 12 quartz checker boards with stairs and slabs.",
+  "Simple Chess adds chess pieces (pawn, rook, knight, bishop, queen and king in 13 colors, each as a 3D figure and as a flat token) that stand on a quarter of a block top, so a 4 x 4 area of quartz checkers is a whole chessboard. Twelve quartz checker blocks come with stairs and slabs; with Simple Octets every color also gets an octet.",
+  "decoration", "chess, board-games, decoration, building"),
 "simplevault": ("Find a rare gap in the Overworld bedrock, solve three riddles in the Bedrock Vault and ride the Ascent Altar back to the surface.",
   "Simple Vault hides a rare 2 x 2 gap in the Overworld bedrock. It leads to the Bedrock Vault: quiet halls on two floors in a dimension of solid bedrock. Three riddles of light, sound and path give you the seal parts that open the Ascent Altar, your only way back up.",
   "adventure, worldgen", "dungeon, bedrock, riddles, exploration"),
@@ -229,6 +232,7 @@ V = {
 "simplestorage": "Gives players more storage (crates, tiered chests and shulker boxes, bundles, quivers, backpacks); the Vanilla containers stay, and some mixins touch chest, shulker, bundle and arrow pickup behavior.",
 "simpletrims": "Adds four armor trim templates (glowing, emitting, pulsating, inverting), placeable templates and trim upgrades for players who like armor looks; Vanilla trims are unchanged. Glowing armor and held torches place invisible light blocks in the world (the hand light can be switched off in the config).",
 "simpletweaks": "Keeps older worlds loading and adds server claims that are on by default; the claim rules change who may build where on a server. Also on by default: partial keep inventory (hotbar and armor stay on death), a death hint, AFK players not counting for sleeping, newcomer protection and a dragon egg after every dragon fight; each can be switched off.",
+"simplechess": "Gives builders decoration and real board games on their builds; it only adds its own blocks, items and recipes and changes no Vanilla behavior.",
 "simplevault": "Gives explorers a rare find in the bedrock with riddles and a reward; the Vanilla bedrock stays except at the rare gap, and a few hooks handle its pistons and block states.",
 "simplewanderers": "Gives every village a wandering trader with a horse and, in return, moves the everyday half (47 of 78) of the Vanilla Wandering Trader's goods to him; the traveling trader keeps the rest, plus anything other mods add to the Vanilla trade lists. Off in the config, the Vanilla trader is untouched.",
 }
