@@ -1462,7 +1462,7 @@
       "id": "money_links_simplebuilding",
       "en": {
         "title": "Linked Price Table: simplebuilding",
-        "summary": "126 item prices; loaded-mod condition: simplebuilding (15 of them also need simpleores).",
+        "summary": "117 item prices; loaded-mod condition: simplebuilding (15 of them also need simpleores).",
         "details": [
           "simplebuilding:astral_end_stone: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astral_purpur_block: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1490,9 +1490,7 @@
           "simplebuilding:nihilith_end_rod: tier 4, hours 25.0, craft 2; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_lamp: tier 4, hours 25.0, craft 0; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astralit_lamp: tier 4, hours 25.0, craft 0; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:astralit_quartz_checker: tier 4, hours 25.0, craft 4; 14 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:basic_upgrade_template: tier 0, hours 0.5, craft 9; 4 bills; librarian 1; stock 2; chance 1.",
-          "simplebuilding:blackstone_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:chiseled_astralit_bricks: tier 4, hours 25.0, craft 2; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:cracked_astralit_bricks: tier 4, hours 25.0, craft 2; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:chiseled_ender_quartz_bricks: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1511,7 +1509,6 @@
           "simplebuilding:ender_quartz_brick_stairs: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_quartz_brick_wall: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_quartz_bricks: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:ender_quartz_checker: tier 4, hours 25.0, craft 4; 14 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_quartz_pillar: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_quartz_slab: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_quartz_stairs: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1530,7 +1527,6 @@
           "simplebuilding:enderite_spear: tier 5, hours 38.1, craft 3; 19 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_sword: tier 5, hours 38.1, craft 3; 19 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:guide_book: tier 0, hours 0.5, craft 2; 3 bills; librarian 1; stock 2; chance 1.",
-          "simplebuilding:lapis_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:netherite_apple: tier 4, hours 24.9, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_carrot: tier 4, hours 24.9, craft 5; 14 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_nugget: tier 4, hours 24.9, craft 1; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1545,7 +1541,6 @@
           "simplebuilding:nihilith_ore: tier 4, hours 25.0, craft 0; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_pillar: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihil_redstone: tier 4, hours 25.0, craft 0; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:nihilith_quartz_checker: tier 4, hours 25.0, craft 4; 14 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_shard: tier 4, hours 25.0, craft 0; 13 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_slab: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:nihilith_stairs: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1563,10 +1558,6 @@
           "simplebuilding:polished_nihilith_slab: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:polished_nihilith_stairs: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:polished_nihilith_wall: tier 4, hours 25.0, craft 6; 15 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:purpur_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:red_nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:resin_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:ender_end_stone: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_purpur_block: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:astral_end_stone_stairs: tier 4, hours 25.0, craft 9; 16 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1594,7 +1585,7 @@
       },
       "de": {
         "title": "Verknüpfte Preisliste: simplebuilding",
-        "summary": "126 Itempreise; Mod-Ladebedingung: simplebuilding (15 davon brauchen zusätzlich simpleores).",
+        "summary": "117 Itempreise; Mod-Ladebedingung: simplebuilding (15 davon brauchen zusätzlich simpleores).",
         "details": [
           "simplebuilding:astral_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astral_purpur_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1622,9 +1613,7 @@
           "simplebuilding:nihilith_end_rod: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_lamp: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astralit_lamp: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:astralit_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 14 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:basic_upgrade_template: Stufe 0, Stunden 0.5, Rezeptplaetze 9; 4 Scheine; librarian 1; Vorrat 2; Chance 1.",
-          "simplebuilding:blackstone_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:chiseled_astralit_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:cracked_astralit_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 2; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:chiseled_ender_quartz_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1643,7 +1632,6 @@
           "simplebuilding:ender_quartz_brick_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_quartz_brick_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_quartz_bricks: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:ender_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 14 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_quartz_pillar: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_quartz_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_quartz_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1662,7 +1650,6 @@
           "simplebuilding:enderite_spear: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 19 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_sword: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 19 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:guide_book: Stufe 0, Stunden 0.5, Rezeptplaetze 2; 3 Scheine; librarian 1; Vorrat 2; Chance 1.",
-          "simplebuilding:lapis_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:netherite_apple: Stufe 4, Stunden 24.9, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_carrot: Stufe 4, Stunden 24.9, Rezeptplaetze 5; 14 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_nugget: Stufe 4, Stunden 24.9, Rezeptplaetze 1; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1677,7 +1664,6 @@
           "simplebuilding:nihilith_ore: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_pillar: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihil_redstone: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:nihilith_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 14 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_shard: Stufe 4, Stunden 25.0, Rezeptplaetze 0; 13 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:nihilith_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1695,10 +1681,6 @@
           "simplebuilding:polished_nihilith_slab: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:polished_nihilith_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:polished_nihilith_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 6; 15 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:purpur_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:red_nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:resin_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:ender_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_purpur_block: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:astral_end_stone_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 16 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1752,9 +1734,7 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_end_rod.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_lamp.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_lamp.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/basic_upgrade_template.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/blackstone_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/chiseled_astralit_bricks.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/cracked_astralit_bricks.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/chiseled_ender_quartz_bricks.json",
@@ -1773,7 +1753,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_brick_stairs.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_brick_wall.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_bricks.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_pillar.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_slab.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_stairs.json",
@@ -1792,7 +1771,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_spear.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_sword.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/guide_book.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/lapis_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_apple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_carrot.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_nugget.json",
@@ -1807,7 +1785,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_ore.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_pillar.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihil_redstone.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_shard.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_slab.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_stairs.json",
@@ -1825,10 +1802,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_slab.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_stairs.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_wall.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/purpur_quartz_checker.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nether_brick_quartz_checker.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/red_nether_brick_quartz_checker.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/resin_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_end_stone.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_purpur_block.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astral_end_stone_stairs.json",
@@ -1980,6 +1953,51 @@
         "simplebuilding:ender_purpur_stairs",
         "simplebuilding:ender_purpur_slab",
         "simplebuilding:ender_purpur_wall"
+      ]
+    },
+    {
+      "id": "money_links_simplechess",
+      "en": {
+        "title": "Linked Price Table: simplechess",
+        "summary": "9 item prices; loaded-mod condition: simplechess (3 of them also need simplebuilding).",
+        "details": [
+          "simplechess:astralit_quartz_checker: tier 4, hours 25.0, craft 4; 14 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplechess:blackstone_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
+          "simplechess:ender_quartz_checker: tier 4, hours 25.0, craft 4; 14 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplechess:lapis_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
+          "simplechess:nihilith_quartz_checker: tier 4, hours 25.0, craft 4; 14 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplechess:purpur_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
+          "simplechess:nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
+          "simplechess:red_nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1.",
+          "simplechess:resin_quartz_checker: tier 0, hours 0.5, craft 4; 3 bills; mason 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplechess",
+        "summary": "9 Itempreise; Mod-Ladebedingung: simplechess (3 davon brauchen zusätzlich simplebuilding).",
+        "details": [
+          "simplechess:astralit_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 14 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplechess:blackstone_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplechess:ender_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 14 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplechess:lapis_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplechess:nihilith_quartz_checker: Stufe 4, Stunden 25.0, Rezeptplaetze 4; 14 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplechess:purpur_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplechess:nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplechess:red_nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplechess:resin_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 3 Scheine; mason 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplechess/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/astralit_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/blackstone_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/ender_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/lapis_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/nihilith_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/purpur_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/nether_brick_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/red_nether_brick_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechess/resin_quartz_checker.json"
       ]
     },
     {
@@ -6429,31 +6447,6 @@
       "link": "simplebuilding"
     },
     {
-      "id": "simplemoney:links/simplebuilding/astralit_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 14
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:astralit_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 1,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": 0.1,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableWanderingTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/astralit_quartz_checker.json",
-      "link": "simplebuilding"
-    },
-    {
       "id": "simplemoney:links/simplebuilding/astralit_slab",
       "profession": "wandering_trader",
       "level": null,
@@ -6551,31 +6544,6 @@
         "enableVillagerTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/basic_upgrade_template.json",
-      "link": "simplebuilding"
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/blackstone_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 3
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:blackstone_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 2,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": null,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableVillagerTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/blackstone_quartz_checker.json",
       "link": "simplebuilding"
     },
     {
@@ -7304,31 +7272,6 @@
       "link": "simplebuilding"
     },
     {
-      "id": "simplemoney:links/simplebuilding/ender_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 14
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:ender_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 1,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": 0.1,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableWanderingTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz_checker.json",
-      "link": "simplebuilding"
-    },
-    {
       "id": "simplemoney:links/simplebuilding/ender_quartz_pillar",
       "profession": "wandering_trader",
       "level": null,
@@ -7801,56 +7744,6 @@
         "enableVillagerTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/guide_book.json",
-      "link": "simplebuilding"
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/lapis_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 3
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:lapis_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 2,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": null,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableVillagerTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/lapis_quartz_checker.json",
-      "link": "simplebuilding"
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/nether_brick_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 3
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:nether_brick_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 2,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": null,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableVillagerTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nether_brick_quartz_checker.json",
       "link": "simplebuilding"
     },
     {
@@ -8479,31 +8372,6 @@
       "link": "simplebuilding"
     },
     {
-      "id": "simplemoney:links/simplebuilding/nihilith_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 14
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:nihilith_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 1,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": 0.1,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableWanderingTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nihilith_quartz_checker.json",
-      "link": "simplebuilding"
-    },
-    {
       "id": "simplemoney:links/simplebuilding/nihilith_shard",
       "profession": "wandering_trader",
       "level": null,
@@ -8926,81 +8794,6 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_wall.json",
-      "link": "simplebuilding"
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/purpur_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 3
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:purpur_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 2,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": null,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableVillagerTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/purpur_quartz_checker.json",
-      "link": "simplebuilding"
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/red_nether_brick_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 3
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:red_nether_brick_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 2,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": null,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableVillagerTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/red_nether_brick_quartz_checker.json",
-      "link": "simplebuilding"
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/resin_quartz_checker",
-      "profession": "wandering_trader",
-      "level": null,
-      "wants": {
-        "id": "simplemoney:money_bill",
-        "count": 3
-      },
-      "alsoWants": null,
-      "gives": {
-        "id": "simplebuilding:resin_quartz_checker",
-        "count": 1
-      },
-      "maxUses": 2,
-      "xp": 0,
-      "reputationDiscount": 0,
-      "offerChance": null,
-      "enchantmentPool": [],
-      "configFlags": [
-        "links:simplebuilding",
-        "enableVillagerTrades"
-      ],
-      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/resin_quartz_checker.json",
       "link": "simplebuilding"
     },
     {
@@ -11034,7 +10827,7 @@
       "level": null,
       "wants": {
         "id": "simplemoney:money_bill",
-        "count": 3
+        "count": 8
       },
       "alsoWants": null,
       "gives": {
@@ -12659,7 +12452,7 @@
       "level": null,
       "wants": {
         "id": "simplemoney:money_bill",
-        "count": 3
+        "count": 8
       },
       "alsoWants": null,
       "gives": {
@@ -15741,7 +15534,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 80,
+    "features": 81,
     "recipes": 7,
     "lootTables": 0,
     "tags": 0,
@@ -15749,7 +15542,7 @@
     "enchantments": 0,
     "items": 8,
     "blocks": 0,
-    "trades": 433,
+    "trades": 424,
     "config": 11,
     "quests": 0,
     "recipesOtherLines": 0,

@@ -481,6 +481,26 @@
    "Nihil Redstone Torch",
    "Nihil-Redstone-Fackel"
   ],
+  "block.simpleores.astral_wall_redstone": [
+   "Astral Wall Redstone",
+   "Astral-Wand-Redstone"
+  ],
+  "block.simpleores.bridge_wall_redstone": [
+   "Bridge Wall Redstone",
+   "Brücken-Wand-Redstone"
+  ],
+  "block.simpleores.wall_repeater": [
+   "Wall Repeater",
+   "Wand-Verstärker"
+  ],
+  "block.simpleores.wall_comparator": [
+   "Wall Comparator",
+   "Wand-Komparator"
+  ],
+  "block.simpleores.wall_signal_dampener": [
+   "Wall Signal Dampener",
+   "Wand-Signaldämpfer"
+  ],
   "block.simpleores.astralit_end_rod": [
    "Astralit End Rod",
    "Astralit-Endstab"

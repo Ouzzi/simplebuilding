@@ -20872,7 +20872,7 @@
       },
       "note": {
         "en": {
-          "summary": "Enderite Horse Armor and Enderite Nautilus Armor are the top tier of mount armor, one step above vanilla's netherite versions: 22 armor on the body slot instead of 19, armor toughness 4 instead of 3 and knockback resistance 0.2 instead of 0.1.",
+          "summary": "Enderite Horse Armor: upgrade Netherite Horse Armor with an Enderite Upgrade and an Enderite Ingot at the smithing table. Enderite Horse Armor and Enderite Nautilus Armor are the top tier of mount armor, one step above vanilla's netherite versions: 22 armor on the body slot instead of 19, armor toughness 4 instead of 3 and knockback resistance 0.2 instead of 0.1.",
           "details": [
             "Smithing: Enderite Upgrade Smithing Template + Netherite Horse Armor (or Netherite Nautilus Armor) + Enderite Ingot, the same pattern as every other enderite upgrade.",
             "Worn like vanilla's: the horse armor fits the animals in the vanilla tag can_wear_horse_armor, the nautilus armor those in can_wear_nautilus_armor; no durability, can be sheared off.",
@@ -20881,7 +20881,7 @@
           ]
         },
         "de": {
-          "summary": "Enderitrossharnisch und Enderit-Nautilusrüstung sind die höchste Stufe der Reittier-Rüstung, eine Stufe über Vanillas Netherit-Varianten: 22 Rüstungspunkte am Körper statt 19, Rüstungshärte 4 statt 3 und Rückstoßwiderstand 0,2 statt 0,1.",
+          "summary": "Enderitrossharnisch: Am Schmiedetisch aus Netheritrossharnisch, Enderit-Aufwertung und Enderitbarren hergestellt. Enderitrossharnisch und Enderit-Nautilusrüstung sind die höchste Stufe der Reittier-Rüstung, eine Stufe über Vanillas Netherit-Varianten: 22 Rüstungspunkte am Körper statt 19, Rüstungshärte 4 statt 3 und Rückstoßwiderstand 0,2 statt 0,1.",
           "details": [
             "Schmiede: Enderit-Aufwertung + Netheritrossharnisch (bzw. Netherit-Nautilusrüstung) + Enderitbarren, nach demselben Muster wie jede andere Enderit-Aufwertung.",
             "Getragen wie bei Vanilla: der Rossharnisch passt den Tieren im Vanilla-Tag can_wear_horse_armor, die Nautilusrüstung denen in can_wear_nautilus_armor; keine Haltbarkeit, mit der Schere abnehmbar.",
@@ -20890,7 +20890,8 @@
           ]
         },
         "sources": [
-          "modules/simpleores/shared/resources/assets/simpleores/equipment/enderite.json"
+          "modules/simpleores/shared/resources/assets/simpleores/equipment/enderite.json",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "texture": "assets/textures/simpleores/item/enderite_horse_armor.png",
@@ -20978,7 +20979,7 @@
       },
       "note": {
         "en": {
-          "summary": "Enderite Horse Armor and Enderite Nautilus Armor are the top tier of mount armor, one step above vanilla's netherite versions: 22 armor on the body slot instead of 19, armor toughness 4 instead of 3 and knockback resistance 0.2 instead of 0.1.",
+          "summary": "Enderite Nautilus Armor: upgrade Netherite Nautilus Armor with an Enderite Upgrade and an Enderite Ingot at the smithing table. Enderite Horse Armor and Enderite Nautilus Armor are the top tier of mount armor, one step above vanilla's netherite versions: 22 armor on the body slot instead of 19, armor toughness 4 instead of 3 and knockback resistance 0.2 instead of 0.1.",
           "details": [
             "Smithing: Enderite Upgrade Smithing Template + Netherite Horse Armor (or Netherite Nautilus Armor) + Enderite Ingot, the same pattern as every other enderite upgrade.",
             "Worn like vanilla's: the horse armor fits the animals in the vanilla tag can_wear_horse_armor, the nautilus armor those in can_wear_nautilus_armor; no durability, can be sheared off.",
@@ -20987,7 +20988,7 @@
           ]
         },
         "de": {
-          "summary": "Enderitrossharnisch und Enderit-Nautilusrüstung sind die höchste Stufe der Reittier-Rüstung, eine Stufe über Vanillas Netherit-Varianten: 22 Rüstungspunkte am Körper statt 19, Rüstungshärte 4 statt 3 und Rückstoßwiderstand 0,2 statt 0,1.",
+          "summary": "Enderit-Nautilusrüstung: Am Schmiedetisch aus Netherit-Nautilusrüstung, Enderit-Aufwertung und Enderitbarren hergestellt. Enderitrossharnisch und Enderit-Nautilusrüstung sind die höchste Stufe der Reittier-Rüstung, eine Stufe über Vanillas Netherit-Varianten: 22 Rüstungspunkte am Körper statt 19, Rüstungshärte 4 statt 3 und Rückstoßwiderstand 0,2 statt 0,1.",
           "details": [
             "Schmiede: Enderit-Aufwertung + Netheritrossharnisch (bzw. Netherit-Nautilusrüstung) + Enderitbarren, nach demselben Muster wie jede andere Enderit-Aufwertung.",
             "Getragen wie bei Vanilla: der Rossharnisch passt den Tieren im Vanilla-Tag can_wear_horse_armor, die Nautilusrüstung denen in can_wear_nautilus_armor; keine Haltbarkeit, mit der Schere abnehmbar.",
@@ -20996,7 +20997,8 @@
           ]
         },
         "sources": [
-          "modules/simpleores/shared/resources/assets/simpleores/equipment/enderite.json"
+          "modules/simpleores/shared/resources/assets/simpleores/equipment/enderite.json",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "texture": "assets/textures/simpleores/item/enderite_nautilus_armor.png",
@@ -23034,11 +23036,13 @@
       },
       "note": {
         "sources": [
-          "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java"
+          "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone.json",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
         ],
         "en": {
           "title": "Astral, Nihil and Bridge Redstone",
-          "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+          "summary": "Astral Redstone: craft 2 from Astralit Dust and redstone; the Astral redstone line. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
@@ -23050,7 +23054,7 @@
         },
         "de": {
           "title": "Astral-, Nihil- und Brücken-Redstone",
-          "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+          "summary": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; die Astral-Redstone-Linie. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
@@ -23155,7 +23159,30 @@
         "en_us": "Astral Redstone Torch",
         "de_de": "Astral-Redstone-Fackel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneTorchBlock.java",
+          "modules/simpleores/shared/resources/assets/simpleores/items/astral_redstone_torch.json"
+        ],
+        "en": {
+          "title": "Astral Redstone Torch",
+          "summary": "Wall form of the torch: Vanilla's redstone torch for the Astral line: an inverter whose signal feeds only Astral dust, Bridge Redstone and every device.",
+          "details": [
+            "Astral Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+            "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+            "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astral-Redstone-Fackel",
+          "summary": "Wandform der Fackel: Vanillas Redstone-Fackel für die Astral-Linie: ein Inverter, dessen Signal nur Astral-Staub, Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Astral-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+            "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+            "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -23165,7 +23192,29 @@
         "en_us": "Astral Relay",
         "de_de": "Astral-Relais"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/circuit/AstralRelayBlock.java"
+        ],
+        "en": {
+          "title": "Astral Relay",
+          "summary": "A copper bulb that sends a signal: a rising edge toggles it, while on it gives strength 15 to every side.",
+          "details": [
+            "Recipe: a copper bulb surrounded by four Astral Redstone.",
+            "A rising signal edge toggles it like the copper bulb. While on it lights up and gives redstone strength 15 to every side; a comparator reads 15.",
+            "All of it follows the server switch endSignals in simpleores-server.json."
+          ]
+        },
+        "de": {
+          "title": "Astral-Relais",
+          "summary": "Eine Kupferbirne mit Signalausgang: eine steigende Flanke schaltet sie um, eingeschaltet gibt sie Stärke 15 an alle Seiten.",
+          "details": [
+            "Rezept: eine Kupferbirne umgeben von vier Astral-Redstone.",
+            "Eine steigende Signalflanke schaltet es um wie die Kupferbirne. Eingeschaltet leuchtet es und gibt Redstone-Stärke 15 an jede Seite; ein Komparator liest 15.",
+            "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+          ]
+        }
+      },
       "texture": "assets/textures/simpleores/block/astral_relay.png",
       "craftedBy": [
         "simpleores:astral_relay"
@@ -23175,9 +23224,32 @@
     {
       "id": "simpleores:astral_wall_redstone",
       "name": {
-        "en_us": "Astral Wall Redstone"
+        "en_us": "Astral Wall Redstone",
+        "de_de": "Astral-Wand-Redstone"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/circuit/WallSignalDustBlock.java"
+        ],
+        "en": {
+          "title": "Astral Wall Redstone",
+          "summary": "Astral Redstone stuck to a wall or ceiling.",
+          "details": [
+            "Placed by using the floor dust of its line on the side or the underside of a block; it has no item of its own and drops the floor dust.",
+            "Carries the signal like floor dust (one less per step), connects to floor dust of its line at the edge, goes round the outer edge of its block and powers that block strongly.",
+            "All of it follows the server switch endSignals in simpleores-server.json."
+          ]
+        },
+        "de": {
+          "title": "Astral-Wand-Redstone",
+          "summary": "Astral-Redstone an Wand oder Decke.",
+          "details": [
+            "Entsteht, wenn der Bodenstaub seiner Linie auf die Seite oder Unterseite eines Blocks gesetzt wird; eigenes Item gibt es nicht, er droppt den Bodenstaub.",
+            "Leitet wie Bodenstaub (je Schritt eins weniger), verbindet sich an der Kante mit Bodenstaub seiner Linie, läuft um die Außenkante seines Blocks und speist diesen Block stark.",
+            "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -23579,11 +23651,13 @@
       },
       "note": {
         "sources": [
-          "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java"
+          "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
         ],
         "en": {
           "title": "Astral, Nihil and Bridge Redstone",
-          "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+          "summary": "Bridge Redstone: craft 3 from Astralit Dust, a Nihilit Shard and redstone; links all three redstone lines. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
@@ -23595,7 +23669,7 @@
         },
         "de": {
           "title": "Astral-, Nihil- und Brücken-Redstone",
-          "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+          "summary": "Brücken-Redstone: Aus Astralitstaub, einem Nihilitsplitter und Redstone entstehen 3 Stück; verbindet alle drei Redstone-Linien. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
@@ -23655,9 +23729,32 @@
     {
       "id": "simpleores:bridge_wall_redstone",
       "name": {
-        "en_us": "Bridge Wall Redstone"
+        "en_us": "Bridge Wall Redstone",
+        "de_de": "Brücken-Wand-Redstone"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/circuit/WallSignalDustBlock.java"
+        ],
+        "en": {
+          "title": "Bridge Wall Redstone",
+          "summary": "Bridge Redstone stuck to a wall or ceiling; links all three lines like the floor dust.",
+          "details": [
+            "Placed by using the floor dust of its line on the side or the underside of a block; it has no item of its own and drops the floor dust.",
+            "Carries the signal like floor dust (one less per step), connects to floor dust of its line at the edge, goes round the outer edge of its block and powers that block strongly.",
+            "All of it follows the server switch endSignals in simpleores-server.json."
+          ]
+        },
+        "de": {
+          "title": "Brücken-Wand-Redstone",
+          "summary": "Brücken-Redstone an Wand oder Decke; verbindet wie der Bodenstaub alle drei Linien.",
+          "details": [
+            "Entsteht, wenn der Bodenstaub seiner Linie auf die Seite oder Unterseite eines Blocks gesetzt wird; eigenes Item gibt es nicht, er droppt den Bodenstaub.",
+            "Leitet wie Bodenstaub (je Schritt eins weniger), verbindet sich an der Kante mit Bodenstaub seiner Linie, läuft um die Außenkante seines Blocks und speist diesen Block stark.",
+            "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -26448,7 +26545,29 @@
         "en_us": "Nihil Core",
         "de_de": "Nihil-Kern"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/circuit/NihilCoreBlock.java"
+        ],
+        "en": {
+          "title": "Nihil Core",
+          "summary": "Touching cores form one group that a rising edge at any core toggles as a whole.",
+          "details": [
+            "Recipe: Nihilit Shard, four Nihil Redstone and four End stone bricks give 4 cores.",
+            "While on every core gives strength 15 to all sides, off nothing. Neighbouring cores draw one surface with a rim only around the outside.",
+            "All of it follows the server switch endSignals in simpleores-server.json."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Kern",
+          "summary": "Sich berührende Kerne bilden eine Gruppe, die eine steigende Flanke an einem beliebigen Kern als Ganzes umschaltet.",
+          "details": [
+            "Rezept: Nihilit-Scherbe, vier Nihil-Redstone und vier Endsteinziegel ergeben 4 Kerne.",
+            "Eingeschaltet gibt jeder Kern Stärke 15 an alle Seiten, ausgeschaltet nichts. Benachbarte Kerne zeichnen eine Fläche mit Rand nur außen herum.",
+            "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+          ]
+        }
+      },
       "texture": "assets/textures/simpleores/block/nihil_core.png",
       "craftedBy": [
         "simpleores:nihil_core"
@@ -26530,11 +26649,13 @@
       },
       "note": {
         "sources": [
-          "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java"
+          "modules/simpleores/shared/java/com/simpleores/line/SignalDustBlock.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone.json",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
         ],
         "en": {
           "title": "Astral, Nihil and Bridge Redstone",
-          "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+          "summary": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; the Nihil redstone line. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
@@ -26546,7 +26667,7 @@
         },
         "de": {
           "title": "Astral-, Nihil- und Brücken-Redstone",
-          "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+          "summary": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; die Nihil-Redstone-Linie. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
@@ -26651,7 +26772,30 @@
         "en_us": "Nihil Redstone Torch",
         "de_de": "Nihil-Redstone-Fackel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneTorchBlock.java",
+          "modules/simpleores/shared/resources/assets/simpleores/items/nihil_redstone_torch.json"
+        ],
+        "en": {
+          "title": "Nihil Redstone Torch",
+          "summary": "Wall form of the torch: Vanilla's redstone torch for the Nihil line: an inverter whose signal feeds only Nihil dust, Bridge Redstone and every device.",
+          "details": [
+            "Nihil Redstone over a stick crafts one. It stands on a block or hangs on a wall like the redstone torch.",
+            "Goes out while the block it sits on is powered (by any line), burns out when toggled too often, glows with light 7 and strongly powers the block above. Dust of other lines and redstone dust next to it - or next to the block above it - stay dark.",
+            "server.features.endSignals (default true) switched off: it gives no signal and its recipe disappears on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Redstone-Fackel",
+          "summary": "Wandform der Fackel: Vanillas Redstone-Fackel für die Nihil-Linie: ein Inverter, dessen Signal nur Nihil-Staub, Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Nihil-Redstone über einem Stock ergibt eine. Sie steht auf einem Block oder hängt an einer Wand wie die Redstone-Fackel.",
+            "Geht aus, solange der Block, an dem sie sitzt, gespeist wird (von jeder Linie), brennt bei zu häufigem Schalten durch, leuchtet mit Licht 7 und speist den Block über sich stark. Staub anderer Linien und Redstone-Staub daneben - oder neben dem Block über ihr - bleiben dunkel.",
+            "server.features.endSignals (Standard an) abgeschaltet: Sie gibt kein Signal, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -28343,27 +28487,96 @@
     {
       "id": "simpleores:wall_comparator",
       "name": {
-        "en_us": "Wall Comparator"
+        "en_us": "Wall Comparator",
+        "de_de": "Wand-Komparator"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/circuit/WallDiodeBlock.java"
+        ],
+        "en": {
+          "title": "Wall Comparator",
+          "summary": "The redstone comparator on a wall or ceiling; it reads a container directly behind it.",
+          "details": [
+            "Placed with the Vanilla or Simple Machines item on a side or the underside of a block where the floor version cannot stand, or anywhere while sneaking; it drops that item.",
+            "The output points away from you in the plane of the wall; right click switches compare and subtract mode.",
+            "All of it follows the server switch endSignals in simpleores-server.json."
+          ]
+        },
+        "de": {
+          "title": "Wand-Komparator",
+          "summary": "Der Redstone-Komparator an Wand oder Decke; er liest einen Behälter direkt hinter sich.",
+          "details": [
+            "Entsteht mit dem Vanilla- bzw. Simple-Machines-Item an der Seite oder Unterseite eines Blocks, wo die Bodenversion nicht stehen kann, oder überall beim Schleichen; droppt dieses Item.",
+            "Der Ausgang zeigt in der Wandebene von dir weg; Rechtsklick schaltet zwischen Vergleichen und Subtrahieren.",
+            "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
     {
       "id": "simpleores:wall_repeater",
       "name": {
-        "en_us": "Wall Repeater"
+        "en_us": "Wall Repeater",
+        "de_de": "Wand-Verstärker"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/circuit/WallDiodeBlock.java"
+        ],
+        "en": {
+          "title": "Wall Repeater",
+          "summary": "The redstone repeater on a wall or ceiling; it does not lock.",
+          "details": [
+            "Placed with the Vanilla or Simple Machines item on a side or the underside of a block where the floor version cannot stand, or anywhere while sneaking; it drops that item.",
+            "The output points away from you in the plane of the wall; right click sets the delay (1 to 4 ticks).",
+            "All of it follows the server switch endSignals in simpleores-server.json."
+          ]
+        },
+        "de": {
+          "title": "Wand-Verstärker",
+          "summary": "Der Redstone-Verstärker an Wand oder Decke; er verriegelt nicht.",
+          "details": [
+            "Entsteht mit dem Vanilla- bzw. Simple-Machines-Item an der Seite oder Unterseite eines Blocks, wo die Bodenversion nicht stehen kann, oder überall beim Schleichen; droppt dieses Item.",
+            "Der Ausgang zeigt in der Wandebene von dir weg; Rechtsklick stellt die Verzögerung ein (1 bis 4 Ticks).",
+            "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
     {
       "id": "simpleores:wall_signal_dampener",
       "name": {
-        "en_us": "Wall Signal Dampener"
+        "en_us": "Wall Signal Dampener",
+        "de_de": "Wand-Signaldämpfer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/circuit/WallDiodeBlock.java"
+        ],
+        "en": {
+          "title": "Wall Signal Dampener",
+          "summary": "The Simple Machines Signal Dampener on a wall or ceiling.",
+          "details": [
+            "Placed with the Vanilla or Simple Machines item on a side or the underside of a block where the floor version cannot stand, or anywhere while sneaking; it drops that item.",
+            "The output points away from you in the plane of the wall; right click sets the stage (0 to 3 subtracted).",
+            "All of it follows the server switch endSignals in simpleores-server.json."
+          ]
+        },
+        "de": {
+          "title": "Wand-Signaldämpfer",
+          "summary": "Der Signaldämpfer aus Simple Machines an Wand oder Decke.",
+          "details": [
+            "Entsteht mit dem Vanilla- bzw. Simple-Machines-Item an der Seite oder Unterseite eines Blocks, wo die Bodenversion nicht stehen kann, oder überall beim Schleichen; droppt dieses Item.",
+            "Der Ausgang zeigt in der Wandebene von dir weg; Rechtsklick stellt die Stufe ein (0 bis 3 abgezogen).",
+            "Alles folgt dem Server-Schalter endSignals in simpleores-server.json."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -30925,17 +31138,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleores:astral_redstone_wall_torch",
-    "simpleores:astral_relay",
-    "simpleores:astral_wall_redstone",
-    "simpleores:bridge_wall_redstone",
-    "simpleores:nihil_core",
-    "simpleores:nihil_redstone_wall_torch",
-    "simpleores:wall_comparator",
-    "simpleores:wall_repeater",
-    "simpleores:wall_signal_dampener"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 27,
@@ -30950,7 +31153,7 @@
     "config": 26,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 9,
+    "undocumented": 0,
     "inWorld": 64,
     "incompleteProse": 0
   }
