@@ -265,7 +265,7 @@ def resources():
         + [{"id": f"simpleores:{name}", "required": False} for name in (
             "rose_gold_apple", "enchanted_rose_gold_apple", "rose_bronze_apple", "enchanted_rose_bronze_apple",
             "rose_gold_carrot", "rose_bronze_carrot")]
-        + [{"id": f"simpleanimals:{name}", "required": False} for name in ("raw_crab", "cooked_crab", "truffle")]
+        + [{"id": f"simpleanimals:{name}", "required": False} for name in ("raw_crab", "cooked_crab")]
         + [{"id": "simpleend:drift_fruit", "required": False}])
     tag("item", "knife_repair_materials", ["minecraft:iron_nugget"])
     boards = [f"{NS}:{wood}_cutting_board" for wood in WOODS] + [

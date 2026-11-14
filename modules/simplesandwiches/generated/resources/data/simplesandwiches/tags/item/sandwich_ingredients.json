@@ -94,10 +94,6 @@
       "required": false
     },
     {
-      "id": "simpleanimals:truffle",
-      "required": false
-    },
-    {
       "id": "simpleend:drift_fruit",
       "required": false
     }

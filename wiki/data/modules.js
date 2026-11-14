@@ -554,7 +554,7 @@ window.WIKI_MODULES = [
       "recipes": 16,
       "features": 7
     },
-    "dataHash": "691aa47bf56d"
+    "dataHash": "d961285b8812"
   },
   {
     "id": "simplelib",
