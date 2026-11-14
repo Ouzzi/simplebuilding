@@ -160,9 +160,9 @@ window.WIKI_MODULES = [
       "items": 8,
       "recipes": 7,
       "config": 11,
-      "features": 80
+      "features": 81
     },
-    "dataHash": "51c3fcf76ee3"
+    "dataHash": "c9dcfa51dc1d"
   },
   {
     "id": "simpleriding",
@@ -2027,7 +2027,7 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 27
     },
-    "dataHash": "82f78aa7f596"
+    "dataHash": "1860ef700ba3"
   },
   {
     "id": "simplemachines",
