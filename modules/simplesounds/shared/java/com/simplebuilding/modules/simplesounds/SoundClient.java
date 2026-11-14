@@ -31,8 +31,8 @@ public final class SoundClient {
    boolean active=switch(e.id()){
     case "footstep_dust"->p.onGround()&&!p.isInWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.015;
     case "cold_breath"->!p.isUnderWater()&&mc.level.getBiome(pos).value().coldEnoughToSnow(pos,mc.level.getSeaLevel());
-    case "fireflies"->SoundsRegistry.dayTime(mc.level)>=13000&&SoundsRegistry.dayTime(mc.level)<=23000&&mc.level.getBlockState(pos.below()).is(BlockTags.DIRT);
-    case "pollen"->SoundsRegistry.dayTime(mc.level)>=0&&SoundsRegistry.dayTime(mc.level)<12000&&nearby(mc,pos,BlockTags.FLOWERS,null);
+    case "fireflies"->day(mc)>=13000&&day(mc)<=23000&&mc.level.getBlockState(pos.below()).is(BlockTags.DIRT);
+    case "pollen"->day(mc)>=0&&day(mc)<12000&&nearby(mc,pos,BlockTags.FLOWERS,null);
     case "fire_sparks"->nearby(mc,pos,null,Blocks.FIRE)||nearby(mc,pos,null,Blocks.LAVA)||nearby(mc,pos,null,Blocks.CAMPFIRE);
     case "water_ripples"->p.isInWater()&&!p.isUnderWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.005;
     case "water_droplets"->p.isInWater()&&p.getDeltaMovement().lengthSqr()>.01;
@@ -51,6 +51,8 @@ public final class SoundClient {
    }
   }
  }
+ /** Like {@link SoundsRegistry#dayTime} but called on the ClientLevel itself: passing it as a Level would make the verifier load the client class on a server (SoundsFabric links this class). */
+ private static long day(Minecraft mc){var l=mc.level;return l.dimensionType().defaultClock().isPresent()?Math.floorMod(l.getDefaultClockTime(),24000L):-1L;}
  private static boolean nearby(Minecraft mc,BlockPos pos,net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> tag,net.minecraft.world.level.block.Block block){
   for(var d:net.minecraft.core.Direction.values()){var sample=pos.relative(d);if(!mc.level.hasChunkAt(sample))continue;var state=mc.level.getBlockState(sample);if(tag!=null?state.is(tag):state.is(block))return true;}return false;
  }
