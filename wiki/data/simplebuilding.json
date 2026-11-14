@@ -63372,11 +63372,47 @@
       "replace": false,
       "values": [
         {
+          "id": "simplebuilding:enderite_paint_box",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_crucible",
+          "required": true
+        },
+        {
+          "id": "simplehammers:enderite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_hopper",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_hopper_minecart",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_piston",
+          "required": true
+        },
+        {
           "id": "simpleores:enderite_apple",
           "required": true
         },
         {
           "id": "simpleores:enderite_axe",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_block",
           "required": true
         },
         {
@@ -63404,6 +63440,10 @@
           "required": true
         },
         {
+          "id": "simpleores:enderite_ingot",
+          "required": true
+        },
+        {
           "id": "simpleores:enderite_leggings",
           "required": true
         },
@@ -63412,7 +63452,7 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_paint_box",
+          "id": "simpleores:enderite_nugget",
           "required": true
         },
         {
@@ -63421,6 +63461,10 @@
         },
         {
           "id": "simpleores:enderite_pole",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_scrap_block",
           "required": true
         },
         {
@@ -63433,50 +63477,6 @@
         },
         {
           "id": "simpleores:enderite_sword",
-          "required": true
-        },
-        {
-          "id": "simplecrucibles:enderite_crucible",
-          "required": true
-        },
-        {
-          "id": "simplehammers:enderite_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplelib:enderite_core",
-          "required": true
-        },
-        {
-          "id": "simplemachines:enderite_hopper",
-          "required": true
-        },
-        {
-          "id": "simplemachines:enderite_hopper_minecart",
-          "required": true
-        },
-        {
-          "id": "simplemachines:enderite_piston",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_block",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_ingot",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_nugget",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_pressure_plate",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_scrap_block",
           "required": true
         },
         {
@@ -63631,71 +63631,7 @@
       "replace": false,
       "values": [
         {
-          "id": "simpleores:enchanted_enderite_apple",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_apple",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_axe",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_boots",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_carrot",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_chestplate",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_helmet",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_hoe",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_horse_armor",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_leggings",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_nautilus_armor",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_paint_box",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_pickaxe",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_pole",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_shovel",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_spear",
-          "required": true
-        },
-        {
-          "id": "simpleores:enderite_sword",
           "required": true
         },
         {
@@ -63723,6 +63659,10 @@
           "required": true
         },
         {
+          "id": "simplelib:enderite_pressure_plate",
+          "required": true
+        },
+        {
           "id": "simplemachines:enderite_hopper",
           "required": true
         },
@@ -63739,7 +63679,43 @@
           "required": true
         },
         {
+          "id": "simpleores:enchanted_enderite_apple",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_apple",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_axe",
+          "required": true
+        },
+        {
           "id": "simpleores:enderite_block",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_carrot",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_chestplate",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_helmet",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_hoe",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_horse_armor",
           "required": true
         },
         {
@@ -63747,11 +63723,23 @@
           "required": true
         },
         {
+          "id": "simpleores:enderite_leggings",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_nautilus_armor",
+          "required": true
+        },
+        {
           "id": "simpleores:enderite_nugget",
           "required": true
         },
         {
-          "id": "simpleores:enderite_pressure_plate",
+          "id": "simpleores:enderite_pickaxe",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_pole",
           "required": true
         },
         {
@@ -63760,6 +63748,18 @@
         },
         {
           "id": "simpleores:enderite_scrap_block",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_shovel",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_spear",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_sword",
           "required": true
         },
         {
@@ -63844,10 +63844,6 @@
         },
         {
           "id": "simplepads:enderite_launchpad",
-          "required": true
-        },
-        {
-          "id": "simplepads:enderite_pressure_plate",
           "required": true
         },
         {
@@ -80976,7 +80972,7 @@
           "trigger": "minecraft:inventory_changed",
           "items": [
             "simplepads:copper_pressure_plate",
-            "simplepads:diamond_pressure_plate",
+            "simplelib:diamond_pressure_plate",
             "simplegadgets:magnet",
             "simplegadgets:detector",
             "simplegadgets:velocity_gauge",
