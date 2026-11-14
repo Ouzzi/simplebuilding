@@ -89,7 +89,7 @@ public final class SortProbe {
                     // a-w4c: opens SimpleLib's generic config screen of a mod directly (by reflection, the class lives in the Fabric part)
                     case "config" -> {
                         var create = Class.forName("com.simplelib.config.screen.GenericConfigScreen").getMethod("create", String.class, net.minecraft.client.gui.screens.Screen.class);
-                        mc.setScreen((net.minecraft.client.gui.screens.Screen) create.invoke(null, c.get("value").getAsString(), mc.gui.screen()));
+                        mc.gui.setScreen((net.minecraft.client.gui.screens.Screen) create.invoke(null, c.get("value").getAsString(), mc.gui.screen()));
                     }
                     case "quit" -> mc.stop();
                     default -> org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("sort probe: unknown command {}", c);
