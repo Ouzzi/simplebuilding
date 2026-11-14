@@ -959,7 +959,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 11
     },
-    "dataHash": "74b19447fa84"
+    "dataHash": "2244a94ff298"
   },
   {
     "id": "simpleloot",
