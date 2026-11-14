@@ -32,6 +32,7 @@ public final class DinosForge {
             event.put(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes().build());
             event.put(DinosRegistry.STEGOSAURUS, DinosRegistry.stegosaurusAttributes().build());
             event.put(DinosRegistry.PARASAUROLOPHUS, DinosRegistry.parasaurolophusAttributes().build());
+            event.put(DinosRegistry.UTAHRAPTOR, DinosRegistry.utahraptorAttributes().build());
         });
         // a-dinorest2: the Dino Plow asks claim mods like a block break would (same probe as Simple Tools on Forge)
         com.simplelib.api.InteractionGuard.permission = (p, pos) -> {

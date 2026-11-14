@@ -40,7 +40,7 @@
         "details": [
           "Twelve visible brooding stages; standing up (sneak) makes the progress run back at twice the speed. A brooded egg does not run back, cracks now and then and shows three crack stages before it hatches.",
           "A brooded egg hatches only for its owner (the player who sat longest): while the owner is offline, in another dimension or more than 16 blocks away it stays brooded and keeps cracking, without losing anything, and hatches as soon as the owner is back within 16 blocks. With hatchWaitsForOwner off, the old rule applies: an offline owner is replaced by the nearest player within 16 blocks. Times: incubateSeconds (300) and hatchSeconds (600). No spawn egg exists.",
-          "The T. rex, the Triceratops, the Stegosaurus and the Parasaurolophus hatch. The egg of the Utahraptor can be placed and brooded, but stays an egg until its dinosaur is built. Every dinosaur except the T. rex leaves three eggshells when it hatches; one eggshell makes three bone meal."
+          "All five dinosaurs hatch: the T. rex, the Triceratops, the Stegosaurus, the Utahraptor and the Parasaurolophus. Every dinosaur except the T. rex leaves three eggshells when it hatches; one eggshell makes three bone meal."
         ]
       },
       "de": {
@@ -49,7 +49,7 @@
         "details": [
           "Zwölf sichtbare Brutstufen; Aufstehen (Schleichen) lässt den Fortschritt doppelt so schnell zurücklaufen. Ein bebrütetes Ei läuft nicht mehr zurück, knackt ab und zu und zeigt vor dem Schlüpfen drei Rissstufen.",
           "Ein bebrütetes Ei schlüpft nur für seinen Besitzer (den Spieler, der am längsten gesessen hat): solange der Besitzer offline, in einer anderen Dimension oder weiter als 16 Blöcke weg ist, bleibt es bebrütet und knackt weiter, ohne etwas zu verlieren, und schlüpft, sobald der Besitzer wieder in 16 Blöcken ist. Mit hatchWaitsForOwner aus gilt die alte Regel: ein Besitzer, der offline ist, wird durch den nächsten Spieler in 16 Blöcken ersetzt. Zeiten: incubateSeconds (300) und hatchSeconds (600). Ein Spawn-Ei gibt es nicht.",
-          "T-Rex, Triceratops, Stegosaurus und Parasaurolophus schlüpfen. Das Ei des Utahraptors lässt sich platzieren und bebrüten, bleibt aber ein Ei, bis sein Dinosaurier gebaut ist. Jeder Dinosaurier außer dem T-Rex lässt beim Schlüpfen drei Eierschalen zurück; eine Eierschale ergibt drei Knochenmehl."
+          "Alle fünf Dinosaurier schlüpfen: T-Rex, Triceratops, Stegosaurus, Utahraptor und Parasaurolophus. Jeder Dinosaurier außer dem T-Rex lässt beim Schlüpfen drei Eierschalen zurück; eine Eierschale ergibt drei Knochenmehl."
         ]
       }
     },
@@ -190,28 +190,66 @@
       }
     },
     {
+      "id": "utahraptor",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Utahraptor.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Dino.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/part/PartRig.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/UtahraptorModel.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/UtahraptorRenderer.java",
+        "modules/simpledinos/shared/resources/data/simpledinos/tags/block/raptor_unclimbable.json"
+      ],
+      "en": {
+        "title": "Utahraptor",
+        "summary": "The climber: a quick, slim two-legged mount that hatches tame like the T. rex and jumps about 3 blocks high. With a saddle and a rider it climbs walls: just walk against a wall. The stamina lasts about 12 blocks, then it slides down slowly. It never fights.",
+        "details": [
+          "Climbing works like a spider or a ladder: walking against a wall climbs it, letting go of forward lets it glide down slowly. Climbing uses stamina (5 seconds, setting raptorClimbSeconds; 0 switches climbing off). When it is used up the raptor is exhausted: it slides down the wall without fall damage and climbs again only after its stamina is full again; on the ground or in water that takes 5 seconds. While it recharges the jump bar is grey.",
+          "Ice (also packed, blue and frosted ice) and glass (blocks and panes, also stained and tinted) give the claws no hold (block tag simpledinos:raptor_unclimbable, servers can add more). It climbs only grown up, saddled and ridden; on its own it never climbs. At the wall it raises its body, the arms reach forward, claw marks and a scratching sound show where it grips.",
+          "Speed 0.30: quick like a good horse, the best horses stay faster. Fall damage is halved and 3 more blocks are safe, for the raptor and its rider. 40 health, core hitbox 1.3 x 1.6 blocks (body, legs and saddle), so it fits through corridors two blocks wide.",
+          "Raptor feathers: brush a grown Utahraptor with the Vanilla brush (like an armadillo) for a raptor feather, then it needs 10 minutes (setting raptorFeatherMinutes). One raptor feather crafts into three feathers: arrows and book and quill without a chicken farm.",
+          "It never fights: hurt, it hisses and runs away fast when nobody rides it. Food: meat; raw chicken and raw rabbit are its favourites (heal 4 hearts), other meat heals 2 hearts; feeding a hatchling speeds its growth up.",
+          "Head and tail have part hitboxes (one box each). When something stands in front, the S-neck stands up and the head comes back over the chest; the long stiff tail bends to the free side.",
+          "Large saddle and Utahraptor armor (leather, iron, diamond: a neck guard, a chest plate and shin guards; the sickle claws stay free) go on like on a horse. Sounds are Vanilla sounds for now (parrot chirps, fox hiss, the wall's own sound when it scratches)."
+        ]
+      },
+      "de": {
+        "title": "Utahraptor",
+        "summary": "Der Kletterer: ein flottes, schlankes zweibeiniges Reittier, das wie der T-Rex zahm schlüpft und etwa 3 Blöcke hoch springt. Mit Sattel und Reiter klettert es Wände hinauf: einfach gegen die Wand laufen. Die Ausdauer reicht für etwa 12 Blöcke, dann rutscht es langsam ab. Es kämpft nie.",
+        "details": [
+          "Klettern geht wie bei der Spinne oder an der Leiter: gegen eine Wand laufen klettert hinauf, Vorwärts loslassen lässt es langsam hinabgleiten. Klettern kostet Ausdauer (5 Sekunden, Einstellung raptorClimbSeconds; 0 schaltet das Klettern ab). Ist sie verbraucht, ist der Raptor erschöpft: er rutscht ohne Fallschaden die Wand hinab und klettert erst wieder, wenn seine Ausdauer wieder voll ist; am Boden oder im Wasser dauert das 5 Sekunden. Solange sie lädt, ist der Sprungbalken grau.",
+          "Eis (auch Packeis, Blaueis und brüchiges Eis) und Glas (Blöcke und Scheiben, auch gefärbt und getönt) geben den Krallen keinen Halt (Block-Tag simpledinos:raptor_unclimbable, Server können ergänzen). Er klettert nur erwachsen, gesattelt und geritten; allein klettert er nie. An der Wand richtet er den Körper auf, die Arme greifen nach vorn, Kratzspuren und ein Kratzgeräusch zeigen, wo er sich festhält.",
+          "Tempo 0,30: schnell wie ein gutes Pferd, die besten Pferde bleiben schneller. Fallschaden halbiert und 3 Blöcke mehr sicher, für den Raptor und seinen Reiter. 40 Lebenspunkte, Kern-Hitbox 1,3 x 1,6 Blöcke (Rumpf, Beine und Sattel), damit passt er durch Gänge, die zwei Blöcke breit sind.",
+          "Raptorfedern: einen erwachsenen Utahraptor mit dem Vanilla-Pinsel bürsten (wie das Gürteltier) gibt eine Raptorfeder, danach braucht er 10 Minuten (Einstellung raptorFeatherMinutes). Eine Raptorfeder ergibt drei Federn: Pfeile und Buch und Feder ohne Hühnerfarm.",
+          "Er kämpft nie: verletzt faucht er und flieht schnell, wenn ihn niemand reitet. Futter: Fleisch; rohes Huhn und rohes Kaninchen frisst er am liebsten (heilen 4 Herzen), anderes Fleisch heilt 2 Herzen; Füttern beschleunigt das Wachstum eines Jungtiers.",
+          "Kopf und Schwanz haben Teil-Hitboxen (je eine Box). Steht etwas davor, richtet sich der S-Hals auf und der Kopf kommt über die Brust zurück; der lange steife Schwanz biegt zur freien Seite.",
+          "Großer Sattel und Utahraptor-Rüstung (Leder, Eisen, Diamant: Halsschutz, Brustplatte und Schienbeinschoner; die Sichelkrallen bleiben frei) legt man wie beim Pferd an. Die Geräusche sind vorerst Vanilla-Geräusche (Papagei-Zirpen, Fuchs-Fauchen, beim Kratzen das Geräusch der Wand)."
+        ]
+      }
+    },
+    {
       "id": "gear",
       "sources": [
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java",
         "modules/simpledinos/shared/java/com/simpledinos/client/TrexRenderer.java",
         "modules/simpledinos/shared/java/com/simpledinos/client/TriceratopsModel.java",
         "modules/simpledinos/shared/java/com/simpledinos/client/StegosaurusModel.java",
-        "modules/simpledinos/shared/java/com/simpledinos/client/ParasaurolophusModel.java"
+        "modules/simpledinos/shared/java/com/simpledinos/client/ParasaurolophusModel.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/UtahraptorModel.java"
       ],
       "en": {
         "title": "Large saddle and dinosaur armor",
-        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell, Stegosaurus armor around a Stegosaurus eggshell, Parasaurolophus armor around a Parasaurolophus eggshell.",
+        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell, Stegosaurus armor around a Stegosaurus eggshell, Parasaurolophus armor around a Parasaurolophus eggshell, Utahraptor armor around a Utahraptor eggshell.",
         "details": [
-          "Saddle and armor go on like on a horse: use them on a tamed adult dinosaur. The saddle shows as a seat on its back, the armor as plates (T. rex: head and back; Triceratops: frill shield, horn caps and chest plate; Stegosaurus: neck guard and flank plates; Parasaurolophus: crest hood and hip blanket), a different texture per material.",
-          "Hatchlings take neither. Each armor fits only its own dinosaur. The T. rex recipes unlock when you hold a saddle, leather, iron or diamonds, the Triceratops, Stegosaurus and Parasaurolophus recipes when you hold their eggshell (like the turtle shell)."
+          "Saddle and armor go on like on a horse: use them on a tamed adult dinosaur. The saddle shows as a seat on its back, the armor as plates (T. rex: head and back; Triceratops: frill shield, horn caps and chest plate; Stegosaurus: neck guard and flank plates; Parasaurolophus: crest hood and hip blanket; Utahraptor: neck guard, chest plate and shin guards), a different texture per material.",
+          "Hatchlings take neither. Each armor fits only its own dinosaur. The T. rex recipes unlock when you hold a saddle, leather, iron or diamonds, the Triceratops, Stegosaurus, Parasaurolophus and Utahraptor recipes when you hold their eggshell (like the turtle shell)."
         ]
       },
       "de": {
         "title": "Großer Sattel und Dinosaurier-Rüstung",
-        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale, Stegosaurus-Rüstung um eine Stegosaurus-Eierschale, Parasaurolophus-Rüstung um eine Parasaurolophus-Eierschale.",
+        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale, Stegosaurus-Rüstung um eine Stegosaurus-Eierschale, Parasaurolophus-Rüstung um eine Parasaurolophus-Eierschale, Utahraptor-Rüstung um eine Utahraptor-Eierschale.",
         "details": [
-          "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen Dinosaurier an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten (T-Rex: Kopf und Rücken; Triceratops: Kragenschild, Hornkappen und Brustplatte; Stegosaurus: Halsschutz und Flankenplatten; Parasaurolophus: Kammhaube und Hüftdecke), je Material eine andere Textur.",
-          "Jungtiere tragen keins von beiden. Jede Rüstung passt nur auf ihren eigenen Dinosaurier. Die T-Rex-Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst, die Triceratops-, Stegosaurus- und Parasaurolophus-Rezepte mit ihrer Eierschale (wie der Schildkrötenpanzer)."
+          "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen Dinosaurier an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten (T-Rex: Kopf und Rücken; Triceratops: Kragenschild, Hornkappen und Brustplatte; Stegosaurus: Halsschutz und Flankenplatten; Parasaurolophus: Kammhaube und Hüftdecke; Utahraptor: Halsschutz, Brustplatte und Schienbeinschoner), je Material eine andere Textur.",
+          "Jungtiere tragen keins von beiden. Jede Rüstung passt nur auf ihren eigenen Dinosaurier. Die T-Rex-Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst, die Triceratops-, Stegosaurus-, Parasaurolophus- und Utahraptor-Rezepte mit ihrer Eierschale (wie der Schildkrötenpanzer)."
         ]
       }
     },
@@ -230,6 +268,7 @@
           "triceratopsShake (true): a Triceratops charge shakes natural trees. shakeShare (0.5, 0 to 1): share of the natural leaves whose hand drops fall per shake. shakeAppleChance (0.35, 0 to 1): chance of the windfall apple on oak and dark oak. shakeTreeCooldownSeconds (600, 60 to 3600): seconds a shaken tree rests. ramCooldownSeconds (3, 1 to 30): seconds between two charges.",
           "stegosaurusPlowWidth (3, 1 to 3): blocks the lowered Dino Plow tills side by side. stegosaurusSow (true): the lowered plow sows seeds from the rider's off hand.",
           "callRadius (24, 8 to 48): blocks around a Parasaurolophus in which its call gathers farm animals. callSeconds (120, 30 to 600): seconds they follow. callMaxAnimals (24, 1 to 64): animals per call, the nearest first. callCooldownSeconds (20, 5 to 300): seconds between two calls. callIgnoreNamed (true): animals with a name tag do not follow.",
+          "raptorClimbSeconds (5, 0 to 10): seconds a ridden Utahraptor climbs before it slides down (5 = about 12 blocks; 0 = it does not climb). raptorFeatherMinutes (10, 1 to 60): minutes between two raptor feathers brushed from one Utahraptor.",
           "With SimpleBuilding the switch Enable Simple Dinosaurs in its config turns the bundled module on or off."
         ]
       },
@@ -243,6 +282,7 @@
           "triceratopsShake (true): ein Triceratops-Anlauf schüttelt natürliche Bäume. shakeShare (0.5, 0 bis 1): Anteil der natürlichen Blätter, deren Hand-Drops je Schütteln fallen. shakeAppleChance (0.35, 0 bis 1): Chance auf den Fallobst-Apfel bei Eiche und Schwarzeiche. shakeTreeCooldownSeconds (600, 60 bis 3600): Sekunden, die ein geschüttelter Baum ruht. ramCooldownSeconds (3, 1 bis 30): Sekunden zwischen zwei Anläufen.",
           "stegosaurusPlowWidth (3, 1 bis 3): Blöcke, die der gesenkte Dino-Pflug nebeneinander pflügt. stegosaurusSow (true): der gesenkte Pflug sät Saatgut aus der Nebenhand des Reiters.",
           "callRadius (24, 8 bis 48): Blöcke um einen Parasaurolophus, in denen sein Ruf Nutztiere sammelt. callSeconds (120, 30 bis 600): Sekunden, die sie folgen. callMaxAnimals (24, 1 bis 64): Tiere je Ruf, die nächsten zuerst. callCooldownSeconds (20, 5 bis 300): Sekunden zwischen zwei Rufen. callIgnoreNamed (true): Tiere mit Namensschild folgen nicht.",
+          "raptorClimbSeconds (5, 0 bis 10): Sekunden, die ein gerittener Utahraptor klettert, bevor er abrutscht (5 = etwa 12 Blöcke; 0 = er klettert nicht). raptorFeatherMinutes (10, 1 bis 60): Minuten zwischen zwei Raptorfedern, die man von einem Utahraptor bürstet.",
           "Mit SimpleBuilding schaltet der Schalter Simple Dinosaurs aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -276,10 +316,10 @@
         "modules/simpledinos/shared/resources/data/simpledinos/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 22 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 22 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpledinos:fossil_block": {
@@ -332,10 +372,10 @@
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
       ],
       "en": {
-        "summary": "Egg of the Utahraptor. Can be placed and brooded; hatches once the Utahraptor is built (not in stage 1)."
+        "summary": "Egg of the Utahraptor. Place it and sit on it: a tame Utahraptor hatches for the player who sat longest. Badlands fossils hold more of these eggs."
       },
       "de": {
-        "summary": "Ei des Utahraptors. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Utahraptor gebaut ist (nicht in Stufe 1)."
+        "summary": "Ei des Utahraptors. Platzieren und daraufsetzen: ein zahmer Utahraptor schlüpft für den Spieler, der am längsten gesessen hat. Badlands-Fossilien enthalten öfter diese Eier."
       }
     },
     "simpledinos:parasaurolophus_egg": {
@@ -456,10 +496,10 @@
         "modules/simpledinos/shared/java/com/simpledinos/block/DinoEggBlockEntity.java"
       ],
       "en": {
-        "summary": "Three fall when a Utahraptor hatches; one makes three bone meal. The Utahraptor itself is not built yet."
+        "summary": "Three fall when a Utahraptor hatches; one makes three bone meal. The middle of the Utahraptor armor recipes."
       },
       "de": {
-        "summary": "Drei fallen, wenn ein Utahraptor schlüpft; eine ergibt drei Knochenmehl. Der Utahraptor selbst ist noch nicht gebaut."
+        "summary": "Drei fallen, wenn ein Utahraptor schlüpft; eine ergibt drei Knochenmehl. Die Mitte der Utahraptor-Rüstungsrezepte."
       }
     },
     "simpledinos:parasaurolophus_eggshell": {
@@ -550,6 +590,51 @@
       },
       "de": {
         "summary": "Diamantrüstung für den Parasaurolophus (Schutz 11): Kammhaube und Hüftdecke. 8 Diamanten um eine Parasaurolophus-Eierschale."
+      }
+    },
+    "simpledinos:utahraptor_armor_leather": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Leather armor for the Utahraptor (protection 3): a neck guard, a chest plate and shin guards; the claws stay free. 8 leather around a Utahraptor eggshell."
+      },
+      "de": {
+        "summary": "Lederrüstung für den Utahraptor (Schutz 3): Halsschutz, Brustplatte und Schienbeinschoner; die Krallen bleiben frei. 8 Leder um eine Utahraptor-Eierschale."
+      }
+    },
+    "simpledinos:utahraptor_armor_iron": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Iron armor for the Utahraptor (protection 5): a neck guard, a chest plate and shin guards; the claws stay free. 8 iron ingots around a Utahraptor eggshell."
+      },
+      "de": {
+        "summary": "Eisenrüstung für den Utahraptor (Schutz 5): Halsschutz, Brustplatte und Schienbeinschoner; die Krallen bleiben frei. 8 Eisenbarren um eine Utahraptor-Eierschale."
+      }
+    },
+    "simpledinos:utahraptor_armor_diamond": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Diamond armor for the Utahraptor (protection 11): a neck guard, a chest plate and shin guards; the claws stay free. 8 diamonds around a Utahraptor eggshell."
+      },
+      "de": {
+        "summary": "Diamantrüstung für den Utahraptor (Schutz 11): Halsschutz, Brustplatte und Schienbeinschoner; die Krallen bleiben frei. 8 Diamanten um eine Utahraptor-Eierschale."
+      }
+    },
+    "simpledinos:raptor_feather": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Utahraptor.java",
+        "modules/simpledinos/shared/resources/data/simpledinos/recipe/feather_from_raptor_feather.json"
+      ],
+      "en": {
+        "summary": "Brushed off a grown Utahraptor with the Vanilla brush, one every 10 minutes (setting raptorFeatherMinutes). One raptor feather crafts into three feathers."
+      },
+      "de": {
+        "summary": "Mit dem Vanilla-Pinsel von einem erwachsenen Utahraptor gebürstet, eine alle 10 Minuten (Einstellung raptorFeatherMinutes). Eine Raptorfeder ergibt drei Federn."
       }
     }
   }

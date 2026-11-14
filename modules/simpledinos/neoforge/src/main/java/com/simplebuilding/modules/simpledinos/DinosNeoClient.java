@@ -6,6 +6,7 @@ import com.simpledinos.client.ParasaurolophusRenderer;
 import com.simpledinos.client.StegosaurusRenderer;
 import com.simpledinos.client.TrexRenderer;
 import com.simpledinos.client.TriceratopsRenderer;
+import com.simpledinos.client.UtahraptorRenderer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
@@ -19,6 +20,7 @@ final class DinosNeoClient {
             event.registerEntityRenderer(DinosRegistry.TRICERATOPS, TriceratopsRenderer::new);
             event.registerEntityRenderer(DinosRegistry.STEGOSAURUS, StegosaurusRenderer::new);
             event.registerEntityRenderer(DinosRegistry.PARASAUROLOPHUS, ParasaurolophusRenderer::new);
+            event.registerEntityRenderer(DinosRegistry.UTAHRAPTOR, UtahraptorRenderer::new);
         });
     }
 

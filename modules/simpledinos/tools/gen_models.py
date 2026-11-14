@@ -591,6 +591,128 @@ def parasaurolophus_spec(coat, belly, dark, tier=0, name='parasaurolophus', cres
     return dict(name=name, w=256, parts=parts)
 
 
+# ---------------------------------------------------------------- Utahraptor (b-utah48, concept KONZEPT-A-DINO36 4.3)
+CLAW = (H('2e2822'), H('6a5c4c'))      # sickle claw: dark tip, lighter base (keratin)
+
+
+def feather_skin(base, belly, dark, seed, belly_from=0.6, throat=False):
+    """Utahraptor plumage: the dino skin with short feather strokes (1 x 2 px) on top and sides, a dark back, a light belly; `throat` keeps
+    the bottom third of the side faces light (the pale throat)."""
+    # the small faces of the raptor (10 px high) need a softer belly ramp than the big dinosaurs: belly a quarter toward the coat, ramp
+    # from 0.1 higher up (A8b: no jump above 28 between two rows)
+    inner = skin(base, mix(belly, base, 0.25), dark, seed, belly_from=max(0.3, belly_from - 0.1))
+
+    def f(face, x, y, w, h):
+        c = inner(face, x, y, w, h)
+        if face in ('top', 'right', 'left', 'back', 'front') and (x + 2 * (y // 2)) % 4 == 0 and y % 2 == 0 and hsh(x, y, seed + 9) > 0.45:
+            c = lit(mix(c, dark, 0.12), face, hsh(x, y, seed + 2), 0.02)
+        if face in ('right', 'left') and y < h * 0.35:   # the dark back runs down the upper flanks
+            c = mix(c, dark, 0.22 * (1.0 - y / max(1.0, h * 0.35)) + 0.06)
+        if throat and face in ('right', 'left', 'front') and y >= h * 0.55:
+            c = mix(c, belly, 0.5)
+        return c
+    return f
+
+
+def banded(coat, belly, dark, seed, along_x=True, every=4, light_edge=True):
+    """Feather fan or vane: soft bands across the feathers (2 of `every` px darker, A8b), a light rim on the trailing edge."""
+    light = mix(belly, coat, 0.35)
+
+    def f(face, x, y, w, h):
+        k = x if along_x else y
+        c = mix(coat, belly, 0.12)
+        if k % every in (0, 1):
+            c = mix(coat, dark, 0.3)
+        if light_edge and face in ('right', 'left', 'top', 'bottom') and ((y == h - 1) if along_x else (x == w - 1)):
+            c = mix(c, light, 0.35)
+        if hsh(x // 2, y // 2, seed) > 0.8:
+            c = mix(c, dark, 0.1)
+        return lit(c, face, hsh(x, y, seed + len(face)), 0.03)
+    return f
+
+
+def light_plate(tier, seed):
+    """b-utah48: the raptor's light armor - the tier colours of `plate` with a softer rim and pattern (its small plates would otherwise be
+    mostly rim, A8b)."""
+    base, light, dark, kind = TIER_PALETTES[tier]
+    base, light, dark = H(base), H(light), H(dark)
+
+    def f(face, x, y, w, h):
+        c = base
+        if x in (0, w - 1) or y in (0, h - 1):
+            c = mix(base, dark, 0.4)
+        elif kind == 'leather' and (x + y) % 4 == 0:
+            c = mix(base, light, 0.45)
+        elif kind == 'iron' and x % 4 == 2 and y % 4 == 2:
+            c = mix(base, light, 0.5)
+        elif kind == 'diamond' and (x + y) % 3 == 0:
+            c = mix(base, light, 0.35)
+        return lit(c, face, hsh(x, y, seed), 0.03)
+    return f
+
+
+def utahraptor_spec(coat, belly, dark, tier=0, name='utahraptor'):
+    """Utahraptor, 1 px = 1/16 block at life size: about 5.8 m from the snout to the tail tip, 1.9 m at the back (drawn at 75 %, as the
+    others). A slim biped: level body, an S-shaped neck, a long low skull with a narrow snout and a lower jaw, a small crest of feathers,
+    folded arms with feather fans, strong legs (thigh, shin, a long metatarsus, three toes, the raised sickle claw) and a long stiff tail
+    with a feather vane along the last two segments. Saddle and armor (a neck guard, a chest plate, two shin guards; the claws stay free)
+    are always in the layout and shown only when worn."""
+    body_p = feather_skin(coat, belly, dark, 91, belly_from=0.62)
+    neck_p = feather_skin(coat, belly, dark, 92, belly_from=0.55, throat=True)
+    skull_p = with_marks(skin(coat, belly, dark, 93, belly_from=0.7), {('right', 7, 2): H('2a2118'), ('left', 1, 2): H('2a2118'),
+                                                                      ('right', 7, 1): H('e0a018'), ('left', 1, 1): H('e0a018')})
+    snout_p = jawed(skin(coat, belly, dark, 94, belly_from=0.6), H('ece2c8'))
+    jaw_p = skin(coat, belly, dark, 95, belly_from=0.35)
+    crest_p = banded(coat, belly, dark, 96, along_x=False, every=3)
+    arm_p = feather_skin(coat, belly, dark, 97, belly_from=0.9)
+    hand_p = clawed(skin(coat, belly, dark, 98, belly_from=1.1), CLAW[0])
+    fan_p = banded(coat, belly, dark, 99, along_x=False)
+    leg_p = feather_skin(coat, belly, dark, 100, belly_from=0.85)
+    shin_p = skin(mix(coat, dark, 0.2), belly, dark, 101, belly_from=1.1)   # scaly metatarsus, a little darker than the plumage
+    foot_p = clawed(skin(mix(coat, dark, 0.2), belly, dark, 102, belly_from=1.1), CLAW[0])
+    sickle_p = horned(CLAW, 103)
+    tail_p = feather_skin(coat, belly, dark, 104, belly_from=0.7)
+    vane_p = banded(coat, belly, dark, 105, along_x=False)
+    seat_p = solid(H('6a4024'), 0.06, 20)
+    pommel_p = solid(H('8a8f96'), 0.05, 21)
+    plate_a = light_plate(tier, 106) if tier else solid(H('7a5030'), 0.03, 106)   # tier 0: the armor is hidden, a quiet placeholder
+    toes = [B((-1.25, 0, -1.25), (2.5, 7, 2.5), shin_p, share='meta'), B((-2, 6, -5), (4, 1.5, 6.5), foot_p, share='toes', grow=(0, ZF, 0)),
+            B((-0.5, 1.5, -3), (1, 4.5, 2), sickle_p, share='sickle')]
+    arm = [B((-1, 0, -1), (2, 6, 2.5), arm_p, share='arm')]
+    hand = [B((-0.75, 0, -0.75), (1.5, 6, 1.5), hand_p, share='hand'), B((-0.5, -1, 0.9), (1, 8, 5), fan_p, share='arm_fan')]
+    parts = [
+        P('body', [B((-5, -5, -12), (10, 10, 22), body_p, share='body')], pose=(0, Y(26), 0)),
+        P('neck', [B((-2.5, -11, -3), (5, 11, 5), neck_p, share='neck', grow=(-ZF, 0, 0))], pose=(0, -2.5, -8), rot=(0.45, 0, 0), parent='body'),
+        P('head', [B((-3, -3, -8), (6, 5.5, 9), skull_p, share='skull'), B((-2, -1.5, -14), (4, 3.5, 6.5), snout_p, share='snout')],
+          pose=(0, -10.5, -0.5), rot=(-0.45, 0, 0), parent='neck'),
+        P('jaw', [B((-1.75, 0, -12), (3.5, 1.5, 12.5), jaw_p, share='jaw', grow=(-ZF, 0, 0))], pose=(0, 2.5, -1), rot=(0.08, 0, 0), parent='head'),
+        P('crest', [B((-1, -2.5, 0), (2, 2.5, 4), crest_p, share='crest')], pose=(0, -2.5, -1.5), rot=(-0.6, 0, 0), parent='head'),
+        P('tail1', [B((-3.5, -3.5, 0), (7, 7, 14), tail_p, share='tail1')], pose=(0, -2, 9.5), rot=(-0.06, 0, 0), parent='body'),
+        P('tail2', [B((-2.5, -2.5, 0), (5, 5, 15), tail_p, share='tail2'), B((-4, -0.5, 6), (8, 1, 8.5), vane_p, share='vane2')],
+          pose=(0, 0, 13.5), rot=(0.02, 0, 0), parent='tail1'),
+        P('tail3', [B((-1.5, -1.5, 0), (3, 3, 14), tail_p, share='tail3'), B((-5.5, -0.5, 1), (11, 1, 12.5), vane_p, share='vane3')],
+          pose=(0, 0, 14.5), rot=(0.03, 0, 0), parent='tail2'),
+        P('arm_right', arm, pose=(-4.5, 1.5, -9), rot=(0.5, 0, 0.12), parent='body'),
+        P('hand_right', hand, pose=(0, 5.5, 0.5), rot=(-1.4, 0, 0), parent='arm_right'),
+        P('arm_left', arm, pose=(4.5, 1.5, -9), rot=(0.5, 0, -0.12), parent='body'),
+        P('hand_left', hand, pose=(0, 5.5, 0.5), rot=(-1.4, 0, 0), parent='arm_left'),
+        P('right_thigh', [B((-2.5, 0, -3.5), (5, 10, 7), leg_p, share='thigh')], pose=(-4.5, Y(25), 3), rot=(-0.3, 0, 0)),
+        P('right_shin', [B((-1.5, 0, -1.5), (3, 10, 3.5), leg_p, share='shin')], pose=(0, 9.5, 0), rot=(0.75, 0, 0), parent='right_thigh'),
+        P('right_foot', toes, pose=(0, 9.5, 0.5), rot=(-0.45, 0, 0), parent='right_shin'),
+        P('left_thigh', [B((-2.5, 0, -3.5), (5, 10, 7), leg_p, share='thigh')], pose=(4.5, Y(25), 3), rot=(-0.3, 0, 0)),
+        P('left_shin', [B((-1.5, 0, -1.5), (3, 10, 3.5), leg_p, share='shin')], pose=(0, 9.5, 0), rot=(0.75, 0, 0), parent='left_thigh'),
+        P('left_foot', toes, pose=(0, 9.5, 0.5), rot=(-0.45, 0, 0), parent='left_shin'),
+        P('saddle', [B((-5.5, -7, -6), (11, 2, 10), seat_p, share='saddle_seat'), B((-1.5, -9, -7), (3, 2, 2), pommel_p, share='saddle_pommel')],
+          parent='body'),
+        # armor: a guard around the middle of the neck, a plate over the chest, two shin guards (the sickle claws stay free)
+        P('armor_neck', [B((-2.5, -9, -3), (5, 6, 5), plate_a, share='armor_neck', grow=0.45)], parent='neck'),
+        P('armor_chest', [B((-5, -4, -12), (10, 8, 5), plate_a, share='armor_chest', grow=0.4)], parent='body'),
+        P('armor_shin_right', [B((-1.5, 1, -1.5), (3, 7, 3.5), plate_a, share='armor_shin', grow=0.35)], parent='right_shin'),
+        P('armor_shin_left', [B((-1.5, 1, -1.5), (3, 7, 3.5), plate_a, share='armor_shin', grow=0.35)], parent='left_shin'),
+    ]
+    return dict(name=name, w=128, parts=parts)
+
+
 # ---------------------------------------------------------------- the textures
 # Coat variants by rearing biome (DinoVariants.COATS, same names and order): earthy tones, dark back, light belly.
 COATS = {
@@ -608,12 +730,14 @@ for _coat, (_c, _b, _d) in COATS.items():
         PALETTES[f'triceratops_{_coat}_{_tier}'] = triceratops_spec(_c, _b, _d, _tier, frill=FRILL_CHOSEN)
         PALETTES[f'stegosaurus_{_coat}_{_tier}'] = stegosaurus_spec(_c, _b, _d, _tier, pattern=PLATE_CHOSEN)
         PALETTES[f'parasaurolophus_{_coat}_{_tier}'] = parasaurolophus_spec(_c, _b, _d, _tier, crest=CREST_CHOSEN)
+        PALETTES[f'utahraptor_{_coat}_{_tier}'] = utahraptor_spec(_c, _b, _d, _tier)
 MODELS = {'trex': 'trex_olive_0', 'triceratops': 'triceratops_olive_0', 'stegosaurus': 'stegosaurus_olive_0',
-          'parasaurolophus': 'parasaurolophus_olive_0'}
+          'parasaurolophus': 'parasaurolophus_olive_0', 'utahraptor': 'utahraptor_olive_0'}
 TONES = 16
 # a-dinorest1: the Triceratops has more regions (horns, beak, frill pattern), so it keeps a few more tones (A8b soft ramps)
 EXTRA_TONES = {'trex': 0, 'triceratops': 6, 'stegosaurus': 8,  # a-dinorest2: plates, spikes and the plow (wood, iron) need their own ramps
-               'parasaurolophus': 6}  # a-dinorest3: crest band, bill and flank stripes
+               'parasaurolophus': 6,  # a-dinorest3: crest band, bill and flank stripes
+               'utahraptor': 6}  # b-utah48: feather bands, claws, teeth
 
 
 def finish(img, tones):

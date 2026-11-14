@@ -8,6 +8,7 @@ import com.simpledinos.entity.Parasaurolophus;
 import com.simpledinos.entity.Stegosaurus;
 import com.simpledinos.entity.Trex;
 import com.simpledinos.entity.Triceratops;
+import com.simpledinos.entity.Utahraptor;
 import com.simpledinos.item.DinoPlowItem;
 import java.util.EnumMap;
 import java.util.List;
@@ -44,7 +45,7 @@ import net.minecraft.world.level.material.MapColor;
  * the large saddle, the Dino Plow, three armors per built dinosaur, the eggshells of the four herbivores and raptors (a-dinorest1) and the guide book. Loaders call {@link #blocks}, {@link #items}, {@link #entityTypes} inside their matching
  * registry event (Fabric: {@link #registerAll}); the two block entity types come from the loader because their constructors
  * differ ({@link #registerBlockEntityTypes}). a-dinorest2: the Stegosaurus with its armor and the Dino Plow. a-dinorest3: the
- * Parasaurolophus with its armor. The Utahraptor has its egg and eggshell but no entity yet.
+ * Parasaurolophus with its armor. b-utah48: the Utahraptor with its armor and the raptor feather - all five dinosaurs hatch.
  */
 public final class DinosRegistry {
     public static final ResourceKey<Block> FOSSIL_KEY = blockKey("fossil_block");
@@ -52,6 +53,7 @@ public final class DinosRegistry {
     public static final ResourceKey<EntityType<?>> TRICERATOPS_KEY = ResourceKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("triceratops"));
     public static final ResourceKey<EntityType<?>> STEGOSAURUS_KEY = ResourceKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("stegosaurus"));
     public static final ResourceKey<EntityType<?>> PARASAUROLOPHUS_KEY = ResourceKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("parasaurolophus"));
+    public static final ResourceKey<EntityType<?>> UTAHRAPTOR_KEY = ResourceKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("utahraptor"));
 
     /** Entities that may wear the large saddle / the dinosaur armor (tags in data/simpledinos/tags/entity_type). */
     public static final TagKey<EntityType<?>> LARGE_SADDLE_WEARERS = TagKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("can_equip_large_saddle"));
@@ -60,6 +62,7 @@ public final class DinosRegistry {
     public static final TagKey<EntityType<?>> TRICERATOPS_ARMOR_WEARERS = TagKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("can_wear_triceratops_armor"));
     public static final TagKey<EntityType<?>> STEGOSAURUS_ARMOR_WEARERS = TagKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("can_wear_stegosaurus_armor"));
     public static final TagKey<EntityType<?>> PARASAUROLOPHUS_ARMOR_WEARERS = TagKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("can_wear_parasaurolophus_armor"));
+    public static final TagKey<EntityType<?>> UTAHRAPTOR_ARMOR_WEARERS = TagKey.create(Registries.ENTITY_TYPE, SimpleDinos.id("can_wear_utahraptor_armor"));
 
     public static final Block FOSSIL = new FossilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(3.0F, 3.0F)
             .requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK).instrument(NoteBlockInstrument.XYLOPHONE).setId(FOSSIL_KEY));
@@ -94,6 +97,14 @@ public final class DinosRegistry {
     public static final EntityType<Parasaurolophus> PARASAUROLOPHUS = EntityType.Builder.<Parasaurolophus>of(Parasaurolophus::new, MobCategory.CREATURE)
             .sized(2.2F, 2.5F).eyeHeight(2.3F).passengerAttachments(new net.minecraft.world.phys.Vec3(0.0, 2.28, -0.05)).clientTrackingRange(10)
             .build(PARASAUROLOPHUS_KEY);
+    /**
+     * b-utah48: the core box covers the slim body, the legs and the saddle (1.3 x 1.6: the body is 1.03 blocks long, the back 1.45 and the
+     * saddle 1.55 high; it fits through corridors two blocks wide); the S-neck with the head (reach 1.27, top 2.0) and the stiff tail (2.4)
+     * have part boxes. The rider sits on the saddle over the middle of the back.
+     */
+    public static final EntityType<Utahraptor> UTAHRAPTOR = EntityType.Builder.<Utahraptor>of(Utahraptor::new, MobCategory.CREATURE)
+            .sized(1.3F, 1.6F).eyeHeight(1.75F).passengerAttachments(new net.minecraft.world.phys.Vec3(0.0, 1.5, 0.05)).clientTrackingRange(10)
+            .build(UTAHRAPTOR_KEY);
 
     public static final ResourceKey<Item> FOSSIL_ITEM_KEY = itemKey("fossil_block");
     public static final ResourceKey<Item> LARGE_SADDLE_KEY = itemKey("large_saddle");
@@ -110,6 +121,10 @@ public final class DinosRegistry {
     public static final ResourceKey<Item> PARASAUROLOPHUS_ARMOR_LEATHER_KEY = itemKey("parasaurolophus_armor_leather");
     public static final ResourceKey<Item> PARASAUROLOPHUS_ARMOR_IRON_KEY = itemKey("parasaurolophus_armor_iron");
     public static final ResourceKey<Item> PARASAUROLOPHUS_ARMOR_DIAMOND_KEY = itemKey("parasaurolophus_armor_diamond");
+    public static final ResourceKey<Item> UTAHRAPTOR_ARMOR_LEATHER_KEY = itemKey("utahraptor_armor_leather");
+    public static final ResourceKey<Item> UTAHRAPTOR_ARMOR_IRON_KEY = itemKey("utahraptor_armor_iron");
+    public static final ResourceKey<Item> UTAHRAPTOR_ARMOR_DIAMOND_KEY = itemKey("utahraptor_armor_diamond");
+    public static final ResourceKey<Item> RAPTOR_FEATHER_KEY = itemKey("raptor_feather");
     /** Durability of the Dino Plow (concept 4.2): one per tilled field. */
     public static final int PLOW_DURABILITY = 750;
 
@@ -128,6 +143,11 @@ public final class DinosRegistry {
     public static final Item PARASAUROLOPHUS_ARMOR_LEATHER;
     public static final Item PARASAUROLOPHUS_ARMOR_IRON;
     public static final Item PARASAUROLOPHUS_ARMOR_DIAMOND;
+    public static final Item UTAHRAPTOR_ARMOR_LEATHER;
+    public static final Item UTAHRAPTOR_ARMOR_IRON;
+    public static final Item UTAHRAPTOR_ARMOR_DIAMOND;
+    /** b-utah48 (concept DINO36 6): brushed off a grown Utahraptor; one gives three Vanilla feathers. */
+    public static final Item RAPTOR_FEATHER;
 
     public static BlockEntityType<FossilBlockEntity> FOSSIL_BE;
     public static BlockEntityType<DinoEggBlockEntity> EGG_BE;
@@ -159,6 +179,10 @@ public final class DinosRegistry {
         PARASAUROLOPHUS_ARMOR_LEATHER = armor(ArmorMaterials.LEATHER, PARASAUROLOPHUS_ARMOR_LEATHER_KEY, PARASAUROLOPHUS_ARMOR_WEARERS);
         PARASAUROLOPHUS_ARMOR_IRON = armor(ArmorMaterials.IRON, PARASAUROLOPHUS_ARMOR_IRON_KEY, PARASAUROLOPHUS_ARMOR_WEARERS);
         PARASAUROLOPHUS_ARMOR_DIAMOND = armor(ArmorMaterials.DIAMOND, PARASAUROLOPHUS_ARMOR_DIAMOND_KEY, PARASAUROLOPHUS_ARMOR_WEARERS);
+        UTAHRAPTOR_ARMOR_LEATHER = armor(ArmorMaterials.LEATHER, UTAHRAPTOR_ARMOR_LEATHER_KEY, UTAHRAPTOR_ARMOR_WEARERS);
+        UTAHRAPTOR_ARMOR_IRON = armor(ArmorMaterials.IRON, UTAHRAPTOR_ARMOR_IRON_KEY, UTAHRAPTOR_ARMOR_WEARERS);
+        UTAHRAPTOR_ARMOR_DIAMOND = armor(ArmorMaterials.DIAMOND, UTAHRAPTOR_ARMOR_DIAMOND_KEY, UTAHRAPTOR_ARMOR_WEARERS);
+        RAPTOR_FEATHER = new Item(new Item.Properties().setId(RAPTOR_FEATHER_KEY));
         // enchantable like an iron tool (14); Unbreaking and Mending come from the item tag minecraft:enchantable/durability
         DINO_PLOW = new DinoPlowItem(new Item.Properties().durability(PLOW_DURABILITY).repairable(net.minecraft.world.item.Items.IRON_INGOT)
                 .enchantable(14).setId(DINO_PLOW_KEY));
@@ -201,6 +225,10 @@ public final class DinosRegistry {
         return Parasaurolophus.createAttributes();
     }
 
+    public static AttributeSupplier.Builder utahraptorAttributes() {
+        return Utahraptor.createAttributes();
+    }
+
     public static Item eggshell(DinoKind kind) {
         return EGGSHELLS.get(kind);
     }
@@ -227,6 +255,10 @@ public final class DinosRegistry {
         sink.accept(PARASAUROLOPHUS_ARMOR_LEATHER_KEY, PARASAUROLOPHUS_ARMOR_LEATHER);
         sink.accept(PARASAUROLOPHUS_ARMOR_IRON_KEY, PARASAUROLOPHUS_ARMOR_IRON);
         sink.accept(PARASAUROLOPHUS_ARMOR_DIAMOND_KEY, PARASAUROLOPHUS_ARMOR_DIAMOND);
+        sink.accept(UTAHRAPTOR_ARMOR_LEATHER_KEY, UTAHRAPTOR_ARMOR_LEATHER);
+        sink.accept(UTAHRAPTOR_ARMOR_IRON_KEY, UTAHRAPTOR_ARMOR_IRON);
+        sink.accept(UTAHRAPTOR_ARMOR_DIAMOND_KEY, UTAHRAPTOR_ARMOR_DIAMOND);
+        sink.accept(RAPTOR_FEATHER_KEY, RAPTOR_FEATHER);
         EGGSHELLS.forEach((kind, item) -> sink.accept(itemKey(kind.id + "_eggshell"), item));
         com.simpledinos.guide.DinosGuide.register();
     }
@@ -236,6 +268,7 @@ public final class DinosRegistry {
         sink.accept(TRICERATOPS_KEY, TRICERATOPS);
         sink.accept(STEGOSAURUS_KEY, STEGOSAURUS);
         sink.accept(PARASAUROLOPHUS_KEY, PARASAUROLOPHUS);
+        sink.accept(UTAHRAPTOR_KEY, UTAHRAPTOR);
     }
 
     public static Set<Block> fossilBlocks() {
@@ -279,6 +312,10 @@ public final class DinosRegistry {
         stacks.add(new ItemStack(PARASAUROLOPHUS_ARMOR_LEATHER));
         stacks.add(new ItemStack(PARASAUROLOPHUS_ARMOR_IRON));
         stacks.add(new ItemStack(PARASAUROLOPHUS_ARMOR_DIAMOND));
+        stacks.add(new ItemStack(UTAHRAPTOR_ARMOR_LEATHER));
+        stacks.add(new ItemStack(UTAHRAPTOR_ARMOR_IRON));
+        stacks.add(new ItemStack(UTAHRAPTOR_ARMOR_DIAMOND));
+        stacks.add(new ItemStack(RAPTOR_FEATHER));
         for (Item shell : EGGSHELLS.values()) stacks.add(new ItemStack(shell));
         return stacks;
     }

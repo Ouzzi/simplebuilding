@@ -15,6 +15,7 @@ import com.simpledinos.entity.Parasaurolophus;
 import com.simpledinos.entity.Stegosaurus;
 import com.simpledinos.entity.Trex;
 import com.simpledinos.entity.Triceratops;
+import com.simpledinos.entity.Utahraptor;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,6 +162,38 @@ public final class DinosTests {
     }
 
     /** a-dinorest3: an adult Parasaurolophus without AI, facing +z (yaw 0), tame. */
+    /** b-utah48: a grown, tame Utahraptor without AI, facing south (+z). */
+    private static Utahraptor standingRaptor(GameTestHelper h, int x, int z) {
+        Utahraptor raptor = h.spawn(DinosRegistry.UTAHRAPTOR, at(x, z));
+        raptor.setPersistenceRequired();
+        raptor.setTamed(true);
+        raptor.setAge(0);
+        raptor.setNoAi(true);
+        Vec3 p = raptor.position();
+        raptor.snapTo(p.x, p.y, p.z, 0.0F, 0.0F);
+        raptor.setYBodyRot(0.0F);
+        raptor.setYHeadRot(0.0F);
+        return raptor;
+    }
+
+    /** b-utah48: a saddled raptor ridden by {@code rider}, in front of a stone wall at z = {@code wallZ} (x 4..12, y 1..7). */
+    private static Utahraptor riddenAtWall(GameTestHelper h, ServerPlayer rider, int z, int wallZ, Block wall) {
+        for (int x = 4; x <= 12; x++) for (int y = 1; y <= 7; y++) h.setBlock(new BlockPos(x, y, wallZ), wall);
+        Utahraptor raptor = standingRaptor(h, 8, z);
+        raptor.setOwner(rider);
+        raptor.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+        rider.startRiding(raptor, true, false);
+        raptor.forgetWall();
+        return raptor;
+    }
+
+    /** b-utah48: one tick of the rider's client walking forward (Vanilla travel) and the server's stamina step. */
+    private static void rideForward(GameTestHelper h, Utahraptor raptor) {
+        raptor.setSpeed((float) Utahraptor.SPEED);
+        raptor.travel(new Vec3(0.0, 0.0, 1.0));
+        raptor.staminaStep(h.getLevel());
+    }
+
     private static Parasaurolophus standingPara(GameTestHelper h, int x, int z) {
         Parasaurolophus para = h.spawn(DinosRegistry.PARASAUROLOPHUS, at(x, z));
         para.setPersistenceRequired();
@@ -248,26 +281,30 @@ public final class DinosTests {
                     "triceratops_armor_leather", "triceratops_armor_iron", "triceratops_armor_diamond", "triceratops_eggshell",
                     "stegosaurus_eggshell", "utahraptor_eggshell", "parasaurolophus_eggshell", "stegosaurus_armor_leather", "stegosaurus_armor_iron",
                     "stegosaurus_armor_diamond", "dino_plow", "parasaurolophus_armor_leather", "parasaurolophus_armor_iron",
-                    "parasaurolophus_armor_diamond"}) {
+                    "parasaurolophus_armor_diamond", "utahraptor_armor_leather", "utahraptor_armor_iron", "utahraptor_armor_diamond", "raptor_feather"}) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleDinos.id(id)), "item " + id);
             }
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("trex")), "entity trex");
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("triceratops")), "entity triceratops");
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("stegosaurus")), "entity stegosaurus");
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("parasaurolophus")), "entity parasaurolophus");
+            h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleDinos.id("utahraptor")), "entity utahraptor");
+            h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("utahraptor_spawn_egg")), "no Utahraptor spawn egg either (owner R6)");
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("triceratops_spawn_egg")) && !BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_eggshell")),
                     "no spawn egg, no T. rex eggshell (concept DINO36 6)");
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_spawn_egg")), "no spawn egg (owner)");
             h.assertTrue(DinosRegistry.FOSSIL_BE != null && DinosRegistry.EGG_BE != null, "block entity types");
             h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX) && DefaultAttributes.hasSupplier(DinosRegistry.TRICERATOPS)
-                    && DefaultAttributes.hasSupplier(DinosRegistry.STEGOSAURUS) && DefaultAttributes.hasSupplier(DinosRegistry.PARASAUROLOPHUS), "attributes");
+                    && DefaultAttributes.hasSupplier(DinosRegistry.STEGOSAURUS) && DefaultAttributes.hasSupplier(DinosRegistry.PARASAUROLOPHUS)
+                    && DefaultAttributes.hasSupplier(DinosRegistry.UTAHRAPTOR), "attributes");
             h.assertTrue(DinosConfig.enabled && DinosConfig.BRUSH_DEFAULT == 45 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
                     && DinosConfig.growMinutes == 40 && DinosConfig.trexBiteDamage == 10.0, "config defaults = concept times");
             h.assertTrue(DinosConfig.triceratopsShake && DinosConfig.shakeShare == 0.5 && DinosConfig.shakeAppleChance == 0.35
                     && DinosConfig.shakeTreeCooldownSeconds == 600 && DinosConfig.ramCooldownSeconds == 3, "Triceratops defaults = concept 4.1");
             h.assertTrue(DinoKind.TREX.hatchable() && DinoKind.TRICERATOPS.hatchable() && DinoKind.STEGOSAURUS.hatchable()
-                    && DinoKind.PARASAUROLOPHUS.hatchable() && !DinoKind.UTAHRAPTOR.hatchable() && DinoKind.hatchableKinds().size() == 4,
-                    "DINO-REST step 3: T. rex, Triceratops, Stegosaurus and Parasaurolophus hatch, the Utahraptor not yet");
+                    && DinoKind.PARASAUROLOPHUS.hatchable() && DinoKind.UTAHRAPTOR.hatchable() && DinoKind.hatchableKinds().size() == 5,
+                    "DINO-REST step 5: all five dinosaurs hatch");
+            h.assertTrue(DinosConfig.raptorClimbSeconds == 5 && DinosConfig.raptorFeatherMinutes == 10, "Utahraptor defaults (5 s = about 12 blocks, 10 min)");
             h.assertTrue(DinosConfig.callRadius == 24 && DinosConfig.callSeconds == 120 && DinosConfig.callMaxAnimals == 24
                     && DinosConfig.callCooldownSeconds == 20 && DinosConfig.callIgnoreNamed, "Parasaurolophus defaults = concept 4.4");
             h.assertTrue(DinosConfig.stegosaurusPlowWidth == 3 && DinosConfig.stegosaurusSow, "Stegosaurus defaults = concept 4.2");
@@ -286,7 +323,9 @@ public final class DinosTests {
                 DinosConfig.apply(com.google.gson.JsonParser.parseString("{\"brushSeconds\":99999,\"incubateSeconds\":0,\"hatchSeconds\":\"x\",\"growMinutes\":-5,\"trexBiteDamage\":1000,"
                         + "\"shakeShare\":7,\"shakeAppleChance\":-1,\"shakeTreeCooldownSeconds\":1,\"ramCooldownSeconds\":999,\"triceratopsShake\":\"no\","
                         + "\"stegosaurusPlowWidth\":9,\"stegosaurusSow\":\"x\",\"callRadius\":2,\"callSeconds\":99999,\"callMaxAnimals\":0,"
-                        + "\"callCooldownSeconds\":1,\"callIgnoreNamed\":7}").getAsJsonObject());
+                        + "\"callCooldownSeconds\":1,\"callIgnoreNamed\":7,\"raptorClimbSeconds\":99,\"raptorFeatherMinutes\":0}").getAsJsonObject());
+                h.assertTrue(DinosConfig.raptorClimbSeconds == DinosConfig.CLIMB_MAX && DinosConfig.raptorFeatherMinutes == DinosConfig.FEATHER_MIN,
+                        "Utahraptor keys clamped");
                 h.assertTrue(DinosConfig.shakeShare == 1.0 && DinosConfig.shakeAppleChance == 0.0 && DinosConfig.shakeTreeCooldownSeconds == DinosConfig.TREE_REST_MIN
                         && DinosConfig.ramCooldownSeconds == DinosConfig.RAM_COOLDOWN_MAX && DinosConfig.triceratopsShake, "Triceratops keys clamped, garbage = default");
                 h.assertTrue(DinosConfig.stegosaurusPlowWidth == DinosConfig.PLOW_WIDTH_MAX && DinosConfig.stegosaurusSow, "Stegosaurus keys clamped, garbage = default");
@@ -550,18 +589,15 @@ public final class DinosTests {
             }
             h.succeed();
         });
-        ALL.put("egg_other_kinds_wait_for_their_dinosaur", h -> {
-            ServerLevel level = h.getLevel();
-            BlockPos pos = at(4, 4);
-            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.UTAHRAPTOR));
-            DinoEggBlockEntity be = (DinoEggBlockEntity) level.getBlockEntity(h.absolutePos(pos));
-            ServerPlayer owner = player(h, 5, 5);
-            long t = 3000;
-            be.advance(level, t, null);
-            while (!be.brooded() && t < 3000 + 8000) be.advance(level, t += 40, owner.getUUID());
-            be.advance(level, be.hatchAt() + 10, null);
-            h.assertTrue(be.brooded() && h.getBlockState(pos).getBlock() == DinosRegistry.EGGS.get(DinoKind.UTAHRAPTOR),
-                    "a kind without a dinosaur yet brooded, but stays an egg (the Utahraptor comes last)");
+        // b-utah48: the Utahraptor came last - every egg now hatches its own dinosaur (was egg_other_kinds_wait_for_their_dinosaur)
+        ALL.put("egg_every_kind_hatches", h -> {
+            java.util.Map<DinoKind, net.minecraft.world.entity.EntityType<?>> expected = java.util.Map.of(DinoKind.TREX, DinosRegistry.TREX,
+                    DinoKind.TRICERATOPS, DinosRegistry.TRICERATOPS, DinoKind.STEGOSAURUS, DinosRegistry.STEGOSAURUS,
+                    DinoKind.UTAHRAPTOR, DinosRegistry.UTAHRAPTOR, DinoKind.PARASAUROLOPHUS, DinosRegistry.PARASAUROLOPHUS);
+            for (DinoKind k : DinoKind.values()) {
+                h.assertTrue(k.hatchable() && k.entity() == expected.get(k), "the " + k + " egg hatches its own dinosaur");
+                h.assertTrue((k == DinoKind.TREX) == (k.eggshell() == null), "eggshell rule for " + k);
+            }
             h.succeed();
         });
 
@@ -845,19 +881,22 @@ public final class DinosTests {
             h.assertTrue(DinoKind.UTAHRAPTOR.siteHalves(badlands) == 4 && DinoKind.STEGOSAURUS.siteHalves(badlands) == 3, "badlands: Utahraptor x2, Stegosaurus x1.5");
             h.assertTrue(DinoKind.PARASAUROLOPHUS.siteHalves(swamp) == 4 && DinoKind.TRICERATOPS.siteHalves(swamp) == 2, "mangrove swamp: Parasaurolophus x2");
             RandomSource random = RandomSource.create(42L);
-            int tri = 0, stego = 0, para = 0;
+            int tri = 0, stego = 0, raptor = 0, para = 0;
             for (int i = 0; i < 2000; i++) {
                 DinoKind k = DinoKind.roll(random, badlands);
                 h.assertTrue(k.hatchable(), "only hatchable kinds are rolled");
                 if (k == DinoKind.TRICERATOPS) tri++;
                 if (k == DinoKind.STEGOSAURUS) stego++;
+                if (k == DinoKind.UTAHRAPTOR) raptor++;
             }
-            // a-dinorest3: badlands T. rex 10 x1, Triceratops 25 x1, Stegosaurus 25 x1.5, Parasaurolophus 20 x1 -> 10.8 % : 27.0 % : 40.5 % : 21.6 %
-            h.assertTrue(stego > 2000 * 34 / 100 && stego < 2000 * 47 / 100, "badlands favour the Stegosaurus (" + stego + " of 2000)");
-            h.assertTrue(tri > 2000 * 21 / 100 && tri < 2000 * 33 / 100, "R10 weights between the built kinds: Triceratops (" + tri + " of 2000)");
+            // b-utah48: badlands T. rex 10 x1, Triceratops 25 x1, Stegosaurus 25 x1.5, Utahraptor 20 x2, Parasaurolophus 20 x1
+            // -> 7.5 % : 18.9 % : 28.3 % : 30.2 % : 15.1 %
+            h.assertTrue(raptor > 2000 * 24 / 100 && raptor < 2000 * 37 / 100, "badlands favour the Utahraptor (" + raptor + " of 2000)");
+            h.assertTrue(stego > 2000 * 22 / 100 && stego < 2000 * 35 / 100, "badlands favour the Stegosaurus (" + stego + " of 2000)");
+            h.assertTrue(tri > 2000 * 13 / 100 && tri < 2000 * 25 / 100, "R10 weights between the built kinds: Triceratops (" + tri + " of 2000)");
             for (int i = 0; i < 2000; i++) if (DinoKind.roll(random, swamp) == DinoKind.PARASAUROLOPHUS) para++;
-            // mangrove swamp: T. rex 10, Triceratops 25, Stegosaurus 25, Parasaurolophus 20 x2 -> the Parasaurolophus 40 %
-            h.assertTrue(para > 2000 * 33 / 100 && para < 2000 * 47 / 100, "swamps favour the Parasaurolophus (" + para + " of 2000)");
+            // mangrove swamp: T. rex 10, Triceratops 25, Stegosaurus 25, Utahraptor 20, Parasaurolophus 20 x2 -> the Parasaurolophus 33.3 %
+            h.assertTrue(para > 2000 * 27 / 100 && para < 2000 * 40 / 100, "swamps favour the Parasaurolophus (" + para + " of 2000)");
             h.succeed();
         });
         ALL.put("triceratops_core_hitbox_and_stats", h -> {
@@ -1768,6 +1807,244 @@ public final class DinosTests {
             other.hurtServer(level, level.damageSources().playerAttack(rider), 1.0F);
             h.assertTrue(other.warn(level), "a slap by its own rider is no danger: no warning call");
             rider.stopRiding();
+            h.succeed();
+        });
+        // --- Utahraptor (b-utah48, concept KONZEPT-A-DINO36 4.3) --------------------------------------------------------------------
+        ALL.put("utahraptor_core_hitbox_and_stats", h -> {
+            Utahraptor raptor = standingRaptor(h, 8, 8);
+            h.assertTrue(raptor.getBbWidth() == 1.3F && raptor.getBbHeight() == 1.6F, "core hitbox 1.3 x 1.6 (body, legs, saddle; fits 2-wide corridors)");
+            h.assertTrue(raptor.getMaxHealth() == 40.0F && raptor.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED) == 0.3
+                    && raptor.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.JUMP_STRENGTH) == 0.7
+                    && raptor.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT) == 1.5,
+                    "40 health, speed 0.30 (below the best horses' 0.3375), jump 0.7 (about 3 blocks), step 1.5");
+            h.assertTrue(raptor.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.FALL_DAMAGE_MULTIPLIER) == 0.5
+                    && raptor.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.SAFE_FALL_DISTANCE) == 6.0,
+                    "half fall damage, 3 more safe blocks");
+            h.assertTrue(!raptor.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE), "no attack: only the T. rex fights");
+            h.assertTrue(raptor.kind() == DinoKind.UTAHRAPTOR && !raptor.canMate(raptor), "kind, no breeding");
+            h.assertTrue(!Utahraptor.RIG.solidHead && Utahraptor.RIG.reach > 1.15 && Utahraptor.RIG.reach < 1.4,
+                    "head not solid, the snout reaches about 1.27 (" + Utahraptor.RIG.reach + ")");
+            double front4 = 0.0, top0 = 0.0;
+            for (AABB b : raptor.headBoxes(0)) top0 = Math.max(top0, b.maxY - raptor.getY());
+            for (AABB b : raptor.headBoxes(com.simpledinos.entity.part.PartRig.TUCK_STEPS)) front4 = Math.max(front4, b.maxZ - raptor.getZ());
+            h.assertTrue(front4 < raptor.getBbWidth() / 2.0, "pulled in, the head stays inside the front of the core box (" + front4 + ")");
+            h.assertTrue(top0 > 1.8 && top0 < 2.2, "the head stands about 2 blocks high (" + top0 + ")");
+            double back = 0.0, side = 0.0;
+            for (AABB b : raptor.tailBoxes(0)) {
+                back = Math.max(back, raptor.getZ() - b.minZ);
+                side = Math.max(side, Math.max(b.maxX - raptor.getX(), raptor.getX() - b.minX));
+            }
+            h.assertTrue(raptor.headBoxes(0).size() == 1 && raptor.tailBoxes(0).size() == 1, "one head box, one tail box (N45)");
+            h.assertTrue(back > 2.2 && back < 2.6 && side < 0.3, "a long, stiff, narrow tail (" + back + " back, " + side + " to the side)");
+            h.succeed();
+        });
+        ALL.put("utahraptor_head_and_tail_parts", h -> {
+            Utahraptor raptor = standingRaptor(h, 8, 11);
+            raptor.updateParts();
+            h.assertTrue(raptor.headTuck() == 0 && raptor.tailBend() == 0, "in the open field: head stretched, tail straight");
+            // a thin fence post behind it: the one tail box (hull of the bent segments) is free only bent far to a side
+            for (int y = 1; y <= 2; y++) h.setBlock(new BlockPos(8, y, 9), Blocks.OAK_FENCE);
+            h.assertTrue(!clearOfBlocks(h, raptor, raptor.tailBoxes(0)), "the straight tail would stick in the fence post");
+            raptor.updateParts();
+            h.assertTrue(raptor.tailBend() != 0 && clearOfBlocks(h, raptor, raptor.tailBoxes(raptor.tailBend())), "the tail bends away (" + raptor.tailBend() + ")");
+            Utahraptor other = standingRaptor(h, 8, 3);
+            ServerPlayer p = player(h, 8, 5);
+            Vec3 at = h.absoluteVec(new Vec3(8.5, 1.0, 4.46));
+            p.setPos(at.x, at.y, at.z);
+            AABB body = p.getBoundingBox();
+            h.assertTrue(other.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player");
+            other.updateParts();
+            h.assertTrue(other.headTuck() > 0 && other.headBoxes(other.headTuck()).stream().noneMatch(b -> b.intersects(body)),
+                    "the S-neck stands up and the head comes back before the player (step " + other.headTuck() + ")");
+            h.succeed();
+        });
+        ALL.put("utahraptor_hatches_tame_with_eggshells", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos pos = at(4, 4);
+            h.setBlock(pos, DinosRegistry.EGGS.get(DinoKind.UTAHRAPTOR));
+            DinoEggBlockEntity be = (DinoEggBlockEntity) level.getBlockEntity(h.absolutePos(pos));
+            ServerPlayer owner = player(h, 5, 5);
+            brood(level, be, owner.getUUID());
+            be.advance(level, be.hatchAt(), null);
+            h.assertTrue(h.getBlockState(pos).isAir(), "the Utahraptor egg hatches");
+            var found = level.getEntitiesOfClass(Utahraptor.class, new AABB(h.absolutePos(pos)).inflate(3.0));
+            h.assertTrue(found.size() == 1, "one Utahraptor hatchling");
+            Utahraptor baby = found.get(0);
+            h.assertTrue(baby.isBaby() && baby.isTamed() && baby.getOwner() != null && baby.getOwner().getUUID().equals(owner.getUUID()),
+                    "tame from the first second, imprinted on the sitter");
+            int shells = itemsNear(h, pos, 3.0).stream().filter(e -> e.getItem().is(DinosRegistry.eggshell(DinoKind.UTAHRAPTOR)))
+                    .mapToInt(e -> e.getItem().getCount()).sum();
+            h.assertTrue(shells == 3, "three Utahraptor eggshells stay behind (" + shells + ")");
+            h.assertTrue(!baby.climbAllowed() && !baby.brushFeather(level, level.getGameTime()), "a hatchling neither climbs nor gives feathers");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.CHICKEN, 2));
+            int before = baby.getAge();
+            baby.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(baby.getAge() > before && owner.getItemInHand(InteractionHand.MAIN_HAND).getCount() == 1, "feeding speeds the growth up (Vanilla)");
+            baby.discard();
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        MAX_TICKS.put("utahraptor_hatches_tame_with_eggshells", 100);
+        ALL.put("utahraptor_food_heals", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Utahraptor raptor = standingRaptor(h, 8, 8);
+            raptor.setOwner(owner);
+            for (Item food : new Item[] {Items.CHICKEN, Items.RABBIT, Items.BEEF, Items.COOKED_PORKCHOP}) h.assertTrue(raptor.isFood(new ItemStack(food)), "food: " + food);
+            h.assertTrue(!raptor.isFood(new ItemStack(Items.WHEAT)) && !raptor.isFood(new ItemStack(Items.APPLE)), "no plants");
+            raptor.setHealth(20.0F);
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.RABBIT, 1));
+            raptor.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(raptor.getHealth() == 28.0F, "raw rabbit (favourite) heals 8");
+            owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BEEF, 1));
+            raptor.mobInteract(owner, InteractionHand.MAIN_HAND);
+            h.assertTrue(raptor.getHealth() == 32.0F && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "other meat heals 4");
+            h.succeed();
+        });
+        ALL.put("utahraptor_saddle_armor_riding", h -> {
+            ServerPlayer owner = player(h, 3, 3);
+            Utahraptor raptor = standingRaptor(h, 8, 8);
+            raptor.setOwner(owner);
+            h.assertTrue(DinosRegistry.LARGE_SADDLE.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable big
+                    && big.canBeEquippedBy(raptor.typeHolder()), "the large saddle fits the Utahraptor");
+            for (Item armor : new Item[] {DinosRegistry.UTAHRAPTOR_ARMOR_LEATHER, DinosRegistry.UTAHRAPTOR_ARMOR_IRON, DinosRegistry.UTAHRAPTOR_ARMOR_DIAMOND}) {
+                h.assertTrue(raptor.isEquippableInSlot(new ItemStack(armor), EquipmentSlot.BODY), "Utahraptor armor fits: " + BuiltInRegistries.ITEM.getKey(armor));
+                h.assertTrue(!(armor.components().get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable e
+                        && (e.canBeEquippedBy(DinosRegistry.PARASAUROLOPHUS.builtInRegistryHolder()) || e.canBeEquippedBy(DinosRegistry.TREX.builtInRegistryHolder()))),
+                        "but not the Parasaurolophus or the T. rex (each dinosaur its own armor)");
+            }
+            h.assertTrue(!raptor.isEquippableInSlot(new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_IRON), EquipmentSlot.BODY), "Parasaurolophus armor does not fit");
+            raptor.setItemSlot(EquipmentSlot.BODY, new ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_IRON));
+            h.assertTrue(raptor.armorTier() == 2, "iron armor: tier 2");
+            raptor.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            owner.startRiding(raptor, true, false);
+            h.assertTrue(raptor.getControllingPassenger() == owner && raptor.climbAllowed(), "the owner rides and steers; saddled and ridden it may climb");
+            raptor.positionRider(owner);
+            Vec3 seat = owner.position().subtract(raptor.position());
+            h.assertTrue(seat.y > 0.8 && seat.y < 1.2 && Math.abs(seat.z) < 0.3, "the rider sits on the saddle in the middle of the back (" + seat + ")");
+            h.assertTrue(raptor.getJumpCooldown() == 0, "rested: the jump bar is free, it jumps like a horse");
+            h.succeed();
+        });
+        ALL.put("utahraptor_climbs_wall", h -> {
+            ServerPlayer rider = player(h, 3, 3);
+            Utahraptor raptor = riddenAtWall(h, rider, 7, 9, Blocks.STONE);
+            double y0 = raptor.getY();
+            boolean climbed = false;
+            for (int i = 0; i < 40; i++) {
+                rideForward(h, raptor);
+                climbed |= raptor.onClimbable();
+            }
+            double gained = raptor.getY() - y0;
+            h.assertTrue(climbed && raptor.touchesClimbableWall(), "at the stone wall it climbs (Vanilla climbing rule)");
+            h.assertTrue(gained > 3.0 && gained < 6.0, "about 2.35 blocks a second up the wall (" + gained + " blocks in 2 s)");
+            h.assertTrue(raptor.stamina() < Utahraptor.STAMINA_FULL && raptor.stamina() > 0 && !raptor.exhausted(), "climbing uses stamina (" + raptor.stamina() + ")");
+            h.assertTrue(raptor.fallDistance == 0.0, "no fall height while climbing");
+            rider.stopRiding();
+            raptor.forgetWall();
+            h.assertTrue(!raptor.onClimbable(), "without a rider it never climbs (no AI climbing)");
+            h.succeed();
+        });
+        ALL.put("utahraptor_stamina_runs_out_and_slides", h -> {
+            try {
+                DinosConfig.raptorClimbSeconds = 1;
+                ServerPlayer rider = player(h, 3, 3);
+                Utahraptor raptor = riddenAtWall(h, rider, 7, 9, Blocks.STONE);
+                float health = raptor.getHealth(), riderHealth = rider.getHealth();
+                int i = 0;
+                while (!raptor.exhausted() && i++ < 80) rideForward(h, raptor);
+                h.assertTrue(raptor.exhausted() && raptor.stamina() == 0, "after 1 s of climbing the stamina is used up (" + i + " ticks)");
+                double top = raptor.getY() - h.absoluteVec(new Vec3(0, 1, 0)).y;
+                h.assertTrue(top > 1.5, "it got up the wall first (" + top + ")");
+                h.assertTrue(!raptor.onClimbable() && raptor.getJumpCooldown() > 0, "exhausted: no more climbing, the jump bar shows the recharge");
+                double minDy = 0.0;
+                int slide = 0;
+                while (!raptor.onGround() && slide++ < 200) {
+                    double y = raptor.getY();
+                    rideForward(h, raptor);
+                    minDy = Math.min(minDy, raptor.getY() - y);
+                    h.assertTrue(raptor.fallDistance == 0.0, "sliding builds up no fall height");
+                }
+                h.assertTrue(raptor.onGround() && minDy >= -Utahraptor.SLIDE_SPEED - 1.0E-6, "it slid down slowly (fastest " + minDy + " per tick)");
+                h.assertTrue(raptor.getHealth() == health && rider.getHealth() == riderHealth, "no fall damage for raptor and rider");
+                for (int t = 0; t < Utahraptor.RECHARGE_TICKS && raptor.exhausted(); t++) raptor.staminaStep(h.getLevel());
+                h.assertTrue(!raptor.exhausted() && raptor.stamina() == Utahraptor.STAMINA_FULL && raptor.getJumpCooldown() == 0,
+                        "on the ground it is rested again within 5 s");
+                rider.stopRiding();
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("utahraptor_unclimbable_and_config", h -> {
+            try {
+                ServerPlayer rider = player(h, 3, 3);
+                Utahraptor raptor = riddenAtWall(h, rider, 7, 9, Blocks.STONE);
+                for (int i = 0; i < 4; i++) rideForward(h, raptor);
+                h.assertTrue(raptor.touchesClimbableWall() && raptor.onClimbable(), "stone: a hold for the claws");
+                for (Block b : new Block[] {Blocks.GLASS, Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE,
+                        BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("red_stained_glass")), Blocks.TINTED_GLASS}) {
+                    for (int x = 4; x <= 12; x++) for (int y = 1; y <= 7; y++) h.setBlock(new BlockPos(x, y, 9), b);
+                    raptor.forgetWall();
+                    h.assertTrue(!raptor.touchesClimbableWall() && !raptor.onClimbable(), "no hold on " + BuiltInRegistries.BLOCK.getKey(b) + " (tag raptor_unclimbable)");
+                }
+                for (int x = 4; x <= 12; x++) for (int y = 1; y <= 7; y++) h.setBlock(new BlockPos(x, y, 9), Blocks.OAK_PLANKS);
+                raptor.forgetWall();
+                h.assertTrue(raptor.onClimbable(), "planks: climbable");
+                DinosConfig.raptorClimbSeconds = 0;
+                raptor.forgetWall();
+                h.assertTrue(!raptor.climbAllowed() && !raptor.onClimbable(), "raptorClimbSeconds 0 switches climbing off");
+                DinosConfig.reset();
+                raptor.setItemSlot(EquipmentSlot.SADDLE, ItemStack.EMPTY);
+                h.assertTrue(!raptor.climbAllowed(), "without a saddle nobody steers it: no climbing");
+                rider.stopRiding();
+            } finally {
+                DinosConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("utahraptor_fall_damage_halved", h -> {
+            ServerLevel level = h.getLevel();
+            // a mock player cannot be hurt (no loaded client), so a zombie rides: the fall is passed on the same way to every passenger
+            Utahraptor raptor = standingRaptor(h, 8, 8);
+            net.minecraft.world.entity.monster.Monster rider = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 8));
+            rider.setNoAi(true);
+            rider.startRiding(raptor, true, false);
+            h.assertTrue(rider.getVehicle() == raptor, "the zombie sits on the raptor");
+            float health = raptor.getHealth(), riderHealth = rider.getHealth();
+            raptor.causeFallDamage(5.0, 1.0F, level.damageSources().fall());
+            h.assertTrue(raptor.getHealth() == health && rider.getHealth() == riderHealth, "5 blocks are safe for both (3 more than Vanilla)");
+            raptor.causeFallDamage(10.0, 1.0F, level.damageSources().fall());
+            h.assertTrue(raptor.getHealth() == health - 2.0F, "10 blocks: (10 - 6) x 0.5 = 2 damage for the raptor (" + (health - raptor.getHealth()) + ")");
+            h.assertTrue(rider.getHealth() == riderHealth - 2.0F, "and 2 for the rider instead of 7 (" + (riderHealth - rider.getHealth()) + ")");
+            rider.stopRiding();
+            h.succeed();
+        });
+        ALL.put("utahraptor_feather_brush", h -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer p = player(h, 8, 5);
+            Utahraptor raptor = standingRaptor(h, 8, 8);
+            ItemStack brush = new ItemStack(Items.BRUSH);
+            p.setItemInHand(InteractionHand.MAIN_HAND, brush);
+            h.assertTrue(raptor.mobInteract(p, InteractionHand.MAIN_HAND).consumesAction(), "brushing a grown raptor works");
+            int feathers = itemsNear(h, at(8, 8), 3.0).stream().filter(e -> e.getItem().is(DinosRegistry.RAPTOR_FEATHER)).mapToInt(e -> e.getItem().getCount()).sum();
+            h.assertTrue(feathers == 1, "one raptor feather (" + feathers + ")");
+            h.assertTrue(p.getMainHandItem().getDamageValue() == 16, "the brush wears like on an armadillo (16)");
+            h.assertTrue(!raptor.mobInteract(p, InteractionHand.MAIN_HAND).consumesAction() && p.getMainHandItem().getDamageValue() == 16,
+                    "right after: nothing (the pause), the brush is not worn");
+            long ready = raptor.featherReadyAt();
+            h.assertTrue(ready - level.getGameTime() == DinosConfig.raptorFeatherTicks() && DinosConfig.raptorFeatherTicks() == 12000, "10 minutes pause");
+            h.assertTrue(!raptor.brushFeather(level, ready - 1) && raptor.brushFeather(level, ready), "after the pause the next feather");
+            items(h).forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+        ALL.put("utahraptor_flees_never_fights", h -> {
+            ServerLevel level = h.getLevel();
+            Utahraptor raptor = standingRaptor(h, 8, 8);
+            net.minecraft.world.entity.monster.Monster zombie = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 12));
+            zombie.setNoAi(true);
+            float health = zombie.getHealth();
+            h.assertTrue(raptor.hurtServer(level, level.damageSources().mobAttack(zombie), 2.0F), "the zombie hits it");
+            h.assertTrue(zombie.getHealth() == health && raptor.getTarget() == null, "it never fights back");
+            zombie.discard();
             h.succeed();
         });
         ALL.put("guide_book", com.simpledinos.guide.DinosGuide::gameTest);

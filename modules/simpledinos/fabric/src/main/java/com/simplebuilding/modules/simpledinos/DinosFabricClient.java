@@ -6,6 +6,7 @@ import com.simpledinos.client.ParasaurolophusRenderer;
 import com.simpledinos.client.StegosaurusRenderer;
 import com.simpledinos.client.TrexRenderer;
 import com.simpledinos.client.TriceratopsRenderer;
+import com.simpledinos.client.UtahraptorRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
@@ -18,5 +19,6 @@ public final class DinosFabricClient implements ClientModInitializer {
         EntityRendererRegistry.register(DinosRegistry.TRICERATOPS, TriceratopsRenderer::new);
         EntityRendererRegistry.register(DinosRegistry.STEGOSAURUS, StegosaurusRenderer::new);
         EntityRendererRegistry.register(DinosRegistry.PARASAUROLOPHUS, ParasaurolophusRenderer::new);
+        EntityRendererRegistry.register(DinosRegistry.UTAHRAPTOR, UtahraptorRenderer::new);
     }
 }

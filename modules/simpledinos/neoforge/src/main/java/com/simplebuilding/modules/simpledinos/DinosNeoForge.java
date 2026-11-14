@@ -40,6 +40,7 @@ public final class DinosNeoForge {
             event.put(DinosRegistry.TRICERATOPS, DinosRegistry.triceratopsAttributes().build());
             event.put(DinosRegistry.STEGOSAURUS, DinosRegistry.stegosaurusAttributes().build());
             event.put(DinosRegistry.PARASAUROLOPHUS, DinosRegistry.parasaurolophusAttributes().build());
+            event.put(DinosRegistry.UTAHRAPTOR, DinosRegistry.utahraptorAttributes().build());
         });
         // a-dinorest2: the Dino Plow asks claim mods like a block break would (same probe as Simple Tools/Farming on NeoForge)
         var game = net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
@@ -68,9 +69,13 @@ public final class DinosNeoForge {
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_LEATHER), vis);
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_IRON), vis);
                 event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_DIAMOND), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_LEATHER), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_IRON), vis);
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_DIAMOND), vis);
             }
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 DinosRegistry.EGGSHELLS.values().forEach(i -> event.accept(new net.minecraft.world.item.ItemStack(i), vis));
+                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.RAPTOR_FEATHER), vis);
             }
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simpledinos.guide.DinosGuide.installQuests(FMLPaths.CONFIGDIR.get());

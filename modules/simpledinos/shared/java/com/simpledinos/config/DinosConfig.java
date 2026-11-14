@@ -20,7 +20,7 @@ public final class DinosConfig {
     public static final List<String> KEYS = List.of("enabled", "brushSeconds", "incubateSeconds", "hatchSeconds", "hatchWaitsForOwner",
             "growMinutes", "trexBiteDamage", "triceratopsShake", "shakeShare", "shakeAppleChance", "shakeTreeCooldownSeconds",
             "ramCooldownSeconds", "stegosaurusPlowWidth", "stegosaurusSow", "callRadius", "callSeconds", "callMaxAnimals",
-            "callCooldownSeconds", "callIgnoreNamed");
+            "callCooldownSeconds", "callIgnoreNamed", "raptorClimbSeconds", "raptorFeatherMinutes");
 
     public static final int BRUSH_DEFAULT = 45, BRUSH_MIN = 5, BRUSH_MAX = 600;
     public static final int INCUBATE_DEFAULT = 300, INCUBATE_MIN = 10, INCUBATE_MAX = 3600;
@@ -35,6 +35,8 @@ public final class DinosConfig {
     public static final int CALL_SECONDS_DEFAULT = 120, CALL_SECONDS_MIN = 30, CALL_SECONDS_MAX = 600;
     public static final int CALL_ANIMALS_DEFAULT = 24, CALL_ANIMALS_MIN = 1, CALL_ANIMALS_MAX = 64;
     public static final int CALL_COOLDOWN_DEFAULT = 20, CALL_COOLDOWN_MIN = 5, CALL_COOLDOWN_MAX = 300;
+    public static final int CLIMB_DEFAULT = 5, CLIMB_MIN = 0, CLIMB_MAX = 10;
+    public static final int FEATHER_DEFAULT = 10, FEATHER_MIN = 1, FEATHER_MAX = 60;
 
     public static boolean enabled = true;
     /** Seconds of brushing that free a fossil (45 = 75 % of the former minute, a pause costs twice its length). */
@@ -77,6 +79,10 @@ public final class DinosConfig {
     public static int callCooldownSeconds = CALL_COOLDOWN_DEFAULT;
     /** Animals with a name tag ignore the call. */
     public static boolean callIgnoreNamed = true;
+    /** b-utah48: seconds a ridden Utahraptor can climb a wall before it slides down (0 = it does not climb); 5 s = about 12 blocks (Vanilla climbs 2.35 blocks a second). */
+    public static int raptorClimbSeconds = CLIMB_DEFAULT;
+    /** b-utah48: minutes between two raptor feathers brushed from one Utahraptor. */
+    public static int raptorFeatherMinutes = FEATHER_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -110,6 +116,14 @@ public final class DinosConfig {
 
     public static int callCooldownTicks() {
         return callCooldownSeconds * 20;
+    }
+
+    public static int raptorClimbTicks() {
+        return raptorClimbSeconds * 20;
+    }
+
+    public static int raptorFeatherTicks() {
+        return raptorFeatherMinutes * 1200;
     }
 
     public static void load(Path dir) {
@@ -148,6 +162,8 @@ public final class DinosConfig {
         callMaxAnimals = (int) clamp(number(json, "callMaxAnimals", CALL_ANIMALS_DEFAULT), CALL_ANIMALS_MIN, CALL_ANIMALS_MAX);
         callCooldownSeconds = (int) clamp(number(json, "callCooldownSeconds", CALL_COOLDOWN_DEFAULT), CALL_COOLDOWN_MIN, CALL_COOLDOWN_MAX);
         callIgnoreNamed = bool(json, "callIgnoreNamed", true);
+        raptorClimbSeconds = (int) clamp(number(json, "raptorClimbSeconds", CLIMB_DEFAULT), CLIMB_MIN, CLIMB_MAX);
+        raptorFeatherMinutes = (int) clamp(number(json, "raptorFeatherMinutes", FEATHER_DEFAULT), FEATHER_MIN, FEATHER_MAX);
     }
 
     public static JsonObject toJson() {
@@ -171,6 +187,8 @@ public final class DinosConfig {
         o.addProperty("callMaxAnimals", callMaxAnimals);
         o.addProperty("callCooldownSeconds", callCooldownSeconds);
         o.addProperty("callIgnoreNamed", callIgnoreNamed);
+        o.addProperty("raptorClimbSeconds", raptorClimbSeconds);
+        o.addProperty("raptorFeatherMinutes", raptorFeatherMinutes);
         return o;
     }
 

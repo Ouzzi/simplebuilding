@@ -1,6 +1,6 @@
 """Simple Dinosaurs: item sprites of DINO-REST step 1 (a-dinorest1, concept KONZEPT-A-DINO36 6): the Triceratops armor in three tiers
 and the eggshells of the four dinosaurs that leave one (Triceratops, Stegosaurus, Utahraptor, Parasaurolophus); step 2 the Stegosaurus
-armor and the Dino Plow, step 3 the Parasaurolophus armor.
+armor and the Dino Plow, step 3 the Parasaurolophus armor, step 5 (b-utah48) the Utahraptor armor and the raptor feather.
 
 Own pixel art drawn from code (ASCII sprites, tools/textures/optik32_engine.py shading after A8b: lit top/left, shaded bottom/right,
 rim in the darkest tones of the same ramp, no black outline). The armor follows the T. rex armor (owner choice IG31-23, variant C:
@@ -190,6 +190,62 @@ def para_armor(tier: str, rows=None, trim_mix=0.35):
     return paint(rows or PARA_ARMOR, ramps, seed=41, base={'v': N // 2 + 1})
 
 
+# ---------------------------------------------------------------- b-utah48: Utahraptor armor and the raptor feather
+# Utahraptor armor (side view, facing left; rounds in docs/ai/PLAN-B-UTAH48-2026-11-14.md): the raptor's head a (its own skin tone, eye e,
+# so the shape reads as a Utahraptor) on the S-neck covered by the neck guard g with the band rims k in the trim tone, the chest plate h with
+# its rim r, a trim band n and tier details v, a shin guard s with straps t bottom left; the claws stay free. The claws stay free, so nothing covers the feet.
+RAPTOR_ARMOR = ['................',
+                '.aaaa...........',
+                'aaaaae..........',
+                '..aaakgk........',
+                '.....gggk.......',
+                '.....kgggk......',
+                '......kgggk.....',
+                '.......kgggrr...',
+                '.......rhhhhhr..',
+                '......rhvhhvhhr.',
+                '......rnnnnnnnr.',
+                '......rhhhvhhhr.',
+                '.ss....rhhhhhr..',
+                'ssss....rrrrr...',
+                'tsst............',
+                'ssss............']
+
+
+def raptor_armor(tier: str, rows=None, trim_mix=0.35):
+    main, trim = TIERS[tier]
+    trim = _toward(trim, main, trim_mix)
+    ramps = {'g': ramp(main, N), 'k': ramp(trim, N), 'h': ramp(main, N), 'r': ramp(main, N, spread=0.2, sat_shift=0.05), 'n': ramp(trim, N),
+             'v': ramp(main, N, spread=0.1), 's': ramp(main, N, spread=0.15), 't': ramp('5a3a22', N), 'a': ramp('6e7a48', N, spread=0.12),
+             'e': ramp('3a4024', N, spread=0.1)}
+    return paint(rows or RAPTOR_ARMOR, ramps, seed=43, base={'v': N // 2 + 1})
+
+
+# Raptor feather (diagonal, quill bottom left): the vane f in the plumage tone with darker bands b (the banded arm and tail feathers of the
+# model), a light tip l, the quill q; reads as a feather but browner and banded, unlike the white Vanilla feather.
+RAPTOR_FEATHER = ['................',
+                  '..........lll...',
+                  '.........lllll..',
+                  '........fflllf..',
+                  '.......ffffqff..',
+                  '......bbbfqfbb..',
+                  '.....ffffqffff..',
+                  '.....fffqffff...',
+                  '....bbbqfbbb....',
+                  '....ffqffff.....',
+                  '....fqffff......',
+                  '...fqfff........',
+                  '...qff..........',
+                  '..q.............',
+                  '.q..............',
+                  'q...............']
+
+
+def raptor_feather(rows=None):
+    ramps = {'f': ramp('8a6a44', N), 'b': ramp('6a5034', N, spread=0.1), 'l': ramp('c8b48a', N, spread=0.1), 'q': ramp('d8ccb0', N, spread=0.08)}
+    return paint(rows or RAPTOR_FEATHER, ramps, seed=47)
+
+
 def all_sprites():
     """{name: image} of every sprite this file draws."""
     out = {f'triceratops_armor_{t}': armor(t) for t in ARMOR_TIERS}
@@ -197,6 +253,8 @@ def all_sprites():
     out.update({f'stegosaurus_armor_{t}': stego_armor(t) for t in ARMOR_TIERS})
     out['dino_plow'] = plow()
     out.update({f'parasaurolophus_armor_{t}': para_armor(t) for t in ARMOR_TIERS})
+    out.update({f'utahraptor_armor_{t}': raptor_armor(t) for t in ARMOR_TIERS})
+    out['raptor_feather'] = raptor_feather()
     return out
 
 
