@@ -125,4 +125,9 @@ public final class ModuleGameTest {
     public void foreignLightUntouched(GameTestHelper h) {
         TrimsTests.ALL.get("foreign_light_untouched").accept(h);
     }
+
+    @GameTest(maxTicks = 700)
+    public void benchLight(GameTestHelper h) {
+        TrimsTests.ALL.get("bench_light").accept(h);
+    }
 }

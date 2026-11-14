@@ -113,6 +113,26 @@ public final class SortProbe {
         return null;
     }
 
+    private static void collectWidgets(List<? extends net.minecraft.client.gui.components.events.GuiEventListener> children, int scale, JsonArray out, int depth) {
+        if (depth > 4) return;
+        for (var child : children) {
+            if (child instanceof net.minecraft.client.gui.components.AbstractWidget w) {
+                JsonObject j = new JsonObject();
+                j.addProperty("class", w.getClass().getSimpleName());
+                j.addProperty("label", w.getMessage().getString());
+                j.addProperty("active", w.active);
+                j.addProperty("visible", w.visible);
+                j.addProperty("x", (w.getX() + w.getWidth() / 2.0) * scale);
+                j.addProperty("y", (w.getY() + w.getHeight() / 2.0) * scale);
+                j.addProperty("w", w.getWidth() * scale);
+                j.addProperty("h", w.getHeight() * scale);
+                if (w instanceof net.minecraft.client.gui.components.EditBox eb) j.addProperty("value", eb.getValue());
+                out.add(j);
+            }
+            if (child instanceof net.minecraft.client.gui.components.events.ContainerEventHandler c) collectWidgets(c.children(), scale, out, depth + 1);
+        }
+    }
+
     private static void writeStatus(Minecraft mc, Path dir) throws java.io.IOException {
         JsonObject o = new JsonObject();
         var w = mc.getWindow();
@@ -158,6 +178,11 @@ public final class SortProbe {
             }
         }
         o.add("slots", slots);
+        // a-w4c: every real widget of any open screen (Vanilla buttons, edit boxes ...) in window pixels, so a driver can click
+        // it with the real OS mouse by its label without screen-specific layout maths.
+        JsonArray widgets = new JsonArray();
+        if (screen != null) collectWidgets(screen.children(), scale, widgets, 0);
+        o.add("widgets", widgets);
         JsonArray inv = new JsonArray();
         for (int i = 0; i < 36; i++) inv.add(describe(mc.player.getInventory().getItem(i)));
         o.add("inventory", inv);
