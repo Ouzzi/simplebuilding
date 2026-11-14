@@ -81,13 +81,13 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/chunk_loader_smithing.json",
       "ingredients": [
+        "#simplelib:copper_cores",
         "#simplemobheads:trial_chamber_heads",
-        "simplelib:copper_core",
         "simplepads:copper_pressure_plate"
       ],
       "slots": {
         "template": [
-          "simplelib:copper_core"
+          "#simplelib:copper_cores"
         ],
         "base": [
           "simplepads:copper_pressure_plate"
@@ -444,10 +444,6 @@
             "count": 3
           },
           {
-            "id": "minecraft:gold_ingot",
-            "count": 2
-          },
-          {
             "id": "minecraft:netherite_ingot",
             "count": 2
           },
@@ -456,15 +452,11 @@
             "count": 2
           },
           {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobheads:enderman_head",
-            "count": 1
-          },
-          {
             "id": "simpleores:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplepads:spawn_teleporter",
             "count": 1
           }
         ]
@@ -947,36 +939,19 @@
       },
       "source": "modules/simplepads/shared/resources/data/simplepads/recipe/spawn_teleporter_smithing.json",
       "ingredients": [
+        "#simplelib:gold_cores",
         "minecraft:light_weighted_pressure_plate",
-        "simplelib:gold_core",
         "simplemobheads:enderman_head"
       ],
       "slots": {
         "template": [
-          "simplelib:gold_core"
+          "#simplelib:gold_cores"
         ],
         "base": [
           "minecraft:light_weighted_pressure_plate"
         ],
         "addition": [
           "simplemobheads:enderman_head"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 2
-          },
-          {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobheads:enderman_head",
-            "count": 1
-          }
         ]
       }
     },
@@ -1014,10 +989,6 @@
             "count": 2
           },
           {
-            "id": "minecraft:gold_ingot",
-            "count": 2
-          },
-          {
             "id": "minecraft:netherite_upgrade_smithing_template",
             "count": 2
           },
@@ -1026,11 +997,7 @@
             "count": 1
           },
           {
-            "id": "simplelib:gold_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobheads:enderman_head",
+            "id": "simplepads:spawn_teleporter",
             "count": 1
           }
         ]

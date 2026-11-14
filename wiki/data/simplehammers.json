@@ -112,20 +112,20 @@
       ],
       "en": {
         "title": "Crushing diamond and quartz blocks",
-        "summary": "Right-click a diamond block or a Cracked Diamond Block nine times with an iron-tier hammer or better: it breaks into 81 Diamond Pebbles (config diamondBlockPebbles). A quartz block breaks into 4 quartz in 4 strikes.",
+        "summary": "Right-click a diamond block or a Cracked Diamond Block nine times with an iron-tier hammer or better: it breaks into 81 Diamond Pebbles (config diamondBlockPebbles). An emerald block or a Cracked Emerald Block breaks the same way into as many Emerald Pebbles. A quartz block breaks into 4 quartz in 4 strikes.",
         "details": [
           "Each strike shows its share of the result above the block; the last one frees everything. Strikes count per block, any player continues them; without a further strike the count runs out after 5 seconds.",
           "Stone and copper hammers only clank on a diamond block. Crushing costs 1 durability; the quartz block gives the hammer a short cooldown.",
-          "The pebbles and the cracked diamond block are SimpleLib's shared materials."
+          "The pebbles and the cracked diamond and emerald blocks are SimpleLib's shared materials."
         ]
       },
       "de": {
         "title": "Diamant- und Quarzblöcke zerschlagen",
-        "summary": "Neun Rechtsklicks mit einem Hammer ab der Eisenstufe auf einen Diamantblock oder rissigen Diamantblock: er zerspringt in 81 Diamantkiesel (Config diamondBlockPebbles). Ein Quarzblock gibt in 4 Schlägen 4 Quarz.",
+        "summary": "Neun Rechtsklicks mit einem Hammer ab der Eisenstufe auf einen Diamantblock oder rissigen Diamantblock: er zerspringt in 81 Diamantkiesel (Config diamondBlockPebbles). Ein Smaragdblock oder rissiger Smaragdblock zerspringt genauso in ebenso viele Smaragdkiesel. Ein Quarzblock gibt in 4 Schlägen 4 Quarz.",
         "details": [
           "Jeder Schlag zeigt seinen Teil des Ergebnisses über dem Block, der letzte gibt alles frei. Die Schläge zählen je Block, jeder Spieler setzt sie fort; ohne weiteren Schlag verfällt die Zählung nach 5 Sekunden.",
           "Stein- und Kupferhämmer prallen am Diamantblock nur ab. Zerschlagen kostet 1 Haltbarkeit; der Quarzblock gibt dem Hammer eine kurze Abklingzeit.",
-          "Die Kiesel und der rissige Diamantblock sind SimpleLibs gemeinsame Materialien."
+          "Die Kiesel und der rissige Diamant- und Smaragdblock sind SimpleLibs gemeinsame Materialien."
         ]
       }
     },
