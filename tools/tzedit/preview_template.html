@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><meta charset="utf-8"><title>TZEDIT50 Testzentrale-Editor Prototyp</title>
+<!doctype html><html lang="de"><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Testzentrale-Editor (Dev)</title>
 <style>
 :root{--bg:#1b1d22;--pn:#262a31;--ln:#3a3f49;--tx:#dfe3ea;--ac:#6cb6ff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:13px system-ui,sans-serif}
@@ -21,28 +21,28 @@ body.vb #side{display:none}body.vb #tool{display:flex}#tool{display:none;positio
 h3{margin:12px 0 4px;font-size:13px}ul{margin:2px 0;padding-left:16px;max-height:110px;overflow:auto}
 .ok{color:#7d7}.bad{color:#f77}.q{background:#1f2a38;border:1px solid var(--ac);border-radius:6px;padding:8px;margin:10px}
 </style>
-<header><b>TZEDIT50</b> Prototyp: Bereich &bdquo;Metalle (Auszug)&ldquo; &middot; Ansicht
+<header><b>Testzentrale-Editor</b> (Dev): Bereich &bdquo;Metalle (Auszug)&ldquo; &middot; Ansicht
 <select id=view><option value=a>A Raster + Seitenleiste<option value=b>B Vollbild + schwebende Leiste</select>
 <span id=tools1>
 <button id=undo>Rückgängig</button><button id=redo>Wiederholen</button>
 <button data-ph=grey>grau</button><button data-ph=light>hellgrau</button><button data-ph=red>rot</button><button data-ph=frame>Rahmen</button><button id=clr>leeren</button>
 Zoom <input id=zoom type=range min=24 max=64 value=36 style="width:80px">
 Suche <input id=q placeholder="Id/Name"></span>
-<button id=save>Speichern (JSON-Download)</button><span id=msg></span></header>
+<button id=save title="Speichert ins Repo (Branch tz-layout-*, kommt ins nächste Bündel)">Speichern</button><button id=dl>JSON-Download</button><span id=msg></span></header>
 <div id=tool><span id=mini></span></div>
 <div id=wrap><div id=main>
-<div class=q id=qbox><b>Vorschau-Fragen an den Besitzer (Antwortcode TZEDIT50)</b><br>
-1. Seiten-Layout: A (Raster + Seitenleiste mit Prüfanzeige) oder B (Vollbild, schwebende Werkzeugleiste, Prüfung als Pop-over)? Oben umschaltbar.<br>
-2. Bedienung: Klick = auswählen, Strg/Umschalt+Klick = Mehrfachauswahl, Ziehen = Zelle verschieben/tauschen, Ziehen am Reihen-Schild/Spaltenkopf = ganze Reihe/Spalte, Entf = leeren. Passt das?<br>
-3. <b>Darf der API-Endpunkt POST /api/testcentre auf sb-web (Remote-Änderung: Deploy über den bestehenden wave1-Sync + setup-Skript wie bei Textur-Speichern) eingerichtet werden?</b> (ja/nein)<br>
-Antwort: <input id=ans size=60 placeholder="TZEDIT50: 1=A/B, 2=ok/Einwand, 3=ja/nein"></div>
 <div id=grid></div></div>
 <div id=side><h3>Prüfung (live)</h3><div id=chk></div>
 <h3>Bereich &bdquo;Neu&ldquo; (nicht platziert) <span id=ncnt></span></h3><div class=pool id=pool></div>
 <h3>Unbekannte Id testen</h3><input id=unk placeholder="mod:id"><button id=unkb>als Zelle setzen</button>
-<p style="color:#99a">Daten: statischer Auszug aus OrderAreas-Slots + Textur-Dateien (Metall-Reihen, nur Ids mit Textur). Speichern lädt layout JSON herunter; kein Server.</p></div></div>
+<h3>Gespeichert (letzte)</h3><ul id=hist></ul>
+<p style="color:#99a">Daten: statischer Auszug aus OrderAreas-Slots + Textur-Dateien (Metall-Reihen, nur Ids mit Textur). Speichern legt eine Speicherung im Dev-Bereich ab; sie wird als Branch tz-layout-* abgeholt und kommt mit dem nächsten Bündel in die Config.</p></div></div>
 <div id=info></div>
 <script>
+/* Dev only (same rule as isDevSite() in wiki/index.html): /dev/ behind the login, the Zentrale overlay, ?dev=1, file://, the preview. */
+const DEV=(()=>{const q=/[?&]dev=1(&|$)/.test(location.search);let k=false;try{if(q)sessionStorage.setItem('simple-wiki-dev','1');k=sessionStorage.getItem('simple-wiki-dev')==='1'}catch(e){}
+ return /^\/dev(\/|$)/.test(location.pathname)||!!window.sbDevHook||q||k||location.protocol==='file:'||!!window.TZEDIT_PREVIEW})();
+if(!DEV){document.body.innerHTML='<p style="padding:20px">Diese Seite gibt es nur im Dev-Bereich.</p>';throw new Error('dev only')}
 const D=/*DATA*/null;
 const PH=['#grey','#light','#red','#frame'];
 let cols=D.columns.slice(),rows=D.rows.map(r=>({key:r.key,label:r.label,cells:r.cells.slice()}));
@@ -110,7 +110,18 @@ const info=$('#info');
 addEventListener('mousemove',e=>{const t=e.target.closest('.c');if(!t||!t.dataset.id||t.dataset.id[0]==='#'){info.style.display='none';return}
  const id=t.dataset.id,row=rows[t.dataset.r];info.innerHTML='<b>'+id+'</b><br>Mod: '+(D.mods[id]||'?')+'<br>Familie: '+(row?row.label:'Neu')+(t.dataset.r!=='p'?'<br>Spalte: '+cols[t.dataset.c]:'');
  info.style.display='block';info.style.left=e.clientX+14+'px';info.style.top=e.clientY+14+'px'});
-$('#save').onclick=()=>{const o={schema:1,variant:D.variant,area:D.area,columns:cols,rows:rows.map(r=>({key:r.key,label:r.label,cells:r.cells}))};
- const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,1)],{type:'application/json'}));a.download='layout_'+D.variant+'_'+D.area+'.json';a.click();$('#msg').textContent=' gespeichert (Download)'};
+const layout=()=>({schema:1,variant:D.variant,area:D.area,columns:cols,rows:rows.map(r=>({key:r.key,label:r.label,cells:r.cells}))});
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+$('#dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(layout(),null,1)],{type:'application/json'}));a.download='layout_'+D.variant+'_'+D.area+'.json';a.click();$('#msg').textContent=' heruntergeladen'};
+$('#save').onclick=async()=>{const comment=prompt('Kurz: was wurde geändert? (optional)','');if(comment===null)return;
+ $('#save').disabled=true;$('#msg').textContent=' speichere …';
+ try{const r=await fetch('/api/testcentre',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign(layout(),{comment}))});
+  const j=await r.json().catch(()=>({}));
+  $('#msg').textContent=r.ok?' gespeichert (Nr. '+j.sid+') - kommt als Branch tz-layout-* ins nächste Bündel':' nicht gespeichert: '+(j.error||r.status)+(r.status===401||r.status===403?' (angemeldet?)':'');
+  if(r.ok)history()}catch(e){$('#msg').textContent=' nicht gespeichert: Server nicht erreichbar (JSON-Download geht immer)'}
+ $('#save').disabled=false};
+async function history(){try{const r=await fetch('/api/testcentre',{credentials:'same-origin'});if(!r.ok)return;const a=await r.json();
+ $('#hist').innerHTML=a.filter(x=>x.area===D.area).slice(0,10).map(x=>'<li>'+esc(new Date(x.createdAt).toLocaleString())+' &middot; '+esc(x.by||'?')+' &middot; '+esc(x.state)+(x.comment?' &middot; '+esc(x.comment):'')+'</li>').join('')||'<li>noch keine</li>'}catch(e){}}
+history();
 render();
 </script></html>

@@ -21,6 +21,8 @@ import modselect
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "textures"))
 import editor_save  # noqa: E402  (TX22-5: one set of rules for the endpoint and the pickup)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tzedit"))
+import tzedit_save  # noqa: E402  (N50 TZEDIT50: testcentre editor saves, same pattern as editor_save)
 
 HEADER_NAME = "Cf-Access-Authenticated-User-Email"
 MAX_BODY = 256 * 1024
@@ -274,6 +276,13 @@ class Handler(BaseHTTPRequestHandler):
             save = self.server.texture_save(path[len("/api/textures/"):], adopted=True)
             self.send_json(200 if save else 404, save or {"error": "not found"})
             return
+        if path == "/api/testcentre":
+            self.send_json(200, self.server.testcentre_saves())
+            return
+        if path.startswith("/api/testcentre/"):
+            save = self.server.testcentre_save(path[len("/api/testcentre/"):])
+            self.send_json(200 if save else 404, save or {"error": "not found"})
+            return
         parts = path.split("/")
         if len(parts) == 6 and parts[:3] == ["", "api", "queue"] and parts[4] == "files":
             self.send_attachment(parts[3], parts[5])
@@ -310,12 +319,16 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         try:
-            payload = self.read_json(editor_save.MAX_BODY if path == "/api/textures" else MAX_QUEUE_BODY if path == "/api/queue" else MAX_BODY)
+            payload = self.read_json(editor_save.MAX_BODY if path == "/api/textures" else MAX_QUEUE_BODY if path == "/api/queue"
+                                     else tzedit_save.MAX_BODY if path == "/api/testcentre" else MAX_BODY)
         except ValueError as e:
             self.send_json(400 if str(e) != "body too large" else 413, {"error": str(e)})
             return
         if path == "/api/textures":
             self.handle_texture_save(payload, email)
+            return
+        if path == "/api/testcentre":
+            self.handle_testcentre_save(payload, email)
             return
         if path == "/api/queue":
             self.handle_create_queue(payload, email)
@@ -566,6 +579,22 @@ class Handler(BaseHTTPRequestHandler):
             atomic_write_json(self.server.textures_dir / f"{sid}.json", record)
         self.send_json(201, {k: v for k, v in record.items() if k != "layers"})
 
+    def handle_testcentre_save(self, payload: dict, email: str):
+        """N50 TZEDIT50: "Speichern" of the testcentre editor (dev wiki). Checked by tools/tzedit/tzedit_save.py and kept
+        as JSON here; the pull on the agent host commits it on a tz-layout-* hub branch (never written to git here)."""
+        try:
+            save = tzedit_save.check_save(payload)
+        except tzedit_save.SaveError as e:
+            self.send_json(400, {"error": str(e)})
+            return
+        now = int(time.time() * 1000)
+        with self.server.lock:
+            sid = str(max(now, self.server.last_save_id + 1))
+            self.server.last_save_id = int(sid)
+            record = dict(save, sid=sid, by=email, createdAt=now, state="new")
+            atomic_write_json(self.server.testcentre_dir / f"{sid}.json", record)
+        self.send_json(201, {k: v for k, v in record.items() if k not in ("rows", "excluded")})
+
     def handle_patch_texture(self, sid: str, payload: dict):
         """The pickup reports picked/ready/failed with a note and the branch."""
         state, note, branch = payload.get("state"), payload.get("note", ""), payload.get("branch", "")
@@ -670,6 +699,8 @@ class DevQueueServer(ThreadingHTTPServer):
         self.selections_dir = data_dir / "selections"
         self.textures_dir = data_dir / "textures"  # editor saves, apart from runs/ (those go to Claude)
         self.textures_dir.mkdir(parents=True, exist_ok=True)
+        self.testcentre_dir = data_dir / "testcentre"  # N50: testcentre editor saves (pulled to tz-layout-* branches)
+        self.testcentre_dir.mkdir(parents=True, exist_ok=True)
         self.attachments_dir = data_dir / "attachments"  # images of suggestions (+ reference textures)
         self.last_save_id = 0
         self._adopt = {"head": None, "map": {}}  # b-texed16: save id -> taken-over info, valid for one checkout HEAD
@@ -729,6 +760,26 @@ class DevQueueServer(ThreadingHTTPServer):
         if adopted:
             self.mark_adopted([save])
         return save
+
+    def testcentre_save(self, sid: str) -> dict | None:
+        if not tzedit_save.SAVE_ID.match(sid or ""):
+            return None
+        try:
+            with open(self.testcentre_dir / f"{sid}.json", "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (OSError, ValueError):
+            return None
+
+    def testcentre_saves(self) -> list:
+        """Newest first (50), without the cells; the editor shows them as the save history."""
+        out = []
+        for p in sorted(self.testcentre_dir.glob("*.json"), reverse=True)[:50]:
+            save = self.testcentre_save(p.stem)
+            if save:
+                save["rowCount"] = len(save.pop("rows", []))
+                save.pop("excluded", None)
+                out.append(save)
+        return out
 
     def texture_saves(self) -> list:
         """Newest first, without the layers (the editor and the pickup only need the state)."""

@@ -80,6 +80,22 @@ Einrichtung Webserver (einmal, als root, nach dem Merge in den ausgelieferten St
 `tools/zentrale-web/setup_texture_save.sh <checkout> <nginx-site> [dienst]` – prüft Platte und Code, setzt
 `client_max_body_size 2m` für `/api/` (Sicherung `.bak-texsave`, `nginx -t`), startet den Dienst neu.
 
+## Testzentrale speichern (N50 TZEDIT50)
+
+Seite `/dev/tz-editor.html` (nur Dev, Regel wie `isDevSite()`, noindex; öffentlicher Pfad zeigt nur einen Hinweis).
+"Speichern" schickt einen Layout-Bereich an `POST /api/testcentre` (gleicher Login wie der übrige Dev-Bereich);
+`tools/tzedit/tzedit_save.py check_save` prüft (Namen, Ids, Platzhalter `#grey/#light/#red/#frame`, gleich viele Zellen wie
+Spalten, max. 512 KB) und devqueue legt die Speicherung als JSON unter `<data>/testcentre/` ab - kein git auf dem Web-Host.
+`GET /api/testcentre` = Verlauf (ohne Zellen), `GET /api/testcentre/<sid>` = eine Speicherung.
+
+- Einrichtung (einmal, als root auf dem Web-Host, nachdem der Stand in `/srv/wiki-dev` ist):
+  `bash /srv/wiki-dev/tools/zentrale-web/setup_testcentre_save.sh /srv/wiki-dev devqueue`
+- Abholen (Agent-Host, nur lesend auf dem Web-Host): neue Speicherungen werden je Bereich als Branch
+  `tz-layout-<variant>-<area>-<sid>` im Hub committet (Datei `common/src/shared/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json`,
+  immer neu serialisiert), nie auf claude-wave1; ältere Speicherungen desselben Bereichs werden übersprungen:
+  `python3 tools/tzedit/tzedit_save.py pull --git-dir /root/sb.git --remote "ssh -o BatchMode=yes sb-web" --report /root/b-fertig.md`
+- Tests: `python3 -m unittest tools/tzedit/tests/test_tzedit_save.py`
+
 ## Ein Host mit Login (a-zw06, Besitzer 06.11.)
 `simplemods-wiki.azarfane.com` trägt alles (ab IG31-55 siehe Abschnitt „Domain-Umzug“: `wiki.simplemods.de`); Cloudflare-Pfadschutz kommt später, bis dahin ein eigener Login.
 
