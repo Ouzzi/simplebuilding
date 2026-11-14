@@ -4,6 +4,8 @@
   "simpleoptserver.status.area": "%s %s: %s (%s)",
   "simpleoptserver.status.distance": "View distance %s of %s, simulation %s of %s, MSPT %s",
   "simpleoptserver.area.activation_range": "Activation range",
+  "text.autoconfig.simpleoptserver.option.areas.activation_range.mode": "Activation range mode",
+  "text.autoconfig.simpleoptserver.option.areas.activation_range.mode.@Tooltip": "Far mobs tick less often (about 15% less server load).\\nSide effects: conversions, growth and despawn timers and sunburn of mobs far from every player run slower too.\\nDefault: off.",
   "simpleoptserver.guide.chapter": "Simple Opt Server",
   "simpleoptserver.guide.page.1.title": "Simple Opt Server",
   "simpleoptserver.guide.page.1": "Server optimizations: the view distance follows the server load within the server.properties bounds.",
@@ -22,9 +24,11 @@
   "simpleoptserver.guide.page.8.title": "Activation range (off by default)",
   "simpleoptserver.guide.page.8": "Mobs stay fully active while they ride or carry others, are leashed, have a target, are hurt, airborne, in water or lava, burning, babies, in love or tamed; villagers, traders and bosses always stay active.",
   "simpleoptserver.guide.page.9.title": "Activation range (off by default)",
-  "simpleoptserver.guide.page.9": "ServerCore covers the same area and wins; another mod hooking the same class switches it off too (target check).",
-  "simpleoptserver.guide.page.10.title": "Commands",
-  "simpleoptserver.guide.page.10": "/simpleoptserver config shows and changes every option of config/simpleoptserver.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simpleoptserver.guide.page.9": "ServerCore covers the same area and wins; another mod hooking the same class switches it off too (target check). Side effects:",
+  "simpleoptserver.guide.page.10.title": "Activation range (off by default)",
+  "simpleoptserver.guide.page.10": "for mobs far from every player, conversion, growth and despawn timers and sunburn run slower too (about 15 % less server load); that is why the area starts off.",
   "simpleoptserver.guide.page.11.title": "Commands",
-  "simpleoptserver.guide.page.11": "The file is read once while the game starts, so a change is saved at once but takes effect after a restart (each answer says so). Permission level 2."
+  "simpleoptserver.guide.page.11": "/simpleoptserver config shows and changes every option of config/simpleoptserver.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simpleoptserver.guide.page.12.title": "Commands",
+  "simpleoptserver.guide.page.12": "The file is read once while the game starts, so a change is saved at once but takes effect after a restart (each answer says so). Permission level 2."
 }

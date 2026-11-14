@@ -44,7 +44,7 @@ Basis b-rel32 d9cda1e21, Branch `b-rel32-opt`. Gelesen ohne Gradle: jede Datei v
 
 - simpleoptserver-P2-1: Mixin-Config `required:true`/`defaultRequire:1`. Fix: Commit 64e80c0cc.
 - simpleoptserver-P3-1: `OptSettings.load` nicht atomar. Fix: Commit 2e29b17fb.
-- simpleoptserver-P3-2 (Hinweis, S5b Standard aus): bei aktivem S5b laufen Timer ferner Mobs (z. B. Piglin-/Dorfbewohner-Umwandlung, Despawn-Wuerfeln, Sonnenbrand) im Verhaeltnis 1:interval langsamer; Mob-Cap-Auslastung wirkt leicht traeger. Als Warnung in der Beschreibung (Modrinth-Text) aufnehmen.
+- simpleoptserver-P3-2 (**doku erledigt**, simpleoptserver-2: Handbuch + Mod-Menü-Tooltip nennen die Nebenwirkungen; S5b Standard aus): bei aktivem S5b laufen Timer ferner Mobs (z. B. Piglin-/Dorfbewohner-Umwandlung, Despawn-Wuerfeln, Sonnenbrand) im Verhaeltnis 1:interval langsamer; Mob-Cap-Auslastung wirkt leicht traeger. Als Warnung in der Beschreibung (Modrinth-Text) aufnehmen.
 - simpleoptserver-P3-3 (Hinweis): `adjustSimulation`/S5a gelten nur dediziert, nie auf dem integrierten Server (Absicht, steht im Manual).
 Keine P1.
 
