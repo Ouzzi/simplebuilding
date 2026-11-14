@@ -26,7 +26,7 @@
         "src/main/generated/data/simplebuilding/tags/item/octants_enchantable.json",
         "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
         "common/src/shared/java/com/simplebuilding/util/LegacySpatulaMigration.java",
-        "common/src/shared/java/com/simplebuilding/util/TrimMultiplierLogic.java",
+        "mc26_3/overlay/java/com/simplebuilding/util/TrimMultiplierLogic.java",
         "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java",
         "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
@@ -5698,12 +5698,12 @@
     "*_redstone_wall_torch": {
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonMoves.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndPistonMoves.java",
+        "modules/simpleores/shared/java/com/simpleores/line/EndRailBlock.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneWallTorchBlock.java"
+        "modules/simpleores/shared/java/com/simpleores/line/LineRedstoneWallTorchBlock.java"
       ],
       "en": {
         "summary": "The wall form of the Astral or Nihil Redstone Torch: it is what the torch becomes when you hang it on the side of a block, and it drops the torch.",
