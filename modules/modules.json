@@ -2787,7 +2787,8 @@
       ],
       "optional": [
         "simplebuilding",
-        "simpleores"
+        "simpleores",
+        "simplemobs"
       ],
       "checks": [
         "modules/simplebeacons/tools/check_data.py"

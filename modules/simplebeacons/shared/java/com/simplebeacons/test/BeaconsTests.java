@@ -102,6 +102,12 @@ ALL.put("config_command", h -> {
             h.assertTrue(effect != null && effect.kind() == com.simplelib.api.config.ConfigCommands.Kind.BOOL, "effect switch " + effect);
             h.succeed();
         });
+        // simplebeacons-4 (PLAN40): the config screen names every option (no raw paths).
+        ALL.put("config_labels", h -> {
+            java.util.List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleBeacons.MOD_ID);
+            h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
+            h.succeed();
+        });
         ALL.put("config_defaults", h -> {
             BeaconsConfig.reset();
             h.assertTrue(BeaconsConfig.enabled && BeaconsConfig.strongBeaconMaxLevels == 6 && BeaconsConfig.strongBeaconRangeBase == 10

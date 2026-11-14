@@ -304,6 +304,8 @@ Niedergeschlagen statt tot: Teamkameraden können wiederbeleben.
 Starker Leuchtturm, starke Conduit, Upgrade-Vorlage.
 
 - In-World-Upgrades: Axt allein, Vorschlaghammer mit einem Hammer-Mod.
+- **A12:** Nutzen: Langzeitziel nach dem Vanilla-Leuchtfeuer. Einziger Eingriff in Vanilla: Reichweite des Vanilla-Leuchtfeuers nach Pyramidenmaterial (`vanillaBeaconMaterialRange`, Standard an, Eisen = Vanilla). Böse Varianten sind absichtliche Schwächung (Schonfrist nach Tod, fremde Claims verschont). Der Sättigungs-Puls (nie hungrig in Reichweite) bleibt als Stützpunkt-Belohnung und ist je Server abschaltbar (`strongBeaconEffects.saturation`); Besitzer PLAN40 „Empfehlung okay“.
+- Simple Mobs optional, aber empfohlen (8 Rezepte hängen an Nether-Herz/-Juwel); ohne sie nur kreativ/Beute.
 
 ### Simple Ovens (`simpleovens`)
 Verstärkte, Netherit- und Enderit-Öfen, Räucher- und Hochöfen, Ofen-Loren; Pflicht-Sub-Mod von SimpleBuilding.

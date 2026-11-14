@@ -34,7 +34,7 @@ Gives late-game players a stronger beacon and conduit to build towards; the Vani
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib
-- **Optional:** SimpleBuilding, Simple Ores
+- **Optional:** SimpleBuilding, Simple Ores, Simple Mobs
 
 ## Compatibility
 
