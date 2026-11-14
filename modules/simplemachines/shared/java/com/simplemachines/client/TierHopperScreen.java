@@ -27,7 +27,7 @@ import net.minecraft.world.inventory.Slot;
 public class TierHopperScreen extends AbstractContainerScreen<TierHopperMenu> {
     private static final Identifier TEXTURE = Identifier.withDefaultNamespace("textures/gui/container/hopper.png");
     private static final int INVENTORY_GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
+    private static final int INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
     private Button filterButton;
 
     public TierHopperScreen(TierHopperMenu menu, Inventory inventory, Component title) {

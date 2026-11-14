@@ -38,7 +38,7 @@ public class AutonomousCrafterScreen extends AbstractContainerScreen<AutonomousC
     /** SimpleBuilding's crafter palette (ModScreenStyle.AUTONOMOUS_CRAFTER): crafter stone with a hint of the copper of its textures. */
     public static final UiPalette PALETTE = UiPalette.derived(0xFF5E5651);
     private static final int GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
+    private static final int INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
 
     private final Player player;
     private Button filterButton;

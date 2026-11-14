@@ -42,6 +42,7 @@
     "client.SlotIconTintMixin",
     "client.CodeAreaSelectAccessor",
     "client.ContainerScreenAccessor",
+    "client.InventoryPadClickMixin",
     "client.RarityClientThreadMixin",
     "client.RarityTooltipTextMixin",
     "client.LegendaryToastMixin",

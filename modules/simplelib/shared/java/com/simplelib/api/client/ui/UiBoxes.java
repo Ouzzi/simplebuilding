@@ -13,6 +13,14 @@ public final class UiBoxes {
     public static final int RIM = 0xFF1E1F23;
     /** Frame thickness of a box at the top and the sides, and at the bottom (with the 2 px shadow). */
     public static final int FRAME = 5, FRAME_BOTTOM = 7;
+    /**
+     * Rows of inventory fill under the hotbar's light edge (owner N57-5, 14.11.: the bottom was too tight - as much room
+     * as Vanilla's 4 px between the inventory rows and the hotbar). The box may hang this far below a screen's image;
+     * SimpleLib's {@code InventoryPadClickMixin} keeps clicks there inside the screen.
+     */
+    public static final int INVENTORY_PAD = 4;
+    /** Height of the light inventory box (176 wide): frame, three rows, Vanilla's 4 px, hotbar + light edge, pad, bottom frame. */
+    public static final int INVENTORY_HEIGHT = FRAME + 58 + 17 + INVENTORY_PAD + FRAME_BOTTOM;
     /** Arrow size ({@link #arrow}). */
     public static final int ARROW_WIDTH = 22, ARROW_HEIGHT = 15;
     private static final int TRACK = 0xFF3A3A3A;

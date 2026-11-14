@@ -1128,6 +1128,13 @@ public final class MusicTests {
             var out = menu.getSlot(DiscPressBlockEntity.OUTPUT);
             h.assertTrue(sheet.y == blank.y && sheet.x + 18 == blank.x && blank.x < out.x && out.y == sheet.y,
                     "side by side: sheet " + sheet.x + "/" + sheet.y + ", blank " + blank.x + "/" + blank.y + ", out " + out.x + "/" + out.y);
+            // N57-10: every press slot (with its light edge, the result slot 4 px wider) inside the iron box's fill - the
+            // box runs from the top to 2 px above the inventory box at 84 - 5, its fill ends 7 px above its bottom
+            var dye = menu.getSlot(DiscPressBlockEntity.DYE);
+            int fillBottom = 84 - com.simplelib.api.client.ui.UiBoxes.FRAME - 2 - com.simplelib.api.client.ui.UiBoxes.FRAME_BOTTOM;
+            h.assertTrue(dye.y + 17 <= fillBottom && out.y + 16 + 4 + 1 <= fillBottom,
+                    "press slots inside the box: dye ends at " + (dye.y + 17) + ", result at " + (out.y + 21) + ", fill ends at " + fillBottom);
+            h.assertTrue(dye.y >= blank.y + 18 && dye.x + 8 == (sheet.x + blank.x + 16) / 2, "dye slot centred below the pair: " + dye.x + "/" + dye.y);
             h.succeed();
         });
         ALL.put("press_dye", h -> {

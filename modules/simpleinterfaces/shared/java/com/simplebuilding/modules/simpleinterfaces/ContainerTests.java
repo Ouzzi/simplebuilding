@@ -67,20 +67,23 @@ public final class ContainerTests {
             h.assertTrue(l != null && l.container() != null, "chest with " + rows + " rows gets two boxes");
             int containerBottom = 18 + (rows - 1) * 18 + 17 + 7;
             rect(h, l.container(), 0, 0, 176, containerBottom, "chest container box " + rows);
-            rect(h, l.inventory(), 0, containerBottom + 2, 176, height - containerBottom - 2, "chest inventory box " + rows);
+            // N57-5: down to 4 px under the hotbar + bottom frame (hangs 3 px below Vanilla's image)
+            rect(h, l.inventory(), 0, containerBottom + 2, 176, height + 3 - containerBottom - 2, "chest inventory box " + rows);
         }
         var shulker = BoxLayout.compute(slots(8, 18, 9, 3, 84), 176, 167, 6);
         h.assertTrue(shulker != null, "shulker box fits");
         rect(h, shulker.container(), 0, 0, 176, 78, "shulker container box");
-        rect(h, shulker.inventory(), 0, 79, 176, 88, "shulker inventory box (1 px divider)");
+        rect(h, shulker.inventory(), 0, 79, 176, 91, "shulker inventory box (1 px divider)");
         var hopper = BoxLayout.compute(slots(44, 20, 5, 1, 51), 176, 133, 6);
         h.assertTrue(hopper != null, "hopper fits");
         rect(h, hopper.container(), 0, 0, 176, 44, "hopper container box spans the inventory width");
-        rect(h, hopper.inventory(), 0, 46, 176, 87, "hopper inventory box");
+        rect(h, hopper.inventory(), 0, 46, 176, 91, "hopper inventory box");
         var dispenser = BoxLayout.compute(slots(62, 17, 3, 3, 84), 176, 166, 6);
         h.assertTrue(dispenser != null, "dispenser fits");
         rect(h, dispenser.container(), 0, 0, 176, 77, "dispenser container box");
-        rect(h, dispenser.inventory(), 0, 79, 176, 87, "dispenser inventory box");
+        rect(h, dispenser.inventory(), 0, 79, 176, 91, "dispenser inventory box");
+        // N57-5: 4 px of inventory fill under the hotbar's light edge in every layout
+        h.assertValueEqual(dispenser.inventory().bottom() - com.simplelib.api.client.ui.UiBoxes.FRAME_BOTTOM - (84 + 58 + 17), com.simplelib.api.client.ui.UiBoxes.INVENTORY_PAD, "room under the hotbar");
         h.succeed();
     }
 
@@ -115,14 +118,14 @@ public final class ContainerTests {
         var eleven = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 11), 176, 166, 6);
         h.assertTrue(eleven != null && eleven.variant() == BoxLayout.Variant.NO_SHADOW, "11 free rows: two boxes, no shadow");
         rect(h, eleven.container(), 0, 0, 176, 76, "11 free rows: container box 5 px below the slots");
-        rect(h, eleven.inventory(), 0, 77, 176, 166 - 77, "11 free rows: 1 px divider");
+        rect(h, eleven.inventory(), 0, 77, 176, 168 - 77, "11 free rows: 1 px divider");
         var ten = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 10), 176, 166, 6);
         h.assertTrue(ten != null && ten.variant() == BoxLayout.Variant.NO_SHADOW, "10 free rows: two boxes, no shadow");
         h.assertValueEqual(ten.inventory().y(), ten.container().bottom(), "10 free rows: boxes touch");
         var nine = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 9), 176, 166, 6);
         h.assertTrue(nine != null && nine.variant() == BoxLayout.Variant.SEAM, "9 free rows: one box with a seam");
-        rect(h, nine.container(), 0, 0, 176, 164, "one box from the top to below the hotbar (+2 px to the image bottom)");
-        rect(h, nine.inventory(), 5, 80 - BoxLayout.SEAM, 166, 164 - 7 - 77, "seam panel inside the frame, 3 px above the slots");
+        rect(h, nine.container(), 0, 0, 176, 166, "one box from the top to 4 px below the hotbar");
+        rect(h, nine.inventory(), 5, 80 - BoxLayout.SEAM, 166, 166 - 7 - 77, "seam panel inside the frame, 3 px above the slots");
         var three = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 3), 176, 166, 6);
         h.assertTrue(three != null && three.variant() == BoxLayout.Variant.SEAM, "3 free rows: still a seam");
         var wide = BoxLayout.compute(slots(8, 18, 9, 3, 84), 176, 166, 6);
@@ -402,14 +405,14 @@ public final class ContainerTests {
         two.forEach((id, l) -> {
             h.assertTrue(l != null && l.variant() == BoxLayout.Variant.TWO_BOXES, id + ": two boxes");
             rect(h, l.container(), 0, 0, 176, 77, id + " container box");
-            rect(h, l.inventory(), 0, 79, 176, 87, id + " inventory box");
+            rect(h, l.inventory(), 0, 79, 176, 91, id + " inventory box");
         });
         Map<String, BoxLayout.Layout> one = Map.of("loom", station("loom", loom, 3),
                 "smithing_table", station("smithing_table", smithing, 3), "player_inventory", station("player_inventory", player, -1));
         one.forEach((id, l) -> {
             h.assertTrue(l != null && l.variant() == BoxLayout.Variant.SEAM, id + ": one box with a seam");
-            rect(h, l.container(), 0, 0, 176, 166, id + " one box over the whole image");
-            rect(h, l.inventory(), 5, 81, 166, 78, id + " inventory panel from the seam");
+            rect(h, l.container(), 0, 0, 176, 170, id + " one box over the whole image (+4 px under the hotbar, N57-5)");
+            rect(h, l.inventory(), 5, 81, 166, 82, id + " inventory panel from the seam");
         });
         // WD25-9/10/19: the styled screens move some slots on the client; the tables' Vanilla places must be Vanilla's
         var inventory = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL).getInventory();
@@ -434,7 +437,7 @@ public final class ContainerTests {
         BoxLayout.Layout map = station("cartography_table", styled.get("cartography_table"), 2, StationStyles.CARTO_EXTRA);
         h.assertTrue(map != null && map.variant() == BoxLayout.Variant.TWO_BOXES, "styled cartography table: two boxes like the other tables");
         rect(h, map.container(), 0, 0, 176, 93, "cartography container box below the map field");
-        rect(h, map.inventory(), 0, 95, 176, 87, "cartography inventory box");
+        rect(h, map.inventory(), 0, 95, 176, 91, "cartography inventory box");
         h.succeed();
     }
 
@@ -462,19 +465,19 @@ public final class ContainerTests {
         var table = BoxLayout.compute(work(crafting), 176, 166, 6);
         h.assertTrue(table != null && table.container() != null, "crafting table gets two boxes");
         rect(h, table.container(), 0, 0, 176, 77, "crafting container box");
-        rect(h, table.inventory(), 0, 79, 176, 87, "crafting inventory box");
+        rect(h, table.inventory(), 0, 79, 176, 91, "crafting inventory box");
         var furnace = BoxLayout.compute(work(56, 17, 56, 53, 116, 35), 176, 166, 6);
         h.assertTrue(furnace != null, "furnace fits");
         rect(h, furnace.container(), 0, 0, 176, 77, "furnace container box");
-        rect(h, furnace.inventory(), 0, 79, 176, 87, "furnace inventory box");
+        rect(h, furnace.inventory(), 0, 79, 176, 91, "furnace inventory box");
         var enchanting = BoxLayout.compute(work(15, 47, 35, 47), List.of(new BoxLayout.Rect(60, 14, 109, 58)), 176, 166, 6);
         h.assertTrue(enchanting != null, "enchanting table fits");
         rect(h, enchanting.container(), 0, 0, 176, 79, "enchanting container box down to the inventory box (offer rows end at 72)");
-        rect(h, enchanting.inventory(), 0, 79, 176, 87, "enchanting inventory box");
+        rect(h, enchanting.inventory(), 0, 79, 176, 91, "enchanting inventory box");
         var brewing = BoxLayout.compute(work(17, 17, 79, 17, 56, 51, 79, 58, 102, 51), 176, 166, 6);
         h.assertTrue(brewing != null && brewing.variant() == BoxLayout.Variant.SEAM, "brewing stand: one box");
-        rect(h, brewing.container(), 0, 0, 176, 166, "brewing stand box");
-        rect(h, brewing.inventory(), 5, 81, 166, 78, "brewing stand seam panel");
+        rect(h, brewing.container(), 0, 0, 176, 170, "brewing stand box");
+        rect(h, brewing.inventory(), 5, 81, 166, 82, "brewing stand seam panel");
         List<BoxLayout.Slot> beacon = new ArrayList<>();
         beacon.add(new BoxLayout.Slot(136, 110, false));
         for (int r = 0; r < 3; r++) for (int c = 0; c < 9; c++) beacon.add(new BoxLayout.Slot(36 + c * 18, 137 + r * 18, true));
@@ -483,8 +486,8 @@ public final class ContainerTests {
         h.assertTrue(beaconSlotsOnly != null && beaconSlotsOnly.variant() == BoxLayout.Variant.NO_SHADOW, "beacon slots alone: two tight boxes");
         var beaconLayout = BoxLayout.compute(beacon, List.of(new BoxLayout.Rect(164, 107, 48, 22)), 230, 219, 6);
         h.assertTrue(beaconLayout != null && beaconLayout.variant() == BoxLayout.Variant.SEAM, "beacon with its buttons: one box");
-        h.assertTrue(beaconLayout.container().y() == 0 && beaconLayout.container().bottom() == 219, "beacon box over the whole height");
-        h.assertTrue(beaconLayout.inventory().y() == 134 && beaconLayout.inventory().bottom() == 212, "beacon seam at 134, panel to 212");
+        h.assertTrue(beaconLayout.container().y() == 0 && beaconLayout.container().bottom() == 223, "beacon box over the whole height (+4 px under the hotbar)");
+        h.assertTrue(beaconLayout.inventory().y() == 134 && beaconLayout.inventory().bottom() == 216, "beacon seam at 134, panel to 216");
         h.succeed();
     }
 
