@@ -194,6 +194,8 @@ registry.modules.findAll { it.tests?.client }.each { entry ->
     sourceSets.gametest.java.srcDir rootProject.file(entry.tests.client.sources)
     dependencies.add('gametestCompileOnly', project(entry.projects.fabric))
 }
+// Module classes in the smoke sources reference framework API (e.g. simpleoptrender's RenderOpt -> OptCompat): compile against it too.
+dependencies.add('gametestCompileOnly', project(':framework'))
 def clientMetadata = layout.buildDirectory.dir('generated/clienttestResources')
 def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
     inputs.file rootProject.file('modules/modules.json')
