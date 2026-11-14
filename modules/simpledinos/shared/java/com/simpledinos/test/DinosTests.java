@@ -1132,7 +1132,7 @@ public final class DinosTests {
             Vec3 at = h.absoluteVec(new Vec3(8.5, 2.0, 14.3));
             p.setPos(at.x, at.y, at.z);
             AABB body = p.getBoundingBox();
-            h.assertTrue(other.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player (head " + other.headBoxes(0) + ", player " + body + ", stego " + other.position() + ")");
+            h.assertTrue(other.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player");
             other.updateParts();
             h.assertTrue(other.headTuck() > 0 && other.headBoxes(other.headTuck()).stream().noneMatch(b -> b.intersects(body)),
                     "the head goes down and back before the player (step " + other.headTuck() + ")");
@@ -1215,6 +1215,7 @@ public final class DinosTests {
             stego.setOwner(owner);
             stranger.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(DinosRegistry.DINO_PLOW));
             stego.mobInteract(stranger, InteractionHand.MAIN_HAND);
+            stranger.stopRiding(); // a tamed horse lets any player ride (Vanilla); the owner puts the plow on a free mount
             h.assertTrue(!stego.hasPlow(), "only the owner puts a plow on");
             ItemStack plow = new ItemStack(DinosRegistry.DINO_PLOW);
             plow.setDamageValue(17);

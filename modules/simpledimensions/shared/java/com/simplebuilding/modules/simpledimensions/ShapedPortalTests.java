@@ -154,7 +154,7 @@ public final class ShapedPortalTests {
         yes(h, key(ShapedNetherPortals.reason(l, bump.at(1, 2))).equals("simpledimensions.portal_shape.bottom"), "Bump in the floor explained");
         yes(h, key(ShapedNetherPortals.reason(l, shelf.at(2, 3))).equals("simpledimensions.portal_shape.sides"), "Shelf explained");
         yes(h, key(ShapedNetherPortals.reason(l, gap.at(1, 2))).equals("simpledimensions.portal_shape.gap"), "Foreign block explained");
-        yes(h, key(ShapedNetherPortals.reason(l, open.at(1, 1))).equals("simpledimensions.portal_shape.open"), "Open frame explained");
+        yes(h, key(ShapedNetherPortals.reason(l, open.at(1, 1))).equals("simpledimensions.portal_shape.open"), "Open frame explained, got '" + key(ShapedNetherPortals.reason(l, open.at(1, 1))) + "'");
         yes(h, key(ShapedNetherPortals.reason(l, single.at(1, 1))).equals("simpledimensions.portal_shape.too_small"), "1 x 1 explained");
         BlockPos field = h.absolutePos(new BlockPos(20, 3, 20));
         l.setBlock(field.below(), Blocks.OBSIDIAN.defaultBlockState(), 3);
