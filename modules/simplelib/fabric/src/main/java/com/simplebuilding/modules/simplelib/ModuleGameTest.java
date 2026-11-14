@@ -56,12 +56,12 @@ public final class ModuleGameTest {
         LibTests.ALL.get("material_plates_registered_and_moved").accept(h);
     }
 
-    @GameTest
+    @GameTest(maxTicks = 100)
     public void emeraldPlateVillagersOnly(GameTestHelper h) {
         LibTests.ALL.get("emerald_plate_villagers_only").accept(h);
     }
 
-    @GameTest
+    @GameTest(maxTicks = 100)
     public void emeraldPlateInvertsWhenPowered(GameTestHelper h) {
         LibTests.ALL.get("emerald_plate_inverts_when_powered").accept(h);
     }

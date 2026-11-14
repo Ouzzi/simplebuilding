@@ -370,7 +370,8 @@ public final class McVersion {
                 && suffix.equals(armour.getPath()) && DARKER_ON_OWN_MATERIAL.contains(suffix)) {
             return suffix + "_darker";
         }
-        if (armour.getNamespace().equals("simplebuilding") && material.paletteId().getNamespace().equals("simplebuilding")
+        // b-circ46 (N47-M3): the Enderite armor (equipment asset simpleores:enderite) moved to Simple Ores, its trim material stayed.
+        if ((armour.getNamespace().equals("simplebuilding") || armour.getNamespace().equals("simpleores")) && material.paletteId().getNamespace().equals("simplebuilding")
                 && suffix.equals(armour.getPath()) && MOD_DARKER_ON_OWN_MATERIAL.contains(suffix)) {
             return suffix + "_darker";
         }

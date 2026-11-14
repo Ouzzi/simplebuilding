@@ -391,8 +391,8 @@ public final class ModuleGameTest {
 
     /** a-chunk36: redstone switches a chunk loader off (releases, state disabled, broken particles) and on again. */
     @GameTest
-    public void redstoneSwitchesAChunkLoaderOffAndOnAgain(GameTestHelper h) {
-        PadsTests.ALL.get("redstone_switches_a_chunk_loader_off_and_on_again").accept(h);
+    public void redstoneSwitchesChunkLoaderOffAndOnAgain(GameTestHelper h) {
+        PadsTests.ALL.get("redstone_switches_chunk_loader_off_and_on_again").accept(h);
     }
 
     @GameTest

@@ -2924,6 +2924,8 @@ public final class DataIntegrityTests {
                     && !(!McVersion.BTOOLS_IN_SB && McVersion.BTOOLS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // ENCH02: Simple Enchanting's two tables keep their place in the enchanting row (by id).
                     && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // b-circ46 (N48): the material pressure plates (formerly Simple Pads') are SimpleLib's now and keep their row.
+                    && !("simplelib".equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && BuiltInRegistries.ITEM.getKey(item).getPath().endsWith("_pressure_plate"))
                     // b-guide01: SimpleLib's Simple Modpack guide stands in the retired hub's slot of the tools tab.
                     && !com.simplebuilding.guide.GuideBooks.MODPACK_GUIDE.equals(BuiltInRegistries.ITEM.getKey(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");

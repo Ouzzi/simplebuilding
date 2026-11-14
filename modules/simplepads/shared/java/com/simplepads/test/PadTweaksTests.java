@@ -1181,7 +1181,7 @@ public final class PadTweaksTests {
 
         List<Block> pads = new ArrayList<>();
         for (Block block : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
-            if (block.getClass().getPackageName().startsWith("com.simplepads.block")
+            if ((block.getClass().getPackageName().startsWith("com.simplepads.block") || block == PadsBlocks.DIAMOND_PRESSURE_PLATE) // N48: the plate is SimpleLib's now
                     && block.defaultBlockState().hasProperty(BlockStateProperties.WATERLOGGED)) {
                 pads.add(block);
             }

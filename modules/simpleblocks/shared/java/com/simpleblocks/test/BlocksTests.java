@@ -97,7 +97,12 @@ public final class BlocksTests {
                 h.assertTrue(recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id)).isPresent() == !enchanting,
                         shelf + ": Vanilla-cost recipe exactly without Simple Enchanting");
                 boolean simplebuilding = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "astralit_bricks"));
-                h.assertTrue(tab.stream().anyMatch(st -> st.is(block.asItem())) == !simplebuilding, shelf + ": in this tab exactly without SimpleBuilding (which lists it itself)");
+                boolean here = tab.stream().anyMatch(st -> st.is(block.asItem()));
+                // SimpleLib's tab rules may move a SimpleLib item from a module tab into the Simple Lib tab: that counts as listed.
+                var libTab = BuiltInRegistries.CREATIVE_MODE_TAB.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "lib"));
+                boolean inLib = libTab.isPresent() && libTab.get().getDisplayItems().stream().anyMatch(st -> st.is(block.asItem()));
+                h.assertTrue(simplebuilding ? !here : here || inLib, shelf + ": listed (this tab or the Simple Lib tab) without SimpleBuilding, not here with it"
+                        + " (here=" + here + ", lib tab=" + inLib + ")");
             }
             h.succeed();
         });
