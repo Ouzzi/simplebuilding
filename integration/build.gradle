@@ -27,6 +27,8 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.mc263_fabric_version}"
 }
 def registry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json'))
+// a-w4c: -PmoduleClientSkip=a,b leaves those modules' client smokes out of the collective vis24all run (one red smoke aborts all later ones).
+def clientSkip = (project.findProperty('moduleClientSkip') ?: '').toString().tokenize(',')
 def devRegistry = new groovy.json.JsonSlurper().parse(rootProject.file('tools/devmods.json'))
 def resolveCoordinate = { text -> text.replaceAll(/\$\{([^}]+)\}/) { full, key -> rootProject.property(key).toString() } }
 devRegistry.mods.findAll { it.sources.fabric?.maven }.each { mod ->
@@ -225,7 +227,7 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def compat26 = requested == 'compat26'
         // 'tz38d' is no module either: a-tz38d, the test centre order areas (lines | blocks) photographed from above and along the line.
         def tz38d = requested == 'tz38d'
-        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || tz38d || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
+        def entries = (audit || bench || compat || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || tz38d || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && !clientSkip.contains(it.id) && (!requested || requested == 'vis24all' || it.id == requested) }
         if (requested && !audit && !bench && !compat && !bs25 && !mixinaudit && !vis && !b09 && !rel10 && !guidechap && !compat26 && !tz38d && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
@@ -256,7 +258,7 @@ tasks.named('runClientGameTest') {
     doFirst {
         def requested = project.findProperty('moduleClientTest')
         def selected = new groovy.json.JsonSlurper().parse(selectionFile)
-        registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }.each { entry ->
+        registry.modules.findAll { it.tests?.client && !clientSkip.contains(it.id) && (!requested || requested == 'vis24all' || it.id == requested) }.each { entry ->
             if (!selected.modules.containsAll(entry.tests.requires ?: [entry.id]) || !selected.devMods.containsAll(entry.tests.devMods ?: []))
                 throw new GradleException("Missing client integration selection for ${entry.id}")
         }
