@@ -389,4 +389,14 @@ public final class LibServices {
     public static net.minecraft.world.item.Item.Properties rarity(String path, net.minecraft.world.item.Item.Properties properties) {
         return com.simplelib.api.RarityRules.apply(path, properties);
     }
+
+    /** N47 M6: the next side of a disc cycle (SimpleLib's one A/B-side rule {@code DiscSides}), or null. */
+    public static <T> @Nullable T nextSide(java.util.List<T> cycle, T current) {
+        return com.simplelib.api.DiscSides.next(cycle, current);
+    }
+
+    /** N47 M6: the disc stack turned to {@code side} (name and other components kept). */
+    public static ItemStack turnedSide(ItemStack stack, Item side) {
+        return com.simplelib.api.DiscSides.turned(stack, side);
+    }
 }

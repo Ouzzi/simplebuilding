@@ -511,6 +511,7 @@ public final class LibTests {
         ALL.put("discover_first_pickup_tips", com.simplelib.discover.LibDiscover::firstPickupTips);
         WarpedWartTests.register();
         PortalLibTests.register();
+        DiscSidesTests.register();
     }
 
     /**

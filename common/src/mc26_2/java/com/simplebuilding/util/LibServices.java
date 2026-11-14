@@ -144,4 +144,15 @@ public final class LibServices {
     public static net.minecraft.world.item.Item.Properties rarity(String path, net.minecraft.world.item.Item.Properties properties) {
         return properties;
     }
+
+    /** N47 M6: no SimpleLib on 26.2, the same A/B-side rule as {@code DiscSides#next}. */
+    public static <T> @Nullable T nextSide(java.util.List<T> cycle, T current) {
+        int index = cycle.indexOf(current);
+        return index < 0 || cycle.size() < 2 ? null : cycle.get((index + 1) % cycle.size());
+    }
+
+    /** N47 M6: the same as {@code DiscSides#turned}. */
+    public static ItemStack turnedSide(ItemStack stack, Item side) {
+        return stack.transmuteCopy(side, stack.getCount());
+    }
 }
