@@ -419,7 +419,7 @@ public final class TrimsTests {
                 if (x == 0 || z == 0 || x == size - 1 || z == size - 1) for (int y = 1; y <= 4; y++) h.setBlock(x, y, z, barrier);
             }
             List<net.minecraft.world.entity.Entity> cows = new ArrayList<>();
-            for (int i = 0; i < 200; i++) cows.add(h.spawn(net.minecraft.world.entity.EntityTypes.COW, 1 + (i * 7) % (size - 2), 1, 1 + (i * 13) % (size - 2)));
+            for (int i = 0; i < 200; i++) cows.add(h.spawn(net.minecraft.world.entity.EntityTypes.COW, 1 + (i % 14) * 2, 1, 1 + (i / 14) * 2)); // one cow per two blocks: a head block is shared by nobody
             List<ServerPlayer> players = new ArrayList<>();
             for (int i = 0; i < 20; i++) players.add(mockPlayer(h));
             var server = h.getLevel().getServer();
