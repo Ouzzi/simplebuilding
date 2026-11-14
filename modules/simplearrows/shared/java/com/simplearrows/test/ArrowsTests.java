@@ -68,7 +68,7 @@ public final class ArrowsTests {
         ALL.put("old_fletching_ids_move", FletchingTests::oldFletchingIdsMove);
         ALL.put("fletching_layout", FletchingTests::fletchingLayout);
         ALL.put("amethyst_arrow_is_not_recovered", FletchingTests::amethystArrowIsNotRecovered);
-        ALL.put("fletching_impact_effects_happen_on_a_direct_hit", FletchingTests::impactEffectsHappenOnADirectHit);
+        ALL.put("fletching_impact_effects_happen_on_direct_hit", FletchingTests::impactEffectsHappenOnDirectHit);
         ALL.put("fletching_blaze_shaft_fire_is_capped", FletchingTests::blazeShaftFireIsCapped);
         ALL.put("dummy_head_counts_for_tips", FletchingTests::dummyHeadCountsForTips);
         ALL.put("tip_tags_are_data", FletchingTests::tipTagsAreData);

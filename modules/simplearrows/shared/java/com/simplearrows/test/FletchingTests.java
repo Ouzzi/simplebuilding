@@ -476,7 +476,7 @@ public final class FletchingTests {
      * decided before the hit. A direct hit with an amethyst tip hurts the mob next to the target (1 damage), a breeze rod shaft pushes it
      * (wind burst); a plain iron arrow does neither.
      */
-    public static void impactEffectsHappenOnADirectHit(GameTestHelper helper) {
+    public static void impactEffectsHappenOnDirectHit(GameTestHelper helper) {
         // Three pairs of cows (a target and a mob 1 cell beside it), well apart (the burst reaches 2.4 cells), one arrow each: iron (control), amethyst, breeze rod.
         Mob ironTarget = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(1, 2, 1));
         Mob ironNear = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(2, 2, 1));

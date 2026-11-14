@@ -674,7 +674,7 @@ public final class PadTweaksTests {
      * wieder. Der aktive Loader zeigt doppelt so viele Portal-Funken wie bis a-chunk36 (2 statt 1 von 3 Anzeige-Ticks).
      * Weit weg von der Teststruktur, damit keine Erzwingung der Spieltest-Umgebung den Chunk schon haelt.
      */
-    public static void redstoneSwitchesAChunkLoaderOffAndOnAgain(GameTestHelper helper) {
+    public static void redstoneSwitchesTheChunkLoaderOffAndOnAgain(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1)).offset(20480, 0, 20480);
         BlockPos power = pos.east();
