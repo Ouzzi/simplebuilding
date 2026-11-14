@@ -118,12 +118,21 @@ public final class SortProbe {
         return null;
     }
 
+    /** Simple class name of a widget; anonymous subclasses and Vanilla's {@code Button.Plain} report the first named class above them ("EditBox", "Button"). */
+    private static String widgetClass(Class<?> c) {
+        for (; c != null; c = c.getSuperclass()) {
+            String n = c.getSimpleName();
+            if (!n.isEmpty() && !n.equals("Plain")) return n;
+        }
+        return "AbstractWidget";
+    }
+
     private static void collectWidgets(List<? extends net.minecraft.client.gui.components.events.GuiEventListener> children, int scale, JsonArray out, int depth) {
         if (depth > 4) return;
         for (var child : children) {
             if (child instanceof net.minecraft.client.gui.components.AbstractWidget w) {
                 JsonObject j = new JsonObject();
-                j.addProperty("class", w.getClass().getSimpleName());
+                j.addProperty("class", widgetClass(w.getClass()));
                 j.addProperty("label", w.getMessage().getString());
                 j.addProperty("active", w.active);
                 j.addProperty("visible", w.visible);
