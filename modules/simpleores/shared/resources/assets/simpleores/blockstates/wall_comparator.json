@@ -1,0 +1,384 @@
+{
+  "variants": {
+    "powered=false,subtract=false,facing=north,out=0": {
+      "model": "minecraft:block/comparator",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,subtract=true,facing=north,out=0": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,subtract=false,facing=north,out=0": {
+      "model": "minecraft:block/comparator_on",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,subtract=true,facing=north,out=0": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,subtract=false,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 90
+    },
+    "powered=false,subtract=true,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 90
+    },
+    "powered=true,subtract=false,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 90
+    },
+    "powered=true,subtract=true,facing=north,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 90
+    },
+    "powered=false,subtract=false,facing=north,out=2": {
+      "model": "minecraft:block/comparator",
+      "x": 90
+    },
+    "powered=false,subtract=true,facing=north,out=2": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 90
+    },
+    "powered=true,subtract=false,facing=north,out=2": {
+      "model": "minecraft:block/comparator_on",
+      "x": 90
+    },
+    "powered=true,subtract=true,facing=north,out=2": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 90
+    },
+    "powered=false,subtract=false,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,subtract=true,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,subtract=false,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=true,subtract=true,facing=north,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 270,
+      "y": 180
+    },
+    "powered=false,subtract=false,facing=south,out=0": {
+      "model": "minecraft:block/comparator",
+      "x": 270
+    },
+    "powered=false,subtract=true,facing=south,out=0": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 270
+    },
+    "powered=true,subtract=false,facing=south,out=0": {
+      "model": "minecraft:block/comparator_on",
+      "x": 270
+    },
+    "powered=true,subtract=true,facing=south,out=0": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 270
+    },
+    "powered=false,subtract=false,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,subtract=true,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,subtract=false,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,subtract=true,facing=south,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,subtract=false,facing=south,out=2": {
+      "model": "minecraft:block/comparator",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,subtract=true,facing=south,out=2": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,subtract=false,facing=south,out=2": {
+      "model": "minecraft:block/comparator_on",
+      "x": 90,
+      "y": 180
+    },
+    "powered=true,subtract=true,facing=south,out=2": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 90,
+      "y": 180
+    },
+    "powered=false,subtract=false,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 270
+    },
+    "powered=false,subtract=true,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 270
+    },
+    "powered=true,subtract=false,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 270
+    },
+    "powered=true,subtract=true,facing=south,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 270
+    },
+    "powered=false,subtract=false,facing=west,out=0": {
+      "model": "minecraft:block/comparator",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,subtract=true,facing=west,out=0": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,subtract=false,facing=west,out=0": {
+      "model": "minecraft:block/comparator_on",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,subtract=true,facing=west,out=0": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,subtract=false,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,subtract=true,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,subtract=false,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,subtract=true,facing=west,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,subtract=false,facing=west,out=2": {
+      "model": "minecraft:block/comparator",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,subtract=true,facing=west,out=2": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,subtract=false,facing=west,out=2": {
+      "model": "minecraft:block/comparator_on",
+      "x": 90,
+      "y": 270
+    },
+    "powered=true,subtract=true,facing=west,out=2": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 90,
+      "y": 270
+    },
+    "powered=false,subtract=false,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,subtract=true,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,subtract=false,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=true,subtract=true,facing=west,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 270,
+      "y": 90
+    },
+    "powered=false,subtract=false,facing=east,out=0": {
+      "model": "minecraft:block/comparator",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,subtract=true,facing=east,out=0": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,subtract=false,facing=east,out=0": {
+      "model": "minecraft:block/comparator_on",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,subtract=true,facing=east,out=0": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,subtract=false,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,subtract=true,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,subtract=false,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,subtract=true,facing=east,out=1": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,subtract=false,facing=east,out=2": {
+      "model": "minecraft:block/comparator",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,subtract=true,facing=east,out=2": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,subtract=false,facing=east,out=2": {
+      "model": "minecraft:block/comparator_on",
+      "x": 90,
+      "y": 90
+    },
+    "powered=true,subtract=true,facing=east,out=2": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 90,
+      "y": 90
+    },
+    "powered=false,subtract=false,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,subtract=true,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_subtract_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,subtract=false,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=true,subtract=true,facing=east,out=3": {
+      "model": "simpleores:block/wall_diode/comparator_on_subtract_r90",
+      "x": 270,
+      "y": 270
+    },
+    "powered=false,subtract=false,facing=down,out=0": {
+      "model": "minecraft:block/comparator",
+      "x": 180,
+      "y": 180
+    },
+    "powered=false,subtract=true,facing=down,out=0": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 180,
+      "y": 180
+    },
+    "powered=true,subtract=false,facing=down,out=0": {
+      "model": "minecraft:block/comparator_on",
+      "x": 180,
+      "y": 180
+    },
+    "powered=true,subtract=true,facing=down,out=0": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 180,
+      "y": 180
+    },
+    "powered=false,subtract=false,facing=down,out=1": {
+      "model": "minecraft:block/comparator",
+      "x": 180,
+      "y": 270
+    },
+    "powered=false,subtract=true,facing=down,out=1": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 180,
+      "y": 270
+    },
+    "powered=true,subtract=false,facing=down,out=1": {
+      "model": "minecraft:block/comparator_on",
+      "x": 180,
+      "y": 270
+    },
+    "powered=true,subtract=true,facing=down,out=1": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 180,
+      "y": 270
+    },
+    "powered=false,subtract=false,facing=down,out=2": {
+      "model": "minecraft:block/comparator",
+      "x": 180
+    },
+    "powered=false,subtract=true,facing=down,out=2": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 180
+    },
+    "powered=true,subtract=false,facing=down,out=2": {
+      "model": "minecraft:block/comparator_on",
+      "x": 180
+    },
+    "powered=true,subtract=true,facing=down,out=2": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 180
+    },
+    "powered=false,subtract=false,facing=down,out=3": {
+      "model": "minecraft:block/comparator",
+      "x": 180,
+      "y": 90
+    },
+    "powered=false,subtract=true,facing=down,out=3": {
+      "model": "minecraft:block/comparator_subtract",
+      "x": 180,
+      "y": 90
+    },
+    "powered=true,subtract=false,facing=down,out=3": {
+      "model": "minecraft:block/comparator_on",
+      "x": 180,
+      "y": 90
+    },
+    "powered=true,subtract=true,facing=down,out=3": {
+      "model": "minecraft:block/comparator_on_subtract",
+      "x": 180,
+      "y": 90
+    }
+  }
+}

@@ -16,6 +16,7 @@ public final class BlocksForge {
     public BlocksForge(FMLJavaModLoadingContext context) {
         // Old simplebuilding: ids of the moved building blocks resolve here (before the registry events: Forge aliases).
         SimpleBlocks.registerIdMoves();
+        com.simplelib.api.SimpleLibApi.requestMaterial("nether_bookshelves"); // N48: the plain blazewood bookshelves (SimpleLib content) are building blocks of this module's tab
         SimpleBlocks.simplebuildingLoaded = net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
         com.simplebuilding.modules.simpleblocks.forge.ModuleForgeTests.register(context.getModBusGroup());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {

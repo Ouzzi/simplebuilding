@@ -1,0 +1,29 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "material_pressure_plates"
+    },
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "material_pressure_plates"
+    },
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": "simpleores:enderite_ingot",
+  "base": "simplelib:netherite_pressure_plate",
+  "result": {
+    "id": "simplelib:enderite_pressure_plate"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

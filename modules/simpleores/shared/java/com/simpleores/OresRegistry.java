@@ -237,9 +237,11 @@ public final class OresRegistry {
      * N35 (a-pal35a, owner 12.11.: "pressure plates for rose gold and rose copper, and for every other material that has none"): a weighted
      * pressure plate of every Simple Ores metal. Precious metals (silver and the two rose alloys) are light like the gold plate, the
      * others heavy like the iron plate ({@link com.simpleores.block.MetalPressurePlateBlock}). The texture is the metal's block (like Vanilla).
+     * N48 (14.11.): no Enderite entry - Enderite's plate is SimpleLib's {@code simplelib:enderite_pressure_plate} (one plate per material; Simple Ores requests the
+     * group {@code material_pressure_plates} and gets the Diamond, Netherite, Enderite and Emerald plates with it).
      */
     public static final String[] PLATE_METALS = {"silver", "lead", "zinc", "nickel", "tin", "brass", "bronze", "stainless_steel", "rose_gold", "rose_bronze",
-            "enderite", "terranite", "infernite", "zenithite"};
+            "terranite", "infernite", "zenithite"};
     public static final java.util.Set<String> LIGHT_PLATES = java.util.Set.of("silver", "rose_gold", "rose_bronze");
     static {
         for (String m : PLATE_METALS) {
@@ -272,7 +274,7 @@ public final class OresRegistry {
             "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot", "netherite_scrap_block", "enderite_scrap_block",
             "rift_shard", "nether_rift_shard", "end_rift_shard", "rift_shard_block", "nether_rift_shard_block", "end_rift_shard_block",
             "terranite_ingot", "infernite_ingot", "zenithite_ingot", "terranite_block", "infernite_block", "zenithite_block",
-            "enderite_pressure_plate", "terranite_pressure_plate", "infernite_pressure_plate", "zenithite_pressure_plate",
+            "terranite_pressure_plate", "infernite_pressure_plate", "zenithite_pressure_plate",
             "chiseled_enderite", "chiseled_terranite", "chiseled_infernite", "chiseled_zenithite");
 
     static {

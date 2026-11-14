@@ -888,9 +888,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("workstation_game_test_auto_smither_sorts_hopper_input", WorkstationTests::autoSmitherSortsHopperInput)
                     .build(),
             GameTestSpec.named("enchanting_block_game_test_recipes_are_loaded", EnchantingBlockTests::recipesAreLoaded).build(),
-            GameTestSpec.named("enchanting_block_game_test_blazing_obsidian_keeps_fire_burning", EnchantingBlockTests::blazingObsidianKeepsFireBurning).build(),
-            GameTestSpec.named("enchanting_block_game_test_chiseled_bookshelves_store_books", EnchantingBlockTests::chiseledBookshelvesStoreBooks).build(),
-            GameTestSpec.named("enchanting_block_game_test_nihil_obsidian_is_crafted_and_counts_as_floor", EnchantingBlockTests::nihilObsidianIsCraftedAndCountsAsFloor).build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)

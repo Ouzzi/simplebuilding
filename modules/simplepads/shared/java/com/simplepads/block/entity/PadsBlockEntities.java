@@ -26,7 +26,6 @@ public final class PadsBlockEntities {
     public static BlockEntityType<FlypadBlockEntity> FLYPAD;
     public static BlockEntityType<ChunkLoaderBlockEntity> CHUNK_LOADER;
     public static BlockEntityType<CopperPressurePlateBlockEntity> COPPER_PRESSURE_PLATE;
-    public static BlockEntityType<FilterPlateBlockEntity> FILTER_PLATE;
     public static BlockEntityType<PotionPadBlockEntity> POTION_PAD;
 
     private static boolean registered;
@@ -54,9 +53,6 @@ public final class PadsBlockEntities {
                 PadsBlocks.WEATHERED_COPPER_PRESSURE_PLATE, PadsBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                 PadsBlocks.WAXED_COPPER_PRESSURE_PLATE, PadsBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                 PadsBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, PadsBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
-        // Simple Tweaks nannte den Typ netherite_pressure_plate_be; die Enderit-Platte teilt ihn.
-        FILTER_PLATE = register("netherite_pressure_plate_be", factory.create(FilterPlateBlockEntity::new,
-                PadsBlocks.NETHERITE_PRESSURE_PLATE, PadsBlocks.ENDERITE_PRESSURE_PLATE));
         POTION_PAD = register("potion_pad_be", factory.create(PotionPadBlockEntity::new,
                 PadsBlocks.POTION_PAD, PadsBlocks.REINFORCED_POTION_PAD, PadsBlocks.INFUSED_POTION_PAD));
     }

@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplepads:netherite_pressure_plate",
+  "addition": "simplelib:netherite_pressure_plate",
   "base": "simplepads:potion_pad",
   "result": {
     "id": "simplepads:reinforced_potion_pad"

@@ -28,6 +28,18 @@ public final class SimpleLibFabric implements ModInitializer {
                 entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item("strong_upgrade_shard")));
             }
         });
+        // N48: the material pressure plates in the Redstone tab after the heavy weighted plate, while a mod requested the group.
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.REDSTONE_BLOCKS).register(entries -> {
+            if (!com.simplelib.registry.LibMaterials.requested("material_pressure_plates")) return;
+            var plates = com.simplelib.registry.LibMaterials.PLATES.stream()
+                    .map(id -> new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item(id))).toList();
+            if (entries.getDisplayStacks().stream().anyMatch(s -> s.is(net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE))) {
+                entries.insertAfter(net.minecraft.world.item.Items.HEAVY_WEIGHTED_PRESSURE_PLATE, plates,
+                        net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            } else {
+                plates.forEach(s -> entries.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            }
+        });
         // b-guide01: the Simple Modpack guide - Vanilla Tools tab (SimpleBuilding shows it in its own tab instead, and the tab
         // rules then drop it here), the chapter unlock query, and the FTB Quests start chapter when SimpleBuilding is absent
         // (SimpleBuilding's own first quest gives the guide).

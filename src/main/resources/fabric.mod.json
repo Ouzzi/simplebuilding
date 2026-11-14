@@ -14,6 +14,11 @@
   "license": "LicenseRef-SimpleMods-ARR",
   "icon": "assets/simplebuilding/icon.png",
   "environment": "*",
+  "custom": {
+    "simplelib:content": [
+      "nether_bookshelves"
+    ]
+  },
   "entrypoints": {
     "main": [
       "com.simplebuilding.Simplebuilding",

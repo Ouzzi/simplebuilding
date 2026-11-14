@@ -1,19 +1,11 @@
 {
   "values": [
     {
-      "id": "simplebuilding:crimson_blazewood_bookshelf",
+      "id": "simplelib:crimson_blazewood_bookshelf",
       "required": false
     },
     {
-      "id": "simplebuilding:warped_blazewood_bookshelf",
-      "required": false
-    },
-    {
-      "id": "simpleenchanting:crimson_blazewood_bookshelf",
-      "required": false
-    },
-    {
-      "id": "simpleenchanting:warped_blazewood_bookshelf",
+      "id": "simplelib:warped_blazewood_bookshelf",
       "required": false
     }
   ]

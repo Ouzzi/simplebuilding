@@ -276,8 +276,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
-    public void gearEnderiteArmorDampensASneakingFall(GameTestHelper h) {
-        OresTests.ALL.get("gear_enderite_armor_dampens_a_sneaking_fall").accept(h);
+    public void gearEnderiteArmorDampensSneakingFall(GameTestHelper h) {
+        OresTests.ALL.get("gear_enderite_armor_dampens_sneaking_fall").accept(h);
     }
 
     // Redstone line (moved from the core with the line): bodies in com.simpleores.line.test.LineTests, registered via OresTests.
@@ -464,6 +464,21 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void circuitWallDustSticksAndPowers(GameTestHelper h) {
         OresTests.ALL.get("circuit_wall_dust_sticks_and_powers").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitWallDiodesPlaceAndSwitch(GameTestHelper h) {
+        OresTests.ALL.get("circuit_wall_diodes_place_and_switch").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 60)
+    public void circuitWallDustRoundsTheEdge(GameTestHelper h) {
+        OresTests.ALL.get("circuit_wall_dust_rounds_the_edge").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 20)
+    public void circuitConfigTakesOverSimplebuilding(GameTestHelper h) {
+        OresTests.ALL.get("circuit_config_takes_over_simplebuilding").accept(h);
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 40)

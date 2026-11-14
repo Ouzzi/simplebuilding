@@ -23,6 +23,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -47,6 +50,11 @@ public final class LibMaterials {
     /** The six building cores in tier order (IG31-13). */
     public static final List<String> CORES = List.of("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core");
 
+    /** N48: the material pressure plates (block ids; the block items have the same ids). */
+    public static final List<String> PLATES = List.of("diamond_pressure_plate", "netherite_pressure_plate", "enderite_pressure_plate", "emerald_pressure_plate");
+    /** N48: the two Nether bookshelves of the group {@code nether_bookshelves}. */
+    public static final List<String> NETHER_BOOKSHELVES = List.of("crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
+
     /** Group -> ids (items; the blocks have block items of the same id). */
     public static final Map<String, List<String>> GROUPS = Map.of(
             "cracked_diamond", List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
@@ -57,7 +65,12 @@ public final class LibMaterials {
             // IG31-13: the building cores (copper to enderite), formerly SimpleBuilding's; used by Beacons, Gadgets, the wands.
             "cores", CORES,
             // Module family stage 3 (rule 16): the building block several family mods share (Blocks, End, Enderite, Octets).
-            "polished_end_stone", List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"));
+            "polished_end_stone", List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
+            // N48 (14.11.): the pressure plates of materials, formerly Simple Pads' (diamond, netherite, enderite) and Simple Ores' (enderite); Emerald is new.
+            "material_pressure_plates", PLATES,
+            // N48 (14.11.): the plain Crimson/Warped blazewood bookshelves, building blocks for Simple Blocks and SimpleBuilding; Simple Enchanting
+            // counts them as strong shelves. Always registered; the crafting recipe (without Simple Enchanting) only on request.
+            "nether_bookshelves", NETHER_BOOKSHELVES);
 
     /** Groups another mod owns and registers itself; it announces them with {@link #provide}. */
     public static final Set<String> PROVIDED_GROUPS = Set.of("enderite");
@@ -66,6 +79,7 @@ public final class LibMaterials {
     private static final Set<String> PROVIDED = ConcurrentHashMap.newKeySet();
     private static final Map<String, Block> BLOCKS = new LinkedHashMap<>();
     private static final Map<String, Item> ITEMS = new LinkedHashMap<>();
+    private static BlockEntityType<com.simplelib.block.FilterPlateBlockEntity> filterPlate;
 
     private LibMaterials() {}
 
@@ -96,10 +110,36 @@ public final class LibMaterials {
         block("polished_end_stone", BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops()
                 .strength(3.0F, 9.0F).sound(SoundType.STONE));
         // Stairs, slab and wall of it (octet rule, owner 17.10.): the properties copy the full block.
+        plates();
         Block polished = BLOCKS.get("polished_end_stone");
         shape("polished_end_stone_stairs", polished, p -> new StairBlock(polished.defaultBlockState(), p));
         shape("polished_end_stone_slab", polished, SlabBlock::new);
         shape("polished_end_stone_wall", polished, p -> new WallBlock(p.forceSolidOn()));
+        // N48: Nether bookshelves (a full copy of Vanilla's bookshelf with the Nether wood sound).
+        for (String name : NETHER_BOOKSHELVES) shape(name, Blocks.BOOKSHELF, p -> new Block(p.sound(SoundType.NETHER_WOOD)));
+    }
+
+    /**
+     * N48: the pressure plates, properties as Simple Pads had them (diamond, netherite, enderite: no collision, pistons cannot move
+     * them); the block entity type of the two filter plates keeps the id of Simple Pads' (moved: {@code filter_pressure_plate_be}).
+     */
+    private static void plates() {
+        block("diamond_pressure_plate", p -> new com.simplelib.block.DiamondPressurePlateBlock(BlockSetType.IRON,
+                p.mapColor(MapColor.DIAMOND).noCollision().strength(0.5f).pushReaction(PushReaction.IMMOVEABLE)));
+        block("netherite_pressure_plate", p -> new com.simplelib.block.FilterPressurePlateBlock(BlockSetType.IRON,
+                p.mapColor(MapColor.COLOR_BLACK).noCollision().strength(4.0f).pushReaction(PushReaction.IMMOVEABLE), false));
+        block("enderite_pressure_plate", p -> new com.simplelib.block.FilterPressurePlateBlock(BlockSetType.IRON,
+                p.mapColor(MapColor.COLOR_PURPLE).noCollision().strength(5.0f).pushReaction(PushReaction.IMMOVEABLE), true));
+        block("emerald_pressure_plate", p -> new com.simplelib.block.EmeraldPressurePlateBlock(
+                p.mapColor(MapColor.EMERALD).noCollision().strength(0.5f).pushReaction(PushReaction.IMMOVEABLE)));
+        filterPlate = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleLib.id("filter_pressure_plate_be"),
+                new BlockEntityType<>(com.simplelib.block.FilterPlateBlockEntity::new, Set.of(BLOCKS.get("netherite_pressure_plate"), BLOCKS.get("enderite_pressure_plate"))));
+    }
+
+    /** The block entity type of the Netherite and Enderite plates (N48). */
+    public static BlockEntityType<com.simplelib.block.FilterPlateBlockEntity> filterPlateType() {
+        ensureBlocks();
+        return filterPlate;
     }
 
     public static synchronized void ensureItems() {
@@ -114,9 +154,13 @@ public final class LibMaterials {
         item("cracked_diamond", Item::new);
         item("cracked_diamond_block", p -> new BlockItem(BLOCKS.get("cracked_diamond_block"), p.useBlockDescriptionPrefix()));
         item("netherite_nugget", p -> new Item(p.fireResistant()));
+        for (String name : PLATES) {
+            item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
+        }
         for (String name : List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
             item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
         }
+        for (String name : NETHER_BOOKSHELVES) item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
         // IG31-13: the building cores, numbers as SimpleBuilding had them (not stackable, rare; Netherite/Enderite fire resistant, Enderite epic).
         for (String name : CORES) {
             boolean fire = name.startsWith("netherite") || name.startsWith("enderite");
@@ -149,6 +193,11 @@ public final class LibMaterials {
         Identifier id = SimpleLib.id(name);
         Block block = new Block(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
         BLOCKS.put(name, Registry.register(BuiltInRegistries.BLOCK, id, block));
+    }
+
+    private static void block(String name, Function<BlockBehaviour.Properties, Block> factory) {
+        Identifier id = SimpleLib.id(name);
+        BLOCKS.put(name, Registry.register(BuiltInRegistries.BLOCK, id, factory.apply(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, id)))));
     }
 
     private static void shape(String name, Block full, Function<BlockBehaviour.Properties, Block> factory) {

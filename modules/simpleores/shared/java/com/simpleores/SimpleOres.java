@@ -34,6 +34,8 @@ public final class SimpleOres {
         OresConfig.load(configDir);
         // IG31-13: Simple Ores owns Enderite now - other mods switch their Enderite variants on through SimpleLib's flag.
         com.simplelib.api.SimpleLibApi.provideMaterial("enderite");
+        // N48: the plates of the materials (Diamond, Netherite, Enderite, Emerald) are SimpleLib's group; Simple Ores asks for it.
+        com.simplelib.api.SimpleLibApi.requestMaterial("material_pressure_plates");
         registerIdMoves();
         // N46/M2: switched-off line devices lose their recipes too (datapack reload), as in SimpleBuilding before the move.
         com.simplelib.api.RecipeFilters.register(MOD_ID, com.simpleores.line.LineBlocks::recipeRemoved);

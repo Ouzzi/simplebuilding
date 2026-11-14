@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "simplebuilding:crimson_blazewood_planks",
-      "required": false
-    },
-    {
       "id": "simpleenchanting:crimson_blazewood_planks",
       "required": false
     }

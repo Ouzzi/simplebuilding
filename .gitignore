@@ -2170,3 +2170,8 @@ modules/simpleores/shared/resources/assets/simpleores/textures/entity/equipment/
 wiki/assets/textures/simpleores/entity/equipment/humanoid_leggings/enderite_leggings.png
 wiki/assets/textures/sheets/simplebuilding/simpleores/entity/equipment/humanoid_leggings/enderite_leggings.png
 wiki/assets/textures/sheets/simpleores/simpleores/entity/equipment/humanoid_leggings/enderite_leggings.png
+
+# N48 (14.11.): the Blaze Book texture moved from SimpleBuilding to Simple Enchanting (Vanilla-derived, built, never committed)
+modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/item/blaze_book.png
+wiki/assets/textures/simpleenchanting/item/blaze_book.png
+wiki/assets/textures/sheets/simpleenchanting/simpleenchanting/item/blaze_book.png

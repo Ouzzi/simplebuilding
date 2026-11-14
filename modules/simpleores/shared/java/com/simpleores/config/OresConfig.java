@@ -85,6 +85,7 @@ public final class OresConfig {
         Path file = dir == null ? null : dir.resolve(FILE);
         JsonObject read = ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleOres.LOG::warn);
         if (read != null) json = read;
+        else if (dir != null) adoptSimpleBuilding(dir, json);
         apply(json);
         if (file != null) {
             try {
@@ -96,6 +97,35 @@ public final class OresConfig {
             } catch (Exception e) {
                 SimpleOres.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }
+        }
+    }
+
+    /** The old home of the Astralit/Nihilit line options (N47-M2): config/simplebuilding.json, section "server". */
+    public static final String SB_FILE = "simplebuilding.json";
+    /** SimpleBuilding section -> keys that moved here unchanged (same names, same ranges). */
+    static final java.util.Map<String, List<String>> SB_KEYS = java.util.Map.of(
+            "oreGeneration", List.of("endOres", "astralitOre", "nihilitOre"),
+            "features", List.of("endSignals", "endPistons", "endRails"),
+            "machines", List.of("endPistonCooldownTicks", "astralRailMaxSpeed", "astralRailBoost", "nihilRailBrake"));
+
+    /**
+     * First start without an own file (b-circ46, pattern simpletools qolMigration): the line's values a SimpleBuilding config
+     * still holds are taken over once; the own file written afterwards is the marker, from then on it alone counts.
+     */
+    static void adoptSimpleBuilding(Path dir, JsonObject json) {
+        Path old = dir.resolve(SB_FILE);
+        if (!Files.isRegularFile(old)) return;
+        try {
+            JsonObject root = GSON.fromJson(Files.readString(old), JsonObject.class);
+            JsonObject server = root != null && root.get("server") instanceof JsonObject o ? o : null;
+            if (server == null) return;
+            SB_KEYS.forEach((section, keys) -> {
+                if (!(server.get(section) instanceof JsonObject from)) return;
+                for (String key : keys) if (from.has(key) && !json.has(key)) json.add(key, from.get(key));
+            });
+            SimpleOres.LOG.info("{}: Astralit/Nihilit line options taken over from {}", FILE, SB_FILE);
+        } catch (Exception e) {
+            SimpleOres.LOG.warn("Could not read {} for the line options: {}", SB_FILE, e.toString());
         }
     }
 

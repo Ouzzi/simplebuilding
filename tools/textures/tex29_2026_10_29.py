@@ -32,6 +32,8 @@ JAR = Path.home() / '.gradle/caches/fabric-loom/26.3/minecraft-client.jar'
 END_TEX = ROOT / 'modules/simpleend/shared/resources/assets/simpleend/textures'
 BLOCKS_TEX = ROOT / 'modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block'
 SB_TEX = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
+# N48 (14.11.): the blazewood planks moved to Simple Enchanting (their pixels are the same files).
+ENCH_TEX = ROOT / 'modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures'
 CLEAR = (0, 0, 0, 0)
 
 
@@ -1017,7 +1019,7 @@ def shapecutter_section(pg, jar):
 # ---------------------------------------------------------------- BS25-1  Chiseled blazewood bookshelves
 
 def blaze_wood_ramp(wood):
-    im = Image.open(SB_TEX / f'block/{wood}_blazewood_planks.png').convert('RGBA').crop((0, 0, 16, 16))
+    im = Image.open(ENCH_TEX / f'block/{wood}_blazewood_planks.png').convert('RGBA').crop((0, 0, 16, 16))
     cols = {im.getpixel((x, y)) for y in range(16) for x in range(16)}
     keep = [c for c in cols if (c[0] <= c[1] + 10 if wood == 'warped' else c[1] <= c[2] + 10)]   # without the orange blaze seams
     return sorted(keep, key=lum), im

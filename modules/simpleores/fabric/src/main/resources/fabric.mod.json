@@ -26,6 +26,11 @@
       "com.simplebuilding.modules.simpleores.ModuleGameTest"
     ]
   },
+  "custom": {
+    "simplelib:content": [
+      "material_pressure_plates"
+    ]
+  },
   "mixins": [
     "simpleores.mixins.json"
   ],

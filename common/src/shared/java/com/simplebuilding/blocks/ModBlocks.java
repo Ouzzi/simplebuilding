@@ -271,21 +271,21 @@ public class ModBlocks {
     // der Dark Enchanter); SB behaelt die Baubloecke darunter. Die Felder zeigen per Id auf die Modul-Bloecke (Luft ohne Modul).
     public static final Block DARK_ENCHANTER = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("dark_enchanter") : null;
     public static final Block ASTRAL_ENCHANTER = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("astral_enchanter") : null;
-    /** Lohenholz je Nether-Holzart: 8 Lohenstaub um ein Brett. */
-    public static final Block CRIMSON_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("crimson_blazewood_planks", Blocks.CRIMSON_PLANKS, Block::new) : null;
-    public static final Block WARPED_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("warped_blazewood_planks", Blocks.WARPED_PLANKS, Block::new) : null;
-    /** Lohen-Buecherregale: zaehlen am Astral-Tisch doppelt (am Vanilla-Tisch wie ein Regal). */
+    // N48 (14.11.): Lohenholz gehoert dem Pflicht-Sub-Mod Simple Enchanting (simpleenchanting:*, IdMoves dort, keine Zwillinge mehr):
+    // Bretter, gemeisselte Regale, Lohen- und Nihil-Obsidian. Die normalen Lohen-Buecherregale (crimson/warped) sind SimpleLib-Inhalt
+    // (simplelib:*, Gruppe nether_bookshelves, per SharedMaterials). Die Felder zeigen per Id auf die Objekte (Luft ohne Simple Enchanting).
+    public static final Block CRIMSON_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("crimson_blazewood_planks") : null;
+    public static final Block WARPED_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("warped_blazewood_planks") : null;
+    /** Lohen-Buecherregale: zaehlen am Astral-Tisch doppelt (am Vanilla-Tisch wie ein Regal). SimpleLib's. */
     public static final Block CRIMSON_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("crimson_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.SharedMaterials.block("crimson_blazewood_bookshelf", () -> null) : null;
     public static final Block WARPED_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("warped_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.SharedMaterials.block("warped_blazewood_bookshelf", () -> null) : null;
     /** Gemeisselte Lohen-Buecherregale (BS25-1): Vanillas gemeisseltes Buecherregal (sechs Buecher-Plaetze, gleiche Bedienung), vorerst ohne Zusatznutzen. */
     public static final Block CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("chiseled_crimson_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.EnchantingRefs.block("chiseled_crimson_blazewood_bookshelf") : null;
     public static final Block CHISELED_WARPED_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
-            ? registerBlock("chiseled_warped_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
+            ? com.simplebuilding.util.EnchantingRefs.block("chiseled_warped_blazewood_bookshelf") : null;
     public static final List<Block> CHISELED_BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
             ? List.of(CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, CHISELED_WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
     // a-nihilplanks (Besitzer 12.11.): die Nihilit-Bretter je End-Holzart (a-end07) gehoeren Simple End
@@ -294,12 +294,10 @@ public class ModBlocks {
             ? List.of(CRIMSON_BLAZEWOOD_PLANKS, WARPED_BLAZEWOOD_PLANKS) : List.of();
     public static final List<Block> BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
             ? List.of(CRIMSON_BLAZEWOOD_BOOKSHELF, WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
-    /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Dark Enchanter fuer Stufe 40/50. */
-    public static final Block BLAZING_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("blazing_obsidian", Blocks.CRYING_OBSIDIAN,
-            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(false, s.lightLevel(state -> 12))) : null;
-    /** Nihil-Obsidian (ENCH02, Besitzer 03.11.): Lohen-Obsidian mit Nihilit, Navy/Void statt Glut; voller Boden des Astral Enchanters. */
-    public static final Block NIHIL_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("nihil_obsidian", Blocks.CRYING_OBSIDIAN,
-            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(true, s.lightLevel(state -> 10))) : null;
+    /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Dark Enchanter fuer Stufe 40/50. Simple Enchanting's. */
+    public static final Block BLAZING_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("blazing_obsidian") : null;
+    /** Nihil-Obsidian (ENCH02, Besitzer 03.11.): Lohen-Obsidian mit Nihilit, Navy/Void statt Glut; voller Boden des Astral Enchanters. Simple Enchanting's. */
+    public static final Block NIHIL_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("nihil_obsidian") : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)

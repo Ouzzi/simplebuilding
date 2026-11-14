@@ -81,6 +81,26 @@ public final class BlocksTests {
             }
             h.succeed();
         });
+        // N48 (14.11.): this module requests SimpleLib's group nether_bookshelves (fabric.mod.json "simplelib:content", Neo/Forge in the
+        // constructor): the plain Crimson/Warped blazewood bookshelves (simplelib:) exist as building blocks with a Vanilla-cost recipe
+        // (Simple Enchanting crafts them with its blazewood planks instead) and, without SimpleBuilding, stand in this module's tab.
+        ALL.put("nether_bookshelves_requested", h -> {
+            h.assertTrue(com.simplelib.api.SimpleLibApi.materialRequested("nether_bookshelves"), "group nether_bookshelves is requested");
+            boolean enchanting = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleenchanting", "dark_enchanter"));
+            var recipes = h.getLevel().getServer().getRecipeManager();
+            net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+            var tab = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(SimpleBlocks.id("blocks")).getDisplayItems();
+            for (String shelf : com.simplelib.registry.LibMaterials.NETHER_BOOKSHELVES) {
+                var id = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", shelf);
+                var block = BuiltInRegistries.BLOCK.getValue(id);
+                h.assertTrue(block != net.minecraft.world.level.block.Blocks.AIR && block.defaultBlockState().is(net.minecraft.tags.BlockTags.ENCHANTMENT_POWER_PROVIDER), shelf + " exists and counts at the Vanilla table");
+                h.assertTrue(recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id)).isPresent() == !enchanting,
+                        shelf + ": Vanilla-cost recipe exactly without Simple Enchanting");
+                boolean simplebuilding = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "astralit_bricks"));
+                h.assertTrue(tab.stream().anyMatch(st -> st.is(block.asItem())) == !simplebuilding, shelf + ": in this tab exactly without SimpleBuilding (which lists it itself)");
+            }
+            h.succeed();
+        });
         ALL.put("guide_book", h -> {
             h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBlocks.id("guide_book")), "guide book");
             h.succeed();

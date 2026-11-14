@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplepads:netherite_pressure_plate",
+  "addition": "simplelib:netherite_pressure_plate",
   "base": "simplepads:launchpad",
   "result": {
     "id": "simplepads:netherite_launchpad"

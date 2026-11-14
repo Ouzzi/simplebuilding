@@ -56,9 +56,13 @@ public final class LibDiscover {
             "simplelib:copper_core",
             "simplelib:cracked_diamond",
             "simplelib:cracked_diamond_block",
+            "simplelib:crimson_blazewood_bookshelf",
             "simplelib:diamond_core",
             "simplelib:diamond_pebble",
+            "simplelib:diamond_pressure_plate",
+            "simplelib:emerald_pressure_plate",
             "simplelib:enderite_core",
+            "simplelib:enderite_pressure_plate",
             "simplelib:free_look",
             "simplelib:gold_core",
             "simplelib:hang_watchdog",
@@ -67,6 +71,7 @@ public final class LibDiscover {
             "simplelib:modpack_guide",
             "simplelib:netherite_core",
             "simplelib:netherite_nugget",
+            "simplelib:netherite_pressure_plate",
             "simplelib:polished_end_stone",
             "simplelib:polished_end_stone_slab",
             "simplelib:polished_end_stone_stairs",
@@ -76,6 +81,7 @@ public final class LibDiscover {
             "simplelib:strong_upgrade_shard",
             "simplelib:strong_upgrade_template",
             "simplelib:warm_food",
+            "simplelib:warped_blazewood_bookshelf",
             "simplelib:warped_wart");
     static final List<Tip> TIPS = List.of();
 

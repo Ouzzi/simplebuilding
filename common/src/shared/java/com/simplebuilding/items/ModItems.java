@@ -550,25 +550,26 @@ public class ModItems {
             ? com.simplebuilding.util.EnchantingRefs.item("dark_enchanter") : null;
     public static final Item ASTRAL_ENCHANTER = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? com.simplebuilding.util.EnchantingRefs.item("astral_enchanter") : null;
+    // N48: Lohenholz, Obsidiane und das Lohenbuch sind Simple Enchanting's (simpleenchanting:*), die normalen Lohen-Regale SimpleLib's.
     public static final Item CRIMSON_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("crimson_blazewood_planks", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_PLANKS, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("crimson_blazewood_planks") : null;
     public static final Item WARPED_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("warped_blazewood_planks", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_PLANKS, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("warped_blazewood_planks") : null;
     public static final Item CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("crimson_blazewood_bookshelf", () -> null) : null;
     public static final Item WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("warped_blazewood_bookshelf", () -> null) : null;
     public static final Item CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("chiseled_crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("chiseled_crimson_blazewood_bookshelf") : null;
     public static final Item CHISELED_WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("chiseled_warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("chiseled_warped_blazewood_bookshelf") : null;
     public static final Item BLAZING_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("blazing_obsidian", s -> new BlockItem(ModBlocks.BLAZING_OBSIDIAN, s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("blazing_obsidian") : null;
     public static final Item NIHIL_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("nihil_obsidian", s -> new BlockItem(ModBlocks.NIHIL_OBSIDIAN, s)) : null;
-    /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
+            ? com.simplebuilding.util.EnchantingRefs.item("nihil_obsidian") : null;
+    /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. Simple Enchanting's. */
     public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("blaze_book", s -> new Item(s)) : null;
+            ? com.simplebuilding.util.EnchantingRefs.item("blaze_book") : null;
     /**
      * Nihilit-Buch (DW04C-3, docs/ai/PLAN-B-SHELVES01-2026-11-04.md): ein Buch mit 4 Nihilitsplittern; drei davon und sechs
      * Asch-/Daemmerholzbretter (Simple End) ergeben dessen End-Buecherregal. Passt wie das Lohenbuch in gemeisselte Regale.

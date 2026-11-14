@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplelib:block/warped_blazewood_planks",
+    "side": "simplelib:block/warped_blazewood_bookshelf"
+  }
+}

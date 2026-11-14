@@ -43,7 +43,7 @@ public final class GearTests {
         all.put("gear_poles_pull_lightning_within_their_range", GearTests::polesPullLightningWithinTheirRange);
         maxTicks.put("gear_poles_pull_lightning_within_their_range", 100);
         all.put("gear_old_simplebuilding_ids_load_as_simple_ores_ids", GearTests::oldSimpleBuildingIdsLoadAsSimpleOresIds);
-        all.put("gear_enderite_armor_dampens_a_sneaking_fall", GearTests::enderiteArmorDampensASneakingFall);
+        all.put("gear_enderite_armor_dampens_sneaking_fall", GearTests::enderiteArmorDampensASneakingFall);
     }
 
     private static ItemStack stack(String path) {

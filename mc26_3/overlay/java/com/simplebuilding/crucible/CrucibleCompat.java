@@ -59,6 +59,7 @@ public final class CrucibleCompat {
                 com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.SOUL_LAVA_SCOOPED));
         // LOHEN17 V3 (owner 2026-10-21): blazing obsidian under a crucible gives high heat, like lava (config blazingHeat).
         SimpleCruciblesApi.registerHeatSource("high", state -> com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN != null
+                && !com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN.defaultBlockState().isAir() // N48: air without Simple Enchanting (NeoForge/Forge)
                 && state.is(com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN)
                 && com.simplebuilding.config.ServerTuning.get().features.blazingHeat);
     }

@@ -4,7 +4,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "simpleores:nihil_core"
+        "recipes": "simpleores:nihil_core"
       }
     },
     "has_nihil_redstone": {
