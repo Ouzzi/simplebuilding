@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generates wiki/assets/conv/conv-data.js for the N51 converter pages (b-conv51, phase 2).
 
-Usage (in the worktree):  python3 tools/conv51/make_data.py [--jar /root/sb-tools-b/jar/client263.jar]
+Usage (in the worktree):  python3 tools/conv51/make_data.py [--jar /root/sb-tools-b/jar/client263.jar] [--dump conv51-dump.json]
 
 Sources:
 - Minecraft 26.3 client jar: version.json (DataVersion, pack format), assets/minecraft/blockstates/*.json (= every vanilla
@@ -9,12 +9,21 @@ Sources:
 - Repo: assets/<ns>/blockstates/*.json of all Simple mods (git ls-files) = known mod blocks.
 - Hand tables below: default property values (omitted in a blueprint code), renames over DataVersions, the MCEdit
   1.12 numeric id table. The Python reference tools/conv51/ref_blueprint.py reads the same generated file.
-Without --jar the vanilla part of the existing conv-data.js is kept (the jar is not in the repo)."""
+Without --jar the vanilla part of the existing conv-data.js is kept (the jar is not in the repo).
+
+Phase 3 (b-conv51b): the game itself is the source of truth. The gametest simplebuildingtools:module_game_test_conv51_dump
+(Conv51Dump.java) writes, with SB_CONV51_DUMP=<file>, every registered block (default state, properties, item yes/no) and
+BlueprintCode.serialize vectors. --dump <file> stores the blocks in tools/conv51/data/blocks-26.3.json and the vectors in
+wiki/tests/conv51/vectors/java-vectors.json; every later run reads blocks-26.3.json. From it come the exact default states
+("stateDefaults", per block id), the block list and "no item"; the hand rules (DEFAULTS) stay only as a fallback for ids the
+dump does not know (mods that were not loaded)."""
 import json, re, subprocess, sys, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'wiki/assets/conv/conv-data.js'
+BLOCKS = ROOT / 'tools/conv51/data/blocks-26.3.json'
+VECTORS = ROOT / 'wiki/tests/conv51/vectors/java-vectors.json'
 
 F4 = dict(north='false', east='false', south='false', west='false')
 S6 = dict(down='false', east='false', north='false', south='false', up='false', west='false')
@@ -229,6 +238,15 @@ def main():
     jar = None
     if '--jar' in sys.argv:
         jar = sys.argv[sys.argv.index('--jar') + 1]
+    if '--dump' in sys.argv:
+        dump = json.loads(Path(sys.argv[sys.argv.index('--dump') + 1]).read_text(encoding='utf-8'))
+        BLOCKS.parent.mkdir(parents=True, exist_ok=True)
+        BLOCKS.write_text('{"source":' + json.dumps(dump['source']) + ',"blocks":{\n' + ',\n'.join(
+            json.dumps(k) + ':' + json.dumps(v, separators=(',', ':')) for k, v in sorted(dump['blocks'].items())) + '\n}}\n', encoding='utf-8')
+        VECTORS.parent.mkdir(parents=True, exist_ok=True)
+        VECTORS.write_text(json.dumps(dump['vectors'], separators=(',', ':')) + '\n', encoding='utf-8')
+        print('wrote', BLOCKS.relative_to(ROOT), len(dump['blocks']), 'blocks;', VECTORS.relative_to(ROOT), len(dump['vectors']), 'vectors')
+    game = json.loads(BLOCKS.read_text(encoding='utf-8'))['blocks'] if BLOCKS.exists() else None
     old = None
     if OUT.exists():
         t = OUT.read_text(encoding='utf-8')
@@ -256,10 +274,25 @@ def main():
         m = re.search(r'assets/([a-z0-9_]+)/blockstates/([a-z0-9_./-]+)\.json$', f)
         if m and m.group(1) != 'minecraft':
             mods.setdefault(m.group(1), set()).add(m.group(2))
+    state_defaults = {}
+    if game:
+        if jar and set(vanilla) - {i[10:] for i in game if i.startswith('minecraft:')}:
+            print('note: blockstate files without a registered block:', sorted(set(vanilla) - {i[10:] for i in game if i.startswith('minecraft:')}))
+        vanilla = sorted(i[10:] for i in game if i.startswith('minecraft:'))
+        air = ('minecraft:air', 'minecraft:cave_air', 'minecraft:void_air')
+        no_item = [i[10:] if i.startswith('minecraft:') else i for i, e in sorted(game.items()) if not e['item'] and i not in air]
+        for i, e in game.items():
+            if i.startswith('minecraft:'):
+                pass
+            else:
+                mods.setdefault(i.split(':')[0], set()).add(i.split(':')[1])
+            if e['d']:
+                state_defaults.setdefault(e['d'], []).append(i[10:] if i.startswith('minecraft:') else i)
+        state_defaults = {k: ' '.join(sorted(v)) for k, v in sorted(state_defaults.items())}
     blocks = {'minecraft': ' '.join(vanilla)}
     for ns in sorted(mods):
         blocks[ns] = ' '.join(sorted(mods[ns]))
-    data = dict(mc=mc, blocks=blocks, noItem=' '.join(no_item), defaults=[[p, d] for p, d in DEFAULTS], renames=RENAMES,
+    data = dict(mc=mc, blocks=blocks, noItem=' '.join(no_item), stateDefaults=state_defaults, defaults=[[p, d] for p, d in DEFAULTS], renames=RENAMES,
                 renamesBelow=RENAMES_BELOW, valueMaps=VALUE_MAPS, legacy={str(k): v for k, v in sorted(LEGACY.items())})
     missing = [r for r in RENAMES.values() if r not in vanilla]
     for v in LEGACY.values():
@@ -274,7 +307,8 @@ def main():
                    "  if (typeof module !== 'undefined' && module.exports) module.exports = D;\n"
                    "})(typeof window !== 'undefined' ? window : globalThis);\n", encoding='utf-8')
     print('wrote', OUT.relative_to(ROOT), len(body), 'bytes;', len(vanilla), 'vanilla blocks,', sum(len(v) for v in mods.values()),
-          'mod blocks,', len(no_item), 'without item')
+          'mod blocks,', len(no_item), 'without item,', sum(len(v.split(' ')) for v in state_defaults.values()), 'exact default states'
+          + ('' if game else ' (no tools/conv51/data/blocks-26.3.json: hand rules only)'))
 
 
 if __name__ == '__main__':

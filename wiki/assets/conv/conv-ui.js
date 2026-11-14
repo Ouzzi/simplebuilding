@@ -1,4 +1,4 @@
-/* conv-ui.js (N51, b-conv51): page glue for "Bauwerke" (data-conv="blueprint") and "3D-Modelle" (data-conv="model").
+/* conv-ui.js (N51, b-conv51/b-conv51b): page glue (standalone or mounted by the wiki SPA) for "Bauwerke" (data-conv="blueprint") and "3D-Modelle" (data-conv="model").
  * Everything runs in the browser; files are read into memory only, nothing is uploaded, no other host is contacted. */
 (function () {
   'use strict';
@@ -17,7 +17,7 @@
       drop: 'Drop a file here or click to choose', dropModel: 'Drop files here or click to choose (several at once: .obj + .mtl, .gltf + .bin)',
       bpFormats: 'Reads: vanilla structure .nbt (also Create schematics), Sponge .schem (v1–v3, WorldEdit/FAWE), Litematica .litematic, MCEdit/Schematica .schematic (old number ids, approximated). Axiom .bp: export it in Axiom as .schem first.',
       mdFormats: 'Reads: vanilla model .json, Blockbench .bbmodel (Java block/item), and as a cube approximation .obj (+ .mtl), .gltf (+ .bin), .glb.',
-      sample: 'Load example', local: 'Files stay on your computer: they are read in this browser tab only.',
+      sample: 'Load example', samplePick: 'Example', local: 'Files stay on your computer: they are read in this browser tab only.',
       fmt: 'Format', dv: 'Data version', size: 'Size', blocks: 'Blocks', kinds: 'Block kinds', layer: 'Layer', code: 'Blueprint code', copy: 'Copy', copied: 'Copied',
       part: 'Part', tile: 'Tile', limits: 'Limits and notes', limTier: 'Needed building wand (longest edge)', limCode: 'Code length: pasting and the editor take at most 32,000 characters; longer buildings are cut into parts from bottom to top. Place each part at its offset.',
       tiles: 'Larger than 256 blocks on an axis: cut into {0} tiles of at most 256 × 256 × 256. Each code says where it goes (offset from the corner of the whole building).',
@@ -57,7 +57,7 @@
       pe_variable_as_block: 'variable {0} used as a block', pe_number_range: 'number {0} beyond ±{1}', pe_division_by_zero: 'division by zero', pe_pixels_usage: 'pixels x,y,z <row>', pe_pixels_bad_row: 'bad pixel row "{0}"', pe_pixels_outside: 'pixel row leaves the grid 0..{0}'
     },
     de: {
-      drop: 'Datei hier ablegen oder klicken', dropModel: 'Dateien hier ablegen oder klicken (mehrere zugleich: .obj + .mtl, .gltf + .bin)',
+      drop: 'Datei hier ablegen oder klicken', samplePick: 'Beispiel', dropModel: 'Dateien hier ablegen oder klicken (mehrere zugleich: .obj + .mtl, .gltf + .bin)',
       bpFormats: 'Liest: Vanilla-Strukturdatei .nbt (auch Create-Schematics), Sponge .schem (v1–v3, WorldEdit/FAWE), Litematica .litematic, MCEdit/Schematica .schematic (alte Zahlen-Ids, angenähert). Axiom .bp: in Axiom zuerst als .schem exportieren.',
       mdFormats: 'Liest: Vanilla-Modell .json, Blockbench .bbmodel (Java Block/Item) und als Würfel-Näherung .obj (+ .mtl), .gltf (+ .bin), .glb.',
       sample: 'Beispiel laden', local: 'Dateien bleiben auf deinem Rechner: sie werden nur in diesem Browser-Tab gelesen.',
@@ -127,6 +127,7 @@
     try { if (asked) sessionStorage.setItem('simple-wiki-dev', '1'); kept = sessionStorage.getItem('simple-wiki-dev') === '1'; } catch (err) { /* storage blocked */ }
     return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || asked || kept || location.protocol === 'file:' || !!window.CONV51_PREVIEW;
   }
+  function samples(mode) { var s = window.CONV51_SAMPLES && window.CONV51_SAMPLES[mode]; return Array.isArray(s) ? s : []; }
   function b64(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
   function download(name, data, type) {
     var url = URL.createObjectURL(new Blob([data], { type: type || 'application/octet-stream' })), a = document.createElement('a');
@@ -148,7 +149,7 @@
     if (!(CONV51_PUBLIC || isDev())) { root.innerHTML = '<p class="cv-devonly">' + esc(T('devOnly')) + '</p>'; return; }
     var model = mode === 'model';
     root.innerHTML = '<div class="cv-drop" tabindex="0" role="button">' + esc(T(model ? 'dropModel' : 'drop')) + '<input type="file" hidden' + (model ? ' multiple accept=".json,.bbmodel,.obj,.mtl,.gltf,.glb,.bin"' : ' accept=".nbt,.schem,.schematic,.litematic,.bp"') + '></div>' +
-      '<p class="cv-hint">' + esc(T(model ? 'mdFormats' : 'bpFormats')) + ' <button type="button" class="cv-sample">' + esc(T('sample')) + '</button></p><p class="cv-hint cv-local">' + esc(T('local')) + '</p>' +
+      '<p class="cv-hint">' + esc(T(model ? 'mdFormats' : 'bpFormats')) + '</p><p class="cv-hint"><label>' + esc(T('samplePick')) + ' <select class="cv-sample-pick">' + samples(mode).map(function (s, i) { return '<option value="' + i + '">' + esc(s.label) + '</option>'; }).join('') + '</select></label> <button type="button" class="btn cv-sample">' + esc(T('sample')) + '</button></p><p class="cv-hint cv-local">' + esc(T('local')) + '</p>' +
       (model ? '' : '<p class="cv-opts"><label>' + esc(T('unknown')) + ': <select class="cv-unk"><option value="keep">' + esc(T('unkKeep')) + '</option><option value="skip">' + esc(T('unkSkip')) + '</option><option value="rep">' + esc(T('unkRep')) + '</option></select></label> <input class="cv-rep" value="stone" size="18" hidden> <label class="cv-regl" hidden>' + esc(T('region')) + ': <select class="cv-reg"></select></label></p>') +
       '<div class="cv-out" aria-live="polite"></div>' + backHtml(model);
     var drop = root.querySelector('.cv-drop'), input = root.querySelector('input[type=file]'), out = root.querySelector('.cv-out'), last = null, regionFile = null;
@@ -156,11 +157,11 @@
     drop.ondragover = function (e) { e.preventDefault(); drop.classList.add('cv-over'); }; drop.ondragleave = function () { drop.classList.remove('cv-over'); };
     drop.ondrop = function (e) { e.preventDefault(); drop.classList.remove('cv-over'); if (e.dataTransfer.files.length) readAll(e.dataTransfer.files).then(fresh, fail); };
     input.onchange = function () { if (input.files.length) readAll(input.files).then(fresh, fail); input.value = ''; };
+    /* examples: wiki/assets/conv/examples/examples.js (generated by tools/conv51/make_examples.js, own files, embedded) */
     root.querySelector('.cv-sample').onclick = function () {
-      var s = window.CONV51_SAMPLES && window.CONV51_SAMPLES[mode];
-      if (s) { fresh([{ name: s.name, bytes: b64(s.b64) }]); return; }
-      var f = model ? 'house.glb' : 'hut.litematic';
-      fetch('tests/conv51/examples/' + f).then(function (r) { if (!r.ok) throw new Error('generic:' + r.status); return r.arrayBuffer(); }).then(function (a) { fresh([{ name: f, bytes: new Uint8Array(a) }]); }, fail);
+      var s = samples(mode)[+root.querySelector('.cv-sample-pick').value || 0];
+      if (!s) { fail(new Error('generic:no example')); return; }
+      fresh(s.files.map(function (f) { return { name: f.name, bytes: b64(f.b64) }; }));
     };
     function fail(e) { out.innerHTML = '<p class="cv-err" role="alert">' + esc(errText(e)) + '</p>'; }
     function fresh(files) { regionFile = null; take(files); }
@@ -228,7 +229,7 @@
       h += '<h4>' + esc(T('limits')) + '</h4>' + noteList(notes);
       res.parts.forEach(function (p, i) {
         var label = T('code') + (res.parts.length > 1 ? ' – ' + T('part') + ' ' + (i + 1) + ' ' + T('of') + ' ' + res.parts.length + (res.tiles > 1 ? ' (' + T('tile') + ' ' + p.tile + ')' : '') + ', +' + p.offset.join(',') : '');
-        h += '<h4>' + esc(label) + ' <span class="cv-len">(' + fmtN(p.code.length) + ' / ' + fmtN(C.MAX_CODE) + ')</span></h4><textarea readonly rows="8" class="cv-code" spellcheck="false">' + esc(p.code) + '</textarea><button type="button" class="cv-copy">' + esc(T('copy')) + '</button>';
+        h += '<h4>' + esc(label) + ' <span class="cv-len">(' + fmtN(p.code.length) + ' / ' + fmtN(C.MAX_CODE) + ')</span></h4><textarea readonly rows="8" class="cv-code" spellcheck="false">' + esc(p.code) + '</textarea><button type="button" class="btn cv-copy">' + esc(T('copy')) + '</button>';
       });
       out.innerHTML = h;
       out.querySelectorAll('.cv-code').forEach(function (ta) { copyBtn(ta, ta.nextElementSibling); });
@@ -294,9 +295,9 @@
       h += '<div class="cv-prev"><canvas width="360" height="300"></canvas><label>' + esc(T('yaw')) + ' <input type="range" class="cv-yaw" min="0" max="359" value="35"></label></div>';
       h += '<p>' + esc(T('texNote')) + '</p>';
       if (warns.length) h += '<h4>' + esc(T('warn')) + '</h4>' + noteList(warns.filter(function (k, i, a) { return a.indexOf(k) === i; }).map(function (k) { return T('w_' + k.split(':')[0]); }));
-      h += '<h4>' + esc(T('model')) + ' <span class="cv-len">(' + fmtN(code.length) + ' / ' + fmtN(65536) + ')</span></h4><textarea readonly rows="12" class="cv-code" spellcheck="false">' + esc(code) + '</textarea><button type="button" class="cv-copy">' + esc(T('copy')) + '</button>';
-      h += '<p class="cv-dl"><label>' + esc(T('packName')) + ' <input class="cv-name" value="' + esc(base) + '" size="20" maxlength="20"></label> <button type="button" class="cv-dl-json">' + esc(T('dlJson')) + '</button> <button type="button" class="cv-dl-bb">' + esc(T('dlBb')) + '</button> <button type="button" class="cv-dl-pack">' + esc(T('dlPack')) + '</button>' +
-        (textures.length ? ' <button type="button" class="cv-dl-tex">' + esc(T('dlTex')) + ' (' + textures.length + ')</button>' : '') + '</p>';
+      h += '<h4>' + esc(T('model')) + ' <span class="cv-len">(' + fmtN(code.length) + ' / ' + fmtN(65536) + ')</span></h4><textarea readonly rows="12" class="cv-code" spellcheck="false">' + esc(code) + '</textarea><button type="button" class="btn cv-copy">' + esc(T('copy')) + '</button>';
+      h += '<p class="cv-dl"><label>' + esc(T('packName')) + ' <input class="cv-name" value="' + esc(base) + '" size="20" maxlength="20"></label> <button type="button" class="btn cv-dl-json">' + esc(T('dlJson')) + '</button> <button type="button" class="btn cv-dl-bb">' + esc(T('dlBb')) + '</button> <button type="button" class="btn cv-dl-pack">' + esc(T('dlPack')) + '</button>' +
+        (textures.length ? ' <button type="button" class="btn cv-dl-tex">' + esc(T('dlTex')) + ' (' + textures.length + ')</button>' : '') + '</p>';
       out.innerHTML = h;
       copyBtn(out.querySelector('.cv-code'), out.querySelector('.cv-copy'));
       if (meshOpts) out.querySelectorAll('.cv-mopts select, .cv-mopts input').forEach(function (el) {
@@ -338,11 +339,13 @@
   }
   function backHtml(model) {
     if (model) return '<details class="cv-back"><summary>' + esc(T('mBack')) + '</summary><p class="cv-hint">' + esc(T('mBackHint')) + '</p><textarea class="cv-back-code cv-code" rows="8" spellcheck="false"></textarea>' +
-      '<p><label>' + esc(T('packName')) + ' <input class="cv-back-name" value="model" size="20" maxlength="20"></label> <button type="button" class="cv-back-json">' + esc(T('dlJson')) + '</button> <button type="button" class="cv-back-bb">' + esc(T('dlBb')) + '</button> <button type="button" class="cv-back-pack">' + esc(T('dlPack')) + '</button></p><div class="cv-back-out"></div></details>';
+      '<p><label>' + esc(T('packName')) + ' <input class="cv-back-name" value="model" size="20" maxlength="20"></label> <button type="button" class="btn cv-back-json">' + esc(T('dlJson')) + '</button> <button type="button" class="btn cv-back-bb">' + esc(T('dlBb')) + '</button> <button type="button" class="btn cv-back-pack">' + esc(T('dlPack')) + '</button></p><div class="cv-back-out"></div></details>';
     return '<details class="cv-back"><summary>' + esc(T('back')) + '</summary><p class="cv-hint">' + esc(T('backHint')) + '</p><textarea class="cv-back-code cv-code" rows="8" spellcheck="false"></textarea>' +
-      '<p><button type="button" class="cv-back-check">' + esc(T('check')) + '</button> <button type="button" class="cv-back-nbt">' + esc(T('dlNbt')) + '</button> <button type="button" class="cv-back-schem">' + esc(T('dlSchem')) + '</button></p><div class="cv-back-out"></div></details>';
+      '<p><button type="button" class="btn cv-back-check">' + esc(T('check')) + '</button> <button type="button" class="btn cv-back-nbt">' + esc(T('dlNbt')) + '</button> <button type="button" class="btn cv-back-schem">' + esc(T('dlSchem')) + '</button></p><div class="cv-back-out"></div></details>';
   }
   function boot() { document.querySelectorAll('[data-conv]').forEach(init); }
-  window.Conv51UI = { isDev: isDev, T: T, errText: errText, lang: lang, PUBLIC: CONV51_PUBLIC, strings: L };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  /* Wiki SPA (wiki/index.html, page "Bauwerke"/"3D-Modelle"): sets CONV51_EMBED and mounts with the wiki language. */
+  function mount(root, opts) { if (opts && L[opts.lang]) { lang = opts.lang; window.Conv51UI.lang = lang; } init(root); }
+  window.Conv51UI = { isDev: isDev, T: T, errText: errText, lang: lang, PUBLIC: CONV51_PUBLIC, strings: L, mount: mount };
+  if (!window.CONV51_EMBED) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot(); }
 })();

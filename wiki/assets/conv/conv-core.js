@@ -99,10 +99,15 @@
   }
 
   /* ---------------- block ids: known blocks, defaults, renames (tables in conv-data.js) ---------------- */
-  var KNOWN = new Set(), NO_ITEM = new Set(), DEFAULT_RULES = [], VALUE_MAPS = [];
+  var KNOWN = new Set(), NO_ITEM = new Set(), EXACT = new Map(), DEFAULT_RULES = [], VALUE_MAPS = [];
   if (D) {
     Object.keys(D.blocks).forEach(function (ns) { D.blocks[ns].split(' ').forEach(function (b) { KNOWN.add(ns + ':' + b); }); });
-    D.noItem.split(' ').forEach(function (b) { NO_ITEM.add('minecraft:' + b); });
+    D.noItem.split(' ').forEach(function (b) { if (b) NO_ITEM.add(fullId(b)); });
+    /* exact default states from the game (Conv51Dump gametest): "k=v,..." -> ids; ids without "ns:" are minecraft */
+    Object.keys(D.stateDefaults || {}).forEach(function (d) {
+      var props = {}; d.split(',').forEach(function (kv) { var e = kv.indexOf('='); props[kv.slice(0, e)] = kv.slice(e + 1); });
+      D.stateDefaults[d].split(' ').forEach(function (b) { EXACT.set(fullId(b), props); });
+    });
     DEFAULT_RULES = D.defaults.map(function (r) { return [new RegExp(r[0]), r[1]]; });
     VALUE_MAPS = D.valueMaps.map(function (r) { return [new RegExp(r[0]), r[1], r[2]]; });
   }
@@ -131,7 +136,8 @@
   function spec(id, props, info) {
     var ns = id.indexOf(':') < 0 ? 'minecraft' : id.slice(0, id.indexOf(':')), path = id.slice(id.indexOf(':') + 1);
     var name = ns === 'minecraft' ? path : ns + ':' + path;
-    var defs = ns === 'minecraft' ? defaultsFor(path) : null, parts = [];
+    /* exact game defaults first; a vanilla id without an entry has no properties (or the table predates the dump: hand rules) */
+    var full = ns + ':' + path, defs = EXACT.has(full) ? EXACT.get(full) : ns === 'minecraft' ? (EXACT.size ? {} : defaultsFor(path)) : null, parts = [];
     Object.keys(props || {}).sort().forEach(function (k) {
       if (defs && defs[k] === props[k]) return;
       if (!defs || !(k in defs)) { if (info) info.unknownDefaults[name] = true; }

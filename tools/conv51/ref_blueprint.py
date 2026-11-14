@@ -39,6 +39,8 @@ def read_nbt(data):
     assert take(1)[0] == 10; s(); return val(10)
 
 RULES = [(re.compile(p), d) for p, d in DATA['defaults']]
+EXACT = {(b if ':' in b else 'minecraft:' + b): dict(kv.split('=', 1) for kv in d.split(','))
+         for d, ids in DATA.get('stateDefaults', {}).items() for b in ids.split(' ')}
 
 
 def upgrade(name, props, dv):
@@ -60,7 +62,9 @@ def upgrade(name, props, dv):
 def spec(name, props):
     ns, _, path = name.partition(':')
     out = path if ns == 'minecraft' else name
-    defs = next((r for pat, r in RULES if pat.search(path)), None) if ns == 'minecraft' else None
+    if name in EXACT: defs = EXACT[name]
+    elif ns == 'minecraft': defs = {} if EXACT else next((r for pat, r in RULES if pat.search(path)), None)
+    else: defs = None
     parts = [f'{k}={v}' for k, v in sorted(props.items()) if not (defs and defs.get(k) == v)]
     return f'{out}[{",".join(parts)}]' if parts else out
 
