@@ -21,9 +21,16 @@ public final class Models {
     }
     /** Super-mod switch "Enable Simple Aesthetics" (framework SubMods): off = anvil stays Vanilla, no assignment, no tab. Runtime only. */
     public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simplemodels"); }
+    /** simplemodels-1 (PLAN40): the catalogue being off (policy.enabled=false) leaves the anvil alone, so a name "@model:..." is a plain name then. */
     public static boolean request(String name) {
-        return on() && name != null && (name.startsWith(PREFIX) || server.policy().legacyNameMatching
+        return on() && server.policy().enabled && name != null && (name.startsWith(PREFIX) || server.policy().legacyNameMatching
                 && server.models().stream().anyMatch(d -> d.match_name().equals(name)));
+    }
+    /** simplemodels-1 (PLAN40): who may assign when {@code operatorsOnly} is on - an operator, or the owner of a single-player world (no cheats there, so no operator rights). */
+    public static boolean mayAssign(boolean operator, boolean singleplayerOwner) { return operator || singleplayerOwner; }
+    public static boolean mayAssign(net.minecraft.server.level.ServerPlayer player) {
+        var source = player.createCommandSourceStack();
+        return mayAssign(net.minecraft.commands.Commands.LEVEL_GAMEMASTERS.check(source.permissions()), source.getServer().isSingleplayerOwner(player.nameAndId()));
     }
     /** Anvil only: copies the input, never accepts an ItemStack or component from the client. */
     public static ItemStack assign(ItemStack input, String name, boolean operator) {

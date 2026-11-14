@@ -24,8 +24,7 @@ public abstract class ModelAnvilMixin extends ItemCombinerMenu {
         ci.cancel();
         var output = net.minecraft.world.item.ItemStack.EMPTY;
         if (player instanceof ServerPlayer sp && inputSlots.getItem(1).isEmpty())
-            output = Models.assign(inputSlots.getItem(0), itemName,
-                    net.minecraft.commands.Commands.LEVEL_GAMEMASTERS.check(sp.createCommandSourceStack().permissions()));
+            output = Models.assign(inputSlots.getItem(0), itemName, Models.mayAssign(sp));
         resultSlots.setItem(0, output);
         cost.set(output.isEmpty() ? 0 : Models.server.policy().levelCost);
         repairItemCountCost = 0;
@@ -36,7 +35,7 @@ public abstract class ModelAnvilMixin extends ItemCombinerMenu {
             org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<Boolean> cir) {
         if (!simplemodels$modelRequest) return;
         var expected = player instanceof ServerPlayer sp && inputSlots.getItem(1).isEmpty()
-                ? Models.assign(inputSlots.getItem(0), itemName, net.minecraft.commands.Commands.LEVEL_GAMEMASTERS.check(sp.createCommandSourceStack().permissions()))
+                ? Models.assign(inputSlots.getItem(0), itemName, Models.mayAssign(sp))
                 : net.minecraft.world.item.ItemStack.EMPTY;
         if (expected.isEmpty() || !net.minecraft.world.item.ItemStack.matches(expected, resultSlots.getItem(0))
                 || cost.get() != Models.server.policy().levelCost) cir.setReturnValue(false);

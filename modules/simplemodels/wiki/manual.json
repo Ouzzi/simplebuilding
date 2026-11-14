@@ -140,10 +140,10 @@
         "de": "Nur Operatoren"
       },
       "en": {
-        "summary": "Only operators with game master permission may assign or remove models. Default: true."
+        "summary": "Only operators with game master permission may assign or remove models; in a single-player world its owner always may, cheats or not. Default: true."
       },
       "de": {
-        "summary": "Nur Operatoren mit Spielleiterrechten dürfen Modelle zuweisen oder entfernen. Standard: true."
+        "summary": "Nur Operatoren mit Spielleiterrechten dürfen Modelle zuweisen oder entfernen; in einer Einzelspielerwelt darf es der Besitzer immer, auch ohne Cheats. Standard: true."
       }
     },
     {
