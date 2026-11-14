@@ -470,6 +470,7 @@ Doppelkolben, Signaldämpfer, verstärkte/Netherit-/Enderit-Kolben, schnellere T
 Notenblätter (Textcode, .txt/.nbs), Plattenpresse, hochgeladene Ogg-Platten, Taschen-Jukebox.
 
 - **A12:** Nutzen: eigene Musik im Spiel. Mixins an Jukebox, Sound-Laden und Kartentisch/Bündel-Anzeige; Vanilla-Platten laufen weiter. Eingriff in Vanilla: mittel (Jukebox-Hook), Upload mit Quote und Operator-Freigabe, abschaltbar (`enabled`).
+- **Texturen (PLAN40 simplemusic-4):** Die Etiketten eigener Platten (Lied Amethyst, Komposition Papier) sind bewusst zweifarbig: sie sind Färbe-Masken und werden im Spiel je Platte/Farbstoff getönt; feinere Verläufe würden dabei matschig (A8-Ausnahme, Besitzer-Abnahme W2C).
 
 ### Simple Pads (`simplepads`)
 Startpad, Elytra-Pad, Flugpad, Trankpad, Spawn-Teleporter, Chunk-Lader, stärkere Druckplatten, Spawn-Elytra.
