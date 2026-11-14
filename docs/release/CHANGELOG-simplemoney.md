@@ -15,53 +15,7 @@ Currency production, villager trades and treasure loot.
 - **Refined Banknote Blank** - An uncommon ingredient made by refining a banknote blank.
 - **Raw Bill** - A rare crafting result.
 - **Money Bill** - Currency for the added villager and wandering trader offers.
-- **Trade: armorer/25** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/26** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/27** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/28** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/29** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/30** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/31** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: armorer/32** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: cleric/08** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: cleric/09** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: farmer/18** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: farmer/19** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: farmer/20** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: farmer/21** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: farmer/22** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: farmer/23** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: farmer/24** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: fletcher/00** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: fletcher/01** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: fletcher/02** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: librarian/03** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: librarian/04** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: librarian/05** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: librarian/06** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: librarian/07** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/10** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/11** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/12** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/13** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/14** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/15** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/16** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: mason/17** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: toolsmith/33** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: toolsmith/34** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: toolsmith/35** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: toolsmith/36** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: toolsmith/37** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: toolsmith/38** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: toolsmith/39** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: wandering_trader/40** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: wandering_trader/41** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: wandering_trader/42** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: wandering_trader/43** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: wandering_trader/44** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: wandering_trader/45** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
-- **Trade: wandering_trader/46** - Additional offer; existing Vanilla and SimpleBuilding offers remain in the pool.
+- **47 extra trade offers** - Villagers (armorer 8, cleric 2, farmer 7, fletcher 3, librarian 5, mason 8, toolsmith 7) and the wandering trader (7) sell and buy more goods for money bills. One rule prices all of them: one bill is worth 3 diamonds or 16 emeralds. Vanilla and SimpleBuilding offers stay in the pool.
 - **Treasure currency** - One independent roll per chest.
 - **Paper rocket recipe** - Additional source recipe: seven paper and two gunpowder produce one rocket.
 - **Money Links: Add-on Trades** - Adds buy-only money offers for loaded mods without removing their original trades.
@@ -87,7 +41,7 @@ Currency production, villager trades and treasure loot.
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: none (Cloth Config optional: config screen only)
+- Required mods: SimpleLib (Cloth Config optional: config screen only)
 - Optional integrations: jei, modmenu, simplebuilding, simplefun, simplemodels, simplequalityoflife, simpleriding, simplesandwiches, simplesounds, simpletweaks, simplevisuals, wiringexample, simpleores
 
 ## Notes

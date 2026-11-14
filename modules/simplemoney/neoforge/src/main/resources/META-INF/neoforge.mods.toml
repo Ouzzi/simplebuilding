@@ -6,7 +6,7 @@ modId="simplemoney"
 version="${version}"
 displayName="Simple Money"
 iconFile="assets/simplemoney/icon.png"
-description="Currency production, weighted villager trades and treasure loot."
+description="Currency production, villager trades and treasure loot."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
 [[dependencies.simplemoney]]
