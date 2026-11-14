@@ -123,7 +123,7 @@ def beacons(s):
     st = _wait(s, lambda t: (_btn(s, t, 'Luck') or {}).get('active'), 15)
     s.check('5 levels: all 10 effect buttons unlocked', all(w['active'] for w in _buttons(s, st)) and len(_buttons(s, st)) == 10,
             [(w['label'], w['active']) for w in _buttons(s, st)])
-    regen = s.find_widget('Regeneration', 'BeaconPowerButton', st)
+    regen = s.find_widget(None, 'BeaconPowerButton', st)  # the secondary power icon has no label (tooltip only)
     s.check('secondary power Regeneration is unlocked at level 5', regen is not None and regen['active'], regen)
     time.sleep(1.0)
     s.shot('five-levels')  # "Pyramid 5/6", "Material x1.21" and the range/duration lines: look for a human
@@ -152,7 +152,7 @@ def beacons(s):
     st = s.wait_screen('StrongBeaconScreen', 12)
     if 'StrongBeaconScreen' in st.get('screen', ''):
         time.sleep(1.0)
-        if s.click_widget('Haste', 'StrongButton', 'Haste button') and s.click_widget('Regeneration', 'BeaconPowerButton', 'Regeneration button'):
+        if s.click_widget('Haste', 'StrongButton', 'Haste button') and s.click_widget(None, 'BeaconPowerButton', 'Regeneration button'):
             pay = _pay(s)
             st = _wait(s, lambda t: (s.find_widget(cls='BeaconConfirmButton', st=t) or {}).get('active'), 6)
             s.shot('haste-regeneration')

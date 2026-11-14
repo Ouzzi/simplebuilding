@@ -95,14 +95,18 @@ def foundry(s):
         lifted = s.click_slot(cslot=4, own=True)
         s.check(f'tier {tier + 1}: raw iron lifted onto the cursor', lifted and lifted.get('carried', '').startswith('minecraft:raw_iron'), lifted and lifted.get('carried'))
         last = s.click_slot(index=slots - 1, right=True)
-        got = s.slot_xy(last, index=slots - 1)['stack'] if last else None
+        time.sleep(1.2)  # the server answers the click with the slot content
+        last = s.st()
+        got = s.slot_xy(last, index=slots - 1)['stack'] if last and s.slot_xy(last, index=slots - 1) else None
         s.check(f'tier {tier + 1}: last active place ({slots}) takes a piece', got == 'minecraft:raw_iron x1', got)
         time.sleep(0.5)
         ok, item = _nbt(s, pos, f'{{Slot{slots - 1}:{{id:"minecraft:raw_iron"}}}}')
         s.check(f'tier {tier + 1}: the desk block entity holds it (Slot{slots - 1})', ok, item)
         if slots < 12:
             lock = s.click_slot(index=slots, right=True)
-            got = s.slot_xy(lock, index=slots)['stack'] if lock else None
+            time.sleep(1.2)
+            lock = s.st()
+            got = s.slot_xy(lock, index=slots)['stack'] if lock and s.slot_xy(lock, index=slots) else None
             s.check(f'tier {tier + 1}: first locked place ({slots + 1}) refuses it', not got, got)
             ok, item = _nbt(s, pos, f'{{Slot{slots}:{{id:"minecraft:raw_iron"}}}}', present=False)
             s.check(f'tier {tier + 1}: the desk block entity has nothing in Slot{slots}', ok, item)
