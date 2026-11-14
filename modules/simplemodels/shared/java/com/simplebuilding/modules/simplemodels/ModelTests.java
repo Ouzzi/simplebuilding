@@ -70,7 +70,7 @@ public final class ModelTests {
     public static void singleplayerOwner(GameTestHelper h) {
         h.assertTrue(Models.mayAssign(true, false) && Models.mayAssign(false, true) && Models.mayAssign(true, true), "Operator or world owner may assign");
         h.assertTrue(!Models.mayAssign(false, false), "Anyone else may not");
-        var player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        var player = h.makeMockServerPlayerInLevel();
         h.assertTrue(!Models.mayAssign(player), "A mock player without permissions on a test server is neither");
         var original = Models.server;
         try {
