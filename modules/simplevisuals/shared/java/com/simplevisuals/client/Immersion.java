@@ -15,6 +15,11 @@ import net.minecraft.world.phys.Vec3;
 /** Bounded cosmetic work. Uses loaded client data only and never sends gameplay packets. */
 public final class Immersion {
     public static final ParticleBudget BUDGET = new ParticleBudget();
+    /** Time of day (0..23999) of the level's own default clock, -1 in a dimension without day and night (Nether, End): fireflies and pollen follow the clock of their dimension (simplesounds-2, same fix). */
+    private static long dayTime(net.minecraft.world.level.Level level) {
+        return level.dimensionType().defaultClock().isPresent() ? Math.floorMod(level.getDefaultClockTime(), 24000L) : -1L;
+    }
+
     private static int tick;
     private static net.minecraft.client.multiplayer.ClientLevel level;
     private static final java.util.Map<Integer, Float> health = new java.util.HashMap<>();
@@ -40,8 +45,8 @@ public final class Immersion {
                 boolean active = switch (effect.id()) {
                     case "footstep_dust" -> player.onGround() && !player.isInWater() && player.getDeltaMovement().horizontalDistanceSqr() > .015;
                     case "cold_breath" -> !player.isUnderWater() && client.level.getBiome(pos).value().coldEnoughToSnow(pos, client.level.getSeaLevel());
-                    case "fireflies" -> client.level.getOverworldClockTime() % 24000 >= 13000 && client.level.getOverworldClockTime() % 24000 <= 23000 && client.level.getBlockState(pos.below()).is(BlockTags.DIRT);
-                    case "pollen" -> client.level.getOverworldClockTime() % 24000 < 12000 && nearby(client, pos, BlockTags.FLOWERS, null);
+                    case "fireflies" -> dayTime(client.level) >= 13000 && dayTime(client.level) <= 23000 && client.level.getBlockState(pos.below()).is(BlockTags.DIRT);
+                    case "pollen" -> dayTime(client.level) >= 0 && dayTime(client.level) < 12000 && nearby(client, pos, BlockTags.FLOWERS, null);
                     case "fire_sparks" -> nearby(client, pos, null, Blocks.FIRE) || nearby(client, pos, null, Blocks.LAVA) || nearby(client, pos, null, Blocks.CAMPFIRE);
                     case "water_ripples" -> player.isInWater() && !player.isUnderWater() && player.getDeltaMovement().horizontalDistanceSqr() > .005;
                     case "water_droplets" -> player.isInWater() && player.getDeltaMovement().lengthSqr() > .01;

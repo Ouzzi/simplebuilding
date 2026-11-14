@@ -1,4 +1,4 @@
-# Simple Visuals 0.9.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Visuals 1.0.0 - changelog (Minecraft 26.3, Fabric)
 
 ## Release notes
 
@@ -43,3 +43,4 @@ Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.
 
 - All options are in the config screen (Mod Menu / Cloth Config) and in `/simplevisuals config` where available.
 - Back up your world before updating from an older SimpleBuilding build; old ids are migrated automatically.
+- Tilted (chiselled) item frames send an extra value that a game without this mod does not understand: Simple Visuals must be installed on the client too (the chisels need Simple Building there anyway).
