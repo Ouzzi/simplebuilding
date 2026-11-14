@@ -60,7 +60,7 @@
   "simplerespawn.guide.page.5.title": "Fairness",
   "simplerespawn.guide.page.5": "Das Spiel zu verlassen, während man niedergeschlagen ist, bedeutet den Tod; der echte Tod ist immer der Vanilla-Tod, Drops und andere Mods verhalten sich wie gewohnt.",
   "simplerespawn.guide.page.6.title": "Befehle",
-  "simplerespawn.guide.page.6": "/simplerespawn giveup für den Niedergeschlagenen (der Knopf Aufgeben); /simplerespawn down <Spieler> und /simplerespawn revive <Spieler> für Spielleiter.",
+  "simplerespawn.guide.page.6": "/simplerespawn giveup für den Niedergeschlagenen (der Knopf Aufgeben); /simplerespawn down <Spieler> und /simplerespawn revive <Spieler> für Spielleiter. Ohne die Mod im Client ist giveup der einzige Ausweg.",
   "simplerespawn.guide.page.7.title": "Einstellungen",
   "simplerespawn.guide.page.7": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

@@ -488,12 +488,12 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth_config",
       "simplelib"
     ],
     "optional": [
       "simplebuilding",
-      "modmenu"
+      "modmenu",
+      "cloth_config"
     ],
     "stage": "new",
     "parent": "simplebuilding",

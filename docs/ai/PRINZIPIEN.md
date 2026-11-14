@@ -297,7 +297,7 @@ Endholz (Aschholz, Dämmerholz), Knospen, Bäume, Endgras, Biome auf den äußer
 ### Simple Respawn (`simplerespawn`)
 Niedergeschlagen statt tot: Teamkameraden können wiederbeleben.
 
-- keine eigenen Regeln bisher
+- **A12 (PLAN40 simplerespawn-2):** Nutzen: Mehrspieler-Teamwork – wer tödlich getroffen wird, liegt 60 s am Boden und kann von einem Mitspieler wiederbelebt werden, statt Inventar zu verlieren. Eingriff in Vanilla: stark (der Tod selbst), deshalb begrenzt: wirkt nur, wenn ein anderer Spieler in derselben Dimension und höchstens 128 Blöcke entfernt helfen könnte (`onlyWithOtherPlayers`, `helperMaxDistance`; allein gilt der Vanilla-Tod); Totem, Void und `/kill` gehen vor; der echte Tod bleibt der Vanilla-Tod (Drops, Statistik, Loader-Ereignisse). Abwägung: Monster ignorieren Niedergeschlagene (`mobsIgnoreDowned`, abschaltbar für mehr Härte). Alles abschaltbar (`enabled`, „Enable Simple Respawn“). Ohne die Mod im Client gibt es keinen Bildschirm; Ausweg ist `/simplerespawn giveup` (im Handbuch genannt).
 
 ### Simple Beacons (`simplebeacons`)
 Starker Leuchtturm, starke Conduit, Upgrade-Vorlage.

@@ -60,7 +60,7 @@
   "simplerespawn.guide.page.5.title": "Fair play",
   "simplerespawn.guide.page.5": "Leaving the game while downed is death; the real death is always the Vanilla one, so drops and other mods behave as usual.",
   "simplerespawn.guide.page.6.title": "Commands",
-  "simplerespawn.guide.page.6": "/simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters.",
+  "simplerespawn.guide.page.6": "/simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters. Without the mod in the client, giveup is the only way out.",
   "simplerespawn.guide.page.7.title": "Settings",
   "simplerespawn.guide.page.7": "More settings are in the mod's config screen."
 }
