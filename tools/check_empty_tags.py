@@ -19,6 +19,7 @@ EMPTY_BY_DESIGN = {
     "curios:item/back": "26.3 overlay of SimpleBuilding (split stage 8c-2): backpacks and quivers go on the back, both are Simple Storage's (its own tag)",
     "trinkets:item/chest/back": "26.3 overlay of SimpleBuilding (split stage 8c-2): backpacks and quivers go on the back, both are Simple Storage's (its own tag)",
     "simplebuilding:item/dyeable_storage": "26.3 datagen (split stage 8c-2): every dyeable storage item is Simple Storage's (simplestorage:dyeable_storage)",
+    "minecraft:item/spears": "26.3 overlay of SimpleBuilding (b-circ46, N47-M3): the Enderite spear is Simple Ores' (its own spears tag)",
     "simplebeacons:block/strong_base_blocks": "modpack opt-in for extra Strong Beacon pyramid blocks (check_data.py asserts it is empty)",
 }
 TAG = re.compile(r"(?:^|/)data/([^/]+)/tags/(.+)\.json$")

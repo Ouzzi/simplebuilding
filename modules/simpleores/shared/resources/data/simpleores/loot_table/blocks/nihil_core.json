@@ -1,21 +1,18 @@
 {
   "type": "minecraft:block",
-  "random_sequence": "simpleores:blocks/nihil_core",
   "pools": [
     {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleores:nihil_core"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
       ]
     }
-  ]
+  ],
+  "random_sequence": "simpleores:blocks/nihil_core"
 }

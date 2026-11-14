@@ -216,9 +216,9 @@ wall_diode('wall_signal_dampener', 'simplemachines', 'south', {f'powered={str(p)
 
 # ---------------------------------------------------------------- loot and recipes
 for block in ('astral_relay', 'nihil_core'):
-    put(D / f'loot_table/blocks/{block}.json', {'type': 'minecraft:block', 'random_sequence': f'{NS}:blocks/{block}', 'pools': [
-        {'rolls': 1.0, 'bonus_rolls': 0.0, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{block}'}],
-         'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+    put(D / f'loot_table/blocks/{block}.json', {'type': 'minecraft:block', 'pools': [
+        {'rolls': 1, 'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{block}'}]}],
+        'random_sequence': f'{NS}:blocks/{block}'})
 
 
 def recipe(name, data, unlock):
