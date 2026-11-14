@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Riding"
 logoFile="assets/simpleriding/icon_128.png"
 logoBlur=false
-description="Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades."
+description="Saddle speed, horse jumps, nautilus dashes, mount armor utilities, horseshoes, loot, and trades."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
 [[dependencies.simpleriding]]
