@@ -302,18 +302,29 @@ public final class MobReloadGameTest {
 
         void spawnOne(EntityType<?> type, BlockPos at, String label, boolean still, ChunkPos c) {
             try {
-                Entity e = type.spawn(level, at, still ? EntitySpawnReason.COMMAND : EntitySpawnReason.SPAWN_ITEM_USE);
+                Entity e;
+                boolean mustReturn = false;
+                if (still) {
+                    // exactly like the test centre's mob buttons (TestCentreBuilder#spawnMob): create without finalizeSpawn
+                    e = type.create(level, EntitySpawnReason.COMMAND);
+                    if (e != null) {
+                        e.setPos(at.getX() + 0.5, at.getY(), at.getZ() + 0.5);
+                        if (e instanceof Mob mob) {
+                            mob.setNoAi(true);
+                            mob.setPersistenceRequired();
+                            mustReturn = true;
+                        }
+                        e.setSilent(true);
+                        e.setPermanentlyInvulnerable(true);
+                        e.addTag(STILL_TAG);
+                        if (!level.addFreshEntity(e)) e = null;
+                    }
+                } else {
+                    e = type.spawn(level, at, EntitySpawnReason.SPAWN_ITEM_USE);
+                }
                 if (e == null) {
                     log("spawn " + label + " gave nothing");
                     return;
-                }
-                boolean mustReturn = false;
-                if (still && e instanceof Mob mob) {
-                    mob.setNoAi(true);
-                    mob.setSilent(true);
-                    mob.setPersistenceRequired();
-                    mob.addTag(STILL_TAG);
-                    mustReturn = true;
                 }
                 spawned.add(new Spawned(e.getUUID(), label, mustReturn, c));
             } catch (Throwable t) {
