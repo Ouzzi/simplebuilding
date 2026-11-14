@@ -59,7 +59,7 @@ Basis b-rel32 d9cda1e21, Branch `b-rel32-opt`. Gelesen ohne Gradle: jede Datei v
 - simpleoptrender-P3-1: `OptSettings.load` schrieb die Config nicht atomar (framework). Fix: `ConfigFiles.writeAtomic`, Commit 2e29b17fb.
 - simpleoptrender-P3-2: `fabric.mod.json`-Beschreibung nannte More Culling und Detail-Schalter nicht. Fix: Commit 64e80c0cc.
 - simpleoptrender-P3-3 (Restpunkt, Rueckfrage): Sodium/Iris-Koexistenz ist nur ueber Zielpruefung und Rivalenliste abgesichert, `compat-opt-263` (Cull Leaves/More Culling/BadOptimizations/ServerCore) wurde nie gefahren und enthaelt weder Sodium noch Iris. Vor Release echter Client-Lauf mit Sodium (+Iris) noetig (opt.md, QOLA-OPT-R10).
-- simpleoptrender-P3-4 (Hinweis): `details.fog=false` hebt auch Nebel in der Nether/Boss-Atmosphaere auf (nicht nur Fernsicht-Nebel); Default true = Vanilla, daher nur Wunsch-Option.
+- simpleoptrender-P3-4: **gefixt** (simpleoptrender-4): `details.fog=false` hebt den Sichtweiten-Nebel überall, den Luftnebel nur in Dimensionen mit Himmelslicht ohne Decke (Oberwelt) auf; Nether-/End-Nebel bleibt (`Details.liftEnvironmentalFog`, Test `detailsRules`).
 - simpleoptrender-P3-5 (Hinweis): Zielpruefung vergleicht Klassen, nicht Methoden; mehrere weit verbreitete Mods (z. B. Iris auf `FogRenderer`) koennen einen Bereich daher vorsorglich abschalten. Bewusst konservativ (Konzept 4.5).
 Keine P1/P2.
 

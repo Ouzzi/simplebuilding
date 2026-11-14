@@ -105,11 +105,11 @@
       ],
       "en": {
         "title": "Detail switches",
-        "summary": "Switches without needing Sodium, all true (Vanilla) by default: particles false adds no particles, textureAnimations false keeps animated textures (water, lava, fire, portals) on their current frame, fog false lifts the air and render-distance fog. Fog in water, lava or powder snow and the fog of blindness and darkness always stay."
+        "summary": "Switches without needing Sodium, all true (Vanilla) by default: particles false adds no particles, textureAnimations false keeps animated textures (water, lava, fire, portals) on their current frame, fog false lifts the render-distance (far) fog everywhere and the air fog in the Overworld. Fog in water, lava or powder snow, the fog of blindness and darkness and the thick fog of the Nether and End always stay."
       },
       "de": {
         "title": "Detail-Schalter",
-        "summary": "Schalter ohne Sodium, standardmäßig alle true (Vanilla): particles false erzeugt keine Partikel, textureAnimations false hält animierte Texturen (Wasser, Lava, Feuer, Portale) auf ihrem aktuellen Bild, fog false hebt den Luft- und Sichtweiten-Nebel auf. Nebel in Wasser, Lava oder Pulverschnee und der Nebel von Blindheit und Dunkelheit bleiben immer."
+        "summary": "Schalter ohne Sodium, standardmäßig alle true (Vanilla): particles false erzeugt keine Partikel, textureAnimations false hält animierte Texturen (Wasser, Lava, Feuer, Portale) auf ihrem aktuellen Bild, fog false hebt den Sichtweiten-Nebel (Fernsicht) überall und den Luftnebel in der Oberwelt auf. Nebel in Wasser, Lava oder Pulverschnee, der Nebel von Blindheit und Dunkelheit und der dichte Nebel von Nether und End bleiben immer."
       }
     },
     {

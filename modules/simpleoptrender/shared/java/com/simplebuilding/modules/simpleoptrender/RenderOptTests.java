@@ -190,6 +190,8 @@ public final class RenderOptTests {
         h.assertTrue(!Details.liftFog(off, true, false), "fluid or snow fog stays");
         h.assertTrue(!Details.liftFog(off, false, true), "blindness/darkness fog stays");
         h.assertTrue(!Details.liftFog(Details.Switches.DEFAULTS, false, false), "default: Vanilla fog");
+        h.assertTrue(Details.liftEnvironmentalFog(true, false), "Overworld-like: atmospheric fog goes too");
+        h.assertTrue(!Details.liftEnvironmentalFog(false, true) && !Details.liftEnvironmentalFog(false, false) && !Details.liftEnvironmentalFog(true, true), "Nether/End-like: thick fog stays");
         withFake(() -> {
             var read = com.google.gson.JsonParser.parseString("{\"areas\":{\"details\":{\"particles\":false,\"fog\":false},\"more_culling\":{\"beaconBeams\":false}}}").getAsJsonObject();
             RenderOpt.apply(OptSettings.of(read, RenderOpt.defaults()), true, Set.<String>of()::contains, Map.of());

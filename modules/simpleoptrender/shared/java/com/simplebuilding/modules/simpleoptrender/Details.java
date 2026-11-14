@@ -15,6 +15,15 @@ public final class Details {
 
     private Details() {}
 
+    /**
+     * simpleoptrender-4 (PLAN40): whether the atmospheric (environmental) fog goes with it. The Nether's and End's thick fog is
+     * part of their look (and of the dragon fight), so only a dimension with sky light and no ceiling loses it; the render-distance
+     * fog (the far haze) is lifted everywhere.
+     */
+    public static boolean liftEnvironmentalFog(boolean dimensionHasSkyLight, boolean dimensionHasCeiling) {
+        return dimensionHasSkyLight && !dimensionHasCeiling;
+    }
+
     /** Whether the air fog may be lifted: switch off, camera not in a fluid or snow, no blindness or darkness. */
     public static boolean liftFog(Switches s, boolean cameraInFluidOrSnow, boolean blindOrDark) {
         return !s.fog() && !cameraInFluidOrSnow && !blindOrDark;

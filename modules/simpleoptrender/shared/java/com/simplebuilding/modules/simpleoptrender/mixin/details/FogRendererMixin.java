@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/** O9 fog false: air and render-distance fog lifted; fluid, snow, blindness and darkness fog stay (Details#liftFog). */
+/** O9 fog false: the render-distance fog is lifted everywhere, the atmospheric fog only in dimensions with sky light and no ceiling (Overworld); fluid, snow, blindness, darkness, Nether and End fog stay (Details#liftFog). */
 @Mixin(FogRenderer.class)
 abstract class FogRendererMixin {
     @Inject(method = "setupFog", at = @At("RETURN"))
@@ -26,7 +26,8 @@ abstract class FogRendererMixin {
                 && (living.hasEffect(MobEffects.BLINDNESS) || living.hasEffect(MobEffects.DARKNESS));
         if (!Details.liftFog(RenderOpt.details(), camera.getFluidInCamera() != FogType.NONE, blind)) return;
         FogData fog = cir.getReturnValue();
-        fog.environmentalStart = fog.environmentalEnd = Details.NO_FOG;
+        if (Details.liftEnvironmentalFog(level.dimensionType().hasSkyLight(), level.dimensionType().hasCeiling()))
+            fog.environmentalStart = fog.environmentalEnd = Details.NO_FOG;
         fog.renderDistanceStart = fog.renderDistanceEnd = Details.NO_FOG;
     }
 }
