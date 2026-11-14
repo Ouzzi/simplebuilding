@@ -2506,7 +2506,9 @@
         "neoforge",
         "forge"
       ],
-      "requires": [],
+      "requires": [
+        "simplelib"
+      ],
       "optional": [
         "simplemobs"
       ],

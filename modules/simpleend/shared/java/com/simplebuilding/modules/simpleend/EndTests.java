@@ -700,7 +700,7 @@ public final class EndTests {
             h.succeed();
         });
         add("end_leaves_hoe_tool", h -> {
-            // TX22-4: the hoe is the tool; without one the leaves take as long as a cobweb (bare hand: 20 s, like Vanilla).
+            // TX22-4: the hoe is the tool; without one the leaves take at least as long as the faster of a cobweb and 2 s by hand (SE2B-4; before: bare hand 20 s like a cobweb).
             ServerLevel level = h.getLevel();
             BlockPos at = new BlockPos(20, 3, 20);
             BlockPos abs = h.absolutePos(at);
@@ -713,12 +713,13 @@ public final class EndTests {
                 for (net.minecraft.world.item.Item tool : new net.minecraft.world.item.Item[] {Items.AIR, Items.STICK, Items.IRON_PICKAXE, Items.IRON_AXE}) {
                     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(tool));
                     float prog = leaf.getDestroyProgress(player, level, abs), cobweb = web.getDestroyProgress(player, level, abs);
-                    h.assertTrue(Math.abs(prog - cobweb) < 1e-6, w.name + " leaves with " + tool + " break like a cobweb: " + prog + " vs " + cobweb);
+                    float expect = Math.max(cobweb, player.onGround() ? EndLeavesBlock.HAND_PROGRESS : EndLeavesBlock.HAND_PROGRESS / 5.0F);
+                    h.assertTrue(Math.abs(prog - expect) < 1e-6, w.name + " leaves with " + tool + " break like a cobweb, at best 2 s: " + prog + " vs " + expect);
                 }
                 player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 float hand = leaf.getDestroyProgress(player, level, abs);
-                float ticks = 400.0F * (player.onGround() ? 1 : 5); // Vanilla: mining in the air is five times slower
-                h.assertTrue(Math.abs(1.0F / hand - ticks) < 1.0F, w.name + " leaves by hand take " + ticks + " ticks (cobweb), got " + (1.0F / hand));
+                float ticks = 40.0F * (player.onGround() ? 1 : 5); // Vanilla: mining in the air is five times slower
+                h.assertTrue(Math.abs(1.0F / hand - ticks) < 1.0F, w.name + " leaves by hand take " + ticks + " ticks (2 s), got " + (1.0F / hand));
                 for (net.minecraft.world.item.Item hoe : new net.minecraft.world.item.Item[] {Items.WOODEN_HOE, Items.IRON_HOE}) {
                     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(hoe));
                     float prog = leaf.getDestroyProgress(player, level, abs);

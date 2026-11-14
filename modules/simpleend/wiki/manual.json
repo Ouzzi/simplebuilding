@@ -78,7 +78,7 @@
         "title": "Leaves, Drift Fruit and Spoiled Drift Fruit",
         "summary": "End leaves are no full block: see-through tendril fronds around a small crystal, tinted by the biome. Each leaf counts its neighbors that are not air (any block): 0-3 make it loose and airy, 4-5 medium, all 6 dense and dark - it changes as blocks next to it are placed or removed. Only the few leaves a tree marked drop its bud or fruit (always); all drop sticks now and then. Drift Fruit ripens only in the End - elsewhere the fruit is Spoiled Drift Fruit. Both End leaves act like a cobweb.",
         "details": [
-          "Ashwood and Duskwood leaves: like a cobweb they have no collision, slow everything moving through them, and a fall into them does no damage. The denser the leaf, the stronger the brake: loose half the speed sideways, medium a quarter (exactly a cobweb), dense less than a sixth. The hoe is their tool; anything else takes as long as on a cobweb (bare hand 20 seconds; sword and shears as fast as on a cobweb).",
+          "Ashwood and Duskwood leaves: like a cobweb they have no collision, slow everything moving through them, and a fall into them does no damage. The denser the leaf, the stronger the brake: loose half the speed sideways, medium a quarter (exactly a cobweb), dense less than a sixth. The hoe is their tool and breaks them fastest; by hand it takes about 2 seconds (a cobweb would take 20 - too slow for 40-block End trees), sword and shears are as fast as on a cobweb. Why: the brake keeps them recognisable as End foliage, the quick hand keeps big crowns practical; Vanilla leaves are unchanged.",
           "Wax (W24-4, owner 23.10.2026): a honeycomb on Ashwood or Duskwood leaves waxes them like copper (Vanilla wax particles and sound, one honeycomb used up): their density stays as it is and no longer follows the neighbors, so a loose or dense look stays where you want it. An axe scrapes the wax off (wax-off particles and sound, one durability) and the density follows the neighbors again at once. Waxed leaves look the same; mined leaves lose the wax.",
           "Drift Fruit: always edible (3 hunger points), 4 seconds of Slow Falling and a small hop - a short glide.",
           "Spoiled Drift Fruit: 1 hunger point, then 5 seconds of Drifting - you stagger like drunk: your own steps are halved, and a random pull of half the walking speed changes direction at random moments and adds to them (forward + forward = normal speed, forward + backward = standing, sideways = diagonal) - followed by 8 seconds of Slow Falling, so it never ends in a deadly fall."
@@ -88,7 +88,7 @@
         "title": "Laub, Schwebfrucht und Verdorbene Schwebfrucht",
         "summary": "End-Laub ist kein Vollblock: durchsichtige Ranken um einen kleinen Kristall, getönt vom Biom. Jedes Blatt zählt seine Nachbarn, die keine Luft sind (egal welcher Block): 0-3 machen es locker und luftig, 4-5 mittel, alle 6 dicht und dunkel - das ändert sich, sobald daneben Blöcke gesetzt oder abgebaut werden. Nur die wenigen Blätter, die ein Baum markiert hat, droppen seine Knospe oder Frucht (immer); alle geben ab und zu Stöcke. Schwebfrucht reift nur im End - anderswo wird die Frucht zur Verdorbenen Schwebfrucht. Beide End-Laubarten wirken wie ein Spinnennetz.",
         "details": [
-          "Asch- und Dämmerlaub: wie ein Spinnennetz ohne Kollision; alles, was hindurchgeht, wird gebremst, und ein Sturz hinein richtet keinen Schaden an. Je dichter das Blatt, desto stärker die Bremse: locker seitlich die halbe Geschwindigkeit, mittel ein Viertel (genau ein Spinnennetz), dicht weniger als ein Sechstel. Werkzeug ist die Hacke; alles andere braucht so lange wie an einem Spinnennetz (mit der Hand 20 Sekunden; Schwert und Schere so schnell wie am Spinnennetz).",
+          "Asch- und Dämmerlaub: wie ein Spinnennetz ohne Kollision; alles, was hindurchgeht, wird gebremst, und ein Sturz hinein richtet keinen Schaden an. Je dichter das Blatt, desto stärker die Bremse: locker seitlich die halbe Geschwindigkeit, mittel ein Viertel (genau ein Spinnennetz), dicht weniger als ein Sechstel. Werkzeug ist die Hacke, sie bricht sie am schnellsten; mit der Hand dauert es etwa 2 Sekunden (ein Spinnennetz brauchte 20 – zu lang für 40 Blöcke hohe End-Bäume), Schwert und Schere sind so schnell wie am Spinnennetz. Warum: die Bremse hält sie als End-Laub erkennbar, die schnelle Hand macht große Kronen praktikabel; Vanilla-Laub bleibt unverändert.",
           "Wachs (W24-4, Besitzer 23.10.2026): eine Honigwabe auf Asch- oder Dämmerlaub wachst es wie Kupfer (Vanilla-Wachspartikel und -Klang, eine Wabe wird verbraucht): seine Dichte bleibt, wie sie ist, und folgt den Nachbarn nicht mehr – eine lockere oder dichte Optik bleibt, wo man sie haben will. Eine Axt kratzt das Wachs ab (Partikel und Klang wie beim Entwachsen, ein Haltbarkeitspunkt), danach folgt die Dichte sofort wieder den Nachbarn. Gewachstes Laub sieht gleich aus; abgebautes Laub verliert das Wachs.",
           "Schwebfrucht: immer essbar (3 Hungerpunkte), 4 Sekunden Sanfter Fall und ein kleiner Sprung - ein kurzer Schwebeflug.",
           "Verdorbene Schwebfrucht: 1 Hungerpunkt, dann 5 Sekunden Treiben - man torkelt wie betrunken: die eigenen Schritte sind halbiert, und ein zufälliger Zug mit halber Laufgeschwindigkeit wechselt in zufälligen Abständen die Richtung und addiert sich dazu (vor + vor = normal schnell, vor + zurück = Stillstand, seitlich = schräg) - danach 8 Sekunden Sanfter Fall, also nie ein tödlicher Sturz."
@@ -190,6 +190,60 @@
           "Zähmbar: eine reife Schwebfrucht zähmt eine wilde (1 zu 3, Herzen wie beim Wolf). Eine zahme Knabbermilbe folgt dir, ihre Punkte leuchten heller und pulsieren langsam; Rechtsklick (ohne Chorusfrucht) wechselt zwischen Folgen und frei Umherstreifen. Junge einer zahmen gehören ebenfalls dir.",
           "Droppt 0-1 Chorusfrucht (mehr mit Plünderung). Durchwühlter Endstein wird abgebaut und droppt wie Endstein.",
           "Vorerst der einzige Mob der beiden Biome; er erscheint dort wie Vanilla-Tiere beim Erzeugen der Chunks."
+        ]
+      }
+    },
+    {
+      "id": "end_paintings",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndPaintings.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndPaintingItem.java"
+      ],
+      "en": {
+        "title": "End paintings",
+        "summary": "46 animated End pictures: the End Painting is placed like a Vanilla Painting and shows one of them (same sizes and counts as Vanilla).",
+        "details": [
+          "Each picture has three short animations (four frames each); it plays one at random about once a minute (42 to 84 seconds apart). Between them it rests as a still picture.",
+          "A placed End painting is an ordinary Vanilla painting (no own entity): breaking it drops the End Painting again, and Vanilla paintings are untouched.",
+          "The End Painting only places End pictures; it picks the largest picture that fits the wall, at random among equals."
+        ]
+      },
+      "de": {
+        "title": "End-Gemälde",
+        "summary": "46 animierte End-Bilder: das End-Gemälde wird wie ein Vanilla-Gemälde angebracht und zeigt eines davon (gleiche Größen und Anzahl wie Vanilla).",
+        "details": [
+          "Jedes Bild hat drei kurze Animationen (je vier Einzelbilder); es spielt etwa jede Minute zufällig eine (42 bis 84 Sekunden Abstand). Dazwischen steht es still.",
+          "Ein angebrachtes End-Gemälde ist ein gewöhnliches Vanilla-Gemälde (keine eigene Entität): Abbauen gibt wieder das End-Gemälde, Vanilla-Gemälde bleiben unverändert.",
+          "Das End-Gemälde bringt nur End-Bilder an; es wählt das größte Bild, das an die Wand passt, bei Gleichstand zufällig."
+        ]
+      }
+    },
+    {
+      "id": "vanilla_use",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/world/EndFlora.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndLeavesBlock.java"
+      ],
+      "en": {
+        "title": "Use and impact on Vanilla",
+        "summary": "What Simple End changes in Vanilla and why: new biomes on the outer End islands, End foliage rules, floating End wood.",
+        "details": [
+          "Use: wood, trees and a living landscape for the otherwise bare outer End; the End gets its own building set.",
+          "Biomes: Ash Valley and Dawnlands replace rare patches of the Vanilla outer-island biomes (highlands, midlands, barrens); the dragon island is never touched. Switch off with the biome setting in config/simpleend.json to keep the Vanilla End.",
+          "Foliage: End leaves brake like a cobweb (the hoe breaks them fast, by hand about 2 seconds); Vanilla leaves are unchanged.",
+          "Void-safe: dropped End-wood items float back up out of the void instead of being lost; they despawn later than normal items.",
+          "Everything else is new blocks and items; no Vanilla recipe, loot table or mob is changed."
+        ]
+      },
+      "de": {
+        "title": "Nutzen und Eingriff in Vanilla",
+        "summary": "Was Simple End an Vanilla ändert und warum: neue Biome auf den äußeren End-Inseln, Laub-Regeln, schwebendes End-Holz.",
+        "details": [
+          "Nutzen: Holz, Bäume und eine lebendige Landschaft für das sonst kahle äußere End; das End bekommt ein eigenes Bauset.",
+          "Biome: Aschental und Dämmerlande ersetzen seltene Flecken der Vanilla-Biome der äußeren Inseln (Hochland, Mittelland, Ödland); die Drachen-Insel bleibt unberührt. Mit der Biom-Einstellung in config/simpleend.json abschaltbar, dann bleibt das Vanilla-End.",
+          "Laub: End-Laub bremst wie ein Spinnennetz (die Hacke bricht es schnell, von Hand etwa 2 Sekunden); Vanilla-Laub bleibt unverändert.",
+          "Leere-sicher: abgeworfene End-Holz-Items schweben aus der Leere zurück statt verloren zu gehen; sie verschwinden später als normale Items.",
+          "Alles Übrige sind neue Blöcke und Items; kein Vanilla-Rezept, keine Loot-Tabelle und kein Mob wird geändert."
         ]
       }
     },

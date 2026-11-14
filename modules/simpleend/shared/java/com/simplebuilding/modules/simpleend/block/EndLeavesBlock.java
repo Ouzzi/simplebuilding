@@ -154,11 +154,15 @@ public class EndLeavesBlock extends TintedParticleLeavesBlock {
         entity.makeStuckInBlock(state, stuckSpeed(state.getValue(DENSITY), weaving));
     }
 
-    /** A hoe breaks them like leaves; anything else (also the bare hand) as fast as it would break a cobweb. */
+    /** Progress per tick of breaking by hand: 2 seconds on the ground (SE2B-4, owner "recommendation" PLAN40; the cobweb's 20 s is too slow for 40-block trees). */
+    public static final float HAND_PROGRESS = 1.0F / 40.0F;
+
+    /** A hoe breaks them like leaves; anything else at least as fast as a cobweb, the bare hand in 2 seconds (mining in the air is five times slower, as in Vanilla). */
     @Override
     protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
         if (player.getMainHandItem().is(ItemTags.HOES)) return super.getDestroyProgress(state, player, level, pos);
-        return Blocks.COBWEB.defaultBlockState().getDestroyProgress(player, level, pos);
+        float web = Blocks.COBWEB.defaultBlockState().getDestroyProgress(player, level, pos);
+        return Math.max(web, player.onGround() ? HAND_PROGRESS : HAND_PROGRESS / 5.0F);
     }
 
     @Override

@@ -6,7 +6,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Animals, Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Dimensions, Simple Dinosaurs, Simple Earth, Simple Enchanting, Simple End, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Respawn, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
+  - required von: Simple Animals, Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Dimensions, Simple Dinosaurs, Simple Earth, Simple Enchanting, Simple End, Simple End Dragon Fight, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Respawn, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
 
 ## SimpleBuilding
 
@@ -89,6 +89,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
     - optional: Simple End Dragon Fight
     - **Simple End Dragon Fight** `simpleenddragonfight` (optional) [neu]: Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.
+      - required: SimpleLib
       - optional: Simple Mobs
   - **Simple Fun** `simplefun` (optional) [fertig]: Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).
     - required: SimpleLib

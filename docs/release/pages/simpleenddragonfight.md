@@ -28,7 +28,7 @@ Makes the Vanilla dragon fight tougher and fairer for groups (a health bar per p
 
 ## Dependencies
 
-- **Required:** Fabric API (no other mods)
+- **Required:** Fabric API, SimpleLib
 - **Optional:** Simple Mobs
 
 ## Compatibility
