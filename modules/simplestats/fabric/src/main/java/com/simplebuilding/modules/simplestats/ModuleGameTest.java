@@ -25,5 +25,8 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void resetCommand(GameTestHelper h){StatsTests.resetCommand(h);}
  @GameTest(maxTicks=100) public void names(GameTestHelper h){StatsTests.names(h);}
  @GameTest(maxTicks=100) public void guideBook(GameTestHelper h){com.simplebuilding.modules.simplestats.guide.StatsGuide.gameTest(h);}
+ @GameTest(maxTicks=100) public void mixinsNotRequired(GameTestHelper h){StatsTests.mixinsNotRequired(h);}
+ @GameTest(maxTicks=100) public void configLabels(GameTestHelper h){StatsTests.configLabels(h);}
+ @GameTest(maxTicks=100) public void variantNamesGerman(GameTestHelper h){StatsTests.variantNamesGerman(h);}
  // CAT-END
 }

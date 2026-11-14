@@ -50,6 +50,8 @@ public final class StatsTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     static {
         ALL.put("launch", StatsTests::launch);
+ALL.put("mixins_not_required", StatsTests::mixinsNotRequired);
+ALL.put("variant_names_german", StatsTests::variantNamesGerman);
         ALL.put("codec_roundtrip", StatsTests::codecRoundtrip);
         ALL.put("foreign_version", StatsTests::foreignVersion);
         ALL.put("mining", StatsTests::mining);
@@ -150,7 +152,62 @@ public final class StatsTests {
 
     // ------------------------------------------------------------------ tests
 
-    public static void launch(GameTestHelper h) {
+    /** simplestats-1 (PLAN40): a Minecraft change at one injection point switches that mixin off (warning) instead of crashing the start. */
+public static void mixinsNotRequired(GameTestHelper h) {
+    try (var in = StatsTests.class.getResourceAsStream("/simplestats.mixins.json")) {
+        h.assertTrue(in != null, "mixin config present");
+        var json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+        h.assertTrue(json.has("required") && !json.get("required").getAsBoolean(), "config not required");
+        h.assertTrue(json.getAsJsonObject("injectors").get("defaultRequire").getAsInt() == 0, "defaultRequire 0");
+    } catch (java.io.IOException e) {
+        throw new IllegalStateException(e);
+    }
+    h.succeed();
+}
+
+/** simplestats-3 (PLAN40): every variant name has a German text; only proper names (and "Warm") may equal the English one. */
+public static void variantNamesGerman(GameTestHelper h) {
+    final String part = "stat.simplestats.variant.part.";
+    var allowed = java.util.Set.of("ragdoll", "jellie", "warm", "lucy", "wild", "gold", "kob", "betty", "taiga");
+    try {
+        var en = lang("en_us");
+        var de = lang("de_de");
+        h.assertTrue(en.keySet().equals(de.keySet()), "same keys in EN and DE: " + com.google.common.collect.Sets.symmetricDifference(en.keySet(), de.keySet()));
+        for (String key : en.keySet())
+            if (key.startsWith(part) && !allowed.contains(key.substring(part.length())))
+                h.assertTrue(!en.get(key).equals(de.get(key)), "variant name still English in German: " + key);
+    } catch (java.io.IOException e) {
+        throw new IllegalStateException(e);
+    }
+    h.succeed();
+}
+
+private static java.util.Map<String, String> lang(String code) throws java.io.IOException {
+    try (var in = StatsTests.class.getResourceAsStream("/assets/simplestats/lang/" + code + ".json")) {
+        var out = new java.util.HashMap<String, String>();
+        com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject()
+                .entrySet().forEach(e -> out.put(e.getKey(), e.getValue().getAsString()));
+        return out;
+    }
+}
+
+/** Fabric only (the SimpleLib spec is announced there). simplestats-4 (PLAN40): the Mod Menu screen names the title and every option, and a restored config is clamped. */
+public static void configLabels(GameTestHelper h) {
+    var missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleStats.MOD_ID);
+    h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
+    var live = SimpleStats.config();
+    try {
+        var c = new StatsConfig();
+        c.maxBytes = 1;
+        SimpleStats.restore(c);
+        h.assertTrue(SimpleStats.config().maxBytes == 2048, "restored config is clamped");
+    } finally {
+        SimpleStats.restore(live);
+    }
+    h.succeed();
+}
+
+public static void launch(GameTestHelper h) {
         h.assertTrue(StatsComponents.ITEM_STATS != null, "component type registered");
         h.assertTrue(BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(SimpleStats.id("item_stats")) == StatsComponents.ITEM_STATS, "registered under simplestats:item_stats");
         h.assertTrue(h.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("simplestats") != null, "/simplestats registered");
