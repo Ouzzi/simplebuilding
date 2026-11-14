@@ -334,4 +334,14 @@ public final class ModuleGameTest {
     public void portalPulseFades(GameTestHelper h) {
         LibTests.ALL.get("portal_pulse_fades").accept(h);
     }
+
+    @GameTest
+    public void discSidesCycleAndTurn(GameTestHelper h) {
+        LibTests.ALL.get("disc_sides_cycle_and_turn").accept(h);
+    }
+
+    @GameTest
+    public void discSidesRightClickTurns(GameTestHelper h) {
+        LibTests.ALL.get("disc_sides_right_click_turns").accept(h);
+    }
 }

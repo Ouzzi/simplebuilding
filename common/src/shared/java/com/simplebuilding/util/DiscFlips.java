@@ -68,7 +68,7 @@ public final class DiscFlips {
         List<ItemStack> parts = new ArrayList<>(pile.parts());
         int index = targetIndex(parts);
         Item other = MusicDiscs.nextTrack(parts.get(index).getItem());
-        parts.set(index, parts.get(index).transmuteCopy(other, 1));
+        parts.set(index, LibServices.turnedSide(parts.get(index), other));
         pile.setParts(parts);
         tool.hurtAndBreak(SledgehammerItem.RESHAPE_DAMAGE, player, hand);
         level.playSound(null, pos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.3F, 1.8F);

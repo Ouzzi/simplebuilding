@@ -150,7 +150,7 @@ public final class MusicDiscs {
      */
     public static ItemStack turnOver(ItemStack stack) {
         Item other = SimpleMusic.on() ? otherSide(stack.getItem()) : null;
-        return other == null ? ItemStack.EMPTY : stack.transmuteCopy(other, stack.getCount());
+        return other == null ? ItemStack.EMPTY : com.simplelib.api.DiscSides.turned(stack, other);
     }
 
     /** All disc items for tabs and lists: each A-side followed by its B-side (empty until registered). */

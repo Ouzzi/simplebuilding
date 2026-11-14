@@ -184,7 +184,6 @@ public final class MusicDiscs {
 
     /** Der Nachfolger von {@code current} im Kreis {@code cycle}, oder null, wenn es nicht darin steht. */
     public static <T> @Nullable T next(List<T> cycle, T current) {
-        int index = cycle.indexOf(current);
-        return index < 0 || cycle.size() < 2 ? null : cycle.get((index + 1) % cycle.size());
+        return LibServices.nextSide(cycle, current);
     }
 }
