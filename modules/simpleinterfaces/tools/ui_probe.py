@@ -289,13 +289,25 @@ def main():
         s = Session(io, out, sink)
         st = s.st()
         io.move(st['windowX'] + 640, st['windowY'] + 360)
-        for name, fn in scenarios.items():
+        for idx, (name, fn) in enumerate(scenarios.items()):
             s.scenario = name
             print(f'=== {name}', flush=True)
             t0 = time.time()
             try:
+                # a dead player (a scenario that ended inside a wall) must not spoil every later scenario
+                if 'DeathScreen' in s.st().get('screen', ''):
+                    w = s.find_widget('Respawn')
+                    if w:
+                        s.click_xy(w['x'], w['y'])
+                    s.wait_screen('none', 10)
                 s.chat('gamemode creative @s', 0.5)
                 s.close()
+                s.chat('clear @s', 0.3)
+                s.chat('effect clear @s', 0.3)
+                s.chat('weather clear', 0.3)
+                # every scenario starts in its own fresh stretch of the flat world, high enough to land on the grass
+                s.chat(f'tp @s {20000 + 4000 * idx} -58 20000', 3.0)
+                time.sleep(1.5)
                 fn(s)
             except SystemExit:
                 raise

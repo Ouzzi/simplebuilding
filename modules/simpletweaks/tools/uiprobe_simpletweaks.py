@@ -55,7 +55,7 @@ def tweaks(s):
     s.check('Mod Menu search box is a widget', box is not None, s.labels(st))
     if box:
         s.click_xy(box['x'], box['y'], st)
-        s.type_text('tweaks')
+        s.type_text('simple tweaks')
         time.sleep(1.2)
     st = s.st()
     lst = next((w for w in s.widgets(st) if 'ModList' in w['class']), None)
