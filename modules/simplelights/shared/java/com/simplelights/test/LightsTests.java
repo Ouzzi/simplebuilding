@@ -479,11 +479,14 @@ public final class LightsTests {
      */
     public static void copperPaneTellsTheComparatorWhenItFlips(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
+        int run = 0;
         for (Block pane : List.of(LightsRegistry.COPPER_LIGHT_PANE, LightsRegistry.COPPER_REDSTONE_LIGHT_PANE)) {
             clear(helper);
-            BlockPos at = CENTER.above();
+            // another spot per pane: the scheduled comparator tick of the first run would still sit at the same position
+            BlockPos base = CENTER.west(run++);
+            BlockPos at = base.above();
             BlockPos comparator = at.east();
-            helper.setBlock(CENTER, Blocks.STONE);
+            helper.setBlock(base, Blocks.STONE);
             helper.setBlock(comparator.below(), Blocks.STONE);
             helper.setBlock(at, pane.defaultBlockState().setValue(AbstractLightPaneBlock.FACING, Direction.UP));
             helper.setBlock(comparator, Blocks.COMPARATOR.defaultBlockState().setValue(ComparatorBlock.FACING, Direction.WEST));

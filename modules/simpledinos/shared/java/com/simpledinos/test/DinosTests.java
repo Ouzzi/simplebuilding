@@ -1132,7 +1132,7 @@ public final class DinosTests {
             Vec3 at = h.absoluteVec(new Vec3(8.5, 2.0, 14.3));
             p.setPos(at.x, at.y, at.z);
             AABB body = p.getBoundingBox();
-            h.assertTrue(other.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player");
+            h.assertTrue(other.headBoxes(0).stream().anyMatch(b -> b.intersects(body)), "the stretched head would touch the player (head " + other.headBoxes(0) + ", player " + body + ", stego " + other.position() + ")");
             other.updateParts();
             h.assertTrue(other.headTuck() > 0 && other.headBoxes(other.headTuck()).stream().noneMatch(b -> b.intersects(body)),
                     "the head goes down and back before the player (step " + other.headTuck() + ")");
@@ -1219,8 +1219,11 @@ public final class DinosTests {
             ItemStack plow = new ItemStack(DinosRegistry.DINO_PLOW);
             plow.setDamageValue(17);
             owner.setItemInHand(InteractionHand.MAIN_HAND, plow);
-            h.assertTrue(stego.mobInteract(owner, InteractionHand.MAIN_HAND).consumesAction() && stego.hasPlow() && !stego.plowDown()
-                    && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "the owner puts the plow on (raised)");
+            boolean took = stego.mobInteract(owner, InteractionHand.MAIN_HAND).consumesAction();
+            h.assertTrue(took && stego.hasPlow() && !stego.plowDown()
+                    && owner.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "the owner puts the plow on (raised): took " + took + ", plow " + stego.hasPlow()
+                    + ", down " + stego.plowDown() + ", hand " + owner.getItemInHand(InteractionHand.MAIN_HAND) + ", tamed " + stego.isTamed() + ", owner " + stego.getOwner()
+                    + ", baby " + stego.isBaby() + ", vehicle " + stego.isVehicle());
             h.assertTrue(stego.plowStack().getDamageValue() == 17, "the plow keeps its wear");
             stego.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
             owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));

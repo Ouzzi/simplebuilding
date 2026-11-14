@@ -797,7 +797,8 @@ public final class ShopsTests {
                 menu.ageForTest(2 * 20);
                 h.assertTrue(!menu.stillValid(buyer), "31 s without a click: the server closes it");
                 h.assertTrue(!menu.clickMenuButton(buyer, ShopBuyerMenu.button(ShopBuyerMenu.TRADE, menu.revisionSeen())), "no trade on an expired menu");
-                // A click renews the time.
+                // A click renews the time. The expired screen is closed first (the server does that), else it still holds the shop lock (E1ANS F5).
+                buyer.containerMenu = buyer.inventoryMenu;
                 ShopBuyerMenu fresh = buy(h, buyer, shop);
                 fresh.ageForTest(29 * 20);
                 fresh.clickMenuButton(buyer, ShopBuyerMenu.button(ShopBuyerMenu.SELECT, fresh.revisionSeen()));
