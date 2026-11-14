@@ -1948,7 +1948,7 @@ window.WIKI_MODULES = [
       "config": 15,
       "features": 10
     },
-    "dataHash": "def6601edf64"
+    "dataHash": "c2404917eab9"
   },
   {
     "id": "simpledinos",
