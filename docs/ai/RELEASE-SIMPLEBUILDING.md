@@ -43,48 +43,52 @@ Dedicated Server mit dem Mod allein (b-server26).
 
 | Mod | Rolle, Stand, Version | Funktionen + A12 | Texturen r/o/g (+Sounds) | UI | Handbuch + Wiki | Config + Lang | Rezepte/JEI | Tests | Seite | Changelog | Queue [~]/[ ] | Perf. |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| SimpleBuilding `simplebuilding` | Super, fertig, 2.0.0 | ? ohne A12 | ? 50/111/298 (47 rot: 33 tote Pad-Kopien in src/main, Lampen wie Vanilla) | ? 18 Fenster, nur Smoke-Bilder | ✓ | ✓ Mod-Menu, 7336 Keys EN=DE | ✓ Kern-Plugin (rel10 R/U) | ✓ fabric-263 1210/1210 (Gate 159) + server-solo | ✓ Entwurf | ✓ Entwurf | 14 (1 [ ]) | ? |
-| Simple Arrows `simplearrows` | Pflicht, neu, 0.1.0 | ? ohne A12 | ? 7/11/0 (Teilebenen (begründet, texrate17)) | ✓ Befiederungstisch, fletching_probe | ✓ | ? nur Datei+Befehl, 68 Keys EN=DE | ✓ | ✓ 29 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
-| Simple Blocks `simpleblocks` | Pflicht, fertig, 0.9.0 | ? ohne A12 | ✓ 0/4/7 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 503 Keys EN=DE | ✓ | ✓ 70 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 15 (0 [ ]) | ? |
-| Simple Building Tools `simplebuildingtools` | Pflicht, neu, 0.1.0 | ✗ kein Steckbrief | ✓ 0/1/30 | ✓ 6 Fenster, mouse_probe 53/53 | ✓ | ? nur Datei+Befehl, 354 Keys EN=DE | ✓ | ✓ 96 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
-| Simple Chisels `simplechisels` | Pflicht, neu, 0.1.0 | ✗ kein Steckbrief | ✓ 0/1/7 | – kein Fenster | ✓ | ? nur Datei+Befehl, 42 Keys EN=DE | ✓ | ✓ 10 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
-| Simple Enchanting `simpleenchanting` | Pflicht, neu, 0.1.0 | ✗ kein Steckbrief | ? 2/8/3 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 63 Keys EN=DE | ✓ | ✓ 19 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (0 [ ]) | ? |
-| Simple Gadgets `simplegadgets` | Pflicht, fertig, 0.9.0 | ✗ kein Steckbrief | ✓ 0/7/39 | – kein Fenster | ✓ | ? nur Datei+Befehl, 116 Keys EN=DE | ✓ | ✓ 77 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 7 (0 [ ]) | ? |
-| Simple Hammers `simplehammers` | Pflicht, fertig, 0.9.0 | ✗ kein Steckbrief | ✓ 0/1/7 | – kein Fenster | ✓ | ? nur Datei+Befehl, 86 Keys EN=DE | ✓ | ✓ 22 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 7 (0 [ ]) | ? |
-| Simple Lights `simplelights` | Pflicht, fertig, 0.9.0 | ✗ kein Steckbrief | ? 3/30/76 | – kein Fenster | ✓ | ? nur Datei+Befehl, 93 Keys EN=DE | ✓ | ✓ 17 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
-| Simple Machines `simplemachines` | Pflicht, neu, 0.1.0 | ✗ kein Steckbrief | ✓ 0/13/10 | ? 3 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 95 Keys EN=DE | ✓ | ✓ 88 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
-| Simple Mobheads `simplemobheads` | Pflicht, fertig, 0.9.0 | ? ohne A12 | ✓ 0/1/0 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ Mod-Menu, 533 Keys EN=DE | ✓ | ✓ 52 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (1 [ ]) | ? |
-| Simple Mobs `simplemobs` | Pflicht, neu, 0.1.0 | ✓ A12 | ? 1/29/15; Hörabnahme Howler/Trompete offen | – kein Fenster | ✓ | ? nur Datei+Befehl, 282 Keys EN=DE | ✓ | ✓ 201 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 25 (1 [ ]) | ? |
-| Simple Octets `simpleoctets` | Pflicht, fertig, 0.9.0 | ? ohne A12 | ? 1/1/0 | – kein Fenster | ✓ | ? nur Datei+Befehl, 438 Keys EN=DE | ✓ | ✓ 23 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 5 (0 [ ]) | ? |
-| Simple Ores `simpleores` | Pflicht, neu, 0.1.0 | ✓ A12 | ? 16/19/44 (Gitter/Stäbe Messing/Bronze/Blei/Nickel + Dim.-Schrott offen) | – kein Fenster | ✓ | ? nur Datei+Befehl, 269 Keys EN=DE | ✓ | ✓ 47 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 13 (0 [ ]) | ? |
-| Simple Ovens `simpleovens` | Pflicht, fertig, 0.9.0 | ? ohne A12 | ? 1/12/3 | – kein Fenster | ✓ | ? nur Datei+Befehl, 150 Keys EN=DE | ✓ | ✓ 24 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 8 (0 [ ]) | ? |
-| Simple Crucibles `simplecrucibles` | Pflicht, fertig, 0.9.0 | ? ohne A12 | ? 1/9/9 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 92 Keys EN=DE | ✓ | ✓ 64 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
-| Simple Foundry `simplefoundry` | optional, neu, 0.1.0 | ✗ kein Steckbrief | ? 1/16/2 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 45 Keys EN=DE | ✓ | ✓ 16 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
-| Simple Pads `simplepads` | Pflicht, neu, 0.1.0 | ✗ kein Steckbrief | ? 54/33/16 (Besitzer TEXRATE16: Originale bleiben) | – kein Fenster | ✓ | ? nur Datei+Befehl, 227 Keys EN=DE | ✓ | ✓ 86 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
-| Simple Resonance `simpleresonance` | Pflicht, neu, 0.1.0 | ✓ A12 | ✓ 0/1/0 | – kein Fenster | ✓ | ? nur Datei+Befehl, 44 Keys EN=DE | ✓ | ✓ 22 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 5 (0 [ ]) | ? |
-| Simple Storage `simplestorage` | Pflicht, fertig, 0.9.0 | ✗ kein Steckbrief | ? 2/22/32 | ✓ 6 Fenster, pipe_probe 30/30 | ✓ | ? nur Datei+Befehl, 275 Keys EN=DE | ✓ | ✓ 172 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 10 (0 [ ]) | ? |
-| Simple Animals `simpleanimals` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/7/3 | – kein Fenster | ✓ | ? nur Datei+Befehl, 49 Keys EN=DE | ✓ | ✓ 28 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
-| Simple Beacons `simplebeacons` | optional, neu, 0.1.0 | ? ohne A12 | ✓ 0/7/2 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 108 Keys EN=DE | ✓ | ✓ 38 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 6 (0 [ ]) | ? |
-| Simple Challenges `simplechallenges` | optional, neu, 0.1.0 | ✗ kein Steckbrief | – (keine eigenen Block/Item-PNG) | ? 2 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 224 Keys EN=DE | ✓ | ✓ 25 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
-| Simple Dimensions `simpledimensions` | optional, neu, 0.1.0 | ? ohne A12 | ✓ 0/2/0 | – kein Fenster | ✓ | ✓ Mod-Menu, 191 Keys EN=DE | ✓ | ✓ 53 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (1 [ ]) | ? |
-| Simple Dinosaurs `simpledinos` | optional, neu, 0.1.0 | ✓ A12 | ? 13/7/0 (Fossil-Stufen/Eier (begründet, texrate17)) | – kein Fenster | ✓ | ? nur Datei+Befehl, 41 Keys EN=DE | ✓ | ✓ 23 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
-| Simple Earth `simpleearth` | optional, neu, 0.1.0 | ✗ kein Steckbrief | – (keine eigenen Block/Item-PNG) | ✓ 1 Fenster, menu_probe | ✓ | ? nur Datei+Befehl, 254 Keys EN=DE | ✓ | ✓ 16 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 6 (0 [ ]) | ? |
-| Simple End `simpleend` | optional, neu, 0.1.0 | ? ohne A12 | ? 2/23/25 | – kein Fenster | ✓ | ? nur Datei+Befehl, 185 Keys EN=DE | ✓ | ✓ 49 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 8 (0 [ ]) | ? |
-| Simple End Dragon Fight `simpleenddragonfight` | optional, neu, 0.1.0 | ? ohne A12 | ✓ 0/2/1 | – kein Fenster | ✓ | ? nur Datei+Befehl, 96 Keys EN=DE | ✓ | ✓ 19 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
-| Simple Fun `simplefun` | optional, fertig, 0.9.0 | ? ohne A12 | ? 1/7/5 | – kein Fenster | ✓ | ✓ Mod-Menu, 194 Keys EN=DE | ✓ | ✓ 42 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 6 (2 [ ]) | ? |
-| Simple Layers `simplelayers` | optional, neu, 0.1.0 | ✗ kein Steckbrief | ? 3/18/23 | – kein Fenster | ✓ | ? nur Datei+Befehl, 185 Keys EN=DE | ✓ | ✓ 57 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
-| Simple Maps `simplemaps` | optional, neu, 0.1.0 | ? ohne A12 | ✓ 0/5/0 | ✓ 2 Fenster, mapsmenu27 | ✓ | ? nur Datei+Befehl, 131 Keys EN=DE | ✓ | ✓ 54 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (0 [ ]) | ? |
-| Simple Money `simplemoney` | optional, fertig, 0.9.0 | ? ohne A12 | ✓ 0/6/2 | – kein Fenster | ✓ | ✓ Mod-Menu, 76 Keys EN=DE | ✓ | ✓ 25 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (3 [ ]) | ? |
-| Simple Music `simplemusic` | optional, neu, 0.1.0 | ✗ kein Steckbrief | ? 3/73/26; Hörabnahme Platten/Presse offen | ? 4 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 231 Keys EN=DE | ✓ | ✓ 42 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 9 (0 [ ]) | ? |
-| Simple Questionary `simplequestionary` | optional, neu, 0.1.0 | ? ohne A12 | ? 3/2/0 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 37 Keys EN=DE | ✓ | ✓ 15 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
-| Simple Respawn `simplerespawn` | optional, neu, 0.1.0 | ? ohne A12 | ✓ 0/1/0 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 60 Keys EN=DE | ✓ | ✓ 19 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
-| Simple Riding `simpleriding` | optional, fertig, 0.9.0 | ? ohne A12 | ✓ 0/9/1 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ Mod-Menu, 114 Keys EN=DE | ✓ | ✓ 44 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (1 [ ]) | ? |
-| Simple Sandwiches `simplesandwiches` | optional, neu, 0.1.0 | ? ohne A12 | ✗ 9/48/184 | – kein Fenster | ✓ | ? nur Datei+Befehl, 66 Keys EN=DE | ✓ | ✓ 43 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (1 [ ]) | ? |
-| Simple Shops `simpleshops` | optional, neu, 0.1.0 | ? ohne A12 | ? 18/44/1 (Vitrinen-Glas (begründet, texrate17)) | ? 1 Fenster, nur Smoke-Bilder | ✓ | ? nur Datei+Befehl, 140 Keys EN=DE | ✓ | ✓ 77 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
-| Simple Trims `simpletrims` | optional, neu, 0.1.0 | ? ohne A12 | ✓ 0/4/1 | – kein Fenster | ✓ | ? nur Datei+Befehl, 65 Keys EN=DE | ✓ | ✓ 22 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
-| Simple Tweaks `simpletweaks` | optional, fertig, 0.9.0 | ? ohne A12 | ✓ 0/4/1 | ✓ 3 Fenster, deed_probe 22/22 | ✓ | ? nur Datei+Befehl, 518 Keys EN=DE | ✓ | ✓ 171 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 8 (1 [ ]) | ? |
-| Simple Vault `simplevault` | optional, neu, 0.1.0 | ✗ kein Steckbrief | ✓ 0/2/3 | – kein Fenster | ✓ | ? nur Datei+Befehl, 76 Keys EN=DE | ✓ | ✓ 11 GT + standalone + server-solo | ✗ fehlt | ✗ fehlt | 0 | ? |
-| Simple Wanderers `simplewanderers` | optional, neu, 0.1.0 | ? ohne A12 | ✓ 0/2/0 | – kein Fenster | ✓ | ? nur Datei+Befehl, 33 Keys EN=DE | ✓ | ✓ 23 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
+| SimpleBuilding `simplebuilding` | Super, fertig, 2.0.0 | ✓ A12 | ? 50/111/298 (47 rot: 33 tote Pad-Kopien in src/main, Lampen wie Vanilla) | ? 18 Fenster, nur Smoke-Bilder | ✓ | ✓ Mod-Menu, 7336 Keys EN=DE | ✓ Kern-Plugin (rel10 R/U) | ✓ fabric-263 1210/1210 (Gate 159) + server-solo | ✓ Entwurf | ✓ Entwurf | 14 (1 [ ]) | ? |
+| Simple Arrows `simplearrows` | Pflicht, neu, 0.1.0 | ✓ A12 | ? 7/11/0 (Teilebenen (begründet, texrate17)) | ✓ Befiederungstisch, fletching_probe | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 68 Keys EN=DE | ✓ | ✓ 29 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
+| Simple Blocks `simpleblocks` | Pflicht, fertig, 0.9.0 | ✓ A12 | ✓ 0/4/7 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 503 Keys EN=DE | ✓ | ✓ 70 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 15 (0 [ ]) | ? |
+| Simple Building Tools `simplebuildingtools` | Pflicht, neu, 0.1.0 | ✓ A12 | ✓ 0/1/30 | ✓ 6 Fenster, mouse_probe 53/53 | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 354 Keys EN=DE | ✓ | ✓ 96 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
+| Simple Chisels `simplechisels` | Pflicht, neu, 0.1.0 | ✓ A12 | ✓ 0/1/7 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 42 Keys EN=DE | ✓ | ✓ 10 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
+| Simple Enchanting `simpleenchanting` | Pflicht, neu, 0.1.0 | ✓ A12 | ? 2/8/3 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 63 Keys EN=DE | ✓ | ✓ 19 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (0 [ ]) | ? |
+| Simple Gadgets `simplegadgets` | Pflicht, fertig, 0.9.0 | ✓ A12 | ✓ 0/7/39 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 116 Keys EN=DE | ✓ | ✓ 77 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 7 (0 [ ]) | ? |
+| Simple Hammers `simplehammers` | Pflicht, fertig, 0.9.0 | ✓ A12 | ✓ 0/1/7 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 86 Keys EN=DE | ✓ | ✓ 22 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 7 (0 [ ]) | ? |
+| Simple Lights `simplelights` | Pflicht, fertig, 0.9.0 | ✓ A12 | ? 3/30/76 | – kein Fenster | ✓ | – keine Config, 93 Keys EN=DE | ✓ | ✓ 17 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
+| Simple Machines `simplemachines` | Pflicht, neu, 0.1.0 | ✓ A12 | ✓ 0/13/10 | ? 3 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 95 Keys EN=DE | ✓ | ✓ 88 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
+| Simple Mobheads `simplemobheads` | Pflicht, fertig, 0.9.0 | ✓ A12 | ✓ 0/1/0 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ Mod-Menu, 533 Keys EN=DE | ✓ | ✓ 52 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (1 [ ]) | ? |
+| Simple Mobs `simplemobs` | Pflicht, neu, 0.1.0 | ✓ A12 | ? 1/29/15; Hörabnahme Howler/Trompete offen | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 282 Keys EN=DE | ✓ | ✓ 201 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 25 (1 [ ]) | ? |
+| Simple Octets `simpleoctets` | Pflicht, fertig, 0.9.0 | ✓ A12 | ? 1/1/0 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 438 Keys EN=DE | ✓ | ✓ 23 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 5 (0 [ ]) | ? |
+| Simple Ores `simpleores` | Pflicht, neu, 0.1.0 | ✓ A12 | ? 16/19/44 (Gitter/Stäbe Messing/Bronze/Blei/Nickel + Dim.-Schrott offen) | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 269 Keys EN=DE | ✓ | ✓ 47 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 13 (0 [ ]) | ? |
+| Simple Ovens `simpleovens` | Pflicht, fertig, 0.9.0 | ✓ A12 | ? 1/12/3 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 150 Keys EN=DE | ✓ | ✓ 24 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 8 (0 [ ]) | ? |
+| Simple Crucibles `simplecrucibles` | Pflicht, fertig, 0.9.0 | ✓ A12 | ? 1/9/9 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 92 Keys EN=DE | ✓ | ✓ 64 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
+| Simple Foundry `simplefoundry` | optional, neu, 0.1.0 | ✓ A12 | ? 1/16/2 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 45 Keys EN=DE | ✓ | ✓ 16 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
+| Simple Pads `simplepads` | Pflicht, neu, 0.1.0 | ✓ A12 | ? 54/33/16 (Besitzer TEXRATE16: Originale bleiben) | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 227 Keys EN=DE | ✓ | ✓ 86 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
+| Simple Resonance `simpleresonance` | Pflicht, neu, 0.1.0 | ✓ A12 | ✓ 0/1/0 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 44 Keys EN=DE | ✓ | ✓ 22 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 5 (0 [ ]) | ? |
+| Simple Storage `simplestorage` | Pflicht, fertig, 0.9.0 | ✓ A12 | ? 2/22/32 | ✓ 6 Fenster, pipe_probe 30/30 | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 275 Keys EN=DE | ✓ | ✓ 172 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 10 (0 [ ]) | ? |
+| Simple Animals `simpleanimals` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/7/3 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 49 Keys EN=DE | ✓ | ✓ 28 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
+| Simple Beacons `simplebeacons` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/7/2 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 108 Keys EN=DE | ✓ | ✓ 38 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 6 (0 [ ]) | ? |
+| Simple Challenges `simplechallenges` | optional, neu, 0.1.0 | ✓ A12 | – (keine eigenen Block/Item-PNG) | ? 2 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 224 Keys EN=DE | ✓ | ✓ 25 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
+| Simple Chess `simplechess` | optional (Phase 3), neu, 0.1.0 | ✓ A12 | ? (nicht neu bewertet) | – kein Fenster | ✓ | – keine Config | ✓ | ✓ 8 GT + standalone (in RELSB56 nicht gelaufen, nur Doku geändert) | ✓ Entwurf (RELSB56) | ✓ Entwurf (RELSB56) | ? | ? |
+| Simple Dimensions `simpledimensions` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/2/0 | – kein Fenster | ✓ | ✓ Mod-Menu, 191 Keys EN=DE | ✓ | ✓ 53 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (1 [ ]) | ? |
+| Simple Dinosaurs `simpledinos` | optional, neu, 0.1.0 | ✓ A12 | ? 13/7/0 (Fossil-Stufen/Eier (begründet, texrate17)) | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 41 Keys EN=DE | ✓ | ✓ 23 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
+| Simple Earth `simpleearth` | optional, neu, 0.1.0 | ✓ A12 | – (keine eigenen Block/Item-PNG) | ✓ 1 Fenster, menu_probe | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 254 Keys EN=DE | ✓ | ✓ 16 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 6 (0 [ ]) | ? |
+| Simple End `simpleend` | optional, neu, 0.1.0 | ✓ A12 | ? 2/23/25 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 185 Keys EN=DE | ✓ | ✓ 49 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 8 (0 [ ]) | ? |
+| Simple End Dragon Fight `simpleenddragonfight` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/2/1 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 96 Keys EN=DE | ✓ | ✓ 19 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
+| Simple Fun `simplefun` | optional, fertig, 0.9.0 | ✓ A12 | ? 1/7/5 | – kein Fenster | ✓ | ✓ Mod-Menu, 194 Keys EN=DE | ✓ | ✓ 42 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 6 (2 [ ]) | ? |
+| Simple Layers `simplelayers` | optional, neu, 0.1.0 | ✓ A12 | ? 3/18/23 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 185 Keys EN=DE | ✓ | ✓ 57 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
+| Simple Maps `simplemaps` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/5/0 | ✓ 2 Fenster, mapsmenu27 | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 131 Keys EN=DE | ✓ | ✓ 54 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (0 [ ]) | ? |
+| Simple Money `simplemoney` | optional, fertig, 0.9.0 | ✓ A12 | ✓ 0/6/2 | – kein Fenster | ✓ | ✓ Mod-Menu, 76 Keys EN=DE | ✓ | ✓ 25 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (3 [ ]) | ? |
+| Simple Music `simplemusic` | optional, neu, 0.1.0 | ✓ A12 | ? 3/73/26; Hörabnahme Platten/Presse offen | ? 4 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 231 Keys EN=DE | ✓ | ✓ 42 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 9 (0 [ ]) | ? |
+| Simple Questionary `simplequestionary` | optional, neu, 0.1.0 | ✓ A12 | ? 3/2/0 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 37 Keys EN=DE | ✓ | ✓ 15 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 2 (0 [ ]) | ? |
+| Simple Respawn `simplerespawn` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/1/0 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 60 Keys EN=DE | ✓ | ✓ 19 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
+| Simple Riding `simpleriding` | optional, fertig, 0.9.0 | ✓ A12 | ✓ 0/9/1 | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ Mod-Menu, 114 Keys EN=DE | ✓ | ✓ 44 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 4 (1 [ ]) | ? |
+| Simple Sandwiches `simplesandwiches` | optional, neu, 0.1.0 | ✓ A12 | ✗ 9/48/184 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 66 Keys EN=DE | ✓ | ✓ 43 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (1 [ ]) | ? |
+| Simple Shops `simpleshops` | optional, neu, 0.1.0 | ✓ A12 | ? 18/44/1 (Vitrinen-Glas (begründet, texrate17)) | ? 1 Fenster, nur Smoke-Bilder | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 140 Keys EN=DE | ✓ | ✓ 77 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 3 (0 [ ]) | ? |
+| Simple Trims `simpletrims` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/4/1 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 65 Keys EN=DE | ✓ | ✓ 22 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 1 (0 [ ]) | ? |
+| Simple Tweaks `simpletweaks` | optional, fertig, 0.9.0 | ✓ A12 | ✓ 0/4/1 | ✓ 3 Fenster, deed_probe 22/22 | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 518 Keys EN=DE | ✓ | ✓ 171 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 8 (1 [ ]) | ? |
+| Simple Vault `simplevault` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/2/3 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 76 Keys EN=DE | ✓ | ✓ 11 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
+| Simple Wanderers `simplewanderers` | optional, neu, 0.1.0 | ✓ A12 | ✓ 0/2/0 | – kein Fenster | ✓ | ✓ SimpleLib-Bildschirm (f2=A), 33 Keys EN=DE | ✓ | ✓ 23 GT + standalone + server-solo | ✓ Entwurf | ✓ Entwurf | 0 | ? |
+
+Stand-Hinweis 14.11. (RELSB56): Spalten „Funktionen + A12“, „Config“ und Vault-Seite/-Changelog nachgezogen; Simple Chess
+(seit N47 M7 aus dem Kern) ergänzt. Übrige Spalten (Texturen, Tests, Queue) sind Stand 11.11. und nicht neu erhoben.
 
 ## 4. Befunde je Prüfpunkt (Belege)
 
@@ -212,7 +216,7 @@ Vanilla-Wissen und im Repo nicht belegt. „bleibt“ = der Wert passt zur Begr�
 | XP-Kugeln | Kugeln im Umkreis 2 (max. 8) verschmelzen einmal pro Sekunde, Aufheben ohne Verzögerung (`tweaks/TweaksConfig.java:318`, `tweaks/xp/XpClumping.java`) | Vanilla: Kugeln verschmelzen nur bei Kontakt, Aufheben mit Verzögerung | `tweaks.optimization.enableXpClumps` (Standard an), `xpClumpRadius` | bleibt; Überschneidung mit Simple Optimization (Queue) |
 
 Weitere Auffälligkeiten (nur notiert, nichts geändert):
-- **Kapitel-Widersprüche in Fremdmodulen** (außerhalb dieses Pakets): `modules/simplemobs/wiki/manual.json` Kapitel `trim_abilities` behauptet, ohne Simple Mobs wende SimpleBuilding die Besatz-Fähigkeiten selbst an – auf 26.3 ist `mc26_3/overlay/java/com/simplebuilding/mixin/LivingEntityTrimMixin.java` leer, das gilt nur für 26.2; `modules/simplebuildingtools/wiki/manual.json` Kapitel `building_wand` sagt, der Enderit-Baustab könne keine Wand-Verzauberungen tragen – `mc26_3/generated/data/simplebuilding/tags/item/building_wand_enchantable.json` und `modules/simplebuildingtools/shared/resources/data/simplebuildingtools/tags/item/building_wands.json` enthalten ihn.
+- ✓ RELSB56 e69415d56: beide Widersprüche korrigiert (Simple Mobs: ohne Simple Mobs keine Besatz-Fähigkeit; Building Tools: Satz zum Enderit-Baustab gestrichen). Ursprünglich: **Kapitel-Widersprüche in Fremdmodulen** (außerhalb dieses Pakets): `modules/simplemobs/wiki/manual.json` Kapitel `trim_abilities` behauptet, ohne Simple Mobs wende SimpleBuilding die Besatz-Fähigkeiten selbst an – auf 26.3 ist `mc26_3/overlay/java/com/simplebuilding/mixin/LivingEntityTrimMixin.java` leer, das gilt nur für 26.2; `modules/simplebuildingtools/wiki/manual.json` Kapitel `building_wand` sagt, der Enderit-Baustab könne keine Wand-Verzauberungen tragen – `mc26_3/generated/data/simplebuilding/tags/item/building_wand_enchantable.json` und `modules/simplebuildingtools/shared/resources/data/simplebuildingtools/tags/item/building_wands.json` enthalten ihn.
 - Wiki des Kerns (simplebuilding-3): Kapitel `simple_tweaks`, `chisel`, `enchant_building`, `getting_started`, `armor_trim_benefits` auf 26.3 gebracht; die Notiz `constructors_touch` beschrieb den Stock als „erste Blockeigenschaft“ – der Code dreht nur Ausrichtungs-Eigenschaften (`util/ConstructorsTouchInteraction.java`), Text korrigiert.
 
 ## 5. Lückenliste
@@ -269,3 +273,27 @@ Antwort z. B. `RELSB31: f1=A f2=A f3=A f4=A f5=B f6=A`.
 2. Nach RELSB31-Antwort: L13–L16 umsetzen, dann diese Datei aktualisieren (Tabelle neu: `/root/scratch/relsb31/gather.py` +
    `table.py` – Skripte liegen außerhalb des Repos, Muster für die nächsten Familien).
 3. Danach Familie 2 (Simple Quality of Life) mit eigener `RELEASE-<MOD>.md`.
+
+## 8. Stand 14.11. (RELSB56, Branch b-relsb56, Basis hub/b-bundle195 302533b0a)
+
+Plan: `docs/ai/PLAN-B-RELSB56-2026-11-14.md`. Lückenliste §5 neu erhoben (lokal, ohne sbt):
+
+| Nr | Stand 14.11. | Beleg |
+|---|---|---|
+| L1 | ✓ Vault-Seite/-Changelog waren schon da (b-vaultpage31); `check_pages` war wieder rot wegen **Simple Chess** (aus dem Kern, N47 M7) → Seite + Changelog ergänzt, SB-Seite ohne „chess“, SB-Changelog: Simple Tools in Pflicht, Layers/Vault/Chess in Optional | bfb8c2deb |
+| L2 | ✓ alle Familien-Mods mit A12 in PRINZIPIEN Teil 2; die letzten drei (Sandwiches, End, Shops) nachgetragen | ee5871366 |
+| L3 | ✓ erledigt (simplebuilding-1, `tools/release/dead_assets_263.py --check`: 122 Dateien nicht ausgeliefert) | – |
+| L8 | ✓ erledigt (Tweaks schreibt `simpledimension:` beim Laden um, Gametests in `CreditTests`) | – |
+| L10 | ✓ Rest: 5 tote Quellpfade in `wiki/manual.json` (TrimMultiplierLogic, End-Kolben/-Schiene/-Fackel → simpleores) | e69415d56 |
+| L11 | ✓ alle Familien-Mods haben `AUDIT.md` (AUDSB31A–E) | – |
+| L13 | ✓ Options-Lang: alle Mods mit Config haben `text.autoconfig.<mod>.option.*` (Lights und Chess ohne Config) | – |
+| L4, L5 | ✓ bearbeitet (b-texores31, b-texsb31, Bündel 183); Rest nur Besitzer-Bildabnahme (TEXRATE-Vorschauen) | – |
+| L6 | teils: Echt-Maus-Probes inzwischen auch für Blocks (Formsäge), Octets, Machines (Schmied/Crafter/Trichter); Rest Client-Läufe | – |
+| L7 | ✓ b-queuesb31 (Bündel 183); Rest „kein Client-Beleg“ bleibt `[~]` (Tabelle 3 in `PLAN-B-QUEUESB31-2026-11-11.md`) | – |
+| L12 | ✓ BS25-19 „nicht reproduzierbar, ausgeschlossen“ (a-w4a, Client `bs25death` ok) | – |
+| L9 | Werkzeug da (b-benchsb31, `headless_bench.py --profile sb`); Messlauf mit Bewertung gegen f5=B nirgends belegt → braucht leeren sb-test | – |
+
+Offen beim Besitzer (nicht in RELSB56 umgesetzt, Entscheidung nötig; aus §4.12 und Abnahme A): Schalter für End-Strukturen und
+für Eis-Flecken/Sculk-Kiefern ergänzen oder bewusst ohne; Ambosskosten-Eingriff `anvilRepairKeepsCost` (Standard an) bestätigen;
+Stiller Löwenzahn neben Simple Mob Manners „Mute mobs“ behalten; Wolkenmeer-Inselunterseiten fast schwarz (gewollt?).
+Schon wartend (nicht erneut fragen): APPLE41, VANILLA27, GUIDE14, TEXRATE17/20, Hörabnahmen, Domain IG31-55.
