@@ -42,12 +42,12 @@ public final class SandwichVisuals {
             Map.entry("minecraft:chorus_fruit", "chorus"), Map.entry("minecraft:spider_eye", "spider_eye"),
             Map.entry("minecraft:rotten_flesh", "rotten"),
             Map.entry("simplesandwiches:cheese_slice", "cheese"), Map.entry("simplesandwiches:cake_slice", "cake"),
-            Map.entry("simplebuilding:netherite_apple", "netherite"),
-            Map.entry("simplebuilding:enchanted_netherite_apple", "netherite"),
-            Map.entry("simplebuilding:netherite_carrot", "netherite"),
-            Map.entry("simplebuilding:enderite_apple", "enderite"),
-            Map.entry("simplebuilding:enchanted_enderite_apple", "enderite"),
-            Map.entry("simplebuilding:enderite_carrot", "enderite"));
+            Map.entry("simpleores:netherite_apple", "netherite"),
+            Map.entry("simpleores:enchanted_netherite_apple", "netherite"),
+            Map.entry("simpleores:netherite_carrot", "netherite"),
+            Map.entry("simpleores:enderite_apple", "enderite"),
+            Map.entry("simpleores:enchanted_enderite_apple", "enderite"),
+            Map.entry("simpleores:enderite_carrot", "enderite"));
 
     public static String key(Holder<Item> item) {
         String id = item.unwrapKey().map(k -> k.identifier().toString()).orElse("");

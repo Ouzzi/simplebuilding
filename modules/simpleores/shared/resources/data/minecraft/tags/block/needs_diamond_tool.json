@@ -19,6 +19,8 @@
     "simpleores:dull_astralit_ore",
     "simpleores:dull_nihilith_ore",
     "simpleores:nihilith_ore",
-    "simpleores:astralit_ore"
+    "simpleores:astralit_ore",
+    "simpleores:netherite_pole",
+    "simpleores:enderite_pole"
   ]
 }

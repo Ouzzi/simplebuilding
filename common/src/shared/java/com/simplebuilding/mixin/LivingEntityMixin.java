@@ -102,7 +102,8 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$modifyVoidDamage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source.is(DamageTypes.FELL_OUT_OF_WORLD) && (Object) this instanceof Player player) {
+        // N47-M3: on 26.3 Simple Ores' EnderiteVoidDamageMixin does this (the armor is its item), never twice.
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES && source.is(DamageTypes.FELL_OUT_OF_WORLD) && (Object) this instanceof Player player) {
 
             int enderitePieces = 0;
             // FIX: Nutze getInventory().armor statt getArmorItems() (da getArmorItems Iterable ist, inventory Liste)

@@ -79,7 +79,8 @@ for f in RIFT_FOOD:
         assert (RES / rel).is_file(), rel
     assert f'item/{f}.png' in derived and not (RES / f'assets/{NS}/textures/item/{f}.png').exists(), f
     assert all(langs[l].get(f'item.{NS}.{f}') for l in langs), f
-assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED) + len(N4_DERIVED) + len(RIFT_FOOD), len(derived)
+MOVED_DERIVED = 30   # N47-M2/M3 (b-circ46): End ores, rails, dust, poles, Enderite gear and food moved from SimpleBuilding
+assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 2 * len(ALLOYS) + len(ORES07_DERIVED) + len(N4_DERIVED) + len(RIFT_FOOD) + MOVED_DERIVED, len(derived)
 assert not any('silver_arrow' in d for d in derived), 'the silver arrow moved to Simple Arrows (03.11.)'
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,

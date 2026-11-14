@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,powered=false": {
+      "model": "simpleores:block/astral_relay"
+    },
+    "lit=false,powered=true": {
+      "model": "simpleores:block/astral_relay"
+    },
+    "lit=true,powered=false": {
+      "model": "simpleores:block/astral_relay_on"
+    },
+    "lit=true,powered=true": {
+      "model": "simpleores:block/astral_relay_on"
+    }
+  }
+}

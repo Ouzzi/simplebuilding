@@ -203,6 +203,13 @@
     "simpleores:dull_astralit_ore",
     "simpleores:dull_nihilith_ore",
     "simpleores:nihilith_ore",
-    "simpleores:astralit_ore"
+    "simpleores:astralit_ore",
+    "simpleores:astral_relay",
+    "simpleores:nihil_core",
+    "simpleores:iron_pole",
+    "simpleores:gold_pole",
+    "simpleores:diamond_pole",
+    "simpleores:netherite_pole",
+    "simpleores:enderite_pole"
   ]
 }

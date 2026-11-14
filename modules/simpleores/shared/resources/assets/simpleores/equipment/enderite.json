@@ -1,0 +1,32 @@
+{
+  "layers": {
+    "horse_body": [
+      {
+        "texture": "simpleores:enderite"
+      }
+    ],
+    "humanoid": [
+      {
+        "texture": "simpleores:enderite"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "simpleores:enderite_leggings"
+      }
+    ],
+    "nautilus_body": [
+      {
+        "texture": "simpleores:enderite"
+      }
+    ]
+  },
+  "trim_overrides": [
+    {
+      "palette": "simplebuilding:trim/enderite_darker",
+      "when": {
+        "material": "simplebuilding:enderite"
+      }
+    }
+  ]
+}

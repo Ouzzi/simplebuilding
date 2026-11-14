@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "SNS",
+    "NRN",
+    "SNS"
+  ],
+  "key": {
+    "S": "minecraft:end_stone_bricks",
+    "N": "simpleores:nihil_redstone",
+    "R": "simpleores:nihilith_shard"
+  },
+  "result": {
+    "id": "simpleores:nihil_core",
+    "count": 4
+  }
+}

@@ -5,7 +5,10 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "AbstractMinecartEndRailMixin",
+    "EnderiteSinkDamperMixin",
+    "EnderiteVoidDamageMixin",
     "HiddenOreBrushMixin",
+    "MetalRodLightningMixin",
     "MinecartBehaviorEndRailMixin",
     "RedstoneWireEvaluatorLinesMixin",
     "SoundproofMixin"

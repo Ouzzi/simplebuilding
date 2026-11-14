@@ -57,7 +57,7 @@
               "min": 1
             }
           },
-          "name": "simplebuilding:netherite_carrot",
+          "name": "simpleores:netherite_carrot",
           "weight": 6
         },
         {
@@ -88,12 +88,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:netherite_apple",
+          "name": "simpleores:netherite_apple",
           "weight": 4
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enchanted_netherite_apple",
+          "name": "simpleores:enchanted_netherite_apple",
           "weight": 2
         },
         {

@@ -70,7 +70,7 @@ public final class LineBlocks {
     /** Creative order (Redstone tab, behind the comparator): the line's devices. */
     public static final String[] REDSTONE = {"astral_redstone", "nihil_redstone", "bridge_redstone", "astral_redstone_block", "nihil_redstone_block",
             "bridge_redstone_block", "astral_redstone_torch", "nihil_redstone_torch", "astralit_lamp", "nihilith_lamp", "astral_piston", "nihil_piston",
-            "astral_rail", "nihil_rail"};
+            "astral_rail", "nihil_rail", "astral_relay", "nihil_core"};
     /** Natural blocks tab: the End ores. */
     public static final String[] NATURAL = {"astralit_ore", "dull_astralit_ore", "nihilith_ore", "dull_nihilith_ore"};
     /** Ingredients tab: dust and shards. */
@@ -85,12 +85,19 @@ public final class LineBlocks {
         for (String path : new String[] {"astralit_ore", "nihilith_ore", "dull_astralit_ore", "dull_nihilith_ore", "astral_redstone", "nihil_redstone",
                 "bridge_redstone", "astral_redstone_block", "nihil_redstone_block", "bridge_redstone_block", "astralit_lamp", "nihilith_lamp",
                 "astralit_end_rod", "nihilith_end_rod", "astral_piston", "nihil_piston", "astral_rail", "nihil_rail"}) {
+            if (path.equals("astral_redstone") || path.equals("bridge_redstone")) {
+                // N46 (CIRC46 F4): Astral and Bridge Redstone stick to walls and ceilings (com.simpleores.circuit).
+                Block wall = path.equals("astral_redstone") ? com.simpleores.circuit.CircuitBlocks.ASTRAL_WALL_REDSTONE : com.simpleores.circuit.CircuitBlocks.BRIDGE_WALL_REDSTONE;
+                OresRegistry.putItem(path, p -> new com.simpleores.circuit.LineDustItem(OresRegistry.BLOCKS.get(path), wall, p.useBlockDescriptionPrefix()));
+                continue;
+            }
             OresRegistry.putItem(path, p -> new BlockItem(OresRegistry.BLOCKS.get(path), p.useBlockDescriptionPrefix()));
         }
         OresRegistry.putItem("astral_redstone_torch", p -> new StandingAndWallBlockItem(ASTRAL_REDSTONE_TORCH, ASTRAL_REDSTONE_WALL_TORCH, Direction.DOWN, p.useBlockDescriptionPrefix()));
         OresRegistry.putItem("nihil_redstone_torch", p -> new StandingAndWallBlockItem(NIHIL_REDSTONE_TORCH, NIHIL_REDSTONE_WALL_TORCH, Direction.DOWN, p.useBlockDescriptionPrefix()));
         // The trim materials of dust and shard stay SimpleBuilding's (SharedMaterialTrimMixin adds them there).
         for (String path : INGREDIENTS) OresRegistry.putItem(path, p -> new Item(p));
+        com.simpleores.circuit.CircuitBlocks.items();
     }
 
     private static Block block(String path, Block base, Function<BlockBehaviour.Properties, Block> factory) {

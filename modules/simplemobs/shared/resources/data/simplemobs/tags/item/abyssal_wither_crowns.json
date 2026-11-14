@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "simplebuilding:enderite_helmet",
+      "id": "simpleores:enderite_helmet",
       "required": false
     }
   ]

@@ -173,8 +173,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
-            GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)
-                    .build(),
             GameTestSpec.named("block_behaviour_game_test_material_rods_craft_back_and_smith_upward", BlockBehaviourTests::materialRodsCraftBackAndSmithUpward)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_old_rod_ids_load_as_poles", BlockBehaviourTests::oldRodIdsLoadAsPoles)

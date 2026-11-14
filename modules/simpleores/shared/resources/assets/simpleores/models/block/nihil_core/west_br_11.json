@@ -1,0 +1,33 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "core": "simpleores:block/nihil_core",
+    "particle": "simpleores:block/nihil_core"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        0,
+        8,
+        16
+      ],
+      "faces": {
+        "west": {
+          "uv": [
+            4.0,
+            4.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#core",
+          "cullface": "west"
+        }
+      }
+    }
+  ]
+}

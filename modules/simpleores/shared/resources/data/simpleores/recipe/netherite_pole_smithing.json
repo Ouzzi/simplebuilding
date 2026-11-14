@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simpleores:diamond_pole",
+  "result": {
+    "id": "simpleores:netherite_pole"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

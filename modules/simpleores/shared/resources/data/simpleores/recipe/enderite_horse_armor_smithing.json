@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simpleores:enderite_ingot",
+  "base": "minecraft:netherite_horse_armor",
+  "result": {
+    "id": "simpleores:enderite_horse_armor"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

@@ -40,7 +40,6 @@
     "ArmorStandStandsMixin",
     "EntityTypeArmorStandArmsMixin",
     "EquipmentDispenseStandMixin",
-    "MetalRodLightningMixin",
     "HammockPlayerMixin",
     "HollowLogCrawlMixin",
     "FireBlockFlammableInvoker",

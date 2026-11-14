@@ -395,10 +395,10 @@ public class ModItems {
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
     public static final Item IRON_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("iron_pole", settings -> new BlockItem(ModBlocks.IRON_POLE, settings)) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("iron_pole") : null;
     /** Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an. */
     public static final Item GOLD_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("gold_pole", settings -> new BlockItem(ModBlocks.GOLD_POLE, settings)) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("gold_pole") : null;
     // Haengematten (2026-10-02, McVersion.HAMMOCK): HammockItem haengt alle Bloecke auf einmal auf.
     public static final Item WHITE_HAMMOCK = hammockItem(ModBlocks.WHITE_HAMMOCK);
     public static final Item ORANGE_HAMMOCK = hammockItem(ModBlocks.ORANGE_HAMMOCK);
@@ -428,13 +428,13 @@ public class ModItems {
             ? registerItem("diamond_rod", settings -> new Item(settings)) : null;
     /** Diamantstange (N41): Blitzableiter (80 Bloecke) aus drei Diamanten, Basis der Netheritstange. */
     public static final Item DIAMOND_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("diamond_pole", settings -> new BlockItem(ModBlocks.DIAMOND_POLE, settings)) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("diamond_pole") : null;
     /** Netheritstange (2026-10-03 Block): Blitzableiter (96 Bloecke), geschmiedet aus der Diamantstange (N41), feuerfest. */
     public static final Item NETHERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("netherite_pole", settings -> new BlockItem(ModBlocks.NETHERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("netherite_pole") : null;
     /** Enderitstab (2026-10-03 Block): Blitzableiter (128 Bloecke), geschmiedet aus dem Netheritstab, feuerfest. */
     public static final Item ENDERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("enderite_pole", settings -> new BlockItem(ModBlocks.ENDERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
+            ? com.simplebuilding.util.SharedMaterials.oresItem("enderite_pole") : null;
 
     // Pfeil vom Befiederungstisch: seit 04.11. simplearrows:crafted_arrow (Simple Arrows, b-arrows03; util/ArrowRefs).
 
@@ -634,23 +634,23 @@ public class ModItems {
 
     // =================================================================================
 
-    public static final Item ENDERITE_SWORD = registerItem("enderite_sword", s -> new Item(s.fireResistant().sword(ModToolMaterials.ENDERITE, 3.0F, -2.4F)));
+    public static final Item ENDERITE_SWORD = com.simplebuilding.util.SharedMaterials.item("enderite_sword", () -> registerItem("enderite_sword", s -> new Item(s.fireResistant().sword(ModToolMaterials.ENDERITE, 3.0F, -2.4F))));
 
-    public static final Item ENDERITE_SPEAR = registerItem("enderite_spear", s -> new Item(s
+    public static final Item ENDERITE_SPEAR = com.simplebuilding.util.SharedMaterials.item("enderite_spear", () -> registerItem("enderite_spear", s -> new Item(s
 
             .fireResistant()
 
             // Mirror vanilla spear setup so the item receives actual spear mechanics/components.
 
-            .spear(ModToolMaterials.ENDERITE, 1.15F, 1.2F, 0.4F, 2.5F, 7.0F, 5.5F, 5.1F, 8.75F, 4.6F)));
+            .spear(ModToolMaterials.ENDERITE, 1.15F, 1.2F, 0.4F, 2.5F, 7.0F, 5.5F, 5.1F, 8.75F, 4.6F))));
 
-    public static final Item ENDERITE_PICKAXE = registerItem("enderite_pickaxe", s -> new Item(s.fireResistant().pickaxe(ModToolMaterials.ENDERITE, 1.0F, -2.8F)));
+    public static final Item ENDERITE_PICKAXE = com.simplebuilding.util.SharedMaterials.item("enderite_pickaxe", () -> registerItem("enderite_pickaxe", s -> new Item(s.fireResistant().pickaxe(ModToolMaterials.ENDERITE, 1.0F, -2.8F))));
 
-    public static final Item ENDERITE_AXE = registerItem("enderite_axe", s -> new Item(s.fireResistant().axe(ModToolMaterials.ENDERITE, 5.0F, -3.0F)));
+    public static final Item ENDERITE_AXE = com.simplebuilding.util.SharedMaterials.item("enderite_axe", () -> registerItem("enderite_axe", s -> new Item(s.fireResistant().axe(ModToolMaterials.ENDERITE, 5.0F, -3.0F))));
 
-    public static final Item ENDERITE_SHOVEL = registerItem("enderite_shovel", s -> new Item(s.fireResistant().shovel(ModToolMaterials.ENDERITE, 1.5F, -3.0F)));
+    public static final Item ENDERITE_SHOVEL = com.simplebuilding.util.SharedMaterials.item("enderite_shovel", () -> registerItem("enderite_shovel", s -> new Item(s.fireResistant().shovel(ModToolMaterials.ENDERITE, 1.5F, -3.0F))));
 
-    public static final Item ENDERITE_HOE = registerItem("enderite_hoe", s -> new Item(s.fireResistant().hoe(ModToolMaterials.ENDERITE, -4.0F, 0.0F)));
+    public static final Item ENDERITE_HOE = com.simplebuilding.util.SharedMaterials.item("enderite_hoe", () -> registerItem("enderite_hoe", s -> new Item(s.fireResistant().hoe(ModToolMaterials.ENDERITE, -4.0F, 0.0F))));
 
     public static final Item COLOR_BRUSH = registerItem("color_brush", s -> new ColorBrushItem(s));
     // Farbkasten (Besitzer 2026-10-09): je Farbe ein Stapel mal Stufenfaktor 1/2/4/8, Seltenheiten wie die Buendel.
@@ -960,23 +960,23 @@ public class ModItems {
 
 
 
-    public static final Item ENDERITE_HELMET = registerArmor("enderite_helmet", ModArmorMaterials.ENDERITE, ArmorType.HELMET, 42);
+    public static final Item ENDERITE_HELMET = com.simplebuilding.util.SharedMaterials.item("enderite_helmet", () -> registerArmor("enderite_helmet", ModArmorMaterials.ENDERITE, ArmorType.HELMET, 42));
 
-    public static final Item ENDERITE_CHESTPLATE = registerArmor("enderite_chestplate", ModArmorMaterials.ENDERITE, ArmorType.CHESTPLATE, 42);
+    public static final Item ENDERITE_CHESTPLATE = com.simplebuilding.util.SharedMaterials.item("enderite_chestplate", () -> registerArmor("enderite_chestplate", ModArmorMaterials.ENDERITE, ArmorType.CHESTPLATE, 42));
 
-    public static final Item ENDERITE_LEGGINGS = registerArmor("enderite_leggings", ModArmorMaterials.ENDERITE, ArmorType.LEGGINGS, 42);
+    public static final Item ENDERITE_LEGGINGS = com.simplebuilding.util.SharedMaterials.item("enderite_leggings", () -> registerArmor("enderite_leggings", ModArmorMaterials.ENDERITE, ArmorType.LEGGINGS, 42));
 
-    public static final Item ENDERITE_BOOTS = registerArmor("enderite_boots", ModArmorMaterials.ENDERITE, ArmorType.BOOTS, 42);
+    public static final Item ENDERITE_BOOTS = com.simplebuilding.util.SharedMaterials.item("enderite_boots", () -> registerArmor("enderite_boots", ModArmorMaterials.ENDERITE, ArmorType.BOOTS, 42));
 
     // Pferde- und Nautilusruestung (Besitzer 2026-09-28): eine Stufe ueber Vanillas Netherit-Ruestung
     // (Koerper-Schutz 22 statt 19, Haerte 4 statt 3, Rueckstoss 0,2 statt 0,1 - ModArmorMaterials),
     // am Schmiedetisch aus der Netherit-Variante mit Enderit-Aufwertung + Enderit-Barren. Wie Vanilla
     // ohne Haltbarkeit, feuerfest wie alles aus Enderit.
-    public static final Item ENDERITE_HORSE_ARMOR = registerItem("enderite_horse_armor",
-            settings -> new Item(settings.horseArmor(ModArmorMaterials.ENDERITE).fireResistant()));
+    public static final Item ENDERITE_HORSE_ARMOR = com.simplebuilding.util.SharedMaterials.item("enderite_horse_armor", () -> registerItem("enderite_horse_armor",
+            settings -> new Item(settings.horseArmor(ModArmorMaterials.ENDERITE).fireResistant())));
 
-    public static final Item ENDERITE_NAUTILUS_ARMOR = registerItem("enderite_nautilus_armor",
-            settings -> new Item(settings.nautilusArmor(ModArmorMaterials.ENDERITE).fireResistant()));
+    public static final Item ENDERITE_NAUTILUS_ARMOR = com.simplebuilding.util.SharedMaterials.item("enderite_nautilus_armor", () -> registerItem("enderite_nautilus_armor",
+            settings -> new Item(settings.nautilusArmor(ModArmorMaterials.ENDERITE).fireResistant())));
 
 
 
@@ -1106,17 +1106,17 @@ public class ModItems {
 
 
 
-    public static final Item NETHERITE_CARROT = registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_CARROT = com.simplebuilding.util.SharedMaterials.item("netherite_carrot", () -> registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireResistant().rarity(UNCOMMON))));
 
-    public static final Item NETHERITE_APPLE = registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("netherite_apple", () -> registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireResistant().rarity(UNCOMMON))));
 
-    public static final Item ENDERITE_CARROT = registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_CARROT = com.simplebuilding.util.SharedMaterials.item("enderite_carrot", () -> registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireResistant().rarity(Rarity.EPIC))));
 
-    public static final Item ENDERITE_APPLE = registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("enderite_apple", () -> registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireResistant().rarity(Rarity.EPIC))));
 
 
 
-    public static final Item ENCHANTED_NETHERITE_APPLE = registerItem("enchanted_netherite_apple", settings -> new Item(settings
+    public static final Item ENCHANTED_NETHERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("enchanted_netherite_apple", () -> registerItem("enchanted_netherite_apple", settings -> new Item(settings
 
             .food(NETHERITE_APPLE_FOOD, createEnchantedNetheriteFoodEffects())
 
@@ -1125,11 +1125,11 @@ public class ModItems {
             // RARE wie Vanillas verzauberter goldener Apfel (docs/RARITAETEN.md)
             .rarity(RARE)
 
-            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))); // Aktiviert den Schimmer
+            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)))); // Aktiviert den Schimmer
 
 
 
-    public static final Item ENCHANTED_ENDERITE_APPLE = registerItem("enchanted_enderite_apple", settings -> new Item(settings
+    public static final Item ENCHANTED_ENDERITE_APPLE = com.simplebuilding.util.SharedMaterials.item("enchanted_enderite_apple", () -> registerItem("enchanted_enderite_apple", settings -> new Item(settings
 
             .food(ENDERITE_APPLE_FOOD, createEnchantedEnderiteFoodEffects())
 
@@ -1137,7 +1137,7 @@ public class ModItems {
 
             .rarity(Rarity.EPIC)
 
-            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
+            .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))));
 
 
 

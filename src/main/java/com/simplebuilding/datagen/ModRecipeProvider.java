@@ -545,19 +545,21 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Crucible P5: Kupfer-, Enderit- und Keramik-Eimer-Rezepte liegen seit Stufe 5b in Simple Crucibles.
                 // Eisenstange (2026-10-02, N41 "Pole"): wie der Blitzableiter, drei Eisenbarren uebereinander.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-                    shaped(RecipeCategory.REDSTONE, ModItems.IRON_POLE)
-                            .pattern("I")
-                            .pattern("I")
-                            .pattern("I")
-                            .define('I', Items.IRON_INGOT)
-                            .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
-                            .save(output);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) { // N47-M3: the pole recipes are Simple Ores' on 26.3
+                        shaped(RecipeCategory.REDSTONE, ModItems.IRON_POLE)
+                                .pattern("I")
+                                .pattern("I")
+                                .pattern("I")
+                                .define('I', Items.IRON_INGOT)
+                                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                                .save(output);
+                    }
                     // Stangen (2026-10-02, N41): Gold- und Diamantstange ebenso aus drei uebereinander und zurueck in ihre
                     // drei Teile. Netherit- und Enderitstange (Bloecke seit 2026-10-03) nur am Schmiedetisch (Einbahn wie
                     // jede Aufwertung), die Netheritstange seit N41 aus der Diamantstange. Der Diamantstab (Item,
                     // Pfeilschaft) ist seit N41 getrennt: zwei Diamanten uebereinander, zurueck zwei.
-                    rod(ModItems.GOLD_POLE, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
-                    rod(ModItems.DIAMOND_POLE, Items.DIAMOND, RecipeCategory.REDSTONE);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) rod(ModItems.GOLD_POLE, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) rod(ModItems.DIAMOND_POLE, Items.DIAMOND, RecipeCategory.REDSTONE);
                     shaped(RecipeCategory.MISC, ModItems.DIAMOND_ROD)
                             .pattern("M")
                             .pattern("M")
@@ -568,10 +570,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     rodBack(ModItems.GOLD_POLE, Items.GOLD_INGOT, 3);
                     rodBack(ModItems.DIAMOND_POLE, Items.DIAMOND, 3);
                     rodBack(ModItems.DIAMOND_ROD, Items.DIAMOND, 2);
-                    createSmithingTransform(output, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.DIAMOND_POLE,
-                            Items.NETHERITE_INGOT, RecipeCategory.MISC, ModItems.NETHERITE_POLE);
-                    createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_POLE,
-                            ModItems.ENDERITE_INGOT, RecipeCategory.MISC, ModItems.ENDERITE_POLE);
+                    if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
+                        createSmithingTransform(output, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.DIAMOND_POLE,
+                                Items.NETHERITE_INGOT, RecipeCategory.MISC, ModItems.NETHERITE_POLE);
+                        createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_POLE,
+                                ModItems.ENDERITE_INGOT, RecipeCategory.MISC, ModItems.ENDERITE_POLE);
+                    }
                 }
 
                 // =================================================================
@@ -978,39 +982,41 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // NETHERITE FOOD RECIPES
                 // =================================================================
-                shaped(RecipeCategory.FOOD, ModItems.NETHERITE_CARROT)
-                        .pattern(" N ")
-                        .pattern("NCN")
-                        .pattern(" N ")
-                        .define('N', ModItems.NETHERITE_NUGGET)
-                        .define('C', Items.CARROT)
-                        .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
-                        .save(output);
-                shaped(RecipeCategory.FOOD, ModItems.NETHERITE_APPLE)
-                        .pattern("NNN")
-                        .pattern("NAN")
-                        .pattern("NNN")
-                        .define('N', ModItems.NETHERITE_NUGGET)
-                        .define('A', Items.APPLE)
-                        .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
-                        .save(output);
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) { // N47-M3: Simple Ores' recipes on 26.3
+                    shaped(RecipeCategory.FOOD, ModItems.NETHERITE_CARROT)
+                            .pattern(" N ")
+                            .pattern("NCN")
+                            .pattern(" N ")
+                            .define('N', ModItems.NETHERITE_NUGGET)
+                            .define('C', Items.CARROT)
+                            .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
+                            .save(output);
+                    shaped(RecipeCategory.FOOD, ModItems.NETHERITE_APPLE)
+                            .pattern("NNN")
+                            .pattern("NAN")
+                            .pattern("NNN")
+                            .define('N', ModItems.NETHERITE_NUGGET)
+                            .define('A', Items.APPLE)
+                            .unlockedBy(getHasName(ModItems.NETHERITE_NUGGET), has(ModItems.NETHERITE_NUGGET))
+                            .save(output);
 
-                shaped(RecipeCategory.FOOD, ModItems.ENDERITE_CARROT)
-                        .pattern(" N ")
-                        .pattern("NCN")
-                        .pattern(" N ")
-                        .define('N', ModItems.ENDERITE_NUGGET)
-                        .define('C', Items.CARROT)
-                        .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
-                        .save(output);
-                shaped(RecipeCategory.FOOD, ModItems.ENDERITE_APPLE)
-                        .pattern("NNN")
-                        .pattern("NAN")
-                        .pattern("NNN")
-                        .define('N', ModItems.ENDERITE_NUGGET)
-                        .define('A', Items.APPLE)
-                        .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
-                        .save(output);
+                    shaped(RecipeCategory.FOOD, ModItems.ENDERITE_CARROT)
+                            .pattern(" N ")
+                            .pattern("NCN")
+                            .pattern(" N ")
+                            .define('N', ModItems.ENDERITE_NUGGET)
+                            .define('C', Items.CARROT)
+                            .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
+                            .save(output);
+                    shaped(RecipeCategory.FOOD, ModItems.ENDERITE_APPLE)
+                            .pattern("NNN")
+                            .pattern("NAN")
+                            .pattern("NNN")
+                            .define('N', ModItems.ENDERITE_NUGGET)
+                            .define('A', Items.APPLE)
+                            .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
+                            .save(output);
+                }
 
 
 
@@ -1163,7 +1169,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     enderiteItems.remove(wand);
                 }
 
-                for (int i = 0; i < netheriteItems.size(); i++) {
+                // N47-M3 (b-circ46): on 26.3 the twelve Enderite tools/armor pieces (the first twelve pairs) and their recipes are Simple Ores'.
+                int skipOres = com.simplebuilding.version.McVersion.MATERIALS_IN_ORES ? 12 : 0;
+                for (int i = skipOres; i < netheriteItems.size(); i++) {
                     createSmithingTransform(output,
                             ModItems.ENDERITE_UPGRADE_TEMPLATE,
                             netheriteItems.get(i),

@@ -78,7 +78,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             }
         }
         // Weisheitserz wie Diamanterz: Spitzhacke ab Eisen.
-        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+        // N47-M3: the five poles are Simple Ores' on 26.3 (its tags, gen_data moved_gear.json).
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.IRON_POLE));
             builder(BlockTags.NEEDS_STONE_TOOL).add(key(ModBlocks.IRON_POLE));
             // Goldstab wie der Goldblock: Spitzhacke ab Eisen.

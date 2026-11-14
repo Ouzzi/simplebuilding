@@ -86,6 +86,8 @@ public class SignalDustBlock extends Block {
     @Nullable
     public static Line lineOf(BlockState state) {
         if (state.getBlock() instanceof SignalDustBlock dust) return dust.line;
+        // N46 (b-circ46): wall/ceiling dust counts as dust of its line (floor dust connects to it and reads its power).
+        if (state.getBlock() instanceof com.simpleores.circuit.WallSignalDustBlock wall) return wall.line();
         return state.is(Blocks.REDSTONE_WIRE) ? Line.REDSTONE : null;
     }
 

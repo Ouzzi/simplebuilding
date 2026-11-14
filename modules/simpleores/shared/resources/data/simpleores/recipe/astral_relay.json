@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " R ",
+    "RBR",
+    " R "
+  ],
+  "key": {
+    "R": "simpleores:astral_redstone",
+    "B": "minecraft:copper_bulb"
+  },
+  "result": {
+    "id": "simpleores:astral_relay"
+  }
+}

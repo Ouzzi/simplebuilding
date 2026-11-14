@@ -6,7 +6,7 @@
     "minecraft:diamond_nautilus_armor",
     "minecraft:netherite_nautilus_armor",
     {
-      "id": "simplebuilding:enderite_nautilus_armor",
+      "id": "simpleores:enderite_nautilus_armor",
       "required": false
     }
   ]

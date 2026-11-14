@@ -36,6 +36,7 @@ public final class OresNeoForge {
                 OresRegistry.stacks(OresRegistry.TOOLS).forEach(s -> event.accept(s, vis));
                 event.accept(com.simpleores.guide.OresGuide.stack(), vis);
             }
+            if (tab.equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) OresRegistry.stacks(com.simpleores.gear.EnderiteGear.POLES).forEach(s -> event.accept(s, vis));
             if (tab.equals(CreativeModeTabs.COMBAT)) OresRegistry.stacks(OresRegistry.COMBAT).forEach(s -> event.accept(s, vis));
             if (tab.equals(CreativeModeTabs.FOOD_AND_DRINKS)) OresRegistry.stacks(OresRegistry.FOOD).forEach(s -> event.accept(s, vis));
         });

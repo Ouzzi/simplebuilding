@@ -147,9 +147,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.DETECTOR))
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.ROTATOR))
-                .add(key(ModItems.ENDERITE_SPEAR))
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) builder(ItemTags.DURABILITY_ENCHANTABLE).add(key(ModItems.ENDERITE_SPEAR)); // 26.3: Simple Ores' tag (N47-M3)
 
         // Rotator: Effizienz verkuerzt das Ausholen des Tauschens (RotatorSwap.windupTicks).
         builder(ItemTags.MINING_ENCHANTABLE)
@@ -343,15 +343,18 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         // Enderit-Werkzeuge und -Ruestung in die Vanilla-Werkzeug-/Ruestungs-Tags: aus ihnen leiten sich
         // die enchantable/*-Tags ab, ohne sie liess sich keine Verzauberung (ausser Haltbarkeit) anbringen.
         // (Den Speer traegt schon das handgeschriebene data/minecraft/tags/item/spears.json.)
-        builder(ItemTags.SWORDS).add(key(ModItems.ENDERITE_SWORD));
-        builder(ItemTags.PICKAXES).add(key(ModItems.ENDERITE_PICKAXE));
-        builder(ItemTags.AXES).add(key(ModItems.ENDERITE_AXE));
-        builder(ItemTags.SHOVELS).add(key(ModItems.ENDERITE_SHOVEL));
-        builder(ItemTags.HOES).add(key(ModItems.ENDERITE_HOE));
-        builder(ItemTags.HEAD_ARMOR).add(key(ModItems.ENDERITE_HELMET));
-        builder(ItemTags.CHEST_ARMOR).add(key(ModItems.ENDERITE_CHESTPLATE));
-        builder(ItemTags.LEG_ARMOR).add(key(ModItems.ENDERITE_LEGGINGS));
-        builder(ItemTags.FOOT_ARMOR).add(key(ModItems.ENDERITE_BOOTS));
+        // N47-M3 (b-circ46): on 26.3 the Enderite gear is Simple Ores' and its tags are Simple Ores' (gen_data moved_gear.json).
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
+            builder(ItemTags.SWORDS).add(key(ModItems.ENDERITE_SWORD));
+            builder(ItemTags.PICKAXES).add(key(ModItems.ENDERITE_PICKAXE));
+            builder(ItemTags.AXES).add(key(ModItems.ENDERITE_AXE));
+            builder(ItemTags.SHOVELS).add(key(ModItems.ENDERITE_SHOVEL));
+            builder(ItemTags.HOES).add(key(ModItems.ENDERITE_HOE));
+            builder(ItemTags.HEAD_ARMOR).add(key(ModItems.ENDERITE_HELMET));
+            builder(ItemTags.CHEST_ARMOR).add(key(ModItems.ENDERITE_CHESTPLATE));
+            builder(ItemTags.LEG_ARMOR).add(key(ModItems.ENDERITE_LEGGINGS));
+            builder(ItemTags.FOOT_ARMOR).add(key(ModItems.ENDERITE_BOOTS));
+        }
 
         TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("trim_templates"));
 
@@ -370,11 +373,13 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(Items.GLOW_INK_SAC))
                 .add(key(Items.GLOWSTONE_DUST));
 
-        builder(ItemTags.TRIMMABLE_ARMOR)
-                .add(key(ModItems.ENDERITE_HELMET))
-                .add(key(ModItems.ENDERITE_CHESTPLATE))
-                .add(key(ModItems.ENDERITE_LEGGINGS))
-                .add(key(ModItems.ENDERITE_BOOTS));
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
+            builder(ItemTags.TRIMMABLE_ARMOR)
+                    .add(key(ModItems.ENDERITE_HELMET))
+                    .add(key(ModItems.ENDERITE_CHESTPLATE))
+                    .add(key(ModItems.ENDERITE_LEGGINGS))
+                    .add(key(ModItems.ENDERITE_BOOTS));
+        }
 
         // No double experience for the lossless cracked-diamond crafting cycle.
         builder(ModTags.Items.FURNACE_BONUS_EXCLUDED)

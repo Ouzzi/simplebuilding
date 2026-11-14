@@ -23,7 +23,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:netherite_carrot",
+          "name": "simpleores:netherite_carrot",
           "weight": 2
         },
         {

@@ -254,6 +254,32 @@ public final class ModuleGameTest {
         OresTests.ALL.get("metal_sounds").accept(h);
     }
 
+    // Enderite gear, food and poles (N47-M3, moved from the core): bodies in com.simpleores.gear.test.GearTests, registered via OresTests.
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearValuesEqualTheOldCoreValues(GameTestHelper h) {
+        OresTests.ALL.get("gear_values_equal_the_old_core_values").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearFoodEffectsEqualTheOldCoreValues(GameTestHelper h) {
+        OresTests.ALL.get("gear_food_effects_equal_the_old_core_values").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearPolesPullLightningWithinTheirRange(GameTestHelper h) {
+        OresTests.ALL.get("gear_poles_pull_lightning_within_their_range").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearOldSimplebuildingIdsLoadAsSimpleOresIds(GameTestHelper h) {
+        OresTests.ALL.get("gear_old_simplebuilding_ids_load_as_simple_ores_ids").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void gearEnderiteArmorDampensASneakingFall(GameTestHelper h) {
+        OresTests.ALL.get("gear_enderite_armor_dampens_a_sneaking_fall").accept(h);
+    }
+
     // Redstone line (moved from the core with the line): bodies in com.simpleores.line.test.LineTests, registered via OresTests.
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void lineLinesStaySeparateSideBySide(GameTestHelper h) {
@@ -423,5 +449,25 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleores:arena", maxTicks = 120)
     public void lineNihilRailStopsAndFastCartTakesTheCurve(GameTestHelper h) {
         OresTests.ALL.get("line_nihil_rail_stops_and_fast_cart_takes_the_curve").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitRelayTogglesAndSends(GameTestHelper h) {
+        OresTests.ALL.get("circuit_relay_toggles_and_sends").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitCoreGroupSwitchesTogether(GameTestHelper h) {
+        OresTests.ALL.get("circuit_core_group_switches_together").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void circuitWallDustSticksAndPowers(GameTestHelper h) {
+        OresTests.ALL.get("circuit_wall_dust_sticks_and_powers").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 40)
+    public void circuitLineIdsMigrate(GameTestHelper h) {
+        OresTests.ALL.get("circuit_line_ids_migrate").accept(h);
     }
 }

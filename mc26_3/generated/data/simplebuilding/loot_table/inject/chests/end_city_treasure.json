@@ -226,12 +226,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enderite_apple",
+          "name": "simpleores:enderite_apple",
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enchanted_enderite_apple"
+          "name": "simpleores:enchanted_enderite_apple"
         },
         {
           "type": "minecraft:empty",

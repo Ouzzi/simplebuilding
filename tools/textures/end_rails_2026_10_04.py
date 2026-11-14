@@ -96,6 +96,12 @@ def derived(jar):
     return textures(CHOSEN)
 
 
+def derived_module(jar, module):
+    """Module simpleores (b-circ46): the End rails moved there; SimpleBuilding no longer lists them."""
+    assert module == 'simpleores', module
+    return derived(jar)
+
+
 def write_models():
     def write(rel, data):
         p = ASSETS / rel

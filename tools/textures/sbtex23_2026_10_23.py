@@ -530,8 +530,7 @@ def ore_exposed(kind: str, base: Image.Image) -> Image.Image:
 ORE_PICK = {'real': 'C2', 'dull': 'F1'}
 
 
-def derived(jar) -> dict:
-    """Vanilla-derived output for tools/textures/vanilla_derived.py: the End ores on Vanilla's End stone."""
+def _all_ores(jar) -> dict:
     import vn12_preview_2026_10_23 as vp
     end_stone = vp.Jar(Path(jar)).tex('block/end_stone')
     return {'block/astralit_ore.png': ore_hidden('astral', ORE_PICK['real'], end_stone),
@@ -540,6 +539,22 @@ def derived(jar) -> dict:
             'block/dull_nihilith_ore.png': dull_ore('nihil', ORE_PICK['dull'], end_stone),
             **{f'block/{ORE_NAMES[k]}_brushed_{st}.png': ore_stage(k, st, end_stone) for k in ORE_NAMES for st in STAGE_EDGE},
             **{f'block/{ORE_NAMES[k]}_exposed.png': ore_exposed(k, end_stone) for k in ORE_NAMES}}
+
+
+# The 26.2 line of SimpleBuilding still ships the two plain End ores (models/block/astralit_ore.json); everything
+# else (dull, brushed, exposed) lives in Simple Ores only (b-circ46).
+CORE_ORES = ('block/astralit_ore.png', 'block/nihilith_ore.png')
+
+
+def derived(jar) -> dict:
+    """tools/textures/vanilla_derived.py, SimpleBuilding namespace: the plain End ores on Vanilla's End stone."""
+    return {k: v for k, v in _all_ores(jar).items() if k in CORE_ORES}
+
+
+def derived_module(jar, module: str) -> dict:
+    """tools/textures/vanilla_derived.py, module simpleores: all End ores (plain, dull, brushed, exposed)."""
+    assert module == 'simpleores', module
+    return _all_ores(jar)
 
 
 # ---------------------------------------------------------------- T7 pistons (all six faces alike, off + active)

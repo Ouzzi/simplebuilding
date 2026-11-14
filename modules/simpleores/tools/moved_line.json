@@ -516,6 +516,14 @@
   "jei.simpleores.info.dull_end_drops": [
    "Unrefined End material from dull ore. Four of them craft one real Astralit Dust or Nihilit Shard.",
    "Unraffiniertes End-Material aus trübem Erz. Vier davon ergeben einen echten Astralitstaub bzw. Nihilitsplitter."
+  ],
+  "block.simpleores.astral_relay": [
+   "Astral Relay",
+   "Astral-Relais"
+  ],
+  "block.simpleores.nihil_core": [
+   "Nihil Core",
+   "Nihil-Kern"
   ]
  },
  "config": {
@@ -628,7 +636,9 @@
    "simpleores:dull_astralit_ore",
    "simpleores:dull_nihilith_ore",
    "simpleores:nihilith_ore",
-   "simpleores:astralit_ore"
+   "simpleores:astralit_ore",
+   "simpleores:astral_relay",
+   "simpleores:nihil_core"
   ],
   "minecraft/tags/block/needs_diamond_tool.json": [
    "simpleores:dull_astralit_ore",

@@ -6,6 +6,7 @@ common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modul
 common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
 common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java
 common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/EnderitePistonBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/HiddenOreBlock.java modules/simpleores/shared/java/com/simpleores/block/HiddenOreBlock.java allow: brushed/1 withBrushed/2
 common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/ModPistonHeadBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/ModPistonHeadBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheriteBreakerPistonBlock.java allow: codec/0 durabilityIn/1
@@ -113,6 +114,7 @@ common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java m
 common/src/shared/java/com/simplebuilding/mixin/CarvedStairMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/CarvedStairMixin.java
 common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/CrossbowItemMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/DisplayStrikeAccessor.java
+common/src/shared/java/com/simplebuilding/mixin/EnderiteSinkDamperMixin.java modules/simpleores/shared/java/com/simpleores/mixin/EnderiteSinkDamperMixin.java
 common/src/shared/java/com/simplebuilding/mixin/ItemDisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/ItemDisplayStrikeAccessor.java
 common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/ItemEntityMixin.java allow: getItem/0
 common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java modules/simpletrims/shared/java/com/simpletrims/mixin/ItemUseOnMixin.java
@@ -214,6 +216,7 @@ common/src/shared/java/com/simplebuilding/util/AttractorFilter.java modules/simp
 common/src/shared/java/com/simplebuilding/util/BuildPermissions.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/BuildPermissions.java allow: isProbing/0 mayAct/3 mayAct/4 mayBreak/4 mayChange/3 probeAutomation/4 setPlaceProbe/1
 common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java
 common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/util/EnchantmentHelper.java allow: getDrawerLevel/1 getFastChiselingLevel/1 getMagnetRangeLevel/2 getOverrideLevel/1 hasColorPalette/2 hasConstructorsTouch/2 hasMasterBuilder/2
+common/src/shared/java/com/simplebuilding/util/EnderiteSinkDamper.java modules/simpleores/shared/java/com/simpleores/gear/EnderiteSinkDamper.java
 common/src/shared/java/com/simplebuilding/util/Feedback.java modules/simplepads/shared/java/com/simplepads/util/Feedback.java
 common/src/shared/java/com/simplebuilding/util/FilterHopper.java modules/simplemachines/shared/java/com/simplemachines/hopper/FilterHopper.java
 common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java

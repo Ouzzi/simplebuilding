@@ -70,7 +70,6 @@
     "simplebuilding:cyan_hammock",
     "simplebuilding:dark_oak_cauldron",
     "simplebuilding:dark_oak_sheet",
-    "simplebuilding:diamond_pole",
     "simplebuilding:ender_end_stone",
     "simplebuilding:ender_end_stone_slab",
     "simplebuilding:ender_end_stone_stairs",
@@ -92,10 +91,8 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:ender_quartz_wall",
-    "simplebuilding:enderite_pole",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
-    "simplebuilding:gold_pole",
     "simplebuilding:gray_hammock",
     "simplebuilding:green_hammock",
     "simplebuilding:hammock_rope",
@@ -123,7 +120,6 @@
     "simplebuilding:hollow_stripped_spruce_log",
     "simplebuilding:hollow_stripped_warped_stem",
     "simplebuilding:hollow_warped_stem",
-    "simplebuilding:iron_pole",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:jungle_cauldron",
     "simplebuilding:jungle_sheet",
@@ -140,7 +136,6 @@
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
-    "simplebuilding:netherite_pole",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_end_stone_slab",
     "simplebuilding:nihil_end_stone_stairs",
@@ -588,16 +583,7 @@
       "id": "simplebuilding:dark_oak_sheet"
     },
     {
-      "id": "simplebuilding:diamond_pole"
-    },
-    {
       "id": "simplebuilding:diamond_rod"
-    },
-    {
-      "id": "simplebuilding:enchanted_enderite_apple"
-    },
-    {
-      "id": "simplebuilding:enchanted_netherite_apple"
     },
     {
       "id": "simplebuilding:ender_end_stone"
@@ -718,96 +704,7 @@
       "id": "simplebuilding:ender_quartz_wall"
     },
     {
-      "id": "simplebuilding:enderite_apple"
-    },
-    {
-      "attackDamage": 11.0,
-      "attackSpeed": 1.0,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_axe",
-      "maxStackSize": 1
-    },
-    {
-      "durability": 546,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_boots",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_carrot"
-    },
-    {
-      "durability": 672,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_chestplate",
-      "maxStackSize": 1
-    },
-    {
-      "durability": 462,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_helmet",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 2.0,
-      "attackSpeed": 4.0,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_hoe",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_horse_armor",
-      "maxStackSize": 1
-    },
-    {
-      "durability": 630,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_leggings",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_nautilus_armor",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enderite_paint_box",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 7.0,
-      "attackSpeed": 1.2,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_pickaxe",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_pole"
-    },
-    {
-      "attackDamage": 7.5,
-      "attackSpeed": 1.0,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_shovel",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 6.0,
-      "attackSpeed": 0.87,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_spear",
-      "maxStackSize": 1
-    },
-    {
-      "attackDamage": 9.0,
-      "attackSpeed": 1.6,
-      "durability": 2530,
-      "enchantability": 18,
-      "id": "simplebuilding:enderite_sword",
       "maxStackSize": 1
     },
     {
@@ -818,9 +715,6 @@
     },
     {
       "id": "simplebuilding:frosted_nihilith"
-    },
-    {
-      "id": "simplebuilding:gold_pole"
     },
     {
       "id": "simplebuilding:gray_hammock",
@@ -908,9 +802,6 @@
     },
     {
       "id": "simplebuilding:ice_chip"
-    },
-    {
-      "id": "simplebuilding:iron_pole"
     },
     {
       "id": "simplebuilding:jukebox_amplifier"
@@ -1105,17 +996,8 @@
       "id": "simplebuilding:nether_brick_quartz_checker_stairs"
     },
     {
-      "id": "simplebuilding:netherite_apple"
-    },
-    {
-      "id": "simplebuilding:netherite_carrot"
-    },
-    {
       "id": "simplebuilding:netherite_paint_box",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_pole"
     },
     {
       "id": "simplebuilding:nihil_end_stone"

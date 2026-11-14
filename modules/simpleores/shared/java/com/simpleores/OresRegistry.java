@@ -384,11 +384,13 @@ public final class OresRegistry {
     }
 
     public static Item item(String path) {
+        ensureGroups();
         return ITEMS.get(path);
     }
 
     /** Ids ("simpleores:path") of every item incl. the guide, for the test centre station. */
     public static List<String> itemIds() {
+        ensureGroups();
         List<String> out = new ArrayList<>();
         ITEMS.keySet().forEach(path -> out.add(SimpleOres.MOD_ID + ":" + path));
         out.add(SimpleOres.MOD_ID + ":guide_book");
@@ -396,16 +398,19 @@ public final class OresRegistry {
     }
 
     public static void blocks(BiConsumer<ResourceKey<Block>, Block> sink) {
+        ensureGroups();
         BLOCKS.forEach((path, block) -> sink.accept(ResourceKey.create(Registries.BLOCK, SimpleOres.id(path)), block));
     }
 
     public static void items(BiConsumer<ResourceKey<Item>, Item> sink) {
+        ensureGroups();
         ITEMS.forEach((path, item) -> sink.accept(itemKey(path), item));
         com.simpleores.guide.OresGuide.register();
     }
 
     /** Fabric: registries are open during init. */
     public static void registerAll() {
+        ensureGroups();
         OresSounds.events((k, v) -> Registry.register(BuiltInRegistries.SOUND_EVENT, k, v));
         blocks((k, v) -> Registry.register(BuiltInRegistries.BLOCK, k, v));
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
@@ -413,6 +418,7 @@ public final class OresRegistry {
 
     /** Creative stacks of the paths, empty while the module is switched off. */
     public static List<ItemStack> stacks(String... paths) {
+        ensureGroups();
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleOres.on()) return out;
         for (String path : paths) out.add(new ItemStack(ITEMS.get(path)));
@@ -458,18 +464,32 @@ public final class OresRegistry {
             "layered_raw_enderite", "misc", "enderite_scrap_from_blasting_layered_raw_enderite", "misc", "enderite_ingot_from_scrap", "misc",
             "enderite_block", "decorations", "enderite_ingot", "building_blocks", "enderite_upgrade_template", "misc");
     public static final String[] TOOLS = {"rose_bronze_shovel", "rose_bronze_pickaxe", "rose_bronze_axe", "rose_bronze_hoe",
-            "rose_gold_shovel", "rose_gold_pickaxe", "rose_gold_axe", "rose_gold_hoe"};
+            "rose_gold_shovel", "rose_gold_pickaxe", "rose_gold_axe", "rose_gold_hoe",
+            // N47-M3 (b-circ46): the Enderite tools (behind the golden ones, like SimpleBuilding's own tab layout lists them last)
+            "enderite_shovel", "enderite_pickaxe", "enderite_axe", "enderite_hoe"};
     public static final String[] COMBAT = {"rose_bronze_sword", "rose_bronze_helmet", "rose_bronze_chestplate", "rose_bronze_leggings",
-            "rose_bronze_boots", "rose_gold_sword", "rose_gold_helmet", "rose_gold_chestplate", "rose_gold_leggings", "rose_gold_boots"};
+            "rose_bronze_boots", "rose_gold_sword", "rose_gold_helmet", "rose_gold_chestplate", "rose_gold_leggings", "rose_gold_boots",
+            "enderite_sword", "enderite_spear", "enderite_helmet", "enderite_chestplate", "enderite_leggings", "enderite_boots", "enderite_horse_armor",
+            "enderite_nautilus_armor"};
 
     /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */
     public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "rose_gold_apple", "enchanted_rose_gold_apple",
             "rose_bronze_carrot", "rose_gold_carrot", "terranite_apple", "terranite_carrot", "infernite_apple", "infernite_carrot",
-            "zenithite_apple", "zenithite_carrot"};
+            "zenithite_apple", "zenithite_carrot",
+            "netherite_apple", "enchanted_netherite_apple", "netherite_carrot", "enderite_apple", "enchanted_enderite_apple", "enderite_carrot"};
 
-    /** N46/M2 (b-circ46): the Astralit/Nihilit line registers after every block above (its items are its own, see LineBlocks#init). */
-    static {
+    private static boolean groups;
+
+    /**
+     * b-circ46: the groups of other classes - the Astralit/Nihilit line with the circuit blocks (N46/M2, LineBlocks#init) and
+     * the Enderite gear, food and poles (N47-M3, EnderiteGear#init) - join the maps once, after this class is complete (lazy,
+     * so it does not matter whether a group class or this one loads first). Every entry point below calls it.
+     */
+    public static synchronized void ensureGroups() {
+        if (groups) return;
+        groups = true;
         com.simpleores.line.LineBlocks.init();
+        com.simpleores.gear.EnderiteGear.init();
     }
 
     /** A block of another group of this mod (line, gear), kept in {@link #BLOCKS} like the own ones; no automatic block item. */

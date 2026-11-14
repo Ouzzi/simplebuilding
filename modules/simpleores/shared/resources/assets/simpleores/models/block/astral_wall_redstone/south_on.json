@@ -1,0 +1,92 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "dot": {
+      "sprite": "simpleores:block/astral_redstone_dot_on",
+      "force_translucent": true
+    },
+    "line0": {
+      "sprite": "simpleores:block/astral_redstone_line0_on",
+      "force_translucent": true
+    },
+    "line1": {
+      "sprite": "simpleores:block/astral_redstone_line1_on",
+      "force_translucent": true
+    },
+    "particle": "simpleores:block/astral_redstone_dot_on"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0.25
+      ],
+      "to": [
+        16,
+        16,
+        0.25
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#dot"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0.26
+      ],
+      "to": [
+        16,
+        16,
+        0.26
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#line0"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0.27
+      ],
+      "to": [
+        16,
+        16,
+        0.27
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#line1"
+        }
+      }
+    }
+  ]
+}

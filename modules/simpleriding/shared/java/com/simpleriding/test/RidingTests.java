@@ -183,11 +183,11 @@ public final class RidingTests {
  }
  public static void crossModStorageAndArmor(GameTestHelper h){
   if(!Riding.SIMPLEBUILDING){com.mojang.logging.LogUtils.getLogger().info("[standalone] simplebuilding not loaded - skipping Enderite armor and storage checks");h.succeed();return;}
-  var armor=BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_horse_armor"));h.assertTrue(armor!=Items.AIR&&new ItemStack(armor).is(Riding.ARMOR),"Enderite armor is supported through public ID");
+  var armor=BuiltInRegistries.ITEM.getValue(Identifier.parse("simpleores:enderite_horse_armor"));h.assertTrue(armor!=Items.AIR&&new ItemStack(armor).is(Riding.ARMOR),"Enderite armor is supported through public ID");
   h.assertTrue(ench(h,Riding.LEAPING).value().canEnchant(new ItemStack(armor)),"Enderite armor accepts Leaping");
   var block=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_hopper"));var pos=new BlockPos(2,2,2);h.setBlock(pos,block);var container=(net.minecraft.world.Container)h.getLevel().getBlockEntity(h.absolutePos(pos));
   var saddle=enchanted(h,Items.SADDLE,Riding.TAILWIND,3);saddle.set(Riding.COORDINATES,new BlockPos(1,2,3));container.setItem(0,saddle);var restored=container.removeItem(0,1);h.assertTrue(restored.get(Riding.COORDINATES).equals(new BlockPos(1,2,3))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Riding.TAILWIND),restored)==3,"Foreign component and enchantment survive SimpleBuilding storage");
-  var nautilus=BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_nautilus_armor"));h.assertTrue(new ItemStack(nautilus).is(Riding.NAUTILUS_ARMOR)&&ench(h,Riding.LEAPING).value().canEnchant(new ItemStack(nautilus)),"Enderite nautilus armor accepts Leaping through public ID");h.succeed();
+  var nautilus=BuiltInRegistries.ITEM.getValue(Identifier.parse("simpleores:enderite_nautilus_armor"));h.assertTrue(new ItemStack(nautilus).is(Riding.NAUTILUS_ARMOR)&&ench(h,Riding.LEAPING).value().canEnchant(new ItemStack(nautilus)),"Enderite nautilus armor accepts Leaping through public ID");h.succeed();
  }
  private static net.minecraft.server.level.ServerPlayer serverRider(GameTestHelper h,LivingEntity mount){
   var p=h.makeMockServerPlayerInLevel();
@@ -210,7 +210,7 @@ public final class RidingTests {
    var e=h.spawn(type,2,2,2);e.setItemSlot(EquipmentSlot.SADDLE,enchanted(h,Items.SADDLE,Riding.TAILWIND,3));var p=rider(h,e);RidingEffects.tick(e);
    close(e.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(RidingEffects.SPEED).amount(),.6,h,"Nautilus Tailwind III");
    // Enderite armor (SimpleBuilding) when present, otherwise the Vanilla top tier: same tag, same rules.
-   var armor=Riding.SIMPLEBUILDING?BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_nautilus_armor")):Items.NETHERITE_NAUTILUS_ARMOR;e.setItemSlot(EquipmentSlot.BODY,enchanted(h,armor,Riding.LEAPING,3));
+   var armor=Riding.SIMPLEBUILDING?BuiltInRegistries.ITEM.getValue(Identifier.parse("simpleores:enderite_nautilus_armor")):Items.NETHERITE_NAUTILUS_ARMOR;e.setItemSlot(EquipmentSlot.BODY,enchanted(h,armor,Riding.LEAPING,3));
    h.assertTrue(ench(h,Riding.LEAPING).value().canEnchant(e.getItemBySlot(EquipmentSlot.BODY)),"Top-tier nautilus armor accepts Leaping");
    close(RidingEffects.dashScale(e,1),1.6,h,"Nautilus Leaping III dash");
    e.setItemSlot(EquipmentSlot.BODY,enchanted(h,armor,Enchantments.PROTECTION,4));close(EnchantmentHelper.getDamageProtection(h.getLevel(),e,e.damageSources().generic()),4,h,"Nautilus protection exactly once");

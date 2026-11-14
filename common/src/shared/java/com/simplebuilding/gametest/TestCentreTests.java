@@ -1080,11 +1080,11 @@ public final class TestCentreTests {
             // TZ38D (N42-4): in den Linien stehen die Kupfer-Blitzableiter aufrecht (Besitzer-Wunsch); sie teilen die Blitze mit
             // den Metallstaeben, das Eisen in der Linie steht daneben. Ausserhalb der Linien bleibt die Regel.
             if (entry.getValue().getBlock() instanceof net.minecraft.world.level.block.LightningRodBlock
-                    && !(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)
+                    && !isMetalRod(entry.getValue().getBlock())
                     && !linesBox.isInside(entry.getKey())) {
                 problems.add("a copper lightning rod at " + entry.getKey().toShortString() + " would take the iron rods' lightning");
             }
-            if (!(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)) {
+            if (!isMetalRod(entry.getValue().getBlock())) {
                 continue;
             }
             metalRods.add(entry.getValue().getBlock());
@@ -2512,5 +2512,11 @@ public final class TestCentreTests {
             helper.assertTrue(!TestCentreBuilder.mobJobPending(), "the mob job did not finish");
         }));
         sequence.thenExecute(cleanup).thenSucceed();
+    }
+
+    /** N47-M3: the metal lightning rods are Simple Ores' poles on 26.3 (class MetalRodBlock moved there): a lightning rod whose id ends in {@code _pole}. */
+    private static boolean isMetalRod(net.minecraft.world.level.block.Block block) {
+        return block instanceof net.minecraft.world.level.block.LightningRodBlock
+                && net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath().endsWith("_pole");
     }
 }

@@ -56,6 +56,8 @@ public final class SimpleOres {
         com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.BLOCK, lib("enderite_block"), id("enderite_block"));
         moveBlossomGold();
         moveRetiredOres();
+        com.simpleores.line.LineIds.registerIdMoves();   // N47-M2: no class load of the blocks (static id lists)
+        com.simpleores.gear.GearIds.registerIdMoves();   // N47-M3: the Enderite gear, the food and the poles (static id lists)
         OresRegistry.RECIPES_FROM_SIMPLELIB.forEach((path, folder) -> {
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.RECIPE, lib(path), id(path));
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.ADVANCEMENT, lib("recipes/" + folder + "/" + path),

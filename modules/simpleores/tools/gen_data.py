@@ -22,6 +22,12 @@ OUT = {}
 # from SimpleBuilding's 26.3 files): sound events, names, tag entries and config texts. Models, loot tables, recipes and
 # worldgen of the line are plain files (moved, not generated here).
 MOVED_LINE = json.loads((MODULE / 'tools/moved_line.json').read_text(encoding='utf-8'))
+# N47-M3 (b-circ46, 14.11.): the same for the Enderite gear, the Netherite/Enderite food and the five lightning poles (tools/moved_gear.json:
+# lang keys and the minecraft: tag entries); merged into the line's tables so put() and lang() treat both alike.
+_GEAR = json.loads((MODULE / 'tools/moved_gear.json').read_text(encoding='utf-8'))
+MOVED_LINE['lang'].update(_GEAR['lang'])
+for _rel, _values in _GEAR['tags'].items():
+    MOVED_LINE['tags'][_rel] = MOVED_LINE['tags'].get(_rel, []) + [v for v in _values if v not in MOVED_LINE['tags'].get(_rel, [])]
 
 
 def put(path, data):

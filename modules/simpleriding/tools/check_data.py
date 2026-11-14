@@ -69,9 +69,9 @@ def check():
         tag = read(resources / f'minecraft/tags/villager_trade/librarian/level_{level}.json')
         assert not tag.get('replace') and {'id': trade_id, 'required': False} in tag['values']
     armor = read(resources / 'simpleriding/tags/item/horse_armor_enchantable.json')
-    assert {'id': 'simplebuilding:enderite_horse_armor', 'required': False} in armor['values']
+    assert {'id': 'simpleores:enderite_horse_armor', 'required': False} in armor['values']
     nautilus = read(resources / 'simpleriding/tags/item/nautilus_armor_enchantable.json')
-    assert {'id': 'simplebuilding:enderite_nautilus_armor', 'required': False} in nautilus['values']
+    assert {'id': 'simpleores:enderite_nautilus_armor', 'required': False} in nautilus['values']
     assert len(nautilus['values']) == 6
     assert read(resources / 'simpleriding/enchantment/leaping.json')['supported_items'] == '#simpleriding:mount_armor_enchantable'
     assets = MODULE / 'shared/resources/assets/simpleriding'
