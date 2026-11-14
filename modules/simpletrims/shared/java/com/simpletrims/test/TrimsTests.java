@@ -462,6 +462,9 @@ public final class TrimsTests {
                     json.addProperty("overhead_ms", Math.round((avgB - avgA) * 1000) / 1000.0);
                     json.addProperty("overhead_pct", avgA > 0 ? Math.round((avgB - avgA) / avgA * 1000) / 10.0 : 0);
                     json.addProperty("light_blocks_standing", lights[0]);
+                    json.addProperty("cows_with_own_light", cows.stream().filter(c -> c instanceof OwnedLightHolder o && o.simpletrims$getOwnedLight() != null).count());
+                    json.addProperty("cows_alive", cows.stream().filter(c -> !c.isRemoved()).count());
+                    json.addProperty("players_with_light", players.stream().filter(p -> TrimLight.lightOf(p) > 0).count());
                     SimpleTrims.LOG.info("SB-BENCH trimlight {}", json);
                     for (var p : players) TrimLight.forget(p);
                     cows.forEach(net.minecraft.world.entity.Entity::discard);
