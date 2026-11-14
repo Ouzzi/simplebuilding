@@ -27,6 +27,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        AnimalsTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
     public void configCaps(GameTestHelper h) {
         AnimalsTests.ALL.get("config_caps").accept(h);
     }

@@ -89,6 +89,12 @@ public final class AnimalsTests {
     }
 
     static {
+        // simpleanimals-3 (PLAN40): the config screen names every option (no raw paths).
+        ALL.put("config_labels", h -> {
+            java.util.List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleAnimals.MOD_ID);
+            h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
+            h.succeed();
+        });
         ALL.put("registered", h -> {
             for (String id : new String[] {"deer", "boar", "hedgehog", "crab", "zebra", "zorse"}) {
                 h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleAnimals.id(id)), "entity type " + id);
