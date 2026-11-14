@@ -44,3 +44,19 @@ Ids nur zur Laufzeit bekannt (Export braucht Gametest); Merge-Konflikte der Conf
 
 ## Verifikation Phase 1
 Export-Skript laeuft ohne Spiel (53 Spalten, 8 Reihen, 86 Zellen, 258 Texturen); Prototyp: `node --check` + DOM-Stub-Smoketest (kein Browser/Playwright im CT). Nicht getestet: echter Browser-Klick-/Drag-Test.
+
+## Besitzer-Abnahme 14.11. ~21:50 (TZEDIT50 = Einwand „ersteinmal deployen da sowieso nur in dev“)
+Entscheidungen (Empfehlung B, offene Fragen): 1. Layout **A** (Raster + Seitenleiste mit Live-Prüfung) Standard, B bleibt umschaltbar.
+2. Bedienung wie vorgeschlagen (Klick/Strg-Klick, Ziehen Zelle/Reihe/Spalte, Entf). 3. Endpunkt: Besitzer-Freigabe für genau diesen Dev-Endpunkt.
+
+### Schritt 1.5 Dev-Deploy (dieser Commit)
+- `wiki/tz-editor.html` aus `preview_template.html` (Daten weiter der statische Metall-Auszug), Dev-Sperre wie isDevSite + noindex,
+  Speichern = `POST /api/testcentre` (+ JSON-Download), Verlauf aus `GET /api/testcentre`.
+- `tools/tzedit/tzedit_save.py` (check_save/apply_save/pull, Muster editor_save: Web-Host speichert JSON, Hub-Pull committet Branch tz-layout-*),
+  devqueue.py GET/POST `/api/testcentre`, `setup_testcentre_save.sh`, README-Abschnitt, Tests `tools/tzedit/tests/test_tzedit_save.py`.
+- Weg auf sb-web: Stand muss in claude-wave1 sein (/srv/wiki-dev folgt wave1 minütlich, A bündelt), dann einmal setup-Skript (Service-Neustart).
+- Verifikation: Unit 4/4; lokaler Harness (devqueue in-process + Playwright, KEINE Abnahme): Sperre öffentlich, Tausch, Rückgängig, Platzhalter,
+  Speichern + Verlauf, Ansicht B, keine JS-Fehler. Abnahme danach auf der Dev-Instanz.
+- Bekannt: test_devqueue.py test_texture_save_flow flakt (BrokenPipe beim 413-Test, auch ohne diese Änderung ~2/12).
+
+### Phase 2 bleibt wie oben (Erstexport aus dem Spiel, OrderAreas liest Config, alle Bereiche, Seite lädt Config statt Inline-Daten).
