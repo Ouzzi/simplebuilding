@@ -12,7 +12,7 @@
         "details": [
           "Natural spawn: forests (weight 4) and taiga (weight 3), herds of 2 to 3, on grass in daylight only. About half of the adults are bucks with antlers; a fawn is spotted and has no antlers.",
           "Breeding: wheat or a carrot in love mode, like a cow. Hurt, it panics and runs. It never breaks blocks.",
-          "Sounds are Vanilla llama sounds (calm hoofed animal; the sheep bleat did not fit a deer). Spawn egg in the spawn egg tab."
+          "Own sounds: a low, short bellow when calm, a short pained call when hurt and a groan when it dies; the footsteps are Vanilla. Spawn egg in the spawn egg tab."
         ]
       },
       "de": {
@@ -21,7 +21,7 @@
         "details": [
           "Natürliches Spawnen: Wälder (Gewicht 4) und Taiga (Gewicht 3), Herden von 2 bis 3, nur auf Gras bei Tageslicht. Etwa die Hälfte der Erwachsenen sind Hirsche mit Geweih; ein Kitz ist gefleckt und hat kein Geweih.",
           "Zucht: Weizen oder eine Karotte im Liebesmodus, wie bei der Kuh. Verletzt gerät er in Panik und rennt. Er zerstört nie Blöcke.",
-          "Die Geräusche sind Vanilla-Lamageräusche (ruhiges Huftier; das Schafblöken passte nicht zu einem Hirsch). Spawn-Ei im Spawn-Ei-Reiter."
+          "Eigene Geräusche: ein tiefes, kurzes Röhren in Ruhe, ein kurzer Schmerzlaut bei Verletzung und ein Stöhnen beim Sterben; die Schritte sind Vanilla. Spawn-Ei im Spawn-Ei-Reiter."
         ]
       }
     },

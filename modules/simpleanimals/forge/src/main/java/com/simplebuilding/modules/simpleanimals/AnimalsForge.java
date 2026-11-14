@@ -17,6 +17,7 @@ public final class AnimalsForge {
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> AnimalsRegistry.entityTypes(r::register));
             event.register(Registries.ITEM, r -> AnimalsRegistry.items(r::register));
+            event.register(Registries.SOUND_EVENT, r -> com.simpleanimals.AnimalSounds.forEach(r::register));
         });
         EntityAttributeCreationEvent.BUS.addListener(event -> {
             event.put(AnimalsRegistry.DEER, AnimalsRegistry.deerAttributes().build());

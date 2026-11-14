@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Tweaks"
 logoFile="assets/simpletweaks/icon_128.png"
 logoBlur=false
-description="Legacy compatibility and server-authoritative claims, on by default."
+description="Legacy compatibility, server-authoritative claims, admin tools (block log, backups, anti-X-ray) and player and protection tweaks, on by default."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
 [[dependencies.simpletweaks]]

@@ -1,0 +1,58 @@
+{
+  "entity.deer.ambient": {
+    "sounds": [
+      "simpleanimals:entity/deer/ambient1",
+      "simpleanimals:entity/deer/ambient2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.deer.ambient"
+  },
+  "entity.deer.hurt": {
+    "sounds": [
+      "simpleanimals:entity/deer/hurt1",
+      "simpleanimals:entity/deer/hurt2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.deer.hurt"
+  },
+  "entity.deer.death": {
+    "sounds": [
+      "simpleanimals:entity/deer/death1",
+      "simpleanimals:entity/deer/death2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.deer.death"
+  },
+  "entity.hedgehog.ambient": {
+    "sounds": [
+      "simpleanimals:entity/hedgehog/ambient1",
+      "simpleanimals:entity/hedgehog/ambient2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.hedgehog.ambient"
+  },
+  "entity.hedgehog.hurt": {
+    "sounds": [
+      "simpleanimals:entity/hedgehog/hurt1",
+      "simpleanimals:entity/hedgehog/hurt2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.hedgehog.hurt"
+  },
+  "entity.hedgehog.death": {
+    "sounds": [
+      "simpleanimals:entity/hedgehog/death1",
+      "simpleanimals:entity/hedgehog/death2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.hedgehog.death"
+  },
+  "entity.hedgehog.curl": {
+    "sounds": [
+      "simpleanimals:entity/hedgehog/curl1",
+      "simpleanimals:entity/hedgehog/curl2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.hedgehog.curl"
+  },
+  "entity.hedgehog.uncurl": {
+    "sounds": [
+      "simpleanimals:entity/hedgehog/uncurl1",
+      "simpleanimals:entity/hedgehog/uncurl2"
+    ],
+    "subtitle": "subtitles.simpleanimals.entity.hedgehog.uncurl"
+  }
+}

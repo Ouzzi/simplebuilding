@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Beacons"
 logoFile="assets/simplebeacons/icon_128.png"
 logoBlur=false
-description="Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod."
+description="Strong Beacon (5 pyramid levels, new powers, range by pyramid material, Vanilla-style screen), Mighty and Evil beacons, Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and its Mighty/Evil kinds, upgraded with SimpleLib's Strong Upgrade template. Works on its own with the axe; a hammer mod adds the sledgehammer."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
 [[dependencies.simplebeacons]]

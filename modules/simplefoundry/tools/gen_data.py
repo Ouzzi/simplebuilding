@@ -3,11 +3,14 @@ the own placeholder textures (Variant A of the preview /root/sb-tools-b/previews
 Vanilla pixels. Run: python3.12 modules/simplefoundry/tools/gen_data.py"""
 import json
 import random
+import sys
 from pathlib import Path
 
 from PIL import Image
 
 MODULE = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
+from layers import save as save_layers, snap  # noqa: E402  layer sources: drawing steps become named layers
 NS = 'simplefoundry'
 RES = MODULE / 'shared/resources'
 A = RES / f'assets/{NS}'
@@ -286,6 +289,8 @@ def textures() -> None:
     save(side, 'casting_tray_side')
     contents = {'empty': (52, 44, 40), 'gold': (240, 196, 64), 'copper': (206, 120, 78), 'iron': (206, 206, 210)}
     for name, col in contents.items():
+        if name == 'iron':
+            continue  # PLAN40 simplefoundry-3: the iron tray is drawn by casting_tray_iron() below (own bed, soft iron ramp)
         img = Image.new('RGB', (16, 16))
         for y in range(16):
             for x in range(16):
@@ -299,6 +304,61 @@ def textures() -> None:
                         for dx in range(3):
                             img.putpixel((x0 + dx, y0 + dy), tones[7 if dy == 0 or dx == 0 else 4 if dy == 2 or dx == 2 else 6])
         save(img, f'casting_tray_{name}')
+    save_layers(casting_tray_iron(), A / 'textures/block/casting_tray_iron.png')
+
+
+# PLAN40 simplefoundry-3 (a-w4a, 14.11.): the Iron Casting Tray was nine flat white 3x3 ingots (big 63 px, 68 % in areas, 30 % hard,
+# texrate red). Same frame as the Copper/Gold trays (rim tones '0'-'3', 3x3 ingots at x/y 2, 6, 10), but the ingots are drawn on a
+# soft iron ramp (steps of 14-20 luminance, no pure white, lit top left / shaded bottom right, corners one rung down), the bed
+# between them is a warm iron grey in three tones, and some ingots sit one rung darker. Hard edges remain only where a lit ingot
+# edge meets the bed (like the Vanilla bamboo block top); rounds and measurements: preview a-w4a-preview.html.
+TRAY_RIM = {'0': '70737b', '1': '676a71', '2': '4b4c52', '3': '45464b'}
+TRAY_FRAME = [
+    '0110111000111001',
+    '0222332222233221',
+    '12............20',
+    '12............21',
+    '02............21',
+    '13............21',
+    '02............20',
+    '02............20',
+    '12............20',
+    '02............30',
+    '02............20',
+    '02............20',
+    '13............21',
+    '13............21',
+    '0222222322333221',
+    '0000011000111000',
+]
+TRAY_BED = ('4f4a4c', '56515a', '4a4547')
+TRAY_IRON = ('70737b', '80838b', '92959d', 'a4a7af', 'b6b9c0', 'c8cbd1', 'dadde2')
+TRAY_INGOT = [[5, 5, 4], [5, 4, 2], [4, 2, 1]]                   # rung per pixel of one ingot (top left lit)
+TRAY_INGOT_SHIFT = [0, -1, 0, 1, 0, 0, -1, 0, 1]                  # per ingot, row by row: one rung down / up
+
+
+def hexrgb(h):
+    return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+
+
+def casting_tray_iron():
+    img = Image.new('RGB', (16, 16))
+    bed = [hexrgb(h) for h in TRAY_BED]
+    for y in range(16):
+        for x in range(16):
+            ch = TRAY_FRAME[y][x]
+            img.putpixel((x, y), hexrgb(TRAY_RIM[ch]) if ch != '.' else bed[(x // 2 + 2 * (y // 2) + (x + y) % 2) % 3])
+    snap(img, 'Rand und Bett')
+    iron = [hexrgb(h) for h in TRAY_IRON]
+    for step, shifts in (('Barren', [0] * 9), ('Tonwechsel je Barren', TRAY_INGOT_SHIFT)):
+        for gy in range(3):
+            for gx in range(3):
+                for dy in range(3):
+                    for dx in range(3):
+                        rung = max(0, min(len(iron) - 1, TRAY_INGOT[dy][dx] + shifts[gy * 3 + gx]))
+                        img.putpixel((2 + gx * 4 + dx, 2 + gy * 4 + dy), iron[rung])
+        snap(img, step)
+    return img
 
 
 if __name__ == '__main__':

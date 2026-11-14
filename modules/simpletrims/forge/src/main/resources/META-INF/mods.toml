@@ -7,7 +7,7 @@ version="${version}"
 displayName="Simple Trims"
 logoFile="assets/simpletrims/icon_128.png"
 logoBlur=false
-description="Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers."
+description="Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and trim upgrades. Works on its own with the axe; Simple Hammers adds the sledgehammer."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
 [[dependencies.simpletrims]]

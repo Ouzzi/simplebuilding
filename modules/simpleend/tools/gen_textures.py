@@ -397,16 +397,27 @@ def sticks_side(s):
     return im
 
 
+# PLAN40 simpleend-3 (a-w4a, 14.11.): the top of the stick bush shows the cut ends of the vertical sticks. It was dark ground with
+# 2x2 ends (156 px flat, 51 % hard, texrate red). Now 16 round ends of 4x4 px in a woven brick pattern (rows shifted by 2 px, the
+# pattern wraps so the faces tile), tones taken from one luminance ladder bark 0-4 -> wood 2-5 (steps of ~20-26) so neighbours
+# differ by one rung only (A8b, about 13 % hard instead of 51 %). Rounds and measurements: preview a-w4a-preview.html.
+STICK_LADDER = (('bark', 0), ('bark', 1), ('bark', 2), ('bark', 3), ('bark', 4), ('wood', 2), ('wood', 3), ('wood', 4), ('wood', 5))
+STICK_END = [[4, 5, 4, 3], [5, 7, 6, 4], [4, 6, 5, 4], [3, 4, 4, 3]]   # rung of the 16 px of one rounded end (rim lit at top left)
+STICK_SHIFT = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1]          # one rung lighter for some ends (row by row)
+
+
 def sticks_top(s):
-    b, w = s['bark'], s['wood']
+    ladder = [s[k][i] for k, i in STICK_LADDER]
     im = new()
-    rect(im, 0, 0, 15, 15, b[0])
-    for cy in range(1, 16, 3):
-        for cx in range(1 + (cy // 3 % 2), 16, 3):
-            put(im, cx, cy, w[3])
-            put(im, cx + 1, cy, w[2])
-            put(im, cx, cy + 1, w[2])
-            put(im, cx + 1, cy + 1, b[2])
+    for step, shifts in (('Stockenden', [0] * 16), ('Tonwechsel je Stock', STICK_SHIFT)):
+        for r in range(4):
+            for c in range(4):
+                ox, oy = c * 4 + (2 if r % 2 else 0), r * 4
+                for dy in range(4):
+                    for dx in range(4):
+                        rung = min(len(ladder) - 1, STICK_END[dy][dx] + shifts[r * 4 + c])
+                        put(im, (ox + dx) % 16, (oy + dy) % 16, ladder[rung])
+        snap(im, step)
     return im
 
 

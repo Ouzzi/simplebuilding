@@ -128,9 +128,9 @@ public class Hedgehog extends Animal {
         if (value) {
             getNavigation().stop();
             resetLove();
-            playSound(SoundEvents.ARMADILLO_ROLL, 1.0F, 1.4F);
+            playSound(com.simpleanimals.AnimalSounds.HEDGEHOG_CURL, 1.0F, 1.0F);
         } else {
-            playSound(SoundEvents.ARMADILLO_UNROLL_FINISH, 1.0F, 1.4F);
+            playSound(com.simpleanimals.AnimalSounds.HEDGEHOG_UNCURL, 1.0F, 1.0F);
         }
     }
 
@@ -248,17 +248,17 @@ public class Hedgehog extends Animal {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return isCurled() ? null : SoundEvents.RABBIT_AMBIENT;
+        return isCurled() ? null : com.simpleanimals.AnimalSounds.HEDGEHOG_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return isCurled() ? SoundEvents.ARMADILLO_HURT_REDUCED : SoundEvents.RABBIT_HURT;
+        return isCurled() ? SoundEvents.ARMADILLO_HURT_REDUCED : com.simpleanimals.AnimalSounds.HEDGEHOG_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.RABBIT_DEATH;
+        return com.simpleanimals.AnimalSounds.HEDGEHOG_DEATH;
     }
 
     @Override
