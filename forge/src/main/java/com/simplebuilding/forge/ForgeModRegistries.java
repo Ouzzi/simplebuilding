@@ -170,12 +170,6 @@ public final class ForgeModRegistries {
                             com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity::new, Set.of(ModBlocks.GOAT_HORN_HOLDER)))
                     : null;
 
-    /** Schachfiguren auf einem Block, nur Hauptlinie (McVersion.CHESS). */
-    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity>> CHESS_PIECES_BE =
-            com.simplebuilding.version.McVersion.CHESS
-                    ? BLOCK_ENTITIES.register("chess_pieces", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity>(
-                            com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity::new, Set.of(ModBlocks.CHESS_PIECES)))
-                    : null;
 
 
     /** Haengematten: Tuch und Seil kennen ihre Matte (jeder Winkel), nur Hauptlinie (McVersion.HAMMOCK). */
@@ -276,7 +270,6 @@ public final class ForgeModRegistries {
         if (PLACED_BUNDLE_BE != null) ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();
         if (GOAT_HORN_HOLDER_BE != null) ModBlockEntities.GOAT_HORN_HOLDER_BE = GOAT_HORN_HOLDER_BE.get();
-        if (CHESS_PIECES_BE != null) ModBlockEntities.CHESS_PIECES_BE = CHESS_PIECES_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
         if (MOD_HOPPER_BE != null) ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         if (MOD_BLAST_FURNACE_BE != null) ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();

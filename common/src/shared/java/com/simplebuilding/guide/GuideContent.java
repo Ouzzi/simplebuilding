@@ -113,6 +113,21 @@ public final class GuideContent {
         return com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletrims") ? List.of("simpletrims:" + path) : List.of();
     }
 
+    /**
+     * The quartz checker chapter (building 13): SimpleBuilding's checkers on 26.2; on 26.3 Simple Chess' (b-chess47, an optional
+     * mod), and without it the quartz block and the Vanilla materials, so the chapter still shows something (like the trims).
+     */
+    private static Chapter checkerChapter() {
+        String ns = com.simplebuilding.version.McVersion.CHESS_IN_SB ? "simplebuilding"
+                : com.simplebuilding.platform.ModEnvironment.isModLoaded(com.simplebuilding.version.McVersion.CHESS_NAMESPACE)
+                ? com.simplebuilding.version.McVersion.CHESS_NAMESPACE : null;
+        if (ns == null) {
+            return ch("minecraft:quartz_block", List.of(), List.of("minecraft:quartz_block", "minecraft:purpur_block", "minecraft:lapis_block",
+                    "minecraft:blackstone", "minecraft:resin_bricks", "minecraft:nether_bricks", "minecraft:red_nether_bricks"));
+        }
+        return ch(ns + ":purpur_quartz_checker", List.of(ns + ":purpur_quartz_checker", ns + ":lapis_quartz_checker"), List.of(ns + ":blackstone_quartz_checker", ns + ":resin_quartz_checker", ns + ":nether_brick_quartz_checker", ns + ":red_nether_brick_quartz_checker", ns + ":astralit_quartz_checker", ns + ":nihilith_quartz_checker", ns + ":ender_quartz_checker", ns + ":polished_astralit_checker", ns + ":polished_nihilith_checker", ns + ":polished_ender_quartz_checker"));
+    }
+
     private static Chapter ch(String icon, List<String> recipes, List<String> items) {
         return new Chapter(icon, recipes, items);
     }
@@ -189,7 +204,7 @@ public final class GuideContent {
                 ch("minecraft:writable_book", List.of(), List.of("simplebuilding:blueprint", "minecraft:oak_planks")),
                 ch("minecraft:cartography_table", List.of(), List.of("minecraft:cartography_table", "simplebuilding:octant", "simplebuilding:blueprint")),
                 ch("simplebuilding:construction_light", List.of("simplebuilding:construction_light"), List.of()),
-                ch("simplebuilding:purpur_quartz_checker", List.of("simplebuilding:purpur_quartz_checker", "simplebuilding:lapis_quartz_checker"), List.of("simplebuilding:blackstone_quartz_checker", "simplebuilding:resin_quartz_checker", "simplebuilding:nether_brick_quartz_checker", "simplebuilding:red_nether_brick_quartz_checker", "simplebuilding:astralit_quartz_checker", "simplebuilding:nihilith_quartz_checker", "simplebuilding:ender_quartz_checker", "simplebuilding:polished_astralit_checker", "simplebuilding:polished_nihilith_checker", "simplebuilding:polished_ender_quartz_checker")),
+                checkerChapter(),
                 ch("minecraft:shears", List.of(), List.of("minecraft:shears", "minecraft:white_wool", "minecraft:string", "minecraft:cauldron")))));
         STYLES.put(GuideBooks.Book.STORAGE, new BookStyle(0xC99A62, List.of(
                 ch(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle", List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle"), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":netherite_bundle", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":enderite_bundle")),

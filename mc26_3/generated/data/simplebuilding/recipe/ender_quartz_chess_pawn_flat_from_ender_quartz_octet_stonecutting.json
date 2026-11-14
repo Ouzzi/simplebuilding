@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "simplebuilding:ender_quartz_octet",
-  "result": {
-    "id": "simplebuilding:ender_quartz_chess_pawn_flat"
-  }
-}

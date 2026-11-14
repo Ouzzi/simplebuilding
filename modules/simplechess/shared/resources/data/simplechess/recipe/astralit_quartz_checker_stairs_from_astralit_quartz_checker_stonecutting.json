@@ -1,0 +1,15 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:astralit_quartz_checker",
+  "result": {
+    "id": "simplechess:astralit_quartz_checker_stairs"
+  }
+}

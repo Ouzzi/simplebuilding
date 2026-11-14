@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simplechess:block/purpur_quartz_checker",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simplechess:block/purpur_quartz_checker"
+    },
+    "axis=z": {
+      "model": "simplechess:block/purpur_quartz_checker",
+      "x": 90
+    }
+  }
+}

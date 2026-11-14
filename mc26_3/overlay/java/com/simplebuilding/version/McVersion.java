@@ -248,8 +248,15 @@ public final class McVersion {
     }
     public static final boolean PIECEWISE_HAMMER_TIME = true;
     public static final boolean MEGA_GUIDES = true;
-    /** Schachfiguren, Achtelbloecke, Checker-Stufen/-Treppen (docs/ai/PLAN-SCHACH-2026-10-06.md). */
-    public static final boolean CHESS = true;
+    /**
+     * The twelve quartz checkers in SimpleBuilding (b-chess47, N47 M7, docs/ai/PLAN-B-CHESS47-2026-11-14.md). 26.3: chess - pieces,
+     * octets, the pieces cell, checkers with stairs and slabs - is the optional sub-mod Simple Chess ({@code simplechess:*}, ids
+     * migrate there); SimpleBuilding registers none of it, its checker fields are null. 26.2 keeps its twelve checkers (it never had
+     * the rest of chess).
+     */
+    public static final boolean CHESS_IN_SB = false;
+    /** Namespace of chess ({@link #CHESS_IN_SB}). */
+    public static final String CHESS_NAMESPACE = "simplechess";
     /** Holzwerk: ausgehoehlte Staemme, Holzplatten, Holzkessel, Kisten, Toepferscherben-Schnitzholz (docs/ai/PLAN-HOLZWERK-2026-10-09.md). */
     public static final boolean WOODWORK = true;
     /** Stufen fuer Kistenboote, Kisten-, Ofen- und Trichterloren (Queue N19/N23, docs/ai/PLAN-FAHRZEUG-STUFEN-2026-10-10.md). */

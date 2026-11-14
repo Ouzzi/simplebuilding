@@ -1,0 +1,40 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleoctets"
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lapis_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplechess:lapis_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplechess:lapis_chess_knight_flat_from_lapis_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lapis_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplechess:lapis_chess_knight_flat_from_lapis_octet_stonecutting"
+    ]
+  }
+}

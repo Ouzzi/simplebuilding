@@ -126,7 +126,7 @@ public final class MigrationWorldTests {
     /** The placed blocks, x = index in section (z = 1, y = 64). */
     static List<Block> sampleBlocks() {
         List<Block> blocks = new ArrayList<>(List.of(com.simplebuilding.util.StorageRefs.chestBlock("reinforced"), com.simplebuilding.util.StorageRefs.chestBlock("netherite"), com.simplebuilding.util.StorageRefs.chestBlock("enderite"),
-                oven("reinforced_furnace"), oven("enderite_furnace"), ModBlocks.CHECKER_OCTET));
+                oven("reinforced_furnace"), oven("enderite_furnace"), oven("checker_octet"))); // b-chess47: Simple Chess' (optional) by its old id
         // Stage 6: the first material and wood octet by their SimpleBuilding id (Simple Octets' blocks after the move).
         blocks.add(oven("andesite_octet"));
         blocks.add(oven("oak_octet"));

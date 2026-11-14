@@ -1,7 +1,0 @@
-{
-  "parent": "simplebuilding:item/chess/rook",
-  "textures": {
-    "m": "simplebuilding:block/chess/polished_astralit",
-    "a": "simplebuilding:block/chess/polished_astralit_accent"
-  }
-}

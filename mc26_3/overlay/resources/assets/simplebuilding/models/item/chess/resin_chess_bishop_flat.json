@@ -1,7 +1,0 @@
-{
-  "parent": "simplebuilding:item/chess/bishop_flat",
-  "textures": {
-    "m": "simplebuilding:block/chess/resin",
-    "a": "simplebuilding:block/chess/resin_accent"
-  }
-}

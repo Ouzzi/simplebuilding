@@ -1,6 +1,5 @@
 package com.simplebuilding.blocks.custom;
 
-import com.simplebuilding.chess.ChessItems;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -39,12 +38,12 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * 26.2 twin (split stage 6): on 26.3 the cell logic is Simple Octets' ({@code com.simpleoctets.block.OctetCellBlock}) and
- * this name is a thin subclass of it; 26.2 has no Simple Octets and registers no octets ({@code McVersion.CHESS} off), so
+ * this name is a thin subclass of it; 26.2 has no Simple Octets and registers no octets (no chess octets: those are Simple Chess', 26.3), so
  * this copy keeps SimpleBuilding's own code without the mixed cell (port run).
  *
  * <p>Eine Blockzelle aus bis zu acht Achtelbloecken (0,125er-Bloecke, 0,5 x 0,5 x 0,5) eines Materials. Jedes Achtel ist
  * ein Bit ({@link #OCTETS}, Name {@code o<x><y><z>}), alles im Blockzustand, kein Block-Entity: die Modelle sind
- * gebacken (Multipart je Bit). Basis der Schach-Achtel ({@link CheckerOctetBlock}, Farbe im Zustand).
+ * gebacken (Multipart je Bit).
  *
  * <p>Wasserbindbar, solange die Zelle nicht voll ist; voll (8/8) ist sie ein ganzer Wuerfel ohne Wasser und bleibt
  * Achtelzelle. Ein Spieler baut die ganze Zelle ab, schleichend nur das angeschaute Achtel ({@link #playerWillDestroy});
@@ -318,7 +317,7 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         }
         if (!level.isClientSide()) {
             OctetCells.set(level, pos, OctetCells.without(parts, index), state.getValue(WATERLOGGED), Block.UPDATE_ALL);
-            ChessItems.give(player, OctetCells.item(part));
+            OctetCells.give(player, OctetCells.item(part));
             level.playSound(null, pos, part.getSoundType().getBreakSound(), SoundSource.BLOCKS, 0.8F, 1.2F);
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         }

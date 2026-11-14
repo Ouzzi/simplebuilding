@@ -1,0 +1,47 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 41
+  },
+  "gives": {
+    "id": "simplechess:ender_quartz_checker",
+    "count": 1
+  },
+  "max_uses": 1,
+  "xp": 0,
+  "reputation_discount": 0,
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "links:simplechess"
+    },
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "links:simplechess"
+    },
+    {
+      "type": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "merchant_predicate": {
+    "type": "minecraft:random_chance",
+    "chance": 0.1
+  }
+}

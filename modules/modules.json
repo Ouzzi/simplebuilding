@@ -71,7 +71,8 @@
         "simplechallenges",
         "simpledinos",
         "simplelayers",
-        "simplevault"
+        "simplevault",
+        "simplechess"
       ],
       "paths": {
         "root": ".",
@@ -5493,6 +5494,80 @@
       "parent": "simplebuilding",
       "bundle": "optional",
       "configSwitch": true
+    },
+    {
+      "id": "simplechess",
+      "name": "Simple Chess",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Chess",
+      "description": "Chess: 156 pieces (13 materials, six kinds, 3D and flat) that stand up to four on a block, 12 quartz checker boards with stairs and slabs and, with Simple Octets, the chess octets - moved from SimpleBuilding (ids migrate).",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
+      "checks": [
+        "modules/simplechess/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplechess",
+        "catalogues": [
+          "modules/simplechess/fabric/src/main/java/com/simplebuilding/modules/simplechess/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplechess"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplechessGameTest",
+            "report": "integration/build/simplechess-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplechessStandaloneGameTest",
+              "report": "integration/build/standalone/simplechess-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplechess.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplechess/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplechess",
+        "shared": "modules/simplechess/shared",
+        "fabric": "modules/simplechess/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplechess/generated/resources",
+        "lang": "modules/simplechess/shared/resources/assets/simplechess/lang",
+        "wikiManual": "modules/simplechess/wiki/manual.json",
+        "balanceDir": "balance/simplechess"
+      },
+      "projects": {
+        "fabric": ":modules:simplechess:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional",
+      "configSwitch": true,
+      "releasePhase": 3
     }
   ]
 }

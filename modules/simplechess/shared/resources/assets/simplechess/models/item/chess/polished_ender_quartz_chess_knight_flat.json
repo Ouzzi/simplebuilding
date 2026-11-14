@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/knight_flat",
+  "textures": {
+    "m": "simplechess:block/chess/polished_ender_quartz",
+    "a": "simplechess:block/chess/polished_ender_quartz_accent"
+  }
+}

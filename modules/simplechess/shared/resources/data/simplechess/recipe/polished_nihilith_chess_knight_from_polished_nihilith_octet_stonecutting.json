@@ -1,0 +1,16 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding",
+        "simpleoctets"
+      ]
+    }
+  ],
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:polished_nihilith_octet",
+  "result": {
+    "id": "simplechess:polished_nihilith_chess_knight"
+  }
+}

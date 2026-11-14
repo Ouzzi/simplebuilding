@@ -1,0 +1,41 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding",
+        "simpleoctets"
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nihilith_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplechess:nihilith_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplechess:nihilith_chess_king_flat_from_nihilith_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nihilith_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplechess:nihilith_chess_king_flat_from_nihilith_octet_stonecutting"
+    ]
+  }
+}

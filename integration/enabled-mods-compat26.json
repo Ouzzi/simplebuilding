@@ -62,7 +62,8 @@
     "simplechisels",
     "simplebuildingtools",
     "simplelayers",
-    "simplevault"
+    "simplevault",
+    "simplechess"
   ],
   "devMods": [
     "jei",

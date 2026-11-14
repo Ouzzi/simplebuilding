@@ -394,13 +394,13 @@ public class ModBlocks {
     // 26.3: SimpleLib's block (module family stage 3, util/SharedMaterials); 26.2 registers its own.
     public static final Block POLISHED_END_STONE = com.simplebuilding.util.SharedMaterials.block("polished_end_stone", () -> registerBlock("polished_end_stone", unused -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops().strength(3.0F, 9.0F).sound(SoundType.STONE).setId(keyOf("polished_end_stone")))));
 
-    // Checker Blocks
-    public static final Block PURPUR_QUARTZ_CHECKER = registerBlock("purpur_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).setId(keyOf("purpur_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
-    public static final Block LAPIS_QUARTZ_CHECKER = registerBlock("lapis_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LAPIS_BLOCK).setId(keyOf("lapis_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
-    public static final Block BLACKSTONE_QUARTZ_CHECKER = registerBlock("blackstone_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_BLACKSTONE).setId(keyOf("blackstone_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
-    public static final Block RESIN_QUARTZ_CHECKER = registerBlock("resin_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RESIN_BRICKS).setId(keyOf("resin_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
-    public static final Block NETHER_BRICK_QUARTZ_CHECKER = registerBlock("nether_brick_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICKS).setId(keyOf("nether_brick_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
-    public static final Block RED_NETHER_BRICK_QUARTZ_CHECKER = registerBlock("red_nether_brick_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_NETHER_BRICKS).setId(keyOf("red_nether_brick_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    // Checker Blocks (26.3: Simple Chess, simplechess:*; null here - McVersion.CHESS_IN_SB)
+    public static final Block PURPUR_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("purpur_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).setId(keyOf("purpur_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block LAPIS_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("lapis_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LAPIS_BLOCK).setId(keyOf("lapis_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block BLACKSTONE_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("blackstone_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_BLACKSTONE).setId(keyOf("blackstone_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block RESIN_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("resin_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RESIN_BRICKS).setId(keyOf("resin_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block NETHER_BRICK_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("nether_brick_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICKS).setId(keyOf("nether_brick_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block RED_NETHER_BRICK_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("red_nether_brick_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_NETHER_BRICKS).setId(keyOf("red_nether_brick_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
 
     // --- 2. ASTRAL & NIHIL VARIANTS ---
     public static final Block ASTRAL_PURPUR_BLOCK = registerBlock("astral_purpur_block", unused -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).lightLevel(state -> 10).setId(keyOf("astral_purpur_block"))));
@@ -409,9 +409,9 @@ public class ModBlocks {
     public static final Block NIHIL_END_STONE = registerBlock("nihil_end_stone", unused -> new Block(BlockBehaviour.Properties.ofFullCopy(POLISHED_END_STONE).setId(keyOf("nihil_end_stone"))));
     // Nihilith- und Astralit-Schachbrett: wie die uebrigen Quarz-Schachbretter (Saeulenblock, keine
     // Spawns), aber aus dem End-Material; stehen hinter NIHIL_END_STONE, deren Eigenschaften sie kopieren.
-    public static final Block NIHILITH_QUARTZ_CHECKER = registerBlock("nihilith_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(NIHIL_END_STONE).setId(keyOf("nihilith_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block NIHILITH_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("nihilith_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(NIHIL_END_STONE).setId(keyOf("nihilith_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
     // Astralit leuchtet (Erz 5, beschichtete Bloecke 10); das halb aus Quarz bestehende Schachbrett liegt mit 5 dazwischen.
-    public static final Block ASTRALIT_QUARTZ_CHECKER = registerBlock("astralit_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(NIHIL_END_STONE).lightLevel(state -> 5).setId(keyOf("astralit_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block ASTRALIT_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("astralit_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(NIHIL_END_STONE).lightLevel(state -> 5).setId(keyOf("astralit_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
 
     // Astralit-/Nihilith-Bausatz wie Endstein/Purpur: Ziegel samt Treppe, Stufe und Mauer, dazu
     // Saeule und gemeisselte Ziegel. Alle kopieren den beschichteten Endstein ihres Materials
@@ -471,16 +471,16 @@ public class ModBlocks {
             CRACKED_NIHILITH_BRICKS, NIHILITH_BRICKS, CRACKED_ENDER_QUARTZ_BRICKS, ENDER_QUARTZ_BRICKS);
     // Enderquarz-Schachbrett: wie die uebrigen Quarz-Schachbretter (Saeulenblock, keine Spawns),
     // Eigenschaften vom Enderquarzblock.
-    public static final Block ENDER_QUARTZ_CHECKER = registerBlock("ender_quartz_checker", ENDER_QUARTZ_BLOCK,
+    public static final Block ENDER_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("ender_quartz_checker", ENDER_QUARTZ_BLOCK,
             s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
     // Schachbretter aus den polierten End-Bloecken (Besitzer 2026-10-02): Quarz neben den Kacheln des
     // polierten Blocks, Eigenschaften vom polierten Block; Astralit halb aus Quarz leuchtet wie das
     // Astralit-Quarz-Schachbrett mit 5.
-    public static final Block POLISHED_ASTRALIT_CHECKER = registerBlock("polished_astralit_checker", POLISHED_ASTRALIT,
+    public static final Block POLISHED_ASTRALIT_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("polished_astralit_checker", POLISHED_ASTRALIT,
             s -> new RotatedPillarBlock(s.lightLevel(state -> 5).isValidSpawn((state, world, pos, type) -> false)));
-    public static final Block POLISHED_NIHILITH_CHECKER = registerBlock("polished_nihilith_checker", POLISHED_NIHILITH,
+    public static final Block POLISHED_NIHILITH_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("polished_nihilith_checker", POLISHED_NIHILITH,
             s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
-    public static final Block POLISHED_ENDER_QUARTZ_CHECKER = registerBlock("polished_ender_quartz_checker", POLISHED_ENDER_QUARTZ,
+    public static final Block POLISHED_ENDER_QUARTZ_CHECKER = !McVersion.CHESS_IN_SB ? null : registerBlock("polished_ender_quartz_checker", POLISHED_ENDER_QUARTZ,
             s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
     // Wie quartz_stairs/quartz_slab am Quarzblock: Treppe und Stufe direkt am Grundblock (2026-09-25).
     public static final Block ENDER_QUARTZ_STAIRS = registerBlock("ender_quartz_stairs", ENDER_QUARTZ_BLOCK, s -> new StairBlock(ENDER_QUARTZ_BLOCK.defaultBlockState(), s));
@@ -496,45 +496,11 @@ public class ModBlocks {
     public static final Block ENDER_QUARTZ_SLAB = registerBlock("ender_quartz_slab", ENDER_QUARTZ_BLOCK, SlabBlock::new);
     public static final Block ENDER_QUARTZ_WALL = registerBlock("ender_quartz_wall", ENDER_QUARTZ_BLOCK, s -> new WallBlock(s.forceSolidOn()));
 
-    // --- SCHACH (docs/ai/PLAN-SCHACH-2026-10-06.md, McVersion.CHESS) ---
-    /** Treppe und Stufe eines Quarz-Schachbretts (Eigenschaften vom Schachbrett, Astralit leuchtet mit 5). */
-    public record CheckerShapes(com.simplebuilding.chess.ChessColor color, Block checker, Block stairs, Block slab) {
-    }
-
-    public static final List<CheckerShapes> CHECKER_SHAPES = McVersion.CHESS ? checkerShapes() : List.of();
-
-    private static List<CheckerShapes> checkerShapes() {
-        List<CheckerShapes> out = new java.util.ArrayList<>();
-        for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
-            Block checker = color.checker();
-            if (checker == null) {
-                continue;
-            }
-            String name = BuiltInRegistries.BLOCK.getKey(checker).getPath();
-            Block stairs = registerBlock(name + "_stairs", checker, s -> new StairBlock(checker.defaultBlockState(), s));
-            Block slab = registerBlock(name + "_slab", checker, SlabBlock::new);
-            out.add(new CheckerShapes(color, checker, stairs, slab));
-        }
-        return List.copyOf(out);
-    }
-
     /** Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md, McVersion.WOODWORK): Roehren, Platten, Holzkessel, Kisten, Schnitzholz je Holzart. */
     public static final List<com.simplebuilding.woodwork.WoodBlocks.Family> WOOD_FAMILIES = McVersion.WOODWORK
             ? com.simplebuilding.woodwork.WoodBlocks.registerBlocks() : List.of();
 
-    /**
-     * Achtelbloecke aller Farben in einem Block (Farbe und acht Bits im Zustand); kein Werkzeug noetig, mit der
-     * Spitzhacke schneller. Drops aus dem Zustand (CheckerOctetBlock#getDrops), keine Loot-Tabelle.
-     */
-    public static final Block CHECKER_OCTET = McVersion.CHESS ? registerBlock("checker_octet", unused -> new CheckerOctetBlock(
-            BlockBehaviour.Properties.of().setId(keyOf("checker_octet")).mapColor(MapColor.QUARTZ).strength(0.8F)
-                    .sound(SoundType.STONE).noLootTable().isValidSpawn((state, world, pos, type) -> false)
-                    .lightLevel(state -> state.getValue(CheckerOctetBlock.COLOR).light()))) : null;
-    /** Bis zu vier Schachfiguren auf einem Block (Block-Entity, ChessPiecesRenderer); droppt die Figuren. */
-    public static final Block CHESS_PIECES = McVersion.CHESS ? registerBlock("chess_pieces", unused -> new ChessPiecesBlock(
-            BlockBehaviour.Properties.of().setId(keyOf("chess_pieces")).mapColor(MapColor.NONE).strength(0.3F)
-                    .sound(SoundType.STONE).noLootTable().noOcclusion().pushReaction(McVersion.PUSH_DESTROYS))) : null;
-
+    // Schach (Achtel, Figurenblock, Schachbrett-Treppen/-Stufen): Simple Chess (simplechess:, b-chess47).
     // Material-, Holz- und Melonen-Achtel + gemischte Zelle: Simple Octets (simpleoctets:, Stufe 6, util/OctetRefs).
 
     /**

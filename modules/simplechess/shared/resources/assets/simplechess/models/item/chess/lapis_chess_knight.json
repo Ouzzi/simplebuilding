@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/knight",
+  "textures": {
+    "m": "simplechess:block/chess/lapis",
+    "a": "simplechess:block/chess/lapis_accent"
+  }
+}

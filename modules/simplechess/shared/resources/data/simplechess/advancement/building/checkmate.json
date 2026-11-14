@@ -1,0 +1,53 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "parent": "simplebuilding:building/root",
+  "criteria": {
+    "quartz_checker": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplechess:purpur_quartz_checker",
+              "simplechess:lapis_quartz_checker",
+              "simplechess:blackstone_quartz_checker",
+              "simplechess:resin_quartz_checker",
+              "simplechess:nether_brick_quartz_checker",
+              "simplechess:red_nether_brick_quartz_checker",
+              "simplechess:astralit_quartz_checker",
+              "simplechess:nihilith_quartz_checker",
+              "simplechess:ender_quartz_checker",
+              "simplechess:polished_astralit_checker",
+              "simplechess:polished_nihilith_checker",
+              "simplechess:polished_ender_quartz_checker"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplechess.building.checkmate.description"
+    },
+    "icon": {
+      "id": "simplechess:purpur_quartz_checker"
+    },
+    "title": {
+      "translate": "advancements.simplechess.building.checkmate.title"
+    }
+  },
+  "requirements": [
+    [
+      "quartz_checker"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

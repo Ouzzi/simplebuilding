@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simplechess:block/astralit_quartz_checker_slab_51"
+    },
+    "type=double": {
+      "model": "simplechess:block/astralit_quartz_checker"
+    },
+    "type=top": {
+      "model": "simplechess:block/astralit_quartz_checker_slab_204"
+    }
+  }
+}

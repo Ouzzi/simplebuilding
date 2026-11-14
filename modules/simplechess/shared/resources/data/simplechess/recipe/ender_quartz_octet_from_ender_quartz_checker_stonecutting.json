@@ -1,0 +1,42 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simpleblocks"
+        ]
+      }
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding",
+        "simpleoctets"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simpleblocks"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:not",
+    "value": {
+      "type": "forge:mod_loaded",
+      "modid": "simpleblocks"
+    }
+  },
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:ender_quartz_checker",
+  "result": {
+    "count": 8,
+    "id": "simplechess:ender_quartz_octet"
+  }
+}

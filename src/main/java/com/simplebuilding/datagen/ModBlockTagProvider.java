@@ -181,7 +181,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
         // Quarz-Schachbretter kopieren Lapis-, Purpur-, Schwarzstein- bzw. Endstein-Eigenschaften und
         // verlangen damit das passende Werkzeug; ohne diesen Tag liessen sie sich nicht abbauen.
-        builder(BlockTags.MINEABLE_WITH_PICKAXE)
+        // 26.3: Simple Chess' checkers (b-chess47).
+        if (com.simplebuilding.version.McVersion.CHESS_IN_SB) builder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(key(ModBlocks.PURPUR_QUARTZ_CHECKER))
                 .add(key(ModBlocks.LAPIS_QUARTZ_CHECKER))
                 .add(key(ModBlocks.BLACKSTONE_QUARTZ_CHECKER))
@@ -222,13 +223,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             palette.slabs().forEach(block -> builder(BlockTags.SLABS).add(key(block)));
             palette.walls().forEach(block -> builder(BlockTags.WALLS).add(key(block)));
         }
-        // Schach (2026-10-06): Treppen und Stufen der Schachbretter wie ihr Schachbrett (Spitzhacke) und in den
-        // Vanilla-Tags ihrer Form; die Achtelzelle mit der Spitzhacke schneller (kein Werkzeug noetig).
-        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(shapes.stairs())).add(key(shapes.slab()));
-            builder(BlockTags.STAIRS).add(key(shapes.stairs()));
-            builder(BlockTags.SLABS).add(key(shapes.slab()));
-        }
+        // Schach (Schachbrett-Treppen/-Stufen, Achtelzelle): Simple Chess (b-chess47).
         // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): alles mit der Axt.
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : ModBlocks.WOOD_FAMILIES) {
             family.blocks().forEach(block -> builder(BlockTags.MINEABLE_WITH_AXE).add(key(block)));
@@ -244,9 +239,6 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 builder(BlockTags.MINEABLE_WITH_AXE).addOptional(net.minecraft.resources.ResourceKey.create(
                         net.minecraft.core.registries.Registries.BLOCK, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", id)));
             }
-        }
-        if (ModBlocks.CHECKER_OCTET != null) {
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.CHECKER_OCTET));
         }
         // Holz-, Melonen- und Material-Achtel: Abbau-Tags von Simple Octets (Stufe 6).
         // Alternativbloecke der Grundbloecke (2026-10-03): Spitzhacke wie ihr Grundblock.

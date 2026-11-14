@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "simplechess:block/polished_astralit_checker",
+    "east": "simplechess:block/polished_astralit_checker",
+    "north": "simplechess:block/polished_astralit_checker_mirror",
+    "particle": "simplechess:block/polished_astralit_checker",
+    "south": "simplechess:block/polished_astralit_checker_mirror",
+    "up": "simplechess:block/polished_astralit_checker",
+    "west": "simplechess:block/polished_astralit_checker"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleoctets"
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_quartz_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplechess:quartz_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplechess:quartz_chess_pawn_from_quartz_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_quartz_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplechess:quartz_chess_pawn_from_quartz_octet_stonecutting"
+    ]
+  }
+}

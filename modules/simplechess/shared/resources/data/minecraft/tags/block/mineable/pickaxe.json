@@ -1,0 +1,99 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplechess:astralit_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_quartz_checker_stairs",
+      "required": false
+    },
+    "simplechess:blackstone_quartz_checker",
+    "simplechess:blackstone_quartz_checker_slab",
+    "simplechess:blackstone_quartz_checker_stairs",
+    {
+      "id": "simplechess:checker_octet",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_checker_stairs",
+      "required": false
+    },
+    "simplechess:lapis_quartz_checker",
+    "simplechess:lapis_quartz_checker_slab",
+    "simplechess:lapis_quartz_checker_stairs",
+    "simplechess:nether_brick_quartz_checker",
+    "simplechess:nether_brick_quartz_checker_slab",
+    "simplechess:nether_brick_quartz_checker_stairs",
+    {
+      "id": "simplechess:nihilith_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_quartz_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_stairs",
+      "required": false
+    },
+    "simplechess:purpur_quartz_checker",
+    "simplechess:purpur_quartz_checker_slab",
+    "simplechess:purpur_quartz_checker_stairs",
+    "simplechess:red_nether_brick_quartz_checker",
+    "simplechess:red_nether_brick_quartz_checker_slab",
+    "simplechess:red_nether_brick_quartz_checker_stairs",
+    "simplechess:resin_quartz_checker",
+    "simplechess:resin_quartz_checker_slab",
+    "simplechess:resin_quartz_checker_stairs"
+  ]
+}

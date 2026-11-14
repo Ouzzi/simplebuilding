@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/bishop",
+  "textures": {
+    "m": "simplechess:block/chess/nihilith",
+    "a": "simplechess:block/chess/nihilith_accent"
+  }
+}

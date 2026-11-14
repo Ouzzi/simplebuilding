@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "simplechess:block/ender_quartz_checker",
+    "east": "simplechess:block/ender_quartz_checker",
+    "north": "simplechess:block/ender_quartz_checker_mirror",
+    "particle": "simplechess:block/ender_quartz_checker",
+    "south": "simplechess:block/ender_quartz_checker_mirror",
+    "up": "simplechess:block/ender_quartz_checker",
+    "west": "simplechess:block/ender_quartz_checker"
+  }
+}

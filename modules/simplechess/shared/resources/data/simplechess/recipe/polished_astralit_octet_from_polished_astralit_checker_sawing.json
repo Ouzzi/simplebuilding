@@ -1,0 +1,34 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleblocks"
+      ]
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleblocks",
+        "simplebuilding",
+        "simpleoctets"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleblocks"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleblocks"
+  },
+  "type": "simpleblocks:sawing",
+  "ingredient": "simplechess:polished_astralit_checker",
+  "result": {
+    "count": 8,
+    "id": "simplechess:polished_astralit_octet"
+  }
+}

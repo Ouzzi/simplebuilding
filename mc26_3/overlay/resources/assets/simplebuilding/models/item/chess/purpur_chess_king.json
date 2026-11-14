@@ -1,7 +1,0 @@
-{
-  "parent": "simplebuilding:item/chess/king",
-  "textures": {
-    "m": "simplebuilding:block/chess/purpur",
-    "a": "simplebuilding:block/chess/purpur_accent"
-  }
-}

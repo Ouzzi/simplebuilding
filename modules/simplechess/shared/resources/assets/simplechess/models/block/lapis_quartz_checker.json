@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "simplechess:block/lapis_quartz_checker",
+    "east": "simplechess:block/lapis_quartz_checker",
+    "north": "simplechess:block/lapis_quartz_checker_mirror",
+    "particle": "simplechess:block/lapis_quartz_checker",
+    "south": "simplechess:block/lapis_quartz_checker_mirror",
+    "up": "simplechess:block/lapis_quartz_checker",
+    "west": "simplechess:block/lapis_quartz_checker"
+  }
+}

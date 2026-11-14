@@ -1,0 +1,9 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API (sub-mod switch, config files, creative tab setting, test centre station) for standalone runs.
+dependencies { include project(':framework') }
+// SimpleLib nested per principle 6a and compiled against (IdMoves, UI parts, /<modid> config).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// Optional integration with Simple Octets (the chess octets are cells of its OctetCellBlock, registry/ChessOctets): compiled
+// against, never bundled; the classes that name it are only loaded while simpleoctets is installed.
+dependencies { compileOnly project(':modules:simpleoctets:fabric') }

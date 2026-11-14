@@ -1195,45 +1195,24 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_END_STONE, Items.END_STONE_BRICKS);
                 }
 
-                // --- CHECKER BLOCKS ---
-                createCheckerRecipe(output, ModBlocks.PURPUR_QUARTZ_CHECKER, Items.PURPUR_BLOCK);
-                createCheckerRecipe(output, ModBlocks.LAPIS_QUARTZ_CHECKER, Items.LAPIS_BLOCK);
-                createCheckerRecipe(output, ModBlocks.BLACKSTONE_QUARTZ_CHECKER, Items.BLACKSTONE);
-                createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RESIN_BRICKS);
-                createCheckerRecipe(output, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, Items.NETHER_BRICKS);
-                createCheckerRecipe(output, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
-                // End-Schachbretter: Splitter bzw. Staub stehen direkt fuer den farbigen Block
-                createCheckerRecipe(output, ModBlocks.NIHILITH_QUARTZ_CHECKER, ModItems.NIHILITH_SHARD);
-                createCheckerRecipe(output, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModItems.ASTRALIT_DUST);
-                createCheckerRecipe(output, ModBlocks.ENDER_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ);
-                // Polierte End-Schachbretter: der polierte Block selbst steht fuer den farbigen Block
-                createCheckerRecipe(output, ModBlocks.POLISHED_ASTRALIT_CHECKER, ModBlocks.POLISHED_ASTRALIT);
-                createCheckerRecipe(output, ModBlocks.POLISHED_NIHILITH_CHECKER, ModBlocks.POLISHED_NIHILITH);
-                createCheckerRecipe(output, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER, ModBlocks.POLISHED_ENDER_QUARTZ);
-
-                // --- SCHACH (docs/ai/PLAN-SCHACH-2026-10-06.md) ---
-                // Treppe 6 -> 4 und Stufe 3 -> 6 wie Vanilla, im Steinmetz 1 -> 1 bzw. 1 -> 2; der Steinmetz schneidet
-                // aus einem Schachbrett (Quarz: Quarzblock) 8 Achtel seiner Farbe, aus einem Achtel jede Figur.
-                if (com.simplebuilding.version.McVersion.CHESS) {
-                    for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
-                        Block checker = shapes.checker();
-                        stairBuilder(shapes.stairs(), Ingredient.of(checker)).unlockedBy(getHasName(checker), has(checker)).save(output);
-                        slabBuilder(RecipeCategory.BUILDING_BLOCKS, shapes.slab(), Ingredient.of(checker)).unlockedBy(getHasName(checker), has(checker)).save(output);
-                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, shapes.stairs(), checker);
-                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, shapes.slab(), checker, 2);
-                    }
-                    for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
-                        Item octet = com.simplebuilding.chess.ChessItems.octet(color);
-                        // 8 Achtel aus dem Schachbrett: nur in der Formsäge (Prinzip A4b), Ersatz im Steinmetz nur ohne
-                        // Simple Blocks - beides mit Ladebedingungen aus tools/textures/octets_2026_10_09.py (mc26_3/overlay).
-                        for (boolean flat : new boolean[]{false, true}) {
-                            for (com.simplebuilding.chess.ChessPiece piece : com.simplebuilding.chess.ChessPiece.values()) {
-                                stonecutterResultFromBase(RecipeCategory.DECORATIONS, com.simplebuilding.chess.ChessItems.piece(color, piece, flat), octet);
-                            }
-                        }
-                    }
-                    // Holz- und Material-Achtel: Rezepte von Simple Octets (Stufe 6, tools/textures/octets_2026_10_09.py).
+                // --- CHECKER BLOCKS (26.3: Simple Chess, b-chess47) ---
+                if (com.simplebuilding.version.McVersion.CHESS_IN_SB) {
+                    createCheckerRecipe(output, ModBlocks.PURPUR_QUARTZ_CHECKER, Items.PURPUR_BLOCK);
+                    createCheckerRecipe(output, ModBlocks.LAPIS_QUARTZ_CHECKER, Items.LAPIS_BLOCK);
+                    createCheckerRecipe(output, ModBlocks.BLACKSTONE_QUARTZ_CHECKER, Items.BLACKSTONE);
+                    createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RESIN_BRICKS);
+                    createCheckerRecipe(output, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, Items.NETHER_BRICKS);
+                    createCheckerRecipe(output, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
+                    // End-Schachbretter: Splitter bzw. Staub stehen direkt fuer den farbigen Block
+                    createCheckerRecipe(output, ModBlocks.NIHILITH_QUARTZ_CHECKER, ModItems.NIHILITH_SHARD);
+                    createCheckerRecipe(output, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModItems.ASTRALIT_DUST);
+                    createCheckerRecipe(output, ModBlocks.ENDER_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ);
+                    // Polierte End-Schachbretter: der polierte Block selbst steht fuer den farbigen Block
+                    createCheckerRecipe(output, ModBlocks.POLISHED_ASTRALIT_CHECKER, ModBlocks.POLISHED_ASTRALIT);
+                    createCheckerRecipe(output, ModBlocks.POLISHED_NIHILITH_CHECKER, ModBlocks.POLISHED_NIHILITH);
+                    createCheckerRecipe(output, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER, ModBlocks.POLISHED_ENDER_QUARTZ);
                 }
+                // Schach (Achtel, Figuren, Schachbrett-Formen): Rezepte von Simple Chess (b-chess47).
 
                 // --- ASTRAL / NIHIL BLOCKS (8 Block + 1 Powder/Shard) ---
                 createCoatingRecipe(output, ModBlocks.ASTRAL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.ASTRALIT_DUST);

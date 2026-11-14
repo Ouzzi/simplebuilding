@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/rook",
+  "textures": {
+    "m": "simplechess:block/chess/resin",
+    "a": "simplechess:block/chess/resin_accent"
+  }
+}

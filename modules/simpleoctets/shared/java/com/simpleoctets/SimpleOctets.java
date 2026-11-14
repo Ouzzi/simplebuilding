@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  * Simple Octets (split stage 6, docs/ai/PLAN-S6-OCTETS-2026-10-17.md): octets (0.5 x 0.5 x 0.5) of every wood, of every
  * block with stairs and slabs and of the melon, the mixed cell of several materials, moved out of SimpleBuilding. The
  * cell logic ({@link com.simpleoctets.block.OctetCellBlock}, {@link com.simpleoctets.block.OctetCells}) is public API:
- * SimpleBuilding's chess octets are cells of it and mix with these. Loader entry points call {@link #init} once in their
+ * Simple Chess' chess octets are cells of it and mix with these. Loader entry points call {@link #init} once in their
  * constructor / initializer, before any registry event, so the id moves are known in time (Forge aliases).
  */
 public final class SimpleOctets {

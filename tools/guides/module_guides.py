@@ -301,6 +301,13 @@ MODULES = [
                 "Das Grundgewölbe: tief unten führt eine seltene Lücke im Grundgestein der Oberwelt in stille Hallen, rundum von "
                 "Grundgestein umschlossen. Das Tor schließt sich hinter dir - drei Rätsel geben drei Siegelteile, und der "
                 "Aufstiegsaltar trägt dich wieder hinauf.")),
+    dict(module="simplechess", ns="simplechess", package="com.simplechess.guide", cls="ChessGuide", kind="item",
+         author="Simple Chess", recipe="minecraft:quartz_block",
+         name=("Simple Chess Guide", "Simple-Chess-Handbuch"),
+         intro=("Chess: 156 pieces in 13 colors, 3D and flat, that stand four to a block on quartz checker boards, the checkers "
+                "with stairs and slabs and, with Simple Octets, the chess octets.",
+                "Schach: 156 Figuren in 13 Farben, als 3D-Figur und flach, die zu viert auf einem Block auf Quarz-Schachbrettern "
+                "stehen, die Schachbretter mit Treppen und Stufen und mit Simple Octets die Schach-Achtel.")),
     dict(module="simplegadgets", ns="simplegadgets", package="com.simplegadgets.guide", cls="GadgetsGuide", kind="item",
          author="Simple Gadgets", recipe="minecraft:clock",
          name=("Simple Gadgets Guide", "Simple-Gadgets-Handbuch"),
@@ -753,6 +760,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
         "durch Aufheben von: %s. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim "
         "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:quartz_block": ("block of quartz", "Quarzblock"),
     "minecraft:copper_nugget": ("copper nugget", "Kupferklumpen"),
     "minecraft:feather": ("feather", "Feder"),
     "minecraft:stick": ("stick", "Stock"),

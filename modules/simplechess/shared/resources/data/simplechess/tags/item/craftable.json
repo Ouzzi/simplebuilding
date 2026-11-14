@@ -1,0 +1,519 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplechess:astralit_chess_bishop",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_bishop_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_king",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_king_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_knight",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_knight_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_pawn",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_pawn_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_queen",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_queen_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_rook",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_chess_rook_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_octet",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_quartz_checker_stairs",
+      "required": false
+    },
+    "simplechess:blackstone_chess_bishop",
+    "simplechess:blackstone_chess_bishop_flat",
+    "simplechess:blackstone_chess_king",
+    "simplechess:blackstone_chess_king_flat",
+    "simplechess:blackstone_chess_knight",
+    "simplechess:blackstone_chess_knight_flat",
+    "simplechess:blackstone_chess_pawn",
+    "simplechess:blackstone_chess_pawn_flat",
+    "simplechess:blackstone_chess_queen",
+    "simplechess:blackstone_chess_queen_flat",
+    "simplechess:blackstone_chess_rook",
+    "simplechess:blackstone_chess_rook_flat",
+    {
+      "id": "simplechess:blackstone_octet",
+      "required": false
+    },
+    "simplechess:blackstone_quartz_checker",
+    "simplechess:blackstone_quartz_checker_slab",
+    "simplechess:blackstone_quartz_checker_stairs",
+    {
+      "id": "simplechess:ender_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_bishop",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_bishop_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_king",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_king_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_knight",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_knight_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_pawn",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_pawn_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_queen",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_queen_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_rook",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_chess_rook_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_octet",
+      "required": false
+    },
+    "simplechess:lapis_chess_bishop",
+    "simplechess:lapis_chess_bishop_flat",
+    "simplechess:lapis_chess_king",
+    "simplechess:lapis_chess_king_flat",
+    "simplechess:lapis_chess_knight",
+    "simplechess:lapis_chess_knight_flat",
+    "simplechess:lapis_chess_pawn",
+    "simplechess:lapis_chess_pawn_flat",
+    "simplechess:lapis_chess_queen",
+    "simplechess:lapis_chess_queen_flat",
+    "simplechess:lapis_chess_rook",
+    "simplechess:lapis_chess_rook_flat",
+    {
+      "id": "simplechess:lapis_octet",
+      "required": false
+    },
+    "simplechess:lapis_quartz_checker",
+    "simplechess:lapis_quartz_checker_slab",
+    "simplechess:lapis_quartz_checker_stairs",
+    "simplechess:nether_brick_chess_bishop",
+    "simplechess:nether_brick_chess_bishop_flat",
+    "simplechess:nether_brick_chess_king",
+    "simplechess:nether_brick_chess_king_flat",
+    "simplechess:nether_brick_chess_knight",
+    "simplechess:nether_brick_chess_knight_flat",
+    "simplechess:nether_brick_chess_pawn",
+    "simplechess:nether_brick_chess_pawn_flat",
+    "simplechess:nether_brick_chess_queen",
+    "simplechess:nether_brick_chess_queen_flat",
+    "simplechess:nether_brick_chess_rook",
+    "simplechess:nether_brick_chess_rook_flat",
+    {
+      "id": "simplechess:nether_brick_octet",
+      "required": false
+    },
+    "simplechess:nether_brick_quartz_checker",
+    "simplechess:nether_brick_quartz_checker_slab",
+    "simplechess:nether_brick_quartz_checker_stairs",
+    {
+      "id": "simplechess:nihilith_chess_bishop",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_bishop_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_king",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_king_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_knight",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_knight_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_pawn",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_pawn_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_queen",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_queen_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_rook",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_chess_rook_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_octet",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:nihilith_quartz_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_bishop",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_bishop_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_king",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_king_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_knight",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_knight_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_pawn",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_pawn_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_queen",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_queen_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_rook",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_chess_rook_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_octet",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_bishop",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_bishop_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_king",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_king_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_knight",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_knight_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_pawn",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_pawn_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_queen",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_queen_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_rook",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_chess_rook_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_octet",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_slab",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_bishop",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_bishop_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_king",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_king_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_knight",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_knight_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_pawn",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_pawn_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_queen",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_queen_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_rook",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_chess_rook_flat",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_octet",
+      "required": false
+    },
+    "simplechess:purpur_chess_bishop",
+    "simplechess:purpur_chess_bishop_flat",
+    "simplechess:purpur_chess_king",
+    "simplechess:purpur_chess_king_flat",
+    "simplechess:purpur_chess_knight",
+    "simplechess:purpur_chess_knight_flat",
+    "simplechess:purpur_chess_pawn",
+    "simplechess:purpur_chess_pawn_flat",
+    "simplechess:purpur_chess_queen",
+    "simplechess:purpur_chess_queen_flat",
+    "simplechess:purpur_chess_rook",
+    "simplechess:purpur_chess_rook_flat",
+    {
+      "id": "simplechess:purpur_octet",
+      "required": false
+    },
+    "simplechess:purpur_quartz_checker",
+    "simplechess:purpur_quartz_checker_slab",
+    "simplechess:purpur_quartz_checker_stairs",
+    "simplechess:quartz_chess_bishop",
+    "simplechess:quartz_chess_bishop_flat",
+    "simplechess:quartz_chess_king",
+    "simplechess:quartz_chess_king_flat",
+    "simplechess:quartz_chess_knight",
+    "simplechess:quartz_chess_knight_flat",
+    "simplechess:quartz_chess_pawn",
+    "simplechess:quartz_chess_pawn_flat",
+    "simplechess:quartz_chess_queen",
+    "simplechess:quartz_chess_queen_flat",
+    "simplechess:quartz_chess_rook",
+    "simplechess:quartz_chess_rook_flat",
+    {
+      "id": "simplechess:quartz_octet",
+      "required": false
+    },
+    "simplechess:red_nether_brick_chess_bishop",
+    "simplechess:red_nether_brick_chess_bishop_flat",
+    "simplechess:red_nether_brick_chess_king",
+    "simplechess:red_nether_brick_chess_king_flat",
+    "simplechess:red_nether_brick_chess_knight",
+    "simplechess:red_nether_brick_chess_knight_flat",
+    "simplechess:red_nether_brick_chess_pawn",
+    "simplechess:red_nether_brick_chess_pawn_flat",
+    "simplechess:red_nether_brick_chess_queen",
+    "simplechess:red_nether_brick_chess_queen_flat",
+    "simplechess:red_nether_brick_chess_rook",
+    "simplechess:red_nether_brick_chess_rook_flat",
+    {
+      "id": "simplechess:red_nether_brick_octet",
+      "required": false
+    },
+    "simplechess:red_nether_brick_quartz_checker",
+    "simplechess:red_nether_brick_quartz_checker_slab",
+    "simplechess:red_nether_brick_quartz_checker_stairs",
+    "simplechess:resin_chess_bishop",
+    "simplechess:resin_chess_bishop_flat",
+    "simplechess:resin_chess_king",
+    "simplechess:resin_chess_king_flat",
+    "simplechess:resin_chess_knight",
+    "simplechess:resin_chess_knight_flat",
+    "simplechess:resin_chess_pawn",
+    "simplechess:resin_chess_pawn_flat",
+    "simplechess:resin_chess_queen",
+    "simplechess:resin_chess_queen_flat",
+    "simplechess:resin_chess_rook",
+    "simplechess:resin_chess_rook_flat",
+    {
+      "id": "simplechess:resin_octet",
+      "required": false
+    },
+    "simplechess:resin_quartz_checker",
+    "simplechess:resin_quartz_checker_slab",
+    "simplechess:resin_quartz_checker_stairs"
+  ]
+}

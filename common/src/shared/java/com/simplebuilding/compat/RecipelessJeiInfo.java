@@ -104,12 +104,7 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));
         }
-        if (com.simplebuilding.version.McVersion.CHESS) {
-            // Schach: wie Achtel und Figuren gesetzt, getauscht und aufgenommen werden.
-            List<ItemLike> chess = new java.util.ArrayList<>(com.simplebuilding.chess.ChessItems.octets());
-            chess.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
-            map.put("chess", chess);
-        }
+        // Schach: seit b-chess47 die Info-Seite von Simple Chess (SimpleLib RecipeViewer.info).
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.BRIDGE_REDSTONE, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP,
                     ModItems.NIHIL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.BRIDGE_REDSTONE_BLOCK));

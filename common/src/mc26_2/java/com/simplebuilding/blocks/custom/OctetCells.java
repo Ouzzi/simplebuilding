@@ -182,7 +182,16 @@ public final class OctetCells {
 
     /** Gibt dem Spieler ein Achtel: in die leere Haupthand, sonst ins Inventar, sonst vor die Fuesse. */
     public static void give(Player player, ItemStack stack) {
-        com.simplebuilding.chess.ChessItems.give(player, stack);
+        if (stack.isEmpty()) {
+            return;
+        }
+        if (player.getMainHandItem().isEmpty()) {
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+            return;
+        }
+        if (!player.getInventory().add(stack) && !stack.isEmpty()) {
+            Block.popResource(player.level(), player.blockPosition(), stack);
+        }
     }
 
     /** Setzt ein Achtel der Zelle {@code block} nach dem Trefferpunkt und verbraucht ein Item. */

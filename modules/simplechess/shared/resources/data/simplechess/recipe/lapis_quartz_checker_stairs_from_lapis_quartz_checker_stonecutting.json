@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:lapis_quartz_checker",
+  "result": {
+    "id": "simplechess:lapis_quartz_checker_stairs"
+  }
+}

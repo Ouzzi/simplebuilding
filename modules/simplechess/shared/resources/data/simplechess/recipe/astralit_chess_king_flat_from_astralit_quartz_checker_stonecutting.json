@@ -1,0 +1,25 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simpleoctets"
+        ]
+      }
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:astralit_quartz_checker",
+  "result": {
+    "count": 8,
+    "id": "simplechess:astralit_chess_king_flat"
+  }
+}

@@ -331,16 +331,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tool_behaviour_game_test_shears_turn_placed_wool_into_four_string_and_wear_by_one", ToolBehaviourTests::shearsTurnPlacedWoolIntoFourStringAndWearByOne)
                     .build(),
-            GameTestSpec.named("chess_game_test_octets_fill_the_sub_grid_by_hit_point", ChessTests::octetsFillTheSubGridByHitPoint)
-                    .build(),
-            GameTestSpec.named("chess_game_test_octets_stack_to_the_engine_maximum", ChessTests::octetsStackToTheEngineMaximum)
-                    .build(),
-            GameTestSpec.named("chess_game_test_octets_hold_water_until_full", ChessTests::octetsHoldWaterUntilFull)
-                    .build(),
-            GameTestSpec.named("chess_game_test_pieces_stand_on_quarters_and_swap", ChessTests::piecesStandOnQuartersAndSwap)
-                    .build(),
-            GameTestSpec.named("chess_game_test_pieces_break_only_the_looked_at_piece", ChessTests::piecesBreakOnlyTheLookedAtPiece)
-                    .build(),
             GameTestSpec.named("chess_game_test_octets_mix_materials_in_one_cell", OctetMixTests::octetsMixMaterialsInOneCell)
                     .build(),
             GameTestSpec.named("chess_game_test_octets_break_only_the_looked_at_octet", OctetMixTests::octetsBreakOnlyTheLookedAtOctet)
@@ -352,8 +342,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("chess_game_test_octets_normal_break_takes_the_whole_cell", OctetMixTests::octetsNormalBreakTakesTheWholeCell)
                     .build(),
             GameTestSpec.named("chess_game_test_octets_sledgehammer_follows_the_sneak_rule", OctetMixTests::octetsSledgehammerFollowsTheSneakRule)
-                    .build(),
-            GameTestSpec.named("chess_game_test_chess_recipes_cut_from_checkers_and_octets", ChessTests::chessRecipesCutFromCheckersAndOctets)
                     .build(),
             // The nature variants' own tests moved to Simple Blocks with the blocks (b-blocksmove).
             GameTestSpec.named("nature_block_game_test_chisel_makes_cracked_ice", NatureBlockTests::chiselMakesCrackedIce)
