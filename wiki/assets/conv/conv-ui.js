@@ -32,7 +32,13 @@
   function T(k) { return (L[lang][k] != null ? L[lang][k] : L.en[k] || k); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function hue(name) { var h = 0; for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0; return h % 360; }
-  function isDev() { return /^\/dev(\/|$)/.test(location.pathname) || /[?&]dev=1(&|$)/.test(location.search) || location.protocol === 'file:' || !!window.CONV51_PREVIEW; }
+  /* Dev gate, same rule as isDevSite() in wiki/index.html: /dev/ (behind the login), the Zentrale dev overlay,
+   * ?dev=1 (remembered for the tab session like the wiki), plus file:// and the CONV51 preview. Not public before owner OK. */
+  function isDev() {
+    var asked = /[?&]dev=1(&|$)/.test(location.search), kept = false;
+    try { if (asked) sessionStorage.setItem('simple-wiki-dev', '1'); kept = sessionStorage.getItem('simple-wiki-dev') === '1'; } catch (err) { /* storage blocked */ }
+    return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || asked || kept || location.protocol === 'file:' || !!window.CONV51_PREVIEW;
+  }
   function b64(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
 
   function init(root) {
