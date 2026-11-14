@@ -154,6 +154,13 @@ class ArchPortalScannerTest {
                 "O..O",
                 "OOOO");
         assertEquals(ArchPortalScanner.Verdict.OPEN, open.scan(NETHER, 1, 1).verdict());
+        // Standing on the ground: the fill runs over the frame down to the dirt, still "open", not "foreign block".
+        Grid grounded = Grid.of(PortalAxis.X,
+                " O..O ",
+                " O..O ",
+                " OOOO ",
+                "######");
+        assertEquals(ArchPortalScanner.Verdict.OPEN, grounded.scan(NETHER, 2, 1).verdict());
     }
 
     @Test
