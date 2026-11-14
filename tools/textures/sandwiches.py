@@ -1903,6 +1903,80 @@ SESAME = 'fff3d0'
 SAUCE = ('fff6e0', 'f1e2b8')
 
 
+# --- PLAN40 simplesandwiches-2 (a-w4a, 14.11.): apple layers 1-4 and the Ashwood board top ------------------------------------
+# The four apple layers were one flat red row each (75 % one colour, stacked they read as a red block, texrate red). Same
+# silhouette as before (the layer rows of filling_v5/_n18), but every layer is a walk over a 7-rung red ramp (steps of 12-30
+# luminance, dark ends, pink highlights = apple flesh shining through, runs of at most 3 px, neighbours one rung apart: no new
+# hard edges), and every layer walks differently so the stack reads as separate slices. Rounds: preview a-w4a-preview.html.
+APPLE_RAMP = ('9c1017', 'bd141f', 'dd1725', 'ee3b48', 'ff5e69', 'ff8089', 'ffa3aa')
+APPLE_RUNGS = {1: [1, 2, 2, 3, 3, 4, 4, 5, 4, 3, 3, 2, 2, 3, 2, 1],
+               2: [1, 2, 3, 3, 2, 2, 3, 4, 4, 5, 5, 4, 3, 3, 2, 1],
+               3: [1, 2, 3, 4, 4, 3, 3, 2, 2, 3, 4, 5, 5, 4, 3, 2],
+               4: [2, 1, 2, 3, 3, 4, 5, 5, 4, 4, 3, 2, 2, 3, 3, 2]}
+
+
+def apple_slices(im, p):
+    """Recolours the opaque pixels of apple layer p column by column (silhouette unchanged)."""
+    _snap(im, 'Form')
+    for y in range(16):
+        for x in range(16):
+            if im.getpixel((x, y))[3]:
+                im.putpixel((x, y), hx(APPLE_RAMP[APPLE_RUNGS[p][x]]))
+    return _snap(im, 'Apfelscheiben')
+
+
+# Ashwood board top: the old one was drawn from the Ashwood planks ramp with long dark joint lines and big pale areas (58 px flat,
+# 38 % hard, texrate red). Now four plank rows of 4 px in 1-3 px strokes of one seven-rung Ashwood ladder (rung 6 = lightest,
+# steps of 17-30, neighbours at most one rung apart, hard 9 %), lit rim on top, darker dashed inner frame, rim shade bottom/right, hanging hole
+# as before (x 3, y 7/8). GRAIN holds the rung per pixel (hand-checked random walk, seed 149); the frame is code.
+ASH_LADDER = ('5a534c', '736b63', '92897e', 'a89f93', 'bcb3a7', 'cfc7bb', 'e0d9cf')
+ASH_BOARD_GRAIN = [
+    '6655655555666666',
+    '5566464664555544',
+    '4654556555444665',
+    '5443444333333454',
+    '6554555444556545',
+    '4443334535444454',
+    '3535543353355543',
+    '2343332232234424',
+    '6666666666566666',
+    '5544545555655444',
+    '6655656446444555',
+    '4334443355355444',
+    '6655664444546556',
+    '4444333555433344',
+    '5555355334344455',
+    '3333232223233333',
+]
+
+
+def ashwood_board_top():
+    rung = [[int(c) for c in row] for row in ASH_BOARD_GRAIN]
+    im = Image.new('RGBA', (16, 16))
+    def paint():
+        for y in range(16):
+            for x in range(16):
+                im.putpixel((x, y), hx(ASH_LADDER[rung[y][x]]))
+    paint()
+    _snap(im, 'Maserung')
+    for x in range(1, 15):
+        rung[2][x] = 6 if x % 4 else 5                  # lit top rim
+    for x in range(2, 14):
+        rung[3][x] = 3 if x % 2 else 2                  # darker inner frame, top (dashed like the other boards' frame)
+    for y in range(3, 13):
+        rung[y][2] = 3 if y % 2 else 2                  # inner frame, left
+    for y in range(2, 14):
+        rung[y][1] = 5 if y % 3 else 4                  # lit left rim
+        rung[y][14] = 3 if y % 4 else 4                 # shaded right rim
+    for x in range(1, 15):
+        rung[13][x] = 3 if x % 4 else 2                 # shaded bottom rim (last: it wins in the corners)
+    paint()
+    _snap(im, 'Rahmen')
+    for p in ((3, 7), (3, 8)):                          # see-through hanging hole
+        im.putpixel(p, hx('7a7167')[:3] + (0,))
+    return _snap(im, 'Loch')
+
+
 def filling_n18(key, p, variant=None):
     variant = variant or N18_STYLE
     im = filling_v5(key, p)
@@ -1927,6 +2001,8 @@ def filling_n18(key, p, variant=None):
         y = _layer_rows(inner, p)[0]
         if not im.getpixel((end, y))[3]:
             put(im, end, y, shade(_vivid(hx(pal['3'])), 0.8))
+    if key == 'apple' and p > 0:
+        im = apple_slices(im, p)
     return im
 
 
@@ -2085,6 +2161,8 @@ def all_textures():
         files[block(name)] = im
     for wood in WOODS:
         t, s = board_v4(wood)
+        if wood == 'ashwood':
+            t = ashwood_board_top()  # PLAN40 simplesandwiches-2: own ladder, independent of the (derived) planks
         files[block(f'{wood}_cutting_board')] = t
         files[block(f'{wood}_cutting_board_side')] = s
     for name, im in cauldron_textures().items():
