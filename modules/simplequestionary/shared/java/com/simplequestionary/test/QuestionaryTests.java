@@ -252,6 +252,9 @@ public final class QuestionaryTests {
         h.succeed();
     }
 
+    /** Namespaces with complete texts: any new item there needs a questionary entry (own or family). */
+    private static final List<String> COMPLETE_NAMESPACES = List.of("simplefun", "simplesandwiches", "simplechisels", "simplefoundry", "simplebuildingtools", "simplelights");
+
     /** Counts items without own text (warning only while the texts are being written); text problems are errors. */
     private static void coverage(GameTestHelper h) {
         QuestionaryData.Library library = loadFromPacks(h.getLevel().getServer());
@@ -262,6 +265,12 @@ public final class QuestionaryTests {
                 ns, coverage.missing().getOrDefault(ns, 0), total));
         h.assertTrue(coverage.problems().isEmpty(), "text problems: " + coverage.problems());
         h.assertTrue(coverage.items().containsKey("minecraft"), "Vanilla items counted");
+        // PLAN40 simplequestionary-1: mods whose texts are complete must stay complete (others only warn above).
+        for (String ns : COMPLETE_NAMESPACES) {
+            if (!coverage.items().containsKey(ns)) continue;
+            List<String> gaps = coverage.missingIds().stream().filter(id -> id.getNamespace().equals(ns)).map(Identifier::toString).toList();
+            h.assertTrue(gaps.isEmpty(), ns + " items without questionary text: " + gaps);
+        }
         if (sbLoaded()) h.assertTrue(!coverage.missingIds().contains(ENDERITE_INGOT), "the example is complete");
         h.succeed();
     }

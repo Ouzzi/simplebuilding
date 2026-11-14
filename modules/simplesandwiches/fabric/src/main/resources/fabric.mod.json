@@ -38,6 +38,9 @@
   },
   "suggests": {
     "simplebuilding": "*",
-    "simpleend": "*"
+    "simpleend": "*",
+    "simplecrucibles": "*",
+    "simpleores": "*",
+    "simpleanimals": "*"
   }
 }

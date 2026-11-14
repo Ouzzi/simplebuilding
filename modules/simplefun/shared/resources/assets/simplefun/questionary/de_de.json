@@ -20,5 +20,93 @@
     "secret": [
       "Er ist vor allem ein kosmetischer Scherz: Er stößt zurück, tut ein wenig weh und zerstört keine Blöcke."
     ]
+  },
+  "party_popper": {
+    "lore": [
+      "Entstanden auf einer Geburtstagsfeier, an die sich keiner erinnert, knallt die Papierrolle noch immer fröhlich."
+    ],
+    "use": [
+      "Aus Papier, Faden und einem Farbstoff werden zwei hergestellt. Benutzen: Konfetti in der Farbe des Farbstoffs steigt auf (höchstens 40 Partikel) mit einem Knall. Sie wird verbraucht, 3 Sekunden Abklingzeit."
+    ],
+    "secret": [
+      "Sie tut nichts außer feiern. Kein Schaden, keine Blockänderung."
+    ]
+  },
+  "dice": {
+    "lore": [
+      "Zwei knochenweiße Würfel, die mehr Streit beendet haben als jeder Rat."
+    ],
+    "use": [
+      "Aus zwei Knochenmehl und schwarzem Farbstoff herstellbar. Benutzen würfelt 1 bis 6, Schleichen würfelt zwei Würfel. Der Server würfelt, die Zahl schwebt über dem Kopf und erscheint im Chat im Umkreis von 16 Blöcken; 1 Sekunde Abklingzeit."
+    ],
+    "secret": [
+      "Sie lassen sich nicht manipulieren: der Server würfelt, selbst der Besitzer kann nicht schummeln."
+    ]
+  },
+  "lucky_coin": {
+    "lore": [
+      "Eine Kupfermünze mit einem Goldnugget im Herzen, vor mehr Reisen geworfen, als man zählen kann."
+    ],
+    "use": [
+      "Aus einem Kupferbarren und einem Goldnugget herstellbar. Benutzen wirft: Kopf oder Zahl schwebt über dem Kopf und erscheint im Chat im Umkreis von 16 Blöcken; 1 Sekunde Abklingzeit."
+    ],
+    "secret": [
+      "Sie landet nie auf der Kante und bringt kein echtes Glück. Der Server wirft sie."
+    ]
+  },
+  "skipping_stone": {
+    "lore": [
+      "Die flachsten Steine liegen immer am Wasser, als hätten sie auf einen Werfer gewartet."
+    ],
+    "use": [
+      "Ein Bruchstein, Tuff, Andesit oder Tiefenschiefer-Bruchstein ergibt vier. Flach über Wasser geworfen hüpft er bis zu fünfmal mit Spritzer und Zählung; zu steil oder zu langsam geht er unter."
+    ],
+    "secret": [
+      "Das Hüpfen hat einen Rekord: die längste Serie steht in der Statistik. Kein Schaden, keine Blockänderung."
+    ]
+  },
+  "water_balloon": {
+    "lore": [
+      "Eine Lederhaut voll See und guter Absichten, gemacht für heiße Tage und heißere Streiche."
+    ],
+    "use": [
+      "Aus Leder, Faden und einem Wassereimer werden vier hergestellt; der Eimer bleibt. Er trifft nur Spieler und Blöcke: löscht Feuer, brennende Kerzen und Lagerfeuer im Umkreis von einem Block, füllt einen getroffenen Kessel um eine Stufe und macht einen getroffenen Spieler nass. 5 Sekunden Abklingzeit."
+    ],
+    "secret": [
+      "Mobs bleiben verschont, und im Nether entsteht nur Dampf."
+    ]
+  },
+  "bubble_wand": {
+    "lore": [
+      "Ein Stock, eine Fadenschlaufe und ein fröhlicher Atem: die älteste Art, kleine Regenbögen zu machen."
+    ],
+    "use": [
+      "Aus Stock, Faden und Wassereimer herstellbar; der Eimer bleibt. Gedrückt halten lässt alle 0,7 Sekunden eine Seifenblase bis zu 8 Blöcke aufsteigen, sie platzt an der Decke. Höchstens 12 Blasen je Spieler, 64 Benutzungen."
+    ],
+    "secret": [
+      "Die Blasen sind reine Partikel: sie blockieren und tragen nichts, also ungefährlich neben Redstone und Schläfern."
+    ]
+  },
+  "paper_plane": {
+    "lore": [
+      "Ein Blatt, ein paar kluge Falze und eine sehr kurze Karriere als Flugzeug."
+    ],
+    "use": [
+      "Aus einem Papier herstellbar. Geworfen gleitet es, fliegt ohne Schaden durch Lebewesen und landet als Item (es schwimmt auf Wasser). Die beste Weite hat es bei etwa 20 Grad nach oben, höchstens 60 Sekunden in der Luft."
+    ],
+    "secret": [
+      "Hält man ein Buch mit Feder oder ein beschriebenes Buch in der anderen Hand, wird die erste Seite (bis 200 Zeichen) ins Flugzeug gefaltet; Schleichen und Benutzen liest die Notiz."
+    ]
+  },
+  "rubber_duck": {
+    "lore": [
+      "Sie schwimmt, sie quietscht, und sie hat mehr Badeprobleme gelöst als jeder Zauberer."
+    ],
+    "use": [
+      "Aus gelbem Farbstoff, Schleimball und Goldnugget herstellbar. Auf eine Wasseroberfläche (wie ein Seerosenblatt) oder auf festen Boden stellbar; ein Klick quietscht und lässt sie hüpfen, Berühren tut nichts."
+    ],
+    "secret": [
+      "Auf Seelensand gestellt wird sie zur Piratenente. Sie ist rein dekorativ und harmlos."
+    ]
   }
 }

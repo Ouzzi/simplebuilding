@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 63
+    "count": 21
   },
   "gives": {
     "id": "simpleores:raw_enderite",

@@ -260,7 +260,13 @@ def resources():
         + [f"{NS}:cheese_slice", f"{NS}:cake_slice"]
         + [{"id": f"simplebuilding:{name}", "required": False} for name in (
             "netherite_apple", "enchanted_netherite_apple", "netherite_carrot",
-            "enderite_apple", "enchanted_enderite_apple", "enderite_carrot")])
+            "enderite_apple", "enchanted_enderite_apple", "enderite_carrot")]
+        # PLAN40 simplesandwiches-3: food of other Simple mods, only when installed (required false).
+        + [{"id": f"simpleores:{name}", "required": False} for name in (
+            "rose_gold_apple", "enchanted_rose_gold_apple", "rose_bronze_apple", "enchanted_rose_bronze_apple",
+            "rose_gold_carrot", "rose_bronze_carrot")]
+        + [{"id": f"simpleanimals:{name}", "required": False} for name in ("raw_crab", "cooked_crab")]
+        + [{"id": "simpleend:drift_fruit", "required": False}])
     tag("item", "knife_repair_materials", ["minecraft:iron_nugget"])
     boards = [f"{NS}:{wood}_cutting_board" for wood in WOODS] + [
         {"id": f"{NS}:{wood}_cutting_board", "required": False} for wood in END_WOODS]

@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 37
+    "count": 13
   },
   "gives": {
     "id": "simpleovens:netherite_smoker",

@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 43
+    "count": 15
   },
   "gives": {
     "id": "simplebuilding:polished_astralit_wall",

@@ -29,7 +29,7 @@ Simple Fun collects small playful mechanics, such as throwable bricks and cosmet
 
 ## Vanilla use
 
-Adds small playful items such as throwable bricks, each bounded so it cannot damage a world.
+Adds small playful items and toys, each bounded so it cannot damage a world. On by default and each switchable: throwing items while sneaking, throwing bricks with right click, turning into a pig after eating pork (milk undoes it) and Knockback IV; breaking glass with bricks is off by default.
 
 ## Dependencies
 

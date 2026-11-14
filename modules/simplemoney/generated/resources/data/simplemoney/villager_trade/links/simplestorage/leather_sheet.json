@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 10
+    "count": 4
   },
   "gives": {
     "id": "simplestorage:leather_sheet",

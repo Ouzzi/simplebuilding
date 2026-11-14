@@ -1,0 +1,27 @@
+{
+  "family:chisels": {
+    "items": [
+      "regex:.*_chisel"
+    ],
+    "lore": [
+      "{name} turns blocks into their finer relatives, one deliberate tap at a time."
+    ],
+    "use": [
+      "Right-click a block and it becomes the next block of its chain right where it stands (stone into chiseled stone bricks, planks into stairs, stairs into slabs). Sneak and right-click walks one step back and costs 2 durability. The tier decides which chains the chisel can work."
+    ],
+    "secret": [
+      "The chains are datapack files, so other mods and packs can add their own blocks. The Fast Chiseling enchantment shortens the cooldown to 70 % (I) or 40 % (II)."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A short book of chisel chains and small corrections."
+    ],
+    "use": [
+      "The Simple Chisels Guide explains the seven chisels, the tiers and Fast Chiseling. Craft it shapeless from a book and a chisel."
+    ],
+    "secret": [
+      "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  }
+}

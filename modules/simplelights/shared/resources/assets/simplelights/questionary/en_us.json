@@ -1,0 +1,52 @@
+{
+  "redstone_light_pane": {
+    "lore": [
+      "A pane that talks in colours instead of words."
+    ],
+    "use": [
+      "Its colour follows the redstone signal strength: each of the 15 strengths shows another dye colour, no signal is dark."
+    ],
+    "secret": [
+      "Place it on any side of a block; it is only 1 pixel thick and shines only while powered."
+    ]
+  },
+  "family:copper_pane": {
+    "items": [
+      "regex:.*copper_light_pane"
+    ],
+    "lore": [
+      "A pane with a copper bulb's habit: it remembers."
+    ],
+    "use": [
+      "Every redstone pulse turns it on or off, and it keeps the state without a signal. Comes plain, transparent or in the 16 dye colours."
+    ],
+    "secret": [
+      "It works like the Vanilla Copper Bulb, just flat."
+    ]
+  },
+  "family:light_pane": {
+    "items": [
+      "regex:.*light_pane"
+    ],
+    "lore": [
+      "{name} is a lamp that forgot how to be thick."
+    ],
+    "use": [
+      "A flat 1 pixel lamp for any side of a block: plain, transparent or in the 16 dye colours; it shines only while it gets a redstone signal."
+    ],
+    "secret": [
+      "Dye the plain pane to change its colour; a transparent pane lets the view through."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A slim book that knows every switch of the flat lamps."
+    ],
+    "use": [
+      "The Simple Lights Guide explains the Light Panes and their colours. Craft it shapeless from a book and a light pane."
+    ],
+    "secret": [
+      "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  }
+}

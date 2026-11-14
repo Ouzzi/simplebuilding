@@ -954,6 +954,30 @@
         }
       },
       "texture": "assets/textures/simplechisels/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book of chisel chains and small corrections."
+          ],
+          "use": [
+            "The Simple Chisels Guide explains the seven chisels, the tiers and Fast Chiseling. Craft it shapeless from a book and a chisel."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch voller Meißelketten und kleiner Korrekturen."
+          ],
+          "use": [
+            "Das Simple Chisels-Handbuch erklärt die sieben Meißel, die Stufen und Schnelles Meißeln. Formlos aus einem Buch und einem Meißel herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },

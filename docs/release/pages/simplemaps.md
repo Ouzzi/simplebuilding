@@ -27,7 +27,7 @@ Simple Maps adds endless maps per dimension with zoom, waypoints shown in the lo
 
 ## Vanilla use
 
-Gives explorers endless maps per dimension with waypoints; Vanilla maps keep working.
+Gives explorers endless maps per dimension with waypoints and picture maps; Vanilla maps keep working. The map screen and locator bar get client hooks; the web export is off by default.
 
 ## Dependencies
 

@@ -4,13 +4,13 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Glowing, Emitting and Pulsating armor trims, placeable trim templates and trim upgrades.
+Glowing, Emitting, Pulsating and Inverting armor trims, placeable trim templates and trim upgrades.
 
 ## Description (Markdown)
 
 # Simple Trims
 
-Simple Trims adds three new armor trim templates, trim templates you can place in the world and trim upgrades. Ids from older SimpleBuilding versions migrate.
+Simple Trims adds four new armor trim templates (glowing, emitting, pulsating, inverting), trim templates you can place in the world and trim upgrades. Ids from older SimpleBuilding versions migrate.
 
 ## Features
 
@@ -24,7 +24,7 @@ Simple Trims adds three new armor trim templates, trim templates you can place i
 
 ## Vanilla use
 
-Adds three armor trim templates, placeable templates and trim upgrades for players who like armor looks; Vanilla trims are unchanged.
+Adds four armor trim templates (glowing, emitting, pulsating, inverting), placeable templates and trim upgrades for players who like armor looks; Vanilla trims are unchanged. Glowing armor and held torches place invisible light blocks in the world (the hand light can be switched off in the config).
 
 ## Dependencies
 

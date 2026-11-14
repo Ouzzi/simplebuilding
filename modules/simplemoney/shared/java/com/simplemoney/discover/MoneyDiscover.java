@@ -507,6 +507,7 @@ public final class MoneyDiscover {
             "simpletools:enderite_bucket",
             "simpletrims:emitting_trim_template",
             "simpletrims:glowing_trim_template",
+            "simpletrims:inverting_trim_template",
             "simpletrims:pulsating_trim_template");
     static final List<Tip> TIPS = List.of();
 

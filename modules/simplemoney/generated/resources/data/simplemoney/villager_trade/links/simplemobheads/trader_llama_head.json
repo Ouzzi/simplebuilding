@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 24
+    "count": 8
   },
   "gives": {
     "id": "simplemobheads:trader_llama_head",

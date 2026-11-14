@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 42
+    "count": 14
   },
   "gives": {
     "id": "simplebuilding:netherite_carrot",

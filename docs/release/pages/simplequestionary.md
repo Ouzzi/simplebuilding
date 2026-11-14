@@ -20,7 +20,7 @@ Simple Questionary adds a table that explains any item you put in, in an open bo
 
 ## Vanilla use
 
-Explains any item you put in a table, for newcomers; it adds no gameplay of its own.
+Explains any item you put in a table, for newcomers; it adds no gameplay of its own and does not change any Vanilla behavior.
 
 ## Dependencies
 

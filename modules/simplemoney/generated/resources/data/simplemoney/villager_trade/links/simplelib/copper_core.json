@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 9
+    "count": 3
   },
   "gives": {
     "id": "simplelib:copper_core",

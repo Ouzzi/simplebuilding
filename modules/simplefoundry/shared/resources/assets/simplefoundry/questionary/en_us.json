@@ -1,0 +1,68 @@
+{
+  "foundry_brick": {
+    "lore": [
+      "Fired in a hurry and meant to hold a fire for a long, long time."
+    ],
+    "use": [
+      "The building block of the foundry hull: a closed hull of foundry bricks holds the melting chambers and keeps the heat in."
+    ],
+    "secret": [
+      "Gaps in the hull are the foundry's only real enemy."
+    ]
+  },
+  "melting_chamber": {
+    "lore": [
+      "A small fiery room that has seen more ore than any miner."
+    ],
+    "use": [
+      "Stack melting chambers into a tank inside a closed hull; thrown-in ore melts there and you pour the melt by layer."
+    ],
+    "secret": [
+      "A tank is only as large as its hull is tight."
+    ]
+  },
+  "fire_grate": {
+    "lore": [
+      "The grate under the melt: nothing fancy, but everything depends on it."
+    ],
+    "use": [
+      "Place it in the hull and feed it fuel from the foundry desk to light the chambers."
+    ],
+    "secret": [
+      "It is the fire's door: if the grate is missing, nothing glows."
+    ]
+  },
+  "foundry_desk": {
+    "lore": [
+      "The desk where the foundry master reads the fire like a book."
+    ],
+    "use": [
+      "Light the foundry with fuel on the desk, watch melt and fuel tank, throw in ore and pour by layer. A broken desk keeps its tier on the item; its melt and fuel tank are lost."
+    ],
+    "secret": [
+      "Pour carefully: the melt in the tank is lost when you break the desk."
+    ]
+  },
+  "foundry_spout": {
+    "lore": [
+      "A spout with one job: let the molten metal out exactly where you want it."
+    ],
+    "use": [
+      "Attach it to the hull to pour the melt, layer by layer, into a casting tray or onto the ground."
+    ],
+    "secret": [
+      "It only pours; it never melts anything by itself."
+    ]
+  },
+  "casting_tray": {
+    "lore": [
+      "A flat bed where liquid metal learns to be an ingot."
+    ],
+    "use": [
+      "Place it under a spout: the melt cools in it into a shape you can pick up."
+    ],
+    "secret": [
+      "Keep it level and empty before the next pour."
+    ]
+  }
+}

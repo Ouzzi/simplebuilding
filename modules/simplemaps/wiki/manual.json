@@ -56,6 +56,7 @@
           "Recipe (shaped): top row 3 enderite nuggets (only when a Simple mod brings enderite; otherwise 3 eyes of ender), middle row End, Nether and plain wayfinder map, bottom row 3 echo shards. Crafting takes over the three maps' explored areas and waypoints.",
           "Held in the main or off hand it explores the dimension you stand in, each dimension in its own map with its own waypoints. Buttons of dimensions you have not explored yet are grayed out; only places you have been are on the map.",
           "Further dimensions at the anvil: mega map + the dimension's item (server config megaUnlockItems, dimension id to item id or \"any\"); \"any\" (default for every dimension not listed, megaUnlockDefault) takes any block while you stand in that dimension. Costs megaUnlockLevels levels (default 5, 1–39) and one item.",
+          "Step by step: stand in the new dimension, put the mega map in the left slot of an anvil and any block (or the configured item) in the right slot, take the result for 5 levels and one block. The new dimension button is then active.",
           "From six dimensions on, the title bar shows five buttons per page with a chevron left and right; free places on the last page stay disabled.",
           "The cartography table only copies a mega map (extending and combining needs a single-dimension map)."
         ]
@@ -67,8 +68,36 @@
           "Rezept (geformt): oben 3 Enderit-Nuggets (nur wenn ein Simple-Mod Enderit mitbringt; sonst 3 Enderaugen), Mitte End-, Nether- und einfache Wegfinder-Karte, unten 3 Echo-Splitter. Beim Herstellen übernimmt sie Erkundetes und Wegpunkte der drei Karten.",
           "In Haupt- oder Nebenhand erkundet sie die Dimension, in der du stehst, jede Dimension in einer eigenen Karte mit eigenen Wegpunkten. Knöpfe noch nicht erkundeter Dimensionen sind ausgegraut; auf der Karte steht nur, wo du warst.",
           "Weitere Dimensionen am Amboss: Mega-Karte + Item der Dimension (Server-Config megaUnlockItems, Dimensions-Id zu Item-Id oder \"any\"); \"any\" (Standard für jede nicht genannte Dimension, megaUnlockDefault) nimmt einen beliebigen Block, während du in dieser Dimension stehst. Kostet megaUnlockLevels Stufen (Standard 5, 1–39) und ein Item.",
+          "Schritt für Schritt: in der neuen Dimension stehen, die Mega-Karte in den linken Amboss-Platz und einen beliebigen Block (oder das eingestellte Item) in den rechten legen, das Ergebnis kostet 5 Level und einen Block. Danach ist der Knopf der neuen Dimension aktiv.",
           "Ab sechs Dimensionen zeigt die Titelzeile fünf Knöpfe je Seite mit einem Chevron links und rechts; freie Plätze der letzten Seite bleiben deaktiviert.",
           "Der Kartentisch kopiert eine Mega-Karte nur (Erweitern und Kombinieren braucht eine Karte einer Dimension)."
+        ]
+      }
+    },
+    {
+      "id": "picture_maps",
+      "sources": [
+        "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
+        "modules/simplemaps/shared/java/com/simplemaps/net/MapsNetwork.java"
+      ],
+      "en": {
+        "title": "Picture maps",
+        "summary": "Turn a PNG into a wall of locked maps: /simplemaps picture opens a dialog, the picture is split into up to 4 x 4 Vanilla maps that you hang in item frames.",
+        "details": [
+          "Command: /simplemaps picture (permission level set by pictureMapPermission, default 0 = everyone). It opens a dialog with the pictures it finds in the folder config/simplemaps/images (put PNG files there on the machine that runs the game; the picture is converted in your client).",
+          "Size: the longer edge is 1 to pictureMapMaxSide maps (default 3, server bounds 1–4); you pick the picture and the size in the dialog.",
+          "Cost: every picture map uses up one empty map from your inventory, like copying at the cartography table (pictureMapCostsMap, default on; free in creative). The result are locked Vanilla maps, so they also work without the mod and cannot be changed afterwards.",
+          "Switch: the server option pictureMap (default on) turns the feature off completely."
+        ]
+      },
+      "de": {
+        "title": "Bildkarten",
+        "summary": "Aus einem PNG wird eine Wand aus gesperrten Karten: /simplemaps picture öffnet einen Dialog, das Bild wird in bis zu 4 x 4 Vanilla-Karten geteilt, die du in Rahmen hängst.",
+        "details": [
+          "Befehl: /simplemaps picture (Rechtestufe über pictureMapPermission, Standard 0 = alle). Er öffnet einen Dialog mit den Bildern aus dem Ordner config/simplemaps/images (PNG-Dateien dort ablegen, auf dem Rechner, der das Spiel ausführt; das Bild wird in deinem Client umgerechnet).",
+          "Größe: die längere Kante ist 1 bis pictureMapMaxSide Karten lang (Standard 3, Servergrenzen 1–4); Bild und Größe wählst du im Dialog.",
+          "Kosten: jede Bildkarte verbraucht eine leere Karte aus deinem Inventar, wie das Kopieren am Kartentisch (pictureMapCostsMap, Standard an; im Kreativmodus frei). Das Ergebnis sind gesperrte Vanilla-Karten; sie funktionieren auch ohne die Mod und lassen sich nicht mehr ändern.",
+          "Schalter: die Server-Option pictureMap (Standard an) schaltet die Funktion komplett ab."
         ]
       }
     },

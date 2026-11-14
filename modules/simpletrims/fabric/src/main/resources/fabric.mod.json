@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades. Works on its own with the axe; SimpleBuilding adds the sledgehammer.",
+  "description": "Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and trim upgrades. Works on its own with the axe; Simple Hammers adds the sledgehammer.",
   "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {

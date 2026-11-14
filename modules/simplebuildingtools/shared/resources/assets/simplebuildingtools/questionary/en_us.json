@@ -1,0 +1,63 @@
+{
+  "family:wands": {
+    "items": [
+      "regex:.*_building_wand"
+    ],
+    "lore": [
+      "{name} builds in planes, because who has time to place single blocks."
+    ],
+    "use": [
+      "Click a block face and it fills a square plane in front of that face with blocks from your inventory, ring by ring from the centre outwards, each block oriented the way you would place it. The tier sets how big a plane it can build."
+    ],
+    "secret": [
+      "Blocks come out of your inventory, so bring enough; the Creative Wand does not."
+    ]
+  },
+  "blueprint": {
+    "lore": [
+      "A whole building folded into a few lines of text."
+    ],
+    "use": [
+      "A Blueprint stores a structure as a short readable build code. Write the code in the map-style editor with a live 3D preview or scan an existing building with an Octant at a cartography table, then build it anywhere with a building wand."
+    ],
+    "secret": [
+      "The code is plain text, so blueprints can be shared in chat."
+    ]
+  },
+  "creative_blueprint": {
+    "lore": [
+      "A blueprint that never asks about the bill."
+    ],
+    "use": [
+      "The creative version of the Blueprint: build from the stored code without taking blocks from your inventory."
+    ],
+    "secret": [
+      "It is a creative-mode tool."
+    ]
+  },
+  "family:octant": {
+    "items": [
+      "regex:octant.*"
+    ],
+    "lore": [
+      "{name} is a tape measure for people who dream in volumes."
+    ],
+    "use": [
+      "Two clicks mark two corner points; the HUD works out distance, area or volume and coloured outlines show your selection in the world. The 16 dye colours only change the look."
+    ],
+    "secret": [
+      "Anyone with the Constructor's Touch enchantment can read the same measurements."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A small book for people who plan before they build."
+    ],
+    "use": [
+      "The Simple Building Tools Guide explains the wands, the Octant and the Blueprint. Craft it shapeless from a book and a building wand."
+    ],
+    "secret": [
+      "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  }
+}

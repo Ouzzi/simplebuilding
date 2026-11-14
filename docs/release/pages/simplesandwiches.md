@@ -29,7 +29,7 @@ Adds sandwiches, butter and cheese as food built on a cutting board; Vanilla foo
 ## Dependencies
 
 - **Required:** Fabric API, SimpleLib
-- **Optional:** SimpleBuilding, Simple End
+- **Optional:** SimpleBuilding, Simple End, Simple Crucibles, Simple Ores, Simple Animals
 
 ## Compatibility
 

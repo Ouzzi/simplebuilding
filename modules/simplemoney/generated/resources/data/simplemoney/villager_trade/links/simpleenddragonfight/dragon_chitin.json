@@ -1,7 +1,7 @@
 {
   "wants": {
     "id": "simplemoney:money_bill",
-    "count": 45
+    "count": 15
   },
   "gives": {
     "id": "simpleenddragonfight:dragon_chitin",
