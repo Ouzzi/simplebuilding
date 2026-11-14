@@ -57,7 +57,20 @@ public final class DragonRewards {
         data.defeat(dragon);
         List<UUID> ids = participants.stream().map(Player::getUUID).toList();
         Item heart = item(), jewel = jewel();
-        List<UUID> dueHeart = heart == null ? List.of() : due(data, ids), dueJewel = jewel == null ? List.of() : dueJewel(data, ids);
+        // Without the item (Simple Mobs missing) the same fights pay XP instead (SE-DF-3, owner PLAN40 "recommendation A").
+        List<UUID> dueHeartAll = due(data, ids), dueJewelAll = dueJewel(data, ids);
+        List<UUID> dueHeart = heart == null ? List.of() : dueHeartAll, dueJewel = jewel == null ? List.of() : dueJewelAll;
+        int xp = DragonFightConfig.rewardXpFallback;
+        for (Player player : participants) {
+            UUID id = player.getUUID();
+            int amount = (heart == null && dueHeartAll.contains(id) ? xp : 0) + (jewel == null && dueJewelAll.contains(id) ? 2 * xp : 0);
+            if (heart == null && dueHeartAll.contains(id)) data.markReward(id);
+            if (jewel == null && dueJewelAll.contains(id)) data.markJewel(id);
+            if (amount > 0) {
+                player.giveExperiencePoints(amount);
+                player.sendSystemMessage(Component.translatable("message.simpleenddragonfight.reward_xp", amount));
+            }
+        }
         int total = dueHeart.size() + dueJewel.size(), n = 0;
         for (Player player : participants) {
             UUID id = player.getUUID();

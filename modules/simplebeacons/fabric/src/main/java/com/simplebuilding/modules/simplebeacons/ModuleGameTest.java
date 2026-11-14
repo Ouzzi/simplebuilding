@@ -7,6 +7,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link BeaconsTests}, all on the 15 x 12 x 15 arena. */
 public final class ModuleGameTest {
     @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        BeaconsTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
     public void configDefaults(GameTestHelper h) {
         BeaconsTests.ALL.get("config_defaults").accept(h);
     }

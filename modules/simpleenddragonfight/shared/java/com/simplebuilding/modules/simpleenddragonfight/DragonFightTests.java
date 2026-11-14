@@ -27,9 +27,31 @@ public final class DragonFightTests {
 
     private DragonFightTests() {}
 
-    static { add("guide_book", com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide::gameTest); }
+    static { addPlain("guide_book", com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide::gameTest); }
 
-    private static void add(String name, Consumer<GameTestHelper> body) { ALL.put(name, body); }
+    /**
+     * Most tests pin the numbers of the concept (300 health per player, speed x1.2, +15 % per summoning); the shipped defaults
+     * are Vanilla-like since SE-DF-1 (200, x1.0, off), so they run with these values and restore the config afterwards.
+     * {@code solo_defaults_are_vanilla} runs without the pin.
+     */
+    private static void add(String name, Consumer<GameTestHelper> body) {
+        ALL.put(name, h -> {
+            boolean raise = DragonFightConfig.raiseBaseHealth;
+            double speed = DragonFightConfig.speedMultiplier, summon = DragonFightConfig.summonScaling;
+            DragonFightConfig.raiseBaseHealth = true;
+            DragonFightConfig.speedMultiplier = 1.20;
+            DragonFightConfig.summonScaling = 0.15;
+            try {
+                body.accept(h);
+            } finally {
+                DragonFightConfig.raiseBaseHealth = raise;
+                DragonFightConfig.speedMultiplier = speed;
+                DragonFightConfig.summonScaling = summon;
+            }
+        });
+    }
+
+    private static void addPlain(String name, Consumer<GameTestHelper> body) { ALL.put(name, body); }
 
     private static boolean near(double a, double b) { return Math.abs(a - b) < 0.01; }
 
@@ -75,6 +97,27 @@ public final class DragonFightTests {
             h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) == 14.0 && attrs.getBaseValue(Attributes.ATTACK_DAMAGE) == 3.0
                     && near(attrs.getBaseValue(Attributes.MOVEMENT_SPEED), 0.32) && attrs.getBaseValue(Attributes.ARMOR) == 2.0
                     && near(attrs.getBaseValue(Attributes.KNOCKBACK_RESISTANCE), 0.3), "dragonmite values 14 HP / 3 damage / 0.32 / armor 2 / kb 0.3");
+            h.succeed();
+        });
+        // SE-DF-1: shipped defaults = a lone player fights a Vanilla dragon (200 health, normal speed, no lasting escalation).
+        addPlain("solo_defaults_are_vanilla", h -> {
+            com.google.gson.JsonObject empty = new com.google.gson.JsonObject();
+            boolean raise = DragonFightConfig.raiseBaseHealth;
+            double speed = DragonFightConfig.speedMultiplier, summon = DragonFightConfig.summonScaling;
+            int xp = DragonFightConfig.rewardXpFallback;
+            try {
+                DragonFightConfig.apply(empty);
+                h.assertTrue(!DragonFightConfig.raiseBaseHealth && DragonFightConfig.speedMultiplier == 1.0 && DragonFightConfig.summonScaling == 0.0, "defaults are Vanilla-like");
+                h.assertTrue(DragonScaling.targetHealth(DragonFightConfig.raiseBaseHealth, 200, 1) == 200 && DragonScaling.targetHealth(DragonFightConfig.raiseBaseHealth, 200, 2) == 400, "solo 200, scaling from the 2nd player");
+                h.assertTrue(DragonScaling.speed(DragonFightConfig.speedMultiplier, DragonFightConfig.speedPerPlayer, DragonFightConfig.speedCap, 1) == 1.0, "solo: normal speed");
+                h.assertTrue(DragonScaling.summonFactor(DragonFightConfig.summonScaling, DragonFightConfig.summonMaxMultiplier, 30) == 1.0, "summonings never make it harder");
+                h.assertTrue(DragonFightConfig.rewardXpFallback == 1500, "XP fallback default");
+            } finally {
+                DragonFightConfig.raiseBaseHealth = raise;
+                DragonFightConfig.speedMultiplier = speed;
+                DragonFightConfig.summonScaling = summon;
+                DragonFightConfig.rewardXpFallback = xp;
+            }
             h.succeed();
         });
         add("scaling_math", h -> {
@@ -387,12 +430,26 @@ public final class DragonFightTests {
                 h.assertTrue(items.size() == 2, "two items around the portal");
                 h.assertTrue(DragonRewards.onDefeated(level, UUID.randomUUID(), center, two) == 0, "second kill gives nothing more to the same players");
                 DragonFightConfig.rewardItem = "nomod:none";
-                h.assertTrue(DragonRewards.item() == null && DragonRewards.onDefeated(level, UUID.randomUUID(), center, List.of(player(h, GameType.SURVIVAL, new BlockPos(3, 1, 3)))) == 0, "unknown item: nothing given");
+                Player fresh = player(h, GameType.SURVIVAL, new BlockPos(3, 1, 3));
+                int xpBefore = fresh.totalExperience;
+                h.assertTrue(DragonRewards.item() == null && DragonRewards.onDefeated(level, UUID.randomUUID(), center, List.of(fresh)) == 0, "unknown item: no item given");
+                h.assertTrue(fresh.totalExperience == xpBefore + DragonFightConfig.rewardXpFallback, "SE-DF-3: XP instead of the missing item (" + (fresh.totalExperience - xpBefore) + ")");
+                int xpAfter = fresh.totalExperience;
+                DragonRewards.onDefeated(level, UUID.randomUUID(), center, List.of(fresh));
+                h.assertTrue(fresh.totalExperience == xpAfter, "the XP is paid once per player");
                 items.forEach(net.minecraft.world.entity.Entity::discard);
             } finally {
                 DragonFightConfig.rewardItem = old;
                 DragonFightConfig.rewardJewelFromDragon = oldJewel;
             }
+            h.succeed();
+        });
+        add("chitin_repairs_elytra", h -> {
+            var elytra = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.ELYTRA);
+            h.assertTrue(elytra.isValidRepairItem(new net.minecraft.world.item.ItemStack(DragonFightRegistry.DRAGON_CHITIN)), "Dragon Chitin repairs Elytra");
+            h.assertTrue(elytra.isValidRepairItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.PHANTOM_MEMBRANE)), "Phantom Membrane still does");
+            h.assertTrue(!elytra.isValidRepairItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.STICK)), "nothing else does");
+            h.assertTrue(!new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.IRON_CHESTPLATE).isValidRepairItem(new net.minecraft.world.item.ItemStack(DragonFightRegistry.DRAGON_CHITIN)), "only the Elytra");
             h.succeed();
         });
         add("no_simplebuilding_needed", h -> {

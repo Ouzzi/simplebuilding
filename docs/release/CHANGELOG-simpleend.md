@@ -15,11 +15,16 @@ End wood (Ashwood, Duskwood), End grass and the Ash Valley and Dawnlands biomes;
 - **End grass and End bushes** - Wiry End grass and twiggy End bushes, like Vanilla dry grass and dead bushes, standing on End stone and wherever those stand (sand, terracotta, dirt, grass, moss, mud, farmland).
 - **Ash Valley and Dawnlands** - Two large End biomes on the outer islands (never on the dragon island): rare patches 28-44 chunks (450-700 blocks) across with a wavy rim, spanning several islands, replace the End highlands/midlands/barrens.
 - **Nibblemite** - A small, passive Endermite kin that lives in Ash Valley and Dawnlands in groups of 3-5, colored after its biome (pale gray with lavender, taupe with rose).
+- **End paintings** - 46 animated End pictures; the End Painting is placed like a Vanilla Painting, each picture plays one of three short animations about once a minute.
 - **Simple End and its sub-mod** - SimpleBuilding bundles Simple End ("Enable Simple End"); Simple End bundles Simple End Dragon Fight ("Enable Simple End Dragon Fight" in config/simpleend.json).
+
+## Changed
+
+- End leaves break by hand in about 2 seconds (the hoe is faster); the cobweb-like brake is unchanged.
 
 ## Requirements
 
-- Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
+- Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API, SimpleLib
 - Optional integrations: simpleenddragonfight
 
 ## Notes

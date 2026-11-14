@@ -91,6 +91,7 @@ public class BackroomsDoorBlock extends PortalDoorBlock {
         PortalRule rule = Bands.get(f.upper()).doorRule().portalRule();
         long link = DoorNet.link(f.upper(), cx, cz);
         int to = f.target();
+        if (Bands.sealed(to)) return null; // SL-2: a placeholder level stays behind a dormant door
         int color = Bands.get(to).view().fogColor();
         DoorEnd other = f.down() ? DoorNet.up(seed, to, cx, cz) : DoorNet.down(seed, to, cx, cz);
         if (other != null) return target(SimpleLayers.STACK, to, other, link, rule, color);

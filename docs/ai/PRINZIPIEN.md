@@ -294,9 +294,11 @@ Super-Mod ohne eigenen Inhalt: Visuals, Sounds, Models mit je einem Schalter.
 - keine eigenen Regeln bisher
 
 ### Simple End Dragon Fight (`simpleenddragonfight`)
-Enderdrachenkampf: Lebensbalken je Spieler, schnellerer Drache, Dragonmites.
+Enderdrachenkampf: Lebensbalken je Spieler, Dragonmites; Pflicht: SimpleLib, optional Simple Mobs.
 
-- keine eigenen Regeln bisher
+- **A12:** Nutzen: der Kampf wächst mit der Spielerzahl (eine Leiste je Spieler), Eintritts-Animation, Dragonmites ab halber Gesundheit. Standard für Einzelspieler = Vanilla (200 Leben, normales Tempo, keine dauerhafte Steigerung je Beschwörung; Besitzer PLAN40 „Empfehlung A“). Eingriff in Vanilla: Mixins an `EnderDragon` (Leben/Tempo/Schaden, nur der Vanilla-Kampf), Elytra-Reparatur mit Drachen-Chitin (Komponente, additiv).
+- Belohnung ab dem 4./10. Drachen: Enderherz/Ender-Juwel aus Simple Mobs (nur per Item-Id gesucht); ohne Simple Mobs stattdessen Erfahrung (`rewardXpFallback`).
+- Drachen-Chitin repariert Elytren am Amboss wie Phantomhaut (SE-DF-2).
 
 ### Simple End (`simpleend`)
 Endholz (Aschholz, Dämmerholz), Knospen, Bäume, Endgras, Biome auf den äußeren Inseln; bündelt Simple End Dragon Fight.
@@ -313,6 +315,8 @@ Niedergeschlagen statt tot: Teamkameraden können wiederbeleben.
 Starker Leuchtturm, starke Conduit, Upgrade-Vorlage.
 
 - In-World-Upgrades: Axt allein, Vorschlaghammer mit einem Hammer-Mod.
+- **A12:** Nutzen: Langzeitziel nach dem Vanilla-Leuchtfeuer. Einziger Eingriff in Vanilla: Reichweite des Vanilla-Leuchtfeuers nach Pyramidenmaterial (`vanillaBeaconMaterialRange`, Standard an, Eisen = Vanilla). Böse Varianten sind absichtliche Schwächung (Schonfrist nach Tod, fremde Claims verschont). Der Sättigungs-Puls (nie hungrig in Reichweite) bleibt als Stützpunkt-Belohnung und ist je Server abschaltbar (`strongBeaconEffects.saturation`); Besitzer PLAN40 „Empfehlung okay“.
+- Simple Mobs optional, aber empfohlen (8 Rezepte hängen an Nether-Herz/-Juwel); ohne sie nur kreativ/Beute.
 
 ### Simple Ovens (`simpleovens`)
 Verstärkte, Netherit- und Enderit-Öfen, Räucher- und Hochöfen, Ofen-Loren; Pflicht-Sub-Mod von SimpleBuilding.
@@ -335,7 +339,9 @@ Spieler-Shops: Verkaufsblock mit Preis, Vitrine mit Waren.
 ### Simple Wanderers (`simplewanderers`)
 Dorf-Wanderer: ein fahrender Händler je Dorf mit Pferd, Warenwechsel alle 3 Tage.
 
-- keine eigenen Regeln bisher
+- **A12:** Nutzen: jedes Dorf bekommt einen Händler mit Pferd; der Alltagskram (47 von 78 Waren) liegt dort, der fahrende Händler behält die exotische Hälfte. Eingriff in Vanilla: ein kleiner Mixin (`WanderingTraderSplitMixin`) wählt die Händler-Hälfte nur bei eingeschalteter Mod; Vanilla-Listen bleiben unverändert, Waren fremder Mods im Vanilla-Tag bleiben beim fahrenden Händler (SW2B-2). Mod aus = Vanilla-Händler wie zuvor.
+- Kein Wanderer ohne Dorf-Glocke einer Dorfstruktur; das Pferd ist einfangbar (Besitzer W4), nie ein Spawn-Ei-Spam: höchstens ein Pferd je Dorf und Respawn-Zeit.
+- Pflicht: SimpleLib (Fabric-API ohnehin); Simple Money / Simple Building / Simple Mobheads nur als optionale Waren.
 
 ### Simple Animals (`simpleanimals`)
 Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein, Igel, Krebs, Zebra (mit unfruchtbarem Zorse); allein mit Vanilla spielbar.
@@ -460,6 +466,7 @@ Sieben Vorschlaghämmer (3x3 abbauen, umformen, Octets schnitzen, Blöcke aufwer
 Wolkenmeer über y 700 und Backrooms als eigene Dimension mit zehn Ebenen (Eingänge: Keller eines verlassenen Hauses, Riss im gestörten Grundgestein).
 
 - **A12:** Nutzen: zwei zusätzliche Erkundungsorte. Betreten über Höhe bzw. seltene Eingänge; Overworld sonst Vanilla (Mixins nur Kolben und Blockzustand für die neuen Blöcke). Eingriff in Vanilla: mittel (Höhenübergang), Wolken und Backrooms je abschaltbar (`cloudsEnabled`, `backroomsEnabled`).
+- Platzhalter-Ebenen (`StubBand`, heute u. a. Archiv, Elektro, Lichtlos, Vorstadt, Weizenfeld) sind versiegelt: Türen und Reisen dorthin bleiben ruhend (`backrooms.lockUnfinishedLevels`, Standard an); eine gebaute Ebene öffnet sich von selbst (PLAN40 simplelayers-2). Simple Layers gehört nicht ins erste Release-Paket (pausiert).
 
 ### Simple Lights (`simplelights`)
 1-px-Lampen für jede Blockseite, 16 Farben, Redstone-Scheibe, Kupferscheiben.

@@ -11,7 +11,7 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplebuilding/modules/simpleenddragonfight'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'DragonFightConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 33, config_keys
+assert len(config_keys) == 34, config_keys
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
@@ -28,7 +28,7 @@ for item in ITEMS:
     assert (RES / f'assets/{NS}/items/{item}.json').is_file()
     assert (RES / f'assets/{NS}/models/item/{item}.json').is_file()
     assert (RES / f'assets/{NS}/textures/item/{item}.png').is_file()
-assert 'recipes' in manual['notes'][f'{NS}:dragon_chitin']['en']['summary'], 'wiki hint: later for recipes'
+assert 'Elytra' in manual['notes'][f'{NS}:dragon_chitin']['en']['summary'], 'wiki hint: Elytra repair'
 for tex in ('dragonmite', 'dragonmite_eyes'):
     assert (RES / f'assets/{NS}/textures/entity/dragonmite/{tex}.png').is_file()
 loot = json.loads((RES / f'data/{NS}/loot_table/entities/dragonmite.json').read_text(encoding='utf-8'))

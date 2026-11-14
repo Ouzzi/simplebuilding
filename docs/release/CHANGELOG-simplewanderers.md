@@ -14,9 +14,13 @@ One Village Wanderer per village: a Wandering Trader in an ochre travel cloak wi
 - **Goods: wanderer and traveling trader** - The goods of the Wandering Trader are split.
 - **Biome assortment** - The wanderer's village type (the Vanilla villager type of the bell's biome) adds two offers from its own pool: desert (cactus, sand), savanna (acacia, dry grass), plains (flowers, seeds), taiga (spruce, podzol), snow (spruce, fern, packed ice), jungle (jungle wood, vines) and swamp (lily pad, orchids, mushrooms).
 
+## Changed
+
+- The traveling trader keeps goods that other mods or data packs add to the Vanilla trade lists (his list is now "Vanilla list minus the wanderer's goods").
+
 ## Requirements
 
-- Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
+- Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API, SimpleLib
 - Optional integrations: simplebuilding, simplemoney, simplemobheads
 
 ## Notes

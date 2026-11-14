@@ -236,6 +236,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplelayers:empty")
+    public void unfinishedLevelsSealed(GameTestHelper h) {
+        LayersTests.ALL.get("unfinished_levels_sealed").accept(h);
+    }
+
+    @GameTest(structure = "simplelayers:empty")
     public void portalRulesPerLevel(GameTestHelper h) {
         LayersTests.ALL.get("portal_rules_per_level").accept(h);
     }

@@ -94,6 +94,29 @@ public final class FoundryTests {
     }
 
     static {
+        // SF-3 (PLAN40): the config screen names every option (no raw paths).
+        ALL.put("config_labels", h -> {
+            java.util.List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleFoundry.MOD_ID);
+            h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
+            h.succeed();
+        });
+        // SF-2 (PLAN40): the built-in melts are in the recipe viewer, and what it shows is what the desk really melts.
+        ALL.put("jei_melts", h -> {
+            var entries = com.simplelib.api.RecipeViewer.special(SimpleFoundry.MOD_ID);
+            h.assertTrue(entries.size() == 9, "3 metals x ore/nugget/block entries: " + entries.size());
+            for (var e : entries) {
+                var input = e.inputs().get(0);
+                h.assertTrue(!input.items().isEmpty() && e.tools().contains(FoundryRegistry.ITEMS.get("foundry_desk")) && e.notes().size() == 3, "entry " + e.id());
+                int units = 0;
+                for (var item : input.items()) {
+                    var melt = Melts.of(new net.minecraft.world.item.ItemStack(item));
+                    h.assertTrue(melt != null && melt.metal().ingot() == e.output().getItem(), e.id() + ": " + item + " melts into " + e.output());
+                    units = melt.units() * input.count();
+                }
+                h.assertTrue(units == e.output().getCount() * Metal.INGOT, e.id() + ": " + units + " units cast " + e.output().getCount() + " ingots");
+            }
+            h.succeed();
+        });
         ALL.put("registered", h -> {
             FoundryRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleFoundry.id(p)), "block " + p));
             FoundryRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleFoundry.id(p)), "item " + p));

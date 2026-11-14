@@ -378,6 +378,18 @@ public final class WandererTests {
                     && !buyDw.contains("minecraft:wandering_trader/water_bottle_emerald") && !buyWt.contains("minecraft:wandering_trader/water_bucket_emerald"), "buying split");
             h.succeed();
         });
+        // SW2B-2: "Vanilla list minus the wanderer's goods" - what a mod adds to the Vanilla tag is neither half's and stays with the trader.
+        ALL.put("trader_keeps_foreign_goods", h -> {
+            ServerLevel level = h.getLevel();
+            for (String pool : List.of("common", "buying")) {
+                Set<String> foreign = WandererTrades.foreignIds(poolKeys(level, "minecraft:wandering_trader/" + pool),
+                        poolKeys(level, "simplewanderers:wanderer/" + pool), poolKeys(level, "simplewanderers:wandering_trader/" + pool));
+                h.assertTrue(foreign.isEmpty(), "Vanilla data only: nothing foreign in " + pool + ": " + foreign);
+            }
+            Set<String> foreign = WandererTrades.foreignIds(List.of("a:x", "minecraft:wandering_trader/hay", "b:y"), List.of("minecraft:wandering_trader/hay"), List.of("b:y"));
+            h.assertTrue(foreign.equals(Set.of("a:x")), "a foreign tag entry is kept: " + foreign);
+            h.succeed();
+        });
         // AUDSB31E1 (BEW39 red): the trader only loses the everyday goods while the module is on; off (own config or the
         // super-mod switch) he reads the whole Vanilla sets again. Without the fix the data override kept him reduced for good.
         ALL.put("trader_split_follows_the_switch", h -> {

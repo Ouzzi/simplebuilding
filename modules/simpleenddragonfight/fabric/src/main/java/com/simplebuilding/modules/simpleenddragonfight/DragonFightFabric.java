@@ -24,6 +24,9 @@ public final class DragonFightFabric implements ModInitializer {
         });
         if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         DragonFightRegistry.registerAll();
+        // SE-DF-2: Dragon Chitin repairs Elytra at the anvil, like Phantom Membrane.
+        net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents.MODIFY.register(ctx ->
+                ctx.modify(Items.ELYTRA, b -> b.set(net.minecraft.core.component.DataComponents.REPAIRABLE, DragonFightRegistry.elytraRepairable())));
         com.simplelib.api.ModTabs.register("simpleenddragonfight", "dragonfight", "itemgroup.simpleenddragonfight.dragonfight", () -> new ItemStack(DragonFightRegistry.DRAGON_CHITIN));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> DragonFightServer.forgetAll());
         FabricDefaultAttributeRegistry.register(DragonFightRegistry.DRAGONMITE, Dragonmite.createAttributes());

@@ -46,5 +46,18 @@
   "simplefoundry.guide.page.3.title": "Foundry (multiblock)",
   "simplefoundry.guide.page.3": "A broken desk keeps its tier on the item; its melt and fuel tank are lost.",
   "simplefoundry.guide.page.4.title": "Settings",
-  "simplefoundry.guide.page.4": "More settings are in the mod's config screen."
+  "simplefoundry.guide.page.4": "More settings are in the mod's config screen.",
+  "text.autoconfig.simplefoundry.title": "Simple Foundry",
+  "text.autoconfig.simplefoundry.option.enabled": "Foundry enabled",
+  "text.autoconfig.simplefoundry.option.enabled.@Tooltip": "Off: the foundry blocks leave the creative tab; built foundries keep working. Default: on.",
+  "text.autoconfig.simplefoundry.option.maxChambers": "Most melting chambers",
+  "text.autoconfig.simplefoundry.option.maxChambers.@Tooltip": "Most melting chambers one foundry may have (the hard limit is 512, 32 per axis). Range 1 to 512. Default: 256.",
+  "text.autoconfig.simplefoundry.option.meltTicksPerUnit": "Melting time per unit (ticks)",
+  "text.autoconfig.simplefoundry.option.meltTicksPerUnit.@Tooltip": "Ticks to melt one unit; an ingot is nine units (20 ticks = 1 second). Default: 4.",
+  "text.autoconfig.simplefoundry.option.castTicks": "Casting time (ticks)",
+  "text.autoconfig.simplefoundry.option.castTicks.@Tooltip": "Ticks between two pours and the time an ingot needs to set in the tray (20 ticks = 1 second). Default: 100.",
+  "jei.simplefoundry.note.melt": "Throw it into the foundry desk: it melts into the tank (an ingot is 9 units, a nugget 1, a block 81).",
+  "jei.simplefoundry.note.heat.medium": "Needs medium heat in the fire grate: coal, charcoal or logs.",
+  "jei.simplefoundry.note.heat.high": "Needs high heat in the fire grate: lava bucket, blaze rod or coal block.",
+  "jei.simplefoundry.note.cast": "A spout pours the melt by layer into a casting tray: one ingot per 9 units."
 }

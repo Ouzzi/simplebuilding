@@ -21,6 +21,8 @@ Simple End adds Ashwood and Duskwood with buds, trees and stick scrub, End grass
 - **End grass and End bushes**
 - **Ash Valley and Dawnlands**
 - **Nibblemite** - A small, passive Endermite kin that lives in Ash Valley and Dawnlands in groups of 3-5, colored after its biome (pale gray with lavender, taupe with rose).
+- **End paintings** - 46 animated End pictures: the End Painting is placed like a Vanilla Painting and shows one of them (same sizes and counts as Vanilla).
+- **Use and impact on Vanilla** - What Simple End changes in Vanilla and why: new biomes on the outer End islands, End foliage rules, floating End wood.
 - **Simple End and its sub-mod** - SimpleBuilding bundles Simple End ("Enable Simple End"); Simple End bundles Simple End Dragon Fight ("Enable Simple End Dragon Fight" in config/simpleend.json).
 - **Commands** - /simpleend config shows and changes every option of config/simpleend.json (list [group], get, set, reset, help; Tab completes options and values).
 

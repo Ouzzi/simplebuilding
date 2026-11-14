@@ -46,5 +46,18 @@
   "simplefoundry.guide.page.3.title": "Gießerei (Mehrblock)",
   "simplefoundry.guide.page.3": "Schmelze und Brennstofftank gehen verloren.",
   "simplefoundry.guide.page.4.title": "Einstellungen",
-  "simplefoundry.guide.page.4": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simplefoundry.guide.page.4": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "text.autoconfig.simplefoundry.title": "Simple Foundry",
+  "text.autoconfig.simplefoundry.option.enabled": "Gießerei aktiv",
+  "text.autoconfig.simplefoundry.option.enabled.@Tooltip": "Aus: die Gießerei-Blöcke verschwinden aus dem Kreativ-Tab; gebaute Gießereien arbeiten weiter. Standard: an.",
+  "text.autoconfig.simplefoundry.option.maxChambers": "Höchstzahl Schmelzkammern",
+  "text.autoconfig.simplefoundry.option.maxChambers.@Tooltip": "Höchstzahl Schmelzkammern einer Gießerei (die harte Grenze ist 512, 32 je Achse). Bereich 1 bis 512. Standard: 256.",
+  "text.autoconfig.simplefoundry.option.meltTicksPerUnit": "Schmelzzeit je Einheit (Ticks)",
+  "text.autoconfig.simplefoundry.option.meltTicksPerUnit.@Tooltip": "Ticks, um eine Einheit zu schmelzen; ein Barren sind neun Einheiten (20 Ticks = 1 Sekunde). Standard: 4.",
+  "text.autoconfig.simplefoundry.option.castTicks": "Gießzeit (Ticks)",
+  "text.autoconfig.simplefoundry.option.castTicks.@Tooltip": "Ticks zwischen zwei Güssen und die Zeit, die ein Barren im Tablett zum Erstarren braucht (20 Ticks = 1 Sekunde). Standard: 100.",
+  "jei.simplefoundry.note.melt": "In das Hüttenpult werfen: es schmilzt in den Tank (ein Barren sind 9 Einheiten, ein Nugget 1, ein Block 81).",
+  "jei.simplefoundry.note.heat.medium": "Braucht mittlere Hitze im Feuerrost: Kohle, Holzkohle oder Holz.",
+  "jei.simplefoundry.note.heat.high": "Braucht hohe Hitze im Feuerrost: Lavaeimer, Lohenrute oder Kohleblock.",
+  "jei.simplefoundry.note.cast": "Eine Tülle gießt die Schmelze schichtweise in ein Gießtablett: ein Barren je 9 Einheiten."
 }

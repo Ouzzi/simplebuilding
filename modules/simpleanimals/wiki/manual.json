@@ -126,6 +126,32 @@
       }
     },
     {
+      "id": "truffles",
+      "sources": [
+        "modules/simpleanimals/shared/java/com/simpleanimals/entity/Boar.java",
+        "modules/simpleanimals/shared/resources/data/simpleanimals/loot_table/gameplay/boar_truffle.json",
+        "modules/simpleanimals/shared/resources/data/simpleanimals/recipe/truffle_soup.json"
+      ],
+      "en": {
+        "title": "Truffles and truffle soup",
+        "summary": "An adult wild boar standing on dirt or grass very rarely digs up truffles; with a bowl and a brown mushroom they make truffle soup.",
+        "details": [
+          "Find: one attempt every 10 seconds per adult boar (not piglets) standing on dirt-like blocks or grass; chance boarTruffleChance (0.005), so about one find per half hour; 1 to 2 truffles drop as items. The ground is never changed.",
+          "Truffle soup (shapeless): bowl, truffle, brown mushroom. It feeds like mushroom stew and gives 20 seconds of Night Vision; you get the bowl back when you eat it.",
+          "Switch off with boarTruffles (true); both items stay in the game (creative, trading) either way."
+        ]
+      },
+      "de": {
+        "title": "Trüffel und Trüffelsuppe",
+        "summary": "Ein ausgewachsenes Wildschwein auf Erde oder Gras gräbt sehr selten Trüffel aus; mit Schüssel und braunem Pilz ergeben sie Trüffelsuppe.",
+        "details": [
+          "Fund: ein Versuch alle 10 Sekunden je erwachsenem Wildschwein (keine Frischlinge) auf erdartigen Blöcken oder Gras; Chance boarTruffleChance (0,005), also etwa ein Fund pro halbe Stunde; 1 bis 2 Trüffel fallen als Items. Der Boden wird nie verändert.",
+          "Trüffelsuppe (formlos): Schüssel, Trüffel, brauner Pilz. Sie sättigt wie Pilzsuppe und gibt 20 Sekunden Nachtsicht; die Schüssel bekommst du beim Essen zurück.",
+          "Abschalten mit boarTruffles (true); beide Items bleiben im Spiel (Kreativ, Handel)."
+        ]
+      }
+    },
+    {
       "id": "zorse",
       "sources": [
         "modules/simpleanimals/shared/java/com/simpleanimals/entity/Zorse.java",

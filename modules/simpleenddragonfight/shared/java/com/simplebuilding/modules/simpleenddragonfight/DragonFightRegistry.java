@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SpawnEggItem;
 
@@ -34,6 +35,15 @@ public final class DragonFightRegistry {
 
     private static ResourceKey<Item> itemKey(String path) {
         return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, path));
+    }
+
+    /**
+     * SE-DF-2 (owner PLAN40 "recommendation A"): Dragon Chitin repairs Elytra at the anvil like Phantom Membrane. The Elytra keeps the
+     * Vanilla repair item; the chitin comes on top (Fabric: DefaultItemComponentEvents, see DragonFightFabric).
+     */
+    public static net.minecraft.world.item.enchantment.Repairable elytraRepairable() {
+        return new net.minecraft.world.item.enchantment.Repairable(net.minecraft.core.HolderSet.direct(
+                Items.PHANTOM_MEMBRANE.builtInRegistryHolder(), DRAGON_CHITIN.builtInRegistryHolder()));
     }
 
     /** Super-mod switch "Enable Simple End Dragon Fight" (framework SubMods) and the module's own config switch. */

@@ -26,7 +26,7 @@ Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material), St
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
 - Required mods: SimpleLib
-- Optional integrations: simplebuilding, simpleores
+- Optional integrations: simplebuilding, simpleores, simplemobs (recommended: 8 recipes and the Evil Upgrade need its items)
 
 ## Notes
 

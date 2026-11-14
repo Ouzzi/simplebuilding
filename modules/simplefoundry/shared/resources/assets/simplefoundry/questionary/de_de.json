@@ -1,68 +1,68 @@
 {
   "foundry_brick": {
     "lore": [
-      "In Eile gebrannt und gemacht, um sehr lange ein Feuer zu halten."
+      "Hart gebrannte Hülle der Gießerei."
     ],
     "use": [
-      "Der Baustein der Hütten-Hülle: eine geschlossene Hülle aus Hüttenziegeln umschließt die Schmelzkammern und hält die Hitze."
+      "Jede Seite des Tanks muss durch Ziegel, Pult, Feuerrost, Tülle oder Glas geschlossen sein."
     ],
     "secret": [
-      "Lücken in der Hülle sind der einzige echte Feind der Hütte."
+      "Der günstige Teil; die Hülle entscheidet, ob die Gießerei bereit ist."
     ]
   },
   "melting_chamber": {
     "lore": [
-      "Eine kleine feurige Kammer, die mehr Erz gesehen hat als jeder Bergmann."
+      "Ein Ziegelbauch für flüssiges Metall."
     ],
     "use": [
-      "Schmelzkammern werden in einer geschlossenen Hülle zu einem Tank gestapelt; eingeworfenes Erz schmilzt dort, und die Schmelze wird schichtweise ausgegossen."
+      "Kammern in beliebiger Form in einer geschlossenen Hülle aus Hüttenziegeln bauen (bis 256, 32 je Achse); zusammen sind sie der Tank (je 27 Barren)."
     ],
     "secret": [
-      "Ein Tank ist nur so groß, wie seine Hülle dicht ist."
+      "Sie müssen das Pult berühren und in geladenen Chunks liegen; Gold sinkt nach unten, dann Kupfer, dann Eisen."
     ]
   },
   "fire_grate": {
     "lore": [
-      "Der Feuerrost unter der Schmelze: nichts Besonderes, aber alles hängt daran."
+      "Wo das Feuer wohnt."
     ],
     "use": [
-      "In die Hülle setzen und vom Hüttenpult mit Brennstoff füttern, so zünden die Kammern."
+      "In die Hülle setzen; Brennstoff im Brennstoff-Platz des Pults brennt hier: Kohle, Holzkohle und Holz geben mittlere Hitze, Lavaeimer, Lohenruten und Kohleblöcke hohe Hitze."
     ],
     "secret": [
-      "Es ist die Tür des Feuers: ohne Feuerrost glüht nichts."
+      "Eisen braucht hohe Hitze; Gold und Kupfer schmelzen bei mittlerer Hitze."
     ]
   },
   "foundry_desk": {
     "lore": [
-      "Das Pult, an dem der Hüttenmeister das Feuer wie ein Buch liest."
+      "Das Hirn einer Gießerei."
     ],
     "use": [
-      "Mit Brennstoff am Pult die Hütte anzünden, Schmelze und Brennstofftank beobachten, Erz einwerfen und schichtweise ausgießen. Ein abgebautes Pult behält seine Stufe im Item; Schmelze und Brennstofftank gehen verloren."
+      "In die Ziegelhülle stellen, Brennstoff in den Brennstoff-Platz legen und Erz, Rohmetall, Barren oder alte Ausrüstung auf die Plätze werfen. Das Fenster zeigt den Tank Schicht für Schicht; Schicht wählen und gießen."
     ],
     "secret": [
-      "Vorsichtig gießen: die Schmelze im Tank ist weg, wenn man das Pult abbaut."
+      "Ein Pult behält seine Stufe beim Abbauen (Schmelze und Brennstoff gehen verloren). Stein hat 3 Plätze; Rechtsklick mit einem Eisenblock (6), einem Diamantblock (9) und einem Netheritbarren (12) steigert es, je ein Stück, wird verbraucht."
     ]
   },
   "foundry_spout": {
     "lore": [
-      "Ein Eine Gusstülle mit einer Aufgabe: das flüssige Metall genau dorthin zu lassen, wo man es will."
+      "Gießt die Schmelze aus."
     ],
     "use": [
-      "An die Hülle setzen, um die Schmelze Schicht für Schicht in eine Gussschale oder auf den Boden zu gießen."
+      "Auf die Hülle über ein Gießtablett setzen; sie zieht neun Einheiten je Barren aus der gewählten Schicht."
     ],
     "secret": [
-      "Er gießt nur; von allein schmilzt er nichts."
+      "Auch ein verstärkter Kessel aus Simple Crucibles ist ein Ziel."
     ]
   },
   "casting_tray": {
     "lore": [
-      "Ein flaches Bett, in dem flüssiges Metall lernt, ein Barren zu sein."
+      "Eine flache Schale für Barren."
     ],
     "use": [
-      "Unter eine Gusstülle stellen: die Schmelze kühlt darin zu einer Form aus, die man aufnehmen kann."
+      "Unter eine Tülle stellen; es nimmt bis zu neun Barren auf, die nach einigen Sekunden erstarren und dann entnommen werden können."
     ],
     "secret": [
-      "Eben halten und vor dem nächsten Guss leeren."
+      "Abbauen lässt den Inhalt fallen."
     ]
   }
 }

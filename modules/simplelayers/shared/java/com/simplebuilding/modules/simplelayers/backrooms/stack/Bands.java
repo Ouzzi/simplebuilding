@@ -38,6 +38,12 @@ public final class Bands {
         return null;
     }
 
+    /** SL-2 (PLAN40): a level that is still a placeholder grid is sealed (doors and travel lead nowhere) while {@code backrooms.lockUnfinishedLevels} is on. */
+    public static boolean sealed(int index) {
+        return com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels
+                && get(index) instanceof com.simplebuilding.modules.simplelayers.backrooms.gen.StubBand;
+    }
+
     /** The level whose open part holds world {@code y}, or null inside bedrock. */
     public static @Nullable Band at(int y) {
         int i = BandStack.bandAt(y);

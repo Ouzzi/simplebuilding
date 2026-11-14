@@ -27,6 +27,8 @@
   "text.autoconfig.simplelayers.option.backrooms.shaftRarity.@Tooltip": "One in this many new Overworld chunks (0-100000, 0 = none) gets an abandoned house whose concreted cellar hides the maintenance shaft into the Backrooms; only on flat, dry ground. Default: 200.",
   "text.autoconfig.simplelayers.option.backrooms.ambientVolume": "Backrooms sounds",
   "text.autoconfig.simplelayers.option.backrooms.ambientVolume.@Tooltip": "Volume of the quiet, random sounds inside the Backrooms in percent (0-100, 0 = silent); no constant hum, a sound every 20-60 s. The Ambient slider applies too. Default: 50.",
+  "text.autoconfig.simplelayers.option.backrooms.lockUnfinishedLevels": "Seal unfinished levels",
+  "text.autoconfig.simplelayers.option.backrooms.lockUnfinishedLevels.@Tooltip": "On: doors, stairs and ways into Backrooms levels that are still placeholders (a plain grid of Vanilla blocks) stay dormant; a level opens by itself once it is built. Off: all ten levels are reachable. Default: on.",
   "block.simplelayers.cloud_block": "Cloud Block",
   "block.simplelayers.cloud_stone": "Cloud Stone",
   "block.simplelayers.mist_block": "Mist Block",

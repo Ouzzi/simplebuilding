@@ -405,6 +405,37 @@
       }
     },
     {
+      "id": "vanilla_use",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/mixin/BeaconRangeMixin.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/StrongBeaconLogic.java"
+      ],
+      "en": {
+        "title": "Use and impact on Vanilla",
+        "summary": "What Simple Beacons changes in Vanilla and why: the Vanilla beacon's range follows its pyramid material, plus Strong, Mighty and Evil beacons and conduits as opt-in upgrades.",
+        "details": [
+          "Use: a long-term goal after the Vanilla beacon (more levels, stronger powers, bigger conduit) and a use for Netherite and Diamond blocks in the pyramid.",
+          "Impact on Vanilla: only one - the range of the Vanilla beacon grows with the pyramid material (Iron x1 = Vanilla, Netherite x2). On by default; switch vanillaBeaconMaterialRange off for the Vanilla range. Everything else is new blocks you must upgrade to on purpose.",
+          "Evil beacons and conduits weaken players on purpose (for servers, PvP and adventure maps). They only reach players a short time after their last death, spare foreign claims, and need Simple Mobs items to be crafted.",
+          "Saturation (Strong Beacon, level 1): a pulse every 12 seconds restores one hunger point, so players in range are never hungry. It is a deliberate base-camp reward (a beacon with a full pyramid is a big investment); servers that dislike it switch strongBeaconEffects.saturation off.",
+          "Extra Hearts: the Mighty Beacon's level 5 gives Health Boost I; the secondary power on level 6 raises it one step.",
+          "Simple Mobs is optional but recommended: the upgrade templates, 8 recipes and the Evil Upgrade need its Nether Heart, Nether Gem and Wither drops. Without it the templates are creative or loot only, and the Evil Upgrade cannot be crafted."
+        ]
+      },
+      "de": {
+        "title": "Nutzen und Eingriff in Vanilla",
+        "summary": "Was Simple Beacons an Vanilla ändert und warum: die Reichweite des Vanilla-Leuchtfeuers folgt dem Pyramidenmaterial, dazu Starke, Mächtige und Böse Leuchtfeuer und Conduits als freiwillige Aufwertungen.",
+        "details": [
+          "Nutzen: ein Langzeitziel nach dem Vanilla-Leuchtfeuer (mehr Ebenen, stärkere Kräfte, größerer Conduit) und eine Verwendung für Netherit- und Diamantblöcke in der Pyramide.",
+          "Eingriff in Vanilla: nur einer – die Reichweite des Vanilla-Leuchtfeuers wächst mit dem Pyramidenmaterial (Eisen x1 = Vanilla, Netherit x2). Standardmäßig an; mit vanillaBeaconMaterialRange aus gilt die Vanilla-Reichweite. Alles andere sind neue Blöcke, auf die man bewusst aufwertet.",
+          "Böse Leuchtfeuer und Conduits schwächen Spieler mit Absicht (für Server, PvP und Abenteuerkarten). Sie erreichen Spieler erst kurz nach deren letztem Tod, verschonen fremde Claims und brauchen zum Herstellen Items aus Simple Mobs.",
+          "Sättigung (Starkes Leuchtfeuer, Ebene 1): ein Puls alle 12 Sekunden stellt einen Hungerpunkt wieder her, Spieler in Reichweite werden also nie hungrig. Das ist als Belohnung für den Stützpunkt gewollt (eine volle Pyramide ist eine große Investition); Server, die das nicht wollen, schalten strongBeaconEffects.saturation ab.",
+          "Extraherzen: Ebene 5 des Mächtigen Leuchtfeuers gibt Lebensboost I; die Sekundärkraft auf Ebene 6 hebt ihn eine Stufe an.",
+          "Simple Mobs ist optional, aber empfohlen: die Aufwertungs-Vorlagen, 8 Rezepte und das Böse Upgrade brauchen Nether-Herz, Nether-Juwel und Wither-Drops. Ohne Simple Mobs gibt es die Vorlagen nur kreativ oder als Beute, das Böse Upgrade ist nicht herstellbar."
+        ]
+      }
+    },
+    {
       "id": "creative_tab_switch",
       "sources": [
         "modules/simplebeacons/shared/java/com/simplebeacons/BeaconsRegistry.java"

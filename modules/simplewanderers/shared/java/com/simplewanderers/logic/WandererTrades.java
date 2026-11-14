@@ -3,14 +3,20 @@ package com.simplewanderers.logic;
 import com.simplewanderers.SimpleWanderers;
 import com.simplewanderers.config.WandererConfig;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.item.trading.TradeSet;
@@ -51,6 +57,47 @@ public final class WandererTrades {
         if (TradeSets.WANDERING_TRADER_COMMON.equals(vanilla)) return TRADER_COMMON;
         if (TradeSets.WANDERING_TRADER_BUYING.equals(vanilla)) return TRADER_BUYING;
         return vanilla;
+    }
+
+
+    /** The ids of {@code vanilla} that neither half of the split lists: goods another mod or a data pack added to the Vanilla tag (SW2B-2). */
+    public static Set<String> foreignIds(Collection<String> vanilla, Collection<String> wandererHalf, Collection<String> traderHalf) {
+        Set<String> out = new LinkedHashSet<>(vanilla);
+        out.removeAll(wandererHalf);
+        out.removeAll(traderHalf);
+        return out;
+    }
+
+    private static Set<String> tagIds(ServerLevel level, String tag) {
+        Set<String> ids = new LinkedHashSet<>();
+        level.registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE).get(TagKey.create(Registries.VILLAGER_TRADE, Identifier.parse(tag)))
+                .ifPresent(named -> named.forEach(h -> h.unwrapKey().ifPresent(k -> ids.add(k.identifier().toString()))));
+        return ids;
+    }
+
+    /**
+     * Goods in the Vanilla pool ("vanilla minus the wanderer's half") that the split data does not know - added by other mods or
+     * data packs - stay with the traveling trader: appended after his own draw (WanderingTraderSplitMixin). Empty with Vanilla data only.
+     */
+    public static void addForeign(ServerLevel level, WanderingTrader trader, MerchantOffers offers) {
+        if (!SimpleWanderers.on()) return;
+        var registry = level.registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
+        for (String pool : List.of("buying", "common")) {
+            Set<String> foreign = foreignIds(tagIds(level, "minecraft:wandering_trader/" + pool),
+                    tagIds(level, "simplewanderers:wanderer/" + pool), tagIds(level, "simplewanderers:wandering_trader/" + pool));
+            if (foreign.isEmpty()) continue;
+            LootContext context = new LootContext.Builder(new LootParams.Builder(level)
+                    .withParameter(LootContextParams.ORIGIN, trader.position())
+                    .withParameter(LootContextParams.THIS_ENTITY, trader)
+                    .withParameter(LootContextParams.ADDITIONAL_COST_COMPONENT_ALLOWED, Unit.INSTANCE)
+                    .create(LootContextParamSets.VILLAGER_TRADE)).create(Optional.empty());
+            for (String id : foreign) {
+                registry.get(ResourceKey.create(Registries.VILLAGER_TRADE, Identifier.parse(id))).ifPresent(holder -> {
+                    MerchantOffer offer = holder.value().getOffer(context);
+                    if (offer != null && !contains(offers, offer)) offers.add(offer);
+                });
+            }
+        }
     }
 
     public static String biomeSet(String villagerType) {

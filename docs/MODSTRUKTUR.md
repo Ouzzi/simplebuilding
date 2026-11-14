@@ -6,7 +6,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Animals, Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Dimensions, Simple Dinosaurs, Simple Earth, Simple Enchanting, Simple End, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Respawn, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
+  - required von: Simple Animals, Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chisels, Simple Crucibles, Simple Dimensions, Simple Dinosaurs, Simple Earth, Simple Enchanting, Simple End, Simple End Dragon Fight, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Respawn, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
 
 ## SimpleBuilding
 
@@ -72,7 +72,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding, Simple Money, Simple Mobheads
   - **Simple Beacons** `simplebeacons` (optional) [neu]: Strong Beacon (5 pyramid levels, new powers, range by pyramid material, Vanilla-style screen), Mighty and Evil beacons, Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and its Mighty/Evil kinds, upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.
     - required: SimpleLib
-    - optional: SimpleBuilding, Simple Ores
+    - optional: SimpleBuilding, Simple Ores, Simple Mobs
   - **Simple Challenges** `simplechallenges` (optional) [neu]: Game modes for a world of your choice. S0-S2: the Unlock mode - the world is cut into cells (a block column, a chunk, three chunks) and only free cells can be entered; every cell has a price worked out from the world (items, credits from advancements or levels), with deadlock protection and an emergency unlock. Presets are data files. Without a chosen challenge the mod changes nothing (safety lock). Needs SimpleLib; SimpleBuilding optional.
     - required: SimpleLib
     - optional: SimpleBuilding
@@ -89,6 +89,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - required: SimpleLib
     - optional: Simple End Dragon Fight
     - **Simple End Dragon Fight** `simpleenddragonfight` (optional) [neu]: Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.
+      - required: SimpleLib
       - optional: Simple Mobs
   - **Simple Fun** `simplefun` (optional) [fertig]: Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).
     - required: SimpleLib

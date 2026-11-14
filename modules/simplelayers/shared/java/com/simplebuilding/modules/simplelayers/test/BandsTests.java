@@ -76,9 +76,10 @@ final class BandsTests {
         LayersTests.ALL.put("bands_stairs_rule", BandsTests::stairsRule);
         LayersTests.ALL.put("bands_puzzle_pointer", BandsTests::puzzlePointer);
         LayersTests.ALL.put("bands_doors_paired", BandsTests::doorsPaired);
-        LayersTests.ALL.put("bands_doors_framed", BandsTests::doorsFramed);
-        LayersTests.ALL.put("portal_rules_per_level", BandsTests::rulesPerLevel);
-        LayersTests.ALL.put("portal_transit_loaded", BandsTests::transitLoaded);
+        LayersTests.ALL.put("bands_doors_framed", unlocked(BandsTests::doorsFramed));
+        LayersTests.ALL.put("portal_rules_per_level", unlocked(BandsTests::rulesPerLevel));
+        LayersTests.ALL.put("portal_transit_loaded", unlocked(BandsTests::transitLoaded));
+        LayersTests.ALL.put("unfinished_levels_sealed", BandsTests::unfinishedSealed);
         LayersTests.ALL.put("cellar_door_roundtrip", BandsTests::cellarRoundtrip);
         LayersTests.ALL.put("migration_rescue", BandsTests::migrationRescue);
         // one test per level (adapter level/<Id>GameTest, owned by the level branch): the level stands in the stack with its biome
@@ -317,6 +318,48 @@ final class BandsTests {
             if (DoorNet.down(seed, upper, x, z) != null && DoorNet.up(seed, upper + 1, x, z) != null) return new int[] {x, z};
         }
         throw new IllegalStateException("no pair below " + upper);
+    }
+
+    /** These tests walk through the doors of placeholder levels (2 to 3 ...): they run with the SL-2 lock off and restore it. */
+    static java.util.function.Consumer<GameTestHelper> unlocked(java.util.function.Consumer<GameTestHelper> body) {
+        return h -> {
+            boolean before = com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels;
+            com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels = false;
+            try {
+                body.accept(h);
+            } finally {
+                com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels = before;
+            }
+        };
+    }
+
+    /** SL-2 (PLAN40): placeholder levels (StubBand) are sealed by default - door target and travel lead nowhere - and the switch lifts it. */
+    static void unfinishedSealed(GameTestHelper h) {
+        boolean before = com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels;
+        try {
+            com.simplebuilding.modules.simplelayers.config.LayersConfig.apply(new com.google.gson.JsonObject());
+            h.assertTrue(com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels, "default: locked");
+            int sealed = 0;
+            for (int i = 1; i <= BandStack.BANDS; i++) {
+                boolean stub = Bands.get(i) instanceof com.simplebuilding.modules.simplelayers.backrooms.gen.StubBand;
+                h.assertTrue(Bands.sealed(i) == stub, "level " + i + " sealed exactly while it is a stub");
+                if (stub) sealed++;
+            }
+            h.assertTrue(!Bands.sealed(1) && !Bands.sealed(2), "the Lobby and the Poolrooms stay open");
+            h.assertTrue(sealed >= 1, "at least one placeholder level is sealed");
+            ServerLevel stack = stack(h);
+            if (stack != null) {
+                for (int i = 1; i <= BandStack.BANDS; i++) {
+                    if (!Bands.sealed(i)) continue;
+                    h.assertTrue(com.simplebuilding.modules.simplelayers.world.BackroomsTravel.travel(stack.getServer(), h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL), i) == null, "travel into sealed level " + i + " leads nowhere");
+                }
+            }
+            com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels = false;
+            h.assertTrue(java.util.stream.IntStream.rangeClosed(1, BandStack.BANDS).noneMatch(Bands::sealed), "switch off: nothing sealed");
+        } finally {
+            com.simplebuilding.modules.simplelayers.config.LayersConfig.lockUnfinishedLevels = before;
+        }
+        h.succeed();
     }
 
     static BlockPos lower(int band, DoorEnd e) {

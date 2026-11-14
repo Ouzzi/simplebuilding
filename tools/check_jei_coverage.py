@@ -67,6 +67,10 @@ def main() -> int:
         viewer = sorted(set(re.findall(r"RecipeViewer\.(inWorld|special|station|mobDrops|lootDrops|info)\(", java)))
         info_class = any(p.name.endswith("JeiInfo.java") for p in module_files(mdir, "*.java"))
         plugin = "IModPlugin" in java
+        # SF-2: a built-in table (Melts.java) is no recipe file; the module must show it itself (RecipeViewer.special/station).
+        builtin = any(p.name == "Melts.java" for p in module_files(mdir, "*.java"))
+        if builtin and "special" not in viewer and "station" not in viewer:
+            problems.append(f"{mid}: built-in melts (Melts.java) have no recipe viewer entry")
         mob_ok = not loot or "lootDrops" in viewer or "mobDrops" in viewer or info_class
         if not mob_ok:
             problems.append(f"{mid}: entity loot tables {loot} have no recipe viewer entry")

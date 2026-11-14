@@ -19,6 +19,7 @@ Simple Animals adds deer, wild boar, hedgehog, crab and zebra (with the infertil
 - **Hedgehog**
 - **Crab** - A harmless beach animal with a red or sand shell and two big claws; it walks sideways.
 - **Zebra** - A horse of the savanna with its own looks: classic black-and-white striped coat and a stiff mane.
+- **Truffles and truffle soup** - An adult wild boar standing on dirt or grass very rarely digs up truffles; with a bowl and a brown mushroom they make truffle soup.
 - **Zorse** - Zebra x horse: a brown rideable horse with zebra stripes on legs and rump.
 - **Spawning**
 - **Commands** - /simpleanimals config shows and changes every option of config/simpleanimals-server.json (list [group], get, set, reset, help; Tab completes options and values).

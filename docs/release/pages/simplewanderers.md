@@ -10,7 +10,7 @@ One Village Wanderer per village with a leashed horse, split from the traveling 
 
 # Simple Wanderers
 
-Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goods are split from the traveling trader, with a new stock every 3 days and a restock every 1.5 days. It works with Vanilla alone.
+Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goods are split from the traveling trader, with a new stock every 3 days and a restock every 1.5 days. Besides Fabric API it only needs SimpleLib; no other Simple mod is required.
 
 ## Features
 
@@ -23,7 +23,7 @@ Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goo
 
 ## Vanilla use
 
-Gives every village a wandering trader with a horse; it works with Vanilla alone and splits goods from the Vanilla traveling trader.
+Gives every village a wandering trader with a horse and, in return, moves the everyday half (47 of 78) of the Vanilla Wandering Trader's goods to him; the traveling trader keeps the rest, plus anything other mods add to the Vanilla trade lists. Off in the config, the Vanilla trader is untouched.
 
 ## Dependencies
 

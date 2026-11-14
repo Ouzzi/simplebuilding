@@ -93,6 +93,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplewanderers:arena", maxTicks = 100)
+    public void traderKeepsForeignGoods(GameTestHelper h) {
+        WandererTests.ALL.get("trader_keeps_foreign_goods").accept(h);
+    }
+
+    @GameTest(structure = "simplewanderers:arena", maxTicks = 100)
     public void traderSplitFollowsTheSwitch(GameTestHelper h) {
         WandererTests.ALL.get("trader_split_follows_the_switch").accept(h);
     }
