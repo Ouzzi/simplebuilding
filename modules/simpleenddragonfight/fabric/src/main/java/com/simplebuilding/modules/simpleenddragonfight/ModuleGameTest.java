@@ -18,6 +18,8 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void summonScaling(GameTestHelper helper) { DragonFightTests.ALL.get("summon_scaling").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void curveAndXp(GameTestHelper helper) { DragonFightTests.ALL.get("curve_and_xp").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void dragonReward(GameTestHelper helper) { DragonFightTests.ALL.get("dragon_reward").accept(helper); }
+    @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void soloDefaultsAreVanilla(GameTestHelper helper) { DragonFightTests.ALL.get("solo_defaults_are_vanilla").accept(helper); }
+    @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void chitinRepairsElytra(GameTestHelper helper) { DragonFightTests.ALL.get("chitin_repairs_elytra").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void noSimplebuildingNeeded(GameTestHelper helper) { DragonFightTests.ALL.get("no_simplebuilding_needed").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void guideBook(GameTestHelper helper) { DragonFightTests.ALL.get("guide_book").accept(helper); }
 

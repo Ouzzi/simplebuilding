@@ -23,17 +23,17 @@ public final class DragonFightConfig {
     public static final List<String> KEYS = List.of("enabled", "raiseBaseHealth", "maxPlayers", "countCreative", "leaveGraceSeconds",
             "islandRadius", "speedMultiplier", "speedPerPlayer", "speedCap", "crystalHealScaling", "mitesEnabled", "waveIntervalSeconds",
             "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg", "summonScaling", "summonMaxMultiplier", "summonSpeedCap",
-            "rewardEnabled", "rewardFromDragon", "rewardItem", "rewardJewelFromDragon", "rewardJewelItem", "tintFromDragon", "summonAttackCap", "tintJewelFromDragon", "xpPerFight", "xpMax", "miteExtraPerSummons");
+            "rewardEnabled", "rewardFromDragon", "rewardItem", "rewardJewelFromDragon", "rewardJewelItem", "tintFromDragon", "summonAttackCap", "tintJewelFromDragon", "xpPerFight", "xpMax", "miteExtraPerSummons", "rewardXpFallback");
 
     public static boolean enabled = true;
-    /** On: 300 health per counted player; off: the Vanilla base (200) per player. */
-    public static boolean raiseBaseHealth = true;
+    /** On: 300 health per counted player; off (default since SE-DF-1, owner PLAN40 "recommendation A"): the Vanilla base (200) per player. */
+    public static boolean raiseBaseHealth = false;
     /** 0 = every player counts. */
     public static int maxPlayers = 0;
     public static boolean countCreative = false;
     public static int leaveGraceSeconds = 60;
     public static int islandRadius = 160;
-    public static double speedMultiplier = 1.20;
+    public static double speedMultiplier = 1.0;
     public static double speedPerPlayer = 0.015;
     public static double speedCap = 1.35;
     public static boolean crystalHealScaling = true;
@@ -46,8 +46,8 @@ public final class DragonFightConfig {
     public static int animationTicks = 60;
     public static int maxQueued = 16;
     public static boolean exposeSpawnEgg = false;
-    /** Each further summoning: +15 % health, damage and speed (0 = off). */
-    public static double summonScaling = 0.15;
+    /** Each further summoning: this share more health, damage and speed (0 = off, default since SE-DF-1: no lasting escalation, so dragon farming is not punished). */
+    public static double summonScaling = 0.0;
     /** Highest summoning multiplier. */
     public static double summonMaxMultiplier = 3.0;
     /** Highest total flight speed with summonings (the player speed cap stays below it). */
@@ -72,6 +72,8 @@ public final class DragonFightConfig {
     public static int xpMax = 5000;
     /** One more Dragonmite per wave for every n further summonings; 0 = off. */
     public static int miteExtraPerSummons = 3;
+    /** SE-DF-3: without the reward item (Simple Mobs not installed) the reward fights give this much XP per participant instead (the jewel fight twice as much); 0 = nothing. */
+    public static int rewardXpFallback = 1500;
 
     private DragonFightConfig() {}
 
@@ -103,12 +105,12 @@ public final class DragonFightConfig {
     /** Reads and clamps every value; missing or broken keys keep their defaults. */
     public static void apply(JsonObject json) {
         enabled = bool(json, "enabled", true);
-        raiseBaseHealth = bool(json, "raiseBaseHealth", true);
+        raiseBaseHealth = bool(json, "raiseBaseHealth", false);
         maxPlayers = clamp(integer(json, "maxPlayers", 0), 0, 1000);
         countCreative = bool(json, "countCreative", false);
         leaveGraceSeconds = clamp(integer(json, "leaveGraceSeconds", 60), 0, 3600);
         islandRadius = clamp(integer(json, "islandRadius", 160), 16, 1000);
-        speedMultiplier = clamp(number(json, "speedMultiplier", 1.20), 0.5, 3.0);
+        speedMultiplier = clamp(number(json, "speedMultiplier", 1.0), 0.5, 3.0);
         speedPerPlayer = clamp(number(json, "speedPerPlayer", 0.015), 0.0, 0.5);
         speedCap = clamp(number(json, "speedCap", 1.35), 0.5, 3.0);
         crystalHealScaling = bool(json, "crystalHealScaling", true);
@@ -121,7 +123,7 @@ public final class DragonFightConfig {
         animationTicks = clamp(integer(json, "animationTicks", 60), 20, 200);
         maxQueued = clamp(integer(json, "maxQueued", 16), 1, 64);
         exposeSpawnEgg = bool(json, "exposeSpawnEgg", false);
-        summonScaling = clamp(number(json, "summonScaling", 0.15), 0.0, 1.0);
+        summonScaling = clamp(number(json, "summonScaling", 0.0), 0.0, 1.0);
         summonMaxMultiplier = clamp(number(json, "summonMaxMultiplier", 3.0), 1.0, 10.0);
         summonSpeedCap = clamp(number(json, "summonSpeedCap", 2.0), 0.5, 3.0);
         rewardEnabled = bool(json, "rewardEnabled", true);
@@ -135,6 +137,7 @@ public final class DragonFightConfig {
         xpPerFight = clamp(integer(json, "xpPerFight", 250), 0, 5000);
         xpMax = clamp(integer(json, "xpMax", 5000), 500, 100000);
         miteExtraPerSummons = clamp(integer(json, "miteExtraPerSummons", 3), 0, 50);
+        rewardXpFallback = clamp(integer(json, "rewardXpFallback", 1500), 0, 20000);
     }
 
     public static JsonObject toJson() {
@@ -172,6 +175,7 @@ public final class DragonFightConfig {
         o.addProperty("xpPerFight", xpPerFight);
         o.addProperty("xpMax", xpMax);
         o.addProperty("miteExtraPerSummons", miteExtraPerSummons);
+        o.addProperty("rewardXpFallback", rewardXpFallback);
         return o;
     }
 

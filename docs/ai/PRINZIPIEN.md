@@ -283,9 +283,11 @@ Super-Mod ohne eigenen Inhalt: Visuals, Sounds, Models mit je einem Schalter.
 - keine eigenen Regeln bisher
 
 ### Simple End Dragon Fight (`simpleenddragonfight`)
-Enderdrachenkampf: Lebensbalken je Spieler, schnellerer Drache, Dragonmites.
+Enderdrachenkampf: Lebensbalken je Spieler, Dragonmites; Pflicht: SimpleLib, optional Simple Mobs.
 
-- keine eigenen Regeln bisher
+- **A12:** Nutzen: der Kampf wächst mit der Spielerzahl (eine Leiste je Spieler), Eintritts-Animation, Dragonmites ab halber Gesundheit. Standard für Einzelspieler = Vanilla (200 Leben, normales Tempo, keine dauerhafte Steigerung je Beschwörung; Besitzer PLAN40 „Empfehlung A“). Eingriff in Vanilla: Mixins an `EnderDragon` (Leben/Tempo/Schaden, nur der Vanilla-Kampf), Elytra-Reparatur mit Drachen-Chitin (Komponente, additiv).
+- Belohnung ab dem 4./10. Drachen: Enderherz/Ender-Juwel aus Simple Mobs (nur per Item-Id gesucht); ohne Simple Mobs stattdessen Erfahrung (`rewardXpFallback`).
+- Drachen-Chitin repariert Elytren am Amboss wie Phantomhaut (SE-DF-2).
 
 ### Simple End (`simpleend`)
 Endholz (Aschholz, Dämmerholz), Knospen, Bäume, Endgras, Biome auf den äußeren Inseln; bündelt Simple End Dragon Fight.
