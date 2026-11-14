@@ -185,7 +185,9 @@ public final class CustomHeadModels {
 
     private static LayerDefinition slimeOuterLayer() {
         MeshDefinition mesh = new MeshDefinition();
-        mesh.getRoot().addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), PartPose.ZERO);
+        mesh.getRoot().addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F,
+                // N43: the translucent shell (drawn without culling) flickered with the floor/wall the head stands on: 0.05 px smaller
+                new CubeDeformation(-0.05F)), PartPose.ZERO);
         return LayerDefinition.create(mesh, 64, 32);
     }
 
@@ -214,8 +216,8 @@ public final class CustomHeadModels {
         head.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 28).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F), PartPose.ZERO);
         head.addOrReplaceChild("lid", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -16.0F, -8.0F, 16.0F, 12.0F, 16.0F),
                 PartPose.offset(0.0F, -4.0F, 0.0F));
-        head.addOrReplaceChild("shulker_head", CubeListBuilder.create().texOffs(0, 52).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 6.0F, 6.0F),
-                PartPose.offset(0.0F, -14.0F, 0.0F));
+        head.addOrReplaceChild("shulker_head", CubeListBuilder.create().texOffs(0, 52).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 6.0F, 6.0F,
+                new CubeDeformation(-0.02F)), PartPose.offset(0.0F, -14.0F, 0.0F)); // N43: not flush with the lid underside
         return LayerDefinition.create(mesh, 64, 64);
     }
 }

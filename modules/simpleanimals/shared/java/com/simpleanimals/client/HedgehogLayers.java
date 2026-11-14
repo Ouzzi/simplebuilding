@@ -15,7 +15,7 @@ final class HedgehogLayers {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 13).addBox(-3F, -4F, -4.5F, 6F, 4F, 9F), PartPose.offset(0F, 22F, 0F));
-        PartDefinition spines = body.addOrReplaceChild("spines", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -6F, -5F, 7F, 4F, 9F), PartPose.offset(0F, 0.5F, 0.5F));
+        PartDefinition spines = body.addOrReplaceChild("spines", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -6F, -5F, 7F, 4F, 9F, new CubeDeformation(0F, 0F, 0.05F)), PartPose.offset(0F, 0.5F, 0.5F));
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 26).addBox(-1.5F, -2.5F, -4F, 3F, 3F, 4F).texOffs(18, 26).addBox(-0.5F, -1.5F, -5F, 1F, 1F, 1F), PartPose.offset(0F, 21.5F, -4.5F));
         PartDefinition ear_right = head.addOrReplaceChild("ear_right", CubeListBuilder.create().texOffs(22, 26).addBox(-0.5F, -1F, -0.5F, 1F, 1F, 1F), PartPose.offset(-1.6F, -2.4F, -1.2F));
         PartDefinition ear_left = head.addOrReplaceChild("ear_left", CubeListBuilder.create().texOffs(22, 26).addBox(-0.5F, -1F, -0.5F, 1F, 1F, 1F), PartPose.offset(1.6F, -2.4F, -1.2F));

@@ -581,6 +581,17 @@ public final class DinosTests {
             h.assertTrue(trex.headTuck() == 0 && trex.tailBend() == 0, "in the open field nothing moves");
             h.succeed();
         });
+        ALL.put("dino_part_boxes_minimal", h -> {
+            // N45 (owner DINOREST3: "fewer hitboxes, not too many"): core box + ONE head box + ONE tail box per kind
+            List<Dino> dinos = List.of(standing(h, 4, 4), standingTri(h, 12, 4), standingStego(h, 4, 12), standingPara(h, 12, 12));
+            for (Dino d : dinos) {
+                h.assertTrue(d.headBoxes(0).size() == 1 && d.headBoxes(com.simpledinos.entity.part.PartRig.TUCK_STEPS).size() == 1,
+                        d.kind() + ": one head box (" + d.headBoxes(0).size() + ")");
+                h.assertTrue(d.tailBoxes(0).size() == 1 && d.tailBoxes(2).size() == 1, d.kind() + ": one tail box (" + d.tailBoxes(0).size() + ")");
+            }
+            dinos.forEach(Dino::discard);
+            h.succeed();
+        });
         ALL.put("trex_head_pulls_in_at_wall", h -> {
             Trex trex = standing(h, 8, 4);
             wall(h, 7, Blocks.STONE);

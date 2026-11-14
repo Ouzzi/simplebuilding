@@ -4,6 +4,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
@@ -39,7 +40,7 @@ public class BrimguardModel extends EntityModel<BrimguardRenderState> {
         root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(88, 40).addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4), PartPose.offset(2.5F, -6.0F, 0.0F));
         PartDefinition body = root.addOrReplaceChild("body",
                 CubeListBuilder.create().texOffs(0, 40).addBox(-5.0F, -8.0F, -3.5F, 10, 8, 7), PartPose.offset(0.0F, -5.0F, 0.0F));
-        body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(36, 40).addBox(-4.0F, -7.0F, -4.0F, 8, 7, 8), PartPose.offset(0.0F, -6.0F, -0.5F));
+        body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(36, 40).addBox(-4.0F, -7.0F, -4.0F, 8, 7, 8, new CubeDeformation(0.0F, 0.0F, 0.02F)), PartPose.offset(0.0F, -6.0F, -0.5F)); // N43
         body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(106, 40).addBox(-1.5F, -1.0F, -1.5F, 3, 7, 3), PartPose.offset(-6.5F, -6.5F, 0.0F));
         body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(120, 40).addBox(-1.5F, -1.0F, -1.5F, 3, 7, 3), PartPose.offset(6.5F, -6.5F, 0.0F));
         // the hat: pivot at the brim (13 px above the feet)
@@ -48,7 +49,7 @@ public class BrimguardModel extends EntityModel<BrimguardRenderState> {
         hat.addOrReplaceChild("rim_back", CubeListBuilder.create().texOffs(140, 44).addBox(-17.0F, -2.0F, 17.0F, 34, 2, 1), PartPose.ZERO);
         hat.addOrReplaceChild("rim_right", CubeListBuilder.create().texOffs(0, 60).addBox(-18.0F, -2.0F, -17.0F, 1, 2, 34), PartPose.ZERO);
         hat.addOrReplaceChild("rim_left", CubeListBuilder.create().texOffs(72, 60).addBox(17.0F, -2.0F, -17.0F, 1, 2, 34), PartPose.ZERO);
-        hat.addOrReplaceChild("band", CubeListBuilder.create().texOffs(140, 20).addBox(-6.5F, -3.0F, -6.5F, 13, 2, 13), PartPose.ZERO);
+        hat.addOrReplaceChild("band", CubeListBuilder.create().texOffs(140, 20).addBox(-6.5F, -3.0F, -6.5F, 13, 2, 13, new CubeDeformation(0.02F)), PartPose.ZERO); // N43: not flush with the crown
         hat.addOrReplaceChild("crown", CubeListBuilder.create().texOffs(140, 0).addBox(-6.0F, -7.0F, -6.0F, 12, 6, 12), PartPose.ZERO);
         hat.addOrReplaceChild("crown_top", CubeListBuilder.create().texOffs(190, 0).addBox(-4.5F, -11.0F, -4.5F, 9, 5, 9), PartPose.ZERO);
         return LayerDefinition.create(mesh, 256, 128);

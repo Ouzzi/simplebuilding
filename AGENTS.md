@@ -85,6 +85,10 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
   (Integrations-Client mit allen Modulen: jedes Mod-Item/jeder Block-State muss ein echtes Modell/Sprite haben, Client-Log ohne
   „Missing textures/model“; Log-Scanner `tools/check_client_log.py <log>`, läuft bei jedem Client-Target als Warnung mit).
   Gefärbte Rucksäcke/Bündel/Köcher: `python3 tools/textures/dyed_storage_preview.py --check` (Vorschau ohne `--check`).
+- Z-Fighting in Modellen (N43): `python3 tools/check_model_zfight.py [-q] [--only <pfad>]` (ohne Gradle) liest alle Java-Entity-/Kopf-Modelle
+  (`addOrReplaceChild`: generierte `*Layers.java` von Simple Animals/Dinos, Köpfe, Mobs), posiert die Teile und meldet koplanare, gleich
+  gerichtete, überlappende Würfelflächen, bei durchscheinenden Kopf-Schichten auch Boden-/Wandkontakt; Exit 1 bei Funden. Behebung mit dem
+  kleinsten Versatz auf der Flächenachse (Generator-Spec `grow=(x, y, z)`, sonst `CubeDeformation`). JSON-Modelle: `tools/check_item_zfight.py`.
 - Texturen prüfen: `python tools/textures/generate_textures.py --check`. Handbücher: `python tools/guide_book_pages.py` (0 Probleme).
 - Historische Gate-Zahlen stehen in `docs/HANDOFF.md`; Ziele und Testanzahl ändern sich.
   Für jeden aktuellen Lauf die Ausgabe und „alles gruen“ lesen; alte Zahlen sind kein aktueller Beleg.

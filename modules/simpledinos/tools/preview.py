@@ -48,7 +48,8 @@ def cube_quads(pos, size, grow, mirror, uv, tex_w, tex_h):
     """The six polygons of a Cube as (4 vertices in part space, 4 (u, v) in 0..1), exactly like ModelPart.Cube."""
     x, y, z = pos
     w, h, d = size
-    minx, miny, minz, maxx, maxy, maxz = x - grow, y - grow, z - grow, x + w + grow, y + h + grow, z + d + grow
+    gx, gy, gz = grow if isinstance(grow, (tuple, list)) else (grow, grow, grow)
+    minx, miny, minz, maxx, maxy, maxz = x - gx, y - gy, z - gz, x + w + gx, y + h + gy, z + d + gz
     if mirror:
         minx, maxx = maxx, minx
     t0, t1, t2, t3 = (minx, miny, minz), (maxx, miny, minz), (maxx, maxy, minz), (minx, maxy, minz)

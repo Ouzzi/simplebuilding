@@ -6,7 +6,11 @@ import net.minecraft.world.phys.AABB;
 
 /**
  * Part hitboxes of one dinosaur kind (a-dino36b, owner DINO36: "the heads may not stick in people or walls"). The core hitbox stays a
- * Vanilla box; the head and the tail are extra boxes computed from the model's bones. Both sides use {@link #pose}: the server to test
+ * Vanilla box; the head and the tail are extra boxes computed from the model's bones. N45 (owner DINOREST3: "only minimise the
+ * hitboxes, fewer, not too many"): ONE head box (the hull of every cube of the head chain - neck, head, jaw, horns, frill, crest) and ONE
+ * tail box (the hull of the tail segments from the second on plus what hangs on them; the first segment sits right behind the core box).
+ * The hull keeps the extremes of the cubes (reach, height, lowest point), so pulling in, bending and the solid head behave as before.
+ * A new kind (Utahraptor) passes its head chain and tail chain the same way and gets the same two boxes. Both sides use {@link #pose}: the server to test
  * which head and tail pose is free, the client model to draw exactly that pose.
  *
  * <ul>
@@ -58,8 +62,10 @@ public final class PartRig {
         this.head = skeleton.index(head);
         this.headBones = indices(skeleton, headBones);
         this.tailBones = indices(skeleton, tailBones);
-        String[] all = java.util.Arrays.copyOf(tailBones, tailBones.length + tailExtra.length);
-        System.arraycopy(tailExtra, 0, all, tailBones.length, tailExtra.length);
+        int from = tailBones.length > 1 ? 1 : 0; // N45: the tail box starts at the second segment
+        String[] all = new String[tailBones.length - from + tailExtra.length];
+        System.arraycopy(tailBones, from, all, 0, tailBones.length - from);
+        System.arraycopy(tailExtra, 0, all, tailBones.length - from, tailExtra.length);
         this.tailBoxBones = indices(skeleton, all);
         this.neckLook = neckLook;
         this.headLook = headLook;
@@ -105,13 +111,23 @@ public final class PartRig {
         return out;
     }
 
-    /** World boxes of the head chain (neck, head, jaw) in {@code pose}; {@code growth} = growth scale (0.25..1) x attribute scale. */
+    /** The ONE world box of the head chain (neck, head, jaw ...) in {@code pose}; {@code growth} = growth scale (0.25..1) x attribute scale. */
     public void headBoxes(float[][] pose, float growth, float bodyYaw, double x, double y, double z, List<AABB> out) {
-        skeleton.boxes(pose, headBones, (double) modelScale * growth, bodyYaw, x, y, z, out);
+        hull(pose, headBones, growth, bodyYaw, x, y, z, out);
     }
 
-    /** World boxes of the tail segments (and what hangs on them) in {@code pose}. */
+    /** The ONE world box of the tail (segments from the second on and what hangs on them) in {@code pose}. */
     public void tailBoxes(float[][] pose, float growth, float bodyYaw, double x, double y, double z, List<AABB> out) {
-        skeleton.boxes(pose, tailBoxBones, (double) modelScale * growth, bodyYaw, x, y, z, out);
+        hull(pose, tailBoxBones, growth, bodyYaw, x, y, z, out);
+    }
+
+    /** N45: adds the axis-aligned hull of the turned cubes of {@code bones} as one box (nothing for no cubes). */
+    private void hull(float[][] pose, int[] bones, float growth, float bodyYaw, double x, double y, double z, List<AABB> out) {
+        List<AABB> cubes = new ArrayList<>();
+        skeleton.boxes(pose, bones, (double) modelScale * growth, bodyYaw, x, y, z, cubes);
+        if (cubes.isEmpty()) return;
+        AABB hull = cubes.get(0);
+        for (int i = 1; i < cubes.size(); i++) hull = hull.minmax(cubes.get(i));
+        out.add(hull);
     }
 }
