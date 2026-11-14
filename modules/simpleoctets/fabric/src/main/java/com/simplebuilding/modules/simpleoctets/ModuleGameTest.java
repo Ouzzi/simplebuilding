@@ -96,6 +96,12 @@ public final class ModuleGameTest {
         OctetTests.ALL.get("mixed_cell_persists_and_drops_every_material").accept(h);
     }
 
+    /** a-hang50: the reload of a saved mixed cell must not stall the server (StallWatch ends a hung run). */
+    @GameTest(structure = "simpleoctets:empty", maxTicks = OctetTests.RELOAD_MAX_TICKS)
+    public void mixedCellReloadDropsGhostBitsWithoutHang(GameTestHelper h) {
+        OctetTests.ALL.get("mixed_cell_reload_drops_ghost_bits_without_hang").accept(h);
+    }
+
     @GameTest(structure = "simpleoctets:empty")
     public void melonSlicePlacesMelonOctets(GameTestHelper h) {
         OctetTests.ALL.get("melon_slice_places_melon_octets").accept(h);

@@ -49,6 +49,8 @@ import net.minecraft.world.phys.Vec3;
 public final class OctetTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
+    /** a-hang50: the reload test waits for a real unload and load of its chunk. */
+    public static final int RELOAD_MAX_TICKS = 1600;
     static final BlockPos CELL = new BlockPos(2, 2, 2);
 
     static {
@@ -70,6 +72,8 @@ public final class OctetTests {
         ALL.put("corner_break_respects_protection_and_area_breaks", OctetTests::cornerBreakRespectsProtectionAndAreaBreaks);
         ALL.put("corner_break_only_with_hammer", OctetTests::cornerBreakOnlyWithHammer);
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
+        ALL.put("mixed_cell_reload_drops_ghost_bits_without_hang", OctetTests::mixedCellReloadDropsGhostBitsWithoutHang);
+        MAX_TICKS.put("mixed_cell_reload_drops_ghost_bits_without_hang", RELOAD_MAX_TICKS);
         ALL.put("melon_slice_places_melon_octets", OctetTests::melonSlicePlacesMelonOctets);
         ALL.put("vanilla_input_switches", OctetTests::vanillaInputSwitches);
         ALL.put("octets_keep_their_blocks_rules", OctetTests::octetsKeepTheirBlocksRules);
@@ -237,6 +241,140 @@ public final class OctetTests {
         }
         h.assertTrue(problems.isEmpty(), "migration: " + problems);
         h.succeed();
+    }
+
+    /**
+     * a-hang50 (owner 14.11.: the world hung after he came back, closing hung, reopening took ages; his hang dumps): a mixed
+     * cell with a ghost bit (a state bit without material) is saved with its chunk, the chunk really unloads (its block entity
+     * is removed) and loads again from disk. The load must not stall the server - the old {@code setLevel} ran its ghost check
+     * inline inside the chunk's FULL step and waited for that very chunk forever - and the ghost bit is gone afterwards. A hung
+     * server thread can never fail a test, so {@link StallWatch} ends the run with a thread dump after 60 s without a tick.
+     */
+    static void mixedCellReloadDropsGhostBitsWithoutHang(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        net.minecraft.world.level.ChunkPos chunk = new net.minecraft.world.level.ChunkPos(-1250, 1250); // far from every test structure
+        BlockPos pos = new BlockPos(chunk.getMinBlockX() + 8, 100, chunk.getMinBlockZ() + 8);
+        BlockState oak = material(Blocks.OAK_PLANKS), stone = material(Blocks.STONE);
+        StallWatch watch = StallWatch.start(level.getServer(), "mixed_cell_reload_drops_ghost_bits_without_hang");
+        int[] step = {0}, waited = {0};
+        BlockEntity[] before = {null};
+        level.setChunkForced(chunk.x(), chunk.z(), true);
+        h.onEachTick(() -> {
+            try {
+                waited[0]++;
+                boolean full = level.getChunkSource().getChunkNow(chunk.x(), chunk.z()) != null;
+                switch (step[0]) {
+                    case 0 -> { // loaded: a mixed cell of oak and stone
+                        if (!full) {
+                            h.assertTrue(waited[0] < 400, "the far chunk never loaded");
+                            return;
+                        }
+                        BlockState[] parts = new BlockState[8];
+                        parts[0] = oak;
+                        parts[1] = stone;
+                        OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
+                        h.assertTrue(level.getBlockState(pos).getBlock() instanceof MixedOctetBlock && level.getBlockEntity(pos) instanceof MixedOctetBlockEntity,
+                                "mixed cell placed: " + level.getBlockState(pos));
+                        step[0] = 1;
+                        waited[0] = 0;
+                    }
+                    case 1 -> { // after its own queued check ran: a third bit without material (the ghost), then let the chunk go
+                        if (waited[0] < 6) return;
+                        BlockState mixed = level.getBlockState(pos);
+                        level.setBlock(pos, mixed.setValue(OctetCellBlock.OCTETS[2], true), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+                        before[0] = level.getBlockEntity(pos);
+                        h.assertTrue(OctetCellBlock.mask(level.getBlockState(pos)) == 0b111 && before[0] instanceof MixedOctetBlockEntity m
+                                && m.part(2) == null, "ghost bit set: " + level.getBlockState(pos));
+                        level.setChunkForced(chunk.x(), chunk.z(), false);
+                        step[0] = 2;
+                        waited[0] = 0;
+                    }
+                    case 2 -> { // saved and really unloaded: the chunk took its block entity with it
+                        if (!before[0].isRemoved()) {
+                            h.assertTrue(waited[0] < 800, "the chunk never unloaded");
+                            return;
+                        }
+                        level.setChunkForced(chunk.x(), chunk.z(), true);
+                        step[0] = 3;
+                        waited[0] = 0;
+                    }
+                    case 3 -> { // loaded from disk again (this is where the old code hung)
+                        if (!full) {
+                            h.assertTrue(waited[0] < 400, "the chunk never loaded again");
+                            return;
+                        }
+                        step[0] = 4;
+                        waited[0] = 0;
+                    }
+                    case 4 -> { // the queued check had its ticks: the ghost bit is gone, both materials stay
+                        if (waited[0] < 6) return;
+                        BlockState now = level.getBlockState(pos);
+                        BlockEntity be = level.getBlockEntity(pos);
+                        String seen = now + " " + (be instanceof MixedOctetBlockEntity m ? java.util.Arrays.toString(m.parts()) : String.valueOf(be));
+                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+                        level.setChunkForced(chunk.x(), chunk.z(), false);
+                        watch.stop();
+                        step[0] = 5;
+                        h.assertTrue(be != before[0], "loaded from disk, not kept in memory: " + seen);
+                        h.assertTrue(OctetCellBlock.mask(now) == 0b011 && be instanceof MixedOctetBlockEntity m && m.part(0) == oak && m.part(1) == stone,
+                                "ghost bit dropped after the load, materials kept: " + seen);
+                        h.succeed();
+                    }
+                    default -> { }
+                }
+            } catch (RuntimeException e) {
+                watch.stop();
+                level.setChunkForced(chunk.x(), chunk.z(), false);
+                throw e;
+            }
+        });
+    }
+
+    /**
+     * a-hang50: ends the run with a dump of the server thread when the server tick stands for {@link #STALL_SECONDS} while a
+     * test watches it (a hang inside a chunk load never comes back to the test); gone after {@link #stop} or ten minutes.
+     */
+    static final class StallWatch {
+        static final int STALL_SECONDS = 60;
+        private volatile boolean done;
+
+        static StallWatch start(net.minecraft.server.MinecraftServer server, String test) {
+            StallWatch w = new StallWatch();
+            Thread t = new Thread(() -> {
+                long started = System.nanoTime(), since = started;
+                int last = server.getTickCount();
+                while (!w.done && System.nanoTime() - started < 600_000_000_000L) {
+                    try {
+                        Thread.sleep(1000L);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    int now = server.getTickCount();
+                    if (now != last) {
+                        last = now;
+                        since = System.nanoTime();
+                    } else if (!w.done && System.nanoTime() - since > STALL_SECONDS * 1_000_000_000L) {
+                        StringBuilder out = new StringBuilder("[simpleoctets] " + test + ": the server thread stands for " + STALL_SECONDS
+                                + " s - ending the run\n");
+                        Thread.getAllStackTraces().forEach((thread, stack) -> {
+                            if (!"Server thread".equals(thread.getName())) return;
+                            for (StackTraceElement frame : stack) out.append("    at ").append(frame).append('\n');
+                        });
+                        com.mojang.logging.LogUtils.getLogger().error(out.toString());
+                        System.out.println(out);
+                        System.out.flush();
+                        Runtime.getRuntime().halt(3);
+                    }
+                }
+            }, "simpleoctets-stall-watch");
+            t.setDaemon(true);
+            t.start();
+            return w;
+        }
+
+        void stop() {
+            done = true;
+        }
     }
 
     /**
