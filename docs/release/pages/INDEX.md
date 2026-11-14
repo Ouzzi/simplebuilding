@@ -12,7 +12,7 @@
 | [Simple Visuals](simplevisuals.md) | `simplevisuals` | Client HUD, tooltip and anvil formatting plus Vanilla-style immersion particles, all bounded and optional. | draft |
 | [Simple Sounds](simplesounds.md) | `simplesounds` | Local Vanilla-sound counterparts for the twelve Simple Visuals immersion effects. | draft |
 | [Simple Quality of Life](simplequalityoflife.md) | `simplequalityoflife` | Super mod for small survival conveniences: weather, interfaces, loot, mob manners, farming, tools and movement. | draft |
-| [Simple Tweaks](simpletweaks.md) | `simpletweaks` | Legacy compatibility and server-authoritative claims, on by default. | draft |
+| [Simple Tweaks](simpletweaks.md) | `simpletweaks` | Server claims, admin tools (block log, backups, anti-X-ray) and player tweaks, on by default; older worlds keep loading. | draft |
 | [Simple Dimensions](simpledimensions.md) | `simpledimensions` | Configurable dimensions, light arches and safe linked portals with optional claim-mod support. | draft |
 | [Simple Sandwiches](simplesandwiches.md) | `simplesandwiches` | Build sandwiches on a cutting board, cut with a kitchen knife, make butter and cheese, eat from bundles. | draft |
 | [SimpleLib](simplelib.md) | `simplelib` | Shared base of the Simple family: modpack guide, warm food, shared materials, rarity tiers and UI building blocks. | draft |

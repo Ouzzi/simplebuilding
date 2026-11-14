@@ -4,13 +4,13 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Legacy compatibility and server-authoritative claims, on by default.
+Server claims, admin tools (block log, backups, anti-X-ray) and player tweaks, on by default; older worlds keep loading.
 
 ## Description (Markdown)
 
 # Simple Tweaks
 
-Simple Tweaks keeps older worlds compatible and adds server-side claims that are on by default.
+Simple Tweaks keeps older worlds compatible and gives servers three groups of tools, all on by default and each switchable: claims that protect builds, admin tools (block and container log, inventory backups, world backups, vanish, freeze, restart announcements, lag finder, anti-X-ray) and player tweaks (death hint, partial keep inventory, newcomer protection, AFK handling, votes, server events, welcome messages).
 
 ## Features
 
@@ -58,6 +58,6 @@ All Rights Reserved with source-available code. Contributions need the contribut
 ## Categories and tags (suggestion)
 
 - Modrinth categories: utility, management
-- Tags: claims, compatibility, server
+- Tags: claims, compatibility, server, admin
 - Environment: client and server
 
