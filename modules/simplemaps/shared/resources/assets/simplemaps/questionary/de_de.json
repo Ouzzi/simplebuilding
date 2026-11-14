@@ -42,5 +42,16 @@
     "secret": [
       "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
     ]
+  },
+  "mega_wayfinder_map": {
+    "lore": [
+      "Eine Karte, die jede Welt gesehen und die Belege aufgehoben hat."
+    ],
+    "use": [
+      "Eine Karte für alle Dimensionen: Knöpfe in der Titelzeile des Kartenbildschirms wechseln zwischen Oberwelt, Nether, End und freigeschalteten Dimensionen. Aus den drei Einzelkarten, drei Echo-Splittern und drei Enderit-Nuggets (oder Enderaugen) herstellbar."
+    ],
+    "secret": [
+      "Weitere Dimensionen schaltet man am Amboss frei: in der neuen Dimension stehen und die Mega-Karte mit einem beliebigen Block kombinieren (5 Level). Der Kartentisch kopiert sie nur."
+    ]
   }
 }

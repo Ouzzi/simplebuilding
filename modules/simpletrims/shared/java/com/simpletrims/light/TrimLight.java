@@ -74,7 +74,7 @@ public final class TrimLight {
 
     public static int wornEmission(LivingEntity entity) {
         int total = 0;
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
+        for (EquipmentSlot slot : EquipmentSlot.VALUES) { // static list: values() copies the array on every call
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) total += TrimGlow.getEmissionLevel(entity.getItemBySlot(slot));
         }
         return total;

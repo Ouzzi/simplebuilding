@@ -42,5 +42,16 @@
     "secret": [
       "Its pages open in your language and nothing is consumed."
     ]
+  },
+  "mega_wayfinder_map": {
+    "lore": [
+      "A map that has seen every world and kept the receipts."
+    ],
+    "use": [
+      "One map for every dimension: buttons in the title bar of the map screen switch between Overworld, Nether, End and unlocked dimensions. Craft it from the three single maps, three echo shards and three enderite nuggets (or eyes of ender)."
+    ],
+    "secret": [
+      "More dimensions unlock at the anvil: stand in the new dimension, combine the mega map with any block (5 levels). The cartography table only copies it."
+    ]
   }
 }

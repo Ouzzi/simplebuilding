@@ -37,7 +37,8 @@ public final class TrimGlow {
 
     public static int getEmissionLevel(ItemStack stack) {
         if (stack.isEmpty()) return 0;
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr(EMISSION_LEVEL_KEY, 0);
+        CustomData data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        return data.isEmpty() ? 0 : data.copyTag().getIntOr(EMISSION_LEVEL_KEY, 0); // PLAN40 simpletrims-2: no tag copy for plain gear
     }
 
     public static void incrementEmissionLevel(ItemStack stack) {
