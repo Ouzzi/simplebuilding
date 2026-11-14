@@ -17,7 +17,7 @@ public final class Immersion {
     public static final ParticleBudget BUDGET = new ParticleBudget();
     /** Time of day (0..23999) of the level's own default clock, -1 in a dimension without day and night (Nether, End): fireflies and pollen follow the clock of their dimension (simplesounds-2, same fix). */
     private static long dayTime(net.minecraft.world.level.Level level) {
-        return level.dimensionType().defaultClock().isPresent() ? Math.floorMod(level.getDefaultClockTime(), 24000L) : -1L;
+        return level.dimensionType().defaultClock().isPresent() && !level.dimensionType().hasFixedTime() ? Math.floorMod(level.getDefaultClockTime(), 24000L) : -1L;
     }
 
     private static int tick;

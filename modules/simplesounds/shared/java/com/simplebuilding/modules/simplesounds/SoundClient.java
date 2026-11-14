@@ -52,7 +52,7 @@ public final class SoundClient {
   }
  }
  /** Like {@link SoundsRegistry#dayTime} but called on the ClientLevel itself: passing it as a Level would make the verifier load the client class on a server (SoundsFabric links this class). */
- private static long day(Minecraft mc){var l=mc.level;return l.dimensionType().defaultClock().isPresent()?Math.floorMod(l.getDefaultClockTime(),24000L):-1L;}
+ private static long day(Minecraft mc){var l=mc.level;return l.dimensionType().defaultClock().isPresent()&&!l.dimensionType().hasFixedTime()?Math.floorMod(l.getDefaultClockTime(),24000L):-1L;}
  private static boolean nearby(Minecraft mc,BlockPos pos,net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> tag,net.minecraft.world.level.block.Block block){
   for(var d:net.minecraft.core.Direction.values()){var sample=pos.relative(d);if(!mc.level.hasChunkAt(sample))continue;var state=mc.level.getBlockState(sample);if(tag!=null?state.is(tag):state.is(block))return true;}return false;
  }
