@@ -41,7 +41,7 @@ Basis b-rel32 d9cda1e21, Branch `b-rel32-opt`. Gelesen ohne Gradle: jede Datei v
 
 ## Befunde
 
-- simpleoptmemory-P2-1: Mixin-Config `required:true`/`defaultRequire:1` -> Absturz statt Abschalten bei fehlgeschlagener Injection. Fix: Commit 64e80c0cc (`required:false`, `defaultRequire:0`). Hinweis: Memory/Server haben (anders als Render) keinen `MixinGuard`; ein stilles Nicht-Anwenden zeigt sich im Log nur durch `O4 state tables: 0 of 0 arrays shared` und durch den Gametest `sharedStates`.
+- simpleoptmemory-P2-1: Mixin-Config `required:true`/`defaultRequire:1` -> Absturz statt Abschalten bei fehlgeschlagener Injection. Fix: Commit 64e80c0cc (`required:false`, `defaultRequire:0`). **Nachgezogen (simpleoptmemory-2):** Memory hat jetzt einen `MixinGuard` wie Render (Bereich aus + sichtbar in `/simpleopt status`). Server hat weiterhin keinen; früher zeigte sich ein stilles Nicht-Anwenden nur durch `O4 state tables: 0 of 0 arrays shared` und durch den Gametest `sharedStates`.
 - simpleoptmemory-P3-1: `OptSettings.load` nicht atomar. Fix: Commit 2e29b17fb.
 - simpleoptmemory-P3-2: `fabric-api` fehlte in `depends`. Fix: Commit 64e80c0cc.
 - simpleoptmemory-P3-3 (Hinweis): Der behauptete Speichergewinn (`savedBytes`) ist eine Schaetzung (Array-Kopf + Referenzgroesse), keine Heap-Messung. Gemessen ist nur die Zaehlung im Integrationslauf (Konzept 10/11: 193 643 von 262 327 Arrays geteilt, ca. 7,1 MiB geschaetzt). Kein Heap-Vergleich vorhanden -> in Beschreibung nur "teilt Tabellen", keine MB-Zusage.
