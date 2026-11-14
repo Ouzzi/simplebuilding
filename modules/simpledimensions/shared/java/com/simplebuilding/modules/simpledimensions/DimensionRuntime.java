@@ -158,7 +158,13 @@ public final class DimensionRuntime {
   }
   ignitions.keySet().removeIf(id->server.getPlayerList().getPlayer(id)==null);
   contacts.keySet().removeIf(id->server.getPlayerList().getPlayer(id)==null);
-  for(var p:server.getPlayerList().getPlayers())tickPlayer(p);
+  boolean dropped=false;
+  for(var p:server.getPlayerList().getPlayers()){
+   // PLAN40 simpledimensions-4: a dead player no longer needs the way back; the entry would only fill the 4096-record ledger.
+   if(p.isDeadOrDying())dropped|=returns.remove(p.getUUID())!=null;
+   tickPlayer(p);
+  }
+  if(dropped)save();
  }
  // Test entries: all game tests share one server, so a parallel test's build in the same tick must not fail an unrelated travel on the one-build-per-tick throttle.
  boolean travelTest(ServerPlayer player,BlockPos contact){lastBuildTick=-1;return travel(player,contact);}
@@ -318,8 +324,8 @@ public final class DimensionRuntime {
    var p=center.above(dy);target.setBlock(p,DimensionRegistry.PORTAL.defaultBlockState().setValue(SkyPortalBlock.AXIS,Direction.Axis.X),3);
    if(target.getBlockEntity(p) instanceof SkyPortalBlockEntity exit){exit.configure(cfg.portalColorRgb(),source.dimension().identifier().toString());exit.define(cfg.id,center,true);exit.connect(source.dimension().identifier().toString(),origin);}
   }
-  if(!safe(target,center))throw new IllegalStateException("Destination plan did not create safe ground");
-  if(!move(player,target,center,false)){
+  // PLAN40 simpledimensions-4: a foreign mod that changes block placement must not stop the server - build back instead.
+  if(!safe(target,center)||!move(player,target,center,false)){
    for(int dy=0;dy<2;dy++)target.setBlock(center.above(dy),Blocks.AIR.defaultBlockState(),3);
    for(var p:plan.keySet())target.setBlock(p,Blocks.AIR.defaultBlockState(),3);
    if(previous==null)returns.remove(player.getUUID());else returns.put(player.getUUID(),previous);save();return false;

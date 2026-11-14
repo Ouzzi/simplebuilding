@@ -11,14 +11,16 @@ public final class PortalActivation {
  public static InteractionResult ignite(ServerPlayer player,InteractionHand hand,BlockHitResult hit){
   var level=player.level();var runtime=DimensionRuntime.get(level.getServer());
   var item=player.getItemInHand(hand);if(!(item.is(Items.FLINT_AND_STEEL)||item.is(Items.FIRE_CHARGE))||player.isSpectator()||!DimensionRegistry.on()||!runtime.settings.accessEnabled)return InteractionResult.PASS;
-  if(!runtime.canIgnite(player.getUUID()))return InteractionResult.FAIL;
   var pos=hit.getBlockPos().relative(hit.getDirection());
   if(player.distanceToSqr(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5)>Math.pow(Math.min(5,player.blockInteractionRange()),2)||!level.mayInteract(player,pos))return InteractionResult.PASS;
   for(var c:runtime.configs){
    var dim=level.dimension().identifier().toString();boolean origin=dim.equals(c.sourceDimensionId)||c.openFromDimensions.contains(dim);
    if(!runtime.settings.allowsAccess(c)||!(origin&&c.allowIgniteFromSource||dim.equals(c.targetDimensionId)&&c.allowIgniteFromTarget))continue;
    var view=new PortalWorld(level,c);var found=PortalActivationService.match(view,c,pos.getX(),pos.getY(),pos.getZ());if(found.isEmpty())continue;
-   var shape=found.get();if(c.requireSeparateLight&&!view.separateLight(shape)){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
+   var shape=found.get();
+   // PLAN40 simpledimensions-4: the click throttle applies only to a real portal frame, plain Vanilla lighting is never swallowed.
+   if(!runtime.canIgnite(player.getUUID()))return InteractionResult.FAIL;
+   if(c.requireSeparateLight&&!view.separateLight(shape)){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
    // Owner AUDSB31E2 F3: a refusal by protection (claims, a foreign claim mod) answers like every failed lighting - dry click and smoke, no text.
    if(!runtime.permittedShape(player,level,shape)){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
    if(!runtime.reserve(level,shape.anchor())){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
