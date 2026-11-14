@@ -23,6 +23,7 @@ public final class NeoForgeClientColors {
     private static final int DEFAULT_COLOR = 0xFF66D9FF;
 
     @SubscribeEvent public static void setup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent e){
+        if (!net.neoforged.fml.ModList.get().isLoaded("cloth_config")) return; // the screen needs Cloth Config, the mod does not (PLAN40 simpledimensions-3)
         net.neoforged.fml.ModList.get().getModContainerById("simpledimensions").orElseThrow().registerExtensionPoint(net.neoforged.neoforge.client.gui.IConfigScreenFactory.class,(container,parent)->com.simplebuilding.modules.simpledimensions.client.DimensionConfigScreen.create(parent));
     }
     private NeoForgeClientColors() {

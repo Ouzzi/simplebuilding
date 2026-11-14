@@ -19,7 +19,7 @@ config="simpledimensions.mixins.json"
 
 [[dependencies.simpledimensions]]
 modId="cloth_config"
-type="required"
+type="optional"
 versionRange="[0,)"
 
 [[dependencies.simpledimensions]]
