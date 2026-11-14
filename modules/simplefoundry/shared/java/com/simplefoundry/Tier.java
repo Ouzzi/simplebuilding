@@ -4,8 +4,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 /**
- * The four desk tiers (owner SA3 = A: 3 / 6 / 9 / 12 input slots). Until the desk screen exists (FOUNDRY32-UI open) the slots show as
- * melt lanes: every metal that waits melts {@link #lanes} units per melt interval, so a higher tier works through the same load faster.
+ * The four desk tiers (owner SA3 = A: 3 / 6 / 9 / 12 input slots). The desk window (FOUNDRY32-UI) shows the places; besides, the
+ * tier is the number of melt lanes: every metal that waits melts {@link #lanes} units per melt interval, so a higher tier works through the same load faster.
  * A tier is bought by right click on the desk with the upgrade item (one piece, taken).
  */
 public enum Tier {

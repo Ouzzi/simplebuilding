@@ -55,6 +55,16 @@ public final class Melts {
         for (Item item : items) TABLE.put(item, new Melt(metal, units));
     }
 
+    /** The items that melt into {@code units} units of {@code metal} (recipe viewer; gear excluded, its yield depends on wear). */
+    public static java.util.List<Item> items(Metal metal, int units) {
+        java.util.List<Item> out = new java.util.ArrayList<>();
+        TABLE.forEach((item, melt) -> {
+            if (melt.metal() == metal && melt.units() == units) out.add(item);
+        });
+        out.sort(java.util.Comparator.comparing(i -> BuiltInRegistries.ITEM.getKey(i).toString()));
+        return out;
+    }
+
     /** The melt of the stack's item, or null when it does not melt here. */
     public static Melt of(ItemStack stack) {
         if (stack.isEmpty()) return null;

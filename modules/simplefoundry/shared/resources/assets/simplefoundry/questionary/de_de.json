@@ -1,0 +1,68 @@
+{
+  "foundry_desk": {
+    "lore": [
+      "Das Hirn einer Gießerei."
+    ],
+    "use": [
+      "In die Ziegelhülle stellen, Brennstoff in den Brennstoff-Platz legen und Erz, Rohmetall, Barren oder alte Ausrüstung auf die Plätze werfen. Das Fenster zeigt den Tank Schicht für Schicht; Schicht wählen und gießen."
+    ],
+    "secret": [
+      "Ein Pult behält seine Stufe beim Abbauen (Schmelze und Brennstoff gehen verloren). Stein hat 3 Plätze; Rechtsklick mit einem Eisenblock (6), einem Diamantblock (9) und einem Netheritbarren (12) steigert es, je ein Stück, wird verbraucht."
+    ]
+  },
+  "melting_chamber": {
+    "lore": [
+      "Ein Ziegelbauch für flüssiges Metall."
+    ],
+    "use": [
+      "Kammern in beliebiger Form in einer geschlossenen Hülle aus Hüttenziegeln bauen (bis 256, 32 je Achse); zusammen sind sie der Tank (je 27 Barren)."
+    ],
+    "secret": [
+      "Sie müssen das Pult berühren und in geladenen Chunks liegen; Gold sinkt nach unten, dann Kupfer, dann Eisen."
+    ]
+  },
+  "foundry_brick": {
+    "lore": [
+      "Hart gebrannte Hülle der Gießerei."
+    ],
+    "use": [
+      "Jede Seite des Tanks muss durch Ziegel, Pult, Feuerrost, Tülle oder Glas geschlossen sein."
+    ],
+    "secret": [
+      "Der günstige Teil; die Hülle entscheidet, ob die Gießerei bereit ist."
+    ]
+  },
+  "fire_grate": {
+    "lore": [
+      "Wo das Feuer wohnt."
+    ],
+    "use": [
+      "In die Hülle setzen; Brennstoff im Brennstoff-Platz des Pults brennt hier: Kohle, Holzkohle und Holz geben mittlere Hitze, Lavaeimer, Lohenruten und Kohleblöcke hohe Hitze."
+    ],
+    "secret": [
+      "Eisen braucht hohe Hitze; Gold und Kupfer schmelzen bei mittlerer Hitze."
+    ]
+  },
+  "foundry_spout": {
+    "lore": [
+      "Gießt die Schmelze aus."
+    ],
+    "use": [
+      "Auf die Hülle über ein Gießtablett setzen; sie zieht neun Einheiten je Barren aus der gewählten Schicht."
+    ],
+    "secret": [
+      "Auch ein verstärkter Kessel aus Simple Crucibles ist ein Ziel."
+    ]
+  },
+  "casting_tray": {
+    "lore": [
+      "Eine flache Schale für Barren."
+    ],
+    "use": [
+      "Unter eine Tülle stellen; es nimmt bis zu neun Barren auf, die nach einigen Sekunden erstarren und dann entnommen werden können."
+    ],
+    "secret": [
+      "Abbauen lässt den Inhalt fallen."
+    ]
+  }
+}

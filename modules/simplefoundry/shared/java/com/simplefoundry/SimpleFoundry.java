@@ -25,6 +25,7 @@ public final class SimpleFoundry {
 
     public static void init(Path configDir) {
         FoundryConfig.load(configDir);
+        FoundryViewer.register(); // SF-2: the built-in melts in the recipe viewer (no JEI class)
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "foundry", "simplefoundry.testcentre.station", FoundryRegistry.itemIds());
     }
 

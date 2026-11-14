@@ -1,0 +1,68 @@
+{
+  "foundry_desk": {
+    "lore": [
+      "The brain of a foundry."
+    ],
+    "use": [
+      "Place it in the brick hull, put fuel in the fuel slot and throw ore, raw metal, ingots or old gear into its places. The window shows the tank layer by layer; pick a layer and pour it."
+    ],
+    "secret": [
+      "A desk keeps its tier when broken (melt and fuel are lost). Stone has 3 places; right-click with an iron block (6), a diamond block (9) and a netherite ingot (12) raises it, one piece each, taken."
+    ]
+  },
+  "melting_chamber": {
+    "lore": [
+      "A brick belly that holds molten metal."
+    ],
+    "use": [
+      "Build chambers in any shape inside a closed hull of foundry brick (up to 256, 32 per axis); together they are the tank (27 ingots each)."
+    ],
+    "secret": [
+      "They must touch the desk and sit in loaded chunks; gold sinks to the bottom, then copper, then iron."
+    ]
+  },
+  "foundry_brick": {
+    "lore": [
+      "Hard-baked hull of the foundry."
+    ],
+    "use": [
+      "Every side of the tank must be closed by brick, desk, fire grate, spout or glass."
+    ],
+    "secret": [
+      "It is the cheap part; the hull decides whether the foundry is ready."
+    ]
+  },
+  "fire_grate": {
+    "lore": [
+      "Where the fire lives."
+    ],
+    "use": [
+      "Put it in the hull; fuel in the desk's fuel slot burns here: coal, charcoal and logs give medium heat, lava buckets, blaze rods and coal blocks high heat."
+    ],
+    "secret": [
+      "Iron needs high heat; gold and copper melt at medium heat."
+    ]
+  },
+  "foundry_spout": {
+    "lore": [
+      "Pours the melt out."
+    ],
+    "use": [
+      "Place it on the hull above a casting tray; it draws nine units per ingot from the chosen layer."
+    ],
+    "secret": [
+      "A reinforced cauldron of Simple Crucibles works as a target too."
+    ]
+  },
+  "casting_tray": {
+    "lore": [
+      "A shallow tray for ingots."
+    ],
+    "use": [
+      "Place it below a spout; it takes up to nine ingots, which set after a few seconds and can then be taken out."
+    ],
+    "secret": [
+      "Breaking it drops what is inside."
+    ]
+  }
+}

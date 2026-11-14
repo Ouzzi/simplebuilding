@@ -9,6 +9,12 @@ public final class ModuleGameTest {
     @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplefoundry", false); }
 
     @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void configLabels(GameTestHelper h) { FoundryTests.ALL.get("config_labels").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void jeiMelts(GameTestHelper h) { FoundryTests.ALL.get("jei_melts").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
     public void registered(GameTestHelper h) { FoundryTests.ALL.get("registered").accept(h); }
 
     @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
