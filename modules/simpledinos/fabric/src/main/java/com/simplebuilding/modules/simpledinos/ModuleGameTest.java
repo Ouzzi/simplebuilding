@@ -139,6 +139,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void dinoPartBoxesMinimal(GameTestHelper h) {
+        DinosTests.ALL.get("dino_part_boxes_minimal").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void trexHeadPullsInAtWall(GameTestHelper h) {
         DinosTests.ALL.get("trex_head_pulls_in_at_wall").accept(h);
     }

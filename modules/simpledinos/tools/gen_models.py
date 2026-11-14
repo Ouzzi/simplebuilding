@@ -139,6 +139,11 @@ def plate(tier, seed):
 
 
 # ---------------------------------------------------------------- the spec
+# N43 (owner 13.11.: z-fighting on every dinosaur): the smallest offset that keeps two faces out of one plane, in model px on the
+# axis of the face (drawn at 0.75 and seen from far, so a bit more than the small animals' 0.02). tools/check_model_zfight.py finds them.
+ZF = 0.1
+
+
 def B(pos, size, paint, grow=0.0, uv=None, mirror=False, share=None):
     return dict(pos=pos, size=size, paint=paint, grow=grow, uv=uv, mirror=mirror, share=share)
 
@@ -169,14 +174,14 @@ def trex_spec(coat, belly, dark, tier=0, name='trex'):
     plate_p = plate(max(1, tier), 22)
     parts = [
         P('body', [B((-14, -15, -24), (28, 30, 48), body_p, share='body')], pose=(0, Y(48), 0)),
-        P('neck', [B((-8, -24, -9), (16, 24, 18), neck_p, share='neck')], pose=(0, -11, -20), rot=(0.5, 0, 0), parent='body'),
+        P('neck', [B((-8, -24, -9), (16, 24, 18), neck_p, share='neck', grow=(-ZF, 0, 0))], pose=(0, -11, -20), rot=(0.5, 0, 0), parent='body'),
         P('head', [B((-8, -8, -28), (16, 16, 30), skull_p, share='head')], pose=(0, -23, -2), rot=(-0.5, 0, 0), parent='neck'),
         P('jaw', [B((-6.5, 0, -26), (13, 5, 26), jaw_p, share='jaw')], pose=(0, 4, -2), rot=(0.12, 0, 0), parent='head'),
         P('tail1', [B((-10, -10, 0), (20, 20, 28), tail_p, share='tail1')], pose=(0, -3, 22), rot=(-0.03, 0, 0), parent='body'),
         P('tail2', [B((-7, -8, 0), (14, 16, 28), tail_p, share='tail2')], pose=(0, 0, 28), rot=(0.04, 0, 0), parent='tail1'),
         P('tail3', [B((-4, -5, 0), (8, 10, 28), tail_p, share='tail3')], pose=(0, 0, 28), rot=(0.05, 0, 0), parent='tail2'),
-        P('arm_right', [B((-2, 0, -2), (4, 12, 4), arm_p, share='arm')], pose=(-12, 4, -21), rot=(0.8, 0, 0), parent='body'),
-        P('arm_left', [B((-2, 0, -2), (4, 12, 4), arm_p, share='arm')], pose=(12, 4, -21), rot=(0.8, 0, 0), parent='body'),
+        P('arm_right', [B((-2, 0, -2), (4, 12, 4), arm_p, share='arm', grow=(ZF, 0, 0))], pose=(-12, 4, -21), rot=(0.8, 0, 0), parent='body'),
+        P('arm_left', [B((-2, 0, -2), (4, 12, 4), arm_p, share='arm', grow=(ZF, 0, 0))], pose=(12, 4, -21), rot=(0.8, 0, 0), parent='body'),
         P('right_thigh', [B((-6, 0, -7), (12, 22, 14), leg_p, share='thigh')], pose=(-13, Y(42), 7)),
         P('right_shin', [B((-4, 0, -4), (8, 18, 8), leg_p, share='shin')], pose=(0, 21, 2), rot=(-0.3, 0, 0), parent='right_thigh'),
         P('right_foot', [B((-5, 0, -12), (10, 4, 15), foot_p, share='foot')], pose=(0, 17, -1), rot=(0.3, 0, 0), parent='right_shin'),
@@ -184,7 +189,7 @@ def trex_spec(coat, belly, dark, tier=0, name='trex'):
         P('left_shin', [B((-4, 0, -4), (8, 18, 8), leg_p, share='shin')], pose=(0, 21, 2), rot=(-0.3, 0, 0), parent='left_thigh'),
         P('left_foot', [B((-5, 0, -12), (10, 4, 15), foot_p, share='foot')], pose=(0, 17, -1), rot=(0.3, 0, 0), parent='left_shin'),
         P('saddle', [B((-11, -18, -6), (22, 3, 14), seat_p, share='saddle_seat'), B((-3, -21, -8), (6, 3, 2), pommel_p, share='saddle_pommel')], parent='body'),
-        P('armor_head', [B((-8.6, -8.6, -16), (17.2, 5.2, 18), plate_p, share='armor_head')], parent='head'),
+        P('armor_head', [B((-8.6, -8.6, -16), (17.2, 5.2, 18), plate_p, share='armor_head', grow=(0, 0, ZF))], parent='head'),
         P('armor_back', [B((-15, -17, -18), (30, 3, 36), plate_p, share='armor_back')], parent='body'),
     ]
     return dict(name=name, w=256, parts=parts)
@@ -292,7 +297,7 @@ def triceratops_spec(coat, belly, dark, tier=0, name='triceratops', frill='A'):
     parts = [
         P('body', [B((-17, -16, -26), (34, 32, 52), body_p, share='body')], pose=(0, Y(34), 0)),
         P('hump', [B((-14, -20, -8), (28, 4, 30), hump_p, share='hump'), B((-10, -22, 0), (20, 2, 16), hump_p, share='ridge')], parent='body'),
-        P('neck', [B((-10, -10, -10), (20, 18, 12), neck_p, share='neck')], pose=(0, -2, -22), rot=(0.25, 0, 0), parent='body'),
+        P('neck', [B((-10, -10, -10), (20, 18, 12), neck_p, share='neck', grow=(-ZF, 0, 0))], pose=(0, -2, -22), rot=(0.25, 0, 0), parent='body'),
         P('head', [B((-10, -10, -16), (20, 19, 17), skull_p, share='skull'), B((-7, -6, -27), (14, 14, 11), snout_p, share='snout'),
                    B((-4.5, -2, -30), (9, 11, 3), beak_p, share='beak')], pose=(0, 0, -9), rot=(0.1, 0, 0), parent='neck'),
         P('horn_nose', [B((-1.5, -6, -1.5), (3, 6, 3), horn_p, share='horn_nose')], pose=(0, -6, -22), rot=(0.3, 0, 0), parent='head'),
@@ -302,28 +307,28 @@ def triceratops_spec(coat, belly, dark, tier=0, name='triceratops', frill='A'):
           pose=(5.5, -9, -10), rot=(0.6, 0, 0.14), parent='head'),
         P('frill', [B((-12.5, -31, -1), (25, 31, 2), fr_c, share='frill'), B((-18.5, -24, -1), (6, 22, 2), fr_l, share='frill_side'),
                     B((12.5, -24, -1), (6, 22, 2), fr_r, share='frill_side_r'),
-                    B((-13.5, -32, 1), (27, 32, 2), rim_p, share='frill_rim'), B((-19.5, -25, 1), (39, 23, 2), rim_p, share='frill_rim_wide')],
+                    B((-13.5, -32, 1), (27, 32, 2), rim_p, share='frill_rim', grow=(0, ZF, ZF)), B((-19.5, -25, 1), (39, 23, 2), rim_p, share='frill_rim_wide')],
           pose=(0, -7, -2), rot=(-0.75, 0, 0), parent='head'),
         P('tail1', [B((-8, -7, 0), (16, 14, 16), tail_p, share='tail1')], pose=(0, -6, 25), rot=(-0.3, 0, 0), parent='body'),
         P('tail2', [B((-5.5, -5, 0), (11, 10, 14), tail_p, share='tail2')], pose=(0, 0, 15), rot=(-0.12, 0, 0), parent='tail1'),
         P('tail3', [B((-3, -3, 0), (6, 6, 11), tail_p, share='tail3')], pose=(0, 0, 13), rot=(-0.08, 0, 0), parent='tail2'),
         P('front_right_leg', [B((-5.5, 0, -5.5), (11, 14, 11), leg_p, share='front_upper')], pose=(-12, Y(26), -17)),
-        P('front_right_shin', [B((-4.5, 0, -4.5), (9, 12, 9), leg_p, share='front_shin'), B((-5.5, 10, -6.5), (11, 2, 12), foot_p, share='front_foot')],
+        P('front_right_shin', [B((-4.5, 0, -4.5), (9, 12, 9), leg_p, share='front_shin'), B((-5.5, 10, -6.5), (11, 2, 12), foot_p, share='front_foot', grow=(0, ZF, 0))],
           pose=(0, 14, 0), parent='front_right_leg'),
         P('front_left_leg', [B((-5.5, 0, -5.5), (11, 14, 11), leg_p, share='front_upper')], pose=(12, Y(26), -17)),
-        P('front_left_shin', [B((-4.5, 0, -4.5), (9, 12, 9), leg_p, share='front_shin'), B((-5.5, 10, -6.5), (11, 2, 12), foot_p, share='front_foot')],
+        P('front_left_shin', [B((-4.5, 0, -4.5), (9, 12, 9), leg_p, share='front_shin'), B((-5.5, 10, -6.5), (11, 2, 12), foot_p, share='front_foot', grow=(0, ZF, 0))],
           pose=(0, 14, 0), parent='front_left_leg'),
         P('back_right_leg', [B((-6, 0, -7), (12, 18, 14), leg_p, share='back_upper')], pose=(-13, Y(32), 16)),
-        P('back_right_shin', [B((-4.5, 0, -4.5), (9, 14, 9), leg_p, share='back_shin'), B((-5.5, 12, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+        P('back_right_shin', [B((-4.5, 0, -4.5), (9, 14, 9), leg_p, share='back_shin'), B((-5.5, 12, -6.5), (11, 2, 12), foot_p, share='back_foot', grow=(0, ZF, 0))],
           pose=(0, 18, 0), parent='back_right_leg'),
         P('back_left_leg', [B((-6, 0, -7), (12, 18, 14), leg_p, share='back_upper')], pose=(13, Y(32), 16)),
-        P('back_left_shin', [B((-4.5, 0, -4.5), (9, 14, 9), leg_p, share='back_shin'), B((-5.5, 12, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+        P('back_left_shin', [B((-4.5, 0, -4.5), (9, 14, 9), leg_p, share='back_shin'), B((-5.5, 12, -6.5), (11, 2, 12), foot_p, share='back_foot', grow=(0, ZF, 0))],
           pose=(0, 18, 0), parent='back_left_leg'),
         P('saddle', [B((-11, -19, -22), (22, 3, 14), seat_p, share='saddle_seat'), B((-3, -22, -24), (6, 3, 2), pommel_p, share='saddle_pommel')],
           parent='body'),
         P('armor_frill', [B((-11, -27, -2), (22, 24, 1), plate_p, share='armor_frill')], parent='frill'),
-        P('armor_horn_right', [B((-1.5, -21, -1.5), (3, 7, 3), plate_p, share='armor_cap')], parent='horn_right'),
-        P('armor_horn_left', [B((-1.5, -21, -1.5), (3, 7, 3), plate_p, share='armor_cap')], parent='horn_left'),
+        P('armor_horn_right', [B((-1.5, -21, -1.5), (3, 7, 3), plate_p, share='armor_cap', grow=(0, ZF, 0))], parent='horn_right'),
+        P('armor_horn_left', [B((-1.5, -21, -1.5), (3, 7, 3), plate_p, share='armor_cap', grow=(0, ZF, 0))], parent='horn_left'),
         P('armor_horn_nose', [B((-2, -7, -2), (4, 4, 4), plate_p, share='armor_cap_nose')], parent='horn_nose'),
         P('armor_chest', [B((-12, -10, -28), (24, 20, 2), plate_p, share='armor_chest')], parent='body'),
     ]
@@ -378,14 +383,14 @@ def plate_paint(coat, belly, dark, variant, seed, t0=0.0, t1=1.0):
     return f
 
 
-def plates(x0, top, zs, sizes, paint, tag, upper=None):
+def plates(x0, top, zs, sizes, paint, tag, upper=None, grow=0.0):
     """A row of plates standing on `top` (model y of the back) at x0..x0+2, one per z, sizes (h, d); each plate is a wide base and a
     narrower tip (two boxes: a stepped, Vanilla-like pixel outline). `upper` paints the tip boxes (the gradient runs base -> tip)."""
     out = []
     for z, (h, d) in zip(zs, sizes):
         hb = max(2, round(h * 0.55))
         inset = max(1, d // 4)
-        out.append(B((x0, top - hb, z - d / 2), (2, hb, d), paint, share=f'plate{h}x{d}_{tag}'))
+        out.append(B((x0, top - hb, z - d / 2), (2, hb, d), paint, share=f'plate{h}x{d}_{tag}', grow=grow))
         out.append(B((x0, top - h, z - d / 2 + inset), (2, h - hb, d - 2 * inset), upper or paint, share=f'plate{h}x{d}t_{tag}'))
     return out
 
@@ -419,12 +424,12 @@ def stegosaurus_spec(coat, belly, dark, tier=0, name='stegosaurus', pattern='A')
     # staggered by half a plate and sink one pixel into the back (no gap)
     def row(spec):
         out = []
-        for side, z, h, d, top in spec:
-            out += plates(-3 if side == 'l' else 1, top + 1, (z,), ((h, d),), plate_p, side, plate_tip)
+        for side, z, h, d, top, *grow in spec:  # N43: optional grow of the plate base where it ends flush with a neighbour
+            out += plates(-3 if side == 'l' else 1, top + 1, (z,), ((h, d),), plate_p, side, plate_tip, grow[0] if grow else 0.0)
         return out
-    body_plates = row((('l', -9, 12, 10, -21), ('r', -2, 14, 12, -21), ('l', 6, 16, 14, -24), ('r', 12, 15, 12, -24), ('l', 17, 14, 10, -21)))
+    body_plates = row((('l', -9, 12, 10, -21), ('r', -2, 14, 12, -21), ('l', 6, 16, 14, -24), ('r', 12, 15, 12, -24, (0, 0, -ZF)), ('l', 17, 14, 10, -21, (-ZF, 0, -ZF))))
     neck_plates = row((('l', -11, 6, 6, -5), ('r', -5, 7, 6, -5)))
-    tail1_plates = row((('r', 4, 13, 10, -7), ('l', 10, 11, 9, -7), ('r', 16, 9, 8, -7)))
+    tail1_plates = row((('r', 4, 13, 10, -7), ('l', 10, 11, 9, -7), ('r', 16, 9, 8, -7, (0, 0, -ZF))))
     tail2_plates = row((('l', 4, 8, 7, -5), ('r', 10, 6, 6, -5), ('l', 15, 4, 4, -5)))
     spike = [B((-1.5, -7, -1.5), (3, 7, 3), spike_p, share='spike'), B((-1, -14, -1), (2, 7, 2), spike_p, share='spike_tip')]
     parts = [
@@ -442,18 +447,18 @@ def stegosaurus_spec(coat, belly, dark, tier=0, name='stegosaurus', pattern='A')
         P('spike_right_back', spike, pose=(-2.5, -1.5, 13), rot=(-0.8, 0, -1.3), parent='tail3'),
         P('spike_left_back', spike, pose=(2.5, -1.5, 13), rot=(-0.8, 0, 1.3), parent='tail3'),
         P('front_right_leg', [B((-5, 0, -5), (10, 13, 10), leg_p, share='front_upper')], pose=(-10, Y(25), -18)),
-        P('front_right_shin', [B((-4, 0, -4), (8, 12, 8), leg_p, share='front_shin'), B((-5, 10, -6), (10, 2, 11), foot_p, share='front_foot')],
+        P('front_right_shin', [B((-4, 0, -4), (8, 12, 8), leg_p, share='front_shin'), B((-5, 10, -6), (10, 2, 11), foot_p, share='front_foot', grow=(0, ZF, 0))],
           pose=(0, 13, 0), parent='front_right_leg'),
         P('front_left_leg', [B((-5, 0, -5), (10, 13, 10), leg_p, share='front_upper')], pose=(10, Y(25), -18)),
-        P('front_left_shin', [B((-4, 0, -4), (8, 12, 8), leg_p, share='front_shin'), B((-5, 10, -6), (10, 2, 11), foot_p, share='front_foot')],
+        P('front_left_shin', [B((-4, 0, -4), (8, 12, 8), leg_p, share='front_shin'), B((-5, 10, -6), (10, 2, 11), foot_p, share='front_foot', grow=(0, ZF, 0))],
           pose=(0, 13, 0), parent='front_left_leg'),
         P('back_right_leg', [B((-6, 0, -7), (12, 20, 14), leg_p, share='back_upper')], pose=(-11, Y(38), 14)),
-        P('back_right_shin', [B((-4.5, 0, -4.5), (9, 18, 9), leg_p, share='back_shin'), B((-5.5, 16, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+        P('back_right_shin', [B((-4.5, 0, -4.5), (9, 18, 9), leg_p, share='back_shin'), B((-5.5, 16, -6.5), (11, 2, 12), foot_p, share='back_foot', grow=(0, ZF, 0))],
           pose=(0, 20, 0), parent='back_right_leg'),
         P('back_left_leg', [B((-6, 0, -7), (12, 20, 14), leg_p, share='back_upper')], pose=(11, Y(38), 14)),
-        P('back_left_shin', [B((-4.5, 0, -4.5), (9, 18, 9), leg_p, share='back_shin'), B((-5.5, 16, -6.5), (11, 2, 12), foot_p, share='back_foot')],
+        P('back_left_shin', [B((-4.5, 0, -4.5), (9, 18, 9), leg_p, share='back_shin'), B((-5.5, 16, -6.5), (11, 2, 12), foot_p, share='back_foot', grow=(0, ZF, 0))],
           pose=(0, 20, 0), parent='back_left_leg'),
-        P('saddle', [B((-10, -18, -27), (20, 3, 14), seat_p, share='saddle_seat'), B((-3, -21, -29), (6, 3, 2), pommel_p, share='saddle_pommel')],
+        P('saddle', [B((-10, -18, -27), (20, 3, 14), seat_p, share='saddle_seat', grow=(0, ZF, 0)), B((-3, -21, -29), (6, 3, 2), pommel_p, share='saddle_pommel')],
           parent='body'),
         P('armor_neck', [B((-7, -6.5, -15), (14, 13.5, 10), plate_a, share='armor_neck', grow=0.4)], parent='neck'),
         P('armor_flank_right', [B((-15, -12, -26), (1, 18, 34), plate_a, share='armor_flank')], parent='body'),
@@ -461,7 +466,7 @@ def stegosaurus_spec(coat, belly, dark, tier=0, name='stegosaurus', pattern='A')
         # the plow: a girth around the hips (on the body), the frame hangs from root level so the tail swings freely above it
         P('plow_harness', [B((-14.5, -15.5, 8), (29, 31, 4), strap_p, share='harness', grow=0.3)], parent='body'),
         P('plow', [B((-16, -1, 0), (2, 2, 30), wood_p, share='shaft'), B((14, -1, 0), (2, 2, 30), wood_p, share='shaft'),
-                   B((-27, -2, 28), (54, 3, 3), wood_p, share='beam')], pose=(0, Y(26), 16), rot=(-0.5, 0, 0)),
+                   B((-27, -2, 28), (54, 3, 3), wood_p, share='beam', grow=(0, ZF, 0))], pose=(0, Y(26), 16), rot=(-0.5, 0, 0)),
         P('plow_shares', [B((-SHARE_STEP - 1.5, 0, -2), (3, 11, 4), iron_p, share='share'), B((-1.5, 0, -2), (3, 11, 4), iron_p, share='share'),
                           B((SHARE_STEP - 1.5, 0, -2), (3, 11, 4), iron_p, share='share')], pose=(0, 1, 29.5), rot=(0.5, 0, 0), parent='plow'),
     ]
@@ -553,8 +558,8 @@ def parasaurolophus_spec(coat, belly, dark, tier=0, name='parasaurolophus', cres
         P('neck', [B((-6, -6, -22), (12, 12, 22), neck_p, share='neck'), B((-7, -5, -6), (14, 14, 8), neck_p, share='neck_base')],
           pose=(0, -5, -21), rot=(-1.0, 0, 0), parent='body'),
         P('head', [B((-5, -5.5, -11), (10, 10, 12), skull_p, share='skull'), B((-4, -2, -20), (8, 7, 9), snout_p, share='snout'),
-                   B((-4.5, 2, -23), (9, 3, 4), bill_p, share='bill')], pose=(0, 0, -21), rot=(1.05, 0, 0), parent='neck'),
-        P('jaw', [B((-4, 0, -17), (8, 3, 17), jaw_p, share='jaw')], pose=(0, 3.5, -3), rot=(0.04, 0, 0), parent='head'),
+                   B((-4.5, 2, -23), (9, 3, 4), bill_p, share='bill', grow=(0, ZF, 0))], pose=(0, 0, -21), rot=(1.05, 0, 0), parent='neck'),
+        P('jaw', [B((-4, 0, -17), (8, 3, 17), jaw_p, share='jaw', grow=(-ZF, 0, 0))], pose=(0, 3.5, -3), rot=(0.04, 0, 0), parent='head'),
         P('crest', [B((-2.5, -3, 0), (5, 6, 10), crest_a, share='crest1')], pose=(0, -4.5, -6), rot=(0.25, 0, 0), parent='head'),
         P('crest_mid', [B((-2.25, -2.75, 0), (4.5, 5.5, 9), crest_b, share='crest2')], pose=(0, 0, 9.5), rot=(0.03, 0, 0), parent='crest'),
         P('crest_tip', [B((-2, -2.5, 0), (4, 5, 7), crest_c, share='crest3')], pose=(0, 0, 8.5), rot=(0.18, 0, 0), parent='crest_mid'),
@@ -562,16 +567,16 @@ def parasaurolophus_spec(coat, belly, dark, tier=0, name='parasaurolophus', cres
         P('tail2', [B((-4.5, -6, 0), (9, 12, 20), tail_p, share='tail2')], pose=(0, 0, 19), rot=(-0.03, 0, 0), parent='tail1'),
         P('tail3', [B((-3, -4.5, 0), (6, 9, 18), tail_p, share='tail3')], pose=(0, 0, 19), rot=(-0.04, 0, 0), parent='tail2'),
         P('front_right_leg', [B((-3.5, 0, -3.5), (7, 12, 7), leg_p, share='front_upper')], pose=(-7, Y(24), -16)),
-        P('front_right_shin', [B((-3, 0, -3), (6, 12, 6), leg_p, share='front_shin'), B((-3.5, 10, -4.5), (7, 2, 8), foot_p, share='front_foot')],
+        P('front_right_shin', [B((-3, 0, -3), (6, 12, 6), leg_p, share='front_shin'), B((-3.5, 10, -4.5), (7, 2, 8), foot_p, share='front_foot', grow=(0, ZF, 0))],
           pose=(0, 12, 0), parent='front_right_leg'),
         P('front_left_leg', [B((-3.5, 0, -3.5), (7, 12, 7), leg_p, share='front_upper')], pose=(7, Y(24), -16)),
-        P('front_left_shin', [B((-3, 0, -3), (6, 12, 6), leg_p, share='front_shin'), B((-3.5, 10, -4.5), (7, 2, 8), foot_p, share='front_foot')],
+        P('front_left_shin', [B((-3, 0, -3), (6, 12, 6), leg_p, share='front_shin'), B((-3.5, 10, -4.5), (7, 2, 8), foot_p, share='front_foot', grow=(0, ZF, 0))],
           pose=(0, 12, 0), parent='front_left_leg'),
         P('back_right_leg', [B((-5.5, 0, -7), (11, 19, 14), leg_p, share='back_upper')], pose=(-8.5, Y(36), 12)),
-        P('back_right_shin', [B((-4, 0, -4), (8, 17, 8), leg_p, share='back_shin'), B((-5, 15, -8), (10, 2, 12), foot_p, share='back_foot')],
+        P('back_right_shin', [B((-4, 0, -4), (8, 17, 8), leg_p, share='back_shin'), B((-5, 15, -8), (10, 2, 12), foot_p, share='back_foot', grow=(0, ZF, ZF))],
           pose=(0, 19, 0), parent='back_right_leg'),
         P('back_left_leg', [B((-5.5, 0, -7), (11, 19, 14), leg_p, share='back_upper')], pose=(8.5, Y(36), 12)),
-        P('back_left_shin', [B((-4, 0, -4), (8, 17, 8), leg_p, share='back_shin'), B((-5, 15, -8), (10, 2, 12), foot_p, share='back_foot')],
+        P('back_left_shin', [B((-4, 0, -4), (8, 17, 8), leg_p, share='back_shin'), B((-5, 15, -8), (10, 2, 12), foot_p, share='back_foot', grow=(0, ZF, ZF))],
           pose=(0, 19, 0), parent='back_left_leg'),
         P('saddle', [B((-9, -15, -5), (18, 3, 12), seat_p, share='saddle_seat'), B((-2.5, -18, -7), (5, 3, 2), pommel_p, share='saddle_pommel')],
           parent='body'),
@@ -579,7 +584,8 @@ def parasaurolophus_spec(coat, belly, dark, tier=0, name='parasaurolophus', cres
         P('armor_crest', [B((-2.5, -3, 0), (5, 6, 10), plate_a, share='armor_crest', grow=0.5)], parent='crest'),
         P('armor_crest_mid', [B((-2.25, -2.75, 0), (4.5, 5.5, 9), plate_a, share='armor_crest_mid', grow=0.5)], parent='crest_mid'),
         P('armor_back', [B((-10.5, -16.6, 7.5), (21, 1, 15), plate_a, share='armor_blanket'),
-                         B((-12.6, -13, 8), (1, 10, 14), plate_a, share='armor_drape'), B((11.6, -13, 8), (1, 10, 14), plate_a, share='armor_drape')],
+                         B((-12.6, -13, 8), (1, 10, 14), plate_a, share='armor_drape', grow=(0, 0, -ZF)),
+                         B((11.6, -13, 8), (1, 10, 14), plate_a, share='armor_drape', grow=(0, 0, -ZF))],
           parent='body'),
     ]
     return dict(name=name, w=256, parts=parts)
@@ -742,7 +748,8 @@ def java_layers(model, spec):
             u, v = place[b['share']]
             x, y, z = b['pos']
             w, h, d = b['size']
-            grow = f', new CubeDeformation({b["grow"]}F)' if b['grow'] else ''
+            g = b['grow']  # N43: a number (all sides) or (x, y, z) - the smallest offset on one axis against z-fighting
+            grow = (f', new CubeDeformation({g[0]}F, {g[1]}F, {g[2]}F)' if isinstance(g, tuple) else f', new CubeDeformation({g}F)') if g else ''
             cubes += f'.texOffs({u}, {v}).addBox({x}F, {y}F, {z}F, {w}F, {h}F, {d}F{grow})'
         px, py, pz = part['pose']
         rx, ry, rz = part['rot']

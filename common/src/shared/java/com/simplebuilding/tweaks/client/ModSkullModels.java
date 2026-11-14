@@ -197,7 +197,9 @@ public final class ModSkullModels {
     private static LayerDefinition slimeOuterLayer() {
         MeshDefinition mesh = new MeshDefinition();
         mesh.getRoot().addOrReplaceChild("head",
-                CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), PartPose.ZERO);
+                CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F,
+                // N43: die durchscheinende Huelle (ohne Culling) flackerte mit Boden/Wand unter dem Kopf: 0,05 px kleiner
+                new CubeDeformation(-0.05F)), PartPose.ZERO);
         return LayerDefinition.create(mesh, 64, 32);
     }
 

@@ -4,6 +4,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
@@ -52,10 +53,10 @@ public class HowlerModel extends EntityModel<HowlerRenderState> {
         PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create(), PartPose.offset(0.0F, -14.0F, 0.0F));
         PartDefinition jaw = neck.addOrReplaceChild("jaw",
                 CubeListBuilder.create().texOffs(60, 40).addBox(-5.0F, -4.0F, -10.0F, 10, 4, 10), PartPose.offset(0.0F, 0.0F, 4.0F));
-        jaw.addOrReplaceChild("lower_teeth", CubeListBuilder.create().texOffs(42, 60).addBox(-4.0F, -5.0F, -9.5F, 8, 1, 1), PartPose.ZERO);
+        jaw.addOrReplaceChild("lower_teeth", CubeListBuilder.create().texOffs(42, 60).addBox(-4.0F, -5.0F, -9.5F, 8, 1, 1, new CubeDeformation(-0.02F)), PartPose.ZERO); // N43
         PartDefinition skull = neck.addOrReplaceChild("skull",
                 CubeListBuilder.create().texOffs(0, 56).addBox(-5.0F, -9.0F, -10.0F, 10, 9, 10), PartPose.offset(0.0F, -4.0F, 4.0F));
-        skull.addOrReplaceChild("upper_teeth", CubeListBuilder.create().texOffs(42, 56).addBox(-4.0F, 0.0F, -9.5F, 8, 1, 1), PartPose.ZERO);
+        skull.addOrReplaceChild("upper_teeth", CubeListBuilder.create().texOffs(42, 56).addBox(-4.0F, 0.0F, -9.5F, 8, 1, 1, new CubeDeformation(-0.02F)), PartPose.ZERO); // N43
         // Antennae like the Warden's: flat forked tendrils beside the skull, they twitch and glow when it hears something.
         skull.addOrReplaceChild("right_tendril", CubeListBuilder.create().texOffs(90, 56).addBox(-10.0F, -10.0F, 0.0F, 10, 10, 0),
                 PartPose.offset(-4.0F, -6.0F, -4.0F));

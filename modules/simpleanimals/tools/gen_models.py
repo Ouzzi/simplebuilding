@@ -170,6 +170,11 @@ def stripes(light, dark, seed, width=(2, 4), slant=0.45, soft=True, coverage=1.0
 
 
 # ---------------------------------------------------------------- the spec
+# N43 (owner 13.11.: the hedgehog z-fights in itself): the smallest offset that keeps two faces out of one plane, in model px on the
+# axis of the face (the hedgehog's spine coat 0.05 as a layer). tools/check_model_zfight.py finds them.
+ZA = 0.02
+
+
 def B(pos, size, paint, grow=0.0, uv=None, mirror=False, share=None):
     return dict(pos=pos, size=size, paint=paint, grow=grow, uv=uv, mirror=mirror, share=share)
 
@@ -200,14 +205,14 @@ def deer_spec(coat, belly, dark, antler, spot=None, dapple=None, name='deer'):
         P('tail', [B((-1, 0, -0.5), (2, 3, 1), fur(belly, None, 1, 0.04, 15), share='tail')], pose=(0, -8, 7.5), rot=(0.9, 0, 0), parent='body'),
         P('neck', [B((-1.5, -9, -1.5), (3, 9, 3), fur(coat, belly, 0.8, 0.05, 16), share='neck')], pose=(0, 7, -6.5), rot=(0.55, 0, 0)),
         P('head', [B((-2, -2.5, -7), (4, 4, 7), head_p, share='head')], pose=(0, 0.5, -11)),
-        P('ear_right', [B((-0.5, -3, -1), (1, 3, 2), fur(coat, None, 1, 0.05, 17), share='ear')], pose=(-1.8, -1.8, -1), rot=(0, 0, -0.55), parent='head'),
-        P('ear_left', [B((-0.5, -3, -1), (1, 3, 2), fur(coat, None, 1, 0.05, 17), share='ear')], pose=(1.8, -1.8, -1), rot=(0, 0, 0.55), parent='head'),
+        P('ear_right', [B((-0.5, -3, -1), (1, 3, 2), fur(coat, None, 1, 0.05, 17), share='ear', grow=(0, 0, -ZA))], pose=(-1.8, -1.8, -1), rot=(0, 0, -0.55), parent='head'),
+        P('ear_left', [B((-0.5, -3, -1), (1, 3, 2), fur(coat, None, 1, 0.05, 17), share='ear', grow=(0, 0, -ZA))], pose=(1.8, -1.8, -1), rot=(0, 0, 0.55), parent='head'),
         P('antler_right', [B((-0.5, -6, -0.5), (1, 6, 1), antler_p, share='antler')], pose=(-1.0, -2.3, -2), rot=(0, 0, -0.35), parent='head'),
-        P('antler_right_front', [B((-0.5, -4, -0.5), (1, 4, 1), antler_p, share='antler_t')], pose=(0, -3.5, 0), rot=(-0.85, 0, 0), parent='antler_right'),
-        P('antler_right_top', [B((-0.5, -3.5, -0.5), (1, 4, 1), antler_p, share='antler_t')], pose=(0, -5.5, 0), rot=(0, 0, -0.7), parent='antler_right'),
+        P('antler_right_front', [B((-0.5, -4, -0.5), (1, 4, 1), antler_p, share='antler_t', grow=(-ZA, 0, 0))], pose=(0, -3.5, 0), rot=(-0.85, 0, 0), parent='antler_right'),
+        P('antler_right_top', [B((-0.5, -3.5, -0.5), (1, 4, 1), antler_p, share='antler_t', grow=(0, 0, -ZA))], pose=(0, -5.5, 0), rot=(0, 0, -0.7), parent='antler_right'),
         P('antler_left', [B((-0.5, -6, -0.5), (1, 6, 1), antler_p, share='antler')], pose=(1.0, -2.3, -2), rot=(0, 0, 0.35), parent='head'),
-        P('antler_left_front', [B((-0.5, -4, -0.5), (1, 4, 1), antler_p, share='antler_t')], pose=(0, -3.5, 0), rot=(-0.85, 0, 0), parent='antler_left'),
-        P('antler_left_top', [B((-0.5, -3.5, -0.5), (1, 4, 1), antler_p, share='antler_t')], pose=(0, -5.5, 0), rot=(0, 0, 0.7), parent='antler_left'),
+        P('antler_left_front', [B((-0.5, -4, -0.5), (1, 4, 1), antler_p, share='antler_t', grow=(-ZA, 0, 0))], pose=(0, -3.5, 0), rot=(-0.85, 0, 0), parent='antler_left'),
+        P('antler_left_top', [B((-0.5, -3.5, -0.5), (1, 4, 1), antler_p, share='antler_t', grow=(0, 0, -ZA))], pose=(0, -5.5, 0), rot=(0, 0, 0.7), parent='antler_left'),
         P('right_hind_leg', [B((-1.5, 0, -1.5), (3, 11, 3), leg, share='leg')], pose=(-2.4, 13, 6)),
         P('left_hind_leg', [B((-1.5, 0, -1.5), (3, 11, 3), leg, share='leg')], pose=(2.4, 13, 6)),
         P('right_front_leg', [B((-1.5, 0, -1.5), (3, 11, 3), leg, share='leg')], pose=(-2.4, 13, -5.5)),
@@ -228,8 +233,8 @@ def boar_spec(coat, dark, belly, snout, tusk, young=False, name='boar'):
         P('tail', [B((-0.5, 0, 0), (1, 1, 3), solid(dark, 0.05, 35), share='tail')], pose=(0, -6, 8), rot=(0.9, 0, 0), parent='body'),
         P('head', [B((-3, -3, -6), (6, 6, 6), head_p, share='head'),
                    B((-2, 0, -9), (4, 3, 3), with_marks(solid(snout, 0.05, 36), snout_marks), share='snout')], pose=(0, 15, -7.5)),
-        P('tusk_right', [B((-0.5, -2, -0.5), (1, 2, 1), solid(tusk, 0.03, 37), share='tusk')], pose=(-2.2, 2.4, -8.5), parent='head'),
-        P('tusk_left', [B((-0.5, -2, -0.5), (1, 2, 1), solid(tusk, 0.03, 37), share='tusk')], pose=(2.2, 2.4, -8.5), parent='head'),
+        P('tusk_right', [B((-0.5, -2, -0.5), (1, 2, 1), solid(tusk, 0.03, 37), share='tusk', grow=(0, 0, ZA))], pose=(-2.2, 2.4, -8.5), parent='head'),
+        P('tusk_left', [B((-0.5, -2, -0.5), (1, 2, 1), solid(tusk, 0.03, 37), share='tusk', grow=(0, 0, ZA))], pose=(2.2, 2.4, -8.5), parent='head'),
         P('ear_right', [B((-1, -2, -0.5), (2, 2, 1), fur(dark, None, 1, 0.05, 38), share='ear')], pose=(-2.2, -3, -1.5), rot=(0.2, 0, -0.3), parent='head'),
         P('ear_left', [B((-1, -2, -0.5), (2, 2, 1), fur(dark, None, 1, 0.05, 38), share='ear')], pose=(2.2, -3, -1.5), rot=(0.2, 0, 0.3), parent='head'),
         P('right_hind_leg', [B((-1.5, 0, -1.5), (3, 5, 3), leg, share='leg')], pose=(-3, 19, 6)),
@@ -244,7 +249,7 @@ def hedgehog_spec(spine, tip, skin, belly, band=None, name='hedgehog'):
     head_marks.update({('front', 1, 1): H('1c1410')})
     return dict(name=name, w=32, parts=[
         P('body', [B((-3, -4, -4.5), (6, 4, 9), fur(skin, belly, 0.5, 0.05, 41), share='body')], pose=(0, 22, 0)),
-        P('spines', [B((-3.5, -6, -5), (7, 4, 9), spiny(spine, tip, 42, band), share='spines')], pose=(0, 0.5, 0.5), parent='body'),
+        P('spines', [B((-3.5, -6, -5), (7, 4, 9), spiny(spine, tip, 42, band), share='spines', grow=(0, 0, 0.05))], pose=(0, 0.5, 0.5), parent='body'),
         P('head', [B((-1.5, -2.5, -4), (3, 3, 4), with_marks(fur(skin, belly, 0.6, 0.05, 43), head_marks), share='head'),
                    B((-0.5, -1.5, -5), (1, 1, 1), solid(H('1c1410'), 0.02, 44), share='nose')], pose=(0, 21.5, -4.5)),
         P('ear_right', [B((-0.5, -1, -0.5), (1, 1, 1), fur(skin, None, 1, 0.05, 45), share='ear')], pose=(-1.6, -2.4, -1.2), parent='head'),
@@ -263,8 +268,8 @@ def crab_spec(shell=H('b3301d'), dark=H('7e2016'), belly=H('e0a888'), claw=H('c9
     parts = [
         P('body', [B((-4, -3.5, -3), (8, 3, 6), fur(shell, belly, 0.6, 0.06, 51, dark_back=dark), share='body'),
                    B((-3, -4.5, -2), (6, 1, 4), solid(mix(shell, dark, 0.35), 0.06, 56), share='plate')], pose=(0, 21, 0)),
-        P('eye_right', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye')], pose=(-2, -4, -2.4), parent='body'),
-        P('eye_left', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye')], pose=(2, -4, -2.4), parent='body'),
+        P('eye_right', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye', grow=(0, ZA, 0))], pose=(-2, -4, -2.4), parent='body'),
+        P('eye_left', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye', grow=(0, ZA, 0))], pose=(2, -4, -2.4), parent='body'),
     ]
     for side, sx in (('right', -1), ('left', 1)):
         parts += [
@@ -276,7 +281,7 @@ def crab_spec(shell=H('b3301d'), dark=H('7e2016'), belly=H('e0a888'), claw=H('c9
         for i, z in enumerate((-2.2, 0.0, 2.2)):
             parts += [
                 P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3, -0.5, -0.5), (3, 1, 1), leg_p, share='thigh')], pose=(3.9 * sx, -1.2, z), rot=(0, 0, 0.2 * sx), parent='body'),
-                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-4.2, -0.5, -0.5), (4.2, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 58), share='shin')], pose=(3 * sx, 0, 0), rot=(0, 0, 1.0 * sx), parent=f'{side}_thigh_{i}'),
+                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-4.2, -0.5, -0.5), (4.2, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 58), share='shin', grow=(0, 0, -ZA))], pose=(3 * sx, 0, 0), rot=(0, 0, 1.0 * sx), parent=f'{side}_thigh_{i}'),
             ]
     return dict(name=name, w=64, parts=parts)
 
@@ -301,7 +306,7 @@ def fiddler_spec(shell=H('c4552a'), dark=H('86301a'), belly=H('ecc8a0'), claw=H(
         for i, z in enumerate((-1.8, 0.0, 1.8)):
             parts += [
                 P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-2.5, -0.5, -0.5), (2.5, 1, 1), leg_p, share='thigh')], pose=(4.3 * sx, -1.0, z), rot=(0, 0, 0.2 * sx), parent='body'),
-                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3.8, -0.5, -0.5), (3.8, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 68), share='shin')], pose=(2.5 * sx, 0, 0), rot=(0, 0, 1.0 * sx), parent=f'{side}_thigh_{i}'),
+                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3.8, -0.5, -0.5), (3.8, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 68), share='shin', grow=(0, 0, -ZA))], pose=(2.5 * sx, 0, 0), rot=(0, 0, 1.0 * sx), parent=f'{side}_thigh_{i}'),
             ]
     return dict(name=name, w=64, parts=parts)
 
@@ -512,7 +517,8 @@ def java_layers(model, spec):
             u, v = place[b['share']]
             x, y, z = b['pos']
             w, h, d = b['size']
-            grow = f', new CubeDeformation({b["grow"]}F)' if b['grow'] else ''
+            g = b['grow']  # N43: a number (all sides) or (x, y, z) - the smallest offset on one axis against z-fighting
+            grow = (f', new CubeDeformation({g[0]}F, {g[1]}F, {g[2]}F)' if isinstance(g, tuple) else f', new CubeDeformation({g}F)') if g else ''
             cubes += f'.texOffs({u}, {v}).addBox({x}F, {y}F, {z}F, {w}F, {h}F, {d}F{grow})'
         px, py, pz = part['pose']
         rx, ry, rz = part['rot']
