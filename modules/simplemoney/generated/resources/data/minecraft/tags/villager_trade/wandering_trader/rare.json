@@ -130,10 +130,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/astralit_quartz_checker",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/chiseled_astralit_bricks",
       "required": false
     },
@@ -187,10 +183,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/ender_quartz_bricks",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/ender_quartz_checker",
       "required": false
     },
     {
@@ -315,10 +307,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/nihil_redstone",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/nihilith_quartz_checker",
       "required": false
     },
     {
