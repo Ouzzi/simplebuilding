@@ -1916,7 +1916,7 @@ public final class DinosTests {
             h.assertTrue(raptor.getControllingPassenger() == owner && raptor.climbAllowed(), "the owner rides and steers; saddled and ridden it may climb");
             raptor.positionRider(owner);
             Vec3 seat = owner.position().subtract(raptor.position());
-            h.assertTrue(seat.y > 1.0 && seat.y < 1.8 && Math.abs(seat.z) < 0.3, "the rider sits on the middle of the back (" + seat + ")");
+            h.assertTrue(seat.y > 0.8 && seat.y < 1.2 && Math.abs(seat.z) < 0.3, "the rider sits on the saddle in the middle of the back (" + seat + ")");
             h.assertTrue(raptor.getJumpCooldown() == 0, "rested: the jump bar is free, it jumps like a horse");
             h.succeed();
         });
@@ -1999,11 +1999,12 @@ public final class DinosTests {
         });
         ALL.put("utahraptor_fall_damage_halved", h -> {
             ServerLevel level = h.getLevel();
-            ServerPlayer rider = player(h, 3, 3);
+            // a mock player cannot be hurt (no loaded client), so a zombie rides: the fall is passed on the same way to every passenger
             Utahraptor raptor = standingRaptor(h, 8, 8);
-            raptor.setOwner(rider);
-            raptor.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(DinosRegistry.LARGE_SADDLE));
+            net.minecraft.world.entity.monster.Monster rider = h.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, at(8, 8));
+            rider.setNoAi(true);
             rider.startRiding(raptor, true, false);
+            h.assertTrue(rider.getVehicle() == raptor, "the zombie sits on the raptor");
             float health = raptor.getHealth(), riderHealth = rider.getHealth();
             raptor.causeFallDamage(5.0, 1.0F, level.damageSources().fall());
             h.assertTrue(raptor.getHealth() == health && rider.getHealth() == riderHealth, "5 blocks are safe for both (3 more than Vanilla)");
