@@ -66,6 +66,7 @@ public final class DinosDiscover {
             "simpledinos:parasaurolophus_armor_leather",
             "simpledinos:parasaurolophus_egg",
             "simpledinos:parasaurolophus_eggshell",
+            "simpledinos:raptor_feather",
             "simpledinos:stegosaurus",
             "simpledinos:stegosaurus_armor_diamond",
             "simpledinos:stegosaurus_armor_iron",
@@ -83,6 +84,10 @@ public final class DinosDiscover {
             "simpledinos:triceratops_armor_leather",
             "simpledinos:triceratops_egg",
             "simpledinos:triceratops_eggshell",
+            "simpledinos:utahraptor",
+            "simpledinos:utahraptor_armor_diamond",
+            "simpledinos:utahraptor_armor_iron",
+            "simpledinos:utahraptor_armor_leather",
             "simpledinos:utahraptor_egg",
             "simpledinos:utahraptor_eggshell");
     static final List<Tip> TIPS = List.of();

@@ -13,6 +13,7 @@ public final class DinosClient {
         sink.accept(TriceratopsModel.LAYER, TriceratopsModel::createBodyLayer);
         sink.accept(StegosaurusModel.LAYER, StegosaurusModel::createBodyLayer);
         sink.accept(ParasaurolophusModel.LAYER, ParasaurolophusModel::createBodyLayer);
+        sink.accept(UtahraptorModel.LAYER, UtahraptorModel::createBodyLayer);
     }
 
     private DinosClient() {}

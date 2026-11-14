@@ -26,6 +26,10 @@
     "simpledinos:parasaurolophus_armor_leather": "Crafted from leather around a Parasaurolophus eggshell.",
     "simpledinos:parasaurolophus_armor_iron": "Crafted from iron ingots around a Parasaurolophus eggshell.",
     "simpledinos:parasaurolophus_armor_diamond": "Crafted from diamonds around a Parasaurolophus eggshell.",
+    "simpledinos:utahraptor_armor_leather": "Crafted from leather around a Utahraptor eggshell.",
+    "simpledinos:utahraptor_armor_iron": "Crafted from iron ingots around a Utahraptor eggshell.",
+    "simpledinos:utahraptor_armor_diamond": "Crafted from diamonds around a Utahraptor eggshell.",
+    "simpledinos:raptor_feather": "Brushed off a Utahraptor; has no price.",
     "simpledinos:guide_book": "Crafted from a book and a bone."
   },
   "prices": []

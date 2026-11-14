@@ -48,10 +48,10 @@
       "A rust-red egg with dark speckles."
     ],
     "use": [
-      "Can be placed and brooded like every dinosaur egg. The Utahraptor itself is not built yet, so it stays an egg for now."
+      "Place it and sit on it like every dinosaur egg: a tame Utahraptor hatches for the player who sat longest. Badlands fossils hold more of these eggs."
     ],
     "secret": [
-      "It is waiting for its dinosaur."
+      "The claws are already sharp inside."
     ]
   },
   "parasaurolophus_egg": {
@@ -219,6 +219,50 @@
       "Cows are not impressed. Sheep a little."
     ]
   },
+  "utahraptor_armor_leather": {
+    "lore": [
+      "A leather neck guard, a stitched chest plate and two shin guards."
+    ],
+    "use": [
+      "Put it on a grown, tamed Utahraptor: protection like leather horse armor. Eight leather around a Utahraptor eggshell."
+    ],
+    "secret": [
+      "The sickle claws stay free - it still climbs."
+    ]
+  },
+  "utahraptor_armor_iron": {
+    "lore": [
+      "An iron neck guard, a riveted chest plate and two shin guards."
+    ],
+    "use": [
+      "Put it on a grown, tamed Utahraptor: protection like iron horse armor. Eight iron ingots around a Utahraptor eggshell."
+    ],
+    "secret": [
+      "The sickle claws stay free - it still climbs."
+    ]
+  },
+  "utahraptor_armor_diamond": {
+    "lore": [
+      "A diamond neck guard, a faceted chest plate and two shin guards."
+    ],
+    "use": [
+      "Put it on a grown, tamed Utahraptor: protection like diamond horse armor. Eight diamonds around a Utahraptor eggshell."
+    ],
+    "secret": [
+      "The sickle claws stay free - it still climbs."
+    ]
+  },
+  "raptor_feather": {
+    "lore": [
+      "A long brown feather with dark bands."
+    ],
+    "use": [
+      "Brush a grown Utahraptor with a brush: one raptor feather, then it needs 10 minutes. One raptor feather crafts into three feathers."
+    ],
+    "secret": [
+      "Arrows without a chicken farm."
+    ]
+  },
   "triceratops_eggshell": {
     "lore": [
       "Half a shell, still warm from the hatchling."
@@ -246,10 +290,10 @@
       "Half a rust-red shell with dark speckles."
     ],
     "use": [
-      "Falls when a Utahraptor hatches; one makes three bone meal. Its armor comes with the Utahraptor."
+      "Falls when a Utahraptor hatches (three of them); one makes three bone meal. The middle of the Utahraptor armor recipes."
     ],
     "secret": [
-      "The Utahraptor itself is not built yet."
+      "Holding it unlocks the Utahraptor armor recipes, like a turtle scute does for the turtle shell."
     ]
   },
   "parasaurolophus_eggshell": {

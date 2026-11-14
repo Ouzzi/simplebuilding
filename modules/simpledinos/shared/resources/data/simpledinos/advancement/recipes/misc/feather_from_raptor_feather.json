@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpledinos:feather_from_raptor_feather"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_raptor_feather": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpledinos:raptor_feather"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raptor_feather"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpledinos:feather_from_raptor_feather"
+    ]
+  }
+}

@@ -48,10 +48,10 @@
       "Ein rostrotes Ei mit dunklen Sprenkeln."
     ],
     "use": [
-      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Utahraptor selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+      "Wie jedes Dinosaurier-Ei platzieren und daraufsetzen: ein zahmer Utahraptor schlüpft für den Spieler, der am längsten gesessen hat. Badlands-Fossilien enthalten öfter diese Eier."
     ],
     "secret": [
-      "Es wartet auf seinen Dinosaurier."
+      "Die Krallen sind drinnen schon scharf."
     ]
   },
   "parasaurolophus_egg": {
@@ -219,6 +219,50 @@
       "Kühe sind nicht beeindruckt. Schafe ein bisschen."
     ]
   },
+  "utahraptor_armor_leather": {
+    "lore": [
+      "Ein Halsschutz aus Leder, eine genähte Brustplatte und zwei Schienbeinschoner."
+    ],
+    "use": [
+      "Einem erwachsenen, gezähmten Utahraptor anlegen: Schutz wie Leder-Pferderüstung. Acht Leder um eine Utahraptor-Eierschale."
+    ],
+    "secret": [
+      "Die Sichelkrallen bleiben frei - er klettert weiter."
+    ]
+  },
+  "utahraptor_armor_iron": {
+    "lore": [
+      "Ein eiserner Halsschutz, eine genietete Brustplatte und zwei Schienbeinschoner."
+    ],
+    "use": [
+      "Einem erwachsenen, gezähmten Utahraptor anlegen: Schutz wie Eisen-Pferderüstung. Acht Eisenbarren um eine Utahraptor-Eierschale."
+    ],
+    "secret": [
+      "Die Sichelkrallen bleiben frei - er klettert weiter."
+    ]
+  },
+  "utahraptor_armor_diamond": {
+    "lore": [
+      "Ein Halsschutz aus Diamant, eine facettierte Brustplatte und zwei Schienbeinschoner."
+    ],
+    "use": [
+      "Einem erwachsenen, gezähmten Utahraptor anlegen: Schutz wie Diamant-Pferderüstung. Acht Diamanten um eine Utahraptor-Eierschale."
+    ],
+    "secret": [
+      "Die Sichelkrallen bleiben frei - er klettert weiter."
+    ]
+  },
+  "raptor_feather": {
+    "lore": [
+      "Eine lange braune Feder mit dunklen Bändern."
+    ],
+    "use": [
+      "Einen erwachsenen Utahraptor mit dem Pinsel bürsten: eine Raptorfeder, danach braucht er 10 Minuten. Eine Raptorfeder ergibt drei Federn."
+    ],
+    "secret": [
+      "Pfeile ohne Hühnerfarm."
+    ]
+  },
   "triceratops_eggshell": {
     "lore": [
       "Eine halbe Schale, noch warm vom Jungtier."
@@ -246,10 +290,10 @@
       "Eine halbe rostrote Schale mit dunklen Sprenkeln."
     ],
     "use": [
-      "Fällt, wenn ein Utahraptor schlüpft; eine ergibt drei Knochenmehl. Seine Rüstung kommt mit dem Utahraptor."
+      "Fällt, wenn ein Utahraptor schlüpft (drei Stück); eine ergibt drei Knochenmehl. Die Mitte der Utahraptor-Rüstungsrezepte."
     ],
     "secret": [
-      "Der Utahraptor selbst ist noch nicht gebaut."
+      "Wer sie hält, schaltet die Utahraptor-Rüstungsrezepte frei, wie der Schildkröten-Hornschild den Schildkrötenpanzer."
     ]
   },
   "parasaurolophus_eggshell": {

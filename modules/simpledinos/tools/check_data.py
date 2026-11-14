@@ -13,17 +13,18 @@ config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'brushSeconds', 'incubateSeconds', 'hatchSeconds', 'hatchWaitsForOwner', 'growMinutes', 'trexBiteDamage',
                        'triceratopsShake', 'shakeShare', 'shakeAppleChance', 'shakeTreeCooldownSeconds', 'ramCooldownSeconds',
                        'stegosaurusPlowWidth', 'stegosaurusSow', 'callRadius', 'callSeconds', 'callMaxAnimals', 'callCooldownSeconds',
-                       'callIgnoreNamed'], config_keys
+                       'callIgnoreNamed', 'raptorClimbSeconds', 'raptorFeatherMinutes'], config_keys
 KINDS = ('trex', 'triceratops', 'stegosaurus', 'utahraptor', 'parasaurolophus')
 EGGS = tuple(f'{k}_egg' for k in KINDS)
 ARMORS = ('trex_armor_leather', 'trex_armor_iron', 'trex_armor_diamond')
 TRI_ARMORS = ('triceratops_armor_leather', 'triceratops_armor_iron', 'triceratops_armor_diamond')  # a-dinorest1
 STEGO_ARMORS = ('stegosaurus_armor_leather', 'stegosaurus_armor_iron', 'stegosaurus_armor_diamond')  # a-dinorest2
 PARA_ARMORS = ('parasaurolophus_armor_leather', 'parasaurolophus_armor_iron', 'parasaurolophus_armor_diamond')  # a-dinorest3
+RAPTOR_ARMORS = ('utahraptor_armor_leather', 'utahraptor_armor_iron', 'utahraptor_armor_diamond')  # b-utah48
 SHELLS = tuple(f'{k}_eggshell' for k in KINDS if k != 'trex')
-ENTITIES = ('trex', 'triceratops', 'stegosaurus', 'parasaurolophus')
+ENTITIES = ('trex', 'triceratops', 'stegosaurus', 'parasaurolophus', 'utahraptor')
 BLOCKS = ('fossil_block',) + EGGS
-ITEMS = BLOCKS + ('large_saddle',) + ARMORS + TRI_ARMORS + STEGO_ARMORS + ('dino_plow',) + PARA_ARMORS + SHELLS + ('guide_book',)
+ITEMS = BLOCKS + ('large_saddle',) + ARMORS + TRI_ARMORS + STEGO_ARMORS + ('dino_plow',) + PARA_ARMORS + RAPTOR_ARMORS + ('raptor_feather',) + SHELLS + ('guide_book',)
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
@@ -40,7 +41,7 @@ for b in BLOCKS:
 fossil = json.dumps(json.loads((RES / f'data/{NS}/loot_table/blocks/fossil_block.json').read_text(encoding='utf-8')))
 assert 'minecraft:tool/can_silk_touch' in fossil and 'minecraft:bone' in fossil
 # Recipes with their unlocking advancement.
-for r in ('large_saddle',) + ARMORS + TRI_ARMORS + STEGO_ARMORS + ('dino_plow',) + PARA_ARMORS:
+for r in ('large_saddle',) + ARMORS + TRI_ARMORS + STEGO_ARMORS + ('dino_plow',) + PARA_ARMORS + RAPTOR_ARMORS:
     recipe = json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))
     assert recipe['result']['id'] == f'{NS}:{r}', r
     assert (RES / f'data/{NS}/advancement/recipes/equipment/{r}.json').is_file(), r
@@ -52,6 +53,16 @@ for r in STEGO_ARMORS:
     assert json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))['key']['S'] == f'{NS}:stegosaurus_eggshell', r
 for r in PARA_ARMORS:
     assert json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))['key']['S'] == f'{NS}:parasaurolophus_eggshell', r
+for r in RAPTOR_ARMORS:
+    assert json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))['key']['S'] == f'{NS}:utahraptor_eggshell', r
+# Utahraptor (b-utah48): one raptor feather gives three Vanilla feathers; meat as food; ice and glass give no hold
+feather = json.loads((RES / f'data/{NS}/recipe/feather_from_raptor_feather.json').read_text(encoding='utf-8'))
+assert feather['ingredients'] == [f'{NS}:raptor_feather'] and feather['result'] == {'id': 'minecraft:feather', 'count': 3}, feather
+assert (RES / f'data/{NS}/advancement/recipes/misc/feather_from_raptor_feather.json').is_file()
+assert json.loads((RES / f'data/{NS}/tags/item/utahraptor_food.json').read_text(encoding='utf-8'))['values'] == ['#minecraft:meat']
+unclimbable = json.loads((RES / f'data/{NS}/tags/block/raptor_unclimbable.json').read_text(encoding='utf-8'))['values']
+assert {'minecraft:ice', 'minecraft:packed_ice', 'minecraft:blue_ice', 'minecraft:glass', 'minecraft:glass_pane'} <= {v for v in unclimbable if isinstance(v, str)}, unclimbable
+assert all(v['required'] is False for v in unclimbable if isinstance(v, dict)), unclimbable
 # Dino Plow (concept DINO36 6): I K I / H H H, enchantable with Unbreaking and Mending
 plow = json.loads((RES / f'data/{NS}/recipe/dino_plow.json').read_text(encoding='utf-8'))
 assert plow['pattern'] == ['IKI', 'HHH'] and plow['key'] == {'I': 'minecraft:iron_ingot', 'K': 'minecraft:iron_chain', 'H': 'minecraft:iron_hoe'}, plow
@@ -86,6 +97,7 @@ assert tag_values('can_equip_large_saddle') == [f'{NS}:{e}' for e in ENTITIES]
 assert tag_values('can_wear_dino_armor') == [f'{NS}:trex'] and tag_values('can_wear_triceratops_armor') == [f'{NS}:triceratops']
 assert tag_values('can_wear_stegosaurus_armor') == [f'{NS}:stegosaurus']
 assert tag_values('can_wear_parasaurolophus_armor') == [f'{NS}:parasaurolophus']
+assert tag_values('can_wear_utahraptor_armor') == [f'{NS}:utahraptor']
 # The pickaxe mines the fossil block.
 assert f'{NS}:fossil_block' in json.loads((RES / 'data/minecraft/tags/block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
 # Textures: fossil stages, egg bases and overlays, entity textures per armor tier, items; and the matching models/blockstates.
@@ -103,7 +115,7 @@ for e in ENTITIES:
     for c in ('olive', 'sand', 'rust', 'moss', 'ash'):
         for t in ('plain', 'leather', 'iron', 'diamond'):
             assert (tex / f'entity/{e}/{c}/{t}.png').is_file(), (e, c, t)
-for i in ('large_saddle',) + ARMORS + TRI_ARMORS + STEGO_ARMORS + ('dino_plow',) + PARA_ARMORS + SHELLS + ('guide_book',):
+for i in ('large_saddle',) + ARMORS + TRI_ARMORS + STEGO_ARMORS + ('dino_plow',) + PARA_ARMORS + RAPTOR_ARMORS + ('raptor_feather',) + SHELLS + ('guide_book',):
     assert (tex / f'item/{i}.png').is_file(), i
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 # Generated files are current (models, blocks).

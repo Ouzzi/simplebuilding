@@ -79,8 +79,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
-    public void eggOtherKindsWaitForTheirDinosaur(GameTestHelper h) {
-        DinosTests.ALL.get("egg_other_kinds_wait_for_their_dinosaur").accept(h);
+    public void eggEveryKindHatches(GameTestHelper h) {
+        DinosTests.ALL.get("egg_every_kind_hatches").accept(h);
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
@@ -371,5 +371,60 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void parasaurolophusWarnsAndFlees(GameTestHelper h) {
         DinosTests.ALL.get("parasaurolophus_warns_and_flees").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorCoreHitboxAndStats(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_core_hitbox_and_stats").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorHeadAndTailParts(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_head_and_tail_parts").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorHatchesTameWithEggshells(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_hatches_tame_with_eggshells").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorFoodHeals(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_food_heals").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorSaddleArmorRiding(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_saddle_armor_riding").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorClimbsWall(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_climbs_wall").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorStaminaRunsOutAndSlides(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_stamina_runs_out_and_slides").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorUnclimbableAndConfig(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_unclimbable_and_config").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorFallDamageHalved(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_fall_damage_halved").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorFeatherBrush(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_feather_brush").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorFleesNeverFights(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_flees_never_fights").accept(h);
     }
 }

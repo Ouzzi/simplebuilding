@@ -40,7 +40,7 @@ public enum DinoKind {
             case TRICERATOPS -> DinosRegistry.TRICERATOPS;
             case STEGOSAURUS -> DinosRegistry.STEGOSAURUS;
             case PARASAUROLOPHUS -> DinosRegistry.PARASAUROLOPHUS;
-            default -> null;
+            case UTAHRAPTOR -> DinosRegistry.UTAHRAPTOR;
         };
     }
 

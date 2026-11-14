@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpledinos:raptor_feather"
+  ],
+  "result": {
+    "id": "minecraft:feather",
+    "count": 3
+  }
+}
