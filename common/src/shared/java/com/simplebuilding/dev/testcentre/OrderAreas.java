@@ -797,14 +797,37 @@ public final class OrderAreas {
     }
 
     /**
+     * Eine der drei Riss-Familien (TZ38F-1/2, Besitzer 14.11.): {@code rift}, {@code nether_rift}, {@code end_rift} - je eigene
+     * Metall-Reihe wie Eisen (Block = {@code *_shard_block} in der Speicherblock-Spalte, Splitter = {@code *_shard} in der Barren-
+     * Spalte). Das Schrott-Erz der Familie ({@code dimensional_scrap} usw.) steht in seiner Gesteins-Spalte, aber in DIESER Reihe.
+     */
+    private static Material riftFamily(String key, Slot oreColumn, String scrapId) {
+        return new Material(key, Kind.METAL, "", List.of(""), List.of(key), 0, Map.of(oreColumn, List.of(scrapId)));
+    }
+
+    /**
+     * Weisheit (TZ38F-3): alle neun Teile in festen Spalten statt im Sonderbereich. Empfehlung = Besitzer-Verteilung (Bild TZ38E-3):
+     * die Kugel ist der direkte Drop des Oberwelt-Erzes wie Diamant/Smaragd/Lapis, also Barren-/Speicher-Spalte; die Kristall-Kette
+     * (Splitter -&gt; Kristall -&gt; Block, 4:1 und 9:1 wie Netherit-Schrott) ist die Roh-Linie: Schrott, Roh, Rohblock.
+     * Alternative "umgekehrt" siehe Plan TZ38F: Kristall-Block/Kristall = Speicher/Barren, Kugel-Block/Kugel = Rohblock/Roh.
+     */
+    private static Material sageFamily() {
+        return new Material("sage", Kind.METAL, "", List.of(""), List.of("sage"), 0, Map.of(
+                Slot.STORAGE, List.of("simpleores:sage_orb_block"), Slot.INGOT, List.of("simpleores:sage_orb"),
+                Slot.RAW_BLOCK, List.of("simpleores:sage_crystal_block"), Slot.RAW, List.of("simpleores:sage_crystal"),
+                Slot.SCRAP, List.of("simpleores:sage_crystal_shard")));
+    }
+
+    /**
      * Kupfer-Stufen, die die Linien NICHT zeigen (TZ38E-2: "Kupfer nur die normale gewachste Stufe"): sie nehmen ihre Items nur
      * an sich, damit sie keiner anderen Reihe zufallen; die Mod-Items davon stehen in "Items je Mod" (ungewachste im Rahmen).
      */
     static final List<Material> HIDDEN_STAGES = List.of(copperStage("exposed_"), copperStage("weathered_"), copperStage("oxidized_"));
 
     /**
-     * Reihenfolge des Besitzers: Vanilla/SB-Metalle bis Astralit/Nihilith (Kupfer nur gewachst in der normalen Stufe, TZ38E-2),
-     * dann die Mod-Erze, dann die Mineralien - alle auf Seite A, danach Holz und Rest.
+     * Reihenfolge des Besitzers: Vanilla/SB-Metalle bis Astralit/Nihilith (Kupfer nur gewachst in der normalen Stufe, TZ38E-2;
+     * die drei Riss-Familien samt Dimensions-Schrott vor Terranit, TZ38F), dann die Mod-Erze, dann die Mineralien - alle auf
+     * Seite A, danach Holz und Rest.
      */
     public static final List<Material> METAL_LIST = List.of(
             copperStage(""),
@@ -820,12 +843,13 @@ public final class OrderAreas {
             new Material("netherite", Kind.METAL, "", List.of(""), List.of("netherite"), 0,
                     Map.of(Slot.NETHER_ORE, List.of("minecraft:ancient_debris"))),
             new Material("enderite", 0, "enderite"),
-            new Material("dimensional", 0, "dimensional"),
+            riftFamily("rift", Slot.DEEPSLATE_ORE, "simpleores:dimensional_scrap"),
+            riftFamily("nether_rift", Slot.NETHER_ORE, "simpleores:nether_dimensional_scrap"),
+            riftFamily("end_rift", Slot.END_ORE, "simpleores:end_dimensional_scrap"),
             new Material("terranite", 0, "terranite"),
             new Material("zenithite", 0, "zenithite"),
             new Material("infernite", 0, "infernite"),
-            new Material("rift", 0, "rift"),
-            new Material("sage", 0, "sage"),
+            sageFamily(),
             new Material("astralit", 0, "astralit"),
             new Material("nihilith", 0, "nihilith"),
             new Material("silver", 1, "silver"),
@@ -2286,11 +2310,19 @@ public final class OrderAreas {
         lines.rows().forEach(row -> rows.putIfAbsent(row.group(), row));
         Object[][] want = {
                 {"tin", Slot.GRAVEL_ORE, "simpleores:tin_bearing_gravel"}, {"tin", Slot.SAND_ORE, "simpleores:tin_bearing_sand"},
-                {"dimensional", Slot.DEEPSLATE_ORE, "simpleores:dimensional_scrap"},
-                {"dimensional", Slot.NETHER_ORE, "simpleores:nether_dimensional_scrap"},
-                {"dimensional", Slot.END_ORE, "simpleores:end_dimensional_scrap"},
+                {"rift", Slot.DEEPSLATE_ORE, "simpleores:dimensional_scrap"}, {"rift", Slot.STORAGE, "simpleores:rift_shard_block"},
+                {"rift", Slot.INGOT, "simpleores:rift_shard"},
+                {"nether_rift", Slot.NETHER_ORE, "simpleores:nether_dimensional_scrap"},
+                {"nether_rift", Slot.STORAGE, "simpleores:nether_rift_shard_block"}, {"nether_rift", Slot.INGOT, "simpleores:nether_rift_shard"},
+                {"end_rift", Slot.END_ORE, "simpleores:end_dimensional_scrap"},
+                {"end_rift", Slot.STORAGE, "simpleores:end_rift_shard_block"}, {"end_rift", Slot.INGOT, "simpleores:end_rift_shard"},
+                {"sage", Slot.ORE, "simpleores:sage_ore"}, {"sage", Slot.DEEPSLATE_ORE, "simpleores:deepslate_sage_ore"},
+                {"sage", Slot.NETHER_ORE, "simpleores:nether_sage_ore"}, {"sage", Slot.END_ORE, "simpleores:end_sage_ore"},
+                {"sage", Slot.STORAGE, "simpleores:sage_orb_block"}, {"sage", Slot.INGOT, "simpleores:sage_orb"},
+                {"sage", Slot.RAW_BLOCK, "simpleores:sage_crystal_block"}, {"sage", Slot.RAW, "simpleores:sage_crystal"},
+                {"sage", Slot.SCRAP, "simpleores:sage_crystal_shard"},
                 {"astralit", Slot.END_ORE, "simplebuilding:astralit_ore"}, {"nihilith", Slot.END_ORE, "simplebuilding:nihilith_ore"},
-                {"rift", Slot.STORAGE, "simpleores:rift_shard_block"}, {"netherite", Slot.SCRAP, "minecraft:netherite_scrap"},
+                {"netherite", Slot.SCRAP, "minecraft:netherite_scrap"},
                 {"redstone", Slot.STORAGE, "minecraft:redstone_block"}, {"redstone", Slot.INGOT, "minecraft:redstone"}};
         for (Object[] w : want) {
             Item item = BuiltInRegistries.ITEM.getOptional(Identifier.parse((String) w[2])).orElse(Items.AIR);
@@ -2301,6 +2333,22 @@ public final class OrderAreas {
             if (row.fixed().get((Slot) w[1]) != item) {
                 problems.add("lines: " + w[0] + " " + w[1] + " shows " + (row.fixed().get((Slot) w[1]) == null ? "nothing"
                         : TcContext.id(row.fixed().get((Slot) w[1]))) + " instead of " + w[2]);
+            }
+        }
+        // TZ38F-2: den Dimensions-Schrott gibt es nicht mehr als eigene Reihe - jedes Schrott-Erz steht in seiner Riss-Familie.
+        if (rows.containsKey("dimensional")) {
+            problems.add("lines: a separate dimensional scrap row stands (the scrap ores belong to the rift families)");
+        }
+        // TZ38F-1/2: die drei Riss-Familien sind eigene Reihen (Splitter-Block, Splitter und Schrott nur in der eigenen Reihe).
+        for (String family : List.of("rift", "nether_rift", "end_rift")) {
+            Row row = rows.get(family);
+            if (row != null) {
+                for (Item item : row.others()) {
+                    String path = item == null ? "" : TcContext.id(item).getPath();
+                    if (path.contains("rift_shard") || path.contains("dimensional_scrap")) {
+                        problems.add("lines: " + family + " row carries " + TcContext.id(item) + " in its special area");
+                    }
+                }
             }
         }
         Row astralit = rows.get("astralit");
