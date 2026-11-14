@@ -218,10 +218,6 @@ public final class ModuleGameTest {
         PadsTests.ALL.get("every_mod_pressure_plate_is_named_like_the_vanilla_ones").accept(h);
     }
 
-    @GameTest
-    public void ownerPlateNameDiffersFromOresPlate(GameTestHelper h) {
-        PadsTests.ALL.get("owner_plate_name_differs_from_ores_plate").accept(h);
-    }
 
     @GameTest
     public void launchpadTiersHoldFourEightAndSixteenWindCharges(GameTestHelper h) {

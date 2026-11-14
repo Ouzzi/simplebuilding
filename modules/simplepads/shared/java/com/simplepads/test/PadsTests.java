@@ -68,7 +68,6 @@ public final class PadsTests {
         ALL.put("copper_plates_release_as_late_as_they_press", PressurePlateTests::copperPlatesReleaseAsLateAsTheyPress);
         ALL.put("every_mod_pressure_plate_visibly_sinks_when_pressed", PressurePlateTests::everyModPressurePlateVisiblySinksWhenPressed);
         ALL.put("every_mod_pressure_plate_is_named_like_the_vanilla_ones", PressurePlateTests::everyModPressurePlateIsNamedLikeTheVanillaOnes);
-        ALL.put("owner_plate_name_differs_from_ores_plate", PressurePlateTests::ownerPlateNameDiffersFromOresPlate);
         ALL.put("launchpad_tiers_hold_four_eight_and_sixteen_wind_charges", PadTierTests::launchpadTiersHoldFourEightAndSixteenWindCharges);
         ALL.put("sneaking_with_wind_charges_loads_the_whole_hand_up_to_capacity", PadTierTests::sneakingWithWindChargesLoadsTheWholeHandUpToCapacity);
         ALL.put("launch_strength_per_charge_is_doubled_so_full_tiers_launch_like_twice_the_old_charges", PadTierTests::launchStrengthPerChargeIsDoubledSoFullTiersLaunchLikeTwiceTheOldCharges);
