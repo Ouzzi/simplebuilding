@@ -113,5 +113,19 @@
   "text.autoconfig.simpledinos.option.growMinutes": "Wachstumszeit (Minuten)",
   "text.autoconfig.simpledinos.option.growMinutes.@Tooltip": "Minuten, die ein Jungtier zum Erwachsenwerden braucht.\n1 bis 600. Standard: 40.",
   "text.autoconfig.simpledinos.option.trexBiteDamage": "T.-rex-Bissschaden",
-  "text.autoconfig.simpledinos.option.trexBiteDamage.@Tooltip": "Schaden eines erwachsenen T.-rex-Bisses vor der\nSchwierigkeit. 1 bis 40. Standard: 10."
+  "text.autoconfig.simpledinos.option.trexBiteDamage.@Tooltip": "Schaden eines erwachsenen T.-rex-Bisses vor der\nSchwierigkeit. 1 bis 40. Standard: 10.",
+  "subtitles.simpledinos.entity.trex.ambient": "T. rex brummt",
+  "subtitles.simpledinos.entity.trex.hurt": "T. rex wird verletzt",
+  "subtitles.simpledinos.entity.trex.death": "T. rex stirbt",
+  "subtitles.simpledinos.entity.trex.roar": "T. rex brüllt",
+  "subtitles.simpledinos.entity.triceratops.ambient": "Triceratops brummt",
+  "subtitles.simpledinos.entity.triceratops.hurt": "Triceratops wird verletzt",
+  "subtitles.simpledinos.entity.triceratops.death": "Triceratops stirbt",
+  "subtitles.simpledinos.entity.triceratops.angry": "Triceratops schnaubt wütend",
+  "subtitles.simpledinos.entity.stegosaurus.ambient": "Stegosaurus brummt",
+  "subtitles.simpledinos.entity.stegosaurus.hurt": "Stegosaurus wird verletzt",
+  "subtitles.simpledinos.entity.stegosaurus.death": "Stegosaurus stirbt",
+  "subtitles.simpledinos.entity.parasaurolophus.ambient": "Parasaurolophus brummt",
+  "subtitles.simpledinos.entity.parasaurolophus.hurt": "Parasaurolophus wird verletzt",
+  "subtitles.simpledinos.entity.parasaurolophus.death": "Parasaurolophus stirbt"
 }

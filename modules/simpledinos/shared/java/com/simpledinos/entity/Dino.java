@@ -550,22 +550,22 @@ public abstract class Dino extends AbstractHorse {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.RAVAGER_AMBIENT;
+        return com.simpledinos.DinoSounds.TREX_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.RAVAGER_HURT;
+        return com.simpledinos.DinoSounds.TREX_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.RAVAGER_DEATH;
+        return com.simpledinos.DinoSounds.TREX_DEATH;
     }
 
     @Override
     protected @Nullable SoundEvent getAngrySound() {
-        return SoundEvents.RAVAGER_ROAR;
+        return com.simpledinos.DinoSounds.TREX_ROAR;
     }
 
     @Override

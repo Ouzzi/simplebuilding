@@ -113,5 +113,19 @@
   "text.autoconfig.simpledinos.option.growMinutes": "Growing time (minutes)",
   "text.autoconfig.simpledinos.option.growMinutes.@Tooltip": "Minutes a hatchling needs to grow up.\n1 to 600. Default: 40.",
   "text.autoconfig.simpledinos.option.trexBiteDamage": "T. rex bite damage",
-  "text.autoconfig.simpledinos.option.trexBiteDamage.@Tooltip": "Damage of an adult T. rex bite before difficulty.\n1 to 40. Default: 10."
+  "text.autoconfig.simpledinos.option.trexBiteDamage.@Tooltip": "Damage of an adult T. rex bite before difficulty.\n1 to 40. Default: 10.",
+  "subtitles.simpledinos.entity.trex.ambient": "T. rex rumbles",
+  "subtitles.simpledinos.entity.trex.hurt": "T. rex hurts",
+  "subtitles.simpledinos.entity.trex.death": "T. rex dies",
+  "subtitles.simpledinos.entity.trex.roar": "T. rex roars",
+  "subtitles.simpledinos.entity.triceratops.ambient": "Triceratops rumbles",
+  "subtitles.simpledinos.entity.triceratops.hurt": "Triceratops hurts",
+  "subtitles.simpledinos.entity.triceratops.death": "Triceratops dies",
+  "subtitles.simpledinos.entity.triceratops.angry": "Triceratops snorts angrily",
+  "subtitles.simpledinos.entity.stegosaurus.ambient": "Stegosaurus rumbles",
+  "subtitles.simpledinos.entity.stegosaurus.hurt": "Stegosaurus hurts",
+  "subtitles.simpledinos.entity.stegosaurus.death": "Stegosaurus dies",
+  "subtitles.simpledinos.entity.parasaurolophus.ambient": "Parasaurolophus rumbles",
+  "subtitles.simpledinos.entity.parasaurolophus.hurt": "Parasaurolophus hurts",
+  "subtitles.simpledinos.entity.parasaurolophus.death": "Parasaurolophus dies"
 }

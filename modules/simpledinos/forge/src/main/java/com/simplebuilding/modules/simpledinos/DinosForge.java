@@ -22,6 +22,7 @@ public final class DinosForge {
             if (key.equals(Registries.BLOCK)) event.register(Registries.BLOCK, r -> DinosRegistry.blocks(r::register));
             if (key.equals(Registries.ITEM)) event.register(Registries.ITEM, r -> DinosRegistry.items(r::register));
             if (key.equals(Registries.ENTITY_TYPE)) event.register(Registries.ENTITY_TYPE, r -> DinosRegistry.entityTypes(r::register));
+            if (key.equals(Registries.SOUND_EVENT)) event.register(Registries.SOUND_EVENT, r -> com.simpledinos.DinoSounds.forEach(r::register));
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 DinosRegistry.registerBlockEntityTypes(new BlockEntityType<>(FossilBlockEntity::new, DinosRegistry.fossilBlocks()),
                         new BlockEntityType<>(DinoEggBlockEntity::new, DinosRegistry.eggBlocks()));

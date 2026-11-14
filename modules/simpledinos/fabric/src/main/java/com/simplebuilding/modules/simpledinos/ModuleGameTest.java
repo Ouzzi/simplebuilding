@@ -9,6 +9,18 @@ public final class ModuleGameTest {
     @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpledinos", false); }
 
     /** PLAN40 simpledinos-4: every option has a readable name and the recipe viewer has the fossil-to-egg info page. */
+    /** PLAN40 simpledinos-3: every dinosaur voice is a registered sound event with takes in sounds.json (one per event, two ogg takes). */
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void dinoVoices(GameTestHelper h) {
+        for (String name : com.simpledinos.DinoSounds.names()) {
+            var id = com.simpledinos.SimpleDinos.id(name);
+            h.assertTrue(net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.containsKey(id), "sound event " + id);
+            String path = "/assets/simpledinos/sounds/entity/" + name.substring("entity.".length()).replace('.', '/');
+            h.assertTrue(ModuleGameTest.class.getResource(path + "1.ogg") != null && ModuleGameTest.class.getResource(path + "2.ogg") != null, "takes of " + name);
+        }
+        h.succeed();
+    }
+
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void configLabelsAndInfo(GameTestHelper h) {
         var missing = com.simplelib.api.config.ConfigScreenModel.missingLabels("simpledinos");

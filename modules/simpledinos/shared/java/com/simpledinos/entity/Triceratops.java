@@ -235,7 +235,7 @@ public class Triceratops extends Dino {
         pushed.clear();
         setAbilityCooldown(DinosConfig.ramCooldownTicks());
         this.entityData.set(RAMMING, true);
-        playSound(SoundEvents.HOGLIN_ANGRY, 1.2F, 0.6F);
+        playSound(com.simpledinos.DinoSounds.TRICERATOPS_ANGRY, 1.2F, 1.0F);
         gameEvent(GameEvent.ENTITY_ACTION);
         return true;
     }
@@ -497,21 +497,21 @@ public class Triceratops extends Dino {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.HOGLIN_AMBIENT;
+        return com.simpledinos.DinoSounds.TRICERATOPS_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.HOGLIN_HURT;
+        return com.simpledinos.DinoSounds.TRICERATOPS_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.HOGLIN_DEATH;
+        return com.simpledinos.DinoSounds.TRICERATOPS_DEATH;
     }
 
     @Override
     protected @Nullable SoundEvent getAngrySound() {
-        return SoundEvents.HOGLIN_ANGRY;
+        return com.simpledinos.DinoSounds.TRICERATOPS_ANGRY;
     }
 }

@@ -1,0 +1,100 @@
+{
+  "entity.trex.ambient": {
+    "sounds": [
+      "simpledinos:entity/trex/ambient1",
+      "simpledinos:entity/trex/ambient2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.trex.ambient"
+  },
+  "entity.trex.hurt": {
+    "sounds": [
+      "simpledinos:entity/trex/hurt1",
+      "simpledinos:entity/trex/hurt2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.trex.hurt"
+  },
+  "entity.trex.death": {
+    "sounds": [
+      "simpledinos:entity/trex/death1",
+      "simpledinos:entity/trex/death2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.trex.death"
+  },
+  "entity.trex.roar": {
+    "sounds": [
+      "simpledinos:entity/trex/roar1",
+      "simpledinos:entity/trex/roar2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.trex.roar"
+  },
+  "entity.triceratops.ambient": {
+    "sounds": [
+      "simpledinos:entity/triceratops/ambient1",
+      "simpledinos:entity/triceratops/ambient2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.triceratops.ambient"
+  },
+  "entity.triceratops.hurt": {
+    "sounds": [
+      "simpledinos:entity/triceratops/hurt1",
+      "simpledinos:entity/triceratops/hurt2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.triceratops.hurt"
+  },
+  "entity.triceratops.death": {
+    "sounds": [
+      "simpledinos:entity/triceratops/death1",
+      "simpledinos:entity/triceratops/death2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.triceratops.death"
+  },
+  "entity.triceratops.angry": {
+    "sounds": [
+      "simpledinos:entity/triceratops/angry1",
+      "simpledinos:entity/triceratops/angry2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.triceratops.angry"
+  },
+  "entity.stegosaurus.ambient": {
+    "sounds": [
+      "simpledinos:entity/stegosaurus/ambient1",
+      "simpledinos:entity/stegosaurus/ambient2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.stegosaurus.ambient"
+  },
+  "entity.stegosaurus.hurt": {
+    "sounds": [
+      "simpledinos:entity/stegosaurus/hurt1",
+      "simpledinos:entity/stegosaurus/hurt2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.stegosaurus.hurt"
+  },
+  "entity.stegosaurus.death": {
+    "sounds": [
+      "simpledinos:entity/stegosaurus/death1",
+      "simpledinos:entity/stegosaurus/death2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.stegosaurus.death"
+  },
+  "entity.parasaurolophus.ambient": {
+    "sounds": [
+      "simpledinos:entity/parasaurolophus/ambient1",
+      "simpledinos:entity/parasaurolophus/ambient2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.parasaurolophus.ambient"
+  },
+  "entity.parasaurolophus.hurt": {
+    "sounds": [
+      "simpledinos:entity/parasaurolophus/hurt1",
+      "simpledinos:entity/parasaurolophus/hurt2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.parasaurolophus.hurt"
+  },
+  "entity.parasaurolophus.death": {
+    "sounds": [
+      "simpledinos:entity/parasaurolophus/death1",
+      "simpledinos:entity/parasaurolophus/death2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.parasaurolophus.death"
+  }
+}

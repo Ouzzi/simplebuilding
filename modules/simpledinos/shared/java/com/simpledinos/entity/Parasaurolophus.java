@@ -449,21 +449,21 @@ public class Parasaurolophus extends Dino {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.CAMEL_AMBIENT;
+        return com.simpledinos.DinoSounds.PARASAUROLOPHUS_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CAMEL_HURT;
+        return com.simpledinos.DinoSounds.PARASAUROLOPHUS_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.CAMEL_DEATH;
+        return com.simpledinos.DinoSounds.PARASAUROLOPHUS_DEATH;
     }
 
     @Override
     protected @Nullable SoundEvent getAngrySound() {
-        return SoundEvents.CAMEL_AMBIENT;
+        return com.simpledinos.DinoSounds.PARASAUROLOPHUS_AMBIENT;
     }
 }
