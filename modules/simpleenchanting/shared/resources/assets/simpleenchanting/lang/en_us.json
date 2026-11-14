@@ -45,10 +45,6 @@
   "item.simpleenchanting.warped_blazewood_pressure_plate": "Warped Blazewood Pressure Plate",
   "block.simpleenchanting.warped_blazewood_button": "Warped Blazewood Button",
   "item.simpleenchanting.warped_blazewood_button": "Warped Blazewood Button",
-  "block.simpleenchanting.crimson_blazewood_bookshelf": "Crimson Blazewood Bookshelf",
-  "item.simpleenchanting.crimson_blazewood_bookshelf": "Crimson Blazewood Bookshelf",
-  "block.simpleenchanting.warped_blazewood_bookshelf": "Warped Blazewood Bookshelf",
-  "item.simpleenchanting.warped_blazewood_bookshelf": "Warped Blazewood Bookshelf",
   "itemgroup.simpleenchanting.enchanting": "Simple Enchanting",
   "simpleenchanting.testcentre.station": "Simple Enchanting",
   "container.simpleenchanting.enchanter.blaze_powder": "Blaze Powder: %s",
@@ -101,5 +97,6 @@
   "simpleenchanting.guide.page.8.title": "Commands",
   "simpleenchanting.guide.page.8": "/simpleenchanting config [list | get | set | reset | help] (operators).",
   "simpleenchanting.guide.page.9.title": "Settings",
-  "simpleenchanting.guide.page.9": "More settings are in the mod's config screen."
+  "simpleenchanting.guide.page.9": "More settings are in the mod's config screen.",
+  "item.simpleenchanting.blaze_book": "Blaze Book"
 }

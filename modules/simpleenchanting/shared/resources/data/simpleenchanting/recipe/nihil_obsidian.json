@@ -1,25 +1,22 @@
 {
   "fabric:load_conditions": [
     {
-      "condition": "fabric:not",
-      "value": {
-        "condition": "fabric:all_mods_loaded",
-        "values": [
-          "simplebuilding"
-        ]
-      }
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "C": "minecraft:popped_chorus_fruit",
+    "N": "simpleores:nihilith_shard",
     "O": "minecraft:crying_obsidian"
   },
   "pattern": [
-    "CCC",
-    "COC",
-    "CCC"
+    "NNN",
+    "NON",
+    "NNN"
   ],
   "result": {
     "id": "simpleenchanting:nihil_obsidian"

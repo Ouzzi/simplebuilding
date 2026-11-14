@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "simplebuilding:nihil_obsidian",
-      "required": false
-    },
-    {
       "id": "simpleenchanting:nihil_obsidian",
       "required": false
     }

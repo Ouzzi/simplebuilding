@@ -96,21 +96,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.AUTONOMOUS_CRAFTER));
         }
-        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
-            // Astral-Verzauberung (Queue N27): Tisch und Lohen-Obsidian mit der Spitzhacke (Obsidian ab Diamant),
-            // Lohenholz und Lohen-Regale mit der Axt; die Regale zaehlen auch am Vanilla-Tisch (als ein Regal).
-            // ENCH02: the tables are Simple Enchanting's (its own mineable tag); Nihil Obsidian like Blazing Obsidian.
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
-            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
-            // LOHEN17 V2 (owner 2026-10-21): fire on blazing obsidian burns forever, like on netherrack or magma.
-            builder(BlockTags.INFINIBURN_OVERWORLD).add(key(ModBlocks.BLAZING_OBSIDIAN));
-            for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_PLANKS) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
-            for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
-                builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
-                builder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(key(block));
-            }
-            for (net.minecraft.world.level.block.Block block : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
-        }
+        // N48 (14.11.): Lohen-Obsidian, Lohenholz und die Lohen-Regale gehoeren Simple Enchanting / SimpleLib (deren Tags).
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher wie Notenblock und Plattenspieler: Axt.
             builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.JUKEBOX_AMPLIFIER)).add(key(ModBlocks.NOTE_AMPLIFIER));

@@ -1,0 +1,44 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "nether_bookshelves"
+    },
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simpleenchanting"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "nether_bookshelves"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simpleenchanting"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "K": "minecraft:book",
+    "W": "minecraft:warped_planks"
+  },
+  "pattern": [
+    "WWW",
+    "KKK",
+    "WWW"
+  ],
+  "result": {
+    "id": "simplelib:warped_blazewood_bookshelf"
+  }
+}

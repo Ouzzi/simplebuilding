@@ -377,6 +377,22 @@
       "de": {
         "summary": "Schmiedevorlage für Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs). Neun Splitter ergeben eine; mit Simple Mobs auch ein Netherherz-Rezept; ohne Simple Mobs lässt der Vanilla-Wither sie fallen."
       }
+    },
+    "simplelib:crimson_blazewood_bookshelf": {
+      "en": {
+        "summary": "The plain Crimson Blazewood Bookshelf (group nether_bookshelves, N48): a building block for Simple Blocks and SimpleBuilding; counts as a strong shelf with Simple Enchanting. Crafted like Vanilla's bookshelf from six crimson planks and three books when a mod asks for the group and Simple Enchanting is absent (with it: blazewood planks). Drops three books without Silk Touch. Old simplebuilding: and simpleenchanting: worlds convert automatically."
+      },
+      "de": {
+        "summary": "Das normale Karmesin-Lohen-Bücherregal (Gruppe nether_bookshelves, N48): Baublock für Simple Blocks und SimpleBuilding; mit Simple Enchanting zählt es als starkes Regal. Wie das Vanilla-Regal aus sechs Karmesin-Brettern und drei Büchern herstellbar, wenn ein Mod die Gruppe anfordert und Simple Enchanting fehlt (mit ihm: Lohenholzbretter). Ohne Behutsamkeit drei Bücher. Alte simplebuilding:- und simpleenchanting:-Welten werden automatisch umgewandelt."
+      }
+    },
+    "simplelib:warped_blazewood_bookshelf": {
+      "en": {
+        "summary": "The plain Warped Blazewood Bookshelf (group nether_bookshelves, N48): a building block for Simple Blocks and SimpleBuilding; counts as a strong shelf with Simple Enchanting. Crafted like Vanilla's bookshelf from six warped planks and three books when a mod asks for the group and Simple Enchanting is absent (with it: blazewood planks). Drops three books without Silk Touch. Old simplebuilding: and simpleenchanting: worlds convert automatically."
+      },
+      "de": {
+        "summary": "Das normale Wirr-Lohen-Bücherregal (Gruppe nether_bookshelves, N48): Baublock für Simple Blocks und SimpleBuilding; mit Simple Enchanting zählt es als starkes Regal. Wie das Vanilla-Regal aus sechs Wirr-Brettern und drei Büchern herstellbar, wenn ein Mod die Gruppe anfordert und Simple Enchanting fehlt (mit ihm: Lohenholzbretter). Ohne Behutsamkeit drei Bücher. Alte simplebuilding:- und simpleenchanting:-Welten werden automatisch umgewandelt."
+      }
     }
   }
 }

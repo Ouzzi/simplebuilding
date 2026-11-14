@@ -1155,15 +1155,6 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
-            if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().endsWith("_blazewood_bookshelf") && !blockId.getPath().startsWith("chiseled_")) {
-                // Wie Vanillas Buecherregal: ohne Behutsamkeit 3 Lohenbuecher (Konzept Astral-Verzauberung).
-                for (List<ItemStack> produced : rolls) {
-                    if (produced.size() != 1 || !produced.getFirst().is(ModItems.BLAZE_BOOK) || produced.getFirst().getCount() != 3) {
-                        problems.add(actual + " must drop three blaze books to an empty hand: " + produced);
-                    }
-                }
-                continue;
-            }
             if (McVersion.FIRES && blockId.getPath().equals("sulfur_campfire")) {
                 // N58: like Vanilla's campfires - the block itself only with silk touch, otherwise one sulfur block (checked in FireTests).
                 for (List<ItemStack> produced : rolls) {

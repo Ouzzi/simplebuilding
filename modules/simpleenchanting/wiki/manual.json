@@ -51,24 +51,28 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json",
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/blaze_shelves.json",
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/nihil_obsidian.json",
-        "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/end_shelves.json"
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/end_shelves.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/nihil_obsidian_without_ores.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/blaze_book.json"
       ],
       "en": {
         "title": "Floors and shelves",
-        "summary": "SimpleBuilding owns the building blocks the tables need: Blazing and Nihil Obsidian, blazewood planks and bookshelves. Installed alone, this module brings its own of them.",
+        "summary": "Simple Enchanting owns the building blocks the tables need: Blazing and Nihil Obsidian, the blazewood planks and the chiseled blazewood bookshelves (all moved here from SimpleBuilding on 14.11.2026); the plain blazewood bookshelves are SimpleLib's.",
         "details": [
-          "Without SimpleBuilding: Blazing Obsidian (8 blaze powder around crying obsidian), Nihil Obsidian (8 popped chorus fruit around crying obsidian), crimson and warped blazewood planks (8 blaze powder around a plank) and their bookshelves (6 planks and 3 books; they drop 3 books like Vanilla's). With SimpleBuilding its blocks count and these recipes are off; the ids move along both ways, so a world keeps its blocks.",
+          "Blazing Obsidian (8 blaze powder around crying obsidian), Nihil Obsidian (8 Nihilit shards around crying obsidian with Simple Ores, else 8 popped chorus fruit), crimson and warped blazewood planks (8 blaze powder around a plank) and the Blaze Book (8 blaze powder around a book). Old SimpleBuilding worlds convert automatically (ids, recipe book).",
+          "The plain Crimson/Warped Blazewood Bookshelves are SimpleLib content (group nether_bookshelves, ids simplelib:*_blazewood_bookshelf), so Simple Blocks and SimpleBuilding offer them as building blocks even without this module. Here they are crafted from 6 blazewood planks and 3 Blaze Books; they drop 3 books like Vanilla's.",
           "The table reads the floor and the shelves through the block tags simpleenchanting:obsidian_floor, simpleenchanting:nihil_floor and simpleenchanting:blaze_shelves.",
-          "Simple End's Ashwood and Duskwood bookshelves (tag simpleenchanting:end_shelves) are worth 2 points like the blazewood shelves, at both enchanters. Chiseled bookshelves give no power, like Vanilla's; they take Vanilla books and, with SimpleBuilding, Blaze and Nihilit Books. Alone this module also brings the chiseled blazewood bookshelves (6 planks, 3 crimson/warped slabs)."
+          "Simple End's Ashwood and Duskwood bookshelves (tag simpleenchanting:end_shelves) are worth 2 points like the blazewood shelves, at both enchanters. Chiseled bookshelves give no power, like Vanilla's; they take Vanilla books and, with SimpleBuilding, Blaze and Nihilit Books. The chiseled blazewood bookshelves are made of 6 blazewood planks and 3 crimson/warped slabs."
         ]
       },
       "de": {
         "title": "Böden und Regale",
-        "summary": "SimpleBuilding besitzt die Baublöcke der Tische: Lohen- und Nihil-Obsidian, Lohenholz und Lohen-Bücherregale. Allein installiert bringt dieses Modul eigene mit.",
+        "summary": "Simple Enchanting besitzt die Baublöcke der Tische: Lohen- und Nihil-Obsidian, die Lohenholzbretter und die gemeißelten Lohen-Bücherregale (am 14.11.2026 aus SimpleBuilding hierher gezogen); die normalen Lohen-Bücherregale gehören SimpleLib.",
         "details": [
-          "Ohne SimpleBuilding: Lohen-Obsidian (8 Lohenstaub um weinenden Obsidian), Nihil-Obsidian (8 geplatzte Chorusfrüchte um weinenden Obsidian), Karmesin- und Wirr-Lohenholzbretter (8 Lohenstaub um ein Brett) und ihre Bücherregale (6 Bretter und 3 Bücher; sie lassen wie Vanillas 3 Bücher fallen). Mit SimpleBuilding zählen dessen Blöcke und diese Rezepte sind aus; die Ids wandern in beide Richtungen mit, eine Welt behält ihre Blöcke.",
+          "Lohen-Obsidian (8 Lohenstaub um weinenden Obsidian), Nihil-Obsidian (8 Nihilitsplitter um weinenden Obsidian mit Simple Ores, sonst 8 geplatzte Chorusfrüchte), Karmesin- und Wirr-Lohenholzbretter (8 Lohenstaub um ein Brett) und das Lohenbuch (8 Lohenstaub um ein Buch). Alte SimpleBuilding-Welten werden automatisch umgewandelt (Ids, Rezeptbuch).",
+          "Die normalen Karmesin-/Wirr-Lohen-Bücherregale sind SimpleLib-Inhalt (Gruppe nether_bookshelves, Ids simplelib:*_blazewood_bookshelf), daher bieten Simple Blocks und SimpleBuilding sie auch ohne dieses Modul als Baublöcke an. Hier entstehen sie aus 6 Lohenholzbrettern und 3 Lohenbüchern; sie lassen wie Vanillas 3 Bücher fallen.",
           "Der Tisch liest Boden und Regale über die Block-Tags simpleenchanting:obsidian_floor, simpleenchanting:nihil_floor und simpleenchanting:blaze_shelves.",
-          "Die Asch- und Dämmerholz-Bücherregale von Simple End (Tag simpleenchanting:end_shelves) zählen an beiden Tischen 2 Punkte wie Lohen-Regale. Gemeißelte Bücherregale geben wie Vanillas keine Kraft; sie nehmen Vanilla-Bücher und mit SimpleBuilding Lohen- und Nihilit-Bücher. Allein bringt dieses Modul auch die gemeißelten Lohen-Regale mit (6 Bretter, 3 Karmesin-/Wirr-Stufen)."
+          "Die Asch- und Dämmerholz-Bücherregale von Simple End (Tag simpleenchanting:end_shelves) zählen an beiden Tischen 2 Punkte wie Lohen-Regale. Gemeißelte Bücherregale geben wie Vanillas keine Kraft; sie nehmen Vanilla-Bücher und mit SimpleBuilding Lohen- und Nihilit-Bücher. Die gemeißelten Lohen-Regale entstehen aus 6 Lohenholzbrettern und 3 Karmesin-/Wirr-Stufen."
         ]
       }
     },
@@ -212,10 +216,10 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/blazing_obsidian.json"
       ],
       "en": {
-        "summary": "Blazing Obsidian, this module's own (only without SimpleBuilding, which owns the block)."
+        "summary": "Blazing Obsidian: eight blaze powder around crying obsidian; the glowing floor of the enchanters (sparks fly to the book, fire on it burns forever, high crucible heat). Until 14.11. SimpleBuilding's; old worlds convert automatically."
       },
       "de": {
-        "summary": "Lohen-Obsidian, die eigene dieses Moduls (nur ohne SimpleBuilding, dem der Block gehört)."
+        "summary": "Lohen-Obsidian: acht Lohenstaub um weinenden Obsidian; der leuchtende Boden der Verzauberer (Funken fliegen zum Buch, Feuer darauf brennt ewig, hohe Tiegel-Hitze). Bis 14.11. von SimpleBuilding; alte Welten werden automatisch umgewandelt."
       }
     },
     "simpleenchanting:nihil_obsidian": {
@@ -224,10 +228,10 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/nihil_obsidian.json"
       ],
       "en": {
-        "summary": "Nihil Obsidian, this module's own (only without SimpleBuilding, which owns the block)."
+        "summary": "Nihil Obsidian: crying obsidian in a ring of eight Nihilit shards (Simple Ores; without it popped chorus fruit); the full floor of the Astral Enchanter. Until 14.11. SimpleBuilding's."
       },
       "de": {
-        "summary": "Nihil-Obsidian, die eigene dieses Moduls (nur ohne SimpleBuilding, dem der Block gehört)."
+        "summary": "Nihil-Obsidian: weinender Obsidian im Ring aus acht Nihilitsplittern (Simple Ores; ohne es geplatzte Chorusfrucht); der volle Boden des Astral Enchanters. Bis 14.11. von SimpleBuilding."
       }
     },
     "simpleenchanting:crimson_blazewood_planks": {
@@ -236,10 +240,10 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_planks.json"
       ],
       "en": {
-        "summary": "Crimson Blazewood Planks, this module's own (only without SimpleBuilding, which owns the block)."
+        "summary": "Crimson Blazewood Planks: eight blaze powder around crimson planks. Until 14.11. SimpleBuilding's; old worlds convert automatically."
       },
       "de": {
-        "summary": "Karmesin-Lohenholzbretter, die eigene dieses Moduls (nur ohne SimpleBuilding, dem der Block gehört)."
+        "summary": "Karmesin-Lohenholzbretter: acht Lohenstaub um Karmesin-Bretter. Bis 14.11. von SimpleBuilding; alte Welten werden automatisch umgewandelt."
       }
     },
     "simpleenchanting:warped_blazewood_planks": {
@@ -248,34 +252,10 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_planks.json"
       ],
       "en": {
-        "summary": "Warped Blazewood Planks, this module's own (only without SimpleBuilding, which owns the block)."
+        "summary": "Warped Blazewood Planks: eight blaze powder around warped planks. Until 14.11. SimpleBuilding's; old worlds convert automatically."
       },
       "de": {
-        "summary": "Wirr-Lohenholzbretter, die eigene dieses Moduls (nur ohne SimpleBuilding, dem der Block gehört)."
-      }
-    },
-    "simpleenchanting:crimson_blazewood_bookshelf": {
-      "sources": [
-        "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
-        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/crimson_blazewood_bookshelf.json"
-      ],
-      "en": {
-        "summary": "Crimson Blazewood Bookshelf, this module's own (only without SimpleBuilding, which owns the block)."
-      },
-      "de": {
-        "summary": "Karmesin-Lohen-Bücherregal, die eigene dieses Moduls (nur ohne SimpleBuilding, dem der Block gehört)."
-      }
-    },
-    "simpleenchanting:warped_blazewood_bookshelf": {
-      "sources": [
-        "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
-        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/warped_blazewood_bookshelf.json"
-      ],
-      "en": {
-        "summary": "Warped Blazewood Bookshelf, this module's own (only without SimpleBuilding, which owns the block)."
-      },
-      "de": {
-        "summary": "Wirr-Lohen-Bücherregal, die eigene dieses Moduls (nur ohne SimpleBuilding, dem der Block gehört)."
+        "summary": "Wirr-Lohenholzbretter: acht Lohenstaub um Wirr-Bretter. Bis 14.11. von SimpleBuilding; alte Welten werden automatisch umgewandelt."
       }
     },
     "simpleenchanting:chiseled_crimson_blazewood_bookshelf": {
@@ -284,10 +264,10 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/chiseled_crimson_blazewood_bookshelf.json"
       ],
       "en": {
-        "summary": "Chiseled Crimson Blazewood Bookshelf, this module's own (only without SimpleBuilding): six book slots like Vanilla's, no enchanting power."
+        "summary": "Chiseled Crimson Blazewood Bookshelf: six book slots like Vanilla's, no enchanting power. Slabs of the wood between blazewood planks (WWW/SSS/WWW). Until 14.11. SimpleBuilding's."
       },
       "de": {
-        "summary": "Gemeißeltes Karmesin-Lohen-Bücherregal, das eigene dieses Moduls (nur ohne SimpleBuilding): sechs Buchfächer wie Vanilla, keine Verzauberungskraft."
+        "summary": "Gemeißeltes Karmesin-Lohen-Bücherregal: sechs Buchplätze wie bei Vanilla, keine Verzauberungskraft. Stufen des Holzes zwischen Lohenholzbrettern (WWW/SSS/WWW). Bis 14.11. von SimpleBuilding."
       }
     },
     "simpleenchanting:chiseled_warped_blazewood_bookshelf": {
@@ -296,10 +276,10 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/chiseled_warped_blazewood_bookshelf.json"
       ],
       "en": {
-        "summary": "Chiseled Warped Blazewood Bookshelf, this module's own (only without SimpleBuilding): six book slots like Vanilla's, no enchanting power."
+        "summary": "Chiseled Warped Blazewood Bookshelf: six book slots like Vanilla's, no enchanting power. Slabs of the wood between blazewood planks (WWW/SSS/WWW). Until 14.11. SimpleBuilding's."
       },
       "de": {
-        "summary": "Gemeißeltes Wirr-Lohen-Bücherregal, das eigene dieses Moduls (nur ohne SimpleBuilding): sechs Buchfächer wie Vanilla, keine Verzauberungskraft."
+        "summary": "Gemeißeltes Wirr-Lohen-Bücherregal: sechs Buchplätze wie bei Vanilla, keine Verzauberungskraft. Stufen des Holzes zwischen Lohenholzbrettern (WWW/SSS/WWW). Bis 14.11. von SimpleBuilding."
       }
     },
     "simpleenchanting:*_blazewood_stairs": {
@@ -396,6 +376,18 @@
       },
       "de": {
         "summary": "Lohenholzknopf: 1 Lohenholzbrett ergibt 1; auch Pfeile drücken ihn, wie einen Holzknopf."
+      }
+    },
+    "simpleenchanting:blaze_book": {
+      "sources": [
+        "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/blaze_book.json"
+      ],
+      "en": {
+        "summary": "Blaze Book: eight blaze powder around a book; three of them and six blazewood planks make a strong blazewood bookshelf (SimpleLib), and it fits chiseled bookshelves. Until 14.11. SimpleBuilding's."
+      },
+      "de": {
+        "summary": "Lohenbuch: acht Lohenstaub um ein Buch; drei davon und sechs Lohenholzbretter ergeben ein starkes Lohen-Bücherregal (SimpleLib); passt in gemeißelte Regale. Bis 14.11. von SimpleBuilding."
       }
     }
   }

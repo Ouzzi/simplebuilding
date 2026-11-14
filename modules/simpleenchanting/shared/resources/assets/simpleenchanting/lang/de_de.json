@@ -45,10 +45,6 @@
   "item.simpleenchanting.warped_blazewood_pressure_plate": "Wirr-Lohenholzdruckplatte",
   "block.simpleenchanting.warped_blazewood_button": "Wirr-Lohenholzknopf",
   "item.simpleenchanting.warped_blazewood_button": "Wirr-Lohenholzknopf",
-  "block.simpleenchanting.crimson_blazewood_bookshelf": "Karmesin-Lohen-Bücherregal",
-  "item.simpleenchanting.crimson_blazewood_bookshelf": "Karmesin-Lohen-Bücherregal",
-  "block.simpleenchanting.warped_blazewood_bookshelf": "Wirr-Lohen-Bücherregal",
-  "item.simpleenchanting.warped_blazewood_bookshelf": "Wirr-Lohen-Bücherregal",
   "itemgroup.simpleenchanting.enchanting": "Simple Enchanting",
   "simpleenchanting.testcentre.station": "Simple Enchanting",
   "container.simpleenchanting.enchanter.blaze_powder": "Lohenstaub: %s",
@@ -101,5 +97,6 @@
   "simpleenchanting.guide.page.8.title": "Befehle",
   "simpleenchanting.guide.page.8": "/simpleenchanting config [list | get | set | reset | help] (Operatoren).",
   "simpleenchanting.guide.page.9.title": "Einstellungen",
-  "simpleenchanting.guide.page.9": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpleenchanting.guide.page.9": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "item.simpleenchanting.blaze_book": "Lohenbuch"
 }

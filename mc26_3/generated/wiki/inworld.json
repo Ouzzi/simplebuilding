@@ -7684,7 +7684,7 @@
       {
         "count": 9,
         "damage": 1,
-        "input": "simplebuilding:blazing_obsidian",
+        "input": "simpleenchanting:blazing_obsidian",
         "result": "simplebuilding:blazing_obsidian_chip",
         "strikes": 9
       },

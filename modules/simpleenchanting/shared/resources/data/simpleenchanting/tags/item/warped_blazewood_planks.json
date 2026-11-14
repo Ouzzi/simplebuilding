@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "required": false
-    },
-    {
       "id": "simpleenchanting:warped_blazewood_planks",
       "required": false
     }

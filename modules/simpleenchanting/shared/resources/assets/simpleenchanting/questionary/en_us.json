@@ -20,5 +20,66 @@
     "secret": [
       "Eight Enderite Nuggets and an Enderite Sledgehammer turn a Dark Enchanter into it. The anvil still cannot make Protection V; only this table can."
     ]
+  },
+  "blaze_book": {
+    "lore": [
+      "A book bound with blaze powder instead of leather. It never quite cools down."
+    ],
+    "use": [
+      "Three of them go into a blazewood bookshelf."
+    ],
+    "secret": [
+      "Blazewood shelves reward the {item:simpleenchanting:dark_enchanter}: each counts for two ordinary shelves there."
+    ]
+  },
+  "blazing_obsidian": {
+    "lore": [
+      "Crying obsidian's glowing sibling: where the other weeps, this one burns."
+    ],
+    "use": [
+      "A decorative block that gives light. Its job is at the Dark Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30. Under the Astral Enchanter it works only half."
+    ],
+    "secret": [
+      "The floor only counts under the enchanters, not the vanilla table, so build it once the shelves are complete."
+    ]
+  },
+  "nihil_obsidian": {
+    "lore": [
+      "Blazing Obsidian that met the void: the embers went out and navy light stayed."
+    ],
+    "use": [
+      "Eight Nihilith Shards around crying obsidian make it. A 5 x 5 floor of it under the Astral Enchanter adds 20 strength once the shelves give 30, enough for 60; under the Dark Enchanter it counts like Blazing Obsidian."
+    ],
+    "secret": [
+      "Mixing both obsidians still makes a floor, but the Astral Enchanter then counts it only half."
+    ]
+  },
+  "family:blazewood_planks": {
+    "items": [
+      "regex:(crimson|warped)_blazewood_planks"
+    ],
+    "lore": [
+      "{name}: wood that has been given fire to keep, and keeps it quietly."
+    ],
+    "use": [
+      "Eight blaze powder around one crimson or warped plank give one blazewood plank. It is the material for blazewood bookshelves."
+    ],
+    "secret": [
+      "Only crimson and warped planks take the blaze powder, since only nether wood is at home in the heat."
+    ]
+  },
+  "family:blazewood_bookshelf": {
+    "items": [
+      "regex:(crimson|warped)_blazewood_bookshelf"
+    ],
+    "lore": [
+      "{name} holds books that are bound with fire, and their pages are warm to the touch."
+    ],
+    "use": [
+      "A bookshelf of blazewood: it counts as two bookshelves at the Enchanter and as one at the vanilla enchanting table. Three {item:simpleenchanting:blaze_book} go into it."
+    ],
+    "secret": [
+      "Around the Enchanter, a 5 x 5 floor of {item:simpleenchanting:blazing_obsidian} adds strength on top of the shelves, once they give 30."
+    ]
   }
 }

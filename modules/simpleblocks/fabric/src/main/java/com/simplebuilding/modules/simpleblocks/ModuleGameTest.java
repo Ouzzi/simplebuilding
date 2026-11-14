@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void netherBookshelvesRequested(GameTestHelper h) {
+        BlocksTests.ALL.get("nether_bookshelves_requested").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void paletteMembersPal(GameTestHelper h) {
         BlocksTests.ALL.get("pal14_members").accept(h);
     }
