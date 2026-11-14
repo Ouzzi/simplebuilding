@@ -166,10 +166,7 @@ public final class DataIntegrityTests {
         // Queue N33: sulfur fire and copper fire are fires (no item, no loot), placed by flint and steel.
         blocks.add("sulfur_fire");
         blocks.add("copper_fire");
-        // Chess: one octet cell block for all colours (placed by the 13 octet items) and the chess piece cell
-        // (placed by the piece items).
-        blocks.add("checker_octet");
-        blocks.add("chess_pieces");
+        // Chess (octet cell, piece cell): Simple Chess since b-chess47 (its own checks).
         // Melon octet and mixed octet cell: Simple Octets' blocks since split stage 6 (its own checks).
         return Set.copyOf(blocks);
     }
@@ -209,10 +206,7 @@ public final class DataIntegrityTests {
             // drops the horn and the held item stored in its block entity (GoatHornHolderBlock#getDrops)
             "goat_horn_holder",
             // fires drop nothing (N33)
-            "sulfur_fire", "copper_fire",
-            // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces
-            // (ChessPiecesBlock#getDrops)
-            "checker_octet", "chess_pieces");
+            "sulfur_fire", "copper_fire");
 
     /** Material/wood/melon octet cells are Simple Octets' since split stage 6 (its own checks); kept as a named step. */
     private static Set<String> withMaterialOctets(String... names) {
@@ -1701,10 +1695,7 @@ public final class DataIntegrityTests {
         // Aus Simple Tweaks uebernommen, eigene Registrierung (com.simplebuilding.tweaks).
         items.addAll(com.simplebuilding.tweaks.item.TweaksItems.all());
         // Crucible P5: Eimer und Seelen-Lava sind seit Stufe 5b Simple Crucibles' Items (dessen eigene Checks).
-        // Schach (McVersion.CHESS): Achtel, Figuren, Treppen und Stufen in Schleifen (ChessItems).
-        items.addAll(com.simplebuilding.chess.ChessItems.octets());
-        items.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
-        items.addAll(com.simplebuilding.chess.ChessItems.shapes());
+        // Schach: seit b-chess47 Simple Chess' Items (dessen eigene Checks).
         // Holz-/Material-Achtel: seit Stufe 6 Simple Octets' Items (dessen eigene Checks).
         // Light Panes: since WB24-6 Simple Lights' items (its own checks).
         items.addAll(ModItems.SULFUR_LIGHTS);
@@ -1749,11 +1740,7 @@ public final class DataIntegrityTests {
             blocks.add(com.simplebuilding.blocks.custom.SulfurLights.LANTERN);
             blocks.add(com.simplebuilding.blocks.custom.SulfurLights.CAMPFIRE);
         }
-        // Schach: Treppen und Stufen der Schachbretter, in einer Schleife registriert (ModBlocks.CHECKER_SHAPES).
-        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
-            blocks.add(shapes.stairs());
-            blocks.add(shapes.slab());
-        }
+        // Schach (Schachbrett-Treppen und -Stufen): seit b-chess47 Simple Chess' Bloecke.
         // Holz-/Material-Achtel: seit Stufe 6 Simple Octets' Bloecke.
         // Light Panes (N57): since WB24-6 Simple Lights' blocks.
         // Holzwerk: je Holzart in einer Schleife registriert (ModBlocks.WOOD_FAMILIES).
@@ -1908,6 +1895,7 @@ public final class DataIntegrityTests {
      * missing or changed recipe for the new checkers.
      */
     public static void quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial(GameTestHelper helper) {
+        if (!McVersion.CHESS_IN_SB) { helper.succeed(); return; } // 26.3: Simple Chess' checkers (its ChessTests)
         ServerLevel level = helper.getLevel();
         ItemStack pickaxe = new ItemStack(Items.IRON_PICKAXE);
         StringBuilder actual = new StringBuilder();
@@ -2940,7 +2928,11 @@ public final class DataIntegrityTests {
                 ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS,
                 ModItems.ASTRALIT_BLOCK, ModItems.POLISHED_NIHILITH_WALL, ModItems.ENDER_QUARTZ_BLOCK,
                 ModItems.POLISHED_ENDER_QUARTZ_SLAB, ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
-                ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER));
+                ModItems.ASTRAL_END_STONE));
+        if (McVersion.CHESS_IN_SB) { // 26.3: Simple Chess' tab (b-chess47)
+            pinned.put(ModItemGroupsContent.Tab.BUILDING_BLOCKS, java.util.stream.Stream.concat(pinned.get(ModItemGroupsContent.Tab.BUILDING_BLOCKS).stream(),
+                    java.util.stream.Stream.of(ModItems.LAPIS_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER)).toList());
+        }
         if (McVersion.BLOCKS_IN_SB) { // 26.3: Simple Blocks' (b-blocksmove)
             pinned.put(ModItemGroupsContent.Tab.BUILDING_BLOCKS, java.util.stream.Stream.concat(pinned.get(ModItemGroupsContent.Tab.BUILDING_BLOCKS).stream(),
                     java.util.stream.Stream.of(ModItems.LEVITATING_SAND)).toList());
@@ -3265,45 +3257,24 @@ public final class DataIntegrityTests {
                         ModBlocks.ENDER_COATED.stoneStairs(), ModBlocks.ENDER_COATED.stoneSlab(), ModBlocks.ENDER_COATED.stoneWall(),
                         ModBlocks.ENDER_COATED.purpurPillar(), ModBlocks.ENDER_COATED.purpurStairs(), ModBlocks.ENDER_COATED.purpurSlab(),
                         ModBlocks.ENDER_COATED.purpurWall()),
-                CreativeTabLayout.Row.of("checkers",
-                        ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
-                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
-                        ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
-                        ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
                 CreativeTabLayout.Row.of("storage_and_light",
                         ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, gap,
                         ModItems.CONSTRUCTION_LIGHT)));
+        if (McVersion.CHESS_IN_SB) {
+            // 26.2: die Quarz-Schachbretter vor Lager und Licht; 26.3: im Tab von Simple Chess (b-chess47).
+            expected.add(expected.size() - 1, CreativeTabLayout.Row.of("checkers",
+                    ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
+                    ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                    ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
+                    ModItems.POLISHED_ENDER_QUARTZ_CHECKER));
+        }
         if (McVersion.BLOCKS_IN_SB) {
             // 26.2: die Schwerkraftbloecke vor Lager und Licht; 26.3: im Tab von Simple Blocks (b-blocksmove, Stufe T2).
             expected.add(expected.size() - 1, CreativeTabLayout.Row.of("gravity_blocks",
                     ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap,
                     ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL));
         }
-        if (McVersion.CHESS) {
-            // Schach (2026-10-06) nach den Schachbrettern: je Farbe eine Kategorie Achtel, Treppe, Stufe
-            // (Quarz hat keine Stufen: Luecken) und die sechs 3D-Figuren, dann eine zweite mit den sechs flachen.
-            List<CreativeTabLayout.Row> chess = new java.util.ArrayList<>();
-            for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
-                List<ItemStack> first = new ArrayList<>();
-                List<ItemStack> second = new ArrayList<>(List.of(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY));
-                first.add(new ItemStack(com.simplebuilding.chess.ChessItems.octet(color)));
-                com.simplebuilding.blocks.ModBlocks.CheckerShapes shapes = com.simplebuilding.blocks.ModBlocks.CHECKER_SHAPES.stream()
-                        .filter(s -> s.color() == color).findFirst().orElse(null);
-                first.add(shapes != null ? new ItemStack(shapes.stairs()) : ItemStack.EMPTY);
-                first.add(shapes != null ? new ItemStack(shapes.slab()) : ItemStack.EMPTY);
-                for (com.simplebuilding.chess.ChessPiece piece : com.simplebuilding.chess.ChessPiece.values()) {
-                    first.add(new ItemStack(com.simplebuilding.chess.ChessItems.piece(color, piece, false)));
-                    second.add(new ItemStack(com.simplebuilding.chess.ChessItems.piece(color, piece, true)));
-                }
-                chess.add(new CreativeTabLayout.Row("chess_" + color.id(), first));
-                chess.add(new CreativeTabLayout.Row("chess_" + color.id() + "_flat", second));
-            }
-            // nach der Zeile "checkers" (PAL14: die Zeilen davor sind nicht mehr fest zehn)
-            int afterCheckers = 1 + java.util.stream.IntStream.range(0, expected.size())
-                    .filter(i -> expected.get(i).name().equals("checkers")).findFirst().orElseThrow();
-            expected.addAll(afterCheckers, chess);
-            // Holz- und Material-Achtel: eigener Tab von Simple Octets (Stufe 6).
-        }
+        // Schach: eigener Tab von Simple Chess (b-chess47).
         if (McVersion.NATURE_VARIANTS) {
             // Die Sculk-Kiefer (N50) vor Lager und Licht; Stufen, Eis, Nautilus und Froschlichter stehen seit b-blocksmove im
             // Tab von Simple Blocks (Stufe T2, simpleblocks BlocksTests).

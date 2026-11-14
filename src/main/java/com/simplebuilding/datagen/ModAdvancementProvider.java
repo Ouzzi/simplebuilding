@@ -271,7 +271,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         private void decoration(AdvancementHolder building) {
             node("building/let_there_be_light", building, ModItems.CONSTRUCTION_LIGHT, AdvancementType.TASK, "construction_light",
                     any(ModItems.CONSTRUCTION_LIGHT));
-            node("building/checkmate", building, ModItems.PURPUR_QUARTZ_CHECKER, AdvancementType.TASK, "quartz_checker",
+            if (com.simplebuilding.version.McVersion.CHESS_IN_SB) node("building/checkmate", building, ModItems.PURPUR_QUARTZ_CHECKER, AdvancementType.TASK, "quartz_checker",
                     any(ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                             ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER,
                             ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,

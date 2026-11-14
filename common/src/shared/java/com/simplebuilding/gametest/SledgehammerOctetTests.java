@@ -107,7 +107,7 @@ public final class SledgehammerOctetTests {
      * too, a slab missing a quarter too; stone has no octets and refuses; the melon block becomes a melon cell.
      */
     public static void sledgehammerSplitsUnsupportedShapesIntoOctets(GameTestHelper helper) {
-        if (!McVersion.TRANSFORM_HINTS_AND_CORNERS || !McVersion.CHESS) { helper.succeed(); return; }
+        if (!McVersion.TRANSFORM_HINTS_AND_CORNERS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         BlockPos pos = helper.absolutePos(CELL);
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setShiftKeyDown(true);
@@ -170,7 +170,7 @@ public final class SledgehammerOctetTests {
 
     /** A real sneaking charge on oak planks in survival: stairs, one oak octet falls out, one point of wear. */
     public static void sledgehammerCarveDropsTheRemovedOctet(GameTestHelper helper) {
-        if (!McVersion.TRANSFORM_HINTS_AND_CORNERS || !McVersion.CHESS) { helper.succeed(); return; }
+        if (!McVersion.TRANSFORM_HINTS_AND_CORNERS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         helper.setBlock(CELL, Blocks.OAK_PLANKS);
         ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
         Vec3 eye = helper.absoluteVec(new Vec3(CELL.getX() + 0.5, CELL.getY() + 2.0, CELL.getZ() + 0.5));
@@ -206,7 +206,7 @@ public final class SledgehammerOctetTests {
 
     /** Every wood of this version has an octet item that places into the sub-grid, burns like planks and drops itself. */
     public static void woodOctetsPlaceBurnAndDrop(GameTestHelper helper) {
-        if (!McVersion.CHESS) { helper.succeed(); return; }
+        if (OctetRefs.mixed() == null) { helper.succeed(); return; }
         int expected = 0;
         for (String wood : OctetRefs.WOODS) {
             if (net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
@@ -252,7 +252,7 @@ public final class SledgehammerOctetTests {
         FoodProperties food = Items.GLISTERING_MELON_SLICE.components().get(DataComponents.FOOD);
         helper.assertTrue(food != null && food.nutrition() == 6, "the glistering melon slice is not edible: " + food);
         helper.assertTrue(Items.GLISTERING_MELON_SLICE.components().has(DataComponents.CONSUMABLE), "the glistering melon slice cannot be consumed");
-        if (!McVersion.CHESS) { helper.succeed(); return; }
+        if (OctetRefs.mixed() == null) { helper.succeed(); return; }
         BlockPos floor = helper.absolutePos(CELL);
         helper.setBlock(CELL, Blocks.STONE);
         ServerPlayer player = awayPlayer(helper);
@@ -288,7 +288,7 @@ public final class SledgehammerOctetTests {
      */
     /** "Mehr 0,125er-Bloecke": every listed material (also the ones without stairs: terracotta, metal, logs) has cell, item and way back. */
     public static void materialOctetsCoverTheExtraPalette(GameTestHelper helper) {
-        if (!McVersion.CHESS) { helper.succeed(); return; }
+        if (OctetRefs.mixed() == null) { helper.succeed(); return; }
         // Split stage 6: the list lives in Simple Octets (its own tests check the groups); here every cell it registered
         // has a full source block that the hammer finds, its item and the way back - with SimpleBuilding's palettes too.
         java.util.List<String> problems = new java.util.ArrayList<>();
@@ -317,7 +317,7 @@ public final class SledgehammerOctetTests {
     }
 
     public static void materialOctetsCoverEveryStairBlock(GameTestHelper helper) {
-        if (!McVersion.CHESS) { helper.succeed(); return; }
+        if (OctetRefs.mixed() == null) { helper.succeed(); return; }
         java.util.List<String> problems = new java.util.ArrayList<>();
         var blocks = net.minecraft.core.registries.BuiltInRegistries.BLOCK;
         int covered = 0;

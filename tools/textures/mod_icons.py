@@ -182,6 +182,25 @@ def challenges_icon():
 
 
 ICONS: dict[str, dict] = {
+    # CHESS47 (N47 M7): a quartz chess knight (the light side of the game) facing left, lit from the top left
+    "simplechess": icon("Springer", {"o": "#1a1a20", "F": "#e6e1d8", "f": "#ffffff", "s": "#aaa398"},
+                        [("Kontur", "o"), ("Quarz", "Ffs")],
+                        "................",
+                        "......o.o.......",
+                        ".....ofoFo......",
+                        "....ofFFFso.....",
+                        "...ofFFFFFso....",
+                        "..ofFoFFFFFso...",
+                        ".ofFFFFFFFFFso..",
+                        ".oFFFFFFFFFFso..",
+                        "..ooo.oFFFFFso..",
+                        ".....ofFFFFso...",
+                        ".....ofFFFFso...",
+                        "....ofFFFFFso...",
+                        "....ofFFFFFFso..",
+                        "...ofFFFFFFFFso.",
+                        "...oooooooooooo.",
+                        "................"),
     # UNDER21: a stone vault arch around the open violet Vault Gate with its rising motes (Grundgewölbe)
     "simplevault": icon("Gewölbetor", {"o": "#1c1e22", "S": "#a3abb5", "s": "#747c86", "d": "#4b5159", "G": "#2a1d46", "g": "#5a3f8e", "m": "#c4a8f4"},
                         [("Kontur", "o"), ("Gewölbe", "Ssd"), ("Tor", "Ggm")],
@@ -851,6 +870,7 @@ ITEM_MOTIFS = {
     "simplechisels": "iron_chisel", "simplebuildingtools": "copper_building_wand",  # LOOK10 A (placeholder until the owner picks)
 }
 BG = {
+    "simplechess": "#3c5aa6",  # CHESS47: lapis, the lapis checker the quartz pieces stand on
     "simplevault": "#8a9098",
     "simplelayers": "#8a9098",
     "simplechisels": "#8a9098",

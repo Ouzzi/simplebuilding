@@ -25,8 +25,8 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ASSETS = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
-CHECKERS = os.path.join(REPO, 'src', 'main', 'resources', 'assets', 'simplebuilding', 'textures', 'block')
+ASSETS = os.path.join(REPO, 'modules', 'simplechess', 'shared', 'resources', 'assets', 'simplechess')  # b-chess47: Simple Chess
+CHECKERS = os.path.join(ASSETS, 'textures', 'block')
 PREVIEW = r'C:\Users\o_o\code\minecraft-mods\previews\schach-vorschau.png'
 
 # Order = ChessColor; None = quartz (field from the lapis checker's quartz half).
@@ -202,19 +202,19 @@ def outputs():
     multipart = []
     for colour, _ in COLOURS:
         a(f'models/block/chess/octet_{colour}.json', js({
-            'parent': 'simplebuilding:block/chess/octet_corner', 'textures': {'all': f'simplebuilding:block/chess/{colour}'}}))
+            'parent': 'simplechess:block/chess/octet_corner', 'textures': {'all': f'simplechess:block/chess/{colour}'}}))
         for i in range(8):
             x, y, z = i & 1, (i >> 1) & 1, (i >> 2) & 1
             xr, yr = corner_rotation(x, y, z)
-            apply = {'model': f'simplebuilding:block/chess/octet_{colour}', 'uvlock': True}
+            apply = {'model': f'simplechess:block/chess/octet_{colour}', 'uvlock': True}
             if xr:
                 apply['x'] = xr
             if yr:
                 apply['y'] = yr
             multipart.append({'when': {'color': colour, f'o{x}{y}{z}': 'true'}, 'apply': apply})
     a('blockstates/checker_octet.json', js({'multipart': multipart}))
-    a('models/block/chess_pieces.json', js({'textures': {'particle': 'simplebuilding:block/chess/quartz'}}))
-    a('blockstates/chess_pieces.json', js({'variants': {'': {'model': 'simplebuilding:block/chess_pieces'}}}))
+    a('models/block/chess_pieces.json', js({'textures': {'particle': 'simplechess:block/chess/quartz'}}))
+    a('blockstates/chess_pieces.json', js({'variants': {'': {'model': 'simplechess:block/chess_pieces'}}}))
     # octet item
     a('models/item/chess/octet.json', js({
         'parent': 'minecraft:block/block',
@@ -223,8 +223,8 @@ def outputs():
         'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}}}))
     for colour, _ in COLOURS:
         a(f'models/item/chess/{colour}_octet.json', js({
-            'parent': 'simplebuilding:item/chess/octet', 'textures': {'all': f'simplebuilding:block/chess/{colour}'}}))
-        a(f'items/{colour}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'simplebuilding:item/chess/{colour}_octet'}}))
+            'parent': 'simplechess:item/chess/octet', 'textures': {'all': f'simplechess:block/chess/{colour}'}}))
+        a(f'items/{colour}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'simplechess:item/chess/{colour}_octet'}}))
     # pieces
     for piece in PIECES:
         for flat in (False, True):
@@ -237,9 +237,9 @@ def outputs():
             for piece in PIECES:
                 item = f'{colour}_chess_{piece}' + ('_flat' if flat else '')
                 a(f'models/item/chess/{item}.json', js({
-                    'parent': f'simplebuilding:item/chess/{piece}' + ('_flat' if flat else ''),
-                    'textures': {'m': f'simplebuilding:block/chess/{colour}', 'a': f'simplebuilding:block/chess/{colour}_accent'}}))
-                a(f'items/{item}.json', js({'model': {'type': 'minecraft:model', 'model': f'simplebuilding:item/chess/{item}'}}))
+                    'parent': f'simplechess:item/chess/{piece}' + ('_flat' if flat else ''),
+                    'textures': {'m': f'simplechess:block/chess/{colour}', 'a': f'simplechess:block/chess/{colour}_accent'}}))
+                a(f'items/{item}.json', js({'model': {'type': 'minecraft:model', 'model': f'simplechess:item/chess/{item}'}}))
     return files
 
 

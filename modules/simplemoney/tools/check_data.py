@@ -101,9 +101,9 @@ linked = read(data / "money/prices.json")["prices"]
 assert len({p["item"] for p in linked}) == len(linked)
 # Nether-brick checkers use the existing resin checker's bounded mason offer.
 checkers = {p["item"]: {k: v for k, v in p.items() if k != "item"} for p in linked
-            if p["item"] in {"simplebuilding:resin_quartz_checker", "simplebuilding:nether_brick_quartz_checker",
-                             "simplebuilding:red_nether_brick_quartz_checker"}}
-assert len(checkers) == 3 and all(p == checkers["simplebuilding:resin_quartz_checker"] for p in checkers.values())
+            if p["item"] in {"simplechess:resin_quartz_checker", "simplechess:nether_brick_quartz_checker",
+                             "simplechess:red_nether_brick_quartz_checker"}}
+assert len(checkers) == 3 and all(p == checkers["simplechess:resin_quartz_checker"] for p in checkers.values())
 # Both personal vaults use the same bounded, conditional buy-only trade.
 vaults = {p["item"]: {k: v for k, v in p.items() if k != "item"} for p in linked
           if p["item"] in ("simplebuilding:astral_vault", "simplebuilding:nihil_vault")}

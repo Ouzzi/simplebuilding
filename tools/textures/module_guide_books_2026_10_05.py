@@ -69,6 +69,8 @@ BOOKS = {
     "simpledinos": ("simpledinos", ("#1c2a12", "#2e4420", "#8a9a50", "#6a7e3a", "#4c5e2a"), "#e8e0b8", "Urwaldgruen, Fossil-Elfenbein"),
     # 2026-11-07 (b-chisels07, WE25-7): placeholder colours until the owner picks (Meisselstiel-Holz, Steinmeissel-Grau)
     "simplechisels": ("simplechisels", ("#2a2016", "#443424", "#b0906a", "#8e704c", "#6c5438"), "#c8ccd4", "Meisselstiel-Holz, Klingengrau"),
+    # 2026-11-14 (b-chess47, N47 M7): lapis cover (the lapis checker), quartz gem (the light side) - like the mod icon
+    "simplechess": ("simplechess", ("#0e1838", "#1a2a5c", "#5a7ad0", "#3c5aa6", "#2c4688"), "#f0ece4", "Lapis-Schachbrett, Quarz-Edelstein"),
     # 2026-10-30 (a-zones31)
     "simpleresonance": ("simpleresonance", ("#140e2a", "#221844", "#8c70d0", "#6c52b0", "#503c8c"), "#f0e8ff", "Resonanz-Violett, Wellenweiss"),
     "simpleblocks": ("simpleblocks", ("#14181c", "#222830", "#6a7482", "#4c5460", "#383f4a"), "#3ac6b4", "Tiefenschiefer, Sculk-Türkis"),

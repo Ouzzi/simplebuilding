@@ -138,6 +138,7 @@ public final class ConfigOptions {
             "enableSimpleChisels",
             "enableSimpleLayers",
             "enableSimpleVault",
+            "enableSimpleChess",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

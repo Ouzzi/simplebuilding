@@ -1,0 +1,121 @@
+{
+  "module": "simplechess",
+  "derivation": "Quartz checkers moved from SimpleBuilding (b-chess47) with their prices unchanged; pieces and octets are cut from checkers in the stonecutter and are not trade goods.",
+  "excluded": {
+    "simplechess:*_chess_*": "Cut from a checker (8 per block) - priced through the checker.",
+    "simplechess:*_octet": "Cut from a checker (8 per block) - priced through the checker.",
+    "simplechess:*_checker_stairs": "Shape of a priced checker.",
+    "simplechess:*_checker_slab": "Shape of a priced checker.",
+    "simplechess:guide_book": "Guide, not a trade good."
+  },
+  "prices": [
+    {
+      "item": "simplechess:astralit_quartz_checker",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1,
+      "requires": [
+        "simplebuilding"
+      ]
+    },
+    {
+      "item": "simplechess:blackstone_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplechess:ender_quartz_checker",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1,
+      "requires": [
+        "simplebuilding"
+      ]
+    },
+    {
+      "item": "simplechess:lapis_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplechess:nihilith_quartz_checker",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1,
+      "requires": [
+        "simplebuilding"
+      ]
+    },
+    {
+      "item": "simplechess:purpur_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplechess:nether_brick_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplechess:red_nether_brick_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplechess:resin_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    }
+  ]
+}

@@ -112,8 +112,7 @@ public final class ClientTests {
                 // Brewing wave 2026-10-09 (26.3): Mirage, Reverse Mirage, Faded, Shivering, the Storage Crafting
                 // Table; clears its effects, the table and the mobs again.
                 new Entry("brew", BrewClientTest::inWorld),
-                // Queue N15 (26.3): every chess piece stands on its quarter; boards and gallery in three pictures.
-                new Entry("chess-pieces", ChessClientTest::inWorld),
+                // Chess (Queue N15): Simple Chess' client smoke test since b-chess47.
                 // Queue N48 (26.3): mixed octet cells reach the client with their materials; two pictures, clears its row.
                 new Entry("octets-mix", OctetMixClientTest::inWorld),
                 // Holzwerk (2026-10-09, 26.3): motif sprites baked, one overview and one close-up; clears its blocks.

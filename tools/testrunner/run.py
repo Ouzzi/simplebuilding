@@ -771,8 +771,6 @@ SKIPPED_SHOTS = {
              # moved to Simple Storage's client smoke test, split stage 8a).
              "brew-plain", "brew-mirage", "brew-reverse-mirage", "brew-faded", "brew-faded-inventory",
              "brew-faded-pause", "brew-shivering",
-             # McVersion.CHESS: chess pieces are 26.3 only (ChessClientTest).
-             "chess-board-pieces", "chess-board-flat", "chess-gallery",
              # McVersion.MUSIC_DISCS: jukebox amplifiers are 26.3 only (MusicAmplifierClientTest).
              "amplifier-relay-notes"},
     # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim

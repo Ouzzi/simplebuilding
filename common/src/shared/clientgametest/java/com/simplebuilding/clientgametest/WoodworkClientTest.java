@@ -193,21 +193,24 @@ public final class WoodworkClientTest {
     private static void n34(Script script) {
         onServer(script, "place the n34 scene", server -> {
             ServerLevel level = server.overworld();
-            var shapes = com.simplebuilding.blocks.ModBlocks.CHECKER_SHAPES;
-            if (shapes.isEmpty()) {
+            // b-chess47: the checkers are Simple Chess' (optional) - by id, skipped without it.
+            var blocks = net.minecraft.core.registries.BuiltInRegistries.BLOCK;
+            var lapisChecker = blocks.getOptional(net.minecraft.resources.Identifier.parse("simplechess:lapis_quartz_checker")).orElse(null);
+            var lapisStairs = blocks.getOptional(net.minecraft.resources.Identifier.parse("simplechess:lapis_quartz_checker_stairs")).orElse(null);
+            var lapisSlab = blocks.getOptional(net.minecraft.resources.Identifier.parse("simplechess:lapis_quartz_checker_slab")).orElse(null);
+            if (lapisChecker == null || lapisStairs == null || lapisSlab == null) {
                 return;
             }
-            var lapis = shapes.get(1);
             net.minecraft.core.Direction[] facings = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
             for (int row = 0; row < 3; row++) {
                 int z = 11 + row * 2;
                 for (int x = 5; x <= 14; x++) {
-                    level.setBlock(new BlockPos(x, 0, z), lapis.checker().defaultBlockState(), 3);
+                    level.setBlock(new BlockPos(x, 0, z), lapisChecker.defaultBlockState(), 3);
                     level.setBlock(new BlockPos(x, 1, z), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
                 }
             }
             for (int i = 0; i < 4; i++) {
-                BlockState stairs = lapis.stairs().defaultBlockState()
+                BlockState stairs = lapisStairs.defaultBlockState()
                         .setValue(net.minecraft.world.level.block.StairBlock.FACING, facings[i]);
                 level.setBlock(new BlockPos(6 + i, 1, 11), stairs, 3);
                 level.setBlock(new BlockPos(6 + i, 1, 13), stairs.setValue(net.minecraft.world.level.block.StairBlock.HALF,
@@ -215,10 +218,10 @@ public final class WoodworkClientTest {
                 level.setBlock(new BlockPos(6 + i, 1, 15), stairs.setValue(net.minecraft.world.level.block.StairBlock.SHAPE,
                         net.minecraft.world.level.block.state.properties.StairsShape.OUTER_RIGHT), 3);
             }
-            level.setBlock(new BlockPos(11, 1, 11), lapis.slab().defaultBlockState(), 3);
-            level.setBlock(new BlockPos(12, 1, 11), lapis.slab().defaultBlockState()
+            level.setBlock(new BlockPos(11, 1, 11), lapisSlab.defaultBlockState(), 3);
+            level.setBlock(new BlockPos(12, 1, 11), lapisSlab.defaultBlockState()
                     .setValue(net.minecraft.world.level.block.SlabBlock.TYPE, net.minecraft.world.level.block.state.properties.SlabType.TOP), 3);
-            level.setBlock(new BlockPos(13, 1, 11), lapis.checker().defaultBlockState(), 3);
+            level.setBlock(new BlockPos(13, 1, 11), lapisChecker.defaultBlockState(), 3);
             // carved wood all round (N40): sherd motif on every side, next to it the wood's own motif on every side
             WoodBlocks.Family oak = WoodBlocks.family(WoodKind.OAK);
             level.setBlock(new BlockPos(5, 1, 15), oak.carved().carvedWith(SherdMotif.ANGLER), 3);

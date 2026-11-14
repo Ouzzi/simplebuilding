@@ -185,29 +185,24 @@ public class ModItems {
 
     public static final Item POLISHED_END_STONE = com.simplebuilding.util.SharedMaterials.item("polished_end_stone", () -> registerItem("polished_end_stone", s -> new BlockItem(ModBlocks.POLISHED_END_STONE, s)));
 
-    public static final Item PURPUR_QUARTZ_CHECKER = registerItem("purpur_quartz_checker", s -> new BlockItem(ModBlocks.PURPUR_QUARTZ_CHECKER, s));
+    public static final Item PURPUR_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("purpur_quartz_checker", s -> new BlockItem(ModBlocks.PURPUR_QUARTZ_CHECKER, s));
 
-    public static final Item LAPIS_QUARTZ_CHECKER = registerItem("lapis_quartz_checker", s -> new BlockItem(ModBlocks.LAPIS_QUARTZ_CHECKER, s));
+    public static final Item LAPIS_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("lapis_quartz_checker", s -> new BlockItem(ModBlocks.LAPIS_QUARTZ_CHECKER, s));
 
-    public static final Item BLACKSTONE_QUARTZ_CHECKER = registerItem("blackstone_quartz_checker", s -> new BlockItem(ModBlocks.BLACKSTONE_QUARTZ_CHECKER, s));
+    public static final Item BLACKSTONE_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("blackstone_quartz_checker", s -> new BlockItem(ModBlocks.BLACKSTONE_QUARTZ_CHECKER, s));
 
-    public static final Item RESIN_QUARTZ_CHECKER = registerItem("resin_quartz_checker", s -> new BlockItem(ModBlocks.RESIN_QUARTZ_CHECKER, s));
-    public static final Item NETHER_BRICK_QUARTZ_CHECKER = registerItem("nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, s));
-    public static final Item RED_NETHER_BRICK_QUARTZ_CHECKER = registerItem("red_nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, s));
+    public static final Item RESIN_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("resin_quartz_checker", s -> new BlockItem(ModBlocks.RESIN_QUARTZ_CHECKER, s));
+    public static final Item NETHER_BRICK_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, s));
+    public static final Item RED_NETHER_BRICK_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("red_nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, s));
 
-    public static final Item NIHILITH_QUARTZ_CHECKER = registerItem("nihilith_quartz_checker", s -> new BlockItem(ModBlocks.NIHILITH_QUARTZ_CHECKER, s));
+    public static final Item NIHILITH_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("nihilith_quartz_checker", s -> new BlockItem(ModBlocks.NIHILITH_QUARTZ_CHECKER, s));
 
-    public static final Item ASTRALIT_QUARTZ_CHECKER = registerItem("astralit_quartz_checker", s -> new BlockItem(ModBlocks.ASTRALIT_QUARTZ_CHECKER, s));
-    public static final Item ENDER_QUARTZ_CHECKER = registerItem("ender_quartz_checker", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_CHECKER, s));
-    public static final Item POLISHED_ASTRALIT_CHECKER = registerItem("polished_astralit_checker", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_CHECKER, s));
-    public static final Item POLISHED_NIHILITH_CHECKER = registerItem("polished_nihilith_checker", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH_CHECKER, s));
-    public static final Item POLISHED_ENDER_QUARTZ_CHECKER = registerItem("polished_ender_quartz_checker", s -> new BlockItem(ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER, s));
-    // Schach (docs/ai/PLAN-SCHACH-2026-10-06.md): Achtel, Figuren, Treppen und Stufen der Schachbretter.
-    static {
-        if (com.simplebuilding.version.McVersion.CHESS) {
-            com.simplebuilding.chess.ChessItems.register(ModItems::registerItem);
-        }
-    }
+    public static final Item ASTRALIT_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("astralit_quartz_checker", s -> new BlockItem(ModBlocks.ASTRALIT_QUARTZ_CHECKER, s));
+    public static final Item ENDER_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("ender_quartz_checker", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_CHECKER, s));
+    public static final Item POLISHED_ASTRALIT_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("polished_astralit_checker", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_CHECKER, s));
+    public static final Item POLISHED_NIHILITH_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("polished_nihilith_checker", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH_CHECKER, s));
+    public static final Item POLISHED_ENDER_QUARTZ_CHECKER = !com.simplebuilding.version.McVersion.CHESS_IN_SB ? null : registerItem("polished_ender_quartz_checker", s -> new BlockItem(ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER, s));
+    // Schach (Achtel, Figuren, Treppen und Stufen der Schachbretter; 26.3 auch die Schachbretter): Simple Chess (b-chess47).
     // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.
     static {
         if (com.simplebuilding.version.McVersion.WOODWORK) {

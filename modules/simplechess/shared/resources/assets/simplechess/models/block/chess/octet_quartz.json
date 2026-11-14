@@ -1,0 +1,6 @@
+{
+  "parent": "simplechess:block/chess/octet_corner",
+  "textures": {
+    "all": "simplechess:block/chess/quartz"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplechess:astralit_quartz_checker_stairs",
+      "required": false
+    },
+    "simplechess:blackstone_quartz_checker_stairs",
+    {
+      "id": "simplechess:ender_quartz_checker_stairs",
+      "required": false
+    },
+    "simplechess:lapis_quartz_checker_stairs",
+    "simplechess:nether_brick_quartz_checker_stairs",
+    {
+      "id": "simplechess:nihilith_quartz_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker_stairs",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_stairs",
+      "required": false
+    },
+    "simplechess:purpur_quartz_checker_stairs",
+    "simplechess:red_nether_brick_quartz_checker_stairs",
+    "simplechess:resin_quartz_checker_stairs"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "simplechess:item/chess/octet",
+  "textures": {
+    "all": "simplechess:block/chess/lapis"
+  }
+}

@@ -288,7 +288,6 @@ public final class SmokeClientTest {
                 ModItems.ASTRALIT_ORE_ITEM.getDescriptionId(),
                 ModItems.NIHILITH_ORE_ITEM.getDescriptionId(),
                 ModItems.POLISHED_END_STONE.getDescriptionId(),
-                ModItems.LAPIS_QUARTZ_CHECKER.getDescriptionId(),
                 ModItems.NIHILITH_SHARD.getDescriptionId(),
                 ModItems.ASTRALIT_DUST.getDescriptionId());
 

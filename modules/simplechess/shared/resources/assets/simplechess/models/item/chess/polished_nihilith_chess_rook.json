@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/rook",
+  "textures": {
+    "m": "simplechess:block/chess/polished_nihilith",
+    "a": "simplechess:block/chess/polished_nihilith_accent"
+  }
+}

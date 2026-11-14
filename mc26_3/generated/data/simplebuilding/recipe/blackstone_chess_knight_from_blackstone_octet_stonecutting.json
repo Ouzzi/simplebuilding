@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "simplebuilding:blackstone_octet",
-  "result": {
-    "id": "simplebuilding:blackstone_chess_knight"
-  }
-}

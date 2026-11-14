@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/knight_flat",
+  "textures": {
+    "m": "simplechess:block/chess/resin",
+    "a": "simplechess:block/chess/resin_accent"
+  }
+}

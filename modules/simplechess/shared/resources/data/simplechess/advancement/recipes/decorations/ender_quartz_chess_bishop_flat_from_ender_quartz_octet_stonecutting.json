@@ -1,0 +1,41 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding",
+        "simpleoctets"
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ender_quartz_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplechess:ender_quartz_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplechess:ender_quartz_chess_bishop_flat_from_ender_quartz_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ender_quartz_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplechess:ender_quartz_chess_bishop_flat_from_ender_quartz_octet_stonecutting"
+    ]
+  }
+}

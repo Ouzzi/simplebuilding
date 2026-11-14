@@ -1,0 +1,41 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding",
+        "simpleores"
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nihilith_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleores:nihilith_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplechess:nihilith_quartz_checker"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nihilith_shard"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplechess:nihilith_quartz_checker"
+    ]
+  }
+}

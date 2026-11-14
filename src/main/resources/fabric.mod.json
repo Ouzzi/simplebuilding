@@ -208,6 +208,7 @@
     "simpleresonance": "*",
     "simpledinos": "*",
     "simplelayers": "*",
-    "simplevault": "*"
+    "simplevault": "*",
+    "simplechess": "*"
   }
 }

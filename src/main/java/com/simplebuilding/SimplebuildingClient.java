@@ -99,8 +99,7 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE, com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.GOAT_HORN_HOLDER_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.GOAT_HORN_HOLDER_BE, com.simplebuilding.client.render.GoatHornHolderRenderer::new);
-        if (com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
-                com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE, com.simplebuilding.client.render.ChessPiecesRenderer::new);
+        // Chess pieces renderer: Simple Chess (b-chess47).
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE, com.simplebuilding.client.render.HammockRenderer::new);

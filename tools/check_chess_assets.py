@@ -1,6 +1,6 @@
 """Usage: python tools/check_chess_assets.py
 
-Data check for the chess assets (queue N15, docs/ai/PLAN-SCHACH-2026-10-06.md), 26.3 overlay:
+Data check for the chess assets (queue N15, docs/ai/PLAN-SCHACH-2026-10-06.md), Simple Chess (b-chess47):
 - every colour (ChessColor) x piece (ChessPiece) x {3D, flat} and every octet has an item definition, a model that
   resolves through its parents to elements, textures that exist, and an EN/DE name in both language trees;
 - every piece model fits one quarter of the block (x/z 4..12 px, y 0..16, foot on y 0), so the ChessPiecesRenderer
@@ -15,9 +15,9 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ASSET_ROOTS = [os.path.join(ROOT, p, 'assets') for p in ('mc26_3/overlay/resources', 'src/main/resources')]
-LANG_TREES = ['mc26_3/overlay/resources', 'src/main/resources']
-JAVA = os.path.join(ROOT, 'common/src/shared/java/com/simplebuilding/chess')
+ASSET_ROOTS = [os.path.join(ROOT, 'modules/simplechess/shared/resources/assets')]
+LANG_TREES = ['modules/simplechess/shared/resources']
+JAVA = os.path.join(ROOT, 'modules/simplechess/shared/java/com/simplechess')
 
 
 def enum_ids(name):
@@ -47,7 +47,7 @@ def resolve(ref, problems, where):
     textures, elements, seen = {}, None, set()
     while ref and ref not in seen:
         seen.add(ref)
-        if not ref.startswith('simplebuilding:'):
+        if not ref.startswith('simplechess:'):
             break
         model = load('models', ref)
         if model is None:
@@ -61,7 +61,7 @@ def resolve(ref, problems, where):
     for k, v in textures.items():
         while isinstance(v, str) and v.startswith('#'):
             v = textures.get(v[1:])
-        if v is None or (v.startswith('simplebuilding:') and find('textures', v, '.png') is None):
+        if v is None or (v.startswith('simplechess:') and find('textures', v, '.png') is None):
             problems.append(f'{where}: texture #{k} -> {textures[k]} unresolved')
     if not elements:
         problems.append(f'{where}: model {seen} has no elements')
@@ -76,12 +76,12 @@ def main():
     langs = []
     for tree in LANG_TREES:
         for code in ('en_us', 'de_de'):
-            with open(os.path.join(ROOT, tree, 'assets/simplebuilding/lang', code + '.json'), encoding='utf-8') as f:
+            with open(os.path.join(ROOT, tree, 'assets/simplechess/lang', code + '.json'), encoding='utf-8') as f:
                 langs.append((f'{tree} {code}', json.load(f)))
     items = [(f'{c}_octet', None) for c in colors]
     items += [(f'{c}_chess_{p}{"_flat" if flat else ""}', p) for c in colors for p in pieces for flat in (False, True)]
     for item, piece in items:
-        definition = load('items', 'simplebuilding:' + item)
+        definition = load('items', 'simplechess:' + item)
         if definition is None:
             problems.append(f'{item}: item definition missing')
             continue
@@ -93,9 +93,9 @@ def main():
             if lo[0] < 4 or lo[2] < 4 or hi[0] > 12 or hi[2] > 12 or lo[1] != 0 or hi[1] > 16:
                 problems.append(f'{item}: model spans {lo}..{hi}, must fit 4..12 (x/z), foot on y 0')
         for name, lang in langs:
-            if 'item.simplebuilding.' + item not in lang:
+            if 'item.simplechess.' + item not in lang:
                 problems.append(f'{item}: no name in {name}')
-    states = load('blockstates', 'simplebuilding:checker_octet')
+    states = load('blockstates', 'simplechess:checker_octet')
     parts = {}
     for part in (states or {}).get('multipart', []):
         when = part.get('when', {})
@@ -109,7 +109,7 @@ def main():
                 problems.append(f'checker_octet: no part for {c} {corner}')
             elif (c, corner) == (c, 'o000'):
                 resolve(model, problems, f'checker_octet {c}')
-    if load('blockstates', 'simplebuilding:chess_pieces') is None or load('models', 'simplebuilding:block/chess_pieces') is None:
+    if load('blockstates', 'simplechess:chess_pieces') is None or load('models', 'simplechess:block/chess_pieces') is None:
         problems.append('chess_pieces: blockstate or block model missing')
     for p in problems:
         print('PROBLEM ' + p)

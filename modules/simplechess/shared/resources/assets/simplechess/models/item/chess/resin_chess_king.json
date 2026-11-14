@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/king",
+  "textures": {
+    "m": "simplechess:block/chess/resin",
+    "a": "simplechess:block/chess/resin_accent"
+  }
+}

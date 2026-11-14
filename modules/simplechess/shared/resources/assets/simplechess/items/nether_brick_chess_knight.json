@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplechess:item/chess/nether_brick_chess_knight"
+  }
+}

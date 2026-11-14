@@ -222,8 +222,15 @@ public final class McVersion {
     }
     public static final boolean PIECEWISE_HAMMER_TIME = false;
     public static final boolean MEGA_GUIDES = false;
-    /** Schachfiguren, Achtelbloecke, Checker-Stufen/-Treppen: nur Hauptlinie 26.3. */
-    public static final boolean CHESS = false;
+    /**
+     * The twelve quartz checkers in SimpleBuilding (b-chess47, N47 M7, docs/ai/PLAN-B-CHESS47-2026-11-14.md). 26.3: chess - pieces,
+     * octets, the pieces cell, checkers with stairs and slabs - is the optional sub-mod Simple Chess ({@code simplechess:*}, ids
+     * migrate there); SimpleBuilding registers none of it, its checker fields are null. 26.2 keeps its twelve checkers (it never had
+     * the rest of chess).
+     */
+    public static final boolean CHESS_IN_SB = true;
+    /** Namespace of chess ({@link #CHESS_IN_SB}). */
+    public static final String CHESS_NAMESPACE = "simplechess";
     /** Holzwerk: nur Hauptlinie 26.3. */
     public static final boolean WOODWORK = false;
     /** Fahrzeug-Stufen: nur Hauptlinie 26.3. */

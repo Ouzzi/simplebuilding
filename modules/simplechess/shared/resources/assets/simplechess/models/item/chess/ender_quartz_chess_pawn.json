@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:item/chess/pawn",
+  "textures": {
+    "m": "simplechess:block/chess/ender_quartz",
+    "a": "simplechess:block/chess/ender_quartz_accent"
+  }
+}

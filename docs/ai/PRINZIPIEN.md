@@ -107,7 +107,7 @@ Super-Mod der Familie: Hülle mit Konfig, Mega-Guide, Testzentrale, Baugeräte (
 - Tooltip-Regel (AGENTS.md 3.14): Standard nur der Name; Eimer zeichnen nie eine Haltbarkeitslinie.
 - Gadgets zeigen keinen Text auf dem Bildschirm (AGENTS.md 3.4): Sounds, Partikel, Blockzustände.
 - Pflicht-Sub-Mods sind gebündelt (`requires` in `modules.json`); alles andere nur als `optional` (Schalter `enableSimpleX`).
-- Schach-Achtel (`checker_octet`) und Schach-Figuren bleiben hier (Plan F3).
+- Schach (Figuren, Figurenblock, Schachbretter samt Formen, Schach-Achtel) ist seit N47 M7 (b-chess47, 14.11.) der optionale Sub-Mod Simple Chess (`modules/simplechess`); Plan F3 („bleibt im Kern“) ist damit aufgehoben. 26.2 behält nur die 12 Schachbretter.
 - Endgame-Verzauberungsstufen (WP-22, MOB27-4): Vanillas `max_level` wird nie angehoben (der Amboss darf aus zwei Schutz-IV-Büchern kein V machen); Stufe V für Schutz und Federfall entsteht nur am Astral-Verzauberer auf der obersten Stufe (Tier 50), Schalter `server.features.endgameEnchantLevels`; Preis je Stufe über dem Vanilla-Maximum `+6`. Der Dark-/End-Verzauberer (BS25-20) hängt sich später nur über `AstralEnchanting.registerEndgame`/`levelCap` ein.
 - Doppelkolben und Signaldämpfer (IG31-12, 31.10.; seit MACH32-MOD 01.11. Pflicht-Sub-Mod Simple Machines, `modules/simplemachines`, `simplemachines:*`, Stufe 1 der Maschinen-Tab-Verschiebung, Plan `docs/ai/PLAN-B-MACHINES01-2026-11-01.md`; SB zeigt sie per Id in seinem Tab SimpleMachines, `util/MachineRefs`): keine Block-Entities, Bewegung über Vanillas `moving_piston`/`PistonStructureResolver` (Limit 12, Obsidian hält auf), Kolbenteile unverschiebbar, Schalter `features.doublePiston`/`signalDampener` in `config/simplemachines-server.json`; alte `simpleredstone:`- und `simplebuilding:`-Ids über `SimpleMachines#registerIdMoves`. Varianten (Astral/Nihil) nur über `DoublePistonVariant`, erst nach Besitzer-Abnahme.
 - **A12 (Kern):** Der Kern greift an wenigen, benannten Stellen in Vanilla ein; jeder Teil hat einen Schalter, ist an Halten/Schleichen/Verzauberung gebunden oder fügt nur Neues hinzu. Werte mit Datei:Zeile und Urteil: `docs/ai/RELEASE-SIMPLEBUILDING.md` Abschnitt 4.12.
@@ -436,6 +436,12 @@ Freischalt-Modus (Zellen, Preise) und Skyblock-Weltmodi, nur bei gewählter Chal
 Sieben Meißel von Stein bis Enderit; Blöcke einen Schritt entlang ihrer Familie, mit Sneak zurück.
 
 - **A12:** Nutzen: Bauvarianten ohne Handwerk und Steinsäge. Keine Mixins, nur Items und Daten-Ketten. Eingriff in Vanilla: keiner.
+
+### Simple Chess (`simplechess`)
+Schach aus SimpleBuilding (N47 M7): 156 Figuren in 13 Farben (3D und flach), bis vier je Block auf den Quarz-Schachbrettern, Schachbretter mit Treppe/Stufe, mit Simple Octets die Schach-Achtel. Optional, nur SimpleLib Pflicht; Release-Status PHASE 3 (`releasePhase: 3`, nicht in `bundleOptional`).
+
+- **A12:** Nutzen: Deko und echte Brettspiele auf Bauten (ein 4×4-Feld Schachbretter ist ein Schachbrett). Keine Mixins, eigene Blöcke/Items/Block-Entity und Daten. Eingriff in Vanilla: keiner.
+- Fremdes nur bedingt: Paletten-Farben (Astralit/Nihilit/Enderquarz) nur mit ihrer Quelle `ChessColor.PALETTE_SOURCE` (heute SimpleBuilding, bei M4 Simple Ores), Schach-Achtel nur mit Simple Octets (einzige Klassen mit dessen Typen: `ChessOctets`, `CheckerOctetBlock`, `CheckerOctetItem`, Test `ChessOctetTests`); ohne Simple Octets Figuren direkt aus dem Schachbrett (8 je Block).
 
 ### Simple Earth (`simpleearth`)
 Würfel-Erde in sehr großer Höhe, Vanilla-Kartenfarben aus dem Weltgenerator.

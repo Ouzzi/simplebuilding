@@ -1,13 +1,9 @@
 package com.simplebuilding.clientgametest;
 
-import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.CheckerOctetBlock;
 import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.blocks.custom.OctetCells;
-import com.simplebuilding.chess.ChessColor;
 import com.simplebuilding.util.LibServices;
 import com.simplebuilding.util.OctetRefs;
-import com.simplebuilding.version.McVersion;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
@@ -33,10 +29,6 @@ public final class OctetMixClientTest {
         return OctetCells.material(LibServices.octetCellFor(full).defaultBlockState());
     }
 
-    private static BlockState chess(ChessColor color) {
-        return OctetCells.material(ModBlocks.CHECKER_OCTET.defaultBlockState().setValue(CheckerOctetBlock.COLOR, color));
-    }
-
     /** The cells of the row, x from {@link #X0}: each eight parts (null = empty). */
     private static List<BlockState[]> row() {
         BlockState[] checker = new BlockState[8];
@@ -46,7 +38,7 @@ public final class OctetMixClientTest {
         String[] wools = {"red", "orange", "yellow", "lime", "cyan", "blue", "purple", "white"};
         for (int i = 0; i < 8; i++) {
             int parity = (OctetCellBlock.x(i) + OctetCellBlock.y(i) + OctetCellBlock.z(i)) & 1;
-            checker[i] = chess(parity == 0 ? ChessColor.LAPIS : ChessColor.QUARTZ);
+            checker[i] = material(parity == 0 ? Blocks.POLISHED_BLACKSTONE : Blocks.QUARTZ_BLOCK); // b-chess47: chess octets are Simple Chess'
             layered[i] = OctetCellBlock.y(i) == 0 ? material(Blocks.STONE) : material(Blocks.OAK_PLANKS);
             wool[i] = material(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
                     net.minecraft.resources.Identifier.withDefaultNamespace(wools[i] + "_wool")));
@@ -54,7 +46,7 @@ public final class OctetMixClientTest {
         partial[OctetCellBlock.index(0, 0, 0)] = material(Blocks.STONE_BRICKS);
         partial[OctetCellBlock.index(1, 0, 0)] = material(Blocks.STONE_BRICKS);
         partial[OctetCellBlock.index(1, 0, 1)] = material(Blocks.GOLD_BLOCK);
-        partial[OctetCellBlock.index(1, 1, 1)] = chess(ChessColor.ASTRALIT);
+        partial[OctetCellBlock.index(1, 1, 1)] = material(Blocks.PURPUR_BLOCK);
         partial[OctetCellBlock.index(0, 1, 0)] = material(Blocks.OAK_PLANKS);
         BlockState[] pure = new BlockState[8];
         for (int i = 0; i < 8; i++) {
@@ -64,7 +56,7 @@ public final class OctetMixClientTest {
     }
 
     public static void inWorld(Script script) {
-        if (!McVersion.CHESS || OctetRefs.mixed() == null) {
+        if (OctetRefs.mixed() == null) {
             return;
         }
         TestScene.build(script, "minecraft:stone", "creative");

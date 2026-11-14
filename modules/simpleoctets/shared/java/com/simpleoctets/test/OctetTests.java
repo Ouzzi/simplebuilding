@@ -128,9 +128,9 @@ public final class OctetTests {
             "simpleblocks:gravel_slab", "natural slab (owner 17.10.)",
             "minecraft:petrified_oak_slab", "no full block: it looks like oak planks, whose octet (oak_octet) exists");
 
-    /** SimpleBuilding's chess checker shapes ({@code <x>_checker_stairs/_slab} of a {@code simplebuilding:<x>_checker}) have the chess octet. */
+    /** The chess checker shapes ({@code <x>_checker_stairs/_slab} of a {@code simplechess:<x>_checker}, Simple Chess since b-chess47) have the chess octet. */
     static boolean chessChecker(Identifier id, String stem) {
-        return "simplebuilding".equals(id.getNamespace()) && stem.endsWith("_checker")
+        return ("simplechess".equals(id.getNamespace()) || "simplebuilding".equals(id.getNamespace())) && stem.endsWith("_checker")
                 && BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath(id.getNamespace(), stem));
     }
 

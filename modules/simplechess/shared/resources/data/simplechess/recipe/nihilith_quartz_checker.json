@@ -1,0 +1,25 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding",
+        "simpleores"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simpleores:nihilith_shard",
+    "Q": "minecraft:quartz_block"
+  },
+  "pattern": [
+    "BQ",
+    "QB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "simplechess:nihilith_quartz_checker"
+  }
+}

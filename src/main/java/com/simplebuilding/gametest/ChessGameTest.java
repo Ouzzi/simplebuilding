@@ -4,40 +4,10 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 /**
- * Fabric adapter for chess (octets, pieces, checker stairs/slabs). No test logic here: every method delegates to
- * {@link ChessTests}. Class and method names are load bearing: Fabric derives the test id from them.
+ * Fabric adapter for the mixed octet cells ({@link OctetMixTests}); the chess tests themselves moved to Simple Chess (b-chess47).
+ * The class keeps its name: Fabric derives the test ids ({@code chess_game_test_octets_*}) from class and method names.
  */
 public final class ChessGameTest {
-
-    @GameTest
-    public void octetsFillTheSubGridByHitPoint(GameTestHelper helper) {
-        ChessTests.octetsFillTheSubGridByHitPoint(helper);
-    }
-
-    @GameTest
-    public void octetsHoldWaterUntilFull(GameTestHelper helper) {
-        ChessTests.octetsHoldWaterUntilFull(helper);
-    }
-
-    @GameTest
-    public void piecesStandOnQuartersAndSwap(GameTestHelper helper) {
-        ChessTests.piecesStandOnQuartersAndSwap(helper);
-    }
-
-    @GameTest
-    public void piecesBreakOnlyTheLookedAtPiece(GameTestHelper helper) {
-        ChessTests.piecesBreakOnlyTheLookedAtPiece(helper);
-    }
-
-    @GameTest
-    public void chessRecipesCutFromCheckersAndOctets(GameTestHelper helper) {
-        ChessTests.chessRecipesCutFromCheckersAndOctets(helper);
-    }
-
-    @GameTest
-    public void octetsStackToTheEngineMaximum(GameTestHelper helper) {
-        ChessTests.octetsStackToTheEngineMaximum(helper);
-    }
 
     @GameTest
     public void octetsMixMaterialsInOneCell(GameTestHelper helper) {

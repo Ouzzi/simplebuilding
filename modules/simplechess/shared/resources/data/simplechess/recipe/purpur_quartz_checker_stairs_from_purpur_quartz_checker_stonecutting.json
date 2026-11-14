@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:purpur_quartz_checker",
+  "result": {
+    "id": "simplechess:purpur_quartz_checker_stairs"
+  }
+}

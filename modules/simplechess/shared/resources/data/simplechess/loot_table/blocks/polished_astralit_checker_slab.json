@@ -1,0 +1,38 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": [
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplechess:polished_astralit_checker_slab",
+                "state": {
+                  "type": "double"
+                }
+              },
+              "count": 2
+            },
+            {
+              "type": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "simplechess:polished_astralit_checker_slab"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

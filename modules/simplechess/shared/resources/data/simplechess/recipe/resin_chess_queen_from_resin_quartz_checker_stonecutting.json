@@ -1,0 +1,19 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simpleoctets"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:resin_quartz_checker",
+  "result": {
+    "count": 8,
+    "id": "simplechess:resin_chess_queen"
+  }
+}

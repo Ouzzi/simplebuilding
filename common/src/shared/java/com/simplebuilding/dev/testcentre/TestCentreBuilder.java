@@ -264,8 +264,6 @@ public final class TestCentreBuilder {
                                 net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), tag));
                         other.setChanged();
                         level.sendBlockUpdated(fill.pos(), other.getBlockState(), other.getBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
-                    } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity pieces) {
-                        pieces.setPieces(fill.contents());
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity pile) {
                         pile.setParts(fill.contents());
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity holder

@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "simplebuilding:polished_nihilith_checker",
-  "result": {
-    "id": "simplebuilding:polished_nihilith_checker_stairs"
-  }
-}

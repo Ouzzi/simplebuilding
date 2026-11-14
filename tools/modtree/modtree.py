@@ -30,7 +30,7 @@ def load(root=ROOT):
         st = m.get("status") or ("done" if v >= [0, 9] or m["id"] in ("simplebuilding", BASE) else "new")
         out[m["id"]] = dict(id=m["id"], name=m.get("displayName") or m["name"], desc=m.get("description", ""),
                             req=list(m.get("requires", [])), opt=list(m.get("optional", [])),
-                            parent=m.get("parent"), bundle=m.get("bundle"), status=st,
+                            parent=m.get("parent"), bundle=m.get("bundle"), status=st, phase=m.get("releasePhase"),
                             loaders=m.get("loaders", []))
     for p in extra:
         out[p["id"]] = dict(id=p["id"], name=p["name"], desc=p.get("description", ""), req=[], opt=[],
@@ -183,6 +183,12 @@ def render_md(mods):
         s += f"## {m['name']}\n\n" + md_node(mods, m) + "\n"
     if rest:
         s += "## Eigenstaendige Mods\n\n" + "".join(md_node(mods, m) for m in rest)
+    phased = sorted((m for m in mods.values() if m.get("phase")), key=lambda m: (m["phase"], m["name"]))
+    if phased:
+        # Release-Planung (N47 M7): "releasePhase" in modules.json = erst nach dem Release (Phase 2/3/4), nicht in bundleOptional.
+        s += ("\n## Release-Planung\n\nMods mit `releasePhase` in modules.json: gebaut, aber erst nach dem Release (published) "
+              "freigegeben; bis dahin nicht in SimpleBuildings `bundleOptional`.\n\n")
+        s += "".join(f"- Phase {m['phase']}: **{m['name']}** `{m['id']}`\n" for m in phased)
     return s
 
 

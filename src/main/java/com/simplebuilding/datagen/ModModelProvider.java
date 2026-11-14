@@ -92,24 +92,19 @@ public class ModModelProvider extends FabricModelProvider {
 
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) blockStateModelGenerator.createTrivialCube(ModBlocks.POLISHED_END_STONE); // 26.3: SimpleLib's block
 
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.PURPUR_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.LAPIS_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.RESIN_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.NIHILITH_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.ASTRALIT_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.ENDER_QUARTZ_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ASTRALIT_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_NIHILITH_CHECKER);
-        registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
-        if (com.simplebuilding.version.McVersion.CHESS) {
-            // Treppen und Stufen der Schachbretter (Schach 2026-10-06); Achtel und Figuren: Overlay-Modelle aus
-            // tools/textures/chess_2026_10_06.py.
-            for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
-                registerCheckerShapes(blockStateModelGenerator, shapes);
-            }
+        if (com.simplebuilding.version.McVersion.CHESS_IN_SB) { // 26.3: Simple Chess' checkers, stairs and slabs (b-chess47)
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.PURPUR_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.LAPIS_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.RESIN_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.NIHILITH_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.ASTRALIT_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.ENDER_QUARTZ_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ASTRALIT_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_NIHILITH_CHECKER);
+            registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
         }
 
         // Beschichtete Endsteine und Purpurbloecke (PAL14: samt Treppe/Stufe/Mauer bzw. Saeule/Treppe/Stufe, ModBlocks.COATED_KINDS).
@@ -990,75 +985,6 @@ public class ModModelProvider extends FabricModelProvider {
         generator.family(palette.polished()).stairs(palette.polishedStairs()).slab(palette.polishedSlab()).wall(palette.polishedWall());
         generator.createAxisAlignedPillarBlock(palette.pillar(), TexturedModel.COLUMN_ALT);
         generator.createTrivialCube(palette.chiseled());
-    }
-
-    /**
-     * Treppe und Stufe eines Schachbretts (N34): jede Form (Hälfte, Richtung, Ecke) ist ein eigenes Modell aus 8-px-Zellen
-     * (Vorlage models/block/checker_cells/<maske>.json, erzeugt von tools/textures/checker_shapes_2026_10_11.py), dessen
-     * Seiten genau den Texturausschnitt des vollen Schachbrett-Blocks zeigen - weltbündiges Raster in jeder Drehung,
-     * deshalb ohne x/y/uvlock im Blockstate. Doppelte Stufe = Schachbrett.
-     */
-    private void registerCheckerShapes(BlockModelGenerators generator, ModBlocks.CheckerShapes shapes) {
-        String name = BuiltInRegistries.BLOCK.getKey(shapes.checker()).getPath();
-        Material texture = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name));
-        Material mirror = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name + "_mirror"));
-        TextureMapping mapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(SIDE_MIRROR, mirror);
-        java.util.Map<Integer, Identifier> stairModels = new java.util.HashMap<>();
-        java.util.Map<Integer, Identifier> slabModels = new java.util.HashMap<>();
-        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(shapes.stairs())
-                .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.HALF, BlockStateProperties.STAIRS_SHAPE)
-                        .generate((facing, half, shape) -> BlockModelGenerators.plainVariant(stairModels.computeIfAbsent(
-                                checkerStairMask(facing, half, shape), mask -> checkerCells(mask).create(shapes.stairs(), mapping, generator.modelOutput))))));
-        int straight = checkerStairMask(Direction.EAST, net.minecraft.world.level.block.state.properties.Half.BOTTOM,
-                net.minecraft.world.level.block.state.properties.StairsShape.STRAIGHT);
-        generator.registerSimpleItemModel(shapes.stairs(), stairModels.get(straight));
-        Identifier bottom = slabModels.computeIfAbsent(0x33, mask -> checkerCells(mask).create(shapes.slab(), mapping, generator.modelOutput));
-        Identifier top = slabModels.computeIfAbsent(0xCC, mask -> checkerCells(mask).create(shapes.slab(), mapping, generator.modelOutput));
-        Identifier full = ModelLocationUtils.getModelLocation(shapes.checker());
-        generator.blockStateOutput.accept(BlockModelGenerators.createSlab(shapes.slab(), BlockModelGenerators.plainVariant(bottom),
-                BlockModelGenerators.plainVariant(top), BlockModelGenerators.plainVariant(full)));
-        generator.registerSimpleItemModel(shapes.slab(), bottom);
-    }
-
-    private static ModelTemplate checkerCells(int mask) {
-        return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/checker_cells/" + mask)),
-                Optional.of("_" + mask), TextureSlot.SIDE, SIDE_MIRROR);
-    }
-
-    /**
-     * Zellen-Maske einer Treppenform (Bit i + 2j + 4k, i = x, j = y, k = z, je 8-px-Zelle): unten die ganze untere Lage, oben
-     * der Teil an der Seite der Blickrichtung (bei Ecken nur ein Viertel bzw. drei Viertel); obere Hälfte: umgekehrt.
-     */
-    static int checkerStairMask(Direction facing, net.minecraft.world.level.block.state.properties.Half half,
-            net.minecraft.world.level.block.state.properties.StairsShape shape) {
-        Direction right = facing.getClockWise();
-        Direction left = facing.getCounterClockWise();
-        int mask = 0;
-        for (int i = 0; i < 2; i++) {
-            for (int k = 0; k < 2; k++) {
-                int cx = i * 2 - 1;
-                int cz = k * 2 - 1;
-                int front = cx * facing.getStepX() + cz * facing.getStepZ();
-                int onRight = cx * right.getStepX() + cz * right.getStepZ();
-                int onLeft = cx * left.getStepX() + cz * left.getStepZ();
-                boolean high = switch (shape) {
-                    case STRAIGHT -> front > 0;
-                    case OUTER_RIGHT -> front > 0 && onRight > 0;
-                    case OUTER_LEFT -> front > 0 && onLeft > 0;
-                    case INNER_RIGHT -> front > 0 || onRight > 0;
-                    case INNER_LEFT -> front > 0 || onLeft > 0;
-                };
-                boolean bottomHalf = half == net.minecraft.world.level.block.state.properties.Half.BOTTOM;
-                if (bottomHalf) {
-                    mask |= 1 << (i + 4 * k);
-                    if (high) mask |= 1 << (i + 2 + 4 * k);
-                } else {
-                    mask |= 1 << (i + 2 + 4 * k);
-                    if (high) mask |= 1 << (i + 4 * k);
-                }
-            }
-        }
-        return mask;
     }
 
     private void registerMirroredChecker(BlockModelGenerators generator, Block block) {

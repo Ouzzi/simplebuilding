@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Eine Blockzelle aus bis zu acht Achtelbloecken (0,125er-Bloecke, 0,5 x 0,5 x 0,5) eines Materials. Jedes Achtel ist
  * ein Bit ({@link #OCTETS}, Name {@code o<x><y><z>}), alles im Blockzustand, kein Block-Entity: die Modelle sind
- * gebacken (Multipart je Bit). Gemeinsame Basis der Schach-Achtel (SimpleBuilding {@code CheckerOctetBlock}, Farbe im Zustand) und der
+ * gebacken (Multipart je Bit). Gemeinsame Basis der Schach-Achtel (Simple Chess {@code CheckerOctetBlock}, Farbe im Zustand) und der
  * Material-Achtel ({@link MaterialOctetBlock}, ein Block je Material, z. B. Holz und Melone).
  *
  * <p>Wasserbindbar, solange die Zelle nicht voll ist; voll (8/8) ist sie ein ganzer Wuerfel ohne Wasser. Acht Achtel

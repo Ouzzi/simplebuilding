@@ -25,8 +25,6 @@ public class ModBlockEntities {
     /** Kleinteile auf einem Fleck; nur, wenn es den Block gibt (McVersion.SMALL_PLACEABLES). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity> PLACED_SMALL_PARTS_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity> GOAT_HORN_HOLDER_BE;
-    /** Schachfiguren auf einem Block; nur mit McVersion.CHESS. */
-    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity> CHESS_PIECES_BE;
     /** Haengematten (Tuch und Seil kennen ihre Matte); nur mit McVersion.HAMMOCK. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity> HAMMOCK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
@@ -132,12 +130,6 @@ public class ModBlockEntities {
             GOAT_HORN_HOLDER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "goat_horn_holder"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity::new, ModBlocks.GOAT_HORN_HOLDER).build());
-        }
-
-        if (ModBlocks.CHESS_PIECES != null) {
-            CHESS_PIECES_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "chess_pieces"),
-                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity::new, ModBlocks.CHESS_PIECES).build());
         }
 
         if (ModBlocks.HAMMOCK_ROPE != null) {

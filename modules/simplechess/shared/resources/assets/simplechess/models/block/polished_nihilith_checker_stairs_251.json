@@ -1,0 +1,7 @@
+{
+  "parent": "simplechess:block/checker_cells/251",
+  "textures": {
+    "side": "simplechess:block/polished_nihilith_checker",
+    "side_mirror": "simplechess:block/polished_nihilith_checker_mirror"
+  }
+}

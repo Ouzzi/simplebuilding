@@ -140,22 +140,19 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.ENDERITE_BLOCK); // 26.3: SimpleLib's loot table
 
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.POLISHED_END_STONE); // 26.3: SimpleLib's loot table
-        dropSelf(ModBlocks.PURPUR_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.LAPIS_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.RESIN_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.NIHILITH_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.ASTRALIT_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.ENDER_QUARTZ_CHECKER);
-        dropSelf(ModBlocks.POLISHED_ASTRALIT_CHECKER);
-        dropSelf(ModBlocks.POLISHED_NIHILITH_CHECKER);
-        dropSelf(ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
-        // Treppen und Stufen der Schachbretter (Schach); Achtel und Figuren droppen ohne Loot-Tabelle.
-        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
-            dropSelf(shapes.stairs());
-            add(shapes.slab(), createSlabItemTable(shapes.slab()));
+        if (com.simplebuilding.version.McVersion.CHESS_IN_SB) { // 26.3: Simple Chess' checkers (b-chess47)
+            dropSelf(ModBlocks.PURPUR_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.LAPIS_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.RESIN_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.NIHILITH_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.ASTRALIT_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.ENDER_QUARTZ_CHECKER);
+            dropSelf(ModBlocks.POLISHED_ASTRALIT_CHECKER);
+            dropSelf(ModBlocks.POLISHED_NIHILITH_CHECKER);
+            dropSelf(ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
         }
 
         // Holzwerk: alles droppt sich selbst, Schnitzholz mit seinem Motiv (copy_state), Kisten zusaetzlich ihren Inhalt.

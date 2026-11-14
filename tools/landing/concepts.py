@@ -275,6 +275,7 @@ TXT = {
  'simpleenchanting': ('Dunkler und Astral-Verzauberer über dem Vanilla-Tisch.', 'Dark and Astral Enchanter above the Vanilla table.'),
  'simplelayers': ('Welt-Ebenen: das Wolkenmeer über y 700 und die Backrooms mit Tapete, Neonlicht und Kreide unter dem Grundgestein.', 'World layers: the Cloud Sea above y 700 and the Backrooms with wallpaper, neon lights and chalk below the bedrock.'),
  'simplevault': ('Das Grundgewölbe: ein Spalt im Grundgestein führt in stille Hallen, drei Rätsel und ein Aufstiegsaltar sind der einzige Weg hinaus.', 'The Bedrock Vault: a gap in the bedrock leads into quiet halls, three riddles and an ascent altar are the only way out.'),
+ 'simplechess': ('Schachfiguren in 13 Farben, 3D und flach, zu viert auf einem Block, Quarz-Schachbretter und mit Simple Octets Schach-Achtel.', 'Chess pieces in 13 colours, 3D and flat, four to a block, quartz checker boards and, with Simple Octets, chess octets.'),
  'simplepads': ('Startrampen, Elytra-Pads, Druckplatten und Spawn-Teleporter.', 'Launchpads, elytra pads, pressure plates and a spawn teleporter.'),
 }
 for _k, _o in (OVR.get('mods') or {}).items():  # overrides.json: Kurztext je Mod

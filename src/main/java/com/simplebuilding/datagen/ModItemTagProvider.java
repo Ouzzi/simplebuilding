@@ -260,11 +260,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             builder(BlockItemTags.WALLS.item()).add(key(kind.stoneWall().asItem())).add(key(kind.purpurWall().asItem()));   // PAL28
         }
 
-        // Treppen und Stufen der Schachbretter (Schach 2026-10-06) ebenso.
-        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
-            builder(BlockItemTags.STAIRS.item()).add(key(shapes.stairs().asItem()));
-            builder(BlockItemTags.SLABS.item()).add(key(shapes.slab().asItem()));
-        }
+        // Treppen und Stufen der Schachbretter: Simple Chess (b-chess47).
 
         // Naturvarianten (N24/N25): Stufen-Tags und der Froschlicht-Tag (simpleblocks:froglights) seit b-blocksmove in Simple Blocks.
 
