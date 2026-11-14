@@ -8,6 +8,15 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpledinos", false); }
 
+    /** PLAN40 simpledinos-4: every option has a readable name and the recipe viewer has the fossil-to-egg info page. */
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void configLabelsAndInfo(GameTestHelper h) {
+        var missing = com.simplelib.api.config.ConfigScreenModel.missingLabels("simpledinos");
+        h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
+        h.assertTrue(!com.simpledinos.DinosViewer.pages().isEmpty(), "info page fossil -> egg");
+        h.succeed();
+    }
+
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
         DinosTests.ALL.get("registered").accept(h);

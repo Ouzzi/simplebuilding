@@ -99,5 +99,19 @@
   "simpledinos.guide.page.19.title": "Befehle",
   "simpledinos.guide.page.19": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
   "simpledinos.guide.page.20.title": "Einstellungen",
-  "simpledinos.guide.page.20": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpledinos.guide.page.20": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "jei.simpledinos.info.egg_path": "Vom Fossil zum Dinosaurier: Ein Fossilblock (selten unter der Erde in Wüsten, Badlands und Sümpfen) wird mit dem Pinsel freigelegt, bis ein Ei herausfällt. Das Ei platzieren und mit leerer Hand daraufsetzen, um es auszubrüten, dann schlüpft es; das Junge gehört dem, der am längsten gesessen hat, und wächst zu einem reitbaren Dinosaurier heran.",
+  "text.autoconfig.simpledinos.title": "Simple Dinosaurs",
+  "text.autoconfig.simpledinos.option.enabled": "Simple Dinosaurs aktiv",
+  "text.autoconfig.simpledinos.option.enabled.@Tooltip": "Schaltet Simple Dinosaurs an oder aus.\nStandard: an.",
+  "text.autoconfig.simpledinos.option.brushSeconds": "Pinselzeit (Sekunden)",
+  "text.autoconfig.simpledinos.option.brushSeconds.@Tooltip": "Sekunden Pinseln, bis ein Fossil frei ist. Eine\nPause kostet das Doppelte. 5 bis 600. Standard: 45.",
+  "text.autoconfig.simpledinos.option.incubateSeconds": "Brutzeit (Sekunden)",
+  "text.autoconfig.simpledinos.option.incubateSeconds.@Tooltip": "Sekunden, die ein Spieler auf dem Ei sitzen muss,\nbis es ausgebrütet ist. 10 bis 3600. Standard: 300.",
+  "text.autoconfig.simpledinos.option.hatchSeconds": "Schlüpfzeit (Sekunden)",
+  "text.autoconfig.simpledinos.option.hatchSeconds.@Tooltip": "Sekunden vom ausgebrüteten Ei bis zum Jungtier.\n10 bis 7200. Standard: 600.",
+  "text.autoconfig.simpledinos.option.growMinutes": "Wachstumszeit (Minuten)",
+  "text.autoconfig.simpledinos.option.growMinutes.@Tooltip": "Minuten, die ein Jungtier zum Erwachsenwerden braucht.\n1 bis 600. Standard: 40.",
+  "text.autoconfig.simpledinos.option.trexBiteDamage": "T.-rex-Bissschaden",
+  "text.autoconfig.simpledinos.option.trexBiteDamage.@Tooltip": "Schaden eines erwachsenen T.-rex-Bisses vor der\nSchwierigkeit. 1 bis 40. Standard: 10."
 }
