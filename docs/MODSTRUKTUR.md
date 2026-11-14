@@ -114,7 +114,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding, modmenu, Simple Ores
   - **Simple Sandwiches** `simplesandwiches` (optional) [neu]: Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.
     - required: SimpleLib
-    - optional: SimpleBuilding, Simple End
+    - optional: SimpleBuilding, Simple End, Simple Crucibles, Simple Ores, Simple Animals
   - **Simple Shops** `simpleshops` (optional) [neu]: Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Money, Simple Tweaks

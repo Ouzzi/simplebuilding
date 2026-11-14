@@ -1115,7 +1115,10 @@
       ],
       "optional": [
         "simplebuilding",
-        "simpleend"
+        "simpleend",
+        "simplecrucibles",
+        "simpleores",
+        "simpleanimals"
       ],
       "checks": [
         "modules/simplesandwiches/tools/check_data.py"

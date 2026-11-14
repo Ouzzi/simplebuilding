@@ -7,7 +7,7 @@
       "id": "sandwiches",
       "en": {
         "title": "Sandwiches",
-        "summary": "One bread plus up to five ingredients, with optional butter first; matching components stack to 16.",
+        "summary": "One bread plus up to five ingredients, with optional butter first; matching components stack to 16. Food of other Simple mods (rose gold and rose copper apples and carrots, crab, truffle, drift fruit) counts as an ingredient when that mod is installed.",
         "details": [
           "Hunger and saturation (formula IG31-28): bread (5 / 6.0) and every ingredient are ranked by value, highest first. The highest counts in full; each further one adds a falling share of its own value (10%, 5%, 2.5% ...), so the total stays below the sum of the single foods. A sandwich therefore restores less than the same foods eaten one by one; its use is the merged effects of all ingredients in one meal, the room (up to five ingredients and the bread in one item, 16 sandwiches per stack) and the butter bonus. Hunger is rounded to whole points, saturation to half points and is at most 1.2 x hunger. Vanilla limits restoration when eating. Ingredients use their item's default components, not custom stack components.",
           "Butter adds 10% to hunger (rounded), saturation and effect durations by default. Server bounds: butterBonus 0–0.25; maxIngredients 1–5 (default 5). Eating takes 1.6 seconds plus 0.2 seconds per ingredient.",
@@ -17,7 +17,7 @@
       },
       "de": {
         "title": "Sandwiches",
-        "summary": "Ein Brot plus bis zu fünf Zutaten, optional zuerst Butter; bei gleichen Komponenten bis 16 stapelbar.",
+        "summary": "Ein Brot plus bis zu fünf Zutaten, optional zuerst Butter; bei gleichen Komponenten bis 16 stapelbar. Essen anderer Simple-Mods (Roségold-/Rosébronze-Äpfel und -Karotten, Krabbe, Trüffel, Driftfrucht) zählt als Zutat, wenn die Mod installiert ist.",
         "details": [
           "Hunger und Sättigung (Formel IG31-28): Brot (5 / 6,0) und jede Zutat werden nach Wert absteigend gereiht. Der höchste Wert zählt voll; jeder weitere bringt einen fallenden Anteil seines eigenen Werts (10 %, 5 %, 2,5 % ...), die Summe bleibt damit unter der Summe der einzelnen Speisen. Ein Sandwich sättigt daher weniger als dieselben Speisen einzeln gegessen; sein Nutzen sind die zusammengeführten Effekte aller Zutaten in einer Mahlzeit, der Platz (bis zu fünf Zutaten und das Brot in einem Item, 16 Sandwiches je Stapel) und der Butter-Bonus. Hunger wird auf ganze Punkte, Sättigung auf halbe Punkte gerundet und ist höchstens 1,2 x Hunger. Vanilla begrenzt die Wiederherstellung beim Essen. Zutaten verwenden ihre Standard-Itemkomponenten, keine angepassten Stapelkomponenten.",
           "Butter erhöht standardmäßig Hunger (gerundet), Sättigung und Effektdauern um 10 %. Servergrenzen: butterBonus 0–0,25; maxIngredients 1–5 (Standard 5). Esszeit: 1,6 Sekunden plus 0,2 Sekunden je Zutat.",
@@ -138,7 +138,7 @@
         "modules/simplesandwiches/shared/java/com/simplesandwiches/mixin/BundleEatMixin.java"
       ]
     },
-{
+    {
       "id": "recipe_book_unlocks",
       "sources": [
         "modules/simplesandwiches/shared/java/com/simplesandwiches/discover/SandwichDiscover.java",
@@ -178,57 +178,113 @@
   ],
   "notes": {
     "simplesandwiches:guide_book": {
-      "sources": ["modules/simplesandwiches/shared/java/com/simplesandwiches/guide/SandwichGuide.java", "modules/simplesandwiches/shared/resources/assets/simplesandwiches/simplelib/modpack_guide.json", "modules/simplesandwiches/shared/resources/data/simplesandwiches/advancement/guide/chapter.json"],
-      "en": {"summary": "Chapter \"Simple Sandwiches\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: bread. Craft the guide from a book and a crafting table; an old single guide turns into it when used."},
-      "de": {"summary": "Kapitel \"Simple Sandwiches\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Brot. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."}
+      "sources": [
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/guide/SandwichGuide.java",
+        "modules/simplesandwiches/shared/resources/assets/simplesandwiches/simplelib/modpack_guide.json",
+        "modules/simplesandwiches/shared/resources/data/simplesandwiches/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Sandwiches\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: bread. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Sandwiches\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Brot. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+      }
     },
     "simplesandwiches:*_cutting_board": {
-      "en": {"summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."},
-      "de": {"summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."}
+      "en": {
+        "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+      },
+      "de": {
+        "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+      }
     },
     "simplesandwiches:butter_block": {
-      "en": {"summary": "Take ripened butter from a milk cauldron with an empty hand, or let an active hopper below collect it. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9. Walking on butter gives Slippery for 3 seconds."},
-      "de": {"summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9. Wer auf Butter läuft, bekommt 3 Sekunden Rutschig."}
+      "en": {
+        "summary": "Take ripened butter from a milk cauldron with an empty hand, or let an active hopper below collect it. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9. Walking on butter gives Slippery for 3 seconds."
+      },
+      "de": {
+        "summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9. Wer auf Butter läuft, bekommt 3 Sekunden Rutschig."
+      }
     },
     "simplesandwiches:butter_carpet": {
-      "en": {"summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). More butter slices on it stack it like snow, one pixel per slice, and the 16th makes a whole butter block (which has to be cut again). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter, you sink in and are slowed. Breaking it drops one slice per layer."},
-      "de": {"summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Weitere Butterscheiben darauf stapeln ihn wie Schnee, ein Pixel pro Scheibe; die 16. ergibt einen ganzen Butterblock (der wieder geschnitten werden muss). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt eine Scheibe pro Schicht zurück."}
+      "en": {
+        "summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). More butter slices on it stack it like snow, one pixel per slice, and the 16th makes a whole butter block (which has to be cut again). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter, you sink in and are slowed. Breaking it drops one slice per layer."
+      },
+      "de": {
+        "summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Weitere Butterscheiben darauf stapeln ihn wie Schnee, ein Pixel pro Scheibe; die 16. ergibt einen ganzen Butterblock (der wieder geschnitten werden muss). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt eine Scheibe pro Schicht zurück."
+      }
     },
     "simplesandwiches:butter_slice": {
-      "en": {"summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and effect duration, subject to effect caps. Placed on the ground it becomes a butter carpet."},
-      "de": {"summary": "Nicht essbar. Mit dem Messer in der anderen Hand geöffnetes Brot vor dem Belegen bestreichen. Standardbonus: 10 % Hunger, Sättigung und Effektdauer unter Beachtung der Effektgrenzen. Auf den Boden gelegt wird sie zum Butter-Teppich."}
+      "en": {
+        "summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and effect duration, subject to effect caps. Placed on the ground it becomes a butter carpet."
+      },
+      "de": {
+        "summary": "Nicht essbar. Mit dem Messer in der anderen Hand geöffnetes Brot vor dem Belegen bestreichen. Standardbonus: 10 % Hunger, Sättigung und Effektdauer unter Beachtung der Effektgrenzen. Auf den Boden gelegt wird sie zum Butter-Teppich."
+      }
     },
     "simplesandwiches:cake_slice": {
-      "en": {"summary": "One piece per knife use, seven from a full cake. Restores 2 hunger and 0.4 saturation instantly, stacks to seven and works as a sandwich ingredient."},
-      "de": {"summary": "Ein Stück je Messerbenutzung, sieben aus einem vollen Kuchen. Gibt sofort 2 Hunger und 0,4 Sättigung, ist bis sieben stapelbar und dient als Sandwichzutat."}
+      "en": {
+        "summary": "One piece per knife use, seven from a full cake. Restores 2 hunger and 0.4 saturation instantly, stacks to seven and works as a sandwich ingredient."
+      },
+      "de": {
+        "summary": "Ein Stück je Messerbenutzung, sieben aus einem vollen Kuchen. Gibt sofort 2 Hunger und 0,4 Sättigung, ist bis sieben stapelbar und dient als Sandwichzutat."
+      }
     },
     "simplesandwiches:cheese_block": {
-      "en": {"summary": "Butter left in the cauldron ripens into cheese after 5 more minutes; it never spoils. Contains 16 slices; the first knife cut fixes direction until full again."},
-      "de": {"summary": "Butter, die im Kessel bleibt, reift nach 5 weiteren Minuten zu Käse; er verdirbt nie. Enthält 16 Scheiben; der erste Messerschnitt legt die Richtung fest, bis der Block wieder voll ist."}
+      "en": {
+        "summary": "Butter left in the cauldron ripens into cheese after 5 more minutes; it never spoils. Contains 16 slices; the first knife cut fixes direction until full again."
+      },
+      "de": {
+        "summary": "Butter, die im Kessel bleibt, reift nach 5 weiteren Minuten zu Käse; er verdirbt nie. Enthält 16 Scheiben; der erste Messerschnitt legt die Richtung fest, bis der Block wieder voll ist."
+      }
     },
     "simplesandwiches:cheese_carpet": {
-      "en": {"summary": "Sneak and right-click with a cheese slice to lay it down as a 1 px cheese carpet (a normal click eats it). More cheese slices on the carpet stack it like snow (one pixel per slice, walkable); the 16th makes a whole cheese block, which has to be cut again. Breaking it drops one slice per layer."},
-      "de": {"summary": "Mit einer Käsescheibe Schleichen und Rechtsklick legt sie als 1 px dünner Käse-Teppich ab (ein normaler Klick isst sie). Weitere Käsescheiben darauf stapeln ihn wie Schnee (ein Pixel pro Scheibe, begehbar); die 16. ergibt einen ganzen Käseblock, der wieder geschnitten werden muss. Abbauen gibt eine Scheibe pro Schicht zurück."}
+      "en": {
+        "summary": "Sneak and right-click with a cheese slice to lay it down as a 1 px cheese carpet (a normal click eats it). More cheese slices on the carpet stack it like snow (one pixel per slice, walkable); the 16th makes a whole cheese block, which has to be cut again. Breaking it drops one slice per layer."
+      },
+      "de": {
+        "summary": "Mit einer Käsescheibe Schleichen und Rechtsklick legt sie als 1 px dünner Käse-Teppich ab (ein normaler Klick isst sie). Weitere Käsescheiben darauf stapeln ihn wie Schnee (ein Pixel pro Scheibe, begehbar); die 16. ergibt einen ganzen Käseblock, der wieder geschnitten werden muss. Abbauen gibt eine Scheibe pro Schicht zurück."
+      }
     },
     "simplesandwiches:slice_stack": {
-      "en": {"summary": "Cheese and butter slices stacked in one pile: lay the other kind on a cheese or butter carpet (any click, sneaking or not) and the pile keeps each layer's kind, 1 px per slice, up to 8 layers. It is walkable up to its highest cheese layer, a butter layer on top keeps the Slippery effect. Breaking it drops one slice of the right kind per layer."},
-      "de": {"summary": "Käse- und Butterscheiben in einem Stapel: die andere Sorte auf einen Käse- oder Butter-Teppich legen (jeder Klick, schleichend oder nicht), der Stapel merkt sich die Sorte jeder Schicht, 1 px pro Scheibe, bis zu 8 Schichten. Begehbar bis zur höchsten Käseschicht, oben liegende Butter behält den Rutschig-Effekt. Abbauen gibt je Schicht eine Scheibe der richtigen Sorte zurück."}
+      "en": {
+        "summary": "Cheese and butter slices stacked in one pile: lay the other kind on a cheese or butter carpet (any click, sneaking or not) and the pile keeps each layer's kind, 1 px per slice, up to 8 layers. It is walkable up to its highest cheese layer, a butter layer on top keeps the Slippery effect. Breaking it drops one slice of the right kind per layer."
+      },
+      "de": {
+        "summary": "Käse- und Butterscheiben in einem Stapel: die andere Sorte auf einen Käse- oder Butter-Teppich legen (jeder Klick, schleichend oder nicht), der Stapel merkt sich die Sorte jeder Schicht, 1 px pro Scheibe, bis zu 8 Schichten. Begehbar bis zur höchsten Käseschicht, oben liegende Butter behält den Rutschig-Effekt. Abbauen gibt je Schicht eine Scheibe der richtigen Sorte zurück."
+      }
     },
     "simplesandwiches:cheese_slice": {
-      "en": {"summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient, restore a partly sliced cheese block, or sneak and right-click to lay it down as a cheese carpet."},
-      "de": {"summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen, einen angeschnittenen Käselaib ergänzen oder mit Schleichen und Rechtsklick als Käse-Teppich legen."}
+      "en": {
+        "summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient, restore a partly sliced cheese block, or sneak and right-click to lay it down as a cheese carpet."
+      },
+      "de": {
+        "summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen, einen angeschnittenen Käselaib ergänzen oder mit Schleichen und Rechtsklick als Käse-Teppich legen."
+      }
     },
     "simplesandwiches:knife": {
-      "en": {"summary": "Iron kitchen tool: 250 durability, total damage 2, attack speed 2.0 and iron-nugget repair. Crafted from one stick and four iron nuggets. Prepares bread and cuts cheese, butter, melons and cakes."},
-      "de": {"summary": "Eisen-Küchenwerkzeug: 250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Reparatur mit Eisennuggets. Aus einem Stock und vier Eisennuggets hergestellt. Bereitet Brot zu und schneidet Käse, Butter, Melonen und Kuchen."}
+      "en": {
+        "summary": "Iron kitchen tool: 250 durability, total damage 2, attack speed 2.0 and iron-nugget repair. Crafted from one stick and four iron nuggets. Prepares bread and cuts cheese, butter, melons and cakes."
+      },
+      "de": {
+        "summary": "Eisen-Küchenwerkzeug: 250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Reparatur mit Eisennuggets. Aus einem Stock und vier Eisennuggets hergestellt. Bereitet Brot zu und schneidet Käse, Butter, Melonen und Kuchen."
+      }
     },
     "simplesandwiches:milk_cauldron": {
-      "en": {"summary": "Fill an empty cauldron with milk. Default times: butter after 6,000 ticks (5 minutes), cheese 6,000 ticks later. Nothing spoils. An active hopper directly below takes the finished product at once (butter); cheese only forms without one."},
-      "de": {"summary": "Leeren Kessel mit Milch füllen. Standardzeiten: Butter nach 6.000 Ticks (5 Minuten), Käse 6.000 Ticks später. Nichts verdirbt. Ein aktiver Trichter direkt darunter nimmt das fertige Produkt sofort (Butter); Käse entsteht nur ohne einen."}
+      "en": {
+        "summary": "Fill an empty cauldron with milk. Default times: butter after 6,000 ticks (5 minutes), cheese 6,000 ticks later. Nothing spoils. An active hopper directly below takes the finished product at once (butter); cheese only forms without one."
+      },
+      "de": {
+        "summary": "Leeren Kessel mit Milch füllen. Standardzeiten: Butter nach 6.000 Ticks (5 Minuten), Käse 6.000 Ticks später. Nichts verdirbt. Ein aktiver Trichter direkt darunter nimmt das fertige Produkt sofort (Butter); Käse entsteht nur ohne einen."
+      }
     },
     "simplesandwiches:sandwich": {
-      "en": {"summary": "Bread plus up to five ingredients, optional butter first. Hunger and saturation: the best ingredient counts fully, the others add a falling bonus (10%, 5%, 2.5% ...); saturation is at most 1.2 x hunger; matching effects merge. Matching components stack to 16."},
-      "de": {"summary": "Brot plus bis zu fünf Zutaten, optional zuerst Butter. Hunger und Sättigung: die beste Zutat zählt voll, die übrigen bringen einen fallenden Bonus (10 %, 5 %, 2,5 % ...); Sättigung höchstens 1,2 x Hunger; gleiche Effekte zusammengeführt. Bei gleichen Komponenten bis 16 stapelbar."}
+      "en": {
+        "summary": "Bread plus up to five ingredients, optional butter first. Hunger and saturation: the best ingredient counts fully, the others add a falling bonus (10%, 5%, 2.5% ...); saturation is at most 1.2 x hunger; matching effects merge. Matching components stack to 16."
+      },
+      "de": {
+        "summary": "Brot plus bis zu fünf Zutaten, optional zuerst Butter. Hunger und Sättigung: die beste Zutat zählt voll, die übrigen bringen einen fallenden Bonus (10 %, 5 %, 2,5 % ...); Sättigung höchstens 1,2 x Hunger; gleiche Effekte zusammengeführt. Bei gleichen Komponenten bis 16 stapelbar."
+      }
     }
   }
 }

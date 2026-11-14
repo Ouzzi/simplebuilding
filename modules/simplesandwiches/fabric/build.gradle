@@ -5,6 +5,7 @@ dependencies { include project(':framework') }
 // SimpleLib (crucibles, warm food) nested per principle 6a.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // Simple Crucibles (crucibles, barrels, cauldron: split stage 5) nested like SimpleLib before, so worlds with crucibles keep them.
+// It is only an optional (suggested) mod in the metadata: the milk cauldron uses its reinforced cauldron when present (PLAN40 simplesandwiches-3).
 dependencies { include project(':modules:simplecrucibles:fabric') }
 // JEI24: the recipe viewer entries (fabric/src SandwichesViewer) compile against SimpleLib; the shared code still meets it by id only.
 dependencies { implementation project(':modules:simplelib:fabric') }

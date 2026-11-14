@@ -60,6 +60,46 @@
     {
       "id": "simplebuilding:enderite_carrot",
       "required": false
+    },
+    {
+      "id": "simpleores:rose_gold_apple",
+      "required": false
+    },
+    {
+      "id": "simpleores:enchanted_rose_gold_apple",
+      "required": false
+    },
+    {
+      "id": "simpleores:rose_bronze_apple",
+      "required": false
+    },
+    {
+      "id": "simpleores:enchanted_rose_bronze_apple",
+      "required": false
+    },
+    {
+      "id": "simpleores:rose_gold_carrot",
+      "required": false
+    },
+    {
+      "id": "simpleores:rose_bronze_carrot",
+      "required": false
+    },
+    {
+      "id": "simpleanimals:raw_crab",
+      "required": false
+    },
+    {
+      "id": "simpleanimals:cooked_crab",
+      "required": false
+    },
+    {
+      "id": "simpleanimals:truffle",
+      "required": false
+    },
+    {
+      "id": "simpleend:drift_fruit",
+      "required": false
     }
   ]
 }

@@ -239,6 +239,11 @@ public final class SandwichTests {
             if (vanillaFood) h.assertTrue(s.is(ModTags.SANDWICH_INGREDIENTS), "Vanilla food missing from the ingredient tag: " + key);
             if (s.is(ModTags.SANDWICH_INGREDIENTS)) h.assertTrue(SandwichFormula.isIngredient(s), "Tag member is no valid ingredient: " + key);
         }
+        // PLAN40 simplesandwiches-3: food of other Simple mods is an ingredient exactly when that mod is installed.
+        for (String id : List.of("simpleores:rose_gold_apple", "simpleores:rose_bronze_carrot", "simpleanimals:cooked_crab", "simpleanimals:truffle", "simpleend:drift_fruit")) {
+            var item = BuiltInRegistries.ITEM.getOptional(net.minecraft.resources.Identifier.parse(id));
+            if (item.isPresent()) h.assertTrue(new ItemStack(item.get()).is(ModTags.SANDWICH_INGREDIENTS), "Installed mod food missing from the ingredient tag: " + id);
+        }
         h.assertTrue(SandwichFormula.isIngredient(new ItemStack(ModItems.CHEESE_SLICE)), "cheese slice is an ingredient");
         h.assertTrue(SandwichFormula.isIngredient(new ItemStack(ModItems.CAKE_SLICE)), "cake slice is an ingredient");
         for (Item no : List.of(Items.MUSHROOM_STEW, Items.HONEY_BOTTLE, Items.MILK_BUCKET, Items.BREAD, Items.CAKE, ModItems.BUTTER_SLICE)) {
