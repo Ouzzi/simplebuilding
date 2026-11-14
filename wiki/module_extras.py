@@ -286,7 +286,7 @@ def pojo_options(cls, classes, consts, prefix=''):
 def _config_classes(repo, entry, classes):
     """[(kind 'json'|'pojo', class, side)] announced to SimpleLib's ConfigCommands in the module's shared code."""
     found = []
-    for path in (repo / entry['paths']['shared']).rglob('*.java'):
+    for path in sorted((repo / entry['paths']['shared']).rglob('*.java')):
         if '/test/' in path.as_posix():
             continue
         code = _COMMENT.sub(' ', path.read_text(encoding='utf-8', errors='replace'))
@@ -307,7 +307,7 @@ def module_config(repo, entry, lang):
     ns = entry.get('namespace', entry['id'])
     en, de = lang.get('en_us', {}), lang.get('de_de', {})
     shared = repo / entry['paths']['shared']
-    files = [p for p in shared.rglob('*.java') if '/test/' not in p.as_posix()]
+    files = [p for p in sorted(shared.rglob('*.java')) if '/test/' not in p.as_posix()]  # sorted: same class map on every file system
     classes = parse_classes(files)
     consts = _Constants(classes)
     # 1. Options from code: the config classes announced to /<ns> config (one source with the command).
@@ -532,7 +532,7 @@ def scanned_commands(repo, entry):
     """Root commands a module registers in its shared code (no test sources)."""
     ns = entry.get('namespace', entry['id'])
     found = set()
-    for path in (repo / entry['paths']['shared']).rglob('*.java'):
+    for path in sorted((repo / entry['paths']['shared']).rglob('*.java')):
         if '/test/' in path.as_posix():
             continue
         code = _COMMENT.sub(' ', path.read_text(encoding='utf-8', errors='replace'))

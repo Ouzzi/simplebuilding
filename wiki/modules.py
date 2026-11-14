@@ -176,7 +176,7 @@ def extract(entry, g, check=False):
         if identifier.startswith(ns + ':'):
             inventory['blocks' if value.get('kind') == 'block' else 'items'].add(identifier)
     # The scaffold uses a literal identifier followed by a registry registration.
-    for source in (repo / paths['shared']).rglob('*.java'):
+    for source in sorted((repo / paths['shared']).rglob('*.java')):
         code = re.sub(r'/\*.*?\*/|//[^\n]*', '', source.read_text(encoding='utf-8'), flags=re.S)
         if 'Registry.register' not in code or 'BuiltInRegistries.' not in code:
             continue
