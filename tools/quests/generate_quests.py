@@ -526,6 +526,10 @@ class Dbl(float):
     """A number FTB Quests reads as a double (x, y, size)."""
 
 
+# 26.3 (mega book): tasks whose advancement left the SimpleBuilding core (b-chess47: chess is Simple Chess, optional), b-fix194.
+MEGA_DROPPED = {"simplebuilding:building/checkmate"}
+
+
 def build_files(book: Book, fmt: str, mega: bool = False) -> dict[str, str]:
     ext = "." + fmt
     files: dict[str, object] = {}
@@ -547,6 +551,8 @@ def build_files(book: Book, fmt: str, mega: bool = False) -> dict[str, str]:
             quest_id = hid("quest", full)
             task_id = hid("task", full)
             kind, _, ident = q.task.partition(":")
+            if mega and ident in MEGA_DROPPED:
+                continue
             if mega and ident in ("simplebuilding:guide_book_building", "simplebuilding:guide_book_storage", "simplebuilding:guide_book_tweaks"):
                 kind, ident = "adv", "simplebuilding:guides/" + ident.removeprefix("simplebuilding:guide_book_")
             if mega and ident == "simplebuilding:guide_book":
