@@ -26,6 +26,12 @@ public final class ModuleGameTest {
         AnimalsTests.ALL.get("registered").accept(h);
     }
 
+    /** PLAN40 simpleanimals-2: the deer's and hedgehog's voices are registered sound events with two takes each in sounds.json. */
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void animalVoices(GameTestHelper h) {
+        AnimalsTests.ALL.get("animal_voices").accept(h);
+    }
+
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
     public void configLabels(GameTestHelper h) {
         AnimalsTests.ALL.get("config_labels").accept(h);

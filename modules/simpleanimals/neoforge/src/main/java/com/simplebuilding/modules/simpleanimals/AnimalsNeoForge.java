@@ -26,6 +26,7 @@ public final class AnimalsNeoForge {
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.ENTITY_TYPE, h -> AnimalsRegistry.entityTypes(h::register));
             event.register(Registries.ITEM, h -> AnimalsRegistry.items(h::register));
+            event.register(Registries.SOUND_EVENT, h -> com.simpleanimals.AnimalSounds.forEach(h::register));
         });
         bus.addListener((EntityAttributeCreationEvent event) -> {
             event.put(AnimalsRegistry.DEER, AnimalsRegistry.deerAttributes().build());

@@ -80,5 +80,13 @@
   "simpleanimals.guide.page.15.title": "Befehle",
   "simpleanimals.guide.page.15": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
   "simpleanimals.guide.page.16.title": "Einstellungen",
-  "simpleanimals.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpleanimals.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "subtitles.simpleanimals.entity.deer.ambient": "Hirsch röhrt",
+  "subtitles.simpleanimals.entity.deer.hurt": "Hirsch wird verletzt",
+  "subtitles.simpleanimals.entity.deer.death": "Hirsch stirbt",
+  "subtitles.simpleanimals.entity.hedgehog.ambient": "Igel schnauft",
+  "subtitles.simpleanimals.entity.hedgehog.hurt": "Igel fiept",
+  "subtitles.simpleanimals.entity.hedgehog.death": "Igel stirbt",
+  "subtitles.simpleanimals.entity.hedgehog.curl": "Igel rollt sich ein",
+  "subtitles.simpleanimals.entity.hedgehog.uncurl": "Igel rollt sich aus"
 }

@@ -27,7 +27,7 @@ import net.minecraft.world.item.SpawnEggItem;
 
 /**
  * Everything Simple Animals registers: six entity types (the zorse has no spawn egg and no natural spawn), five spawn
- * eggs, raw and cooked crab, truffle and truffle soup and the guide book. Loaders call {@link #entityTypes} / {@link #items} inside their matching
+ * eggs, raw and cooked crab, truffle and truffle soup and the guide book (the deer's and hedgehog's voices are in {@link AnimalSounds}). Loaders call {@link #entityTypes} / {@link #items} inside their matching
  * registry event (Fabric: {@link #registerAll}).
  */
 public final class AnimalsRegistry {
@@ -139,6 +139,7 @@ public final class AnimalsRegistry {
 
     /** Fabric: registries are open during init. */
     public static void registerAll() {
+        AnimalSounds.registerAll();
         entityTypes((k, v) -> Registry.register(BuiltInRegistries.ENTITY_TYPE, k, v));
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
     }

@@ -150,17 +150,17 @@ public class Deer extends Animal {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.LLAMA_AMBIENT;
+        return com.simpleanimals.AnimalSounds.DEER_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.LLAMA_HURT;
+        return com.simpleanimals.AnimalSounds.DEER_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.LLAMA_DEATH;
+        return com.simpleanimals.AnimalSounds.DEER_DEATH;
     }
 
     @Override

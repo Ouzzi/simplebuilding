@@ -112,6 +112,30 @@ public final class AnimalsTests {
                     && AnimalsConfig.TRUFFLE_DEFAULT == 0.005, "config defaults");
             h.succeed();
         });
+        // simpleanimals-2 (PLAN40): every voice is a registered sound event with a sounds.json line (subtitle, two takes) whose files exist.
+        ALL.put("animal_voices", h -> {
+            try (var in = com.simpleanimals.AnimalSounds.class.getResourceAsStream("/assets/simpleanimals/sounds.json")) {
+                h.assertTrue(in != null, "assets/simpleanimals/sounds.json");
+                var json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+                h.assertTrue(json.size() == com.simpleanimals.AnimalSounds.names().size(), "sounds.json has one line per sound event: " + json.keySet());
+                for (String name : com.simpleanimals.AnimalSounds.names()) {
+                    h.assertTrue(BuiltInRegistries.SOUND_EVENT.containsKey(SimpleAnimals.id(name)), "sound event " + name);
+                    h.assertTrue(json.has(name), "sounds.json line of " + name);
+                    var spec = json.getAsJsonObject(name);
+                    h.assertTrue(spec.has("subtitle"), "subtitle of " + name);
+                    var takes = spec.getAsJsonArray("sounds");
+                    h.assertTrue(takes.size() == 2, "two takes of " + name);
+                    for (var take : takes) {
+                        String id = take.getAsString();
+                        h.assertTrue(id.startsWith("simpleanimals:") && com.simpleanimals.AnimalSounds.class.getResource("/assets/simpleanimals/sounds/"
+                                + id.substring("simpleanimals:".length()) + ".ogg") != null, "take file of " + name + ": " + id);
+                    }
+                }
+            } catch (java.io.IOException e) {
+                throw new java.io.UncheckedIOException(e);
+            }
+            h.succeed();
+        });
         ALL.put("config_caps", h -> {
             try {
                 AnimalsConfig.apply(com.google.gson.JsonParser.parseString("{\"spawnScale\":9,\"boarCloseSeconds\":0,\"hedgehogHuntRadius\":999,\"deer\":\"x\"}").getAsJsonObject());
