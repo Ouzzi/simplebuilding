@@ -5,5 +5,5 @@
   "result": {
     "id": "simplepads:chunk_loader"
   },
-  "template": "simplelib:copper_core"
+  "template": "#simplelib:copper_cores"
 }

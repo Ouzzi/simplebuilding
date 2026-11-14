@@ -91,6 +91,16 @@ public final class ModuleGameTest {
         LibTests.ALL.get("material_requests_anvil_crushing").accept(h);
     }
 
+    @GameTest(maxTicks = 100)
+    public void materialRequestsAnvilEmerald(GameTestHelper h) {
+        LibTests.ALL.get("material_requests_anvil_emerald").accept(h);
+    }
+
+    @GameTest
+    public void roseCoresShareTags(GameTestHelper h) {
+        LibTests.ALL.get("rose_cores_share_tags").accept(h);
+    }
+
     @GameTest
     public void inventoryBrightnessTonesPalettes(GameTestHelper h) {
         LibTests.ALL.get("inventory_brightness_tones_palettes").accept(h);

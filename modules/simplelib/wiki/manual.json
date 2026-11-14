@@ -61,25 +61,25 @@
       ],
       "en": {
         "title": "Shared materials",
-        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the six building cores. Enderite belongs to Simple Ores (IG31-13).",
+        "summary": "Base materials several Simple mods use: diamond and emerald pebble, cracked diamond and cracked emerald with their blocks, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the building cores (six tiers plus the two rose cores). Enderite belongs to Simple Ores (IG31-13).",
         "details": [
           "SimpleLib always registers them, so worlds keep them whichever mod is missing. Their recipes and the anvil crushing only exist while a loaded mod asks for the material (with SimpleBuilding: all of them).",
-          "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond.",
+          "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond. Emerald blocks crush the same way into 72 emerald pebbles (cracked emerald, blasts into one emerald).",
           "Netherite nuggets and ingots convert 9:1; the basic upgrade template duplicates like Vanilla templates.",
-          "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore.",
-          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond and c:storage_blocks/cracked_diamond. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids.",
+          "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore. The rose copper and rose gold cores count as copper and gold core in every recipe (tags simplelib:copper_cores, simplelib:gold_cores); Simple Ores refines a base core with 8 alloy ingots into one.",
+          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond, c:storage_blocks/cracked_diamond, c:gems/cracked_emerald and c:storage_blocks/cracked_emerald. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids.",
           "Strong Upgrade (template and shard, WF25-10, formerly Simple Beacons): upgrades beacons and conduits (Simple Beacons) and the elytra and wings (Simple Mobs). While a mod requests it, the Vanilla Wither drops one shard next to its Nether Star when a mod offers its own way to the first template (Simple Mobs: Nether Heart recipe), otherwise the whole template - never both. Nine shards craft a template. Old worlds load the Simple Beacons items under their new ids."
         ]
       },
       "de": {
         "title": "Gemeinsame Materialien",
-        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die sechs Baukerne. Enderit gehört Simple Ores (IG31-13).",
+        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamant- und Smaragdkiesel, Rissiger Diamant und Rissiger Smaragd mit ihren Blöcken, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die Baukerne (sechs Stufen und die zwei Rosé-Kerne). Enderit gehört Simple Ores (IG31-13).",
         "details": [
           "SimpleLib registriert sie immer, damit Welten sie behalten, egal welche Mod fehlt. Ihre Rezepte und das Amboss-Zerschlagen gibt es nur, solange eine geladene Mod das Material anfordert (mit SimpleBuilding: alle).",
-          "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
+          "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird. Smaragdblöcke zerfallen genauso zu 72 Smaragdkieseln (Rissiger Smaragd, wird im Schmelzofen zu einem Smaragd).",
           "Netheritklumpen und -barren tauschen 9:1; die Basis-Aufwertungsvorlage lässt sich wie Vanilla-Vorlagen vervielfältigen.",
-          "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz.",
-          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond und c:storage_blocks/cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids.",
+          "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz. Rosenkupfer- und Roségoldkern zählen in jedem Rezept als Kupfer- bzw. Goldkern (Tags simplelib:copper_cores, simplelib:gold_cores); Simple Ores veredelt einen Grundkern mit 8 Legierungsbarren zu einem.",
+          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond, c:storage_blocks/cracked_diamond, c:gems/cracked_emerald und c:storage_blocks/cracked_emerald. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids.",
           "Starke Aufwertung (Vorlage und Splitter, WF25-10, vorher Simple Beacons): wertet Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs) auf. Solange eine Mod sie anfordert, lässt der Vanilla-Wither neben seinem Netherstern einen Splitter fallen, wenn eine Mod einen eigenen Weg zur ersten Vorlage bietet (Simple Mobs: Netherherz-Rezept), sonst die ganze Vorlage - nie beides. Neun Splitter ergeben eine Vorlage. Alte Welten laden die Simple-Beacons-Items unter den neuen IDs."
         ]
       }
@@ -252,6 +252,30 @@
         "summary": "Speicherblock aus neun Rissigen Diamanten (Eisenspitzhacke)."
       }
     },
+    "simplelib:emerald_pebble": {
+      "en": {
+        "summary": "A ninth of a cracked emerald; anvils crush emerald blocks into 72 (with Simple Hammers also the sledgehammer)."
+      },
+      "de": {
+        "summary": "Ein Neuntel eines Rissigen Smaragds; Ambosse zerschlagen Smaragdblöcke zu 72 (mit Simple Hammers auch der Vorschlaghammer)."
+      }
+    },
+    "simplelib:cracked_emerald": {
+      "en": {
+        "summary": "Nine emerald pebbles; blasts into one emerald."
+      },
+      "de": {
+        "summary": "Neun Smaragdkiesel; wird im Schmelzofen zu einem Smaragd."
+      }
+    },
+    "simplelib:cracked_emerald_block": {
+      "en": {
+        "summary": "Storage block of nine cracked emeralds (iron pickaxe)."
+      },
+      "de": {
+        "summary": "Speicherblock aus neun Rissigen Smaragden (Eisenspitzhacke)."
+      }
+    },
     "simplelib:netherite_nugget": {
       "en": {
         "summary": "A ninth of a netherite ingot."
@@ -378,6 +402,30 @@
       },
       "de": {
         "summary": "Enderitkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets. Nur mit Simple Ores (Rezept und Beute brauchen Enderit)."
+      }
+    },
+    "simplelib:rose_bronze_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Rose copper building core: counts as a copper core in every recipe (tag simplelib:copper_cores). With Simple Ores: 8 rose copper ingots round a copper core."
+      },
+      "de": {
+        "summary": "Rosenkupferkern: zählt in jedem Rezept als Kupferkern (Tag simplelib:copper_cores). Mit Simple Ores: 8 Rosenkupferbarren um einen Kupferkern."
+      }
+    },
+    "simplelib:rose_gold_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Rose gold building core: counts as a gold core in every recipe (tag simplelib:gold_cores). With Simple Ores: 8 rose gold ingots round a gold core."
+      },
+      "de": {
+        "summary": "Roségoldkern: zählt in jedem Rezept als Goldkern (Tag simplelib:gold_cores). Mit Simple Ores: 8 Roségoldbarren um einen Goldkern."
       }
     },
     "simplelib:modpack_guide": {

@@ -18,7 +18,9 @@ import net.minecraft.world.level.block.Block;
 public final class SharedMaterials {
     /** Every material group SimpleBuilding uses (all of them): their recipes and the anvil crushing stay on. */
     public static final List<String> GROUPS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates",
-            "polished_end_stone", "cores");
+            "polished_end_stone", "cores",
+            // PAL35c (14.11.): the emerald chain (new SimpleLib ids, nothing moved from SimpleBuilding).
+            "cracked_emerald");
 
     /** Item ids that moved from {@code simplebuilding:} to {@code simplelib:} (same paths). */
     public static final List<String> ITEMS = List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block", "netherite_nugget",

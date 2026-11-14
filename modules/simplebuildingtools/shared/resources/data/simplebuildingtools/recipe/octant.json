@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "C": "minecraft:compass",
-    "G": "simplelib:gold_core",
+    "G": "#simplelib:gold_cores",
     "L": "minecraft:lead",
     "N": "minecraft:gold_nugget",
     "R": "minecraft:lightning_rod"

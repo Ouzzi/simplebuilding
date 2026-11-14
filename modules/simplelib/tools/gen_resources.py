@@ -54,16 +54,20 @@ def files():
 # Shared materials (split stage 3d, PLAN-MODULAUFTEILUNG §2.5): group -> items; the blocks have block items.
 MATERIAL_GROUPS = {
     "cracked_diamond": ("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
+    # PAL35c (14.11.): the same chain for emerald.
+    "cracked_emerald": ("emerald_pebble", "cracked_emerald", "cracked_emerald_block"),
     "netherite_nugget": ("netherite_nugget",),
     # IG31-13: Enderite (and its upgrade template) moved to Simple Ores; the building cores came from SimpleBuilding.
     "upgrade_templates": ("basic_upgrade_template",),
     # WF25-10 (07.11.): the Strong Upgrade template ("chart") and its shard came from Simple Beacons (Beacons, wings of Simple Mobs).
     "strong_upgrade": ("strong_upgrade_template", "strong_upgrade_shard"),
-    "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core"),
+    "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core", "rose_bronze_core", "rose_gold_core"),
     # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
     "polished_end_stone": ("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
 }
-MATERIAL_BLOCKS = ("cracked_diamond_block", "polished_end_stone")
+MATERIAL_BLOCKS = ("cracked_diamond_block", "cracked_emerald_block", "polished_end_stone")
+# PAL35c: the rose cores count as their tier in every recipe that takes a copper or gold core (item tags, optional entries).
+CORE_TAGS = {"copper_cores": ("copper_core", "rose_bronze_core"), "gold_cores": ("gold_core", "rose_gold_core")}
 # Stairs, slab, wall of the polished end stone (octet rule): cut from the full block with the existing texture.
 SHAPE_BASE = "polished_end_stone"
 SHAPES = {f"{SHAPE_BASE}_{kind}": kind for kind in ("stairs", "slab", "wall")}
@@ -97,6 +101,15 @@ def material_recipes():
          shaped({"C": m("cracked_diamond")}, ["CCC", "CCC", "CCC"], m("cracked_diamond_block"), category="building"), [m("cracked_diamond")]),
         ("misc", "cracked_diamond_from_cracked_diamond_block", "cracked_diamond",
          shapeless([m("cracked_diamond_block")], m("cracked_diamond"), 9, group="cracked_diamond_from_block"), [m("cracked_diamond_block")]),
+        # PAL35c: the emerald chain, same numbers as the diamond chain.
+        ("misc", "cracked_emerald", "cracked_emerald", shaped({"P": m("emerald_pebble")}, ["PPP", "PPP", "PPP"], m("cracked_emerald")),
+         [m("emerald_pebble")]),
+        ("misc", "emerald_from_blasting_cracked_emerald", "cracked_emerald",
+         blasting(m("cracked_emerald"), v("emerald"), 200, 1.0, "emerald_from_cracked"), [m("cracked_emerald")]),
+        ("building_blocks", "cracked_emerald_block", "cracked_emerald",
+         shaped({"C": m("cracked_emerald")}, ["CCC", "CCC", "CCC"], m("cracked_emerald_block"), category="building"), [m("cracked_emerald")]),
+        ("misc", "cracked_emerald_from_cracked_emerald_block", "cracked_emerald",
+         shapeless([m("cracked_emerald_block")], m("cracked_emerald"), 9, group="cracked_emerald_from_block"), [m("cracked_emerald_block")]),
         ("misc", "basic_upgrade_template", "upgrade_templates",
          shaped({"A": v("diamond"), "B": m("basic_upgrade_template"), "C": v("iron_block")}, ["ABA", "ACA", "AAA"],
                 m("basic_upgrade_template"), 2), [m("basic_upgrade_template")]),
@@ -245,11 +258,15 @@ def materials(out):
     out[f"{c}/item/nuggets/netherite.json"] = {"values": [opt(f"{NS}:netherite_nugget")]}
     out[f"{c}/item/nuggets.json"] = {"values": ["#c:nuggets/netherite"]}
     out[f"{c}/item/gems/cracked_diamond.json"] = {"values": [opt(f"{NS}:cracked_diamond")]}
-    out[f"{c}/item/gems.json"] = {"values": ["#c:gems/cracked_diamond"]}
+    out[f"{c}/item/gems/cracked_emerald.json"] = {"values": [opt(f"{NS}:cracked_emerald")]}
+    out[f"{c}/item/gems.json"] = {"values": ["#c:gems/cracked_diamond", "#c:gems/cracked_emerald"]}
     for kind in ("item", "block"):
-        out[f"{c}/{kind}/storage_blocks/cracked_diamond.json"] = {"values": [opt(f"{NS}:cracked_diamond_block")]}
-        out[f"{c}/{kind}/storage_blocks.json"] = {"values": ["#c:storage_blocks/cracked_diamond"]}
-    out["data/minecraft/tags/block/needs_iron_tool.json"] = {"values": [opt(f"{NS}:cracked_diamond_block")]}
+        for gem in ("cracked_diamond", "cracked_emerald"):
+            out[f"{c}/{kind}/storage_blocks/{gem}.json"] = {"values": [opt(f"{NS}:{gem}_block")]}
+        out[f"{c}/{kind}/storage_blocks.json"] = {"values": ["#c:storage_blocks/cracked_diamond", "#c:storage_blocks/cracked_emerald"]}
+    out["data/minecraft/tags/block/needs_iron_tool.json"] = {"values": [opt(f"{NS}:cracked_diamond_block"), opt(f"{NS}:cracked_emerald_block")]}
+    for tag, cores in CORE_TAGS.items():
+        out[f"data/{NS}/tags/item/{tag}.json"] = {"values": [opt(f"{NS}:{core}") for core in cores]}
 
 
 def modpack_guide(out):

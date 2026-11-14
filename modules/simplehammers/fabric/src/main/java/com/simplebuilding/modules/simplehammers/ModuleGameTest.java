@@ -46,6 +46,11 @@ public final class ModuleGameTest {
         HammerTests.ALL.get("diamond_block_crush").accept(h);
     }
 
+    @GameTest(structure = "simplehammers:empty", maxTicks = 200)
+    public void emeraldBlockCrush(GameTestHelper h) {
+        HammerTests.ALL.get("emerald_block_crush").accept(h);
+    }
+
     @GameTest(structure = "simplehammers:empty")
     public void hammerTempo(GameTestHelper h) {
         HammerTests.ALL.get("hammer_tempo").accept(h);

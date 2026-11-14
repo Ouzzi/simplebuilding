@@ -20,9 +20,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "c": "simplelib:copper_core",
+    "c": "#simplelib:copper_cores",
     "i": "simplelib:iron_core",
-    "g": "simplelib:gold_core",
+    "g": "#simplelib:gold_cores",
     "d": "simplelib:diamond_core",
     "n": "simplelib:netherite_core",
     "e": "simplelib:enderite_core",

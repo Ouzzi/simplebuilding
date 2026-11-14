@@ -22,7 +22,7 @@
   "key": {
     "A": "minecraft:amethyst_shard",
     "C": "minecraft:clock",
-    "K": "simplelib:copper_core",
+    "K": "#simplelib:copper_cores",
     "N": "minecraft:copper_nugget"
   },
   "pattern": [

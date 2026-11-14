@@ -47,16 +47,23 @@ import net.minecraft.world.level.material.MapColor;
 public final class LibMaterials {
     /** The six building cores in tier order (IG31-13). */
     public static final List<String> CORES = List.of("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core");
+    /**
+     * PAL35c (14.11.): the rose cores, equals of their tier (rose copper = copper, rose gold = gold, like the alloys' tools). Recipes
+     * take them through the tags {@code simplelib:copper_cores} / {@code simplelib:gold_cores}; Simple Ores refines a base core into one.
+     */
+    public static final List<String> ROSE_CORES = List.of("rose_bronze_core", "rose_gold_core");
 
     /** Group -> ids (items; the blocks have block items of the same id). */
     public static final Map<String, List<String>> GROUPS = Map.of(
             "cracked_diamond", List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
+            // PAL35c (14.11.): the same chain for emerald (N30 "emerald chip", N35 cracked emerald block).
+            "cracked_emerald", List.of("emerald_pebble", "cracked_emerald", "cracked_emerald_block"),
             "netherite_nugget", List.of("netherite_nugget"),
             "upgrade_templates", List.of("basic_upgrade_template"),
             // WF25-10 (07.11.): the Strong Upgrade template ("chart") and its shard, formerly Simple Beacons'; used by Beacons and the wings.
             "strong_upgrade", List.of("strong_upgrade_template", "strong_upgrade_shard"),
             // IG31-13: the building cores (copper to enderite), formerly SimpleBuilding's; used by Beacons, Gadgets, the wands.
-            "cores", CORES,
+            "cores", java.util.stream.Stream.concat(CORES.stream(), ROSE_CORES.stream()).toList(),
             // Module family stage 3 (rule 16): the building block several family mods share (Blocks, End, Enderite, Octets).
             "polished_end_stone", List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"));
 
@@ -98,6 +105,7 @@ public final class LibMaterials {
             SimpleLib.LOG.warn("SimpleLib materials registered although no installed mod declared \"{}\" - Vanilla clients will be turned away", LibContent.KEY);
         }
         block("cracked_diamond_block", BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).strength(7.0F, 14.0F));
+        block("cracked_emerald_block", BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK).strength(7.0F, 14.0F));
         block("polished_end_stone", BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops()
                 .strength(3.0F, 9.0F).sound(SoundType.STONE));
         // Stairs, slab and wall of it (octet rule, owner 17.10.): the properties copy the full block.
@@ -118,6 +126,9 @@ public final class LibMaterials {
         item("diamond_pebble", Item::new);
         item("cracked_diamond", Item::new);
         item("cracked_diamond_block", p -> new BlockItem(BLOCKS.get("cracked_diamond_block"), p.useBlockDescriptionPrefix()));
+        item("emerald_pebble", Item::new);
+        item("cracked_emerald", Item::new);
+        item("cracked_emerald_block", p -> new BlockItem(BLOCKS.get("cracked_emerald_block"), p.useBlockDescriptionPrefix()));
         item("netherite_nugget", p -> new Item(p.fireResistant()));
         for (String name : List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
             item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
@@ -127,6 +138,10 @@ public final class LibMaterials {
             boolean fire = name.startsWith("netherite") || name.startsWith("enderite");
             Rarity rarity = name.startsWith("enderite") ? Rarity.EPIC : Rarity.RARE;
             item(name, p -> new com.simplelib.item.CoreItem((fire ? p.fireResistant() : p).stacksTo(1).rarity(rarity)));
+        }
+        // PAL35c: the rose cores follow the core concept of their tier (copper, gold): not stackable, rare, not fire resistant.
+        for (String name : ROSE_CORES) {
+            item(name, p -> new com.simplelib.item.CoreItem(p.stacksTo(1).rarity(Rarity.RARE)));
         }
     }
 

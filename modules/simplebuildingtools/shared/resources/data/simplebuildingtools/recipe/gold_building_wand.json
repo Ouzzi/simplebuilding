@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "simplelib:gold_core",
+    "C": "#simplelib:gold_cores",
     "S": "minecraft:stick"
   },
   "pattern": [

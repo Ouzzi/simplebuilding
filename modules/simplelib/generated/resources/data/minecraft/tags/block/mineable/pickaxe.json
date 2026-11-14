@@ -5,6 +5,10 @@
       "required": false
     },
     {
+      "id": "simplelib:cracked_emerald_block",
+      "required": false
+    },
+    {
       "id": "simplelib:polished_end_stone",
       "required": false
     },

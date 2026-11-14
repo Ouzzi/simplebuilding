@@ -1,0 +1,28 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "cores"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "cores"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simpleores:rose_gold_ingot",
+    "C": "simplelib:gold_core"
+  },
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "result": {
+    "id": "simplelib:rose_gold_core"
+  }
+}

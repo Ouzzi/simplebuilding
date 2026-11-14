@@ -218,6 +218,29 @@ public final class HammerTests {
             h.assertTrue(pebbles == HammerConfig.diamondBlockPebbles, "pebbles " + pebbles + " of " + HammerConfig.diamondBlockPebbles);
             h.succeed();
         });
+        // PAL35c: the emerald block and the cracked emerald block crush like diamond, into emerald pebbles.
+        ALL.put("emerald_block_crush", h -> {
+            BlockPos pos = h.absolutePos(SPOT);
+            ServerPlayer player = lookingDown(h, new ItemStack(HammerRegistry.hammer(HammerTiers.IRON)));
+            ItemStack hammer = player.getMainHandItem();
+            for (net.minecraft.world.level.block.Block block : List.of(Blocks.EMERALD_BLOCK, SimpleLibApi.materialBlock("cracked_emerald_block"))) {
+                h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(3)).forEach(ItemEntity::discard);
+                h.getLevel().setBlockAndUpdate(pos, block.defaultBlockState());
+                h.assertTrue("emerald_pebble".equals(SledgehammerItem.pebbleOf(block.defaultBlockState())), block + " breaks into emerald pebbles");
+                long now = h.getLevel().getGameTime() + 1000L * (block == Blocks.EMERALD_BLOCK ? 1 : 2);
+                int done = 0;
+                for (int i = 0; i < SledgehammerItem.DIAMOND_BLOCK_STRIKES; i++) {
+                    done = SledgehammerItem.strikeDiamondBlock(h.getLevel(), pos, player, hammer, now + i * 30L);
+                }
+                h.assertTrue(done == SledgehammerItem.DIAMOND_BLOCK_STRIKES && h.getLevel().getBlockState(pos).isAir(), "nine strikes crush " + block);
+                int pebbles = 0;
+                for (ItemEntity item : h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(3))) {
+                    if (item.getItem().is(SimpleLibApi.materialItem("emerald_pebble"))) pebbles += item.getItem().getCount();
+                }
+                h.assertTrue(pebbles == HammerConfig.diamondBlockPebbles, block + ": emerald pebbles " + pebbles + " of " + HammerConfig.diamondBlockPebbles);
+            }
+            h.succeed();
+        });
         ALL.put("upgrade_table", h -> {
             var entry = new InWorldUpgrades.Entry(Blocks.CAULDRON, Blocks.ANVIL, Items.IRON_NUGGET, 2, 3, InWorldUpgrades.UPGRADE_TOOLS,
                     "netherite", 4, "enderite");

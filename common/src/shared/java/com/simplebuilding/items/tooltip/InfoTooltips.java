@@ -78,6 +78,9 @@ public final class InfoTooltips {
             blockLines(blockItem.getBlock(), out);
         }
         List<Item> uses = coreUses().get(item);
+        if (uses == null) {
+            uses = roseCoreUses(item);
+        }
         if (uses != null) {
             coreLines(uses, out);
         }
@@ -184,6 +187,22 @@ public final class InfoTooltips {
      * What every core goes into - each recipe takes exactly one. {@code InfoTooltipTests} checks this
      * list against the recipes the server actually loads, so it cannot drift silently.
      */
+    /**
+     * PAL35c (14.11.): a rose core (SimpleLib, 26.3) goes into everything its tier goes into (recipes take the tags
+     * {@code simplelib:copper_cores} / {@code simplelib:gold_cores}), so it shows the list of the copper or gold core; null otherwise.
+     */
+    static List<Item> roseCoreUses(Item item) {
+        var id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item);
+        if (id == null || !com.simplebuilding.version.McVersion.CORE_NAMESPACE.equals(id.getNamespace())) {
+            return null;
+        }
+        return switch (id.getPath()) {
+            case "rose_bronze_core" -> coreUses().get(ModItems.COPPER_CORE);
+            case "rose_gold_core" -> coreUses().get(ModItems.GOLD_CORE);
+            default -> null;
+        };
+    }
+
     public static Map<Item, List<Item>> coreUses() {
         Map<Item, List<Item>> uses = new LinkedHashMap<>();
         uses.put(ModItems.COPPER_CORE, List.of(com.simplebuilding.util.BuildingToolRefs.wand("copper"), com.simplebuilding.util.GadgetRefs.gauge(),
