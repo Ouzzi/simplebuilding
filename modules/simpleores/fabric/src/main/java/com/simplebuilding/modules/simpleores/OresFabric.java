@@ -96,7 +96,7 @@ public final class OresFabric implements ModInitializer {
         tab(CreativeModeTabs.INGREDIENTS, Items.GLOWSTONE_DUST, com.simpleores.line.LineBlocks.INGREDIENTS);
         tab(CreativeModeTabs.REDSTONE_BLOCKS, Items.COMPARATOR, com.simpleores.line.LineBlocks.REDSTONE);
         tab(CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.END_ROD, com.simpleores.line.LineBlocks.DECORATIONS);
-        tab(CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.LIGHTNING_ROD, com.simpleores.gear.EnderiteGear.POLES);
+        tab(CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.LIGHTNING_ROD.weathering().unaffected(), com.simpleores.gear.EnderiteGear.POLES);
         tab(CreativeModeTabs.NATURAL_BLOCKS, Items.GOLD_ORE, OresRegistry.NATURAL);
         tab(CreativeModeTabs.BUILDING_BLOCKS, Items.GOLD_BLOCK, OresRegistry.BUILDING);
         tab(CreativeModeTabs.INGREDIENTS, Items.GOLD_INGOT, OresRegistry.INGREDIENTS);
