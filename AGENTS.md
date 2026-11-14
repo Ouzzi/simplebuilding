@@ -86,6 +86,15 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
   „Missing textures/model“; Log-Scanner `tools/check_client_log.py <log>`, läuft bei jedem Client-Target als Warnung mit).
   Gefärbte Rucksäcke/Bündel/Köcher: `python3 tools/textures/dyed_storage_preview.py --check` (Vorschau ohne `--check`).
 - Texturen prüfen: `python tools/textures/generate_textures.py --check`. Handbücher: `python tools/guide_book_pages.py` (0 Probleme).
+- **Bündel-Gate = Delta-Gate (N41, Besitzer 13.11.):** `/root/sb-gate.sh <ref>` prüft standardmäßig nur gegen den letzten
+  grünen Stand (GitHub master): precheck, Kompilieren, `gradlew check`, `data_integrity` (+ `test_centre` bei Registry-Änderungen),
+  geänderte Mods + alle, die sie `requires`, SB-Ziel wenn nötig, `integration-263` – nur Fabric 26.3
+  (Planung `tools/testrunner/delta_gate.py --since <ref> --ref <ref> --plan-only`). Nur docs/wiki/.claude/Texturgeneratoren → nur
+  check. **Voll-Gate** (alle Ziele + Standalone) automatisch bei Gemeinsamem (simplelib, wiringexample, Kern-/Framework-Java, Build-
+  Dateien, tools/testrunner), wenn fällig (7 Delta-Gates oder 15 geänderte Mods seit dem letzten Voll-Gate, Zähler
+  `/root/gate/full-due.json`, `tools/testrunner/gate_due.py`), vor Upload/Release mit `--full` und nachts auf master
+  (`sb-night.sh fullgate`, Cron 22:30 UTC). Chain-Zeile `mode: delta|full (…)`; Zentrale zeigt „Delta“/„Voll“ und „Voll fällig in N
+  Bündeln / M Mods“. Rote Tests werden wie bisher einmal wiederholt (`retry_red.py`).
 - Historische Gate-Zahlen stehen in `docs/HANDOFF.md`; Ziele und Testanzahl ändern sich.
   Für jeden aktuellen Lauf die Ausgabe und „alles gruen“ lesen; alte Zahlen sind kein aktueller Beleg.
 

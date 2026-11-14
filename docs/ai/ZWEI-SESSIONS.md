@@ -14,6 +14,10 @@ Beide laufen auf sb-agent: Sitzung A mit `claude` (Konfig `/root/.claude`), Sitz
 3. **Mergen nach `claude-wave1`** nur per fetch + merge + push (nie force). Konflikte löst, wer mergt.
 4. **Gates:** `/root/sb-gate.sh` stellt sich ohnehin hinter die Sperre an. Vor dem Start prüfen, ob schon ein
    Gate auf einem neueren Stand läuft (`/root/t ls -t /root/gate | head`); dann keins zusätzlich starten.
+   Seit N41 (13.11.) ist `sb-gate.sh <ref>` ein **Delta-Gate** gegen GitHub master (nur geänderte Mods + Abhängige +
+   integration/data_integrity/check); `sb-gate.sh <ref> --full` erzwingt das Voll-Gate (vor Upload/Release). Voll läuft
+   außerdem automatisch bei Gemeinsamem oder wenn fällig (7 Deltas / 15 Mods, `/root/gate/full-due.json`) und nachts auf
+   master (`sb-night.sh fullgate`). Rotes Nacht-Voll-Gate → Fix ins nächste Bündel, nichts zurücknehmen.
 5. **Memory:** gemeinsam. Jede Sitzung pflegt ihre eigene Übergabe-Datei (`uebergabe-A.md` bzw.
    `uebergabe-B.md`) und trägt Neues in `MEMORY.md` nur additiv ein (eine Zeile, nichts Fremdes löschen).
 6. **Wünsche des Besitzers oder Mitarbeiters** kommen als neuer Nachtrag in die Queue (mit Name/Kürzel), egal in

@@ -333,6 +333,7 @@ function md(s){const out=[];let tbl=null,ul=null;for(const raw of s.split('\n'))
 const STAGES=5;
 function parseGate(g){const text=g.text||'';const done=/^DONE/m.test(text);
  const start=(/^start (\S+)/m.exec(text)||[])[1]||'';const end=(/^DONE (\S+)/m.exec(text)||[])[1]||'';
+ const mm=/^mode: (delta|full)\b ?(.*)$/m.exec(text),mode=g.mode||(mm?mm[1]:'full'),modeWhy=g.modeWhy||(mm?mm[2].trim():''); // N41
  const steps=[],fails={},other=[];
  for(const l of text.split('\n')){let m;
   if(m=/^\s*ROT (\S+) (.+)$/.exec(l)){(fails[m[1]]=fails[m[1]]||[]).push(m[2]);continue;}
@@ -340,13 +341,13 @@ function parseGate(g){const text=g.text||'';const done=/^DONE/m.test(text);
    const name={gate:'Gate',check:'Check',standalone:'Standalone'}[k]||(/module-|integration/.test(targets)?'Module':'Loader');
    steps.push({name,val:m[3],c:/^\s*OK\b/.test(m[3])?'ok':cls(m[3])});continue;}
   if(m=/^tests \[([^\]]*)$/.exec(l)){steps.push({name:/module-|integration/.test(m[1])?'Module':'Loader',val:'',c:'cut'});continue;} // chain lines are cut at 200 chars
-  if(/^(start|DONE)\b/.test(l)||!l.trim())continue;other.push(l.trim());}
+  if(/^(start\b|DONE\b|mode:)/.test(l)||!l.trim())continue;other.push(l.trim());}
  const nfail=Object.values(fails).reduce((a,x)=>a+x.length,0);
  steps.forEach(s=>{if(s.c==='cut'){s.c=nfail?'bad':done?'mut':'run';s.val=nfail?nfail+' rot (siehe unten)':done?'Ergebnis im Log':'läuft';}});
- return {ref:g.ref,text,done,start,end,steps,fails,nfail,other,verdict:done?cls(text):'run',pct:done?100:Math.min(95,Math.round(steps.length/STAGES*100))};}
+ return {ref:g.ref,mode,modeWhy,text,done,start,end,steps,fails,nfail,other,verdict:done?cls(text):'run',pct:done?100:Math.min(95,Math.round(steps.length/STAGES*100))};}
 const vword=v=>v==='ok'?'GRÜN':v==='bad'?'ROT':v==='run'?'läuft':'fertig';
 function gateCard(p,open){const fl=Object.entries(p.fails);
- return `<details class="gate ${p.verdict}"${open?' open':''}><summary><span class="dot ${p.verdict}"></span><span class="ref">${esc(p.ref)}</span><span class="chip ${p.verdict}">${vword(p.verdict)}</span>`+
+ return `<details class="gate ${p.verdict}"${open?' open':''}><summary><span class="dot ${p.verdict}"></span><span class="ref">${esc(p.ref)}</span><span class="chip ${p.verdict}">${vword(p.verdict)}</span><span class="chip" title="${esc(p.modeWhy)}">${p.mode==='delta'?'Delta':'Voll'}</span>`+
   (p.nfail?`<span class="chip bad">${p.nfail} rot</span>`:'')+
   `<span class="small mut">${p.done?esc(ago(p.end))+' · '+esc(dur(p.start,p.end)):'seit '+esc(dur(p.start))+' · Schritt '+p.steps.length+'/'+STAGES}</span>`+
   (p.done?'':`<div class="bar" style="flex-basis:100%"><i style="width:${p.pct}%"></i></div>`)+`</summary><div class="body">`+
@@ -357,6 +358,9 @@ function gateCard(p,open){const fl=Object.entries(p.fails);
   (state.logs.includes(p.ref)?`<p class="small" style="margin:8px 0 0"><a href="logs/${esc(p.ref)}.log" target="_blank" rel="noopener">Volles Log ↗</a></p>`:'')+
   '</div></details>';}
 function tile(label,big,sub,c,dot){return `<div class="card tile ${c||''}"><span class="lbl">${esc(label)}</span><span class="big">${dot?`<span class="dot ${dot}"></span>`:''}<span>${big}</span></span><span class="sub">${sub}</span></div>`;}
+/* N41: delta gate is the standard; full gate after 7 deltas / 15 changed mods since the last full one */
+function fullDueTile(f){if(!f)return tile('Voll-Gate','–','kein Zähler');const n=+f.inDeltas,m=+f.inMods,now=!n||!m;
+ return tile('Voll-Gate',now?'fällig':`in ${n} Bündeln / ${m} Mods`,`seit ${esc(f.last_full_ref||'–')}: ${+f.deltas||0} Delta-Gates, ${(f.mod_ids||[]).length} Mods`+((f.mod_ids||[]).length?` <span class="clamp mono">${esc(f.mod_ids.join(', '))}</span>`:''),now?'run':'',now?'run':'');}
 const state={logs:[],data:null,openGates:null};
 function render(d){
  state.logs=d.logs||[];
@@ -370,6 +374,7 @@ function render(d){
  else if(lastDone)gt=tile('Letztes Gate',esc(lastDone.ref)+' · '+vword(lastDone.verdict),(lastDone.nfail?lastDone.nfail+' rote Tests · ':'')+esc(ago(lastDone.end)),lastDone.verdict==='bad'?'bad':'',lastDone.verdict);
  else gt=tile('Gate','–','keine Läufe');
  $('overview').innerHTML=tile('master (GitHub)',m?esc(m.hash):'–',sub(m),'','ok')+tile('Arbeitsstand (wave1)',w?esc(w.hash):'–',sub(w),'','')+gt+
+  fullDueTile(d.fullDue)+
   tile('Warteschlange',q.length?q.length+(q.length===1?' Lauf':' Läufe'):'leer',q.length?'<span class="clamp mono">'+esc(q[0])+'</span>':'nichts wartet','',q.length?'run':'');
  /* problems */
  const redTests=(d.tests||[]).filter(x=>cls(x.result||'')==='bad');
