@@ -283,7 +283,10 @@ public final class TestCentreLayout {
      * geladen, und der Abdeckungstest von SimpleBuilding verlangt, dass jede Ausnahme dort registriert ist.
      */
     public static final Map<String, String> MODULE_EXCLUDED = Map.of(
-            "simpleoctets:mixed_octet", "Mischzelle aus Achteln verschiedener Materialien; entsteht beim Setzen, ihr Inhalt steht in der Block-Entity");
+            "simpleoctets:mixed_octet", "Mischzelle aus Achteln verschiedener Materialien; entsteht beim Setzen, ihr Inhalt steht in der Block-Entity",
+            "simpleores:wall_repeater", "Wandvariante des Vanilla-Verstaerkers (N46): entsteht beim Setzen des Verstaerkers an Wand/Decke, kein eigenes Item",
+            "simpleores:wall_comparator", "Wandvariante des Vanilla-Komparators (N46): entsteht beim Setzen des Komparators an Wand/Decke, kein eigenes Item",
+            "simpleores:wall_signal_dampener", "Wandvariante des Signaldaempfers aus Simple Machines (N46): entsteht beim Setzen an Wand/Decke, kein eigenes Item");
 
     /**
      * Technische Bloecke ohne Item, die die Regel erkennt (TZ22-1): Wandvarianten ({@code x_wall_torch} zu {@code x_torch},
