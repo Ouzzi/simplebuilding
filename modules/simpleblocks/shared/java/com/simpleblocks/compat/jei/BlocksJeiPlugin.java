@@ -38,12 +38,19 @@ public final class BlocksJeiPlugin implements IModPlugin {
         registration.addItemStackInfo(java.util.List.of(new net.minecraft.world.item.ItemStack(Sawing.SAW_ITEM),
                 new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.STONECUTTER)),
                 net.minecraft.network.chat.Component.translatable("jei.simpleblocks.info.shapecutter"));
+        // N62: how the Pulse and the Auto Shapecutter work (redstone pulse / by themselves, front output).
+        registration.addItemStackInfo(java.util.List.of(new net.minecraft.world.item.ItemStack(Sawing.PULSE_SAW_ITEM)),
+                net.minecraft.network.chat.Component.translatable("jei.simpleblocks.info." + Sawing.PULSE_NAME));
+        registration.addItemStackInfo(java.util.List.of(new net.minecraft.world.item.ItemStack(Sawing.AUTO_SAW_ITEM)),
+                net.minecraft.network.chat.Component.translatable("jei.simpleblocks.info." + Sawing.AUTO_NAME));
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addCraftingStation(SawCategory.TYPE, Sawing.SAW_ITEM);
-        registration.addCraftingStation(RecipeTypes.STONECUTTING, Sawing.SAW_ITEM);
+        for (var station : java.util.List.of(Sawing.SAW_ITEM, Sawing.PULSE_SAW_ITEM, Sawing.AUTO_SAW_ITEM)) {
+            registration.addCraftingStation(SawCategory.TYPE, station);
+            registration.addCraftingStation(RecipeTypes.STONECUTTING, station);
+        }
     }
 
     @Override

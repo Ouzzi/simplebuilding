@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simpleblocks;
 
 import com.simpleblocks.saw.Sawing;
+import com.simpleblocks.saw.ShapecutterMachineMenu;
 import com.simpleblocks.saw.ShapecutterMenu;
 import com.simpleblocks.saw.client.ShapecutterScreen;
 
@@ -13,7 +14,10 @@ final class BlocksForgeClient {
         net.minecraftforge.client.event.RegisterColorHandlersEvent.Block.BUS.addListener(event -> event.register(
                 java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()), com.simpleblocks.nature.NatureBlocks.GRASS_SLAB));
         net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event ->
-                event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.<ShapecutterMenu, ShapecutterScreen>register(Sawing.MENU, ShapecutterScreen::new)));
+                event.enqueueWork(() -> {
+                    net.minecraft.client.gui.screens.MenuScreens.<ShapecutterMenu, ShapecutterScreen<ShapecutterMenu>>register(Sawing.MENU, ShapecutterScreen::new);
+                    net.minecraft.client.gui.screens.MenuScreens.<ShapecutterMachineMenu, ShapecutterScreen<ShapecutterMachineMenu>>register(Sawing.MACHINE_MENU, ShapecutterScreen::new); // N62
+                }));
     }
 
     private BlocksForgeClient() {}

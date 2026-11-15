@@ -149,7 +149,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             menu.container.setItem(0, input);
             if (menu.cuts().isEmpty()) throw new AssertionError(name + ": no cuts on the client (saw recipe list not synced)");
             for (int i = 0; i < menu.cuts().size(); i++) if (menu.cuts().get(i).result().item().value() == pick) menu.clickMenuButton(c.player, i);
-            c.setScreenAndShow(new ShapecutterScreen(menu, c.player.getInventory(), Component.translatable("container.simpleblocks.shapecutter")));
+            c.setScreenAndShow(new ShapecutterScreen<>(menu, c.player.getInventory(), Component.translatable("container.simpleblocks.shapecutter")));
         });
         context.waitTicks(5);
         context.takeScreenshot(name);

@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simpleblocks;
 
 import com.simpleblocks.saw.Sawing;
+import com.simpleblocks.saw.ShapecutterMachineMenu;
 import com.simpleblocks.saw.ShapecutterMenu;
 import com.simpleblocks.saw.client.ShapecutterScreen;
 import net.fabricmc.api.ClientModInitializer;
@@ -12,7 +13,8 @@ public final class BlocksFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         com.simpleblocks.compact.client.CollapsedAlert.register(); // WH26-10: red slot beam while the Collapsed slowness acts
-        MenuScreens.<ShapecutterMenu, ShapecutterScreen>register(Sawing.MENU, ShapecutterScreen::new);
+        MenuScreens.<ShapecutterMenu, ShapecutterScreen<ShapecutterMenu>>register(Sawing.MENU, ShapecutterScreen::new);
+        MenuScreens.<ShapecutterMachineMenu, ShapecutterScreen<ShapecutterMachineMenu>>register(Sawing.MACHINE_MENU, ShapecutterScreen::new); // N62
         ClientPlayNetworking.registerGlobalReceiver(Sawing.Payload.TYPE, (payload, context) -> context.client().execute(() -> Sawing.receive(payload.entries())));
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> Sawing.forgetAll());
         // The rising block is drawn like falling sand; the grass slab is tinted by the biome like the grass block.

@@ -1,6 +1,7 @@
 package com.simpleblocks.saw.client;
 
 import com.mojang.blaze3d.platform.cursor.CursorTypes;
+import com.simpleblocks.saw.SawMenu;
 import com.simpleblocks.saw.Sawing;
 import com.simpleblocks.saw.ShapecutterMenu;
 import com.simplelib.api.client.ui.UiBoxes;
@@ -18,6 +19,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 
 /**
@@ -25,8 +27,11 @@ import net.minecraft.world.inventory.Slot;
  * Same size, slots, 4 x 3 cut tiles with a scroll bar, click / scroll / drag and sounds; only the list is longer. The
  * background and the sprites are Vanilla's own files, referenced and never copied (no Mojang pixels in the repository,
  * resource packs apply). No search field: even the longest list (a stone family with its octets) is a few scroll rows.
+ * N62 (owner 15.11.: "UI wie Vanilla-Steinsäge OHNE Kategorien, Feldbreite Vanilla"): no category tabs, no wide grid - the Vanilla
+ * field (4 columns of 16 x 18). The same screen serves the Pulse and Auto Shapecutter ({@link SawMenu}); there slot 1 shows what one
+ * cut makes. The box comes from {@code UiBoxes}/{@code StationScreens} only, so SimpleLib's container margin rule applies here too.
  */
-public class ShapecutterScreen extends AbstractContainerScreen<ShapecutterMenu> {
+public class ShapecutterScreen<M extends AbstractContainerMenu & SawMenu> extends AbstractContainerScreen<M> {
     private static final Identifier SCROLLER = Identifier.withDefaultNamespace("container/stonecutter/scroller");
     private static final Identifier SCROLLER_DISABLED = Identifier.withDefaultNamespace("container/stonecutter/scroller_disabled");
     private static final Identifier TILE = Identifier.withDefaultNamespace("container/stonecutter/recipe");
@@ -42,7 +47,7 @@ public class ShapecutterScreen extends AbstractContainerScreen<ShapecutterMenu> 
     private int startIndex;
     private boolean displayCuts;
 
-    public ShapecutterScreen(ShapecutterMenu menu, Inventory inventory, Component title) {
+    public ShapecutterScreen(M menu, Inventory inventory, Component title) {
         super(menu, inventory, title, ShapecutterMenu.WIDTH, ShapecutterMenu.HEIGHT);
         menu.registerUpdateListener(this::containerChanged);
         this.displayCuts = menu.hasInput(); // a menu opened with an input already in it (client smoke)

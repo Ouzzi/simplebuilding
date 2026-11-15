@@ -27,6 +27,9 @@ public final class BlocksNeoForge {
             if (key.equals(Registries.MENU)) BlocksRegistry.registerMenus();
             if (key.equals(Registries.RECIPE_TYPE)) BlocksRegistry.registerRecipeTypes();
             if (key.equals(Registries.RECIPE_SERIALIZER)) BlocksRegistry.registerRecipeSerializers();
+            // N62: the Pulse and Auto Shapecutter share one block entity type.
+            if (key.equals(Registries.BLOCK_ENTITY_TYPE)) com.simpleblocks.saw.Sawing.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
+                    com.simpleblocks.saw.ShapecutterMachineBlockEntity::new, com.simpleblocks.saw.Sawing.machineBlocks(), false));
         });
         // Stonecutter -> Shapecutter in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
         com.simpleblocks.saw.SawUpgrade.hammerMode = net.neoforged.fml.ModList.get().isLoaded("simplehammers");

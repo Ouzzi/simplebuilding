@@ -41,6 +41,17 @@ public final class SawTests {
 
     private SawTests() {}
 
+    /** Ticks for the N62 machine tests on NeoForge/Forge (Fabric: the adapter's maxTicks). */
+    public static final int MACHINE_TICKS = 200;
+
+    public static void register(Map<String, Consumer<GameTestHelper>> all, Map<String, Integer> ticks) {
+        register(all);
+        for (String name : List.of("saw_pulse_one_cut_per_pulse", "saw_pulse_no_cut_without_signal", "saw_pulse_ejects_without_container",
+                "saw_auto_cuts_without_signal")) {
+            ticks.put(name, MACHINE_TICKS);
+        }
+    }
+
     public static void register(Map<String, Consumer<GameTestHelper>> all) {
         all.put("saw_registered", SawTests::registered);
         all.put("saw_wood_cuts", SawTests::woodCuts);
@@ -56,6 +67,14 @@ public final class SawTests {
         all.put("saw_upgrade_mode", SawTests::upgradeMode);
         all.put("saw_metal_finish", SawTests::metalFinish);
         all.put("saw_upgrade_respects_protection", SawTests::upgradeRespectsProtection);
+        // N62: Pulse Shapecutter (one cut per redstone pulse) and Auto Shapecutter (cuts by itself).
+        all.put("saw_machines_registered", SawTests::machinesRegistered);
+        all.put("saw_pulse_one_cut_per_pulse", SawTests::pulseOneCutPerPulse);
+        all.put("saw_pulse_no_cut_without_signal", SawTests::pulseNoCutWithoutSignal);
+        all.put("saw_pulse_ejects_without_container", SawTests::pulseEjectsWithoutContainer);
+        all.put("saw_auto_cuts_without_signal", SawTests::autoCutsWithoutSignal);
+        all.put("saw_machine_selection_saved", SawTests::machineSelectionSaved);
+        all.put("saw_machine_menu", SawTests::machineMenu);
     }
 
     private static Item item(String id) {
@@ -399,6 +418,203 @@ public final class SawTests {
                 "metal drops the saw and 2 plates: " + drops);
         var woodDrops = net.minecraft.world.level.block.Block.getDrops(state.setValue(ShapecutterBlock.METAL, false), level, pos, null);
         h.assertTrue(woodDrops.size() == 1 && woodDrops.getFirst().is(Sawing.SAW_ITEM), "wood drops only the saw: " + woodDrops);
+        h.succeed();
+    }
+
+    // ------------------------------------------------------------------ N62: Pulse and Auto Shapecutter
+
+    /** Places a machine facing east (front = east) with {@code count} stone and the stone stairs chosen. */
+    private static ShapecutterMachineBlockEntity machine(GameTestHelper h, BlockPos pos, net.minecraft.world.level.block.Block block, int count) {
+        h.setBlock(pos, block.defaultBlockState().setValue(ShapecutterMachineBlock.FACING, net.minecraft.core.Direction.EAST));
+        ShapecutterMachineBlockEntity machine = h.getBlockEntity(pos, ShapecutterMachineBlockEntity.class);
+        machine.setItem(0, new ItemStack(Items.STONE, count));
+        Identifier stairs = cutId(machine, Items.STONE_STAIRS);
+        h.assertTrue(stairs != null, "stone has the stone stairs cut, cuts " + machine.cuts().size());
+        machine.select(stairs);
+        return machine;
+    }
+
+    private static Identifier cutId(ShapecutterMachineBlockEntity machine, Item result) {
+        for (Sawing.Entry e : machine.cuts()) if (e.result().item().value() == result) return e.id();
+        return null;
+    }
+
+    private static int countIn(net.minecraft.world.Container container, Item item) {
+        int n = 0;
+        for (int i = 0; i < container.getContainerSize(); i++) if (container.getItem(i).is(item)) n += container.getItem(i).getCount();
+        return n;
+    }
+
+    private static net.minecraft.world.Container chest(GameTestHelper h, BlockPos pos) {
+        return h.getBlockEntity(pos, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+    }
+
+    /**
+     * Blocks, items, the shared block entity type and menu; both recipes: the Pulse Shapecutter is the crafter's pattern with the
+     * Shapecutter in place of the crafting table (iron, redstone, dropper), the Auto Shapecutter = Pulse Shapecutter + hopper + comparator
+     * (the crafter -> Auto Crafter step); both in the Simple Blocks tab right behind the Shapecutter.
+     */
+    private static void machinesRegistered(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        for (String name : List.of(Sawing.PULSE_NAME, Sawing.AUTO_NAME)) {
+            h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleBlocks.id(name)) && BuiltInRegistries.ITEM.containsKey(SimpleBlocks.id(name)), name + " block and item");
+        }
+        h.assertTrue(BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(SimpleBlocks.id(Sawing.MACHINE_NAME)) == Sawing.MACHINE_ENTITY, "machine block entity type");
+        h.assertTrue(Sawing.MACHINE_ENTITY.isValid(Sawing.PULSE_SAW.defaultBlockState()) && Sawing.MACHINE_ENTITY.isValid(Sawing.AUTO_SAW.defaultBlockState()), "block entity accepts both");
+        h.assertTrue(BuiltInRegistries.MENU.getValue(SimpleBlocks.id(Sawing.MACHINE_NAME)) == Sawing.MACHINE_MENU, "machine menu");
+        h.assertTrue(!((ShapecutterMachineBlock) Sawing.PULSE_SAW).auto() && ((ShapecutterMachineBlock) Sawing.AUTO_SAW).auto(), "pulse vs auto");
+        var tab = BlocksRegistry.tabStacks();
+        int saw = -1;
+        for (int i = 0; i < tab.size(); i++) if (tab.get(i).is(Sawing.SAW_ITEM)) saw = i;
+        h.assertTrue(saw >= 0 && saw + 2 < tab.size() && tab.get(saw + 1).is(Sawing.PULSE_SAW_ITEM) && tab.get(saw + 2).is(Sawing.AUTO_SAW_ITEM), "tab: saw, pulse, auto in a row");
+        var ctx = SlotDisplayContext.fromLevel(level);
+        record Want(String id, Item makes, List<Item> needs) {}
+        for (Want want : List.of(new Want(Sawing.PULSE_NAME, Sawing.PULSE_SAW_ITEM, List.of(Sawing.SAW_ITEM, Items.DROPPER, Items.REDSTONE, Items.IRON_INGOT)),
+                new Want(Sawing.AUTO_NAME, Sawing.AUTO_SAW_ITEM, List.of(Sawing.PULSE_SAW_ITEM, Items.HOPPER, Items.COMPARATOR)))) {
+            var holder = level.getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, SimpleBlocks.id(want.id())));
+            h.assertTrue(holder.isPresent(), "crafting recipe " + want.id());
+            h.assertTrue(holder.get().value().display().stream().anyMatch(d -> d.result().resolveForFirstStack(ctx).is(want.makes())), want.id() + " makes its block");
+            var ingredients = holder.get().value().placementInfo().ingredients();
+            for (Item need : want.needs()) h.assertTrue(ingredients.stream().anyMatch(i -> i.test(new ItemStack(need))), want.id() + " needs " + need);
+        }
+        h.succeed();
+    }
+
+    /** Crafter rule: one rising edge = exactly one cut into the chest in front; a lasting signal cuts no more; off and on again = one more. */
+    private static void pulseOneCutPerPulse(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 1, 2), front = pos.east(), power = pos.west();
+        h.setBlock(front, net.minecraft.world.level.block.Blocks.CHEST);
+        ShapecutterMachineBlockEntity machine = machine(h, pos, Sawing.PULSE_SAW, 4);
+        h.setBlock(power, net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK);
+        h.startSequence()
+                .thenIdle(ShapecutterMachineBlock.PULSE_DELAY + 4)
+                .thenExecute(() -> {
+                    h.assertValueEqual(countIn(chest(h, front), Items.STONE_STAIRS), 1, "stairs after the first pulse");
+                    h.assertValueEqual(machine.getItem(0).getCount(), 3, "stone left after the first pulse");
+                })
+                .thenIdle(20)
+                .thenExecute(() -> {
+                    h.assertValueEqual(countIn(chest(h, front), Items.STONE_STAIRS), 1, "a lasting signal cut again");
+                    h.setBlock(power, net.minecraft.world.level.block.Blocks.AIR);
+                })
+                .thenIdle(2)
+                .thenExecute(() -> {
+                    h.assertTrue(!machine.isTriggered(), "still triggered without the redstone block");
+                    h.setBlock(power, net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK);
+                })
+                .thenIdle(ShapecutterMachineBlock.PULSE_DELAY + 4)
+                .thenExecute(() -> {
+                    h.assertValueEqual(countIn(chest(h, front), Items.STONE_STAIRS), 2, "stairs after the second pulse");
+                    h.assertValueEqual(machine.getItem(0).getCount(), 2, "stone left after the second pulse");
+                })
+                .thenSucceed();
+    }
+
+    /** No signal, no cut - however long it waits (the Pulse Shapecutter has no ticker). */
+    private static void pulseNoCutWithoutSignal(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 1, 2), front = pos.east();
+        h.setBlock(front, net.minecraft.world.level.block.Blocks.CHEST);
+        ShapecutterMachineBlockEntity machine = machine(h, pos, Sawing.PULSE_SAW, 4);
+        h.startSequence()
+                .thenIdle(40)
+                .thenExecute(() -> {
+                    h.assertValueEqual(countIn(chest(h, front), Items.STONE_STAIRS), 0, "stairs without a signal");
+                    h.assertValueEqual(machine.getItem(0).getCount(), 4, "stone used without a signal");
+                })
+                .thenSucceed();
+    }
+
+    /** Without a container in front the cut flies out of the front like the crafter's output. */
+    private static void pulseEjectsWithoutContainer(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        ShapecutterMachineBlockEntity machine = machine(h, pos, Sawing.PULSE_SAW, 2);
+        h.setBlock(pos.west(), net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK);
+        h.startSequence()
+                .thenIdle(ShapecutterMachineBlock.PULSE_DELAY + 4)
+                .thenExecute(() -> {
+                    h.assertItemEntityPresent(Items.STONE_STAIRS, pos.east(), 1.5);
+                    h.assertValueEqual(machine.getItem(0).getCount(), 1, "one stone used");
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Auto Shapecutter: cuts by itself into the chest in front until the input is used up; a redstone signal stops it; without a
+     * container in front it does not cut (no items piling up in the world, like the Auto Crafter without a hopper).
+     */
+    private static void autoCutsWithoutSignal(GameTestHelper h) {
+        BlockPos free = new BlockPos(1, 1, 1), stopped = new BlockPos(1, 1, 4), open = new BlockPos(5, 1, 1);
+        h.setBlock(free.east(), net.minecraft.world.level.block.Blocks.CHEST);
+        h.setBlock(stopped.east(), net.minecraft.world.level.block.Blocks.CHEST);
+        h.setBlock(stopped.west(), net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK);
+        ShapecutterMachineBlockEntity a = machine(h, free, Sawing.AUTO_SAW, 3);
+        ShapecutterMachineBlockEntity b = machine(h, stopped, Sawing.AUTO_SAW, 3);
+        ShapecutterMachineBlockEntity c = machine(h, open, Sawing.AUTO_SAW, 3);
+        h.assertTrue(b.isTriggered(), "the redstone block did not trigger the stopped saw");
+        h.startSequence()
+                .thenWaitUntil(() -> h.assertValueEqual(countIn(chest(h, free.east()), Items.STONE_STAIRS), 3, "stairs from the Auto Shapecutter"))
+                .thenExecute(() -> h.assertTrue(a.getItem(0).isEmpty(), "stone left: " + a.getItem(0)))
+                .thenIdle(ShapecutterMachineBlockEntity.AUTO_INTERVAL_TICKS * 3)
+                .thenExecute(() -> {
+                    h.assertValueEqual(countIn(chest(h, stopped.east()), Items.STONE_STAIRS), 0, "the powered Auto Shapecutter cut");
+                    h.assertValueEqual(b.getItem(0).getCount(), 3, "the powered Auto Shapecutter used stone");
+                    h.assertValueEqual(c.getItem(0).getCount(), 3, "the Auto Shapecutter cut without a container in front");
+                })
+                .thenSucceed();
+    }
+
+    /** The chosen cut (a recipe id) and the input survive saving and loading, and the choice stays while the input runs empty. */
+    private static void machineSelectionSaved(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        ShapecutterMachineBlockEntity machine = machine(h, pos, Sawing.PULSE_SAW, 5);
+        Identifier chosen = machine.selected();
+        var registries = h.getLevel().registryAccess();
+        net.minecraft.nbt.CompoundTag saved = machine.saveWithFullMetadata(registries);
+        var loaded = net.minecraft.world.level.block.entity.BlockEntity.loadStatic(h.absolutePos(pos), h.getBlockState(pos), saved, registries);
+        h.assertTrue(loaded instanceof ShapecutterMachineBlockEntity, "loaded as " + loaded);
+        ShapecutterMachineBlockEntity copy = (ShapecutterMachineBlockEntity) loaded;
+        h.assertTrue(chosen != null && chosen.equals(copy.selected()), "chosen cut after loading: " + copy.selected() + " vs " + chosen);
+        h.assertTrue(copy.getItem(0).is(Items.STONE) && copy.getItem(0).getCount() == 5, "input after loading: " + copy.getItem(0));
+        machine.setItem(0, ItemStack.EMPTY);
+        h.assertTrue(chosen.equals(machine.selected()) && machine.previewResult().isEmpty(), "choice kept while empty, nothing to cut");
+        machine.setItem(0, new ItemStack(Items.STONE, 2));
+        h.assertTrue(machine.previewResult().is(Items.STONE_STAIRS), "refilled: the same cut again, preview " + machine.previewResult());
+        h.succeed();
+    }
+
+    /**
+     * The machine menu: the stonecutter's slots (same as the Shapecutter's), a click chooses the cut in the block, slot 1 previews
+     * the result and can be neither taken nor filled; automation can only fill the input, not from the front, and never take.
+     */
+    private static void machineMenu(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        BlockPos pos = new BlockPos(2, 1, 2);
+        ShapecutterMachineBlockEntity machine = machine(h, pos, Sawing.AUTO_SAW, 4);
+        machine.select(null);
+        var menu = new ShapecutterMachineMenu(1, player.getInventory(), machine);
+        var vanilla = new net.minecraft.world.inventory.StonecutterMenu(2, player.getInventory());
+        h.assertTrue(menu.slots.size() == vanilla.slots.size(), "slot count " + menu.slots.size() + " vs " + vanilla.slots.size());
+        for (int i = 0; i < menu.slots.size(); i++) {
+            var a = menu.slots.get(i);
+            var b = vanilla.slots.get(i);
+            h.assertTrue(a.x == b.x && a.y == b.y, "slot " + i + " at " + a.x + "," + a.y + " vs " + b.x + "," + b.y);
+        }
+        h.assertTrue(menu.hasInput() && menu.selectedIndex() == -1, "stone in, nothing chosen");
+        int index = -1;
+        for (int i = 0; i < menu.cuts().size(); i++) if (menu.cuts().get(i).result().item().value() == Items.STONE_SLAB) index = i;
+        h.assertTrue(index >= 0, "stone slab offered");
+        h.assertTrue(menu.clickMenuButton(player, index), "click on a cut");
+        h.assertTrue(menu.cuts().get(index).id().equals(machine.selected()) && menu.selectedIndex() == index, "the click chose the slab in the block");
+        menu.broadcastChanges();
+        var preview = menu.getSlot(ShapecutterMachineMenu.PREVIEW_SLOT);
+        h.assertTrue(preview.getItem().is(Items.STONE_SLAB) && preview.getItem().getCount() == 2, "preview: " + preview.getItem());
+        h.assertTrue(!preview.mayPickup(player) && !preview.mayPlace(new ItemStack(Items.STONE)), "preview can be neither taken nor filled");
+        h.assertTrue(menu.quickMoveStack(player, ShapecutterMachineMenu.PREVIEW_SLOT).isEmpty(), "shift-click on the preview does nothing");
+        var east = net.minecraft.core.Direction.EAST;
+        h.assertTrue(machine.getSlotsForFace(east).length == 0 && machine.getSlotsForFace(net.minecraft.core.Direction.UP).length == 1, "input from every side but the front");
+        h.assertTrue(!machine.canTakeItemThroughFace(0, machine.getItem(0), net.minecraft.core.Direction.DOWN), "automation cannot take the input");
+        h.assertTrue(!machine.canPlaceItem(0, new ItemStack(Items.DIAMOND)), "a diamond has no cuts and is refused");
+        h.assertTrue(machine.stillValid(player) == menu.stillValid(player), "menu validity follows the block");
         h.succeed();
     }
 }
