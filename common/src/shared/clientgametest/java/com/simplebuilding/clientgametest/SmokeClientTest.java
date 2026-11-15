@@ -1571,30 +1571,34 @@ public final class SmokeClientTest {
         assertSneakKeyIsBound(script);
         placeAndFillItemFrame(script);
 
-        script.harness("hold the sneak key", harness -> harness.holdKey(SNEAK_KEY));
-        script.idle("let the sneak state reach the server and come back", 10);
-        // Asserted here as well as before every single click. The per-click checks would catch a
-        // sneak that never arrived too, but only after the first message has already failed to
-        // turn up - and "the message did not arrive" is exactly the wrong first suspicion.
-        assertTheServerSeesThePlayerSneaking(script, "after the sneak key was pressed");
+        // Simple Tools owns the frame actions when it is loaded (required on 26.3: Fixed flag, no overlay messages) and
+        // SimpleBuilding's branch steps aside (ItemFrameEntityMixin#simplebuilding$toolsOwnFrames); only the magnet stays here.
+        if (!com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletools")) {
+            script.harness("hold the sneak key", harness -> harness.holdKey(SNEAK_KEY));
+            script.idle("let the sneak state reach the server and come back", 10);
+            // Asserted here as well as before every single click. The per-click checks would catch a
+            // sneak that never arrived too, but only after the first message has already failed to
+            // turn up - and "the message did not arrive" is exactly the wrong first suspicion.
+            assertTheServerSeesThePlayerSneaking(script, "after the sneak key was pressed");
 
-        equip(script, "minecraft:glass_pane");
-        expectOverlayMessage(script, "Item frame locked.", "lock with a glass pane", null,
-                SoundEvents.GLASS_PLACE.location(), 1.0f, 1.0f);
-        expectOverlayMessage(script, "Item frame unlocked.", "unlock by sneaking again", null,
-                SoundEvents.GLASS_BREAK.location(), 1.0f, 1.0f);
+            equip(script, "minecraft:glass_pane");
+            expectOverlayMessage(script, "Item frame locked.", "lock with a glass pane", null,
+                    SoundEvents.GLASS_PLACE.location(), 1.0f, 1.0f);
+            expectOverlayMessage(script, "Item frame unlocked.", "unlock by sneaking again", null,
+                    SoundEvents.GLASS_BREAK.location(), 1.0f, 1.0f);
 
-        equip(script, "minecraft:shears");
-        expectOverlayMessage(script, "Item frame made invisible.", "hide with shears",
-                "itemframe-a-invisible", SoundEvents.SHEEP_SHEAR.location(), 1.0f, 1.2f);
-        expectOverlayMessage(script, "Item frame made visible.", "show by sneaking again",
-                "itemframe-b-visible-again", SoundEvents.BRUSH_GENERIC.location(), 1.0f, 1.0f);
+            equip(script, "minecraft:shears");
+            expectOverlayMessage(script, "Item frame made invisible.", "hide with shears",
+                    "itemframe-a-invisible", SoundEvents.SHEEP_SHEAR.location(), 1.0f, 1.2f);
+            expectOverlayMessage(script, "Item frame made visible.", "show by sneaking again",
+                    "itemframe-b-visible-again", SoundEvents.BRUSH_GENERIC.location(), 1.0f, 1.0f);
 
-        // The straight-line version put these in a finally block. As steps they run only if
-        // everything above passed; a failed run leaves the sneak key held and a frame on the wall,
-        // and the next section's TestScene.build is what clears both.
-        script.harness("release the sneak key", harness -> harness.releaseKey(SNEAK_KEY));
-        script.idle("let the sneak state settle", 5);
+            // The straight-line version put these in a finally block. As steps they run only if
+            // everything above passed; a failed run leaves the sneak key held and a frame on the wall,
+            // and the next section's TestScene.build is what clears both.
+            script.harness("release the sneak key", harness -> harness.releaseKey(SNEAK_KEY));
+            script.idle("let the sneak state settle", 5);
+        }
 
         // The fifth sound of the mixin: a Magnet with Constructor's Touch takes the framed item as its
         // filter. A normal right click, so it runs with the sneak key released.

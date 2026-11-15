@@ -60,10 +60,19 @@ final class MovedTools {
 
     /** The building tools' octant figure toggle key ({@code ClientState.octantFigureToggleKey} of this line), null when unregistered. */
     static KeyMapping octantFigureToggleKey() {
+        return toolsKey("octantFigureToggleKey");
+    }
+
+    /** The building tools' settings key (octant manager, wand settings; {@code ClientState.settingsKey} of this line), null when unregistered. */
+    static KeyMapping settingsKey() {
+        return toolsKey("settingsKey");
+    }
+
+    private static KeyMapping toolsKey(String field) {
         try {
-            return (KeyMapping) btools("client.ClientState").getField("octantFigureToggleKey").get(null);
+            return (KeyMapping) btools("client.ClientState").getField(field).get(null);
         } catch (ReflectiveOperationException e) {
-            throw new AssertionError("ClientState.octantFigureToggleKey is gone", e);
+            throw new AssertionError("ClientState." + field + " is gone", e);
         }
     }
 

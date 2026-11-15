@@ -470,7 +470,7 @@ public final class ClientBootstrapClientTest {
      * step then opens nothing), or breaking the screen itself, which crashes the client.
      */
     private static void settingsKeyOnlyReactsToTheRightItem(Script script) {
-        assertBindingOnKey(script, "the settings", client -> ClientState.settingsKey, SETTINGS_KEY);
+        assertBindingOnKey(script, "the settings", client -> MovedTools.settingsKey(), SETTINGS_KEY);
 
         giveMainHand(script, "minecraft:stone");
 

@@ -10,7 +10,6 @@ import java.util.Set;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.TrimReferenceScreen;
 import com.simplebuilding.client.gui.widget.CyclingTrimButton;
@@ -964,7 +963,7 @@ public final class ModScreensClientTest {
      */
     private static void assertSettingsKeyIsBound(Script script) {
         script.act("the settings binding sits on the key the harness presses", client -> {
-            KeyMapping binding = ClientState.settingsKey;
+            KeyMapping binding = MovedTools.settingsKey(); // 26.3: Simple Building Tools' key
 
             if (binding == null) {
                 throw new AssertionError("ClientState.settingsKey is null, so the mod never registered "
