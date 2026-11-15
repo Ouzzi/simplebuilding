@@ -328,7 +328,7 @@ def main():
         sp.command('quit')
     finally:
         if game.poll() is None and not results:
-            (RUN / sp.COMMAND).write_text(json.dumps({'op': 'quit'}))
+            sp._write_command({'op': 'quit'})
         try:
             game.wait(timeout=120)
         except subprocess.TimeoutExpired:

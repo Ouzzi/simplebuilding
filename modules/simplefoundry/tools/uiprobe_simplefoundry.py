@@ -6,7 +6,9 @@ Scenario for modules/simpleinterfaces/tools/ui_probe.py. Opening: real right cli
 (data merge block {Melt_*}). The four tiers (3 / 6 / 9 / 12 places) are bought exactly like a player: right click on the desk with
 the upgrade item (iron block, diamond block, netherite ingot) - the tier is read from the block entity NBT (`Tier`, marker stick in
 hotbar slot 8, because chat output is not in the status). Per tier the window is opened and checked with real clicks:
-  * the last active place takes a piece (right click with raw iron on the cursor), the first locked place refuses it;
+  * the last active place takes a piece (right click with raw iron on the cursor: the cursor loses one, the desk holds it or - the
+    usual case with a valid tank - has already fed it into the tank as Pending_iron, shown as "+N" in the window), the first locked
+    place refuses it;
   * (tier 1 only) the Vanilla arrow Button "▼" cycles the selected level (NBT `Selected`), a click on the section's lowest band
     selects level 0 - that band is drawn and hit-tested by the screen itself (FoundryScreen.levelAt: section x 70..106, y 22..84 of
     the 176 x 208 window, window origin = ((guiW - 176) / 2, (guiH - 208) / 2), ASSUMPTION gui = 1280 x 720 / scale).
@@ -91,17 +93,27 @@ def foundry(s):
         places = [t for t in st['slots'] if not t['own']]
         s.check(f'tier {tier + 1}: window reports 13 desk slots (12 places + fuel)', len(places) == 13, len(places))
         s.shot(f'window-tier{tier + 1}-{slots}-places')
-        # ---- real clicks: lift raw iron from the hotbar, right click = place ONE piece
+        # ---- real clicks: lift raw iron from the hotbar, right click = place ONE piece. The desk feeds an active place into the tank
+        # at once (DeskBlockEntity.feedFromSlots: one item per melt interval, the window shows it as "+N" waiting units), so the piece
+        # is either still in the place or already counted as Pending_iron (9 units per raw iron); Pending_iron is zeroed first.
+        s.chat(f'data merge block {pos[0]} {pos[1]} {pos[2]} {{Pending_iron:0}}', 0.6)
         lifted = s.click_slot(cslot=4, own=True)
-        s.check(f'tier {tier + 1}: raw iron lifted onto the cursor', lifted and lifted.get('carried', '').startswith('minecraft:raw_iron'), lifted and lifted.get('carried'))
-        last = s.click_slot(index=slots - 1, right=True)
+        carried = (lifted or {}).get('carried', '')
+        s.check(f'tier {tier + 1}: raw iron lifted onto the cursor', carried.startswith('minecraft:raw_iron'), carried)
+        before = int(carried.rsplit(' x', 1)[1]) if ' x' in carried else 0
+        s.click_slot(index=slots - 1, right=True)
         time.sleep(1.2)  # the server answers the click with the slot content
         last = s.st()
-        got = s.slot_xy(last, index=slots - 1)['stack'] if last and s.slot_xy(last, index=slots - 1) else None
-        s.check(f'tier {tier + 1}: last active place ({slots}) takes a piece', got == 'minecraft:raw_iron x1', got)
+        after_c = last.get('carried', '')
+        after = int(after_c.rsplit(' x', 1)[1]) if ' x' in after_c else 0
+        got = s.slot_xy(last, index=slots - 1)['stack'] if s.slot_xy(last, index=slots - 1) else None
+        s.check(f'tier {tier + 1}: last active place ({slots}) takes one piece (cursor {before} -> {before - 1})',
+                after == before - 1 and got in ('minecraft:raw_iron x1', '', None), f'cursor {before} -> {after}, place shows {got!r}')
         time.sleep(0.5)
-        ok, item = _nbt(s, pos, f'{{Slot{slots - 1}:{{id:"minecraft:raw_iron"}}}}')
-        s.check(f'tier {tier + 1}: the desk block entity holds it (Slot{slots - 1})', ok, item)
+        in_slot, item = _nbt(s, pos, f'{{Slot{slots - 1}:{{id:"minecraft:raw_iron"}}}}')
+        fed, item2 = _nbt(s, pos, '{Pending_iron:9}')
+        s.check(f'tier {tier + 1}: the desk holds it (Slot{slots - 1}) or fed it into the tank (Pending_iron 9)', in_slot or fed,
+                f'slot {in_slot}, pending {fed}')
         if slots < 12:
             lock = s.click_slot(index=slots, right=True)
             time.sleep(1.2)

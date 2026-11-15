@@ -14,6 +14,7 @@ Exit 0 when every check passed; results in <out>/results.json, screenshots copie
 import argparse
 import ctypes
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -61,8 +62,17 @@ def status():
         return None
 
 
+def _write_command(obj):
+    """Atomic: the client polls the command file every tick and deletes it after reading; a plain write_text can be read while still
+    empty (a-w4c keys_probe: 'keys probe: NullPointerException ... "c" is null' in client.log - the command was dropped, every later
+    GUI 3 check failed as a follow-up error). Write a temp file and rename it into place."""
+    tmp = RUN / (COMMAND + '.tmp')
+    tmp.write_text(json.dumps(obj))
+    os.replace(tmp, RUN / COMMAND)
+
+
 def command(op, **kw):
-    (RUN / COMMAND).write_text(json.dumps(dict(op=op, **kw)))
+    _write_command(dict(op=op, **kw))
     for _ in range(200):
         time.sleep(0.05)
         if not (RUN / COMMAND).exists():
@@ -168,7 +178,11 @@ def main():
                 st = wait(lambda s: s.get('chapter') == 0, 5)
                 check(f'{tag}: side bookmark opens chapter 1', st.get('chapter') == 0, f'chapter {st.get("chapter")}')
                 command('shot')
-            locked = next((t for t in tabs if t['chapter'] == 1), None)
+            # a locked bookmark: GuideProbe reports "open" per tab (chapters without an advancement are always open - a-w4c took chapter 1,
+            # which is open, and saw it open at GUI 2)
+            locked = next((t for t in tabs if t.get('open') is False), None)
+            if not locked:
+                print(f'{tag}: no locked chapter in this section ({[(t["chapter"], t.get("open")) for t in tabs]}), locked check skipped', flush=True)
             if locked:
                 before = st.get('chapter')
                 aim_click(ptr, st, locked['rect'], f'{tag} locked chapter', aims)
@@ -188,11 +202,13 @@ def main():
                     check(f'{tag}: "More Simple mods" opens the sub-mod chapters', st.get('section') == 'simplebuilding'
                           and st.get('screen') == 'ModpackGuideScreen', f'{st.get("screen")} {st.get("section")}')
                     command('shot')
-                    target = next((t for t in st.get('tabs', []) if t['chapter'] == 2), None)
+                    target = next((t for t in st.get('tabs', []) if t['chapter'] == 2 and t.get('open', True)), None) \
+                        or next((t for t in st.get('tabs', []) if t['chapter'] > 0 and t.get('open', True)), None)
                     if target:
                         aim_click(ptr, st, target['rect'], f'{tag} sub-mod chapter', aims)
-                        st = wait(lambda s: s.get('chapter') == 2, 5)
-                        check(f'{tag}: sub-mod chapter bookmark opens it', st.get('chapter') == 2, f'chapter {st.get("chapter")}')
+                        want = target['chapter']
+                        st = wait(lambda s: s.get('chapter') == want, 5)
+                        check(f'{tag}: sub-mod chapter bookmark opens it', st.get('chapter') == want, f'chapter {st.get("chapter")}, wanted {want}')
                         spread = st.get('spread')
                         aim_click(ptr, st, st['next'], f'{tag} next', aims)
                         st = status()
@@ -211,7 +227,7 @@ def main():
         command('quit')
     finally:
         if game.poll() is None and not results:
-            (RUN / COMMAND).write_text(json.dumps({'op': 'quit'}))
+            _write_command({'op': 'quit'})
         try:
             game.wait(timeout=600)
         except subprocess.TimeoutExpired:

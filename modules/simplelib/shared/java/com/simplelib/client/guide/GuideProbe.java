@@ -153,9 +153,16 @@ public final class GuideProbe {
             JsonArray tabs = new JsonArray();
             List<int[]> tabRects = t.probeTabs();
             List<Integer> chapters = t.probeTabChapters();
+            ModpackGuide.Section shown = null;
+            for (ModpackGuide.Section section : ModpackGuideScreens.sections()) {
+                if (section.id().equals(t.probeSection())) shown = section;
+            }
             for (int i = 0; i < tabRects.size(); i++) {
                 JsonObject tab = new JsonObject();
-                tab.addProperty("chapter", chapters.get(i));
+                int chapter = chapters.get(i);
+                tab.addProperty("chapter", chapter);
+                // whether the bookmark opens (a chapter without advancement is always open), so the probe can pick a really locked one
+                if (shown != null && chapter >= 0 && chapter < shown.chapters().size()) tab.addProperty("open", ModpackGuideScreens.open(shown.chapters().get(chapter)));
                 tab.add("rect", rect(tabRects.get(i), scale));
                 tabs.add(tab);
             }

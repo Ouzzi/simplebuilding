@@ -49,6 +49,21 @@ def _count(s, slot):
     return int(stack.rsplit(' x', 1)[1]) if ' x' in stack else 0
 
 
+def _total(s, item):
+    """How many of item the whole inventory holds (status strings 'id xN')."""
+    n = 0
+    for v in s.st().get('inventory', []):
+        if v and v.split(' x')[0] == item:
+            n += int(v.rsplit(' x', 1)[1]) if ' x' in v else 1
+    return n
+
+
+def _empty_hand(s):
+    """Hotbar 9 really empty: the board scene leaves the sandwich there (the empty hand took it), so later "empty hand" clicks would
+    hold the sandwich (a-w4c: the cheese cauldron click placed the sandwich in front of the cauldron instead of taking the cheese)."""
+    s.chat('item replace entity @s hotbar.8 with minecraft:air', 0.3)
+
+
 def _board(s, me, x, y, z):
     bx, by, bz = x, y, z + 2
     s.chat(f'setblock {bx} {by} {bz} simplesandwiches:oak_cutting_board[facing=north]', 0.5)
@@ -104,18 +119,23 @@ def _blocks(s, me, x, y, z):
     s.chat(f'setblock {x + 3} {y} {z + 2} simplesandwiches:cheese_block', 0.4)
     s.chat(f'setblock {x - 3} {y} {z + 2} simplesandwiches:butter_block', 0.4)
     s.io.key('2', 0.3)
-    _aim(s, me, (x + 3.5, y + 0.99, z + 2.5), 0.8)  # top face of the cheese block
-    for _ in range(4):
-        _click(s, None, after=0.5)
-    ok = _sense(s, f'if block {x + 3} {y} {z + 2} simplesandwiches:cheese_block[slices=12,cut=up]')
-    s.check('cheese block cut from the top: 12 slices left', ok, 'slices=12,cut=up')
-    s.shot('cheese-cut')
-    _aim(s, me, (x - 2.5, y + 0.5, z + 2.01), 0.8)  # north face of the butter block (the player stands north of it)
-    for _ in range(4):
-        _click(s, None, after=0.5)
-    ok = _sense(s, f'if block {x - 3} {y} {z + 2} simplesandwiches:butter_block[slices=12,cut=north]')
-    s.check('butter block cut from the side: 12 slices left', ok, 'slices=12,cut=north')
-    s.shot('butter-cut')
+    for block, bx, aim_at, face in (('cheese', x + 3, (x + 3.5, y + 0.99, z + 2.5), 'up'),       # top face of the cheese block
+                                    ('butter', x - 3, (x - 2.5, y + 0.5, z + 2.01), 'north')):  # north face of the butter block
+        _aim(s, me, aim_at, 0.8)
+        hit = s.st().get('hitBlock')
+        before = _total(s, f'simplesandwiches:{block}_slice')
+        for _ in range(4):
+            _click(s, None, after=0.5)
+        got = _total(s, f'simplesandwiches:{block}_slice') - before
+        want = f'slices=12,cut={face}'
+        if _sense(s, f'if block {bx} {y} {z + 2} simplesandwiches:{block}_block[{want}]'):
+            state = want
+        else:  # what it is instead (for the report)
+            state = next((f'slices={n},cut={c}' for n in range(16, 7, -1) for c in ('up', 'north', 'south', 'east', 'west')
+                          if _sense(s, f'if block {bx} {y} {z + 2} simplesandwiches:{block}_block[slices={n},cut={c}]')), 'other')
+        s.check(f'{block} block: 4 real knife clicks on the {face} face cut 4 slices (slices=12,cut={face})',
+                state == want and got == 4, f'block {state}, {got} slices into the inventory, crosshair on {hit}')
+        s.shot(f'{block}-cut')
 
 
 def _layers(s, me, x, y, z):
@@ -146,18 +166,25 @@ def _cauldrons(s, x, y, z):
     _click(s, '6', after=0.6)
     filled = _sense(s, f'if block {x + 4} {y} {z + 10} simplesandwiches:milk_cauldron[content=milk]')
     s.check('real milk bucket click fills the cauldron with milk', filled, 'milk_cauldron content=milk')
+    _empty_hand(s)
     _aim(s, (x + 2.5, y, z + 13.0), (x + 2.5, y + 0.6, z + 10.5), 0.9)
     _click(s, '9', after=0.6)  # empty hand on the cheese cauldron (6th = x + 2)
     taken = _sense(s, f'if block {x + 2} {y} {z + 10} minecraft:cauldron')
-    s.check('empty hand takes the cheese out of the cauldron (cauldron empty)', taken, 'cheese cauldron -> cauldron')
+    hand = s.st().get('inventory', [''] * 9)[8]
+    s.check('empty hand takes the cheese out of the cauldron (cauldron empty, cheese block in the hand)', taken and hand.startswith('simplesandwiches:cheese_block'),
+            f'cauldron emptied {taken}, hand {hand!r}')
 
 
 def _bundle(s, me):
     s.chat('item replace entity @s hotbar.0 with minecraft:bundle[bundle_contents=[{id:"minecraft:cooked_beef",count:3}]]', 0.4)
     s.io.key('1', 0.3)
-    s.chat('effect give @s minecraft:hunger 4 40 true', 0.3)
-    time.sleep(4.5)
+    # crosshair on the sky: a block under the crosshair would take the click first (a-w4c still looked at the cauldron row)
+    _aim(s, me, (me[0], me[1] + 30, me[2] + 20), 0.8)
+    # clearly hungry (cooked beef needs food < 20): Hunger 128 for 3 s burns ~9 food points incl. the 5 saturation
+    s.chat('effect give @s minecraft:hunger 3 127 true', 0.3)
+    time.sleep(3.5)
     s.chat('effect clear @s', 0.3)
+    hungry = _sense(s, 'if entity @s[nbt={foodLevel:20}]') is False
     s.io.key_down('Shift_L')
     s.io.button(3, True)
     try:
@@ -169,7 +196,7 @@ def _bundle(s, me):
         s.io.key_up('Shift_L')
     time.sleep(0.5)
     two = _sense(s, 'if data entity @s Inventory[{Slot:0b}].components."minecraft:bundle_contents"[{id:"minecraft:cooked_beef",count:2}]')
-    s.check('sneak + hold use eats one beef out of the bundle (3 -> 2)', two, 'bundle_contents cooked_beef x2')
+    s.check('sneak + hold use eats one beef out of the bundle (3 -> 2)', two, f'bundle_contents cooked_beef x2 (player was hungry: {hungry})')
 
 
 def kitchen(s):

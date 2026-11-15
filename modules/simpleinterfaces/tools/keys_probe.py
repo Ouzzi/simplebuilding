@@ -65,8 +65,17 @@ def fresh():
     return st
 
 
+def _write_command(obj):
+    """Atomic: the client polls the command file every tick and deletes it after reading; a plain write_text can be read while still
+    empty (a-w4c keys_probe: 'keys probe: NullPointerException ... "c" is null' in client.log - the command was dropped, every later
+    GUI 3 check failed as a follow-up error). Write a temp file and rename it into place."""
+    tmp = RUN / (COMMAND + '.tmp')
+    tmp.write_text(json.dumps(obj))
+    os.replace(tmp, RUN / COMMAND)
+
+
 def command(op, **kw):
-    (RUN / COMMAND).write_text(json.dumps(dict(op=op, **kw)))
+    _write_command(dict(op=op, **kw))
     for _ in range(100):
         time.sleep(0.05)
         if not (RUN / COMMAND).exists():
@@ -253,7 +262,7 @@ def main():
         command('quit')
     finally:
         if game.poll() is None and not results:
-            (RUN / COMMAND).write_text(json.dumps({'op': 'quit'}))
+            _write_command({'op': 'quit'})
         try:
             game.wait(timeout=120)
         except subprocess.TimeoutExpired:

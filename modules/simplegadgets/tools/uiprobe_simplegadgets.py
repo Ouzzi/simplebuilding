@@ -6,7 +6,7 @@ clicks / held buttons (XTest). Parts (creative unless noted):
   1 Gauge (Messuhr): HUD box standing, while sprinting with the real keys (Ctrl+W), and in the air (slow falling, 21 blocks up: altimeter line).
   2 Resonance Rod with Constructor's Touch: hold the right button on an ice block 6 blocks away, picture of beam + measuring HUD, ice must melt.
   3 Attractor (magnet): sneaking disables it - three item entities (pickup delay max) stay while Shift is held, then fly into the inventory.
-  4 Transposer (rotator): a furnace is turned by real clicks on its top face (facing changes).
+  4 Transposer (rotator): a piston is turned by real clicks on its top face; a furnace only with Shift + click (known defect, see _rotator).
   5 Echo sounder: linked by a real click on a lodestone, moved 20 blocks away, charged with the held right button (3.6 s) -> jump to the lodestone.
   6 Detector (survival): iron ore 8 blocks ahead is pinged every second, the durability bar drops (data check) - hand and inventory picture.
 # NUR BESITZER: sounds of the detector ping / echo charge / rotator ratchet, how the HUD reads while moving fast, particle beam brightness.
@@ -99,7 +99,9 @@ def _magnet(s, x, y, z):
     s.io.key_down('Shift_L')  # sneaking switches the magnet off
     try:
         for dx, dz in ((0.5, 3.4), (-0.6, 3.0), (1.6, 3.2)):
-            s.chat(f'summon minecraft:item {x + 0.5 + dx} {y + 0.2} {z + 0.5 + dz} {{Item:{{id:"minecraft:cobblestone",count:4}},PickupDelay:32767s,Tags:["uipitem"]}}', 0.3)
+            # PickupDelay 32767 is Vanilla's "never pick up" mark: the attractor leaves such items alone by design (AttractorFilter
+            # NEVER_PICK_UP, display items of other mods); a long but finite delay keeps them lying while sneaking (the magnet resets it)
+            s.chat(f'summon minecraft:item {x + 0.5 + dx} {y + 0.2} {z + 0.5 + dz} {{Item:{{id:"minecraft:cobblestone",count:4}},PickupDelay:600s,Tags:["uipitem"]}}', 0.3)
         time.sleep(1.0)
         still = _sense(s, 'if entity @e[type=minecraft:item,tag=uipitem,distance=..6]')
         s.check('magnet: sneaking switches it off (items stay)', still, '3 cobblestone stacks lying')
@@ -115,17 +117,36 @@ def _magnet(s, x, y, z):
 
 
 def _rotator(s, x, y, z):
+    """A piston (no use action of its own) turns with a plain click on its top face. A furnace answers a right click itself (opens its
+    menu), so the rotator only reaches it while sneaking - documented as a known defect in RotatorTests ("Known defect"): the probe
+    turns the furnace with Shift + click and only reports what a plain click does."""
     me = (x + 0.5, y, z + 0.5)
-    s.chat(f'setblock {x} {y} {z + 3} minecraft:furnace[facing=north]', 0.4)
+    s.chat(f'setblock {x} {y} {z + 3} minecraft:piston[facing=north]', 0.4)
+    s.chat(f'setblock {x + 2} {y} {z + 3} minecraft:furnace[facing=north]', 0.4)
     _hand(s, 3, 'simplegadgets:rotator')
     _aim(s, me, (x + 0.5, y + 0.99, z + 3.5), 0.9)
     _click(s, after=0.7)
-    turned = _sense(s, f'unless block {x} {y} {z + 3} minecraft:furnace[facing=north]')
-    s.check('transposer: a real click on the top face turns the furnace', turned, 'facing changed from north')
+    turned = _sense(s, f'unless block {x} {y} {z + 3} minecraft:piston[facing=north]')
+    s.check('transposer: a real click on the top face turns the piston', turned, 'facing changed from north')
     s.shot('rotator-turned')
     _click(s, after=0.7)
     _click(s, after=0.7)
     s.shot('rotator-turned-3x')
+    # the furnace: plain click (reported only), then Shift + click
+    _aim(s, me, (x + 2.5, y + 0.99, z + 3.5), 0.9)
+    _click(s, after=0.7)
+    plain = s.st().get('screen', 'none')
+    s.close()
+    s.io.key_down('Shift_L')
+    try:
+        time.sleep(0.3)
+        _click(s, after=0.7)
+    finally:
+        s.io.key_up('Shift_L')
+    turned = _sense(s, f'unless block {x + 2} {y} {z + 3} minecraft:furnace[facing=north]')
+    s.check('transposer: Shift + click turns the furnace (a plain click opens its menu, known defect)', turned,
+            f'facing changed from north; plain click opened {plain.rsplit(".", 1)[-1]}')
+    s.shot('rotator-furnace-sneak')
 
 
 def _echo(s, x, y, z):
@@ -203,4 +224,47 @@ def gadgets(s):
         s.chat('gamemode creative @s', 0.5)
 
 
-SCENARIOS = {'simplegadgets': gadgets}
+GADGETS = ['velocity_gauge', 'amethyst_lens', 'magnet', 'rotator', 'echo_sounder', 'detector']
+
+
+def items(s):
+    """Module smoke in the picture (simplegadgets has no client smoke): the six gadgets in the hotbar, the survival inventory with every
+    tooltip under the real pointer, each gadget in the hand (first person and third person front). Check: all six are real items in the
+    hotbar slots the inventory screen shows."""
+    s.chat('time set day', 0.3)
+    s.chat('clear @s', 0.3)
+    s.chat('gamemode survival @s', 0.6)
+    for i, g in enumerate(GADGETS):
+        s.chat(f'item replace entity @s hotbar.{i} with simplegadgets:{g}', 0.25)
+    s.key('e', 1.2)
+    st = s.wait_screen('InventoryScreen', 8)
+    shown = [s.slot_xy(st, cslot=i, own=True) for i in range(len(GADGETS))]
+    names = [(sl or {}).get('stack', '') for sl in shown]
+    s.check('inventory screen shows the six gadgets in hotbar slots 1-6', all(n.startswith(f'simplegadgets:{g}') for n, g in zip(names, GADGETS)), names)
+    s.shot('inventory')
+    for g, sl in zip(GADGETS, shown):
+        if sl and sl.get('stack'):
+            s.io.move(*s.abs(st, sl['x'] + 3, sl['y'] + 3))
+            time.sleep(0.3)
+            s.io.move(*s.abs(st, sl['x'], sl['y']))
+            time.sleep(0.8)
+            s.shot(f'tooltip-{g}')
+    s.close()
+    st = s.st()
+    s.io.move(st['windowX'] + 640, st['windowY'] + 360)
+    x, y, z = _pos(s)
+    s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} 0 10', 1.0)
+    for i, g in enumerate(GADGETS):
+        s.io.key(str(i + 1), 0.6)
+        s.shot(f'hand-{g}')
+    s.key('F5', 0.5)
+    s.key('F5', 0.5)
+    for i, g in enumerate(GADGETS):
+        s.io.key(str(i + 1), 0.6)
+        s.shot(f'front-{g}')
+    s.key('F5', 0.5)
+    s.chat('clear @s', 0.3)
+    s.chat('gamemode creative @s', 0.5)
+
+
+SCENARIOS = {'simplegadgets': gadgets, 'simplegadgets/items': items}

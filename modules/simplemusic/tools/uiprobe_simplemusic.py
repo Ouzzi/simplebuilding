@@ -347,10 +347,14 @@ def pocket(s):
     look_at_air(s)
     s.io.right_click()
     time.sleep(0.8)
-    s.check('right click in the air plays (the stack carries the "playing" component)', probe(s, 'if data entity @s SelectedItem.components."simplemusic:playing"'), 'probe')
+    # simplemusic:playing is a transient component (networkSynchronized, no persistent codec): `data entity ... SelectedItem` never shows it,
+    # but an item predicate reads the live stack (`execute if items`)
+    playing = 'items entity @s weapon.mainhand simplemusic:pocket_jukebox[simplemusic:playing]'
+    s.check('right click in the air plays (the stack carries the "playing" component)', probe(s, f'if {playing}'), 'execute if items ...[simplemusic:playing]')
+    s.shot('pocket-playing')
     s.io.right_click()
     time.sleep(0.8)
-    s.check('a second right click pauses it', not probe(s, 'if data entity @s SelectedItem.components."simplemusic:playing"'), 'probe')
+    s.check('a second right click pauses it', probe(s, f'unless {playing}'), 'execute unless items ...[simplemusic:playing]')
 
     # ---- placing: Shift + right click on the ground, Shift + wheel on the placed block
     look(s, (x + 0.5, y, z + 0.5), (x + 3.5, y - 0.1, z + 0.5))
@@ -359,10 +363,15 @@ def pocket(s):
         s.io.right_click()
     finally:
         s.io.key_up('Shift_L')
-    st = look(s, (x + 0.5, y, z + 0.5), (x + 3.5, y + 0.3, z + 0.5))
-    s.check('Shift + right click put the jukebox down as a block', st.get('hitBlock', '').endswith('pocket_jukebox'), st.get('hitBlock'))
+    # where the block landed is asked on the server (the ray of the second look passes over the low block, a-w4c read the grass behind it)
+    placed = next(((dx, dy) for dx in range(1, 5) for dy in (0, 1)
+                   if probe(s, f'if block {x + dx} {y + dy} {z} simplemusic:pocket_jukebox')), None)
+    hand = (s.st().get('inventory', [''])[0] or '')
+    s.check('Shift + right click put the jukebox down as a block (hand empty, block in front)', placed is not None and not hand.startswith('simplemusic:pocket_jukebox'),
+            f'block at dx/dy {placed}, hand {hand!r}')
+    st = look(s, (x + 0.5, y, z + 0.5), (x + (placed[0] if placed else 3) + 0.5, y + (placed[1] if placed else 0) + 0.25, z + 0.5))
     s.shot('pocket-placed')
-    if st.get('hitBlock', '').endswith('pocket_jukebox'):
+    if placed:
         s.io.key_down('Shift_L')
         try:
             for _ in range(2):

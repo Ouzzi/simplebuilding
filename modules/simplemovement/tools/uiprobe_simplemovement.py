@@ -5,7 +5,7 @@ Auto Walk: the key is UNBOUND by default (MovementClient: InputConstants.UNKNOWN
 scenario files, this file binds it to G (and sets autoJump:false) in <run dir>/options.txt at import time (only when that file already holds a
 'version:' line, so the data fixer is not confused; the game writes the lines back itself on exit). '/simplemovement autowalk true' switches the server value on.
 Checks: pressing G makes the position change on its own, pressing G again stops it.
-Step Height: a 1-block stone wall and a 1.5-block fence row; real W key held. No boots: blocked; Step Height I: up the stone, not the fence;
+Step Height: a 1-block stone step and a 1.5-block fence field (both 9 blocks deep, so the player still stands on them when y is read); real W key held. No boots: blocked; Step Height I: up the stone, not the fence;
 Step Height II: up the fence (checked by the block position's y). Sprint: real Ctrl+W for 3.5 s on the flat world with plain leggings and
 with Sprint III leggings: the distance must be clearly longer (+30 % expected).
 Pictures: Auto Walk running, standing on the wall in third person, enchanted boots and leggings from the front (glint).
@@ -95,8 +95,10 @@ def _step_runs(s):
     x, y, z = _pos(s)
     s.chat(f'tp @s {x + 0.5} {y} {z + 20.5} 0 0', 1.8)
     x, y, z = _pos(s)
-    s.chat(f'fill {x - 3} {y} {z + 3} {x + 3} {y} {z + 3} minecraft:stone', 0.4)
-    s.chat(f'fill {x - 3} {y} {z + 8} {x + 3} {y} {z + 8} minecraft:oak_fence', 0.4)
+    # deep steps: 1.6 s of walking covers ~7 blocks, so a 1-block-thick wall is climbed AND left again before y is read (a-w4c saw y
+    # back at the floor and blamed Auto-Jump); the player must still stand on the step when it is measured
+    s.chat(f'fill {x - 3} {y} {z + 3} {x + 3} {y} {z + 11} minecraft:stone', 0.4)
+    s.chat(f'fill {x - 3} {y} {z + 15} {x + 3} {y} {z + 23} minecraft:oak_fence', 0.4)
     s.chat('clear @s', 0.3)
 
     def attempt(label, boots, wall_z, expect_up):
@@ -104,8 +106,10 @@ def _step_runs(s):
         s.chat(f'tp @s {x + 0.5} {y} {z + wall_z - 2.5} 0 0', 1.0)
         _run(s, ['w'], 1.6)
         time.sleep(0.5)
-        up = _pos(s)[1]
-        s.check(f'Step Height: {label}', (up >= y + 1) == expect_up, f'y {y} -> {up}, expected {"up" if expect_up else "blocked"} (Auto-Jump must be off, see options.txt)')
+        end = _pos(s)
+        up = end[1]
+        s.check(f'Step Height: {label}', (up >= y + 1) == expect_up,
+                f'y {y} -> {up} at z {end[2] - z} (step starts at z {wall_z}), expected {"up" if expect_up else "blocked"}')
         return up
 
     attempt('no boots: blocked by the 1-block stone wall', None, 3, False)
@@ -117,8 +121,8 @@ def _step_runs(s):
         s.shot('step-height-1-on-wall')
         s.key('F1', 0.4)
         back()
-    attempt('Step Height I: blocked by the 1.5-block fence', 'minecraft:diamond_boots[enchantments={"simplemovement:step_height":1}]', 8, False)
-    up = attempt('Step Height II: steps up the 1.5-block fence', 'minecraft:diamond_boots[enchantments={"simplemovement:step_height":2}]', 8, True)
+    attempt('Step Height I: blocked by the 1.5-block fence', 'minecraft:diamond_boots[enchantments={"simplemovement:step_height":1}]', 15, False)
+    up = attempt('Step Height II: steps up the 1.5-block fence', 'minecraft:diamond_boots[enchantments={"simplemovement:step_height":2}]', 15, True)
     if up >= y + 1:
         back = _third_person(s)
         s.key('F1', 0.4)

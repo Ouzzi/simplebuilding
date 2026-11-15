@@ -106,7 +106,9 @@ def widget(s, st, label):
 
 
 def right_click_empty(s, point):
-    """Empty hand (hotbar 9), crosshair on the point, one real right click."""
+    """Empty hand (hotbar 9, emptied first: shift-click collecting the earnings fills the hotbar from slot 9 - a-w4c's Display Case click then
+    held the emeralds and quick-stocked them into the case instead of opening the screen), crosshair on the point, one real right click."""
+    s.chat('item replace entity @s hotbar.8 with minecraft:air', 0.3)
     s.key('9', 0.4)
     aim(s, *point)
     s.io.right_click()

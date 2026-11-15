@@ -62,9 +62,15 @@ def _variant(s, name, sword, base, expect_b_gone, before=False):
         clicks += 1
     time.sleep(0.5)
     s.shot(f'{name}-after')
-    a, b, c = _sense(s, [f'unless block {x + 1} {y} {z + 4} {grass}', f'unless block {x + 2} {y} {z + 5} {grass}', f'unless block {x + 3} {y} {z + 6} {grass}'])
+    a, c = _sense(s, [f'unless block {x + 1} {y} {z + 4} {grass}', f'unless block {x + 3} {y} {z + 6} {grass}'])
+    # ring B = every field cell exactly two blocks (Chebyshev) from the cow's block (x, z + 3): rows z + 2 .. z + 5 of the field, 11 cells
+    ring = [(dx, dz) for dx in range(-2, 3) for dz in range(-1, 3) if max(abs(dx), abs(dz)) == 2]
+    gone = _sense(s, [f'unless block {x + dx} {y} {z + 3 + dz} {grass}' for dx, dz in ring])
+    cut = [cell for cell, g in zip(ring, gone) if g]
     s.check(f'{name}: 3x3 around the cow cut (A gone)', a, f'clicks {clicks}, first swing passed through the grass: {first}')
-    s.check(f'{name}: 5x5 ring B {"gone (Sweeping Edge)" if expect_b_gone else "stays (no Sweeping Edge)"}', b == expect_b_gone, f'B gone = {b}')
+    want = len(ring) if expect_b_gone else 0
+    s.check(f'{name}: 5x5 ring B {"cut (Sweeping Edge, 11 cells)" if expect_b_gone else "stays (no Sweeping Edge)"}', len(cut) == want,
+            f'{len(cut)}/{len(ring)} ring cells cut (dx, dz from the cow): {cut}')
     s.check(f'{name}: control C outside the area stays', not c, f'C gone = {c}')
 
 

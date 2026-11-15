@@ -73,8 +73,17 @@ def fresh():
     return st
 
 
+def _write_command(obj):
+    """Atomic: the client polls the command file every tick and deletes it after reading; a plain write_text can be read while still
+    empty (a-w4c keys_probe: 'keys probe: NullPointerException ... "c" is null' in client.log - the command was dropped, every later
+    GUI 3 check failed as a follow-up error). Write a temp file and rename it into place."""
+    tmp = RUN / (COMMAND + '.tmp')
+    tmp.write_text(json.dumps(obj))
+    os.replace(tmp, RUN / COMMAND)
+
+
 def command(op, **kw):
-    (RUN / COMMAND).write_text(json.dumps(dict(op=op, **kw)))
+    _write_command(dict(op=op, **kw))
     for _ in range(150):
         time.sleep(0.05)
         if not (RUN / COMMAND).exists():
@@ -163,6 +172,13 @@ def main():
                 got = st.get('carried', '')
                 check('(a1) item tab: real middle click clones a full stack (Vanilla)', got.split(' x')[0] == item['stack'].split(' x')[0] and got.endswith(('x64', 'x16', 'x1')), f'{item["stack"]} -> carried {got}')
                 check('(a1) item tab: inventory unchanged', st['inventory'] == pre, st['inventory'][9:36])
+                # put the cloned stack away: a left click on a DIFFERENT item of the grid empties the creative cursor (Vanilla). a-w4c left it
+                # there; it survived Escape/E and sat on the cursor in (a3) ("nothing on the cursor" red) and blocked the clone in (a4)
+                other = next((x for x in st['slots'] if not x['own'] and x['stack'] and x['stack'].split(' x')[0] != item['stack'].split(' x')[0]), None)
+                if other:
+                    io.click(st['windowX'] + other['x'], st['windowY'] + other['y'])
+                    st = fresh()
+                check('(a1) the cloned stack is gone from the cursor again (click on another grid item)', not st.get('carried'), st.get('carried'))
             io.key('Escape')
             io.key('e')
             st = fresh()
@@ -258,7 +274,7 @@ def main():
         command('quit')
     finally:
         if game.poll() is None and not results:
-            (RUN / COMMAND).write_text(json.dumps({'op': 'quit'}))
+            _write_command({'op': 'quit'})
         try:
             game.wait(timeout=120)
         except subprocess.TimeoutExpired:
