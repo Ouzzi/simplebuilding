@@ -26,7 +26,10 @@ public final class UiMargin {
         }
     }
 
-    /** Both boxes (for the moved player slots), how far the player slots move down and the image height then needed. */
+    /**
+     * Both boxes (for the moved player slots), how far the player slots move down and the image height then needed. The
+     * container box spans the container elements and the inventory's width, the inventory box only the inventory.
+     */
     public record Boxes(Rect container, Rect inventory, int shift, int height) {}
 
     /**
@@ -43,19 +46,33 @@ public final class UiMargin {
             px1 = Math.max(px1, s.x);
             py1 = Math.max(py1, s.y);
         }
+        // container box: wide enough for both (hopper-like content stays where it is, the box as wide as the inventory);
+        // inventory box: its own 3 px (narrower than a wide container box: 18-column chests, the controller)
         int left = Math.max(0, Math.min(cx0, px0) - EDGE);
         int right = Math.min(imageWidth + 1, Math.max(cx1, px1) + SLOT + EDGE);
+        int inventoryLeft = Math.max(0, px0 - EDGE);
+        int inventoryRight = Math.min(imageWidth + 1, px1 + SLOT + EDGE);
         int top = titled ? 0 : Math.max(0, cy0 - EDGE);
         int containerBottom = cy1 + SLOT + UiBoxes.MARGIN + UiBoxes.FRAME_BOTTOM;
         int shift = Math.max(0, containerBottom + GAP - (py0 - EDGE));
         int inventoryTop = py0 + shift - EDGE;
         int inventoryBottom = py1 + shift + SLOT + UiBoxes.MARGIN + UiBoxes.FRAME_BOTTOM;
         return new Boxes(new Rect(left, top, right - left, containerBottom - top),
-                new Rect(left, inventoryTop, right - left, inventoryBottom - inventoryTop), shift, Math.max(imageHeight, inventoryBottom));
+                new Rect(inventoryLeft, inventoryTop, inventoryRight - inventoryLeft, inventoryBottom - inventoryTop), shift, Math.max(imageHeight, inventoryBottom));
     }
 
     /** {@link #of} with the container bounds taken from the non-player slots of {@code slots}. */
     public static Boxes of(List<Slot> slots, int imageWidth, int imageHeight, boolean titled) {
+        return of(slots, bounds(slots), imageWidth, imageHeight, titled);
+    }
+
+    /** {@link #of} with the container bounds {@code b} = {x0, y0, x1, y1} ({@link #bounds}, {@link #grow}). */
+    public static Boxes of(List<Slot> slots, int[] b, int imageWidth, int imageHeight, boolean titled) {
+        return of(slots, b[0], b[1], b[2], b[3], imageWidth, imageHeight, titled);
+    }
+
+    /** Item bounds {x0, y0, x1, y1} of the container (non-player) slots of {@code slots}. */
+    public static int[] bounds(List<Slot> slots) {
         int x0 = Integer.MAX_VALUE, y0 = Integer.MAX_VALUE, x1 = Integer.MIN_VALUE, y1 = Integer.MIN_VALUE;
         for (Slot s : slots) {
             if (player(s)) continue;
@@ -64,7 +81,37 @@ public final class UiMargin {
             x1 = Math.max(x1, s.x);
             y1 = Math.max(y1, s.y);
         }
-        return of(slots, x0, y0, x1, y1, imageWidth, imageHeight, titled);
+        return new int[] {x0, y0, x1, y1};
+    }
+
+    /**
+     * Bounds {@code b} grown by a container element at {@code x, y} covering {@code w x h} px including its light edge: a slot
+     * 17 x 17 at its item position, {@link UiBoxes#bigSlot} at item {@code ix, iy} = {@code ix - 4, iy - 4, 25, 25}, an
+     * {@link UiBoxes#inset} {@code w x h} = {@code w + 1, h + 1}, a {@link UiBoxes#raised} key = its own size.
+     */
+    public static int[] grow(int[] b, int x, int y, int w, int h) {
+        return new int[] {Math.min(b[0], x), Math.min(b[1], y), Math.max(b[2], x + w - SLOT), Math.max(b[3], y + h - SLOT)};
+    }
+
+    /**
+     * The fill measured back from boxes {@code b} for container bounds {@code c} ({x0, y0, x1, y1} as for {@link #of}) and the
+     * not yet moved player slots of {@code slots} (they count {@link Boxes#shift} lower): container left, right (against the
+     * outermost of container and inventory) and bottom, inventory left, right, top and bottom - each must be {@link UiBoxes#MARGIN}
+     * - and the divider between the boxes ({@code >=} {@link #GAP}). For the gametests of the screens that use this class.
+     */
+    public static int[] margins(Boxes b, List<Slot> slots, int[] c) {
+        int px0 = Integer.MAX_VALUE, py0 = Integer.MAX_VALUE, px1 = Integer.MIN_VALUE, py1 = Integer.MIN_VALUE;
+        for (Slot s : slots) {
+            if (!player(s)) continue;
+            px0 = Math.min(px0, s.x);
+            py0 = Math.min(py0, s.y + b.shift());
+            px1 = Math.max(px1, s.x);
+            py1 = Math.max(py1, s.y + b.shift());
+        }
+        Rect k = b.container(), i = b.inventory();
+        return new int[] {Math.min(c[0], px0) - (k.x() + UiBoxes.FRAME), k.x() + k.width() - UiBoxes.FRAME - (Math.max(c[2], px1) + SLOT),
+                k.bottom() - UiBoxes.FRAME_BOTTOM - (c[3] + SLOT), px0 - (i.x() + UiBoxes.FRAME), i.x() + i.width() - UiBoxes.FRAME - (px1 + SLOT),
+                py0 - (i.y() + UiBoxes.FRAME), i.bottom() - UiBoxes.FRAME_BOTTOM - (py1 + SLOT), i.y() - k.bottom()};
     }
 
     /** Moves the player's slots of a client menu down by {@code shift} (new slot objects at the same index). */

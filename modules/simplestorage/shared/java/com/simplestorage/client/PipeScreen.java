@@ -2,6 +2,7 @@ package com.simplestorage.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiFilterButton;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
 import com.simplestorage.pipe.Pipes;
@@ -22,18 +23,23 @@ import net.minecraft.world.inventory.Slot;
  * step like the chests; with the style off, in Vanilla's grey.
  */
 public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
-    private static final int FILTER_X = 30, KEY_Y = 17, KEY_HEIGHT = 18;
+    private static final int FILTER_X = StorageMargins.PIPE_FILTER_X, KEY_Y = StorageMargins.PIPE_KEY_Y, KEY_HEIGHT = 18;
     /** The side keys (ROHR33): 11 px squares in a compass cross around this middle (north on top, west left, east right, south below) and an up/down column beside it. */
-    private static final int SIDE_SIZE = 11, HEX_X = 126, HEX_Y = 26, COLUMN_X = 158;
+    private static final int SIDE_SIZE = StorageMargins.PIPE_SIDE_SIZE, HEX_X = StorageMargins.PIPE_HEX_X, HEX_Y = StorageMargins.PIPE_HEX_Y,
+            COLUMN_X = StorageMargins.PIPE_COLUMN_X;
     /** Light red output key with dark ink (about 9:1) and the greyed-out off key with dark ink (about 5.5:1); both beat 4.5:1. */
     static final int OUT_FACE = 0xFFFF9A8F, OUT_INK = 0xFF3A0804, OFF_FACE = 0xFFA0A0A0, OFF_INK = 0xFF262626;
 
     private UiFilterButton filterButton;
     private Direction hoveredSide;
 
+    /** N62 boxes (style on: the player's slots 5 px lower under the compass, the image 150 high). */
+    private final UiMargin.Boxes boxes;
+
     public PipeScreen(PipeMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, PipeMenu.IMAGE_WIDTH, PipeMenu.INVENTORY_Y + 82);
+        super(menu, inventory, title, PipeMenu.IMAGE_WIDTH, UiStyleToggle.isEnabled() ? StorageMargins.pipe(menu).height() : PipeMenu.INVENTORY_Y + 82);
+        this.boxes = StorageMargins.pipe(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
         this.inventoryLabelY = PipeMenu.INVENTORY_Y - 11;
     }
 
@@ -62,9 +68,10 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
         }
     }
 
-    /** The inside of the upper box (x, y, width, height relative to the window): the keys keep their padding to its frame (b-small04, probe checks it). */
-    static int[] boxInside() {
-        return new int[] {UiBoxes.FRAME, UiBoxes.FRAME, PipeMenu.IMAGE_WIDTH - 2 * UiBoxes.FRAME, PipeMenu.INVENTORY_Y - UiBoxes.FRAME - 2 - 2 * UiBoxes.FRAME};
+    /** The inside (fill) of the upper box (x, y, width, height relative to the window): the keys keep their padding to its frame (b-small04, probe checks it). */
+    int[] boxInside() {
+        UiMargin.Rect c = this.boxes.container();
+        return new int[] {c.x() + UiBoxes.FRAME, c.y() + UiBoxes.FRAME, c.width() - 2 * UiBoxes.FRAME, c.height() - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM};
     }
 
     /** {@link #boxInside()} in screen coordinates, like the keys' positions. */
@@ -95,8 +102,10 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
         int left = this.leftPos, top = this.topPos;
         if (UiStyleToggle.isEnabled()) {
             UiPalette p = palette();
-            UiBoxes.box(graphics, left, top, this.imageWidth, PipeMenu.INVENTORY_Y - UiBoxes.FRAME - 2, p, false); // IG57U2
-            UiBoxes.box(graphics, left, top + PipeMenu.INVENTORY_Y - UiBoxes.FRAME, this.imageWidth, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+            // N62: 3 px fill round the slot and the keys and round the inventory, both boxes with the shadow
+            UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+            UiBoxes.box(graphics, left + c.x(), top + c.y(), c.width(), c.height(), p);
+            UiBoxes.box(graphics, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
             for (Slot slot : this.menu.slots) {
                 UiBoxes.slot(graphics, left + slot.x, top + slot.y, slot.container instanceof Inventory ? UiPalette.INVENTORY : p);
             }
@@ -169,12 +178,12 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     /** Where each side key sits (offset from the cross middle; up and down in their own column to the right). */
     static int[] hexOffset(Direction side) {
         return switch (side) {
-            case NORTH -> new int[] {0, -12};
-            case WEST -> new int[] {-12, 0};
-            case EAST -> new int[] {12, 0};
-            case SOUTH -> new int[] {0, 12};
-            case UP -> new int[] {COLUMN_X - HEX_X, -6};
-            case DOWN -> new int[] {COLUMN_X - HEX_X, 6};
+            case NORTH -> new int[] {0, -StorageMargins.PIPE_COMPASS};
+            case WEST -> new int[] {-StorageMargins.PIPE_COMPASS, 0};
+            case EAST -> new int[] {StorageMargins.PIPE_COMPASS, 0};
+            case SOUTH -> new int[] {0, StorageMargins.PIPE_COMPASS};
+            case UP -> new int[] {COLUMN_X - HEX_X, -StorageMargins.PIPE_COLUMN};
+            case DOWN -> new int[] {COLUMN_X - HEX_X, StorageMargins.PIPE_COLUMN};
         };
     }
 

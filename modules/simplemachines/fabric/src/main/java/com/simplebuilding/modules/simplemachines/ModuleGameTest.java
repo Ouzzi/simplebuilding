@@ -138,6 +138,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemachines:empty")
+    public void screenMargins(GameTestHelper h) {
+        MachinesTests.ALL.get("screen_margins").accept(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
     public void discoverBehaviourHints(GameTestHelper h) {
         MachinesTests.ALL.get("discover_behaviour_hints").accept(h);
     }

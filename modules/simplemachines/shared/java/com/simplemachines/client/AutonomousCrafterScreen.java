@@ -2,6 +2,7 @@ package com.simplemachines.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiFilterButton;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
@@ -37,15 +38,17 @@ public class AutonomousCrafterScreen extends AbstractContainerScreen<AutonomousC
     private static final Component DISABLED_SLOT_TOOLTIP = Component.translatable("gui.togglable_slot");
     /** SimpleBuilding's crafter palette (ModScreenStyle.AUTONOMOUS_CRAFTER): crafter stone with a hint of the copper of its textures. */
     public static final UiPalette PALETTE = UiPalette.derived(0xFF5E5651);
-    private static final int GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
 
     private final Player player;
     private Button filterButton;
+    /** N62 boxes (style on: the player's slots 6 px lower, the image 175 high; style off: Vanilla's 166). */
+    private final UiMargin.Boxes boxes;
 
     public AutonomousCrafterScreen(AutonomousCrafterMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, 176, 166);
+        super(menu, inventory, title, 176, UiStyleToggle.isEnabled() ? MachineMargins.autonomousCrafter(menu).height() : 166);
         this.player = inventory.player;
+        this.boxes = MachineMargins.autonomousCrafter(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
     }
 
     @Override
@@ -132,15 +135,10 @@ public class AutonomousCrafterScreen extends AbstractContainerScreen<AutonomousC
     /** The container style as SimpleBuilding drew it (ModScreenStyle.autonomousCrafter): same boxes, motif seed, arrow, key and slots. */
     private boolean styled(GuiGraphicsExtractor g, int left, int top) {
         if (!UiStyleToggle.isEnabled()) return false;
-        int invX = Integer.MAX_VALUE, invY = Integer.MAX_VALUE;
-        for (Slot slot : this.menu.slots) {
-            if (!(slot.container instanceof Inventory) || slot.getContainerSlot() < 9 || slot.getContainerSlot() >= 36) continue;
-            invX = Math.min(invX, slot.x);
-            invY = Math.min(invY, slot.y);
-        }
-        int containerHeight = invY - UiBoxes.FRAME - GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, PALETTE, false); // IG57U2: no shadow, air below the last row
-        UiBoxes.box(g, left + invX - 8, top + invY - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        // N62: 3 px fill round the grid, key, arrow and result slot and round the inventory, both boxes with the shadow
+        UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+        UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), PALETTE);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         Slot result = this.menu.getSlot(AutonomousCrafterMenu.RESULT_SLOT);
         int keyX = left + AutonomousCrafterMenu.FILTER_BUTTON_X, keyY = top + AutonomousCrafterMenu.FILTER_BUTTON_Y;
         int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
@@ -150,11 +148,12 @@ public class AutonomousCrafterScreen extends AbstractContainerScreen<AutonomousC
             avoid.add(new int[] {left + slot.x, top + slot.y, left + slot.x + 17, top + slot.y + 17});
         }
         avoid.add(new int[] {left + 4, top + 4, left + 12 + this.font.width(this.title), top + 15});
-        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 52});
+        avoid.add(new int[] {left + MachineMargins.ARROW_X, top + MachineMargins.ARROW_Y, left + MachineMargins.ARROW_X + MachineMargins.ARROW_WIDTH,
+                top + MachineMargins.ARROW_Y + MachineMargins.ARROW_HEIGHT});
         avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE});
         avoid.add(new int[] {left + result.x - 4, top + result.y - 4, left + result.x + 21, top + result.y + 21});
-        UiMotifs.draw(g, 0, 0, UiMotifs.Kind.REDSTONE, left + UiBoxes.FRAME, top + UiBoxes.FRAME, this.imageWidth - 2 * UiBoxes.FRAME,
-                containerHeight - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, PALETTE, avoid, 5);
+        UiMotifs.draw(g, 0, 0, UiMotifs.Kind.REDSTONE, left + c.x() + UiBoxes.FRAME, top + c.y() + UiBoxes.FRAME, c.width() - 2 * UiBoxes.FRAME,
+                c.height() - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, PALETTE, avoid, 5);
         for (Slot slot : this.menu.slots) {
             if (!slot.isActive()) continue;
             if (slot == result) UiBoxes.bigSlot(g, left + slot.x, top + slot.y, PALETTE);

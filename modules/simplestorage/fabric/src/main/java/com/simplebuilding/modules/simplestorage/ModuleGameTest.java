@@ -816,6 +816,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void screenMargins(GameTestHelper h) {
+        StorageTests.ALL.get("screen_margins").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void networkCompactCountsAreShort(GameTestHelper h) {
         StorageTests.ALL.get("network_compact_counts_are_short").accept(h);
     }

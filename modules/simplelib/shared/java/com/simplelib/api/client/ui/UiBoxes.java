@@ -77,7 +77,8 @@ public final class UiBoxes {
 
     /**
      * {@link #box} with or without the 2 px shadow at the bottom; without it the frame is {@link #FRAME} px all round
-     * (the tight variant where two boxes have only 10-11 rows between their slots).
+     * (flat panels and full-screen frames). Container boxes always keep the shadow and their {@link #MARGIN} (N62,
+     * {@link UiMargin}); the old shadowless tight variant between two boxes (IG57U2) is gone.
      */
     public static void box(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p, boolean shadow) {
         int s = shadow ? 2 : 0;

@@ -1,6 +1,7 @@
 package com.simplestorage.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
 import com.simplelib.api.client.ui.UiSymbols;
@@ -24,17 +25,23 @@ import net.minecraft.world.item.ItemStack;
  * (drag it, or use the mouse wheel), the number of chests against the limit. A broken controller shows a dark panel with a red cross and its cause instead of the list.
  */
 public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
     private static final int KEY_Y = 15, KEY_HEIGHT = 13, SORT_X = 8, SORT_WIDTH = 52, SEARCH_X = 64, SEARCH_WIDTH = 100;
     /** The scrollbar right of the list: track and thumb. */
-    private static final int BAR_X = ControllerMenu.VIEW_X + 9 * 18 + 4, BAR_WIDTH = 10, BAR_Y = ControllerMenu.VIEW_Y, BAR_HEIGHT = ControllerMenu.ROWS * 18;
+    private static final int BAR_X = StorageMargins.BAR_X, BAR_WIDTH = StorageMargins.BAR_WIDTH, BAR_Y = StorageMargins.BAR_Y,
+            BAR_HEIGHT = StorageMargins.BAR_HEIGHT;
     private net.minecraft.client.gui.components.EditBox search;
     private String sentSearch = "";
     private boolean draggingBar;
     private static final int RED = 0xFFFF6B5E, PANEL_TEXT = 0xFFEFE4DA;
 
+    /** N62 boxes (style on: the player's slots 2 px lower - the scrollbar reaches below the last row -, the image 227 high). */
+    private final UiMargin.Boxes boxes;
+
     public ControllerScreen(ControllerMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, ControllerMenu.IMAGE_WIDTH, ControllerMenu.IMAGE_HEIGHT);
+        super(menu, inventory, title, ControllerMenu.IMAGE_WIDTH,
+                UiStyleToggle.isEnabled() ? StorageMargins.controller(menu).height() : ControllerMenu.IMAGE_HEIGHT);
+        this.boxes = StorageMargins.controller(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
         this.inventoryLabelY = ControllerMenu.INVENTORY_Y - 11;
     }
 
@@ -170,8 +177,10 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
         int left = this.leftPos, top = this.topPos;
         if (UiStyleToggle.isEnabled()) {
             UiPalette p = palette();
-            UiBoxes.box(graphics, left, top, this.imageWidth, ControllerMenu.INVENTORY_Y - UiBoxes.FRAME - 2, p, false); // IG57U2
-            UiBoxes.box(graphics, left, top + ControllerMenu.INVENTORY_Y - UiBoxes.FRAME, this.imageWidth, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+            // N62: 3 px fill round the list and its scrollbar and round the inventory, both boxes with the shadow
+            UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+            UiBoxes.box(graphics, left + c.x(), top + c.y(), c.width(), c.height(), p);
+            UiBoxes.box(graphics, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
             for (Slot slot : this.menu.slots) {
                 UiBoxes.slot(graphics, left + slot.x, top + slot.y, slot.index < ControllerMenu.CELLS ? p : UiPalette.INVENTORY);
             }

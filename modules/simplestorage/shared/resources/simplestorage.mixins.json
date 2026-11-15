@@ -26,6 +26,7 @@
     "client.BundleScreenMixin",
     "client.BundleScrollMixin",
     "client.ClientBundleTooltipMixin",
+    "client.ContainerScreenHeightAccessor",
     "client.ShulkerRenderStateMixin",
     "client.ShulkerRendererMixin"
   ],

@@ -1,6 +1,7 @@
 package com.simplemachines.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
@@ -35,15 +36,18 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
     /** SimpleBuilding's smither palette (ModScreenStyle.AUTO_SMITHER) and error red. */
     public static final UiPalette PALETTE = UiPalette.derived(0xFF4F5560);
     private static final int ERROR = 0xFFC9503E;
-    private static final int GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
 
     private final CyclingSlotBackground templateIcon = new CyclingSlotBackground(0);
     private final CyclingSlotBackground baseIcon = new CyclingSlotBackground(1);
     private final CyclingSlotBackground additionIcon = new CyclingSlotBackground(2);
 
+    /** N62 boxes (style on: no shift, the box ends 3 px under the result slot, the image 169 high; style off: 166). */
+    private final UiMargin.Boxes boxes;
+
     public AutoSmitherScreen(AutoSmitherMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, 176, 166);
+        super(menu, inventory, title, 176, UiStyleToggle.isEnabled() ? MachineMargins.autoSmither(menu).height() : 166);
+        this.boxes = MachineMargins.autoSmither(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
         this.titleLabelY = 6;
         this.inventoryLabelX = 8;
         this.inventoryLabelY = 72;
@@ -92,15 +96,10 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
     /** The container style as SimpleBuilding drew it (ModScreenStyle.autoSmither): same boxes, motif seed, arrow and slots. */
     private boolean styled(GuiGraphicsExtractor g, int left, int top) {
         if (!UiStyleToggle.isEnabled()) return false;
-        int invX = Integer.MAX_VALUE, invY = Integer.MAX_VALUE;
-        for (Slot slot : this.menu.slots) {
-            if (!(slot.container instanceof Inventory) || slot.getContainerSlot() < 9 || slot.getContainerSlot() >= 36) continue;
-            invX = Math.min(invX, slot.x);
-            invY = Math.min(invY, slot.y);
-        }
-        int containerHeight = invY - UiBoxes.FRAME - GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, PALETTE, false); // IG57U2: no shadow, air below the last row
-        UiBoxes.box(g, left + invX - 8, top + invY - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        // N62: 3 px fill round the inputs, arrow and result slot and round the inventory, both boxes with the shadow
+        UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+        UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), PALETTE);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         Slot result = this.menu.getSlot(AutoSmitherMenu.RESULT_SLOT);
         List<int[]> avoid = new ArrayList<>();
         for (Slot slot : this.menu.slots) {
@@ -108,10 +107,11 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
             avoid.add(new int[] {left + slot.x, top + slot.y, left + slot.x + 17, top + slot.y + 17});
         }
         avoid.add(new int[] {left + 4, top + 4, left + 12 + this.font.width(this.title), top + 15});
-        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 52});
+        avoid.add(new int[] {left + MachineMargins.ARROW_X, top + MachineMargins.ARROW_Y, left + MachineMargins.ARROW_X + MachineMargins.ARROW_WIDTH,
+                top + MachineMargins.ARROW_Y + MachineMargins.ARROW_HEIGHT});
         avoid.add(new int[] {left + result.x - 4, top + result.y - 4, left + result.x + 21, top + result.y + 21});
-        UiMotifs.draw(g, 0, 0, UiMotifs.Kind.REDSTONE, left + UiBoxes.FRAME, top + UiBoxes.FRAME, this.imageWidth - 2 * UiBoxes.FRAME,
-                containerHeight - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, PALETTE, avoid, 4);
+        UiMotifs.draw(g, 0, 0, UiMotifs.Kind.REDSTONE, left + c.x() + UiBoxes.FRAME, top + c.y() + UiBoxes.FRAME, c.width() - 2 * UiBoxes.FRAME,
+                c.height() - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, PALETTE, avoid, 4);
         for (Slot slot : this.menu.slots) {
             if (!slot.isActive()) continue;
             if (slot == result) UiBoxes.bigSlot(g, left + slot.x, top + slot.y, PALETTE);

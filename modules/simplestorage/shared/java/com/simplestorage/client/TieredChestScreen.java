@@ -1,6 +1,7 @@
 package com.simplestorage.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
@@ -38,8 +39,14 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     private static final int TINT_NETHERITE = 0x28A0602A;
     private static final int TINT_ENDERITE = 0x306A3FC8;
 
+    /** N62 boxes (style on; the player's slots then sit {@code shift} px lower, the image is taller). */
+    private final UiMargin.Boxes boxes;
+
     public TieredChestScreen(TieredChestMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, displayTitle(menu, title), menu.imageWidth(), menu.imageHeight());
+        super(menu, inventory, displayTitle(menu, title), menu.imageWidth(),
+                UiStyleToggle.isEnabled() ? StorageMargins.tieredChest(menu).height() : menu.imageHeight());
+        this.boxes = StorageMargins.tieredChest(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
         this.inventoryLabelX = menu.inventoryLeft();
         this.inventoryLabelY = this.imageHeight - 94;
     }
@@ -83,31 +90,23 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     private boolean styled(GuiGraphicsExtractor g, int left, int top) {
         if (!UiStyleToggle.isEnabled()) return false;
         UiPalette p = palette(this.menu.tier());
-        int invX = Integer.MAX_VALUE, invY = Integer.MAX_VALUE;
-        for (Slot slot : this.menu.slots) {
-            if (!(slot.container instanceof Inventory) || slot.getContainerSlot() < 9 || slot.getContainerSlot() >= 36) continue;
-            invX = Math.min(invX, slot.x);
-            invY = Math.min(invY, slot.y);
-        }
-        int containerHeight = invY - UiBoxes.FRAME - INVENTORY_GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, p, false); // IG57U2: no shadow, air below the last row
-        UiBoxes.box(g, left + invX - 8, top + invY - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        // N62: 3 px fill round the slots in both boxes, both with the shadow (StorageMargins / UiMargin)
+        UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+        UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), p);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         List<int[]> avoid = new ArrayList<>();
         for (Slot slot : this.menu.slots) {
             if (!slot.isActive() || slot.container instanceof Inventory) continue;
             avoid.add(new int[] {left + slot.x, top + slot.y, left + slot.x + 17, top + slot.y + 17});
         }
         avoid.add(new int[] {left + 4, top + 4, left + 12 + this.font.width(this.title), top + 15});
-        UiMotifs.draw(g, 0, 0, motif(this.menu.tier()), left + UiBoxes.FRAME, top + UiBoxes.FRAME, this.imageWidth - 2 * UiBoxes.FRAME,
-                containerHeight - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, p, avoid, 3);
+        UiMotifs.draw(g, 0, 0, motif(this.menu.tier()), left + c.x() + UiBoxes.FRAME, top + c.y() + UiBoxes.FRAME, c.width() - 2 * UiBoxes.FRAME,
+                c.height() - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, p, avoid, 3);
         for (Slot slot : this.menu.slots) {
             if (slot.isActive()) UiBoxes.slot(g, left + slot.x, top + slot.y, slot.container instanceof Inventory ? UiPalette.INVENTORY : p);
         }
         return true;
     }
-
-    private static final int INVENTORY_GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
 
     static UiPalette palette(ChestTier tier) {
         return switch (tier) {
