@@ -109,7 +109,10 @@ public final class TestCentreDump {
         problems.addAll(OrderAreas.configProblems(LayoutConfig.current(), lines));
         OrderAreas.configWarnings().forEach(w -> problems.add("layout config: " + w));
         lines.rows().stream().filter(row -> row.group().startsWith(OrderAreas.NEW_PREFIX)).limit(10)
-                .forEach(row -> problems.add("layout config: row " + row.group() + " has items without a config cell"));
+                .forEach(row -> problems.add("layout config: row " + row.group() + " has items without a config cell: "
+                        + java.util.stream.Stream.concat(row.fixed().values().stream(), row.others().stream()).distinct().limit(12)
+                        .map(i -> String.valueOf(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(i)))
+                        .collect(java.util.stream.Collectors.joining(", "))));
         List<String> missing = OrderAreas.missingList(lines);
         com.simplebuilding.Simplebuilding.LOGGER.info("test centre lines: {} rows, {} placeholders, {} red (missing)", lines.rows().size(),
                 lines.placeholders().size(), missing.size());
