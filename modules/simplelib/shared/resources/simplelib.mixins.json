@@ -51,7 +51,9 @@
     "client.FreeLookCrosshairMixin",
     "client.FreeLookZoomMixin",
     "client.FreeLookFovMixin",
-    "client.SoundSeekMixin"
+    "client.SoundSeekMixin",
+    "client.ExperimentalCreateWorldMixin",
+    "client.ExperimentalOpenWorldMixin"
   ],
   "server": [],
   "injectors": {

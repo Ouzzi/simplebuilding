@@ -519,6 +519,7 @@ public final class LibTests {
         WarpedWartTests.register();
         PortalLibTests.register();
         DiscSidesTests.register();
+        ExperimentalWarningTests.register();
     }
 
     /**
