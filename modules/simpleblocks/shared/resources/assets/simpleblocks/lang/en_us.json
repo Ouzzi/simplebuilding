@@ -633,5 +633,11 @@
   "simpleblocks.guide.page.30.title": "Compressed, Dense and Collapsed blocks",
   "simpleblocks.guide.page.30": "netherrack, cobbled deepslate, andesite, diorite, granite, tuff, sandstone, red sandstone, end stone, blackstone, soul sand).",
   "simpleblocks.guide.page.31.title": "Settings",
-  "simpleblocks.guide.page.31": "More settings are in the mod's config screen."
+  "simpleblocks.guide.page.31": "More settings are in the mod's config screen.",
+  "block.simpleblocks.redstone_shapecutter": "Pulse Shapecutter",
+  "item.simpleblocks.redstone_shapecutter": "Pulse Shapecutter",
+  "jei.simpleblocks.info.redstone_shapecutter": "Each redstone pulse makes exactly one cut, like the crafter. Put blocks in (or feed them with a hopper from the top, back or sides), pick the shape in its screen; the cut comes out of the front, into a container there or onto the ground. The choice stays when the input runs out.",
+  "block.simpleblocks.auto_shapecutter": "Auto Shapecutter",
+  "item.simpleblocks.auto_shapecutter": "Auto Shapecutter",
+  "jei.simpleblocks.info.auto_shapecutter": "Cuts by itself, one cut every 8 ticks, into the container in front (only while the whole result fits there). Pick the shape in its screen; feed it with a hopper from the top, back or sides. A redstone signal stops it."
 }

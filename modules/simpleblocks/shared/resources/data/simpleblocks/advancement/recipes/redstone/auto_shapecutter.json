@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_redstone_shapecutter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:redstone_shapecutter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:auto_shapecutter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_redstone_shapecutter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:auto_shapecutter"
+    ]
+  }
+}

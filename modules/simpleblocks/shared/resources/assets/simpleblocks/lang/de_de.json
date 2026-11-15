@@ -633,5 +633,11 @@
   "simpleblocks.guide.page.30.title": "Komprimierte, dichte und kollabierte Blöcke",
   "simpleblocks.guide.page.30": "Bruchtiefenschiefer, Andesit, Diorit, Granit, Tuff, Sandstein, Roter Sandstein, Endstein, Schwarzstein, Seelensand).",
   "simpleblocks.guide.page.31.title": "Einstellungen",
-  "simpleblocks.guide.page.31": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpleblocks.guide.page.31": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "block.simpleblocks.redstone_shapecutter": "Takt-Formsäge",
+  "item.simpleblocks.redstone_shapecutter": "Takt-Formsäge",
+  "jei.simpleblocks.info.redstone_shapecutter": "Jeder Redstone-Impuls macht genau einen Schnitt, wie beim Crafter. Blöcke einlegen (oder per Trichter von oben, hinten oder der Seite zuführen), im Bildschirm die Form wählen; der Schnitt kommt vorne heraus, in einen Behälter davor oder auf den Boden. Die Wahl bleibt, wenn der Vorrat leer wird.",
+  "block.simpleblocks.auto_shapecutter": "Auto-Formsäge",
+  "item.simpleblocks.auto_shapecutter": "Auto-Formsäge",
+  "jei.simpleblocks.info.auto_shapecutter": "Schneidet von selbst, alle 8 Ticks einen Schnitt, in den Behälter vor ihrer Vorderseite (nur wenn das ganze Ergebnis hineinpasst). Form im Bildschirm wählen; per Trichter von oben, hinten oder der Seite zuführen. Ein Redstone-Signal hält sie an."
 }

@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "particle": "simpleblocks:block/redstone_shapecutter_side",
+    "top": "simpleblocks:block/redstone_shapecutter_top",
+    "front": "simpleblocks:block/redstone_shapecutter_front",
+    "side": "simpleblocks:block/redstone_shapecutter_side",
+    "bottom": "simpleblocks:block/redstone_shapecutter_bottom"
+  }
+}
