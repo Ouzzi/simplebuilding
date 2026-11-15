@@ -6,9 +6,16 @@ Status: **draft**
 
 Chess on any build: 156 pieces in 13 colors, 3D or flat, up to four on a block, on 12 quartz checker boards with stairs and slabs.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Chess
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Chess adds chess pieces (pawn, rook, knight, bishop, queen and king in 13 colors, each as a 3D figure and as a flat token) that stand on a quarter of a block top, so a 4 x 4 area of quartz checkers is a whole chessboard. Twelve quartz checker blocks come with stairs and slabs; with Simple Octets every color also gets an octet.
 

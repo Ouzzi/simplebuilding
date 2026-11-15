@@ -1,10 +1,12 @@
-# Simple Fun 0.9.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Fun 0.9.0-beta.1 - changelog (Minecraft 26.3, Fabric, beta)
 
 ## Release notes
 
+**Beta release.** This first version is published as a beta (release channel Beta on Modrinth and CurseForge): features, balance and config options can still change, and bugs are possible. Back up your world and report problems on the issue tracker.
+
 First release of **Simple Fun** for Minecraft 26.3 on Fabric.
 
-Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).
+Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads).
 
 ## Added
 

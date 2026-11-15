@@ -7,7 +7,7 @@
   "mod": {
     "id": "simpleoptserver",
     "name": "Simple Opt Server",
-    "version": "1.0.0",
+    "version": "1.0.0-beta.1",
     "minecraftLines": [
       "26.3"
     ],

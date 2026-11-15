@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
-ext.moduleVersion = '1.0.0'
+ext.moduleVersion = '1.0.0-beta.1'
 ext.forgeMixinConfigs = ['simplemobmanners.mixins.json', 'simplemobmanners.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')
 ext.forgeNativeConfig = [id: 'simplemobmanners', modId: 'simplemobmanners', root: 'modules/simplemobmanners/shared/java', screens: ['com/simplebuilding/modules/simplemobmanners/MobMannersScreen.java'], factory: 'com.simplebuilding.modules.simplemobmanners.MobMannersScreen.create(parent)']

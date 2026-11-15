@@ -6,9 +6,16 @@ Status: **draft**
 
 Seven chisels from Stone to Enderite that step blocks along their family, with the Fast Chiseling enchantment.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Chisels
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Chisels moves blocks one step along their family (stone to chiseled, bricks to cracked, planks to stairs to slabs) and back with sneak. Other mods add chains through data files.
 

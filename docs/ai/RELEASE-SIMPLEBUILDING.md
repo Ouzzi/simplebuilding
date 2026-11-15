@@ -169,7 +169,7 @@ Stand-Hinweis 14.11. (RELSB56): Spalten „Funktionen + A12“, „Config“ und
 ### 4.9 Seitentext + Changelog
 - 61 Seiten-Entwürfe, **Simple Vault fehlt** (check_pages rot) → L1; SB-Seite ohne Simple Vault in „Optional“.
 - Platzhalter-URLs bis Domain-Umzug (IG31-55, Besitzer). Changelog-Entwürfe vorhanden außer Simple Vault.
-- Versionen: Besitzer-Regel „0.x bis Abnahme, dann 1.0.0“ (ST-14, A11.3); SB bleibt 2.0.0.
+- Versionen: Besitzer-Regel „0.x bis Abnahme, dann 1.0.0“ (ST-14, A11.3); SB bleibt 2.0.0. **Neu W3B (15.11.):** alle Mods erscheinen zuerst als Beta – `<Basis>-beta.1` (SB `2.0.0-beta.1`), Kanal Beta, keine Leistungsversprechen (b-beta61, Prüfung `tools/release/check_beta.py`).
 
 ### 4.10 Bekannte Fehler / Queue-Reste
 - Offene `[ ]` der Familie: BS25-19 Absturz mit Seelenfeuer-Lohen-Kopf (Z. 731, serverseitig nicht reproduzierbar), CMD24-4

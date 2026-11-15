@@ -6,9 +6,16 @@ Status: **draft**
 
 Player shops with a Sales Block and a Display Case, protected from strangers, explosions, pistons and hoppers.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Shops
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Shops adds a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Buying needs no claim rights.
 

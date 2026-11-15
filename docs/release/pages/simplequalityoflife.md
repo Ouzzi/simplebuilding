@@ -6,9 +6,16 @@ Status: **draft**
 
 Super mod for small survival conveniences: weather, interfaces, loot, mob manners, farming, tools and movement.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Quality of Life
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Quality of Life bundles seven sub-mods with one switch each, plus a guide book and a start quest. Every sub-mod also runs on its own.
 

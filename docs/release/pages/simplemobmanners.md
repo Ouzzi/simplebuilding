@@ -6,9 +6,16 @@ Status: **draft**
 
 Mute mobs by type or name tag, keep named babies young and let piglins ignore gold trims and tools.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Mob Manners
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Mob Manners gives you control over annoying mob behavior: mute mobs, keep named babies young and make piglins ignore gold trims and tools.
 

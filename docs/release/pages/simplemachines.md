@@ -6,9 +6,16 @@ Status: **draft**
 
 Double Piston, Signal Dampener, upgraded pistons, faster filter hoppers and carts, a Smither and an Auto Crafter.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Machines
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Machines adds the Double Piston, the Signal Dampener, Reinforced and Reinforced Sticky Pistons, Netherite and Enderite Pistons that break blocks, Reinforced, Netherite and Enderite hoppers (2x/4x/8x faster, with an item filter) and hopper minecarts, the Smither (smithing by redstone) and the Auto Crafter (crafts by itself into the hopper below).
 

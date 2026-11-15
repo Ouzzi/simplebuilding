@@ -6,9 +6,16 @@ Status: **draft**
 
 Configurable dimensions, light arches and safe linked portals with optional claim-mod support.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Dimensions
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Dimensions lets you configure dimensions, build light arches and use linked portals that avoid unsafe destinations. It can cooperate with common claim mods.
 

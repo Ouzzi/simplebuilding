@@ -6,9 +6,16 @@ Status: **draft**
 
 Player value, danger zones and spawn owners: an API and gameplay layer for experience-aware spawning.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Resonance
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Resonance tracks how experienced a player is, how dangerous the land is, which player a monster spawn belongs to, and adds newcomer protection. Other mods such as Simple Mobs use it as an API.
 

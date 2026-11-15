@@ -6,9 +6,16 @@ Status: **draft**
 
 Downed instead of dead: teammates can revive you in time, with a downed screen for spectating and giving up.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Respawn
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 With Simple Respawn you are downed first. A teammate can revive you within the bleed-out time, and you return with three hearts and no food. A downed screen offers spectating, an inventory view and giving up.
 

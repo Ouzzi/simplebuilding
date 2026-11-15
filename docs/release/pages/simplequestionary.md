@@ -6,9 +6,16 @@ Status: **draft**
 
 The Questionary Table: put in any item and read its lore, its use and a secret in an open book.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Questionary
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Questionary adds a table that explains any item you put in, in an open book.
 

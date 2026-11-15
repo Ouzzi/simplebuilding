@@ -6,6 +6,8 @@ public final class Visuals {
  public static final Path CONFIG_PATH=Path.of("config/simplevisuals.json");
  public static SimplevisualsConfig CONFIG=new SimplevisualsConfig();
  private static volatile boolean serverFormatting=true;
+ /** W3B: server policy for the obfuscated style code ({@code &k}); locked by default. */
+ private static volatile boolean serverObfuscation=false;
  /** Super-mod switch "Enable Simple Aesthetics" (framework SubMods): off = every visible client effect and the anvil colour codes are inert; runtime check only. */
  public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);}
  /** Pure gate: a cosmetic option takes effect only while the super-mod switch is on. */
@@ -13,10 +15,14 @@ public final class Visuals {
  public static boolean serverFormatting(){return serverFormatting;}
  /** Called by the authorized server command, never by the cosmetic config screen. */
  public static void setServerFormatting(boolean value){serverFormatting=value;}
+ public static boolean serverObfuscation(){return serverObfuscation;}
+ /** Called by the authorized server command, never by the cosmetic config screen. */
+ public static void setServerObfuscation(boolean value){serverObfuscation=value;}
  public static void initialize(){
   try{var log=org.slf4j.LoggerFactory.getLogger(MOD_ID);var c=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(CONFIG_PATH,text->GSON.fromJson(text,SimplevisualsConfig.class),log::warn);if(c!=null)CONFIG=c;ConfigOptions.normalize(CONFIG);}
   catch(Exception e){org.slf4j.LoggerFactory.getLogger(MOD_ID).warn("Invalid Simple Visuals config; using safe defaults",e);CONFIG=new SimplevisualsConfig();}
   serverFormatting=CONFIG.visuals.enableAnvilFormatting;
+  serverObfuscation=CONFIG.visuals.allowAnvilObfuscation;
   com.simplebuilding.framework.api.CosmeticIntensity.register(MOD_ID,()->
    CONFIG.particles==null || CONFIG.particles.globalLevel==null
     ? com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE
@@ -28,12 +34,15 @@ public final class Visuals {
   });
  }
  public static void save(){ConfigOptions.normalize(CONFIG);try{Files.createDirectories(CONFIG_PATH.getParent());com.simplebuilding.framework.api.ConfigFiles.writeAtomic(CONFIG_PATH,GSON.toJson(CONFIG));}catch(Exception e){org.slf4j.LoggerFactory.getLogger("simplevisuals").error("Cannot save the Simple Visuals config",e);}}
- public static String formatName(String name,boolean enabled){
+ /** Default policy: obfuscation ({@code &k}) locked (W3B). */
+ public static String formatName(String name,boolean enabled){return formatName(name,enabled,false);}
+ /** @param obfuscation whether the obfuscated style code k is kept; when false, {@code &k}/{@code §k} is dropped like an unknown style. */
+ public static String formatName(String name,boolean enabled,boolean obfuscation){
   if(name==null)return null;
   if(name.length()>50)return null;
   StringBuilder out=new StringBuilder();
   for(int i=0;i<name.length();i++){char ch=name.charAt(i);if(ch<32||ch==127)continue;
-   if((ch=='&'||ch=='§')&&i+1<name.length()&&"0123456789abcdefklmnor".indexOf(Character.toLowerCase(name.charAt(i+1)))>=0){char code=Character.toLowerCase(name.charAt(++i));if(enabled)out.append('§').append(code);continue;}
+   if((ch=='&'||ch=='§')&&i+1<name.length()&&"0123456789abcdefklmnor".indexOf(Character.toLowerCase(name.charAt(i+1)))>=0){char code=Character.toLowerCase(name.charAt(++i));if(enabled&&(code!='k'||obfuscation))out.append('§').append(code);continue;}
    if(ch!='§')out.append(ch);
   }return out.toString();
  }

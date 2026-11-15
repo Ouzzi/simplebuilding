@@ -6,9 +6,16 @@ Status: **draft**
 
 Tougher Ender Dragon fight: more health bars per player, a faster dragon, entry animations and Dragonmites.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple End Dragon Fight
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple End Dragon Fight adds one health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.
 

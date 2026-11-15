@@ -7,7 +7,7 @@
   "mod": {
     "id": "simpleoctets",
     "name": "Simple Octets",
-    "version": "0.9.0",
+    "version": "0.9.0-beta.1",
     "minecraftLines": [
       "26.3"
     ],

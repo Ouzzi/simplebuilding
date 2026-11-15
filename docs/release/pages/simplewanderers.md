@@ -6,9 +6,16 @@ Status: **draft**
 
 One Village Wanderer per village with a leashed horse, split from the traveling trader, with regular restocks.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Wanderers
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goods are split from the traveling trader, with a new stock every 3 days and a restock every 1.5 days. Besides Fabric API it only needs SimpleLib; no other Simple mod is required.
 

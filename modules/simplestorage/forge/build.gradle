@@ -5,8 +5,8 @@ plugins {
 ext.forgeMixinConfigs = ['simplestorage.mixins.json', 'simplestorage.forge.mixins.json']
 // SimpleLib (IdMoves migration, container style blocks) nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
-// 0.9.0: SimpleBuilding 26.3 requires simplestorage >=0.9.0 (modules stay 0.x until the owner's approval, then 1.0.0).
-ext.moduleVersion = '0.9.0'
+// 0.9.0-beta.1: SimpleBuilding 26.3 requires simplestorage >=0.9.0-beta.1 (first public files are betas, owner W3B 15.11.; version = modules.json).
+ext.moduleVersion = '0.9.0-beta.1'
 apply from: rootProject.file('gradle/module-forge.gradle')
 // Chest cart and chest boat item textures are Vanilla-derived (built, never committed; split stage 8b-2).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

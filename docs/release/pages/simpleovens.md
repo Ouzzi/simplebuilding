@@ -6,9 +6,16 @@ Status: **draft**
 
 Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces with 2x, 4x and 8x speed, plus furnace minecarts.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Ovens
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Ovens adds faster furnace, smoker and blast furnace tiers (Netherite doubles experience) and furnace minecarts, upgraded in the world with an axe. Ids from older SimpleBuilding versions migrate.
 

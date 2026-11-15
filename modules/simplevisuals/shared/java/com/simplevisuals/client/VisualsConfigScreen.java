@@ -22,7 +22,7 @@ public final class VisualsConfigScreen {
             var name = Component.translatable("text.autoconfig.simplevisuals.option." + option.path());
             var tip = Component.translatable("text.autoconfig.simplevisuals.option." + option.path() + ".@Tooltip");
             Object value = option.get();
-            if (value instanceof Boolean b) { var entry=entries.startBooleanToggle(name, b).setDefaultValue((Boolean) option.defaultValue()).setTooltip(tip).setSaveConsumer(option::set).build(); entry.setEditable(!option.path().endsWith("enableAnvilFormatting")); category.addEntry(entry); }
+            if (value instanceof Boolean b) { var entry=entries.startBooleanToggle(name, b).setDefaultValue((Boolean) option.defaultValue()).setTooltip(tip).setSaveConsumer(option::set).build(); entry.setEditable(!ConfigOptions.serverOwned(option.path())); category.addEntry(entry); }
             else if (value instanceof Integer i) category.addEntry(entries.startIntField(name, i).setDefaultValue((Integer) option.defaultValue()).setMin((int) option.min()).setMax((int) option.max()).setTooltip(tip).setSaveConsumer(option::set).build());
             else if (value instanceof Float f) category.addEntry(entries.startFloatField(name, f).setDefaultValue((Float) option.defaultValue()).setMin((float) option.min()).setMax((float) option.max()).setTooltip(tip).setSaveConsumer(option::set).build());
             else if (value instanceof Enum e) category.addEntry(entries.startEnumSelector(name, e.getDeclaringClass(), e).setDefaultValue((Enum) option.defaultValue()).setEnumNameProvider(v -> enumName((Enum) v)).setTooltip(tip).setSaveConsumer(option::set).build());

@@ -6,9 +6,16 @@ Status: **draft**
 
 Vault cooldown measured in days instead of once per player; a sub-mod of Simple Quality of Life.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Loot
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Loot lets a player loot a vault again after a configurable number of Minecraft days (default 100) instead of only once.
 

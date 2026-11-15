@@ -6,9 +6,16 @@ Status: **draft**
 
 Live web map of your world as players explored it, with a built-in web server that works out of the box, only on your own computer.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Livemap
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Livemap draws a web map from the chunks players visited and the maps they held, with relief and optional player positions. The built-in web server works out of the box on your own computer (private, with a key), and a guide shows how to put the map on your own website.
 

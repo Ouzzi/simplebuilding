@@ -6,9 +6,16 @@ Status: **draft**
 
 Feather Falling protects farmland, Sharpness cuts grass, and a hoe harvests and replants ripe crops.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Farming
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Farming makes common farming chores smoother: Feather Falling protects farmland, Sharpness cuts grass, and a hoe harvests and replants ripe crops.
 

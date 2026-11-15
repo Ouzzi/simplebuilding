@@ -6,9 +6,16 @@ Status: **draft**
 
 Six held gadgets: Gauge, Transposer, Resonance Rod, Detector, Attractor and an Echo Sounder that jumps back to a lodestone.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Gadgets
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Gadgets collects tools you hold and use: the Gauge (speed, altimeter, auto-walk), the Transposer that turns blocks and poses armor stands, the Resonance Rod with its aiming dot that melts and lights, the Detector that points to ores, the Attractor that pulls loose items, and the Echo Sounder that jumps you back to a linked lodestone. They tell you things with sounds, particles and the item itself, never with text on the screen.
 

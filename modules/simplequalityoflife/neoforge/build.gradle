@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.147'
 }
-ext.moduleVersion = '1.0.0'
+ext.moduleVersion = '1.0.0-beta.1'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 dependencies { jarJar project(':framework') }
 // Super-mod (docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md): requires and nests its sub-mods; no class imports.

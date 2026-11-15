@@ -1,6 +1,8 @@
-# Simple Visuals 1.0.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Visuals 1.0.0-beta.1 - changelog (Minecraft 26.3, Fabric, beta)
 
 ## Release notes
+
+**Beta release.** This first version is published as a beta (release channel Beta on Modrinth and CurseForge): features, balance and config options can still change, and bugs are possible. Back up your world and report problems on the issue tracker.
 
 First release of **Simple Visuals** for Minecraft 26.3 on Fabric.
 
@@ -17,9 +19,9 @@ Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.
 - **Local death coordinates** - Disabled, appended, or separate local coordinate line for your own death message.
 - **Map preview tooltips** - A 128-pixel map preview, center coordinates and dimension id from map data already available to this client.
 - **Held item information** - Durability and up to eight enchantment lines accompany the Vanilla held-item name.
-- **Damage indicators** - Up to 32 short-lived numbers for observed health decreases of nearby visible living entities.
+- **Damage indicators** - Up to 32 short-lived numbers for observed health decreases of nearby visible living entities. On by default; switch them off in the config screen (Damage tab) or with `/simplevisuals visuals.damageIndicators.enable false`. Hits above 8 use the "high hit" color, which is not a critical-hit marker.
 - **Biome notifications** - Optional biome name on transition, with display duration, offset and re-entry cooldown.
-- **Anvil formatting and uses** - Valid & or section-sign color/style codes are accepted only under server formatting policy.
+- **Anvil formatting and uses** - Valid & or section-sign color/style codes are accepted only under server formatting policy. The unreadable obfuscated style `&k` is locked by default; an operator allows it with `/simplevisuals config visuals allowAnvilObfuscation true`.
 - **Footstep dust** - Moving on the ground outside water.
 - **Cold breath** - Breath outside water in biomes cold enough for snow.
 - **Fireflies** - Nighttime above blocks in the Vanilla dirt tag.

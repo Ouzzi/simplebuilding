@@ -6,9 +6,16 @@ Status: **draft**
 
 Shared base of the Simple family: modpack guide, warm food, shared materials, rarity tiers and UI building blocks.
 
+## Release channel: Beta
+
+- Version number: `0.4.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # SimpleLib
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 SimpleLib holds what every Simple mod shares: one modpack handbook, warm food, shared materials such as building cores and the Strong Upgrade, in-world upgrade helpers, rarity tiers and UI components. It is installed automatically as a dependency.
 

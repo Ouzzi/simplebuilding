@@ -51,7 +51,11 @@ public final class VisualsTests {
    Visuals.CONFIG=new SimplevisualsConfig();
    h.assertTrue(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals")==com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE,"Provider follows replaced config without saving");
   } finally { Visuals.CONFIG=saved; }
-  var c=new SimplevisualsConfig();h.assertTrue(ConfigOptions.all(c).size()==52,"All original config fields plus global level, tilted frame items and cauldron stand");
+  var c=new SimplevisualsConfig();h.assertTrue(ConfigOptions.all(c).size()==53,"All original config fields plus global level, tilted frame items, cauldron stand and the &k lock");
+  // W3B (owner 15.11.): damage numbers on by default and switchable; &k locked by default, both policies server-owned.
+  h.assertTrue(c.visuals.damageIndicators.enable&&!c.visuals.allowAnvilObfuscation&&c.visuals.enableAnvilFormatting,"W3B defaults: damage numbers on, &k locked, formatting on");
+  h.assertTrue(ConfigOptions.all(c).stream().anyMatch(o->o.path().equals("visuals.damageIndicators.enable")&&!ConfigOptions.serverOwned(o.path())),"Damage numbers are a local switch");
+  h.assertTrue(ConfigOptions.serverOwned("visuals.allowAnvilObfuscation")&&ConfigOptions.serverOwned("visuals.enableAnvilFormatting"),"Both anvil policies are server-owned");
   frameTilt(h,c);
   for(var o:ConfigOptions.all(c))if(o.get() instanceof Number){
    boolean integer=o.field().getType()==int.class;
@@ -208,20 +212,24 @@ var fire=net.minecraft.world.level.block.Blocks.CAMPFIRE.defaultBlockState();
   h.assertTrue(Visuals.formatName("&cTest&z",true).equals("§cTest&z"),"Only valid codes converted");
   h.assertTrue(Visuals.formatName("§cTest",false).equals("Test"),"Server off rejects bypassed client formatting");
   h.assertTrue(Visuals.formatName("a\nb\u007fc",true).equals("abc"),"Control characters removed");
+  h.assertTrue(Visuals.formatName("&k&cMagic§k",true).equals("§cMagic"),"W3B: &k and §k dropped while obfuscation is locked (default)");
+  h.assertTrue(Visuals.formatName("&kMagic",true,true).equals("§kMagic")&&Visuals.formatName("&kMagic",false,true).equals("Magic"),"&k only with both policies on");
   h.assertTrue(Visuals.formatName("x".repeat(51),true)==null&&Visuals.formatName("x".repeat(50),true).length()==50,"Vanilla length cap enforced");
   var player=h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);
   var menu=new net.minecraft.world.inventory.AnvilMenu(0,player.getInventory());
   // A SimpleBuilding stack when present, otherwise a Vanilla stack: the anvil rules are the same.
   var item=isModLoaded("simplebuilding")?BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")):net.minecraft.world.item.Items.IRON_INGOT;
   var stack=new net.minecraft.world.item.ItemStack(item,3);menu.getSlot(0).set(stack);
-  boolean previous=Visuals.serverFormatting();boolean localPrevious=Visuals.CONFIG.visuals.enableAnvilFormatting;
+  boolean previous=Visuals.serverFormatting();boolean localPrevious=Visuals.CONFIG.visuals.enableAnvilFormatting;boolean obfuscationPrevious=Visuals.serverObfuscation();
   try{Visuals.setServerFormatting(true);menu.setItemName("&cCross-mod");
    h.assertTrue(menu.getSlot(2).getItem().is(item)&&menu.getSlot(2).getItem().getCount()==3,"Cross-mod stack unchanged");
    h.assertTrue(menu.getSlot(2).getItem().getHoverName().getString().equals("§cCross-mod"),"Server validates real anvil output");
    h.assertTrue(menu.getCost()==1,"Vanilla rename cost retained");
+   Visuals.setServerObfuscation(false);menu.setItemName("&k&cLocked");h.assertTrue(menu.getSlot(2).getItem().getHoverName().getString().equals("§cLocked"),"Real menu drops &k while the server lock is on");
+   Visuals.setServerObfuscation(true);menu.setItemName("&kOpen");h.assertTrue(menu.getSlot(2).getItem().getHoverName().getString().equals("§kOpen"),"Real menu keeps &k once the server allows it");
    Visuals.setServerFormatting(false);Visuals.CONFIG.visuals.enableAnvilFormatting=true;menu.setItemName("§aNo bypass");h.assertTrue(menu.getSlot(2).getItem().getHoverName().getString().equals("No bypass"),"Real menu rejects forged client name when server off");
   h.assertTrue(!Visuals.serverFormatting(),"Client config cannot change integrated server policy");
-  }finally{Visuals.setServerFormatting(previous);Visuals.CONFIG.visuals.enableAnvilFormatting=localPrevious;}
+  }finally{Visuals.setServerFormatting(previous);Visuals.CONFIG.visuals.enableAnvilFormatting=localPrevious;Visuals.setServerObfuscation(obfuscationPrevious);}
   h.succeed();
  }
 }

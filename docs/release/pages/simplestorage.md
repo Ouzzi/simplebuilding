@@ -6,9 +6,16 @@ Status: **draft**
 
 Crates, tiered chests, shulker boxes and barrels, chest carts and boats, bundles, quivers and backpacks.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Storage
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Storage adds crates, the Storage Crafting Table, tiered and trapped chests, tier shulker boxes and barrels with more slots and bigger stacks, chest carts and chest boats, bundles, quivers, backpacks, item pipes, a chest network with a controller chest, and the Drawer, Deep Pockets and Funnel enchantments. New structures sometimes hold a better chest or a rare tiered shulker. Ids from older versions migrate.
 

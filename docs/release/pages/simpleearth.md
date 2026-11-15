@@ -6,9 +6,16 @@ Status: **draft**
 
 See the Overworld from orbit: above a very high height the world becomes a rounded cube drawn from Vanilla map colors.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Earth
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Above a very high activation height, Simple Earth turns the world into a slightly rounded cube whose faces show Vanilla map colors sampled from the world generator, with a flat sun, a cube moon and stars. Below that height everything stays Vanilla.
 

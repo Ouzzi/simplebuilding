@@ -47,7 +47,7 @@ def manifest_entry(mid, name, loaders, description, parent, bundle, switch):
     if fab:
         tests['client'] = dict(entrypoints=[f'com.simplebuilding.modules.{mid}.ModuleClientSmoke'], sources=f'modules/{mid}/clienttest/java',
                                screenshots='integration/run-fabric-263/screenshots', task=':integration:runClientGameTest')
-    entry = dict(id=mid, name=name, version='0.1.0', minecraft='26.3', defaultEnabled=True, displayName=name,
+    entry = dict(id=mid, name=name, version='0.1.0-beta.1', minecraft='26.3', defaultEnabled=True, displayName=name,
                  description=description, loaders=list(loaders), requires=['simplelib'], optional=[parent] if parent else [],
                  checks=[f'modules/{mid}/tools/check_data.py'], tests=tests,
                  paths=dict(root=f'modules/{mid}', shared=f'modules/{mid}/shared',
@@ -79,7 +79,7 @@ def scaffold(mid, name, root, loaders, cls, parent):
     if fmj.is_file():
         data = json.loads(fmj.read_text(encoding='utf-8'))
         data['icon'] = f'assets/{mid}/icon.png'
-        data['depends'].update({'fabric-api': '*', 'simplelib': '>=0.3.0'})
+        data['depends'].update({'fabric-api': '*', 'simplelib': '>=0.4.0-beta.1'})
         if parent:
             data['suggests'] = {parent: '*'}
         fmj.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')

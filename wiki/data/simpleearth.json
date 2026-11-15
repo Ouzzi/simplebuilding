@@ -7,7 +7,7 @@
   "mod": {
     "id": "simpleearth",
     "name": "Simple Earth",
-    "version": "0.1.0",
+    "version": "0.1.0-beta.1",
     "minecraftLines": [
       "26.3"
     ],

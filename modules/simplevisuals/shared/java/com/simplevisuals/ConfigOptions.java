@@ -6,6 +6,8 @@ public final class ConfigOptions {
   public Object get(){try{return field.get(owner);}catch(Exception e){throw new IllegalStateException(e);}}
   public void set(Object value){try{field.set(owner,value);}catch(Exception e){throw new IllegalArgumentException(e);}}
  }
+ /** Server-owned policies (anvil formatting, W3B obfuscation lock): set only by the permission-2 server command, shown read-only on the client. */
+ public static boolean serverOwned(String path){return path.equals("visuals.enableAnvilFormatting")||path.equals("visuals.allowAnvilObfuscation");}
  public static List<Option> all(SimplevisualsConfig c){var list=new ArrayList<Option>();walk("",c,new SimplevisualsConfig(),list);return list;}
  private static void walk(String prefix,Object obj,Object defaults,List<Option> out){
   for(Field f:obj.getClass().getFields())try{

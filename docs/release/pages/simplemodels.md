@@ -6,9 +6,16 @@ Status: **draft**
 
 Server-approved custom item models, anvil assignment and a searchable model browser.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Models
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Models lets the server approve custom item models, assign them at the anvil, and browse them in a searchable screen.
 

@@ -6,9 +6,16 @@ Status: **draft**
 
 New monsters and bosses: Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Blighted and Abyssal Wither and more.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Mobs
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Mobs adds the Hollow Howler and Hollow Watcher bosses, the Shellker, Soulfire Blaze, Dread and Deceiver mobs, the Blighted and Abyssal Wither with the Nether Heart and Red Nether Gem, and the Potion of Silence.
 

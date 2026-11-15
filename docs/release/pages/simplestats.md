@@ -6,9 +6,16 @@ Status: **draft**
 
 Every tool, weapon and armor piece keeps its own statistics with an item-specific statistics screen.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Stats
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Stats records blocks mined, kills by mob and variant, damage absorbed, distances and catches per item and shows them in a statistics screen.
 

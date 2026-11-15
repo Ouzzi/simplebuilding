@@ -1,6 +1,8 @@
-# Simple Optimization 1.0.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Optimization 1.0.0-beta.1 - changelog (Minecraft 26.3, Fabric, beta)
 
 ## Release notes
+
+**Beta release.** This first version is published as a beta (release channel Beta on Modrinth and CurseForge): features, balance and config options can still change, and bugs are possible. Back up your world and report problems on the issue tracker. No performance figures are promised: the effect has not been measured across computers and mod packs yet.
 
 First release of **Simple Optimization** for Minecraft 26.3 on Fabric.
 
