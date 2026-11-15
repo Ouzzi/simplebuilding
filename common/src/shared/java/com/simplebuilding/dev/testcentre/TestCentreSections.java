@@ -1526,7 +1526,9 @@ public final class TestCentreSections {
             }
         }
         for (com.simplebuilding.items.CreativeTabLayout.Row row : ModItemGroupsContent.functionalRows()) {
-            if (!KNOWN_FUNCTIONAL_ROWS.contains(row.name()) && !TweaksStation.ROWS.contains(row.name())) {
+            // N63: the big doors (N57-1, 2x2/2x3/1.5x2/1.5x3 per door variant) stand beside their material in the line/block
+            // layouts (configs), not as 29 extra tab rows here
+            if (!KNOWN_FUNCTIONAL_ROWS.contains(row.name()) && !TweaksStation.ROWS.contains(row.name()) && !row.name().startsWith("wide_doors")) {
                 rows.add(row);
             }
         }
