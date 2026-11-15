@@ -881,7 +881,7 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "6d33d6f0048b"
+    "dataHash": "0c008b85faa5"
   },
   {
     "id": "simplefarming",
@@ -1450,10 +1450,10 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 266,
       "recipes": 696,
-      "config": 12,
+      "config": 13,
       "features": 19
     },
-    "dataHash": "2666a9877c1f"
+    "dataHash": "0eb132cf873f"
   },
   {
     "id": "simplecrucibles",
@@ -1491,12 +1491,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9klEQVR42qWTIQvCQBiG91NMYlCjUZdsBrEuiXZBhIHCisFwzWRyIIhFm1YNFsU0TFb9HyfvwTvu2B0XFp7tbt/3Pncbt6DRCmUZAlz257tBs1qxovdMVqkpWG6OeeNXdOQ2ieVFzBWvbk3BOsL94dQUoIAQGn9ZpIAIcIwahOi1CtCgB3SRLnEKUjGTSbtuiPQdYSzikVuQ3Xa5RIfCqBf6BTqQAYQggQBzr+DzPBUECHsF8XggD+tFDuYAQe4Ac6cADb4dOL8BDxKCWB13rAYBw8B5kChAiBKGuQOubhVcH29V4HngK9jCBQEfENfPpPcYgjL8AfeqMA6tHhHIAAAAAElFTkSuQmCC",
     "counts": {
       "items": 5,
-      "blocks": 7,
+      "blocks": 9,
       "recipes": 1,
       "config": 37,
-      "features": 9
+      "features": 10
     },
-    "dataHash": "7a2b8fc85024"
+    "dataHash": "03d454f9da26"
   },
   {
     "id": "simpleoctets",

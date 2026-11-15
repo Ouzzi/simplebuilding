@@ -97,6 +97,29 @@
       }
     },
     {
+      "id": "tiered_cauldrons",
+      "sources": [
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/cauldron/TieredCauldronBlock.java",
+        "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json"
+      ],
+      "en": {
+        "title": "Netherite and Enderite cauldron",
+        "summary": "Reinforced cauldrons with room for 2 (Netherite) or 4 (Enderite) buckets of one content.",
+        "details": [
+          "Made in the world like the crucibles: a reinforced cauldron with 4 netherite nuggets becomes the Netherite cauldron, that one with 4 Enderite nuggets the Enderite cauldron (sledgehammer, without SimpleBuilding an axe).",
+          "Buckets pour in one bucket at a time while there is room and take one bucket out each; a full Enderite bucket pours both its buckets at once, an empty one takes two. Bottles, washing, rain and dripstone work like on a Vanilla cauldron, up to the last of its 6 or 12 levels. The fill height shows the whole content. Everything else works like the reinforced cauldron; only a water bottle goes into an empty one."
+        ]
+      },
+      "de": {
+        "title": "Netherit- und Enderit-Kessel",
+        "summary": "Verstärkte Kessel mit Platz für 2 (Netherit) oder 4 (Enderit) Eimer eines Inhalts.",
+        "details": [
+          "In der Welt hergestellt wie die Schmelztiegel: ein verstärkter Kessel mit 4 Netherit-Nuggets wird zum Netherit-Kessel, dieser mit 4 Enderit-Nuggets zum Enderit-Kessel (Vorschlaghammer, ohne SimpleBuilding eine Axt).",
+          "Eimer gießen je einen Eimer hinein, solange Platz ist, und nehmen je einen heraus; ein voller Enderit-Eimer gießt beide Ladungen auf einmal, ein leerer nimmt zwei. Flaschen, Waschen, Regen und Tropfstein wirken wie beim Vanilla-Kessel, bis zur letzten seiner 6 bzw. 12 Stufen. Die Füllhöhe zeigt den ganzen Inhalt. Sonst wie der verstärkte Kessel; in einen leeren geht nur eine Wasserflasche."
+        ]
+      }
+    },
+    {
       "id": "soul_lava",
       "sources": [
         "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/SoulLavaFluid.java",
@@ -331,6 +354,24 @@
       "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/crucible_blank.json"
     },
     {
+      "id": "simplecrucibles:blocks/enderite_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplecrucibles:enderite_cauldron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/enderite_cauldron.json"
+    },
+    {
       "id": "simplecrucibles:blocks/enderite_crucible",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -365,6 +406,24 @@
         }
       ],
       "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/iron_crucible.json"
+    },
+    {
+      "id": "simplecrucibles:blocks/netherite_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplecrucibles:netherite_cauldron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/loot_table/blocks/netherite_cauldron.json"
     },
     {
       "id": "simplecrucibles:blocks/netherite_crucible",
@@ -750,6 +809,23 @@
       "usedIn": []
     },
     {
+      "id": "simplecrucibles:enderite_cauldron",
+      "name": {
+        "en_us": "Enderite Cauldron",
+        "de_de": "Enderit-Kessel"
+      },
+      "note": {
+        "en": {
+          "summary": "Reinforced cauldron for 4 buckets (see Netherite and Enderite cauldron)."
+        },
+        "de": {
+          "summary": "Verstärkter Kessel für 4 Eimer (siehe Netherit- und Enderit-Kessel)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplecrucibles:enderite_crucible",
       "name": {
         "en_us": "Enderite Crucible",
@@ -826,6 +902,23 @@
           "secret": [
             "Im Spiel gebaut: Axt in der Haupthand, Eisenbarren in der Nebenhand, sechzehn Schläge auf einen leeren Kessel - Seitenplatten, Griffe, Rand, je ein Barren. Man kann wie in einen Kessel hineintreten."
           ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:netherite_cauldron",
+      "name": {
+        "en_us": "Netherite Cauldron",
+        "de_de": "Netherit-Kessel"
+      },
+      "note": {
+        "en": {
+          "summary": "Reinforced cauldron for 2 buckets (see Netherite and Enderite cauldron)."
+        },
+        "de": {
+          "summary": "Verstärkter Kessel für 2 Eimer (siehe Netherit- und Enderit-Kessel)."
         }
       },
       "craftedBy": [],
@@ -1869,6 +1962,58 @@
           "damagePerHit": 10
         },
         "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json"
+      },
+      {
+        "id": "sledgehammer_upgrade/simplecrucibles:reinforced_cauldron",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplecrucibles:reinforced_cauldron",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_nugget",
+            "count": 4
+          }
+        ],
+        "tools": [
+          "simplehammers:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplecrucibles:netherite_cauldron",
+          "count": 1
+        },
+        "stats": {
+          "damagePerHit": 4
+        },
+        "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json"
+      },
+      {
+        "id": "sledgehammer_upgrade/simplecrucibles:netherite_cauldron",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplecrucibles:netherite_cauldron",
+            "count": 1
+          },
+          {
+            "id": "simpleores:enderite_nugget",
+            "count": 4
+          }
+        ],
+        "tools": [
+          "simplehammers:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplecrucibles:enderite_cauldron",
+          "count": 1
+        },
+        "stats": {
+          "damagePerHit": 10
+        },
+        "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json"
       }
     ]
   },
@@ -1878,20 +2023,20 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 9,
+    "features": 10,
     "recipes": 1,
-    "lootTables": 7,
+    "lootTables": 9,
     "tags": 11,
     "advancements": 1,
     "enchantments": 0,
     "items": 5,
-    "blocks": 7,
+    "blocks": 9,
     "trades": 0,
     "config": 37,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
-    "inWorld": 4,
+    "inWorld": 6,
     "incompleteProse": 0
   }
 }

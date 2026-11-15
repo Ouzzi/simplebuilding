@@ -1,6 +1,1 @@
-{
-  "model": {
-    "type": "minecraft:model",
-    "model": "simplebuilding:item/oak_door_2x3"
-  }
-}
+{"model":{"type":"minecraft:model","model":"simplebuilding:item/oak_door_2x3"}}

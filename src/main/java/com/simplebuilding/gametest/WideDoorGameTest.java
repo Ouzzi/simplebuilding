@@ -3,6 +3,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class WideDoorGameTest {
     @GameTest public void registeredAndCraftable(GameTestHelper helper) { WideDoorTests.registeredAndCraftable(helper); }
+    @GameTest public void everyVariant(GameTestHelper helper) { WideDoorTests.everyVariant(helper); }
     @GameTest public void placesEveryCell(GameTestHelper helper) { WideDoorTests.placesEveryCell(helper); }
     @GameTest public void placementToleratesClickOneCellTooHigh(GameTestHelper helper) { WideDoorTests.placementToleratesClickOneCellTooHigh(helper); }
     @GameTest(maxTicks = 100) public void openAndCloseByHand(GameTestHelper helper) { WideDoorTests.openAndCloseByHand(helper); }

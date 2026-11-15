@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -166,6 +168,72 @@ public final class WideDoorTests {
             if (!out.is(c.expect()) || out.getCount() != 1) problems.add("recipe " + c.what() + " gave " + out);
         }
         h.assertTrue(problems.isEmpty(), "door registration problems: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * N57-1 (owner 14.11.): every door variant has the four big formats - registered as WideDoorBlock, immovable, with the block set
+     * of its door (iron only by redstone), dropping itself, mined with the axe (wood) or pickaxe (metal); where the base door exists,
+     * 2x2 = 4 doors and 1.5x2 = door + 2 planks/ingots (+ stick for wood) craft it. Iron stays shut under a hand, copper opens.
+     */
+    public static void everyVariant(GameTestHelper h) {
+        if (!McVersion.DOORS) {
+            h.succeed();
+            return;
+        }
+        List<String> problems = new ArrayList<>();
+        var recipes = h.getLevel().getServer().getRecipeManager();
+        int crafted = 0;
+        for (com.simplebuilding.doors.WideDoors.Variant v : com.simplebuilding.doors.WideDoors.VARIANTS) {
+            var blocks = com.simplebuilding.doors.WideDoors.BLOCKS.get(v.id());
+            if (blocks == null || blocks.size() != 4) {
+                problems.add(v.id() + " has " + (blocks == null ? 0 : blocks.size()) + " formats");
+                continue;
+            }
+            for (DoorFormat f : com.simplebuilding.doors.WideDoors.WIDE) {
+                Block b = blocks.get(f);
+                Identifier id = BuiltInRegistries.BLOCK.getKey(b);
+                if (!(b instanceof WideDoorBlock door) || door.format() != f || !id.getPath().equals(f.id(v.id()))) problems.add(v.id() + " block " + f + " = " + id);
+                if (!(b instanceof WideDoorBlock door2) || door2.type().canOpenByHand() != v.type().canOpenByHand()) problems.add(v.id() + " " + f + " block set");
+                if (McVersion.pushReaction(b.defaultBlockState()) != McVersion.PUSH_BLOCKED) problems.add(v.id() + " movable " + f);
+                if (!(BuiltInRegistries.ITEM.getValue(id) instanceof com.simplebuilding.doors.WideDoorItem)) problems.add(v.id() + " item " + f);
+                BlockState base = b.defaultBlockState();
+                if (!base.is(v.wood() ? net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE : net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add(v.id() + " " + f + " tool tag");
+                ItemStack tool = new ItemStack(v.wood() ? Items.DIAMOND_AXE : Items.DIAMOND_PICKAXE);
+                int drops = 0;
+                for (ItemStack drop : Block.getDrops(base, h.getLevel(), h.absolutePos(ORIGIN), null, null, tool)) {
+                    if (drop.is(b.asItem())) drops += drop.getCount();
+                }
+                if (drops != 1) problems.add(v.id() + " " + f + " drops " + drops);
+            }
+            Item baseDoor = BuiltInRegistries.ITEM.getValue(v.door());
+            if (baseDoor == Items.AIR) continue; // the module is not loaded: no recipe
+            ItemStack door = new ItemStack(baseDoor);
+            CraftingInput square = CraftingInput.of(2, 2, List.of(door, door, door, door));
+            ItemStack out = recipes.getRecipeFor(RecipeType.CRAFTING, square, h.getLevel()).map(r -> r.value().assemble(square)).orElse(ItemStack.EMPTY);
+            if (!out.is(blocks.get(DoorFormat.FULL_2X2).asItem())) problems.add(v.id() + " 2x2 recipe gave " + out);
+            else crafted++;
+        }
+        h.assertTrue(crafted >= 16, "at least the 16 Vanilla variants craft (got " + crafted + ")");
+        // iron: redstone only, a hand leaves it shut; copper opens by hand
+        ServerPlayer player = player(h);
+        for (String wood : List.of("iron", "copper")) {
+            clear(h);
+            Block door = com.simplebuilding.doors.WideDoors.BLOCKS.get(wood).get(DoorFormat.FULL_2X2);
+            ItemStack stack = new ItemStack(door.asItem());
+            player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+            BlockPos floor = h.absolutePos(ORIGIN.below());
+            stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(floor).add(0, 0.5, 0), Direction.UP, floor, false)));
+            if (!at(h, ORIGIN).is(door)) {
+                problems.add(wood + " 2x2 not placed");
+                continue;
+            }
+            player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            h.useBlock(ORIGIN, player);
+            boolean open = at(h, ORIGIN).getValue(WideDoorBlock.OPEN);
+            if (open != wood.equals("copper")) problems.add(wood + " by hand: open=" + open);
+        }
+        h.assertTrue(problems.isEmpty(), "door variant problems: " + problems);
         h.succeed();
     }
 

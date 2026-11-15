@@ -3147,6 +3147,14 @@ public final class DataIntegrityTests {
         }
         if (McVersion.DOORS) {
             expected.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3));
+            // N57-1: the other door variants by id (2x2, 2x3, 1.5x2, 1.5x3), two per row
+            for (String wood : java.util.List.of("spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "pale_oak", "bamboo", "crimson",
+                    "warped", "iron", "copper", "exposed_copper", "weathered_copper", "oxidized_copper", "brass", "bronze", "lead", "nickel", "silver",
+                    "stainless_steel", "tin", "zinc", "ashwood", "duskwood", "crimson_blazewood", "warped_blazewood")) {
+                expected.add(CreativeTabLayout.Row.besides("wide_doors_" + wood, java.util.stream.Stream.of("2x2", "2x3", "1_5x2", "1_5x3")
+                        .map(f -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", wood + "_door_" + f)))
+                        .toArray(net.minecraft.world.level.ItemLike[]::new)));
+            }
         }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), flowed(expected), "SimpleMachines", problems);
