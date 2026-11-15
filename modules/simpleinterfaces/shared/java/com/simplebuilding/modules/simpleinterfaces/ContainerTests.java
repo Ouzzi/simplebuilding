@@ -97,6 +97,7 @@ public final class ContainerTests {
         rect(h, chest.container(), 0, 0, 177, 18 + 2 * 18 + 17 + 3 + 7, "chest container box 0..177");
         h.assertValueEqual(chest.height(), 168 + 6 + 2, "chest image 8 px taller (shulker 9)");
         h.assertTrue(BoxLayout.margin(slots(8, 150, 9, 1, 84), List.of(), 176, 220, 6) == null, "container below the inventory: Vanilla");
+        h.succeed();
     }
 
     /** The boxes of every W0 geometry (ChestMenu, ShulkerBoxMenu, HopperMenu, DispenserMenu in 26.3). */
