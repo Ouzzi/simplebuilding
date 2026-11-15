@@ -111,3 +111,25 @@ check <neue>`, `python3 tools/textures/texrate.py <neue>`, JSON-Validierung, sim
 ## 7. Später (sb-test wieder da), einzeln nacheinander
 
 Siehe Abschlussbericht (`/root/sbt b-saw62 …`).
+
+## 8. Umsetzung – Stand und Abweichungen (15.11.)
+
+- Umgesetzt wie geplant (Commits auf `b-saw62`). **Nichts kompiliert, keine GameTests gelaufen** (sb-test aus).
+- Abweichung 1: kein Config-Schalter für den Auto-Takt (Konstante `AUTO_INTERVAL_TICKS = 8`, wie der Auto-Crafter `CRAFT_INTERVAL_TICKS`);
+  ein Schlüssel `saw.autoIntervalTicks` in `simpleblocks-server.json` bräuchte zusätzlich Config-Screen-Lang + Wiki-Konfigzeile – erst auf Wunsch.
+- Abweichung 2: `triggered` ändert das Aussehen nicht (ein Modell je Block); Lampen-Zustand wäre eine zweite Texturrunde.
+- Abweichung 3: keine Einsortierung in Vanilla-Tabs (Redstone-Tab) – nur Simple-Blocks-Tab hinter der Formsäge (wie seit PLAN40 die Formsäge selbst auf NeoForge/Forge).
+- UI-Teil: keine Code-Änderung am Layout nötig (bereits Vanilla, keine Kategorien); nur Verallgemeinerung (`SawMenu`, generischer Screen).
+- Texturen, Runden (A8c, `texrate.py`):
+  - R1: 7-Ton-Rampen (~24 Lum.-Schritte) → wirkte wie Kies, hart 21–33 %, 2× rot (B-Front flach 67 %, A-Top hart 33 %).
+  - R2: 9-Ton-Rampen (~13 Schritte), Cluster nie gleich wie links/oben → keine roten mehr, große Flächen kamen aus der einfarbigen Öffnung.
+  - R3: Öffnung/Schlitz gemustert, Fugen gebrochen, Schattenspalte neben Holzpfosten → alle 16 Flächen orange (Top bleibt „hart“ 21–28 %
+    durch Schlitz/Blatt/Akzente – bei Maschinenflächen gewollt, Entscheidung per Blick), größte Fläche ≤ 37 px.
+  - Vorschau: `/root/sb-tools-b/previews/n62/tex/` (Blätter je Block/Variante 8×, `n62_cubes.png` 3D) + `items.json` (N62-N, N62-T1, N62-T2).
+  - „Alt neben neu“ entfällt: die Blöcke sind neu; die Formsäge-Textur ist aus Vanilla abgeleitet und darf nicht in Vorschauen.
+
+## 9. Offen
+
+- Besitzer: Namen (N62-N), Textur A/B je Block (N62-T1/T2), Modul (Simple Blocks vs. Simple Machines).
+- sb-test: Kompilieren + GameTests (Befehle im Abschlussbericht), danach Client-Sicht (Bildschirm, Texturen im Spiel).
+- Nach Landung von `b-n62`: Containerrand im Formsägen-Bildschirm prüfen (gilt für alle drei Blöcke).
