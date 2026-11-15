@@ -1105,11 +1105,22 @@ public final class SandwichTests {
             BlockPos marker = h.absolutePos(new BlockPos(i, 1, 0));
             h.getLevel().setBlockAndUpdate(marker, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
             var source = server.createCommandSourceStack().withEntity(p).withPosition(p.position()).withSuppressedOutput();
-            server.getCommands().performPrefixedCommand(source, "execute " + forms[i] + " run setblock " + marker.getX() + " " + marker.getY() + " "
-                    + marker.getZ() + " minecraft:stone");
+            String error = "";
+            try {
+                server.getCommands().getDispatcher().execute("execute " + forms[i] + " run setblock " + marker.getX() + " " + marker.getY() + " "
+                        + marker.getZ() + " minecraft:stone", source);
+            } catch (com.mojang.brigadier.exceptions.CommandSyntaxException | RuntimeException e) {
+                error = " [" + e.getMessage() + "]";
+            }
             ok[i] = h.getLevel().getBlockState(marker).is(net.minecraft.world.level.block.Blocks.STONE);
-            out.append("\n  ").append(ok[i] ? "MATCH " : "miss  ").append(forms[i]);
+            out.append("\n  ").append(ok[i] ? "MATCH " : "miss  ").append(forms[i]).append(error);
         }
+        // a single item: is "count" written at all?
+        ItemStack one = new ItemStack(Items.BUNDLE);
+        BundleContents.Mutable m1 = new BundleContents.Mutable();
+        m1.tryInsert(new ItemStack(Items.GOLDEN_APPLE, 1));
+        one.set(DataComponents.BUNDLE_CONTENTS, m1.toImmutable());
+        out.append("\n  one apple: ").append(ItemStack.CODEC.encodeStart(h.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), one).result().orElse(null));
         String nbt = String.valueOf(ItemStack.CODEC.encodeStart(h.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), bundle).result().orElse(null));
         p.setShiftKeyDown(false);
         com.simplesandwiches.Sandwiches.LOG.info("N60P probe command forms:{}\n  stack NBT {}", out, nbt);

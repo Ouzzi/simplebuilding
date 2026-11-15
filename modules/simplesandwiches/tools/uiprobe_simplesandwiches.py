@@ -221,7 +221,11 @@ def _bundle(s, me):
     # N60P r2: run 2 showed the eating particles (the meal ran) but the exact item predicate stayed red - read the count from the data
     # instead (3 = nothing eaten, 2/1 = eaten; a held button may start a second bite after the first one, 0/absent = Vanilla dropped them)
     path = 'SelectedItem.components."minecraft:bundle_contents"'
-    counts = [n for n in (3, 2, 1) if _sense(s, f'if data entity @s {path}[{{id:"minecraft:golden_apple",count:{n}}}]')]
+    counts = [n for n in (3, 2) if _sense(s, f'if data entity @s {path}[{{id:"minecraft:golden_apple",count:{n}}}]')]
+    # N60P r4: a single item is saved WITHOUT "count" (count 1 is the default) - run 4: entry present, no 3/2/1 match = one apple left
+    # after two bites. One left = a golden apple entry that matches neither 3 nor 2.
+    if not counts and _sense(s, f'if data entity @s {path}[{{id:"minecraft:golden_apple"}}]'):
+        counts = [1]
     # N60P r3: the cause in the detail - bundle still in the hand, any entry left, golden apples thrown out (Vanilla bundle use)
     has_bundle = _sense(s, 'if items entity @s weapon.mainhand minecraft:bundle')
     has_entry = _sense(s, f'if data entity @s {path}[0]')
