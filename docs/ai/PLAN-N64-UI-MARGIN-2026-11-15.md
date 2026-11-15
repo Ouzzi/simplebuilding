@@ -55,5 +55,71 @@ Schmale Inhalte (Trichter/Werfer-Fall): Kasten so breit wie das Inventar, Inhalt
   Wrapper-Positionen.
 - Kein Client-Lauf hier: Pixel-Nachzählung im Spiel durch Session B (Szenario siehe Abschnitt Prüfung).
 
-## Maße vorher (Code-Maße, `previews/n64/measures-vorher.json`)
-(wird nach der Erhebung ergänzt)
+## Maße (Code-Maße, `previews/n64/measures-vorher.json` / `measures-nachher.json`, Pixel-Gegenprobe `measures-bilder.json`)
+Werkzeug: `/root/sb-tools-b/ig57u/mock/n64lay.py` (Ports `BoxLayout.compute`/`margin`, `UiMargin.of`), `n64screens.py` (alle Screens,
+`python3 -I n64screens.py OUT.json`), `render_n64.py` (Bilder + Pixelzählung, stimmt mit den Code-Maßen überein), `html_n64.py`.
+l/r/o/u = Fläche zwischen heller Innenlinie und äußerstem Slot/Element; T = Titel; Container links/rechts gegen das Äußerste
+aus Inhalt und Inventarspalten (Besitzer N62: mittiger Inhalt, Kasten so breit wie das Inventar).
+
+| Screen | Gruppe | vorher Container l/r/o/u | vorher Inventar | Shift/Höhe vorher | nachher Container | nachher Inventar | Shift/Höhe nachher |
+|---|---|---|---|---|---|---|---|
+| Crafting Table (Werkbank) | simpleinterfaces/work | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 6/175 |
+| Furnace | simpleinterfaces/work | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 6/175 |
+| Blast Furnace | simpleinterfaces/work | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 6/175 |
+| Smoker | simpleinterfaces/work | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 6/175 |
+| Brewing Stand | simpleinterfaces/work | 3/2/T/6 (SEAM) | 3/2/1/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 11/180 |
+| Enchanting Table | simpleinterfaces/work | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 8/177 |
+| Beacon | simpleinterfaces/work | 4/3/3/5 (SEAM) | 31/28/1/0 | 0/219 | 3/3/3/3 | 3/3/3/3 | 12/234 |
+| Anvil | simpleinterfaces/station | 3/2/T/2 (TWO_BOXES) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 4/173 |
+| Grindstone | simpleinterfaces/station | 3/2/T/9 (TWO_BOXES) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 0/169 |
+| Stonecutter (+ Shapecutter) | simpleinterfaces/station | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 6/175 |
+| Loom | simpleinterfaces/station | 3/2/T/3 (SEAM) | 3/2/1/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 14/183 |
+| Smithing Table | simpleinterfaces/station | 3/1/T/4 (SEAM) | 3/2/1/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 13/182 |
+| Cartography Table | simpleinterfaces/station | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/182 | 3/3/T/3 | 3/3/3/3 | 22/191 |
+| Player Inventory | simpleinterfaces/station | 3/0/3/2 (SEAM) | 3/2/1/0 | 0/166 | 3/3/3/3 | 3/3/3/3 | 15/184 |
+| Villager Trading (Merchant) | simpleinterfaces/station | 0/2/T/2 (MERCHANT) | 0/-3/-2/-7 | 0/166 | unverändert (offen) | | |
+| Crafter | simpleinterfaces/storage | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 6/175 |
+| Horse (no chest) | simpleinterfaces/storage | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 7/176 |
+| Donkey/Mule (chest) | simpleinterfaces/storage | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 7/176 |
+| Llama (strength 5) | simpleinterfaces/storage | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 7/176 |
+| Nautilus | simpleinterfaces/storage | 3/2/T/2 (NO_SHADOW) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 7/176 |
+| Chest 9x3 (N62) | simpleinterfaces/storage | 3/3/T/3 (TWO_BOXES) | 3/3/3/3 | 6/176 | 3/3/T/3 | 3/3/3/3 | 6/176 |
+| Large Chest 9x6 (N62) | simpleinterfaces/storage | 3/3/T/3 (TWO_BOXES) | 3/3/3/3 | 6/230 | 3/3/T/3 | 3/3/3/3 | 6/230 |
+| Fletching Table (simplearrows) | mods | 3/2/T/15 (TWO_BOXES) | 3/2/0/0 | 0/166 | 3/3/T/3 | 3/3/3/3 | 0/169 |
+| Enchanter (simpleenchanting) | mods | 2/1/T/0 (TWO_BOXES) | 3/2/0/0 | 0/202 | 3/3/T/3 | 3/3/3/3 | 6/211 |
+| Foundry (simplefoundry) | mods | 3/2/T/0 (TWO_BOXES) | 3/2/11/0 | 0/208 | 3/3/T/3 | 3/3/3/3 | 0/211 |
+| Death Vault (simpletools) | mods | 3/2/T/0 (TWO_BOXES) | 3/2/0/0 | 0/222 | 3/3/T/3 | 3/3/3/3 | 6/230 |
+| Questionary (simplequestionary) | mods | 3/2/T/– (TWO_BOXES) | 3/2/T/1 | 0/238 | 3/3/T/– | 3/3/T/3 | 0/238 |
+| Crucible IRON ohne Fass (simplecrucibles) | mods | 3/2/T/– (TWO_BOXES) | 3/2/T/1 | 0/173 | 3/3/T/– | 3/3/T/3 | 0/175 |
+| Backpack BASIC (simplestorage) | mods | 3/0/T/2 (SEAM) | 3/2/19/0 | 0/184 | unverändert (offen) | | |
+| Shop Storage (simpleshops) | mods | 3/2/T/12 (SEAM) | 3/2/1/0 | 0/168 | unverändert (offen) | | |
+| Shop Stock (simpleshops) | mods | 3/2/T/11 (SEAM) | 3/2/1/0 | 0/133 | unverändert (offen) | | |
+| Shop Buyer (simpleshops) | mods | 3/2/T/5 (SEAM) | 3/2/1/0 | 0/192 | unverändert (offen) | | |
+| Invsee INVENTORY (simpletweaks) | mods | 3/2/T/6 (SEAM) | 3/2/1/1 | 0/207 | unverändert (offen) | | |
+| Hufpanel (simpleriding) | mods | 2/–/1/1 (Box -43,12,48x49) | – | – | 3/–/3/3 (Box -44,10,49x53) | – | – |
+
+Nicht in der Tabelle, weil schon N62 (unverändert): Kiste/Fass/Endertruhe 9x1..9x6, Shulker, Trichter, Werfer/Spender, die 8 eigenen
+N62-Screens (Mod-Truhen/Fässer, Storage Crafting, Controller, Rohr, Mod-Trichter, Autonomous Crafter, Auto Smither, Musikpresse).
+Laden-Varianten Owner (einzeln/kombiniert) und TradeTerminal haben dieselbe Fugen-Konstruktion wie Storage/Stock/Buyer (offen);
+Invsee ENDER/DEATHS wie INVENTORY; Rucksack REINFORCED/NETHERITE/ENDERITE wie BASIC (+ Zusatzspalten neben dem Inventar).
+Tiegel: alle Stufen/Layouts gleich behandelt (Kasten +1 px rechts), Tabelle zeigt IRON ohne Fass.
+
+### Screens ohne Slots (nur gelistet, A7 analog nicht erzwungen)
+Bücher/Panels/Konfig mit `UiBoxes.box`: simplemaps Wayfinder/PictureMap/WaypointDialog, simplemodels ModelEditor/ModelBrowser/
+ModelFile/TexturePicker (flache Vollbild-Rahmen ohne Schatten), simplevisuals ModelBrowser, simplemusic SheetMusic/Burn, simpleearth
+EarthScreen, simplechallenges SelectChallenge/StartAreaEditor, simpletweaks Deed/DeedCard, simplestats ItemStats, simplerespawn
+Downed, simplebuildingtools Octant/BuildingWand/Blueprint (ModScreenStyle), simplelib DevVariantsPanel, Todestresor-Legende.
+Es sind Listen/Formular-/Vollbild-Layouts (Inhalt aus Widgets mit eigener Rechnung), kein „Kasten mit Slots“ – keine Änderung.
+Altlast ohne UiBoxes-Stil (Vanilla-PNG): common/src TieredChest/AutoSmither/NetheriteHopper/AutonomousCrafter/Backpack-Screen (SimpleBuilding-Kern).
+
+## Umsetzung (Stand Commit, Abweichungen)
+- Wie geplant: Stationen, Fletching, Enchanter, Foundry, Todestresor, Fragebogen, Tiegel, Hufpanel.
+- Abweichung: Fragebogen/Tiegel ohne `UiMargin` (eigene Spalten-/Mehrkasten-Layouts): nur Breite +1 und Inventar-Höhe 102;
+  Inventar-Label bleibt dort Titel des Inventar-Kastens. Foundry: Inventar-Label entfällt (Kasten-Oberkante läge darauf).
+- Offen (Besitzerfrage N64-F): Händler, Rucksack, Läden (5 Screens), Invsee, Formsäge-Ersatzstil ohne SimpleInterfaces,
+  Titel-Abstand Steinsäge/Braustand.
+
+## Prüfung
+- sb-test: siehe Bericht/Memory (Fabric-Gametests der angefassten Module einzeln).
+- Client-Pixelzählung (Session B, nicht hier): Szenario `simpleinterfaces/n62` um die Stationen erweitern bzw. je Station öffnen,
+  `measure_shots.py` zählen lassen; Soll = 3 überall außer Titel-Oberkante (Liste `previews/n64/measures-nachher.json`).

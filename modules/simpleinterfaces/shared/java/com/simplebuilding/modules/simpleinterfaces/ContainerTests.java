@@ -166,8 +166,8 @@ public final class ContainerTests {
             h.assertValueEqual(Math.min(x0, px0) - (k.x() + 5), m, geo.id() + ": container left");
             h.assertValueEqual(k.x() + k.width() - 5 - Math.max(x1, px1), m, geo.id() + ": container right");
             h.assertValueEqual(k.bottom() - 7 - y1, m, geo.id() + ": container bottom");
-            // content right under the box top (no title row above it: beacon fields, smithing preview, player model)
-            if (y0 - (k.y() + 5) < 8) h.assertValueEqual(y0 - (k.y() + 5), m, geo.id() + ": container top (no title row)");
+            // no title drawn (beacon, player inventory): the top margin is MARGIN too; titled boxes keep the title row
+            if (id.equals("beacon") || id.equals("player_inventory")) h.assertValueEqual(y0 - (k.y() + 5), m, geo.id() + ": container top (no title row)");
             h.assertValueEqual(px0 - (i.x() + 5), m, geo.id() + ": inventory left");
             h.assertValueEqual(i.x() + i.width() - 5 - px1, m, geo.id() + ": inventory right");
             h.assertValueEqual(py0 - (i.y() + 5), m, geo.id() + ": inventory top");
