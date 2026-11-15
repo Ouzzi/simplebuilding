@@ -55,10 +55,48 @@ public final class BoxLayout {
      * The container box ({@code null} without container slots) and the inventory box - or, for {@link Variant#SEAM},
      * the one box and the light panel inside it.
      */
-    public record Layout(@Nullable Rect container, Rect inventory, Variant variant) {
+    public record Layout(@Nullable Rect container, Rect inventory, Variant variant, int shift, int height) {
+        public Layout(@Nullable Rect container, Rect inventory, Variant variant) {
+            this(container, inventory, variant, 0, inventory.bottom());
+        }
+
         public Layout(@Nullable Rect container, Rect inventory) {
             this(container, inventory, Variant.TWO_BOXES);
         }
+    }
+
+    /**
+     * N62 (owner 15.11.): the fixed container margin - {@link UiBoxes#MARGIN} px of fill between each box's light inner line
+     * and its outermost slots on all four sides (the title keeps its own margin; the slots stay >= MARGIN below it), both
+     * boxes shadowed, a divider of at least {@link #MAX_GAP} px. Where Vanilla's rows leave less room, {@link Layout#shift}
+     * says how many px the player's slots must move down (client side, before the screen is centred) and
+     * {@link Layout#height} the image height then needed; the boxes are given for the moved slots. The box may be 1 px wider
+     * than the image (a chest: 0..177), otherwise the right margin would be 2. {@code null} as {@link #compute}.
+     */
+    public static @Nullable Layout margin(List<Slot> slots, List<Rect> elements, int imageWidth, int imageHeight, int titleY) {
+        int[] c = withElements(bounds(slots, false), elements), p = bounds(slots, true);
+        if (p == null || c == null || c[1] >= p[1]) return null;
+        int edge = UiBoxes.MARGIN + UiBoxes.FRAME;
+        int left = Math.max(0, Math.min(c[0], p[0]) - edge);
+        int right = Math.min(imageWidth + 1, Math.max(c[2], p[2]) + SLOT + edge);
+        int containerTop = Math.max(0, Math.min(c[1] - edge, titleY - UiBoxes.FRAME - 1));
+        int containerBottom = c[3] + SLOT + UiBoxes.MARGIN + UiBoxes.FRAME_BOTTOM;
+        int shift = Math.max(0, containerBottom + MAX_GAP - (p[1] - edge));
+        int inventoryTop = p[1] + shift - edge;
+        int inventoryBottom = p[3] + shift + SLOT + UiBoxes.MARGIN + UiBoxes.FRAME_BOTTOM;
+        return new Layout(new Rect(left, containerTop, right - left, containerBottom - containerTop),
+                new Rect(left, inventoryTop, right - left, inventoryBottom - inventoryTop), Variant.TWO_BOXES, shift,
+                Math.max(imageHeight, inventoryBottom));
+    }
+
+    /** {@code c} (container item bounds or {@code null}) grown by {@code elements} as in {@link #compute}. */
+    private static int[] withElements(int[] c, List<Rect> elements) {
+        for (Rect e : elements) {
+            c = c == null ? new int[] {e.x(), e.y(), e.x() + e.width() - SLOT, e.y() + e.height() - SLOT}
+                    : new int[] {Math.min(c[0], e.x()), Math.min(c[1], e.y()), Math.max(c[2], e.x() + e.width() - SLOT),
+                            Math.max(c[3], e.y() + e.height() - SLOT)};
+        }
+        return c;
     }
 
     private BoxLayout() {}

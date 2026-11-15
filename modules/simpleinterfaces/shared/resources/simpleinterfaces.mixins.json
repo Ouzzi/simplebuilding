@@ -25,6 +25,7 @@
     "ShapecutterStationMixin",
     "LoomStationMixin",
     "CartographyHeightMixin",
+    "StorageMarginMixin",
     "CartographyStationMixin",
     "MerchantStationMixin",
     "TradeOfferButtonMixin",

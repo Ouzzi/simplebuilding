@@ -13,6 +13,12 @@ public final class UiBoxes {
     public static final int RIM = 0xFF1E1F23;
     /** Frame thickness of a box at the top and the sides, and at the bottom (with the 2 px shadow). */
     public static final int FRAME = 5, FRAME_BOTTOM = 7;
+    /**
+     * N62 (owner 15.11.): fill px between a box's light inner line and its outermost slots on all four sides (a slot = 16x16 with
+     * its dark top/left edge plus the 1 px light edge right/below) - the side margin of a Vanilla chest. Every container box
+     * keeps it; a title has its own margin above. docs/ai/PRINZIPIEN.md A7 "Container-Margin".
+     */
+    public static final int MARGIN = 3;
     /** Arrow size ({@link #arrow}). */
     public static final int ARROW_WIDTH = 22, ARROW_HEIGHT = 15;
     private static final int TRACK = 0xFF3A3A3A;
