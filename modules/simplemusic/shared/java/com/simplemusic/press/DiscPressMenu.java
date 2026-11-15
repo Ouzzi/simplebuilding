@@ -18,7 +18,9 @@ import net.minecraft.world.item.ItemStack;
  * übereinander"), the progress arrow, the pressed disc on the right. Shift-click sends sheets and blanks to their slots.
  */
 public class DiscPressMenu extends AbstractContainerMenu {
-    public static final int SHEET_X = 38, SHEET_Y = 35, BLANK_X = 56, BLANK_Y = 35, OUTPUT_X = 116, OUTPUT_Y = 35, DYE_X = 47, DYE_Y = 56;
+    // N57-10 (owner 14.11. "etwas ist verschoben"): the dye slot at y 56 ran 3 px into the iron box's bottom frame (fill ends
+    // at 70, the slot with its light edge at 73) - the press row moved up 7 px, the dye slot sits on Vanilla's 18 px grid below it
+    public static final int SHEET_X = 38, SHEET_Y = 28, BLANK_X = 56, BLANK_Y = 28, OUTPUT_X = 116, OUTPUT_Y = 28, DYE_X = 47, DYE_Y = 46;
     private static final Identifier SHEET_ICON = Identifier.fromNamespaceAndPath("simplemusic", "container/slot/sheet_music"),
             BLANK_ICON = Identifier.fromNamespaceAndPath("simplemusic", "container/slot/blank_disc"),
             DYE_ICON = Identifier.fromNamespaceAndPath("simplemusic", "container/slot/dye");

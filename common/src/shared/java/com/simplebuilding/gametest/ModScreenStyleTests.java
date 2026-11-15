@@ -117,8 +117,13 @@ public final class ModScreenStyleTests {
         Box container = ModScreenLayout.container(imageWidth, origin[1]);
         Box inventory = ModScreenLayout.inventory(origin[0], origin[1]);
         if (container.bottom() + ModScreenLayout.GAP != inventory.y()) problems.add(what + ": divider is not " + ModScreenLayout.GAP + " px");
-        if (inventory.x() < 0 || inventory.right() > imageWidth || inventory.bottom() > imageHeight) {
+        // N57-5: the box hangs INVENTORY_PAD px below the image (room under the hotbar), never more
+        if (inventory.x() < 0 || inventory.right() > imageWidth || inventory.bottom() > imageHeight + ModScreenLayout.INVENTORY_PAD) {
             problems.add(what + ": inventory box " + inventory + " leaves the image " + imageWidth + "x" + imageHeight);
+        }
+        int hotbarBottom = origin[1] + 58 + 17;
+        if (inventory.inner().bottom() - hotbarBottom < ModScreenLayout.INVENTORY_PAD) {
+            problems.add(what + ": only " + (inventory.inner().bottom() - hotbarBottom) + " px under the hotbar (N57-5)");
         }
         for (Slot slot : menu.slots) {
             if (!slot.isActive()) continue;
