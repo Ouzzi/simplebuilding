@@ -22,7 +22,7 @@ import net.minecraft.world.inventory.Slot;
  * step like the chests; with the style off, in Vanilla's grey.
  */
 public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
-    private static final int INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
+    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
     private static final int FILTER_X = 30, KEY_Y = 17, KEY_HEIGHT = 18;
     /** The side keys (ROHR33): 11 px squares in a compass cross around this middle (north on top, west left, east right, south below) and an up/down column beside it. */
     private static final int SIDE_SIZE = 11, HEX_X = 126, HEX_Y = 26, COLUMN_X = 158;

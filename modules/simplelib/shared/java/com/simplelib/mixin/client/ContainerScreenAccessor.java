@@ -15,7 +15,4 @@ public interface ContainerScreenAccessor {
 
     @Accessor("imageWidth")
     int simplelib$imageWidth();
-
-    @Accessor("imageHeight")
-    int simplelib$imageHeight();
 }

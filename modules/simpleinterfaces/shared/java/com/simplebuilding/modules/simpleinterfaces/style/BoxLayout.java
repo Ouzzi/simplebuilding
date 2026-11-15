@@ -87,9 +87,8 @@ public final class BoxLayout {
         int right = Math.min(Math.max(imageWidth, 0), (c == null ? p[2] : Math.max(c[2], p[2])) + 16 + SIDE);
         if (right - left < 2 * UiBoxes.FRAME + SLOT) return null;
         int playerBottom = p[3] + SLOT;
-        // N57-5 (owner 14.11.): room under the hotbar like Vanilla's 4 px above it; the box may hang below the image
-        // (SimpleLib's InventoryPadClickMixin keeps clicks there inside the screen)
-        int inventoryBottom = playerBottom + UiBoxes.INVENTORY_PAD + UiBoxes.FRAME_BOTTOM;
+        int inventoryBottom = playerBottom + UiBoxes.FRAME_BOTTOM;
+        inventoryBottom += Math.max(0, Math.min(MAX_GAP, imageHeight - inventoryBottom));
         if (c == null) {
             int top = Math.max(0, p[1] - UiBoxes.FRAME - MAX_GAP);
             return new Layout(null, new Rect(left, top, right - left, inventoryBottom - top));

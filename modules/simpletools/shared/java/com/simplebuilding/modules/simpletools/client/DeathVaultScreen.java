@@ -36,7 +36,7 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     /** First inventory row (as {@link DeathVaultMenu}), the vault box above it with the mod chests' 2 px gap, the inventory box. */
     private static final int GAP = 2, INVENTORY_Y = DeathVaultMenu.GRID_Y + DeathVaultMenu.ROWS * 18 + 13;
     private static final int VAULT_HEIGHT = INVENTORY_Y - UiBoxes.FRAME - GAP;
-    private static final int INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
+    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
     private static final int PANEL_X = DeathVaultMenu.WIDTH + GAP, PANEL_W = 130;
     /**
      * Legend cards (owner 23.10.: variant A's status icons in variant C's group cards, the card frame in the style of the

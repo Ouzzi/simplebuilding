@@ -36,7 +36,7 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
     public static final UiPalette PALETTE = UiPalette.derived(0xFF4F5560);
     private static final int ERROR = 0xFFC9503E;
     private static final int GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
+    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
 
     private final CyclingSlotBackground templateIcon = new CyclingSlotBackground(0);
     private final CyclingSlotBackground baseIcon = new CyclingSlotBackground(1);

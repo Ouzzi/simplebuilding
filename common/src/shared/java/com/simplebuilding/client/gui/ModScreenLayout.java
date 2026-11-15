@@ -23,10 +23,8 @@ public final class ModScreenLayout {
     public static final int SIDE = 8;
     /** Width of the inventory box (Vanilla's image width). */
     public static final int INVENTORY_WIDTH = 176;
-    /** Rows of inventory fill under the hotbar (owner N57-5: as much as Vanilla's 4 px between inventory and hotbar); the box hangs this far below the image. */
-    public static final int INVENTORY_PAD = 4;
-    /** Height of the inventory box: frame, three rows, Vanilla's 4 px, hotbar, pad, bottom frame. */
-    public static final int INVENTORY_HEIGHT = FRAME + 58 + 17 + INVENTORY_PAD + FRAME_BOTTOM;
+    /** Height of the inventory box: frame, three rows, Vanilla's 4 px, hotbar, bottom frame. */
+    public static final int INVENTORY_HEIGHT = FRAME + 58 + 17 + FRAME_BOTTOM;
     /** Row of the seam in the backpack's one box (the crafting part above, backpack rows from 84). */
     public static final int BACKPACK_SEAM_Y = BackpackLayout.FIRST_ROW_Y - 3;
     /** Storage Crafting Table's recipe book button: Vanilla's crafting table spot (left of the grid's middle row). */

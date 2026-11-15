@@ -216,7 +216,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
         int invY = EnchanterMenu.INVENTORY_Y;
         int boxH = invY - FRAME - GAP;
         UiBoxes.box(g, left, top, this.imageWidth, boxH, STYLE);
-        UiBoxes.box(g, left + 8 - SIDE, top + invY - FRAME, 176, UiBoxes.INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        UiBoxes.box(g, left + 8 - SIDE, top + invY - FRAME, 176, FRAME + 58 + 17 + FRAME_BOTTOM, UiPalette.INVENTORY);
         List<int[]> avoid = new ArrayList<>();
         for (Slot slot : this.menu.slots) {
             if (slot.index < EnchanterMenu.TABLE_SLOTS) avoid.add(new int[] {left + slot.x, top + slot.y, left + slot.x + 17, top + slot.y + 17});

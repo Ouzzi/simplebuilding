@@ -31,7 +31,7 @@ public class StorageCraftingScreen extends AbstractRecipeBookScreen<StorageCraft
     /** Recipe book button (relative to the image): Vanilla's crafting table spot, left of the grid's middle row. */
     static final int BOOK_X = 5, BOOK_Y = 34;
     /** First slot of the player's main inventory and the frames of the style (UiBoxes). */
-    private static final int INVENTORY_X = 8, INVENTORY_Y = 84, GAP = 2, INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
+    private static final int INVENTORY_X = 8, INVENTORY_Y = 84, GAP = 2, INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
 
     public StorageCraftingScreen(StorageCraftingMenu menu, Inventory inventory, Component title) {
         super(menu, new CraftingRecipeBookComponent(menu), inventory, title);

@@ -24,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
  * (drag it, or use the mouse wheel), the number of chests against the limit. A broken controller shows a dark panel with a red cross and its cause instead of the list.
  */
 public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
-    private static final int INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
+    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
     private static final int KEY_Y = 15, KEY_HEIGHT = 13, SORT_X = 8, SORT_WIDTH = 52, SEARCH_X = 64, SEARCH_WIDTH = 100;
     /** The scrollbar right of the list: track and thumb. */
     private static final int BAR_X = ControllerMenu.VIEW_X + 9 * 18 + 4, BAR_WIDTH = 10, BAR_Y = ControllerMenu.VIEW_Y, BAR_HEIGHT = ControllerMenu.ROWS * 18;

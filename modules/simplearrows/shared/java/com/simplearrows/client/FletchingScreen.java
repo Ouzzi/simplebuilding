@@ -109,7 +109,7 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
         int[] inv = FletchingMenu.inventoryOrigin(this.menu);
         int boxH = inv[1] - FRAME - GAP;
         UiBoxes.box(g, left, top, this.imageWidth, boxH, STYLE);
-        UiBoxes.box(g, left + inv[0] - SIDE, top + inv[1] - FRAME, 176, UiBoxes.INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        UiBoxes.box(g, left + inv[0] - SIDE, top + inv[1] - FRAME, 176, FRAME + 58 + 17 + FRAME_BOTTOM, UiPalette.INVENTORY);
         Slot result = this.menu.getSlot(FletchingMenu.RESULT_SLOT);
         // WD25-12: the row (book, feather, shaft, tip, arrow, result) centred in the box; positions from the menu
         int px = FletchingMenu.PART_X, py = FletchingMenu.ROW_Y, ax = px + ARROW_DX, ay = py + 1;

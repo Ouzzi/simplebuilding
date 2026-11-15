@@ -107,7 +107,7 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     }
 
     private static final int INVENTORY_GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.INVENTORY_HEIGHT;
+    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
 
     static UiPalette palette(ChestTier tier) {
         return switch (tier) {
