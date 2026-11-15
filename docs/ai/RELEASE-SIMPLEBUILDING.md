@@ -227,7 +227,7 @@ Weitere Auffälligkeiten (nur notiert, nichts geändert):
 | L6 | Kern + 13 Sub-Mods | Echt-Maus-Probes (Muster `pipe_probe.py`) für Fenster ohne Probe; Client-Läufe nur einzeln bei leerem sb-test | M–L | b-probesb31 | nein |
 | L7 | alle | Queue-`[~]` der Familie mit Rest „nur Client-Sicht“ gegen rel10/vis24all/compat26-Bilder prüfen → `[x]` mit Beleg oder konkreter Rest | M | b-queuesb31 | nein |
 | L8 | Simple Dimensions, Tweaks | legacy_dimensions-Test im Bündel bestätigen; Tweaks-Claim-Configs mit `simpledimension:` beim Laden umschreiben | S | b-dimrest31 | nein |
-| L9 | SB + Pflicht-Sub-Mods | Headless-Messung MSPT/Heap SB-Familie gegen Vanilla (Muster `tools/bench/headless_bench.py`, Profil „sb“) | M | b-benchsb31 | Grenzwert f5 |
+| L9 | SB + Pflicht-Sub-Mods | Headless-Messung MSPT/Heap SB-Familie gegen Vanilla (Muster `tools/bench/headless_bench.py`, Profil „sb“) | M | b-benchsb31 | Grenzwert f5; **gemessen 15.11. (a-w4c, sb-test geteilt): PASS, MSPT-Mittel +7,4 % gegen Vanilla (3,43 vs. 3,19 ms, Median aus je 5, Streuung ±0,8–1,0 ms), p95 +17,8 %, Heap +174 MB (nur berichtet); Wiederholung auf leerem Rechner empfohlen** |
 | L10 | SimpleBuilding | `wiki/manual.json`: 6 Kapitel mit toten Quellpfaden, `chisel` auf `modules/simplechisels` umstellen | S | b-manualsb31 | nein |
 | L11 | alle 41 Sub-Mods | Code-Audit je Mod wie b-rel32 (Zeile für Zeile, P1–P3, `modules/<mod>/AUDIT.md`, Fixes klein) – kein SB-Familien-Mod hat ein AUDIT.md | L | b-audsb31-<gruppe> (5 Gruppen) | nein |
 | L12 | Simple Mobheads, Tweaks | BS25-19 Absturz Seelenfeuer-Lohen-Kopf im echten Client nachstellen (Client-Lauf) | M | b-bs25crash31 | nein |
