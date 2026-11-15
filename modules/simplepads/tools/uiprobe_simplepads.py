@@ -25,8 +25,8 @@ def _fpos(s):
     return tuple(float(v) for v in s.st()['pos'].replace(',', ' ').split())
 
 
-def _aim(s, f, t, wait=0.8):
-    dx, dy, dz = t[0] - f[0], t[1] - (f[1] + 1.62), t[2] - f[2]
+def _aim(s, f, t, wait=0.8, eye=1.62):
+    dx, dy, dz = t[0] - f[0], t[1] - (f[1] + eye), t[2] - f[2]
     yaw = math.degrees(math.atan2(-dx, dz))
     pitch = -math.degrees(math.atan2(dy, math.hypot(dx, dz)))
     s.chat(f'tp @s {f[0]:.2f} {f[1]} {f[2]:.2f} {yaw:.1f} {pitch:.1f}', wait)
@@ -69,16 +69,30 @@ def _launch(s, x, y, z):
     s.io.right_click()
     time.sleep(0.6)
     s.check('launchpad: a real right click with wind charges loads one charge', _sense(s, f'if data block {px} {y} {pz} {{Charges:1}}'), 'Charges 1')
-    s.io.key_down('Shift_L')
-    try:
-        # N60P: the client applies the sneak key in the player tick, AFTER the use click of the same frame is handled; at the few
-        # frames a second of the full pack under Xvfb 0.3 s was one frame - the click went out unsneaked (a plain +1). Give it 1.2 s.
-        time.sleep(1.2)
-        s.io.right_click()
-    finally:
-        s.io.key_up('Shift_L')
-    time.sleep(0.6)
-    s.check('launchpad: Shift + right click loads the rest up to the capacity 4', _sense(s, f'if data block {px} {y} {pz} {{Charges:4}}'), 'Charges 4')
+    # N60P r2: the integration gametest sneakingWindChargeClickFillsSimplePadsLaunchpad (all mods, server side) is green, so the bulk
+    # load works; the probe's sneaking click still loaded too little in run 2 (cause: the lower sneaking eye, see below). Read the real charge count and give it a second try
+    # with a longer sneak (the detail shows whether a click went out unsneaked: +1 instead of the rest).
+    def charges():
+        return next((n for n in (4, 3, 2, 1, 0) if _sense(s, f'if data block {px} {y} {pz} {{Charges:{n}}}')), None)
+    seen = []
+    for wait in (1.2, 2.5):
+        s.io.key_down('Shift_L')
+        try:
+            time.sleep(wait)
+            # sneaking lowers the eye to 1.27: the ray aimed from 1.62 at the 1-px pad then ends on the grass in front of it (the wind
+            # charge is used on the grass, not the pad) - aim again from the sneaking eye
+            _aim(s, me, (px + 0.5, y + 0.03, pz + 0.5), 0.8, eye=1.27)
+            s.io.right_click()
+            time.sleep(0.3)
+        finally:
+            s.io.key_up('Shift_L')
+        time.sleep(0.6)
+        seen.append(charges())
+        if seen[-1] == 4:
+            break
+        s.chat(f'data merge block {px} {y} {pz} {{Charges:1}}', 0.4)  # back to one charge for the second try
+        s.chat('item replace entity @s hotbar.0 with minecraft:wind_charge 4', 0.3)
+    s.check('launchpad: Shift + right click loads the rest up to the capacity 4', seen[-1] == 4, f'Charges after each sneaking click: {seen}')
     s.key('F1', 0.5)
     s.shot('launchpad-loaded')
     s.key('F1', 0.5)
