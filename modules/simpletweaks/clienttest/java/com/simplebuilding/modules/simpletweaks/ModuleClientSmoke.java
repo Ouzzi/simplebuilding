@@ -65,9 +65,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   context.clickScreenButton("gui.done");
   context.waitTicks(10);context.takeScreenshot("simpletweaks-deed-cooldown");
   context.runOnClient(client->{if(!(client.gui.screen() instanceof com.simplebuilding.modules.simpletweaks.deed.client.DeedScreen))throw new AssertionError("A refused save keeps the editor open");});
+  System.out.println("[tweaks] after the refused Done: "+editorState(context,world));
   context.waitTicks(110);
   context.clickScreenButton("gui.done");
-  context.waitFor(client->client.gui.screen()==null,200);
+  try{context.waitFor(client->client.gui.screen()==null,200);}
+  catch(AssertionError e){throw new AssertionError("Done after the cooldown did not close the editor: "+editorState(context,world),e);}
   world.getServer().runOnServer(server->{
    var p=server.getPlayerList().getPlayers().getFirst();var land=com.simplebuilding.modules.simpletweaks.claims.Claims.get(server).lands().get(p.getUUID());
    if(land==null||land.top().everyone()!=com.simplebuilding.modules.simpletweaks.claims.ClaimRights.USE||land.top().members().size()!=1||!land.code().contains("Claim rights"))throw new AssertionError("Done saved the code on the server: "+land);
@@ -80,6 +82,21 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   context.waitForScreen(com.simplebuilding.modules.simpletweaks.deed.client.DeedScreen.class);
   context.waitTicks(3);context.takeScreenshot("simpletweaks-deed-read");
   context.runOnClient(client->client.gui.setScreen(null));
+ }
+
+ /** What the deed editor and the server say when a save does not go through (screen, pending, server errors, cooldown). */
+ private static String editorState(ClientGameTestContext context,net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+  String client=context.computeOnClient(c->{
+   var s=c.gui.screen();var out=new StringBuilder("screen="+(s==null?null:s.getClass().getSimpleName()));
+   if(s instanceof com.simplebuilding.modules.simpletweaks.deed.client.DeedScreen)for(String f:new String[]{"pending","serverErrors","text","original","revision"}){
+    try{var field=s.getClass().getDeclaredField(f);field.setAccessible(true);out.append(' ').append(f).append('=').append(field.get(s));}catch(ReflectiveOperationException x){out.append(' ').append(f).append("=?");}
+   }
+   return out.toString();
+  });
+  String[] server=new String[1];
+  world.getServer().runOnServer(s->{var p=s.getPlayerList().getPlayers().getFirst();var claims=com.simplebuilding.modules.simpletweaks.claims.Claims.get(s);long t=s.overworld().getGameTime();
+   server[0]="gameTime="+t+" tickCount="+s.getTickCount()+" cooldownLeft="+claims.cooldownLeft(p.getUUID(),t)+" land="+claims.lands().get(p.getUUID());});
+  return client+" | "+server[0];
  }
 
  /** Admin inventory screen (T13) and the death backup screen (T11) on a real client: screenshots for the owner's review. */

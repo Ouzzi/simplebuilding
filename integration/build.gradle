@@ -27,7 +27,7 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.mc263_fabric_version}"
 }
 def registry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json'))
-// a-w4c: -PmoduleClientSkip=a,b leaves those modules' client smokes out of the collective vis24all run (one red smoke aborts all later ones).
+// a-w4c: -PmoduleClientSkip=a,b leaves those modules' client smokes out of the collective vis24all run (b-client60o: a red smoke no longer aborts the later ones, see ModuleSmokesClientTest).
 def clientSkip = (project.findProperty('moduleClientSkip') ?: '').toString().tokenize(',')
 // a-w4c: -PmoduleClientOnly=a,b (with -PmoduleClientTest=vis24all) runs just those modules' client smokes, without the all-screens test.
 def clientOnly = (project.findProperty('moduleClientOnly') ?: '').toString().tokenize(',')
@@ -245,6 +245,7 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
                 : guidechap ? ['com.simplebuilding.integration.clienttest.GuideChapterClientTest']
                 : compat26 ? ['com.simplebuilding.integration.clienttest.Compat26ClientTest']
                 : tz38d ? ['com.simplebuilding.integration.clienttest.Tz38dClientTest']
+                : requested == 'vis24all' ? ['com.simplebuilding.integration.clienttest.ModuleSmokesClientTest']
                 : entries.collectMany { it.tests.client.entrypoints } + (vis && clientOnly.isEmpty() ? ['com.simplebuilding.integration.clienttest.Vis24ClientTest'] : [])],
             depends:(audit || bs25 || mixinaudit || b09 || rel10 || guidechap || compat26 || tz38d || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
@@ -253,6 +254,9 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def output = clientMetadata.get().file('fabric.mod.json').asFile
         output.parentFile.mkdirs()
         output.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(metadata)) + '\n'
+        // b-client60o: vis24all runs its smokes through ModuleSmokesClientTest (a red smoke no longer ends the run): this is its list.
+        def smokes = requested == 'vis24all' ? entries.collectMany { it.tests.client.entrypoints } + (clientOnly.isEmpty() ? ['com.simplebuilding.integration.clienttest.Vis24ClientTest'] : []) : []
+        clientMetadata.get().file('sbmodules-clienttest-smokes.txt').asFile.text = smokes.collect { it + '\n' }.join('')
     }
 }
 sourceSets.gametest.resources.srcDir clientMetadata
