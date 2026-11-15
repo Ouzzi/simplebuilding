@@ -118,22 +118,22 @@
       ],
       "en": {
         "title": "Mighty Beacon",
-        "summary": "The next step after the Strong Beacon: up to six pyramid levels (454 blocks), primary powers on levels 1 to 5, the secondary power on level 6, range 70 blocks with Iron at level 6.",
+        "summary": "The next step after the Strong Beacon: up to six pyramid levels (454 blocks), primary powers on levels 1 to 5, the secondary power on level 6, range 70 blocks with Iron at level 6. Level 5 gives Extra Hearts I: two extra hearts (four with the secondary power).",
         "details": [
           "Crafting: the Strong Beacon in the middle, the six cores (copper, iron, gold, diamond, netherite, enderite) around it - top row copper, iron, gold; left diamond, right netherite; bottom middle enderite - and a Strong Upgrade in each bottom corner. Without SimpleBuilding the cores are blocks of copper, iron, gold, diamond, netherite and emerald.",
-          "Levels 1 to 3 as on the Strong Beacon. Level 4: Luck I, Night Vision and a placeholder Resistance II. Level 5: Extra Hearts I (two hearts), and the placeholders Speed II and Jump Boost II. Fire Resistance and Absorption do not exist.",
+          "Levels 1 to 3 as on the Strong Beacon. Level 4: Luck I, Night Vision and Resistance II. Level 5: Extra Hearts I (two hearts), Speed II and Jump Boost II. Fire Resistance and Absorption do not exist.",
           "The secondary power (level 6) is Regeneration, or the primary power one step higher: Speed II becomes III, Extra Hearts I becomes II (four hearts); at most III.",
-          "The placeholder powers are marked II on their button; real powers will replace them later."
+          "Resistance II, Speed II and Jump Boost II are real level II powers, marked II on their button."
         ]
       },
       "de": {
         "title": "Mighty Beacon",
-        "summary": "Die nächste Stufe nach dem Starken Leuchtfeuer: bis zu sechs Pyramidenebenen (454 Blöcke), Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6, Reichweite 70 Blöcke mit Eisen auf Ebene 6.",
+        "summary": "Die nächste Stufe nach dem Starken Leuchtfeuer: bis zu sechs Pyramidenebenen (454 Blöcke), Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6, Reichweite 70 Blöcke mit Eisen auf Ebene 6. Ebene 5 gibt Extraherzen I: zwei Herzen mehr (vier mit der Sekundärkraft).",
         "details": [
           "Herstellung: das Starke Leuchtfeuer in der Mitte, die sechs Kerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit) drumherum - oben Kupfer, Eisen, Gold; links Diamant, rechts Netherit; unten Mitte Enderit - und in jeder unteren Ecke eine Starke Aufwertung. Ohne SimpleBuilding sind die Kerne Blöcke aus Kupfer, Eisen, Gold, Diamant, Netherit und Smaragd.",
-          "Ebenen 1 bis 3 wie beim Starken Leuchtfeuer. Ebene 4: Glück I, Nachtsicht und ein Platzhalter Resistenz II. Ebene 5: Extraherzen I (zwei Herzen) und die Platzhalter Tempo II und Sprungkraft II. Feuerresistenz und Absorption gibt es nicht.",
+          "Ebenen 1 bis 3 wie beim Starken Leuchtfeuer. Ebene 4: Glück I, Nachtsicht und Resistenz II. Ebene 5: Extraherzen I (zwei Herzen), Tempo II und Sprungkraft II. Feuerresistenz und Absorption gibt es nicht.",
           "Die Sekundärkraft (Ebene 6) ist Regeneration oder die Primärkraft eine Stufe höher: aus Tempo II wird III, aus Extraherzen I wird II (vier Herzen); höchstens III.",
-          "Die Platzhalter-Kräfte tragen ein II auf dem Knopf; echte Kräfte ersetzen sie später."
+          "Resistenz II, Tempo II und Sprungkraft II sind echte Kräfte der Stufe II und tragen ein II auf dem Knopf."
         ]
       }
     },
@@ -179,7 +179,7 @@
         "title": "Mighty Evil Beacon",
         "summary": "The Evil Beacon's big brother: up to six pyramid levels, primary powers on levels 1 to 5, the secondary power on level 6. Same recipe as the Mighty Beacon with the Evil Beacon in the middle.",
         "details": [
-          "Levels 1 to 4 as on the Evil Beacon. Level 5: Wind Charged and the placeholders Hunger II and Mining Fatigue II. Secondary (level 6): Nausea.",
+          "Levels 1 to 4 as on the Evil Beacon. Level 5: Wind Charged, Hunger II and Mining Fatigue II. Secondary (level 6): Nausea.",
           "The same protections as the Evil Beacon apply (5 minutes after death, no newcomers, no PvP-off players, no players in claims in which the owner has no rights)."
         ]
       },
@@ -187,7 +187,7 @@
         "title": "Mächtiges Böses Leuchtfeuer",
         "summary": "Der große Bruder des Bösen Leuchtfeuers: bis zu sechs Pyramidenebenen, Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6. Dasselbe Rezept wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte.",
         "details": [
-          "Ebenen 1 bis 4 wie beim Bösen Leuchtfeuer. Ebene 5: Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II. Sekundär (Ebene 6): Übelkeit.",
+          "Ebenen 1 bis 4 wie beim Bösen Leuchtfeuer. Ebene 5: Windgeladen, Hunger II und Abbaumüdigkeit II. Sekundär (Ebene 6): Übelkeit.",
           "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer (5 Minuten nach dem Tod, keine Neulinge, keine Spieler mit PvP aus, keine Spieler in Claims, in denen der Besitzer keine Rechte hat)."
         ]
       }
@@ -202,7 +202,7 @@
         "summary": "The beacons open a beacon screen in Vanilla's own style: one row taller (Strong, Evil: four primary rows) or two rows taller (Mighty kinds: five rows), three powers per row; every pyramid level has its own marker icon. The pyramid counter (for example Pyramid 0/6), the material factor (for example Material ×1.25) and the current range and duration sit in the right field.",
         "details": [
           "Rows the pyramid does not reach yet are greyed out; their tooltip names the level and the blocks it needs (level 5: 285, level 6: 454).",
-          "The tooltip of every power says in one line what it does; placeholder powers carry II. The II button is greyed out for powers that cannot be raised."
+          "The tooltip of every power says in one line what it does; level II powers of the Mighty kinds carry II. The II button is greyed out for powers that cannot be raised."
         ]
       },
       "de": {
@@ -210,7 +210,7 @@
         "summary": "Die Leuchtfeuer öffnen einen Leuchtfeuer-Bildschirm im Vanilla-Stil: eine Zeile höher (Stark, Böse: vier Primärzeilen) oder zwei Zeilen höher (Mächtige: fünf Zeilen), drei Kräfte je Zeile; jede Pyramidenebene hat ein eigenes Symbol. Der Pyramidenzähler (zum Beispiel Pyramide 0/6), der Materialfaktor (zum Beispiel Material ×1,25) sowie Reichweite und Dauer stehen im rechten Feld.",
         "details": [
           "Zeilen, die die Pyramide noch nicht erreicht, sind ausgegraut; ihr Tooltip nennt die Ebene und die nötigen Blöcke (Ebene 5: 285, Ebene 6: 454).",
-          "Der Tooltip jeder Kraft sagt in einer Zeile, was sie tut; Platzhalter-Kräfte tragen II. Der Knopf II ist bei Kräften ausgegraut, die sich nicht steigern lassen."
+          "Der Tooltip jeder Kraft sagt in einer Zeile, was sie tut; Kräfte der Stufe II der Mächtigen tragen II. Der Knopf II ist bei Kräften ausgegraut, die sich nicht steigern lassen."
         ]
       }
     },
@@ -1622,10 +1622,10 @@
           "modules/simplebeacons/shared/resources/data/simplebeacons/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Beacons\" of the Simple Modpack guide (SimpleLib): 33 pages taken from this wiki, shown in your language. Unlocked by picking up: prismarine shard. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Beacons\" of the Simple Modpack guide (SimpleLib): 34 pages taken from this wiki, shown in your language. Unlocked by picking up: prismarine shard. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Beacons\" im Simple-Modpack-Handbuch (SimpleLib): 33 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Prismarinscherbe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Beacons\" im Simple-Modpack-Handbuch (SimpleLib): 34 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Prismarinscherbe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplebeacons/item/guide_book.png",
@@ -1768,22 +1768,22 @@
       "note": {
         "en": {
           "title": "Mighty Beacon",
-          "summary": "The next step after the Strong Beacon: up to six pyramid levels (454 blocks), primary powers on levels 1 to 5, the secondary power on level 6, range 70 blocks with Iron at level 6.",
+          "summary": "The next step after the Strong Beacon: up to six pyramid levels (454 blocks), primary powers on levels 1 to 5, the secondary power on level 6, range 70 blocks with Iron at level 6. Level 5 gives Extra Hearts I: two extra hearts (four with the secondary power).",
           "details": [
             "Crafting: the Strong Beacon in the middle, the six cores (copper, iron, gold, diamond, netherite, enderite) around it - top row copper, iron, gold; left diamond, right netherite; bottom middle enderite - and a Strong Upgrade in each bottom corner. Without SimpleBuilding the cores are blocks of copper, iron, gold, diamond, netherite and emerald.",
-            "Levels 1 to 3 as on the Strong Beacon. Level 4: Luck I, Night Vision and a placeholder Resistance II. Level 5: Extra Hearts I (two hearts), and the placeholders Speed II and Jump Boost II. Fire Resistance and Absorption do not exist.",
+            "Levels 1 to 3 as on the Strong Beacon. Level 4: Luck I, Night Vision and Resistance II. Level 5: Extra Hearts I (two hearts), Speed II and Jump Boost II. Fire Resistance and Absorption do not exist.",
             "The secondary power (level 6) is Regeneration, or the primary power one step higher: Speed II becomes III, Extra Hearts I becomes II (four hearts); at most III.",
-            "The placeholder powers are marked II on their button; real powers will replace them later."
+            "Resistance II, Speed II and Jump Boost II are real level II powers, marked II on their button."
           ]
         },
         "de": {
           "title": "Mighty Beacon",
-          "summary": "Die nächste Stufe nach dem Starken Leuchtfeuer: bis zu sechs Pyramidenebenen (454 Blöcke), Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6, Reichweite 70 Blöcke mit Eisen auf Ebene 6.",
+          "summary": "Die nächste Stufe nach dem Starken Leuchtfeuer: bis zu sechs Pyramidenebenen (454 Blöcke), Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6, Reichweite 70 Blöcke mit Eisen auf Ebene 6. Ebene 5 gibt Extraherzen I: zwei Herzen mehr (vier mit der Sekundärkraft).",
           "details": [
             "Herstellung: das Starke Leuchtfeuer in der Mitte, die sechs Kerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit) drumherum - oben Kupfer, Eisen, Gold; links Diamant, rechts Netherit; unten Mitte Enderit - und in jeder unteren Ecke eine Starke Aufwertung. Ohne SimpleBuilding sind die Kerne Blöcke aus Kupfer, Eisen, Gold, Diamant, Netherit und Smaragd.",
-            "Ebenen 1 bis 3 wie beim Starken Leuchtfeuer. Ebene 4: Glück I, Nachtsicht und ein Platzhalter Resistenz II. Ebene 5: Extraherzen I (zwei Herzen) und die Platzhalter Tempo II und Sprungkraft II. Feuerresistenz und Absorption gibt es nicht.",
+            "Ebenen 1 bis 3 wie beim Starken Leuchtfeuer. Ebene 4: Glück I, Nachtsicht und Resistenz II. Ebene 5: Extraherzen I (zwei Herzen), Tempo II und Sprungkraft II. Feuerresistenz und Absorption gibt es nicht.",
             "Die Sekundärkraft (Ebene 6) ist Regeneration oder die Primärkraft eine Stufe höher: aus Tempo II wird III, aus Extraherzen I wird II (vier Herzen); höchstens III.",
-            "Die Platzhalter-Kräfte tragen ein II auf dem Knopf; echte Kräfte ersetzen sie später."
+            "Resistenz II, Tempo II und Sprungkraft II sind echte Kräfte der Stufe II und tragen ein II auf dem Knopf."
           ]
         }
       },
@@ -1794,7 +1794,7 @@
             "The sixth step is the last one."
           ],
           "use": [
-            "Craft it: Strong Beacon in the middle, the six cores around it, a Strong Upgrade in each bottom corner. Pyramid of up to 6 levels (454 blocks). Level 4 adds Night Vision, level 5 Extra Hearts; Speed II, Jump Boost II and Resistance II are placeholders.",
+            "Craft it: Strong Beacon in the middle, the six cores around it, a Strong Upgrade in each bottom corner. Pyramid of up to 6 levels (454 blocks). Level 4 adds Night Vision and Resistance II, level 5 Extra Hearts (two hearts), Speed II and Jump Boost II.",
             "Level 6 unlocks the second power: Regeneration or one step higher (Speed III, four hearts)."
           ],
           "secret": [
@@ -1806,7 +1806,7 @@
             "Die sechste Stufe ist die letzte."
           ],
           "use": [
-            "Herstellen: Starkes Leuchtfeuer in der Mitte, sechs Kerne drumherum, in den unteren Ecken je eine Starke Aufwertung. Bis zu 6 Ebenen. Ebene 4 bringt Nachtsicht, Ebene 5 Extraherzen; Tempo II, Sprungkraft II und Resistenz II sind Platzhalter.",
+            "Herstellen: Starkes Leuchtfeuer in der Mitte, sechs Kerne drumherum, in den unteren Ecken je eine Starke Aufwertung. Bis zu 6 Ebenen. Ebene 4 bringt Nachtsicht und Resistenz II, Ebene 5 Extraherzen (zwei Herzen), Tempo II und Sprungkraft II.",
             "Ebene 6 schaltet die zweite Kraft frei: Regeneration oder eine Stufe höher (Tempo III, vier Herzen)."
           ],
           "secret": [
@@ -1889,7 +1889,7 @@
           "title": "Mighty Evil Beacon",
           "summary": "The Evil Beacon's big brother: up to six pyramid levels, primary powers on levels 1 to 5, the secondary power on level 6. Same recipe as the Mighty Beacon with the Evil Beacon in the middle.",
           "details": [
-            "Levels 1 to 4 as on the Evil Beacon. Level 5: Wind Charged and the placeholders Hunger II and Mining Fatigue II. Secondary (level 6): Nausea.",
+            "Levels 1 to 4 as on the Evil Beacon. Level 5: Wind Charged, Hunger II and Mining Fatigue II. Secondary (level 6): Nausea.",
             "The same protections as the Evil Beacon apply (5 minutes after death, no newcomers, no PvP-off players, no players in claims in which the owner has no rights)."
           ]
         },
@@ -1897,7 +1897,7 @@
           "title": "Mächtiges Böses Leuchtfeuer",
           "summary": "Der große Bruder des Bösen Leuchtfeuers: bis zu sechs Pyramidenebenen, Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6. Dasselbe Rezept wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte.",
           "details": [
-            "Ebenen 1 bis 4 wie beim Bösen Leuchtfeuer. Ebene 5: Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II. Sekundär (Ebene 6): Übelkeit.",
+            "Ebenen 1 bis 4 wie beim Bösen Leuchtfeuer. Ebene 5: Windgeladen, Hunger II und Abbaumüdigkeit II. Sekundär (Ebene 6): Übelkeit.",
             "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer (5 Minuten nach dem Tod, keine Neulinge, keine Spieler mit PvP aus, keine Spieler in Claims, in denen der Besitzer keine Rechte hat)."
           ]
         }
@@ -1909,7 +1909,7 @@
             "Six steps down."
           ],
           "use": [
-            "Craft it like the Mighty Beacon with the Evil Beacon in the middle. Pyramid of up to 6 levels; level 5 adds Wind Charged and the placeholders Hunger II and Mining Fatigue II; level 6 unlocks Nausea."
+            "Craft it like the Mighty Beacon with the Evil Beacon in the middle. Pyramid of up to 6 levels; level 5 adds Wind Charged, Hunger II and Mining Fatigue II; level 6 unlocks Nausea."
           ],
           "secret": [
             "The same protections as the Evil Beacon apply."
@@ -1920,7 +1920,7 @@
             "Sechs Stufen abwärts."
           ],
           "use": [
-            "Herstellen wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte. Pyramide mit bis zu 6 Ebenen; Ebene 5 bringt Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II; Ebene 6 schaltet Übelkeit frei."
+            "Herstellen wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte. Pyramide mit bis zu 6 Ebenen; Ebene 5 bringt Windgeladen, Hunger II und Abbaumüdigkeit II; Ebene 6 schaltet Übelkeit frei."
           ],
           "secret": [
             "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer."

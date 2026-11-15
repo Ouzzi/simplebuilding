@@ -572,6 +572,29 @@
       }
     },
     {
+      "id": "config-safety-lenientMovementBudget",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingSecurity.java"
+      ],
+      "en": {
+        "title": "Lag-Tolerant Riding Budget",
+        "summary": "safety.lenientMovementBudget: Carry unused riding movement budget over up to 4 server ticks, so packets bunched by network lag are not corrected; sustained speed stays capped. Off: strict limit per tick. Default: true. Server setting; restart required.",
+        "details": [
+          "safety.lenientMovementBudget: Carry unused riding movement budget over up to 4 server ticks, so packets bunched by network lag are not corrected; sustained speed stays capped. Off: strict limit per tick. Default: true. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Lag-tolerantes Reitbudget",
+        "summary": "safety.lenientMovementBudget: Ungenutztes Reitbewegungsbudget bis zu 4 Serverticks übertragen, damit durch Lag gebündelte Pakete nicht korrigiert werden; Dauertempo bleibt begrenzt. Aus: strenge Grenze je Tick. Standard: true. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "safety.lenientMovementBudget: Ungenutztes Reitbewegungsbudget bis zu 4 Serverticks übertragen, damit durch Lag gebündelte Pakete nicht korrigiert werden; Dauertempo bleibt begrenzt. Aus: strenge Grenze je Tick. Standard: true. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
       "id": "config-enchantments-swiftRide-nautilusSpeedMultiplier",
       "sources": [
         "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
@@ -2419,6 +2442,25 @@
       "side": "server",
       "reload": null,
       "source": "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+      "name": "safety.lenientMovementBudget",
+      "shortName": "lenientMovementBudget",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server Safety",
+      "categoryDe": "Serversicherheit",
+      "group": null,
+      "groupDe": null,
+      "label": "Lag-Tolerant Riding Budget",
+      "labelDe": "Lag-tolerantes Reitbudget",
+      "tooltip": "Carry unused riding movement budget over up to\n4 server ticks, so packets bunched by network\nlag are not corrected; sustained speed stays\ncapped. Off: strict limit per tick. Default:\ntrue. Server setting; restart required.",
+      "tooltipDe": "Ungenutztes Reitbewegungsbudget bis zu 4\nServerticks übertragen, damit durch Lag\ngebündelte Pakete nicht korrigiert werden;\nDauertempo bleibt begrenzt. Aus: strenge\nGrenze je Tick. Standard: true.\nServereinstellung; Neustart erforderlich."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
       "name": "safety.maximumJumpBonus",
       "shortName": "maximumJumpBonus",
       "type": "float",
@@ -2541,7 +2583,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 36,
+    "features": 37,
     "recipes": 7,
     "lootTables": 0,
     "tags": 7,
@@ -2550,7 +2592,7 @@
     "items": 8,
     "blocks": 0,
     "trades": 3,
-    "config": 25,
+    "config": 26,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
