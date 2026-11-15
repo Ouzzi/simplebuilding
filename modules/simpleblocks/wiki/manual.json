@@ -1531,6 +1531,30 @@
       "de": {
         "summary": "Gemeißeltes Netherit: 1:1 in der Steinsäge aus dem Netheritblock, ohne Rückweg. Übersteht Feuer. Motiv: gekreuzte Schwerter."
       }
+    },
+    "simpleblocks:redstone_shapecutter": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapecutterMachineBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapecutterMachineBlockEntity.java"
+      ],
+      "en": {
+        "summary": "Pulse Shapecutter: one cut per redstone pulse, like the crafter; pick the shape in the Shapecutter's screen, the result goes into the container in front or drops out."
+      },
+      "de": {
+        "summary": "Takt-Formsäge: pro Redstone-Impuls ein Schnitt, wie der Crafter; die Form im Bildschirm der Formsäge wählen, das Ergebnis geht in den Behälter vorne oder fällt heraus."
+      }
+    },
+    "simpleblocks:auto_shapecutter": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapecutterMachineBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapecutterMachineBlockEntity.java"
+      ],
+      "en": {
+        "summary": "Auto Shapecutter: cuts by itself every 8 ticks into the container in front while the whole result fits; a redstone signal stops it."
+      },
+      "de": {
+        "summary": "Auto-Formsäge: schneidet von selbst alle 8 Ticks in den Behälter vorne, solange das ganze Ergebnis passt; ein Redstone-Signal hält sie an."
+      }
     }
   }
 }
