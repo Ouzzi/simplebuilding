@@ -109,3 +109,11 @@ Seitenschnitt A/B bleibt algorithmisch; Größe stone-Datei (< 512 KB prüfen).
 ### Verifikation
 Unit `tools/tzedit/tests` (Schema tops, Export aus Beispiel-Tabellen), precheck, Harness-Klicktest (alle Bereiche wählbar,
 Speichern), sbt: Integration-Dump, später test_centre*-Gametests.
+
+### Schritt 3 – Ergebnis (Branch b-tzedit50c, 15.11.)
+Umgesetzt wie geplant (LayoutConfig, families(config) + Band „Neu“, /testcenter layout reload|export, configProblems auch in der
+Integration, 2 Gametests + Adapter). Abweichung: `layout export` schreibt die Dump-Tabellen, die Configs macht export_layout.py.
+sbt (b299eb134): kompiliert; fabric-263 `simplebuilding:test_centre*` 24/24 grün (inkl. layout_config_matches_the_built_lines,
+layout_config_without_a_row_puts_its_items_into_new; Kern: 138 Reihen, 14 rot – Reihen nicht geladener Mods entfallen);
+integration-263 `sbintegration:*test_centre*` 1/1 grün (143 Reihen, 18 rot = Export, Config == Welt, nichts in „Neu“). precheck grün.
+Nicht getestet: `/testcenter layout reload` mit Override-Datei in einer laufenden Welt (nur Code-Pfad), Bau in der Welt per Befehl.
