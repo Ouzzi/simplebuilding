@@ -128,6 +128,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   // German (longest button text) at GUI scale 2 and 3: every button stays inside the panel
   context.runOnClient(client->{client.options.languageCode="de_de";client.getLanguageManager().setSelected("de_de");client.reloadResourcePacks();});
   context.waitFor(client->client.gui.overlay()==null&&"Wiederherstellen".equals(net.minecraft.locale.Language.getInstance().getOrDefault("simpletweaks.admin.deaths.restore")),1200);context.waitTicks(10);
+  // b-client60o: the editor puts the translated header over the code; a header line over the code line limit made every German save fail.
+  context.runOnClient(client->{for(String key:com.simplebuilding.modules.simpletweaks.claims.ClaimCode.HEADER_KEYS){String line=net.minecraft.locale.Language.getInstance().getOrDefault(key);if(line.length()>com.simplebuilding.modules.simpletweaks.claims.ClaimCode.MAX_LINE)throw new AssertionError("German deed header line over "+com.simplebuilding.modules.simpletweaks.claims.ClaimCode.MAX_LINE+" chars: "+line);}});
   world.getServer().runOnServer(server->{var p=server.getPlayerList().getPlayers().getFirst();p.closeContainer();com.simplebuilding.modules.simpletweaks.admin.invsee.Invsee.openDeaths(p,p.nameAndId(),0);});
   context.waitTicks(5);
   context.waitForScreen(com.simplebuilding.modules.simpletweaks.admin.invsee.client.InvseeScreen.class);
