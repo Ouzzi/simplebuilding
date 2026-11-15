@@ -291,7 +291,7 @@ public final class BlocksRegistry {
         com.simpleblocks.saw.Sawing.registerBlock();
     }
 
-    /** The Shapecutter's menu, recipe type and serializer (principle A4b). */
+    /** The Shapecutter's menus (hand saw and N62 machines), recipe type and serializer (principle A4b). */
     public static void registerMenus() {
         com.simpleblocks.saw.Sawing.registerMenu();
     }
@@ -355,6 +355,9 @@ public final class BlocksRegistry {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleBlocks.on()) return out;
         out.add(new ItemStack(com.simpleblocks.saw.Sawing.SAW_ITEM));
+        // N62: the Pulse and the Auto Shapecutter right behind the Shapecutter.
+        out.add(new ItemStack(com.simpleblocks.saw.Sawing.PULSE_SAW_ITEM));
+        out.add(new ItemStack(com.simpleblocks.saw.Sawing.AUTO_SAW_ITEM));
         ITEMS.forEach((name, item) -> {
             out.add(new ItemStack(item));
             // PAL35b: each copper form's aged and waxed stages right behind its base (like Vanilla's copper rows)

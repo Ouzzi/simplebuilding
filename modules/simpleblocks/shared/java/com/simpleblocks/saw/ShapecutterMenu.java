@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
  * wie stonecutter mit mehr rezepten"): one input, a list of cuts for it ({@link Sawing#forInput}), a result slot. A click
  * on a cut is a menu button with the index in that list; the result is always made on the server. Only the list is longer.
  */
-public class ShapecutterMenu extends AbstractContainerMenu {
+public class ShapecutterMenu extends AbstractContainerMenu implements SawMenu {
     /** Vanilla StonecutterMenu / StonecutterScreen geometry (GameTest saw_menu_layout compares the slots). */
     public static final int WIDTH = 176;
     public static final int HEIGHT = 166;
@@ -86,15 +86,18 @@ public class ShapecutterMenu extends AbstractContainerMenu {
         this.addDataSlot(this.selected);
     }
 
+    @Override
     public int selectedIndex() {
         return this.selected.get();
     }
 
     /** The cuts for the current input, in button order. */
+    @Override
     public List<Sawing.Entry> cuts() {
         return this.cuts;
     }
 
+    @Override
     public boolean hasInput() {
         return this.inputSlot.hasItem() && !this.cuts.isEmpty();
     }
@@ -134,6 +137,7 @@ public class ShapecutterMenu extends AbstractContainerMenu {
         this.broadcastChanges();
     }
 
+    @Override
     public void registerUpdateListener(Runnable listener) {
         this.listener = listener;
     }

@@ -165,6 +165,8 @@
     "simpleblocks:sculk_tile_slab": "Crafted from its base block; no trade.",
     "simpleblocks:sculk_tile_wall": "Crafted from its base block; no trade.",
     "simpleblocks:shapecutter": "A crafting station like the Vanilla stonecutter, crafted cheaply from copper, iron and stone; no trade.",
+    "simpleblocks:redstone_shapecutter": "A machine form of the Shapecutter (N62), crafted from the Shapecutter, iron, redstone and a dropper; no trade.",
+    "simpleblocks:auto_shapecutter": "A machine form of the Shapecutter (N62), crafted from the Pulse Shapecutter, a hopper and a comparator; no trade.",
     "simpleblocks:smooth_basalt_slab": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:smooth_basalt_stairs": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:smooth_basalt_wall": "Crafted from its Vanilla base block; no trade.",

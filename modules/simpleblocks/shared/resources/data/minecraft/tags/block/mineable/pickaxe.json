@@ -142,6 +142,8 @@
     "simpleblocks:copper_tiles",
     "simpleblocks:copper_pillar",
     "simpleblocks:shapecutter",
+    "simpleblocks:redstone_shapecutter",
+    "simpleblocks:auto_shapecutter",
     "simpleblocks:cracked_ice",
     "simpleblocks:chiseled_packed_ice",
     "simpleblocks:chiseled_blue_ice",

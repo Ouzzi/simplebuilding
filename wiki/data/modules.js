@@ -3,7 +3,7 @@ window.WIKI_MODULES = [
     "id": "simplebuilding",
     "displayName": "SimpleBuilding",
     "description": "Building tools, storage, machines, and enchantments.",
-    "version": "2.0.0-beta.1",
+    "version": "2.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -95,7 +95,7 @@ window.WIKI_MODULES = [
     "id": "wiringexample",
     "displayName": "Wiring Example",
     "description": "Minimal module used to verify loader and integration wiring.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -114,13 +114,13 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 1
     },
-    "dataHash": "a6c8d95399cc"
+    "dataHash": "ef78258a4e0e"
   },
   {
     "id": "simplemoney",
     "displayName": "Simple Money",
     "description": "Currency production, weighted villager trades and treasure loot.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -162,13 +162,13 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 81
     },
-    "dataHash": "d46113c0aa4a"
+    "dataHash": "c9dcfa51dc1d"
   },
   {
     "id": "simpleriding",
     "displayName": "Simple Riding",
     "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, horseshoes, loot, and trades.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -204,13 +204,13 @@ window.WIKI_MODULES = [
       "config": 25,
       "features": 36
     },
-    "dataHash": "3afb6556b165"
+    "dataHash": "d89e894cd650"
   },
   {
     "id": "simplemodels",
     "displayName": "Simple Models",
     "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -242,13 +242,13 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "d5ec8ddfe216"
+    "dataHash": "7b4c7de08355"
   },
   {
     "id": "simplefun",
     "displayName": "Simple Fun",
     "description": "Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -285,13 +285,13 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "9ea40cc0d912"
+    "dataHash": "c24a3c27089c"
   },
   {
     "id": "simplevisuals",
     "displayName": "Simple Visuals",
     "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -322,16 +322,16 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABgWlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kb9LQlEUxz9qUZRhUENDkIQ1ZZiB1NJglAXVoAb9WvTp08Afj/eMiNagNSiIWvo11F9Qa9AcBEURRHOtRS0lr/M0UCLP5Z77ud97zuHec8EezShZo84H2VxBD4eC7rn5BXfDK05aseGhK6YY2nRkPEpN+7yXSLFbr1Wrdty/1pxIGgrYGoVHFE0vCE8IT60WNIt3hNuVdCwhfCbcp8sFhe8sPV7mF4tTZf62WI+GR8HeKuxOVXG8ipW0nhWWl+PJZlaU3/tYL3Emc7MRWbtldmIQJkQQN5OMMUqAAYbFB/Dip1921Mj3lfJnyEuuIl5jDZ1lUqQp0CfqilRPyqqKnpSRYc3q/9++Guqgv1zdGYT6Z9N874GGbShumebXkWkWj8HxBJe5Sn7+EIY+RN+qaJ4DcG3A+VVFi+/CxSZ0PGoxPVaSHDLtqgpvp9AyD2030LRY7tnvOScPEF2Xr7qGvX3olXjX0g9t+GfpNyGCNQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAdBJREFUKJFlUjFo20AUfTp9nQylWWwQGGtJsySQkkkYCh06FDp7KF1STMC0NDHNoMWTS7t5CcZD6SI6ZCiN505dDO3gbim4BIqH4LiYKhlaGmrrpOvwhawmx3F3uv/+e1/3vrF3dOZ7cWdoAujWyk/fT5EbloDvxa7rNvvpvbF3dAagvjoLxg4A34vbA82xGwXKuLIheGN0lCAMQ6Uinn/+qjAMowQsniporQE0+9MowWKhlIp0oji2v3XZGxWlpFZ1qWNebDY+fPvte/F64efnH5ZO1Hy+GLy4X77z6EtY0BrP1i8Ojm8mGqaBbq1MrNgeaKVWGJ2VO58vbBsHxytEanfjvFQqNftTApaV5NH5HKXQGxWlNAFQPvzp1YPr53svP+ZfOU14+/gWANQn/FmpVCaTSZ5r5/CUDwRASto5PM2qevdkk2MPX3+1bWkIIrKkTKlFqxo31mZSEpFlCLJtuR2cANgOTq6gG2uzpdPs2hUfGL27cZ4563ux4K2+OuPant/+ZQgyBO1vXTJ3MHaCseN7MYDO0BTdWrkzNIOxYwm0qvGb7w6RRWT1RsX2XcNKWweu66b/kLUhZ7IOzwwEoNmfcjv95wO/9HUQk/L6Dx4w4ZYODKssAAAAAElFTkSuQmCC",
     "counts": {
-      "config": 53,
-      "features": 80
+      "config": 52,
+      "features": 79
     },
-    "dataHash": "0f8ec686d332"
+    "dataHash": "81613174664f"
   },
   {
     "id": "simplesounds",
     "displayName": "Simple Sounds",
     "description": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -362,13 +362,13 @@ window.WIKI_MODULES = [
       "config": 18,
       "features": 21
     },
-    "dataHash": "8ad132075e3d"
+    "dataHash": "573d65119947"
   },
   {
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
     "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -412,13 +412,13 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 9
     },
-    "dataHash": "21018c18da38"
+    "dataHash": "0b3f58ad30d1"
   },
   {
     "id": "simpletweaks",
     "displayName": "Simple Tweaks",
     "description": "Legacy compatibility, server-authoritative claims, admin tools (block log, backups, anti-X-ray) and player and protection tweaks, on by default.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -474,13 +474,13 @@ window.WIKI_MODULES = [
       "config": 16,
       "features": 42
     },
-    "dataHash": "c172541aa618"
+    "dataHash": "1658ec26afc3"
   },
   {
     "id": "simpledimensions",
     "displayName": "Simple Dimensions",
     "description": "Configurable dimensions, light arches, and safe linked portals.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -513,13 +513,13 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 12
     },
-    "dataHash": "4cab641330ef"
+    "dataHash": "6c6a0f8b727b"
   },
   {
     "id": "simplesandwiches",
     "displayName": "Simple Sandwiches",
     "description": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -554,13 +554,13 @@ window.WIKI_MODULES = [
       "recipes": 16,
       "features": 7
     },
-    "dataHash": "0c15d175b8ab"
+    "dataHash": "081c296f95b6"
   },
   {
     "id": "simplelib",
     "displayName": "SimpleLib",
     "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.",
-    "version": "0.4.0-beta.1",
+    "version": "0.4.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -594,13 +594,13 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 9
     },
-    "dataHash": "735107fdb248"
+    "dataHash": "c36418484683"
   },
   {
     "id": "simpleinterfaces",
     "displayName": "Simple Interfaces",
     "description": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -630,13 +630,13 @@ window.WIKI_MODULES = [
       "config": 46,
       "features": 55
     },
-    "dataHash": "9903f67ceafb"
+    "dataHash": "71e1932a9e2f"
   },
   {
     "id": "simplemaps",
     "displayName": "Simple Maps",
     "description": "Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -671,13 +671,13 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 11
     },
-    "dataHash": "61053edd957b"
+    "dataHash": "033d8edfcf2a"
   },
   {
     "id": "simplelivemap",
     "displayName": "Simple Livemap",
     "description": "Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and a built-in web server (on out of the box, only on this computer, private with a key; own website possible).",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -696,13 +696,13 @@ window.WIKI_MODULES = [
       "config": 17,
       "features": 9
     },
-    "dataHash": "5de489c178f7"
+    "dataHash": "33e32ec75505"
   },
   {
     "id": "simpletrims",
     "displayName": "Simple Trims",
     "description": "Glowing, Emitting, Pulsating and Inverting armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with Simple Hammers.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -735,13 +735,13 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 7
     },
-    "dataHash": "02b47073cd55"
+    "dataHash": "2d7b2e8204aa"
   },
   {
     "id": "simplemobs",
     "displayName": "Simple Mobs",
     "description": "New mobs (Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Dread, Deceiver) and summoned bosses (Void Runner, Brimguard, the armored Blighted and Abyssal Wither). Weathered Trials with the Evil and Void Omen chain (trials, raids, vaults, keys), Wings tiers 1 to 4 with Nether Heart, Red Nether Gem, Ender Heart and Ender Gem, Spawner Fragments and the Makeshift Spawner, Strong Gunpowder, TNT and Rocket, the Trumpet, the Cloak of Deception and Trick Mirror, combat effects, armor trim abilities, the brood hollow with Mob Essence and the Potion of Silence. Requires Simple Resonance.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -772,13 +772,13 @@ window.WIKI_MODULES = [
       "config": 82,
       "features": 25
     },
-    "dataHash": "38e6dfe63aa8"
+    "dataHash": "7b86f2bf1bb5"
   },
   {
     "id": "simpleweather",
     "displayName": "Simple Weather",
     "description": "Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -806,13 +806,13 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 5
     },
-    "dataHash": "58b0e9af4efd"
+    "dataHash": "bfc55d6e3a10"
   },
   {
     "id": "simplemovement",
     "displayName": "Simple Movement",
     "description": "Manual crawling, server-allowed autowalk, faster ladders (Vanilla 0.2, default 0.4) and Frost Walker on powder snow, plus the Step Height (I-II) and Sprint (I-III) treasure enchantments and a Jump Boost step-up; a sub-mod of Simple QoL, also playable alone.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -843,13 +843,13 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "27305ee11439"
+    "dataHash": "d073a5d7b8d8"
   },
   {
     "id": "simpletools",
     "displayName": "Simple Tools",
     "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -881,13 +881,13 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "9fd5459942e0"
+    "dataHash": "0c008b85faa5"
   },
   {
     "id": "simplefarming",
     "displayName": "Simple Farming",
     "description": "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -916,13 +916,13 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 12
     },
-    "dataHash": "db849ba92b38"
+    "dataHash": "9fa7e73f4b67"
   },
   {
     "id": "simplemobmanners",
     "displayName": "Simple Mob Manners",
     "description": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -951,13 +951,13 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 11
     },
-    "dataHash": "1afbc1890574"
+    "dataHash": "5f984a85c7e5"
   },
   {
     "id": "simpleloot",
     "displayName": "Simple Loot",
     "description": "Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -985,13 +985,13 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "047492eca963"
+    "dataHash": "0627cb98285c"
   },
   {
     "id": "simplequestionary",
     "displayName": "Simple Questionary",
     "description": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1022,13 +1022,13 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 5
     },
-    "dataHash": "5e2c3cca266e"
+    "dataHash": "8fb396e1ac00"
   },
   {
     "id": "simpleaesthetics",
     "displayName": "Simple Aesthetics",
     "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1057,13 +1057,13 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "baf9afb67603"
+    "dataHash": "cd4ce090dc26"
   },
   {
     "id": "simpleenddragonfight",
     "displayName": "Simple End Dragon Fight",
     "description": "Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1093,13 +1093,13 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 7
     },
-    "dataHash": "83b246b3278b"
+    "dataHash": "e3c5f5d53f9f"
   },
   {
     "id": "simpleend",
     "displayName": "Simple End",
     "description": "End wood (Ashwood, Duskwood) with buds, trees and stick scrub, End grass, the Ash Valley and Dawnlands biomes on the outer End islands; bundles Simple End Dragon Fight.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1137,13 +1137,13 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 11
     },
-    "dataHash": "eb1f509afbfd"
+    "dataHash": "5de337781baf"
   },
   {
     "id": "simplerespawn",
     "displayName": "Simple Respawn",
     "description": "Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1174,13 +1174,13 @@ window.WIKI_MODULES = [
       "config": 15,
       "features": 6
     },
-    "dataHash": "e67e0a5f5e0d"
+    "dataHash": "201965d3afe3"
   },
   {
     "id": "simplebeacons",
     "displayName": "Simple Beacons",
     "description": "Strong Beacon (5 pyramid levels, new powers, range by pyramid material, Vanilla-style screen), Mighty and Evil beacons, Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and its Mighty/Evil kinds, upgraded with SimpleLib's Strong Upgrade template. Axe on its own, sledgehammer with a hammer mod.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1214,13 +1214,13 @@ window.WIKI_MODULES = [
       "config": 29,
       "features": 17
     },
-    "dataHash": "8d96171e88ec"
+    "dataHash": "d33dbd2f9498"
   },
   {
     "id": "simpleovens",
     "displayName": "Simple Ovens",
     "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1255,13 +1255,13 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 9
     },
-    "dataHash": "9512cd895c5d"
+    "dataHash": "b1448d1e0e90"
   },
   {
     "id": "simplemobheads",
     "displayName": "Simple Mobheads",
     "description": "A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block. Required sub-mod of SimpleBuilding; Simple Fun's and SimpleBuilding's heads moved in.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1302,13 +1302,13 @@ window.WIKI_MODULES = [
       "config": 22,
       "features": 16
     },
-    "dataHash": "8134e3ba9ac9"
+    "dataHash": "6e1d0c60e05a"
   },
   {
     "id": "simpleshops",
     "displayName": "Simple Shops",
     "description": "Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1345,13 +1345,13 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 13
     },
-    "dataHash": "cf756335fb23"
+    "dataHash": "c090ed163c71"
   },
   {
     "id": "simplewanderers",
     "displayName": "Simple Wanderers",
     "description": "Village Wanderer: one Wandering Trader per village with a leashed horse, goods split from the traveling trader, a new stock every 3 days, a restock every 1.5 days and a range by village biome. Works on its own with Vanilla.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1382,13 +1382,13 @@ window.WIKI_MODULES = [
       "items": 2,
       "features": 7
     },
-    "dataHash": "16e067c8bc3b"
+    "dataHash": "cd9fb6ec7b63"
   },
   {
     "id": "simplestats",
     "displayName": "Simple Stats",
     "description": "Every tool, weapon and piece of armor keeps its own statistics (blocks mined, kills by mob and variant, damage absorbed, distances, catches) with an item-specific statistics screen.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1414,13 +1414,13 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 10
     },
-    "dataHash": "4e0e4c6b5bfe"
+    "dataHash": "a8002de20b44"
   },
   {
     "id": "simpleblocks",
     "displayName": "Simple Blocks",
     "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shapecutter cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1448,18 +1448,18 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 266,
-      "recipes": 696,
+      "blocks": 268,
+      "recipes": 698,
       "config": 13,
-      "features": 19
+      "features": 20
     },
-    "dataHash": "bf8b6d331774"
+    "dataHash": "23a55f06f0dc"
   },
   {
     "id": "simplecrucibles",
     "displayName": "Simple Crucibles",
     "description": "Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel; the barrels that dock onto them are Simple Storage's), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1496,13 +1496,13 @@ window.WIKI_MODULES = [
       "config": 37,
       "features": 10
     },
-    "dataHash": "9bf5fa0dfe1e"
+    "dataHash": "9d53d99d2e77"
   },
   {
     "id": "simpleoctets",
     "displayName": "Simple Octets",
     "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1538,13 +1538,13 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 8
     },
-    "dataHash": "7333f3c5f785"
+    "dataHash": "0500dcbba8e3"
   },
   {
     "id": "simplehammers",
     "displayName": "Simple Hammers",
     "description": "Seven sledgehammers (Stone to Enderite) that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, with the enchantments Break Through, Override and Radius, moved from SimpleBuilding (ids migrate). While it is loaded the in-world ways of the other Simple mods take the hammer instead of the axe.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1579,13 +1579,13 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "3fb814d3ae6f"
+    "dataHash": "057ea37a7611"
   },
   {
     "id": "simpleoptimization",
     "displayName": "Simple Optimization",
     "description": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1616,13 +1616,13 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "eb32f11d03e5"
+    "dataHash": "2787fa74708e"
   },
   {
     "id": "simpleoptrender",
     "displayName": "Simple Opt Render",
     "description": "Client optimizations (leaf culling, light-map cache, fast IP ping, telemetry off); each area steps back when a known optimization mod covers it.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1644,13 +1644,13 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 8
     },
-    "dataHash": "f0b8bd6b5eb2"
+    "dataHash": "40e940f32c61"
   },
   {
     "id": "simpleoptmemory",
     "displayName": "Simple Opt Memory",
     "description": "Memory optimization: shares the property and face tables of block states (O4, same idea as FerriteCore, which it yields to), with switch, config and mod detection.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1672,13 +1672,13 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 3
     },
-    "dataHash": "41f5984bbb9c"
+    "dataHash": "7f26c22151a5"
   },
   {
     "id": "simpleoptserver",
     "displayName": "Simple Opt Server",
     "description": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1704,13 +1704,13 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 3
     },
-    "dataHash": "a56feebf32c8"
+    "dataHash": "d677c139ab36"
   },
   {
     "id": "simplestorage",
     "displayName": "Simple Storage",
     "description": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2). WH26-6: the four barrels (copper to Enderite; docking onto the crucibles of Simple Crucibles) moved here from Simple Crucibles.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1747,13 +1747,13 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 16
     },
-    "dataHash": "b39dea0efdfc"
+    "dataHash": "fded98d362d5"
   },
   {
     "id": "simplemusic",
     "displayName": "Simple Music",
     "description": "Sheet music with a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs (quota, OP approval), played in the Vanilla jukebox and the Pocket Jukebox. Needs SimpleLib; SimpleBuilding optional.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1789,13 +1789,13 @@ window.WIKI_MODULES = [
       "config": 14,
       "features": 16
     },
-    "dataHash": "125dd230f3cf"
+    "dataHash": "0c7890ef7a4f"
   },
   {
     "id": "simplelights",
     "displayName": "Simple Lights",
     "description": "Light Panes: flat 1 px lamps on any block side - plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb, moved from SimpleBuilding (ids migrate). Fabric only for now.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1820,13 +1820,13 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 5
     },
-    "dataHash": "1d33a80c2bfc"
+    "dataHash": "9f51507a9954"
   },
   {
     "id": "simplegadgets",
     "displayName": "Simple Gadgets",
     "description": "Gadgets you hold and use: Gauge (speed dial, altimeter with fall-damage warning, auto-walk), Transposer, Resonance Rod, Detector, Attractor and Echo Sounder, moved from SimpleBuilding (ids migrate); the Color Brush follows later, the Octant lives in Simple Building Tools. Fabric only for now.",
-    "version": "0.9.0-beta.1",
+    "version": "0.9.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1851,13 +1851,13 @@ window.WIKI_MODULES = [
       "config": 31,
       "features": 9
     },
-    "dataHash": "933c0a1b0b2b"
+    "dataHash": "b53198001838"
   },
   {
     "id": "simpleearth",
     "displayName": "Simple Earth",
     "description": "The Overworld seen from orbit: from the render height (default 1536) the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colors sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below it everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1880,13 +1880,13 @@ window.WIKI_MODULES = [
       "config": 62,
       "features": 5
     },
-    "dataHash": "e716ec09d4af"
+    "dataHash": "d9863877f52f"
   },
   {
     "id": "simplechallenges",
     "displayName": "Simple Challenges",
     "description": "Game modes for a world of your choice. S0-S2: the Unlock mode - the world is cut into cells (a block column, a chunk, three chunks) and only free cells can be entered; every cell has a price worked out from the world (items, credits from advancements or levels), with deadlock protection and an emergency unlock. Presets are data files. Without a chosen challenge the mod changes nothing (safety lock). Needs SimpleLib; SimpleBuilding optional.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -1909,13 +1909,13 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 16
     },
-    "dataHash": "a229995d1564"
+    "dataHash": "360b23348d2a"
   },
   {
     "id": "simpleanimals",
     "displayName": "Simple Animals",
     "description": "Deer, wild boar, hedgehog, crab and zebra (with the infertile zorse): five new animals with low spawn rates, Vanilla goals and no block damage. Works on its own with Vanilla.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1948,13 +1948,13 @@ window.WIKI_MODULES = [
       "config": 15,
       "features": 10
     },
-    "dataHash": "a4070844607e"
+    "dataHash": "c2404917eab9"
   },
   {
     "id": "simpledinos",
     "displayName": "Simple Dinosaurs",
     "description": "Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -1988,13 +1988,13 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 10
     },
-    "dataHash": "c2cb6a674644"
+    "dataHash": "7ea22e3d090f"
   },
   {
     "id": "simpleores",
     "displayName": "Simple Ores",
     "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Copper, soft Rose Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -2027,13 +2027,13 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 27
     },
-    "dataHash": "b69401f7e485"
+    "dataHash": "19810459cf64"
   },
   {
     "id": "simplemachines",
     "displayName": "Simple Machines",
     "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts; since stage 4 the Smither (smithing table worked by a redstone pulse) and since 10.11. the Auto Crafter (a Crafter that crafts by itself into the hopper below, unlike the Vanilla Crafter without a redstone clock; ids moved from SimpleBuilding). Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2062,13 +2062,13 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 10
     },
-    "dataHash": "4040b7045c73"
+    "dataHash": "533e0d8cbfad"
   },
   {
     "id": "simplearrows",
     "displayName": "Simple Arrows",
     "description": "Arrows: the Fletching Table (moved from SimpleBuilding on 04.11., ids migrate) builds 4 arrows from a tip, a shaft and a fletching, optionally with a potion; the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla (tips and shafts of other mods appear with them). Fabric only for now.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2094,13 +2094,13 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "8397734e1109"
+    "dataHash": "3227fd1d6d5f"
   },
   {
     "id": "simpleresonance",
     "displayName": "Simple Resonance",
     "description": "Player value, danger zones and spawn owners: how experienced a player is (playing time, survival, bosses, partial loss on death), how dangerous the land is (soft zones from the spawn), which player a monster spawn belongs to and a newcomer protection. An API for other mods (Simple Mobs gives new monsters status effects by it); works on its own with Vanilla.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -2129,13 +2129,13 @@ window.WIKI_MODULES = [
       "config": 32,
       "features": 9
     },
-    "dataHash": "0f4d724c38a1"
+    "dataHash": "0f8b43358a00"
   },
   {
     "id": "simplefoundry",
     "displayName": "Simple Foundry",
     "description": "A multiblock foundry for Simple Ovens: a tank of melting chambers in a brick hull, fuel on the desk, ore thrown in, the melt poured by layer through spouts into casting trays. Gold, copper and iron, one ingot per ingot.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2162,13 +2162,13 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 2
     },
-    "dataHash": "df04a299db5e"
+    "dataHash": "3be282fb388b"
   },
   {
     "id": "simpleenchanting",
     "displayName": "Simple Enchanting",
     "description": "The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. Blazing and Nihil Obsidian, blazewood planks and chiseled shelves are this module's (moved from SimpleBuilding 14.11.), the plain blazewood bookshelves SimpleLib's. Fabric only for now.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2196,13 +2196,13 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 6
     },
-    "dataHash": "b34ec218bdcb"
+    "dataHash": "2f9c3e92dc2a"
   },
   {
     "id": "simplepads",
     "displayName": "Simple Pads",
     "description": "The pads and pressure plates of the Simple Pads tab: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra (moved out of SimpleBuilding, DW04C-5). Requires Simple Ores (Enderite tiers) and Simple Mobheads (the heads of the first tiers). Fabric only for now.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2231,13 +2231,13 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 9
     },
-    "dataHash": "283e44c45cff"
+    "dataHash": "3803e5358fca"
   },
   {
     "id": "simplebuildingtools",
     "displayName": "Simple Building Tools",
     "description": "Building tools of the SimpleBuilding family: Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with editor, picture import and cartography table copies. Simple Ores adds the Enderite wand, SimpleBuilding the backpack supply and the placed octants.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2266,13 +2266,13 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "0c1e7c28f624"
+    "dataHash": "7d2ba07beb2a"
   },
   {
     "id": "simplechisels",
     "displayName": "Simple Chisels",
     "description": "Seven chisels (Stone to Enderite) that move blocks one step along their family - stone to chiseled, bricks to cracked, planks to stairs to slabs - and back with sneak, with the enchantment Fast Chiseling, moved from SimpleBuilding (ids migrate). Other mods add their chains through data files.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2299,13 +2299,13 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 8
     },
-    "dataHash": "5e3545a260ba"
+    "dataHash": "f3583389fe85"
   },
   {
     "id": "simplelayers",
     "displayName": "Simple Layers",
     "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms, their own dimension of ten stacked levels (entered through an abandoned house's cellar or a rift in glitched bedrock), with cloud blocks, wallpaper, carpet and neon lights.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2331,13 +2331,13 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 12
     },
-    "dataHash": "cd538e429aad"
+    "dataHash": "c311cadfc93c"
   },
   {
     "id": "simplevault",
     "displayName": "Simple Vault",
     "description": "The Bedrock Vault (Grundgewoelbe): a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock; three riddles and an ascent altar are the only way out.",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2366,13 +2366,13 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 3
     },
-    "dataHash": "b17ae3d5a51d"
+    "dataHash": "76d7260ac84d"
   },
   {
     "id": "simplechess",
     "displayName": "Simple Chess",
     "description": "Chess: 156 pieces (13 materials, six kinds, 3D and flat) that stand up to four on a block, 12 quartz checker boards with stairs and slabs and, with Simple Octets, the chess octets - moved from SimpleBuilding (ids migrate).",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric"
@@ -2398,6 +2398,6 @@ window.WIKI_MODULES = [
       "recipes": 398,
       "features": 4
     },
-    "dataHash": "eee4c5e8aee1"
+    "dataHash": "723bf49041b0"
   }
 ];

@@ -172,6 +172,41 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawMachinesRegistered(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_machines_registered").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 200)
+    public void sawPulseOneCutPerPulse(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_pulse_one_cut_per_pulse").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 200)
+    public void sawPulseNoCutWithoutSignal(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_pulse_no_cut_without_signal").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 200)
+    public void sawPulseEjectsWithoutContainer(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_pulse_ejects_without_container").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 200)
+    public void sawAutoCutsWithoutSignal(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_auto_cuts_without_signal").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawMachineSelectionSaved(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_machine_selection_saved").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawMachineMenu(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_machine_menu").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void natureRecipes(GameTestHelper h) {
         BlocksTests.ALL.get("nature_recipes").accept(h);
     }

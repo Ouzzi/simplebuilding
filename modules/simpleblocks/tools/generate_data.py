@@ -214,6 +214,10 @@ MOVED_TEXT = {
 
 # --- Shapecutter (owner 17.10., principle A4b): the block and its sawing recipes -----------------------------------------
 SAW = 'shapecutter'
+# N62 (owner 15.11.): the Pulse Shapecutter (one cut per redstone pulse, like the crafter) and the Auto Shapecutter (cuts by itself,
+# like the Auto Crafter). Java: com.simpleblocks.saw.Sawing.PULSE_NAME / AUTO_NAME. Textures: own art, provisional (proposal N62-T,
+# tools/textures/proposals/n62/), waiting for the owner.
+SAW_MACHINES = ['redstone_shapecutter', 'auto_shapecutter']
 # Wood families: (namespace, wood, log word, wood word, mod condition or None). Ratios as at the crafting table and the
 # Vanilla stonecutter: planks -> 1 stairs / 2 slabs / 1 fence; any log or wood -> 4 planks; bark/strip shapes 1:1.
 WOODS = [('minecraft', w, 'log', 'wood', None) for w in
@@ -370,6 +374,7 @@ def models_and_states():
             put(f'assets/{NS}/blockstates/{name}.json', wall_state(name))
             put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}_inventory'}})
     saw_model()
+    saw_machine_models()
     # PLAN40 simpleblocks-3: the red sand slab in the format of the moved sand slab (Vanilla texture, double = the Vanilla block's model).
     for name, base in NEW_NATURE_SLABS:
         tex = {'bottom': f'minecraft:block/{base}', 'side': f'minecraft:block/{base}', 'top': f'minecraft:block/{base}'}
@@ -412,6 +417,20 @@ def saw_model():
         f'facing={f},metal={metal}': {'model': f'{NS}:block/{SAW}' + ('_metal' if metal == 'true' else ''), **({'y': y[f]} if y[f] else {})}
         for f in ('east', 'north', 'south', 'west') for metal in ('false', 'true')}})
     put(f'assets/{NS}/items/{SAW}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{SAW}'}})
+
+
+def saw_machine_models():
+    """N62: full blocks like the crafter (`orientable_with_bottom`: top, front, side, bottom; front = output, blockstate `facing`);
+    `triggered` does not change the look (yet)."""
+    y = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
+    for name in SAW_MACHINES:
+        t = f'{NS}:block/{name}'
+        put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/orientable_with_bottom', 'textures': {
+            'particle': f'{t}_side', 'top': f'{t}_top', 'front': f'{t}_front', 'side': f'{t}_side', 'bottom': f'{t}_bottom'}})
+        put(f'assets/{NS}/blockstates/{name}.json', {'variants': {
+            f'facing={f},triggered={tr}': {'model': t, **({'y': y[f]} if y[f] else {})}
+            for f in ('east', 'north', 'south', 'west') for tr in ('false', 'true')}})
+        put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': t}})
 
 
 # --- recipes ----------------------------------------------------------------------------------------------------------
@@ -541,6 +560,14 @@ def recipes():
     for rid, tool, cond in ((f'{SAW}_with_hammers', '#simplelib:hammers', hammers), (SAW, '#minecraft:axes', no_hammers)):
         recipe(rid, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'T': tool, 'S': 'minecraft:stonecutter', 'P': '#minecraft:planks'},
                      'pattern': [' T ', 'PSP', 'PPP'], 'result': result(SAW)}, 'minecraft:stonecutter', 'decorations', cond)
+    # N62: Pulse Shapecutter = the Vanilla crafter's pattern (5 iron, 2 redstone, dropper) with the Shapecutter in place of the
+    # crafting table; Auto Shapecutter = Pulse Shapecutter + hopper + comparator, the crafter -> Auto Crafter step of Simple Machines.
+    pulse, auto = SAW_MACHINES
+    recipe(pulse, {'type': 'minecraft:crafting_shaped', 'category': 'redstone',
+                   'key': {'I': 'minecraft:iron_ingot', 'S': f'{NS}:{SAW}', 'R': 'minecraft:redstone', 'D': 'minecraft:dropper'},
+                   'pattern': ['III', 'ISI', 'RDR'], 'result': result(pulse)}, f'{NS}:{SAW}', 'redstone')
+    recipe(auto, {'type': 'minecraft:crafting_shapeless', 'category': 'redstone',
+                  'ingredients': [f'{NS}:{pulse}', 'minecraft:hopper', 'minecraft:comparator'], 'result': result(auto)}, f'{NS}:{pulse}', 'redstone')
     # Gravity blocks (b-blocksmove): SimpleBuilding's way (Nihilith shard / Astralit dust, same recipe ids as before the move)
     # only with SimpleBuilding; alone a Vanilla way (phantom membrane: slow falling / breeze rod: wind lifts), principles 1 and 5.
     sb, no_sb = mod_condition('simplebuilding'), mod_condition('simplebuilding', True)
@@ -633,6 +660,9 @@ def loot():
                       'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{SAW}', 'state': {'metal': 'true'}},
                       'modifier': [{'type': 'minecraft:set_count', 'count': 2}]}],
          'rolls': 1}]})
+    for name in SAW_MACHINES:   # the input stack drops by itself (container block entity)
+        put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
+                                                          'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{name}'}], 'rolls': 1}]})
 
 
 def tag(rel, ids):
@@ -646,7 +676,7 @@ def tags():
     moved_ice = [f'{NS}:{n}' for n in NATURE_ICE + [c[0] for c in CRACKED_HARD]]
     moved_slabs = [f'{NS}:{n}' for n in NATURE_SLABS]
     compact_tool = {t: [f'{NS}:{st}_{b[0]}' for b in COMPACT_BASES if b[1] == t for st in COMPACT_STAGES] for t in ('pickaxe', 'shovel')}
-    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'] + compact_tool['pickaxe']
+    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + [f'{NS}:{n}' for n in SAW_MACHINES] + moved_ice + [f'{NS}:nautilus_shell_block'] + compact_tool['pickaxe']
         + [f'{NS}:{n}' for n in metal_chain_blocks()])
     # Suspended/levitating sand and gravel dig like their Vanilla block (AUDM24).
     # SN30 (b-snow32): frost grass and the snowlogged cell dig like the grass block and snow (their other tags are hand-written).
@@ -769,6 +799,26 @@ SAW_LANG = {
 }
 
 
+# N62: names are provisional (owner picks from proposal N62-N); the JEI info explains the use (no tooltip: A7 / rule 14).
+SAW_MACHINE_LANG = {
+    'en_us': {'redstone_shapecutter': ('Pulse Shapecutter',
+                                       'Each redstone pulse makes exactly one cut, like the crafter. Put blocks in (or feed them with a hopper from the '
+                                       'top, back or sides), pick the shape in its screen; the cut comes out of the front, into a container there or '
+                                       'onto the ground. The choice stays when the input runs out.'),
+              'auto_shapecutter': ('Auto Shapecutter',
+                                   'Cuts by itself, one cut every 8 ticks, into the container in front (only while the whole result fits there). '
+                                   'Pick the shape in its screen; feed it with a hopper from the top, back or sides. A redstone signal stops it.')},
+    'de_de': {'redstone_shapecutter': ('Takt-Formsäge',
+                                       'Jeder Redstone-Impuls macht genau einen Schnitt, wie beim Crafter. Blöcke einlegen (oder per Trichter von oben, '
+                                       'hinten oder der Seite zuführen), im Bildschirm die Form wählen; der Schnitt kommt vorne heraus, in einen Behälter '
+                                       'davor oder auf den Boden. Die Wahl bleibt, wenn der Vorrat leer wird.'),
+              'auto_shapecutter': ('Auto-Formsäge',
+                                   'Schneidet von selbst, alle 8 Ticks einen Schnitt, in den Behälter vor ihrer Vorderseite (nur wenn das ganze '
+                                   'Ergebnis hineinpasst). Form im Bildschirm wählen; per Trichter von oben, hinten oder der Seite zuführen. '
+                                   'Ein Redstone-Signal hält sie an.')},
+}
+
+
 COLLAPSED_TEXT = {
     'en_us': {'tooltip.simpleblocks.collapsed.1': 'So dense it slows you down in your inventory.',
               'tooltip.simpleblocks.collapsed.2': '1 stack: Slowness I, 2: II, 9: III.'},
@@ -810,6 +860,9 @@ def lang():
         saw = SAW_LANG[locale]
         data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
         data[f'jei.{NS}.info.{SAW}'] = saw['info']
+        for name, (title, info) in SAW_MACHINE_LANG[locale].items():
+            data[f'block.{NS}.{name}'] = data[f'item.{NS}.{name}'] = title
+            data[f'jei.{NS}.info.{name}'] = info
         data[f'itemgroup.{NS}.blocks'] = tab
         data[f'{NS}.testcentre.station'] = station
         out[locale] = data

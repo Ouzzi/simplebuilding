@@ -73,7 +73,7 @@ public final class SimpleBlocks {
     /** Test centre station (framework contract, no import of the test centre): the module's items by id. */
     static void registerStation() {
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "blocks", "simpleblocks.testcentre.station",
-                java.util.stream.Stream.of(BlocksRegistry.NAMES.stream(), com.simpleblocks.nature.NatureIds.NAMES.stream(), com.simpleblocks.pale.PaleBlocks.names().stream(), com.simpleblocks.compact.CompactBlocks.names().stream(), java.util.stream.Stream.of(com.simpleblocks.saw.Sawing.NAME, "guide_book")).flatMap(s -> s).map(n -> MOD_ID + ":" + n).toList());
+                java.util.stream.Stream.of(BlocksRegistry.NAMES.stream(), com.simpleblocks.nature.NatureIds.NAMES.stream(), com.simpleblocks.pale.PaleBlocks.names().stream(), com.simpleblocks.compact.CompactBlocks.names().stream(), java.util.stream.Stream.of(com.simpleblocks.saw.Sawing.NAME, com.simpleblocks.saw.Sawing.PULSE_NAME, com.simpleblocks.saw.Sawing.AUTO_NAME, "guide_book")).flatMap(s -> s).map(n -> MOD_ID + ":" + n).toList());
     }
 
     private SimpleBlocks() {}

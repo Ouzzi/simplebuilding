@@ -492,7 +492,7 @@ public final class BlocksTests {
         ALL.put("discover_recipe_unlocks", com.simpleblocks.discover.BlocksDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleblocks.discover.BlocksDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleblocks.discover.BlocksDiscover::firstPickupTips);
-        com.simpleblocks.saw.SawTests.register(ALL);
+        com.simpleblocks.saw.SawTests.register(ALL, MAX_TICKS);
         // The building blocks that moved here from SimpleBuilding (b-blocksmove).
         NatureTests.register(ALL, MAX_TICKS);
         SnowTests.register(ALL, MAX_TICKS);

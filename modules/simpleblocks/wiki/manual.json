@@ -40,6 +40,46 @@
       }
     },
     {
+      "id": "shapecutter_machines",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapecutterMachineBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapecutterMachineBlockEntity.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/ShapecutterMachineMenu.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/client/ShapecutterScreen.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/redstone_shapecutter.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/auto_shapecutter.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/saw/SawTests.java",
+        "tools/textures/proposals/n62/n62_saws_2026_11_15.py"
+      ],
+      "related": [
+        "simpleblocks:redstone_shapecutter",
+        "simpleblocks:auto_shapecutter",
+        "minecraft:crafter"
+      ],
+      "en": {
+        "title": "Pulse Shapecutter and Auto Shapecutter",
+        "summary": "The Shapecutter as a machine. The Pulse Shapecutter makes exactly one cut per redstone pulse, like the crafter; the Auto Shapecutter cuts by itself into the container in front of it. Both use the Shapecutter's screen to pick the shape.",
+        "details": [
+          "Pulse Shapecutter recipe: the crafter's recipe with the Shapecutter in place of the crafting table (5 iron ingots, the Shapecutter, 2 redstone dust, a dropper). Auto Shapecutter: Pulse Shapecutter, hopper and comparator (shapeless), the same step as from the crafter to the Auto Crafter.",
+          "Put blocks into the slot on the left of the screen and click a cut in the middle; the slot on the right shows what one cut makes. The choice stays when the input runs out, so a hopper can refill the same material. Hoppers fill the input from the top, the back and the sides; nothing can be pulled out.",
+          "Pulse Shapecutter: each rising redstone edge makes one cut 4 ticks later; a lasting signal makes no second one. The cut goes into the container in front (the side facing you when you place it); what does not fit, or everything without a container, comes out of the front like the crafter's output.",
+          "Auto Shapecutter: one cut every 8 ticks (a hopper's pace), only while a container stands in front and the whole result fits there; a redstone signal stops it. A comparator reads how full the input is.",
+          "The textures are a preview waiting for the owner's choice; the names are provisional too."
+        ]
+      },
+      "de": {
+        "title": "Takt-Formsäge und Auto-Formsäge",
+        "summary": "Die Formsäge als Maschine. Die Takt-Formsäge macht pro Redstone-Impuls genau einen Schnitt, wie der Crafter; die Auto-Formsäge schneidet von selbst in den Behälter vor ihr. Beide wählen die Form im Bildschirm der Formsäge.",
+        "details": [
+          "Rezept Takt-Formsäge: das Crafter-Rezept mit der Formsäge statt der Werkbank (5 Eisenbarren, die Formsäge, 2 Redstone-Staub, ein Spender). Auto-Formsäge: Takt-Formsäge, Trichter und Komparator (formlos), derselbe Schritt wie vom Crafter zum Auto-Crafter.",
+          "Links im Bildschirm Blöcke einlegen und in der Mitte einen Schnitt anklicken; rechts steht, was ein Schnitt ergibt. Die Wahl bleibt, wenn der Vorrat leer wird, so kann ein Trichter dasselbe Material nachfüllen. Trichter füllen von oben, hinten und den Seiten; herausziehen lässt sich nichts.",
+          "Takt-Formsäge: jede steigende Redstone-Flanke macht 4 Ticks später einen Schnitt; ein Dauersignal macht keinen zweiten. Der Schnitt geht in den Behälter vorne (die Seite, die beim Setzen zu dir zeigt); was nicht passt, oder alles ohne Behälter, kommt vorne heraus wie beim Crafter.",
+          "Auto-Formsäge: alle 8 Ticks ein Schnitt (Trichtertempo), nur wenn vorne ein Behälter steht und das ganze Ergebnis hineinpasst; ein Redstone-Signal hält sie an. Ein Komparator liest, wie voll der Vorrat ist.",
+          "Die Texturen sind eine Vorschau und warten auf die Wahl des Besitzers; auch die Namen sind vorläufig."
+        ]
+      }
+    },
+    {
       "id": "hushed_deepslate_tiles",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
@@ -886,10 +926,10 @@
         "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 31 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 33 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 31 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 33 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "*_slab": {

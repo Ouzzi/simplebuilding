@@ -148,8 +148,7 @@ public final class SawProbe {
         o.addProperty("octetRegistered", BuiltInRegistries.ITEM.containsKey(OCTET));
         JsonArray slots = new JsonArray();
         JsonArray cuts = new JsonArray();
-        if (screen instanceof ShapecutterScreen s) {
-            ShapecutterMenu menu = s.getMenu();
+        if (screen instanceof ShapecutterScreen<?> s && s.getMenu() instanceof ShapecutterMenu menu) {
             o.addProperty("menu", menu.getClass().getSimpleName());
             int left = field(s, net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.class, "leftPos");
             int top = field(s, net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.class, "topPos");

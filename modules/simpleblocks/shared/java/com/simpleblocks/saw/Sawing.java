@@ -33,6 +33,7 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
@@ -60,6 +61,18 @@ public final class Sawing {
             .setId(ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(NAME))));
     public static Item SAW_ITEM;
     public static MenuType<ShapecutterMenu> MENU;
+
+    /** N62: the Pulse Shapecutter (one cut per redstone pulse) and the Auto Shapecutter (cuts by itself); ids stay if the names change. */
+    public static final String PULSE_NAME = "redstone_shapecutter", AUTO_NAME = "auto_shapecutter";
+    /** Block entity type and menu type of both machines. */
+    public static final String MACHINE_NAME = "shapecutter_machine";
+    public static final Block PULSE_SAW = new ShapecutterMachineBlock(false, BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTER)
+            .setId(ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(PULSE_NAME))));
+    public static final Block AUTO_SAW = new ShapecutterMachineBlock(true, BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTER)
+            .setId(ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(AUTO_NAME))));
+    public static Item PULSE_SAW_ITEM, AUTO_SAW_ITEM;
+    public static BlockEntityType<ShapecutterMachineBlockEntity> MACHINE_ENTITY;
+    public static MenuType<ShapecutterMachineMenu> MACHINE_MENU;
 
     /** One cut the saw offers: the input, the result, and whether only the saw has it (no stonecutting recipe). */
     public record Entry(Identifier id, Ingredient input, ItemStackTemplate result, boolean sawOnly) {
@@ -100,15 +113,34 @@ public final class Sawing {
 
     public static void registerBlock() {
         Registry.register(BuiltInRegistries.BLOCK, SimpleBlocks.id(NAME), SAW);
+        Registry.register(BuiltInRegistries.BLOCK, SimpleBlocks.id(PULSE_NAME), PULSE_SAW);
+        Registry.register(BuiltInRegistries.BLOCK, SimpleBlocks.id(AUTO_NAME), AUTO_SAW);
     }
 
     public static void registerItem() {
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleBlocks.id(NAME));
-        SAW_ITEM = Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(SAW, new Item.Properties().setId(key).useBlockDescriptionPrefix()));
+        SAW_ITEM = blockItem(NAME, SAW);
+        PULSE_SAW_ITEM = blockItem(PULSE_NAME, PULSE_SAW);
+        AUTO_SAW_ITEM = blockItem(AUTO_NAME, AUTO_SAW);
+    }
+
+    private static Item blockItem(String name, Block block) {
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleBlocks.id(name));
+        return Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, new Item.Properties().setId(key).useBlockDescriptionPrefix()));
     }
 
     public static void registerMenu() {
         MENU = Registry.register(BuiltInRegistries.MENU, SimpleBlocks.id(NAME), new MenuType<>(ShapecutterMenu::new, FeatureFlags.VANILLA_SET));
+        MACHINE_MENU = Registry.register(BuiltInRegistries.MENU, SimpleBlocks.id(MACHINE_NAME), new MenuType<>(ShapecutterMachineMenu::new, FeatureFlags.VANILLA_SET));
+    }
+
+    /** The loader builds the type (its constructor differs between loaders), for both machine blocks. */
+    public static void registerBlockEntity(BlockEntityType<ShapecutterMachineBlockEntity> type) {
+        MACHINE_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleBlocks.id(MACHINE_NAME), type);
+    }
+
+    /** The blocks the machine block entity type accepts. */
+    public static java.util.Set<Block> machineBlocks() {
+        return java.util.Set.of(PULSE_SAW, AUTO_SAW);
     }
 
     public static void registerRecipeType() {

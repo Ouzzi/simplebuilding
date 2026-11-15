@@ -75,6 +75,18 @@ assert json.loads((tex / 'shapecutter_saw.png.mcmeta').read_text(encoding='utf-8
 # Shapecutter (A4b): Java ids match the generator; every wood family and every wool colour has its cuts; optional mods conditioned.
 saw_java = (MODULE / 'shared/java/com/simpleblocks/saw/Sawing.java').read_text(encoding='utf-8')
 assert f'NAME = "{g.SAW}"' in saw_java and 'id("sawing")' in saw_java, 'Sawing.java: saw id or recipe type id changed'
+# N62: Pulse and Auto Shapecutter - Java ids = generator, recipe, loot, model, own textures (provisional proposal), EN/DE name and JEI info, wiki.
+assert f'PULSE_NAME = "{g.SAW_MACHINES[0]}", AUTO_NAME = "{g.SAW_MACHINES[1]}"' in saw_java, 'Sawing.java: machine ids differ from the generator'
+for name in g.SAW_MACHINES:
+    for rel in (f'data/{NS}/recipe/{name}.json', f'data/{NS}/loot_table/blocks/{name}.json', f'assets/{NS}/blockstates/{name}.json',
+                f'assets/{NS}/items/{name}.json', f'assets/{NS}/models/block/{name}.json'):
+        assert (RES / rel).exists(), rel
+    for face in ('top', 'front', 'side', 'bottom'):
+        assert (tex / f'{name}_{face}.png').exists() and (tex / f'{name}_{face}.layers.json').exists(), f'{name}_{face} texture + layers'
+    for locale in ('en_us', 'de_de'):
+        for key in (f'block.{NS}.{name}', f'item.{NS}.{name}', f'jei.{NS}.info.{name}'):
+            assert langs[locale].get(key), (locale, key)
+    assert f'{NS}:{name}' in related, f'wiki: {name} is documented'
 cuts = g.sawing_list()
 assert len({c[0] for c in cuts}) == len(cuts), 'duplicate sawing recipe ids'
 results = {c[2] for c in cuts}

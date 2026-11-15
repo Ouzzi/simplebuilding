@@ -26,6 +26,9 @@ public final class BlocksFabric implements ModInitializer {
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simpleblocks.compact.CollapsedEffect::tick);
         com.simpleblocks.snow.SnowBlocks.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
                 com.simpleblocks.snow.SnowloggedBlockEntity::new, java.util.Set.of(com.simpleblocks.snow.SnowBlocks.SNOWLOGGED)));
+        // N62: the Pulse and Auto Shapecutter share one block entity type.
+        com.simpleblocks.saw.Sawing.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
+                com.simpleblocks.saw.ShapecutterMachineBlockEntity::new, com.simpleblocks.saw.Sawing.machineBlocks()));
         // SN30-1: a snow layer used on a fence, flower or grass snowlogs it.
         net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((player, level, hand, hit) -> com.simpleblocks.snow.Snowlogging.use(level, player, hand, hit));
         com.simplelib.api.PlayerState.onStop("simpleblocks:sawing", com.simpleblocks.saw.Sawing::forgetAll);
