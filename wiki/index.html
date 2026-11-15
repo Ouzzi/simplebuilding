@@ -3182,6 +3182,7 @@ function pageOverview() {
     }).join('') + '</div></details></div>';
   }
 
+  h += conv51Box(MODID);
   h += moduleInfo();
 
   var state = '<dl class="kv" style="margin:.2rem 0"><dt>' + esc(T('kvMcLine')) + '</dt><dd>' + esc(g.line || '?') + '</dd><dt>' + esc(T('kvGenerator')) + '</dt><dd><code>' + esc(g.generator || '?') + '</code></dd><dt>' + esc(T('kvRegenerate')) + '</dt><dd><code>' + esc(g.howToRegenerate || '?') + '</code></dd>' + (g.warning ? '<dt>' + esc(T('kvHint')) + '</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl>' +
@@ -5603,6 +5604,85 @@ var DEV_QUERY = (function () {
 function isDevSite() {
   return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || DEV_QUERY;
 }
+/* N51 Konverter-Seiten "Bauwerke" (?tab=buildings) und "3D-Modelle" (?tab=models3d): Wiki-Seiten wie die Verzauberungs-Ansicht,
+   Skripte assets/conv/*.js und assets/conv/conv.css erst beim ersten Besuch. Bis zur Freigabe nur im Dev-Wiki (eigene Leistengruppe,
+   Kasten auf der Mod-Uebersicht, Route); zur Freigabe hier und in assets/conv/conv-ui.js CONV51_PUBLIC = true
+   (Plan docs/ai/PLAN-B-CONV51-2026-11-14.md, Abschnitte 12-15). */
+var CONV51_PUBLIC = false;
+var CONV51_PAGES = {
+  simplebuildingtools: { route: 'buildings', en: ['Buildings converter', 'Turn .nbt, .schem, .litematic and .schematic files into blueprint codes, and codes back into files.'],
+    de: ['Bauwerke-Konverter', '.nbt-, .schem-, .litematic- und .schematic-Dateien in Blaupausen-Codes umwandeln und Codes zurück in Dateien.'] },
+  simplemodels: { route: 'models3d', en: ['3D models converter', 'Turn .json, .bbmodel, .obj and .gltf/.glb models into model code, and code back into .bbmodel or a resource pack.'],
+    de: ['3D-Modelle-Konverter', '.json-, .bbmodel-, .obj- und .gltf/.glb-Modelle in Modell-Code umwandeln und Code zurück in .bbmodel oder ein Ressourcenpaket.'] }
+};
+function conv51Box(modId) {
+  var c = CONV51_PAGES[modId];
+  if (!c || !(CONV51_PUBLIC || isDevSite())) return '';
+  var t = c[LANG] || c.en;
+  return '<div class="box' + (CONV51_PUBLIC ? '' : ' sb-dev') + '"><div class="box-title"><a href="#/' + c.route + '">' + esc(t[0]) + '</a>' + (CONV51_PUBLIC ? '' : ' <span class="muted tiny">DEV</span>') + '</div><p style="margin:.2rem 0">' + esc(t[1]) + '</p></div>';
+}
+Object.assign(STR.en, {
+  sbConv: 'Converters', navConvBuildings: 'Buildings', navConvModels: '3D models', convLoading: 'Loading the converter…',
+  convLoadFail: 'The converter scripts could not be loaded (assets/conv/).',
+  convIntroBuildings: 'Turn a building file into a Simple Building Tools blueprint code – and a code back into a file.',
+  convIntroModels: 'Turn a 3D model into a Simple Models code (vanilla model JSON) – and a code back into .json, .bbmodel or a resource pack.',
+  convHowTitle: 'How it works',
+  convHowBuildings: 'Drop a file (or load an example), copy the code – one part at a time if it is long – and paste it into a blueprint in the game. Codes from the game go the other way under “Way back”.',
+  convHowModels: 'Drop a model (or load an example), copy the code and paste it into the code view of the Simple Models editor. A code from the editor goes the other way under “Way back”.'
+});
+Object.assign(STR.de, {
+  sbConv: 'Konverter', navConvBuildings: 'Bauwerke', navConvModels: '3D-Modelle', convLoading: 'Konverter wird geladen …',
+  convLoadFail: 'Die Skripte des Konverters konnten nicht geladen werden (assets/conv/).',
+  convIntroBuildings: 'Bauwerk-Dateien in Blaupausen-Codes von Simple Building Tools umwandeln – und Codes zurück in Dateien.',
+  convIntroModels: '3D-Modelle in Simple-Models-Code (Vanilla-Modell-JSON) umwandeln – und Codes zurück in .json, .bbmodel oder ein Ressourcenpaket.',
+  convHowTitle: 'So geht es',
+  convHowBuildings: 'Datei ablegen (oder ein Beispiel laden), Code kopieren – bei langen Bauwerken Teil für Teil – und im Spiel in eine Blaupause einfügen. Codes aus dem Spiel gehen unter „Rückweg“ zurück in eine Datei.',
+  convHowModels: 'Modell ablegen (oder ein Beispiel laden), Code kopieren und in die Code-Ansicht des Simple-Models-Editors einfügen. Ein Code aus dem Editor geht unter „Rückweg“ zurück in eine Datei.'
+});
+var CONV51_ROUTES = { buildings: { mode: 'blueprint', nav: 'navConvBuildings', intro: 'convIntroBuildings', how: 'convHowBuildings' },
+  models3d: { mode: 'model', nav: 'navConvModels', intro: 'convIntroModels', how: 'convHowModels' } };
+/* Eigene Leistengruppe (nicht in der DEV-Gruppe): bis zur Freigabe nur im Dev-Wiki, danach fuer alle. */
+var CONV51_NAV = { key: 'conv', labelKey: 'sbConv', dev: !CONV51_PUBLIC, items: [
+  { key: 'buildings', labelKey: 'navConvBuildings', glyph: '⌂', count: null, always: true },
+  { key: 'models3d', labelKey: 'navConvModels', glyph: '◫', count: null, always: true }
+] };
+var CONV51_VIEW = { state: 0, nodes: {} }; // state 0 = not loaded, 1 = loading, 2 = ready, 3 = failed
+function conv51Load() {
+  if (CONV51_VIEW.state) return;
+  CONV51_VIEW.state = 1;
+  window.CONV51_EMBED = true; // conv-ui.js: no auto start, the page mounts it
+  var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'assets/conv/conv.css'; document.head.appendChild(css);
+  var files = ['conv-data.js', 'conv-core.js', 'conv-formats.js', 'conv-lang.js', 'conv-mesh.js', 'conv-ui.js', 'examples/examples.js'], pending = files.length;
+  function done() {
+    if (--pending) return;
+    if (CONV51_VIEW.state === 1) CONV51_VIEW.state = window.Conv51UI && window.Conv51UI.mount ? 2 : 3;
+    if (CONV51_ROUTES[currentRoute().section]) render({ keepScroll: true });
+  }
+  files.forEach(function (f) {
+    var s = document.createElement('script'); s.src = 'assets/conv/' + f; s.async = false; // in order: data, core, ... ui
+    s.onload = done; s.onerror = function () { CONV51_VIEW.state = 3; done(); };
+    document.head.appendChild(s);
+  });
+}
+function pageConv51(section) {
+  var c = CONV51_ROUTES[section];
+  if (!(CONV51_PUBLIC || isDevSite())) return notFound(T('wordSection'), section);
+  conv51Load();
+  var h = '<h1>' + esc(T(c.nav)) + (CONV51_PUBLIC ? '' : ' <span class="badge">DEV</span>') + '</h1><p class="lead muted">' + esc(T(c.intro)) + '</p>';
+  if (CONV51_VIEW.state === 3) return h + '<div class="box box-danger"><div class="box-title">' + esc(T('renderError')) + '</div>' + esc(T('convLoadFail')) + '</div>';
+  if (CONV51_VIEW.state !== 2) return h + '<p class="hint">' + esc(T('convLoading')) + '</p>';
+  h += '<div class="box box-info"><div class="box-title">' + esc(T('convHowTitle')) + '</div>' + esc(T(c.how)) + '</div>';
+  h += '<div class="conv-view" id="conv51-view" data-conv="' + c.mode + '"></div>';
+  setTimeout(function () {
+    var el = document.getElementById('conv51-view'), keep = CONV51_VIEW.nodes[section];
+    if (!el) return;
+    /* the same converter (loaded file, codes) comes back after a re-render; a new language builds it fresh */
+    if (keep && keep.lang === LANG) { el.parentNode.replaceChild(keep.node, el); return; }
+    window.Conv51UI.mount(el, { lang: LANG });
+    CONV51_VIEW.nodes[section] = { node: el, lang: LANG };
+  }, 0);
+  return h;
+}
 
 /* Items und Bloecke aller geladenen Mods: Bild und Name auch fuer fremde Ids (Handbuch, Fragentisch, Rezepte). */
 var GX = null, EXTRA_NAMES = {};
@@ -6048,6 +6128,7 @@ var NAV_GROUPS = [
 /* Welcher Leisten-Eintrag zu einer Seite gehoert (Weiterleitungen alter Adressen eingeschlossen). */
 var NAV_ACTIVE = { blocks: 'items', recipes: 'allrecipes', inworld: 'allrecipes', make: 'allrecipes', use: 'allrecipes', features: 'start' };
 var SB_STORE = 'simple-wiki-sidebar';
+NAV_GROUPS.push(CONV51_NAV); // N51 Konverter, eigene Gruppe (siehe CONV51_PUBLIC)
 var SB_OPEN = (function () { try { var v = JSON.parse(window.localStorage.getItem(SB_STORE) || '{}'); return isObj(v) ? v : {}; } catch (err) { return {}; } })();
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
@@ -6631,6 +6712,7 @@ function render(opts) {
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
       case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
       case 'advancements': html = pageAdvancements(); title = T('navAdvancements'); break;
+      case 'buildings': case 'models3d': html = pageConv51(r.section); title = T(CONV51_ROUTES[r.section].nav); break;
       case 'textures': html = pageTextures(); title = T('navTextures'); break;
       case 'commands': html = pageCommands(); title = T('navCommands'); break;
       case 'browse': html = pageBrowse(); title = T('navBrowse'); break;

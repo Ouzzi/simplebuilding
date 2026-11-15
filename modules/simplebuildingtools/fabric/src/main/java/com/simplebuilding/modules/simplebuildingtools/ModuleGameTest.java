@@ -519,4 +519,10 @@ public final class ModuleGameTest {
     public void undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(GameTestHelper helper) {
         com.simplebuildingtools.test.WandModeTests.undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(helper);
     }
+
+    /** N51 (b-conv51b): block defaults and serializer vectors for the wiki converter; writes JSON only with SB_CONV51_DUMP. */
+    @GameTest
+    public void converterDataDump(GameTestHelper helper) {
+        com.simplebuildingtools.test.Conv51Dump.dump(helper);
+    }
 }

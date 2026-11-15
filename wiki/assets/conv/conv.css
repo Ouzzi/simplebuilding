@@ -1,0 +1,26 @@
+/* conv.css (N51 phase 3, b-conv51b): the converter pages inside the wiki SPA. Only the wiki's design tokens (wiki/index.html :root),
+   so light/dark, font and colours follow the wiki. Loaded by index.html on the first visit of "Bauwerke" or "3D-Modelle". */
+.conv-view .cv-drop { border: 2px dashed var(--border-strong); border-radius: var(--radius); background: var(--panel); padding: 1.6rem 1rem; text-align: center; cursor: pointer; color: var(--muted); font-weight: 600; box-shadow: var(--shadow); }
+.conv-view .cv-drop:hover, .conv-view .cv-drop.cv-over, .conv-view .cv-drop:focus-visible { border-color: var(--accent); color: var(--accent-strong); background: var(--accent-soft); outline: none; }
+.conv-view .cv-hint { color: var(--muted); font-size: .9rem; margin: .45rem 0; }
+.conv-view .cv-local { font-size: .82rem; }
+.conv-view select, .conv-view input:not([type]), .conv-view input[type=text] { height: 32px; padding: 0 .45rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); font: inherit; font-size: .9rem; max-width: 100%; }
+.conv-view input[type=range] { accent-color: var(--accent); vertical-align: middle; }
+.conv-view input[type=checkbox] { accent-color: var(--accent); }
+.conv-view .cv-opts, .conv-view .cv-dl, .conv-view .cv-mopts { display: flex; flex-wrap: wrap; gap: .5rem .9rem; align-items: center; }
+.conv-view .cv-out:not(:empty) { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: .4rem 1.1rem 1rem; margin: 1rem 0; box-shadow: var(--shadow); }
+.conv-view .cv-out h3 { margin-top: .9rem; }
+.conv-view .cv-out h4 { font-size: .95rem; margin: 1.1rem 0 .4rem; }
+.conv-view .cv-code { width: 100%; font: .8rem/1.4 var(--mono); background: var(--code-bg); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: .5rem .6rem; resize: vertical; margin-bottom: .4rem; }
+.conv-view .cv-len { font-weight: 400; color: var(--muted); font-size: .85em; }
+.conv-view .cv-prev { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.conv-view canvas { background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--radius-sm); max-width: 100%; }
+.conv-view .cv-notes li { margin: .15rem 0; }
+.conv-view .cv-err, .conv-view .cv-bad { color: var(--danger-text); }
+.conv-view .cv-err { background: var(--danger-bg); border-left: 4px solid var(--danger-border); padding: .45rem .8rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.conv-view .cv-ok { color: var(--accent-strong); font-weight: 600; }
+.conv-view .cv-back { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1.05rem; margin-top: 1rem; box-shadow: var(--shadow); }
+.conv-view .cv-back[open] { padding-bottom: .9rem; }
+.conv-view .cv-back > summary { padding: .75rem 0; font-weight: 650; color: var(--text); }
+.conv-view .cv-back > summary:hover { color: var(--accent-strong); }
+.conv-view .cv-devonly { color: var(--muted); font-style: italic; }
