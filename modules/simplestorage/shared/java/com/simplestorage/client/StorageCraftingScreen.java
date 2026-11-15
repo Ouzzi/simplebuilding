@@ -67,7 +67,7 @@ public class StorageCraftingScreen extends AbstractRecipeBookScreen<StorageCraft
             return;
         }
         int containerHeight = INVENTORY_Y - UiBoxes.FRAME - GAP;
-        UiBoxes.box(graphics, left, top, this.imageWidth, containerHeight, OAK);
+        UiBoxes.box(graphics, left, top, this.imageWidth, containerHeight, OAK, false); // IG57U2: no shadow, air below the last row
         UiBoxes.box(graphics, left + INVENTORY_X - 8, top + INVENTORY_Y - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
         Slot result = this.menu.getSlot(StorageCraftingMenu.RESULT_SLOT);
         List<int[]> avoid = new ArrayList<>();

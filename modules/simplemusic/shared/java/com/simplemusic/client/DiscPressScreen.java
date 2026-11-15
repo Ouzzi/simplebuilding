@@ -23,7 +23,10 @@ public class DiscPressScreen extends AbstractContainerScreen<DiscPressMenu> {
     private static final Identifier PROGRESS = Identifier.withDefaultNamespace("container/furnace/burn_progress");
     private static final UiPalette BOX = UiPalette.IRON;
     private static final int INVENTORY_Y = 84, GAP = 2, INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
-    private static final int ARROW_X = 79, ARROW_Y = 35;
+    /** Vanilla's furnace arrow column (unstyled) and the press row (N57-10: row 28, see {@link DiscPressMenu#OUTPUT_Y}). */
+    private static final int ARROW_X = 79, ARROW_Y = DiscPressMenu.OUTPUT_Y;
+    /** Styled arrow: centred between the blank's light edge (73) and the big result slot (112): 9 px left, 8 px right. */
+    private static final int STYLED_ARROW_X = 82;
 
     public DiscPressScreen(DiscPressMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -46,8 +49,11 @@ public class DiscPressScreen extends AbstractContainerScreen<DiscPressMenu> {
         int done = Math.round(menu.progress() * 24);
         if (!UiStyleToggle.isEnabled()) {
             g.blit(RenderPipelines.GUI_TEXTURED, FURNACE, left, top, 0.0F, 0.0F, imageWidth, imageHeight, 256, 256);
-            // the furnace's input and fuel slots and its flame (x 55..72, y 16..70) give way to the two slots side by side
-            g.fill(left + 54, top + 15, left + 75, top + 72, 0xFFC6C6C6);
+            // the furnace's input and fuel slots, flame, arrow and result frame (x 54..140, y 15..72) give way; arrow and
+            // result frame come back from the same picture at the press row (N57-10)
+            g.fill(left + 54, top + 15, left + 141, top + 72, 0xFFC6C6C6);
+            g.blit(RenderPipelines.GUI_TEXTURED, FURNACE, left + ARROW_X, top + ARROW_Y - 1, 79.0F, 34.0F, 24, 17, 256, 256);
+            g.blit(RenderPipelines.GUI_TEXTURED, FURNACE, left + DiscPressMenu.OUTPUT_X - 5, top + DiscPressMenu.OUTPUT_Y - 5, 111.0F, 30.0F, 26, 26, 256, 256);
             for (Slot slot : menu.slots) {
                 if (slot.index < 2 || slot.index == 3) vanillaSlot(g, left + slot.x, top + slot.y);
             }
@@ -61,7 +67,7 @@ public class DiscPressScreen extends AbstractContainerScreen<DiscPressMenu> {
             if (slot.index == 2) UiBoxes.bigSlot(g, left + slot.x, top + slot.y, BOX);
             else UiBoxes.slot(g, left + slot.x, top + slot.y, slot.container instanceof Inventory ? UiPalette.INVENTORY : BOX);
         }
-        UiBoxes.arrow(g, left + ARROW_X + 1, top + ARROW_Y, Math.round(menu.progress() * UiBoxes.ARROW_WIDTH), BOX);
+        UiBoxes.arrow(g, left + STYLED_ARROW_X, top + ARROW_Y, Math.round(menu.progress() * UiBoxes.ARROW_WIDTH), BOX);
     }
 
     /** Vanilla's 18 x 18 slot frame around the item at {@code x, y}: dark top/left, white bottom/right, grey inside. */
