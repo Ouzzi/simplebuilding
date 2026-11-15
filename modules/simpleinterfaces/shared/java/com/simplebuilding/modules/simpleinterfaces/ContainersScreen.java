@@ -53,6 +53,8 @@ public final class ContainersScreen {
                 .setTooltip(tip("slotHighlightBehind")).setSaveConsumer(v -> c.slotHighlightBehind = v).build());
         general.addEntry(e.startBooleanToggle(name("leggingsFix"), c.leggingsFix).setDefaultValue(true)
                 .setTooltip(tip("leggingsFix")).setSaveConsumer(v -> c.leggingsFix = v).build());
+        general.addEntry(e.startBooleanToggle(name("linkedHudIcons"), c.linkedHudIcons).setDefaultValue(true)
+                .setTooltip(tip("linkedHudIcons")).setSaveConsumer(v -> c.linkedHudIcons = v).build());
         general.addEntry(e.startBooleanToggle(name("scopeEdgeOverlay"), c.scopeEdgeOverlay).setDefaultValue(true)
                 .setTooltip(tip("scopeEdgeOverlay")).setSaveConsumer(v -> c.scopeEdgeOverlay = v).build());
         general.addEntry(e.startBooleanToggle(name("scopeHideHud"), c.scopeHideHud).setDefaultValue(true)
@@ -76,6 +78,9 @@ public final class ContainersScreen {
             server.addEntry(e.startIntField(name("linkedContainerRange"), s.linkedContainerRange).setMin(LinkedConfig.MIN_LINKED_RANGE)
                     .setMax(LinkedConfig.MAX_LINKED_RANGE).setDefaultValue(LinkedConfig.DEFAULT_LINKED_RANGE).setTooltip(tip("linkedContainerRange"))
                     .setSaveConsumer(v -> s.linkedContainerRange = v).build());
+            server.addEntry(e.startIntField(name("linkedContainerMax"), s.linkedContainerMax).setMin(LinkedConfig.MIN_LINKED_MAX)
+                    .setMax(LinkedConfig.MAX_LINKED_MAX).setDefaultValue(LinkedConfig.DEFAULT_LINKED_MAX).setTooltip(tip("linkedContainerMax"))
+                    .setSaveConsumer(v -> s.linkedContainerMax = v).build());
             server.addEntry(e.startBooleanToggle(name("enableEasyShulkers"), s.enableEasyShulkers).setDefaultValue(true)
                     .setTooltip(tip("enableEasyShulkers")).setSaveConsumer(v -> s.enableEasyShulkers = v).build());
             server.addEntry(e.startBooleanToggle(name("enableEasyEnderChests"), s.enableEasyEnderChests).setDefaultValue(true)

@@ -308,7 +308,7 @@ public final class LinkedTests {
             p.setShiftKeyDown(false);
             h.assertTrue(menu.slots.size() == base + 27 && firstLinked(menu) == base, "Mark appends its slots to the inventory menu: " + menu.slots.size());
             h.assertTrue(!sent.isEmpty() && sent.get(sent.size() - 1).containerId() == menu.containerId
-                    && sent.get(sent.size() - 1).size() == 27 && sent.get(sent.size() - 1).icon().is(Items.SHULKER_BOX), "Payload carries size and the block's item");
+                    && sent.get(sent.size() - 1).size() == 27 && sent.get(sent.size() - 1).entries().get(0).icon().is(Items.SHULKER_BOX), "Payload carries size and the block's item");
             // Inventory screen: main/hotbar slots fill the marked box, the box's slots empty into the inventory.
             p.getInventory().add(new ItemStack(Items.DIAMOND, 3));
             int diamonds = -1;
@@ -354,8 +354,8 @@ public final class LinkedTests {
             // Banner: one HUD payload on marking (kind = block item, name = container name), one empty one on ending.
             mark(p, markedAbs);
             var shown = hud(sent);
-            h.assertTrue(shown.size() == 1 && shown.get(0).size() == 1 && shown.get(0).icon().is(Items.BARREL)
-                    && shown.get(0).title().getString().equals(((net.minecraft.world.level.block.entity.BaseContainerBlockEntity) marked).getDisplayName().getString()), "Marking sends the banner: " + shown);
+            h.assertTrue(shown.size() == 1 && shown.get(0).size() == 1 && shown.get(0).entries().get(0).icon().is(Items.BARREL)
+                    && shown.get(0).entries().get(0).title().getString().equals(((net.minecraft.world.level.block.entity.BaseContainerBlockEntity) marked).getDisplayName().getString()), "Marking sends the banner: " + shown);
             LinkedContainers.tick(p);
             h.assertTrue(hud(sent).size() == 1, "The banner is sent once, not every tick");
             // Escape (cancel payload): mark and banner gone; a second cancel is harmless.

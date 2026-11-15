@@ -8,10 +8,15 @@ public final class LinkedConfig {
     public static final int DEFAULT_LINKED_RANGE = 64;
     public static final int MIN_LINKED_RANGE = 8;
     public static final int MAX_LINKED_RANGE = 128;
+    public static final int DEFAULT_LINKED_MAX = 3;
+    public static final int MIN_LINKED_MAX = 1;
+    public static final int MAX_LINKED_MAX = 5;
     /** Sneak + right click marks a container; other GUIs show it below. */
     public boolean enableLinkedContainers = true;
     /** Blocks until the mark ends, 8-128. */
     public int linkedContainerRange = DEFAULT_LINKED_RANGE;
+    /** N65: containers a player may mark at once, 1-5 (marking one more drops the oldest). */
+    public int linkedContainerMax = DEFAULT_LINKED_MAX;
     /** Shulker boxes open from the hand or the inventory. */
     public boolean enableEasyShulkers = true;
     /** Ender chests open from the hand or the inventory. */
@@ -21,6 +26,7 @@ public final class LinkedConfig {
 
     public void normalizeNumbers() {
         linkedContainerRange = Math.clamp(linkedContainerRange, MIN_LINKED_RANGE, MAX_LINKED_RANGE);
+        linkedContainerMax = Math.clamp(linkedContainerMax, MIN_LINKED_MAX, MAX_LINKED_MAX);
     }
 
     public void normalize() {

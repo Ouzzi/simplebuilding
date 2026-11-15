@@ -15,7 +15,7 @@ public interface LinkedMenu {
     /** Drops every slot from {@code from} on (slots, last and remote copies). */
     void qol$truncate(int from);
 
-    /** Server: the linked container session of this menu, or null. */
+    /** Server: the linked containers of this menu (one part per marked container), or null. */
     @Nullable LinkedContainers.Session qol$session();
 
     void qol$session(@Nullable LinkedContainers.Session session);
