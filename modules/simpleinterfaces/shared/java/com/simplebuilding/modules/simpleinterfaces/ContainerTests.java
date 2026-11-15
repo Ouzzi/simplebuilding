@@ -148,8 +148,9 @@ public final class ContainerTests {
             }
             List<BoxLayout.Rect> elements = new ArrayList<>(StationStyles.ELEMENTS.getOrDefault(id, WorkStyles.ELEMENTS.getOrDefault(id, List.of())));
             elements.addAll(geo.extra());
-            h.assertValueEqual(StationStyles.RESULT_SLOT.containsKey(id) || WorkStyles.RESULT_SLOT.containsKey(id), geo.result() >= 0,
-                    id + ": big result slot registered");
+            // the crafter's big result slot is its decor's (StorageDecors), the others' come from the style tables
+            if (!id.equals("crafter")) h.assertValueEqual(StationStyles.RESULT_SLOT.containsKey(id) || WorkStyles.RESULT_SLOT.containsKey(id),
+                    geo.result() >= 0, id + ": big result slot registered");
             if (geo.result() >= 0) elements.add(new BoxLayout.Rect(geo.container()[geo.result()][0] - 4, geo.container()[geo.result()][1] - 4, 25, 25));
             var l = BoxLayout.margin(slots, elements, geo.width(), geo.height(), 6);
             h.assertTrue(l != null, geo.id() + ": two boxes");
