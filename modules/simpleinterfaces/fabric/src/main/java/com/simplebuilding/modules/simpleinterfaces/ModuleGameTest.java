@@ -33,6 +33,10 @@ public final class ModuleGameTest {
     @GameTest(maxTicks = 100) public void linkedQolMigration(GameTestHelper h) { LinkedTests.qolMigration(h); }
     @GameTest(maxTicks = 100) public void linkedSync(GameTestHelper h) { LinkedTests.sync(h); }
     @GameTest(maxTicks = 100) public void linkedSuperSwitch(GameTestHelper h) { LinkedTests.superSwitch(h); }
+    @GameTest(maxTicks = 100) public void linkedMultiMark(GameTestHelper h) { LinkedTests.multiMark(h); }
+    @GameTest(maxTicks = 100) public void linkedMultiTransfer(GameTestHelper h) { LinkedTests.multiTransfer(h); }
+    @GameTest public void linkedLayoutModes(GameTestHelper h) { LinkedTests.layoutModes(h); }
+    @GameTest public void linkedLayoutMargins(GameTestHelper h) { LinkedTests.layoutMargins(h); }
     @GameTest public void tooltipEnderSnapshot(GameTestHelper h) { TooltipTests.enderSnapshot(h); }
     @GameTest public void tooltipSnapshotCodec(GameTestHelper h) { TooltipTests.snapshotCodec(h); }
     @GameTest public void zoomMath(GameTestHelper h) { TooltipTests.zoomMath(h); }

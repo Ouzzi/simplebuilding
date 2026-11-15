@@ -15,7 +15,8 @@ import org.jetbrains.annotations.Nullable;
  * the marked box (where the inventory was), 2 px, a hotbar strip; tabs left of the box [marked ...][inventory] (the 27 main
  * slots sit behind the last tab). Does A not fit: <b>C</b> {@link Mode#BESIDE} - the box left of the unchanged screen, the
  * group centred by moving {@code leftPos} (only {@link Input#clean} screens with the recipe book closed); else A scrolling
- * ({@link Mode#BELOW_SCROLL}). With the recipe book open: A, tabs on the right, no shift.</li>
+ * ({@link Mode#BELOW_SCROLL}). With the recipe book open: A, tabs on the right, no sideways shift. Clean screens are centred
+ * vertically by moving {@code topPos}; the others keep Vanilla's place.</li>
  * <li>The inventory screen (E) or a screen without player slots: the box below the image (group centred by {@code topPos}),
  * else beside, else below scrolling.</li>
  * <li>Two double chests (own storage >= 6 rows and a marked one >= 6 rows, or several marks next to a double chest): C side by
@@ -170,18 +171,20 @@ public final class LinkedLayout {
             }
             return tabs(in);
         }
+        // vertical centring also with the recipe book open (it only shifts sideways); C needs the book closed
+        boolean movableY = in.clean();
         if (standalone) {
-            Layout below = standaloneBelow(in, maxRows, movable, false);
+            Layout below = standaloneBelow(in, maxRows, movableY, false);
             if (fits(below, in)) return below;
         } else {
-            Layout a = stationBelow(in, maxRows, movable, book, false);
+            Layout a = stationBelow(in, maxRows, movableY, book, false);
             if (fits(a, in)) return a;
         }
         if (movable) {
             Layout c = beside(in, maxRows, false);
             if (fits(c, in)) return c;
         }
-        return standalone ? standaloneBelow(in, maxRows, movable, true) : stationBelow(in, maxRows, movable, book, true);
+        return standalone ? standaloneBelow(in, maxRows, movableY, true) : stationBelow(in, maxRows, movableY, book, true);
     }
 
     /** The open marked part for modes without an inventory tab. */
@@ -317,7 +320,7 @@ public final class LinkedLayout {
      */
     public static int[] bounds(Layout l, Input in) {
         int left = in.leftPos() + l.dx(), top = in.topPos() + l.dy();
-        int x0 = 0, y0 = Math.max(0, l.bgTop() == Integer.MIN_VALUE ? 0 : 0), x1 = in.imageWidth();
+        int x0 = 0, y0 = 0, x1 = in.imageWidth();
         int y1 = l.bgBottom() == Integer.MAX_VALUE ? in.imageHeight() : Math.min(in.imageHeight(), l.bgBottom());
         List<Rect> all = new ArrayList<>(l.tabs());
         if (l.box() != null) all.add(l.box());
