@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "variant": "lines",
+  "area": "aging",
+  "columns": ["special_1", "special_2", "special_3", "special_4", "special_5", "special_6", "special_7", "special_8", "special_9", "special_10", "special_11", "special_12", "special_13", "special_14", "special_15"],
+  "rows": [
+    {"key": "aging", "label": "Aging blocks", "cells": ["simpleblocks:waxed_carved_pumpkin", "simpleblocks:waxed_faded_carved_pumpkin", "simpleblocks:waxed_bleached_carved_pumpkin", "simpleblocks:waxed_jack_o_lantern", "simpleblocks:waxed_faded_jack_o_lantern", "simpleblocks:waxed_bleached_jack_o_lantern", "simpleblocks:waxed_pumpkin", "simpleblocks:waxed_faded_pumpkin", "simpleblocks:waxed_bleached_pumpkin", "simpleblocks:waxed_hay_block", "simpleblocks:waxed_faded_hay_block", "simpleblocks:waxed_bleached_hay_block", "simpleblocks:waxed_melon", "simpleblocks:waxed_faded_melon", "simpleblocks:waxed_bleached_melon"]}
+  ],
+  "excluded": []
+}

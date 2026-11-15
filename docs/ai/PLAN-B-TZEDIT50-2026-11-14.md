@@ -60,3 +60,52 @@ Entscheidungen (Empfehlung B, offene Fragen): 1. Layout **A** (Raster + Seitenle
 - Bekannt: test_devqueue.py test_texture_save_flow flakt (BrokenPipe beim 413-Test, auch ohne diese Änderung ~2/12).
 
 ### Phase 2 bleibt wie oben (Erstexport aus dem Spiel, OrderAreas liest Config, alle Bereiche, Seite lädt Config statt Inline-Daten).
+
+## Phase 2 – Umsetzung (Besitzer „die Testzentrale per Config“, 14.11. abends)
+Priorität nach A 22:20 („warum nicht der ganze Bereich?“): erst (1) Export aller Bereiche + (2) Editor lädt echte Config,
+pushen, melden; danach (3) OrderAreas liest Config + „Neu“ + Reload in eigenem Commit.
+
+### Schema final (tzedit_save.check_save, schema 1, eine Datei je Bereich)
+`layout_<variant>_<area>.json` = `{schema, variant, area, columns, rows:[{key,label,cells,tops?}], excluded}`
+- Bereiche **lines**: `metals | wood | aging | rest | stone` (je Reihen-Art eine Datei; gleiche Spaltenstruktur je Art wie
+  `share()`), Reihenfolge der Reihen = Welt (stone: erst Seite B, dann die auf Seite A gewanderten Stein-Reihen).
+  Spalten = feste Slot-Spalten (Slot-Name klein), gemeinsame Zusatzspalten (`otherKeys`, Muster `{m}`→`m`, z. B. `hollow_m_log`),
+  dann Sonderbereich `special_1..n` (je Reihe verschieden viele Einzelstücke → `others` als zusätzliche Spalten, kein eigenes Feld).
+- Zellen: Item-Id (immer mit Namensraum); `#red` = roter Platzhalter (sollte existieren), `#light` = hellgrauer Platzhalter
+  (gibt es nicht), `null` = kein Feld (hinter der Seitentiefe der Reihe); `#grey`/`#frame` bleiben für den Editor erlaubt.
+- `tops` (neu, optional): `{spalte: id}` = Achtel, das auf dem Block dieser Zelle steht (Speicher-/Rohblock-/Stamm-Achtel).
+- `label` = Text des Steh-Schilds der Reihe (aus dem Spiel). `excluded` = [] im Erstexport.
+- **blocks**: `compact` (je Mod ein dichtes Quadrat; Reihe = eine z-Zeile `<ns>-<n>`, Spalten `c0..`, c0 der ersten Zeile = Mod-Schild → null).
+- **lines|blocks**: `items` (Items je Mod der Variante, gleiche Rasterform). blocks/items sind ein Abbild (noch nicht config-gesteuert).
+
+### Dateien
+- `TestCentreDump` (SB_TC_DUMP): zusätzlich `#label`-Zeilen in `lines-rows.tsv`, `compact-cells.tsv`, `items-<variant>-cells.tsv`.
+- `tools/tzedit/export_layout.py <dump>`: Tabellen → Configs (check_save + layout_text) in `common/src/shared/resources/data/simplebuilding/testcentre/`.
+- `tools/tzedit/build_editor.py [--check]`: Configs → `wiki/data/testcentre/{index.json,layout_*.json}` + `wiki/tz-editor.html`
+  (Index: Bereiche + Id→Textur aus den Wiki-Modul-Texturen; Vanilla zur Laufzeit nur aus den Dev-Kopien `assets/vanilla/`,
+  `assets/textures/minecraft/`, sonst Name). `export_area.py`/`build_preview.py` (Phase-1-Auszug) entfallen.
+- Editor (Abweichung nach Besitzer-Vorgabe A 22:25 „vollständig und im selben Stil wie simplewiki“): KEINE eigene HTML-Seite mehr,
+  sondern Dev-Seite im Wiki-SPA `wiki/index.html` (Dev-Gruppe „Testzentrale-Editor“, Route `#/tzeditor`, nur bei `isDevSite()`,
+  noindex per Meta beim Anzeigen), Oberfläche `wiki/assets/tzeditor.js` (lazy, Wiki-Tokens/.btn/.box, Hell/Dunkel), `wiki/tz-editor.html`
+  = Weiterleitung. Bereichsauswahl (alle 7 Dateien), Ansicht A/B, Ziehen/Undo/Platzhalter/Live-Prüfung, `tops` als kleines Bild,
+  Speichern je Bereich (+tops), Warnung bei ungespeichert. Texturen: Wiki-Moduldaten-Icons, `data/textures.js`-Gruppen, Basisblock
+  von Formen (Achtel/Stufe/... → Block); Vanilla nur zur Laufzeit aus den Dev-Kopien. `preview_template.html` entfällt.
+- Erstexport-Ergebnis (Integration 26.3, alle Module, 15.11. 00:28, Lauf grün 1/1): lines/metals 28 Reihen x 114 Spalten 653 Ids (+30 Achtel)
+  10 rot; wood 19 x 54, 509 (+28) 4 rot; aging 1 x 15, 15; stone 95 x 15, 493, 4 rot; rest – (keine REST-Reihen im Stand);
+  lines/items 48 x 113, 924; blocks/compact 150 x 17, 1371; blocks/items 46 x 113, 658. Abgleich: 1728 Ids/Achtel der Dump-Tabelle =
+  1728 in den lines-Configs, nichts verloren. Texturen: 1613 von 2029 Modul-Ids mit Bild, Vanilla (623) nur auf dem Dev-Host.
+- Weg Erstexport: sbt-Lauf `SB_TC_DUMP=1 run.py --targets integration-263 --filter 'sbintegration:*test_centre*'`, Tabellen von sb-test holen.
+
+### Schritt 3 (danach, eigener Commit)
+`LayoutConfig` (Jar-Ressource, Override `config/simplebuilding/testcentre/` im Spielordner hat Vorrang), `families(config)`:
+Config bestimmt Reihen-Reihenfolge/Zellen je lines-Bereich; unbekannte Id im geladenen Namensraum = Warnung + rot, Id einer
+nicht geladenen Mod = hellgrau (Kern-Lauf ohne Module); doppelte Id nur einmal; Algorithmus-Items ohne Zelle/excluded →
+eigenes Band „Neu“ (Schild). Ohne Config exakt wie heute. `/testcenter layout export|reload`. Gametests Config==Welt, „Neu“.
+
+### Risiken
+Erstexport nur aus der Integration (alle Module) → im Kern-Lauf fehlen Modul-Ids (hellgrau statt rot, s. o.);
+Seitenschnitt A/B bleibt algorithmisch; Größe stone-Datei (< 512 KB prüfen).
+
+### Verifikation
+Unit `tools/tzedit/tests` (Schema tops, Export aus Beispiel-Tabellen), precheck, Harness-Klicktest (alle Bereiche wählbar,
+Speichern), sbt: Integration-Dump, später test_centre*-Gametests.

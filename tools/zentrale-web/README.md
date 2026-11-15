@@ -82,7 +82,9 @@ Einrichtung Webserver (einmal, als root, nach dem Merge in den ausgelieferten St
 
 ## Testzentrale speichern (N50 TZEDIT50)
 
-Seite `/dev/tz-editor.html` (nur Dev, Regel wie `isDevSite()`, noindex; öffentlicher Pfad zeigt nur einen Hinweis).
+Dev-Seite im Wiki `/dev/index.html#/tzeditor` (Seitenleiste Dev → Testzentrale-Editor, `wiki/assets/tzeditor.js`; nur bei `isDevSite()`,
+noindex; `/dev/tz-editor.html` leitet dorthin). Daten: `wiki/data/testcentre/` aus den eingecheckten Configs
+(`python3 tools/tzedit/build_editor.py`, Erstexport aus dem Spiel: `tools/tzedit/export_layout.py`).
 "Speichern" schickt einen Layout-Bereich an `POST /api/testcentre` (gleicher Login wie der übrige Dev-Bereich);
 `tools/tzedit/tzedit_save.py check_save` prüft (Namen, Ids, Platzhalter `#grey/#light/#red/#frame`, gleich viele Zellen wie
 Spalten, max. 512 KB) und devqueue legt die Speicherung als JSON unter `<data>/testcentre/` ab - kein git auf dem Web-Host.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-N50 TZEDIT50: "Speichern" of the testcentre editor (dev wiki page wiki/tz-editor.html), same pattern as the pixel
+N50 TZEDIT50: "Speichern" of the testcentre editor (dev wiki page index.html#/tzeditor, wiki/assets/tzeditor.js), same pattern as the pixel
 editor's tools/textures/editor_save.py:
 
 - the dev queue on the web host (tools/zentrale-web/devqueue.py, POST /api/testcentre) checks a save with
@@ -11,8 +11,10 @@ editor's tools/textures/editor_save.py:
     python3 tools/tzedit/tzedit_save.py pull --git-dir HUB.git --remote "ssh -o BatchMode=yes <web host>" [--base claude-wave1]
     python3 tools/tzedit/tzedit_save.py apply SAVE.json --git-dir HUB.git [--base claude-wave1]
 
-A save is one layout area: {"variant", "area", "columns", "rows":[{"key","label","cells"}], "excluded"?, "comment"?}.
-Cells hold a block/item id (namespace optional = minecraft), null (empty) or a placeholder #grey/#light/#red/#frame.
+A save is one layout area: {"variant", "area", "columns", "rows":[{"key","label","cells","tops"?}], "excluded"?, "comment"?}.
+Cells hold a block/item id (namespace optional = minecraft), null (no field) or a placeholder #grey/#light/#red/#frame
+(#red = should exist, #light = light grey "none" placeholder as built in the lines area). "tops" (Phase 2): {column: id}
+of an octet that stands on the block of that cell (storage/raw block/log octets). Area/column meaning: export_layout.py.
 The file written is always re-serialised here (never the uploaded text) into LAYOUT_DIR/layout_<variant>_<area>.json.
 """
 from __future__ import annotations
@@ -78,7 +80,14 @@ def check_save(payload: object) -> dict:
         for cell in cells:
             if cell is not None and not (isinstance(cell, str) and (cell in PLACEHOLDERS or ID.match(cell))):
                 raise SaveError(f"row {key}: invalid cell {str(cell)[:60]}")
-        clean_rows.append({"key": key, "label": _label(row.get("label", key)), "cells": list(cells)})
+        clean = {"key": key, "label": _label(row.get("label", key)), "cells": list(cells)}
+        tops = row.get("tops")
+        if tops:
+            if not isinstance(tops, dict) or not all(isinstance(c, str) and c in columns and isinstance(t, str) and ID.match(t)
+                                                     for c, t in tops.items()):
+                raise SaveError(f"row {key}: invalid tops")
+            clean["tops"] = {c: tops[c] for c in columns if c in tops}
+        clean_rows.append(clean)
     excluded = payload.get("excluded", [])
     if not isinstance(excluded, list) or len(excluded) > MAX_EXCLUDED \
             or not all(isinstance(e, str) and ID.match(e) for e in excluded):

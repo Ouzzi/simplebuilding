@@ -43,6 +43,47 @@ class CheckSave(unittest.TestCase):
                 tz.check_save(payload)
 
 
+    def test_tops(self):
+        rows = [{"key": "iron", "label": "Iron", "cells": ["minecraft:iron_block", None],
+                 "tops": {"plate": "simpleoctets:x", "button": "simpleoctets:iron_block_octet"}}]
+        s = tz.check_save(bad(rows=rows))
+        self.assertEqual(list(s["rows"][0]["tops"]), ["button", "plate"])     # column order, stable text
+        self.assertEqual(json.loads(tz.layout_text(s))["rows"][0]["tops"]["button"], "simpleoctets:iron_block_octet")
+        self.assertNotIn("tops", tz.check_save(GOOD)["rows"][0])
+        for tops in ({"nope": "a:b"}, {"button": "<x>"}, ["button"]):
+            with self.assertRaises(tz.SaveError):
+                tz.check_save(bad(rows=[dict(rows[0], tops=tops)]))
+
+
+class Export(unittest.TestCase):
+    """export_layout.py: the integration dump tables -> one checked config per area."""
+
+    def test_dump_to_configs(self):
+        import export_layout as ex
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp)
+            rows = ["#lineZ\t9", "#band\t2\t3\t0\t7\t9\t11\t4"]
+            for x, group, kind, side in ((2, "iron", "METAL", "A"), (3, "oak", "WOOD", "A"), (4, "andesite", "STONE", "A"),
+                                         (2, "stone", "STONE", "B")):
+                rows += [f"{group}\t{kind}\t{group}\t{side}\t{x}\t7\t0\tBUTTON\tminecraft:{group}_button\t",
+                         f"{group}\t{kind}\t{group}\t{side}\t{x}\t6\t1\tPLATE\tMISSING\t",
+                         f"{group}\t{kind}\t{group}\t{side}\t{x}\t5\t2\thollow_{{m}}_log\tNONE\tminecraft:octet",
+                         f"{group}\t{kind}\t{group}\t{side}\t{x}\t4\t3\tspecial\tminecraft:{group}_x\t"]
+            rows.append("#label\tiron\t2\t7\tIron Ingot")
+            (d / "lines-rows.tsv").write_text("\n".join(rows) + "\n")
+            (d / "compact-cells.tsv").write_text("simplefun\t0\tsimplefun:a\t3\t0\t3\tplace\n"
+                                                 "simplefun\t1\tsimplefun:b\t2\t0\t4\tplace\n")
+            saves = {s["area"]: s for s in ex.build(d)}
+            self.assertEqual(list(saves), ["metals", "wood", "stone", "compact"])
+            iron = saves["metals"]["rows"][0]
+            self.assertEqual(saves["metals"]["columns"], ["button", "plate", "hollow_m_log", "special_1"])
+            self.assertEqual(iron["cells"], ["minecraft:iron_button", "#red", "#light", "minecraft:iron_x"])
+            self.assertEqual((iron["label"], iron["tops"]), ("Iron Ingot", {"hollow_m_log": "minecraft:octet"}))
+            self.assertEqual([r["key"] for r in saves["stone"]["rows"]], ["stone", "andesite"])  # side B first
+            self.assertEqual(saves["compact"]["rows"][0]["cells"], [None, "simplefun:a"])   # c0 = the mod sign
+            self.assertEqual(saves["compact"]["rows"][1]["cells"], ["simplefun:b", None])
+
+
 class Endpoint(unittest.TestCase):
     def setUp(self):
         from devqueue import DevQueueServer
