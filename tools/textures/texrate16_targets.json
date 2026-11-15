@@ -1,5 +1,5 @@
 {
- "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen). | b-texrate20 (10.11.): 49 TEXRATE16-Einwaende raus (47 + die zwei Grund-Vitrinenrahmen), neu gezeichnet in texrate20_2026_11_10.py (DESIGNS).",
+ "note": "b-texrate16 (09.11.): A8d rework targets; method see texrate16_rework_2026_11_09.py, groups and Vanilla models see texrate16_2026_11_09.py GROUPS | Pads entfernt (Besitzer 09.11.: Pads = Besitzer-Zeichnungen, unverändert lassen). | b-texrate20 (10.11.): 49 TEXRATE16-Einwaende raus (47 + die zwei Grund-Vitrinenrahmen), neu gezeichnet in texrate20_2026_11_10.py (DESIGNS). | N66 (15.11.): 36 Rucksack-Seiten/-Items raus (Original vor Runde 16 zurück).",
  "groups": {
   "Holz-/Lederflaechen (Modell)": "Vanilla barrel/chest/lectern: Holz/Leder/Metall in 2-4-px-Haufen eines Nachbartons, Drift oben/links hell",
   "Kanten-Motive": "Vanilla glowstone/target/crying_obsidian: Funken/Risse duerfen hart sein, aber Extreme gestuft -> hart <= 20 %",
@@ -2395,38 +2395,6 @@
    "after": "gruen",
    "after_why": ""
   },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 80.9, Hauptton 70.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 130, in Flaechen>=6 89.1, Hauptton 51.6",
-   "after": "gruen",
-   "after_why": ""
-  },
   "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/chest_interface.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
@@ -2458,102 +2426,6 @@
    "why": "groesste Flaeche 92, in Flaechen>=6 96.5, Hauptton 54.7, hart 28.7",
    "after": "orange",
    "after_why": "hart 28.7"
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 69.1",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 66, Hauptton 57.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 76.6, Hauptton 69.9",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 129, in Flaechen>=6 83.6, Hauptton 51.2",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
-   "after": "gruen",
-   "after_why": ""
   },
   "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/storage_crafting_table_front.png": {
    "group": "Holz-/Lederflaechen (Modell)",
@@ -2642,38 +2514,6 @@
    "why": "b-texrate15",
    "after": "siehe Runde 15"
   },
-  "src/main/resources/assets/simplebuilding/textures/block/backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 80.9, Hauptton 70.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 130, in Flaechen>=6 89.1, Hauptton 51.6",
-   "after": "gruen",
-   "after_why": ""
-  },
   "src/main/resources/assets/simplebuilding/textures/block/construction_light.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
@@ -2712,38 +2552,6 @@
    "why": "b-texrate15",
    "after": "siehe Runde 15"
   },
-  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 69.1",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 66, Hauptton 57.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 76.6, Hauptton 69.9",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 129, in Flaechen>=6 83.6, Hauptton 51.2",
-   "after": "gruen",
-   "after_why": ""
-  },
   "src/main/resources/assets/simplebuilding/textures/block/enderite_blast_furnace_front.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
@@ -2773,38 +2581,6 @@
    "method": "areas",
    "light": "orange",
    "why": "groesste Flaeche 43",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
    "after": "gruen",
    "after_why": ""
   },
@@ -2947,38 +2723,6 @@
    "after": "gruen",
    "after_why": ""
   },
-  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_back.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 70, in Flaechen>=6 75.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_front.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 131, in Flaechen>=6 69.5, Hauptton 58.6",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_side.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 160, in Flaechen>=6 80.5, Hauptton 70.7",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_top.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 130, in Flaechen>=6 88.7, Hauptton 51.6",
-   "after": "gruen",
-   "after_why": ""
-  },
   "src/main/resources/assets/simplebuilding/textures/block/reinforced_shulker_box.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
@@ -3003,43 +2747,11 @@
    "after": "gruen",
    "after_why": ""
   },
-  "src/main/resources/assets/simplebuilding/textures/item/backpack.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 73.8",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/item/enderite_backpack.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "orange",
-   "why": "in Flaechen>=6 67.3",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/item/netherite_backpack.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 73.8",
-   "after": "orange",
-   "after_why": "in Flaechen>=6 45.8"
-  },
   "src/main/resources/assets/simplebuilding/textures/item/raw_enderite.png": {
    "group": "Flaechen (allgemein)",
    "method": "areas",
    "light": "orange",
    "why": "in Flaechen>=6 47.4",
-   "after": "gruen",
-   "after_why": ""
-  },
-  "src/main/resources/assets/simplebuilding/textures/item/reinforced_backpack.png": {
-   "group": "Holz-/Lederflaechen (Modell)",
-   "method": "areas",
-   "light": "rot",
-   "why": "in Flaechen>=6 73.8",
    "after": "gruen",
    "after_why": ""
   },
@@ -3683,6 +3395,150 @@
   },
   "modules/simplelayers/shared/resources/assets/simplelayers/textures/item/backdoor_key.png": {
    "why": "b-tex22d (BACK22d, 10.11.): neu gezeichnet mit eigener Silhouette (Besitzer: unique), nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/enderite_backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/netherite_backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "modules/simplestorage/shared/resources/assets/simplestorage/textures/block/reinforced_backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/enderite_backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/netherite_backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_back.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_front.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_side.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/block/reinforced_backpack_top.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/backpack.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/enderite_backpack.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "orange"
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/netherite_backpack.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
+   "light": "rot"
+  },
+  "src/main/resources/assets/simplebuilding/textures/item/reinforced_backpack.png": {
+   "why": "N66 (Besitzer 15.11., FIX13): Original vor dem ersten Tex-Fix (74d36f45f2 = c738683be6^) zurück, nicht nacharbeiten",
    "light": "rot"
   }
  }
