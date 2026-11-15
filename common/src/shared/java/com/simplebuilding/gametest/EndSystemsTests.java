@@ -35,10 +35,11 @@ public final class EndSystemsTests {
             var newId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", entry.getValue());
             var movedId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", entry.getValue());
             helper.assertTrue(items.get(newId).isPresent() && blocks.get(newId).isPresent(), "new redstone id missing: " + newId);
-            assertAlias(helper, items, oldId, newId);
-            assertAlias(helper, blocks, oldId, newId);
-            assertAlias(helper, items, movedId, newId);
-            assertAlias(helper, blocks, movedId, newId);
+            // The core's own rename (LegacyItemIds) is one hop: powder -> simplebuilding:<redstone>; Simple Ores' IdMoves does the second.
+            assertAlias(helper, items, oldId, newId, movedId);
+            assertAlias(helper, blocks, oldId, newId, movedId);
+            assertAlias(helper, items, movedId, newId, null);
+            assertAlias(helper, blocks, movedId, newId, null);
         }
         var itemOnly = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "ore_detector");
         helper.assertTrue(com.simplebuilding.datafix.LegacyItemIds.renamedIn(blocks, itemOnly) == null,
@@ -47,7 +48,8 @@ public final class EndSystemsTests {
     }
 
     private static <T> void assertAlias(GameTestHelper helper, net.minecraft.core.Registry<T> registry,
-            net.minecraft.resources.Identifier oldId, net.minecraft.resources.Identifier newId) {
+            net.minecraft.resources.Identifier oldId, net.minecraft.resources.Identifier newId,
+            net.minecraft.resources.@org.jetbrains.annotations.Nullable Identifier legacyTarget) {
         T expected = registry.getValue(newId);
         var key = net.minecraft.resources.ResourceKey.create(registry.key(), oldId);
         helper.assertTrue(registry.getValue(oldId) == expected && registry.getValue(key) == expected,
@@ -56,8 +58,10 @@ public final class EndSystemsTests {
                 && registry.get(key).orElseThrow().value() == expected && registry.containsKey(oldId),
                 "holder alias missing in " + registry.key() + ": " + oldId);
         helper.assertTrue(newId.equals(registry.getKey(expected)), "alias became canonical: " + oldId);
-        helper.assertTrue(net.minecraft.resources.ResourceKey.create(registry.key(), newId).equals(
-                com.simplebuilding.datafix.LegacyItemIds.renamedIn(registry, key)), "alias changed registry key");
+        var renamed = com.simplebuilding.datafix.LegacyItemIds.renamedIn(registry, key);
+        helper.assertTrue(legacyTarget == null ? renamed == null
+                : net.minecraft.resources.ResourceKey.create(registry.key(), legacyTarget).equals(renamed),
+                "alias changed registry key: " + oldId + " -> " + renamed);
     }
 
     private static boolean active(GameTestHelper helper) {
