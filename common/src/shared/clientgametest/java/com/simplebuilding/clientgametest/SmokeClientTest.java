@@ -5,7 +5,6 @@ import com.simplebuilding.version.McClientVersion;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -794,10 +793,11 @@ public final class SmokeClientTest {
     }
 
     private static boolean inAnyStoneTable(Block block) {
-        return ChiselItem.FINAL_STONE_FWD.containsKey(block)
-                || ChiselItem.FINAL_STONE_BWD.containsKey(block)
-                || ChiselItem.FINAL_STONE_TOUCH_FWD.containsKey(block)
-                || ChiselItem.FINAL_STONE_TOUCH_BWD.containsKey(block);
+        // The stone chisel's own tables (26.3: Simple Chisels' ChiselItem, which SimpleBuilding cannot name).
+        return MovedTools.chiselTable("stone", "getForwardMap").containsKey(block)
+                || MovedTools.chiselTable("stone", "getBackwardMap").containsKey(block)
+                || MovedTools.chiselTable("stone", "getTouchForwardMap").containsKey(block)
+                || MovedTools.chiselTable("stone", "getTouchBackwardMap").containsKey(block);
     }
 
     /**
@@ -818,7 +818,7 @@ public final class SmokeClientTest {
         TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
 
         script.act("ChiselItem#useOn answers " + expected + " for " + blockId, client -> {
-            if (!(client.player.getMainHandItem().getItem() instanceof ChiselItem)) {
+            if (!MovedTools.isChisel(client.player.getMainHandItem().getItem(), "stone")) {
                 throw new AssertionError("Chisel trigger conditions not met: the main hand holds "
                         + client.player.getMainHandItem());
             }

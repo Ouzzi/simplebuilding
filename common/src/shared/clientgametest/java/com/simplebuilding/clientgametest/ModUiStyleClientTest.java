@@ -57,13 +57,13 @@ public final class ModUiStyleClientTest {
             // N43 (PLAN-UI-KONZEPTE-2026-10-12): the slotless screens, first with the comparison toggle off (old look),
             // then in the container style. Literal names again.
             script.act("style off for the old look", c -> ModScreenStyle.setPanels(false));
-            panel(script, "modui-octant-vanilla", c -> new com.simplebuilding.client.gui.OctantScreen(new ItemStack(com.simplebuilding.items.ModItems.OCTANT)));
-            panel(script, "modui-building-wand-vanilla", c -> new com.simplebuilding.client.gui.BuildingWandScreen(new ItemStack(com.simplebuilding.items.ModItems.NETHERITE_BUILDING_WAND)));
+            panel(script, "modui-octant-vanilla", c -> MovedTools.newScreen(MovedTools.octantScreen(), new ItemStack(com.simplebuilding.util.BuildingToolRefs.octant())));
+            panel(script, "modui-building-wand-vanilla", c -> MovedTools.newScreen(MovedTools.buildingWandScreen(), new ItemStack(com.simplebuilding.util.BuildingToolRefs.wand("netherite"))));
             panel(script, "modui-trim-reference-vanilla", c -> new com.simplebuilding.client.gui.TrimReferenceScreen(null));
             script.act("style on again", c -> ModScreenStyle.setPanels(true));
-            panel(script, "modui-octant", c -> new com.simplebuilding.client.gui.OctantScreen(new ItemStack(com.simplebuilding.items.ModItems.OCTANT)));
-            panel(script, "modui-building-wand", c -> new com.simplebuilding.client.gui.BuildingWandScreen(new ItemStack(com.simplebuilding.items.ModItems.NETHERITE_BUILDING_WAND)));
-            panel(script, "modui-building-wand-gold", c -> new com.simplebuilding.client.gui.BuildingWandScreen(new ItemStack(com.simplebuilding.items.ModItems.GOLD_BUILDING_WAND)));
+            panel(script, "modui-octant", c -> MovedTools.newScreen(MovedTools.octantScreen(), new ItemStack(com.simplebuilding.util.BuildingToolRefs.octant())));
+            panel(script, "modui-building-wand", c -> MovedTools.newScreen(MovedTools.buildingWandScreen(), new ItemStack(com.simplebuilding.util.BuildingToolRefs.wand("netherite"))));
+            panel(script, "modui-building-wand-gold", c -> MovedTools.newScreen(MovedTools.buildingWandScreen(), new ItemStack(com.simplebuilding.util.BuildingToolRefs.wand("gold"))));
             panel(script, "modui-trim-reference", c -> new com.simplebuilding.client.gui.TrimReferenceScreen(null));
         }
         backpack(script, "modui-backpack-basic", BackpackTier.BASIC);

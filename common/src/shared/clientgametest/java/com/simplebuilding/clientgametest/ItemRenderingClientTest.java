@@ -1165,8 +1165,7 @@ public final class ItemRenderingClientTest {
         awaitTheChiselTiltAt(script, 1.0f);
         script.check("the let go furnace still carries exactly two blows and is still reinforced",
                 client -> storedBlows(client) == 2
-                        && client.level.getBlockState(TestScene.TARGET).getBlock().getDescriptionId()
-                                .equals("block.simplebuilding.reinforced_furnace"));
+                        && client.level.getBlockState(TestScene.TARGET).is(com.simplebuilding.util.OvenRefs.block("reinforced_furnace")));
         clearToastsAndChat(script);
         Later<Path> cracked = script.shot("hammer-f-paused-with-cracks");
         script.verify("the saved blows show as cracks on the furnace", () ->
@@ -1177,8 +1176,8 @@ public final class ItemRenderingClientTest {
         // --- 4. the resume ------------------------------------------------------------------
         script.harness("hold the right mouse button on the furnace again", harness -> harness.holdMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.await("the furnace became netherite before a fresh upgrade could have", 85,
-                client -> client.level.getBlockState(TestScene.TARGET).getBlock().getDescriptionId()
-                        .equals("block.simplebuilding.netherite_furnace"),
+                // 26.3: the furnaces are Simple Ovens' (simpleovens:*), the old id only reaches them through IdMoves.
+                client -> client.level.getBlockState(TestScene.TARGET).is(com.simplebuilding.util.OvenRefs.block("netherite_furnace")),
                 client -> "the half hammered furnace is " + client.level.getBlockState(TestScene.TARGET)
                         + " after 85 ticks of hammering again - a resume takes 60, a fresh upgrade 100");
         script.harness("let go of the right mouse button again", harness -> harness.releaseMouse(InputConstants.MOUSE_BUTTON_RIGHT));

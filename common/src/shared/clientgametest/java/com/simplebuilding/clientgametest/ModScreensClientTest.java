@@ -11,17 +11,13 @@ import java.util.Set;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.client.ClientState;
-import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
-import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.gui.TrimReferenceScreen;
 import com.simplebuilding.client.gui.widget.CyclingTrimButton;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.BuildingWandItem;
-import com.simplebuilding.items.custom.OctantItem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -259,17 +255,11 @@ public final class ModScreensClientTest {
     private static final int RENDER_TICKS = 20;
 
     /** Every chisel a creative player has to be able to take out of the mod's tab. */
-    private static final List<Item> CHISELS = List.of(
-            ModItems.STONE_CHISEL,
-            ModItems.COPPER_CHISEL,
-            ModItems.IRON_CHISEL,
-            ModItems.GOLD_CHISEL,
-            ModItems.DIAMOND_CHISEL,
-            ModItems.NETHERITE_CHISEL,
-            ModItems.ENDERITE_CHISEL);
+    private static final List<Item> CHISELS = com.simplebuilding.util.ChiselRefs.all(); // 26.3: Simple Chisels' (by id)
 
     /** The legacy spatulas: still registered for old worlds, deliberately kept out of the tab. */
-    private static final List<Item> SPATULAS = List.of(
+    // 26.3: the spatulas are gone (migrated into the chisels of their tier, Simple Chisels), the fields are null there.
+    private static final List<Item> SPATULAS = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? List.of() : List.of(
             ModItems.STONE_SPATULA,
             ModItems.COPPER_SPATULA,
             ModItems.IRON_SPATULA,
@@ -330,7 +320,7 @@ public final class ModScreensClientTest {
 
         script.act("the main hand really holds an octant", client -> {
             if (client.player == null
-                    || !(client.player.getMainHandItem().getItem() instanceof OctantItem)) {
+                    || !com.simplebuilding.util.BuildingToolRefs.isOctant(client.player.getMainHandItem())) {
                 throw new AssertionError("Octant setup failed: the main hand does not hold an "
                         + "OctantItem but "
                         + (client.player == null ? "there is no player" : client.player.getMainHandItem())
@@ -339,10 +329,10 @@ public final class ModScreensClientTest {
         });
 
         pressSettingsKey(script, "with an octant in the main hand");
-        awaitScreen(script, OctantScreen.class, "octant screen");
+        awaitScreen(script, MovedTools.octantScreen(), "octant screen");
         script.idle("let the octant screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
-        assertStillOpen(script, OctantScreen.class, "octant screen");
+        assertStillOpen(script, MovedTools.octantScreen(), "octant screen");
         script.shot("screen-a-octant");
         closeScreen(script, "octant screen");
     }
@@ -356,12 +346,13 @@ public final class ModScreensClientTest {
      */
     private static void buildingWandScreenConstructsAndRenders(Script script) {
         script.act("open the building wand screen directly", client ->
-                client.gui.setScreen(new BuildingWandScreen(new ItemStack(ModItems.NETHERITE_BUILDING_WAND))));
+                client.gui.setScreen(MovedTools.newScreen(MovedTools.buildingWandScreen(),
+                        new ItemStack(com.simplebuilding.util.BuildingToolRefs.wand("netherite")))));
 
-        awaitScreen(script, BuildingWandScreen.class, "building wand screen");
+        awaitScreen(script, MovedTools.buildingWandScreen(), "building wand screen");
         script.idle("let the building wand screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
-        assertStillOpen(script, BuildingWandScreen.class, "building wand screen");
+        assertStillOpen(script, MovedTools.buildingWandScreen(), "building wand screen");
         script.shot("screen-b-building-wand");
         closeScreen(script, "building wand screen");
     }
@@ -416,10 +407,10 @@ public final class ModScreensClientTest {
         assertMainHandWand(script, true);
 
         pressSettingsKey(script, "with a wand that carries Constructor's Touch");
-        awaitScreen(script, BuildingWandScreen.class, "building wand screen via the settings key");
+        awaitScreen(script, MovedTools.buildingWandScreen(), "building wand screen via the settings key");
         script.idle("let the building wand screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
-        assertStillOpen(script, BuildingWandScreen.class, "building wand screen via the settings key");
+        assertStillOpen(script, MovedTools.buildingWandScreen(), "building wand screen via the settings key");
         script.shot("screen-e-wand-with-touch");
         closeScreen(script, "building wand screen via the settings key");
     }
@@ -939,7 +930,7 @@ public final class ModScreensClientTest {
 
         ItemStack stack = client.player.getMainHandItem();
 
-        if (!(stack.getItem() instanceof BuildingWandItem)) {
+        if (!com.simplebuilding.util.BuildingToolRefs.isWand(stack.getItem())) {
             return "main hand does not hold a BuildingWandItem but " + stack;
         }
 
@@ -1208,10 +1199,7 @@ public final class ModScreensClientTest {
     }
 
     private static ItemStack blueprint(String code, boolean signed) {
-        ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
-        stack.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT,
-                new com.simplebuilding.blueprint.BlueprintContent(code, "Test", signed ? "Tester" : "", signed));
-        return stack;
+        return MovedTools.blueprint(code, "Test", signed ? "Tester" : "", signed); // 26.3: Simple Building Tools' blueprint
     }
 
     /** The open screen's class name, or "none" - the spelling every message here uses. */
