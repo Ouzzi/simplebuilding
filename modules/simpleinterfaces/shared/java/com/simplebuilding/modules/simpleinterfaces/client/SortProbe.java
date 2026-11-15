@@ -221,7 +221,11 @@ public final class SortProbe {
         if (mc.hitResult instanceof net.minecraft.world.phys.EntityHitResult eh) {
             o.addProperty("hitEntity", BuiltInRegistries.ENTITY_TYPE.getKey(eh.getEntity().getType()).toString());
         }
-        if (mc.player != null) o.addProperty("pos", mc.player.blockPosition().toShortString());
+        if (mc.player != null) {
+            o.addProperty("pos", mc.player.blockPosition().toShortString());
+            // N60P r3: the client's sneak state (LocalPlayer reads the sneak key from its input) for probes of sneak + click actions
+            o.addProperty("sneaking", mc.player.isShiftKeyDown());
+        }
         Path tmp = dir.resolve("simpleinterfaces-sort-status.tmp");
         Files.writeString(tmp, GSON.toJson(o));
         Files.move(tmp, dir.resolve(STATUS), java.nio.file.StandardCopyOption.REPLACE_EXISTING, java.nio.file.StandardCopyOption.ATOMIC_MOVE);

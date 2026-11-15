@@ -60,3 +60,13 @@ Tab ihres eigenen Namensraums (26.2 weiter im Werkzeug-Tab). Kompiliert: `:mc26_
 | simplemobmanners: Varianten (3) | a | client.log: `Unknown item component 'minecraft:frog_variant'` – die Komponente heißt auf 26.x `minecraft:frog/variant` (DataComponents-String) | Id korrigiert (Prädikat, Datenpfad, give-Rückfall) |
 | simplepads: Shift-Laden | a | Integrations-Gametest `sneakingWindChargeClickFillsSimplePadsLaunchpad` (alle Mods, Server) **grün** (1/1) -> Mod-Weg in Ordnung; Ursache: Schleichen senkt das Auge auf 1,27, der von 1,62 gezielte Strahl endet vor der 1-px-Platte im Gras (Windkugel aufs Gras) | nach Schleichbeginn neu zielen (Auge 1,27), echte Ladung je Versuch melden, 2. Versuch mit 2,5 s |
 | simplesandwiches: Bündel-Essen | a (Messung) | Shot zeigt die Ess-Partikel des Goldapfels (Mahlzeit lief); exakte Prädikat-Gleichheit blieb rot | Anzahl per Datenpfad (3/2/1) mit Bericht, 3 s halten |
+
+## Runde 3 (95/96 grün): Bündel-Essen
+- Befund: "golden apples left: none"; Shot zeigt ein hochgeworfenes Item vor dem Himmel = Vanillas Bündel-Ausschütten (keine Ess-Partikel;
+  die Deutung "Partikel" aus Runde 2 war falsch, es waren geworfene Äpfel). Also lief beim Klick Vanillas Bündel-Weg, nicht BundleEating.
+- Mod-Seite geprüft: neuer Gametest `bundle_eating_full_meal` (Server-Weg `ServerPlayerGameMode#useItem` schleichend, natürliche Ticks bis
+  `completeUsingItem`, volle Nahrung, Goldäpfel) **grün**, zusammen mit `bundle_eating` / `bundle_eating_needs_sneak` 3/3
+  (`module-simplesandwiches-fabric-263 --filter "simplesandwiches:*bundle*"`). -> Kein Mod-Fehler im Server-Weg; Ursache liegt beim Klick:
+  der Server sah kein Schleichen (Verdikt a, Eingabe der Probe) – noch nicht bewiesen.
+- Probe meldet jetzt die Ursache direkt: Schleichen vor dem Klick laut Server (`execute if predicate ... flags.is_sneaking`) und laut Client
+  (neues Statusfeld `sneaking` in SortProbe = `LocalPlayer#isShiftKeyDown`), Bündel noch in der Hand, überhaupt ein Eintrag, Goldäpfel am Boden.

@@ -199,10 +199,14 @@ def _bundle(s, me):
     time.sleep(3.5)
     s.chat('effect clear @s', 0.3)
     hungry = _sense(s, 'if entity @s[nbt={foodLevel:20}]') is False
+    s.chat('kill @e[type=minecraft:item,distance=..16]', 0.3)
     s.io.key_down('Shift_L')
     # N60P: the client applies the sneak key in the player tick after the use click of the same frame - at the low frame rate of the full
     # pack the click went out unsneaked (Vanilla bundle use). BundleEating.begin needs isShiftKeyDown at the click: wait first.
     time.sleep(1.2)
+    # N60P r3: is the SERVER's player sneaking right before the click? (BundleEating.begin asks player.isShiftKeyDown on both sides)
+    sneaking = _sense(s, 'if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{flags:{is_sneaking:true}}}')
+    client_sneaking = s.st().get('sneaking')
     s.io.button(3, True)
     try:
         time.sleep(1.0)
@@ -216,9 +220,14 @@ def _bundle(s, me):
     # instead (3 = nothing eaten, 2/1 = eaten; a held button may start a second bite after the first one, 0/absent = Vanilla dropped them)
     path = 'SelectedItem.components."minecraft:bundle_contents"'
     counts = [n for n in (3, 2, 1) if _sense(s, f'if data entity @s {path}[{{id:"minecraft:golden_apple",count:{n}}}]')]
+    # N60P r3: the cause in the detail - bundle still in the hand, any entry left, golden apples thrown out (Vanilla bundle use)
+    has_bundle = _sense(s, 'if items entity @s weapon.mainhand minecraft:bundle')
+    has_entry = _sense(s, f'if data entity @s {path}[0]')
+    thrown = _sense(s, 'if entity @e[type=minecraft:item,distance=..16,nbt={Item:{id:"minecraft:golden_apple"}}]')
     s.chat('difficulty peaceful', 0.4)
     s.check('sneak + hold use eats a golden apple out of the bundle (3 -> 2, or 1 after a second bite)', counts in ([2], [1]),
-            f'golden apples left in the bundle: {counts or "none"} (player was hungry: {hungry})')
+            f'golden apples left: {counts or "none"}; bundle in hand {has_bundle}, any entry {has_entry}, golden apples on the ground {thrown}, '
+            f'sneaking before the click: server {sneaking}, client {client_sneaking} (hungry: {hungry})')
 
 
 def kitchen(s):
