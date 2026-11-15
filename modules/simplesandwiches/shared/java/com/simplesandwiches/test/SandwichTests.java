@@ -1083,6 +1083,8 @@ public final class SandwichTests {
         bundle.set(DataComponents.BUNDLE_CONTENTS, m.toImmutable());
         p.setItemInHand(InteractionHand.MAIN_HAND, bundle);
         p.setShiftKeyDown(true);
+        // is_sneaking reads the crouching POSE, which the player's tick derives from the shift flag (a bare setShiftKeyDown read false)
+        for (int i = 0; i < 3; i++) p.doTick();
         String path = "SelectedItem.components.\"minecraft:bundle_contents\"";
         String[] forms = {
                 "if data entity @s " + path + "[{id:\"minecraft:golden_apple\",count:3}]",
@@ -1125,7 +1127,7 @@ public final class SandwichTests {
         p.setShiftKeyDown(false);
         com.simplesandwiches.Sandwiches.LOG.info("N60P probe command forms:{}\n  stack NBT {}", out, nbt);
         // the forms the ui_probe uses after N60P r4: id/count entry and the "type"-keyed inline predicate with "minecraft:flags"
-        h.assertTrue(ok[0] && ok[9], "probe forms on 26.3:" + out + "\n  stack NBT " + nbt);
+        h.assertTrue(ok[0] && ok[9] && ok[10], "probe forms on 26.3:" + out + "\n  stack NBT " + nbt);
         h.succeed();
     }
 
