@@ -1158,10 +1158,10 @@ public final class OrderAreas {
     }
 
     /** Geplante Reihe vor der Lage ({@code others} darf {@code null} enthalten: leeres Feld einer gemeinsamen Zusatzspalte). */
-    private record RowPlan(String group, Kind kind, String family, Map<Slot, Item> fixed, Map<Slot, Item> tops, List<Item> others,
-                           List<String> otherKeys, Set<Slot> expected, Component label) {
+    private record RowPlan(String group, Kind kind, String family, List<Slot> columns, Map<Slot, Item> fixed, Map<Slot, Item> tops,
+                           List<Item> others, List<String> otherKeys, Set<Slot> expected, Component label) {
         int length() {
-            return columns(kind).size() + others.size();
+            return columns.size() + others.size();
         }
     }
 
@@ -1437,7 +1437,7 @@ public final class OrderAreas {
             others.addAll(specials);
             List<String> keys = new ArrayList<>(shared);
             specials.forEach(item -> keys.add(SPECIAL_KEY));
-            out.add(new RowPlan(d.group(), d.kind(), d.family(), d.fixed(), d.tops(), others, keys, d.expected(), d.label()));
+            out.add(new RowPlan(d.group(), d.kind(), d.family(), columns(d.kind()), d.fixed(), d.tops(), others, keys, d.expected(), d.label()));
         }
         return out;
     }
@@ -1459,6 +1459,16 @@ public final class OrderAreas {
      * Rechteck aus Gliedern und Platzhaltern (rot = sollte existieren, hellgrau = soll nicht/kein Glied, grau = Linie/Weg).
      */
     public static Area families() {
+        return families(LayoutConfig.current());
+    }
+
+    /**
+     * N50 TZEDIT50 Phase 2: die Linien nach einer Layout-Config ({@link LayoutConfig}): je Bereich mit Datei bestimmt sie
+     * Reihenfolge und Zellen der Reihen, Bereiche ohne Datei bleiben algorithmisch; was der Algorithmus kennt, aber in keiner
+     * Zelle und nicht in {@code excluded} steht, kommt in ein eigenes Band "Neu" ({@link #NEW_PREFIX}). {@link LayoutConfig#NONE}
+     * = genau der Algorithmus.
+     */
+    public static Area families(LayoutConfig config) {
         Map<String, List<Member>> raw = rawRows();
         Map<Item, String> rowOf = new HashMap<>();
         raw.forEach((key, members) -> members.forEach(m -> rowOf.putIfAbsent(m.item(), key)));
@@ -1577,16 +1587,26 @@ public final class OrderAreas {
         // Vanilla-Bezug nur, wo die Familie ihn braucht: in der verwitternden Reihe stehen nur Familien-Glieder (gewachst).
         agingMembers.removeIf(m -> !m.family_ns());
 
-        List<RowPlan> sideA = new ArrayList<>(share(metals));
-        sideA.addAll(share(woodRows));
-        if (!agingMembers.isEmpty()) {
-            sideA.addAll(share(List.of(agingDraft(agingMembers))));
-        }
+        Map<String, List<RowPlan>> byArea = new LinkedHashMap<>();
+        byArea.put("metals", share(metals));
+        byArea.put("wood", share(woodRows));
+        byArea.put("aging", agingMembers.isEmpty() ? List.of() : share(List.of(agingDraft(agingMembers))));
         List<Draft> stoneAndRest = new ArrayList<>(rest);
         stoneAndRest.addAll(stone);
         List<RowPlan> shared = share(stoneAndRest);
-        sideA.addAll(shared.subList(0, rest.size()));
-        List<RowPlan> stoneRows = new ArrayList<>(shared.subList(rest.size(), shared.size()));
+        byArea.put("rest", shared.subList(0, rest.size()));
+        byArea.put("stone", shared.subList(rest.size(), shared.size()));
+        List<RowPlan> fresh = new ArrayList<>();
+        List<String> warnings = new ArrayList<>(config.errors());
+        if (!config.isEmpty()) {
+            byArea = configured(config, byArea, fresh, warnings);
+        }
+        lastWarnings = List.copyOf(warnings);
+        List<RowPlan> sideA = new ArrayList<>();
+        for (String area : List.of("metals", "wood", "aging", "rest")) {
+            sideA.addAll(byArea.get(area));
+        }
+        List<RowPlan> stoneRows = new ArrayList<>(byArea.get("stone"));
 
         // TZ38E-13: beide Seiten gleich breit (ein Rechteck) - die letzten Stein-Familien (dunkel, Tiefenschiefer) wandern an
         // einer Familiengrenze auf Seite A hinter Holz und Rest.
@@ -1612,13 +1632,26 @@ public final class OrderAreas {
         List<Band> bands = new ArrayList<>();
         int perPair = MAX_WIDTH - START_X;
         int pairs = Math.max(1, Math.max((sideA.size() + perPair - 1) / perPair, (sideB.size() + perPair - 1) / perPair));
+        // N50: das Band "Neu" (nur Seite A) hinter den Paaren der Linien.
+        List<List<RowPlan>> chunkA = new ArrayList<>();
+        List<List<RowPlan>> chunkB = new ArrayList<>();
+        for (int p = 0; p < pairs; p++) {
+            chunkA.add(sideA.subList(Math.min(sideA.size(), p * perPair), Math.min(sideA.size(), (p + 1) * perPair)));
+            chunkB.add(sideB.subList(Math.min(sideB.size(), p * perPair), Math.min(sideB.size(), (p + 1) * perPair)));
+        }
+        fresh.sort(Comparator.comparingInt(plan -> plan.kind().ordinal()));
+        for (int i = 0; i < fresh.size(); i += perPair) {
+            chunkA.add(fresh.subList(i, Math.min(fresh.size(), i + perPair)));
+            chunkB.add(List.of());
+        }
         int z0 = 0;
         int firstLine = -1;
         BlockState line = lineState();
         BlockState absent = absentState();
-        for (int p = 0; p < pairs; p++) {
-            List<RowPlan> a = sideA.subList(Math.min(sideA.size(), p * perPair), Math.min(sideA.size(), (p + 1) * perPair));
-            List<RowPlan> b = sideB.subList(Math.min(sideB.size(), p * perPair), Math.min(sideB.size(), (p + 1) * perPair));
+        for (int p = 0; p < chunkA.size(); p++) {
+            boolean isNew = p >= pairs;
+            List<RowPlan> a = chunkA.get(p);
+            List<RowPlan> b = chunkB.get(p);
             int width = Math.max(1, Math.max(a.size(), b.size()));
             int depthA = Math.max(1, a.stream().mapToInt(RowPlan::length).max().orElse(1));
             int depthB = Math.max(1, b.stream().mapToInt(RowPlan::length).max().orElse(1));
@@ -1649,7 +1682,7 @@ public final class OrderAreas {
                         continue;
                     }
                     RowPlan plan = plans.get(i);
-                    List<Slot> columns = columns(plan.kind());
+                    List<Slot> columns = plan.columns();
                     for (int col = 0; col < depth; col++) {
                         int z = near + step * col;
                         Item item = null;
@@ -1703,12 +1736,18 @@ public final class OrderAreas {
                 c.place(endX, 0, z, line);
             }
             // Titel am Anfang des Weges als Steh-Schilder, zur Linie gewandt.
-            c.standingSign(0, 0, lineZ - 1, Direction.SOUTH, TcText.bold(TcText.t("order.lines.a", "Metals, wood, aging, stone")),
-                    TcText.t("order.lines.a.sub", "small parts next to the line"));
-            c.standingSign(0, 0, lineZ + 1, Direction.NORTH, TcText.bold(TcText.t("order.lines.b", "Stone & co.")),
-                    TcText.t("order.lines.key", "red = missing, light gray = none"));
+            if (isNew) {
+                c.standingSign(0, 0, lineZ - 1, Direction.SOUTH, TcText.bold(TcText.t("order.lines.new", "New")),
+                        TcText.t("order.lines.new.sub", "not in the layout config"));
+                c.standingSign(0, 0, lineZ + 1, Direction.NORTH, TcText.bold(TcText.t("order.lines.new", "New")));
+            } else {
+                c.standingSign(0, 0, lineZ - 1, Direction.SOUTH, TcText.bold(TcText.t("order.lines.a", "Metals, wood, aging, stone")),
+                        TcText.t("order.lines.a.sub", "small parts next to the line"));
+                c.standingSign(0, 0, lineZ + 1, Direction.NORTH, TcText.bold(TcText.t("order.lines.b", "Stone & co.")),
+                        TcText.t("order.lines.key", "red = missing, light gray = none"));
+            }
             z0 = band.zEnd() + 1;
-            if (p + 1 < pairs) {
+            if (p + 1 < chunkA.size()) {
                 // Gang zum naechsten Paar: grau (Weg), kein Loch im Boden.
                 for (int z = z0; z < z0 + AISLE; z++) {
                     for (int x = 0; x <= endX; x++) {
@@ -1720,6 +1759,279 @@ public final class OrderAreas {
         }
         lightGrid(c);
         return new Area(c, cells, rows, placeholders, List.copyOf(hidden), firstLine, bands);
+    }
+
+    /** Gruppen-Praefix der Reihen im Band "Neu" (Items, die keine Config-Zelle haben). */
+    public static final String NEW_PREFIX = "new:";
+    private static volatile List<String> lastWarnings = List.of();
+
+    /** Warnungen des letzten Linien-Baus mit Config (Schema-Fehler, unbekannte/doppelte Ids), fuer {@code /testcenter layout reload}. */
+    public static List<String> configWarnings() {
+        return lastWarnings;
+    }
+
+    /** Spalte zu einem Config-Spaltennamen ({@code fence_gate -> FENCE_GATE}), null = Zusatz-/Sonderspalte. */
+    static Slot configSlot(String column) {
+        try {
+            Slot slot = Slot.valueOf(column.toUpperCase(java.util.Locale.ROOT));
+            return slot == Slot.OTHER ? null : slot;
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    /**
+     * N50: die Reihen der Bereiche nach der Config (Bereiche ohne Datei: algorithmisch, ohne schon platzierte Items); Items der
+     * algorithmischen Reihen, die danach nirgends stehen und nicht {@code excluded} sind, kommen als Reihen nach {@code fresh}.
+     * Zellen: Id = Item (unbekannte Id einer geladenen Mod: Warnung + rot; Id einer nicht geladenen Mod: hellgrau; doppelt:
+     * Warnung, nur das erste), {@code #red} = rot, sonst hellgrau. Feste Spalten = Spalten mit Slot-Namen (in Config-Reihenfolge),
+     * dahinter die uebrigen ({@code special_*} = Sonderbereich).
+     */
+    private static Map<String, List<RowPlan>> configured(LayoutConfig config, Map<String, List<RowPlan>> algorithm,
+                                                         List<RowPlan> fresh, List<String> warnings) {
+        Set<String> loaded = new HashSet<>();
+        BuiltInRegistries.ITEM.keySet().forEach(id -> loaded.add(id.getNamespace()));
+        Map<String, RowPlan> known = new HashMap<>();
+        algorithm.values().forEach(list -> list.forEach(plan -> known.putIfAbsent(plan.group(), plan)));
+        Set<Item> placed = new HashSet<>();
+        Set<Item> excluded = new HashSet<>();
+        Map<String, List<RowPlan>> out = new LinkedHashMap<>();
+        for (LayoutConfig.Area area : config.areas().values()) {
+            for (String id : area.excluded()) {
+                BuiltInRegistries.ITEM.getOptional(Identifier.tryParse(id)).ifPresent(excluded::add);
+            }
+        }
+        for (String id : LayoutConfig.AREAS) {
+            LayoutConfig.Area area = config.area(id);
+            if (area == null) {
+                continue;
+            }
+            Kind kind = LayoutConfig.KINDS.get(id);
+            List<Slot> slots = new ArrayList<>();
+            List<Integer> slotAt = new ArrayList<>();
+            List<Integer> otherAt = new ArrayList<>();
+            for (int i = 0; i < area.columns().size(); i++) {
+                Slot slot = configSlot(area.columns().get(i));
+                if (slot != null && !slots.contains(slot)) {
+                    slots.add(slot);
+                    slotAt.add(i);
+                } else {
+                    otherAt.add(i);
+                }
+            }
+            if (!otherAt.isEmpty() && !slotAt.isEmpty() && otherAt.getFirst() < slotAt.getLast()) {
+                warnings.add(id + ": extra columns stand between slot columns - the slot columns are built first");
+            }
+            List<RowPlan> rows = new ArrayList<>();
+            for (LayoutConfig.RowSpec spec : area.rows()) {
+                String where = id + "/" + spec.key();
+                Map<Slot, Item> fixed = new EnumMap<>(Slot.class);
+                Map<Slot, Item> tops = new EnumMap<>(Slot.class);
+                Set<Slot> expected = EnumSet.noneOf(Slot.class);
+                for (int j = 0; j < slots.size(); j++) {
+                    String cell = spec.cells().get(slotAt.get(j));
+                    Item item = configItem(cell, where, area.columns().get(slotAt.get(j)), loaded, placed, warnings);
+                    if (item != null) {
+                        fixed.put(slots.get(j), item);
+                    } else if ("#red".equals(cell) || cell != null && !cell.startsWith("#") && unknownLoaded(cell, loaded)) {
+                        expected.add(slots.get(j));
+                    }
+                }
+                List<Item> others = new ArrayList<>();
+                List<String> otherKeys = new ArrayList<>();
+                int keep = 0;
+                for (int j = 0; j < otherAt.size(); j++) {
+                    String column = area.columns().get(otherAt.get(j));
+                    Item item = configItem(spec.cells().get(otherAt.get(j)), where, column, loaded, placed, warnings);
+                    others.add(item);
+                    otherKeys.add(column.startsWith("special") ? SPECIAL_KEY : column);
+                    if (item != null || !column.startsWith("special")) {
+                        keep = j + 1; // gemeinsame Zusatzspalten bleiben (gleiche Hoehe), Sonderbereich nur bis zum letzten Stueck
+                    }
+                }
+                others = new ArrayList<>(others.subList(0, keep));
+                otherKeys = new ArrayList<>(otherKeys.subList(0, keep));
+                for (Map.Entry<String, String> top : spec.tops().entrySet()) {
+                    Slot slot = configSlot(top.getKey());
+                    if (slot != null && fixed.containsKey(slot) && !lineStates(fixed.get(slot)).isEmpty()) {
+                        Item item = configItem(top.getValue(), where, top.getKey() + " (top)", loaded, placed, warnings);
+                        if (item != null) {
+                            tops.put(slot, item);
+                        }
+                    }
+                }
+                if (fixed.isEmpty() && others.stream().allMatch(java.util.Objects::isNull)) {
+                    continue; // nichts davon geladen (Kern-Lauf ohne die Mod der Reihe)
+                }
+                RowPlan algo = known.get(spec.key());
+                if (algo != null) {
+                    algo.expected().stream().filter(fixed::containsKey).forEach(expected::add);
+                }
+                rows.add(new RowPlan(spec.key(), kind, algo != null ? algo.family() : spec.key(), List.copyOf(slots), fixed, tops,
+                        others, otherKeys, expected, algo != null && algo.label() != null ? algo.label() : TcText.bold(TcText.lit(spec.label()))));
+            }
+            out.put(id, rows);
+        }
+        // Bereiche ohne Datei: algorithmisch, ohne was die Config schon setzt.
+        for (String id : LayoutConfig.AREAS) {
+            if (out.containsKey(id)) {
+                continue;
+            }
+            List<RowPlan> rows = new ArrayList<>();
+            for (RowPlan plan : algorithm.get(id)) {
+                RowPlan left = leftover(plan, placed, excluded, plan.group(), plan.otherKeys(), plan.expected());
+                if (left != null) {
+                    rows.add(left);
+                }
+            }
+            out.put(id, rows);
+        }
+        // Band "Neu": was der Algorithmus kennt und weder steht noch ausgeschlossen ist.
+        for (String id : LayoutConfig.AREAS) {
+            for (RowPlan plan : algorithm.get(id)) {
+                RowPlan left = leftover(plan, placed, excluded, NEW_PREFIX + plan.group(), null, Set.of());
+                if (left != null) {
+                    fresh.add(left);
+                }
+            }
+        }
+        return out;
+    }
+
+    /**
+     * N50 TZEDIT50 (Gametest "Config == Welt"): jede ladbare Id der Config steht genau einmal in den gebauten Linien, in der
+     * Reihe ihres Schluessels und in der Spalte ihrer Zelle (Config-Spalten mit Slot-Namen zuerst, wie der Export sie schreibt);
+     * Achtel auf ihrem Block; {@code #red} = roter Platzhalter; kein Item doppelt; {@code excluded} steht nicht.
+     */
+    public static List<String> configProblems(LayoutConfig config, Area lines) {
+        List<String> problems = new ArrayList<>();
+        config.errors().forEach(e -> problems.add("config: " + e));
+        Map<Item, List<Cell>> at = new HashMap<>();
+        lines.cells().forEach(cell -> at.computeIfAbsent(cell.item(), k -> new ArrayList<>()).add(cell));
+        at.forEach((item, list) -> {
+            if (list.size() > 1) {
+                problems.add("config: " + TcContext.id(item) + " stands " + list.size() + " times");
+            }
+        });
+        Map<String, Row> rows = new HashMap<>();
+        lines.rows().forEach(row -> rows.putIfAbsent(row.group(), row));
+        Map<BlockPos, Placeholder> holders = new HashMap<>();
+        lines.placeholders().forEach(p -> holders.put(p.pos(), p));
+        for (LayoutConfig.Area area : config.areas().values()) {
+            for (String id : area.excluded()) {
+                BuiltInRegistries.ITEM.getOptional(Identifier.tryParse(id)).filter(at::containsKey)
+                        .ifPresent(item -> problems.add("config: excluded " + id + " stands"));
+            }
+            for (LayoutConfig.RowSpec spec : area.rows()) {
+                Row row = rows.get(spec.key());
+                for (int col = 0; col < spec.cells().size(); col++) {
+                    String cell = spec.cells().get(col);
+                    String column = area.columns().get(col);
+                    if ("#red".equals(cell) && row != null && col < row.columns().size()) {
+                        Placeholder holder = holders.get(new BlockPos(row.x(), 0, row.z(col)));
+                        if (holder == null || !holder.missing()) {
+                            problems.add("config: " + area.area() + "/" + spec.key() + " " + column + " is not red");
+                        }
+                    }
+                    if (cell == null || cell.startsWith("#")) {
+                        continue;
+                    }
+                    Item item = BuiltInRegistries.ITEM.getOptional(Identifier.tryParse(cell)).orElse(null);
+                    if (item == null) {
+                        continue; // nicht geladen (Kern-Lauf) bzw. als Warnung gemeldet
+                    }
+                    List<Cell> found = at.getOrDefault(item, List.of());
+                    if (found.isEmpty() || row == null) {
+                        problems.add("config: " + cell + " (" + area.area() + "/" + spec.key() + " " + column + ") does not stand");
+                    } else if (!found.getFirst().group().equals(spec.key()) || found.getFirst().column() != col
+                            || !found.getFirst().pos().equals(new BlockPos(row.x(), 0, row.z(col)))) {
+                        problems.add("config: " + cell + " stands in " + found.getFirst().group() + " column " + found.getFirst().column()
+                                + " instead of " + spec.key() + " column " + col);
+                    }
+                }
+                spec.tops().forEach((column, top) -> {
+                    Item item = BuiltInRegistries.ITEM.getOptional(Identifier.tryParse(top)).orElse(null);
+                    int col = area.columns().indexOf(column);
+                    if (item != null && row != null && at.getOrDefault(item, List.of()).stream()
+                            .noneMatch(cell -> cell.pos().equals(new BlockPos(row.x(), 1, row.z(col))))) {
+                        problems.add("config: octet " + top + " does not stand on " + spec.key() + " " + column);
+                    }
+                });
+            }
+        }
+        return problems;
+    }
+
+    /** Was von einer algorithmischen Reihe noch nicht platziert ist (markiert es als platziert), null = nichts. */
+    private static RowPlan leftover(RowPlan plan, Set<Item> placed, Set<Item> excluded, String group, List<String> keys, Set<Slot> expected) {
+        Map<Slot, Item> fixed = new EnumMap<>(Slot.class);
+        Map<Slot, Item> tops = new EnumMap<>(Slot.class);
+        List<Item> others = new ArrayList<>();
+        List<String> otherKeys = new ArrayList<>();
+        List<Item> loose = new ArrayList<>();
+        plan.fixed().forEach((slot, item) -> {
+            if (!placed.contains(item) && !excluded.contains(item)) {
+                fixed.put(slot, item);
+            }
+        });
+        plan.tops().forEach((slot, item) -> {
+            if (!placed.contains(item) && !excluded.contains(item)) {
+                if (fixed.containsKey(slot)) {
+                    tops.put(slot, item);
+                } else {
+                    loose.add(item);
+                }
+            }
+        });
+        for (int i = 0; i < plan.others().size(); i++) {
+            Item item = plan.others().get(i);
+            boolean free = item != null && !placed.contains(item) && !excluded.contains(item);
+            if (keys != null && i < keys.size() && !keys.get(i).equals(SPECIAL_KEY)) {
+                others.add(free ? item : null); // algorithmischer Bereich: gemeinsame Spalten bleiben an ihrer Stelle
+                otherKeys.add(keys.get(i));
+            } else if (free) {
+                others.add(item);
+                otherKeys.add(SPECIAL_KEY);
+            }
+        }
+        for (Item item : loose) {
+            others.add(item);
+            otherKeys.add(SPECIAL_KEY);
+        }
+        if (fixed.isEmpty() && others.stream().allMatch(java.util.Objects::isNull)) {
+            return null;
+        }
+        placed.addAll(fixed.values());
+        placed.addAll(tops.values());
+        others.stream().filter(java.util.Objects::nonNull).forEach(placed::add);
+        Set<Slot> want = EnumSet.noneOf(Slot.class);
+        want.addAll(expected);
+        return new RowPlan(group, plan.kind(), plan.family(), plan.columns(), fixed, tops, others, otherKeys, want, plan.label());
+    }
+
+    private static boolean unknownLoaded(String cell, Set<String> loaded) {
+        Identifier id = Identifier.tryParse(cell);
+        return id != null && loaded.contains(id.getNamespace()) && BuiltInRegistries.ITEM.getOptional(id).isEmpty();
+    }
+
+    /** Item einer Config-Zelle, null = Platzhalter/leer/unbekannt/doppelt (mit Warnung, wo sie etwas bedeutet). */
+    private static Item configItem(String cell, String where, String column, Set<String> loaded, Set<Item> placed, List<String> warnings) {
+        if (cell == null || cell.startsWith("#")) {
+            return null;
+        }
+        Identifier id = Identifier.tryParse(cell);
+        Item item = id == null ? null : BuiltInRegistries.ITEM.getOptional(id).orElse(null);
+        if (item == null || item == Items.AIR) {
+            if (id != null && loaded.contains(id.getNamespace())) {
+                warnings.add(where + " " + column + ": unknown id " + cell);
+            }
+            return null;
+        }
+        if (!placed.add(item)) {
+            warnings.add(where + " " + column + ": " + cell + " stands twice in the config (only the first is built)");
+            return null;
+        }
+        return item;
     }
 
     /** Schildzeilen eines Namens: lange Namen auf zwei Zeilen (ein Steh-Schild zeigt etwa 15 Zeichen je Zeile). */

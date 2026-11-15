@@ -105,6 +105,11 @@ public final class TestCentreDump {
                     plan.summary().lines().findFirst().orElse(""));
         }
         OrderAreas.Area lines = OrderAreas.families();
+        // N50 TZEDIT50: mit allen Modulen steht die eingecheckte Config genau so in der Welt, und nichts faellt ins Band "Neu".
+        problems.addAll(OrderAreas.configProblems(LayoutConfig.current(), lines));
+        OrderAreas.configWarnings().forEach(w -> problems.add("layout config: " + w));
+        lines.rows().stream().filter(row -> row.group().startsWith(OrderAreas.NEW_PREFIX)).limit(10)
+                .forEach(row -> problems.add("layout config: row " + row.group() + " has items without a config cell"));
         List<String> missing = OrderAreas.missingList(lines);
         com.simplebuilding.Simplebuilding.LOGGER.info("test centre lines: {} rows, {} placeholders, {} red (missing)", lines.rows().size(),
                 lines.placeholders().size(), missing.size());

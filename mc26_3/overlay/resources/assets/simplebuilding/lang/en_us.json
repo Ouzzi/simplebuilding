@@ -3401,6 +3401,8 @@
   "simplebuilding.testcentre.order.lines.a.sub": "small parts next to the line",
   "simplebuilding.testcentre.order.lines.b": "Stone & co.",
   "simplebuilding.testcentre.order.lines.key": "red = missing, light gray = none",
+  "simplebuilding.testcentre.order.lines.new": "New",
+  "simplebuilding.testcentre.order.lines.new.sub": "not in the layout config",
   "block.simplebuilding.nihilith_ore": "Nihilit Ore",
   "block.simplebuilding.astralit_ore": "Astralit Ore",
   "item.simplebuilding.astralit_dust": "Astralit Dust",
