@@ -107,6 +107,7 @@ public final class SandwichTests {
         ALL.put("reinforced_milk_cauldron", SandwichTests::reinforcedMilkCauldron);
         ALL.put("bundle_eating", SandwichTests::bundleEating);
         ALL.put("bundle_eating_needs_sneak", SandwichTests::bundleEatingNeedsSneak);
+        ALL.put("bundle_eating_full_meal", SandwichTests::bundleEatingFullMeal);
         ALL.put("sub_mod_switch", SandwichTests::subModSwitch);
         ALL.put("cake_slice", SandwichTests::cakeSlice);
     }
@@ -1062,6 +1063,35 @@ public final class SandwichTests {
                 h.succeed();
             });
         });
+    }
+
+    /**
+     * N60P: the whole meal the way the game runs it - the server's use path (ServerPlayerGameMode#useItem) while sneaking, then the
+     * player's own ticks until the use ends (LivingEntity#completeUsingItem -> BundleItem#finishUsingItem). Full food on purpose: a
+     * golden apple is always edible. One apple leaves the bundle, none is dropped (Vanilla's bundle use would throw them out).
+     */
+    static void bundleEatingFullMeal(GameTestHelper h) {
+        ServerPlayer p = player(h, new BlockPos(2, 2, 2));
+        p.getFoodData().setFoodLevel(20);
+        ItemStack bundle = new ItemStack(Items.BUNDLE);
+        BundleContents.Mutable m = new BundleContents.Mutable();
+        m.tryInsert(new ItemStack(Items.GOLDEN_APPLE, 3));
+        bundle.set(DataComponents.BUNDLE_CONTENTS, m.toImmutable());
+        p.setItemInHand(InteractionHand.MAIN_HAND, bundle);
+        p.setShiftKeyDown(true);
+        InteractionResult r = p.gameMode.useItem(p, h.getLevel(), bundle, InteractionHand.MAIN_HAND);
+        h.assertTrue(r.consumesAction() && p.isUsingItem(), "sneaking use starts the meal, got " + r + " using=" + p.isUsingItem());
+        for (int i = 0; i < 60 && p.isUsingItem(); i++) p.doTick();
+        ItemStack held = p.getMainHandItem();
+        BundleContents left = held.get(DataComponents.BUNDLE_CONTENTS);
+        int apples = left == null ? -1 : left.items().stream().mapToInt(t -> t.count()).sum();
+        h.assertTrue(!p.isUsingItem(), "the meal ended within 60 ticks");
+        h.assertTrue(apples == 2, "golden apples left in the bundle: " + apples + " (held " + held + ")");
+        h.assertTrue(p.hasEffect(net.minecraft.world.effect.MobEffects.ABSORPTION), "the golden apple's effects applied");
+        var dropped = h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, p.getBoundingBox().inflate(8));
+        h.assertTrue(dropped.stream().noneMatch(e -> e.getItem().is(Items.GOLDEN_APPLE)), "no golden apple was thrown out: " + dropped);
+        p.setShiftKeyDown(false);
+        h.succeed();
     }
 
     static void bundleEating(GameTestHelper h) {
