@@ -818,7 +818,13 @@ public final class ModScreensClientTest {
 
     /**
      * @return everything wrong with the mod's tabs, empty when they offer exactly what they should:
-     * all five tabs are filled, the chisels sit in the tools tab, and no tab shows a spatula
+     * no tab is shown empty, the chisels sit in the tab that owns them, and no tab shows a spatula
+     *
+     * <p>N60P (26.3): SimpleLib's CreativeTabPolicy takes plain Vanilla items out of mod tabs and moves an item into the tab of its
+     * own mod; the Enderite gear and the Netherite/Enderite food are Simple Ores' items there (SharedMaterials.ORES_ITEMS), so
+     * SimpleBuilding's COMBAT and FOOD tabs end up empty - and Vanilla hides an empty category tab (CreativeModeTab#shouldDisplay =
+     * hasAnyItems). An empty own tab is therefore fine as long as it is not shown. The chisels are Simple Chisels' items on 26.3
+     * (McVersion.CHISELS_IN_SB false): they must stand in a shown tab of their own namespace; on 26.2 in SimpleBuilding's tools tab.
      */
     private static List<String> creativeTabProblems() {
         List<String> found = new ArrayList<>();
@@ -826,13 +832,14 @@ public final class ModScreensClientTest {
         Set<Item> anywhere = new HashSet<>();
 
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.ownTabs()) {
-            Collection<ItemStack> offered = ModItemGroups.get(tab).getDisplayItems();
-            if (offered.isEmpty()) {
-                found.add("the mod's " + tab + " tab is empty after the creative inventory was opened");
+            net.minecraft.world.item.CreativeModeTab group = ModItemGroups.get(tab);
+            Collection<ItemStack> offered = group.getDisplayItems();
+            if (offered.isEmpty() && group.shouldDisplay()) {
+                found.add("the mod's " + tab + " tab is empty after the creative inventory was opened but still shown");
             }
             for (ItemStack stack : offered) {
                 anywhere.add(stack.getItem());
-                if (tab == ModItemGroupsContent.Tab.TOOLS) {
+                if (tab == ModItemGroupsContent.Tab.TOOLS && com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
                     inTheTab.add(stack.getItem());
                 }
             }
@@ -841,11 +848,23 @@ public final class ModScreensClientTest {
             found.add("every mod tab is empty, so neither of the two checks below could fail");
             return found;
         }
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+            var registry = net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
+            for (net.minecraft.world.item.CreativeModeTab group : registry) {
+                var id = registry.getKey(group);
+                if (id == null || group.getType() != net.minecraft.world.item.CreativeModeTab.Type.CATEGORY || !group.shouldDisplay()) continue;
+                for (ItemStack stack : group.getDisplayItems()) {
+                    if (net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals(id.getNamespace())) {
+                        inTheTab.add(stack.getItem());
+                    }
+                }
+            }
+        }
 
         for (Item chisel : CHISELS) {
             if (!inTheTab.contains(chisel)) {
-                found.add(chisel.getDescriptionId() + " is missing from the tools tab, so a creative "
-                        + "player cannot take it out of the inventory at all");
+                found.add(chisel.getDescriptionId() + " is missing from " + (com.simplebuilding.version.McVersion.CHISELS_IN_SB
+                        ? "the tools tab" : "the shown tab of its own mod") + ", so a creative player cannot take it out of the inventory at all");
             }
         }
 
