@@ -120,6 +120,8 @@ Altlast ohne UiBoxes-Stil (Vanilla-PNG): common/src TieredChest/AutoSmither/Neth
   Titel-Abstand Steinsäge/Braustand.
 
 ## Prüfung
-- sb-test: siehe Bericht/Memory (Fabric-Gametests der angefassten Module einzeln).
+- sb-test (Fabric 26.3): simpleinterfaces 53/53 grün (7d853e9ac1); simplearrows 32, simpleenchanting 29, simplefoundry 21, simpletools 71,
+  simplequestionary 15, simplecrucibles 69, simpleriding 46 – 283/283 grün. NeoForge/Forge nicht gelaufen.
+- Client-Szenario: `modules/simpleinterfaces/tools/uiprobe_n64.py` (`--only simpleinterfaces/n64`).
 - Client-Pixelzählung (Session B, nicht hier): Szenario `simpleinterfaces/n62` um die Stationen erweitern bzw. je Station öffnen,
   `measure_shots.py` zählen lassen; Soll = 3 überall außer Titel-Oberkante (Liste `previews/n64/measures-nachher.json`).
