@@ -1,7 +1,15 @@
 {
   "blocks": [
     "simplebuilding:acacia_cauldron",
+    "simplebuilding:acacia_door_1_5x2",
+    "simplebuilding:acacia_door_1_5x3",
+    "simplebuilding:acacia_door_2x2",
+    "simplebuilding:acacia_door_2x3",
     "simplebuilding:acacia_sheet",
+    "simplebuilding:ashwood_door_1_5x2",
+    "simplebuilding:ashwood_door_1_5x3",
+    "simplebuilding:ashwood_door_2x2",
+    "simplebuilding:ashwood_door_2x3",
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_end_stone_slab",
     "simplebuilding:astral_end_stone_stairs",
@@ -22,11 +30,27 @@
     "simplebuilding:astralit_stairs",
     "simplebuilding:astralit_wall",
     "simplebuilding:bamboo_cauldron",
+    "simplebuilding:bamboo_door_1_5x2",
+    "simplebuilding:bamboo_door_1_5x3",
+    "simplebuilding:bamboo_door_2x2",
+    "simplebuilding:bamboo_door_2x3",
     "simplebuilding:bamboo_sheet",
     "simplebuilding:birch_cauldron",
+    "simplebuilding:birch_door_1_5x2",
+    "simplebuilding:birch_door_1_5x3",
+    "simplebuilding:birch_door_2x2",
+    "simplebuilding:birch_door_2x3",
     "simplebuilding:birch_sheet",
     "simplebuilding:black_hammock",
     "simplebuilding:blue_hammock",
+    "simplebuilding:brass_door_1_5x2",
+    "simplebuilding:brass_door_1_5x3",
+    "simplebuilding:brass_door_2x2",
+    "simplebuilding:brass_door_2x3",
+    "simplebuilding:bronze_door_1_5x2",
+    "simplebuilding:bronze_door_1_5x3",
+    "simplebuilding:bronze_door_2x2",
+    "simplebuilding:bronze_door_2x3",
     "simplebuilding:brown_hammock",
     "simplebuilding:carved_acacia_log",
     "simplebuilding:carved_bamboo_block",
@@ -41,22 +65,46 @@
     "simplebuilding:carved_spruce_log",
     "simplebuilding:carved_warped_stem",
     "simplebuilding:cherry_cauldron",
+    "simplebuilding:cherry_door_1_5x2",
+    "simplebuilding:cherry_door_1_5x3",
+    "simplebuilding:cherry_door_2x2",
+    "simplebuilding:cherry_door_2x3",
     "simplebuilding:cherry_sheet",
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
     "simplebuilding:construction_light",
+    "simplebuilding:copper_door_1_5x2",
+    "simplebuilding:copper_door_1_5x3",
+    "simplebuilding:copper_door_2x2",
+    "simplebuilding:copper_door_2x3",
     "simplebuilding:copper_fire",
     "simplebuilding:cracked_astralit_bricks",
     "simplebuilding:cracked_ender_quartz_bricks",
     "simplebuilding:cracked_nihilith_bricks",
+    "simplebuilding:crimson_blazewood_door_1_5x2",
+    "simplebuilding:crimson_blazewood_door_1_5x3",
+    "simplebuilding:crimson_blazewood_door_2x2",
+    "simplebuilding:crimson_blazewood_door_2x3",
     "simplebuilding:crimson_cauldron",
+    "simplebuilding:crimson_door_1_5x2",
+    "simplebuilding:crimson_door_1_5x3",
+    "simplebuilding:crimson_door_2x2",
+    "simplebuilding:crimson_door_2x3",
     "simplebuilding:crimson_sheet",
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
     "simplebuilding:dark_oak_cauldron",
+    "simplebuilding:dark_oak_door_1_5x2",
+    "simplebuilding:dark_oak_door_1_5x3",
+    "simplebuilding:dark_oak_door_2x2",
+    "simplebuilding:dark_oak_door_2x3",
     "simplebuilding:dark_oak_sheet",
+    "simplebuilding:duskwood_door_1_5x2",
+    "simplebuilding:duskwood_door_1_5x3",
+    "simplebuilding:duskwood_door_2x2",
+    "simplebuilding:duskwood_door_2x3",
     "simplebuilding:ender_end_stone",
     "simplebuilding:ender_end_stone_slab",
     "simplebuilding:ender_end_stone_stairs",
@@ -75,6 +123,10 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:ender_quartz_wall",
+    "simplebuilding:exposed_copper_door_1_5x2",
+    "simplebuilding:exposed_copper_door_1_5x3",
+    "simplebuilding:exposed_copper_door_2x2",
+    "simplebuilding:exposed_copper_door_2x3",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
     "simplebuilding:gray_hammock",
@@ -104,16 +156,36 @@
     "simplebuilding:hollow_stripped_spruce_log",
     "simplebuilding:hollow_stripped_warped_stem",
     "simplebuilding:hollow_warped_stem",
+    "simplebuilding:iron_door_1_5x2",
+    "simplebuilding:iron_door_1_5x3",
+    "simplebuilding:iron_door_2x2",
+    "simplebuilding:iron_door_2x3",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:jungle_cauldron",
+    "simplebuilding:jungle_door_1_5x2",
+    "simplebuilding:jungle_door_1_5x3",
+    "simplebuilding:jungle_door_2x2",
+    "simplebuilding:jungle_door_2x3",
     "simplebuilding:jungle_sheet",
     "simplebuilding:layered_astralit",
+    "simplebuilding:lead_door_1_5x2",
+    "simplebuilding:lead_door_1_5x3",
+    "simplebuilding:lead_door_2x2",
+    "simplebuilding:lead_door_2x3",
     "simplebuilding:light_blue_hammock",
     "simplebuilding:light_gray_hammock",
     "simplebuilding:lime_hammock",
     "simplebuilding:magenta_hammock",
     "simplebuilding:mangrove_cauldron",
+    "simplebuilding:mangrove_door_1_5x2",
+    "simplebuilding:mangrove_door_1_5x3",
+    "simplebuilding:mangrove_door_2x2",
+    "simplebuilding:mangrove_door_2x3",
     "simplebuilding:mangrove_sheet",
+    "simplebuilding:nickel_door_1_5x2",
+    "simplebuilding:nickel_door_1_5x3",
+    "simplebuilding:nickel_door_2x2",
+    "simplebuilding:nickel_door_2x3",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_end_stone_slab",
     "simplebuilding:nihil_end_stone_stairs",
@@ -143,7 +215,15 @@
     "simplebuilding:oak_door_half_3",
     "simplebuilding:oak_sheet",
     "simplebuilding:orange_hammock",
+    "simplebuilding:oxidized_copper_door_1_5x2",
+    "simplebuilding:oxidized_copper_door_1_5x3",
+    "simplebuilding:oxidized_copper_door_2x2",
+    "simplebuilding:oxidized_copper_door_2x3",
     "simplebuilding:pale_oak_cauldron",
+    "simplebuilding:pale_oak_door_1_5x2",
+    "simplebuilding:pale_oak_door_1_5x3",
+    "simplebuilding:pale_oak_door_2x2",
+    "simplebuilding:pale_oak_door_2x3",
     "simplebuilding:pale_oak_sheet",
     "simplebuilding:pink_hammock",
     "simplebuilding:placed_blueprint",
@@ -168,8 +248,20 @@
     "simplebuilding:red_hammock",
     "simplebuilding:sculk_jaw",
     "simplebuilding:silent_dandelion",
+    "simplebuilding:silver_door_1_5x2",
+    "simplebuilding:silver_door_1_5x3",
+    "simplebuilding:silver_door_2x2",
+    "simplebuilding:silver_door_2x3",
     "simplebuilding:spruce_cauldron",
+    "simplebuilding:spruce_door_1_5x2",
+    "simplebuilding:spruce_door_1_5x3",
+    "simplebuilding:spruce_door_2x2",
+    "simplebuilding:spruce_door_2x3",
     "simplebuilding:spruce_sheet",
+    "simplebuilding:stainless_steel_door_1_5x2",
+    "simplebuilding:stainless_steel_door_1_5x3",
+    "simplebuilding:stainless_steel_door_2x2",
+    "simplebuilding:stainless_steel_door_2x3",
     "simplebuilding:standing_rod",
     "simplebuilding:stripped_acacia_cauldron",
     "simplebuilding:stripped_acacia_sheet",
@@ -200,12 +292,32 @@
     "simplebuilding:sulfur_lantern",
     "simplebuilding:sulfur_torch",
     "simplebuilding:sulfur_wall_torch",
+    "simplebuilding:tin_door_1_5x2",
+    "simplebuilding:tin_door_1_5x3",
+    "simplebuilding:tin_door_2x2",
+    "simplebuilding:tin_door_2x3",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
+    "simplebuilding:warped_blazewood_door_1_5x2",
+    "simplebuilding:warped_blazewood_door_1_5x3",
+    "simplebuilding:warped_blazewood_door_2x2",
+    "simplebuilding:warped_blazewood_door_2x3",
     "simplebuilding:warped_cauldron",
+    "simplebuilding:warped_door_1_5x2",
+    "simplebuilding:warped_door_1_5x3",
+    "simplebuilding:warped_door_2x2",
+    "simplebuilding:warped_door_2x3",
     "simplebuilding:warped_sheet",
+    "simplebuilding:weathered_copper_door_1_5x2",
+    "simplebuilding:weathered_copper_door_1_5x3",
+    "simplebuilding:weathered_copper_door_2x2",
+    "simplebuilding:weathered_copper_door_2x3",
     "simplebuilding:white_hammock",
-    "simplebuilding:yellow_hammock"
+    "simplebuilding:yellow_hammock",
+    "simplebuilding:zinc_door_1_5x2",
+    "simplebuilding:zinc_door_1_5x3",
+    "simplebuilding:zinc_door_2x2",
+    "simplebuilding:zinc_door_2x3"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
@@ -213,7 +325,31 @@
       "id": "simplebuilding:acacia_cauldron"
     },
     {
+      "id": "simplebuilding:acacia_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:acacia_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:acacia_door_2x2"
+    },
+    {
+      "id": "simplebuilding:acacia_door_2x3"
+    },
+    {
       "id": "simplebuilding:acacia_sheet"
+    },
+    {
+      "id": "simplebuilding:ashwood_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:ashwood_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:ashwood_door_2x2"
+    },
+    {
+      "id": "simplebuilding:ashwood_door_2x3"
     },
     {
       "id": "simplebuilding:astral_end_stone"
@@ -276,10 +412,34 @@
       "id": "simplebuilding:bamboo_cauldron"
     },
     {
+      "id": "simplebuilding:bamboo_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:bamboo_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:bamboo_door_2x2"
+    },
+    {
+      "id": "simplebuilding:bamboo_door_2x3"
+    },
+    {
       "id": "simplebuilding:bamboo_sheet"
     },
     {
       "id": "simplebuilding:birch_cauldron"
+    },
+    {
+      "id": "simplebuilding:birch_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:birch_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:birch_door_2x2"
+    },
+    {
+      "id": "simplebuilding:birch_door_2x3"
     },
     {
       "id": "simplebuilding:birch_sheet"
@@ -294,6 +454,30 @@
     {
       "id": "simplebuilding:blue_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:brass_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:brass_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:brass_door_2x2"
+    },
+    {
+      "id": "simplebuilding:brass_door_2x3"
+    },
+    {
+      "id": "simplebuilding:bronze_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:bronze_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:bronze_door_2x2"
+    },
+    {
+      "id": "simplebuilding:bronze_door_2x3"
     },
     {
       "id": "simplebuilding:brown_hammock",
@@ -339,6 +523,18 @@
       "id": "simplebuilding:cherry_cauldron"
     },
     {
+      "id": "simplebuilding:cherry_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:cherry_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:cherry_door_2x2"
+    },
+    {
+      "id": "simplebuilding:cherry_door_2x3"
+    },
+    {
       "id": "simplebuilding:cherry_sheet"
     },
     {
@@ -359,6 +555,18 @@
       "id": "simplebuilding:construction_light"
     },
     {
+      "id": "simplebuilding:copper_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:copper_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:copper_door_2x2"
+    },
+    {
+      "id": "simplebuilding:copper_door_2x3"
+    },
+    {
       "id": "simplebuilding:cracked_astralit_bricks"
     },
     {
@@ -372,7 +580,31 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:crimson_blazewood_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_door_2x2"
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_door_2x3"
+    },
+    {
       "id": "simplebuilding:crimson_cauldron"
+    },
+    {
+      "id": "simplebuilding:crimson_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:crimson_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:crimson_door_2x2"
+    },
+    {
+      "id": "simplebuilding:crimson_door_2x3"
     },
     {
       "id": "simplebuilding:crimson_sheet"
@@ -394,10 +626,34 @@
       "id": "simplebuilding:dark_oak_cauldron"
     },
     {
+      "id": "simplebuilding:dark_oak_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:dark_oak_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:dark_oak_door_2x2"
+    },
+    {
+      "id": "simplebuilding:dark_oak_door_2x3"
+    },
+    {
       "id": "simplebuilding:dark_oak_sheet"
     },
     {
       "id": "simplebuilding:diamond_rod"
+    },
+    {
+      "id": "simplebuilding:duskwood_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:duskwood_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:duskwood_door_2x2"
+    },
+    {
+      "id": "simplebuilding:duskwood_door_2x3"
     },
     {
       "id": "simplebuilding:ender_end_stone"
@@ -459,6 +715,18 @@
     {
       "id": "simplebuilding:enderite_paint_box",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:exposed_copper_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:exposed_copper_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:exposed_copper_door_2x2"
+    },
+    {
+      "id": "simplebuilding:exposed_copper_door_2x3"
     },
     {
       "id": "simplebuilding:fire_chip"
@@ -557,16 +825,52 @@
       "id": "simplebuilding:ice_chip"
     },
     {
+      "id": "simplebuilding:iron_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:iron_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:iron_door_2x2"
+    },
+    {
+      "id": "simplebuilding:iron_door_2x3"
+    },
+    {
       "id": "simplebuilding:jukebox_amplifier"
     },
     {
       "id": "simplebuilding:jungle_cauldron"
     },
     {
+      "id": "simplebuilding:jungle_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:jungle_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:jungle_door_2x2"
+    },
+    {
+      "id": "simplebuilding:jungle_door_2x3"
+    },
+    {
       "id": "simplebuilding:jungle_sheet"
     },
     {
       "id": "simplebuilding:layered_astralit"
+    },
+    {
+      "id": "simplebuilding:lead_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:lead_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:lead_door_2x2"
+    },
+    {
+      "id": "simplebuilding:lead_door_2x3"
     },
     {
       "id": "simplebuilding:light_blue_hammock",
@@ -586,6 +890,18 @@
     },
     {
       "id": "simplebuilding:mangrove_cauldron"
+    },
+    {
+      "id": "simplebuilding:mangrove_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:mangrove_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:mangrove_door_2x2"
+    },
+    {
+      "id": "simplebuilding:mangrove_door_2x3"
     },
     {
       "id": "simplebuilding:mangrove_sheet"
@@ -629,6 +945,18 @@
     {
       "id": "simplebuilding:netherite_paint_box",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:nickel_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:nickel_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:nickel_door_2x2"
+    },
+    {
+      "id": "simplebuilding:nickel_door_2x3"
     },
     {
       "id": "simplebuilding:nihil_end_stone"
@@ -725,11 +1053,35 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:oxidized_copper_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:oxidized_copper_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:oxidized_copper_door_2x2"
+    },
+    {
+      "id": "simplebuilding:oxidized_copper_door_2x3"
+    },
+    {
       "id": "simplebuilding:paint_box",
       "maxStackSize": 1
     },
     {
       "id": "simplebuilding:pale_oak_cauldron"
+    },
+    {
+      "id": "simplebuilding:pale_oak_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:pale_oak_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:pale_oak_door_2x2"
+    },
+    {
+      "id": "simplebuilding:pale_oak_door_2x3"
     },
     {
       "id": "simplebuilding:pale_oak_sheet"
@@ -793,6 +1145,18 @@
       "id": "simplebuilding:silent_dandelion"
     },
     {
+      "id": "simplebuilding:silver_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:silver_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:silver_door_2x2"
+    },
+    {
+      "id": "simplebuilding:silver_door_2x3"
+    },
+    {
       "id": "simplebuilding:small_armor_stand",
       "maxStackSize": 16
     },
@@ -800,7 +1164,31 @@
       "id": "simplebuilding:spruce_cauldron"
     },
     {
+      "id": "simplebuilding:spruce_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:spruce_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:spruce_door_2x2"
+    },
+    {
+      "id": "simplebuilding:spruce_door_2x3"
+    },
+    {
       "id": "simplebuilding:spruce_sheet"
+    },
+    {
+      "id": "simplebuilding:stainless_steel_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:stainless_steel_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:stainless_steel_door_2x2"
+    },
+    {
+      "id": "simplebuilding:stainless_steel_door_2x3"
     },
     {
       "id": "simplebuilding:stone_pebble"
@@ -891,6 +1279,18 @@
       "id": "simplebuilding:sulfur_torch"
     },
     {
+      "id": "simplebuilding:tin_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:tin_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:tin_door_2x2"
+    },
+    {
+      "id": "simplebuilding:tin_door_2x3"
+    },
+    {
       "id": "simplebuilding:training_dummy",
       "maxStackSize": 16
     },
@@ -904,10 +1304,46 @@
       "id": "simplebuilding:warden_tendril"
     },
     {
+      "id": "simplebuilding:warped_blazewood_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_door_2x2"
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_door_2x3"
+    },
+    {
       "id": "simplebuilding:warped_cauldron"
     },
     {
+      "id": "simplebuilding:warped_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:warped_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:warped_door_2x2"
+    },
+    {
+      "id": "simplebuilding:warped_door_2x3"
+    },
+    {
       "id": "simplebuilding:warped_sheet"
+    },
+    {
+      "id": "simplebuilding:weathered_copper_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:weathered_copper_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:weathered_copper_door_2x2"
+    },
+    {
+      "id": "simplebuilding:weathered_copper_door_2x3"
     },
     {
       "id": "simplebuilding:white_hammock",
@@ -919,6 +1355,18 @@
     {
       "id": "simplebuilding:yellow_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:zinc_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:zinc_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:zinc_door_2x2"
+    },
+    {
+      "id": "simplebuilding:zinc_door_2x3"
     }
   ],
   "note": "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.",
