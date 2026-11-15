@@ -22,6 +22,7 @@ import importlib.util
 import json
 import os
 import shutil
+import signal
 import subprocess
 import sys
 import time
@@ -264,8 +265,14 @@ def main():
     (RUN / sp.REQUEST).write_text(json.dumps({'width': 1280, 'height': 720, 'guiScale': args.scale}))
     started = time.time()
     log = open(out / 'client.log', 'w')
-    game = subprocess.Popen(['./gradlew', ':integration:runIntegrationClient'], cwd=REPO, stdout=log, stderr=subprocess.STDOUT,
-                            start_new_session=True)
+    # one client per heavy lock (A 15.11.): no Gradle daemon outliving the run, and SIGTERM/SIGHUP from sbt end the client too
+    game = subprocess.Popen(['./gradlew', '--no-daemon', ':integration:runIntegrationClient'], cwd=REPO, stdout=log,
+                            stderr=subprocess.STDOUT, start_new_session=True)
+
+    def stop(signum, frame):
+        raise SystemExit(f'signal {signum}')
+    signal.signal(signal.SIGTERM, stop)
+    signal.signal(signal.SIGHUP, stop)
     results = []
 
     def sink(scenario, name, good, detail):
@@ -325,7 +332,12 @@ def main():
         try:
             game.wait(timeout=120)
         except subprocess.TimeoutExpired:
-            os.killpg(game.pid, 15)
+            os.killpg(game.pid, signal.SIGTERM)
+            try:
+                game.wait(timeout=30)
+            except subprocess.TimeoutExpired:
+                os.killpg(game.pid, signal.SIGKILL)
+                game.wait(timeout=30)
         log.close()
         for f in (sp.REQUEST, sp.COMMAND):
             (RUN / f).unlink(missing_ok=True)
