@@ -39,3 +39,11 @@ nicht in den Bildschirm passt (klare Meldung statt Folgefehler).
 Kein Client-Lauf durch mich (Regel). Alle Fixes sind aus Code + Screenshots abgeleitet; Bestätigung braucht den Neulauf der Szenarien
 (siehe Bericht). Annahmen mit Restrisiko: frog_variant-Prädikat (beide Wege eingebaut), Pocket-ticks-Feld (Default 0 evtl. weggelassen –
 beide Fälle abgefragt), Doppeltipp abhängig von der Bildrate.
+
+## Zusatz (Branch b-client60): ModScreensClientTest "creative tabs offer every chisel and no spatula"
+Ursache (c, gewollt): SimpleLibs `CreativeTabPolicy` (nach `buildAllTabContents`) nimmt reine Vanilla-Items aus Mod-Tabs (Regel 2) und
+stellt jedes Item nur in den Tab seines eigenen Mods (QW11). Auf 26.3 sind Enderit-Ausrüstung und Netherit-/Enderit-Nahrung Items von
+Simple Ores (`SharedMaterials.ORES_ITEMS`) -> SimpleBuildings COMBAT und FOOD bleiben leer. Vanilla blendet leere Kategorie-Tabs aus
+(`CreativeModeTab#shouldDisplay` = `hasAnyItems`), Spieler sehen also keinen leeren Tab -> kein Spielfehler. Meißel: auf 26.3 Simple Chisels'
+Items (`CHISELS_IN_SB` false). Fix im Test (Commit 26d288c53f): rot nur noch bei leerem UND angezeigtem eigenen Tab; Meißel im angezeigten
+Tab ihres eigenen Namensraums (26.2 weiter im Werkzeug-Tab). Kompiliert: `:mc26_3:fabric:compileGametestJava` grün. Nicht gelaufen: der Client-Test selbst.
