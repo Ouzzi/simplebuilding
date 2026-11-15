@@ -73,6 +73,7 @@ public final class RidingDiscover {
             "simpleriding:config-safety-enableLeaping",
             "simpleriding:config-safety-enableNautilus",
             "simpleriding:config-safety-enableTailwind",
+            "simpleriding:config-safety-lenientMovementBudget",
             "simpleriding:config-safety-maximumJumpBonus",
             "simpleriding:config-safety-maximumSpeedBonus",
             "simpleriding:config-safety-movementDistancePerTick",

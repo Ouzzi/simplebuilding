@@ -10,7 +10,7 @@ public final class RidingConfig {
  public HorseshoeSettings horseshoes = new HorseshoeSettings();
  public static class WorldGen { public boolean enableVillagerTrades=true, enableLootTableChanges=true; }
  public static class Enchantments { public SwiftRide swiftRide=new SwiftRide(); public HorseJump horseJump=new HorseJump(); }
- public static class Safety { public boolean enableTailwind=true, enableLeaping=true, enableArmorUtilities=true, enableNautilus=true; public float maximumSpeedBonus=3f, maximumJumpBonus=1.5f, movementDistancePerTick=4f; public int movementPacketsPerTick=20; }
+ public static class Safety { public boolean enableTailwind=true, enableLeaping=true, enableArmorUtilities=true, enableNautilus=true, lenientMovementBudget=true; public float maximumSpeedBonus=3f, maximumJumpBonus=1.5f, movementDistancePerTick=4f; public int movementPacketsPerTick=20; }
  /** R1 horseshoes; every value is server-owned and hard-capped in {@link #normalize()}. */
  public static class HorseshoeSettings { public boolean enableHorseshoes=true; public float terrainBonus=.5f, handlingBonus=.3f, fullSetSpeedBonus=.05f, fullSetJumpBonus=.05f, fullSetFallDamageIncrease=.1f; public int blocksPerDurability=40; }
  public static class SwiftRide { public float nautilusSpeedMultiplier=.2f, ghastSpeedMultiplier=.85f, horseSpeedMultiplier=.3f, otherSpeedMultiplier=.2f; }

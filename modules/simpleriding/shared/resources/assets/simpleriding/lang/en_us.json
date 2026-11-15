@@ -42,6 +42,8 @@
   "text.autoconfig.simpleriding.option.safety.movementDistancePerTick.@Tooltip": "Maximum cumulative client vehicle movement in\nblocks per server tick; range 0.5-4. Lower\nlimits may correct legitimate fast mounts or\nfalls. Default: 4.0. Server setting; restart\nrequired.",
   "text.autoconfig.simpleriding.option.safety.movementPacketsPerTick": "Riding Packet Limit",
   "text.autoconfig.simpleriding.option.safety.movementPacketsPerTick.@Tooltip": "Maximum vehicle movement packets per server\ntick; range 1-20. Excess packets are refused.\nDefault: 20. Server setting; restart\nrequired.",
+  "text.autoconfig.simpleriding.option.safety.lenientMovementBudget": "Lag-Tolerant Riding Budget",
+  "text.autoconfig.simpleriding.option.safety.lenientMovementBudget.@Tooltip": "Carry unused riding movement budget over up to\n4 server ticks, so packets bunched by network\nlag are not corrected; sustained speed stays\ncapped. Off: strict limit per tick. Default:\ntrue. Server setting; restart required.",
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.nautilusSpeedMultiplier": "Nautilus Speed Multiplier",
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.nautilusSpeedMultiplier.@Tooltip": "Speed bonus per Tailwind level; range 0-1,\nalso limited by the total speed cap. Default:\n0.2. Server setting; restart required.",
   "text.autoconfig.simpleriding.option.enchantments.horseJump.nautilusDashMultiplier": "Nautilus Dash Multiplier",

@@ -38,6 +38,7 @@ public final class RidingOptions {
         new Option("safety.maximumJumpBonus", Kind.FLOAT, 1.5f, 0, 1.5),
         new Option("safety.movementDistancePerTick", Kind.FLOAT, 4.0f, 0.5, 4),
         new Option("safety.movementPacketsPerTick", Kind.INTEGER, 20, 1, 20),
+        new Option("safety.lenientMovementBudget", Kind.BOOLEAN, true, 0, 0),
         new Option("enchantments.swiftRide.nautilusSpeedMultiplier", Kind.FLOAT, 0.2f, 0, 1),
         new Option("enchantments.horseJump.nautilusDashMultiplier", Kind.FLOAT, 0.2f, 0, 0.5),
         new Option("enchantments.horseJump.featherFallingReduction", Kind.FLOAT, 0.12f, 0, 0.12),

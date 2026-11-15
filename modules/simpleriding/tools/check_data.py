@@ -37,7 +37,7 @@ def check():
     assert en.keys() == de.keys(), 'language completeness'
     assert all(isinstance(v, str) and v for language in (en, de) for v in language.values())
     options = read(ROOT / 'balance/simpleriding/options.json')['options']
-    assert len(options) == 25 and len({o['path'] for o in options}) == 25
+    assert len(options) == 26 and len({o["path"] for o in options}) == 26
     catalogue = (MODULE / 'shared/java/com/simpleriding/RidingOptions.java').read_text()
     screen = (MODULE / 'shared/java/com/simpleriding/client/RidingConfigScreen.java').read_text()
     assert 'for(var option:RidingOptions.ALL)' in screen
