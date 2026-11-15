@@ -204,6 +204,8 @@ def clientMetadata = layout.buildDirectory.dir('generated/clienttestResources')
 def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
     inputs.file rootProject.file('modules/modules.json')
     inputs.property 'moduleClientTest', project.findProperty('moduleClientTest') ?: ''
+    inputs.property 'moduleClientSkip', project.findProperty('moduleClientSkip') ?: ''
+    inputs.property 'moduleClientOnly', project.findProperty('moduleClientOnly') ?: ''
     outputs.dir clientMetadata
     doLast {
         def requested = project.findProperty('moduleClientTest')
