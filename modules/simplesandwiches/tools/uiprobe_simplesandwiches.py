@@ -205,7 +205,9 @@ def _bundle(s, me):
     # pack the click went out unsneaked (Vanilla bundle use). BundleEating.begin needs isShiftKeyDown at the click: wait first.
     time.sleep(1.2)
     # N60P r3: is the SERVER's player sneaking right before the click? (BundleEating.begin asks player.isShiftKeyDown on both sides)
-    sneaking = _sense(s, 'if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{flags:{is_sneaking:true}}}')
+    # N60P r4: on 26.3 the inline predicate needs "type" and the namespaced "minecraft:flags" (gametest probe_commands_match; run 4's
+    # "condition"/"flags" form failed to parse - chat "No key type" - so "server False" was the parse error, not the player)
+    sneaking = _sense(s, 'if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:flags":{is_sneaking:true}}}')
     client_sneaking = s.st().get('sneaking')
     s.io.button(3, True)
     try:
@@ -224,10 +226,11 @@ def _bundle(s, me):
     has_bundle = _sense(s, 'if items entity @s weapon.mainhand minecraft:bundle')
     has_entry = _sense(s, f'if data entity @s {path}[0]')
     thrown = _sense(s, 'if entity @e[type=minecraft:item,distance=..16,nbt={Item:{id:"minecraft:golden_apple"}}]')
+    held = (s.st().get('mainhandComponents') or '')[:300]  # what the bundle really holds (client view)
     s.chat('difficulty peaceful', 0.4)
     s.check('sneak + hold use eats a golden apple out of the bundle (3 -> 2, or 1 after a second bite)', counts in ([2], [1]),
             f'golden apples left: {counts or "none"}; bundle in hand {has_bundle}, any entry {has_entry}, golden apples on the ground {thrown}, '
-            f'sneaking before the click: server {sneaking}, client {client_sneaking} (hungry: {hungry})')
+            f'sneaking before the click: server {sneaking}, client {client_sneaking} (hungry: {hungry}); held stack {held}')
 
 
 def kitchen(s):

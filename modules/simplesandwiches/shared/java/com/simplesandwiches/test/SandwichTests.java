@@ -1094,6 +1094,9 @@ public final class SandwichTests {
                 "if predicate {condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{flags:{is_sneaking:true}}}",
                 "if predicate {type:\"minecraft:entity_properties\",entity:\"this\",predicate:{flags:{is_sneaking:true}}}",
                 "if entity @s[predicate={condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{flags:{is_sneaking:true}}}]",
+                // 26.3: entity predicate keys are namespaced (see the mod's loot tables: "minecraft:flags")
+                "if predicate {type:\"minecraft:entity_properties\",entity:\"this\",predicate:{\"minecraft:flags\":{is_sneaking:true}}}",
+                "unless predicate {type:\"minecraft:entity_properties\",entity:\"this\",predicate:{\"minecraft:flags\":{is_sneaking:false}}}",
         };
         var server = h.getLevel().getServer();
         StringBuilder out = new StringBuilder();
@@ -1110,8 +1113,8 @@ public final class SandwichTests {
         String nbt = String.valueOf(ItemStack.CODEC.encodeStart(h.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), bundle).result().orElse(null));
         p.setShiftKeyDown(false);
         com.simplesandwiches.Sandwiches.LOG.info("N60P probe command forms:{}\n  stack NBT {}", out, nbt);
-        // the forms the ui_probe uses after N60P r4: id/count entry and the "type"-keyed inline predicate
-        h.assertTrue(ok[0] && ok[7], "probe forms on 26.3:" + out + "\n  stack NBT " + nbt);
+        // the forms the ui_probe uses after N60P r4: id/count entry and the "type"-keyed inline predicate with "minecraft:flags"
+        h.assertTrue(ok[0] && ok[9], "probe forms on 26.3:" + out + "\n  stack NBT " + nbt);
         h.succeed();
     }
 

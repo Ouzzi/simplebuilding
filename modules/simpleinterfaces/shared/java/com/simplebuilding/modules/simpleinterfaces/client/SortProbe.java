@@ -225,6 +225,8 @@ public final class SortProbe {
             o.addProperty("pos", mc.player.blockPosition().toShortString());
             // N60P r3: the client's sneak state (LocalPlayer reads the sneak key from its input) for probes of sneak + click actions
             o.addProperty("sneaking", mc.player.isShiftKeyDown());
+            // N60P r4: the client's view of the held stack's component changes (e.g. bundle contents) for probes that cannot read chat
+            o.addProperty("mainhandComponents", String.valueOf(mc.player.getMainHandItem().getComponentsPatch()));
         }
         Path tmp = dir.resolve("simpleinterfaces-sort-status.tmp");
         Files.writeString(tmp, GSON.toJson(o));
