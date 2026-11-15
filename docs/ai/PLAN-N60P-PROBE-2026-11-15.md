@@ -47,3 +47,16 @@ Simple Ores (`SharedMaterials.ORES_ITEMS`) -> SimpleBuildings COMBAT und FOOD bl
 (`CreativeModeTab#shouldDisplay` = `hasAnyItems`), Spieler sehen also keinen leeren Tab -> kein Spielfehler. Meißel: auf 26.3 Simple Chisels'
 Items (`CHISELS_IN_SB` false). Fix im Test (Commit 26d288c53f): rot nur noch bei leerem UND angezeigtem eigenen Tab; Meißel im angezeigten
 Tab ihres eigenen Namensraums (26.2 weiter im Werkzeug-Tab). Kompiliert: `:mc26_3:fabric:compileGametestJava` grün. Nicht gelaufen: der Client-Test selbst.
+
+## Runde 2 (Neulauf der 17 Szenarien, großes Xvfb: 213/235 ok, 22 FAIL)
+| Check | Ursache | Beleg | Fix |
+|---|---|---|---|
+| simpleblocks Snow/Pale/Collapsed: Zahlenwerte (3) | a | jede Liste beginnt mit `''`: Cloths Suchfeld ("Search...") ist das erste EditBox | Suchfeld (erstes leeres EditBox) nicht mitzählen |
+| simplehammers: fünf Zahlen | a | dito (`['', '10', '2', '4', '5', '81']`) | dito |
+| simpleblocks / simplehammers: Edit-Marker "Discard Changes" (2) | a | Cloth 26.3.159 setzt den Cancel-Text nur in `init()` (`isEdited ? cancel_discard : gui.cancel`), Shot nach dem Umschalten zeigt "Cancel" bei geändertem Schalter | Prüfung entfernt (nicht live beobachtbar) |
+| simpleblocks-scenes: Frostgras (2. Mal) | a | Strahl zur Blockmitte unter dem Boden trifft vor der Zelle schon das Gras davor (Shot: Umriss vor dem Schnee) | Ziel = Punkt in der Schneeschicht (y+0,06) der Zelle |
+| simplequestionary: Pfeile/Mausrad/Tasten (8) + "screen still open" | **b (echter Fehler)** + a | Klick auf den rechten Pfeil traf JEIs Zutatenliste, die über dem rechten Buchrand liegt -> JEI RecipesGui öffnete; alle weiteren Checks liefen auf JEIs Bildschirm (Pixel-Rückfall lieferte Unsinn, auch "OK"s) | Mod: `QuestionaryJeiPlugin` (Fabric, compileOnly JEI-API) meldet das Buch als Extra-GUI-Bereich, `QuestionaryScreen.bookArea()`; Probe: Seitenprüfung schlägt fehl, wenn nicht der Questionary-Bildschirm offen ist |
+| simplecrucibles: gebackene Kartoffel | a | Kartoffel 4 -> 3, aber nirgends gebacken: Fass-Feld 0 war beim langsamen Andocken schon für das Ergebnis reserviert/gefüllt, der Klick mit Bruchstein tauschte es auf den Cursor | Bruchstein in das erste FREIE Fass-Feld, Kartoffel auch auf Cursor/Inventar zählen |
+| simplemobmanners: Varianten (3) | a | client.log: `Unknown item component 'minecraft:frog_variant'` – die Komponente heißt auf 26.x `minecraft:frog/variant` (DataComponents-String) | Id korrigiert (Prädikat, Datenpfad, give-Rückfall) |
+| simplepads: Shift-Laden | offen: Verdacht b | SimpleBuildings eigenes `tweaks/mixin/LaunchpadWindChargeMixin` (in simplebuilding.tweaks.mixins.json, auch auf 26.3 aktiv) legt dieselbe `WindChargeItem#useOn` an wie Simple Pads; gewinnt die Kern-Variante, sucht sie nur SimpleBuildings (auf 26.3 nicht registriertes) Launchpad | Integrations-Gametest `sneakingWindChargeClickFillsSimplePadsLaunchpad` (alle Mods geladen) entscheidet |
+| simplesandwiches: Bündel-Essen | a (Messung) | Shot zeigt die Ess-Partikel des Goldapfels (Mahlzeit lief); exakte Prädikat-Gleichheit blieb rot | Anzahl per Datenpfad (3/2/1) mit Bericht, 3 s halten |
