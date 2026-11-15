@@ -46,6 +46,7 @@ und teilen den Filter-Knopf (exakt / gleiche Art, gemeinsamer Code in simplelib)
 Jede UI-Änderung: Kontrast zum Hintergrund ≥ 4,5:1 (nie dunkler Text mit dunklem Schatten auf Grau), Kontrastwerte im Bericht, Test `ui_text_contrast` bleibt grün (AGENTS.md 3.15).
 Tooltips: Standard nur der Name, Beschreibung nur bei nicht offensichtlicher Bedienung oder unsichtbarem Zustand, höchstens 2 Zeilen à ca. 40 Zeichen; Balken-Information nicht doppeln (3.14).
 Kein Text auf dem Bildschirm für Gadgets (3.4). Amerikanisches Englisch, EN+DE parallel (3.5).
+**Container-Margin (N62, Besitzer 15.11.):** Jeder Kasten einer Container-Oberfläche (Container-Kasten, Inventar-Kasten, Teile verbundener Kästen) hat zwischen seiner hellen Innenlinie und den äußersten Slots/Elementen **auf allen vier Seiten genau `UiBoxes.MARGIN` = 3 px Fläche** (Slot = 16×16 mit dunkler Kante oben/links plus 1 px Lichtkante rechts/unten). Mit Titel hat der Text seinen eigenen Abstand, die Slots liegen trotzdem ≥ 3 px darunter. Reicht der Vanilla-Platz nicht, rückt das Spieler-Inventar nur in der Anzeige tiefer und das Fenster wächst – nie wird der Rand kleiner. Vorschau mit nachgezählten Maßen pro Oberfläche (`/root/sb-tools-b/ig57u/mock/render3.py`); Baustein `BoxLayout` (simpleinterfaces) / `UiBoxes.MARGIN` (simplelib), nicht pro Screen nachrechnen.
 
 ### A8 Texturen
 Neue Pixelkunst im Stil des Besitzers, immer mit 16-fach-Vorschau alt neben neu; alte Besitzer-Texturen respektieren (3.7). **Aus Vanilla abgeleitete Pixel werden nie eingecheckt**
