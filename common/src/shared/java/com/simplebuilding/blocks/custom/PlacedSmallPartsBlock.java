@@ -246,7 +246,7 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
             List<ItemStack> rest = new java.util.ArrayList<>(pile.parts());
             ItemStack target = rest.remove(PlacedSmallParts.lookedAtPart(player, rest, state.getValue(FACING), pos, state.getValue(FLAT)));
             pile.keepOnly(target);
-            RESTORE.set(new Restore(level, pos.immutable(), state, List.copyOf(rest), !player.isCreative()));
+            RESTORE.set(new Restore(level, pos.immutable(), state, List.copyOf(rest)));
         }
         if (level instanceof ServerLevel server && !player.isCreative() && level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile
                 && !PlacedSmallParts.silkTouch(server, player.getMainHandItem())) {
@@ -256,7 +256,7 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     }
 
     /** Was ein gezielter Abbau zuruecklegt; je Thread, damit Client und eingebauter Server sich nicht stoeren. */
-    private record Restore(LevelAccessor level, BlockPos pos, BlockState state, List<ItemStack> parts, boolean survival) {
+    private record Restore(LevelAccessor level, BlockPos pos, BlockState state, List<ItemStack> parts) {
     }
 
     private static final ThreadLocal<Restore> RESTORE = new ThreadLocal<>();
@@ -273,8 +273,10 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         level.setBlock(pos, withCounts(restore.state(), restore.parts()), Block.UPDATE_ALL);
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile) {
             pile.setParts(restore.parts());
-            // Vanilla's playerDestroy then calls spawnAfterBreak here: the eggs put back must not hatch (audit P2-2).
-            if (restore.survival() && level instanceof net.minecraft.world.level.Level world) {
+            // Vanilla's playerDestroy then calls spawnAfterBreak here: the eggs put back must not hatch (audit P2-2). Marked
+            // whatever the game mode (b-fix195): the gametest mock player says isCreative() while its game mode runs the
+            // survival path; in creative no playerDestroy follows, so the mark only lives in this tick and does nothing.
+            if (level instanceof net.minecraft.world.level.Level world) {
                 pile.restoredAt = world.getGameTime();
             }
         }

@@ -602,10 +602,7 @@ public final class PlacedSmallParts {
         for (ItemStack part : parts) {
             if (isEgg(part)) {
                 any = true;
-                int hatched = PlacedEggBlock.hatch(level, pos, part, random);
-                if (hatched > 0) new Throwable("DIAG-EGGS hatched " + hatched + " at " + pos + " t=" + level.getGameTime()
-                        + " be=" + level.getBlockEntity(pos)).printStackTrace(); // TEMP b-fix195 diagnosis, removed in the fix
-                chicks += hatched;
+                chicks += PlacedEggBlock.hatch(level, pos, part, random);
             }
         }
         if (any) {
