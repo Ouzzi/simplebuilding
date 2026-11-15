@@ -13,7 +13,7 @@ Basis hub/b-bundle194. Phase 1 (dieser Commit): Plan, Export-Skript, Prototyp. P
   `tools/zentrale-web/setup_texture_save.sh` (Checkout/nginx `client_max_body_size`/Service-Neustart), Tests `tools/zentrale-web/tests/test_devqueue.py`.
 - Texturen: `wiki/assets/textures/...` (Wiki) und `modules/*/.../assets/<ns>/textures/block|item`.
 
-## Config-Schema `layout_<variant>.json` (Ablage `common/src/shared/resources/data/simplebuilding/testcentre/`)
+## Config-Schema `layout_<variant>.json` (Ablage `src/main/resources/data/simplebuilding/testcentre/`)
 ```
 { "schema":1, "variant":"lines",
   "areas":[ { "id":"metals", "name":"Metalle",
@@ -80,7 +80,7 @@ pushen, melden; danach (3) OrderAreas liest Config + „Neu“ + Reload in eigen
 
 ### Dateien
 - `TestCentreDump` (SB_TC_DUMP): zusätzlich `#label`-Zeilen in `lines-rows.tsv`, `compact-cells.tsv`, `items-<variant>-cells.tsv`.
-- `tools/tzedit/export_layout.py <dump>`: Tabellen → Configs (check_save + layout_text) in `common/src/shared/resources/data/simplebuilding/testcentre/`.
+- `tools/tzedit/export_layout.py <dump>`: Tabellen → Configs (check_save + layout_text) in `src/main/resources/data/simplebuilding/testcentre/`.
 - `tools/tzedit/build_editor.py [--check]`: Configs → `wiki/data/testcentre/{index.json,layout_*.json}` + `wiki/tz-editor.html`
   (Index: Bereiche + Id→Textur aus den Wiki-Modul-Texturen; Vanilla zur Laufzeit nur aus den Dev-Kopien `assets/vanilla/`,
   `assets/textures/minecraft/`, sonst Name). `export_area.py`/`build_preview.py` (Phase-1-Auszug) entfallen.
@@ -114,6 +114,6 @@ Speichern), sbt: Integration-Dump, später test_centre*-Gametests.
 Umgesetzt wie geplant (LayoutConfig, families(config) + Band „Neu“, /testcenter layout reload|export, configProblems auch in der
 Integration, 2 Gametests + Adapter). Abweichung: `layout export` schreibt die Dump-Tabellen, die Configs macht export_layout.py.
 sbt (b299eb134): kompiliert; fabric-263 `simplebuilding:test_centre*` 24/24 grün (inkl. layout_config_matches_the_built_lines,
-layout_config_without_a_row_puts_its_items_into_new; Kern: 138 Reihen, 14 rot – Reihen nicht geladener Mods entfallen);
+layout_config_without_arow_puts_its_items_into_new; Kern: 138 Reihen, 14 rot – Reihen nicht geladener Mods entfallen);
 integration-263 `sbintegration:*test_centre*` 1/1 grün (143 Reihen, 18 rot = Export, Config == Welt, nichts in „Neu“). precheck grün.
 Nicht getestet: `/testcenter layout reload` mit Override-Datei in einer laufenden Welt (nur Code-Pfad), Bau in der Welt per Befehl.

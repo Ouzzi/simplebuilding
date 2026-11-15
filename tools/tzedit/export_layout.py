@@ -8,7 +8,7 @@ Input: the plan tables the integration gametest writes with SB_TC_DUMP=1 (all mo
   compact-cells.tsv     the "blocks" variant (all blocks of a mod in a dense square),
   items-<variant>-cells.tsv  "items per mod" of each variant.
 Output: one config per area in the schema of tzedit_save.check_save, written with tzedit_save.layout_text into
-common/src/shared/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json:
+src/main/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json:
 
   lines: metals | wood | aging | rest | stone   (one area per row kind; stone = side B, then the stone rows on side A)
          columns = fixed slot columns (slot name lower case), shared extra columns (pattern, {m} -> m), special_<n>

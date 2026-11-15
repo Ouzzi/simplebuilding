@@ -31,7 +31,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "textures"))
 from editor_save import SaveError, git, remote_run  # noqa: E402  (one git/remote helper for both editors)
 
-LAYOUT_DIR = "common/src/shared/resources/data/simplebuilding/testcentre"
+LAYOUT_DIR = "src/main/resources/data/simplebuilding/testcentre"
 MAX_BODY = 512 * 1024
 MAX_COMMENT = 500
 MAX_COLUMNS = 200
