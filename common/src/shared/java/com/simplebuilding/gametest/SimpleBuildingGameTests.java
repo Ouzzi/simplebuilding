@@ -168,7 +168,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_layout_config_matches_the_built_lines", TestCentreTests::layoutConfigMatchesTheBuiltLines)
                     .build(),
-            GameTestSpec.named("test_centre_game_test_layout_config_without_a_row_puts_its_items_into_new", TestCentreTests::layoutConfigWithoutARowPutsItsItemsIntoNew)
+            GameTestSpec.named("test_centre_game_test_layout_config_without_arow_puts_its_items_into_new", TestCentreTests::layoutConfigWithoutARowPutsItsItemsIntoNew)
                     .build(),
             GameTestSpec.named("test_centre_game_test_testcenter_command_clears_and_builds_the_mod_area", TestCentreTests::testcenterCommandClearsAndBuildsTheModArea)
                     .build(),
