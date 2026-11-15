@@ -51,6 +51,7 @@ public final class BlocksDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "minecraft:crafter",
             "minecraft:stonecutter",
             "simpleblocks:*_froglight",
             "simpleblocks:*_slab",
@@ -70,6 +71,7 @@ public final class BlocksDiscover {
             "simpleblocks:*ice_bricks",
             "simpleblocks:*sandstone_pillar",
             "simpleblocks:aqua_froglight",
+            "simpleblocks:auto_shapecutter",
             "simpleblocks:azure_froglight",
             "simpleblocks:bleached_*",
             "simpleblocks:bleached_carved_pumpkin",
@@ -306,6 +308,7 @@ public final class BlocksDiscover {
             "simpleblocks:quartz_wall",
             "simpleblocks:red_sand_slab",
             "simpleblocks:red_sandstone_pillar",
+            "simpleblocks:redstone_shapecutter",
             "simpleblocks:sand_slab",
             "simpleblocks:sandstone_pillar",
             "simpleblocks:sandstone_pillars",
@@ -316,6 +319,7 @@ public final class BlocksDiscover {
             "simpleblocks:sculk_tile_wall",
             "simpleblocks:sculk_tiles",
             "simpleblocks:shapecutter",
+            "simpleblocks:shapecutter_machines",
             "simpleblocks:smooth_basalt_slab",
             "simpleblocks:smooth_basalt_stairs",
             "simpleblocks:smooth_basalt_wall",
