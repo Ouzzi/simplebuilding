@@ -207,15 +207,18 @@ def _bundle(s, me):
     try:
         time.sleep(1.0)
         s.shot('bundle-eating')
-        time.sleep(1.4)
+        time.sleep(2.0)  # golden apple 32 ticks; 3 s of holding ends the first bite, a second one would need ~3.8 s
     finally:
         s.io.button(3, False)
         s.io.key_up('Shift_L')
     time.sleep(0.5)
-    pred = 'minecraft:bundle[minecraft:bundle_contents=[{id:"minecraft:golden_apple",count:2}]]'
-    two = _sense(s, f'if items entity @s hotbar.0 {pred}')
+    # N60P r2: run 2 showed the eating particles (the meal ran) but the exact item predicate stayed red - read the count from the data
+    # instead (3 = nothing eaten, 2/1 = eaten; a held button may start a second bite after the first one, 0/absent = Vanilla dropped them)
+    path = 'SelectedItem.components."minecraft:bundle_contents"'
+    counts = [n for n in (3, 2, 1) if _sense(s, f'if data entity @s {path}[{{id:"minecraft:golden_apple",count:{n}}}]')]
     s.chat('difficulty peaceful', 0.4)
-    s.check('sneak + hold use eats one golden apple out of the bundle (3 -> 2)', two, f'hotbar.0 {pred} (player was hungry: {hungry})')
+    s.check('sneak + hold use eats a golden apple out of the bundle (3 -> 2, or 1 after a second bite)', counts in ([2], [1]),
+            f'golden apples left in the bundle: {counts or "none"} (player was hungry: {hungry})')
 
 
 def kitchen(s):

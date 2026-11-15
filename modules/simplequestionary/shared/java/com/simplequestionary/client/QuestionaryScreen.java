@@ -120,6 +120,16 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         return page;
     }
 
+    /**
+     * N60P: the whole book with its bookmarks in GUI pixels {x, y, w, h}. The book grows past the menu's 424-px image, so a recipe
+     * viewer that places its item list right of the image (JEI) drew it over the book's right edge and the right page arrow - a click
+     * on the arrow opened a JEI recipe instead of turning the page. The JEI plugin hands this area to JEI as an extra GUI area.
+     */
+    public int[] bookArea() {
+        int top = topPos + bookY - TAB_H - TAB_OUT;
+        return new int[] {leftPos + bookX, top, bookW, topPos + bookY + bookH - top};
+    }
+
     public void setPage(int value) {
         int next = Math.max(0, Math.min(Page.values().length - 1, value));
         if (next != page) {

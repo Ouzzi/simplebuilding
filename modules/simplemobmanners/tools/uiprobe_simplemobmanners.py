@@ -57,14 +57,15 @@ def frog_bucket(s):
             got = len(inv) > i and inv[i].startswith('simplemobmanners:frog_bucket')
             s.check(f'real right click with a water bucket catches the {variant} frog', got, inv[:3])
             if not got:  # keep the rest of the scene: give the bucket directly
-                s.chat(f'give @s simplemobmanners:frog_bucket[frog_variant="minecraft:{variant}",custom_name="{name}"]', 0.5)
+                s.chat(f'give @s simplemobmanners:frog_bucket[frog/variant="minecraft:{variant}",custom_name="{name}"]', 0.5)
                 continue
             caught.append(i)
             # N60P: an item predicate on the hotbar slot instead of an NBT path into the player's Inventory list (run 1: red for all three
             # while the tooltip of the same stacks shows "Variant: ..." and the gametest frog_bucket checks the component)
-            pred = f'simplemobmanners:frog_bucket[minecraft:frog_variant="minecraft:{variant}"]'
+            # N60P r2: the component id on 26.x is minecraft:frog/variant (client.log run 2: "Unknown item component 'minecraft:frog_variant'")
+            pred = f'simplemobmanners:frog_bucket[minecraft:frog/variant="minecraft:{variant}"]'
             by_items = _sense(s, f'if items entity @s hotbar.{i} {pred}')
-            by_data = _sense(s, f'if data entity @s SelectedItem.components{{"minecraft:frog_variant":"minecraft:{variant}"}}')
+            by_data = _sense(s, f'if data entity @s SelectedItem.components{{"minecraft:frog/variant":"minecraft:{variant}"}}')
             s.check(f'the {variant} bucket keeps its variant (frog_variant component)', by_items or by_data,
                     f'server-side: if items hotbar.{i} {pred} = {by_items}; SelectedItem data = {by_data}')
         # first-person pictures of each bucket in the hand

@@ -191,18 +191,25 @@ def crucible_barrel(s):
         return
     st = s.st()
     s.shot('docked-open')
+    # N60P r2: the potato job reserves barrel field 0 the moment the barrel docks (CrucibleBlockEntity.reserve: the barrel first) and
+    # a slow docking lets the first baked potato land there; a click with the cobblestone then SWAPPED it onto the cursor (run 2: potato
+    # 4 -> 3, no baked potato in any field). Use the first EMPTY barrel field and count the cursor/inventory too.
+    bf = next((barrel_index(n, i) for i in range(n) if not stack_at(st, barrel_index(n, i))), barrel_index(n, n - 1))
     click_inv(s, n, True, 5, 'minecraft:cobblestone x8')
-    s.click_slot(index=barrel_index(n, 0))
-    st, got = wait_stack(s, barrel_index(n, 0), 'minecraft:cobblestone x8')
-    s.check('a real click puts the cobblestone into barrel field 0', got == 'minecraft:cobblestone x8', got)
+    s.click_slot(index=bf)
+    st, got = wait_stack(s, bf, 'minecraft:cobblestone x8')
+    s.check('a real click puts the cobblestone into a free barrel field', got == 'minecraft:cobblestone x8', got)
     # the potatoes keep cooking: the result goes to the barrel first (up to ~20 s at medium heat), else it stays in the crucible
     fields = [barrel_index(n, i) for i in range(n)] + [crucible_index(n, True, i) for i in range(n)]
-    st = wait_until(s, lambda t: any((stack_at(t, i) or '').startswith('minecraft:baked_potato') for i in fields), 22)
-    s.check('a baked potato came out (barrel field or crucible slot)', any((stack_at(st, i) or '').startswith('minecraft:baked_potato') for i in fields),
-            [stack_at(st, i) for i in fields])
+    def baked(t):
+        return (any((stack_at(t, i) or '').startswith('minecraft:baked_potato') for i in fields)
+                or (t.get('carried') or '').startswith('minecraft:baked_potato') or count_of(t, 'minecraft:baked_potato') > 0)
+    st = wait_until(s, baked, 22)
+    s.check('a baked potato came out (barrel field, crucible slot, cursor or inventory)', baked(st),
+            ([stack_at(st, i) for i in fields], st.get('carried')))
     s.shot('docked-cooked')
     click_inv_before = count_of(st, 'minecraft:cobblestone')
-    s.click_slot(index=barrel_index(n, 0), shift=True)
+    s.click_slot(index=bf, shift=True)
     st = wait_until(s, lambda t: count_of(t, 'minecraft:cobblestone') == click_inv_before + 8, 5)
     s.check('shift-click on the barrel field takes the cobblestone back into the inventory', count_of(st, 'minecraft:cobblestone') == click_inv_before + 8,
             count_of(st, 'minecraft:cobblestone'))

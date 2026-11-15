@@ -99,7 +99,10 @@ def config(s):
     s.shot('config-screen')
     labels = [_plain(l) for l in s.labels(st)]
     s.check('config screen has Save and a Cancel/Discard button', any('Save' in l for l in labels) and any(('Cancel' in l or 'Discard' in l) for l in labels), labels)
-    values = sorted(w['value'] for w in s.widgets(st) if w.get('value') is not None)
+    boxes = [w for w in s.widgets(st) if w.get('value') is not None]
+    if boxes and boxes[0]['class'] == 'EditBox' and boxes[0]['value'] == '':
+        boxes = boxes[1:]  # N60P r2: Cloth's search box comes first (value ''), not one of the numbers
+    values = sorted(w['value'] for w in boxes)
     s.check('config screen shows the five numbers of HammerConfig (5, 2, 4, 10, 81)', values == sorted(['5', '2', '4', '10', '81']), values)
     toggles = _toggles(s, st)
     s.check('config screen has the one switch (enabled), shown "Yes"', len(toggles) == 1 and _plain(toggles[0]['label']) == 'Yes', [_plain(w['label']) for w in toggles])
@@ -109,7 +112,8 @@ def config(s):
         st = s.st()
         now = _toggles(s, st)
         s.check('real click flips the switch to "No"', len(now) == 1 and _plain(now[0]['label']) == 'No', [_plain(w['label']) for w in now])
-        s.check('an edit marker appears: the Cancel button now reads "Discard Changes"', any('Discard' in _plain(l) for l in s.labels(st)), [_plain(l) for l in s.labels(st)])
+        # N60P r2: Cloth Config 26.3.159 sets the Cancel label (gui.cancel / text.cloth-config.cancel_discard) only in init(), so
+        # it does not change live after an edit (shot config-*-edited: "Cancel"); the edit marker is no longer asserted.
         s.shot('config-edited')
         if now:
             s.click_xy(now[0]['x'], now[0]['y'], st)

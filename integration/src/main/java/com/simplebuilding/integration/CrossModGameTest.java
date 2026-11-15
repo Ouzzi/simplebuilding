@@ -474,6 +474,35 @@ public final class CrossModGameTest {
      * IG31-3: the mod tabs follow the mod tree (super-mod, then its sub-mods): walking the displayed mod tabs by page, row and
      * column, the rank of their namespaces never falls. Fabric only (the page comes from Fabric's tab pagination).
      */
+    /**
+     * N60P: with SimpleBuilding AND Simple Pads loaded, a sneaking right click with wind charges on Simple Pads' launchpad loads the
+     * whole stack up to the capacity (simplepads LaunchpadWindChargeMixin). SimpleBuilding's own tweaks mixin adds the same
+     * WindChargeItem#useOn for its (on 26.3 unregistered) launchpad; the ui_probe saw only one charge per sneaking click.
+     */
+    @GameTest(maxTicks = 100)
+    public void sneakingWindChargeClickFillsSimplePadsLaunchpad(GameTestHelper helper) {
+        if (!FabricLoader.getInstance().isModLoaded("simplepads")) { helper.succeed(); return; }
+        var level = helper.getLevel();
+        var pad = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simplepads", "launchpad"));
+        var pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos, pad);
+        var player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        var stack = new ItemStack(net.minecraft.world.item.Items.WIND_CHARGE, 16);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+        player.setShiftKeyDown(true);
+        var abs = helper.absolutePos(pos);
+        var hit = new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(abs).add(0, 0.4, 0),
+                net.minecraft.core.Direction.UP, abs, false);
+        var result = player.gameMode.useItemOn(player, level, stack, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        var be = level.getBlockEntity(abs);
+        helper.assertTrue(be != null, "launchpad block entity");
+        int charges = be.saveWithoutMetadata(level.registryAccess()).getIntOr("Charges", -1);
+        helper.assertTrue(charges == 4, "one sneaking click loaded " + charges + " charges (capacity 4), result " + result
+                + ", hand " + player.getMainHandItem());
+        helper.succeed();
+    }
+
     @GameTest(maxTicks = 100)
     public void creativeTabsFollowTheModTree(GameTestHelper helper) {
         CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true, helper.getLevel().registryAccess());

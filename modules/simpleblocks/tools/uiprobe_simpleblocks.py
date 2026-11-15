@@ -52,7 +52,11 @@ def _toggles(s, st):
 
 
 def _values(s, st):
-    return [w['value'] for w in s.widgets(st) if w.get('value') is not None]
+    """Values of the entry fields. N60P r2: Cloth's search box ("Search...") is the first EditBox of the screen, value '' - not an entry."""
+    boxes = [w for w in s.widgets(st) if w.get('value') is not None]
+    if boxes and 'ClothConfig' in st.get('screen', '') and boxes[0]['class'] == 'EditBox' and boxes[0]['value'] == '':
+        boxes = boxes[1:]
+    return [w['value'] for w in boxes]
 
 
 def _open_config(s, query, tag):
@@ -121,7 +125,8 @@ def config(s):
         st = s.st()
         now = [_plain(w['label']) for w in _toggles(s, st)]
         s.check('real click flips Frost Grass to "Yes"', now == ['Yes', 'Yes', 'Yes'], now)
-        s.check('an edit marker appears: the Cancel button reads "Discard Changes"', any('Discard' in _plain(l) for l in s.labels(st)), [_plain(l) for l in s.labels(st)])
+        # N60P r2: Cloth Config 26.3.159 sets the Cancel label (gui.cancel / text.cloth-config.cancel_discard) only in init(), so
+        # it does not change live after an edit (shot config-*-edited: "Cancel"); the edit marker is no longer asserted.
         s.shot('config-snow-edited')
         t = _toggles(s, st)
         s.click_xy(t[2]['x'], t[2]['y'], st)
@@ -189,9 +194,13 @@ def scenes(s):
     s.chat(f'setblock {x - 3} {y} {z - 1} minecraft:snow', 0.25)
     s.chat(f'setblock {x - 3} {y - 1} {z + 1} simpleblocks:frost_grass', 0.25)
     s.chat(f'setblock {x - 3} {y} {z + 1} minecraft:snow', 0.25)
-    # aim at the frost grass block itself: the snow layer is 2 px high, a ray to the centre of ITS cell passes over it and hit the grass
-    # beyond (run 1: minecraft:grass_block, the screenshot shows the outline behind the snow); the ray to the block below enters the snow
-    hit = _hit(s, x - 3, y - 1, z + 1)
+    # N60P r2: aim at a point INSIDE the 2-px snow layer (y + 0.06) in the middle of its cell. Run 1 aimed at the cell centre (ray over
+    # the layer), run 2 at the frost grass block's centre: that ray reaches ground level before the cell and hit the grass in front.
+    st = s.st()
+    px, py, pz = [int(v) for v in st['pos'].replace(',', ' ').split()]
+    s.chat(f'tp @s {px + 0.5} {py} {pz + 0.5} facing {x - 3 + 0.5} {y + 0.06 - 1.62:.2f} {z + 1 + 0.5}', 0.8)
+    time.sleep(0.5)
+    hit = s.st().get('hitBlock')
     s.shot('frost-grass-next-to-grass')
     s.check('frost grass scene placed (crosshair on the snow layer or the frost grass)', hit in ('simpleblocks:frost_grass', 'minecraft:snow'), hit)
     # ---- Collapsed blocks: Slowness I / II / III by stacks (1 / 2 / 9), slot alert on the hotbar; survival so the effect acts

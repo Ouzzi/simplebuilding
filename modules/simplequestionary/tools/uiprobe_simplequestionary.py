@@ -66,7 +66,11 @@ def _right_page_xy(g):
 def _active_tab(s, name):
     """Screenshot named <name>, then which bookmark is raised. Returns (index or None, detail)."""
     s.shot(name)
-    page = s.st().get('fields', {}).get('page')  # SortProbe reads the screen's private page field by reflection
+    st = s.st()
+    if 'QuestionaryScreen' not in st.get('screen', ''):
+        # N60P r2: a click under JEI's item list opened JEI's RecipesGui; the ribbon pixels of THAT screen passed as "page 2"
+        return None, f"screen is {st.get('screen')}, not the Questionary"
+    page = st.get('fields', {}).get('page')  # SortProbe reads the screen's private page field by reflection
     if page is not None:
         return int(page), f'page field = {page}'
     if Image is None:
