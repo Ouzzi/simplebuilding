@@ -73,6 +73,18 @@ public final class RecipelessJeiInfo {
             map.put("woodwork_carved", com.simplebuilding.woodwork.WoodBlocks.families().stream()
                     .map(f -> (ItemLike) f.carved()).toList());
         }
+        if (com.simplebuilding.version.McVersion.DOORS) {
+            // N57-1: the big doors of a module's door have no recipe while that module is missing
+            List<ItemLike> missing = new java.util.ArrayList<>();
+            for (com.simplebuilding.doors.WideDoors.Variant v : com.simplebuilding.doors.WideDoors.VARIANTS) {
+                // the base door decides (its recipe cannot load without it), not the mod list
+                if (v.mod() != null && (!com.simplebuilding.platform.ModEnvironment.isModLoaded(v.mod())
+                        || !net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(v.door()))) {
+                    missing.addAll(List.of(com.simplebuilding.doors.WideDoors.items(v.id())));
+                }
+            }
+            if (!missing.isEmpty()) map.put("wide_doors_module", missing);
+        }
         return map;
     }
 
@@ -134,18 +146,6 @@ public final class RecipelessJeiInfo {
             // Fundorte und B-Seite der Platten (2026-10-03), Wirkung der Lautsprecher.
             map.put("music_discs", List.<ItemLike>copyOf(com.simplebuilding.util.MusicDiscs.items()));
             map.put("amplifiers", List.of(ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
-        }
-        if (com.simplebuilding.version.McVersion.DOORS) {
-            // N57-1: the big doors of a module's door have no recipe while that module is missing
-            List<ItemLike> missing = new java.util.ArrayList<>();
-            for (com.simplebuilding.doors.WideDoors.Variant v : com.simplebuilding.doors.WideDoors.VARIANTS) {
-                // the base door decides (its recipe cannot load without it), not the mod list
-                if (v.mod() != null && (!com.simplebuilding.platform.ModEnvironment.isModLoaded(v.mod())
-                        || !net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(v.door()))) {
-                    missing.addAll(List.of(com.simplebuilding.doors.WideDoors.items(v.id())));
-                }
-            }
-            if (!missing.isEmpty()) map.put("wide_doors_module", missing);
         }
         return map;
     }
