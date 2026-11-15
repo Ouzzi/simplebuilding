@@ -65,14 +65,55 @@ def recolour(img, tier):
     return out
 
 
+def _regions(img):
+    """4-connected areas of exactly one colour (lists of (x, y))."""
+    px = img.load()
+    seen, out = set(), []
+    for y in range(img.height):
+        for x in range(img.width):
+            if (x, y) in seen or px[x, y][3] == 0:
+                continue
+            col, stack, area = px[x, y], [(x, y)], []
+            seen.add((x, y))
+            while stack:
+                cx, cy = stack.pop()
+                area.append((cx, cy))
+                for nx, ny in ((cx + 1, cy), (cx - 1, cy), (cx, cy + 1), (cx, cy - 1)):
+                    if 0 <= nx < img.width and 0 <= ny < img.height and (nx, ny) not in seen and px[nx, ny] == col:
+                        seen.add((nx, ny))
+                        stack.append((nx, ny))
+            out.append(area)
+    return out
+
+
+def break_flats(img, tier):
+    """A8d: flat areas of 6 px and more get 2-px groups of the neighbouring body tone (darker and lighter in turn), so no area stays
+    large - the reinforced original rates orange (38 px), these should rate green."""
+    ramp = RAMPS[tier]["body"]
+    out = img.copy()
+    px = out.load()
+    for area in _regions(img):
+        if len(area) < 6:
+            continue
+        col = px[area[0][0], area[0][1]]
+        if col[:3] not in ramp:
+            continue  # the trim stays as it is
+        k = ramp.index(col[:3])
+        for x, y in area:
+            if (x + 2 * y) % 5 == 0 or (x + 2 * y) % 5 == 1 and (x + y) % 3 == 0:
+                step = -1 if (x // 3 + y // 2) % 2 else 1
+                px[x, y] = ramp[max(0, min(len(ramp) - 1, k + step))] + (col[3],)
+    return out
+
+
 def outputs():
     from PIL import Image
     side = Image.open(TEX / "block/reinforced_cauldron_side.png")
     item = Image.open(TEX / "item/reinforced_cauldron.png")
     out = {}
     for tier in RAMPS:
-        out[TEX / f"block/{tier}_cauldron_side.png"] = recolour(side, tier)
-        out[TEX / f"item/{tier}_cauldron.png"] = recolour(item, tier)
+        out[TEX / f"block/{tier}_cauldron_side.png"] = (recolour(side, tier), break_flats(recolour(side, tier), tier))
+        out[TEX / f"item/{tier}_cauldron.png"] = (recolour(item, tier), None)
     return out
 
 
@@ -80,15 +121,18 @@ def main(argv):
     from PIL import Image
     if len(argv) > 1 and argv[0] == "--preview":
         imgs = [Image.open(TEX / "block/reinforced_cauldron_side.png").convert("RGBA"), Image.open(TEX / "item/reinforced_cauldron.png").convert("RGBA")]
-        imgs += list(outputs().values())
+        imgs += [b if b is not None else a for a, b in outputs().values()]
         s = 12
         sheet = Image.new("RGBA", (len(imgs) * (16 * s + 12) + 12, 16 * s + 24), (60, 60, 66, 255))
         for i, im in enumerate(imgs):
             sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (12 + i * (16 * s + 12), 12))
         sheet.save(argv[1])
         return 0
-    for path, img in outputs().items():
+    for path, (img, broken) in outputs().items():
         layers.snap(img, "Umfaerbung")
+        if broken is not None:
+            layers.snap(img, "Flaechen brechen", broken.tobytes())
+            img = broken
         layers.save(img, path)
         print("wrote", path.relative_to(ROOT))
     return 0
