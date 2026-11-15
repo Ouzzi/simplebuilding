@@ -14,6 +14,9 @@ and use the Session API below. Usage (inside xvfb-run, from the repository root)
 
     python3.12 modules/simpleinterfaces/tools/ui_probe.py --out /var/tmp/sb/uiprobe [--only simplerespawn,simplequestionary] [--scale 2]
 
+The X screen must hold the whole 1280 x 720 window (xvfb-run -s '-screen 0 2560x1440x24'); on a smaller display (xvfb-run's default
+1280 x 1024) the probe starts its own 2560 x 1440 Xvfb (N60P) and stops if the window still does not fit.
+
 Exit 0 when every check of every scenario passed; <out>/results.json lists all checks, <out>/shots holds the screenshots named
 <scenario>-<name>.png. A scenario that raises counts as one failed check, the next scenario still runs (same world).
 """
@@ -246,6 +249,51 @@ def load_scenarios(only):
     return found
 
 
+def _screen_size():
+    """(width, height) of the X screen in DISPLAY, or None without a display."""
+    import ctypes
+    if not os.environ.get('DISPLAY'):
+        return None
+    x11 = ctypes.cdll.LoadLibrary('libX11.so.6')
+    x11.XOpenDisplay.restype = ctypes.c_void_p
+    d = x11.XOpenDisplay(None)
+    if not d:
+        return None
+    d = ctypes.c_void_p(d)
+    try:
+        return x11.XDisplayWidth(d, 0), x11.XDisplayHeight(d, 0)
+    finally:
+        x11.XCloseDisplay(d)
+
+
+NEED_SCREEN = (2560, 1440)
+
+
+def _own_xvfb():
+    """N60P: the client window opens at 854 x 480 centred and SortProbe then grows it to 1280 x 720 from that corner, so on xvfb-run's
+    default 1280 x 1024 screen its right part (window x > ~1066) lies OUTSIDE the screen - XTest clamps the pointer to the screen edge and
+    every click there hit something else (run 1: Mod Menu "Configure...", the editor's top-right buttons, the questionary's right arrow).
+    When the display is smaller than NEED_SCREEN, start our own Xvfb with a big screen and use it. Returns the process or None."""
+    size = _screen_size()
+    if size and size[0] >= NEED_SCREEN[0] and size[1] >= NEED_SCREEN[1]:
+        return None
+    for n in range(90, 140):
+        if Path(f'/tmp/.X{n}-lock').exists() or Path(f'/tmp/.X11-unix/X{n}').exists():
+            continue
+        proc = subprocess.Popen(['Xvfb', f':{n}', '-screen', '0', f'{NEED_SCREEN[0]}x{NEED_SCREEN[1]}x24', '-nolisten', 'tcp'],
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        os.environ['DISPLAY'] = f':{n}'
+        for _ in range(50):
+            time.sleep(0.2)
+            if proc.poll() is not None:
+                break
+            if _screen_size():
+                print(f'display {size} too small for the 1280 x 720 window: own Xvfb :{n} {NEED_SCREEN[0]}x{NEED_SCREEN[1]}', flush=True)
+                return proc
+        proc.kill()
+    raise SystemExit(f'display {size} too small and no own Xvfb could start (run under xvfb-run -s "-screen 0 2560x1440x24")')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', required=True)
@@ -259,6 +307,7 @@ def main():
         return
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
+    xvfb = _own_xvfb()
     RUN.mkdir(parents=True, exist_ok=True)
     for f in (sp.STATUS, sp.COMMAND):
         (RUN / f).unlink(missing_ok=True)
@@ -295,6 +344,11 @@ def main():
         time.sleep(3)
         s = Session(io, out, sink)
         st = s.st()
+        size = _screen_size()
+        if size and (st['windowX'] < 0 or st['windowY'] < 0 or st['windowX'] + 1280 > size[0] or st['windowY'] + 720 > size[1]):
+            raise SystemExit(f"client window at {st['windowX']},{st['windowY']} (1280 x 720) does not fit the {size[0]} x {size[1]} screen: "
+                             'clicks near its edge would land elsewhere')
+        print(f"window at {st['windowX']},{st['windowY']} on a {size} screen", flush=True)
         io.move(st['windowX'] + 640, st['windowY'] + 360)
         for idx, (name, fn) in enumerate(scenarios.items()):
             s.scenario = name
@@ -341,6 +395,8 @@ def main():
         log.close()
         for f in (sp.REQUEST, sp.COMMAND):
             (RUN / f).unlink(missing_ok=True)
+        if xvfb is not None:
+            xvfb.terminate()
         ok = bool(results) and all(r['ok'] for r in results)
         (out / 'results.json').write_text(json.dumps({'ok': ok, 'results': results}, indent=1))
     print(f"{sum(r['ok'] for r in results)}/{len(results)} checks ok")
