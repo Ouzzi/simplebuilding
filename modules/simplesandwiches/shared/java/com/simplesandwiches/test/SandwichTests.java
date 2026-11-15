@@ -108,6 +108,7 @@ public final class SandwichTests {
         ALL.put("bundle_eating", SandwichTests::bundleEating);
         ALL.put("bundle_eating_needs_sneak", SandwichTests::bundleEatingNeedsSneak);
         ALL.put("bundle_eating_full_meal", SandwichTests::bundleEatingFullMeal);
+        ALL.put("probe_commands_match", SandwichTests::probeCommandsMatch);
         ALL.put("sub_mod_switch", SandwichTests::subModSwitch);
         ALL.put("cake_slice", SandwichTests::cakeSlice);
     }
@@ -1070,6 +1071,50 @@ public final class SandwichTests {
      * player's own ticks until the use ends (LivingEntity#completeUsingItem -> BundleItem#finishUsingItem). Full food on purpose: a
      * golden apple is always edible. One apple leaves the bundle, none is dropped (Vanilla's bundle use would throw them out).
      */
+    /**
+     * N60P r4: the exact server commands the ui_probe uses for the bundle check, run against a real (mock) player: which forms match
+     * on 26.3. Each command sets a marker block when its condition holds; the message lists every form and the stack's saved NBT.
+     */
+    static void probeCommandsMatch(GameTestHelper h) {
+        ServerPlayer p = player(h, new BlockPos(2, 2, 2));
+        ItemStack bundle = new ItemStack(Items.BUNDLE);
+        BundleContents.Mutable m = new BundleContents.Mutable();
+        m.tryInsert(new ItemStack(Items.GOLDEN_APPLE, 3));
+        bundle.set(DataComponents.BUNDLE_CONTENTS, m.toImmutable());
+        p.setItemInHand(InteractionHand.MAIN_HAND, bundle);
+        p.setShiftKeyDown(true);
+        String path = "SelectedItem.components.\"minecraft:bundle_contents\"";
+        String[] forms = {
+                "if data entity @s " + path + "[{id:\"minecraft:golden_apple\",count:3}]",
+                "if data entity @s " + path + "[{count:3}]",
+                "if data entity @s " + path + "[{id:\"minecraft:golden_apple\"}]",
+                "if data entity @s " + path + "[0]",
+                "if data entity @s " + path + ".items[{id:\"minecraft:golden_apple\",count:3}]",
+                "if items entity @s weapon.mainhand minecraft:bundle[minecraft:bundle_contents=[{id:\"minecraft:golden_apple\",count:3}]]",
+                "if predicate {condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{flags:{is_sneaking:true}}}",
+                "if predicate {type:\"minecraft:entity_properties\",entity:\"this\",predicate:{flags:{is_sneaking:true}}}",
+                "if entity @s[predicate={condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{flags:{is_sneaking:true}}}]",
+        };
+        var server = h.getLevel().getServer();
+        StringBuilder out = new StringBuilder();
+        boolean[] ok = new boolean[forms.length];
+        for (int i = 0; i < forms.length; i++) {
+            BlockPos marker = h.absolutePos(new BlockPos(i, 1, 0));
+            h.getLevel().setBlockAndUpdate(marker, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+            var source = server.createCommandSourceStack().withEntity(p).withPosition(p.position()).withSuppressedOutput();
+            server.getCommands().performPrefixedCommand(source, "execute " + forms[i] + " run setblock " + marker.getX() + " " + marker.getY() + " "
+                    + marker.getZ() + " minecraft:stone");
+            ok[i] = h.getLevel().getBlockState(marker).is(net.minecraft.world.level.block.Blocks.STONE);
+            out.append("\n  ").append(ok[i] ? "MATCH " : "miss  ").append(forms[i]);
+        }
+        String nbt = String.valueOf(ItemStack.CODEC.encodeStart(h.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), bundle).result().orElse(null));
+        p.setShiftKeyDown(false);
+        com.simplesandwiches.Sandwiches.LOG.info("N60P probe command forms:{}\n  stack NBT {}", out, nbt);
+        // the forms the ui_probe uses after N60P r4: id/count entry and the "type"-keyed inline predicate
+        h.assertTrue(ok[0] && ok[7], "probe forms on 26.3:" + out + "\n  stack NBT " + nbt);
+        h.succeed();
+    }
+
     static void bundleEatingFullMeal(GameTestHelper h) {
         ServerPlayer p = player(h, new BlockPos(2, 2, 2));
         p.getFoodData().setFoodLevel(20);

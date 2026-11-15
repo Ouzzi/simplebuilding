@@ -196,6 +196,7 @@ public final class ModuleGameTest {
     }
     @GameTest public void bundleEatingNeedsSneak(GameTestHelper h) { SandwichTests.ALL.get("bundle_eating_needs_sneak").accept(h); }
     @GameTest(maxTicks = 100) public void bundleEatingFullMeal(GameTestHelper h) { SandwichTests.ALL.get("bundle_eating_full_meal").accept(h); }
+    @GameTest(maxTicks = 100) public void bundleProbeCommandsMatch(GameTestHelper h) { SandwichTests.ALL.get("probe_commands_match").accept(h); }
     @GameTest public void vanillaTabStacks(GameTestHelper h) { SandwichTests.ALL.get("vanilla_tab_stacks").accept(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.behaviourHints(h); }
