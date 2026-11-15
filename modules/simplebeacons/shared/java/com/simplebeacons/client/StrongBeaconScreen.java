@@ -126,7 +126,7 @@ public class StrongBeaconScreen extends BeaconScreen {
         this.strongButtons.clear();
         BeaconKind kind = this.shownKind;
         // Vanilla's own primary buttons (left half) give way to ours: every power of every kind is one of our buttons, which
-        // also tell the server the amplifier of the placeholder powers. Vanilla's secondary buttons stay unless the kind is evil.
+        // also tell the server the amplifier of the level II powers. Vanilla's secondary buttons stay unless the kind is evil.
         for (GuiEventListener child : List.copyOf(this.children())) {
             if (!(child instanceof AbstractWidget widget) || child instanceof StrongButton) continue;
             String name = widget.getClass().getName();

@@ -144,6 +144,8 @@ def main():
         ptr = Pointer()
         for scale in scales:
             command('guiScale', value=scale)
+            # W2B: the drop-down of the other versions only exists in the hidden developer mode
+            command('developer', value=1)
             command('version', value=6)
             command('set', key='detail', value=256)
             command('set', key='faceEdge', value=0.28)
@@ -162,6 +164,18 @@ def main():
             ptr.click(*centre(st, 'v26'))
             st = status()
             check(f'{tag}: click V26', st['version'] == 26, f'version {st["version"]}')
+            ptr.click(*centre(st, 'v5'))
+            st = status()
+            check(f'{tag}: click V5 (released, W2B)', st['version'] == 5, f'version {st["version"]}')
+            # without the developer mode: no drop-down, the four released buttons stay
+            command('developer', value=0)
+            time.sleep(1)
+            st = status()
+            check(f'{tag}: no drop-down outside the developer mode', not st['rects'].get('older') and st['rects'].get('v25') and st['rects'].get('v5'),
+                  f'rects {st["rects"].get("older")}')
+            command('developer', value=1)
+            time.sleep(1)
+            st = status()
             # 2 slider click at 10 % of the detail slider -> the lowest level
             command('scrollTo', key='detail')
             st = status()

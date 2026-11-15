@@ -223,7 +223,7 @@ ALL.put("config_command", h -> {
             h.succeed();
         });
         ALL.put("mighty_effects", h -> {
-            // BS28b-4: Mighty = Strong + level 5 + secondary on level 6, Night Vision, Extra Hearts, placeholders, no Fire Resistance / Absorption
+            // BS28b-4: Mighty = Strong + level 5 + secondary on level 6, Night Vision, Extra Hearts, level II powers, no Fire Resistance / Absorption
             BeaconsConfig.reset();
             BeaconKind mighty = BeaconKind.MIGHTY;
             h.assertTrue(mighty.primaryLevels() == 5 && mighty.secondaryLevel() == 6 && StrongBeaconLogic.maxLevels(mighty) == 6, "Mighty: 5 primary levels, secondary on 6");
@@ -231,17 +231,17 @@ ALL.put("config_command", h -> {
             h.assertTrue(!StrongBeaconLogic.validate(mighty, MobEffects.HEALTH_BOOST, null, 4) && StrongBeaconLogic.validate(mighty, MobEffects.HEALTH_BOOST, null, 5), "Extra Hearts on level 5 (owner 28.10.)");
             h.assertTrue(!mighty.knows(MobEffects.FIRE_RESISTANCE) && !mighty.knows(MobEffects.ABSORPTION) && !mighty.knows(MobEffects.HERO_OF_THE_VILLAGE), "no Fire Resistance, Absorption, Hero");
             h.assertTrue(StrongBeaconLogic.validate(mighty, MobEffects.LUCK, null, 4), "Luck is still there");
-            // placeholders: Resistance II (level 4), Speed II and Jump Boost II (level 5)
+            // level II powers (W2B 15.11.: kept): Resistance II (level 4), Speed II and Jump Boost II (level 5)
             h.assertTrue(!StrongBeaconLogic.validate(mighty, MobEffects.RESISTANCE, 1, null, 3) && StrongBeaconLogic.validate(mighty, MobEffects.RESISTANCE, 1, null, 4), "Resistance II on level 4");
             h.assertTrue(!StrongBeaconLogic.validate(mighty, MobEffects.SPEED, 1, null, 4) && StrongBeaconLogic.validate(mighty, MobEffects.SPEED, 1, null, 5)
                     && StrongBeaconLogic.validate(mighty, MobEffects.JUMP_BOOST, 1, null, 5), "Speed II and Jump Boost II on level 5");
-            h.assertTrue(!StrongBeaconLogic.validate(mighty, MobEffects.HASTE, 1, null, 6), "no Haste II placeholder");
+            h.assertTrue(!StrongBeaconLogic.validate(mighty, MobEffects.HASTE, 1, null, 6), "no Haste II power");
             h.assertTrue(!StrongBeaconLogic.validate(mighty, MobEffects.SPEED, MobEffects.REGENERATION, 5) && StrongBeaconLogic.validate(mighty, MobEffects.SPEED, MobEffects.REGENERATION, 6), "secondary on level 6");
             h.assertTrue(StrongBeaconLogic.validate(mighty, MobEffects.HEALTH_BOOST, MobEffects.HEALTH_BOOST, 6), "the secondary power doubles the Extra Hearts");
             h.assertTrue(!StrongBeaconLogic.validate(mighty, MobEffects.LUCK, MobEffects.LUCK, 6) && !StrongBeaconLogic.validate(mighty, MobEffects.NIGHT_VISION, MobEffects.NIGHT_VISION, 6), "no II for Luck and Night Vision");
             h.assertTrue(StrongBeaconLogic.amplifier(mighty, MobEffects.SPEED, 0, MobEffects.SPEED, 6) == 1 && StrongBeaconLogic.amplifier(mighty, MobEffects.SPEED, 1, MobEffects.SPEED, 6) == 2
                     && StrongBeaconLogic.amplifier(mighty, MobEffects.SPEED, 1, MobEffects.REGENERATION, 6) == 1 && StrongBeaconLogic.amplifier(mighty, MobEffects.HEALTH_BOOST, 0, MobEffects.HEALTH_BOOST, 6) == 1,
-                    "the secondary raises a Mighty primary by one (II placeholders to III)");
+                    "the secondary raises a Mighty primary by one (level II powers to III)");
             h.assertTrue(StrongBeaconLogic.amplifier(BeaconKind.STRONG, MobEffects.SPEED, 0, MobEffects.SPEED, 5) == 1, "Strong: Speed II");
             JsonObject json = new JsonObject();
             json.addProperty("strongBeaconMaxLevels", 5);
@@ -303,7 +303,7 @@ ALL.put("config_command", h -> {
             h.assertTrue(near.hasEffect(MobEffects.LUCK) && !near.hasEffect(MobEffects.REGENERATION), "the secondary power needs level 6");
             near.removeAllEffects();
             StrongBeaconLogic.applyEffects(h.getLevel(), beacon, mighty, 6, MobEffects.SPEED, 1, MobEffects.SPEED, RangeFactor.NONE);
-            h.assertTrue(near.getEffect(MobEffects.SPEED) != null && near.getEffect(MobEffects.SPEED).getAmplifier() == 2, "Speed II placeholder + the secondary power = Speed III");
+            h.assertTrue(near.getEffect(MobEffects.SPEED) != null && near.getEffect(MobEffects.SPEED).getAmplifier() == 2, "Speed II power + the secondary power = Speed III");
             near.removeAllEffects();
             StrongBeaconLogic.applyEffects(h.getLevel(), beacon, BeaconKind.STRONG, 5, MobEffects.SPEED, 0, MobEffects.SPEED, RangeFactor.NONE);
             h.assertTrue(near.getEffect(MobEffects.SPEED) != null && near.getEffect(MobEffects.SPEED).getAmplifier() == 1, "Strong: Speed II");
@@ -385,7 +385,7 @@ ALL.put("config_command", h -> {
             h.assertTrue(menu.updateEffects(Optional.of(MobEffects.LUCK), Optional.of(MobEffects.REGENERATION)), "valid choice");
             h.assertTrue(MobEffects.LUCK.equals(menu.getPrimaryEffect()) && MobEffects.REGENERATION.equals(menu.getSecondaryEffect())
                     && !menu.hasPayment(), "choice set, payment taken");
-            // a Mighty menu with the synced data: the placeholder button's amplifier (button id) reaches the beacon
+            // a Mighty menu with the synced data: the level II button's amplifier (button id) reaches the beacon
             SimpleContainerData synced = new SimpleContainerData(StrongBeaconMenu.DATA_COUNT);
             synced.set(0, 6);
             synced.set(StrongBeaconMenu.DATA_KIND, BeaconKind.MIGHTY.ordinal());
@@ -394,10 +394,10 @@ ALL.put("config_command", h -> {
             h.assertTrue(mighty.kind() == BeaconKind.MIGHTY && mighty.maxLevels() == 6, "the kind rides the menu data");
             mighty.getSlot(0).set(new ItemStack(Items.IRON_INGOT));
             h.assertTrue(mighty.clickMenuButton(player, StrongBeaconMenu.POWER_BUTTON + 1) && !mighty.clickMenuButton(player, 3), "the power button ids are 10 + amplifier");
-            h.assertTrue(mighty.updateEffects(Optional.of(MobEffects.SPEED), Optional.of(MobEffects.SPEED)), "Speed II placeholder + secondary");
+            h.assertTrue(mighty.updateEffects(Optional.of(MobEffects.SPEED), Optional.of(MobEffects.SPEED)), "Speed II power + secondary");
             h.assertTrue(synced.get(StrongBeaconMenu.DATA_PRIMARY_AMP) == 1 && MobEffects.SPEED.equals(mighty.getPrimaryEffect()), "amplifier 1 stored");
             mighty.getSlot(0).set(new ItemStack(Items.IRON_INGOT));
-            h.assertTrue(mighty.updateEffects(Optional.of(MobEffects.HASTE), Optional.empty()), "Haste has no II placeholder");
+            h.assertTrue(mighty.updateEffects(Optional.of(MobEffects.HASTE), Optional.empty()), "Haste has no level II power");
             h.assertTrue(synced.get(StrongBeaconMenu.DATA_PRIMARY_AMP) == 0 && MobEffects.HASTE.equals(mighty.getPrimaryEffect()), "the button amplifier is ignored where the power is only offered as I");
             h.succeed();
         });
@@ -456,7 +456,7 @@ ALL.put("config_command", h -> {
             var tag = be.saveCustomOnly(h.getLevel().registryAccess());
             h.assertTrue("minecraft:luck".equals(tag.getStringOr("primary_effect", "")), "Vanilla key primary_effect");
             h.assertTrue(!tag.contains("primary_amp"), "no primary_amp for a plain power (old saves stay readable)");
-            // Mighty: the placeholder's amplifier is saved and loaded
+            // Mighty: the level II power's amplifier is saved and loaded
             h.setBlock(CENTER, BeaconsRegistry.MIGHTY_BEACON);
             StrongBeaconBlockEntity mighty = h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class);
             mighty.dataAccess().set(1, net.minecraft.world.inventory.BeaconMenu.encodeEffect(MobEffects.SPEED));

@@ -24,7 +24,7 @@ public class StrongBeaconMenu extends BeaconMenu {
      * Data values beyond Vanilla's three (levels, primary, secondary): the server's max pyramid, range numbers and the
      * switches of the ten extra effects (bit i = {@code BeaconsConfig.EFFECT_IDS[i]}). They ride the normal menu data
      * sync, so a client on a server with other settings shows the right limits. Then the beacon kind ({@link BeaconKind}
-     * ordinal) and the base amplifier of the chosen primary power (a "II" placeholder = 1).
+     * ordinal) and the base amplifier of the chosen primary power (a level II power = 1).
      */
     public static final int DATA_MAX_LEVELS = 3, DATA_RANGE_BASE = 4, DATA_RANGE_PER_LEVEL = 5, DATA_EFFECTS_ON = 6, DATA_KIND = 7,
             DATA_PRIMARY_AMP = 8, DATA_COUNT = 9;

@@ -26,8 +26,10 @@ import net.minecraft.network.chat.Component;
 
 /**
  * The Simple Earth menu (key N only, IG31-33): a box at the right edge that leaves the world visible and does not pause -
- * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). The favourite versions
- * (V5, V13-V24) are direct buttons in one row, V1-V12 sit in a drop-down (E29-6); the scroll list shows the display settings of all versions first, then that version's values.
+ * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). The released versions
+ * ({@link EarthSettings#RELEASED}: V25, V26, V27, V5 - W2B 15.11.) are direct buttons in one row; only in the hidden developer
+ * mode do all other versions sit in a drop-down below (E29-6/E30-4); the scroll list shows that version's values, then the
+ * display settings of all versions.
  *
  * <p>WF25-2/WG26-3 (owner 26.10.: only the real Vanilla buttons reacted, never the self-drawn list): every control is a real
  * Vanilla widget - {@link AbstractSliderButton} for numbers, {@link CycleButton} for on/off - in a real Vanilla scroll list
@@ -40,7 +42,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
     /** Panel (UiPalette.INVENTORY fill) and the lighter list well the rows sit on. */
     static final int PANEL_BG = 0xFFC6C6C6, LIST_BG = 0xFFD6D6D6;
     static final int ROW = 24, PAD = 8;
-    /** Panel width: 300 (E29-6, room for the favourites row), less in very narrow windows. */
+    /** Panel width: 300 (E29-6, room for the version row), less in very narrow windows. */
     private int W = 300;
     private int panelX, panelY, panelH, listTop, listBottom, descY;
     private SettingsList list;
@@ -63,10 +65,13 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         // E31-5: every setting in ONE list right under the title; the version choice and its description below it
         int by = panelY + panelH - 26;
         descY = by - 34;
-        int dropY = descY - 23, favY = dropY - 21;
+        // W2B: the drop-down of the other versions only in the developer mode; without it the row moves down into its place
+        boolean dev = EarthClientConfig.developerMode;
+        int dropY = descY - 23, favY = dev ? dropY - 21 : dropY;
         versionButtons.clear();
-        // E29-6: the favourites (V5 and the new V13-V24) as direct buttons in one row, V1-V12 in a drop-down below
-        int[] fav = EarthSettings.FAVOURITES;
+        olderVersions = null;
+        // the released versions as direct buttons in one row
+        int[] fav = EarthSettings.RELEASED;
         int bx = panelX + PAD, bw = (W - 2 * PAD) / fav.length;
         for (int k = 0; k < fav.length; k++) {
             int ver = fav[k];
@@ -75,17 +80,19 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
                             .append("\n").append(Component.translatable("simpleearth.version." + ver + ".desc")))).build();
             versionButtons.add(addRenderableWidget(b));
         }
-        List<Integer> older = new ArrayList<>();
-        older.add(0);
-        // E30-4: every version that is not a favourite (V1-V24) sits in the drop-down
-        for (int v = 1; v <= EarthSettings.VERSIONS; v++) if (!favourite(v)) older.add(v);
-        int now = favourite(EarthClientConfig.version) ? 0 : EarthClientConfig.version;
-        olderVersions = addRenderableWidget(CycleButton.builder((Integer v) -> Component.literal(v == 0 ? "-" : "V" + v), now)
-                .withValues(older)
-                .create(panelX + PAD, dropY, W - 2 * PAD, 20, Component.translatable("simpleearth.screen.older"), (button, v) -> {
-                    if (v != 0) select(v);
-                }));
-        olderVersions.setTooltip(Tooltip.create(Component.translatable("simpleearth.screen.older.tip")));
+        if (dev) {
+            List<Integer> older = new ArrayList<>();
+            older.add(0);
+            // developer mode: every version that is not released sits in the drop-down
+            for (int v = 1; v <= EarthSettings.VERSIONS; v++) if (!favourite(v)) older.add(v);
+            int now = favourite(EarthClientConfig.version) ? 0 : EarthClientConfig.version;
+            olderVersions = addRenderableWidget(CycleButton.builder((Integer v) -> Component.literal(v == 0 ? "-" : "V" + v), now)
+                    .withValues(older)
+                    .create(panelX + PAD, dropY, W - 2 * PAD, 20, Component.translatable("simpleearth.screen.older"), (button, v) -> {
+                        if (v != 0) select(v);
+                    }));
+            olderVersions.setTooltip(Tooltip.create(Component.translatable("simpleearth.screen.older.tip")));
+        }
         resetButton = addRenderableWidget(Button.builder(Component.translatable("simpleearth.screen.reset"), b -> {
             EarthClientConfig.resetVersion(EarthClientConfig.version);
             EarthClientConfig.resetRender();
@@ -101,8 +108,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
     }
 
     private static boolean favourite(int v) {
-        for (int f : EarthSettings.FAVOURITES) if (f == v) return true;
-        return false;
+        return EarthSettings.released(v);
     }
 
     private void select(int version) {
@@ -124,7 +130,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         for (EarthSettings.Setting s : EarthSettings.RENDER) entries.add(control(s, true));
         list.replaceEntries(entries);
         list.setScrollAmount(keep);
-        for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = EarthSettings.FAVOURITES[i] != v;
+        for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = EarthSettings.RELEASED[i] != v;
         if (olderVersions != null && olderVersions.getValue() != (favourite(v) ? 0 : v)) olderVersions.setValue(favourite(v) ? 0 : v);
     }
 
@@ -354,9 +360,10 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
     @Override
     public int[] probeVersionButton(int v) {
         Button b = null;
-        for (int i = 0; i < EarthSettings.FAVOURITES.length; i++) if (EarthSettings.FAVOURITES[i] == v) b = versionButtons.get(i);
+        for (int i = 0; i < EarthSettings.RELEASED.length; i++) if (EarthSettings.RELEASED[i] == v) b = versionButtons.get(i);
         if (b == null) {
-            // older versions: the drop-down
+            // other versions: the drop-down (none outside the developer mode)
+            if (olderVersions == null) return null;
             return new int[]{olderVersions.getX(), olderVersions.getY(), olderVersions.getWidth(), olderVersions.getHeight()};
         }
         return new int[]{b.getX(), b.getY(), b.getWidth(), b.getHeight()};

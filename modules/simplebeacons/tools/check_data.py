@@ -78,4 +78,10 @@ for f in manual['features']:
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
     assert set(q) == {'strong_beacon', 'strong_conduit', 'evil_upgrade_template', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon', 'mighty_conduit', 'evil_conduit', 'mighty_evil_conduit'}, (locale, set(q))
+# W2B 15.11. (owner): the level II powers are real powers (no "placeholder ... later" text), Extra Hearts = two hearts
+for path in [MODULE / 'wiki/manual.json'] + [RES / f'assets/{NS}/questionary/{l}.json' for l in ('en_us', 'de_de')]:
+    low = path.read_text(encoding='utf-8').lower()
+    assert 'placeholder' not in low and 'platzhalter' not in low, ('placeholder text left', path)
+mighty = next(f for f in manual['features'] if f['id'] == 'mighty_beacon')
+assert 'two extra hearts' in mighty['en']['summary'] and 'zwei Herzen' in mighty['de']['summary'], 'Mighty summary names the two hearts'
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, mixins, structure, questionary and wiki valid')

@@ -78,6 +78,13 @@ public final class MenuProbe {
                         else EarthClientConfig.set(EarthClientConfig.version, key, c.get("value").getAsDouble());
                         if (mc.gui.screen() instanceof EarthScreen) mc.gui.setScreen(new EarthScreen());
                     }
+                    case "developer" -> {
+                        // W2B: the hidden developer mode (drop-down of the other versions); off falls back like a load
+                        EarthClientConfig.developerMode = c.get("value").getAsInt() != 0;
+                        if (!EarthClientConfig.developerMode && !com.simplebuilding.modules.simpleearth.config.EarthSettings.released(EarthClientConfig.version))
+                            EarthClientConfig.version = com.simplebuilding.modules.simpleearth.config.EarthSettings.DEFAULT_VERSION;
+                        if (mc.gui.screen() instanceof EarthScreen) mc.gui.setScreen(new EarthScreen());
+                    }
                     case "version" -> {
                         EarthClientConfig.version = c.get("value").getAsInt();
                         if (mc.gui.screen() instanceof EarthScreen) mc.gui.setScreen(new EarthScreen());
@@ -116,6 +123,7 @@ public final class MenuProbe {
             JsonObject r = new JsonObject();
             r.add("v25", rect(t.probeVersionButton(25), scale));
             r.add("v26", rect(t.probeVersionButton(26), scale));
+            r.add("v5", rect(t.probeVersionButton(5), scale));
             r.add("older", rect(t.probeVersionButton(1), scale));
             r.add("reset", rect(t.probeButton(true), scale));
             r.add("done", rect(t.probeButton(false), scale));

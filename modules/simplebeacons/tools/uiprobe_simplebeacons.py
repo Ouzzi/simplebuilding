@@ -2,7 +2,7 @@
 
 Scenario for modules/simpleinterfaces/tools/ui_probe.py. Opening: real right click on a simplebeacons:strong_beacon block
 (StrongBeaconBlock.useWithoutItem -> openMenu). The screen is Vanilla's BeaconScreen with REAL widgets, so everything is clicked by
-label/class from the status: StrongButton (the effect buttons of every pyramid row, label = effect name, "Speed II" for placeholders;
+label/class from the status: StrongButton (the effect buttons of every pyramid row, label = effect name, "Speed II" for the level II powers;
 `active` = the row's pyramid level is reached), Vanilla's BeaconPowerButton (secondary power, Regeneration), BeaconConfirmButton /
 BeaconCancelButton, plus the payment slot (menu slot 0, own=False). The pyramid is built with /fill WHILE the screen is open: the
 level arrives through the menu data sync, so the locked/unlocked state of the rows is read live (scan happens every 80 ticks).
@@ -186,7 +186,7 @@ def beacons(s):
         s.check('Mighty beacon shows 15 effect buttons (5 rows of 3)', len(_buttons(s, st)) == 15, [w['label'] for w in _buttons(s, st)])
         st = _wait(s, lambda t: all(w['active'] for w in _buttons(s, t)) and len(_buttons(s, t)) == 15, 15)
         s.check('6 levels unlock all 15 buttons', all(w['active'] for w in _buttons(s, st)), [(w['label'], w['active']) for w in _buttons(s, st) if not w['active']])
-        s.check('placeholder II buttons exist (Speed II, Jump Boost II)', _btn(s, st, 'Speed II') is not None and _btn(s, st, 'Jump Boost II') is not None,
+        s.check('level II buttons exist (Speed II, Jump Boost II)', _btn(s, st, 'Speed II') is not None and _btn(s, st, 'Jump Boost II') is not None,
                 [w['label'] for w in _buttons(s, st)])
         s.shot('mighty-six-levels')
     s.close()

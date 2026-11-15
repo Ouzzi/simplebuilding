@@ -23,10 +23,20 @@ public final class EarthSettings {
 
     /** V1-V9 (24.10.) and V10-V12 (owner 25.10., WD25-17: the cube shape stronger). */
     public static final int VERSIONS = 27;
-    /** Owner 26.10. (E29-6): the versions with a direct button - his favourite V5 and the new V13-V24; V1-V12 sit in a drop-down. */
-    public static final int[] FAVOURITES = {25, 26, 27};
+    /**
+     * W2B (owner 15.11.): the versions players see, each a direct button - the folding world V25 (standard), V26 rounded and
+     * V27 ball (his E30-4 order, V26 the one he played) and V5 (E29: "stylistically the best"). All others only in the hidden
+     * developer mode ({@link EarthClientConfig#developerMode}), in a drop-down.
+     */
+    public static final int[] RELEASED = {25, 26, 27, 5};
     /** Owner 24.10.: V6 was the standard; since E30 (26.10.) the folding world V25 with the new flight phases. */
     public static final int DEFAULT_VERSION = 25;
+
+    /** Whether {@code version} is one of the {@link #RELEASED} versions. */
+    public static boolean released(int version) {
+        for (int r : RELEASED) if (r == version) return true;
+        return false;
+    }
 
     private static Setting i(String key, double min, double max, double def, double step) {
         return new Setting(key, min, max, def, step, Kind.INT);

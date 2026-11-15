@@ -12,7 +12,7 @@ import org.jspecify.annotations.Nullable;
  * class, the kind decides the effect lists:
  * <ul>
  * <li>{@link #STRONG}: primary levels 1-4, the secondary power on level 5 (Regeneration, or the primary again as "II");
- * <li>{@link #MIGHTY}: made of a Strong Beacon, primary levels 1-5, secondary on level 6, night vision, extra hearts, placeholders;
+ * <li>{@link #MIGHTY}: made of a Strong Beacon, primary levels 1-5, secondary on level 6, night vision, extra hearts, level II powers;
  * <li>{@link #EVIL}: made of a Vanilla beacon with the Evil Upgrade, mild negative powers, primary 1-4 + secondary on 5;
  * <li>{@link #MIGHTY_EVIL}: primary 1-5, secondary on 6.
  * </ul>
@@ -29,7 +29,7 @@ public enum BeaconKind {
             List.of(p(MobEffects.SPEED), p(MobEffects.HASTE), p(MobEffects.SATURATION)),
             List.of(p(MobEffects.RESISTANCE), p(MobEffects.JUMP_BOOST), p(MobEffects.SLOW_FALLING)),
             List.of(p(MobEffects.STRENGTH), p(MobEffects.INVISIBILITY), p(MobEffects.DOLPHINS_GRACE)),
-            // Placeholders (owner 28.10.): Resistance II, Speed II, Jump Boost II until real powers replace them
+            // Level II powers Resistance II, Speed II, Jump Boost II (owner 28.10.; W2B 15.11.: kept as real level II powers)
             List.of(p(MobEffects.LUCK), p(MobEffects.NIGHT_VISION), new Power(MobEffects.RESISTANCE, 1)),
             List.of(p(MobEffects.HEALTH_BOOST), new Power(MobEffects.SPEED, 1), new Power(MobEffects.JUMP_BOOST, 1))),
             List.of(MobEffects.REGENERATION)),
@@ -44,10 +44,11 @@ public enum BeaconKind {
             List.of(p(MobEffects.WEAKNESS), p(MobEffects.UNLUCK), p(MobEffects.OOZING)),
             List.of(p(MobEffects.DARKNESS), p(MobEffects.GLOWING), p(MobEffects.INFESTED)),
             List.of(p(MobEffects.WEAVING)),
+            // W2B 15.11.: Hunger II and Mining Fatigue II kept as real level II powers
             List.of(p(MobEffects.WIND_CHARGED), new Power(MobEffects.HUNGER, 1), new Power(MobEffects.MINING_FATIGUE, 1))),
             List.of(MobEffects.NAUSEA));
 
-    /** One selectable primary power: the effect and its base amplifier (0 = level I, 1 = a "II" placeholder). */
+    /** One selectable primary power: the effect and its base amplifier (0 = level I, 1 = a level II power). */
     public record Power(Holder<MobEffect> effect, int amplifier) {
     }
 
