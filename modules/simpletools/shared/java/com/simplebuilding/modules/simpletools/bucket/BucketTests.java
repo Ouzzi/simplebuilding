@@ -207,7 +207,7 @@ public final class BucketTests {
 
     /**
      * Owner N21/N28: the Enderite bucket holds two buckets of one fluid. Use only scoops while there is room (empty to
-     * half to full); a full one pours one bucket on use; sneak + use pours one bucket from a full or half one. A half
+     * half to full); a full one pours both buckets on use (N57-3, the second source beside the first); sneak + use pours one bucket from a full or half one. A half
      * one never takes a different fluid and never pours on plain use. Soul lava works the same way.
      */
     static void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper helper) {
@@ -225,9 +225,13 @@ public final class BucketTests {
         helper.assertTrue(hand.is(Buckets.FULL_ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(), "second scoop: full, got " + hand);
         helper.assertTrue(((ModBucketItem) hand.getItem()).amount() == 2 && ((ModBucketItem) Buckets.ENDERITE_WATER_BUCKET).amount() == 1,
                 "fill amounts 2/2 and 1/2");
+        // N57-3 (owner 14.11.): plain use on a full one places both sources at once - the second beside the first, in the facing
+        BlockPos beside = water.relative(player.getDirection());
         hand = useBucket(level, player, hand);
-        helper.assertTrue(hand.is(Buckets.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isSource(), "use on a full one pours one bucket, got " + hand);
-        hand = useBucket(level, player, hand);
+        helper.assertTrue(hand.is(Buckets.ENDERITE_BUCKET) && level.getFluidState(water).isSource() && level.getFluidState(beside).isSource(),
+                "use on a full one pours both buckets (here and beside), got " + hand);
+        level.setBlock(beside, Blocks.AIR.defaultBlockState(), 3);
+        hand = useBucket(level, player, new ItemStack(Buckets.ENDERITE_WATER_BUCKET));
         helper.assertTrue(hand.is(Buckets.FULL_ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(),
                 "use on a half one only scoops (took the source back), got " + hand);
         player.setShiftKeyDown(true);

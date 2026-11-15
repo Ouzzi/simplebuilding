@@ -5,6 +5,8 @@
     "simplecrucibles:netherite_crucible",
     "simplecrucibles:enderite_crucible",
     "simplecrucibles:crucible_blank",
-    "simplecrucibles:reinforced_cauldron"
+    "simplecrucibles:reinforced_cauldron",
+    "simplecrucibles:netherite_cauldron",
+    "simplecrucibles:enderite_cauldron"
   ]
 }

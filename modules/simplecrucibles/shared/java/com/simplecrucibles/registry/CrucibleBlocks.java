@@ -20,6 +20,8 @@ public final class CrucibleBlocks {
     public static CrucibleBlock IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, ENDERITE_CRUCIBLE;
     public static CrucibleBlankBlock CRUCIBLE_BLANK;
     public static com.simplecrucibles.cauldron.ReinforcedCauldronBlock REINFORCED_CAULDRON;
+    /** N57-3: two and four buckets of room. */
+    public static com.simplecrucibles.cauldron.TieredCauldronBlock NETHERITE_CAULDRON, ENDERITE_CAULDRON;
     /** Every crucible block: the four of this module plus any a partner registers through the API. */
     public static final List<CrucibleBlock> CRUCIBLES = new ArrayList<>();
 
@@ -35,6 +37,15 @@ public final class CrucibleBlocks {
                 BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()
                         .lightLevel(state -> state.getValue(com.simplecrucibles.cauldron.ReinforcedCauldronBlock.CONTENT).hot() ? 15 : 0)
                         .setId(key("reinforced_cauldron"))));
+        NETHERITE_CAULDRON = tieredCauldron("netherite_cauldron", 2, MapColor.COLOR_BLACK, 1200.0F, SoundType.NETHERITE_BLOCK);
+        ENDERITE_CAULDRON = tieredCauldron("enderite_cauldron", 4, MapColor.COLOR_PURPLE, 1500.0F, SoundType.NETHERITE_BLOCK);
+    }
+
+    private static com.simplecrucibles.cauldron.TieredCauldronBlock tieredCauldron(String name, int buckets, MapColor color, float resistance, SoundType sound) {
+        return Registry.register(BuiltInRegistries.BLOCK, key(name), new com.simplecrucibles.cauldron.TieredCauldronBlock(
+                BlockBehaviour.Properties.of().mapColor(color).requiresCorrectToolForDrops().strength(3.0F, resistance).sound(sound).noOcclusion()
+                        .lightLevel(state -> state.getValue(com.simplecrucibles.cauldron.ReinforcedCauldronBlock.CONTENT).hot() ? 15 : 0)
+                        .setId(key(name)), buckets));
     }
 
     /** Properties shared by all crucibles: needs a pickaxe, lit crucibles glow like a furnace. */

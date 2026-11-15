@@ -15,6 +15,8 @@
   "gui.simplecrucibles.crucible.no_recipe": "Nothing to cook",
   "gui.simplecrucibles.crucible.reserved": "Reserved for this result",
   "block.simplecrucibles.reinforced_cauldron": "Reinforced Cauldron",
+  "block.simplecrucibles.netherite_cauldron": "Netherite Cauldron",
+  "block.simplecrucibles.enderite_cauldron": "Enderite Cauldron",
   "gui.simplecrucibles.crucible.heat": "Heat: %s",
   "gui.simplecrucibles.crucible.heat.none": "none",
   "gui.simplecrucibles.crucible.heat.medium": "medium",

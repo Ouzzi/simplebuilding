@@ -79,6 +79,29 @@
       }
     },
     {
+      "id": "tiered_cauldrons",
+      "sources": [
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/cauldron/TieredCauldronBlock.java",
+        "modules/simplecrucibles/shared/resources/data/simplecrucibles/in_world_upgrades/crucibles.json"
+      ],
+      "en": {
+        "title": "Netherite and Enderite cauldron",
+        "summary": "Reinforced cauldrons with room for 2 (Netherite) or 4 (Enderite) buckets of one content.",
+        "details": [
+          "Made in the world like the crucibles: a reinforced cauldron with 4 netherite nuggets becomes the Netherite cauldron, that one with 4 Enderite nuggets the Enderite cauldron (sledgehammer, without SimpleBuilding an axe).",
+          "Buckets pour in one bucket at a time while there is room and take one bucket out each; a full Enderite bucket pours both its buckets at once, an empty one takes two. Bottles, washing, rain and dripstone work like on a Vanilla cauldron, up to the last of its 6 or 12 levels. The fill height shows the whole content. Everything else works like the reinforced cauldron; only a water bottle goes into an empty one."
+        ]
+      },
+      "de": {
+        "title": "Netherit- und Enderit-Kessel",
+        "summary": "Verstärkte Kessel mit Platz für 2 (Netherit) oder 4 (Enderit) Eimer eines Inhalts.",
+        "details": [
+          "In der Welt hergestellt wie die Schmelztiegel: ein verstärkter Kessel mit 4 Netherit-Nuggets wird zum Netherit-Kessel, dieser mit 4 Enderit-Nuggets zum Enderit-Kessel (Vorschlaghammer, ohne SimpleBuilding eine Axt).",
+          "Eimer gießen je einen Eimer hinein, solange Platz ist, und nehmen je einen heraus; ein voller Enderit-Eimer gießt beide Ladungen auf einmal, ein leerer nimmt zwei. Flaschen, Waschen, Regen und Tropfstein wirken wie beim Vanilla-Kessel, bis zur letzten seiner 6 bzw. 12 Stufen. Die Füllhöhe zeigt den ganzen Inhalt. Sonst wie der verstärkte Kessel; in einen leeren geht nur eine Wasserflasche."
+        ]
+      }
+    },
+    {
       "id": "soul_lava",
       "sources": [
         "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/SoulLavaFluid.java",
@@ -293,6 +316,22 @@
       },
       "de": {
         "summary": "Ein Vanilla-Kessel, der auch Seelen-Lava fasst; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
+      }
+    },
+    "simplecrucibles:netherite_cauldron": {
+      "en": {
+        "summary": "Reinforced cauldron for 2 buckets (see Netherite and Enderite cauldron)."
+      },
+      "de": {
+        "summary": "Verstärkter Kessel für 2 Eimer (siehe Netherit- und Enderit-Kessel)."
+      }
+    },
+    "simplecrucibles:enderite_cauldron": {
+      "en": {
+        "summary": "Reinforced cauldron for 4 buckets (see Netherite and Enderite cauldron)."
+      },
+      "de": {
+        "summary": "Verstärkter Kessel für 4 Eimer (siehe Netherit- und Enderit-Kessel)."
       }
     },
     "simplecrucibles:enderite_crucible": {

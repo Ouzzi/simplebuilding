@@ -157,6 +157,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplecrucibles:empty")
+    public void tieredCauldronCapacity(GameTestHelper h) {
+        CrucibleTests.ALL.get("tiered_cauldron_capacity").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
     public void reinforcedCauldronInheritsVanilla(GameTestHelper h) {
         CrucibleTests.ALL.get("reinforced_cauldron_inherits_vanilla").accept(h);
     }

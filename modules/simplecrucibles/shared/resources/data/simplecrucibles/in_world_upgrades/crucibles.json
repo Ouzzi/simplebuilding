@@ -35,6 +35,24 @@
       "min_tool": "netherite",
       "damage_per_hit": 10,
       "tier": "enderite"
+    },
+    {
+      "from": "simplecrucibles:reinforced_cauldron",
+      "to": "simplecrucibles:netherite_cauldron",
+      "material": "simplelib:netherite_nugget",
+      "material_count": 4,
+      "min_tool": "diamond",
+      "damage_per_hit": 4,
+      "tier": "netherite"
+    },
+    {
+      "from": "simplecrucibles:netherite_cauldron",
+      "to": "simplecrucibles:enderite_cauldron",
+      "material": "simpleores:enderite_nugget",
+      "material_count": 4,
+      "min_tool": "netherite",
+      "damage_per_hit": 10,
+      "tier": "enderite"
     }
   ]
 }
