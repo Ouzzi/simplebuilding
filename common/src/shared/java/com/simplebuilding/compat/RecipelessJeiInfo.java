@@ -139,7 +139,9 @@ public final class RecipelessJeiInfo {
             // N57-1: the big doors of a module's door have no recipe while that module is missing
             List<ItemLike> missing = new java.util.ArrayList<>();
             for (com.simplebuilding.doors.WideDoors.Variant v : com.simplebuilding.doors.WideDoors.VARIANTS) {
-                if (v.mod() != null && !com.simplebuilding.platform.ModEnvironment.isModLoaded(v.mod())) {
+                // the base door decides (its recipe cannot load without it), not the mod list
+                if (v.mod() != null && (!com.simplebuilding.platform.ModEnvironment.isModLoaded(v.mod())
+                        || !net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(v.door()))) {
                     missing.addAll(List.of(com.simplebuilding.doors.WideDoors.items(v.id())));
                 }
             }
