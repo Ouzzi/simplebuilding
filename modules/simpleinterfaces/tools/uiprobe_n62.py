@@ -22,8 +22,8 @@ def run(s):
         s.close()
         st = s.st()
         x, y, z = [int(v) for v in st['pos'].replace(',', ' ').split()]
-        s.chat(f'setblock {x + 2} {y} {z + 3 * i - 12} minecraft:air', 0.3)
-        s.stage(block, 2, 0, 3 * i - 12)
+        s.chat(f'setblock {x + 2} {y} {z} minecraft:air', 0.3)
+        s.stage(block, 2, 0, 0)
         s.io.right_click()
         st = s.wait_screen(fragment, 10)
         ok = fragment in st.get('screen', '') and st.get('screen') != 'none'
