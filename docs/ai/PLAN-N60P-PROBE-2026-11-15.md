@@ -70,3 +70,13 @@ Tab ihres eigenen Namensraums (26.2 weiter im Werkzeug-Tab). Kompiliert: `:mc26_
   der Server sah kein Schleichen (Verdikt a, Eingabe der Probe) – noch nicht bewiesen.
 - Probe meldet jetzt die Ursache direkt: Schleichen vor dem Klick laut Server (`execute if predicate ... flags.is_sneaking`) und laut Client
   (neues Statusfeld `sneaking` in SortProbe = `LocalPlayer#isShiftKeyDown`), Bündel noch in der Hand, überhaupt ein Eintrag, Goldäpfel am Boden.
+
+## Runde 4 (11/12): beide Diagnosen der Probe waren falsch, die Mahlzeit lief
+Gametest `probe_commands_match` (Befehle der Probe gegen einen Mock-Spieler, Fehlertexte + gespeicherte NBT):
+- Bündel-NBT 26.3: `[{count:3,id:"minecraft:golden_apple"}]` – der Pfad `SelectedItem.components."minecraft:bundle_contents"[{id:...,count:N}]`
+  passt. ABER ein einzelnes Item wird OHNE `count` gespeichert (`[{id:"minecraft:golden_apple"}]`). Runde 4 "Eintrag ja, 3/2/1 nein, nichts
+  am Boden" = **ein Apfel übrig nach zwei Bissen** (3 s halten) -> die Mahlzeit funktioniert; Probe-Zählung korrigiert (Eintrag ohne 3/2 = 1).
+- Schleich-Prädikat: `{condition:..., predicate:{flags:...}}` parst auf 26.3 nicht ("No key type"; im client.log von Runde 4 genauso) ->
+  "Server False" war der Parse-Fehler. Richtig: `{type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:flags":{is_sneaking:true}}}`
+  (auch ohne Namensraum gültig); `is_sneaking` liest die Hock-Pose (nach einem Tick gesetzt). Probe umgestellt.
+- Verdikt Bündel-Essen: a (Probe). Server-Schleichen war nie das Problem; kein Mod-Fehler.
