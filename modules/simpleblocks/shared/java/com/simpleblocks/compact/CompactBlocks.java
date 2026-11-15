@@ -59,12 +59,31 @@ public final class CompactBlocks {
                 hardness *= FACTOR;
                 String name = stage + "_" + base.path();
                 ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(name));
-                Block block = new Block(BlockBehaviour.Properties.ofFullCopy(base.block()).strength(hardness, base.resistance()).setId(key));
+                BlockBehaviour.Properties props = BlockBehaviour.Properties.ofFullCopy(base.block()).strength(hardness, base.resistance()).setId(key);
+                Float slow = soulSandSpeed(base.path(), stage);
+                if (slow != null) props.speedFactor(slow);
+                Block block = new Block(props);
                 BLOCKS.put(name, block);
                 if (stage.equals(COLLAPSED_STAGE)) COLLAPSED.add(block);
             }
         }
     }
+
+    /**
+     * N57-2 (owner 14.11.): the denser the soul sand, the slower: Vanilla soul sand and Compressed 0.4 (copied), Dense 0.3,
+     * Collapsed 0.2 - each stage keeps a quarter less of the walking speed. With Soul Speed they are faster instead
+     * ({@link SoulSandRush}). Null for every other block (its base's speed factor stays).
+     */
+    public static Float soulSandSpeed(String base, String stage) {
+        if (!base.equals("soul_sand")) return null;
+        return switch (stage) {
+            case "dense" -> DENSE_SOUL_SAND_SPEED;
+            case "collapsed" -> COLLAPSED_SOUL_SAND_SPEED;
+            default -> null;
+        };
+    }
+
+    public static final float DENSE_SOUL_SAND_SPEED = 0.3f, COLLAPSED_SOUL_SAND_SPEED = 0.2f;
 
     /** Every block path in registration order. */
     public static List<String> names() {

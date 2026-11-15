@@ -652,6 +652,10 @@ def tags():
     # SN30 (b-snow32): frost grass and the snowlogged cell dig like the grass block and snow (their other tags are hand-written).
     tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs + [f'{NS}:{g[0]}' for g in GRAVITY] + [f'{NS}:frost_grass', f'{NS}:snowlogged', f'{NS}:snow_cap'] + compact_tool['shovel'])
     tag('data/minecraft/tags/block/ice.json', moved_ice + [f'{NS}:{n}' for n in ICE_FULL])
+    # N57-2 (b-ig57g): the compact soul sands are soul sand - Soul Speed works on them, soul fire burns on them.
+    soul = [f'{NS}:{st}_soul_sand' for st in COMPACT_STAGES]
+    tag('data/minecraft/tags/block/soul_speed_blocks.json', soul)
+    tag('data/minecraft/tags/block/soul_fire_base_blocks.json', soul)
     # PAL35b: tool tier of the metal row like its Vanilla block (copper stone, iron stone, gold iron, diamond/emerald iron, netherite diamond).
     tiers = {'needs_stone_tool': ['copper_tiles', 'copper_pillar'] + [f'{NS}:{n}' for n in metal_chain_blocks()], 'needs_iron_tool': [], 'needs_diamond_tool': []}
     for m, (_en, _de, _block, tier) in METAL_FAMILIES.items():

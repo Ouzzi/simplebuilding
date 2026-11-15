@@ -40,6 +40,7 @@ public final class CollapsedEffect {
 
     /** Server tick: once per {@link #INTERVAL} ticks every player gets the effect for the stacks they carry. */
     public static void tick(MinecraftServer server) {
+        SoulSandRush.tick(server); // N57-2: same server tick hook
         if (!CollapsedConfig.enabled || server.getTickCount() % INTERVAL != 0) return;
         for (ServerPlayer player : server.getPlayerList().getPlayers()) apply(player);
     }

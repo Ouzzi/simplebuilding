@@ -4,6 +4,7 @@ import com.simpleblocks.SimpleBlocks;
 import com.simpleblocks.compact.CollapsedConfig;
 import com.simpleblocks.compact.CollapsedEffect;
 import com.simpleblocks.compact.CompactBlocks;
+import com.simpleblocks.compact.SoulSandRush;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ public final class CompactTests {
         all.put("compact_recipes_reversible", CompactTests::recipesReversible);
         all.put("compact_drops_and_tools", CompactTests::dropsAndTools);
         all.put("compact_collapsed_slowness", CompactTests::collapsedSlowness);
+        all.put("compact_soul_sand_speed", CompactTests::soulSandSpeed);
     }
 
     private static Item item(String id) {
@@ -148,6 +150,58 @@ public final class CompactTests {
         } finally {
             CollapsedConfig.enabled = was;
         }
+        h.succeed();
+    }
+
+    /**
+     * N57-2: Compressed soul sand slows like soul sand, Dense more (0.3), Collapsed most (0.2); all three are soul speed and soul fire
+     * blocks, and Soul Speed boots give 1.5x / 2x the Vanilla bonus on Dense / Collapsed (modifier on, off again off the block / without
+     * boots / with the switch off).
+     */
+    public static void soulSandSpeed(GameTestHelper h) {
+        float vanilla = net.minecraft.world.level.block.Blocks.SOUL_SAND.getSpeedFactor();
+        Block compressed = CompactBlocks.BLOCKS.get("compressed_soul_sand"), dense = CompactBlocks.BLOCKS.get("dense_soul_sand"),
+                collapsed = CompactBlocks.BLOCKS.get("collapsed_soul_sand");
+        h.assertTrue(compressed.getSpeedFactor() == vanilla && dense.getSpeedFactor() == 0.3f && collapsed.getSpeedFactor() == 0.2f,
+                "speed factors " + compressed.getSpeedFactor() + "/" + dense.getSpeedFactor() + "/" + collapsed.getSpeedFactor());
+        h.assertTrue(dense.getSpeedFactor() < vanilla && collapsed.getSpeedFactor() < dense.getSpeedFactor(), "the denser, the slower");
+        for (Block b : List.of(compressed, dense, collapsed)) {
+            h.assertTrue(b.defaultBlockState().is(BlockTags.SOUL_SPEED_BLOCKS) && b.defaultBlockState().is(BlockTags.SOUL_FIRE_BASE_BLOCKS),
+                    b + " is a soul speed and soul fire block");
+        }
+        var player = h.makeMockServerPlayerInLevel();
+        h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(player));
+        BlockPos floor = new BlockPos(1, 1, 1);
+        h.setBlock(floor, dense);
+        BlockPos abs = h.absolutePos(floor);
+        player.snapTo(abs.getX() + 0.5, abs.getY() + 1.0, abs.getZ() + 0.5);
+        player.setOnGround(true);
+        var attr = player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+        SoulSandRush.apply(player);
+        h.assertTrue(attr.getModifier(SoulSandRush.ID) == null, "no Soul Speed boots: no extra speed");
+        ItemStack boots = new ItemStack(Items.DIAMOND_BOOTS);
+        boots.enchant(h.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SOUL_SPEED), 3);
+        player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.FEET, boots);
+        SoulSandRush.apply(player);
+        var mod = attr.getModifier(SoulSandRush.ID);
+        double bonus3 = 0.0405 + 2 * 0.0105;
+        h.assertTrue(mod != null && Math.abs(mod.amount() - bonus3 * 0.5) < 1e-9, "Dense + Soul Speed III: half the Vanilla bonus extra, got " + (mod == null ? "none" : mod.amount()));
+        h.setBlock(floor, collapsed);
+        SoulSandRush.apply(player);
+        mod = attr.getModifier(SoulSandRush.ID);
+        h.assertTrue(mod != null && Math.abs(mod.amount() - bonus3) < 1e-9, "Collapsed + Soul Speed III: the whole Vanilla bonus extra");
+        boolean was = CollapsedConfig.soulSandRush;
+        CollapsedConfig.soulSandRush = false;
+        try {
+            SoulSandRush.apply(player);
+            h.assertTrue(attr.getModifier(SoulSandRush.ID) == null, "switch off: no extra speed");
+        } finally {
+            CollapsedConfig.soulSandRush = was;
+        }
+        h.setBlock(floor, net.minecraft.world.level.block.Blocks.SOUL_SAND);
+        SoulSandRush.apply(player);
+        h.assertTrue(attr.getModifier(SoulSandRush.ID) == null, "Vanilla soul sand: only Vanilla Soul Speed");
         h.succeed();
     }
 
