@@ -25,7 +25,7 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void allConfigBounds(GameTestHelper h){com.simpleriding.test.RidingTests.allConfigBounds(h);}
  @GameTest(maxTicks=100) public void movementPackets(GameTestHelper h){com.simpleriding.test.RidingTests.movementPackets(h);}
  @GameTest(maxTicks=100) public void jumpPackets(GameTestHelper h){com.simpleriding.test.RidingTests.jumpPackets(h);}
- @GameTest(maxTicks=420) public void lagJitter(GameTestHelper h){com.simpleriding.test.RidingTests.lagJitter(h);}
+ @GameTest(maxTicks=100) public void lagJitter(GameTestHelper h){com.simpleriding.test.RidingTests.lagJitter(h);}
  @GameTest(maxTicks=100) public void movementBudget(GameTestHelper h){com.simpleriding.test.RidingTests.movementBudget(h);}
  @GameTest(maxTicks=100) public void weightedDataBounds(GameTestHelper h){com.simpleriding.test.RidingTests.weightedDataBounds(h);}
  @GameTest(maxTicks=100) public void steeringAndBorder(GameTestHelper h){com.simpleriding.test.RidingTests.steeringAndBorder(h);}

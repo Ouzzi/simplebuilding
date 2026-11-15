@@ -120,6 +120,14 @@
       "minimum": 1
     },
     {
+      "path": "safety.lenientMovementBudget",
+      "default": true,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.lenientMovementBudget",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.lenientMovementBudget.@Tooltip",
+      "maximum": null
+    },
+    {
       "path": "enchantments.swiftRide.nautilusSpeedMultiplier",
       "default": 0.2,
       "tab": "enchantments",

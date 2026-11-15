@@ -11,9 +11,20 @@ import net.minecraft.world.phys.Vec3;
 
 /** Per connection, never per mount: switching vehicles cannot refill a tick's budget. */
 public final class RidingSecurity {
+    /**
+     * simpleriding-3 Option B: with {@code safety.lenientMovementBudget} the unused budget of a tick (also of an empty tick, when a
+     * packet arrives late and bunches up with the next) carries over, capped at {@code BUDGET_WINDOW_TICKS - 1} ticks of budget.
+     * Sustained movement stays at the per-tick cap; a single packet never exceeds one tick's cap.
+     */
+    public static final int BUDGET_WINDOW_TICKS = 4;
     private long tick = Long.MIN_VALUE;
     private double distance;
-    private double horizontalDistance;
+    /** Envelope use this tick: horizontal for ground mounts, 3D for happy ghasts and nautiluses (checked in 3D). */
+    private double envelope;
+    private double distanceCredit;
+    private double envelopeCredit;
+    private double lastCap;
+    private double lastLimit;
     private int packets;
     private long jumpTick = Long.MIN_VALUE;
     private long dashTick = Long.MIN_VALUE;
@@ -42,7 +53,14 @@ public final class RidingSecurity {
         if (!supported(mount)) return mount == player; // Vanilla handles other vehicles.
         if (!mount.isAlive() || mount.getControllingPassenger() != player) return false;
         long now = player.level().getGameTime();
-        if (now != tick) { tick = now; distance = 0; horizontalDistance = 0; packets = 0; }
+        if (now != tick) {
+            if (Riding.CONFIG.safety.lenientMovementBudget && tick != Long.MIN_VALUE && now > tick) {
+                long elapsed = Math.min(BUDGET_WINDOW_TICKS, now - tick);
+                distanceCredit = carry(distanceCredit, lastCap, elapsed, distance);
+                envelopeCredit = carry(envelopeCredit, lastLimit, elapsed, envelope);
+            } else { distanceCredit = 0; envelopeCredit = 0; }
+            tick = now; distance = 0; envelope = 0; packets = 0;
+        }
         int maxPackets = Math.max(1, Math.min(20, Riding.CONFIG.safety.movementPacketsPerTick));
         if (++packets > maxPackets) return false;
         Vec3 target = claim.position();
@@ -67,7 +85,8 @@ public final class RidingSecurity {
             horizontalCap+=dash;
         }
         Vec3 movement = target.subtract(mount.position());
-        if (!Double.isFinite(step) || distance + step > cap) return false;
+        lastCap = cap;
+        if (!Double.isFinite(step) || step > cap || distance + step > cap + credit(distanceCredit, cap)) return false;
         BlockPos pos = BlockPos.containing(target);
         var border=player.level().getWorldBorder();
         var box=mount.getBoundingBox().move(movement);
@@ -76,11 +95,13 @@ public final class RidingSecurity {
             || target.y < player.level().getMinY() || target.y >= player.level().getMaxY()) return false;
         for (double x : new double[]{box.minX,box.maxX}) for (double z : new double[]{box.minZ,box.maxZ})
             if (!player.level().hasChunkAt(BlockPos.containing(x,target.y,z))) return false;
-        double horizontal = movement.horizontalDistance();
+        // Happy ghasts and nautiluses are bounded in 3D (ascent counts), ground mounts horizontally.
+        double used = mount instanceof AbstractNautilus || mount.getType() == EntityTypes.HAPPY_GHAST ? step : movement.horizontalDistance();
         // The envelope comes from server attributes/accepted dash, never claimed key states or velocity.
-        if (!Double.isFinite(horizontalCap) || horizontalDistance + horizontal > Math.min(cap, horizontalCap)) return false;
-        if ((mount instanceof AbstractNautilus || mount.getType() == EntityTypes.HAPPY_GHAST)
-            && distance + step > Math.min(cap, horizontalCap)) return false;
+        if (!Double.isFinite(horizontalCap)) return false;
+        double limit = Math.min(cap, horizontalCap);
+        lastLimit = limit;
+        if (used > limit || envelope + used > limit + credit(envelopeCredit, limit)) return false;
         if (!(mount instanceof AbstractNautilus) && mount.getType() != EntityTypes.HAPPY_GHAST
             && !mount.isInWater() && !mount.isInLava() && movement.y > 1e-4) {
             boolean authorizedJump = mount instanceof AbstractHorse && mount.getId() == jumpMountId && now >= horseJumpTick && now - horseJumpTick < 60 && target.y <= jumpCeiling;
@@ -92,8 +113,18 @@ public final class RidingSecurity {
         }
         // Retain Vanilla's collision, teleport, floating and movement checks after this guard.
         distance += step;
-        horizontalDistance += horizontal;
+        envelope += used;
         return true;
+    }
+
+    /** Budget left over at the end of the last packet tick plus full budgets of skipped ticks, kept for at most the window. */
+    private static double carry(double credit, double limit, long elapsedTicks, double usedLastTick) {
+        double next = credit + limit * elapsedTicks - usedLastTick;
+        return Double.isFinite(next) ? Math.max(0, Math.min((BUDGET_WINDOW_TICKS - 1) * limit, next)) : 0;
+    }
+
+    private static double credit(double credit, double limit) {
+        return Math.min(credit, (BUDGET_WINDOW_TICKS - 1) * limit);
     }
 
     public void recordDash(ServerPlayer player, AbstractNautilus mount, float scale) {

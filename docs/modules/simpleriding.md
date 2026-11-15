@@ -40,6 +40,7 @@ or sends config packets to a remote server.
 | safety.maximumJumpBonus | 1.5 | 0–1.5 |
 | safety.movementDistancePerTick | 4.0 | 0.5–4 |
 | safety.movementPacketsPerTick | 20 | 1–20 |
+| safety.lenientMovementBudget | true | boolean (carry unused movement budget over 4 ticks; false = strict per tick) |
 | enchantments.swiftRide.nautilusSpeedMultiplier | 0.2 | 0–1 |
 | enchantments.horseJump.nautilusDashMultiplier | 0.2 | 0–0.5 |
 | enchantments.horseJump.featherFallingReduction | 0.12 | 0–0.12 |

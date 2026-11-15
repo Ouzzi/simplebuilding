@@ -281,48 +281,82 @@ public final class RidingTests {
   p.connection.handlePlayerCommand(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(e,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,100));h.assertTrue(!e.isDashing(),"Forged command entity ID refused");
   var security=new RidingSecurity();h.assertTrue(security.acceptJump(p,p.getId(),100),"Valid server-controlled jump accepted");h.assertTrue(!security.acceptJump(p,p.getId(),100),"Same-tick replay refused");e.setItemSlot(EquipmentSlot.SADDLE,ItemStack.EMPTY);h.assertTrue(!new RidingSecurity().acceptJump(p,p.getId(),100),"Unsaddled jump refused");p.stopRiding();h.succeed();
  }
+ /** One lag_jitter scenario; state = {x offset of its virtual position, sent, refused, corrections, accepted distance}. */
+ private record Jitter(String name,double attr,String pattern,boolean lenient,RidingSecurity guard,double[] state){}
  /**
-  * simpleriding-3 (F16=A, a-w4c): what the per-tick movement budget does to a galloping rider when packets bunch up (network jitter). Opt in
-  * with SB_BENCH_RIDING=1 (otherwise passes at once). Phases of 60 ticks, fresh guard each: for two horse speeds (0.225 typical, 0.3375 best)
-  * and three arrival patterns - steady (one packet per tick; a constant delay looks the same), burst2 (every 5th packet arrives together with the
-  * next, a 50 ms jitter spike), burst3 (every 10th tick three packets at once) - the claimed moves of 0.95 x real gallop speed go through the
-  * real {@link RidingSecurity#acceptMove}. One line "SB-BENCH riding {json}" with the refusals; nothing is asserted but plausibility.
+  * simpleriding-3 (F16=A, a-w4c; Option B in b-ride61): what the movement budget does to a galloping rider when packets bunch up (network
+  * jitter). All scenarios run side by side for 40 ticks, each with its own guard and its own virtual position on the same horse (the horse is
+  * put there before every claim), so the test is fast, deterministic and fits the 100-tick limit of every loader - it always runs. Arrival
+  * patterns: steady (one packet per tick; a constant delay looks the same), burst2 (every 5th packet arrives together with the next, a 50 ms
+  * jitter spike), burst3 (every 10th tick three packets at once); claims are 0.95 x real gallop speed at horse speeds 0.225 (typical) and
+  * 0.3375 (best). With the lenient budget (default) nothing is refused, with the switch off (old strict budget) the bunches are refused; a
+  * sustained 2x speed hack (two packets of 0.95 x the per-tick cap each tick) and a single 1.5 x cap packet after idling stay refused.
+  * One line "SB-BENCH riding {json}" with the counts.
   */
  public static void lagJitter(GameTestHelper h){
-  if(System.getenv("SB_BENCH_RIDING")==null){h.succeed();return;}
   var e=h.spawn(EntityTypes.HORSE,2,2,2);e.setItemSlot(EquipmentSlot.SADDLE,new ItemStack(Items.SADDLE));var p=serverRider(h,e);
-  double[] speeds={.225,.3375};String[] patterns={"steady","burst2","burst3"};int phaseTicks=60,phases=speeds.length*patterns.length;
-  var json=new com.google.gson.JsonObject();int[] t={0};RidingSecurity[] guard={new RidingSecurity()};int[] refused={0},sent={0},corrections={0};
+  var original=Riding.CONFIG;var lenient=new RidingConfig();var strict=new RidingConfig();strict.safety.lenientMovementBudget=false;
+  var scenarios=new ArrayList<Jitter>();
+  for(double attr:new double[]{.225,.3375})for(String pattern:List.of("steady","burst2","burst3"))scenarios.add(new Jitter(attr+"/"+pattern,attr,pattern,true,new RidingSecurity(),new double[5]));
+  scenarios.add(new Jitter("0.225/burst2/strict",.225,"burst2",false,new RidingSecurity(),new double[5]));
+  scenarios.add(new Jitter("0.3375/burst3/strict",.3375,"burst3",false,new RidingSecurity(),new double[5]));
+  scenarios.add(new Jitter("0.3375/hack2x",.3375,"hack2x",true,new RidingSecurity(),new double[5]));
+  scenarios.add(new Jitter("0.3375/teleport",.3375,"teleport",true,new RidingSecurity(),new double[5]));
+  Vec3 origin=e.position();int ticks=40;int[] t={0};
   h.onEachTick(()->{
-   int tick=t[0]++;int phase=tick/phaseTicks,local=tick%phaseTicks;
-   if(phase>=phases)return;
-   double attr=speeds[phase/patterns.length];String pattern=patterns[phase%patterns.length];
-   if(local==0){guard[0]=new RidingSecurity();refused[0]=0;sent[0]=0;corrections[0]=0;e.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(attr);}
-   int packets=switch(pattern){
-    case "burst2"->local%5==4?0:(local%5==0&&local>0?2:1);
-    case "burst3"->local%10>=8?0:(local%10==0&&local>0?3:1);
-    default->1;
-   };
-   double step=attr*2.159*.95*((local/10)%2==0?1:-1);
-   for(int i=0;i<packets;i++){
-    var target=e.position().add(step,0,0);sent[0]++;
-    if(guard[0].acceptMove(p,claim(target))){e.setPos(target);e.setDeltaMovement(Vec3.ZERO);}
-    else{refused[0]++;if(guard[0].shouldCorrect(p))corrections[0]++;}
+   int local=t[0]++;
+   if(local>=ticks)return;
+   try{
+    for(var s:scenarios){
+     Riding.CONFIG=s.lenient()?lenient:strict;
+     e.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(s.attr());
+     double limit=Math.min(4,.125+3*s.attr());
+     int packets=switch(s.pattern()){
+      case "burst2"->local%5==4?0:(local%5==0&&local>0?2:1);
+      case "burst3"->local%10>=8?0:(local%10==0&&local>0?3:1);
+      case "hack2x"->2;
+      case "teleport"->local%5==4?1:0;
+      default->1;
+     };
+     double size=switch(s.pattern()){case "hack2x"->.95*limit;case "teleport"->1.5*limit;default->s.attr()*2.159*.95;};
+     double step=size*((local/(s.pattern().equals("hack2x")?4:10))%2==0?1:-1);
+     for(int i=0;i<packets;i++){
+      var from=origin.add(s.state()[0],0,0);e.setPos(from);e.setDeltaMovement(Vec3.ZERO);s.state()[1]++;
+      if(s.guard().acceptMove(p,claim(from.add(step,0,0)))){s.state()[0]+=step;s.state()[4]+=Math.abs(step);}
+      else{s.state()[2]++;if(s.guard().shouldCorrect(p))s.state()[3]++;}
+     }
+    }
+   }finally{Riding.CONFIG=original;}
+   if(local<ticks-1)return;
+   e.setPos(origin);var json=new JsonObject();
+   for(var s:scenarios){var o=new JsonObject();o.addProperty("sent",(int)s.state()[1]);o.addProperty("refused",(int)s.state()[2]);o.addProperty("corrections",(int)s.state()[3]);json.add(s.name(),o);}
+   org.slf4j.LoggerFactory.getLogger("SimpleRiding").info("SB-BENCH riding {}",json);
+   for(var s:scenarios){
+    double sent=s.state()[1],refused=s.state()[2];
+    switch(s.pattern()){
+     case "hack2x"->{double limit=Math.min(4,.125+3*s.attr());
+      h.assertTrue(refused>=30,"Sustained 2x speed hack is still refused ("+(int)refused+" of "+(int)sent+")");
+      h.assertTrue(s.state()[4]<=(ticks+RidingSecurity.BUDGET_WINDOW_TICKS-1)*limit+1e-6,"2x speed hack covers no more than the per-tick cap plus the window credit");}
+     case "teleport"->h.assertTrue(sent>0&&refused==sent,"A single packet above one tick's cap is refused even with saved-up credit");
+     default->{
+      if(s.lenient())h.assertTrue(refused==0,"Lenient budget refuses no evenly bundled gallop packet: "+s.name()+" ("+(int)refused+" of "+(int)sent+")");
+      else h.assertTrue(refused>0,"Strict budget (switch off) still refuses bunched packets: "+s.name());
+     }
+    }
    }
-   if(local==phaseTicks-1){var o=new com.google.gson.JsonObject();o.addProperty("sent",sent[0]);o.addProperty("refused",refused[0]);o.addProperty("corrections",corrections[0]);json.add(attr+"/"+pattern,o);}
-   if(tick==phases*phaseTicks-1){
-    org.slf4j.LoggerFactory.getLogger("SimpleRiding").info("SB-BENCH riding {}",json);
-    h.assertTrue(json.get(speeds[0]+"/steady").getAsJsonObject().get("refused").getAsInt()==0,"steady packets at 95 % of gallop speed are never refused");
-    h.succeed();
-   }
+   h.succeed();
   });
  }
  public static void movementBudget(GameTestHelper h){
   var original=Riding.CONFIG;try{
-   Riding.CONFIG=new RidingConfig();Riding.CONFIG.safety.movementDistancePerTick=.5f;Riding.CONFIG.safety.movementPacketsPerTick=2;
-   var e=h.spawn(EntityTypes.HORSE,2,2,2);e.setItemSlot(EquipmentSlot.SADDLE,new ItemStack(Items.SADDLE));var p=serverRider(h,e);var guard=new RidingSecurity();
-   h.assertTrue(guard.acceptMove(p,claim(e.position().add(.3,0,0))),"First packet within budget");h.assertTrue(!guard.acceptMove(p,claim(e.position().add(.3,0,0))),"Cumulative movement cap refuses second packet");h.assertTrue(!guard.acceptMove(p,claim(e.position())),"Packet spam cap refuses third packet");
-   p.stopRiding();p.startRiding(e,true,false);h.assertTrue(!guard.acceptMove(p,claim(e.position())),"Dismount/remount does not refill budget");h.assertTrue(guard.shouldCorrect(p)&&!guard.shouldCorrect(p),"Rejected packet spam produces at most one correction per server tick");p.stopRiding();
+   for(boolean lenient:new boolean[]{true,false}){
+    String mode=lenient?" (lenient)":" (strict)";
+    Riding.CONFIG=new RidingConfig();Riding.CONFIG.safety.movementDistancePerTick=.5f;Riding.CONFIG.safety.movementPacketsPerTick=2;Riding.CONFIG.safety.lenientMovementBudget=lenient;
+    var e=h.spawn(EntityTypes.HORSE,2,2,2);e.setItemSlot(EquipmentSlot.SADDLE,new ItemStack(Items.SADDLE));var p=serverRider(h,e);var guard=new RidingSecurity();
+    h.assertTrue(!new RidingSecurity().acceptMove(p,claim(e.position().add(.6,0,0))),"Single packet above one tick's cap refused"+mode);
+    h.assertTrue(guard.acceptMove(p,claim(e.position().add(.3,0,0))),"First packet within budget"+mode);h.assertTrue(!guard.acceptMove(p,claim(e.position().add(.3,0,0))),"Cumulative movement cap refuses second packet in the same tick (no credit yet)"+mode);h.assertTrue(!guard.acceptMove(p,claim(e.position())),"Packet spam cap refuses third packet"+mode);
+    p.stopRiding();p.startRiding(e,true,false);h.assertTrue(!guard.acceptMove(p,claim(e.position())),"Dismount/remount does not refill budget"+mode);h.assertTrue(guard.shouldCorrect(p)&&!guard.shouldCorrect(p),"Rejected packet spam produces at most one correction per server tick"+mode);p.stopRiding();e.discard();
+   }
   }finally{Riding.CONFIG=original;}h.succeed();
  }
 
