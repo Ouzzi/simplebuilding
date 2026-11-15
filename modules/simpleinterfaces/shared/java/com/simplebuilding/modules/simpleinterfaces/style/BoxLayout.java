@@ -84,8 +84,11 @@ public final class BoxLayout {
         int shift = Math.max(0, containerBottom + MAX_GAP - (p[1] - edge));
         int inventoryTop = p[1] + shift - edge;
         int inventoryBottom = p[3] + shift + SLOT + UiBoxes.MARGIN + UiBoxes.FRAME_BOTTOM;
+        // N64: the inventory box has its own width (as UiMargin): the same as the container box on the storage screens, narrower
+        // under a wide container box (beacon power fields)
+        int inventoryLeft = Math.max(0, p[0] - edge), inventoryRight = Math.min(imageWidth + 1, p[2] + SLOT + edge);
         return new Layout(new Rect(left, containerTop, right - left, containerBottom - containerTop),
-                new Rect(left, inventoryTop, right - left, inventoryBottom - inventoryTop), Variant.TWO_BOXES, shift,
+                new Rect(inventoryLeft, inventoryTop, inventoryRight - inventoryLeft, inventoryBottom - inventoryTop), Variant.TWO_BOXES, shift,
                 Math.max(imageHeight, inventoryBottom));
     }
 

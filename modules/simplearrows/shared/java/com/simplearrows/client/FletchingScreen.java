@@ -3,6 +3,7 @@ package com.simplearrows.client;
 import com.simplearrows.fletching.FletchingMenu;
 import com.simplearrows.fletching.FletchingRecipes;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiSlotIcons;
@@ -38,8 +39,8 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
     /** Hintergrundfarbe der Vanilla-Container; uebermalt das Werkbank-Gitter vor dem Neusetzen der Teile. */
     private static final int PANEL = 0xFFC6C6C6;
     static final UiPalette STYLE = UiPalette.derived(0xFFC5B485);
-    /** Box frames (top/sides, bottom with shadow), divider and inventory box (Vanilla's 14 free rows, 176 wide). */
-    private static final int FRAME = UiBoxes.FRAME, FRAME_BOTTOM = UiBoxes.FRAME_BOTTOM, GAP = 2, SIDE = 8;
+    /** Box frames (top/sides, bottom with shadow). */
+    private static final int FRAME = UiBoxes.FRAME, FRAME_BOTTOM = UiBoxes.FRAME_BOTTOM;
 
     static {
         // N37: empty-slot icons in the table's slot colour (player slots light).
@@ -47,8 +48,16 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
                 ? (slot.container instanceof Inventory ? UiPalette.INVENTORY : STYLE) : null);
     }
 
+    /** N64 boxes (container margin): the part row's box ends 3 px under the result slot, the inventory box 3 px round the slots. */
+    private final UiMargin.Boxes boxes;
+
     public FletchingScreen(FletchingMenu menu, Inventory inventory, Component title) {
         super(menu, component(menu), inventory, title);
+        this.boxes = FletchingMargins.boxes(menu);
+        if (UiStyleToggle.isEnabled()) {
+            ((com.simplearrows.mixin.client.ScreenHeightAccessor) this).simplearrows$setImageHeight(this.boxes.height());
+            UiMargin.moveInventory(menu.slots, this.boxes.shift());
+        }
     }
 
     private static RecipeBookComponent<FletchingMenu> component(FletchingMenu menu) {
@@ -106,10 +115,11 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
 
     /** The container style: wooden box, light inventory box, slot groove, slots, the arrow logo and the engraving. */
     private void styled(GuiGraphicsExtractor g, int left, int top) {
-        int[] inv = FletchingMenu.inventoryOrigin(this.menu);
-        int boxH = inv[1] - FRAME - GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, boxH, STYLE);
-        UiBoxes.box(g, left + inv[0] - SIDE, top + inv[1] - FRAME, 176, FRAME + 58 + 17 + FRAME_BOTTOM, UiPalette.INVENTORY);
+        // N64: both boxes keep UiBoxes.MARGIN round their outermost slots/elements (FletchingMargins)
+        UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+        int boxH = c.height();
+        UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), boxH, STYLE);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         Slot result = this.menu.getSlot(FletchingMenu.RESULT_SLOT);
         // WD25-12: the row (book, feather, shaft, tip, arrow, result) centred in the box; positions from the menu
         int px = FletchingMenu.PART_X, py = FletchingMenu.ROW_Y, ax = px + ARROW_DX, ay = py + 1;
@@ -129,7 +139,7 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
         // The recipe book button sits left of the part row (crafting-table spot); keep the motif clear.
         avoid.add(new int[] {left + FletchingMenu.BOOK_X, top + FletchingMenu.BOOK_Y, left + FletchingMenu.BOOK_X + FletchingMenu.BOOK_W,
                 top + FletchingMenu.BOOK_Y + FletchingMenu.BOOK_H});
-        UiMotifs.draw(g, 0, 0, UiMotifs.Kind.WOOD, left + FRAME, top + FRAME, this.imageWidth - 2 * FRAME, boxH - FRAME - FRAME_BOTTOM,
+        UiMotifs.draw(g, 0, 0, UiMotifs.Kind.WOOD, left + c.x() + FRAME, top + FRAME, c.width() - 2 * FRAME, boxH - FRAME - FRAME_BOTTOM,
                 STYLE, avoid, 6);
         // The three part slots (feather, shaft, tip) sit in one row after the recipe book button.
         for (int k = 0; k < 54; k++) {

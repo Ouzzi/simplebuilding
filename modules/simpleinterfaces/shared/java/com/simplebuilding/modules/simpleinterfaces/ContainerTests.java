@@ -100,6 +100,88 @@ public final class ContainerTests {
         h.succeed();
     }
 
+    /**
+     * N64 (owner rule N62, docs/ai/PRINZIPIEN.md A7): every styled station keeps {@code UiBoxes.MARGIN} = 3 px round its outermost
+     * slots/elements on all sides of both boxes ({@link BoxLayout#margin} with the static elements the client counts:
+     * {@link StationStyles#ELEMENTS}/{@link WorkStyles#ELEMENTS} + big result slot; crafter/mount decor written out here). The
+     * container box counts left/right against the outermost of its content and the inventory columns (narrow content stays
+     * centred); divider >= 2; shift/height as in the N64 preview ({@code n64screens.py}). Slot places: Vanilla 26.3 plus the
+     * style's client moves (grindstone, cartography table, player inventory result).
+     */
+    public static void stationMargins(GameTestHelper h) {
+        int m = com.simplelib.api.client.ui.UiBoxes.MARGIN;
+        record Geo(String id, int[][] container, int result, List<BoxLayout.Rect> extra, int playerX, int playerY, int width, int height,
+                int shift, int imageHeight) {}
+        int[][] grid = new int[9][], crafter = new int[10][];
+        for (int i = 0; i < 9; i++) {
+            grid[i] = new int[] {30 + i % 3 * 18, 17 + i / 3 * 18};
+            crafter[i] = new int[] {26 + i % 3 * 18, 17 + i / 3 * 18};
+        }
+        int[][] crafting = java.util.Arrays.copyOf(grid, 10);
+        crafting[9] = new int[] {124, 35};
+        crafter[9] = new int[] {134, 35};
+        int[][] furnace = {{56, 17}, {56, 53}, {116, 35}};
+        List<BoxLayout.Rect> none = List.of(), mount = List.of(new BoxLayout.Rect(26, 18, 53, 53));
+        List<Geo> geos = List.of(
+                new Geo("crafting", crafting, 9, none, 8, 84, 176, 166, 6, 175),
+                new Geo("furnace", furnace, 2, none, 8, 84, 176, 166, 6, 175),
+                new Geo("brewing_stand", new int[][] {{56, 51}, {79, 58}, {102, 51}, {79, 17}, {17, 17}}, -1, none, 8, 84, 176, 166, 11, 180),
+                new Geo("enchanting", new int[][] {{15, 47}, {35, 47}}, -1, none, 8, 84, 176, 166, 8, 177),
+                new Geo("beacon", new int[][] {{136, 110}}, -1, none, 36, 137, 230, 219, 12, 234),
+                new Geo("anvil", new int[][] {{27, 47}, {76, 47}, {134, 47}}, 2, none, 8, 84, 176, 166, 4, 173),
+                new Geo("grindstone", new int[][] {{49, 23}, {49, 44}, {129, 34}}, 2, none, 8, 84, 176, 166, 0, 169),
+                new Geo("stonecutter", new int[][] {{20, 33}, {143, 33}}, 1, none, 8, 84, 176, 166, 6, 175),
+                new Geo("loom", new int[][] {{13, 26}, {33, 26}, {23, 45}, {143, 57}}, 3, none, 8, 84, 176, 166, 14, 183),
+                new Geo("cartography_table", new int[][] {{15, 25}, {15, 62}, {145, 44}}, 2, none, 8, 84, 176, 166, 22, 191),
+                new Geo("smithing_table", new int[][] {{8, 48}, {26, 48}, {44, 48}, {98, 48}}, 3, none, 8, 84, 176, 166, 13, 182),
+                new Geo("player_inventory", new int[][] {{151, 28}, {98, 18}, {116, 18}, {98, 36}, {116, 36}, {8, 8}, {8, 26}, {8, 44}, {8, 62},
+                        {77, 62}}, -1, none, 8, 84, 176, 166, 15, 184),
+                new Geo("crafter", crafter, 9, List.of(new BoxLayout.Rect(103, 36, 22, 16)), 8, 84, 176, 166, 6, 175),
+                new Geo("mount", new int[][] {{8, 18}, {8, 36}}, -1, mount, 8, 84, 176, 166, 7, 176),
+                new Geo("mount with chest", new int[][] {{8, 18}, {8, 36}, {80, 18}, {152, 54}}, -1, mount, 8, 84, 176, 166, 7, 176));
+        for (Geo geo : geos) {
+            String id = geo.id().split(" ")[0];
+            List<BoxLayout.Slot> slots = new ArrayList<>();
+            for (int[] c : geo.container()) slots.add(new BoxLayout.Slot(c[0], c[1], false));
+            for (int r = 0; r < 4; r++) for (int c = 0; c < 9; c++) {
+                slots.add(new BoxLayout.Slot(geo.playerX() + c * 18, geo.playerY() + (r < 3 ? r * 18 : 58), true));
+            }
+            List<BoxLayout.Rect> elements = new ArrayList<>(StationStyles.ELEMENTS.getOrDefault(id, WorkStyles.ELEMENTS.getOrDefault(id, List.of())));
+            elements.addAll(geo.extra());
+            h.assertValueEqual(StationStyles.RESULT_SLOT.containsKey(id) || WorkStyles.RESULT_SLOT.containsKey(id), geo.result() >= 0,
+                    id + ": big result slot registered");
+            if (geo.result() >= 0) elements.add(new BoxLayout.Rect(geo.container()[geo.result()][0] - 4, geo.container()[geo.result()][1] - 4, 25, 25));
+            var l = BoxLayout.margin(slots, elements, geo.width(), geo.height(), 6);
+            h.assertTrue(l != null, geo.id() + ": two boxes");
+            int[] c = BoxLayout.bounds(slots, false);
+            int x0 = c[0], y0 = c[1], x1 = c[2] + 17, y1 = c[3] + 17;
+            for (BoxLayout.Rect e : elements) {
+                x0 = Math.min(x0, e.x());
+                y0 = Math.min(y0, e.y());
+                x1 = Math.max(x1, e.x() + e.width());
+                y1 = Math.max(y1, e.y() + e.height());
+            }
+            int px0 = geo.playerX(), px1 = geo.playerX() + 8 * 18 + 17, py0 = geo.playerY() + l.shift(), py1 = geo.playerY() + 58 + 17 + l.shift();
+            BoxLayout.Rect k = l.container(), i = l.inventory();
+            h.assertValueEqual(Math.min(x0, px0) - (k.x() + 5), m, geo.id() + ": container left");
+            h.assertValueEqual(k.x() + k.width() - 5 - Math.max(x1, px1), m, geo.id() + ": container right");
+            h.assertValueEqual(k.bottom() - 7 - y1, m, geo.id() + ": container bottom");
+            // content right under the box top (no title row above it: beacon fields, smithing preview, player model)
+            if (y0 - (k.y() + 5) < 8) h.assertValueEqual(y0 - (k.y() + 5), m, geo.id() + ": container top (no title row)");
+            h.assertValueEqual(px0 - (i.x() + 5), m, geo.id() + ": inventory left");
+            h.assertValueEqual(i.x() + i.width() - 5 - px1, m, geo.id() + ": inventory right");
+            h.assertValueEqual(py0 - (i.y() + 5), m, geo.id() + ": inventory top");
+            h.assertValueEqual(i.bottom() - 7 - py1, m, geo.id() + ": margin below the hotbar");
+            h.assertTrue(i.y() - k.bottom() >= BoxLayout.MAX_GAP, geo.id() + ": divider >= 2");
+            h.assertValueEqual(l.shift(), geo.shift(), geo.id() + ": player slots move down");
+            h.assertValueEqual(l.height(), geo.imageHeight(), geo.id() + ": image height");
+        }
+        // the moves the style makes on the client keep Vanilla's places as their source
+        h.assertTrue(java.util.Arrays.deepEquals(StationStyles.SLOT_MOVES.get("player_inventory"), new int[][] {{0, 154, 28, 28, 151}}),
+                "player inventory: crafting result 154 -> 151");
+        h.succeed();
+    }
+
     /** The boxes of every W0 geometry (ChestMenu, ShulkerBoxMenu, HopperMenu, DispenserMenu in 26.3). */
     public static void layouts(GameTestHelper h) {
         for (int rows = 1; rows <= 6; rows++) {
@@ -463,7 +545,8 @@ public final class ContainerTests {
                 "cartography_table", new net.minecraft.world.inventory.CartographyTableMenu(0, inventory));
         Map<String, int[][]> positions = Map.of("grindstone", grindstone, "cartography_table", carto);
         Map<String, int[][]> styled = new java.util.HashMap<>();
-        StationStyles.SLOT_MOVES.forEach((id, moves) -> {
+        menus.keySet().forEach(id -> {
+            int[][] moves = StationStyles.SLOT_MOVES.get(id);
             int[][] moved = java.util.Arrays.stream(positions.get(id)).map(int[]::clone).toArray(int[][]::new);
             for (int[] m : moves) {
                 var slot = menus.get(id).getSlot(m[0]);
@@ -476,7 +559,7 @@ public final class ContainerTests {
         BoxLayout.Layout grind = station("grindstone", styled.get("grindstone"), 2);
         h.assertTrue(grind != null && grind.variant() != BoxLayout.Variant.SEAM && grind.container().equals(two.get("grindstone").container()),
                 "grindstone: moved slots keep the boxes");
-        BoxLayout.Layout map = station("cartography_table", styled.get("cartography_table"), 2, StationStyles.CARTO_EXTRA);
+        BoxLayout.Layout map = station("cartography_table", styled.get("cartography_table"), 2, 16);
         h.assertTrue(map != null && map.variant() != BoxLayout.Variant.SEAM, "styled cartography table: two boxes like the other tables");
         rect(h, map.container(), 0, 0, 176, 93, "cartography container box below the map field");
         rect(h, map.inventory(), 0, 95, 176, 87, "cartography inventory box");

@@ -115,26 +115,14 @@ public final class WorkScreens {
         };
     }
 
-    /** The layout of a work screen (see {@link #base}), or {@code null}. */
+    /**
+     * The layout of a work screen (see {@link #base}), or {@code null}: N64 the container margin from the screen's static
+     * elements ({@link StyledScreens#layout}, {@code WorkStyles.ELEMENTS}); {@code extra} only keeps the motif clear, {@code wide}
+     * is no longer used (the beacon's power fields are elements, the box follows them).
+     */
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY, int[][] extra,
             boolean wide) {
-        List<BoxLayout.Slot> slots = new ArrayList<>();
-        for (Slot slot : screen.getMenu().slots) {
-            if (StyledScreens.inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, StyledScreens.playerSlot(slot)));
-        }
-        List<BoxLayout.Rect> elements = new ArrayList<>();
-        for (int[] r : extra) elements.add(new BoxLayout.Rect(r[0], r[1], r[2] - r[0], r[3] - r[1]));
-        Layout layout = BoxLayout.compute(slots, elements, imageWidth, imageHeight, titleY);
-        return layout == null || !wide ? layout : widen(layout, imageWidth);
-    }
-
-    /** {@code layout} with the container box (and a seam panel inside it) over the whole image width. */
-    static Layout widen(Layout layout, int imageWidth) {
-        BoxLayout.Rect c = layout.container(), i = layout.inventory();
-        if (c == null) return layout;
-        BoxLayout.Rect box = new BoxLayout.Rect(0, c.y(), imageWidth, c.height());
-        if (layout.variant() != BoxLayout.Variant.SEAM) return new Layout(box, i, layout.variant());
-        return new Layout(box, new BoxLayout.Rect(UiBoxes.FRAME, i.y(), imageWidth - 2 * UiBoxes.FRAME, i.height()), layout.variant());
+        return StyledScreens.layout(screen, imageWidth, imageHeight, titleY);
     }
 
     /** Slots: {@code big} = menu slot indices drawn as big result slots, {@code skip} = indices the caller draws itself. */

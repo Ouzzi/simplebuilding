@@ -2,12 +2,15 @@ package com.simplebuilding.modules.simpleinterfaces.client;
 
 import com.simplebuilding.modules.simpleinterfaces.ContainersConfig;
 import com.simplebuilding.framework.api.ContainerStyleHints;
+import com.simplebuilding.modules.simpleinterfaces.mixin.SlotPositionAccessor;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxLayout;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxMotifs;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simpleinterfaces.style.ContainerStyles;
 import com.simplebuilding.modules.simpleinterfaces.style.ScreenStyle;
+import com.simplebuilding.modules.simpleinterfaces.style.StationStyles;
 import com.simplebuilding.modules.simpleinterfaces.style.StyleContext;
+import com.simplebuilding.modules.simpleinterfaces.style.WorkStyles;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
@@ -39,8 +42,6 @@ import org.jetbrains.annotations.Nullable;
 public final class StyledScreens {
     /** Picked palette per open screen; weak, so closed screens drop out. */
     private static final Map<AbstractContainerScreen<?>, UiPalette> PALETTES = new WeakHashMap<>();
-    /** Extra elements of a screen (set by its background mixin each frame). */
-    private static final Map<AbstractContainerScreen<?>, Decor> DECOR = new WeakHashMap<>();
     /** Whether the last background of a screen was drawn in the style. */
     private static final Map<AbstractContainerScreen<?>, Boolean> STYLED = new WeakHashMap<>();
 
@@ -113,46 +114,88 @@ public final class StyledScreens {
         STYLED.put(screen, styled);
     }
 
-    /** Box layout of {@code screen} from its active slots (and its decor's elements), or {@code null}. */
+    /**
+     * Box layout of {@code screen} from its active slots and its static container elements ({@link #elements}), or {@code null}.
+     * N64: every styled screen keeps the fixed container margin ({@link BoxLayout#margin}) except villager trading, whose offer
+     * list beside the inventory leaves no room for it at Vanilla's places ({@link BoxLayout#compute}, owner question).
+     */
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
             if (inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, playerSlot(slot)));
         }
-        List<BoxLayout.Rect> elements = DECOR.getOrDefault(screen, Decor.NONE).elements();
-        return marginScreen(screen) ? BoxLayout.margin(slots, elements, imageWidth, imageHeight, titleY)
+        ScreenStyle style = style(screen);
+        List<BoxLayout.Rect> elements = elements(screen, style);
+        return marginStyle(style) ? BoxLayout.margin(slots, elements, imageWidth, imageHeight, titleY)
                 : BoxLayout.compute(slots, elements, imageWidth, imageHeight, titleY);
     }
 
-    /**
-     * N62: the storage group (chest/barrel/ender chest screens, shulker box, hopper, dispenser/dropper) uses the fixed
-     * container margin ({@link BoxLayout#margin}); its player slots are moved down as the screen opens
-     * ({@code StorageMarginMixin}). The stations keep {@link BoxLayout#compute} until their own review.
-     */
-    public static boolean marginScreen(AbstractContainerScreen<?> screen) {
-        return screen instanceof net.minecraft.client.gui.screens.inventory.ContainerScreen
-                || screen instanceof net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen
-                || screen instanceof net.minecraft.client.gui.screens.inventory.HopperScreen
-                || screen instanceof net.minecraft.client.gui.screens.inventory.DispenserScreen;
+    /** N64: whether {@code style} uses the container margin (all but villager trading). */
+    public static boolean marginStyle(@Nullable ScreenStyle style) {
+        return style != null && !style.id().equals("merchant");
     }
 
     /**
-     * N62: once per screen, before {@code init} centres it - with the style on, moves the player's slots of this (client)
-     * menu down by {@link Layout#shift} (new {@link Slot} objects at the same index, as the hopper's IG31-30 padding does)
-     * and returns the image height the margin needs; otherwise {@code imageHeight} unchanged.
+     * Container elements besides the slots by style id (N64: static, so {@link #applyMargin} before {@code init} and the drawing
+     * count the same): the stations' fields and symbols ({@link StationStyles#ELEMENTS}), the work screens' ({@link WorkStyles#ELEMENTS}),
+     * the big result slot of either ({@code RESULT_SLOT}, 24 x 24 + light edge), the crafter's and the mounts' decor.
      */
-    public static int applyMargin(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
-        if (!marginScreen(screen) || style(screen) == null) return imageHeight;
-        Layout layout = layout(screen, imageWidth, imageHeight, titleY);
-        if (layout == null) return imageHeight;
+    public static List<BoxLayout.Rect> elements(AbstractContainerScreen<?> screen, @Nullable ScreenStyle style) {
+        if (style == null) return List.of();
+        String id = style.id();
+        List<BoxLayout.Rect> out = new ArrayList<>(StationStyles.ELEMENTS.getOrDefault(id, WorkStyles.ELEMENTS.getOrDefault(id, List.of())));
+        out.addAll(StorageDecors.elements(id));
+        Integer result = StationStyles.RESULT_SLOT.getOrDefault(id, WorkStyles.RESULT_SLOT.get(id));
+        if (result != null && result < screen.getMenu().slots.size()) {
+            Slot s = screen.getMenu().getSlot(result);
+            out.add(new BoxLayout.Rect(s.x - 4, s.y - 4, 25, 25));
+        }
+        return out;
+    }
+
+    /** Vanilla image height per open screen (recorded by {@link #applyMargin}). */
+    private static final Map<AbstractContainerScreen<?>, Integer> VANILLA_HEIGHT = new WeakHashMap<>();
+
+    /**
+     * N64: a recipe book button that Vanilla places relative to the screen's middle ({@code height / 2 - k}, made for its own
+     * image height) kept at its Vanilla place in the image when the margin made the image taller; the crafting table's 3 px
+     * further right (Vanilla x 5 touches the box's light line). {@code pos} unchanged when the screen is not styled.
+     */
+    public static net.minecraft.client.gui.navigation.ScreenPosition recipeButton(AbstractContainerScreen<?> screen,
+            net.minecraft.client.gui.navigation.ScreenPosition pos, int screenHeight, int imageHeight, int topPos) {
+        Integer vanilla = VANILLA_HEIGHT.get(screen);
+        if (vanilla == null || !marginStyle(style(screen))) return pos;
+        int dx = screen instanceof net.minecraft.client.gui.screens.inventory.CraftingScreen ? UiBoxes.MARGIN : 0;
+        int vanillaTop = (screenHeight - vanilla) / 2;
+        return new net.minecraft.client.gui.navigation.ScreenPosition(pos.x() + dx, topPos + pos.y() - vanillaTop);
+    }
+
+    /** Vanilla item y of each player slot moved by {@link #applyMargin} (weak: menus that close drop out). */
+    private static final Map<Slot, Integer> VANILLA_Y = new WeakHashMap<>();
+
+    /**
+     * N62/N64: at every {@code init}, before it centres the screen - puts the stations' moved slots in place
+     * ({@code StationScreens.moveSlots}), then the player's slots of this (client) menu at their Vanilla y plus
+     * {@link Layout#shift} (style on) or back at their Vanilla y (style off), and returns the image height the margin needs
+     * ({@code vanillaHeight} otherwise). Idempotent: the player inventory's menu lives as long as the player, its slots must
+     * never move twice; the Vanilla y is remembered per slot.
+     */
+    public static int applyMargin(AbstractContainerScreen<?> screen, int imageWidth, int vanillaHeight, int titleY) {
+        VANILLA_HEIGHT.put(screen, vanillaHeight);
+        StationScreens.moveSlots(screen);
+        var slots = screen.getMenu().slots;
+        for (Slot slot : slots) {
+            Integer y = VANILLA_Y.get(slot);
+            if (y != null && slot.y != y) ((SlotPositionAccessor) slot).qol$setY(y);
+        }
+        ScreenStyle style = style(screen);
+        Layout layout = marginStyle(style) ? layout(screen, imageWidth, vanillaHeight, titleY) : null;
+        if (layout == null) return vanillaHeight;
         if (layout.shift() > 0) {
-            var slots = screen.getMenu().slots;
-            for (int index = 0; index < slots.size(); index++) {
-                Slot vanilla = slots.get(index);
-                if (!playerSlot(vanilla) || !inImage(vanilla, imageWidth)) continue;
-                Slot moved = new Slot(vanilla.container, vanilla.getContainerSlot(), vanilla.x, vanilla.y + layout.shift());
-                moved.index = vanilla.index;
-                slots.set(index, moved);
+            for (Slot slot : slots) {
+                if (!playerSlot(slot) || !inImage(slot, imageWidth)) continue;
+                VANILLA_Y.putIfAbsent(slot, slot.y);
+                ((SlotPositionAccessor) slot).qol$setY(slot.y + layout.shift());
             }
         }
         return layout.height();
@@ -202,7 +245,6 @@ public final class StyledScreens {
     /** {@link #drawBackground(AbstractContainerScreen, GuiGraphicsExtractor, int, int, int, int, int)} with screen-specific elements. */
     public static boolean drawBackground(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top,
             int imageWidth, int imageHeight, int titleY, Decor decor) {
-        DECOR.put(screen, decor);
         ScreenStyle style = style(screen);
         Layout layout = style == null ? null : layout(screen, imageWidth, imageHeight, titleY);
         STYLED.put(screen, layout != null);

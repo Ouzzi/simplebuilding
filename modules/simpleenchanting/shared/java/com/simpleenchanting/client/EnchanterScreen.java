@@ -3,6 +3,7 @@ package com.simpleenchanting.client;
 import com.simpleenchanting.EnchantingRules;
 import com.simpleenchanting.menu.EnchanterMenu;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
@@ -39,9 +40,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
     /** Slider panel (relative to the screen's left/top). */
     public static final int ROW_H = 28, ROWS = 3;
-    public static final int PANEL_X = 50, PANEL_Y = 17, PANEL_W = 119, PANEL_H = ROWS * ROW_H + 4;
+    /** N64: panel 1 px further left, button 1 px right - 3 px fill to the box's light line on both sides (A7 container margin). */
+    public static final int PANEL_X = 49, PANEL_Y = 17, PANEL_W = 119, PANEL_H = ROWS * ROW_H + 4;
     public static final int TRACK_X = PANEL_X + 5, TRACK_W = PANEL_W - 10, TRACK_H = 5;
-    public static final int BUTTON_X = 7, BUTTON_Y = 68, BUTTON_W = 38, BUTTON_H = 31;
+    public static final int BUTTON_X = 8, BUTTON_Y = 68, BUTTON_W = 38, BUTTON_H = 31;
     /** Names and the level label at this scale (N35: Vanilla's offers look smaller). */
     static final float NAME_SCALE = 0.75F;
     /** Vanilla's enchanting glyph font (the Standard Galactic Alphabet of the enchanting table). */
@@ -59,8 +61,13 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
 
     private int dragRow = -1;
 
+    /** N64 boxes (container margin); with the style on the player's slots sit {@code boxes.shift()} lower and the image grows. */
+    private final UiMargin.Boxes boxes;
+
     public EnchanterScreen(EnchanterMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, 176, EnchanterMenu.IMAGE_HEIGHT);
+        super(menu, inventory, title, 176, UiStyleToggle.isEnabled() ? EnchanterMargins.boxes(menu).height() : EnchanterMenu.IMAGE_HEIGHT);
+        this.boxes = EnchanterMargins.boxes(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
     }
 
     @Override
@@ -204,8 +211,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
 
     /** Obsidian violet with a hint of enderite (SimpleBuilding's screen style until 03.11., now drawn with SimpleLib's UI parts). */
     static final UiPalette STYLE = UiPalette.derived(0xFF4B3866);
-    /** Mod screens leave Vanilla's 14 rows between the container box and the inventory box (SimpleBuilding's ModScreenLayout). */
-    private static final int FRAME = UiBoxes.FRAME, FRAME_BOTTOM = UiBoxes.FRAME_BOTTOM, GAP = 2, SIDE = 8;
+    private static final int FRAME = UiBoxes.FRAME, FRAME_BOTTOM = UiBoxes.FRAME_BOTTOM;
 
     /**
      * The styled box (SimpleLib UI style on): the violet container box with Ender motifs around item, lapis and blaze powder
@@ -213,10 +219,11 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
      */
     private boolean styledBackground(GuiGraphicsExtractor g, int left, int top) {
         if (!UiStyleToggle.isEnabled()) return false;
-        int invY = EnchanterMenu.INVENTORY_Y;
-        int boxH = invY - FRAME - GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, boxH, STYLE);
-        UiBoxes.box(g, left + 8 - SIDE, top + invY - FRAME, 176, FRAME + 58 + 17 + FRAME_BOTTOM, UiPalette.INVENTORY);
+        // N64: both boxes keep UiBoxes.MARGIN round their outermost slots/elements (EnchanterMargins)
+        UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+        int boxH = c.height();
+        UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), boxH, STYLE);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         List<int[]> avoid = new ArrayList<>();
         for (Slot slot : this.menu.slots) {
             if (slot.index < EnchanterMenu.TABLE_SLOTS) avoid.add(new int[] {left + slot.x, top + slot.y, left + slot.x + 17, top + slot.y + 17});

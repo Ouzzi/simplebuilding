@@ -7,6 +7,7 @@ import com.simplefoundry.Tier;
 import com.simplefoundry.block.DeskBlockEntity;
 import com.simplefoundry.block.FoundryMenu;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +41,15 @@ public class FoundryScreen extends AbstractContainerScreen<FoundryMenu> {
     static final int STACK_X = 112, STACK_Y = 22, STACK_W = 56, STACK_H = 41;
     static final int GAUGE_X = 112, GAUGE_Y = 68, GAUGE_W = 56, GAUGE_H = 10;
 
+    /** N64 boxes (container margin, FoundryMargins); the inventory label is left out like on every styled screen. */
+    private final UiMargin.Boxes boxes;
+
     public FoundryScreen(FoundryMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, FoundryMenu.WIDTH, FoundryMenu.HEIGHT);
+        super(menu, inventory, title, FoundryMenu.WIDTH, FoundryMargins.boxes(menu).height());
+        this.boxes = FoundryMargins.boxes(menu);
+        UiMargin.moveInventory(menu.slots, this.boxes.shift());
         titleLabelX = 8;
         titleLabelY = 8;
-        inventoryLabelX = 8;
-        inventoryLabelY = 116;
     }
 
     /** The arrow under the section is a real Vanilla button (a click on it is the safest input path); a click on a level of the section is the shortcut. */
@@ -72,8 +76,9 @@ public class FoundryScreen extends AbstractContainerScreen<FoundryMenu> {
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         int x0 = leftPos, y0 = topPos;
-        UiBoxes.box(g, x0, y0, FoundryMenu.WIDTH, 108, FOUNDRY);
-        UiBoxes.box(g, x0, y0 + 110, FoundryMenu.WIDTH, FoundryMenu.HEIGHT - 110, INVENTORY);
+        UiMargin.Rect c = this.boxes.container(), inv = this.boxes.inventory();
+        UiBoxes.box(g, x0 + c.x(), y0 + c.y(), c.width(), c.height(), FOUNDRY);
+        UiBoxes.box(g, x0 + inv.x(), y0 + inv.y(), inv.width(), inv.height(), INVENTORY);
         int mx = mouseX - x0, my = mouseY - y0;
         // the player's inventory slots sit sunk in the lower box
         for (int i = DeskBlockEntity.INPUT_SLOTS + 1; i < menu.slots.size(); i++) {
@@ -142,7 +147,7 @@ public class FoundryScreen extends AbstractContainerScreen<FoundryMenu> {
         UiBoxes.slot(g, x0 + FoundryMenu.FUEL_X, y0 + FoundryMenu.FUEL_Y, FOUNDRY);
         // status mark: green dot with a check, red with a cross (also for colour-blind players)
         boolean ok = menu.status().equals("ok");
-        int bx = x0 + 160, by = y0 + 7;
+        int bx = x0 + FoundryMargins.STATUS_X, by = y0 + FoundryMargins.STATUS_Y;
         g.fill(bx, by, bx + 8, by + 8, 0xFF101010);
         g.fill(bx + 1, by + 1, bx + 7, by + 7, ok ? GREEN : RED);
         if (ok) {
@@ -162,7 +167,6 @@ public class FoundryScreen extends AbstractContainerScreen<FoundryMenu> {
     @Override
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         g.text(font, title, titleLabelX, titleLabelY, FOUNDRY.label(), false);
-        g.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, INVENTORY.label(), false);
     }
 
     @Override
@@ -200,7 +204,7 @@ public class FoundryScreen extends AbstractContainerScreen<FoundryMenu> {
                 Metal metal = Metal.values()[2 - row];
                 lines.add(Component.translatable("gui.simplefoundry.metal", Component.translatable("simplefoundry.metal." + metal.id), menu.melt()[metal.ordinal()] / Metal.INGOT, menu.waiting()[metal.ordinal()] / Metal.INGOT));
             }
-        } else if (mx >= 160 && mx < 168 && my >= 7 && my < 15) {
+        } else if (mx >= FoundryMargins.STATUS_X && mx < FoundryMargins.STATUS_X + 8 && my >= FoundryMargins.STATUS_Y && my < FoundryMargins.STATUS_Y + 8) {
             lines.add(Component.translatable("simplefoundry.status." + menu.status()));
         }
         if (!lines.isEmpty()) g.setTooltipForNextFrame(font, lines, Optional.empty(), mouseX, mouseY);

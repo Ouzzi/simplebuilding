@@ -61,24 +61,26 @@ public final class StationStyles {
             "stonecutter", List.of(new BoxLayout.Rect(51, 14, 66, 56), new BoxLayout.Rect(119, 15, 12, 55)), // as the preview counts them
             "loom", List.of(new BoxLayout.Rect(59, 12, 59, 59), new BoxLayout.Rect(119, 13, 13, 58)),
             "cartography_table", List.of(new BoxLayout.Rect(67, 13 + StationStyles.CARTO_TOP, 67, 67)),
-            "smithing_table", List.of(new BoxLayout.Rect(121, 8, 49, 69)),
+            "smithing_table", List.of(new BoxLayout.Rect(121, 8, 48, 69)), // N64: field 47 wide (48 reached 2 px past the image)
             "player_inventory", List.of(new BoxLayout.Rect(26, 8, 50, 71)));
 
     /**
      * Slots the style moves on the client (owner WD25-9/10, 2026-10-25: the left slots sat too high): per style id rows
      * of (menu index, x, Vanilla y, styled y). The grindstone's two inputs centre on its arrow (y 42.5), the cartography
-     * table's column and result on the map field (y 46 + {@link #CARTO_TOP}). Without the style the slots go back to
-     * Vanilla's y.
+     * table's column and result on the map field (y 46 + {@link #CARTO_TOP}). An optional fifth value is the styled x
+     * (N64: the player inventory's crafting result). Without the style the slots go back to Vanilla's place.
      */
     public static final Map<String, int[][]> SLOT_MOVES = Map.of(
             "grindstone", new int[][] {{0, 49, 19, 23}, {1, 49, 40, 44}},
-            "cartography_table", new int[][] {{0, 15, 15, 19 + 6}, {1, 15, 52, 56 + 6}, {2, 145, 39, 38 + 6}});
+            "cartography_table", new int[][] {{0, 15, 15, 19 + 6}, {1, 15, 52, 56 + 6}, {2, 145, 39, 38 + 6}},
+            // N64 (A7 container margin): the crafting result 3 px left, else 1 px fill to the box's right light line (A12: client menu only)
+            "player_inventory", new int[][] {{0, 154, 28, 28, 151}});
     /**
      * Cartography table room (owner WD25-19, 2026-10-25: "padding like the other tables"): in the style the map field and
-     * the container slots sit {@code CARTO_TOP} px lower (free room under the title) and the screen is {@code CARTO_EXTRA}
-     * px taller, the inventory moved down by as much - so the container box ends below the map like the other tables'.
+     * the container slots sit {@code CARTO_TOP} px lower (free room under the title). Since N64 the player's slots follow from
+     * the container margin rule ({@code BoxLayout.margin}: 22 px lower, image 191) instead of a fixed 16 px.
      */
-    public static final int CARTO_TOP = 6, CARTO_EXTRA = 16;
+    public static final int CARTO_TOP = 6;
 
     private StationStyles() {}
 }

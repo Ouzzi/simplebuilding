@@ -145,4 +145,9 @@ public final class ModuleGameTest {
     public void guideBook(GameTestHelper h) {
         EnchantingTests.ALL.get("guide_book").accept(h);
     }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void enchanterScreenMargins(GameTestHelper h) {
+        EnchantingTests.ALL.get("enchanter_screen_margins").accept(h);
+    }
 }

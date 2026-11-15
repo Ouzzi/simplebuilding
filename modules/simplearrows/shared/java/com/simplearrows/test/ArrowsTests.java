@@ -58,6 +58,7 @@ public final class ArrowsTests {
         // Stage 2 (b-arrows03, 04.11.): the Fletching Table from the SimpleBuilding core.
         ALL.put("fletching_each_tip_adds_its_damage_against_its_targets", FletchingTests::eachTipAddsItsDamageAgainstItsTargets);
         ALL.put("fletching_shafts_and_fletchings_change_the_flight", FletchingTests::shaftsAndFletchingsChangeTheFlight);
+        ALL.put("fletching_screen_margins", ScreenMarginTests::fletchingScreenMargins);
         ALL.put("fletching_material_shafts_are_only_the_diamond_rod", FletchingTests::materialShaftsAreOnlyTheDiamondRod);
         ALL.put("fletching_old_netherite_and_enderite_shafts_load_as_sticks", FletchingTests::oldNetheriteAndEnderiteShaftsLoadAsSticks);
         ALL.put("fletching_the_table_makes_four_arrows_from_three_parts", FletchingTests::theTableMakesFourArrowsFromThreeParts);

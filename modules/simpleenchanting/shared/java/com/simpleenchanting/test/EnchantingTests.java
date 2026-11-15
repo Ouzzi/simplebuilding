@@ -78,6 +78,7 @@ public final class EnchantingTests {
         ALL.put("discover_recipe_unlocks", com.simpleenchanting.discover.EnchantingDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleenchanting.discover.EnchantingDiscover::behaviourHints);
         ALL.put("guide_book", com.simpleenchanting.guide.EnchantingGuide::gameTest);
+        ALL.put("enchanter_screen_margins", ScreenMarginTests::enchanterScreenMargins);
     }
     /** Tick budget of the hammer test: 20 blows of 20 ticks run inside one game tick, the rest is slack. */
     public static final int MAX_TICKS = 40;

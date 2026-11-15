@@ -241,6 +241,11 @@ public final class HorseshoeTests {
   int invY=Integer.MAX_VALUE;
   for(var slot:menu.slots)if(slot.container instanceof net.minecraft.world.entity.player.Inventory inv&&slot.getContainerSlot()>=9&&slot.getContainerSlot()<36)invY=Math.min(invY,slot.y);
   h.assertTrue(HorseshoePanel.Y+HorseshoePanel.H<=invY-7,"Panel bottom "+(HorseshoePanel.Y+HorseshoePanel.H)+" above the container box bottom "+(invY-7));
+  // N64 (A7 container margin): exactly UiBoxes.MARGIN of fill left of, above and below the 2x2 grid (the right side tucks under the window)
+  int m=com.simplelib.api.client.ui.UiBoxes.MARGIN;
+  h.assertValueEqual(HorseshoeSlot.X-(HorseshoePanel.X+frame),m,"hoof panel left margin");
+  h.assertValueEqual(HorseshoeSlot.Y-(HorseshoePanel.Y+frame),m,"hoof panel top margin");
+  h.assertValueEqual(HorseshoePanel.Y+HorseshoePanel.H-bottom-(HorseshoeSlot.Y+HorseshoeSlot.STEP+17),m,"hoof panel bottom margin");
   h.succeed();
  }
 

@@ -9,6 +9,7 @@ public final class ModuleGameTest {
     @GameTest public void boxLayoutLimits(GameTestHelper h) { ContainerTests.layoutLimits(h); }
     @GameTest public void narrowBoxLayouts(GameTestHelper h) { ContainerTests.narrowLayouts(h); }
     @GameTest public void containerMargins(GameTestHelper h) { ContainerTests.containerMargins(h); }
+    @GameTest public void stationMargins(GameTestHelper h) { ContainerTests.stationMargins(h); }
     @GameTest public void styleRegistry(GameTestHelper h) { ContainerTests.registry(h); }
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
     @GameTest public void boxMotifs(GameTestHelper h) { ContainerTests.motifs(h); }

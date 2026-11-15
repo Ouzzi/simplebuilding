@@ -64,4 +64,7 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
     public void deskTierStaysOnTheItem(GameTestHelper h) { FoundryTests.ALL.get("desk_tier_stays_on_the_item").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void screenMargins(GameTestHelper h) { FoundryTests.ALL.get("screen_margins").accept(h); }
 }

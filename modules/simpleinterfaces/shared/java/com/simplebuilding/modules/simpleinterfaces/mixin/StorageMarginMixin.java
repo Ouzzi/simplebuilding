@@ -12,10 +12,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * N62 (owner 15.11.): the storage screens in the Simple style keep {@code UiBoxes.MARGIN} px round every slot group; where
- * Vanilla's rows are too tight the player's slots move down and the image grows - once, before the first {@code init}
- * centres the screen (pattern of {@link CartographyHeightMixin}). Resizing re-runs {@code init}, not the move. Style
- * switched off while the screen is open: the moved slots stay until it is reopened.
+ * N62/N64 (owner 15.11.): every screen in the Simple style keeps {@code UiBoxes.MARGIN} px round every slot group; where
+ * Vanilla's rows are too tight the player's slots move down and the image grows - at every {@code init}, before it centres
+ * the screen, computed from the Vanilla image height remembered at the first {@code init} ({@link StyledScreens#applyMargin}
+ * is idempotent, so resizing or reopening with the style switched never moves twice). Replaces the former
+ * {@code CartographyHeightMixin} (WD25-19), whose extra height the rule now gives.
  */
 @Mixin(AbstractContainerScreen.class)
 public abstract class StorageMarginMixin {
@@ -23,12 +24,12 @@ public abstract class StorageMarginMixin {
     @Shadow @Final protected int imageWidth;
     @Shadow protected int titleLabelY;
     @Unique
-    private boolean simpleinterfaces$margin;
+    private int simpleinterfaces$vanillaHeight = -1;
 
     @Inject(method = "init", at = @At("HEAD"))
     private void simpleinterfaces$margin(CallbackInfo ci) {
-        if (this.simpleinterfaces$margin) return;
-        this.simpleinterfaces$margin = true;
-        this.imageHeight = StyledScreens.applyMargin((AbstractContainerScreen<?>) (Object) this, this.imageWidth, this.imageHeight, this.titleLabelY);
+        if (this.simpleinterfaces$vanillaHeight < 0) this.simpleinterfaces$vanillaHeight = this.imageHeight;
+        this.imageHeight = StyledScreens.applyMargin((AbstractContainerScreen<?>) (Object) this, this.imageWidth,
+                this.simpleinterfaces$vanillaHeight, this.titleLabelY);
     }
 }

@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +24,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.CartographyTableMenu;
 import net.minecraft.world.inventory.GrindstoneMenu;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MerchantMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -58,19 +60,9 @@ public final class StationScreens {
         return style(screen) != null;
     }
 
-    /** The layout of a G3 screen from its slots and extra elements, or {@code null}. */
+    /** The layout of a G3 screen from its slots and extra elements ({@link StyledScreens#layout}), or {@code null}. */
     static @Nullable Layout layout(AbstractContainerScreen<?> screen, String id, int imageWidth, int imageHeight) {
-        List<BoxLayout.Slot> slots = new ArrayList<>();
-        for (Slot slot : screen.getMenu().slots) {
-            if (StyledScreens.inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, StyledScreens.playerSlot(slot)));
-        }
-        List<Rect> elements = new ArrayList<>(StationStyles.ELEMENTS.getOrDefault(id, List.of()));
-        Integer result = StationStyles.RESULT_SLOT.get(id);
-        if (result != null && result < screen.getMenu().slots.size()) {
-            Slot s = screen.getMenu().getSlot(result);
-            elements.add(new Rect(s.x - 4, s.y - 4, 25, 25));
-        }
-        return BoxLayout.compute(slots, elements, imageWidth, imageHeight, TITLE_Y);
+        return StyledScreens.layout(screen, imageWidth, imageHeight, TITLE_Y);
     }
 
     /**
@@ -93,32 +85,22 @@ public final class StationScreens {
      */
     static void moveSlots(AbstractContainerScreen<?> screen) {
         AbstractContainerMenu menu = screen.getMenu();
-        String id = menu instanceof GrindstoneMenu ? "grindstone" : menu instanceof CartographyTableMenu ? "cartography_table" : null;
+        String id = menu instanceof GrindstoneMenu ? "grindstone" : menu instanceof CartographyTableMenu ? "cartography_table"
+                : menu instanceof InventoryMenu && screen instanceof InventoryScreen ? "player_inventory" : null;
         if (id == null) return;
         ScreenStyle style = style(screen);
         boolean styled = style != null && style.id().equals(id);
         for (int[] move : StationStyles.SLOT_MOVES.get(id)) {
             if (move[0] >= menu.slots.size()) continue;
             Slot slot = menu.getSlot(move[0]);
-            int from = styled ? move[2] : move[3];
-            if (slot.x == move[1] && slot.y == from) ((SlotPositionAccessor) slot).qol$setY(styled ? move[3] : move[2]);
+            int styledX = move.length > 4 ? move[4] : move[1];
+            int fromX = styled ? move[1] : styledX, fromY = styled ? move[2] : move[3];
+            if (slot.x != fromX || slot.y != fromY) continue;
+            ((SlotPositionAccessor) slot).qol$setX(styled ? styledX : move[1]);
+            ((SlotPositionAccessor) slot).qol$setY(styled ? move[3] : move[2]);
         }
-        if (!id.equals("cartography_table")) return;
-        // WD25-19: the player's slots follow the taller screen (Vanilla rows 84/102/120/142, styled 16 px lower)
-        int dy = StationStyles.CARTO_EXTRA;
-        for (Slot slot : menu.slots) {
-            if (!StyledScreens.playerSlot(slot)) continue;
-            boolean vanilla = slot.y == 84 || slot.y == 102 || slot.y == 120 || slot.y == 142;
-            boolean moved = slot.y == 84 + dy || slot.y == 102 + dy || slot.y == 120 + dy || slot.y == 142 + dy;
-            if (styled && vanilla) ((SlotPositionAccessor) slot).qol$setY(slot.y + dy);
-            else if (!styled && moved) ((SlotPositionAccessor) slot).qol$setY(slot.y - dy);
-        }
-    }
-
-    /** Image height of the cartography table screen: Vanilla's 166, in the style {@link StationStyles#CARTO_EXTRA} more. */
-    public static int cartographyHeight(AbstractContainerScreen<?> screen) {
-        ScreenStyle style = style(screen);
-        return style != null && style.id().equals("cartography_table") ? 166 + StationStyles.CARTO_EXTRA : 166;
+        // N64: the player's slots (the cartography table's too, formerly a fixed 16 px) move with the container margin rule
+        // (StyledScreens.applyMargin)
     }
 
     /** Map field offset of the cartography table (Vanilla draws it at y 13): {@link StationStyles#CARTO_TOP} in the style. */
@@ -208,7 +190,7 @@ public final class StationScreens {
             }
             case "smithing_table" -> {
                 UiSymbols.progress(g, UiSymbols.ARROW_DOTTED, l + 68, t + 49, p, 0, false);
-                UiBoxes.inset(g, l + 121, t + 8, 48, 68, p);
+                UiBoxes.inset(g, l + 121, t + 8, 47, 68, p); // N64: 1 px narrower (margin to the box line)
             }
             case "merchant" -> {
                 g.fill(l + 101, t + 5, l + 102, t + 159, UiPalette.scale(p.fill(), 0.64));
@@ -220,7 +202,7 @@ public final class StationScreens {
             }
             case "player_inventory" -> {
                 UiBoxes.inset(g, l + 26, t + 8, 49, 70, p);
-                UiSymbols.progress(g, UiSymbols.ARROW_SMALL, l + 135, t + 29, p, 0, false);
+                UiSymbols.progress(g, UiSymbols.ARROW_SMALL, l + 134, t + 29, p, 0, false); // N64: result slot at 151
             }
             default -> { }
         }
