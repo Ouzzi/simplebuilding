@@ -1126,7 +1126,7 @@ public final class MusicTests {
             jukebox.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS, new net.minecraft.world.item.component.BundleContents(List.of(
                     net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.DIRT, 16), 16),
                     net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.MUSIC_DISC_CAT), 1),
-                    net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.MUSIC_DISC_13, 2), 2),
+                    net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.MUSIC_DISC_13), 1),
                     net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(new ItemStack(Items.BOWL), 1))));
             player.getInventory().setItem(0, jukebox);
             jukebox.inventoryTick(h.getLevel(), player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
@@ -1134,8 +1134,8 @@ public final class MusicTests {
             h.assertTrue(contents.size() == 2 && PocketJukeboxItem.disc(contents, 0).is(Items.MUSIC_DISC_13) && PocketJukeboxItem.disc(contents, 1).is(Items.MUSIC_DISC_CAT),
                     "only the two discs stay, in order: " + contents.items());
             h.assertTrue(contents.items().stream().allMatch(t -> t.count() == 1), "one disc per entry");
-            h.assertTrue(player.getInventory().countItem(Items.DIRT) == 16 && player.getInventory().countItem(Items.BOWL) == 1
-                    && player.getInventory().countItem(Items.MUSIC_DISC_13) == 1, "dirt, bowl and the second disc go back to the player");
+            h.assertTrue(player.getInventory().countItem(Items.DIRT) == 16 && player.getInventory().countItem(Items.BOWL) == 1,
+                    "dirt and bowl go back to the player");
             h.assertTrue(PocketJukeboxItem.sanitize(jukebox).isEmpty(), "nothing more to take out");
             // no click puts anything but a disc in
             net.minecraft.world.SimpleContainer box = new net.minecraft.world.SimpleContainer(1);

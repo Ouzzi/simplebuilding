@@ -316,7 +316,8 @@ public class ModBucketItem extends BucketItem {
             BlockPos second = secondSource(level, player, first);
             if (second != null && emptyContents(player, level, second, null)) {
                 ItemStack half = afterPour(poured);
-                ItemStack empty = player.hasInfiniteMaterials() ? poured : afterPour(half);
+                // afterPour reads the item it is called on: the half bucket pours its own last bucket
+                ItemStack empty = player.hasInfiniteMaterials() ? poured : ((ModBucketItem) half.getItem()).afterPour(half);
                 return InteractionResult.SUCCESS.heldItemTransformedTo(empty);
             }
         }

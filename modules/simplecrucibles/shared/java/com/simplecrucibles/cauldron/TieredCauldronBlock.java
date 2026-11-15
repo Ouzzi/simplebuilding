@@ -248,6 +248,10 @@ public class TieredCauldronBlock extends ReinforcedCauldronBlock {
             }
             return InteractionResult.SUCCESS;
         }
+        // a filled bucket that does not fit (full, other content) stays in the hand - Vanilla's table would pour it away
+        for (ReinforcedCauldrons.Bucket kind : bucketKinds()) {
+            if (kind.pours(stack) != null) return InteractionResult.FAIL;
+        }
         Content content = state.getValue(CONTENT);
         if (content == Content.EMPTY && !stack.is(Items.POTION)) return InteractionResult.TRY_WITH_EMPTY_HAND;
         BlockState vanilla = vanillaTop(state);
