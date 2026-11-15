@@ -135,6 +135,16 @@ public final class RecipelessJeiInfo {
             map.put("music_discs", List.<ItemLike>copyOf(com.simplebuilding.util.MusicDiscs.items()));
             map.put("amplifiers", List.of(ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
+        if (com.simplebuilding.version.McVersion.DOORS) {
+            // N57-1: the big doors of a module's door have no recipe while that module is missing
+            List<ItemLike> missing = new java.util.ArrayList<>();
+            for (com.simplebuilding.doors.WideDoors.Variant v : com.simplebuilding.doors.WideDoors.VARIANTS) {
+                if (v.mod() != null && !com.simplebuilding.platform.ModEnvironment.isModLoaded(v.mod())) {
+                    missing.addAll(List.of(com.simplebuilding.doors.WideDoors.items(v.id())));
+                }
+            }
+            if (!missing.isEmpty()) map.put("wide_doors_module", missing);
+        }
         return map;
     }
 }

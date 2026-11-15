@@ -424,6 +424,10 @@ public final class DataIntegrityTests {
         for (Item track : ModItems.MUSIC_DISC_EXTRA_TRACKS.values()) {
             declared.add(BuiltInRegistries.ITEM.getKey(track));
         }
+        // N57-1: the big doors of every other door variant are registered in a loop (WideDoors.ITEMS).
+        for (var formats : com.simplebuilding.doors.WideDoors.ITEMS.values()) {
+            for (Item door : formats.values()) declared.add(BuiltInRegistries.ITEM.getKey(door));
+        }
 
         // Reverse direction: nothing may hide in the registry that the mod does not know about.
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
@@ -515,6 +519,14 @@ public final class DataIntegrityTests {
             }
         }
 
+        // N57-1: the big doors of every other door variant (WideDoors.BLOCKS), checked like the fields above
+        for (var formats : com.simplebuilding.doors.WideDoors.BLOCKS.values()) {
+            for (Block door : formats.values()) {
+                Identifier id = BuiltInRegistries.BLOCK.getKey(door);
+                declared.add(id);
+                if (!(BuiltInRegistries.ITEM.getValue(id) instanceof BlockItem item) || item.getBlock() != door) problems.add(id + " has no matching door item");
+            }
+        }
         for (Identifier id : BuiltInRegistries.BLOCK.keySet()) {
             if (MOD_ID.equals(id.getNamespace()) && !declared.contains(id)) {
                 problems.add(id + " is registered but is not reachable from ModBlocks");

@@ -1,4 +1,5 @@
 {
+  "jei.simplebuilding.info.wide_doors_module": "Big door of a module's door: it only has a recipe while that module (Simple Ores, Simple End or Simple Enchanting) is loaded.",
   "jei.simplebuilding.info.furnace_tiers": "Upgraded furnaces, smokers and blast furnaces produce exactly the recipe output. Netherite and Enderite tiers give double experience, except for Cracked Diamonds. There is no ore yield bonus.",
   "item.simplebuilding.basic_upgrade_template.base_slot_description": "Add upgradeable equipment",
   "item.simplebuilding.basic_upgrade_template.additions_slot_description": "Add the upgrade material or core",

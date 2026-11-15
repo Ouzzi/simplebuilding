@@ -1,4 +1,5 @@
 {
+  "jei.simplebuilding.info.wide_doors_module": "Große Tür einer Modul-Tür: sie hat nur ein Rezept, solange das Modul (Simple Ores, Simple End oder Simple Enchanting) geladen ist.",
   "jei.simplebuilding.info.furnace_tiers": "Aufgewertete Öfen, Räucheröfen und Schmelzöfen liefern genau die Rezeptausbeute. Netherit und Enderit geben doppelte Erfahrung, außer für Rissige Diamanten. Es gibt keinen Erz-Ausbeutebonus.",
   "item.simplebuilding.basic_upgrade_template.base_slot_description": "Aufwertbare Ausrüstung hinzufügen",
   "item.simplebuilding.basic_upgrade_template.additions_slot_description": "Aufwertungsmaterial oder Kern hinzufügen",

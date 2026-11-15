@@ -84,9 +84,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 225,
-      "blocks": 206,
-      "recipes": 516,
+      "items": 337,
+      "blocks": 318,
+      "recipes": 628,
       "config": 150,
       "features": 39
     }
@@ -1496,7 +1496,7 @@ window.WIKI_MODULES = [
       "config": 37,
       "features": 10
     },
-    "dataHash": "03d454f9da26"
+    "dataHash": "9d53d99d2e77"
   },
   {
     "id": "simpleoctets",
