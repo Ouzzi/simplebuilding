@@ -15,7 +15,7 @@ final class CruciblesForgeClient {
         EntityRenderersEvent.RegisterRenderers.BUS.addListener(event ->
                 event.registerBlockEntityRenderer(CrucibleBlockEntities.CRUCIBLE, CrucibleRenderer::new));
         net.minecraftforge.client.event.RegisterColorHandlersEvent.Block.BUS.addListener(event ->
-                event.register(java.util.List.of(com.simplecrucibles.client.ReinforcedCauldronTint.INSTANCE), com.simplecrucibles.registry.CrucibleBlocks.REINFORCED_CAULDRON));
+                event.register(java.util.List.of(com.simplecrucibles.client.ReinforcedCauldronTint.INSTANCE), com.simplecrucibles.registry.CrucibleBlocks.REINFORCED_CAULDRON, com.simplecrucibles.registry.CrucibleBlocks.NETHERITE_CAULDRON, com.simplecrucibles.registry.CrucibleBlocks.ENDERITE_CAULDRON));
         // Split stage 5b: the soul burn screen filter (soul lava's textures come with its fluid type).
         net.minecraftforge.client.event.AddGuiOverlayLayersEvent.BUS.addListener(event -> {
             var root = event.getLayeredDraw();

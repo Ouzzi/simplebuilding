@@ -151,6 +151,8 @@
   "text.autoconfig.simpleblocks.option.pale.hayBlock.@Tooltip": "Chance per random tick that a hay bale\nfades one stage (0-1). Default: 0.0569.",
   "text.autoconfig.simpleblocks.option.collapsed.enabled": "Collapsed Blocks Slow You",
   "text.autoconfig.simpleblocks.option.collapsed.enabled.@Tooltip": "Collapsed blocks in the inventory give\nSlowness I-III. Default: true.\nServer setting.",
+  "text.autoconfig.simpleblocks.option.collapsed.soulSandRush": "Soul Speed on Dense Soul Sand",
+  "text.autoconfig.simpleblocks.option.collapsed.soulSandRush.@Tooltip": "Soul Speed is 1.5x/2x faster on\nDense/Collapsed soul sand. Default: true.\nServer setting.",
   "block.simpleblocks.faded_pumpkin": "Faded Pumpkin",
   "item.simpleblocks.faded_pumpkin": "Faded Pumpkin",
   "block.simpleblocks.bleached_pumpkin": "Bleached Pumpkin",

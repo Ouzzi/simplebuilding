@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 
 /** Block items. The crucible blank has none (it only exists in the world while being built). */
 public final class CrucibleItems {
-    public static Item IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, ENDERITE_CRUCIBLE, REINFORCED_CAULDRON;
+    public static Item IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, ENDERITE_CRUCIBLE, REINFORCED_CAULDRON, NETHERITE_CAULDRON, ENDERITE_CAULDRON;
 
     public static void register() {
         IRON_CRUCIBLE = blockItem("iron_crucible", CrucibleBlocks.IRON_CRUCIBLE, new Item.Properties());
@@ -19,6 +19,8 @@ public final class CrucibleItems {
         NETHERITE_CRUCIBLE = blockItem("netherite_crucible", CrucibleBlocks.NETHERITE_CRUCIBLE, new Item.Properties().fireResistant());
         ENDERITE_CRUCIBLE = blockItem("enderite_crucible", CrucibleBlocks.ENDERITE_CRUCIBLE, new Item.Properties().fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC));
         REINFORCED_CAULDRON = blockItem("reinforced_cauldron", CrucibleBlocks.REINFORCED_CAULDRON, new Item.Properties());
+        NETHERITE_CAULDRON = blockItem("netherite_cauldron", CrucibleBlocks.NETHERITE_CAULDRON, new Item.Properties().fireResistant());
+        ENDERITE_CAULDRON = blockItem("enderite_cauldron", CrucibleBlocks.ENDERITE_CAULDRON, new Item.Properties().fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC));
         com.simplecrucibles.guide.CruciblesGuide.register();
     }
 

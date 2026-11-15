@@ -392,6 +392,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void compactSoulSandSpeed(GameTestHelper h) {
+        BlocksTests.ALL.get("compact_soul_sand_speed").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void metalCopperWeathers(GameTestHelper h) {
         BlocksTests.ALL.get("metal_copper_weathers").accept(h);
     }

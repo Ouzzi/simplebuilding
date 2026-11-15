@@ -258,6 +258,42 @@ def files():
                    "condition": {"type": "minecraft:survives_explosion"}}],
         "random_sequence": f"{NS}:blocks/reinforced_cauldron",
     }
+    # N57-3 (b-ig57g): Netherite (2 buckets) and Enderite (4 buckets) cauldron - TieredCauldronBlock. Own side and item sprite
+    # (tools/textures/cauldrons57_2026_11_15.py), top/bottom/inside the reinforced cauldron's. The fill height shows the whole
+    # content: level = ceil(3 * units / (3 * buckets)) with units = stored * 3 + level (water, powder snow); lava etc. always full.
+    for tier, buckets in (("netherite", 2), ("enderite", 4)):
+        name = f"{tier}_cauldron"
+        tc = f"{NS}:block/{name}"
+        tex = dict(rc_tex, particle=f"{tc}_side", side=f"{tc}_side")
+        out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/cauldron", "textures": tex}
+        for content, texture in contents.items():
+            out[f"{a}/models/block/{name}_{content}.json"] = {"parent": "minecraft:block/template_cauldron_full", "textures": dict(tex, content=texture)}
+            if content in ("water", "powder_snow"):
+                for level in (1, 2):
+                    out[f"{a}/models/block/{name}_{content}_level{level}.json"] = {
+                        "parent": f"minecraft:block/template_cauldron_level{level}", "textures": dict(tex, content=texture)}
+        variants = {}
+        for content in ("empty", *contents):
+            for level in (1, 2, 3):
+                for stored in range(4):
+                    if content == "empty":
+                        model = tc
+                    elif content in ("water", "powder_snow"):
+                        units = min(stored, buckets - 1) * 3 + level
+                        shown = max(1, min(3, -(-3 * units // (3 * buckets))))
+                        model = f"{tc}_{content}" if shown == 3 else f"{tc}_{content}_level{shown}"
+                    else:
+                        model = f"{tc}_{content}"
+                    variants[f"content={content},level={level},stored={stored}"] = {"model": model}
+        out[f"{a}/blockstates/{name}.json"] = {"variants": variants}
+        out[f"{a}/models/item/{name}.json"] = {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{name}"}}
+        out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/{name}"}}
+        out[f"{d}/loot_table/blocks/{name}.json"] = {
+            "type": "minecraft:block",
+            "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}],
+                       "condition": {"type": "minecraft:survives_explosion"}}],
+            "random_sequence": f"{NS}:blocks/{name}",
+        }
     # Village field kitchen barrel (owner 46: raw meat beside the crucible).
     def meat(item, lo, hi, weight):
         return {"type": "minecraft:item", "name": item, "weight": weight,
@@ -285,12 +321,12 @@ def files():
     out[f"{d}/tags/item/crucible_upgrade_reinforced.json"] = {"values": [f"{LIB}:cracked_diamond", "minecraft:diamond"]}
     out[f"{d}/tags/item/crucible_upgrade_netherite.json"] = {"values": [f"{LIB}:netherite_nugget", "minecraft:netherite_scrap"]}
     pickaxe = [f"{NS}:{t}_crucible" for t in (*TIERS, "enderite")] + [f"{NS}:crucible_blank"] \
-        + [f"{NS}:reinforced_cauldron"]
+        + [f"{NS}:reinforced_cauldron", f"{NS}:netherite_cauldron", f"{NS}:enderite_cauldron"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": [p for p in pickaxe if "enderite" not in p]}
     # WH26-6: the barrels (and c:barrels) are Simple Storage's; the crucibles are the blocks a barrel docks onto (BarrelDock.HOSTS).
     out["data/simplelib/tags/block/barrel_hosts.json"] = {"replace": False, "values": [f"{NS}:{t}_crucible" for t in (*TIERS, "enderite")]}
-    out["data/minecraft/tags/block/needs_diamond_tool.json"] = {"values": [f"{NS}:enderite_crucible"]}
+    out["data/minecraft/tags/block/needs_diamond_tool.json"] = {"values": [f"{NS}:enderite_crucible", f"{NS}:enderite_cauldron"]}
     return out
 
 

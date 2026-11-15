@@ -1,0 +1,184 @@
+{
+  "variants": {
+    "content=empty,level=1,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=1,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=1,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=1,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=2,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=2,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=2,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=2,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=3,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=3,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=3,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=empty,level=3,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron"
+    },
+    "content=water,level=1,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level1"
+    },
+    "content=water,level=1,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level1"
+    },
+    "content=water,level=1,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level2"
+    },
+    "content=water,level=1,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_water"
+    },
+    "content=water,level=2,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level1"
+    },
+    "content=water,level=2,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level2"
+    },
+    "content=water,level=2,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level2"
+    },
+    "content=water,level=2,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_water"
+    },
+    "content=water,level=3,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level1"
+    },
+    "content=water,level=3,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_water_level2"
+    },
+    "content=water,level=3,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_water"
+    },
+    "content=water,level=3,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_water"
+    },
+    "content=lava,level=1,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=1,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=1,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=1,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=2,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=2,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=2,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=2,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=3,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=3,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=3,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=lava,level=3,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_lava"
+    },
+    "content=powder_snow,level=1,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level1"
+    },
+    "content=powder_snow,level=1,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level1"
+    },
+    "content=powder_snow,level=1,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level2"
+    },
+    "content=powder_snow,level=1,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow"
+    },
+    "content=powder_snow,level=2,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level1"
+    },
+    "content=powder_snow,level=2,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level2"
+    },
+    "content=powder_snow,level=2,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level2"
+    },
+    "content=powder_snow,level=2,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow"
+    },
+    "content=powder_snow,level=3,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level1"
+    },
+    "content=powder_snow,level=3,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow_level2"
+    },
+    "content=powder_snow,level=3,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow"
+    },
+    "content=powder_snow,level=3,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_powder_snow"
+    },
+    "content=extreme,level=1,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=1,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=1,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=1,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=2,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=2,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=2,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=2,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=3,stored=0": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=3,stored=1": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=3,stored=2": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    },
+    "content=extreme,level=3,stored=3": {
+      "model": "simplecrucibles:block/enderite_cauldron_extreme"
+    }
+  }
+}

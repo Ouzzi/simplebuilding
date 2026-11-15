@@ -39,7 +39,7 @@ import org.jspecify.annotations.Nullable;
  *       Main hand bucket + axe in the off hand scrapes one stage (or the wax) off, + honeycomb waxes it.</li>
  *   <li><b>Enderite</b>: water, lava and soul lava (milk: {@link EnderiteMilkBucketItem}), never breaks. Owner N21/N28: it holds two buckets of one fluid
  *       (half and full items, {@link Buckets#fullEnderite}). Use only scoops while it has room (empty and half);
- *       a full one pours one bucket on use; sneak + use pours one bucket from a half or full one.</li>
+ *       a full one pours both buckets on use (N57-3: the second source beside the first); sneak + use pours one bucket from a half or full one.</li>
  *   <li><b>Iron</b> (only the soul lava bucket here - Vanilla's bucket scoops soul lava itself): breaks when
  *       the soul lava is poured.</li>
  *   <li><b>Ceramic</b> (owner addition 11): fired clay, water and (owner N12) lava - real crucibles are ceramic -,
@@ -307,7 +307,20 @@ public class ModBucketItem extends BucketItem {
         if (Buckets.fullEnderite(this) != null && !player.isSecondaryUseActive()) return scoop(level, player, hand, stack);
         // super.use consumes the held stack (createFilledResult), so the follow-up is built from a copy.
         ItemStack poured = stack.copy();
+        // N57-3 (owner 14.11.): a full Enderite bucket used without sneaking pours both its buckets - the first where Vanilla
+        // would, the second beside it (secondSource); sneaking pours one as before.
+        boolean both = Buckets.halfEnderite(this) != null && !player.isSecondaryUseActive();
+        BlockPos first = both ? pourTarget(level, player) : null;
         InteractionResult result = super.use(level, player, hand);
+        if (both && first != null && result instanceof InteractionResult.Success && !level.isClientSide()) {
+            BlockPos second = secondSource(level, player, first);
+            if (second != null && emptyContents(player, level, second, null)) {
+                ItemStack half = afterPour(poured);
+                // afterPour reads the item it is called on: the half bucket pours its own last bucket
+                ItemStack empty = player.hasInfiniteMaterials() ? poured : ((ModBucketItem) half.getItem()).afterPour(half);
+                return InteractionResult.SUCCESS.heldItemTransformedTo(empty);
+            }
+        }
         if (result instanceof InteractionResult.Success success && !player.hasInfiniteMaterials()) {
             ItemStack after = afterPour(poured);
             if (after.isEmpty()) {
@@ -321,6 +334,34 @@ public class ModBucketItem extends BucketItem {
             return InteractionResult.SUCCESS.heldItemTransformedTo(after);
         }
         return result;
+    }
+
+    /** Where Vanilla's bucket would pour for the player's look (the hit block when it holds water like a waterloggable block, else in front of the hit face); null when the look hits no block. */
+    private @Nullable BlockPos pourTarget(Level level, Player player) {
+        BlockHitResult hit = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
+        if (hit.getType() != HitResult.Type.BLOCK) return null;
+        BlockPos pos = hit.getBlockPos();
+        BlockState state = level.getBlockState(pos);
+        boolean container = state.getBlock() instanceof net.minecraft.world.level.block.LiquidBlockContainer && getContent().isSame(Fluids.WATER);
+        return container ? pos : pos.relative(hit.getDirection());
+    }
+
+    /**
+     * N57-3: the block for the second source of a full Enderite bucket beside the first one at {@code first}: the next block in the
+     * player's facing, then left, right, behind, below - the first that is free (air or replaceable, not already a source of the
+     * fluid) and that the player may change; null when none is.
+     */
+    public @Nullable BlockPos secondSource(Level level, Player player, BlockPos first) {
+        Direction f = player.getDirection();
+        for (Direction d : new Direction[] {f, f.getCounterClockWise(), f.getClockWise(), f.getOpposite(), Direction.DOWN}) {
+            BlockPos p = first.relative(d);
+            BlockState state = level.getBlockState(p);
+            if (!state.canBeReplaced(getContent())) continue;
+            if (state.getFluidState().isSource() && state.getFluidState().getType().isSame(getContent())) continue;
+            if (!level.mayInteract(player, p) || !player.mayUseItemAt(p, Direction.UP, ItemStack.EMPTY)) continue;
+            return p;
+        }
+        return null;
     }
 
     /** Queue N32: the empty Enderite bucket milks cows, goats and mooshrooms (half milk bucket; see {@link EnderiteMilkBucketItem}). */

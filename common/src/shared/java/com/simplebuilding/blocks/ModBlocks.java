@@ -74,6 +74,10 @@ public class ModBlocks {
     public static final Block OAK_DOOR_1_5X3 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.WIDE_1_5X3) : null;
     public static final Block OAK_DOOR_HALF_2 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.HALF_2) : null;
     public static final Block OAK_DOOR_HALF_3 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.HALF_3) : null;
+    static {
+        // N57-1: the big doors of every other door variant (Vanilla woods, iron, copper stages, module doors)
+        if (McVersion.DOORS) com.simplebuilding.doors.WideDoors.registerBlocks();
+    }
     // MACH32-MOD (b-machines01, 01.11.): Double Piston and Signal Dampener are Simple Machines' (simplemachines:*, util/MachineRefs); old ids move there.
 
     // --- 3. GRAVITY BLOCKS ---

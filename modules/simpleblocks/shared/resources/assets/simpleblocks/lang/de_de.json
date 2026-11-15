@@ -151,6 +151,8 @@
   "text.autoconfig.simpleblocks.option.pale.hayBlock.@Tooltip": "Chance je Zufallstick, dass ein Strohballen\neine Stufe verblasst (0-1).\nStandard: 0.0569.",
   "text.autoconfig.simpleblocks.option.collapsed.enabled": "Kollabierte Blöcke bremsen",
   "text.autoconfig.simpleblocks.option.collapsed.enabled.@Tooltip": "Kollabierte Blöcke im Inventar geben\nLangsamkeit I-III. Standard: true.\nServereinstellung.",
+  "text.autoconfig.simpleblocks.option.collapsed.soulSandRush": "Seelenläufer auf dichtem Seelensand",
+  "text.autoconfig.simpleblocks.option.collapsed.soulSandRush.@Tooltip": "Seelenläufer ist auf dichtem/kollabiertem\nSeelensand 1,5x/2x schneller. Standard: true.\nServereinstellung.",
   "block.simpleblocks.faded_pumpkin": "Verblasster Kürbis",
   "item.simpleblocks.faded_pumpkin": "Verblasster Kürbis",
   "block.simpleblocks.bleached_pumpkin": "Gebleichter Kürbis",

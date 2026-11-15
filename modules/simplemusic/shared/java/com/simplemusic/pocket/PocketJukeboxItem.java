@@ -73,6 +73,7 @@ public class PocketJukeboxItem extends BlockItem {
         Player player = context.getPlayer();
         if (player == null || !player.isSecondaryUseActive() || !SimpleMusic.on()) return InteractionResult.PASS;
         ItemStack stack = context.getItemInHand();
+        if (!context.getLevel().isClientSide()) giveBack(player, sanitize(stack));
         boolean wasPlaying = player instanceof ServerPlayer server && PocketPlayback.handOverToBlock(server, stack);
         BlockPlaceContext place = new BlockPlaceContext(context);
         InteractionResult result = super.useOn(context);
@@ -113,6 +114,38 @@ public class PocketJukeboxItem extends BlockItem {
         jukebox.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(items));
         disc.shrink(1);
         return true;
+    }
+
+    /**
+     * N57-4 (owner 14.11.: items other than discs were seen in a jukebox filled from a chest): takes out everything that is not a
+     * disc - however it got in (another mod's bundle logic, an old save, a command) - and every disc beyond one per entry and
+     * beyond {@link #CAPACITY}. The jukebox keeps its discs in their order; the rest is returned (empty when nothing was wrong).
+     */
+    public static List<ItemStack> sanitize(ItemStack jukebox) {
+        BundleContents contents = jukebox.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null || contents.isEmpty()) return List.of();
+        List<ItemStackTemplate> keep = new ArrayList<>(contents.size());
+        List<ItemStack> out = new ArrayList<>();
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack item = template.create();
+            if (isDisc(item) && keep.size() < CAPACITY) {
+                keep.add(item.getCount() == 1 ? template : ItemStackTemplate.fromNonEmptyStack(item, 1));
+                if (item.getCount() > 1) out.add(item.copyWithCount(item.getCount() - 1));
+            } else {
+                out.add(item);
+            }
+        }
+        if (out.isEmpty()) return List.of();
+        jukebox.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(keep));
+        return out;
+    }
+
+    /** What {@link #sanitize} took out goes back to the player (inventory, else dropped at their feet). */
+    static void giveBack(Entity holder, List<ItemStack> items) {
+        for (ItemStack item : items) {
+            if (holder instanceof Player player) player.getInventory().placeItemBackInInventory(item, net.minecraft.util.Prediction.SERVER_ONLY);
+            else holder.spawnAtLocation((ServerLevel) holder.level(), item);
+        }
     }
 
     /** Takes the selected disc out (mouse wheel, PJ23-1), without a selection the newest - like Vanilla's bundle; or EMPTY. */
@@ -195,6 +228,7 @@ public class PocketJukeboxItem extends BlockItem {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND || !SimpleMusic.on()) return InteractionResult.PASS;
         ItemStack stack = player.getItemInHand(hand);
+        if (!level.isClientSide()) giveBack(player, sanitize(stack));
         if (contents(stack).isEmpty()) {
             if (!level.isClientSide()) sound(player, SoundEvents.BUNDLE_INSERT_FAIL);
             return InteractionResult.FAIL;
@@ -203,9 +237,14 @@ public class PocketJukeboxItem extends BlockItem {
         return InteractionResult.SUCCESS;
     }
 
-    /** A stack that played when it left the inventory (or before a restart) stops showing it. */
+    /** A stack that played when it left the inventory (or before a restart) stops showing it; anything but discs falls out (N57-4). */
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+        List<ItemStack> foreign = sanitize(stack);
+        if (!foreign.isEmpty()) {
+            giveBack(entity, foreign);
+            sound(entity, SoundEvents.BUNDLE_DROP_CONTENTS);
+        }
         if (stack.has(MusicComponents.PLAYING) && !(entity instanceof ServerPlayer player && PocketPlayback.active(player, stack))) {
             stack.remove(MusicComponents.PLAYING);
         }

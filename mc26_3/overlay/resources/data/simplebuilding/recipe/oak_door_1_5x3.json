@@ -1,12 +1,1 @@
-{
-  "type": "minecraft:crafting_shapeless",
-  "category": "redstone",
-  "ingredients": [
-    "simplebuilding:oak_door_1_5x2",
-    "minecraft:oak_planks"
-  ],
-  "result": {
-    "count": 1,
-    "id": "simplebuilding:oak_door_1_5x3"
-  }
-}
+{"type":"minecraft:crafting_shapeless","category":"redstone","ingredients":["simplebuilding:oak_door_1_5x2","minecraft:oak_planks"],"result":{"count":1,"id":"simplebuilding:oak_door_1_5x3"}}

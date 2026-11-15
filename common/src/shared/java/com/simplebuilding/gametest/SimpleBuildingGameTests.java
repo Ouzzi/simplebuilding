@@ -75,6 +75,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("mech24game_test_hidden_ore_brushes_free_in_six_strokes", Mech24Tests::hiddenOreBrushesFreeInSixStrokes).build(),
             GameTestSpec.named("mech24game_test_hidden_ore_drops_less_unless_brushed", Mech24Tests::hiddenOreDropsLessUnlessBrushed).maxTicks(100).build(),
             GameTestSpec.named("wide_door_game_test_registered_and_craftable", WideDoorTests::registeredAndCraftable).build(),
+            GameTestSpec.named("wide_door_game_test_every_variant", WideDoorTests::everyVariant).build(),
             GameTestSpec.named("wide_door_game_test_places_every_cell", WideDoorTests::placesEveryCell).build(),
             GameTestSpec.named("wide_door_game_test_placement_tolerates_click_one_cell_too_high", WideDoorTests::placementToleratesClickOneCellTooHigh).build(),
             GameTestSpec.named("wide_door_game_test_open_and_close_by_hand", WideDoorTests::openAndCloseByHand).maxTicks(100).build(),

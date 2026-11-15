@@ -59,15 +59,18 @@ public final class CruciblesDiscover {
             "simplecrucibles:creative_tab_switch",
             "simplecrucibles:crucible",
             "simplecrucibles:crucible_blank",
+            "simplecrucibles:enderite_cauldron",
             "simplecrucibles:enderite_crucible",
             "simplecrucibles:guide_book",
             "simplecrucibles:iron_crucible",
+            "simplecrucibles:netherite_cauldron",
             "simplecrucibles:netherite_crucible",
             "simplecrucibles:recipe_book_unlocks",
             "simplecrucibles:reinforced_cauldron",
             "simplecrucibles:reinforced_crucible",
             "simplecrucibles:soul_lava",
             "simplecrucibles:soul_lava_bucket",
+            "simplecrucibles:tiered_cauldrons",
             "simplecrucibles:village_kitchen");
     static final List<Tip> TIPS = List.of();
 

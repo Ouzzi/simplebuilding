@@ -202,6 +202,11 @@ public final class ModuleGameTest {
         MusicTests.ALL.get("pocket_sounds").accept(h);
     }
 
+    @GameTest(structure = "simplemusic:empty")
+    public void pocketOnlyDiscs(GameTestHelper h) {
+        MusicTests.ALL.get("pocket_only_discs").accept(h);
+    }
+
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void pressLayout(GameTestHelper h) {
         MusicTests.ALL.get("press_layout").accept(h);

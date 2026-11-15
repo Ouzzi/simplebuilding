@@ -603,6 +603,10 @@ public class ModItems {
     public static final Item OAK_DOOR_1_5X3 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_1_5X3, com.simplebuilding.doors.DoorFormat.WIDE_1_5X3) : null;
     public static final Item OAK_DOOR_HALF_2 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_HALF_2, com.simplebuilding.doors.DoorFormat.HALF_2) : null;
     public static final Item OAK_DOOR_HALF_3 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_HALF_3, com.simplebuilding.doors.DoorFormat.HALF_3) : null;
+    static {
+        // N57-1: the big doors of every other door variant
+        if (com.simplebuilding.version.McVersion.DOORS) com.simplebuilding.doors.WideDoors.registerItems();
+    }
 
 
 

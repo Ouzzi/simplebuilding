@@ -14,7 +14,7 @@ final class CruciblesNeoClient {
         bus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
                 event.registerBlockEntityRenderer(CrucibleBlockEntities.CRUCIBLE, CrucibleRenderer::new));
         bus.addListener((net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.BlockTintSources event) ->
-                event.register(java.util.List.of(com.simplecrucibles.client.ReinforcedCauldronTint.INSTANCE), com.simplecrucibles.registry.CrucibleBlocks.REINFORCED_CAULDRON));
+                event.register(java.util.List.of(com.simplecrucibles.client.ReinforcedCauldronTint.INSTANCE), com.simplecrucibles.registry.CrucibleBlocks.REINFORCED_CAULDRON, com.simplecrucibles.registry.CrucibleBlocks.NETHERITE_CAULDRON, com.simplecrucibles.registry.CrucibleBlocks.ENDERITE_CAULDRON));
         // Split stage 5b: soul lava rendering (turquoise lava textures) and the soul burn screen filter.
         bus.addListener((net.neoforged.neoforge.client.event.RegisterFluidModelsEvent event) -> event.register(
                 com.simplecrucibles.client.SoulLavaModel.unbaked(), com.simplecrucibles.fluid.CrucibleFluids.SOUL_LAVA,

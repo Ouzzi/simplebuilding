@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prueft alle 1,5-Tuer-Modelle (oak_door_1_5x*): jede freiliegende Voxelflaeche hat eine Face
+"""Prueft alle 1,5-Tuer-Modelle (<holz>_door_1_5x*, N57-1: Geometrie aus block/door_geo/<hash>): jede freiliegende Voxelflaeche hat eine Face
 mit Textur und gueltiger UV (0..16, Flaeche > 0); keine Face auf verdeckter Innenseite noetig.
 Aufruf: python3 tools/check_door_models.py [models-dir]"""
 import json, sys, glob, os
@@ -11,6 +11,9 @@ for f in files:
     n = os.path.basename(f)
     m = json.load(open(f))
     els = m.get("elements", [])
+    parent = m.get("parent", "")
+    if not els and parent.startswith("simplebuilding:block/door_geo/"):  # N57-1: shared geometry, the child sets the textures
+        els = json.load(open(os.path.join(D, parent.split("simplebuilding:block/", 1)[1] + ".json"))).get("elements", [])
     if not els: errs.append(f"{n}: keine Elemente"); continue
     occ = set()
     for e in els:

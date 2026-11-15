@@ -60,6 +60,15 @@ public final class CrucibleInfo {
         String content = SimpleCruciblesApi.cauldronContent(state);
         if (content == null) return lines;
         lines.add(Component.translatable("jade.simplecrucibles.cauldron.content", Component.translatable("jade.simplecrucibles.cauldron.content." + content)));
+        if (state.getBlock() instanceof com.simplecrucibles.cauldron.TieredCauldronBlock tiered) {
+            // N57-3: the whole content in levels (water, powder snow) or buckets (lava, soul lava) of the 2 / 4 bucket room
+            var c = state.getValue(com.simplecrucibles.cauldron.ReinforcedCauldronBlock.CONTENT);
+            if (c != com.simplecrucibles.cauldron.ReinforcedCauldronBlock.Content.EMPTY) {
+                lines.add(Component.translatable("jade.simplecrucibles.cauldron.level",
+                        com.simplecrucibles.cauldron.TieredCauldronBlock.units(state), tiered.maxUnits(c)));
+            }
+            return lines;
+        }
         if (content.equals("water") || content.equals("powder_snow")) {
             var property = state.getBlock().getStateDefinition().getProperty("level");
             int level = property == null ? CAULDRON_LEVELS : Integer.parseInt(levelName(state, property));

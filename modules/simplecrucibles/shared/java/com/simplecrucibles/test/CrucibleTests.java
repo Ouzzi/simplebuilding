@@ -80,6 +80,7 @@ public final class CrucibleTests {
         ALL.put("axe_upgrades_cauldron", CrucibleTests::axeUpgradesCauldron);
         ALL.put("reinforced_cauldron_holds_buckets", CrucibleTests::reinforcedCauldronBuckets);
         ALL.put("reinforced_cauldron_inherits_vanilla", CrucibleTests::reinforcedCauldronInheritsVanilla);
+        ALL.put("tiered_cauldron_capacity", CrucibleTests::tieredCauldronCapacity);
         ALL.put("crucible_burn_damage_follows_config", CrucibleTests::crucibleBurnDamageFollowsConfig);
         ALL.put("reinforced_crucible_loads_old_nine_slots", CrucibleTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("crucible_barrel_beside_inventory_centred", CrucibleTests::barrelBesideInventoryCentred);
@@ -936,7 +937,10 @@ public final class CrucibleTests {
                 {Blocks.CAULDRON, CrucibleBlocks.REINFORCED_CAULDRON, cracked},
                 {CrucibleBlocks.IRON_CRUCIBLE, CrucibleBlocks.REINFORCED_CRUCIBLE, cracked},
                 {CrucibleBlocks.REINFORCED_CRUCIBLE, CrucibleBlocks.NETHERITE_CRUCIBLE, netherite},
-                {CrucibleBlocks.NETHERITE_CRUCIBLE, CrucibleBlocks.ENDERITE_CRUCIBLE, enderite}};
+                {CrucibleBlocks.NETHERITE_CRUCIBLE, CrucibleBlocks.ENDERITE_CRUCIBLE, enderite},
+                // N57-3: the cauldron line goes on like the crucibles
+                {CrucibleBlocks.REINFORCED_CAULDRON, CrucibleBlocks.NETHERITE_CAULDRON, netherite},
+                {CrucibleBlocks.NETHERITE_CAULDRON, CrucibleBlocks.ENDERITE_CAULDRON, enderite}};
         for (Object[] step : steps) {
             var entry = com.simplelib.api.InWorldUpgrades.entryFor((net.minecraft.world.level.block.Block) step[0]);
             if (step[2] == enderite && !ores) {
@@ -1052,6 +1056,69 @@ public final class CrucibleTests {
         check(h, Heat.at(h.getLevel(), abs.above()).level() == HeatLevel.HIGH, "lava in the cauldron heats high");
         h.getLevel().getBlockState(abs).useItemOn(player.getMainHandItem(), h.getLevel(), player, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
         check(h, player.getMainHandItem().is(Items.LAVA_BUCKET), "lava taken back");
+        h.succeed();
+    }
+
+    /**
+     * N57-3: the Netherite cauldron holds 2 buckets, the Enderite one 4: buckets in until full (a further one is refused), out one
+     * by one, bottles count in thirds and stay tiered, the fill height follows the whole content, lava counts whole buckets, a full
+     * Enderite bucket pours both buckets (when Simple Tools' buckets exist).
+     */
+    private static void tieredCauldronCapacity(GameTestHelper h) {
+        var level = h.getLevel();
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+        for (var block : java.util.List.of(CrucibleBlocks.NETHERITE_CAULDRON, CrucibleBlocks.ENDERITE_CAULDRON)) {
+            int cap = block.capacity();
+            BlockPos rel = new BlockPos(block == CrucibleBlocks.NETHERITE_CAULDRON ? 1 : 3, 1, 2);
+            h.setBlock(rel, block);
+            BlockPos abs = h.absolutePos(rel);
+            var hit = new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(abs), Direction.UP, abs, false);
+            java.util.function.Function<ItemStack, ItemStack> use = stack -> {
+                player.setItemInHand(hand, stack);
+                level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, hand, hit);
+                return player.getMainHandItem();
+            };
+            check(h, (cap == 2) == (block == CrucibleBlocks.NETHERITE_CAULDRON) && (cap == 4) == (block == CrucibleBlocks.ENDERITE_CAULDRON), "capacity 2 / 4");
+            for (int i = 1; i <= cap; i++) {
+                ItemStack back = use.apply(new ItemStack(Items.WATER_BUCKET));
+                var state = level.getBlockState(abs);
+                check(h, back.is(Items.BUCKET) && state.is(block) && com.simplecrucibles.cauldron.TieredCauldronBlock.units(state) == 3 * i,
+                        block + ": bucket " + i + " in, units " + com.simplecrucibles.cauldron.TieredCauldronBlock.units(state));
+            }
+            check(h, use.apply(new ItemStack(Items.WATER_BUCKET)).is(Items.WATER_BUCKET), block + ": full, one more bucket stays in the hand");
+            check(h, block.shownLevel(level.getBlockState(abs)) == 3 && block.isFull(level.getBlockState(abs)), "full shows level 3");
+            ItemStack bottle = use.apply(new ItemStack(Items.GLASS_BOTTLE));
+            var state = level.getBlockState(abs);
+            check(h, bottle.is(Items.POTION) && state.is(block) && com.simplecrucibles.cauldron.TieredCauldronBlock.units(state) == 3 * cap - 1,
+                    "a bottle takes one third, still tiered: " + state);
+            ItemStack water = net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.POTION, net.minecraft.world.item.alchemy.Potions.WATER);
+            use.apply(water);
+            check(h, com.simplecrucibles.cauldron.TieredCauldronBlock.units(level.getBlockState(abs)) == 3 * cap, "a water bottle fills the last third back");
+            for (int i = cap - 1; i >= 0; i--) {
+                ItemStack filled = use.apply(new ItemStack(Items.BUCKET));
+                state = level.getBlockState(abs);
+                check(h, filled.is(Items.WATER_BUCKET) && com.simplecrucibles.cauldron.TieredCauldronBlock.units(state) == 3 * i
+                        && state.is(block), block + ": a bucket out, " + i + " left: " + state);
+            }
+            check(h, "empty".equals(com.simplecrucibles.api.SimpleCruciblesApi.cauldronContent(level.getBlockState(abs))), "empty at the end");
+            // lava: whole buckets, the half fill height in between
+            use.apply(new ItemStack(Items.LAVA_BUCKET));
+            check(h, com.simplecrucibles.cauldron.TieredCauldronBlock.buckets(level.getBlockState(abs)) == 1, "one lava bucket");
+            use.apply(new ItemStack(Items.WATER_BUCKET));
+            check(h, com.simplecrucibles.cauldron.TieredCauldronBlock.buckets(level.getBlockState(abs)) == 1
+                    && "lava".equals(com.simplecrucibles.api.SimpleCruciblesApi.cauldronContent(level.getBlockState(abs))), "water does not go onto lava");
+            use.apply(new ItemStack(Items.BUCKET));
+            // a full Enderite bucket pours both buckets at once (Simple Tools' buckets)
+            if (com.simplelib.bucket.Buckets.FULL_ENDERITE_WATER_BUCKET != null) {
+                ItemStack after = use.apply(new ItemStack(com.simplelib.bucket.Buckets.FULL_ENDERITE_WATER_BUCKET));
+                check(h, after.is(com.simplelib.bucket.Buckets.ENDERITE_BUCKET) && com.simplecrucibles.cauldron.TieredCauldronBlock.units(level.getBlockState(abs)) == 6,
+                        "a full Enderite bucket pours both: " + after);
+                ItemStack back = use.apply(new ItemStack(com.simplelib.bucket.Buckets.ENDERITE_BUCKET));
+                check(h, back.is(com.simplelib.bucket.Buckets.FULL_ENDERITE_WATER_BUCKET) && com.simplecrucibles.cauldron.TieredCauldronBlock.units(level.getBlockState(abs)) == 0,
+                        "an empty Enderite bucket takes both: " + back);
+            }
+        }
         h.succeed();
     }
 

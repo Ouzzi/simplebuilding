@@ -117,3 +117,88 @@ def slab_elements(img, run_axis, run, depth, front, back, texture="#top", cull=N
             out.append({"from": frm, "to": to, "faces": faces})
             i = j
     return out
+
+
+
+def rect_elements(img, run_axis, run, depth, front, back, texture="#top", cull=None):
+    """N57-1 (b-ig57g): the same leaf as ``slab_elements`` from far fewer boxes - the opaque texels are covered greedily by
+    rectangles (as wide, then as tall as they go), each one box with the two big faces mapped over its texels. Every box side
+    that touches a hole or the rim anywhere gets a flat-coloured wall over the whole side (where an opaque neighbour covers part
+    of it, that part lies inside the leaf and is never seen). Same arguments and result as ``slab_elements``; None when the
+    texture has no transparent texel under the slab. Used by tools/textures/doors_2026_10_29.py for the big doors."""
+    cull = cull or {}
+    r0, r1 = run
+    n = r1 - r0
+    px = img.convert("RGBA").load()
+
+    def frac(face_info, i):
+        _, _, left_is_low = face_info
+        a, b = i / n, (i + 1) / n
+        return (a, b) if left_is_low else (1 - b, 1 - a)
+
+    def cell_texel(face_info, i, y):
+        l, r = frac(face_info, i)
+        return _texel(face_info[1], l, r, (15 - y) / 16, (16 - y) / 16)
+
+    def opaque(i, y):
+        return all(px[cell_texel(fi, i, y)][3] != 0 for fi in (front, back))
+
+    mask = [[opaque(i, y) for y in range(16)] for i in range(n)]
+    if all(all(col) for col in mask):
+        return None
+    low_end, high_end = ("north", "south") if run_axis == "z" else ("west", "east")
+
+    def solid(i, y):
+        return 0 <= i < n and 0 <= y < 16 and mask[i][y]
+
+    def flat(i, y):
+        tu, tv = cell_texel(front, i, y)
+        return {"texture": texture, "uv": [tu, tv, tu + 1, tv + 1]}
+
+    used = [[False] * 16 for _ in range(n)]
+    out = []
+    for y0 in range(16):
+        for i0 in range(n):
+            if not mask[i0][y0] or used[i0][y0]:
+                continue
+            i1 = i0 + 1
+            while i1 < n and mask[i1][y0] and not used[i1][y0]:
+                i1 += 1
+            y1 = y0 + 1
+            while y1 < 16 and all(mask[i][y1] and not used[i][y1] for i in range(i0, i1)):
+                y1 += 1
+            for i in range(i0, i1):
+                for y in range(y0, y1):
+                    used[i][y] = True
+            faces = {}
+            for face_info in (front, back):
+                name, uv, _ = face_info
+                l, r = (frac(face_info, i0)[0], frac(face_info, i1 - 1)[1]) if face_info[2] else (frac(face_info, i1 - 1)[0], frac(face_info, i0)[1])
+                f = {"texture": texture, "uv": _part_uv(uv, l, r, (16 - y1) / 16, (16 - y0) / 16)}
+                if name in cull:
+                    f["cullface"] = cull[name]
+                faces[name] = f
+            mid_y, mid_i = (y0 + y1 - 1) // 2, (i0 + i1 - 1) // 2
+            if any(not solid(i0 - 1, y) for y in range(y0, y1)):
+                faces[low_end] = flat(i0, mid_y)
+                if i0 == 0 and low_end in cull:
+                    faces[low_end]["cullface"] = cull[low_end]
+            if any(not solid(i1, y) for y in range(y0, y1)):
+                faces[high_end] = flat(i1 - 1, mid_y)
+                if i1 == n and high_end in cull:
+                    faces[high_end]["cullface"] = cull[high_end]
+            if any(not solid(i, y1) for i in range(i0, i1)):
+                faces["up"] = flat(mid_i, y1 - 1)
+                if y1 == 16 and "up" in cull:
+                    faces["up"]["cullface"] = cull["up"]
+            if any(not solid(i, y0 - 1) for i in range(i0, i1)):
+                faces["down"] = flat(mid_i, y0)
+                if y0 == 0 and "down" in cull:
+                    faces["down"]["cullface"] = cull["down"]
+            lo, hi = r0 + i0, r0 + i1
+            if run_axis == "z":
+                frm, to = [depth[0], y0, lo], [depth[1], y1, hi]
+            else:
+                frm, to = [lo, y0, depth[0]], [hi, y1, depth[1]]
+            out.append({"from": frm, "to": to, "faces": faces})
+    return out

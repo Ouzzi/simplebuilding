@@ -210,6 +210,14 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             palette.walls().forEach(block -> builder(BlockTags.WALLS).add(key(block)));
         }
         // Schach (Schachbrett-Treppen/-Stufen, Achtelzelle): Simple Chess (b-chess47).
+        if (com.simplebuilding.version.McVersion.DOORS) {
+            // Simple Doors (WP-17, N57-1): wooden big doors with the axe, metal ones with the pickaxe (like their Vanilla doors)
+            for (var entry : com.simplebuilding.doors.WideDoors.BLOCKS.entrySet()) {
+                boolean wood = entry.getKey().equals(com.simplebuilding.doors.WideDoors.OAK) || com.simplebuilding.doors.WideDoors.VARIANTS.stream()
+                        .anyMatch(v -> v.id().equals(entry.getKey()) && v.wood());
+                entry.getValue().values().forEach(block -> builder(wood ? BlockTags.MINEABLE_WITH_AXE : BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
+            }
+        }
         // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): alles mit der Axt.
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : ModBlocks.WOOD_FAMILIES) {
             family.blocks().forEach(block -> builder(BlockTags.MINEABLE_WITH_AXE).add(key(block)));

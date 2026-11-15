@@ -84,9 +84,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 225,
-      "blocks": 206,
-      "recipes": 516,
+      "items": 337,
+      "blocks": 318,
+      "recipes": 628,
       "config": 150,
       "features": 39
     }
@@ -881,7 +881,7 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "6d33d6f0048b"
+    "dataHash": "0c008b85faa5"
   },
   {
     "id": "simplefarming",
@@ -1450,10 +1450,10 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 266,
       "recipes": 696,
-      "config": 12,
+      "config": 13,
       "features": 19
     },
-    "dataHash": "2666a9877c1f"
+    "dataHash": "0eb132cf873f"
   },
   {
     "id": "simplecrucibles",
@@ -1491,12 +1491,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9klEQVR42qWTIQvCQBiG91NMYlCjUZdsBrEuiXZBhIHCisFwzWRyIIhFm1YNFsU0TFb9HyfvwTvu2B0XFp7tbt/3Pncbt6DRCmUZAlz257tBs1qxovdMVqkpWG6OeeNXdOQ2ieVFzBWvbk3BOsL94dQUoIAQGn9ZpIAIcIwahOi1CtCgB3SRLnEKUjGTSbtuiPQdYSzikVuQ3Xa5RIfCqBf6BTqQAYQggQBzr+DzPBUECHsF8XggD+tFDuYAQe4Ac6cADb4dOL8BDxKCWB13rAYBw8B5kChAiBKGuQOubhVcH29V4HngK9jCBQEfENfPpPcYgjL8AfeqMA6tHhHIAAAAAElFTkSuQmCC",
     "counts": {
       "items": 5,
-      "blocks": 7,
+      "blocks": 9,
       "recipes": 1,
       "config": 37,
-      "features": 9
+      "features": 10
     },
-    "dataHash": "7a2b8fc85024"
+    "dataHash": "9d53d99d2e77"
   },
   {
     "id": "simpleoctets",

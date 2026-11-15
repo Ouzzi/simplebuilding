@@ -26,9 +26,10 @@ def main():
         errors += [f"{a}: missing {k}" for k in sorted(lang[b].keys() - lang[a].keys())]
     # The hammer ways (Simple Hammers) read the module's own upgrade steps - also without SimpleBuilding (a-small22).
     upgrades = json.loads((MODULE / f"shared/resources/data/{NS}/in_world_upgrades/crucibles.json").read_text(encoding="utf-8"))["upgrades"]
-    expected = {"minecraft:cauldron"} | {f"{NS}:{t}_crucible" for t in ("iron", "reinforced", "netherite")}
-    if {u["from"] for u in upgrades} != expected or len(upgrades) != 4 or "simplebuilding:" in json.dumps(upgrades):
-        errors.append("in_world_upgrades/crucibles.json must hold the 4 crucible and cauldron steps without SimpleBuilding ids (the barrels' 3 are Simple Storage's, WH26-6)")
+    # N57-3: the cauldron line goes on (reinforced -> Netherite -> Enderite cauldron)
+    expected = {"minecraft:cauldron"} | {f"{NS}:{t}_crucible" for t in ("iron", "reinforced", "netherite")} | {f"{NS}:reinforced_cauldron", f"{NS}:netherite_cauldron"}
+    if {u["from"] for u in upgrades} != expected or len(upgrades) != 6 or "simplebuilding:" in json.dumps(upgrades):
+        errors.append("in_world_upgrades/crucibles.json must hold the 6 crucible and cauldron steps without SimpleBuilding ids (the barrels' 3 are Simple Storage's, WH26-6)")
     notes = json.loads((MODULE / "wiki/manual.json").read_text(encoding="utf-8"))["notes"]
     blocks = {p.stem for p in (MODULE / f"generated/resources/assets/{NS}/blockstates").glob("*.json")}
     for block in sorted(blocks):

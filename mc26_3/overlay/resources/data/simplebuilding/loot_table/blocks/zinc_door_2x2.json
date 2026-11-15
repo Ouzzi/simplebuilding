@@ -1,0 +1,1 @@
+{"type":"minecraft:block","pools":[{"condition":{"type":"minecraft:survives_explosion"},"entries":[{"type":"minecraft:item","condition":{"type":"minecraft:match_block","blocks":"simplebuilding:zinc_door_2x2","state":{"col":"0","row":"0","swing":"false"}},"name":"simplebuilding:zinc_door_2x2"}],"rolls":1}],"random_sequence":"simplebuilding:blocks/zinc_door_2x2"}

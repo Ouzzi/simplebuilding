@@ -424,6 +424,10 @@ public final class DataIntegrityTests {
         for (Item track : ModItems.MUSIC_DISC_EXTRA_TRACKS.values()) {
             declared.add(BuiltInRegistries.ITEM.getKey(track));
         }
+        // N57-1: the big doors of every other door variant are registered in a loop (WideDoors.ITEMS).
+        for (var formats : com.simplebuilding.doors.WideDoors.ITEMS.values()) {
+            for (Item door : formats.values()) declared.add(BuiltInRegistries.ITEM.getKey(door));
+        }
 
         // Reverse direction: nothing may hide in the registry that the mod does not know about.
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
@@ -515,6 +519,14 @@ public final class DataIntegrityTests {
             }
         }
 
+        // N57-1: the big doors of every other door variant (WideDoors.BLOCKS), checked like the fields above
+        for (var formats : com.simplebuilding.doors.WideDoors.BLOCKS.values()) {
+            for (Block door : formats.values()) {
+                Identifier id = BuiltInRegistries.BLOCK.getKey(door);
+                declared.add(id);
+                if (!(BuiltInRegistries.ITEM.getValue(id) instanceof BlockItem item) || item.getBlock() != door) problems.add(id + " has no matching door item");
+            }
+        }
         for (Identifier id : BuiltInRegistries.BLOCK.keySet()) {
             if (MOD_ID.equals(id.getNamespace()) && !declared.contains(id)) {
                 problems.add(id + " is registered but is not reachable from ModBlocks");
@@ -3147,6 +3159,14 @@ public final class DataIntegrityTests {
         }
         if (McVersion.DOORS) {
             expected.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3));
+            // N57-1: the other door variants by id (2x2, 2x3, 1.5x2, 1.5x3), two per row
+            for (String wood : java.util.List.of("spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "pale_oak", "bamboo", "crimson",
+                    "warped", "iron", "copper", "exposed_copper", "weathered_copper", "oxidized_copper", "brass", "bronze", "lead", "nickel", "silver",
+                    "stainless_steel", "tin", "zinc", "ashwood", "duskwood", "crimson_blazewood", "warped_blazewood")) {
+                expected.add(CreativeTabLayout.Row.besides("wide_doors_" + wood, java.util.stream.Stream.of("2x2", "2x3", "1_5x2", "1_5x3")
+                        .map(f -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", wood + "_door_" + f)))
+                        .toArray(net.minecraft.world.level.ItemLike[]::new)));
+            }
         }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), flowed(expected), "SimpleMachines", problems);
