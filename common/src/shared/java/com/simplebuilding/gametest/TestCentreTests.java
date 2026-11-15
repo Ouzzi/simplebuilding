@@ -2190,6 +2190,112 @@ public final class TestCentreTests {
     }
 
     /**
+     * N50 TZEDIT50 Phase 2 ("die Testzentrale per Config"): die eingecheckten Layout-Configs der Linien
+     * ({@code data/simplebuilding/testcentre/layout_lines_*.json}) sind geladen und ohne Schema-Fehler; nach dem Bau steht jede
+     * ladbare Id genau einmal in der Reihe/Spalte ihrer Zelle (Achtel auf ihrem Block, {@code #red} rot); die Linien bestehen
+     * die Pruefung {@code OrderAreas.check}; ohne Config baut der Algorithmus dieselben Items.
+     */
+    public static void layoutConfigMatchesTheBuiltLines(GameTestHelper helper) {
+        com.simplebuilding.dev.testcentre.LayoutConfig config = com.simplebuilding.dev.testcentre.LayoutConfig.reload();
+        helper.assertTrue(config.areas().size() == com.simplebuilding.dev.testcentre.LayoutConfig.AREAS.size(),
+                "layout configs loaded: " + config.summary() + " errors " + config.errors());
+        com.simplebuilding.dev.testcentre.OrderAreas.Area lines = com.simplebuilding.dev.testcentre.OrderAreas.families(config);
+        List<String> problems = new ArrayList<>(com.simplebuilding.dev.testcentre.OrderAreas.configProblems(config, lines));
+        problems.addAll(com.simplebuilding.dev.testcentre.OrderAreas.check(lines));
+        com.simplebuilding.dev.testcentre.OrderAreas.configWarnings().forEach(w -> problems.add("warning: " + w));
+        Set<net.minecraft.world.item.Item> withConfig = new HashSet<>();
+        lines.cells().forEach(cell -> withConfig.add(cell.item()));
+        Set<net.minecraft.world.item.Item> algorithm = new HashSet<>();
+        com.simplebuilding.dev.testcentre.OrderAreas.families(com.simplebuilding.dev.testcentre.LayoutConfig.NONE).cells()
+                .forEach(cell -> algorithm.add(cell.item()));
+        algorithm.removeAll(withConfig);
+        algorithm.stream().limit(10).forEach(item -> problems.add("the algorithm places " + BuiltInRegistries.ITEM.getKey(item)
+                + ", the config build does not"));
+        long fresh = lines.rows().stream().filter(row -> row.group().startsWith(com.simplebuilding.dev.testcentre.OrderAreas.NEW_PREFIX)).count();
+        com.simplebuilding.Simplebuilding.LOGGER.info("layout config: {}; lines {} rows, {} cells, {} rows in New", config.summary(),
+                lines.rows().size(), lines.cells().size(), fresh);
+        helper.assertTrue(problems.isEmpty(), problems.size() + " layout config problem(s): "
+                + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * N50 TZEDIT50 Phase 2: fehlt einer Config eine Reihe, stehen deren Items im Band "Neu" (Gruppe {@code new:<reihe>},
+     * eigenes Band hinter den Linien) - nichts geht verloren, nichts doppelt; eine unbekannte Id einer geladenen Mod meldet
+     * eine Warnung und wird rot; eine Id in {@code excluded} steht nicht.
+     */
+    public static void layoutConfigWithoutARowPutsItsItemsIntoNew(GameTestHelper helper) {
+        com.simplebuilding.dev.testcentre.LayoutConfig base = com.simplebuilding.dev.testcentre.LayoutConfig.reload();
+        com.simplebuilding.dev.testcentre.LayoutConfig.Area metals = base.area("metals");
+        helper.assertTrue(metals != null && metals.rows().size() > 2, "no metals layout config");
+        com.simplebuilding.dev.testcentre.OrderAreas.Area full = com.simplebuilding.dev.testcentre.OrderAreas.families(base);
+        // die erste Metall-Reihe, die gebaut wird (iron/copper ...), fehlt; eine Zelle der zweiten wird eine unbekannte Id,
+        // eine Id der dritten wird ausgeschlossen.
+        com.simplebuilding.dev.testcentre.LayoutConfig.RowSpec gone = null;
+        for (com.simplebuilding.dev.testcentre.LayoutConfig.RowSpec spec : metals.rows()) {
+            if (full.rows().stream().anyMatch(row -> row.group().equals(spec.key()))) {
+                gone = spec;
+                break;
+            }
+        }
+        helper.assertTrue(gone != null, "no metals row of the config is built");
+        String goneKey = gone.key();
+        List<com.simplebuilding.dev.testcentre.LayoutConfig.RowSpec> rows = new ArrayList<>(metals.rows());
+        rows.remove(gone);
+        com.simplebuilding.dev.testcentre.LayoutConfig.RowSpec second = rows.getFirst();
+        int slotCol = metals.columns().indexOf("button");
+        List<String> cells = new ArrayList<>(second.cells());
+        String replaced = cells.get(slotCol);
+        cells.set(slotCol, "simplebuilding:no_such_block_tz50");
+        rows.set(0, new com.simplebuilding.dev.testcentre.LayoutConfig.RowSpec(second.key(), second.label(), cells, second.tops()));
+        String excludedId = rows.get(1).cells().stream().filter(c -> c != null && !c.startsWith("#")
+                && BuiltInRegistries.ITEM.containsKey(Identifier.parse(c))).findFirst().orElse(null);
+        Set<String> excluded = excludedId == null ? Set.of() : Set.of(excludedId);
+        Map<String, com.simplebuilding.dev.testcentre.LayoutConfig.Area> areas = new LinkedHashMap<>(base.areas());
+        areas.put("metals", new com.simplebuilding.dev.testcentre.LayoutConfig.Area("metals", "test", metals.columns(), rows, excluded));
+        com.simplebuilding.dev.testcentre.LayoutConfig changed = new com.simplebuilding.dev.testcentre.LayoutConfig(areas, List.of());
+        com.simplebuilding.dev.testcentre.OrderAreas.Area lines = com.simplebuilding.dev.testcentre.OrderAreas.families(changed);
+        List<String> warnings = com.simplebuilding.dev.testcentre.OrderAreas.configWarnings();
+        List<String> problems = new ArrayList<>(com.simplebuilding.dev.testcentre.OrderAreas.check(lines));
+        Set<net.minecraft.world.item.Item> goneItems = new HashSet<>();
+        for (String cell : gone.cells()) {
+            if (cell != null && !cell.startsWith("#")) {
+                BuiltInRegistries.ITEM.getOptional(Identifier.tryParse(cell)).ifPresent(goneItems::add);
+            }
+        }
+        var freshRow = lines.rows().stream().filter(row -> row.group().equals(com.simplebuilding.dev.testcentre.OrderAreas.NEW_PREFIX + goneKey)).findFirst();
+        if (freshRow.isEmpty()) {
+            problems.add("no row " + com.simplebuilding.dev.testcentre.OrderAreas.NEW_PREFIX + goneKey + " in the band New");
+        } else if (freshRow.get().nearZ() <= lines.bands().getFirst().lineZ()) {
+            problems.add("the New row stands in the first band, not behind the lines");
+        }
+        for (net.minecraft.world.item.Item item : goneItems) {
+            long n = lines.cells().stream().filter(cell -> cell.item() == item).count();
+            boolean inNew = lines.cells().stream().anyMatch(cell -> cell.item() == item && cell.group().startsWith(com.simplebuilding.dev.testcentre.OrderAreas.NEW_PREFIX));
+            if (n != 1 || !inNew) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " of the removed row stands " + n + " times" + (inNew ? "" : ", not in New"));
+            }
+        }
+        if (warnings.stream().noneMatch(w -> w.contains("no_such_block_tz50"))) {
+            problems.add("the unknown id gives no warning: " + warnings);
+        }
+        var secondRow = lines.rows().stream().filter(row -> row.group().equals(second.key())).findFirst();
+        if (secondRow.isPresent() && !secondRow.get().expected().contains(com.simplebuilding.dev.testcentre.OrderAreas.Slot.BUTTON)) {
+            problems.add("the unknown id is not red");
+        }
+        if (replaced != null && !replaced.startsWith("#") && BuiltInRegistries.ITEM.containsKey(Identifier.parse(replaced))
+                && lines.cells().stream().noneMatch(cell -> cell.item() == BuiltInRegistries.ITEM.getValue(Identifier.parse(replaced))
+                && cell.group().startsWith(com.simplebuilding.dev.testcentre.OrderAreas.NEW_PREFIX))) {
+            problems.add("the replaced " + replaced + " is not in New");
+        }
+        if (excludedId != null && lines.cells().stream().anyMatch(cell -> cell.item() == BuiltInRegistries.ITEM.getValue(Identifier.parse(excludedId)))) {
+            problems.add("excluded " + excludedId + " stands");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " problem(s): " + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
      * TZ38E (Besitzer 13.11. Runde 2): nach dem Bau einer Ausstellungsflaeche verbinden sich Zaeune, Scheiben und Redstone ohne
      * Neu-Setzen (Punkt 11, Form-Durchgang in {@code TestCentreBuilder.settle}); was beim Block-Update abfiele (Amethyst-Haufen,
      * haengende Wurzeln), haengt im Rahmen statt zu stehen (7); in den Linien stehen Redstone-Block und -Staub (7); Farbserien

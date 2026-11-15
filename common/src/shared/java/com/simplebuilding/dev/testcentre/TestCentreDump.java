@@ -105,11 +105,22 @@ public final class TestCentreDump {
                     plan.summary().lines().findFirst().orElse(""));
         }
         OrderAreas.Area lines = OrderAreas.families();
+        // N50 TZEDIT50: mit allen Modulen steht die eingecheckte Config genau so in der Welt, und nichts faellt ins Band "Neu".
+        problems.addAll(OrderAreas.configProblems(LayoutConfig.current(), lines));
+        OrderAreas.configWarnings().forEach(w -> problems.add("layout config: " + w));
+        lines.rows().stream().filter(row -> row.group().startsWith(OrderAreas.NEW_PREFIX)).limit(10)
+                .forEach(row -> problems.add("layout config: row " + row.group() + " has items without a config cell"));
         List<String> missing = OrderAreas.missingList(lines);
         com.simplebuilding.Simplebuilding.LOGGER.info("test centre lines: {} rows, {} placeholders, {} red (missing)", lines.rows().size(),
                 lines.placeholders().size(), missing.size());
         if (wanted()) {
             writeLines(lines, "lines-rows");
+            // N50 TZEDIT50: the other order areas cell by cell (tools/tzedit/export_layout.py turns them into layout configs).
+            TcContext ctx = new TcContext(level.registryAccess());
+            java.util.Set<net.minecraft.world.item.Item> framed = new java.util.HashSet<>(lines.hidden());
+            writeCells(OrderAreas.compact(), "compact-cells");
+            writeCells(OrderAreas.items(ctx, OrderAreas.blockAreaItems(lines), framed), "items-lines-cells");
+            writeCells(OrderAreas.items(ctx, OrderAreas.blockAreaItems((OrderAreas.Area) null), framed), "items-blocks-cells");
         }
         return problems;
     }
@@ -136,7 +147,42 @@ public final class TestCentreDump {
                         + "\t" + row.z(col) + "\t" + col + "\t" + key + "\t" + what + "\t" + (top == null ? "" : BuiltInRegistries.ITEM.getKey(top)));
             }
         }
+        // N50 TZEDIT50: the sign text of each row (standing sign on the path field, z(-1)).
+        java.util.Map<net.minecraft.core.BlockPos, String> signs = new java.util.HashMap<>();
+        for (TcOp op : lines.canvas().ops()) {
+            if (op instanceof TcOp.Sign sign) {
+                signs.put(sign.pos(), String.join(" ", sign.lines().stream().map(line -> line.getString()).toList()));
+            }
+        }
+        for (OrderAreas.Row row : lines.rows()) {
+            String text = signs.get(new net.minecraft.core.BlockPos(row.x(), 0, row.z(-1)));
+            if (text != null) {
+                out.add("#label\t" + row.group() + "\t" + row.x() + "\t" + row.nearZ() + "\t" + text.replace('\t', ' '));
+            }
+        }
         lines.hidden().forEach(item -> out.add("#hidden\t" + BuiltInRegistries.ITEM.getKey(item)));
+        try {
+            Path dir = Path.of("testcentre-dump");
+            Files.createDirectories(dir);
+            Files.write(dir.resolve(name + ".tsv"), out, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            com.simplebuilding.Simplebuilding.LOGGER.warn("test centre dump {} failed", name, e);
+        }
+    }
+
+    /** N50 TZEDIT50: the cells of an area (group, column, item, x, y, z, framed) as a table. */
+    static void writeCells(OrderAreas.Area area, String name) {
+        java.util.Set<net.minecraft.core.BlockPos> frames = new java.util.HashSet<>();
+        for (TcOp op : area.canvas().ops()) {
+            if (op instanceof TcOp.Frame frame) {
+                frames.add(frame.pos());
+            }
+        }
+        List<String> out = new ArrayList<>();
+        for (OrderAreas.Cell cell : area.cells()) {
+            out.add(cell.group() + "\t" + cell.column() + "\t" + BuiltInRegistries.ITEM.getKey(cell.item()) + "\t" + cell.pos().getX()
+                    + "\t" + cell.pos().getY() + "\t" + cell.pos().getZ() + "\t" + (frames.contains(cell.pos()) ? "frame" : "place"));
+        }
         try {
             Path dir = Path.of("testcentre-dump");
             Files.createDirectories(dir);

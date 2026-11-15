@@ -124,6 +124,16 @@ public final class TestCentreGameTest {
     }
 
     @GameTest
+    public void layoutConfigMatchesTheBuiltLines(GameTestHelper helper) {
+        TestCentreTests.layoutConfigMatchesTheBuiltLines(helper);
+    }
+
+    @GameTest
+    public void layoutConfigWithoutARowPutsItsItemsIntoNew(GameTestHelper helper) {
+        TestCentreTests.layoutConfigWithoutARowPutsItsItemsIntoNew(helper);
+    }
+
+    @GameTest
     public void testcenterCommandClearsAndBuildsTheModArea(GameTestHelper helper) {
         TestCentreTests.testcenterCommandClearsAndBuildsTheModArea(helper);
     }

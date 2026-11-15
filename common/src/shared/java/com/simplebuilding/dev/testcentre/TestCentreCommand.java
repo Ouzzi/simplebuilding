@@ -193,10 +193,53 @@ public final class TestCentreCommand {
                 .then(Commands.literal("order").then(orderTree(Commands.literal("build"), OrderAreas.DEFAULT)
                         .then(orderTree(Commands.literal(OrderAreas.Variant.LINES.id()), OrderAreas.Variant.LINES))
                         .then(orderTree(Commands.literal(OrderAreas.Variant.BLOCKS.id()), OrderAreas.Variant.BLOCKS))))
+                // N50 TZEDIT50: Layout-Config der Linien neu lesen (Override vor Jar) bzw. den Algorithmus als Tabellen ausgeben.
+                .then(Commands.literal("layout")
+                        .then(Commands.literal("reload").executes(ctx -> layoutReload(ctx.getSource())))
+                        .then(Commands.literal("export").executes(ctx -> layoutExport(ctx.getSource()))))
                 .then(Commands.literal("mods").then(galleryBuild(ctx -> ModBlockGallery.namespaces())))
                 .then(Commands.literal("mod").then(Commands.argument("id", StringArgumentType.word())
                         .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(ModBlockGallery.namespaces(), builder))
                         .then(galleryBuild(ctx -> List.of(StringArgumentType.getString(ctx, "id")))))));
+    }
+
+    /**
+     * N50 TZEDIT50: {@code /testcenter layout reload} - liest die Layout-Configs neu ({@code config/simplebuilding/testcentre/}
+     * vor der Jar-Ressource), meldet Quelle je Bereich und Schema-Fehler/Warnungen; der naechste Bau
+     * ({@code /sbtestcentre build lines here}) nutzt sie ohne neues Jar.
+     */
+    static int layoutReload(CommandSourceStack source) {
+        LayoutConfig config = LayoutConfig.reload();
+        OrderAreas.families(config);
+        List<String> warnings = OrderAreas.configWarnings();
+        source.sendSuccess(() -> TcText.lit("Test centre layout: " + config.summary()).withStyle(ChatFormatting.GREEN), true);
+        for (String line : warnings.subList(0, Math.min(20, warnings.size()))) {
+            source.sendSuccess(() -> TcText.lit(line).withStyle(ChatFormatting.YELLOW), false);
+        }
+        if (warnings.size() > 20) {
+            source.sendSuccess(() -> TcText.lit("... " + (warnings.size() - 20) + " more (server log)").withStyle(ChatFormatting.YELLOW), false);
+        }
+        warnings.forEach(line -> com.simplebuilding.Simplebuilding.LOGGER.warn("test centre layout: {}", line));
+        return Math.max(1, config.areas().size());
+    }
+
+    /**
+     * N50 TZEDIT50: {@code /testcenter layout export} - schreibt den heutigen Algorithmus (ohne Config) als Tabellen nach
+     * {@code testcentre-dump/} im Spielordner; {@code tools/tzedit/export_layout.py <ordner>} macht daraus die Configs.
+     */
+    static int layoutExport(CommandSourceStack source) {
+        OrderAreas.Area lines = OrderAreas.families(LayoutConfig.NONE);
+        TcContext ctx = new TcContext(source.getLevel().registryAccess());
+        java.util.Set<net.minecraft.world.item.Item> framed = new java.util.HashSet<>(lines.hidden());
+        TestCentreDump.writeLines(lines, "lines-rows");
+        TestCentreDump.writeCells(OrderAreas.compact(), "compact-cells");
+        TestCentreDump.writeCells(OrderAreas.items(ctx, OrderAreas.blockAreaItems(lines), framed), "items-lines-cells");
+        TestCentreDump.writeCells(OrderAreas.items(ctx, OrderAreas.blockAreaItems((OrderAreas.Area) null), framed), "items-blocks-cells");
+        OrderAreas.families(); // Warnungen wieder fuer die geladene Config
+        String dir = java.nio.file.Path.of("testcentre-dump").toAbsolutePath().toString();
+        source.sendSuccess(() -> TcText.lit("Layout tables written to " + dir + " - python3 tools/tzedit/export_layout.py " + dir)
+                .withStyle(ChatFormatting.GREEN), true);
+        return Math.max(1, lines.rows().size());
     }
 
     /** {@code /testcenter order build [lines|blocks] [here|x y z]}. */

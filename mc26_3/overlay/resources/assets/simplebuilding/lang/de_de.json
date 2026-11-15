@@ -3401,6 +3401,8 @@
   "simplebuilding.testcentre.order.lines.a.sub": "kleine Teile an der Linie",
   "simplebuilding.testcentre.order.lines.b": "Stein & Co.",
   "simplebuilding.testcentre.order.lines.key": "rot = fehlt, hellgrau = gibt es nicht",
+  "simplebuilding.testcentre.order.lines.new": "Neu",
+  "simplebuilding.testcentre.order.lines.new.sub": "nicht in der Layout-Config",
   "item.simplebuilding.enderite_spear": "Enderitspeer",
   "item.simplebuilding.enchanted_netherite_apple": "Verzauberter Netheritapfel",
   "item.simplebuilding.enchanted_enderite_apple": "Verzauberter Enderitapfel",

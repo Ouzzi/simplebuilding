@@ -3996,6 +3996,31 @@ function pageEnchanting() {
   }, 0);
   return '<div id="ench-view"></div>';
 }
+/* N50 TZEDIT50: Testzentrale-Editor (?tab=tzeditor, nur Dev wie die ganze Dev-Gruppe): bearbeitet die Layout-Configs der
+   geordneten Bereiche (data/testcentre/ aus tools/tzedit/build_editor.py); Oberflaeche assets/tzeditor.js, erst beim Besuch. */
+var TZ_VIEW = { loading: false, missing: false, ctx: {} };
+function pageTzEditor() {
+  if (!isDevSite()) return '<h1>' + esc(T('navTzEditor')) + '</h1><div class="box box-danger">Dev only.</div>';
+  if (!window.SBTzEditor && !TZ_VIEW.loading && !TZ_VIEW.missing) {
+    TZ_VIEW.loading = true;
+    var s = document.createElement('script'); s.src = 'assets/tzeditor.js';
+    s.onload = function () { TZ_VIEW.loading = false; if (currentRoute().section === 'tzeditor') render({ keepScroll: true }); };
+    s.onerror = function () { TZ_VIEW.loading = false; TZ_VIEW.missing = true; if (currentRoute().section === 'tzeditor') render({ keepScroll: true }); };
+    document.head.appendChild(s);
+  }
+  if (!window.SBTzEditor) return '<h1>' + esc(T('navTzEditor')) + '</h1><p class="hint">' + esc(T(TZ_VIEW.missing ? 'titleNotFound' : 'tzLoading')) + '</p>';
+  var robots = document.querySelector('meta[name=robots]');
+  if (!robots) { robots = document.createElement('meta'); robots.name = 'robots'; document.head.appendChild(robots); }
+  robots.content = 'noindex,nofollow';
+  setTimeout(function () {
+    var el = document.getElementById('tz-view');
+    if (!el) return;
+    var ctx = TZ_VIEW.ctx;
+    ctx.lang = LANG; ctx.dev = isDevSite(); ctx.icon = function (id) { try { return textureOf(id); } catch (e) { return null; } };
+    window.SBTzEditor.mount(el, ctx);
+  }, 0);
+  return '<div id="tz-view"></div>';
+}
 function pageEnchantment(id) {
   var e = IX.ench.get(id);
   if (!e) return notFound(T('wordEnchantment'), id);
@@ -5373,7 +5398,7 @@ function pageStructure() {
    es beim Hash-Router - dann gilt HASHMODE. */
 var ROUTE_PARAM = { guidebook: 'book', questionary: 'questionary', items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
 var PARAM_ROUTE = { book: 'guidebook', questionary: 'questionary', item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
-var TAB_SECTIONS = ['start', 'submods', 'guidebook', 'questionary', 'overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures', 'commands', 'browse', 'structure'];
+var TAB_SECTIONS = ['start', 'submods', 'guidebook', 'questionary', 'overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tzeditor', 'tags', 'config', 'advancements', 'features', 'search', 'textures', 'commands', 'browse', 'structure'];
 var HASHMODE = false;
 function hashToRoute(h) {
   h = String(h || '');
@@ -5522,7 +5547,7 @@ window.addEventListener('hashchange', function () {
 Object.assign(STR.en, {
   configIntroModule: 'Read from the module\'s config classes (type, default, bounds) and the labels of its config screen. Operators change them in game with {0}; the file lives in the config folder.',
   navStart: 'Getting started', navSubmods: 'Submods', navGuidebook: 'Guidebook', navQuestionary: 'Questionary',
-  navBlocksItems: 'Blocks & items', navRecipesAll: 'Recipes', navLootables: 'Lootables', sbDev: 'Dev', sbToggle: 'Show or hide {0}',
+  navBlocksItems: 'Blocks & items', navRecipesAll: 'Recipes', navLootables: 'Lootables', sbDev: 'Dev', sbToggle: 'Show or hide {0}', navTzEditor: 'Test centre editor', tzLoading: 'Loading the test centre editor…',
   gsIntro: 'New to the Simple mods? Three ways in, then the guides of the chosen mods below.',
   gsBook: 'Read the guidebook', gsBookSub: 'The Simple Modpack guide from the game, page by page.',
   gsQuest: 'Ask the questionary', gsQuestSub: 'Lore, use and a secret for every item.',
@@ -5547,7 +5572,7 @@ Object.assign(STR.en, {
 Object.assign(STR.de, {
   configIntroModule: 'Aus den Konfig-Klassen des Moduls (Typ, Standard, Grenzen) und den Beschriftungen seines Einstellungsbildschirms. Operatoren ändern sie im Spiel mit {0}; die Datei liegt im config-Ordner.',
   navStart: 'Erste Schritte', navSubmods: 'Sub-Mods', navGuidebook: 'Handbuch', navQuestionary: 'Fragentisch',
-  navBlocksItems: 'Blöcke & Items', navRecipesAll: 'Rezepte', navLootables: 'Beute', sbDev: 'Dev', sbToggle: '{0} ein- oder ausblenden',
+  navBlocksItems: 'Blöcke & Items', navRecipesAll: 'Rezepte', navLootables: 'Beute', sbDev: 'Dev', sbToggle: '{0} ein- oder ausblenden', navTzEditor: 'Testzentrale-Editor', tzLoading: 'Lade den Testzentrale-Editor…',
   gsIntro: 'Neu bei den Simple-Mods? Drei Einstiege, darunter die Anleitungen der gewählten Mods.',
   gsBook: 'Handbuch lesen', gsBookSub: 'Das Simple-Modpack-Handbuch aus dem Spiel, Seite für Seite.',
   gsQuest: 'Fragentisch befragen', gsQuestSub: 'Geschichte, Nutzen und ein Geheimnis zu jedem Item.',
@@ -6016,7 +6041,8 @@ var NAV_GROUPS = [
     { key: 'tags', labelKey: 'navTags', glyph: '#', count: function () { return arr(D.tags).length; } }
   ] },
   { key: 'dev', labelKey: 'sbDev', dev: true, items: [
-    { key: 'enchanting', labelKey: 'navEnchanting', glyph: '✧', count: null, always: true }
+    { key: 'enchanting', labelKey: 'navEnchanting', glyph: '✧', count: null, always: true },
+    { key: 'tzeditor', labelKey: 'navTzEditor', glyph: '▤', count: null, always: true }
   ] }
 ];
 /* Welcher Leisten-Eintrag zu einer Seite gehoert (Weiterleitungen alter Adressen eingeschlossen). */
@@ -6599,6 +6625,7 @@ function render(opts) {
       case 'trades': html = r.id ? pageTrade(r.id) : pageTrades(); title = r.id ? T('titleTradePrefix', r.id) : T('navTrades'); break;
       case 'enchantments': html = r.id ? pageEnchantment(r.id) : pageEnchantments(); title = r.id ? displayName(r.id) : T('navEnchantments'); break;
       case 'enchanting': html = pageEnchanting(); title = T('navEnchanting'); break;
+      case 'tzeditor': html = pageTzEditor(); title = T('navTzEditor'); break;
       case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
       case 'allmods': html = pageAllMods(); title = T('navAllMods'); active = 'allmods'; break;
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
