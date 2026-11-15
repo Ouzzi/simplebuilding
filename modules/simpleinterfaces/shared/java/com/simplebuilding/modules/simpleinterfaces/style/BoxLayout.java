@@ -164,7 +164,7 @@ public final class BoxLayout {
     }
 
     /** Min x, min y, max x, max y of the item positions of one group, or {@code null} if it has no slots. */
-    static int[] bounds(List<Slot> slots, boolean player) {
+    public static int[] bounds(List<Slot> slots, boolean player) {
         int[] b = null;
         for (Slot s : slots) {
             if (s.player() != player) continue;
