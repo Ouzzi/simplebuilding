@@ -40,7 +40,7 @@ public final class WideDoors {
      */
     public record Variant(String id, Identifier door, boolean wood, Block like, @Nullable String mod) {
         public BlockSetType type() {
-            return like instanceof DoorBlock door ? door.type() : BlockSetType.OAK;
+            return like instanceof DoorBlock d ? d.type() : BlockSetType.OAK;
         }
     }
 
