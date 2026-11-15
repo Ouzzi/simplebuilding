@@ -101,7 +101,7 @@ public class TierHopperScreen extends AbstractContainerScreen<TierHopperMenu> {
             invY = Math.min(invY, slot.y);
         }
         int containerHeight = invY - UiBoxes.FRAME - INVENTORY_GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, p);
+        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, p, false); // IG57U2: no shadow, air below the last row
         UiBoxes.box(g, left + invX - 8, top + invY - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
         int keyX = left + TierHopperMenu.FILTER_BUTTON_X, keyY = top + TierHopperMenu.FILTER_BUTTON_Y;
         int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;

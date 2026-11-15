@@ -139,7 +139,7 @@ public class AutonomousCrafterScreen extends AbstractContainerScreen<AutonomousC
             invY = Math.min(invY, slot.y);
         }
         int containerHeight = invY - UiBoxes.FRAME - GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, PALETTE);
+        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, PALETTE, false); // IG57U2: no shadow, air below the last row
         UiBoxes.box(g, left + invX - 8, top + invY - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
         Slot result = this.menu.getSlot(AutonomousCrafterMenu.RESULT_SLOT);
         int keyX = left + AutonomousCrafterMenu.FILTER_BUTTON_X, keyY = top + AutonomousCrafterMenu.FILTER_BUTTON_Y;

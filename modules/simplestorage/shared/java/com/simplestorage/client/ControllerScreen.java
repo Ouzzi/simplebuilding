@@ -170,7 +170,7 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
         int left = this.leftPos, top = this.topPos;
         if (UiStyleToggle.isEnabled()) {
             UiPalette p = palette();
-            UiBoxes.box(graphics, left, top, this.imageWidth, ControllerMenu.INVENTORY_Y - UiBoxes.FRAME - 2, p);
+            UiBoxes.box(graphics, left, top, this.imageWidth, ControllerMenu.INVENTORY_Y - UiBoxes.FRAME - 2, p, false); // IG57U2
             UiBoxes.box(graphics, left, top + ControllerMenu.INVENTORY_Y - UiBoxes.FRAME, this.imageWidth, INVENTORY_HEIGHT, UiPalette.INVENTORY);
             for (Slot slot : this.menu.slots) {
                 UiBoxes.slot(graphics, left + slot.x, top + slot.y, slot.index < ControllerMenu.CELLS ? p : UiPalette.INVENTORY);

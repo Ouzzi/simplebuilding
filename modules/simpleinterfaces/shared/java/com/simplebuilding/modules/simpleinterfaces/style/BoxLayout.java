@@ -9,10 +9,10 @@ import org.jetbrains.annotations.Nullable;
  * (docs/ai/PLAN-SIMPLECONTAINERS-2026-10-08.md, W0-A): the container box in the block's colour around the container
  * slots (from the image top, so the title sits inside it), the light inventory box around the player's slots. Both
  * span all slots plus {@link #SIDE} px left and right (a chest: 0..176). Vanilla leaves only 13-14 px between the two
- * slot groups (slot light edge included). Rule of the W0-B preview ("Kasten-Fuge"): with free rows >= 12 the bottom
- * frame (7) and the top frame (5) fit, the divider gets up to {@link #MAX_GAP} px and the rest pads the container
- * box; the inventory box starts right above the player's slots. Free rows 10-11: two boxes, the container box without
- * its 2 px shadow ({@link Variant#NO_SHADOW}). Free rows 3-9: one box in the block's colour from the top to below the
+ * slot groups (slot light edge included). Rule of the W0-B preview ("Kasten-Fuge"), IG57U2 (15.11.): below the last
+ * container row {@link #AIR} px of fill like beside it; with free rows >= 16 the bottom frame (7), the top frame (5) and a
+ * {@link #MAX_GAP} px divider fit and the rest pads the container box; free rows 10-15: the container box without its 2 px
+ * shadow ({@link Variant#NO_SHADOW}), divider up to {@link #MAX_GAP} px from what is left after the air. Free rows 3-9: one box in the block's colour from the top to below the
  * hotbar, the player's part a light panel behind a seam 3 px above the first inventory row ({@link Variant#SEAM}).
  * Less room returns {@code null}: the screen stays Vanilla. No client classes (testable on a server).
  */
@@ -25,12 +25,14 @@ public final class BoxLayout {
     static final int SLOT = 17;
     /** The seam of {@link Variant#SEAM} lies this many rows above the first inventory slot row. */
     public static final int SEAM = 3;
+    /** Fill rows below the last container row's light edge: the same air as on the right side (SIDE - FRAME - 1). */
+    public static final int AIR = SIDE - UiBoxes.FRAME - 1;
 
     /** How the two slot groups share the rows between them (README "Kasten-Fuge"). */
     public enum Variant {
-        /** Free rows >= 12: two full boxes, a divider of up to {@link #MAX_GAP} px. */
+        /** Free rows >= 16: two full boxes, a {@link #MAX_GAP} px divider, air below the container slots. */
         TWO_BOXES,
-        /** Free rows 10-11: two boxes, the container box without its 2 px shadow (5 px frame at the bottom too). */
+        /** Free rows 10-15: two boxes, the container box without its 2 px shadow (5 px frame at the bottom too). */
         NO_SHADOW,
         /**
          * Free rows 3-9: one box in the block's colour ({@code container}, down to below the hotbar); {@code inventory} is
@@ -103,8 +105,21 @@ public final class BoxLayout {
                     Variant.SEAM);
         }
         int inventoryTop = p[1] - UiBoxes.FRAME;
-        Variant variant = free >= UiBoxes.FRAME_BOTTOM + UiBoxes.FRAME ? Variant.TWO_BOXES : Variant.NO_SHADOW;
-        int gap = variant == Variant.TWO_BOXES ? Math.min(MAX_GAP, free - UiBoxes.FRAME_BOTTOM - UiBoxes.FRAME) : free - 2 * UiBoxes.FRAME;
+        // IG57U2 (owner 15.11.): below the last container row as much air as beside it (slot light edge + AIR px of fill,
+        // like the right side); a shadowed box only when the air, both frames and the full divider fit, otherwise the
+        // container box drops its 2 px shadow first (Vanilla chests/shulkers/hoppers/dispensers: 13-14 free rows)
+        Variant variant;
+        int gap;
+        if (free >= AIR + UiBoxes.FRAME_BOTTOM + UiBoxes.FRAME + MAX_GAP) {
+            variant = Variant.TWO_BOXES;
+            gap = MAX_GAP;
+        } else if (free >= AIR + 2 * UiBoxes.FRAME) {
+            variant = Variant.NO_SHADOW;
+            gap = Math.min(MAX_GAP, free - AIR - 2 * UiBoxes.FRAME);
+        } else {
+            variant = Variant.NO_SHADOW;
+            gap = 0; // 10-11 free rows: the boxes touch, the rest is air
+        }
         int containerBottom = inventoryTop - gap;
         return new Layout(new Rect(left, containerTop, right - left, containerBottom - containerTop),
                 new Rect(left, inventoryTop, right - left, inventoryBottom - inventoryTop), variant);

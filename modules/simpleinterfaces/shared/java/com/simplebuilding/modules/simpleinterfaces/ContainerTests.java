@@ -114,8 +114,8 @@ public final class ContainerTests {
     public static void narrowLayouts(GameTestHelper h) {
         var eleven = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 11), 176, 166, 6);
         h.assertTrue(eleven != null && eleven.variant() == BoxLayout.Variant.NO_SHADOW, "11 free rows: two boxes, no shadow");
-        rect(h, eleven.container(), 0, 0, 176, 76, "11 free rows: container box 5 px below the slots");
-        rect(h, eleven.inventory(), 0, 77, 176, 166 - 77, "11 free rows: 1 px divider");
+        rect(h, eleven.container(), 0, 0, 176, 77, "11 free rows: container box 1 px air + 5 px frame below the slots (IG57U2)");
+        rect(h, eleven.inventory(), 0, 77, 176, 166 - 77, "11 free rows: boxes touch");
         var ten = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 10), 176, 166, 6);
         h.assertTrue(ten != null && ten.variant() == BoxLayout.Variant.NO_SHADOW, "10 free rows: two boxes, no shadow");
         h.assertValueEqual(ten.inventory().y(), ten.container().bottom(), "10 free rows: boxes touch");
@@ -126,7 +126,11 @@ public final class ContainerTests {
         var three = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 3), 176, 166, 6);
         h.assertTrue(three != null && three.variant() == BoxLayout.Variant.SEAM, "3 free rows: still a seam");
         var wide = BoxLayout.compute(slots(8, 18, 9, 3, 84), 176, 166, 6);
-        h.assertTrue(wide != null && wide.variant() == BoxLayout.Variant.TWO_BOXES, "14 free rows: two full boxes");
+        h.assertTrue(wide != null && wide.variant() == BoxLayout.Variant.NO_SHADOW, "14 free rows: two boxes, no shadow (IG57U2)");
+        h.assertValueEqual(wide.container().bottom() - com.simplelib.api.client.ui.UiBoxes.FRAME - (71), BoxLayout.AIR, "14 free rows: air below the last row");
+        var full = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 16), 176, 170, 6);
+        h.assertTrue(full != null && full.variant() == BoxLayout.Variant.TWO_BOXES, "16 free rows: two full boxes");
+        h.assertValueEqual(full.inventory().y() - full.container().bottom(), BoxLayout.MAX_GAP, "16 free rows: full divider");
         // mount screen without chest: saddle and armor slot plus the 52x52 entity preview (+ light edge) at 26,18
         List<BoxLayout.Slot> mount = new ArrayList<>(slots(8, 18, 1, 2, 84));
         var bare = BoxLayout.compute(mount, 176, 166, 6);
@@ -400,7 +404,7 @@ public final class ContainerTests {
         Map<String, BoxLayout.Layout> two = Map.of("anvil", station("anvil", anvil, 2), "grindstone", station("grindstone", grindstone, 2),
                 "stonecutter", station("stonecutter", stonecutter, 1));
         two.forEach((id, l) -> {
-            h.assertTrue(l != null && l.variant() == BoxLayout.Variant.TWO_BOXES, id + ": two boxes");
+            h.assertTrue(l != null && l.variant() != BoxLayout.Variant.SEAM, id + ": two boxes");
             rect(h, l.container(), 0, 0, 176, 77, id + " container box");
             rect(h, l.inventory(), 0, 79, 176, 87, id + " inventory box");
         });
@@ -429,10 +433,10 @@ public final class ContainerTests {
             styled.put(id, moved);
         });
         BoxLayout.Layout grind = station("grindstone", styled.get("grindstone"), 2);
-        h.assertTrue(grind != null && grind.variant() == BoxLayout.Variant.TWO_BOXES && grind.container().equals(two.get("grindstone").container()),
+        h.assertTrue(grind != null && grind.variant() != BoxLayout.Variant.SEAM && grind.container().equals(two.get("grindstone").container()),
                 "grindstone: moved slots keep the boxes");
         BoxLayout.Layout map = station("cartography_table", styled.get("cartography_table"), 2, StationStyles.CARTO_EXTRA);
-        h.assertTrue(map != null && map.variant() == BoxLayout.Variant.TWO_BOXES, "styled cartography table: two boxes like the other tables");
+        h.assertTrue(map != null && map.variant() != BoxLayout.Variant.SEAM, "styled cartography table: two boxes like the other tables");
         rect(h, map.container(), 0, 0, 176, 93, "cartography container box below the map field");
         rect(h, map.inventory(), 0, 95, 176, 87, "cartography inventory box");
         h.succeed();
