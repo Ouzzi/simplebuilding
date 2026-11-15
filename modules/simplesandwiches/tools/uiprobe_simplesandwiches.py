@@ -119,14 +119,20 @@ def _blocks(s, me, x, y, z):
     s.chat(f'setblock {x + 3} {y} {z + 2} simplesandwiches:cheese_block', 0.4)
     s.chat(f'setblock {x - 3} {y} {z + 2} simplesandwiches:butter_block', 0.4)
     s.io.key('2', 0.3)
+    # the off hand still holds butter slices from the board: cut slices would go there (placeItemBackInInventory) and not be counted
+    s.chat('item replace entity @s weapon.offhand with minecraft:air', 0.3)
     for block, bx, aim_at, face in (('cheese', x + 3, (x + 3.5, y + 0.99, z + 2.5), 'up'),       # top face of the cheese block
                                     ('butter', x - 3, (x - 2.5, y + 0.5, z + 2.01), 'north')):  # north face of the butter block
         _aim(s, me, aim_at, 0.8)
         hit = s.st().get('hitBlock')
         before = _total(s, f'simplesandwiches:{block}_slice')
-        for _ in range(4):
+        # the first right click(s) after the inventory screen closed can get lost (b60: cheese 2 cuts from 4 clicks): click until four slices
+        # arrived, at most 8 clicks; every cut must give exactly one slice and the block must show 16 - 4
+        clicks, got = 0, 0
+        while got < 4 and clicks < 8:
             _click(s, None, after=0.5)
-        got = _total(s, f'simplesandwiches:{block}_slice') - before
+            clicks += 1
+            got = _total(s, f'simplesandwiches:{block}_slice') - before
         want = f'slices=12,cut={face}'
         if _sense(s, f'if block {bx} {y} {z + 2} simplesandwiches:{block}_block[{want}]'):
             state = want
@@ -134,7 +140,7 @@ def _blocks(s, me, x, y, z):
             state = next((f'slices={n},cut={c}' for n in range(16, 7, -1) for c in ('up', 'north', 'south', 'east', 'west')
                           if _sense(s, f'if block {bx} {y} {z + 2} simplesandwiches:{block}_block[slices={n},cut={c}]')), 'other')
         s.check(f'{block} block: 4 real knife clicks on the {face} face cut 4 slices (slices=12,cut={face})',
-                state == want and got == 4, f'block {state}, {got} slices into the inventory, crosshair on {hit}')
+                state == want and got == 4, f'block {state}, {got} slices into the inventory after {clicks} clicks, crosshair on {hit}')
         s.shot(f'{block}-cut')
 
 
@@ -180,7 +186,9 @@ def _bundle(s, me):
     s.io.key('1', 0.3)
     # crosshair on the sky: a block under the crosshair would take the click first (a-w4c still looked at the cauldron row)
     _aim(s, me, (me[0], me[1] + 30, me[2] + 20), 0.8)
-    # clearly hungry (cooked beef needs food < 20): Hunger 128 for 3 s burns ~9 food points incl. the 5 saturation
+    # clearly hungry (cooked beef needs food < 20): Hunger 128 for 3 s burns ~9 food points incl. the 5 saturation. The probe world is
+    # Peaceful (SortProbe), which refills food at once - a-w4c's player was never hungry, so the meal could not start: Easy for this part
+    s.chat('difficulty easy', 0.4)
     s.chat('effect give @s minecraft:hunger 3 127 true', 0.3)
     time.sleep(3.5)
     s.chat('effect clear @s', 0.3)
@@ -196,6 +204,7 @@ def _bundle(s, me):
         s.io.key_up('Shift_L')
     time.sleep(0.5)
     two = _sense(s, 'if data entity @s Inventory[{Slot:0b}].components."minecraft:bundle_contents"[{id:"minecraft:cooked_beef",count:2}]')
+    s.chat('difficulty peaceful', 0.4)
     s.check('sneak + hold use eats one beef out of the bundle (3 -> 2)', two, f'bundle_contents cooked_beef x2 (player was hungry: {hungry})')
 
 
@@ -223,6 +232,7 @@ def kitchen(s):
         s.io.key_up('Shift_L')
         s.key('F1', 0.5)
         s.chat('effect clear @s', 0.3)
+        s.chat('difficulty peaceful', 0.3)
         s.chat('clear @s', 0.3)
         s.chat('gamemode creative @s', 0.5)
 

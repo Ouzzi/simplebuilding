@@ -67,10 +67,13 @@ def _variant(s, name, sword, base, expect_b_gone, before=False):
     ring = [(dx, dz) for dx in range(-2, 3) for dz in range(-1, 3) if max(abs(dx), abs(dz)) == 2]
     gone = _sense(s, [f'unless block {x + dx} {y} {z + 3 + dz} {grass}' for dx, dz in ring])
     cut = [cell for cell, g in zip(ring, gone) if g]
+    # where the cow stands (block z offset 2 / 3 / 4): the cut is centred on target.blockPosition()
+    cow = _sense(s, [f'if entity @e[tag=uipfarm,x={x},y={y},z={z + dz},dx=0,dy=0,dz=0]' for dz in (2, 3, 4)])
+    cow_at = [dz for dz, here in zip((2, 3, 4), cow) if here]
     s.check(f'{name}: 3x3 around the cow cut (A gone)', a, f'clicks {clicks}, first swing passed through the grass: {first}')
     want = len(ring) if expect_b_gone else 0
     s.check(f'{name}: 5x5 ring B {"cut (Sweeping Edge, 11 cells)" if expect_b_gone else "stays (no Sweeping Edge)"}', len(cut) == want,
-            f'{len(cut)}/{len(ring)} ring cells cut (dx, dz from the cow): {cut}')
+            f'{len(cut)}/{len(ring)} ring cells cut (dx, dz from the cow block z+3): {cut}; cow box touches block z+{cow_at}')
     s.check(f'{name}: control C outside the area stays', not c, f'C gone = {c}')
 
 
