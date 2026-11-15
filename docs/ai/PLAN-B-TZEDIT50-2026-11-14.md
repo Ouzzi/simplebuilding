@@ -13,7 +13,7 @@ Basis hub/b-bundle194. Phase 1 (dieser Commit): Plan, Export-Skript, Prototyp. P
   `tools/zentrale-web/setup_texture_save.sh` (Checkout/nginx `client_max_body_size`/Service-Neustart), Tests `tools/zentrale-web/tests/test_devqueue.py`.
 - Texturen: `wiki/assets/textures/...` (Wiki) und `modules/*/.../assets/<ns>/textures/block|item`.
 
-## Config-Schema `layout_<variant>.json` (Ablage `common/src/shared/resources/data/simplebuilding/testcentre/`)
+## Config-Schema `layout_<variant>.json` (Ablage `src/main/resources/data/simplebuilding/testcentre/`)
 ```
 { "schema":1, "variant":"lines",
   "areas":[ { "id":"metals", "name":"Metalle",
@@ -80,7 +80,7 @@ pushen, melden; danach (3) OrderAreas liest Config + „Neu“ + Reload in eigen
 
 ### Dateien
 - `TestCentreDump` (SB_TC_DUMP): zusätzlich `#label`-Zeilen in `lines-rows.tsv`, `compact-cells.tsv`, `items-<variant>-cells.tsv`.
-- `tools/tzedit/export_layout.py <dump>`: Tabellen → Configs (check_save + layout_text) in `common/src/shared/resources/data/simplebuilding/testcentre/`.
+- `tools/tzedit/export_layout.py <dump>`: Tabellen → Configs (check_save + layout_text) in `src/main/resources/data/simplebuilding/testcentre/`.
 - `tools/tzedit/build_editor.py [--check]`: Configs → `wiki/data/testcentre/{index.json,layout_*.json}` + `wiki/tz-editor.html`
   (Index: Bereiche + Id→Textur aus den Wiki-Modul-Texturen; Vanilla zur Laufzeit nur aus den Dev-Kopien `assets/vanilla/`,
   `assets/textures/minecraft/`, sonst Name). `export_area.py`/`build_preview.py` (Phase-1-Auszug) entfallen.

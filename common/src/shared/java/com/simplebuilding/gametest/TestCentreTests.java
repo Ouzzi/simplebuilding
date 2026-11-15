@@ -2197,8 +2197,16 @@ public final class TestCentreTests {
      */
     public static void layoutConfigMatchesTheBuiltLines(GameTestHelper helper) {
         com.simplebuilding.dev.testcentre.LayoutConfig config = com.simplebuilding.dev.testcentre.LayoutConfig.reload();
-        helper.assertTrue(config.areas().size() == com.simplebuilding.dev.testcentre.LayoutConfig.AREAS.size(),
-                "layout configs loaded: " + config.summary() + " errors " + config.errors());
+        // N59: the export writes no file for an area without rows (today "rest"), so expect exactly the shipped files
+        Set<String> shipped = new HashSet<>();
+        for (String area : com.simplebuilding.dev.testcentre.LayoutConfig.AREAS) {
+            if (com.simplebuilding.dev.testcentre.LayoutConfig.class.getClassLoader().getResource(
+                    com.simplebuilding.dev.testcentre.LayoutConfig.RESOURCE_DIR + "layout_lines_" + area + ".json") != null) {
+                shipped.add(area);
+            }
+        }
+        helper.assertTrue(shipped.contains("metals") && config.errors().isEmpty() && config.areas().keySet().equals(shipped),
+                "layout configs loaded: " + config.summary() + " shipped " + shipped + " errors " + config.errors());
         com.simplebuilding.dev.testcentre.OrderAreas.Area lines = com.simplebuilding.dev.testcentre.OrderAreas.families(config);
         List<String> problems = new ArrayList<>(com.simplebuilding.dev.testcentre.OrderAreas.configProblems(config, lines));
         problems.addAll(com.simplebuilding.dev.testcentre.OrderAreas.check(lines));

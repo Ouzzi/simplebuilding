@@ -93,7 +93,7 @@ Spalten, max. 512 KB) und devqueue legt die Speicherung als JSON unter `<data>/t
 - Einrichtung (einmal, als root auf dem Web-Host, nachdem der Stand in `/srv/wiki-dev` ist):
   `bash /srv/wiki-dev/tools/zentrale-web/setup_testcentre_save.sh /srv/wiki-dev devqueue`
 - Abholen (Agent-Host, nur lesend auf dem Web-Host): neue Speicherungen werden je Bereich als Branch
-  `tz-layout-<variant>-<area>-<sid>` im Hub committet (Datei `common/src/shared/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json`,
+  `tz-layout-<variant>-<area>-<sid>` im Hub committet (Datei `src/main/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json`,
   immer neu serialisiert), nie auf claude-wave1; ältere Speicherungen desselben Bereichs werden übersprungen:
   `python3 tools/tzedit/tzedit_save.py pull --git-dir /root/sb.git --remote "ssh -o BatchMode=yes sb-web" --report /root/b-fertig.md`
 - Tests: `python3 -m unittest tools/tzedit/tests/test_tzedit_save.py`

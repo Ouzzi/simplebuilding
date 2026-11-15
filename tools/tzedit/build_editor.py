@@ -2,7 +2,7 @@
 """
 N50 TZEDIT50 Phase 2: the data of the wiki dev page "Testzentrale-Editor" (index.html ?tab=tzeditor, assets/tzeditor.js).
 
-Reads the checked-in layout configs (common/src/shared/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json)
+Reads the checked-in layout configs (src/main/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json)
 and writes
   wiki/data/testcentre/layout_<variant>_<area>.json  copies the page fetches (the wiki serves only wiki/),
   wiki/data/testcentre/index.json                    the areas (variant, area, name, size) and id -> texture path
