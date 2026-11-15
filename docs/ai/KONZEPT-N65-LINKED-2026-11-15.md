@@ -227,3 +227,30 @@ Risiken: `leftPos`-Verschiebung bei fremden Screens (→ Whitelist), Station-Scr
 Heimpositionen), Scissor-Stapel, Vanilla-Textur unter dem Kasten (→ Schnitt), Client-Darstellung ungeprüft ohne Client-Lauf.
 Verifikation: Kompilieren Fabric (simplelib + simpleinterfaces), GameTests `simpleinterfaces:*linked*`, ganzes Modul, Precheck.
 Client-/Probe-Läufe macht die Eltern-Session.
+
+### 11.2 Umgesetzt (Stand b-cont65) und Abweichungen vom Plan
+
+Umgesetzt wie geplant: Punkte 1–11 aus 11.1. Dateien: `LinkedConfig`, `ContainersConfig`, `ContainersScreen`, `linked/LinkedContainers`
+(`Part`/`Session`, `marks`, `trim`), `linked/LinkedSlot`, `linked/LinkedLayout` (neu), `network/LinkedOpenPayload` (Entry-Liste),
+`client/LinkedHud` (Kacheln), `client/LinkedPanel` (Layout anwenden, Heimpositionen, Reiter, Scrollen), `client/LinkedScreen`,
+`mixin/ContainerScreenLinkedMixin`, `mixin/ScreenLinkedMixin` (neu), `client/StyledScreens|WorkScreens|StationScreens` (`measured`,
+Heimpositionen), SimpleLib `HudReserve` (neu) + `GadgetHud.begin`, `LinkedTests` (+4 Tests), `ModuleGameTest`, `tools/uiprobe_n65.py`,
+`wiki/manual.json`, Lang EN/DE, Guide-Seiten (generiert).
+
+Abweichungen (bewusst):
+- **SimpleLib:** die Reservierung wirkt in `GadgetHud.begin` (dort steht die endgültige Kasten-Oberkante samt Stapelversatz), nicht in
+  `origin`; API `HudReserve.topLeft/release/right/bottom/clearTop`. Die SimpleLib-Mindestversion in den `fabric.mod.json` bleibt
+  (SimpleLib ist eingebettet).
+- **Rezeptbuch offen:** A ohne seitliche Verschiebung, Reiter rechts – aber **senkrechtes Zentrieren (`dy`) bleibt erlaubt**, sonst passt
+  E + Doppelkiste bei 720p·3 nicht einmal mit einer Reihe ins Fenster. Das Rezeptbuch selbst bleibt Vanilla-mittig (kleiner Höhenversatz).
+- **Whitelist:** Kartentisch nicht aufgenommen (StationScreens setzt dort Slots selbst um); Lager-/Werferscreens und Crafter nur mit
+  aktivem Simple-Stil (Vanilla zeichnet sie aus `width/height`).
+- **A-Kasten:** Höhe je offenem Reiter (A7: 3 px unter der letzten Reihe), die Hotbar-Leiste rückt beim Reiterwechsel nach; Modus und
+  Verschiebung rechnen mit dem höchsten Reiter, die Gruppe springt also nicht.
+- **B:** der gemerkte Kasten darf bis 2 px über die erste Inventarreihe reichen (Vanilla-Doppelkiste: Inventar bei y 139, 6 Reihen = 135),
+  der Hintergrund der Station wird oberhalb davon ausgeblendet.
+- **Hintergrund:** unter dem gemerkten Kasten (A) blendet ein Scissor das Bild der Station aus (nach der Welt-Abdunklung), damit weder die
+  Vanilla-Textur noch der Stil-Inventarkasten durchscheinen.
+- **Reiter-Symbole:** Inventar = Bündel, geöffnete Kiste (B) = Truhe (Platzhalter, Besitzerwahl offen).
+- Nicht umgesetzt (optional im Konzept): blasse Kachel ab 75 % Reichweite (A14), Aufleuchten des Inventar-Reiters bei Shift-Klick in
+  den verborgenen Bereich.

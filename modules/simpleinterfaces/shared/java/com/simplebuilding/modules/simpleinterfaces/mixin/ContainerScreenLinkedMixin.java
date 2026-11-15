@@ -43,6 +43,7 @@ public abstract class ContainerScreenLinkedMixin extends Screen implements Linke
 
     @Unique private int qol$dx, qol$dy;
     @Unique private int qol$expectedLeft = Integer.MIN_VALUE, qol$expectedTop = Integer.MIN_VALUE;
+    /** The inventory label's y while A hides it (MIN_VALUE: not hidden, the screen's own value stands). */
     @Unique private int qol$inventoryLabelY = Integer.MIN_VALUE;
 
     protected ContainerScreenLinkedMixin(Component title) {
@@ -70,22 +71,32 @@ public abstract class ContainerScreenLinkedMixin extends Screen implements Linke
         if (this.leftPos == this.qol$expectedLeft && this.topPos == this.qol$expectedTop) this.qol$shift(-this.qol$dx, -this.qol$dy);
         this.qol$dx = 0;
         this.qol$dy = 0;
-        if (this.qol$inventoryLabelY == Integer.MIN_VALUE) this.qol$inventoryLabelY = this.inventoryLabelY;
         LinkedPanel panel = this.qol$panel();
         if (panel == null) {
-            this.inventoryLabelY = this.qol$inventoryLabelY;
+            this.qol$hideInventoryLabel(false);
             this.qol$expectedLeft = this.qol$expectedTop = Integer.MIN_VALUE;
             return;
         }
         LinkedLayout.Layout layout = panel.layout(this.menu, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, this.width, this.height,
                 LinkedPanel.clean((AbstractContainerScreen<?>) (Object) this), (Object) this instanceof InventoryScreen);
         // A: the inventory label would stick out above the marked box
-        this.inventoryLabelY = layout.hotbar() != null ? -1000 : this.qol$inventoryLabelY;
+        this.qol$hideInventoryLabel(layout.hotbar() != null);
         this.qol$dx = layout.dx();
         this.qol$dy = layout.dy();
         this.qol$shift(this.qol$dx, this.qol$dy);
         this.qol$expectedLeft = this.leftPos;
         this.qol$expectedTop = this.topPos;
+    }
+
+    @Unique
+    private void qol$hideInventoryLabel(boolean hide) {
+        if (hide && this.qol$inventoryLabelY == Integer.MIN_VALUE) {
+            this.qol$inventoryLabelY = this.inventoryLabelY;
+            this.inventoryLabelY = -1000;
+        } else if (!hide && this.qol$inventoryLabelY != Integer.MIN_VALUE) {
+            this.inventoryLabelY = this.qol$inventoryLabelY;
+            this.qol$inventoryLabelY = Integer.MIN_VALUE;
+        }
     }
 
     @Override
