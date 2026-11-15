@@ -167,3 +167,63 @@ Welt flach, Kreativ aus (Überleben), GUI-Skala 2 und 3, Fenster 1280×720:
 4. In A: Hotbar-Leiste immer + Inventar hinter Reiter ok?
 5. Punkt 3: C nebeneinander mit Rückfall B ok?
 6. E: unten (Wunsch) – bei 720p·3 scrollt dann schon eine einfache Kiste (2 von 3 Reihen); ok oder dort automatisch daneben?
+
+## 11 Umsetzung (Besitzer-Abnahme 15.11.: Empfehlungen A / 3 / Kaskade A → C → A-Scroll / C mit Rückfall B / A7)
+
+### 11.1 Plan (vor der ersten Änderung, Ist-Zustand §1 im Code nachgeprüft)
+
+Vorhandenes, auf dem aufgebaut wird: `LinkedContainers` (Merken, Sessions, Shift-Klick), `LinkedPanel` (Client-Slots, Scrollen,
+`SlotPositionAccessor`), `ContainerScreenLinkedMixin` (Layout/Zeichnen/Klick), `HudLinkedMixin`, `KeyboardLinkedMixin` (Escape),
+`BoxLayout` (Vorbild reine Funktion), `UiBoxes.MARGIN/FRAME`, `GadgetHud`-Farben, `StyledScreens` (Stil zeichnet mit `leftPos`).
+
+Server/Common:
+1. `LinkedConfig.linkedContainerMax` (1–5, Standard 3) + `normalizeNumbers`; Konfig-Screen-Eintrag, Lang EN/DE + Tooltip.
+2. `LinkedContainers`: `Map<Player, List<Mark>>` (älteste zuerst). Schleich-Rechtsklick auf einen gemerkten Behälter (auch andere
+   Doppelkisten-Hälfte) entfernt **nur diesen**; ein neuer wird angehängt; über `linkedContainerMax` oder Slot-Summe > `MAX_SLOTS`
+   fällt der älteste weg. Escape / `clear` = alle. Tick prüft jede Merkung einzeln (Reichweite, Rechte, Besuch). `mark(p)` = jüngste,
+   neu `marks(p)`.
+   `Session` = ein verknüpftes Menü mit `List<Part>` (je Merkung Behälter, Block-Entities, Start, Größe); `LinkedSlot` prüft seinen Part.
+   Shift-Klick „gemerkt“ = alle `LinkedSlot` in Merk-Reihenfolge (unverändert `linkedSlots`), keine Client-Meldung nötig.
+3. `LinkedOpenPayload(containerId, List<Entry(size, title, icon)>)`; HUD-Nutzlast (`HUD = -1`) mit der Liste aller Merkungen.
+
+SimpleLib:
+4. `HudReserve` (neu, `com.simplelib.api.client`): `topLeft(owner, width, height)` / `release(owner)`, `bottom()`/`right()`.
+   `GadgetHud.begin` schiebt einen Kasten, der die Reservierung schneidet, auf `y ≥ bottom + 2`. Reine Rechnung `GadgetHud.clear(...)`.
+
+Client:
+5. `LinkedHud` → Kachelreihe oben links: 24×24 bei x = 1 + 25·i, y = 1, Item bei +4/+4, 2×2-Punkt `0xB38EF3` unten rechts,
+   Rahmen/Füllung aus den `GadgetHud`-Farben. Banner entfällt. Client-Schalter `ContainersConfig.linkedHudIcons` (Standard an)
+   + Lang/Tooltip; reserviert die Ecke über `HudReserve` (Breite 25·n).
+6. `LinkedLayout` (neu, `linked/`, reine Funktion ohne Client-Klassen): Eingaben GUI-Maße, Bildmaße, `leftPos/topPos` (Rezeptbuch
+   = `leftPos` ≠ Mitte), Oberkante der Inventarslots, eigene Lagerreihen der Station, Inventar-Screen ja/nein, „sauberer Screen“
+   (Whitelist), gemerkte Größen, aktiver Reiter → `Mode BELOW | BESIDE | BELOW_SCROLL | TABS`, `dx/dy` für `leftPos/topPos`,
+   Kasten-Rechteck (177 bzw. 182 mit Scrollbalken, Höhe 27 + 18·Reihen), sichtbare Reihen, Hotbar-Leiste (35), Reiter-Rechtecke,
+   Schnittlinie für den Hintergrund. Regeln:
+   - Station mit Inventar: **A** (Station bis Inventar-Oberkante − 8, darunter Kasten, 2 px, Hotbar-Leiste; Reiter links
+     [gemerkt…][Inventar]; Kastenhöhe aus der höchsten Reiterbelegung); passt nicht → **C** (Kasten links neben dem Bild, Gruppe
+     mittig per `dx`, nur sauberer Screen und Rezeptbuch zu) → **A scrollend**. Rezeptbuch offen ⇒ A (Reiter rechts, kein `dx/dy`).
+   - Inventar (E) oder Station ohne Inventarslots: Kasten **unter** dem Bild (Gruppe mittig per `dy`), sonst **daneben**, sonst unten scrollend.
+   - Zwei Doppelkisten (eigene Lagerreihen ≥ 6 und gemerkt ≥ 6 Reihen, oder mehrere Merkungen neben einer Doppelkiste):
+     **C** bei GUI-Breite ≥ 360 und genau einer Merkung, sonst **B** (Seiten-Reiter [geöffnet][gemerkt…], ein Lagerbereich).
+   - Whitelist sauberer Screens: Vanilla-Screens, die selbst mit `leftPos` zeichnen (Inventar, Werkbank, Öfen, Kartentisch,
+     Webstuhl, Schmiede, Steinsäge) und die Lager-/Werferscreens nur mit aktivem Simple-Stil (Vanilla zeichnet sie aus `width`).
+7. `LinkedPanel` wendet das Layout an: Heimpositionen aller verschobenen Slots merken (`home`), Hotbar in die Leiste, 27 Hauptslots
+   je nach Reiter in den Kasten oder auf −10000, gemerkte Slots fremder Reiter `shown = false`; B: eigene Lagerslots ↔ gemerkte.
+   Ränder nach A7 (Slots bei +8/+18, rechts 3 px, unten 3 px + 7 Rahmen, Scrollbalken in eigener 5-px-Spalte → 182).
+   `StyledScreens/WorkScreens/StationScreens.layout` rechnen mit den Heimpositionen (der Stil bleibt an).
+8. `ContainerScreenLinkedMixin`: Layout nach dem ganzen `init` (Hook `Screen.init(II)` / `rebuildWidgets`) und bei Nutzlast;
+   `dx/dy` auf `leftPos/topPos` und alle Widgets (rückgängig vor jedem neuen Layout); Rezeptbuch-Umschalten ⇒ neu aufbauen;
+   Reiter zeichnen/klicken; Hintergrund unterhalb der Schnittlinie (A) bzw. Lagerbereich (B, Reiter gemerkt) per Scissor ausblenden,
+   Titel/Inventar-Label dort weg.
+
+Tests/Werkzeuge:
+9. GameTests (`LinkedTests`, Fabric-Katalog): Mehrfach-Merken hinzufügen/entfernen/Maximum/Escape alle/Config-Grenzen,
+   Slot-Summe ≤ `MAX_SLOTS`, Shift-Klick ohne Dupe über zwei gemerkte Behälter (Reihenfolge), Payload-Liste.
+   Reine `LinkedLayout`-Tests: alle Kombinationen §4/§5 × alle Rahmen §2: erwarteter Modus, Ränder = 3, nichts außerhalb.
+10. ui_probe-Szenario `simpleinterfaces/n65` (`tools/uiprobe_n65.py`, wie `uiprobe_n62.py`) – nur geschrieben, nicht gefahren.
+11. Handbuch/Guide EN/DE (manual.json, Guide-Seiten 11 ff.) auf Mehrfach-Merken, Kacheln, Anordnung.
+
+Risiken: `leftPos`-Verschiebung bei fremden Screens (→ Whitelist), Station-Screens, die Slots selbst umsetzen (StationScreens,
+Heimpositionen), Scissor-Stapel, Vanilla-Textur unter dem Kasten (→ Schnitt), Client-Darstellung ungeprüft ohne Client-Lauf.
+Verifikation: Kompilieren Fabric (simplelib + simpleinterfaces), GameTests `simpleinterfaces:*linked*`, ganzes Modul, Precheck.
+Client-/Probe-Läufe macht die Eltern-Session.
