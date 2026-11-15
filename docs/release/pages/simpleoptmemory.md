@@ -6,9 +6,18 @@ Status: **draft**
 
 Memory optimizations for block states and models; currently holds the switch, config and mod detection.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Opt Memory
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
+
+> No performance promises: the effect has not been measured across computers and mod packs yet, so this page names no FPS, memory or tick-time figures. Results depend on your hardware and the other mods you run.
 
 Simple Opt Memory is the home for memory optimizations. At the moment it provides the switch, the config and detection of other optimization mods.
 

@@ -6,12 +6,16 @@ public final class VisualsFabricClient implements net.fabricmc.api.ClientModInit
   CauldronStandModel.register();
   net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback.EVENT.register((dispatcher,registry)->{
    com.simplevisuals.client.LocalCommands.register(dispatcher,(source,text)->source.sendFeedback(text));
-   // CMD24: the client root /simplevisuals hides the server's /simplevisuals config visuals enableAnvilFormatting: hand it on.
-   String anvil="simplevisuals config visuals enableAnvilFormatting";
+   // CMD24: the client root /simplevisuals hides the server's /simplevisuals config visuals <policy>: hand both server policies on
+   // (enableAnvilFormatting, W3B allowAnvilObfuscation).
+   var visuals=net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("visuals");
+   for(String policy:new String[]{"enableAnvilFormatting","allowAnvilObfuscation"}){
+    String server="simplevisuals config visuals "+policy;
+    visuals.then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal(policy).executes(c->{com.simplelib.api.client.ServerCommand.send(server);return 1;})
+     .then(com.simplelib.api.config.ConfigCommands.<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>forwardToServer(server,com.simplelib.api.client.ServerCommand::send)));
+   }
    dispatcher.register(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("simplevisuals")
-    .then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("config").then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("visuals")
-     .then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("enableAnvilFormatting").executes(c->{com.simplelib.api.client.ServerCommand.send(anvil);return 1;})
-      .then(com.simplelib.api.config.ConfigCommands.<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>forwardToServer(anvil,com.simplelib.api.client.ServerCommand::send))))));
+    .then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("config").then(visuals)));
   });
  }
 }

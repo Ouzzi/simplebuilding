@@ -6,9 +6,16 @@ Status: **draft**
 
 Restyled Vanilla container screens, linked containers and easy Shulker and Ender Chest access.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Interfaces
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Interfaces restyles the Vanilla container screens with a colored box per block, adds linked containers and easy Shulker and Ender Chest handling. A sub-mod of Simple Quality of Life that also runs alone.
 

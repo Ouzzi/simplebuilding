@@ -6,9 +6,16 @@ Status: **draft**
 
 Super mod for looks and sound: bundles Simple Visuals, Simple Sounds and Simple Models.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Aesthetics
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Aesthetics has no content of its own. It bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.
 

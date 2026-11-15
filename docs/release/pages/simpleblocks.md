@@ -6,9 +6,16 @@ Status: **draft**
 
 Missing building blocks: Vanilla stair, slab and wall gaps, cracked and mossy variants, and the Shapecutter.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Blocks
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Tiles, Sculk Deepslate, missing stairs, slabs and walls and cracked or mossy brick variants, and hosts blocks that have no home elsewhere. The Shapecutter cuts stone and wood into every shape.
 

@@ -5,6 +5,8 @@
 
 Build bigger. Mine faster. Keep it survival-friendly.
 
+> **Beta.** The current SimpleBuilding line (2.0.0-beta.1 and its sub-mods) is released as a beta: features, balance and config options can still change, and bugs are possible. Back up your world before updating.
+
 SimpleBuilding is a Fabric & NeoForge mod for Minecraft 26.2 and 1.21.11 focused on practical building gameplay:
 - High-impact construction tools
 - Better inventory flow

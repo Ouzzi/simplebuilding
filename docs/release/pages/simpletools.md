@@ -6,9 +6,16 @@ Status: **draft**
 
 Full-durability bonus, Thrift and Soulbound enchantments, Death Vault, Biome Brush and cheaper anvil repairs.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Tools
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Tools adds a bonus for full-durability tools, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets as furnace fuel.
 

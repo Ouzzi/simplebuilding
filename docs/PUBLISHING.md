@@ -5,6 +5,23 @@ Modrinth and CurseForge do **not** read dependency relations from the jar. `fabr
 "Dependencies" / "Relations" of every uploaded file have to be entered on the website (or in the
 upload script). This page lists them per file. Checked against the metadata on 2026-09-24.
 
+## Release channel: every Simple mod is a Beta (owner decision 15.11.2026)
+
+All Simple mods - SimpleBuilding, SimpleLib and every sub-mod, on every loader and Minecraft line - are first published as
+**betas**, not as 1.0 and without performance promises:
+
+- **Version number** = the jar version `<x.y.z>-beta.<n>` (SemVer pre-release, e.g. `0.9.0-beta.1`, `1.0.0-beta.1`,
+  SimpleBuilding `2.0.0-beta.1`). Single source: `modules/modules.json` `version` (SimpleBuilding: `gradle.properties`
+  `mod_version`); `ext.moduleVersion` in the loader `build.gradle` files must equal it.
+- **Modrinth "Version type" = Beta, CurseForge "Release type" = Beta** for every file. Never Release while the version
+  carries `-beta`.
+- Store texts and changelogs say "Beta" and name no FPS, memory or tick-time figures (`docs/release/pages/`,
+  `docs/release/CHANGELOG-<id>.md`).
+- Dependency lower bounds name the beta version (`>=0.4.0-beta.1`, `[0.9.0-beta.1,)`): a pre-release sorts below its
+  release, so `>=0.4.0` would refuse `0.4.0-beta.1` at startup.
+- Check: `python3 tools/release/check_beta.py` (versions, all Simple-mod bounds, changelog headers, store pages);
+  `--table` prints the per-mod list.
+
 ## Required (upload fails the player at startup without them)
 
 | File | Minecraft | Java | Loader | Required mods |
@@ -32,12 +49,12 @@ file the same `[26,)` range as on 26.2.
 
 | Field | Modrinth | CurseForge | Fabric 26.3 | NeoForge 26.3 |
 |---|---|---|---|---|
-| Release channel | "Version type" | "Release type" | Release (or what the version is) | **Beta** - NeoForge 26.3 itself is 26.3.0.x-beta; never Release while it is |
+| Release channel | "Version type" | "Release type" | **Beta** (every Simple mod, see above) | **Beta** - every Simple mod is a beta, and NeoForge 26.3 itself is 26.3.0.x-beta |
 | Game version | "Game versions" | "Game Version" | 26.3 only | 26.3 only |
 | Loader | "Loaders" | "Mod loader" | Fabric (Quilt not tested) | NeoForge only (no Forge 26.3 file exists) |
 | Java | - | "Java version" | Java 25 | Java 25 |
 | Environment | "Environment" (project level) | "Environment" | client and server | client and server |
-| Version number / display name (suggested) | "Version number" / "Version title" | "Display name" | `26.3-<v>` / `SimpleBuilding <v> (Fabric 26.3)` | `26.3-neoforge-<v>` / `SimpleBuilding <v> (NeoForge 26.3, beta)` |
+| Version number / display name (suggested) | "Version number" / "Version title" | "Display name" | `26.3-<v>` / `SimpleBuilding <v> (Fabric 26.3, beta)` | `26.3-neoforge-<v>` / `SimpleBuilding <v> (NeoForge 26.3, beta)` |
 | Required relations | "Dependencies: required" | "Required Dependency" | Fabric API, Cloth Config | Cloth Config |
 | Optional relations | "Dependencies: optional" | "Optional Dependency" | JEI (recommended), Jade, AppleSkin, Mouse Tweaks, Mod Menu (no REI: none for 26.3) | JEI (recommended), Jade, AppleSkin, Mouse Tweaks (no REI: none for 26.3) |
 | Changelog | "Changelog" | "Changelog" | mention "26.3: requires Fabric API 0.161.0+26.3" | mention "NeoForge 26.3 is beta - report loader crashes to NeoForge first" |

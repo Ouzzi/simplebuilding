@@ -6,9 +6,16 @@ Status: **draft**
 
 End wood, End grass and two new outer-island biomes, Ash Valley and Dawnlands; includes Simple End Dragon Fight.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple End
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple End adds Ashwood and Duskwood with buds, trees and stick scrub, End grass, and the Ash Valley and Dawnlands biomes on the outer End islands. It bundles Simple End Dragon Fight.
 

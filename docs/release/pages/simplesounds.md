@@ -6,9 +6,16 @@ Status: **draft**
 
 Local Vanilla-sound counterparts for the twelve Simple Visuals immersion effects.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Sounds
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Sounds plays Vanilla sounds locally to go with the twelve immersion effects of Simple Visuals.
 

@@ -6,9 +6,16 @@ Status: **draft**
 
 Fossils, brushable dinosaur eggs and the first dinosaur: a rideable T. rex that hatches and grows up.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Dinosaurs
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by sitting on them, and a rideable T. rex that hatches as a hatchling and grows up.
 

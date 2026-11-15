@@ -6,9 +6,16 @@ Status: **draft**
 
 Game modes for a world of your choice, starting with the Unlock mode: priced cells you must free to enter.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Challenges
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Challenges adds the Unlock mode: the world is cut into cells (a block column, a chunk or three chunks) and only freed cells can be entered. Each cell has a price from the world, with deadlock protection and an emergency unlock. Without a chosen challenge the mod changes nothing.
 

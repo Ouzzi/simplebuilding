@@ -127,8 +127,8 @@ Basis d4e396636, sb-test, `xvfb-run -a`, Mods nur im Test-Run-Ordner (nicht im R
 - **Vorbehalt bleibt** für simpleoptrender und simplevisuals: Sichtlauf mit echtem OpenGL (Desktop oder Xvfb/Xorg mit GLX-Visual) für Sodium und Iris (+ Shader). Der Besitzer-PC-Lauf oder ein GL-fähiger Test-Container löst das.
 
 ## Rückfragen an den Besitzer
-- R1 Versionsnummer zum Release: alle 1.0.0? (Empfehlung: ja)
-- R2 e3/e5 (Benchmark auf deinem PC, Modpack-Test) vor dem Opt-Release oder Opt als „Beta“ ausliefern? (Audit: blockiert 1.0 nicht, wenn die Texte keine Leistungszusagen machen; vorhandene Messungen belegen nur S5b.)
+- R1 Versionsnummer zum Release: alle 1.0.0? (Empfehlung: ja) – **überholt durch W3B (Besitzer 15.11.): alle Mods als Beta**, Version = bisherige Basis + `-beta.1` (b-beta61, `docs/PUBLISHING.md` Abschnitt „Release channel“).
+- R2 e3/e5 (Benchmark auf deinem PC, Modpack-Test) vor dem Opt-Release oder Opt als „Beta“ ausliefern? (Audit: blockiert 1.0 nicht, wenn die Texte keine Leistungszusagen machen; vorhandene Messungen belegen nur S5b.) – **beantwortet W3B: Beta, ohne Leistungsversprechen** (Store-Seiten der vier Opt-Mods mit Hinweis „keine gemessenen FPS-/Speicher-/Tickzahlen“); e3/e5 bleiben für eine spätere Nicht-Beta offen.
 - R3 Opt: Mod-Menu-Bildschirm vor Release nötig (heute nur JSON + Befehle)?
 - R-INT-1 Zoom-Taste C unbelegt lassen, solange `zoomHotkey` aus ist?
 - Q-B1 Cloth Config ist bei den sechs QoL-Sub-Mods und bei Simple Visuals/Sounds harte Abhängigkeit (Dedicated Server muss sie mitinstallieren), obwohl nur der Client-Screen sie braucht – optional machen?

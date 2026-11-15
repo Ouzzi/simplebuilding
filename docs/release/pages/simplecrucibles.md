@@ -6,9 +6,16 @@ Status: **draft**
 
 Fuel-free crucibles from Iron to Enderite, the reinforced cauldron and village field kitchens.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Crucibles
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel, heated by the block below), the reinforced cauldron, copper and soul lava buckets, soul lava in the Nether and village field kitchens. Barrels of Simple Storage dock onto a crucible. Ids from older versions migrate.
 
@@ -17,6 +24,7 @@ Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cook
 - **Crucibles** - A cooking station without fuel that cooks every slot at once, heated by the block below.
 - **Village field kitchens** - Villages of all five types can have a small field kitchen: an iron crucible on an unlit campfire with cooked food, a barrel of raw meat and a seat.
 - **Reinforced cauldron** - A cauldron for water, lava, powder snow and soul lava; lava in it heats a crucible like a lava source.
+- **Netherite and Enderite cauldron** - Reinforced cauldrons with room for 2 (Netherite) or 4 (Enderite) buckets of one content.
 - **Soul lava** - A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Soul Burn.
 - **Copper and soul lava buckets** - Buckets for the crucible's fluids: the iron bucket breaks on soul lava, copper oxidizes.
 - **Recipe book** - Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe.

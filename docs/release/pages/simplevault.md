@@ -6,9 +6,16 @@ Status: **draft**
 
 Find a rare gap in the Overworld bedrock, solve three riddles in the Bedrock Vault and ride the Ascent Altar back to the surface.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Vault
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Vault hides a rare 2 x 2 gap in the Overworld bedrock. It leads to the Bedrock Vault: quiet halls on two floors in a dimension of solid bedrock. Three riddles of light, sound and path give you the seal parts that open the Ascent Altar, your only way back up.
 

@@ -6,9 +6,16 @@ Status: **draft**
 
 Seven sledgehammers from Stone to Enderite for 3x3 mining, reshaping blocks and in-world upgrades.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Hammers
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Hammers adds seven sledgehammers that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks, and upgrade blocks in the world. Enchantments: Break Through, Override and Radius.
 

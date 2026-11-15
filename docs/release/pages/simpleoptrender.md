@@ -6,9 +6,18 @@ Status: **draft**
 
 Client optimizations: leaf culling, light-map cache, fast IP ping and telemetry off, stepping back for other mods.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Opt Render
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
+
+> No performance promises: the effect has not been measured across computers and mod packs yet, so this page names no FPS, memory or tick-time figures. Results depend on your hardware and the other mods you run.
 
 Simple Opt Render adds client optimizations. Each area steps back automatically when a known optimization mod already covers it.
 

@@ -187,16 +187,16 @@
       ],
       "en": {
         "title": "Damage indicators",
-        "summary": "Up to 32 short-lived numbers for observed health decreases of nearby visible living entities. Values above eight use the special color; this does not prove a critical or Smite hit. Solid blocks hide numbers.",
+        "summary": "Up to 32 short-lived numbers for observed health decreases of nearby visible living entities, on by default. Switch them off in the Damage tab or with /simplevisuals visuals.damageIndicators.enable false. Values above eight use the high-hit color; this does not prove a critical or Smite hit. Solid blocks hide numbers.",
         "details": [
-          "Up to 32 short-lived numbers for observed health decreases of nearby visible living entities. Values above eight use the special color; this does not prove a critical or Smite hit. Solid blocks hide numbers."
+          "Up to 32 short-lived numbers for observed health decreases of nearby visible living entities, on by default. Switch them off in the Damage tab or with /simplevisuals visuals.damageIndicators.enable false. Values above eight use the high-hit color; this does not prove a critical or Smite hit. Solid blocks hide numbers."
         ]
       },
       "de": {
         "title": "Schadensanzeigen",
-        "summary": "Bis zu 32 kurzlebige Zahlen für beobachtete Lebensverluste naher sichtbarer Lebewesen. Werte über acht nutzen die Sonderfarbe; dies beweist keinen kritischen oder Bann-Treffer. Feste Blöcke verbergen die Zahlen.",
+        "summary": "Bis zu 32 kurzlebige Zahlen für beobachtete Lebensverluste naher sichtbarer Lebewesen, standardmäßig an. Ausschalten im Tab Schaden oder mit /simplevisuals visuals.damageIndicators.enable false. Werte über acht nutzen die Farbe für hohe Treffer; dies beweist keinen kritischen oder Bann-Treffer. Feste Blöcke verbergen die Zahlen.",
         "details": [
-          "Bis zu 32 kurzlebige Zahlen für beobachtete Lebensverluste naher sichtbarer Lebewesen. Werte über acht nutzen die Sonderfarbe; dies beweist keinen kritischen oder Bann-Treffer. Feste Blöcke verbergen die Zahlen."
+          "Bis zu 32 kurzlebige Zahlen für beobachtete Lebensverluste naher sichtbarer Lebewesen, standardmäßig an. Ausschalten im Tab Schaden oder mit /simplevisuals visuals.damageIndicators.enable false. Werte über acht nutzen die Farbe für hohe Treffer; dies beweist keinen kritischen oder Bann-Treffer. Feste Blöcke verbergen die Zahlen."
         ]
       }
     },
@@ -227,16 +227,16 @@
       ],
       "en": {
         "title": "Anvil formatting and uses",
-        "summary": "Valid & or section-sign color/style codes are accepted only under server formatting policy. Vanilla anvil costs and 50-character name limit remain. Shows prior work uses from repair cost when no result is present.",
+        "summary": "Valid & or section-sign color/style codes are accepted only under server formatting policy. The unreadable obfuscated style &k stays locked unless the server allows it. Vanilla anvil costs and 50-character name limit remain. Shows prior work uses from repair cost when no result is present.",
         "details": [
-          "Valid & or section-sign color/style codes are accepted only under server formatting policy. Vanilla anvil costs and 50-character name limit remain. Shows prior work uses from repair cost when no result is present."
+          "Valid & or section-sign color/style codes are accepted only under server formatting policy. The unreadable obfuscated style &k stays locked unless the server allows it. Vanilla anvil costs and 50-character name limit remain. Shows prior work uses from repair cost when no result is present."
         ]
       },
       "de": {
         "title": "Ambossformatierung und Nutzungen",
-        "summary": "Gültige &- oder Paragraphen-Farb-/Stilcodes werden nur unter der Serverregel akzeptiert. Vanilla-Ambosskosten und die Grenze von 50 Zeichen bleiben. Zeigt vorherige Nutzungen aus den Reparaturkosten, wenn kein Ergebnis vorliegt.",
+        "summary": "Gültige &- oder Paragraphen-Farb-/Stilcodes werden nur unter der Serverregel akzeptiert. Die unlesbare Zauberschrift &k bleibt gesperrt, solange der Server sie nicht erlaubt. Vanilla-Ambosskosten und die Grenze von 50 Zeichen bleiben. Zeigt vorherige Nutzungen aus den Reparaturkosten, wenn kein Ergebnis vorliegt.",
         "details": [
-          "Gültige &- oder Paragraphen-Farb-/Stilcodes werden nur unter der Serverregel akzeptiert. Vanilla-Ambosskosten und die Grenze von 50 Zeichen bleiben. Zeigt vorherige Nutzungen aus den Reparaturkosten, wenn kein Ergebnis vorliegt."
+          "Gültige &- oder Paragraphen-Farb-/Stilcodes werden nur unter der Serverregel akzeptiert. Die unlesbare Zauberschrift &k bleibt gesperrt, solange der Server sie nicht erlaubt. Vanilla-Ambosskosten und die Grenze von 50 Zeichen bleiben. Zeigt vorherige Nutzungen aus den Reparaturkosten, wenn kein Ergebnis vorliegt."
         ]
       }
     },
@@ -267,16 +267,16 @@
       ],
       "en": {
         "title": "Configuration commands",
-        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD.",
+        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] and allowAnvilObfuscation [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD.",
         "details": [
-          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD."
+          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] and allowAnvilObfuscation [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD."
         ]
       },
       "de": {
         "title": "Konfigurationsbefehle",
-        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD.",
+        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] und allowAnvilObfuscation [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD.",
         "details": [
-          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD."
+          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] und allowAnvilObfuscation [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD."
         ]
       }
     },
@@ -487,16 +487,36 @@
       ],
       "en": {
         "title": "Enable Anvil Formatting codes",
-        "summary": "Setting visuals.enableAnvilFormatting. The server policy decides; Vanilla costs remain. Allows using '&' as a formatting code in anvils (e.g., &c for red, &k for magic). Default: true.",
+        "summary": "Setting visuals.enableAnvilFormatting. The server policy decides; Vanilla costs remain. Allows using '&' as a formatting code in anvils (e.g., &c for red). The obfuscated style &k has its own lock (allowAnvilObfuscation). Default: true.",
         "details": [
-          "Setting visuals.enableAnvilFormatting. The server policy decides; Vanilla costs remain. Allows using '&' as a formatting code in anvils (e.g., &c for red, &k for magic). Default: true."
+          "Setting visuals.enableAnvilFormatting. The server policy decides; Vanilla costs remain. Allows using '&' as a formatting code in anvils (e.g., &c for red). The obfuscated style &k has its own lock (allowAnvilObfuscation). Default: true."
         ]
       },
       "de": {
         "title": "Amboss-Formatierungscodes (&)",
-        "summary": "Einstellung visuals.enableAnvilFormatting. Serverregel entscheidet; Vanilla-Kosten bleiben erhalten. Erlaubt die Nutzung von '&' für Farben im Amboss (z.B. &c für Rot, &k für Magie). Standard: true.",
+        "summary": "Einstellung visuals.enableAnvilFormatting. Serverregel entscheidet; Vanilla-Kosten bleiben erhalten. Erlaubt die Nutzung von '&' für Farben im Amboss (z.B. &c für Rot). Die Zauberschrift &k hat eine eigene Sperre (allowAnvilObfuscation). Standard: true.",
         "details": [
-          "Einstellung visuals.enableAnvilFormatting. Serverregel entscheidet; Vanilla-Kosten bleiben erhalten. Erlaubt die Nutzung von '&' für Farben im Amboss (z.B. &c für Rot, &k für Magie). Standard: true."
+          "Einstellung visuals.enableAnvilFormatting. Serverregel entscheidet; Vanilla-Kosten bleiben erhalten. Erlaubt die Nutzung von '&' für Farben im Amboss (z.B. &c für Rot). Die Zauberschrift &k hat eine eigene Sperre (allowAnvilObfuscation). Standard: true."
+        ]
+      }
+    },
+    {
+      "id": "config_visuals_allowAnvilObfuscation",
+      "sources": [
+        "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
+      ],
+      "en": {
+        "title": "Allow obfuscated text (&k)",
+        "summary": "Setting visuals.allowAnvilObfuscation. Server policy (permission 2): allows the unreadable obfuscated style &k in anvil names. Off keeps &k locked and drops it from the name; other codes stay. Default: false.",
+        "details": [
+          "Setting visuals.allowAnvilObfuscation. Server policy (permission 2): allows the unreadable obfuscated style &k in anvil names. Off keeps &k locked and drops it from the name; other codes stay. Default: false."
+        ]
+      },
+      "de": {
+        "title": "Zauberschrift erlauben (&k)",
+        "summary": "Einstellung visuals.allowAnvilObfuscation. Serverregel (Berechtigung 2): erlaubt die unlesbare Zauberschrift &k in Ambossnamen. Aus sperrt &k und entfernt es aus dem Namen; andere Codes bleiben. Standard: false.",
+        "details": [
+          "Einstellung visuals.allowAnvilObfuscation. Serverregel (Berechtigung 2): erlaubt die unlesbare Zauberschrift &k in Ambossnamen. Aus sperrt &k und entfernt es aus dem Namen; andere Codes bleiben. Standard: false."
         ]
       }
     },
@@ -615,17 +635,17 @@
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
       ],
       "en": {
-        "title": "Enable",
-        "summary": "Setting visuals.damageIndicators.enable. Local cosmetic setting; changes do not affect gameplay. Default: true.",
+        "title": "Enable damage numbers",
+        "summary": "Setting visuals.damageIndicators.enable. Local cosmetic setting; changes do not affect gameplay. On by default; switch damage numbers off here. Default: true.",
         "details": [
-          "Setting visuals.damageIndicators.enable. Local cosmetic setting; changes do not affect gameplay. Default: true."
+          "Setting visuals.damageIndicators.enable. Local cosmetic setting; changes do not affect gameplay. On by default; switch damage numbers off here. Default: true."
         ]
       },
       "de": {
-        "title": "Enable",
-        "summary": "Einstellung visuals.damageIndicators.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
+        "title": "Schadenszahlen anzeigen",
+        "summary": "Einstellung visuals.damageIndicators.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standardmäßig an; Schadenszahlen hier ausschalten. Standard: true.",
         "details": [
-          "Einstellung visuals.damageIndicators.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
+          "Einstellung visuals.damageIndicators.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standardmäßig an; Schadenszahlen hier ausschalten. Standard: true."
         ]
       }
     },
@@ -675,17 +695,17 @@
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
       ],
       "en": {
-        "title": "Color special",
-        "summary": "Setting visuals.damageIndicators.colorSpecial. Local cosmetic setting; changes do not affect gameplay. Default: 16766720.",
+        "title": "Color high hit (above 8)",
+        "summary": "Setting visuals.damageIndicators.colorSpecial. Local cosmetic setting; changes do not affect gameplay. Color for high hits (damage above 8); not a critical-hit marker. Default: 16766720.",
         "details": [
-          "Setting visuals.damageIndicators.colorSpecial. Local cosmetic setting; changes do not affect gameplay. Default: 16766720."
+          "Setting visuals.damageIndicators.colorSpecial. Local cosmetic setting; changes do not affect gameplay. Color for high hits (damage above 8); not a critical-hit marker. Default: 16766720."
         ]
       },
       "de": {
-        "title": "Color special",
-        "summary": "Einstellung visuals.damageIndicators.colorSpecial. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 16766720.",
+        "title": "Farbe hoher Treffer (über 8)",
+        "summary": "Einstellung visuals.damageIndicators.colorSpecial. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Farbe für hohe Treffer (Schaden über 8); kein Zeichen für kritische Treffer. Standard: 16766720.",
         "details": [
-          "Einstellung visuals.damageIndicators.colorSpecial. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 16766720."
+          "Einstellung visuals.damageIndicators.colorSpecial. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Farbe für hohe Treffer (Schaden über 8); kein Zeichen für kritische Treffer. Standard: 16766720."
         ]
       }
     },

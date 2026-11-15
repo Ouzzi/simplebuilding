@@ -6,9 +6,16 @@ Status: **draft**
 
 Faster saddles, higher horse jumps, nautilus dashes, mount armor utilities, loot and trades.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Riding
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Riding improves mounts: saddle speed, horse jumps, nautilus dashes and mount armor utilities, plus matching loot and trades.
 

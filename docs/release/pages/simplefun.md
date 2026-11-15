@@ -6,9 +6,16 @@ Status: **draft**
 
 Bounded playful mechanics: throwable bricks and cosmetic transformations that stay safe for survival.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Fun
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Fun collects small playful mechanics, such as throwable bricks and cosmetic transformations. Every effect is bounded so it cannot break a world. The animal heads moved to Simple Mobheads.
 

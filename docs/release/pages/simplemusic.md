@@ -6,9 +6,16 @@ Status: **draft**
 
 Write sheet music in a text note code, press it onto discs and play uploaded Ogg discs in jukeboxes.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Music
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Music adds sheet music with a text note code (editor with test listening, .txt and .nbs import), a Disc Press, uploaded mono Ogg discs (quota and operator approval) and a Pocket Jukebox.
 

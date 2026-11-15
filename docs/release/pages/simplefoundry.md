@@ -6,9 +6,16 @@ Status: **draft**
 
 A multiblock foundry for Simple Ovens: melt gold, copper and iron and pour it into casting trays.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Foundry
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Foundry is a multiblock: a tank of melting chambers in a brick hull, fuel on the desk, ore thrown in, and the melt poured by layer through spouts into casting trays. Gold, copper and iron, one ingot per ingot.
 

@@ -6,9 +6,16 @@ Status: **draft**
 
 Octets: half-block cubes of every wood and block with stairs and slabs that mix in a single cell.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Octets
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Octets adds 0.5 x 0.5 x 0.5 cubes you cut from a full block in the Shapecutter of Simple Blocks (in the stonecutter without it) and craft back into the block. Different octets mix in one cell; a sledgehammer breaks one corner off a full block.
 

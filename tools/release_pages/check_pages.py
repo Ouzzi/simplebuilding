@@ -16,6 +16,7 @@ def main():
         s = re.search(r"## Summary[^\n]*\n\n(.+)\n", t)
         if not s or len(s.group(1)) > 150: bad.append(f"{p.name}: summary {len(s.group(1)) if s else 'missing'} chars")
         for h in FORBIDDEN.finditer(t): bad.append(f"{p.name}: forbidden '{h.group(0)}'")
-    print("\n".join(bad) or "OK: all pages present, summaries <=150, no internal codes")
+        if "## Release channel: Beta" not in t or "> **Beta.**" not in t: bad.append(f"{p.name}: no Beta release-channel block / Beta note (owner: all mods released as beta)")
+    print("\n".join(bad) or "OK: all pages present, summaries <=150, no internal codes, Beta channel on every page")
     return 1 if bad else 0
 if __name__ == "__main__": sys.exit(main())

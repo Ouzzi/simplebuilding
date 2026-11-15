@@ -97,7 +97,7 @@
     {
       "id": "wiringexample",
       "name": "Wiring Example",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "example": true,
@@ -130,7 +130,7 @@
     {
       "id": "simplemoney",
       "name": "Simple Money",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "projects": {
@@ -255,7 +255,7 @@
     {
       "id": "simpleriding",
       "name": "Simple Riding",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "projects": {
@@ -357,7 +357,7 @@
     {
       "id": "simplemodels",
       "name": "Simple Models",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Models",
@@ -453,7 +453,7 @@
     {
       "id": "simplefun",
       "name": "Simple Fun",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Fun",
@@ -554,7 +554,7 @@
     {
       "id": "simplevisuals",
       "name": "Simple Visuals",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Visuals",
@@ -654,7 +654,7 @@
     {
       "id": "simplesounds",
       "name": "Simple Sounds",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Sounds",
@@ -754,7 +754,7 @@
     {
       "id": "simplequalityoflife",
       "name": "Simple Quality of Life",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Quality of Life",
@@ -872,7 +872,7 @@
     {
       "id": "simpletweaks",
       "name": "Simple Tweaks",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tweaks",
@@ -997,7 +997,7 @@
     {
       "id": "simpledimensions",
       "name": "Simple Dimensions",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Dimensions",
@@ -1100,7 +1100,7 @@
     {
       "id": "simplesandwiches",
       "name": "Simple Sandwiches",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Sandwiches",
@@ -1205,7 +1205,7 @@
     {
       "id": "simplelib",
       "name": "SimpleLib",
-      "version": "0.4.0",
+      "version": "0.4.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "SimpleLib",
@@ -1281,7 +1281,7 @@
     {
       "id": "simpleinterfaces",
       "name": "Simple Interfaces",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Interfaces",
@@ -1385,7 +1385,7 @@
     {
       "id": "simplemaps",
       "name": "Simple Maps",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Maps",
@@ -1487,7 +1487,7 @@
     {
       "id": "simplelivemap",
       "name": "Simple Livemap",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Livemap",
@@ -1546,7 +1546,7 @@
     {
       "id": "simpletrims",
       "name": "Simple Trims",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Trims",
@@ -1639,7 +1639,7 @@
     {
       "id": "simplemobs",
       "name": "Simple Mobs",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mobs",
@@ -1736,7 +1736,7 @@
     {
       "id": "simpleweather",
       "name": "Simple Weather",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Weather",
@@ -1829,7 +1829,7 @@
     {
       "id": "simplemovement",
       "name": "Simple Movement",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Movement",
@@ -1922,7 +1922,7 @@
     {
       "id": "simpletools",
       "name": "Simple Tools",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tools",
@@ -2020,7 +2020,7 @@
     {
       "id": "simplefarming",
       "name": "Simple Farming",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Farming",
@@ -2118,7 +2118,7 @@
     {
       "id": "simplemobmanners",
       "name": "Simple Mob Manners",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mob Manners",
@@ -2211,7 +2211,7 @@
     {
       "id": "simpleloot",
       "name": "Simple Loot",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Loot",
@@ -2304,7 +2304,7 @@
     {
       "id": "simplequestionary",
       "name": "Simple Questionary",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Questionary",
@@ -2394,7 +2394,7 @@
     {
       "id": "simpleaesthetics",
       "name": "Simple Aesthetics",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Aesthetics",
@@ -2486,7 +2486,7 @@
     {
       "id": "simpleenddragonfight",
       "name": "Simple End Dragon Fight",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple End Dragon Fight",
@@ -2577,7 +2577,7 @@
     {
       "id": "simpleend",
       "name": "Simple End",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple End",
@@ -2672,7 +2672,7 @@
     {
       "id": "simplerespawn",
       "name": "Simple Respawn",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Respawn",
@@ -2762,7 +2762,7 @@
     {
       "id": "simplebeacons",
       "name": "Simple Beacons",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Beacons",
@@ -2856,7 +2856,7 @@
     {
       "id": "simpleovens",
       "name": "Simple Ovens",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Ovens",
@@ -2951,7 +2951,7 @@
     {
       "id": "simplemobheads",
       "name": "Simple Mobheads",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mobheads",
@@ -3054,7 +3054,7 @@
     {
       "id": "simpleshops",
       "name": "Simple Shops",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Shops",
@@ -3148,7 +3148,7 @@
     {
       "id": "simplewanderers",
       "name": "Simple Wanderers",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Wanderers",
@@ -3242,7 +3242,7 @@
     {
       "id": "simplestats",
       "name": "Simple Stats",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Stats",
@@ -3330,7 +3330,7 @@
     {
       "id": "simpleblocks",
       "name": "Simple Blocks",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Blocks",
@@ -3423,7 +3423,7 @@
     {
       "id": "simplecrucibles",
       "name": "Simple Crucibles",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Crucibles",
@@ -3557,7 +3557,7 @@
     {
       "id": "simpleoctets",
       "name": "Simple Octets",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Octets",
@@ -3653,7 +3653,7 @@
     {
       "id": "simplehammers",
       "name": "Simple Hammers",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Hammers",
@@ -3763,7 +3763,7 @@
     {
       "id": "simpleoptimization",
       "name": "Simple Optimization",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Optimization",
@@ -3831,7 +3831,7 @@
     {
       "id": "simpleoptrender",
       "name": "Simple Opt Render",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Opt Render",
@@ -3898,7 +3898,7 @@
     {
       "id": "simpleoptmemory",
       "name": "Simple Opt Memory",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Opt Memory",
@@ -3957,7 +3957,7 @@
     {
       "id": "simpleoptserver",
       "name": "Simple Opt Server",
-      "version": "1.0.0",
+      "version": "1.0.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Opt Server",
@@ -4016,7 +4016,7 @@
     {
       "id": "simplestorage",
       "name": "Simple Storage",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Storage",
@@ -4114,7 +4114,7 @@
     {
       "id": "simplemusic",
       "name": "Simple Music",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Music",
@@ -4207,7 +4207,7 @@
     {
       "id": "simplelights",
       "name": "Simple Lights",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Lights",
@@ -4279,7 +4279,7 @@
     {
       "id": "simplegadgets",
       "name": "Simple Gadgets",
-      "version": "0.9.0",
+      "version": "0.9.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Gadgets",
@@ -4343,7 +4343,7 @@
     {
       "id": "simpleearth",
       "name": "Simple Earth",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Earth",
@@ -4415,7 +4415,7 @@
     {
       "id": "simplechallenges",
       "name": "Simple Challenges",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Challenges",
@@ -4487,7 +4487,7 @@
     {
       "id": "simpleanimals",
       "name": "Simple Animals",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Animals",
@@ -4573,7 +4573,7 @@
     {
       "id": "simpledinos",
       "name": "Simple Dinosaurs",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Dinosaurs",
@@ -4659,7 +4659,7 @@
     {
       "id": "simpleores",
       "name": "Simple Ores",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Ores",
@@ -4744,7 +4744,7 @@
     {
       "id": "simplemachines",
       "name": "Simple Machines",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Machines",
@@ -4819,7 +4819,7 @@
     {
       "id": "simplearrows",
       "name": "Simple Arrows",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Arrows",
@@ -4884,7 +4884,7 @@
     {
       "id": "simpleresonance",
       "name": "Simple Resonance",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Resonance",
@@ -4967,7 +4967,7 @@
     {
       "id": "simplefoundry",
       "name": "Simple Foundry",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Foundry",
@@ -5036,7 +5036,7 @@
     {
       "id": "simpleenchanting",
       "name": "Simple Enchanting",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Enchanting",
@@ -5102,7 +5102,7 @@
     {
       "id": "simplepads",
       "name": "Simple Pads",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Pads",
@@ -5186,7 +5186,7 @@
     {
       "id": "simplebuildingtools",
       "name": "Simple Building Tools",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Building Tools",
@@ -5262,7 +5262,7 @@
     {
       "id": "simplechisels",
       "name": "Simple Chisels",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Chisels",
@@ -5336,7 +5336,7 @@
     {
       "id": "simplelayers",
       "name": "Simple Layers",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Layers",
@@ -5418,7 +5418,7 @@
     {
       "id": "simplevault",
       "name": "Simple Vault",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Vault",
@@ -5490,7 +5490,7 @@
     {
       "id": "simplechess",
       "name": "Simple Chess",
-      "version": "0.1.0",
+      "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Chess",

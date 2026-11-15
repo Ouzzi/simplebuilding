@@ -6,9 +6,16 @@ Status: **draft**
 
 Server claims, admin tools (block log, backups, anti-X-ray) and player tweaks, on by default; older worlds keep loading.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Tweaks
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Tweaks keeps older worlds compatible and gives servers three groups of tools, all on by default and each switchable: claims that protect builds, admin tools (block and container log, inventory backups, world backups, vanish, freeze, restart announcements, lag finder, anti-X-ray) and player tweaks (death hint, partial keep inventory, newcomer protection, AFK handling, votes, server events, welcome messages).
 

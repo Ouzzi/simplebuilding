@@ -1,8 +1,10 @@
-# SimpleBuilding 2.0.0 - changelog (Minecraft 26.3, Fabric)
+# SimpleBuilding 2.0.0-beta.1 - changelog (Minecraft 26.3, Fabric, beta)
 
 ## Release notes
 
-Version 2.0.0 is the module split for Minecraft 26.3 on Fabric. Back up your world before you update.
+**Beta release.** This first version is published as a beta (release channel Beta on Modrinth and CurseForge): features, balance and config options can still change, and bugs are possible. Back up your world and report problems on the issue tracker.
+
+Version 2.0.0-beta.1 is the module split for Minecraft 26.3 on Fabric. Back up your world before you update.
 
 Building tools, storage, machines and enchantments for Minecraft; the super mod of the Simple family, bundling its required sub-mods.
 

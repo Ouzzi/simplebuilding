@@ -6,9 +6,16 @@ Status: **draft**
 
 Fletching Table, Light Arrow and Silver Arrow: build arrows from tip, shaft and fletching.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Arrows
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Arrows adds a Fletching Table that builds four arrows from a tip, a shaft and a fletching (optionally with a potion), the Light Arrow that lights the air where it sticks, and the Silver Arrow that hits undead harder.
 

@@ -6,9 +6,16 @@ Status: **draft**
 
 Light Panes: flat lamps on any block side in plain, transparent, sixteen colors and redstone variants.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Lights
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Lights adds 1 px lamps for any block side: plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength, and copper panes that toggle like the Copper Bulb.
 

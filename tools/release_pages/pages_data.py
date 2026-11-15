@@ -115,7 +115,7 @@ P = {
 "simplehammers": ("Seven sledgehammers from Stone to Enderite for 3x3 mining, reshaping blocks and in-world upgrades.",
   "Simple Hammers adds seven sledgehammers that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks, and upgrade blocks in the world. Enchantments: Break Through, Override and Radius.",
   "equipment, utility", "hammer, mining, tools"),
-"simpleoptimization": ("Super mod for performance: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server.",
+"simpleoptimization": ("Super mod for optimization tweaks: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server.",
   "Simple Optimization has no content of its own. It bundles three optimization sub-mods with one on/off switch each; each steps back when a known optimization mod covers its area.",
   "optimization", "performance, optimization"),
 "simpleoptrender": ("Client optimizations: leaf culling, light-map cache, fast IP ping and telemetry off, stepping back for other mods.",

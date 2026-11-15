@@ -360,7 +360,9 @@ tasks.named('check') { dependsOn 'testLivemapWeb' }
  // B1 (b-lib01): sub-mod switches/suggests generated from modules/modules.json; stale -> python tools/submods/sync.py
  'checkSubMods': 'tools/submods/sync.py --check',
  // simplebuilding-1 (a-w1a): SB files not shipped on 26.3 (moved content) must stay unused there; stale -> tools/release/dead_assets_263.py
- 'checkNotShipped263': 'tools/release/dead_assets_263.py --check'].each { taskName, script ->
+ 'checkNotShipped263': 'tools/release/dead_assets_263.py --check',
+ // b-beta61 (owner W3B 15.11.): every mod ships as <x.y.z>-beta.<n>; Simple-mod lower bounds met, changelogs and store pages say Beta
+ 'checkBetaRelease': 'tools/release/check_beta.py'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."

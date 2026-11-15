@@ -6,9 +6,16 @@ Status: **draft**
 
 Client HUD, tooltip and anvil formatting plus Vanilla-style immersion particles, all bounded and optional.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Visuals
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Visuals tweaks how the game looks on the client: HUD, tooltips, anvil text and immersion particles built from Vanilla assets.
 
@@ -23,7 +30,7 @@ Simple Visuals tweaks how the game looks on the client: HUD, tooltips, anvil tex
 - **Local death coordinates** - Disabled, appended, or separate local coordinate line for your own death message.
 - **Map preview tooltips** - A 128-pixel map preview, center coordinates and dimension id from map data already available to this client.
 - **Held item information** - Durability and up to eight enchantment lines accompany the Vanilla held-item name.
-- **Damage indicators** - Up to 32 short-lived numbers for observed health decreases of nearby visible living entities.
+- **Damage indicators** - Up to 32 short-lived numbers for observed health decreases of nearby visible living entities, on by default.
 - **Biome notifications** - Optional biome name on transition, with display duration, offset and re-entry cooldown.
 - **Anvil formatting and uses** - Valid & or section-sign color/style codes are accepted only under server formatting policy.
 

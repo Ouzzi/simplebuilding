@@ -6,9 +6,16 @@ Status: **draft**
 
 Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow.
 
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Movement
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Movement adds crawling on demand, an autowalk the server can allow, faster ladders and Frost Walker that works on powder snow.
 

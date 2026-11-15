@@ -5,7 +5,7 @@ public final class LocalCommands {
  public static <S> void register(CommandDispatcher<S> dispatcher,java.util.function.BiConsumer<S,Component> feedback){
   var root=LiteralArgumentBuilder.<S>literal("simplevisuals");
   for(var option:ConfigOptions.all(Visuals.CONFIG)){
-   if(option.path().endsWith("enableAnvilFormatting"))continue;
+   if(ConfigOptions.serverOwned(option.path()))continue;
    add(root,"config."+option.path(),option,feedback);
    String alias=switch(option.path()){
     case "visuals.enablePlayerLocator"->"locator";case "visuals.enableStatusEffectBars"->"statusBars";case "visuals.enableChatHeads"->"chatHeads";case "visuals.enableElytraPitchHelper"->"elytraHelper.enable";

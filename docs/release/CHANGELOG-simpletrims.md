@@ -1,6 +1,8 @@
-# Simple Trims 0.1.0 - changelog (Minecraft 26.3, Fabric)
+# Simple Trims 0.1.0-beta.1 - changelog (Minecraft 26.3, Fabric, beta)
 
 ## Release notes
+
+**Beta release.** This first version is published as a beta (release channel Beta on Modrinth and CurseForge): features, balance and config options can still change, and bugs are possible. Back up your world and report problems on the issue tracker.
 
 First release of **Simple Trims** for Minecraft 26.3 on Fabric.
 

@@ -6,9 +6,16 @@ Status: **draft**
 
 Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter, Chunk Loader and upgraded pressure plates.
 
+## Release channel: Beta
+
+- Version number: `0.1.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Pads
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Pads adds the Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, plus Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra.
 

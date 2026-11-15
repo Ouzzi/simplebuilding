@@ -6,9 +6,16 @@ Status: **draft**
 
 Currency production, weighted villager trades and treasure loot for survival worlds.
 
+## Release channel: Beta
+
+- Version number: `0.9.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
+
 ## Description (Markdown)
 
 # Simple Money
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
 Simple Money adds a currency you can produce, weighted villager trades and money in treasure loot.
 

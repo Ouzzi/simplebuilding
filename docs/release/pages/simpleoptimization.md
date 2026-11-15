@@ -4,11 +4,20 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Super mod for performance: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server.
+Super mod for optimization tweaks: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server.
+
+## Release channel: Beta
+
+- Version number: `1.0.0-beta.1`
+- Modrinth "Version type": **Beta**; CurseForge "Release type": **Beta** (never Release for this first version)
 
 ## Description (Markdown)
 
 # Simple Optimization
+
+> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
+
+> No performance promises: the effect has not been measured across computers and mod packs yet, so this page names no FPS, memory or tick-time figures. Results depend on your hardware and the other mods you run.
 
 Simple Optimization has no content of its own. It bundles three optimization sub-mods with one on/off switch each; each steps back when a known optimization mod covers its area.
 

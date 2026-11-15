@@ -48,6 +48,9 @@ public class SimplevisualsConfig {
 
         public boolean enableAnvilFormatting = true;
 
+        /** W3B (owner 15.11., as recommended): server policy; the unreadable obfuscated style ({@code &k}) stays locked in anvil names unless an operator allows it. */
+        public boolean allowAnvilObfuscation = false;
+
         public boolean enhanceDeathMessages = true;
 
         public enum DeathCoordsMode {
@@ -79,13 +82,14 @@ public class SimplevisualsConfig {
 
         public static class DamageIndicators {
 
+            /** W3B (owner 15.11.): damage numbers are on by default and switch off here (local cosmetic option). */
             public boolean enable = true;
 
             public float scale = 1.0f;
 
             public int colorNormal = 0xFFFFFF; // Weiß
 
-            public int colorSpecial = 0xFFD700; // Gold (für Smite/Arthropods)
+            public int colorSpecial = 0xFFD700; // Gold: "high hit" colour for damage above 8 (not a critical-hit marker)
 
             public boolean showBorder = true;
         }
