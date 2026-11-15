@@ -11,7 +11,7 @@ Sources:
   1.12 numeric id table. The Python reference tools/conv51/ref_blueprint.py reads the same generated file.
 Without --jar the vanilla part of the existing conv-data.js is kept (the jar is not in the repo).
 
-Phase 3 (b-conv51b): the game itself is the source of truth. The gametest simplebuildingtools:module_game_test_conv51_dump
+Phase 3 (b-conv51b): the game itself is the source of truth. The gametest simplebuildingtools:module_game_test_converter_data_dump
 (Conv51Dump.java) writes, with SB_CONV51_DUMP=<file>, every registered block (default state, properties, item yes/no) and
 BlueprintCode.serialize vectors. --dump <file> stores the blocks in tools/conv51/data/blocks-26.3.json and the vectors in
 wiki/tests/conv51/vectors/java-vectors.json; every later run reads blocks-26.3.json. From it come the exact default states
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'wiki/assets/conv/conv-data.js'
-BLOCKS = ROOT / 'tools/conv51/data/blocks-26.3.json'
+BLOCKS = ROOT / 'tools/conv51/data/blocks-26.3.json'  # per block: d = default state "k=v,...", item = has an item (Block.asItem)
 VECTORS = ROOT / 'wiki/tests/conv51/vectors/java-vectors.json'
 
 F4 = dict(north='false', east='false', south='false', west='false')
@@ -242,7 +242,7 @@ def main():
         dump = json.loads(Path(sys.argv[sys.argv.index('--dump') + 1]).read_text(encoding='utf-8'))
         BLOCKS.parent.mkdir(parents=True, exist_ok=True)
         BLOCKS.write_text('{"source":' + json.dumps(dump['source']) + ',"blocks":{\n' + ',\n'.join(
-            json.dumps(k) + ':' + json.dumps(v, separators=(',', ':')) for k, v in sorted(dump['blocks'].items())) + '\n}}\n', encoding='utf-8')
+            json.dumps(k) + ':' + json.dumps({'d': v['d'], 'item': v['item']}, separators=(',', ':')) for k, v in sorted(dump['blocks'].items())) + '\n}}\n', encoding='utf-8')
         VECTORS.parent.mkdir(parents=True, exist_ok=True)
         VECTORS.write_text(json.dumps(dump['vectors'], separators=(',', ':')) + '\n', encoding='utf-8')
         print('wrote', BLOCKS.relative_to(ROOT), len(dump['blocks']), 'blocks;', VECTORS.relative_to(ROOT), len(dump['vectors']), 'vectors')

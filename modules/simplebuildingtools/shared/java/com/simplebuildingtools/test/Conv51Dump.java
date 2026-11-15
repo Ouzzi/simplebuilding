@@ -145,7 +145,7 @@ public final class Conv51Dump {
         String target = System.getenv("SB_CONV51_DUMP");
         if (target != null && !target.isBlank()) {
             JsonObject root = new JsonObject();
-            root.addProperty("source", "simplebuildingtools Conv51Dump (gametest module_game_test_conv51_dump)");
+            root.addProperty("source", "simplebuildingtools Conv51Dump (gametest module_game_test_converter_data_dump)");
             root.add("blocks", blocks);
             root.add("vectors", vectors);
             try {

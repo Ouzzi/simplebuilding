@@ -522,7 +522,7 @@ public final class ModuleGameTest {
 
     /** N51 (b-conv51b): block defaults and serializer vectors for the wiki converter; writes JSON only with SB_CONV51_DUMP. */
     @GameTest
-    public void conv51Dump(GameTestHelper helper) {
+    public void converterDataDump(GameTestHelper helper) {
         com.simplebuildingtools.test.Conv51Dump.dump(helper);
     }
 }
