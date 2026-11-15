@@ -196,9 +196,11 @@ def toys(s):
         # 12 brick throw breaks glass (switch on for this scene only)
         s.chat('simplefun tweaks bricks breakGlass true', 0.8)
         s.chat(f'setblock {x} {y + 1} {z - 3} minecraft:glass', 0.4)
-        s.chat(f'tp @s {x + 0.5} {y} {z + 3.5} 0 0', 1.0)
+        # N60P: z+3.5 is inside the water pool of scene 6 (z+3..z+12, two deep): the player sank and threw the brick into the pool's
+        # wall (run 1: both screenshots show the dirt wall under water, count 3 -> 2, glass stays). Stand on the grass at z+1.5.
+        s.chat(f'tp @s {x + 0.5} {y} {z + 1.5} 0 0', 1.0)
         _hand(s, 'minecraft:brick 3')
-        _aim(s, (x + 0.5, y, z + 3.5), (x + 0.5, y + 1.5, z - 2.5), 0.9)
+        _aim(s, (x + 0.5, y, z + 1.5), (x + 0.5, y + 1.5, z - 2.5), 0.9)
         s.shot('brick-glass-before')
         _use(s, after=1.0)
         s.shot('brick-glass-after')

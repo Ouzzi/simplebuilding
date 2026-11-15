@@ -60,8 +60,13 @@ def frog_bucket(s):
                 s.chat(f'give @s simplemobmanners:frog_bucket[frog_variant="minecraft:{variant}",custom_name="{name}"]', 0.5)
                 continue
             caught.append(i)
-            kept = _sense(s, f'if data entity @s Inventory[{{Slot:{i}b,components:{{"minecraft:frog_variant":"minecraft:{variant}"}}}}]')
-            s.check(f'the {variant} bucket keeps its variant (frog_variant component)', kept, 'server-side data test')
+            # N60P: an item predicate on the hotbar slot instead of an NBT path into the player's Inventory list (run 1: red for all three
+            # while the tooltip of the same stacks shows "Variant: ..." and the gametest frog_bucket checks the component)
+            pred = f'simplemobmanners:frog_bucket[minecraft:frog_variant="minecraft:{variant}"]'
+            by_items = _sense(s, f'if items entity @s hotbar.{i} {pred}')
+            by_data = _sense(s, f'if data entity @s SelectedItem.components{{"minecraft:frog_variant":"minecraft:{variant}"}}')
+            s.check(f'the {variant} bucket keeps its variant (frog_variant component)', by_items or by_data,
+                    f'server-side: if items hotbar.{i} {pred} = {by_items}; SelectedItem data = {by_data}')
         # first-person pictures of each bucket in the hand
         s.chat('kill @e[type=minecraft:frog,tag=uipfrog]', 0.3)
         _aim(s, feet, (x + 0.5, y - 1.0, z + 3.0), 0.8)

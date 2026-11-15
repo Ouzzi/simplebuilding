@@ -145,8 +145,18 @@ def crucible_barrel(s):
     s.click_slot(index=crucible_index(n, False, 0))
     st, got = wait_stack(s, crucible_index(n, False, 0), 'minecraft:potato x4')
     s.check('real clicks put the potatoes into crucible slot 0', got == 'minecraft:potato x4', got)
-    st, got = wait_stack(s, ghost_index(n, 0), 'minecraft:baked_potato', 8, prefix=True)
-    s.check('the reserved result (baked potato) shows in the hidden ghost slot', got.startswith('minecraft:baked_potato'), got)
+    # the ghost sits on the RESERVED place, not on slot 0: CrucibleBlockEntity.reserve picks the slot below first (F13), then any free
+    # slot (updateGhosts: ghost[target] = result). N60P: the probe read ghost 0 and saw nothing; look at every hidden ghost slot.
+    ghosts = []
+    end = time.time() + 8
+    while time.time() < end:
+        st = s.st()
+        ghosts = [stack_at(st, ghost_index(n, i)) or '' for i in range(n)]
+        if any(g.startswith('minecraft:baked_potato') for g in ghosts):
+            break
+        time.sleep(0.4)
+    s.check('the reserved result (baked potato) shows in a hidden ghost slot (the reserved place, slot 0 cooks)',
+            any(g.startswith('minecraft:baked_potato') for g in ghosts), ghosts)
     click_inv(s, n, False, 4, 'minecraft:beef x2', shift=True)
     st = wait_until(s, lambda t: any((stack_at(t, i) or '').startswith('minecraft:beef') for i in range(1, n)), 5)
     s.check('shift-click moves the beef into a free crucible slot', any((stack_at(st, i) or '').startswith('minecraft:beef') for i in range(1, n)),

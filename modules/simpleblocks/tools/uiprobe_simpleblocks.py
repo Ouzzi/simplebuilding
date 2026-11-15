@@ -189,7 +189,9 @@ def scenes(s):
     s.chat(f'setblock {x - 3} {y} {z - 1} minecraft:snow', 0.25)
     s.chat(f'setblock {x - 3} {y - 1} {z + 1} simpleblocks:frost_grass', 0.25)
     s.chat(f'setblock {x - 3} {y} {z + 1} minecraft:snow', 0.25)
-    hit = _hit(s, x - 3, y, z + 1)
+    # aim at the frost grass block itself: the snow layer is 2 px high, a ray to the centre of ITS cell passes over it and hit the grass
+    # beyond (run 1: minecraft:grass_block, the screenshot shows the outline behind the snow); the ray to the block below enters the snow
+    hit = _hit(s, x - 3, y - 1, z + 1)
     s.shot('frost-grass-next-to-grass')
     s.check('frost grass scene placed (crosshair on the snow layer or the frost grass)', hit in ('simpleblocks:frost_grass', 'minecraft:snow'), hit)
     # ---- Collapsed blocks: Slowness I / II / III by stacks (1 / 2 / 9), slot alert on the hotbar; survival so the effect acts

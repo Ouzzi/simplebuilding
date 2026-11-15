@@ -350,7 +350,9 @@ def _open_config(s, query, tag):
 
 
 def config(s):
-    st = _open_config(s, 'simple building', 'core config')
+    # N60P: "simple building" matched only "Simple Building Tools" (run 1 shot config-modmenu-selected: 1/71 mods) - the core is named
+    # "SimpleBuilding". Mod Menu searches id, name and description; "super mod" is only in the core's description.
+    st = _open_config(s, 'super mod', 'core config')
     if not st:
         return
     time.sleep(0.8)

@@ -130,6 +130,10 @@ def _blocks(s, me, x, y, z):
         # arrived, at most 8 clicks; every cut must give exactly one slice and the block must show 16 - 4
         clicks, got = 0, 0
         while got < 4 and clicks < 8:
+            if face == 'up' and got:
+                # N60P: a cut from the top lowers the block (SliceBlock shape = slices/16 high): the ray aimed at y+0.99 passed over the
+                # block once it was 14/16 high (run 1: 2 cuts from 8 clicks). Aim at the current top surface.
+                _aim(s, me, (aim_at[0], y + (16 - got) / 16 - 0.02, aim_at[2]), 0.5)
             _click(s, None, after=0.5)
             clicks += 1
             got = _total(s, f'simplesandwiches:{block}_slice') - before
@@ -182,7 +186,9 @@ def _cauldrons(s, x, y, z):
 
 
 def _bundle(s, me):
-    s.chat('item replace entity @s hotbar.0 with minecraft:bundle[bundle_contents=[{id:"minecraft:cooked_beef",count:3}]]', 0.4)
+    # N60P: golden apples (always edible): the hunger set-up below left the player at food 20 in run 1 ("hungry: False"), and cooked beef
+    # cannot be eaten when full (Consumable.canConsume) - the meal never started. The bundle route is the same for every food.
+    s.chat('item replace entity @s hotbar.0 with minecraft:bundle[bundle_contents=[{id:"minecraft:golden_apple",count:3}]]', 0.4)
     s.io.key('1', 0.3)
     # crosshair on the sky: a block under the crosshair would take the click first (a-w4c still looked at the cauldron row)
     _aim(s, me, (me[0], me[1] + 30, me[2] + 20), 0.8)
@@ -194,6 +200,9 @@ def _bundle(s, me):
     s.chat('effect clear @s', 0.3)
     hungry = _sense(s, 'if entity @s[nbt={foodLevel:20}]') is False
     s.io.key_down('Shift_L')
+    # N60P: the client applies the sneak key in the player tick after the use click of the same frame - at the low frame rate of the full
+    # pack the click went out unsneaked (Vanilla bundle use). BundleEating.begin needs isShiftKeyDown at the click: wait first.
+    time.sleep(1.2)
     s.io.button(3, True)
     try:
         time.sleep(1.0)
@@ -203,9 +212,10 @@ def _bundle(s, me):
         s.io.button(3, False)
         s.io.key_up('Shift_L')
     time.sleep(0.5)
-    two = _sense(s, 'if data entity @s Inventory[{Slot:0b}].components."minecraft:bundle_contents"[{id:"minecraft:cooked_beef",count:2}]')
+    pred = 'minecraft:bundle[minecraft:bundle_contents=[{id:"minecraft:golden_apple",count:2}]]'
+    two = _sense(s, f'if items entity @s hotbar.0 {pred}')
     s.chat('difficulty peaceful', 0.4)
-    s.check('sneak + hold use eats one beef out of the bundle (3 -> 2)', two, f'bundle_contents cooked_beef x2 (player was hungry: {hungry})')
+    s.check('sneak + hold use eats one golden apple out of the bundle (3 -> 2)', two, f'hotbar.0 {pred} (player was hungry: {hungry})')
 
 
 def kitchen(s):

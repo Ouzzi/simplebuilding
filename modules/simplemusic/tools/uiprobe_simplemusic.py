@@ -194,14 +194,15 @@ def editor(s):
     s.wait_screen('none', 6)
     time.sleep(0.8)
     s.check('a left click on a grid cell wrote a note (code is more than the tempo line)',
-            sheet_has(s, 'unless data entity @s ' + SHEET + '{code:"tempo 6\\n"}'), 'probe')
+            sheet_has(s, 'unless data entity @s ' + SHEET + '{code:"tempo 6"}'), 'probe')
     st = open_sheet(s)
     gx, gy = gui_cell(st, 2, 12)
     s.right_click_xy(gx, gy, st)
     s.key('Escape', 0.8)  # Esc closes and saves like Done
     st = s.wait_screen('none', 6)
     time.sleep(0.8)
-    s.check('a right click on the same cell removed the note again (tempo line only)', sheet_is(s, 'code:"tempo 6\\n"'), 'probe')
+    # N60P: NoteGrid.toCode strips the text - with no note left the code is exactly "tempo 6" (no newline; NoteGridTest: empty -> "tempo 4")
+    s.check('a right click on the same cell removed the note again (tempo line only)', sheet_is(s, 'code:"tempo 6"'), 'probe')
 
     # ---- (c) import of the .txt file
     st = open_sheet(s)
@@ -245,6 +246,12 @@ def editor(s):
     time.sleep(0.5)
     st = open_sheet(s)
     if s.click_widget('Title'):
+        # N60P: picking the example in (d) also set the empty title to the song's ("First Steps", SheetMusicScreen example pick) and Upload
+        # saved it; typing appended -> "First Stepsprobe". Select all and delete first, like a player replacing a title.
+        s.io.key_down('Control_L')
+        s.key('a', 0.3)
+        s.io.key_up('Control_L')
+        s.key('BackSpace', 0.3)
         s.type_text('probe')
         s.click_widget('Sign')
         st = s.wait_screen('none', 6)
@@ -347,14 +354,18 @@ def pocket(s):
     look_at_air(s)
     s.io.right_click()
     time.sleep(0.8)
-    # simplemusic:playing is a transient component (networkSynchronized, no persistent codec): `data entity ... SelectedItem` never shows it,
-    # but an item predicate reads the live stack (`execute if items`)
-    playing = 'items entity @s weapon.mainhand simplemusic:pocket_jukebox[simplemusic:playing]'
-    s.check('right click in the air plays (the stack carries the "playing" component)', probe(s, f'if {playing}'), 'execute if items ...[simplemusic:playing]')
+    # N60P: simplemusic:playing is transient (no persistent codec) and the item predicate parser refuses it - run 1 (and a-w4c) showed
+    # "Expected literal ~ ...ic:playing] run item replace ..." in the chat, the probe command never ran. The persistent
+    # simplemusic:pocket state tells the same: PocketPlayback.begin writes {id, ticks: start position = 0 for a fresh jukebox},
+    # pause writes the position reached (> 0 after 0.8 s). ticks 0 may be left out (optional field with default 0).
+    pocket = 'SelectedItem.components."simplemusic:pocket"'
+    started = probe(s, f'if data entity @s {pocket}.id') and (not probe(s, f'if data entity @s {pocket}.ticks') or probe(s, f'if data entity @s {pocket}{{ticks:0}}'))
+    s.check('right click in the air plays (a session id on the stack, position 0)', started, f'data {pocket}: id set, ticks 0/absent')
     s.shot('pocket-playing')
     s.io.right_click()
     time.sleep(0.8)
-    s.check('a second right click pauses it', probe(s, f'unless {playing}'), 'execute unless items ...[simplemusic:playing]')
+    paused = probe(s, f'if data entity @s {pocket}.ticks') and not probe(s, f'if data entity @s {pocket}{{ticks:0}}')
+    s.check('a second right click pauses it (the position reached is stored)', paused, f'data {pocket}.ticks > 0')
 
     # ---- placing: Shift + right click on the ground, Shift + wheel on the placed block
     look(s, (x + 0.5, y, z + 0.5), (x + 3.5, y - 0.1, z + 0.5))

@@ -39,11 +39,11 @@ def _sense(s, cond, slot=26):
     return len(inv) > 9 + slot and inv[9 + slot].startswith('minecraft:stone')
 
 
-def _double_tap(s, name):
+def _double_tap(s, name, hold=0.06, gap=0.08):
     """Two quick real presses (XTest): the driver's key()/key_down() pause 0.2-0.3 s per edge, too slow for Vanilla's double tap."""
     code = s.io._code(name)
     for _ in range(2):
-        for down, pause in ((1, 0.06), (0, 0.08)):
+        for down, pause in ((1, hold), (0, gap)):
             s.io.xtst.XTestFakeKeyEvent(s.io.d, code, down, 0)
             s.io.x11.XFlush(s.io.d)
             time.sleep(pause)
@@ -71,7 +71,9 @@ def _launch(s, x, y, z):
     s.check('launchpad: a real right click with wind charges loads one charge', _sense(s, f'if data block {px} {y} {pz} {{Charges:1}}'), 'Charges 1')
     s.io.key_down('Shift_L')
     try:
-        time.sleep(0.3)
+        # N60P: the client applies the sneak key in the player tick, AFTER the use click of the same frame is handled; at the few
+        # frames a second of the full pack under Xvfb 0.3 s was one frame - the click went out unsneaked (a plain +1). Give it 1.2 s.
+        time.sleep(1.2)
         s.io.right_click()
     finally:
         s.io.key_up('Shift_L')
@@ -111,12 +113,20 @@ def _fly(s, x, y, z):
     time.sleep(1.0)
     granted = _sense(s, 'if entity @s[tag=simplebuilding.flypad_flight,nbt={abilities:{mayfly:1b}}]')
     s.check('flypad: standing on it grants flight (tag + mayfly)', granted, 'simplebuilding.flypad_flight, abilities.mayfly')
-    _double_tap(s, 'space')  # Vanilla toggles flight when the second press comes within 7 ticks of the first
-    time.sleep(0.4)
-    s.io.key_down('space')
-    time.sleep(0.6)
-    s.io.key_up('space')
-    flying = _sense(s, 'if entity @s[nbt={abilities:{flying:1b}}]')
+    # Vanilla toggles flight when the second press comes within 7 ticks of the first, and it reads the jump key once per TICK: a press
+    # shorter than a frame is never seen. N60P: at the frame rate of the full pack under Xvfb the 60 ms taps of run 1 were lost
+    # (flying 0, y unchanged); try slower taps (each edge held over a frame) until one starts the flight - the first that works counts.
+    flying = False
+    for hold, gap in ((0.06, 0.08), (0.12, 0.1), (0.16, 0.12), (0.2, 0.1)):
+        _double_tap(s, 'space', hold, gap)
+        time.sleep(0.4)
+        s.io.key_down('space')
+        time.sleep(0.6)
+        s.io.key_up('space')
+        flying = _sense(s, 'if entity @s[nbt={abilities:{flying:1b}}]')
+        if flying:
+            break
+        s.chat(f'tp @s {fx + 0.5} {y + 0.1} {fz + 0.5} 0 0', 1.0)  # back on the pad (a single jump may have moved the player)
     s.check('flypad: a real double tap on Space starts flying', flying, f'abilities.flying, y now {_fpos(s)[1]:.1f}')
     s.key('F1', 0.5)
     s.chat(f'tp @s {fx + 0.5} {y + 2.5} {fz - 2.5} 0 30', 1.0)

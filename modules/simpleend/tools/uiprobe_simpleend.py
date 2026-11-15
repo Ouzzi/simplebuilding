@@ -47,11 +47,17 @@ def _boats(s, x, y, z):
     # board the ashwood boat with a real right click (empty hand)
     s.chat('item replace entity @s hotbar.8 with minecraft:air', 0.3)
     s.key('9', 0.3)
-    _aim(s, (x - 2.5, y, z + 3.5), (x - 2.5, y - 0.2, z + 6.5), 1.0)
+    # N60P: (x-2.5, z+3.5) is a water cell of the pool - the creative player sank a block before the click and the ray (aimed from the
+    # bank height) went under the boat (run 1: crosshair on None). A stepping stone in the pool keeps the feet where the aim assumes,
+    # 2 blocks from the boat (inside the 3-block entity reach)
+    s.chat(f'setblock {x - 3} {y - 1} {z + 4} minecraft:stone', 0.4)
+    _aim(s, (x - 2.5, y, z + 4.5), (x - 2.5, y - 0.2, z + 6.5), 1.0)
+    time.sleep(0.5)
+    aimed = s.st().get('hitEntity')
     s.io.right_click()
     time.sleep(1.0)
     riding = _sense(s, 'if entity @s[nbt={RootVehicle:{}}]')
-    s.check('a real right click boards the ashwood boat', riding, f'player NBT RootVehicle (crosshair was on {s.last.get("hitEntity")})')
+    s.check('a real right click boards the ashwood boat', riding, f'player NBT RootVehicle (crosshair was on {aimed})')
     if riding:
         s.key('F5', 0.5)
         s.key('F1', 0.5)

@@ -71,9 +71,15 @@ def _variant(s, name, sword, base, expect_b_gone, before=False):
     cow = _sense(s, [f'if entity @e[tag=uipfarm,x={x},y={y},z={z + dz},dx=0,dy=0,dz=0]' for dz in (2, 3, 4)])
     cow_at = [dz for dz, here in zip((2, 3, 4), cow) if here]
     s.check(f'{name}: 3x3 around the cow cut (A gone)', a, f'clicks {clicks}, first swing passed through the grass: {first}')
-    want = len(ring) if expect_b_gone else 0
-    s.check(f'{name}: 5x5 ring B {"cut (Sweeping Edge, 11 cells)" if expect_b_gone else "stays (no Sweeping Edge)"}', len(cut) == want,
-            f'{len(cut)}/{len(ring)} ring cells cut (dx, dz from the cow block z+3): {cut}; cow box touches block z+{cow_at}')
+    # N60P: the cut only changes blocks within InteractionGuard.MAX_REACH = 4.5 of the player's EYE (cell centre; anti-cheat, every
+    # farming action). From the feet point (x+0.5, z+0.9) the far row z+5 (5 ring cells) lies 4.6+ away: run 1 cut exactly the 6 ring
+    # cells in reach in both Sweeping variants. Ring B = the cells in reach are cut, the ones beyond reach stay.
+    def in_reach(dx, dz):
+        return math.dist((x + 0.5, y + 1.62, z + 0.9), (x + dx + 0.5, y + 0.5, z + 3 + dz + 0.5)) <= 4.5
+    want = sorted(cell for cell in ring if in_reach(*cell)) if expect_b_gone else []
+    s.check(f'{name}: 5x5 ring B {"cut where in reach (Sweeping Edge, 4.5-block guard)" if expect_b_gone else "stays (no Sweeping Edge)"}',
+            sorted(cut) == want,
+            f'{len(cut)}/{len(ring)} ring cells cut (dx, dz from the cow block z+3): {cut}, expected {want}; cow box touches block z+{cow_at}')
     s.check(f'{name}: control C outside the area stays', not c, f'C gone = {c}')
 
 

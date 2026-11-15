@@ -120,7 +120,10 @@ def beacons(s):
     s.shot('two-levels')
     # ---- (3) five levels, bottom layer diamond (material factor), then a real choice
     _pyramid(s, cx, by, cz, [3, 4, 5], bottom='minecraft:diamond_block')
-    st = _wait(s, lambda t: (_btn(s, t, 'Luck') or {}).get('active'), 15)
+    # N60P: Luck (row 4) unlocks at level 4, Regeneration only at level 5 (BeaconKind.secondaryLevel = rows + 1). The beacon re-counts
+    # its pyramid every 80 ticks and the three plates go in 0.8 s apart, so a count can land between plate 4 and 5 (level 4 for 4 s):
+    # wait for BOTH, else the regeneration check read the level-4 screen (run 1: Luck active, Regeneration not yet)
+    st = _wait(s, lambda t: (_btn(s, t, 'Luck') or {}).get('active') and (s.find_widget(None, 'BeaconPowerButton', t) or {}).get('active'), 15)
     s.check('5 levels: all 10 effect buttons unlocked', all(w['active'] for w in _buttons(s, st)) and len(_buttons(s, st)) == 10,
             [(w['label'], w['active']) for w in _buttons(s, st)])
     regen = s.find_widget(None, 'BeaconPowerButton', st)  # the secondary power icon has no label (tooltip only)
