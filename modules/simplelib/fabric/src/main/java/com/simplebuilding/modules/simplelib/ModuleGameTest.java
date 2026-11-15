@@ -379,4 +379,9 @@ public final class ModuleGameTest {
     public void contentMatchesRegistries(GameTestHelper h) {
         LibTests.ALL.get("content_matches_registries").accept(h);
     }
+
+    @GameTest
+    public void experimentalWarningOwnDimensions(GameTestHelper h) {
+        LibTests.ALL.get("experimental_warning_own_dimensions").accept(h);
+    }
 }

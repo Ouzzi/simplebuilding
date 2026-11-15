@@ -159,8 +159,9 @@ public final class SortProbe {
         o.addProperty("scale", scale);
         o.addProperty("mouseX", mc.mouseHandler.xpos());
         o.addProperty("mouseY", mc.mouseHandler.ypos());
-        o.addProperty("creative", mc.player.hasInfiniteMaterials());
-        if (screen instanceof AbstractContainerScreen<?> cs) o.addProperty("carried", describe(cs.getMenu().getCarried()));
+        // b-exp61: also without a player (title / world list screens after "Save and Quit"), so a driver sees those screens
+        if (mc.player != null) o.addProperty("creative", mc.player.hasInfiniteMaterials());
+        if (mc.player != null && screen instanceof AbstractContainerScreen<?> cs) o.addProperty("carried", describe(cs.getMenu().getCarried()));
         if (screen instanceof CreativeModeInventoryScreen cr && field(cr, "leftPos") instanceof Integer l && field(cr, "topPos") instanceof Integer t) {
             // b-sortprobe27: which creative tab is open and where the Survival Inventory tab sits (centre, window pixels).
             o.addProperty("inventoryTab", cr.isInventoryOpen());
@@ -179,7 +180,7 @@ public final class SortProbe {
             }
         }
         JsonArray slots = new JsonArray();
-        if (screen instanceof AbstractContainerScreen<?> cs && field(cs, "leftPos") instanceof Integer l && field(cs, "topPos") instanceof Integer t) {
+        if (mc.player != null && screen instanceof AbstractContainerScreen<?> cs && field(cs, "leftPos") instanceof Integer l && field(cs, "topPos") instanceof Integer t) {
             for (var slot : cs.getMenu().slots) {
                 JsonObject j = new JsonObject();
                 j.addProperty("index", slot.index);
@@ -209,18 +210,18 @@ public final class SortProbe {
         }
         o.add("fields", fields);
         JsonArray inv = new JsonArray();
-        for (int i = 0; i < 36; i++) inv.add(describe(mc.player.getInventory().getItem(i)));
+        if (mc.player != null) for (int i = 0; i < 36; i++) inv.add(describe(mc.player.getInventory().getItem(i)));
         o.add("inventory", inv);
         JsonArray exp = new JsonArray();
         expected.forEach(exp::add);
         o.add("expected", exp);
-        if (mc.hitResult instanceof BlockHitResult h && h.getType() == HitResult.Type.BLOCK) {
+        if (mc.level != null && mc.hitResult instanceof BlockHitResult h && h.getType() == HitResult.Type.BLOCK) {
             o.addProperty("hitBlock", BuiltInRegistries.BLOCK.getKey(mc.level.getBlockState(h.getBlockPos()).getBlock()).toString());
         }
         if (mc.hitResult instanceof net.minecraft.world.phys.EntityHitResult eh) {
             o.addProperty("hitEntity", BuiltInRegistries.ENTITY_TYPE.getKey(eh.getEntity().getType()).toString());
         }
-        o.addProperty("pos", mc.player.blockPosition().toShortString());
+        if (mc.player != null) o.addProperty("pos", mc.player.blockPosition().toShortString());
         Path tmp = dir.resolve("simpleinterfaces-sort-status.tmp");
         Files.writeString(tmp, GSON.toJson(o));
         Files.move(tmp, dir.resolve(STATUS), java.nio.file.StandardCopyOption.REPLACE_EXISTING, java.nio.file.StandardCopyOption.ATOMIC_MOVE);
