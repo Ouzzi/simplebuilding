@@ -198,6 +198,7 @@ Konfigurierbare Dimensionen, Lichtbögen, sichere verknüpfte Portale.
 Sandwiches auf dem Schneidebrett, Küchenmesser, Käse und Butter.
 
 - Gemeinsame Nahrung („warme Speisen“) liegt in simplelib.
+- **A12** (nachgetragen RELSB56, aus Code/Handbuch, keine Wertänderung): Nutzen: neue Nahrung (Sandwiches nach Zutaten, Butter, Käse) für Überleben und Kochen. Änderung: eigene Blöcke/Items; Vanilla-Haken: Essen aus dem Bündel (`BundleEatMixin`, Schalter `bundleEating`), Messer schneidet Kuchen-Stücke (`CakeKnifeMixin`, `CandleCakeKnifeMixin`), Butter-Effekt „Rutschig“ (`SlipperyFrictionMixin`), Kessel-Milch reift zu Butter/Käse. Eingriff in Vanilla: gering – Vanilla-Nahrung bleibt unverändert, die Haken greifen nur mit Mod-Items.
 
 ### SimpleLib (`simplelib`)
 Gemeinsame Bibliothek: geteilte Materialien, IdMoves, In-World-Upgrades, UI-Bausteine.
@@ -306,6 +307,7 @@ Endholz (Aschholz, Dämmerholz), Knospen, Bäume, Endgras, Biome auf den äußer
 
 - Hölzer mit Treppe/Stufe bekommen Bretter-Achtel in Simple Octets (O1), bedingt bei geladenem Simple End.
 - Künftig: End-Baublöcke (polierter Endstein-Familie) – gemeinsamer Stein liegt in simplelib.
+- **A12** (nachgetragen RELSB56, aus Code/Handbuch, keine Wertänderung): Nutzen: Ziel für Spieler nach dem Drachen (neue Hölzer, Pflanzen, zwei Biome auf den äußeren Inseln). Änderung: Aschtal/Dämmerland ersetzen Teile der äußeren Hoch-/Mittelländer (`TheEndBiomeSourceMixin`, Schalter `biomes`, `biomeChance`); End-Holz-Items überleben die Leere und liegen doppelt so lange (`ItemEntityMixin`, `voidSafeItems`, `longerDespawn`); Nebelwand im Wald (`forestFogWall`). Eingriff in Vanilla: mittel (Weltgenerierung der äußeren Inseln), abschaltbar; Hauptinsel und Drachenkampf unverändert (Kampf nur mit Simple End Dragon Fight, eigener Schalter).
 
 ### Simple Respawn (`simplerespawn`)
 Niedergeschlagen statt tot: Teamkameraden können wiederbeleben.
@@ -336,6 +338,7 @@ Spieler-Shops: Verkaufsblock mit Preis, Vitrine mit Waren.
 
 - Käufer brauchen kein Claim-Recht; Schutz vor Fremden, Explosionen, Kolben, Trichtern.
 - Der Besitzer geht immer vor (Besitzer 12.11., E1ANS F5): ein Kunden-Fenster wird nicht geschlossen, sondern wartet hinter dem Wartungsschild (`ownerFirst`).
+- **A12** (nachgetragen RELSB56, aus Code/Handbuch, keine Wertänderung): Nutzen: Handel zwischen Spielern auf Servern (Verkaufsblock, Vitrine). Änderung: eigene Blöcke; ein Vanilla-Haken (`ServerPlayerGameModeMixin`) schützt Shop-Blöcke vor Abbau durch Fremde vor allen anderen Schutz-Mods. Eingriff in Vanilla: gering – Dorfbewohner-Handel unberührt, wirkt nur auf Shop-Blöcke; Grenzen per Config (`maxShopsPerPlayer`, `remoteStock`, `shopMusic`).
 
 ### Simple Wanderers (`simplewanderers`)
 Dorf-Wanderer: ein fahrender Händler je Dorf mit Pferd, Warenwechsel alle 3 Tage.

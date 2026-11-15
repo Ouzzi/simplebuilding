@@ -17,6 +17,7 @@ SimpleLib holds what every Simple mod shares: one modpack handbook, warm food, s
 - **Simple Modpack guide** - One guide for every Simple mod, there with any of them installed: craft it from a book and a crafting table (shapeless), or get it from the first FTB Quests quest.
 - **Warm food** - Cooked food comes out of a crucible warm and is eaten 15% faster while warm.
 - **Shared materials**
+- **Content only on request (Vanilla clients)** - SimpleLib registers its blocks, items, item components, the warped potion and the legendary sound only when an installed mod asks for them.
 - **Cursed and Mythic rarity**
 - **Legendary moments** - The hardest advancements and the hardest enchantments play a deep choir and a particle show at the player.
 - **Hang watchdog** - When the server tick stands still, Simple Lib writes a list of all threads to the logs folder, so a frozen game can be diagnosed.

@@ -772,7 +772,7 @@ window.WIKI_MODULES = [
       "config": 82,
       "features": 25
     },
-    "dataHash": "472f23663817"
+    "dataHash": "7b86f2bf1bb5"
   },
   {
     "id": "simpleweather",
@@ -2266,7 +2266,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "50c6c4925888"
+    "dataHash": "7d2ba07beb2a"
   },
   {
     "id": "simplechisels",

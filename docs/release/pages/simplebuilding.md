@@ -10,7 +10,7 @@ Super mod of the Simple family: bundles the required sub-mods for building, stor
 
 # SimpleBuilding
 
-SimpleBuilding is the core of the Simple family. It bundles the required sub-mods (building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more) and adds its own content on top: End building palettes, Astral and Nihil redstone lines, Enderite tools and armor, enchantments for mining and building, music discs, hammocks and chess. Optional Simple mods (for example Simple Maps or Simple Money) are separate downloads and are not part of this file; each bundled sub-mod can be switched off in the config.
+SimpleBuilding is the core of the Simple family. It bundles the required sub-mods (building wands, chisels, sledgehammers, storage, ovens, crucibles, building blocks, gadgets, pads and more) and adds its own content on top: End building palettes, Astral and Nihil redstone lines, Enderite tools and armor, enchantments for mining and building, music discs and hammocks. Optional Simple mods (for example Simple Maps or Simple Money) are separate downloads and are not part of this file; each bundled sub-mod can be switched off in the config.
 
 ## Vanilla use
 

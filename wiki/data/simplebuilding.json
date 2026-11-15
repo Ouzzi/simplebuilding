@@ -55,7 +55,7 @@
         "src/main/generated/data/simplebuilding/tags/item/octants_enchantable.json",
         "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
         "common/src/shared/java/com/simplebuilding/util/LegacySpatulaMigration.java",
-        "common/src/shared/java/com/simplebuilding/util/TrimMultiplierLogic.java",
+        "mc26_3/overlay/java/com/simplebuilding/util/TrimMultiplierLogic.java",
         "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java",
         "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",

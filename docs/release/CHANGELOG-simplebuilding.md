@@ -22,14 +22,15 @@ Building tools, storage, machines and enchantments for Minecraft; the super mod 
 - Each sub-mod has its own config file and takes over your old SimpleBuilding values on the first start.
 - Blossom Gold is now Rose Gold; copper and iron tool and armor values were adjusted.
 - The single Vanilla crosshair moves to the aim point and the grey extra crosshair is gone.
+- Chess (pieces, quartz checkers and chess octets) moves into the new optional mod Simple Chess; old ids migrate when it is installed.
 - Commands start with their mod id; the old names keep working as aliases.
 - The mod license changed from CC0 to All Rights Reserved with source-available code and a contributor license agreement (CLA). Earlier versions stay CC0.
 
 ## Requirements
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
-- Required mods: Cloth Config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Chisels
-- Optional integrations: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, simplemaps, simplequestionary, simpleriding, simplesandwiches, simpletweaks, simplemoney, simplefun, simpledimensions, simpletrims, simpleend, simplerespawn, simplebeacons, simpleshops, simplewanderers, simpleanimals, simplemusic, simpleearth, simplechallenges, simpledinos
+- Required mods: Cloth Config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels
+- Optional integrations: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, simplemaps, simplequestionary, simpleriding, simplesandwiches, simpletweaks, simplemoney, simplefun, simpledimensions, simpletrims, simpleend, simplerespawn, simplebeacons, simpleshops, simplewanderers, simpleanimals, simplemusic, simpleearth, simplechallenges, simpledinos, simplelayers, simplevault, simplechess
 
 ## Notes
 
