@@ -1825,13 +1825,16 @@ public final class OrderAreas {
             List<RowPlan> rows = new ArrayList<>();
             for (LayoutConfig.RowSpec spec : area.rows()) {
                 String where = id + "/" + spec.key();
+                List<String> rowWarnings = new ArrayList<>(); // N59: nur fuer gebaute Reihen melden
                 Map<Slot, Item> fixed = new EnumMap<>(Slot.class);
                 Map<Slot, Item> tops = new EnumMap<>(Slot.class);
                 Set<Slot> expected = EnumSet.noneOf(Slot.class);
                 for (int j = 0; j < slots.size(); j++) {
                     String cell = spec.cells().get(slotAt.get(j));
-                    Item item = configItem(cell, where, area.columns().get(slotAt.get(j)), loaded, placed, warnings);
-                    if (item != null) {
+                    Item item = configItem(cell, where, area.columns().get(slotAt.get(j)), loaded, placed, rowWarnings);
+                    if (item != null && excluded.contains(item)) {
+                        item = null; // excluded: steht nicht, auch nicht als Zelle (N59)
+                    } else if (item != null) {
                         fixed.put(slots.get(j), item);
                     } else if ("#red".equals(cell) || cell != null && !cell.startsWith("#") && unknownLoaded(cell, loaded)) {
                         expected.add(slots.get(j));
@@ -1842,7 +1845,10 @@ public final class OrderAreas {
                 int keep = 0;
                 for (int j = 0; j < otherAt.size(); j++) {
                     String column = area.columns().get(otherAt.get(j));
-                    Item item = configItem(spec.cells().get(otherAt.get(j)), where, column, loaded, placed, warnings);
+                    Item item = configItem(spec.cells().get(otherAt.get(j)), where, column, loaded, placed, rowWarnings);
+                    if (excluded.contains(item)) {
+                        item = null;
+                    }
                     others.add(item);
                     otherKeys.add(column.startsWith("special") ? SPECIAL_KEY : column);
                     if (item != null || !column.startsWith("special")) {
@@ -1854,8 +1860,8 @@ public final class OrderAreas {
                 for (Map.Entry<String, String> top : spec.tops().entrySet()) {
                     Slot slot = configSlot(top.getKey());
                     if (slot != null && fixed.containsKey(slot) && !lineStates(fixed.get(slot)).isEmpty()) {
-                        Item item = configItem(top.getValue(), where, top.getKey() + " (top)", loaded, placed, warnings);
-                        if (item != null) {
+                        Item item = configItem(top.getValue(), where, top.getKey() + " (top)", loaded, placed, rowWarnings);
+                        if (item != null && !excluded.contains(item)) {
                             tops.put(slot, item);
                         }
                     }
@@ -1863,6 +1869,7 @@ public final class OrderAreas {
                 if (fixed.isEmpty() && others.stream().allMatch(java.util.Objects::isNull)) {
                     continue; // nichts davon geladen (Kern-Lauf ohne die Mod der Reihe)
                 }
+                warnings.addAll(rowWarnings);
                 RowPlan algo = known.get(spec.key());
                 if (algo != null) {
                     algo.expected().stream().filter(fixed::containsKey).forEach(expected::add);
