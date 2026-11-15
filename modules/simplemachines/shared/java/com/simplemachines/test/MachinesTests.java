@@ -75,6 +75,7 @@ public final class MachinesTests {
         ALL.put("discover_recipe_unlocks", com.simplemachines.discover.MachinesDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemachines.discover.MachinesDiscover::behaviourHints);
         ALL.put("guide_book", com.simplemachines.guide.MachinesGuide::gameTest);
+        ALL.put("screen_margins", ScreenMarginTests::screenMargins);
     }
 
     private MachinesTests() {}

@@ -1,6 +1,7 @@
 package com.simplemusic.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
 import com.simplemusic.press.DiscPressMenu;
@@ -22,14 +23,17 @@ public class DiscPressScreen extends AbstractContainerScreen<DiscPressMenu> {
     private static final Identifier FURNACE = Identifier.withDefaultNamespace("textures/gui/container/furnace.png");
     private static final Identifier PROGRESS = Identifier.withDefaultNamespace("container/furnace/burn_progress");
     private static final UiPalette BOX = UiPalette.IRON;
-    private static final int INVENTORY_Y = 84, GAP = 2, INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
     /** Vanilla's furnace arrow column (unstyled) and the press row (N57-10: row 28, see {@link DiscPressMenu#OUTPUT_Y}). */
     private static final int ARROW_X = 79, ARROW_Y = DiscPressMenu.OUTPUT_Y;
     /** Styled arrow: centred between the blank's light edge (73) and the big result slot (112): 9 px left, 8 px right. */
-    private static final int STYLED_ARROW_X = 82;
+    private static final int STYLED_ARROW_X = PressMargins.ARROW_X;
+    /** N62 boxes (style on: no shift, the iron box ends 3 px under the dye slot, the image 169 high; style off: the furnace's 166). */
+    private final UiMargin.Boxes boxes;
 
     public DiscPressScreen(DiscPressMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title);
+        super(menu, inventory, title, 176, UiStyleToggle.isEnabled() ? PressMargins.press(menu).height() : 166);
+        this.boxes = PressMargins.press(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
     }
 
     @Override
@@ -60,8 +64,10 @@ public class DiscPressScreen extends AbstractContainerScreen<DiscPressMenu> {
             if (done > 0) g.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS, 24, 16, 0, 0, left + ARROW_X, top + ARROW_Y - 1, done, 16);
             return;
         }
-        UiBoxes.box(g, left, top, imageWidth, INVENTORY_Y - UiBoxes.FRAME - GAP, BOX);
-        UiBoxes.box(g, left, top + INVENTORY_Y - UiBoxes.FRAME, imageWidth, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        // N62: 3 px fill round the press slots, arrow and result and round the inventory, both boxes with the shadow
+        UiMargin.Rect c = boxes.container(), i = boxes.inventory();
+        UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), BOX);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         for (Slot slot : menu.slots) {
             if (!slot.isActive()) continue;
             if (slot.index == 2) UiBoxes.bigSlot(g, left + slot.x, top + slot.y, BOX);

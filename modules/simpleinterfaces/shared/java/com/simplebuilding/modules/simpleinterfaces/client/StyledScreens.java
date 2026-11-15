@@ -119,7 +119,43 @@ public final class StyledScreens {
         for (Slot slot : screen.getMenu().slots) {
             if (inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, playerSlot(slot)));
         }
-        return BoxLayout.compute(slots, DECOR.getOrDefault(screen, Decor.NONE).elements(), imageWidth, imageHeight, titleY);
+        List<BoxLayout.Rect> elements = DECOR.getOrDefault(screen, Decor.NONE).elements();
+        return marginScreen(screen) ? BoxLayout.margin(slots, elements, imageWidth, imageHeight, titleY)
+                : BoxLayout.compute(slots, elements, imageWidth, imageHeight, titleY);
+    }
+
+    /**
+     * N62: the storage group (chest/barrel/ender chest screens, shulker box, hopper, dispenser/dropper) uses the fixed
+     * container margin ({@link BoxLayout#margin}); its player slots are moved down as the screen opens
+     * ({@code StorageMarginMixin}). The stations keep {@link BoxLayout#compute} until their own review.
+     */
+    public static boolean marginScreen(AbstractContainerScreen<?> screen) {
+        return screen instanceof net.minecraft.client.gui.screens.inventory.ContainerScreen
+                || screen instanceof net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen
+                || screen instanceof net.minecraft.client.gui.screens.inventory.HopperScreen
+                || screen instanceof net.minecraft.client.gui.screens.inventory.DispenserScreen;
+    }
+
+    /**
+     * N62: once per screen, before {@code init} centres it - with the style on, moves the player's slots of this (client)
+     * menu down by {@link Layout#shift} (new {@link Slot} objects at the same index, as the hopper's IG31-30 padding does)
+     * and returns the image height the margin needs; otherwise {@code imageHeight} unchanged.
+     */
+    public static int applyMargin(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
+        if (!marginScreen(screen) || style(screen) == null) return imageHeight;
+        Layout layout = layout(screen, imageWidth, imageHeight, titleY);
+        if (layout == null) return imageHeight;
+        if (layout.shift() > 0) {
+            var slots = screen.getMenu().slots;
+            for (int index = 0; index < slots.size(); index++) {
+                Slot vanilla = slots.get(index);
+                if (!playerSlot(vanilla) || !inImage(vanilla, imageWidth)) continue;
+                Slot moved = new Slot(vanilla.container, vanilla.getContainerSlot(), vanilla.x, vanilla.y + layout.shift());
+                moved.index = vanilla.index;
+                slots.set(index, moved);
+            }
+        }
+        return layout.height();
     }
 
     /**

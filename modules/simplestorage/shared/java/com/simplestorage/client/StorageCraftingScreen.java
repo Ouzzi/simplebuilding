@@ -1,10 +1,12 @@
 package com.simplestorage.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
 import com.simplelib.api.client.ui.UiSymbols;
+import com.simplestorage.mixin.client.ContainerScreenHeightAccessor;
 import com.simplestorage.table.StorageCraftingMenu;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +32,16 @@ public class StorageCraftingScreen extends AbstractRecipeBookScreen<StorageCraft
     static final UiPalette OAK = UiPalette.derived(0xFFA27A4A);
     /** Recipe book button (relative to the image): Vanilla's crafting table spot, left of the grid's middle row. */
     static final int BOOK_X = 5, BOOK_Y = 34;
-    /** First slot of the player's main inventory and the frames of the style (UiBoxes). */
-    private static final int INVENTORY_X = 8, INVENTORY_Y = 84, GAP = 2, INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
+    /** N62 boxes (style on: the player's slots 6 px lower, the image 175 high; style off: Vanilla's 166). */
+    private final UiMargin.Boxes boxes;
 
     public StorageCraftingScreen(StorageCraftingMenu menu, Inventory inventory, Component title) {
         super(menu, new CraftingRecipeBookComponent(menu), inventory, title);
+        this.boxes = StorageMargins.craftingTable(menu);
+        if (UiStyleToggle.isEnabled()) {
+            UiMargin.moveInventory(menu.slots, this.boxes.shift());
+            ((ContainerScreenHeightAccessor) this).simplestorage$setImageHeight(this.boxes.height());
+        }
     }
 
     @Override
@@ -45,7 +52,7 @@ public class StorageCraftingScreen extends AbstractRecipeBookScreen<StorageCraft
 
     @Override
     protected ScreenPosition getRecipeBookButtonPosition() {
-        return new ScreenPosition(this.leftPos + BOOK_X, this.height / 2 - 83 + BOOK_Y);
+        return new ScreenPosition(this.leftPos + BOOK_X, (this.height - this.imageHeight) / 2 + BOOK_Y);
     }
 
     @Override
@@ -66,9 +73,10 @@ public class StorageCraftingScreen extends AbstractRecipeBookScreen<StorageCraft
             graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, left, top, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
             return;
         }
-        int containerHeight = INVENTORY_Y - UiBoxes.FRAME - GAP;
-        UiBoxes.box(graphics, left, top, this.imageWidth, containerHeight, OAK, false); // IG57U2: no shadow, air below the last row
-        UiBoxes.box(graphics, left + INVENTORY_X - 8, top + INVENTORY_Y - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        // N62: 3 px fill round the grid and the result slot and round the inventory, both boxes with the shadow
+        UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+        UiBoxes.box(graphics, left + c.x(), top + c.y(), c.width(), c.height(), OAK);
+        UiBoxes.box(graphics, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         Slot result = this.menu.getSlot(StorageCraftingMenu.RESULT_SLOT);
         List<int[]> avoid = new ArrayList<>();
         for (Slot slot : this.menu.slots) {
@@ -80,8 +88,8 @@ public class StorageCraftingScreen extends AbstractRecipeBookScreen<StorageCraft
         avoid.add(new int[] {left + result.x - 4, top + result.y - 4, left + result.x + 21, top + result.y + 21});
         avoid.add(new int[] {left + 89, top + 34, left + 113, top + 51});
         avoid.add(new int[] {left + BOOK_X, top + BOOK_Y, left + BOOK_X + 20, top + BOOK_Y + 18});
-        UiMotifs.draw(graphics, 0, 0, UiMotifs.Kind.WOOD, left + UiBoxes.FRAME, top + UiBoxes.FRAME, this.imageWidth - 2 * UiBoxes.FRAME,
-                containerHeight - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, OAK, avoid, 7);
+        UiMotifs.draw(graphics, 0, 0, UiMotifs.Kind.WOOD, left + c.x() + UiBoxes.FRAME, top + c.y() + UiBoxes.FRAME, c.width() - 2 * UiBoxes.FRAME,
+                c.height() - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, OAK, avoid, 7);
         for (Slot slot : this.menu.slots) {
             if (!slot.isActive()) continue;
             if (slot == result) UiBoxes.bigSlot(graphics, left + slot.x, top + slot.y, OAK);

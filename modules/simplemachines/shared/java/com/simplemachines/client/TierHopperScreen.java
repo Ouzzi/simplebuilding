@@ -2,6 +2,7 @@ package com.simplemachines.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiFilterButton;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiStyleToggle;
@@ -26,13 +27,15 @@ import net.minecraft.world.inventory.Slot;
  */
 public class TierHopperScreen extends AbstractContainerScreen<TierHopperMenu> {
     private static final Identifier TEXTURE = Identifier.withDefaultNamespace("textures/gui/container/hopper.png");
-    private static final int INVENTORY_GAP = 2;
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
     private Button filterButton;
+    /** N62 boxes (style on: no shift - the menu's 6 px already give the room -, the image 142 high for the margin below the hotbar). */
+    private final UiMargin.Boxes boxes;
 
     public TierHopperScreen(TierHopperMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, 176, TierHopperMenu.IMAGE_HEIGHT);
-        this.inventoryLabelY = this.imageHeight - 94;
+        super(menu, inventory, title, 176, UiStyleToggle.isEnabled() ? MachineMargins.tierHopper(menu).height() : TierHopperMenu.IMAGE_HEIGHT);
+        this.boxes = MachineMargins.tierHopper(menu);
+        if (UiStyleToggle.isEnabled()) UiMargin.moveInventory(menu.slots, this.boxes.shift());
+        this.inventoryLabelY = TierHopperMenu.IMAGE_HEIGHT - 94;
     }
 
     public static UiPalette palette(HopperTier tier) {
@@ -94,15 +97,10 @@ public class TierHopperScreen extends AbstractContainerScreen<TierHopperMenu> {
         if (!UiStyleToggle.isEnabled()) return false;
         HopperTier tier = this.menu.tier();
         UiPalette p = palette(tier);
-        int invX = Integer.MAX_VALUE, invY = Integer.MAX_VALUE;
-        for (Slot slot : this.menu.slots) {
-            if (!(slot.container instanceof Inventory) || slot.getContainerSlot() < 9 || slot.getContainerSlot() >= 36) continue;
-            invX = Math.min(invX, slot.x);
-            invY = Math.min(invY, slot.y);
-        }
-        int containerHeight = invY - UiBoxes.FRAME - INVENTORY_GAP;
-        UiBoxes.box(g, left, top, this.imageWidth, containerHeight, p, false); // IG57U2: no shadow, air below the last row
-        UiBoxes.box(g, left + invX - 8, top + invY - UiBoxes.FRAME, 176, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        // N62: 3 px fill above/below the row (the box as wide as the inventory, the row stays centred) and round the inventory
+        UiMargin.Rect c = this.boxes.container(), i = this.boxes.inventory();
+        UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), p);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
         int keyX = left + TierHopperMenu.FILTER_BUTTON_X, keyY = top + TierHopperMenu.FILTER_BUTTON_Y;
         int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
         List<int[]> avoid = new ArrayList<>();
@@ -112,8 +110,8 @@ public class TierHopperScreen extends AbstractContainerScreen<TierHopperMenu> {
         }
         avoid.add(new int[] {left + 4, top + 4, left + 12 + this.font.width(this.title), top + 15});
         avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE + 1});
-        UiMotifs.draw(g, 0, 0, motif(tier), left + UiBoxes.FRAME, top + UiBoxes.FRAME, this.imageWidth - 2 * UiBoxes.FRAME,
-                containerHeight - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, p, avoid, 7);
+        UiMotifs.draw(g, 0, 0, motif(tier), left + c.x() + UiBoxes.FRAME, top + c.y() + UiBoxes.FRAME, c.width() - 2 * UiBoxes.FRAME,
+                c.height() - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, p, avoid, 7);
         for (Slot slot : this.menu.slots) {
             if (slot.isActive()) UiBoxes.slot(g, left + slot.x, top + slot.y, slot.container instanceof Inventory ? UiPalette.INVENTORY : p);
         }

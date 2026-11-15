@@ -1160,12 +1160,18 @@ public final class MusicTests {
             var out = menu.getSlot(DiscPressBlockEntity.OUTPUT);
             h.assertTrue(sheet.y == blank.y && sheet.x + 18 == blank.x && blank.x < out.x && out.y == sheet.y,
                     "side by side: sheet " + sheet.x + "/" + sheet.y + ", blank " + blank.x + "/" + blank.y + ", out " + out.x + "/" + out.y);
-            // N57-10: every press slot (with its light edge, the result slot 4 px wider) inside the iron box's fill - the
-            // box runs from the top to 2 px above the inventory box at 84 - 5, its fill ends 7 px above its bottom
+            // N62 (owner 15.11., A7 "Container-Margin"; positions of N57-10 kept): 3 px of fill under the dye slot's light edge
+            // (the lowest element; the result slot 24 x 24 ends at 52), round the inventory on every side, divider >= 2, no shift
             var dye = menu.getSlot(DiscPressBlockEntity.DYE);
-            int fillBottom = 84 - com.simplelib.api.client.ui.UiBoxes.FRAME - 2 - com.simplelib.api.client.ui.UiBoxes.FRAME_BOTTOM;
-            h.assertTrue(dye.y + 17 <= fillBottom && out.y + 16 + 4 + 1 <= fillBottom,
-                    "press slots inside the box: dye ends at " + (dye.y + 17) + ", result at " + (out.y + 21) + ", fill ends at " + fillBottom);
+            var boxes = com.simplemusic.client.PressMargins.press(menu);
+            int[] m = com.simplelib.api.client.ui.UiMargin.margins(boxes, menu.slots,
+                    new int[] {sheet.x, out.y - 4, out.x + 4, Math.max(dye.y, out.y + 4)});
+            String[] side = {"container left", "container right", "container bottom", "inventory left", "inventory right", "inventory top", "inventory bottom"};
+            for (int k = 0; k < side.length; k++) h.assertValueEqual(m[k], com.simplelib.api.client.ui.UiBoxes.MARGIN, "press screen: " + side[k]);
+            h.assertTrue(m[7] >= com.simplelib.api.client.ui.UiMargin.GAP, "press screen: divider " + m[7]);
+            h.assertTrue(boxes.container().y() == 0 && boxes.shift() == 0 && boxes.height() == 169,
+                    "press screen: box from the top, no shift, image 169 (was 166): " + boxes);
+            h.assertTrue(dye.y == 46 && out.y == 28 && sheet.y == 28, "N57-10 positions kept: dye " + dye.y + ", row " + sheet.y);
             h.assertTrue(dye.y >= blank.y + 18 && dye.x + 8 == (sheet.x + blank.x + 16) / 2, "dye slot centred below the pair: " + dye.x + "/" + dye.y);
             h.succeed();
         });

@@ -197,10 +197,11 @@ public final class AutonomousCrafterTests {
         if (menu.slots.size() != AutonomousCrafterMenu.RESULT_SLOT + 1) problems.add("slot count " + menu.slots.size());
         var result = menu.getSlot(AutonomousCrafterMenu.RESULT_SLOT);
         if (result.x != 134 || result.y != 35) problems.add("result slot at " + result.x + "," + result.y);
-        int inventoryY = menu.getSlot(AutonomousCrafterMenu.INV_START).y;
-        // container box: from the top to the divider above the inventory (frame 5, gap 2)
-        int boxBottom = inventoryY - 5 - 2;
-        if (AutonomousCrafterMenu.FILTER_BUTTON_X + 18 > 176 || AutonomousCrafterMenu.FILTER_BUTTON_Y + 18 > boxBottom) problems.add("filter key leaves the box");
+        // N62 container box (MachineMargins, drawn by the screen): the key stays inside its fill, 3 px off the frame
+        var box = com.simplemachines.client.MachineMargins.autonomousCrafter(menu).container();
+        int fillRight = box.x() + box.width() - com.simplelib.api.client.ui.UiBoxes.FRAME - com.simplelib.api.client.ui.UiBoxes.MARGIN;
+        int fillBottom = box.bottom() - com.simplelib.api.client.ui.UiBoxes.FRAME_BOTTOM - com.simplelib.api.client.ui.UiBoxes.MARGIN;
+        if (AutonomousCrafterMenu.FILTER_BUTTON_X + 18 > fillRight || AutonomousCrafterMenu.FILTER_BUTTON_Y + 18 > fillBottom) problems.add("filter key leaves the box");
         if (menu.filterMode() != HopperFilterMode.NONE) problems.add("filter mode " + menu.filterMode());
         helper.assertTrue(problems.isEmpty(), "autonomous crafter menu: " + problems);
         helper.succeed();

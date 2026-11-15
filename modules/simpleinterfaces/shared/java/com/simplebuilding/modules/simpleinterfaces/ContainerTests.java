@@ -59,6 +59,47 @@ public final class ContainerTests {
         h.assertValueEqual(r, new BoxLayout.Rect(x, y, w, height), what);
     }
 
+    /**
+     * N62 (owner 15.11.): {@link BoxLayout#margin} - fill between a box's light line (frame 5, bottom 7) and the outermost
+     * slots (16 + 1 px light edge) is exactly {@code UiBoxes.MARGIN} on all four sides of both boxes (top of the container
+     * box: title instead); the player's slots move down by the missing rows (preview render3.py: chests 6, shulker 7).
+     */
+    public static void containerMargins(GameTestHelper h) {
+        int m = com.simplelib.api.client.ui.UiBoxes.MARGIN;
+        h.assertValueEqual(m, 3, "margin = Vanilla chest side margin");
+        record Geo(String name, List<BoxLayout.Slot> slots, int height, int shift, boolean full) {}
+        List<Geo> geos = new ArrayList<>();
+        for (int rows = 1; rows <= 6; rows++) geos.add(new Geo("chest " + rows, slots(8, 18, 9, rows, 18 + rows * 18 + 13), 114 + rows * 18, 6, true));
+        geos.add(new Geo("shulker", slots(8, 18, 9, 3, 84), 167, 7, true));
+        geos.add(new Geo("hopper (IG31-30 already 6 lower)", slots(44, 20, 5, 1, 57), 139, 0, false));
+        geos.add(new Geo("dispenser", slots(62, 17, 3, 3, 84), 166, 6, false));
+        for (Geo geo : geos) {
+            var l = BoxLayout.margin(geo.slots(), List.of(), 176, geo.height(), 6);
+            h.assertTrue(l != null && l.container() != null, geo.name() + ": two boxes");
+            h.assertValueEqual(l.shift(), geo.shift(), geo.name() + ": player slots move down");
+            BoxLayout.Rect c = l.container(), i = l.inventory();
+            int[] cb = BoxLayout.bounds(geo.slots(), false), pb = BoxLayout.bounds(geo.slots(), true);
+            int pTop = pb[1] + l.shift(), pBottom = pb[3] + l.shift();
+            h.assertValueEqual(c.bottom() - 7 - (cb[3] + 17), m, geo.name() + ": container bottom margin");
+            h.assertValueEqual(pTop - (i.y() + 5), m, geo.name() + ": inventory top margin");
+            h.assertValueEqual(i.bottom() - 7 - (pBottom + 17), m, geo.name() + ": margin below the hotbar");
+            h.assertValueEqual(8 - (i.x() + 5), m, geo.name() + ": inventory left margin");
+            h.assertValueEqual(i.x() + i.width() - 5 - (8 + 8 * 18 + 17), m, geo.name() + ": inventory right margin");
+            if (geo.full()) {
+                h.assertValueEqual(cb[0] - (c.x() + 5), m, geo.name() + ": container left margin");
+                h.assertValueEqual(c.x() + c.width() - 5 - (cb[2] + 17), m, geo.name() + ": container right margin");
+            }
+            h.assertTrue(i.y() - c.bottom() >= BoxLayout.MAX_GAP, geo.name() + ": divider >= 2");
+            h.assertValueEqual(l.height(), Math.max(geo.height(), i.bottom()), geo.name() + ": image height");
+            h.assertTrue(c.y() == 0, geo.name() + ": container box from the image top (title inside)");
+        }
+        var chest = BoxLayout.margin(slots(8, 18, 9, 3, 85), List.of(), 176, 168, 6);
+        rect(h, chest.container(), 0, 0, 177, 18 + 2 * 18 + 17 + 3 + 7, "chest container box 0..177");
+        h.assertValueEqual(chest.height(), 168 + 6 + 2, "chest image 8 px taller (shulker 9)");
+        h.assertTrue(BoxLayout.margin(slots(8, 150, 9, 1, 84), List.of(), 176, 220, 6) == null, "container below the inventory: Vanilla");
+        h.succeed();
+    }
+
     /** The boxes of every W0 geometry (ChestMenu, ShulkerBoxMenu, HopperMenu, DispenserMenu in 26.3). */
     public static void layouts(GameTestHelper h) {
         for (int rows = 1; rows <= 6; rows++) {
