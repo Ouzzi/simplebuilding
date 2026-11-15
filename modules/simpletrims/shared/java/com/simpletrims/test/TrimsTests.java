@@ -402,6 +402,79 @@ public final class TrimsTests {
             }
             h.succeed();
         });
+        // simpletrims-2 (F15=C, a-w4c): server load of the light blocks. Opt in with the environment variable SB_BENCH_TRIMLIGHT=1 (otherwise
+        // the test passes at once, the gate never pays for it). Scene: 20 walking mock players + 200 cows in a barrier pen. Phase A without any
+        // light, phase B everybody holds a torch (players relocate their light block every step, cows wander). One line
+        // "SB-BENCH trimlight {json}" with the MSPT of both phases; only plausibility is asserted (the verdict is read from the numbers).
+        ALL.put("bench_light", h -> {
+            if (System.getenv("SB_BENCH_TRIMLIGHT") == null) {
+                h.succeed();
+                return;
+            }
+            final int size = 32, warmup = 100, window = 100, windows = 2, total = warmup + 2 * windows * window;
+            var stone = Blocks.STONE.defaultBlockState();
+            var barrier = Blocks.BARRIER.defaultBlockState();
+            for (int x = 0; x < size; x++) for (int z = 0; z < size; z++) {
+                h.setBlock(x, 0, z, stone);
+                if (x == 0 || z == 0 || x == size - 1 || z == size - 1) for (int y = 1; y <= 4; y++) h.setBlock(x, y, z, barrier);
+            }
+            List<net.minecraft.world.entity.Entity> cows = new ArrayList<>();
+            for (int i = 0; i < 200; i++) cows.add(h.spawn(net.minecraft.world.entity.EntityTypes.COW, 1 + (i % 14) * 2, 1, 1 + (i / 14) * 2)); // one cow per two blocks: a head block is shared by nobody
+            List<ServerPlayer> players = new ArrayList<>();
+            for (int i = 0; i < 20; i++) players.add(mockPlayer(h));
+            var server = h.getLevel().getServer();
+            long[] tick = {0};
+            List<Long> a = new ArrayList<>(), b = new ArrayList<>();
+            int[] lights = {0};
+            h.onEachTick(() -> {
+                long t = ++tick[0];
+                for (int i = 0; i < players.size(); i++) {
+                    double ang = t * 0.045 + i * 0.31, r = 4 + (i % 5) * 2.2;
+                    Vec3 at = h.absoluteVec(new Vec3(size / 2.0 + Math.cos(ang) * r, 1.0, size / 2.0 + Math.sin(ang) * r));
+                    players.get(i).snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+                    if (t % TrimLight.PLAYER_INTERVAL == 0) TrimLight.tickPlayer(players.get(i));
+                }
+                if (t == warmup + windows * window) { // switch to phase B: torches everywhere
+                    for (var cow : cows) ((net.minecraft.world.entity.LivingEntity) cow).setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.TORCH));
+                    for (var p : players) p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.TORCH));
+                }
+                if (t > warmup && t % window == 0) {
+                    boolean phaseB = t > warmup + windows * window;
+                    for (long n : server.getTickTimesNanos()) (phaseB ? b : a).add(n);
+                }
+                if (t == total) {
+                    for (int x = 0; x < size; x++) for (int z = 0; z < size; z++) for (int y = 1; y < 4; y++)
+                        if (h.getBlockState(new BlockPos(x, y, z)).is(Blocks.LIGHT)) lights[0]++;
+                    long[] sa = a.stream().mapToLong(Long::longValue).filter(n -> n > 0).sorted().toArray();
+                    long[] sb = b.stream().mapToLong(Long::longValue).filter(n -> n > 0).sorted().toArray();
+                    double avgA = java.util.Arrays.stream(sa).average().orElse(0) / 1e6, avgB = java.util.Arrays.stream(sb).average().orElse(0) / 1e6;
+                    double p95A = sa.length == 0 ? 0 : sa[Math.min(sa.length - 1, (int) Math.ceil(sa.length * 0.95) - 1)] / 1e6;
+                    double p95B = sb.length == 0 ? 0 : sb[Math.min(sb.length - 1, (int) Math.ceil(sb.length * 0.95) - 1)] / 1e6;
+                    var json = new JsonObject();
+                    json.addProperty("players", players.size());
+                    json.addProperty("cows", cows.size());
+                    json.addProperty("ticks_a", sa.length);
+                    json.addProperty("ticks_b", sb.length);
+                    json.addProperty("mspt_unlit_avg", Math.round(avgA * 1000) / 1000.0);
+                    json.addProperty("mspt_lit_avg", Math.round(avgB * 1000) / 1000.0);
+                    json.addProperty("mspt_unlit_p95", Math.round(p95A * 1000) / 1000.0);
+                    json.addProperty("mspt_lit_p95", Math.round(p95B * 1000) / 1000.0);
+                    json.addProperty("overhead_ms", Math.round((avgB - avgA) * 1000) / 1000.0);
+                    json.addProperty("overhead_pct", avgA > 0 ? Math.round((avgB - avgA) / avgA * 1000) / 10.0 : 0);
+                    json.addProperty("light_blocks_standing", lights[0]);
+                    json.addProperty("cows_with_own_light", cows.stream().filter(c -> c instanceof OwnedLightHolder o && o.simpletrims$getOwnedLight() != null).count());
+                    json.addProperty("cows_alive", cows.stream().filter(c -> !c.isRemoved()).count());
+                    json.addProperty("players_with_light", players.stream().filter(p -> TrimLight.lightOf(p) > 0).count());
+                    SimpleTrims.LOG.info("SB-BENCH trimlight {}", json);
+                    for (var p : players) TrimLight.forget(p);
+                    cows.forEach(net.minecraft.world.entity.Entity::discard);
+                    h.assertTrue(sa.length >= 150 && sb.length >= 150 && avgA > 0 && avgB > 0, "MSPT windows measured: " + sa.length + "/" + sb.length);
+                    h.assertTrue(lights[0] > 0, "phase B placed light blocks (" + lights[0] + ")");
+                    h.succeed();
+                }
+            });
+        });
+        MAX_TICKS.put("bench_light", 700);
         // Radiance: worn emitting armor lights the block over the head; armor stands store and clean up their light.
         ALL.put("radiance_light", h -> {
             ServerPlayer player = mockPlayer(h);

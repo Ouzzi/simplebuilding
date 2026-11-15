@@ -8,7 +8,7 @@ public final class DimensionConfigScreen {
  private static Component text(String key){return Component.translatable("text.autoconfig.simpledimensions.option."+key);}
  public static Screen create(Screen parent){
   var mc=Minecraft.getInstance();boolean editable=mc.level==null||mc.hasSingleplayerServer();
-  var b=ConfigBuilder.create().setParentScreen(parent).setTitle(text(editable?"title":"remote"));var e=b.entryBuilder();
+  var b=ConfigBuilder.create().setParentScreen(parent).setTitle(editable?Component.translatable("text.autoconfig.simpledimensions.title"):text("remote"));var e=b.entryBuilder();
   if(!editable){b.getOrCreateCategory(text("safety")).addEntry(e.startTextDescription(text("remoteNotice")).build());return b.build();}
   var source=DimensionSettings.load(DimensionRuntime.CONFIG_ROOT);
   var access=b.getOrCreateCategory(text("access"));var safety=b.getOrCreateCategory(text("safety"));

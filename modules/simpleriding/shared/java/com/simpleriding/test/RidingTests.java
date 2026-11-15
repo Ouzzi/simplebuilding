@@ -20,7 +20,7 @@ import java.io.*;
 import java.util.*;
 public final class RidingTests {
  public static final Map<String,java.util.function.Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
- static { ALL.put("ground_flags",RidingTests::groundFlags); ALL.put("camel_dash_bounds",RidingTests::camelDashBounds); ALL.put("weighted_data_bounds",RidingTests::weightedDataBounds); ALL.put("steering_and_border",RidingTests::steeringAndBorder); ALL.put("all_mount_speed_caps",RidingTests::allMountSpeedCaps); ALL.put("nautilus_speed_and_armor",RidingTests::nautilusSpeedAndArmor); ALL.put("nautilus_dash",RidingTests::nautilusDash); ALL.put("attribute_caps",RidingTests::attributeCaps); ALL.put("feature_switches",RidingTests::featureSwitches); ALL.put("all_config_bounds",RidingTests::allConfigBounds); ALL.put("movement_packets",RidingTests::movementPackets); ALL.put("jump_packets",RidingTests::jumpPackets); ALL.put("movement_budget",RidingTests::movementBudget); ALL.put("launch",RidingTests::launch); ALL.put("armor_and_anvil",RidingTests::armorAndAnvil); ALL.put("horse_speed_and_cleanup",RidingTests::horseSpeedAndCleanup); ALL.put("pig_speed",RidingTests::pigSpeed); ALL.put("strider_speed",RidingTests::striderSpeed); ALL.put("camel_speed",RidingTests::camelSpeed); ALL.put("ghast_harness",RidingTests::ghastHarness); ALL.put("leaping_and_cleanup",RidingTests::leapingAndCleanup); ALL.put("armor_defense",RidingTests::armorDefense); ALL.put("trades",RidingTests::trades); ALL.put("loot_and_toggle",RidingTests::lootAndToggle); ALL.put("config_and_lang",RidingTests::configAndLang); ALL.put("cross_mod_storage_and_armor",RidingTests::crossModStorageAndArmor); ALL.put("vanilla_tab_placement",RidingTests::vanillaTabPlacement); ALL.putAll(HorseshoeTests.ALL); }
+ static { ALL.put("ground_flags",RidingTests::groundFlags); ALL.put("camel_dash_bounds",RidingTests::camelDashBounds); ALL.put("weighted_data_bounds",RidingTests::weightedDataBounds); ALL.put("steering_and_border",RidingTests::steeringAndBorder); ALL.put("all_mount_speed_caps",RidingTests::allMountSpeedCaps); ALL.put("nautilus_speed_and_armor",RidingTests::nautilusSpeedAndArmor); ALL.put("nautilus_dash",RidingTests::nautilusDash); ALL.put("attribute_caps",RidingTests::attributeCaps); ALL.put("feature_switches",RidingTests::featureSwitches); ALL.put("all_config_bounds",RidingTests::allConfigBounds); ALL.put("movement_packets",RidingTests::movementPackets); ALL.put("jump_packets",RidingTests::jumpPackets); ALL.put("movement_budget",RidingTests::movementBudget); ALL.put("lag_jitter",RidingTests::lagJitter); ALL.put("launch",RidingTests::launch); ALL.put("armor_and_anvil",RidingTests::armorAndAnvil); ALL.put("horse_speed_and_cleanup",RidingTests::horseSpeedAndCleanup); ALL.put("pig_speed",RidingTests::pigSpeed); ALL.put("strider_speed",RidingTests::striderSpeed); ALL.put("camel_speed",RidingTests::camelSpeed); ALL.put("ghast_harness",RidingTests::ghastHarness); ALL.put("leaping_and_cleanup",RidingTests::leapingAndCleanup); ALL.put("armor_defense",RidingTests::armorDefense); ALL.put("trades",RidingTests::trades); ALL.put("loot_and_toggle",RidingTests::lootAndToggle); ALL.put("config_and_lang",RidingTests::configAndLang); ALL.put("cross_mod_storage_and_armor",RidingTests::crossModStorageAndArmor); ALL.put("vanilla_tab_placement",RidingTests::vanillaTabPlacement); ALL.putAll(HorseshoeTests.ALL); }
  static { ALL.put("book_models", RidingBookTests::models); }
  static { ALL.put("guide_book", com.simpleriding.guide.RidingGuide::gameTest); }
  static { ALL.put("sub_mod_switch",RidingTests::subModSwitch); }
@@ -280,6 +280,42 @@ public final class RidingTests {
   for(int charge:new int[]{-1,0,101,Integer.MAX_VALUE,Integer.MIN_VALUE}){p.connection.handlePlayerCommand(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(p,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,charge));h.assertTrue(!e.isDashing()&&e.getJumpCooldown()==0,"Real packet refuses invalid charge "+charge);}
   p.connection.handlePlayerCommand(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(e,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,100));h.assertTrue(!e.isDashing(),"Forged command entity ID refused");
   var security=new RidingSecurity();h.assertTrue(security.acceptJump(p,p.getId(),100),"Valid server-controlled jump accepted");h.assertTrue(!security.acceptJump(p,p.getId(),100),"Same-tick replay refused");e.setItemSlot(EquipmentSlot.SADDLE,ItemStack.EMPTY);h.assertTrue(!new RidingSecurity().acceptJump(p,p.getId(),100),"Unsaddled jump refused");p.stopRiding();h.succeed();
+ }
+ /**
+  * simpleriding-3 (F16=A, a-w4c): what the per-tick movement budget does to a galloping rider when packets bunch up (network jitter). Opt in
+  * with SB_BENCH_RIDING=1 (otherwise passes at once). Phases of 60 ticks, fresh guard each: for two horse speeds (0.225 typical, 0.3375 best)
+  * and three arrival patterns - steady (one packet per tick; a constant delay looks the same), burst2 (every 5th packet arrives together with the
+  * next, a 50 ms jitter spike), burst3 (every 10th tick three packets at once) - the claimed moves of 0.95 x real gallop speed go through the
+  * real {@link RidingSecurity#acceptMove}. One line "SB-BENCH riding {json}" with the refusals; nothing is asserted but plausibility.
+  */
+ public static void lagJitter(GameTestHelper h){
+  if(System.getenv("SB_BENCH_RIDING")==null){h.succeed();return;}
+  var e=h.spawn(EntityTypes.HORSE,2,2,2);e.setItemSlot(EquipmentSlot.SADDLE,new ItemStack(Items.SADDLE));var p=serverRider(h,e);
+  double[] speeds={.225,.3375};String[] patterns={"steady","burst2","burst3"};int phaseTicks=60,phases=speeds.length*patterns.length;
+  var json=new com.google.gson.JsonObject();int[] t={0};RidingSecurity[] guard={new RidingSecurity()};int[] refused={0},sent={0},corrections={0};
+  h.onEachTick(()->{
+   int tick=t[0]++;int phase=tick/phaseTicks,local=tick%phaseTicks;
+   if(phase>=phases)return;
+   double attr=speeds[phase/patterns.length];String pattern=patterns[phase%patterns.length];
+   if(local==0){guard[0]=new RidingSecurity();refused[0]=0;sent[0]=0;corrections[0]=0;e.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(attr);}
+   int packets=switch(pattern){
+    case "burst2"->local%5==4?0:(local%5==0&&local>0?2:1);
+    case "burst3"->local%10>=8?0:(local%10==0&&local>0?3:1);
+    default->1;
+   };
+   double step=attr*2.159*.95*((local/10)%2==0?1:-1);
+   for(int i=0;i<packets;i++){
+    var target=e.position().add(step,0,0);sent[0]++;
+    if(guard[0].acceptMove(p,claim(target))){e.setPos(target);e.setDeltaMovement(Vec3.ZERO);}
+    else{refused[0]++;if(guard[0].shouldCorrect(p))corrections[0]++;}
+   }
+   if(local==phaseTicks-1){var o=new com.google.gson.JsonObject();o.addProperty("sent",sent[0]);o.addProperty("refused",refused[0]);o.addProperty("corrections",corrections[0]);json.add(attr+"/"+pattern,o);}
+   if(tick==phases*phaseTicks-1){
+    org.slf4j.LoggerFactory.getLogger("SimpleRiding").info("SB-BENCH riding {}",json);
+    h.assertTrue(json.get(speeds[0]+"/steady").getAsJsonObject().get("refused").getAsInt()==0,"steady packets at 95 % of gallop speed are never refused");
+    h.succeed();
+   }
+  });
  }
  public static void movementBudget(GameTestHelper h){
   var original=Riding.CONFIG;try{
