@@ -141,7 +141,7 @@ public final class StrongBeaconLogic {
 
     /**
      * Server check of a choice (never trust the client): the primary power ({@code primaryAmp} picks between a power
-     * and its "II" placeholder) is on {@code kind}, switched on and within reach; the secondary needs the top level
+     * and its level II power) is on {@code kind}, switched on and within reach; the secondary needs the top level
      * and is one of the kind's secondary powers or the same primary again (only where {@link #canRaise}).
      */
     public static boolean validate(BeaconKind kind, @Nullable Holder<MobEffect> primary, int primaryAmp, @Nullable Holder<MobEffect> secondary, int levels) {

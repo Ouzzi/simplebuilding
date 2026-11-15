@@ -61,7 +61,9 @@ public final class EarthTests {
             h.assertTrue(EarthServerConfig.renderHeight(500, 1200) == 1264, "never below build height + 64");
             h.assertTrue(EarthServerConfig.edge(1) == 64 && EarthServerConfig.edge(99_999_999) == 1048576, "edge 64..1048576 (E1, E29-7)");
             h.assertTrue(EarthSettings.DEFAULT_VERSION == 25, "standard V25 (E30)");
-            h.assertTrue(EarthSettings.VERSIONS == 27 && EarthSettings.FAVOURITES.length == 3, "V1-V27, favourites V25-V27 (E30-4)");
+            h.assertTrue(EarthSettings.VERSIONS == 27 && java.util.Arrays.equals(EarthSettings.RELEASED, new int[]{25, 26, 27, 5})
+                    && EarthSettings.released(EarthSettings.DEFAULT_VERSION) && !EarthSettings.released(12),
+                    "V1-V27, released V25, V26, V27, V5 (W2B 15.11.)");
             h.assertTrue(EarthServerConfig.minGrid == 3 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
                     && !EarthServerConfig.requireFlight
                     && EarthServerConfig.fastHeights, "WD25-16 server defaults (E5 any flight)");
@@ -84,15 +86,22 @@ public final class EarthTests {
                         && EarthClientConfig.render("textureCache") == 64 && EarthClientConfig.render("tileCache") == 2048
                         && Math.abs(EarthClientConfig.render("faceEdge") - 0.28) < 1e-9, "display defaults");
                 h.assertTrue(EarthClientConfig.renderOn("moonPhases") && EarthClientConfig.renderOn("showOthers"), "E9/E10 on by default");
-                var json = com.google.gson.JsonParser.parseString("{\"version\": 12, \"shared\": {\"detail\": 99999}, \"render\": {\"moonPhases\": false,"
+                h.assertTrue(!EarthClientConfig.developerMode, "developer mode off by default (W2B)");
+                // W2B: outside the developer mode a stored unreleased version falls back to the standard, a released one stays
+                EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 12}").getAsJsonObject());
+                h.assertTrue(EarthClientConfig.version == 25 && !EarthClientConfig.developerMode, "V12 without developer mode -> V25");
+                EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 5}").getAsJsonObject());
+                h.assertTrue(EarthClientConfig.version == 5, "released V5 kept without developer mode");
+                var json = com.google.gson.JsonParser.parseString("{\"version\": 12, \"developerMode\": true, \"shared\": {\"detail\": 99999}, \"render\": {\"moonPhases\": false,"
                         + " \"faceEdge\": \"x\", \"renderDistance\": 1}, \"versions\": {\"V11\": {\"cells\": 40}}}").getAsJsonObject();
                 EarthClientConfig.apply(json);
-                h.assertTrue(EarthClientConfig.version == 12 && EarthClientConfig.get("detail") == 1024 && !EarthClientConfig.renderOn("moonPhases")
+                h.assertTrue(EarthClientConfig.version == 12 && EarthClientConfig.developerMode && EarthClientConfig.get("detail") == 1024 && !EarthClientConfig.renderOn("moonPhases")
                         && Math.abs(EarthClientConfig.render("faceEdge") - 0.28) < 1e-9 && EarthClientConfig.render("renderDistance") == 1,
                         "clamped, toggles as booleans, broken value = default");
                 h.assertTrue(EarthClientConfig.get(11, "cells") == 8, "V11 cells clamped to 8");
                 var out = EarthClientConfig.toJson();
                 h.assertTrue(out.getAsJsonObject("render").get("moonPhases").getAsJsonPrimitive().isBoolean(), "toggle written as true/false");
+                h.assertTrue(out.get("developerMode").getAsBoolean(), "developer mode saved");
                 EarthClientConfig.apply(out);
                 h.assertTrue(EarthClientConfig.toJson().equals(out), "JSON round trip");
                 // E29-1: heights/size/look are one set for all versions - a version switch keeps them

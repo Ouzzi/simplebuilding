@@ -63,7 +63,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
     private int lastCheckY;
     @Nullable Holder<MobEffect> primaryPower;
     @Nullable Holder<MobEffect> secondaryPower;
-    /** Base amplifier of the chosen primary power: 0, or 1 for a "II" placeholder of the Mighty kinds. */
+    /** Base amplifier of the chosen primary power: 0, or 1 for a level II power of the Mighty kinds. */
     int primaryAmp;
     private @Nullable Component name;
     private LockCode lockKey = LockCode.NO_LOCK;
@@ -207,7 +207,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         return this.primaryPower;
     }
 
-    /** Base amplifier of the primary power (1 = a "II" placeholder). */
+    /** Base amplifier of the primary power (1 = a level II power). */
     public int primaryAmp() {
         return this.primaryAmp;
     }

@@ -13,7 +13,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Client config {@code config/simpleearth-client.json}: the chosen version (standard V6, E3), the display settings of all
+ * Client config {@code config/simpleearth-client.json}: the chosen version (standard V25, W2B: only the released ones unless
+ * {@link #developerMode}), the display settings of all
  * versions ({@code render}, {@link EarthSettings#RENDER}: detail level, render distance, budgets, E9/E10) and one value set
  * per version (schema {@link EarthSettings}). The menu edits it live; every value is clamped to its range.
  */
@@ -21,6 +22,12 @@ public final class EarthClientConfig {
     public static final String FILE = "simpleearth-client.json";
 
     public static int version = EarthSettings.DEFAULT_VERSION;
+    /**
+     * W2B (owner 15.11.): hidden developer mode ({@code developerMode} in the file or {@code /simpleclient simpleearth set
+     * developerMode true}, not in the menu). Off: only the {@link EarthSettings#RELEASED} versions; a stored other version
+     * falls back to the standard on load. On: every version (the others in the menu's drop-down).
+     */
+    public static boolean developerMode;
     private static final Map<Integer, Map<String, Double>> VALUES = new LinkedHashMap<>();
     private static final Map<String, Double> RENDER = new LinkedHashMap<>();
     /**
@@ -59,11 +66,17 @@ public final class EarthClientConfig {
 
     public static void apply(JsonObject json) {
         int v = 0;
+        boolean dev = false;
         try {
             v = json.has("version") ? json.get("version").getAsInt() : EarthSettings.DEFAULT_VERSION;
         } catch (RuntimeException ignored) {
         }
-        version = v >= 1 && v <= EarthSettings.VERSIONS ? v : EarthSettings.DEFAULT_VERSION;
+        try {
+            dev = json.has("developerMode") && json.get("developerMode").getAsBoolean();
+        } catch (RuntimeException ignored) {
+        }
+        developerMode = dev;
+        version = v >= 1 && v <= EarthSettings.VERSIONS && (dev || EarthSettings.released(v)) ? v : EarthSettings.DEFAULT_VERSION;
         JsonObject render = json.has("render") && json.get("render").isJsonObject() ? json.getAsJsonObject("render") : new JsonObject();
         RENDER.clear();
         for (EarthSettings.Setting s : EarthSettings.RENDER) RENDER.put(s.key(), read(s, render.get(s.key())));
@@ -102,6 +115,7 @@ public final class EarthClientConfig {
     public static JsonObject toJson() {
         JsonObject o = new JsonObject();
         o.addProperty("version", version);
+        o.addProperty("developerMode", developerMode);
         JsonObject render = new JsonObject();
         RENDER.forEach((k, val) -> write(render, EarthSettings.findRender(k), k, val));
         o.add("render", render);
