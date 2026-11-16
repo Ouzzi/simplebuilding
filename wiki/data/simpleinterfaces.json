@@ -656,6 +656,26 @@
       }
     },
     {
+      "id": "config_linkedContainerMax",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"
+      ],
+      "en": {
+        "title": "linkedContainerMax",
+        "summary": "Server setting, 1–5 containers a player may mark at once; marking one more drops the oldest. Default: 3.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "linkedContainerMax",
+        "summary": "Servereinstellung, 1–5 Behälter, die ein Spieler zugleich vormerken kann; ein weiterer verdrängt den ältesten. Standard: 3.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
+    },
+    {
       "id": "config_enableEasyShulkers",
       "sources": [
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"
@@ -699,18 +719,20 @@
       "id": "linked_containers",
       "sources": [
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/linked/LinkedContainers.java",
-        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/LinkedPanel.java"
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/LinkedPanel.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/linked/LinkedLayout.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/LinkedHud.java"
       ],
       "en": {
         "title": "Linked containers",
-        "summary": "Sneak + right-click a container with an empty main hand to mark it (a double chest counts as one); dust particles at your hand show the mark. The next chest or GUI you open (crafting table, furnace, anvil …) shows the marked container above it, sharing your inventory. Shift-click moves marked → second GUI, else inventory; inventory → second GUI, else the marked container. The mark ends beyond linkedContainerRange (default 64, range 8–128), in another dimension, in an unloaded chunk, when the block is gone, on logout or death, or with another sneak + right-click on it, with Escape in the world (the pause menu opens on the next press), and once you have opened the marked container itself and left it again. While marked, a slim banner on the right (block and name) shows which container it is. In creative the inventory and creative tabs never use the mark (a chest GUI still shows it). Claims and locks are checked. The recipe book still only counts your inventory.",
+        "summary": "Sneak + right-click a container with an empty main hand to mark it (a double chest counts as one); up to linkedContainerMax containers (default 3, range 1–5), marking one more drops the oldest. Dust particles at your hand and one tile per container in the top left corner of the HUD show the marks. The next chest or GUI you open (crafting table, furnace, anvil …) shows the marked containers where your inventory was: the GUI on top, the marked box below, your hotbar below that; tabs left of the box switch between the marked containers and your inventory. If that does not fit, the box goes beside the GUI, else it scrolls; your inventory (E) shows the box below or beside it, two double chests sit side by side (narrow windows: tabs). Shift-click moves marked → second GUI, else inventory; inventory → second GUI, else the marked containers in order. A mark ends beyond linkedContainerRange (default 64, range 8–128), in another dimension, in an unloaded chunk, when the block is gone, on logout or death, with another sneak + right-click on it, and once you have opened the marked container itself and left it again; Escape in the world ends all marks (the pause menu opens on the next press). In creative the inventory and creative tabs never use the marks (a chest GUI still shows them). Claims and locks are checked. The recipe book still only counts your inventory.",
         "details": [
           "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
         ]
       },
       "de": {
         "title": "Verknüpfte Behälter",
-        "summary": "Schleichen + Rechtsklick mit leerer Haupthand merkt einen Behälter vor (Doppeltruhe zählt als einer); Staubpartikel an der Hand zeigen die Vormerkung. Die nächste geöffnete Truhe oder GUI (Werkbank, Ofen, Amboss …) zeigt den Behälter darüber, mit gemeinsamem Inventar. Shift-Klick: vorgemerkt → zweites GUI, sonst Inventar; Inventar → zweites GUI, sonst vorgemerkter Behälter. Die Vormerkung endet jenseits von linkedContainerRange (Standard 64, Bereich 8–128), in anderer Dimension, in ungeladenem Chunk, wenn der Block weg ist, bei Logout oder Tod oder mit erneutem Schleich-Rechtsklick darauf, mit Escape in der Welt (das Pausenmenü öffnet beim nächsten Druck) und sobald du den vorgemerkten Behälter selbst geöffnet und wieder verlassen hast. Solange vorgemerkt, zeigt ein schlankes Banner rechts (Block und Name), welcher Behälter es ist. Im Kreativmodus nutzen Inventar und Kreativ-Tabs die Vormerkung nie (eine Truhen-GUI zeigt sie weiter). Claims und Schlösser werden geprüft. Das Rezeptbuch zählt weiter nur das Inventar.",
+        "summary": "Schleichen + Rechtsklick mit leerer Haupthand merkt einen Behälter vor (Doppeltruhe zählt als einer); bis zu linkedContainerMax Behälter (Standard 3, Bereich 1–5), ein weiterer verdrängt den ältesten. Staubpartikel an der Hand und je Behälter eine Kachel oben links im HUD zeigen die Vormerkungen. Die nächste geöffnete Truhe oder GUI (Werkbank, Ofen, Amboss …) zeigt die vorgemerkten Behälter dort, wo das Inventar war: oben die GUI, darunter der vorgemerkte Kasten, darunter die Hotbar; Reiter links am Kasten wechseln zwischen den vorgemerkten Behältern und dem Inventar. Passt das nicht, steht der Kasten neben der GUI, sonst scrollt er; im Inventar (E) steht er darunter oder daneben, zwei Doppeltruhen stehen nebeneinander (schmale Fenster: Reiter). Shift-Klick: vorgemerkt → zweites GUI, sonst Inventar; Inventar → zweites GUI, sonst die vorgemerkten Behälter der Reihe nach. Eine Vormerkung endet jenseits von linkedContainerRange (Standard 64, Bereich 8–128), in anderer Dimension, in ungeladenem Chunk, wenn der Block weg ist, bei Logout oder Tod, mit erneutem Schleich-Rechtsklick darauf und sobald du den vorgemerkten Behälter selbst geöffnet und wieder verlassen hast; Escape in der Welt beendet alle (das Pausenmenü öffnet beim nächsten Druck). Im Kreativmodus nutzen Inventar und Kreativ-Tabs die Vormerkungen nie (eine Truhen-GUI zeigt sie weiter). Claims und Schlösser werden geprüft. Das Rezeptbuch zählt weiter nur das Inventar.",
         "details": [
           "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
@@ -1067,6 +1089,26 @@
       "de": {
         "title": "Hosen-Korrektur",
         "summary": "Füllt die fehlende Unterseite der Hosenbeine (ohne Stiefel von unten offen). Wirkt nach dem Neuladen der Ressourcen (F3+T). Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_linkedHudIcons",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Marked containers as HUD icons",
+        "summary": "Each marked container shows as a small tile with its block in the top left corner of the HUD. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Vorgemerkte Behälter als HUD-Symbole",
+        "summary": "Jeder vorgemerkte Behälter erscheint als kleine Kachel mit seinem Block oben links im HUD. Standard: an.",
         "details": [
           "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
         ]
@@ -1799,8 +1841,8 @@
       "groupDe": null,
       "label": "Linked Containers",
       "labelDe": "Verknüpfte Behälter",
-      "tooltip": "Sneak + right-click a container with an empty\nhand to mark it. The next chest or GUI you open\nshows the marked container above it with a\nshared inventory. Sneak + right-click it again\nto unmark. Default: true.",
-      "tooltipDe": "Schleichen + Rechtsklick mit leerer Hand merkt\neinen Behälter vor. Die nächste geöffnete Truhe\noder GUI zeigt ihn darüber an, mit gemeinsamem\nInventar. Erneut Schleichen + Rechtsklick hebt\ndie Vormerkung auf. Standard: true."
+      "tooltip": "Sneak + right-click a container with an empty\nhand to mark it. The next chest or GUI you open\nshows the marked containers where your\ninventory was (or beside it). Sneak + right-click\none again to unmark it. Default: true.",
+      "tooltipDe": "Schleichen + Rechtsklick mit leerer Hand merkt\neinen Behälter vor. Die nächste geöffnete Truhe\noder GUI zeigt die vorgemerkten Behälter dort,\nwo das Inventar war (oder daneben). Erneut\nSchleichen + Rechtsklick hebt eine Vormerkung\nauf. Standard: true."
     },
     {
       "range": null,
@@ -1845,6 +1887,25 @@
       "side": "server",
       "reload": null,
       "source": "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java",
+      "name": "linkedContainerMax",
+      "shortName": "linkedContainerMax",
+      "type": "int",
+      "default": "3",
+      "note": null,
+      "category": "Simple Interfaces",
+      "categoryDe": "Simple Interfaces",
+      "group": null,
+      "groupDe": null,
+      "label": "Linked Containers per Player",
+      "labelDe": "Verknüpfte Behälter je Spieler",
+      "tooltip": "How many containers a player may mark at\nonce. Marking one more drops the oldest.\nDefault: 3. Allowed range: 1–5.",
+      "tooltipDe": "Wie viele Behälter ein Spieler zugleich\nvormerken kann. Ein weiterer verdrängt den\nältesten. Standard: 3. Erlaubter Bereich: 1–5."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java",
       "name": "linkedContainerRange",
       "shortName": "linkedContainerRange",
       "type": "int",
@@ -1858,6 +1919,25 @@
       "labelDe": "Reichweite verknüpfter Behälter",
       "tooltip": "Blocks between player and marked container.\nFarther away, another dimension or an\nunloaded chunk ends the mark. Default: 64.\nAllowed range: 8–128.",
       "tooltipDe": "Blöcke zwischen Spieler und vorgemerktem\nBehälter. Weiter weg, andere Dimension oder\nungeladener Chunk beenden die Vormerkung.\nStandard: 64. Erlaubter Bereich: 8–128."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java",
+      "name": "linkedHudIcons",
+      "shortName": "linkedHudIcons",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Interfaces",
+      "categoryDe": "Simple Interfaces",
+      "group": null,
+      "groupDe": null,
+      "label": "Marked containers as HUD icons",
+      "labelDe": "Vorgemerkte Behälter als HUD-Symbole",
+      "tooltip": "Each marked container shows as a small tile\nwith its block in the top left corner of the\nHUD. Default: on.",
+      "tooltipDe": "Jeder vorgemerkte Behälter erscheint als kleine\nKachel mit seinem Block oben links im HUD.\nStandard: an."
     },
     {
       "range": null,
@@ -2100,7 +2180,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 55,
+    "features": 57,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
@@ -2109,7 +2189,7 @@
     "items": 0,
     "blocks": 0,
     "trades": 0,
-    "config": 46,
+    "config": 48,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,
