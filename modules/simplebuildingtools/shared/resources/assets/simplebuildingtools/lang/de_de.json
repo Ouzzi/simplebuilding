@@ -119,7 +119,6 @@
   "simplebuildingtools.blueprint.error.unknown_block": "Unbekannter Block %s",
   "simplebuildingtools.blueprint.error.entity_too_many": "Mehr als %s Entities in einem Code",
   "simplebuildingtools.blueprint.error.entity_unknown": "Unbekannte Entity %s",
-  "simplebuildingtools.blueprint.error.entity_unsupported": "%s kann nicht in eine Blaupause (nur Item-Rahmen, Rüstungsständer und Mobs)",
   "simplebuildingtools.blueprint.error.entity_usage": "Schreibweise: %s",
   "simplebuildingtools.blueprint.error.entity_position": "Falsche Entity-Position %s (x,y,z von 0 bis %s)",
   "simplebuildingtools.blueprint.error.entity_facing": "Unbekannte Richtung %s (north, south, east, west, up, down)",

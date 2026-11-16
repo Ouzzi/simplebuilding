@@ -134,7 +134,7 @@ public final class BlueprintEntityTests {
         // Fehler: gemeldet, nicht geworfen, und die Zeile bleibt aus dem Modell.
         String[][] bad = {
                 {"@no_such_entity 0,0,0", "entity_unknown"},
-                {"@painting 0,0,0", "entity_unsupported"},
+                {"@item_frame 0,0,0 up yaw=5", "entity_bad_token"},
                 {"@item_frame 0,0,0", "entity_usage"},
                 {"@item_frame 0,0,0 sideways", "entity_facing"},
                 {"@item_frame 0,0,0 up rot=8", "entity_value"},
@@ -145,7 +145,7 @@ public final class BlueprintEntityTests {
                 {"@item_frame 0,0,0 up stone[custom_name={]", "entity_item_syntax"},
                 {"@item_frame 0,0,0 up stone*0", "entity_item_syntax"},
                 {"@item_frame 0,0,0 up stone small", "entity_bad_token"},
-                {"@pig 0,0,0 head_pose=1,2,3", "entity_bad_token"},
+                {"@pig 0,0,0 rot=1", "entity_bad_token"},
                 {"@item_frame 0,0,0 up stone dirt", "entity_bad_token"},
                 {"@armor_stand 0,0,0 name={", "entity_item_syntax"},
         };

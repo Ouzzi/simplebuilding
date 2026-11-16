@@ -34,7 +34,7 @@ stone 0..4,0,0..1
   Posen `head_pose= body_pose= left_arm_pose= right_arm_pose= left_leg_pose= right_leg_pose=` (je `x,y,z` Grad).
 - Zeilen sind anfuehrungszeichen- und klammerbewusst getrennt (Leerzeichen/`#` in Namen sind erlaubt).
 - Grenzen: hoechstens 4096 Entities je Code, Item-Text hoechstens 8192 Zeichen; Fehler werden als Problem gemeldet (kein Absturz):
-  `entity_unknown`, `entity_unsupported`, `entity_position`, `entity_facing`, `entity_bad_token`, `entity_item_unknown`,
+  `entity_unknown`, `entity_position`, `entity_facing`, `entity_bad_token`, `entity_item_unknown`,
   `entity_item_syntax`, `entity_component_unknown`, `entity_too_many`, `entity_too_long`.
   Parse-Zeit (ohne Welt) prueft Ids, Komponenten-Ids und SNBT-Syntax; die Komponenten-Werte (z. B. Verzauberungen = dynamische Registry)
   prueft erst der Bau mit den Welt-Registries – schlaegt das fehl, steht der Frame leer da (geloggt, als Fehlstelle gezaehlt).

@@ -86,9 +86,9 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
             Map.entry("noai", "NoAI"), Map.entry("small", "Small"), Map.entry("arms", "ShowArms"), Map.entry("noplate", "NoBasePlate"),
             Map.entry("marker", "Marker"), Map.entry("showname", "CustomNameVisible"));
     private static final List<String> FRAME_FLAGS = List.of("invisible", "fixed", "invulnerable", "silent");
-    private static final List<String> STAND_FLAGS = List.of("invisible", "invulnerable", "silent", "nogravity", "small", "arms", "noplate",
-            "marker", "showname");
-    private static final List<String> MOB_FLAGS = List.of("invisible", "invulnerable", "silent", "nogravity", "noai", "showname");
+    /** Ruestungsstaender und Mobs teilen die Schalter (ein fremder Schalter wird beim Laden einfach nicht gelesen). */
+    private static final List<String> LIVING_FLAGS = List.of("invisible", "invulnerable", "silent", "nogravity", "noai", "small", "arms",
+            "noplate", "marker", "showname");
 
     /** Ausruestungsplaetze in Schreib-Reihenfolge. */
     public static final List<String> SLOTS = List.of("head", "chest", "legs", "feet", "hand", "offhand");
@@ -117,19 +117,38 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
     // ART UND RASTER
     // =====================================================================================
 
-    /** Was fuer eine Blaupausen-Entity dieser Typ waere, oder {@code null} (nicht unterstuetzt). */
-    public static @Nullable Kind kindOf(EntityType<?> type) {
-        Class<?> base = type.getBaseClass();
-        if (ItemFrame.class.isAssignableFrom(base)) {
+    /** Arten, die an echten Entities gesehen wurden (Scan, Bau) - genauer als die Vermutung aus der Schreibweise. */
+    private static final Map<EntityType<?>, Kind> SEEN = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** Art einer echten Entity, oder {@code null} (nicht unterstuetzt). */
+    public static @Nullable Kind kindOf(Entity entity) {
+        Kind kind = entity instanceof ItemFrame ? Kind.FRAME : entity instanceof ArmorStand ? Kind.STAND
+                : entity instanceof Mob ? Kind.MOB : null;
+        if (kind != null) {
+            SEEN.put(entity.getType(), kind);
+        }
+        return kind;
+    }
+
+    /**
+     * Art eines Typs ohne Welt (der Parser kann keine Entity erzeugen, {@code EntityType#getBaseClass} sagt auf 26.3 nichts):
+     * schon gesehen, sonst die Vanilla-Typen, sonst nach Schreibweise - mit Richtung ein Frame, ein Modul-Typ der Kategorie
+     * MISC ein Stand, sonst ein Mob. Der Bau prueft an der echten Entity nach (Frame gegen Nicht-Frame).
+     */
+    static Kind guessKind(EntityType<?> type, boolean hasDirection) {
+        Kind seen = SEEN.get(type);
+        if (seen != null) {
+            return seen;
+        }
+        if (type == net.minecraft.world.entity.EntityTypes.ITEM_FRAME || type == net.minecraft.world.entity.EntityTypes.GLOW_ITEM_FRAME
+                || hasDirection) {
             return Kind.FRAME;
         }
-        if (ArmorStand.class.isAssignableFrom(base)) {
+        if (type == net.minecraft.world.entity.EntityTypes.ARMOR_STAND || (!"minecraft".equals(BuiltInRegistries.ENTITY_TYPE.getKey(type).getNamespace())
+                && type.getCategory() == net.minecraft.world.entity.MobCategory.MISC)) {
             return Kind.STAND;
         }
-        if (Mob.class.isAssignableFrom(base)) {
-            return Kind.MOB;
-        }
-        return null;
+        return Kind.MOB;
     }
 
     public int cellX() {
@@ -166,11 +185,7 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
     }
 
     private static List<String> flagsOf(Kind kind) {
-        return switch (kind) {
-            case FRAME -> FRAME_FLAGS;
-            case STAND -> STAND_FLAGS;
-            case MOB -> MOB_FLAGS;
-        };
+        return kind == Kind.FRAME ? FRAME_FLAGS : LIVING_FLAGS;
     }
 
     // =====================================================================================
@@ -302,7 +317,7 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
      */
     public static Object scan(Entity entity, BlockPos origin, HolderLookup.Provider registries) {
         Identifier type = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
-        Kind kind = kindOf(entity.getType());
+        Kind kind = kindOf(entity);
         if (kind == null || !scannable(entity)) {
             return "unsupported entity " + type;
         }
@@ -443,11 +458,8 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
             sink.style(head[0] + 1, head[0] + 2 + colon, BlueprintCode.STYLE_NAMESPACE);
         }
         sink.style(head[0] + 2 + colon, head[1], BlueprintCode.STYLE_BLOCK);
-        Kind kind = kindOf(type.get());
-        if (kind == null) {
-            sink.problem(head[0], head[1], "entity_unsupported", idText);
-            return null;
-        }
+        boolean direction = tokens.size() > 2 && Direction.byName(code.substring(tokens.get(2)[0], tokens.get(2)[1])) != null;
+        Kind kind = guessKind(type.get(), direction);
         if (tokens.size() < (kind == Kind.FRAME ? 3 : 2)) {
             sink.problem(head[0], to, "entity_usage", kind == Kind.FRAME ? "@" + idText + " x,y,z <facing> [item]" : "@" + idText + " x,y,z");
             return null;
@@ -521,7 +533,7 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
                         continue;
                     }
                     values.put(key, canonicalItem(value));
-                } else if (POSES.contains(key) && kind == Kind.STAND) {
+                } else if (POSES.contains(key) && kind != Kind.FRAME) {
                     double[] v = numbers(value, false, 3600);
                     if (v == null) {
                         error = "entity_value";
@@ -756,11 +768,17 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
      */
     public void place(ServerLevel level, Player player, ItemStack wand, boolean creative, BlueprintBuilder.ModelLayout layout, Counts out) {
         EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.getOptional(type).orElse(null);
-        if (entityType == null || kindOf(entityType) != kind) {
+        Entity entity = entityType == null ? null : entityType.create(level, EntitySpawnReason.COMMAND);
+        Kind actual = entity == null ? null : kindOf(entity);
+        if (actual == null || (actual == Kind.FRAME) != (kind == Kind.FRAME)) {
+            if (entity != null) {
+                entity.discard();
+            }
             out.blocked++;
             return;
         }
-        if (kind == Kind.MOB && !creative) {
+        if (actual == Kind.MOB && !creative) {
+            entity.discard();
             out.missing++;
             return;
         }
@@ -778,6 +796,7 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
             cell = BlockPos.containing(pos);
         }
         if (!BlueprintBuilder.mayBuildAt(level, player, cell, Direction.UP, wand)) {
+            entity.discard();
             out.blocked++;
             return;
         }
@@ -786,12 +805,8 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
                 && (frameDir != null ? other instanceof ItemFrame f && f.getPos().equals(cell) && f.getDirection() == frameDir
                 : other.position().distanceToSqr(pos) < 0.01));
         if (!there.isEmpty()) {
+            entity.discard();
             out.already++;
-            return;
-        }
-        Entity entity = entityType.create(level, EntitySpawnReason.COMMAND);
-        if (entity == null) {
-            out.blocked++;
             return;
         }
         if (kind == Kind.FRAME) {
@@ -807,7 +822,7 @@ public record BlueprintEntity(Identifier type, Kind kind, double x, double y, do
             tag.putByte("ItemRotation", (byte) rotatedItemRotation(rotation, dir, turn));
         }
         if (creative) {
-            for (String flag : flagsOf(kind)) {
+            for (String flag : flagsOf(actual)) {
                 tag.putBoolean(FLAG_TAGS.get(flag), flags.contains(flag));
             }
         }

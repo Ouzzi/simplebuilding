@@ -119,7 +119,6 @@
   "simplebuildingtools.blueprint.error.unknown_block": "Unknown block %s",
   "simplebuildingtools.blueprint.error.entity_too_many": "More than %s entities in one code",
   "simplebuildingtools.blueprint.error.entity_unknown": "Unknown entity %s",
-  "simplebuildingtools.blueprint.error.entity_unsupported": "%s cannot be in a blueprint (only item frames, armor stands and mobs)",
   "simplebuildingtools.blueprint.error.entity_usage": "Usage: %s",
   "simplebuildingtools.blueprint.error.entity_position": "Bad entity position %s (x,y,z from 0 to %s)",
   "simplebuildingtools.blueprint.error.entity_facing": "Unknown direction %s (north, south, east, west, up, down)",
