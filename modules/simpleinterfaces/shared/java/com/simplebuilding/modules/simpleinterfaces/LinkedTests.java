@@ -48,6 +48,10 @@ public final class LinkedTests {
         ALL.put("linked_qol_migration", LinkedTests::qolMigration);
         ALL.put("linked_sync", LinkedTests::sync);
         ALL.put("linked_super_switch", LinkedTests::superSwitch);
+        ALL.put("linked_multi_mark", LinkedTests::multiMark);
+        ALL.put("linked_multi_transfer", LinkedTests::multiTransfer);
+        ALL.put("linked_layout_modes", LinkedTests::layoutModes);
+        ALL.put("linked_layout_margins", LinkedTests::layoutMargins);
     }
 
     private LinkedTests() {
@@ -308,7 +312,7 @@ public final class LinkedTests {
             p.setShiftKeyDown(false);
             h.assertTrue(menu.slots.size() == base + 27 && firstLinked(menu) == base, "Mark appends its slots to the inventory menu: " + menu.slots.size());
             h.assertTrue(!sent.isEmpty() && sent.get(sent.size() - 1).containerId() == menu.containerId
-                    && sent.get(sent.size() - 1).size() == 27 && sent.get(sent.size() - 1).icon().is(Items.SHULKER_BOX), "Payload carries size and the block's item");
+                    && sent.get(sent.size() - 1).size() == 27 && sent.get(sent.size() - 1).entries().get(0).icon().is(Items.SHULKER_BOX), "Payload carries size and the block's item");
             // Inventory screen: main/hotbar slots fill the marked box, the box's slots empty into the inventory.
             p.getInventory().add(new ItemStack(Items.DIAMOND, 3));
             int diamonds = -1;
@@ -354,8 +358,8 @@ public final class LinkedTests {
             // Banner: one HUD payload on marking (kind = block item, name = container name), one empty one on ending.
             mark(p, markedAbs);
             var shown = hud(sent);
-            h.assertTrue(shown.size() == 1 && shown.get(0).size() == 1 && shown.get(0).icon().is(Items.BARREL)
-                    && shown.get(0).title().getString().equals(((net.minecraft.world.level.block.entity.BaseContainerBlockEntity) marked).getDisplayName().getString()), "Marking sends the banner: " + shown);
+            h.assertTrue(shown.size() == 1 && shown.get(0).size() == 1 && shown.get(0).entries().get(0).icon().is(Items.BARREL)
+                    && shown.get(0).entries().get(0).title().getString().equals(((net.minecraft.world.level.block.entity.BaseContainerBlockEntity) marked).getDisplayName().getString()), "Marking sends the banner: " + shown);
             LinkedContainers.tick(p);
             h.assertTrue(hud(sent).size() == 1, "The banner is sent once, not every tick");
             // Escape (cancel payload): mark and banner gone; a second cancel is harmless.
@@ -560,6 +564,273 @@ public final class LinkedTests {
             h.assertTrue(!PortableContainers.open(p, 4), "Switch off: ender chest stays closed");
             p.getEnderChestInventory().clearContent();
         });
+        h.succeed();
+    }
+
+    // --- N65: several marks ---
+
+    private static BlockPos doubleChest(GameTestHelper h, BlockPos left) {
+        var right = left.relative(Direction.NORTH.getClockWise());
+        h.setBlock(left, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.NORTH).setValue(ChestBlock.TYPE, ChestType.LEFT));
+        h.setBlock(right, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.NORTH).setValue(ChestBlock.TYPE, ChestType.RIGHT));
+        return h.absolutePos(left);
+    }
+
+    /** N65: marks add up to linkedContainerMax (oldest drops), sneak + right-click removes one, Escape all; slot sum <= MAX_SLOTS. */
+    public static void multiMark(GameTestHelper h) {
+        configured(() -> {
+            var c = new LinkedConfig();
+            h.assertTrue(c.linkedContainerMax == 3, "Default: 3 marks");
+            c.linkedContainerMax = 0;
+            c.normalize();
+            h.assertTrue(c.linkedContainerMax == LinkedConfig.MIN_LINKED_MAX, "Lower bound 1");
+            c.linkedContainerMax = 9;
+            c.normalize();
+            h.assertTrue(c.linkedContainerMax == LinkedConfig.MAX_LINKED_MAX, "Upper bound 5");
+            var sent = new ArrayList<com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload>();
+            LinkedContainers.openSync = (player, payload) -> sent.add(payload);
+            BlockPos[] at = new BlockPos[4];
+            for (int i = 0; i < 4; i++) {
+                h.setBlock(new BlockPos(1 + i, 2, 1), Blocks.BARREL);
+                at[i] = h.absolutePos(new BlockPos(1 + i, 2, 1));
+            }
+            var p = player(h, new BlockPos(2, 2, 3));
+            mark(p, at[0]);
+            mark(p, at[1]);
+            h.assertTrue(LinkedContainers.marks(p).size() == 2 && LinkedContainers.marks(p).get(0).pos().equals(at[0])
+                    && LinkedContainers.mark(p).pos().equals(at[1]), "Two marks, oldest first: " + LinkedContainers.marks(p));
+            var tiles = hud(sent);
+            h.assertTrue(tiles.get(tiles.size() - 1).entries().size() == 2, "HUD payload: one tile per mark");
+            mark(p, at[2]);
+            mark(p, at[3]);
+            var marks = LinkedContainers.marks(p);
+            h.assertTrue(marks.size() == 3 && marks.get(0).pos().equals(at[1]) && marks.get(2).pos().equals(at[3]), "Fourth mark drops the oldest: " + marks);
+            mark(p, at[2]);
+            marks = LinkedContainers.marks(p);
+            h.assertTrue(marks.size() == 2 && marks.get(0).pos().equals(at[1]) && marks.get(1).pos().equals(at[3]), "Sneak + right-click on a marked one removes only it: " + marks);
+            int base = p.inventoryMenu.slots.size() - 54;
+            h.assertTrue(firstLinked(p.inventoryMenu) == base, "Inventory menu carries both marked containers: " + p.inventoryMenu.slots.size());
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.marks(p).size() == 2, "Marks survive a tick in range");
+            LinkedContainers.onCancel(p);
+            h.assertTrue(LinkedContainers.marks(p).isEmpty() && hud(sent).get(hud(sent).size() - 1).entries().isEmpty() && firstLinked(p.inventoryMenu) == -1,
+                    "Escape ends every mark, tiles and inventory slots go");
+            // One far mark ends alone.
+            mark(p, at[0]);
+            mark(p, at[3]);
+            SimpleInterfaces.config().linkedContainerRange = 8;
+            p.setPos(Vec3.atCenterOf(at[0]).add(-7.5, 0, 0));
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.marks(p).size() == 1 && LinkedContainers.mark(p).pos().equals(at[0]), "Out of range ends only that mark: " + LinkedContainers.marks(p));
+            SimpleInterfaces.config().linkedContainerRange = 64;
+            p.setPos(Vec3.atBottomCenterOf(h.absolutePos(new BlockPos(2, 2, 3))));
+            LinkedContainers.clear(p);
+            // Server config 1: a new mark replaces the old one (the former behaviour).
+            SimpleInterfaces.config().linkedContainerMax = 1;
+            mark(p, at[0]);
+            mark(p, at[1]);
+            h.assertTrue(LinkedContainers.marks(p).size() == 1 && LinkedContainers.mark(p).pos().equals(at[1]), "Max 1: the new mark replaces the old");
+            SimpleInterfaces.config().linkedContainerMax = 3;
+            LinkedContainers.clear(p);
+            // Slot sum: two double chests (108) fill MAX_SLOTS; a barrel more drops the oldest double chest.
+            var dc1 = doubleChest(h, new BlockPos(1, 2, 5));
+            var dc2 = doubleChest(h, new BlockPos(4, 2, 5));
+            mark(p, dc1);
+            mark(p, dc2);
+            h.assertTrue(LinkedContainers.marks(p).size() == 2, "Two double chests = 108 slots fit");
+            mark(p, at[0]);
+            marks = LinkedContainers.marks(p);
+            h.assertTrue(marks.size() == 2 && marks.get(0).pos().equals(dc2) && marks.get(1).pos().equals(at[0]), "Beyond MAX_SLOTS the oldest drops: " + marks);
+            int linked = p.inventoryMenu.slots.size() - firstLinked(p.inventoryMenu);
+            h.assertTrue(linked == 54 + 27 && linked <= LinkedContainers.MAX_SLOTS, "Appended slots stay within MAX_SLOTS: " + linked);
+            LinkedContainers.clear(p);
+        });
+        h.succeed();
+    }
+
+    private static int total(Item item, Container... containers) {
+        int n = 0;
+        for (Container c : containers) n += count(c, item);
+        return n;
+    }
+
+    /** N65: a second menu gets all marked containers in order; shift-clicks fill them in order and never create or lose items. */
+    public static void multiTransfer(GameTestHelper h) {
+        configured(() -> {
+            h.setBlock(new BlockPos(1, 2, 1), Blocks.BARREL);
+            h.setBlock(new BlockPos(2, 2, 1), Blocks.SHULKER_BOX);
+            h.setBlock(new BlockPos(3, 2, 1), Blocks.CHEST);
+            var a = (Container) h.getLevel().getBlockEntity(h.absolutePos(new BlockPos(1, 2, 1)));
+            var b = (Container) h.getLevel().getBlockEntity(h.absolutePos(new BlockPos(2, 2, 1)));
+            var other = (Container) h.getLevel().getBlockEntity(h.absolutePos(new BlockPos(3, 2, 1)));
+            var sent = new ArrayList<com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload>();
+            LinkedContainers.openSync = (player, payload) -> sent.add(payload);
+            var p = player(h, new BlockPos(2, 2, 3));
+            mark(p, h.absolutePos(new BlockPos(1, 2, 1)));
+            mark(p, h.absolutePos(new BlockPos(2, 2, 1)));
+            p.openMenu((MenuProvider) other);
+            var menu = p.containerMenu;
+            int start = firstLinked(menu);
+            h.assertTrue(start == 63 && menu.slots.size() == 63 + 54, "Both marked containers appended behind the chest menu: " + menu.slots.size());
+            var open = sent.get(sent.size() - 1);
+            h.assertTrue(open.containerId() == menu.containerId && open.entries().size() == 2 && open.entries().get(0).icon().is(Items.BARREL)
+                    && open.entries().get(1).icon().is(Items.SHULKER_BOX), "One payload, an entry per container in marking order");
+            for (int i = 0; i < 26; i++) a.setItem(i, new ItemStack(Items.STONE, 64));
+            a.setItem(26, new ItemStack(Items.DIAMOND, 60));
+            other.setItem(0, new ItemStack(Items.DIAMOND, 64));
+            int diamonds = total(Items.DIAMOND, a, b, other, p.getInventory());
+            // Second chest -> marked: fills the first marked container (4 into its diamond stack), the rest into the second.
+            menu.clicked(0, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(a, Items.DIAMOND) == 64 && count(b, Items.DIAMOND) == 60 && count(other, Items.DIAMOND) == 0,
+                    "Chest -> marked containers in order: a=" + count(a, Items.DIAMOND) + " b=" + count(b, Items.DIAMOND));
+            h.assertTrue(total(Items.DIAMOND, a, b, other, p.getInventory()) == diamonds, "No diamond created or lost");
+            // Second marked container -> the open chest.
+            menu.clicked(start + 27, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(b, Items.DIAMOND) == 0 && count(other, Items.DIAMOND) == 60, "Marked -> second GUI");
+            // Inventory -> chest full -> marked containers (the first is full: the second takes it).
+            for (int i = 0; i < 27; i++) other.setItem(i, new ItemStack(Items.STONE, 64));
+            p.getInventory().add(new ItemStack(Items.EMERALD, 30));
+            int inv = -1;
+            for (int i = 27; i < 63; i++) if (menu.slots.get(i).getItem().is(Items.EMERALD)) inv = i;
+            menu.clicked(inv, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(b, Items.EMERALD) == 30 && count(p.getInventory(), Items.EMERALD) == 0 && count(a, Items.EMERALD) == 0,
+                    "Full chest: inventory -> the next marked container with room");
+            h.assertTrue(total(Items.STONE, a, b, other) == 53 * 64, "No stone moved or lost");
+            p.closeContainer();
+            // Opening a marked container itself: only the other one is appended.
+            p.openMenu((MenuProvider) a);
+            h.assertTrue(firstLinked(p.containerMenu) == 27 + 36 && p.containerMenu.slots.size() == 63 + 27, "The open marked container is not shown twice: " + p.containerMenu.slots.size());
+            p.closeContainer();
+            LinkedContainers.clear(p);
+        });
+        h.succeed();
+    }
+
+    // --- N65: LinkedLayout (pure) ---
+
+    /** Frames of KONZEPT-N65 §2 (GUI px): 1080p scale 2/3/4, 720p scale 2/3. */
+    static final int[][] FRAMES = {{960, 540}, {640, 360}, {480, 270}, {640, 360}, {426, 240}};
+    static final String[] FRAME_NAMES = {"1080p*2", "1080p*3", "1080p*4", "720p*2", "720p*3"};
+
+    /** A screen of the test table: image size, first inventory row, own storage rows, inventory screen, clean. */
+    record Screen(String name, int width, int height, int inventoryTop, int ownRows, boolean inventory, boolean clean) {
+        com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Input input(int[] frame, List<Integer> marked, int bookShift) {
+            return new com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Input(frame[0], frame[1], width, height,
+                    (frame[0] - width) / 2 + bookShift, (frame[1] - height) / 2, inventoryTop, ownRows, inventory, clean, marked, 0);
+        }
+    }
+
+    static final Screen E = new Screen("E", 176, 166, 84, 0, true, true);
+    static final Screen FURNACE = new Screen("furnace", 176, 166, 84, 0, false, true);
+    static final Screen CRAFTING = new Screen("crafting", 176, 166, 84, 0, false, true);
+    static final Screen ANVIL = new Screen("anvil", 176, 166, 84, 0, false, false);
+    static final Screen BEACON = new Screen("beacon", 230, 219, 137, 0, false, false);
+    /** N62-styled chest / double chest (player slots 6 px lower), and Vanilla's. */
+    static final Screen CHEST = new Screen("chest", 176, 172, 91, 3, false, true);
+    static final Screen DOUBLE = new Screen("double chest", 176, 228, 145, 6, false, true);
+    static final Screen DOUBLE_VANILLA = new Screen("vanilla double chest", 176, 222, 139, 6, false, false);
+
+    /** Marked chest/shulker 27, double chest 54. */
+    record Case(Screen screen, List<Integer> marked, String expected) {}
+
+    static final List<Case> CASES = List.of(
+            new Case(E, List.of(27), "BELOW BELOW BELOW BELOW BESIDE"),
+            new Case(FURNACE, List.of(27), "BELOW BELOW BELOW BELOW BELOW"),
+            new Case(CRAFTING, List.of(27), "BELOW BELOW BELOW BELOW BELOW"),
+            new Case(CHEST, List.of(54), "BELOW BELOW BELOW BELOW BESIDE"),
+            new Case(ANVIL, List.of(27), "BELOW BELOW BELOW BELOW BELOW"),
+            new Case(BEACON, List.of(27), "BELOW BELOW BELOW_SCROLL BELOW BELOW_SCROLL"),
+            new Case(E, List.of(54), "BELOW BELOW BESIDE BELOW BESIDE"),
+            new Case(DOUBLE, List.of(54), "BESIDE BESIDE BESIDE BESIDE BESIDE"),
+            new Case(DOUBLE_VANILLA, List.of(54), "TABS TABS TABS TABS TABS"),
+            new Case(DOUBLE, List.of(27, 27), "TABS TABS TABS TABS TABS"),
+            new Case(FURNACE, List.of(27, 54), "BELOW BELOW BELOW BELOW BESIDE"),
+            new Case(FURNACE, List.of(5), "BELOW BELOW BELOW BELOW BELOW"),
+            new Case(CHEST, List.of(27, 27, 27), "BELOW BELOW BELOW BELOW BELOW"));
+
+    /** Every layout of {@code in} over all its tabs: inside the window, same shift on every tab. Returns the first tab's. */
+    private static com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Layout checkTabs(GameTestHelper h,
+            com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Input in, String what) {
+        var first = com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.compute(in);
+        for (int t = 0; t < Math.max(1, first.tabs().size()); t++) {
+            var l = com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.compute(in.withTab(t));
+            int[] b = com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.bounds(l, in);
+            h.assertTrue(com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.fits(l, in),
+                    what + " tab " + t + ": inside the window " + java.util.Arrays.toString(b) + " " + l);
+            h.assertTrue(l.mode() == first.mode() && l.dx() == first.dx() && l.dy() == first.dy(), what + " tab " + t + ": same mode and shift");
+            h.assertTrue(l.tab() == t || first.tabs().isEmpty(), what + " tab " + t + " is the open one");
+        }
+        return first;
+    }
+
+    /** KONZEPT-N65 §4/§5 x §2: the expected mode for every combination and frame; everything inside the window on every tab. */
+    public static void layoutModes(GameTestHelper h) {
+        for (Case c : CASES) {
+            String[] expected = c.expected().split(" ");
+            for (int f = 0; f < FRAMES.length; f++) {
+                String what = c.screen().name() + " + " + c.marked() + " @ " + FRAME_NAMES[f];
+                var in = c.screen().input(FRAMES[f], c.marked(), 0);
+                var l = checkTabs(h, in, what);
+                h.assertTrue(l.mode().name().equals(expected[f]), what + ": mode " + l.mode() + ", expected " + expected[f]);
+                if (l.mode() == com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Mode.BESIDE) {
+                    h.assertTrue(c.screen().clean() && l.dy() == 0 && l.box().right() + com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.GAP == 0,
+                            what + ": C only for clean screens, box left of the image");
+                }
+                if (!c.screen().clean()) h.assertTrue(l.dx() == 0 && l.dy() == 0, what + ": a screen that is not clean never moves");
+                if (l.hotbar() != null) h.assertTrue(l.box().y() == c.screen().inventoryTop() - 8 && l.bgBottom() == l.box().y()
+                        && l.hotbar().y() == l.box().bottom() + 2, what + ": A = station, box, 2 px, hotbar strip; background cut at the box");
+            }
+        }
+        // Two double chests on a GUI narrower than 360: side tabs (B).
+        var narrow = DOUBLE.input(new int[] {350, 270}, List.of(54), 0);
+        h.assertTrue(checkTabs(h, narrow, "double chests @ 350 wide").mode() == com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Mode.TABS, "GUI < 360: tabs");
+        var tabs = com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.compute(narrow.withTab(1));
+        h.assertTrue(tabs.box() != null && tabs.part() == 0 && tabs.box().y() == 0 && tabs.bgTop() == tabs.box().bottom() && tabs.rows() == 6
+                && tabs.box().bottom() <= DOUBLE.inventoryTop() - 2, "B marked tab: the marked double chest over the storage area, all 6 rows: " + tabs);
+        h.assertTrue(com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.compute(narrow).box() == null, "B opened tab: the chest itself");
+        // Recipe book open (screen moved right): A, tabs on the right, no sideways shift; E falls back to scrolling instead of C.
+        var book = CRAFTING.input(FRAMES[4], List.of(27), 77);
+        var withBook = checkTabs(h, book, "crafting + book @ 720p*3");
+        h.assertTrue(withBook.mode() == com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Mode.BELOW && withBook.dx() == 0
+                && withBook.tabs().get(0).x() > withBook.box().right(), "Recipe book open: A with the tabs on the right: " + withBook);
+        var eBook = checkTabs(h, E.input(FRAMES[4], List.of(54), 77), "E + double chest + book @ 720p*3");
+        h.assertTrue(eBook.mode() == com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.Mode.BELOW_SCROLL && eBook.dx() == 0, "E + book: below, scrolling, never beside");
+        // Whitelist of screens that may move.
+        h.assertTrue(com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.clean("net.minecraft.client.gui.screens.inventory.CraftingScreen", false)
+                && !com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.clean("net.minecraft.client.gui.screens.inventory.ContainerScreen", false)
+                && com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.clean("net.minecraft.client.gui.screens.inventory.ContainerScreen", true)
+                && !com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.clean("net.minecraft.client.gui.screens.inventory.BeaconScreen", true)
+                && !com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.clean("com.example.ModChestScreen", true), "Clean screens: Vanilla leftPos screens, storage only styled");
+        // SimpleLib HUD reservation: a gadget box under the tiles moves below them, one beside them stays.
+        h.assertTrue(com.simplelib.api.client.HudReserve.clearTop(10, 10, 80, 76, 25) == 27 && com.simplelib.api.client.HudReserve.clearTop(10, 40, 80, 76, 25) == 40
+                && com.simplelib.api.client.HudReserve.clearTop(90, 10, 80, 76, 25) == 10 && com.simplelib.api.client.HudReserve.clearTop(10, 10, 80, 0, 0) == 10,
+                "HudReserve keeps gadget boxes clear of the tiles");
+        h.succeed();
+    }
+
+    /** A7 margins: every box and hotbar strip of every case, frame and tab keeps 3 px fill; 177 wide, 182 with the scroll bar. */
+    public static void layoutMargins(GameTestHelper h) {
+        int checked = 0;
+        for (Case c : CASES) {
+            for (int f = 0; f < FRAMES.length; f++) {
+                var in = c.screen().input(FRAMES[f], c.marked(), 0);
+                var first = com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.compute(in);
+                for (int t = 0; t < Math.max(1, first.tabs().size()); t++) {
+                    var l = com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.compute(in.withTab(t));
+                    String what = c.screen().name() + " + " + c.marked() + " @ " + FRAME_NAMES[f] + " tab " + t;
+                    int[] m = com.simplebuilding.modules.simpleinterfaces.linked.LinkedLayout.margins(l);
+                    for (int i = 0; i < m.length; i++) {
+                        h.assertTrue(m[i] == -1 || m[i] == com.simplelib.api.client.ui.UiBoxes.MARGIN, what + ": margin " + i + " = " + m[i] + " " + java.util.Arrays.toString(m));
+                    }
+                    if (l.box() != null) {
+                        h.assertTrue(l.box().width() == (l.scroll() ? 182 : 177) && l.box().height() == 27 + 18 * l.rows(), what + ": box " + l.box());
+                        checked++;
+                    }
+                    if (l.hotbar() != null) h.assertTrue(l.hotbar().width() == 177 && l.hotbar().height() == 35, what + ": hotbar strip " + l.hotbar());
+                }
+            }
+        }
+        h.assertTrue(checked > 100, "Boxes checked: " + checked);
         h.succeed();
     }
 }

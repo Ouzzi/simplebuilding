@@ -15,18 +15,18 @@ import org.jetbrains.annotations.Nullable;
 public final class LinkedSlot extends Slot {
     static final ThreadLocal<Boolean> SUPPRESSED = ThreadLocal.withInitial(() -> false);
 
-    /** Server only; null on the client, whose container is a plain mirror. */
-    private final @Nullable LinkedContainers.Session session;
-    /** Client only: false while the row is scrolled out of the panel. */
+    /** Server only: the marked container this slot belongs to; null on the client, whose container is a plain mirror. */
+    final LinkedContainers.@Nullable Part part;
+    /** Client only: false while the row is scrolled out of the panel or its tab is not the open one. */
     public boolean shown = true;
 
-    public LinkedSlot(Container container, int slot, @Nullable LinkedContainers.Session session) {
+    public LinkedSlot(Container container, int slot, LinkedContainers.@Nullable Part part) {
         super(container, slot, 0, 0);
-        this.session = session;
+        this.part = part;
     }
 
     private boolean usable() {
-        return !SUPPRESSED.get() && (this.session == null || this.session.valid());
+        return !SUPPRESSED.get() && (this.part == null || this.part.valid());
     }
 
     @Override

@@ -33,6 +33,8 @@ public final class ContainersConfig {
     public boolean slotHighlightBehind = true;
     /** Fills the missing underside of leggings (their legs showed a hole without boots). */
     public boolean leggingsFix = true;
+    /** N65: marked containers as icon tiles in the top left corner of the HUD. */
+    public boolean linkedHudIcons = true;
     /** The spyglass overlay darkens only the screen edge instead of a black frame with a round window. */
     public boolean scopeEdgeOverlay = true;
     /** The rest of the HUD hides while zooming (crosshair stays). */

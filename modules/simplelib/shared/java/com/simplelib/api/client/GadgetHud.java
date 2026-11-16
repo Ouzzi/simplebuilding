@@ -143,13 +143,20 @@ public final class GadgetHud {
         return Math.max(50, Math.min(200, settings().scalePercent())) / 100.0f;
     }
 
-    /** Moves and scales the pose so a box drawn at (0, 0) lands at the anchor, shifted by {@code offsetY}; pair with {@link #end}. */
+    /**
+     * Moves and scales the pose so a box drawn at (0, 0) lands at the anchor, shifted by {@code offsetY}, below a reserved
+     * corner ({@link HudReserve}) when it would overlap it; pair with {@link #end}.
+     */
     public static void begin(GuiGraphicsExtractor context, int width, int height, int offsetY) {
         Settings s = settings();
         float scale = scale();
         int[] origin = origin(context.guiWidth(), context.guiHeight(), width, height, scale, s.percentX(), s.percentY());
+        // N65: a reserved top left corner (Simple Interfaces' marked-container tiles) pushes an overlapping box below it
+        float top = origin[1] + offsetY * scale;
+        int cleared = HudReserve.clearTop(origin[0], Math.round(top), Math.round(width * scale));
+        if (cleared != Math.round(top)) top = cleared;
         context.pose().pushMatrix();
-        context.pose().translate(origin[0], origin[1] + offsetY * scale);
+        context.pose().translate(origin[0], top);
         context.pose().scale(scale, scale);
     }
 

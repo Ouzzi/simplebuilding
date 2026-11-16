@@ -39,6 +39,7 @@
     "EnchantmentBackgroundMixin",
     "SlotIconMixin",
     "ContainerScreenLinkedMixin",
+    "ScreenLinkedMixin",
     "HudLinkedMixin",
     "KeyboardLinkedMixin",
     "SlotPositionAccessor",

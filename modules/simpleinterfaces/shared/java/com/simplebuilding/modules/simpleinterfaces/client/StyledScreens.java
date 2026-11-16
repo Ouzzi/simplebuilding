@@ -122,7 +122,7 @@ public final class StyledScreens {
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
-            if (inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, playerSlot(slot)));
+            if (measured(slot, imageWidth)) slots.add(new BoxLayout.Slot(LinkedPanel.homeX(slot), LinkedPanel.homeY(slot), playerSlot(slot)));
         }
         ScreenStyle style = style(screen);
         List<BoxLayout.Rect> elements = elements(screen, style);
@@ -199,6 +199,17 @@ public final class StyledScreens {
             }
         }
         return layout.height();
+    }
+
+    /**
+     * Whether {@code slot} counts for the box layout: {@link #inImage} at the place its screen put it (N65: the linked panel
+     * moves the player's slots into its hotbar strip and inventory tab - the style still measures them at home), the marked
+     * containers' own slots never.
+     */
+    public static boolean measured(Slot slot, int imageWidth) {
+        if (slot instanceof com.simplebuilding.modules.simpleinterfaces.linked.LinkedSlot || !slot.isActive()) return false;
+        int x = LinkedPanel.homeX(slot);
+        return x >= 0 && x + 16 <= imageWidth;
     }
 
     /**

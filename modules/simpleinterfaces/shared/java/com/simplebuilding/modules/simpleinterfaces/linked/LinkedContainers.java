@@ -40,25 +40,27 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Linked GUIs (owner queue 2026-10-04): sneak + right-click a container with an empty main hand marks
- * it; the next menu the player opens gets the marked container's slots appended (shown above it on the
- * client). Server-authoritative: the mark lives on the player object (gone on logout or respawn) and is
- * checked every tick (range, dimension, loaded chunk, block entity); every slot access checks it again.
+ * Linked GUIs (owner queue 2026-10-04, N65 several marks): sneak + right-click a container with an empty main hand marks
+ * it (up to {@code linkedContainerMax}, the oldest drops out); the next menu the player opens gets the slots of every
+ * marked container appended, in marking order. Server-authoritative: the marks live on the player object (gone on logout
+ * or respawn) and are checked every tick one by one (range, dimension, loaded chunk, block entity); every slot access
+ * checks its container again.
  */
 public final class LinkedContainers {
-    /** Most slots a marked container may show (a double chest of the widest mod chests: 12 rows of 9). */
+    /** Most slots the marked containers may show together (a double chest of the widest mod chests: 12 rows of 9). */
     public static final int MAX_SLOTS = 108;
     /** InventoryMenu slot indices of the main inventory plus hotbar: [9, 45). */
     private static final int INV_START = 9, INV_END = 45;
-    private static final Map<Player, Mark> MARKS = new WeakHashMap<>();
-    /** The mark the inventory menu already tried to show (a failed attempt is not repeated every tick). */
-    private static final Map<Player, Mark> TRIED = new WeakHashMap<>();
+    /** The marks of each player, oldest first. */
+    private static final Map<Player, List<Mark>> MARKS = new WeakHashMap<>();
+    /** The marks the inventory menu already tried to show (a failed attempt is not repeated every tick). */
+    private static final Map<Player, List<Mark>> TRIED = new WeakHashMap<>();
     /** Sends the payload when the client can receive it; set per loader. Without it nothing is appended. */
     public static BiPredicate<ServerPlayer, LinkedOpenPayload> openSync = (player, payload) -> false;
-    /** The mark whose container the player has opened since marking it (leaving it again ends the mark). */
+    /** The mark whose container the player has opened since marking it (leaving it again ends that mark). */
     private static final Map<Player, Mark> INSIDE = new WeakHashMap<>();
-    /** The mark the client's HUD banner last got. */
-    private static final Map<Player, Mark> HUD = new WeakHashMap<>();
+    /** The marks the client's HUD tiles last got. */
+    private static final Map<Player, List<Mark>> HUD = new WeakHashMap<>();
     /** Client: sends the Escape cancel to the server; set per loader. */
     public static Consumer<LinkedCancelPayload> cancelToServer = payload -> {
     };
@@ -69,8 +71,8 @@ public final class LinkedContainers {
     public record Mark(ResourceKey<Level> dimension, BlockPos pos) {
     }
 
-    /** One linked menu: the container, the block entities behind it and where its slots start. */
-    public static final class Session {
+    /** One marked container in a linked menu: the container, the block entities behind it and where its slots start. */
+    public static final class Part {
         public final ServerPlayer player;
         public final Mark mark;
         public final Container container;
@@ -78,7 +80,7 @@ public final class LinkedContainers {
         public final int start;
         public final int size;
 
-        Session(ServerPlayer player, Mark mark, Container container, List<BlockEntity> backing, int start, int size) {
+        Part(ServerPlayer player, Mark mark, Container container, List<BlockEntity> backing, int start, int size) {
             this.player = player;
             this.mark = mark;
             this.container = container;
@@ -98,11 +100,37 @@ public final class LinkedContainers {
         }
     }
 
-    public static @Nullable Mark mark(Player player) {
-        return MARKS.get(player);
+    /** One linked menu: the marks it was built for and the containers actually appended (the open one itself is left out). */
+    public static final class Session {
+        public final List<Mark> requested;
+        public final List<Part> parts;
+        public final int start;
+
+        Session(List<Mark> requested, List<Part> parts, int start) {
+            this.requested = List.copyOf(requested);
+            this.parts = List.copyOf(parts);
+            this.start = start;
+        }
+
+        public boolean valid() {
+            for (Part part : this.parts) if (!part.valid()) return false;
+            return true;
+        }
     }
 
-    /** Ends the player's mark (and tells its client). */
+    /** The player's newest mark, or null. */
+    public static @Nullable Mark mark(Player player) {
+        List<Mark> marks = MARKS.get(player);
+        return marks == null || marks.isEmpty() ? null : marks.get(marks.size() - 1);
+    }
+
+    /** All marks of the player, oldest first (a copy). */
+    public static List<Mark> marks(Player player) {
+        List<Mark> marks = MARKS.get(player);
+        return marks == null ? List.of() : List.copyOf(marks);
+    }
+
+    /** Ends every mark of the player (and tells its client). */
     public static void clear(Player player) {
         MARKS.remove(player);
         INSIDE.remove(player);
@@ -112,53 +140,106 @@ public final class LinkedContainers {
         }
     }
 
-    /** Server handler of the Escape cancel: ends the mark, no feedback beyond the vanishing banner. */
+    /** Ends one mark; the caller syncs. */
+    private static void unmark(Player player, Mark mark) {
+        List<Mark> marks = MARKS.get(player);
+        if (marks != null) {
+            marks.removeIf(m -> m == mark);
+            if (marks.isEmpty()) MARKS.remove(player);
+        }
+        if (INSIDE.get(player) == mark) INSIDE.remove(player);
+    }
+
+    /** Server handler of the Escape cancel: ends every mark, no feedback beyond the vanishing tiles and the chime. */
     public static void onCancel(ServerPlayer player) {
-        Mark mark = MARKS.get(player);
+        Mark mark = mark(player);
         if (mark == null) return;
         clear(player);
         if (mark.dimension().equals(player.level().dimension())) feedback(player.level(), mark.pos(), false);
     }
 
-    /** Sends the HUD banner state when it changed (container id {@link LinkedOpenPayload#HUD}); independent of any menu. */
+    /** Sends the HUD tiles when the marks changed (container id {@link LinkedOpenPayload#HUD}); independent of any menu. */
     public static void syncHud(ServerPlayer player) {
-        Mark mark = MARKS.get(player);
-        if (HUD.get(player) == mark) return;
-        if (mark == null) {
-            HUD.remove(player);
-            openSync.test(player, new LinkedOpenPayload(LinkedOpenPayload.HUD, 0, Component.empty(), ItemStack.EMPTY));
-            return;
-        }
+        List<Mark> marks = marks(player);
+        if (same(HUD.getOrDefault(player, List.of()), marks)) return;
+        if (marks.isEmpty()) HUD.remove(player);
+        else HUD.put(player, marks);
         Level level = player.level();
-        Component title = level.getBlockEntity(mark.pos()) instanceof BaseContainerBlockEntity be ? be.getDisplayName() : Component.empty();
-        HUD.put(player, mark);
-        openSync.test(player, new LinkedOpenPayload(LinkedOpenPayload.HUD, 1, title, new ItemStack(level.getBlockState(mark.pos()).getBlock())));
+        List<LinkedOpenPayload.Entry> entries = new ArrayList<>();
+        for (Mark mark : marks) {
+            if (!mark.dimension().equals(level.dimension())) continue;
+            entries.add(new LinkedOpenPayload.Entry(1, title(level, mark.pos()), icon(level, mark.pos())));
+        }
+        openSync.test(player, new LinkedOpenPayload(LinkedOpenPayload.HUD, entries));
+    }
+
+    /** Same marks (the same objects) in the same order. */
+    private static boolean same(@Nullable List<Mark> a, @Nullable List<Mark> b) {
+        if (a == null || b == null) return a == b;
+        if (a.size() != b.size()) return false;
+        for (int i = 0; i < a.size(); i++) if (a.get(i) != b.get(i)) return false;
+        return true;
+    }
+
+    private static Component title(Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof BaseContainerBlockEntity be ? be.getDisplayName() : Component.empty();
+    }
+
+    private static ItemStack icon(Level level, BlockPos pos) {
+        return new ItemStack(level.getBlockState(pos).getBlock());
     }
 
     // --- marking ---
 
-    /** Use hook of every loader: sneak + right-click with an empty main hand on a container. */
+    /**
+     * Use hook of every loader: sneak + right-click with an empty main hand on a container. A marked container (either
+     * half of a double chest) is unmarked; another one is added; beyond {@code linkedContainerMax} marks or
+     * {@link #MAX_SLOTS} slots together the oldest marks drop out.
+     */
     public static InteractionResult onRightClickBlock(Player player, InteractionHand hand, BlockPos pos) {
         Level level = player.level();
         if (hand != InteractionHand.MAIN_HAND || !SimpleInterfaces.active(level) || !SimpleInterfaces.configFor(level).enableLinkedContainers) return InteractionResult.PASS;
         if (!player.isSecondaryUseActive() || !player.getMainHandItem().isEmpty() || player.isSpectator()) return InteractionResult.PASS;
         if (!(level.getBlockEntity(pos) instanceof BaseContainerBlockEntity be)) return InteractionResult.PASS;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
-        Mark current = MARKS.get(player);
-        if (current != null && current.dimension().equals(level.dimension()) && backingPositions(level, current.pos()).contains(pos)) {
-            clear(player);
-            feedback(level, pos, false);
-            return InteractionResult.SUCCESS;
+        for (Mark current : marks(player)) {
+            if (current.dimension().equals(level.dimension()) && backingPositions(level, current.pos()).contains(pos)) {
+                unmark(player, current);
+                syncHud((ServerPlayer) player);
+                syncInventory((ServerPlayer) player);
+                feedback(level, pos, false);
+                return InteractionResult.SUCCESS;
+            }
         }
         if (!InteractionGuard.allow(player, pos) || !InteractionGuard.permission.test(player, pos) || !be.canOpen(player)) return InteractionResult.PASS;
         Container container = container(level, pos);
         if (container == null || container.getContainerSize() <= 0 || container.getContainerSize() > MAX_SLOTS) return InteractionResult.PASS;
-        MARKS.put(player, new Mark(level.dimension(), pos.immutable()));
-        INSIDE.remove(player);
+        List<Mark> marks = MARKS.computeIfAbsent(player, p -> new ArrayList<>());
+        marks.add(new Mark(level.dimension(), pos.immutable()));
+        trim(player, level, marks, SimpleInterfaces.configFor(level).linkedContainerMax);
         syncHud((ServerPlayer) player);
         syncInventory((ServerPlayer) player);
         feedback(level, pos, true);
         return InteractionResult.SUCCESS;
+    }
+
+    /** Drops the oldest marks while more than {@code max} or more than {@link #MAX_SLOTS} slots together (the newest stays). */
+    static void trim(Player player, Level level, List<Mark> marks, int max) {
+        while (marks.size() > Math.max(1, max) || marks.size() > 1 && slots(level, marks) > MAX_SLOTS) {
+            Mark oldest = marks.remove(0);
+            if (INSIDE.get(player) == oldest) INSIDE.remove(player);
+        }
+    }
+
+    /** Slots of the marked containers in {@code level} together. */
+    private static int slots(Level level, List<Mark> marks) {
+        int n = 0;
+        for (Mark mark : marks) {
+            if (!mark.dimension().equals(level.dimension())) continue;
+            Container c = container(level, mark.pos());
+            if (c != null) n += c.getContainerSize();
+        }
+        return n;
     }
 
     private static void feedback(Level level, BlockPos pos, boolean marked) {
@@ -221,26 +302,18 @@ public final class LinkedContainers {
                 && InteractionGuard.permission.test(player, mark.pos());
     }
 
-    /** Start of every server player tick: end invalid marks, close broken linked menus, hand particles. */
+    /** Start of every server player tick: end invalid marks one by one, close broken linked menus, hand particles. */
     public static void tick(ServerPlayer player) {
-        Mark mark = MARKS.get(player);
-        if (mark != null && !valid(player, mark)) {
-            clear(player);
-            mark = null;
-        }
-        if (mark != null && player.tickCount % PERMISSION_TICKS == 0 && !permitted(player, mark)) {
-            clear(player);
-            mark = null;
-        }
-        if (mark != null && leftMarked(player, mark)) {
-            clear(player);
-            mark = null;
+        for (Mark mark : marks(player)) {
+            if (!valid(player, mark) || player.tickCount % PERMISSION_TICKS == 0 && !permitted(player, mark) || leftMarked(player, mark)) {
+                unmark(player, mark);
+            }
         }
         Session session = ((LinkedMenu) player.containerMenu).qol$session();
         if (session != null && !session.valid() && player.containerMenu != player.inventoryMenu) player.closeContainer();
         syncInventory(player);
         syncHud(player);
-        if (mark != null && player.tickCount % 10 == 0) handParticle(player);
+        if (mark(player) != null && player.tickCount % 10 == 0) handParticle(player);
     }
 
     /**
@@ -279,60 +352,82 @@ public final class LinkedContainers {
 
     // --- appending to the second menu ---
 
-    /** {@code ServerPlayer#initMenu}: before the menu's first sync, append the marked container's slots. */
+    /** {@code ServerPlayer#initMenu}: before the menu's first sync, append the marked containers' slots. */
     public static void onInitMenu(ServerPlayer player, AbstractContainerMenu menu) {
         if (menu == player.inventoryMenu || menu instanceof PortableMenu || hasLinked(menu)) return;
-        Mark mark = MARKS.get(player);
-        if (mark == null) return;
-        if (!valid(player, mark)) {
-            clear(player);
-            return;
+        List<Mark> marks = marks(player);
+        if (marks.isEmpty()) return;
+        boolean dropped = false;
+        for (Mark mark : marks) {
+            if (!valid(player, mark)) {
+                unmark(player, mark);
+                dropped = true;
+            }
         }
-        attach(player, menu, mark);
+        if (dropped) {
+            syncInventory(player);
+            syncHud(player);
+        }
+        marks = marks(player);
+        if (!marks.isEmpty()) attach(player, menu, marks);
     }
 
     /**
-     * Keeps the player's own inventory menu in line with the mark: slots appended while a valid mark exists (so the
-     * inventory screen shows the marked container next to it), removed again when it ends. Sends the payload first.
+     * Keeps the player's own inventory menu in line with the marks: slots appended while valid marks exist (so the
+     * inventory screen shows the marked containers next to it), removed again when they end. Sends the payload first.
      */
     public static void syncInventory(ServerPlayer player) {
         AbstractContainerMenu menu = player.inventoryMenu;
         // Creative: the inventory screen keeps its own client-side slots, the mark never takes part in it.
-        Mark mark = player.hasInfiniteMaterials() ? null : MARKS.get(player);
+        List<Mark> marks = player.hasInfiniteMaterials() ? List.of() : marks(player);
         Session current = ((LinkedMenu) menu).qol$session();
-        if (current != null && current.mark == mark) return;
-        if (mark == null) TRIED.remove(player);
-        else if (current == null && TRIED.get(player) == mark) return;
+        if (current != null && same(current.requested, marks)) return;
+        if (marks.isEmpty()) TRIED.remove(player);
+        else if (current == null && same(TRIED.get(player), marks)) return;
         if (current != null) {
             ((LinkedMenu) menu).qol$truncate(current.start);
             ((LinkedMenu) menu).qol$session(null);
         }
         boolean attached = false;
-        if (mark != null) {
-            TRIED.put(player, mark);
-            attached = attach(player, menu, mark);
+        if (!marks.isEmpty()) {
+            TRIED.put(player, marks);
+            attached = attach(player, menu, marks);
         }
-        if (!attached && current != null) openSync.test(player, new LinkedOpenPayload(menu.containerId, 0, Component.empty(), ItemStack.EMPTY));
+        if (!attached && current != null) openSync.test(player, new LinkedOpenPayload(menu.containerId, List.of()));
         if (attached || current != null) menu.sendAllDataToRemote();
     }
 
-    private static boolean attach(ServerPlayer player, AbstractContainerMenu menu, Mark mark) {
+    /**
+     * Appends the slots of every mark in {@code marks} that the menu does not already show (the marked chest opened
+     * itself), in order, at most {@link #MAX_SLOTS} together; one payload with an entry per appended container first.
+     */
+    private static boolean attach(ServerPlayer player, AbstractContainerMenu menu, List<Mark> marks) {
         Level level = player.level();
-        Container container = container(level, mark.pos());
-        if (container == null) return false;
-        int size = container.getContainerSize();
-        if (size <= 0 || size > MAX_SLOTS) return false;
-        List<BlockEntity> backing = backing(level, mark.pos());
-        for (Slot slot : menu.slots) {
-            if (shows(slot.container, container, backing)) return false;
+        int start = menu.slots.size();
+        int total = 0;
+        List<Part> parts = new ArrayList<>();
+        List<LinkedOpenPayload.Entry> entries = new ArrayList<>();
+        for (Mark mark : marks) {
+            if (!mark.dimension().equals(level.dimension())) continue;
+            Container container = container(level, mark.pos());
+            if (container == null) continue;
+            int size = container.getContainerSize();
+            if (size <= 0 || total + size > MAX_SLOTS) continue;
+            List<BlockEntity> backing = backing(level, mark.pos());
+            boolean shown = false;
+            for (Slot slot : menu.slots) {
+                if (!(slot instanceof LinkedSlot) && shows(slot.container, container, backing)) shown = true;
+            }
+            if (shown || !InteractionGuard.permission.test(player, mark.pos())) continue;
+            parts.add(new Part(player, mark, container, backing, start + total, size));
+            entries.add(new LinkedOpenPayload.Entry(size, title(level, mark.pos()), icon(level, mark.pos())));
+            total += size;
         }
-        if (!InteractionGuard.permission.test(player, mark.pos())) return false;
-        Component title = level.getBlockEntity(mark.pos()) instanceof BaseContainerBlockEntity be ? be.getDisplayName() : Component.empty();
-        ItemStack icon = new ItemStack(level.getBlockState(mark.pos()).getBlock());
-        if (!openSync.test(player, new LinkedOpenPayload(menu.containerId, size, title, icon))) return false;
-        Session session = new Session(player, mark, container, backing, menu.slots.size(), size);
-        for (int i = 0; i < size; i++) ((LinkedMenu) menu).qol$addSlot(new LinkedSlot(container, i, session));
-        ((LinkedMenu) menu).qol$session(session);
+        if (parts.isEmpty() || !openSync.test(player, new LinkedOpenPayload(menu.containerId, entries))) return false;
+        for (Part part : parts) {
+            for (int i = 0; i < part.size; i++) ((LinkedMenu) menu).qol$addSlot(new LinkedSlot(part.container, i, part));
+        }
+        ((LinkedMenu) menu).qol$session(new Session(marks, parts, start));
         return true;
     }
 
@@ -355,14 +450,13 @@ public final class LinkedContainers {
     /** {@code AbstractContainerMenu#clicked}: true when the click was handled here. */
     public static boolean interceptClick(AbstractContainerMenu menu, int slotIndex, ContainerInput input, Player player) {
         if (!hasLinked(menu)) return false;
-        Session session = ((LinkedMenu) menu).qol$session();
         boolean inventoryMenu = menu instanceof InventoryMenu;
         boolean linkedSlot = slotIndex >= 0 && slotIndex < menu.slots.size() && menu.slots.get(slotIndex) instanceof LinkedSlot;
         // Only the menu the player really has open takes part (the server never moves items for another one).
         if (player instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu != menu) return true;
         // Creative inventory: the mark never works there; its clicks stay vanilla and never touch the marked slots.
         if (inventoryMenu && player.hasInfiniteMaterials()) return linkedSlot;
-        if (session != null && !session.valid() && linkedSlot) return true;
+        if (linkedSlot && menu.slots.get(slotIndex) instanceof LinkedSlot l && l.part != null && !l.part.valid()) return true;
         if (input != ContainerInput.QUICK_MOVE || slotIndex < 0 || slotIndex >= menu.slots.size()) return false;
         Slot source = menu.slots.get(slotIndex);
         if (!source.mayPickup(player)) return true;
@@ -386,7 +480,7 @@ public final class LinkedContainers {
         }
         boolean fromPlayer = source.container instanceof Inventory;
         if (!fromPlayer && source.hasItem() && source.mayPlace(source.getItem())) {
-            // The marked box is shown where the inventory was: a plain storage slot of the second GUI goes there first.
+            // The marked boxes are shown where the inventory was: a plain storage slot of the second GUI goes there first (all marked, in order).
             ItemStack stack = source.getItem();
             moveInto(stack, linkedSlots(menu));
             if (stack.isEmpty()) {
