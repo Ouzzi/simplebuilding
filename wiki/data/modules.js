@@ -873,7 +873,7 @@ window.WIKI_MODULES = [
       "en": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Bonus bei voller Haltbarkeit, Sparsamkeit und Seelenbindung, Todestresor, Biom-Pinsel, Amboss-Reparatur ohne Aufpreis, Lavaeimer in Öfen; allein spielbar."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA7ElEQVR42mMIc/D6TwlmABHPj1wmiBNaVmDQKAbcXXvo/9sr98E0MpZzE/s/rcDk/5dHS8Canv34D6bnFLdgGoCOM6K8/r96dOl/2TaH/4+OVIDxiRdfwBirC7BphuGQSQZwQwi6AFnzmQNr4DTIkCNzgsAYrwtgBoA0IeNlM1r+m+QogcOEKBegawZhkNyNBTtwG6CnZ/F/waI1YIW4NOM0AKT5yrU7YANS0orAGpAxTDNOA0T4hVAMABmIrAmvASDNOUkp/w219cAG4NOMYQCyZhAbn0YMA0AaQBpJ0YzVBSAMEiQFww2gBAMAySWkrqJ72rcAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3ElEQVR42mMIc/D6TwlmABHPj1wmiG2MHDBoFAPurj30/+2V+2AaGYMUgvCZjAQwfW9VDJieU9yCaQA6zojy+v/q0SWwZpBGEG7alfc/Y9oZ7C7AphmG0TXjdQGy5jMH1sBpkGYQnlNxBL8L4E4HakLGy2a0wDUT5QJ0zSAMkruxYAduA/T0LP4vWLQGrBCXZpwGgDRfuXYHbEBKWhFYAzKGacZpgAi/EIoBIAORNeE1AKQ5Jynlv6G2HtgAfJoxDEDWDGLj04hhAEgDSCMpmrG6AIRBgqRguAGUYADy/5rpQ3eVRwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 24,
       "blocks": 2,
