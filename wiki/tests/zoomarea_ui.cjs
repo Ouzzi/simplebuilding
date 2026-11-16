@@ -119,7 +119,7 @@ async function checkArea(page, key, name) {
       await page.evaluate(() => { const s = document.querySelector('select[data-k=area]'); s.selectedIndex = (s.selectedIndex + 1) % s.options.length; s.dispatchEvent(new Event('change', { bubbles: true })); });
       await page.waitForTimeout(1500);
       ok(await page.locator('.zm[data-zm=tzeditor]').evaluate(e => e.classList.contains('zm-on')) && Math.abs(await zoomOf(page, 'tzeditor') - 2) < 1e-6, 'tzeditor: full screen and zoom survive an area switch');
-      await page.evaluate(() => { const s = document.querySelector('select[data-k=area]'); s.selectedIndex = 0; s.dispatchEvent(new Event('change', { bubbles: true })); });
+      await page.evaluate(() => { const s = document.querySelector('select[data-k=area]'); s.selectedIndex = 1; s.dispatchEvent(new Event('change', { bubbles: true })); });
       await page.waitForTimeout(1500);
     }
     await page.keyboard.press('Escape');
@@ -143,8 +143,8 @@ async function checkArea(page, key, name) {
     if (process.env.TZ_EXPECT_ALL) ok(pics.names === 0, 'tzeditor: every id cell has a picture, missing: ' + pics.missing.join(' '));
     await page.screenshot({ path: path.join(shots, `zm-tzeditor-${scheme}.png`) });
 
-    // 2. texture list, 3. all recipes, 4. recipes page
-    for (const [tab, key] of [['textures', 'textures'], ['allrecipes', 'allrecipes'], ['recipes', 'recipes']]) {
+    // 2. texture list, 3. all recipes (the recipes tab opens it too), 4. a long list page (lootables)
+    for (const [tab, key] of [['textures', 'textures'], ['allrecipes', 'allrecipes'], ['loot', 'list-loot']]) {
       await page.goto(base + `index.html?mod=simplebuilding&tab=${tab}&lang=${lang}${q}`);
       await checkArea(page, key, key + '-' + scheme);
       await page.screenshot({ path: path.join(shots, `zm-${key}-${scheme}.png`) });

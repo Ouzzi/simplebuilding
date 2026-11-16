@@ -10,7 +10,13 @@ and writes
                                                      Vanilla ids get none - the page tries the dev-only assets/vanilla/
                                                      copy at runtime and otherwise shows the name).
 
-usage: build_editor.py [--repo REPO] [--check]   (--check: exit 1 when the written files are not up to date)
+  wiki/data/testcentre/plan.json                     N72b: the game plan of the editor checks and the view "as built", from
+                                                     the integration dump (--plan DIR, see plan_from_dump); kept as it is
+                                                     by the normal run (only ids, keys and reasons - no pixels).
+
+usage: build_editor.py [--repo REPO] [--check] [--plan DUMP_DIR]   (--check: exit 1 when the written files are not up to date)
+  DUMP_DIR = testcentre-dump/ of `SB_TC_DUMP=1 run.py --targets integration-263
+             --filter sbintegration:cross_mod_game_test_test_centre_plan_with_all_modules` (integration/run-fabric-263/)
 """
 from __future__ import annotations
 
@@ -110,6 +116,118 @@ def bases(path: str) -> list[str]:
     return list(dict.fromkeys(x for x in out if x))
 
 
+# --- N72b: game plan (integration dump) -------------------------------------------------------------------------------
+GAME = "common/src/shared/java/com/simplebuilding/dev/testcentre"
+PER_PAIR = 114          # OrderAreas: MAX_WIDTH (TestCentreLayout.MAX_ROW_WIDTH 120 - KIOSK_WIDTH 2 - 2) - START_X 2
+BIG_FAMILY = 24         # a missing pattern with at least this many variants counts as "very large variant family"
+
+
+def _tsv(path: Path) -> list[list[str]]:
+    return [line.rstrip("\n").split("\t") for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def game_exclusions(repo: Path) -> dict[str, str]:
+    """TestCentreLayout.EXCLUDED + MODULE_EXCLUDED: id -> reason, read from the source (the game's own reasons)."""
+    import re
+    text = (repo / GAME / "TestCentreLayout.java").read_text(encoding="utf-8")
+    text = text.replace("com.simplebuilding.version.McVersion.PADS_NAMESPACE + \":", "\"simplepads:")
+    return dict(re.findall(r'"([a-z0-9_]+:[a-z0-9_/]+)",\s*"([^"]+)"', text))
+
+
+def _pattern(ident: str) -> str:
+    """family pattern of an id: the material word replaced (simplebuilding:oak_door_2x3 -> simplebuilding:*_door_2x3)"""
+    ns, _, path = ident.partition(":")
+    parts = path.split("_")
+    for i in range(1, len(parts)):
+        rest = "_".join(parts[i:])
+        if rest[:1].isalpha() and any(ch.isdigit() for ch in rest) or rest in ("door", "wall_head", "wall_skull", "wall_sign", "wall_hanging_sign"):
+            return f"{ns}:*_{rest}"
+    return ident
+
+
+def technical_reason(ident: str, blocks: set[str], excluded: dict[str, str]) -> str:
+    """Why a registered block has no field (TestCentreLayout.technical / EXCLUDED, same rules as the game)."""
+    if ident in excluded:
+        return excluded[ident]
+    ns, _, path = ident.partition(":")
+    if "wall_" in path and f"{ns}:{path.replace('wall_', '')}" in blocks:
+        return "Wandvariante (gleiches Item wie die Grundform, TestCentreLayout.technical)"
+    if path.startswith("potted_"):
+        return "Blumentopf mit Pflanze (Topf + Pflanze, kein eigenes Item)"
+    return "Block ohne eigenes Item im Spielplan (OrderAreas.blocks: nur BlockItems und Setzbares) - entsteht im Spiel"
+
+
+def plan_from_dump(repo: Path, dump: Path) -> dict:
+    """The game's own plan with all modules: line rows (family, side, algorithmic rows), the "new" band, the compact
+    blocks per mod, and the exceptions with reasons (big variant families of the config, technical blocks)."""
+    wiki = repo / "wiki"
+    configured = set()
+    for path in (repo / LAYOUT_DIR).glob("layout_lines_*.json"):
+        configured |= {r["key"] for r in json.loads(path.read_text(encoding="utf-8"))["rows"]}
+    rows: dict[str, dict] = {}
+    labels: dict[str, str] = {}
+    fresh: list[str] = []
+    for p in _tsv(dump / "lines-rows.tsv"):
+        if p[0] == "#label":
+            labels[p[1]] = p[4]
+            continue
+        if p[0].startswith("#"):
+            continue
+        group, kind, family, side, x, what = p[0], p[1], p[2], p[3], int(p[4]), p[8]
+        if group.startswith("new:"):
+            if what not in ("MISSING", "NONE"):
+                fresh.append(what)
+            continue
+        row = rows.setdefault(group, {"key": group, "kind": kind, "family": family, "side": side, "x": x, "cells": []})
+        row["cells"].append("#red" if what == "MISSING" else "#light" if what == "NONE" else what)
+    rest = [{"key": r["key"], "label": labels.get(r["key"], r["key"]), "family": r["family"], "cells": r["cells"]}
+            for r in sorted(rows.values(), key=lambda r: (r["side"], r["x"])) if r["key"] not in configured]
+    expected: dict[str, list[str]] = {}
+    for p in _tsv(dump / "compact-cells.tsv"):
+        expected.setdefault(p[0], []).append(p[2])
+    plan_ids = {i for ids in expected.values() for i in ids}
+    # exceptions 1: very large variant families the config does not list one by one (they stand in the game)
+    compact = repo / LAYOUT_DIR / "layout_blocks_compact.json"
+    placed = set()
+    if compact.is_file():
+        placed = {c for r in json.loads(compact.read_text(encoding="utf-8"))["rows"] for c in r["cells"] if c and not c.startswith("#")}
+    groups: dict[str, list[str]] = {}
+    for ident in sorted(plan_ids - placed):
+        groups.setdefault(_pattern(ident), []).append(ident)
+    exceptions = []
+    for pattern, ids in sorted(groups.items()):
+        if len(ids) >= BIG_FAMILY and pattern != ids[0]:
+            materials = sorted({i.partition(":")[2].split("_" + pattern.split("*_", 1)[1])[0] for i in ids})
+            exceptions.append({"family": pattern, "ids": ids, "kind": "family",
+                               "reason": f"sehr große Variantenfamilie: {len(materials)} Materialien, {len(ids)} Blöcke; im Spiel stehen alle im "
+                                         f"Kompakt-Bereich (OrderAreas.compact baut nach dem Algorithmus), die Config listet sie nicht einzeln"})
+            for ident in ids:
+                expected[ident.partition(":")[0]].remove(ident)
+    # exceptions 2: registered mod blocks without a field in the game plan (no item / excluded), grouped by reason
+    blocks = set()
+    for path in sorted((wiki / "data").glob("*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except ValueError:
+            continue
+        if isinstance(data, dict):
+            blocks |= {b["id"] for b in data.get("blocks") or [] if isinstance(b, dict) and isinstance(b.get("id"), str)}
+    excluded = game_exclusions(repo)
+    by_reason: dict[str, list[str]] = {}
+    for ident in sorted(b for b in blocks - plan_ids if not b.startswith("minecraft:")):
+        by_reason.setdefault(technical_reason(ident, blocks, excluded), []).append(ident)
+    for reason, ids in sorted(by_reason.items(), key=lambda kv: -len(kv[1])):
+        exceptions.append({"family": ids[0] if len(ids) == 1 else _pattern(ids[0]) if len({_pattern(i) for i in ids}) == 1 else f"{len(ids)} Blöcke",
+                           "ids": ids, "kind": "technical", "reason": reason})
+    stamp = (dump / "lines-rows.tsv").stat().st_mtime
+    import datetime
+    return {"schema": 1, "source": "Integrationstest cross_mod_game_test_test_centre_plan_with_all_modules (SB_TC_DUMP), "
+                                   + datetime.datetime.fromtimestamp(stamp, datetime.timezone.utc).strftime("%Y-%m-%d"),
+            "lines": {"perPair": PER_PAIR, "family": {k: r["family"] for k, r in sorted(rows.items())},
+                      "side": {k: [r["side"], r["x"]] for k, r in sorted(rows.items())}, "rest": rest, "fresh": sorted(set(fresh))},
+            "compact": {"expected": expected}, "exceptions": exceptions}
+
+
 def outputs(repo: Path) -> dict[Path, str]:
     wiki = repo / "wiki"
     icons = wiki_icons(wiki)
@@ -138,6 +256,9 @@ def outputs(repo: Path) -> dict[Path, str]:
     # module ids without an own picture: base names the page tries among the dev-only Vanilla pictures
     index = {"schema": 1, "areas": areas, "textures": dict(sorted(textures.items())), "vanilla": dict(sorted(vanilla.items()))}
     files[wiki / "data" / "testcentre" / "index.json"] = json.dumps(index, ensure_ascii=False, separators=(",", ":")) + "\n"
+    plan = wiki / "data" / "testcentre" / "plan.json"
+    if plan.is_file():  # written only with --plan (needs the integration dump); the normal run keeps it
+        files[plan] = plan.read_text(encoding="utf-8")
     return files
 
 
@@ -145,8 +266,17 @@ def main(argv: list[str]) -> int:
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     p.add_argument("--repo", default=str(HERE.parents[1]))
     p.add_argument("--check", action="store_true")
+    p.add_argument("--plan", type=Path, help="testcentre-dump/ of the integration run: write data/testcentre/plan.json")
     a = p.parse_args(argv)
     repo = Path(a.repo)
+    if a.plan:
+        plan = plan_from_dump(repo, a.plan)
+        target = repo / "wiki" / "data" / "testcentre" / "plan.json"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(plan, ensure_ascii=False, separators=(",", ":"), sort_keys=True) + "\n", encoding="utf-8")
+        miss = sum(len(v) for v in plan["compact"]["expected"].values())
+        print(f"plan.json: {len(plan['lines']['family'])} line rows, {len(plan['lines']['rest'])} without config, "
+              f"{miss} compact blocks, {len(plan['exceptions'])} exception groups")
     files = outputs(repo)
     stale = [f for f, text in files.items() if not f.is_file() or f.read_text(encoding="utf-8") != text]
     out_dir = repo / "wiki" / "data" / "testcentre"

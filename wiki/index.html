@@ -7022,6 +7022,8 @@ $theme.addEventListener('click', function () {
 /* Rechtsklick auf eine Item-Kachel: eigenes kleines Menue mit "Rezeptbaum".
    Linksklick bleibt, wie er ist. Tastatur: Kontextmenue-Taste/Shift+F10. */
 document.addEventListener('contextmenu', function (ev) {
+  /* N72b: pages with their own menu (test centre editor cells) took the event already */
+  if (ev.defaultPrevented) { closeCtx(); return; }
   var el = ev.target && ev.target.closest ? ev.target.closest('[data-id]') : null;
   if (!el || !$main.contains(el)) { closeCtx(); return; }
   var id = el.getAttribute('data-id');
