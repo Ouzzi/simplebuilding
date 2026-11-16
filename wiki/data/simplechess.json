@@ -53,18 +53,20 @@
       ],
       "en": {
         "title": "Quartz checkers",
-        "summary": "Twelve quartz checker pillar blocks (purpur, lapis, blackstone, resin, nether bricks, red nether bricks and the six End palette checkers) with stairs and slabs; no mob spawns on them.",
+        "summary": "Twelve quartz checker pillar blocks (purpur, lapis, blackstone, resin, nether bricks, red nether bricks and the six End palette checkers) with stairs, slabs and walls (walls: N77); no mob spawns on them.",
         "details": [
           "Two of the material diagonal to two quartz blocks make 4 checkers; stairs and slabs as in Vanilla and in the stonecutter.",
-          "The Astralit, Nihilit and Ender Quartz checkers (plain and polished) are made of SimpleBuilding's End palettes: they, their stairs, slabs, octets and pieces only exist while SimpleBuilding is installed."
+          "The Astralit, Nihilit and Ender Quartz checkers (plain and polished) are made of SimpleBuilding's End palettes: they, their stairs, slabs, octets and pieces only exist while SimpleBuilding is installed.",
+          "Walls: six checkers make six (like the Vanilla walls), the stonecutter one from one checker; they show the checker pattern."
         ]
       },
       "de": {
         "title": "Quarz-Schachbretter",
-        "summary": "Zwölf Quarz-Schachbrett-Säulenblöcke (Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel und die sechs Schachbretter der End-Paletten) mit Treppen und Stufen; darauf spawnen keine Monster.",
+        "summary": "Zwölf Quarz-Schachbrett-Säulenblöcke (Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel und die sechs Schachbretter der End-Paletten) mit Treppen, Stufen und Mauern (Mauern: N77); darauf spawnen keine Monster.",
         "details": [
           "Zwei des Materials über Eck mit zwei Quarzblöcken ergeben 4 Schachbretter; Treppen und Stufen wie bei Vanilla und im Steinmetz.",
-          "Die Astralit-, Nihilit- und Enderquarz-Schachbretter (normal und poliert) bestehen aus SimpleBuildings End-Paletten: sie, ihre Treppen, Stufen, Achtel und Figuren gibt es nur, solange SimpleBuilding installiert ist."
+          "Die Astralit-, Nihilit- und Enderquarz-Schachbretter (normal und poliert) bestehen aus SimpleBuildings End-Paletten: sie, ihre Treppen, Stufen, Achtel und Figuren gibt es nur, solange SimpleBuilding installiert ist.",
+          "Mauern: sechs Schachbretter ergeben sechs (wie die Vanilla-Mauern), der Steinschneider eine aus einem Schachbrett; sie zeigen das Schachbrettmuster."
         ]
       }
     },
@@ -1102,6 +1104,74 @@
       }
     },
     {
+      "id": "simplechess:astralit_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:astralit_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/astralit_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:astralit_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:astralit_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simpleores:astralit_dust",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:astralit_quartz_checker_wall_from_astralit_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:astralit_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/astralit_quartz_checker_wall_from_astralit_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:astralit_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:astralit_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simpleores:astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplechess:blackstone_chess_bishop_flat_from_blackstone_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -2097,6 +2167,74 @@
       }
     },
     {
+      "id": "simplechess:blackstone_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:blackstone_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/blackstone_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:blackstone_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:blackstone_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "minecraft:blackstone",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:blackstone_quartz_checker_wall_from_blackstone_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:blackstone_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/blackstone_quartz_checker_wall_from_blackstone_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:blackstone_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:blackstone_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:blackstone",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplechess:ender_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2250,6 +2388,74 @@
         "count": 1
       },
       "source": "modules/simplechess/shared/resources/data/simplechess/recipe/ender_quartz_checker_stairs_from_ender_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:ender_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:ender_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:ender_quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:ender_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:ender_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/ender_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:ender_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:ender_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:ender_quartz",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:ender_quartz_checker_wall_from_ender_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:ender_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/ender_quartz_checker_wall_from_ender_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplechess:ender_quartz_checker"
       ],
@@ -4087,6 +4293,74 @@
       }
     },
     {
+      "id": "simplechess:lapis_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:lapis_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/lapis_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:lapis_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:lapis_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 27
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:lapis_quartz_checker_wall_from_lapis_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:lapis_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/lapis_quartz_checker_wall_from_lapis_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:lapis_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:lapis_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 4.5
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simplechess:nether_brick_chess_bishop_flat_from_nether_brick_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -5059,6 +5333,74 @@
         "count": 1
       },
       "source": "modules/simplechess/shared/resources/data/simplechess/recipe/nether_brick_quartz_checker_stairs_from_nether_brick_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:nether_brick_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:nether_brick_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:nether_brick_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:nether_brick_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/nether_brick_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:nether_brick_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:nether_brick_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 12
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:nether_brick_quartz_checker_wall_from_nether_brick_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:nether_brick_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/nether_brick_quartz_checker_wall_from_nether_brick_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplechess:nether_brick_quartz_checker"
       ],
@@ -6077,6 +6419,74 @@
       }
     },
     {
+      "id": "simplechess:nihilith_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:nihilith_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/nihilith_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:nihilith_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:nihilith_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simpleores:nihilith_shard",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:nihilith_quartz_checker_wall_from_nihilith_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:nihilith_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/nihilith_quartz_checker_wall_from_nihilith_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:nihilith_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:nihilith_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simpleores:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplechess:polished_astralit_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -6230,6 +6640,74 @@
         "count": 1
       },
       "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_astralit_checker_stairs_from_polished_astralit_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:polished_astralit_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:polished_astralit_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:polished_astralit",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:polished_astralit_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_astralit_checker_wall.json",
+      "ingredients": [
+        "simplechess:polished_astralit_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:polished_astralit_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:polished_astralit",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_wall_from_polished_astralit_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:polished_astralit_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_astralit_checker_wall_from_polished_astralit_checker_stonecutting.json",
       "ingredients": [
         "simplechess:polished_astralit_checker"
       ],
@@ -7248,6 +7726,74 @@
       }
     },
     {
+      "id": "simplechess:polished_ender_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:polished_ender_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_ender_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:polished_ender_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:polished_ender_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:polished_ender_quartz",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker_wall_from_polished_ender_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:polished_ender_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_ender_quartz_checker_wall_from_polished_ender_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:polished_ender_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:polished_ender_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:polished_ender_quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplechess:polished_ender_quartz_chess_bishop_flat_from_polished_ender_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -8220,6 +8766,74 @@
         "count": 1
       },
       "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_nihilith_checker_stairs_from_polished_nihilith_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:polished_nihilith_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:polished_nihilith_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:polished_nihilith",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:polished_nihilith_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_nihilith_checker_wall.json",
+      "ingredients": [
+        "simplechess:polished_nihilith_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:polished_nihilith_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:polished_nihilith",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_wall_from_polished_nihilith_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:polished_nihilith_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/polished_nihilith_checker_wall_from_polished_nihilith_checker_stonecutting.json",
       "ingredients": [
         "simplechess:polished_nihilith_checker"
       ],
@@ -10034,6 +10648,74 @@
         "count": 1
       },
       "source": "modules/simplechess/shared/resources/data/simplechess/recipe/purpur_quartz_checker_stairs_from_purpur_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:purpur_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:purpur_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:purpur_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:purpur_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/purpur_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:purpur_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:purpur_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:purpur_quartz_checker_wall_from_purpur_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:purpur_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/purpur_quartz_checker_wall_from_purpur_quartz_checker_stonecutting.json",
       "ingredients": [
         "simplechess:purpur_quartz_checker"
       ],
@@ -11891,6 +12573,82 @@
       }
     },
     {
+      "id": "simplechess:red_nether_brick_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:red_nether_brick_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/red_nether_brick_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:red_nether_brick_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:red_nether_brick_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "minecraft:nether_wart",
+            "count": 6
+          },
+          {
+            "id": "minecraft:netherrack",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:red_nether_brick_quartz_checker_wall_from_red_nether_brick_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:red_nether_brick_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/red_nether_brick_quartz_checker_wall_from_red_nether_brick_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:red_nether_brick_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:red_nether_brick_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_wart",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherrack",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplechess:resin_chess_bishop_flat_from_resin_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -12884,6 +13642,74 @@
           }
         ]
       }
+    },
+    {
+      "id": "simplechess:resin_quartz_checker_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplechess:resin_quartz_checker_wall",
+        "count": 6
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/resin_quartz_checker_wall.json",
+      "ingredients": [
+        "simplechess:resin_quartz_checker"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplechess:resin_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "minecraft:resin_clump",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplechess:resin_quartz_checker_wall_from_resin_quartz_checker_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplechess:resin_quartz_checker_wall",
+        "count": 1
+      },
+      "source": "modules/simplechess/shared/resources/data/simplechess/recipe/resin_quartz_checker_wall_from_resin_quartz_checker_stonecutting.json",
+      "ingredients": [
+        "simplechess:resin_quartz_checker"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplechess:resin_quartz_checker"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:resin_clump",
+            "count": 2
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -12940,6 +13766,24 @@
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/astralit_quartz_checker_stairs.json"
     },
     {
+      "id": "simplechess:blocks/astralit_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:astralit_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/astralit_quartz_checker_wall.json"
+    },
+    {
       "id": "simplechess:blocks/blackstone_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -12990,6 +13834,24 @@
         }
       ],
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/blackstone_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplechess:blocks/blackstone_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:blackstone_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/blackstone_quartz_checker_wall.json"
     },
     {
       "id": "simplechess:blocks/ender_quartz_checker",
@@ -13044,6 +13906,24 @@
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/ender_quartz_checker_stairs.json"
     },
     {
+      "id": "simplechess:blocks/ender_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:ender_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/ender_quartz_checker_wall.json"
+    },
+    {
       "id": "simplechess:blocks/lapis_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -13094,6 +13974,24 @@
         }
       ],
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/lapis_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplechess:blocks/lapis_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:lapis_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/lapis_quartz_checker_wall.json"
     },
     {
       "id": "simplechess:blocks/nether_brick_quartz_checker",
@@ -13148,6 +14046,24 @@
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/nether_brick_quartz_checker_stairs.json"
     },
     {
+      "id": "simplechess:blocks/nether_brick_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:nether_brick_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/nether_brick_quartz_checker_wall.json"
+    },
+    {
       "id": "simplechess:blocks/nihilith_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -13198,6 +14114,24 @@
         }
       ],
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/nihilith_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplechess:blocks/nihilith_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:nihilith_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/nihilith_quartz_checker_wall.json"
     },
     {
       "id": "simplechess:blocks/polished_astralit_checker",
@@ -13252,6 +14186,24 @@
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/polished_astralit_checker_stairs.json"
     },
     {
+      "id": "simplechess:blocks/polished_astralit_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:polished_astralit_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/polished_astralit_checker_wall.json"
+    },
+    {
       "id": "simplechess:blocks/polished_ender_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -13302,6 +14254,24 @@
         }
       ],
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/polished_ender_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplechess:blocks/polished_ender_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:polished_ender_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/polished_ender_quartz_checker_wall.json"
     },
     {
       "id": "simplechess:blocks/polished_nihilith_checker",
@@ -13356,6 +14326,24 @@
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/polished_nihilith_checker_stairs.json"
     },
     {
+      "id": "simplechess:blocks/polished_nihilith_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:polished_nihilith_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/polished_nihilith_checker_wall.json"
+    },
+    {
       "id": "simplechess:blocks/purpur_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -13406,6 +14394,24 @@
         }
       ],
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/purpur_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplechess:blocks/purpur_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:purpur_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/purpur_quartz_checker_wall.json"
     },
     {
       "id": "simplechess:blocks/red_nether_brick_quartz_checker",
@@ -13460,6 +14466,24 @@
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/red_nether_brick_quartz_checker_stairs.json"
     },
     {
+      "id": "simplechess:blocks/red_nether_brick_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:red_nether_brick_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/red_nether_brick_quartz_checker_wall.json"
+    },
+    {
       "id": "simplechess:blocks/resin_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -13510,6 +14534,24 @@
         }
       ],
       "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/resin_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplechess:blocks/resin_quartz_checker_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplechess:resin_quartz_checker_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/resin_quartz_checker_wall.json"
     }
   ],
   "tags": [
@@ -22145,7 +23187,9 @@
         "simplechess:astralit_quartz_checker_slab",
         "simplechess:astralit_quartz_checker_slab_from_astralit_quartz_checker_stonecutting",
         "simplechess:astralit_quartz_checker_stairs",
-        "simplechess:astralit_quartz_checker_stairs_from_astralit_quartz_checker_stonecutting"
+        "simplechess:astralit_quartz_checker_stairs_from_astralit_quartz_checker_stonecutting",
+        "simplechess:astralit_quartz_checker_wall",
+        "simplechess:astralit_quartz_checker_wall_from_astralit_quartz_checker_stonecutting"
       ]
     },
     {
@@ -22219,6 +23263,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:astralit_quartz_checker_wall",
+      "name": {
+        "en_us": "Astralit Quartz Checker Wall",
+        "de_de": "Astralit-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:astralit_quartz_checker_wall",
+        "simplechess:astralit_quartz_checker_wall_from_astralit_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:blackstone_quartz_checker",
       "name": {
         "en_us": "Blackstone Quartz Checker",
@@ -22275,7 +23332,9 @@
         "simplechess:blackstone_quartz_checker_slab",
         "simplechess:blackstone_quartz_checker_slab_from_blackstone_quartz_checker_stonecutting",
         "simplechess:blackstone_quartz_checker_stairs",
-        "simplechess:blackstone_quartz_checker_stairs_from_blackstone_quartz_checker_stonecutting"
+        "simplechess:blackstone_quartz_checker_stairs_from_blackstone_quartz_checker_stonecutting",
+        "simplechess:blackstone_quartz_checker_wall",
+        "simplechess:blackstone_quartz_checker_wall_from_blackstone_quartz_checker_stonecutting"
       ]
     },
     {
@@ -22345,6 +23404,19 @@
       "craftedBy": [
         "simplechess:blackstone_quartz_checker_stairs",
         "simplechess:blackstone_quartz_checker_stairs_from_blackstone_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplechess:blackstone_quartz_checker_wall",
+      "name": {
+        "en_us": "Blackstone Quartz Checker Wall",
+        "de_de": "Schwarzstein-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:blackstone_quartz_checker_wall",
+        "simplechess:blackstone_quartz_checker_wall_from_blackstone_quartz_checker_stonecutting"
       ],
       "usedIn": []
     },
@@ -22465,6 +23537,8 @@
         "simplechess:ender_quartz_checker_slab_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_checker_stairs",
         "simplechess:ender_quartz_checker_stairs_from_ender_quartz_checker_stonecutting",
+        "simplechess:ender_quartz_checker_wall",
+        "simplechess:ender_quartz_checker_wall_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_bishop_flat_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_bishop_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_king_flat_from_ender_quartz_checker_stonecutting",
@@ -22552,6 +23626,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:ender_quartz_checker_wall",
+      "name": {
+        "en_us": "Ender Quartz Checker Wall",
+        "de_de": "Enderquarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:ender_quartz_checker_wall",
+        "simplechess:ender_quartz_checker_wall_from_ender_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:lapis_quartz_checker",
       "name": {
         "en_us": "Lapis Quartz Checker",
@@ -22608,7 +23695,9 @@
         "simplechess:lapis_quartz_checker_slab",
         "simplechess:lapis_quartz_checker_slab_from_lapis_quartz_checker_stonecutting",
         "simplechess:lapis_quartz_checker_stairs",
-        "simplechess:lapis_quartz_checker_stairs_from_lapis_quartz_checker_stonecutting"
+        "simplechess:lapis_quartz_checker_stairs_from_lapis_quartz_checker_stonecutting",
+        "simplechess:lapis_quartz_checker_wall",
+        "simplechess:lapis_quartz_checker_wall_from_lapis_quartz_checker_stonecutting"
       ]
     },
     {
@@ -22682,6 +23771,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:lapis_quartz_checker_wall",
+      "name": {
+        "en_us": "Lapis Quartz Checker Wall",
+        "de_de": "Lapis-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:lapis_quartz_checker_wall",
+        "simplechess:lapis_quartz_checker_wall_from_lapis_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:nether_brick_quartz_checker",
       "name": {
         "en_us": "Nether Brick Quartz Checker",
@@ -22738,7 +23840,9 @@
         "simplechess:nether_brick_quartz_checker_slab",
         "simplechess:nether_brick_quartz_checker_slab_from_nether_brick_quartz_checker_stonecutting",
         "simplechess:nether_brick_quartz_checker_stairs",
-        "simplechess:nether_brick_quartz_checker_stairs_from_nether_brick_quartz_checker_stonecutting"
+        "simplechess:nether_brick_quartz_checker_stairs_from_nether_brick_quartz_checker_stonecutting",
+        "simplechess:nether_brick_quartz_checker_wall",
+        "simplechess:nether_brick_quartz_checker_wall_from_nether_brick_quartz_checker_stonecutting"
       ]
     },
     {
@@ -22812,6 +23916,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:nether_brick_quartz_checker_wall",
+      "name": {
+        "en_us": "Nether Brick Quartz Checker Wall",
+        "de_de": "Netherziegel-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:nether_brick_quartz_checker_wall",
+        "simplechess:nether_brick_quartz_checker_wall_from_nether_brick_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:nihilith_quartz_checker",
       "name": {
         "en_us": "Nihilit Quartz Checker",
@@ -22868,7 +23985,9 @@
         "simplechess:nihilith_quartz_checker_slab",
         "simplechess:nihilith_quartz_checker_slab_from_nihilith_quartz_checker_stonecutting",
         "simplechess:nihilith_quartz_checker_stairs",
-        "simplechess:nihilith_quartz_checker_stairs_from_nihilith_quartz_checker_stonecutting"
+        "simplechess:nihilith_quartz_checker_stairs_from_nihilith_quartz_checker_stonecutting",
+        "simplechess:nihilith_quartz_checker_wall",
+        "simplechess:nihilith_quartz_checker_wall_from_nihilith_quartz_checker_stonecutting"
       ]
     },
     {
@@ -22942,6 +24061,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:nihilith_quartz_checker_wall",
+      "name": {
+        "en_us": "Nihilit Quartz Checker Wall",
+        "de_de": "Nihilit-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:nihilith_quartz_checker_wall",
+        "simplechess:nihilith_quartz_checker_wall_from_nihilith_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:polished_astralit_checker",
       "name": {
         "en_us": "Polished Astralit Checker",
@@ -22974,6 +24106,8 @@
         "simplechess:polished_astralit_checker_slab_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_checker_stairs",
         "simplechess:polished_astralit_checker_stairs_from_polished_astralit_checker_stonecutting",
+        "simplechess:polished_astralit_checker_wall",
+        "simplechess:polished_astralit_checker_wall_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_bishop_flat_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_bishop_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_king_flat_from_polished_astralit_checker_stonecutting",
@@ -23061,6 +24195,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:polished_astralit_checker_wall",
+      "name": {
+        "en_us": "Polished Astralit Checker Wall",
+        "de_de": "Polierte Astralit-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:polished_astralit_checker_wall",
+        "simplechess:polished_astralit_checker_wall_from_polished_astralit_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:polished_ender_quartz_checker",
       "name": {
         "en_us": "Polished Ender Quartz Checker",
@@ -23104,6 +24251,8 @@
         "simplechess:polished_ender_quartz_checker_slab_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_checker_stairs",
         "simplechess:polished_ender_quartz_checker_stairs_from_polished_ender_quartz_checker_stonecutting",
+        "simplechess:polished_ender_quartz_checker_wall",
+        "simplechess:polished_ender_quartz_checker_wall_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_bishop_flat_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_bishop_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_king_flat_from_polished_ender_quartz_checker_stonecutting",
@@ -23191,6 +24340,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:polished_ender_quartz_checker_wall",
+      "name": {
+        "en_us": "Polished Ender Quartz Checker Wall",
+        "de_de": "Polierte Enderquarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:polished_ender_quartz_checker_wall",
+        "simplechess:polished_ender_quartz_checker_wall_from_polished_ender_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:polished_nihilith_checker",
       "name": {
         "en_us": "Polished Nihilit Checker",
@@ -23223,6 +24385,8 @@
         "simplechess:polished_nihilith_checker_slab_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_checker_stairs",
         "simplechess:polished_nihilith_checker_stairs_from_polished_nihilith_checker_stonecutting",
+        "simplechess:polished_nihilith_checker_wall",
+        "simplechess:polished_nihilith_checker_wall_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_bishop_flat_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_bishop_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_king_flat_from_polished_nihilith_checker_stonecutting",
@@ -23310,6 +24474,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:polished_nihilith_checker_wall",
+      "name": {
+        "en_us": "Polished Nihilit Checker Wall",
+        "de_de": "Polierte Nihilit-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:polished_nihilith_checker_wall",
+        "simplechess:polished_nihilith_checker_wall_from_polished_nihilith_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:purpur_quartz_checker",
       "name": {
         "en_us": "Purpur Quartz Checker",
@@ -23366,7 +24543,9 @@
         "simplechess:purpur_quartz_checker_slab",
         "simplechess:purpur_quartz_checker_slab_from_purpur_quartz_checker_stonecutting",
         "simplechess:purpur_quartz_checker_stairs",
-        "simplechess:purpur_quartz_checker_stairs_from_purpur_quartz_checker_stonecutting"
+        "simplechess:purpur_quartz_checker_stairs_from_purpur_quartz_checker_stonecutting",
+        "simplechess:purpur_quartz_checker_wall",
+        "simplechess:purpur_quartz_checker_wall_from_purpur_quartz_checker_stonecutting"
       ]
     },
     {
@@ -23440,6 +24619,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:purpur_quartz_checker_wall",
+      "name": {
+        "en_us": "Purpur Quartz Checker Wall",
+        "de_de": "Purpur-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:purpur_quartz_checker_wall",
+        "simplechess:purpur_quartz_checker_wall_from_purpur_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:red_nether_brick_quartz_checker",
       "name": {
         "en_us": "Red Nether Brick Quartz Checker",
@@ -23496,7 +24688,9 @@
         "simplechess:red_nether_brick_quartz_checker_slab",
         "simplechess:red_nether_brick_quartz_checker_slab_from_red_nether_brick_quartz_checker_stonecutting",
         "simplechess:red_nether_brick_quartz_checker_stairs",
-        "simplechess:red_nether_brick_quartz_checker_stairs_from_red_nether_brick_quartz_checker_stonecutting"
+        "simplechess:red_nether_brick_quartz_checker_stairs_from_red_nether_brick_quartz_checker_stonecutting",
+        "simplechess:red_nether_brick_quartz_checker_wall",
+        "simplechess:red_nether_brick_quartz_checker_wall_from_red_nether_brick_quartz_checker_stonecutting"
       ]
     },
     {
@@ -23570,6 +24764,19 @@
       "usedIn": []
     },
     {
+      "id": "simplechess:red_nether_brick_quartz_checker_wall",
+      "name": {
+        "en_us": "Red Nether Brick Quartz Checker Wall",
+        "de_de": "Rote Netherziegel-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:red_nether_brick_quartz_checker_wall",
+        "simplechess:red_nether_brick_quartz_checker_wall_from_red_nether_brick_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplechess:resin_quartz_checker",
       "name": {
         "en_us": "Resin Quartz Checker",
@@ -23626,7 +24833,9 @@
         "simplechess:resin_quartz_checker_slab",
         "simplechess:resin_quartz_checker_slab_from_resin_quartz_checker_stonecutting",
         "simplechess:resin_quartz_checker_stairs",
-        "simplechess:resin_quartz_checker_stairs_from_resin_quartz_checker_stonecutting"
+        "simplechess:resin_quartz_checker_stairs_from_resin_quartz_checker_stonecutting",
+        "simplechess:resin_quartz_checker_wall",
+        "simplechess:resin_quartz_checker_wall_from_resin_quartz_checker_stonecutting"
       ]
     },
     {
@@ -23698,6 +24907,19 @@
         "simplechess:resin_quartz_checker_stairs_from_resin_quartz_checker_stonecutting"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simplechess:resin_quartz_checker_wall",
+      "name": {
+        "en_us": "Resin Quartz Checker Wall",
+        "de_de": "Harz-Quarz-Schachbrettmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simplechess:resin_quartz_checker_wall",
+        "simplechess:resin_quartz_checker_wall_from_resin_quartz_checker_stonecutting"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -23711,22 +24933,35 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplechess:astralit_quartz_checker_wall",
+    "simplechess:blackstone_quartz_checker_wall",
+    "simplechess:ender_quartz_checker_wall",
+    "simplechess:lapis_quartz_checker_wall",
+    "simplechess:nether_brick_quartz_checker_wall",
+    "simplechess:nihilith_quartz_checker_wall",
+    "simplechess:polished_astralit_checker_wall",
+    "simplechess:polished_ender_quartz_checker_wall",
+    "simplechess:polished_nihilith_checker_wall",
+    "simplechess:purpur_quartz_checker_wall",
+    "simplechess:red_nether_brick_quartz_checker_wall",
+    "simplechess:resin_quartz_checker_wall"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 4,
-    "recipes": 398,
-    "lootTables": 36,
+    "recipes": 422,
+    "lootTables": 48,
     "tags": 1,
     "advancements": 2,
     "enchantments": 0,
     "items": 170,
-    "blocks": 38,
+    "blocks": 50,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 12,
     "inWorld": 0,
     "incompleteProse": 0
   }
