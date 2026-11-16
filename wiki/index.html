@@ -658,11 +658,12 @@ a.chip:hover { text-decoration: none; }
 /* N74: Mod-Bereich ohne Dropdown - Kacheln auf der Startseite, eigene Seitenleiste je Mod, mobile Mod-Leiste. */
 @media (max-width: 700px) {
   :root { --topbar-h: 96px; }
-  .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 36px minmax(0, 1fr) 36px 60px; gap: .4rem; align-content: center; }
+  .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 36px minmax(0, 1fr) auto 36px 60px; gap: .4rem; align-content: center; }
   .topbar .brand { grid-column: 2; grid-row: 1; }
-  .topbar #theme-btn { grid-column: 3; grid-row: 1; }
-  .topbar #lang { grid-column: 4; grid-row: 1; }
-  .topbar .search { grid-column: 1 / 5; grid-row: 2; }
+  .topbar .sitebar { grid-column: 3; grid-row: 1; margin-left: 0; }
+  .topbar #theme-btn { grid-column: 4; grid-row: 1; }
+  .topbar #lang { grid-column: 5; grid-row: 1; }
+  .topbar .search { grid-column: 1 / 6; grid-row: 2; }
   .topbar .brand-icon { display: none; }
   .brand { flex: 1; min-width: 0; }
   .topbar .brand .brand-text { display: inline; font-size: .95rem; }
@@ -2423,6 +2424,12 @@ function buildIndex() {
   arr(D.config).forEach(function (e) { if (isObj(e) && e.name) IX.config.set(e.name, e); });
   // Kurzname (letztes Pfadglied) als Zweitschluessel, z. B. fuer die Handels-Flags "enableVillagerTrades".
   arr(D.config).forEach(function (e) { if (isObj(e) && e.shortName && !IX.config.has(e.shortName)) IX.config.set(e.shortName, e); });
+  /* N74: im Familien-Umfang heissen Anleitungen eines Sub-Mods auch "<mod>:<id>" (so verweisen andere Wikis darauf). */
+  if (SCOPE.length > 1) arr(D.features).forEach(function (f) {
+    if (!isObj(f) || !f.id || String(f.id).indexOf(':') >= 0) return;
+    var o = originOf('features', f.id);
+    if (o && !IX.features.has(o + ':' + f.id)) IX.features.set(o + ':' + f.id, f);
+  });
 
   IX.loot.forEach(function (l) {
     arr(l.pools).forEach(function (p) { arr(p && p.items).forEach(function (it) { var s = normStack(it); if (s) push(IX.dropsOf, s.id, l.id); }); });
@@ -5651,7 +5658,7 @@ function urlFor(mod, r) {
       path += encodeURIComponent(s === 'allrecipes' ? 'recipes' : s);
       if (id) {
         var local = NS_SECTIONS[s] && id.indexOf(mod + ':') === 0 ? id.slice(mod.length + 1) : id;
-        path += '/' + encodeURIComponent(local).replace(/%3A/gi, ':');
+        path += '/' + encodeURIComponent(local).replace(/%3A/gi, ':').replace(/%2F/gi, '/');
       }
     }
     if (r.tab && s !== 'search') sp.set('tab', r.tab);
