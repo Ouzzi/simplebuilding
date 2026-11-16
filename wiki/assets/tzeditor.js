@@ -17,7 +17,7 @@
       size: '{0} rows x {1} columns, {2} ids', discard: 'Discard unsaved changes?', commentQ: 'Short: what changed? (optional)', saving: ' saving …',
       okSave: ' saved (no. {0}) - comes as branch tz-layout-* into the next bundle', badSave: ' not saved: ', login: ' (logged in?)', offline: ' not saved: server unreachable (JSON download always works)',
       downloaded: ' downloaded', mod: 'Mod', row: 'Row', column: 'Column', top: 'Octet on top', isNew: 'New', devOnly: 'This page exists only on the dev site.',
-      legend: 'Small picture top right = octet standing on the block. Light grey = placeholder "does not exist", red = missing, empty = no field. Vanilla pictures only on the dev host (otherwise the name).' },
+      legend: 'Small picture top right = octet standing on the block. Light grey = placeholder "does not exist", red = missing, empty = no field. Vanilla pictures only on the dev host, found through the block models (data/vanilla-icons.json); without them the name.' },
     de: { title: 'Testzentrale-Editor', intro: 'Die geordneten Bereiche der Testzentrale als Config: eine Datei je Bereich, aus dem Spiel exportiert (alle Module). Zellen, Reihen und Spalten ziehen; Strg-Klick wählt mehrere; Entf leert.',
       area: 'Bereich', view: 'Ansicht', viewA: 'A Raster + Seitenleiste', viewB: 'B Vollbild + schwebende Leiste', undo: 'Rückgängig', redo: 'Wiederholen',
       grey: 'grau', light: 'hellgrau', red: 'rot', frame: 'Rahmen', clear: 'leeren', zoom: 'Zoom', search: 'Suche', searchPh: 'Id/Name',
@@ -28,7 +28,7 @@
       size: '{0} Reihen x {1} Spalten, {2} Ids', discard: 'Ungespeicherte Änderungen verwerfen?', commentQ: 'Kurz: was wurde geändert? (optional)', saving: ' speichere …',
       okSave: ' gespeichert (Nr. {0}) - kommt als Branch tz-layout-* ins nächste Bündel', badSave: ' nicht gespeichert: ', login: ' (angemeldet?)', offline: ' nicht gespeichert: Server nicht erreichbar (JSON-Download geht immer)',
       downloaded: ' heruntergeladen', mod: 'Mod', row: 'Reihe', column: 'Spalte', top: 'Achtel darauf', isNew: 'Neu', devOnly: 'Diese Seite gibt es nur im Dev-Bereich.',
-      legend: 'Kleines Bild oben rechts = Achtel auf dem Block. Hellgrau = Platzhalter „gibt es nicht“, rot = fehlt, leer = kein Feld. Vanilla-Bilder nur auf dem Dev-Host (sonst der Name).' }
+      legend: 'Kleines Bild oben rechts = Achtel auf dem Block. Hellgrau = Platzhalter „gibt es nicht“, rot = fehlt, leer = kein Feld. Vanilla-Bilder nur auf dem Dev-Host, über die Blockmodelle gefunden (data/vanilla-icons.json); ohne sie der Name.' }
   };
   var CSS = [
     '.tz-page{--z:36px}.tz-bar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.4rem 0 .6rem}',
@@ -52,9 +52,11 @@
     '.tz-page.tz-b{position:fixed;inset:0;z-index:60;background:var(--bg);padding:3.4rem .6rem .6rem;overflow:auto}',
     '.tz-page.tz-b .tz-side{display:none}.tz-page.tz-b .tz-main{max-height:none}',
     '.tz-page.tz-b .tz-bar{position:fixed;left:50%;top:.4rem;transform:translateX(-50%);z-index:61;background:var(--panel);border:1px solid var(--accent);border-radius:8px;padding:.3rem .6rem;box-shadow:0 4px 18px rgba(0,0,0,.3);max-width:96vw;margin:0}',
-    '.tz-mini{font-size:.8rem}'
+    '.tz-mini{font-size:.8rem}',
+    '.tz-wrap>.tz-zm{flex:1;min-width:0;margin:0}.tz-zm .tz-main{max-height:72vh}.tz-page.tz-b .tz-zm .tz-main{max-height:none}'
   ].join('\n');
   var PH = ['#grey', '#light', '#red', '#frame'];
+  var ZBASE = 36, ZMIN = 18, ZMAX = 108;  // cell size in px: 100 % = 36, zoom 50 % .. 300 %
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function nsOf(id) { return id.indexOf(':') >= 0 ? id.split(':')[0] : 'minecraft'; }
@@ -75,8 +77,8 @@
     var lang = ctx.lang === 'de' ? 'de' : 'en', S = STR[lang];
     function tr(k) { return S[k] || STR.en[k] || k; }
     if (!ctx.dev) { el.innerHTML = '<div class="box box-danger">' + esc(tr('devOnly')) + '</div>'; return; }
-    var st = ctx.state || (ctx.state = { idx: null, file: '', D: null, cols: [], rows: [], known: {}, sel: {}, hist: [], fut: [], view: 'a', zoom: 36, q: '', msg: '', history: [] });
-    var drag = null;
+    var st = ctx.state || (ctx.state = { idx: null, file: '', D: null, cols: [], rows: [], known: {}, sel: {}, hist: [], fut: [], view: 'a', zoom: 36, q: '', msg: '', history: [], icons: null });
+    var drag = null, zoom = null;
     api.dirtyNow = function () { return st.hist.length > 0; };
     function $(s) { return el.querySelector(s); }
     function snap() { return JSON.stringify({ cols: st.cols, rows: st.rows }); }
@@ -84,17 +86,39 @@
     function restore(s) { var o = JSON.parse(s); st.cols = o.cols; st.rows = o.rows; st.sel = {}; draw(); }
     function msg(t) { st.msg = t; var m = $('.tz-msg'); if (m) m.textContent = t; }
 
+    /* Picture of an id (N72). Candidates in order, each tried when the one before fails to load:
+       1. the module picture of index.json (tools/tzedit/build_editor.py),
+       2. data/vanilla-icons.json (dev host only, wiki/vanilla_textures.py --icons): the game's own item -> model ->
+          texture walk, so slabs/stairs/walls/bars/waxed/lanterns/octets get the file their model names,
+       3. the wiki's picture of the id (ctx.icon), 4. the old guesses by name (Vanilla block/item of the same name).
+       "file#x,y,w,h" = crop of a skin (mob heads without a flat picture), drawn in the browser. All failing: the name. */
+    function candidates(id) {
+      var out = [], full = id.indexOf(':') >= 0 ? id : 'minecraft:' + id;
+      function add(u) { if (u && out.indexOf(u) < 0) out.push(u); }
+      add(st.idx && st.idx.textures[id]);
+      add(st.icons && (st.icons[id] || st.icons[full]));
+      if (ctx.icon) add(ctx.icon(full));
+      var names = nsOf(id) === 'minecraft' ? [pathOf(id)] : (st.idx && st.idx.vanilla && st.idx.vanilla[id]) || [];
+      names.forEach(function (n) { ['assets/vanilla/block/', 'assets/vanilla/item/'].forEach(function (p) { add(p + n + '.png'); }); });
+      return out;
+    }
+    function crop(i, url) {
+      var h = url.indexOf('#'), r = url.slice(h + 1).split(',').map(Number), src = new Image();
+      src.onload = function () {
+        var c = document.createElement('canvas'); c.width = r[2]; c.height = r[3];
+        c.getContext('2d').drawImage(src, r[0], r[1], r[2], r[3], 0, 0, r[2], r[3]);
+        i.src = c.toDataURL();
+      };
+      src.onerror = function () { i.onerror(); };
+      src.src = url.slice(0, h);
+    }
     function img(id, cls) {
-      var t = (st.idx && st.idx.textures[id]) || (ctx.icon && ctx.icon(id.indexOf(':') >= 0 ? id : 'minecraft:' + id));
-      var cands = t ? [t] : [];
-      /* Vanilla pictures exist only on the dev host (assets/vanilla/, assets/textures/minecraft/ are gitignored); module ids
-         without an own picture try the Vanilla block they are made of (index "vanilla": base names). */
-      var names = !t && nsOf(id) === 'minecraft' ? [pathOf(id)] : !t && st.idx && st.idx.vanilla && st.idx.vanilla[id] ? st.idx.vanilla[id] : [];
-      names.forEach(function (n) { ['assets/vanilla/block/', 'assets/vanilla/item/', 'assets/textures/minecraft/block/', 'assets/textures/minecraft/item/'].forEach(function (p) { cands.push(p + n + '.png'); }); });
+      var cands = candidates(id);
       if (!cands.length) return null;
-      var i = new Image(), k = 0; i.loading = 'lazy'; i.alt = ''; if (cls) i.className = cls;
-      i.onerror = function () { k++; if (k < cands.length) { i.src = cands[k]; return; } var p = i.parentNode; i.remove(); if (p && !cls) name(p, id); };
-      i.src = cands[0];
+      var i = new Image(), k = 0; i.alt = ''; i.dataset.ownFallback = '1'; if (cls) i.className = cls;
+      function load() { if (cands[k].indexOf('#') > 0) crop(i, cands[k]); else i.src = cands[k]; }
+      i.onerror = function () { k++; if (k < cands.length) { load(); return; } var p = i.parentNode; i.remove(); if (p && !cls) name(p, id); };
+      load();
       return i;
     }
     function name(e, id) { var n = document.createElement('span'); n.className = 'tz-n'; n.textContent = pathOf(id).replace(/_/g, ' '); e.appendChild(n); }
@@ -119,7 +143,7 @@
       h += '<button type="button" class="btn" data-act="undo">' + esc(tr('undo')) + '</button><button type="button" class="btn" data-act="redo">' + esc(tr('redo')) + '</button>';
       PH.forEach(function (p) { h += '<button type="button" class="btn" data-ph="' + p + '">' + esc(tr(p.slice(1))) + '</button>'; });
       h += '<button type="button" class="btn" data-act="clear">' + esc(tr('clear')) + '</button>';
-      h += '<label>' + esc(tr('zoom')) + ' <input type="range" min="24" max="64" value="' + st.zoom + '" data-k="zoom" style="width:80px"></label>';
+      h += '<label>' + esc(tr('zoom')) + ' <input type="range" min="' + ZMIN + '" max="' + ZMAX + '" value="' + st.zoom + '" data-k="zoom" style="width:80px"></label>';
       h += '<label>' + esc(tr('search')) + ' <input data-k="q" placeholder="' + esc(tr('searchPh')) + '" value="' + esc(st.q) + '"></label>';
       h += '<button type="button" class="btn btn-primary" data-act="save" title="' + esc(tr('saveTip')) + '">' + esc(tr('save')) + '</button>';
       h += '<button type="button" class="btn" data-act="dl">' + esc(tr('download')) + '</button><span class="tz-msg">' + esc(st.msg) + '</span><span class="tz-mini muted"></span></div>';
@@ -129,8 +153,18 @@
       h += '<h3>' + esc(tr('saved')) + '</h3><ul class="tz-hist"></ul><p class="muted tiny">' + esc(tr('legend')) + '</p></div></div><div class="tz-info"></div></div>';
       el.innerHTML = h;
       wire();
+      zoomArea();
       draw();
       drawHistory();
+    }
+
+    /* N72: the shared zoom/full screen bar of the wiki (assets/zoomarea.js) on the grid; the zoom level is the cell size
+       (--z, base 36 px = 100 %), so the pixel pictures stay sharp; the slider is the same value. */
+    function zoomArea() {
+      var Z = root.SBZoom, main = $('.tz-main'), page = $('.tz-page');
+      if (!Z || !main) return;
+      zoom = Z.attach(main, { key: 'tzeditor', lang: lang, className: 'tz-zm', initial: st.zoom / ZBASE, min: ZMIN / ZBASE, max: ZMAX / ZBASE,
+        apply: function (f) { st.zoom = Math.round(ZBASE * f); page.style.setProperty('--z', st.zoom + 'px'); var r = $('[data-k=zoom]'); if (r) r.value = st.zoom; } });
     }
 
     function draw() {
@@ -183,7 +217,7 @@
       });
       page.addEventListener('input', function (e) {
         var k = e.target.dataset.k;
-        if (k === 'zoom') { st.zoom = +e.target.value; page.style.setProperty('--z', st.zoom + 'px'); }
+        if (k === 'zoom') { if (zoom) zoom.setZoom(+e.target.value / ZBASE); else { st.zoom = +e.target.value; page.style.setProperty('--z', st.zoom + 'px'); } }
         else if (k === 'q') { st.q = e.target.value; draw(); }
       });
       page.addEventListener('click', function (e) {
@@ -277,7 +311,11 @@
 
     if (st.idx && st.D) { shell(); return; }
     el.innerHTML = '<h1>' + esc(tr('title')) + '</h1><p class="hint">' + esc(tr('loading')) + '</p>';
-    fetch('data/testcentre/index.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (idx) {
+    /* the id -> picture list exists only on the dev host (git-ignored); without it the editor still works */
+    var iconsP = st.icons ? Promise.resolve(st.icons) : fetch('data/vanilla-icons.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { return (j && j.icons) || {}; }).catch(function () { return {}; });
+    Promise.all([fetch('data/testcentre/index.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }), iconsP]).then(function (both) {
+      var idx = both[0]; st.icons = both[1];
       st.idx = idx;
       var want = ctx.area && idx.areas.filter(function (a) { return a.file === ctx.area; })[0];
       loadArea(want ? want.file : idx.areas[0].file);

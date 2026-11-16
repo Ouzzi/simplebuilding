@@ -159,6 +159,7 @@ def stage(out: Path, data: dict) -> None:
     (out / 'assets').mkdir(exist_ok=True)
     shutil.copyfile(WIKI / 'assets/module-loader.js', out / 'assets/module-loader.js')
     shutil.copyfile(WIKI / 'assets/sitebar.js', out / 'assets/sitebar.js')  # login bar; inert without /api/auth
+    shutil.copyfile(WIKI / 'assets/zoomarea.js', out / 'assets/zoomarea.js')  # N72 zoom/full screen bar of large lists
     for module in site_modules():
         shutil.copyfile(WIKI / 'data' / (module['id'] + '.js'), out / 'data' / (module['id'] + '.js'))
     for line in vanilla_lines(data):

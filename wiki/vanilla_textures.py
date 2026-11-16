@@ -8,12 +8,16 @@ and the Vanilla-derived copies), so nothing of Mojang's ends up in the repositor
              wiki/data/vanilla-textures.js (window.WIKI_VANILLA_TEXTURES, same fields and cards as wiki/textures.py).
              The wiki page never loads that file itself; only the dev overlay of the Zentrale (behind the login,
              tools/zentrale-web/dev-overlay.js) does, which adds the category "Vanilla".
+  --icons    id -> picture for the test centre editor (N72): wiki/data/vanilla-icons.json, names and wiki paths only,
+             resolved like the game (items/<id>.json -> model -> parents -> textures) by tools/devserver/sbdev/icons.py:
+             every Vanilla item of the jar and every id of the test centre layouts without an own module picture
+             (slabs, stairs, walls, bars, waxed blocks, lanterns, octets ... whose texture file has another name).
   --derived  the Vanilla-derived mod textures (tools/textures/vanilla_derived.py; placeholders without jar or Pillow)
              copied to the wiki paths that wiki/data/textures.js names for them. The wiki checkouts on the web host
              are plain git trees, so without this those cards had no image.
 
 Run on the dev checkout only (tools/zentrale-web/sb-web-sync), or locally:
-    python3 wiki/vanilla_textures.py [--jar client.jar] [--vanilla] [--derived]     (default: both)
+    python3 wiki/vanilla_textures.py [--jar client.jar] [--vanilla] [--icons] [--derived]     (default: all)
     python3 wiki/generate.py --with-vanilla                                         (same, after the normal run)
 """
 from __future__ import annotations
@@ -33,6 +37,7 @@ import textures as tx  # noqa: E402
 
 VANILLA_DIR = "assets/vanilla"
 DATA_FILE = "data/vanilla-textures.js"
+ICONS_FILE = "data/vanilla-icons.json"
 MARKER = "window.WIKI_VANILLA_TEXTURES = "
 PREFIX = "assets/minecraft/textures/"
 
@@ -111,6 +116,148 @@ def write_vanilla(jar: Path, wiki: Path = WIKI) -> int:
     return len(index["textures"])
 
 
+# extra asset roots of the Resolver: the 26.3 overlay (simplebuilding woods, cauldrons, hollow logs) and the
+# Vanilla-derived textures --derived just wrote (build/vanilla-derived, never committed)
+EXTRA_ROOTS = ("mc26_3/overlay/resources/assets", "mc26_3/generated/assets", "build/vanilla-derived/resources/assets")
+DEVTEX_DIR = "assets/devtex"   # module textures the wiki folder has no copy of (git-ignored, dev only)
+
+
+def _wiki_path(icon: str, repo: Path, wiki: Path, roots: list[str]) -> str | None:
+    """Resolver path (wiki/..., vanilla/..., modtex/<ns>/...) -> path the wiki serves; module textures without a wiki
+    copy are copied to assets/devtex/ (own pixels of the mod, never Mojang's)."""
+    if icon.startswith("wiki/"):
+        return icon[len("wiki/"):]
+    if icon.startswith("vanilla/"):
+        return f"{VANILLA_DIR}/{icon[len('vanilla/'):]}"
+    if icon.startswith("modtex/"):
+        ns, _, rest = icon[len("modtex/"):].partition("/")
+        for rel in (f"assets/textures/{ns}/{rest}",) + ((f"assets/textures/{rest}",) if ns == "simplebuilding" else ()):
+            if (wiki / rel).is_file():
+                return rel
+        for root in roots:
+            src = repo / root / ns / "textures" / rest
+            if src.is_file():
+                rel = f"{DEVTEX_DIR}/{ns}/{rest}"
+                dst = wiki / rel
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                data = src.read_bytes()
+                if not dst.exists() or dst.read_bytes() != data:
+                    dst.write_bytes(data)
+                return rel
+    return None
+
+
+def testcentre_ids(wiki: Path = WIKI) -> list[str]:
+    """Ids of the test centre layouts (cells and octets on top) without a module picture the wiki folder really has
+    (index.json names files of the generating machine; Vanilla-derived ones are missing in a plain checkout)."""
+    base = wiki / "data" / "testcentre"
+    try:
+        own = json.loads((base / "index.json").read_text(encoding="utf-8")).get("textures", {})
+    except (OSError, ValueError):
+        own = {}
+    ids: set[str] = set()
+    for path in sorted(base.glob("layout_*.json")):
+        try:
+            layout = json.loads(path.read_text(encoding="utf-8"))
+        except ValueError:
+            continue
+        for row in layout.get("rows", []):
+            ids.update(c for c in row.get("cells", []) if isinstance(c, str))
+            ids.update(c for c in (row.get("tops") or {}).values() if isinstance(c, str))
+    return sorted(i for i in ids if i and not i.startswith("#") and not (own.get(i) and (wiki / own[i]).is_file()))
+
+
+HEAD_SUFFIXES = ("_head", "_skull")
+# heads of mobs without a spawn egg: a related egg, or the face of a 64x64 humanoid skin ("file#x,y,w,h": the editor
+# crops it in the browser from the dev copy - no pixels are written)
+HEAD_ALIASES = {"giant_cow": "cow", "crowned_pig": "pig", "illusioner": "evoker", "abyssal_wither": "wither",
+                "blighted_wither": "wither"}
+HEAD_FACES = {"herobrine": "entity/player/wide/steve", "giant": "entity/zombie/zombie"}
+
+
+def build_icons(jar: Path, repo: Path = REPO, wiki: Path = WIKI) -> dict:
+    """{"schema": 1, "icons": {id: wiki path}} - Vanilla items of the jar plus the test centre ids (see --icons).
+    Order per id: the game's model walk; then fallbacks by name only: waxed_X -> X, the "base" model of
+    special-rendered items (chests), mob heads/skulls -> the mob's spawn egg (heads have no flat texture)."""
+    sys.path.insert(0, str(REPO / "tools" / "devserver"))
+    from sbdev.icons import Resolver  # noqa: E402 - stdlib only, the Zentrale's own item -> model -> texture walk
+    res = Resolver(repo, jar)
+    res.asset_roots += [r for r in EXTRA_ROOTS if r not in res.asset_roots]
+    for module in Path(repo, "modules").glob("*/build/vanilla-derived/resources/assets"):
+        res.asset_roots.append(module.relative_to(repo).as_posix())
+    roots = list(res.asset_roots)
+    items = sorted(f"minecraft:{n[len('assets/minecraft/items/'):-5]}" for n in res.jar_names()
+                   if n.startswith("assets/minecraft/items/") and n.endswith(".json") and n.count("/") == 3)
+    # pictures the wiki already has for module items (all module data files): spawn eggs for the head fallback
+    own: dict[str, str] = {}
+    for path in sorted((wiki / "data").glob("*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except ValueError:
+            continue
+        for section in ("items", "blocks") if isinstance(data, dict) else ():
+            for entry in data.get(section) or []:
+                pic = isinstance(entry, dict) and (entry.get("icon") or entry.get("texture"))
+                if isinstance(pic, str) and isinstance(entry.get("id"), str) and (wiki / pic).is_file():
+                    own.setdefault(entry["id"], pic)
+
+    def direct(ident: str) -> str | None:
+        if own.get(ident):
+            return own[ident]
+        try:
+            got = res.resolve(ident)
+        except Exception:  # noqa: BLE001 - one broken model must not stop the others
+            got = None
+        path = got and _wiki_path(got["icon"], repo, wiki, roots)
+        if path:
+            return path
+        ns, _, name = ident.partition(":")
+        try:
+            definition = res._read_json(ns, f"items/{name}.json") or {}
+        except Exception:  # noqa: BLE001
+            definition = {}
+        base = (definition.get("model") or {}).get("base") if isinstance(definition.get("model"), dict) else None
+        if isinstance(base, str) and "skull" not in base:
+            for ref in res._model_textures(base):
+                tex = res._texture(ref)
+                path = tex and _wiki_path(tex, repo, wiki, roots)
+                if path:
+                    return path
+        return None
+
+    eggs: dict[str, list[str]] = {}
+    for ident in sorted(set(items) | set(own)):
+        if ident.endswith("_spawn_egg"):
+            eggs.setdefault(ident.partition(":")[2][:-len("_spawn_egg")], []).append(ident)
+    icons: dict[str, str] = {}
+    for ident in sorted(set(items) | set(testcentre_ids(wiki))):
+        full = ident if ":" in ident else "minecraft:" + ident
+        ns, _, name = full.partition(":")
+        path = direct(full)
+        if not path and name.startswith("waxed_"):
+            path = direct(f"{ns}:{name[len('waxed_'):]}") or direct(f"minecraft:{name[len('waxed_'):]}")
+        if not path and name.endswith(HEAD_SUFFIXES):
+            mob = name.rsplit("_", 1)[0]
+            for egg in sorted(eggs.get(mob, []) + eggs.get(HEAD_ALIASES.get(mob, ""), []),
+                              key=lambda e: (not e.startswith("minecraft:"), e)):
+                path = direct(egg)
+                if path:
+                    break
+            face = HEAD_FACES.get(mob)
+            if not path and face and f"assets/minecraft/textures/{face}.png" in res.jar_names():
+                path = f"{VANILLA_DIR}/{face}.png#8,8,8,8"
+        if path:
+            icons[ident] = path
+    return {"schema": 1, "jar": jar.name, "icons": icons}
+
+
+def write_icons(jar: Path, repo: Path = REPO, wiki: Path = WIKI) -> int:
+    data = build_icons(jar, repo, wiki)
+    (wiki / ICONS_FILE).parent.mkdir(parents=True, exist_ok=True)
+    (wiki / ICONS_FILE).write_text(json.dumps(data, sort_keys=True, separators=(",", ":")), encoding="utf-8", newline="\n")
+    return len(data["icons"])
+
+
 def write_derived(repo: Path = REPO, wiki: Path = WIKI) -> tuple[int, str]:
     """Copy the Vanilla-derived textures to the wiki files textures.js names for them; returns (count, jar|placeholder)."""
     import vanilla_derived
@@ -143,20 +290,24 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     p.add_argument("--jar", type=Path, help="26.3 client jar (default: SB_CLIENT_JAR or the Gradle cache)")
     p.add_argument("--vanilla", action="store_true", help="only the Vanilla index and files")
+    p.add_argument("--icons", action="store_true", help="only the id -> picture list of the test centre editor")
     p.add_argument("--derived", action="store_true", help="only the Vanilla-derived copies")
     a = p.parse_args(argv)
-    both = not a.vanilla and not a.derived
+    both = not a.vanilla and not a.derived and not a.icons
     code = 0
-    if a.vanilla or both:
+    jar = None
+    if a.vanilla or a.icons or both:
         jar = a.jar or default_jar()
         if jar is None or not jar.is_file():
-            print("vanilla_textures: no 26.3 client jar - Vanilla category skipped")
-            code = 1 if a.vanilla else 0
-        else:
+            print("vanilla_textures: no 26.3 client jar - Vanilla category and id pictures skipped")
+            code = 1 if (a.vanilla or a.icons) else 0
+        elif a.vanilla or both:
             print(f"Vanilla textures (dev only): {write_vanilla(jar)} from {jar.name} -> wiki/{VANILLA_DIR}/, wiki/{DATA_FILE}")
     if a.derived or both:
         n, mode = write_derived()
         print(f"Vanilla-derived copies: {n} wiki files ({mode})")
+    if (a.icons or both) and jar is not None and jar.is_file():  # after --derived: those copies are pictures too
+        print(f"Id pictures (dev only): {write_icons(jar)} ids -> wiki/{ICONS_FILE}")
     return code
 
 
