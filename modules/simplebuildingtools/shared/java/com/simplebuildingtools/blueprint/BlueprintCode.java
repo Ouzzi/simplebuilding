@@ -173,6 +173,9 @@ public final class BlueprintCode {
      */
     public static final String PIXELS = "pixels";
 
+    /** N77: Zeilen mit diesem Zeichen vorn beschreiben eine Entity ({@link BlueprintEntity}); alte Codes enthalten keine. */
+    public static final char ENTITY_PREFIX = '@';
+
     /** Das Wort, mit dem Formen hohl werden. */
     public static final String HOLLOW_PREFIX = "hollow_";
 
@@ -337,6 +340,14 @@ public final class BlueprintCode {
         }
 
         void parseLine(int from, int to) {
+            int first = from;
+            while (first < to && Character.isWhitespace(code.charAt(first))) {
+                first++;
+            }
+            if (first < to && code.charAt(first) == ENTITY_PREFIX) {
+                entityLine(first, to);
+                return;
+            }
             int comment = -1;
             for (int i = from; i < to; i++) {
                 if (code.charAt(i) == '#') {
@@ -389,6 +400,36 @@ public final class BlueprintCode {
                 if (region != null && state != null) {
                     apply(region, state, words.get(i));
                 }
+            }
+        }
+
+        /**
+         * N77: {@code @typ x,y,z ...} - eine Entity ({@link BlueprintEntity}). Kommentare beginnen erst ausserhalb von
+         * Anfuehrungszeichen (ein {@code #} in einem Namen bleibt Text).
+         */
+        void entityLine(int from, int to) {
+            int comment = BlueprintEntity.commentStart(code, from, to);
+            if (comment >= 0) {
+                style(comment, to, STYLE_COMMENT);
+                to = comment;
+            }
+            if (model.entities().size() >= BlueprintEntity.MAX_ENTITIES) {
+                problem(from, to, "entity_too_many", String.valueOf(BlueprintEntity.MAX_ENTITIES));
+                return;
+            }
+            BlueprintEntity entity = BlueprintEntity.parse(code, from, to, new BlueprintEntity.Sink() {
+                @Override
+                public void problem(int start, int end, String key, String... args) {
+                    Parser.this.problem(start, end, key, args);
+                }
+
+                @Override
+                public void style(int start, int end, byte style) {
+                    Parser.this.style(start, end, style);
+                }
+            });
+            if (entity != null) {
+                model.addEntity(entity);
             }
         }
 
@@ -1234,7 +1275,7 @@ public final class BlueprintCode {
      * {@code parse(serialize(m)).model()} ist wieder {@code m}.
      */
     public static String serialize(BlueprintModel model) {
-        if (model.isEmpty()) {
+        if (!model.hasContent()) {
             return "";
         }
         Map<BlockState, IntArrayList> byState = new HashMap<>();
@@ -1247,7 +1288,12 @@ public final class BlueprintCode {
 
         StringBuilder header = new StringBuilder();
         header.append("# ").append(model.sizeX()).append('x').append(model.sizeY()).append('x').append(model.sizeZ())
-                .append(", ").append(model.size()).append(" blocks\n");
+                .append(", ").append(model.size()).append(" blocks");
+        if (!model.entities().isEmpty()) {
+            // N77: der Entity-Abschnitt ist optional - ohne Entities bleibt der Code byte-gleich.
+            header.append(", ").append(model.entities().size()).append(" entities");
+        }
+        header.append('\n');
         StringBuilder aliases = new StringBuilder();
         StringBuilder body = new StringBuilder();
         int aliasIndex = 0;
@@ -1266,6 +1312,9 @@ public final class BlueprintCode {
             for (String line : lines) {
                 body.append(line).append('\n');
             }
+        }
+        for (String line : BlueprintEntity.sortedLines(model.entities())) {
+            body.append(line).append('\n');
         }
         return header.append(aliases).append(body).toString().stripTrailing();
     }

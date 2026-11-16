@@ -297,7 +297,7 @@ public final class ModMessageHandlers {
             String title = payload.title().strip();
             // Zwischengespeichert: der Bau (Tooltip, Vorschau, Baustab) fragt gleich denselben Code.
             com.simplebuildingtools.blueprint.BlueprintCode.ParseResult parsed = com.simplebuildingtools.blueprint.BlueprintCode.parseCached(code);
-            if (!parsed.ok() || parsed.model().isEmpty()) {
+            if (!parsed.ok() || !parsed.model().hasContent()) {
                 return null;
             }
             return new com.simplebuildingtools.blueprint.BlueprintContent(code, title, player.getName().getString(), true);
