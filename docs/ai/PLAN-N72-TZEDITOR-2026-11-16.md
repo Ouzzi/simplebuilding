@@ -60,10 +60,43 @@ Verifikation: Unit-Tests auf sb-test (sbt), Wiki-Generate-Check, Playwright-Harn
 auf sb-test (mit `vanilla_textures.py`-Lauf = was der Dev-Host nach dem Operator-Schritt tut): Zellen ohne Bild zählen,
 Vollbild/Esc/±/Strg+Rad prüfen, Screens. Endgültiger Dev-Klick-Test erst nach Bündeln + Operator-Schritten.
 
+## N72b – Erweiterung (Besitzer: „implementiere es dann einfach“, gleicher Branch)
+
+Ist-Zustand: Rechtsklick zeigt das Wiki-Menü („#light / Crafting tree“), weil die Zellen `data-id` tragen. Das Spiel liest
+Configs nur für `LayoutConfig.AREAS` = metals, wood, aging, rest, stone. Kompakt und Items baut es nach dem Algorithmus
+(`OrderAreas.compact`, `items`). Die Wiki-Kopien unter `wiki/data/testcentre/` waren seit b-fix197 (große Türen) veraltet.
+
+Plan:
+1. **Zellmenü** (tzeditor.js): Rechtsklick, Umschalt+F10 oder Menütaste, Pfeile, Enter, Esc. Einträge: Block ändern …
+   (Suche + Vorschau, jede Id), fehlend (#red), gibt es nicht (#light), leeren, Rahmen an/aus (#frame, nur ohne Item), Reihe
+   oder Spalte einfügen, Rückgängig. index.html: Wiki-Menü übergeht Ereignisse mit `defaultPrevented`. Rückgängig über alles:
+   `History` merkt sich je Schritt alle berührten Bereiche.
+2. **Spielplan**: Integrationstest `sbintegration:cross_mod_game_test_test_centre_plan_with_all_modules` mit `SB_TC_DUMP=1`
+   (Server-Gametest, kein Client). Daraus `build_editor.py --plan` → `wiki/data/testcentre/plan.json` (nur Ids, Schlüssel,
+   Gründe): Familie, Seite und x je Linien-Reihe, Reihen ohne Config, Band „Neu“, Kompakt-Blöcke je Mod, Ausnahmen.
+   Ausnahmen sind (a) Musterfamilien ab 24 Varianten, die in der Config fehlen, und (b) registrierte Blöcke ohne Feld im
+   Spielplan, mit den Gründen aus `TestCentreLayout.EXCLUDED`/`MODULE_EXCLUDED`/`technical`. Live-Prüfung im Seitenpanel.
+3. **Alle Bereiche**: Eintrag im Bereich-Dropdown; alle Bereiche nebeneinander, jede Tabelle bearbeitbar, in der Zoom-Komponente.
+4. **Wie gebaut**: `builtPlan` = Regel aus `OrderAreas.families`. Seite A: metals, wood, aging, rest, Stein-Rest. Seite B:
+   Stein. Der Schnitt liegt an einer Familiengrenze, beide Seiten so gleich wie möglich, 114 Reihen je Linien-Paar. Familien
+   kommen aus plan.json. Die Zeichnung zeigt je Reihe eine Spalte, Feld 0 am Weg, Schildfeld und graue Linie. Prüfung: das
+   Ergebnis muss gleich der Dump-Reihenfolge sein (Test).
+5. Speicherformat bleibt: eingefügte Reihen und Spalten sind normale Schlüssel und Spalten (Test in test_tzedit_save).
+
 ## Phase 2 – Umsetzung / Abweichungen
 
-(siehe unten, wird beim Bauen ergänzt)
+- Wie geplant: zoomarea.js, vanilla_textures.py `--icons` (+ `assets/devtex/` für Modul-Texturen ohne Wiki-Kopie), tzeditor.js,
+  index.html, sb-web-sync (`sb-jar`), README.
+- Abweichung: die Rezepte-Seite (`tab=recipes`) leitet auf „Alle Rezepte“ um. Statt ihr hat jetzt jede Liste mit mehr als
+  40 Einträgen die Leiste (`listPage`). Die alte Seite `pageRecipes` hat die Leiste trotzdem.
+- Abweichung: Mob-Köpfe haben kein flaches Bild. Sie zeigen das Spawn-Ei des Mobs (Alias für Riese/Kuh-Riese …). Herobrine
+  und Riese zeigen das Gesicht des Skins, im Browser ausgeschnitten.
+- Abweichung: „Rahmen an/aus“ schaltet den Platzhalter `#frame`. Bei einer Zelle mit Item ist der Eintrag gesperrt: das
+  Format kennt keinen Rahmen je Item, und das Spiel entscheidet das selbst (`Exhibits.falls`).
+- Zusatz: die veralteten Wiki-Kopien der Configs neu erzeugt (`build_editor.py`).
+- Kompakt-Ergebnis: im Spiel hat jeder Block einen Platz (Algorithmus). In der Config-Datei fehlen 14 Blöcke (12 große
+  Kupfertüren angelaufen, verwittert, oxidiert; Redstone- und Auto-Formschneide). Keine Familie erreicht die Ausnahme-Grenze.
 
 ## Phase 3 – Verifikation
 
-(wird ergänzt)
+Siehe Abschlussbericht der Session (Tests auf sb-test, Harness-Klicktest, Dev-Klicktest offen bis zum Bündel).
