@@ -81,6 +81,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(c->{if(c.gui.screen()==null||!c.gui.screen().getTitle().getString().contains("Servereinstellungen"))throw new AssertionError("German config title is translated and visible");});
             context.takeScreenshot("simplequalityoflife-config-de");
             context.runOnClient(c->c.setScreenAndShow(null));
+            // b-client60o: back to English - the loaded language outlives restoreDefaultGameOptions, and in the collective run
+            // (vis24all) the next smoke (simpletweaks) otherwise ran in German.
+            var back=context.computeOnClient(c->{c.getLanguageManager().setSelected("en_us");c.options.languageCode="en_us";return c.reloadResourcePacks();});
+            context.waitFor(c->back.isDone());back.join();
+            context.waitFor(c->c.gui.overlay()==null);
         }
     }
     private static boolean crawling(net.minecraft.client.Minecraft client){
