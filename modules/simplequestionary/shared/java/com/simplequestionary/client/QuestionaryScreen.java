@@ -150,10 +150,10 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         }
         book(g, x0 + bookX, y0 + bookY);
         int invTop = y0 + COL_Y + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP;
-        shadow(g, x0 + COL_X, y0 + COL_Y, COL_W, QuestionaryMenu.DESK_HEIGHT);
-        shadow(g, x0 + COL_X, invTop, COL_W, QuestionaryMenu.INVENTORY_BOX);
+        shadow(g, x0 + COL_X, y0 + COL_Y, QuestionaryMenu.INVENTORY_BOX_WIDTH, QuestionaryMenu.DESK_HEIGHT);
+        shadow(g, x0 + COL_X, invTop, QuestionaryMenu.INVENTORY_BOX_WIDTH, QuestionaryMenu.INVENTORY_BOX);
         desk(g, x0 + COL_X, y0 + COL_Y);
-        UiBoxes.box(g, x0 + COL_X, invTop, COL_W, QuestionaryMenu.INVENTORY_BOX, UiPalette.INVENTORY);
+        UiBoxes.box(g, x0 + COL_X, invTop, QuestionaryMenu.INVENTORY_BOX_WIDTH, QuestionaryMenu.INVENTORY_BOX, UiPalette.INVENTORY);
         for (int i = 0; i < menu.slots.size(); i++) {
             Slot slot = menu.slots.get(i);
             if (i == QuestionaryMenu.ITEM_SLOT) UiBoxes.bigSlot(g, x0 + slot.x, y0 + slot.y, DESK);
@@ -178,7 +178,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
 
     /** The desk box: lapis with rune marks, a gold ring of dots around the item slot that turns while an item lies in it. */
     private void desk(GuiGraphicsExtractor g, int x0, int y0) {
-        int w = COL_W, h = QuestionaryMenu.DESK_HEIGHT;
+        int w = QuestionaryMenu.INVENTORY_BOX_WIDTH, h = QuestionaryMenu.DESK_HEIGHT;
         UiBoxes.box(g, x0, y0, w, h, DESK);
         int cx = leftPos + QuestionaryMenu.SLOT_X + 8, cy = topPos + QuestionaryMenu.SLOT_Y + 8;
         List<int[]> avoid = new ArrayList<>();

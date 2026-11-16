@@ -22,6 +22,7 @@ public final class ModuleNeoTests {
             new Case("module_game_test_box_layout_limits", ContainerTests::layoutLimits),
             new Case("module_game_test_narrow_box_layouts", ContainerTests::narrowLayouts),
             new Case("module_game_test_container_margins", ContainerTests::containerMargins),
+            new Case("module_game_test_station_margins", ContainerTests::stationMargins),
             new Case("module_game_test_style_registry", ContainerTests::registry),
             new Case("module_game_test_block_palettes", ContainerTests::palettes),
             new Case("module_game_test_box_motifs", ContainerTests::motifs),

@@ -19,7 +19,10 @@ public class QuestionaryMenu extends AbstractContainerMenu {
     /** Layout shared with the screen (QT23): the column - lapis desk box (item slot, name) over the inventory box - in
      *  the middle, the open book behind it sticking out left and right (and a little above and below). The whole
      *  window must stay under 427 x 240 (an 854 x 480 window at GUI scale 2). */
-    public static final int COLUMN_WIDTH = 176, DESK_HEIGHT = 106, BOX_GAP = 2, INVENTORY_BOX = 100, WIDTH = 424, HEIGHT = 238;
+    public static final int COLUMN_WIDTH = 176, DESK_HEIGHT = 106, BOX_GAP = 2, INVENTORY_BOX = 102, WIDTH = 424, HEIGHT = 238;
+    /** N64 (A7 container margin): desk and inventory box are 1 px wider than the column, the inventory box 102 high - 3 px fill right of the last column
+     *  and under the hotbar (its label stays inside as its title). */
+    public static final int INVENTORY_BOX_WIDTH = COLUMN_WIDTH + 1;
     public static final int COLUMN_X = (WIDTH - COLUMN_WIDTH) / 2, COLUMN_Y = 22;
     public static final int SLOT_X = COLUMN_X + 80, SLOT_Y = COLUMN_Y + 34, INVENTORY_X = COLUMN_X + 8,
             INVENTORY_Y = COLUMN_Y + DESK_HEIGHT + BOX_GAP + 17;

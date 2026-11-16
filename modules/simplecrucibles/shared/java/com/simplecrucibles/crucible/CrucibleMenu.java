@@ -48,7 +48,13 @@ public class CrucibleMenu extends AbstractContainerMenu {
     /** Gap between the boxes. */
     public static final int BOX_GAP = 2;
     /** Inventory box: label and first slot row below the box top, total height. */
-    public static final int INVENTORY_LABEL = 6, INVENTORY_TOP = 17, INVENTORY_BOX = 100;
+    public static final int INVENTORY_LABEL = 6, INVENTORY_TOP = 17, INVENTORY_BOX = 102;
+    /**
+     * N64 (owner rule N62, docs/ai/PRINZIPIEN.md A7 "Container-Margin"): every box is 1 px wider on the right than grid + 2 x MARGIN
+     * (the slot's light edge sits in Vanilla's right 7 px, leaving only 2 px fill) and the inventory box 102 high - 3 px of fill
+     * between the light line and the outermost slots left, right and under the hotbar (the label stays the inventory box's title).
+     */
+    public static final int RIGHT_EDGE = 1;
 
     /**
      * One panel layout; all positions relative to the reserved box (the screen's image). {@code crucibleWidth} is the
@@ -92,7 +98,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
 
     /** Width of the barrel box (grid plus margins). */
     public static int barrelBoxWidth(CrucibleTier tier) {
-        return gridsWidth(tier) + 2 * MARGIN;
+        return gridsWidth(tier) + 2 * MARGIN + RIGHT_EDGE;
     }
 
     /**
@@ -100,7 +106,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
      * title is drawn smaller, see CrucibleScreen); the barrel box beside it alike.
      */
     public static int crucibleBoxWidth(CrucibleTier tier) {
-        return gridsWidth(tier) + 2 * MARGIN;
+        return gridsWidth(tier) + 2 * MARGIN + RIGHT_EDGE;
     }
 
     /** Width of the boxes on top: the crucible box, with a barrel the barrel box beside it. */
@@ -142,7 +148,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
         return new Layout(x, y, w, h, left + MARGIN, barrelBox + MARGIN, section,
                 inventoryBox + MARGIN + 1, y + section + BOX_GAP + INVENTORY_TOP, cw, barrelBox,
                 y, barrelBoxWidth(tier), section, y + GRID_TOP,
-                inventoryBox, INVENTORY_WIDTH, INVENTORY_BOX, left);
+                inventoryBox, INVENTORY_WIDTH + RIGHT_EDGE, INVENTORY_BOX, left);
     }
 
     private final CrucibleTier tier;

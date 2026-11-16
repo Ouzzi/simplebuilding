@@ -530,6 +530,21 @@ public final class FoundryTests {
             }
             h.succeed();
         });
+        // N64 (owner rule N62, docs/ai/PRINZIPIEN.md A7): both boxes keep UiBoxes.MARGIN round the outermost slots/elements
+        ALL.put("screen_margins", h -> {
+            var menu = com.simplefoundry.block.FoundryMenu.client(1, h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL).getInventory());
+            int[] content = com.simplefoundry.client.FoundryMargins.content(menu);
+            h.assertTrue(java.util.Arrays.equals(content, new int[] {8, 22, 169 - 17, 101 - 17}),
+                    "content: input places from 8/22, stack/gauge to x 169, fuel slot to y 101, is " + java.util.Arrays.toString(content));
+            var b = com.simplefoundry.client.FoundryMargins.boxes(menu);
+            int[] m = com.simplelib.api.client.ui.UiMargin.margins(b, menu.slots, content);
+            String[] side = {"container left", "container right", "container bottom", "inventory left", "inventory right", "inventory top", "inventory bottom"};
+            for (int k = 0; k < side.length; k++) h.assertValueEqual(m[k], com.simplelib.api.client.ui.UiBoxes.MARGIN, "foundry: " + side[k]);
+            h.assertTrue(m[7] >= com.simplelib.api.client.ui.UiMargin.GAP, "foundry: divider " + m[7]);
+            h.assertValueEqual(b.shift(), 0, "the player's slots stay");
+            h.assertValueEqual(b.height(), 211, "image height 208 -> 211 (margin under the hotbar)");
+            h.succeed();
+        });
     }
 
     /** The desk item the loot table gives for the desk at {@code pos} (empty when none). */

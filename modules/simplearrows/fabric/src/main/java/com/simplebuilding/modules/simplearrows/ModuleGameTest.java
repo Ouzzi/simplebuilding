@@ -161,4 +161,9 @@ public final class ModuleGameTest {
     public void guideBook(GameTestHelper h) {
         ArrowsTests.ALL.get("guide_book").accept(h);
     }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingScreenMargins(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_screen_margins").accept(h);
+    }
 }

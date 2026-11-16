@@ -383,6 +383,11 @@ public final class QuestionaryTests {
         h.assertTrue(QuestionaryMenu.COLUMN_Y + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP + QuestionaryMenu.INVENTORY_BOX <= QuestionaryMenu.HEIGHT, "column fits the height");
         h.assertTrue(QuestionaryMenu.INVENTORY_X >= QuestionaryMenu.COLUMN_X && QuestionaryMenu.INVENTORY_X + 9 * 18 <= QuestionaryMenu.COLUMN_X + QuestionaryMenu.COLUMN_WIDTH
                 && QuestionaryMenu.SLOT_X > QuestionaryMenu.COLUMN_X && QuestionaryMenu.SLOT_X + 16 < QuestionaryMenu.COLUMN_X + QuestionaryMenu.COLUMN_WIDTH, "slots inside the column");
+        // N64 (A7 container margin): 3 px fill between the inventory box's light line and the slots left, right and under the hotbar
+        int invBoxTop = QuestionaryMenu.COLUMN_Y + QuestionaryMenu.DESK_HEIGHT + QuestionaryMenu.BOX_GAP, m = com.simplelib.api.client.ui.UiBoxes.MARGIN;
+        h.assertValueEqual(QuestionaryMenu.INVENTORY_X - (QuestionaryMenu.COLUMN_X + 5), m, "inventory box left margin");
+        h.assertValueEqual(QuestionaryMenu.COLUMN_X + QuestionaryMenu.INVENTORY_BOX_WIDTH - 5 - (QuestionaryMenu.INVENTORY_X + 8 * 18 + 17), m, "inventory box right margin");
+        h.assertValueEqual(invBoxTop + QuestionaryMenu.INVENTORY_BOX - 7 - (QuestionaryMenu.INVENTORY_Y + 58 + 17), m, "margin below the hotbar");
         // W23-6: the book grows with the screen, never at the smallest, evenly, never closer than EDGE to the screen edge.
         h.assertTrue(java.util.Arrays.equals(QuestionarySheet.bookGrowth(427, 240), new int[] {0, 0}), "smallest screen: base book");
         int[] fullHd = QuestionarySheet.bookGrowth(480, 270), big = QuestionarySheet.bookGrowth(640, 360);

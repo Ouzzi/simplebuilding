@@ -85,6 +85,15 @@ public final class StorageDecors {
         UiSymbols.engrave(g, UiSymbols.CROSS, slot.x + 4, slot.y + 4, block, block.slotTop(), false);
     }
 
+    /** N64: the static elements of the crafter and the mount screens by style id (box layout before the screen opens). */
+    static List<BoxLayout.Rect> elements(String styleId) {
+        return switch (styleId) {
+            case "crafter" -> CRAFTER_ELEMENTS;
+            case "mount", "nautilus" -> MOUNT.elements();
+            default -> List.of();
+        };
+    }
+
     /** Mount inventories: the sunk field behind the animal. */
     public static Decor mount() {
         return MOUNT;

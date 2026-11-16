@@ -378,20 +378,24 @@ public final class CrucibleTests {
             int crucibleBottom = wide.y() + wide.sectionHeight();
             int barrelBottom = wide.barrelBoxTop() + wide.barrelBoxHeight();
             check(h, wide.barrelBox() >= wide.crucibleLeft() + wide.crucibleWidth(), tier + ": barrel box not beside the crucible box");
-            // N37 (owner): Vanilla's 7 px from every box edge to its grid, left and right - compact boxes.
+            // N37 (owner): Vanilla's 7 px from every box edge to its grid on the left, N64: 8 on the right (3 px fill after the
+            // slot's light edge) - compact boxes.
             for (com.simplecrucibles.crucible.CrucibleMenu.Layout l : new com.simplecrucibles.crucible.CrucibleMenu.Layout[] {compact, wide}) {
                 int gridLeft = l.slotX(tier, 0) - 1, gridRight = gridLeft + com.simplecrucibles.crucible.CrucibleMenu.gridsWidth(tier);
-                check(h, gridLeft - l.crucibleLeft() == 7 && l.crucibleLeft() + l.crucibleWidth() - gridRight == 7,
+                check(h, gridLeft - l.crucibleLeft() == 7 && l.crucibleLeft() + l.crucibleWidth() - gridRight == 8,
                         tier + ": crucible margins " + (gridLeft - l.crucibleLeft()) + " / " + (l.crucibleLeft() + l.crucibleWidth() - gridRight));
             }
             int barrelGrid = wide.barrelX(tier, 0) - 1;
-            check(h, barrelGrid - wide.barrelBox() == 7 && wide.barrelBox() + wide.barrelBoxWidth() - barrelGrid - com.simplecrucibles.crucible.CrucibleMenu.gridsWidth(tier) == 7,
-                    tier + ": barrel margins not 7 px");
+            check(h, barrelGrid - wide.barrelBox() == 7 && wide.barrelBox() + wide.barrelBoxWidth() - barrelGrid - com.simplecrucibles.crucible.CrucibleMenu.gridsWidth(tier) == 8,
+                    tier + ": barrel margins not 7 / 8 px");
             check(h, wide.inventoryBoxTop() >= barrelBottom && wide.inventoryBoxTop() >= crucibleBottom, tier + ": inventory box not under both boxes");
             for (com.simplecrucibles.crucible.CrucibleMenu.Layout l : new com.simplecrucibles.crucible.CrucibleMenu.Layout[] {compact, wide}) {
                 int leftGap = l.inventoryLeft() - 1 - l.inventoryBoxLeft();
                 int rightGap = l.inventoryBoxLeft() + l.inventoryBoxWidth() - (l.inventoryLeft() - 1 + 162);
-                check(h, leftGap == 7 && rightGap == 7, tier + ": inventory margins " + leftGap + " / " + rightGap + " (Vanilla 7)");
+                check(h, leftGap == 7 && rightGap == 8, tier + ": inventory margins " + leftGap + " / " + rightGap + " (7 / 8: N64 3 px fill to the light line)");
+                // N64 (A7): 3 px fill under the hotbar (box bottom frame 7 with shadow)
+                check(h, l.inventoryBoxTop() + l.inventoryBoxHeight() - 7 - (l.inventoryTop() + 58 + 17) == com.simplelib.api.client.ui.UiBoxes.MARGIN,
+                        tier + ": margin below the hotbar");
             }
             check(h, com.simplecrucibles.crucible.CrucibleMenu.imageWidth(tier) <= 424, tier + ": window wider than 424 px (854x480 at scale 2)");
             check(h, com.simplecrucibles.crucible.CrucibleMenu.imageHeight(tier) <= 240, tier + ": panel does not fit 240 px (854x480 at scale 2)");

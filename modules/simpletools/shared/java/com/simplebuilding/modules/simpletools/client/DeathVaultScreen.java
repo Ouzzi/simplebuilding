@@ -4,6 +4,7 @@ import com.simplebuilding.modules.simpletools.vault.DeathVault;
 import com.simplebuilding.modules.simpletools.vault.DeathVaultMenu;
 import com.simplebuilding.modules.simpletools.vault.Fate;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMargin;
 import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
@@ -34,10 +35,9 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     static final UiPalette PALETTE = UiPalette.derived(0xFF3C2D57);
     private static final int PAUSE = 0xFF6E86B0, WARN = 0xFF8A3A00;
     /** First inventory row (as {@link DeathVaultMenu}), the vault box above it with the mod chests' 2 px gap, the inventory box. */
+    /** First player row (menu, before the N64 shift); the legend panel 2 px right of the vault box (177 wide since N64). */
     private static final int GAP = 2, INVENTORY_Y = DeathVaultMenu.GRID_Y + DeathVaultMenu.ROWS * 18 + 13;
-    private static final int VAULT_HEIGHT = INVENTORY_Y - UiBoxes.FRAME - GAP;
-    private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
-    private static final int PANEL_X = DeathVaultMenu.WIDTH + GAP, PANEL_W = 130;
+    private static final int PANEL_X = DeathVaultMenu.WIDTH + 1 + GAP, PANEL_W = 130;
     /**
      * Legend cards (owner 23.10.: variant A's status icons in variant C's group cards, the card frame in the style of the
      * other UI parts - outline and light line with stepped corners - and "Lost" red instead of orange): left edge, width,
@@ -69,8 +69,13 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
             Fate.OTHER, new String[] {"..ooooo..", ".o#####o.", ".o#ooo#o.", "..o..o#o.", "....o#o..", "...o#o...", "...ooo...", "...o#o...", "...ooo..."}));
     private Button offer;
 
+    /** N64 boxes (container margin, DeathVaultMargins): the player's slots sit {@code boxes.shift()} lower, the image grows. */
+    private final UiMargin.Boxes boxes;
+
     public DeathVaultScreen(DeathVaultMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, PANEL_X + PANEL_W, DeathVaultMenu.HEIGHT);
+        super(menu, inventory, title, PANEL_X + PANEL_W, DeathVaultMargins.boxes(menu).height());
+        this.boxes = DeathVaultMargins.boxes(menu);
+        UiMargin.moveInventory(menu.slots, this.boxes.shift());
         this.titleLabelX = 8;
         this.titleLabelY = 6;
     }
@@ -128,8 +133,9 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         // Vault box (grid + band) in the vault's violet with faint runes, the light inventory box below it (as the mod chests).
-        UiBoxes.box(g, leftPos, topPos, DeathVaultMenu.WIDTH, VAULT_HEIGHT, PALETTE);
-        UiBoxes.box(g, leftPos, topPos + INVENTORY_Y - UiBoxes.FRAME, DeathVaultMenu.WIDTH, INVENTORY_HEIGHT, UiPalette.INVENTORY);
+        UiMargin.Rect c = this.boxes.container(), inv = this.boxes.inventory();
+        UiBoxes.box(g, leftPos + c.x(), topPos + c.y(), c.width(), c.height(), PALETTE);
+        UiBoxes.box(g, leftPos + inv.x(), topPos + inv.y(), inv.width(), inv.height(), UiPalette.INVENTORY);
         List<int[]> avoid = new ArrayList<>();
         for (Slot slot : menu.slots) {
             if (slot.isActive() && slot.y < INVENTORY_Y) avoid.add(new int[] {slot.x - 1, slot.y - 1, slot.x + 17, slot.y + 17});
@@ -137,7 +143,7 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
         avoid.add(new int[] {4, 4, 12 + font.width(title), 15});
         avoid.add(new int[] {UiBoxes.FRAME, DeathVaultMenu.BAND_Y - 1, DeathVaultMenu.WIDTH - UiBoxes.FRAME, DeathVaultMenu.BAND_Y + 18});
         UiMotifs.draw(g, leftPos, topPos, UiMotifs.Kind.RUNE, UiBoxes.FRAME, UiBoxes.FRAME, DeathVaultMenu.WIDTH - 2 * UiBoxes.FRAME,
-                VAULT_HEIGHT - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, PALETTE, avoid, 5);
+                c.height() - UiBoxes.FRAME - UiBoxes.FRAME_BOTTOM, PALETTE, avoid, 5);
         // Only real fields get a sunk slot: rows without a drop stay plain, the offering slot only with the redeem option.
         for (Slot slot : menu.slots) {
             if (slot.isActive()) UiBoxes.slot(g, leftPos + slot.x, topPos + slot.y, slot.y >= INVENTORY_Y ? UiPalette.INVENTORY : PALETTE);
@@ -147,7 +153,7 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
 
     /** Legend box right of the vault in the same violet; its group cards are drawn with the labels ({@link #legend}). */
     private void panel(GuiGraphicsExtractor g) {
-        UiBoxes.box(g, leftPos + PANEL_X, topPos, PANEL_W, DeathVaultMenu.HEIGHT, PALETTE);
+        UiBoxes.box(g, leftPos + PANEL_X, topPos, PANEL_W, imageHeight, PALETTE);
     }
 
     // --- slots ---------------------------------------------------------------------------------------------------------
@@ -297,7 +303,7 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
             status = font.split(Component.translatable("screen.simpletools.death_vault.next", clock(next)), right - x);
         }
         if (!status.isEmpty()) {
-            int height = 2 + 3 + status.size() * 9 + 3, top = DeathVaultMenu.HEIGHT - UiBoxes.FRAME_BOTTOM - 2 - height;
+            int height = 2 + 3 + status.size() * 9 + 3, top = imageHeight - UiBoxes.FRAME_BOTTOM - 2 - height;
             card(g, top, height, 0, body);
             if (lyingStalled > 0) pauseMark(g, x, top + 5);
             for (int i = 0; i < status.size(); i++) g.text(font, status.get(i), x + (lyingStalled > 0 ? 12 : 0), top + 5 + i * 9, color, false);
