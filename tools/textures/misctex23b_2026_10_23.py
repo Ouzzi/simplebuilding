@@ -207,7 +207,19 @@ def materials():
 
 
 AMP_VARIANT = 'A'
-NOTE_STRENGTH = 0.6  # Note Amplifier and the framed note block: 60 % of the frame relief of the Jukebox Amplifier
+NOTE_STRENGTH = 0.6  # Note Amplifier: 60 % of the frame relief of the Jukebox Amplifier
+# N66 (owner 15.11.): framed note block without any gold/yellow/brass inlay, only the normal note block's wood, the frame
+# in full strength like the amplifiers. 'N1' (built) = grille in note block wood; 'N2' (alternative, page N66-2) = the
+# holes get depth like the amplifiers' material, but in the note block's own darkest wood.
+NOTE_FRAMED = 'N1'
+
+
+def note_block_framed(note, variant=AMP_VARIANT, kind=None):
+    kind = kind or NOTE_FRAMED
+    if kind == 'N1':
+        return framed(note, variant, None, 1.0).image()
+    wood = wood_ramp(note)
+    return framed(note, variant, [wood[0], wood[0], wood[1], wood[2], wood[3]], 1.0, 0.15).image()
 
 
 def amplifier_textures(note, variant=AMP_VARIANT):
@@ -216,7 +228,7 @@ def amplifier_textures(note, variant=AMP_VARIANT):
     mats = materials()
     juke = framed(note, variant, mats['astralit'], 1.0, 0.25).image()
     noteamp = framed(note, variant, mats['nihilith'], NOTE_STRENGTH, 0.4).image()
-    plain = framed(note, variant, None, NOTE_STRENGTH).image()
+    plain = note_block_framed(note, variant)
     nr = len(FRAMES_T10[variant]['rings'])
     for im in (juke, noteamp, plain):
         check_symmetry(im, nr)
