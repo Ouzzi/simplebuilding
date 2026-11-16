@@ -264,6 +264,11 @@ def grate_template():
 
 
 put(ASSETS / 'models/block/template_grate.json', grate_template())
+# N78, A12: the Vanilla copper grates get the same inner sides (model only, no gameplay change; a resource pack still wins; the waxed
+# grates use these models too). Owner objection = drop these four files (docs/ai/PLAN-N78-2026-11-16.md).
+for _age in ('', 'exposed_', 'weathered_', 'oxidized_'):
+    put(RES / f'assets/minecraft/models/block/{_age}copper_grate.json',
+        {'parent': f'{NS}:block/template_grate', 'textures': {'all': f'minecraft:block/{_age}copper_grate'}})
 # Silver mirror: a one pixel plate at the south side of the cell (facing north), the texture carries frame and glass; the item is a flat sprite.
 # N25: on the floor and the ceiling too, like the button (face=floor|wall|ceiling); the wall model turned down (x 270) or up (x 90).
 MIRROR_Y = (('north', 0), ('east', 90), ('south', 180), ('west', 270))
