@@ -2249,10 +2249,9 @@ function ownerOf(section, id) {
 var START = (function () {
   var p = pathParts(relPath());
   if (p) return { mod: p.mod, from: 'path' };
-  var m = modParams.get('mod');
-  if (wikiMod(m)) return { mod: m, from: 'query' };
-  var h = location.hash || '';
+  var m = modParams.get('mod'), h = location.hash || '';
   if (/^#\/allmods/.test(h) || modParams.get('tab') === 'allmods') return { mod: null, from: 'legacy' };
+  if (wikiMod(m)) return { mod: m, from: 'query' };
   /* Alte Einzelseiten-Links ohne Mod: in den Bereich des Namespace-Mods, sonst (alte Hash-Links) SimpleBuilding. */
   var LEGACY_SECTION = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', make: 'make', use: 'use', tree: 'tree' };
   var keys = Object.keys(LEGACY_SECTION);
@@ -3399,7 +3398,7 @@ function pagerHtml(prev, next) {
 
 function listPage(title, rows, opts) {
   opts = opts || {};
-  var h = '<div class="listhead"><h1>' + esc(title) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>' + (rows.length > 8 ? '<input type="search" data-filter placeholder="' + esc(T('filterPlaceholder')) + '" aria-label="' + esc(T('filterAria')) + '">' : '') + '</div>';
+  var h = crumbs([{ label: title }]) + '<div class="listhead"><h1>' + esc(title) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>' + (rows.length > 8 ? '<input type="search" data-filter placeholder="' + esc(T('filterPlaceholder')) + '" aria-label="' + esc(T('filterAria')) + '">' : '') + '</div>';
   if (opts.intro) h += opts.intro;
   /* N72: long lists get the shared zoom/full screen bar (assets/zoomarea.js) */
   var zk = rows.length > 40 ? ' data-zoom="list-' + esc(currentRoute().section || 'list') + '"' : '';
@@ -7050,6 +7049,8 @@ function render(opts) {
     if (window.console) console.error(err);
   }
   if (!html) html = '<div class="notfound">' + T('emptyPage') + '</div>';
+  /* N74: jede Seite ausser der Startseite traegt den Breadcrumb "Alle Mods > (Mod-Kette) > Seite". */
+  if (title && html.indexOf('class="crumbs"') < 0) html = crumbs([{ label: title }]) + html;
   closeCtx();
   closeQs();
   if (r.section !== 'search' && document.activeElement !== $q) $q.value = '';
