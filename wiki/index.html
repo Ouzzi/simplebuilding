@@ -2272,8 +2272,8 @@ var START = (function () {
 })();
 var selectedMod = START.mod;
 /* Umfang: der Mod mit allen Nachfahren; auf der Wurzel alle Mods des Modpack-Filters (simplebuilding zuerst). */
-function familyOf(id) { var out = [id]; MODULES.forEach(function (c) { if (c.parent === id && wikiMod(c.id)) out = out.concat(familyOf(c.id)); }); return out; }
-var SCOPE = selectedMod ? familyOf(selectedMod) : (function () {
+function modFamily(id) { var out = [id]; MODULES.forEach(function (c) { if (c.parent === id && wikiMod(c.id)) out = out.concat(modFamily(c.id)); }); return out; }
+var SCOPE = selectedMod ? modFamily(selectedMod) : (function () {
   var ids = PACK.ids.filter(wikiMod);
   if (!ids.length) ids = MODULES.map(function (m) { return m.id; }).filter(wikiMod);
   ids.sort(function (a, b) { return (b === 'simplebuilding') - (a === 'simplebuilding'); });
@@ -3216,7 +3216,7 @@ function modShort(id) { var m = modMetaRaw(id); return m ? m.displayName : id; }
 function modChain(id) { var out = []; while (id && modMetaRaw(id)) { out.unshift(id); id = modMetaRaw(id).parent; } return out; }
 function scopeLabel(mod) {
   if (!mod) return T('scopeAll', SCOPE.length);
-  var n = familyOf(mod).length - 1;
+  var n = modFamily(mod).length - 1;
   return modShort(mod) + (n ? ' + ' + T(n === 1 ? 'scopeSubOne' : 'scopeSubMany', n) : '');
 }
 function modIcon(m, cls) { return '<span class="mi' + (cls ? ' ' + cls : '') + '" aria-hidden="true">' + (m && m.icon ? '<img alt="" src="' + esc(m.icon) + '">' : '') + '</span>'; }
@@ -3238,14 +3238,14 @@ function famCounts(ids) {
 function fmtCount(n) { return Number(n).toLocaleString(LANG === 'de' ? 'de-DE' : 'en-US'); }
 function homeTops() {
   var tops = MODULES.filter(function (m) { return !m.parent && wikiMod(m.id); });
-  if (PACK.kind !== 'all') tops = tops.filter(function (m) { return familyOf(m.id).some(inPack); });
+  if (PACK.kind !== 'all') tops = tops.filter(function (m) { return modFamily(m.id).some(inPack); });
   return tops;
 }
 function isSuperMod(id) { return modChildren(id).some(function (c) { return wikiMod(c.id); }); }
 /* Startseite (N74, Variante B): 4 Super-Mods als grosse Kacheln, eigenstaendige klein, darunter "In allen Mods nachschlagen". */
 function pageHome() {
   var tops = homeTops();
-  var supers = tops.filter(function (m) { return isSuperMod(m.id); }).sort(function (a, b) { return familyOf(b.id).length - familyOf(a.id).length; });
+  var supers = tops.filter(function (m) { return isSuperMod(m.id); }).sort(function (a, b) { return modFamily(b.id).length - modFamily(a.id).length; });
   var solo = tops.filter(function (m) { return !isSuperMod(m.id); }).sort(function (a, b) { return a.displayName.localeCompare(b.displayName); });
   var all = famCounts(SCOPE);
   var h = '<section class="home-hero"><h1>' + esc(T('homeTitle')) + '</h1><p class="lead">' + esc(T('homeLead', SCOPE.length, fmtCount(all.entries), fmtCount(all.recipes))) + '</p>' +
@@ -3253,8 +3253,8 @@ function pageHome() {
   if (PACK.kind !== 'all') h += '<p class="pb-note" role="status">' + esc(T('pbFiltered', PACK.ids.length, PACK_MODS.length)) + ' <button type="button" class="btn" data-pack-set="all">' + esc(T('pbShowAll')) + '</button></p>';
   if (supers.length) {
     h += '<h2>' + esc(T('homeMods')) + '</h2><div class="modtiles">' + supers.map(function (m) {
-      var c = famCounts(familyOf(m.id));
-      return '<a class="modtile" href="' + esc(crossModHref(m.id)) + '" data-mod="' + esc(m.id) + '"><div class="mt-top">' + modIcon(m, 'big') + '<div><div class="mt-name">' + esc(m.displayName) + '</div><div class="mt-kind">' + esc(T('homeSuperKind', familyOf(m.id).length - 1)) + '</div></div></div>' +
+      var c = famCounts(modFamily(m.id));
+      return '<a class="modtile" href="' + esc(crossModHref(m.id)) + '" data-mod="' + esc(m.id) + '"><div class="mt-top">' + modIcon(m, 'big') + '<div><div class="mt-name">' + esc(m.displayName) + '</div><div class="mt-kind">' + esc(T('homeSuperKind', modFamily(m.id).length - 1)) + '</div></div></div>' +
         '<div class="mt-desc">' + esc(modPurpose(m) || m.description || '') + '</div><div class="mt-n">' + esc(c.entries || c.recipes ? T('homeTileN', fmtCount(c.entries), fmtCount(c.recipes)) : T('homeTileNone')) + '</div></a>';
     }).join('') + '</div>';
   }
@@ -6418,9 +6418,9 @@ function renderSidebar(active) {
   if (!selectedMod) {
     h += '<div class="sb-group">' + link('#/', 'overview', T('navAllMods'), glyph('⌂'), null) + link('#/browse', 'browse', T('navBrowse'), glyph('▤'), null) + link('#/structure', 'structure', T('navStructure'), glyph('⊢'), null) + '</div>';
     var tops = homeTops();
-    tops.sort(function (a, b) { return isSuperMod(b.id) - isSuperMod(a.id) || (isSuperMod(a.id) ? familyOf(b.id).length - familyOf(a.id).length : a.displayName.localeCompare(b.displayName)); });
+    tops.sort(function (a, b) { return isSuperMod(b.id) - isSuperMod(a.id) || (isSuperMod(a.id) ? modFamily(b.id).length - modFamily(a.id).length : a.displayName.localeCompare(b.displayName)); });
     h += '<div class="sb-group sb-mods"><div class="sb-title">' + esc(T('sbMods')) + '</div>' + tops.map(function (m) {
-      return link(crossModHref(m.id), '', m.displayName, modIcon(m), isSuperMod(m.id) ? familyOf(m.id).length - 1 : null);
+      return link(crossModHref(m.id), '', m.displayName, modIcon(m), isSuperMod(m.id) ? modFamily(m.id).length - 1 : null);
     }).join('') + '</div>';
     h += groups('all-');
     h += '<div class="sb-note">' + esc(T('countsScope', scopeLabel(null))) + '<br>' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
