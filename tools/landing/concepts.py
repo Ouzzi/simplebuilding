@@ -108,7 +108,7 @@ def full_icg(h):
     """b-rel13: die Icon-Galerie "Alle N Module" folgt modules.json (neue Mods wie Simple Layers kommen von selbst dazu).
     Reihenfolge wie der Entwurf: je Super-Mod (ausser SimpleBuilding) erst sie selbst, dann alle Nachfahren nach modtree,
     zuletzt "Weitere Mods" (SimpleLib + Mods ohne Super-Mod)."""
-    mods = {k: v for k, v in modtree.load(R).items() if k != 'wiringexample'}
+    mods = {k: v for k, v in modtree.load(R).items() if k != 'wiringexample' and v.get('released', True)}
     sup, rest = modtree.roots(mods)
 
     def desc(pid):
@@ -162,7 +162,7 @@ FOOTER = re.search(r'<footer.*?</footer>', base).group(0)
 SCRIPT = re.search(r'<script>.*?</script>', base, re.S).group(0).replace(
     'if(save)try', 'document.dispatchEvent(new CustomEvent("smlang",{detail:x}));if(save)try', 1)
 # ---------------------------------------------------------------- Daten
-MODS = {k: v for k, v in modtree.load(R).items() if k != 'wiringexample'}
+MODS = {k: v for k, v in modtree.load(R).items() if k != 'wiringexample' and v.get('released', True)}
 SUP, REST = modtree.roots(MODS)
 LANG = {'de': {}, 'en': {}}
 for l, f in (('de', 'de_de'), ('en', 'en_us')):
@@ -444,11 +444,11 @@ STAGES = [
              'simpleend:block/ashwood_log', 'simpleend:block/end_grass', 'simpleores:item/enderite_ingot'],
       mods=['simpleend', 'simpleores', 'simplebuilding', 'simpleenddragonfight', 'simplemobs']),
  dict(k='layers', de='Welt-Ebenen', en='World layers', c='#4fa3c7', bg='simplelayers:block/cloud_stone',
-      tde='Über y 700 schwebt das Wolkenmeer, unter dem Grundgestein warten die Backrooms mit gelber Tapete und Neonlicht. Und manchmal öffnet ein Spalt im Grundgestein das Grundgewölbe: drei Rätsel, dann trägt dich der Aufstiegsaltar wieder nach oben.',
-      ten='Above y 700 floats the Cloud Sea, below the bedrock the Backrooms wait with yellow wallpaper and neon lights. And sometimes a gap in the bedrock opens the Bedrock Vault: three riddles, then the ascent altar carries you back up.',
+      tde='Über y 700 schwebt das Wolkenmeer, unter dem Grundgestein warten die Backrooms mit gelber Tapete und Neonlicht.',
+      ten='Above y 700 floats the Cloud Sea, below the bedrock the Backrooms wait with yellow wallpaper and neon lights.',
       items=['simplelayers:block/cloud_block', 'simplelayers:block/wallpaper', 'simplelayers:block/neon_light', 'simplelayers:item/almond_water',
-             'simplelayers:item/chalk', 'simplevault:block/vault_gate', 'simplevault:item/seal_fragment_light', 'simplevault:item/seal_fragment_sound'],
-      mods=['simplelayers', 'simplevault']),
+             'simplelayers:item/chalk'],
+      mods=['simplelayers']),
  dict(k='endgame', de='Endgame', en='Endgame', c='#d4af37', bg='simpleenchanting:block/nihil_obsidian',
       tde='Ganz oben: der Enderit-Hammer, der Astral-Verzauberer auf Nihil-Obsidian, das Mächtige Leuchtfeuer und Bosse wie der Hollow Howler, der dich in der Deep Dark erwartet.',
       ten='At the top: the Enderite hammer, the Astral Enchanter on Nihil Obsidian, the Mighty Beacon and bosses like the Hollow Howler waiting in the Deep Dark.',
@@ -550,7 +550,6 @@ SHOW = [  # (mod, Titel de/en, Satz de/en, Hintergrund, Haupttexturen, wiki)
 ]
 NEWS = [  # aus git log (Datum, de, en)
  ('11.11.2026', 'Simple Machines bekommt Schmied und Auto-Crafter, Simple Gadgets sammelt Transponierer, Detektor, Attraktor, Echolot und Resonanzstab.', 'Simple Machines gets the Smither and the Auto Crafter, Simple Gadgets gathers the Transposer, Detector, Attractor, Echo Sounder and Resonance Rod.'),
- ('10.11.2026', 'Simple Vault: das Grundgewölbe unter dem Grundgestein mit drei Rätseln und Aufstiegsaltar wird eigenes Mod.', 'Simple Vault: the Bedrock Vault below the bedrock with three riddles and an ascent altar becomes its own mod.'),
  ('08.11.2026', 'Simple Layers: Wolkenmeer über y 700 und die Backrooms unter dem Grundgestein.', 'Simple Layers: the Cloud Sea above y 700 and the Backrooms below the bedrock.'),
  ('06.11.2026', 'Kompakte und dichte Blöcke für 19 Grundblöcke, Plattenpresse mit Farbstoff-Platz, gesprungene End-Ziegel.', 'Compact and dense blocks for 19 base blocks, disc press with a dye slot, cracked End bricks.'),
  ('05.11.2026', 'Free Look: Fadenkreuz am Zielpunkt. Roségold neu benannt, Silberblech und Blei-Pfeilspitze.', 'Free Look: crosshair at the aim point. Rose gold renamed, silver sheet and lead arrow tip.'),

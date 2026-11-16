@@ -161,8 +161,8 @@ def main(argv: list[str]) -> int:
     # Release docs
     for m in mods:
         mid, v = m["id"], version[m["id"]]
-        if m.get("example"):
-            rows.append(f"| {mid} | {v} | – | – | – | example, never published |")
+        if m.get("example") or m.get("release") is False:
+            rows.append(f"| {mid} | {v} | – | – | – | {'example, never published' if m.get('example') else 'not in the release (REL75)'} |")
             continue
         cl = R / f"docs/release/CHANGELOG-{mid}.md"
         page = R / f"docs/release/pages/{mid}.md"

@@ -89,7 +89,7 @@ def candidates(repo):
     props = gradle_props(repo)
     out = []
     for m in modselect.load_registry(repo):
-        if m.get("example"):
+        if m.get("example") or m.get("release") is False:
             continue
         for loader, project in (m.get("projects") or {}).items():
             out.append((m["id"], loader, m.get("minecraft", ""), repo.joinpath(*project.strip(":").split(":"), "build", "libs")))

@@ -114,6 +114,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 1
     },
+    "release": false,
     "dataHash": "a6c8d95399cc"
   },
   {
@@ -2366,6 +2367,7 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 3
     },
+    "release": false,
     "dataHash": "b17ae3d5a51d"
   },
   {

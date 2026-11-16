@@ -100,6 +100,7 @@
       "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
+      "release": false,
       "example": true,
       "projects": {
         "fabric": ":modules:wiringexample:fabric",
@@ -5421,6 +5422,7 @@
       "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
+      "release": false,
       "displayName": "Simple Vault",
       "description": "The Bedrock Vault (Grundgewoelbe): a rare gap in the Overworld bedrock leads into quiet halls enclosed by bedrock; three riddles and an ascent altar are the only way out.",
       "loaders": [

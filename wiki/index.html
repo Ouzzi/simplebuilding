@@ -1015,6 +1015,7 @@ en: {
   navTags: 'Tags', navConfig: 'Config',
   navFeatureCount: '{0} features',
   navAllMods: 'All mods', amIntro: 'Every super-mod with its sub-mods, generated from the module manifests (modules/modules.json) and the wiki data.', amSuper: 'Super-mod', amSub: 'Sub-mods', amStandalone: 'Standalone mods', amOtherGroup: 'Other mods',
+  notInRelease: 'not in the release',
   amRequired: 'required', amOptional: 'optional', amStatus: 'Status', amOpen: 'open points', amMissing: 'Missing until done', amAsOf: 'status as of {0} (docs/ai overview, German)', amNoSubs: 'No sub-mods', amBundle: 'Bundle', amLoaders: 'Loaders', amContent: 'Content',
   sbNote: 'Generated from the mod’s own data: <code>{0}</code>',
   metaData: 'Data: {0}',
@@ -1557,6 +1558,7 @@ de: {
   navTags: 'Tags', navConfig: 'Konfiguration',
   navFeatureCount: '{0} Features',
   navAllMods: 'Alle Mods', amIntro: 'Jeder Super-Mod mit seinen Sub-Mods, erzeugt aus den Modul-Manifesten (modules/modules.json) und den Wiki-Daten.', amSuper: 'Super-Mod', amSub: 'Sub-Mods', amStandalone: 'Eigenständige Mods', amOtherGroup: 'Weitere Mods',
+  notInRelease: 'nicht im Release',
   amRequired: 'Pflicht', amOptional: 'optional', amStatus: 'Stand', amOpen: 'offene Punkte', amMissing: 'Was bis „fertig“ fehlt', amAsOf: 'Stand vom {0} (Mod-Übersicht in docs/ai)', amNoSubs: 'Keine Sub-Mods', amBundle: 'Bündel', amLoaders: 'Loader', amContent: 'Inhalt',
   sbNote: 'Erzeugt aus den Daten der Mod: <code>{0}</code>',
   metaData: 'Daten: {0}',
@@ -3079,7 +3081,7 @@ function amCounts(m) {
   var c = m.counts || {}, names = [['items', 'navItems'], ['blocks', 'navBlocks'], ['recipes', 'navRecipes'], ['config', 'navConfig']];
   return names.filter(function (n) { return c[n[0]]; }).map(function (n) { return c[n[0]] + ' ' + T(n[1]); }).join(' · ');
 }
-function amLink(m) { return '<a href="' + esc(crossModHref(m.id, '', '')) + '">' + (m.icon ? '<img src="' + esc(m.icon) + '" alt="" width="32" height="32" style="image-rendering:pixelated;vertical-align:middle;margin-right:6px">' : '') + esc(m.displayName) + '</a>'; }
+function amLink(m) { return '<a href="' + esc(crossModHref(m.id, '', '')) + '">' + (m.icon ? '<img src="' + esc(m.icon) + '" alt="" width="32" height="32" style="image-rendering:pixelated;vertical-align:middle;margin-right:6px">' : '') + esc(m.displayName) + '</a>' + (m.release === false ? ' ' + badge(T('notInRelease'), 'warn') : ''); }
 function pageAllMods() {
   var h = '<section class="home-hero"><h1>' + esc(T('navAllMods')) + '</h1></section><p>' + esc(T('amIntro')) + '</p>';
   /* b-site01: filtered by the chosen modpack. */
@@ -3143,7 +3145,7 @@ function pageOverview() {
   var parent = meta.parent ? modMeta(meta.parent) : null;
   var h = '<section class="home-hero"><div class="home-head">' + (meta.icon ? '<img class="home-icon" src="' + esc(meta.icon) + '" alt="" width="56" height="56">' : '') +
     '<div><h1>' + esc(MOD.name || meta.displayName || MODID) + ' Wiki</h1>';
-  h += '<div class="badges">' + (MOD.version ? badge('v' + MOD.version, 'ok') : '') + arr(MOD.minecraftLines).map(function (l) { return badge('Minecraft ' + l); }).join('') + arr(MOD.loaders).map(function (l) { return badge(l); }).join('') +
+  h += '<div class="badges">' + (meta.release === false ? badge(T('notInRelease'), 'warn') : '') + (MOD.version ? badge('v' + MOD.version, 'ok') : '') + arr(MOD.minecraftLines).map(function (l) { return badge('Minecraft ' + l); }).join('') + arr(MOD.loaders).map(function (l) { return badge(l); }).join('') +
     (parent ? badge(T(meta.bundle === 'required' ? 'chipRequiredBy' : 'chipOptionalFor', parent.displayName), meta.bundle === 'required' ? 'ok' : '') + badge(T('chipAlone')) : '') + '</div></div></div>';
   var lead = welcome ? firstSentence(featureSummary(welcome)) : modIntro(meta);
   h += '<p class="lead">' + esc(lead || T('homeTagline')) + '</p>';
