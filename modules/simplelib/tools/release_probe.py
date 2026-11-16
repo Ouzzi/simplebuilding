@@ -41,6 +41,9 @@ def aim(s, px, py, pz, wait_s=0.8):
     return s.st()
 
 
+UUID = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}')
+
+
 def hover(s, st, x, y, name):
     """Rests the real pointer on window point (x, y) (a small move first so the screen sees a motion) and takes a shot."""
     s.io.move(*s.abs(st, x + 3, y + 3))
@@ -137,7 +140,8 @@ def config_screen(s, module, query, expect_title):
 
     def collect(name):
         cur = s.st()
-        names = [plain(e['label']) for e in cur.get('entries', []) if plain(e['label']).strip()]
+        # Cloth text/description rows carry a random UUID as field name and draw no option name: not options, skipped
+        names = [plain(e['label']) for e in cur.get('entries', []) if plain(e['label']).strip() and not UUID.fullmatch(plain(e['label']))]
         seen.extend(names)
         bad.extend(f'{name}: {n}' for n in names if raw_looking(n) or n not in texts)
         s.shot(f'config-{re.sub("[^a-z0-9]+", "-", name.lower()).strip("-") or "page"}')
