@@ -68,3 +68,25 @@ Teil 1 (Scanner mit Item-Frames) macht eine andere Session auf `b-tz77s`; Blaupa
 Plan-Abgleich; `tzedit_save.py check`; `build_editor.py --check`; Gametests `fabric-263` Filter `*test_centre*`,
 `integration-263` Filter `sbintegration:cross_mod*test_centre*`; Modul-Tests simpleores/simpleblocks/simplechess inkl.
 Standalone-Ziele; `check_data.py` der Module; precheck.
+
+## Phase 2 – Umsetzung / Abweichungen
+
+- Wie geplant: `layout_lines_metals.json` aus Scan + Rahmen (305 Rahmen-Löcher behalten ihr bisheriges Config-Item, nicht
+  sichtbar prüfbar bis zum neuen Scan), Spalten 53–103 umbenannt (`m_golem_statue`, `m_chest`, `m_pipe`, `m_hopper`,
+  `m_trapped_chest`, `m_torch`, `m_controller_chest`, `m_furnace`, `m_smoker`, `m_blast_furnace`, `m_cauldron`, `m_piston`,
+  `m_shulker_box`, `m_sticky_piston`, `m_paint_box`, `unused_76/77/78/85/92/94`, 100–103 = Dino-Rüstungen).
+- Rahmen aus Screenshots: Eisen 54–56 Eimer/Wasser/Lava (Vanilla); Eisen/Diamant 100–103 Dino-Rüstungen; Rosé 31 Pressling;
+  Diamant/Smaragd 31 rissig, 33 Kiesel; Netherit 31 Schrott; Weisheit 33 Kristallsplitter; Astralit 31 matter Staub
+  (vorher special_2); Nihilith 31 matter Splitter (angenommen, nicht im Bild); Netherit/Enderit 99 Ofenlore, 100–102
+  Eiche/Fichte/Birke-Ofenboot (Reihenfolge angenommen), 86 Farbkasten.
+- Unlesbar/unsicher → `#light`: Gold 61 (kleines Item, Goldrahmen mit Türkis), Netherit/Enderit 92 (kleines Item; wohl der
+  Steuertruhen-Rahmen, Steuertruhe steht als Block in 68), Netherit/Enderit 103/104 leere Rahmen, Astralit 106/Nihilith 107
+  (Item nach 31 umgezogen).
+- Doppelt vom Besitzer gesetzt: matte Astralit-/Nihilith-Erze in Rohblock (24) und 101 → 24 behalten, 101 `#light`.
+  Kartentisch (y=2 über Nihilith 54) als Streugut ignoriert.
+- Code: `#red` in Zusatz-/Sonderspalten rot (Marke `MISSING_OTHER`), aber nur explizites `#red` (unbekannte Ids einer
+  geladenen Mod halten eine Kern-Reihe weiter draußen, N63 – erster Testlauf zeigte sonst Ashwood/Duskwood-Warnungen).
+  Besitzer-Beispiele (`OrderAreas.examples`) folgen der Anordnung 16.11. (Weisheits-Splitter = Nugget, Netherit-Schrott = Roh),
+  `sageFamily` setzt den Splitter in die Nugget-Spalte.
+- Teil 3 gebaut wie geplant (Simple Ores, Simple Blocks, Simple Chess); Mauer-Rezepte 6→6 und Steinschneider 1→1.
+  Zurückgestellt wie geplant (Memory `n77-tz-offen.md`).
