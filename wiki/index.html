@@ -901,75 +901,196 @@ body.tx-lb-open { overflow: hidden; }
 .sm-name { font-weight: 650; color: var(--accent); }
 .sm-counts { font-size: .78rem; color: var(--muted); }
 .sm-purpose { flex-basis: 100%; font-size: .86rem; color: var(--muted); }
-/* Handbuch */
-.gb-tabs { display: flex; flex-wrap: wrap; gap: .35rem; margin: .8rem 0 0; position: relative; z-index: 1; }
-.gb-tab { display: inline-flex; align-items: center; gap: .35rem; padding: .4rem .7rem .55rem; border: 1px solid #6b4a2b; border-bottom: 0; border-radius: 8px 8px 0 0; background: #e7d3a6; color: #3b2a1c; font: inherit; font-size: .86rem; cursor: pointer; min-height: 36px; }
-.gb-tab[aria-selected="true"] { background: #f6ead0; font-weight: 700; transform: translateY(1px); }
-.gb-tab:focus-visible, .gb-link:focus-visible, .gb-book:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-/* Das Buch bleibt auch im dunklen Schema ein Pergament: innen gelten die hellen Farben (Rezepte, Slots, Text). */
-.gb-book { color-scheme: light; --bg: #f2efe6; --bg-2: #e9e5d8; --panel: #ffffff; --panel-2: #f7f5ef; --text: #1c1e21; --muted: #5f656c; --border: #d9d3c3; --border-strong: #bdb5a1; --accent: #336b20; --accent-strong: #285716; --accent-soft: #e2efd9; --accent-text: #ffffff; --code-bg: #ebe7dc; --slot-bg: #c6c6c6; --slot-hi: #ffffff; --slot-lo: #555555; --slot-text: #373737; }
-.gb-book { background: #6b4a2b; border-radius: 6px 12px 12px 6px; padding: 10px; box-shadow: var(--shadow-lg); max-width: 1080px; }
-.gb-spread { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 520px; }
-.gb-single .gb-spread { grid-template-columns: 1fr; min-height: 420px; }
-.gb-page { position: relative; background: #f6ead0; color: #3b2a1c; padding: 1.3rem 1.4rem 2.6rem; font-size: .95rem; line-height: 1.5; overflow-wrap: anywhere; display: flex; flex-direction: column; }
-.gb-spread > .gb-page:first-child:not(:last-child) { border-right: 1px solid #c9b48a; box-shadow: inset -12px 0 18px -14px rgba(59,42,28,.45); }
-.gb-spread > .gb-page + .gb-page { box-shadow: inset 12px 0 18px -14px rgba(59,42,28,.45); }
-.gb-blank { background: #f1e3c4; }
-.gb-page p { margin: 0 0 .6rem; }
-.gb-page ul { margin: 0 0 .6rem; padding-left: 1.2rem; }
-.gb-h { display: flex; align-items: center; gap: .5rem; font-size: 1.25rem; margin: 0 0 .2rem; color: #3b2a1c; }
-.gb-h3 { display: flex; align-items: center; gap: .45rem; font-size: 1.05rem; margin: .1rem 0 .6rem; color: #3b2a1c; text-transform: none; letter-spacing: 0; }
-.gb-jump { min-height: 36px; max-width: 16rem; border: 1px solid #c9b48a; border-radius: var(--radius-sm); background: #f6ead0; color: #3b2a1c; font: inherit; font-size: .88rem; padding: 0 .4rem; }
-.gb-sub, .gb-kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: #6e5840; margin: 0 0 .7rem; display: flex; align-items: center; gap: .35rem; }
-.gb-icon { width: 20px; height: 20px; image-rendering: pixelated; flex: none; }
-.gb-toc { list-style: none; margin: .2rem 0 0; padding: 0; }
+/* Handbuch und Fragentisch (N80, docs/ai/PLAN-B-N80-2026-11-16.md): wie die Spielbildschirme ModpackGuideScreen und
+   QuestionaryScreen. Alles in Spiel-Pixeln (--x/--y/--w/--h), mal --s (ganzzahlig, passt in #main). Die Buecher behalten
+   im dunklen Schema ihre eigenen Farben; innen gelten die hellen Wiki-Farben (Rezepte, Slots). */
+.gb-stage, .qn-stage { display: flow-root; --s: 2; --ink: #3b2a1c; --ink-soft: #7a6248; --ink-faint: #a08a6a; margin: .8rem 0 0; }
+.gb-book, .qn-book { color-scheme: light; --bg: #f2efe6; --bg-2: #e9e5d8; --panel: #ffffff; --panel-2: #f7f5ef; --text: #1c1e21; --muted: #5f656c; --border: #d9d3c3; --border-strong: #bdb5a1; --accent: #336b20; --accent-strong: #285716; --accent-soft: #e2efd9; --accent-text: #ffffff; --code-bg: #ebe7dc; --slot-bg: #c6c6c6; --slot-hi: #ffffff; --slot-lo: #555555; --slot-text: #373737; }
+.gb-book, .qn-book { position: relative; font-size: max(13px, calc(var(--s) * 4px + 6px)); line-height: 1.32; color: var(--ink); overflow-wrap: anywhere; }
+.gb-book:focus-visible, .qn-book:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.at { position: absolute; left: calc(var(--x, 0) * var(--s) * 1px); top: calc(var(--y, 0) * var(--s) * 1px); }
+.sz { width: calc(var(--w) * var(--s) * 1px); height: calc(var(--h) * var(--s) * 1px); }
+/* Ein Ausschnitt aus book.png (512x256): u, v, w, h in Textur-Pixeln. */
+.spr { display: block; width: calc(var(--w) * var(--s) * 1px); height: calc(var(--h) * var(--s) * 1px); background: url(assets/books/book.png) no-repeat calc(var(--u) * var(--s) * -1px) calc(var(--v) * var(--s) * -1px) / calc(512px * var(--s)) calc(256px * var(--s)); image-rendering: pixelated; }
+.gb-book { --w: 292; --h: 180; width: calc(292px * var(--s)); height: calc(180px * var(--s)); margin: calc(25px * var(--s)) calc(27px * var(--s)) 0; }
+.gb-single { width: calc(154px * var(--s)); margin-left: auto; margin-right: auto; }
+.gb-sheet { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.gb-icon { width: calc(16px * var(--s)); height: calc(16px * var(--s)); image-rendering: pixelated; flex: none; display: block; object-fit: contain; }
+.gb-icon.r3d { image-rendering: auto; }
+/* Abschnitte: der Seitenreiter um 90 Grad gedreht, oben aus dem Buch; die Reihe scrollt, wenn sie nicht passt. */
+.gb-tabs { position: absolute; left: calc(18px * var(--s)); right: 0; top: calc(-25px * var(--s)); height: calc(25px * var(--s)); display: flex; gap: calc(2px * var(--s)); overflow: auto hidden; scrollbar-width: none; z-index: 0; }
+.gb-tabs::-webkit-scrollbar { display: none; }
+.gb-tab { position: relative; flex: none; width: calc(20px * var(--s)); height: calc(25px * var(--s)); margin-top: calc(3px * var(--s)); padding: 0; border: 0; background: none; cursor: pointer; overflow: hidden; }
+.gb-tab[aria-selected="true"] { margin-top: 0; }
+.gb-tab .spr { position: absolute; left: 0; top: 0; transform-origin: 0 0; transform: translateY(calc(30px * var(--s))) rotate(-90deg); }
+.gb-tab .gb-icon { position: absolute; left: calc(2px * var(--s)); top: calc(3px * var(--s)); }
+.gb-tab:hover .spr { filter: brightness(1.08); }
+.gb-tab:focus-visible, .gb-stab:focus-visible, .gb-turn:focus-visible, .gb-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+/* Kapitel: rechts acht, links "Inhalt" und sechs weitere (gespiegelt), unter dem Buch. */
+.gb-stab { position: absolute; z-index: 0; width: calc(30px * var(--s)); height: calc(20px * var(--s)); padding: 0; border: 0; background: none; cursor: pointer; }
+.gb-stab .spr { position: absolute; left: 0; top: 0; }
+.gb-stab.gb-mirror .spr { transform: scaleX(-1); }
+.gb-stab .gb-icon { position: absolute; top: calc(2px * var(--s)); left: calc(10px * var(--s)); }
+.gb-stab.gb-mirror .gb-icon { left: calc(4px * var(--s)); }
+.gb-stab:hover .spr { filter: brightness(1.08); }
+/* Seiten: Inhaltsflaeche 116x142 ab (17|15) bzw. (159|15); Seitenzahl bei y 163. */
+.gb-page { position: absolute; z-index: 2; top: calc(15px * var(--s)); width: calc(116px * var(--s)); height: calc(142px * var(--s)); overflow: hidden auto; scrollbar-width: thin; scrollbar-color: var(--ink-faint) transparent; }
+/* Unter Text und Seitenzahl dieselbe Stelle der Textur (deckend, damit Farbe und Kontrast feststehen). */
+.gb-page, .gb-num { background: url(assets/books/book.png) no-repeat calc(var(--x) * var(--s) * -1px) calc(var(--y) * var(--s) * -1px) / calc(512px * var(--s)) calc(256px * var(--s)), #efe4c6; image-rendering: pixelated; }
+.gb-page > *, .gb-num { image-rendering: auto; }
+.gb-page p { margin: 0 0 .45em; }
+.gb-page ul { margin: 0 0 .45em; padding-left: 1.1em; }
+.gb-num { position: absolute; z-index: 2; top: calc(162px * var(--s)); width: calc(116px * var(--s)); text-align: center; color: var(--ink-soft); font-size: .9em; line-height: calc(10px * var(--s)); font-variant-numeric: tabular-nums; pointer-events: none; }
+.gb-h, .gb-h3 { font-weight: 700; color: var(--ink); margin: 0 0 .5em; font-size: 1em; line-height: 1.25; border: 0; padding: 0; text-transform: none; letter-spacing: 0; display: block; }
+.gb-center { text-align: center; }
+.gb-tag { font-style: italic; color: var(--ink-soft); margin: -.35em 0 .7em; }
+.gb-divider { margin: calc(2px * var(--s)) auto calc(4px * var(--s)); }
+.gb-label { color: var(--ink-soft); margin: 0 0 .15em; }
+.gb-toc { list-style: none; margin: 0; padding: 0; }
 .gb-toc li { margin: 0; }
-.gb-link { display: flex; align-items: center; gap: .5rem; width: 100%; text-align: left; background: none; border: 0; padding: .3rem .35rem; border-radius: 4px; color: #2f5d1c; font: inherit; cursor: pointer; min-height: 32px; }
-.gb-link:hover { background: rgba(107,74,43,.12); text-decoration: underline; }
-.gb-toc-small .gb-link { min-height: 28px; padding: .15rem .35rem; }
-.gb-lockmark { display: inline-flex; color: #7a3b16; }
-.gb-op, .gb-lock { font-size: .8rem; color: #7a3b16; }
-.gb-foot { position: absolute; left: 1.4rem; right: 1.4rem; bottom: .55rem; display: flex; justify-content: space-between; align-items: center; font-size: .8rem; color: #6e5840; }
-.gb-foot .gb-back { width: auto; min-height: 28px; padding: .1rem .3rem; }
-.gb-items { display: flex; flex-wrap: wrap; gap: 4px; margin: .4rem 0 .6rem; }
-.gb-recipes { display: grid; gap: .6rem; }
-.gb-recipe { background: rgba(255,255,255,.45); border: 1px solid #c9b48a; border-radius: 6px; padding: .4rem .5rem; }
-.gb-recipe-name { font-size: .8rem; font-weight: 650; margin-bottom: .25rem; }
-.gb-page .slot-text { color: var(--slot-text); }
-.gb-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .55rem 0 .1rem; color: #f6ead0; }
-.gb-nav .btn { min-width: 48px; min-height: 40px; font-size: 1.15rem; }
-.gb-nav .btn[disabled] { opacity: .45; cursor: default; }
-.gb-pos { font-size: .9rem; font-variant-numeric: tabular-nums; }
-.gb-keys { margin: .4rem 0 0; }
-/* Fragentisch */
+.gb-link { display: flex; align-items: center; gap: calc(4px * var(--s)); width: 100%; min-height: calc(18px * var(--s)); text-align: left; background: none; border: 0; padding: 0; color: var(--ink); font: inherit; line-height: 1.15; cursor: pointer; }
+.gb-link:hover { box-shadow: inset 0 calc(-1px * var(--s)) 0 rgba(80,58,40,.25); }
+.gb-link.gb-locked { color: var(--ink-soft); }
+.gb-lockmark { display: inline-flex; color: var(--ink-soft); }
+.gb-op, .gb-lock { font-size: .85em; color: #7a3b16; }
+.gb-kicker { color: var(--ink-soft); font-size: .85em; margin: 0 0 .2em; }
+.gb-turn { position: absolute; z-index: 3; top: calc(162px * var(--s)); padding: 0; border: 0; background: none; cursor: pointer; }
+.gb-turn:hover .spr, .gb-turn:focus-visible .spr { --v: 196; }
+.gb-turn[disabled] { visibility: hidden; }
+/* Items als Bilderrahmen (22x22), Rezepte mit den Slots, dem Pfeil und dem Ergebnisrahmen des Buchs. */
+.gb-items { display: flex; flex-wrap: wrap; gap: 0; margin: .3em 0 .5em; }
+.gb-book .slot { width: calc(18px * var(--s)); height: calc(18px * var(--s)); background: url(assets/books/book.png) no-repeat calc(-168px * var(--s)) calc(-184px * var(--s)) / calc(512px * var(--s)) calc(256px * var(--s)); box-shadow: none; border-radius: 0; image-rendering: pixelated; }
+.gb-book .slot img { width: calc(16px * var(--s)); height: calc(16px * var(--s)); }
+.gb-book .slot img.r3d { image-rendering: auto; }
+.gb-book .slot-text { font-size: 8px; color: var(--ink); }
+.gb-book .slot-count { font-size: calc(5px * var(--s) + 2px); }
+.gb-items .slot { width: calc(22px * var(--s)); height: calc(22px * var(--s)); background-position: calc(-344px * var(--s)) calc(-184px * var(--s)); }
+.gb-book .slot-result { width: calc(26px * var(--s)); height: calc(26px * var(--s)); background-position: calc(-188px * var(--s)) calc(-184px * var(--s)); }
+.gb-book .grid { gap: 0; --slot: calc(18px * var(--s)); }
+.gb-book .recipe-body { gap: calc(3px * var(--s)); flex-wrap: nowrap; align-items: center; }
+.gb-book .recipe-body > *, .qn-book .recipe-body > * { flex: none; }
+.gb-book .arrow { width: calc(22px * var(--s)); height: calc(15px * var(--s)); font-size: 0; padding: 0; flex: none; background: url(assets/books/book.png) no-repeat calc(-216px * var(--s)) calc(-184px * var(--s)) / calc(512px * var(--s)) calc(256px * var(--s)); image-rendering: pixelated; }
+.gb-book .plus { color: var(--ink-soft); }
+.gb-recipes { display: grid; gap: .5em; }
+.gb-recipe-name { font-size: .85em; font-weight: 700; margin-bottom: .15em; }
+.gb-recipe .recipe-meta, .gb-recipe .slot-label { color: var(--ink-soft); }
+.gb-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem 1rem; margin: .7rem 0 0; }
+.gb-pos { font-size: .9rem; font-variant-numeric: tabular-nums; color: var(--muted); }
+.gb-jump { min-height: 36px; max-width: 18rem; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); font: inherit; font-size: .88rem; padding: 0 .4rem; }
+.gb-keys { margin: .4rem 0 0; text-align: center; }
+/* Fragentisch: das Buch aus Flaechenfarben (Einband Lapis mit Goldnaht, Pergament), Saeule mit Pult und Inventar. */
 .qn-filters select { min-height: 36px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); padding: 0 .5rem; font: inherit; }
-.qn-open { margin: 1rem 0 1.2rem; }
-.qn-head { display: flex; align-items: center; gap: .8rem; margin-bottom: .6rem; }
-.qn-head h2 { margin: 0; border: 0; padding: 0; }
-.qn-close { margin-left: auto; }
-.qn-spread { grid-template-columns: repeat(3, 1fr); min-height: 240px; }
-.qn-page { padding-bottom: 1.3rem; }
+.qn-book { --cover: #2c4a86; --cover-light: #3f63a8; --cover-dark: #16264a; --paper: #f0e4c6; --paper-dark: #e4d4ae; --paper-light: #f8f0dc; --paper-edge: #d9c79f; --frame: #dcc9a0; --heading: #6b4423; --body: #57524b; --kw: #2e241a; --caption: #5e5545; --gold: #e8b923; --gold-light: #ffe27a; --gold-dark: #b5851a; --spine: #4a3a28;
+  width: calc(424px * var(--s)); height: calc(224px * var(--s)); margin: calc(17px * var(--s)) 0 0; color: var(--body); }
+.qn-cover { position: absolute; inset: 0; background: var(--cover); border: solid var(--cover-dark); border-width: calc(1px * var(--s)); border-radius: calc(1px * var(--s));
+  box-shadow: inset 0 calc(1px * var(--s)) 0 var(--cover-light); }
+.qn-cover::before { content: ''; position: absolute; inset: calc(1px * var(--s)); border: calc(1px * var(--s)) dashed var(--gold-dark); }
+.qn-cap { position: absolute; width: calc(5px * var(--s)); height: calc(5px * var(--s)); border: solid var(--gold); border-width: calc(2px * var(--s)) 0 0 calc(2px * var(--s)); z-index: 1; }
+.qn-cap.tr { right: 0; top: 0; transform: scaleX(-1); } .qn-cap.tl { left: 0; top: 0; } .qn-cap.bl { left: 0; bottom: 0; transform: scaleY(-1); } .qn-cap.br { right: 0; bottom: 0; transform: scale(-1); }
+.qn-paper { position: absolute; left: calc(5px * var(--s)); right: calc(5px * var(--s)); top: calc(4px * var(--s)); bottom: calc(5px * var(--s)); background: var(--paper-edge); box-shadow: inset 0 calc(-1px * var(--s)) 0 var(--paper-dark); }
+.qn-sheet { position: absolute; top: 0; bottom: calc(2px * var(--s)); width: calc(50% - 1px * var(--s)); background: var(--paper); }
+.qn-sheet::before { content: ''; position: absolute; inset: calc(3px * var(--s)); border: calc(1px * var(--s)) solid var(--frame); }
+.qn-sheet::after { content: ''; position: absolute; left: calc(8px * var(--s)); right: calc(8px * var(--s)); bottom: calc(23px * var(--s)); border-top: calc(1px * var(--s)) dotted var(--ink-faint); }
+.qn-sheet.l { left: 0; background: linear-gradient(to left, rgba(90,70,48,.42), rgba(90,70,48,.12) calc(6px * var(--s)), transparent calc(8px * var(--s))) , var(--paper); }
+.qn-sheet.r { right: 0; background: linear-gradient(to right, rgba(90,70,48,.42), rgba(90,70,48,.12) calc(6px * var(--s)), transparent calc(8px * var(--s))) , var(--paper); }
+.qn-fold { position: absolute; left: calc(50% - 1px * var(--s)); width: calc(2px * var(--s)); top: 0; bottom: 0; background: var(--spine); }
+.qn-bulge { position: absolute; left: calc(50% - 11px * var(--s)); width: calc(22px * var(--s)); bottom: calc(-3px * var(--s)); height: calc(7px * var(--s)); background: var(--cover); border: calc(1px * var(--s)) solid var(--cover-dark); border-radius: 0 0 50% 50% / 0 0 100% 100%; z-index: 1; }
+.qn-ribbon { position: absolute; z-index: 0; top: calc(-11px * var(--s)); width: calc(24px * var(--s)); height: calc(16px * var(--s)); padding: calc(2px * var(--s)) 0 0; border: calc(1px * var(--s)) solid #1e1f23; border-bottom: 0; border-radius: calc(2px * var(--s)) calc(2px * var(--s)) 0 0; color: #fff; font: inherit; font-weight: 700; font-size: .85em; line-height: 1; cursor: pointer; filter: brightness(.82); box-shadow: inset calc(1px * var(--s)) 0 0 rgba(255,255,255,.3); }
+.qn-ribbon[aria-pressed="true"] { top: calc(-14px * var(--s)); height: calc(19px * var(--s)); filter: none; box-shadow: inset calc(1px * var(--s)) 0 0 rgba(255,255,255,.3), inset 0 calc(1px * var(--s)) 0 var(--gold); }
+.qn-ribbon:hover { filter: brightness(1.05); }
+.qn-ribbon.n1 { background: #b03a2e; } .qn-ribbon.n2 { background: #3a63b0; } .qn-ribbon.n3 { background: #7a3fa8; }
+.qn-text { position: absolute; z-index: 2; width: calc(105px * var(--s)); background: var(--paper); }
+.qn-h { color: var(--heading); font-weight: 400; margin: 0; font-size: 1em; line-height: calc(11px * var(--s)); border: 0; padding: 0; text-transform: none; letter-spacing: 0; }
+.qn-div { position: relative; height: calc(1px * var(--s)); background: var(--ink-faint); margin: calc(1px * var(--s)) 0 calc(5px * var(--s)); }
+.qn-div::after { content: ''; position: absolute; left: calc(50% - 2px * var(--s)); top: calc(-2px * var(--s)); width: calc(3px * var(--s)); height: calc(3px * var(--s)); background: var(--gold); outline: calc(1px * var(--s)) solid var(--gold-dark); transform: rotate(45deg); }
+.qn-body { height: calc(161px * var(--s)); overflow: hidden auto; scrollbar-width: thin; scrollbar-color: var(--ink-faint) transparent; }
+.qn-body p { margin: 0 0 calc(5px * var(--s)); }
+.qn-kw { color: var(--kw); font-weight: 700; }
+.qn-caption { color: var(--caption); }
+.qn-center { text-align: center; }
+.qn-turn { position: absolute; z-index: 3; top: calc(204px * var(--s)); width: calc(18px * var(--s)); height: calc(10px * var(--s)); padding: 0; border: 0; cursor: pointer; background: var(--ink-soft);
+  clip-path: polygon(0 50%, 28% 0, 28% 30%, 100% 30%, 100% 70%, 28% 70%, 28% 100%); }
+.qn-turn.next { transform: scaleX(-1); }
+.qn-turn:hover, .qn-turn:focus-visible { background: var(--gold-dark); }
+.qn-turn[disabled] { background: rgba(160,138,106,.25); cursor: default; }
+.qn-num { position: absolute; z-index: 2; top: calc(204px * var(--s)); left: calc(306px * var(--s)); width: calc(87px * var(--s)); text-align: center; color: var(--heading); line-height: calc(10px * var(--s)); font-variant-numeric: tabular-nums; background: var(--paper); }
+/* Saeule: Pult (Lapis) und Inventar (hell), UiBoxes: Rand, Fase, Band, Lichtkante. */
+.qn-box { position: absolute; z-index: 2; width: calc(177px * var(--s)); border-radius: calc(3px * var(--s)); --f: #2b3f7c; --b1: #233367; --b2: #1b284f; --li: #62719e;
+  background: var(--f); box-shadow: inset 0 0 0 calc(1px * var(--s)) #1e1f23, inset 0 0 0 calc(2px * var(--s)) var(--b1), inset 0 0 0 calc(4px * var(--s)) var(--b2), inset 0 0 0 calc(5px * var(--s)) var(--li), calc(1px * var(--s)) calc(2px * var(--s)) 0 calc(1px * var(--s)) rgba(0,0,0,.12); }
+.qn-desk { left: calc(124px * var(--s)); top: calc(8px * var(--s)); height: calc(106px * var(--s)); color: #fff; }
+.qn-inv { left: calc(124px * var(--s)); top: calc(116px * var(--s)); height: calc(102px * var(--s)); --f: #c6c6c6; --b1: #a2a2a2; --b2: #7e7e7e; --li: #ffffff; color: #404040; }
+.qn-boxtitle { position: absolute; left: calc(8px * var(--s)); top: calc(5px * var(--s)); right: calc(8px * var(--s)); line-height: calc(10px * var(--s)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qn-x { position: absolute; right: calc(6px * var(--s)); top: calc(5px * var(--s)); width: calc(11px * var(--s)); height: calc(11px * var(--s)); padding: 0; border: 0; background: none; color: #dfe4f2; font: inherit; line-height: 1; cursor: pointer; }
+.qn-x:hover { color: #fff; }
+.qn-deskin { position: absolute; pointer-events: none; left: calc(50% - 88.5px * var(--s)); top: 0; width: calc(177px * var(--s)); height: calc(106px * var(--s)); }
+.qn-ring { position: absolute; left: 0; top: 0; width: calc(1px * var(--s)); height: calc(1px * var(--s)); }
+.qn-big { position: absolute; left: calc(76px * var(--s)); top: calc(30px * var(--s)); width: calc(24px * var(--s)); height: calc(24px * var(--s)); display: flex; align-items: center; justify-content: center; background: #213160; box-shadow: inset calc(1px * var(--s)) calc(1px * var(--s)) 0 #1b284f, calc(1px * var(--s)) calc(1px * var(--s)) 0 #62719e; color: #c8d0ea; }
+.qn-big img, .qn-slot img { width: calc(16px * var(--s)); height: calc(16px * var(--s)); image-rendering: pixelated; display: block; object-fit: contain; }
+.qn-big img.r3d, .qn-slot img.r3d, .qn-plate img.r3d { image-rendering: auto; }
+.qn-name { position: absolute; left: calc(10px * var(--s)); right: calc(10px * var(--s)); top: calc(64px * var(--s)); text-align: center; line-height: calc(10px * var(--s)); }
+.qn-name b { display: block; font-weight: 400; color: #fff; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.qn-name i { display: block; margin-top: calc(4px * var(--s)); color: #c4cbe0; }
+.qn-slots { position: absolute; left: calc(7px * var(--s)); top: calc(16px * var(--s)); display: grid; grid-template-columns: repeat(9, calc(18px * var(--s))); grid-auto-rows: calc(18px * var(--s)); }
+.qn-slots li { list-style: none; }
+.qn-slots li:nth-child(n+28) { margin-top: calc(4px * var(--s)); }
+.qn-slot { display: flex; align-items: center; justify-content: center; width: calc(18px * var(--s)); height: calc(18px * var(--s)); background: #8b8b8b; box-shadow: inset calc(1px * var(--s)) calc(1px * var(--s)) 0 #373737, inset calc(-1px * var(--s)) calc(-1px * var(--s)) 0 #fff; color: #222; font-size: 9px; text-decoration: none; overflow: hidden; }
+a.qn-slot:hover { background: #a6a6a6; text-decoration: none; }
+.qn-slot.on { background: #c8b46a; }
+.qn-slots { padding: 0; margin: 0; }
+.qn-pager { position: absolute; right: calc(6px * var(--s)); top: calc(4px * var(--s)); display: flex; align-items: center; gap: calc(2px * var(--s)); line-height: 1; }
+.qn-pager button { min-width: calc(10px * var(--s)); height: calc(10px * var(--s)); padding: 0 calc(2px * var(--s)); border: 0; background: #8b8b8b; color: #fff; font: inherit; font-size: .8em; cursor: pointer; }
+.qn-pager button[disabled] { opacity: .45; cursor: default; }
+.qn-pager span { font-size: .85em; font-variant-numeric: tabular-nums; }
+.qn-plate { position: relative; width: calc(60px * var(--s)); height: calc(60px * var(--s)); margin: calc(6px * var(--s)) auto calc(4px * var(--s)); background: var(--paper-light); box-shadow: inset 0 0 0 calc(1px * var(--s)) var(--frame), inset 0 0 0 calc(2px * var(--s)) var(--paper-dark); display: flex; align-items: center; justify-content: center; }
+.qn-plate::before, .qn-plate::after { content: ''; position: absolute; width: calc(3px * var(--s)); height: calc(3px * var(--s)); background: var(--gold-dark); box-shadow: calc(57px * var(--s)) 0 0 var(--gold-dark), 0 calc(57px * var(--s)) 0 var(--gold-dark), calc(57px * var(--s)) calc(57px * var(--s)) 0 var(--gold-dark); left: 0; top: 0; }
+.qn-plate::after { width: calc(1px * var(--s)); height: calc(1px * var(--s)); left: calc(1px * var(--s)); top: calc(1px * var(--s)); background: var(--gold-light); box-shadow: calc(57px * var(--s)) 0 0 var(--gold-light), 0 calc(57px * var(--s)) 0 var(--gold-light), calc(57px * var(--s)) calc(57px * var(--s)) 0 var(--gold-light); }
+.qn-plate img { width: calc(48px * var(--s)); height: calc(48px * var(--s)); image-rendering: pixelated; object-fit: contain; }
+.qn-fam { display: flex; flex-wrap: wrap; gap: 0; margin: calc(2px * var(--s)) 0; }
+.qn-fam .qn-slot { background: #d8c79e; box-shadow: inset calc(1px * var(--s)) calc(1px * var(--s)) 0 #a49067, inset calc(-1px * var(--s)) calc(-1px * var(--s)) 0 #f2e6c8; }
+.qn-lens { position: relative; width: calc(94px * var(--s)); height: calc(94px * var(--s)); margin: calc(2px * var(--s)) auto calc(4px * var(--s)); border-radius: 50%; background: var(--paper-light); box-shadow: 0 0 0 calc(2px * var(--s)) var(--gold), 0 0 0 calc(3px * var(--s)) var(--gold-dark); display: flex; align-items: center; justify-content: center; }
+.qn-lens::after { content: ''; position: absolute; right: calc(-9px * var(--s)); bottom: calc(-9px * var(--s)); width: calc(14px * var(--s)); height: calc(3px * var(--s)); background: var(--cover-dark); transform: rotate(45deg); border-left: calc(3px * var(--s)) solid var(--gold-dark); }
+.qn-lens-img { position: relative; width: calc(80px * var(--s)); height: calc(80px * var(--s)); }
+.qn-lens-img img { width: 100%; height: 100%; image-rendering: pixelated; object-fit: contain; display: block; }
+.qn-lens-img::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to right, rgba(0,0,0,.09) 0 calc(1px * var(--s)), transparent calc(1px * var(--s)) calc(5px * var(--s))), repeating-linear-gradient(to bottom, rgba(0,0,0,.09) 0 calc(1px * var(--s)), transparent calc(1px * var(--s)) calc(5px * var(--s))); pointer-events: none; }
+.qn-tex { font-size: .85em; color: var(--caption); word-break: break-all; }
+.qn-links { display: flex; flex-direction: column; gap: .15em; margin-top: .4em; }
+.qn-links a { color: #2f5d1c; }
+.qn-book .slot-label { color: var(--caption); }
+.qn-book .recipe-body { gap: calc(3px * var(--s)); flex-wrap: nowrap; }
+.qn-book .slot { width: calc(18px * var(--s)); height: calc(18px * var(--s)); background: #d8c79e; box-shadow: inset calc(1px * var(--s)) calc(1px * var(--s)) 0 #a49067, inset calc(-1px * var(--s)) calc(-1px * var(--s)) 0 #f2e6c8; border-radius: 0; }
+.qn-book .slot img { width: calc(16px * var(--s)); height: calc(16px * var(--s)); }
+.qn-book .slot-result { width: calc(24px * var(--s)); height: calc(24px * var(--s)); }
+.qn-book .grid { gap: 0; --slot: calc(18px * var(--s)); }
+.qn-book .arrow { font-size: 1.3em; color: var(--caption); padding: 0; }
+.qn-book .slot-text { font-size: 8px; }
+.qn-head { display: none; }
 .qn-grid { list-style: none; padding: 0; margin: .6rem 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .4rem; }
 .qn-item { display: grid; grid-template-columns: 32px 1fr; grid-template-rows: auto auto; column-gap: .55rem; align-items: center; padding: .35rem .5rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); min-height: 48px; }
 .qn-item:hover { border-color: var(--border-strong); text-decoration: none; background: var(--panel-2); }
 .qn-item.active { border-color: var(--accent); background: var(--accent-soft); }
 .qn-ico { grid-row: 1 / 3; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; }
 .qn-ico img { width: 32px; height: 32px; image-rendering: pixelated; }
-.qn-fam { font-size: 1.1rem; color: var(--muted); }
-.qn-name { font-weight: 600; overflow-wrap: anywhere; }
+.qn-famglyph { font-size: 1.1rem; color: var(--muted); }
+.qn-iname { font-weight: 600; overflow-wrap: anywhere; }
 .qn-ns { font-size: .76rem; color: var(--muted); }
 .qn-variants { margin: 0 0 .8rem; padding-left: 1.4rem; }
+/* Schmal: das Buch fliesst untereinander (Pult, Textseite, Bildseite, Inventar) im selben Einband. */
+.qn-book.qn-narrow { width: auto; max-width: calc(200px * var(--s)); height: auto; margin-left: auto; margin-right: auto; padding: calc(8px * var(--s)) calc(3px * var(--s)) calc(16px * var(--s)); display: flex; flex-direction: column; gap: calc(4px * var(--s)); }
+.qn-narrow .qn-paper, .qn-narrow .qn-fold, .qn-narrow .qn-bulge { display: none; }
+.qn-narrow .qn-box, .qn-narrow .qn-text, .qn-narrow .qn-num { position: relative; left: auto; top: auto; margin: 0; }
+.qn-narrow .qn-box { width: auto; align-self: stretch; flex: none; }
+.qn-narrow .qn-desk { order: 1; } .qn-narrow .qn-text.l { order: 2; } .qn-narrow .qn-text.r { order: 3; } .qn-narrow .qn-inv { order: 4; }
+.qn-narrow .qn-slots { left: calc(50% - 81px * var(--s)); }
+.qn-narrow .qn-text { width: auto; align-self: stretch; background: var(--paper); padding: calc(6px * var(--s)) calc(7px * var(--s)); box-shadow: inset 0 0 0 calc(1px * var(--s)) var(--frame); }
+.qn-narrow .qn-body { height: auto; max-height: none; }
+.qn-narrow .qn-ribbon { top: calc(-11px * var(--s)); }
+.qn-narrow .qn-ribbon[aria-pressed="true"] { top: calc(-14px * var(--s)); }
+.qn-narrow .qn-turn { top: auto; bottom: calc(3px * var(--s)); }
+.qn-narrow .qn-num { width: auto; color: #fff; order: 9; background: none; }
+.qn-narrow .qn-turn.prev { left: calc(8px * var(--s)); }
+.qn-narrow .qn-turn.next { left: auto; right: calc(8px * var(--s)); }
 @media (max-width: 760px) {
-  .gb-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 1px; }
-  .gb-tab { flex: none; }
-  .gb-nav { flex-wrap: wrap; gap: .5rem .8rem; }
-  .gb-jump { order: 3; flex-basis: 100%; max-width: none; }
-  .gb-single .gb-nav { position: sticky; bottom: 0; z-index: 2; background: #6b4a2b; margin: 0 -10px -10px; padding: .5rem 10px; border-radius: 0 0 12px 6px; }
-  .gb-page { padding: 1rem 1rem 2.6rem; }
-  .gb-foot { left: 1rem; right: 1rem; }
-  .qn-spread { grid-template-columns: 1fr; }
-  .qn-spread > .gb-page { border-right: 0 !important; box-shadow: none !important; border-bottom: 1px solid #c9b48a; }
-  .qn-head { flex-wrap: wrap; }
+  .gb-jump { flex-basis: 100%; max-width: none; }
 }
 /* N73 Runde 5: Telefon - kompaktere Kacheln, kurze Kategorie-Texte, keine Tastenkürzel im Fuß */
 @media (max-width: 640px) {
@@ -6088,14 +6209,19 @@ function gbSections() {
   out.sort(function (a, b) { return a.order - b.order || a.id.localeCompare(b.id); });
   return out;
 }
-var GB_PER_CONTENTS = 12;
+var GB_PER_CONTENTS = 7, GB_FIRST_CONTENTS = 6;
 /* Seitenfolge eines Abschnitts: Inhalt, dann jedes Kapitel ab einer neuen Doppelseite (linke Seite). */
 function gbPages(sec) {
   var entries = [], pages = [];
   if (sec.own) arr(sec.own.topics).forEach(function (t, ti) { entries.push({ kind: 'topic', t: t, ti: ti }); });
   sec.chapters.forEach(function (c, ci) { entries.push({ kind: 'chapter', c: c, ci: ci }); });
-  var nContents = Math.max(1, Math.ceil(entries.length / GB_PER_CONTENTS));
-  for (var i = 0; i < nContents; i++) pages.push({ kind: 'contents', first: i === 0, list: entries.slice(i * GB_PER_CONTENTS, (i + 1) * GB_PER_CONTENTS) });
+  /* N80: so viele Eintraege wie im Spiel auf eine Seite passen (142 px / 18 px, die erste mit Titel und Untertitel). */
+  var first = sec.own ? GB_FIRST_CONTENTS - 1 : GB_FIRST_CONTENTS, at = 0;
+  do {
+    var n = at === 0 ? first : GB_PER_CONTENTS;
+    pages.push({ kind: 'contents', first: at === 0, list: entries.slice(at, at + n) });
+    at += n;
+  } while (at < entries.length);
   function newSpread() { if (pages.length % 2) pages.push({ kind: 'blank' }); }
   entries.forEach(function (en) {
     newSpread();
@@ -6122,13 +6248,29 @@ function gbResolve(id) {
   GB_ALIAS[id] = hit || '';
   return hit || id;
 }
+/* N80: Buchseiten in Spiel-Pixeln (ModpackGuideScreen/ModpackGuideBar), mal --s. */
+var GB_W = 292, GB_SINGLE_W = 154, GB_LEFT_X = 17, GB_RIGHT_X = 159, GB_RIGHT_TABS = 8, GB_LEFT_TABS = 6;
+function spr(u, v, w, h, cls, style) {
+  return '<span class="spr' + (cls ? ' ' + cls : '') + '" style="--u:' + u + ';--v:' + v + ';--w:' + w + ';--h:' + h + (style ? ';' + style : '') + '" aria-hidden="true"></span>';
+}
+function at(x, y) { return '--x:' + x + ';--y:' + y; }
+/* Breite von #main ohne Innenabstand: daraus der ganzzahlige Faktor der Buecher. */
+function bookAvail() {
+  var cs = window.getComputedStyle($main);
+  return Math.max(0, $main.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0));
+}
+function bookFit(gamePx, maxS) { return Math.max(1, Math.min(maxS || 4, Math.floor(bookAvail() / gamePx))); }
+function gbNarrow() { return bookAvail() < 346 * 2; }
+function gbScale(narrow) {
+  if (narrow) return bookFit(GB_SINGLE_W + 4, 3);
+  return Math.max(1, Math.min(bookFit(346), Math.floor(((window.innerHeight || 800) - 110) / 215)));
+}
 function gbIcon(id, size) {
   if (!id) return '';
   id = gbResolve(id);
   var tex = textureOf(id);
-  return tex && !MISSING_TEX[tex] ? '<img class="gb-icon" src="' + esc(tex) + '" alt="" width="' + (size || 20) + '" height="' + (size || 20) + '" loading="lazy">' : '';
+  return tex && !MISSING_TEX[tex] ? '<img class="gb-icon' + (/\/render\//.test(tex) ? ' r3d' : '') + '" src="' + esc(tex) + '" alt="" width="' + (size || 16) + '" height="' + (size || 16) + '" loading="lazy">' : '';
 }
-/* Absaetze und "- "-Aufzaehlungen wie im Buchbildschirm. */
 function gbText(text) {
   var out = [], list = [];
   function flush() { if (list.length) { out.push('<ul>' + list.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>'); list = []; } }
@@ -6141,11 +6283,8 @@ function gbText(text) {
   flush();
   return out.join('');
 }
-function gbLockNote(c) {
-  if (!c.advancement) return '';
-  var what = c.hint ? T('gbLockedPick', displayName(c.hint)) : c.advancement;
-  return '<p class="gb-lock">' + esc(T('gbLocked', what)) + '</p>';
-}
+function gbLockText(c) { return c.advancement ? T('gbLocked', c.hint ? T('gbLockedPick', displayName(c.hint)) : c.advancement) : ''; }
+function gbLockNote(c) { var t = gbLockText(c); return t ? '<p class="gb-lock">' + esc(t) + '</p>' : ''; }
 function gbRecipeHtml(id) {
   /* "ns:pfad" = Rezept-Id, sonst das Ergebnis-Item: das erste Rezept aller Mods, das es herstellt. */
   var found = null, alias = gbResolve(id);
@@ -6163,44 +6302,66 @@ function gbRecipeHtml(id) {
   var res = normStack(found.result);
   return '<div class="gb-recipe"><div class="gb-recipe-name">' + esc(res ? displayName(res.id) : found.id) + '</div><div class="recipe-body">' + recipeBodyHtml(found) + '</div></div>';
 }
-function gbPageHtml(pg, built, sec, index) {
+function gbEntryTitle(en) { return en.kind === 'topic' ? bothText(en.t.title) : bothText(en.c.title); }
+function gbEntryIcon(en) {
+  return en.kind === 'topic' ? (arr(en.t.chapters).map(function (c) { return c.icon; }).find(function (i) { return i && textureOf(gbResolve(i)); }) || null) : en.c.icon;
+}
+function gbUi(key, fallback) { var ui = (gbData() || {}).ui || {}; return ui[key] ? bothText(ui[key]) : fallback; }
+var GB_DIVIDER = '<span class="gb-divider spr" style="--u:240;--v:184;--w:100;--h:7" aria-hidden="true"></span>';
+function gbPageHtml(pg, built, sec, index, x) {
   var h = '';
-  if (!pg) return '<div class="gb-page gb-empty" aria-hidden="true"></div>';
-  if (pg.kind === 'blank') return '<div class="gb-page gb-blank" aria-hidden="true"></div>';
+  var num = '<div class="gb-num at" style="' + at(x, 162) + '">' + (index + 1) + '</div>';
+  if (!pg || pg.kind === 'blank') return '<div class="gb-page gb-blank at" style="' + at(x, 15) + '" aria-hidden="true"></div>' + (pg ? num : '');
   if (pg.kind === 'contents') {
-    if (pg.first) h += '<h2 class="gb-h">' + gbIcon(sec.icon, 24) + esc(bothText(sec.name)) + '</h2><div class="gb-sub">' + esc(T('gbContents')) + '</div>';
+    if (pg.first) {
+      h += '<h2 class="gb-h' + (sec.own ? ' gb-center' : '') + '">' + esc(bothText(sec.name)) + '</h2><div class="gb-tag' + (sec.own ? ' gb-center' : '') + '">' + esc(gbUi('tagline', T('gbContents'))) + '</div>';
+      if (sec.own) h += GB_DIVIDER + '<div class="gb-label">' + esc(T('gbTopics')) + '</div>';
+    }
     h += '<ol class="gb-toc">' + pg.list.map(function (en) {
-      var title = en.kind === 'topic' ? bothText(en.t.title) : bothText(en.c.title);
-      var icon = en.kind === 'topic' ? (arr(en.t.chapters).map(function (c) { return c.icon; }).find(function (i) { return i && textureOf(i); }) || null) : en.c.icon;
-      var lockText = en.kind === 'chapter' && en.c.advancement ? T('gbLocked', en.c.hint ? T('gbLockedPick', displayName(en.c.hint)) : en.c.advancement) : '';
+      var lockText = en.kind === 'chapter' ? gbLockText(en.c) : '';
       var lock = lockText ? ' <span class="gb-lockmark" role="img" aria-label="' + esc(lockText) + '" title="' + esc(lockText) + '"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="3" y="7" width="10" height="8" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>' : '';
       var op = en.kind === 'topic' && en.t.operatorOnly ? ' <span class="gb-op">' + esc(T('gbOperator')) + '</span>' : '';
-      return '<li><button type="button" class="gb-link" data-gb-go="' + en.start + '">' + gbIcon(icon) + '<span>' + esc(title) + '</span>' + lock + op + '</button></li>';
+      return '<li><button type="button" class="gb-link' + (lockText ? ' gb-locked' : '') + '" data-gb-go="' + en.start + '">' + gbIcon(gbEntryIcon(en)) + '<span>' + esc(gbEntryTitle(en)) + lock + op + '</span></button></li>';
     }).join('') + '</ol>';
   } else if (pg.kind === 'topic') {
-    h += '<h2 class="gb-h">' + esc(bothText(pg.t.title)) + '</h2>' + (pg.t.operatorOnly ? '<p class="gb-lock">' + esc(T('gbOperator')) + '</p>' : '') + gbText(bothText(pg.t.intro));
-    h += '<ol class="gb-toc gb-toc-small">' + arr(pg.t.chapters).map(function (c, n) { return '<li><button type="button" class="gb-link" data-gb-go="' + (index + 1 + n) + '">' + gbIcon(c.icon) + '<span>' + esc(bothText(c.title)) + '</span></button></li>'; }).join('') + '</ol>';
+    h += '<h2 class="gb-h gb-center">' + esc(bothText(pg.t.title)) + '</h2>' + GB_DIVIDER + (pg.t.operatorOnly ? '<p class="gb-lock">' + esc(T('gbOperator')) + '</p>' : '') + gbText(bothText(pg.t.intro));
+    h += '<ol class="gb-toc">' + arr(pg.t.chapters).map(function (c, n) { return '<li><button type="button" class="gb-link" data-gb-go="' + (index + 1 + n) + '">' + gbIcon(c.icon) + '<span>' + esc(bothText(c.title)) + '</span></button></li>'; }).join('') + '</ol>';
   } else if (pg.kind === 'sbch') {
-    h += '<div class="gb-kicker">' + esc(bothText(pg.t.title)) + '</div><h3 class="gb-h3">' + gbIcon(pg.c.icon, 24) + esc(bothText(pg.c.title)) + '</h3>' + gbText(bothText(pg.c.text));
-    var items = arr(pg.c.items).map(gbResolve).filter(function (x, i, a) { return a.indexOf(x) === i; });
+    h += '<div class="gb-kicker">' + esc(bothText(pg.t.title)) + '</div><h3 class="gb-h3">' + esc(bothText(pg.c.title)) + '</h3>' + gbText(bothText(pg.c.text));
+    var items = arr(pg.c.items).map(gbResolve).filter(function (v, i, a) { return a.indexOf(v) === i; });
     if (items.length) h += '<div class="gb-items" aria-label="' + esc(T('gbItems')) + '">' + items.map(function (id) { return slotHtml(id, 1); }).join('') + '</div>';
     var rec = arr(pg.c.recipes).map(gbRecipeHtml).filter(Boolean);
     if (rec.length) h += '<div class="gb-recipes">' + rec.join('') + '</div>';
   } else if (pg.kind === 'page') {
-    h += '<div class="gb-kicker">' + (pg.n === 0 ? gbIcon(pg.c.icon, 20) : '') + esc(bothText(pg.c.title)) + '</div>' + (pg.n === 0 ? gbLockNote(pg.c) : '');
-    var title = bothText(pg.p.title);
-    if (title) h += '<h3 class="gb-h3">' + esc(title) + '</h3>';
-    h += gbText(bothText(pg.p.text));
+    var title = bothText(pg.p.title) || bothText(pg.c.title);
+    h += '<h3 class="gb-h3">' + esc(title) + '</h3>' + (pg.n === 0 ? gbLockNote(pg.c) : '') + gbText(bothText(pg.p.text));
   }
-  return '<div class="gb-page">' + h + '<div class="gb-foot">' + (pg.kind !== 'contents' ? '<button type="button" class="gb-link gb-back" data-gb-go="0">' + esc(T('gbBackContents')) + '</button>' : '<span></span>') + '<span class="gb-num">' + (index + 1) + '</span></div></div>';
+  return '<div class="gb-page at" style="' + at(x, 15) + '">' + h + '</div>' + num;
 }
 function gbJumpHtml(built, page) {
-  var cur = 0;
-  built.entries.forEach(function (en, i) { if (en.start <= page) cur = i + 1; });
-  return '<select class="gb-jump" data-gb-jump aria-label="' + esc(T('gbChapter')) + '"><option value="0"' + (cur === 0 ? ' selected' : '') + '>' + esc(T('gbContents')) + '</option>' +
-    built.entries.map(function (en, i) { return '<option value="' + en.start + '"' + (cur === i + 1 ? ' selected' : '') + '>' + esc(en.kind === 'topic' ? bothText(en.t.title) : bothText(en.c.title)) + '</option>'; }).join('') + '</select>';
+  var cur = gbCurrentEntry(built, page);
+  return '<select class="gb-jump" data-gb-jump aria-label="' + esc(T('gbChapter')) + '"><option value="0"' + (cur < 0 ? ' selected' : '') + '>' + esc(T('gbContents')) + '</option>' +
+    built.entries.map(function (en, i) { return '<option value="' + en.start + '"' + (cur === i ? ' selected' : '') + '>' + esc(gbEntryTitle(en)) + '</option>'; }).join('') + '</select>';
 }
-function gbNarrow() { return window.matchMedia && window.matchMedia('(max-width: 760px)').matches; }
+/* Das Kapitel der offenen Seite (-1 = Inhalt), wie currentChapter() im Spiel. */
+function gbCurrentEntry(built, page) {
+  var cur = -1;
+  built.entries.forEach(function (en, i) { if (en.start <= page) cur = i; });
+  return cur;
+}
+/* Seitenreiter: rechts acht, links unter "Inhalt" sechs (gespiegelt); gewaehlt 3 px weiter draussen. */
+function gbSideTabs(built, page) {
+  var cur = gbCurrentEntry(built, page), h = '';
+  h += '<button type="button" class="gb-stab gb-back at" style="' + at(-24, 12) + '" data-gb-go="0" title="' + esc(gbUi('contents', T('gbContents'))) + '" aria-label="' + esc(gbUi('contents', T('gbContents'))) + '">' + spr(96, 184, 30, 20) + '</button>';
+  built.entries.slice(0, GB_RIGHT_TABS + GB_LEFT_TABS).forEach(function (en, i) {
+    var left = i >= GB_RIGHT_TABS, sel = i === cur, locked = en.kind === 'chapter' && !!en.c.advancement, shift = sel ? 3 : 0;
+    var x = left ? -24 - shift : GB_W - 8 + shift, y = left ? 36 + (i - GB_RIGHT_TABS) * 20 : 12 + i * 20;
+    var title = gbEntryTitle(en) + (locked ? ' – ' + gbLockText(en.c) : '');
+    h += '<button type="button" class="gb-stab' + (left ? ' gb-mirror' : '') + ' at" style="' + at(x, y) + '" data-gb-go="' + en.start + '" title="' + esc(title) + '" aria-label="' + esc(title) + '"' + (sel ? ' aria-current="true"' : '') + '>' +
+      spr(sel ? 32 : locked ? 64 : 0, 184, 30, 20) + gbIcon(gbEntryIcon(en)) + '</button>';
+  });
+  return h;
+}
 function pageGuidebook(id) {
   var h = '<h1>' + esc(T('navGuidebook')) + '</h1><p class="muted">' + esc(T('gbIntro')) + '</p>';
   var data = gbData();
@@ -6215,19 +6376,24 @@ function pageGuidebook(id) {
   if (sec.id !== GB.section) { GB.section = sec.id; GB.page = 0; }
   var built = gbPages(sec);
   GB.built = built;
-  var total = built.pages.length, narrow = gbNarrow();
+  var total = built.pages.length, narrow = gbNarrow(), s = gbScale(narrow), bw = narrow ? GB_SINGLE_W : GB_W;
   GB.page = Math.max(0, Math.min(total - 1, GB.page));
   if (!narrow) GB.page -= GB.page % 2;
-  var left = GB.page, right = narrow ? -1 : GB.page + 1;
-  h += '<div class="gb-tabs" role="tablist" aria-label="' + esc(T('gbSections')) + '">' + secs.map(function (s) {
-    return '<button type="button" role="tab" class="gb-tab" data-gb-sec="' + esc(s.id) + '" aria-selected="' + (s.id === sec.id) + '" title="' + esc(bothText(s.name)) + '">' + gbIcon(s.icon, 20) + '<span>' + esc(bothText(s.name)) + '</span></button>';
+  var left = GB.page, right = narrow ? -1 : GB.page + 1, last = (narrow ? left + 1 : left + 2) >= total;
+  var tabs = '<div class="gb-tabs" role="tablist" aria-label="' + esc(T('gbSections')) + '">' + secs.map(function (x) {
+    var sel = x.id === sec.id;
+    return '<button type="button" role="tab" class="gb-tab" data-gb-sec="' + esc(x.id) + '" aria-selected="' + sel + '" title="' + esc(bothText(x.name)) + '" aria-label="' + esc(bothText(x.name)) + '">' + spr(sel ? 32 : 0, 184, 30, 20) + gbIcon(x.icon) + '</button>';
   }).join('') + '</div>';
-  h += '<div class="gb-book' + (narrow ? ' gb-single' : '') + '" tabindex="0" aria-roledescription="book" aria-label="' + esc(bothText(sec.name)) + '">' +
-    '<div class="gb-spread">' + gbPageHtml(built.pages[left], built, sec, left) + (right >= 0 ? gbPageHtml(built.pages[right], built, sec, right) : '') + '</div>' +
-    '<div class="gb-nav"><button type="button" class="btn gb-turn" data-gb-turn="-1" aria-label="' + esc(T('gbPrev')) + '"' + (left <= 0 ? ' disabled' : '') + '>←</button>' +
-    '<span class="gb-pos" aria-live="polite">' + esc(T('gbPage', left + 1, total)) + '</span>' + gbJumpHtml(built, left) +
-    '<button type="button" class="btn gb-turn" data-gb-turn="1" aria-label="' + esc(T('gbNext')) + '"' + ((narrow ? left + 1 : left + 2) >= total ? ' disabled' : '') + '>→</button></div></div>' +
-    '<p class="muted tiny gb-keys">' + esc(T('gbKeys')) + '</p>';
+  var sheet = narrow ? '<div class="gb-sheet">' + spr(0, 0, 146, 180, 'at', at(0, 0)) + spr(284, 0, 8, 180, 'at', at(146, 0)) + '</div>' : '<div class="gb-sheet">' + spr(0, 0, GB_W, 180) + '</div>';
+  h += '<div class="gb-stage" data-book-stage="gb" data-fit="' + narrow + ':' + s + '" style="--s:' + s + '">' +
+    '<div class="gb-book' + (narrow ? ' gb-single' : '') + '" tabindex="0" aria-roledescription="book" aria-label="' + esc(bothText(sec.name)) + '">' +
+    tabs + (narrow ? '' : gbSideTabs(built, left)) + sheet +
+    gbPageHtml(built.pages[left], built, sec, left, GB_LEFT_X) + (right >= 0 ? gbPageHtml(built.pages[right], built, sec, right, GB_RIGHT_X) : '') +
+    '<button type="button" class="gb-turn at" style="' + at(14, 162) + '" data-gb-turn="-1" aria-label="' + esc(gbUi('previous', T('gbPrev'))) + '" title="' + esc(gbUi('previous', T('gbPrev'))) + '"' + (left <= 0 ? ' disabled' : '') + '>' + spr(148, 184, 18, 10) + '</button>' +
+    '<button type="button" class="gb-turn at" style="' + at(bw - 32, 162) + '" data-gb-turn="1" aria-label="' + esc(gbUi('next', T('gbNext'))) + '" title="' + esc(gbUi('next', T('gbNext'))) + '"' + (last ? ' disabled' : '') + '>' + spr(128, 184, 18, 10) + '</button>' +
+    '</div>' +
+    '<div class="gb-nav">' + (narrow ? '<button type="button" class="btn gb-back" data-gb-go="0">' + esc(T('gbBackContents')) + '</button>' : '') + '<span class="gb-pos" aria-live="polite">' + esc(T('gbPage', left + 1, total)) + '</span>' + gbJumpHtml(built, left) + '</div>' +
+    '<p class="muted tiny gb-keys">' + esc(T('gbKeys')) + '</p></div>';
   return h;
 }
 function gbGo(page, opts) {
@@ -6249,6 +6415,15 @@ $main.addEventListener('click', function (ev) {
   else if (b.hasAttribute('data-gb-turn')) gbTurn(+b.getAttribute('data-gb-turn'));
   else gbGo(+b.getAttribute('data-gb-go'));
 });
+/* N80: Fragentisch wie im Spiel: Pfeiltasten links/rechts und A/D blaettern die drei Seiten. */
+document.addEventListener('keydown', function (ev) {
+  if (currentRoute().section !== 'questionary' || ev.altKey || ev.ctrlKey || ev.metaKey) return;
+  var t = ev.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+  var k = ev.key;
+  if (k === 'ArrowRight' || k === 'd' || k === 'D') { ev.preventDefault(); qnTurn(QN.page + 1); }
+  else if (k === 'ArrowLeft' || k === 'a' || k === 'A') { ev.preventDefault(); qnTurn(QN.page - 1); }
+});
 document.addEventListener('keydown', function (ev) {
   if (currentRoute().section !== 'guidebook' || ev.altKey || ev.ctrlKey || ev.metaKey) return;
   var t = ev.target;
@@ -6266,16 +6441,21 @@ document.addEventListener('keydown', function (ev) {
     x0 = null;
     if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) gbTurn(dx < 0 ? 1 : -1);
   }, { passive: true });
-  var narrowWas = null;
+  /* N80: neuer Faktor oder Wechsel Doppel-/Einzelseite -> neu zeichnen (die Buecher sind in Spiel-Pixeln gebaut). */
+  var timer = null;
   window.addEventListener('resize', function () {
-    var n = gbNarrow();
-    if (narrowWas !== null && n !== narrowWas && currentRoute().section === 'guidebook') render({ keepScroll: true });
-    narrowWas = n;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      var sec = currentRoute().section, st = $main.querySelector('[data-book-stage]');
+      if (!st || (sec !== 'guidebook' && sec !== 'questionary')) return;
+      var want = sec === 'guidebook' ? gbNarrow() + ':' + gbScale(gbNarrow()) : qnNarrow() + ':' + qnScale(qnNarrow());
+      if (st.getAttribute('data-fit') !== want) render({ keepScroll: true });
+    }, 120);
   });
 })();
 
 /* ---------- Questionary ---------- */
-var QN = { loading: false, q: '', mod: '', view: 'items', limit: 120, sel: '' };
+var QN = { loading: false, q: '', mod: '', view: 'items', limit: 120, sel: '', page: 0, inv: 0 };
 function qnData() { return window.WIKI_QUESTIONARY || null; }
 function qnLoad() {
   if (qnData() || QN.loading) return;
@@ -6320,16 +6500,130 @@ function qnList() {
   out.sort(function (a, b) { return (a.fam ? prettyFromId(a.fam.id) : displayName(a.id)).localeCompare(b.fam ? prettyFromId(b.fam.id) : displayName(b.id), LANG); });
   return out;
 }
-function qnBook(x) {
-  var pages = qnPagesOf(x.e), name = x.fam ? prettyFromId(x.fam.id) : displayName(x.id);
-  function page(key, label) {
-    var paras = arr(pages[key]);
-    return '<div class="gb-page qn-page"><div class="gb-kicker">' + esc(label) + '</div>' + (paras.length ? paras.map(function (t) { return '<p>' + esc(qnFill(t, x.id, x.ns)) + '</p>'; }).join('') : '<p class="muted">–</p>') + '</div>';
+/* N80: das Buch des Fragentischs (QuestionaryScreen) in Spiel-Pixeln: 424x224, Saeule bei x 124 (177 breit),
+   Textseite links ab (13|12), Bildseite rechts ab (306|12), je 105 breit; Lesezeichen 1/2/3 ab x 318. */
+var QN_KEYS = ['lore', 'use', 'secret'], QN_INV = 36;
+function qnNarrow() { return bookAvail() < 424 * 2; }
+function qnScale(narrow) { return narrow ? bookFit(176, 3) : bookFit(424); }
+function qnUi(key, fallback) { var ui = (qnData() || {}).ui || {}; return ui[key] ? bothText(ui[key]) : fallback; }
+/* Text wie QuestionarySheet.spans: Platzhalter, **markierte** Woerter und Zahlen fett in der Stichwort-Tinte. */
+function qnRich(text, id, ns) {
+  var raw = String(text || ''), out = '', last = 0, m, re = /\{(name|mod|item:([a-z0-9_.-]+:[a-z0-9_./-]+))\}|\*\*([^*]+)\*\*|\d+(?:[.,]\d+)?/g;
+  while ((m = re.exec(raw))) {
+    out += esc(raw.slice(last, m.index));
+    var word = m[1] === 'name' ? displayName(id) : m[1] === 'mod' ? qnModLabel(ns) : m[2] ? displayName(m[2]) : m[3] != null ? m[3] : m[0];
+    out += '<b class="qn-kw">' + esc(word) + '</b>';
+    last = re.lastIndex;
   }
-  var head = '<div class="qn-head">' + (x.fam ? '' : slotHtml(x.id, 1)) + '<div><h2>' + esc(name) + '</h2><div class="muted tiny"><code>' + esc(x.fam ? 'family:' + x.fam.id : x.id) + '</code> · ' + esc(qnModLabel(x.ns)) + '</div>' +
-    (x.fam ? '<div class="tiny">' + esc(T('qnFamilyItems')) + ': ' + arr(x.fam.items).map(function (r) { return '<code>' + esc(r) + '</code>'; }).join(' ') + '</div>' : '') + '</div>' +
-    '<button type="button" class="btn qn-close" data-qn-close>' + esc(T('qnClose')) + '</button></div>';
-  return '<section class="qn-open" id="qn-open" aria-label="' + esc(name) + '">' + head + '<div class="gb-book qn-book"><div class="gb-spread qn-spread">' + page('lore', T('qnLore')) + page('use', T('qnUse')) + page('secret', T('qnSecret')) + '</div></div></section>';
+  return out + esc(raw.slice(last));
+}
+/* Familien des Namensraums, deren Muster das Item treffen; Mitglieder = bekannte Items desselben Namensraums. */
+function qnFamilyMatch(pattern, id, ns) {
+  var p = String(pattern || '');
+  if (!p || p.charAt(0) === '#') return false;
+  if (p.indexOf('regex:') === 0) { try { return nsOf(id) === ns && new RegExp('^(?:' + p.slice(6) + ')$').test(pathOf(id)); } catch (e) { return false; } }
+  return p.indexOf(':') > 0 ? p === id : nsOf(id) === ns && p === pathOf(id);
+}
+function qnFamilyOf(x) {
+  var data = qnData(), n = data && data.namespaces[x.ns];
+  if (!n) return [];
+  var fams = x.fam ? [x.fam] : arr(n.families).filter(function (f) { return arr(f.items).some(function (p) { return qnFamilyMatch(p, x.id, x.ns); }); });
+  if (!fams.length) return [];
+  var ids = Object.keys(n.entries).map(function (p) { return x.ns + ':' + p; });
+  globalEntry('');
+  GX.forEach(function (e, k) { if (nsOf(k) === x.ns && ids.indexOf(k) < 0) ids.push(k); });
+  return ids.filter(function (id) { return fams.some(function (f) { return arr(f.items).some(function (p) { return qnFamilyMatch(p, id, x.ns); }); }); }).sort();
+}
+function qnFlatTexture(id) {
+  var e = IX.items.get(id) || IX.blocks.get(id) || (!isVanilla(id) && globalEntry(id)) || null;
+  var t = e && (e.texture || e.icon);
+  return t || (isVanilla(id) ? vanillaTexture(id) : null);
+}
+function qnImg(id) {
+  var tex = textureOf(id);
+  return tex && !MISSING_TEX[tex] ? '<img src="' + esc(tex) + '" alt="" data-name="' + esc(displayName(id)) + '"' + (/\/render\//.test(tex) ? ' class="r3d"' : '') + '>' : '';
+}
+function qnSlot(x, on) {
+  var label = x.fam ? prettyFromId(x.fam.id) : displayName(x.id);
+  var body = x.fam ? '<span aria-hidden="true">≡</span>' : (qnImg(x.id) || '<span aria-hidden="true">?</span>');
+  return '<li><a class="qn-slot' + (on ? ' on' : '') + '" href="#/questionary/' + esc(encodeURIComponent(x.id)) + '" title="' + esc(label) + '" aria-label="' + esc(label) + '">' + body + '</a></li>';
+}
+/* Goldpunkt-Ring um den grossen Slot (24 Punkte, Radius 19, jeder vierte 2x2), als Schatten eines 1x1-Punkts. */
+function qnRing(filled) {
+  var cx = 88, cy = 42, out = [];
+  for (var i = 0; i < 24; i++) {
+    var a = i * Math.PI * 2 / 24, px = cx + Math.round(Math.cos(a) * 19) - 1, py = cy + Math.round(Math.sin(a) * 19) - 1;
+    var c = i % 4 === 0 ? (filled ? '#ffe27a' : '#e8b923') : (filled ? '#e8b923' : '#b5851a');
+    var pts = i % 4 === 0 ? [[0, 0], [1, 0], [0, 1], [1, 1]] : [[0, 0]];
+    pts.forEach(function (d) { out.push('calc(var(--s) * ' + (px + d[0]) + 'px) calc(var(--s) * ' + (py + d[1]) + 'px) 0 ' + c); });
+  }
+  return '<span class="qn-ring" style="box-shadow:' + out.join(',') + '" aria-hidden="true"></span>';
+}
+function qnRightHtml(x, page) {
+  if (!x) return '<h3 class="qn-h">' + esc(qnUi('sheet.plate', 'Picture plate')) + '</h3><div class="qn-div"></div><div class="qn-body"><p>' + esc(qnUi('sheet.empty', T('qnPick'))) + '</p></div>';
+  var key = page === 0 ? 'sheet.plate' : page === 1 ? 'sheet.recipe' : 'sheet.lens', h = '';
+  if (page === 0) {
+    var fam = qnFamilyOf(x).filter(function (id) { return id !== x.id; });
+    if (!x.fam) h += '<div class="qn-plate">' + qnImg(x.id) + '</div><div class="qn-center"><b class="qn-kw">' + esc(displayName(x.id)) + '</b><br><span class="qn-caption">' + esc(qnModLabel(x.ns)) + '</span></div>';
+    if (fam.length) {
+      var shown = fam.slice(0, x.fam ? 25 : 5);
+      h += '<h4 class="qn-h">' + esc(qnUi('sheet.family', T('qnFamilyItems'))) + '</h4><ul class="qn-fam qn-slots" style="position:static">' + shown.map(function (id) { return qnSlot({ id: id, ns: x.ns }, false); }).join('') + '</ul>' +
+        (fam.length > shown.length ? '<div class="qn-caption" style="text-align:right">+' + (fam.length - shown.length) + '</div>' : '');
+    }
+  } else if (page === 1) {
+    var rec = x.fam ? '' : gbRecipeHtml(x.id);
+    h += rec || '<p>' + esc(qnUi('facts.none', '–')) + '</p>';
+    if (!x.fam) h += '<div class="qn-links"><a href="#/make/' + esc(encodeURIComponent(x.id)) + '">→ ' + esc(T('mkMake')) + '</a><a href="#/use/' + esc(encodeURIComponent(x.id)) + '">→ ' + esc(T('mkUse')) + '</a></div>';
+  } else {
+    var tex = x.fam ? null : qnFlatTexture(x.id);
+    h += '<div class="qn-lens">' + (tex && !MISSING_TEX[tex] ? '<span class="qn-lens-img"><img src="' + esc(tex) + '" alt="' + esc(displayName(x.id)) + '"></span>' : '') + '</div>';
+    if (tex) h += '<h4 class="qn-h">' + esc(qnUi('sheet.texture', 'Texture')) + '</h4><div class="qn-tex">' + esc(tex.replace(/^assets\/textures\//, '').replace(/\.png$/, '')) + '</div>';
+  }
+  return '<h3 class="qn-h">' + esc(qnUi(key, '')) + '</h3><div class="qn-div"></div><div class="qn-body">' + h + '</div>';
+}
+function qnBook(x, list) {
+  var narrow = qnNarrow(), s = qnScale(narrow), page = QN.page;
+  var name = x ? (x.fam ? prettyFromId(x.fam.id) : displayName(x.id)) : qnUi('welcome.title', T('navQuestionary'));
+  var leftHead, paras;
+  if (x) {
+    leftHead = qnUi('page.' + QN_KEYS[page], T(['qnLore', 'qnUse', 'qnSecret'][page]));
+    paras = arr(qnPagesOf(x.e)[QN_KEYS[page]]).map(function (t) { return qnRich(t, x.id, x.ns); });
+    if (!paras.length) paras = [esc(qnUi('empty', '–'))];
+  } else {
+    leftHead = qnUi('welcome.title', T('navQuestionary'));
+    paras = [qnUi('welcome.1', T('qnIntro')), qnUi('welcome.2', '')].filter(Boolean).map(esc);
+  }
+  var pages = Math.max(1, Math.ceil(list.length / QN_INV));
+  QN.inv = Math.max(0, Math.min(pages - 1, QN.inv || 0));
+  var inv = list.slice(QN.inv * QN_INV, (QN.inv + 1) * QN_INV);
+  var h = '<section class="qn-stage" data-book-stage="qn" data-fit="' + narrow + ':' + s + '" style="--s:' + s + '"' + (x ? ' id="qn-open"' : '') + ' aria-label="' + esc(name) + '">' +
+    '<div class="qn-book' + (narrow ? ' qn-narrow' : '') + '" tabindex="0" aria-roledescription="book" aria-label="' + esc(name) + '">';
+  h += [0, 1, 2].map(function (i) {
+    var label = qnUi('page.' + QN_KEYS[i], T(['qnLore', 'qnUse', 'qnSecret'][i]));
+    return '<button type="button" class="qn-ribbon n' + (i + 1) + ' at" style="' + at(318 + i * 28, 0) + (narrow ? ';left:auto;right:calc(var(--s) * ' + (8 + (2 - i) * 28) + 'px)' : '') + '" data-qn-page="' + i + '" aria-pressed="' + (i === page) + '" title="' + esc(label) + '" aria-label="' + esc(label) + '">' + (i + 1) + '</button>';
+  }).join('');
+  h += '<div class="qn-cover"></div><span class="qn-cap tl"></span><span class="qn-cap tr"></span><span class="qn-cap bl"></span><span class="qn-cap br"></span>' +
+    '<div class="qn-paper"><div class="qn-sheet l"></div><div class="qn-sheet r"></div><div class="qn-fold"></div></div><div class="qn-bulge"></div>';
+  h += '<div class="qn-box qn-desk"><div class="qn-boxtitle">' + esc(qnUi('table', T('navQuestionary'))) + '</div>' +
+    (x ? '<button type="button" class="qn-x" data-qn-close title="' + esc(T('qnClose')) + '" aria-label="' + esc(T('qnClose')) + '">✕</button>' : '') +
+    '<div class="qn-deskin">' + qnRing(!!x) + '<span class="qn-big">' + (x ? (x.fam ? '≡' : qnImg(x.id)) : '') + '</span>' +
+    '<div class="qn-name">' + (x ? '<b>' + esc(name) + '</b><i>' + esc(qnModLabel(x.ns)) + '</i>' : '<i style="margin-top:calc(var(--s) * 6px)">' + esc(qnUi('welcome.title', T('navQuestionary'))) + '</i>') + '</div></div></div>';
+  h += '<div class="qn-box qn-inv"><div class="qn-boxtitle">' + esc(T(QN.view === 'families' ? 'qnFamilies' : 'qnItems')) + '</div>' +
+    (pages > 1 ? '<div class="qn-pager"><button type="button" data-qn-inv="-1" aria-label="' + esc(T('gbPrev')) + '"' + (QN.inv <= 0 ? ' disabled' : '') + '>◀</button><span>' + (QN.inv + 1) + '/' + pages + '</span><button type="button" data-qn-inv="1" aria-label="' + esc(T('gbNext')) + '"' + (QN.inv >= pages - 1 ? ' disabled' : '') + '>▶</button></div>' : '') +
+    '<ul class="qn-slots">' + inv.map(function (y) { return qnSlot(y, x && y.id === x.id); }).join('') + '</ul></div>';
+  h += '<div class="qn-text l at" style="' + at(13, 12) + '"><h3 class="qn-h">' + esc(leftHead) + '</h3><div class="qn-div"></div><div class="qn-body">' + paras.map(function (p) { return '<p>' + p + '</p>'; }).join('') + '</div></div>';
+  h += '<div class="qn-text r at" style="' + at(306, 12) + '">' + qnRightHtml(x, page) + '</div>';
+  h += '<button type="button" class="qn-turn prev at" style="' + at(13, 204) + '" data-qn-turn="-1" aria-label="' + esc(T('gbPrev')) + '"' + (page <= 0 ? ' disabled' : '') + '></button>' +
+    '<button type="button" class="qn-turn next at" style="' + at(393, 204) + '" data-qn-turn="1" aria-label="' + esc(T('gbNext')) + '"' + (page >= 2 ? ' disabled' : '') + '></button>' +
+    '<div class="qn-num" aria-live="polite">' + (page + 1) + ' / 3</div>';
+  return h + '</div></section>';
+}
+function qnTurn(to) {
+  var next = Math.max(0, Math.min(2, to));
+  if (next === QN.page) return;
+  QN.page = next;
+  render({ keepScroll: true });
+  var b = $main.querySelector('.qn-book'); if (b) b.focus({ preventScroll: true });
 }
 function qnFallbackHtml() {
   var fb = (qnData() || {}).fallback || {};
@@ -6359,7 +6653,12 @@ function pageQuestionary(id) {
   if (QN.view === 'fallback') return h + qnFallbackHtml();
   var list = qnList(), sel = QN.sel && list.find(function (x) { return x.id === QN.sel; });
   if (!sel && QN.sel) { var all = (function () { var keep = { q: QN.q, mod: QN.mod }; QN.q = ''; QN.mod = ''; var l = qnList(); QN.q = keep.q; QN.mod = keep.mod; return l; })(); sel = all.find(function (x) { return x.id === QN.sel; }); }
-  h += sel ? qnBook(sel) : '<p class="hint qn-pick">' + esc(T('qnPick')) + '</p>';
+  /* N80: ein Item ohne eigenen Text bekommt wie am Tisch den Text seiner Familie (gleicher Namensraum). */
+  if (!sel && QN.sel && QN.sel.indexOf(':family/') < 0 && /^[a-z0-9_.-]+:[a-z0-9_./-]+$/.test(QN.sel)) {
+    var fns = nsOf(QN.sel), fdat = data.namespaces[fns], fam = fdat && arr(fdat.families).find(function (f) { return arr(f.items).some(function (p) { return qnFamilyMatch(p, QN.sel, fns); }); });
+    if (fam && (fns === 'minecraft' || globalEntry(QN.sel))) sel = { id: QN.sel, ns: fns, e: fam };
+  }
+  h += qnBook(sel || null, list);
   h += '<div class="qn-status muted tiny" aria-live="polite">' + esc(T('qnCount', list.length)) + '</div>';
   if (!list.length) return h + '<p class="hint">' + esc(T('qnNone')) + '</p>';
   var dup = {};
@@ -6367,23 +6666,26 @@ function pageQuestionary(id) {
   h += '<ul class="qn-grid">' + list.slice(0, QN.limit).map(function (x) {
     var label = x.fam ? prettyFromId(x.fam.id) : displayName(x.id);
     var sub = qnModLabel(x.ns) + (!x.fam && dup[label] > 1 ? ' · ' + pathOf(x.id) : '');
-    var icon = x.fam ? '<span class="qn-fam" aria-hidden="true">≡</span>' : (iconHtml(x.id) || '<span class="qn-fam" aria-hidden="true">?</span>');
-    return '<li><a class="qn-item' + (x.id === QN.sel ? ' active' : '') + '" href="#/questionary/' + esc(encodeURIComponent(x.id)) + '"' + (x.id === QN.sel ? ' aria-current="true"' : '') + '><span class="qn-ico">' + icon + '</span><span class="qn-name">' + esc(label) + '</span><span class="qn-ns">' + esc(sub) + '</span></a></li>';
+    var icon = x.fam ? '<span class="qn-famglyph" aria-hidden="true">≡</span>' : (iconHtml(x.id) || '<span class="qn-famglyph" aria-hidden="true">?</span>');
+    return '<li><a class="qn-item' + (x.id === QN.sel ? ' active' : '') + '" href="#/questionary/' + esc(encodeURIComponent(x.id)) + '"' + (x.id === QN.sel ? ' aria-current="true"' : '') + '><span class="qn-ico">' + icon + '</span><span class="qn-iname">' + esc(label) + '</span><span class="qn-ns">' + esc(sub) + '</span></a></li>';
   }).join('') + '</ul>';
   if (list.length > QN.limit) h += '<button type="button" class="chip ar-more" data-qn-more>' + esc(T('qnMore', Math.min(240, list.length - QN.limit))) + '</button>';
   return h;
 }
 $main.addEventListener('click', function (ev) {
-  var b = ev.target.closest && ev.target.closest('[data-qn-view],[data-qn-more],[data-qn-close]');
+  var b = ev.target.closest && ev.target.closest('[data-qn-view],[data-qn-more],[data-qn-close],[data-qn-page],[data-qn-turn],[data-qn-inv]');
   if (!b || currentRoute().section !== 'questionary') return;
   ev.preventDefault();
-  if (b.hasAttribute('data-qn-view')) { QN.view = b.getAttribute('data-qn-view'); QN.limit = 120; render({ keepScroll: true }); }
+  if (b.hasAttribute('data-qn-page')) qnTurn(+b.getAttribute('data-qn-page'));
+  else if (b.hasAttribute('data-qn-turn')) qnTurn(QN.page + +b.getAttribute('data-qn-turn'));
+  else if (b.hasAttribute('data-qn-inv')) { QN.inv = (QN.inv || 0) + +b.getAttribute('data-qn-inv'); render({ keepScroll: true }); }
+  else if (b.hasAttribute('data-qn-view')) { QN.view = b.getAttribute('data-qn-view'); QN.limit = 120; QN.inv = 0; render({ keepScroll: true }); }
   else if (b.hasAttribute('data-qn-more')) { QN.limit += 240; render({ keepScroll: true }); }
   else { QN.sel = ''; go({ section: 'questionary', id: '', tab: '' }, { keepScroll: true }); }
 });
 $main.addEventListener('input', function (ev) {
   if (ev.target.id !== 'qn-q') return;
-  QN.q = ev.target.value; QN.limit = 120;
+  QN.q = ev.target.value; QN.limit = 120; QN.inv = 0;
   clearTimeout(QN.timer);
   QN.timer = setTimeout(function () {
     var pos = ev.target.selectionStart;
@@ -6393,7 +6695,7 @@ $main.addEventListener('input', function (ev) {
 });
 $main.addEventListener('change', function (ev) {
   if (ev.target.hasAttribute && ev.target.hasAttribute('data-gb-jump')) { gbGo(+ev.target.value, { noFocus: true }); var j = $main.querySelector('[data-gb-jump]'); if (j) j.focus(); return; }
-  if (ev.target.id === 'qn-mod') { QN.mod = ev.target.value; QN.limit = 120; render({ keepScroll: true }); }
+  if (ev.target.id === 'qn-mod') { QN.mod = ev.target.value; QN.limit = 120; QN.inv = 0; render({ keepScroll: true }); }
 });
 
 /* N24: Gruppen BROWSE / REFERENCE / PROGRESS & SETTINGS (einklappbar, Zustand im Browser), DEV nur im Dev-Wiki.
@@ -7194,7 +7496,9 @@ $main.addEventListener('error', function (ev) {
   /* N24: Symbole im Handbuch fallen weg, im Fragentisch steht ein Platzhalter. */
   if (img.classList.contains('gb-icon')) { img.remove(); return; }
   var qi = img.closest('.qn-ico');
-  if (qi) { qi.innerHTML = '<span class="qn-fam" aria-hidden="true">?</span>'; return; }
+  if (qi) { qi.innerHTML = '<span class="qn-famglyph" aria-hidden="true">?</span>'; return; }
+  /* N80: im Buch des Fragentischs (Slots, Bildtafel, Lupe) bleibt der Platz leer bzw. ein Fragezeichen. */
+  if (img.closest('.qn-slot, .qn-big, .qn-plate, .qn-lens')) { if (img.closest('.qn-slot')) img.replaceWith('?'); else img.remove(); return; }
   var name = img.getAttribute('data-name') || img.getAttribute('alt') || '?';
   var parent = img.parentNode;
   if (parent && parent.classList && parent.classList.contains('hero-tex')) { parent.innerHTML = T('texNotFound'); return; }
