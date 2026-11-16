@@ -159,7 +159,9 @@ final class RareFindsTests {
                 .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
         List<String> problems = new ArrayList<>();
         int[] added = {0};
-        for (var source : com.simplestorage.rare.StorageLoot.sources()) com.simplestorage.rare.StorageLoot.apply(source.table(), pool -> added[0]++, level.registryAccess());
+        // once per table: a table with two sources (simple_dungeon) adds both pools in one apply
+        for (var table : com.simplestorage.rare.StorageLoot.sources().stream().map(com.simplestorage.rare.StorageLoot.Source::table).distinct().toList())
+            com.simplestorage.rare.StorageLoot.apply(table, pool -> added[0]++, level.registryAccess());
         boolean alone = !com.simplestorage.rare.StorageLoot.simpleBuildingLoaded();
         if (alone != (added[0] == com.simplestorage.rare.StorageLoot.sources().size())) problems.add("pools added " + added[0] + " (alone " + alone + ")");
         for (String enchantment : List.of("deep_pockets", "drawer", "funnel")) {
