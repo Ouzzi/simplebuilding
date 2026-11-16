@@ -843,7 +843,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "27305ee11439"
+    "dataHash": "f12952a347ef"
   },
   {
     "id": "simpletools",
@@ -1414,7 +1414,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 10
     },
-    "dataHash": "4e0e4c6b5bfe"
+    "dataHash": "a7f9bf4c4763"
   },
   {
     "id": "simpleblocks",
@@ -2266,7 +2266,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "0c1e7c28f624"
+    "dataHash": "ebcd6a0d78a3"
   },
   {
     "id": "simplechisels",
