@@ -87,7 +87,7 @@ class PlanTest(unittest.TestCase):
                      "modules/simplelib/build.gradle", "modules/simplelib/shared/resources/simplelib.mixins.json",
                      "modules/wiringexample/fabric/src/main/resources/fabric.mod.json", "modules/simplelib/forge/src/main/resources/META-INF/mods.toml", "modules/simplelib/shared/java/x/Y.json",
                      "framework/x", "build.gradle", "settings.gradle", "gradle.properties", "gradle/wrapper/x",
-                     "tools/testrunner/run.py", "tools/modtree/modtree.py"):
+                     "tools/testrunner/run.py"):
             self.assertEqual(self.plan(path)["mode"], "full", path)
 
     def test_shared_module_data_runs_only_that_module(self):  # N81
@@ -115,9 +115,15 @@ class PlanTest(unittest.TestCase):
         self.assertEqual(delta_gate.manifest_changes(old, new), {"a", "d"})
 
     def test_sb_game_tests_are_the_simplebuilding_module(self):  # N81: was full
-        p = self.plan("common/src/shared/clientgametest/java/com/simplebuilding/clientgametest/X.java")
-        self.assertEqual(p["mode"], "delta")
-        self.assertIn("fabric-263", p["targets"])
+        for path in ("common/src/shared/clientgametest/java/com/simplebuilding/clientgametest/X.java",
+                     "testing/fixtures/blueprint/a.txt"):
+            p = self.plan(path)
+            self.assertEqual(p["mode"], "delta", path)
+            self.assertIn("fabric-263", p["targets"])
+
+    def test_release_checks_are_check_only(self):  # N81
+        self.assertEqual(self.plan("tools/release/check_beta.py", "tools/modtree/modtree.py", "tools/tzedit/build_editor.py",
+                                   "tools/guides/module_guides.py", "tools/discover/discover.py"), CHECK_ONLY)
 
     def test_one_shared_file_among_module_files_is_full(self):
         self.assertEqual(self.plan("modules/simplevisuals/x", "build.gradle")["mode"], "full")

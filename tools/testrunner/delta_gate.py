@@ -31,7 +31,9 @@ CHECK_ONLY = ("docs/", ".claude/", "wiki/", "art/", "previews/", "balance/", "be
               "tools/textures/",  # generators only; the PNGs they write sit under modules/ or src/
               # web/infra tools no game test loads; tools/check_*.py are what check itself runs
               "tools/landing/", "tools/zentrale-web/", "tools/zentrale/", "tools/release_pages/", "tools/wiki/",
-              "tools/ai/", "tools/check_", "tools/dup_pairs")
+              "tools/ai/", "tools/check_", "tools/dup_pairs",
+              "tools/release/", "tools/modtree/", "tools/tzedit/", "tools/guides/", "tools/discover/",
+              "tools/wiki_site.py")  # N81: check tasks of build.gradle / web editor; their generated outputs are committed and diffed themselves
 CHECK_ONLY_FILES = {"readme.md", "readme_modrinth.md", "readme_old.md", "todo.md", "MULTILOADER_TODO.md", "AGENTS.md",
                     "CLAUDE.md", "CHANGELOG.md", "AUDIT.md", "CREDITS.md", "CONTRIBUTING.md", "Wiki.md", ".gitignore"}
 FULL_MODULES = {"simplelib", "wiringexample"}
@@ -41,7 +43,7 @@ FULL_MODULE_CODE = re.compile(r"modules/[^/]+/(?:.*/)?(?:java|kotlin)/|modules/[
 # probes, wiki data and notes of a module: no game test loads them
 MODULE_CHECK_ONLY = re.compile(r"modules/[^/]+/(?:tools|wiki|docs)/")
 # SimpleBuilding's own (client) game tests: the simplebuilding targets, not shared code
-SB_TESTS = re.compile(r"common/src/[^/]+/(?:gametest|clientgametest)/")
+SB_TESTS = re.compile(r"common/src/[^/]+/(?:gametest|clientgametest)/|testing/fixtures/")  # fixtures: SB world tests
 MANIFEST = "modules/modules.json"
 # SimpleBuilding's own resources (textures, models, data, generated files): the module "simplebuilding", not shared code
 SB_RESOURCES = re.compile(r"(?:mc26_3/overlay/resources/|mc26_3/generated/|src/main/resources/|common/src/[^/]+/resources/)")
