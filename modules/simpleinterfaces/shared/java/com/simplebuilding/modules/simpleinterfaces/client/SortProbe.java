@@ -101,6 +101,45 @@ public final class SortProbe {
         }
     }
 
+    /**
+     * b-probe5: every displayed creative tab (registry id, centre in window pixels, page when the loader pages the tabs), the open
+     * page and the selected tab, so a driver can click a tab with the real mouse. Fabric's page methods are read by name; without
+     * them the page fields are missing.
+     */
+    private static void creativeTabs(CreativeModeInventoryScreen cr, int l, int t, int scale, JsonObject o) {
+        JsonArray tabs = new JsonArray();
+        try {
+            Method tx = CreativeModeInventoryScreen.class.getDeclaredMethod("getTabX", CreativeModeTab.class);
+            Method ty = CreativeModeInventoryScreen.class.getDeclaredMethod("getTabY", CreativeModeTab.class);
+            tx.setAccessible(true);
+            ty.setAccessible(true);
+            Method page = null;
+            try {
+                page = cr.getClass().getMethod("getPage", CreativeModeTab.class);
+            } catch (NoSuchMethodException ignored) {
+                // no paging loader
+            }
+            for (CreativeModeTab tab : CreativeModeTabs.allTabs()) {
+                if (!tab.shouldDisplay()) continue;
+                JsonObject j = new JsonObject();
+                j.addProperty("id", String.valueOf(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab)));
+                j.addProperty("x", (l + (int) tx.invoke(cr, tab) + 13) * scale);
+                j.addProperty("y", (t + (int) ty.invoke(cr, tab) + 16) * scale);
+                if (page != null && page.invoke(cr, tab) instanceof Integer p) j.addProperty("page", p);
+                tabs.add(j);
+            }
+            if (field(cr, "selectedTab") instanceof CreativeModeTab sel) o.addProperty("selectedTab", String.valueOf(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(sel)));
+            try {
+                if (cr.getClass().getMethod("getCurrentPage").invoke(cr) instanceof Integer p) o.addProperty("tabPage", p);
+            } catch (NoSuchMethodException ignored) {
+                // no paging loader
+            }
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            o.addProperty("tabsError", e.toString());
+        }
+        o.add("tabs", tabs);
+    }
+
     private static String describe(ItemStack s) {
         return s.isEmpty() ? "" : BuiltInRegistries.ITEM.getKey(s.getItem()) + " x" + s.getCount();
     }
@@ -127,9 +166,24 @@ public final class SortProbe {
         return "AbstractWidget";
     }
 
-    private static void collectWidgets(List<? extends net.minecraft.client.gui.components.events.GuiEventListener> children, int scale, JsonArray out, int depth) {
+    private static void collectWidgets(List<? extends net.minecraft.client.gui.components.events.GuiEventListener> children, int scale, JsonArray out,
+                                       JsonArray entries, int depth) {
         if (depth > 4) return;
         for (var child : children) {
+            // b-probe5: list entries that carry an option name (Cloth Config's AbstractConfigEntry#getFieldName), by reflection, so a
+            // driver can check that a config screen shows lang texts and no raw option paths.
+            if (!(child instanceof net.minecraft.client.gui.components.AbstractWidget)) {
+                try {
+                    if (child.getClass().getMethod("getFieldName").invoke(child) instanceof net.minecraft.network.chat.Component name) {
+                        JsonObject e = new JsonObject();
+                        e.addProperty("class", widgetClass(child.getClass()));
+                        e.addProperty("label", name.getString());
+                        entries.add(e);
+                    }
+                } catch (ReflectiveOperationException | RuntimeException ignored) {
+                    // not an option entry
+                }
+            }
             if (child instanceof net.minecraft.client.gui.components.AbstractWidget w) {
                 JsonObject j = new JsonObject();
                 j.addProperty("class", widgetClass(w.getClass()));
@@ -143,7 +197,7 @@ public final class SortProbe {
                 if (w instanceof net.minecraft.client.gui.components.EditBox eb) j.addProperty("value", eb.getValue());
                 out.add(j);
             }
-            if (child instanceof net.minecraft.client.gui.components.events.ContainerEventHandler c) collectWidgets(c.children(), scale, out, depth + 1);
+            if (child instanceof net.minecraft.client.gui.components.events.ContainerEventHandler c) collectWidgets(c.children(), scale, out, entries, depth + 1);
         }
     }
 
@@ -178,6 +232,7 @@ public final class SortProbe {
                     o.addProperty("invTabError", e.toString());
                 }
             }
+            creativeTabs(cr, l, t, scale, o);
         }
         JsonArray slots = new JsonArray();
         if (mc.player != null && screen instanceof AbstractContainerScreen<?> cs && field(cs, "leftPos") instanceof Integer l && field(cs, "topPos") instanceof Integer t) {
@@ -195,9 +250,17 @@ public final class SortProbe {
         o.add("slots", slots);
         // a-w4c: every real widget of any open screen (Vanilla buttons, edit boxes ...) in window pixels, so a driver can click
         // it with the real OS mouse by its label without screen-specific layout maths.
-        JsonArray widgets = new JsonArray();
-        if (screen != null) collectWidgets(screen.children(), scale, widgets, 0);
+        JsonArray widgets = new JsonArray(), entries = new JsonArray();
+        if (screen != null) collectWidgets(screen.children(), scale, widgets, entries, 0);
         o.add("widgets", widgets);
+        o.add("entries", entries);
+        if (screen != null) o.addProperty("title", screen.getTitle().getString());
+        // b-probe5: the open menu's synced data slots in the order the menu added them (e.g. an enchanter's tier and offers).
+        if (screen instanceof AbstractContainerScreen<?> cs && field(cs.getMenu(), "dataSlots") instanceof List<?> data) {
+            JsonArray values = new JsonArray();
+            for (Object d : data) if (d instanceof net.minecraft.world.inventory.DataSlot ds) values.add(ds.get());
+            o.add("menuData", values);
+        }
         // a-w4c: a few well-known state fields of the open screen (page, scroll ... when the screen has them), read by reflection.
         JsonObject fields = new JsonObject();
         if (screen != null) {
@@ -223,6 +286,9 @@ public final class SortProbe {
         }
         if (mc.player != null) {
             o.addProperty("pos", mc.player.blockPosition().toShortString());
+            // b-probe5: the body's turn, for probes of camera-only turns (SimpleLib's Free Look)
+            o.addProperty("yaw", mc.player.getYRot());
+            o.addProperty("pitch", mc.player.getXRot());
             // N60P r3: the client's sneak state (LocalPlayer reads the sneak key from its input) for probes of sneak + click actions
             o.addProperty("sneaking", mc.player.isShiftKeyDown());
             // N60P r4: the client's view of the held stack's component changes (e.g. bundle contents) for probes that cannot read chat
