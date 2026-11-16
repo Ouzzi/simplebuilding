@@ -13,7 +13,7 @@ public final class MovementClient {
  private static boolean walking;
  private static Object lastPlayer;
  private MovementClient(){}
- public static void initClient(){var cat=KeyMapping.Category.register(Identifier.fromNamespaceAndPath(SimpleMovement.MOD_ID,"general"));autoWalkKey=new KeyMapping("key.simplemovement.autowalk",com.mojang.blaze3d.platform.InputConstants.KEY_UP,cat);crawlKey=new KeyMapping("key.simplemovement.crawl",com.mojang.blaze3d.platform.InputConstants.KEY_DOWN,cat);// N78: arrow up/down (owner 16.11.)}
+ public static void initClient(){var cat=KeyMapping.Category.register(Identifier.fromNamespaceAndPath(SimpleMovement.MOD_ID,"general"));autoWalkKey=new KeyMapping("key.simplemovement.autowalk",com.mojang.blaze3d.platform.InputConstants.KEY_UP,cat);crawlKey=new KeyMapping("key.simplemovement.crawl",com.mojang.blaze3d.platform.InputConstants.KEY_DOWN,cat);/* N78: arrow up/down (owner 16.11.) */}
  public static void tick(Minecraft c){
   if(c.player!=lastPlayer){lastPlayer=c.player;if(walking)c.options.keyUp.setDown(false);walking=false;}
   if(c.player==null||c.gui.screen()!=null){if(walking)c.options.keyUp.setDown(false);walking=false;return;}
