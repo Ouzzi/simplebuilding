@@ -3478,7 +3478,8 @@ function pageItems(kind) {
     '<div class="ar-frow" role="group" aria-label="' + esc(T('ivView')) + '"><span class="ar-flabel">' + esc(T('ivView')) + '</span>' + ivChip('view', 'list', T('ivList')) + ivChip('view', 'grid', T('ivGrid')) +
     '<label><input type="checkbox" id="iv-rc"' + (IV.rc ? ' checked' : '') + '> ' + esc(T('ivRecipes')) + '</label><a class="chip" href="#/allrecipes">' + esc(T('arTitle')) + ' →</a></div></div>';
   var h = listPage(T('ivTitle'), all.map(catalogRow), { intro: bar });
-  var res = h.replace('<div class="rows" data-filter-target>', '<div class="rows iv-rows' + (IV.view === 'grid' ? ' as-grid' : '') + (IV.rc ? ' with-rc' : '') + '" data-filter-target data-kind-filter="' + shownKind + '">');
+  /* N74: the list may carry the N72 zoom attribute after data-filter-target - keep it */
+  var res = h.replace(/<div class="rows" data-filter-target([^>]*)>/, function (m, rest) { return '<div class="rows iv-rows' + (IV.view === 'grid' ? ' as-grid' : '') + (IV.rc ? ' with-rc' : '') + '" data-filter-target data-kind-filter="' + shownKind + '"' + rest + '>'; });
   setTimeout(function(){ try{ devHook('items', document.querySelector('.iv-rows')); }catch(e){} }, 0);
   return res;
 }
