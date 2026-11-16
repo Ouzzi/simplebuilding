@@ -13,7 +13,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 public final class ScopeOverlay {
     /** Copper chest UI palette (ModScreenLayout: copper = 0xFFB4684D). */
     private static final UiPalette COPPER = UiPalette.derived(0xFFB4684D);
-    /** N79 preview widths (GUI px of the copper frame): A = 6 (default), B = 10. */
+    /** N79 widths (GUI px of the copper frame): B = 10 (default, owner 16.11.), A = 6. */
     private static final int[] LAYERS = layers(6);
     private static final int[] LAYERS_B = layers(10);
     /** Slide in/out time (N79: about 0.2-0.3 s). */
@@ -35,10 +35,10 @@ public final class ScopeOverlay {
         return out;
     }
 
-    /** Dev variants panel entry (ABN30-9, N79): "Fernrohr-Rahmen" A = 6 px copper (default) / B = 10 px copper. */
+    /** Dev variants panel entry (ABN30-9, N79): "Fernrohr-Rahmen" B = 10 px copper (default, owner 16.11.) / A = 6 px copper. */
     public static void registerVariants() {
-        com.simplelib.api.DevVariants.register(VARIANT, "Simple Interfaces", "Fernrohr-Rahmen", "a",
-                new com.simplelib.api.DevVariants.Option("a", "A (6 px)"), new com.simplelib.api.DevVariants.Option("b", "B (10 px)"));
+        com.simplelib.api.DevVariants.register(VARIANT, "Simple Interfaces", "Fernrohr-Rahmen", "b",
+                new com.simplelib.api.DevVariants.Option("a", "A (6 px)"), new com.simplelib.api.DevVariants.Option("b", "B (10 px, Standard)"));
     }
 
     /** Opening share 0..1 at time {@code now}. */
@@ -77,7 +77,7 @@ public final class ScopeOverlay {
     }
 
     private static void paint(GuiGraphicsExtractor g, float p) {
-        int[] layers = com.simplelib.api.DevVariants.is(VARIANT, "b") ? LAYERS_B : LAYERS;
+        int[] layers = com.simplelib.api.DevVariants.is(VARIANT, "a") ? LAYERS : LAYERS_B;
         int w = g.guiWidth(), h = g.guiHeight(), n = layers.length;
         // the whole frame is shifted outwards by the part not yet shown: it grows in from the screen edge (eased out)
         float e = 1F - (1F - p) * (1F - p);
