@@ -277,7 +277,7 @@ async function queryRun(browser, base) {
     await page.goto(base + from); await ready(page);
     eq(rel(page), to, tag + ' old link ' + from);
   }
-  ok((await page.goto(base + 'simplebuilding/')).status() === 404, tag + ' path form is not served without the rule (wiki never links there)');
+  ok((await page.request.get(base + 'simplebuilding/')).status() === 404, tag + ' path form is not served without the rule (wiki never links there)');
   await open(page, base, '?mod=simpleend');
   const links = await page.locator('a[href]').evaluateAll(as => as.map(a => a.getAttribute('href')).filter(h => /^\/simple/.test(h)));
   eq(links, [], tag + ' no path-form links without the rule');
