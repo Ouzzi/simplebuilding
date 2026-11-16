@@ -16,6 +16,39 @@ cd wiki && python -m http.server 8080
 
 und dann `http://localhost:8080/` öffnen.
 
+### Mod-Bereiche und flache Adressen (N74, Besitzer 16.11.)
+
+Kein Mod-Dropdown und kein Schalter „Ganzes Pack“ mehr. Die Startseite `/` zeigt alle Mods als Kacheln
+(4 Super-Mods groß, 3 eigenständige klein) und „In allen Mods nachschlagen“. Ein Klick öffnet den **Mod-Bereich**
+mit eigener Seitenleiste („← Alle Mods“, Symbol + Name, „Sub-Mod von …“, Abschnitte mit Zählern, Sub-Mods mit
+Filterfeld ab mehr als 8, bei Blatt-Sub-Mods eingeklappt „Weitere in <Eltern-Mod>“) und Breadcrumb
+„Alle Mods › SimpleBuilding › Simple End › …“. Unter 920 px steht unter dem Kopf eine Mod-Leiste mit „← Alle Mods“.
+
+Umfang = Familie: im Bereich zählen und listen alle Seiten (Blöcke & Items, Rezepte, Beute, Handel, Konfiguration,
+Tags, Fortschritte, Anleitungen, Suche) den Mod **mit allen Sub-Mods**; `index.html` führt dazu die Daten der Familie
+zusammen (`scopeData`, Einträge aus Sub-Mods tragen ein Mod-Abzeichen; gleichnamige Anleitungen/Optionen eines
+Sub-Mods heißen `<mod>:<id>`). Auf der Wurzel gilt „alle Mods“ (bzw. der Modpack-Filter). Die Schnellsuche nennt den
+Umfang („Gesucht in: Simple End + 1 Sub-Mod“) und bietet „In allen Mods suchen (N Treffer)“. Die Modpack-Leiste
+steht nur noch auf „Mod-Struktur“.
+
+| Ansicht | Pfad-Form (Server mit N74-Regel) | Query-Form (ohne Regel, GitHub Pages, file://) |
+|---|---|---|
+| Startseite | `/` | `/` |
+| Mod-Bereich | `/simpleend/` | `/?mod=simpleend` |
+| Liste | `/simpleend/items` | `/?mod=simpleend&tab=items` |
+| Einzelseite | `/simpleend/items/ashwood_boat` (eigener Namespace weggelassen), Sub-Mod-Eintrag `/simplebuilding/items/simpleend:ashwood_boat` | `/?mod=simpleend&item=simpleend:ashwood_boat` |
+| Suche im Mod / in allen | `/simpleend/?q=ash` / `/?q=ash` | `/?mod=simpleend&q=ash` / `/?q=ash` |
+| Seiten über alle Mods | `/?tab=items`, `/?tab=structure` | gleich |
+
+`tab=`, `f=`, `lang=` bleiben Query-Parameter. Die Pfad-Form nutzt das Wiki nur, wenn der Server sie ausliefert: nginx
+setzt dann `<base href="/" data-modpath>` (Dev: `/dev/`, siehe `tools/zentrale-web/nginx/wiki-one.conf`). Ohne dieses
+Kennzeichen bleibt alles in der Query-Form – kein Link führt dann auf einen Pfad, den der Server nicht kennt.
+Alte Links: `?mod=X…` → Bereich X (Pfad-Form per `history.replaceState`), `#/allmods` und `?tab=allmods` → Startseite,
+`?item=ns:id`/`#/items/ns:id` ohne `mod` → Bereich des Namespace-Mods, übrige alte Hash-Links → SimpleBuilding,
+`?pack=…` → Startseite mit Filter-Hinweis, unbekannte Mod-Ids → Startseite. Ein Wechsel des Bereichs lädt die Seite
+neu (anderer Umfang). Tests: `wiki/tests/test_modpath.py` (+ `modpath_core.cjs`: Pfad ↔ Route für alle Mods ×
+Abschnitte, alte Links), Browser `wiki/tests/nav74_ui.cjs` (Pfad- und Query-Server, 1280/390 px, hell/dunkel).
+
 ### Adressen, Navigation, Darstellung
 
 Jede Ansicht hat eine teilbare Adresse mit Suchparametern; Zurück/Vor im Browser

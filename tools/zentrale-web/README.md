@@ -182,6 +182,28 @@ Laptops auf die neue Adresse umgestellt sind (Starter lädt `/setup/` mit cloudf
 Tests: `python3 -m unittest discover -s tests` (`test_auth.py`; `test_nginx_zw06.py` startet mit `SB_NGINX=<nginx>`
 die gerenderten Stufen echt gegen devqueue, sonst nur die statischen Prüfungen).
 
+### Flache Mod-Adressen im Wiki (N74, vorbereitet, NICHT eingespielt – Besitzer-Freigabe nötig)
+`nginx/wiki-one.conf` liefert `/<mod>/…` (`^/simple[a-z0-9_]+(/.*)?$`) als `index.html` aus, Production und
+verschachtelt unter `/dev/` (dort mit Login, Overlay und `sub_filter` wie jede Dev-Seite). Zusätzlich setzt
+`sub_filter` in jede Wiki-HTML-Antwort `<base href="/" data-modpath>` (Dev `/dev/`): Daran erkennt das Wiki, dass der
+Server die Pfad-Form kann; ohne Regel bleibt es bei `?mod=…` (nichts bricht, alte Links gehen weiter). Kein allgemeiner
+Rückfall auf `index.html`: fehlende `data/*.js`/Bilder bleiben 404. Reihenfolge egal: Regel vor oder nach dem
+Production-Push des Wikis (das alte Wiki ignoriert das Kennzeichen, verlinkt keine Pfade).
+Einspielen (als root auf sb-web, wenn der Stand mit N74 in `/srv/wiki-dev` liegt):
+1. `cp -a /etc/nginx/sites-available/simplemods /root/simplemods.pre-n74` (eigene Sicherung; `deploy_dom07.sh
+   rollback` ginge bis vor den Domain-Umzug zurück).
+2. `/srv/wiki-dev/tools/zentrale-web/deploy_dom07.sh check`, dann `… deploy_dom07.sh domains` (rendert alle Hosts aus
+   den Vorlagen neu, `nginx -t`, Reload, Rauchtest je Host).
+3. Prüfen: `curl -sI -H 'Host: wiki.simplemods.de' http://127.0.0.1:8081/simpleend/items/ashwood_boat` → 200
+   `text/html`; `curl -s … /simpleend/ | grep -c 'data-modpath'` → 1; `curl -sI … /data/fehlt.js` → 404;
+   `curl -sI … /dev/simpleend/` ohne Cookie → 302 auf `/api/auth/login?next=/dev/simpleend/`.
+4. Im Browser `https://wiki.simplemods.de/dev/simplebuilding/` (Klick-Test N74) und `https://wiki.simplemods.de/?mod=simpleend`
+   → landet auf `/simpleend/`.
+5. Rückfall: `cp -a /root/simplemods.pre-n74 /etc/nginx/sites-available/simplemods && nginx -t && systemctl reload nginx`
+   (das Wiki fällt von selbst auf die Query-Form zurück; schon geteilte `/<mod>/…`-Links gäben dann 404).
+Test: `test_nginx_zw06.py` (`test_flat_mod_paths_n74`, statisch und mit `SB_NGINX` echt: Pfade 200 mit `<base`, Daten-404,
+`/dev/simpleend/` ohne Login 302, mit Login 200 + Overlay).
+
 ## Start
 ```bash
 python3 devqueue.py --data <ordner> [--port 8090] [--bind 127.0.0.1]
