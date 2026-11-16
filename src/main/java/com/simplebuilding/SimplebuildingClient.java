@@ -136,9 +136,11 @@ public class SimplebuildingClient implements ClientModInitializer {
                 helper.register(new com.simplebuilding.client.render.ExtraHeadLayer(avatar)); // N49 extra head slot
             }
         });
+        // N78 (owner 16.11.): unbound by default (was H); an untouched old H line is unbound once before the options are read.
+        com.simplebuilding.client.HighlightKeyDefault.run(net.fabricmc.loader.api.FabricLoader.getInstance().getGameDir());
         ClientState.highlightToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
-            InputConstants.KEY_H,
+            InputConstants.UNKNOWN.getValue(),
             KEY_CATEGORY_SIMPLEMODS
         ));
         // b-btools07: on 26.3 the octant figure and settings keys are Simple Building Tools' (key.simplebuildingtools.*, same default K).

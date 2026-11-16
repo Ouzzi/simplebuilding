@@ -9,6 +9,10 @@ public final class KeyMigration {
     static final String[][] KEYS = {
             {"key_key.simplequalityoflife.autowalk:", "key_key.simplemovement.autowalk:"},
             {"key_key.simplequalityoflife.crawl:", "key_key.simplemovement.crawl:"}};
+    /** N78 (owner 16.11.): crawl C -> arrow down (C is Vanilla's "save hotbar"), autowalk unbound -> arrow up; only lines still on the old default. */
+    static final String[][] DEFAULTS = {
+            {"key_key.simplemovement.crawl:", "key.keyboard.c", "key.keyboard.down"},
+            {"key_key.simplemovement.autowalk:", "key.keyboard.unknown", "key.keyboard.up"}};
 
     private KeyMigration() {}
 
@@ -16,6 +20,7 @@ public final class KeyMigration {
     public static void run(Path gameDir) {
         try {
             ConfigFiles.migrateOptions(gameDir, KeyMigration::options);
+            ConfigFiles.migrateKeyDefaults(gameDir, SimpleMovement.MOD_ID, "n78", DEFAULTS);
         } catch (IOException | RuntimeException e) {
             SimpleMovement.LOGGER.warn("Cannot take over the Simple QoL key bindings", e);
         }

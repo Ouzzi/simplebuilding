@@ -240,8 +240,30 @@ for path in BLOCKS:
     if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS or path in DOORS or path in TRAPDOORS or path in LIGHTS_ALL:
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
-    put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
+    parent = f'{NS}:block/template_grate' if path in GRATES else 'minecraft:block/cube_all'   # N78: grates show their inner sides
+    put(ASSETS / f'models/block/{path}.json', {'parent': parent, 'textures': {'all': f'{NS}:block/{path}'}})
     put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{path}'}})
+# N78 (owner 16.11.): grates look 3D from inside and through their holes. The cube of cube_all plus six inward faces, each 0.1 px
+# inside its outer face (no z-fighting with a different grate or block next to it), mirrored UVs so a pattern pixel sits at the same
+# place on both sides; every face culls like its outer face (a row of the same grate stays one cage, like glass).
+_SIDES = {'down': ('up', [0, 0, 0], [16, 0, 16]), 'up': ('down', [0, 16, 0], [16, 16, 16]), 'north': ('south', [0, 0, 0], [16, 16, 0]),
+          'south': ('north', [0, 0, 16], [16, 16, 16]), 'west': ('east', [0, 0, 0], [0, 16, 16]), 'east': ('west', [16, 0, 0], [16, 16, 16])}
+_INSET = {'down': (1, 0.1), 'up': (1, -0.1), 'north': (2, 0.1), 'south': (2, -0.1), 'west': (0, 0.1), 'east': (0, -0.1)}
+
+
+def grate_template():
+    elements = [{'from': [0, 0, 0], 'to': [16, 16, 16],
+                 'faces': {d: {'texture': '#all', 'cullface': d} for d in ('down', 'up', 'north', 'south', 'west', 'east')}}]
+    for outer, (inner, a, b) in _SIDES.items():
+        axis, delta = _INSET[outer]
+        a, b = list(a), list(b)
+        a[axis] = b[axis] = round(a[axis] + delta, 3)
+        uv = [0, 16, 16, 0] if outer in ('down', 'up') else [16, 0, 0, 16]
+        elements.append({'from': a, 'to': b, 'faces': {inner: {'uv': uv, 'texture': '#all', 'cullface': outer}}})
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all'}, 'elements': elements}
+
+
+put(ASSETS / 'models/block/template_grate.json', grate_template())
 # Silver mirror: a one pixel plate at the south side of the cell (facing north), the texture carries frame and glass; the item is a flat sprite.
 # N25: on the floor and the ceiling too, like the button (face=floor|wall|ceiling); the wall model turned down (x 270) or up (x 90).
 MIRROR_Y = (('north', 0), ('east', 90), ('south', 180), ('west', 270))

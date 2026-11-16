@@ -356,8 +356,12 @@ for m in BAR_METALS:
         for l in langs.values():
             assert l.get(f'block.{NS}.{b}'), b
     assert f'{NS}:{m}_bars' in bars_tag and f'{NS}:{m}_grate' in stone, m
+    # N78: grates render their inner sides (template: outer cube + six inward faces)
+    assert json.loads((RES / f'assets/{NS}/models/block/{m}_grate.json').read_text(encoding='utf-8'))['parent'] == f'{NS}:block/template_grate', m
     assert json.loads((RES / f'data/{NS}/recipe/{m}_bars.json').read_text(encoding='utf-8'))['result'] == {'id': f'{NS}:{m}_bars', 'count': 16}
     assert json.loads((RES / f'data/{NS}/recipe/{m}_grate_from_{m}_block_stonecutting.json').read_text(encoding='utf-8'))['result']['count'] == 4
+_grate = json.loads((RES / f'assets/{NS}/models/block/template_grate.json').read_text(encoding='utf-8'))['elements']
+assert len(_grate) == 7 and sorted(next(iter(e['faces'])) for e in _grate[1:]) == ['down', 'east', 'north', 'south', 'up', 'west'], 'grate template'
 sounds = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
 LINE_SOUNDS = set(json.loads((MODULE / 'tools/moved_line.json').read_text(encoding='utf-8'))['sounds'])   # N46/M2: the line's own sounds
 assert LINE_SOUNDS <= set(sounds) and set(sounds) - LINE_SOUNDS == {f'block.{m}.{k}' for m in BAR_METALS for k in ('break', 'step', 'place', 'hit', 'fall')}, sorted(sounds)

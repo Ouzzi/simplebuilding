@@ -142,10 +142,12 @@ public final class SimplebuildingNeoForgeClient {
     }
 
     public static void registerKeys(RegisterKeyMappingsEvent event) {
+        // N78 (owner 16.11.): unbound by default (was H); an untouched old H line is unbound once before the options are read.
+        com.simplebuilding.client.HighlightKeyDefault.run(net.neoforged.fml.loading.FMLPaths.GAMEDIR.get());
         ClientState.highlightToggleKey = new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
                 InputConstants.Type.KEYSYM,
-                InputConstants.KEY_H,
+                InputConstants.UNKNOWN.getValue(),
                 KEY_CATEGORY_SIMPLEMODS
         );
         ClientState.octantFigureToggleKey = new KeyMapping(

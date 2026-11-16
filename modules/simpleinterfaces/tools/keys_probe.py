@@ -23,7 +23,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]
 RUN = REPO / 'integration/run-fabric-263'
 REQUEST, STATUS, COMMAND = 'simpleinterfaces-keys-probe.json', 'simpleinterfaces-keys-status.json', 'simpleinterfaces-keys-command.json'
-ROW = 'key.simplelib.freelook_toggle'  # unbound by default (open_keys has '+' since QOL34)
+ROW = 'key.simplelib.freelook_toggle'  # unbound by default (open_keys has U since N78, '+' before)
 G = 298  # GLFW code of F9: free in Vanilla, so its key page lists only the probed action
 
 _spec = importlib.util.spec_from_file_location('menu_probe', REPO / 'modules/simpleearth/tools/menu_probe.py')
