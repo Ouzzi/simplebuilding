@@ -1693,8 +1693,8 @@ public final class OrderAreas {
                         } else if (col < plan.length()) {
                             item = plan.others().get(col - columns.size());
                         }
-                        if (item == null) {
-                            boolean missing = col < columns.size() && plan.expected().contains(slot);
+                        if (item == null || item == MISSING_OTHER) {
+                            boolean missing = item == MISSING_OTHER || col < columns.size() && plan.expected().contains(slot);
                             c.place(x, 0, z, missing ? missingState() : absent);
                             placeholders.add(new Placeholder(new BlockPos(x, 0, z), plan.group(), slot, missing));
                             continue;
@@ -1714,7 +1714,8 @@ public final class OrderAreas {
                         c.place(x, 0, gapZ, line);
                     }
                     rows.add(new Row(plan.group(), plan.kind(), plan.family(), x, near, step, columns, plan.fixed(), plan.tops(),
-                            java.util.Collections.unmodifiableList(new ArrayList<>(plan.others())), List.copyOf(plan.otherKeys()),
+                            java.util.Collections.unmodifiableList(new ArrayList<>(plan.others().stream()
+                                    .map(item -> item == MISSING_OTHER ? null : item).toList())), List.copyOf(plan.otherKeys()),
                             plan.expected(), depth));
                 }
             }
@@ -1763,6 +1764,11 @@ public final class OrderAreas {
 
     /** Gruppen-Praefix der Reihen im Band "Neu" (Items, die keine Config-Zelle haben). */
     public static final String NEW_PREFIX = "new:";
+    /**
+     * N77: Marke fuer ein rotes Feld ({@code #red}) einer Zusatz- oder Sonderspalte der Config (nur in der Planung; die fertige
+     * {@link Row} traegt dort {@code null}, der Platzhalter ist {@code missing}).
+     */
+    private static final Item MISSING_OTHER = Items.AIR;
     private static volatile List<String> lastWarnings = List.of();
 
     /** Warnungen des letzten Linien-Baus mit Config (Schema-Fehler, unbekannte/doppelte Ids), fuer {@code /testcenter layout reload}. */
@@ -1846,8 +1852,11 @@ public final class OrderAreas {
                 for (int j = 0; j < otherAt.size(); j++) {
                     String column = area.columns().get(otherAt.get(j));
                     Item item = configItem(spec.cells().get(otherAt.get(j)), where, column, loaded, placed, rowWarnings);
+                    String raw = spec.cells().get(otherAt.get(j));
                     if (excluded.contains(item)) {
                         item = null;
+                    } else if (item == null && ("#red".equals(raw) || raw != null && !raw.startsWith("#") && unknownLoaded(raw, loaded))) {
+                        item = MISSING_OTHER; // N77: rot auch in Zusatz- und Sonderspalten (Besitzer-Anordnung 16.11.)
                     }
                     others.add(item);
                     otherKeys.add(column.startsWith("special") ? SPECIAL_KEY : column);
@@ -1934,7 +1943,7 @@ public final class OrderAreas {
                 for (int col = 0; col < spec.cells().size(); col++) {
                     String cell = spec.cells().get(col);
                     String column = area.columns().get(col);
-                    if ("#red".equals(cell) && row != null && col < row.columns().size()) {
+                    if ("#red".equals(cell) && row != null && col < row.depth()) { // N77: in allen Spalten
                         Placeholder holder = holders.get(new BlockPos(row.x(), 0, row.z(col)));
                         if (holder == null || !holder.missing()) {
                             problems.add("config: " + area.area() + "/" + spec.key() + " " + column + " is not red");
