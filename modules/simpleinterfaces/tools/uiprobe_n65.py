@@ -33,8 +33,14 @@ def _sneak_use(s):
 
 
 def _linked(st, own_slots):
-    """Window slots of the appended (marked) containers: menu index behind the menu's own slots."""
-    return [x for x in st.get('slots', []) if x['index'] >= own_slots]
+    """Window slots of the appended (marked) containers: menu index behind the menu's own slots. Other mods may append slots of
+    their own to a menu (the 26.3 inventory had a 47th slot with the full pack), so only the trailing run whose container slots
+    count 0, 1, 2 ... from a 0 is taken."""
+    tail = [x for x in st.get('slots', []) if x['index'] >= own_slots and not x.get('own')]
+    for i, x in enumerate(tail):
+        if x['cslot'] == 0 and all(tail[i + k]['cslot'] == k for k in range(len(tail) - i)):
+            return tail[i:]
+    return []
 
 
 def _visible(st, slot):
