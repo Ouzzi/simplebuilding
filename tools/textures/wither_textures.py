@@ -4,8 +4,10 @@
     python tools/textures/wither_textures.py --check  # fail if the committed PNGs differ
 
 The Wither Heart became the Nether Heart on 21.10. (tools/textures/wither21_textures.py); HEART stays here only as the
-old design for comparison. Biome Brush: a netherite-dark handle with a heart-charcoal ferrule, the bristles fan
-out in bands of biome colors (grass, leaf, sand, snow). Both drawn here.
+old design for comparison. Biome Brush (N69B, 16.11.): vanilla-brush silhouette (fan head top right), the dark
+netherite handle of the first design (K/H/n), a grey cord binding, cream bristles whose front third runs grass -> sand
+-> snow toward the tip (BRUSH rows; preview generator /root/sb-tools-b/ig57u/mock/render_n69b.py, variant c3).
+The first design (handle + biome bands, brush_rows()) stays for comparison like HEART. Both drawn here.
 The Blighted Wither skin is the Vanilla Wither skin remapped to an ash ramp with soul-cyan eyes: Vanilla-derived,
 so it is only built (tools/textures/vanilla_derived.py, MODULE_OUTPUTS['simplemobs']) and never committed.
 """
@@ -39,6 +41,12 @@ PAL = {
     'S': (0xbf, 0xa8, 0x66),   # sand dark
     'b': (0xc8, 0xe8, 0xf4),   # snow
     'B': (0x8c, 0xb8, 0xd8),   # snow shade
+    # N69B brush: cord binding, cream bristles, grass -> sand -> snow tip
+    'r': (0x2e, 0x2e, 0x38), 'x': (0x64, 0x66, 0x72), 't': (0xa0, 0xa2, 0xac), 'u': (0xd4, 0xd6, 0xdc),   # cord
+    '6': (0x68, 0x5a, 0x4a), 'j': (0xa6, 0x98, 0x84), 'f': (0xcc, 0xc0, 0xac), '7': (0xea, 0xe2, 0xd2),   # bristles
+    '2': (0x1e, 0x46, 0x16), 'k': (0x34, 0x6c, 0x22), 'e': (0x54, 0x92, 0x30), '8': (0x76, 0xb6, 0x40),   # grass band
+    '3': (0x96, 0x70, 0x34), 'i': (0xc4, 0x9c, 0x52), '9': (0xe2, 0xc4, 0x78), '4': (0xf4, 0xe2, 0xa4),   # sand band
+    '1': (0x60, 0x84, 0xa8), 'a': (0xc8, 0xe8, 0xf4), '5': (0xe6, 0xf8, 0xff),                            # snow tip
 }
 
 HEART = [
@@ -102,7 +110,25 @@ def brush_rows():
     return [''.join(r) for r in out]
 
 
-BRUSH = brush_rows()
+BRUSH_OLD = brush_rows()   # first design (until N69B), kept for comparison
+BRUSH = [
+    '................',
+    '..........1.1.1.',
+    '........234151..',
+    '.......67899aa1.',
+    '......6777e991..',
+    '.....677f7feii1.',
+    '.....67ffffjk3..',
+    '.....67fffjj6...',
+    '....rt6ffjj6....',
+    '...rutx6666.....',
+    '...Kutxr........',
+    '..KHntr.........',
+    '.KHnK...........',
+    'KnnK............',
+    '.KK.............',
+    '................',
+]
 
 
 def draw(rows):
