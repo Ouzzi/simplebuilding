@@ -96,3 +96,17 @@ Plan-Abgleich; `python3 -m unittest discover -s wiki/tests`; `python3 wiki/gener
 `tools/zentrale-web` Tests mit `SB_NGINX` (falls nginx auf sb-test); alle Browser-Harnesses + `nav74_ui.cjs`
 auf sb-test via `/root/sbt b-nav74`; Precheck `python3.12 /root/gate-tools/precheck.py`. Screens nach
 `/var/tmp/sb/pw/n74` (sb-test). Dev-Klick-Test erst nach Bündelung + nginx (nicht Teil dieses Auftrags).
+
+## Ergebnis / Abgleich (16.11., Stand 38a0b4617c)
+Alles aus „Änderungen“ umgesetzt. Abweichungen (bewusst):
+- `<base>` + Laufzeit-Erkennung über nginx `sub_filter` statt Inline-Skript (GitHub-Pages-Konflikt, s. Entscheidung 2).
+- Kein eigener „Sub-Mods“-Eintrag in der Bereichs-Seitenleiste (die Sub-Mod-Liste steht darunter); Route `?tab=submods`
+  bleibt (im Bereich = Familienbaum). Wurzel-Gruppen heißen „Alle Mods: …“ und sind anfangs zu.
+- Breadcrumb generisch auf jeder Seite außer der Startseite (render() ergänzt ihn, wo eine Seite keinen hat).
+- Nebenbei behoben: Items-Seite verlor `iv-rows`, wenn die Liste das N72-Zoom-Attribut trug (pageItems-Replace).
+- `rel=canonical` für Sub-Mod-Einträge nicht gebaut (nicht Teil der Abnahme).
+Tests (sb-test): modpath_core 5664 Prüfungen grün; wiki-Unittests 124 OK; nginx-Tests 9/9 inkl. echter nginx 1.26
+(Integration `test_flat_mod_paths_n74`); nav74_ui 270 Prüfungen grün (4 Pfad-Läufe 1280/390 × hell/dunkel + Query-Lauf);
+wiki24_ui 444, time_ui 126, enchanting_ui 184, tzeditor_ui 72, zoomarea_ui 130 grün; precheck 93 grün.
+Vorbestehend rot (auch auf b-tz72): home_ui „+N more opens“; ui_lists Spaltenköpfe der Konfig-Tabelle (`getByRole('columnheader')`
+= 0, auch auf Basis); `generate.py --check` meldet textures.js im sb-test-Spiegel (umgebungsabhängig, Branch ändert wiki/data nicht).
