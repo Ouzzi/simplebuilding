@@ -46,7 +46,7 @@ def features(i):
 rows = []
 for m in mods:
     i = m["id"]
-    if i not in P or m.get("example"): continue  # developer examples (wiringexample) never get a store page
+    if i not in P or m.get("example") or m.get("release") is False: continue  # examples and "release": false (REL75) get no store page
     summ, over, cats, tags = P[i]
     req = [nm(x) for x in m.get("requires", [])]
     opt = [nm(x) for x in m.get("optional", [])]

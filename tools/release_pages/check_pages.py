@@ -11,6 +11,8 @@ def main():
         if m.get("example"):
             if p.exists(): bad.append(f"{p.name}: example module, never published - delete the draft")
             continue
+        if m.get("release") is False:
+            continue  # REL75: kept out of the release; an existing draft stays for later but is not generated/listed
         if not p.exists(): bad.append(f"missing {p.name}"); continue
         t = p.read_text()
         s = re.search(r"## Summary[^\n]*\n\n(.+)\n", t)
