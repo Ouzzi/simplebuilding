@@ -142,4 +142,70 @@ def stats(s):
     s.close()
 
 
-SCENARIOS = {'simplestats': stats}
+# N78 (owner 16.11.): screenshots for the preview - stats tooltip with the Top-1 icon (without/with Shift), the key page (new defaults
+# U / arrows / unbound highlight) and grates seen from inside (Simple Ores brass + Vanilla copper with the template's inner sides).
+SMOOTH = ('{id:424243L,since:20741L,totals:{blocks_mined:2L},detail:{blocks_mined:{e:{"minecraft:smooth_stone":2L}}}}')
+ROD = ('{id:424244L,since:20741L,totals:{catches:9L},detail:{catches:{e:{"minecraft:cod":5L,"minecraft:salmon":3L,"minecraft:name_tag":1L}}}}')
+
+
+def _hover(s, st, index, name):
+    slot = s.slot_xy(st, index, True)
+    if not slot or not slot['stack']:
+        s.check(f'hotbar slot {index} reported with the item', False, slot)
+        return None, None
+    s.io.move(*s.abs(st, slot['x'], slot['y']))
+    time.sleep(1.5)
+    plain = _open_image(s, f'{name}-tooltip')
+    s.io.key_down('Shift_L')
+    time.sleep(1.2)
+    shifted = _open_image(s, f'{name}-tooltip-shift')
+    s.io.key_up('Shift_L')
+    time.sleep(0.6)
+    return plain, shifted
+
+
+def n78(s):
+    s.chat('gamemode survival @s', 0.8)
+    s.chat('time set noon', 0.4)
+    s.clear_and_give(f'minecraft:diamond_pickaxe[simplestats:item_stats={SMOOTH}]', PICKAXE,
+                     f'minecraft:fishing_rod[simplestats:item_stats={ROD}]')
+    s.key('1', 0.4)
+    s.key('e', 1.0)
+    st = s.wait_screen('InventoryScreen', 10)
+    s.check('E opens the survival inventory', 'InventoryScreen' in st.get('screen', ''), st.get('screen'))
+    if 'InventoryScreen' in st.get('screen', ''):
+        for index, name in ((0, 'pickaxe-smooth'), (1, 'pickaxe-many'), (2, 'rod')):
+            plain, shifted = _hover(s, st, index, name)
+            n = _changed(plain, shifted)
+            s.check(f'{name}: Shift changes the tooltip (top list)', n > 800, n)
+    s.close()
+    # ---- key page: U opens it (N78 default), screenshots of the first pages
+    st = s.key('u', 1.2)
+    st = s.wait_screen('KeysScreen', 8)
+    s.check('U opens the Simple key page', 'KeysScreen' in st.get('screen', ''), st.get('screen'))
+    if 'KeysScreen' in st.get('screen', ''):
+        s.shot('keys-1')
+        for page in (2, 3, 4):
+            s.wheel(640, 360, clicks=6, down=True, st=st)
+            time.sleep(0.6)
+            s.shot(f'keys-{page}')
+    s.close()
+    # ---- grates from inside: a hollow 5 x 5 x 5 brass grate room, the west wall Vanilla copper grate, HUD hidden
+    s.chat('gamemode creative @s', 0.6)
+    s.chat('fill ~-2 ~-1 ~-2 ~2 ~3 ~2 simpleores:brass_grate hollow', 1.0)
+    s.chat('fill ~-2 ~ ~-1 ~-2 ~2 ~1 minecraft:copper_grate', 0.8)
+    s.chat('fill ~2 ~ ~-1 ~2 ~2 ~1 simpleores:stainless_steel_grate', 0.8)
+    s.key('F1', 0.4)
+    for name, yaw, pitch in (('grate-inside-north', 180, 10), ('grate-inside-copper-west', 90, 10), ('grate-inside-steel-east', -90, 10),
+                             ('grate-inside-floor', 0, 80), ('grate-inside-corner', 135, -30)):
+        s.chat(f'tp @s ~ ~ ~ {yaw} {pitch}', 1.0)
+        time.sleep(1.0)
+        s.shot(name)
+    s.chat('tp @s ~6 ~1 ~6 135 25', 1.2)
+    time.sleep(1.0)
+    s.shot('grate-outside')
+    s.key('F1', 0.4)
+    s.check('grate screenshots taken', True, 'compare by eye: inner sides visible through the holes')
+
+
+SCENARIOS = {'simplestats': stats, 'simplestats/n78': n78}
