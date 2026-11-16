@@ -98,6 +98,30 @@ Spalten, max. 512 KB) und devqueue legt die Speicherung als JSON unter `<data>/t
   `python3 tools/tzedit/tzedit_save.py pull --git-dir /root/sb.git --remote "ssh -o BatchMode=yes sb-web" --report /root/b-fertig.md`
 - Tests: `python3 -m unittest tools/tzedit/tests/test_tzedit_save.py`
 
+### Bilder im Editor (N72)
+
+Die Zellen zeigen Vanilla-Bilder nur im Dev-Bereich. Dafür muss `wiki/vanilla_textures.py` im Dev-Checkout laufen.
+Das macht `sb-web-sync`, sobald sich der Dev-Stand ändert. Der Lauf schreibt drei Dinge, alle git-ignoriert:
+
+- `wiki/assets/vanilla/**`: die Bilder aus dem Client-Jar.
+- `wiki/data/vanilla-icons.json`: Id → Bildpfad, nur Namen. Aufgelöst wie im Spiel über `items/<id>.json` → Modell → Eltern →
+  Texturen (`tools/devserver/sbdev/icons.py`). So bekommen auch Stufen, Treppen, Mauern, gewachste Blöcke, Laternen und Achtel
+  ihr Bild; Mob-Köpfe ohne flaches Bild das Spawn-Ei des Mobs.
+- `wiki/assets/devtex/**`: Modul-Texturen, die das Wiki sonst nicht hat.
+
+Ohne Jar zeigt der Editor den Namen. Einrichtung, einmal:
+
+1. sb-agent, Forced Command `/usr/local/bin/sb-web-gate`, neuer Fall vor `*)`:
+   `  sb-jar) exec cat /root/.gradle/caches/fabric-loom/26.3/minecraft-client.jar ;;`
+   Alternativ das Jar einmal kopieren:
+   `scp ~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar sb-web:/var/lib/sb-web-sync/minecraft-client-26.3.jar`
+2. Web-Host: die Repo-Fassung des Sync-Skripts einspielen, mit Sicherung vorher:
+   `cp /usr/local/bin/sb-web-sync /usr/local/bin/sb-web-sync.bak-n72 && cp /srv/wiki-dev/tools/zentrale-web/sb-web-sync /usr/local/bin/sb-web-sync`
+3. Optional, Web-Host: `apt-get install -y python3-pil python3-numpy`. Damit sind die Vanilla-abgeleiteten Texturen echt;
+   ohne diese Pakete sind es beschriftete Platzhalter.
+
+Log: `/var/log/sb-wiki-vanilla.log`. Prüfen: `/dev/data/vanilla-icons.json` liefert 200.
+
 ## Ein Host mit Login (a-zw06, Besitzer 06.11.)
 `simplemods-wiki.azarfane.com` trägt alles (ab IG31-55 siehe Abschnitt „Domain-Umzug“: `wiki.simplemods.de`); Cloudflare-Pfadschutz kommt später, bis dahin ein eigener Login.
 

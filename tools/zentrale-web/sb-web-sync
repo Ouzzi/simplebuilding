@@ -20,7 +20,9 @@ if [ ! -d /srv/wiki-dev/.git ]; then git clone -q sb-agent:/root/sb.git /srv/wik
 # never in /srv/wiki-prod (wiki/vanilla_textures.py writes only git-ignored files). Again only when the dev head moved.
 if [ -d /srv/wiki-dev/.git ] && [ -f /srv/wiki-dev/wiki/vanilla_textures.py ]; then
   jar=$st/minecraft-client-26.3.jar
-  [ -s $jar ] || { ssh -o BatchMode=yes sb-agent "cat ~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar" > $jar.tmp 2>/dev/null && [ -s $jar.tmp ] && mv $jar.tmp $jar; rm -f $jar.tmp; }
+  # the sb-agent key is a forced command (sb-web-gate): "sb-jar" streams the 26.3 client jar (README, N72); a plain
+  # "cat <path>" is refused there. Fetched once, kept in $st.
+  [ -s $jar ] || { ssh -o BatchMode=yes sb-agent sb-jar > $jar.tmp 2>/dev/null && [ -s $jar.tmp ] && mv $jar.tmp $jar; rm -f $jar.tmp; }
   head=$(git -C /srv/wiki-dev rev-parse HEAD)
   if [ -s $jar ] && [ "$head" != "$(cat $st/vanilla.head 2>/dev/null)" ]; then
     (cd /srv/wiki-dev && SB_CLIENT_JAR=$jar timeout 600 $(command -v python3.12 || echo python3) wiki/vanilla_textures.py --jar $jar >> /var/log/sb-wiki-vanilla.log 2>&1) && echo "$head" > $st/vanilla.head

@@ -61,6 +61,9 @@ wiki/assets/textures/minecraft/
 # Dev-only Vanilla category of the Textures page (wiki/vanilla_textures.py, owner 06.11.): never committed.
 wiki/assets/vanilla/
 wiki/data/vanilla-textures.js
+# N72: id -> picture paths of the test centre editor (wiki/vanilla_textures.py --icons, dev host only)
+wiki/data/vanilla-icons.json
+wiki/assets/devtex/
 
 # Aus Vanilla-Texturen abgeleitete Texturen (Umfaerbung/Maske aus dem Client-Jar) - nie ins Repository
 # (Besitzer 12.10.2026, AGENTS.md). tools/textures/vanilla_derived.py erzeugt sie beim Bauen

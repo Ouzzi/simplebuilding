@@ -951,6 +951,7 @@ body.tx-lb-open { overflow: hidden; }
 <script src="data/modules.js"></script>
 <script src="assets/module-loader.js"></script>
 <script src="assets/sitebar.js" defer></script>
+<script src="assets/zoomarea.js"></script>
 <script>
 window.WIKI_READY.then(function () {
 'use strict';
@@ -3224,7 +3225,9 @@ function listPage(title, rows, opts) {
   opts = opts || {};
   var h = '<div class="listhead"><h1>' + esc(title) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>' + (rows.length > 8 ? '<input type="search" data-filter placeholder="' + esc(T('filterPlaceholder')) + '" aria-label="' + esc(T('filterAria')) + '">' : '') + '</div>';
   if (opts.intro) h += opts.intro;
-  h += rows.length ? '<div class="rows" data-filter-target>' + rows.join('') + '</div>' : '<p class="hint">' + esc(T('noEntriesList')) + '</p>';
+  /* N72: long lists get the shared zoom/full screen bar (assets/zoomarea.js) */
+  var zk = rows.length > 40 ? ' data-zoom="list-' + esc(currentRoute().section || 'list') + '"' : '';
+  h += rows.length ? '<div class="rows" data-filter-target' + zk + '>' + rows.join('') + '</div>' : '<p class="hint">' + esc(T('noEntriesList')) + '</p>';
   h += '<p class="hint" data-filter-empty hidden>' + esc(T('filterEmpty')) + '</p>';
   return h;
 }
@@ -3786,7 +3789,7 @@ function pageAllRecipes() {
     '<div class="ar-frow"><input type="search" id="ar-q" value="' + esc(RV.q) + '" placeholder="' + esc(T('arSearch')) + '" aria-label="' + esc(T('arSearch')) + '"><label><input type="checkbox" id="ar-merge"' + (RV.merge ? ' checked' : '') + '> ' + esc(T('arMerge')) + '</label>' +
     '<label><input type="checkbox" id="ar-groupst"' + (RV.group ? ' checked' : '') + '> ' + esc(T('arGroupSt')) + '</label>' +
     '<span class="ar-foldall"' + (RV.group ? '' : ' hidden') + '><button type="button" class="chip" data-ar-fold="open">' + esc(T('arExpandAll')) + '</button><button type="button" class="chip" data-ar-fold="close">' + esc(T('arCollapseAll')) + '</button></span></div></div>';
-  h += '<div class="ar-status" id="ar-status" aria-live="polite"></div><div class="ar-grid" id="ar-results"></div><div id="ar-more-wrap"></div>';
+  h += '<div class="ar-status" id="ar-status" aria-live="polite"></div><div class="ar-grid" id="ar-results" data-zoom="allrecipes"></div><div id="ar-more-wrap"></div>';
   return h;
 }
 function arRenderResults() {
@@ -3908,10 +3911,12 @@ function pageRecipes() {
   var order = RECIPE_TYPE_ORDER; var keys = Array.from(groups.keys()).sort(function (a, b) { var ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
   var h = '<div class="listhead"><h1>' + esc(T('navRecipes')) + ' <span class="muted tiny" style="font-weight:400">' + arr(D.recipes).length + '</span></h1><input type="search" data-filter placeholder="' + esc(T('filterRecipes')) + '" aria-label="' + esc(T('filterRecipes')) + '"></div>';
   if (!keys.length) h += '<p class="hint">' + esc(T('noRecipes')) + '</p>';
+  h += '<div data-zoom="recipes">';  /* N72: shared zoom/full screen bar over all recipe groups */
   keys.forEach(function (k) {
     var rows = groups.get(k).slice().sort(function (a, b) { var ra = normStack(a.result), rb = normStack(b.result); return norm(ra ? displayName(ra.id) : a.id).localeCompare(norm(rb ? displayName(rb.id) : b.id), LANG); });
     h += section(recipeTypeLabel(k) + ' ', '<div class="tiny muted" style="margin:-.5rem 0 .5rem"><code>' + esc(k) + '</code></div><div class="rows" data-filter-target>' + rows.map(recipeRow).join('') + '</div>', { count: rows.length });
   });
+  h += '</div>';
   h += '<p class="hint" data-filter-empty hidden>' + esc(T('filterEmpty')) + '</p>';
   return h;
 }
@@ -6437,7 +6442,7 @@ function pageTextures() {
     '<button type="button" class="chip" data-tx-dir aria-pressed="' + TX.desc + '" title="' + esc(T('txDir')) + '">⇅</button></div>' +
     '<div class="ar-frow" role="group"><span class="ar-flabel">' + esc(T('txAnimated')) + '</span>' + txChip('anim', '', T('txAll')) + txChip('anim', 'yes', T('txYes')) + txChip('anim', 'no', T('txNo')) +
     (TX.area === 'ui' ? '' : '<span class="ar-flabel" style="margin-left:1rem">' + esc(T('txShow')) + '</span>' + txChip('show', 'both', T('txBoth')) + txChip('show', 'final', T('txFinal')) + txChip('show', 'sheet', T('txSheet'))) + '</div></div>';
-  return h + '<div id="tx-results">' + txGridHtml() + '</div>';
+  return h + '<div id="tx-results" data-zoom="textures">' + txGridHtml() + '</div>';
 }
 function txRefresh(full) {
   if (full) { var y = window.pageYOffset; render({ keepScroll: true }); window.scrollTo(0, y); return; }
@@ -6738,11 +6743,16 @@ function render(opts) {
   if (r.section === 'browse') brFill();
   restoreListFilter();
   tsRefresh();
-  $main.querySelectorAll('.table-wrap').forEach(function (wrap) {
+  $main.querySelectorAll('.table-wrap').forEach(function (wrap, k) {
     wrap.tabIndex = 0;
     wrap.setAttribute('role', 'region');
     wrap.setAttribute('aria-label', T('tableRegion'));
+    /* N72: inner scroll boxes that really overflow get the shared zoom/full screen bar (zoom on the table inside) */
+    if (!wrap.classList.contains('tw-full') && !wrap.hasAttribute('data-zoom') && (wrap.scrollHeight > wrap.clientHeight + 40 || wrap.scrollWidth > wrap.clientWidth + 40)) {
+      wrap.setAttribute('data-zoom', 'table-' + r.section + '-' + k); wrap.setAttribute('data-zoom-mode', 'inner');
+    }
   });
+  if (window.SBZoom) window.SBZoom.scan($main, LANG);
   if (r.section === 'tree') fillTree();
   if (r.section === 'allrecipes' || r.section === 'make' || r.section === 'use') { AR.shown = 60; refreshRecipeView(); }
   renderSidebar(active);
@@ -6813,6 +6823,8 @@ document.addEventListener('load', function (ev) {
 $main.addEventListener('error', function (ev) {
   var img = ev.target;
   if (!img || img.tagName !== 'IMG') return;
+  /* N72: pictures with their own chain of candidates (test centre editor) handle the error themselves */
+  if (img.hasAttribute('data-own-fallback')) return;
   if (img.getAttribute('src')) MISSING_TEX[img.getAttribute('src')] = true;
   var hl = img.closest('.home-hl .itile');
   if (hl) { hl.remove(); return; }
@@ -7010,6 +7022,8 @@ $theme.addEventListener('click', function () {
 /* Rechtsklick auf eine Item-Kachel: eigenes kleines Menue mit "Rezeptbaum".
    Linksklick bleibt, wie er ist. Tastatur: Kontextmenue-Taste/Shift+F10. */
 document.addEventListener('contextmenu', function (ev) {
+  /* N72b: pages with their own menu (test centre editor cells) took the event already */
+  if (ev.defaultPrevented) { closeCtx(); return; }
   var el = ev.target && ev.target.closest ? ev.target.closest('[data-id]') : null;
   if (!el || !$main.contains(el)) { closeCtx(); return; }
   var id = el.getAttribute('data-id');
