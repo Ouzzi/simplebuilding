@@ -206,6 +206,7 @@ async function pathRun(browser, base, width, scheme) {
     ['?mod=simplebuilding#/allmods', '/'],
     ['#/items/simplebuilding:enderite_chisel', '/simplebuilding/items/enderite_chisel'],
     ['?item=simplechisels:copper_chisel', '/simplechisels/items/copper_chisel'],
+    ['#/items/simplechisels:copper_chisel', '/simplechisels/items/copper_chisel'],
     ['?mod=nosuchmod', '/'],
     ['simplenosuch/items/x', '/']
   ];
@@ -213,7 +214,9 @@ async function pathRun(browser, base, width, scheme) {
     for (const [from, to] of legacy) {
       await page.goto(base + from); await ready(page);
       eq(rel(page), to, tag + ' old link ' + from);
-      ok(!/not found|nicht gefunden/i.test(await page.locator('#main h1').first().textContent()), tag + ' old link renders ' + from);
+      // enderite_chisel (concept table) is no longer an item: the old link still lands in the area, on "not found" with suggestions
+      if (from.indexOf('enderite_chisel') < 0) ok(!/not found|nicht gefunden/i.test(await page.locator('#main h1').first().textContent()), tag + ' old link renders ' + from);
+      else ok(await page.locator('#main .notfound .rows a.row').count() > 0, tag + ' old link to a removed item offers suggestions');
     }
     // modpack filter from an old link: start page with the hint, the bar only on the structure page
     await open(page, base, '?pack=super:simplebuilding');
