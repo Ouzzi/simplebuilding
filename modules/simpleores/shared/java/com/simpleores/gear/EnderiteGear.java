@@ -55,10 +55,13 @@ public final class EnderiteGear {
 
     public static final String[] ARMOR_PARTS = {"helmet", "chestplate", "leggings", "boots"};
     /** Creative tabs: tools, combat and food are listed in {@link OresRegistry#TOOLS}/{@code COMBAT}/{@code FOOD}; the poles go behind the copper lightning rod (functional tab). */
-    public static final String[] POLES = GearIds.POLES.toArray(String[]::new);
+    public static final String[] POLES = java.util.stream.Stream.concat(GearIds.POLES.stream(), GearIds.NEW_POLES.stream())
+            .sorted(java.util.Comparator.comparingInt(GearIds.TAB_ORDER::indexOf)).toArray(String[]::new);
     // The poles (owner 2026-10-02/03, N41): lightning rods of metal, each pulling a strike only within its own range (MetalRodBlock).
     public static final Block IRON_POLE = pole("iron_pole", MetalRodBlock.IRON_RANGE, MapColor.METAL, 5.0F, 6.0F, SoundType.METAL);
     public static final Block GOLD_POLE = pole("gold_pole", MetalRodBlock.GOLD_RANGE, MapColor.GOLD, 3.0F, 6.0F, SoundType.METAL);
+    /** N77 (owner 16.11.): the emerald pole, like the diamond one (between gold and diamond in range). */
+    public static final Block EMERALD_POLE = pole("emerald_pole", MetalRodBlock.EMERALD_RANGE, MapColor.EMERALD, 5.0F, 6.0F, SoundType.METAL);
     public static final Block DIAMOND_POLE = pole("diamond_pole", MetalRodBlock.DIAMOND_RANGE, MapColor.DIAMOND, 5.0F, 6.0F, SoundType.METAL);
     public static final Block NETHERITE_POLE = pole("netherite_pole", MetalRodBlock.NETHERITE_RANGE, MapColor.COLOR_BLACK, 50.0F, 1200.0F, SoundType.NETHERITE_BLOCK);
     public static final Block ENDERITE_POLE = pole("enderite_pole", MetalRodBlock.ENDERITE_RANGE, MapColor.COLOR_BLACK, 50.0F, 1200.0F, SoundType.NETHERITE_BLOCK);
@@ -93,7 +96,7 @@ public final class EnderiteGear {
                 .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
         OresRegistry.putItem("enchanted_enderite_apple", p -> new Item(p.food(ENDERITE_APPLE_FOOD, enchantedEnderiteFood()).fireResistant()
                 .rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
-        for (String path : GearIds.POLES) {
+        for (String path : POLES) {
             Rarity rank = path.equals("netherite_pole") ? Rarity.UNCOMMON : path.equals("enderite_pole") ? Rarity.EPIC : null;
             OresRegistry.putItem(path, p -> {
                 p = p.useBlockDescriptionPrefix();

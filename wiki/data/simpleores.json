@@ -6175,6 +6175,84 @@
       }
     },
     {
+      "id": "simpleores:emerald_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleores:emerald_pole",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/emerald_pole.json",
+      "ingredients": [
+        "minecraft:emerald"
+      ],
+      "pattern": [
+        "M",
+        "M",
+        "M"
+      ],
+      "key": {
+        "M": [
+          "minecraft:emerald"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:emerald",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enchanted_infernite_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:enchanted_infernite_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_infernite_apple.json",
+      "ingredients": [
+        "simpleores:infernite_apple",
+        "simpleores:infernite_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:infernite_ingot"
+        ],
+        "A": [
+          "simpleores:infernite_apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:infernite_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:enchanted_rose_bronze_apple",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -6248,6 +6326,96 @@
           {
             "id": "simpleores:rose_gold_ingot",
             "count": 72
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enchanted_terranite_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:enchanted_terranite_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_terranite_apple.json",
+      "ingredients": [
+        "simpleores:terranite_apple",
+        "simpleores:terranite_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:terranite_ingot"
+        ],
+        "A": [
+          "simpleores:terranite_apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:terranite_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enchanted_zenithite_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:enchanted_zenithite_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_zenithite_apple.json",
+      "ingredients": [
+        "simpleores:zenithite_apple",
+        "simpleores:zenithite_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zenithite_ingot"
+        ],
+        "A": [
+          "simpleores:zenithite_apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zenithite_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 8
           },
           {
             "id": "minecraft:apple",
@@ -7643,6 +7811,67 @@
           {
             "id": "simpleores:infernite_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:infernite_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:infernite_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/infernite_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:infernite_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:infernite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:infernite_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:infernite_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:infernite_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/infernite_nugget.json",
+      "ingredients": [
+        "simpleores:infernite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:infernite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:infernite_ingot",
+            "count": 1
           }
         ]
       }
@@ -14358,6 +14587,39 @@
       }
     },
     {
+      "id": "simpleores:terranite_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:terranite_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/terranite_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:terranite_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:terranite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:terranite_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:terranite_ingot_from_terranite_block",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -14381,6 +14643,34 @@
           {
             "id": "simpleores:terranite_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:terranite_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:terranite_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/terranite_nugget.json",
+      "ingredients": [
+        "simpleores:terranite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:terranite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:terranite_ingot",
+            "count": 1
           }
         ]
       }
@@ -15323,6 +15613,39 @@
       }
     },
     {
+      "id": "simpleores:zenithite_ingot_from_nuggets",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zenithite_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zenithite_ingot_from_nuggets.json",
+      "ingredients": [
+        "simpleores:zenithite_nugget"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:zenithite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:zenithite_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:zenithite_ingot_from_zenithite_block",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -15346,6 +15669,34 @@
           {
             "id": "simpleores:zenithite_ingot",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:zenithite_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:zenithite_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/zenithite_nugget.json",
+      "ingredients": [
+        "simpleores:zenithite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:zenithite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:zenithite_ingot",
+            "count": 1
           }
         ]
       }
@@ -17706,6 +18057,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/dull_nihilith_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/emerald_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:emerald_pole"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/emerald_pole.json"
     },
     {
       "id": "simpleores:blocks/end_dimensional_scrap",
@@ -20647,6 +21016,28 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:enchanted_infernite_apple",
+      "name": {
+        "en_us": "Enchanted Infernite Apple",
+        "de_de": "Verzauberter Infernit-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Enchanted Infernite apple (glint): 6 hunger, always edible, fire resistant. Gives Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and Fire Resistance 5:00. Eight infernite ingots round a infernite apple."
+        },
+        "de": {
+          "summary": "Verzauberter Infernit-Apfel (Schimmer): 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und Feuerresistenz 5:00. Acht Infernitbarren um einen Infernit-Apfel."
+        }
+      },
+      "craftedBy": [
+        "simpleores:enchanted_infernite_apple"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:enchanted_netherite_apple",
       "name": {
         "en_us": "Enchanted Netherite Apple",
@@ -20713,6 +21104,50 @@
       },
       "craftedBy": [
         "simpleores:enchanted_rose_gold_apple"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:enchanted_terranite_apple",
+      "name": {
+        "en_us": "Enchanted Terranite Apple",
+        "de_de": "Verzauberter Terranit-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Enchanted Terranite apple (glint): 6 hunger, always edible, fire resistant. Gives Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and Haste 5:00. Eight terranite ingots round a terranite apple."
+        },
+        "de": {
+          "summary": "Verzauberter Terranit-Apfel (Schimmer): 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und Eile 5:00. Acht Terranitbarren um einen Terranit-Apfel."
+        }
+      },
+      "craftedBy": [
+        "simpleores:enchanted_terranite_apple"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:enchanted_zenithite_apple",
+      "name": {
+        "en_us": "Enchanted Zenithite Apple",
+        "de_de": "Verzauberter Zenithit-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Enchanted Zenithite apple (glint): 6 hunger, always edible, fire resistant. Gives Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and Slow Falling 5:00. Eight zenithite ingots round a zenithite apple."
+        },
+        "de": {
+          "summary": "Verzauberter Zenithit-Apfel (Schimmer): 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und Sanfter Fall 5:00. Acht Zenithitbarren um einen Zenithit-Apfel."
+        }
+      },
+      "craftedBy": [
+        "simpleores:enchanted_zenithite_apple"
       ],
       "usedIn": []
     },
@@ -21341,7 +21776,9 @@
       "craftedBy": [
         "simpleores:infernite_apple"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleores:enchanted_infernite_apple"
+      ]
     },
     {
       "id": "simpleores:infernite_carrot",
@@ -21386,14 +21823,42 @@
       "texture": "assets/textures/simpleores/item/infernite_ingot.png",
       "craftedBy": [
         "simpleores:infernite_ingot",
-        "simpleores:infernite_ingot_from_infernite_block"
+        "simpleores:infernite_ingot_from_infernite_block",
+        "simpleores:infernite_ingot_from_nuggets"
       ],
       "usedIn": [
+        "simpleores:enchanted_infernite_apple",
         "simpleores:infernite_apple",
         "simpleores:infernite_block",
         "simpleores:infernite_carrot",
+        "simpleores:infernite_nugget",
         "simpleores:infernite_pressure_plate",
         "simpleores:zenithite_ingot"
+      ]
+    },
+    {
+      "id": "simpleores:infernite_nugget",
+      "name": {
+        "en_us": "Infernite Nugget",
+        "de_de": "Infernitklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a infernite ingot; an ingot gives nine. Fire resistant."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Infernitbarren; ein Barren gibt neun. Feuerfest."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/infernite_nugget.png",
+      "craftedBy": [
+        "simpleores:infernite_nugget"
+      ],
+      "usedIn": [
+        "simpleores:infernite_ingot_from_nuggets"
       ]
     },
     {
@@ -22781,7 +23246,9 @@
       "craftedBy": [
         "simpleores:terranite_apple"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleores:enchanted_terranite_apple"
+      ]
     },
     {
       "id": "simpleores:terranite_carrot",
@@ -22826,14 +23293,42 @@
       "texture": "assets/textures/simpleores/item/terranite_ingot.png",
       "craftedBy": [
         "simpleores:terranite_ingot",
+        "simpleores:terranite_ingot_from_nuggets",
         "simpleores:terranite_ingot_from_terranite_block"
       ],
       "usedIn": [
+        "simpleores:enchanted_terranite_apple",
         "simpleores:infernite_ingot",
         "simpleores:terranite_apple",
         "simpleores:terranite_block",
         "simpleores:terranite_carrot",
+        "simpleores:terranite_nugget",
         "simpleores:terranite_pressure_plate"
+      ]
+    },
+    {
+      "id": "simpleores:terranite_nugget",
+      "name": {
+        "en_us": "Terranite Nugget",
+        "de_de": "Terranitklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a terranite ingot; an ingot gives nine. Fire resistant."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Terranitbarren; ein Barren gibt neun. Feuerfest."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/terranite_nugget.png",
+      "craftedBy": [
+        "simpleores:terranite_nugget"
+      ],
+      "usedIn": [
+        "simpleores:terranite_ingot_from_nuggets"
       ]
     },
     {
@@ -22922,7 +23417,9 @@
       "craftedBy": [
         "simpleores:zenithite_apple"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleores:enchanted_zenithite_apple"
+      ]
     },
     {
       "id": "simpleores:zenithite_carrot",
@@ -22967,13 +23464,41 @@
       "texture": "assets/textures/simpleores/item/zenithite_ingot.png",
       "craftedBy": [
         "simpleores:zenithite_ingot",
+        "simpleores:zenithite_ingot_from_nuggets",
         "simpleores:zenithite_ingot_from_zenithite_block"
       ],
       "usedIn": [
+        "simpleores:enchanted_zenithite_apple",
         "simpleores:zenithite_apple",
         "simpleores:zenithite_block",
         "simpleores:zenithite_carrot",
+        "simpleores:zenithite_nugget",
         "simpleores:zenithite_pressure_plate"
+      ]
+    },
+    {
+      "id": "simpleores:zenithite_nugget",
+      "name": {
+        "en_us": "Zenithite Nugget",
+        "de_de": "Zenithitklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make a zenithite ingot; an ingot gives nine. Fire resistant."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Zenithitbarren; ein Barren gibt neun. Feuerfest."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/zenithite_nugget.png",
+      "craftedBy": [
+        "simpleores:zenithite_nugget"
+      ],
+      "usedIn": [
+        "simpleores:zenithite_ingot_from_nuggets"
       ]
     },
     {
@@ -25474,6 +25999,29 @@
       },
       "texture": "assets/textures/simpleores/block/dull_nihilith_ore.png",
       "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:emerald_pole",
+      "name": {
+        "en_us": "Emerald Pole",
+        "de_de": "Smaragdstange"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A lightning pole like the diamond one: pulls a strike within 72 blocks (gold 64, diamond 80), unless a copper lightning rod is in reach. Three emeralds upright make 1. Iron pickaxe."
+        },
+        "de": {
+          "summary": "Eine Blitzstange wie die Diamantstange: zieht Blitze im Umkreis von 72 Blöcken an (Gold 64, Diamant 80), wenn kein Kupfer-Blitzableiter in Reichweite ist. Drei Smaragde übereinander ergeben 1. Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/emerald_pole.png",
+      "craftedBy": [
+        "simpleores:emerald_pole"
+      ],
       "usedIn": []
     },
     {
@@ -31226,13 +31774,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 27,
-    "recipes": 458,
-    "lootTables": 221,
+    "recipes": 468,
+    "lootTables": 222,
     "tags": 12,
     "advancements": 1,
     "enchantments": 0,
-    "items": 95,
-    "blocks": 228,
+    "items": 101,
+    "blocks": 229,
     "trades": 0,
     "config": 26,
     "quests": 0,

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simpleores:infernite_ingot",
+    "A": "simpleores:infernite_apple"
+  },
+  "pattern": [
+    "###",
+    "#A#",
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:enchanted_infernite_apple"
+  }
+}

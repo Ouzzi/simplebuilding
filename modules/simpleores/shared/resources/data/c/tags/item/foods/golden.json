@@ -11,6 +11,9 @@
     "simpleores:infernite_apple",
     "simpleores:infernite_carrot",
     "simpleores:zenithite_apple",
-    "simpleores:zenithite_carrot"
+    "simpleores:zenithite_carrot",
+    "simpleores:enchanted_terranite_apple",
+    "simpleores:enchanted_infernite_apple",
+    "simpleores:enchanted_zenithite_apple"
   ]
 }

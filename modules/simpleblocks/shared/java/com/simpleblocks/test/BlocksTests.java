@@ -53,7 +53,7 @@ public final class BlocksTests {
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
     // PAL35b: + 20 of the metal row (BlocksRegistry.METALS); the 12 ice bricks (a-icebricks38) were lost in the bundle-188 merge (125 -> 137);
     // PLAN40 simpleblocks-3: + 3 sculk tile shapes + chiseled blue nether bricks.
-    public static final int BLOCK_COUNT = 141;
+    public static final int BLOCK_COUNT = 157; // N77: + 16 concrete walls
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 

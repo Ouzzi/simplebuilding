@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "simplechess:block/red_nether_brick_quartz_checker"
+  }
+}

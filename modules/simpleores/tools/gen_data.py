@@ -183,6 +183,17 @@ for _d, (_s, _p, m, (en, de), *_r) in RIFTS.items():
     RIFT_FOOD[f'{m}_apple'] = (m, True)
     RIFT_FOOD[f'{m}_carrot'] = (m, False)
 # metal -> (effect id, EN, DE) of OresFood.riftEffect
+# N77 (owner 16.11.2026, docs/ai/PLAN-N77-TZ-LAYOUT-2026-11-16.md): a nugget of each rift metal (nine <-> ingot) and the enchanted rift
+# apple (eight ingots round the rift apple; OresFood.enchantedRiftApple). Nugget textures: tools/textures/n77_ores_2026_11_16.py (own, committed).
+RIFT_NUGGETS = []
+RIFT_ENCHANTED = {}   # item -> metal
+for _d, (_s, _p, m, (en, de), *_r) in RIFTS.items():
+    ITEMS[f'{m}_nugget'] = (f'{en} Nugget', f'{de}klumpen')
+    ITEMS[f'enchanted_{m}_apple'] = (f'Enchanted {en} Apple', f'Verzauberter {de}-Apfel')
+    RIFT_NUGGETS.append(f'{m}_nugget')
+    RIFT_ENCHANTED[f'enchanted_{m}_apple'] = m
+# N77: the emerald pole (EnderiteGear, like the moved diamond pole: a lightning pole of range 72); texture own (n77_ores_2026_11_16.py).
+NEW_POLES = {'emerald_pole': ('Emerald Pole', 'Smaragdstange', 'minecraft:emerald')}
 RIFT_EFFECT = {'terranite': ('minecraft:haste', 'Haste', 'Eile'), 'infernite': ('minecraft:fire_resistance', 'Fire Resistance', 'Feuerresistenz'),
                'zenithite': ('minecraft:slow_falling', 'Slow Falling', 'Sanfter Fall')}
 # N30/N35 (a-pal35a, owner 11./12.11., docs/ai/PLAN-A-PAL35-2026-11-12.md): lamp (copper bulb logic), lantern, chain and pole of every building
@@ -423,6 +434,13 @@ for path in ITEMS:
     put(ASSETS / f'models/item/{path}.json', {'parent': 'minecraft:item/handheld' if handheld else 'minecraft:item/generated',
                                               'textures': {'layer0': f'{NS}:item/{path.replace("enchanted_", "")}'}})
     put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{path}'}})
+for pole in NEW_POLES:   # N77: the lightning-rod template like the moved poles; powered = the Vanilla rod's lit texture
+    put(ASSETS / f'models/block/{pole}.json', {'parent': 'minecraft:block/template_lightning_rod', 'textures': {'texture': f'{NS}:block/{pole}'}})
+    put(ASSETS / f'models/block/{pole}_on.json', {'parent': 'minecraft:block/template_lightning_rod', 'textures': {'texture': 'minecraft:block/lightning_rod_on'}})
+    turns = {'down': {'x': 180}, 'east': {'x': 90, 'y': 90}, 'north': {'x': 90}, 'south': {'x': 90, 'y': 180}, 'up': {}, 'west': {'x': 90, 'y': 270}}
+    put(ASSETS / f'blockstates/{pole}.json', {'variants': {f'facing={f},powered={str(on).lower()}': {'model': f'{NS}:block/{pole}{"_on" if on else ""}', **t}
+                                                           for f, t in turns.items() for on in (False, True)}})
+    put(ASSETS / f'items/{pole}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{pole}'}})
 for a in ALLOYS:
     put(ASSETS / f'equipment/{a}.json', {'layers': {'humanoid': [{'texture': f'{NS}:{a}'}], 'humanoid_leggings': [{'texture': f'{NS}:{a}'}]}})
 
@@ -500,7 +518,7 @@ for plate in PLATES:
     block_loot(plate, [{'rolls': 1, 'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{plate}', 'modifier': [
         {'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{plate}', 'state': {'layers': str(n)}}, 'count': n}
         for n in range(2, 9)]}]}])
-for path in BARS + GRATES + TRAPDOORS + LIGHTS_ALL:   # N30/N35: lamps, lanterns, chains, poles, plates drop themselves like the Vanilla ones
+for path in BARS + GRATES + TRAPDOORS + LIGHTS_ALL + list(NEW_POLES):   # N30/N35: lamps, lanterns, chains, poles, plates drop themselves like the Vanilla ones
     self_drop(path)
 # N28: a door drops once, from its lower half (like the Vanilla doors)
 for path in DOORS:
@@ -748,6 +766,19 @@ for path, (m, apple) in RIFT_FOOD.items():
         recipe(path, 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'C': 'minecraft:golden_carrot', '#': item(f'{m}_ingot')},
                               'pattern': ['CCC', 'C#C', 'CCC'], 'result': result(path, 8)}, item(f'{m}_ingot'))
 
+# N77: nuggets nine <-> ingot like the Enderite nugget; the enchanted rift apple: eight ingots round the rift apple; the emerald pole: three emeralds upright.
+for m in [v[2] for v in RIFTS.values()]:
+    recipe(f'{m}_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{m}_nugget')},
+                                              'pattern': ['###', '###', '###'], 'result': result(f'{m}_ingot')}, item(f'{m}_nugget'))
+    recipe(f'{m}_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item(f'{m}_ingot')],
+                                   'result': result(f'{m}_nugget', 9)}, item(f'{m}_ingot'))
+for path, m in RIFT_ENCHANTED.items():
+    recipe(path, 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{m}_ingot'), 'A': item(f'{m}_apple')},
+                          'pattern': ['###', '#A#', '###'], 'result': result(path)}, item(f'{m}_apple'))
+for pole, (_en, _de, gem) in NEW_POLES.items():
+    recipe(pole, 'redstone', {'type': 'minecraft:crafting_shaped', 'category': 'redstone', 'key': {'M': gem}, 'pattern': ['M', 'M', 'M'],
+                              'result': result(pole)}, gem)
+
 SHAPES = {
     'sword': (['X', 'X', 'S'], 'combat'), 'pickaxe': (['XXX', ' S ', ' S '], 'tools'), 'axe': (['XX', 'XS', ' S'], 'tools'),
     'shovel': (['X', 'S', 'S'], 'tools'), 'hoe': (['XX', ' S', ' S'], 'tools'), 'helmet': (['XXX', 'X X'], 'combat'),
@@ -800,7 +831,7 @@ tag('c/tags/item/raw_materials/silver.json', ids(['raw_silver']))
 for a in ALLOYS:
     tag(f'c/tags/item/ingots/{a}.json', ids([f'{a}_ingot']))
     tag(f'{NS}/tags/item/repairs_{a}_equipment.json', ids([f'{a}_ingot']))
-tag('c/tags/item/foods/golden.json', ids([p for a in ALLOYS for p in (f'{a}_apple', f'enchanted_{a}_apple', f'{a}_carrot')] + list(RIFT_FOOD)))
+tag('c/tags/item/foods/golden.json', ids([p for a in ALLOYS for p in (f'{a}_apple', f'enchanted_{a}_apple', f'{a}_carrot')] + list(RIFT_FOOD) + list(RIFT_ENCHANTED)))
 for a in ALLOYS:
     tag(f'c/tags/item/nuggets/{a}.json', ids([f'{a}_nugget']))
     for kind in ('block', 'item'):
@@ -835,13 +866,13 @@ for kind in ('block', 'item'):   # N30/N35: like the Vanilla lanterns and chains
     tag(f'minecraft/tags/{kind}/chains.json', ids(CHAINS))
 tag('minecraft/tags/block/pressure_plates.json', ids(PRESSURE_PLATES))
 every = list(BLOCKS)
-tag('minecraft/tags/block/mineable/pickaxe.json', ids([b for b in every if b not in SHOVEL] + list(MOVED_BLOCKS)))
+tag('minecraft/tags/block/mineable/pickaxe.json', ids([b for b in every if b not in SHOVEL] + list(MOVED_BLOCKS) + list(NEW_POLES)))
 tag('minecraft/tags/block/mineable/shovel.json', ids(list(SHOVEL)))
 STONE_TIER = ['lead_ore', 'raw_lead_block', 'end_lead_ore', 'end_zinc_ore'] + [b for m, v in METALS.items() if v[2] == 'stone'
                                                                    for b in (*ores_of(m), f'raw_{m}_block')]   # like Vanilla iron and copper ore
 tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b not in ('silver_mirror', 'geode_crust') + SHOVEL and b not in DIAMOND_NEW and b not in RIFT_BLOCKS
                                                        and b not in BARS and b not in GRATES and b not in DOORS and b not in TRAPDOORS and b not in LIGHTS_ALL
-                                                       and b not in CHISELED_RIFT] + SAGE_ORES))
+                                                       and b not in CHISELED_RIFT] + SAGE_ORES + list(NEW_POLES)))
 # IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
 # and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
 tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + list(DIAMOND_NEW) + SCRAPS + RIFT_BLOCKS + CHISELED_RIFT))
@@ -853,6 +884,7 @@ tag('minecraft/tags/item/beacon_payment_items.json', ids([f'{m}_ingot' for m in 
 tag('simplecrucibles/tags/item/needs_extreme_heat.json', ids(SCRAPS))
 for m in RIFT_METALS:
     tag(f'c/tags/item/ingots/{m}.json', ids([f'{m}_ingot']))
+    tag(f'c/tags/item/nuggets/{m}.json', ids([f'{m}_nugget']))   # N77
     for kind in ('block', 'item'):
         tag(f'c/tags/{kind}/storage_blocks/{m}.json', ids([f'{m}_block']))
 for d in RIFTS:
@@ -1111,6 +1143,8 @@ def lang(locale):
     out.update({f'item.{NS}.{p}': n[i] for p, n in ITEMS.items()})
     out.update({f'block.{NS}.{p}': n[i] for p, n in MOVED_BLOCKS.items()})
     out.update({f'item.{NS}.{p}': n[i] for p, n in MOVED_ITEMS.items()})
+    for p, n in NEW_POLES.items():   # N77
+        out[f'block.{NS}.{p}'] = out[f'item.{NS}.{p}'] = n[i]
     out.update({f'item.{NS}.enderite_upgrade_template.{k}': t[i] for k, t in TEMPLATE_TEXTS.items()})
     out[f'{NS}.testcentre.station'] = 'Simple Ores'
     out.update({f'subtitles.{NS}.block.metal.{k}': t[i] for k, t in SUBTITLES.items()})
@@ -1364,6 +1398,19 @@ def note_summaries():
         else:
             notes[f'item:{path}'] = (f'{en} carrot: 8 hunger like the Rose Gold carrot, fire resistant. Gives {een} 1:00. Eight golden carrots round a {en.lower()} ingot make 8.',
                                      f'{de}-Karotte: 8 Hunger wie die Roségold-Karotte, feuerfest. Gibt {ede} 1:00. Acht goldene Karotten um einen {de}barren ergeben 8.')
+    # N77: the rift nuggets and enchanted rift apples (OresFood.enchantedRiftApple)
+    for path, m in RIFT_ENCHANTED.items():
+        en, de = FAMILY_NAMES[m]
+        eid, een, ede = RIFT_EFFECT[m]
+        notes[f'item:{path}'] = (f'Enchanted {en} apple (glint): 6 hunger, always edible, fire resistant. Gives Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and {een} 5:00. Eight {en.lower()} ingots round a {en.lower()} apple.',
+                                 f'Verzauberter {de}-Apfel (Schimmer): 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und {ede} 5:00. Acht {de}barren um einen {de}-Apfel.')
+    for path in RIFT_NUGGETS:
+        m = path[:-len('_nugget')]
+        en, de = FAMILY_NAMES[m]
+        notes[f'item:{path}'] = (f'Nine make a {en.lower()} ingot; an ingot gives nine. Fire resistant.', f'Neun ergeben einen {de}barren; ein Barren gibt neun. Feuerfest.')
+    for pole, (en, de, _gem) in NEW_POLES.items():
+        notes[f'block:{pole}'] = ('A lightning pole like the diamond one: pulls a strike within 72 blocks (gold 64, diamond 80), unless a copper lightning rod is in reach. Three emeralds upright make 1. Iron pickaxe.',
+                                  'Eine Blitzstange wie die Diamantstange: zieht Blitze im Umkreis von 72 Blöcken an (Gold 64, Diamant 80), wenn kein Kupfer-Blitzableiter in Reichweite ist. Drei Smaragde übereinander ergeben 1. Eisenspitzhacke.')
     for d, (scrap, (pen, pde), metal, (men, mde), partner, seconds, xp) in RIFTS.items():
         sen, sde = ITEMS[f'{d}rift_shard']
         scen, scde = MOVED_BLOCKS[scrap]

@@ -94,6 +94,36 @@
     "simplechess:red_nether_brick_quartz_checker_stairs",
     "simplechess:resin_quartz_checker",
     "simplechess:resin_quartz_checker_slab",
-    "simplechess:resin_quartz_checker_stairs"
+    "simplechess:resin_quartz_checker_stairs",
+    "simplechess:purpur_quartz_checker_wall",
+    "simplechess:lapis_quartz_checker_wall",
+    "simplechess:blackstone_quartz_checker_wall",
+    "simplechess:resin_quartz_checker_wall",
+    "simplechess:nether_brick_quartz_checker_wall",
+    "simplechess:red_nether_brick_quartz_checker_wall",
+    {
+      "id": "simplechess:nihilith_quartz_checker_wall",
+      "required": false
+    },
+    {
+      "id": "simplechess:astralit_quartz_checker_wall",
+      "required": false
+    },
+    {
+      "id": "simplechess:ender_quartz_checker_wall",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_astralit_checker_wall",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_nihilith_checker_wall",
+      "required": false
+    },
+    {
+      "id": "simplechess:polished_ender_quartz_checker_wall",
+      "required": false
+    }
   ]
 }

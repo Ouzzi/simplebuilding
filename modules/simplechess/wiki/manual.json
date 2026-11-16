@@ -37,18 +37,20 @@
       ],
       "en": {
         "title": "Quartz checkers",
-        "summary": "Twelve quartz checker pillar blocks (purpur, lapis, blackstone, resin, nether bricks, red nether bricks and the six End palette checkers) with stairs and slabs; no mob spawns on them.",
+        "summary": "Twelve quartz checker pillar blocks (purpur, lapis, blackstone, resin, nether bricks, red nether bricks and the six End palette checkers) with stairs, slabs and walls (walls: N77); no mob spawns on them.",
         "details": [
           "Two of the material diagonal to two quartz blocks make 4 checkers; stairs and slabs as in Vanilla and in the stonecutter.",
-          "The Astralit, Nihilit and Ender Quartz checkers (plain and polished) are made of SimpleBuilding's End palettes: they, their stairs, slabs, octets and pieces only exist while SimpleBuilding is installed."
+          "The Astralit, Nihilit and Ender Quartz checkers (plain and polished) are made of SimpleBuilding's End palettes: they, their stairs, slabs, octets and pieces only exist while SimpleBuilding is installed.",
+          "Walls: six checkers make six (like the Vanilla walls), the stonecutter one from one checker; they show the checker pattern."
         ]
       },
       "de": {
         "title": "Quarz-Schachbretter",
-        "summary": "Zwölf Quarz-Schachbrett-Säulenblöcke (Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel und die sechs Schachbretter der End-Paletten) mit Treppen und Stufen; darauf spawnen keine Monster.",
+        "summary": "Zwölf Quarz-Schachbrett-Säulenblöcke (Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel und die sechs Schachbretter der End-Paletten) mit Treppen, Stufen und Mauern (Mauern: N77); darauf spawnen keine Monster.",
         "details": [
           "Zwei des Materials über Eck mit zwei Quarzblöcken ergeben 4 Schachbretter; Treppen und Stufen wie bei Vanilla und im Steinmetz.",
-          "Die Astralit-, Nihilit- und Enderquarz-Schachbretter (normal und poliert) bestehen aus SimpleBuildings End-Paletten: sie, ihre Treppen, Stufen, Achtel und Figuren gibt es nur, solange SimpleBuilding installiert ist."
+          "Die Astralit-, Nihilit- und Enderquarz-Schachbretter (normal und poliert) bestehen aus SimpleBuildings End-Paletten: sie, ihre Treppen, Stufen, Achtel und Figuren gibt es nur, solange SimpleBuilding installiert ist.",
+          "Mauern: sechs Schachbretter ergeben sechs (wie die Vanilla-Mauern), der Steinschneider eine aus einem Schachbrett; sie zeigen das Schachbrettmuster."
         ]
       }
     },
@@ -251,6 +253,29 @@
         "details": [
           "Herstellung wie bei Vanilla: 6 Schachbretter ergeben 4 Treppen, 3 ergeben 6 Stufen; der Steinmetz schneidet aus einem Schachbrett 1 Treppe oder 2 Stufen.",
           "Sie droppen sich selbst (eine Doppelstufe zwei Stufen) und stehen in den Vanilla-Tags für Treppen und Stufen."
+        ]
+      }
+    },
+    "simplechess:*_checker_wall": {
+      "sources": [
+        "modules/simplechess/shared/java/com/simplechess/registry/ChessRegistry.java",
+        "modules/simplechess/shared/resources/data/simplechess/recipe/lapis_quartz_checker_wall.json",
+        "modules/simplechess/shared/resources/data/simplechess/recipe/lapis_quartz_checker_wall_from_lapis_quartz_checker_stonecutting.json",
+        "modules/simplechess/shared/resources/data/simplechess/loot_table/blocks/ender_quartz_checker_wall.json",
+        "modules/simplechess/shared/resources/data/minecraft/tags/block/walls.json"
+      ],
+      "en": {
+        "summary": "Every checker also has a wall with its pattern and its properties (pickaxe; the astralit checkers glow with 5).",
+        "details": [
+          "Crafting like vanilla: 6 checkers in two rows make 6 walls; the stonecutter cuts 1 wall from one checker.",
+          "They drop themselves and are in the vanilla walls tag, so they connect like vanilla walls. The walls of the End palettes (ender, astralit, nihilith) exist only together with SimpleBuilding, like their checkers."
+        ]
+      },
+      "de": {
+        "summary": "Jedes Schachbrett hat auch eine Mauer mit seinem Muster und seinen Eigenschaften (Spitzhacke; die Astralit-Schachbretter leuchten mit 5).",
+        "details": [
+          "Herstellung wie bei Vanilla: 6 Schachbretter in zwei Reihen ergeben 6 Mauern; der Steinmetz schneidet aus einem Schachbrett 1 Mauer.",
+          "Sie droppen sich selbst und stehen im Vanilla-Tag für Mauern, verbinden sich also wie Vanilla-Mauern. Die Mauern der End-Paletten (Ender, Astralit, Nihilith) gibt es nur zusammen mit SimpleBuilding, wie ihre Schachbretter."
         ]
       }
     },

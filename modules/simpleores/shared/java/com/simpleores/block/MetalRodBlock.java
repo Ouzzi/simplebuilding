@@ -26,6 +26,8 @@ public class MetalRodBlock extends LightningRodBlock {
     /** Anziehungs-Radius des Netheritstabs in Bloecken (Familie in 32er-Schritten, 2026-10-03). */
     /** Anziehungs-Radius der Diamantstange (N41, zwischen Gold und Netherit). */
     public static final int DIAMOND_RANGE = 80;
+    /** N77 (Besitzer 16.11.): Anziehungs-Radius der Smaragdstange, zwischen Gold und Diamant. */
+    public static final int EMERALD_RANGE = 72;
     public static final int NETHERITE_RANGE = 96;
     /** Anziehungs-Radius des Enderitstabs in Bloecken: so weit wie der Kupfer-Blitzableiter, nicht weiter. */
     public static final int ENDERITE_RANGE = 128;

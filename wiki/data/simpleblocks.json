@@ -257,11 +257,27 @@
         "simpleblocks:end_stone_slab",
         "simpleblocks:end_stone_wall",
         "simpleblocks:prismarine_brick_wall",
-        "simpleblocks:dark_prismarine_wall"
+        "simpleblocks:dark_prismarine_wall",
+        "simpleblocks:white_concrete_wall",
+        "simpleblocks:orange_concrete_wall",
+        "simpleblocks:magenta_concrete_wall",
+        "simpleblocks:light_blue_concrete_wall",
+        "simpleblocks:yellow_concrete_wall",
+        "simpleblocks:lime_concrete_wall",
+        "simpleblocks:pink_concrete_wall",
+        "simpleblocks:gray_concrete_wall",
+        "simpleblocks:light_gray_concrete_wall",
+        "simpleblocks:cyan_concrete_wall",
+        "simpleblocks:purple_concrete_wall",
+        "simpleblocks:blue_concrete_wall",
+        "simpleblocks:brown_concrete_wall",
+        "simpleblocks:green_concrete_wall",
+        "simpleblocks:red_concrete_wall",
+        "simpleblocks:black_concrete_wall"
       ],
       "en": {
         "title": "Missing Stairs, Slabs and Walls",
-        "summary": "The stairs, slabs and walls that about twenty Vanilla families lack. Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls; also stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine.",
+        "summary": "The stairs, slabs and walls that about twenty Vanilla families lack. Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls; also stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine, and walls of all sixteen concrete colours (N77).",
         "details": [
           "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
           "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
@@ -270,7 +286,7 @@
       },
       "de": {
         "title": "Fehlende Treppen, Stufen und Mauern",
-        "summary": "Die Treppen, Stufen und Mauern, die etwa zwanzig Vanilla-Familien fehlen. Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein; außerdem Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin.",
+        "summary": "Die Treppen, Stufen und Mauern, die etwa zwanzig Vanilla-Familien fehlen. Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein; außerdem Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin sowie Mauern aller sechzehn Betonfarben (N77).",
         "details": [
           "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
           "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
@@ -1108,6 +1124,66 @@
       }
     },
     {
+      "id": "simpleblocks:black_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:black_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/black_concrete_wall.json",
+      "ingredients": [
+        "minecraft:black_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:black_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:black_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:black_concrete_wall_from_black_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:black_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/black_concrete_wall_from_black_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:black_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:black_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:blackstone_from_compressed_blackstone",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -1175,6 +1251,66 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_concrete_wall.json",
+      "ingredients": [
+        "minecraft:blue_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:blue_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:blue_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_concrete_wall_from_blue_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_concrete_wall_from_blue_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blue_concrete",
+            "count": 1
           }
         ]
       }
@@ -2091,6 +2227,66 @@
           },
           {
             "id": "minecraft:warped_wart_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:brown_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:brown_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/brown_concrete_wall.json",
+      "ingredients": [
+        "minecraft:brown_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:brown_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:brown_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:brown_concrete_wall_from_brown_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:brown_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/brown_concrete_wall_from_brown_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:brown_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:brown_concrete",
             "count": 1
           }
         ]
@@ -6635,6 +6831,66 @@
       }
     },
     {
+      "id": "simpleblocks:cyan_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cyan_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cyan_concrete_wall.json",
+      "ingredients": [
+        "minecraft:cyan_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:cyan_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cyan_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cyan_concrete_wall_from_cyan_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cyan_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cyan_concrete_wall_from_cyan_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:cyan_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cyan_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:dark_prismarine_wall",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -8635,6 +8891,126 @@
       }
     },
     {
+      "id": "simpleblocks:gray_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gray_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gray_concrete_wall.json",
+      "ingredients": [
+        "minecraft:gray_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:gray_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gray_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:gray_concrete_wall_from_gray_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:gray_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/gray_concrete_wall_from_gray_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:gray_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gray_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:green_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:green_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/green_concrete_wall.json",
+      "ingredients": [
+        "minecraft:green_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:green_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:green_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:green_concrete_wall_from_green_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:green_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/green_concrete_wall_from_green_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:green_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:green_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:hushed_deepslate_tile_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -9888,6 +10264,246 @@
           },
           {
             "id": "minecraft:breeze_rod",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:light_blue_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:light_blue_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/light_blue_concrete_wall.json",
+      "ingredients": [
+        "minecraft:light_blue_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:light_blue_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:light_blue_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:light_blue_concrete_wall_from_light_blue_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:light_blue_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/light_blue_concrete_wall_from_light_blue_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:light_blue_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:light_blue_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:light_gray_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:light_gray_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/light_gray_concrete_wall.json",
+      "ingredients": [
+        "minecraft:light_gray_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:light_gray_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:light_gray_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:light_gray_concrete_wall_from_light_gray_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:light_gray_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/light_gray_concrete_wall_from_light_gray_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:light_gray_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:light_gray_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:lime_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:lime_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/lime_concrete_wall.json",
+      "ingredients": [
+        "minecraft:lime_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:lime_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:lime_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:lime_concrete_wall_from_lime_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:lime_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/lime_concrete_wall_from_lime_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:lime_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:lime_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:magenta_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:magenta_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/magenta_concrete_wall.json",
+      "ingredients": [
+        "minecraft:magenta_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:magenta_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:magenta_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:magenta_concrete_wall_from_magenta_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:magenta_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/magenta_concrete_wall_from_magenta_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:magenta_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:magenta_concrete",
             "count": 1
           }
         ]
@@ -11898,6 +12514,66 @@
       }
     },
     {
+      "id": "simpleblocks:orange_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:orange_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/orange_concrete_wall.json",
+      "ingredients": [
+        "minecraft:orange_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:orange_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:orange_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:orange_concrete_wall_from_orange_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:orange_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/orange_concrete_wall_from_orange_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:orange_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:orange_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:oxidized_copper_pillar",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -12706,6 +13382,66 @@
       }
     },
     {
+      "id": "simpleblocks:pink_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:pink_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/pink_concrete_wall.json",
+      "ingredients": [
+        "minecraft:pink_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:pink_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:pink_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:pink_concrete_wall_from_pink_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:pink_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/pink_concrete_wall_from_pink_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:pink_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pink_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:polished_andesite_wall",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -13150,6 +13886,66 @@
       }
     },
     {
+      "id": "simpleblocks:purple_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:purple_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/purple_concrete_wall.json",
+      "ingredients": [
+        "minecraft:purple_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:purple_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:purple_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:purple_concrete_wall_from_purple_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:purple_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/purple_concrete_wall_from_purple_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:purple_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:purple_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:purpur_wall",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -13445,6 +14241,66 @@
           {
             "id": "minecraft:quartz",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:red_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:red_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/red_concrete_wall.json",
+      "ingredients": [
+        "minecraft:red_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:red_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:red_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:red_concrete_wall_from_red_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:red_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/red_concrete_wall_from_red_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:red_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:red_concrete",
+            "count": 1
           }
         ]
       }
@@ -20740,6 +21596,126 @@
           }
         ]
       }
+    },
+    {
+      "id": "simpleblocks:white_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:white_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/white_concrete_wall.json",
+      "ingredients": [
+        "minecraft:white_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:white_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:white_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:white_concrete_wall_from_white_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:white_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/white_concrete_wall_from_white_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:white_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:white_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:yellow_concrete_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:yellow_concrete_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/yellow_concrete_wall.json",
+      "ingredients": [
+        "minecraft:yellow_concrete"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:yellow_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:yellow_concrete",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:yellow_concrete_wall_from_yellow_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:yellow_concrete_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/yellow_concrete_wall_from_yellow_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:yellow_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_concrete"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:yellow_concrete",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -20796,6 +21772,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/azure_froglight.json"
+    },
+    {
+      "id": "simpleblocks:blocks/black_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:black_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/black_concrete_wall.json"
     },
     {
       "id": "simpleblocks:blocks/bleached_carved_pumpkin",
@@ -20885,6 +21879,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/bleached_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/blue_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_concrete_wall.json"
     },
     {
       "id": "simpleblocks:blocks/blue_ice_brick_slab",
@@ -21067,6 +22079,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_nether_bricks.json"
+    },
+    {
+      "id": "simpleblocks:blocks/brown_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:brown_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/brown_concrete_wall.json"
     },
     {
       "id": "simpleblocks:blocks/calcite_slab",
@@ -22629,6 +23659,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_sandstone_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/cyan_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cyan_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cyan_concrete_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/dark_prismarine_wall",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -23268,6 +24316,42 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/gravel_slab.json"
     },
     {
+      "id": "simpleblocks:blocks/gray_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:gray_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/gray_concrete_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/green_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:green_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/green_concrete_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/hushed_deepslate_tile_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -23538,6 +24622,78 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/levitating_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/light_blue_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:light_blue_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/light_blue_concrete_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/light_gray_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:light_gray_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/light_gray_concrete_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/lime_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:lime_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/lime_concrete_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/magenta_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:magenta_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/magenta_concrete_wall.json"
     },
     {
       "id": "simpleblocks:blocks/mossy_cinnabar_brick_slab",
@@ -24100,6 +25256,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/netherrack_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/orange_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:orange_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/orange_concrete_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/oxidized_copper_pillar",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -24337,6 +25511,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/pale_pumpkin.json"
     },
     {
+      "id": "simpleblocks:blocks/pink_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:pink_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/pink_concrete_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/polished_andesite_wall",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -24457,6 +25649,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/prismarine_brick_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/purple_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:purple_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/purple_concrete_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/purpur_wall",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -24543,6 +25753,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/quartz_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/red_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:red_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/red_concrete_wall.json"
     },
     {
       "id": "simpleblocks:blocks/red_sand_slab",
@@ -25423,6 +26651,42 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/weathered_copper_tiles.json"
+    },
+    {
+      "id": "simpleblocks:blocks/white_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:white_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/white_concrete_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/yellow_concrete_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:yellow_concrete_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/yellow_concrete_wall.json"
     }
   ],
   "tags": [
@@ -25710,6 +26974,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:black_concrete_wall",
+      "name": {
+        "en_us": "Black Concrete Wall",
+        "de_de": "Schwarze Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:black_concrete_wall",
+        "simpleblocks:black_concrete_wall_from_black_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:bleached_carved_pumpkin",
       "name": {
         "en_us": "Bleached Carved Pumpkin",
@@ -25823,6 +27111,30 @@
       "usedIn": [
         "simpleblocks:waxed_bleached_pumpkin_from_honeycomb"
       ]
+    },
+    {
+      "id": "simpleblocks:blue_concrete_wall",
+      "name": {
+        "en_us": "Blue Concrete Wall",
+        "de_de": "Blaue Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:blue_concrete_wall",
+        "simpleblocks:blue_concrete_wall_from_blue_concrete_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleblocks:blue_ice_brick_slab",
@@ -26152,6 +27464,30 @@
         "simpleblocks:chiseled_blue_nether_bricks_from_blue_nether_bricks_stonecutting",
         "simpleblocks:cracked_blue_nether_bricks_from_smelting"
       ]
+    },
+    {
+      "id": "simpleblocks:brown_concrete_wall",
+      "name": {
+        "en_us": "Brown Concrete Wall",
+        "de_de": "Braune Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:brown_concrete_wall",
+        "simpleblocks:brown_concrete_wall_from_brown_concrete_stonecutting"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleblocks:calcite_slab",
@@ -28502,6 +29838,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:cyan_concrete_wall",
+      "name": {
+        "en_us": "Cyan Concrete Wall",
+        "de_de": "Türkise Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:cyan_concrete_wall",
+        "simpleblocks:cyan_concrete_wall_from_cyan_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:dark_prismarine_wall",
       "name": {
         "en_us": "Dark Prismarine Wall",
@@ -29452,6 +30812,54 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:gray_concrete_wall",
+      "name": {
+        "en_us": "Gray Concrete Wall",
+        "de_de": "Graue Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:gray_concrete_wall",
+        "simpleblocks:gray_concrete_wall_from_gray_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:green_concrete_wall",
+      "name": {
+        "en_us": "Green Concrete Wall",
+        "de_de": "Grüne Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:green_concrete_wall",
+        "simpleblocks:green_concrete_wall_from_green_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:hushed_deepslate_tile_slab",
       "name": {
         "en_us": "Hushed Deepslate Tile Slab",
@@ -29895,6 +31303,102 @@
       "craftedBy": [
         "simpleblocks:levitating_sand",
         "simpleblocks:levitating_sand_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:light_blue_concrete_wall",
+      "name": {
+        "en_us": "Light Blue Concrete Wall",
+        "de_de": "Hellblaue Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:light_blue_concrete_wall",
+        "simpleblocks:light_blue_concrete_wall_from_light_blue_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:light_gray_concrete_wall",
+      "name": {
+        "en_us": "Light Gray Concrete Wall",
+        "de_de": "Hellgraue Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:light_gray_concrete_wall",
+        "simpleblocks:light_gray_concrete_wall_from_light_gray_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:lime_concrete_wall",
+      "name": {
+        "en_us": "Lime Concrete Wall",
+        "de_de": "Hellgrüne Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:lime_concrete_wall",
+        "simpleblocks:lime_concrete_wall_from_lime_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:magenta_concrete_wall",
+      "name": {
+        "en_us": "Magenta Concrete Wall",
+        "de_de": "Magenta Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:magenta_concrete_wall",
+        "simpleblocks:magenta_concrete_wall_from_magenta_concrete_stonecutting"
       ],
       "usedIn": []
     },
@@ -30741,6 +32245,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:orange_concrete_wall",
+      "name": {
+        "en_us": "Orange Concrete Wall",
+        "de_de": "Orange Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:orange_concrete_wall",
+        "simpleblocks:orange_concrete_wall_from_orange_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:oxidized_copper_pillar",
       "name": {
         "en_us": "Oxidized Copper Pillar",
@@ -31091,6 +32619,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:pink_concrete_wall",
+      "name": {
+        "en_us": "Pink Concrete Wall",
+        "de_de": "Rosa Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:pink_concrete_wall",
+        "simpleblocks:pink_concrete_wall_from_pink_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:polished_andesite_wall",
       "name": {
         "en_us": "Polished Andesite Wall",
@@ -31286,6 +32838,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:purple_concrete_wall",
+      "name": {
+        "en_us": "Purple Concrete Wall",
+        "de_de": "Violette Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:purple_concrete_wall",
+        "simpleblocks:purple_concrete_wall_from_purple_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:purpur_wall",
       "name": {
         "en_us": "Purpur Wall",
@@ -31402,6 +32978,30 @@
       "craftedBy": [
         "simpleblocks:quartz_wall",
         "simpleblocks:quartz_wall_from_quartz_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:red_concrete_wall",
+      "name": {
+        "en_us": "Red Concrete Wall",
+        "de_de": "Rote Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:red_concrete_wall",
+        "simpleblocks:red_concrete_wall_from_red_concrete_stonecutting"
       ],
       "usedIn": []
     },
@@ -32697,6 +34297,54 @@
       "usedIn": [
         "simpleblocks:waxed_weathered_copper_tiles_from_honeycomb"
       ]
+    },
+    {
+      "id": "simpleblocks:white_concrete_wall",
+      "name": {
+        "en_us": "White Concrete Wall",
+        "de_de": "Weiße Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:white_concrete_wall",
+        "simpleblocks:white_concrete_wall_from_white_concrete_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:yellow_concrete_wall",
+      "name": {
+        "en_us": "Yellow Concrete Wall",
+        "de_de": "Gelbe Betonmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:yellow_concrete_wall",
+        "simpleblocks:yellow_concrete_wall_from_yellow_concrete_stonecutting"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -38332,13 +39980,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 20,
-    "recipes": 698,
-    "lootTables": 266,
+    "recipes": 730,
+    "lootTables": 282,
     "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 268,
+    "blocks": 284,
     "trades": 0,
     "config": 13,
     "quests": 0,
