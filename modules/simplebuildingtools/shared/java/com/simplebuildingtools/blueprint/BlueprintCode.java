@@ -340,12 +340,12 @@ public final class BlueprintCode {
         }
 
         void parseLine(int from, int to) {
-            int first = from;
-            while (first < to && Character.isWhitespace(code.charAt(first))) {
-                first++;
+            int lead = from;
+            while (lead < to && Character.isWhitespace(code.charAt(lead))) {
+                lead++;
             }
-            if (first < to && code.charAt(first) == ENTITY_PREFIX) {
-                entityLine(first, to);
+            if (lead < to && code.charAt(lead) == ENTITY_PREFIX) {
+                entityLine(lead, to);
                 return;
             }
             int comment = -1;
