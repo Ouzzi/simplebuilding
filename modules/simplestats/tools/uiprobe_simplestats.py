@@ -32,7 +32,7 @@ def _open_image(s, name):
     if Image is None:
         return None
     try:
-        return Image.open(s.out / 'shots' / f'{s.scenario}-{name}.png').convert('RGB')
+        return Image.open(s.out / 'shots' / f"{s.scenario.replace('/', '-')}-{name}.png").convert('RGB')
     except Exception:  # noqa: BLE001 - a read problem is a failed check, not an exception
         return None
 
