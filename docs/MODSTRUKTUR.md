@@ -190,3 +190,10 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 Mods mit `releasePhase` in modules.json: gebaut, aber erst nach dem Release (published) freigegeben; bis dahin nicht in SimpleBuildings `bundleOptional`.
 
 - Phase 3: **Simple Chess** `simplechess`
+
+## Nicht im Release-Paket
+
+Mods mit `"release": false` (oder `example`) in modules.json: Code bleibt, wird gebaut und getestet, aber nicht veröffentlicht (keine Store-Seite, kein Download, keine Landing-Kachel).
+
+- **Simple Vault** `simplevault`
+- **Wiring Example** `wiringexample`
