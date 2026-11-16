@@ -174,7 +174,14 @@ public final class SortProbe {
             // driver can check that a config screen shows lang texts and no raw option paths.
             if (!(child instanceof net.minecraft.client.gui.components.AbstractWidget)) {
                 try {
-                    if (child.getClass().getMethod("getFieldName").invoke(child) instanceof net.minecraft.network.chat.Component name) {
+                    // the drawn name (AbstractConfigListEntry#getDisplayedFieldName); getFieldName can be an internal id (UUID)
+                    Object shown;
+                    try {
+                        shown = child.getClass().getMethod("getDisplayedFieldName").invoke(child);
+                    } catch (NoSuchMethodException e) {
+                        shown = child.getClass().getMethod("getFieldName").invoke(child);
+                    }
+                    if (shown instanceof net.minecraft.network.chat.Component name) {
                         JsonObject e = new JsonObject();
                         e.addProperty("class", widgetClass(child.getClass()));
                         e.addProperty("label", name.getString());
