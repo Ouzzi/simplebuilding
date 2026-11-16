@@ -229,4 +229,15 @@ def crucible_barrel(s):
     time.sleep(0.5)
 
 
-SCENARIOS = {'simplecrucibles': crucible_barrel}
+def config(s):
+    """b-probe5 (offen-vor-release B5): the config screen through Mod Menu ("simple crucibles"), option names from the lang file
+    (shared step modules/simplelib/tools/release_probe.py: every Cloth tab clicked and photographed, no raw option paths)."""
+    import importlib.util
+    from pathlib import Path
+    spec = importlib.util.spec_from_file_location('release_probe', Path(__file__).resolve().parents[2] / 'simplelib/tools/release_probe.py')
+    rp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rp)
+    rp.config_screen(s, 'simplecrucibles', 'simple crucibles', 'Simple Crucibles')
+
+
+SCENARIOS = {'simplecrucibles': crucible_barrel, 'simplecrucibles/config': config}
