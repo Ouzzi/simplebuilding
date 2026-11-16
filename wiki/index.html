@@ -417,15 +417,14 @@ a.chip { cursor: pointer; }
 .guide span { color: var(--muted); font-size: .86rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Startseite */
-.home-hero { position: relative; overflow: hidden; border-radius: calc(var(--radius) + 6px); padding: 1.8rem 1.6rem 1.6rem; margin-bottom: 1.4rem; border: 1px solid var(--border); background:
-  linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--panel)) 0%, var(--panel) 55%, color-mix(in srgb, var(--end) 14%, var(--panel)) 100%); box-shadow: var(--shadow); }
+.home-hero { position: relative; overflow: hidden; border-radius: calc(var(--radius) + 6px); padding: 1.8rem 1.6rem 1.6rem; margin-bottom: 1.4rem; border: 1px solid var(--border); border-top: 3px solid var(--accent); background: var(--panel); box-shadow: var(--shadow); }
 .home-hero h1 { font-size: 2.1rem; }
 .home-hero .lead { max-width: 60ch; }
 .home-head { display: flex; gap: 1rem; align-items: center; }
 .home-head h1 { margin-bottom: .35rem; }
 .home-icon { width: 56px; height: 56px; image-rendering: pixelated; flex: none; }
 .home-ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .6rem; margin-top: 1rem; max-width: 760px; }
-.way { display: flex; gap: .7rem; align-items: center; padding: .7rem .85rem; border-radius: var(--radius); border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); background: var(--accent-soft); color: var(--accent-strong); }
+.way { display: flex; gap: .7rem; align-items: center; padding: .7rem .85rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--panel-2); color: var(--accent-strong); }
 .way:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
 .way svg { width: 26px; height: 26px; flex: none; }
 .way b { display: block; font-size: 1rem; }
@@ -543,7 +542,7 @@ details.fold .recipe, details.fold .card { box-shadow: none; background: var(--p
 details.fold.tech { background: transparent; box-shadow: none; border-style: dashed; }
 
 /* Kernmerkmal der aufgewerteten Maschinen */
-.keyfeat { display: flex; gap: .9rem; align-items: flex-start; border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--border)); background: var(--accent-soft); border-radius: var(--radius); padding: .8rem 1rem; margin: 0 0 1rem; }
+.keyfeat { display: flex; gap: .9rem; align-items: flex-start; border: 1px solid var(--border); border-left: 4px solid var(--accent); background: var(--panel); border-radius: var(--radius); padding: .8rem 1rem; margin: 0 0 1rem; }
 .keyfeat-num { flex: none; font-size: 1.8rem; font-weight: 850; color: var(--accent-strong); line-height: 1; min-width: 3.2rem; text-align: center; font-variant-numeric: tabular-nums; }
 .keyfeat-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-strong); font-weight: 750; }
 .keyfeat p { margin: .15rem 0; }
