@@ -86,6 +86,8 @@ public final class SortProbe {
                         expected = ContainerSort.sorted(in, 99).stream().map(SortProbe::describe).toList();
                     }
                     case "shot" -> Screenshot.grab(mc, false);
+                    // N79: pick a dev variant (e.g. the spyglass frame width) without the variants panel
+                    case "variant" -> com.simplelib.api.DevVariants.select(c.get("id").getAsString(), c.get("value").getAsString());
                     // a-w4c: opens SimpleLib's generic config screen of a mod directly (by reflection, the class lives in the Fabric part)
                     case "config" -> {
                         var create = Class.forName("com.simplelib.config.screen.GenericConfigScreen").getMethod("create", String.class, net.minecraft.client.gui.screens.Screen.class);
