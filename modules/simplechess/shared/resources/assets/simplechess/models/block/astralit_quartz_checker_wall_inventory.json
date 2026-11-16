@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "simplechess:block/astralit_quartz_checker"
+  }
+}

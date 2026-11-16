@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "simplechess:block/nihilith_quartz_checker"
+  }
+}

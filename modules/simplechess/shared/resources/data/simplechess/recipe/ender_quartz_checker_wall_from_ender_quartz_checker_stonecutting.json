@@ -1,0 +1,16 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:ender_quartz_checker",
+  "result": {
+    "count": 1,
+    "id": "simplechess:ender_quartz_checker_wall"
+  }
+}

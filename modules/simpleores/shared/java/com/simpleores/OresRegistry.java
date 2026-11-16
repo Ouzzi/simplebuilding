@@ -296,6 +296,7 @@ public final class OresRegistry {
         // IG31-58: the rift shards and the three end materials of the Dimensional Scrap.
         for (String d : DIMENSIONS) item(d + "rift_shard", Item.Properties::fireResistant);
         for (String m : RIFT_METALS) item(m + "_ingot", Item.Properties::fireResistant);
+        for (String m : RIFT_METALS) item(m + "_nugget", Item.Properties::fireResistant);   // N77 (owner 16.11.): nine <-> ingot
         ITEMS.put("enderite_upgrade_template", upgradeTemplate(com.simplelib.api.RarityRules.apply("enderite_upgrade_template", new Item.Properties()).setId(itemKey("enderite_upgrade_template"))));
         for (String m : METALS) {
             plain("raw_" + m);
@@ -339,6 +340,9 @@ public final class OresRegistry {
         for (String m : RIFT_METALS) {
             food(m + "_apple", p -> p.food(OresFood.RIFT_APPLE_FOOD, OresFood.riftApple(m)).fireResistant());
             food(m + "_carrot", p -> p.food(OresFood.RIFT_CARROT_FOOD, OresFood.riftCarrot(m)).fireResistant());
+            // N77 (owner 16.11.): the enchanted rift apple, RARE with the glint like the enchanted rose apples.
+            food("enchanted_" + m + "_apple", p -> p.food(OresFood.RIFT_APPLE_FOOD, OresFood.enchantedRiftApple(m)).fireResistant()
+                    .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
         }
     }
 
@@ -457,7 +461,7 @@ public final class OresRegistry {
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "raw_zinc", "zinc_nugget", "zinc_ingot", "raw_nickel", "nickel_nugget", "nickel_ingot", "raw_tin", "tin_nugget", "tin_ingot",
             "brass_ingot", "brass_nugget", "stainless_steel_ingot", "stainless_steel_nugget", "bronze_ingot", "bronze_nugget", "rose_bronze_pressling",
             "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
-            "enderite_ingot", "enderite_upgrade_template", "rift_shard", "nether_rift_shard", "end_rift_shard", "terranite_ingot", "infernite_ingot", "zenithite_ingot", "sage_crystal_shard", "sage_crystal", "sage_orb"};
+            "enderite_ingot", "enderite_upgrade_template", "rift_shard", "nether_rift_shard", "end_rift_shard", "terranite_ingot", "terranite_nugget", "infernite_ingot", "infernite_nugget", "zenithite_ingot", "zenithite_nugget", "sage_crystal_shard", "sage_crystal", "sage_orb"};
     /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
     public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
             "enderite_block", "enderite_upgrade_template");
@@ -476,8 +480,8 @@ public final class OresRegistry {
 
     /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */
     public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "rose_gold_apple", "enchanted_rose_gold_apple",
-            "rose_bronze_carrot", "rose_gold_carrot", "terranite_apple", "terranite_carrot", "infernite_apple", "infernite_carrot",
-            "zenithite_apple", "zenithite_carrot",
+            "rose_bronze_carrot", "rose_gold_carrot", "terranite_apple", "enchanted_terranite_apple", "terranite_carrot", "infernite_apple",
+            "enchanted_infernite_apple", "infernite_carrot", "zenithite_apple", "enchanted_zenithite_apple", "zenithite_carrot",
             "netherite_apple", "enchanted_netherite_apple", "netherite_carrot", "enderite_apple", "enchanted_enderite_apple", "enderite_carrot"};
 
     private static boolean groups;

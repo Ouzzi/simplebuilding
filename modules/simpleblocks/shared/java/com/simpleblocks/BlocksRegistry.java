@@ -95,7 +95,11 @@ public final class BlocksRegistry {
             "blue_ice_stairs", "blue_ice_slab", "blue_ice_wall",
             // a-icebricks38 (owner 12.11.): stairs, slab and wall of the ice bricks (registered with their bricks below).
             "ice_brick_stairs", "ice_brick_slab", "ice_brick_wall", "packed_ice_brick_stairs", "packed_ice_brick_slab", "packed_ice_brick_wall",
-            "blue_ice_brick_stairs", "blue_ice_brick_slab", "blue_ice_brick_wall");
+            "blue_ice_brick_stairs", "blue_ice_brick_slab", "blue_ice_brick_wall",
+            // N77 (owner 16.11.): the concrete walls (registered with the Vanilla shapes above).
+            "white_concrete_wall", "orange_concrete_wall", "magenta_concrete_wall", "light_blue_concrete_wall", "yellow_concrete_wall",
+            "lime_concrete_wall", "pink_concrete_wall", "gray_concrete_wall", "light_gray_concrete_wall", "cyan_concrete_wall",
+            "purple_concrete_wall", "blue_concrete_wall", "brown_concrete_wall", "green_concrete_wall", "red_concrete_wall", "black_concrete_wall");
 
     static {
         shapes("calcite", Blocks.CALCITE, true, true, true);
@@ -117,6 +121,10 @@ public final class BlocksRegistry {
         shapes("end_stone", Blocks.END_STONE, true, true, true);
         shapes("prismarine_brick", Blocks.PRISMARINE_BRICKS, false, false, true);
         shapes("dark_prismarine", Blocks.DARK_PRISMARINE, false, false, true);
+        // N77 (owner 16.11.2026, "Beton-Mauer"): a wall of every concrete colour - 26.3 has concrete stairs and slabs, no walls.
+        for (net.minecraft.world.item.DyeColor color : net.minecraft.world.item.DyeColor.values()) {
+            shapes(color.getName() + "_concrete", Blocks.CONCRETE.pick(color), false, false, true);
+        }
     }
 
     /** Cracked and mossy bricks: full blocks only (no new brick sets); (new path, Vanilla brick it ages). */
@@ -425,6 +433,11 @@ public final class BlocksRegistry {
         out.add(Placement.after(false, Items.SMOOTH_QUARTZ_SLAB, "smooth_quartz_wall"));
         out.add(Placement.after(false, Items.QUARTZ_BRICKS, "quartz_brick_stairs", "quartz_brick_slab", "quartz_brick_wall"));
         out.add(Placement.after(false, Items.PURPUR_SLAB, "purpur_wall"));
+        // N77: each concrete wall right behind its Vanilla concrete slab.
+        for (net.minecraft.world.item.DyeColor color : net.minecraft.world.item.DyeColor.values()) {
+            out.add(Placement.after(false, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(color.getName() + "_concrete_slab")),
+                    color.getName() + "_concrete_wall"));
+        }
         out.add(Placement.after(false, Items.END_STONE, "end_stone_stairs", "end_stone_slab", "end_stone_wall"));
         out.add(Placement.after(false, Items.PRISMARINE_WALL, "cracked_prismarine", "chiseled_prismarine"));
         out.add(Placement.after(false, Items.PRISMARINE_BRICK_SLAB, "prismarine_brick_wall", "cracked_prismarine_bricks"));

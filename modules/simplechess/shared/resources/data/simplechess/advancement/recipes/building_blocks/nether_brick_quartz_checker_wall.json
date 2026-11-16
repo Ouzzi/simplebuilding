@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nether_brick_quartz_checker": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplechess:nether_brick_quartz_checker"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplechess:nether_brick_quartz_checker_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nether_brick_quartz_checker"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplechess:nether_brick_quartz_checker_wall"
+    ]
+  }
+}

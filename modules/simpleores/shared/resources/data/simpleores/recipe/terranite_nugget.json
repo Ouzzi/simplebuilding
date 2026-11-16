@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpleores:terranite_ingot"
+  ],
+  "result": {
+    "id": "simpleores:terranite_nugget",
+    "count": 9
+  }
+}

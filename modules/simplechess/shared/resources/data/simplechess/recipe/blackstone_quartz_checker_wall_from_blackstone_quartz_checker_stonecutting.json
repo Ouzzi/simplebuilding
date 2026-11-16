@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplechess:blackstone_quartz_checker",
+  "result": {
+    "count": 1,
+    "id": "simplechess:blackstone_quartz_checker_wall"
+  }
+}

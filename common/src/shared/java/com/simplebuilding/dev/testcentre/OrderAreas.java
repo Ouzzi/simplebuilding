@@ -810,14 +810,14 @@ public final class OrderAreas {
 
     /**
      * Weisheit (TZ38G-1, Besitzer 14.11.: Variante B): alle neun Teile in festen Spalten. Die Kristall-Kette (Splitter -&gt; Kristall
-     * -&gt; Block, 4:1 und 9:1) ist die fertige Form (Barren-/Speicher-Spalte, der Splitter bleibt Schrott), die Kugel-Kette (Kugel,
+     * -&gt; Block, 4:1 und 9:1) ist die fertige Form (Barren-/Speicher-Spalte, der Splitter steht seit N77 als Nugget), die Kugel-Kette (Kugel,
      * Kugel-Block; direkter Drop des Oberwelt-Erzes) steht in der Roh-/Rohblock-Spalte neben den Erzen.
      */
     private static Material sageFamily() {
         return new Material("sage", Kind.METAL, "", List.of(""), List.of("sage"), 0, Map.of(
                 Slot.STORAGE, List.of("simpleores:sage_crystal_block"), Slot.INGOT, List.of("simpleores:sage_crystal"),
                 Slot.RAW_BLOCK, List.of("simpleores:sage_orb_block"), Slot.RAW, List.of("simpleores:sage_orb"),
-                Slot.SCRAP, List.of("simpleores:sage_crystal_shard")));
+                Slot.NUGGET, List.of("simpleores:sage_crystal_shard"))); // N77: der Splitter steht als Nugget (Besitzer 16.11.)
     }
 
     /**
@@ -1855,7 +1855,7 @@ public final class OrderAreas {
                     String raw = spec.cells().get(otherAt.get(j));
                     if (excluded.contains(item)) {
                         item = null;
-                    } else if (item == null && ("#red".equals(raw) || raw != null && !raw.startsWith("#") && unknownLoaded(raw, loaded))) {
+                    } else if (item == null && "#red".equals(raw)) {
                         item = MISSING_OTHER; // N77: rot auch in Zusatz- und Sonderspalten (Besitzer-Anordnung 16.11.)
                     }
                     others.add(item);
@@ -1875,7 +1875,7 @@ public final class OrderAreas {
                         }
                     }
                 }
-                if (fixed.isEmpty() && others.stream().allMatch(java.util.Objects::isNull)) {
+                if (fixed.isEmpty() && others.stream().allMatch(i -> i == null || i == MISSING_OTHER)) {
                     continue; // nichts davon geladen (Kern-Lauf ohne die Mod der Reihe)
                 }
                 warnings.addAll(rowWarnings);
@@ -2650,9 +2650,10 @@ public final class OrderAreas {
                 {"sage", Slot.NETHER_ORE, "simpleores:nether_sage_ore"}, {"sage", Slot.END_ORE, "simpleores:end_sage_ore"},
                 {"sage", Slot.STORAGE, "simpleores:sage_crystal_block"}, {"sage", Slot.INGOT, "simpleores:sage_crystal"},
                 {"sage", Slot.RAW_BLOCK, "simpleores:sage_orb_block"}, {"sage", Slot.RAW, "simpleores:sage_orb"},
-                {"sage", Slot.SCRAP, "simpleores:sage_crystal_shard"},
+                // N77 (Besitzer-Anordnung 16.11.): Splitter in der Nugget-Spalte, Netherit-Schrott als Roh.
+                {"sage", Slot.NUGGET, "simpleores:sage_crystal_shard"},
                 {"astralit", Slot.END_ORE, "simplebuilding:astralit_ore"}, {"nihilith", Slot.END_ORE, "simplebuilding:nihilith_ore"},
-                {"netherite", Slot.SCRAP, "minecraft:netherite_scrap"},
+                {"netherite", Slot.RAW, "minecraft:netherite_scrap"},
                 {"redstone", Slot.STORAGE, "minecraft:redstone_block"}, {"redstone", Slot.INGOT, "minecraft:redstone"}};
         for (Object[] w : want) {
             Item item = BuiltInRegistries.ITEM.getOptional(Identifier.parse((String) w[2])).orElse(Items.AIR);

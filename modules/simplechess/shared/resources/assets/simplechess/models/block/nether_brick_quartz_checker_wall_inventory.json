@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "simplechess:block/nether_brick_quartz_checker"
+  }
+}

@@ -257,6 +257,9 @@ public final class ChessTests {
             ItemStack e = ItemStack.EMPTY;
             craft(helper, CraftingInput.of(3, 3, List.of(c, e, e, c, c, e, c, c, c)), "4 " + path(shapes.stairs().asItem()), missing);
             craft(helper, CraftingInput.of(3, 1, List.of(c, c, c)), "6 " + path(shapes.slab().asItem()), missing);
+            // N77: the wall - six checkers make six, the stonecutter one
+            expect(cuts, missing, path(shapes.checker().asItem()) + " -> 1 " + path(shapes.wall().asItem()));
+            craft(helper, CraftingInput.of(3, 2, List.of(c, c, c, c, c, c)), "6 " + path(shapes.wall().asItem()), missing);
         }
         helper.assertValueEqual(ChessRegistry.shapes().size(), colours - 1, "checkers with stairs and slab");
         helper.assertValueEqual(ChessItems.pieces().size(), colours * 12, "chess piece items");
@@ -291,6 +294,8 @@ public final class ChessTests {
         for (ChessRegistry.CheckerShapes shapes : ChessRegistry.shapes()) {
             if (!shapes.stairs().defaultBlockState().is(net.minecraft.tags.BlockTags.STAIRS)) problems.add(shapes.stairs() + " not in #stairs");
             if (!shapes.slab().defaultBlockState().is(net.minecraft.tags.BlockTags.SLABS)) problems.add(shapes.slab() + " not in #slabs");
+            if (!shapes.wall().defaultBlockState().is(net.minecraft.tags.BlockTags.WALLS)) problems.add(shapes.wall() + " not in #walls");
+            if (!pickaxe.isCorrectToolForDrops(shapes.wall().defaultBlockState())) problems.add(shapes.wall() + " not mined with a pickaxe");
             if (!pickaxe.isCorrectToolForDrops(shapes.slab().defaultBlockState())) problems.add(shapes.slab() + " not mined with a pickaxe");
         }
         helper.assertTrue(problems.isEmpty(), "palette colours: " + problems);
