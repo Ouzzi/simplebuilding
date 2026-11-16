@@ -13,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 
 /**
  * Owner N21/N28: the Enderite bucket holds two buckets. The half items draw the half textures, the full items the
- * full ones, and the tooltip names the fill (1/2, 2/2). Shows empty, half and full buckets in the inventory and puts
+ * full ones, and the name tells the full one apart (owner N37: no fill line any more, "(Full)" in the name). Shows empty, half and full buckets in the inventory and puts
  * the hotbar back empty. Only on lines with the crucible buckets (26.3).
  */
 public final class EnderiteBucketClientTest {
@@ -52,8 +52,8 @@ public final class EnderiteBucketClientTest {
                     problems.append(SHOWCASE[slot][1]).append(" draws ").append(sprites).append("; ");
                 }
             }
-            requireLine(client, problems, com.simplebuilding.util.BucketRefs.item("enderite_water_bucket"), "Holds 1/2 buckets");
-            requireLine(client, problems, com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket_full"), "Holds 2/2 buckets");
+            requireLine(client, problems, com.simplebuilding.util.BucketRefs.item("enderite_water_bucket"), "Enderite Water Bucket");
+            requireLine(client, problems, com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket_full"), "Enderite Lava Bucket (Full)");
             if (problems.length() > 0) throw new AssertionError("Enderite buckets: " + problems);
         });
         // Survival for the shot: in creative, InventoryScreen hands over to the creative inventory.

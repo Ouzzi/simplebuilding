@@ -3,7 +3,6 @@ package com.simplebuilding.clientgametest;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.util.guiDrawHelper;
 import java.nio.file.Path;
@@ -27,7 +26,7 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
  *       (offhand is not checked) and a block hit result. With no Radius/Break Through enchantment
  *       the pattern is the 3x3 plane around the target block on the hit side; the target block
  *       itself is skipped, so exactly the eight neighbours are outlined and filled.</li>
- *   <li><b>Octant highlight</b> - needs an {@link OctantItem} in the main or offhand carrying at
+ *   <li><b>Octant highlight</b> - needs an {@code OctantItem} in the main or offhand carrying at
  *       least {@code Pos1} or {@code Pos2} in its custom data. The corner outlines are drawn
  *       unconditionally; the area fill additionally needs {@code showFill}, see below.</li>
  * </ul>
@@ -780,7 +779,7 @@ public final class BlockHighlightClientTest {
                 throw new AssertionError("Octant highlight trigger conditions not met: no client player");
             }
 
-            if (!(client.player.getMainHandItem().getItem() instanceof OctantItem)) {
+            if (!com.simplebuilding.util.BuildingToolRefs.isOctant(client.player.getMainHandItem())) {
                 throw new AssertionError("Octant highlight trigger conditions not met: main hand does "
                         + "not hold an OctantItem but " + client.player.getMainHandItem());
             }
@@ -813,7 +812,7 @@ public final class BlockHighlightClientTest {
 
         ItemStack stack = client.player.getMainHandItem();
 
-        if (!(stack.getItem() instanceof OctantItem)) {
+        if (!com.simplebuilding.util.BuildingToolRefs.isOctant(stack)) {
             return "main hand does not hold an OctantItem but " + stack;
         }
 

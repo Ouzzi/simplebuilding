@@ -1,9 +1,9 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.util.BuildingToolRefs;
 import java.nio.file.Path;
 import java.util.Map;
 
-import com.simplebuilding.items.custom.BuildingWandItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -16,7 +16,7 @@ import net.minecraft.world.phys.HitResult;
  *
  * <p>Trigger conditions taken from the renderer:
  * <ul>
- *   <li>a {@link BuildingWandItem} in the <em>main</em> hand,</li>
+ *   <li>a {@code BuildingWandItem} in the <em>main</em> hand,</li>
  *   <li>a block hit result (the preview plane is derived from hit position and hit face),</li>
  *   <li>a non-empty preview map, which needs a block item as material - the wand looks in the
  *       offhand first, then the hotbar, so the test puts stone in the offhand,</li>
@@ -237,7 +237,7 @@ public final class BuildingWandPreviewClientTest {
                 throw new AssertionError("Setup failed: no client player.");
             }
 
-            if (!(client.player.getMainHandItem().getItem() instanceof BuildingWandItem)) {
+            if (!BuildingToolRefs.isWand(client.player.getMainHandItem().getItem())) {
                 throw new AssertionError("Setup failed: the main hand holds "
                         + client.player.getMainHandItem() + " instead of the wand, so the renderer "
                         + "would return for the wrong reason.");
@@ -296,9 +296,9 @@ public final class BuildingWandPreviewClientTest {
 
             if (client.player == null) {
                 problem = "no client player";
-            } else if (client.player.getMainHandItem().getItem() instanceof BuildingWandItem) {
+            } else if (BuildingToolRefs.isWand(client.player.getMainHandItem().getItem())) {
                 problem = "the wand ended up in the main hand, which is the case the positive test covers";
-            } else if (!(client.player.getOffhandItem().getItem() instanceof BuildingWandItem)) {
+            } else if (!BuildingToolRefs.isWand(client.player.getOffhandItem().getItem())) {
                 problem = "the offhand does not hold a BuildingWandItem but " + client.player.getOffhandItem();
             }
 
@@ -343,15 +343,15 @@ public final class BuildingWandPreviewClientTest {
 
             if (client.player == null || client.level == null) {
                 problem = "no client player or level";
-            } else if (!(client.player.getMainHandItem().getItem() instanceof BuildingWandItem wand)) {
+            } else if (!BuildingToolRefs.isWand(client.player.getMainHandItem().getItem())) {
                 problem = "main hand does not hold a BuildingWandItem but " + client.player.getMainHandItem();
             } else if (!(client.hitResult instanceof BlockHitResult hit)
                     || hit.getType() != HitResult.Type.BLOCK) {
                 problem = "no block hit result";
             } else {
-                Map<BlockPos, BlockState> preview = BuildingWandItem.getPreviewStates(
+                Map<BlockPos, BlockState> preview = MovedTools.previewStates(
                         client.level, client.player, client.player.getMainHandItem(),
-                        hit.getBlockPos(), hit.getDirection(), wand.getWandSquareDiameter());
+                        hit.getBlockPos(), hit.getDirection());
 
                 if (!preview.isEmpty()) {
                     problem = "the preview map still holds " + preview.size() + " positions, so some block "
@@ -508,7 +508,7 @@ public final class BuildingWandPreviewClientTest {
                         + "no client player or level");
             }
 
-            if (!(client.player.getMainHandItem().getItem() instanceof BuildingWandItem wand)) {
+            if (!BuildingToolRefs.isWand(client.player.getMainHandItem().getItem())) {
                 throw new AssertionError("Building wand preview trigger conditions not met: "
                         + "main hand does not hold a BuildingWandItem but " + client.player.getMainHandItem());
             }
@@ -519,9 +519,9 @@ public final class BuildingWandPreviewClientTest {
                         + "no block hit result");
             }
 
-            Map<BlockPos, BlockState> preview = BuildingWandItem.getPreviewStates(
+            Map<BlockPos, BlockState> preview = MovedTools.previewStates(
                     client.level, client.player, client.player.getMainHandItem(),
-                    hit.getBlockPos(), hit.getDirection(), wand.getWandSquareDiameter());
+                    hit.getBlockPos(), hit.getDirection());
 
             int count = 0;
 

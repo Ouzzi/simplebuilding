@@ -245,10 +245,15 @@ public final class WoodworkClientTest {
         }
         script.command("fill 4 0 10 15 2 16 minecraft:air", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
-        String[] items = {"oak_cauldron", "dark_oak_cauldron", "acacia_octet", "andesite_octet", "lapis_quartz_checker_stairs",
-                "lapis_quartz_checker_slab", "carved_oak_log", "stone_bricks"};
+        // b-chess47: the checkers are Simple Chess' (optional) - left out of the row without it.
+        String[] items = java.util.stream.Stream.of("simplebuilding:oak_cauldron", "simplebuilding:dark_oak_cauldron",
+                        "simplebuilding:acacia_octet", "simplebuilding:andesite_octet", "simplechess:lapis_quartz_checker_stairs",
+                        "simplechess:lapis_quartz_checker_slab", "simplebuilding:carved_oak_log", "minecraft:stone_bricks")
+                .filter(id -> !id.startsWith("simplechess:")
+                        || net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.parse(id)))
+                .toArray(String[]::new);
         for (int i = 0; i < items.length; i++) {
-            script.command("item replace entity @a hotbar." + i + " with " + (items[i].equals("stone_bricks") ? "minecraft:" : "simplebuilding:") + items[i]);
+            script.command("item replace entity @a hotbar." + i + " with " + items[i]);
         }
         script.command("gamemode survival @a");
         script.act("open the inventory", client -> client.gui.setScreen(new net.minecraft.client.gui.screens.inventory.InventoryScreen(client.player)));

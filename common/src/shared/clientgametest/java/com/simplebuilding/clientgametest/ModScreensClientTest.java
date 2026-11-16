@@ -10,18 +10,13 @@ import java.util.Set;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.client.ClientState;
-import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
-import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.gui.TrimReferenceScreen;
 import com.simplebuilding.client.gui.widget.CyclingTrimButton;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.BuildingWandItem;
-import com.simplebuilding.items.custom.OctantItem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -259,17 +254,11 @@ public final class ModScreensClientTest {
     private static final int RENDER_TICKS = 20;
 
     /** Every chisel a creative player has to be able to take out of the mod's tab. */
-    private static final List<Item> CHISELS = List.of(
-            ModItems.STONE_CHISEL,
-            ModItems.COPPER_CHISEL,
-            ModItems.IRON_CHISEL,
-            ModItems.GOLD_CHISEL,
-            ModItems.DIAMOND_CHISEL,
-            ModItems.NETHERITE_CHISEL,
-            ModItems.ENDERITE_CHISEL);
+    private static final List<Item> CHISELS = com.simplebuilding.util.ChiselRefs.all(); // 26.3: Simple Chisels' (by id)
 
     /** The legacy spatulas: still registered for old worlds, deliberately kept out of the tab. */
-    private static final List<Item> SPATULAS = List.of(
+    // 26.3: the spatulas are gone (migrated into the chisels of their tier, Simple Chisels), the fields are null there.
+    private static final List<Item> SPATULAS = !com.simplebuilding.version.McVersion.CHISELS_IN_SB ? List.of() : List.of(
             ModItems.STONE_SPATULA,
             ModItems.COPPER_SPATULA,
             ModItems.IRON_SPATULA,
@@ -330,7 +319,7 @@ public final class ModScreensClientTest {
 
         script.act("the main hand really holds an octant", client -> {
             if (client.player == null
-                    || !(client.player.getMainHandItem().getItem() instanceof OctantItem)) {
+                    || !com.simplebuilding.util.BuildingToolRefs.isOctant(client.player.getMainHandItem())) {
                 throw new AssertionError("Octant setup failed: the main hand does not hold an "
                         + "OctantItem but "
                         + (client.player == null ? "there is no player" : client.player.getMainHandItem())
@@ -339,10 +328,10 @@ public final class ModScreensClientTest {
         });
 
         pressSettingsKey(script, "with an octant in the main hand");
-        awaitScreen(script, OctantScreen.class, "octant screen");
+        awaitScreen(script, MovedTools.octantScreen(), "octant screen");
         script.idle("let the octant screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
-        assertStillOpen(script, OctantScreen.class, "octant screen");
+        assertStillOpen(script, MovedTools.octantScreen(), "octant screen");
         script.shot("screen-a-octant");
         closeScreen(script, "octant screen");
     }
@@ -356,12 +345,13 @@ public final class ModScreensClientTest {
      */
     private static void buildingWandScreenConstructsAndRenders(Script script) {
         script.act("open the building wand screen directly", client ->
-                client.gui.setScreen(new BuildingWandScreen(new ItemStack(ModItems.NETHERITE_BUILDING_WAND))));
+                client.gui.setScreen(MovedTools.newScreen(MovedTools.buildingWandScreen(),
+                        new ItemStack(com.simplebuilding.util.BuildingToolRefs.wand("netherite")))));
 
-        awaitScreen(script, BuildingWandScreen.class, "building wand screen");
+        awaitScreen(script, MovedTools.buildingWandScreen(), "building wand screen");
         script.idle("let the building wand screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
-        assertStillOpen(script, BuildingWandScreen.class, "building wand screen");
+        assertStillOpen(script, MovedTools.buildingWandScreen(), "building wand screen");
         script.shot("screen-b-building-wand");
         closeScreen(script, "building wand screen");
     }
@@ -416,10 +406,10 @@ public final class ModScreensClientTest {
         assertMainHandWand(script, true);
 
         pressSettingsKey(script, "with a wand that carries Constructor's Touch");
-        awaitScreen(script, BuildingWandScreen.class, "building wand screen via the settings key");
+        awaitScreen(script, MovedTools.buildingWandScreen(), "building wand screen via the settings key");
         script.idle("let the building wand screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
-        assertStillOpen(script, BuildingWandScreen.class, "building wand screen via the settings key");
+        assertStillOpen(script, MovedTools.buildingWandScreen(), "building wand screen via the settings key");
         script.shot("screen-e-wand-with-touch");
         closeScreen(script, "building wand screen via the settings key");
     }
@@ -828,7 +818,13 @@ public final class ModScreensClientTest {
 
     /**
      * @return everything wrong with the mod's tabs, empty when they offer exactly what they should:
-     * all five tabs are filled, the chisels sit in the tools tab, and no tab shows a spatula
+     * no tab is shown empty, the chisels sit in the tab that owns them, and no tab shows a spatula
+     *
+     * <p>N60P (26.3): SimpleLib's CreativeTabPolicy takes plain Vanilla items out of mod tabs and moves an item into the tab of its
+     * own mod; the Enderite gear and the Netherite/Enderite food are Simple Ores' items there (SharedMaterials.ORES_ITEMS), so
+     * SimpleBuilding's COMBAT and FOOD tabs end up empty - and Vanilla hides an empty category tab (CreativeModeTab#shouldDisplay =
+     * hasAnyItems). An empty own tab is therefore fine as long as it is not shown. The chisels are Simple Chisels' items on 26.3
+     * (McVersion.CHISELS_IN_SB false): they must stand in a shown tab of their own namespace; on 26.2 in SimpleBuilding's tools tab.
      */
     private static List<String> creativeTabProblems() {
         List<String> found = new ArrayList<>();
@@ -836,13 +832,14 @@ public final class ModScreensClientTest {
         Set<Item> anywhere = new HashSet<>();
 
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.ownTabs()) {
-            Collection<ItemStack> offered = ModItemGroups.get(tab).getDisplayItems();
-            if (offered.isEmpty()) {
-                found.add("the mod's " + tab + " tab is empty after the creative inventory was opened");
+            net.minecraft.world.item.CreativeModeTab group = ModItemGroups.get(tab);
+            Collection<ItemStack> offered = group.getDisplayItems();
+            if (offered.isEmpty() && group.shouldDisplay()) {
+                found.add("the mod's " + tab + " tab is empty after the creative inventory was opened but still shown");
             }
             for (ItemStack stack : offered) {
                 anywhere.add(stack.getItem());
-                if (tab == ModItemGroupsContent.Tab.TOOLS) {
+                if (tab == ModItemGroupsContent.Tab.TOOLS && com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
                     inTheTab.add(stack.getItem());
                 }
             }
@@ -851,11 +848,23 @@ public final class ModScreensClientTest {
             found.add("every mod tab is empty, so neither of the two checks below could fail");
             return found;
         }
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+            var registry = net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
+            for (net.minecraft.world.item.CreativeModeTab group : registry) {
+                var id = registry.getKey(group);
+                if (id == null || group.getType() != net.minecraft.world.item.CreativeModeTab.Type.CATEGORY || !group.shouldDisplay()) continue;
+                for (ItemStack stack : group.getDisplayItems()) {
+                    if (net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals(id.getNamespace())) {
+                        inTheTab.add(stack.getItem());
+                    }
+                }
+            }
+        }
 
         for (Item chisel : CHISELS) {
             if (!inTheTab.contains(chisel)) {
-                found.add(chisel.getDescriptionId() + " is missing from the tools tab, so a creative "
-                        + "player cannot take it out of the inventory at all");
+                found.add(chisel.getDescriptionId() + " is missing from " + (com.simplebuilding.version.McVersion.CHISELS_IN_SB
+                        ? "the tools tab" : "the shown tab of its own mod") + ", so a creative player cannot take it out of the inventory at all");
             }
         }
 
@@ -939,7 +948,7 @@ public final class ModScreensClientTest {
 
         ItemStack stack = client.player.getMainHandItem();
 
-        if (!(stack.getItem() instanceof BuildingWandItem)) {
+        if (!com.simplebuilding.util.BuildingToolRefs.isWand(stack.getItem())) {
             return "main hand does not hold a BuildingWandItem but " + stack;
         }
 
@@ -973,7 +982,7 @@ public final class ModScreensClientTest {
      */
     private static void assertSettingsKeyIsBound(Script script) {
         script.act("the settings binding sits on the key the harness presses", client -> {
-            KeyMapping binding = ClientState.settingsKey;
+            KeyMapping binding = MovedTools.settingsKey(); // 26.3: Simple Building Tools' key
 
             if (binding == null) {
                 throw new AssertionError("ClientState.settingsKey is null, so the mod never registered "
@@ -1208,10 +1217,7 @@ public final class ModScreensClientTest {
     }
 
     private static ItemStack blueprint(String code, boolean signed) {
-        ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
-        stack.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT,
-                new com.simplebuilding.blueprint.BlueprintContent(code, "Test", signed ? "Tester" : "", signed));
-        return stack;
+        return MovedTools.blueprint(code, "Test", signed ? "Tester" : "", signed); // 26.3: Simple Building Tools' blueprint
     }
 
     /** The open screen's class name, or "none" - the spelling every message here uses. */

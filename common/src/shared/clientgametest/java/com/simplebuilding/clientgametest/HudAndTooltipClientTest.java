@@ -8,10 +8,8 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.ModScreenStyle;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
-import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.render.OreDetectorGlint;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
@@ -579,12 +577,12 @@ public final class HudAndTooltipClientTest {
                 throw new AssertionError("Setup failed: no client player.");
             }
 
-            if (!(client.player.getOffhandItem().getItem() instanceof OctantItem)) {
+            if (!com.simplebuilding.util.BuildingToolRefs.isOctant(client.player.getOffhandItem())) {
                 throw new AssertionError("Setup failed: the off hand holds "
                         + client.player.getOffhandItem() + " instead of an octant.");
             }
 
-            if (client.player.getMainHandItem().getItem() instanceof OctantItem) {
+            if (com.simplebuilding.util.BuildingToolRefs.isOctant(client.player.getMainHandItem())) {
                 throw new AssertionError("Setup failed: the main hand still holds an octant, so the "
                         + "check below would pass through the main hand branch.");
             }
@@ -618,7 +616,7 @@ public final class HudAndTooltipClientTest {
         GuiRenderState state = new GuiRenderState();
         GuiGraphicsExtractor graphics = new GuiGraphicsExtractor(client, state,
                 client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
-        RangefinderHudOverlay.render(graphics);
+        MovedTools.renderRangefinder(graphics); // 26.3: Simple Building Tools' overlay
 
         List<String> lines = new ArrayList<>();
         for (DrawnText text : drawnTexts(state)) {
@@ -669,7 +667,7 @@ public final class HudAndTooltipClientTest {
 
             ItemStack held = client.player.getMainHandItem();
 
-            if (!(held.getItem() instanceof OctantItem)) {
+            if (!com.simplebuilding.util.BuildingToolRefs.isOctant(held)) {
                 throw new AssertionError("Rangefinder HUD trigger conditions not met: main hand does "
                         + "not hold an OctantItem but " + held);
             }

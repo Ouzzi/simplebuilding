@@ -6,12 +6,9 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.DoubleJumpController;
-import com.simplebuilding.client.gui.BuildingWandScreen;
-import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.util.BuildingToolRefs;
 import com.simplebuilding.util.EnchantmentHelper;
 import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
@@ -405,9 +402,9 @@ public final class ClientBootstrapClientTest {
                 problem = "the highlight toggle key was never registered";
             } else if (ClientState.highlightToggleKey.isUnbound()) {
                 problem = "the highlight toggle key is unbound, so it cannot be pressed";
-            } else if (ClientState.octantFigureToggleKey == null) {
+            } else if (MovedTools.octantFigureToggleKey() == null) {
                 problem = "the octant figure toggle key was never registered";
-            } else if (!ClientState.octantFigureToggleKey.isUnbound()) {
+            } else if (!MovedTools.octantFigureToggleKey().isUnbound()) {
                 problem = "the octant figure toggle key is bound now. It used to ship unbound, which is why "
                         + "the class javadoc lists it as not coverable - that note needs revisiting";
             }
@@ -473,7 +470,7 @@ public final class ClientBootstrapClientTest {
      * step then opens nothing), or breaking the screen itself, which crashes the client.
      */
     private static void settingsKeyOnlyReactsToTheRightItem(Script script) {
-        assertBindingOnKey(script, "the settings", client -> ClientState.settingsKey, SETTINGS_KEY);
+        assertBindingOnKey(script, "the settings", client -> MovedTools.settingsKey(), SETTINGS_KEY);
 
         giveMainHand(script, "minecraft:stone");
 
@@ -492,7 +489,7 @@ public final class ClientBootstrapClientTest {
             } else {
                 ItemStack stack = client.player.getMainHandItem();
 
-                if (!(stack.getItem() instanceof OctantItem)) {
+                if (!BuildingToolRefs.isOctant(stack)) {
                     problem = "the main hand does not hold an OctantItem but " + stack;
                 } else if (!stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()) {
                     // "for every octant, without enchantment" is the claim - so prove the octant
@@ -509,9 +506,9 @@ public final class ClientBootstrapClientTest {
         });
 
         script.harness("press the settings key with an octant in hand", harness -> harness.pressKey(SETTINGS_KEY));
-        awaitScreen(script, OctantScreen.class, "octant manager");
+        awaitScreen(script, MovedTools.octantScreen(), "octant manager");
         script.idle("let the octant manager settle", 20);
-        assertScreenIs(script, OctantScreen.class, "octant manager");
+        assertScreenIs(script, MovedTools.octantScreen(), "octant manager");
         script.shot("bootstrap-b-octant-manager");
         closeScreen(script);
 
@@ -526,7 +523,7 @@ public final class ClientBootstrapClientTest {
         script.act("the coloured octant is an OctantItem with a colour", client -> {
             ItemStack stack = client.player == null ? ItemStack.EMPTY : client.player.getMainHandItem();
 
-            if (!(stack.getItem() instanceof OctantItem octant) || octant.getColor() == null) {
+            if (BuildingToolRefs.octantColor(stack.getItem()) == null) {
                 throw new AssertionError("Setup failed: the main hand holds " + stack
                         + " instead of a coloured octant, so the step below would not prove anything "
                         + "about the sixteen colours.");
@@ -535,9 +532,9 @@ public final class ClientBootstrapClientTest {
 
         script.harness("press the settings key with a coloured octant in hand",
                 harness -> harness.pressKey(SETTINGS_KEY));
-        awaitScreen(script, OctantScreen.class, "octant manager for a coloured octant");
+        awaitScreen(script, MovedTools.octantScreen(), "octant manager for a coloured octant");
         script.idle("let the octant manager settle", 10);
-        assertScreenIs(script, OctantScreen.class, "octant manager for a coloured octant");
+        assertScreenIs(script, MovedTools.octantScreen(), "octant manager for a coloured octant");
         script.shot("bootstrap-b2-coloured-octant-manager");
         closeScreen(script);
     }
@@ -546,7 +543,7 @@ public final class ClientBootstrapClientTest {
      * The settings key opens the building wand screen only for a wand that carries Constructor's
      * Touch.
      *
-     * <p>{@code ModScreensClientGameTest} constructs {@link BuildingWandScreen} directly and says
+     * <p>{@code ModScreensClientGameTest} constructs {@code BuildingWandScreen} directly and says
      * so; this is the missing half - the real key path including the enchantment gate. Both steps
      * assert the enchantment level the mod reads (through the same
      * {@code EnchantmentHelper.getEnchantmentLevel} with the client level) before pressing the key,
@@ -575,7 +572,7 @@ public final class ClientBootstrapClientTest {
         // plain wand and the step below would read as "the enchantment gate is broken".
         onServer(script, "put an enchanted building wand into the hotbar", server -> {
             ServerPlayer player = serverPlayer(server);
-            ItemStack wand = new ItemStack(ModItems.NETHERITE_BUILDING_WAND);
+            ItemStack wand = new ItemStack(BuildingToolRefs.wand("netherite"));
             wand.enchant(server.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                     .getOrThrow(ModEnchantments.CONSTRUCTORS_TOUCH), 1);
             player.getInventory().setItem(HOTBAR_SLOT, wand);
@@ -589,9 +586,9 @@ public final class ClientBootstrapClientTest {
 
         script.harness("press the settings key with an enchanted wand in hand",
                 harness -> harness.pressKey(SETTINGS_KEY));
-        awaitScreen(script, BuildingWandScreen.class, "building wand settings");
+        awaitScreen(script, MovedTools.buildingWandScreen(), "building wand settings");
         script.idle("let the building wand settings settle", 20);
-        assertScreenIs(script, BuildingWandScreen.class, "building wand settings");
+        assertScreenIs(script, MovedTools.buildingWandScreen(), "building wand settings");
         script.shot("bootstrap-d-building-wand-settings");
         closeScreen(script);
 
@@ -618,7 +615,7 @@ public final class ClientBootstrapClientTest {
             ItemStack off = client.player.getOffhandItem();
             int level = EnchantmentHelper.getEnchantmentLevel(off, client.level, ModEnchantments.CONSTRUCTORS_TOUCH);
 
-            if (!(off.getItem() instanceof BuildingWandItem) || level < 1) {
+            if (!BuildingToolRefs.isWand(off.getItem()) || level < 1) {
                 throw new AssertionError("Setup failed: the off hand holds " + off + " with Constructor's "
                         + "Touch level " + level + "; the step below needs the enchanted wand there.");
             }
@@ -645,7 +642,7 @@ public final class ClientBootstrapClientTest {
         // one in the suite - holds exactly the netherite wand. The copper one is the far end.
         onServer(script, "put an enchanted COPPER wand into the hotbar", server -> {
             ServerPlayer player = serverPlayer(server);
-            ItemStack wand = new ItemStack(ModItems.COPPER_BUILDING_WAND);
+            ItemStack wand = new ItemStack(BuildingToolRefs.wand("copper"));
             wand.enchant(server.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                     .getOrThrow(ModEnchantments.CONSTRUCTORS_TOUCH), 1);
             player.getInventory().setItem(HOTBAR_SLOT, wand);
@@ -657,7 +654,7 @@ public final class ClientBootstrapClientTest {
         assertWandInHandWithTouchLevel(script, 1);
 
         script.act("it really is the copper wand, not the netherite one again", client -> {
-            if (client.player == null || !client.player.getMainHandItem().is(ModItems.COPPER_BUILDING_WAND)) {
+            if (client.player == null || !client.player.getMainHandItem().is(BuildingToolRefs.wand("copper"))) {
                 throw new AssertionError("Setup failed: the main hand holds "
                         + (client.player == null ? "nothing" : String.valueOf(client.player.getMainHandItem()))
                         + " instead of the copper wand, so this step would repeat the netherite one.");
@@ -666,9 +663,9 @@ public final class ClientBootstrapClientTest {
 
         script.harness("press the settings key with an enchanted copper wand in hand",
                 harness -> harness.pressKey(SETTINGS_KEY));
-        awaitScreen(script, BuildingWandScreen.class, "building wand settings for the copper wand");
+        awaitScreen(script, MovedTools.buildingWandScreen(), "building wand settings for the copper wand");
         script.idle("let the building wand settings settle", 10);
-        assertScreenIs(script, BuildingWandScreen.class, "building wand settings for the copper wand");
+        assertScreenIs(script, MovedTools.buildingWandScreen(), "building wand settings for the copper wand");
         script.shot("bootstrap-d3-copper-wand-settings");
         closeScreen(script);
     }
@@ -1348,7 +1345,7 @@ public final class ClientBootstrapClientTest {
             ItemStack stack = serverPlayer(client).getInventory().getItem(OCTANT_SLOT);
             String problem = null;
 
-            if (!(stack.getItem() instanceof OctantItem)) {
+            if (!BuildingToolRefs.isOctant(stack)) {
                 problem = "hotbar slot " + OCTANT_SLOT + " holds " + stack + " instead of an octant";
             } else {
                 CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
@@ -1370,7 +1367,7 @@ public final class ClientBootstrapClientTest {
         // The mixin reads the client's main hand, so the client has to see the octant too.
         script.act("the client sees the octant in its main hand", client -> {
             if (client.player == null
-                    || !(client.player.getMainHandItem().getItem() instanceof OctantItem)) {
+                    || !BuildingToolRefs.isOctant(client.player.getMainHandItem())) {
                 throw new AssertionError("Octant setup failed on the client: the main hand does not hold an "
                         + "OctantItem. " + TestScene.describeAim(client));
             }
@@ -1620,7 +1617,7 @@ public final class ClientBootstrapClientTest {
             } else {
                 ItemStack stack = client.player.getMainHandItem();
 
-                if (!(stack.getItem() instanceof BuildingWandItem)) {
+                if (!BuildingToolRefs.isWand(stack.getItem())) {
                     problem = "the main hand does not hold a BuildingWandItem but " + stack;
                 } else {
                     // Read exactly the way the client tick loop reads it, including the client

@@ -776,7 +776,27 @@ SKIPPED_SHOTS = {
     # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim
     # reference button in the smithing table, so ModScreensClientTest checks the book and returns
     # before the button path that takes this shot.
-    "26.3": {"screen-g-trim-reference"},
+    "26.3": {"screen-g-trim-reference",
+             # Content that moved into sub-mods; the shared tests skip it on 26.3 (McVersion.*_IN_SB and friends).
+             # STORAGE_IN_SB: backpacks and bundles are Simple Storage's.
+             "backpack-a-enderite-worn", "backpack-b-netherite-placed", "backpack-c-back-without",
+             "backpack-d-back-without-again", "backpack-e-back-enderite", "bundle-a-wheel-selection",
+             "bundle-b-chest-wheel", "tooltip-a-netherite-bundle-bar", "placed-bundle-a-floating-item",
+             # HOPPERS_IN_SB: the hopper screen is Simple Machines'.
+             "hopper-a-filter-none", "hopper-b-filter-none-again", "hopper-c-filter-whitelist",
+             "hopper-d-filter-type", "hopper-e-filter-item", "screen-c-netherite-hopper",
+             # GADGETS_IN_SB: the Detector glint is Simple Gadgets'.
+             "glint-a-uncalibrated", "glint-b-uncalibrated-again", "glint-c-calibrated", "glint-d-uncalibrated-control",
+             # TRIMS_IN_SB: the glowing trims are Simple Trims'.
+             "glowtrim-a-unlit-trim", "glowtrim-b-unlit-trim-again", "glowtrim-c-level-one-at-peak",
+             "glowtrim-d-level-one-at-trough", "glowtrim-g-pulsating-glow-bright", "glowtrim-h-pulsating-glow-dim",
+             "glowtrim-i-pulsating-glow-bright-again", "glowtrim-j-glow-removed",
+             # AUTO_SMITHER / AUTONOMOUS_CRAFTER are off on 26.3 (ModUiStyleClientTest).
+             "modui-auto-smither", "modui-autonomous-crafter",
+             # BTOOLS_IN_SB: the blueprint editor is Simple Building Tools' screen (BlueprintView/EditorClientTest).
+             "blueprint-editor-layout", "screen-blueprint-preview-dragged", "blueprint-help-blocks", "blueprint-help-guide",
+             # Simple Tools owns the item frame actions (no overlay messages; SmokeClientTest).
+             "itemframe-a-invisible", "itemframe-b-visible-again"},
     # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there. 26.4 builds on
     # the 26.3 overlay, so the smithing recipe book is there too.
     "26.4-snapshot": {"screen-h-mod-config", "screen-g-trim-reference"},
