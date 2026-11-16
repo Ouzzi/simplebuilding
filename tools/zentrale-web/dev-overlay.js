@@ -324,10 +324,13 @@
   }
 
   /* ---- tiles ---- */
-  /* item id from a wiki link: query mode (?item=ns:id) or hash mode (#/items/ns:id) */
+  /* item id from a wiki link: query mode (?item=ns:id), hash mode (#/items/ns:id) or N74 path mode
+     (/dev/<mod>/items/<id>, the id without the mod's own namespace) */
   function itemOf(href) {
     var h = /#\/(?:items|blocks)\/([^?&]+)/.exec(href);
     if (h) return decodeURIComponent(h[1]);
+    var p = /^(?:https?:\/\/[^/]+)?(?:\/dev)?\/(simple[a-z0-9_]+)\/(?:items|blocks)\/([^/?#]+)/.exec(href);
+    if (p) { var id = decodeURIComponent(p[2]); return id.indexOf(':') < 0 ? p[1] + ':' + id : id; }
     var q = /[?&]item=([^&#]+)/.exec(href);
     return q ? decodeURIComponent(q[1]) : '';
   }
@@ -474,7 +477,7 @@
     head.appendChild(wrap);
   }
   function itemPanel(info) {
-    var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '');
+    var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '') || itemOf(location.pathname || '');
     if (!id) return;
     var h1 = document.querySelector('main h1, h1');
     if (!h1 || document.querySelector('.dev-item[data-id="' + id + '"]')) return;

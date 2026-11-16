@@ -32,6 +32,8 @@
   header.insertBefore(bar, meta ? meta.nextSibling : document.getElementById('theme-btn'));
 
   function here() { return location.pathname + location.search + location.hash; }
+  /* N74: the switch keeps the page - path (/simpleend/items/x), query and hash - and only swaps the /dev prefix. */
+  function twin(toDev) { var p = location.pathname.replace(/^\/dev(\/|$)/, '/'); return (toDev ? '/dev' : '') + p + location.search + location.hash; }
   var shown = false, last = null;
   function render(me) {
     shown = true; last = me;
@@ -44,8 +46,8 @@
       var seg = el('span', 'seg');
       seg.setAttribute('role', 'group');
       seg.setAttribute('aria-label', t('sw'));
-      var p = el('a', 'prod', t('prod')); p.href = '/' + location.hash;
-      var d = el('a', 'dev', t('dev')); d.href = '/dev/' + location.hash;
+      var p = el('a', 'prod', t('prod')); p.href = twin(false);
+      var d = el('a', 'dev', t('dev')); d.href = twin(true);
       (dev ? d : p).setAttribute('aria-current', 'page');
       seg.appendChild(p); seg.appendChild(d);
       var z = el('a', 'icon-btn zlink', t('z')); z.href = '/zentrale/';
@@ -70,12 +72,16 @@
   // the wiki sets <html lang> only after its data loaded, often after the first answer: relabel then (b-wiki24b)
   if (window.MutationObserver) new MutationObserver(function () { if (shown) render(last); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-  window.addEventListener('hashchange', function () {
+  /* the wiki navigates with pushState (no event): refresh the links right before they are used */
+  function follow() {
     var a = bar.querySelectorAll('a');
     for (var i = 0; i < a.length; i++) {
-      if (a[i].classList.contains('prod')) a[i].href = '/' + location.hash;
-      else if (a[i].classList.contains('dev')) a[i].href = '/dev/' + location.hash;
+      if (a[i].classList.contains('prod')) a[i].href = twin(false);
+      else if (a[i].classList.contains('dev')) a[i].href = twin(true);
       else if (a[i].href.indexOf('/api/auth/login') >= 0) a[i].href = '/api/auth/login?next=' + encodeURIComponent(here());
     }
-  });
+  }
+  window.addEventListener('hashchange', follow);
+  window.addEventListener('popstate', follow);
+  ['pointerdown', 'focusin', 'mouseover'].forEach(function (ev) { bar.addEventListener(ev, follow, true); });
 })();

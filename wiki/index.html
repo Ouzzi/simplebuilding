@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>SimpleBuilding Wiki</title>
+<title>Simple Mods Wiki</title>
 <script>
 /* Farbschema vor dem ersten Zeichnen setzen, sonst blitzt die falsche Farbe auf.
    auto = Systemeinstellung; light/dark kommen aus dem Umschalter oben rechts. */
@@ -655,25 +655,65 @@ a.chip:hover { text-decoration: none; }
   .recipe-body { gap: .6rem; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-.modsel { max-width: 190px; border: 2px solid var(--accent); }
-.allmods { display: flex; align-items: center; gap: .25rem; font-size: .8rem; white-space: nowrap; }
+/* N74: Mod-Bereich ohne Dropdown - Kacheln auf der Startseite, eigene Seitenleiste je Mod, mobile Mod-Leiste. */
 @media (max-width: 700px) {
-  :root { --topbar-h: 144px; }
+  :root { --topbar-h: 96px; }
   .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 36px minmax(0, 1fr) 36px 60px; gap: .4rem; align-content: center; }
   .topbar .brand { grid-column: 2; grid-row: 1; }
   .topbar #theme-btn { grid-column: 3; grid-row: 1; }
   .topbar #lang { grid-column: 4; grid-row: 1; }
-  .topbar .modsel { grid-column: 1 / 3; grid-row: 2; max-width: 100%; width: 100%; }
-  .topbar .allmods { grid-column: 3 / 5; grid-row: 2; }
-  .topbar .search { grid-column: 1 / 5; grid-row: 3; }
+  .topbar .search { grid-column: 1 / 5; grid-row: 2; }
   .topbar .brand-icon { display: none; }
-  .modsel { max-width: 150px; }
   .brand { flex: 1; min-width: 0; }
-  .brand-text { font-size: .85rem; }
-  .allmods { margin-left: auto; }
-  .topbar .allmods { min-width: 0; white-space: normal; line-height: 1.15; }
+  .topbar .brand .brand-text { display: inline; font-size: .95rem; }
   .topbar .search { order: 10; flex: 1 0 100%; width: 100%; }
 }
+.mi { width: 24px; height: 24px; flex: none; display: inline-flex; align-items: center; justify-content: center; background: var(--slot-bg); box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi); border-radius: 3px; }
+.mi img { width: 16px; height: 16px; image-rendering: pixelated; }
+.mi.big { width: 56px; height: 56px; box-shadow: inset 3px 3px 0 var(--slot-lo), inset -3px -3px 0 var(--slot-hi); }
+.mi.big img { width: 40px; height: 40px; }
+.mi.mid { width: 40px; height: 40px; }
+.mi.mid img { width: 28px; height: 28px; }
+.modtiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .8rem; margin: .6rem 0 1.4rem; }
+.modtile { display: flex; flex-direction: column; gap: .5rem; padding: 1rem; background: var(--panel); border: 1px solid var(--border); border-radius: calc(var(--radius) + 2px); color: var(--text); box-shadow: var(--shadow); transition: border-color .12s, transform .12s; }
+.modtile:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
+.modtile .mt-top { display: flex; gap: .7rem; align-items: center; }
+.modtile .mt-name { font-weight: 750; font-size: 1.05rem; color: var(--text); }
+.modtile .mt-kind, .modtile .mt-desc, .modtile .mt-n { color: var(--muted); font-size: .84rem; }
+.modtile .mt-desc { line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.modtile .mt-n { font-size: .8rem; font-variant-numeric: tabular-nums; }
+.modtiles.small { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.modtile.small { flex-direction: row; align-items: center; padding: .6rem .8rem; gap: .7rem; }
+.modtile.small .mt-name { font-size: .95rem; }
+.modtile.small .mt-desc { -webkit-line-clamp: 1; }
+.statrow { display: flex; flex-wrap: wrap; gap: .5rem; margin: .6rem 0 1rem; }
+.statrow .tile { min-width: 120px; padding: .55rem .75rem; }
+.statrow .tile .big { font-size: 1.2rem; }
+.sidebar a.sb-back { font-weight: 600; color: var(--muted); }
+.sb-mod { display: flex; gap: .6rem; align-items: center; padding: .5rem .6rem .8rem; margin-bottom: .6rem; border-bottom: 1px solid var(--border); }
+.sb-mod .sb-mod-name { font-weight: 750; font-size: 1rem; line-height: 1.2; }
+.sb-mod .sb-mod-up { display: block; font-size: .75rem; color: var(--muted); }
+.sidebar .sb-mod .sb-mod-up a { display: inline; padding: 0; color: var(--muted); font-size: .75rem; text-decoration: underline; }
+.sb-filter { width: calc(100% - .4rem); margin: .1rem .2rem .4rem; height: 30px; padding: 0 .55rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); font: inherit; font-size: .85rem; }
+.sidebar a.sub { font-size: .87rem; padding-top: .22rem; padding-bottom: .22rem; }
+.sidebar a.sub2 { padding-left: 1.6rem; }
+.sidebar a.sub3 { padding-left: 2.6rem; }
+.sidebar a .mi { width: 22px; height: 22px; }
+.sidebar a .mi img { width: 14px; height: 14px; }
+.sb-empty { padding: .2rem .6rem; font-size: .8rem; color: var(--muted); }
+.modstrip { display: none; }
+@media (max-width: 920px) {
+  .modstrip:not([hidden]) { position: sticky; top: var(--topbar-h); z-index: 39; display: flex; align-items: center; gap: .5rem; padding: .4rem .7rem; background: var(--panel); border-bottom: 1px solid var(--border); font-size: .9rem; }
+  .modstrip .ms-name { font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+  .modstrip .ms-up { color: var(--muted); font-size: .8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+}
+.backbtn { display: inline-flex; align-items: center; gap: .35rem; min-height: 32px; padding: 0 .7rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); font-size: .86rem; font-weight: 600; white-space: nowrap; flex: none; }
+.backbtn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.qs-scope { display: flex; justify-content: space-between; gap: .6rem; padding: .35rem .55rem .45rem; font-size: .75rem; color: var(--muted); border-bottom: 1px solid var(--border); margin-bottom: .2rem; }
+.qs-scope b { color: var(--text); font-weight: 600; }
+.qs-wide { display: block; width: 100%; text-align: center; color: var(--accent); background: none; border: 0; border-top: 1px solid var(--border); font-weight: 600; font-size: .86rem; padding: .55rem; margin-top: .2rem; cursor: pointer; }
+.qs-wide:hover, .qs-wide[aria-selected="true"] { text-decoration: underline; background: var(--accent-soft); }
+.search-scope { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: baseline; }
 .row-focused { outline: 3px solid var(--accent, #d6a34b); outline-offset: -3px; background: rgba(214, 163, 75, .18); scroll-margin: 5rem; }
 .ob-shared, .ob-attempts { display: block; margin-top: .4rem; }
 .ts-box { margin-top: 1rem; }
@@ -928,9 +968,7 @@ body.tx-lb-open { overflow: hidden; }
 <div id="app">
   <header class="topbar">
     <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-    <a class="brand" href="#/" id="brand"><span class="brand-icon" id="brand-icon"></span><span class="brand-text">SimpleBuilding <small>Wiki</small></span></a>
-    <select class="langsel modsel" id="mod-select" aria-label="Mod"></select>
-    <label class="allmods"><input type="checkbox" id="all-mods"> <span id="all-mods-label">All mods</span></label>
+    <a class="brand" href="#/allmods" id="brand"><span class="brand-icon" id="brand-icon"></span><span class="brand-text">Simple Mods <small>Wiki</small></span></a>
     <div class="search" role="search">
       <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="qs">
@@ -941,6 +979,7 @@ body.tx-lb-open { overflow: hidden; }
     <button type="button" class="icon-btn" id="theme-btn"></button>
     <select class="langsel" id="lang"><option value="en" title="English">EN</option><option value="de" title="Deutsch">DE</option></select>
   </header>
+  <div class="modstrip" id="modstrip" hidden></div>
   <div class="layout">
     <nav class="sidebar" id="sidebar"></nav>
     <div class="backdrop" id="backdrop"></div>
@@ -1014,7 +1053,7 @@ en: {
   navLoot: 'Loot tables', navTrades: 'Trades', navEnchantments: 'Enchantments', navEnchanting: 'Enchanting view', enchLoading: 'Loading the enchanting view…', enchViewLink: 'Check them in the game view (enchanting table and tooltips) →',
   navTags: 'Tags', navConfig: 'Config',
   navFeatureCount: '{0} features',
-  navAllMods: 'All mods', amIntro: 'Every super-mod with its sub-mods, generated from the module manifests (modules/modules.json) and the wiki data.', amSuper: 'Super-mod', amSub: 'Sub-mods', amStandalone: 'Standalone mods', amOtherGroup: 'Other mods',
+  navAllMods: 'All mods', amIntro: 'Every super-mod with its sub-mods, generated from the module manifests (modules/modules.json) and the wiki data.', amSuper: 'Super-mod', amSub: 'Sub-mods', amStandalone: 'Standalone mods',
   notInRelease: 'not in the release',
   amRequired: 'required', amOptional: 'optional', amStatus: 'Status', amOpen: 'open points', amMissing: 'Missing until done', amAsOf: 'status as of {0} (docs/ai overview, German)', amNoSubs: 'No sub-mods', amBundle: 'Bundle', amLoaders: 'Loaders', amContent: 'Content',
   sbNote: 'Generated from the mod’s own data: <code>{0}</code>',
@@ -1557,7 +1596,7 @@ de: {
   navLoot: 'Loot-Tabellen', navTrades: 'Handel', navEnchantments: 'Verzauberungen', navEnchanting: 'Verzauberungs-Ansicht', enchLoading: 'Verzauberungs-Ansicht wird geladen …', enchViewLink: 'In der Spielansicht prüfen (Zaubertisch und Tooltips) →',
   navTags: 'Tags', navConfig: 'Konfiguration',
   navFeatureCount: '{0} Features',
-  navAllMods: 'Alle Mods', amIntro: 'Jeder Super-Mod mit seinen Sub-Mods, erzeugt aus den Modul-Manifesten (modules/modules.json) und den Wiki-Daten.', amSuper: 'Super-Mod', amSub: 'Sub-Mods', amStandalone: 'Eigenständige Mods', amOtherGroup: 'Weitere Mods',
+  navAllMods: 'Alle Mods', amIntro: 'Jeder Super-Mod mit seinen Sub-Mods, erzeugt aus den Modul-Manifesten (modules/modules.json) und den Wiki-Daten.', amSuper: 'Super-Mod', amSub: 'Sub-Mods', amStandalone: 'Eigenständige Mods',
   notInRelease: 'nicht im Release',
   amRequired: 'Pflicht', amOptional: 'optional', amStatus: 'Stand', amOpen: 'offene Punkte', amMissing: 'Was bis „fertig“ fehlt', amAsOf: 'Stand vom {0} (Mod-Übersicht in docs/ai)', amNoSubs: 'Keine Sub-Mods', amBundle: 'Bündel', amLoaders: 'Loader', amContent: 'Inhalt',
   sbNote: 'Erzeugt aus den Daten der Mod: <code>{0}</code>',
@@ -2169,58 +2208,124 @@ function packHome() {
   var have = PACK.ids.filter(function (id) { return MODULE_DATA[id]; });
   return have.filter(packIsSuper)[0] || have.filter(function (id) { return id !== 'simplelib'; })[0] || have[0] || 'simplebuilding';
 }
-var selectedMod = modParams.get('mod');
-// Old item links belong to their namespace; other legacy links stay SimpleBuilding.
-if (!selectedMod && (location.hash || modParams.has('item') || modParams.has('page'))) selectedMod = 'simplebuilding';
-if (!selectedMod) { try { selectedMod = localStorage.getItem('simple-wiki-mod'); } catch (err) {} }
-// b-site01: without an explicit mod the wiki opens on the head of the chosen modpack.
-if (!modParams.get('mod') && !(location.hash || modParams.has('item') || modParams.has('page')) && !inPack(selectedMod)) selectedMod = packHome();
-if (!MODULE_DATA[selectedMod]) selectedMod = 'simplebuilding';
-var D = isObj(MODULE_DATA[selectedMod]) ? MODULE_DATA[selectedMod] : null;
-try { localStorage.setItem('simple-wiki-mod', selectedMod); } catch (err) {}
-var modSelect = document.getElementById('mod-select');
-function modChildren(id) { return MODULES.filter(function (c) { return c.parent === id; }); }
-function buildModSelect() {
-  var de = LANG === 'de';
-  modSelect.innerHTML = '';
-  function opt(parent, value, label, sel) {
-    var o = document.createElement('option'); o.value = value; o.textContent = label; o.selected = !!sel; parent.appendChild(o);
+/* ------------------------------------------------------------------ */
+/* N74: Mod-Bereiche statt Mod-Dropdown (docs/ai/PLAN-N74-WIKINAV-...). */
+/* Adresse: Pfad-Form <base><mod>/<abschnitt>/<id>, wenn der Server sie */
+/* ausliefert - er setzt dann <base href data-modpath> (nginx          */
+/* sub_filter, tools/zentrale-web/nginx/wiki-one.conf). Sonst (alter   */
+/* Server, GitHub Pages, file://) Query-Form ?mod=<mod>&item=<id>.     */
+/* Ohne Mod = Startseite und Seiten ueber alle Mods.                   */
+/* ------------------------------------------------------------------ */
+var BASE_EL = document.querySelector('base[data-modpath]');
+var MODPATH = !!BASE_EL && /^https?:$/.test(location.protocol);
+var BASE = MODPATH ? (BASE_EL.getAttribute('href') || '/') : '';
+if (MODPATH && BASE.charAt(BASE.length - 1) !== '/') BASE += '/';
+/* Abschnitte, deren Ids einen Namespace tragen: im Pfad ohne den eigenen ("/simpleend/items/ashwood_boat"). */
+var NS_SECTIONS = { items: 1, blocks: 1, recipes: 1, loot: 1, trades: 1, enchantments: 1, tags: 1, make: 1, use: 1, tree: 1 };
+function wikiMod(id) { return !!id && !!MODULE_DATA[id] && !PACK_HIDDEN[id] && !!modMetaRaw(id); }
+function modMetaRaw(id) { for (var i = 0; i < MODULES.length; i++) if (MODULES[i].id === id) return MODULES[i]; return null; }
+/* Pfad relativ zur Basis: "simpleend/items/ashwood_boat" -> { mod, section, id } */
+function pathParts(path) {
+  var segs = String(path || '').split('/').filter(Boolean);
+  if (!segs.length || !wikiMod(segs[0])) return null;
+  var mod = segs[0], section = segs[1] || '', id = segs.slice(2).join('/');
+  try { id = decodeURIComponent(id); section = decodeURIComponent(section); } catch (e) { /* roh */ }
+  if (id && NS_SECTIONS[section] && id.indexOf(':') < 0 && id.charAt(0) !== '#') id = mod + ':' + id;
+  return { mod: mod, section: section, id: id };
+}
+function relPath() {
+  if (!MODPATH) return '';
+  var p = location.pathname;
+  return p.indexOf(BASE) === 0 ? p.slice(BASE.length) : '';
+}
+/* Besitzer einer Einzelseite fuer Links von der Wurzel und alte Links ohne ?mod=. */
+function ownerOf(section, id) {
+  id = String(id || '');
+  if (!id) return null;
+  if (NS_SECTIONS[section] || section === 'advancements') { var ns = id.charAt(0) === '#' ? '' : nsOf(id); return wikiMod(ns) ? ns : null; }
+  return null;
+}
+var START = (function () {
+  var p = pathParts(relPath());
+  if (p) return { mod: p.mod, from: 'path' };
+  var m = modParams.get('mod');
+  if (wikiMod(m)) return { mod: m, from: 'query' };
+  var h = location.hash || '';
+  if (/^#\/allmods/.test(h) || modParams.get('tab') === 'allmods') return { mod: null, from: 'legacy' };
+  /* Alte Einzelseiten-Links ohne Mod: in den Bereich des Namespace-Mods, sonst (alte Hash-Links) SimpleBuilding. */
+  var LEGACY_SECTION = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', make: 'make', use: 'use', tree: 'tree' };
+  var keys = Object.keys(LEGACY_SECTION);
+  for (var i = 0; i < keys.length; i++) {
+    var v = modParams.get(keys[i]);
+    if (v) { var o = ownerOf(LEGACY_SECTION[keys[i]], v); return { mod: o, from: o ? 'legacy' : 'root' }; }
   }
-  opt(modSelect, '#allmods', '★ ' + (de ? 'Alle Mods' : 'All mods'), false);
-  /* b-site01: only mods of the chosen modpack (plus the open one); nested sub-mods (Crucibles under Ovens) indented. */
-  function shown(id) { return id === selectedMod || inPack(id) || !PACK_BY[id]; }
-  function family(m, depth, g) {
-    if (shown(m.id)) opt(g, m.id, depth ? new Array(depth + 1).join('   ') + '◆ ' + m.displayName : '● ' + m.displayName, m.id === selectedMod);
-    modChildren(m.id).forEach(function (c) { family(c, depth + 1, g); });
+  if (h.indexOf('#/') === 0) {
+    var hm = /^#\/([a-z]+)\/([^?]+)/.exec(h), hid = '';
+    if (hm) { try { hid = decodeURIComponent(hm[2]); } catch (e) { hid = hm[2]; } }
+    var ho = hm ? ownerOf(hm[1], hid) : null;
+    if (ho) return { mod: ho, from: 'legacy' };
+    if (h === '#/' || h === '#') return { mod: null, from: 'legacy' };
+    return { mod: 'simplebuilding', from: 'legacy' };
   }
-  var other = [];
-  MODULES.forEach(function (m) {
-    if (m.parent) return;
-    if (!modChildren(m.id).length) { if (shown(m.id)) other.push(m); return; }
-    var g = document.createElement('optgroup'); g.label = m.displayName;
-    family(m, 0, g);
-    if (g.children.length) modSelect.appendChild(g);
+  if (modParams.has('page')) return { mod: 'simplebuilding', from: 'legacy' };
+  return { mod: null, from: 'root' };
+})();
+var selectedMod = START.mod;
+/* Umfang: der Mod mit allen Nachfahren; auf der Wurzel alle Mods des Modpack-Filters (simplebuilding zuerst). */
+function familyOf(id) { var out = [id]; MODULES.forEach(function (c) { if (c.parent === id && wikiMod(c.id)) out = out.concat(familyOf(c.id)); }); return out; }
+var SCOPE = selectedMod ? familyOf(selectedMod) : (function () {
+  var ids = PACK.ids.filter(wikiMod);
+  if (!ids.length) ids = MODULES.map(function (m) { return m.id; }).filter(wikiMod);
+  ids.sort(function (a, b) { return (b === 'simplebuilding') - (a === 'simplebuilding'); });
+  return ids;
+})();
+var SCOPE_SET = {};
+SCOPE.forEach(function (id) { SCOPE_SET[id] = 1; });
+function inScope(id) { return !!SCOPE_SET[id]; }
+/* Herkunft jedes Eintrags im zusammengefuehrten Umfang: "<art>|<id>" -> Mod-Id. */
+var ORIGIN = new Map();
+var SCOPE_ARRAYS = ['features', 'items', 'blocks', 'recipes', 'recipesOtherLines', 'lootTables', 'trades', 'enchantments', 'tags', 'config', 'advancements', 'quests', 'undocumented'];
+function scopeData(ids) {
+  var base = MODULE_DATA[ids[0]];
+  if (!isObj(base)) return null;
+  if (ids.length === 1) {
+    SCOPE_ARRAYS.forEach(function (k) { arr(base[k]).forEach(function (e) { if (isObj(e)) ORIGIN.set(k + '|' + (e.id || e.name), ids[0]); }); });
+    return base;
+  }
+  var out = Object.assign({}, base), seen = {};
+  SCOPE_ARRAYS.forEach(function (k) { out[k] = []; seen[k] = {}; });
+  out.inWorld = { kinds: [], entries: [] };
+  out.obtain = Object.assign({}, isObj(base.obtain) ? base.obtain : {}, { sources: [], timeStreams: [] });
+  out.incompleteProse = {};
+  out.counts = {};
+  var kinds = {};
+  ids.forEach(function (mid) {
+    var d = MODULE_DATA[mid];
+    if (!isObj(d)) return;
+    SCOPE_ARRAYS.forEach(function (k) {
+      arr(d[k]).forEach(function (e) {
+        if (!isObj(e)) { out[k].push(e); return; }
+        var key = k === 'config' ? 'name' : 'id', v = e[key];
+        /* Gleichnamige Anleitungen/Optionen eines Sub-Mods ("commands", "enabled") heissen "<mod>:<id>". */
+        if (v != null && seen[k][v] && (k === 'features' || k === 'config')) { e = Object.assign({}, e); e[key] = mid + ':' + v; v = e[key]; }
+        if (v != null) { seen[k][v] = 1; ORIGIN.set(k + '|' + v, mid); }
+        out[k].push(e);
+      });
+    });
+    var iw = isObj(d.inWorld) ? d.inWorld : {};
+    arr(iw.kinds).forEach(function (kd) { if (isObj(kd) && !kinds[kd.id]) { kinds[kd.id] = 1; out.inWorld.kinds.push(kd); } });
+    out.inWorld.entries = out.inWorld.entries.concat(arr(iw.entries));
+    var ob = isObj(d.obtain) ? d.obtain : {};
+    out.obtain.sources = out.obtain.sources.concat(arr(ob.sources));
+    out.obtain.timeStreams = out.obtain.timeStreams.concat(arr(ob.timeStreams));
+    if (isObj(d.incompleteProse)) Object.assign(out.incompleteProse, d.incompleteProse);
+    if (isObj(d.counts)) Object.keys(d.counts).forEach(function (c) { out.counts[c] = (out.counts[c] || 0) + num(d.counts[c], 0); });
   });
-  if (other.length) {
-    var og = document.createElement('optgroup'); og.label = T('amOtherGroup');
-    other.forEach(function (m) { opt(og, m.id, m.displayName, m.id === selectedMod); });
-    modSelect.appendChild(og);
-  }
-  /* WD25-24: a rebuild (language switch) keeps "All mods" selected while the all-mods page is open. */
-  if (/^#\/allmods/.test(location.hash)) modSelect.value = '#allmods';
+  return out;
 }
-buildModSelect();
-modSelect.addEventListener('change', function () {
-  if (modSelect.value === '#allmods') { var u = new URL(location.href); u.searchParams.set('mod', selectedMod); u.hash = '#/allmods'; location.assign(u.href); return; }
-  var url = new URL(location.href); url.searchParams.set('mod', modSelect.value);
-  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat', 'book', 'questionary'].forEach(function (key) { url.searchParams.delete(key); });
-  url.hash = '#/'; location.assign(url.href);
-});
-function crossModHref(mid, section, id) {
-  var url = new URL(location.href); url.searchParams.set('mod', mid);
-  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat', 'book', 'questionary'].forEach(function (key) { url.searchParams.delete(key); });
-  url.hash = '#/' + section + (id ? '/' + id : ''); return url.href;
-}
+function originOf(kind, id) { return ORIGIN.get(kind + '|' + id) || null; }
+var D = scopeData(SCOPE);
+function modChildren(id) { return MODULES.filter(function (c) { return c.parent === id && !PACK_HIDDEN[c.id]; }); }
 function modMeta(id) { return MODULES.find(function (e) { return e.id === id; }) || null; }
 function modIntro(m) { var i = m && isObj(m.intro) ? m.intro : null; return (i && (i[LANG] || i.en)) || (m && m.description) || ''; }
 function modChip(id, cls) {
@@ -2244,7 +2349,7 @@ Object.assign(STR.de, {
 });
 function modPurpose(m) { var p = m && isObj(m.purpose) ? m.purpose : null; return (p && (p[LANG] || p.en)) || ''; }
 function cmdChips(m) { return '<span class="chips">' + arr(m.commands).map(function (c) { return '<code class="chip chip-cmd">/' + esc(c) + '</code>'; }).join('') + '</span>'; }
-function allCommandCount() { return MODULES.reduce(function (n, m) { return n + arr(m.commands).length; }, 0); }
+function allCommandCount() { return MODULES.reduce(function (n, m) { return n + (selectedMod && !inScope(m.id) ? 0 : arr(m.commands).length); }, 0); }
 /* Startseite unten (S-B, a-wiki24): Pflicht gruen, optional grau, ab 11 Eintraegen ab dem 9. ausklappbar. */
 function moduleInfo() {
   var m = modMeta(selectedMod);
@@ -2266,9 +2371,9 @@ function moduleInfo() {
 }
 /* Befehle aller Mods (?tab=commands), je Mod eine Zeile; der eigene Mod steht oben. */
 function pageCommands() {
-  var mods = MODULES.filter(function (m) { return arr(m.commands).length && (inPack(m.id) || !PACK_BY[m.id]); });
+  var mods = MODULES.filter(function (m) { return arr(m.commands).length && (selectedMod ? inScope(m.id) : inPack(m.id) || !PACK_BY[m.id]); });
   mods.sort(function (a, b) { return (b.id === selectedMod) - (a.id === selectedMod); });
-  var h = '<div class="listhead"><h1>' + esc(T('navCommands')) + ' <span class="muted tiny" style="font-weight:400">' + allCommandCount() + '</span></h1></div><p>' + esc(T('cmdIntro')) + '</p>';
+  var h = crumbs([{ label: T('navCommands') }]) + '<div class="listhead"><h1>' + esc(T('navCommands')) + ' <span class="muted tiny" style="font-weight:400">' + allCommandCount() + '</span></h1></div><p>' + esc(T('cmdIntro')) + '</p>';
   if (!mods.length) return h + '<p class="hint">' + esc(T('cmdNone')) + '</p>';
   h += '<div class="table-wrap tw-full"><table class="table cmd-table"><thead><tr><th>' + esc(T('cmdMod')) + '</th><th>' + esc(T('cmdList')) + '</th></tr></thead><tbody>';
   mods.forEach(function (m) {
@@ -2276,8 +2381,9 @@ function pageCommands() {
   });
   return h + '</tbody></table></div>';
 }
-var MOD = D && isObj(D.mod) ? D.mod : {};
-var MODID = MOD.id || 'simplebuilding';
+/* Auf der Wurzel steht "Simple Mods" fuer alle Mods (Minecraft-Linie aus dem ersten Mod mit Daten). */
+var MOD = !D ? {} : selectedMod ? (isObj(D.mod) ? D.mod : {}) : { id: '', name: 'Simple Mods', minecraftLines: arr(isObj(D.mod) ? D.mod.minecraftLines : []), loaders: [] };
+var MODID = selectedMod ? (MOD.id || selectedMod) : '';
 
 var IX = {
   items: new Map(), blocks: new Map(), recipes: new Map(), loot: new Map(), trades: new Map(),
@@ -2374,7 +2480,7 @@ function hrefFor(id, hint) {
   if (IX.tags.has(id)) return '#/tags/' + id;
   if (IX.config.has(id)) return '#/config/' + id;
   if (IX.features.has(id)) return '#/features/' + id;
-  var foreign = MODULES.find(function (m) { return m.id === nsOf(id) && m.id !== selectedMod; });
+  var foreign = MODULES.find(function (m) { return m.id === nsOf(id) && !inScope(m.id); });
   if (foreign && MODULE_DATA[foreign.id]) {
     var data = MODULE_DATA[foreign.id];
     var sections = ['items', 'blocks', 'enchantments', 'recipes', 'features', 'tags'];
@@ -2882,9 +2988,14 @@ function enchRow(e) {
 /* ------------------------------------------------------------------ */
 /* Seiten                                                             */
 /* ------------------------------------------------------------------ */
-/* Brotkrumen: immer mit "Start" vorn, damit jede Seite einen Weg nach oben hat. */
+/* Brotkrumen (N74, aus Variante A): "Alle Mods > Eltern-Mod > Mod > Seite", jede Seite hat einen Weg nach oben. */
+function modCrumbs() {
+  var out = [{ label: T('navAllMods'), href: '#/allmods' }];
+  if (selectedMod) modChain(selectedMod).forEach(function (id) { out.push({ label: modShort(id), href: id === selectedMod ? '#/' : crossModHref(id) }); });
+  return out;
+}
 function crumbs(list) {
-  list = [{ label: T('navHome'), href: '#/' }].concat(list.filter(function (c) { return c && c.href !== '#/'; }));
+  list = modCrumbs().concat(list.filter(function (c) { return c && c.href !== '#/'; }));
   return '<nav class="crumbs" aria-label="Breadcrumb">' + list.map(function (c, i) {
     var last = i === list.length - 1;
     return (c.href && !last ? '<a href="' + esc(c.href) + '">' + esc(c.label) + '</a>' : '<span' + (last ? ' aria-current="page"' : '') + '>' + esc(c.label) + '</span>');
@@ -3077,35 +3188,91 @@ function pageGuides() {
   return h;
 }
 
+/* ------------------------------------------------------------------ */
+/* N74: Startseite mit Mod-Kacheln, Mod-Kette, Umfang-Texte           */
+/* ------------------------------------------------------------------ */
+Object.assign(STR.en, {
+  navAllModsBack: 'All mods', homeTitle: 'Simple Mods Wiki', homeLead: '{0} mods, {1} blocks & items, {2} recipes. Pick a mod – or just search above.',
+  homeMods: 'Mods', homeLookup: 'Look up in all mods', homeSuperKind: 'Super-mod · {0} sub-mods', homeAloneKind: 'Standalone mod',
+  homeTileN: '{0} blocks & items · {1} recipes', homeTileNone: 'Settings and behaviour only', homeAllStructure: 'Mod structure →',
+  scopeIn: 'Searched in', scopeAll: 'all {0} mods', scopeSubOne: '1 sub-mod', scopeSubMany: '{0} sub-mods',
+  searchWide: 'Search in all mods ({0} hits)', searchNarrow: 'Search only in {0}', searchScopeLine: '{0} in {1}.',
+  subOf: 'Sub-mod of {0}', moreIn: 'More in {0}', countsScope: 'Counts: {0}', sbInAll: 'All mods: {0}', sbMods: 'Mods',
+  sbSubFilter: 'Filter sub-mods…', sbSubNone: 'No sub-mod matches.', sbArea: 'Area of {0}', msIn: 'in {0}',
+  cfgModHead: 'options with {0}', configIntroScope: 'Options of {0}, grouped by mod. Operators change them in game with the command of each mod; the files live in the config folder.'
+});
+Object.assign(STR.de, {
+  navAllModsBack: 'Alle Mods', homeTitle: 'Simple Mods Wiki', homeLead: '{0} Mods, {1} Blöcke & Items, {2} Rezepte. Wähle einen Mod – oder such einfach oben.',
+  homeMods: 'Mods', homeLookup: 'In allen Mods nachschlagen', homeSuperKind: 'Super-Mod · {0} Sub-Mods', homeAloneKind: 'Eigenständiger Mod',
+  homeTileN: '{0} Blöcke & Items · {1} Rezepte', homeTileNone: 'Nur Einstellungen und Verhalten', homeAllStructure: 'Mod-Struktur →',
+  scopeIn: 'Gesucht in', scopeAll: 'allen {0} Mods', scopeSubOne: '1 Sub-Mod', scopeSubMany: '{0} Sub-Mods',
+  searchWide: 'In allen Mods suchen ({0} Treffer)', searchNarrow: 'Nur in {0} suchen', searchScopeLine: '{0} in {1}.',
+  subOf: 'Sub-Mod von {0}', moreIn: 'Weitere in {0}', countsScope: 'Zähler: {0}', sbInAll: 'Alle Mods: {0}', sbMods: 'Mods',
+  sbSubFilter: 'Sub-Mod filtern…', sbSubNone: 'Kein Sub-Mod passt.', sbArea: 'Bereich von {0}', msIn: 'in {0}',
+  cfgModHead: 'Optionen mit {0}', configIntroScope: 'Optionen von {0}, nach Mod gruppiert. Operatoren ändern sie im Spiel mit dem Befehl des jeweiligen Mods; die Dateien liegen im config-Ordner.'
+});
+function modShort(id) { var m = modMetaRaw(id); return m ? m.displayName : id; }
+/* Kette von der Wurzel bis zum Mod: simplebuilding > simpleend > simpleenddragonfight */
+function modChain(id) { var out = []; while (id && modMetaRaw(id)) { out.unshift(id); id = modMetaRaw(id).parent; } return out; }
+function scopeLabel(mod) {
+  if (!mod) return T('scopeAll', SCOPE.length);
+  var n = familyOf(mod).length - 1;
+  return modShort(mod) + (n ? ' + ' + T(n === 1 ? 'scopeSubOne' : 'scopeSubMany', n) : '');
+}
+function modIcon(m, cls) { return '<span class="mi' + (cls ? ' ' + cls : '') + '" aria-hidden="true">' + (m && m.icon ? '<img alt="" src="' + esc(m.icon) + '">' : '') + '</span>'; }
+/* Zahlen einer Mod-Familie direkt aus den geladenen Daten (Bloecke & Items = Items + reine Bloecke). */
+var FAM_COUNTS = {};
+function famCounts(ids) {
+  var key = ids.join(',');
+  if (FAM_COUNTS[key]) return FAM_COUNTS[key];
+  var c = { entries: 0, recipes: 0, guides: 0, config: 0 };
+  ids.forEach(function (id) {
+    var d = MODULE_DATA[id]; if (!isObj(d)) return;
+    var items = {};
+    arr(d.items).forEach(function (e) { if (isObj(e) && e.id) { items[e.id] = 1; c.entries++; } });
+    arr(d.blocks).forEach(function (e) { if (isObj(e) && e.id && !items[e.id]) c.entries++; });
+    c.recipes += arr(d.recipes).length; c.guides += arr(d.features).length; c.config += arr(d.config).length;
+  });
+  return (FAM_COUNTS[key] = c);
+}
+function fmtCount(n) { return Number(n).toLocaleString(LANG === 'de' ? 'de-DE' : 'en-US'); }
+function homeTops() {
+  var tops = MODULES.filter(function (m) { return !m.parent && wikiMod(m.id); });
+  if (PACK.kind !== 'all') tops = tops.filter(function (m) { return familyOf(m.id).some(inPack); });
+  return tops;
+}
+function isSuperMod(id) { return modChildren(id).some(function (c) { return wikiMod(c.id); }); }
+/* Startseite (N74, Variante B): 4 Super-Mods als grosse Kacheln, eigenstaendige klein, darunter "In allen Mods nachschlagen". */
+function pageHome() {
+  var tops = homeTops();
+  var supers = tops.filter(function (m) { return isSuperMod(m.id); }).sort(function (a, b) { return familyOf(b.id).length - familyOf(a.id).length; });
+  var solo = tops.filter(function (m) { return !isSuperMod(m.id); }).sort(function (a, b) { return a.displayName.localeCompare(b.displayName); });
+  var all = famCounts(SCOPE);
+  var h = '<section class="home-hero"><h1>' + esc(T('homeTitle')) + '</h1><p class="lead">' + esc(T('homeLead', SCOPE.length, fmtCount(all.entries), fmtCount(all.recipes))) + '</p>' +
+    '<button type="button" class="home-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="grow">' + esc(T('homeSearch')) + '</span><kbd>Ctrl</kbd><kbd>K</kbd></button></section>';
+  if (PACK.kind !== 'all') h += '<p class="pb-note" role="status">' + esc(T('pbFiltered', PACK.ids.length, PACK_MODS.length)) + ' <button type="button" class="btn" data-pack-set="all">' + esc(T('pbShowAll')) + '</button></p>';
+  if (supers.length) {
+    h += '<h2>' + esc(T('homeMods')) + '</h2><div class="modtiles">' + supers.map(function (m) {
+      var c = famCounts(familyOf(m.id));
+      return '<a class="modtile" href="' + esc(crossModHref(m.id)) + '" data-mod="' + esc(m.id) + '"><div class="mt-top">' + modIcon(m, 'big') + '<div><div class="mt-name">' + esc(m.displayName) + '</div><div class="mt-kind">' + esc(T('homeSuperKind', familyOf(m.id).length - 1)) + '</div></div></div>' +
+        '<div class="mt-desc">' + esc(modPurpose(m) || m.description || '') + '</div><div class="mt-n">' + esc(c.entries || c.recipes ? T('homeTileN', fmtCount(c.entries), fmtCount(c.recipes)) : T('homeTileNone')) + '</div></a>';
+    }).join('') + '</div>';
+  }
+  if (solo.length) {
+    h += '<h2>' + esc(T('amStandalone')) + '</h2><div class="modtiles small">' + solo.map(function (m) {
+      return '<a class="modtile small" href="' + esc(crossModHref(m.id)) + '" data-mod="' + esc(m.id) + '">' + modIcon(m, 'mid') + '<div><div class="mt-name">' + esc(m.displayName) + '</div><div class="mt-desc">' + esc(modPurpose(m) || m.description || '') + '</div></div></a>';
+    }).join('') + '</div>';
+  }
+  var tiles = [['items', T('navBlocksItems'), all.entries], ['allrecipes', T('navRecipesAll'), all.recipes], ['start', T('navGuides'), all.guides], ['config', T('navConfig'), all.config]].filter(function (t) { return t[2] > 0; });
+  h += '<h2>' + esc(T('homeLookup')) + '</h2><div class="statrow">' + tiles.map(function (t) { return '<a class="tile" href="#/' + t[0] + '"><div class="big">' + esc(fmtCount(t[2])) + '</div><div class="lbl">' + esc(t[1]) + '</div></a>'; }).join('') + '</div>';
+  h += '<p><a href="#/structure">' + esc(T('homeAllStructure')) + '</a></p>';
+  return h;
+}
 function amCounts(m) {
   var c = m.counts || {}, names = [['items', 'navItems'], ['blocks', 'navBlocks'], ['recipes', 'navRecipes'], ['config', 'navConfig']];
   return names.filter(function (n) { return c[n[0]]; }).map(function (n) { return c[n[0]] + ' ' + T(n[1]); }).join(' · ');
 }
 function amLink(m) { return '<a href="' + esc(crossModHref(m.id, '', '')) + '">' + (m.icon ? '<img src="' + esc(m.icon) + '" alt="" width="32" height="32" style="image-rendering:pixelated;vertical-align:middle;margin-right:6px">' : '') + esc(m.displayName) + '</a>' + (m.release === false ? ' ' + badge(T('notInRelease'), 'warn') : ''); }
-function pageAllMods() {
-  var h = '<section class="home-hero"><h1>' + esc(T('navAllMods')) + '</h1></section><p>' + esc(T('amIntro')) + '</p>';
-  /* b-site01: filtered by the chosen modpack. */
-  if (PACK.kind !== 'all') h += '<p class="pb-note">' + esc(T('pbFiltered', PACK.ids.length, PACK_MODS.length)) + ' <button type="button" class="btn" data-pack-set="all">' + esc(T('pbShowAll')) + '</button></p>';
-  var supers = MODULES.filter(function (m) { return modChildren(m.id).length && (inPack(m.id) || modChildren(m.id).some(function (c) { return inPack(c.id); })); });
-  supers.forEach(function (m) {
-    var o = m.overview, subs = modChildren(m.id).filter(function (c) { return inPack(c.id); });
-    h += '<section class="box" id="mod-' + esc(m.id) + '"><h2>' + amLink(m) + ' <span class="muted tiny">' + esc(T('amSuper')) + ' · <code>' + esc(m.id) + '</code></span></h2><p>' + esc(modPurpose(m) || m.description) + '</p>';
-    h += '<p class="muted">' + esc('v' + m.version + ' · ' + T('amLoaders') + ': ' + m.loaders.join(', ') + (amCounts(m) ? ' · ' + amCounts(m) : '')) + '</p>';
-    if (o) h += '<p><strong>' + esc(T('amStatus')) + ':</strong> ' + esc(o.status) + ' · ' + esc(o.open + ' ' + T('amOpen')) + '<br><strong>' + esc(T('amMissing')) + ':</strong> ' + esc(o.missing) + '<br><span class="muted tiny">' + esc(T('amAsOf', o.asOf)) + '</span></p>';
-    h += '<h3>' + esc(T('amSub')) + ' · ' + subs.length + '</h3><div class="table-wrap tw-full"><table class="table am-table"><thead><tr><th>' + esc(T('amSub')) + '</th><th>' + esc(T('amBundle')) + '</th><th>' + esc(T('amContent')) + '</th><th>' + esc(T('amLoaders')) + '</th></tr></thead><tbody>';
-    subs.forEach(function (c) {
-      h += '<tr><td>' + amLink(c) + ' <code class="tiny">' + esc(c.id) + '</code></td><td data-l="' + esc(T('amBundle')) + '">' + esc(c.bundle ? T(c.bundle === 'required' ? 'amRequired' : 'amOptional') : '–') + '</td><td data-l="' + esc(T('amContent')) + '">' + esc(modPurpose(c) || c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td><td data-l="' + esc(T('amLoaders')) + '">' + esc(c.loaders.join(', ')) + '</td></tr>';
-    });
-    h += '</tbody></table></div></section>';
-  });
-  var alone = MODULES.filter(function (m) { return !m.parent && !modChildren(m.id).length && inPack(m.id); });
-  if (alone.length) {
-    h += '<section class="box"><h2>' + esc(T('amStandalone')) + '</h2><div class="table-wrap tw-full"><table class="table am-table"><tbody>' + alone.map(function (c) {
-      return '<tr><td>' + amLink(c) + ' <code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(modPurpose(c) || c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td></tr>';
-    }).join('') + '</tbody></table></div></section>';
-  }
-  return h;
-}
 
 /* Highlights: was die Anleitungen der Mod nennen (in ihrer Reihenfolge), je Familie eins, ohne Handbuch,
    nur mit Bild; danach Bloecke/Items. Es werden bis zu 10 gerendert, sichtbar die ersten 6 - Kacheln, deren
@@ -3143,7 +3310,7 @@ function pageOverview() {
   var welcome = IX.features.get('welcome');
   var feats = arr(D.features).filter(isObj);
   var parent = meta.parent ? modMeta(meta.parent) : null;
-  var h = '<section class="home-hero"><div class="home-head">' + (meta.icon ? '<img class="home-icon" src="' + esc(meta.icon) + '" alt="" width="56" height="56">' : '') +
+  var h = crumbs([]) + '<section class="home-hero"><div class="home-head">' + (meta.icon ? '<img class="home-icon" src="' + esc(meta.icon) + '" alt="" width="56" height="56">' : '') +
     '<div><h1>' + esc(MOD.name || meta.displayName || MODID) + ' Wiki</h1>';
   h += '<div class="badges">' + (meta.release === false ? badge(T('notInRelease'), 'warn') : '') + (MOD.version ? badge('v' + MOD.version, 'ok') : '') + arr(MOD.minecraftLines).map(function (l) { return badge('Minecraft ' + l); }).join('') + arr(MOD.loaders).map(function (l) { return badge(l); }).join('') +
     (parent ? badge(T(meta.bundle === 'required' ? 'chipRequiredBy' : 'chipOptionalFor', parent.displayName), meta.bundle === 'required' ? 'ok' : '') + badge(T('chipAlone')) : '') + '</div></div></div>';
@@ -3236,12 +3403,15 @@ function listPage(title, rows, opts) {
 function entryRow(e, kind) {
   var isBlock = kind === 'blocks';
   var badges = [];
+  /* N74: im Umfang mit Sub-Mods zeigt ein Abzeichen, aus welchem Mod der Eintrag kommt. */
+  var from = SCOPE.length > 1 && nsOf(e.id) !== selectedMod && wikiMod(nsOf(e.id)) ? modShort(nsOf(e.id)) : '';
+  if (from) badges.push(badge(from));
   if (e.hasCustomBehaviour) badges.push(badge(T('badgeCustomBehaviour'), 'ok'));
   if (!isBlock && IX.blocks.has(e.id)) badges.push(badge(T('badgeAlsoBlock')));
   if (isBlock && arr(e.drops).length) badges.push(badge(T('badgeDrops', arr(e.drops).length)));
   if (!noteHasContent(e.note) && e.hasCustomBehaviour) badges.push(badge(T('badgeNoText'), 'warn'));
   var de = nameDe(e), en = nameEn(e), main = nameOf(e) || prettyFromId(e.id), alt = nameAlt(e);
-  return '<a class="row" href="#/' + kind + '/' + esc(e.id) + '" data-s="' + esc(norm(e.id + ' ' + de + ' ' + en)) + '">' + slotHtml(e.id, 1, { noLink: true }) +
+  return '<a class="row" href="#/' + kind + '/' + esc(e.id) + '" data-s="' + esc(norm(e.id + ' ' + de + ' ' + en + ' ' + from)) + '">' + slotHtml(e.id, 1, { noLink: true }) +
     '<div class="row-main"><div class="row-title">' + esc(main) + (alt && alt !== main ? ' <span class="en">· ' + esc(alt) + '</span>' : '') + '</div><div class="row-sub"><code>' + esc(e.id) + '</code></div></div>' +
     '<div class="row-right">' + badges.join('') + '</div></a>';
 }
@@ -3572,7 +3742,7 @@ function stationOfType(t) {
   return 'other';
 }
 function stationLabel(st) { return T('st.' + st); }
-var AR_STORE = 'simplebuilding-wiki-allrecipes:' + selectedMod;
+var AR_STORE = 'simplebuilding-wiki-allrecipes:' + (selectedMod || 'all');
 var RV = (function () {
   var d = { st: 'all', src: 'all', line: 'all', q: '', merge: true, group: false };
   try {
@@ -4117,12 +4287,19 @@ function pageConfig(highlightName) {
   var hl = IX.config.has(highlightName) ? IX.config.get(highlightName).name : highlightName;
   var h = '<h1>' + esc(T('navConfig')) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>';
   /* N24: Module bekommen ihren eigenen Hinweis (Optionen aus ihren Konfig-Klassen und Sprachdateien, Befehl /<ns> config). */
-  h += '<p class="muted tiny">' + (MODID === 'simplebuilding' ? T('configIntro') : T('configIntroModule', '<code>/' + esc(MODID) + ' config list|get|set|reset &lt;option&gt;</code>')) + '</p>';
+  var multi = SCOPE.length > 1;
+  h += '<p class="muted tiny">' + (multi ? esc(T('configIntroScope', scopeLabel(selectedMod))) : MODID === 'simplebuilding' ? T('configIntro') : T('configIntroModule', '<code>/' + esc(MODID) + ' config list|get|set|reset &lt;option&gt;</code>')) + '</p>';
   if (!rows.length) return h + '<p class="hint">' + esc(T('noOptions')) + '</p>';
   var de = LANG === 'de';
-  var lastCategory = null;
+  var lastCategory = null, lastMod = null;
   h += '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thName')) + '</th><th>' + esc(T('thTypeCol')) + '</th><th>' + esc(T('thDefault')) + '</th><th>' + esc(T('thRange')) + '</th><th>' + esc(T('thSide')) + '</th><th>' + esc(T('thReload')) + '</th><th>' + esc(T('thTooltip')) + '</th><th>' + esc(T('thNote')) + '</th><th>' + esc(T('thRelation')) + '</th></tr></thead><tbody>';
   rows.forEach(function (c) {
+    /* N74: im Umfang mit Sub-Mods eine Kopfzeile je Mod mit seinem Befehl. */
+    var om = multi ? originOf('config', c.name) : null;
+    if (om && om !== lastMod) {
+      lastMod = om; lastCategory = null;
+      h += '<tr class="cfg-mod"><th colspan="9">' + esc(modShort(om)) + ' <span class="muted tiny" style="font-weight:400">' + T('cfgModHead', '<code>/' + esc(om) + ' config</code>') + '</span></th></tr>';
+    }
     var category = (de && c.categoryDe) || c.category;
     if (category && category !== lastCategory) {
       h += '<tr><th colspan="9">' + esc(category) + '</th></tr>';
@@ -5050,6 +5227,8 @@ function buildSearch() {
   arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.label || c.name, [c.name, c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.tooltipDe, c.labelDe, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
 }
 var SEARCH_MODS = {};
+/* Herkunfts-Mod eines Suchtreffers im zusammengefuehrten Umfang. */
+function searchOrigin(e) { var o = originOf(e.section === 'loot' ? 'lootTables' : e.section, e.id); if (o) return o; var ns = nsOf(e.id); return wikiMod(ns) ? ns : null; }
 function searchEntriesOf(m) {
   var k = m.id + '|' + LANG;
   if (SEARCH_MODS[k]) return SEARCH_MODS[k];
@@ -5064,16 +5243,16 @@ function searchEntriesOf(m) {
   });
   return (SEARCH_MODS[k] = out);
 }
-function search(q) {
+/* N74: gesucht wird im Umfang (Mod + Sub-Mods, auf der Wurzel alle Mods); wide = einmal auf alle Mods erweitert. */
+function search(q, wide) {
   var tokens = norm(q).split(/\s+/).filter(Boolean);
   if (!tokens.length) return [];
   var out = [];
   var pool = SEARCH.map(function (entry) { return Object.assign({}, entry); });
-  if (document.getElementById('all-mods').checked) {
-    pool.forEach(function (e) { e.modBadge = MOD.name; });
-    /* b-site01: "Whole pack" searches the mods of the chosen modpack; each mod's entries are built once. */
+  if (SCOPE.length > 1) pool.forEach(function (e) { var o = searchOrigin(e); if (o && o !== selectedMod) e.modBadge = modShort(o); });
+  if (wide) {
     MODULES.forEach(function (m) {
-      if (m.id === selectedMod || !MODULE_DATA[m.id] || !inPack(m.id)) return;
+      if (inScope(m.id) || !wikiMod(m.id)) return;
       pool = pool.concat(searchEntriesOf(m));
     });
   }
@@ -5127,11 +5306,15 @@ function highlight(text, tokens) {
 }
 function pageSearch(q) {
   q = String(q || '').trim();
-  var h = '<h1>' + esc(T('titleSearch')) + '</h1>';
+  var h = crumbs([{ label: T('titleSearch') }]) + '<h1>' + esc(T('titleSearch')) + '</h1>';
   if (!q) return h + '<p class="hint">' + esc(T('searchHint')) + '</p>';
   var res = search(q);
   var tokens = norm(q).split(/\s+/).filter(Boolean);
   h += '<p class="muted">' + esc(T('searchResultsFor', plural(res.length, 'hitOne', 'hitMany'), q)) + '</p>';
+  /* N74-3: Umfang nennen; im Mod-Bereich fuehrt "In allen Mods suchen" auf die Suche der Wurzel. */
+  var wideN = selectedMod ? search(q, true).length : 0;
+  h += '<p class="search-scope muted tiny"><span>' + esc(T('scopeIn')) + ': <b>' + esc(scopeLabel(selectedMod)) + '</b></span>' +
+    (wideN > res.length ? '<a href="' + esc(urlFor(null, { section: 'search', id: q })) + '" data-search-wide>' + esc(T('searchWide', wideN)) + '</a>' : '') + '</p>';
   if (!res.length) return h + '<p class="hint">' + T('searchNothing') + '</p>';
   var groups = new Map();
   res.forEach(function (r) { if (!groups.has(r.e.section)) groups.set(r.e.section, []); groups.get(r.e.section).push(r.e); });
@@ -5157,9 +5340,6 @@ var $meta = document.getElementById('topmeta');
 var $lang = document.getElementById('lang');
 var $theme = document.getElementById('theme-btn');
 var $menu = document.getElementById('menu-btn');
-(function () { var v = null; try { v = localStorage.getItem('simple-wiki-packsearch'); } catch (err) {} document.getElementById('all-mods').checked = v !== '0'; })();
-document.getElementById('all-mods').addEventListener('change', function () { try { localStorage.setItem('simple-wiki-packsearch', this.checked ? '1' : '0'); } catch (err) {} if (currentRoute().section === 'search') render({ keepScroll: true }); else if (!$qs.hidden) renderQs(); });
-
 /* ------------------------------------------------------------------ */
 /* Modpack-Leiste, Browser und Mod-Struktur (b-site01)                 */
 /* ------------------------------------------------------------------ */
@@ -5170,7 +5350,7 @@ Object.assign(STR.en, {
   pbNotIn: '{0} is not part of your modpack.', pbAdd: 'Add it', pbAdded: 'Added as required: {0}',
   pbRemoved: 'Also removed (they need it): {0}', pbKeepOne: 'At least one mod stays selected.',
   pbReqTag: 'required', pbOptTag: 'optional', pbTreeHint: 'Tick mods to build your own pack. Required dependencies are ticked automatically.',
-  pbSearchAll: 'Whole pack', pbFiltered: 'Filtered by your modpack: {0} of {1} mods.', pbShowAll: 'Show everything',
+  pbFiltered: 'Filtered by your modpack: {0} of {1} mods.', pbShowAll: 'Show everything',
   navBrowse: 'Browse', brIntro: 'Every item, block, recipe and guide of the mods in your modpack. Click an entry for its page.',
   brAll: 'All', brItems: 'Items', brBlocks: 'Blocks', brRecipes: 'Recipes', brGuides: 'Guides', brEnch: 'Enchantments',
   brConfig: 'Settings', brLoot: 'Loot', brTags: 'Tags', brFilter: 'Filter…', brAnyMod: 'All mods in the pack',
@@ -5186,7 +5366,7 @@ Object.assign(STR.de, {
   pbNotIn: '{0} ist nicht in deinem Modpack.', pbAdd: 'Hinzufügen', pbAdded: 'Als Pflicht mit angehakt: {0}',
   pbRemoved: 'Ebenfalls entfernt (brauchen es): {0}', pbKeepOne: 'Mindestens ein Mod bleibt ausgewählt.',
   pbReqTag: 'Pflicht', pbOptTag: 'optional', pbTreeHint: 'Mods anhaken, um ein eigenes Pack zu bauen. Pflicht-Abhängigkeiten werden automatisch mit angehakt.',
-  pbSearchAll: 'Ganzes Pack', pbFiltered: 'Gefiltert nach deinem Modpack: {0} von {1} Mods.', pbShowAll: 'Alles zeigen',
+  pbFiltered: 'Gefiltert nach deinem Modpack: {0} von {1} Mods.', pbShowAll: 'Alles zeigen',
   navBrowse: 'Browser', brIntro: 'Alle Items, Blöcke, Rezepte und Anleitungen der Mods in deinem Modpack. Ein Klick öffnet die Seite des Eintrags.',
   brAll: 'Alles', brItems: 'Items', brBlocks: 'Blöcke', brRecipes: 'Rezepte', brGuides: 'Anleitungen', brEnch: 'Verzauberungen',
   brConfig: 'Einstellungen', brLoot: 'Beute', brTags: 'Tags', brFilter: 'Filtern…', brAnyMod: 'Alle Mods im Pack',
@@ -5202,7 +5382,6 @@ function setPack(key, note) {
   PACK_UI.note = note || '';
   try { localStorage.setItem(PACK_STORE, PACK.key); } catch (err) {}
   BR.cache = null; SEARCH_MODS = {};
-  buildModSelect();
   if (!HASHMODE) { try { history.replaceState(history.state, '', routeUrl(currentRoute())); } catch (err) {} }
   render({ keepScroll: true });
 }
@@ -5258,8 +5437,6 @@ function packBarHtml(section) {
     '<span class="pb-links"><a class="btn' + (section === 'browse' ? ' pb-on' : '') + '" href="#/browse">' + esc(T('pbBrowse')) + '</a><a class="btn' + (section === 'structure' ? ' pb-on' : '') + '" href="#/structure">' + esc(T('pbStructure')) + '</a></span></div>';
   if (PACK_UI.note) h += '<p class="pb-note" role="status">' + esc(PACK_UI.note) + '</p>';
   if (PACK_UI.open) h += '<div class="pb-panel">' + packTreeHtml() + '</div>';
-  if (!inPack(selectedMod) && PACK_BY[selectedMod] && ['browse', 'structure', 'allmods'].indexOf(section) < 0)
-    h += '<p class="pb-out">' + esc(T('pbNotIn', packName(selectedMod))) + ' <button type="button" class="btn" data-pack-add="' + esc(selectedMod) + '">' + esc(T('pbAdd')) + '</button></p>';
   return h + '</div>';
 }
 $main.addEventListener('change', function (ev) {
@@ -5311,7 +5488,7 @@ function brList() {
     var d = MODULE_DATA[mid]; if (!isObj(d)) return;
     var mod = packName(mid);
     function add(type, id, title, sub, text, tex) {
-      var href = mid === selectedMod ? '#/' + type + '/' + id : crossModHref(mid, type, id);
+      var href = inScope(mid) ? '#/' + type + '/' + id : crossModHref(mid, type, id);
       list.push({ type: type, mid: mid, mod: mod, id: id, title: title, sub: sub, tex: tex, href: href, text: norm([title, sub, id, mod, text].join(' ')) });
     }
     arr(d.items).filter(isObj).forEach(function (e) { add('items', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), e.icon || e.texture); });
@@ -5388,7 +5565,7 @@ function pageStructure() {
   var roots = PACK_MODS.filter(function (m) { return !m.parent || !PACK_BY[m.parent]; });
   var supers = roots.filter(function (m) { return packKids(m.id).length; }).sort(function (a, b) { return packKids(b.id).length - packKids(a.id).length; });
   var rest = roots.filter(function (m) { return !packKids(m.id).length; }).sort(function (a, b) { return a.displayName.localeCompare(b.displayName); });
-  var h = '<div class="listhead"><h1>' + esc(T('navStructure')) + ' <span class="muted tiny" style="font-weight:400">' + PACK_MODS.length + '</span></h1></div><p>' + esc(T('stIntro')) + '</p>';
+  var h = crumbs([{ label: T('navStructure') }]) + packBarHtml('structure') + '<div class="listhead"><h1>' + esc(T('navStructure')) + ' <span class="muted tiny" style="font-weight:400">' + PACK_MODS.length + '</span></h1></div><p>' + esc(T('stIntro')) + '</p>';
   supers.forEach(function (m) { h += '<section class="box st-box"><ul class="st-tree st-top">' + card(m, 0) + '</ul></section>'; });
   if (rest.length) h += '<section class="box st-box"><h2>' + esc(T('stBase')) + '</h2><ul class="st-tree st-top">' + rest.map(function (m) { return card(m, 0); }).join('') + '</ul></section>';
   return h;
@@ -5445,24 +5622,77 @@ function paramsToRoute(sp) {
   var inferred = focus && (IX.config.has(focus) ? 'config' : IX.trades.has(focus) ? 'trades' : IX.recipes.has(focus) ? 'recipes' : IX.items.has(focus) || IX.blocks.has(focus) ? 'items' : 'overview');
   return { section: inferred || 'overview', id: '', tab: '', focus: focus };
 }
-function routeToSearch(r) {
-  var sp = new URLSearchParams();
-  sp.set('mod', selectedMod);
-  if (PACK.key !== 'all') sp.set('pack', PACK.key);
+/* Query-Teil einer Route (Query-Form): ?item=<id>, ?tab=<abschnitt>, ?q=... */
+function routeParams(r, sp) {
   var s = r.section;
   if (s === 'search') sp.set('q', r.id || '');
   else if (ROUTE_PARAM[s] && r.id) sp.set(ROUTE_PARAM[s], r.id);
-  else if (s !== 'overview' && s !== '') sp.set('tab', s);
+  else if (s !== 'overview' && s !== '' && s !== 'allmods') sp.set('tab', s);
   if (r.tab && r.section !== 'search') sp.set('tab', r.tab);
-  if (r.focus) sp.set('f', r.focus);
-  if (LANG !== 'en') sp.set('lang', LANG);
+}
+function readableQuery(sp) {
   var q = sp.toString();
   /* Doppelpunkte und Schraegstriche lesbar lassen: ?item=simplebuilding:enderite_chisel */
   return q ? '?' + q.replace(/%3A/gi, ':').replace(/%2F/gi, '/').replace(/%2C/gi, ',') : '';
 }
-function routeUrl(r) { return HASHMODE ? routeToHash(r) : location.pathname + routeToSearch(r); }
+/* N74: Adresse einer Route in einem Mod-Bereich (mod) oder auf der Wurzel (mod = null).
+   Pfad-Form nur mit MODPATH, sonst Query-Form. Einzelseiten von der Wurzel aus gehoeren dem Namespace-Mod. */
+function urlFor(mod, r) {
+  r = r || { section: 'overview' };
+  var s = r.section || 'overview', id = r.id || '';
+  if (s === 'allmods') { mod = null; s = 'overview'; id = ''; }
+  if (!mod && id && s !== 'search') mod = ownerOf(s, id);
+  if (mod && !wikiMod(mod)) mod = null;
+  var sp = new URLSearchParams(), path;
+  if (MODPATH && mod) {
+    path = BASE + mod + '/';
+    if (s === 'search') sp.set('q', id);
+    else if (s !== 'overview' && s !== '') {
+      path += encodeURIComponent(s === 'allrecipes' ? 'recipes' : s);
+      if (id) {
+        var local = NS_SECTIONS[s] && id.indexOf(mod + ':') === 0 ? id.slice(mod.length + 1) : id;
+        path += '/' + encodeURIComponent(local).replace(/%3A/gi, ':');
+      }
+    }
+    if (r.tab && s !== 'search') sp.set('tab', r.tab);
+  } else {
+    path = MODPATH ? BASE : location.pathname;
+    if (mod) sp.set('mod', mod);
+    else if (PACK.key !== 'all') sp.set('pack', PACK.key);
+    routeParams({ section: s, id: id, tab: r.tab }, sp);
+  }
+  if (r.focus) sp.set('f', r.focus);
+  if (LANG !== 'en') sp.set('lang', LANG);
+  return path + readableQuery(sp);
+}
+/* Alter Name: Query-Form im gerade offenen Bereich. */
+function routeToSearch(r) {
+  var sp = new URLSearchParams();
+  if (selectedMod) sp.set('mod', selectedMod);
+  else if (PACK.key !== 'all') sp.set('pack', PACK.key);
+  routeParams(r, sp);
+  if (r.focus) sp.set('f', r.focus);
+  if (LANG !== 'en') sp.set('lang', LANG);
+  return readableQuery(sp);
+}
+function crossModHref(mid, section, id) { return urlFor(mid, { section: section || 'overview', id: id || '' }); }
+function routeUrl(r) { return HASHMODE ? routeToHash(r) : urlFor(selectedMod, r); }
+/* Route aus Pfad-Teilen (pathParts) und Query (tab, f, q). */
+function pathToRoute(pp, sp) {
+  if (sp.has('q')) return { section: 'search', id: sp.get('q') || '', tab: '', focus: '' };
+  var section = pp.section || 'overview', id = pp.id || '';
+  if (section === 'items' && id && !IX.items.has(id) && IX.blocks.has(id)) section = 'blocks';
+  if (section === 'blocks' && id && !IX.blocks.has(id) && IX.items.has(id)) section = 'items';
+  if (section === 'overview' && sp.get('tab')) return paramsToRoute(sp);
+  return { section: section, id: id, tab: sp.get('tab') || '', focus: sp.get('f') || '' };
+}
+function rawRoute() {
+  if (HASHMODE || (location.hash || '').indexOf('#/') === 0) return hashToRoute(location.hash);
+  var sp = new URLSearchParams(location.search), pp = pathParts(relPath());
+  return pp ? pathToRoute(pp, sp) : paramsToRoute(sp);
+}
 function currentRoute() {
-  var r = HASHMODE || (location.hash || '').indexOf('#/') === 0 ? hashToRoute(location.hash) : paramsToRoute(new URLSearchParams(location.search));
+  var r = rawRoute();
   /* Eine Rezeptansicht (Besitzer 06.11.): die alte Liste je Typ zeigt "Alle Rezepte" mit Filtern; Rezept-Seiten bleiben. */
   if (r.section === 'recipes' && !r.id) r.section = 'allrecipes';
   /* N24: die Anleitungen-Uebersicht ist jetzt "Erste Schritte" (alte Adressen ?tab=features und #/features fuehren hin). */
@@ -5472,10 +5702,18 @@ function currentRoute() {
 /* Alter Name, von vielen Seitenfunktionen benutzt. */
 function parseHash() { return currentRoute(); }
 function sameRoute(a, b) { return a.section === b.section && (a.id || '') === (b.id || '') && (a.tab || '') === (b.tab || '') && (a.focus || '') === (b.focus || ''); }
+/* Mod-Bereich einer Adresse (null = Wurzel): wechselt er, laedt die Seite neu (anderer Umfang, andere Indizes). */
+function urlMod(url) {
+  if (MODPATH && url.pathname.indexOf(BASE) === 0) { var pp = pathParts(url.pathname.slice(BASE.length)); if (pp) return pp.mod; }
+  var m = url.searchParams.get('mod');
+  if (wikiMod(m)) return m;
+  return null;
+}
 function go(r, opts) {
   opts = opts || {};
   if (HASHMODE) { var hh = routeToHash(r); if (opts.replace) location.replace(hh); else location.hash = hh; return; }
   var url = routeUrl(r);
+  if (urlMod(new URL(url, location.href)) !== selectedMod) { if (opts.replace) location.replace(url); else location.assign(url); return; }
   try {
     history.replaceState({ y: window.pageYOffset || 0 }, '', location.href);
     if (opts.replace) history.replaceState({ y: 0 }, '', url); else history.pushState({ y: 0 }, '', url);
@@ -5487,16 +5725,17 @@ function go(r, opts) {
 function goHref(href, opts) {
   if (String(href).charAt(0) !== '#') {
     var url = new URL(href, location.href);
-    if (url.searchParams.get('mod') && url.searchParams.get('mod') !== selectedMod) { location.assign(url.href); return; }
+    if (urlMod(url) !== selectedMod) { location.assign(url.href); return; }
   }
   go(hrefToRoute(href), opts);
 }
 function hrefToRoute(href) {
   href = String(href || '');
   if (href.indexOf('#/') === 0) return hashToRoute(href);
-  var a = document.createElement('a'); a.href = href;
-  if (a.hash && a.hash.indexOf('#/') === 0) return hashToRoute(a.hash);
-  return paramsToRoute(new URLSearchParams(a.search));
+  var url = new URL(href, location.href);
+  if (url.hash && url.hash.indexOf('#/') === 0) return hashToRoute(url.hash);
+  var pp = MODPATH && url.pathname.indexOf(BASE) === 0 ? pathParts(url.pathname.slice(BASE.length)) : null;
+  return pp ? pathToRoute(pp, url.searchParams) : paramsToRoute(url.searchParams);
 }
 /* Hash-Links beim Einfuegen in die URL-Form bringen (fuer Mittelklick, "Link kopieren"). */
 function rewriteLinks(root) {
@@ -5731,7 +5970,8 @@ function smRow(m) {
     (amCounts(m) ? '<span class="sm-counts">' + esc(amCounts(m)) + '</span>' : '') + '<span class="sm-purpose">' + esc(modPurpose(m) || m.description || '') + '</span></span></a>';
 }
 function smKids(id) {
-  return packKids(id).filter(function (c) { return inPack(c.id); }).sort(function (a, b) { return (b.bundle === 'required') - (a.bundle === 'required') || a.displayName.localeCompare(b.displayName); });
+  /* N74: im Mod-Bereich die ganze Familie, auf der Wurzel die Mods des Modpack-Filters. */
+  return packKids(id).filter(function (c) { return selectedMod ? inScope(c.id) : inPack(c.id); }).sort(function (a, b) { return (b.bundle === 'required') - (a.bundle === 'required') || a.displayName.localeCompare(b.displayName); });
 }
 function smNode(m) {
   var kids = smKids(m.id);
@@ -5739,7 +5979,13 @@ function smNode(m) {
   return '<li><details class="sm-fold" open><summary>' + smRow(m) + '<span class="sm-n">' + esc(T('smSubs', kids.length)) + '</span></summary><ul class="sm-tree">' + kids.map(smNode).join('') + '</ul></details></li>';
 }
 function pageSubmods() {
-  var h = '<h1>' + esc(T('navSubmods')) + ' <span class="muted tiny" style="font-weight:400">' + PACK.ids.length + '</span></h1><p>' + esc(T('smIntro')) + '</p>';
+  if (selectedMod) {
+    var me = PACK_BY[selectedMod] || modMetaRaw(selectedMod), kids = smKids(selectedMod);
+    var hm = crumbs([{ label: T('navSubmods') }]) + '<h1>' + esc(T('navSubmods')) + ' <span class="muted tiny" style="font-weight:400">' + (SCOPE.length - 1) + '</span></h1>';
+    if (!kids.length) return hm + '<p class="hint">' + esc(T('amNoSubs')) + '</p>';
+    return hm + '<section class="sm-super"><details class="sm-fold sm-top" open><summary>' + smRow(me) + '<span class="sm-n">' + esc(T('smSubs', kids.length)) + '</span></summary><ul class="sm-tree">' + kids.map(smNode).join('') + '</ul></details></section>';
+  }
+  var h = crumbs([{ label: T('navSubmods') }]) + '<h1>' + esc(T('navSubmods')) + ' <span class="muted tiny" style="font-weight:400">' + PACK.ids.length + '</span></h1><p>' + esc(T('smIntro')) + '</p>';
   var roots = PACK_MODS.filter(function (m) { return (!m.parent || !PACK_BY[m.parent] || !inPack(m.parent)) && inPack(m.id); });
   if (!roots.length) return h + '<p class="hint">' + esc(T('smNone')) + '</p>';
   var supers = roots.filter(function (m) { return packKids(m.id).some(function (c) { return inPack(c.id); }); });
@@ -6137,35 +6383,97 @@ var NAV_ACTIVE = { blocks: 'items', recipes: 'allrecipes', inworld: 'allrecipes'
 var SB_STORE = 'simple-wiki-sidebar';
 NAV_GROUPS.push(CONV51_NAV); // N51 Konverter, eigene Gruppe (siehe CONV51_PUBLIC)
 var SB_OPEN = (function () { try { var v = JSON.parse(window.localStorage.getItem(SB_STORE) || '{}'); return isObj(v) ? v : {}; } catch (err) { return {}; } })();
+/* N74: zwei Formen. Wurzel: Alle Mods, Browser, Mod-Struktur, die Mods, eingeklappt "Alle Mods: Nachschlagen ...".
+   Mod-Bereich: "<- Alle Mods", Mod-Kopf, Uebersicht, Gruppen mit Zaehlern ueber Mod + Sub-Mods, Sub-Mods (Filter ab > 8). */
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
   active = NAV_ACTIVE[active] || active;
   if (/^cat:/.test(active || '')) active = 'items';
-  function link(href, key, label, ico, c) {
-    return '<a href="' + esc(href) + '"' + (key === active ? ' class="active" aria-current="page"' : '') + '><span class="sb-ico">' + ico + '</span><span>' + esc(label) + '</span>' + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
+  function link(href, key, label, ico, c, cls) {
+    var cl = (key && key === active ? 'active' : '') + (cls ? ' ' + cls : '');
+    return '<a href="' + esc(href) + '"' + (cl.trim() ? ' class="' + cl.trim() + '"' : '') + (key && key === active ? ' aria-current="page"' : '') + '><span class="sb-ico">' + ico + '</span><span>' + esc(label) + '</span>' + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
   }
   function glyph(g) { return '<span class="glyph" aria-hidden="true">' + g + '</span>'; }
-  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), glyph('⌂'), null) + link('#/allmods', 'allmods', T('navAllMods'), glyph('★'), null) + link('#/browse', 'browse', T('navBrowse'), glyph('▤'), null) + link('#/structure', 'structure', T('navStructure'), glyph('⊢'), null) + '</div>';
-  var dev = isDevSite();
-  NAV_GROUPS.forEach(function (g) {
-    if (g.dev && !dev) return;
-    var links = g.items.map(function (n) {
-      var c = typeof n.count === 'function' ? n.count() : null;
-      if (!n.always && !c && n.key !== active) return '';
-      return link('#/' + n.key, n.key, T(n.labelKey), glyph(n.glyph), c || null);
-    }).filter(Boolean);
-    if (!links.length) return;
-    var hasActive = g.items.some(function (n) { return n.key === active; });
-    var open = hasActive || SB_OPEN[g.key] !== false;
-    h += '<details class="sb-group sb-sec' + (g.dev ? ' sb-dev' : '') + '" data-sb="' + g.key + '"' + (open ? ' open' : '') + '><summary class="sb-title" title="' + esc(T('sbToggle', T(g.labelKey))) + '"><span>' + esc(T(g.labelKey)) + '</span><span class="sb-chev" aria-hidden="true"></span></summary>' + links.join('') + '</details>';
-  });
-  h += '<div class="sb-note">' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
+  var dev = isDevSite(), h = '';
+  function groups(prefix) {
+    var out = '';
+    NAV_GROUPS.forEach(function (g) {
+      if (g.dev && !dev) return;
+      var links = g.items.map(function (n) {
+        if (n.key === 'submods' && selectedMod) return '';
+        var c = typeof n.count === 'function' ? n.count() : null;
+        if (!n.always && !c && n.key !== active) return '';
+        return link('#/' + n.key, n.key, T(n.labelKey), glyph(n.glyph), c ? fmtCount(c) : null);
+      }).filter(Boolean);
+      if (!links.length) return;
+      var key = prefix + g.key;
+      var hasActive = g.items.some(function (n) { return n.key === active; });
+      /* Auf der Wurzel sind die Gruppen anfangs zu (Mockup B), im Mod-Bereich offen. */
+      var open = hasActive || (prefix ? SB_OPEN[key] === true : SB_OPEN[key] !== false);
+      var label = prefix && !g.dev && g.key !== 'conv' ? T('sbInAll', T(g.labelKey)) : T(g.labelKey);
+      out += '<details class="sb-group sb-sec' + (g.dev ? ' sb-dev' : '') + '" data-sb="' + key + '"' + (open ? ' open' : '') + '><summary class="sb-title" title="' + esc(T('sbToggle', label)) + '"><span>' + esc(label) + '</span><span class="sb-chev" aria-hidden="true"></span></summary>' + links.join('') + '</details>';
+    });
+    return out;
+  }
+  if (!selectedMod) {
+    h += '<div class="sb-group">' + link('#/', 'overview', T('navAllMods'), glyph('⌂'), null) + link('#/browse', 'browse', T('navBrowse'), glyph('▤'), null) + link('#/structure', 'structure', T('navStructure'), glyph('⊢'), null) + '</div>';
+    var tops = homeTops();
+    tops.sort(function (a, b) { return isSuperMod(b.id) - isSuperMod(a.id) || (isSuperMod(a.id) ? familyOf(b.id).length - familyOf(a.id).length : a.displayName.localeCompare(b.displayName)); });
+    h += '<div class="sb-group sb-mods"><div class="sb-title">' + esc(T('sbMods')) + '</div>' + tops.map(function (m) {
+      return link(crossModHref(m.id), '', m.displayName, modIcon(m), isSuperMod(m.id) ? familyOf(m.id).length - 1 : null);
+    }).join('') + '</div>';
+    h += groups('all-');
+    h += '<div class="sb-note">' + esc(T('countsScope', scopeLabel(null))) + '<br>' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
+  } else {
+    var m = modMetaRaw(selectedMod), par = m.parent ? modMetaRaw(m.parent) : null;
+    h += '<div class="sb-group">' + link('#/allmods', '', T('navAllModsBack'), glyph('←'), null, 'sb-back') + '</div>';
+    h += '<div class="sb-mod">' + modIcon(m, 'mid') + '<div>' + (par ? '<span class="sb-mod-up">' + T('subOf', '<a href="' + esc(crossModHref(par.id)) + '">' + esc(par.displayName) + '</a>') + '</span>' : '') + '<div class="sb-mod-name">' + esc(m.displayName) + '</div></div></div>';
+    h += '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), glyph('⌂'), null) + '</div>';
+    h += groups('');
+    h += subModList(selectedMod, null, T('navSubmods'), true);
+    if (par && !modChildren(selectedMod).some(function (c) { return wikiMod(c.id); })) h += subModList(par.id, selectedMod, T('moreIn', par.displayName), false);
+    h += '<div class="sb-note">' + esc(T('countsScope', scopeLabel(selectedMod))) + '<br>' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
+  }
   $side.innerHTML = h;
   var act = $side.querySelector('a.active');
   if (act && act.scrollIntoView && !document.body.classList.contains('nav-open')) {
     var sr = $side.getBoundingClientRect(), ar = act.getBoundingClientRect();
     if (ar.top < sr.top || ar.bottom > sr.bottom) act.scrollIntoView({ block: 'nearest' });
   }
+}
+/* Sub-Mods eines Mods als eingerueckter Baum; ab mehr als 8 Eintraegen mit Filterfeld. */
+function subModList(of, current, title, open) {
+  var rows = [], key = 'subs-' + (current ? 'more' : 'own');
+  (function walk(list, depth) {
+    list.forEach(function (c) {
+      if (!wikiMod(c.id)) return;
+      rows.push('<a href="' + esc(crossModHref(c.id)) + '" data-name="' + esc(norm(c.displayName + ' ' + c.id)) + '" class="sub' + (depth ? ' sub' + Math.min(depth + 1, 3) : '') + (c.id === current ? ' active' : '') + '"' + (c.id === current ? ' aria-current="page"' : '') + '>' + modIcon(c) + '<span>' + esc(c.displayName) + '</span></a>');
+      walk(modChildren(c.id), depth + 1);
+    });
+  })(modChildren(of), 0);
+  if (!rows.length) return '';
+  var isOpen = SB_OPEN[key] != null ? SB_OPEN[key] : open;
+  return '<details class="sb-group sb-sec sb-subs" data-sb="' + key + '"' + (isOpen ? ' open' : '') + '><summary class="sb-title"><span>' + esc(title) + ' (' + rows.length + ')</span><span class="sb-chev" aria-hidden="true"></span></summary>' +
+    (rows.length > 8 ? '<input class="sb-filter" type="search" data-sb-filter placeholder="' + esc(T('sbSubFilter')) + '" aria-label="' + esc(T('sbSubFilter')) + '"><p class="sb-empty" data-sb-empty hidden>' + esc(T('sbSubNone')) + '</p>' : '') + rows.join('') + '</details>';
+}
+$side.addEventListener('input', function (ev) {
+  var inp = ev.target;
+  if (!inp || !inp.hasAttribute || !inp.hasAttribute('data-sb-filter')) return;
+  var q = norm(inp.value).trim(), any = false, box = inp.parentNode;
+  box.querySelectorAll('a.sub').forEach(function (a) { var hit = !q || (a.getAttribute('data-name') || '').indexOf(q) >= 0; a.hidden = !hit; if (hit) any = true; });
+  var empty = box.querySelector('[data-sb-empty]'); if (empty) empty.hidden = any;
+});
+/* Mobile Mod-Leiste unter dem Kopf (< 920 px): Rueckweg und Name ohne die Seitenleiste zu oeffnen. */
+function renderModstrip() {
+  var strip = document.getElementById('modstrip');
+  if (!strip) return;
+  if (!selectedMod) { strip.hidden = true; strip.innerHTML = ''; return; }
+  var m = modMetaRaw(selectedMod), par = m.parent ? modMetaRaw(m.parent) : null;
+  strip.setAttribute('aria-label', T('sbArea', m.displayName));
+  strip.setAttribute('role', 'navigation');
+  strip.innerHTML = '<a class="backbtn" href="' + esc(crossModHref('', 'allmods')) + '">← ' + esc(T('navAllModsBack')) + '</a>' + modIcon(m) +
+    '<a class="ms-name" data-route="1" href="' + esc(crossModHref(selectedMod)) + '">' + esc(m.displayName) + '</a>' + (par ? '<a class="ms-up" href="' + esc(crossModHref(par.id)) + '">' + esc(T('msIn', par.displayName)) + '</a>' : '');
+  strip.hidden = false;
 }
 $side.addEventListener('toggle', function (ev) {
   var d = ev.target;
@@ -6675,14 +6983,13 @@ function renderMeta() {
   if (!D) { $meta.innerHTML = ''; return; }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
   $meta.innerHTML = (MOD.version ? '<span>v' + esc(MOD.version) + '</span>' : '') + '<span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
-  document.getElementById('all-mods-label').textContent = T('pbSearchAll');
-  modSelect.setAttribute('aria-label', LANG === 'de' ? 'Mod auswählen' : 'Select mod');
-  buildModSelect();
   /* Modul-Symbol aus modules.js (sonst blieb die Kachel bei Sub-Mods leer) */
-  var modEntry = MODULES.find(function (e) { return e.id === MODID; });
-  var tex = (MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') || textureOf('simplechisels:iron_chisel') : null) || (modEntry && modEntry.icon) || null;
+  /* N74: die Marke ist "Simple Mods Wiki" - Symbol bleibt der Eisenmeissel (sonst das Symbol von SimpleBuilding). */
+  var modEntry = modMetaRaw('simplebuilding');
+  var tex = textureOf('simplebuilding:iron_chisel') || textureOf('simplechisels:iron_chisel') || (modEntry && modEntry.icon) || null;
   document.getElementById('brand-icon').innerHTML = tex ? '<img src="' + esc(tex) + '" alt="">' : '';
-  document.querySelector('.brand-text').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
+  document.querySelector('.brand-text').innerHTML = 'Simple Mods <small>Wiki</small>';
+  document.getElementById('brand').setAttribute('aria-label', T('homeTitle') + ' – ' + T('navAllMods'));
   if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
 }
 function footerHtml() {
@@ -6699,7 +7006,7 @@ function render(opts) {
   var html = '', title = '', active = r.section;
   try {
     switch (r.section) {
-      case 'overview': case '': html = pageOverview(); title = ''; active = 'overview'; break;
+      case 'overview': case '': html = selectedMod ? pageOverview() : pageHome(); title = ''; active = 'overview'; break;
       case 'start': html = pageStart(); title = T('navStart'); break;
       case 'submods': html = pageSubmods(); title = T('navSubmods'); break;
       case 'guidebook': html = pageGuidebook(r.id); title = T('navGuidebook'); break;
@@ -6715,7 +7022,7 @@ function render(opts) {
       case 'enchanting': html = pageEnchanting(); title = T('navEnchanting'); break;
       case 'tzeditor': html = pageTzEditor(); title = T('navTzEditor'); break;
       case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
-      case 'allmods': html = pageAllMods(); title = T('navAllMods'); active = 'allmods'; break;
+      case 'allmods': html = pageHome(); title = ''; active = 'overview'; break;
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
       case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
       case 'advancements': html = pageAdvancements(); title = T('navAdvancements'); break;
@@ -6736,12 +7043,11 @@ function render(opts) {
     if (window.console) console.error(err);
   }
   if (!html) html = '<div class="notfound">' + T('emptyPage') + '</div>';
-  // WD25-24: the mod dropdown follows the page ("All mods" only on the overview of all mods, the mod everywhere else).
-  modSelect.value = r.section === 'allmods' ? '#allmods' : selectedMod;
   closeCtx();
   closeQs();
   if (r.section !== 'search' && document.activeElement !== $q) $q.value = '';
-  $main.innerHTML = packBarHtml(r.section) + html + footerHtml();
+  /* N74-4: die Modpack-Leiste steht nur noch als Filter auf "Mod-Struktur" (pageStructure). */
+  $main.innerHTML = html + footerHtml();
   if (r.section === 'browse') brFill();
   restoreListFilter();
   tsRefresh();
@@ -6758,7 +7064,8 @@ function render(opts) {
   if (r.section === 'tree') fillTree();
   if (r.section === 'allrecipes' || r.section === 'make' || r.section === 'use') { AR.shown = 60; refreshRecipeView(); }
   renderSidebar(active);
-  document.title = (title ? title + ' – ' : '') + (MOD.name || 'SimpleBuilding') + ' Wiki';
+  renderModstrip();
+  document.title = (title ? title + ' – ' : '') + (selectedMod ? (MOD.name || modShort(selectedMod)) + ' – ' : '') + T('homeTitle');
   if (r.focus && focusRow(r.focus)) return;
   if (typeof opts.restoreY === 'number') { window.scrollTo(0, opts.restoreY); return; }
   if (opts.keepScroll) return;
@@ -6850,7 +7157,7 @@ $side.addEventListener('error', function (ev) {
 var LIST_FILTERS = {};
 function listFilterKey() {
   var r = currentRoute();
-  return 'simplebuilding-wiki-filter:' + selectedMod + ':' + r.section + ':' + (r.id || '');
+  return 'simplebuilding-wiki-filter:' + (selectedMod || 'all') + ':' + r.section + ':' + (r.id || '');
 }
 function restoreListFilter() {
   var inp = $main.querySelector('[data-filter]');
@@ -6919,28 +7226,42 @@ $main.addEventListener('click', function (ev) {
 /* Schnellsuche: Treffer als Liste unter dem Feld, mit Pfeiltasten waehlbar.
    Enter oeffnet den gewaehlten Treffer, der letzte Eintrag fuehrt zur vollen
    Suche (?q=...). Auf der Suchseite selbst aktualisiert das Tippen die Seite. */
-var QS = { items: [], idx: -1 };
+var QS = { items: [], idx: -1, wide: false };
 var SEC_GLYPH = { categories: '▦', features: '✎', recipes: '⊞', inworld: '⚒', loot: '❖', trades: '⇄', enchantments: '✦', tags: '#', config: '⚙' };
-function closeQs() { $qs.hidden = true; $qs.innerHTML = ''; QS.items = []; QS.idx = -1; $q.setAttribute('aria-expanded', 'false'); $q.removeAttribute('aria-activedescendant'); }
+function closeQs() { $qs.hidden = true; $qs.innerHTML = ''; QS.items = []; QS.idx = -1; QS.wide = false; $q.setAttribute('aria-expanded', 'false'); $q.removeAttribute('aria-activedescendant'); }
 function renderQs() {
   var q = $q.value.trim();
   if (!q) { closeQs(); return; }
   var tokens = norm(q).split(/\s+/).filter(Boolean);
   /* Items, die auch Bloecke sind, nur einmal zeigen (die Item-Seite verlinkt den Block). */
-  var itemIds = {};
-  var res = search(q).filter(function (r) {
-    if (r.e.section === 'items') { itemIds[r.e.id] = true; return true; }
-    return !(r.e.section === 'blocks' && (itemIds[r.e.id] || IX.items.has(r.e.id)));
-  }).slice(0, 8);
-  QS.items = res.map(function (r) { return r.e.href; }).concat(['#/search/' + encodeURIComponent(q)]);
+  function dedupe(list) {
+    var itemIds = {};
+    return list.filter(function (r) {
+      if (r.e.section === 'items') { itemIds[r.e.id] = true; return true; }
+      return !(r.e.section === 'blocks' && (itemIds[r.e.id] || IX.items.has(r.e.id)));
+    });
+  }
+  /* N74-3: gesucht wird im Mod + Sub-Mods; "In allen Mods suchen" erweitert einmal auf alle Mods. */
+  var wide = QS.wide && !!selectedMod;
+  var all = dedupe(search(q, wide)), res = all.slice(0, 8);
+  var wideN = selectedMod && !wide ? dedupe(search(q, true)).length : 0;
+  var fullHref = wide ? urlFor(null, { section: 'search', id: q }) : '#/search/' + encodeURIComponent(q);
+  QS.items = res.map(function (r) { return r.e.href; }).concat([fullHref]);
+  if (wideN > all.length) QS.items.push('#wide');
+  else if (wide) QS.items.push('#narrow');
   if (QS.idx >= QS.items.length) QS.idx = QS.items.length - 1;
   if (QS.idx < 0) QS.idx = 0;
   var h = res.length ? res.map(function (r, i) {
     var e = r.e, ico = (e.section === 'items' || e.section === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : e.section === 'categories' && catDef(e.id) ? slotHtml(catDef(e.id).icon, 1, { noLink: true }) : '<span class="qs-ico" aria-hidden="true">' + (SEC_GLYPH[e.section] || '•') + '</span>';
     return '<a class="qs-item" id="qs-' + i + '" role="option" aria-selected="' + (i === QS.idx) + '" href="' + esc(e.href) + '" data-qi="' + i + '">' + ico + '<span class="qs-main"><span class="qs-title">' + highlight(e.title, tokens) + '</span><span class="qs-sub">' + highlight(e.sub, tokens) + '</span></span>' + (e.modBadge ? badge(e.modBadge) : '') + '<span class="qs-sec">' + esc(sectionLabel(e.section)) + '</span></a>';
   }).join('') : '<div class="qs-empty">' + esc(T('qsNone')) + '</div>';
-  var ai = QS.items.length - 1;
-  h += '<a class="qs-item qs-all" id="qs-' + ai + '" role="option" aria-selected="' + (QS.idx === ai) + '" href="#/search/' + esc(encodeURIComponent(q)) + '" data-qi="' + ai + '">' + esc(T('qsAll', q)) + '</a>';
+  h = '<div class="qs-scope"><span>' + esc(T('scopeIn')) + ': <b>' + esc(scopeLabel(wide ? null : selectedMod)) + '</b></span><span>' + esc(plural(all.length, 'hitOne', 'hitMany')) + '</span></div>' + h;
+  var ai = res.length;
+  h += '<a class="qs-item qs-all" id="qs-' + ai + '" role="option" aria-selected="' + (QS.idx === ai) + '" href="' + esc(fullHref) + '" data-qi="' + ai + '">' + esc(T('qsAll', q)) + '</a>';
+  if (QS.items.length > ai + 1) {
+    var wi = ai + 1, isWide = QS.items[wi] === '#wide';
+    h += '<button type="button" class="qs-wide" id="qs-' + wi + '" role="option" tabindex="-1" aria-selected="' + (QS.idx === wi) + '" data-qi="' + wi + '" ' + (isWide ? 'data-qs-wide' : 'data-qs-narrow') + '>' + esc(isWide ? T('searchWide', wideN) : T('searchNarrow', scopeLabel(selectedMod))) + '</button>';
+  }
   h += '<div class="qs-foot">' + esc(T('qsNav')) + '</div>';
   $qs.innerHTML = h;
   $qs.hidden = false;
@@ -6981,7 +7302,8 @@ $q.addEventListener('keydown', function (ev) {
     var q = $q.value.trim();
     if (!q) return;
     clearTimeout(searchTimer);
-    var target = (ev.ctrlKey || ev.metaKey || $qs.hidden || !QS.items.length) ? '#/search/' + encodeURIComponent(q) : QS.items[QS.idx];
+    var target = (ev.ctrlKey || ev.metaKey || $qs.hidden || !QS.items.length) ? (QS.wide && selectedMod ? urlFor(null, { section: 'search', id: q }) : '#/search/' + encodeURIComponent(q)) : QS.items[QS.idx];
+    if (target === '#wide' || target === '#narrow') { QS.wide = target === '#wide'; QS.idx = 0; renderQs(); return; }
     closeQs();
     if (currentRoute().section === 'search' && target.indexOf('#/search/') === 0) return;
     $q.blur();
@@ -6989,7 +7311,11 @@ $q.addEventListener('keydown', function (ev) {
   }
 });
 $qs.addEventListener('mousedown', function (ev) { ev.preventDefault(); }); /* Fokus im Feld lassen */
-$qs.addEventListener('click', function () { $q.blur(); });
+$qs.addEventListener('click', function (ev) {
+  var w = ev.target.closest && ev.target.closest('[data-qs-wide],[data-qs-narrow]');
+  if (w) { ev.preventDefault(); ev.stopPropagation(); QS.wide = w.hasAttribute('data-qs-wide'); QS.idx = 0; renderQs(); $q.focus(); return; }
+  $q.blur();
+});
 document.addEventListener('click', function (ev) { if (!$qs.hidden && !ev.target.closest('.search')) closeQs(); });
 function focusSearch() { closeNav(); $q.focus(); $q.select(); }
 document.addEventListener('keydown', function (ev) {
@@ -7193,10 +7519,13 @@ buildSearch();
 renderMeta();
 /* Alte Hash-Links (#/items/<id>) auf die URL-Form umleiten. Wo der Browser das
    nicht zulaesst (manche file://-Kontexte), bleibt der Hash-Router. */
+/* N74: alte Formen (?mod=, #/allmods, Einzelseite ohne Mod) auf die heutige Adresse - Pfad-Form, wenn der Server sie
+   ausliefert. Ein Ziel, das es im Bereich nicht gibt, zeigt die Nicht-gefunden-Seite mit Vorschlaegen (kein 404). */
 (function () {
   try {
-    var r = (location.hash || '').indexOf('#/') === 0 ? hashToRoute(location.hash) : paramsToRoute(new URLSearchParams(location.search));
-    history.replaceState({ y: 0 }, '', location.pathname + routeToSearch(r));
+    var r = rawRoute();
+    if (r.section === 'allmods') r = { section: 'overview', id: '', tab: '', focus: '' };
+    history.replaceState({ y: 0 }, '', urlFor(selectedMod, r));
   } catch (err) { HASHMODE = true; }
   rewriteLinks(document.body);
 })();
