@@ -5,7 +5,10 @@ import com.simplebuildingtools.config.BtTuning;
 import com.simplebuildingtools.items.custom.BlueprintItem;
 import com.simplebuildingtools.items.custom.OctantItem;
 import com.simplebuildingtools.util.OctantShape;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import net.minecraft.world.entity.Entity;
 import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -201,15 +204,50 @@ public final class BlueprintScanner {
             if (cursor < total) {
                 return false;
             }
-            outcome = finish();
+            outcome = finish(level);
             return true;
         }
 
-        private Outcome finish() {
-            if (model.isEmpty()) {
+        /**
+         * N77: nimmt die Item-Frames, Ruestungsstaender und KI-losen Mobs der Auswahl auf (ihre Blockstelle liegt in der Figur).
+         * Einmal am Ende, nicht in Scheiben: die Entity-Abfrage ueber die Box ist billig gegen das Lesen der Bloecke.
+         * Liefert die Kommentarzeilen fuer Entities, die sich nicht schreiben liessen.
+         */
+        private List<String> scanEntities(Level level) {
+            List<String> skipped = new ArrayList<>();
+            AABB box = new AABB(min.getX(), min.getY(), min.getZ(), max.getX() + 1, max.getY() + 1, max.getZ() + 1);
+            List<Entity> found = new ArrayList<>(level.getEntities((Entity) null, box, BlueprintEntity::scannable));
+            found.sort(java.util.Comparator.comparingDouble((Entity e) -> e.getY()).thenComparingDouble(Entity::getZ)
+                    .thenComparingDouble(Entity::getX));
+            for (Entity entity : found) {
+                BlockPos cell = BlueprintEntity.cellOf(entity);
+                if (cell.getX() < min.getX() || cell.getY() < min.getY() || cell.getZ() < min.getZ() || cell.getX() > max.getX()
+                        || cell.getY() > max.getY() || cell.getZ() > max.getZ() || !shape.test(cell)) {
+                    continue;
+                }
+                if (model.entities().size() >= BlueprintEntity.MAX_ENTITIES) {
+                    skipped.add("more than " + BlueprintEntity.MAX_ENTITIES + " entities, the rest is left out");
+                    break;
+                }
+                Object scanned = BlueprintEntity.scan(entity, min, level.registryAccess());
+                if (scanned instanceof BlueprintEntity e) {
+                    model.addEntity(e);
+                } else {
+                    skipped.add(String.valueOf(scanned).replace('\n', ' ').replace('\r', ' '));
+                }
+            }
+            return skipped;
+        }
+
+        private Outcome finish(Level level) {
+            List<String> skipped = scanEntities(level);
+            if (!model.hasContent()) {
                 return Outcome.fail("nothing");
             }
             String code = BlueprintCode.serialize(model.normalized());
+            for (String note : skipped) {
+                code += "\n# skipped: " + note;
+            }
             if (code.length() > BlueprintCode.MAX_STORED_CODE_LENGTH) {
                 return Outcome.fail("too_complex", code.length(), BlueprintCode.MAX_STORED_CODE_LENGTH);
             }

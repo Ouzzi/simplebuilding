@@ -110,6 +110,22 @@ public final class ModuleGameTest {
         com.simplebuildingtools.test.BlueprintTests.materialListCountsItemsSortedByAmount(helper);
     }
 
+    /** N77: Item-Frames, Ruestungsstaender und KI-lose Mobs in der Bausprache; alte Codes unveraendert. */
+    @GameTest
+    public void blueprintEntityCodeParsesAndOldCodesStayIdentical(GameTestHelper helper) {
+        com.simplebuildingtools.test.BlueprintEntityTests.entityCodeParsesAndOldCodesStayIdentical(helper);
+    }
+
+    @GameTest
+    public void blueprintScanCodeBuildKeepsFramesStandsAndMobs(GameTestHelper helper) {
+        com.simplebuildingtools.test.BlueprintEntityTests.scanCodeBuildKeepsFramesStandsAndMobs(helper);
+    }
+
+    @GameTest
+    public void blueprintSurvivalBuildPaysForFramesAndTheirItems(GameTestHelper helper) {
+        com.simplebuildingtools.test.BlueprintEntityTests.survivalBuildPaysForFramesAndTheirItems(helper);
+    }
+
     @GameTest
     public void cartographyTableScansTheOctantSelection(GameTestHelper helper) {
         com.simplebuildingtools.test.BlueprintTests.cartographyTableScansTheOctantSelection(helper);

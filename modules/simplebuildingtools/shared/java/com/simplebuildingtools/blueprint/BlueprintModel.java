@@ -20,6 +20,8 @@ public final class BlueprintModel {
     private static final int MASK = (1 << BITS) - 1;
 
     private final Int2ObjectOpenHashMap<BlockState> blocks = new Int2ObjectOpenHashMap<>();
+    /** N77: Item-Frames, Ruestungsstaender und KI-lose Mobs ({@link BlueprintEntity}); zaehlen zur Bounding Box. */
+    private final java.util.List<BlueprintEntity> entities = new java.util.ArrayList<>();
     private int minX, minY, minZ, maxX, maxY, maxZ;
     private boolean boundsDirty = true;
 
@@ -66,6 +68,21 @@ public final class BlueprintModel {
         return blocks.size();
     }
 
+    /** N77: die Entities der Blaupause in Code-Reihenfolge (nicht veraendern, {@link #addEntity} nutzen). */
+    public java.util.List<BlueprintEntity> entities() {
+        return java.util.Collections.unmodifiableList(entities);
+    }
+
+    public void addEntity(BlueprintEntity entity) {
+        entities.add(entity);
+        boundsDirty = true;
+    }
+
+    /** Bloecke oder Entities - etwas zu bauen? ({@link #isEmpty()} zaehlt nur Bloecke.) */
+    public boolean hasContent() {
+        return !blocks.isEmpty() || !entities.isEmpty();
+    }
+
     public boolean isEmpty() {
         return blocks.isEmpty();
     }
@@ -105,7 +122,16 @@ public final class BlueprintModel {
             if (y > maxY) maxY = y;
             if (z > maxZ) maxZ = z;
         }
-        if (blocks.isEmpty()) {
+        for (BlueprintEntity e : entities) {
+            int x = e.cellX(), y = e.cellY(), z = e.cellZ();
+            if (x < minX) minX = x;
+            if (y < minY) minY = y;
+            if (z < minZ) minZ = z;
+            if (x > maxX) maxX = x;
+            if (y > maxY) maxY = y;
+            if (z > maxZ) maxZ = z;
+        }
+        if (blocks.isEmpty() && entities.isEmpty()) {
             minX = minY = minZ = 0;
             maxX = maxY = maxZ = -1;
         }
@@ -126,7 +152,7 @@ public final class BlueprintModel {
 
     /** Laengste Kante der Bounding Box: daran misst sich, welcher Baustab das Bauwerk schafft. */
     public int maxEdge() {
-        return isEmpty() ? 0 : Math.max(sizeX(), Math.max(sizeY(), sizeZ()));
+        return !hasContent() ? 0 : Math.max(sizeX(), Math.max(sizeY(), sizeZ()));
     }
 
     /** Dasselbe Bauwerk, so verschoben, dass seine Bounding Box bei 0,0,0 beginnt. */
@@ -140,6 +166,9 @@ public final class BlueprintModel {
             int k = e.getIntKey();
             shifted.set(keyX(k) - dx, keyY(k) - dy, keyZ(k) - dz, e.getValue());
         }
+        for (BlueprintEntity e : entities) {
+            shifted.addEntity(e.shifted(-dx, -dy, -dz));
+        }
         return shifted;
     }
 
@@ -148,6 +177,7 @@ public final class BlueprintModel {
         if (this == o) return true;
         if (!(o instanceof BlueprintModel other)) return false;
         if (other.blocks.size() != blocks.size()) return false;
+        if (!BlueprintEntity.sameSet(entities, other.entities)) return false;
         for (Int2ObjectMap.Entry<BlockState> e : blocks.int2ObjectEntrySet()) {
             if (!Objects.equals(other.blocks.get(e.getIntKey()), e.getValue())) return false;
         }
@@ -161,7 +191,7 @@ public final class BlueprintModel {
 
     @Override
     public String toString() {
-        return "BlueprintModel[" + blocks.size() + " blocks, " + sizeX() + "x" + sizeY() + "x" + sizeZ() + "]";
+        return "BlueprintModel[" + blocks.size() + " blocks, " + entities.size() + " entities, " + sizeX() + "x" + sizeY() + "x" + sizeZ() + "]";
     }
 
     /** Hilfe fuer Tests: alle Stellen als lesbare Map. */
