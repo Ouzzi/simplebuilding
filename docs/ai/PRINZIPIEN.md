@@ -387,8 +387,8 @@ Silbererz (Oberwelt, End) und Roségold (zwei Legierungen, Pressling, nur Hochof
 - **A12 je Teil** steht in `docs/ai/PLAN-A-ORES-2026-10-30.md`; Silber ist **kein** Werkzeugmaterial, Roségold-Hämmer gibt es nur in Simple Hammers und nur mit Simple Ores (optionale Stufe, kein `requires`).
 - Daten (Modelle, Loot, Rezepte, Fortschritte, Tags, Worldgen, Lang, Wiki) kommen aus `modules/simpleores/tools/gen_data.py`; alle Texturen sind Vanilla-abgeleitet (`tools/textures/ores_2026_10_30.py`), nie eingecheckt.
 - Ausbeute je Pressling ist immer 1 Barren; der Verlust steckt im Rezept (1 Pressling aus 7–9 Barren). Hochofen-`cookingtime` 1200 = 600 Ticks (26.3 halbiert im Hochofen).
-
 - **A12 (N78, 16.11.) Gitter-Innenseiten:** Nutzen: Metall- und Kupfergitter wirken von innen/durch die Löcher räumlich und gleich. Ändert: nur Blockmodelle (Vorlage `simpleores:block/template_grate`, auch die vier Vanilla-Modelle `minecraft:block/*copper_grate`, die gewachsten teilen sie), keine Spielwirkung; Ressourcenpakete gehen vor. Eingriff: gering. Besitzer-Einwand = die vier `assets/minecraft/models/block/*copper_grate.json` samt Generator-Zeilen entfernen.
+
 ### Simple Stats (`simplestats`)
 Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.
 
