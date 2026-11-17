@@ -145,6 +145,14 @@
       "required": false
     },
     {
+      "id": "simplebuilding:poplar_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_cauldron",
+      "required": false
+    },
+    {
       "id": "simplebuilding:crimson_cauldron",
       "required": false
     },

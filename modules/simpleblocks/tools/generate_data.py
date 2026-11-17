@@ -141,6 +141,12 @@ BLOCKS[BLUE] = dict(kind='cube', tex=BLUE_TEX)
 for kind, suffix in (('stairs', 'stairs'), ('slab', 'slab'), ('wall', 'wall')):
     BLOCKS[f'blue_nether_brick_{suffix}'] = dict(kind=kind, base=f'{NS}:{BLUE}', top=BLUE_TEX, side=BLUE_TEX, wall=BLUE_TEX, double=BLUE_TEX, family=BLUE)
 
+# N89b (owner N77 "alles was fehlt", red test-centre cell): the nether brick fence gate Vanilla lacks. Java: BlocksRegistry
+# (properties of the nether brick fence); Vanilla fence gate models with the nether bricks texture (referenced, no copy).
+FENCE_GATES = {'nether_brick_fence_gate': dict(kind='fence_gate', tex='minecraft:block/nether_bricks', post='minecraft:nether_brick',
+                                               base='minecraft:nether_bricks', en='Nether Brick Fence Gate', de='Netherziegelzauntor')}
+BLOCKS.update(FENCE_GATES)
+
 # PAL35b (owner 11./12.11., docs/ai/PLAN-A-PAL35-2026-11-12.md part b): the metal row of the Vanilla metals and ore materials. Java:
 # BlocksRegistry.METALS (+ com.simpleblocks.metal.MetalBlocks for the aged/waxed copper stages). Own textures (committed with layers):
 # tools/textures/pal35b_2026_11_12.py; the chiseled gems are Vanilla-derived (built, never committed).
@@ -337,10 +343,30 @@ def wall_state(name):
     return {'multipart': parts}
 
 
+def fence_gate_state(name):
+    """Vanilla's fence gate blockstate (facing x in_wall x open, uvlock), the models of this module."""
+    variants = {}
+    for facing, y in (('east', 270), ('north', 180), ('south', 0), ('west', 90)):
+        for in_wall in ('false', 'true'):
+            for open_ in ('false', 'true'):
+                model = name + ('_wall' if in_wall == 'true' else '') + ('_open' if open_ == 'true' else '')
+                entry = {'model': f'{NS}:block/{model}', 'uvlock': True}
+                if y:
+                    entry['y'] = y
+                variants[f'facing={facing},in_wall={in_wall},open={open_}'] = entry
+    return {'variants': variants}
+
+
 def models_and_states():
     for name, b in BLOCKS.items():
         kind = b['kind']
-        if kind == 'pillar':
+        if kind == 'fence_gate':
+            for suffix, parent in (('', 'template_fence_gate'), ('_open', 'template_fence_gate_open'),
+                                   ('_wall', 'template_fence_gate_wall'), ('_wall_open', 'template_fence_gate_wall_open')):
+                put(f'assets/{NS}/models/block/{name}{suffix}.json', {'parent': f'minecraft:block/{parent}', 'textures': {'texture': b['tex']}})
+            put(f'assets/{NS}/blockstates/{name}.json', fence_gate_state(name))
+            put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
+        elif kind == 'pillar':
             put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_column', 'textures': {'end': b['end'], 'side': b['side']}})
             put(f'assets/{NS}/blockstates/{name}.json', {'variants': {
                 'axis=x': {'model': f'{NS}:block/{name}', 'x': 90, 'y': 90}, 'axis=y': {'model': f'{NS}:block/{name}'},
@@ -492,6 +518,11 @@ def recipes():
     for name, b in BLOCKS.items():
         kind = b['kind']
         if kind in ('cube', 'pillar', 'column'):
+            continue
+        if kind == 'fence_gate':
+            # Like Vanilla's gates (2 sticks + 2 planks, "#W#" twice): the fence's brick item for the sticks, its block for the planks.
+            recipe(name, {'type': 'minecraft:crafting_shaped', 'category': 'redstone', 'key': {'#': b['post'], 'W': b['base']},
+                          'pattern': ['#W#', '#W#'], 'result': result(name)}, b['base'], 'redstone')
             continue
         base = b['base']
         if kind == 'stairs':
@@ -767,6 +798,8 @@ def names():
             en[name], de[name] = METAL_NAMES[name]
         elif name in ICE_NAMES:
             en[name], de[name] = ICE_NAMES[name]
+        elif name in FENCE_GATES:
+            en[name], de[name] = b['en'], b['de']
         elif b['kind'] == 'pillar':
             en[name], de[name] = next((p[3], p[4]) for p in PILLARS if p[0] == name)
         elif b['kind'] == 'cube':

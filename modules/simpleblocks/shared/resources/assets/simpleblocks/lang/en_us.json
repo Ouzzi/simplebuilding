@@ -675,5 +675,7 @@
   "simpleblocks.guide.page.32.title": "Compressed, Dense and Collapsed blocks",
   "simpleblocks.guide.page.32": "netherrack, cobbled deepslate, andesite, diorite, granite, tuff, sandstone, red sandstone, end stone, blackstone, soul sand).",
   "simpleblocks.guide.page.33.title": "Settings",
-  "simpleblocks.guide.page.33": "More settings are in the mod's config screen."
+  "simpleblocks.guide.page.33": "More settings are in the mod's config screen.",
+  "block.simpleblocks.nether_brick_fence_gate": "Nether Brick Fence Gate",
+  "item.simpleblocks.nether_brick_fence_gate": "Nether Brick Fence Gate"
 }

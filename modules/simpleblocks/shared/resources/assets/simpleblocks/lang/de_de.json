@@ -675,5 +675,7 @@
   "simpleblocks.guide.page.32.title": "Komprimierte, dichte und kollabierte Blöcke",
   "simpleblocks.guide.page.32": "Bruchtiefenschiefer, Andesit, Diorit, Granit, Tuff, Sandstein, Roter Sandstein, Endstein, Schwarzstein, Seelensand).",
   "simpleblocks.guide.page.33.title": "Einstellungen",
-  "simpleblocks.guide.page.33": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simpleblocks.guide.page.33": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
+  "block.simpleblocks.nether_brick_fence_gate": "Netherziegelzauntor",
+  "item.simpleblocks.nether_brick_fence_gate": "Netherziegelzauntor"
 }
