@@ -15,6 +15,17 @@ import net.minecraft.world.level.block.Blocks;
 final class CombatEffectTests {
     private CombatEffectTests() {}
 
+    /** Runs {@code body} once every chunk has its entities loaded (polled once per tick), fails after {@code left} ticks. */
+    private static void whenEntitiesLoaded(GameTestHelper h, java.util.List<net.minecraft.world.level.ChunkPos> chunks, int left, Runnable body) {
+        var level = h.getLevel();
+        if (chunks.stream().allMatch(c -> level.hasChunk(c.x(), c.z()) && level.areEntitiesLoaded(net.minecraft.world.level.ChunkPos.pack(c.x(), c.z())))) {
+            body.run();
+            return;
+        }
+        if (left <= 0) h.fail("test chunks never finished loading entities");
+        else h.runAfterDelay(1, () -> whenEntitiesLoaded(h, chunks, left - 1, body));
+    }
+
     private static LivingEntity cow(GameTestHelper h, int x, int z) {
         for (int i = -1; i <= 10; i++) for (int j = 0; j <= 10; j++) h.getLevel().setBlock(h.absolutePos(new BlockPos(i, 1, j)), Blocks.STONE.defaultBlockState(), 3);
         var c = h.spawn(EntityTypes.COW, x, 2, z);
@@ -195,15 +206,20 @@ final class CombatEffectTests {
             BlockPos next = h.absolutePos(new BlockPos(4, 2, 5));
             h.getLevel().setBlock(next, Blocks.DIRT.defaultBlockState(), 3);
             bearer.addEffect(new MobEffectInstance(CombatEffects.volatileEffect(), 600, 0));
-            double dAttacker = attacker.position().distanceTo(bearer.position()), dBystander = bystander.position().distanceTo(bearer.position());
-            hit(h, bearer, attacker, 4f);
-            close(h, bearer.getHealth(), 96.0, "the bearer is immune to its own explosion (only the hit counts)");
-            close(h, 100.0 - attacker.getHealth(), CombatEffects.volatileDamage(0, dAttacker), "attacker takes the falloff damage");
-            close(h, 100.0 - bystander.getHealth(), CombatEffects.volatileDamage(0, dBystander), "bystander takes less, by distance");
-            h.assertTrue(bystander.getHealth() > attacker.getHealth(), "damage falls off with distance");
-            close(h, far.getHealth(), 100.0, "outside the radius nothing happens");
-            h.assertTrue(h.getLevel().getBlockState(next).is(Blocks.DIRT), "no block damage");
-            h.succeed();
+            // N84: the cows reach into a neighbouring chunk; on tick 0 its entity section can still be hidden from
+            // getEntitiesOfClass (explode found the attacker but not the bystander) - wait until every cow's chunk is entity-loaded
+            var chunks = java.util.stream.Stream.of(bearer, attacker, bystander, far).map(e -> e.chunkPosition()).distinct().toList();
+            whenEntitiesLoaded(h, chunks, 40, () -> {
+                double dAttacker = attacker.position().distanceTo(bearer.position()), dBystander = bystander.position().distanceTo(bearer.position());
+                hit(h, bearer, attacker, 4f);
+                close(h, bearer.getHealth(), 96.0, "the bearer is immune to its own explosion (only the hit counts)");
+                close(h, 100.0 - attacker.getHealth(), CombatEffects.volatileDamage(0, dAttacker), "attacker takes the falloff damage");
+                close(h, 100.0 - bystander.getHealth(), CombatEffects.volatileDamage(0, dBystander), "bystander takes less, by distance");
+                h.assertTrue(bystander.getHealth() > attacker.getHealth(), "damage falls off with distance");
+                close(h, far.getHealth(), 100.0, "outside the radius nothing happens");
+                h.assertTrue(h.getLevel().getBlockState(next).is(Blocks.DIRT), "no block damage");
+                h.succeed();
+            });
         });
     }
 }
