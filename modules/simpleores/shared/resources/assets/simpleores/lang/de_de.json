@@ -423,6 +423,8 @@
   "text.autoconfig.simpleores.option.astralRailBoost.@Tooltip": "Schub je Tick aus dem Stand, sinkt mit\n(Tempo/Höchsttempo)². Antriebsschiene: 0,06.\nStandard: 0,12.",
   "text.autoconfig.simpleores.option.nihilRailBrake": "Nihil-Schiene Bremse (0,02–0,4)",
   "text.autoconfig.simpleores.option.nihilRailBrake.@Tooltip": "Feste Bremsung je Tick zusätzlich zu 20 %\nReibung, begrenzt auf 0,02-0,4. Standard: 0,08.",
+  "text.autoconfig.simpleores.option.grates3d": "3D-Roste",
+  "text.autoconfig.simpleores.option.grates3d.@Tooltip": "Metallroste und die Vanilla-Kupferroste zeigen Stäbe mit Tiefe und ihre Innenseiten. Aus: flach wie Vanilla (weniger Flächen zu zeichnen, für Bauten mit sehr vielen Rosten). Nur auf diesem Client; eine Änderung lädt die Ressourcen neu.\nStandard: true.",
   "item.simpleores.guide_book": "Simple-Ores-Handbuch",
   "simpleores.guide.chapter": "Simple Ores",
   "simpleores.guide.page.1.title": "Simple Ores",

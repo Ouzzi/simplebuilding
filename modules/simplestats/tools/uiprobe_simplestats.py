@@ -208,4 +208,66 @@ def n78(s):
     s.check('grate screenshots taken', True, 'compare by eye: inner sides visible through the holes')
 
 
-SCENARIOS = {'simplestats': stats, 'simplestats/n78': n78}
+# N78b (owner 17.11., docs/ai/PLAN-N78B-2026-11-17.md): every grate type alone in front of the camera, client option "3D grates" on and off
+# (/simpleclient simpleores set grates3d ..., which reloads the resources). Per grate and mode: a straight shot, an oblique close-up (depth of
+# the bars, inner sides) and a 2 x 2 panel from inside the corner (culling between equal grates). Run (A):
+#   xvfb-run -a -s '-screen 0 2560x1440x24' python3.12 modules/simpleinterfaces/tools/ui_probe.py --out /var/tmp/sb/uiprobe-n78b --only simplestats/n78b
+GRATES = ['simpleores:' + m + '_grate' for m in ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass', 'bronze', 'stainless_steel')] + \
+         ['minecraft:copper_grate', 'minecraft:oxidized_copper_grate']
+
+
+def _look(s, eye, target, wait=1.2):
+    """Player eyes at eye = (x, y, z), looking at target (like Session.face: tp ... facing uses the feet height)."""
+    x, y, z = eye
+    tx, ty, tz = target
+    s.chat(f'tp @s {x:.2f} {y - 1.62:.2f} {z:.2f} facing {tx:.2f} {ty - 1.62:.2f} {tz:.2f}', wait)
+
+
+def _grates(s, origin, mode):
+    x, y, z = origin
+    bx, by, bz = x + 4, y + 1, z          # the single grate, eye height
+    px, py, pz = x + 4, y + 1, z + 6      # the 2 x 2 panel (+ its side walls) to the south
+    shots = {}
+    for block in GRATES:
+        name = block.split(':')[1]
+        s.chat(f'fill {x + 2} {y} {z - 3} {x + 7} {y + 4} {z + 9} air', 0.4)
+        s.chat(f'fill {x + 8} {y} {z - 3} {x + 8} {y + 4} {z + 9} minecraft:white_concrete', 0.4)   # light backdrop behind the holes
+        s.chat(f'setblock {bx} {by} {bz} {block}', 0.4)
+        s.chat(f'fill {px} {py} {pz} {px + 1} {py + 1} {pz} {block}', 0.4)
+        s.chat(f'fill {px} {py} {pz - 1} {px} {py + 1} {pz - 1} {block}', 0.4)
+        _look(s, (x + 0.5, y + 1.62, z + 0.5), (bx + 0.5, by + 0.5, bz + 0.5))
+        shots[name] = _open_image(s, f'{mode}-{name}-front')
+        _look(s, (bx - 0.9, by + 1.6, bz - 1.1), (bx + 0.5, by + 0.5, bz + 0.5))
+        s.shot(f'{mode}-{name}-oblique')
+        _look(s, (bx + 0.5, by + 0.5, bz + 0.5), (bx + 1.5, by + 0.2, bz + 0.5), 0.8)   # inside the grate block, towards its east side
+        s.shot(f'{mode}-{name}-inside')
+        _look(s, (px + 2.6, py + 1.4, pz - 2.4), (px + 0.5, py + 1.0, pz + 0.5))
+        s.shot(f'{mode}-{name}-panel')
+    return shots
+
+
+def n78b(s):
+    s.close()
+    s.chat('gamemode creative @s', 0.6)
+    s.chat('time set noon', 0.4)
+    s.chat('weather clear', 0.3)
+    s.chat('effect give @s night_vision 99999 0 true', 0.3)
+    s.clear_and_give()
+    st = s.st()
+    origin = [int(float(v)) for v in st['pos'].replace(',', ' ').split()]
+    s.key('F1', 0.4)
+    result = {}
+    for mode, value in (('3d', 'true'), ('flat', 'false')):
+        s.chat(f'simpleclient simpleores set grates3d {value}', 1.0)
+        time.sleep(15)   # resource reload (F3+T like)
+        result[mode] = _grates(s, origin, mode)
+    s.chat('simpleclient simpleores set grates3d true', 1.0)
+    time.sleep(15)
+    s.key('F1', 0.4)
+    for name in result['3d']:
+        n = _changed(result['3d'][name], result['flat'][name])
+        s.check(f'{name}: 3D and flat look different (option switches the model)', n > 300, n)
+    s.check('grate screenshots taken (3d/flat x front/oblique/inside/panel)', True, 'compare by eye: bar depth, inner sides, no holes in the walls')
+
+
+SCENARIOS = {'simplestats': stats, 'simplestats/n78': n78, 'simplestats/n78b': n78b}

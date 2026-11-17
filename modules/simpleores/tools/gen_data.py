@@ -251,35 +251,151 @@ for path in BLOCKS:
     if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS or path in DOORS or path in TRAPDOORS or path in LIGHTS_ALL:
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
-    parent = f'{NS}:block/template_grate' if path in GRATES else 'minecraft:block/cube_all'   # N78: grates show their inner sides
-    put(ASSETS / f'models/block/{path}.json', {'parent': parent, 'textures': {'all': f'{NS}:block/{path}'}})
+    if path not in GRATES:   # N78b: the grates' 3D models follow below
+        put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
     put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{path}'}})
-# N78 (owner 16.11.): grates look 3D from inside and through their holes. The cube of cube_all plus six inward faces, each 0.1 px
-# inside its outer face (no z-fighting with a different grate or block next to it), mirrored UVs so a pattern pixel sits at the same
-# place on both sides; every face culls like its outer face (a row of the same grate stays one cage, like glass).
-_SIDES = {'down': ('up', [0, 0, 0], [16, 0, 16]), 'up': ('down', [0, 16, 0], [16, 16, 16]), 'north': ('south', [0, 0, 0], [16, 16, 0]),
-          'south': ('north', [0, 0, 16], [16, 16, 16]), 'west': ('east', [0, 0, 0], [0, 16, 16]), 'east': ('west', [16, 0, 0], [16, 16, 16])}
-_INSET = {'down': (1, 0.1), 'up': (1, -0.1), 'north': (2, 0.1), 'south': (2, -0.1), 'west': (0, 0.1), 'east': (0, -0.1)}
+# N78/N78b (owner 16./17.11., docs/ai/PLAN-N78B-2026-11-17.md): grates are 3D - every side a plate of depth D with real hole walls.
+# Client option grates3d (OresClientConfig, default on): the mod ships the 3D models under the usual ids; with the option off
+# client.GrateModels puts the content of the "_flat" twin (a plain cube_all) under that id while the models load.
+# Per side: the outer face and an inward face at depth d (whole texture each, same pixel at the same place), plus at most ONE wall quad per
+# pixel grid line and direction ("slices"): it shows the pixel column/row on the bar side of the line (zero-width UV in the pixel middle,
+# exactly aligned along the line). Where that pixel is solid and its neighbour a hole it is the hole's wall, where both are solid it sits
+# hidden inside the bar, where it is a hole itself it is transparent - one quad per line instead of one per edge piece. All quads of a side
+# cull with that side (a row of the same grate stays one cage like glass; nothing behind a full block).
+GRATE_DEPTH = 1.5
+_DIRS = ('down', 'up', 'north', 'south', 'west', 'east')
+_AXIS = {'down': (1, -1), 'up': (1, 1), 'north': (2, -1), 'south': (2, 1), 'west': (0, -1), 'east': (0, 1)}   # axis, outward sign
+# FaceInfo of 26.3: the four corners of a face as (x, y, z) picks of from (0) / to (1)
+_CORNERS = {'down': ((0, 0, 1), (0, 0, 0), (1, 0, 0), (1, 0, 1)), 'up': ((0, 1, 0), (0, 1, 1), (1, 1, 1), (1, 1, 0)),
+            'north': ((1, 1, 0), (1, 0, 0), (0, 0, 0), (0, 1, 0)), 'south': ((0, 1, 1), (0, 0, 1), (1, 0, 1), (1, 1, 1)),
+            'west': ((0, 1, 0), (0, 0, 0), (0, 0, 1), (0, 1, 1)), 'east': ((1, 1, 1), (1, 0, 1), (1, 0, 0), (1, 1, 0))}
 
 
-def grate_template():
-    elements = [{'from': [0, 0, 0], 'to': [16, 16, 16],
-                 'faces': {d: {'texture': '#all', 'cullface': d} for d in ('down', 'up', 'north', 'south', 'west', 'east')}}]
-    for outer, (inner, a, b) in _SIDES.items():
-        axis, delta = _INSET[outer]
-        a, b = list(a), list(b)
-        a[axis] = b[axis] = round(a[axis] + delta, 3)
-        uv = [0, 16, 16, 0] if outer in ('down', 'up') else [16, 0, 0, 16]
-        elements.append({'from': a, 'to': b, 'faces': {inner: {'uv': uv, 'texture': '#all', 'cullface': outer}}})
-    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all'}, 'elements': elements}
+def _tex(side, p):
+    """Texture (u, v) of the outer face `side` at block point p - FaceBakery.defaultFaceUV of a full face."""
+    x, y, z = p
+    return {'down': (x, 16 - z), 'up': (x, z), 'north': (16 - x, 16 - y), 'south': (x, 16 - y),
+            'west': (z, 16 - y), 'east': (16 - z, 16 - y)}[side]
 
 
-put(ASSETS / 'models/block/template_grate.json', grate_template())
-# N78, A12: the Vanilla copper grates get the same inner sides (model only, no gameplay change; a resource pack still wins; the waxed
-# grates use these models too). Owner objection = drop these four files (docs/ai/PLAN-N78-2026-11-16.md).
-for _age in ('', 'exposed_', 'weathered_', 'oxidized_'):
-    put(RES / f'assets/minecraft/models/block/{_age}copper_grate.json',
-        {'parent': f'{NS}:block/template_grate', 'textures': {'all': f'minecraft:block/{_age}copper_grate'}})
+def _face(direction, frm, to, uv_at, cull):
+    """A face whose corner uvs equal uv_at(corner): uv + rotation solved like CuboidFace.getU/getV with Quadrant.rotateVertexIndex."""
+    want = [uv_at(tuple((frm, to)[pick][i] for i, pick in enumerate(c))) for c in _CORNERS[direction]]
+    for rot in range(4):
+        u = {}
+        v = {}
+        ok = True
+        for i, (wu, wv) in enumerate(want):
+            j = (i + rot) % 4
+            ok &= u.setdefault('min' if j in (0, 1) else 'max', wu) == wu and v.setdefault('min' if j in (0, 3) else 'max', wv) == wv
+        if ok:
+            face = {'uv': [_num(u['min']), _num(v['min']), _num(u['max']), _num(v['max'])], 'texture': '#all', 'cullface': cull}
+            if rot:
+                face['rotation'] = rot * 90
+            return face
+    raise ValueError(f'no uv for {direction} {frm} {to}')
+
+
+def _num(x):
+    return int(x) if float(x).is_integer() else round(x, 4)
+
+
+def grate_3d(mask):
+    """Elements of the 3D grate for a 16 x 16 mask (rows of booleans, True = solid pixel)."""
+    border = min(min(r, c, 15 - r, 15 - c) for r in range(16) for c in range(16) if not mask[r][c])
+    d = min(GRATE_DEPTH, border)
+    elements = [{'from': [0, 0, 0], 'to': [16, 16, 16], 'faces': {s: {'texture': '#all', 'cullface': s} for s in _DIRS}}]
+    for side in _DIRS:
+        axis, sign = _AXIS[side]
+        plane = 16 if sign > 0 else 0
+        inner = plane - sign * d
+        inward = _DIRS[_DIRS.index(side) ^ 1]
+        frm, to = [0, 0, 0], [16, 16, 16]
+        frm[axis] = to[axis] = _num(inner)
+        elements.append({'from': frm, 'to': to, 'faces': {inward: _face(inward, frm, to, lambda p, s=side: _tex(s, p), side)}})
+        lo, hi = sorted((plane, inner))
+
+        def point(u, v, side=side, plane=plane):
+            """The block point of texture (u, v) on this side's outer plane (inverse of _tex)."""
+            if side in ('west', 'east'):
+                return (plane, 16 - v, u if side == 'west' else 16 - u)
+            if side in ('down', 'up'):
+                return (u, plane, 16 - v if side == 'down' else v)
+            return (16 - u if side == 'north' else u, 16 - v, plane)
+        for vertical in (True, False):
+            for line in range(1, 16):
+                for toward in (1, -1):   # wall faces +u/+v (bar before the line) or -u/-v (bar after it)
+                    edges = []
+                    for k in range(16):
+                        a = mask[k][line - 1] if vertical else mask[line - 1][k]
+                        b = mask[k][line] if vertical else mask[line][k]
+                        if (a and not b) if toward > 0 else (b and not a):
+                            edges.append(k)
+                    if not edges:
+                        continue
+                    k0, k1 = edges[0], edges[-1] + 1
+                    a0 = point(line, k0) if vertical else point(k0, line)
+                    a1 = point(line, k1) if vertical else point(k1, line)
+                    fixed = next(i for i in range(3) if i != axis and a0[i] == a1[i])
+                    if not d < a0[fixed] < 16 - d:
+                        continue   # on the plate of the neighbouring side: its inner face is the wall here
+                    run = 3 - axis - fixed
+                    frm, to = [0, 0, 0], [0, 0, 0]
+                    frm[fixed] = to[fixed] = a0[fixed]
+                    frm[run], to[run] = sorted((a0[run], a1[run]))
+                    frm[axis], to[axis] = _num(lo), _num(hi)
+                    # facing: the 3D direction of +u/+v (or -) on this side
+                    step = point(line + 1, k0) if vertical else point(k0, line + 1)
+                    grow = (step[fixed] - a0[fixed]) * toward
+                    facing = {0: ('west', 'east'), 1: ('down', 'up'), 2: ('north', 'south')}[fixed][grow > 0]
+                    bar = line - 1 + 0.5 if toward > 0 else line + 0.5
+
+                    def uv_at(p, side=side, vertical=vertical, bar=bar):
+                        tu, tv = _tex(side, p)
+                        return (bar, tv) if vertical else (tu, bar)
+                    elements.append({'from': [_num(c) for c in frm], 'to': [_num(c) for c in to],
+                                     'faces': {facing: _face(facing, frm, to, uv_at, side)}})
+    return elements
+
+
+def grate_model(texture, mask):
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all', 'all': texture}, 'elements': grate_3d(mask)}
+
+
+def put_compact(path, data):
+    """put() with one element per line (the 3D grates have hundreds of elements)."""
+    head = {k: v for k, v in data.items() if k != 'elements'}
+    text = json.dumps(head, indent=2, ensure_ascii=False)[:-2] + ',\n  "elements": [\n'
+    text += ',\n'.join('    ' + json.dumps(e, ensure_ascii=False, separators=(', ', ': ')) for e in data['elements'])
+    OUT[Path(path)] = text + '\n  ]\n}\n'
+
+
+def png_mask(path):
+    sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
+    import layers
+    w, h, px = layers.png_read(Path(path).read_bytes())
+    assert (w, h) == (16, 16), path
+    return [[px[(r * w + c) * 4 + 3] >= 128 for c in range(w)] for r in range(h)]
+
+
+# The hole layout of the Vanilla copper grate (all four ages alike): geometry only ('.' = hole), no colours of Mojang's texture.
+COPPER_GRATE_HOLES = ('################ ###.##.##.##.### ##...###...###.# ###.##.##.##.### #.###...###...## ###.##.##.##.### ##...###...###.# '
+                      '###.##.##.##.### #.###...###...## ###.##.##.##.### ##...###...###.# ###.##.##.##.### #.###...###...## ###.##.##.##.### '
+                      '##...###...###.# ################').split()
+COPPER_AGES = ('', 'exposed_', 'weathered_', 'oxidized_')
+GRATE_QUADS = {}
+for path in GRATES:
+    _mask = png_mask(ASSETS / f'textures/block/{path}.png')
+    put_compact(ASSETS / f'models/block/{path}.json', grate_model(f'{NS}:block/{path}', _mask))
+    put(ASSETS / f'models/block/{path}_flat.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
+    GRATE_QUADS[path] = len(grate_3d(_mask)) + 5
+# A12 (N78): the Vanilla copper grates get the same 3D model (model only, no gameplay change; a resource pack still wins; the waxed grates
+# use these models too); the flat twins are Vanilla's own cube_all. Owner objection = drop these files (docs/ai/PLAN-N78-2026-11-16.md).
+for _age in COPPER_AGES:
+    put_compact(RES / f'assets/minecraft/models/block/{_age}copper_grate.json',
+                grate_model(f'minecraft:block/{_age}copper_grate', [[ch == '#' for ch in row] for row in COPPER_GRATE_HOLES]))
+    put(ASSETS / f'models/block/{_age}copper_grate_flat.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'minecraft:block/{_age}copper_grate'}})
+GRATE_QUADS['copper_grate'] = len(grate_3d([[ch == '#' for ch in row] for row in COPPER_GRATE_HOLES])) + 5
 # Silver mirror: a one pixel plate at the south side of the cell (facing north), the texture carries frame and glass; the item is a flat sprite.
 # N25: on the floor and the ceiling too, like the button (face=floor|wall|ceiling); the wall model turned down (x 270) or up (x 90).
 MIRROR_Y = (('north', 0), ('east', 90), ('south', 180), ('west', 270))
@@ -1163,6 +1279,16 @@ for key, texts in MOVED_LINE['config'].items():
     CONFIG_OPTIONS[key] = ('line', tuple(texts['label']), tuple(texts['tip']))
 
 
+# N78b: the client option (config/simpleores-client.json, OresClientConfig.KEY).
+CLIENT_OPTIONS = {
+    'grates3d': (('3D grates', '3D-Roste'),
+                 ('Metal grates and the Vanilla copper grates show bars with depth and their inner sides. Off: flat like Vanilla (fewer faces to draw, '
+                  'for builds with very many grates). Only on this client; a change reloads the resources.\nDefault: true.',
+                  'Metallroste und die Vanilla-Kupferroste zeigen Stäbe mit Tiefe und ihre Innenseiten. Aus: flach wie Vanilla (weniger Flächen zu '
+                  'zeichnen, für Bauten mit sehr vielen Rosten). Nur auf diesem Client; eine Änderung lädt die Ressourcen neu.\nStandard: true.')),
+}
+
+
 # ---------------------------------------------------------------- lang (guide keys are written by module_guides.py)
 def lang(locale):
     i = 0 if locale == 'en_us' else 1
@@ -1188,6 +1314,9 @@ def lang(locale):
     for cat, texts in CONFIG_CATEGORIES.items():
         out[f'text.autoconfig.{NS}.category.{cat}'] = texts[i]
     for key, (_, label, tip) in CONFIG_OPTIONS.items():
+        out[f'text.autoconfig.{NS}.option.{key}'] = label[i]
+        out[f'text.autoconfig.{NS}.option.{key}.@Tooltip'] = tip[i]
+    for key, (label, tip) in CLIENT_OPTIONS.items():   # N78b: client config simpleores-client.json (OresClientConfig)
         out[f'text.autoconfig.{NS}.option.{key}'] = label[i]
         out[f'text.autoconfig.{NS}.option.{key}.@Tooltip'] = tip[i]
     return out

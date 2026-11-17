@@ -22,6 +22,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void grateModels(GameTestHelper h) {
+        OresTests.ALL.get("grate_models").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void subModSwitch(GameTestHelper h) {
         OresTests.ALL.get("sub_mod_switch").accept(h);
     }

@@ -356,12 +356,29 @@ for m in BAR_METALS:
         for l in langs.values():
             assert l.get(f'block.{NS}.{b}'), b
     assert f'{NS}:{m}_bars' in bars_tag and f'{NS}:{m}_grate' in stone, m
-    # N78: grates render their inner sides (template: outer cube + six inward faces)
-    assert json.loads((RES / f'assets/{NS}/models/block/{m}_grate.json').read_text(encoding='utf-8'))['parent'] == f'{NS}:block/template_grate', m
     assert json.loads((RES / f'data/{NS}/recipe/{m}_bars.json').read_text(encoding='utf-8'))['result'] == {'id': f'{NS}:{m}_bars', 'count': 16}
     assert json.loads((RES / f'data/{NS}/recipe/{m}_grate_from_{m}_block_stonecutting.json').read_text(encoding='utf-8'))['result']['count'] == 4
-_grate = json.loads((RES / f'assets/{NS}/models/block/template_grate.json').read_text(encoding='utf-8'))['elements']
-assert len(_grate) == 7 and sorted(next(iter(e['faces'])) for e in _grate[1:]) == ['down', 'east', 'north', 'south', 'up', 'west'], 'grate template'
+# N78b (docs/ai/PLAN-N78B-2026-11-17.md): 3D grates - outer cube, six inward faces, hole walls; every face culls with its side; a flat
+# twin (cube_all) per grate for the client option off; at most 400 quads per block (12 + 6 x grid lines used).
+_DIRS = ('down', 'up', 'north', 'south', 'west', 'east')
+for _rel, _tex in [(f'assets/{NS}/models/block/{m}_grate', f'{NS}:block/{m}_grate') for m in BAR_METALS] + \
+        [(f'assets/minecraft/models/block/{a}copper_grate', f'minecraft:block/{a}copper_grate') for a in ('', 'exposed_', 'weathered_', 'oxidized_')]:
+    _model = json.loads((RES / f'{_rel}.json').read_text(encoding='utf-8'))
+    _els = _model['elements']
+    assert _model['textures']['all'] == _tex and _els[0]['from'] == [0, 0, 0] and _els[0]['to'] == [16, 16, 16] and set(_els[0]['faces']) == set(_DIRS), _rel
+    assert all(len(e['faces']) == 1 for e in _els[1:]) and 12 < len(_els) + 5 <= 400, (_rel, len(_els) + 5)
+    assert all(f['cullface'] in _DIRS for e in _els for f in e['faces'].values()), _rel
+    _axis = {'down': 1, 'up': 1, 'north': 2, 'south': 2, 'west': 0, 'east': 0}
+    _inner = [d for e in _els[1:] for d in e['faces'] if e['from'][_axis[d]] == e['to'][_axis[d]]
+              and sum(e['to'][k] - e['from'][k] for k in range(3)) == 32]   # full 16 x 16 planes facing along their own axis
+    assert sorted(_inner) == sorted(_DIRS), (_rel, _inner)
+    _flat = RES / f'assets/{NS}/models/block/{_rel.rsplit("/", 1)[1]}_flat.json'
+    assert json.loads(_flat.read_text(encoding='utf-8')) == {'parent': 'minecraft:block/cube_all', 'textures': {'all': _tex}}, _flat
+assert not (RES / f'assets/{NS}/models/block/template_grate.json').exists(), 'N78b: the 3D grates replace the template'
+assert json.loads((RES / 'simpleores.mixins.json').read_text(encoding='utf-8'))['client'] == ['ModelManagerGrateMixin'], 'N78b client mixin'
+_client_key = re.search(r'KEY = "([A-Za-z0-9]+)"', (JAVA / 'config/OresClientConfig.java').read_text(encoding='utf-8')).group(1)
+for _l in langs.values():
+    assert _l.get(f'text.autoconfig.{NS}.option.{_client_key}') and any(w in _l.get(f'text.autoconfig.{NS}.option.{_client_key}.@Tooltip', '') for w in ('Default:', 'Standard:')), _client_key
 sounds = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
 LINE_SOUNDS = set(json.loads((MODULE / 'tools/moved_line.json').read_text(encoding='utf-8'))['sounds'])   # N46/M2: the line's own sounds
 assert LINE_SOUNDS <= set(sounds) and set(sounds) - LINE_SOUNDS == {f'block.{m}.{k}' for m in BAR_METALS for k in ('break', 'step', 'place', 'hit', 'fall')}, sorted(sounds)

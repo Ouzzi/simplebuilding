@@ -285,6 +285,8 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
         "modules/simpleores/shared/java/com/simpleores/block/MetalBarsBlock.java",
         "modules/simpleores/shared/java/com/simpleores/block/MetalGrateBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/client/GrateModels.java",
+        "modules/simpleores/shared/java/com/simpleores/config/OresClientConfig.java",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_bars.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate_from_silver_block_stonecutting.json"
@@ -295,7 +297,8 @@
         "details": [
           "Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.",
           "Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).",
-          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different."
+          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.",
+          "3D: the grates (and the Vanilla copper grates) are real models with bars of depth and visible inner sides; the client option \"3D grates\" (config/simpleores-client.json, /simpleclient simpleores) switches back to flat Vanilla-like cubes for builds with very many grates."
         ]
       },
       "de": {
@@ -304,7 +307,8 @@
         "details": [
           "Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.",
           "Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).",
-          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus."
+          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.",
+          "3D: die Roste (und die Vanilla-Kupferroste) sind echte Modelle mit Stäben in der Tiefe und sichtbaren Innenseiten; die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores) schaltet für Bauten mit sehr vielen Rosten auf flache Würfel wie Vanilla zurück."
         ]
       }
     },

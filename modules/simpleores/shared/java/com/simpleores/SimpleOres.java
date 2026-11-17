@@ -30,7 +30,11 @@ public final class SimpleOres {
         return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID) && OresConfig.enabled;
     }
 
+    /** The loader's config folder (set by {@link #init}; the client config reads it lazily, N78b). */
+    public static volatile Path configDir;
+
     public static void init(Path configDir) {
+        SimpleOres.configDir = configDir;
         OresConfig.load(configDir);
         // IG31-13: Simple Ores owns Enderite now - other mods switch their Enderite variants on through SimpleLib's flag.
         com.simplelib.api.SimpleLibApi.provideMaterial("enderite");

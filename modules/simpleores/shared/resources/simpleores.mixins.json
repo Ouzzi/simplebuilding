@@ -14,7 +14,9 @@
     "SoundproofMixin",
     "WallDiodePlacementMixin"
   ],
-  "client": [],
+  "client": [
+    "ModelManagerGrateMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

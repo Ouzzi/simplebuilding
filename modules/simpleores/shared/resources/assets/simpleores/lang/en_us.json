@@ -423,6 +423,8 @@
   "text.autoconfig.simpleores.option.astralRailBoost.@Tooltip": "Push per tick at standstill, shrinking\nwith (speed/top speed)². Powered rail: 0.06.\nDefault: 0.12.",
   "text.autoconfig.simpleores.option.nihilRailBrake": "Nihil Rail Brake (0.02–0.4)",
   "text.autoconfig.simpleores.option.nihilRailBrake.@Tooltip": "Fixed braking per tick on top of 20%\nfriction, limited to 0.02-0.4. Default: 0.08.",
+  "text.autoconfig.simpleores.option.grates3d": "3D grates",
+  "text.autoconfig.simpleores.option.grates3d.@Tooltip": "Metal grates and the Vanilla copper grates show bars with depth and their inner sides. Off: flat like Vanilla (fewer faces to draw, for builds with very many grates). Only on this client; a change reloads the resources.\nDefault: true.",
   "item.simpleores.guide_book": "Simple Ores Guide",
   "simpleores.guide.chapter": "Simple Ores",
   "simpleores.guide.page.1.title": "Simple Ores",
