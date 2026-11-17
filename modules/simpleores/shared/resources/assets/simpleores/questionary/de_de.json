@@ -1,0 +1,1466 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein Buch über Adern, Legierungen und stilles Metall."
+    ],
+    "use": [
+      "Das Kapitel Simple Ores im Simple-Modpack-Handbuch: 33 Seiten über die Erze, Legierungen und Blöcke dieser Mod, in deiner Sprache. Formlos aus einem Buch und einer Werkbank herstellbar."
+    ],
+    "secret": [
+      "Das Kapitel öffnet sich, sobald du zum ersten Mal Rohgold aufhebst. Ein altes Einzelhandbuch wird beim Benutzen zum Modpack-Handbuch."
+    ]
+  },
+  "end_silver_ore": {
+    "lore": [
+      "{name}: Silber, das an den Rand der Welt trieb und blieb."
+    ],
+    "use": [
+      "Entsteht in Adern zu 6 im Endstein der äußeren Inseln (Hochland, Mittelland, Ödland, kleine Inseln). Braucht eine Eisenspitzhacke und lässt 2 bis 6 Silberklumpen fallen; Glück hilft, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Silber zum Farmen nach dem Drachen, ganz ohne tiefes Graben. Der Erzblock selbst schmilzt auch zu einem Silberbarren."
+    ]
+  },
+  "lead_ore": {
+    "lore": [
+      "{name}: eine stumpfe, schwere Ader, die sich nie in einer Höhlenwand zeigt."
+    ],
+    "use": [
+      "Entsteht nur im Stein, 6 Adern zu 9 je Chunk zwischen Y 0 und 72, nie an Luft. Braucht eine Steinspitzhacke und lässt 1 bis 2 Rohblei fallen; Glück hilft, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Man findet es beim Graben, nicht beim Schauen: Wie bei vergrabenen Diamanten entsteht keine Ader, die Luft berühren würde. Häufiger als Silber, seltener als Kupfer."
+    ]
+  },
+  "end_lead_ore": {
+    "lore": [
+      "{name}: das schwere Metall der Steinschicht, wiedergefunden zwischen den Inseln."
+    ],
+    "use": [
+      "Entsteht im Endstein der äußeren Inseln, 6 Adern zu 7 je Chunk zwischen Y 20 und 80, nie an Luft. Braucht eine Steinspitzhacke und lässt 1 bis 2 Rohblei fallen; Glück hilft, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Wie das Bleierz der Oberwelt steckt es im Inneren des Gesteins: Grab dich in eine Insel, statt ihre Ränder abzusuchen."
+    ]
+  },
+  "deepslate_nickel_ore": {
+    "lore": [
+      "{name}: eine harte, helle Ader, die in der Tiefe bleibt."
+    ],
+    "use": [
+      "Entsteht nur im Tiefenschiefer, wie Diamanterz: 10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16. Braucht eine Eisenspitzhacke und lässt Rohnickel fallen; Glück hilft, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Etwas häufiger als Diamant, weil Nickel eine Zutat ist und keine Ausrüstungsstufe: Ein Nickel- und drei Eisenbarren ergeben vier Edelstahl."
+    ]
+  },
+  "tin_ore": {
+    "lore": [
+      "{name}: das Bergmetall, zu Hause, wo Granit den Himmel trifft."
+    ],
+    "use": [
+      "Entsteht in Stein und Granit zwischen Y 20 und 80, in dichten Nestern im Granit und bis Y 180 in den Gebirgsbiomen. Braucht eine Steinspitzhacke und lässt Rohzinn fallen; Glück hilft, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Achte auf Granit: Wo eine Ader auf einen Granitfleck trifft, drängt sich das Zinn zusammen. Flüsse und Strände verbergen Zinnseifen-Kies und -Sand unter Wasser."
+    ]
+  },
+  "nether_rose_gold_ore": {
+    "lore": [
+      "{name}: ein errötender Stein in einer Goldader, tief unten in der Hitze."
+    ],
+    "use": [
+      "Versteckt sich in den Vanilla-Nethergoldadern unter Y 31: Jeder Golderzblock ist mit 2 Prozent Chance (Server-Einstellung) stattdessen dieses Erz, höchstens eines je Ader. Eisenspitzhacke. Lässt einen Roségold-Pressling fallen; Glück hilft, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Der Pressling geht direkt in den Hochofen, und der Erzblock selbst schmilzt zu einem Roségoldbarren. Piglins werden wütend, wenn du es abbaust, wie bei Golderz."
+    ]
+  },
+  "geode_crust": {
+    "lore": [
+      "Die Schale um ein verborgenes Herz aus Zink."
+    ],
+    "use": [
+      "Die Hülle der Zink-Minigeoden in der Oberwelt und ihr Futter im End. Jede Spitzhacke baut sie ab, sie lässt sich selbst fallen; ein Baublock wie glatter Basalt."
+    ],
+    "secret": [
+      "Findest du eine Kugel davon im festen Gestein, grab dich hinein: Hinter einem Calcit-Futter warten 1 bis 8 Zinkerze."
+    ]
+  },
+  "lead_block": {
+    "lore": [
+      "{name}: schwer, grau und taub für die Welt auf der anderen Seite."
+    ],
+    "use": [
+      "Neun Bleibarren ergeben einen, und er gibt die neun zurück. Härte 25, Explosionswiderstand 1000 (Obsidian 1200), braucht eine Eisenspitzhacke. Sculk-Sensoren und der Wächter hören nicht hindurch, und jeder Bleiblock auf dem Weg dämpft den Schall dahinter."
+    ],
+    "secret": [
+      "Er selbst ist laut: Wer darauf läuft oder ihn abbaut, macht Lärm. Eine TNT-Explosion hinter 3 Bleiblöcken kommt mit einem Achtel ihrer Lautstärke an. Schallplatten bleiben ungedämpft, sofern der Server nichts anderes sagt."
+    ]
+  },
+  "lead_plate": {
+    "lore": [
+      "Eine Bleiplatte, dünn genug, um sie an eine Wand zu hängen."
+    ],
+    "use": [
+      "Drei Bleibarren in einer Reihe ergeben 6. Sie liegt auf der Seite, die du anklickst, flach oder stehend; eine weitere Platte auf ihrer freien Seite stapelt sie wie Schnee, 1 bis 8 Schichten zu 2 Pixeln. Abbauen gibt eine Platte je Schicht. Eisenspitzhacke."
+    ],
+    "secret": [
+      "Eine Schicht dämpft Schall wie ein halber Bleiblock, acht wie ein ganzer. Vibrationen hält sie nicht auf, und 8 Platten werden nie zu einem Block."
+    ]
+  },
+  "silver_sheet": {
+    "lore": [
+      "Ein Silberblech, so dünn, dass es kaum da ist."
+    ],
+    "use": [
+      "Drei Silberbarren in einer Reihe ergeben 12. Es liegt auf der Seite, die du anklickst (Boden, Wand oder Decke); ein weiteres Blech auf seiner freien Seite fügt eine Schicht hinzu, bis zu 8 Schichten zu einem Pixel. Abbauen gibt ein Blech je Schicht. Eisenspitzhacke."
+    ],
+    "secret": [
+      "Ein Blech und eine Glasscheibe, formlos, ergeben den Silberspiegel. Acht Schichten sind nur ein halber Block: gleich viel Metall je Pixel wie bei Bleiplatten."
+    ]
+  },
+  "silver_mirror": {
+    "lore": [
+      "Ein Silberrahmen um eine Glasscheibe, für alle, die gern zweimal hinsehen."
+    ],
+    "use": [
+      "Eine Glasscheibe und ein Silberblech, formlos. Er hängt an einer Wand oder liegt wie ein Knopf auf Boden oder Decke, einen Pixel dick, und fällt ab, wenn sein Halt verschwindet."
+    ],
+    "secret": [
+      "Er hat keinerlei Mechanik: reine Dekoration. Auf Boden oder Decke dreht er sich in deine Blickrichtung."
+    ]
+  },
+  "silver_ingot": {
+    "lore": [
+      "Ein heller Barren, der klingt wie eine kleine Glocke."
+    ],
+    "use": [
+      "Geschmolzen aus Rohsilber oder Silbererz; neun Klumpen ergeben auch einen. Neun ergeben einen Block. Jeder Roségold-Pressling braucht einen, und aus Silber entstehen Gitter, Roste, Türen, Lampen, Bleche und der Spiegel."
+    ],
+    "secret": [
+      "Silber ist kein Werkzeugmaterial und der Engpass beim Roségold: Jeder Pressling braucht einen, egal welche Legierung du presst."
+    ]
+  },
+  "lead_ingot": {
+    "lore": [
+      "Ein grauer Barren, schwerer, als er aussieht."
+    ],
+    "use": [
+      "Geschmolzen aus Rohblei oder Bleierz. Neun ergeben einen Bleiblock, drei in einer Reihe 6 Bleiplatten. Aus Blei entstehen Gitter, Roste, Türen und die schalldämmenden Baublöcke."
+    ],
+    "secret": [
+      "Bleiblöcke zwischen einem Geräusch und deinem Ohr machen es leiser: Schon drei schlucken den Großteil einer TNT-Explosion."
+    ]
+  },
+  "zinc_ingot": {
+    "lore": [
+      "Ein bläulich-grauer Barren aus dem Herzen einer Geode."
+    ],
+    "use": [
+      "Geschmolzen aus Rohzink oder Zinkerz. Neun ergeben einen Block. Zwei Kupfer- und ein Zinkbarren, formlos, ergeben 3 Messing: Nichts geht verloren."
+    ],
+    "secret": [
+      "Zink kommt nur aus geschlossenen Minigeoden, jeder Barren begann also in einer Kugel aus Geodenkruste."
+    ]
+  },
+  "nickel_ingot": {
+    "lore": [
+      "Ein harter, heller Barren aus der Tiefe."
+    ],
+    "use": [
+      "Geschmolzen aus Rohnickel oder Nickelerz. Neun ergeben einen Block. Drei Eisen- und ein Nickelbarren, formlos, ergeben 4 Edelstahl."
+    ],
+    "secret": [
+      "Ein Nickel streckt drei Eisen zu vier Barren Stahl, deshalb ist Nickel nur etwas häufiger als Diamant."
+    ]
+  },
+  "tin_ingot": {
+    "lore": [
+      "Ein weicher Barren aus dem Bergmetall."
+    ],
+    "use": [
+      "Geschmolzen aus Rohzinn oder Zinnerz; neun Zinnklumpen ergeben auch einen. Neun ergeben einen Block. Drei Kupfer- und ein Zinnbarren, formlos, ergeben 4 Bronze."
+    ],
+    "secret": [
+      "Zinn knistert: Seine Blöcke geben beim Darüberlaufen und Abbauen ihr eigenes knisterndes Zinngeschrei von sich."
+    ]
+  },
+  "brass_ingot": {
+    "lore": [
+      "Ein warmgelber Barren aus Kupfer und Zink."
+    ],
+    "use": [
+      "Zwei Kupfer- und ein Zinkbarren, formlos, ergeben 3: Nichts geht verloren. Neun ergeben einen Messingblock. Aus Messing entstehen Gitter, Roste, Türen, Lampen, Laternen, Ketten und Stangen."
+    ],
+    "secret": [
+      "Messing oxidiert nie und behält so den Glanz, den Kupfer verliert. Sein Rostmuster besteht aus Rauten."
+    ]
+  },
+  "stainless_steel_ingot": {
+    "lore": [
+      "Ein harter Barren aus Eisen, der sich weigert zu rosten."
+    ],
+    "use": [
+      "Drei Eisen- und ein Nickelbarren, formlos, ergeben 4: Nichts geht verloren. Neun ergeben einen Edelstahlblock, die Grundlage einer ganzen Baufamilie."
+    ],
+    "secret": [
+      "Seine Blöcke haben einen eigenen harten, klaren Klang. Wie jedes Metall dieser Mod altert er nie."
+    ]
+  },
+  "bronze_ingot": {
+    "lore": [
+      "Ein warmbrauner Barren, die älteste Legierung von allen."
+    ],
+    "use": [
+      "Drei Kupfer- und ein Zinnbarren, formlos, ergeben 4: Nichts geht verloren. Neun ergeben einen Bronzeblock, die Grundlage seiner Baufamilie."
+    ],
+    "secret": [
+      "Bronze klingt warm, wenn du darüberläufst, und oxidiert nicht: Eine Bronzewand bleibt braun."
+    ]
+  },
+  "rose_gold_ingot": {
+    "lore": [
+      "Ein zartrosa Barren aus Gold, Kupfer und Silber."
+    ],
+    "use": [
+      "Presse 1 Gold-, 2 Kupfer- und 1 Silberbarren zu einem Roségold-Pressling (formlos) und schmilz ihn im Hochofen (30 s) zu einem Barren. Neun ergeben einen Block. Werkzeuge, Rüstung, Äpfel und Baublöcke brauchen ihn."
+    ],
+    "secret": [
+      "Die bessere Legierung: Werkzeuge so schnell wie Gold mit fast eiserner Haltbarkeit, Rüstung, die hält wie Eisen. Außerdem eine Zutat für Rosenkupfer."
+    ]
+  },
+  "rose_bronze_ingot": {
+    "lore": [
+      "Ein dunklerer kupferrosa Barren, Roségold mit mehr Gold darin."
+    ],
+    "use": [
+      "Presse 2 Gold-, 1 Roségold- und 1 Silberbarren zu einem Rosenkupfer-Pressling (formlos) und schmilz ihn im Hochofen (30 s) zu einem Barren. Neun ergeben einen Block. Werkzeuge, Rüstung, Äpfel und Baublöcke brauchen ihn."
+    ],
+    "secret": [
+      "Trotz des reicheren Rezepts ist seine Ausrüstung die schwächere: Haltbarkeit 190, wie Kupfer. Wähle es wegen seiner dunkleren Farbe."
+    ]
+  },
+  "terranite_ingot": {
+    "lore": [
+      "Erde, die durch den Riss ging und als Metall zurückkam."
+    ],
+    "use": [
+      "4 Riss-Splitter und 1 Enderitbarren, formlos. Neun ergeben einen Block, einen Leuchtfeuer-Sockel, und der Barren bezahlt ein Leuchtfeuer. Feuerfest, Rang Legendär."
+    ],
+    "secret": [
+      "Er ist der Partner des nächsten Schritts: 4 Nether-Riss-Splitter und ein Terranitbarren ergeben Infernit. Sein Apfel und seine Karotte geben Eile."
+    ]
+  },
+  "infernite_ingot": {
+    "lore": [
+      "Ein Barren, der die Hitze des Nethers in sich behielt."
+    ],
+    "use": [
+      "4 Nether-Riss-Splitter und 1 Terranitbarren, formlos. Neun ergeben einen Block, einen Leuchtfeuer-Sockel, und der Barren bezahlt ein Leuchtfeuer. Feuerfest, Rang Legendär."
+    ],
+    "secret": [
+      "Er ist der Partner des letzten Schritts: 4 End-Riss-Splitter und ein Infernitbarren ergeben Zenithit. Sein Apfel und seine Karotte geben Feuerresistenz."
+    ]
+  },
+  "zenithite_ingot": {
+    "lore": [
+      "Das Ende der Kette, ein Barren, leicht wie der Himmel über den Inseln."
+    ],
+    "use": [
+      "4 End-Riss-Splitter und 1 Infernitbarren, formlos. Neun ergeben einen Block, einen Leuchtfeuer-Sockel, und der Barren bezahlt ein Leuchtfeuer. Feuerfest, Rang Legendär."
+    ],
+    "secret": [
+      "Jede Dimension steckt darin: Schrott aus Oberwelt, Nether und End und das Enderit am Anfang. Sein Apfel und seine Karotte geben Sanften Fall."
+    ]
+  },
+  "enderite_ingot": {
+    "lore": [
+      "Geschmiedet dort, wo das End seine eigenen Kanten vergisst: die Stufe über Netherit."
+    ],
+    "use": [
+      "Vier Enderitplatten, vier Diamanten und ein Netheritbarren ergeben einen; neun Klumpen ebenso. Neun ergeben einen Block. Mit der Enderit-Aufwertung hebt er am Schmiedetisch Netherit-Ausrüstung auf Enderit."
+    ],
+    "secret": [
+      "Er beginnt auch die Riss-Legierungen: 4 Riss-Splitter und ein Enderitbarren ergeben Terranit. Andere Simple-Mods laden ihre Enderit-Rezepte nur, solange Simple Ores installiert ist."
+    ]
+  },
+  "enderite_nugget": {
+    "lore": [
+      "Ein winziges Stück des schwersten Metalls des End, klein genug zum Verstecken."
+    ],
+    "use": [
+      "Neun ergeben einen Enderitbarren, der Barren gibt neun zurück. Acht um einen Apfel ergeben den Enderitapfel, vier um eine Karotte die Enderitkarotte."
+    ],
+    "secret": [
+      "Endstadt-Schätze enthalten manchmal 2 bis 5 davon, ein Vorsprung auf dem Weg zum ersten Barren."
+    ]
+  },
+  "raw_enderite": {
+    "lore": [
+      "Ein Fragment des eigenen Erzes des End, noch rau von der Dunkelheit."
+    ],
+    "use": [
+      "Liegt in Endstadt-Schätzen, 1 bis 2 auf einmal. Vier Fragmente, formlos, ergeben Rohe Enderitplatten, den ersten Schritt zu Enderit."
+    ],
+    "secret": [
+      "Diese Platten schmelzen nur im Hochofen, und langsam. Mit SimpleBuilding lassen sich die Fragmente auch durch dessen Synthese herstellen."
+    ]
+  },
+  "layered_raw_enderite": {
+    "lore": [
+      "Roher Enderit, in Schichten gepresst, bereit für ein langes Feuer."
+    ],
+    "use": [
+      "Vier Rohe Enderitfragmente, formlos. Nur ein Hochofen schmilzt sie zu Enderitplatten, und das dauert dort Stunden; ein Ofen lehnt ab."
+    ],
+    "secret": [
+      "Starte den Hochofen vor einer langen Reise. Vier Platten, vier Diamanten und ein Netheritbarren ergeben dann einen Enderitbarren."
+    ]
+  },
+  "enderite_scrap": {
+    "lore": [
+      "Was übrig bleibt, wenn das Roherz des End auf das Feuer trifft und seine Illusionen verliert."
+    ],
+    "use": [
+      "Im Hochofen aus Rohen Enderitplatten geschmolzen; Endstadt-Schätze enthalten sie auch (15 Prozent). Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren."
+    ],
+    "secret": [
+      "Neun lassen sich zu einem Enderitplatten-Block packen, hart wie Antiker Schrott und feuerfest."
+    ]
+  },
+  "enderite_upgrade_template": {
+    "lore": [
+      "Eine Vorlage, gestempelt mit dem eigenen Siegel des End."
+    ],
+    "use": [
+      "Schmiedevorlage: Mit einem Netherit-Werkzeug, -Rüstungsteil, einer Reittierrüstung oder Stange und einem Enderitbarren ergibt sie die Enderit-Version. Liegt in Endstadt-Schätzen (30 Prozent)."
+    ],
+    "secret": [
+      "Sieben Diamanten darum und ein Endstein kopieren sie: Aus einer Vorlage werden zwei, du musst nie wieder nach mehr suchen."
+    ]
+  },
+  "enderite_block": {
+    "lore": [
+      "Neun Barren des End, zu einem Würfel gefaltet: das Schwerste, das ein Baumeister besitzen kann."
+    ],
+    "use": [
+      "Neun Enderitbarren ergeben einen, und er gibt die neun zurück. Braucht eine Diamantspitzhacke; er ist ein Leuchtfeuer-Sockel."
+    ],
+    "secret": [
+      "Die Steinsäge schneidet daraus gemeißelten Enderit mit einem Enderaugen-Motiv. Für sich ist Enderit ein Schatz zum Bauen; seine Ausrüstung kommt vom Schmiedetisch."
+    ]
+  },
+  "sage_crystal": {
+    "lore": [
+      "Gedanken, zu einem klaren Stein von Barrengröße gewachsen."
+    ],
+    "use": [
+      "Vier Weisheitskristallsplitter im Quadrat ergeben einen; neun ergeben einen Weisheitskristallblock, und zurück. Er zählt als Barren (Tag c:ingots/sage_crystal)."
+    ],
+    "secret": [
+      "Er hat noch keinen eigenen Nutzen: ein Material, das auf seine Aufgabe wartet. Die Splitter kommen aus dem Nether- und End-Weisheitserz."
+    ]
+  },
+  "sage_crystal_shard": {
+    "lore": [
+      "Ein Splitter kristallisierter Weisheit."
+    ],
+    "use": [
+      "Fällt aus Nether- und End-Weisheitserz, 1 bis 3 auf einmal (Glück hilft). Vier im Quadrat ergeben einen Weisheitskristall."
+    ],
+    "secret": [
+      "Das Weisheitserz der Oberwelt gibt stattdessen Erfahrung und Kugeln; nur die Erze der anderen Dimensionen bilden Splitter."
+    ]
+  },
+  "sage_crystal_block": {
+    "lore": [
+      "Neun Kristalle der Weisheit in einem Block."
+    ],
+    "use": [
+      "Neun Weisheitskristalle ergeben einen, und er gibt die neun zurück. Ein Lager- und Dekorationsblock."
+    ],
+    "secret": [
+      "Die Kristalle darin haben noch keinen weiteren Nutzen, der Block ist also die schönste Art, sie zu zeigen."
+    ]
+  },
+  "sage_orb": {
+    "lore": [
+      "Eine Perle gespeicherter Gedanken, klein genug für eine Hand."
+    ],
+    "use": [
+      "Rechtsklick lädt sie 0,3 Sekunden auf, dann gibt sie 50 bis 100 Erfahrungspunkte und ist verbraucht."
+    ],
+    "secret": [
+      "Weisheitserz lässt manchmal eine fallen: 2 Prozent, mit Glück bis zu 5. Neun lassen sich zu einem Weisheitskugelblock packen."
+    ]
+  },
+  "sage_orb_block": {
+    "lore": [
+      "Ein Block gespeicherter Erfahrung, der auf einen Leser wartet."
+    ],
+    "use": [
+      "Neun Weisheitskugeln ergeben einen, und er gibt die neun zurück. Braucht eine Eisenspitzhacke."
+    ],
+    "secret": [
+      "Der Block selbst gibt keine Erfahrung: Pack ihn aus und benutze die Kugeln einzeln, je 50 bis 100 Punkte."
+    ]
+  },
+  "rose_gold_pressling": {
+    "lore": [
+      "Vier zusammengepresste Barren, die auf das Feuer warten."
+    ],
+    "use": [
+      "1 Gold-, 2 Kupfer- und 1 Silberbarren, formlos, ergeben 1. Nur ein Hochofen schmilzt ihn (30 s), immer zu genau 1 Roségoldbarren; Ofen, Räucherofen und Lagerfeuer lehnen ab."
+    ],
+    "secret": [
+      "Vier Barren hinein, einer heraus: Silber bleibt der Engpass. Nether-Roségolderz lässt direkt einen Pressling fallen."
+    ]
+  },
+  "rose_bronze_pressling": {
+    "lore": [
+      "Gold, Roségold und Silber, zu einem Klumpen gepresst."
+    ],
+    "use": [
+      "2 Gold-, 1 Roségold- und 1 Silberbarren, formlos, ergeben 1. Nur ein Hochofen schmilzt ihn (30 s), immer zu genau 1 Rosenkupferbarren; Ofen, Räucherofen und Lagerfeuer lehnen ab."
+    ],
+    "secret": [
+      "Du brauchst zuerst Roségold: Rosenkupfer wird daraus gemacht. Neun Presslinge passen in einen Block, schmelzen aber nur einzeln."
+    ]
+  },
+  "rose_gold_apple": {
+    "lore": [
+      "Ein goldener Apfel mit zartrosa Wangen."
+    ],
+    "use": [
+      "8 Roségoldbarren um einen Apfel. 6 Hunger, immer essbar. Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50."
+    ],
+    "secret": [
+      "Eine Stufe zwischen goldenem Apfel und Netheritapfel: die Effekte des goldenen Apfels plus Resistenz, aber keine Feuerresistenz."
+    ]
+  },
+  "rose_bronze_apple": {
+    "lore": [
+      "Ein Apfel im kupferrosa Mantel."
+    ],
+    "use": [
+      "8 Rosenkupferbarren um einen Apfel. 5 Hunger, immer essbar. Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30."
+    ],
+    "secret": [
+      "Der Roségold-Apfel sättigt einen Punkt mehr, und seine Resistenz hält länger (0:50). Keiner von beiden gibt Feuerresistenz."
+    ]
+  },
+  "enchanted_rose_gold_apple": {
+    "lore": [
+      "{name}: ein Roségold-Apfel, der den Schimmer behielt."
+    ],
+    "use": [
+      "8 Roségoldblöcke um einen Apfel. 6 Hunger, immer essbar. Regeneration II 0:35, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00."
+    ],
+    "secret": [
+      "Er wirkt wie der verzauberte goldene Apfel, lässt sich aber herstellen. Der Tooltip zeigt jeden Effekt."
+    ]
+  },
+  "enchanted_rose_bronze_apple": {
+    "lore": [
+      "{name}: kupferrosa, mit Schimmer."
+    ],
+    "use": [
+      "8 Rosenkupferblöcke um einen Apfel. 5 Hunger, immer essbar. Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00."
+    ],
+    "secret": [
+      "Fünf Sekunden weniger Regeneration und ein Hungerpunkt weniger als der verzauberte Roségold-Apfel, sonst gleich."
+    ]
+  },
+  "netherite_apple": {
+    "lore": [
+      "{name}: ein goldener Apfel, der durch den Nether ging und härter zurückkam."
+    ],
+    "use": [
+      "Ein Apfel, umringt von 8 Netheritklumpen. 8 Hunger, immer essbar. Resistenz I (1:00), Absorption II (0:30), Regeneration II (0:10)."
+    ],
+    "secret": [
+      "Als Gegenstand ist er feuerfest, ein Sturz in Lava zerstört ihn also nicht."
+    ]
+  },
+  "enchanted_netherite_apple": {
+    "lore": [
+      "{name}: ein Netheritapfel, dem man einen Schimmer gab und der ihn behielt."
+    ],
+    "use": [
+      "Er hat kein Rezept: ein seltener Beutefund. 8 Hunger, immer essbar. Regeneration II (0:40), Resistenz I (5:00), Feuerresistenz (5:00), Absorption IV (2:00), Stärke II (2:00)."
+    ],
+    "secret": [
+      "In jedem Effekt stärker als der einfache Netheritapfel, selten im Rang und als Gegenstand feuerfest."
+    ]
+  },
+  "enderite_apple": {
+    "lore": [
+      "{name}: ein Apfel mit der Geduld des End in der Schale."
+    ],
+    "use": [
+      "Ein Apfel, umringt von 8 Enderitklumpen. 14 Hunger, immer essbar. Regeneration II (0:20), Resistenz I (2:30), Absorption IV (2:00), Extraenergie III (2:00)."
+    ],
+    "secret": [
+      "Seltenheit episch, feuerfest und beim Fallenlassen vor der Leere sicher, wie jeder Enderit-Gegenstand."
+    ]
+  },
+  "enchanted_enderite_apple": {
+    "lore": [
+      "{name}: Das End kennt nur diese eine Frucht."
+    ],
+    "use": [
+      "Er hat kein Rezept: ein seltener Beutefund. 14 Hunger, immer essbar. Regeneration III (1:00), Resistenz II (5:00), Feuerresistenz (10:00), Absorption V (3:00), Extraenergie V (3:00), Nachtsicht (5:00)."
+    ],
+    "secret": [
+      "Episch, mit Verzauberungsschimmer und feuerfest wie jeder Enderit-Gegenstand."
+    ]
+  },
+  "netherite_carrot": {
+    "lore": [
+      "{name}: eine Karotte, die ernst gemacht hat."
+    ],
+    "use": [
+      "Eine Karotte mit 4 Netheritklumpen im Plus darum. 6 Hunger, immer essbar. Feuerresistenz (2:00) und Nachtsicht (2:00)."
+    ],
+    "secret": [
+      "Ein Imbiss für den Nether: zwei Minuten im Dunkeln sehen und nicht brennen. Als Gegenstand feuerfest."
+    ]
+  },
+  "enderite_carrot": {
+    "lore": [
+      "{name}: eine Karotte, die gelernt hat, zwischen Inseln zu springen."
+    ],
+    "use": [
+      "Eine Karotte mit 4 Enderitklumpen im Plus darum. 12 Hunger, immer essbar. Nachtsicht (5:00), Schnelligkeit II (1:00), Sprungkraft II (1:00) und einen Tick Sättigung."
+    ],
+    "secret": [
+      "Episch, feuerfest und vor der Leere sicher, wie jeder Enderit-Gegenstand."
+    ]
+  },
+  "iron_pole": {
+    "lore": [
+      "Eine Stange aus Eisen, dünn, gerade und begierig, von etwas getroffen zu werden."
+    ],
+    "use": [
+      "Drei Eisenbarren übereinander ergeben eine. Ein Blitzableiter aus Eisen: Er zieht Blitze im Umkreis von 32 Blöcken an, als oberster Block seiner Säule, und gibt bei einem Treffer ein Redstone-Signal. Steinspitzhacke."
+    ],
+    "secret": [
+      "Ein Kupfer-Blitzableiter in Reichweite geht immer vor. Unter den Metallstangen gewinnt die nächste den Blitz."
+    ]
+  },
+  "gold_pole": {
+    "lore": [
+      "Eine Stange aus Gold: zu weich zum Arbeiten, zu glänzend zum Verstecken."
+    ],
+    "use": [
+      "Drei Goldbarren übereinander ergeben eine. Ein Blitzableiter aus Gold, der Blitze im Umkreis von 64 Blöcken anzieht und bei einem Treffer ein Redstone-Signal gibt. Braucht eine Eisenspitzhacke."
+    ],
+    "secret": [
+      "Stangen gibt es in Stufen: Eisen 32, Gold 64, Smaragd 72, Diamant 80, Netherit 96 und Enderit 128 Blöcke."
+    ]
+  },
+  "emerald_pole": {
+    "lore": [
+      "Eine Stange aus Smaragd, grün wie ein gelungener Handel."
+    ],
+    "use": [
+      "Drei Smaragde übereinander ergeben eine. Eine Blitzstange, die Blitze im Umkreis von 72 Blöcken anzieht, außer ein Kupfer-Blitzableiter ist in Reichweite. Braucht eine Eisenspitzhacke."
+    ],
+    "secret": [
+      "Sie liegt zwischen Gold (64) und Diamant (80). Erreichen mehrere Stangen einen Blitz, gewinnt die nächste."
+    ]
+  },
+  "diamond_pole": {
+    "lore": [
+      "Eine Stange aus Diamant, zu kostbar für ein Gewitter, und genau dort will sie stehen."
+    ],
+    "use": [
+      "Drei Diamanten übereinander ergeben eine: einen Blitzableiter aus Diamant, der Blitze im Umkreis von 80 Blöcken anzieht. Mit Netherit-Aufwertung und Netheritbarren macht der Schmiedetisch daraus die Netheritstange."
+    ],
+    "secret": [
+      "Wie jede Metallstange oxidiert sie nie und gibt ein Redstone-Signal, wenn ein Blitz sie trifft."
+    ]
+  },
+  "netherite_pole": {
+    "lore": [
+      "Eine Stange, die im Feuer stand und das nächste nicht scheut."
+    ],
+    "use": [
+      "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter mit 96 Blöcken Reichweite. Braucht eine Diamantspitzhacke."
+    ],
+    "secret": [
+      "Sie brennt nicht, und mit der Enderit-Aufwertung wird sie zur Enderitstange, eine Stufe höher."
+    ]
+  },
+  "enderite_pole": {
+    "lore": [
+      "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter mit 128 Blöcken Reichweite. Braucht eine Diamantspitzhacke."
+    ],
+    "secret": [
+      "Sie reicht so weit wie der Kupfer-Blitzableiter, doch Kupfer geht weiter vor. Feuerfest und vor der Leere sicher wie jeder Enderit-Gegenstand."
+    ]
+  },
+  "astralit_ore": {
+    "lore": [
+      "Es wartet ganz oben auf den Inseln des End und blitzt jeden an, der eine gute Spitzhacke trägt."
+    ],
+    "use": [
+      "Entsteht im Endstein an der Oberfläche der äußeren Inseln. Diamantspitzhacke oder besser, Härte 20, Lichtstärke 5. Lässt Astralitstaub und 3 bis 7 Erfahrung fallen; Glück erhöht den Ertrag, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Es versteckt sich im Gestein, bis ein Pinsel es freilegt: Sechs Striche zeigen seine Kristalle. Ein freigelegtes Erz gibt den vollen Ertrag, ein verborgenes nur mit 70 Prozent Chance."
+    ]
+  },
+  "nihilith_ore": {
+    "lore": [
+      "Es hängt unter den Inseln des End wie ein Bluterguss im Dunkeln."
+    ],
+    "use": [
+      "Entsteht im Endstein an der Unterseite der Inseln. Diamantspitzhacke oder besser, Härte 25. Lässt einen Nihilitsplitter und 3 bis 7 Erfahrung fallen; Glück erhöht den Ertrag, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Schau nach unten, nicht nach oben: Die Adern hängen an der Unterseite der Inseln. Leg es erst mit dem Pinsel frei (sechs Striche), sonst gibt es seinen Splitter nur mit 70 Prozent Chance."
+    ]
+  },
+  "astralit_dust": {
+    "lore": [
+      "Ein rosa Staub, der von den äußeren Inseln des End treibt, noch warm von dem Licht, das er trägt."
+    ],
+    "use": [
+      "Fällt aus Astraliterz (Glück bringt mehr); vier Trübe Astralitstaub ergeben auch einen. Mit Redstone ergibt er 2 Astral-Redstone, mit Nihilitsplitter und Redstone 3 Brücken-Redstone. Eine Lohenrute darüber ergibt 4 Astralit-Endstäbe."
+    ],
+    "secret": [
+      "Mit SimpleBuilding ist er außerdem ein Rüstungsbesatz und die Grundlage der Astralit-Baublöcke."
+    ]
+  },
+  "nihilith_shard": {
+    "lore": [
+      "Ein blauer Splitter der Leere, kalt wie ein angehaltener Atem."
+    ],
+    "use": [
+      "Fällt aus Nihiliterz (Glück bringt mehr); vier Trübe Nihilitsplitter ergeben auch einen. Mit Redstone ergibt er 2 Nihil-Redstone, mit Astralitstaub und Redstone 3 Brücken-Redstone. Eine Lohenrute darüber ergibt 4 Nihilit-Endstäbe."
+    ],
+    "secret": [
+      "Er ist auch das Herz des Nihil-Kerns. Mit SimpleBuilding wird er zum Rüstungsbesatz und zur Grundlage der Nihilit-Baublöcke."
+    ]
+  },
+  "astral_redstone": {
+    "lore": [
+      "Redstone, das eine zweite Sprache gelernt hat und sie nur mit seinesgleichen spricht."
+    ],
+    "use": [
+      "Astralitstaub und Redstone ergeben 2. Eine zweite Redstone-Linie: Sie verhält sich wie Redstone-Staub, doch Staub nimmt nur von Staub der eigenen Linie Signal an. Lampen, Kolben, Türen und andere Geräte reagieren auf jede Linie."
+    ],
+    "secret": [
+      "Auf die Seite oder Unterseite eines Blocks gesetzt, haftet es an dieser Fläche und speist seinen Block stark. Brücken-Redstone verbindet es mit den anderen Linien."
+    ]
+  },
+  "nihil_redstone": {
+    "lore": [
+      "Redstone von der anderen Seite der Leere, still und kalt."
+    ],
+    "use": [
+      "Ein Nihilitsplitter und Redstone ergeben 2. Eine dritte Redstone-Linie: Sie verhält sich wie Redstone-Staub, nimmt aber nie Signal von Redstone- oder Astral-Staub an. Lampen, Kolben, Türen und andere Geräte reagieren auf jede Linie."
+    ],
+    "secret": [
+      "Zwei Linien können nebeneinander laufen, ohne sich zu stören. Nur Brücken-Redstone reicht ein Signal vom Staub einer Linie in eine andere weiter."
+    ]
+  },
+  "bridge_redstone": {
+    "lore": [
+      "Redstone, das zwischen drei Sprachen übersetzen gelernt hat."
+    ],
+    "use": [
+      "Astralitstaub, ein Nihilitsplitter und Redstone ergeben 3. Es verbindet sich mit Redstone-, Astral- und Nihil-Staub gleichermaßen und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer."
+    ],
+    "secret": [
+      "Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe. Wie Astral-Redstone haftet es auch an Wänden und Decken."
+    ]
+  },
+  "astral_piston": {
+    "lore": [
+      "{name} drückt, wenn die andere Seite es sagt."
+    ],
+    "use": [
+      "Ein Kolben, 4 Astral-Redstone und 4 Ecken (Polierter Astralit mit SimpleBuilding, Endsteinziegel ohne). Bei einem steigenden Signal jeder Linie drückt er den Block auf jeder seiner sechs Seiten ein Feld weg."
+    ],
+    "secret": [
+      "Ein Block je Seite, nie eine Kette, und nur in ein freies Feld. Er löst nur bei der steigenden Flanke aus und wartet dann 8 Ticks (Server-Einstellung)."
+    ]
+  },
+  "nihil_piston": {
+    "lore": [
+      "{name} holt heran, was einen Schritt entfernt wartet."
+    ],
+    "use": [
+      "Ein klebriger Kolben, 4 Nihil-Redstone und 4 Ecken (Polierter Nihilit mit SimpleBuilding, Endsteinziegel ohne). Bei einem steigenden Signal jeder Linie holt er auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich."
+    ],
+    "secret": [
+      "Ein Block, der ihn schon berührt, bleibt stehen, und glasierte Keramik lässt sich drücken, aber nicht ziehen. Er löst einmal je steigender Flanke aus und wartet dann 8 Ticks."
+    ]
+  },
+  "astral_rail": {
+    "lore": [
+      "Eine Schiene, die den Himmel gehört hat und dorthin will."
+    ],
+    "use": [
+      "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
+    ],
+    "secret": [
+      "Der Schub nimmt ab, je näher die Lore der Höchstgeschwindigkeit kommt. An Steigungen, im Wasser und auf anderen Schienen gilt wieder das Vanilla-Limit, bremse also vor einer Kurve."
+    ]
+  },
+  "nihil_rail": {
+    "lore": [
+      "Eine Schiene, die der Welt das Tempo nimmt, höflich und vollständig."
+    ],
+    "use": [
+      "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
+    ],
+    "secret": [
+      "Ohne Kraft lässt sie Loren durchrollen. Eine Nachbarschiene speist sie nie, so kannst du einen Bahnhof bauen, der auf Signal bremst."
+    ]
+  },
+  "astral_relay": {
+    "lore": [
+      "Eine Kupferleuchte, die sprechen gelernt hat."
+    ],
+    "use": [
+      "Eine Kupferleuchte, umgeben von vier Astral-Redstone. Eine steigende Signalflanke schaltet es um; an leuchtet es und gibt Redstone-Stärke 15 an jede Seite."
+    ],
+    "secret": [
+      "Ein Komparator liest 15, solange es an ist: Ein Puls macht es zur dauerhaften Quelle bis zum nächsten Puls."
+    ]
+  },
+  "nihil_core": {
+    "lore": [
+      "Viele Kerne, ein Gedanke."
+    ],
+    "use": [
+      "Ein Nihilitsplitter, vier Nihil-Redstone und vier Endsteinziegel ergeben 4. Sich berührende Kerne bilden eine Gruppe: Eine steigende Flanke an einem Kern schaltet die ganze Gruppe um, und an gibt jeder Kern Stärke 15 an alle Seiten."
+    ],
+    "secret": [
+      "Benachbarte Kerne zeigen eine Fläche mit Rand nur außen herum, eine Wand aus Kernen wirkt also wie eine einzige Tafel."
+    ]
+  },
+  "family:silver_ore": {
+    "items": [
+      "regex:(deepslate_)?silver_ore"
+    ],
+    "lore": [
+      "{name}: ein heller Schimmer im Gestein, seltener als Gold und stiller darüber."
+    ],
+    "use": [
+      "Entsteht in 1 bis 2 Adern zu 5 je Chunk zwischen Y -48 und 16, in Stein und Tiefenschiefer. Braucht eine Eisenspitzhacke und lässt Rohsilber fallen; Glück erhöht den Ertrag, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Silber ist kein Werkzeugmetall: Es geht in Roségold und Baublöcke. Nach dem Drachen ist das End-Silbererz auf den äußeren Inseln die bequemere Quelle."
+    ]
+  },
+  "family:zinc_ore": {
+    "items": [
+      "regex:(end_)?zinc_ore"
+    ],
+    "lore": [
+      "{name}: ein graues Herz in einer geschlossenen Steinschale."
+    ],
+    "use": [
+      "Zink hat keine freien Adern: Es wächst nur in geschlossenen Minigeoden, 1 bis 8 Erze im Kern. Oberwelt-Geoden (Y -56 bis 40) haben eine Hülle aus Geodenkruste und Calcit-Futter, End-Geoden eine Endstein-Hülle und Geodenkruste-Futter. Steinspitzhacke; gibt Rohzink."
+    ],
+    "secret": [
+      "Eine Geode entsteht nur dort, wo sie ganz eingeschlossen ist, und zeigt sich nie in einer Höhle. Glück hilft, Behutsamkeit behält das Erz."
+    ]
+  },
+  "family:tin_bearing": {
+    "items": [
+      "regex:tin_bearing_(gravel|sand)"
+    ],
+    "lore": [
+      "{name}: ein Flussbett, das in jeder Handvoll ein wenig Zinn trägt."
+    ],
+    "use": [
+      "Seltene kleine Flecken unter Wasser im Fluss- und Strandgrund, etwa einer in jedem 3. Chunk dieser Biome. Fällt wie sein einfacher Block. Eine Schaufel gibt 2 bis 5 Zinnklumpen; Glück hilft, Behutsamkeit behält den Block."
+    ],
+    "secret": [
+      "Neun dieser Klumpen ergeben einen Zinnbarren, ein paar Flecken geben dir also Bronze ohne einen einzigen Spitzhackenschlag."
+    ]
+  },
+  "family:sage_ore": {
+    "items": [
+      "regex:(deepslate_)?sage_ore"
+    ],
+    "lore": [
+      "{name}: eine Ader, die Wissen hält und es nur widerwillig hergibt."
+    ],
+    "use": [
+      "Entsteht in der Oberwelt so selten wie Diamanterz. Braucht eine Eisenspitzhacke und gibt 3 bis 7 Erfahrung und selten eine Weisheitskugel: 2 Prozent, mit Glück bis zu 5. Behutsamkeit behält das Erz, gibt aber keine Erfahrung."
+    ],
+    "secret": [
+      "Die Kugel ist gespeicherte Erfahrung: Rechtsklick lädt sie 0,3 Sekunden auf, dann gibt sie 50 bis 100 Punkte."
+    ]
+  },
+  "family:sage_ore_far": {
+    "items": [
+      "regex:(nether|end)_sage_ore"
+    ],
+    "lore": [
+      "{name}: Weisheit, die in eine andere Dimension gewandert ist."
+    ],
+    "use": [
+      "Nether: im Netherrack, 5 Adern zu 4 je Chunk. End: im Endstein der äußeren Inseln, 3 Adern zu 4 je Chunk. Eisenspitzhacke. Gibt 1 bis 3 Weisheitskristallsplitter und 2 bis 5 Erfahrung; Glück hilft, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Vier Splitter im Quadrat ergeben einen Weisheitskristall, das barrengroße Material der Weisheitsfamilie. Der Server-Schalter sageOreOtherDimensions schaltet beide Erze ab."
+    ]
+  },
+  "family:dull_ore": {
+    "items": [
+      "regex:dull_(astralit|nihilith)_ore"
+    ],
+    "lore": [
+      "{name}: dieselbe Ader, nur milchig und ohne Glanz."
+    ],
+    "use": [
+      "Etwa jeder fünfte Block einer Astralit- oder Nihilitader ist trüb. Diamantspitzhacke; gibt 1 bis 3 Erfahrung und den trüben Staub oder Splitter (Glück hilft, Behutsamkeit behält den Block). Trübes Astraliterz leuchtet mit Lichtstärke 3."
+    ],
+    "secret": [
+      "Der Pinsel wirkt auf trübe Erze nicht, und Erzdetektoren übersehen sie. Vier trübe Stücke ergeben trotzdem einen echten Staub oder Splitter."
+    ]
+  },
+  "family:dull_drop": {
+    "items": [
+      "regex:dull_(astralit_dust|nihilith_shard)"
+    ],
+    "lore": [
+      "{name}: der ungeschliffene Vetter des Echten."
+    ],
+    "use": [
+      "Fällt aus dem trüben Erz seiner Art (Glück wirkt wie beim echten Erz). Vier davon, formlos, ergeben einen echten Astralitstaub oder Nihilitsplitter."
+    ],
+    "secret": [
+      "Heb sie auf: Die trüben Blöcke einer Ader summieren sich, und aus je vier Stücken wird ein echtes."
+    ]
+  },
+  "family:dimensional_scrap": {
+    "items": [
+      "regex:(end_|nether_)?dimensional_scrap"
+    ],
+    "lore": [
+      "{name}: ein Block, den es in jeder Dimension gibt und der in keiner ganz zu Hause ist."
+    ],
+    "use": [
+      "Seltener als Antiker Schrott: eine Ader von bis zu 2 in jedem 3. Chunk, nie an Luft; tief im Tiefenschiefer der Oberwelt, im Nether wie Antiker Schrott, im Inneren der End-Inseln. Nur eine Enderitspitzhacke oder ein Enderit-Vorschlaghammer baut ihn ab (250 s unverzaubert)."
+    ],
+    "secret": [
+      "Er übersteht Wither und Drachen, und kein Kolben bewegt ihn. Ein Hochofen schmilzt ihn zu Riss-Splittern (Oberwelt 40 s, Nether 60 s, End 80 s); ein Tiegel nur bei extremer Hitze."
+    ]
+  },
+  "family:rift_shard_block": {
+    "items": [
+      "regex:(nether_|end_)?rift_shard_block"
+    ],
+    "lore": [
+      "{name}: Splitter einer Dimension, dicht gepackt wie Schrott, der auf einen Schmied wartet."
+    ],
+    "use": [
+      "Neun Splitter ergeben einen, und er gibt die neun zurück. Hart wie Antiker Schrott, feuerfest, braucht eine Diamantspitzhacke."
+    ],
+    "secret": [
+      "Er ist nur ein Lager: Die Splitter darin warten auf die Legierungskette von Terranit bis Zenithit."
+    ]
+  },
+  "family:rift_shard": {
+    "items": [
+      "regex:(nether_|end_)?rift_shard"
+    ],
+    "lore": [
+      "{name}: was von einer Dimension bleibt, wenn das Feuer gesprochen hat."
+    ],
+    "use": [
+      "Aus dem Dimensionsschrott seiner Dimension geschmolzen, nur im Hochofen oder in einem Tiegel bei extremer Hitze; ein Schrott gibt einen Splitter. Neun ergeben einen Splitter-Block. Feuerfest."
+    ],
+    "secret": [
+      "Die Kette: 4 Riss-Splitter und ein Enderitbarren ergeben Terranit, 4 Nether-Riss-Splitter und ein Terranitbarren Infernit, 4 End-Riss-Splitter und ein Infernitbarren Zenithit."
+    ]
+  },
+  "family:scrap_block": {
+    "items": [
+      "regex:(netherite|enderite)_scrap_block"
+    ],
+    "lore": [
+      "{name}: neun Stück hart erkämpfter Schrott in einem schweren Würfel."
+    ],
+    "use": [
+      "Neun Schrott ergeben einen, und er gibt die neun zurück. Wie Antiker Schrott: Härte 30, Explosionswiderstand 1200, feuerfest, braucht eine Diamantspitzhacke."
+    ],
+    "secret": [
+      "Ein kompakter Weg, Schrott nach Hause zu tragen: Ein Stapel Blöcke hält 576 Schrott und verbrennt nicht in Lava."
+    ]
+  },
+  "family:raw_block": {
+    "items": [
+      "regex:raw_(silver|lead|zinc|nickel|tin)_block"
+    ],
+    "lore": [
+      "{name}: eine Ladung erzrohes Metall, verpackt für den langen Heimweg."
+    ],
+    "use": [
+      "Neun Rohstücke ergeben einen, und er gibt die neun zurück. Ein kompakter Weg, Rohmetall vor dem Schmelzen zu lagern."
+    ],
+    "secret": [
+      "Pack ihn in der Werkbank aus, um die neun Rohstücke zu schmelzen: Der Ofen nimmt den Block nicht."
+    ]
+  },
+  "family:raw": {
+    "items": [
+      "regex:raw_(silver|lead|zinc|nickel|tin)"
+    ],
+    "lore": [
+      "{name}: Metall, wie der Boden es hergab, noch rau an den Kanten."
+    ],
+    "use": [
+      "Aus seinem Erz abgebaut (Glück bringt mehr). Ofen oder Hochofen schmelzen es zu einem Barren. Neun ergeben einen Rohblock, der Block gibt neun zurück."
+    ],
+    "secret": [
+      "Der Erzblock selbst schmilzt ebenfalls, Behutsamkeit kostet dich also nur den Glücksbonus."
+    ]
+  },
+  "family:pressling_block": {
+    "items": [
+      "regex:rose_(gold|bronze)_pressling_block"
+    ],
+    "lore": [
+      "{name}: neun gestapelte Presslinge, die warten."
+    ],
+    "use": [
+      "Neun Presslinge ergeben einen, und er gibt die neun zurück. Braucht eine Eisenspitzhacke."
+    ],
+    "secret": [
+      "Nur ein Lager: Der Hochofen schmilzt den Block nicht, pack ihn also aus und schmilz einzelne Presslinge."
+    ]
+  },
+  "family:rift_block": {
+    "items": [
+      "regex:(terranite|infernite|zenithite)_block"
+    ],
+    "lore": [
+      "{name}: neun Barren aus dem Metall einer Dimension, ein Prachtstück für ein Leuchtfeuer."
+    ],
+    "use": [
+      "Neun Barren ergeben einen, und er gibt die neun zurück. Ein Leuchtfeuer-Sockel wie der Enderitblock; braucht eine Diamantspitzhacke, feuerfest."
+    ],
+    "secret": [
+      "Die Steinsäge schneidet daraus 1:1 seinen gemeißelten Block mit Baum, Ghast oder Sonne. Der ist nur Dekoration, kein Leuchtfeuer-Sockel."
+    ]
+  },
+  "family:lead_shape_half": {
+    "items": [
+      "regex:cut_lead_(stairs|slab)"
+    ],
+    "secret": [
+      "Blei bleibt Blei, aber nur halb: Eine geschnittene Bleitreppe oder -stufe dämpft Schall wie ein halber Bleiblock. Sie behält Härte 25 und Explosionswiderstand 1000 des Blocks."
+    ]
+  },
+  "family:lead_shape": {
+    "items": [
+      "regex:cut_lead|lead_tiles|lead_pillar|chiseled_lead"
+    ],
+    "secret": [
+      "Blei bleibt Blei: Wie der Bleiblock dämpft es Schall, hält Vibrationen auf und behält Härte 25 und Explosionswiderstand 1000."
+    ]
+  },
+  "family:storage_block": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze)_block"
+    ],
+    "lore": [
+      "{name}: neun Barren, still und eckig, der Anfang einer ganzen Familie von Baublöcken."
+    ],
+    "use": [
+      "Neun Barren ergeben einen, und er gibt die neun zurück. Er ist die Grundlage seiner Baufamilie: Geschnittene Blöcke, Treppen, Stufen, Fliesen, Säule und gemeißelter Block entstehen daraus an Werkbank oder Steinsäge."
+    ],
+    "secret": [
+      "Anders als Kupfer oxidiert er nie und braucht kein Wachs, eine Wand daraus behält ihre Farbe für immer."
+    ]
+  },
+  "family:cut_shape": {
+    "items": [
+      "regex:cut_(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze)_(stairs|slab)"
+    ],
+    "lore": [
+      "{name}: Metallplatten, Stufe um Stufe gelegt oder einen halben Block hoch."
+    ],
+    "use": [
+      "Sechs geschnittene Blöcke in Treppenform ergeben 4 Treppen, drei in einer Reihe 6 Stufen. Die Steinsäge schneidet 4 Treppen oder 8 Stufen aus einem Speicherblock, oder 1 Treppe bzw. 2 Stufen aus einem geschnittenen Block."
+    ],
+    "secret": [
+      "Eine doppelte Stufe lässt zwei Stufen fallen. Zwei Stufen übereinander in der Werkbank ergeben den gemeißelten Block des Metalls."
+    ]
+  },
+  "family:cut": {
+    "items": [
+      "regex:cut_(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze)"
+    ],
+    "lore": [
+      "{name}: der schlichte Block, in saubere Felder geschnitten, wie geschnittenes Kupfer, das nie grün wird."
+    ],
+    "use": [
+      "Vier Speicherblöcke im Quadrat ergeben 4; die Steinsäge schneidet 4 aus einem Block. Er bricht und widersteht wie sein Speicherblock und lässt sich selbst fallen."
+    ],
+    "secret": [
+      "Sechs davon ergeben 4 Treppen, drei 6 Stufen, vier im Quadrat 4 Fliesen. Die Steinsäge macht aus einem eine Treppe, zwei Stufen, einen Fliesenblock oder einen gemeißelten Block."
+    ]
+  },
+  "family:tiles": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze)_tiles"
+    ],
+    "lore": [
+      "{name}: ein Boden aus kleinen Metallquadraten, jedes fängt das Licht ein wenig anders."
+    ],
+    "use": [
+      "Vier geschnittene Blöcke im Quadrat ergeben 4; die Steinsäge gibt 4 aus einem Speicherblock oder 1 aus einem geschnittenen Block. Dekoration; bricht wie sein Speicherblock und lässt sich selbst fallen."
+    ],
+    "secret": [
+      "Anders als Kupferblöcke oxidieren sie nie und brauchen kein Wachs."
+    ]
+  },
+  "family:pillar": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze)_pillar"
+    ],
+    "lore": [
+      "{name}: eine Säule aus Metall, die ihre Linie hält."
+    ],
+    "use": [
+      "Zwei Speicherblöcke übereinander ergeben 2; die Steinsäge schneidet 1 aus einem Block. Wird entlang einer Achse gesetzt wie die Quarzsäule. Bricht wie sein Speicherblock und lässt sich selbst fallen."
+    ],
+    "secret": [
+      "Leg sie auf die Seite für einen Balken: Das Muster folgt der Achse, entlang der du sie setzt."
+    ]
+  },
+  "family:chiseled_rift": {
+    "items": [
+      "regex:chiseled_(enderite|terranite|infernite|zenithite)"
+    ],
+    "lore": [
+      "{name}: ein Prachtmetall mit eingeschnittenem Emblem."
+    ],
+    "use": [
+      "Die Steinsäge schneidet ihn 1:1 aus dem Block seines Metalls; wie beim Netheritblock gibt es keine geschnittene Familie. Braucht eine Diamantspitzhacke, feuerfest, nur Dekoration."
+    ],
+    "secret": [
+      "Die Motive: ein Enderauge für Enderit, ein Baum für Terranit, ein Ghast für Infernit, eine Sonne für Zenithit. Anders als sein Block ist er kein Leuchtfeuer-Sockel."
+    ]
+  },
+  "family:chiseled": {
+    "items": [
+      "regex:chiseled_(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze)"
+    ],
+    "lore": [
+      "{name}: ein Quadrat aus Metall mit einem eingeprägten Motiv."
+    ],
+    "use": [
+      "Zwei geschnittene Stufen des Metalls übereinander ergeben 1; die Steinsäge schneidet 4 aus einem Speicherblock oder 1 aus einem geschnittenen Block. Nur Dekoration; bricht wie sein Speicherblock."
+    ],
+    "secret": [
+      "Jedes Metall prägt sein eigenes Motiv: Roségold zeigt eine Rose, Rosenkupfer ein Herz."
+    ]
+  },
+  "family:bars": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel)_bars"
+    ],
+    "lore": [
+      "{name}: Eisengitter, die ein anderes Metall und ein eigenes Muster gewählt haben."
+    ],
+    "use": [
+      "Sechs Barren in zwei Reihen ergeben 16. Sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter, zählen als Vanilla-Gitter und lassen Licht und Blick durch. Jede Spitzhacke."
+    ],
+    "secret": [
+      "Jedes Metall zeichnet sein eigenes Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten. Anders als Kupfer altern sie nie."
+    ]
+  },
+  "family:grate": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel)_grate"
+    ],
+    "lore": [
+      "{name}: ein Gitterwerk aus Metall, durchsichtig und beständig."
+    ],
+    "use": [
+      "Vier Speicherblöcke als Raute ergeben 4, oder die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig und kann Wasser halten. Braucht eine Steinspitzhacke."
+    ],
+    "secret": [
+      "Er altert nicht und braucht kein Wachs: Nur Kupfer oxidiert. Sein Muster ist dasselbe wie im Fenster der Tür und im Käfig der Lampe seines Metalls."
+    ]
+  },
+  "family:trapdoor": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel)_trapdoor"
+    ],
+    "lore": [
+      "{name}: eine Luke aus Metall, die sich bei Berührung öffnet."
+    ],
+    "use": [
+      "Vier Barren (2 x 2) ergeben 1. Sie öffnet sich per Hand oder Redstone wie die Kupferfalltür. Jede Spitzhacke."
+    ],
+    "secret": [
+      "Sie trägt dasselbe Rostmuster wie die Tür ihres Metalls, Tür und Luke passen also zusammen. Nichts daran altert."
+    ]
+  },
+  "family:door": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel)_door"
+    ],
+    "lore": [
+      "{name}: eine Metalltür mit einem Fenster aus ihrem eigenen Rostmuster."
+    ],
+    "use": [
+      "Sechs Barren (2 x 3) ergeben 3. Sie öffnet sich per Hand oder Redstone wie die Kupfertür, und Dorfbewohner und andere Mobs benutzen sie. Jede Spitzhacke."
+    ],
+    "secret": [
+      "Das Fenster zeigt das Rostmuster des Metalls, der Rahmen seine Töne. Sie altert nie und sieht in hundert Jahren noch gleich aus."
+    ]
+  },
+  "family:lamp": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel)_lamp"
+    ],
+    "lore": [
+      "{name}: eine Lampe, die sich merkt, ob du sie zuletzt an- oder ausgeschaltet hast."
+    ],
+    "use": [
+      "Funktioniert wie die Kupferleuchte: Jeder Redstone-Puls schaltet sie an oder aus, ohne Strom bleibt sie, wie sie ist, Licht 15. Drei Speicherblöcke, eine Lohenrute und Redstone ergeben 4. Steinspitzhacke."
+    ],
+    "secret": [
+      "Ein Komparator liest 15, solange sie an ist, sie taugt also auch als Speicherzelle. Der Käfig zeigt das Rostmuster des Metalls und altert nie."
+    ]
+  },
+  "family:lantern": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel)_lantern"
+    ],
+    "lore": [
+      "{name}: ein kleines Licht in einem Metallhaus."
+    ],
+    "use": [
+      "Wie die Vanilla-Laterne: Sie steht auf einem Block oder hängt darunter oder an einer Kette, Licht 15, und kann geflutet werden. Acht Klumpen des Metalls um eine Fackel ergeben 1. Jede Spitzhacke."
+    ],
+    "secret": [
+      "Häng sie an eine Kette aus demselben Metall: Gehäuse, Scheiben und Glieder teilen dann einen Stil."
+    ]
+  },
+  "family:chain": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel)_chain"
+    ],
+    "lore": [
+      "{name}: Glieder aus Metall, jedes von seinem eigenen Schmied geformt."
+    ],
+    "use": [
+      "Ein Klumpen, ein Barren und ein Klumpen senkrecht ergeben 1. Wie die Eisenkette wird sie entlang jeder Achse gesetzt, hält Laternen und kann geflutet werden. Jede Spitzhacke."
+    ],
+    "secret": [
+      "Jedes Metall formt seine Glieder anders; Kette und Laterne aus einem Metall gehören zusammen."
+    ]
+  },
+  "family:pole": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze)_pole"
+    ],
+    "lore": [
+      "{name}: eine schlanke Metallstange, die nur des Anblicks wegen aufrecht steht."
+    ],
+    "use": [
+      "Drei Barren senkrecht ergeben 1. Wird wie der Blitzableiter auf die angeklickte Seite gesetzt und kann geflutet werden. Braucht eine Steinspitzhacke. Nur Dekoration."
+    ],
+    "secret": [
+      "Blitze beachten sie nicht: Nur der Kupfer-Blitzableiter und die Stangen aus Eisen, Gold, Smaragd, Diamant, Netherit und Enderit ziehen sie an."
+    ]
+  },
+  "family:pressure_plate_light": {
+    "items": [
+      "regex:(silver|rose_gold|rose_bronze)_pressure_plate"
+    ],
+    "lore": [
+      "{name}: eine leichte Platte, die jeden Besucher zählt."
+    ],
+    "use": [
+      "Zwei Barren nebeneinander ergeben 1. Eine Wägeplatte wie die goldene: eine Signalstufe je Wesen darauf, bis 15. Jede Spitzhacke."
+    ],
+    "secret": [
+      "Edelmetalle zählen fein: Nutze sie dort, wo schon ein einzelner Gegenstand oder Mob das Signal ändern soll."
+    ]
+  },
+  "family:pressure_plate": {
+    "items": [
+      "regex:.*_pressure_plate"
+    ],
+    "lore": [
+      "{name}: eine schwere Platte, die auf eine Menge wartet."
+    ],
+    "use": [
+      "Zwei Barren nebeneinander ergeben 1. Eine Wägeplatte wie die eiserne: eine Signalstufe je 10 Wesen, volle Stärke bei 150. Jede Spitzhacke."
+    ],
+    "secret": [
+      "Die Platte zeigt den Block ihres Metalls und verschwindet so in einem Boden aus demselben Material."
+    ]
+  },
+  "family:nugget": {
+    "items": [
+      "regex:(silver|lead|zinc|nickel|tin|brass|bronze|stainless_steel|rose_gold|rose_bronze|terranite|infernite|zenithite)_nugget"
+    ],
+    "lore": [
+      "{name}: ein Krümel Metall, klein genug, um ihn in einer Tasche zu verlieren."
+    ],
+    "use": [
+      "Neun ergeben einen Barren des Metalls, ein Barren gibt neun zurück. Laternen, Ketten und die Roségold-Karotten entstehen aus Klumpen."
+    ],
+    "secret": [
+      "Manche Funde kommen als Klumpen: End-Silbererz gibt Silberklumpen, Zinnseifen-Kies und -Sand geben Zinnklumpen. Klumpen der Riss-Metalle sind feuerfest."
+    ]
+  },
+  "family:rose_gold_tool": {
+    "items": [
+      "regex:rose_gold_(sword|pickaxe|axe|shovel|hoe)"
+    ],
+    "lore": [
+      "{name}: ein Werkzeug, so schnell wie Gold, das nicht so schnell aufgibt."
+    ],
+    "use": [
+      "Aus Roségoldbarren hergestellt wie das Vanilla-Werkzeug. Baut ab wie Eisen, Tempo 12 wie Gold, Haltbarkeit 225 (Eisen 250), Verzauberbarkeit 22. Repariert mit Roségoldbarren."
+    ],
+    "secret": [
+      "Die bessere der beiden Legierungen: schneller als Eisen und viel leichter zu verzaubern. Mit Simple Hammers bekommt Roségold auch einen Vorschlaghammer."
+    ]
+  },
+  "family:rose_bronze_tool": {
+    "items": [
+      "regex:rose_bronze_(sword|pickaxe|axe|shovel|hoe)"
+    ],
+    "lore": [
+      "{name}: ein kupferrosa Werkzeug, robust genug für einen Arbeitstag."
+    ],
+    "use": [
+      "Aus Rosenkupferbarren hergestellt wie das Vanilla-Werkzeug. Baut ab wie Eisen, Tempo 8, Haltbarkeit 190 wie Kupfer, Verzauberbarkeit 15. Repariert mit Rosenkupferbarren."
+    ],
+    "secret": [
+      "Trotz des reicheren Rezepts schwächer als Roségold: Wähle es wegen der Farbe. Mit Simple Hammers gibt es auch einen Vorschlaghammer daraus."
+    ]
+  },
+  "family:rose_gold_armor": {
+    "items": [
+      "regex:rose_gold_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: Rüstung mit zartrosa Glanz."
+    ],
+    "use": [
+      "Aus Roségoldbarren hergestellt wie Vanilla-Rüstung. Schutz 2/5/3/1 für Helm, Harnisch, Beinschutz und Stiefel, Haltbarkeit wie Eisen (Faktor 15), Verzauberbarkeit 25."
+    ],
+    "secret": [
+      "Verzauberbarkeit 25 wie Gold, und doch hält sie so lange wie Eisen: gute Rüstung zum Verzaubern."
+    ]
+  },
+  "family:rose_bronze_armor": {
+    "items": [
+      "regex:rose_bronze_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: Rüstung in dunklerem Kupferrosa."
+    ],
+    "use": [
+      "Aus Rosenkupferbarren hergestellt wie Vanilla-Rüstung. Schutz 2/4/3/1 wie Kupferrüstung, Haltbarkeitsfaktor 11, Verzauberbarkeit 12."
+    ],
+    "secret": [
+      "Roségold-Rüstung ist in jedem Wert stärker; Rosenkupfer-Rüstung ist ein Aussehen, keine Verbesserung."
+    ]
+  },
+  "family:enderite_tool": {
+    "items": [
+      "regex:enderite_(sword|spear|pickaxe|axe|shovel|hoe)"
+    ],
+    "lore": [
+      "{name}: aus Netherit geschmiedet, trägt es das End im Metall."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, das Netherit-Werkzeug und ein Enderitbarren. Haltbarkeit 2530 (Netherit 2031), Abbautempo 10, Verzauberbarkeit 18. Repariert mit Enderitbarren."
+    ],
+    "secret": [
+      "Feuerfest und vor der Leere sicher wie jeder Enderit-Gegenstand. Enderitspitzhacken sind die einzigen Spitzhacken, die Dimensionsschrott abbauen."
+    ]
+  },
+  "family:enderite_mount_armor": {
+    "items": [
+      "regex:enderite_(horse|nautilus)_armor"
+    ],
+    "lore": [
+      "{name}: Auch das Reittier verdient einen Mantel aus dem End."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, der Netherit-Rossharnisch bzw. die Netherit-Nautilusrüstung und ein Enderitbarren. 22 Rüstung statt 19, Härte 4, Rückstoßresistenz 0,2."
+    ],
+    "secret": [
+      "Keine Haltbarkeit, und sie lässt sich wie die Vanilla-Version abscheren. Feuerfest, vor der Leere sicher, und fallen gelassen hält sie doppelt so lange."
+    ]
+  },
+  "family:enderite_armor": {
+    "items": [
+      "regex:enderite_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: eine Schale für alle, die tief fallen und davonspazieren wollen."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, das Netherit-Teil und ein Enderitbarren. Ein Rüstungspunkt mehr als Netherit (4/9/7/4), Härte 4, Rückstoßresistenz 0,2, Verzauberbarkeit 18."
+    ],
+    "secret": [
+      "Feuerfest, vor der Leere sicher, und sie trägt Rüstungsbesätze wie jede Vanilla-Rüstung."
+    ]
+  },
+  "family:rose_carrot": {
+    "items": [
+      "regex:rose_(gold|bronze)_carrot"
+    ],
+    "lore": [
+      "{name}: eine goldene Karotte, die ein wenig rosa geworden ist."
+    ],
+    "use": [
+      "8 Klumpen der Legierung um eine Karotte, wie bei der goldenen Karotte. Rosenkupfer-Karotte 7 Hunger, Roségold-Karotte 8, Sättigungsfaktor 1,2 (goldene Karotte: 6 Hunger). Keine Effekte."
+    ],
+    "secret": [
+      "Klumpen, keine Barren: Acht Barren würden eine Karotte so teuer machen wie einen Apfel. Eine verzauberte Version gibt es nicht."
+    ]
+  },
+  "family:enchanted_rift_apple": {
+    "items": [
+      "regex:enchanted_(terranite|infernite|zenithite)_apple"
+    ],
+    "lore": [
+      "{name}: der Apfel der Dimension, mit einem Schimmer versehen."
+    ],
+    "use": [
+      "Acht Barren des Metalls um seinen Apfel. 6 Hunger, immer essbar. Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und 5:00 des Metall-Effekts (Eile, Feuerresistenz oder Sanfter Fall)."
+    ],
+    "secret": [
+      "Feuerfest wie die Barren, und er schimmert. Fünf Minuten Hilfe für den Bergbau, den Nether oder die End-Inseln."
+    ]
+  },
+  "family:rift_apple": {
+    "items": [
+      "regex:(terranite|infernite|zenithite)_apple"
+    ],
+    "lore": [
+      "{name}: ein goldener Apfel, der ein Geschenk seiner Dimension angenommen hat."
+    ],
+    "use": [
+      "Ein goldener Apfel und ein Barren des Metalls, formlos. 6 Hunger, immer essbar. Regeneration II 0:05, Absorption I 2:00, dazu 2:00 des Metall-Effekts: Terranit Eile, Infernit Feuerresistenz, Zenithit Sanfter Fall."
+    ],
+    "secret": [
+      "Feuerfest wie die Barren. Acht Barren des Metalls darum ergeben die verzauberte Version."
+    ]
+  },
+  "family:rift_carrot": {
+    "items": [
+      "regex:(terranite|infernite|zenithite)_carrot"
+    ],
+    "lore": [
+      "{name}: eine Karotte mit einer Prise Dimension darin."
+    ],
+    "use": [
+      "Acht goldene Karotten um einen Barren des Metalls ergeben 8. 8 Hunger wie die Roségold-Karotte, dazu 1:00 des Metall-Effekts: Terranit Eile, Infernit Feuerresistenz, Zenithit Sanfter Fall."
+    ],
+    "secret": [
+      "Feuerfest wie die Barren. Ein Barren ergibt acht Karotten, der günstigste Weg, den Effekt mitzunehmen."
+    ]
+  },
+  "family:line_redstone_block": {
+    "items": [
+      "regex:(astral|nihil|bridge)_redstone_block"
+    ],
+    "lore": [
+      "{name}: neun Staub, die nie aufhören, ihre Linie zu sprechen."
+    ],
+    "use": [
+      "Neun Redstone der Linie ergeben einen, und einer gibt die neun zurück. Eine dauerhafte Quelle wie der Redstone-Block: Signal 15 zu jeder Seite, und Kolben schieben ihn."
+    ],
+    "secret": [
+      "Er speist nur Staub seiner eigenen Linie und Brücken-Redstone (der Brücken-Block alle drei Linien), doch jedes Gerät daneben reagiert."
+    ]
+  },
+  "family:line_torch": {
+    "items": [
+      "regex:(astral|nihil)_redstone(_wall)?_torch"
+    ],
+    "lore": [
+      "{name}: eine Redstone-Fackel, die ihre Antwort in der Familie behält."
+    ],
+    "use": [
+      "Das Redstone der Linie über einem Stock ergibt eine. Wie die Redstone-Fackel ist sie ein Inverter: Sie geht aus, solange ihr Block von irgendeiner Linie gespeist wird, leuchtet mit Licht 7 und speist den Block über sich stark."
+    ],
+    "secret": [
+      "Ihr Ausgang gehört ihrer Linie: Staub ihrer Linie und Brücken-Redstone nehmen ihn an, anderer Staub bleibt dunkel, Geräte reagieren. Zu oft geschaltet, brennt sie durch."
+    ]
+  },
+  "family:wall_redstone": {
+    "items": [
+      "regex:(astral|bridge)_wall_redstone"
+    ],
+    "lore": [
+      "{name}: Staub, der klettert, wo Redstone herunterfallen würde."
+    ],
+    "use": [
+      "Entsteht, wenn du Astral- oder Brücken-Redstone auf die Seite oder Unterseite eines Blocks setzt; es lässt den Bodenstaub fallen. Es leitet wie Bodenstaub und läuft um die Kante seines Blocks auf die nächste Fläche."
+    ],
+    "secret": [
+      "Es speist den Block, an dem es haftet, stark und verbindet sich an der Kante mit Bodenstaub seiner Linie. Normaler Redstone-Staub bleibt am Boden."
+    ]
+  },
+  "family:wall_component": {
+    "items": [
+      "regex:wall_(repeater|comparator|signal_dampener)"
+    ],
+    "lore": [
+      "{name}: ein Bauteil, das eine Wand zum Stehen gefunden hat."
+    ],
+    "use": [
+      "Wird mit dem normalen Gegenstand auf die Seite oder Unterseite eines Blocks gesetzt, wo die Bodenversion nicht stehen kann, oder überall beim Schleichen; es lässt diesen Gegenstand fallen. Der Ausgang zeigt in der Wandebene von dir weg."
+    ],
+    "secret": [
+      "Rechtsklick stellt wie gewohnt Verzögerung, Modus oder Stufe ein. Der Wand-Verstärker sperrt nicht; der Wand-Komparator liest einen Behälter direkt dahinter."
+    ]
+  },
+  "family:end_rod": {
+    "items": [
+      "regex:(astralit|nihilith)_end_rod"
+    ],
+    "lore": [
+      "{name}: ein Endstab, der die Farben seiner Linie angenommen hat."
+    ],
+    "use": [
+      "Eine Lohenrute über Astralitstaub oder einem Nihilitsplitter ergibt 4. Er verhält sich genau wie der Endstab: Licht 14, Funken an der Spitze, zeigt von der angeklickten Fläche weg, sofort abgebaut."
+    ],
+    "secret": [
+      "Astralit: ein weißrosa Kristallstab auf dunkelrosa Fuß. Nihilit: ein blasscyaner Stab um eine dunkle Mitte auf blaugrünem Fuß."
+    ]
+  },
+  "family:line_lamp": {
+    "items": [
+      "regex:(astralit|nihilith)_lamp"
+    ],
+    "lore": [
+      "{name}: eine Lampe, die jeder Linie zuhört."
+    ],
+    "use": [
+      "Eine Redstone-Lampe und Astral- bzw. Nihil-Redstone, formlos. Sie nimmt jede Redstone-Linie an und schaltet wie eine Kupferleuchte: Jedes steigende Signal schaltet sie an oder aus, Licht 15."
+    ],
+    "secret": [
+      "Sie leitet nicht und reicht nichts weiter, eine Lampe trägt also nie ein Signal von einer Linie in eine andere."
+    ]
+  }
+}
