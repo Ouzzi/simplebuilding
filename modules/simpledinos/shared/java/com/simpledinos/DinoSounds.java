@@ -13,7 +13,7 @@ import net.minecraft.sounds.SoundEvent;
 /**
  * The dinosaurs' own voices (PLAN40 simpledinos-3; assets/simpledinos/sounds.json, two takes each, ElevenLabs sound generation, see
  * sounds/CREDITS.md). Same pattern as Simple Mobs' sounds: plain constants for the entities, {@link #registerAll} for Fabric and
- * {@link #forEach} for the RegisterEvent loaders. The Utahraptor gets its own set with its own order.
+ * {@link #forEach} for the RegisterEvent loaders. The Utahraptor's set is synthesized (tools/sounds/make_raptor_sounds.py), not ElevenLabs.
  */
 public final class DinoSounds {
     private static final Map<String, SoundEvent> ALL = new LinkedHashMap<>();
@@ -32,6 +32,12 @@ public final class DinoSounds {
     public static final SoundEvent PARASAUROLOPHUS_AMBIENT = make("entity.parasaurolophus.ambient");
     public static final SoundEvent PARASAUROLOPHUS_HURT = make("entity.parasaurolophus.hurt");
     public static final SoundEvent PARASAUROLOPHUS_DEATH = make("entity.parasaurolophus.death");
+    /** Release point 8 (b-dino82): procedurally synthesized, tools/sounds/make_raptor_sounds.py (no samples). */
+    public static final SoundEvent UTAHRAPTOR_AMBIENT = make("entity.utahraptor.ambient");
+    public static final SoundEvent UTAHRAPTOR_HURT = make("entity.utahraptor.hurt");
+    public static final SoundEvent UTAHRAPTOR_DEATH = make("entity.utahraptor.death");
+    public static final SoundEvent UTAHRAPTOR_ANGRY = make("entity.utahraptor.angry");
+    public static final SoundEvent UTAHRAPTOR_STEP = make("entity.utahraptor.step");
 
     private static SoundEvent make(String name) {
         SoundEvent ev = SoundEvent.createVariableRangeEvent(SimpleDinos.id(name));

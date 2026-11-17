@@ -96,5 +96,42 @@
       "simpledinos:entity/parasaurolophus/death2"
     ],
     "subtitle": "subtitles.simpledinos.entity.parasaurolophus.death"
+  },
+  "entity.utahraptor.ambient": {
+    "sounds": [
+      "simpledinos:entity/utahraptor/ambient1",
+      "simpledinos:entity/utahraptor/ambient2",
+      "simpledinos:entity/utahraptor/ambient3"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.utahraptor.ambient"
+  },
+  "entity.utahraptor.hurt": {
+    "sounds": [
+      "simpledinos:entity/utahraptor/hurt1",
+      "simpledinos:entity/utahraptor/hurt2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.utahraptor.hurt"
+  },
+  "entity.utahraptor.death": {
+    "sounds": [
+      "simpledinos:entity/utahraptor/death1",
+      "simpledinos:entity/utahraptor/death2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.utahraptor.death"
+  },
+  "entity.utahraptor.angry": {
+    "sounds": [
+      "simpledinos:entity/utahraptor/angry1",
+      "simpledinos:entity/utahraptor/angry2"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.utahraptor.angry"
+  },
+  "entity.utahraptor.step": {
+    "sounds": [
+      "simpledinos:entity/utahraptor/step1",
+      "simpledinos:entity/utahraptor/step2",
+      "simpledinos:entity/utahraptor/step3"
+    ],
+    "subtitle": "subtitles.simpledinos.entity.utahraptor.step"
   }
 }

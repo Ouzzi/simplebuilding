@@ -149,6 +149,16 @@ public final class DinosRegistry {
     /** b-utah48 (concept DINO36 6): brushed off a grown Utahraptor; one gives three Vanilla feathers. */
     public static final Item RAPTOR_FEATHER;
 
+    /**
+     * P3-5 (b-dino82): the kind of egg a fossil holds ({@link DinoKind} ordinal) on its item. The Silk Touch drop copies it from the
+     * block ({@code copy_components}), placing the item gives it back ({@link FossilBlockEntity#applyImplicitComponents}), so moving a
+     * fossil never rolls a new kind. Items without it (creative, older stacks) roll at the place they are set down.
+     */
+    public static final net.minecraft.core.component.DataComponentType<Integer> FOSSIL_SORT = net.minecraft.core.component.DataComponentType.<Integer>builder()
+            .persistent(com.mojang.serialization.Codec.intRange(0, DinoKind.values().length - 1))
+            .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT).build();
+    public static final ResourceKey<net.minecraft.core.component.DataComponentType<?>> FOSSIL_SORT_KEY =
+            ResourceKey.create(Registries.DATA_COMPONENT_TYPE, SimpleDinos.id("fossil_sort"));
     public static BlockEntityType<FossilBlockEntity> FOSSIL_BE;
     public static BlockEntityType<DinoEggBlockEntity> EGG_BE;
 
@@ -271,6 +281,10 @@ public final class DinosRegistry {
         sink.accept(UTAHRAPTOR_KEY, UTAHRAPTOR);
     }
 
+    public static void dataComponents(BiConsumer<ResourceKey<net.minecraft.core.component.DataComponentType<?>>, net.minecraft.core.component.DataComponentType<?>> sink) {
+        sink.accept(FOSSIL_SORT_KEY, FOSSIL_SORT);
+    }
+
     public static Set<Block> fossilBlocks() {
         return Set.of(FOSSIL);
     }
@@ -287,6 +301,7 @@ public final class DinosRegistry {
 
     /** Fabric: registries are open during init. */
     public static void registerAll() {
+        dataComponents((k, v) -> Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, k, v));
         blocks((k, v) -> Registry.register(BuiltInRegistries.BLOCK, k, v));
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
         entityTypes((k, v) -> Registry.register(BuiltInRegistries.ENTITY_TYPE, k, v));

@@ -40,6 +40,8 @@ for b in BLOCKS:
     assert table['type'] == 'minecraft:block', b
 fossil = json.dumps(json.loads((RES / f'data/{NS}/loot_table/blocks/fossil_block.json').read_text(encoding='utf-8')))
 assert 'minecraft:tool/can_silk_touch' in fossil and 'minecraft:bone' in fossil
+# P3-5 (b-dino82): the Silk Touch drop carries the kind of egg, so relocating a fossil cannot choose it
+assert 'minecraft:copy_components' in fossil and f'{NS}:fossil_sort' in fossil, 'fossil drop must copy simpledinos:fossil_sort'
 # Recipes with their unlocking advancement.
 for r in ('large_saddle',) + ARMORS + TRI_ARMORS + STEGO_ARMORS + ('dino_plow',) + PARA_ARMORS + RAPTOR_ARMORS:
     recipe = json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))
@@ -123,6 +125,19 @@ import subprocess, sys
 for script in ('gen_models.py', 'gen_blocks.py'):
     r = subprocess.run([sys.executable, str(MODULE / 'tools' / script), '--check'], capture_output=True, text=True)
     assert r.returncode == 0, (script, r.stdout.strip())
+# Sounds (b-dino82): every DinoSounds event has a sounds.json entry, its .ogg files and an EN+DE subtitle; the Utahraptor has its own set.
+sound_names = re.findall(r'make\("([a-z_.]+)"\)', (JAVA / 'DinoSounds.java').read_text(encoding='utf-8'))
+sounds = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
+assert set(sound_names) == set(sounds), ('DinoSounds vs sounds.json', sorted(set(sound_names) ^ set(sounds)))
+for name, entry in sounds.items():
+    for snd in entry['sounds']:
+        path = snd if isinstance(snd, str) else snd['name']
+        assert path.startswith(f'{NS}:'), (name, path)
+        assert (RES / f'assets/{NS}/sounds/{path.split(":", 1)[1]}.ogg').is_file(), (name, path)
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(entry['subtitle']), (locale, entry['subtitle'])
+for ev in ('ambient', 'hurt', 'death', 'angry', 'step'):
+    assert f'entity.utahraptor.{ev}' in sounds, ev
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 config = next(f for f in manual['features'] if f['id'] == 'config_server')
 for locale in ('en', 'de'):

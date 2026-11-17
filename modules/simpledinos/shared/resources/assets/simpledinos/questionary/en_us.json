@@ -7,7 +7,7 @@
       "Brush it with the Vanilla brush for about a minute to free a dinosaur egg. Pausing makes the progress run back at twice the speed. Mine it with Silk Touch to keep the block."
     ],
     "secret": [
-      "Which egg sleeps inside depends only on the place where the block lies."
+      "Which egg sleeps inside depends on the place where the block was found. Mined with Silk Touch it keeps that egg wherever you set it down again."
     ]
   },
   "trex_egg": {

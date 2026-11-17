@@ -439,6 +439,68 @@ public final class DinosTests {
             for (int i = 0; i < 20; i++) h.assertTrue(a.kind() == first, "the kind never rerolls");
             h.succeed();
         });
+        // Release point 8 (b-dino82): the Utahraptor's own voice events are registered (sounds.json, files and subtitles: check_data.py).
+        ALL.put("utahraptor_has_own_voice", h -> {
+            for (String ev : List.of("ambient", "hurt", "death", "angry", "step")) {
+                var id = SimpleDinos.id("entity.utahraptor." + ev);
+                h.assertTrue(BuiltInRegistries.SOUND_EVENT.containsKey(id), "sound event registered: " + id);
+                h.assertTrue(com.simpledinos.DinoSounds.names().contains("entity.utahraptor." + ev), "DinoSounds owns " + id);
+            }
+            h.succeed();
+        });
+        // P3-5 (b-dino82): a fossil mined with Silk Touch carries its kind; set down elsewhere it keeps it instead of rolling again.
+        ALL.put("fossil_silk_touch_keeps_kind", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos from = at(2, 2);
+            FossilBlockEntity found = fossil(h, from);
+            DinoKind kind = found.kind();
+            ItemStack silk = new ItemStack(Items.DIAMOND_PICKAXE);
+            silk.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH), 1);
+            BlockPos fromAbs = h.absolutePos(from);
+            List<ItemStack> drops = Block.getDrops(level.getBlockState(fromAbs), level, fromAbs, found, null, silk);
+            ItemStack item = drops.stream().filter(s -> s.is(DinosRegistry.FOSSIL_ITEM)).findFirst().orElse(ItemStack.EMPTY);
+            h.assertTrue(!item.isEmpty(), "Silk Touch keeps the fossil: " + drops);
+            h.assertTrue(Integer.valueOf(kind.ordinal()).equals(item.get(DinosRegistry.FOSSIL_SORT)),
+                    "the drop carries the kind " + kind + ": " + item.getComponentsPatch());
+            h.setBlock(from, Blocks.AIR);
+            // A spot where a fresh fossil rolls another kind (the roll is seeded by the position).
+            BlockPos to = null;
+            DinoKind rolledThere = null;
+            for (int x = 1; x <= 6 && to == null; x++) {
+                for (int z = 1; z <= 6 && to == null; z++) {
+                    if (x == 2 && z == 2) continue;
+                    BlockPos p = at(x, z);
+                    DinoKind there = fossil(h, p).kind();
+                    h.setBlock(p, Blocks.AIR);
+                    if (there != kind) {
+                        to = p;
+                        rolledThere = there;
+                    }
+                }
+            }
+            h.assertTrue(to != null, "a spot that rolls another kind than " + kind);
+            h.setBlock(to.below(), Blocks.STONE);
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            player.setPos(Vec3.atCenterOf(h.absolutePos(to)).add(0, 2.5, 0));
+            BlockPos below = h.absolutePos(to.below());
+            var hit = new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(below).add(0, 0.5, 0), net.minecraft.core.Direction.UP, below, false);
+            ItemStack carried = item.copy();
+            player.setItemInHand(InteractionHand.MAIN_HAND, carried);
+            carried.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit));
+            h.assertTrue(h.getBlockState(to).is(DinosRegistry.FOSSIL), "the carried fossil is set down");
+            DinoKind moved = ((FossilBlockEntity) level.getBlockEntity(h.absolutePos(to))).kind();
+            h.assertTrue(moved == kind, "the moved fossil keeps " + kind + " (the spot would roll " + rolledThere + "), got " + moved);
+            // An item without a kind (creative, older stacks) still rolls at the spot.
+            h.setBlock(to, Blocks.AIR);
+            ItemStack plain = new ItemStack(DinosRegistry.FOSSIL_ITEM);
+            player.setItemInHand(InteractionHand.MAIN_HAND, plain);
+            plain.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit));
+            h.assertTrue(h.getBlockState(to).is(DinosRegistry.FOSSIL), "the plain fossil is set down");
+            DinoKind fresh = ((FossilBlockEntity) level.getBlockEntity(h.absolutePos(to))).kind();
+            h.assertTrue(fresh == rolledThere, "a plain fossil rolls the spot's kind " + rolledThere + ", got " + fresh);
+            h.succeed();
+        });
 
         // --- egg: sitting, brooding ---------------------------------------------------------------------------------------------
         ALL.put("egg_brooding_phases_and_lock", h -> {

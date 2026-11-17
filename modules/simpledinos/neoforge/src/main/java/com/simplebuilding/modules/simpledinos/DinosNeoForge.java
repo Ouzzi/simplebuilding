@@ -27,6 +27,7 @@ public final class DinosNeoForge {
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
+            if (key.equals(Registries.DATA_COMPONENT_TYPE)) event.register(Registries.DATA_COMPONENT_TYPE, h -> DinosRegistry.dataComponents(h::register));
             if (key.equals(Registries.BLOCK)) event.register(Registries.BLOCK, h -> DinosRegistry.blocks(h::register));
             if (key.equals(Registries.ITEM)) event.register(Registries.ITEM, h -> DinosRegistry.items(h::register));
             if (key.equals(Registries.ENTITY_TYPE)) event.register(Registries.ENTITY_TYPE, h -> DinosRegistry.entityTypes(h::register));

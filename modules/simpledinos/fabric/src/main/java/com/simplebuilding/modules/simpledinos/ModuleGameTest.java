@@ -70,6 +70,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void utahraptorHasOwnVoice(GameTestHelper h) {
+        DinosTests.ALL.get("utahraptor_has_own_voice").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void fossilSilkTouchKeepsKind(GameTestHelper h) {
+        DinosTests.ALL.get("fossil_silk_touch_keeps_kind").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void eggBroodingPhasesAndLock(GameTestHelper h) {
         DinosTests.ALL.get("egg_brooding_phases_and_lock").accept(h);
     }

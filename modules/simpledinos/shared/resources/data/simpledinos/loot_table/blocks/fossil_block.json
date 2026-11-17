@@ -9,7 +9,16 @@
             {
               "type": "minecraft:item",
               "condition": "minecraft:tool/can_silk_touch",
-              "name": "simpledinos:fossil_block"
+              "name": "simpledinos:fossil_block",
+              "modifier": [
+                {
+                  "type": "minecraft:copy_components",
+                  "include": [
+                    "simpledinos:fossil_sort"
+                  ],
+                  "source": "block_entity"
+                }
+              ]
             },
             {
               "type": "minecraft:item",

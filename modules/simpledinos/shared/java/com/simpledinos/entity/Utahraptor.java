@@ -56,8 +56,8 @@ import org.jspecify.annotations.Nullable;
  * and its rider. Brushing a grown raptor gives a raptor feather every {@link DinosConfig#raptorFeatherMinutes}. It never fights: hurt, it
  * flees fast.
  *
- * <p>Sounds are Vanilla placeholders (parrot, fox, block hit sounds for the scratching) until the own recordings (R14, Simple Dinos voices
- * branch b-w2c {@code DinoSounds}: replace when bundling).
+ * <p>Its voice is its own (release point 8, b-dino82): chirps, a squawk, a falling screech, a hiss and light talon steps, synthesized by
+ * tools/sounds/make_raptor_sounds.py ({@code DinoSounds.UTAHRAPTOR_*}). The scratching at a wall stays the wall's own hit sound.
  */
 public class Utahraptor extends Dino {
     /** Drawn at three quarters of life size, as the other dinosaurs. */
@@ -393,43 +393,43 @@ public class Utahraptor extends Dino {
         return armorTier(getItemBySlot(EquipmentSlot.BODY));
     }
 
-    // Placeholders until the own recordings (R14; b-w2c DinoSounds when bundling): chirps = parrot, hiss = fox, cry = fox screech.
+    // Release point 8 (b-dino82): the raptor's own voice, synthesized (tools/sounds/make_raptor_sounds.py), no Vanilla placeholders.
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.liquid()) playSound(SoundEvents.CHICKEN_STEP.value(), 0.5F, 0.6F);
+        if (!state.liquid()) playSound(com.simpledinos.DinoSounds.UTAHRAPTOR_STEP, 0.6F, isBaby() ? 1.3F : 1.0F);
     }
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.PARROT_AMBIENT;
+        return com.simpledinos.DinoSounds.UTAHRAPTOR_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.FOX_HURT;
+        return com.simpledinos.DinoSounds.UTAHRAPTOR_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.FOX_SCREECH;
+        return com.simpledinos.DinoSounds.UTAHRAPTOR_DEATH;
     }
 
     @Override
     protected @Nullable SoundEvent getAngrySound() {
-        return SoundEvents.FOX_AGGRO;
+        return com.simpledinos.DinoSounds.UTAHRAPTOR_ANGRY;
     }
 
-    /** Smaller than the big dinosaurs: the voice stays near the Vanilla pitch (a hatchling chirps higher). */
+    /** The own takes are made at the grown raptor's pitch: it varies a little around 1.0, a hatchling chirps higher. */
     @Override
     public float getVoicePitch() {
-        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + (isBaby() ? 1.4F : 0.75F);
+        return (this.random.nextFloat() - this.random.nextFloat()) * 0.15F + (isBaby() ? 1.35F : 1.0F);
     }
 
     /** Hurt by a living thing other than its rider: an angry hiss (the flight is the panic goal without a rider). */
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
         boolean hurt = super.hurtServer(level, source, damage);
-        if (hurt && isAlive() && source.getEntity() instanceof Entity attacker && !hasPassenger(attacker)) playSound(SoundEvents.FOX_AGGRO, 1.0F, 0.7F);
+        if (hurt && isAlive() && source.getEntity() instanceof Entity attacker && !hasPassenger(attacker)) playSound(com.simpledinos.DinoSounds.UTAHRAPTOR_ANGRY, 1.0F, getVoicePitch());
         return hurt;
     }
 }

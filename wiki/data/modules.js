@@ -1989,7 +1989,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 10
     },
-    "dataHash": "c2cb6a674644"
+    "dataHash": "f1893ffbc209"
   },
   {
     "id": "simpleores",

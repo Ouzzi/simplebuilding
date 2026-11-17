@@ -31,7 +31,7 @@
         "summary": "A very rare find in the underground of deserts, badlands and swamps. Mined with Silk Touch it stays a block; without it, it breaks into up to two bones and the find is lost. Brush it with the Vanilla brush: after about a minute of brushing, a dinosaur egg falls out.",
         "details": [
           "Brushing fills a progress of 45 seconds (setting brushSeconds); ten visible stages show the bones coming out. If you stop for more than a quarter of a second, the progress runs back at twice the speed: a pause of 1 second takes 2 seconds of progress away.",
-          "Which egg is inside follows from the block's position, so stopping and starting again never changes it. Only dinosaurs that already hatch are found: the T. rex, the Triceratops, the Stegosaurus and the Parasaurolophus (weights 10 : 25 : 25 : 20). The find site shifts the odds: in deserts the T. rex and the Triceratops count 1.5 times, in badlands the Utahraptor twice and the Stegosaurus 1.5 times, in swamps and mangrove swamps the Parasaurolophus twice.",
+          "Which egg is inside follows from the block's position, so stopping and starting again never changes it. A fossil mined with Silk Touch takes its egg along: set down elsewhere it keeps it, so moving it never changes the egg. Only dinosaurs that already hatch are found: the T. rex, the Triceratops, the Stegosaurus and the Parasaurolophus (weights 10 : 25 : 25 : 20). The find site shifts the odds: in deserts the T. rex and the Triceratops count 1.5 times, in badlands the Utahraptor twice and the Stegosaurus 1.5 times, in swamps and mangrove swamps the Parasaurolophus twice.",
           "Generation: one cluster of up to 3 blocks in roughly every fourth chunk of desert, badlands, swamp and mangrove swamp, height -10 to 50, in stone and sandstone. After brushing, a sandstone block is left, and sometimes a bone."
         ]
       },
@@ -40,7 +40,7 @@
         "summary": "Ein sehr seltener Fund im Untergrund von Wüsten, Badlands und Sümpfen. Mit Behutsamkeit abgebaut bleibt er ein Block; ohne bricht er in bis zu zwei Knochen und der Fund geht verloren. Mit dem Vanilla-Pinsel freilegen: nach etwa einer Minute Pinseln fällt ein Dinosaurier-Ei heraus.",
         "details": [
           "Das Pinseln füllt einen Fortschritt von 45 Sekunden (Einstellung brushSeconds); zehn sichtbare Stufen zeigen, wie die Knochen herauskommen. Hörst du länger als eine Viertelsekunde auf, läuft der Fortschritt doppelt so schnell zurück: 1 Sekunde Pause nimmt 2 Sekunden Fortschritt weg.",
-          "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. Es stecken nur Dinosaurier darin, die schon schlüpfen: T-Rex, Triceratops, Stegosaurus und Parasaurolophus (Gewichte 10 : 25 : 25 : 20). Der Fundort verschiebt die Chancen: in Wüsten zählen T-Rex und Triceratops 1,5-fach, in Badlands der Utahraptor doppelt und der Stegosaurus 1,5-fach, in Sümpfen und Mangrovensümpfen der Parasaurolophus doppelt.",
+          "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. Ein mit Behutsamkeit abgebauter Fossilienblock nimmt sein Ei mit: woanders gesetzt behält er es, Versetzen ändert das Ei also nie. Es stecken nur Dinosaurier darin, die schon schlüpfen: T-Rex, Triceratops, Stegosaurus und Parasaurolophus (Gewichte 10 : 25 : 25 : 20). Der Fundort verschiebt die Chancen: in Wüsten zählen T-Rex und Triceratops 1,5-fach, in Badlands der Utahraptor doppelt und der Stegosaurus 1,5-fach, in Sümpfen und Mangrovensümpfen der Parasaurolophus doppelt.",
           "Generierung: ein Vorkommen von bis zu 3 Blöcken in etwa jedem vierten Chunk von Wüste, Badlands, Sumpf und Mangrovensumpf, Höhe -10 bis 50, in Stein und Sandstein. Nach dem Pinseln bleibt ein Sandsteinblock übrig, manchmal ein Knochen."
         ]
       }
@@ -227,7 +227,7 @@
           "Raptor feathers: brush a grown Utahraptor with the Vanilla brush (like an armadillo) for a raptor feather, then it needs 10 minutes (setting raptorFeatherMinutes). One raptor feather crafts into three feathers: arrows and book and quill without a chicken farm.",
           "It never fights: hurt, it hisses and runs away fast when nobody rides it. Food: meat; raw chicken and raw rabbit are its favourites (heal 4 hearts), other meat heals 2 hearts; feeding a hatchling speeds its growth up.",
           "Head and tail have part hitboxes (one box each). When something stands in front, the S-neck stands up and the head comes back over the chest; the long stiff tail bends to the free side.",
-          "Large saddle and Utahraptor armor (leather, iron, diamond: a neck guard, a chest plate and shin guards; the sickle claws stay free) go on like on a horse. Sounds are Vanilla sounds for now (parrot chirps, fox hiss, the wall's own sound when it scratches)."
+          "Large saddle and Utahraptor armor (leather, iron, diamond: a neck guard, a chest plate and shin guards; the sickle claws stay free) go on like on a horse. It has its own voice: chirps and a throat trill, a squawk when hurt, a falling screech when it dies, a hiss when attacked and light talon steps (synthesized, no samples); scratching at a wall uses the wall's own sound."
         ]
       },
       "de": {
@@ -240,7 +240,7 @@
           "Raptorfedern: einen erwachsenen Utahraptor mit dem Vanilla-Pinsel bürsten (wie das Gürteltier) gibt eine Raptorfeder, danach braucht er 10 Minuten (Einstellung raptorFeatherMinutes). Eine Raptorfeder ergibt drei Federn: Pfeile und Buch und Feder ohne Hühnerfarm.",
           "Er kämpft nie: verletzt faucht er und flieht schnell, wenn ihn niemand reitet. Futter: Fleisch; rohes Huhn und rohes Kaninchen frisst er am liebsten (heilen 4 Herzen), anderes Fleisch heilt 2 Herzen; Füttern beschleunigt das Wachstum eines Jungtiers.",
           "Kopf und Schwanz haben Teil-Hitboxen (je eine Box). Steht etwas davor, richtet sich der S-Hals auf und der Kopf kommt über die Brust zurück; der lange steife Schwanz biegt zur freien Seite.",
-          "Großer Sattel und Utahraptor-Rüstung (Leder, Eisen, Diamant: Halsschutz, Brustplatte und Schienbeinschoner; die Sichelkrallen bleiben frei) legt man wie beim Pferd an. Die Geräusche sind vorerst Vanilla-Geräusche (Papagei-Zirpen, Fuchs-Fauchen, beim Kratzen das Geräusch der Wand)."
+          "Großer Sattel und Utahraptor-Rüstung (Leder, Eisen, Diamant: Halsschutz, Brustplatte und Schienbeinschoner; die Sichelkrallen bleiben frei) legt man wie beim Pferd an. Er hat eine eigene Stimme: Zirpen und ein Kehltriller, ein Kreischen bei Verletzung, ein abfallender Schrei beim Sterben, ein Fauchen bei Angriffen und leichte Krallenschritte (synthetisiert, ohne Samples); beim Kratzen erklingt das Geräusch der Wand."
         ]
       }
     },
@@ -2919,10 +2919,10 @@
           "modules/simpledinos/shared/java/com/simpledinos/block/FossilBlock.java"
         ],
         "en": {
-          "summary": "A rare underground find. Brush it with the Vanilla brush for about a minute to free a dinosaur egg; Silk Touch keeps the block."
+          "summary": "A rare underground find. Brush it with the Vanilla brush for about a minute to free a dinosaur egg; Silk Touch keeps the block, and the block keeps its egg when it is moved."
         },
         "de": {
-          "summary": "Ein seltener Fund im Untergrund. Etwa eine Minute mit dem Vanilla-Pinsel pinseln, dann fällt ein Dinosaurier-Ei heraus; mit Behutsamkeit bleibt der Block erhalten."
+          "summary": "Ein seltener Fund im Untergrund. Etwa eine Minute mit dem Vanilla-Pinsel pinseln, dann fällt ein Dinosaurier-Ei heraus; mit Behutsamkeit bleibt der Block erhalten und behält beim Versetzen sein Ei."
         }
       },
       "questionary": {
@@ -2934,7 +2934,7 @@
             "Brush it with the Vanilla brush for about a minute to free a dinosaur egg. Pausing makes the progress run back at twice the speed. Mine it with Silk Touch to keep the block."
           ],
           "secret": [
-            "Which egg sleeps inside depends only on the place where the block lies."
+            "Which egg sleeps inside depends on the place where the block was found. Mined with Silk Touch it keeps that egg wherever you set it down again."
           ]
         },
         "de": {
@@ -2945,7 +2945,7 @@
             "Etwa eine Minute mit dem Vanilla-Pinsel pinseln, dann fällt ein Dinosaurier-Ei heraus. Pausen lassen den Fortschritt doppelt so schnell zurücklaufen. Mit Behutsamkeit abbauen, um den Block zu behalten."
           ],
           "secret": [
-            "Welches Ei darin schläft, hängt nur vom Ort ab, an dem der Block liegt."
+            "Welches Ei darin schläft, hängt vom Fundort des Blocks ab. Mit Behutsamkeit abgebaut, behält er dieses Ei, wo immer du ihn wieder hinsetzt."
           ]
         }
       },

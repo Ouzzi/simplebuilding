@@ -5,6 +5,8 @@ import com.simpledinos.DinosRegistry;
 import com.simpledinos.Progress;
 import com.simpledinos.config.DinosConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,7 +24,8 @@ import net.minecraft.world.level.storage.ValueOutput;
 /**
  * Brushing state of a fossil block: which egg is inside ({@link #kind}, rolled from the position so that stopping and starting
  * again never rerolls it) and the {@link Progress} (about 60 s of brushing; after a pause of {@link #GRACE} ticks it runs back by
- * two ticks per tick).
+ * two ticks per tick). The kind travels with the block: a Silk Touch drop carries it ({@link DinosRegistry#FOSSIL_SORT}) and the placed
+ * item hands it back, so relocating a fossil never rolls a new kind (audit P3-5).
  */
 public class FossilBlockEntity extends BlockEntity {
     /** A brusher is checked every tick; a gap of 5 ticks (0.25 s) is still "brushing". */
@@ -89,6 +92,28 @@ public class FossilBlockEntity extends BlockEntity {
         level.levelEvent(2001, pos, Block.getId(state));
         level.playSound(null, pos, SoundEvents.BRUSH_SAND_COMPLETED, SoundSource.BLOCKS, 1.0F, 1.0F);
         level.setBlock(pos, Blocks.SANDSTONE.defaultBlockState(), Block.UPDATE_ALL);
+    }
+
+    /** P3-5: a fossil placed from an item that carries a kind keeps that kind instead of rolling at the new place. */
+    @Override
+    protected void applyImplicitComponents(DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        Integer stored = components.get(DinosRegistry.FOSSIL_SORT);
+        if (stored != null) this.sort = DinoKind.byIndex(stored).ordinal();
+    }
+
+    /** P3-5: the kind (rolled now at the find site if it was not yet) goes onto the Silk Touch drop and the creative pick. */
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        components.set(DinosRegistry.FOSSIL_SORT, kind().ordinal());
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void removeComponentsFromTag(ValueOutput output) {
+        super.removeComponentsFromTag(output);
+        output.discard("sort");
     }
 
     @Override

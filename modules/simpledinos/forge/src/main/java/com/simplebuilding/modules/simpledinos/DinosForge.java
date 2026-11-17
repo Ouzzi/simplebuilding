@@ -19,6 +19,7 @@ public final class DinosForge {
         SimpleDinos.init(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
+            if (key.equals(Registries.DATA_COMPONENT_TYPE)) event.register(Registries.DATA_COMPONENT_TYPE, r -> DinosRegistry.dataComponents(r::register));
             if (key.equals(Registries.BLOCK)) event.register(Registries.BLOCK, r -> DinosRegistry.blocks(r::register));
             if (key.equals(Registries.ITEM)) event.register(Registries.ITEM, r -> DinosRegistry.items(r::register));
             if (key.equals(Registries.ENTITY_TYPE)) event.register(Registries.ENTITY_TYPE, r -> DinosRegistry.entityTypes(r::register));
