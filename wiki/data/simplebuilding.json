@@ -75515,6 +75515,14 @@
         {
           "id": "simplechisels:enderite_chisel",
           "required": true
+        },
+        {
+          "id": "simplechisels:rose_bronze_chisel",
+          "required": true
+        },
+        {
+          "id": "simplechisels:rose_gold_chisel",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/chisel_tools.json"
