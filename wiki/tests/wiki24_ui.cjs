@@ -145,9 +145,10 @@ async function run(browser, base, opts) {
   const some = await page.locator('.qn-item').count();
   ok(some > 0 && some < all, tag + ' questionary search');
   await page.locator('.qn-item').first().click(); await page.locator('#qn-open').waitFor();
-  ok(await page.locator('#qn-open .gb-page').count() === 3, tag + ' three pages');
+  // N80: the book of the table: three bookmarks, a text page and a picture page (QuestionaryScreen)
+  ok(await page.locator('#qn-open .qn-ribbon').count() === 3 && await page.locator('#qn-open .qn-text').count() === 2, tag + ' three pages');
   ok(/questionary=|\/questionary\/[^/?#]+/.test(page.url()), tag + ' entry in the address'); // N74 path form: /<mod>/questionary/<entry>
-  worst.push(['questionary', await contrast(page, '#qn-open .gb-page *, .qn-item span, .qn-filters .chip')]);
+  worst.push(['questionary', await contrast(page, '#qn-open .qn-text *, .qn-item span, .qn-filters .chip')]);
   await page.click('[data-qn-close]'); await page.waitForTimeout(150);
   ok(await page.locator('#qn-open').count() === 0, tag + ' close');
   await page.click('[data-qn-view="families"]'); await page.waitForTimeout(150);

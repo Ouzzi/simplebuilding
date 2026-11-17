@@ -18,6 +18,15 @@ import zipfile
 from pathlib import Path
 
 GUIDE_TARGET = 'data/guidebook.js'
+# N80: the book sheet of the guide screens (own art, ModpackGuideBar.TEXTURE) for the wiki's book view.
+BOOK_TEXTURE = 'modules/simplelib/shared/resources/assets/simplelib/textures/gui/modpack_guide/book.png'
+BOOK_TARGET = 'assets/books/book.png'
+GUIDE_UI = {'tagline': 'tooltip.simplelib.modpack_guide', 'contents': 'gui.simplelib.modpack_guide.contents',
+            'previous': 'gui.simplelib.modpack_guide.previous', 'next': 'gui.simplelib.modpack_guide.next'}
+# N80: the Questionary screen's texts (QuestionaryScreen), keys under screen.simplequestionary. plus the table's name.
+QUESTIONARY_UI = ('page.lore', 'page.use', 'page.secret', 'welcome.title', 'welcome.1', 'welcome.2', 'empty',
+                  'facts.none', 'sheet.plate', 'sheet.family', 'sheet.recipe', 'sheet.origin', 'sheet.lens',
+                  'sheet.texture', 'sheet.empty')
 QUESTIONARY_TARGET = 'data/questionary.js'
 KEYBINDS = {'%1$s': 'K', '%2$s': 'B'}   # default keys of the two keybinds every SimpleBuilding chapter text gets
 
@@ -252,8 +261,12 @@ def guide_data(repo, entries, lang):
             contributions.append(contribution)
     contributions.sort(key=lambda c: c['namespace'])
     book = _sb_book(repo, lang)
-    return {'contributions': contributions, 'simplebuilding': book,
-            'ui': {k: _both(lang, 'book.simplebuilding.' + k) for k in ('back',) if _both(lang, 'book.simplebuilding.' + k)}}
+    ui = {k: _both(lang, 'book.simplebuilding.' + k) for k in ('back',) if _both(lang, 'book.simplebuilding.' + k)}
+    # N80: the texts of SimpleLib's book screen (tagline under the section title on the contents page).
+    for key, lang_key in GUIDE_UI.items():
+        if _both(lang, lang_key):
+            ui[key] = _both(lang, lang_key)
+    return {'contributions': contributions, 'simplebuilding': book, 'ui': ui}
 
 
 # ---------------------------------------------------------------------------
@@ -348,6 +361,9 @@ def sync(g, check=False):
         lang[locale] = {**table, **lang[locale]}
     guide = guide_data(g.REPO, entries, lang)
     quest = questionary_data(g.REPO, entries)
+    quest['ui'] = {k: _both(lang, 'screen.simplequestionary.' + k) for k in QUESTIONARY_UI if _both(lang, 'screen.simplequestionary.' + k)}
+    if _both(lang, 'block.simplequestionary.questionary_table'):
+        quest['ui']['table'] = _both(lang, 'block.simplequestionary.questionary_table')
     ids = set()
     _collect_ids(guide, ids)
     for ns, value in quest['namespaces'].items():
@@ -363,4 +379,12 @@ def sync(g, check=False):
                 problems.append(f'wiki/{target.relative_to(g.WIKI).as_posix()} is OUT OF DATE (python wiki/generate.py --all)')
         else:
             g.write_atomic(target, text)
+    texture, copy = g.REPO / BOOK_TEXTURE, g.WIKI / BOOK_TARGET
+    if texture.exists():
+        if check:
+            if not copy.exists() or copy.read_bytes() != texture.read_bytes():
+                problems.append(f'wiki/{BOOK_TARGET} is OUT OF DATE (python wiki/generate.py --all)')
+        elif not copy.exists() or copy.read_bytes() != texture.read_bytes():
+            copy.parent.mkdir(parents=True, exist_ok=True)
+            copy.write_bytes(texture.read_bytes())
     return problems
