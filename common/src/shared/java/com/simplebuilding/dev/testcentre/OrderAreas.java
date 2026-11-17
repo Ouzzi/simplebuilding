@@ -311,7 +311,8 @@ public final class OrderAreas {
             "deepslate_brick", "minecraft:reinforced_deepslate",
             "deepslate_tile", "simpleblocks:sculk_tiles");
 
-    private static final List<String> ROW_SUFFIXES = List.of("_octet", "_stairs", "_slab", "_wall", "_fence_gate", "_fence",
+    // N86: "_half_slab" vor "_slab" (endet auch auf "_slab"; sonst Reihe "x_half").
+    private static final List<String> ROW_SUFFIXES = List.of("_octet", "_stairs", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence",
             "_pressure_plate", "_button", "_pane", "_bars", "_trapdoor", "_door", "_sheet", "_plate");
 
     /**
@@ -388,6 +389,9 @@ public final class OrderAreas {
         Map<String, Slot> bySuffix = new LinkedHashMap<>();
         bySuffix.put("_octet", Slot.OCTET);
         bySuffix.put("_stairs", Slot.STAIRS);
+        // N86-8: Halbstufe vor "_slab" pruefen. Bis zur Spalte HALF_SLAB (Config-Migration layout_lines_*, eigener Commit)
+        // steht sie unter "weitere" der Reihe; danach hier Slot.HALF_SLAB.
+        bySuffix.put("_half_slab", Slot.OTHER);
         bySuffix.put("_slab", Slot.SLAB);
         bySuffix.put("_wall", Slot.WALL);
         bySuffix.put("_pane", Slot.WALL);
@@ -722,14 +726,23 @@ public final class OrderAreas {
         return concrete("gray");
     }
 
-    /** Platzhalter "soll nicht existieren": hellgraue Betonstufe (N42-2). */
+    /** Platzhalter "soll nicht existieren": hellgraue Beton-Halbstufe (N86-8), sonst hellgraue Betonstufe (N42-2). */
     public static BlockState absentState() {
-        return concrete("light_gray");
+        return halfSlabOr("light_gray");
     }
 
-    /** Platzhalter "sollte existieren, fehlt": rote Betonstufe (N42-2, Fehlliste). */
+    /** Platzhalter "sollte existieren, fehlt": rote Beton-Halbstufe (N86-8), sonst rote Betonstufe (N42-2, Fehlliste). */
     public static BlockState missingState() {
-        return concrete("red");
+        return halfSlabOr("red");
+    }
+
+    /**
+     * N86-8: Platzhalter als Beton-Halbstufe von Simple Octets (per Id, keine Compile-Abhaengigkeit), sonst {@link #concrete}.
+     * Die Mittellinie ({@link #lineState}) bleibt die graue Betonstufe. Die Pruefungen vergleichen per absent/missingState().
+     */
+    private static BlockState halfSlabOr(String colour) {
+        return BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath("simpleoctets", colour + "_concrete_half_slab"))
+                .map(Block::defaultBlockState).orElseGet(() -> concrete(colour));
     }
 
     /** Betonstufe der Farbe: Vanilla-Stufe (26.3), sonst Beton-Achtel mit voller unterer Lage (Simple Octets), sonst Beton. */

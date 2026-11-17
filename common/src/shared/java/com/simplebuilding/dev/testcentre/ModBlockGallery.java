@@ -160,7 +160,8 @@ public final class ModBlockGallery {
     }
 
     // QW11: Regel identisch zu com.simplelib.api.TabSort (SimpleLib sieht Common nicht in allen Loadern); CrossModGameTest prueft die Gleichheit.
-    private static final List<String> FORM_SUFFIXES = List.of("_octet", "_stairs", "_slab", "_wall", "_fence_gate", "_fence",
+    // N86: "_half_slab" vor "_slab" (endet auch auf "_slab"; sonst Familie "x_half").
+    private static final List<String> FORM_SUFFIXES = List.of("_octet", "_stairs", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence",
             "_pane", "_trapdoor", "_door");
     /** Varianten-Woerter, Reihenfolge = Rang in der Spalte (Basis zuerst, dann geschliffen ... gemeisselt, Saeule). */
     private static final List<String> VARIANT_WORDS = List.of("planks", "block", "log", "stem", "wood", "hyphae", "stripped",

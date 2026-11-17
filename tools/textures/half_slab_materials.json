@@ -1,0 +1,3307 @@
+[
+ {
+  "id": "acacia_half_slab",
+  "slab": "minecraft:acacia_slab",
+  "base": "minecraft:acacia_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/acacia_planks",
+   "top": "minecraft:block/acacia_planks",
+   "side": "minecraft:block/acacia_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:acacia_slab",
+  "light": 0,
+  "en": "Acacia Half Slab",
+  "de": "Akazienholzhalbstufe"
+ },
+ {
+  "id": "ashwood_half_slab",
+  "slab": "simpleend:ashwood_slab",
+  "base": "simpleend:ashwood_planks",
+  "ns": "simpleend",
+  "mods": [
+   "simpleend"
+  ],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleend:block/ashwood_planks",
+   "top": "simpleend:block/ashwood_planks",
+   "side": "simpleend:block/ashwood_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:oak_planks",
+  "light": 0,
+  "en": "Ashwood Half Slab",
+  "de": "Aschholzhalbstufe"
+ },
+ {
+  "id": "bamboo_half_slab",
+  "slab": "minecraft:bamboo_slab",
+  "base": "minecraft:bamboo_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/bamboo_planks",
+   "top": "minecraft:block/bamboo_planks",
+   "side": "minecraft:block/bamboo_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:bamboo_slab",
+  "light": 0,
+  "en": "Bamboo Half Slab",
+  "de": "Bambushalbstufe"
+ },
+ {
+  "id": "bamboo_mosaic_half_slab",
+  "slab": "minecraft:bamboo_mosaic_slab",
+  "base": "minecraft:bamboo_mosaic",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/bamboo_mosaic",
+   "top": "minecraft:block/bamboo_mosaic",
+   "side": "minecraft:block/bamboo_mosaic"
+  },
+  "tool": "axe",
+  "template": "minecraft:bamboo_mosaic_slab",
+  "light": 0,
+  "en": "Bamboo Mosaic Half Slab",
+  "de": "Bambusmosaikhalbstufe"
+ },
+ {
+  "id": "birch_half_slab",
+  "slab": "minecraft:birch_slab",
+  "base": "minecraft:birch_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/birch_planks",
+   "top": "minecraft:block/birch_planks",
+   "side": "minecraft:block/birch_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:birch_slab",
+  "light": 0,
+  "en": "Birch Half Slab",
+  "de": "Birkenholzhalbstufe"
+ },
+ {
+  "id": "cherry_half_slab",
+  "slab": "minecraft:cherry_slab",
+  "base": "minecraft:cherry_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cherry_planks",
+   "top": "minecraft:block/cherry_planks",
+   "side": "minecraft:block/cherry_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:cherry_slab",
+  "light": 0,
+  "en": "Cherry Half Slab",
+  "de": "Kirschholzhalbstufe"
+ },
+ {
+  "id": "crimson_blazewood_half_slab",
+  "slab": "simpleenchanting:crimson_blazewood_slab",
+  "base": "simpleenchanting:crimson_blazewood_planks",
+  "ns": "simpleenchanting",
+  "mods": [
+   "simpleenchanting"
+  ],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleenchanting:block/crimson_blazewood_planks",
+   "top": "simpleenchanting:block/crimson_blazewood_planks",
+   "side": "simpleenchanting:block/crimson_blazewood_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:crimson_planks",
+  "light": 0,
+  "en": "Crimson Blazewood Half Slab",
+  "de": "Karmesin-Lohenholzhalbstufe"
+ },
+ {
+  "id": "crimson_half_slab",
+  "slab": "minecraft:crimson_slab",
+  "base": "minecraft:crimson_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/crimson_planks",
+   "top": "minecraft:block/crimson_planks",
+   "side": "minecraft:block/crimson_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:crimson_slab",
+  "light": 0,
+  "en": "Crimson Half Slab",
+  "de": "Karmesinhalbstufe"
+ },
+ {
+  "id": "dark_oak_half_slab",
+  "slab": "minecraft:dark_oak_slab",
+  "base": "minecraft:dark_oak_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/dark_oak_planks",
+   "top": "minecraft:block/dark_oak_planks",
+   "side": "minecraft:block/dark_oak_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:dark_oak_slab",
+  "light": 0,
+  "en": "Dark Oak Half Slab",
+  "de": "Schwarzeichenholzhalbstufe"
+ },
+ {
+  "id": "duskwood_half_slab",
+  "slab": "simpleend:duskwood_slab",
+  "base": "simpleend:duskwood_planks",
+  "ns": "simpleend",
+  "mods": [
+   "simpleend"
+  ],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleend:block/duskwood_planks",
+   "top": "simpleend:block/duskwood_planks",
+   "side": "simpleend:block/duskwood_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:oak_planks",
+  "light": 0,
+  "en": "Duskwood Half Slab",
+  "de": "Dämmerholzhalbstufe"
+ },
+ {
+  "id": "jungle_half_slab",
+  "slab": "minecraft:jungle_slab",
+  "base": "minecraft:jungle_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/jungle_planks",
+   "top": "minecraft:block/jungle_planks",
+   "side": "minecraft:block/jungle_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:jungle_slab",
+  "light": 0,
+  "en": "Jungle Half Slab",
+  "de": "Tropenholzhalbstufe"
+ },
+ {
+  "id": "mangrove_half_slab",
+  "slab": "minecraft:mangrove_slab",
+  "base": "minecraft:mangrove_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/mangrove_planks",
+   "top": "minecraft:block/mangrove_planks",
+   "side": "minecraft:block/mangrove_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:mangrove_slab",
+  "light": 0,
+  "en": "Mangrove Half Slab",
+  "de": "Mangrovenholzhalbstufe"
+ },
+ {
+  "id": "oak_half_slab",
+  "slab": "minecraft:oak_slab",
+  "base": "minecraft:oak_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/oak_planks",
+   "top": "minecraft:block/oak_planks",
+   "side": "minecraft:block/oak_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:oak_slab",
+  "light": 0,
+  "en": "Oak Half Slab",
+  "de": "Eichenholzhalbstufe"
+ },
+ {
+  "id": "pale_oak_half_slab",
+  "slab": "minecraft:pale_oak_slab",
+  "base": "minecraft:pale_oak_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/pale_oak_planks",
+   "top": "minecraft:block/pale_oak_planks",
+   "side": "minecraft:block/pale_oak_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:pale_oak_slab",
+  "light": 0,
+  "en": "Pale Oak Half Slab",
+  "de": "Blasseichenholzhalbstufe"
+ },
+ {
+  "id": "poplar_half_slab",
+  "slab": "minecraft:poplar_slab",
+  "base": "minecraft:poplar_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/poplar_planks",
+   "top": "minecraft:block/poplar_planks",
+   "side": "minecraft:block/poplar_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:poplar_slab",
+  "light": 0,
+  "en": "Poplar Half Slab",
+  "de": "Pappelholzhalbstufe"
+ },
+ {
+  "id": "spruce_half_slab",
+  "slab": "minecraft:spruce_slab",
+  "base": "minecraft:spruce_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/spruce_planks",
+   "top": "minecraft:block/spruce_planks",
+   "side": "minecraft:block/spruce_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:spruce_slab",
+  "light": 0,
+  "en": "Spruce Half Slab",
+  "de": "Fichtenholzhalbstufe"
+ },
+ {
+  "id": "warped_blazewood_half_slab",
+  "slab": "simpleenchanting:warped_blazewood_slab",
+  "base": "simpleenchanting:warped_blazewood_planks",
+  "ns": "simpleenchanting",
+  "mods": [
+   "simpleenchanting"
+  ],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleenchanting:block/warped_blazewood_planks",
+   "top": "simpleenchanting:block/warped_blazewood_planks",
+   "side": "simpleenchanting:block/warped_blazewood_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:warped_planks",
+  "light": 0,
+  "en": "Warped Blazewood Half Slab",
+  "de": "Wirr-Lohenholzhalbstufe"
+ },
+ {
+  "id": "warped_half_slab",
+  "slab": "minecraft:warped_slab",
+  "base": "minecraft:warped_planks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wood",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/warped_planks",
+   "top": "minecraft:block/warped_planks",
+   "side": "minecraft:block/warped_planks"
+  },
+  "tool": "axe",
+  "template": "minecraft:warped_slab",
+  "light": 0,
+  "en": "Warped Half Slab",
+  "de": "Wirrhalbstufe"
+ },
+ {
+  "id": "andesite_half_slab",
+  "slab": "minecraft:andesite_slab",
+  "base": "minecraft:andesite",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/andesite",
+   "top": "minecraft:block/andesite",
+   "side": "minecraft:block/andesite"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:andesite_slab",
+  "light": 0,
+  "en": "Andesite Half Slab",
+  "de": "Andesithalbstufe"
+ },
+ {
+  "id": "cobblestone_half_slab",
+  "slab": "minecraft:cobblestone_slab",
+  "base": "minecraft:cobblestone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cobblestone",
+   "top": "minecraft:block/cobblestone",
+   "side": "minecraft:block/cobblestone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cobblestone_slab",
+  "light": 0,
+  "en": "Cobblestone Half Slab",
+  "de": "Bruchsteinhalbstufe"
+ },
+ {
+  "id": "diorite_half_slab",
+  "slab": "minecraft:diorite_slab",
+  "base": "minecraft:diorite",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/diorite",
+   "top": "minecraft:block/diorite",
+   "side": "minecraft:block/diorite"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:diorite_slab",
+  "light": 0,
+  "en": "Diorite Half Slab",
+  "de": "Diorithalbstufe"
+ },
+ {
+  "id": "granite_half_slab",
+  "slab": "minecraft:granite_slab",
+  "base": "minecraft:granite",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/granite",
+   "top": "minecraft:block/granite",
+   "side": "minecraft:block/granite"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:granite_slab",
+  "light": 0,
+  "en": "Granite Half Slab",
+  "de": "Granithalbstufe"
+ },
+ {
+  "id": "mossy_cobblestone_half_slab",
+  "slab": "minecraft:mossy_cobblestone_slab",
+  "base": "minecraft:mossy_cobblestone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/mossy_cobblestone",
+   "top": "minecraft:block/mossy_cobblestone",
+   "side": "minecraft:block/mossy_cobblestone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:mossy_cobblestone_slab",
+  "light": 0,
+  "en": "Mossy Cobblestone Half Slab",
+  "de": "Bemooste Bruchsteinhalbstufe"
+ },
+ {
+  "id": "polished_andesite_half_slab",
+  "slab": "minecraft:polished_andesite_slab",
+  "base": "minecraft:polished_andesite",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_andesite",
+   "top": "minecraft:block/polished_andesite",
+   "side": "minecraft:block/polished_andesite"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_andesite_slab",
+  "light": 0,
+  "en": "Polished Andesite Half Slab",
+  "de": "Polierte Andesithalbstufe"
+ },
+ {
+  "id": "polished_diorite_half_slab",
+  "slab": "minecraft:polished_diorite_slab",
+  "base": "minecraft:polished_diorite",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_diorite",
+   "top": "minecraft:block/polished_diorite",
+   "side": "minecraft:block/polished_diorite"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_diorite_slab",
+  "light": 0,
+  "en": "Polished Diorite Half Slab",
+  "de": "Polierte Diorithalbstufe"
+ },
+ {
+  "id": "polished_granite_half_slab",
+  "slab": "minecraft:polished_granite_slab",
+  "base": "minecraft:polished_granite",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_granite",
+   "top": "minecraft:block/polished_granite",
+   "side": "minecraft:block/polished_granite"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_granite_slab",
+  "light": 0,
+  "en": "Polished Granite Half Slab",
+  "de": "Polierte Granithalbstufe"
+ },
+ {
+  "id": "smooth_stone_half_slab",
+  "slab": "minecraft:smooth_stone_slab",
+  "base": "minecraft:smooth_stone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/smooth_stone",
+   "top": "minecraft:block/smooth_stone",
+   "side": "minecraft:block/smooth_stone_slab_side"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:smooth_stone_slab",
+  "light": 0,
+  "en": "Smooth Stone Half Slab",
+  "de": "Glatte Steinhalbstufe"
+ },
+ {
+  "id": "stone_half_slab",
+  "slab": "minecraft:stone_slab",
+  "base": "minecraft:stone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "stone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/stone",
+   "top": "minecraft:block/stone",
+   "side": "minecraft:block/stone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:stone_slab",
+  "light": 0,
+  "en": "Stone Half Slab",
+  "de": "Steinhalbstufe"
+ },
+ {
+  "id": "cut_red_sandstone_half_slab",
+  "slab": "minecraft:cut_red_sandstone_slab",
+  "base": "minecraft:cut_red_sandstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "sandstone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/red_sandstone_top",
+   "top": "minecraft:block/red_sandstone_top",
+   "side": "minecraft:block/cut_red_sandstone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cut_red_sandstone_slab",
+  "light": 0,
+  "en": "Cut Red Sandstone Half Slab",
+  "de": "Geschnittene rote Sandsteinhalbstufe"
+ },
+ {
+  "id": "cut_sandstone_half_slab",
+  "slab": "minecraft:cut_sandstone_slab",
+  "base": "minecraft:cut_sandstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "sandstone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/sandstone_top",
+   "top": "minecraft:block/sandstone_top",
+   "side": "minecraft:block/cut_sandstone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cut_sandstone_slab",
+  "light": 0,
+  "en": "Cut Sandstone Half Slab",
+  "de": "Geschnittene Sandsteinhalbstufe"
+ },
+ {
+  "id": "red_sandstone_half_slab",
+  "slab": "minecraft:red_sandstone_slab",
+  "base": "minecraft:red_sandstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "sandstone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/red_sandstone_bottom",
+   "top": "minecraft:block/red_sandstone_top",
+   "side": "minecraft:block/red_sandstone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:red_sandstone_slab",
+  "light": 0,
+  "en": "Red Sandstone Half Slab",
+  "de": "Rote Sandsteinhalbstufe"
+ },
+ {
+  "id": "sandstone_half_slab",
+  "slab": "minecraft:sandstone_slab",
+  "base": "minecraft:sandstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "sandstone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/sandstone_bottom",
+   "top": "minecraft:block/sandstone_top",
+   "side": "minecraft:block/sandstone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:sandstone_slab",
+  "light": 0,
+  "en": "Sandstone Half Slab",
+  "de": "Sandsteinhalbstufe"
+ },
+ {
+  "id": "smooth_red_sandstone_half_slab",
+  "slab": "minecraft:smooth_red_sandstone_slab",
+  "base": "minecraft:smooth_red_sandstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "sandstone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/red_sandstone_top",
+   "top": "minecraft:block/red_sandstone_top",
+   "side": "minecraft:block/red_sandstone_top"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:smooth_red_sandstone_slab",
+  "light": 0,
+  "en": "Smooth Red Sandstone Half Slab",
+  "de": "Glatte rote Sandsteinhalbstufe"
+ },
+ {
+  "id": "smooth_sandstone_half_slab",
+  "slab": "minecraft:smooth_sandstone_slab",
+  "base": "minecraft:smooth_sandstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "sandstone",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/sandstone_top",
+   "top": "minecraft:block/sandstone_top",
+   "side": "minecraft:block/sandstone_top"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:smooth_sandstone_slab",
+  "light": 0,
+  "en": "Smooth Sandstone Half Slab",
+  "de": "Glatte Sandsteinhalbstufe"
+ },
+ {
+  "id": "brick_half_slab",
+  "slab": "minecraft:brick_slab",
+  "base": "minecraft:bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/bricks",
+   "top": "minecraft:block/bricks",
+   "side": "minecraft:block/bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:brick_slab",
+  "light": 0,
+  "en": "Brick Half Slab",
+  "de": "Ziegelhalbstufe"
+ },
+ {
+  "id": "cinnabar_brick_half_slab",
+  "slab": "minecraft:cinnabar_brick_slab",
+  "base": "minecraft:cinnabar_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cinnabar_bricks",
+   "top": "minecraft:block/cinnabar_bricks",
+   "side": "minecraft:block/cinnabar_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cinnabar_brick_slab",
+  "light": 0,
+  "en": "Cinnabar Brick Half Slab",
+  "de": "Zinnoberziegelhalbstufe"
+ },
+ {
+  "id": "end_stone_brick_half_slab",
+  "slab": "minecraft:end_stone_brick_slab",
+  "base": "minecraft:end_stone_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/end_stone_bricks",
+   "top": "minecraft:block/end_stone_bricks",
+   "side": "minecraft:block/end_stone_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone_brick_slab",
+  "light": 0,
+  "en": "End Stone Brick Half Slab",
+  "de": "Endsteinziegelhalbstufe"
+ },
+ {
+  "id": "mossy_stone_brick_half_slab",
+  "slab": "minecraft:mossy_stone_brick_slab",
+  "base": "minecraft:mossy_stone_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/mossy_stone_bricks",
+   "top": "minecraft:block/mossy_stone_bricks",
+   "side": "minecraft:block/mossy_stone_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:mossy_stone_brick_slab",
+  "light": 0,
+  "en": "Mossy Stone Brick Half Slab",
+  "de": "Bemooste Steinziegelhalbstufe"
+ },
+ {
+  "id": "mud_brick_half_slab",
+  "slab": "minecraft:mud_brick_slab",
+  "base": "minecraft:mud_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/mud_bricks",
+   "top": "minecraft:block/mud_bricks",
+   "side": "minecraft:block/mud_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:mud_brick_slab",
+  "light": 0,
+  "en": "Mud Brick Half Slab",
+  "de": "Schlammziegelhalbstufe"
+ },
+ {
+  "id": "nether_brick_half_slab",
+  "slab": "minecraft:nether_brick_slab",
+  "base": "minecraft:nether_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/nether_bricks",
+   "top": "minecraft:block/nether_bricks",
+   "side": "minecraft:block/nether_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:nether_brick_slab",
+  "light": 0,
+  "en": "Nether Brick Half Slab",
+  "de": "Netherziegelhalbstufe"
+ },
+ {
+  "id": "red_nether_brick_half_slab",
+  "slab": "minecraft:red_nether_brick_slab",
+  "base": "minecraft:red_nether_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/red_nether_bricks",
+   "top": "minecraft:block/red_nether_bricks",
+   "side": "minecraft:block/red_nether_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:red_nether_brick_slab",
+  "light": 0,
+  "en": "Red Nether Brick Half Slab",
+  "de": "Rote Netherziegelhalbstufe"
+ },
+ {
+  "id": "resin_brick_half_slab",
+  "slab": "minecraft:resin_brick_slab",
+  "base": "minecraft:resin_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/resin_bricks",
+   "top": "minecraft:block/resin_bricks",
+   "side": "minecraft:block/resin_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:resin_brick_slab",
+  "light": 0,
+  "en": "Resin Brick Half Slab",
+  "de": "Harzziegelhalbstufe"
+ },
+ {
+  "id": "stone_brick_half_slab",
+  "slab": "minecraft:stone_brick_slab",
+  "base": "minecraft:stone_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/stone_bricks",
+   "top": "minecraft:block/stone_bricks",
+   "side": "minecraft:block/stone_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:stone_brick_slab",
+  "light": 0,
+  "en": "Stone Brick Half Slab",
+  "de": "Steinziegelhalbstufe"
+ },
+ {
+  "id": "sulfur_brick_half_slab",
+  "slab": "minecraft:sulfur_brick_slab",
+  "base": "minecraft:sulfur_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "bricks",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/sulfur_bricks",
+   "top": "minecraft:block/sulfur_bricks",
+   "side": "minecraft:block/sulfur_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:sulfur_brick_slab",
+  "light": 0,
+  "en": "Sulfur Brick Half Slab",
+  "de": "Schwefelziegelhalbstufe"
+ },
+ {
+  "id": "blackstone_half_slab",
+  "slab": "minecraft:blackstone_slab",
+  "base": "minecraft:blackstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "deepslate",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/blackstone_top",
+   "top": "minecraft:block/blackstone_top",
+   "side": "minecraft:block/blackstone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:blackstone_slab",
+  "light": 0,
+  "en": "Blackstone Half Slab",
+  "de": "Schwarzsteinhalbstufe"
+ },
+ {
+  "id": "cobbled_deepslate_half_slab",
+  "slab": "minecraft:cobbled_deepslate_slab",
+  "base": "minecraft:cobbled_deepslate",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "deepslate",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cobbled_deepslate",
+   "top": "minecraft:block/cobbled_deepslate",
+   "side": "minecraft:block/cobbled_deepslate"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cobbled_deepslate_slab",
+  "light": 0,
+  "en": "Cobbled Deepslate Half Slab",
+  "de": "Bruchtiefenschieferhalbstufe"
+ },
+ {
+  "id": "deepslate_brick_half_slab",
+  "slab": "minecraft:deepslate_brick_slab",
+  "base": "minecraft:deepslate_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "deepslate",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/deepslate_bricks",
+   "top": "minecraft:block/deepslate_bricks",
+   "side": "minecraft:block/deepslate_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:deepslate_brick_slab",
+  "light": 0,
+  "en": "Deepslate Brick Half Slab",
+  "de": "Tiefenschieferziegelhalbstufe"
+ },
+ {
+  "id": "deepslate_tile_half_slab",
+  "slab": "minecraft:deepslate_tile_slab",
+  "base": "minecraft:deepslate_tiles",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "deepslate",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/deepslate_tiles",
+   "top": "minecraft:block/deepslate_tiles",
+   "side": "minecraft:block/deepslate_tiles"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:deepslate_tile_slab",
+  "light": 0,
+  "en": "Deepslate Tile Half Slab",
+  "de": "Tiefenschieferfliesenhalbstufe"
+ },
+ {
+  "id": "polished_blackstone_brick_half_slab",
+  "slab": "minecraft:polished_blackstone_brick_slab",
+  "base": "minecraft:polished_blackstone_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "deepslate",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_blackstone_bricks",
+   "top": "minecraft:block/polished_blackstone_bricks",
+   "side": "minecraft:block/polished_blackstone_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_blackstone_brick_slab",
+  "light": 0,
+  "en": "Polished Blackstone Brick Half Slab",
+  "de": "Polierte Schwarzsteinziegelhalbstufe"
+ },
+ {
+  "id": "polished_blackstone_half_slab",
+  "slab": "minecraft:polished_blackstone_slab",
+  "base": "minecraft:polished_blackstone",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "deepslate",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_blackstone",
+   "top": "minecraft:block/polished_blackstone",
+   "side": "minecraft:block/polished_blackstone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_blackstone_slab",
+  "light": 0,
+  "en": "Polished Blackstone Half Slab",
+  "de": "Polierte Schwarzsteinhalbstufe"
+ },
+ {
+  "id": "polished_deepslate_half_slab",
+  "slab": "minecraft:polished_deepslate_slab",
+  "base": "minecraft:polished_deepslate",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "deepslate",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_deepslate",
+   "top": "minecraft:block/polished_deepslate",
+   "side": "minecraft:block/polished_deepslate"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_deepslate_slab",
+  "light": 0,
+  "en": "Polished Deepslate Half Slab",
+  "de": "Polierte Tiefenschieferhalbstufe"
+ },
+ {
+  "id": "polished_tuff_half_slab",
+  "slab": "minecraft:polished_tuff_slab",
+  "base": "minecraft:polished_tuff",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "tuff",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_tuff",
+   "top": "minecraft:block/polished_tuff",
+   "side": "minecraft:block/polished_tuff"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_tuff_slab",
+  "light": 0,
+  "en": "Polished Tuff Half Slab",
+  "de": "Polierte Tuffsteinhalbstufe"
+ },
+ {
+  "id": "tuff_brick_half_slab",
+  "slab": "minecraft:tuff_brick_slab",
+  "base": "minecraft:tuff_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "tuff",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/tuff_bricks",
+   "top": "minecraft:block/tuff_bricks",
+   "side": "minecraft:block/tuff_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:tuff_brick_slab",
+  "light": 0,
+  "en": "Tuff Brick Half Slab",
+  "de": "Tuffsteinziegelhalbstufe"
+ },
+ {
+  "id": "tuff_half_slab",
+  "slab": "minecraft:tuff_slab",
+  "base": "minecraft:tuff",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "tuff",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/tuff",
+   "top": "minecraft:block/tuff",
+   "side": "minecraft:block/tuff"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:tuff_slab",
+  "light": 0,
+  "en": "Tuff Half Slab",
+  "de": "Tuffsteinhalbstufe"
+ },
+ {
+  "id": "dark_prismarine_half_slab",
+  "slab": "minecraft:dark_prismarine_slab",
+  "base": "minecraft:dark_prismarine",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "prismarine",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/dark_prismarine",
+   "top": "minecraft:block/dark_prismarine",
+   "side": "minecraft:block/dark_prismarine"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:dark_prismarine_slab",
+  "light": 0,
+  "en": "Dark Prismarine Half Slab",
+  "de": "Dunkle Prismarinhalbstufe"
+ },
+ {
+  "id": "prismarine_brick_half_slab",
+  "slab": "minecraft:prismarine_brick_slab",
+  "base": "minecraft:prismarine_bricks",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "prismarine",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/prismarine_bricks",
+   "top": "minecraft:block/prismarine_bricks",
+   "side": "minecraft:block/prismarine_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:prismarine_brick_slab",
+  "light": 0,
+  "en": "Prismarine Brick Half Slab",
+  "de": "Prismarinziegelhalbstufe"
+ },
+ {
+  "id": "prismarine_half_slab",
+  "slab": "minecraft:prismarine_slab",
+  "base": "minecraft:prismarine",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "prismarine",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/prismarine",
+   "top": "minecraft:block/prismarine",
+   "side": "minecraft:block/prismarine"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:prismarine_slab",
+  "light": 0,
+  "en": "Prismarine Half Slab",
+  "de": "Prismarinhalbstufe"
+ },
+ {
+  "id": "purpur_half_slab",
+  "slab": "minecraft:purpur_slab",
+  "base": "minecraft:purpur_block",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "quartz",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/purpur_block",
+   "top": "minecraft:block/purpur_block",
+   "side": "minecraft:block/purpur_block"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:purpur_slab",
+  "light": 0,
+  "en": "Purpur Half Slab",
+  "de": "Purpurhalbstufe"
+ },
+ {
+  "id": "quartz_half_slab",
+  "slab": "minecraft:quartz_slab",
+  "base": "minecraft:quartz_block",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "quartz",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/quartz_block_top",
+   "top": "minecraft:block/quartz_block_top",
+   "side": "minecraft:block/quartz_block_side"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_slab",
+  "light": 0,
+  "en": "Quartz Half Slab",
+  "de": "Quarzhalbstufe"
+ },
+ {
+  "id": "smooth_quartz_half_slab",
+  "slab": "minecraft:smooth_quartz_slab",
+  "base": "minecraft:smooth_quartz",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "quartz",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/quartz_block_bottom",
+   "top": "minecraft:block/quartz_block_bottom",
+   "side": "minecraft:block/quartz_block_bottom"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:smooth_quartz_slab",
+  "light": 0,
+  "en": "Smooth Quartz Half Slab",
+  "de": "Glatte Quarzhalbstufe"
+ },
+ {
+  "id": "cut_copper_half_slab",
+  "slab": "minecraft:cut_copper_slab",
+  "base": "minecraft:cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cut_copper",
+   "top": "minecraft:block/cut_copper",
+   "side": "minecraft:block/cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cut_copper_slab",
+  "light": 0,
+  "en": "Cut Copper Half Slab",
+  "de": "Geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "exposed_cut_copper_half_slab",
+  "slab": "minecraft:exposed_cut_copper_slab",
+  "base": "minecraft:exposed_cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/exposed_cut_copper",
+   "top": "minecraft:block/exposed_cut_copper",
+   "side": "minecraft:block/exposed_cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:exposed_cut_copper_slab",
+  "light": 0,
+  "en": "Exposed Cut Copper Half Slab",
+  "de": "Angelaufene geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "oxidized_cut_copper_half_slab",
+  "slab": "minecraft:oxidized_cut_copper_slab",
+  "base": "minecraft:oxidized_cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/oxidized_cut_copper",
+   "top": "minecraft:block/oxidized_cut_copper",
+   "side": "minecraft:block/oxidized_cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:oxidized_cut_copper_slab",
+  "light": 0,
+  "en": "Oxidized Cut Copper Half Slab",
+  "de": "Oxidierte geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "waxed_cut_copper_half_slab",
+  "slab": "minecraft:waxed_cut_copper_slab",
+  "base": "minecraft:waxed_cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cut_copper",
+   "top": "minecraft:block/cut_copper",
+   "side": "minecraft:block/cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:waxed_cut_copper_slab",
+  "light": 0,
+  "en": "Waxed Cut Copper Half Slab",
+  "de": "Gewachste geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "waxed_exposed_cut_copper_half_slab",
+  "slab": "minecraft:waxed_exposed_cut_copper_slab",
+  "base": "minecraft:waxed_exposed_cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/exposed_cut_copper",
+   "top": "minecraft:block/exposed_cut_copper",
+   "side": "minecraft:block/exposed_cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:waxed_exposed_cut_copper_slab",
+  "light": 0,
+  "en": "Waxed Exposed Cut Copper Half Slab",
+  "de": "Gewachste angelaufene geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "waxed_oxidized_cut_copper_half_slab",
+  "slab": "minecraft:waxed_oxidized_cut_copper_slab",
+  "base": "minecraft:waxed_oxidized_cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/oxidized_cut_copper",
+   "top": "minecraft:block/oxidized_cut_copper",
+   "side": "minecraft:block/oxidized_cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:waxed_oxidized_cut_copper_slab",
+  "light": 0,
+  "en": "Waxed Oxidized Cut Copper Half Slab",
+  "de": "Gewachste oxidierte geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "waxed_weathered_cut_copper_half_slab",
+  "slab": "minecraft:waxed_weathered_cut_copper_slab",
+  "base": "minecraft:waxed_weathered_cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/weathered_cut_copper",
+   "top": "minecraft:block/weathered_cut_copper",
+   "side": "minecraft:block/weathered_cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:waxed_weathered_cut_copper_slab",
+  "light": 0,
+  "en": "Waxed Weathered Cut Copper Half Slab",
+  "de": "Gewachste verwitterte geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "weathered_cut_copper_half_slab",
+  "slab": "minecraft:weathered_cut_copper_slab",
+  "base": "minecraft:weathered_cut_copper",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "copper",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/weathered_cut_copper",
+   "top": "minecraft:block/weathered_cut_copper",
+   "side": "minecraft:block/weathered_cut_copper"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:weathered_cut_copper_slab",
+  "light": 0,
+  "en": "Weathered Cut Copper Half Slab",
+  "de": "Verwitterte geschnittene Kupferhalbstufe"
+ },
+ {
+  "id": "black_wool_half_slab",
+  "slab": "minecraft:black_wool_slab",
+  "base": "minecraft:black_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/black_wool",
+   "top": "minecraft:block/black_wool",
+   "side": "minecraft:block/black_wool"
+  },
+  "tool": null,
+  "template": "minecraft:black_wool_slab",
+  "light": 0,
+  "en": "Black Wool Half Slab",
+  "de": "Schwarze Wollhalbstufe"
+ },
+ {
+  "id": "blue_wool_half_slab",
+  "slab": "minecraft:blue_wool_slab",
+  "base": "minecraft:blue_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/blue_wool",
+   "top": "minecraft:block/blue_wool",
+   "side": "minecraft:block/blue_wool"
+  },
+  "tool": null,
+  "template": "minecraft:blue_wool_slab",
+  "light": 0,
+  "en": "Blue Wool Half Slab",
+  "de": "Blaue Wollhalbstufe"
+ },
+ {
+  "id": "brown_wool_half_slab",
+  "slab": "minecraft:brown_wool_slab",
+  "base": "minecraft:brown_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/brown_wool",
+   "top": "minecraft:block/brown_wool",
+   "side": "minecraft:block/brown_wool"
+  },
+  "tool": null,
+  "template": "minecraft:brown_wool_slab",
+  "light": 0,
+  "en": "Brown Wool Half Slab",
+  "de": "Braune Wollhalbstufe"
+ },
+ {
+  "id": "cyan_wool_half_slab",
+  "slab": "minecraft:cyan_wool_slab",
+  "base": "minecraft:cyan_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cyan_wool",
+   "top": "minecraft:block/cyan_wool",
+   "side": "minecraft:block/cyan_wool"
+  },
+  "tool": null,
+  "template": "minecraft:cyan_wool_slab",
+  "light": 0,
+  "en": "Cyan Wool Half Slab",
+  "de": "Türkise Wollhalbstufe"
+ },
+ {
+  "id": "gray_wool_half_slab",
+  "slab": "minecraft:gray_wool_slab",
+  "base": "minecraft:gray_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/gray_wool",
+   "top": "minecraft:block/gray_wool",
+   "side": "minecraft:block/gray_wool"
+  },
+  "tool": null,
+  "template": "minecraft:gray_wool_slab",
+  "light": 0,
+  "en": "Gray Wool Half Slab",
+  "de": "Graue Wollhalbstufe"
+ },
+ {
+  "id": "green_wool_half_slab",
+  "slab": "minecraft:green_wool_slab",
+  "base": "minecraft:green_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/green_wool",
+   "top": "minecraft:block/green_wool",
+   "side": "minecraft:block/green_wool"
+  },
+  "tool": null,
+  "template": "minecraft:green_wool_slab",
+  "light": 0,
+  "en": "Green Wool Half Slab",
+  "de": "Grüne Wollhalbstufe"
+ },
+ {
+  "id": "light_blue_wool_half_slab",
+  "slab": "minecraft:light_blue_wool_slab",
+  "base": "minecraft:light_blue_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/light_blue_wool",
+   "top": "minecraft:block/light_blue_wool",
+   "side": "minecraft:block/light_blue_wool"
+  },
+  "tool": null,
+  "template": "minecraft:light_blue_wool_slab",
+  "light": 0,
+  "en": "Light Blue Wool Half Slab",
+  "de": "Hellblaue Wollhalbstufe"
+ },
+ {
+  "id": "light_gray_wool_half_slab",
+  "slab": "minecraft:light_gray_wool_slab",
+  "base": "minecraft:light_gray_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/light_gray_wool",
+   "top": "minecraft:block/light_gray_wool",
+   "side": "minecraft:block/light_gray_wool"
+  },
+  "tool": null,
+  "template": "minecraft:light_gray_wool_slab",
+  "light": 0,
+  "en": "Light Gray Wool Half Slab",
+  "de": "Hellgraue Wollhalbstufe"
+ },
+ {
+  "id": "lime_wool_half_slab",
+  "slab": "minecraft:lime_wool_slab",
+  "base": "minecraft:lime_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/lime_wool",
+   "top": "minecraft:block/lime_wool",
+   "side": "minecraft:block/lime_wool"
+  },
+  "tool": null,
+  "template": "minecraft:lime_wool_slab",
+  "light": 0,
+  "en": "Lime Wool Half Slab",
+  "de": "Hellgrüne Wollhalbstufe"
+ },
+ {
+  "id": "magenta_wool_half_slab",
+  "slab": "minecraft:magenta_wool_slab",
+  "base": "minecraft:magenta_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/magenta_wool",
+   "top": "minecraft:block/magenta_wool",
+   "side": "minecraft:block/magenta_wool"
+  },
+  "tool": null,
+  "template": "minecraft:magenta_wool_slab",
+  "light": 0,
+  "en": "Magenta Wool Half Slab",
+  "de": "Magenta Wollhalbstufe"
+ },
+ {
+  "id": "orange_wool_half_slab",
+  "slab": "minecraft:orange_wool_slab",
+  "base": "minecraft:orange_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/orange_wool",
+   "top": "minecraft:block/orange_wool",
+   "side": "minecraft:block/orange_wool"
+  },
+  "tool": null,
+  "template": "minecraft:orange_wool_slab",
+  "light": 0,
+  "en": "Orange Wool Half Slab",
+  "de": "Orange Wollhalbstufe"
+ },
+ {
+  "id": "pink_wool_half_slab",
+  "slab": "minecraft:pink_wool_slab",
+  "base": "minecraft:pink_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/pink_wool",
+   "top": "minecraft:block/pink_wool",
+   "side": "minecraft:block/pink_wool"
+  },
+  "tool": null,
+  "template": "minecraft:pink_wool_slab",
+  "light": 0,
+  "en": "Pink Wool Half Slab",
+  "de": "Rosa Wollhalbstufe"
+ },
+ {
+  "id": "purple_wool_half_slab",
+  "slab": "minecraft:purple_wool_slab",
+  "base": "minecraft:purple_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/purple_wool",
+   "top": "minecraft:block/purple_wool",
+   "side": "minecraft:block/purple_wool"
+  },
+  "tool": null,
+  "template": "minecraft:purple_wool_slab",
+  "light": 0,
+  "en": "Purple Wool Half Slab",
+  "de": "Violette Wollhalbstufe"
+ },
+ {
+  "id": "red_wool_half_slab",
+  "slab": "minecraft:red_wool_slab",
+  "base": "minecraft:red_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/red_wool",
+   "top": "minecraft:block/red_wool",
+   "side": "minecraft:block/red_wool"
+  },
+  "tool": null,
+  "template": "minecraft:red_wool_slab",
+  "light": 0,
+  "en": "Red Wool Half Slab",
+  "de": "Rote Wollhalbstufe"
+ },
+ {
+  "id": "white_wool_half_slab",
+  "slab": "minecraft:white_wool_slab",
+  "base": "minecraft:white_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/white_wool",
+   "top": "minecraft:block/white_wool",
+   "side": "minecraft:block/white_wool"
+  },
+  "tool": null,
+  "template": "minecraft:white_wool_slab",
+  "light": 0,
+  "en": "White Wool Half Slab",
+  "de": "Weiße Wollhalbstufe"
+ },
+ {
+  "id": "yellow_wool_half_slab",
+  "slab": "minecraft:yellow_wool_slab",
+  "base": "minecraft:yellow_wool",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "wool",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/yellow_wool",
+   "top": "minecraft:block/yellow_wool",
+   "side": "minecraft:block/yellow_wool"
+  },
+  "tool": null,
+  "template": "minecraft:yellow_wool_slab",
+  "light": 0,
+  "en": "Yellow Wool Half Slab",
+  "de": "Gelbe Wollhalbstufe"
+ },
+ {
+  "id": "black_concrete_half_slab",
+  "slab": "minecraft:black_concrete_slab",
+  "base": "minecraft:black_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/black_concrete",
+   "top": "minecraft:block/black_concrete",
+   "side": "minecraft:block/black_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:black_concrete_slab",
+  "light": 0,
+  "en": "Black Concrete Half Slab",
+  "de": "Schwarze Betonhalbstufe"
+ },
+ {
+  "id": "blue_concrete_half_slab",
+  "slab": "minecraft:blue_concrete_slab",
+  "base": "minecraft:blue_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/blue_concrete",
+   "top": "minecraft:block/blue_concrete",
+   "side": "minecraft:block/blue_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:blue_concrete_slab",
+  "light": 0,
+  "en": "Blue Concrete Half Slab",
+  "de": "Blaue Betonhalbstufe"
+ },
+ {
+  "id": "brown_concrete_half_slab",
+  "slab": "minecraft:brown_concrete_slab",
+  "base": "minecraft:brown_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/brown_concrete",
+   "top": "minecraft:block/brown_concrete",
+   "side": "minecraft:block/brown_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:brown_concrete_slab",
+  "light": 0,
+  "en": "Brown Concrete Half Slab",
+  "de": "Braune Betonhalbstufe"
+ },
+ {
+  "id": "cyan_concrete_half_slab",
+  "slab": "minecraft:cyan_concrete_slab",
+  "base": "minecraft:cyan_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cyan_concrete",
+   "top": "minecraft:block/cyan_concrete",
+   "side": "minecraft:block/cyan_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cyan_concrete_slab",
+  "light": 0,
+  "en": "Cyan Concrete Half Slab",
+  "de": "Türkise Betonhalbstufe"
+ },
+ {
+  "id": "gray_concrete_half_slab",
+  "slab": "minecraft:gray_concrete_slab",
+  "base": "minecraft:gray_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/gray_concrete",
+   "top": "minecraft:block/gray_concrete",
+   "side": "minecraft:block/gray_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:gray_concrete_slab",
+  "light": 0,
+  "en": "Gray Concrete Half Slab",
+  "de": "Graue Betonhalbstufe"
+ },
+ {
+  "id": "green_concrete_half_slab",
+  "slab": "minecraft:green_concrete_slab",
+  "base": "minecraft:green_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/green_concrete",
+   "top": "minecraft:block/green_concrete",
+   "side": "minecraft:block/green_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:green_concrete_slab",
+  "light": 0,
+  "en": "Green Concrete Half Slab",
+  "de": "Grüne Betonhalbstufe"
+ },
+ {
+  "id": "light_blue_concrete_half_slab",
+  "slab": "minecraft:light_blue_concrete_slab",
+  "base": "minecraft:light_blue_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/light_blue_concrete",
+   "top": "minecraft:block/light_blue_concrete",
+   "side": "minecraft:block/light_blue_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:light_blue_concrete_slab",
+  "light": 0,
+  "en": "Light Blue Concrete Half Slab",
+  "de": "Hellblaue Betonhalbstufe"
+ },
+ {
+  "id": "light_gray_concrete_half_slab",
+  "slab": "minecraft:light_gray_concrete_slab",
+  "base": "minecraft:light_gray_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/light_gray_concrete",
+   "top": "minecraft:block/light_gray_concrete",
+   "side": "minecraft:block/light_gray_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:light_gray_concrete_slab",
+  "light": 0,
+  "en": "Light Gray Concrete Half Slab",
+  "de": "Hellgraue Betonhalbstufe"
+ },
+ {
+  "id": "lime_concrete_half_slab",
+  "slab": "minecraft:lime_concrete_slab",
+  "base": "minecraft:lime_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/lime_concrete",
+   "top": "minecraft:block/lime_concrete",
+   "side": "minecraft:block/lime_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:lime_concrete_slab",
+  "light": 0,
+  "en": "Lime Concrete Half Slab",
+  "de": "Hellgrüne Betonhalbstufe"
+ },
+ {
+  "id": "magenta_concrete_half_slab",
+  "slab": "minecraft:magenta_concrete_slab",
+  "base": "minecraft:magenta_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/magenta_concrete",
+   "top": "minecraft:block/magenta_concrete",
+   "side": "minecraft:block/magenta_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:magenta_concrete_slab",
+  "light": 0,
+  "en": "Magenta Concrete Half Slab",
+  "de": "Magenta Betonhalbstufe"
+ },
+ {
+  "id": "orange_concrete_half_slab",
+  "slab": "minecraft:orange_concrete_slab",
+  "base": "minecraft:orange_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/orange_concrete",
+   "top": "minecraft:block/orange_concrete",
+   "side": "minecraft:block/orange_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:orange_concrete_slab",
+  "light": 0,
+  "en": "Orange Concrete Half Slab",
+  "de": "Orange Betonhalbstufe"
+ },
+ {
+  "id": "pink_concrete_half_slab",
+  "slab": "minecraft:pink_concrete_slab",
+  "base": "minecraft:pink_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/pink_concrete",
+   "top": "minecraft:block/pink_concrete",
+   "side": "minecraft:block/pink_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:pink_concrete_slab",
+  "light": 0,
+  "en": "Pink Concrete Half Slab",
+  "de": "Rosa Betonhalbstufe"
+ },
+ {
+  "id": "purple_concrete_half_slab",
+  "slab": "minecraft:purple_concrete_slab",
+  "base": "minecraft:purple_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/purple_concrete",
+   "top": "minecraft:block/purple_concrete",
+   "side": "minecraft:block/purple_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:purple_concrete_slab",
+  "light": 0,
+  "en": "Purple Concrete Half Slab",
+  "de": "Violette Betonhalbstufe"
+ },
+ {
+  "id": "red_concrete_half_slab",
+  "slab": "minecraft:red_concrete_slab",
+  "base": "minecraft:red_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/red_concrete",
+   "top": "minecraft:block/red_concrete",
+   "side": "minecraft:block/red_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:red_concrete_slab",
+  "light": 0,
+  "en": "Red Concrete Half Slab",
+  "de": "Rote Betonhalbstufe"
+ },
+ {
+  "id": "white_concrete_half_slab",
+  "slab": "minecraft:white_concrete_slab",
+  "base": "minecraft:white_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/white_concrete",
+   "top": "minecraft:block/white_concrete",
+   "side": "minecraft:block/white_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:white_concrete_slab",
+  "light": 0,
+  "en": "White Concrete Half Slab",
+  "de": "Weiße Betonhalbstufe"
+ },
+ {
+  "id": "yellow_concrete_half_slab",
+  "slab": "minecraft:yellow_concrete_slab",
+  "base": "minecraft:yellow_concrete",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "concrete",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/yellow_concrete",
+   "top": "minecraft:block/yellow_concrete",
+   "side": "minecraft:block/yellow_concrete"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:yellow_concrete_slab",
+  "light": 0,
+  "en": "Yellow Concrete Half Slab",
+  "de": "Gelbe Betonhalbstufe"
+ },
+ {
+  "id": "astral_end_stone_half_slab",
+  "slab": "simplebuilding:astral_end_stone_slab",
+  "base": "simplebuilding:astral_end_stone",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/astral_end_stone",
+   "top": "simplebuilding:block/astral_end_stone",
+   "side": "simplebuilding:block/astral_end_stone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 10,
+  "en": "Astral End Stone Half Slab",
+  "de": "Astral-Endsteinhalbstufe"
+ },
+ {
+  "id": "astral_purpur_half_slab",
+  "slab": "simplebuilding:astral_purpur_slab",
+  "base": "simplebuilding:astral_purpur_block",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/astral_purpur_block",
+   "top": "simplebuilding:block/astral_purpur_block",
+   "side": "simplebuilding:block/astral_purpur_block"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:purpur_block",
+  "light": 10,
+  "en": "Astral Purpur Half Slab",
+  "de": "Astral-Purpurhalbstufe"
+ },
+ {
+  "id": "astralit_brick_half_slab",
+  "slab": "simplebuilding:astralit_brick_slab",
+  "base": "simplebuilding:astralit_bricks",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/astralit_bricks",
+   "top": "simplebuilding:block/astralit_bricks",
+   "side": "simplebuilding:block/astralit_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 10,
+  "en": "Astralit Brick Half Slab",
+  "de": "Astralitziegelhalbstufe"
+ },
+ {
+  "id": "astralit_half_slab",
+  "slab": "simplebuilding:astralit_slab",
+  "base": "simplebuilding:astralit_block",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/astralit_block",
+   "top": "simplebuilding:block/astralit_block",
+   "side": "simplebuilding:block/astralit_block"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 10,
+  "en": "Astralit Half Slab",
+  "de": "Astralithalbstufe"
+ },
+ {
+  "id": "astralit_quartz_checker_half_slab",
+  "slab": "simplechess:astralit_quartz_checker_slab",
+  "base": "simplechess:astralit_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess",
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/astralit_quartz_checker",
+   "side_mirror": "simplechess:block/astralit_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 5,
+  "en": "Astralit Quartz Checker Half Slab",
+  "de": "Astralit-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "blackstone_quartz_checker_half_slab",
+  "slab": "simplechess:blackstone_quartz_checker_slab",
+  "base": "simplechess:blackstone_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/blackstone_quartz_checker",
+   "side_mirror": "simplechess:block/blackstone_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Blackstone Quartz Checker Half Slab",
+  "de": "Schwarzstein-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "blue_ice_brick_half_slab",
+  "slab": "simpleblocks:blue_ice_brick_slab",
+  "base": "simpleblocks:blue_ice_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/blue_ice_bricks",
+   "top": "simpleblocks:block/blue_ice_bricks",
+   "side": "simpleblocks:block/blue_ice_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:blue_ice",
+  "light": 0,
+  "en": "Blue Ice Brick Half Slab",
+  "de": "Blaueisziegelhalbstufe"
+ },
+ {
+  "id": "blue_ice_half_slab",
+  "slab": "simpleblocks:blue_ice_slab",
+  "base": "minecraft:blue_ice",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/blue_ice",
+   "top": "minecraft:block/blue_ice",
+   "side": "minecraft:block/blue_ice"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:blue_ice",
+  "light": 0,
+  "en": "Blue Ice Half Slab",
+  "de": "Blaueishalbstufe"
+ },
+ {
+  "id": "blue_nether_brick_half_slab",
+  "slab": "simpleblocks:blue_nether_brick_slab",
+  "base": "simpleblocks:blue_nether_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/blue_nether_bricks",
+   "top": "simpleblocks:block/blue_nether_bricks",
+   "side": "simpleblocks:block/blue_nether_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:red_nether_bricks",
+  "light": 0,
+  "en": "Blue Nether Brick Half Slab",
+  "de": "Blaue Netherziegelhalbstufe"
+ },
+ {
+  "id": "calcite_half_slab",
+  "slab": "simpleblocks:calcite_slab",
+  "base": "minecraft:calcite",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/calcite",
+   "top": "minecraft:block/calcite",
+   "side": "minecraft:block/calcite"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:calcite",
+  "light": 0,
+  "en": "Calcite Half Slab",
+  "de": "Kalzithalbstufe"
+ },
+ {
+  "id": "cut_brass_half_slab",
+  "slab": "simpleores:cut_brass_slab",
+  "base": "simpleores:cut_brass",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_brass",
+   "top": "simpleores:block/cut_brass",
+   "side": "simpleores:block/cut_brass"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Brass Half Slab",
+  "de": "Geschnittene Messinghalbstufe"
+ },
+ {
+  "id": "cut_bronze_half_slab",
+  "slab": "simpleores:cut_bronze_slab",
+  "base": "simpleores:cut_bronze",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_bronze",
+   "top": "simpleores:block/cut_bronze",
+   "side": "simpleores:block/cut_bronze"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Bronze Half Slab",
+  "de": "Geschnittene Bronzehalbstufe"
+ },
+ {
+  "id": "cut_gold_half_slab",
+  "slab": "simpleblocks:cut_gold_slab",
+  "base": "simpleblocks:cut_gold",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/cut_gold",
+   "top": "simpleblocks:block/cut_gold",
+   "side": "simpleblocks:block/cut_gold"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:gold_block",
+  "light": 0,
+  "en": "Cut Gold Half Slab",
+  "de": "Geschnittene Goldhalbstufe"
+ },
+ {
+  "id": "cut_iron_half_slab",
+  "slab": "simpleblocks:cut_iron_slab",
+  "base": "simpleblocks:cut_iron",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/cut_iron",
+   "top": "simpleblocks:block/cut_iron",
+   "side": "simpleblocks:block/cut_iron"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Iron Half Slab",
+  "de": "Geschnittene Eisenhalbstufe"
+ },
+ {
+  "id": "cut_lead_half_slab",
+  "slab": "simpleores:cut_lead_slab",
+  "base": "simpleores:cut_lead",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_lead",
+   "top": "simpleores:block/cut_lead",
+   "side": "simpleores:block/cut_lead"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Lead Half Slab",
+  "de": "Geschnittene Bleihalbstufe"
+ },
+ {
+  "id": "cut_nickel_half_slab",
+  "slab": "simpleores:cut_nickel_slab",
+  "base": "simpleores:cut_nickel",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_nickel",
+   "top": "simpleores:block/cut_nickel",
+   "side": "simpleores:block/cut_nickel"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Nickel Half Slab",
+  "de": "Geschnittene Nickelhalbstufe"
+ },
+ {
+  "id": "cut_rose_bronze_half_slab",
+  "slab": "simpleores:cut_rose_bronze_slab",
+  "base": "simpleores:cut_rose_bronze",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_rose_bronze",
+   "top": "simpleores:block/cut_rose_bronze",
+   "side": "simpleores:block/cut_rose_bronze"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Rose Copper Half Slab",
+  "de": "Geschnittene Rosenkupferhalbstufe"
+ },
+ {
+  "id": "cut_rose_gold_half_slab",
+  "slab": "simpleores:cut_rose_gold_slab",
+  "base": "simpleores:cut_rose_gold",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_rose_gold",
+   "top": "simpleores:block/cut_rose_gold",
+   "side": "simpleores:block/cut_rose_gold"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Rose Gold Half Slab",
+  "de": "Geschnittene Roségoldhalbstufe"
+ },
+ {
+  "id": "cut_silver_half_slab",
+  "slab": "simpleores:cut_silver_slab",
+  "base": "simpleores:cut_silver",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_silver",
+   "top": "simpleores:block/cut_silver",
+   "side": "simpleores:block/cut_silver"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:gold_block",
+  "light": 0,
+  "en": "Cut Silver Half Slab",
+  "de": "Geschnittene Silberhalbstufe"
+ },
+ {
+  "id": "cut_stainless_steel_half_slab",
+  "slab": "simpleores:cut_stainless_steel_slab",
+  "base": "simpleores:cut_stainless_steel",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_stainless_steel",
+   "top": "simpleores:block/cut_stainless_steel",
+   "side": "simpleores:block/cut_stainless_steel"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Stainless Steel Half Slab",
+  "de": "Geschnittene Edelstahlhalbstufe"
+ },
+ {
+  "id": "cut_tin_half_slab",
+  "slab": "simpleores:cut_tin_slab",
+  "base": "simpleores:cut_tin",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_tin",
+   "top": "simpleores:block/cut_tin",
+   "side": "simpleores:block/cut_tin"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Tin Half Slab",
+  "de": "Geschnittene Zinnhalbstufe"
+ },
+ {
+  "id": "cut_zinc_half_slab",
+  "slab": "simpleores:cut_zinc_slab",
+  "base": "simpleores:cut_zinc",
+  "ns": "simpleores",
+  "mods": [
+   "simpleores"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleores:block/cut_zinc",
+   "top": "simpleores:block/cut_zinc",
+   "side": "simpleores:block/cut_zinc"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:iron_block",
+  "light": 0,
+  "en": "Cut Zinc Half Slab",
+  "de": "Geschnittene Zinkhalbstufe"
+ },
+ {
+  "id": "end_stone_half_slab",
+  "slab": "simpleblocks:end_stone_slab",
+  "base": "minecraft:end_stone",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/end_stone",
+   "top": "minecraft:block/end_stone",
+   "side": "minecraft:block/end_stone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "End Stone Half Slab",
+  "de": "Endsteinhalbstufe"
+ },
+ {
+  "id": "ender_end_stone_half_slab",
+  "slab": "simplebuilding:ender_end_stone_slab",
+  "base": "simplebuilding:ender_end_stone",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/ender_end_stone",
+   "top": "simplebuilding:block/ender_end_stone",
+   "side": "simplebuilding:block/ender_end_stone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Ender End Stone Half Slab",
+  "de": "Ender-Endsteinhalbstufe"
+ },
+ {
+  "id": "ender_purpur_half_slab",
+  "slab": "simplebuilding:ender_purpur_slab",
+  "base": "simplebuilding:ender_purpur_block",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/ender_purpur_block",
+   "top": "simplebuilding:block/ender_purpur_block",
+   "side": "simplebuilding:block/ender_purpur_block"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:purpur_block",
+  "light": 0,
+  "en": "Ender Purpur Half Slab",
+  "de": "Ender-Purpurhalbstufe"
+ },
+ {
+  "id": "ender_quartz_brick_half_slab",
+  "slab": "simplebuilding:ender_quartz_brick_slab",
+  "base": "simplebuilding:ender_quartz_bricks",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/ender_quartz_bricks",
+   "top": "simplebuilding:block/ender_quartz_bricks",
+   "side": "simplebuilding:block/ender_quartz_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Ender Quartz Brick Half Slab",
+  "de": "Enderquarzziegelhalbstufe"
+ },
+ {
+  "id": "ender_quartz_checker_half_slab",
+  "slab": "simplechess:ender_quartz_checker_slab",
+  "base": "simplechess:ender_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess",
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/ender_quartz_checker",
+   "side_mirror": "simplechess:block/ender_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Ender Quartz Checker Half Slab",
+  "de": "Enderquarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "ender_quartz_half_slab",
+  "slab": "simplebuilding:ender_quartz_slab",
+  "base": "simplebuilding:ender_quartz_block",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/ender_quartz_block",
+   "top": "simplebuilding:block/ender_quartz_block",
+   "side": "simplebuilding:block/ender_quartz_block"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Ender Quartz Half Slab",
+  "de": "Enderquarzhalbstufe"
+ },
+ {
+  "id": "hushed_deepslate_tile_half_slab",
+  "slab": "simpleblocks:hushed_deepslate_tile_slab",
+  "base": "simpleblocks:hushed_deepslate_tiles",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/hushed_deepslate_tiles",
+   "top": "simpleblocks:block/hushed_deepslate_tiles",
+   "side": "simpleblocks:block/hushed_deepslate_tiles"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:deepslate_tiles",
+  "light": 0,
+  "en": "Hushed Deepslate Tile Half Slab",
+  "de": "Gedämpfte Tiefenschieferfliesenhalbstufe"
+ },
+ {
+  "id": "ice_brick_half_slab",
+  "slab": "simpleblocks:ice_brick_slab",
+  "base": "simpleblocks:ice_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/ice_bricks",
+   "top": "simpleblocks:block/ice_bricks",
+   "side": "simpleblocks:block/ice_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:ice",
+  "light": 0,
+  "en": "Ice Brick Half Slab",
+  "de": "Eisziegelhalbstufe"
+ },
+ {
+  "id": "ice_half_slab",
+  "slab": "simpleblocks:ice_slab",
+  "base": "minecraft:ice",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/ice",
+   "top": "minecraft:block/ice",
+   "side": "minecraft:block/ice"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:ice",
+  "light": 0,
+  "en": "Ice Half Slab",
+  "de": "Eishalbstufe"
+ },
+ {
+  "id": "lapis_quartz_checker_half_slab",
+  "slab": "simplechess:lapis_quartz_checker_slab",
+  "base": "simplechess:lapis_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/lapis_quartz_checker",
+   "side_mirror": "simplechess:block/lapis_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Lapis Quartz Checker Half Slab",
+  "de": "Lapis-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "mossy_cinnabar_brick_half_slab",
+  "slab": "simpleblocks:mossy_cinnabar_brick_slab",
+  "base": "simpleblocks:mossy_cinnabar_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/mossy_cinnabar_bricks",
+   "top": "simpleblocks:block/mossy_cinnabar_bricks",
+   "side": "simpleblocks:block/mossy_cinnabar_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cinnabar_bricks",
+  "light": 0,
+  "en": "Mossy Cinnabar Brick Half Slab",
+  "de": "Bemooste Zinnoberziegelhalbstufe"
+ },
+ {
+  "id": "mossy_deepslate_brick_half_slab",
+  "slab": "simpleblocks:mossy_deepslate_brick_slab",
+  "base": "simpleblocks:mossy_deepslate_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/mossy_deepslate_bricks",
+   "top": "simpleblocks:block/mossy_deepslate_bricks",
+   "side": "simpleblocks:block/mossy_deepslate_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:deepslate_bricks",
+  "light": 0,
+  "en": "Mossy Deepslate Brick Half Slab",
+  "de": "Bemooste Tiefenschieferziegelhalbstufe"
+ },
+ {
+  "id": "mossy_deepslate_tile_half_slab",
+  "slab": "simpleblocks:mossy_deepslate_tile_slab",
+  "base": "simpleblocks:mossy_deepslate_tiles",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/mossy_deepslate_tiles",
+   "top": "simpleblocks:block/mossy_deepslate_tiles",
+   "side": "simpleblocks:block/mossy_deepslate_tiles"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:deepslate_tiles",
+  "light": 0,
+  "en": "Mossy Deepslate Tile Half Slab",
+  "de": "Bemooste Tiefenschieferfliesenhalbstufe"
+ },
+ {
+  "id": "mossy_end_stone_brick_half_slab",
+  "slab": "simpleblocks:mossy_end_stone_brick_slab",
+  "base": "simpleblocks:mossy_end_stone_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/mossy_end_stone_bricks",
+   "top": "simpleblocks:block/mossy_end_stone_bricks",
+   "side": "simpleblocks:block/mossy_end_stone_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone_bricks",
+  "light": 0,
+  "en": "Mossy End Stone Brick Half Slab",
+  "de": "Bemooste Endsteinziegelhalbstufe"
+ },
+ {
+  "id": "mossy_mud_brick_half_slab",
+  "slab": "simpleblocks:mossy_mud_brick_slab",
+  "base": "simpleblocks:mossy_mud_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/mossy_mud_bricks",
+   "top": "simpleblocks:block/mossy_mud_bricks",
+   "side": "simpleblocks:block/mossy_mud_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:mud_bricks",
+  "light": 0,
+  "en": "Mossy Mud Brick Half Slab",
+  "de": "Bemooste Lehmziegelhalbstufe"
+ },
+ {
+  "id": "mossy_sulfur_brick_half_slab",
+  "slab": "simpleblocks:mossy_sulfur_brick_slab",
+  "base": "simpleblocks:mossy_sulfur_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/mossy_sulfur_bricks",
+   "top": "simpleblocks:block/mossy_sulfur_bricks",
+   "side": "simpleblocks:block/mossy_sulfur_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:sulfur_bricks",
+  "light": 0,
+  "en": "Mossy Sulfur Brick Half Slab",
+  "de": "Bemooste Schwefelziegelhalbstufe"
+ },
+ {
+  "id": "mossy_tuff_brick_half_slab",
+  "slab": "simpleblocks:mossy_tuff_brick_slab",
+  "base": "simpleblocks:mossy_tuff_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/mossy_tuff_bricks",
+   "top": "simpleblocks:block/mossy_tuff_bricks",
+   "side": "simpleblocks:block/mossy_tuff_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:tuff_bricks",
+  "light": 0,
+  "en": "Mossy Tuff Brick Half Slab",
+  "de": "Bemooste Tuffziegelhalbstufe"
+ },
+ {
+  "id": "nether_brick_quartz_checker_half_slab",
+  "slab": "simplechess:nether_brick_quartz_checker_slab",
+  "base": "simplechess:nether_brick_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/nether_brick_quartz_checker",
+   "side_mirror": "simplechess:block/nether_brick_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Nether Brick Quartz Checker Half Slab",
+  "de": "Netherziegel-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "netherrack_half_slab",
+  "slab": "simpleblocks:netherrack_slab",
+  "base": "minecraft:netherrack",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/netherrack",
+   "top": "minecraft:block/netherrack",
+   "side": "minecraft:block/netherrack"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:netherrack",
+  "light": 0,
+  "en": "Netherrack Half Slab",
+  "de": "Netherrack-Halbstufe"
+ },
+ {
+  "id": "nihil_end_stone_half_slab",
+  "slab": "simplebuilding:nihil_end_stone_slab",
+  "base": "simplebuilding:nihil_end_stone",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/nihil_end_stone",
+   "top": "simplebuilding:block/nihil_end_stone",
+   "side": "simplebuilding:block/nihil_end_stone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Nihil End Stone Half Slab",
+  "de": "Nihil-Endsteinhalbstufe"
+ },
+ {
+  "id": "nihil_purpur_half_slab",
+  "slab": "simplebuilding:nihil_purpur_slab",
+  "base": "simplebuilding:nihil_purpur_block",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/nihil_purpur_block",
+   "top": "simplebuilding:block/nihil_purpur_block",
+   "side": "simplebuilding:block/nihil_purpur_block"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:purpur_block",
+  "light": 0,
+  "en": "Nihil Purpur Half Slab",
+  "de": "Nihil-Purpurhalbstufe"
+ },
+ {
+  "id": "nihilith_brick_half_slab",
+  "slab": "simplebuilding:nihilith_brick_slab",
+  "base": "simplebuilding:nihilith_bricks",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/nihilith_bricks",
+   "top": "simplebuilding:block/nihilith_bricks",
+   "side": "simplebuilding:block/nihilith_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Nihilit Brick Half Slab",
+  "de": "Nihilitziegelhalbstufe"
+ },
+ {
+  "id": "nihilith_half_slab",
+  "slab": "simplebuilding:nihilith_slab",
+  "base": "simplebuilding:nihilith_block",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/nihilith_block",
+   "top": "simplebuilding:block/nihilith_block",
+   "side": "simplebuilding:block/nihilith_block"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Nihilit Half Slab",
+  "de": "Nihilithalbstufe"
+ },
+ {
+  "id": "nihilith_quartz_checker_half_slab",
+  "slab": "simplechess:nihilith_quartz_checker_slab",
+  "base": "simplechess:nihilith_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess",
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/nihilith_quartz_checker",
+   "side_mirror": "simplechess:block/nihilith_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Nihilit Quartz Checker Half Slab",
+  "de": "Nihilit-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "packed_ice_brick_half_slab",
+  "slab": "simpleblocks:packed_ice_brick_slab",
+  "base": "simpleblocks:packed_ice_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/packed_ice_bricks",
+   "top": "simpleblocks:block/packed_ice_bricks",
+   "side": "simpleblocks:block/packed_ice_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:packed_ice",
+  "light": 0,
+  "en": "Packed Ice Brick Half Slab",
+  "de": "Packeisziegelhalbstufe"
+ },
+ {
+  "id": "packed_ice_half_slab",
+  "slab": "simpleblocks:packed_ice_slab",
+  "base": "minecraft:packed_ice",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/packed_ice",
+   "top": "minecraft:block/packed_ice",
+   "side": "minecraft:block/packed_ice"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:packed_ice",
+  "light": 0,
+  "en": "Packed Ice Half Slab",
+  "de": "Packeishalbstufe"
+ },
+ {
+  "id": "polished_astralit_checker_half_slab",
+  "slab": "simplechess:polished_astralit_checker_slab",
+  "base": "simplechess:polished_astralit_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess",
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/polished_astralit_checker",
+   "side_mirror": "simplechess:block/polished_astralit_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 5,
+  "en": "Polished Astralit Checker Half Slab",
+  "de": "Polierte Astralit-Schachbretthalbstufe"
+ },
+ {
+  "id": "polished_astralit_half_slab",
+  "slab": "simplebuilding:polished_astralit_slab",
+  "base": "simplebuilding:polished_astralit",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/polished_astralit",
+   "top": "simplebuilding:block/polished_astralit",
+   "side": "simplebuilding:block/polished_astralit"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 10,
+  "en": "Polished Astralit Half Slab",
+  "de": "Polierte Astralithalbstufe"
+ },
+ {
+  "id": "polished_end_stone_half_slab",
+  "slab": "simplelib:polished_end_stone_slab",
+  "base": "simplelib:polished_end_stone",
+  "ns": "simplelib",
+  "mods": [],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplelib:block/polished_end_stone",
+   "top": "simplelib:block/polished_end_stone",
+   "side": "simplelib:block/polished_end_stone"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Polished End Stone Half Slab",
+  "de": "Polierte Endstein-Halbstufe"
+ },
+ {
+  "id": "polished_ender_quartz_checker_half_slab",
+  "slab": "simplechess:polished_ender_quartz_checker_slab",
+  "base": "simplechess:polished_ender_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess",
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/polished_ender_quartz_checker",
+   "side_mirror": "simplechess:block/polished_ender_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Polished Ender Quartz Checker Half Slab",
+  "de": "Polierte Enderquarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "polished_ender_quartz_half_slab",
+  "slab": "simplebuilding:polished_ender_quartz_slab",
+  "base": "simplebuilding:polished_ender_quartz",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/polished_ender_quartz",
+   "top": "simplebuilding:block/polished_ender_quartz",
+   "side": "simplebuilding:block/polished_ender_quartz"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Polished Ender Quartz Half Slab",
+  "de": "Polierte Enderquarzhalbstufe"
+ },
+ {
+  "id": "polished_nihilith_checker_half_slab",
+  "slab": "simplechess:polished_nihilith_checker_slab",
+  "base": "simplechess:polished_nihilith_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess",
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/polished_nihilith_checker",
+   "side_mirror": "simplechess:block/polished_nihilith_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Polished Nihilit Checker Half Slab",
+  "de": "Polierte Nihilit-Schachbretthalbstufe"
+ },
+ {
+  "id": "polished_nihilith_half_slab",
+  "slab": "simplebuilding:polished_nihilith_slab",
+  "base": "simplebuilding:polished_nihilith",
+  "ns": "simplebuilding",
+  "mods": [
+   "simplebuilding"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simplebuilding:block/polished_nihilith",
+   "top": "simplebuilding:block/polished_nihilith",
+   "side": "simplebuilding:block/polished_nihilith"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:end_stone",
+  "light": 0,
+  "en": "Polished Nihilit Half Slab",
+  "de": "Polierte Nihilithalbstufe"
+ },
+ {
+  "id": "purpur_quartz_checker_half_slab",
+  "slab": "simplechess:purpur_quartz_checker_slab",
+  "base": "simplechess:purpur_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/purpur_quartz_checker",
+   "side_mirror": "simplechess:block/purpur_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Purpur Quartz Checker Half Slab",
+  "de": "Purpur-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "quartz_brick_half_slab",
+  "slab": "simpleblocks:quartz_brick_slab",
+  "base": "minecraft:quartz_bricks",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/quartz_bricks",
+   "top": "minecraft:block/quartz_bricks",
+   "side": "minecraft:block/quartz_bricks"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_bricks",
+  "light": 0,
+  "en": "Quartz Brick Half Slab",
+  "de": "Quarzziegelhalbstufe"
+ },
+ {
+  "id": "red_nether_brick_quartz_checker_half_slab",
+  "slab": "simplechess:red_nether_brick_quartz_checker_slab",
+  "base": "simplechess:red_nether_brick_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/red_nether_brick_quartz_checker",
+   "side_mirror": "simplechess:block/red_nether_brick_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Red Nether Brick Quartz Checker Half Slab",
+  "de": "Rote Netherziegel-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "resin_quartz_checker_half_slab",
+  "slab": "simplechess:resin_quartz_checker_slab",
+  "base": "simplechess:resin_quartz_checker",
+  "ns": "simplechess",
+  "mods": [
+   "simplechess"
+  ],
+  "group": "mod",
+  "kind": "checker",
+  "tex": {
+   "side": "simplechess:block/resin_quartz_checker",
+   "side_mirror": "simplechess:block/resin_quartz_checker_mirror"
+  },
+  "cells": [
+   "simplechess:block/checker_cells/51",
+   "simplechess:block/checker_cells/204"
+  ],
+  "tool": "pickaxe",
+  "template": "minecraft:quartz_block",
+  "light": 0,
+  "en": "Resin Quartz Checker Half Slab",
+  "de": "Harz-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "sculk_tile_half_slab",
+  "slab": "simpleblocks:sculk_tile_slab",
+  "base": "simpleblocks:sculk_tiles",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "simpleblocks:block/sculk_tiles",
+   "top": "simpleblocks:block/sculk_tiles",
+   "side": "simpleblocks:block/sculk_tiles"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:deepslate_tiles",
+  "light": 0,
+  "en": "Sculk Tile Half Slab",
+  "de": "Sculk-Fliesenhalbstufe"
+ },
+ {
+  "id": "smooth_basalt_half_slab",
+  "slab": "simpleblocks:smooth_basalt_slab",
+  "base": "minecraft:smooth_basalt",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/smooth_basalt",
+   "top": "minecraft:block/smooth_basalt",
+   "side": "minecraft:block/smooth_basalt"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:smooth_basalt",
+  "light": 0,
+  "en": "Smooth Basalt Half Slab",
+  "de": "Glatte Basalthalbstufe"
+ },
+ {
+  "id": "cinnabar_half_slab",
+  "slab": "minecraft:cinnabar_slab",
+  "base": "minecraft:cinnabar",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "other",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/cinnabar",
+   "top": "minecraft:block/cinnabar",
+   "side": "minecraft:block/cinnabar"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:cinnabar_slab",
+  "light": 0,
+  "en": "Cinnabar Half Slab",
+  "de": "Zinnoberhalbstufe"
+ },
+ {
+  "id": "polished_cinnabar_half_slab",
+  "slab": "minecraft:polished_cinnabar_slab",
+  "base": "minecraft:polished_cinnabar",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "other",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_cinnabar",
+   "top": "minecraft:block/polished_cinnabar",
+   "side": "minecraft:block/polished_cinnabar"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_cinnabar_slab",
+  "light": 0,
+  "en": "Polished Cinnabar Half Slab",
+  "de": "Polierte Zinnoberhalbstufe"
+ },
+ {
+  "id": "polished_sulfur_half_slab",
+  "slab": "minecraft:polished_sulfur_slab",
+  "base": "minecraft:polished_sulfur",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "other",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/polished_sulfur",
+   "top": "minecraft:block/polished_sulfur",
+   "side": "minecraft:block/polished_sulfur"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:polished_sulfur_slab",
+  "light": 0,
+  "en": "Polished Sulfur Half Slab",
+  "de": "Polierte Schwefelhalbstufe"
+ },
+ {
+  "id": "sulfur_half_slab",
+  "slab": "minecraft:sulfur_slab",
+  "base": "minecraft:sulfur",
+  "ns": "minecraft",
+  "mods": [],
+  "group": "other",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/sulfur",
+   "top": "minecraft:block/sulfur",
+   "side": "minecraft:block/sulfur"
+  },
+  "tool": "pickaxe",
+  "template": "minecraft:sulfur_slab",
+  "light": 0,
+  "en": "Sulfur Half Slab",
+  "de": "Schwefelhalbstufe"
+ }
+]

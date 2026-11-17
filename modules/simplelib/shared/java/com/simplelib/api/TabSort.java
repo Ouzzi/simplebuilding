@@ -20,8 +20,11 @@ import net.minecraft.world.item.ItemStack;
 public final class TabSort {
     private TabSort() {}
 
-    /** Shape endings in tab order after the block variants (octet last: the eighth pieces of the family). */
-    public static final List<String> SHAPES = List.of("_stairs", "_slab", "_wall", "_fence_gate", "_fence", "_pane", "_trapdoor", "_door", "_octet");
+    /**
+     * Shape endings in tab order after the block variants (octet last: the eighth pieces of the family). N86: "_half_slab" stands
+     * before "_slab" - the first matching ending wins and a half slab also ends in "_slab" (else its family would be "x_half").
+     */
+    public static final List<String> SHAPES = List.of("_stairs", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence", "_pane", "_trapdoor", "_door", "_octet");
     /** Variant words, order = rank (plain first, then polished ... chiseled, pillar). */
     public static final List<String> VARIANT_WORDS = List.of("planks", "block", "log", "stem", "wood", "hyphae", "stripped",
             "cobbled", "polished", "smooth", "cut", "bricks", "brick", "tiles", "tile", "cracked", "mossy", "chiseled", "pillar",

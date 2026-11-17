@@ -130,6 +130,7 @@ public final class OctetRegistry {
         }
         MIXED_OCTET = block("mixed_octet", null, unused -> new MixedOctetBlock(BlockBehaviour.Properties.of().setId(key("mixed_octet"))
                 .mapColor(MapColor.STONE).strength(0.8F).sound(SoundType.STONE).noLootTable().isValidSpawn((state, world, pos, type) -> false)));
+        HalfSlabRegistry.registerBlocks();   // N86-4 (DRAFT): half slabs live in Simple Octets
     }
 
     private static @Nullable Block materialCell(OctetMaterials.Material material) {
@@ -193,6 +194,7 @@ public final class OctetRegistry {
             MATERIAL_OCTET_ITEMS.add(item(name, s -> new MaterialOctetItem(() -> cell,
                     netherite ? s.stacksTo(MAX_STACK).rarity(Rarity.UNCOMMON).fireResistant() : s.stacksTo(MAX_STACK))));
         }
+        HalfSlabRegistry.registerItems();   // N86 (DRAFT)
     }
 
     public static void registerBlockEntity(BlockEntityType<MixedOctetBlockEntity> type) {
@@ -209,6 +211,7 @@ public final class OctetRegistry {
             if ("wool".equals(GROUPS.get(cell))) fire.simpleoctets$setFlammable(cell, 30, 60);
             if ("log".equals(GROUPS.get(cell)) && cell.defaultBlockState().ignitedByLava()) fire.simpleoctets$setFlammable(cell, 5, 5);
         }
+        HalfSlabRegistry.registerFlammability();   // N86 (DRAFT)
     }
 
     /** The material octets of one group of {@link OctetMaterials#GROUPS}, in list order. */
@@ -253,6 +256,7 @@ public final class OctetRegistry {
             }
         }
         out.addAll(polishedEndStoneShapes());
+        out.addAll(HalfSlabRegistry.tabStacks());   // N86 (DRAFT): behind the octets (plan 3.5)
         return out;
     }
 

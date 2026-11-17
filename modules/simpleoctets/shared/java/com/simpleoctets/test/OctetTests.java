@@ -8,6 +8,7 @@ import com.simpleoctets.block.MixedOctetBlockEntity;
 import com.simpleoctets.block.OctetCellBlock;
 import com.simpleoctets.block.OctetCells;
 import com.simpleoctets.item.MaterialOctetItem;
+import com.simpleoctets.registry.HalfSlabRegistry;
 import com.simpleoctets.registry.OctetMaterials;
 import com.simpleoctets.registry.OctetRegistry;
 import java.util.ArrayList;
@@ -115,8 +116,9 @@ public final class OctetTests {
         Item netherite = BuiltInRegistries.ITEM.getValue(SimpleOctets.id("netherite_block_octet"));
         if (!new ItemStack(netherite).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT)) problems.add("netherite octet not fire resistant");
         h.assertTrue(problems.isEmpty(), "registration: " + problems);
-        h.assertTrue(OctetRegistry.tabStacks().size() == items.size() + 1 + OctetRegistry.polishedEndStoneShapes().size(),
-                "tab: every octet item, the melon slice and the polished end stone shapes");
+        h.assertTrue(OctetRegistry.tabStacks().size() == items.size() + 1 + OctetRegistry.polishedEndStoneShapes().size()
+                        + HalfSlabRegistry.ITEMS.size(),
+                "tab: every octet item, the melon slice, the polished end stone shapes and the half slabs (N86)");
         h.succeed();
     }
 
@@ -150,6 +152,9 @@ public final class OctetTests {
         for (Block block : BuiltInRegistries.BLOCK) {
             Identifier id = BuiltInRegistries.BLOCK.getKey(block);
             String path = id.getPath();
+            // N86: half slabs (HalfSlabBlock, no SlabBlock) end in "_slab" too - they are pieces like the octets, not a shape
+            // that needs an octet of "<x>_half"; their own coverage is HalfSlabTests (every slab has a half slab or an exception).
+            if (path.endsWith("_half_slab")) continue;
             boolean stairsClass = block instanceof net.minecraft.world.level.block.StairBlock;
             boolean slabClass = block instanceof net.minecraft.world.level.block.SlabBlock;
             boolean wallClass = block instanceof net.minecraft.world.level.block.WallBlock;

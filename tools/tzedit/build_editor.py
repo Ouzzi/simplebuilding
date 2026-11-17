@@ -95,7 +95,8 @@ def texture(wiki: Path, icons: dict[str, str], groups: dict[str, str], ident: st
     return None
 
 
-SHAPES = ("_block_octet", "_octet", "_slab", "_stairs", "_wall", "_button", "_pressure_plate", "_fence_gate", "_fence",
+# N86: "_half_slab" before "_slab" (a half slab ends in "_slab" too; else its picture base would be "x_half").
+SHAPES = ("_block_octet", "_octet", "_half_slab", "_slab", "_stairs", "_wall", "_button", "_pressure_plate", "_fence_gate", "_fence",
           "_trapdoor", "_pane", "_sheet")
 
 

@@ -19,6 +19,10 @@
     {
       "id": "simpleoctets:hushed_deepslate_tiles_octet",
       "required": false
+    },
+    {
+      "id": "#simpleoctets:half_slab/occludes_vibration_signals",
+      "required": false
     }
   ]
 }
