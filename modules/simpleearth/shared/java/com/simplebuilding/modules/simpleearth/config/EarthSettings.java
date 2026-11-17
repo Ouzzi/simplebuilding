@@ -144,6 +144,18 @@ public final class EarthSettings {
         return out;
     }
 
+    /**
+     * simpleearth-2 (PLAN40 "few understandable sliders", W2B=ok 15.11.): the only values the menu shows outside the hidden
+     * developer mode - when the earth appears, detail, render distance, atmosphere, moon size, other players. The same for
+     * every released version; everything else (edge, bands, budgets, the versions' own style values) only in the developer mode.
+     */
+    public static final List<String> SIMPLE = List.of("switchY", "detail", "renderDistance", "atmosphere", "moonSize", "showOthers");
+
+    /** Whether {@code key} is a display value of all versions ({@link #RENDER}) rather than a version value. */
+    public static boolean isRender(String key) {
+        return findRender(key) != null;
+    }
+
     public static Setting findRender(String key) {
         for (Setting s : RENDER) if (s.key().equals(key)) return s;
         return null;

@@ -443,17 +443,35 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
      * SDL -> MouseHandler) is checked by modules/simpleearth/tools/menu_probe.py in a normal integration client.
      */
     private static void menu(ClientGameTestContext context) {
+        // simpleearth-2: outside the developer mode only the few simple sliders, no version style values
         context.runOnClient(mc -> {
+            EarthClientConfig.developerMode = false;
+            EarthClientConfig.version = 25;
+            mc.gui.setScreen(new EarthScreen());
+        });
+        context.waitTicks(5);
+        // probeControl only sees rows inside the visible list area (small windows scroll): scroll to each key first
+        for (String key : new String[]{"switchY", "showOthers", "foldBand", "edge"}) {
+            context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScrollTo(key));
+            context.waitTicks(3);
+            boolean shown = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeControl(key) != null);
+            boolean simple = key.equals("switchY") || key.equals("showOthers");
+            check(shown == simple, "simple menu outside the developer mode: " + key + (simple ? " shown" : " hidden"));
+        }
+        context.takeScreenshot("simpleearth-menu-simple");
+        context.runOnClient(mc -> {
+            EarthClientConfig.developerMode = true;
             EarthClientConfig.version = 10;
             mc.gui.setScreen(new EarthScreen());
         });
         context.waitTicks(5);
         context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScrollTo("tipTime"));
         context.waitTicks(5);
-        check(context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeControl("tipTime") != null), "V10 own values in the Vanilla list");
+        check(context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeControl("tipTime") != null), "V10 own values in the Vanilla list (developer mode)");
         context.takeScreenshot("simpleearth-menu-used");
         context.runOnClient(mc -> {
             mc.gui.setScreen(null);
+            EarthClientConfig.developerMode = false;
             EarthClientConfig.version = 6;
         });
     }
