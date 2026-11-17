@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   let browser;
   try {
-    browser = await chromium.launch({ headless: true, channel: process.env.WIKI_BROWSER || 'msedge' });
+    browser = await chromium.launch(process.env.WIKI_CHROME ? { headless: true, executablePath: process.env.WIKI_CHROME } : { headless: true, channel: process.env.WIKI_BROWSER || 'msedge' });
     const page = await browser.newPage();
     const errors = []; page.on('pageerror', e => errors.push(e.message));
     const base = `http://127.0.0.1:${server.address().port}/`;
