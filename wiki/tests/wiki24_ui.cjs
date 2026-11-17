@@ -55,7 +55,7 @@ async function run(browser, base, opts) {
   // WIKI_COOKIE="name=value": the login session of a deployed dev wiki (/dev/ sits behind the login)
   if (process.env.WIKI_COOKIE) {
     const [name, ...rest] = process.env.WIKI_COOKIE.split('=');
-    await ctx.addCookies([{ name, value: rest.join('='), url: base }]);
+    await ctx.addCookies([{ name, value: rest.join('='), url: new URL('/', base).href }]); // path /: the dev overlay also calls /api/
   }
   const devSite = /\/dev\/?$/.test(new URL(base).pathname);
   const page = await ctx.newPage();
@@ -113,7 +113,7 @@ async function run(browser, base, opts) {
   worst.push(['submods', await contrast(page, '.sm-mod span, .sm-n, .pb-tag')]);
   const sub = page.locator('.sm-tree .sm-mod').first();
   const href = await sub.getAttribute('href');
-  ok(/mod=simple|\/simple[a-z0-9_]+\/$/.test(href), tag + ' submod links to its wiki');
+  ok(/mod=simple|\/simple[a-z0-9_]+\/(\?|$)/.test(href), tag + ' submod links to its wiki ' + href);
 
   // guidebook: tabs, contents, turning pages (button, key, swipe-free), deep link
   await page.goto(q('?tab=guidebook')); await page.locator('.gb-book').waitFor();
@@ -123,7 +123,7 @@ async function run(browser, base, opts) {
   const pos0 = await page.locator('.gb-pos').textContent();
   await page.click('[data-gb-turn="1"]'); await page.waitForTimeout(150);
   ok(await page.locator('.gb-pos').textContent() !== pos0, tag + ' next page');
-  ok(/book=simplebuilding\/\d+/.test(page.url()), tag + ' page in the address');
+  ok(/(book=|\/guidebook\/)simplebuilding\/\d+/.test(page.url()), tag + ' page in the address'); // N74 path form: /<mod>/guidebook/<section>/<page>
   await page.keyboard.press('ArrowLeft'); await page.waitForTimeout(150);
   ok(await page.locator('.gb-pos').textContent() === pos0, tag + ' arrow key back');
   await page.locator('.gb-toc .gb-link').nth(1).click(); await page.waitForTimeout(150);
@@ -146,7 +146,7 @@ async function run(browser, base, opts) {
   ok(some > 0 && some < all, tag + ' questionary search');
   await page.locator('.qn-item').first().click(); await page.locator('#qn-open').waitFor();
   ok(await page.locator('#qn-open .gb-page').count() === 3, tag + ' three pages');
-  ok(/questionary=/.test(page.url()), tag + ' entry in the address');
+  ok(/questionary=|\/questionary\/[^/?#]+/.test(page.url()), tag + ' entry in the address'); // N74 path form: /<mod>/questionary/<entry>
   worst.push(['questionary', await contrast(page, '#qn-open .gb-page *, .qn-item span, .qn-filters .chip')]);
   await page.click('[data-qn-close]'); await page.waitForTimeout(150);
   ok(await page.locator('#qn-open').count() === 0, tag + ' close');
