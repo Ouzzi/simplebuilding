@@ -1881,7 +1881,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 5
     },
-    "dataHash": "51b8e3541621"
+    "dataHash": "a01e334906ce"
   },
   {
     "id": "simplechallenges",
@@ -1989,7 +1989,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 10
     },
-    "dataHash": "c2cb6a674644"
+    "dataHash": "f1893ffbc209"
   },
   {
     "id": "simpleores",
@@ -2028,7 +2028,7 @@ window.WIKI_MODULES = [
       "config": 27,
       "features": 27
     },
-    "dataHash": "43f253ce676f"
+    "dataHash": "b8120b8c3fd3"
   },
   {
     "id": "simplemachines",
