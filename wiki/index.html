@@ -417,6 +417,7 @@ a.chip { cursor: pointer; }
 .guide { display: block; padding: .8rem .95rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); box-shadow: var(--shadow); }
 .guide:hover { text-decoration: none; border-color: var(--accent); }
 .guide b { display: block; margin-bottom: .15rem; }
+.more-link { margin: -.2rem 0 1.4rem; font-weight: 600; }
 .guide span { color: var(--muted); font-size: .86rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Startseite */
@@ -1513,7 +1514,7 @@ en: {
   homeSearch: 'Search items, blocks, recipes, mechanics …',
   homeBrowse: 'Browse by category',
   homeReference: 'Reference',
-  homeGuides: 'Guides',
+  homeGuides: 'Guides', homeGuidesAll: 'All {0} guides →',
   homeDataState: 'About this build',
   homeHighlights: 'Highlights', homeCompat: 'Mod & compatibility', homeRequires: 'Requires', homeOptional: 'Works with',
   homeMore: '+{0} more', homeNone: 'nothing', wayBuild: 'I want to build', wayStart: 'Get started', wayGuides: '{0} guides',
@@ -2055,7 +2056,7 @@ de: {
   homeSearch: 'Items, Blöcke, Rezepte, Mechaniken suchen …',
   homeBrowse: 'Nach Kategorie stöbern',
   homeReference: 'Nachschlagen',
-  homeGuides: 'Anleitungen',
+  homeGuides: 'Anleitungen', homeGuidesAll: 'Alle {0} Anleitungen →',
   homeDataState: 'Über diesen Stand',
   homeHighlights: 'Highlights', homeCompat: 'Mod & Kompatibilität', homeRequires: 'Benötigt', homeOptional: 'Arbeitet zusammen mit',
   homeMore: '+{0} weitere', homeNone: 'nichts', wayBuild: 'Ich will bauen', wayStart: 'Loslegen', wayGuides: '{0} Anleitungen',
@@ -3200,9 +3201,9 @@ function pageGuides() {
 /* N74: Startseite mit Mod-Kacheln, Mod-Kette, Umfang-Texte           */
 /* ------------------------------------------------------------------ */
 Object.assign(STR.en, {
-  navAllModsBack: 'All mods', homeTitle: 'Simple Mods Wiki', homeLead: '{0} mods, {1} blocks & items, {2} recipes. Pick a mod – or just search above.',
+  navAllModsBack: 'All mods', homeTitle: 'Simple Mods Wiki', homeLead: '{0} mods, {1} blocks & items, {2} recipes. Pick a mod or search directly.',
   homeMods: 'Mods', homeLookup: 'Look up in all mods', homeSuperKind: 'Super-mod · {0} sub-mods', homeAloneKind: 'Standalone mod',
-  homeTileN: '{0} blocks & items · {1} recipes', homeTileNone: 'Settings and behaviour only', homeAllStructure: 'Mod structure →',
+  homeTileN: '{0} blocks & items · {1} recipes', homeTileNone: 'Settings and behaviour only', homeTileEntries: '{0} blocks & items', homeTileOneEntry: '1 block or item', homeTileRecipes: '{0} recipes', homeTileOneRecipe: '1 recipe', homeAllStructure: 'Mod structure →',
   scopeIn: 'Searched in', scopeAll: 'all {0} mods', scopeSubOne: '1 sub-mod', scopeSubMany: '{0} sub-mods',
   searchWide: 'Search in all mods ({0} hits)', searchNarrow: 'Search only in {0}', searchScopeLine: '{0} in {1}.',
   subOf: 'Sub-mod of {0}', moreIn: 'More in {0}', countsScope: 'Counts: {0}', sbInAll: 'All mods: {0}', sbMods: 'Mods',
@@ -3210,9 +3211,9 @@ Object.assign(STR.en, {
   cfgModHead: 'options with {0}', configIntroScope: 'Options of {0}, grouped by mod. Operators change them in game with the command of each mod; the files live in the config folder.'
 });
 Object.assign(STR.de, {
-  navAllModsBack: 'Alle Mods', homeTitle: 'Simple Mods Wiki', homeLead: '{0} Mods, {1} Blöcke & Items, {2} Rezepte. Wähle einen Mod – oder such einfach oben.',
+  navAllModsBack: 'Alle Mods', homeTitle: 'Simple Mods Wiki', homeLead: '{0} Mods, {1} Blöcke & Items, {2} Rezepte. Wähle einen Mod oder such direkt.',
   homeMods: 'Mods', homeLookup: 'In allen Mods nachschlagen', homeSuperKind: 'Super-Mod · {0} Sub-Mods', homeAloneKind: 'Eigenständiger Mod',
-  homeTileN: '{0} Blöcke & Items · {1} Rezepte', homeTileNone: 'Nur Einstellungen und Verhalten', homeAllStructure: 'Mod-Struktur →',
+  homeTileN: '{0} Blöcke & Items · {1} Rezepte', homeTileNone: 'Nur Einstellungen und Verhalten', homeTileEntries: '{0} Blöcke & Items', homeTileOneEntry: '1 Block oder Item', homeTileRecipes: '{0} Rezepte', homeTileOneRecipe: '1 Rezept', homeAllStructure: 'Mod-Struktur →',
   scopeIn: 'Gesucht in', scopeAll: 'allen {0} Mods', scopeSubOne: '1 Sub-Mod', scopeSubMany: '{0} Sub-Mods',
   searchWide: 'In allen Mods suchen ({0} Treffer)', searchNarrow: 'Nur in {0} suchen', searchScopeLine: '{0} in {1}.',
   subOf: 'Sub-Mod von {0}', moreIn: 'Weitere in {0}', countsScope: 'Zähler: {0}', sbInAll: 'Alle Mods: {0}', sbMods: 'Mods',
@@ -3249,6 +3250,18 @@ function homeTops() {
   if (PACK.kind !== 'all') tops = tops.filter(function (m) { return modFamily(m.id).some(inPack); });
   return tops;
 }
+/* N73 Runde 3: Kachel-Text ohne doppeltes "Super-mod:" (steht schon in der Art-Zeile), Zahlen ohne Nullen. */
+function tileDesc(m) {
+  var d = modPurpose(m) || m.description || '';
+  var t = d.replace(/^Super-?mod[^:]{0,40}:\s*/i, '');
+  return t ? t.charAt(0).toUpperCase() + t.slice(1) : d;
+}
+function tileCounts(c) {
+  var parts = [];
+  if (c.entries) parts.push(T(c.entries === 1 ? 'homeTileOneEntry' : 'homeTileEntries', fmtCount(c.entries)));
+  if (c.recipes) parts.push(T(c.recipes === 1 ? 'homeTileOneRecipe' : 'homeTileRecipes', fmtCount(c.recipes)));
+  return parts.length ? parts.join(' · ') : T('homeTileNone');
+}
 function isSuperMod(id) { return modChildren(id).some(function (c) { return wikiMod(c.id); }); }
 /* Startseite (N74, Variante B): 4 Super-Mods als grosse Kacheln, eigenstaendige klein, darunter "In allen Mods nachschlagen". */
 function pageHome() {
@@ -3263,12 +3276,12 @@ function pageHome() {
     h += '<h2>' + esc(T('homeMods')) + '</h2><div class="modtiles">' + supers.map(function (m) {
       var c = famCounts(modFamily(m.id));
       return '<a class="modtile" href="' + esc(crossModHref(m.id)) + '" data-mod="' + esc(m.id) + '"><div class="mt-top">' + modIcon(m, 'big') + '<div><div class="mt-name">' + esc(m.displayName) + '</div><div class="mt-kind">' + esc(T('homeSuperKind', modFamily(m.id).length - 1)) + '</div></div></div>' +
-        '<div class="mt-desc">' + esc(modPurpose(m) || m.description || '') + '</div><div class="mt-n">' + esc(c.entries || c.recipes ? T('homeTileN', fmtCount(c.entries), fmtCount(c.recipes)) : T('homeTileNone')) + '</div></a>';
+        '<div class="mt-desc">' + esc(tileDesc(m)) + '</div><div class="mt-n">' + esc(tileCounts(c)) + '</div></a>';
     }).join('') + '</div>';
   }
   if (solo.length) {
     h += '<h2>' + esc(T('amStandalone')) + '</h2><div class="modtiles small">' + solo.map(function (m) {
-      return '<a class="modtile small" href="' + esc(crossModHref(m.id)) + '" data-mod="' + esc(m.id) + '">' + modIcon(m, 'mid') + '<div><div class="mt-name">' + esc(m.displayName) + '</div><div class="mt-desc">' + esc(modPurpose(m) || m.description || '') + '</div></div></a>';
+      return '<a class="modtile small" href="' + esc(crossModHref(m.id)) + '" data-mod="' + esc(m.id) + '">' + modIcon(m, 'mid') + '<div><div class="mt-name">' + esc(m.displayName) + '</div><div class="mt-desc">' + esc(tileDesc(m)) + '</div></div></a>';
     }).join('') + '</div>';
   }
   var tiles = [['items', T('navBlocksItems'), all.entries], ['allrecipes', T('navRecipesAll'), all.recipes], ['start', T('navGuides'), all.guides], ['config', T('navConfig'), all.config]].filter(function (t) { return t[2] > 0; });
@@ -3324,20 +3337,22 @@ function pageOverview() {
     (parent ? badge(T(meta.bundle === 'required' ? 'chipRequiredBy' : 'chipOptionalFor', parent.displayName), meta.bundle === 'required' ? 'ok' : '') + badge(T('chipAlone')) : '') + '</div></div></div>';
   var lead = welcome ? firstSentence(featureSummary(welcome)) : modIntro(meta);
   h += '<p class="lead">' + esc(lead || T('homeTagline')) + '</p>';
-  if (MODID === 'simplebuilding') h += '<p class="muted" style="margin:0">' + esc(T('homeTagline')) + '</p>';
   var nRec = arr(D.recipes).length, nEntries = catalogEntries().length, nCfg = arr(D.config).length;
   var second = nRec ? wayHtml('#/allrecipes', 'craft', T('wayCraft'), T('wayRecipes', nRec))
     : nEntries ? wayHtml('#/items', 'craft', T('wayInside'), T('wayEntries', nEntries))
     : nCfg ? wayHtml('#/config', 'craft', T('waySettings'), T('wayOptions', nCfg)) : '';
   h += '<nav class="home-ways" aria-label="' + esc(T('navOverview')) + '">' + (feats.length ? wayHtml('#/features', 'build', T(MODID === 'simplebuilding' ? 'wayBuild' : 'wayStart'), T('wayGuides', feats.length)) : '') + second +
-    wayHtml('#/allmods', 'mods', T('navAllMods'), T('wayMods', MODULES.filter(function (m) { return wikiMod(m.id); }).length)) + '</nav>';
-  h += '<button type="button" class="home-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="grow">' + esc(T('homeSearch')) + '</span><kbd>Ctrl</kbd><kbd>K</kbd></button></section>';
+    '</nav></section>';
+  /* N73 Runde 3: "Alle Mods" steht schon in Seitenleiste und Breadcrumb, die Suche oben in der Kopfzeile. */
 
   var hl = highlightIds();
   if (hl.length) h += '<h2>' + esc(T('homeHighlights')) + '</h2><div class="tile-grid home-hl">' + hl.map(function (id) { return itemTile(entryFor(id)); }).join('') + '</div>';
   var cats = catsShown();
   if (cats.length > 1) h += '<h2>' + esc(T('homeBrowse')) + '</h2><div class="cat-grid">' + cats.map(catCard).join('') + '</div>';
-  if (feats.length) h += '<h2>' + esc(T('homeGuides')) + ' <span class="muted tiny" style="font-weight:400">' + feats.length + '</span></h2><div class="guide-grid">' + feats.map(guideLink).join('') + '</div>';
+  /* N73 Runde 3: die Uebersicht zeigt die ersten Anleitungen, der Rest liegt unter "Erste Schritte" (SimpleBuilding: 649 Karten = 29 000 px). */
+  var GUIDES_SHOWN = 9;
+  if (feats.length) h += '<h2>' + esc(T('homeGuides')) + ' <span class="muted tiny" style="font-weight:400">' + feats.length + '</span></h2><div class="guide-grid">' + feats.slice(0, GUIDES_SHOWN).map(guideLink).join('') + '</div>' +
+    (feats.length > GUIDES_SHOWN ? '<p class="more-link"><a href="#/start">' + esc(T('homeGuidesAll', feats.length)) + '</a></p>' : '');
 
   var tiles = [['items', T('navItems'), arr(D.items).length], ['blocks', T('navBlocks'), arr(D.blocks).length], ['allrecipes', T('navAllRecipes'), nRec], ['inworld', T('navInWorld'), IW.entries.length], ['enchantments', T('navEnchantments'), arr(D.enchantments).length], ['advancements', T('navAdvancements'), arr(D.advancements).length], ['trades', T('navTrades'), arr(D.trades).length], ['loot', T('navLoot'), arr(D.lootTables).length], ['tags', T('navTags'), arr(D.tags).length], ['config', T('navConfig'), nCfg]].filter(function (t) { return t[2] > 0; });
   if (tiles.length) h += '<h2>' + esc(T('homeReference')) + '</h2><div class="tile-list" style="margin:0 0 1.4rem">' + tiles.map(function (t) { return '<a class="tile" href="#/' + t[0] + '"><div class="big">' + t[2] + '</div><div class="lbl">' + esc(t[1]) + '</div></a>'; }).join('') + '</div>';
@@ -6991,7 +7006,8 @@ document.addEventListener('error', function (ev) {
 function renderMeta() {
   if (!D) { $meta.innerHTML = ''; return; }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
-  $meta.innerHTML = (MOD.version ? '<span>v' + esc(MOD.version) + '</span>' : '') + '<span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
+  /* N73 Runde 3: Kopfzeile nur Marke, Suche, Anmelden, Hell/Dunkel, Sprache - Version und Datenstand stehen im Fuss. */
+  $meta.innerHTML = '';
   /* Modul-Symbol aus modules.js (sonst blieb die Kachel bei Sub-Mods leer) */
   /* N74: die Marke ist "Simple Mods Wiki" - Symbol bleibt der Eisenmeissel (sonst das Symbol von SimpleBuilding). */
   var modEntry = modMetaRaw('simplebuilding');
@@ -7001,8 +7017,12 @@ function renderMeta() {
   document.getElementById('brand').setAttribute('aria-label', T('homeTitle') + ' – ' + T('navAllMods'));
   if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
 }
+function footMeta() {
+  var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
+  return (selectedMod && MOD.version ? 'v' + MOD.version + ' · ' : '') + 'MC ' + (arr(MOD.minecraftLines).join(' / ') || '?') + (g.line ? ' · ' + T('metaData', g.line) : '');
+}
 function footerHtml() {
-  return '<footer class="site-foot"><span>' + esc(T('footGenerated', (D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</span><span>' + esc(T('footShortcuts')) + '</span><span>' + esc(T('footLicense')) + '</span></footer>';
+  return '<footer class="site-foot"><span>' + esc(footMeta()) + '</span><span>' + esc(T('footGenerated', (D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</span><span>' + esc(T('footShortcuts')) + '</span><span>' + esc(T('footLicense')) + '</span></footer>';
 }
 function render(opts) {
   opts = opts || {};

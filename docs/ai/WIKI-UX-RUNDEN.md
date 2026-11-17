@@ -37,3 +37,23 @@ Umgesetzt (nur CSS in `wiki/index.html`):
 - Gewählte Pillen: weiß mit Akzent-Rahmen und Akzent-Schrift statt Vollfläche. Versions-/„Benötigt“-/End-Chips ohne Tönung.
 - Grüner Balken oben auf der Kopf-Karte entfernt.
 Nicht angefasst: Guidebook-Seiten (`.gb-book` behält sein Papier), Questionary.
+
+## Runde 3 – Kopfzeile, Mod-Übersicht, Startseite entrümpeln
+
+- **Stört:** Kopfzeile trägt Version · MC-Linien · Datenstand neben Suche/Anmelden/Thema/Sprache; Übersicht doppelt:
+  zweites Suchfeld in der Kopf-Karte (die Kopfzeile hat schon eins), Weg-Kachel „Alle Mods“ (steht in Seitenleiste und
+  Breadcrumb), Zusatzzeile „Every item … generated from its own data“ unter dem Einleitungstext; Startseite: „…oder such
+  einfach oben“, obwohl das Feld darunter steht; Kacheltext „Super-mod: bundles …“ direkt unter „Super-mod · 3 sub-mods“;
+  „1 blocks & items · 0 recipes“.
+- **Überladen:** SimpleBuilding-Übersicht listet alle 649 Anleitungen als Karten – Seite 29 000 px hoch.
+- **Fehlt:** ein klarer Weg „alle Anleitungen“ statt der Endlosliste.
+
+Umgesetzt:
+- Kopfzeile nur noch Marke, Suche, Anmelden, Hell/Dunkel, Sprache; Version/MC/Datenstand stehen im Seitenfuß.
+- Übersicht: Kopf-Karte = Symbol, Name, Chips, ein Satz, zwei Wege (Anleitungen, Rezepte); ohne zweites Suchfeld,
+  ohne „Alle Mods“-Weg, ohne Zusatzzeile. Anleitungen: die ersten 9 Karten + „Alle 649 Anleitungen →“ (Erste Schritte).
+  SimpleBuilding-Übersicht: 29 037 px → 2 426 px.
+- Startseite: Text „Wähle einen Mod oder such direkt.“; Kacheltext ohne doppeltes „Super-mod:“; Zahlen ohne Nullen
+  und mit Einzahl („1 Block oder Item“).
+- Tests: `home_ui` – Wege jetzt 1–2 (statt 2–3); „+N more“-Prüfung klickt die Ausklappe der optionalen Zeile (war
+  vorbestehend rot, weil inzwischen auch „Benötigt“ ausklappt). `ui_lists` startet mit `WIKI_CHROME` (wie die anderen).

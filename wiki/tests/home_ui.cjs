@@ -47,7 +47,7 @@ async function check(browser, base, mod, width, scheme) {
   const tag = `${mod} ${width} ${scheme}`;
   assert.match(await page.locator('#main h1').first().textContent(), /Wiki$/, tag);
   const ways = await page.locator('.home-ways .way').count();
-  assert.ok(ways >= 2 && ways <= 3, tag + ' ways ' + ways);
+  assert.ok(ways >= 1 && ways <= 2, tag + ' ways ' + ways); // N73: "All mods" way removed (sidebar + breadcrumb)
   assert.equal(await page.locator('.home-head img.home-icon').count(), 1, tag + ' module icon');
   // highlights: at most 6 visible, every visible one with a loaded picture
   const hl = await page.$$eval('.home-hl .itile', ts => ts.filter(t => t.offsetParent !== null).map(t => { const i = t.querySelector('img'); return i ? i.naturalWidth : 0; }));
@@ -77,7 +77,7 @@ async function check(browser, base, mod, width, scheme) {
   }
   await page.screenshot({ path: path.join(shots, `home-${mod}-${width}-${scheme}.png`), fullPage: false });
   if (mod === 'simplebuilding') {
-    const more = page.locator('.compat-more > summary').first();
+    const more = page.locator('.compat-more:has(.chip-opt) > summary').first(); // N73: "Requires" can fold too now
     if (await more.count()) {
       const before = await page.locator('.home-compat .chip-opt').filter({ visible: true }).count();
       await more.click();
