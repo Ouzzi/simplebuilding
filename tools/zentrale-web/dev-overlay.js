@@ -434,7 +434,17 @@
     note.onclick = function () { go('code', 'note'); };
     [count, all, none, comment, rework, recipe, note].forEach(function (c) { bar.appendChild(c); });
     document.body.appendChild(bar);
-    document.body.style.paddingBottom = '120px';
+    // N74 dev click test: the bar is up to ~150 px high on a phone; page and the open phone sidebar get that much room at
+    // the bottom, so their last entries (sub-mods, ...) can still be scrolled above the bar
+    var css = el('style', '', '#sidebar{padding-bottom:calc(var(--sb-devbar, 0px) + 12px) !important}');
+    document.head.appendChild(css);
+    var fit = function () {
+      var h = bar.offsetHeight + 'px';
+      document.body.style.paddingBottom = h;
+      document.documentElement.style.setProperty('--sb-devbar', h);
+    };
+    fit();
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(bar); else window.addEventListener('resize', fit);
   }
   function paint() {
     var list = tiles();
