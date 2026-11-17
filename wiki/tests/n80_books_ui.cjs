@@ -27,6 +27,11 @@ async function run(browser, base, w, theme) {
   const tag = `${w} ${theme}`;
   const phone = w < 700;
   const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, colorScheme: theme });
+  // WIKI_COOKIE="name=value": the login session of a deployed dev wiki (/dev/ sits behind the login), as in wiki24_ui
+  if (process.env.WIKI_COOKIE) {
+    const [name, ...rest] = process.env.WIKI_COOKIE.split('=');
+    await ctx.addCookies([{ name, value: rest.join('='), url: new URL('/', base).href }]);
+  }
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(String(e)));
