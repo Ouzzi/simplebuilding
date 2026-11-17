@@ -65,6 +65,28 @@
       "Seelensand und Honig bremsen das Pferd deutlich weniger, und es lenkt seitlich viel besser. Verzauberungen und Abnutzung gehen vom Netherit-Hufeisen über."
     ]
   },
+  "rose_bronze_horseshoe": {
+    "lore": [
+      "Ein Hufeisen aus Rosenkupfer: Kupfers Zähigkeit mit wärmerem Glanz."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit einem Rosenkupferbarren (jeder Barren im Tag c:ingots/rose_bronze, z. B. aus Simple Ores) und einem Eisennugget schmieden. 2 Punkte wert wie das Eisenhufeisen, Haltbarkeit 120, Verzauberbarkeit 12. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+    ],
+    "secret": [
+      "Es zählt wie Eisen, nutzt sich aber ab wie Kupfer; dafür verzaubert es sich besser."
+    ]
+  },
+  "rose_gold_horseshoe": {
+    "lore": [
+      "Ein Hufeisen aus Roségold: die Anmut des Goldes, die Geduld des Eisens."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit einem Roségoldbarren (jeder Barren im Tag c:ingots/rose_gold, z. B. aus Simple Ores) und einem Eisennugget schmieden. 4 Punkte wert wie das Goldhufeisen, Haltbarkeit 180, Verzauberbarkeit 22."
+    ],
+    "secret": [
+      "Gleiche Punkte wie Gold, hält aber so lange wie ein Eisenhufeisen. Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter."
+    ]
+  },
   "horseshoe_smithing_template": {
     "lore": [
       "Eine Vorlage in Hufeisenform, kalt wie ein Stall in der Morgendämmerung."

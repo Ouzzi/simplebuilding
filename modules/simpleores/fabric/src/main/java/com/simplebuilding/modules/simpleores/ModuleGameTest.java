@@ -42,6 +42,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void mountGear(GameTestHelper h) {
+        OresTests.ALL.get("mount_gear").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void pressingRecipes(GameTestHelper h) {
         OresTests.ALL.get("pressing_recipes").accept(h);
     }

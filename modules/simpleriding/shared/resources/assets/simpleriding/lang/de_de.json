@@ -62,6 +62,8 @@
   "item.simpleriding.diamond_horseshoe": "Diamanthufeisen",
   "item.simpleriding.netherite_horseshoe": "Netherithufeisen",
   "item.simpleriding.enderite_horseshoe": "Enderithufeisen",
+  "item.simpleriding.rose_bronze_horseshoe": "Rosenkupferhufeisen",
+  "item.simpleriding.rose_gold_horseshoe": "Roségoldhufeisen",
   "item.simpleriding.horseshoe_smithing_template": "Hufeisen-Aufwertung",
   "item.simpleriding.horseshoe_smithing_template.applies_to": "Kupfer–Enderit-Barren",
   "item.simpleriding.horseshoe_smithing_template.ingredients": "Eisennuggets, Netheritbarren oder Enderitbarren",

@@ -83,6 +83,12 @@ for a, (en, de) in ALLOYS.items():
 for a, (en, de) in ALLOYS.items():
     for part, (pen, pde) in PARTS.items():
         ITEMS[f'{a}_{part}'] = (f'{en} {pen}', f'{de}{pde}')
+# N89A (owner N77, 17.11.): spear, horse and nautilus armor of each alloy (names like the Enderite ones: Enderitspeer, Enderitrossharnisch,
+# Enderit-Nautilusrüstung).
+MOUNT_PARTS = {'spear': ('Spear', 'speer'), 'horse_armor': ('Horse Armor', '-Rossharnisch'), 'nautilus_armor': ('Nautilus Armor', '-Nautilusrüstung')}
+for a, (en, de) in ALLOYS.items():
+    for part, (pen, pde) in MOUNT_PARTS.items():
+        ITEMS[f'{a}_{part}'] = (f'{en} {pen}', f'{de}{pde}')
 # IG31-41: the rose gold apples (plain: 8 ingots round an apple, enchanted: 8 blocks round an apple); the enchanted one shares the plain texture.
 for a, (en, de) in ALLOYS.items():
     ITEMS[f'{a}_apple'] = (f'{en} Apple', f'{de}-Apfel')
@@ -608,7 +614,15 @@ for pole in NEW_POLES:   # N77: the lightning-rod template like the moved poles;
                                                            for f, t in turns.items() for on in (False, True)}})
     put(ASSETS / f'items/{pole}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{pole}'}})
 for a in ALLOYS:
-    put(ASSETS / f'equipment/{a}.json', {'layers': {'humanoid': [{'texture': f'{NS}:{a}'}], 'humanoid_leggings': [{'texture': f'{NS}:{a}'}]}})
+    # N89A: the horse and nautilus armor layers (textures: tools/textures/n89a_ores_gear_2026_11_17.py)
+    put(ASSETS / f'equipment/{a}.json', {'layers': {'horse_body': [{'texture': f'{NS}:{a}'}], 'humanoid': [{'texture': f'{NS}:{a}'}],
+                                                    'humanoid_leggings': [{'texture': f'{NS}:{a}'}], 'nautilus_body': [{'texture': f'{NS}:{a}'}]}})
+    # N89A: the spear like the Enderite one (icon in the GUI, on the ground, in frames and on shelves; the long in-hand model otherwise)
+    put(ASSETS / f'items/{a}_spear.json', {'model': {'type': 'minecraft:select', 'cases': [
+        {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{a}_spear'}, 'when': ['gui', 'ground', 'fixed', 'on_shelf']}],
+        'fallback': {'type': 'minecraft:model', 'model': f'{NS}:item/{a}_spear_in_hand'}, 'property': 'minecraft:display_context'},
+        'swap_animation_scale': 1.95})
+    put(ASSETS / f'models/item/{a}_spear_in_hand.json', {'parent': 'minecraft:item/spear_in_hand', 'textures': {'layer0': f'{NS}:item/{a}_spear_in_hand'}})
 
 # ---------------------------------------------------------------- sounds (N25, owner 10.11.: own sounds per metal, quiet)
 # metal -> {kind: (Vanilla sound folder, file stem, takes, pitch, volume)}; the events are OresSounds' simpleores:block.<metal>.<kind>.
@@ -957,6 +971,19 @@ for a in ALLOYS:
         recipe(f'{a}_{part}', folder, {'type': 'minecraft:crafting_shaped', 'category': 'equipment', 'key': key, 'pattern': pattern,
                                        'result': result(f'{a}_{part}')}, item(f'{a}_ingot'))
 
+# N89A: the spear like the Vanilla spears (ingot on the tip, two sticks); the horse armor in the only Vanilla shape a horse armor is crafted in
+# (the leather horse armor); the nautilus armor 8 ingots round a nautilus shell (Vanilla crafts no metal nautilus armor; like the dinosaur
+# armors of Simple Dinosaurs, metal round a part of the animal).
+for a in ALLOYS:
+    ingot = item(f'{a}_ingot')
+    recipe(f'{a}_spear', 'combat', {'type': 'minecraft:crafting_shaped', 'category': 'equipment', 'key': {'#': 'minecraft:stick', 'X': ingot},
+                                    'pattern': ['  X', ' # ', '#  '], 'result': result(f'{a}_spear')}, ingot)
+    recipe(f'{a}_horse_armor', 'combat', {'type': 'minecraft:crafting_shaped', 'category': 'equipment', 'key': {'X': ingot},
+                                          'pattern': ['X X', 'XXX', 'X X'], 'result': result(f'{a}_horse_armor')}, ingot)
+    recipe(f'{a}_nautilus_armor', 'combat', {'type': 'minecraft:crafting_shaped', 'category': 'equipment',
+                                             'key': {'X': ingot, 'N': 'minecraft:nautilus_shell'}, 'pattern': ['XXX', 'XNX', 'XXX'],
+                                             'result': result(f'{a}_nautilus_armor')}, ingot)
+
 for name, (folder, data, trigger) in RECIPES.items():
     put(DATA / f'recipe/{name}.json', data)
     put(DATA / f'advancement/recipes/{folder}/{name}.json', {
@@ -1092,7 +1119,8 @@ for part, group in (('sword', 'swords'), ('pickaxe', 'pickaxes'), ('axe', 'axes'
                     ('helmet', 'head_armor'), ('chestplate', 'chest_armor'), ('leggings', 'leg_armor'), ('boots', 'foot_armor')):
     tag(f'minecraft/tags/item/{group}.json', ids([f'{a}_{part}' for a in ALLOYS]))
 tag('minecraft/tags/item/trimmable_armor.json', ids([f'{a}_{p}' for a in ALLOYS for p in ARMOR_PARTS]))
-tag('minecraft/tags/item/enchantable/durability.json', ids([f'{a}_{p}' for a in ALLOYS for p in TOOL_PARTS + ARMOR_PARTS]))
+tag('minecraft/tags/item/enchantable/durability.json', ids([f'{a}_{p}' for a in ALLOYS for p in TOOL_PARTS + ARMOR_PARTS + ('spear',)]))
+tag('minecraft/tags/item/spears.json', ids([f'{a}_spear' for a in ALLOYS]))   # N89A: lunge, melee and durability follow #minecraft:spears
 tag(f'{NS}/tags/worldgen/biome/has_end_sage_ore.json', ['minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:end_barrens', 'minecraft:small_end_islands'])
 OUTER_END = ['minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:end_barrens', 'minecraft:small_end_islands']
 tag(f'{NS}/tags/worldgen/biome/has_end_lead_ore.json', OUTER_END)
@@ -1556,6 +1584,22 @@ def note_summaries():
                                              f'{de}{pde}: Schutz {prot}, Haltbarkeitsfaktor {11 if not soft else 15}, Verzauberbarkeit {12 if not soft else 25}.')
             else:
                 notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: {stats_en}. Mines like iron.', f'{de}{pde}: {stats_de}. Baut ab wie Eisen.')
+        # N89A (owner N77): spear, horse and nautilus armor
+        body = 6 if soft else 4
+        notes[f'item:{a}_spear'] = ((f'{en} spear: {stats_en.replace(", speed 12 (like gold)", "").replace(", speed 8", "")}; '
+                                     + ('the golden spear\'s timing with the iron spear\'s damage factor (0.95).' if soft else 'the numbers of the copper spear.')
+                                     + f' Crafted like the Vanilla spears: a {en.lower()} ingot on two sticks.'),
+                                    (f'{de}speer: {stats_de.replace(", Tempo 12 (wie Gold)", "").replace(", Tempo 8", "")}; '
+                                     + ('der Takt des Goldspeers mit dem Schadensfaktor des Eisenspeers (0,95).' if soft else 'die Zahlen des Kupferspeers.')
+                                     + f' Hergestellt wie die Vanilla-Speere: ein {de}barren auf zwei Stöcken.'))
+        notes[f'item:{a}_horse_armor'] = ((f'{en} horse armor: armor {body} ({"between iron 5 and gold 7" if soft else "like copper"}), enchantability {25 if soft else 12}. '
+                                           f'7 {en.lower()} ingots in the shape of the leather horse armor.'),
+                                          (f'{de}-Rossharnisch: Rüstung {body} ({"zwischen Eisen 5 und Gold 7" if soft else "wie Kupfer"}), Verzauberbarkeit {25 if soft else 12}. '
+                                           f'7 {de}barren in der Form des Lederrossharnischs.'))
+        notes[f'item:{a}_nautilus_armor'] = ((f'{en} nautilus armor: armor {body} ({"between iron 5 and gold 7" if soft else "like copper"}), enchantability {25 if soft else 12}. '
+                                              f'8 {en.lower()} ingots round a nautilus shell.'),
+                                             (f'{de}-Nautilusrüstung: Rüstung {body} ({"zwischen Eisen 5 und Gold 7" if soft else "wie Kupfer"}), Verzauberbarkeit {25 if soft else 12}. '
+                                              f'8 {de}barren um eine Nautilusschale.'))
     for a, (en, de) in ALLOYS.items():
         soft = a == 'rose_gold'
         res_en, res_de = ('0:50', '0:50') if soft else ('0:30', '0:30')
@@ -1653,15 +1697,17 @@ FEATURES = [
              ['Pressen (Werkbank, formlos, 1 Pressling je Rezept): Roségold (Zartrosa) 1 Gold + 2 Kupfer + 1 Silberbarren. Rosenkupfer (Kupfer-Rosé) 2 Gold + 1 Roségold + 1 Silberbarren. Andere Pressling-Rezepte gibt es nicht.',
               'Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Ein Pressling kostet 4 Barren und ergibt einen: Silber bleibt der Engpass.',
               'Rosenkupfer ist ein dunkleres Kupfer-Rosé, Roségold ein helles Rosa. Blöcke aus beiden sind herstellbar. Repariert wird mit dem passenden Barren.'])),
-    feature('rose_gold_gear', [f'{JAVA}/OresMaterials.java', f'{JAVA}/OresRegistry.java'],
+    feature('rose_gold_gear', [f'{JAVA}/OresMaterials.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_gold_spear.json', f'{DATAP}/recipe/rose_gold_horse_armor.json'],
             ('Rose gold tools and armor', 'Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.',
              ['Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.',
               'Rose Gold (the better of the two): durability 225 (iron lasts longer: 250), speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.',
-              'Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry).']),
+              'Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry).',
+              'N89A: a spear (Rose Copper: the copper spear\'s numbers; Rose Gold: the golden spear\'s timing with the iron damage factor), a horse armor (armor 4 resp. 6, 7 ingots in the leather horse armor shape) and a nautilus armor (the same armor, 8 ingots round a nautilus shell) of each alloy.']),
             ('Roségold-Werkzeuge und -Rüstung', 'Schwert, Spitzhacke, Axt, Schaufel, Hacke und ein ganzer Rüstungssatz jeder Legierung. Beide bauen wie Eisen ab; keine schlägt Diamant.',
              ['Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.',
               'Roségold (das bessere): Haltbarkeit 225 (Eisen hält länger: 250), Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.',
-              'Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).'])),
+              'Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).',
+              'N89A: je Legierung ein Speer (Rosenkupfer: Zahlen des Kupferspeers; Roségold: Takt des Goldspeers mit dem Schadensfaktor des Eisenspeers), ein Rossharnisch (Rüstung 4 bzw. 6, 7 Barren in der Form des Lederrossharnischs) und eine Nautilusrüstung (gleiche Rüstung, 8 Barren um eine Nautilusschale).'])),
     feature('rose_gold_apples', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_apple.json', f'{DATAP}/recipe/enchanted_rose_gold_apple.json'],
             ('Rose gold apples', 'A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.',
              ['Plain: 8 ingots of the alloy round an apple. Rose Copper apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Rose Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.',

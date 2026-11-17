@@ -5,7 +5,7 @@ from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
 RES = MODULE / 'shared/resources'
 COLORS = 'white orange magenta light_blue yellow lime pink gray light_gray cyan purple blue brown green red black'.split()
-ITEMS = [t + '_building_wand' for t in ('copper', 'iron', 'gold', 'diamond', 'netherite', 'enderite', 'creative')]
+ITEMS = [t + '_building_wand' for t in ('copper', 'rose_bronze', 'iron', 'gold', 'rose_gold', 'diamond', 'netherite', 'enderite', 'creative')]  # N89A: rose wands
 ITEMS += ['octant'] + ['octant_' + c for c in COLORS] + ['blueprint', 'creative_blueprint']
 KEYS = ['blueprint.enabled', 'blueprint.maxBlocksPerTick', 'blueprint.pictureImport', 'blueprint.picturePermission',
         'blueprint.pictureMaxSide', 'blueprint.largeBuildCells', 'blueprint.largeBuildPermission', 'blueprint.scanMaxVolume', 'wands.hungerCost', 'wands.hungerMultiplier']

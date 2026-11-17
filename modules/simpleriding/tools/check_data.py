@@ -75,7 +75,7 @@ def check():
     assert len(nautilus['values']) == 6
     assert read(resources / 'simpleriding/enchantment/leaping.json')['supported_items'] == '#simpleriding:mount_armor_enchantable'
     assets = MODULE / 'shared/resources/assets/simpleriding'
-    tiers = ['copper', 'iron', 'golden', 'diamond', 'netherite', 'enderite']
+    tiers = ['copper', 'iron', 'golden', 'diamond', 'netherite', 'enderite', 'rose_bronze', 'rose_gold']  # N89A: the two rose alloys
     items = [t + '_horseshoe' for t in tiers] + ['horseshoe_smithing_template']
     books = ['enchanted_book_leaping', 'enchanted_book_tailwind']
     # guide_book: the generated module guide (tools/guides/module_guides.py).
@@ -115,6 +115,18 @@ def check():
     advancement = read(MODULE / 'shared/resources/data/simpleriding/advancement/recipes/misc/enderite_horseshoe_smithing.json')
     for key in ('fabric:load_conditions', 'neoforge:conditions', 'forge:conditions'):
         assert advancement[key] == enderite[key], f'advancement and recipe share the {key}'
+    # N89A: the rose horseshoes, like Enderite: always registered, recipe on c:ingots/<alloy>, loaded only while the tag has content
+    for alloy in ('rose_bronze', 'rose_gold'):
+        rose = read(recipes / f'{alloy}_horseshoe_smithing.json')
+        tag = f'c:ingots/{alloy}'
+        assert rose['type'] == 'minecraft:smithing_transform' and rose['template'] == template and rose['base'] == '#' + tag
+        assert rose['addition'] == 'minecraft:iron_nugget' and rose['result']['id'] == f'simpleriding:{alloy}_horseshoe'
+        assert rose['fabric:load_conditions'] == [{'condition': 'fabric:tags_populated', 'registry': 'minecraft:item', 'values': [tag]}]
+        assert rose['neoforge:conditions'] == [{'type': 'neoforge:not', 'value': {'type': 'neoforge:tag_empty', 'tag': tag}}]
+        assert rose['forge:conditions'] == [{'type': 'forge:not', 'value': {'type': 'forge:tag_empty', 'tag': tag}}]
+        adv = read(MODULE / f'shared/resources/data/simpleriding/advancement/recipes/misc/{alloy}_horseshoe_smithing.json')
+        assert all(adv[k] == rose[k] for k in ('fabric:load_conditions', 'neoforge:conditions', 'forge:conditions'))
+        assert f'simpleriding:{alloy}_horseshoe' in read(resources / 'simpleriding/tags/item/horseshoes.json')['values']
     assert 'simpleriding:enderite_horseshoe' in read(resources / 'simpleriding/tags/item/horseshoes.json')['values'], 'always-registered Enderite horseshoe is a plain tag entry'
     registry_java = (MODULE / 'shared/java/com/simpleriding/Horseshoes.java').read_text(encoding='utf-8')
     assert 'ENDERITE&&!' not in registry_java.replace(' ', ''), 'no tier is skipped at registration'

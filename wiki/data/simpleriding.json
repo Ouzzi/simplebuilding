@@ -246,6 +246,7 @@
           "With all four slots filled: +5% speed and +5% jump strength (both inside the existing total caps shared with Tailwind and Leaping) and fall damage x1.1, rounded, so short falls stay the same. Max speed stays capped; Vanilla horses reach top speed within a few ticks, so there is no separate acceleration bonus.",
           "Durability 120 (Copper), 180 (Iron), 80 (Gold), 400 (Diamond), 500 (Netherite), 620 (Enderite). Each shoe loses one point per 40 blocks ridden on the ground. Unbreaking and Mending apply at the anvil or enchanting table; XP the rider picks up that Vanilla Mending does not use repairs Mending horseshoes of the ridden horse. Netherite and Enderite shoes are fire resistant; repair with the matching material.",
           "Smithing table: Horseshoe Upgrade + copper, iron or gold ingot or a diamond + iron nugget makes the matching horseshoe; template + Diamond Horseshoe + netherite ingot makes Netherite, template + Netherite Horseshoe + enderite ingot makes Enderite (the enderite ingot is any item in the c:ingots/enderite tag, for example from Simple Ores; the Enderite Horseshoe item always exists, but without such an ingot the upgrade cannot be crafted; enchantments and wear carry over). The template is used up like Vanilla templates. Duplicate it at a crafting table: template top center, iron ingot in the middle, seven copper ingots around it give two templates.",
+          "Rose alloys (N89A, Simple Ores): the Rose Copper Horseshoe (durability 120, enchantability 12) scores 2 points like Iron, the Rose Gold Horseshoe (durability 180, enchantability 22) 4 points like Gold. Smithing: Horseshoe Upgrade + an ingot of the c:ingots/rose_bronze or c:ingots/rose_gold tag + iron nugget; both items always exist, the recipes load only while the tag has content. Repair with the alloy ingot.",
           "Loot: village weaponsmith and tannery chests get one extra roll with the template 15% and a worn Copper or Iron Horseshoe 5% each. Brushing trail-ruins rare blocks yields the template like one more equal entry (1 in 13), common blocks a worn Copper or Iron Horseshoe (1 in 46). All of it follows worldGen.enableLootTableChanges."
         ]
       },
@@ -259,6 +260,7 @@
           "Mit allen vier Plätzen belegt: +5 % Tempo und +5 % Sprungkraft (innerhalb der bestehenden Gesamtgrenzen, geteilt mit Rückenwind und Sprungkraft) und Fallschaden x1,1, gerundet, damit kurze Stürze gleich bleiben. Das Höchsttempo bleibt gedeckelt; Vanilla-Pferde erreichen ihr Endtempo in wenigen Ticks, daher gibt es keinen eigenen Beschleunigungsbonus.",
           "Haltbarkeit 120 (Kupfer), 180 (Eisen), 80 (Gold), 400 (Diamant), 500 (Netherit), 620 (Enderit). Jedes Eisen verliert je 40 am Boden gerittene Blöcke einen Punkt. Haltbarkeit und Reparatur wirken über Amboss oder Zaubertisch; XP, die der Reiter aufsammelt und Vanillas Reparatur nicht verbraucht, repariert Reparatur-Hufeisen des gerittenen Pferdes. Netherit- und Enderit-Eisen sind feuerfest; repariert wird mit dem passenden Material.",
           "Schmiedetisch: Hufeisen-Aufwertung + Kupfer-, Eisen- oder Goldbarren oder Diamant + Eisennugget ergibt das passende Hufeisen; Vorlage + Diamanthufeisen + Netheritbarren ergibt Netherit, Vorlage + Netherithufeisen + Enderitbarren ergibt Enderit (der Enderitbarren ist jedes Item im Tag c:ingots/enderite, zum Beispiel aus Simple Ores; das Enderit-Hufeisen gibt es immer, ohne einen solchen Barren lässt sich die Aufwertung aber nicht herstellen; Verzauberungen und Abnutzung bleiben). Die Vorlage wird wie in Vanilla verbraucht. Duplizieren an der Werkbank: Vorlage oben Mitte, Eisenbarren in der Mitte, sieben Kupferbarren drumherum ergeben zwei Vorlagen.",
+          "Rosé-Legierungen (N89A, Simple Ores): das Rosenkupferhufeisen (Haltbarkeit 120, Verzauberbarkeit 12) zählt 2 Punkte wie Eisen, das Roségoldhufeisen (Haltbarkeit 180, Verzauberbarkeit 22) 4 Punkte wie Gold. Schmiedetisch: Hufeisen-Aufwertung + Barren aus dem Tag c:ingots/rose_bronze bzw. c:ingots/rose_gold + Eisennugget; beide Items gibt es immer, die Rezepte laden nur, solange der Tag Inhalt hat. Repariert wird mit dem Legierungsbarren.",
           "Beute: Dorf-Waffenschmied- und Gerberkisten erhalten einen zusätzlichen Wurf mit Vorlage 15 % und abgenutztem Kupfer- oder Eisenhufeisen je 5 %. Seltene Trail-Ruins-Blöcke geben beim Pinseln die Vorlage wie ein weiterer gleich gewichteter Eintrag (1 zu 13), gewöhnliche ein abgenutztes Kupfer- oder Eisenhufeisen (1 zu 46). Alles folgt worldGen.enableLootTableChanges."
         ]
       }
@@ -1179,6 +1181,60 @@
           }
         ]
       }
+    },
+    {
+      "id": "simpleriding:rose_bronze_horseshoe_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleriding:rose_bronze_horseshoe",
+        "count": 1
+      },
+      "source": "modules/simpleriding/generated/resources/data/simpleriding/recipe/rose_bronze_horseshoe_smithing.json",
+      "ingredients": [
+        "#c:ingots/rose_bronze",
+        "minecraft:iron_nugget",
+        "simpleriding:horseshoe_smithing_template"
+      ],
+      "slots": {
+        "template": [
+          "simpleriding:horseshoe_smithing_template"
+        ],
+        "base": [
+          "#c:ingots/rose_bronze"
+        ],
+        "addition": [
+          "minecraft:iron_nugget"
+        ]
+      }
+    },
+    {
+      "id": "simpleriding:rose_gold_horseshoe_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleriding:rose_gold_horseshoe",
+        "count": 1
+      },
+      "source": "modules/simpleriding/generated/resources/data/simpleriding/recipe/rose_gold_horseshoe_smithing.json",
+      "ingredients": [
+        "#c:ingots/rose_gold",
+        "minecraft:iron_nugget",
+        "simpleriding:horseshoe_smithing_template"
+      ],
+      "slots": {
+        "template": [
+          "simpleriding:horseshoe_smithing_template"
+        ],
+        "base": [
+          "#c:ingots/rose_gold"
+        ],
+        "addition": [
+          "minecraft:iron_nugget"
+        ]
+      }
     }
   ],
   "lootTables": [],
@@ -1241,6 +1297,14 @@
         {
           "id": "simpleores:enderite_horse_armor",
           "required": false
+        },
+        {
+          "id": "simpleores:rose_bronze_horse_armor",
+          "required": false
+        },
+        {
+          "id": "simpleores:rose_gold_horse_armor",
+          "required": false
         }
       ],
       "source": "modules/simpleriding/generated/resources/data/simpleriding/tags/item/horse_armor_enchantable.json"
@@ -1271,6 +1335,14 @@
         },
         {
           "id": "simpleriding:enderite_horseshoe",
+          "required": true
+        },
+        {
+          "id": "simpleriding:rose_bronze_horseshoe",
+          "required": true
+        },
+        {
+          "id": "simpleriding:rose_gold_horseshoe",
           "required": true
         }
       ],
@@ -1317,6 +1389,14 @@
         },
         {
           "id": "simpleores:enderite_nautilus_armor",
+          "required": false
+        },
+        {
+          "id": "simpleores:rose_bronze_nautilus_armor",
+          "required": false
+        },
+        {
+          "id": "simpleores:rose_gold_nautilus_armor",
           "required": false
         }
       ],
@@ -1864,7 +1944,9 @@
         "simpleriding:golden_horseshoe_smithing",
         "simpleriding:horseshoe_smithing_template",
         "simpleriding:iron_horseshoe_smithing",
-        "simpleriding:netherite_horseshoe_smithing"
+        "simpleriding:netherite_horseshoe_smithing",
+        "simpleriding:rose_bronze_horseshoe_smithing",
+        "simpleriding:rose_gold_horseshoe_smithing"
       ]
     },
     {
@@ -1962,6 +2044,100 @@
       "usedIn": [
         "simpleriding:enderite_horseshoe_smithing"
       ]
+    },
+    {
+      "id": "simpleriding:rose_bronze_horseshoe",
+      "name": {
+        "en_us": "Rose Copper Horseshoe",
+        "de_de": "Rosenkupferhufeisen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleriding/shared/java/com/simpleriding/Horseshoes.java"
+        ],
+        "en": {
+          "summary": "Goes into one of the four hoof slots of a horse, donkey, mule or undead horse. See the Horseshoes chapter for points, effects, durability and recipes."
+        },
+        "de": {
+          "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
+        }
+      },
+      "texture": "assets/textures/simpleriding/item/rose_bronze_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shoe of Rose Copper, copper's toughness with a warmer shine."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with a Rose Copper Ingot (any ingot in the c:ingots/rose_bronze tag, e.g. from Simple Ores) and an iron nugget. Worth 2 points like the iron shoe, durability 120, enchantability 12. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+          ],
+          "secret": [
+            "It scores like iron but wears like copper; what it gives back is a better enchanting table roll."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Hufeisen aus Rosenkupfer: Kupfers Zähigkeit mit wärmerem Glanz."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit einem Rosenkupferbarren (jeder Barren im Tag c:ingots/rose_bronze, z. B. aus Simple Ores) und einem Eisennugget schmieden. 2 Punkte wert wie das Eisenhufeisen, Haltbarkeit 120, Verzauberbarkeit 12. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+          ],
+          "secret": [
+            "Es zählt wie Eisen, nutzt sich aber ab wie Kupfer; dafür verzaubert es sich besser."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleriding:rose_bronze_horseshoe_smithing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleriding:rose_gold_horseshoe",
+      "name": {
+        "en_us": "Rose Gold Horseshoe",
+        "de_de": "Roségoldhufeisen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleriding/shared/java/com/simpleriding/Horseshoes.java"
+        ],
+        "en": {
+          "summary": "Goes into one of the four hoof slots of a horse, donkey, mule or undead horse. See the Horseshoes chapter for points, effects, durability and recipes."
+        },
+        "de": {
+          "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
+        }
+      },
+      "texture": "assets/textures/simpleriding/item/rose_gold_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shoe of Rose Gold: the gold's grace, the iron's patience."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with a Rose Gold Ingot (any ingot in the c:ingots/rose_gold tag, e.g. from Simple Ores) and an iron nugget. Worth 4 points like the golden shoe, durability 180, enchantability 22."
+          ],
+          "secret": [
+            "Same score as gold, but it lasts as long as an iron shoe. Two shoes of one tier score the same as four of the tier below."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Hufeisen aus Roségold: die Anmut des Goldes, die Geduld des Eisens."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit einem Roségoldbarren (jeder Barren im Tag c:ingots/rose_gold, z. B. aus Simple Ores) und einem Eisennugget schmieden. 4 Punkte wert wie das Goldhufeisen, Haltbarkeit 180, Verzauberbarkeit 22."
+          ],
+          "secret": [
+            "Gleiche Punkte wie Gold, hält aber so lange wie ein Eisenhufeisen. Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleriding:rose_gold_horseshoe_smithing"
+      ],
+      "usedIn": []
     }
   ],
   "blocks": [],
@@ -2584,12 +2760,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 37,
-    "recipes": 7,
+    "recipes": 9,
     "lootTables": 0,
     "tags": 7,
     "advancements": 2,
     "enchantments": 2,
-    "items": 8,
+    "items": 10,
     "blocks": 0,
     "trades": 3,
     "config": 26,

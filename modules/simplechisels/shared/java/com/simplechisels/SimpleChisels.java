@@ -33,6 +33,7 @@ public final class SimpleChisels {
             Map.entry("stone_chisel", "tools"), Map.entry("copper_chisel", "tools"), Map.entry("iron_chisel", "tools"),
             Map.entry("gold_chisel", "tools"), Map.entry("diamond_chisel", "tools"), Map.entry("netherite_chisel_smithing", "tools"),
             Map.entry("enderite_chisel_smithing", "combat"),
+            Map.entry("rose_bronze_chisel", "tools"), Map.entry("rose_gold_chisel", "tools"),
             Map.entry("upgrade_copper_chisel_to_iron_chisel", "misc"),
             Map.entry("upgrade_iron_chisel_to_gold_chisel", "misc"),
             Map.entry("upgrade_gold_chisel_to_diamond_chisel", "misc"));

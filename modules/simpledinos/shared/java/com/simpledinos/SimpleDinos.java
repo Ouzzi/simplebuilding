@@ -34,11 +34,11 @@ public final class SimpleDinos {
                 java.util.List.of("simpledinos:fossil_block", "simpledinos:trex_egg", "simpledinos:triceratops_egg",
                         "simpledinos:stegosaurus_egg", "simpledinos:utahraptor_egg", "simpledinos:parasaurolophus_egg",
                         "simpledinos:large_saddle", "simpledinos:trex_armor_leather", "simpledinos:trex_armor_iron",
-                        "simpledinos:trex_armor_diamond", "simpledinos:triceratops_armor_leather", "simpledinos:triceratops_armor_iron",
-                        "simpledinos:triceratops_armor_diamond", "simpledinos:stegosaurus_armor_leather", "simpledinos:stegosaurus_armor_iron",
-                        "simpledinos:stegosaurus_armor_diamond", "simpledinos:dino_plow", "simpledinos:parasaurolophus_armor_leather",
-                        "simpledinos:parasaurolophus_armor_iron", "simpledinos:parasaurolophus_armor_diamond", "simpledinos:utahraptor_armor_leather",
-                        "simpledinos:utahraptor_armor_iron", "simpledinos:utahraptor_armor_diamond", "simpledinos:raptor_feather", "simpledinos:triceratops_eggshell", "simpledinos:stegosaurus_eggshell",
+                        "simpledinos:trex_armor_diamond", "simpledinos:trex_armor_copper", "simpledinos:trex_armor_gold", "simpledinos:trex_armor_rose_gold", "simpledinos:trex_armor_rose_bronze", "simpledinos:trex_armor_netherite", "simpledinos:trex_armor_enderite", "simpledinos:triceratops_armor_leather", "simpledinos:triceratops_armor_iron",
+                        "simpledinos:triceratops_armor_diamond", "simpledinos:triceratops_armor_gold", "simpledinos:triceratops_armor_rose_gold", "simpledinos:triceratops_armor_rose_bronze", "simpledinos:stegosaurus_armor_leather", "simpledinos:stegosaurus_armor_iron",
+                        "simpledinos:stegosaurus_armor_diamond", "simpledinos:stegosaurus_armor_gold", "simpledinos:stegosaurus_armor_rose_gold", "simpledinos:stegosaurus_armor_rose_bronze", "simpledinos:dino_plow", "simpledinos:parasaurolophus_armor_leather",
+                        "simpledinos:parasaurolophus_armor_iron", "simpledinos:parasaurolophus_armor_diamond", "simpledinos:parasaurolophus_armor_gold", "simpledinos:parasaurolophus_armor_rose_gold", "simpledinos:parasaurolophus_armor_rose_bronze", "simpledinos:utahraptor_armor_leather",
+                        "simpledinos:utahraptor_armor_iron", "simpledinos:utahraptor_armor_diamond", "simpledinos:utahraptor_armor_gold", "simpledinos:utahraptor_armor_rose_gold", "simpledinos:utahraptor_armor_rose_bronze", "simpledinos:raptor_feather", "simpledinos:triceratops_eggshell", "simpledinos:stegosaurus_eggshell",
                         "simpledinos:utahraptor_eggshell", "simpledinos:parasaurolophus_eggshell", "minecraft:apple", "minecraft:fern", "minecraft:sweet_berries", "minecraft:chicken", "minecraft:wheat_seeds", "minecraft:brush",
                         "simpledinos:guide_book"));
     }

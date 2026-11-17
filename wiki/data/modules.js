@@ -200,12 +200,12 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA2UlEQVR42mO4devWf3z4//MpOOW+7C/4z4AuQCz/+6M+MM2AbipMAp2NCzOAnIhuEzr2kGD/X6MvCMcoBhCyDab5f1cIGL+OV0YxhAGfrTDNIE0gvNpVAmwIiIYZgmIAsjNBimAakTFMHMMAbM7EZghMXFuADWIALABhToY5E6QYxke2HWQASBxuAHpgIWsC0TA+DCNrxhkGME3obJBGEB9rNOKLe5BGmK0wAzBSIno6gGlCdi7c4MwYRF4gJiUi422z2v772FvCMxpJeQFbasWbG3HlSOQsDgBbY+6dp3ZhZwAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 8,
-      "recipes": 7,
+      "items": 10,
+      "recipes": 9,
       "config": 26,
       "features": 37
     },
-    "dataHash": "815fd41851db"
+    "dataHash": "a5317af1ca1a"
   },
   {
     "id": "simplemodels",
@@ -1983,13 +1983,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMI8zL4TwlmABHPL68mGd/YUYFqwN1D3f/f3j8EprVkBLBikBwIgzTPaQnDNACmedaBKhT87cMFMAbJgTSDLMJqADbNyAbkzQqCG0LQgBcPdqAYAtKM1wBctqMbADOEaANgLiHJAHTnIxvgV2VFmgvQbcdrAEgBIefjNAAWC8iK0TFMM95oBGGQQlyacRoASl0gCRDGlZRh8hgGwARIxXADKMEAraJkFqb3qvwAAAAASUVORK5CYII=",
     "counts": {
-      "items": 23,
+      "items": 41,
       "blocks": 6,
-      "recipes": 22,
+      "recipes": 40,
       "config": 21,
       "features": 10
     },
-    "dataHash": "f1893ffbc209"
+    "dataHash": "0131c761bdba"
   },
   {
     "id": "simpleores",
@@ -2022,13 +2022,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 101,
+      "items": 107,
       "blocks": 229,
-      "recipes": 468,
+      "recipes": 474,
       "config": 27,
       "features": 27
     },
-    "dataHash": "b8120b8c3fd3"
+    "dataHash": "bffdbc8399fa"
   },
   {
     "id": "simplemachines",
@@ -2262,12 +2262,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA7klEQVR42mPQ8Q34TwlmABFLb9wliOuN1P+na0nD+XkHTqAa0HTywv99j5+BaWw4Qln2f62RJpgN0uzfNQHTAFz4aoTu/0MTFv4/VV8DZoMsIsqAZhPF/+FKyv+PT130f216/f8lCfX/dxfX/W8yUfifqqFM2IA0TXmw4iNVtf8XxjaADVnr6g42NEJZgjgvRKoIgZ0NsnmDmyuYT3QYeJiK/m9PU/8friwIthUUCyDNRBkA06wuxw3WAAkPeeIMAGlO95WDa8aGcRqAbjNJBhBjM1YDQBqJtRmnAaRoxjAAJADSDMIgCWIx3ABKMAAre3XEtKWoJQAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 27,
-      "recipes": 28,
+      "items": 29,
+      "recipes": 30,
       "config": 10,
       "features": 6
     },
-    "dataHash": "ebcd6a0d78a3"
+    "dataHash": "7fedfb8d9eaf"
   },
   {
     "id": "simplechisels",
@@ -2295,12 +2295,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mMwt7L9TwlmABHbdu0niJuamlD4XRNmoBowa8Gy/6fOXgTT6BikGQRANIgP0pyckYtpAC7NFy5c+A8DcnJyYIuIMgCk+fDhw2AD3r59i2IIWQaguwSvAdg0g/jLly8n7AJCmgkGIizgQJqRNcI04zXAw1QUjEEa0W1FxhgGwDS2pKj9t9ER+q+tyIdhK04DQBon5WmDNUc4Sf4vCVcEG4BNI04DQJqzAuTBmJBmnAaAbCbGdgwDQAIgQ0AaQRgkSQyGG0AJBgAZ925FQoSCbwAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 8,
-      "recipes": 10,
-      "config": 8,
+      "items": 10,
+      "recipes": 12,
+      "config": 10,
       "features": 8
     },
-    "dataHash": "5e3545a260ba"
+    "dataHash": "dc729f478aca"
   },
   {
     "id": "simplelayers",
