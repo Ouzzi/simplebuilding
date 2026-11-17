@@ -133,6 +133,17 @@ class IconListTests(unittest.TestCase):
         self.assertTrue((self.wiki / 'assets/devtex/simpleoctets/block/glow.png').is_file())
         self.assertNotIn('#red', icons)
 
+    def test_module_data_ids_without_a_picture(self):
+        # N80: Guidebook/Questionary items without an own picture (block-entity models) get the model walk too
+        mod = self.repo / 'src/main/resources/assets/simpleoctets'
+        (mod / 'items/lamp_octet.json').write_text(json.dumps({'model': {'type': 'model', 'model': 'simpleoctets:block/glow_octet'}}))
+        self.assertNotIn('simpleoctets:lamp_octet', vt.build_icons(self.jar, self.repo, self.wiki)['icons'])  # not in a layout
+        (self.wiki / 'data/simpleoctets.json').write_text(json.dumps({'items': [{'id': 'simpleoctets:lamp_octet', 'icon': None}],
+                                                                       'blocks': [{'id': 'simpleoctets:ghost', 'texture': None}]}))
+        icons = vt.build_icons(self.jar, self.repo, self.wiki)['icons']
+        self.assertEqual(icons['simpleoctets:lamp_octet'], 'assets/devtex/simpleoctets/block/glow.png')
+        self.assertNotIn('simpleoctets:ghost', icons)  # no model: stays out (the wiki keeps its text tile)
+
     def test_ids_with_a_present_module_picture_are_skipped(self):
         self.assertIn('simpleoctets:own', vt.testcentre_ids(self.wiki))  # index names a file this checkout lacks
         own = self.wiki / 'assets/textures/simpleoctets/block/own.png'

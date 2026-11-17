@@ -10,7 +10,8 @@ and the Vanilla-derived copies), so nothing of Mojang's ends up in the repositor
              tools/zentrale-web/dev-overlay.js) does, which adds the category "Vanilla".
   --icons    id -> picture for the test centre editor (N72): wiki/data/vanilla-icons.json, names and wiki paths only,
              resolved like the game (items/<id>.json -> model -> parents -> textures) by tools/devserver/sbdev/icons.py:
-             every Vanilla item of the jar and every id of the test centre layouts without an own module picture
+             every Vanilla item of the jar, every id of the test centre layouts and every module item/block of the wiki
+             data (N80: Guidebook/Questionary) without an own module picture
              (slabs, stairs, walls, bars, waxed blocks, lanterns, octets ... whose texture file has another name).
   --derived  the Vanilla-derived mod textures (tools/textures/vanilla_derived.py; placeholders without jar or Pillow)
              copied to the wiki paths that wiki/data/textures.js names for them. The wiki checkouts on the web host
@@ -167,18 +168,35 @@ def testcentre_ids(wiki: Path = WIKI) -> list[str]:
     return sorted(i for i in ids if i and not i.startswith("#") and not (own.get(i) and (wiki / own[i]).is_file()))
 
 
+def _state_models(state: dict) -> list[str]:
+    """Model ids of a blockstate file in file order (variants first, then multipart)."""
+    out: list[str] = []
+
+    def add(node):
+        for one in node if isinstance(node, list) else [node]:
+            if isinstance(one, dict) and isinstance(one.get("model"), str) and one["model"] not in out:
+                out.append(one["model"])
+    for variant in (state.get("variants") or {}).values() if isinstance(state.get("variants"), dict) else ():
+        add(variant)
+    for part in state.get("multipart") or [] if isinstance(state.get("multipart"), list) else ():
+        if isinstance(part, dict):
+            add(part.get("apply"))
+    return out
+
+
 HEAD_SUFFIXES = ("_head", "_skull")
 # heads of mobs without a spawn egg: a related egg, or the face of a 64x64 humanoid skin ("file#x,y,w,h": the editor
 # crops it in the browser from the dev copy - no pixels are written)
-HEAD_ALIASES = {"giant_cow": "cow", "crowned_pig": "pig", "illusioner": "evoker", "abyssal_wither": "wither",
+HEAD_ALIASES = {"giant": "zombie", "dragon": "ender_dragon", "giant_cow": "cow", "crowned_pig": "pig", "illusioner": "evoker", "abyssal_wither": "wither",
                 "blighted_wither": "wither"}
-HEAD_FACES = {"herobrine": "entity/player/wide/steve", "giant": "entity/zombie/zombie"}
+HEAD_FACES = {"herobrine": "entity/player/wide/steve", "player": "entity/player/wide/steve", "giant": "entity/zombie/zombie"}
 
 
 def build_icons(jar: Path, repo: Path = REPO, wiki: Path = WIKI) -> dict:
     """{"schema": 1, "icons": {id: wiki path}} - Vanilla items of the jar plus the test centre ids (see --icons).
     Order per id: the game's model walk; then fallbacks by name only: waxed_X -> X, the "base" model of
-    special-rendered items (chests), mob heads/skulls -> the mob's spawn egg (heads have no flat texture)."""
+    special-rendered items (chests), mob heads/skulls -> the mob's spawn egg (heads have no flat texture),
+    X_wall_Y -> X_Y (wall heads, wall torches: blocks without an item of their own)."""
     sys.path.insert(0, str(REPO / "tools" / "devserver"))
     from sbdev.icons import Resolver  # noqa: E402 - stdlib only, the Zentrale's own item -> model -> texture walk
     res = Resolver(repo, jar)
@@ -190,6 +208,7 @@ def build_icons(jar: Path, repo: Path = REPO, wiki: Path = WIKI) -> dict:
                    if n.startswith("assets/minecraft/items/") and n.endswith(".json") and n.count("/") == 3)
     # pictures the wiki already has for module items (all module data files): spawn eggs for the head fallback
     own: dict[str, str] = {}
+    bare: set[str] = set()  # N80: module ids without a picture (Guidebook/Questionary showed "?") - walked like the game
     for path in sorted((wiki / "data").glob("*.json")):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -200,6 +219,8 @@ def build_icons(jar: Path, repo: Path = REPO, wiki: Path = WIKI) -> dict:
                 pic = isinstance(entry, dict) and (entry.get("icon") or entry.get("texture"))
                 if isinstance(pic, str) and isinstance(entry.get("id"), str) and (wiki / pic).is_file():
                     own.setdefault(entry["id"], pic)
+                elif isinstance(entry, dict) and isinstance(entry.get("id"), str) and ":" in entry["id"]:
+                    bare.add(entry["id"])
 
     def direct(ident: str) -> str | None:
         if own.get(ident):
@@ -223,29 +244,53 @@ def build_icons(jar: Path, repo: Path = REPO, wiki: Path = WIKI) -> dict:
                 path = tex and _wiki_path(tex, repo, wiki, roots)
                 if path:
                     return path
+        # N80: blocks without an item of their own (fire, placed eggs, carpets of a mod ...): the first model of the blockstate
+        try:
+            state = res._read_json(ns, f"blockstates/{name}.json") or {}
+        except Exception:  # noqa: BLE001
+            state = {}
+        for ref in _state_models(state):
+            if "skull" in ref or ref.rpartition("/")[2].endswith("_head"):  # heads: particle soul sand, see the head fallback
+                continue
+            for tex in res._model_textures(ref):
+                got = res._texture(tex)
+                path = got and _wiki_path(got, repo, wiki, roots)
+                if path:
+                    return path
         return None
 
     eggs: dict[str, list[str]] = {}
     for ident in sorted(set(items) | set(own)):
         if ident.endswith("_spawn_egg"):
             eggs.setdefault(ident.partition(":")[2][:-len("_spawn_egg")], []).append(ident)
-    icons: dict[str, str] = {}
-    for ident in sorted(set(items) | set(testcentre_ids(wiki))):
-        full = ident if ":" in ident else "minecraft:" + ident
+
+    def pick(full: str) -> str | None:
         ns, _, name = full.partition(":")
         path = direct(full)
         if not path and name.startswith("waxed_"):
             path = direct(f"{ns}:{name[len('waxed_'):]}") or direct(f"minecraft:{name[len('waxed_'):]}")
-        if not path and name.endswith(HEAD_SUFFIXES):
+        # N80: Vanilla skulls: the base model gives the whole skin (or the particle soul sand) - spawn egg first, else the face
+        skin = path if path and "/entity/" in path and "#" not in path else None
+        if (not path or skin or path.endswith("/soul_sand.png")) and name.endswith(HEAD_SUFFIXES):
             mob = name.rsplit("_", 1)[0]
+            path = None
             for egg in sorted(eggs.get(mob, []) + eggs.get(HEAD_ALIASES.get(mob, ""), []),
                               key=lambda e: (not e.startswith("minecraft:"), e)):
                 path = direct(egg)
                 if path:
                     break
+            if not path and skin:
+                path = skin + "#8,8,8,8"  # the face of the skin
             face = HEAD_FACES.get(mob)
             if not path and face and f"assets/minecraft/textures/{face}.png" in res.jar_names():
                 path = f"{VANILLA_DIR}/{face}.png#8,8,8,8"
+        if not path and "_wall_" in name:  # N80: wall_head/wall_skull/wall_torch blocks show their standing item
+            path = pick(f"{ns}:{name.replace('_wall_', '_', 1)}")
+        return path
+
+    icons: dict[str, str] = {}
+    for ident in sorted(set(items) | set(testcentre_ids(wiki)) | (bare - set(own))):
+        path = pick(ident if ":" in ident else "minecraft:" + ident)
         if path:
             icons[ident] = path
     return {"schema": 1, "jar": jar.name, "icons": icons}

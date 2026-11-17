@@ -2660,7 +2660,11 @@ function idLink(id, hint) {
    reicht die Konvention und es braucht keine Tabelle in den Daten. Fehlt die
    Datei (Generator noch nie gelaufen), faengt der error-Handler das Bild ab
    und ersetzt es durch die Textkachel. */
-function vanillaTexture(id) { return 'assets/textures/minecraft/' + pathOf(id) + '.png'; }
+/* N80: im Dev-Bereich fehlen die flachen Vanilla-Texturen (git-ignoriert, nur nach einem lokalen generate-Lauf mit Jar);
+   dort gibt es data/vanilla-icons.json (N72, sb-web-sync: Id -> Bild ueber Item-Modell -> Textur, auch fuer Modul-Ids ohne
+   eigenes Bild dort). Diese Zuordnung geht vor (textureOf, qnFlatTexture, brTex); Ausschnitte ("datei#x,y,w,h") schneidet der load-Handler zu. */
+function devIcon(id) { return DEV_ICONS && typeof id === 'string' ? DEV_ICONS[id.indexOf(':') < 0 ? 'minecraft:' + id : id] || null : null; }
+function vanillaTexture(id) { return devIcon(id) || 'assets/textures/minecraft/' + pathOf(id) + '.png'; }
 /* 3D-Bilder (assets/textures/render/, Vanilla-Bloecke unter minecraft/) zeichnet generate.py
    aus den Block- und Item-Modellen, 128 px gross: verkleinert werden sie geglaettet (Klasse
    r3d), flache 16-px-Texturen bleiben pixelig. */
@@ -2693,6 +2697,10 @@ function tagMembersAny(ref) {
 /* In den Rezeptansichten fuehrt ein Klick auf eine Zutat zu deren Rezepten (wie R in JEI). */
 var LINKMODE = '';
 function textureOf(id) {
+  /* N80: im Dev-Bereich zuerst die Zuordnung des Hosts - sie nennt Modul-Ids nur, wenn deren eigenes Bild dort fehlt
+     (git-ignorierte, aus Vanilla abgeleitete Renders). */
+  var dev = devIcon(id);
+  if (dev) return dev;
   var i = IX.items.get(id), b = IX.blocks.get(id);
   var own = (i && (i.icon || i.texture)) || (b && (b.icon || b.texture)) || null;
   if (own) return own;
@@ -5647,7 +5655,7 @@ function brEntry(id) {
   return BR_NAMES.get(id) || null;
 }
 function brName(id) { var e = brEntry(id); return (e && nameOf(e)) || prettyFromId(id); }
-function brTex(id) { var e = brEntry(id); var t = e && (e.icon || e.texture); return t || (isVanilla(id) ? vanillaTexture(id) : null); }
+function brTex(id) { if (devIcon(id)) return devIcon(id); var e = brEntry(id); var t = e && (e.icon || e.texture); return t || (isVanilla(id) ? vanillaTexture(id) : null); }
 function brList() {
   var key = PACK.key + '|' + LANG;
   if (BR.cache && BR.cache.key === key) return BR.cache.list;
@@ -6017,6 +6025,18 @@ var DEV_QUERY = (function () {
 })();
 function isDevSite() {
   return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || DEV_QUERY;
+}
+/* N80: Id -> Bild des Dev-Hosts (siehe devIcon); fehlt die Datei, bleibt alles wie bisher. */
+var DEV_ICONS = null;
+/* nur auf dem Dev-Host (/dev/ bzw. Dev-Overlay), nicht im Test-Harness mit ?dev=1: dort gibt es die Datei nie */
+if ((/^\/dev(\/|$)/.test(location.pathname) || window.sbDevHook) && window.fetch) {
+  fetch('data/vanilla-icons.json', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    var icons = d && isObj(d.icons) ? d.icons : null, out = {};
+    if (!icons) return;
+    Object.keys(icons).forEach(function (k) { var v = icons[k]; if (typeof v === 'string' && (v.indexOf('#') < 0 || /#\d+,\d+,\d+,\d+$/.test(v))) out[k] = v; });
+    DEV_ICONS = out;
+    try { render({ keepScroll: true }); } catch (e) { /* noch nicht gestartet: der erste Aufbau nimmt die Bilder mit */ }
+  }).catch(function () {});
 }
 /* N51 Konverter-Seiten "Bauwerke" (?tab=buildings) und "3D-Modelle" (?tab=models3d): Wiki-Seiten wie die Verzauberungs-Ansicht,
    Skripte assets/conv/*.js und assets/conv/conv.css erst beim ersten Besuch. Bis zur Freigabe nur im Dev-Wiki (eigene Leistengruppe,
@@ -6488,8 +6508,8 @@ function qnList() {
   qnNamespaces().forEach(function (ns) {
     if (QN.mod && QN.mod !== ns) return;
     var n = data.namespaces[ns];
-    /* Wie am Tisch: nur Texte zu Items, die es gibt (Vanilla oder in den Wiki-Daten eines Mods). */
-    if (QN.view === 'items') Object.keys(n.entries).forEach(function (p) { var id = ns + ':' + p; if (ns === 'minecraft' || globalEntry(id)) out.push({ id: id, ns: ns, e: n.entries[p] }); });
+    /* Wie am Tisch: nur Texte zu Items, die es gibt (Vanilla oder in den Wiki-Daten eines Mods; Luft legt man nicht auf den Tisch). */
+    if (QN.view === 'items') Object.keys(n.entries).forEach(function (p) { var id = ns + ':' + p; if (id !== 'minecraft:air' && (ns === 'minecraft' || globalEntry(id))) out.push({ id: id, ns: ns, e: n.entries[p] }); });
     else if (QN.view === 'families') arr(n.families).forEach(function (f) { out.push({ id: ns + ':family/' + f.id, ns: ns, fam: f, e: f }); });
   });
   if (q) out = out.filter(function (x) {
@@ -6535,6 +6555,7 @@ function qnFamilyOf(x) {
   return ids.filter(function (id) { return fams.some(function (f) { return arr(f.items).some(function (p) { return qnFamilyMatch(p, id, x.ns); }); }); }).sort();
 }
 function qnFlatTexture(id) {
+  if (devIcon(id)) return devIcon(id);
   var e = IX.items.get(id) || IX.blocks.get(id) || (!isVanilla(id) && globalEntry(id)) || null;
   var t = e && (e.texture || e.icon);
   return t || (isVanilla(id) ? vanillaTexture(id) : null);
@@ -7482,6 +7503,13 @@ function tabTarget(tab) {
 /* Vanilla-Bloecke liegen als 3D-Bild unter demselben Namen wie ihre Textur: grosse Bilder glaetten. */
 document.addEventListener('load', function (ev) {
   var img = ev.target;
+  /* N80: Ausschnitt einer Haut aus data/vanilla-icons.json ("datei#x,y,w,h", Koepfe ohne Spawn-Ei): einmal zuschneiden. */
+  var cut = img && img.tagName === 'IMG' && /#(\d+),(\d+),(\d+),(\d+)$/.exec(img.getAttribute('src') || '');
+  if (cut) {
+    var cv = document.createElement('canvas'); cv.width = +cut[3]; cv.height = +cut[4];
+    try { cv.getContext('2d').drawImage(img, +cut[1], +cut[2], cv.width, cv.height, 0, 0, cv.width, cv.height); img.src = cv.toDataURL(); } catch (e) { /* bleibt das ganze Bild */ }
+    return;
+  }
   if (img && img.tagName === 'IMG' && img.naturalWidth > 32) img.classList.add('r3d');
 }, true);
 /* Bildfehler: Textur fehlt -> Text-Kachel */
