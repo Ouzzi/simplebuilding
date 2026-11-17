@@ -43,6 +43,10 @@ const cellId = (page, r, c) => page.locator(cellSel(r, c)).first().getAttribute(
     page.on('dialog', d => d.accept(d.type() === 'prompt' ? (d.message().match(/Spalte|column/i) ? 'probe col' : 'Probe Reihe') : undefined));
     const q = base.startsWith('http://127.0.0.1') ? '&dev=1' : '';
     await page.goto(base + `index.html?mod=simplebuilding&tab=tzeditor&lang=${lang}${q}`);
+    await page.locator('.tz-bg .tz-c').first().waitFor({ timeout: 60000 });
+    // N85 (owner 17.11.): the editor opens "as built" (the owner's line arrangement); steps 1-5 work on the table
+    ok(await page.locator('select[data-k=layout]').inputValue() === 'built', 'opens in the view "as built"');
+    await page.selectOption('select[data-k=layout]', 'table');
     await page.locator('.tz-body .tz-c').first().waitFor({ timeout: 60000 });
     const T = await page.evaluate(() => window.SBTzEditor.STR[document.documentElement.lang === 'de' ? 'de' : 'en']);
     const L = lang === 'de' ? await page.evaluate(() => window.SBTzEditor.STR.de) : await page.evaluate(() => window.SBTzEditor.STR.en);
