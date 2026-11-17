@@ -181,7 +181,7 @@
     function tr(k) { return S[k] || STR.en[k] || k; }
     if (!ctx.dev) { el.innerHTML = '<div class="box box-danger">' + esc(tr('devOnly')) + '</div>'; return; }
     var st = ctx.state || (ctx.state = {});
-    var defaults = { idx: null, file: '', areas: {}, plan: null, sel: {}, focus: null, hist: null, dirty: {}, view: 'a', layout: 'table', zoom: 36, q: '', msg: '', history: [], icons: null };
+    var defaults = { idx: null, file: '', areas: {}, plan: null, sel: {}, focus: null, hist: null, dirty: {}, view: 'a', layout: 'built', zoom: 36, q: '', msg: '', history: [], icons: null };
     Object.keys(defaults).forEach(function (k) { if (st[k] === undefined) st[k] = defaults[k]; });
     if (!(st.hist instanceof History)) st.hist = new History(200);
     var drag = null, zoom = null;
