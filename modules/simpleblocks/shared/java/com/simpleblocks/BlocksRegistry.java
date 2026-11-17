@@ -135,7 +135,13 @@ public final class BlocksRegistry {
      * Vanilla puts that tag into {@code mineable/axe}, and the nether brick fence is pickaxe-only too. Fences still connect (by class).
      */
     public static final Block NETHER_BRICK_FENCE_GATE = add("nether_brick_fence_gate", Blocks.NETHER_BRICK_FENCE,
-            s -> new FenceGateBlock(WoodType.CRIMSON, s.forceSolidOn()));
+            s -> new FenceGateBlock(WoodType.CRIMSON, s.forceSolidOn()) {
+                // The WoodType constructor sets the Nether wood sound; the gate sounds like nether bricks when placed, broken, walked on.
+                @Override
+                protected net.minecraft.world.level.block.SoundType getSoundType(net.minecraft.world.level.block.state.BlockState state) {
+                    return net.minecraft.world.level.block.SoundType.NETHER_BRICKS;
+                }
+            });
 
     /** Cracked and mossy bricks: full blocks only (no new brick sets); (new path, Vanilla brick it ages). */
     public static final List<String[]> AGED = List.of(
