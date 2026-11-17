@@ -9,7 +9,7 @@ compile the touched Fabric projects, run ``data_integrity`` (plus ``test_centre`
 the targets of the touched modules (plus the modules that require them, SimpleBuilding's own target when it
 requires one, and the integration suite). Only the loaders in ``SB_GATE_LOADERS`` (default fabric: owner 22.10.,
 26.3 Fabric only). A change that can reach everything (simplelib, wiringexample, core/framework Java, build
-files, the test runner; N81: in simplelib/wiringexample only their Java and Gradle files) prints ``MODE full`` and exits 2: the caller runs the full gate then. With ``--due-file``
+files, the test runner and the few tools/ the build reads (FULL_TOOLS); N81: in simplelib/wiringexample only their Java and Gradle files) prints ``MODE full`` and exits 2: the caller runs the full gate then. With ``--due-file``
 a due full gate (see gate_due.py) also prints ``MODE full``. Docs, queue, wiki and texture generators only need
 ``check``. The last line is ``VERDICT: GREEN`` or ``VERDICT: RED`` like the full gate's.
 """
@@ -27,13 +27,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from retry_red import blockers, red_tests  # noqa: E402
 
-CHECK_ONLY = ("docs/", ".claude/", "wiki/", "art/", "previews/", "balance/", "bench-results/", "testing/runs/",
-              "tools/textures/",  # generators only; the PNGs they write sit under modules/ or src/
-              # web/infra tools no game test loads; tools/check_*.py are what check itself runs
-              "tools/landing/", "tools/zentrale-web/", "tools/zentrale/", "tools/release_pages/", "tools/wiki/",
-              "tools/ai/", "tools/check_", "tools/dup_pairs",
-              "tools/release/", "tools/modtree/", "tools/tzedit/", "tools/guides/", "tools/discover/",
-              "tools/wiki_site.py")  # N81: check tasks of build.gradle / web editor; their generated outputs are committed and diffed themselves
+CHECK_ONLY = ("docs/", ".claude/", "wiki/", "art/", "previews/", "balance/", "bench-results/", "testing/runs/")
+# A 17.11. (N81-D): tools/ is generators, web/infra and check scripts - no game test loads them, their committed outputs are
+# diffed themselves (tools/check_*.py are what check itself runs). Only these tools reach the build or the test runner:
+FULL_TOOLS = ("tools/testrunner/", "tools/forge/", "tools/multimod.py", "tools/devmods.json")
 CHECK_ONLY_FILES = {"readme.md", "readme_modrinth.md", "readme_old.md", "todo.md", "MULTILOADER_TODO.md", "AGENTS.md",
                     "CLAUDE.md", "CHANGELOG.md", "AUDIT.md", "CREDITS.md", "CONTRIBUTING.md", "Wiki.md", ".gitignore"}
 FULL_MODULES = {"simplelib", "wiringexample"}
@@ -85,7 +82,8 @@ def plan(changed: list[str], manifest: dict, targets: list[str], loader_ids: lis
     integration = False
     ids = {m["id"] for m in manifest["modules"]}
     for path in changed:
-        if path.startswith(CHECK_ONLY) or path in CHECK_ONLY_FILES or MODULE_CHECK_ONLY.match(path):
+        if (path.startswith(CHECK_ONLY) or path in CHECK_ONLY_FILES or MODULE_CHECK_ONLY.match(path)
+                or (path.startswith("tools/") and not path.startswith(FULL_TOOLS))):
             continue
         m = re.match(r"modules/([^/]+)/", path)
         if path == MANIFEST:
