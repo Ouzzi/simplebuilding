@@ -20812,6 +20812,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/astralit_dust.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pink dust that drifts off the End's outer islands, still warm from the light it carries."
+          ],
+          "use": [
+            "Dropped by Astralit Ore (Fortune adds more); four Dull Astralit Dust craft one too. With redstone it makes 2 Astral Redstone, with a Nihilit Shard and redstone 3 Bridge Redstone. A blaze rod over it makes 4 Astralit End Rods."
+          ],
+          "secret": [
+            "With SimpleBuilding installed it is also a trim material and the base of the Astralit building blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein rosa Staub, der von den äußeren Inseln des End treibt, noch warm von dem Licht, das er trägt."
+          ],
+          "use": [
+            "Fällt aus Astraliterz (Glück bringt mehr); vier Trübe Astralitstaub ergeben auch einen. Mit Redstone ergibt er 2 Astral-Redstone, mit Nihilitsplitter und Redstone 3 Brücken-Redstone. Eine Lohenrute darüber ergibt 4 Astralit-Endstäbe."
+          ],
+          "secret": [
+            "Mit SimpleBuilding ist er außerdem ein Rüstungsbesatz und die Grundlage der Astralit-Baublöcke."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:astralit_dust_from_dull_astralit_dust"
       ],
@@ -20839,6 +20863,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/brass_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A warm yellow bar of copper and zinc."
+          ],
+          "use": [
+            "Two copper and one zinc ingot, shapeless, make 3: nothing is lost. Nine make a block of brass. Brass builds bars, grates, doors, lamps, lanterns, chains and poles."
+          ],
+          "secret": [
+            "Brass never oxidises, so it keeps the shine copper loses. Its grate pattern is made of rhombs."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein warmgelber Barren aus Kupfer und Zink."
+          ],
+          "use": [
+            "Zwei Kupfer- und ein Zinkbarren, formlos, ergeben 3: Nichts geht verloren. Neun ergeben einen Messingblock. Aus Messing entstehen Gitter, Roste, Türen, Lampen, Laternen, Ketten und Stangen."
+          ],
+          "secret": [
+            "Messing oxidiert nie und behält so den Glanz, den Kupfer verliert. Sein Rostmuster besteht aus Rauten."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:brass_ingot",
         "simpleores:brass_ingot_from_brass_block",
@@ -20900,6 +20948,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/bronze_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A warm brown bar, the oldest alloy of all."
+          ],
+          "use": [
+            "Three copper and one tin ingot, shapeless, make 4: nothing is lost. Nine make a block of bronze, the base of its building family."
+          ],
+          "secret": [
+            "Bronze sounds warm when you walk on it, and it does not oxidise: a bronze wall stays brown."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein warmbrauner Barren, die älteste Legierung von allen."
+          ],
+          "use": [
+            "Drei Kupfer- und ein Zinnbarren, formlos, ergeben 4: Nichts geht verloren. Neun ergeben einen Bronzeblock, die Grundlage seiner Baufamilie."
+          ],
+          "secret": [
+            "Bronze klingt warm, wenn du darüberläufst, und oxidiert nicht: Eine Bronzewand bleibt braun."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:bronze_ingot",
         "simpleores:bronze_ingot_from_bronze_block",
@@ -21012,6 +21084,30 @@
           ]
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the End has only one fruit like it."
+          ],
+          "use": [
+            "It has no recipe: a rare loot find. 14 hunger, always edible. Regeneration III (1:00), Resistance II (5:00), Fire Resistance (10:00), Absorption V (3:00), Health Boost V (3:00), Night Vision (5:00)."
+          ],
+          "secret": [
+            "Epic, with an enchantment glint, and fire resistant like every Enderite item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: Das End kennt nur diese eine Frucht."
+          ],
+          "use": [
+            "Er hat kein Rezept: ein seltener Beutefund. 14 Hunger, immer essbar. Regeneration III (1:00), Resistenz II (5:00), Feuerresistenz (10:00), Absorption V (3:00), Extraenergie V (3:00), Nachtsicht (5:00)."
+          ],
+          "secret": [
+            "Episch, mit Verzauberungsschimmer und feuerfest wie jeder Enderit-Gegenstand."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -21060,6 +21156,30 @@
           ]
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a netherite apple that was given a glow and kept it."
+          ],
+          "use": [
+            "It has no recipe: a rare loot find. 8 hunger, always edible. Regeneration II (0:40), Resistance I (5:00), Fire Resistance (5:00), Absorption IV (2:00), Strength II (2:00)."
+          ],
+          "secret": [
+            "Stronger than the plain netherite apple in every effect, rare in rank, and fire resistant as an item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein Netheritapfel, dem man einen Schimmer gab und der ihn behielt."
+          ],
+          "use": [
+            "Er hat kein Rezept: ein seltener Beutefund. 8 Hunger, immer essbar. Regeneration II (0:40), Resistenz I (5:00), Feuerresistenz (5:00), Absorption IV (2:00), Stärke II (2:00)."
+          ],
+          "secret": [
+            "In jedem Effekt stärker als der einfache Netheritapfel, selten im Rang und als Gegenstand feuerfest."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -21078,6 +21198,30 @@
         },
         "de": {
           "summary": "Verzauberter Rosenkupfer-Apfel (Schimmer): 5 Hunger, immer essbar. Gibt Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Rosenkupferblöcke um einen Apfel."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: copper-rose, with a glint."
+          ],
+          "use": [
+            "8 blocks of Rose Copper round an apple. 5 hunger, always edible. Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00."
+          ],
+          "secret": [
+            "Five seconds less Regeneration and one hunger point less than the enchanted Rose Gold apple, otherwise the same."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: kupferrosa, mit Schimmer."
+          ],
+          "use": [
+            "8 Rosenkupferblöcke um einen Apfel. 5 Hunger, immer essbar. Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00."
+          ],
+          "secret": [
+            "Fünf Sekunden weniger Regeneration und ein Hungerpunkt weniger als der verzauberte Roségold-Apfel, sonst gleich."
+          ]
         }
       },
       "craftedBy": [
@@ -21100,6 +21244,30 @@
         },
         "de": {
           "summary": "Verzauberter Roségold-Apfel (Schimmer): 6 Hunger, immer essbar. Gibt Regeneration II 0:35, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Roségoldblöcke um einen Apfel."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a rose gold apple that kept the glow."
+          ],
+          "use": [
+            "8 blocks of Rose Gold round an apple. 6 hunger, always edible. Regeneration II 0:35, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00."
+          ],
+          "secret": [
+            "It works like the enchanted golden apple, but you can craft it. The tooltip lists every effect."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein Roségold-Apfel, der den Schimmer behielt."
+          ],
+          "use": [
+            "8 Roségoldblöcke um einen Apfel. 6 Hunger, immer essbar. Regeneration II 0:35, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00."
+          ],
+          "secret": [
+            "Er wirkt wie der verzauberte goldene Apfel, lässt sich aber herstellen. Der Tooltip zeigt jeden Effekt."
+          ]
         }
       },
       "craftedBy": [
@@ -21202,6 +21370,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/enderite_apple.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: an apple with the End's patience in its skin."
+          ],
+          "use": [
+            "An apple ringed by 8 Enderite nuggets. 14 hunger, always edible. Regeneration II (0:20), Resistance I (2:30), Absorption IV (2:00), Health Boost III (2:00)."
+          ],
+          "secret": [
+            "Epic rarity, fire resistant and safe from the void if dropped, like every Enderite item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein Apfel mit der Geduld des End in der Schale."
+          ],
+          "use": [
+            "Ein Apfel, umringt von 8 Enderitklumpen. 14 Hunger, immer essbar. Regeneration II (0:20), Resistenz I (2:30), Absorption IV (2:00), Extraenergie III (2:00)."
+          ],
+          "secret": [
+            "Seltenheit episch, feuerfest und beim Fallenlassen vor der Leere sicher, wie jeder Enderit-Gegenstand."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_apple"
       ],
@@ -21289,6 +21481,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/enderite_carrot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a carrot that learned to jump between islands."
+          ],
+          "use": [
+            "A carrot with 4 Enderite nuggets around it in a plus. 12 hunger, always edible. Night Vision (5:00), Speed II (1:00), Jump Boost II (1:00) and a tick of Saturation."
+          ],
+          "secret": [
+            "Epic, fire resistant and safe from the void, like every Enderite item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Karotte, die gelernt hat, zwischen Inseln zu springen."
+          ],
+          "use": [
+            "Eine Karotte mit 4 Enderitklumpen im Plus darum. 12 Hunger, immer essbar. Nachtsicht (5:00), Schnelligkeit II (1:00), Sprungkraft II (1:00) und einen Tick Sättigung."
+          ],
+          "secret": [
+            "Episch, feuerfest und vor der Leere sicher, wie jeder Enderit-Gegenstand."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_carrot"
       ],
@@ -21435,6 +21651,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/enderite_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Forged where the End forgets its own edges: the tier above netherite."
+          ],
+          "use": [
+            "Four Enderite Scrap, four diamonds and a netherite ingot make one; nine nuggets make one too. Nine make a block. With the Enderite Upgrade it lifts netherite gear to Enderite at the smithing table."
+          ],
+          "secret": [
+            "It also starts the rift alloys: 4 Rift Shards and an Enderite ingot make Terranite. Other Simple mods load their Enderite recipes only while Simple Ores is installed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Geschmiedet dort, wo das End seine eigenen Kanten vergisst: die Stufe über Netherit."
+          ],
+          "use": [
+            "Vier Enderitplatten, vier Diamanten und ein Netheritbarren ergeben einen; neun Klumpen ebenso. Neun ergeben einen Block. Mit der Enderit-Aufwertung hebt er am Schmiedetisch Netherit-Ausrüstung auf Enderit."
+          ],
+          "secret": [
+            "Er beginnt auch die Riss-Legierungen: 4 Riss-Splitter und ein Enderitbarren ergeben Terranit. Andere Simple-Mods laden ihre Enderit-Rezepte nur, solange Simple Ores installiert ist."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_ingot",
         "simpleores:enderite_ingot_from_nugget",
@@ -21542,6 +21782,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/enderite_nugget.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A tiny piece of the End's heaviest metal, small enough to hide."
+          ],
+          "use": [
+            "Nine make an Enderite ingot, and the ingot gives nine back. Eight round an apple make the Enderite Apple, four round a carrot the Enderite Carrot."
+          ],
+          "secret": [
+            "End city treasure sometimes holds 2 to 5 of them, a head start toward your first ingot."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein winziges Stück des schwersten Metalls des End, klein genug zum Verstecken."
+          ],
+          "use": [
+            "Neun ergeben einen Enderitbarren, der Barren gibt neun zurück. Acht um einen Apfel ergeben den Enderitapfel, vier um eine Karotte die Enderitkarotte."
+          ],
+          "secret": [
+            "Endstadt-Schätze enthalten manchmal 2 bis 5 davon, ein Vorsprung auf dem Weg zum ersten Barren."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_nugget_from_ingot"
       ],
@@ -21598,6 +21862,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/enderite_scrap.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "What is left when the End's raw ore meets the fire and loses its illusions."
+          ],
+          "use": [
+            "Melted from Raw Enderite Scrap in a blast furnace; End city treasure also holds it (15 percent). Four scrap, four diamonds and a netherite ingot make an Enderite ingot."
+          ],
+          "secret": [
+            "Nine pack into a Block of Enderite Scrap, as hard as ancient debris and safe from fire."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Was übrig bleibt, wenn das Roherz des End auf das Feuer trifft und seine Illusionen verliert."
+          ],
+          "use": [
+            "Im Hochofen aus Rohen Enderitplatten geschmolzen; Endstadt-Schätze enthalten sie auch (15 Prozent). Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren."
+          ],
+          "secret": [
+            "Neun lassen sich zu einem Enderitplatten-Block packen, hart wie Antiker Schrott und feuerfest."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_scrap_from_blasting_layered_raw_enderite",
         "simpleores:enderite_scrap_from_enderite_scrap_block"
@@ -21712,6 +22000,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/enderite_upgrade_template.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A template stamped with the End's own seal."
+          ],
+          "use": [
+            "Smithing template: with a netherite tool, armor piece, mount armor or pole and an Enderite ingot it makes the Enderite version. Found in End city treasure (30 percent)."
+          ],
+          "secret": [
+            "Seven diamonds round it and an End stone copy it: one template becomes two, so you never need to hunt for more."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Vorlage, gestempelt mit dem eigenen Siegel des End."
+          ],
+          "use": [
+            "Schmiedevorlage: Mit einem Netherit-Werkzeug, -Rüstungsteil, einer Reittierrüstung oder Stange und einem Enderitbarren ergibt sie die Enderit-Version. Liegt in Endstadt-Schätzen (30 Prozent)."
+          ],
+          "secret": [
+            "Sieben Diamanten darum und ein Endstein kopieren sie: Aus einer Vorlage werden zwei, du musst nie wieder nach mehr suchen."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_upgrade_template"
       ],
@@ -21752,6 +22064,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A book of veins, alloys and quiet metal."
+          ],
+          "use": [
+            "The Simple Ores chapter of the Simple Modpack guide: 33 pages about the ores, alloys and blocks of this mod, in your language. Craft the guide shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "The chapter unlocks the first time you pick up raw gold. An old single guide turns into the modpack guide when you use it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Buch über Adern, Legierungen und stilles Metall."
+          ],
+          "use": [
+            "Das Kapitel Simple Ores im Simple-Modpack-Handbuch: 33 Seiten über die Erze, Legierungen und Blöcke dieser Mod, in deiner Sprache. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Das Kapitel öffnet sich, sobald du zum ersten Mal Rohgold aufhebst. Ein altes Einzelhandbuch wird beim Benutzen zum Modpack-Handbuch."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -21821,6 +22157,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/infernite_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A bar that kept the Nether's heat inside."
+          ],
+          "use": [
+            "4 Nether Rift Shards and 1 Terranite ingot, shapeless. Nine make a block, a beacon base, and the ingot pays a beacon. Fire resistant, Legendary rank."
+          ],
+          "secret": [
+            "It is the partner of the last step: 4 End Rift Shards and an Infernite ingot make Zenithite. Its apple and carrot give Fire Resistance."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Barren, der die Hitze des Nethers in sich behielt."
+          ],
+          "use": [
+            "4 Nether-Riss-Splitter und 1 Terranitbarren, formlos. Neun ergeben einen Block, einen Leuchtfeuer-Sockel, und der Barren bezahlt ein Leuchtfeuer. Feuerfest, Rang Legendär."
+          ],
+          "secret": [
+            "Er ist der Partner des letzten Schritts: 4 End-Riss-Splitter und ein Infernitbarren ergeben Zenithit. Sein Apfel und seine Karotte geben Feuerresistenz."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:infernite_ingot",
         "simpleores:infernite_ingot_from_infernite_block",
@@ -21879,6 +22239,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/layered_raw_enderite.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Raw Enderite, pressed in layers, ready for a long fire."
+          ],
+          "use": [
+            "Four Raw Enderite Fragments, shapeless. Only a blast furnace melts it into Enderite Scrap, and it takes hours there; a furnace refuses it."
+          ],
+          "secret": [
+            "Start the blast furnace before a long trip. Four scrap, four diamonds and a netherite ingot then make an Enderite ingot."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Roher Enderit, in Schichten gepresst, bereit für ein langes Feuer."
+          ],
+          "use": [
+            "Vier Rohe Enderitfragmente, formlos. Nur ein Hochofen schmilzt sie zu Enderitplatten, und das dauert dort Stunden; ein Ofen lehnt ab."
+          ],
+          "secret": [
+            "Starte den Hochofen vor einer langen Reise. Vier Platten, vier Diamanten und ein Netheritbarren ergeben dann einen Enderitbarren."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:layered_raw_enderite"
       ],
@@ -21904,6 +22288,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/lead_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A grey bar, heavier than it looks."
+          ],
+          "use": [
+            "Smelted from raw lead or lead ore. Nine make a block of lead; three in a row make 6 lead plates. Lead builds bars, grates, doors and the soundproof building blocks."
+          ],
+          "secret": [
+            "Lead blocks between a sound and your ear make it quieter: three of them swallow most of a TNT blast."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein grauer Barren, schwerer, als er aussieht."
+          ],
+          "use": [
+            "Geschmolzen aus Rohblei oder Bleierz. Neun ergeben einen Bleiblock, drei in einer Reihe 6 Bleiplatten. Aus Blei entstehen Gitter, Roste, Türen und die schalldämmenden Baublöcke."
+          ],
+          "secret": [
+            "Bleiblöcke zwischen einem Geräusch und deinem Ohr machen es leiser: Schon drei schlucken den Großteil einer TNT-Explosion."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:lead_ingot_from_blasting_end_lead_ore",
         "simpleores:lead_ingot_from_blasting_lead_ore",
@@ -22004,6 +22412,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/netherite_apple.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a golden apple that went through the Nether and came back harder."
+          ],
+          "use": [
+            "An apple ringed by 8 netherite nuggets. 8 hunger, always edible. Resistance I (1:00), Absorption II (0:30), Regeneration II (0:10)."
+          ],
+          "secret": [
+            "It is fire resistant as an item, so a drop into lava does not destroy it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein goldener Apfel, der durch den Nether ging und härter zurückkam."
+          ],
+          "use": [
+            "Ein Apfel, umringt von 8 Netheritklumpen. 8 Hunger, immer essbar. Resistenz I (1:00), Absorption II (0:30), Regeneration II (0:10)."
+          ],
+          "secret": [
+            "Als Gegenstand ist er feuerfest, ein Sturz in Lava zerstört ihn also nicht."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:netherite_apple"
       ],
@@ -22033,6 +22465,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/netherite_carrot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a carrot that got serious."
+          ],
+          "use": [
+            "A carrot with 4 netherite nuggets around it in a plus. 6 hunger, always edible. Fire Resistance (2:00) and Night Vision (2:00)."
+          ],
+          "secret": [
+            "A snack for the Nether: two minutes of seeing in the dark and not burning. It is fire resistant as an item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Karotte, die ernst gemacht hat."
+          ],
+          "use": [
+            "Eine Karotte mit 4 Netheritklumpen im Plus darum. 6 Hunger, immer essbar. Feuerresistenz (2:00) und Nachtsicht (2:00)."
+          ],
+          "secret": [
+            "Ein Imbiss für den Nether: zwei Minuten im Dunkeln sehen und nicht brennen. Als Gegenstand feuerfest."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:netherite_carrot"
       ],
@@ -22056,6 +22512,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/nickel_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A hard, bright bar from the deep."
+          ],
+          "use": [
+            "Smelted from raw nickel or nickel ore. Nine make a block. Three iron and one nickel ingot, shapeless, make 4 stainless steel."
+          ],
+          "secret": [
+            "One nickel stretches three iron into four ingots of steel, which is why nickel is only a little more common than diamond."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein harter, heller Barren aus der Tiefe."
+          ],
+          "use": [
+            "Geschmolzen aus Rohnickel oder Nickelerz. Neun ergeben einen Block. Drei Eisen- und ein Nickelbarren, formlos, ergeben 4 Edelstahl."
+          ],
+          "secret": [
+            "Ein Nickel streckt drei Eisen zu vier Barren Stahl, deshalb ist Nickel nur etwas häufiger als Diamant."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:nickel_ingot_from_blasting_deepslate_nickel_ore",
         "simpleores:nickel_ingot_from_blasting_raw_nickel",
@@ -22127,6 +22607,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/nihilith_shard.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A blue splinter of the void, cold like a held breath."
+          ],
+          "use": [
+            "Dropped by Nihilit Ore (Fortune adds more); four Dull Nihilit Shards craft one too. With redstone it makes 2 Nihil Redstone, with Astralit Dust and redstone 3 Bridge Redstone. A blaze rod over it makes 4 Nihilit End Rods."
+          ],
+          "secret": [
+            "It is also the heart of the Nihil Core. With SimpleBuilding installed it becomes a trim material and the base of the Nihilit building blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein blauer Splitter der Leere, kalt wie ein angehaltener Atem."
+          ],
+          "use": [
+            "Fällt aus Nihiliterz (Glück bringt mehr); vier Trübe Nihilitsplitter ergeben auch einen. Mit Redstone ergibt er 2 Nihil-Redstone, mit Astralitstaub und Redstone 3 Brücken-Redstone. Eine Lohenrute darüber ergibt 4 Nihilit-Endstäbe."
+          ],
+          "secret": [
+            "Er ist auch das Herz des Nihil-Kerns. Mit SimpleBuilding wird er zum Rüstungsbesatz und zur Grundlage der Nihilit-Baublöcke."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:nihilith_shard_from_dull_nihilith_shard"
       ],
@@ -22155,6 +22659,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/raw_enderite.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A fragment of the End's own ore, still rough from the dark."
+          ],
+          "use": [
+            "Found in End city treasure, 1 to 2 at a time. Four fragments, shapeless, make Raw Enderite Scrap, the first step toward Enderite."
+          ],
+          "secret": [
+            "That scrap melts only in a blast furnace, and slowly. With SimpleBuilding installed the fragments can also be made by its synthesis."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fragment des eigenen Erzes des End, noch rau von der Dunkelheit."
+          ],
+          "use": [
+            "Liegt in Endstadt-Schätzen, 1 bis 2 auf einmal. Vier Fragmente, formlos, ergeben Rohe Enderitplatten, den ersten Schritt zu Enderit."
+          ],
+          "secret": [
+            "Diese Platten schmelzen nur im Hochofen, und langsam. Mit SimpleBuilding lassen sich die Fragmente auch durch dessen Synthese herstellen."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:layered_raw_enderite"
@@ -22340,6 +22868,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_apple.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An apple in a copper-rose coat."
+          ],
+          "use": [
+            "8 Rose Copper ingots round an apple. 5 hunger, always edible. Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30."
+          ],
+          "secret": [
+            "The Rose Gold apple fills one point more and its Resistance lasts longer (0:50). Neither gives Fire Resistance."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Apfel im kupferrosa Mantel."
+          ],
+          "use": [
+            "8 Rosenkupferbarren um einen Apfel. 5 Hunger, immer essbar. Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30."
+          ],
+          "secret": [
+            "Der Roségold-Apfel sättigt einen Punkt mehr, und seine Resistenz hält länger (0:50). Keiner von beiden gibt Feuerresistenz."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:rose_bronze_apple"
       ],
@@ -22501,6 +23053,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A darker copper-rose bar, rose gold with more gold in it."
+          ],
+          "use": [
+            "Press 2 gold, 1 Rose Gold and 1 silver ingot into a Rose Copper Pressling (shapeless), then melt it in a blast furnace (30 s) for one ingot. Nine make a block. Tools, armor, apples and building blocks use it."
+          ],
+          "secret": [
+            "Despite the richer recipe its gear is the weaker one: durability 190, like copper. Choose it for its darker color."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein dunklerer kupferrosa Barren, Roségold mit mehr Gold darin."
+          ],
+          "use": [
+            "Presse 2 Gold-, 1 Roségold- und 1 Silberbarren zu einem Rosenkupfer-Pressling (formlos) und schmilz ihn im Hochofen (30 s) zu einem Barren. Neun ergeben einen Block. Werkzeuge, Rüstung, Äpfel und Baublöcke brauchen ihn."
+          ],
+          "secret": [
+            "Trotz des reicheren Rezepts ist seine Ausrüstung die schwächere: Haltbarkeit 190, wie Kupfer. Wähle es wegen seiner dunkleren Farbe."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:rose_bronze_ingot_from_blasting_rose_bronze_pressling",
         "simpleores:rose_bronze_ingot_from_nuggets",
@@ -22614,6 +23190,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_pressling.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Gold, rose gold and silver pressed into one lump."
+          ],
+          "use": [
+            "2 gold, 1 Rose Gold and 1 silver ingot, shapeless, make 1. Only a blast furnace melts it (30 s), always into exactly 1 Rose Copper ingot; a furnace, smoker or campfire refuses."
+          ],
+          "secret": [
+            "You need rose gold first: Rose Copper is made from it. Nine presslings pack into a block, but only single presslings melt."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Gold, Roségold und Silber, zu einem Klumpen gepresst."
+          ],
+          "use": [
+            "2 Gold-, 1 Roségold- und 1 Silberbarren, formlos, ergeben 1. Nur ein Hochofen schmilzt ihn (30 s), immer zu genau 1 Rosenkupferbarren; Ofen, Räucherofen und Lagerfeuer lehnen ab."
+          ],
+          "secret": [
+            "Du brauchst zuerst Roségold: Rosenkupfer wird daraus gemacht. Neun Presslinge passen in einen Block, schmelzen aber nur einzeln."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:rose_bronze_pressling_c",
         "simpleores:rose_bronze_pressling_from_rose_bronze_pressling_block"
@@ -22687,6 +23287,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/rose_gold_apple.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A golden apple with a pale pink blush."
+          ],
+          "use": [
+            "8 Rose Gold ingots round an apple. 6 hunger, always edible. Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50."
+          ],
+          "secret": [
+            "A step between the golden and the netherite apple: the golden apple's effects plus Resistance, but no Fire Resistance."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein goldener Apfel mit zartrosa Wangen."
+          ],
+          "use": [
+            "8 Roségoldbarren um einen Apfel. 6 Hunger, immer essbar. Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50."
+          ],
+          "secret": [
+            "Eine Stufe zwischen goldenem Apfel und Netheritapfel: die Effekte des goldenen Apfels plus Resistenz, aber keine Feuerresistenz."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:rose_gold_apple"
       ],
@@ -22848,6 +23472,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/rose_gold_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pale pink bar of gold, copper and silver."
+          ],
+          "use": [
+            "Press 1 gold, 2 copper and 1 silver ingot into a Rose Gold Pressling (shapeless), then melt it in a blast furnace (30 s) for one ingot. Nine make a block. Tools, armor, apples and building blocks use it."
+          ],
+          "secret": [
+            "It is the better alloy: tools as fast as gold with nearly iron durability, armor that lasts like iron. It is also an ingredient of Rose Copper."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein zartrosa Barren aus Gold, Kupfer und Silber."
+          ],
+          "use": [
+            "Presse 1 Gold-, 2 Kupfer- und 1 Silberbarren zu einem Roségold-Pressling (formlos) und schmilz ihn im Hochofen (30 s) zu einem Barren. Neun ergeben einen Block. Werkzeuge, Rüstung, Äpfel und Baublöcke brauchen ihn."
+          ],
+          "secret": [
+            "Die bessere Legierung: Werkzeuge so schnell wie Gold mit fast eiserner Haltbarkeit, Rüstung, die hält wie Eisen. Außerdem eine Zutat für Rosenkupfer."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:rose_gold_ingot_from_blasting_nether_rose_gold_ore",
         "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling",
@@ -22964,6 +23612,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/rose_gold_pressling.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Four ingots squeezed together, waiting for the fire."
+          ],
+          "use": [
+            "1 gold, 2 copper and 1 silver ingot, shapeless, make 1. Only a blast furnace melts it (30 s), always into exactly 1 Rose Gold ingot; a furnace, smoker or campfire refuses."
+          ],
+          "secret": [
+            "Four ingots in, one out: silver stays the bottleneck. Nether Rose Gold Ore drops a pressling directly."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Vier zusammengepresste Barren, die auf das Feuer warten."
+          ],
+          "use": [
+            "1 Gold-, 2 Kupfer- und 1 Silberbarren, formlos, ergeben 1. Nur ein Hochofen schmilzt ihn (30 s), immer zu genau 1 Roségoldbarren; Ofen, Räucherofen und Lagerfeuer lehnen ab."
+          ],
+          "secret": [
+            "Vier Barren hinein, einer heraus: Silber bleibt der Engpass. Nether-Roségolderz lässt direkt einen Pressling fallen."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:rose_gold_pressling_a",
         "simpleores:rose_gold_pressling_from_rose_gold_pressling_block"
@@ -23037,6 +23709,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/sage_crystal.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Thought, grown into a clear stone the size of an ingot."
+          ],
+          "use": [
+            "Four sage crystal shards in a square make one; nine make a block of sage crystal, and back. It counts as an ingot (tag c:ingots/sage_crystal)."
+          ],
+          "secret": [
+            "It has no use of its own yet: a material waiting for its purpose. The shards come from the Nether and End sage ores."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Gedanken, zu einem klaren Stein von Barrengröße gewachsen."
+          ],
+          "use": [
+            "Vier Weisheitskristallsplitter im Quadrat ergeben einen; neun ergeben einen Weisheitskristallblock, und zurück. Er zählt als Barren (Tag c:ingots/sage_crystal)."
+          ],
+          "secret": [
+            "Er hat noch keinen eigenen Nutzen: ein Material, das auf seine Aufgabe wartet. Die Splitter kommen aus dem Nether- und End-Weisheitserz."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:sage_crystal_from_sage_crystal_block",
         "simpleores:sage_crystal_from_shards"
@@ -23063,6 +23759,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/sage_crystal_shard.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A splinter of crystallised wisdom."
+          ],
+          "use": [
+            "Dropped by the Nether and End sage ores, 1 to 3 at a time (Fortune helps). Four in a square make a sage crystal."
+          ],
+          "secret": [
+            "The Overworld sage ore gives experience and orbs instead; only the ores of the other dimensions grow shards."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Splitter kristallisierter Weisheit."
+          ],
+          "use": [
+            "Fällt aus Nether- und End-Weisheitserz, 1 bis 3 auf einmal (Glück hilft). Vier im Quadrat ergeben einen Weisheitskristall."
+          ],
+          "secret": [
+            "Das Weisheitserz der Oberwelt gibt stattdessen Erfahrung und Kugeln; nur die Erze der anderen Dimensionen bilden Splitter."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:sage_crystal_from_shards"
@@ -23086,6 +23806,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/sage_orb.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pearl of stored thought, small enough to hold in one hand."
+          ],
+          "use": [
+            "Right-click charges it for 0.3 seconds, then it gives 50 to 100 experience points and is used up."
+          ],
+          "secret": [
+            "Sage ore sometimes drops one: 2 percent, up to 5 with Fortune. Nine pack into a block of sage orbs for safe keeping."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Perle gespeicherter Gedanken, klein genug für eine Hand."
+          ],
+          "use": [
+            "Rechtsklick lädt sie 0,3 Sekunden auf, dann gibt sie 50 bis 100 Erfahrungspunkte und ist verbraucht."
+          ],
+          "secret": [
+            "Weisheitserz lässt manchmal eine fallen: 2 Prozent, mit Glück bis zu 5. Neun lassen sich zu einem Weisheitskugelblock packen."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:sage_orb_from_sage_orb_block"
       ],
@@ -23111,6 +23855,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/silver_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pale bar that rings like a small bell."
+          ],
+          "use": [
+            "Smelted from raw silver or silver ore; nine nuggets make one too. Nine make a block. Every rose gold pressling needs one, and silver builds bars, grates, doors, lamps, sheets and the mirror."
+          ],
+          "secret": [
+            "Silver is no tool material, and it is the bottleneck of rose gold: every pressling takes one, whichever alloy you press."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein heller Barren, der klingt wie eine kleine Glocke."
+          ],
+          "use": [
+            "Geschmolzen aus Rohsilber oder Silbererz; neun Klumpen ergeben auch einen. Neun ergeben einen Block. Jeder Roségold-Pressling braucht einen, und aus Silber entstehen Gitter, Roste, Türen, Lampen, Bleche und der Spiegel."
+          ],
+          "secret": [
+            "Silber ist kein Werkzeugmaterial und der Engpass beim Roségold: Jeder Pressling braucht einen, egal welche Legierung du presst."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:silver_ingot_from_blasting_deepslate_silver_ore",
         "simpleores:silver_ingot_from_blasting_end_silver_ore",
@@ -23182,6 +23950,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/stainless_steel_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A hard bar of iron that refuses to rust."
+          ],
+          "use": [
+            "Three iron and one nickel ingot, shapeless, make 4: nothing is lost. Nine make a block of stainless steel, the base of a whole building family."
+          ],
+          "secret": [
+            "Its blocks have a hard, clean sound of their own. Like every metal of this mod it never ages."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein harter Barren aus Eisen, der sich weigert zu rosten."
+          ],
+          "use": [
+            "Drei Eisen- und ein Nickelbarren, formlos, ergeben 4: Nichts geht verloren. Neun ergeben einen Edelstahlblock, die Grundlage einer ganzen Baufamilie."
+          ],
+          "secret": [
+            "Seine Blöcke haben einen eigenen harten, klaren Klang. Wie jedes Metall dieser Mod altert er nie."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:stainless_steel_ingot",
         "simpleores:stainless_steel_ingot_from_nuggets",
@@ -23291,6 +24083,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/terranite_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Earth that went through the rift and came back as metal."
+          ],
+          "use": [
+            "4 Rift Shards and 1 Enderite ingot, shapeless. Nine make a block, a beacon base, and the ingot pays a beacon. Fire resistant, Legendary rank."
+          ],
+          "secret": [
+            "It is the partner of the next step: 4 Nether Rift Shards and a Terranite ingot make Infernite. Its apple and carrot give Haste."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Erde, die durch den Riss ging und als Metall zurückkam."
+          ],
+          "use": [
+            "4 Riss-Splitter und 1 Enderitbarren, formlos. Neun ergeben einen Block, einen Leuchtfeuer-Sockel, und der Barren bezahlt ein Leuchtfeuer. Feuerfest, Rang Legendär."
+          ],
+          "secret": [
+            "Er ist der Partner des nächsten Schritts: 4 Nether-Riss-Splitter und ein Terranitbarren ergeben Infernit. Sein Apfel und seine Karotte geben Eile."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:terranite_ingot",
         "simpleores:terranite_ingot_from_nuggets",
@@ -23349,6 +24165,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/tin_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A soft bar of the mountain metal."
+          ],
+          "use": [
+            "Smelted from raw tin or tin ore; nine tin nuggets make one too. Nine make a block. Three copper and one tin ingot, shapeless, make 4 bronze."
+          ],
+          "secret": [
+            "Tin crackles: its blocks make their own crackling tin cry when you walk on them or mine them."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein weicher Barren aus dem Bergmetall."
+          ],
+          "use": [
+            "Geschmolzen aus Rohzinn oder Zinnerz; neun Zinnklumpen ergeben auch einen. Neun ergeben einen Block. Drei Kupfer- und ein Zinnbarren, formlos, ergeben 4 Bronze."
+          ],
+          "secret": [
+            "Zinn knistert: Seine Blöcke geben beim Darüberlaufen und Abbauen ihr eigenes knisterndes Zinngeschrei von sich."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:tin_ingot_from_blasting_raw_tin",
         "simpleores:tin_ingot_from_blasting_tin_ore",
@@ -23462,6 +24302,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/zenithite_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The end of the chain, a bar as light as the sky above the islands."
+          ],
+          "use": [
+            "4 End Rift Shards and 1 Infernite ingot, shapeless. Nine make a block, a beacon base, and the ingot pays a beacon. Fire resistant, Legendary rank."
+          ],
+          "secret": [
+            "Every dimension is in it: Overworld, Nether and End scrap and the Enderite at the start. Its apple and carrot give Slow Falling."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Das Ende der Kette, ein Barren, leicht wie der Himmel über den Inseln."
+          ],
+          "use": [
+            "4 End-Riss-Splitter und 1 Infernitbarren, formlos. Neun ergeben einen Block, einen Leuchtfeuer-Sockel, und der Barren bezahlt ein Leuchtfeuer. Feuerfest, Rang Legendär."
+          ],
+          "secret": [
+            "Jede Dimension steckt darin: Schrott aus Oberwelt, Nether und End und das Enderit am Anfang. Sein Apfel und seine Karotte geben Sanften Fall."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:zenithite_ingot",
         "simpleores:zenithite_ingot_from_nuggets",
@@ -23519,6 +24383,30 @@
         }
       },
       "texture": "assets/textures/simpleores/item/zinc_ingot.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A bluish-grey bar from the heart of a geode."
+          ],
+          "use": [
+            "Smelted from raw zinc or zinc ore. Nine make a block. Two copper and one zinc ingot, shapeless, make 3 brass: nothing is lost."
+          ],
+          "secret": [
+            "Zinc comes only from closed mini geodes, so every ingot started inside a ball of geode crust."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein bläulich-grauer Barren aus dem Herzen einer Geode."
+          ],
+          "use": [
+            "Geschmolzen aus Rohzink oder Zinkerz. Neun ergeben einen Block. Zwei Kupfer- und ein Zinkbarren, formlos, ergeben 3 Messing: Nichts geht verloren."
+          ],
+          "secret": [
+            "Zink kommt nur aus geschlossenen Minigeoden, jeder Barren begann also in einer Kugel aus Geodenkruste."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:zinc_ingot_from_blasting_end_zinc_ore",
         "simpleores:zinc_ingot_from_blasting_raw_zinc",
@@ -23598,6 +24486,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/astral_piston.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name} pushes when the other side tells it to."
+          ],
+          "use": [
+            "A piston, 4 Astral Redstone and 4 corners (Polished Astralit with SimpleBuilding, End stone bricks without). On a rising signal of any line it pushes the block on each of its six sides one cell away."
+          ],
+          "secret": [
+            "One block per side, never a chain, and only into a free cell. It fires on the rising edge only, then waits 8 ticks (server setting)."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name} drückt, wenn die andere Seite es sagt."
+          ],
+          "use": [
+            "Ein Kolben, 4 Astral-Redstone und 4 Ecken (Polierter Astralit mit SimpleBuilding, Endsteinziegel ohne). Bei einem steigenden Signal jeder Linie drückt er den Block auf jeder seiner sechs Seiten ein Feld weg."
+          ],
+          "secret": [
+            "Ein Block je Seite, nie eine Kette, und nur in ein freies Feld. Er löst nur bei der steigenden Flanke aus und wartet dann 8 Ticks (Server-Einstellung)."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:astral_piston",
         "simpleores:astral_piston_from_end_stone_bricks"
@@ -23632,6 +24544,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/astral_rail.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A rail that has heard the sky and wants to go there."
+          ],
+          "use": [
+            "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by any redstone line, it pushes carts to a top speed of 16 blocks per second by default (Vanilla 8). Unpowered it is a plain rail."
+          ],
+          "secret": [
+            "The boost fades the closer a cart gets to top speed. On slopes, in water and on other rails the Vanilla limit applies again, so brake before a curve."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Schiene, die den Himmel gehört hat und dorthin will."
+          ],
+          "use": [
+            "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
+          ],
+          "secret": [
+            "Der Schub nimmt ab, je näher die Lore der Höchstgeschwindigkeit kommt. An Steigungen, im Wasser und auf anderen Schienen gilt wieder das Vanilla-Limit, bremse also vor einer Kurve."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:astral_rail"
       ],
@@ -23671,6 +24607,30 @@
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
             "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "Redstone that has learned a second language, and speaks it only to its own kind."
+          ],
+          "use": [
+            "Astralit Dust and redstone make 2. A second redstone line: it behaves like redstone dust, but dust only takes signal from dust of its own line. Lamps, pistons, doors and other devices react to every line."
+          ],
+          "secret": [
+            "Used on the side or the underside of a block it sticks to that face and powers its block strongly. Bridge Redstone links it to the other lines."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Redstone, das eine zweite Sprache gelernt hat und sie nur mit seinesgleichen spricht."
+          ],
+          "use": [
+            "Astralitstaub und Redstone ergeben 2. Eine zweite Redstone-Linie: Sie verhält sich wie Redstone-Staub, doch Staub nimmt nur von Staub der eigenen Linie Signal an. Lampen, Kolben, Türen und andere Geräte reagieren auf jede Linie."
+          ],
+          "secret": [
+            "Auf die Seite oder Unterseite eines Blocks gesetzt, haftet es an dieser Fläche und speist seinen Block stark. Brücken-Redstone verbindet es mit den anderen Linien."
           ]
         }
       },
@@ -23825,6 +24785,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/astral_relay.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A copper bulb that learned to speak."
+          ],
+          "use": [
+            "A copper bulb surrounded by four Astral Redstone. A rising signal edge toggles it; while on it lights up and gives redstone strength 15 to every side."
+          ],
+          "secret": [
+            "A comparator reads 15 from it while it is on, so one pulse turns it into a steady source until the next pulse."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Kupferleuchte, die sprechen gelernt hat."
+          ],
+          "use": [
+            "Eine Kupferleuchte, umgeben von vier Astral-Redstone. Eine steigende Signalflanke schaltet es um; an leuchtet es und gibt Redstone-Stärke 15 an jede Seite."
+          ],
+          "secret": [
+            "Ein Komparator liest 15, solange es an ist: Ein Puls macht es zur dauerhaften Quelle bis zum nächsten Puls."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:astral_relay"
       ],
@@ -23958,6 +24942,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/astralit_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "It waits on the very top of the End's islands, and glints at anyone with a good pickaxe."
+          ],
+          "use": [
+            "Generates in the End stone on the surface of the outer islands. Diamond pickaxe or better, hardness 20, light level 5. Drops Astralit Dust and 3 to 7 experience; Fortune raises the drop, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "It hides in the stone until a brush frees it: six strokes show its crystals. A freed ore drops its full amount, a hidden one only with a 70 percent chance."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Es wartet ganz oben auf den Inseln des End und blitzt jeden an, der eine gute Spitzhacke trägt."
+          ],
+          "use": [
+            "Entsteht im Endstein an der Oberfläche der äußeren Inseln. Diamantspitzhacke oder besser, Härte 20, Lichtstärke 5. Lässt Astralitstaub und 3 bis 7 Erfahrung fallen; Glück erhöht den Ertrag, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Es versteckt sich im Gestein, bis ein Pinsel es freilegt: Sechs Striche zeigen seine Kristalle. Ein freigelegtes Erz gibt den vollen Ertrag, ein verborgenes nur mit 70 Prozent Chance."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -24286,6 +25294,30 @@
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
             "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "Redstone that learned to translate between three tongues."
+          ],
+          "use": [
+            "Astralit Dust, a Nihilit Shard and redstone make 3. It connects to redstone, Astral and Nihil dust alike and passes the signal on like one shared wire, one level weaker per block."
+          ],
+          "secret": [
+            "Redstone dust reads a bridge only from the side next to it, not across a slope. Like Astral Redstone it also sticks to walls and ceilings."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Redstone, das zwischen drei Sprachen übersetzen gelernt hat."
+          ],
+          "use": [
+            "Astralitstaub, ein Nihilitsplitter und Redstone ergeben 3. Es verbindet sich mit Redstone-, Astral- und Nihil-Staub gleichermaßen und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer."
+          ],
+          "secret": [
+            "Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe. Wie Astral-Redstone haftet es auch an Wänden und Decken."
           ]
         }
       },
@@ -25838,6 +26870,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/deepslate_nickel_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a hard, pale vein that keeps to the deep."
+          ],
+          "use": [
+            "Generates only in deepslate, like diamond ore: 10 veins of 6 per chunk, most at Y -64, up to Y 16. Needs an iron pickaxe and drops raw nickel; Fortune helps, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "A little more common than diamond, because nickel is an ingredient, not a gear tier: one nickel and three iron ingots make four stainless steel."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine harte, helle Ader, die in der Tiefe bleibt."
+          ],
+          "use": [
+            "Entsteht nur im Tiefenschiefer, wie Diamanterz: 10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16. Braucht eine Eisenspitzhacke und lässt Rohnickel fallen; Glück hilft, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Etwas häufiger als Diamant, weil Nickel eine Zutat ist und keine Ausrüstungsstufe: Ein Nickel- und drei Eisenbarren ergeben vier Edelstahl."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:nickel_ingot_from_blasting_deepslate_nickel_ore",
@@ -25918,6 +26974,30 @@
         ]
       },
       "texture": "assets/textures/simpleores/block/diamond_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole of diamond, too precious to stand in a storm, which is exactly where it wants to be."
+          ],
+          "use": [
+            "Three diamonds stacked make one: a lightning rod of diamond that draws strikes within 80 blocks. With the Netherite Upgrade and a netherite ingot the smithing table turns it into the Netherite Pole."
+          ],
+          "secret": [
+            "Like every metal pole it never oxidises and gives a redstone signal when lightning strikes it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange aus Diamant, zu kostbar für ein Gewitter, und genau dort will sie stehen."
+          ],
+          "use": [
+            "Drei Diamanten übereinander ergeben eine: einen Blitzableiter aus Diamant, der Blitze im Umkreis von 80 Blöcken anzieht. Mit Netherit-Aufwertung und Netheritbarren macht der Schmiedetisch daraus die Netheritstange."
+          ],
+          "secret": [
+            "Wie jede Metallstange oxidiert sie nie und gibt ein Redstone-Signal, wenn ein Blitz sie trifft."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:diamond_pole"
       ],
@@ -26019,6 +27099,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/emerald_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole of emerald, green as a trade gone well."
+          ],
+          "use": [
+            "Three emeralds stacked make one. A lightning pole that draws strikes within 72 blocks, unless a copper lightning rod is in reach. Needs an iron pickaxe."
+          ],
+          "secret": [
+            "It sits between gold (64) and diamond (80). When several poles reach a strike, the nearest one wins."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange aus Smaragd, grün wie ein gelungener Handel."
+          ],
+          "use": [
+            "Drei Smaragde übereinander ergeben eine. Eine Blitzstange, die Blitze im Umkreis von 72 Blöcken anzieht, außer ein Kupfer-Blitzableiter ist in Reichweite. Braucht eine Eisenspitzhacke."
+          ],
+          "secret": [
+            "Sie liegt zwischen Gold (64) und Diamant (80). Erreichen mehrere Stangen einen Blitz, gewinnt die nächste."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:emerald_pole"
       ],
@@ -26064,6 +27168,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/end_lead_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the heavy metal of the stone layer, found again among the islands."
+          ],
+          "use": [
+            "Generates in the End stone of the outer islands, 6 veins of 7 per chunk between Y 20 and 80, never touching air. Needs a stone pickaxe and drops 1 to 2 raw lead; Fortune helps, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "Like the Overworld lead ore it hides inside the stone, so dig into an island instead of searching its edges."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: das schwere Metall der Steinschicht, wiedergefunden zwischen den Inseln."
+          ],
+          "use": [
+            "Entsteht im Endstein der äußeren Inseln, 6 Adern zu 7 je Chunk zwischen Y 20 und 80, nie an Luft. Braucht eine Steinspitzhacke und lässt 1 bis 2 Rohblei fallen; Glück hilft, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Wie das Bleierz der Oberwelt steckt es im Inneren des Gesteins: Grab dich in eine Insel, statt ihre Ränder abzusuchen."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:lead_ingot_from_blasting_end_lead_ore",
@@ -26134,6 +27262,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/end_silver_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: silver that drifted to the edge of the world and stayed."
+          ],
+          "use": [
+            "Generates in veins of 6 in the End stone of the outer islands (highlands, midlands, barrens, small islands). Needs an iron pickaxe and drops 2 to 6 silver nuggets; Fortune helps, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "Silver you can farm after the dragon, with no deep mining. The ore block itself also smelts into a silver ingot."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: Silber, das an den Rand der Welt trieb und blieb."
+          ],
+          "use": [
+            "Entsteht in Adern zu 6 im Endstein der äußeren Inseln (Hochland, Mittelland, Ödland, kleine Inseln). Braucht eine Eisenspitzhacke und lässt 2 bis 6 Silberklumpen fallen; Glück hilft, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Silber zum Farmen nach dem Drachen, ganz ohne tiefes Graben. Der Erzblock selbst schmilzt auch zu einem Silberbarren."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:silver_ingot_from_blasting_end_silver_ore",
@@ -26182,6 +27334,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/enderite_block.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nine ingots of the End, folded into a cube: the heaviest thing a builder can own."
+          ],
+          "use": [
+            "Nine Enderite ingots make one, and it gives the nine back. Needs a diamond pickaxe; it is a beacon base block."
+          ],
+          "secret": [
+            "The stonecutter cuts it into Chiseled Enderite with an Eye of Ender motif. On its own Enderite is a treasure for building; its gear comes from the smithing table."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Neun Barren des End, zu einem Würfel gefaltet: das Schwerste, das ein Baumeister besitzen kann."
+          ],
+          "use": [
+            "Neun Enderitbarren ergeben einen, und er gibt die neun zurück. Braucht eine Diamantspitzhacke; er ist ein Leuchtfeuer-Sockel."
+          ],
+          "secret": [
+            "Die Steinsäge schneidet daraus gemeißelten Enderit mit einem Enderaugen-Motiv. Für sich ist Enderit ein Schatz zum Bauen; seine Ausrüstung kommt vom Schmiedetisch."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_block"
       ],
@@ -26219,6 +27395,30 @@
         ]
       },
       "texture": "assets/textures/simpleores/block/enderite_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole that remembers the sky and draws lightning like a promise."
+          ],
+          "use": [
+            "Smithing table: Enderite Upgrade, Netherite Pole and Enderite ingot give the Enderite Pole, a lightning rod that draws strikes within 128 blocks. Needs a diamond pickaxe."
+          ],
+          "secret": [
+            "It reaches as far as the copper rod, but copper still goes first. Fire resistant and safe from the void like every Enderite item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
+          ],
+          "use": [
+            "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter mit 128 Blöcken Reichweite. Braucht eine Diamantspitzhacke."
+          ],
+          "secret": [
+            "Sie reicht so weit wie der Kupfer-Blitzableiter, doch Kupfer geht weiter vor. Feuerfest und vor der Leere sicher wie jeder Enderit-Gegenstand."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:enderite_pole_smithing"
       ],
@@ -26267,6 +27467,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/geode_crust.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The shell around a hidden heart of zinc."
+          ],
+          "use": [
+            "The shell of the zinc mini geodes in the Overworld and their lining in the End. Any pickaxe mines it and it drops itself; a building block like smooth basalt."
+          ],
+          "secret": [
+            "Find a ball of it in solid stone and dig in: behind a calcite lining wait 1 to 8 zinc ores."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Die Schale um ein verborgenes Herz aus Zink."
+          ],
+          "use": [
+            "Die Hülle der Zink-Minigeoden in der Oberwelt und ihr Futter im End. Jede Spitzhacke baut sie ab, sie lässt sich selbst fallen; ein Baublock wie glatter Basalt."
+          ],
+          "secret": [
+            "Findest du eine Kugel davon im festen Gestein, grab dich hinein: Hinter einem Calcit-Futter warten 1 bis 8 Zinkerze."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -26299,6 +27523,30 @@
         ]
       },
       "texture": "assets/textures/simpleores/block/gold_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole of gold: too soft for work, too shining to hide."
+          ],
+          "use": [
+            "Three gold ingots stacked make one. A lightning rod of gold that draws strikes within 64 blocks and gives a redstone signal when struck. Needs an iron pickaxe."
+          ],
+          "secret": [
+            "Poles come in tiers: iron 32, gold 64, emerald 72, diamond 80, netherite 96 and enderite 128 blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange aus Gold: zu weich zum Arbeiten, zu glänzend zum Verstecken."
+          ],
+          "use": [
+            "Drei Goldbarren übereinander ergeben eine. Ein Blitzableiter aus Gold, der Blitze im Umkreis von 64 Blöcken anzieht und bei einem Treffer ein Redstone-Signal gibt. Braucht eine Eisenspitzhacke."
+          ],
+          "secret": [
+            "Stangen gibt es in Stufen: Eisen 32, Gold 64, Smaragd 72, Diamant 80, Netherit 96 und Enderit 128 Blöcke."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:gold_pole"
       ],
@@ -26383,6 +27631,30 @@
         ]
       },
       "texture": "assets/textures/simpleores/block/iron_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole of iron, thin, straight and eager to be struck by something."
+          ],
+          "use": [
+            "Three iron ingots stacked make one. A lightning rod of iron: it draws strikes within 32 blocks as the top block of its column and gives a redstone signal when struck. Stone pickaxe."
+          ],
+          "secret": [
+            "A copper lightning rod in reach always goes first. Among metal poles the nearest one wins the strike."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange aus Eisen, dünn, gerade und begierig, von etwas getroffen zu werden."
+          ],
+          "use": [
+            "Drei Eisenbarren übereinander ergeben eine. Ein Blitzableiter aus Eisen: Er zieht Blitze im Umkreis von 32 Blöcken an, als oberster Block seiner Säule, und gibt bei einem Treffer ein Redstone-Signal. Steinspitzhacke."
+          ],
+          "secret": [
+            "Ein Kupfer-Blitzableiter in Reichweite geht immer vor. Unter den Metallstangen gewinnt die nächste den Blitz."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:iron_pole"
       ],
@@ -26429,6 +27701,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/lead_block.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: heavy, grey and deaf to the world on the other side."
+          ],
+          "use": [
+            "Nine lead ingots make one, and it gives the nine back. Hardness 25, blast resistance 1000 (obsidian 1200), needs an iron pickaxe. Sculk sensors and the Warden do not hear through it, and every lead block on the way muffles sound behind it."
+          ],
+          "secret": [
+            "It is loud itself: whoever walks on it or mines it makes noise. A TNT blast behind 3 lead blocks arrives at an eighth of its volume. Records stay unmuffled unless the server says otherwise."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: schwer, grau und taub für die Welt auf der anderen Seite."
+          ],
+          "use": [
+            "Neun Bleibarren ergeben einen, und er gibt die neun zurück. Härte 25, Explosionswiderstand 1000 (Obsidian 1200), braucht eine Eisenspitzhacke. Sculk-Sensoren und der Wächter hören nicht hindurch, und jeder Bleiblock auf dem Weg dämpft den Schall dahinter."
+          ],
+          "secret": [
+            "Er selbst ist laut: Wer darauf läuft oder ihn abbaut, macht Lärm. Eine TNT-Explosion hinter 3 Bleiblöcken kommt mit einem Achtel ihrer Lautstärke an. Schallplatten bleiben ungedämpft, sofern der Server nichts anderes sagt."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:lead_block"
       ],
@@ -26580,6 +27876,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/lead_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a dull, heavy vein that never shows itself in a cave wall."
+          ],
+          "use": [
+            "Generates only in stone, 6 veins of 9 per chunk between Y 0 and 72, never touching air. Needs a stone pickaxe and drops 1 to 2 raw lead; Fortune helps, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "You find it by digging, not by looking: like buried diamonds, a vein that would touch air is not placed. More common than silver, rarer than copper."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine stumpfe, schwere Ader, die sich nie in einer Höhlenwand zeigt."
+          ],
+          "use": [
+            "Entsteht nur im Stein, 6 Adern zu 9 je Chunk zwischen Y 0 und 72, nie an Luft. Braucht eine Steinspitzhacke und lässt 1 bis 2 Rohblei fallen; Glück hilft, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Man findet es beim Graben, nicht beim Schauen: Wie bei vergrabenen Diamanten entsteht keine Ader, die Luft berühren würde. Häufiger als Silber, seltener als Kupfer."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:lead_ingot_from_blasting_lead_ore",
@@ -26625,6 +27945,30 @@
         },
         "de": {
           "summary": "Eine 2 Pixel dicke Bleiplatte, die an der angeklickten Seite liegt (Boden, Wand, Decke), wie ein Teppich, der auch aufrecht steht. Eine weitere Platte auf die freie Seite gesetzt stapelt sie wie Schnee: 1 bis 8 Lagen, 8 ergeben einen ganzen Block; abgebaut gibt sie eine Platte je Lage zurück. Dämmt Schall mit einer Lage wie ein halber Bleiblock, mit acht wie ein ganzer. Drei Bleibarren in einer Reihe ergeben 6. Braucht eine Eisenspitzhacke."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A slab of lead thin enough to hang on a wall."
+          ],
+          "use": [
+            "Three lead ingots in a row make 6. It lies on the side you click, flat or upright; another plate on its free side stacks it like snow, 1 to 8 layers of 2 pixels. Breaking gives one plate per layer. Iron pickaxe."
+          ],
+          "secret": [
+            "One layer muffles sound like half a block of lead, eight like a whole block. It stops no vibrations, and 8 plates never turn into a block."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Bleiplatte, dünn genug, um sie an eine Wand zu hängen."
+          ],
+          "use": [
+            "Drei Bleibarren in einer Reihe ergeben 6. Sie liegt auf der Seite, die du anklickst, flach oder stehend; eine weitere Platte auf ihrer freien Seite stapelt sie wie Schnee, 1 bis 8 Schichten zu 2 Pixeln. Abbauen gibt eine Platte je Schicht. Eisenspitzhacke."
+          ],
+          "secret": [
+            "Eine Schicht dämpft Schall wie ein halber Bleiblock, acht wie ein ganzer. Vibrationen hält sie nicht auf, und 8 Platten werden nie zu einem Block."
+          ]
         }
       },
       "craftedBy": [
@@ -26790,6 +28134,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/nether_rose_gold_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: one blushing stone in a vein of gold, deep down in the heat."
+          ],
+          "use": [
+            "Hides in the Vanilla Nether gold veins below Y 31: each gold ore block has a 2 percent chance (server setting) to be this ore instead, at most one per vein. Iron pickaxe. Drops a Rose Gold Pressling; Fortune helps, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "The pressling goes straight into the blast furnace, and the ore block itself melts into a rose gold ingot. Piglins get angry when you mine it, as with gold ore."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: ein errötender Stein in einer Goldader, tief unten in der Hitze."
+          ],
+          "use": [
+            "Versteckt sich in den Vanilla-Nethergoldadern unter Y 31: Jeder Golderzblock ist mit 2 Prozent Chance (Server-Einstellung) stattdessen dieses Erz, höchstens eines je Ader. Eisenspitzhacke. Lässt einen Roségold-Pressling fallen; Glück hilft, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Der Pressling geht direkt in den Hochofen, und der Erzblock selbst schmilzt zu einem Roségoldbarren. Piglins werden wütend, wenn du es abbaust, wie bei Golderz."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:rose_gold_ingot_from_blasting_nether_rose_gold_ore",
@@ -26848,6 +28216,30 @@
         ]
       },
       "texture": "assets/textures/simpleores/block/netherite_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole that has stood in the fire and does not mind the next one."
+          ],
+          "use": [
+            "Smithing table: Netherite Upgrade, Diamond Pole and netherite ingot give the Netherite Pole, a lightning rod that draws strikes within 96 blocks. Needs a diamond pickaxe."
+          ],
+          "secret": [
+            "It does not burn, and with the Enderite Upgrade it becomes the Enderite Pole, one tier up."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange, die im Feuer stand und das nächste nicht scheut."
+          ],
+          "use": [
+            "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter mit 96 Blöcken Reichweite. Braucht eine Diamantspitzhacke."
+          ],
+          "secret": [
+            "Sie brennt nicht, und mit der Enderit-Aufwertung wird sie zur Enderitstange, eine Stufe höher."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:netherite_pole_smithing"
       ],
@@ -27201,6 +28593,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/nihil_core.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Many cores, one thought."
+          ],
+          "use": [
+            "A Nihilit Shard, four Nihil Redstone and four End stone bricks make 4. Touching cores form one group: a rising edge at any core toggles the whole group, and while on every core gives strength 15 to all sides."
+          ],
+          "secret": [
+            "Neighboring cores draw one surface with a rim only around the outside, so a wall of cores looks like a single panel."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Viele Kerne, ein Gedanke."
+          ],
+          "use": [
+            "Ein Nihilitsplitter, vier Nihil-Redstone und vier Endsteinziegel ergeben 4. Sich berührende Kerne bilden eine Gruppe: Eine steigende Flanke an einem Kern schaltet die ganze Gruppe um, und an gibt jeder Kern Stärke 15 an alle Seiten."
+          ],
+          "secret": [
+            "Benachbarte Kerne zeigen eine Fläche mit Rand nur außen herum, eine Wand aus Kernen wirkt also wie eine einzige Tafel."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:nihil_core"
       ],
@@ -27234,6 +28650,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/nihil_piston.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name} pulls what waits one step away."
+          ],
+          "use": [
+            "A sticky piston, 4 Nihil Redstone and 4 corners (Polished Nihilit with SimpleBuilding, End stone bricks without). On a rising signal of any line it pulls the block two cells away on each side into the cell next to it."
+          ],
+          "secret": [
+            "A block already touching it stays put, and glazed terracotta can be pushed but not pulled. It fires once per rising edge, then waits 8 ticks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name} holt heran, was einen Schritt entfernt wartet."
+          ],
+          "use": [
+            "Ein klebriger Kolben, 4 Nihil-Redstone und 4 Ecken (Polierter Nihilit mit SimpleBuilding, Endsteinziegel ohne). Bei einem steigenden Signal jeder Linie holt er auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich."
+          ],
+          "secret": [
+            "Ein Block, der ihn schon berührt, bleibt stehen, und glasierte Keramik lässt sich drücken, aber nicht ziehen. Er löst einmal je steigender Flanke aus und wartet dann 8 Ticks."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:nihil_piston",
         "simpleores:nihil_piston_from_end_stone_bricks"
@@ -27268,6 +28708,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/nihil_rail.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A rail that takes the speed out of the world, politely and completely."
+          ],
+          "use": [
+            "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by any redstone line, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while the power stays on."
+          ],
+          "secret": [
+            "Unpowered it lets carts roll through. A neighboring rail never powers it, so you can build a station that brakes on a signal."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Schiene, die der Welt das Tempo nimmt, höflich und vollständig."
+          ],
+          "use": [
+            "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
+          ],
+          "secret": [
+            "Ohne Kraft lässt sie Loren durchrollen. Eine Nachbarschiene speist sie nie, so kannst du einen Bahnhof bauen, der auf Signal bremst."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:nihil_rail"
       ],
@@ -27307,6 +28771,30 @@
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
             "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "Redstone from the other side of the void, quiet and cold."
+          ],
+          "use": [
+            "A Nihilit Shard and redstone make 2. A third redstone line: it behaves like redstone dust, but never takes signal from redstone or Astral dust. Lamps, pistons, doors and other devices react to every line."
+          ],
+          "secret": [
+            "Two lines can run side by side without crosstalk. Only Bridge Redstone passes a signal from the dust of one line into another."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Redstone von der anderen Seite der Leere, still und kalt."
+          ],
+          "use": [
+            "Ein Nihilitsplitter und Redstone ergeben 2. Eine dritte Redstone-Linie: Sie verhält sich wie Redstone-Staub, nimmt aber nie Signal von Redstone- oder Astral-Staub an. Lampen, Kolben, Türen und andere Geräte reagieren auf jede Linie."
+          ],
+          "secret": [
+            "Zwei Linien können nebeneinander laufen, ohne sich zu stören. Nur Brücken-Redstone reicht ein Signal vom Staub einer Linie in eine andere weiter."
           ]
         }
       },
@@ -27527,6 +29015,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/nihilith_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "It hangs under the End's islands like a bruise in the dark."
+          ],
+          "use": [
+            "Generates in the End stone on the underside of the islands. Diamond pickaxe or better, hardness 25. Drops a Nihilit Shard and 3 to 7 experience; Fortune raises the drop, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "Look down, not up: the veins hang from the underside of the islands. Brush it free first (six strokes), or it drops its shard only with a 70 percent chance."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Es hängt unter den Inseln des End wie ein Bluterguss im Dunkeln."
+          ],
+          "use": [
+            "Entsteht im Endstein an der Unterseite der Inseln. Diamantspitzhacke oder besser, Härte 25. Lässt einen Nihilitsplitter und 3 bis 7 Erfahrung fallen; Glück erhöht den Ertrag, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Schau nach unten, nicht nach oben: Die Adern hängen an der Unterseite der Inseln. Leg es erst mit dem Pinsel frei (sechs Striche), sonst gibt es seinen Splitter nur mit 70 Prozent Chance."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -28004,6 +29516,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/sage_crystal_block.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nine crystals of wisdom set into one block."
+          ],
+          "use": [
+            "Nine sage crystals make one, and it gives the nine back. A storage and decoration block."
+          ],
+          "secret": [
+            "The crystals inside have no further use yet, so the block is the nicest way to show them off."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Neun Kristalle der Weisheit in einem Block."
+          ],
+          "use": [
+            "Neun Weisheitskristalle ergeben einen, und er gibt die neun zurück. Ein Lager- und Dekorationsblock."
+          ],
+          "secret": [
+            "Die Kristalle darin haben noch keinen weiteren Nutzen, der Block ist also die schönste Art, sie zu zeigen."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:sage_crystal_block"
       ],
@@ -28029,6 +29565,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/sage_orb_block.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A block of stored experience, waiting for a reader."
+          ],
+          "use": [
+            "Nine sage orbs make one, and it gives the nine back. Needs an iron pickaxe."
+          ],
+          "secret": [
+            "The block itself gives no experience: unpack it and use the orbs one by one, 50 to 100 points each."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Block gespeicherter Erfahrung, der auf einen Leser wartet."
+          ],
+          "use": [
+            "Neun Weisheitskugeln ergeben einen, und er gibt die neun zurück. Braucht eine Eisenspitzhacke."
+          ],
+          "secret": [
+            "Der Block selbst gibt keine Erfahrung: Pack ihn aus und benutze die Kugeln einzeln, je 50 bis 100 Punkte."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:sage_orb_block"
       ],
@@ -28249,6 +29809,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/silver_mirror.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A silver frame round a pane of glass, for those who like to look twice."
+          ],
+          "use": [
+            "A glass pane and a silver sheet, shapeless. It hangs on a wall or lies on the floor or the ceiling like a button, one pixel thick, and falls off when its support goes."
+          ],
+          "secret": [
+            "It has no mechanic at all: pure decoration. On the floor or the ceiling it turns the way you look."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Silberrahmen um eine Glasscheibe, für alle, die gern zweimal hinsehen."
+          ],
+          "use": [
+            "Eine Glasscheibe und ein Silberblech, formlos. Er hängt an einer Wand oder liegt wie ein Knopf auf Boden oder Decke, einen Pixel dick, und fällt ab, wenn sein Halt verschwindet."
+          ],
+          "secret": [
+            "Er hat keinerlei Mechanik: reine Dekoration. Auf Boden oder Decke dreht er sich in deine Blickrichtung."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:silver_mirror"
       ],
@@ -28365,6 +29949,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/silver_sheet.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A sheet of silver so thin it is barely there."
+          ],
+          "use": [
+            "Three silver ingots in a row make 12. It lies on the side you click (floor, wall or ceiling); another sheet on its free side adds a layer, up to 8 layers of one pixel. Breaking gives one sheet per layer. Iron pickaxe."
+          ],
+          "secret": [
+            "A sheet and a glass pane, shapeless, make the Silver Mirror. Eight layers are only half a block: the same metal per pixel as lead plates."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Silberblech, so dünn, dass es kaum da ist."
+          ],
+          "use": [
+            "Drei Silberbarren in einer Reihe ergeben 12. Es liegt auf der Seite, die du anklickst (Boden, Wand oder Decke); ein weiteres Blech auf seiner freien Seite fügt eine Schicht hinzu, bis zu 8 Schichten zu einem Pixel. Abbauen gibt ein Blech je Schicht. Eisenspitzhacke."
+          ],
+          "secret": [
+            "Ein Blech und eine Glasscheibe, formlos, ergeben den Silberspiegel. Acht Schichten sind nur ein halber Block: gleich viel Metall je Pixel wie bei Bleiplatten."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleores:silver_sheet"
       ],
@@ -28993,6 +30601,30 @@
         }
       },
       "texture": "assets/textures/simpleores/block/tin_ore.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the mountain metal, at home where granite meets the sky."
+          ],
+          "use": [
+            "Generates in stone and granite between Y 20 and 80, in dense nests inside granite, and up to Y 180 in the mountain biomes. Needs a stone pickaxe and drops raw tin; Fortune helps, Silk Touch keeps the ore."
+          ],
+          "secret": [
+            "Look for granite: where a vein meets a granite blob, the tin crowds together. Rivers and beaches hide tin-bearing gravel and sand under water."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: das Bergmetall, zu Hause, wo Granit den Himmel trifft."
+          ],
+          "use": [
+            "Entsteht in Stein und Granit zwischen Y 20 und 80, in dichten Nestern im Granit und bis Y 180 in den Gebirgsbiomen. Braucht eine Steinspitzhacke und lässt Rohzinn fallen; Glück hilft, Behutsamkeit behält das Erz."
+          ],
+          "secret": [
+            "Achte auf Granit: Wo eine Ader auf einen Granitfleck trifft, drängt sich das Zinn zusammen. Flüsse und Strände verbergen Zinnseifen-Kies und -Sand unter Wasser."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simpleores:tin_ingot_from_blasting_tin_ore",
