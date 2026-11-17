@@ -189,12 +189,12 @@ final class ZoneEffectTests {
             h.succeed();
         });
         add.accept("zone_switches", h -> {
-            // default off until the client check (owner question Q1)
+            // ZO1=A: on by default since the client check (N88, 17.11.)
             var defaults = new com.google.gson.JsonObject();
             var snapshot = MobsConfig.toJson();
             try {
                 MobsConfig.apply(defaults);
-                check(!MobsConfig.zoneMobsEnabled, "zone effects are off by default");
+                check(MobsConfig.zoneMobsEnabled, "zone effects are on by default");
                 check(MobsConfig.zoneMaxEffects == 3 && MobsConfig.zoneSpawnReasons.contains("natural"), "defaults");
                 for (ZoneEffects.Pool p : ZoneEffects.Pool.values()) {
                     near(MobsConfig.zoneChance[p.ordinal()], p.defaultChance, 1e-12, "default chance " + p.id);

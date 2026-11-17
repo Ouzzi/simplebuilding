@@ -375,7 +375,7 @@
   "simplemobs.guide.page.8.title": "Danger zones: effects on new monsters",
   "simplemobs.guide.page.8": "With Simple Resonance installed and zoneMobsEnabled on, new monsters get status effects (never more health) by the danger level of their spawn place:",
   "simplemobs.guide.page.9.title": "Danger zones: effects on new monsters",
-  "simplemobs.guide.page.9": "the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger. Off by default until the client check.",
+  "simplemobs.guide.page.9": "the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger. On by default.",
   "simplemobs.guide.page.10.title": "Armour trim abilities",
   "simplemobs.guide.page.10": "Armour trims do more than look good: every trim pattern and trim material gives its wearer a small ability (less damage of one kind, speed, luck, reach, air, experience). Simple Mobs applies them;",
   "simplemobs.guide.page.11.title": "Armour trim abilities",
