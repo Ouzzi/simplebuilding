@@ -9,7 +9,7 @@ compile the touched Fabric projects, run ``data_integrity`` (plus ``test_centre`
 the targets of the touched modules (plus the modules that require them, SimpleBuilding's own target when it
 requires one, and the integration suite). Only the loaders in ``SB_GATE_LOADERS`` (default fabric: owner 22.10.,
 26.3 Fabric only). A change that can reach everything (simplelib, wiringexample, core/framework Java, build
-files, the test runner) prints ``MODE full`` and exits 2: the caller runs the full gate then. With ``--due-file``
+files, the test runner; N81: in simplelib/wiringexample only their Java and Gradle files) prints ``MODE full`` and exits 2: the caller runs the full gate then. With ``--due-file``
 a due full gate (see gate_due.py) also prints ``MODE full``. Docs, queue, wiki and texture generators only need
 ``check``. The last line is ``VERDICT: GREEN`` or ``VERDICT: RED`` like the full gate's.
 """
@@ -31,10 +31,20 @@ CHECK_ONLY = ("docs/", ".claude/", "wiki/", "art/", "previews/", "balance/", "be
               "tools/textures/",  # generators only; the PNGs they write sit under modules/ or src/
               # web/infra tools no game test loads; tools/check_*.py are what check itself runs
               "tools/landing/", "tools/zentrale-web/", "tools/zentrale/", "tools/release_pages/", "tools/wiki/",
-              "tools/ai/", "tools/check_", "tools/dup_pairs")
+              "tools/ai/", "tools/check_", "tools/dup_pairs",
+              "tools/release/", "tools/modtree/", "tools/tzedit/", "tools/guides/", "tools/discover/",
+              "tools/wiki_site.py")  # N81: check tasks of build.gradle / web editor; their generated outputs are committed and diffed themselves
 CHECK_ONLY_FILES = {"readme.md", "readme_modrinth.md", "readme_old.md", "todo.md", "MULTILOADER_TODO.md", "AGENTS.md",
                     "CLAUDE.md", "CHANGELOG.md", "AUDIT.md", "CREDITS.md", "CONTRIBUTING.md", "Wiki.md", ".gitignore"}
 FULL_MODULES = {"simplelib", "wiringexample"}
+# N81 (owner 16.11.): in the shared modules only code/build reaches everything; their lang/textures/data only run the module itself
+FULL_MODULE_CODE = re.compile(r"modules/[^/]+/(?:.*/)?(?:java|kotlin)/|modules/[^/]+/.*\.(?:java|kt|gradle|gradle\.kts)$"
+                              r"|modules/[^/]+/.*(?:mixins\.json|\.mod\.json|mods\.toml|\.accesswidener|accesstransformer\.cfg)$")
+# probes, wiki data and notes of a module: no game test loads them
+MODULE_CHECK_ONLY = re.compile(r"modules/[^/]+/(?:tools|wiki|docs)/")
+# SimpleBuilding's own (client) game tests: the simplebuilding targets, not shared code
+SB_TESTS = re.compile(r"common/src/[^/]+/(?:gametest|clientgametest)/|testing/fixtures/")  # fixtures: SB world tests
+MANIFEST = "modules/modules.json"
 # SimpleBuilding's own resources (textures, models, data, generated files): the module "simplebuilding", not shared code
 SB_RESOURCES = re.compile(r"(?:mc26_3/overlay/resources/|mc26_3/generated/|src/main/resources/|common/src/[^/]+/resources/)")
 REGISTRY_FILE = re.compile(r"/(?:blockstates|items|loot_table|loot_tables|worldgen)/")
@@ -56,22 +66,39 @@ def requires_map(manifest: dict) -> dict[str, set[str]]:
     return {m["id"]: set(m.get("requires", [])) for m in manifest["modules"]}
 
 
+def manifest_changes(old: dict, new: dict) -> set[str]:
+    """Ids of modules.json entries that were added or changed (removed ones have no targets left)."""
+    before = {m["id"]: m for m in old.get("modules", [])}
+    return {m["id"] for m in new.get("modules", []) if before.get(m["id"]) != m}
+
+
 def plan(changed: list[str], manifest: dict, targets: list[str], loader_ids: list[str] | None = None,
-         registry: bool = False) -> dict:
+         registry: bool = False, manifest_changed: set[str] | None = None) -> dict:
     """What a change touching these paths has to rerun; mode 'full' when it cannot be narrowed down.
 
-    ``registry``: the diff adds/removes registrations (see registry_changed); then test_centre runs too."""
+    ``registry``: the diff adds/removes registrations (see registry_changed); then test_centre runs too.
+    ``manifest_changed``: ids whose modules.json entry changed (manifest_changes); they run like changed modules."""
     loader_ids = loader_ids or loaders()
     lp = "|".join(map(re.escape, loader_ids))
     modules: set[str] = set()
+    own_only: set[str] = set()  # shared modules with non-code changes: no dependants
     integration = False
+    ids = {m["id"] for m in manifest["modules"]}
     for path in changed:
-        if path.startswith(CHECK_ONLY) or path in CHECK_ONLY_FILES:
+        if path.startswith(CHECK_ONLY) or path in CHECK_ONLY_FILES or MODULE_CHECK_ONLY.match(path):
             continue
         m = re.match(r"modules/([^/]+)/", path)
-        if m and m.group(1) not in FULL_MODULES:
+        if path == MANIFEST:
+            modules |= (manifest_changed or set()) & ids
+            integration = True
+        elif m and m.group(1) in FULL_MODULES:
+            if FULL_MODULE_CODE.match(path):
+                return {"mode": "full", "reason": path}
+            own_only.add(m.group(1))
+            integration = True  # every mod uses them: at least the integration suite
+        elif m:
             modules.add(m.group(1))
-        elif not m and SB_RESOURCES.match(path):
+        elif SB_RESOURCES.match(path) or SB_TESTS.match(path):
             modules.add("simplebuilding")
         elif path.startswith("integration/"):
             integration = True
@@ -84,6 +111,8 @@ def plan(changed: list[str], manifest: dict, targets: list[str], loader_ids: lis
         dependants = {mid for mid, needs in req.items() if needs & modules} - modules
         grown = bool(dependants)
         modules |= dependants
+    modules |= own_only
+    direct = sorted(set(direct) | own_only)
     run: list[str] = []
     if "simplebuilding" in modules:
         run += [c for c in CORE if c.split("-")[0] in loader_ids]
@@ -164,7 +193,16 @@ def main(argv: list[str] | None = None) -> int:
     manifest = json.loads(Path("modules/modules.json").read_text(encoding="utf-8"))
     listing = subprocess.run([sys.executable, "tools/testrunner/run.py", "--list"], capture_output=True, text=True).stdout
     targets = re.findall(r"^\s+((?:module-|integration-|fabric-|neoforge-|forge-)[a-z0-9_-]+)", listing, re.M)
-    pl = plan(changed, manifest, targets, registry=registry)
+    mchanged = None
+    if MANIFEST in changed:
+        try:
+            mchanged = manifest_changes(json.loads(git("show", f"{base}:{MANIFEST}")), manifest)
+        except (subprocess.CalledProcessError, ValueError):
+            mchanged = None
+        if mchanged is None:
+            print(f"MODE full ({MANIFEST} not readable at {base})")
+            return 2
+    pl = plan(changed, manifest, targets, registry=registry, manifest_changed=mchanged)
     if pl["mode"] == "full":
         print(f"MODE full ({pl['reason']} changed)")
         return 2

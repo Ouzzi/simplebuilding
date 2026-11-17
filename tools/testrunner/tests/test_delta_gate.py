@@ -83,10 +83,47 @@ class PlanTest(unittest.TestCase):
 
     def test_shared_code_means_full(self):
         for path in ("common/src/shared/java/a.java", "src/main/java/a.java", "mc26_3/framework/java/a.java",
-                     "mc26_3/fabric/build.gradle", "modules/simplelib/a.java", "modules/wiringexample/a",
+                     "mc26_3/fabric/build.gradle", "modules/simplelib/a.java", "modules/wiringexample/shared/java/a/B.java",
+                     "modules/simplelib/build.gradle", "modules/simplelib/shared/resources/simplelib.mixins.json",
+                     "modules/wiringexample/fabric/src/main/resources/fabric.mod.json", "modules/simplelib/forge/src/main/resources/META-INF/mods.toml", "modules/simplelib/shared/java/x/Y.json",
                      "framework/x", "build.gradle", "settings.gradle", "gradle.properties", "gradle/wrapper/x",
-                     "tools/testrunner/run.py", "tools/modtree/modtree.py"):
+                     "tools/testrunner/run.py"):
             self.assertEqual(self.plan(path)["mode"], "full", path)
+
+    def test_shared_module_data_runs_only_that_module(self):  # N81
+        p = self.plan("modules/simplelib/shared/resources/assets/simplelib/lang/de_de.json")
+        self.assertEqual((p["mode"], p["modules"], p["changed_modules"]), ("delta", ["simplelib"], ["simplelib"]))
+        self.assertEqual(p["targets"], ["integration-263"])
+        self.assertEqual(p["filters"], [DI])
+
+    def test_module_tools_wiki_docs_are_check_only(self):  # N81
+        self.assertEqual(self.plan("modules/simplelib/tools/release_probe.py", "modules/simplestats/tools/p.py",
+                                   "modules/simplechess/wiki/manual.json", "modules/simplevisuals/docs/a.md"), CHECK_ONLY)
+
+    def test_manifest_runs_changed_entries(self):  # N81: was full
+        p = delta_gate.plan(["modules/modules.json"], MANIFEST, TARGETS, ["fabric"], manifest_changed={"simplemoney", "gone"})
+        self.assertEqual(p["mode"], "delta")
+        self.assertEqual(p["changed_modules"], ["simplemoney"])
+        self.assertIn("module-simplebank-fabric-263", p["targets"])
+        self.assertIn("integration-263", p["targets"])
+        p = delta_gate.plan(["modules/modules.json"], MANIFEST, TARGETS, ["fabric"], manifest_changed=set())
+        self.assertEqual((p["mode"], p["targets"], p["filters"]), ("delta", ["integration-263"], [DI]))
+
+    def test_manifest_changes(self):
+        old = {"modules": [{"id": "a", "requires": []}, {"id": "b"}, {"id": "c"}]}
+        new = {"modules": [{"id": "a", "requires": ["b"]}, {"id": "b"}, {"id": "d"}]}
+        self.assertEqual(delta_gate.manifest_changes(old, new), {"a", "d"})
+
+    def test_sb_game_tests_are_the_simplebuilding_module(self):  # N81: was full
+        for path in ("common/src/shared/clientgametest/java/com/simplebuilding/clientgametest/X.java",
+                     "testing/fixtures/blueprint/a.txt"):
+            p = self.plan(path)
+            self.assertEqual(p["mode"], "delta", path)
+            self.assertIn("fabric-263", p["targets"])
+
+    def test_release_checks_are_check_only(self):  # N81
+        self.assertEqual(self.plan("tools/release/check_beta.py", "tools/modtree/modtree.py", "tools/tzedit/build_editor.py",
+                                   "tools/guides/module_guides.py", "tools/discover/discover.py"), CHECK_ONLY)
 
     def test_one_shared_file_among_module_files_is_full(self):
         self.assertEqual(self.plan("modules/simplevisuals/x", "build.gradle")["mode"], "full")

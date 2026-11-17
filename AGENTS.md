@@ -99,6 +99,16 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
   `/root/gate/full-due.json`, `tools/testrunner/gate_due.py`), vor Upload/Release mit `--full` und nachts auf master
   (`sb-night.sh fullgate`, Cron 22:30 UTC). Chain-Zeile `mode: delta|full (…)`; Zentrale zeigt „Delta“/„Voll“ und „Voll fällig in N
   Bündeln / M Mods“. Rote Tests werden wie bisher einmal wiederholt (`retry_red.py`).
+- **Tempo N81 (Besitzer 16.11.):** Voll-Gate nur noch bei echtem Kerncode: in simplelib/wiringexample nur Java/Gradle/Mixin-/
+  Loader-Metadaten (deren lang/Texturen/Daten → nur das Modul selbst + integration), `modules.json` → geänderte Einträge + Abhängige
+  + integration, `modules/*/{tools,wiki,docs}/` → nur check, `common/src/*/{gametest,clientgametest}/` → SB-Ziel.
+  **Dev zuerst:** `/root/a-bundle-chain.sh` spult hub `claude-wave1` nach grüner bprep sofort auf den gen-Commit vor
+  (nur wenn Vorfahr; Log „DEV <ref>“); Production weiter nur über das Gate. **Express-Spur:** `/root/sb-tools-b/express.sh <branch>`
+  für reine lang/Textur/wiki/tools/JSON/Doku-Änderungen (nie Java/Gradle/modules.json/tools/testrunner): Merge auf wave1, compile +
+  `precheck --fast` + gezielte Tests auf sb-test, grün → wave1, Zeile „EXPRESS“ in b-fertig; volles Gate im nächsten Bündel.
+  **sb-test:** `heavy.sh` lässt jeden Lauf (job/gate/night) in eigener systemd-Scope laufen und hält den Lock, bis die Scope samt
+  Kindprozessen weg ist; `sb-memwatch.service` beendet unter 600 MB MemAvailable den jüngsten Java-Prozess (Job vor Gate),
+  Log `/var/log/sb-memwatch.log`.
 - Historische Gate-Zahlen stehen in `docs/HANDOFF.md`; Ziele und Testanzahl ändern sich.
   Für jeden aktuellen Lauf die Ausgabe und „alles gruen“ lesen; alte Zahlen sind kein aktueller Beleg.
 
