@@ -253,7 +253,7 @@ public final class QuestionaryTests {
     }
 
     /** Namespaces with complete texts: any new item there needs a questionary entry (own or family). */
-    private static final List<String> COMPLETE_NAMESPACES = List.of("simplefun", "simplesandwiches", "simplechisels", "simplefoundry", "simplebuildingtools", "simplelights");
+    private static final List<String> COMPLETE_NAMESPACES = List.of("simplefun", "simplesandwiches", "simplechisels", "simplefoundry", "simplebuildingtools", "simplelights", "simpleores");
 
     /** Counts items without own text (warning only while the texts are being written); text problems are errors. */
     private static void coverage(GameTestHelper h) {
