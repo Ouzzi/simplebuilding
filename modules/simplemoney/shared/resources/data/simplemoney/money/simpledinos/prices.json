@@ -30,7 +30,25 @@
     "simpledinos:utahraptor_armor_iron": "Crafted from iron ingots around a Utahraptor eggshell.",
     "simpledinos:utahraptor_armor_diamond": "Crafted from diamonds around a Utahraptor eggshell.",
     "simpledinos:raptor_feather": "Brushed off a Utahraptor; has no price.",
-    "simpledinos:guide_book": "Crafted from a book and a bone."
+    "simpledinos:guide_book": "Crafted from a book and a bone.",
+    "simpledinos:trex_armor_copper": "Crafted from copper ingots around a bone block.",
+    "simpledinos:trex_armor_gold": "Crafted from gold ingots around a bone block.",
+    "simpledinos:trex_armor_rose_gold": "Crafted from rose gold ingots around a bone block.",
+    "simpledinos:trex_armor_rose_bronze": "Crafted from rose copper ingots around a bone block.",
+    "simpledinos:trex_armor_netherite": "Smithed from a diamond T. rex armor and a netherite ingot.",
+    "simpledinos:trex_armor_enderite": "Smithed from a netherite T. rex armor and an Enderite ingot.",
+    "simpledinos:triceratops_armor_gold": "Crafted from gold ingots around a Triceratops eggshell.",
+    "simpledinos:triceratops_armor_rose_gold": "Crafted from rose gold ingots around a Triceratops eggshell.",
+    "simpledinos:triceratops_armor_rose_bronze": "Crafted from rose copper ingots around a Triceratops eggshell.",
+    "simpledinos:stegosaurus_armor_gold": "Crafted from gold ingots around a Stegosaurus eggshell.",
+    "simpledinos:stegosaurus_armor_rose_gold": "Crafted from rose gold ingots around a Stegosaurus eggshell.",
+    "simpledinos:stegosaurus_armor_rose_bronze": "Crafted from rose copper ingots around a Stegosaurus eggshell.",
+    "simpledinos:parasaurolophus_armor_gold": "Crafted from gold ingots around a Parasaurolophus eggshell.",
+    "simpledinos:parasaurolophus_armor_rose_gold": "Crafted from rose gold ingots around a Parasaurolophus eggshell.",
+    "simpledinos:parasaurolophus_armor_rose_bronze": "Crafted from rose copper ingots around a Parasaurolophus eggshell.",
+    "simpledinos:utahraptor_armor_gold": "Crafted from gold ingots around a Utahraptor eggshell.",
+    "simpledinos:utahraptor_armor_rose_gold": "Crafted from rose gold ingots around a Utahraptor eggshell.",
+    "simpledinos:utahraptor_armor_rose_bronze": "Crafted from rose copper ingots around a Utahraptor eggshell."
   },
   "prices": []
 }

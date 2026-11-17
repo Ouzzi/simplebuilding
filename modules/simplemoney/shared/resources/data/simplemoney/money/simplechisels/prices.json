@@ -1,6 +1,6 @@
 {
   "module": "simplechisels",
-  "derivation": "Moved from SimpleBuilding's table with the chisels (WE25-7): same tiers, hours and merchants; the legacy spatulas are gone (their ids move into the chisels).",
+  "derivation": "Moved from SimpleBuilding's table with the chisels (WE25-7): same tiers, hours and merchants; the legacy spatulas are gone (their ids move into the chisels).Moved from SimpleBuilding's table with the chisels (WE25-7): same tiers, hours and merchants; the legacy spatulas are gone (their ids move into the chisels). N90: both rose alloys are pressed from gold ingots (with copper and silver), so the gold row applies (maximum ingredient tier 2, 12.5 h, toolsmith level 3); offered only while Simple Ores is loaded.",
   "excluded": {},
   "prices": [
     {
@@ -68,6 +68,34 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
+    },
+    {
+      "item": "simplechisels:rose_bronze_chisel",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 4,
+      "safetyFloor": 3,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1,
+      "requires": [
+        "simpleores"
+      ]
+    },
+    {
+      "item": "simplechisels:rose_gold_chisel",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 4,
+      "safetyFloor": 3,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1,
+      "requires": [
+        "simpleores"
+      ]
     },
     {
       "item": "simplechisels:stone_chisel",

@@ -82,7 +82,23 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuildingtools/rose_bronze_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuildingtools/rose_gold_building_wand",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplechisels/gold_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplechisels/rose_bronze_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplechisels/rose_gold_chisel",
       "required": false
     },
     {
