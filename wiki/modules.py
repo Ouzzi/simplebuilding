@@ -428,6 +428,9 @@ def sync(g, entries, selected, check=False, strict=False):
             counts = json.loads(payload).get('counts', {})
             e['counts'] = {k: counts[k] for k in ('items', 'blocks', 'recipes', 'config', 'features') if counts.get(k)}
         e['version'] = re.sub(r'\$\{(\w+)\}', lambda m: properties.get(m[1], m[0]), e['version'])
+        # REL75: "release": false (or a developer example) = built and tested, but not part of the published release
+        if meta[e['id']].get('example') or meta[e['id']].get('release') is False:
+            e['release'] = False
         if e['id'] != 'simplebuilding':
             name = e['id'] + '.js'
             target = g.WIKI / 'data' / name

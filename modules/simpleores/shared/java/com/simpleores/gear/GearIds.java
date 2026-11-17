@@ -9,6 +9,11 @@ public final class GearIds {
 
     /** The five poles (block and item). */
     public static final java.util.List<String> POLES = java.util.List.of("iron_pole", "gold_pole", "diamond_pole", "netherite_pole", "enderite_pole");
+    /** N77 (owner 16.11.): poles new in Simple Ores (no SimpleBuilding id to move). */
+    public static final java.util.List<String> NEW_POLES = java.util.List.of("emerald_pole");
+    /** Creative tab order of all poles (behind the copper lightning rod). */
+    public static final java.util.List<String> TAB_ORDER = java.util.List.of("iron_pole", "gold_pole", "emerald_pole", "diamond_pole", "netherite_pole",
+            "enderite_pole");
     /** Every item id of the group: Enderite tools and armor, the Netherite/Enderite food, the poles. */
     public static final java.util.List<String> ITEMS = java.util.List.of("enderite_sword", "enderite_spear", "enderite_pickaxe", "enderite_axe",
             "enderite_shovel", "enderite_hoe", "enderite_helmet", "enderite_chestplate", "enderite_leggings", "enderite_boots", "enderite_horse_armor",

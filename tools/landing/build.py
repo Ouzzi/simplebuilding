@@ -20,7 +20,7 @@ R = D.parents[1]
 def tiles():
     """Fehlerliste: jede Mod aus modules.json braucht Kurztext, eigenes Icon, Baukasten-Eintrag und Galerie-Bild."""
     mods = [m['id'] for m in json.loads((R / 'modules/modules.json').read_text(encoding='utf-8'))['modules']
-            if m['id'] != 'wiringexample']
+            if m['id'] != 'wiringexample' and m.get('release', True) is not False]
     ovr = json.loads((D / 'overrides.json').read_text(encoding='utf-8')).get('mods') or {}
     page = lambda f: (D / f).read_text(encoding='utf-8') if (D / f).exists() else ''
     m = re.search(r'var D=(\{.*?\});\n\(function', page('paket.html'), re.S)

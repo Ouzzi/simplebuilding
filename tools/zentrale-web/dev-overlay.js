@@ -324,10 +324,13 @@
   }
 
   /* ---- tiles ---- */
-  /* item id from a wiki link: query mode (?item=ns:id) or hash mode (#/items/ns:id) */
+  /* item id from a wiki link: query mode (?item=ns:id), hash mode (#/items/ns:id) or N74 path mode
+     (/dev/<mod>/items/<id>, the id without the mod's own namespace) */
   function itemOf(href) {
     var h = /#\/(?:items|blocks)\/([^?&]+)/.exec(href);
     if (h) return decodeURIComponent(h[1]);
+    var p = /^(?:https?:\/\/[^/]+)?(?:\/dev)?\/(simple[a-z0-9_]+)\/(?:items|blocks)\/([^/?#]+)/.exec(href);
+    if (p) { var id = decodeURIComponent(p[2]); return id.indexOf(':') < 0 ? p[1] + ':' + id : id; }
     var q = /[?&]item=([^&#]+)/.exec(href);
     return q ? decodeURIComponent(q[1]) : '';
   }
@@ -431,7 +434,17 @@
     note.onclick = function () { go('code', 'note'); };
     [count, all, none, comment, rework, recipe, note].forEach(function (c) { bar.appendChild(c); });
     document.body.appendChild(bar);
-    document.body.style.paddingBottom = '120px';
+    // N74 dev click test: the bar is up to ~150 px high on a phone; page and the open phone sidebar get that much room at
+    // the bottom, so their last entries (sub-mods, ...) can still be scrolled above the bar
+    var css = el('style', '', '#sidebar{padding-bottom:calc(var(--sb-devbar, 0px) + 12px) !important}');
+    document.head.appendChild(css);
+    var fit = function () {
+      var h = bar.offsetHeight + 'px';
+      document.body.style.paddingBottom = h;
+      document.documentElement.style.setProperty('--sb-devbar', h);
+    };
+    fit();
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(bar); else window.addEventListener('resize', fit);
   }
   function paint() {
     var list = tiles();
@@ -474,7 +487,7 @@
     head.appendChild(wrap);
   }
   function itemPanel(info) {
-    var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '');
+    var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '') || itemOf(location.pathname || '');
     if (!id) return;
     var h1 = document.querySelector('main h1, h1');
     if (!h1 || document.querySelector('.dev-item[data-id="' + id + '"]')) return;

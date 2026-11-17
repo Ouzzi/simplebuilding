@@ -111,9 +111,9 @@ const server = http.createServer((req, res) => {
     await filter.fill('no-such-item-xyz');
     await page.locator('[data-iv=kind][data-v=blocks]').click();
     await page.locator('#iv-rc').check();
-    await visit('?mod=simplebuilding&tab=items&f=simplebuilding:diamond_core&lang=en');
+    await visit('?mod=simplebuilding&tab=items&f=simplebuilding:acacia_cauldron&lang=en');
     let focused = page.locator('.row-focused');
-    assert.equal(await focused.getAttribute('data-focus'), 'simplebuilding:diamond_core');
+    assert.equal(await focused.getAttribute('data-focus'), 'simplebuilding:acacia_cauldron');
     assert.ok(await focused.isVisible());
     assert.ok(await focused.evaluate(el => el === document.activeElement));
     assert.equal(await filter.inputValue(), '');

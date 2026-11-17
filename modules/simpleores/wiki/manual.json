@@ -3718,6 +3718,83 @@
         "summary": "Zenithit-Karotte: 8 Hunger wie die Roségold-Karotte, feuerfest. Gibt Sanfter Fall 1:00. Acht goldene Karotten um einen Zenithitbarren ergeben 8."
       }
     },
+    "simpleores:enchanted_terranite_apple": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Enchanted Terranite apple (glint): 6 hunger, always edible, fire resistant. Gives Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and Haste 5:00. Eight terranite ingots round a terranite apple."
+      },
+      "de": {
+        "summary": "Verzauberter Terranit-Apfel (Schimmer): 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und Eile 5:00. Acht Terranitbarren um einen Terranit-Apfel."
+      }
+    },
+    "simpleores:enchanted_infernite_apple": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Enchanted Infernite apple (glint): 6 hunger, always edible, fire resistant. Gives Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and Fire Resistance 5:00. Eight infernite ingots round a infernite apple."
+      },
+      "de": {
+        "summary": "Verzauberter Infernit-Apfel (Schimmer): 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und Feuerresistenz 5:00. Acht Infernitbarren um einen Infernit-Apfel."
+      }
+    },
+    "simpleores:enchanted_zenithite_apple": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Enchanted Zenithite apple (glint): 6 hunger, always edible, fire resistant. Gives Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and Slow Falling 5:00. Eight zenithite ingots round a zenithite apple."
+      },
+      "de": {
+        "summary": "Verzauberter Zenithit-Apfel (Schimmer): 6 Hunger, immer essbar, feuerfest. Gibt Regeneration II 0:20, Absorption IV 2:00, Resistenz I 5:00 und Sanfter Fall 5:00. Acht Zenithitbarren um einen Zenithit-Apfel."
+      }
+    },
+    "simpleores:terranite_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a terranite ingot; an ingot gives nine. Fire resistant."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Terranitbarren; ein Barren gibt neun. Feuerfest."
+      }
+    },
+    "simpleores:infernite_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a infernite ingot; an ingot gives nine. Fire resistant."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Infernitbarren; ein Barren gibt neun. Feuerfest."
+      }
+    },
+    "simpleores:zenithite_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a zenithite ingot; an ingot gives nine. Fire resistant."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Zenithitbarren; ein Barren gibt neun. Feuerfest."
+      }
+    },
+    "simpleores:emerald_pole": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A lightning pole like the diamond one: pulls a strike within 72 blocks (gold 64, diamond 80), unless a copper lightning rod is in reach. Three emeralds upright make 1. Iron pickaxe."
+      },
+      "de": {
+        "summary": "Eine Blitzstange wie die Diamantstange: zieht Blitze im Umkreis von 72 Blöcken an (Gold 64, Diamant 80), wenn kein Kupfer-Blitzableiter in Reichweite ist. Drei Smaragde übereinander ergeben 1. Eisenspitzhacke."
+      }
+    },
     "simpleores:rift_shard": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"

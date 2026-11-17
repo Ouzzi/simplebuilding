@@ -33,6 +33,8 @@ public abstract class ZoomHudMixin {
         if (mc.player != null && !mc.player.isScoping() && mc.options.getCameraType().isFirstPerson() && ZoomState.keyZoom()) {
             this.extractSpyglassOverlay(graphics, 1.125F);
         }
+        // N79: the copper frame slides back out after the zoom stopped
+        if (ZoomState.edgeOverlay()) ScopeOverlay.afterCameraOverlays(graphics);
     }
 
     @Inject(method = "extractRenderState", at = @At("HEAD"), cancellable = true)

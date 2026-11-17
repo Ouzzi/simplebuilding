@@ -118,7 +118,9 @@ def run(port, auth_file=None, legacy=False, legacy_ports=(8082, 8083), set_passw
 
 
 WIKI = "wiki.simplemods.de"
-REDIRECT_HOSTS = ("www.simplemods.de", "simplewiki.de", "www.simplewiki.de", "simplemods-wiki.azarfane.com")
+# redirect host -> target host, as in nginx/domains.conf (owner 12.11.: www.simplemods.de -> the landing simplemods.de)
+REDIRECT_HOSTS = {"www.simplemods.de": "simplemods.de", "simplewiki.de": WIKI, "www.simplewiki.de": WIKI,
+                  "simplemods-wiki.azarfane.com": WIKI}
 
 
 def run_domains(port):
@@ -156,10 +158,10 @@ def run_domains(port):
     st, h, _ = request(port, "GET", "/downloads/files/", host="simplemods.de")
     expect("simplemods.de /downloads/ no listing", st in (403, 404), st)
 
-    for host in REDIRECT_HOSTS:
+    for host, target in REDIRECT_HOSTS.items():
         for p in ("/", "/dev/item/x?y=1", "/zentrale/"):
             st, h, _ = request(port, "GET", p, host=host)
-            expect(f"{host}{p} -> 301 wiki", st == 301 and h.get("location") == f"https://{WIKI}{p}",
+            expect(f"{host}{p} -> 301 {target}", st == 301 and h.get("location") == f"https://{target}{p}",
                    f"{st} {h.get('location')}")
     old = "simplemods-wiki.azarfane.com"
     cf = {"Cf-Access-Authenticated-User-Email": "smoke@localhost"}

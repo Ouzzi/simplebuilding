@@ -73,6 +73,21 @@ class StaticTest(unittest.TestCase):
         self.assertIn("limit_req zone=sb_login", location(one, "location ^~ /api/auth/ "))
         self.assertIn("absolute_redirect off;", one)
 
+    def test_flat_mod_paths_n74(self):
+        # N74: /<mod>/... answers with the wiki page (Prod and below /dev/ with login and overlay), the page learns
+        # from <base data-modpath> that the path form is served; no general fallback (missing data stays 404)
+        one = (NGX / "wiki-one.conf").read_text()
+        self.assertIn("location ~ ^/simple[a-z0-9_]+(/.*)?$ { rewrite ^ /index.html last; }", one)
+        root = location(one, "location / ")
+        self.assertIn("try_files $uri $uri/ =404;", root)
+        self.assertIn("""sub_filter '<head>' '<head><base href="/" data-modpath>';""", root)
+        dev = location(one, "location ^~ /dev/ ")
+        self.assertIn("location ~ ^/dev/simple[a-z0-9_]+(/.*)?$ { rewrite ^ /dev/index.html last; }", dev)
+        self.assertIn("""sub_filter '<head>' '<head><base href="/dev/" data-modpath>';""", dev)
+        self.assertIn("auth_request /_auth;", dev)
+        self.assertIn("_overlay.js", dev)
+        self.assertNotIn("try_files /index.html", one)
+
     def test_legacy_keeps_setup_and_downloads(self):
         red = (NGX / "legacy-redirect.conf").read_text()
         zen = blocks(red)[1]
@@ -133,9 +148,11 @@ class NginxIntegrationTest(unittest.TestCase):
         t = self.root = Path(self.tmp.name)
         os.chmod(t, 0o755)
         (t / "prod/wiki").mkdir(parents=True)
-        (t / "prod/wiki/index.html").write_text("<html><body>PROD-WIKI</body></html>")
+        (t / "prod/wiki/index.html").write_text("<html><head></head><body>PROD-WIKI</body></html>")
+        (t / "prod/wiki/data").mkdir()
+        (t / "prod/wiki/data/simpleend.js").write_text("window.X = 1;")
         (t / "dev/wiki").mkdir(parents=True)
-        (t / "dev/wiki/index.html").write_text("<html><body>DEV-WIKI</body></html>")
+        (t / "dev/wiki/index.html").write_text("<html><head></head><body>DEV-WIKI</body></html>")
         (t / "dev/wiki/assets/vanilla/block").mkdir(parents=True)
         (t / "dev/tools").mkdir(parents=True)
         shutil.copytree(WEB, t / "dev/tools/zentrale-web", ignore=shutil.ignore_patterns("tests", "__pycache__"))
@@ -210,6 +227,41 @@ class NginxIntegrationTest(unittest.TestCase):
         st, _, body = smoke_zw06.request(self.ports[8083], "GET", "/wiki/", {"Cf-Access-Authenticated-User-Email": "a@b"})
         self.assertEqual(st, 200)
         self.assertIn(b"/dev-overlay.js", body)
+
+    def test_flat_mod_paths_n74(self):
+        self.start("parallel")
+        port = self.ports[8084]
+        for path in ("/simpleend/", "/simpleend/items/ashwood_boat", "/simplebuilding/items/simpleend:x?lang=de", "/simplelib"):
+            st, h, body = smoke_zw06.request(port, "GET", path)
+            self.assertEqual(st, 200, path)
+            self.assertIn(b"PROD-WIKI", body, path)
+            self.assertIn(b'<base href="/" data-modpath>', body, path)
+        st, _, body = smoke_zw06.request(port, "GET", "/")
+        self.assertEqual((st, b'<base href="/" data-modpath>' in body), (200, True))
+        st, h, body = smoke_zw06.request(port, "GET", "/data/simpleend.js")
+        self.assertEqual((st, b"data-modpath" in body), (200, False))
+        for path in ("/data/fehlt.js", "/assets/fehlt.png", "/nosuchmod/"):
+            self.assertEqual(smoke_zw06.request(port, "GET", path)[0], 404, path)
+        st, h, _ = smoke_zw06.request(port, "GET", "/dev/simpleend/")
+        self.assertEqual(st, 302)
+        self.assertTrue(h.get("location", "").endswith("/api/auth/login?next=/dev/simpleend/"), h.get("location"))
+        # with a login: dev page with base /dev/ and the overlay
+        name, pw = "n74test", "n74-" + os.urandom(8).hex()
+        subprocess.run([sys.executable, str(WEB / "set_password.py"), "--file", str(self.data / "auth.json"), "--user", name,
+                        "--email", "n74@localhost", "--stdin", "--iterations", "1000"], input=pw + "\n", text=True, check=True,
+                       capture_output=True)
+        form = f"user={name}&password={pw}&next=/dev/".encode()
+        st, h, _ = smoke_zw06.request(port, "POST", "/api/auth/login", {"Content-Type": "application/x-www-form-urlencoded",
+                                                                        "Origin": f"https://{smoke_zw06.HOST}"}, form)
+        self.assertEqual(st, 303)
+        ck = {"Cookie": (h.get("set-cookie") or "").split(";")[0]}
+        for path in ("/dev/simpleend/items/ashwood_boat", "/dev/simplebuilding/"):
+            st, _, body = smoke_zw06.request(port, "GET", path, ck)
+            self.assertEqual(st, 200, path)
+            self.assertIn(b"DEV-WIKI", body, path)
+            self.assertIn(b'<base href="/dev/" data-modpath>', body, path)
+            self.assertIn(b"/dev/_overlay.js", body, path)
+        self.assertEqual(smoke_zw06.request(port, "GET", "/dev/data/fehlt.js", ck)[0], 404)
 
     def test_switch(self):
         self.start("switch")

@@ -30,7 +30,7 @@ def load(root=ROOT):
         st = m.get("status") or ("done" if v >= [0, 9] or m["id"] in ("simplebuilding", BASE) else "new")
         out[m["id"]] = dict(id=m["id"], name=m.get("displayName") or m["name"], desc=m.get("description", ""),
                             req=list(m.get("requires", [])), opt=list(m.get("optional", [])),
-                            parent=m.get("parent"), bundle=m.get("bundle"), status=st, phase=m.get("releasePhase"),
+                            parent=m.get("parent"), bundle=m.get("bundle"), status=st, phase=m.get("releasePhase"), released=not m.get("example") and m.get("release", True) is not False,
                             loaders=m.get("loaders", []))
     for p in extra:
         out[p["id"]] = dict(id=p["id"], name=p["name"], desc=p.get("description", ""), req=[], opt=[],
@@ -189,6 +189,12 @@ def render_md(mods):
         s += ("\n## Release-Planung\n\nMods mit `releasePhase` in modules.json: gebaut, aber erst nach dem Release (published) "
               "freigegeben; bis dahin nicht in SimpleBuildings `bundleOptional`.\n\n")
         s += "".join(f"- Phase {m['phase']}: **{m['name']}** `{m['id']}`\n" for m in phased)
+    held = sorted((m for m in mods.values() if m.get("released") is False), key=lambda m: m["name"])
+    if held:
+        # REL75 (owner 16.11.): "release": false = code stays and is built/tested, but no store page, no download, no landing tile
+        s += ("\n## Nicht im Release-Paket\n\nMods mit `\"release\": false` (oder `example`) in modules.json: Code bleibt, wird gebaut "
+              "und getestet, aber nicht veröffentlicht (keine Store-Seite, kein Download, keine Landing-Kachel).\n\n")
+        s += "".join(f"- **{m['name']}** `{m['id']}`\n" for m in held)
     return s
 
 

@@ -35,8 +35,8 @@ import org.jetbrains.annotations.Nullable;
  * {@link #registerBlocks} before {@link ChessItems#register}, then {@link #registerTab}.
  */
 public final class ChessRegistry {
-    /** Stairs and slab of a quartz checker (properties of the checker, Astralit glows with 5). */
-    public record CheckerShapes(ChessColor color, Block checker, Block stairs, Block slab) {
+    /** Stairs, slab and (N77, owner 16.11.2026) wall of a quartz checker (properties of the checker, Astralit glows with 5). */
+    public record CheckerShapes(ChessColor color, Block checker, Block stairs, Block slab, Block wall) {
     }
 
     private static final Map<ChessColor, Block> CHECKERS = new EnumMap<>(ChessColor.class);
@@ -61,7 +61,8 @@ public final class ChessRegistry {
             String name = e.getKey().checkerId();
             Block stairs = block(name + "_stairs", BlockBehaviour.Properties.ofFullCopy(checker), s -> new StairBlock(checker.defaultBlockState(), s));
             Block slab = block(name + "_slab", BlockBehaviour.Properties.ofFullCopy(checker), SlabBlock::new);
-            SHAPES.add(new CheckerShapes(e.getKey(), checker, stairs, slab));
+            Block wall = block(name + "_wall", BlockBehaviour.Properties.ofFullCopy(checker), s -> new net.minecraft.world.level.block.WallBlock(s.forceSolidOn()));
+            SHAPES.add(new CheckerShapes(e.getKey(), checker, stairs, slab, wall));
         }
         CHESS_PIECES = block("chess_pieces", BlockBehaviour.Properties.of().mapColor(MapColor.NONE).strength(0.3F).sound(SoundType.STONE)
                 .noLootTable().noOcclusion().pushReaction(PushReaction.POPPED), ChessPiecesBlock::new);

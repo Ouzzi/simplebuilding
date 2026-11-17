@@ -26,6 +26,18 @@ def bad(**change):
 
 
 class CheckSave(unittest.TestCase):
+    def test_inserted_row_and_column_stay_in_the_format(self):
+        """N72b menu "Neuen Block hier einfügen": a new row / column (names as tzeditor.uniqueName makes them) is a plain save."""
+        d = json.loads(json.dumps(GOOD))
+        d["columns"].insert(1, "probe_col")
+        for row in d["rows"]:
+            row["cells"].insert(1, None)
+        d["rows"].insert(1, {"key": "probe_reihe", "label": "Probe Reihe", "cells": [None, "#frame", None]})
+        s = tz.check_save(d)
+        self.assertEqual([r["key"] for r in s["rows"]], ["copper", "probe_reihe", "diamond"])
+        self.assertEqual(s["columns"], ["button", "probe_col", "plate"])
+        self.assertEqual(json.loads(tz.layout_text(s))["rows"][1], {"key": "probe_reihe", "label": "Probe Reihe", "cells": [None, "#frame", None]})
+
     def test_good_is_cleaned(self):
         s = tz.check_save(dict(GOOD, extra="dropped"))
         self.assertNotIn("extra", s)

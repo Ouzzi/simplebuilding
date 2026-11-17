@@ -362,9 +362,22 @@ public final class BlueprintBuilder {
         @Override
         public BlockPos pos(int i) {
             int k = order[i];
-            int lx = BlueprintModel.keyX(k) - minX - half;
-            int ly = BlueprintModel.keyY(k) - minY;
-            int lz = BlueprintModel.keyZ(k) - minZ;
+            return cellPos(BlueprintModel.keyX(k), BlueprintModel.keyY(k), BlueprintModel.keyZ(k));
+        }
+
+        public BlueprintModel model() {
+            return model;
+        }
+
+        public Rotation rotation() {
+            return rotation;
+        }
+
+        /** N77: Weltstelle der Rasterstelle {@code x,y,z} (wie die Bloecke gedreht und verschoben). */
+        public BlockPos cellPos(int x, int y, int z) {
+            int lx = x - minX - half;
+            int ly = y - minY;
+            int lz = z - minZ;
             int rx, rz;
             switch (rotation) {
                 case CLOCKWISE_90 -> { rx = -lz; rz = lx; }
@@ -373,6 +386,24 @@ public final class BlueprintBuilder {
                 default -> { rx = lx; rz = lz; }
             }
             return target.offset(rx, ly, rz);
+        }
+
+        /**
+         * N77: Weltposition eines Punkts im Raster (Ruestungsstaender, Mobs). Dieselbe Abbildung wie {@link #cellPos}, nur stetig:
+         * eine Rasterstelle {@code [l, l+1)} landet auf {@code [r, r+1)}, ein Punkt darin an derselben Stelle der gedrehten Zelle.
+         */
+        public net.minecraft.world.phys.Vec3 worldPos(double x, double y, double z) {
+            double lx = x - minX - half;
+            double ly = y - minY;
+            double lz = z - minZ;
+            double rx, rz;
+            switch (rotation) {
+                case CLOCKWISE_90 -> { rx = 1 - lz; rz = lx; }
+                case CLOCKWISE_180 -> { rx = 1 - lx; rz = 1 - lz; }
+                case COUNTERCLOCKWISE_90 -> { rx = lz; rz = 1 - lx; }
+                default -> { rx = lx; rz = lz; }
+            }
+            return new net.minecraft.world.phys.Vec3(target.getX() + rx, target.getY() + ly, target.getZ() + rz);
         }
 
         @Override
@@ -501,6 +532,14 @@ public final class BlueprintBuilder {
 
         public Result result() {
             return new Result(placed, already, occupied, blocked, missing, Map.copyOf(missingItems), broke, finished(), layout.size(), false, false);
+        }
+
+        /** N77: Ergebnis der Entities am Ende des Baus in die Zaehler uebernehmen. */
+        void addEntities(BlueprintEntity.Counts counts) {
+            placed += counts.placed;
+            already += counts.already;
+            blocked += counts.blocked;
+            missing += counts.missing;
         }
 
         /** Setzt einen gespeicherten Auftrag fort: ab Stelle {@code index}, mit {@code placedBefore} schon gesetzten. */
@@ -720,6 +759,8 @@ public final class BlueprintBuilder {
         int visitsPerTick;
         long lastTick;
         SoundType sound;
+        /** N77: die Entities der Blaupause sind schon gesetzt (einmal, nach den Bloecken). */
+        boolean entitiesDone;
 
         Job(Planner planner, Player player, ItemStack wand, ItemStack blueprint, Placer placer, BlockPos target,
             String codeHash, String title, Rotation rotation) {
@@ -896,7 +937,7 @@ public final class BlueprintBuilder {
             return null;
         }
         BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(content.code());
-        if (parsed.model().isEmpty()) {
+        if (!parsed.model().hasContent()) {
             if (tell) {
                 tell(player, Component.translatable("simplebuildingtools.blueprint.build.empty").withStyle(ChatFormatting.RED));
             }
@@ -1201,6 +1242,7 @@ public final class BlueprintBuilder {
         while (!job.planner.finished()) {
             job.planner.run(Integer.MAX_VALUE, Integer.MAX_VALUE, job.placer);
         }
+        placeEntities(player.level(), player, job);
         if (player.level() instanceof ServerLevel serverLevel) {
             BlueprintJobs.clear(serverLevel, player.getUUID());
         }
@@ -1236,9 +1278,31 @@ public final class BlueprintBuilder {
         HINTED.remove(player);
     }
 
+    /**
+     * N77: setzt die Entities der Blaupause (Item-Frames, Ruestungsstaender, KI-lose Mobs), sobald alle Bloecke durch sind -
+     * Frames brauchen ihre Wand. Einmal je Auftrag; nicht nach einem zerbrochenen Stab.
+     */
+    private static void placeEntities(Level level, Player player, Job job) {
+        if (job.entitiesDone || !job.planner.finished() || job.planner.broke || !(level instanceof ServerLevel serverLevel)
+                || !(job.planner.layout instanceof ModelLayout layout) || layout.model().entities().isEmpty()) {
+            return;
+        }
+        job.entitiesDone = true;
+        boolean creative = BuildingWandItem.freeBuild(player, job.wand);
+        BlueprintEntity.Counts counts = new BlueprintEntity.Counts();
+        for (BlueprintEntity entity : layout.model().entities()) {
+            if (job.wand.isEmpty()) {
+                break;
+            }
+            entity.place(serverLevel, player, job.wand, creative, layout, counts);
+        }
+        job.planner.addEntities(counts);
+    }
+
     private static void step(Level level, Player player, Job job) {
         int before = job.planner.result().placed();
         job.planner.run(job.visitsPerTick, Integer.MAX_VALUE, job.placer);
+        placeEntities(level, player, job);
         Result result = job.planner.result();
         if (result.placed() > before && job.sound != null) {
             SoundType sound = job.sound;

@@ -114,6 +114,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 1
     },
+    "release": false,
     "dataHash": "a6c8d95399cc"
   },
   {
@@ -873,7 +874,7 @@ window.WIKI_MODULES = [
       "en": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
       "de": "Sub-Mod von QoL: Bonus bei voller Haltbarkeit, Sparsamkeit und Seelenbindung, Todestresor, Biom-Pinsel, Amboss-Reparatur ohne Aufpreis, Lavaeimer in Öfen; allein spielbar."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mMIc/D6TwlmABHPj1wmiEX4heAYxL+xYAeqAXfXHvr/9sp9MI2OQZpOvPgCxj07boD5c4pbMA0gRvODS5P+5+y3AYuTZACy5jk3o4gzAJdm+35t4g0Aad6/Ig1FM1EGgBTkn7z2PyYgDKtmgoEIUgTSfOP3//92xpZwjSAMikK8BoAUeTm5gjFIM7JGGMZpAEhhTlLKf0NtPawa8RqArhmbRpwGkKIZwwBSNWMYABKA+RckQSyGG0AJBgAtb4QCDYMvfgAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3ElEQVR42mMIc/D6TwlmABHPj1wmiG2MHDBoFAPurj30/+2V+2AaGYMUgvCZjAQwfW9VDJieU9yCaQA6zojy+v/q0SWwZpBGEG7alfc/Y9oZ7C7AphmG0TXjdQGy5jMH1sBpkGYQnlNxBL8L4E4HakLGy2a0wDUT5QJ0zSAMkruxYAduA/T0LP4vWLQGrBCXZpwGgDRfuXYHbEBKWhFYAzKGacZpgAi/EIoBIAORNeE1AKQ5Jynlv6G2HtgAfJoxDEDWDGLj04hhAEgDSCMpmrG6AIRBgqRguAGUYADy/5rpQ3eVRwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 24,
       "blocks": 2,
@@ -1448,12 +1449,12 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 268,
-      "recipes": 698,
+      "blocks": 284,
+      "recipes": 730,
       "config": 13,
       "features": 20
     },
-    "dataHash": "0439ed50da92"
+    "dataHash": "04a0c0e0f00b"
   },
   {
     "id": "simplecrucibles",
@@ -2021,13 +2022,13 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 95,
-      "blocks": 228,
-      "recipes": 458,
+      "items": 101,
+      "blocks": 229,
+      "recipes": 468,
       "config": 26,
       "features": 27
     },
-    "dataHash": "b69401f7e485"
+    "dataHash": "ff11458d78d0"
   },
   {
     "id": "simplemachines",
@@ -2366,6 +2367,7 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 3
     },
+    "release": false,
     "dataHash": "b17ae3d5a51d"
   },
   {
@@ -2394,10 +2396,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAo0lEQVR42mOQUHH6TwlmABFtM09gYCkpBRQaHdtELUM1ILxw0//lW6+DaZAmEADRzx7eANMgcRgGadZ2rMA0AFkzSCMMr1o8A24ISDPIIqwGYNOMbgjIAKwuQNYMczo+Q1AMwGczLkMwDCBGM04DYF6AYVh4kGQAcjTh8hLOMKCqAcRGJVYDQBKEYgRnGIBSF7HRCTMEbgDMScgxQQyGG0AJBgCBFG1YjQqprQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 170,
-      "blocks": 38,
-      "recipes": 398,
+      "blocks": 50,
+      "recipes": 422,
       "features": 4
     },
-    "dataHash": "eee4c5e8aee1"
+    "dataHash": "0379ef668eff"
   }
 ];

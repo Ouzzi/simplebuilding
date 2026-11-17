@@ -277,7 +277,7 @@ public class BlueprintScreen extends Screen {
     }
 
     private void updateButtons() {
-        boolean valid = parsed.ok() && !parsed.model().isEmpty();
+        boolean valid = parsed.ok() && parsed.model().hasContent();
         doneButton.visible = !signing;
         helpButton.visible = !signing;
         importButton.visible = !signing;

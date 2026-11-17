@@ -52,6 +52,12 @@ SHAPES += [
     ('prismarine_brick', 'minecraft:prismarine_bricks', 'w', _tex('minecraft:block/prismarine_bricks')),
     ('dark_prismarine', 'minecraft:dark_prismarine', 'w', _tex('minecraft:block/dark_prismarine')),
 ]
+# N77 (owner 16.11.2026, "Beton-Mauer"): a wall of every concrete colour (texture: the Vanilla concrete's, referenced, no copy).
+CONCRETE_COLOURS = [('white', 'White', 'Weiße'), ('orange', 'Orange', 'Orange'), ('magenta', 'Magenta', 'Magenta'),
+                    ('light_blue', 'Light Blue', 'Hellblaue'), ('yellow', 'Yellow', 'Gelbe'), ('lime', 'Lime', 'Hellgrüne'), ('pink', 'Pink', 'Rosa'),
+                    ('gray', 'Gray', 'Graue'), ('light_gray', 'Light Gray', 'Hellgraue'), ('cyan', 'Cyan', 'Türkise'), ('purple', 'Purple', 'Violette'),
+                    ('blue', 'Blue', 'Blaue'), ('brown', 'Brown', 'Braune'), ('green', 'Green', 'Grüne'), ('red', 'Red', 'Rote'), ('black', 'Black', 'Schwarze')]
+SHAPES += [(f'{c}_concrete', f'minecraft:{c}_concrete', 'w', _tex(f'minecraft:block/{c}_concrete')) for c, *_ in CONCRETE_COLOURS]
 AGED = [('cracked_red_nether_bricks', 'red_nether_bricks'), ('cracked_tuff_bricks', 'tuff_bricks'), ('mossy_tuff_bricks', 'tuff_bricks'),
         ('cracked_mud_bricks', 'mud_bricks'), ('mossy_mud_bricks', 'mud_bricks'), ('cracked_end_stone_bricks', 'end_stone_bricks'),
         ('mossy_end_stone_bricks', 'end_stone_bricks'), ('mossy_deepslate_bricks', 'deepslate_bricks'), ('mossy_deepslate_tiles', 'deepslate_tiles'),
@@ -725,6 +731,9 @@ DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 
              'polished_andesite': 'Polierte Andesit', 'quartz': 'Quarz', 'smooth_quartz': 'Glatte Quarz', 'purpur': 'Purpur',
              'quartz_brick': 'Quarzziegel', 'end_stone': 'Endstein', 'prismarine_brick': 'Prismarinziegel', 'dark_prismarine': 'Dunkle Prismarin',
              **{k: d for k, _, d in ICES}, **{f'{k}_brick': f'{d}ziegel' for k, _, d in ICES}}
+for _c, _en, _de in CONCRETE_COLOURS:   # N77: White Concrete Wall / Weiße Betonmauer
+    EN_FAMILY[f'{_c}_concrete'] = f'{_en} Concrete'
+    DE_FAMILY[f'{_c}_concrete'] = f'{_de} Beton'
 for _m, (_en, _de, *_r) in METAL_FAMILIES.items():   # PAL35b: Cut Gold Stairs / Geschnittene Goldtreppe (like Simple Ores)
     EN_FAMILY[f'cut_{_m}'] = f'Cut {_en}'
     DE_FAMILY[f'cut_{_m}'] = f'Geschnittene {_de}'

@@ -55,7 +55,7 @@ async function run(browser, base, opts) {
   // WIKI_COOKIE="name=value": the login session of a deployed dev wiki (/dev/ sits behind the login)
   if (process.env.WIKI_COOKIE) {
     const [name, ...rest] = process.env.WIKI_COOKIE.split('=');
-    await ctx.addCookies([{ name, value: rest.join('='), url: base }]);
+    await ctx.addCookies([{ name, value: rest.join('='), url: new URL('/', base).href }]); // path /: the dev overlay also calls /api/
   }
   const devSite = /\/dev\/?$/.test(new URL(base).pathname);
   const page = await ctx.newPage();
@@ -64,7 +64,10 @@ async function run(browser, base, opts) {
   page.on('console', m => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) errors.push('console: ' + m.text()); });
   page.on('response', r => { if (r.status() >= 400 && !IGNORED_404.test(r.url())) errors.push(r.status() + ' ' + r.url()); });
   page.on('requestfailed', r => { if (!IGNORED_404.test(r.url())) errors.push('failed ' + r.url()); });
-  const q = s => base + s + (s.includes('?') ? '&' : '?') + 'lang=' + opts.lang;
+  // N74: the sidebar groups belong to a mod area (here SimpleBuilding); without ?mod= the wiki opens the start page
+  const q = s => base + (s.charAt(0) === '?' ? '?mod=simplebuilding&' + s.slice(1) : s) + (s.includes('?') ? '&' : '?') + 'lang=' + opts.lang;
+  // links in query form (?tab=items) or, behind the N74 nginx rule, path form (/simplebuilding/items)
+  const tabA = t => { const p = t === 'allrecipes' ? 'recipes' : t; return `a[href*="tab=${t}"], a[href$="/${p}"], a[href*="/${p}?"]`; };
   const h1 = async () => (await page.locator('#main h1').first().textContent()).trim();
   const phone = opts.w < 700;
   const openNav = async () => { if (phone) { await page.click('#menu-btn'); await page.waitForTimeout(250); } };
@@ -76,12 +79,14 @@ async function run(browser, base, opts) {
   await openNav();
   for (const g of ['browse', 'reference', 'progress']) ok(await page.locator(`#sidebar details[data-sb="${g}"]`).count() === 1, tag + ' group ' + g);
   ok(await page.locator('#sidebar details[data-sb="dev"]').count() === (devSite ? 1 : 0), tag + ' dev group only in dev');
-  ok(await page.locator('#sidebar a[href*="tab=enchanting"]').count() === (devSite ? 1 : 0), tag + ' enchanting view only in dev');
-  ok(await page.locator('#sidebar a.active[href*="tab=start"]').count() === 1, tag + ' start active');
-  for (const t of ['submods', 'guidebook', 'questionary', 'items', 'allrecipes', 'trades', 'loot', 'advancements', 'config', 'commands', 'textures', 'tags'])
-    ok(await page.locator(`#sidebar a[href*="tab=${t}"]`).count() === 1, tag + ' link ' + t);
-  ok(await page.locator('#sidebar details[data-sb="reference"] a[href*="tab=blocks"]').count() === 0, tag + ' blocks merged into blocks & items');
-  ok(await page.locator('#sidebar details[data-sb="progress"] a[href*="tab=tags"]').count() === 1, tag + ' tags under progress');
+  ok(await page.locator('#sidebar').locator(tabA('enchanting')).count() === (devSite ? 1 : 0), tag + ' enchanting view only in dev');
+  ok(await page.locator('#sidebar a.active', { hasText: /Getting started|Erste Schritte/ }).count() === 1, tag + ' start active');
+  for (const t of ['guidebook', 'questionary', 'items', 'allrecipes', 'trades', 'loot', 'advancements', 'config', 'commands', 'textures', 'tags'])
+    ok(await page.locator('#sidebar details.sb-sec:not(.sb-subs)').locator(tabA(t)).count() === 1, tag + ' link ' + t);
+  // N74: inside a mod area the sub-mods are the folded list under the sections (no separate "Submods" entry)
+  ok(await page.locator('#sidebar details[data-sb="subs-own"] a.sub').count() > 8, tag + ' sub-mod list');
+  ok(await page.locator('#sidebar details[data-sb="reference"]').locator(tabA('blocks')).count() === 0, tag + ' blocks merged into blocks & items');
+  ok(await page.locator('#sidebar details[data-sb="progress"]').locator(tabA('tags')).count() === 1, tag + ' tags under progress');
   worst.push(['sidebar', await contrast(page, '#sidebar a span, #sidebar summary span, #sidebar .n')]);
   if (!phone) {
     // collapse REFERENCE, reload: stays closed (localStorage), open again
@@ -96,10 +101,10 @@ async function run(browser, base, opts) {
     await page.goto(q(old)); await page.locator('#main h1').waitFor();
     if (want) ok(want.test(await h1()), tag + ' old address ' + old);
     ok(!/not found|nicht gefunden/i.test(await page.locator('#main').textContent()), tag + ' old address works ' + old);
-    if (active) ok(await page.locator(`#sidebar a.active[href*="tab=${active}"]`).count() === 1, tag + ' active for ' + old);
+    if (active) ok(await page.locator('#sidebar').locator(tabA(active)).and(page.locator('a.active')).count() === 1, tag + ' active for ' + old);
   }
   await page.goto(q('?tab=start&dev=1')); await page.locator('#main h1').waitFor();
-  ok(await page.locator('#sidebar details[data-sb="dev"] a[href*="tab=enchanting"]').count() === 1, tag + ' dev group with enchanting view');
+  ok(await page.locator('#sidebar details[data-sb="dev"]').locator(tabA('enchanting')).count() === 1, tag + ' dev group with enchanting view');
 
   // submods: open tree, a click leads to the mod's own wiki
   await page.goto(q('?tab=submods')); await page.locator('.sm-super').first().waitFor();
@@ -108,7 +113,7 @@ async function run(browser, base, opts) {
   worst.push(['submods', await contrast(page, '.sm-mod span, .sm-n, .pb-tag')]);
   const sub = page.locator('.sm-tree .sm-mod').first();
   const href = await sub.getAttribute('href');
-  ok(/mod=simple/.test(href), tag + ' submod links to its wiki');
+  ok(/mod=simple|\/simple[a-z0-9_]+\/(\?|$)/.test(href), tag + ' submod links to its wiki ' + href);
 
   // guidebook: tabs, contents, turning pages (button, key, swipe-free), deep link
   await page.goto(q('?tab=guidebook')); await page.locator('.gb-book').waitFor();
@@ -118,7 +123,7 @@ async function run(browser, base, opts) {
   const pos0 = await page.locator('.gb-pos').textContent();
   await page.click('[data-gb-turn="1"]'); await page.waitForTimeout(150);
   ok(await page.locator('.gb-pos').textContent() !== pos0, tag + ' next page');
-  ok(/book=simplebuilding\/\d+/.test(page.url()), tag + ' page in the address');
+  ok(/(book=|\/guidebook\/)simplebuilding\/\d+/.test(page.url()), tag + ' page in the address'); // N74 path form: /<mod>/guidebook/<section>/<page>
   await page.keyboard.press('ArrowLeft'); await page.waitForTimeout(150);
   ok(await page.locator('.gb-pos').textContent() === pos0, tag + ' arrow key back');
   await page.locator('.gb-toc .gb-link').nth(1).click(); await page.waitForTimeout(150);
@@ -141,7 +146,7 @@ async function run(browser, base, opts) {
   ok(some > 0 && some < all, tag + ' questionary search');
   await page.locator('.qn-item').first().click(); await page.locator('#qn-open').waitFor();
   ok(await page.locator('#qn-open .gb-page').count() === 3, tag + ' three pages');
-  ok(/questionary=/.test(page.url()), tag + ' entry in the address');
+  ok(/questionary=|\/questionary\/[^/?#]+/.test(page.url()), tag + ' entry in the address'); // N74 path form: /<mod>/questionary/<entry>
   worst.push(['questionary', await contrast(page, '#qn-open .gb-page *, .qn-item span, .qn-filters .chip')]);
   await page.click('[data-qn-close]'); await page.waitForTimeout(150);
   ok(await page.locator('#qn-open').count() === 0, tag + ' close');

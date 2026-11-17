@@ -128,7 +128,7 @@ fehlerfreien Code.
 `BlueprintCode.serialize(model)` schreibt die kürzeste lesbare Form, die der Parser genau so
 zurückliest (`parse(serialize(m)).model() == m`, Spieltest):
 
-1. Kopfkommentar `# BxHxT, N blocks`.
+1. Kopfkommentar `# BxHxT, N blocks` (mit Entities: `, M entities`; Entity-Zeilen sortiert am Ende, 1.10).
 2. Je Blockzustand eine Anweisung, häufigster zuerst; Id ohne `minecraft:`, nur Eigenschaften
    abseits des Standards.
 3. Stellen gierig zu Quadern zusammengefasst: Reihe entlang x, dann so weit wie möglich in z,
@@ -233,6 +233,40 @@ Zeilen werden je 64 Pixel umgebrochen; 128 × 128 mit Dithering bleibt unter 320
 Stufe fehlt oder die längste Kante größer ist (Aktionsleiste). Gewöhnlicher Code ist nicht betroffen
 (dasselbe Bild als Quader-Zeilen ist ein normaler Bau). Jeder Blaupausen-Bau-Block geht über
 SimpleLib `ToolPlacements` an Zuhörer – Simple Tweaks schreibt ihn ins Block-Protokoll (T10).
+
+### 1.10 Entities: Item-Frames, Rüstungsständer, KI-lose Mobs (N77, 16.11.2026)
+
+Plan `docs/ai/PLAN-N77-SCAN-ENTITIES-2026-11-16.md`, Code `BlueprintEntity`. Optionaler Abschnitt: eine Zeile je Entity,
+beginnt mit `@`. Ohne Entities schreibt der Serialisierer byte-genau wie zuvor (alte Codes bleiben gleich; Spieltest
+mit dem Testzentrale-Scan des Besitzers `testing/fixtures/blueprint/tz-owner-1611-layout-scan.txt`).
+
+```
+# 5x3x4, 1 blocks, 3 entities
+stone 2,1,2
+@item_frame 2,1,1 north diamond_sword[custom_name="Klinge",enchantments={"minecraft:sharpness":5}] rot=2 invisible fixed
+@glow_item_frame 2,2,2 up torch rot=7
+@armor_stand 0.5,1,3.5 yaw=-45 head=iron_helmet hand=stone_sword head_pose=-10,20,0 small arms noplate
+@pig 4.5,1,0.5 yaw=90 name="Bob" noai silent invulnerable
+```
+
+- `@<entity>` (ohne `minecraft:`), Position im selben Raster wie die Blöcke. Item-Frames (`item_frame`, `glow_item_frame`,
+  jede Frame-Klasse): ganzzahlige Blockstelle des Frames + Richtung (`north|south|east|west|up|down`) + optional das Item;
+  andere: Kommazahlen (bis 3 Nachkommastellen).
+- Item in der Syntax von `/give`: `id[komponente=SNBT,!komponente]*anzahl` – registry-aware geschrieben (Komponenten-Codec),
+  beim Bauen mit den Registries der Welt gelesen. Ohne Welt prüft der Parser Item-/Komponenten-Ids und die SNBT-Syntax.
+- Werte: `rot=0..7` (Frame), `yaw=` (Stand/Mob), `name=<SNBT-Text>`, `head= chest= legs= feet= hand= offhand=` (Ausrüstung),
+  `head_pose= body_pose= left_arm_pose= right_arm_pose= left_leg_pose= right_leg_pose=` (Stand, `x,y,z` Grad, nur abweichend).
+  Schalter: Frame `invisible fixed invulnerable silent`; Stand zusätzlich `nogravity small arms noplate marker showname`;
+  Mob `invisible invulnerable silent nogravity noai showname`. Kommentare beginnen nur außerhalb von Anführungszeichen.
+- Grenzen: 4096 Entities je Code, 8192 Zeichen je Item/Name, Anzahl 1..99. Fehler (`entity_*`) werden gemeldet, nie geworfen.
+- **Scan**: alle Item-Frames, Rüstungsständer (auch Modul-Stände) und Mobs mit `NoAI`, deren Blockstelle in der Oktant-Figur
+  liegt. Mobs nur Typ/Position/Blick/Name/Schalter/Ausrüstung (keine Varianten). Nicht schreibbare Entities stehen als
+  `# skipped: …` am Code-Ende. Die Bounding Box zählt Entity-Stellen mit.
+- **Bauen**: nach allen Blöcken (Frames brauchen ihre Wand), gedreht wie die Blöcke (Frame-Richtung, `yaw` +90 je Viertel,
+  Item am Boden +2 / an der Decke −2 je Viertel). Schon vorhandene gleiche Entity an der Stelle → übersprungen; Frames ohne
+  Halt und gesperrte Stellen → nicht gesetzt. Kreativ: alles gratis. Überleben: Frame/Stand kostet sein Item (Baustab-Vorrat),
+  Inhalt nur, wenn genau dieses Item (gleiche Komponenten) im Inventar liegt (wird verbraucht); Schalter, Posen, Namen und
+  Mobs nur kreativ. Keine Geister-Vorschau, kein Rückgängig und kein Befehls-Export für Entities (offen).
 
 ## 2. Editor
 
@@ -415,7 +449,8 @@ bleibt. Umschalt-Klick legt beide in ihre Slots.
   Fortschritt "Scanne… n %" in der Aktionsleiste. Anderes in den Tisch legen bricht ab. Mehr als
   4 194 304 belegte Stellen → Abbruch (`too_many_blocks`).
 - Luft (und `moving_piston`) wird übersprungen; von Block-Entities wird nur der Zustand
-  übernommen, kein Inhalt. Koordinaten beginnen an der kleinsten belegten Stelle.
+  übernommen, kein Inhalt. Item-Frames, Rüstungsständer und KI-lose Mobs kommen als `@`-Zeilen mit (1.10).
+  Koordinaten beginnen an der kleinsten belegten Stelle (Blöcke und Entities).
 - Auswahl (Octant-Box) größer als `blueprint.scanMaxVolume` (262 144) → sofort abgelehnt (`too_big_volume`); eine
   Kreativ-Blaupause hat keine Volumengrenze (a-fix13b, Besitzer 13.11.: die Grenze zählt Stellen, nicht Blockarten).
 - Ergebnis-Code länger als 1 000 000 Zeichen → kein Ergebnis ("zu komplex"); bis dahin geht auch eine bunte Auswahl

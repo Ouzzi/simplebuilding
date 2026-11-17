@@ -29,8 +29,12 @@ class ModpackTest(unittest.TestCase):
     def test_pages_routes_and_strings_in_both_languages(self):
         html = (WIKI / 'index.html').read_text(encoding='utf-8')
         for needle in ('function packParse', 'function packBarHtml', 'function pageBrowse', 'function pageStructure',
-                       "case 'browse'", "case 'structure'", "sp.set('pack', PACK.key)", 'packBarHtml(r.section)'):
+                       "case 'browse'", "case 'structure'", "sp.set('pack', PACK.key)"):
             self.assertIn(needle, html)
+        # N74-4: the modpack bar is only a filter on the mod structure page, not above every page
+        self.assertNotIn('packBarHtml(r.section)', html)
+        self.assertEqual(html.count('packBarHtml('), 2)  # definition + pageStructure
+        self.assertIn("packBarHtml('structure')", html.split('function pageStructure', 1)[1][:4000])
         en = html.split('Object.assign(STR.en, {\n  pbLabel', 1)[1].split('});', 1)[0]
         de = html.split('Object.assign(STR.de, {\n  pbLabel', 1)[1].split('});', 1)[0]
         keys = lambda block: set(re.findall(r'\b(\w+): \'', 'pbLabel: \'' + block))

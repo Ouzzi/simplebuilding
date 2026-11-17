@@ -98,6 +98,30 @@ Spalten, max. 512 KB) und devqueue legt die Speicherung als JSON unter `<data>/t
   `python3 tools/tzedit/tzedit_save.py pull --git-dir /root/sb.git --remote "ssh -o BatchMode=yes sb-web" --report /root/b-fertig.md`
 - Tests: `python3 -m unittest tools/tzedit/tests/test_tzedit_save.py`
 
+### Bilder im Editor (N72)
+
+Die Zellen zeigen Vanilla-Bilder nur im Dev-Bereich. Dafür muss `wiki/vanilla_textures.py` im Dev-Checkout laufen.
+Das macht `sb-web-sync`, sobald sich der Dev-Stand ändert. Der Lauf schreibt drei Dinge, alle git-ignoriert:
+
+- `wiki/assets/vanilla/**`: die Bilder aus dem Client-Jar.
+- `wiki/data/vanilla-icons.json`: Id → Bildpfad, nur Namen. Aufgelöst wie im Spiel über `items/<id>.json` → Modell → Eltern →
+  Texturen (`tools/devserver/sbdev/icons.py`). So bekommen auch Stufen, Treppen, Mauern, gewachste Blöcke, Laternen und Achtel
+  ihr Bild; Mob-Köpfe ohne flaches Bild das Spawn-Ei des Mobs.
+- `wiki/assets/devtex/**`: Modul-Texturen, die das Wiki sonst nicht hat.
+
+Ohne Jar zeigt der Editor den Namen. Einrichtung, einmal:
+
+1. sb-agent, Forced Command `/usr/local/bin/sb-web-gate`, neuer Fall vor `*)`:
+   `  sb-jar) exec cat /root/.gradle/caches/fabric-loom/26.3/minecraft-client.jar ;;`
+   Alternativ das Jar einmal kopieren:
+   `scp ~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar sb-web:/var/lib/sb-web-sync/minecraft-client-26.3.jar`
+2. Web-Host: die Repo-Fassung des Sync-Skripts einspielen, mit Sicherung vorher:
+   `cp /usr/local/bin/sb-web-sync /usr/local/bin/sb-web-sync.bak-n72 && cp /srv/wiki-dev/tools/zentrale-web/sb-web-sync /usr/local/bin/sb-web-sync`
+3. Optional, Web-Host: `apt-get install -y python3-pil python3-numpy`. Damit sind die Vanilla-abgeleiteten Texturen echt;
+   ohne diese Pakete sind es beschriftete Platzhalter.
+
+Log: `/var/log/sb-wiki-vanilla.log`. Prüfen: `/dev/data/vanilla-icons.json` liefert 200.
+
 ## Ein Host mit Login (a-zw06, Besitzer 06.11.)
 `simplemods-wiki.azarfane.com` trägt alles (ab IG31-55 siehe Abschnitt „Domain-Umzug“: `wiki.simplemods.de`); Cloudflare-Pfadschutz kommt später, bis dahin ein eigener Login.
 
@@ -157,6 +181,28 @@ Laptops auf die neue Adresse umgestellt sind (Starter lädt `/setup/` mit cloudf
 
 Tests: `python3 -m unittest discover -s tests` (`test_auth.py`; `test_nginx_zw06.py` startet mit `SB_NGINX=<nginx>`
 die gerenderten Stufen echt gegen devqueue, sonst nur die statischen Prüfungen).
+
+### Flache Mod-Adressen im Wiki (N74, vorbereitet, NICHT eingespielt – Besitzer-Freigabe nötig)
+`nginx/wiki-one.conf` liefert `/<mod>/…` (`^/simple[a-z0-9_]+(/.*)?$`) als `index.html` aus, Production und
+verschachtelt unter `/dev/` (dort mit Login, Overlay und `sub_filter` wie jede Dev-Seite). Zusätzlich setzt
+`sub_filter` in jede Wiki-HTML-Antwort `<base href="/" data-modpath>` (Dev `/dev/`): Daran erkennt das Wiki, dass der
+Server die Pfad-Form kann; ohne Regel bleibt es bei `?mod=…` (nichts bricht, alte Links gehen weiter). Kein allgemeiner
+Rückfall auf `index.html`: fehlende `data/*.js`/Bilder bleiben 404. Reihenfolge egal: Regel vor oder nach dem
+Production-Push des Wikis (das alte Wiki ignoriert das Kennzeichen, verlinkt keine Pfade).
+Einspielen (als root auf sb-web, wenn der Stand mit N74 in `/srv/wiki-dev` liegt):
+1. `cp -a /etc/nginx/sites-available/simplemods /root/simplemods.pre-n74` (eigene Sicherung; `deploy_dom07.sh
+   rollback` ginge bis vor den Domain-Umzug zurück).
+2. `/srv/wiki-dev/tools/zentrale-web/deploy_dom07.sh check`, dann `… deploy_dom07.sh domains` (rendert alle Hosts aus
+   den Vorlagen neu, `nginx -t`, Reload, Rauchtest je Host).
+3. Prüfen: `curl -sI -H 'Host: wiki.simplemods.de' http://127.0.0.1:8081/simpleend/items/ashwood_boat` → 200
+   `text/html`; `curl -s … /simpleend/ | grep -c 'data-modpath'` → 1; `curl -sI … /data/fehlt.js` → 404;
+   `curl -sI … /dev/simpleend/` ohne Cookie → 302 auf `/api/auth/login?next=/dev/simpleend/`.
+4. Im Browser `https://wiki.simplemods.de/dev/simplebuilding/` (Klick-Test N74) und `https://wiki.simplemods.de/?mod=simpleend`
+   → landet auf `/simpleend/`.
+5. Rückfall: `cp -a /root/simplemods.pre-n74 /etc/nginx/sites-available/simplemods && nginx -t && systemctl reload nginx`
+   (das Wiki fällt von selbst auf die Query-Form zurück; schon geteilte `/<mod>/…`-Links gäben dann 404).
+Test: `test_nginx_zw06.py` (`test_flat_mod_paths_n74`, statisch und mit `SB_NGINX` echt: Pfade 200 mit `<base`, Daten-404,
+`/dev/simpleend/` ohne Login 302, mit Login 200 + Overlay).
 
 ## Start
 ```bash

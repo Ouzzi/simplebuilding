@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simpleores:zenithite_ingot",
+    "A": "simpleores:zenithite_apple"
+  },
+  "pattern": [
+    "###",
+    "#A#",
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:enchanted_zenithite_apple"
+  }
+}

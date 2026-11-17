@@ -22,9 +22,9 @@ common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockE
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBlockSearch.java
-common/src/shared/java/com/simplebuilding/blueprint/BlueprintBuilder.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBuilder.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintBuilder.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintBuilder.java allow: cellPos/3 model/0 rotation/0 worldPos/3
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCartography.java allow: copyResult/2 copyResult/3
-common/src/shared/java/com/simplebuilding/blueprint/BlueprintCode.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCode.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintCode.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCode.java allow: problem/4 style/3
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintCommandText.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintCommandText.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintContent.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintContent.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintEditorLayout.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintEditorLayout.java
@@ -33,7 +33,7 @@ common/src/shared/java/com/simplebuilding/blueprint/BlueprintFormats.java module
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintIoLayout.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintIoLayout.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintJobs.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintJobs.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintMaterials.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintMaterials.java
-common/src/shared/java/com/simplebuilding/blueprint/BlueprintModel.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintModel.java
+common/src/shared/java/com/simplebuilding/blueprint/BlueprintModel.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintModel.java allow: addEntity/1 entities/0 hasContent/0
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintPicture.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintPicture.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintScanner.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintScanner.java
 common/src/shared/java/com/simplebuilding/blueprint/BlueprintTiers.java modules/simplebuildingtools/shared/java/com/simplebuildingtools/blueprint/BlueprintTiers.java

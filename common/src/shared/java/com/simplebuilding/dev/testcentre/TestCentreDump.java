@@ -136,6 +136,8 @@ public final class TestCentreDump {
             out.add("#band\t" + band.x0() + "\t" + band.width() + "\t" + band.zA() + "\t" + band.nearA() + "\t" + band.lineZ() + "\t"
                     + band.nearB() + "\t" + band.depthB());
         }
+        java.util.Set<net.minecraft.core.BlockPos> red = new java.util.HashSet<>(); // N77: rot auch in Zusatz-/Sonderspalten
+        lines.placeholders().stream().filter(OrderAreas.Placeholder::missing).forEach(p -> red.add(p.pos()));
         for (OrderAreas.Row row : lines.rows()) {
             for (int col = 0; col < row.depth(); col++) {
                 OrderAreas.Slot slot = col < row.columns().size() ? row.columns().get(col) : OrderAreas.Slot.OTHER;
@@ -145,7 +147,7 @@ public final class TestCentreDump {
                 net.minecraft.world.item.Item top = col < row.columns().size() ? row.tops().get(slot) : null;
                 String key = col < row.columns().size() ? slot.name() : other < row.otherKeys().size() ? row.otherKeys().get(other) : "-";
                 String what = item != null ? BuiltInRegistries.ITEM.getKey(item).toString()
-                        : col < row.columns().size() && row.expected().contains(slot) ? "MISSING" : "NONE";
+                        : red.contains(new net.minecraft.core.BlockPos(row.x(), 0, row.z(col))) ? "MISSING" : "NONE";
                 out.add(row.group() + "\t" + row.kind() + "\t" + row.family() + "\t" + (row.step() < 0 ? "A" : "B") + "\t" + row.x()
                         + "\t" + row.z(col) + "\t" + col + "\t" + key + "\t" + what + "\t" + (top == null ? "" : BuiltInRegistries.ITEM.getKey(top)));
             }

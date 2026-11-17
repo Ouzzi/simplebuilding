@@ -69,7 +69,7 @@ public final class ChessItems {
             }
         }
         for (ChessRegistry.CheckerShapes shapes : ChessRegistry.shapes()) {
-            for (Block block : List.of(shapes.stairs(), shapes.slab())) {
+            for (Block block : List.of(shapes.stairs(), shapes.slab(), shapes.wall())) {
                 SHAPES.add(item(BuiltInRegistries.BLOCK.getKey(block).getPath(), s -> new BlockItem(block, s)));
             }
         }
@@ -99,7 +99,7 @@ public final class ChessItems {
         return Collections.unmodifiableMap(PIECES);
     }
 
-    /** Stairs and slabs of the checkers, per checker stairs before slab. */
+    /** Stairs, slabs and walls of the checkers, per checker stairs, slab, wall. */
     public static List<Item> shapes() {
         return List.copyOf(SHAPES);
     }
@@ -127,6 +127,7 @@ public final class ChessItems {
             if (shapes.color() == color) {
                 row.add(shapes.stairs().asItem());
                 row.add(shapes.slab().asItem());
+                row.add(shapes.wall().asItem());
             }
         }
         for (boolean flat : new boolean[]{false, true}) {

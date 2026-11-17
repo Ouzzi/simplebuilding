@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "simplechess:block/resin_quartz_checker"
+  }
+}

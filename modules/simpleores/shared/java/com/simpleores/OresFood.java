@@ -66,6 +66,15 @@ public final class OresFood {
                 new MobEffectInstance(riftEffect(metal), RIFT_APPLE_TICKS, 0));
     }
 
+    /** N77 (owner 16.11.): the enchanted rift apple - Regeneration II 0:20, Absorption IV 2:00, Resistance I 5:00 and the dimension's effect 5:00. */
+    public static final int ENCHANTED_RIFT_APPLE_TICKS = 6000;
+
+    public static Consumable enchantedRiftApple(String metal) {
+        return effects(new MobEffectInstance(MobEffects.REGENERATION, 400, 1), new MobEffectInstance(MobEffects.ABSORPTION, 2400, 3),
+                new MobEffectInstance(MobEffects.RESISTANCE, ENCHANTED_RIFT_APPLE_TICKS, 0),
+                new MobEffectInstance(riftEffect(metal), ENCHANTED_RIFT_APPLE_TICKS, 0));
+    }
+
     public static Consumable riftCarrot(String metal) {
         return effects(new MobEffectInstance(riftEffect(metal), RIFT_CARROT_TICKS, 0));
     }
