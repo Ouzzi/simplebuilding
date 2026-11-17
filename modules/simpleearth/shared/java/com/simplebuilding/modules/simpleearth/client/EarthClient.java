@@ -24,10 +24,11 @@ import net.minecraft.client.player.LocalPlayer;
  */
 public final class EarthClient {
     /**
-     * "#" (QOL34, owner 03.11.): 26.3 numbers keys by SDL scancode; 50 = NONUSHASH, the ISO key left of Enter that prints "#" on a
-     * German layout (Minecraft name {@code key.keyboard.world.2}). Free in Vanilla and in the mod family.
+     * "#" (QOL34, owner 03.11.): 26.3 numbers keys by SDL scancode. The ISO key left of Enter that prints "#" on a German layout
+     * arrives as 49 (BACKSLASH) on Windows and Linux - SDL maps that physical key there, 50 (NONUSHASH) practically never comes
+     * and Minecraft has no constant for it (B 17.11.). Free in Vanilla and in the mod family.
      */
-    public static final int HASH_KEY = 50;
+    public static final int HASH_KEY = com.mojang.blaze3d.platform.InputConstants.KEY_BACKSLASH;
     public static final KeyMapping KEY = new KeyMapping("key.simpleearth.menu", HASH_KEY,
             KeyMapping.Category.register(SimpleEarth.id("general")));
 
