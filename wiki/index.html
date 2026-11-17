@@ -418,6 +418,8 @@ a.chip { cursor: pointer; }
 .guide:hover { text-decoration: none; border-color: var(--accent); }
 .guide b { display: block; margin-bottom: .15rem; }
 .more-link { margin: -.2rem 0 1.4rem; font-weight: 600; }
+.sidebar .sb-lookup { margin: .4rem 0 .5rem; padding-top: .9rem; border-top: 1px solid var(--border); text-transform: none; letter-spacing: 0; font-size: .82rem; font-weight: 650; color: var(--text); }
+.itile-name { hyphens: auto; overflow-wrap: break-word; }
 .search-more > summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9rem; padding: .45rem .6rem; list-style: none; }
 .search-more > summary::-webkit-details-marker { display: none; }
 .search-more[open] > summary { display: none; }
@@ -969,6 +971,17 @@ body.tx-lb-open { overflow: hidden; }
   .qn-spread > .gb-page { border-right: 0 !important; box-shadow: none !important; border-bottom: 1px solid #c9b48a; }
   .qn-head { flex-wrap: wrap; }
 }
+/* N73 Runde 5: Telefon - kompaktere Kacheln, kurze Kategorie-Texte, keine Tastenkürzel im Fuß */
+@media (max-width: 640px) {
+  .tile-list, .statrow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; }
+  .tile-list .tile, .statrow .tile { padding: .5rem .6rem; min-width: 0; }
+  .tile-list .tile .big, .statrow .tile .big { font-size: 1.1rem; }
+  .tile-list .tile .lbl, .statrow .tile .lbl { font-size: .78rem; overflow-wrap: anywhere; }
+  .cat-card .cd { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .site-foot .foot-keys { display: none; }
+  .home-hero { padding: 1.2rem 1rem; }
+  .home-hero h1 { font-size: 1.6rem; }
+}
 </style>
 </head>
 <body>
@@ -1047,6 +1060,7 @@ var LANG = (function () {
   } catch (err) { /* privater Modus oder file:// ohne Storage: Standard nehmen */ }
   return 'en';
 })();
+document.documentElement.lang = LANG; /* N73: Silbentrennung und Vorlesen in der gewaehlten Sprache */
 function otherLang() { return LANG === 'de' ? 'en' : 'de'; }
 
 var STR = {
@@ -3336,7 +3350,7 @@ function pageOverview() {
   var parent = meta.parent ? modMeta(meta.parent) : null;
   var h = crumbs([]) + '<section class="home-hero"><div class="home-head">' + (meta.icon ? '<img class="home-icon" src="' + esc(meta.icon) + '" alt="" width="56" height="56">' : '') +
     '<div><h1>' + esc(MOD.name || meta.displayName || MODID) + ' Wiki</h1>';
-  h += '<div class="badges">' + (meta.release === false ? badge(T('notInRelease'), 'warn') : '') + (MOD.version ? badge('v' + MOD.version, 'ok') : '') + arr(MOD.minecraftLines).map(function (l) { return badge('Minecraft ' + l); }).join('') + arr(MOD.loaders).map(function (l) { return badge(l); }).join('') +
+  h += '<div class="badges">' + (meta.release === false ? badge(T('notInRelease'), 'warn') : '') + (MOD.version ? badge('v' + MOD.version, 'ok') : '') + (arr(MOD.minecraftLines).length ? badge('Minecraft ' + arr(MOD.minecraftLines).join(' · ')) : '') + (arr(MOD.loaders).length ? badge(arr(MOD.loaders).join(' · ')) : '') + /* N73 Runde 5: eine Chip je Art statt je Linie/Loader */
     (parent ? badge(T(meta.bundle === 'required' ? 'chipRequiredBy' : 'chipOptionalFor', parent.displayName), meta.bundle === 'required' ? 'ok' : '') + badge(T('chipAlone')) : '') + '</div></div></div>';
   var lead = welcome ? firstSentence(featureSummary(welcome)) : modIntro(meta);
   h += '<p class="lead">' + esc(lead || T('homeTagline')) + '</p>';
@@ -6443,7 +6457,7 @@ function renderSidebar(active) {
       var hasActive = g.items.some(function (n) { return n.key === active; });
       /* Auf der Wurzel sind die Gruppen anfangs zu (Mockup B), im Mod-Bereich offen. */
       var open = hasActive || (prefix ? SB_OPEN[key] === true : SB_OPEN[key] !== false);
-      var label = prefix && !g.dev && g.key !== 'conv' ? T('sbInAll', T(g.labelKey)) : T(g.labelKey);
+      var label = T(g.labelKey); /* N73 Runde 5: Wurzel hat eine Ueberschrift "In allen Mods nachschlagen" statt "Alle Mods:" je Gruppe */
       out += '<details class="sb-group sb-sec' + (g.dev ? ' sb-dev' : '') + '" data-sb="' + key + '"' + (open ? ' open' : '') + '><summary class="sb-title" title="' + esc(T('sbToggle', label)) + '"><span>' + esc(label) + '</span><span class="sb-chev" aria-hidden="true"></span></summary>' + links.join('') + '</details>';
     });
     return out;
@@ -6455,8 +6469,8 @@ function renderSidebar(active) {
     h += '<div class="sb-group sb-mods"><div class="sb-title">' + esc(T('sbMods')) + '</div>' + tops.map(function (m) {
       return link(crossModHref(m.id), '', m.displayName, modIcon(m), isSuperMod(m.id) ? modFamily(m.id).length - 1 : null);
     }).join('') + '</div>';
-    h += groups('all-');
-    h += '<div class="sb-note">' + esc(T('countsScope', scopeLabel(null))) + '<br>' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
+    h += '<div class="sb-title sb-lookup">' + esc(T('homeLookup')) + '</div>' + groups('all-');
+    h += '<div class="sb-note">' + esc(T('countsScope', scopeLabel(null))) + '</div>';
   } else {
     var m = modMetaRaw(selectedMod), par = m.parent ? modMetaRaw(m.parent) : null;
     h += '<div class="sb-group">' + link('#/allmods', '', T('navAllModsBack'), glyph('←'), null, 'sb-back') + '</div>';
@@ -6465,7 +6479,7 @@ function renderSidebar(active) {
     h += groups('');
     h += subModList(selectedMod, null, T('navSubmods'), true);
     if (par && !modChildren(selectedMod).some(function (c) { return wikiMod(c.id); })) h += subModList(par.id, selectedMod, T('moreIn', par.displayName), false);
-    h += '<div class="sb-note">' + esc(T('countsScope', scopeLabel(selectedMod))) + '<br>' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
+    h += '<div class="sb-note">' + esc(T('countsScope', scopeLabel(selectedMod))) + '</div>';
   }
   $side.innerHTML = h;
   var act = $side.querySelector('a.active');
@@ -7031,7 +7045,7 @@ function footMeta() {
   return (selectedMod && MOD.version ? 'v' + MOD.version + ' · ' : '') + 'MC ' + (arr(MOD.minecraftLines).join(' / ') || '?') + (g.line ? ' · ' + T('metaData', g.line) : '');
 }
 function footerHtml() {
-  return '<footer class="site-foot"><span>' + esc(footMeta()) + '</span><span>' + esc(T('footGenerated', (D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</span><span>' + esc(T('footShortcuts')) + '</span><span>' + esc(T('footLicense')) + '</span></footer>';
+  return '<footer class="site-foot"><span>' + esc(footMeta()) + '</span><span>' + esc(T('footGenerated', (D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</span><span class="foot-keys">' + esc(T('footShortcuts')) + '</span><span>' + esc(T('footLicense')) + '</span></footer>';
 }
 function render(opts) {
   opts = opts || {};
@@ -7538,7 +7552,7 @@ function applyStaticText() {
    dieselbe Sprache zeigt. */
 function setLang(next) {
   if (LANGS.indexOf(next) < 0 || next === LANG) return;
-  LANG = next;
+  LANG = next; document.documentElement.lang = LANG;
   try { if (window.localStorage) window.localStorage.setItem(LANG_STORE, LANG); }
   catch (err) { /* ohne Storage gilt die Wahl nur fuer diese Sitzung */ }
   applyStaticText();

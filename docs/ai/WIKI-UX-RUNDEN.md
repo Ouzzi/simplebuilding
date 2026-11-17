@@ -74,3 +74,29 @@ Umgesetzt:
 - „Alle Rezepte“: Karten ohne lesbaren Namen (`#mod:tag`) ans Ende – die Seite beginnt mit „Birch Cauldron, Bamboo Crate …“.
 - **Offen (nicht geändert):** drei verschiedene Rezept-Zahlen (Seitenleiste 4 550 = Mod-Rezepte + In-der-Welt, Startseiten-
   Kachel 3 685 = nur Mod-Rezepte, Rezeptseite 6 674 = inkl. Vanilla). Braucht eine Entscheidung, welche Zahl gilt.
+
+## Runde 5 – Seitenleiste und Telefon
+
+- **Stört:** Wurzel-Seitenleiste wiederholt „ALL MODS:“ vor jeder Gruppe („All mods: Browse / Reference / Progress &
+  settings“); Fußnote der Seitenleiste nennt zusätzlich `wiki/generate.py` (steht im Seitenfuß); Kopf-Karte zeigt je
+  Minecraft-Linie und je Loader eine eigene Chip (6 Chips, auf dem Telefon 3 Zeilen); Telefon: 10 große Zahlen-Kacheln
+  zweispaltig (~470 px), Kategorie-Karten mit 4–5 Zeilen Text, Tastenkürzel-Zeile im Fuß (ohne Tastatur sinnlos),
+  Highlight-Namen brechen mitten im Wort („Sledgehamm|er“), Titel „SimpleBuilding Wiki“ in 2,1 rem.
+- **Fehlt:** `<html lang>` blieb immer „en“ (auch auf Deutsch) – Vorlesen/Silbentrennung falsch.
+
+Umgesetzt:
+- Seitenleiste Wurzel: eine Überschrift „In allen Mods nachschlagen“, darunter die Gruppen ohne Präfix. Fußnote nur noch
+  „Zähler: …“.
+- Kopf-Karte: eine Chip „Minecraft 1.21.11 · 26.2 · 26.3“, eine Chip „Fabric · NeoForge“.
+- Telefon (≤ 640 px): Zahlen-Kacheln dreispaltig und kompakt, Kategorie-Texte auf 2 Zeilen, keine Tastenkürzel im Fuß,
+  kleinerer Titel/Innenabstand der Kopf-Karte. Highlight-Namen mit Silbentrennung statt Bruch an beliebiger Stelle.
+- `document.documentElement.lang` folgt der Sprache (Start und Umschalten).
+- **Offen (außerhalb `wiki/`):** die Dev-Leiste „KI-Queue“ (`tools/zentrale-web/dev-overlay.js`) belegt auf dem Telefon
+  unten ~150 px und liegt über dem Inhalt – nur Dev, nicht Teil dieses wiki-only-Zweigs.
+
+## Tests (Stand Runde 5, lokal mit Chromium 1248)
+
+`home_ui` 12 Ansichten ok · `nav74_ui` 270 ok · `wiki24_ui` 444 ok · `zoomarea_ui` 130 ok · `time_ui` 126 ok ·
+`enchanting_ui` 184 ok · Python-Unittests 124 OK. Vorbestehend rot (auch auf der Basis `claude-wave1`): `ui_lists`
+(Spaltenköpfe der Konfig-Tabelle), `tzeditor_ui` („search hits with preview“). `generate.py --check` nicht nötig
+(keine Daten geändert).
