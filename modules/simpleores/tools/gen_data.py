@@ -251,8 +251,174 @@ for path in BLOCKS:
     if path in ('silver_mirror', 'lead_plate', 'silver_sheet') or path in FAMILY or path in BARS or path in DOORS or path in TRAPDOORS or path in LIGHTS_ALL:
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
-    put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
+    if path not in GRATES:   # N78b: the grates' 3D models follow below
+        put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
     put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{path}'}})
+# N78/N78b (owner 16./17.11., docs/ai/PLAN-N78B-2026-11-17.md): the 3D twins: every side a plate of depth D with real hole walls.
+# Client option grates3d (OresClientConfig, owner 17.11.: default OFF): the usual ids carry the N78 look (template_grate: cube + six
+# inner faces); with the option on client.GrateModels puts the content of the "_3d" twin (simpleores:block/<path>_3d) under that id while
+# the models load. Loaders without the client mixin (Forge 26.3) therefore always show the default.
+# Per side: the outer face and an inward face at depth d (whole texture each, same pixel at the same place), plus at most ONE wall quad per
+# pixel grid line and direction ("slices"): it shows the pixel column/row on the bar side of the line (zero-width UV in the pixel middle,
+# exactly aligned along the line). Where that pixel is solid and its neighbour a hole it is the hole's wall, where both are solid it sits
+# hidden inside the bar, where it is a hole itself it is transparent - one quad per line instead of one per edge piece. All quads of a side
+# cull with that side (a row of the same grate stays one cage like glass; nothing behind a full block).
+# N78 (owner 16.11.): the default grate look - the cube of cube_all plus six inward faces, each 0.1 px inside its outer face (no
+# z-fighting with a different grate or block next to it), mirrored UVs so a pattern pixel sits at the same place on both sides; every
+# face culls like its outer face (a row of the same grate stays one cage, like glass).
+_SIDES = {'down': ('up', [0, 0, 0], [16, 0, 16]), 'up': ('down', [0, 16, 0], [16, 16, 16]), 'north': ('south', [0, 0, 0], [16, 16, 0]),
+          'south': ('north', [0, 0, 16], [16, 16, 16]), 'west': ('east', [0, 0, 0], [0, 16, 16]), 'east': ('west', [16, 0, 0], [16, 16, 16])}
+_INSET = {'down': (1, 0.1), 'up': (1, -0.1), 'north': (2, 0.1), 'south': (2, -0.1), 'west': (0, 0.1), 'east': (0, -0.1)}
+
+
+def grate_template():
+    elements = [{'from': [0, 0, 0], 'to': [16, 16, 16],
+                 'faces': {d: {'texture': '#all', 'cullface': d} for d in ('down', 'up', 'north', 'south', 'west', 'east')}}]
+    for outer, (inner, a, b) in _SIDES.items():
+        axis, delta = _INSET[outer]
+        a, b = list(a), list(b)
+        a[axis] = b[axis] = round(a[axis] + delta, 3)
+        uv = [0, 16, 16, 0] if outer in ('down', 'up') else [16, 0, 0, 16]
+        elements.append({'from': a, 'to': b, 'faces': {inner: {'uv': uv, 'texture': '#all', 'cullface': outer}}})
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all'}, 'elements': elements}
+
+
+put(ASSETS / 'models/block/template_grate.json', grate_template())
+GRATE_DEPTH = 1.5
+_DIRS = ('down', 'up', 'north', 'south', 'west', 'east')
+_AXIS = {'down': (1, -1), 'up': (1, 1), 'north': (2, -1), 'south': (2, 1), 'west': (0, -1), 'east': (0, 1)}   # axis, outward sign
+# FaceInfo of 26.3: the four corners of a face as (x, y, z) picks of from (0) / to (1)
+_CORNERS = {'down': ((0, 0, 1), (0, 0, 0), (1, 0, 0), (1, 0, 1)), 'up': ((0, 1, 0), (0, 1, 1), (1, 1, 1), (1, 1, 0)),
+            'north': ((1, 1, 0), (1, 0, 0), (0, 0, 0), (0, 1, 0)), 'south': ((0, 1, 1), (0, 0, 1), (1, 0, 1), (1, 1, 1)),
+            'west': ((0, 1, 0), (0, 0, 0), (0, 0, 1), (0, 1, 1)), 'east': ((1, 1, 1), (1, 0, 1), (1, 0, 0), (1, 1, 0))}
+
+
+def _tex(side, p):
+    """Texture (u, v) of the outer face `side` at block point p - FaceBakery.defaultFaceUV of a full face."""
+    x, y, z = p
+    return {'down': (x, 16 - z), 'up': (x, z), 'north': (16 - x, 16 - y), 'south': (x, 16 - y),
+            'west': (z, 16 - y), 'east': (16 - z, 16 - y)}[side]
+
+
+def _face(direction, frm, to, uv_at, cull):
+    """A face whose corner uvs equal uv_at(corner): uv + rotation solved like CuboidFace.getU/getV with Quadrant.rotateVertexIndex."""
+    want = [uv_at(tuple((frm, to)[pick][i] for i, pick in enumerate(c))) for c in _CORNERS[direction]]
+    for rot in range(4):
+        u = {}
+        v = {}
+        ok = True
+        for i, (wu, wv) in enumerate(want):
+            j = (i + rot) % 4
+            ok &= u.setdefault('min' if j in (0, 1) else 'max', wu) == wu and v.setdefault('min' if j in (0, 3) else 'max', wv) == wv
+        if ok:
+            face = {'uv': [_num(u['min']), _num(v['min']), _num(u['max']), _num(v['max'])], 'texture': '#all', 'cullface': cull}
+            if rot:
+                face['rotation'] = rot * 90
+            return face
+    raise ValueError(f'no uv for {direction} {frm} {to}')
+
+
+def _num(x):
+    return int(x) if float(x).is_integer() else round(x, 4)
+
+
+def grate_3d(mask):
+    """Elements of the 3D grate for a 16 x 16 mask (rows of booleans, True = solid pixel)."""
+    border = min(min(r, c, 15 - r, 15 - c) for r in range(16) for c in range(16) if not mask[r][c])
+    d = min(GRATE_DEPTH, border)
+    elements = [{'from': [0, 0, 0], 'to': [16, 16, 16], 'faces': {s: {'texture': '#all', 'cullface': s} for s in _DIRS}}]
+    for side in _DIRS:
+        axis, sign = _AXIS[side]
+        plane = 16 if sign > 0 else 0
+        inner = plane - sign * d
+        inward = _DIRS[_DIRS.index(side) ^ 1]
+        frm, to = [0, 0, 0], [16, 16, 16]
+        frm[axis] = to[axis] = _num(inner)
+        elements.append({'from': frm, 'to': to, 'faces': {inward: _face(inward, frm, to, lambda p, s=side: _tex(s, p), side)}})
+        lo, hi = sorted((plane, inner))
+
+        def point(u, v, side=side, plane=plane):
+            """The block point of texture (u, v) on this side's outer plane (inverse of _tex)."""
+            if side in ('west', 'east'):
+                return (plane, 16 - v, u if side == 'west' else 16 - u)
+            if side in ('down', 'up'):
+                return (u, plane, 16 - v if side == 'down' else v)
+            return (16 - u if side == 'north' else u, 16 - v, plane)
+        for vertical in (True, False):
+            for line in range(1, 16):
+                for toward in (1, -1):   # wall faces +u/+v (bar before the line) or -u/-v (bar after it)
+                    edges = []
+                    for k in range(16):
+                        a = mask[k][line - 1] if vertical else mask[line - 1][k]
+                        b = mask[k][line] if vertical else mask[line][k]
+                        if (a and not b) if toward > 0 else (b and not a):
+                            edges.append(k)
+                    if not edges:
+                        continue
+                    k0, k1 = edges[0], edges[-1] + 1
+                    a0 = point(line, k0) if vertical else point(k0, line)
+                    a1 = point(line, k1) if vertical else point(k1, line)
+                    fixed = next(i for i in range(3) if i != axis and a0[i] == a1[i])
+                    if not d < a0[fixed] < 16 - d:
+                        continue   # on the plate of the neighbouring side: its inner face is the wall here
+                    run = 3 - axis - fixed
+                    frm, to = [0, 0, 0], [0, 0, 0]
+                    frm[fixed] = to[fixed] = a0[fixed]
+                    frm[run], to[run] = sorted((a0[run], a1[run]))
+                    frm[axis], to[axis] = _num(lo), _num(hi)
+                    # facing: the 3D direction of +u/+v (or -) on this side
+                    step = point(line + 1, k0) if vertical else point(k0, line + 1)
+                    grow = (step[fixed] - a0[fixed]) * toward
+                    facing = {0: ('west', 'east'), 1: ('down', 'up'), 2: ('north', 'south')}[fixed][grow > 0]
+                    bar = line - 1 + 0.5 if toward > 0 else line + 0.5
+
+                    def uv_at(p, side=side, vertical=vertical, bar=bar):
+                        tu, tv = _tex(side, p)
+                        return (bar, tv) if vertical else (tu, bar)
+                    elements.append({'from': [_num(c) for c in frm], 'to': [_num(c) for c in to],
+                                     'faces': {facing: _face(facing, frm, to, uv_at, side)}})
+    return elements
+
+
+def grate_model(texture, mask):
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all', 'all': texture}, 'elements': grate_3d(mask)}
+
+
+def put_compact(path, data):
+    """put() with one element per line (the 3D grates have hundreds of elements)."""
+    head = {k: v for k, v in data.items() if k != 'elements'}
+    text = json.dumps(head, indent=2, ensure_ascii=False)[:-2] + ',\n  "elements": [\n'
+    text += ',\n'.join('    ' + json.dumps(e, ensure_ascii=False, separators=(', ', ': ')) for e in data['elements'])
+    OUT[Path(path)] = text + '\n  ]\n}\n'
+
+
+def png_mask(path):
+    sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
+    import layers
+    w, h, px = layers.png_read(Path(path).read_bytes())
+    assert (w, h) == (16, 16), path
+    return [[px[(r * w + c) * 4 + 3] >= 128 for c in range(w)] for r in range(h)]
+
+
+# The hole layout of the Vanilla copper grate (all four ages alike): geometry only ('.' = hole), no colours of Mojang's texture.
+COPPER_GRATE_HOLES = ('################ ###.##.##.##.### ##...###...###.# ###.##.##.##.### #.###...###...## ###.##.##.##.### ##...###...###.# '
+                      '###.##.##.##.### #.###...###...## ###.##.##.##.### ##...###...###.# ###.##.##.##.### #.###...###...## ###.##.##.##.### '
+                      '##...###...###.# ################').split()
+COPPER_AGES = ('', 'exposed_', 'weathered_', 'oxidized_')
+GRATE_QUADS = {}
+for path in GRATES:
+    _mask = png_mask(ASSETS / f'textures/block/{path}.png')
+    put(ASSETS / f'models/block/{path}.json', {'parent': f'{NS}:block/template_grate', 'textures': {'all': f'{NS}:block/{path}'}})
+    put_compact(ASSETS / f'models/block/{path}_3d.json', grate_model(f'{NS}:block/{path}', _mask))
+    GRATE_QUADS[path] = len(grate_3d(_mask)) + 5
+# A12 (N78): the Vanilla copper grates get the same inner sides and 3D twin (model only, no gameplay change; a resource pack still wins;
+# the waxed grates use these models too). Owner objection = drop these files (docs/ai/PLAN-N78-2026-11-16.md).
+for _age in COPPER_AGES:
+    put(RES / f'assets/minecraft/models/block/{_age}copper_grate.json',
+        {'parent': f'{NS}:block/template_grate', 'textures': {'all': f'minecraft:block/{_age}copper_grate'}})
+    put_compact(ASSETS / f'models/block/{_age}copper_grate_3d.json',
+                grate_model(f'minecraft:block/{_age}copper_grate', [[ch == '#' for ch in row] for row in COPPER_GRATE_HOLES]))
+GRATE_QUADS['copper_grate'] = len(grate_3d([[ch == '#' for ch in row] for row in COPPER_GRATE_HOLES])) + 5
 # Silver mirror: a one pixel plate at the south side of the cell (facing north), the texture carries frame and glass; the item is a flat sprite.
 # N25: on the floor and the ceiling too, like the button (face=floor|wall|ceiling); the wall model turned down (x 270) or up (x 90).
 MIRROR_Y = (('north', 0), ('east', 90), ('south', 180), ('west', 270))
@@ -1136,6 +1302,16 @@ for key, texts in MOVED_LINE['config'].items():
     CONFIG_OPTIONS[key] = ('line', tuple(texts['label']), tuple(texts['tip']))
 
 
+# N78b: the client option (config/simpleores-client.json, OresClientConfig.KEY).
+CLIENT_OPTIONS = {
+    'grates3d': (('3D grates', '3D-Roste'),
+                 ('On: metal grates and the Vanilla copper grates show bars with depth (more faces to draw). Off: flat grates that show '
+                  'their inner sides through the holes. Only on this client; a change reloads the resources.\nDefault: false.',
+                  'An: Metallroste und die Vanilla-Kupferroste zeigen Stäbe mit Tiefe (mehr Flächen zu zeichnen). Aus: flache Roste, die '
+                  'ihre Innenseiten durch die Löcher zeigen. Nur auf diesem Client; eine Änderung lädt die Ressourcen neu.\nStandard: false.')),
+}
+
+
 # ---------------------------------------------------------------- lang (guide keys are written by module_guides.py)
 def lang(locale):
     i = 0 if locale == 'en_us' else 1
@@ -1161,6 +1337,9 @@ def lang(locale):
     for cat, texts in CONFIG_CATEGORIES.items():
         out[f'text.autoconfig.{NS}.category.{cat}'] = texts[i]
     for key, (_, label, tip) in CONFIG_OPTIONS.items():
+        out[f'text.autoconfig.{NS}.option.{key}'] = label[i]
+        out[f'text.autoconfig.{NS}.option.{key}.@Tooltip'] = tip[i]
+    for key, (label, tip) in CLIENT_OPTIONS.items():   # N78b: client config simpleores-client.json (OresClientConfig)
         out[f'text.autoconfig.{NS}.option.{key}'] = label[i]
         out[f'text.autoconfig.{NS}.option.{key}.@Tooltip'] = tip[i]
     return out
@@ -1562,16 +1741,19 @@ FEATURES = [
              ['Eine Platte auf die freie Seite einer Platte derselben Art (Boden, Wand oder Decke) gesetzt ergibt eine Lage mehr, 1 bis 8. Eine Bleilage ist 2 Pixel dick (8 ergeben einen ganzen Block), eine Silberlage 1 Pixel (8 ergeben einen halben Block) - drei Barren ergeben 6 Platten oder 12 Bleche, gleich viel Metall je Pixel.',
               'Form, Kollision und Umriss folgen den Lagen; abgebaut gibt es eine Platte je Lage zurück. Eine Bleiplatte dämmt mit einer Lage wie ein halber Bleiblock und mit acht wie ein ganzer.',
               'Vor dem 10.11. gesetzte Platten haben eine Lage. Platten werden nicht zu Stufen oder Blöcken: 8 Bleiplatten sind 4 Barren, ein Bleiblock 9.'])),
-    feature('bars_and_grates', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalBarsBlock.java', f'{JAVA}/block/MetalGrateBlock.java', f'{DATAP}/recipe/silver_bars.json',
+    feature('bars_and_grates', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalBarsBlock.java', f'{JAVA}/block/MetalGrateBlock.java', f'{JAVA}/client/GrateModels.java',
+                                f'{JAVA}/config/OresClientConfig.java', f'{DATAP}/recipe/silver_bars.json',
                                 f'{DATAP}/recipe/silver_grate.json', f'{DATAP}/recipe/silver_grate_from_silver_block_stonecutting.json'],
             ('Metal bars and grates', 'Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has bars like iron bars and a grate like the copper grate, each with its own pattern.',
              ['Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.',
               'Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).',
-              'Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.']),
+              'Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.',
+              'Inner sides (N78): the grates and the Vanilla copper grates show their inner sides through the holes. 3D (N78b): the client option "3D grates" (config/simpleores-client.json, /simpleclient simpleores; default off) turns them into real models with bars of depth (more faces to draw).']),
             ('Metallgitter und -roste', 'Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat ein Gitter wie das Eisengitter und einen Rost wie der Kupferrost, jedes mit eigenem Muster.',
              ['Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.',
               'Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).',
-              'Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.'])),
+              'Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.',
+              'Innenseiten (N78): die Roste und die Vanilla-Kupferroste zeigen ihre Innenseiten durch die Löcher. 3D (N78b): die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores; Standard aus) macht daraus echte Modelle mit Stäben in der Tiefe (mehr Flächen zu zeichnen).'])),
     feature('metal_doors', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalDoorBlock.java', f'{JAVA}/block/MetalTrapDoorBlock.java', f'{DATAP}/recipe/silver_door.json',
                             f'{DATAP}/recipe/silver_trapdoor.json'],
             ('Metal doors and trapdoors', 'Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a door and a trapdoor like the copper ones.',

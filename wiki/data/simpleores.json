@@ -303,6 +303,8 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
         "modules/simpleores/shared/java/com/simpleores/block/MetalBarsBlock.java",
         "modules/simpleores/shared/java/com/simpleores/block/MetalGrateBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/client/GrateModels.java",
+        "modules/simpleores/shared/java/com/simpleores/config/OresClientConfig.java",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_bars.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate_from_silver_block_stonecutting.json"
@@ -313,7 +315,8 @@
         "details": [
           "Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.",
           "Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).",
-          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different."
+          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.",
+          "Inner sides (N78): the grates and the Vanilla copper grates show their inner sides through the holes. 3D (N78b): the client option \"3D grates\" (config/simpleores-client.json, /simpleclient simpleores; default off) turns them into real models with bars of depth (more faces to draw)."
         ]
       },
       "de": {
@@ -322,7 +325,8 @@
         "details": [
           "Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.",
           "Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).",
-          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus."
+          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.",
+          "Innenseiten (N78): die Roste und die Vanilla-Kupferroste zeigen ihre Innenseiten durch die Löcher. 3D (N78b): die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores; Standard aus) macht daraus echte Modelle mit Stäben in der Tiefe (mehr Flächen zu zeichnen)."
         ]
       }
     },
@@ -31442,6 +31446,25 @@
       "range": null,
       "side": null,
       "reload": null,
+      "source": "modules/simpleores/shared/java/com/simpleores/config/OresClientConfig.java",
+      "name": "grates3d",
+      "shortName": "grates3d",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Simple Ores",
+      "categoryDe": "Simple Ores",
+      "group": null,
+      "groupDe": null,
+      "label": "3D grates",
+      "labelDe": "3D-Roste",
+      "tooltip": "On: metal grates and the Vanilla copper grates show bars with depth (more faces to draw). Off: flat grates that show their inner sides through the holes. Only on this client; a change reloads the resources.\nDefault: false.",
+      "tooltipDe": "An: Metallroste und die Vanilla-Kupferroste zeigen Stäbe mit Tiefe (mehr Flächen zu zeichnen). Aus: flache Roste, die ihre Innenseiten durch die Löcher zeigen. Nur auf diesem Client; eine Änderung lädt die Ressourcen neu.\nStandard: false."
+    },
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "leadOre",
       "shortName": "leadOre",
@@ -33414,7 +33437,7 @@
     "items": 101,
     "blocks": 229,
     "trades": 0,
-    "config": 26,
+    "config": 27,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

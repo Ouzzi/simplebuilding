@@ -285,6 +285,8 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
         "modules/simpleores/shared/java/com/simpleores/block/MetalBarsBlock.java",
         "modules/simpleores/shared/java/com/simpleores/block/MetalGrateBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/client/GrateModels.java",
+        "modules/simpleores/shared/java/com/simpleores/config/OresClientConfig.java",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_bars.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/silver_grate_from_silver_block_stonecutting.json"
@@ -295,7 +297,8 @@
         "details": [
           "Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.",
           "Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).",
-          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different."
+          "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.",
+          "Inner sides (N78): the grates and the Vanilla copper grates show their inner sides through the holes. 3D (N78b): the client option \"3D grates\" (config/simpleores-client.json, /simpleclient simpleores; default off) turns them into real models with bars of depth (more faces to draw)."
         ]
       },
       "de": {
@@ -304,7 +307,8 @@
         "details": [
           "Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.",
           "Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).",
-          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus."
+          "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.",
+          "Innenseiten (N78): die Roste und die Vanilla-Kupferroste zeigen ihre Innenseiten durch die Löcher. 3D (N78b): die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores; Standard aus) macht daraus echte Modelle mit Stäben in der Tiefe (mehr Flächen zu zeichnen)."
         ]
       }
     },
@@ -845,19 +849,6 @@
     }
   ],
   "notes": {
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
-        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
-      ],
-      "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 33 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
-      },
-      "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 33 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
-      }
-    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -3859,6 +3850,19 @@
       },
       "de": {
         "summary": "Zenithitbarren: 4 End-Riss-Splitter + 1 Infernitbarren (formlos). Das Ende der Kette. Bezahlt ein Leuchtfeuer; neun ergeben einen Block. Prestige-Material neben Enderit, keine Werkzeug- oder Rüstungsstufe. Feuerfest."
+      }
+    },
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 33 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 33 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleores:enderite_*_armor": {

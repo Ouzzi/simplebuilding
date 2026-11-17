@@ -20,7 +20,8 @@
   "client": [
     "client.ItemStackTooltipMixin",
     "client.MinecraftMixin",
-    "client.AbstractContainerScreenMixin"
+    "client.AbstractContainerScreenMixin",
+    "client.ClientTextTooltipIconMixin"
   ],
   "injectors": {
     "defaultRequire": 0

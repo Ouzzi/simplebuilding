@@ -12,6 +12,8 @@ import java.nio.file.Path;
 public final class LegacyMigration {
     static final String OLD_KEY = "key_key.simplecontainers.toggle_style:";
     static final String NEW_KEY = "key_key.simpleinterfaces.toggle_style:";
+    /** N78: the key page key moved from "]"/"+" to U, only while the line still holds the old default. */
+    static final String[][] DEFAULTS = {{"key_key.simpleinterfaces.open_keys:", "key.keyboard.right.bracket", "key.keyboard.u"}};
 
     private LegacyMigration() {}
 
@@ -26,6 +28,7 @@ public final class LegacyMigration {
                 String migrated = options(text);
                 if (!migrated.equals(text)) com.simplebuilding.framework.api.ConfigFiles.writeAtomic(options, migrated);
             }
+            com.simplebuilding.framework.api.ConfigFiles.migrateKeyDefaults(gameDir, "simpleinterfaces", "n78", DEFAULTS);
         } catch (IOException | RuntimeException e) {
             org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("Cannot take over simplecontainers settings", e);
         }

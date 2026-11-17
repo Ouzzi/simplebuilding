@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "simpleores:block/template_grate",
   "textures": {
     "all": "simpleores:block/zinc_grate"
   }

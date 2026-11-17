@@ -25,11 +25,11 @@
       ],
       "en": {
         "title": "Manual crawling",
-        "summary": "C (default) or /simplemovement crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
+        "summary": "Arrow down (default) or /simplemovement crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
       },
       "de": {
         "title": "Manuelles Kriechen",
-        "summary": "C (Standard) oder /simplemovement crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Änderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
+        "summary": "Pfeil runter (Standard) oder /simplemovement crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Änderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
       }
     },
     {

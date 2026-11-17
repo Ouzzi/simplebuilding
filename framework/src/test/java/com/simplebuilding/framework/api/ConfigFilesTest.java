@@ -44,4 +44,34 @@ class ConfigFilesTest {
         assertEquals(both, ConfigFiles.renameOptionKey(both, "key_key.a.x:", "key_key.b.x:"));
         assertTrue(ConfigFiles.renameOptionKey("", "a", "b").isEmpty());
     }
+
+    @Test
+    void moveKeyDefaultsOnlyTouchesTheOldDefault() {
+        String[][] moves = {{"key_key.m.crawl:", "key.keyboard.c", "key.keyboard.down"}, {"key_key.m.walk:", "key.keyboard.unknown", "key.keyboard.up"}};
+        String text = "key_key.m.crawl:key.keyboard.c\nkey_key.m.walk:key.keyboard.r\nkey_key.m.crawl2:key.keyboard.c\n";
+        String moved = ConfigFiles.moveKeyDefaults(text, moves);
+        assertTrue(moved.contains("key_key.m.crawl:key.keyboard.down\n"), moved);
+        assertTrue(moved.contains("key_key.m.walk:key.keyboard.r\n"), "a player's own key stays");
+        assertTrue(moved.contains("key_key.m.crawl2:key.keyboard.c\n"), "another key with the same value stays");
+        assertEquals("key_key.m.crawl:key.keyboard.comma\n", ConfigFiles.moveKeyDefaults("key_key.m.crawl:key.keyboard.comma\n", moves), "prefix of a longer value");
+        assertEquals("key_key.m.walk:key.keyboard.up\r\n", ConfigFiles.moveKeyDefaults("key_key.m.walk:key.keyboard.unknown\r\n", moves));
+    }
+
+    @Test
+    void migrateKeyDefaultsRunsOncePerMarker(@TempDir Path dir) throws IOException {
+        String[][] moves = {{"key_key.m.crawl:", "key.keyboard.c", "key.keyboard.down"}};
+        Path options = dir.resolve("options.txt");
+        Files.writeString(options, "version:1\nkey_key.m.crawl:key.keyboard.c\n");
+        ConfigFiles.migrateKeyDefaults(dir, "m", "n78", moves);
+        assertEquals("version:1\nkey_key.m.crawl:key.keyboard.down\n", Files.readString(options));
+        assertEquals("n78\n", Files.readString(dir.resolve("config/m-keydefaults.txt")));
+        Files.writeString(options, "key_key.m.crawl:key.keyboard.c\n");   // the player chose C again later
+        ConfigFiles.migrateKeyDefaults(dir, "m", "n78", moves);
+        assertEquals("key_key.m.crawl:key.keyboard.c\n", Files.readString(options));
+        Path fresh = dir.resolve("fresh");
+        Files.createDirectories(fresh);
+        ConfigFiles.migrateKeyDefaults(fresh, "m", "n78", moves);
+        assertFalse(Files.exists(fresh.resolve("options.txt")));
+        assertEquals("n78\n", Files.readString(fresh.resolve("config/m-keydefaults.txt")));
+    }
 }

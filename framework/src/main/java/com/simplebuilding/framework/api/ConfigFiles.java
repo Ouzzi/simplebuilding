@@ -59,6 +59,32 @@ public final class ConfigFiles {
     }
 
     /**
+     * N78: new default keys. Each move is {@code {line, oldValue, newValue}} (e.g. {@code {"key_key.mod.x:", "key.keyboard.c", "key.keyboard.down"}});
+     * a line is changed only while it still holds {@code oldValue} exactly (the old default, so the player never picked another key).
+     */
+    public static String moveKeyDefaults(String text, String[][] moves) {
+        for (String[] move : moves) {
+            var line = java.util.regex.Pattern.compile("^" + java.util.regex.Pattern.quote(move[0] + move[1]) + "(?=\\r?$)", java.util.regex.Pattern.MULTILINE);
+            text = line.matcher(text).replaceAll(java.util.regex.Matcher.quoteReplacement(move[0] + move[2]));
+        }
+        return text;
+    }
+
+    /**
+     * Runs {@link #moveKeyDefaults} over {@code options.txt} once per {@code marker}: done markers are lines of
+     * {@code <gameDir>/config/<owner>-keydefaults.txt}, so a player who later sets the old key again keeps it (Vanilla drops unknown
+     * options lines, the marker cannot live there). Without an options.txt (new install) only the marker is written.
+     */
+    public static void migrateKeyDefaults(Path gameDir, String owner, String marker, String[][] moves) throws IOException {
+        Path done = gameDir.resolve("config").resolve(owner + "-keydefaults.txt");
+        String doneText = Files.isRegularFile(done) ? Files.readString(done) : "";
+        if (doneText.lines().anyMatch(marker::equals)) return;
+        migrateOptions(gameDir, text -> moveKeyDefaults(text, moves));
+        Files.createDirectories(done.getParent());
+        writeAtomic(done, doneText + (doneText.isEmpty() || doneText.endsWith("\n") ? "" : "\n") + marker + "\n");
+    }
+
+    /**
      * Reads {@code file} and hands its text to {@code parser} (e.g. {@code text -> gson.fromJson(text, X.class)}). Returns {@code null} when the file is missing, or when it is
      * unreadable/unparsable/empty (then it is quarantined first and {@code warn} gets one line). The caller uses its
      * defaults for {@code null}.

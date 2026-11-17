@@ -95,10 +95,12 @@ public class SimplebuildingClient implements ClientModInitializer {
                 helper.register(new com.simplebuilding.client.render.QuiverLayer(avatar));
             }
         });
+        // N78 (owner 16.11.): unbound by default (was H); an untouched old H line is unbound once before the options are read.
+        com.simplebuilding.client.HighlightKeyDefault.run(net.fabricmc.loader.api.FabricLoader.getInstance().getGameDir());
         ClientState.highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
             InputConstants.Type.KEYSYM,
-            InputConstants.KEY_H,
+            InputConstants.UNKNOWN.getValue(),
             KEY_CATEGORY_SIMPLEMODS
         ));
         ClientState.octantFigureToggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(

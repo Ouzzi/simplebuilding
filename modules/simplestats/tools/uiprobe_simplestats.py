@@ -32,7 +32,7 @@ def _open_image(s, name):
     if Image is None:
         return None
     try:
-        return Image.open(s.out / 'shots' / f'{s.scenario}-{name}.png').convert('RGB')
+        return Image.open(s.out / 'shots' / f"{s.scenario.replace('/', '-')}-{name}.png").convert('RGB')
     except Exception:  # noqa: BLE001 - a read problem is a failed check, not an exception
         return None
 
@@ -142,4 +142,133 @@ def stats(s):
     s.close()
 
 
-SCENARIOS = {'simplestats': stats}
+# N78 (owner 16.11.): screenshots for the preview - stats tooltip with the Top-1 icon (without/with Shift), the key page (new defaults
+# U / arrows / unbound highlight) and grates seen from inside (Simple Ores brass + Vanilla copper with the template's inner sides).
+SMOOTH = ('{id:424243L,since:20741L,totals:{blocks_mined:2L},detail:{blocks_mined:{e:{"minecraft:smooth_stone":2L}}}}')
+ROD = ('{id:424244L,since:20741L,totals:{catches:9L},detail:{catches:{e:{"minecraft:cod":5L,"minecraft:salmon":3L,"minecraft:name_tag":1L}}}}')
+
+
+def _hover(s, st, index, name):
+    slot = s.slot_xy(st, index, True)
+    if not slot or not slot['stack']:
+        s.check(f'hotbar slot {index} reported with the item', False, slot)
+        return None, None
+    s.io.move(*s.abs(st, slot['x'], slot['y']))
+    time.sleep(1.5)
+    plain = _open_image(s, f'{name}-tooltip')
+    s.io.key_down('Shift_L')
+    time.sleep(1.2)
+    shifted = _open_image(s, f'{name}-tooltip-shift')
+    s.io.key_up('Shift_L')
+    time.sleep(0.6)
+    return plain, shifted
+
+
+def n78(s):
+    s.chat('gamemode survival @s', 0.8)
+    s.chat('time set noon', 0.4)
+    s.clear_and_give(f'minecraft:diamond_pickaxe[simplestats:item_stats={SMOOTH}]', PICKAXE,
+                     f'minecraft:fishing_rod[simplestats:item_stats={ROD}]')
+    s.key('1', 0.4)
+    s.key('e', 1.0)
+    st = s.wait_screen('InventoryScreen', 10)
+    s.check('E opens the survival inventory', 'InventoryScreen' in st.get('screen', ''), st.get('screen'))
+    if 'InventoryScreen' in st.get('screen', ''):
+        for index, name in ((0, 'pickaxe-smooth'), (1, 'pickaxe-many'), (2, 'rod')):
+            plain, shifted = _hover(s, st, index, name)
+            n = _changed(plain, shifted)
+            s.check(f'{name}: Shift changes the tooltip (top list)', n > 800, n)
+    s.close()
+    # ---- key page: U opens it (N78 default), screenshots of the first pages
+    st = s.key('u', 1.2)
+    st = s.wait_screen('KeysScreen', 8)
+    s.check('U opens the Simple key page', 'KeysScreen' in st.get('screen', ''), st.get('screen'))
+    if 'KeysScreen' in st.get('screen', ''):
+        s.shot('keys-1')
+        for page in (2, 3, 4):
+            s.wheel(640, 360, clicks=6, down=True, st=st)
+            time.sleep(0.6)
+            s.shot(f'keys-{page}')
+    s.close()
+    # ---- grates from inside: a hollow 5 x 5 x 5 brass grate room, the west wall Vanilla copper grate, HUD hidden
+    s.chat('gamemode creative @s', 0.6)
+    s.chat('fill ~-2 ~-1 ~-2 ~2 ~3 ~2 simpleores:brass_grate hollow', 1.0)
+    s.chat('fill ~-2 ~ ~-1 ~-2 ~2 ~1 minecraft:copper_grate', 0.8)
+    s.chat('fill ~2 ~ ~-1 ~2 ~2 ~1 simpleores:stainless_steel_grate', 0.8)
+    s.key('F1', 0.4)
+    for name, yaw, pitch in (('grate-inside-north', 180, 10), ('grate-inside-copper-west', 90, 10), ('grate-inside-steel-east', -90, 10),
+                             ('grate-inside-floor', 0, 80), ('grate-inside-corner', 135, -30)):
+        s.chat(f'tp @s ~ ~ ~ {yaw} {pitch}', 1.0)
+        time.sleep(1.0)
+        s.shot(name)
+    s.chat('tp @s ~6 ~1 ~6 135 25', 1.2)
+    time.sleep(1.0)
+    s.shot('grate-outside')
+    s.key('F1', 0.4)
+    s.check('grate screenshots taken', True, 'compare by eye: inner sides visible through the holes')
+
+
+# N78b (owner 17.11., docs/ai/PLAN-N78B-2026-11-17.md): every grate type alone in front of the camera, client option "3D grates" on and off
+# (/simpleclient simpleores set grates3d ..., which reloads the resources). Per grate and mode: a straight shot, an oblique close-up (depth of
+# the bars, inner sides) and a 2 x 2 panel from inside the corner (culling between equal grates). Run (A):
+#   xvfb-run -a -s '-screen 0 2560x1440x24' python3.12 modules/simpleinterfaces/tools/ui_probe.py --out /var/tmp/sb/uiprobe-n78b --only simplestats/n78b
+GRATES = ['simpleores:' + m + '_grate' for m in ('silver', 'lead', 'zinc', 'nickel', 'tin', 'brass', 'bronze', 'stainless_steel')] + \
+         ['minecraft:copper_grate', 'minecraft:oxidized_copper_grate']
+
+
+def _look(s, eye, target, wait=1.2):
+    """Player eyes at eye = (x, y, z), looking at target (like Session.face: tp ... facing uses the feet height)."""
+    x, y, z = eye
+    tx, ty, tz = target
+    s.chat(f'tp @s {x:.2f} {y - 1.62:.2f} {z:.2f} facing {tx:.2f} {ty - 1.62:.2f} {tz:.2f}', wait)
+
+
+def _grates(s, origin, mode):
+    x, y, z = origin
+    bx, by, bz = x + 4, y + 1, z          # the single grate, eye height
+    px, py, pz = x + 4, y + 1, z + 6      # the 2 x 2 panel (+ its side walls) to the south
+    shots = {}
+    for block in GRATES:
+        name = block.split(':')[1]
+        s.chat(f'fill {x + 2} {y} {z - 3} {x + 7} {y + 4} {z + 9} air', 0.4)
+        s.chat(f'fill {x + 8} {y} {z - 3} {x + 8} {y + 4} {z + 9} minecraft:white_concrete', 0.4)   # light backdrop behind the holes
+        s.chat(f'setblock {bx} {by} {bz} {block}', 0.4)
+        s.chat(f'fill {px} {py} {pz} {px + 1} {py + 1} {pz} {block}', 0.4)
+        s.chat(f'fill {px} {py} {pz - 1} {px} {py + 1} {pz - 1} {block}', 0.4)
+        _look(s, (x + 0.5, y + 1.62, z + 0.5), (bx + 0.5, by + 0.5, bz + 0.5))
+        shots[name] = _open_image(s, f'{mode}-{name}-front')
+        _look(s, (bx - 0.9, by + 1.6, bz - 1.1), (bx + 0.5, by + 0.5, bz + 0.5))
+        s.shot(f'{mode}-{name}-oblique')
+        _look(s, (bx + 0.5, by + 0.5, bz + 0.5), (bx + 1.5, by + 0.2, bz + 0.5), 0.8)   # inside the grate block, towards its east side
+        s.shot(f'{mode}-{name}-inside')
+        _look(s, (px + 2.6, py + 1.4, pz - 2.4), (px + 0.5, py + 1.0, pz + 0.5))
+        s.shot(f'{mode}-{name}-panel')
+    return shots
+
+
+def n78b(s):
+    s.close()
+    s.chat('gamemode creative @s', 0.6)
+    s.chat('time set noon', 0.4)
+    s.chat('weather clear', 0.3)
+    s.chat('effect give @s night_vision 99999 0 true', 0.3)
+    s.clear_and_give()
+    st = s.st()
+    origin = [int(float(v)) for v in st['pos'].replace(',', ' ').split()]
+    s.key('F1', 0.4)
+    result = {}
+    for mode, value in (('3d', 'true'), ('flat', 'false')):
+        s.chat(f'simpleclient simpleores set grates3d {value}', 1.0)
+        time.sleep(15)   # resource reload (F3+T like)
+        result[mode] = _grates(s, origin, mode)
+    s.chat('simpleclient simpleores set grates3d false', 1.0)   # back to the default (owner 17.11.: off = flat with inner sides)
+    time.sleep(15)
+    s.key('F1', 0.4)
+    for name in result['3d']:
+        n = _changed(result['3d'][name], result['flat'][name])
+        s.check(f'{name}: 3D and flat look different (option switches the model)', n > 300, n)
+    s.check('option back to the default off', True, 'flat shots: grates show their inner sides (N78 look), not plain cubes')
+    s.check('grate screenshots taken (3d/flat x front/oblique/inside/panel)', True, 'compare by eye: bar depth, inner sides, no holes in the walls')
+
+
+SCENARIOS = {'simplestats': stats, 'simplestats/n78': n78, 'simplestats/n78b': n78b}

@@ -1,0 +1,6 @@
+{
+  "parent": "simpleores:block/template_grate",
+  "textures": {
+    "all": "minecraft:block/exposed_copper_grate"
+  }
+}
