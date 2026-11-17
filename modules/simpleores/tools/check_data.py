@@ -358,23 +358,27 @@ for m in BAR_METALS:
     assert f'{NS}:{m}_bars' in bars_tag and f'{NS}:{m}_grate' in stone, m
     assert json.loads((RES / f'data/{NS}/recipe/{m}_bars.json').read_text(encoding='utf-8'))['result'] == {'id': f'{NS}:{m}_bars', 'count': 16}
     assert json.loads((RES / f'data/{NS}/recipe/{m}_grate_from_{m}_block_stonecutting.json').read_text(encoding='utf-8'))['result']['count'] == 4
-# N78b (docs/ai/PLAN-N78B-2026-11-17.md): 3D grates - outer cube, six inward faces, hole walls; every face culls with its side; a flat
-# twin (cube_all) per grate for the client option off; at most 400 quads per block (12 + 6 x grid lines used).
+# N78/N78b (docs/ai/PLAN-N78B-2026-11-17.md, owner 17.11.: option default off): the usual grate ids inherit template_grate (cube + six inner
+# faces); the 3D twin simpleores:block/<path>_3d (client option on) - outer cube, six inward faces, hole walls; every face culls with its
+# side; at most 400 quads per block (12 + 6 x grid lines used).
 _DIRS = ('down', 'up', 'north', 'south', 'west', 'east')
 for _rel, _tex in [(f'assets/{NS}/models/block/{m}_grate', f'{NS}:block/{m}_grate') for m in BAR_METALS] + \
         [(f'assets/minecraft/models/block/{a}copper_grate', f'minecraft:block/{a}copper_grate') for a in ('', 'exposed_', 'weathered_', 'oxidized_')]:
-    _model = json.loads((RES / f'{_rel}.json').read_text(encoding='utf-8'))
+    assert json.loads((RES / f'{_rel}.json').read_text(encoding='utf-8')) == {'parent': f'{NS}:block/template_grate', 'textures': {'all': _tex}}, _rel
+    _twin = f'assets/{NS}/models/block/{_rel.rsplit("/", 1)[1]}_3d'
+    _model = json.loads((RES / f'{_twin}.json').read_text(encoding='utf-8'))
     _els = _model['elements']
-    assert _model['textures']['all'] == _tex and _els[0]['from'] == [0, 0, 0] and _els[0]['to'] == [16, 16, 16] and set(_els[0]['faces']) == set(_DIRS), _rel
-    assert all(len(e['faces']) == 1 for e in _els[1:]) and 12 < len(_els) + 5 <= 400, (_rel, len(_els) + 5)
-    assert all(f['cullface'] in _DIRS for e in _els for f in e['faces'].values()), _rel
+    assert _model['textures']['all'] == _tex and _els[0]['from'] == [0, 0, 0] and _els[0]['to'] == [16, 16, 16] and set(_els[0]['faces']) == set(_DIRS), _twin
+    assert all(len(e['faces']) == 1 for e in _els[1:]) and 12 < len(_els) + 5 <= 400, (_twin, len(_els) + 5)
+    assert all(f['cullface'] in _DIRS for e in _els for f in e['faces'].values()), _twin
     _axis = {'down': 1, 'up': 1, 'north': 2, 'south': 2, 'west': 0, 'east': 0}
     _inner = [d for e in _els[1:] for d in e['faces'] if e['from'][_axis[d]] == e['to'][_axis[d]]
               and sum(e['to'][k] - e['from'][k] for k in range(3)) == 32]   # full 16 x 16 planes facing along their own axis
-    assert sorted(_inner) == sorted(_DIRS), (_rel, _inner)
-    _flat = RES / f'assets/{NS}/models/block/{_rel.rsplit("/", 1)[1]}_flat.json'
-    assert json.loads(_flat.read_text(encoding='utf-8')) == {'parent': 'minecraft:block/cube_all', 'textures': {'all': _tex}}, _flat
-assert not (RES / f'assets/{NS}/models/block/template_grate.json').exists(), 'N78b: the 3D grates replace the template'
+    assert sorted(_inner) == sorted(_DIRS), (_twin, _inner)
+    assert not (RES / f'assets/{NS}/models/block/{_rel.rsplit("/", 1)[1]}_flat.json').exists(), _rel
+_grate = json.loads((RES / f'assets/{NS}/models/block/template_grate.json').read_text(encoding='utf-8'))['elements']
+assert len(_grate) == 7 and sorted(next(iter(e['faces'])) for e in _grate[1:]) == ['down', 'east', 'north', 'south', 'up', 'west'], 'grate template'
+assert re.search(r'boolean grates3d = false;', (JAVA / 'config/OresClientConfig.java').read_text(encoding='utf-8')), 'owner 17.11.: 3D grates default off'
 assert json.loads((RES / 'simpleores.mixins.json').read_text(encoding='utf-8'))['client'] == ['ModelManagerGrateMixin'], 'N78b client mixin'
 _client_key = re.search(r'KEY = "([A-Za-z0-9]+)"', (JAVA / 'config/OresClientConfig.java').read_text(encoding='utf-8')).group(1)
 for _l in langs.values():

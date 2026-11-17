@@ -254,14 +254,36 @@ for path in BLOCKS:
     if path not in GRATES:   # N78b: the grates' 3D models follow below
         put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
     put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{path}'}})
-# N78/N78b (owner 16./17.11., docs/ai/PLAN-N78B-2026-11-17.md): grates are 3D - every side a plate of depth D with real hole walls.
-# Client option grates3d (OresClientConfig, default on): the mod ships the 3D models under the usual ids; with the option off
-# client.GrateModels puts the content of the "_flat" twin (a plain cube_all) under that id while the models load.
+# N78/N78b (owner 16./17.11., docs/ai/PLAN-N78B-2026-11-17.md): the 3D twins: every side a plate of depth D with real hole walls.
+# Client option grates3d (OresClientConfig, owner 17.11.: default OFF): the usual ids carry the N78 look (template_grate: cube + six
+# inner faces); with the option on client.GrateModels puts the content of the "_3d" twin (simpleores:block/<path>_3d) under that id while
+# the models load. Loaders without the client mixin (Forge 26.3) therefore always show the default.
 # Per side: the outer face and an inward face at depth d (whole texture each, same pixel at the same place), plus at most ONE wall quad per
 # pixel grid line and direction ("slices"): it shows the pixel column/row on the bar side of the line (zero-width UV in the pixel middle,
 # exactly aligned along the line). Where that pixel is solid and its neighbour a hole it is the hole's wall, where both are solid it sits
 # hidden inside the bar, where it is a hole itself it is transparent - one quad per line instead of one per edge piece. All quads of a side
 # cull with that side (a row of the same grate stays one cage like glass; nothing behind a full block).
+# N78 (owner 16.11.): the default grate look - the cube of cube_all plus six inward faces, each 0.1 px inside its outer face (no
+# z-fighting with a different grate or block next to it), mirrored UVs so a pattern pixel sits at the same place on both sides; every
+# face culls like its outer face (a row of the same grate stays one cage, like glass).
+_SIDES = {'down': ('up', [0, 0, 0], [16, 0, 16]), 'up': ('down', [0, 16, 0], [16, 16, 16]), 'north': ('south', [0, 0, 0], [16, 16, 0]),
+          'south': ('north', [0, 0, 16], [16, 16, 16]), 'west': ('east', [0, 0, 0], [0, 16, 16]), 'east': ('west', [16, 0, 0], [16, 16, 16])}
+_INSET = {'down': (1, 0.1), 'up': (1, -0.1), 'north': (2, 0.1), 'south': (2, -0.1), 'west': (0, 0.1), 'east': (0, -0.1)}
+
+
+def grate_template():
+    elements = [{'from': [0, 0, 0], 'to': [16, 16, 16],
+                 'faces': {d: {'texture': '#all', 'cullface': d} for d in ('down', 'up', 'north', 'south', 'west', 'east')}}]
+    for outer, (inner, a, b) in _SIDES.items():
+        axis, delta = _INSET[outer]
+        a, b = list(a), list(b)
+        a[axis] = b[axis] = round(a[axis] + delta, 3)
+        uv = [0, 16, 16, 0] if outer in ('down', 'up') else [16, 0, 0, 16]
+        elements.append({'from': a, 'to': b, 'faces': {inner: {'uv': uv, 'texture': '#all', 'cullface': outer}}})
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#all'}, 'elements': elements}
+
+
+put(ASSETS / 'models/block/template_grate.json', grate_template())
 GRATE_DEPTH = 1.5
 _DIRS = ('down', 'up', 'north', 'south', 'west', 'east')
 _AXIS = {'down': (1, -1), 'up': (1, 1), 'north': (2, -1), 'south': (2, 1), 'west': (0, -1), 'east': (0, 1)}   # axis, outward sign
@@ -386,15 +408,16 @@ COPPER_AGES = ('', 'exposed_', 'weathered_', 'oxidized_')
 GRATE_QUADS = {}
 for path in GRATES:
     _mask = png_mask(ASSETS / f'textures/block/{path}.png')
-    put_compact(ASSETS / f'models/block/{path}.json', grate_model(f'{NS}:block/{path}', _mask))
-    put(ASSETS / f'models/block/{path}_flat.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
+    put(ASSETS / f'models/block/{path}.json', {'parent': f'{NS}:block/template_grate', 'textures': {'all': f'{NS}:block/{path}'}})
+    put_compact(ASSETS / f'models/block/{path}_3d.json', grate_model(f'{NS}:block/{path}', _mask))
     GRATE_QUADS[path] = len(grate_3d(_mask)) + 5
-# A12 (N78): the Vanilla copper grates get the same 3D model (model only, no gameplay change; a resource pack still wins; the waxed grates
-# use these models too); the flat twins are Vanilla's own cube_all. Owner objection = drop these files (docs/ai/PLAN-N78-2026-11-16.md).
+# A12 (N78): the Vanilla copper grates get the same inner sides and 3D twin (model only, no gameplay change; a resource pack still wins;
+# the waxed grates use these models too). Owner objection = drop these files (docs/ai/PLAN-N78-2026-11-16.md).
 for _age in COPPER_AGES:
-    put_compact(RES / f'assets/minecraft/models/block/{_age}copper_grate.json',
+    put(RES / f'assets/minecraft/models/block/{_age}copper_grate.json',
+        {'parent': f'{NS}:block/template_grate', 'textures': {'all': f'minecraft:block/{_age}copper_grate'}})
+    put_compact(ASSETS / f'models/block/{_age}copper_grate_3d.json',
                 grate_model(f'minecraft:block/{_age}copper_grate', [[ch == '#' for ch in row] for row in COPPER_GRATE_HOLES]))
-    put(ASSETS / f'models/block/{_age}copper_grate_flat.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'minecraft:block/{_age}copper_grate'}})
 GRATE_QUADS['copper_grate'] = len(grate_3d([[ch == '#' for ch in row] for row in COPPER_GRATE_HOLES])) + 5
 # Silver mirror: a one pixel plate at the south side of the cell (facing north), the texture carries frame and glass; the item is a flat sprite.
 # N25: on the floor and the ceiling too, like the button (face=floor|wall|ceiling); the wall model turned down (x 270) or up (x 90).
@@ -1282,10 +1305,10 @@ for key, texts in MOVED_LINE['config'].items():
 # N78b: the client option (config/simpleores-client.json, OresClientConfig.KEY).
 CLIENT_OPTIONS = {
     'grates3d': (('3D grates', '3D-Roste'),
-                 ('Metal grates and the Vanilla copper grates show bars with depth and their inner sides. Off: flat like Vanilla (fewer faces to draw, '
-                  'for builds with very many grates). Only on this client; a change reloads the resources.\nDefault: true.',
-                  'Metallroste und die Vanilla-Kupferroste zeigen Stäbe mit Tiefe und ihre Innenseiten. Aus: flach wie Vanilla (weniger Flächen zu '
-                  'zeichnen, für Bauten mit sehr vielen Rosten). Nur auf diesem Client; eine Änderung lädt die Ressourcen neu.\nStandard: true.')),
+                 ('On: metal grates and the Vanilla copper grates show bars with depth (more faces to draw). Off: flat grates that show '
+                  'their inner sides through the holes. Only on this client; a change reloads the resources.\nDefault: false.',
+                  'An: Metallroste und die Vanilla-Kupferroste zeigen Stäbe mit Tiefe (mehr Flächen zu zeichnen). Aus: flache Roste, die '
+                  'ihre Innenseiten durch die Löcher zeigen. Nur auf diesem Client; eine Änderung lädt die Ressourcen neu.\nStandard: false.')),
 }
 
 
@@ -1725,12 +1748,12 @@ FEATURES = [
              ['Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.',
               'Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).',
               'Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.',
-              '3D (N78b): the grates and the Vanilla copper grates are real models with bars of depth and visible inner sides; the client option "3D grates" (config/simpleores-client.json, /simpleclient simpleores) switches back to flat Vanilla-like cubes for builds with very many grates.']),
+              'Inner sides (N78): the grates and the Vanilla copper grates show their inner sides through the holes. 3D (N78b): the client option "3D grates" (config/simpleores-client.json, /simpleclient simpleores; default off) turns them into real models with bars of depth (more faces to draw).']),
             ('Metallgitter und -roste', 'Jedes Baumetall - Silber, Blei, Zink, Nickel, Zinn, Messing, Bronze und Edelstahl - hat ein Gitter wie das Eisengitter und einen Rost wie der Kupferrost, jedes mit eigenem Muster.',
              ['Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.',
               'Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).',
               'Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.',
-              '3D (N78b): die Roste und die Vanilla-Kupferroste sind echte Modelle mit Stäben in der Tiefe und sichtbaren Innenseiten; die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores) schaltet für Bauten mit sehr vielen Rosten auf flache Würfel wie Vanilla zurück.'])),
+              'Innenseiten (N78): die Roste und die Vanilla-Kupferroste zeigen ihre Innenseiten durch die Löcher. 3D (N78b): die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores; Standard aus) macht daraus echte Modelle mit Stäben in der Tiefe (mehr Flächen zu zeichnen).'])),
     feature('metal_doors', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/MetalDoorBlock.java', f'{JAVA}/block/MetalTrapDoorBlock.java', f'{DATAP}/recipe/silver_door.json',
                             f'{DATAP}/recipe/silver_trapdoor.json'],
             ('Metal doors and trapdoors', 'Every building metal - silver, lead, zinc, nickel, tin, brass, bronze and stainless steel - has a door and a trapdoor like the copper ones.',

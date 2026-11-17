@@ -10,9 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Client config {@code config/simpleores-client.json} (N78b, docs/ai/PLAN-N78B-2026-11-17.md): "3D grates". On (default) the metal grates and
- * the Vanilla copper grates show bars with depth and their inner sides; off they are flat cubes like Vanilla (6 quads instead of 60 to 324).
- * Read while the block models load ({@link com.simpleores.client.GrateModels}), so it works on every loader without a client entry point;
+ * Client config {@code config/simpleores-client.json} (N78b, docs/ai/PLAN-N78B-2026-11-17.md): "3D grates". Off (default, owner 17.11.) the metal
+ * grates and the Vanilla copper grates are flat cubes showing their inner sides (12 quads, N78); on they show bars with depth (60 to 324 quads).
+ * Read while the block models load ({@link com.simpleores.client.GrateModels}), so it works without a client entry point on every loader with the client mixin (Forge 26.3 has none there: always the default);
  * Fabric also offers it in {@code /simpleclient simpleores} and the config screen, which reload the resources after a change.
  */
 public final class OresClientConfig {
@@ -20,7 +20,7 @@ public final class OresClientConfig {
     /** The only key of the file (check_data reads it). */
     public static final String KEY = "grates3d";
 
-    public static volatile boolean grates3d = true;
+    public static volatile boolean grates3d = false;
     private static volatile boolean loaded;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -58,7 +58,7 @@ public final class OresClientConfig {
 
     public static void apply(JsonObject json) {
         JsonElement v = json.get(KEY);
-        grates3d = v == null || !v.isJsonPrimitive() || !v.getAsJsonPrimitive().isBoolean() || v.getAsBoolean();
+        grates3d = v != null && v.isJsonPrimitive() && v.getAsJsonPrimitive().isBoolean() && v.getAsBoolean();
     }
 
     public static JsonObject toJson() {

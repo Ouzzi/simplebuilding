@@ -261,12 +261,13 @@ def n78b(s):
         s.chat(f'simpleclient simpleores set grates3d {value}', 1.0)
         time.sleep(15)   # resource reload (F3+T like)
         result[mode] = _grates(s, origin, mode)
-    s.chat('simpleclient simpleores set grates3d true', 1.0)
+    s.chat('simpleclient simpleores set grates3d false', 1.0)   # back to the default (owner 17.11.: off = flat with inner sides)
     time.sleep(15)
     s.key('F1', 0.4)
     for name in result['3d']:
         n = _changed(result['3d'][name], result['flat'][name])
         s.check(f'{name}: 3D and flat look different (option switches the model)', n > 300, n)
+    s.check('option back to the default off', True, 'flat shots: grates show their inner sides (N78 look), not plain cubes')
     s.check('grate screenshots taken (3d/flat x front/oblique/inside/panel)', True, 'compare by eye: bar depth, inner sides, no holes in the walls')
 
 

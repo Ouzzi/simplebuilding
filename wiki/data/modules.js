@@ -2028,7 +2028,7 @@ window.WIKI_MODULES = [
       "config": 27,
       "features": 27
     },
-    "dataHash": "ea4ebe49e91f"
+    "dataHash": "43f253ce676f"
   },
   {
     "id": "simplemachines",

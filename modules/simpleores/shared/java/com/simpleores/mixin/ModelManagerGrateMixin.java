@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/** N78b: the client option "3D grates" picks the 3D or the flat grate models while the block models load ({@link GrateModels}). */
+/** N78b: the client option "3D grates" swaps in the 3D grate models when on while the block models load ({@link GrateModels}). */
 @Mixin(ModelManager.class)
 public abstract class ModelManagerGrateMixin {
     @Inject(method = "loadBlockModels", at = @At("RETURN"), cancellable = true)

@@ -126,33 +126,34 @@ public final class OresTests {
             h.succeed();
         });
         ALL.put("grate_models", h -> {
-            // N78b: option "3D grates" off puts the flat twin under each grate model id (ours and Vanilla's copper), nothing else.
+            // N78b (owner 17.11.: default off): option "3D grates" on puts the 3D twin under each grate model id (ours and Vanilla's copper), nothing else.
             var id = (java.util.function.Function<String, net.minecraft.resources.Identifier>) net.minecraft.resources.Identifier::parse;
             java.util.Map<net.minecraft.resources.Identifier, String> models = new java.util.HashMap<>();
-            for (String k : List.of("simpleores:block/silver_grate", "simpleores:block/silver_grate_flat", "minecraft:block/copper_grate",
-                    "simpleores:block/copper_grate_flat", "simplefoundry:block/fire_grate", "minecraft:block/iron_bars", "simpleores:block/lead_grate")) {
+            for (String k : List.of("simpleores:block/silver_grate", "simpleores:block/silver_grate_3d", "minecraft:block/copper_grate",
+                    "simpleores:block/copper_grate_3d", "simplefoundry:block/fire_grate", "minecraft:block/iron_bars", "simpleores:block/lead_grate")) {
                 models.put(id.apply(k), k);
             }
-            check(h, com.simpleores.client.GrateModels.apply(models, true) == models, "on: models unchanged");
-            var off = com.simpleores.client.GrateModels.apply(java.util.Collections.unmodifiableMap(models), false);
-            check(h, off.get(id.apply("simpleores:block/silver_grate")).equals("simpleores:block/silver_grate_flat"), "off: metal grate flat");
-            check(h, off.get(id.apply("minecraft:block/copper_grate")).equals("simpleores:block/copper_grate_flat"), "off: Vanilla copper grate flat");
-            check(h, off.get(id.apply("simplefoundry:block/fire_grate")).equals("simplefoundry:block/fire_grate"), "off: other mods' grates untouched");
-            check(h, off.get(id.apply("minecraft:block/iron_bars")).equals("minecraft:block/iron_bars"), "off: other models untouched");
-            check(h, off.get(id.apply("simpleores:block/lead_grate")).equals("simpleores:block/lead_grate"), "off: no twin, model kept");
-            check(h, off.size() == models.size(), "off: same ids");
+            check(h, com.simpleores.client.GrateModels.apply(models, false) == models, "off: models unchanged (inner-side default)");
+            var on = com.simpleores.client.GrateModels.apply(java.util.Collections.unmodifiableMap(models), true);
+            check(h, on.get(id.apply("simpleores:block/silver_grate")).equals("simpleores:block/silver_grate_3d"), "on: metal grate 3D");
+            check(h, on.get(id.apply("minecraft:block/copper_grate")).equals("simpleores:block/copper_grate_3d"), "on: Vanilla copper grate 3D");
+            check(h, on.get(id.apply("simplefoundry:block/fire_grate")).equals("simplefoundry:block/fire_grate"), "on: other mods' grates untouched");
+            check(h, on.get(id.apply("minecraft:block/iron_bars")).equals("minecraft:block/iron_bars"), "on: other models untouched");
+            check(h, on.get(id.apply("simpleores:block/lead_grate")).equals("simpleores:block/lead_grate"), "on: no twin, model kept");
+            check(h, on.get(id.apply("simpleores:block/silver_grate_3d")).equals("simpleores:block/silver_grate_3d"), "on: twin itself kept");
+            check(h, on.size() == models.size(), "on: same ids");
             boolean was = com.simpleores.config.OresClientConfig.grates3d;
             try {
                 com.simpleores.config.OresClientConfig.apply(new com.google.gson.JsonObject());
-                check(h, com.simpleores.config.OresClientConfig.grates3d, "client option defaults to on");
+                check(h, !com.simpleores.config.OresClientConfig.grates3d, "client option defaults to off");
                 var json = new com.google.gson.JsonObject();
-                json.addProperty(com.simpleores.config.OresClientConfig.KEY, false);
+                json.addProperty(com.simpleores.config.OresClientConfig.KEY, true);
                 com.simpleores.config.OresClientConfig.apply(json);
-                check(h, !com.simpleores.config.OresClientConfig.grates3d && !com.simpleores.config.OresClientConfig.toJson()
-                        .get(com.simpleores.config.OresClientConfig.KEY).getAsBoolean(), "client option off round trip");
+                check(h, com.simpleores.config.OresClientConfig.grates3d && com.simpleores.config.OresClientConfig.toJson()
+                        .get(com.simpleores.config.OresClientConfig.KEY).getAsBoolean(), "client option on round trip");
                 json.addProperty(com.simpleores.config.OresClientConfig.KEY, "nonsense");
                 com.simpleores.config.OresClientConfig.apply(json);
-                check(h, com.simpleores.config.OresClientConfig.grates3d, "broken value -> default on");
+                check(h, !com.simpleores.config.OresClientConfig.grates3d, "broken value -> default off");
             } finally {
                 com.simpleores.config.OresClientConfig.grates3d = was;
             }
