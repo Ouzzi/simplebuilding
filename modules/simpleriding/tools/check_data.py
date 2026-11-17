@@ -72,7 +72,10 @@ def check():
     assert {'id': 'simpleores:enderite_horse_armor', 'required': False} in armor['values']
     nautilus = read(resources / 'simpleriding/tags/item/nautilus_armor_enchantable.json')
     assert {'id': 'simpleores:enderite_nautilus_armor', 'required': False} in nautilus['values']
-    assert len(nautilus['values']) == 6
+    assert len(nautilus['values']) == 8  # N89A: + rose_bronze/rose_gold nautilus armor (optional)
+    for a in ('rose_bronze', 'rose_gold'):
+        assert {'id': f'simpleores:{a}_horse_armor', 'required': False} in armor['values']
+        assert {'id': f'simpleores:{a}_nautilus_armor', 'required': False} in nautilus['values']
     assert read(resources / 'simpleriding/enchantment/leaping.json')['supported_items'] == '#simpleriding:mount_armor_enchantable'
     assets = MODULE / 'shared/resources/assets/simpleriding'
     tiers = ['copper', 'iron', 'golden', 'diamond', 'netherite', 'enderite', 'rose_bronze', 'rose_gold']  # N89A: the two rose alloys
