@@ -64,6 +64,10 @@ public final class EarthTests {
             h.assertTrue(EarthSettings.VERSIONS == 27 && java.util.Arrays.equals(EarthSettings.RELEASED, new int[]{25, 26, 27, 5})
                     && EarthSettings.released(EarthSettings.DEFAULT_VERSION) && !EarthSettings.released(12),
                     "V1-V27, released V25, V26, V27, V5 (W2B 15.11.)");
+            // simpleearth-2: the simple menu holds six values, each a display value or a shared one of every released version
+            h.assertTrue(EarthSettings.SIMPLE.size() == 6 && EarthSettings.SIMPLE.stream().allMatch(k -> EarthSettings.isRender(k)
+                    || java.util.Arrays.stream(EarthSettings.RELEASED).allMatch(v -> EarthSettings.SHARED.stream().anyMatch(s -> s.key().equals(k))
+                    && EarthSettings.find(v, k) != null)) && !EarthSettings.SIMPLE.contains("edge"), "few sliders outside the developer mode (simpleearth-2)");
             h.assertTrue(EarthServerConfig.minGrid == 3 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
                     && !EarthServerConfig.requireFlight
                     && EarthServerConfig.fastHeights, "WD25-16 server defaults (E5 any flight)");

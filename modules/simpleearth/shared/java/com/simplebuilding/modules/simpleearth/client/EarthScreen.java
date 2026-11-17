@@ -28,8 +28,9 @@ import net.minecraft.network.chat.Component;
  * The Simple Earth menu (key N only, IG31-33): a box at the right edge that leaves the world visible and does not pause -
  * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). The released versions
  * ({@link EarthSettings#RELEASED}: V25, V26, V27, V5 - W2B 15.11.) are direct buttons in one row; only in the hidden developer
- * mode do all other versions sit in a drop-down below (E29-6/E30-4); the scroll list shows that version's values, then the
- * display settings of all versions.
+ * mode do all other versions sit in a drop-down below (E29-6/E30-4). simpleearth-2 (PLAN40 "few understandable sliders",
+ * W2B=ok): outside the developer mode the list holds only {@link EarthSettings#SIMPLE} (six values, no scrolling, a shorter
+ * panel); in the developer mode it shows that version's values, then the display settings of all versions.
  *
  * <p>WF25-2/WG26-3 (owner 26.10.: only the real Vanilla buttons reacted, never the self-drawn list): every control is a real
  * Vanilla widget - {@link AbstractSliderButton} for numbers, {@link CycleButton} for on/off - in a real Vanilla scroll list
@@ -59,14 +60,15 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
     @Override
     protected void init() {
         W = Math.min(300, width - 12);
-        panelH = Math.min(height - 12, 320);
+        boolean dev = EarthClientConfig.developerMode;
+        // simpleearth-2: the simple panel is just tall enough for its rows (title 22 + list + version row, text and buttons 89)
+        panelH = Math.min(height - 12, dev ? 320 : 22 + EarthSettings.SIMPLE.size() * ROW + 4 + 89);
         panelX = width - W - 6;
         panelY = Math.max(6, (height - panelH) / 2);
         // E31-5: every setting in ONE list right under the title; the version choice and its description below it
         int by = panelY + panelH - 26;
         descY = by - 34;
         // W2B: the drop-down of the other versions only in the developer mode; without it the row moves down into its place
-        boolean dev = EarthClientConfig.developerMode;
         int dropY = descY - 23, favY = dev ? dropY - 21 : dropY;
         versionButtons.clear();
         olderVersions = null;
@@ -119,15 +121,26 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         changed(EarthSettings.find(version, "edge"));
     }
 
-    /** The list for the chosen version: display settings of all versions, the shared values, the version's own values. */
+    /**
+     * The list for the chosen version: outside the developer mode only the few simple values; in it the shared values, the
+     * version's own values and the display settings of all versions.
+     */
     private void rebuild() {
         double keep = list.scrollAmount();
         List<Row> entries = new ArrayList<>();
         int v = EarthClientConfig.version;
-        // one block: the important shared values first (edge, render height, blend band, detail ...), the version's own values,
-        // then the display values
-        for (EarthSettings.Setting s : EarthSettings.forVersion(v)) entries.add(control(s, false));
-        for (EarthSettings.Setting s : EarthSettings.RENDER) entries.add(control(s, true));
+        if (!EarthClientConfig.developerMode) {
+            for (String key : EarthSettings.SIMPLE) {
+                boolean global = EarthSettings.isRender(key);
+                EarthSettings.Setting s = global ? EarthSettings.findRender(key) : EarthSettings.find(v, key);
+                if (s != null) entries.add(control(s, global));
+            }
+        } else {
+            // one block: the important shared values first (edge, render height, blend band, detail ...), the version's own
+            // values, then the display values
+            for (EarthSettings.Setting s : EarthSettings.forVersion(v)) entries.add(control(s, false));
+            for (EarthSettings.Setting s : EarthSettings.RENDER) entries.add(control(s, true));
+        }
         list.replaceEntries(entries);
         list.setScrollAmount(keep);
         for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = EarthSettings.RELEASED[i] != v;

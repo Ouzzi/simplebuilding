@@ -93,6 +93,10 @@ public final class SortProbe {
                         var create = Class.forName("com.simplelib.config.screen.GenericConfigScreen").getMethod("create", String.class, net.minecraft.client.gui.screens.Screen.class);
                         mc.gui.setScreen((net.minecraft.client.gui.screens.Screen) create.invoke(null, c.get("value").getAsString(), mc.gui.screen()));
                     }
+                    // b-earth82: opens a mod screen by class name (public no-argument constructor) when its key is out of the
+                    // driver's reach (Simple Earth's "#" = SDL NONUSHASH has no Xvfb key)
+                    case "screen" -> mc.gui.setScreen((net.minecraft.client.gui.screens.Screen) Class.forName(c.get("value").getAsString())
+                            .getConstructor().newInstance());
                     case "quit" -> mc.stop();
                     default -> org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("sort probe: unknown command {}", c);
                 }

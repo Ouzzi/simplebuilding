@@ -443,17 +443,34 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
      * SDL -> MouseHandler) is checked by modules/simpleearth/tools/menu_probe.py in a normal integration client.
      */
     private static void menu(ClientGameTestContext context) {
+        // simpleearth-2: outside the developer mode only the few simple sliders, no version style values
         context.runOnClient(mc -> {
+            EarthClientConfig.developerMode = false;
+            EarthClientConfig.version = 25;
+            mc.gui.setScreen(new EarthScreen());
+        });
+        context.waitTicks(5);
+        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScrollTo("foldBand"));
+        context.waitTicks(5);
+        check(context.computeOnClient(mc -> {
+            EarthScreen s = (EarthScreen) mc.gui.screen();
+            return s.probeControl("showOthers") != null && s.probeControl("switchY") != null && s.probeControl("foldBand") == null
+                    && s.probeControl("edge") == null;
+        }), "simple menu: the few sliders, no edge or fold band outside the developer mode");
+        context.takeScreenshot("simpleearth-menu-simple");
+        context.runOnClient(mc -> {
+            EarthClientConfig.developerMode = true;
             EarthClientConfig.version = 10;
             mc.gui.setScreen(new EarthScreen());
         });
         context.waitTicks(5);
         context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScrollTo("tipTime"));
         context.waitTicks(5);
-        check(context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeControl("tipTime") != null), "V10 own values in the Vanilla list");
+        check(context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeControl("tipTime") != null), "V10 own values in the Vanilla list (developer mode)");
         context.takeScreenshot("simpleearth-menu-used");
         context.runOnClient(mc -> {
             mc.gui.setScreen(null);
+            EarthClientConfig.developerMode = false;
             EarthClientConfig.version = 6;
         });
     }
