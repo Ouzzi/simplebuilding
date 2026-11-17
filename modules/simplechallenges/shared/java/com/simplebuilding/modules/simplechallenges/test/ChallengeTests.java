@@ -139,6 +139,37 @@ public final class ChallengeTests {
         for (Entity e : level.getEntities((Entity) null, new AABB(a.getX(), a.getY(), a.getZ(), b.getX() + 1, b.getY() + 1, b.getZ() + 1), x -> !(x instanceof Player))) e.discard();
     }
 
+    /**
+     * Gate 206 (both tests red in the first run, green alone): the locked/free cells lie up to ~50 blocks east of the test
+     * structure, in chunks whose entities may not be loaded yet in a full batch - a dropped ItemEntity is then neither kept
+     * nor found. Like TestCentreBuilder: force the chunks of the area, wait until their entities are loaded, then run the
+     * test in one tick and release only what this test forced.
+     */
+    private static void withLoadedEntities(GameTestHelper h, BlockPos a, BlockPos b, Runnable body) {
+        ServerLevel level = h.getLevel();
+        List<net.minecraft.world.level.ChunkPos> chunks = new java.util.ArrayList<>(), forced = new java.util.ArrayList<>();
+        for (int cx = a.getX() >> 4; cx <= b.getX() >> 4; cx++) {
+            for (int cz = a.getZ() >> 4; cz <= b.getZ() >> 4; cz++) {
+                chunks.add(new net.minecraft.world.level.ChunkPos(cx, cz));
+                if (level.setChunkForced(cx, cz, true)) forced.add(new net.minecraft.world.level.ChunkPos(cx, cz));
+            }
+        }
+        whenLoaded(h, level, chunks, forced, body, 0);
+    }
+
+    private static void whenLoaded(GameTestHelper h, ServerLevel level, List<net.minecraft.world.level.ChunkPos> chunks,
+                                   List<net.minecraft.world.level.ChunkPos> forced, Runnable body, int waited) {
+        if (waited < 60 && !chunks.stream().allMatch(c -> level.areEntitiesLoaded(c.pack()))) {
+            h.runAfterDelay(1, () -> whenLoaded(h, level, chunks, forced, body, waited + 1));
+            return;
+        }
+        try {
+            body.run();
+        } finally {
+            for (net.minecraft.world.level.ChunkPos c : forced) level.setChunkForced(c.x(), c.z(), false);
+        }
+    }
+
     static {
         ALL.put("config_defaults", h -> {
             ChallengeServerConfig.reset();
@@ -785,59 +816,65 @@ public final class ChallengeTests {
 
         // a-audsb31e2 simplechallenges-P2-1: breaking a block across the border must not roll a Lucky drop (the block cannot go)
         ALL.put("lucky_in_locked_cell_gives_nothing", h -> {
-            ServerLevel level = h.getLevel();
-            ServerPlayer creative = h.makeMockServerPlayerInLevel();
-            Gate.creativeCheck = pl -> pl == creative; // mock players always report creative: only this one does
-            BlockPos origin = h.absolutePos(BlockPos.ZERO);
-            int y = origin.getY() + 40;
-            BlockPos locked = null, free = null;
-            try {
-                UnlockGrid g = openBorderWorld(h, true);
-                locked = new BlockPos(edge(g, h) + 1, y, origin.getZ() + 3);
-                free = new BlockPos(edge(g, h) - 2, y, origin.getZ() + 3);
-                check(h, !g.isFreeAtBlock(locked.getX(), locked.getZ()) && g.isFreeAtBlock(free.getX(), free.getZ()), "border geometry");
-                level.getChunkAt(locked).setBlockState(locked, Blocks.STONE.defaultBlockState(), 0);
-                level.setBlock(free, Blocks.STONE.defaultBlockState(), 2);
-                ServerPlayer p = h.makeMockServerPlayerInLevel();
-                p.setGameMode(GameType.SURVIVAL);
-                p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
-                Active a = ChallengeRuntime.server();
-                check(h, LuckyService.beforeBreak(level, p, locked, Blocks.STONE.defaultBlockState()), "a locked block is left to Vanilla");
-                check(h, a.state.luckyBreaks == 0 && level.getEntitiesOfClass(ItemEntity.class, new AABB(locked).inflate(1.5)).isEmpty(), "nothing dropped, nothing counted");
-                check(h, !LuckyService.beforeBreak(level, p, free, Blocks.STONE.defaultBlockState()), "the same break in a free cell is handled");
-                check(h, a.state.luckyBreaks == 1 && level.getEntitiesOfClass(ItemEntity.class, new AABB(free).inflate(1.5)).size() == 1, "one drop, counted");
-            } finally {
-                Gate.creativeCheck = Player::isCreative;
-                closeBorderWorld(h, origin.offset(-20, 39, -2), origin.offset(60, 41, 8));
-            }
-            h.succeed();
+            BlockPos o = h.absolutePos(BlockPos.ZERO);
+            withLoadedEntities(h, o.offset(-20, 0, -2), o.offset(60, 0, 8), () -> {
+                ServerLevel level = h.getLevel();
+                ServerPlayer creative = h.makeMockServerPlayerInLevel();
+                Gate.creativeCheck = pl -> pl == creative; // mock players always report creative: only this one does
+                BlockPos origin = h.absolutePos(BlockPos.ZERO);
+                int y = origin.getY() + 40;
+                BlockPos locked = null, free = null;
+                try {
+                    UnlockGrid g = openBorderWorld(h, true);
+                    locked = new BlockPos(edge(g, h) + 1, y, origin.getZ() + 3);
+                    free = new BlockPos(edge(g, h) - 2, y, origin.getZ() + 3);
+                    check(h, !g.isFreeAtBlock(locked.getX(), locked.getZ()) && g.isFreeAtBlock(free.getX(), free.getZ()), "border geometry");
+                    level.getChunkAt(locked).setBlockState(locked, Blocks.STONE.defaultBlockState(), 0);
+                    level.setBlock(free, Blocks.STONE.defaultBlockState(), 2);
+                    ServerPlayer p = h.makeMockServerPlayerInLevel();
+                    p.setGameMode(GameType.SURVIVAL);
+                    p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+                    Active a = ChallengeRuntime.server();
+                    check(h, LuckyService.beforeBreak(level, p, locked, Blocks.STONE.defaultBlockState()), "a locked block is left to Vanilla");
+                    check(h, a.state.luckyBreaks == 0 && level.getEntitiesOfClass(ItemEntity.class, new AABB(locked).inflate(1.5)).isEmpty(), "nothing dropped, nothing counted");
+                    check(h, !LuckyService.beforeBreak(level, p, free, Blocks.STONE.defaultBlockState()), "the same break in a free cell is handled");
+                    check(h, a.state.luckyBreaks == 1 && level.getEntitiesOfClass(ItemEntity.class, new AABB(free).inflate(1.5)).size() == 1, "one drop, counted");
+                } finally {
+                    Gate.creativeCheck = Player::isCreative;
+                    closeBorderWorld(h, origin.offset(-20, 39, -2), origin.offset(60, 41, 8));
+                }
+                h.succeed();
+            });
         });
 
         // a-audsb31e2 simplechallenges-P2-2: Vanilla drops first and changes afterwards, so a refused change must not drop
         ALL.put("locked_cells_drop_nothing", h -> {
-            ServerLevel level = h.getLevel();
-            BlockPos origin = h.absolutePos(BlockPos.ZERO);
-            int y = origin.getY() + 40;
-            try {
-                UnlockGrid g = openBorderWorld(h, false);
-                BlockPos locked = new BlockPos(edge(g, h) + 1, y, origin.getZ() + 3), free = new BlockPos(edge(g, h) - 2, y, origin.getZ() + 3);
-                check(h, !g.isFreeAtBlock(locked.getX(), locked.getZ()) && g.isFreeAtBlock(free.getX(), free.getZ()), "border geometry");
-                AABB inLocked = new AABB(locked).inflate(1.5), inFree = new AABB(free).inflate(1.5);
-                Block.popResource(level, locked, new ItemStack(Items.DIAMOND));
-                Block.popResourceFromFace(level, locked, Direction.UP, new ItemStack(Items.DIAMOND));
-                check(h, level.getEntitiesOfClass(ItemEntity.class, inLocked).isEmpty(), "nothing pops out of a locked cell");
-                Block.popResource(level, free, new ItemStack(Items.DIAMOND));
-                List<ItemEntity> dropped = level.getEntitiesOfClass(ItemEntity.class, inFree);
-                check(h, dropped.size() == 1, "a free cell still drops");
-                dropped.get(0).discard();
-                // Level.destroyBlock drops first and then fails to remove the block
-                level.getChunkAt(locked).setBlockState(locked, Blocks.DIAMOND_BLOCK.defaultBlockState(), 0);
-                check(h, !level.destroyBlock(locked, true) && level.getBlockState(locked).is(Blocks.DIAMOND_BLOCK), "the block stays");
-                check(h, level.getEntitiesOfClass(ItemEntity.class, inLocked).isEmpty(), "and drops nothing");
-            } finally {
-                closeBorderWorld(h, origin.offset(-20, 39, -2), origin.offset(60, 41, 8));
-            }
-            h.succeed();
+            BlockPos o = h.absolutePos(BlockPos.ZERO);
+            withLoadedEntities(h, o.offset(-20, 0, -2), o.offset(60, 0, 8), () -> {
+                ServerLevel level = h.getLevel();
+                BlockPos origin = h.absolutePos(BlockPos.ZERO);
+                int y = origin.getY() + 40;
+                try {
+                    UnlockGrid g = openBorderWorld(h, false);
+                    BlockPos locked = new BlockPos(edge(g, h) + 1, y, origin.getZ() + 3), free = new BlockPos(edge(g, h) - 2, y, origin.getZ() + 3);
+                    check(h, !g.isFreeAtBlock(locked.getX(), locked.getZ()) && g.isFreeAtBlock(free.getX(), free.getZ()), "border geometry");
+                    AABB inLocked = new AABB(locked).inflate(1.5), inFree = new AABB(free).inflate(1.5);
+                    Block.popResource(level, locked, new ItemStack(Items.DIAMOND));
+                    Block.popResourceFromFace(level, locked, Direction.UP, new ItemStack(Items.DIAMOND));
+                    check(h, level.getEntitiesOfClass(ItemEntity.class, inLocked).isEmpty(), "nothing pops out of a locked cell");
+                    Block.popResource(level, free, new ItemStack(Items.DIAMOND));
+                    List<ItemEntity> dropped = level.getEntitiesOfClass(ItemEntity.class, inFree);
+                    check(h, dropped.size() == 1, "a free cell still drops");
+                    dropped.get(0).discard();
+                    // Level.destroyBlock drops first and then fails to remove the block
+                    level.getChunkAt(locked).setBlockState(locked, Blocks.DIAMOND_BLOCK.defaultBlockState(), 0);
+                    check(h, !level.destroyBlock(locked, true) && level.getBlockState(locked).is(Blocks.DIAMOND_BLOCK), "the block stays");
+                    check(h, level.getEntitiesOfClass(ItemEntity.class, inLocked).isEmpty(), "and drops nothing");
+                } finally {
+                    closeBorderWorld(h, origin.offset(-20, 39, -2), origin.offset(60, 41, 8));
+                }
+                h.succeed();
+            });
         });
 
         // a-audsb31e2 simplechallenges-P2-3: a piston that would take, put or destroy a block in a locked cell does not move
