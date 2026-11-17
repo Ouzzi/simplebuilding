@@ -2025,10 +2025,10 @@ window.WIKI_MODULES = [
       "items": 101,
       "blocks": 229,
       "recipes": 468,
-      "config": 26,
+      "config": 27,
       "features": 27
     },
-    "dataHash": "ff11458d78d0"
+    "dataHash": "ea4ebe49e91f"
   },
   {
     "id": "simplemachines",
