@@ -2,6 +2,8 @@
 // Playwright (or playwright-core) in NODE_PATH, no Minecraft runtime. Runs on sb-test:
 //   NODE_PATH=/var/tmp/sb/pw/node_modules WIKI_CHROME=~/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome \
 //   NAV74_SHOTS=/var/tmp/sb/pw/n74 node wiki/tests/nav74_ui.cjs
+// Deployed dev wiki: WIKI_BASE=https://wiki.simplemods.de/dev/ WIKI_COOKIE=sb_session=<value> (path-form run only, the
+// query-form run needs the local server without the rule).
 // Two static servers: "path" behaves like nginx with the N74 rule (/<mod>/... -> index.html, <base href="/" data-modpath>),
 // "query" like a server without it (the wiki has to stay on ?mod=). Checks: start page tiles, mod area with its own
 // sidebar (back link, head, counters = family sum, sub-mods with filter), breadcrumb, flat addresses, search inside the
@@ -59,7 +61,10 @@ async function noOverflow(page, tag) {
   const o = await page.evaluate(() => ({ doc: document.documentElement.scrollWidth, w: window.innerWidth }));
   ok(o.doc <= o.w, tag + ' horizontal scroll ' + JSON.stringify(o));
 }
-const rel = page => { const u = new URL(page.url()); return u.pathname + u.search; };
+const PFX = process.env.WIKI_BASE ? new URL(process.env.WIKI_BASE).pathname.replace(/\/$/, '') : '';
+const pn = u => { const p = new URL(u).pathname; return PFX && p.startsWith(PFX) ? p.slice(PFX.length) || '/' : p; };
+const st = h => (PFX && typeof h === 'string' && h.startsWith(PFX + '/') ? h.slice(PFX.length) : h);
+const rel = page => { const u = new URL(page.url()); return pn(u) + u.search; };
 async function ready(page) { await page.locator('#main h1').first().waitFor(); }
 async function open(page, base, p) { await page.goto(base + p); await ready(page); }
 /* sum of a data key over a mod family, from the loaded data */
@@ -74,6 +79,9 @@ const famItems = (page, id) => page.evaluate(id => {
 async function pathRun(browser, base, width, scheme) {
   const lang = scheme === 'dark' ? 'de' : 'en', de = lang === 'de';
   const ctx = await browser.newContext({ viewport: { width, height: 900 }, colorScheme: scheme });
+  // WIKI_OVERLAY=<file>: try a local dev-overlay.js on the deployed dev wiki
+  if (process.env.WIKI_OVERLAY) await ctx.route('**/_overlay.js', r => r.fulfill({ contentType: 'application/javascript', body: fs.readFileSync(process.env.WIKI_OVERLAY, 'utf8') }));
+  if (process.env.WIKI_COOKIE) { const [name, ...rest] = process.env.WIKI_COOKIE.split('='); await ctx.addCookies([{ name, value: rest.join('='), url: new URL('/', base).href }]); }
   const page = await ctx.newPage();
   const errors = []; page.on('pageerror', e => errors.push(e.message));
   const tag = `path ${width} ${scheme}`;
@@ -97,13 +105,13 @@ async function pathRun(browser, base, width, scheme) {
 
   // ---- tile -> mod area ----
   await page.locator('.modtile[data-mod="simplebuilding"]').click();
-  await page.waitForURL(u => new URL(u).pathname === '/simplebuilding/'); await ready(page);
+  await page.waitForURL(u => pn(u) === '/simplebuilding/'); await ready(page);
   ok(/Wiki$/.test(await page.locator('#main h1').first().textContent()), tag + ' mod overview');
   eq((await page.locator('#main .crumbs').first().innerText()).replace(/\s+/g, ' ').trim(), (de ? 'Alle Mods' : 'All mods') + ' › SimpleBuilding', tag + ' breadcrumb mod');
   await sideOpen();
   ok(await page.locator('#sidebar a.sb-back').isVisible(), tag + ' back link in the sidebar');
   eq((await page.locator('#sidebar .sb-mod-name').textContent()).trim(), 'SimpleBuilding', tag + ' sidebar mod head');
-  const sbItems = await page.locator('#sidebar a[href="/simplebuilding/items' + L + '"] .n').textContent();
+  const sbItems = await page.locator('#sidebar a[href="' + PFX + '/simplebuilding/items' + L + '"] .n').textContent();
   eq(Number(sbItems.replace(/\D/g, '')), await famItems(page, 'simplebuilding'), tag + ' counter = family sum (SimpleBuilding)');
   // sub-mods with a filter field (42 > 8)
   const subs = page.locator('#sidebar details[data-sb="subs-own"] a.sub');
@@ -115,11 +123,11 @@ async function pathRun(browser, base, width, scheme) {
   await contrast(page, tag + ' sidebar', ['#sidebar a span', '#sidebar .sb-mod-name', '#sidebar .sb-note', '#sidebar summary span']);
   await page.screenshot({ path: path.join(shots, `n74-mod-${width}-${scheme}.png`) });
   await page.locator('#sidebar a.sub', { hasText: /^Simple End$/ }).click();
-  await page.waitForURL(u => new URL(u).pathname === '/simpleend/'); await ready(page);
+  await page.waitForURL(u => pn(u) === '/simpleend/'); await ready(page);
   eq((await page.locator('#main .crumbs').first().innerText()).replace(/\s+/g, ' ').trim(), (de ? 'Alle Mods' : 'All mods') + ' › SimpleBuilding › Simple End', tag + ' breadcrumb sub-mod');
   await sideOpen();
   ok(/SimpleBuilding/.test(await page.locator('#sidebar .sb-mod-up').textContent()), tag + ' sub-mod of');
-  eq(Number((await page.locator('#sidebar a[href="/simpleend/items' + L + '"] .n').textContent()).replace(/\D/g, '')), await famItems(page, 'simpleend'), tag + ' counter = Simple End + Dragon Fight');
+  eq(Number((await page.locator('#sidebar a[href="' + PFX + '/simpleend/items' + L + '"] .n').textContent()).replace(/\D/g, '')), await famItems(page, 'simpleend'), tag + ' counter = Simple End + Dragon Fight');
   ok(/Simple End \+ 1/.test(await page.locator('#sidebar .sb-note').textContent()), tag + ' counts note');
   if (phone) {
     ok(await page.locator('#modstrip').isVisible(), tag + ' mod strip on the phone');
@@ -129,7 +137,7 @@ async function pathRun(browser, base, width, scheme) {
     await contrast(page, tag + ' strip', ['#modstrip .ms-name', '#modstrip .ms-up', '#modstrip .backbtn']);
   } else eq(await page.locator('#modstrip').isVisible(), false, tag + ' no mod strip on the desktop');
   await page.locator('#sidebar a.sub', { hasText: /Dragon/ }).first().click();
-  await page.waitForURL(u => new URL(u).pathname === '/simpleenddragonfight/'); await ready(page);
+  await page.waitForURL(u => pn(u) === '/simpleenddragonfight/'); await ready(page);
   await sideOpen();
   eq(await page.locator('#sidebar details[data-sb="subs-more"]').count(), 1, tag + ' leaf sub-mod: more in parent');
   eq(await page.locator('#sidebar details[data-sb="subs-more"]').evaluate(d => d.open), false, tag + ' more in parent folded');
@@ -137,33 +145,33 @@ async function pathRun(browser, base, width, scheme) {
   if (phone) await page.click('#menu-btn');
   // breadcrumb back to Simple End, browser back/forward
   await page.locator('#main .crumbs a', { hasText: /^Simple End$/ }).click();
-  await page.waitForURL(u => new URL(u).pathname === '/simpleend/'); await ready(page);
-  await page.goBack(); await page.waitForURL(u => new URL(u).pathname === '/simpleenddragonfight/'); await ready(page);
-  await page.goBack(); await page.waitForURL(u => new URL(u).pathname === '/simpleend/'); await ready(page);
-  await page.goBack(); await page.waitForURL(u => new URL(u).pathname === '/simplebuilding/'); await ready(page);
-  await page.goForward(); await page.waitForURL(u => new URL(u).pathname === '/simpleend/'); await ready(page);
+  await page.waitForURL(u => pn(u) === '/simpleend/'); await ready(page);
+  await page.goBack(); await page.waitForURL(u => pn(u) === '/simpleenddragonfight/'); await ready(page);
+  await page.goBack(); await page.waitForURL(u => pn(u) === '/simpleend/'); await ready(page);
+  await page.goBack(); await page.waitForURL(u => pn(u) === '/simplebuilding/'); await ready(page);
+  await page.goForward(); await page.waitForURL(u => pn(u) === '/simpleend/'); await ready(page);
   checks++;
 
   // ---- in-area pages: flat item address, back button inside the area ----
   await sideOpen();
-  await page.locator('#sidebar a[href="/simpleend/items' + L + '"]').click();
-  await page.waitForURL(u => new URL(u).pathname === '/simpleend/items'); await ready(page);
+  await page.locator('#sidebar a[href="' + PFX + '/simpleend/items' + L + '"]').click();
+  await page.waitForURL(u => pn(u) === '/simpleend/items'); await ready(page);
   ok(/Simple End › (Blocks & items|Blöcke & Items|Items)/.test((await page.locator('#main .crumbs').first().innerText()).replace(/\s+/g, ' ')), tag + ' list breadcrumb');
-  const rowHrefs = await page.locator('#main .rows > a.row, #main .rows > .row-rc > a.row-head').evaluateAll(as => as.map(a => a.getAttribute('href')));
+  const rowHrefs = await page.locator('#main .rows > a.row, #main .rows > .row-rc > a.row-head').evaluateAll(as => as.map(a => a.getAttribute('href'))).then(x => x.map(st));
   ok(rowHrefs.length > 0 && rowHrefs.every(h => /^\/simpleend\/(items|blocks)\//.test(h)), tag + ' item links stay in the area');
   ok(rowHrefs.some(h => /^\/simpleend\/(items|blocks)\/simpleenddragonfight:/.test(h)), tag + ' sub-mod items listed with their namespace');
   ok(await page.locator('#main .row .badge', { hasText: 'Simple End Dragon Fight' }).count() > 0, tag + ' sub-mod badge in the list');
-  await page.locator('#main a.row[href="/simpleend/items/ashwood_boat' + L + '"], #main a.row-head[href="/simpleend/items/ashwood_boat' + L + '"]').first().click();
-  await page.waitForURL(u => new URL(u).pathname === '/simpleend/items/ashwood_boat'); await ready(page);
+  await page.locator('#main a.row[href="' + PFX + '/simpleend/items/ashwood_boat' + L + '"], #main a.row-head[href="' + PFX + '/simpleend/items/ashwood_boat' + L + '"]').first().click();
+  await page.waitForURL(u => pn(u) === '/simpleend/items/ashwood_boat'); await ready(page);
   await noOverflow(page, tag + ' item page');
-  await page.goBack(); await page.waitForURL(u => new URL(u).pathname === '/simpleend/items'); await ready(page);
+  await page.goBack(); await page.waitForURL(u => pn(u) === '/simpleend/items'); await ready(page);
   checks++;
 
   // ---- search inside the mod + "search in all mods" ----
   await page.fill('#q', 'ash');
   await page.locator('#qs .qs-scope').waitFor();
   ok(/Simple End \+ 1/.test(await page.locator('#qs .qs-scope').textContent()), tag + ' quick search scope');
-  const qsHrefs = await page.locator('#qs a.qs-item:not(.qs-all)').evaluateAll(as => as.map(a => a.getAttribute('href')));
+  const qsHrefs = await page.locator('#qs a.qs-item:not(.qs-all)').evaluateAll(as => as.map(a => a.getAttribute('href'))).then(x => x.map(st));
   ok(qsHrefs.length > 0 && qsHrefs.every(h => h.indexOf('/simpleend/') === 0), tag + ' quick search stays in the area ' + JSON.stringify(qsHrefs.slice(0, 3)));
   const wide = page.locator('#qs [data-qs-wide]');
   ok(await wide.count() === 1, tag + ' "search in all mods" row');
@@ -177,25 +185,25 @@ async function pathRun(browser, base, width, scheme) {
   ok(await page.locator('#qs [data-qs-narrow]').count() === 1, tag + ' back to the mod');
   await page.locator('#q').focus();
   await page.keyboard.press('Control+Enter');
-  await page.waitForURL(u => new URL(u).search.indexOf('q=ash') >= 0 && new URL(u).pathname === '/'); await ready(page);
+  await page.waitForURL(u => new URL(u).search.indexOf('q=ash') >= 0 && pn(u) === '/'); await ready(page);
   const allHits = await page.locator('#main .search-group a.row').count();
   ok(allHits > narrowN, tag + ' wide search page ' + allHits);
-  await page.goBack(); await page.waitForURL(u => new URL(u).pathname === '/simpleend/items'); await ready(page);
+  await page.goBack(); await page.waitForURL(u => pn(u) === '/simpleend/items'); await ready(page);
   await page.fill('#q', 'ash');
   await page.locator('#qs .qs-scope').waitFor();
   await page.keyboard.press('Control+Enter');
-  await page.waitForURL(u => new URL(u).pathname === '/simpleend/' && new URL(u).search.indexOf('q=ash') >= 0); await ready(page);
+  await page.waitForURL(u => pn(u) === '/simpleend/' && new URL(u).search.indexOf('q=ash') >= 0); await ready(page);
   const inHits = await page.locator('#main .search-group a.row').count();
   ok(inHits > 0 && inHits < allHits, tag + ` search page in the mod (${inHits})`);
   await page.locator('#main a[data-search-wide]').click();
-  await page.waitForURL(u => new URL(u).pathname === '/' && new URL(u).search.indexOf('q=ash') >= 0); await ready(page);
+  await page.waitForURL(u => pn(u) === '/' && new URL(u).search.indexOf('q=ash') >= 0); await ready(page);
   checks++;
 
   // ---- back to all mods ----
   await open(page, base, 'simplequalityoflife/' + L);
   await sideOpen();
   await page.locator('#sidebar a.sb-back').click();
-  await page.waitForURL(u => new URL(u).pathname === '/' && !new URL(u).searchParams.has('mod')); await ready(page);
+  await page.waitForURL(u => pn(u) === '/' && !new URL(u).searchParams.has('mod')); await ready(page);
   eq(await page.locator('.modtile').count(), 7, tag + ' back on the start page');
 
   // ---- old links ----
@@ -232,7 +240,7 @@ async function pathRun(browser, base, width, scheme) {
     eq(await page.locator('#main .packbar').count(), 0, tag + ' no modpack bar elsewhere');
     // root list pages: entries open in the area of their mod
     await open(page, base, '?tab=items');
-    const href = await page.locator('#main a.row[href*="/items/"]').first().getAttribute('href');
+    const href = await page.locator('#main a.row[href*="/items/"]').first().getAttribute('href').then(st);
     ok(/^\/simple[a-z0-9_]+\/items\//.test(href), tag + ' root item list links into the mod area ' + href);
   }
   // phone: no horizontal scrolling on the main pages
@@ -259,7 +267,7 @@ async function queryRun(browser, base) {
   await open(page, base, '');
   eq(await page.locator('.modtile').count(), 7, tag + ' start tiles');
   eq(await page.locator('base').count(), 0, tag + ' no base without the server rule');
-  const tile = await page.locator('.modtile[data-mod="simplebuilding"]').getAttribute('href');
+  const tile = await page.locator('.modtile[data-mod="simplebuilding"]').getAttribute('href').then(st);
   ok(/^\/\?mod=simplebuilding$/.test(tile), tag + ' tile link in query form ' + tile);
   await page.locator('.modtile[data-mod="simplebuilding"]').click();
   await page.waitForURL(u => new URL(u).searchParams.get('mod') === 'simplebuilding'); await ready(page);
@@ -292,10 +300,10 @@ async function queryRun(browser, base) {
   try {
     const exe = process.env.WIKI_CHROME;
     browser = await pw.chromium.launch(exe ? { headless: true, executablePath: exe } : { headless: true, channel: process.env.WIKI_BROWSER || 'msedge' });
-    const pbase = `http://127.0.0.1:${servers.path.address().port}/`, qbase = `http://127.0.0.1:${servers.query.address().port}/`;
+    const pbase = process.env.WIKI_BASE || `http://127.0.0.1:${servers.path.address().port}/`, qbase = `http://127.0.0.1:${servers.query.address().port}/`;
     const t0 = Date.now();
     for (const [w, scheme] of [[1280, 'light'], [1280, 'dark'], [390, 'light'], [390, 'dark']]) await pathRun(browser, pbase, w, scheme);
-    await queryRun(browser, qbase);
+    if (!process.env.WIKI_BASE) await queryRun(browser, qbase);
     console.log(`nav74 ui: ok (${checks} checks, ${((Date.now() - t0) / 1000).toFixed(1)} s, shots in ${shots})`);
   } finally {
     if (browser) await browser.close();
