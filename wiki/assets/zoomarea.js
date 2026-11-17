@@ -69,7 +69,8 @@
       + '<button type="button" class="zm-b zm-lvl" data-zm-act="reset" title="' + S.reset + '"></button>'
       + '<button type="button" class="zm-b zm-in" data-zm-act="in" title="' + S.zoomIn + '" aria-label="' + S.zoomIn + '">+</button>'
       + '<button type="button" class="zm-b zm-full" data-zm-act="full"></button>'
-      + (opts.extra ? '<span class="zm-extra"></span>' : '') + '<span class="zm-hint">' + S.hint + '</span>';
+      + (opts.extra ? '<span class="zm-extra"></span>' : '');
+    bar.title = S.hint; /* N73 Runde 4: Hinweis als Tooltip statt Dauertext neben jeder Liste */
     var view = document.createElement('div'); view.className = 'zm-view';
     target.parentNode.insertBefore(zm, target);
     zm.appendChild(bar); zm.appendChild(view); view.appendChild(target);

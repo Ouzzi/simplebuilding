@@ -418,6 +418,9 @@ a.chip { cursor: pointer; }
 .guide:hover { text-decoration: none; border-color: var(--accent); }
 .guide b { display: block; margin-bottom: .15rem; }
 .more-link { margin: -.2rem 0 1.4rem; font-weight: 600; }
+.search-more > summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9rem; padding: .45rem .6rem; list-style: none; }
+.search-more > summary::-webkit-details-marker { display: none; }
+.search-more[open] > summary { display: none; }
 .guide span { color: var(--muted); font-size: .86rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Startseite */
@@ -553,7 +556,7 @@ details.fold.tech { background: transparent; box-shadow: none; border-style: das
 .keyfeat .src { margin-top: .3rem; }
 
 /* Alle Rezepte */
-.ar-filters { display: flex; flex-direction: column; gap: .55rem; margin: .6rem 0 1rem; padding: .8rem .9rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+.ar-filters { display: flex; flex-direction: column; gap: .55rem; margin: .6rem 0 1rem; padding: 0 0 .9rem; border-bottom: 1px solid var(--border); } /* N73: Filter ohne eigenen Kasten */
 .ar-frow { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
 .ar-flabel { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; min-width: 5.2rem; font-weight: 700; }
 .chip { font: inherit; font-size: .82rem; padding: .2rem .65rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; white-space: nowrap; }
@@ -1514,7 +1517,7 @@ en: {
   homeSearch: 'Search items, blocks, recipes, mechanics …',
   homeBrowse: 'Browse by category',
   homeReference: 'Reference',
-  homeGuides: 'Guides', homeGuidesAll: 'All {0} guides →',
+  searchShowAll: 'Show all {0}', homeGuides: 'Guides', homeGuidesAll: 'All {0} guides →',
   homeDataState: 'About this build',
   homeHighlights: 'Highlights', homeCompat: 'Mod & compatibility', homeRequires: 'Requires', homeOptional: 'Works with',
   homeMore: '+{0} more', homeNone: 'nothing', wayBuild: 'I want to build', wayStart: 'Get started', wayGuides: '{0} guides',
@@ -2056,7 +2059,7 @@ de: {
   homeSearch: 'Items, Blöcke, Rezepte, Mechaniken suchen …',
   homeBrowse: 'Nach Kategorie stöbern',
   homeReference: 'Nachschlagen',
-  homeGuides: 'Anleitungen', homeGuidesAll: 'Alle {0} Anleitungen →',
+  searchShowAll: 'Alle {0} zeigen', homeGuides: 'Anleitungen', homeGuidesAll: 'Alle {0} Anleitungen →',
   homeDataState: 'Über diesen Stand',
   homeHighlights: 'Highlights', homeCompat: 'Mod & Kompatibilität', homeRequires: 'Benötigt', homeOptional: 'Arbeitet zusammen mit',
   homeMore: '+{0} weitere', homeNone: 'nichts', wayBuild: 'Ich will bauen', wayStart: 'Loslegen', wayGuides: '{0} Anleitungen',
@@ -3876,8 +3879,10 @@ function arFilter(list, opts) {
 }
 function arSort(list) {
   return list.slice().sort(function (a, b) {
+    var na = displayName(a.res), nb = displayName(b.res);
+    /* N73 Runde 4: Karten ohne lesbaren Namen ("#mod:tag") ans Ende, sonst eroeffnen sie die Rezeptseite. */
     return STATION_ORDER.indexOf(a.st) - STATION_ORDER.indexOf(b.st) || (a.src === b.src ? 0 : a.src === 'mod' ? -1 : 1) ||
-      norm(displayName(a.res)).localeCompare(norm(displayName(b.res)), LANG);
+      (String(na).charAt(0) === '#') - (String(nb).charAt(0) === '#') || norm(na).localeCompare(norm(nb), LANG);
   });
 }
 /* Varianten: 16 Farben, die Holzarten. Die Karte gilt als Variante einer anderen,
@@ -5344,13 +5349,17 @@ function pageSearch(q) {
   res.forEach(function (r) { if (!groups.has(r.e.section)) groups.set(r.e.section, []); groups.get(r.e.section).push(r.e); });
   SECTION_ORDER.forEach(function (sec) {
     var list = groups.get(sec); if (!list) return;
-    h += '<div class="search-group">' + section(sectionLabel(sec), '<div class="rows">' + list.map(function (e) { return searchRow(e, tokens); }).join('') + '</div>', { count: list.length }) + '</div>';
+    /* N73 Runde 4: je Gruppe die besten 8 Treffer, der Rest aufklappbar; ohne Abschnitts-Abzeichen (steht in der Gruppe). */
+    var SHOWN = 8, rowsOf = function (l) { return l.map(function (e) { return searchRow(e, tokens, true); }).join(''); };
+    var body = '<div class="rows">' + rowsOf(list.slice(0, SHOWN)) + '</div>' +
+      (list.length > SHOWN ? '<details class="search-more"><summary>' + esc(T('searchShowAll', list.length)) + '</summary><div class="rows">' + rowsOf(list.slice(SHOWN)) + '</div></details>' : '');
+    h += '<div class="search-group">' + section(sectionLabel(sec), body, { count: list.length }) + '</div>';
   });
   return h;
 }
-function searchRow(e, tokens) {
+function searchRow(e, tokens, inGroup) {
   var tex = (e.section === 'items' || e.section === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : '';
-  return '<a class="row" href="' + esc(e.href) + '">' + tex + '<div class="row-main"><div class="row-title">' + highlight(e.title, tokens) + '</div><div class="row-sub">' + highlight(e.sub, tokens) + '</div></div><div class="row-right">' + (e.modBadge ? badge(e.modBadge) : '') + badge(sectionLabel(e.section)) + '</div></a>';
+  return '<a class="row" href="' + esc(e.href) + '">' + tex + '<div class="row-main"><div class="row-title">' + highlight(e.title, tokens) + '</div><div class="row-sub">' + highlight(e.sub, tokens) + '</div></div><div class="row-right">' + (e.modBadge ? badge(e.modBadge) : '') + (inGroup ? '' : badge(sectionLabel(e.section))) + '</div></a>';
 }
 
 /* ------------------------------------------------------------------ */

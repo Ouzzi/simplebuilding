@@ -57,3 +57,20 @@ Umgesetzt:
   und mit Einzahl („1 Block oder Item“).
 - Tests: `home_ui` – Wege jetzt 1–2 (statt 2–3); „+N more“-Prüfung klickt die Ausklappe der optionalen Zeile (war
   vorbestehend rot, weil inzwischen auch „Benötigt“ ausklappt). `ui_lists` startet mit `WIKI_CHROME` (wie die anderen).
+
+## Runde 4 – Listen, Suche, Rezepte
+
+- **Stört:** Suchseite zeigt alle Treffer auf einmal („copper“: 798 Zeilen) und hängt an jede Zeile das Abzeichen des
+  Abschnitts, in dessen Gruppe sie schon steht („Guides“ × 82); unter jeder langen Liste steht dauerhaft „Ctrl + mouse
+  wheel zooms this area“; „Alle Rezepte“ beginnt mit sechs gleichen Karten „#simplestorage:dyeable_storage“ (Name ist eine
+  Tag-Id, `#` sortiert vor alle Buchstaben); Filter der Rezeptseite in einem eigenen Kasten über der Kartenliste.
+- **Überladen:** Suchgruppen, Filter-Kasten + Zoom-Leiste + Hinweistext übereinander.
+
+Umgesetzt:
+- Suche: je Gruppe die ersten 8 Treffer, darunter „Alle N zeigen“ (aufklappen, kein Neuladen, alle Zeilen bleiben im DOM);
+  kein Abschnitts-Abzeichen mehr in Gruppen (in den „Meintest du“-Vorschlägen der Fehlseite bleibt es, dort ist gemischt).
+- Zoom-Leiste (`wiki/assets/zoomarea.js`): Hinweis als Tooltip der Leiste statt Dauertext.
+- Rezeptfilter ohne Kasten – nur eine Trennlinie zur Kartenliste.
+- „Alle Rezepte“: Karten ohne lesbaren Namen (`#mod:tag`) ans Ende – die Seite beginnt mit „Birch Cauldron, Bamboo Crate …“.
+- **Offen (nicht geändert):** drei verschiedene Rezept-Zahlen (Seitenleiste 4 550 = Mod-Rezepte + In-der-Welt, Startseiten-
+  Kachel 3 685 = nur Mod-Rezepte, Rezeptseite 6 674 = inkl. Vanilla). Braucht eine Entscheidung, welche Zahl gilt.
