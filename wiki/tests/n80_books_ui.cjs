@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
   });
 });
 // git-ignored pictures (Vanilla textures, renders that a generator run did not make here) may be missing
-const IGNORED_404 = /\/assets\/(textures|vanilla|ui)\/|\/data\/(ui-shots|vanilla-textures)\.js|favicon|\/api\/auth\/check/;
+const IGNORED_404 = /\/assets\/(textures|vanilla|devtex|ui)\/|\/data\/(ui-shots|vanilla-textures)\.js|favicon|\/api\/auth\/check/;
 let checks = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); checks++; };
 

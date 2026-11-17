@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
     res.end(data);
   });
 });
-const IGNORED_404 = /\/assets\/(textures|vanilla|ui)\/|\/data\/(ui-shots|vanilla-textures)\.js|favicon|\/api\/auth\/check/;  // sitebar.js asks for a login; hosts without one answer 404
+const IGNORED_404 = /\/assets\/(textures|vanilla|devtex|ui)\/|\/data\/(ui-shots|vanilla-textures)\.js|favicon|\/api\/auth\/check/;  // sitebar.js asks for a login; hosts without one answer 404
 let checks = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); checks++; };
 
