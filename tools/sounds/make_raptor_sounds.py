@@ -15,15 +15,22 @@ active RMS) with a shorter tract (formants about 1.7 times higher than the big-c
 - death: a long falling screech that breaks into a rattling gurgle (1.3 s);
 - angry: a hiss through bared teeth over a growl, ending with a jaw snap (0.75 s);
 - step: a light talon tap on the ground (0.12 s).
+
+Post-processing (owner review RAPTOR82: "alle Takes nachbearbeiten - Filter/EQ, Rauheit glaetten, minimales Reverb"): every take
+runs through polish() after its own master(): high-pass 80 Hz, high-shelf -4 dB above 5 kHz and a gentle 9 kHz low-pass against
+harsh highs, a soft de-esser on 4-9 kHz, a roughness smoother (4 ms vs 25 ms envelope) that evens out the fast grain/fry flutter (voices only, not the
+talon taps), a small-room reverb (wet 10 %, steps 6 %, RT60 0.25 s, tail under 0.35 s), then the take's active RMS is restored
+to its pre-polish value and the peak soft-limited at -1 dBFS (loudness stays where it was, close to Vanilla mobs).
 """
 import os
 import sys
 
 import numpy as np
 import soundfile as sf
+from scipy.signal import lfilter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from howler_dsp import (SR, VOWELS, aspiration, band, curve, drift, formant_cascade, glottal, grains, high, low,  # noqa: E402
+from howler_dsp import (SR, VOWELS, active_rms_db, aspiration, band, curve, drift, formant_cascade, glottal, grains, high, low,  # noqa: E402
                         master, modal, n_of, place, room, swell)
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -137,6 +144,58 @@ def step(seed, f):
     return master(x, -24, peak_db=-6, lp=10000, hp=60, fade_out=0.02)
 
 
+def high_shelf(x, f0, gain_db, q=0.707):
+    """RBJ-cookbook high shelf (biquad)."""
+    a = 10 ** (gain_db / 40)
+    w = 2 * np.pi * f0 / SR
+    cw, al = np.cos(w), np.sin(w) / (2 * q)
+    sa = 2 * np.sqrt(a) * al
+    b = [a * ((a + 1) + (a - 1) * cw + sa), -2 * a * ((a - 1) + (a + 1) * cw), a * ((a + 1) + (a - 1) * cw - sa)]
+    den = [(a + 1) - (a - 1) * cw + sa, 2 * ((a - 1) - (a + 1) * cw), (a + 1) - (a - 1) * cw - sa]
+    return lfilter(np.array(b) / den[0], np.array(den) / den[0], x)
+
+
+def envelope(x, ms):
+    """Rectified signal smoothed by a one-pole low-pass of the given time constant."""
+    c = np.exp(-1 / (SR * ms / 1000))
+    return lfilter([1 - c], [1, -c], np.abs(x)) + 1e-6
+
+
+#: polish settings (see the module docstring); steps keep their transients (no smoother) and get less room
+POLISH = dict(hp=80, shelf_f=5000, shelf_db=-4.0, lp=9000, ess_lo=4000, ess_hi=9000, ess_ratio=0.3, ess_pow=0.5,
+              rough_pow=0.5, rough_range=(0.6, 1.5), wet=0.10, rt60=0.25, tail=0.3, ceiling_db=-1.0)
+
+
+def polish(x, seed, transient=False):
+    p = POLISH
+    x = x.astype(np.float64)
+    target = active_rms_db(x)
+    x = np.concatenate([x, np.zeros(n_of(p["tail"]))])  # room for the reverb tail
+    # filter / EQ: rumble out, harsh highs down
+    x = high(x, p["hp"], 2)
+    x = low(high_shelf(x, p["shelf_f"], p["shelf_db"]), p["lp"], 2)
+    # de-esser: the 4-9 kHz band is pulled down where it dominates the full-band level
+    s = band(x, p["ess_lo"], p["ess_hi"])
+    over = envelope(s, 5) / (envelope(x, 5) * p["ess_ratio"])
+    x = x - s + s * np.minimum(1.0, over ** -p["ess_pow"])
+    if not transient:
+        # roughness smoother: the fast (4 ms) amplitude flutter of fry and grains pulled toward the slower (25 ms) envelope
+        g = np.clip((envelope(x, 25) / envelope(x, 4)) ** p["rough_pow"], *p["rough_range"])
+        x = x * g
+    # minimal small room
+    x = room(np.random.default_rng(seed), x, wet=p["wet"] * (0.6 if transient else 1.0), rt60=p["rt60"])
+    # keep the loudness, soft-limit the peak, fade the padded tail
+    x = x * 10 ** ((target - active_rms_db(x)) / 20)
+    lim = 10 ** (p["ceiling_db"] / 20)
+    k = lim * 0.7
+    x = np.where(np.abs(x) > k, np.sign(x) * (k + (lim - k) * np.tanh((np.abs(x) - k) / (lim - k))), x)
+    end = min(len(x), np.nonzero(np.abs(x) > 10 ** (-60 / 20))[0][-1] + n_of(0.02))  # cut the silent rest of the pad
+    x = x[:end]
+    b = n_of(0.03)
+    x[-b:] *= np.linspace(1, 0, b) ** 2
+    return x.astype(np.float32)
+
+
 SOUNDS = {
     "ambient1": lambda: ambient(1101, [(0.07, 0.06, 560, 900, 520), (0.06, 0.05, 600, 960, 540), (0.08, 0.09, 540, 880, 480)], (0.36, 430)),
     "ambient2": lambda: ambient(1102, [(0.06, 0.05, 620, 1000, 600), (0.06, 0.05, 640, 1040, 620)], (0.42, 470)),
@@ -158,7 +217,7 @@ def main():
     out = sys.argv[1] if len(sys.argv) > 1 else OUT
     os.makedirs(out, exist_ok=True)
     for name, make in SOUNDS.items():
-        x = make()
+        x = polish(make(), 9000 + sum(map(ord, name)), transient=name.startswith("step"))
         sf.write(os.path.join(out, name + ".ogg"), x, SR, format="OGG", subtype="VORBIS")
         print(f"{name}.ogg {len(x) / SR:.2f}s peak {20 * np.log10(np.max(np.abs(x)) + 1e-9):.1f} dBFS")
 
