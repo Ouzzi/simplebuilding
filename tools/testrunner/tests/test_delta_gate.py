@@ -87,7 +87,7 @@ class PlanTest(unittest.TestCase):
                      "modules/simplelib/build.gradle", "modules/simplelib/shared/resources/simplelib.mixins.json",
                      "modules/wiringexample/fabric/src/main/resources/fabric.mod.json", "modules/simplelib/forge/src/main/resources/META-INF/mods.toml", "modules/simplelib/shared/java/x/Y.json",
                      "framework/x", "build.gradle", "settings.gradle", "gradle.properties", "gradle/wrapper/x",
-                     "tools/testrunner/run.py"):
+                     "tools/testrunner/run.py", "tools/forge/build_forge.py", "tools/multimod.py", "tools/devmods.json"):
             self.assertEqual(self.plan(path)["mode"], "full", path)
 
     def test_shared_module_data_runs_only_that_module(self):  # N81
@@ -124,6 +124,11 @@ class PlanTest(unittest.TestCase):
     def test_release_checks_are_check_only(self):  # N81
         self.assertEqual(self.plan("tools/release/check_beta.py", "tools/modtree/modtree.py", "tools/tzedit/build_editor.py",
                                    "tools/guides/module_guides.py", "tools/discover/discover.py"), CHECK_ONLY)
+
+    def test_generators_and_other_tools_are_check_only(self):  # A 17.11.: gate 208 ran full for a sound generator
+        self.assertEqual(self.plan("tools/sounds/make_raptor_sounds.py", "tools/textures/x.py", "tools/guides/g.py",
+                                   "tools/quests/generate_quests.py", "tools/audio/a.py", "tools/structures/s.py",
+                                   "tools/ui/u.py", "tools/new_tool_dir/x.py", "tools/check_new.py"), CHECK_ONLY)
 
     def test_one_shared_file_among_module_files_is_full(self):
         self.assertEqual(self.plan("modules/simplevisuals/x", "build.gradle")["mode"], "full")
