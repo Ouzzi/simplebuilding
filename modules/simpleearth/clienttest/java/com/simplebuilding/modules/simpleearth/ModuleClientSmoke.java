@@ -450,13 +450,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             mc.gui.setScreen(new EarthScreen());
         });
         context.waitTicks(5);
-        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScrollTo("foldBand"));
-        context.waitTicks(5);
-        check(context.computeOnClient(mc -> {
-            EarthScreen s = (EarthScreen) mc.gui.screen();
-            return s.probeControl("showOthers") != null && s.probeControl("switchY") != null && s.probeControl("foldBand") == null
-                    && s.probeControl("edge") == null;
-        }), "simple menu: the few sliders, no edge or fold band outside the developer mode");
+        // probeControl only sees rows inside the visible list area (small windows scroll): scroll to each key first
+        for (String key : new String[]{"switchY", "showOthers", "foldBand", "edge"}) {
+            context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScrollTo(key));
+            context.waitTicks(3);
+            boolean shown = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeControl(key) != null);
+            boolean simple = key.equals("switchY") || key.equals("showOthers");
+            check(shown == simple, "simple menu outside the developer mode: " + key + (simple ? " shown" : " hidden"));
+        }
         context.takeScreenshot("simpleearth-menu-simple");
         context.runOnClient(mc -> {
             EarthClientConfig.developerMode = true;
