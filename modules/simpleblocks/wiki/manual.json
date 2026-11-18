@@ -1572,6 +1572,17 @@
       "de": {
         "summary": "Auto-Formsäge: schneidet von selbst alle 8 Ticks in den Behälter vorne, solange das ganze Ergebnis passt; ein Redstone-Signal hält sie an."
       }
+    },
+    "simpleblocks:nether_brick_fence_gate": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java"
+      ],
+      "en": {
+        "summary": "A fence gate of nether bricks, the gate Vanilla's nether brick fence lacks: same hardness and blast resistance as the fence, needs a pickaxe, does not burn, sounds like nether bricks. Opens and closes like a wooden gate and joins nether brick fences."
+      },
+      "de": {
+        "summary": "Ein Zauntor aus Netherziegeln – das Tor, das dem Netherziegelzaun in Vanilla fehlt: gleiche Härte und Explosionsfestigkeit wie der Zaun, braucht eine Spitzhacke, brennt nicht, klingt wie Netherziegel. Öffnet und schließt wie ein Holztor und schließt an Netherziegelzäune an."
+      }
     }
   }
 }
