@@ -1,6 +1,6 @@
 {
   "module": "simplebuildingtools",
-  "derivation": "Simple Building Tools sells its wands, octants and blueprints for money with the values they had in SimpleBuilding's table (moved 07.11., b-btools07, WF25-9).",
+  "derivation": "Simple Building Tools sells its wands, octants and blueprints for money with the values they had in SimpleBuilding's table (moved 07.11., b-btools07, WF25-9). N90: both rose alloys are pressed from gold ingots (with copper and silver), so the gold row applies (maximum ingredient tier 2, 12.5 h, toolsmith level 3); offered only while Simple Ores is loaded. The rose wands take 5 recipe slots (core, 2 ingots, 2 sticks) -> craft 5.",
   "excluded": {
     "simplebuildingtools:creative_building_wand": "Creative only, not a trade good.",
     "simplebuildingtools:creative_blueprint": "Creative only, not a trade good."
@@ -269,6 +269,34 @@
       "level": 3,
       "stock": 2,
       "chance": 1
+    },
+    {
+      "item": "simplebuildingtools:rose_bronze_building_wand",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 5,
+      "safetyFloor": 3,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1,
+      "requires": [
+        "simpleores"
+      ]
+    },
+    {
+      "item": "simplebuildingtools:rose_gold_building_wand",
+      "tier": 2,
+      "hours": 12.5,
+      "craft": 5,
+      "safetyFloor": 3,
+      "merchant": "toolsmith",
+      "level": 3,
+      "stock": 2,
+      "chance": 1,
+      "requires": [
+        "simpleores"
+      ]
     }
   ]
 }

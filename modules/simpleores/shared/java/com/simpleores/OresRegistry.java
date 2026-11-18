@@ -326,6 +326,18 @@ public final class OresRegistry {
             item(alloy.id + "_leggings", p -> p.humanoidArmor(alloy.armor, ArmorType.LEGGINGS));
             item(alloy.id + "_boots", p -> p.humanoidArmor(alloy.armor, ArmorType.BOOTS));
         }
+        // N89A (owner N77, 17.11.): spear, horse and nautilus armor of each alloy (docs: /root/sb-tools-b/n89/PLAN-N89A.md). The spear
+        // takes durability, enchantability and repair from the alloy's tool material; its kinetic numbers follow the parent metal's Vanilla
+        // spear: Rose Copper = the copper spear (attack bonus 1 like copper), Rose Gold = the golden spear's timing with the iron damage
+        // factor 0.95 (attack bonus 2 like iron). Horse/nautilus armor: the alloy's body value (Rose Copper 4 = copper, Rose Gold 6, between
+        // iron 5 and gold 7).
+        for (Alloy alloy : Alloy.values()) {
+            item(alloy.id + "_spear", alloy == Alloy.ROSE_GOLD
+                    ? p -> p.spear(alloy.tools, 0.95F, 0.95F, 0.7F, 3.5F, 13.0F, 8.5F, 5.1F, 13.75F, 4.6F)
+                    : p -> p.spear(alloy.tools, 0.85F, 0.82F, 0.65F, 4.0F, 12.0F, 8.25F, 5.1F, 12.5F, 4.6F));
+            item(alloy.id + "_horse_armor", p -> p.horseArmor(alloy.armor));
+            item(alloy.id + "_nautilus_armor", p -> p.nautilusArmor(alloy.armor));
+        }
         // BLOCKS07: the carrots, a step above the golden carrot (numbers: OresFood); not enchanted, no effects.
         item("rose_bronze_carrot", p -> p.food(OresFood.ROSE_BRONZE_CARROT_FOOD));
         item("rose_gold_carrot", p -> p.food(OresFood.ROSE_GOLD_CARROT_FOOD));
@@ -462,20 +474,13 @@ public final class OresRegistry {
             "brass_ingot", "brass_nugget", "stainless_steel_ingot", "stainless_steel_nugget", "bronze_ingot", "bronze_nugget", "rose_bronze_pressling",
             "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
             "enderite_ingot", "enderite_upgrade_template", "rift_shard", "nether_rift_shard", "end_rift_shard", "terranite_ingot", "terranite_nugget", "infernite_ingot", "infernite_nugget", "zenithite_ingot", "zenithite_nugget", "sage_crystal_shard", "sage_crystal", "sage_orb"};
-    /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
-    public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
-            "enderite_block", "enderite_upgrade_template");
-    /** Recipes SimpleLib had for them -> folder of their recipe advancement (same paths here). */
-    public static final Map<String, String> RECIPES_FROM_SIMPLELIB = Map.of("enderite_nugget_from_ingot", "misc", "enderite_ingot_from_nugget", "misc",
-            "layered_raw_enderite", "misc", "enderite_scrap_from_blasting_layered_raw_enderite", "misc", "enderite_ingot_from_scrap", "misc",
-            "enderite_block", "decorations", "enderite_ingot", "building_blocks", "enderite_upgrade_template", "misc");
     public static final String[] TOOLS = {"rose_bronze_shovel", "rose_bronze_pickaxe", "rose_bronze_axe", "rose_bronze_hoe",
             "rose_gold_shovel", "rose_gold_pickaxe", "rose_gold_axe", "rose_gold_hoe",
             // N47-M3 (b-circ46): the Enderite tools (behind the golden ones, like SimpleBuilding's own tab layout lists them last)
             "enderite_shovel", "enderite_pickaxe", "enderite_axe", "enderite_hoe"};
     public static final String[] COMBAT = {"rose_bronze_sword", "rose_bronze_helmet", "rose_bronze_chestplate", "rose_bronze_leggings",
-            "rose_bronze_boots", "rose_gold_sword", "rose_gold_helmet", "rose_gold_chestplate", "rose_gold_leggings", "rose_gold_boots",
-            "enderite_sword", "enderite_spear", "enderite_helmet", "enderite_chestplate", "enderite_leggings", "enderite_boots", "enderite_horse_armor",
+            "rose_bronze_boots", "rose_bronze_spear", "rose_bronze_horse_armor", "rose_bronze_nautilus_armor", "rose_gold_sword", "rose_gold_helmet", "rose_gold_chestplate", "rose_gold_leggings", "rose_gold_boots",
+            "rose_gold_spear", "rose_gold_horse_armor", "rose_gold_nautilus_armor", "enderite_sword", "enderite_spear", "enderite_helmet", "enderite_chestplate", "enderite_leggings", "enderite_boots", "enderite_horse_armor",
             "enderite_nautilus_armor"};
 
     /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */

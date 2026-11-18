@@ -1281,6 +1281,34 @@
       "Roségold-Rüstung ist in jedem Wert stärker; Rosenkupfer-Rüstung ist ein Aussehen, keine Verbesserung."
     ]
   },
+  "family:rose_spear": {
+    "items": [
+      "regex:rose_(gold|bronze)_spear"
+    ],
+    "lore": [
+      "{name}: weite Reichweite in rosafarbenem Metall."
+    ],
+    "use": [
+      "Hergestellt wie der Vanilla-Speer aus zwei Stöcken und einem Legierungsbarren. Rosenkupfer: Takt des Kupferspeers, Haltbarkeit 190, Verzauberbarkeit 15. Roségold: Takt des Goldspeers mit dem Schadensfaktor von Eisen, Haltbarkeit 225, Verzauberbarkeit 22. Repariert mit dem Legierungsbarren."
+    ],
+    "secret": [
+      "Anlauf nehmen wie mit jedem Speer: je schneller, desto härter der Stoß."
+    ]
+  },
+  "family:rose_mount_armor": {
+    "items": [
+      "regex:rose_(gold|bronze)_(horse|nautilus)_armor"
+    ],
+    "lore": [
+      "{name}: Rosé-Metall für ein Reittier."
+    ],
+    "use": [
+      "Rossharnisch: sieben Legierungsbarren in der Form des Lederrossharnischs. Nautilusrüstung: acht Legierungsbarren um eine Nautilusschale. Körperschutz 4 (Rosenkupfer, wie Kupfer) oder 6 (Roségold, zwischen Eisen und Gold); Verzauberbarkeit 12 bzw. 25."
+    ],
+    "secret": [
+      "Metall-Rossharnische aus Vanilla findet man nur, man stellt sie nie her; die Legierungen sind die Ausnahme."
+    ]
+  },
   "family:enderite_tool": {
     "items": [
       "regex:enderite_(sword|spear|pickaxe|axe|shovel|hoe)"

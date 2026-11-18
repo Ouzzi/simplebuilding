@@ -3524,7 +3524,7 @@ function pageOverview() {
   h += conv51Box(MODID);
   h += moduleInfo();
 
-  var state = '<dl class="kv" style="margin:.2rem 0"><dt>' + esc(T('kvMcLine')) + '</dt><dd>' + esc(g.line || '?') + '</dd><dt>' + esc(T('kvGenerator')) + '</dt><dd><code>' + esc(g.generator || '?') + '</code></dd><dt>' + esc(T('kvRegenerate')) + '</dt><dd><code>' + esc(g.howToRegenerate || '?') + '</code></dd>' + (g.warning ? '<dt>' + esc(T('kvHint')) + '</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl>' +
+  var state = '<dl class="kv" style="margin:.2rem 0"><dt>' + esc(T('kvMcLine')) + '</dt><dd>' + esc(g.line || '?') + '</dd><dt>' + esc(T('kvGenerator')) + '</dt><dd><code>' + esc(g.generator || '?') + '</code></dd>' + (g.howToRegenerate ? '<dt>' + esc(T('kvRegenerate')) + '</dt><dd><code>' + esc(g.howToRegenerate) + '</code></dd>' : '') + (g.warning ? '<dt>' + esc(T('kvHint')) + '</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl>' +
     (undocCount > 0 ? '' : '<p class="tiny muted">' + esc(T('allDocumented')) + '</p>') +
     '<p class="tiny muted">' + esc(T('loadersPrefix', arr(MOD.loaders).join(', ') || '?')) + (arr(MOD.parkedLoaders).length ? esc(T('parkedPrefix', arr(MOD.parkedLoaders).join(', '))) : '') + '</p>';
   h += section(T('homeDataState'), state, { fold: 'homeDataState', defaultClosed: true, cls: 'tech' });

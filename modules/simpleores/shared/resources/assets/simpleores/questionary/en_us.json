@@ -1281,6 +1281,34 @@
       "Rose Gold armor is stronger in every number; Rose Copper armor is a look, not an upgrade."
     ]
   },
+  "family:rose_spear": {
+    "items": [
+      "regex:rose_(gold|bronze)_spear"
+    ],
+    "lore": [
+      "{name}: a long reach in rose-coloured metal."
+    ],
+    "use": [
+      "Crafted like the Vanilla spear from two sticks and an alloy ingot. Rose Copper: copper spear timing, durability 190, enchantability 15. Rose Gold: golden spear timing with the iron damage factor, durability 225, enchantability 22. Repair with the alloy ingot."
+    ],
+    "secret": [
+      "Charge it like any spear: the faster you move, the harder the hit."
+    ]
+  },
+  "family:rose_mount_armor": {
+    "items": [
+      "regex:rose_(gold|bronze)_(horse|nautilus)_armor"
+    ],
+    "lore": [
+      "{name}: rose metal for a mount."
+    ],
+    "use": [
+      "Horse armor: seven alloy ingots in the leather horse armor shape. Nautilus armor: eight alloy ingots around a nautilus shell. Body armor 4 (Rose Copper, like copper) or 6 (Rose Gold, between iron and gold); enchantability 12 or 25."
+    ],
+    "secret": [
+      "Vanilla metal horse armor is only found, never crafted; the alloys are the exception."
+    ]
+  },
   "family:enderite_tool": {
     "items": [
       "regex:enderite_(sword|spear|pickaxe|axe|shovel|hoe)"

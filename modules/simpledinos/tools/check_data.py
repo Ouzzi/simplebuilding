@@ -21,6 +21,12 @@ TRI_ARMORS = ('triceratops_armor_leather', 'triceratops_armor_iron', 'triceratop
 STEGO_ARMORS = ('stegosaurus_armor_leather', 'stegosaurus_armor_iron', 'stegosaurus_armor_diamond')  # a-dinorest2
 PARA_ARMORS = ('parasaurolophus_armor_leather', 'parasaurolophus_armor_iron', 'parasaurolophus_armor_diamond')  # a-dinorest3
 RAPTOR_ARMORS = ('utahraptor_armor_leather', 'utahraptor_armor_iron', 'utahraptor_armor_diamond')  # b-utah48
+# N89A (owner N77): the metal tiers (the T. rex all six, the others the precious metals)
+ARMORS += tuple(f'trex_armor_{m}' for m in ('copper', 'gold', 'rose_gold', 'rose_bronze', 'netherite', 'enderite'))
+TRI_ARMORS += tuple(f'triceratops_armor_{m}' for m in ('gold', 'rose_gold', 'rose_bronze'))
+STEGO_ARMORS += tuple(f'stegosaurus_armor_{m}' for m in ('gold', 'rose_gold', 'rose_bronze'))
+PARA_ARMORS += tuple(f'parasaurolophus_armor_{m}' for m in ('gold', 'rose_gold', 'rose_bronze'))
+RAPTOR_ARMORS += tuple(f'utahraptor_armor_{m}' for m in ('gold', 'rose_gold', 'rose_bronze'))
 SHELLS = tuple(f'{k}_eggshell' for k in KINDS if k != 'trex')
 ENTITIES = ('trex', 'triceratops', 'stegosaurus', 'parasaurolophus', 'utahraptor')
 BLOCKS = ('fossil_block',) + EGGS

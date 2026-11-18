@@ -2,7 +2,8 @@
   "schema": 1,
   "generatedFrom": {
     "line": "26.3",
-    "generator": "wiki/generate.py"
+    "generator": "wiki/generate.py",
+    "howToRegenerate": "python wiki/generate.py --module simpleores"
   },
   "mod": {
     "id": "simpleores",
@@ -74,7 +75,9 @@
       "id": "rose_gold_gear",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresMaterials.java",
-        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_spear.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_horse_armor.json"
       ],
       "en": {
         "title": "Rose gold tools and armor",
@@ -82,7 +85,8 @@
         "details": [
           "Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.",
           "Rose Gold (the better of the two): durability 225 (iron lasts longer: 250), speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.",
-          "Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry)."
+          "Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry).",
+          "N89A: a spear (Rose Copper: the copper spear's numbers; Rose Gold: the golden spear's timing with the iron damage factor), a horse armor (armor 4 resp. 6, 7 ingots in the leather horse armor shape) and a nautilus armor (the same armor, 8 ingots round a nautilus shell) of each alloy."
         ]
       },
       "de": {
@@ -91,7 +95,8 @@
         "details": [
           "Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.",
           "Roségold (das bessere): Haltbarkeit 225 (Eisen hält länger: 250), Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.",
-          "Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers)."
+          "Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).",
+          "N89A: je Legierung ein Speer (Rosenkupfer: Zahlen des Kupferspeers; Roségold: Takt des Goldspeers mit dem Schadensfaktor des Eisenspeers), ein Rossharnisch (Rüstung 4 bzw. 6, 7 Barren in der Form des Lederrossharnischs) und eine Nautilusrüstung (gleiche Rüstung, 8 Barren um eine Nautilusschale)."
         ]
       }
     },
@@ -11062,6 +11067,39 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_horse_armor",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_horse_armor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_horse_armor.json",
+      "ingredients": [
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "X X",
+        "XXX",
+        "X X"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_bronze_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 7
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_ingot_from_blasting_rose_bronze_pressling",
       "type": "minecraft:blasting",
       "category": "misc",
@@ -11189,6 +11227,47 @@
           {
             "id": "simpleores:rose_bronze_ingot",
             "count": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_nautilus_armor",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_nautilus_armor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_nautilus_armor.json",
+      "ingredients": [
+        "minecraft:nautilus_shell",
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "XXX",
+        "XNX",
+        "XXX"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_bronze_ingot"
+        ],
+        "N": [
+          "minecraft:nautilus_shell"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 1
           }
         ]
       }
@@ -11527,6 +11606,47 @@
         ],
         "S": [
           "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_bronze_spear",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_spear",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_spear.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "  X",
+        " # ",
+        "#  "
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "simpleores:rose_bronze_ingot"
         ]
       },
       "baseMaterials": {
@@ -12008,6 +12128,39 @@
       }
     },
     {
+      "id": "simpleores:rose_gold_horse_armor",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_horse_armor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_horse_armor.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "X X",
+        "XXX",
+        "X X"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 7
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_gold_ingot_from_blasting_nether_rose_gold_ore",
       "type": "minecraft:blasting",
       "category": "misc",
@@ -12195,6 +12348,47 @@
           {
             "id": "simpleores:rose_gold_ingot",
             "count": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_nautilus_armor",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_nautilus_armor",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_nautilus_armor.json",
+      "ingredients": [
+        "minecraft:nautilus_shell",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "XXX",
+        "XNX",
+        "XXX"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "N": [
+          "minecraft:nautilus_shell"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 1
           }
         ]
       }
@@ -12533,6 +12727,47 @@
         ],
         "S": [
           "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_spear",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_spear",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_spear.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "  X",
+        " # ",
+        "#  "
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "simpleores:rose_gold_ingot"
         ]
       },
       "baseMaterials": {
@@ -23040,6 +23275,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:rose_bronze_horse_armor",
+      "name": {
+        "en_us": "Rose Copper Horse Armor",
+        "de_de": "Rosenkupfer-Rossharnisch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Copper horse armor: armor 4 (like copper), enchantability 12. 7 rose copper ingots in the shape of the leather horse armor."
+        },
+        "de": {
+          "summary": "Rosenkupfer-Rossharnisch: Rüstung 4 (wie Kupfer), Verzauberbarkeit 12. 7 Rosenkupferbarren in der Form des Lederrossharnischs."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_bronze_horse_armor.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_horse_armor"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_bronze_ingot",
       "name": {
         "en_us": "Rose Copper Ingot",
@@ -23095,12 +23353,15 @@
         "simpleores:rose_bronze_core",
         "simpleores:rose_bronze_helmet",
         "simpleores:rose_bronze_hoe",
+        "simpleores:rose_bronze_horse_armor",
         "simpleores:rose_bronze_leggings",
+        "simpleores:rose_bronze_nautilus_armor",
         "simpleores:rose_bronze_nugget",
         "simpleores:rose_bronze_pickaxe",
         "simpleores:rose_bronze_pole",
         "simpleores:rose_bronze_pressure_plate",
         "simpleores:rose_bronze_shovel",
+        "simpleores:rose_bronze_spear",
         "simpleores:rose_bronze_sword"
       ]
     },
@@ -23124,6 +23385,29 @@
       "texture": "assets/textures/simpleores/item/rose_bronze_leggings.png",
       "craftedBy": [
         "simpleores:rose_bronze_leggings"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_bronze_nautilus_armor",
+      "name": {
+        "en_us": "Rose Copper Nautilus Armor",
+        "de_de": "Rosenkupfer-Nautilusrüstung"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Copper nautilus armor: armor 4 (like copper), enchantability 12. 8 rose copper ingots round a nautilus shell."
+        },
+        "de": {
+          "summary": "Rosenkupfer-Nautilusrüstung: Rüstung 4 (wie Kupfer), Verzauberbarkeit 12. 8 Rosenkupferbarren um eine Nautilusschale."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_bronze_nautilus_armor.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_nautilus_armor"
       ],
       "usedIn": []
     },
@@ -23247,6 +23531,29 @@
       "texture": "assets/textures/simpleores/item/rose_bronze_shovel.png",
       "craftedBy": [
         "simpleores:rose_bronze_shovel"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_bronze_spear",
+      "name": {
+        "en_us": "Rose Copper Spear",
+        "de_de": "Rosenkupferspeer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Copper spear: durability 190 (like copper), enchantability 15; the numbers of the copper spear. Crafted like the Vanilla spears: a rose copper ingot on two sticks."
+        },
+        "de": {
+          "summary": "Rosenkupferspeer: Haltbarkeit 190 (wie Kupfer), Verzauberbarkeit 15; die Zahlen des Kupferspeers. Hergestellt wie die Vanilla-Speere: ein Rosenkupferbarren auf zwei Stöcken."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_bronze_spear.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_spear"
       ],
       "usedIn": []
     },
@@ -23459,6 +23766,29 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:rose_gold_horse_armor",
+      "name": {
+        "en_us": "Rose Gold Horse Armor",
+        "de_de": "Roségold-Rossharnisch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold horse armor: armor 6 (between iron 5 and gold 7), enchantability 25. 7 rose gold ingots in the shape of the leather horse armor."
+        },
+        "de": {
+          "summary": "Roségold-Rossharnisch: Rüstung 6 (zwischen Eisen 5 und Gold 7), Verzauberbarkeit 25. 7 Roségoldbarren in der Form des Lederrossharnischs."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_horse_armor.png",
+      "craftedBy": [
+        "simpleores:rose_gold_horse_armor"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_gold_ingot",
       "name": {
         "en_us": "Rose Gold Ingot",
@@ -23517,12 +23847,15 @@
         "simpleores:rose_gold_core",
         "simpleores:rose_gold_helmet",
         "simpleores:rose_gold_hoe",
+        "simpleores:rose_gold_horse_armor",
         "simpleores:rose_gold_leggings",
+        "simpleores:rose_gold_nautilus_armor",
         "simpleores:rose_gold_nugget",
         "simpleores:rose_gold_pickaxe",
         "simpleores:rose_gold_pole",
         "simpleores:rose_gold_pressure_plate",
         "simpleores:rose_gold_shovel",
+        "simpleores:rose_gold_spear",
         "simpleores:rose_gold_sword"
       ]
     },
@@ -23546,6 +23879,29 @@
       "texture": "assets/textures/simpleores/item/rose_gold_leggings.png",
       "craftedBy": [
         "simpleores:rose_gold_leggings"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_nautilus_armor",
+      "name": {
+        "en_us": "Rose Gold Nautilus Armor",
+        "de_de": "Roségold-Nautilusrüstung"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold nautilus armor: armor 6 (between iron 5 and gold 7), enchantability 25. 8 rose gold ingots round a nautilus shell."
+        },
+        "de": {
+          "summary": "Roségold-Nautilusrüstung: Rüstung 6 (zwischen Eisen 5 und Gold 7), Verzauberbarkeit 25. 8 Roségoldbarren um eine Nautilusschale."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_nautilus_armor.png",
+      "craftedBy": [
+        "simpleores:rose_gold_nautilus_armor"
       ],
       "usedIn": []
     },
@@ -23669,6 +24025,29 @@
       "texture": "assets/textures/simpleores/item/rose_gold_shovel.png",
       "craftedBy": [
         "simpleores:rose_gold_shovel"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_spear",
+      "name": {
+        "en_us": "Rose Gold Spear",
+        "de_de": "Roségoldspeer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold spear: durability 225 (iron: 250), enchantability 22; the golden spear's timing with the iron spear's damage factor (0.95). Crafted like the Vanilla spears: a rose gold ingot on two sticks."
+        },
+        "de": {
+          "summary": "Roségoldspeer: Haltbarkeit 225 (Eisen: 250), Verzauberbarkeit 22; der Takt des Goldspeers mit dem Schadensfaktor des Eisenspeers (0,95). Hergestellt wie die Vanilla-Speere: ein Roségoldbarren auf zwei Stöcken."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_spear.png",
+      "craftedBy": [
+        "simpleores:rose_gold_spear"
       ],
       "usedIn": []
     },
@@ -31215,8 +31594,11 @@
   "trades": [],
   "config": [
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.07,
+        0.25
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "astralRailBoost",
@@ -31234,8 +31616,11 @@
       "tooltipDe": "Schub je Tick aus dem Stand, sinkt mit\n(Tempo/Höchsttempo)². Antriebsschiene: 0,06.\nStandard: 0,12."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        8,
+        20
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "astralRailMaxSpeed",
@@ -31254,7 +31639,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "astralitOre",
@@ -31273,7 +31658,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "dimensionalScrap",
@@ -31292,7 +31677,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "enabled",
@@ -31311,7 +31696,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endLeadOre",
@@ -31330,7 +31715,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endOres",
@@ -31348,8 +31733,11 @@
       "tooltipDe": "Aus: keine neuen Astralit- und Nihilit-Adern im End. Wirkt beim nächsten Weltstart in neu erzeugten Chunks; vorhandene Erze bleiben.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        4,
+        100
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endPistonCooldownTicks",
@@ -31368,7 +31756,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endPistons",
@@ -31387,7 +31775,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endRails",
@@ -31406,7 +31794,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endSignals",
@@ -31425,7 +31813,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endZincGeodes",
@@ -31463,7 +31851,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "leadOre",
@@ -31482,7 +31870,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "nickelOre",
@@ -31500,8 +31888,11 @@
       "tooltipDe": "Aus: keine neuen Nickeladern (Tiefenschiefer, wie Diamanterz). Wirkt beim nächsten Weltstart in neu erzeugten Chunks; vorhandene Erze bleiben.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.02,
+        0.4
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "nihilRailBrake",
@@ -31520,7 +31911,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "nihilitOre",
@@ -31538,8 +31929,11 @@
       "tooltipDe": "Nihilit-Adern unter den End-Inseln (braucht End-Erze). Wirkt beim nächsten Weltstart in neu erzeugten Chunks; vorhandene Erze bleiben.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        10.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "roseGoldOreChance",
@@ -31558,7 +31952,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "sageOre",
@@ -31577,7 +31971,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "sageOreOtherDimensions",
@@ -31595,8 +31989,11 @@
       "tooltipDe": "Aus: kein neues Nether- und End-Weisheitserz (sie lassen Weisheitskristall-Splitter fallen). Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.2,
+        0.9
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofFactor",
@@ -31615,7 +32012,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofRecords",
@@ -31633,8 +32030,11 @@
       "tooltipDe": "Schallplatten und Musikgeräte werden von Bleiwänden ebenfalls gedämpft.\nStandard: false."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.01,
+        0.3
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofThreshold",
@@ -31653,7 +32053,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofing",
@@ -31672,7 +32072,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "tinOre",
@@ -31691,7 +32091,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "tinPlacers",
@@ -31710,7 +32110,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "zincGeodes",
@@ -33429,12 +33829,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 27,
-    "recipes": 468,
+    "recipes": 474,
     "lootTables": 222,
     "tags": 12,
     "advancements": 1,
     "enchantments": 0,
-    "items": 101,
+    "items": 107,
     "blocks": 229,
     "trades": 0,
     "config": 27,

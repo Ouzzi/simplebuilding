@@ -53,7 +53,7 @@ public final class BlocksTests {
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
     // PAL35b: + 20 of the metal row (BlocksRegistry.METALS); the 12 ice bricks (a-icebricks38) were lost in the bundle-188 merge (125 -> 137);
     // PLAN40 simpleblocks-3: + 3 sculk tile shapes + chiseled blue nether bricks.
-    public static final int BLOCK_COUNT = 157; // N77: + 16 concrete walls
+    public static final int BLOCK_COUNT = 158; // N77: + 16 concrete walls; N89b: + nether brick fence gate
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 
@@ -474,6 +474,42 @@ public final class BlocksTests {
         return out;
     }
 
+    /**
+     * N89b: the nether brick fence gate - a real fence gate with the nether brick fence's values (hardness, blast resistance, sound,
+     * pickaxe, correct tool needed), not axe-mineable (so not in {@code #fence_gates}); the nether brick fence connects to it, it opens and
+     * lets mobs through when open; "#W#" twice (nether brick, nether bricks) crafts one; right behind the fence in the Vanilla tab.
+     */
+    private static void netherBrickFenceGate(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        Block gate = BlocksRegistry.NETHER_BRICK_FENCE_GATE;
+        BlockState fence = Blocks.NETHER_BRICK_FENCE.defaultBlockState();
+        BlockState state = gate.defaultBlockState();
+        h.assertTrue(gate instanceof net.minecraft.world.level.block.FenceGateBlock && BuiltInRegistries.BLOCK.getValue(SimpleBlocks.id("nether_brick_fence_gate")) == gate
+                && gate.asItem() != Items.AIR, "a fence gate block with its item");
+        h.assertTrue(gate.defaultDestroyTime() == Blocks.NETHER_BRICK_FENCE.defaultDestroyTime()
+                && gate.getExplosionResistance() == Blocks.NETHER_BRICK_FENCE.getExplosionResistance()
+                && state.getSoundType() == fence.getSoundType() && state.requiresCorrectToolForDrops(), "the nether brick fence's hardness, resistance, sound, tool rule");
+        h.assertTrue(state.is(BlockTags.MINEABLE_WITH_PICKAXE) && !state.is(BlockTags.MINEABLE_WITH_AXE) && !state.is(BlockTags.FENCE_GATES)
+                && !state.ignitedByLava(), "pickaxe only, not a wooden gate, does not burn");
+        BlockPos gatePos = new BlockPos(2, 1, 2);
+        BlockPos fencePos = new BlockPos(1, 1, 2);
+        h.setBlock(gatePos, state.setValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING, net.minecraft.core.Direction.NORTH));
+        h.setBlock(fencePos, fence);
+        BlockState connected = Block.updateFromNeighbourShapes(h.getBlockState(fencePos), level, h.absolutePos(fencePos));
+        h.assertTrue(connected.getValue(net.minecraft.world.level.block.FenceBlock.EAST), "the nether brick fence connects to the gate");
+        BlockState closed = h.getBlockState(gatePos);
+        BlockState opened = closed.setValue(net.minecraft.world.level.block.FenceGateBlock.OPEN, true);
+        h.assertTrue(!closed.getCollisionShape(level, h.absolutePos(gatePos)).isEmpty() && opened.getCollisionShape(level, h.absolutePos(gatePos)).isEmpty(),
+                "closed it blocks, open it lets through");
+        ItemStack brick = new ItemStack(Items.NETHER_BRICK);
+        ItemStack bricks = new ItemStack(Items.NETHER_BRICKS);
+        expectCraft(h, level, 3, 2, List.of(brick, bricks, brick.copy(), brick.copy(), bricks.copy(), brick.copy()), gate, 1);
+        List<String> placed = BlocksRegistry.placements().stream().filter(p -> p.before() == Items.NETHER_BRICK_FENCE && p.after())
+                .flatMap(p -> p.names().stream()).toList();
+        h.assertTrue(placed.equals(List.of("nether_brick_fence_gate")), "right behind the nether brick fence in the Vanilla tab: " + placed);
+        h.succeed();
+    }
+
     private static void expectCraft(GameTestHelper h, ServerLevel level, int w, int hgt, List<ItemStack> grid, Block result, int count) {
         var input = net.minecraft.world.item.crafting.CraftingInput.of(w, hgt, grid);
         ItemStack made = level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, level)
@@ -489,6 +525,7 @@ public final class BlocksTests {
         ALL.put("sculk_tiles", BlocksTests::sculkTiles);
         ALL.put("sculk_tile_shapes", BlocksTests::sculkTileShapes);   // PLAN40 simpleblocks-3
         ALL.put("chiseled_blue_nether_bricks", BlocksTests::chiseledBlueNetherBricks);
+        ALL.put("nether_brick_fence_gate", BlocksTests::netherBrickFenceGate);   // N89b
         ALL.put("discover_recipe_unlocks", com.simpleblocks.discover.BlocksDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleblocks.discover.BlocksDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleblocks.discover.BlocksDiscover::firstPickupTips);

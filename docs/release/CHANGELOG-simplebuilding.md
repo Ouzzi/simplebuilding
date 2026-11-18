@@ -32,7 +32,7 @@ Building tools, storage, machines and enchantments for Minecraft; the super mod 
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API
 - Required mods: Cloth Config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels
-- Optional integrations: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, simplemaps, simplequestionary, simpleriding, simplesandwiches, simpletweaks, simplemoney, simplefun, simpledimensions, simpletrims, simpleend, simplerespawn, simplebeacons, simpleshops, simplewanderers, simpleanimals, simplemusic, simpleearth, simplechallenges, simpledinos, simplelayers, simplevault, simplechess
+- Optional integrations: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, simplemaps, simplequestionary, simpleriding, simplesandwiches, simpletweaks, simplemoney, simplefun, simpledimensions, simpletrims, simpleend, simplerespawn, simplebeacons, simpleshops, simplewanderers, simpleanimals, simplemusic, simpleearth, simplechallenges, simpledinos, simplelayers, simplechess
 
 ## Notes
 

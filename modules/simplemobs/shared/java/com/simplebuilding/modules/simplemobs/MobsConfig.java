@@ -74,7 +74,7 @@ public final class MobsConfig {
      * (owner question Q1, recommendation: off until the client check), per-pool chance at level 5 and level cap, at most {@code zoneMaxEffects}
      * per monster, only for the listed spawn reasons. Needs Simple Resonance; without it nothing happens.
      */
-    public static boolean zoneMobsEnabled = false;
+    public static boolean zoneMobsEnabled = true;
     public static int zoneMaxEffects = 3;
     public static List<String> zoneSpawnReasons = new ArrayList<>(List.of("natural", "patrol", "chunk_generation"));
     public static double[] zoneChance = defaultZoneChances();
@@ -280,7 +280,7 @@ public final class MobsConfig {
     }
 
     private static void applyZones(JsonObject json) {
-        zoneMobsEnabled = bool(json, "zoneMobsEnabled", false);
+        zoneMobsEnabled = bool(json, "zoneMobsEnabled", true);
         zoneMaxEffects = Math.max(0, Math.min(8, integer(json, "zoneMaxEffects", 3)));
         List<String> reasons = new ArrayList<>();
         try {

@@ -88,6 +88,23 @@ afterEvaluate {
         }
     }
 }
+// N92-2: SimpleBuilding 26.3 takes the line blocks and Enderite from Simple Ores (SharedMaterials, nested in production):
+// a run that loads SimpleBuilding loads Simple Ores too, same as Simple Storage below. Evaluated first (as Mobheads above):
+// modules sorted before it (simplemoney) would otherwise read its sourceSets too early.
+def oresPath = ':modules:simpleores:neoforge'
+if (!(project.path in [':modules:simplelib:neoforge', mobheadsPath, oresPath]) && rootProject.findProject(oresPath) != null) evaluationDependsOn(oresPath)
+afterEvaluate {
+    if (project.path == ':modules:simpleores:neoforge' || rootProject.findProject(':modules:simpleores:neoforge') == null) return
+    if (!neoForge.mods.any { it.name.startsWith('simplebuilding') }) return
+    if (neoForge.mods.findByName('simpleores') == null) {
+        neoForge.mods.create('simpleores') { sourceSet rootProject.project(':modules:simpleores:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run ->
+        if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') }) {
+            run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simpleores]).unique())
+        }
+    }
+}
 // SimpleBuilding 26.3 requires its sub-mod Simple Storage (split stage 8a, nested in production): same as Simple Ovens below.
 afterEvaluate {
     if (project.path == ':modules:simplestorage:neoforge' || rootProject.findProject(':modules:simplestorage:neoforge') == null) return

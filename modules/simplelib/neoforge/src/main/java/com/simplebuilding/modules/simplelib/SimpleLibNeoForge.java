@@ -38,6 +38,12 @@ public final class SimpleLibNeoForge {
         });
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.tick.ServerTickEvent.Post event) ->
                 com.simplelib.api.InWorldStrikes.tick(event.getServer()));
+        // CMD24 (N92-2: was Fabric only): /<modid> config for every announced config, lowest priority (Fabric: a late phase) so
+        // existing /<modid> roots keep their checks.
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
+                (net.neoforged.neoforge.event.RegisterCommandsEvent event) -> com.simplelib.api.config.ConfigCommands.registerAll(event.getDispatcher(), false,
+                        net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_GAMEMASTERS),
+                        com.simplelib.api.config.ConfigCommands.SERVER_IO));
         // In-world upgrade files: SimpleLib's own load and client sync (idle while a partner such as SimpleBuilding loads them).
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.AddServerReloadListenersEvent event) ->
                 event.addListener(SimpleLib.id("in_world_upgrades"), com.simplelib.api.InWorldUpgrades.reloadListener()));

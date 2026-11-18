@@ -50,12 +50,10 @@ public final class OresFabric implements ModInitializer {
         if (initialized) return;
         initialized = true;
         SimpleOres.init(FabricLoader.getInstance().getConfigDir());
-        // CMD24: /simpleores config for every option.
-        com.simplelib.api.config.ConfigCommands.server(SimpleOres.MOD_ID).json(com.simpleores.config.OresConfig::toJson, com.simpleores.config.OresConfig::apply)
-                .file(FabricLoader.getInstance().getConfigDir(), com.simpleores.config.OresConfig.FILE).register();
         com.simpleores.RoseGoldVeinFeature.register();
         com.simpleores.MiniGeodeFeature.register();
         OresRegistry.registerAll();
+        SimpleOres.registerStation();
         com.simplelib.api.ModTabs.register(SimpleOres.MOD_ID, "ores", "itemgroup.simpleores.ores", () -> new ItemStack(OresRegistry.ITEMS.get("silver_ingot")));
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, SILVER);
         // N4 (b-ores13, owner 09.11.): one switch per deposit (lead in stone, zinc geodes, nickel in deepslate, mountain tin, tin placers, End lead and zinc).

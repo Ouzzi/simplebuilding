@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleores"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleores"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "simpleores:rose_gold_ingot",
+    "N": "minecraft:copper_nugget",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "   ",
+    "NM ",
+    "SN "
+  ],
+  "result": {
+    "id": "simplechisels:rose_gold_chisel"
+  }
+}

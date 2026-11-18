@@ -24,6 +24,12 @@ public final class OresNeoForge {
             event.register(Registries.SOUND_EVENT, h -> com.simpleores.OresSounds.events(h::register));
             event.register(Registries.BLOCK, h -> OresRegistry.blocks(h::register));
             event.register(Registries.ITEM, h -> OresRegistry.items(h::register));
+            if (event.getRegistryKey().equals(Registries.ITEM)) SimpleOres.registerStation();
+            // N92-2: the two own feature types (Fabric: onInitialize) - the worldgen data of zinc geodes and rose gold veins needs them.
+            if (event.getRegistryKey().equals(Registries.FEATURE_TYPE)) {
+                com.simpleores.RoseGoldVeinFeature.register();
+                com.simpleores.MiniGeodeFeature.register();
+            }
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             if (!SimpleOres.on()) return;

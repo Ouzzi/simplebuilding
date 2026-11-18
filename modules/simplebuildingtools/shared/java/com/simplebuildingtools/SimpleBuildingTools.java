@@ -30,7 +30,7 @@ public final class SimpleBuildingTools {
     public static final String SB_NAMESPACE = "simplebuilding";
 
     /** Item paths, in tab order (the old paths are the new ones). */
-    public static final List<String> WAND_TIERS = List.of("copper", "iron", "gold", "diamond", "netherite", "enderite");
+    public static final List<String> WAND_TIERS = List.of("copper", "rose_bronze", "iron", "gold", "rose_gold", "diamond", "netherite", "enderite");
     public static final List<String> ITEMS;
     public static final List<String> COMPONENTS = List.of("blueprint", "blueprint_rotation");
     public static final List<String> ENCHANTMENTS = List.of("cover", "bridge", "linear");
@@ -50,6 +50,9 @@ public final class SimpleBuildingTools {
         for (String tier : List.of("copper", "iron", "gold", "diamond")) recipes.add(new String[] {tier + "_building_wand", "tools"});
         recipes.add(new String[] {"netherite_building_wand_smithing", "tools"});
         recipes.add(new String[] {"enderite_building_wand_smithing", "combat"});
+        // N89A: the rose wands (core + 2 alloy ingots; only while c:ingots/<alloy> has content)
+        recipes.add(new String[] {"rose_bronze_building_wand", "tools"});
+        recipes.add(new String[] {"rose_gold_building_wand", "tools"});
         recipes.add(new String[] {"upgrade_copper_building_wand_to_iron_building_wand", "misc"});
         recipes.add(new String[] {"upgrade_iron_building_wand_to_gold_building_wand", "misc"});
         recipes.add(new String[] {"upgrade_gold_building_wand_to_diamond_building_wand", "misc"});

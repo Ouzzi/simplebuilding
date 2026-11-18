@@ -18,9 +18,9 @@ Restyle of the Vanilla container screens (a coloured box per block, drawn in cod
 - **Easy shulker boxes and ender chests** - Right-click a shulker box (any color, also SimpleBuilding tier boxes) or an ender chest in the air, or right-click it on its own inventory slot, to open it without placing it.
 - **Shulker box and ender chest tooltips** - Hold Shift over a shulker box to see its contents as a slot grid; the ender chest item shows your own ender chest.
 - **Bundles show everything** - Bundle tooltips show every entry instead of Vanilla's twelve, and the mouse wheel selects any of them.
-- **Spyglass and zoom** - The spyglass darkens only the screen edge, hides the HUD (crosshair stays) and zooms steplessly with the mouse wheel.
+- **Spyglass and zoom** - The spyglass darkens only the screen edge, hides the HUD (crosshair stays) and zooms steplessly with the mouse wheel; a copper frame slides in from the screen edge.
 - **Clearer slot highlight** - The highlight of the hovered slot is drawn only behind the item, so the item stays fully visible.
-- **Key binding page** - A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks.
+- **Key binding page** - A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks (key U).
 
 ## Requirements
 

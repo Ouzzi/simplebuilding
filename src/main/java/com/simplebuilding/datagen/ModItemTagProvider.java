@@ -78,6 +78,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.DIAMOND_CHISEL))
                 .add(key(ModItems.NETHERITE_CHISEL))
                 .add(key(ModItems.ENDERITE_CHISEL));
+        if (!com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+            // N90: Simple Chisels' rose tiers (N89A) get Fast Chiseling like their siblings; 26.2 has no rose chisels.
+            builder(ModTags.Items.CHISEL_TOOLS)
+                    .add(key(com.simplebuilding.util.ChiselRefs.item("rose_bronze")))
+                    .add(key(com.simplebuilding.util.ChiselRefs.item("rose_gold")));
+        }
 
         // b-btools07: by id - on 26.3 Simple Building Tools' octants and wands (SimpleBuilding's shared enchantments still apply).
         var octantBuilder = builder(ModTags.Items.OCTANTS_ENCHANTABLE)

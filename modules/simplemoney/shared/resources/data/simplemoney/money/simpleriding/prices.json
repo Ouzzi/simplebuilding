@@ -1,6 +1,9 @@
 {
   "module": "simpleriding",
   "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3; maximum ingredient tier and recipe slot count; scarce heads tier 3. Tables are curated, not a claim of measured play time.",
-  "excluded": {},
+  "excluded": {
+    "simpleriding:rose_bronze_horseshoe": "Smithed from a rose copper ingot and an iron nugget (N89A); like the other horseshoes not offered by shops.",
+    "simpleriding:rose_gold_horseshoe": "Smithed from a rose gold ingot and an iron nugget (N89A); like the other horseshoes not offered by shops."
+  },
   "prices": []
 }

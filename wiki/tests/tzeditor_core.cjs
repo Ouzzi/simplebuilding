@@ -58,3 +58,35 @@ assert.equal(bp2.bands.length, 2);                                          // m
 assert.deepEqual(T.unplaced({ x: ['x:1', 'x:9'], y: ['y:1'] }, [{ cells: ['x:1', 'y:1'] }]), ['x:9']);
 assert.equal(T.STR.de.mMissing, 'Als fehlend markieren (rot)');
 console.log('tzeditor N72b core ok');
+
+// N99: group move with push-back (nothing lost), range, copy/paste, saved-vs-online helpers
+{
+  const g = { f: { rows: [['a', 'b', 'c', null], ['d', null, 'e', 'x']] } };
+  const get = (f, r, c) => g[f].rows[r][c];
+  const inside = (f, r, c) => !!g[f] && r >= 0 && c >= 0 && r < g[f].rows.length && c < g[f].rows[0].length;
+  const apply = plan => { const v = plan.map(x => x.v); plan.forEach((x, i) => { g[x.f].rows[x.r][x.c] = v[i]; }); };
+  apply(T.planMove([{ f: 'f', r: 0, c: 0 }], 'f', 1, 2, get, inside));                       // single cell = swap
+  assert.deepEqual(g.f.rows, [['e', 'b', 'c', null], ['d', null, 'a', 'x']]);
+  apply(T.planMove([{ f: 'f', r: 0, c: 0 }, { f: 'f', r: 0, c: 1 }, { f: 'f', r: 0, c: 2 }], 'f', 0, 1, get, inside));  // run shifts right, pushed field wraps to the left
+  assert.deepEqual(g.f.rows[0], [null, 'e', 'b', 'c']);
+  assert.equal(T.planMove([{ f: 'f', r: 1, c: 3 }], 'f', 0, 1, get, inside), null);           // beyond the edge
+  const flat = g.f.rows.flat().filter(Boolean).sort();
+  apply(T.planMove([{ f: 'f', r: 0, c: 1 }, { f: 'f', r: 1, c: 1 }], 'f', 0, 2, get, inside));
+  assert.deepEqual(g.f.rows.flat().filter(Boolean).sort(), flat);                              // no id lost or doubled
+  assert.equal(T.rectOf({ f: 'f', r: 2, c: 3 }, { f: 'f', r: 1, c: 1 }).length, 6);
+  const clip = T.copyOf([{ f: 'f', r: 1, c: 2 }, { f: 'f', r: 0, c: 3 }], get);
+  assert.deepEqual(clip.map(p => [p.dr, p.dc]), [[1, 0], [0, 1]]);
+  assert.equal(T.pasteAt(clip, 'f', 0, 3, inside).length, 0 + 1);                            // cut off at the edge
+  const cols = ['a', 'b'], rows = [{ key: 'k', label: 'K', cells: ['x:1', null], tops: { b: 'x:o' } }];
+  assert.equal(T.layoutKey(cols, rows), T.layoutKey(['a', 'b'], [{ key: 'k', label: 'K', cells: ['x:1', undefined], tops: { b: 'x:o' } }]));
+  assert.notEqual(T.layoutKey(cols, rows), T.layoutKey(cols, [{ key: 'k', label: 'K', cells: [null, 'x:1'], tops: { b: 'x:o' } }]));
+  const base = T.baseMapOf(cols, rows);
+  assert.equal(T.differs(base, 'k', 'a', 'x:1'), false); assert.equal(T.differs(base, 'k', 'b', 'x:1'), true);
+  assert.equal(T.differs(base, 'new', 'a', null), false); assert.equal(T.differs(base, 'new', 'a', '#red'), true);
+  assert.equal(T.differs(null, 'k', 'a', 'z'), false);
+  const list = [{ sid: '17', variant: 'lines', area: 'wood' }, { sid: '19', variant: 'lines', area: 'wood' }, { sid: '20', variant: 'lines', area: 'stone' }];
+  assert.equal(T.newestSave(list, 'lines', 'wood').sid, '19');
+  assert.equal(T.newestSave(list, 'blocks', 'wood'), null);
+  assert.equal(T.newestSave(null, 'lines', 'wood'), null);
+  console.log('tzeditor N99 core ok');
+}

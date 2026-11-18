@@ -31,20 +31,26 @@ public final class CompactBlocks {
     /** The last stage: slows its carrier down ({@link CollapsedEffect}). */
     public static final String COLLAPSED_STAGE = "collapsed";
 
-    /** Base block path -> (Vanilla base block, hardness, blast resistance); the order is the tab order and matches generate_data.COMPACT_BASES. */
-    public record Base(String path, Block block, float hardness, float resistance) {}
+    /**
+     * Base block path -> (Vanilla base block, hardness, blast resistance); the order is the tab order and matches generate_data.COMPACT_BASES.
+     * The list lives in the record ({@link Base#ALL}) so mod construction (IdMoves) can read it without running this class's static
+     * initializer: N92-2, NeoForge refuses to build blocks outside its RegisterEvent ("Registry is already frozen").
+     */
+    public record Base(String path, Block block, float hardness, float resistance) {
+        public static final List<Base> ALL = List.of(
+                new Base("dirt", Blocks.DIRT, 0.5f, 0.5f), new Base("mud", Blocks.MUD, 0.5f, 0.5f),
+                new Base("cobblestone", Blocks.COBBLESTONE, 2.0f, 6.0f), new Base("stone", Blocks.STONE, 1.5f, 6.0f),
+                new Base("sand", Blocks.SAND, 0.5f, 0.5f), new Base("red_sand", Blocks.RED_SAND, 0.5f, 0.5f),
+                new Base("gravel", Blocks.GRAVEL, 0.6f, 0.6f), new Base("clay", Blocks.CLAY, 0.6f, 0.6f),
+                new Base("netherrack", Blocks.NETHERRACK, 0.4f, 0.4f), new Base("cobbled_deepslate", Blocks.COBBLED_DEEPSLATE, 3.5f, 6.0f),
+                new Base("andesite", Blocks.ANDESITE, 1.5f, 6.0f), new Base("diorite", Blocks.DIORITE, 1.5f, 6.0f),
+                new Base("granite", Blocks.GRANITE, 1.5f, 6.0f), new Base("tuff", Blocks.TUFF, 1.5f, 6.0f),
+                new Base("sandstone", Blocks.SANDSTONE, 0.8f, 0.8f), new Base("red_sandstone", Blocks.RED_SANDSTONE, 0.8f, 0.8f),
+                new Base("end_stone", Blocks.END_STONE, 3.0f, 9.0f), new Base("blackstone", Blocks.BLACKSTONE, 1.5f, 6.0f),
+                new Base("soul_sand", Blocks.SOUL_SAND, 0.5f, 0.5f));
+    }
 
-    public static final List<Base> BASES = List.of(
-            new Base("dirt", Blocks.DIRT, 0.5f, 0.5f), new Base("mud", Blocks.MUD, 0.5f, 0.5f),
-            new Base("cobblestone", Blocks.COBBLESTONE, 2.0f, 6.0f), new Base("stone", Blocks.STONE, 1.5f, 6.0f),
-            new Base("sand", Blocks.SAND, 0.5f, 0.5f), new Base("red_sand", Blocks.RED_SAND, 0.5f, 0.5f),
-            new Base("gravel", Blocks.GRAVEL, 0.6f, 0.6f), new Base("clay", Blocks.CLAY, 0.6f, 0.6f),
-            new Base("netherrack", Blocks.NETHERRACK, 0.4f, 0.4f), new Base("cobbled_deepslate", Blocks.COBBLED_DEEPSLATE, 3.5f, 6.0f),
-            new Base("andesite", Blocks.ANDESITE, 1.5f, 6.0f), new Base("diorite", Blocks.DIORITE, 1.5f, 6.0f),
-            new Base("granite", Blocks.GRANITE, 1.5f, 6.0f), new Base("tuff", Blocks.TUFF, 1.5f, 6.0f),
-            new Base("sandstone", Blocks.SANDSTONE, 0.8f, 0.8f), new Base("red_sandstone", Blocks.RED_SANDSTONE, 0.8f, 0.8f),
-            new Base("end_stone", Blocks.END_STONE, 3.0f, 9.0f), new Base("blackstone", Blocks.BLACKSTONE, 1.5f, 6.0f),
-            new Base("soul_sand", Blocks.SOUL_SAND, 0.5f, 0.5f));
+    public static final List<Base> BASES = Base.ALL;
 
     /** Block path ("compact_dirt", "dense_dirt", ...) -> block, in tab order. */
     public static final Map<String, Block> BLOCKS = new LinkedHashMap<>();

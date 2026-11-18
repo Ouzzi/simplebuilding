@@ -96,6 +96,15 @@ Spalten, max. 512 KB) und devqueue legt die Speicherung als JSON unter `<data>/t
   `tz-layout-<variant>-<area>-<sid>` im Hub committet (Datei `src/main/resources/data/simplebuilding/testcentre/layout_<variant>_<area>.json`,
   immer neu serialisiert), nie auf claude-wave1; ältere Speicherungen desselben Bereichs werden übersprungen:
   `python3 tools/tzedit/tzedit_save.py pull --git-dir /root/sb.git --remote "ssh -o BatchMode=yes sb-web" --report /root/b-fertig.md`
+- Automatisch (N99, Cron auf sb-agent, von A eingerichtet): `tools/tzedit/tz_pull.sh` = `pull --seen /root/devq/tz_pull.seen`,
+  danach je neuem `tz-layout-*`-Branch `build_editor.py` (wiki/data/testcentre) als zweiter Commit und die Express-Spur
+  (`/root/sb-tools-b/express.sh <branch>` → claude-wave1 = Dev; volles Gate mit dem nächsten Bündel):
+  `*/5 * * * * /root/wt/claude-wave1/tools/tzedit/tz_pull.sh >> /root/devq/tz_pull.log 2>&1` (Probe: `tz_pull.sh --dry-run`).
+- Anzeige im Editor (N99): beim Laden zeigt der Editor je Bereich die neueste Speicherung (`GET /api/testcentre` +
+  `GET /api/testcentre/<sid>`), wenn sie vom Repo-Stand abweicht und jünger ist als die Repo-Datei (`Last-Modified`), markiert
+  „gespeichert – noch nicht online“ (Leiste + Bereichskopf, orange Ecke an jeder abweichenden Zelle); Schalter
+  „Online-Stand zeigen“. Ohne Server-Liste gilt die lokale Kopie der eigenen letzten Speicherung (localStorage). Sobald die
+  Speicherung auf claude-wave1 ist, gleicht sie dem Repo-Stand und die Markierung entfällt.
 - Tests: `python3 -m unittest tools/tzedit/tests/test_tzedit_save.py`
 
 ### Bilder im Editor (N72)

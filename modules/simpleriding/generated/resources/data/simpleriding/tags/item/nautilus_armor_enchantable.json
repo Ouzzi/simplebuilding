@@ -8,6 +8,14 @@
     {
       "id": "simpleores:enderite_nautilus_armor",
       "required": false
+    },
+    {
+      "id": "simpleores:rose_bronze_nautilus_armor",
+      "required": false
+    },
+    {
+      "id": "simpleores:rose_gold_nautilus_armor",
+      "required": false
     }
   ]
 }

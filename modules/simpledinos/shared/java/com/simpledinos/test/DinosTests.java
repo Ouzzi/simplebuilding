@@ -318,6 +318,82 @@ public final class DinosTests {
                     .get(ResourceKey.create(Registries.PLACED_FEATURE, SimpleDinos.id("fossil_block"))).isPresent(), "worldgen feature");
             h.succeed();
         });
+        ALL.put("metal_armor", h -> {
+            // N89A (owner N77): every metal tier exists, carries the body values of its material and its recipe resolves (tag/mod-gated ones only
+            // while the material is there).
+            Map<String, double[]> values = Map.of("copper", new double[] {4, 0}, "gold", new double[] {7, 0}, "rose_gold", new double[] {6, 0},
+                    "rose_bronze", new double[] {4, 0}, "netherite", new double[] {19, 3}, "enderite", new double[] {22, 4});
+            Map<String, net.minecraft.world.entity.EntityType<?>> types = Map.of("trex", DinosRegistry.TREX, "triceratops", DinosRegistry.TRICERATOPS,
+                    "stegosaurus", DinosRegistry.STEGOSAURUS, "parasaurolophus", DinosRegistry.PARASAUROLOPHUS, "utahraptor", DinosRegistry.UTAHRAPTOR);
+            h.assertTrue(DinosRegistry.METAL_ARMOR.size() == 18, "18 metal armors, got " + DinosRegistry.METAL_ARMOR.size());
+            var recipes = h.getLevel().getServer().getRecipeManager();
+            for (var entry : DinosRegistry.METAL_TIERS.entrySet()) {
+                String dino = entry.getKey();
+                for (String metal : entry.getValue()) {
+                    String path = dino + "_armor_" + metal;
+                    h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleDinos.id(path)), "item " + path);
+                    Item item = BuiltInRegistries.ITEM.getValue(SimpleDinos.id(path));
+                    ItemStack stack = new ItemStack(item);
+                    double armor = 0, toughness = 0;
+                    var mods = stack.get(net.minecraft.core.component.DataComponents.ATTRIBUTE_MODIFIERS);
+                    h.assertTrue(mods != null, path + " has attribute modifiers");
+                    for (var e : mods.modifiers()) {
+                        if (e.attribute().equals(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR)) armor += e.modifier().amount();
+                        if (e.attribute().equals(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR_TOUGHNESS)) toughness += e.modifier().amount();
+                    }
+                    h.assertTrue(armor == values.get(metal)[0] && toughness == values.get(metal)[1], path + " body " + armor + "/" + toughness);
+                    boolean fireproof = metal.equals("netherite") || metal.equals("enderite");
+                    h.assertTrue(stack.has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT) == fireproof, path + " fire resistant only for Netherite/Enderite");
+                    h.assertTrue(stack.get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable e && e.slot() == EquipmentSlot.BODY
+                            && e.canBeEquippedBy(types.get(dino).builtInRegistryHolder()), path + " fits its dinosaur");
+                    for (var other : types.entrySet()) {
+                        if (!other.getKey().equals(dino)) h.assertTrue(!(stack.get(net.minecraft.core.component.DataComponents.EQUIPPABLE) instanceof Equippable e
+                                && e.canBeEquippedBy(other.getValue().builtInRegistryHolder())), path + " does not fit " + other.getKey());
+                    }
+                    int code = DinosRegistry.ARMOR_TIER_NAMES.indexOf(metal);
+                    int tier = switch (dino) {
+                        case "trex" -> Trex.armorTier(stack);
+                        case "triceratops" -> Triceratops.armorTier(stack);
+                        case "stegosaurus" -> Stegosaurus.armorTier(stack);
+                        case "parasaurolophus" -> Parasaurolophus.armorTier(stack);
+                        default -> Utahraptor.armorTier(stack);
+                    };
+                    h.assertTrue(code >= 4 && tier == code, path + " texture code " + tier + " (want " + code + ")");
+                    // the recipe: always for the Vanilla metals; rose only while c:ingots/<metal> has content, Enderite only with Simple Ores
+                    var holder = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleDinos.id(path)));
+                    ItemStack material = switch (metal) {
+                        case "copper" -> new ItemStack(Items.COPPER_INGOT);
+                        case "gold" -> new ItemStack(Items.GOLD_INGOT);
+                        case "netherite" -> new ItemStack(Items.NETHERITE_INGOT);
+                        case "enderite" -> new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "enderite_ingot")));
+                        default -> BuiltInRegistries.ITEM.get(net.minecraft.tags.TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "ingots/" + metal)))
+                                .flatMap(set -> set.stream().findFirst()).map(x -> new ItemStack(x.value())).orElse(ItemStack.EMPTY);
+                    };
+                    boolean expected = !material.isEmpty() && !material.is(Items.AIR);
+                    h.assertTrue(holder.isPresent() == expected, path + " recipe present=" + holder.isPresent() + ", material there=" + expected);
+                    if (!expected) continue;
+                    var recipe = holder.get().value();
+                    ItemStack out;
+                    if (metal.equals("netherite") || metal.equals("enderite")) {
+                        ItemStack template = metal.equals("netherite") ? new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
+                                : new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "enderite_upgrade_template")));
+                        Item base = metal.equals("netherite") ? DinosRegistry.TREX_ARMOR_DIAMOND : DinosRegistry.METAL_ARMOR.get("trex_armor_netherite");
+                        var input = new net.minecraft.world.item.crafting.SmithingRecipeInput(template, new ItemStack(base), material);
+                        @SuppressWarnings("unchecked") var smithing = (net.minecraft.world.item.crafting.Recipe<net.minecraft.world.item.crafting.SmithingRecipeInput>) recipe;
+                        h.assertTrue(smithing.matches(input, h.getLevel()), path + " smithing matches");
+                        out = smithing.assemble(input);
+                    } else {
+                        ItemStack centre = dino.equals("trex") ? new ItemStack(Items.BONE_BLOCK) : new ItemStack(DinosRegistry.eggshell(DinoKind.valueOf(dino.toUpperCase())));
+                        var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(material, material, material, material, centre, material, material, material, material));
+                        @SuppressWarnings("unchecked") var crafting = (net.minecraft.world.item.crafting.Recipe<net.minecraft.world.item.crafting.CraftingInput>) recipe;
+                        h.assertTrue(crafting.matches(input, h.getLevel()), path + " crafting matches");
+                        out = crafting.assemble(input);
+                    }
+                    h.assertTrue(out.is(item), path + " recipe makes " + out);
+                }
+            }
+            h.succeed();
+        });
         ALL.put("config_caps", h -> {
             try {
                 DinosConfig.apply(com.google.gson.JsonParser.parseString("{\"brushSeconds\":99999,\"incubateSeconds\":0,\"hatchSeconds\":\"x\",\"growMinutes\":-5,\"trexBiteDamage\":1000,"

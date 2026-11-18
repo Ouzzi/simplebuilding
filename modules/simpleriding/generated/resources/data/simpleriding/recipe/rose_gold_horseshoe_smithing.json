@@ -1,0 +1,36 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "registry": "minecraft:item",
+      "values": [
+        "c:ingots/rose_gold"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/rose_gold"
+      }
+    }
+  ],
+  "forge:conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "c:ingots/rose_gold"
+      }
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:iron_nugget",
+  "base": "#c:ingots/rose_gold",
+  "result": {
+    "id": "simpleriding:rose_gold_horseshoe"
+  },
+  "template": "simpleriding:horseshoe_smithing_template"
+}

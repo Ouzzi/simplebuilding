@@ -16,7 +16,15 @@ public final class OresForge {
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             event.register(Registries.SOUND_EVENT, r -> com.simpleores.OresSounds.events(r::register));
             event.register(Registries.BLOCK, r -> OresRegistry.blocks(r::register));
-            event.register(Registries.ITEM, r -> OresRegistry.items(r::register));
+            event.register(Registries.ITEM, r -> {
+                OresRegistry.items(r::register);
+                SimpleOres.registerStation();
+            });
+            // N92-2: the two own feature types (Fabric: onInitialize), as on NeoForge.
+            if (event.getRegistryKey().equals(Registries.FEATURE_TYPE)) {
+                com.simpleores.RoseGoldVeinFeature.register();
+                com.simpleores.MiniGeodeFeature.register();
+            }
         });
     }
 }

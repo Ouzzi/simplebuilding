@@ -6,10 +6,10 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link OresTests}, all on the 16 x 8 x 16 stone arena. */
 public final class ModuleGameTest {
-    @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleores", false); }
+    @GameTest public void configCommand(GameTestHelper h) { OresTests.ALL.get("config_command").accept(h); }
 
     /** JEI24 (a-fix09b): Sage Ore, Sage Orb and Dimensional Scrap pages, N4 (b-ores13): six deposit pages; texts in EN and DE. */
-    @GameTest public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleores", 13); }  // N46/M2: +4 End ore pages
+    @GameTest public void jeiInfoPages(GameTestHelper h) { OresTests.ALL.get("jei_info_pages").accept(h); }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
@@ -39,6 +39,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void armorValues(GameTestHelper h) {
         OresTests.ALL.get("armor_values").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void mountGear(GameTestHelper h) {
+        OresTests.ALL.get("mount_gear").accept(h);
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)

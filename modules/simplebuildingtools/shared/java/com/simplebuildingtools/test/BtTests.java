@@ -45,8 +45,15 @@ public final class BtTests {
         for (String path : SimpleBuildingTools.ITEMS) {
             if (!BuiltInRegistries.ITEM.containsKey(SimpleBuildingTools.id(path))) problems.add("item " + path);
         }
-        if (SimpleBuildingTools.ITEMS.size() != 26) problems.add("26 items expected, found " + SimpleBuildingTools.ITEMS.size());
-        if (BtItems.all().size() != 26) problems.add("BtItems has " + BtItems.all().size());
+        if (SimpleBuildingTools.ITEMS.size() != 28) problems.add("28 items expected (N89A: + two rose wands), found " + SimpleBuildingTools.ITEMS.size());
+        if (BtItems.all().size() != 28) problems.add("BtItems has " + BtItems.all().size());
+        // N89A: the rose wands - durability tool x 8, reach and hunger tier of copper/gold, enchantability of the alloy
+        if (BtItems.ROSE_BRONZE_BUILDING_WAND.getWandSquareDiameter() != com.simplebuildingtools.items.custom.BuildingWandItem.BUILDING_WAND_SQUARE_COPPER
+                || new net.minecraft.world.item.ItemStack(BtItems.ROSE_BRONZE_BUILDING_WAND).getMaxDamage() != 1520
+                || com.simplebuildingtools.util.WandHunger.tierOf(BtItems.ROSE_BRONZE_BUILDING_WAND) != 0) problems.add("rose bronze wand values");
+        if (BtItems.ROSE_GOLD_BUILDING_WAND.getWandSquareDiameter() != com.simplebuildingtools.items.custom.BuildingWandItem.BUILDING_WAND_SQUARE_GOLD
+                || new net.minecraft.world.item.ItemStack(BtItems.ROSE_GOLD_BUILDING_WAND).getMaxDamage() != 1800
+                || com.simplebuildingtools.util.WandHunger.tierOf(BtItems.ROSE_GOLD_BUILDING_WAND) != 2) problems.add("rose gold wand values");
         for (String path : SimpleBuildingTools.COMPONENTS) {
             if (!BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleBuildingTools.id(path))) problems.add("component " + path);
         }
@@ -117,7 +124,7 @@ public final class BtTests {
         boolean sb = net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding");
         for (String[] recipe : SimpleBuildingTools.RECIPES) {
             String path = recipe[0];
-            if (path.startsWith("enderite_") || path.startsWith("upgrade_") || path.equals("blueprint")) continue; // conditional
+            if (path.startsWith("enderite_") || path.startsWith("rose_") || path.startsWith("upgrade_") || path.equals("blueprint")) continue; // conditional
             if (recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleBuildingTools.id(path))).isEmpty()) problems.add(path);
         }
         boolean withSb = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleBuildingTools.id("blueprint"))).isPresent();
@@ -135,6 +142,22 @@ public final class BtTests {
         boolean ores = net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simpleores");
         boolean present = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleBuildingTools.id("enderite_building_wand_smithing"))).isPresent();
         h.assertValueEqual(present, ores, "enderite wand recipe present = Simple Ores loaded");
+        // N89A: the rose wands load exactly while c:ingots/<alloy> has content; with an ingot they craft from the rose core + 2 ingots + 2 sticks
+        for (String alloy : List.of("rose_bronze", "rose_gold")) {
+            var tag = net.minecraft.tags.TagKey.create(Registries.ITEM, Identifier.parse("c:ingots/" + alloy));
+            var ingot = BuiltInRegistries.ITEM.get(tag).flatMap(set -> set.stream().findFirst())
+                    .map(holder -> new net.minecraft.world.item.ItemStack(holder.value())).orElse(net.minecraft.world.item.ItemStack.EMPTY);
+            boolean rose = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleBuildingTools.id(alloy + "_building_wand"))).isPresent();
+            h.assertValueEqual(rose, !ingot.isEmpty(), alloy + " wand recipe present = c:ingots/" + alloy + " has content");
+            if (ingot.isEmpty()) continue;
+            var core = new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplelib", alloy + "_core")));
+            var stick = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.STICK);
+            var empty = net.minecraft.world.item.ItemStack.EMPTY;
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(empty, ingot, core, empty, stick, ingot, stick, empty, empty));
+            var crafted = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, h.getLevel())
+                    .map(r -> r.value().assemble(input)).orElse(empty);
+            h.assertTrue(crafted.is(BuiltInRegistries.ITEM.getValue(SimpleBuildingTools.id(alloy + "_building_wand"))), alloy + " wand crafted " + crafted);
+        }
         h.succeed();
     }
 }

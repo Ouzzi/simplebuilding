@@ -2,7 +2,8 @@
   "schema": 1,
   "generatedFrom": {
     "line": "26.3",
-    "generator": "wiki/generate.py"
+    "generator": "wiki/generate.py",
+    "howToRegenerate": "python wiki/generate.py --module simplemobs"
   },
   "mod": {
     "id": "simplemobs",
@@ -179,7 +180,7 @@
       ],
       "en": {
         "title": "Danger zones: effects on new monsters",
-        "summary": "With Simple Resonance installed and zoneMobsEnabled on, new monsters get status effects (never more health) by the danger level of their spawn place: the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger. Off by default until the client check.",
+        "summary": "With Simple Resonance installed and zoneMobsEnabled on, new monsters get status effects (never more health) by the danger level of their spawn place: the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger. On by default.",
         "details": [
           "Which spawns: natural spawns, patrols and chunk generation of monsters (zoneSpawnReasons). Never spawners, eggs, commands, raids, summoned, named monsters or bosses.",
           "Pools and chance at level 5: Strength 35 % (up to III), Speed 25 % (II), Extra Hearts 30 % (II), Oozing 20 % (I), Infested 20 % (I), Deflection 25 % (V), Volatile 15 % (V), Mirror 10 % (V). The chance grows as chance x (level / 5)^1.3; the pools are drawn in random order, at most zoneMaxEffects (3) per monster.",
@@ -190,7 +191,7 @@
       },
       "de": {
         "title": "Gefahrenzonen: Effekte für neue Monster",
-        "summary": "Mit installiertem Simple Resonance und eingeschaltetem zoneMobsEnabled bekommen neue Monster je nach Gefahrenstufe ihres Spawn-Ortes Statuseffekte (nie mehr Leben): je weiter vom Welt-Spawn und je erfahrener der nächste Spieler, desto wahrscheinlicher und stärker. Standardmäßig aus bis zur Client-Abnahme.",
+        "summary": "Mit installiertem Simple Resonance und eingeschaltetem zoneMobsEnabled bekommen neue Monster je nach Gefahrenstufe ihres Spawn-Ortes Statuseffekte (nie mehr Leben): je weiter vom Welt-Spawn und je erfahrener der nächste Spieler, desto wahrscheinlicher und stärker. Standardmäßig an.",
         "details": [
           "Welche Spawns: natürliche Spawns, Patrouillen und Chunk-Erzeugung von Monstern (zoneSpawnReasons). Nie Spawner, Eier, Befehle, Raids, beschworene, benannte Monster oder Bosse.",
           "Töpfe und Chance bei Stufe 5: Stärke 35 % (bis III), Geschwindigkeit 25 % (II), Extraherzen 30 % (II), Oozing 20 % (I), Infested 20 % (I), Ablenkung 25 % (V), Flüchtig 15 % (V), Spiegel 10 % (V). Die Chance wächst wie Chance x (Stufe / 5)^1,3; die Töpfe werden in zufälliger Reihenfolge gewürfelt, höchstens zoneMaxEffects (3) je Monster.",
@@ -8678,7 +8679,7 @@
       "name": "zoneMobsEnabled",
       "shortName": "zoneMobsEnabled",
       "type": "boolean",
-      "default": "false",
+      "default": "true",
       "note": null,
       "category": "Simple Mobs",
       "categoryDe": "Simple Mobs",

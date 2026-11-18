@@ -127,6 +127,10 @@ ARMOR = {
            '................'], 'Brustplatte (Item als Helmkörper): breite Platte mit Gurt und Schnalle'),
 }
 TIERS = {'leather': ('9a6234', 'c9a23a'), 'iron': ('a8adb4', 'd8d4cc'), 'diamond': ('3fd0c4', '9af0e4')}
+# N89A (owner N77): the T. rex armor in every metal tier, main and trim tone per metal; the rose tones from the alloy ramps of
+# ores_2026_10_30.RAMPS (soft = Rose Gold, hard = Rose Copper), the rest from the own metal palettes (horseshoes, chisels, Enderite gear).
+TIERS.update({'copper': ('b0562c', 'de8a54'), 'gold': ('e0b020', 'fbe46a'), 'rose_gold': ('d2877f', 'efc0b4'),
+              'rose_bronze': ('d37d5d', 'f2b88f'), 'netherite': ('4a4044', '7a6e70'), 'enderite': ('6d45b8', 'c77dff')})
 
 
 def armor(v, tier):

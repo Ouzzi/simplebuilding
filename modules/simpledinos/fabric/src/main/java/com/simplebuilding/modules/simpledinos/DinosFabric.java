@@ -74,14 +74,7 @@ public final class DinosFabric implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(out -> {
             if (!SimpleDinos.on()) return;
-            insert(out, Items.DIAMOND_HORSE_ARMOR, java.util.List.of(new ItemStack(DinosRegistry.TREX_ARMOR_LEATHER),
-                    new ItemStack(DinosRegistry.TREX_ARMOR_IRON), new ItemStack(DinosRegistry.TREX_ARMOR_DIAMOND),
-                    new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_LEATHER), new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON),
-                    new ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND), new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_LEATHER),
-                    new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON), new ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_DIAMOND),
-                    new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_LEATHER), new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_IRON),
-                    new ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_DIAMOND), new ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_LEATHER),
-                    new ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_IRON), new ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_DIAMOND)));
+            insert(out, Items.DIAMOND_HORSE_ARMOR, DinosRegistry.armorStacks());   // N89A: with the metal tiers
         });
         // a-dinorest1: the eggshells next to the turtle scute (the same idea: what a hatchling leaves behind)
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
