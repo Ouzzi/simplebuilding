@@ -281,7 +281,7 @@ def extract(entry, g, check=False):
             value['usedIn'] = sorted(used.get(value['id'], []))
             if value['id'] in values:
                 value['value'] = values[value['id']]
-    data = dict(schema=1, generatedFrom={'line': '26.3', 'generator': 'wiki/generate.py'},
+    data = dict(schema=1, generatedFrom={'line': '26.3', 'generator': 'wiki/generate.py', 'howToRegenerate': f'python wiki/generate.py --module {mid}'},
                 mod=dict(id=mid, name=entry['displayName'], version=entry['version'], minecraftLines=['26.3'], loaders=entry['loaders']),
                 features=manual.get('features', []), **collections)
     for key in ('trades', 'config', 'quests', 'recipesOtherLines'):
@@ -401,8 +401,13 @@ def sync(g, entries, selected, check=False, strict=False):
         if e['id'] in overview:
             e['overview'] = overview[e['id']]
         # One-sentence intro in EN/DE from the guide books (tools/guides/module_guides.py) for the wiki start page.
+        # Mods without a guide book (e.g. super-mods) may carry the EN/DE intro in their wiki manual ("intro").
+        manual_path = g.REPO / (meta[e['id']]['paths']['wikiManual'] or '')
+        manual_intro = g.read_json(manual_path).get('intro') if manual_path.is_file() else None
         if e['id'] in intros:
             e['intro'] = intros[e['id']]
+        elif manual_intro:
+            e['intro'] = manual_intro
         # What the module does (EN/DE) and its chat commands, from the module inventory (tools/audit).
         inv = inventory.get(e['id'], {})
         if inv.get('purpose_en') or inv.get('purpose_de'):

@@ -1,4 +1,8 @@
 {
+  "intro": {
+    "en": "Bundles Simple Visuals, Simple Sounds and Simple Models with one switch each: displays and particles, matching sounds and custom item models. It adds no content of its own.",
+    "de": "Bündelt Simple Visuals, Simple Sounds und Simple Models mit je einem Schalter: Anzeigen und Partikel, passende Klänge und eigene Itemmodelle. Eigene Inhalte bringt die Mod nicht mit."
+  },
   "features": [
     {
       "id": "supermod",

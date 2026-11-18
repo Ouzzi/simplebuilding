@@ -2,7 +2,8 @@
   "schema": 1,
   "generatedFrom": {
     "line": "26.3",
-    "generator": "wiki/generate.py"
+    "generator": "wiki/generate.py",
+    "howToRegenerate": "python wiki/generate.py --module simplechallenges"
   },
   "mod": {
     "id": "simplechallenges",
