@@ -21,7 +21,7 @@ Simple Movement adds crawling on demand, an autowalk the server can allow, faste
 
 ## Features
 
-- **Manual crawling** - C (default) or /simplemovement crawl sets the synchronized swimming pose.
+- **Manual crawling** - Arrow down (default) or /simplemovement crawl sets the synchronized swimming pose.
 - **Auto-walk** - The Auto Walk key (unbound by default) toggles ordinary forward input only when the server enables enableAutowalk (default false).
 - **Climbing and sliding** - Climbing speed defaults to 0.4 blocks/tick, twice the Vanilla 0.2 (range 0.2–0.4; 0.2 = Vanilla).
 - **Frost Walker on powder snow** - Frost Walker permits walking on powder snow.

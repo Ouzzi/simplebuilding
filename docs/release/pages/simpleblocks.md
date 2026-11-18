@@ -22,6 +22,7 @@ Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Ti
 ## Features
 
 - **Shapecutter**
+- **Pulse Shapecutter and Auto Shapecutter** - The Shapecutter as a machine.
 - **Hushed Deepslate Tiles** - Deepslate tiles that swallow vibrations like wool: a Sculk Sensor or Warden does not hear a vibration that passes through the block, and walking on it makes none.
 - **Sculk Deepslate** - Deepslate with sculk veins.
 - **Sculk Tiles** - Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly.
@@ -32,7 +33,6 @@ Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Ti
 - **Ice Building Blocks** - Polished ice and ice bricks of ice, packed ice and blue ice, chiseled ice, and stairs, slabs and walls of all three ices.
 - **Ice Brick Families** - Ice bricks, packed ice bricks and blue ice bricks are families of their own: cracked bricks, stairs, slabs, walls and an octet (Simple Octets).
 - **Blue Nether Bricks** - A blue counterpart to Red Nether Bricks, with stairs, slab, wall and a chiseled block.
-- **Natural Block Variants** - Slabs of dirt, grass, sand, red sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.
 
 ## Vanilla use
 
