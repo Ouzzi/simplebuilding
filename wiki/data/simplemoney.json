@@ -9397,6 +9397,56 @@
       "link": "simplebuildingtools"
     },
     {
+      "id": "simplemoney:links/simplebuildingtools/rose_bronze_building_wand",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplebuildingtools:rose_bronze_building_wand",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplebuildingtools",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/rose_bronze_building_wand.json",
+      "link": "simplebuildingtools"
+    },
+    {
+      "id": "simplemoney:links/simplebuildingtools/rose_gold_building_wand",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplebuildingtools:rose_gold_building_wand",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplebuildingtools",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuildingtools/rose_gold_building_wand.json",
+      "link": "simplebuildingtools"
+    },
+    {
       "id": "simplemoney:links/simplechess/astralit_quartz_checker",
       "profession": "wandering_trader",
       "level": null,
@@ -9769,6 +9819,56 @@
         "enableWanderingTrades"
       ],
       "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/netherite_chisel.json",
+      "link": "simplechisels"
+    },
+    {
+      "id": "simplemoney:links/simplechisels/rose_bronze_chisel",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechisels:rose_bronze_chisel",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechisels",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/rose_bronze_chisel.json",
+      "link": "simplechisels"
+    },
+    {
+      "id": "simplemoney:links/simplechisels/rose_gold_chisel",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 8
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplechisels:rose_gold_chisel",
+        "count": 1
+      },
+      "maxUses": 2,
+      "xp": 0,
+      "reputationDiscount": 0,
+      "offerChance": null,
+      "enchantmentPool": [],
+      "configFlags": [
+        "links:simplechisels",
+        "enableVillagerTrades"
+      ],
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplechisels/rose_gold_chisel.json",
       "link": "simplechisels"
     },
     {
@@ -15542,7 +15642,7 @@
     "enchantments": 0,
     "items": 8,
     "blocks": 0,
-    "trades": 424,
+    "trades": 428,
     "config": 11,
     "quests": 0,
     "recipesOtherLines": 0,

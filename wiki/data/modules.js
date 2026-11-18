@@ -163,7 +163,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 81
     },
-    "dataHash": "d46113c0aa4a"
+    "dataHash": "ed2d917b27ca"
   },
   {
     "id": "simpleriding",
