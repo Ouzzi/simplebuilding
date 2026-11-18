@@ -123,6 +123,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void axeStripsOnlyTheClickedOctet(GameTestHelper h) {
+        OctetTests.ALL.get("axe_strips_only_the_clicked_octet").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void woodAndWoolOctetsBurn(GameTestHelper h) {
         OctetTests.ALL.get("wood_and_wool_octets_burn").accept(h);
     }

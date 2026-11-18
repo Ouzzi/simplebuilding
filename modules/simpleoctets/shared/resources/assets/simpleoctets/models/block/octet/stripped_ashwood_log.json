@@ -1,5 +1,5 @@
 {
-  "parent": "simpleoctets:block/octet/_corner_sided",
+  "parent": "simpleoctets:block/octet/_corner_log",
   "textures": {
     "up": "simpleend:block/stripped_ashwood_log_top",
     "down": "simpleend:block/stripped_ashwood_log_top",
