@@ -1,0 +1,77 @@
+// N95 (rc94 follow-up): the release jar (-PsbRelease) carries no test code. Applied by every loader project (module-*.gradle,
+// mc26_3/*); without the flag it does nothing, so dev, gate and integration jars stay as they are.
+//
+// Fabric: test classes go - package segment test/tests/testing/gametest or a class name ending in Test, Tests or GameTest*
+// (ModuleGameTest, the per-module *Tests bodies, simpletweaks' ClaimsGameTest, simplelayers' *GameTest, simplemoney/testing,
+// simplelib/test with PartnerChecks ...), the editor's *.layers.json and the fabric-gametest entrypoint. Exception: SimpleLib's
+// IdMovesTests, which SimpleLib.init calls at runtime (harmless moves of the never-existing namespace "simplelibtest").
+// The check after the jar fails the release build if an entrypoint lacks its class, a test file is left, a kept class or
+// resource still names a stripped class (static or by string) or a stripped class was a mixin.
+// tools/release/check_release_jars.py applies the same rule to the finished jars, nested ones included.
+//
+// NeoForge/Forge: only *.layers.json. Their gametest adapters (ModuleNeoTests, ModuleForgeTests, ForgeGameTests) are called
+// from the mod constructors (and Forge's RegistryLoadTaskMixin), so the test classes need guarded call sites first; the
+// first release is Fabric only (docs/PUBLISHING.md).
+if (!project.hasProperty('sbRelease')) return
+
+def releaseTestClass = { String path ->
+    if (!path.startsWith('com/') || !path.endsWith('.class') || path.startsWith('com/simplelib/test/IdMovesTests')) return false
+    if (path ==~ /.*\/(test|tests|testing|gametest)\/.*/) return true
+    def simple = path.substring(path.lastIndexOf('/') + 1, path.length() - 6).split('\\$')[0]
+    return simple ==~ /.*(Tests?|GameTest[A-Za-z]*)/
+}
+def fabric = project.name == 'fabric'
+
+tasks.named('jar', Jar) {
+    inputs.property('sbRelease', true)  // a dev jar and a release jar never count as up to date for each other
+    exclude '**/*.layers.json'
+    if (!fabric) return
+    def stripped = [] as Set
+    def mixins = [] as Set
+    exclude { FileTreeElement e ->
+        if (e.directory || !releaseTestClass(e.relativePath.pathString)) return false
+        def name = e.relativePath.pathString
+        stripped << name.substring(0, name.length() - 6).split('\\$')[0]
+        if (new String(e.file.bytes, 'ISO-8859-1').contains('Lorg/spongepowered/asm/mixin/Mixin;')) mixins << name
+        return true
+    }
+    doLast {
+        def jarFile = archiveFile.get().asFile
+        // fabric-gametest leaves fabric.mod.json; only that key is cut out, the rest of the file stays as written.
+        def fs = java.nio.file.FileSystems.newFileSystem(jarFile.toPath(), [:])
+        try {
+            def p = fs.getPath('fabric.mod.json')
+            if (java.nio.file.Files.exists(p)) {
+                def text = new String(java.nio.file.Files.readAllBytes(p), 'UTF-8')
+                def key = /"fabric-gametest"\s*:\s*\[[^\]]*\]/
+                def out = text.replaceFirst(/\s*/ + key + /\s*,/, '')
+                if (out == text) out = text.replaceFirst(/,\s*/ + key, '')
+                if (out != text) java.nio.file.Files.write(p, out.getBytes('UTF-8'))
+            }
+        } finally {
+            fs.close()
+        }
+        def zip = new java.util.zip.ZipFile(jarFile)
+        try {
+            def names = zip.entries().toList()*.name
+            def json = zip.getEntry('fabric.mod.json') ? new groovy.json.JsonSlurper().parse(zip.getInputStream(zip.getEntry('fabric.mod.json')), 'UTF-8') : [:]
+            def entrypoints = json.entrypoints ?: [:]
+            def missing = entrypoints.collectMany { kind, list -> list.collect { it instanceof Map ? it.value : it } }
+                    .collect { it.split('::')[0] }
+                    .findAll { it.startsWith('com.simple') && zip.getEntry(it.replace('.', '/') + '.class') == null }
+            def leaked = names.findAll { releaseTestClass(it) || it.endsWith('.layers.json') }
+            def dotted = stripped.collect { it.replace('/', '.') }
+            def refs = names.findAll { it.endsWith('.class') || it.endsWith('.json') || it.endsWith('.toml') || it.startsWith('META-INF/services/') }
+                    .findAll { n ->
+                        def text = new String(zip.getInputStream(zip.getEntry(n)).bytes, 'ISO-8859-1')
+                        stripped.any { text.contains(it) } || dotted.any { text.contains(it) }
+                    }
+            if (missing || leaked || refs || mixins || entrypoints.containsKey('fabric-gametest')) {
+                throw new GradleException("Release jar ${jarFile.name}: entrypoints without class ${missing}, test files ${leaked.take(5)}, " +
+                        "files naming a stripped class ${refs.take(5)}, stripped mixins ${mixins.take(5)}, fabric-gametest left: ${entrypoints.containsKey('fabric-gametest')}")
+            }
+        } finally {
+            zip.close()
+        }
+    }
+}

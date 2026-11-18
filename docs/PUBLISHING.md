@@ -21,6 +21,10 @@ All Simple mods - SimpleBuilding, SimpleLib and every sub-mod, on every loader a
   release, so `>=0.4.0` would refuse `0.4.0-beta.1` at startup.
 - Check: `python3 tools/release/check_beta.py` (versions, all Simple-mod bounds, changelog headers, store pages);
   `--table` prints the per-mod list.
+- Release jars carry no test code: build them with `-PsbRelease` (gradle/release-strip.gradle drops test classes, gametest
+  adapters, `*.layers.json` and the `fabric-gametest` entrypoint; Fabric only, NeoForge/Forge drop only `*.layers.json` so far),
+  then `python3 tools/release/check_release_jars.py <folder with the jars>` must report `0 findings` (nested jars included).
+  Dev/gate jars (without the flag) keep their tests, so never upload a jar collected from a gate run.
 
 ## Required (upload fails the player at startup without them)
 

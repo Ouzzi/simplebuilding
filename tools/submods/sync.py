@@ -6,7 +6,7 @@
 modules.json: a module with "parent": "simplebuilding" names its switch in "configSwitch": true (field enableSimple<X>,
 generated here and handed to framework SubMods under its mod id), "host" (field kept by hand, the sub-mod reads its key
 itself: Maps, Questionary) or false (no switch). Generated blocks sit between `// <submods:begin NAME>` and
-`// <submods:end NAME>`, in modules.json order. Also checked: the shared fabric.mod.json suggests every optional
+`// <submods:end NAME>`, in modules.json order. Also checked: the shared fabric.mod.json suggests every released optional
 sub-mod (written when missing) and both lang files name and explain every switch (texts stay hand-written).
 The 26.3 Fabric build (depends, include, implementation) reads modules.json itself (mc26_3/fabric/build.gradle).
 """
@@ -80,9 +80,10 @@ def render(text, wanted, path):
 
 
 def suggests(text, by_id):
-    """Shared fabric.mod.json: every optional sub-mod of SB suggested; missing ones appended to "suggests"."""
+    """Shared fabric.mod.json: every released optional sub-mod of SB suggested; missing ones appended to "suggests".
+    A sub-mod with "release": false (simplevault) is not suggested: players could not find it (N95)."""
     sb = by_id['simplebuilding']
-    want = [by_id[i].get('modId', i) for i in sb['optional'] if i in by_id]
+    want = [by_id[i].get('modId', i) for i in sb['optional'] if i in by_id and by_id[i].get('release') is not False]
     have = json.loads(text).get('suggests', {})
     missing = [i for i in want if i not in have]
     if not missing:

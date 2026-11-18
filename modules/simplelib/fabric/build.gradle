@@ -13,33 +13,6 @@ dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-
 // a-mojang08 (release blocker 1): recoloured Vanilla sprites are built from the client jar, never committed.
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
 
-// simplelib-1 (PLAN40): the upload jar without tests. Module targets put this very jar into their mods folder and other modules'
-// tests use com.simplelib.test.* (PartnerChecks), so the tests only leave with -PsbRelease (the release build, together with
-// b-devoff19): com/simplelib/test/** and the gametest adapter go, the fabric-gametest entrypoint is filtered out of fabric.mod.json.
-// IdMovesTests stays: SimpleLib.init registers its harmless moves of the never-existing namespace "simplelibtest" (only Vanilla and
-// SimpleLib types). The check below fails the release build if an entrypoint lacks its class or another test class slipped in.
-if (project.hasProperty('sbRelease')) {
-    tasks.named('jar', Jar) {
-        exclude { e -> e.path.startsWith('com/simplelib/test/') && !e.path.startsWith('com/simplelib/test/IdMovesTests') }
-        exclude 'com/simplebuilding/modules/simplelib/ModuleGameTest*'
-        filesMatching('fabric.mod.json') {
-            filter { String line -> line ==~ /\s*"com\.simplebuilding\.modules\.simplelib\.ModuleGameTest",?\s*/ ? null : line }
-        }
-        doLast {
-            def zip = new java.util.zip.ZipFile(archiveFile.get().asFile)
-            try {
-                def json = new groovy.json.JsonSlurper().parse(zip.getInputStream(zip.getEntry('fabric.mod.json')), 'UTF-8')
-                def missing = json.entrypoints.collectMany { kind, list -> list.collect { it instanceof Map ? it.value : it } }
-                        .collect { it.split('::')[0] }
-                        .findAll { it.startsWith('com.simple') && zip.getEntry(it.replace('.', '/') + '.class') == null }
-                def leaked = zip.entries().toList()*.name.findAll {
-                    (it.startsWith('com/simplelib/test/') && !it.startsWith('com/simplelib/test/IdMovesTests') && it.endsWith('.class'))
-                            || it.startsWith('com/simplebuilding/modules/simplelib/ModuleGameTest') || it.endsWith('.layers.json')
-                }
-                if (missing || leaked) throw new GradleException("SimpleLib release jar: entrypoints without class ${missing}, test files ${leaked.take(5)}")
-            } finally {
-                zip.close()
-            }
-        }
-    }
-}
+// simplelib-1 (PLAN40) / N95: the upload jar without tests comes from gradle/release-strip.gradle (-PsbRelease, applied by
+// module-fabric.gradle). Module targets put the dev jar into their mods folder and other modules' tests use com.simplelib.test.*
+// (PartnerChecks), so the tests only leave with the flag. IdMovesTests stays (SimpleLib.init registers its moves).

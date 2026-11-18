@@ -310,3 +310,5 @@ tasks.named('jar') { from project(':common').sourceSets.main.output }
 
 sourceSets.main.java.srcDir rootProject.file('mc26_3/framework/java')
 sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')
+
+apply from: rootProject.file('gradle/release-strip.gradle')  // N95: -PsbRelease strips test code

@@ -28,3 +28,5 @@ tasks.named('jar') {
     def lic = project.parent.file('LICENSE').exists() ? project.parent.file('LICENSE') : rootProject.file('LICENSE')
     from(lic) { rename { "${it}_${project.base.archivesName.get()}" } }
 }
+
+apply from: rootProject.file('gradle/release-strip.gradle')  // N95: -PsbRelease strips test code

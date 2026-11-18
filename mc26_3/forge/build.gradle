@@ -182,3 +182,5 @@ ext.forgeNativeConfig = [id: 'simplebuilding', root: 'mc26_3/forge/src/main/java
 apply from: rootProject.file('gradle/forge-native-config.gradle')
 apply from: rootProject.file('gradle/forge-packaged-run.gradle')
 apply from: rootProject.file('gradle/hub-project-mods.gradle')
+
+apply from: rootProject.file('gradle/release-strip.gradle')  // N95: -PsbRelease strips test code
