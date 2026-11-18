@@ -42465,6 +42465,42 @@
       }
     },
     {
+      "id": "simplebuilding:hollow_poplar_log",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "hollow_log",
+      "result": {
+        "id": "simplebuilding:hollow_poplar_log",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/hollow_poplar_log.json",
+      "ingredients": [
+        "minecraft:poplar_log"
+      ],
+      "pattern": [
+        "LLL",
+        "L L",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:hollow_spruce_log",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -42927,6 +42963,42 @@
         "materials": [
           {
             "id": "minecraft:stripped_pale_oak_log",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_poplar_log",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "hollow_log",
+      "result": {
+        "id": "simplebuilding:hollow_stripped_poplar_log",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/hollow_stripped_poplar_log.json",
+      "ingredients": [
+        "minecraft:stripped_poplar_log"
+      ],
+      "pattern": [
+        "LLL",
+        "L L",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:stripped_poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:stripped_poplar_log",
             "count": 8
           }
         ]
@@ -50462,6 +50534,82 @@
       }
     },
     {
+      "id": "simplebuilding:poplar_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:poplar_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_poplar_log",
+        "simplebuilding:poplar_sheet",
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_poplar_log"
+        ],
+        "S": [
+          "simplebuilding:poplar_sheet",
+          "simplebuilding:stripped_poplar_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:poplar_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wood_sheet",
+      "result": {
+        "id": "simplebuilding:poplar_sheet",
+        "count": 16
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_sheet.json",
+      "ingredients": [
+        "simplebuilding:hollow_poplar_log"
+      ],
+      "pattern": [
+        "HHH",
+        "HHH"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:purple_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -52690,6 +52838,86 @@
         "materials": [
           {
             "id": "minecraft:stripped_pale_oak_log",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_poplar_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_poplar_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_poplar_log",
+        "simplebuilding:poplar_sheet",
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_poplar_log"
+        ],
+        "S": [
+          "simplebuilding:poplar_sheet",
+          "simplebuilding:stripped_poplar_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_poplar_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:poplar_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wood_sheet",
+      "result": {
+        "id": "simplebuilding:stripped_poplar_sheet",
+        "count": 16
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_poplar_sheet.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_poplar_log"
+      ],
+      "pattern": [
+        "HHH",
+        "HHH"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "minecraft:stripped_poplar_log",
             "count": 6
           }
         ]
@@ -67828,6 +68056,24 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/carved_pale_oak_log.json"
     },
     {
+      "id": "simplebuilding:blocks/carved_poplar_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:carved_poplar_log"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/carved_poplar_log.json"
+    },
+    {
       "id": "simplebuilding:blocks/carved_spruce_log",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -69278,6 +69524,24 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_pale_oak_log.json"
     },
     {
+      "id": "simplebuilding:blocks/hollow_poplar_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:hollow_poplar_log"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_poplar_log.json"
+    },
+    {
       "id": "simplebuilding:blocks/hollow_spruce_log",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -69510,6 +69774,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_stripped_pale_oak_log.json"
+    },
+    {
+      "id": "simplebuilding:blocks/hollow_stripped_poplar_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:hollow_stripped_poplar_log"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_stripped_poplar_log.json"
     },
     {
       "id": "simplebuilding:blocks/hollow_stripped_spruce_log",
@@ -71028,6 +71310,42 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_wall.json"
     },
     {
+      "id": "simplebuilding:blocks/poplar_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:poplar_cauldron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/poplar_cauldron.json"
+    },
+    {
+      "id": "simplebuilding:blocks/poplar_sheet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:poplar_sheet"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/poplar_sheet.json"
+    },
+    {
       "id": "simplebuilding:blocks/potted_silent_dandelion",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -71810,6 +72128,42 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_pale_oak_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_poplar_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_poplar_cauldron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_poplar_cauldron.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_poplar_sheet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_poplar_sheet"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_poplar_sheet.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_spruce_cauldron",
@@ -96666,8 +97020,8 @@
   "counts": {
     "items": 337,
     "blocks": 318,
-    "recipes": 628,
-    "lootTables": 341,
+    "recipes": 634,
+    "lootTables": 348,
     "trades": 20,
     "enchantments": 9,
     "tags": 52,
