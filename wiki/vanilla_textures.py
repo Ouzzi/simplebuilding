@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import tempfile
 import zipfile
@@ -303,6 +304,65 @@ def write_icons(jar: Path, repo: Path = REPO, wiki: Path = WIKI) -> int:
     return len(data["icons"])
 
 
+# N97: the jars of the green gates the web host already keeps (sb-web-sync: "sb-dist tar" -> /srv/zentrale/downloads).
+DIST_INDEX = "/srv/zentrale/downloads/index.json"
+
+
+def dist_textures(index_file: Path, wanted: set[str]) -> dict[str, bytes]:
+    """{"assets/<ns>/textures/<rel>": png} for the wanted names, read from the published 26.3 mod jars of index.json
+    (newest build first, nested META-INF/jars/*.jar too). The gate builds them with the client jar and Pillow, so they
+    hold the real Vanilla-derived pixels; copied only on the dev host (git-ignored files), never into the repository."""
+    import io
+    try:
+        index = json.loads(Path(index_file).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    builds = sorted((b for b in index.get("builds") or [] if isinstance(b, dict)),
+                    key=lambda b: str(b.get("date", "")), reverse=True)
+    found: dict[str, bytes] = {}
+
+    def scan(archive: zipfile.ZipFile) -> None:
+        for name in archive.namelist():
+            if name in wanted and name not in found:
+                found[name] = archive.read(name)
+            elif name.startswith("META-INF/jars/") and name.endswith(".jar"):
+                with zipfile.ZipFile(io.BytesIO(archive.read(name))) as inner:
+                    scan(inner)
+    for build in builds:
+        files = [f for f in build.get("files") or [] if isinstance(f, dict) and f.get("minecraft") == "26.3" and f.get("url")]
+        for f in sorted(files, key=lambda f: f.get("loader") != "fabric"):
+            try:
+                with zipfile.ZipFile(Path(index_file).parent / f["url"]) as archive:
+                    scan(archive)
+            except (OSError, zipfile.BadZipFile):
+                continue
+            if len(found) == len(wanted):
+                return found
+    return found
+
+
+def fill_from_dist(out_root: Path, index_file: Path) -> tuple[int, list[str]]:
+    """Replaces the placeholders vanilla_derived wrote under out_root (marker file per namespace: no Pillow/numpy or
+    no jar) with the textures of the published jars; returns (replaced, names still placeholders)."""
+    import vanilla_derived
+    left: dict[str, Path] = {}
+    for module in [None] + list(vanilla_derived.MODULE_OUTPUTS):
+        ns = module or vanilla_derived.NS
+        if not (out_root / "assets" / ns / vanilla_derived.MARKER).exists():
+            continue  # drawn from the client jar: real pixels already
+        for rel in (vanilla_derived.MODULE_OUTPUTS[module] if module else vanilla_derived.OUTPUTS):
+            left[f"assets/{ns}/textures/{rel}"] = out_root / "assets" / ns / "textures" / rel
+    if not left:
+        return 0, []
+    got = dist_textures(index_file, set(left))
+    for name, data in got.items():
+        path = left[name]
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.is_file() or path.read_bytes() != data:
+            path.write_bytes(data)
+    return len(got), sorted(set(left) - set(got))
+
+
 def write_derived(repo: Path = REPO, wiki: Path = WIKI) -> tuple[int, str]:
     """Copy the Vanilla-derived textures to the wiki files textures.js names for them; returns (count, jar|placeholder)."""
     import vanilla_derived
@@ -313,6 +373,14 @@ def write_derived(repo: Path = REPO, wiki: Path = WIKI) -> tuple[int, str]:
         mode = vanilla_derived.write(vanilla_derived.LOCAL_OUT, None, placeholders=True)
         for module in vanilla_derived.MODULE_OUTPUTS:
             vanilla_derived.write(vanilla_derived.LOCAL_OUT, None, placeholders=True, module=module)
+    # N97: the web host has no Pillow/numpy -> placeholders (checkerboards in the TZ editor and on Blocks & items);
+    # take the real textures from the jars of the green gates it already has.
+    filled, left = fill_from_dist(vanilla_derived.LOCAL_OUT, Path(os.environ.get("SB_DIST_INDEX", DIST_INDEX)))
+    if filled or left:
+        mode += f", {filled} from the published jars"
+        if left:
+            print(f"Vanilla-derived placeholders left ({len(left)}, not in a published jar yet): " + ", ".join(left))
+            mode += f", {len(left)} placeholders left"
     index = tx.read_js(wiki / tx.DATA_FILE) or {}
     tracked = tx.claimed_copies(wiki, []) or set()  # what git tracks under assets/textures: never overwritten
     done = 0
