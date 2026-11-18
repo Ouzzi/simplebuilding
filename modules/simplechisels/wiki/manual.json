@@ -21,6 +21,7 @@
           "Where you click decides the orientation: the outer quarter of a face lines pillars and stairs up with that edge, the middle uses the clicked face or your facing. Waterlogging and other shared properties stay.",
           "After every step there is a cooldown (Stone 30 ticks, Copper and Iron 25, Gold 20, Diamond 10, Netherite and Enderite 5; server config). Durability: 192 (Stone, Copper), 256 (Iron), 128 (Gold), 392 (Diamond), 512 (Netherite), 600 (Enderite); Netherite and Enderite do not burn.",
           "The chisel also mines pickaxe, axe and shovel blocks, at half the speed of its material; mining costs 2 durability. Drops follow the pickaxe of its material: a stone chisel breaks diamond ore or obsidian only slowly and without a drop, an iron chisel drops diamond ore, a diamond chisel obsidian.",
+          "Rose alloys (N89A, only with Simple Ores for the recipe): the Rose Copper Chisel works the iron table like copper (durability 192, cooldown 23, enchantability 15), the Rose Gold Chisel the diamond table like gold (durability 232, cooldown 20, enchantability 22); both mine like iron. Recipe like the Gold Chisel with the alloy ingot.",
           "With SimpleBuilding: Constructor's Touch adds the bonus tables (mud, mossy cobblestone, stripping logs, bricks, prismarine, end stone, copper, corals, calcite, obsidian, concrete), the End stone palettes come with the enderite tier, and a pottery sherd in the off hand carves stripped logs."
         ]
       },
@@ -33,6 +34,7 @@
           "Wo du klickst, bestimmt die Ausrichtung: das äußere Viertel einer Seite richtet Säulen und Treppen an dieser Kante aus, die Mitte nimmt die angeklickte Seite oder deine Blickrichtung. Wassergefüllt und andere gemeinsame Eigenschaften bleiben.",
           "Nach jedem Schritt gibt es eine Abklingzeit (Stein 30 Ticks, Kupfer und Eisen 25, Gold 20, Diamant 10, Netherit und Enderit 5; Server-Config). Haltbarkeit: 192 (Stein, Kupfer), 256 (Eisen), 128 (Gold), 392 (Diamant), 512 (Netherit), 600 (Enderit); Netherit und Enderit verbrennen nicht.",
           "Der Meißel baut auch Spitzhacken-, Axt- und Schaufelblöcke ab, mit halbem Tempo seines Materials; Abbauen kostet 2 Haltbarkeit. Drops wie bei der Spitzhacke seines Materials: ein Stein-Meißel baut Diamanterz oder Obsidian nur langsam und ohne Drop ab, ein Eisen-Meißel lässt Diamanterz fallen, ein Diamant-Meißel Obsidian.",
+          "Rosé-Legierungen (N89A, Rezept nur mit Simple Ores): der Rosenkupfermeißel arbeitet wie Kupfer mit der Eisen-Tabelle (Haltbarkeit 192, Abklingzeit 23, Verzauberbarkeit 15), der Roségoldmeißel wie Gold mit der Diamant-Tabelle (Haltbarkeit 232, Abklingzeit 20, Verzauberbarkeit 22); beide bauen wie Eisen ab. Rezept wie der Goldmeißel mit dem Legierungsbarren.",
           "Mit SimpleBuilding: Berührung des Konstrukteurs schaltet die Zusatztabellen frei (Schlamm, bemooster Bruchstein, Stämme entrinden, Ziegel, Prismarin, Endstein, Kupfer, Korallen, Kalzit, Obsidian, Beton), die End-Steinpaletten kommen mit der Enderit-Stufe dazu, und eine Töpferscherbe in der Nebenhand schnitzt entrindete Stämme."
         ]
       }

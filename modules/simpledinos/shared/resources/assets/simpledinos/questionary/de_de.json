@@ -109,6 +109,72 @@
       "Sieht an einem grünen T-Rex am besten aus."
     ]
   },
+  "trex_armor_copper": {
+    "lore": [
+      "Kupferplatten, warm in der Sonne und grün im Regen."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen T-Rex anlegen (Platten für Kopf und Rücken): Schutz 4, wie Kupfer-Pferderüstung. 8 Kupferbarren um einen Knochenblock."
+    ],
+    "secret": [
+      "Am Dinosaurier wird sie nicht grün - so lange regnet es selten."
+    ]
+  },
+  "trex_armor_gold": {
+    "lore": [
+      "Weiches Gold, eher für die Parade als für den Kampf."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen T-Rex anlegen (Platten für Kopf und Rücken): Schutz 7, wie Gold-Pferderüstung. 8 Goldbarren um einen Knochenblock."
+    ],
+    "secret": [
+      "Piglins schauen bei einem goldenen Dinosaurier zweimal hin."
+    ]
+  },
+  "trex_armor_rose_gold": {
+    "lore": [
+      "Roségold, zartrosa und trotzdem zäher als reines Gold."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen T-Rex anlegen (Platten für Kopf und Rücken): Schutz 6, zwischen Eisen (5) und Gold (7). 8 Roségoldbarren um einen Knochenblock."
+    ],
+    "secret": [
+      "Silber in der Legierung, darum glänzt sie etwas kühler als Gold."
+    ]
+  },
+  "trex_armor_rose_bronze": {
+    "lore": [
+      "Rosenkupfer: die einfachere Legierung, kupferrosa und ehrlich."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen T-Rex anlegen (Platten für Kopf und Rücken): Schutz 4, wie Kupfer-Pferderüstung. 8 Rosenkupferbarren um einen Knochenblock."
+    ],
+    "secret": [
+      "Mehr Kupfer als Rosé, aber das sagt keiner dem Dinosaurier."
+    ]
+  },
+  "trex_armor_netherite": {
+    "lore": [
+      "Netheritplatten, die nicht einmal Lava bemerken."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen T-Rex anlegen (Platten für Kopf und Rücken): Schutz 19, Härte 3 und Rückstoßresistenz 0,1, wie Netherit-Pferderüstung; feuerfest. Schmiedetisch: Netherit-Aufwertung + Diamant-T-Rex-Rüstung + Netheritbarren."
+    ],
+    "secret": [
+      "Schwimmt ein T-Rex in Netherit in Lava? Nein. Nicht ausprobieren."
+    ]
+  },
+  "trex_armor_enderite": {
+    "lore": [
+      "Enderitplatten mit violettem Schimmer aus dem End."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen T-Rex anlegen (Platten für Kopf und Rücken): Schutz 22, Härte 4 und Rückstoßresistenz 0,2, eine Stufe über Netherit; feuerfest. Schmiedetisch: Enderit-Aufwertung + Netherit-T-Rex-Rüstung + Enderitbarren (mit Simple Ores)."
+    ],
+    "secret": [
+      "Die stärkste Rüstung, die ein T-Rex tragen kann."
+    ]
+  },
   "triceratops_armor_leather": {
     "lore": [
       "Ein Kragenschild aus genähtem Leder mit weichen Hornkappen."
@@ -142,6 +208,39 @@
       "Das Rezept erscheint erst, wenn du eine Eierschale hältst, wie der Schildkrötenpanzer nach dem Hornschild."
     ]
   },
+  "triceratops_armor_gold": {
+    "lore": [
+      "Weiches Gold, eher für die Parade als für den Kampf."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Triceratops anlegen (ein Kragenschild mit drei Hornkappen): Schutz 7, wie Gold-Pferderüstung. 8 Goldbarren um eine Triceratops-Eierschale."
+    ],
+    "secret": [
+      "Piglins schauen bei einem goldenen Dinosaurier zweimal hin."
+    ]
+  },
+  "triceratops_armor_rose_gold": {
+    "lore": [
+      "Roségold, zartrosa und trotzdem zäher als reines Gold."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Triceratops anlegen (ein Kragenschild mit drei Hornkappen): Schutz 6, zwischen Eisen (5) und Gold (7). 8 Roségoldbarren um eine Triceratops-Eierschale."
+    ],
+    "secret": [
+      "Silber in der Legierung, darum glänzt sie etwas kühler als Gold."
+    ]
+  },
+  "triceratops_armor_rose_bronze": {
+    "lore": [
+      "Rosenkupfer: die einfachere Legierung, kupferrosa und ehrlich."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Triceratops anlegen (ein Kragenschild mit drei Hornkappen): Schutz 4, wie Kupfer-Pferderüstung. 8 Rosenkupferbarren um eine Triceratops-Eierschale."
+    ],
+    "secret": [
+      "Mehr Kupfer als Rosé, aber das sagt keiner dem Dinosaurier."
+    ]
+  },
   "stegosaurus_armor_leather": {
     "lore": [
       "Gekochtes Leder für Hals und Flanken, mit Lücken für die Platten."
@@ -173,6 +272,39 @@
     ],
     "secret": [
       "Sogar die Schwanzstacheln wirken ein wenig neidisch."
+    ]
+  },
+  "stegosaurus_armor_gold": {
+    "lore": [
+      "Weiches Gold, eher für die Parade als für den Kampf."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Stegosaurus anlegen (Halsschutz und Flankenplatten): Schutz 7, wie Gold-Pferderüstung. 8 Goldbarren um eine Stegosaurus-Eierschale."
+    ],
+    "secret": [
+      "Piglins schauen bei einem goldenen Dinosaurier zweimal hin."
+    ]
+  },
+  "stegosaurus_armor_rose_gold": {
+    "lore": [
+      "Roségold, zartrosa und trotzdem zäher als reines Gold."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Stegosaurus anlegen (Halsschutz und Flankenplatten): Schutz 6, zwischen Eisen (5) und Gold (7). 8 Roségoldbarren um eine Stegosaurus-Eierschale."
+    ],
+    "secret": [
+      "Silber in der Legierung, darum glänzt sie etwas kühler als Gold."
+    ]
+  },
+  "stegosaurus_armor_rose_bronze": {
+    "lore": [
+      "Rosenkupfer: die einfachere Legierung, kupferrosa und ehrlich."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Stegosaurus anlegen (Halsschutz und Flankenplatten): Schutz 4, wie Kupfer-Pferderüstung. 8 Rosenkupferbarren um eine Stegosaurus-Eierschale."
+    ],
+    "secret": [
+      "Mehr Kupfer als Rosé, aber das sagt keiner dem Dinosaurier."
     ]
   },
   "dino_plow": {
@@ -219,6 +351,39 @@
       "Kühe sind nicht beeindruckt. Schafe ein bisschen."
     ]
   },
+  "parasaurolophus_armor_gold": {
+    "lore": [
+      "Weiches Gold, eher für die Parade als für den Kampf."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Parasaurolophus anlegen (Kammhaube und Hüftdecke): Schutz 7, wie Gold-Pferderüstung. 8 Goldbarren um eine Parasaurolophus-Eierschale."
+    ],
+    "secret": [
+      "Piglins schauen bei einem goldenen Dinosaurier zweimal hin."
+    ]
+  },
+  "parasaurolophus_armor_rose_gold": {
+    "lore": [
+      "Roségold, zartrosa und trotzdem zäher als reines Gold."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Parasaurolophus anlegen (Kammhaube und Hüftdecke): Schutz 6, zwischen Eisen (5) und Gold (7). 8 Roségoldbarren um eine Parasaurolophus-Eierschale."
+    ],
+    "secret": [
+      "Silber in der Legierung, darum glänzt sie etwas kühler als Gold."
+    ]
+  },
+  "parasaurolophus_armor_rose_bronze": {
+    "lore": [
+      "Rosenkupfer: die einfachere Legierung, kupferrosa und ehrlich."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Parasaurolophus anlegen (Kammhaube und Hüftdecke): Schutz 4, wie Kupfer-Pferderüstung. 8 Rosenkupferbarren um eine Parasaurolophus-Eierschale."
+    ],
+    "secret": [
+      "Mehr Kupfer als Rosé, aber das sagt keiner dem Dinosaurier."
+    ]
+  },
   "utahraptor_armor_leather": {
     "lore": [
       "Ein Halsschutz aus Leder, eine genähte Brustplatte und zwei Schienbeinschoner."
@@ -250,6 +415,39 @@
     ],
     "secret": [
       "Die Sichelkrallen bleiben frei - er klettert weiter."
+    ]
+  },
+  "utahraptor_armor_gold": {
+    "lore": [
+      "Weiches Gold, eher für die Parade als für den Kampf."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Utahraptor anlegen (Halsschutz, Brustplatte und Schienbeinschoner): Schutz 7, wie Gold-Pferderüstung. 8 Goldbarren um eine Utahraptor-Eierschale."
+    ],
+    "secret": [
+      "Piglins schauen bei einem goldenen Dinosaurier zweimal hin."
+    ]
+  },
+  "utahraptor_armor_rose_gold": {
+    "lore": [
+      "Roségold, zartrosa und trotzdem zäher als reines Gold."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Utahraptor anlegen (Halsschutz, Brustplatte und Schienbeinschoner): Schutz 6, zwischen Eisen (5) und Gold (7). 8 Roségoldbarren um eine Utahraptor-Eierschale."
+    ],
+    "secret": [
+      "Silber in der Legierung, darum glänzt sie etwas kühler als Gold."
+    ]
+  },
+  "utahraptor_armor_rose_bronze": {
+    "lore": [
+      "Rosenkupfer: die einfachere Legierung, kupferrosa und ehrlich."
+    ],
+    "use": [
+      "Einem gezähmten, ausgewachsenen Utahraptor anlegen (Halsschutz, Brustplatte und Schienbeinschoner): Schutz 4, wie Kupfer-Pferderüstung. 8 Rosenkupferbarren um eine Utahraptor-Eierschale."
+    ],
+    "secret": [
+      "Mehr Kupfer als Rosé, aber das sagt keiner dem Dinosaurier."
     ]
   },
   "raptor_feather": {

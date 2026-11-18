@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": "simpleores:rose_gold_ingot",
+    "N": "minecraft:nautilus_shell"
+  },
+  "pattern": [
+    "XXX",
+    "XNX",
+    "XXX"
+  ],
+  "result": {
+    "id": "simpleores:rose_gold_nautilus_armor"
+  }
+}

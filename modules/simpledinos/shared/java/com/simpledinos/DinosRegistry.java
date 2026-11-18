@@ -125,6 +125,33 @@ public final class DinosRegistry {
     public static final ResourceKey<Item> UTAHRAPTOR_ARMOR_IRON_KEY = itemKey("utahraptor_armor_iron");
     public static final ResourceKey<Item> UTAHRAPTOR_ARMOR_DIAMOND_KEY = itemKey("utahraptor_armor_diamond");
     public static final ResourceKey<Item> RAPTOR_FEATHER_KEY = itemKey("raptor_feather");
+    /**
+     * N89A (owner N77, "armour in all tiers copper to enderite"): the armor tiers in the order of their texture code (the renderers pick
+     * textures/entity/<dino>/<coat>/<name>.png by it; 0 = none). Codes 4..9 are the metal tiers of {@link #METAL_ARMOR}.
+     */
+    public static final List<String> ARMOR_TIER_NAMES = List.of("plain", "leather", "iron", "diamond", "copper", "gold", "rose_gold", "rose_bronze",
+            "netherite", "enderite");
+    /** N89A: the metal tiers each dinosaur wears besides leather/iron/diamond (the T. rex all of them, the others the precious metals). */
+    public static final Map<String, List<String>> METAL_TIERS = Map.of(
+            "trex", List.of("copper", "gold", "rose_gold", "rose_bronze", "netherite", "enderite"),
+            "triceratops", List.of("gold", "rose_gold", "rose_bronze"),
+            "stegosaurus", List.of("gold", "rose_gold", "rose_bronze"),
+            "parasaurolophus", List.of("gold", "rose_gold", "rose_bronze"),
+            "utahraptor", List.of("gold", "rose_gold", "rose_bronze"));
+    /** N89A: item path ({@code <dino>_armor_<metal>}) -> item, in tab order per dinosaur. */
+    public static final Map<String, Item> METAL_ARMOR = new java.util.LinkedHashMap<>();
+    /**
+     * N89A: copies of Simple Ores' armor materials (this module must not import it; same rule as Simple Hammers' copies). Only the body values
+     * matter here (the dinosaur armor has no durability and no equipment asset): Rose Copper body 4 (= copper; OresMaterials.ROSE_BRONZE_ARMOR
+     * 11, 2/4/3/1/4, enchantability 12), Rose Gold body 6 (between iron 5 and gold 7; OresMaterials.ROSE_GOLD_ARMOR 15, 2/5/3/1/6, 25), Enderite
+     * body 22, toughness 4, knockback resistance 0.2 (EnderiteGear.ARMOR 42, 4/9/7/4/22, 18: one step above Vanilla Netherite 19/3/0.1).
+     */
+    static final ArmorMaterial ROSE_BRONZE_ARMOR = new ArmorMaterial(11, defense(2, 4, 3, 1, 4), 12, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F,
+            itemTag("simpleores", "repairs_rose_bronze_equipment"), asset("simpleores", "rose_bronze"));
+    static final ArmorMaterial ROSE_GOLD_ARMOR = new ArmorMaterial(15, defense(2, 5, 3, 1, 6), 25, SoundEvents.ARMOR_EQUIP_GOLD, 0.0F, 0.0F,
+            itemTag("simpleores", "repairs_rose_gold_equipment"), asset("simpleores", "rose_gold"));
+    static final ArmorMaterial ENDERITE_ARMOR = new ArmorMaterial(42, defense(4, 9, 7, 4, 22), 18, SoundEvents.ARMOR_EQUIP_NETHERITE, 4.0F, 0.2F,
+            itemTag("simplelib", "repairs_enderite_equipment"), asset("simpleores", "enderite"));
     /** Durability of the Dino Plow (concept 4.2): one per tilled field. */
     public static final int PLOW_DURABILITY = 750;
 
@@ -193,6 +220,19 @@ public final class DinosRegistry {
         UTAHRAPTOR_ARMOR_IRON = armor(ArmorMaterials.IRON, UTAHRAPTOR_ARMOR_IRON_KEY, UTAHRAPTOR_ARMOR_WEARERS);
         UTAHRAPTOR_ARMOR_DIAMOND = armor(ArmorMaterials.DIAMOND, UTAHRAPTOR_ARMOR_DIAMOND_KEY, UTAHRAPTOR_ARMOR_WEARERS);
         RAPTOR_FEATHER = new Item(new Item.Properties().setId(RAPTOR_FEATHER_KEY));
+        for (String dino : List.of("trex", "triceratops", "stegosaurus", "parasaurolophus", "utahraptor")) {
+            TagKey<EntityType<?>> wearers = switch (dino) {
+                case "trex" -> ARMOR_WEARERS;
+                case "triceratops" -> TRICERATOPS_ARMOR_WEARERS;
+                case "stegosaurus" -> STEGOSAURUS_ARMOR_WEARERS;
+                case "parasaurolophus" -> PARASAUROLOPHUS_ARMOR_WEARERS;
+                default -> UTAHRAPTOR_ARMOR_WEARERS;
+            };
+            for (String metal : METAL_TIERS.get(dino)) {
+                String path = dino + "_armor_" + metal;
+                METAL_ARMOR.put(path, armor(metalMaterial(metal), itemKey(path), wearers, metal.equals("netherite") || metal.equals("enderite")));
+            }
+        }
         // enchantable like an iron tool (14); Unbreaking and Mending come from the item tag minecraft:enchantable/durability
         DINO_PLOW = new DinoPlowItem(new Item.Properties().durability(PLOW_DURABILITY).repairable(net.minecraft.world.item.Items.IRON_INGOT)
                 .enchantable(14).setId(DINO_PLOW_KEY));
@@ -200,11 +240,79 @@ public final class DinosRegistry {
 
     /** Body armor with the Vanilla horse-armor values of the material (leather 3, iron 5, diamond 11), worn by the kinds in {@code wearers}. */
     private static Item armor(ArmorMaterial material, ResourceKey<Item> key, TagKey<EntityType<?>> wearers) {
+        return armor(material, key, wearers, false);
+    }
+
+    /** N89A: Netherite and Enderite armor is fire resistant like the Vanilla Netherite horse armor. */
+    private static Item armor(ArmorMaterial material, ResourceKey<Item> key, TagKey<EntityType<?>> wearers, boolean fireResistant) {
         var entities = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.ENTITY_TYPE);
-        return new Item(new Item.Properties().attributes(material.createAttributes(ArmorType.BODY)).component(DataComponents.EQUIPPABLE,
+        Item.Properties props = new Item.Properties();
+        if (fireResistant) props = props.fireResistant();
+        return new Item(props.attributes(material.createAttributes(ArmorType.BODY)).component(DataComponents.EQUIPPABLE,
                 Equippable.builder(EquipmentSlot.BODY).setEquipSound(SoundEvents.HORSE_ARMOR)
                         .setAllowedEntities(entities.getOrThrow(wearers)).setDamageOnHurt(false).setCanBeSheared(true)
                         .setShearingSound(SoundEvents.HORSE_ARMOR_UNEQUIP).build()).stacksTo(1).setId(key));
+    }
+
+    /** N89A: the armor material of a metal tier (Vanilla where Vanilla has it, else the copies above). */
+    static ArmorMaterial metalMaterial(String metal) {
+        return switch (metal) {
+            case "copper" -> ArmorMaterials.COPPER;
+            case "gold" -> ArmorMaterials.GOLD;
+            case "rose_gold" -> ROSE_GOLD_ARMOR;
+            case "rose_bronze" -> ROSE_BRONZE_ARMOR;
+            case "netherite" -> ArmorMaterials.NETHERITE;
+            case "enderite" -> ENDERITE_ARMOR;
+            default -> throw new IllegalArgumentException(metal);
+        };
+    }
+
+    /** N89A: the texture code ({@link #ARMOR_TIER_NAMES}) of a metal armor of {@code dino} in {@code stack}, 0 if it is none of them. */
+    public static int metalArmorTier(ItemStack stack, String dino) {
+        for (String metal : METAL_TIERS.get(dino)) {
+            Item item = METAL_ARMOR.get(dino + "_armor_" + metal);
+            if (item != null && stack.is(item)) return ARMOR_TIER_NAMES.indexOf(metal);
+        }
+        return 0;
+    }
+
+    /** N89A: the metal armor items of one dinosaur in tab order. */
+    public static List<Item> metalArmor(String dino) {
+        return METAL_TIERS.get(dino).stream().map(m -> METAL_ARMOR.get(dino + "_armor_" + m)).toList();
+    }
+
+    /** Every dinosaur armor in tab order (leather, iron, diamond, then the metal tiers, dinosaur by dinosaur). */
+    public static List<ItemStack> armorStacks() {
+        List<ItemStack> out = new java.util.ArrayList<>();
+        Item[][] base = {{TREX_ARMOR_LEATHER, TREX_ARMOR_IRON, TREX_ARMOR_DIAMOND},
+                {TRICERATOPS_ARMOR_LEATHER, TRICERATOPS_ARMOR_IRON, TRICERATOPS_ARMOR_DIAMOND},
+                {STEGOSAURUS_ARMOR_LEATHER, STEGOSAURUS_ARMOR_IRON, STEGOSAURUS_ARMOR_DIAMOND},
+                {PARASAUROLOPHUS_ARMOR_LEATHER, PARASAUROLOPHUS_ARMOR_IRON, PARASAUROLOPHUS_ARMOR_DIAMOND},
+                {UTAHRAPTOR_ARMOR_LEATHER, UTAHRAPTOR_ARMOR_IRON, UTAHRAPTOR_ARMOR_DIAMOND}};
+        String[] dinos = {"trex", "triceratops", "stegosaurus", "parasaurolophus", "utahraptor"};
+        for (int i = 0; i < dinos.length; i++) {
+            for (Item item : base[i]) out.add(new ItemStack(item));
+            for (Item item : metalArmor(dinos[i])) out.add(new ItemStack(item));
+        }
+        return out;
+    }
+
+    private static EnumMap<ArmorType, Integer> defense(int head, int chest, int legs, int boots, int body) {
+        EnumMap<ArmorType, Integer> map = new EnumMap<>(ArmorType.class);
+        map.put(ArmorType.HELMET, head);
+        map.put(ArmorType.CHESTPLATE, chest);
+        map.put(ArmorType.LEGGINGS, legs);
+        map.put(ArmorType.BOOTS, boots);
+        map.put(ArmorType.BODY, body);
+        return map;
+    }
+
+    private static TagKey<Item> itemTag(String ns, String path) {
+        return TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.fromNamespaceAndPath(ns, path));
+    }
+
+    private static ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> asset(String ns, String path) {
+        return ResourceKey.create(net.minecraft.world.item.equipment.EquipmentAssets.ROOT_ID, net.minecraft.resources.Identifier.fromNamespaceAndPath(ns, path));
     }
 
     private static ResourceKey<Block> blockKey(String path) {
@@ -255,19 +363,24 @@ public final class DinosRegistry {
         sink.accept(TREX_ARMOR_LEATHER_KEY, TREX_ARMOR_LEATHER);
         sink.accept(TREX_ARMOR_IRON_KEY, TREX_ARMOR_IRON);
         sink.accept(TREX_ARMOR_DIAMOND_KEY, TREX_ARMOR_DIAMOND);
+        METAL_TIERS.get("trex").forEach(m -> sink.accept(itemKey("trex_armor_" + m), METAL_ARMOR.get("trex_armor_" + m)));
         sink.accept(TRICERATOPS_ARMOR_LEATHER_KEY, TRICERATOPS_ARMOR_LEATHER);
         sink.accept(TRICERATOPS_ARMOR_IRON_KEY, TRICERATOPS_ARMOR_IRON);
         sink.accept(TRICERATOPS_ARMOR_DIAMOND_KEY, TRICERATOPS_ARMOR_DIAMOND);
+        METAL_TIERS.get("triceratops").forEach(m -> sink.accept(itemKey("triceratops_armor_" + m), METAL_ARMOR.get("triceratops_armor_" + m)));
         sink.accept(STEGOSAURUS_ARMOR_LEATHER_KEY, STEGOSAURUS_ARMOR_LEATHER);
         sink.accept(STEGOSAURUS_ARMOR_IRON_KEY, STEGOSAURUS_ARMOR_IRON);
         sink.accept(STEGOSAURUS_ARMOR_DIAMOND_KEY, STEGOSAURUS_ARMOR_DIAMOND);
+        METAL_TIERS.get("stegosaurus").forEach(m -> sink.accept(itemKey("stegosaurus_armor_" + m), METAL_ARMOR.get("stegosaurus_armor_" + m)));
         sink.accept(DINO_PLOW_KEY, DINO_PLOW);
         sink.accept(PARASAUROLOPHUS_ARMOR_LEATHER_KEY, PARASAUROLOPHUS_ARMOR_LEATHER);
         sink.accept(PARASAUROLOPHUS_ARMOR_IRON_KEY, PARASAUROLOPHUS_ARMOR_IRON);
         sink.accept(PARASAUROLOPHUS_ARMOR_DIAMOND_KEY, PARASAUROLOPHUS_ARMOR_DIAMOND);
+        METAL_TIERS.get("parasaurolophus").forEach(m -> sink.accept(itemKey("parasaurolophus_armor_" + m), METAL_ARMOR.get("parasaurolophus_armor_" + m)));
         sink.accept(UTAHRAPTOR_ARMOR_LEATHER_KEY, UTAHRAPTOR_ARMOR_LEATHER);
         sink.accept(UTAHRAPTOR_ARMOR_IRON_KEY, UTAHRAPTOR_ARMOR_IRON);
         sink.accept(UTAHRAPTOR_ARMOR_DIAMOND_KEY, UTAHRAPTOR_ARMOR_DIAMOND);
+        METAL_TIERS.get("utahraptor").forEach(m -> sink.accept(itemKey("utahraptor_armor_" + m), METAL_ARMOR.get("utahraptor_armor_" + m)));
         sink.accept(RAPTOR_FEATHER_KEY, RAPTOR_FEATHER);
         EGGSHELLS.forEach((kind, item) -> sink.accept(itemKey(kind.id + "_eggshell"), item));
         com.simpledinos.guide.DinosGuide.register();
@@ -318,19 +431,24 @@ public final class DinosRegistry {
         stacks.add(new ItemStack(TREX_ARMOR_LEATHER));
         stacks.add(new ItemStack(TREX_ARMOR_IRON));
         stacks.add(new ItemStack(TREX_ARMOR_DIAMOND));
+        metalArmor("trex").forEach(i -> stacks.add(new ItemStack(i)));
         stacks.add(new ItemStack(TRICERATOPS_ARMOR_LEATHER));
         stacks.add(new ItemStack(TRICERATOPS_ARMOR_IRON));
         stacks.add(new ItemStack(TRICERATOPS_ARMOR_DIAMOND));
+        metalArmor("triceratops").forEach(i -> stacks.add(new ItemStack(i)));
         stacks.add(new ItemStack(STEGOSAURUS_ARMOR_LEATHER));
         stacks.add(new ItemStack(STEGOSAURUS_ARMOR_IRON));
         stacks.add(new ItemStack(STEGOSAURUS_ARMOR_DIAMOND));
+        metalArmor("stegosaurus").forEach(i -> stacks.add(new ItemStack(i)));
         stacks.add(new ItemStack(DINO_PLOW));
         stacks.add(new ItemStack(PARASAUROLOPHUS_ARMOR_LEATHER));
         stacks.add(new ItemStack(PARASAUROLOPHUS_ARMOR_IRON));
         stacks.add(new ItemStack(PARASAUROLOPHUS_ARMOR_DIAMOND));
+        metalArmor("parasaurolophus").forEach(i -> stacks.add(new ItemStack(i)));
         stacks.add(new ItemStack(UTAHRAPTOR_ARMOR_LEATHER));
         stacks.add(new ItemStack(UTAHRAPTOR_ARMOR_IRON));
         stacks.add(new ItemStack(UTAHRAPTOR_ARMOR_DIAMOND));
+        metalArmor("utahraptor").forEach(i -> stacks.add(new ItemStack(i)));
         stacks.add(new ItemStack(RAPTOR_FEATHER));
         for (Item shell : EGGSHELLS.values()) stacks.add(new ItemStack(shell));
         return stacks;

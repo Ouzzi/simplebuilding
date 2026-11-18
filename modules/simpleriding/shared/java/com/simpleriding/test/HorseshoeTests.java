@@ -57,9 +57,9 @@ public final class HorseshoeTests {
 
  public static void items(GameTestHelper h){
   // AUDSB31E1 F17: every tier, the Enderite one too, is registered whatever else is loaded.
-  h.assertTrue(Horseshoes.ITEMS.size()==6&&Horseshoes.TEMPLATE!=null,"Every tier and the template are registered");
+  h.assertTrue(Horseshoes.ITEMS.size()==8&&Horseshoes.TEMPLATE!=null,"Every tier (N89A: the two rose alloys too) and the template are registered");
   h.assertTrue(Horseshoes.ITEMS.containsKey(Tier.ENDERITE),"Enderite tier is always registered");
-  int[] durability={120,180,80,400,500,620};
+  int[] durability={120,180,80,400,500,620,120,180};
   for(Tier t:Horseshoes.ITEMS.keySet()){
    var stack=new ItemStack(shoe(t));
    h.assertTrue(BuiltInRegistries.ITEM.getKey(shoe(t)).equals(Riding.id(t.itemName())),"Registry id "+t);
@@ -77,7 +77,8 @@ public final class HorseshoeTests {
   menu.getSlot(0).set(new ItemStack(shoe(Tier.DIAMOND)));menu.getSlot(1).set(EnchantmentHelper.createBook(new EnchantmentInstance(ench(h,Enchantments.MENDING),1)));menu.createResult();
   h.assertTrue(EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.MENDING),menu.getSlot(2).getItem())==1,"Real anvil applies Mending");
   h.assertTrue(!EnchantmentHelper.selectEnchantment(net.minecraft.util.RandomSource.create(3),new ItemStack(shoe(Tier.IRON)),30,java.util.stream.Stream.of(ench(h,Enchantments.UNBREAKING))).isEmpty(),"Enchanting table offers Unbreaking");
-  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")&&!i.getPath().equals("guide_book")).count()==7,"Exactly the R1 items (six tiers incl. Enderite, the template; plus the guide)");
+  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")&&!i.getPath().equals("guide_book")).count()==9,"Exactly the R1 items (six tiers incl. Enderite, the two rose alloys, the template; plus the guide)");
+  roseValues(h);
   h.succeed();
  }
 
@@ -102,6 +103,13 @@ public final class HorseshoeTests {
    var enderite=smith(h,"enderite_horseshoe_smithing",netherite,enderiteIngot);
    h.assertTrue(enderite.is(shoe(Tier.ENDERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),enderite)==3,"Enderite upgrade with the tag's ingot");
   }
+  for(Tier rose:new Tier[]{Tier.ROSE_BRONZE,Tier.ROSE_GOLD}){
+   // N89A: like Enderite, the rose recipe takes #c:ingots/<alloy> and loads exactly while that tag has content
+   var ingot=tagItem("c:ingots/"+rose.material);
+   var roseRecipe=h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,Riding.id(rose.itemName()+"_smithing")));
+   h.assertTrue(roseRecipe.isPresent()==!ingot.isEmpty(),"Rose recipe loads iff c:ingots/"+rose.material+" has content");
+   if(!ingot.isEmpty())h.assertTrue(smith(h,rose.itemName()+"_smithing",ingot,new ItemStack(Items.IRON_NUGGET)).is(shoe(rose)),"Smithing makes "+rose);
+  }
   var wrong=new SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),new ItemStack(Items.IRON_INGOT),new ItemStack(Items.IRON_NUGGET));
   h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,wrong,h.getLevel()).isEmpty(),"Other templates do not make horseshoes");
   ItemStack c=new ItemStack(Items.COPPER_INGOT),t=new ItemStack(Horseshoes.TEMPLATE),i=new ItemStack(Items.IRON_INGOT);
@@ -113,17 +121,21 @@ public final class HorseshoeTests {
  }
 
  public static void points(GameTestHelper h){
-  for(int t=1;t<Tier.values().length;t++){
-   int two=((t+1)<<0)|((t+1)<<3), four=t|(t<<3)|(t<<6)|(t<<9);
+  // the doubling chain of the six main tiers (N89A: 4 bits per hoof; the rose alloys share a main step, see roseValues)
+  for(int t=1;t<=Tier.ENDERITE.ordinal();t++){
+   int two=((t+1)<<0)|((t+1)<<4), four=t|(t<<4)|(t<<8)|(t<<12);
    h.assertTrue(Horseshoes.points(two)==Horseshoes.points(four),"Two of tier "+(t+1)+" equal four of tier "+t);
    close(Horseshoes.effect(Horseshoes.points(two)),Horseshoes.effect(Horseshoes.points(four)),h,"Equal points, equal effect");
   }
   double last=0;
-  for(Tier tier:Tier.values()){int code=0;for(int s=0;s<4;s++)code|=(tier.ordinal()+1)<<(3*s);double f=Horseshoes.effect(Horseshoes.points(code));h.assertTrue(f>last,"Higher full sets are stronger");last=f;}
+  for(Tier tier:Tier.values()){if(tier.ordinal()>Tier.ENDERITE.ordinal())break;int code=0;for(int s=0;s<4;s++)code|=(tier.ordinal()+1)<<(4*s);double f=Horseshoes.effect(Horseshoes.points(code));h.assertTrue(f>last,"Higher full sets are stronger");last=f;}
   close(last,1,h,"Full Enderite set is the maximum");
   close(Horseshoes.effect(4),Math.log(5)/Math.log(129),h,"Full copper set");
   h.assertTrue(Horseshoes.effect(0)==0&&Horseshoes.effect(1000)==1,"Effect is bounded");
-  h.assertTrue(Horseshoes.fullSet(0b001_001_001_001)&&!Horseshoes.fullSet(0b001_000_001_001),"Full set needs all four hooves");
+  // N89A: the rose alloys score like the main step they sit on (Rose Copper = iron, Rose Gold = gold) and fit the 4-bit code
+  h.assertTrue(Horseshoes.points(0x7777)==Horseshoes.points(0x2222)&&Horseshoes.points(0x8888)==Horseshoes.points(0x3333),"Rose tiers share iron/gold points");
+  h.assertTrue(Horseshoes.tierAt(0x8000,3)==Tier.ROSE_GOLD.ordinal()+1&&Horseshoes.handlingShare(0x8888|(500<<Horseshoes.SHARE_SHIFT))==.5,"Code 8 and the share do not overlap");
+  h.assertTrue(Horseshoes.fullSet(0x1111)&&!Horseshoes.fullSet(0x1011),"Full set needs all four hooves");
   h.succeed();
  }
 
@@ -382,6 +394,19 @@ public final class HorseshoeTests {
   }catch(java.io.IOException e){throw new IllegalStateException(e);}
  }
  /** The Enderite ingot through the common tag (principle 6, plan stage 3d) - never a fixed mod id. */
+ static ItemStack tagItem(String tagId){
+  var tag=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,Identifier.parse(tagId));
+  return BuiltInRegistries.ITEM.get(tag).flatMap(set->set.stream().findFirst()).map(holder->new ItemStack(holder.value())).orElse(ItemStack.EMPTY);
+ }
+ /** N89A: the rose horseshoes - values of the plan (durability, enchantability, points), not fire resistant, repaired by the alloy ingot. */
+ private static void roseValues(GameTestHelper h){
+  h.assertTrue(Tier.ROSE_BRONZE.points()==Tier.IRON.points()&&Tier.ROSE_GOLD.points()==Tier.GOLDEN.points(),"Rose points on the iron/gold step");
+  h.assertTrue(Tier.ROSE_BRONZE.enchantability==12&&Tier.ROSE_GOLD.enchantability==22,"Rose enchantability");
+  for(Tier rose:new Tier[]{Tier.ROSE_BRONZE,Tier.ROSE_GOLD}){
+   var ingot=tagItem("c:ingots/"+rose.material);
+   if(!ingot.isEmpty())h.assertTrue(new ItemStack(shoe(rose)).isValidRepairItem(ingot),"Alloy ingot repairs "+rose);
+  }
+ }
  static ItemStack enderiteIngot(){
   var tag=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,Identifier.parse("c:ingots/enderite"));
   return BuiltInRegistries.ITEM.get(tag).flatMap(set->set.stream().findFirst()).map(holder->new ItemStack(holder.value())).orElse(ItemStack.EMPTY);

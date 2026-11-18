@@ -65,6 +65,28 @@
       "Soul sand and honey slow the horse far less, and it steers sideways much better. Enchantments and wear carry over from the Netherite shoe."
     ]
   },
+  "rose_bronze_horseshoe": {
+    "lore": [
+      "A shoe of Rose Copper, copper's toughness with a warmer shine."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with a Rose Copper Ingot (any ingot in the c:ingots/rose_bronze tag, e.g. from Simple Ores) and an iron nugget. Worth 2 points like the iron shoe, durability 120, enchantability 12. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+    ],
+    "secret": [
+      "It scores like iron but wears like copper; what it gives back is a better enchanting table roll."
+    ]
+  },
+  "rose_gold_horseshoe": {
+    "lore": [
+      "A shoe of Rose Gold: the gold's grace, the iron's patience."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with a Rose Gold Ingot (any ingot in the c:ingots/rose_gold tag, e.g. from Simple Ores) and an iron nugget. Worth 4 points like the golden shoe, durability 180, enchantability 22."
+    ],
+    "secret": [
+      "Same score as gold, but it lasts as long as an iron shoe. Two shoes of one tier score the same as four of the tier below."
+    ]
+  },
   "horseshoe_smithing_template": {
     "lore": [
       "A template shaped like a horseshoe, cold to the touch like a stable at dawn."

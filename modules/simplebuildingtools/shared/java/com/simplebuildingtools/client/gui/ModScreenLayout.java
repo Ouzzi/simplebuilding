@@ -17,6 +17,8 @@ public final class ModScreenLayout {
 
     /** Fill of a building wand's panel from its item id path ({@code copper_building_wand} ...): its material. */
     public static int wandFill(String itemPath) {
+        if (itemPath.startsWith("rose_bronze")) return 0xFFD37D5D; // N89A: Rose Copper (Simple Ores ramp 'hard')
+        if (itemPath.startsWith("rose_gold")) return 0xFFD2877F;   // N89A: Rose Gold (Simple Ores ramp 'soft')
         if (itemPath.startsWith("copper")) return 0xFFB4684D;
         if (itemPath.startsWith("iron")) return 0xFF9A9DA2; // SimpleLib IRON
         if (itemPath.startsWith("gold")) return 0xFFD1A13A;

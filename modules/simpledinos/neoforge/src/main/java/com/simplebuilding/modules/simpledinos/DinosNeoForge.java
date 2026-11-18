@@ -59,21 +59,7 @@ public final class DinosNeoForge {
                 event.accept(com.simpledinos.guide.DinosGuide.stack(), vis);
             }
             if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TREX_ARMOR_LEATHER), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TREX_ARMOR_IRON), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TREX_ARMOR_DIAMOND), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_LEATHER), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_IRON), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.TRICERATOPS_ARMOR_DIAMOND), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_LEATHER), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_IRON), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.STEGOSAURUS_ARMOR_DIAMOND), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_LEATHER), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_IRON), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.PARASAUROLOPHUS_ARMOR_DIAMOND), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_LEATHER), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_IRON), vis);
-                event.accept(new net.minecraft.world.item.ItemStack(DinosRegistry.UTAHRAPTOR_ARMOR_DIAMOND), vis);
+                DinosRegistry.armorStacks().forEach(s -> event.accept(s, vis));   // N89A: with the metal tiers
             }
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 DinosRegistry.EGGSHELLS.values().forEach(i -> event.accept(new net.minecraft.world.item.ItemStack(i), vis));

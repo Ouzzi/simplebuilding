@@ -121,6 +121,8 @@ sys.path.insert(0, str(ROOT / 'tools/textures'))
 import optik32_items as OI  # noqa: E402
 
 ARMOR_TIERS = ('leather', 'iron', 'diamond')
+# N89A (owner N77): the T. rex armor in every metal tier (codes 4..9 of DinosRegistry.ARMOR_TIER_NAMES)
+TREX_TIERS = ARMOR_TIERS + ('copper', 'gold', 'rose_gold', 'rose_bronze', 'netherite', 'enderite')
 # a-dinorest1: Triceratops armor and the eggshells (tools/dino_items.py)
 import dino_items as DI  # noqa: E402
 
@@ -190,11 +192,11 @@ def outputs():
         # the item shows the fresh egg (phase 0), not a brooded one
         files[it / f'{kind}_egg.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{kind}_egg_0'}})
     files[ti / 'large_saddle.png'] = saddle_image()
-    for tier in ARMOR_TIERS:
+    for tier in TREX_TIERS:
         files[ti / f'trex_armor_{tier}.png'] = armor_image(tier)
     for name, img in DI.all_sprites().items():
         files[ti / f'{name}.png'] = L.snap(img, 'Grundform')
-    for name in ('large_saddle', 'trex_armor_leather', 'trex_armor_iron', 'trex_armor_diamond', *DI.all_sprites()):
+    for name in ('large_saddle', *[f'trex_armor_{t}' for t in TREX_TIERS], *DI.all_sprites()):
         files[mi / f'{name}.json'] = dumps({'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/{name}'}})
         files[it / f'{name}.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{name}'}})
     return files

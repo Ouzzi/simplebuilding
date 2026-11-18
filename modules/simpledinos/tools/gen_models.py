@@ -116,6 +116,11 @@ def clawed(inner, claw):
 
 TIER_PALETTES = {1: ('#7a5030', '#9a6a40', '#4e321c', 'leather'), 2: ('#9aa0a8', '#c4c9d0', '#5c6168', 'iron'),
                  3: ('#3fd2c6', '#8ff0e6', '#1f8a82', 'diamond')}
+# N89A (owner N77): the metal tiers (codes 4..9 of DinosRegistry.ARMOR_TIER_NAMES): rivets like iron, facets for Enderite; the rose tones
+# from ores_2026_10_30.RAMPS (soft = Rose Gold, hard = Rose Copper)
+TIER_PALETTES.update({4: ('#b0562c', '#de8a54', '#6e3016', 'iron'), 5: ('#e0b020', '#fbe46a', '#8a6410', 'iron'),
+                      6: ('#d2877f', '#efc0b4', '#96504f', 'iron'), 7: ('#d37d5d', '#f2b88f', '#924a3c', 'iron'),
+                      8: ('#4a4044', '#7a6e70', '#2a2226', 'iron'), 9: ('#6d45b8', '#c77dff', '#3e2173', 'diamond')})
 
 
 def plate(tier, seed):
@@ -722,11 +727,16 @@ COATS = {
     'moss': (H('4b5a35'), H('b9b68c'), H('222d17')),    # jungle, swamp
     'ash': (H('7b7165'), H('d0c9ba'), H('3d372f')),     # cold, mountains
 }
-TIER_NAMES = {0: 'plain', 1: 'leather', 2: 'iron', 3: 'diamond'}
+TIER_NAMES = {0: 'plain', 1: 'leather', 2: 'iron', 3: 'diamond', 4: 'copper', 5: 'gold', 6: 'rose_gold', 7: 'rose_bronze', 8: 'netherite', 9: 'enderite'}
+# N89A: the T. rex wears every tier, the other dinosaurs leather to diamond and the precious metals (gold, rose gold, rose copper)
+TREX_TIERS = tuple(range(10))
+OTHER_TIERS = (0, 1, 2, 3, 5, 6, 7)
 PALETTES = {}
 for _coat, (_c, _b, _d) in COATS.items():
-    for _tier in range(4):
+    for _tier in TREX_TIERS:
         PALETTES[f'trex_{_coat}_{_tier}'] = trex_spec(_c, _b, _d, _tier)
+        if _tier not in OTHER_TIERS:
+            continue
         PALETTES[f'triceratops_{_coat}_{_tier}'] = triceratops_spec(_c, _b, _d, _tier, frill=FRILL_CHOSEN)
         PALETTES[f'stegosaurus_{_coat}_{_tier}'] = stegosaurus_spec(_c, _b, _d, _tier, pattern=PLATE_CHOSEN)
         PALETTES[f'parasaurolophus_{_coat}_{_tier}'] = parasaurolophus_spec(_c, _b, _d, _tier, crest=CREST_CHOSEN)

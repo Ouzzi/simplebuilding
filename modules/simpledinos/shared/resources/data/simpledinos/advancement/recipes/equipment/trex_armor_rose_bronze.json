@@ -1,0 +1,59 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "registry": "minecraft:item",
+      "values": [
+        "c:ingots/rose_bronze"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/rose_bronze"
+      }
+    }
+  ],
+  "forge:conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "c:ingots/rose_bronze"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpledinos:trex_armor_rose_bronze"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_rose_bronze_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/rose_bronze"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rose_bronze_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpledinos:trex_armor_rose_bronze"
+    ]
+  }
+}

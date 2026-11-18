@@ -34,6 +34,12 @@ public final class ModuleGameTest {
         DinosTests.ALL.get("registered").accept(h);
     }
 
+    /** N89A: the metal armor tiers (values, fit, texture code, recipes). */
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void metalArmor(GameTestHelper h) {
+        DinosTests.ALL.get("metal_armor").accept(h);
+    }
+
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void configCaps(GameTestHelper h) {
         DinosTests.ALL.get("config_caps").accept(h);

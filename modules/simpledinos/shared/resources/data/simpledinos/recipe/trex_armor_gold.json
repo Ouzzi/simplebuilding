@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:gold_ingot",
+    "B": "minecraft:bone_block"
+  },
+  "pattern": [
+    "MMM",
+    "MBM",
+    "MMM"
+  ],
+  "result": {
+    "id": "simpledinos:trex_armor_gold",
+    "count": 1
+  }
+}
