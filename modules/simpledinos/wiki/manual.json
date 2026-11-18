@@ -238,7 +238,7 @@
       ],
       "en": {
         "title": "Large saddle and dinosaur armor",
-        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell, Stegosaurus armor around a Stegosaurus eggshell, Parasaurolophus armor around a Parasaurolophus eggshell, Utahraptor armor around a Utahraptor eggshell.",
+        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. Each dinosaur has its own armor in leather, iron and diamond with the protection values of the Vanilla horse armor (3, 5, 11), and in gold (7), rose gold (6) and rose copper (4); the T. rex also in copper (4), Netherite (19, smithing from diamond) and Enderite (22, smithing from Netherite, with Simple Ores): T. rex armor from 8 of the material around a bone block, Triceratops armor around a Triceratops eggshell, Stegosaurus armor around a Stegosaurus eggshell, Parasaurolophus armor around a Parasaurolophus eggshell, Utahraptor armor around a Utahraptor eggshell.",
         "details": [
           "Saddle and armor go on like on a horse: use them on a tamed adult dinosaur. The saddle shows as a seat on its back, the armor as plates (T. rex: head and back; Triceratops: frill shield, horn caps and chest plate; Stegosaurus: neck guard and flank plates; Parasaurolophus: crest hood and hip blanket; Utahraptor: neck guard, chest plate and shin guards), a different texture per material.",
           "Hatchlings take neither. Each armor fits only its own dinosaur. The T. rex recipes unlock when you hold a saddle, leather, iron or diamonds, the Triceratops, Stegosaurus, Parasaurolophus and Utahraptor recipes when you hold their eggshell (like the turtle shell)."
@@ -246,7 +246,7 @@
       },
       "de": {
         "title": "Großer Sattel und Dinosaurier-Rüstung",
-        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale, Stegosaurus-Rüstung um eine Stegosaurus-Eierschale, Parasaurolophus-Rüstung um eine Parasaurolophus-Eierschale, Utahraptor-Rüstung um eine Utahraptor-Eierschale.",
+        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Jeder Dinosaurier hat seine eigene Rüstung aus Leder, Eisen und Diamant mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11) sowie aus Gold (7), Roségold (6) und Rosenkupfer (4); der T-Rex auch aus Kupfer (4), Netherit (19, Schmieden aus Diamant) und Enderit (22, Schmieden aus Netherit, mit Simple Ores): T-Rex-Rüstung aus 8 Stück des Materials um einen Knochenblock, Triceratops-Rüstung um eine Triceratops-Eierschale, Stegosaurus-Rüstung um eine Stegosaurus-Eierschale, Parasaurolophus-Rüstung um eine Parasaurolophus-Eierschale, Utahraptor-Rüstung um eine Utahraptor-Eierschale.",
         "details": [
           "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen Dinosaurier an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten (T-Rex: Kopf und Rücken; Triceratops: Kragenschild, Hornkappen und Brustplatte; Stegosaurus: Halsschutz und Flankenplatten; Parasaurolophus: Kammhaube und Hüftdecke; Utahraptor: Halsschutz, Brustplatte und Schienbeinschoner), je Material eine andere Textur.",
           "Jungtiere tragen keins von beiden. Jede Rüstung passt nur auf ihren eigenen Dinosaurier. Die T-Rex-Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst, die Triceratops-, Stegosaurus-, Parasaurolophus- und Utahraptor-Rezepte mit ihrer Eierschale (wie der Schildkrötenpanzer)."
@@ -316,10 +316,10 @@
         "modules/simpledinos/shared/resources/data/simpledinos/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 22 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Dinosaurs\" of the Simple Modpack guide (SimpleLib): 23 pages taken from this wiki, shown in your language. Unlocked by picking up: brush. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 22 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Dinosaurs\" im Simple-Modpack-Handbuch (SimpleLib): 23 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Pinsel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpledinos:fossil_block": {
@@ -433,6 +433,72 @@
         "summary": "Diamantrüstung für den T-Rex (Schutz 11). 8 Diamanten um einen Knochenblock."
       }
     },
+    "simpledinos:trex_armor_copper": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Copper armor for the T. rex (protection 4). 8 copper ingots around a bone block."
+      },
+      "de": {
+        "summary": "Kupferrüstung für den T-Rex (Schutz 4). 8 Kupferbarren um einen Knochenblock."
+      }
+    },
+    "simpledinos:trex_armor_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Golden armor for the T. rex (protection 7). 8 gold ingots around a bone block."
+      },
+      "de": {
+        "summary": "Goldrüstung für den T-Rex (Schutz 7). 8 Goldbarren um einen Knochenblock."
+      }
+    },
+    "simpledinos:trex_armor_rose_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Gold armor for the T. rex (protection 6). 8 rose gold ingots around a bone block."
+      },
+      "de": {
+        "summary": "Roségoldrüstung für den T-Rex (Schutz 6). 8 Roségoldbarren um einen Knochenblock."
+      }
+    },
+    "simpledinos:trex_armor_rose_bronze": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Copper armor for the T. rex (protection 4). 8 rose copper ingots around a bone block."
+      },
+      "de": {
+        "summary": "Rosenkupferrüstung für den T-Rex (Schutz 4). 8 Rosenkupferbarren um einen Knochenblock."
+      }
+    },
+    "simpledinos:trex_armor_netherite": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Netherite armor for the T. rex (protection 19). Smithing table: Netherite upgrade + diamond T. rex armor + Netherite ingot."
+      },
+      "de": {
+        "summary": "Netheritrüstung für den T-Rex (Schutz 19). Schmiedetisch: Netherit-Aufwertung + Diamant-T-Rex-Rüstung + Netheritbarren."
+      }
+    },
+    "simpledinos:trex_armor_enderite": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Enderite armor for the T. rex (protection 22). Smithing table: Enderite upgrade + Netherite T. rex armor + Enderite ingot (with Simple Ores)."
+      },
+      "de": {
+        "summary": "Enderitrüstung für den T-Rex (Schutz 22). Schmiedetisch: Enderit-Aufwertung + Netherit-T-Rex-Rüstung + Enderitbarren (mit Simple Ores)."
+      }
+    },
     "simpledinos:triceratops_armor_leather": {
       "sources": [
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
@@ -464,6 +530,39 @@
       },
       "de": {
         "summary": "Diamantrüstung für den Triceratops (Schutz 11): Kragenschild, Hornkappen, Brustplatte. 8 Diamanten um eine Triceratops-Eierschale."
+      }
+    },
+    "simpledinos:triceratops_armor_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Golden armor for the Triceratops (protection 7): frill shield, horn caps, chest plate. 8 gold ingots around a Triceratops eggshell."
+      },
+      "de": {
+        "summary": "Goldrüstung für den Triceratops (Schutz 7): Kragenschild, Hornkappen, Brustplatte. 8 Goldbarren um eine Triceratops-Eierschale."
+      }
+    },
+    "simpledinos:triceratops_armor_rose_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Gold armor for the Triceratops (protection 6): frill shield, horn caps, chest plate. 8 rose gold ingots around a Triceratops eggshell."
+      },
+      "de": {
+        "summary": "Roségoldrüstung für den Triceratops (Schutz 6): Kragenschild, Hornkappen, Brustplatte. 8 Roségoldbarren um eine Triceratops-Eierschale."
+      }
+    },
+    "simpledinos:triceratops_armor_rose_bronze": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Copper armor for the Triceratops (protection 4): frill shield, horn caps, chest plate. 8 rose copper ingots around a Triceratops eggshell."
+      },
+      "de": {
+        "summary": "Rosenkupferrüstung für den Triceratops (Schutz 4): Kragenschild, Hornkappen, Brustplatte. 8 Rosenkupferbarren um eine Triceratops-Eierschale."
       }
     },
     "simpledinos:triceratops_eggshell": {
@@ -547,6 +646,39 @@
         "summary": "Diamantrüstung für den Stegosaurus (Schutz 11): Halsschutz und Flankenplatten, die Rückenplatten bleiben frei. 8 Diamanten um eine Stegosaurus-Eierschale."
       }
     },
+    "simpledinos:stegosaurus_armor_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Golden armor for the Stegosaurus (protection 7): neck guard and flank plates, the back plates stay free. 8 gold ingots around a Stegosaurus eggshell."
+      },
+      "de": {
+        "summary": "Goldrüstung für den Stegosaurus (Schutz 7): Halsschutz und Flankenplatten, die Rückenplatten bleiben frei. 8 Goldbarren um eine Stegosaurus-Eierschale."
+      }
+    },
+    "simpledinos:stegosaurus_armor_rose_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Gold armor for the Stegosaurus (protection 6): neck guard and flank plates, the back plates stay free. 8 rose gold ingots around a Stegosaurus eggshell."
+      },
+      "de": {
+        "summary": "Roségoldrüstung für den Stegosaurus (Schutz 6): Halsschutz und Flankenplatten, die Rückenplatten bleiben frei. 8 Roségoldbarren um eine Stegosaurus-Eierschale."
+      }
+    },
+    "simpledinos:stegosaurus_armor_rose_bronze": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Copper armor for the Stegosaurus (protection 4): neck guard and flank plates, the back plates stay free. 8 rose copper ingots around a Stegosaurus eggshell."
+      },
+      "de": {
+        "summary": "Rosenkupferrüstung für den Stegosaurus (Schutz 4): Halsschutz und Flankenplatten, die Rückenplatten bleiben frei. 8 Rosenkupferbarren um eine Stegosaurus-Eierschale."
+      }
+    },
     "simpledinos:dino_plow": {
       "sources": [
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java",
@@ -592,6 +724,39 @@
         "summary": "Diamantrüstung für den Parasaurolophus (Schutz 11): Kammhaube und Hüftdecke. 8 Diamanten um eine Parasaurolophus-Eierschale."
       }
     },
+    "simpledinos:parasaurolophus_armor_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Golden armor for the Parasaurolophus (protection 7): a hood over the crest and a blanket over the hips. 8 gold ingots around a Parasaurolophus eggshell."
+      },
+      "de": {
+        "summary": "Goldrüstung für den Parasaurolophus (Schutz 7): Kammhaube und Hüftdecke. 8 Goldbarren um eine Parasaurolophus-Eierschale."
+      }
+    },
+    "simpledinos:parasaurolophus_armor_rose_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Gold armor for the Parasaurolophus (protection 6): a hood over the crest and a blanket over the hips. 8 rose gold ingots around a Parasaurolophus eggshell."
+      },
+      "de": {
+        "summary": "Roségoldrüstung für den Parasaurolophus (Schutz 6): Kammhaube und Hüftdecke. 8 Roségoldbarren um eine Parasaurolophus-Eierschale."
+      }
+    },
+    "simpledinos:parasaurolophus_armor_rose_bronze": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Copper armor for the Parasaurolophus (protection 4): a hood over the crest and a blanket over the hips. 8 rose copper ingots around a Parasaurolophus eggshell."
+      },
+      "de": {
+        "summary": "Rosenkupferrüstung für den Parasaurolophus (Schutz 4): Kammhaube und Hüftdecke. 8 Rosenkupferbarren um eine Parasaurolophus-Eierschale."
+      }
+    },
     "simpledinos:utahraptor_armor_leather": {
       "sources": [
         "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
@@ -623,6 +788,39 @@
       },
       "de": {
         "summary": "Diamantrüstung für den Utahraptor (Schutz 11): Halsschutz, Brustplatte und Schienbeinschoner; die Krallen bleiben frei. 8 Diamanten um eine Utahraptor-Eierschale."
+      }
+    },
+    "simpledinos:utahraptor_armor_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Golden armor for the Utahraptor (protection 7): a neck guard, a chest plate and shin guards; the claws stay free. 8 gold ingots around a Utahraptor eggshell."
+      },
+      "de": {
+        "summary": "Goldrüstung für den Utahraptor (Schutz 7): Halsschutz, Brustplatte und Schienbeinschoner; die Krallen bleiben frei. 8 Goldbarren um eine Utahraptor-Eierschale."
+      }
+    },
+    "simpledinos:utahraptor_armor_rose_gold": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Gold armor for the Utahraptor (protection 6): a neck guard, a chest plate and shin guards; the claws stay free. 8 rose gold ingots around a Utahraptor eggshell."
+      },
+      "de": {
+        "summary": "Roségoldrüstung für den Utahraptor (Schutz 6): Halsschutz, Brustplatte und Schienbeinschoner; die Krallen bleiben frei. 8 Roségoldbarren um eine Utahraptor-Eierschale."
+      }
+    },
+    "simpledinos:utahraptor_armor_rose_bronze": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Rose Copper armor for the Utahraptor (protection 4): a neck guard, a chest plate and shin guards; the claws stay free. 8 rose copper ingots around a Utahraptor eggshell."
+      },
+      "de": {
+        "summary": "Rosenkupferrüstung für den Utahraptor (Schutz 4): Halsschutz, Brustplatte und Schienbeinschoner; die Krallen bleiben frei. 8 Rosenkupferbarren um eine Utahraptor-Eierschale."
       }
     },
     "simpledinos:raptor_feather": {

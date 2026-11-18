@@ -2,8 +2,10 @@
   "values": [
     "simplechisels:stone_chisel",
     "simplechisels:copper_chisel",
+    "simplechisels:rose_bronze_chisel",
     "simplechisels:iron_chisel",
     "simplechisels:gold_chisel",
+    "simplechisels:rose_gold_chisel",
     "simplechisels:diamond_chisel",
     "simplechisels:netherite_chisel",
     "simplechisels:enderite_chisel"

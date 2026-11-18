@@ -25,19 +25,26 @@ import net.minecraft.world.phys.Vec3;
  */
 public final class Horseshoes {
  private Horseshoes() {}
- /** Tier order is the owner's ranking; ordinal+1 is the stored tier (0 = no shoe). */
+ /**
+  * Tier order is the owner's ranking for the six main tiers; ordinal+1 is the stored tier (0 = no shoe). N89A (17.11.2026): the two
+  * Simple Ores alloys are appended (codes 7 and 8, so the main codes stay) and sit on existing steps by their points: Rose Copper on
+  * iron's (copper durability 120 like its armour factor 11, enchantability 12 of its armour), Rose Gold on gold's (iron durability 180
+  * like its armour factor 15, enchantability 22 like the golden shoe). Both are always registered; their recipes need c:ingots/rose_*.
+  */
  public enum Tier {
-  COPPER("copper",120,8,ItemTags.REPAIRS_COPPER_ARMOR,false),
-  IRON("iron",180,9,ItemTags.REPAIRS_IRON_ARMOR,false),
-  GOLDEN("golden",80,22,ItemTags.REPAIRS_GOLD_ARMOR,false),
-  DIAMOND("diamond",400,10,ItemTags.REPAIRS_DIAMOND_ARMOR,false),
-  NETHERITE("netherite",500,15,ItemTags.REPAIRS_NETHERITE_ARMOR,true),
-  ENDERITE("enderite",620,15,TagKey.create(Registries.ITEM,Riding.id("repairs_enderite_horseshoe")),true);
-  public final String material; public final int durability, enchantability; public final TagKey<Item> repair; public final boolean fireResistant;
-  Tier(String material,int durability,int enchantability,TagKey<Item> repair,boolean fireResistant){this.material=material;this.durability=durability;this.enchantability=enchantability;this.repair=repair;this.fireResistant=fireResistant;}
+  COPPER("copper",120,8,1,ItemTags.REPAIRS_COPPER_ARMOR,false),
+  IRON("iron",180,9,2,ItemTags.REPAIRS_IRON_ARMOR,false),
+  GOLDEN("golden",80,22,4,ItemTags.REPAIRS_GOLD_ARMOR,false),
+  DIAMOND("diamond",400,10,8,ItemTags.REPAIRS_DIAMOND_ARMOR,false),
+  NETHERITE("netherite",500,15,16,ItemTags.REPAIRS_NETHERITE_ARMOR,true),
+  ENDERITE("enderite",620,15,32,TagKey.create(Registries.ITEM,Riding.id("repairs_enderite_horseshoe")),true),
+  ROSE_BRONZE("rose_bronze",120,12,2,TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath("simpleores","repairs_rose_bronze_equipment")),false),
+  ROSE_GOLD("rose_gold",180,22,4,TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath("simpleores","repairs_rose_gold_equipment")),false);
+  public final String material; public final int durability, enchantability, points; public final TagKey<Item> repair; public final boolean fireResistant;
+  Tier(String material,int durability,int enchantability,int points,TagKey<Item> repair,boolean fireResistant){this.material=material;this.durability=durability;this.enchantability=enchantability;this.points=points;this.repair=repair;this.fireResistant=fireResistant;}
   public String itemName(){return material+"_horseshoe";}
-  /** 2^(tier-1): two shoes of the next tier score exactly like four of the tier below. */
-  public int points(){return 1<<ordinal();}
+  /** Main tiers: 2^(tier-1), two shoes of the next tier score exactly like four of the tier below; the alloys share a main step. */
+  public int points(){return points;}
  }
  public static final int SLOTS=4, MAX_POINTS=SLOTS*Tier.ENDERITE.points();
  /** Slot order: front left, front right, hind left, hind right. */
@@ -79,12 +86,13 @@ public final class Horseshoes {
  public static boolean canWear(Entity e){return e instanceof AbstractHorse&&e.is(CAN_WEAR);}
  public static SimpleContainer container(AbstractHorse horse){return ((HorseshoeHolder)horse).simpleriding$horseshoes();}
 
- // ---- synced code: bits 0..11 = 4 x 3-bit tier, bits 12..21 = handling share in permille ----
- public static int encode(SimpleContainer c){int code=0;for(int i=0;i<SLOTS;i++){var t=tier(c.getItem(i));if(t.isPresent())code|=(t.get().ordinal()+1)<<(3*i);}return code;}
- public static int tierAt(int code,int slot){return (code>>(3*slot))&7;}
- public static int shoes(int code){return code&0xFFF;}
- public static double handlingShare(int code){return Math.min(1000,(code>>>12)&0x3FF)/1000.0;}
- public static int points(int code){int p=0;for(int i=0;i<SLOTS;i++){int t=tierAt(code,i);if(t>0)p+=1<<(t-1);}return p;}
+ // ---- synced code: bits 0..15 = 4 x 4-bit tier (N89A: eight tiers), bits 16..25 = handling share in permille ----
+ public static final int TIER_BITS=4, SHARE_SHIFT=SLOTS*TIER_BITS;
+ public static int encode(SimpleContainer c){int code=0;for(int i=0;i<SLOTS;i++){var t=tier(c.getItem(i));if(t.isPresent())code|=(t.get().ordinal()+1)<<(TIER_BITS*i);}return code;}
+ public static int tierAt(int code,int slot){return (code>>(TIER_BITS*slot))&0xF;}
+ public static int shoes(int code){return code&0xFFFF;}
+ public static double handlingShare(int code){return Math.min(1000,(code>>>SHARE_SHIFT)&0x3FF)/1000.0;}
+ public static int points(int code){int p=0;for(int i=0;i<SLOTS;i++){int t=tierAt(code,i);if(t>0&&t<=Tier.values().length)p+=Tier.values()[t-1].points;}return p;}
  public static boolean fullSet(int code){for(int i=0;i<SLOTS;i++)if(tierAt(code,i)==0)return false;return true;}
  /** Diminishing returns 0..1 (full Enderite set = 1); equal points always give equal effects. */
  public static double effect(int points){return points<=0?0:Math.min(1,Math.log1p(points)/Math.log1p(MAX_POINTS));}
@@ -102,7 +110,7 @@ public final class Horseshoes {
   int code=encode(container(horse));
   var c=Riding.CONFIG.horseshoes;
   double share=c.enableHorseshoes?RidingConfig.bounded(c.handlingBonus,0,RidingConfig.MAX_HANDLING)*effect(points(code)):0;
-  return code|((int)Math.round(Math.max(0,Math.min(1,share))*1000)<<12);
+  return code|((int)Math.round(Math.max(0,Math.min(1,share))*1000)<<SHARE_SHIFT);
  }
 
  /** Steering input (client and server): more sideways/backward control, never more forward speed. */

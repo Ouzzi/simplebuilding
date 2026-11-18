@@ -76,6 +76,14 @@ public final class ChiselTests {
             if (!BuiltInRegistries.ITEM.containsKey(SimpleChisels.id("guide_book"))) problems.add("guide book");
             if (ChiselRegistry.TAB == null || ChiselRegistry.tabStacks().size() != ChiselTier.values().length + 1) problems.add("tab: " + ChiselRegistry.tabStacks());
             if (com.simplelib.api.ChiselActions.tools().size() != ChiselTier.values().length) problems.add("published tools");
+            // N89A: the rose alloy chisels - values of the plan (table of the parent metal, durability, cooldown, enchantability)
+            if (ChiselTier.values().length != 9) problems.add("nine tiers");
+            if (!ChiselTier.ROSE_BRONZE.table.equals("iron") || ChiselTier.ROSE_BRONZE.durability != 192 || ChiselTier.ROSE_BRONZE.cooldownTicks != 23
+                    || ChiselTier.ROSE_BRONZE.enchantability != 15 || ChiselTier.ROSE_BRONZE.material.durability() != 190) problems.add("rose bronze values");
+            if (!ChiselTier.ROSE_GOLD.table.equals("diamond") || ChiselTier.ROSE_GOLD.durability != 232 || ChiselTier.ROSE_GOLD.cooldownTicks != 20
+                    || ChiselTier.ROSE_GOLD.enchantability != 22 || ChiselTier.ROSE_GOLD.material.durability() != 225) problems.add("rose gold values");
+            if (ChiselRegistry.chisel(ChiselTier.ROSE_BRONZE).getForwardMap() != ChiselRegistry.chisel(ChiselTier.IRON).getForwardMap()) problems.add("rose bronze = iron table");
+            if (ChiselRegistry.chisel(ChiselTier.ROSE_GOLD).getForwardMap() != ChiselRegistry.chisel(ChiselTier.DIAMOND).getForwardMap()) problems.add("rose gold = diamond table");
             h.assertTrue(problems.isEmpty(), "registration: " + problems);
             h.succeed();
         });
@@ -281,6 +289,19 @@ public final class ChiselTests {
             boolean present = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleChisels.id("enderite_chisel_smithing"))).isPresent();
             boolean ores = SimpleChisels.isLoaded("simpleores");
             h.assertTrue(present == ores, "the Enderite smithing recipe loads exactly with Simple Ores (" + ores + ")");
+            // N89A: the rose chisels are always registered; their recipe (alloy ingot instead of the gold ingot) loads exactly with Simple Ores
+            for (ChiselTier rose : new ChiselTier[] {ChiselTier.ROSE_BRONZE, ChiselTier.ROSE_GOLD}) {
+                boolean roseRecipe = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleChisels.id(rose.id()))).isPresent();
+                h.assertTrue(roseRecipe == ores, rose.id() + " recipe loads exactly with Simple Ores (" + ores + ")");
+                if (!ores) continue;
+                ItemStack ingot = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleores", rose.name + "_ingot")));
+                ItemStack nugget = new ItemStack(net.minecraft.world.item.Items.COPPER_NUGGET), stick = new ItemStack(net.minecraft.world.item.Items.STICK);
+                var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
+                        nugget, ingot, ItemStack.EMPTY, stick, nugget, ItemStack.EMPTY));
+                ItemStack crafted = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, h.getLevel())
+                        .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
+                h.assertTrue(crafted.is(ChiselRegistry.chisel(rose)), rose.id() + " crafted " + crafted);
+            }
             boolean upgrade = recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleChisels.id("upgrade_copper_chisel_to_iron_chisel"))).isPresent();
             h.assertTrue(upgrade == SimpleChisels.isLoaded("simplebuilding"), "the Basic Upgrade recipes load exactly with SimpleBuilding");
             h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, SimpleChisels.id("stone_chisel"))).isPresent(), "plain recipes always");
@@ -327,6 +348,8 @@ public final class ChiselTests {
             pickaxes.put(ChiselTier.COPPER, net.minecraft.world.item.Items.COPPER_PICKAXE);
             pickaxes.put(ChiselTier.IRON, net.minecraft.world.item.Items.IRON_PICKAXE);
             pickaxes.put(ChiselTier.GOLD, net.minecraft.world.item.Items.GOLDEN_PICKAXE);
+            pickaxes.put(ChiselTier.ROSE_BRONZE, net.minecraft.world.item.Items.IRON_PICKAXE);   // N89A: both alloys mine like iron
+            pickaxes.put(ChiselTier.ROSE_GOLD, net.minecraft.world.item.Items.IRON_PICKAXE);
             pickaxes.put(ChiselTier.DIAMOND, net.minecraft.world.item.Items.DIAMOND_PICKAXE);
             pickaxes.put(ChiselTier.NETHERITE, net.minecraft.world.item.Items.NETHERITE_PICKAXE);
             List<Block> blocks = List.of(Blocks.STONE, Blocks.IRON_ORE, Blocks.DIAMOND_ORE, Blocks.OBSIDIAN, Blocks.ANCIENT_DEBRIS, Blocks.OAK_LOG, Blocks.DIRT);

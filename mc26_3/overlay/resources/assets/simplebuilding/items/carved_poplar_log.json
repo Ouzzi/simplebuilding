@@ -1,0 +1,413 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:block_state",
+    "block_state_property": "carving",
+    "cases": [
+      {
+        "when": "sherd",
+        "model": {
+          "type": "minecraft:select",
+          "property": "minecraft:block_state",
+          "block_state_property": "motif",
+          "cases": [
+            {
+              "when": "angler",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_angler_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "archer",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_archer_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "arms_up",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_arms_up_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "blade",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_blade_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "brewer",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_brewer_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "burn",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_burn_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "danger",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_danger_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "explorer",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_explorer_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "flow",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_flow_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "friend",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_friend_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "guster",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_guster_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "heart",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_heart_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "heartbreak",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_heartbreak_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "howl",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_howl_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "miner",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_miner_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "mourner",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_mourner_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "plenty",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_plenty_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "prize",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_prize_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "scrape",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_scrape_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "sheaf",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_sheaf_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "shelter",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_shelter_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "skull",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_skull_all"
+                  }
+                ]
+              }
+            },
+            {
+              "when": "snort",
+              "model": {
+                "type": "minecraft:composite",
+                "models": [
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_base"
+                  },
+                  {
+                    "type": "minecraft:model",
+                    "model": "simplebuilding:block/carved/carved_poplar_log_snort_all"
+                  }
+                ]
+              }
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:composite",
+            "models": [
+              {
+                "type": "minecraft:model",
+                "model": "simplebuilding:block/carved/carved_poplar_log_base"
+              },
+              {
+                "type": "minecraft:model",
+                "model": "simplebuilding:block/carved/carved_poplar_log_angler_all"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:composite",
+      "models": [
+        {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_poplar_log_base"
+        },
+        {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_poplar_log_wood_all"
+        }
+      ]
+    }
+  }
+}

@@ -31,6 +31,12 @@ public final class BtItems {
     public static BuildingWandItem DIAMOND_BUILDING_WAND;
     public static BuildingWandItem NETHERITE_BUILDING_WAND;
     public static BuildingWandItem ENDERITE_BUILDING_WAND;
+    /**
+     * N89A (17.11.2026): the Simple Ores rose alloys. Durability tool x 8 like every wand (Rose Copper 190, Rose Gold 225); reach of
+     * the core they stand in for (rose copper core = copper, rose gold core = gold, SimpleLib ROSE_CORES), enchantability of the alloy.
+     */
+    public static BuildingWandItem ROSE_BRONZE_BUILDING_WAND;
+    public static BuildingWandItem ROSE_GOLD_BUILDING_WAND;
     /** Creative tab only, no recipe: area like Enderite, unlimited reach, no durability or material (BuildingWandItem#freeBuild). */
     public static BuildingWandItem CREATIVE_BUILDING_WAND;
     public static OctantItem OCTANT;
@@ -51,8 +57,10 @@ public final class BtItems {
         if (initialized) return;
         initialized = true;
         COPPER_BUILDING_WAND = wand("copper_building_wand", 190 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_COPPER, 18);
+        ROSE_BRONZE_BUILDING_WAND = wand("rose_bronze_building_wand", 190 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_COPPER, 15);
         IRON_BUILDING_WAND = wand("iron_building_wand", 250 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_IRON, 14);
         GOLD_BUILDING_WAND = wand("gold_building_wand", 32 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_GOLD, 22);
+        ROSE_GOLD_BUILDING_WAND = wand("rose_gold_building_wand", 225 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_GOLD, 22);
         DIAMOND_BUILDING_WAND = wand("diamond_building_wand", 1561 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_DIAMOND, 10);
         NETHERITE_BUILDING_WAND = wand("netherite_building_wand", 2031 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_NETHERITE, 15);
         ENDERITE_BUILDING_WAND = wand("enderite_building_wand", 2500 * BASE * 2, BuildingWandItem.BUILDING_WAND_SQUARE_ENDERITE, 18);

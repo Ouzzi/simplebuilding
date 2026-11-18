@@ -107,7 +107,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ + 16 /* N25: bars and grates */ + 12 + 16 /* N28: two alloy families, doors and trapdoors */ + 22 /* N46/M2: the line */ + 4 /* N46: wall dust x2, relay, core */ + 5 /* N47-M3: the poles */ + 64 /* PAL35a/b: plates, lamps, lanterns, chains, poles, rose families, chiseled */ - 1 /* N48: the Enderite plate went to SimpleLib */ + 3 /* N46: wall repeater, comparator, dampener */ + 1 /* N77: emerald pole */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4 + 16 + 3 /* N25: their items, three nuggets */ + 12 + 16 /* N28 */ + 24 /* N46/M2: 18 block items, 2 torches, 4 dusts */ + 2 /* N46: relay, core */ + 23 /* N47-M3: 12 tools and armor, 6 food, 5 poles */ + 70 /* PAL35a/b: their items and the extra nuggets/chains */ - 1 /* N48 */ + 7 /* N77: emerald pole, 3 rift nuggets, 3 enchanted rift apples */, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 + 1 + 4 + 5 + 15 + 6 + 5 + 36 - 4 /* N23: four retired ore blocks */ + 16 /* N25: bars and grates */ + 12 + 16 /* N28: two alloy families, doors and trapdoors */ + 22 /* N46/M2: the line */ + 4 /* N46: wall dust x2, relay, core */ + 5 /* N47-M3: the poles */ + 64 /* PAL35a/b: plates, lamps, lanterns, chains, poles, rose families, chiseled */ - 1 /* N48: the Enderite plate went to SimpleLib */ + 3 /* N46: wall repeater, comparator, dampener */ + 1 /* N77: emerald pole */ && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1 + 1 + 4 + 2 + 4 + 5 + 15 + 12 + 12 + 5 + 36 - 4 + 16 + 3 /* N25: their items, three nuggets */ + 12 + 16 /* N28 */ + 24 /* N46/M2: 18 block items, 2 torches, 4 dusts */ + 2 /* N46: relay, core */ + 23 /* N47-M3: 12 tools and armor, 6 food, 5 poles */ + 70 /* PAL35a/b: their items and the extra nuggets/chains */ - 1 /* N48 */ + 7 /* N77: emerald pole, 3 rift nuggets, 3 enchanted rift apples */ + 6 /* N89A: spear, horse and nautilus armor per alloy */, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap", "sageOreOtherDimensions", "roseGoldOreChance",
                             "leadOre", "endLeadOre", "zincGeodes", "endZincGeodes", "nickelOre", "tinOre", "tinPlacers",
                             "endOres", "astralitOre", "nihilitOre", "endSignals", "endPistons", "endRails", "endPistonCooldownTicks", "astralRailMaxSpeed",
@@ -214,6 +214,37 @@ public final class OresTests {
                 check(h, stack("rose_gold_" + parts[i]).getMaxDamage() == types[i].getDurability(15), "soft " + parts[i] + " durability");
             }
             check(h, hard.toughness() == 0.0F && soft.knockbackResistance() == 0.0F, "no toughness, no knockback resistance");
+            h.succeed();
+        });
+        // N89A (owner N77, 17.11.): spear, horse and nautilus armor of both alloys - values from the alloy materials, recipes resolve.
+        ALL.put("mount_gear", h -> {
+            for (String alloy : new String[] {"rose_bronze", "rose_gold"}) {
+                boolean soft = alloy.equals("rose_gold");
+                ToolMaterial tools = soft ? OresMaterials.ROSE_GOLD_TOOLS : OresMaterials.ROSE_BRONZE_TOOLS;
+                var armor = soft ? OresMaterials.ROSE_GOLD_ARMOR : OresMaterials.ROSE_BRONZE_ARMOR;
+                int body = soft ? 6 : 4;
+                check(h, armor.defense().get(ArmorType.BODY) == body, alloy + " body armor " + body);
+                ItemStack spear = stack(alloy + "_spear");
+                check(h, spear.getMaxDamage() == tools.durability(), alloy + "_spear durability " + spear.getMaxDamage());
+                var ench = spear.get(net.minecraft.core.component.DataComponents.ENCHANTABLE);
+                check(h, ench != null && ench.value() == tools.enchantmentValue(), alloy + "_spear enchantability");
+                check(h, spear.has(net.minecraft.core.component.DataComponents.KINETIC_WEAPON) && spear.is(ItemTags.SPEARS), alloy + "_spear is a spear");
+                check(h, spear.isValidRepairItem(stack(alloy + "_ingot")), alloy + "_spear is repaired with its ingot");
+                for (String part : new String[] {"horse_armor", "nautilus_armor"}) {
+                    ItemStack stack = stack(alloy + "_" + part);
+                    var mods = stack.get(net.minecraft.core.component.DataComponents.ATTRIBUTE_MODIFIERS);
+                    double value = mods == null ? 0 : mods.compute(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR, 0.0,
+                            net.minecraft.world.entity.EquipmentSlot.BODY);
+                    check(h, value == body, alloy + "_" + part + " armor " + value);
+                    var eq = stack.get(net.minecraft.core.component.DataComponents.EQUIPPABLE);
+                    check(h, eq != null && eq.slot() == net.minecraft.world.entity.EquipmentSlot.BODY, alloy + "_" + part + " is body armor");
+                }
+                ItemStack ingot = stack(alloy + "_ingot"), stick = new ItemStack(Items.STICK), e = ItemStack.EMPTY;
+                check(h, craft(h, of(e, e, ingot, e, stick, e, stick, e, e)).is(item(alloy + "_spear")), alloy + " spear recipe");
+                check(h, craft(h, of(ingot, e, ingot, ingot, ingot, ingot, ingot, e, ingot)).is(item(alloy + "_horse_armor")), alloy + " horse armor recipe");
+                check(h, craft(h, of(ingot, ingot, ingot, ingot, new ItemStack(Items.NAUTILUS_SHELL), ingot, ingot, ingot, ingot))
+                        .is(item(alloy + "_nautilus_armor")), alloy + " nautilus armor recipe");
+            }
             h.succeed();
         });
         ALL.put("pressing_recipes", h -> {

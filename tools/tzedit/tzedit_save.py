@@ -149,16 +149,20 @@ def apply_save(payload: dict, sid: str, git_dir: Path, base: str, by: str = "") 
 
 
 def pull(cmd: list[str], remote_dir: str, git_dir: Path, base: str, report: Path | None = None,
-         dry_run: bool = False, log=print) -> list[str]:
+         dry_run: bool = False, log=print, seen: Path | None = None) -> list[str]:
     """Read new saves from the web host (ls + cat, never written there) and branch each; idempotent: a save id that
-    already has a tz-layout-* branch is skipped; of several saves of one area only the newest is branched."""
+    already has a tz-layout-* branch is skipped; of several saves of one area only the newest is branched.
+    N99: `seen` (one save id per line) also remembers the saves that need no branch (superseded, no change against the
+    base, invalid), so a cron run does not read them again."""
+    done = set(seen.read_text(encoding="utf-8").split()) if seen and seen.exists() else set()
+    mark = []
     names = remote_run(cmd, "ls", "-1", remote_dir).decode("utf-8", "replace").split()
     sids = sorted((n[:-5] for n in names if n.endswith(".json") and SAVE_ID.match(n[:-5])), key=int)
     have = git(git_dir, "for-each-ref", "--format=%(refname:short)", "refs/heads/tz-layout-*").split()
     branched = {b.rsplit("-", 1)[-1] for b in have}
     recs = {}
     for sid in sids:
-        if sid in branched:
+        if sid in branched or sid in done:
             continue
         try:
             rec = json.loads(remote_run(cmd, "cat", f"{remote_dir.rstrip('/')}/{sid}.json").decode("utf-8"))
@@ -174,13 +178,18 @@ def pull(cmd: list[str], remote_dir: str, git_dir: Path, base: str, report: Path
     for sid, rec in recs.items():
         if newest[(rec.get("variant"), rec.get("area"))] != sid:
             log(f"{sid}: superseded by {newest[(rec.get('variant'), rec.get('area'))]}")
+            mark.append(sid)
             continue
         if dry_run:
             log(f"{sid}: would commit {rec.get('variant')}/{rec.get('area')}")
             continue
         try:
             branch = apply_save(rec, sid, git_dir, base, str(rec.get("by", "")))
-        except (SaveError, ValueError, OSError, subprocess.SubprocessError) as e:
+        except SaveError as e:  # invalid or no change against the base: stays so, never read again
+            log(f"{sid}: skipped {e}")
+            mark.append(sid)
+            continue
+        except (ValueError, OSError, subprocess.SubprocessError) as e:
             log(f"{sid}: failed {e}")
             continue
         commit = git(git_dir, "rev-parse", "--short", branch)
@@ -190,6 +199,9 @@ def pull(cmd: list[str], remote_dir: str, git_dir: Path, base: str, report: Path
             with open(report, "a", encoding="utf-8") as f:
                 f.write(f"- {branch} {commit} (Basis {base}) – Testzentrale-Editor-Speicherung {rec.get('variant')}/"
                         f"{rec.get('area')} (Save-ID {sid}) – automatisch abgeholt (tzedit_save.py pull)\n")
+    if seen and mark and not dry_run:
+        with open(seen, "a", encoding="utf-8") as f:
+            f.write("".join(s + "\n" for s in mark))
     return made
 
 
@@ -203,6 +215,7 @@ def main(argv: list[str]) -> int:
     p.add_argument("--remote", help='pull: read-only command prefix to the web host, e.g. "ssh -o BatchMode=yes <web host>"')
     p.add_argument("--dir", default="/srv/devqueue/testcentre", help="pull: save directory on the web host")
     p.add_argument("--report", help="pull: append one line per new branch")
+    p.add_argument("--seen", help="pull: file of save ids that need no branch (kept between runs)")
     p.add_argument("--dry-run", action="store_true")
     a = p.parse_args(argv)
     try:
@@ -215,7 +228,10 @@ def main(argv: list[str]) -> int:
         else:
             if not a.remote or not a.git_dir:
                 p.error("pull needs --remote and --git-dir")
-            pull(shlex.split(a.remote), a.dir, Path(a.git_dir), a.base, Path(a.report) if a.report else None, a.dry_run)
+            made = pull(shlex.split(a.remote), a.dir, Path(a.git_dir), a.base, Path(a.report) if a.report else None, a.dry_run,
+                        seen=Path(a.seen) if a.seen else None)
+            for branch in made:
+                print(f"NEW {branch}")
     except (SaveError, ValueError, OSError) as e:
         print(f"error: {e}", file=sys.stderr)
         return 1

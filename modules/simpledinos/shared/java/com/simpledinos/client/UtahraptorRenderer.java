@@ -17,7 +17,8 @@ import net.minecraft.world.phys.AABB;
  * raised, arms forward).
  */
 public class UtahraptorRenderer extends MobRenderer<Utahraptor, UtahraptorRenderer.State, UtahraptorModel> {
-    private static final String[] TIERS = {"plain", "leather", "iron", "diamond"};
+    /** N89A: every tier name by its code (DinosRegistry.ARMOR_TIER_NAMES); only the tiers this dinosaur wears have a texture. */
+    private static final String[] TIERS = com.simpledinos.DinosRegistry.ARMOR_TIER_NAMES.toArray(String[]::new);
     /** [coat][armor tier]: textures/entity/utahraptor/<coat>/<tier>.png. */
     private static final Identifier[][] TEXTURES = DinoVariants.COATS.stream()
             .map(c -> java.util.Arrays.stream(TIERS).map(t -> SimpleDinos.id("textures/entity/utahraptor/" + c.name() + "/" + t + ".png")).toArray(Identifier[]::new))

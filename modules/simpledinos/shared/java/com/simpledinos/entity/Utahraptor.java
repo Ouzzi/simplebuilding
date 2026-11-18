@@ -381,12 +381,12 @@ public class Utahraptor extends Dino {
 
     // ------------------------------------------------------------------------------------------------ armor, sounds
 
-    /** 0 = no armor, 1 leather, 2 iron, 3 diamond (the renderer picks the texture by it). */
+    /** 0 = no armor, 1 leather, 2 iron, 3 diamond, 4..9 the metal tiers of DinosRegistry.ARMOR_TIER_NAMES (the renderer picks the texture by it). */
     public static int armorTier(ItemStack bodyArmor) {
         if (bodyArmor.is(DinosRegistry.UTAHRAPTOR_ARMOR_LEATHER)) return 1;
         if (bodyArmor.is(DinosRegistry.UTAHRAPTOR_ARMOR_IRON)) return 2;
         if (bodyArmor.is(DinosRegistry.UTAHRAPTOR_ARMOR_DIAMOND)) return 3;
-        return 0;
+        return DinosRegistry.metalArmorTier(bodyArmor, "utahraptor");   // N89A: the metal tiers (codes 4..9)
     }
 
     public int armorTier() {

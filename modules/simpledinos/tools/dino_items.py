@@ -25,6 +25,10 @@ SHELL_KINDS = ('triceratops', 'stegosaurus', 'utahraptor', 'parasaurolophus')
 ARMOR_TIERS = ('leather', 'iron', 'diamond')
 # main tone and trim tone per tier, the same as the T. rex armor (optik32_items.TIERS)
 TIERS = {'leather': ('9a6234', 'c9a23a'), 'iron': ('a8adb4', 'd8d4cc'), 'diamond': ('3fd0c4', '9af0e4')}
+# N89A (owner N77): the precious metals for every dinosaur (the T. rex also copper, Netherite, Enderite); same tones as optik32_items.TIERS
+METAL_TIERS = ('gold', 'rose_gold', 'rose_bronze')
+TIERS.update({'copper': ('b0562c', 'de8a54'), 'gold': ('e0b020', 'fbe46a'), 'rose_gold': ('d2877f', 'efc0b4'),
+              'rose_bronze': ('d37d5d', 'f2b88f'), 'netherite': ('4a4044', '7a6e70'), 'enderite': ('6d45b8', 'c77dff')})
 
 # frill shield: c brow-horn caps, r rim with knobs, h shield, s strap, n nose cap
 ARMOR = ['................',
@@ -47,6 +51,7 @@ ARMOR = ['................',
 DETAILS = {'leather': [(4, 7), (4, 9), (11, 7), (11, 9), (6, 11), (9, 11)],
            'iron': [(4, 8), (11, 8), (5, 10), (10, 10)],
            'diamond': [(3, 7), (4, 6), (12, 7), (11, 6), (5, 10), (10, 10)]}
+DETAILS.update({m: DETAILS['iron'] for m in METAL_TIERS})   # N89A: the metals carry the iron rivets
 
 
 def _hex(c):
@@ -114,6 +119,7 @@ STEGO_ARMOR = ['................',
                '................',
                '................']
 STEGO_DETAILS = {'leather': [(5, 8), (8, 8), (11, 8), (14, 8)], 'iron': [(5, 6), (14, 6), (5, 10), (13, 10)], 'diamond': [(6, 7), (10, 9), (13, 6)]}
+STEGO_DETAILS.update({m: STEGO_DETAILS['iron'] for m in METAL_TIERS})   # N89A
 
 
 def stego_armor(tier: str, rows=None):
@@ -248,12 +254,12 @@ def raptor_feather(rows=None):
 
 def all_sprites():
     """{name: image} of every sprite this file draws."""
-    out = {f'triceratops_armor_{t}': armor(t) for t in ARMOR_TIERS}
+    out = {f'triceratops_armor_{t}': armor(t) for t in ARMOR_TIERS + METAL_TIERS}
     out.update({f'{k}_eggshell': eggshell(k) for k in SHELL_KINDS})
-    out.update({f'stegosaurus_armor_{t}': stego_armor(t) for t in ARMOR_TIERS})
+    out.update({f'stegosaurus_armor_{t}': stego_armor(t) for t in ARMOR_TIERS + METAL_TIERS})
     out['dino_plow'] = plow()
-    out.update({f'parasaurolophus_armor_{t}': para_armor(t) for t in ARMOR_TIERS})
-    out.update({f'utahraptor_armor_{t}': raptor_armor(t) for t in ARMOR_TIERS})
+    out.update({f'parasaurolophus_armor_{t}': para_armor(t) for t in ARMOR_TIERS + METAL_TIERS})
+    out.update({f'utahraptor_armor_{t}': raptor_armor(t) for t in ARMOR_TIERS + METAL_TIERS})
     out['raptor_feather'] = raptor_feather()
     return out
 

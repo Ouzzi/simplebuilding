@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:gold_ingot",
+    "S": "simpledinos:triceratops_eggshell"
+  },
+  "pattern": [
+    "MMM",
+    "MSM",
+    "MMM"
+  ],
+  "result": {
+    "id": "simpledinos:triceratops_armor_gold",
+    "count": 1
+  }
+}

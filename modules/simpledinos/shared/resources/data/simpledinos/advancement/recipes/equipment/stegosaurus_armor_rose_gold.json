@@ -1,0 +1,59 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "registry": "minecraft:item",
+      "values": [
+        "c:ingots/rose_gold"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/rose_gold"
+      }
+    }
+  ],
+  "forge:conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "c:ingots/rose_gold"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpledinos:stegosaurus_armor_rose_gold"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_stegosaurus_eggshell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpledinos:stegosaurus_eggshell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stegosaurus_eggshell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpledinos:stegosaurus_armor_rose_gold"
+    ]
+  }
+}

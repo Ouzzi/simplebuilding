@@ -359,6 +359,48 @@ public final class WoodworkTests {
         finish(helper, fails);
     }
 
+    /**
+     * N89b (red cell "poplar sheet", owner N77 "alles was fehlt"): the poplar woodwork family exists exactly where Vanilla has
+     * poplar (26.3+; never on 26.2), and there like the other Vanilla woods: axe, flammable, drops itself, recipe from the
+     * hollow log (which comes from poplar logs), the stripped log carves into the carved poplar log.
+     */
+    public static void poplarWoodworkFollowsVanillaPoplar(GameTestHelper helper) {
+        List<String> fails = new ArrayList<>();
+        boolean poplar = BuiltInRegistries.BLOCK.containsKey(Identifier.withDefaultNamespace("poplar_log"));
+        boolean expected = poplar && McVersion.WOODWORK;
+        check(WoodKind.POPLAR.available() == poplar, fails, "poplar counts exactly where Minecraft has poplar logs");
+        for (String path : WoodBlocks.blockIds(WoodKind.POPLAR)) {
+            Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, path);
+            check(BuiltInRegistries.BLOCK.containsKey(id) == expected, fails, "block " + path + " registered: " + expected);
+            check(BuiltInRegistries.ITEM.containsKey(id) == expected, fails, "item " + path + " registered: " + expected);
+        }
+        if (expected) {
+            WoodBlocks.Family family = WoodBlocks.family(WoodKind.POPLAR);
+            check(family != null, fails, "poplar family");
+            if (family != null) {
+                var recipes = helper.getLevel().getServer().getRecipeManager();
+                var fire = (com.simplebuilding.tweaks.mixin.FireBlockInvoker) Blocks.FIRE;
+                BlockPos pos = new BlockPos(1, 1, 1);
+                for (Block block : family.blocks()) {
+                    String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+                    BlockState state = block.defaultBlockState();
+                    check(state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE), fails, path + " mines with an axe");
+                    check(fire.simplebuilding$getIgniteOdds(state) > 0 && state.ignitedByLava(), fails, path + " burns like poplar wood");
+                    helper.setBlock(pos, state);
+                    List<ItemStack> drops = Block.getDrops(helper.getBlockState(pos), helper.getLevel(), helper.absolutePos(pos), null);
+                    check(drops.size() == 1 && drops.get(0).is(block.asItem()), fails, path + " drops itself: " + drops);
+                    helper.setBlock(pos, Blocks.AIR);
+                }
+                check(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "poplar_sheet"))).isPresent(),
+                        fails, "poplar sheet recipe");
+                check(WoodKind.POPLAR.logBlock() == BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("poplar_log"))
+                        && WoodBlocks.carvedFor(WoodKind.POPLAR.strippedBlock()) == family.carved(), fails, "stripped poplar log carves into the carved poplar log");
+                check(family.sheet() instanceof CrossCollisionBlock && !family.sheet().defaultBlockState().canOcclude(), fails, "poplar sheet is a see-through pane");
+            }
+        }
+        finish(helper, fails);
+    }
+
     public static void woodworkRecipesExistForEveryWood(GameTestHelper helper) {
         if (!McVersion.WOODWORK) {
             helper.succeed();

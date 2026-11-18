@@ -56,6 +56,12 @@
     },
     {
       "blocks": [
+        "minecraft:stripped_poplar_log",
+        "simplebuilding:hollow_stripped_poplar_log"
+      ]
+    },
+    {
+      "blocks": [
         "minecraft:stripped_crimson_stem",
         "simplebuilding:hollow_stripped_crimson_stem"
       ]

@@ -10,6 +10,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const http = require('node:http');
+const N99 = require('./tzeditor_n99.cjs');
 let pw; try { pw = require('playwright'); } catch (e) { pw = require('playwright-core'); }
 const root = path.resolve(__dirname, '..');
 const shots = process.env.TZ_SHOTS || os.tmpdir();
@@ -156,6 +157,43 @@ const cellId = (page, r, c) => page.locator(cellSel(r, c)).first().getAttribute(
     await page.screenshot({ path: path.join(shots, `tz-built-full-${scheme}.png`) });
     await page.keyboard.press('Escape');
     await page.locator('.tz-side').screenshot({ path: path.join(shots, `tz-side-${scheme}.png`) });
+    // 7. N99: timings, group move with live preview, swap + Esc, rows/columns, undo/redo, copy/paste, frame, range, arrows
+    if (scheme === 'dark') {
+      const r = await N99.run(page, { ok, shot: n => page.screenshot({ path: path.join(shots, n + '.png') }), log: (...a) => console.log(...a) });
+      ok(r.timings.allWorst < 100, 'all areas: click/mark until the next frame ' + r.timings.allWorst + ' ms');
+      // saved - not online yet: a save (mocked API) is shown after reload with its mark; "online state" shows the repo again
+      let saved = null;
+      await page.route('**/api/testcentre**', route => {
+        const u = new URL(route.request().url()), m = route.request().method();
+        if (m === 'POST') { saved = Object.assign(JSON.parse(route.request().postData()), { sid: '1999000000001', createdAt: Date.now(), by: 'test@local', state: 'new' }); return route.fulfill({ status: 201, json: { sid: saved.sid, createdAt: saved.createdAt, by: saved.by } }); }
+        if (u.pathname.endsWith('/api/testcentre')) return route.fulfill({ json: saved ? [Object.assign({}, saved, { rows: undefined, rowCount: saved.rows.length })] : [] });
+        return route.fulfill(saved ? { json: saved } : { status: 404, json: {} });
+      });
+      const f = await page.locator('select[data-k=area] option').nth(3).getAttribute('value');
+      await page.selectOption('select[data-k=area]', f);
+      await page.waitForFunction(() => !document.querySelector('.tz-all'));
+      await page.locator(cellSel(0, 0)).waitFor();
+      const orig = await cellId(page, 0, 0);
+      await page.locator(cellSel(0, 0)).click({ button: 'right' });
+      await page.locator('.tz-menu [data-m=missing]').click();
+      await page.locator('[data-act=save]').click();
+      await page.waitForFunction(() => /Nr\.|no\./.test(document.querySelector('.tz-msg').textContent));
+      await page.reload();
+      await page.locator('.tz-bg .tz-c').first().waitFor({ timeout: 60000 });
+      await page.selectOption('select[data-k=layout]', 'table');
+      await page.selectOption('select[data-k=area]', f);
+      await page.waitForFunction(() => !document.querySelector('.tz-all') && document.querySelectorAll('.tz-body .tz-grid').length === 1);
+      await page.locator(cellSel(0, 0)).waitFor();
+      ok(await cellId(page, 0, 0) === '#red', 'after reload the saved state is shown');
+      ok((await page.locator('.tz-pendbar').textContent()).includes(L.pending), 'bar: saved - not online yet');
+      ok(await page.locator(cellSel(0, 0) + '.tz-pend').count() === 1 && await page.locator('.tz-body .tz-c.tz-pend').count() === 1, 'only the changed cell carries the mark');
+      await page.screenshot({ path: path.join(shots, 'n99-pending.png') });
+      await page.locator('[data-k=online]').check();
+      await page.waitForFunction(() => !document.querySelector('.tz-pendbar').textContent, null, { timeout: 30000 });
+      ok(await cellId(page, 0, 0) === orig && await page.locator('.tz-body .tz-c.tz-pend').count() === 0, '"online state" shows the repo again');
+      await page.locator('[data-k=online]').uncheck();
+      await page.unroute('**/api/testcentre**');
+    }
     ok(!errors.length, scheme + ': no script errors ' + errors.join(' | '));
     await ctx.close();
   }

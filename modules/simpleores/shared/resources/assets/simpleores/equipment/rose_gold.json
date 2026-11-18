@@ -1,11 +1,21 @@
 {
   "layers": {
+    "horse_body": [
+      {
+        "texture": "simpleores:rose_gold"
+      }
+    ],
     "humanoid": [
       {
         "texture": "simpleores:rose_gold"
       }
     ],
     "humanoid_leggings": [
+      {
+        "texture": "simpleores:rose_gold"
+      }
+    ],
+    "nautilus_body": [
       {
         "texture": "simpleores:rose_gold"
       }

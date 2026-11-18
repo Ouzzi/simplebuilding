@@ -44,7 +44,13 @@
     "simpleores:bronze_bars": "Crafted from 6 bronze ingots (N25); a building block, Simple Ores sells nothing for money.",
     "simpleores:bronze_grate": "Crafted from bronze blocks (N25); a building block, Simple Ores sells nothing for money.",
     "simpleores:stainless_steel_bars": "Crafted from 6 stainless steel ingots (N25); a building block, Simple Ores sells nothing for money.",
-    "simpleores:stainless_steel_grate": "Crafted from stainless steel blocks (N25); a building block, Simple Ores sells nothing for money."
+    "simpleores:stainless_steel_grate": "Crafted from stainless steel blocks (N25); a building block, Simple Ores sells nothing for money.",
+    "simpleores:rose_bronze_spear": "Crafted from rose copper ingots and sticks (N89A); Simple Ores sells no crafted gear.",
+    "simpleores:rose_bronze_horse_armor": "Crafted from 7 rose copper ingots (N89A); Simple Ores sells no crafted gear.",
+    "simpleores:rose_bronze_nautilus_armor": "Crafted from 8 rose copper ingots around a nautilus shell (N89A); Simple Ores sells no crafted gear.",
+    "simpleores:rose_gold_spear": "Crafted from rose gold ingots and sticks (N89A); Simple Ores sells no crafted gear.",
+    "simpleores:rose_gold_horse_armor": "Crafted from 7 rose gold ingots (N89A); Simple Ores sells no crafted gear.",
+    "simpleores:rose_gold_nautilus_armor": "Crafted from 8 rose gold ingots around a nautilus shell (N89A); Simple Ores sells no crafted gear."
   },
   "prices": [
     {

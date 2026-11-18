@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 337,
+      "count": 344,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -4715,6 +4715,46 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:carved_poplar_log",
+      "name": {
+        "en_us": "Carved Poplar Log",
+        "de_de": "Geschnitzter Pappelstamm"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/carved_poplar_log.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/CarvedLogBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/PotteryCarving.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/SherdMotif.java",
+          "tools/textures/woodwork_2026_10_09.py",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "details": [
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
+            "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
+            "Breaking drops the carved log with its motif.",
+            "(with Simple End) Carved Ashwood and Duskwood logs with their own motifs: a knobbed chorus stalk (Ashwood) and the closed dusk bud over an island rim (Duskwood)."
+          ]
+        },
+        "de": {
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "details": [
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
+            "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
+            "Abgebaut droppt der Stamm mit seinem Motiv.",
+            "(mit Simple End) Geschnitzte Asch- und Dämmerstämme mit eigenem Motiv: ein knubbeliger Chorusstiel (Aschholz) und die geschlossene Dämmerknospe über einem Inselrand (Dämmerholz)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:carved_spruce_log",
       "name": {
         "en_us": "Carved Spruce Log",
@@ -8288,6 +8328,54 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:hollow_poplar_log",
+      "name": {
+        "en_us": "Hollow Poplar Log",
+        "de_de": "Ausgehöhlter Pappelstamm"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:hollow_poplar_log"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_cauldron",
+        "simplebuilding:poplar_sheet"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/hollow_poplar_log.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogCrawl.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
+          "details": [
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
+            "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
+            "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks).",
+            "(with Simple End) Ashwood and Duskwood have hollow logs too, and their sheets, cauldrons, crate and carved log; these blocks exist only while Simple End is loaded."
+          ]
+        },
+        "de": {
+          "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
+          "details": [
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
+            "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
+            "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks).",
+            "(mit Simple End) Auch Aschholz und Dämmerholz haben ausgehöhlte Stämme, dazu Platten, Kessel, Kiste und geschnitzten Stamm; diese Blöcke gibt es nur, wenn Simple End geladen ist."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:hollow_spruce_log",
       "name": {
         "en_us": "Hollow Spruce Log",
@@ -8783,6 +8871,54 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/hollow_stripped_pale_oak_log.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogCrawl.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
+          "details": [
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
+            "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
+            "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks).",
+            "(with Simple End) Ashwood and Duskwood have hollow logs too, and their sheets, cauldrons, crate and carved log; these blocks exist only while Simple End is loaded."
+          ]
+        },
+        "de": {
+          "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
+          "details": [
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
+            "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
+            "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks).",
+            "(mit Simple End) Auch Aschholz und Dämmerholz haben ausgehöhlte Stämme, dazu Platten, Kessel, Kiste und geschnitzten Stamm; diese Blöcke gibt es nur, wenn Simple End geladen ist."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_poplar_log",
+      "name": {
+        "en_us": "Hollow Stripped Poplar Log",
+        "de_de": "Ausgehöhlter entrindeter Pappelstamm"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:hollow_stripped_poplar_log"
+      ],
+      "usedIn": [
+        "simplebuilding:stripped_poplar_cauldron",
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/hollow_stripped_poplar_log.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/woodwork/HollowLogBlock.java",
@@ -12907,6 +13043,86 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:poplar_cauldron",
+      "name": {
+        "en_us": "Poplar Cauldron",
+        "de_de": "Pappelholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:poplar_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/poplar_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron.",
+            "(with Simple End) Ashwood and Duskwood cauldrons, normal and stripped, burn like the other overworld woods."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
+            "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:poplar_sheet",
+      "name": {
+        "en_us": "Poplar Sheet",
+        "de_de": "Pappelholzplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:poplar_sheet"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_cauldron",
+        "simplebuilding:stripped_poplar_cauldron"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/poplar_sheet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/woodwork_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Wood sheets (normal and stripped, per wood type) are thin panels that connect like glass panes and iron bars and let light through.",
+          "details": [
+            "Crafting: 6 hollow logs (two rows of three) give 16 sheets; hollow stripped logs give stripped sheets.",
+            "Mined with an axe; burnable woods burn and smelt as fuel (100 ticks)."
+          ]
+        },
+        "de": {
+          "summary": "Holzplatten (normal und entrindet, je Holzart) sind dünne Platten, die sich wie Glasscheiben und Eisengitter verbinden und Licht durchlassen.",
+          "details": [
+            "Herstellung: 6 ausgehöhlte Stämme (zwei Reihen zu drei) ergeben 16 Platten; ausgehöhlte entrindete Stämme ergeben entrindete Platten.",
+            "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:purple_hammock",
       "name": {
         "en_us": "Purple Hammock",
@@ -14610,6 +14826,86 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_pale_oak_sheet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/woodwork_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Wood sheets (normal and stripped, per wood type) are thin panels that connect like glass panes and iron bars and let light through.",
+          "details": [
+            "Crafting: 6 hollow logs (two rows of three) give 16 sheets; hollow stripped logs give stripped sheets.",
+            "Mined with an axe; burnable woods burn and smelt as fuel (100 ticks)."
+          ]
+        },
+        "de": {
+          "summary": "Holzplatten (normal und entrindet, je Holzart) sind dünne Platten, die sich wie Glasscheiben und Eisengitter verbinden und Licht durchlassen.",
+          "details": [
+            "Herstellung: 6 ausgehöhlte Stämme (zwei Reihen zu drei) ergeben 16 Platten; ausgehöhlte entrindete Stämme ergeben entrindete Platten.",
+            "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_cauldron",
+      "name": {
+        "en_us": "Stripped Poplar Cauldron",
+        "de_de": "Entrindeter Pappelholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_poplar_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_poplar_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron.",
+            "(with Simple End) Ashwood and Duskwood cauldrons, normal and stripped, burn like the other overworld woods."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
+            "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_sheet",
+      "name": {
+        "en_us": "Stripped Poplar Sheet",
+        "de_de": "Entrindete Pappelholzplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_cauldron",
+        "simplebuilding:stripped_poplar_cauldron"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_poplar_sheet.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
@@ -18561,6 +18857,50 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:carved_poplar_log",
+      "name": {
+        "en_us": "Carved Poplar Log",
+        "de_de": "Geschnitzter Pappelstamm"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/carved_poplar_log.png",
+      "lootTable": "simplebuilding:blocks/carved_poplar_log",
+      "drops": [
+        "simplebuilding:carved_poplar_log"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/CarvedLogBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/PotteryCarving.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/SherdMotif.java",
+          "tools/textures/woodwork_2026_10_09.py",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "details": [
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
+            "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
+            "Breaking drops the carved log with its motif.",
+            "(with Simple End) Carved Ashwood and Duskwood logs with their own motifs: a knobbed chorus stalk (Ashwood) and the closed dusk bud over an island rim (Duskwood)."
+          ]
+        },
+        "de": {
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "details": [
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
+            "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
+            "Abgebaut droppt der Stamm mit seinem Motiv.",
+            "(mit Simple End) Geschnitzte Asch- und Dämmerstämme mit eigenem Motiv: ein knubbeliger Chorusstiel (Aschholz) und die geschlossene Dämmerknospe über einem Inselrand (Dämmerholz)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:carved_spruce_log",
       "name": {
         "en_us": "Carved Spruce Log",
@@ -21997,6 +22337,58 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:hollow_poplar_log",
+      "name": {
+        "en_us": "Hollow Poplar Log",
+        "de_de": "Ausgehöhlter Pappelstamm"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:hollow_poplar_log"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_cauldron",
+        "simplebuilding:poplar_sheet"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/hollow_poplar_log.png",
+      "lootTable": "simplebuilding:blocks/hollow_poplar_log",
+      "drops": [
+        "simplebuilding:hollow_poplar_log"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogCrawl.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
+          "details": [
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
+            "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
+            "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks).",
+            "(with Simple End) Ashwood and Duskwood have hollow logs too, and their sheets, cauldrons, crate and carved log; these blocks exist only while Simple End is loaded."
+          ]
+        },
+        "de": {
+          "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
+          "details": [
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
+            "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
+            "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks).",
+            "(mit Simple End) Auch Aschholz und Dämmerholz haben ausgehöhlte Stämme, dazu Platten, Kessel, Kiste und geschnitzten Stamm; diese Blöcke gibt es nur, wenn Simple End geladen ist."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:hollow_spruce_log",
       "name": {
         "en_us": "Hollow Spruce Log",
@@ -22535,6 +22927,58 @@
       "lootTable": "simplebuilding:blocks/hollow_stripped_pale_oak_log",
       "drops": [
         "simplebuilding:hollow_stripped_pale_oak_log"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/HollowLogCrawl.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
+          "details": [
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
+            "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
+            "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks).",
+            "(with Simple End) Ashwood and Duskwood have hollow logs too, and their sheets, cauldrons, crate and carved log; these blocks exist only while Simple End is loaded."
+          ]
+        },
+        "de": {
+          "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
+          "details": [
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
+            "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
+            "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks).",
+            "(mit Simple End) Auch Aschholz und Dämmerholz haben ausgehöhlte Stämme, dazu Platten, Kessel, Kiste und geschnitzten Stamm; diese Blöcke gibt es nur, wenn Simple End geladen ist."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_poplar_log",
+      "name": {
+        "en_us": "Hollow Stripped Poplar Log",
+        "de_de": "Ausgehöhlter entrindeter Pappelstamm"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:hollow_stripped_poplar_log"
+      ],
+      "usedIn": [
+        "simplebuilding:stripped_poplar_cauldron",
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/hollow_stripped_poplar_log.png",
+      "lootTable": "simplebuilding:blocks/hollow_stripped_poplar_log",
+      "drops": [
+        "simplebuilding:hollow_stripped_poplar_log"
       ],
       "note": {
         "sources": [
@@ -26568,6 +27012,94 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:poplar_cauldron",
+      "name": {
+        "en_us": "Poplar Cauldron",
+        "de_de": "Pappelholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:poplar_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/poplar_cauldron.png",
+      "lootTable": "simplebuilding:blocks/poplar_cauldron",
+      "drops": [
+        "simplebuilding:poplar_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron.",
+            "(with Simple End) Ashwood and Duskwood cauldrons, normal and stripped, burn like the other overworld woods."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
+            "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:poplar_sheet",
+      "name": {
+        "en_us": "Poplar Sheet",
+        "de_de": "Pappelholzplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:poplar_sheet"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_cauldron",
+        "simplebuilding:stripped_poplar_cauldron"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/poplar_sheet.png",
+      "lootTable": "simplebuilding:blocks/poplar_sheet",
+      "drops": [
+        "simplebuilding:poplar_sheet"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/woodwork_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Wood sheets (normal and stripped, per wood type) are thin panels that connect like glass panes and iron bars and let light through.",
+          "details": [
+            "Crafting: 6 hollow logs (two rows of three) give 16 sheets; hollow stripped logs give stripped sheets.",
+            "Mined with an axe; burnable woods burn and smelt as fuel (100 ticks)."
+          ]
+        },
+        "de": {
+          "summary": "Holzplatten (normal und entrindet, je Holzart) sind dünne Platten, die sich wie Glasscheiben und Eisengitter verbinden und Licht durchlassen.",
+          "details": [
+            "Herstellung: 6 ausgehöhlte Stämme (zwei Reihen zu drei) ergeben 16 Platten; ausgehöhlte entrindete Stämme ergeben entrindete Platten.",
+            "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:potted_silent_dandelion",
       "name": {
         "en_us": "Potted Silent Dandelion",
@@ -28318,6 +28850,94 @@
       "lootTable": "simplebuilding:blocks/stripped_pale_oak_sheet",
       "drops": [
         "simplebuilding:stripped_pale_oak_sheet"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/woodwork_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Wood sheets (normal and stripped, per wood type) are thin panels that connect like glass panes and iron bars and let light through.",
+          "details": [
+            "Crafting: 6 hollow logs (two rows of three) give 16 sheets; hollow stripped logs give stripped sheets.",
+            "Mined with an axe; burnable woods burn and smelt as fuel (100 ticks)."
+          ]
+        },
+        "de": {
+          "summary": "Holzplatten (normal und entrindet, je Holzart) sind dünne Platten, die sich wie Glasscheiben und Eisengitter verbinden und Licht durchlassen.",
+          "details": [
+            "Herstellung: 6 ausgehöhlte Stämme (zwei Reihen zu drei) ergeben 16 Platten; ausgehöhlte entrindete Stämme ergeben entrindete Platten.",
+            "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_cauldron",
+      "name": {
+        "en_us": "Stripped Poplar Cauldron",
+        "de_de": "Entrindeter Pappelholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_poplar_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_poplar_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_poplar_cauldron",
+      "drops": [
+        "simplebuilding:stripped_poplar_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron.",
+            "(with Simple End) Ashwood and Duskwood cauldrons, normal and stripped, burn like the other overworld woods."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
+            "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_sheet",
+      "name": {
+        "en_us": "Stripped Poplar Sheet",
+        "de_de": "Entrindete Pappelholzplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_cauldron",
+        "simplebuilding:stripped_poplar_cauldron"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_poplar_sheet.png",
+      "lootTable": "simplebuilding:blocks/stripped_poplar_sheet",
+      "drops": [
+        "simplebuilding:stripped_poplar_sheet"
       ],
       "note": {
         "sources": [
@@ -42465,6 +43085,42 @@
       }
     },
     {
+      "id": "simplebuilding:hollow_poplar_log",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "hollow_log",
+      "result": {
+        "id": "simplebuilding:hollow_poplar_log",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/hollow_poplar_log.json",
+      "ingredients": [
+        "minecraft:poplar_log"
+      ],
+      "pattern": [
+        "LLL",
+        "L L",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:hollow_spruce_log",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -42927,6 +43583,42 @@
         "materials": [
           {
             "id": "minecraft:stripped_pale_oak_log",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_poplar_log",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "hollow_log",
+      "result": {
+        "id": "simplebuilding:hollow_stripped_poplar_log",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/hollow_stripped_poplar_log.json",
+      "ingredients": [
+        "minecraft:stripped_poplar_log"
+      ],
+      "pattern": [
+        "LLL",
+        "L L",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:stripped_poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:stripped_poplar_log",
             "count": 8
           }
         ]
@@ -50462,6 +51154,82 @@
       }
     },
     {
+      "id": "simplebuilding:poplar_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:poplar_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_poplar_log",
+        "simplebuilding:poplar_sheet",
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_poplar_log"
+        ],
+        "S": [
+          "simplebuilding:poplar_sheet",
+          "simplebuilding:stripped_poplar_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:poplar_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wood_sheet",
+      "result": {
+        "id": "simplebuilding:poplar_sheet",
+        "count": 16
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_sheet.json",
+      "ingredients": [
+        "simplebuilding:hollow_poplar_log"
+      ],
+      "pattern": [
+        "HHH",
+        "HHH"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:purple_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -52690,6 +53458,86 @@
         "materials": [
           {
             "id": "minecraft:stripped_pale_oak_log",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_poplar_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_poplar_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_poplar_log",
+        "simplebuilding:poplar_sheet",
+        "simplebuilding:stripped_poplar_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_poplar_log"
+        ],
+        "S": [
+          "simplebuilding:poplar_sheet",
+          "simplebuilding:stripped_poplar_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_poplar_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:poplar_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_poplar_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wood_sheet",
+      "result": {
+        "id": "simplebuilding:stripped_poplar_sheet",
+        "count": 16
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_poplar_sheet.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_poplar_log"
+      ],
+      "pattern": [
+        "HHH",
+        "HHH"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_poplar_log"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 16,
+        "materials": [
+          {
+            "id": "minecraft:stripped_poplar_log",
             "count": 6
           }
         ]
@@ -67828,6 +68676,24 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/carved_pale_oak_log.json"
     },
     {
+      "id": "simplebuilding:blocks/carved_poplar_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:carved_poplar_log"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/carved_poplar_log.json"
+    },
+    {
       "id": "simplebuilding:blocks/carved_spruce_log",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -69278,6 +70144,24 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_pale_oak_log.json"
     },
     {
+      "id": "simplebuilding:blocks/hollow_poplar_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:hollow_poplar_log"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_poplar_log.json"
+    },
+    {
       "id": "simplebuilding:blocks/hollow_spruce_log",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -69510,6 +70394,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_stripped_pale_oak_log.json"
+    },
+    {
+      "id": "simplebuilding:blocks/hollow_stripped_poplar_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:hollow_stripped_poplar_log"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_stripped_poplar_log.json"
     },
     {
       "id": "simplebuilding:blocks/hollow_stripped_spruce_log",
@@ -71028,6 +71930,42 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_wall.json"
     },
     {
+      "id": "simplebuilding:blocks/poplar_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:poplar_cauldron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/poplar_cauldron.json"
+    },
+    {
+      "id": "simplebuilding:blocks/poplar_sheet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:poplar_sheet"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/poplar_sheet.json"
+    },
+    {
       "id": "simplebuilding:blocks/potted_silent_dandelion",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -71810,6 +72748,42 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_pale_oak_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_poplar_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_poplar_cauldron"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_poplar_cauldron.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_poplar_sheet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_poplar_sheet"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_poplar_sheet.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_spruce_cauldron",
@@ -75514,6 +76488,14 @@
         },
         {
           "id": "simplechisels:enderite_chisel",
+          "required": true
+        },
+        {
+          "id": "simplechisels:rose_bronze_chisel",
+          "required": true
+        },
+        {
+          "id": "simplechisels:rose_gold_chisel",
           "required": true
         }
       ],
@@ -84167,6 +85149,36 @@
         ]
       },
       {
+        "id": "chisel/minecraft:stripped_poplar_log/simplebuilding:hollow_stripped_poplar_log",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_poplar_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:hollow_stripped_poplar_log",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "mc26_3/generated/data/simplebuilding/chisel_transformations/stone_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel/minecraft:stripped_spruce_log/simplebuilding:hollow_stripped_spruce_log",
         "kind": "chisel",
         "inputs": [
@@ -86224,6 +87236,36 @@
         ],
         "output": {
           "id": "minecraft:stripped_pale_oak_log",
+          "count": 1
+        },
+        "stats": {
+          "tier": "stone"
+        },
+        "source": "mc26_3/generated/data/simplebuilding/chisel_transformations/stone_chisel.json",
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:hollow_stripped_poplar_log/minecraft:stripped_poplar_log",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:hollow_stripped_poplar_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplechisels:stone_chisel",
+          "simplechisels:copper_chisel",
+          "simplechisels:iron_chisel",
+          "simplechisels:gold_chisel",
+          "simplechisels:diamond_chisel",
+          "simplechisels:netherite_chisel",
+          "simplechisels:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_poplar_log",
           "count": 1
         },
         "stats": {
@@ -96664,15 +97706,15 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 337,
-    "blocks": 318,
-    "recipes": 628,
-    "lootTables": 341,
+    "items": 344,
+    "blocks": 325,
+    "recipes": 634,
+    "lootTables": 348,
     "trades": 20,
     "enchantments": 9,
     "tags": 52,
     "config": 150,
-    "inWorld": 175,
+    "inWorld": 177,
     "advancements": 101,
     "features": 39,
     "undocumented": 0,
