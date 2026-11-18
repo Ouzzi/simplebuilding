@@ -12,6 +12,7 @@ Chess moves out of SimpleBuilding into its own optional mod: 156 pieces (pawn, r
 
 - **Chess pieces** - Right-click places a piece on the clicked quarter of a block with a full top, facing where you look; an empty hand turns it, sneak + empty hand picks it up, sneak + right-click with a piece swaps it. A 4 x 4 area of checkers is a whole chessboard.
 - **Quartz checkers** - Twelve quartz checker pillar blocks (purpur, lapis, blackstone, resin, nether bricks, red nether bricks and the six End palette checkers) with stairs and slabs; no mob spawns on them.
+- **Checker walls** - A wall of every quartz checker.
 - **Chess octets (with Simple Octets)** - Every color gets an octet that mixes with Simple Octets' material octets in one cell; without Simple Octets the stonecutter cuts the pieces straight from the checkers.
 
 ## Changed

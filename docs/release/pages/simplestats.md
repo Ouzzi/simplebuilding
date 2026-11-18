@@ -27,7 +27,7 @@ Simple Stats records blocks mined, kills by mob and variant, damage absorbed, di
 - **Armor, shields and wearing time** - Damage that armor and its enchantments take away is split among the worn pieces in proportion to their armor points (an approximation); fall damage goes to the boots.
 - **Distances and flights** - Boots count the walked, sprinted, sneaked and swum distance; the glider counts distance flown, flights, rocket boosts and the longest flight.
 - **Special tools**
-- **Tooltip and statistics screen** - The tooltip shows one headline value and the hint "Hold Shift for more"; with Shift it shows the most important values.
+- **Tooltip and statistics screen**
 - **Size, inheritance and reset** - Lists are as complete as what was counted.
 - **Who counts and who sees** - Everyone who sees an item sees its statistics: nothing is hidden and no owner is stored, so sharing an item shares its numbers.
 - **Commands** - /simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again.

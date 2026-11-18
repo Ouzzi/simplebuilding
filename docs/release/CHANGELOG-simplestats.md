@@ -16,7 +16,7 @@ Every tool, weapon and piece of armor keeps its own statistics: blocks mined, ki
 - **Armor, shields and wearing time** - Damage that armor and its enchantments take away is split among the worn pieces in proportion to their armor points (an approximation); fall damage goes to the boots.
 - **Distances and flights** - Boots count the walked, sprinted, sneaked and swum distance; the glider counts distance flown, flights, rocket boosts and the longest flight.
 - **Special tools** - Axes count stripped logs, hoes tilled soil, shears sheared mobs by kind and color, brushes finished suspicious blocks, flint and steel its fires, and fishing rods casts and catches (by item and as fish, treasure or junk).
-- **Tooltip and statistics screen** - The tooltip shows one headline value and the hint "Hold Shift for more"; with Shift it shows the most important values.
+- **Tooltip and statistics screen** - The tooltip shows one headline value with the top entry as an icon; Shift shows the top three with icon, name and amount.
 - **Size, inheritance and reset** - Lists are as complete as what was counted.
 - **Who counts and who sees** - Everyone who sees an item sees its statistics: nothing is hidden and no owner is stored, so sharing an item shares its numbers.
 

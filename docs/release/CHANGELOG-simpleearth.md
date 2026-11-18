@@ -15,6 +15,7 @@ The Overworld seen from orbit: far above the world it becomes a slightly rounded
 - **27 versions** - Behind every edge lies new terrain: four faces north is 4 edge lengths away, never back at the start (tesseract).
 - **Sky** - In orbit the sky is black with stars, the sun stays a flat square far away, the moon is a small rounded cube lit by the sun whose position follows Vanilla's moon phase, and a stepped atmosphere rim glows blue on the day side, indigo at night and orange at the light border.
 - **Menu** - Key # (changeable in the controls; there is no button in the pause menu) opens a box at the right edge: the world stays visible, the movement keys keep working, the mouse works the menu.
+- **Simple menu** - The menu shows a few clear sliders (render height, detail, render distance, atmosphere, moon size, other players); all other values only in developer mode.
 
 ## Requirements
 

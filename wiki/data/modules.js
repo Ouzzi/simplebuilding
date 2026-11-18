@@ -62,7 +62,6 @@ window.WIKI_MODULES = [
       "simplechallenges",
       "simpledinos",
       "simplelayers",
-      "simplevault",
       "simplechess"
     ],
     "stage": "done",
