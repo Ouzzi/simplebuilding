@@ -86,7 +86,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 337,
       "blocks": 318,
-      "recipes": 628,
+      "recipes": 634,
       "config": 150,
       "features": 39
     }
@@ -1454,7 +1454,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 20
     },
-    "dataHash": "122e985d55b8"
+    "dataHash": "93297d07a2bd"
   },
   {
     "id": "simplecrucibles",
