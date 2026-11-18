@@ -92,7 +92,7 @@ afterEvaluate {
 // a run that loads SimpleBuilding loads Simple Ores too, same as Simple Storage below. Evaluated first (as Mobheads above):
 // modules sorted before it (simplemoney) would otherwise read its sourceSets too early.
 def oresPath = ':modules:simpleores:neoforge'
-if (!(project.path in [':modules:simplelib:neoforge', oresPath]) && rootProject.findProject(oresPath) != null) evaluationDependsOn(oresPath)
+if (!(project.path in [':modules:simplelib:neoforge', mobheadsPath, oresPath]) && rootProject.findProject(oresPath) != null) evaluationDependsOn(oresPath)
 afterEvaluate {
     if (project.path == ':modules:simpleores:neoforge' || rootProject.findProject(':modules:simpleores:neoforge') == null) return
     if (!neoForge.mods.any { it.name.startsWith('simplebuilding') }) return
