@@ -24,6 +24,9 @@ Silver ore in the Overworld and the End, lead (blocks that muffle sound and stop
 - **Sage Crystal** - The ingot-sized material of the sage family, found as shards in the Nether and the End.
 - **Sage Ore and Dimensional Scrap** - Two rare finds that moved here from SimpleBuilding: the sage ore with its experience orb, and the scrap of the three dimensions.
 - **Rift alloys** - The Dimensional Scrap of each dimension melts into rift shards; with a partner ingot they make Terranite, Infernite and Zenithite, a chain through all three dimensions that starts at Enderite.
+- **Rift nuggets and apples** - Terranite, Infernite and Zenithite nuggets (nine make an ingot) and an enchanted apple of each.
+- **Emerald pole** - A lightning pole of emerald with a range of 72 blocks.
+- **Grates with inner sides** - Metal grates and the Vanilla copper grates show the inside of their bars; the client option "3D grates" (off by default) gives them real depth.
 
 ## Requirements
 

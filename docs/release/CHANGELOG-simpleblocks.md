@@ -20,6 +20,7 @@ Missing building blocks: Hushed Deepslate Tiles that dampen vibrations like wool
 - **Sandstone Pillars** - Sandstone Pillar and Red Sandstone Pillar: the pillar Vanilla gives quartz and purpur, now for both sandstones.
 - **Ice Building Blocks** - Polished ice and ice bricks of ice, packed ice and blue ice, chiseled ice, and stairs, slabs and walls of all three ices.
 - **Blue Nether Bricks** - A blue counterpart to Red Nether Bricks, with stairs, slab and wall.
+- **Concrete walls** - A wall of every concrete color.
 - **Natural Block Variants** - Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.
 - **Suspended and Levitating Sand and Gravel** - Sand and gravel without gravity (suspended) and with reversed gravity (levitating).
 - **Snowlogging** - Use a snow layer on a fence, a small flower, grass, a fern or a bush and the snow shares the block with it, like in Bedrock Edition: the plant or fence stays visible in the snow.

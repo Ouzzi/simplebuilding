@@ -25,7 +25,7 @@ Simple Interfaces restyles the Vanilla container screens with a colored box per 
 - **Simple container style**
 - **Simple style for workstations** - Crafting table, furnace, blast furnace, smoker, brewing stand, beacon and enchanting table screens get the Simple style in the block's color.
 - **Simple style for anvil, loom & co.**
-- **Linked containers** - Sneak + right-click a container with an empty main hand to mark it (a double chest counts as one); dust particles at your hand show the mark.
+- **Linked containers**
 - **Easy shulker boxes and ender chests**
 - **Shulker box and ender chest tooltips** - Hold Shift over a shulker box to see its contents as a slot grid; the ender chest item shows your own ender chest.
 - **Bundles show everything** - Bundle tooltips show every entry instead of Vanilla's twelve, and the mouse wheel selects any of them.

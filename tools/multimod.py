@@ -173,7 +173,9 @@ def validate_bundle(entry, modules, root):
     if parent is None or parent is entry or entry.get('bundle') not in ('required', 'optional'):
         raise ValueError(f'invalid parent/bundle: {mid}')
     field = 'requires' if entry['bundle'] == 'required' else 'optional'
-    if mid not in parent[field]:
+    # N94: an optional sub-mod that is not released ("release": false, REL75) may stay off the parent's optional list, so the
+    # parent's store page names no relation to an unpublished mod (Simple Vault under SimpleBuilding).
+    if mid not in parent[field] and not (field == 'optional' and entry.get('release') is False):
         raise ValueError(f'{parent["id"]} must list {mid} in {field}')
     # simplebuilding-1 (a-w1a, owner RELSB31 f1=A): an optional sub-mod is its own download. The parent nests it only once it
     # is listed in the parent's "bundleOptional" (release profile, its checklist is green); otherwise it must not be nested.

@@ -15,7 +15,7 @@ Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Dec
 - **Shellker** - An End gateway guard: a Shulker in a bedrock-hard shell.
 - **High Gravity and the Shellker Helmet** - High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 % and falls hurt 50 % more per level (Feather Falling still helps).
 - **Combat effects: Volatile, Deflection, Mirror** - Three status effects, levels I-V, for mobs and players: Volatile answers hits with a small explosion, Deflection negates hits, Mirror flips a coin between more damage for the bearer and damage back to the attacker.
-- **Danger zones: effects on new monsters** - With Simple Resonance installed and zoneMobsEnabled on, new monsters get status effects (never more health) by the danger level of their spawn place: the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger.
+- **Danger zones: effects on new monsters** - With Simple Resonance installed, new monsters (zoneMobsEnabled, on by default) get status effects (never more health) by the danger level of their spawn place: the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger.
 - **Armour trim abilities** - Armour trims do more than look good: every trim pattern and trim material gives its wearer a small ability (less damage of one kind, speed, luck, reach, air, experience).
 - **Soulfire Blaze** - A Blaze of soul fire, found rarely in Soul Sand Valleys.
 - **Deceiver: cloak, disguise, mirror** - From Deceiver Cloth: a cloak that lets you take any mob's or player's shape, a particle-free invisibility potion and a mirror that sees through deceptions.
