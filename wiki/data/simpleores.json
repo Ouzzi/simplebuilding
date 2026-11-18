@@ -31215,8 +31215,11 @@
   "trades": [],
   "config": [
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.07,
+        0.25
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "astralRailBoost",
@@ -31234,8 +31237,11 @@
       "tooltipDe": "Schub je Tick aus dem Stand, sinkt mit\n(Tempo/Höchsttempo)². Antriebsschiene: 0,06.\nStandard: 0,12."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        8,
+        20
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "astralRailMaxSpeed",
@@ -31254,7 +31260,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "astralitOre",
@@ -31273,7 +31279,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "dimensionalScrap",
@@ -31292,7 +31298,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "enabled",
@@ -31311,7 +31317,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endLeadOre",
@@ -31330,7 +31336,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endOres",
@@ -31348,8 +31354,11 @@
       "tooltipDe": "Aus: keine neuen Astralit- und Nihilit-Adern im End. Wirkt beim nächsten Weltstart in neu erzeugten Chunks; vorhandene Erze bleiben.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        4,
+        100
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endPistonCooldownTicks",
@@ -31368,7 +31377,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endPistons",
@@ -31387,7 +31396,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endRails",
@@ -31406,7 +31415,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endSignals",
@@ -31425,7 +31434,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "endZincGeodes",
@@ -31463,7 +31472,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "leadOre",
@@ -31482,7 +31491,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "nickelOre",
@@ -31500,8 +31509,11 @@
       "tooltipDe": "Aus: keine neuen Nickeladern (Tiefenschiefer, wie Diamanterz). Wirkt beim nächsten Weltstart in neu erzeugten Chunks; vorhandene Erze bleiben.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.02,
+        0.4
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "nihilRailBrake",
@@ -31520,7 +31532,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "nihilitOre",
@@ -31538,8 +31550,11 @@
       "tooltipDe": "Nihilit-Adern unter den End-Inseln (braucht End-Erze). Wirkt beim nächsten Weltstart in neu erzeugten Chunks; vorhandene Erze bleiben.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        10.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "roseGoldOreChance",
@@ -31558,7 +31573,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "sageOre",
@@ -31577,7 +31592,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "sageOreOtherDimensions",
@@ -31595,8 +31610,11 @@
       "tooltipDe": "Aus: kein neues Nether- und End-Weisheitserz (sie lassen Weisheitskristall-Splitter fallen). Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.2,
+        0.9
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofFactor",
@@ -31615,7 +31633,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofRecords",
@@ -31633,8 +31651,11 @@
       "tooltipDe": "Schallplatten und Musikgeräte werden von Bleiwänden ebenfalls gedämpft.\nStandard: false."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.01,
+        0.3
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofThreshold",
@@ -31653,7 +31674,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "soundproofing",
@@ -31672,7 +31693,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "tinOre",
@@ -31691,7 +31712,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "tinPlacers",
@@ -31710,7 +31731,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java",
       "name": "zincGeodes",
