@@ -11,9 +11,11 @@ Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the
 ## Added
 
 - **Fossil block** - A very rare find in the underground of deserts, badlands and swamps.
+- **Fossils keep their kind** - A fossil block mined with Silk Touch keeps its kind when you place it again.
 - **Dinosaur eggs** - One egg per dinosaur: T. rex, Triceratops, Stegosaurus, Utahraptor and Parasaurolophus.
 - **T. rex** - The combat mount: three-quarter life size, a core hitbox of 3.6 x 3.5 blocks (head and tail reach beyond it).
 - **Large saddle and T. rex armor** - The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider.
+- **Utahraptor voice** - The Utahraptor has its own calls, hurt, death, angry and step sounds, with subtitles.
 
 ## Requirements
 

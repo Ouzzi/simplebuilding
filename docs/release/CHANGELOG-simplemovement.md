@@ -10,8 +10,8 @@ Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on pow
 
 ## Added
 
-- **Manual crawling** - C (default) or /simplemovement crawl sets the synchronized swimming pose.
-- **Auto-walk** - The Auto Walk key (unbound by default) toggles ordinary forward input only when the server enables enableAutowalk (default false).
+- **Manual crawling** - Arrow down (default) or /simplemovement crawl sets the synchronized swimming pose.
+- **Auto-walk** - The Auto Walk key (arrow up by default) toggles ordinary forward input only when the server enables enableAutowalk (default false).
 - **Climbing and sliding** - Climbing speed defaults to 0.4 blocks/tick (range 0.2–0.4).
 - **Frost Walker on powder snow** - Frost Walker permits walking on powder snow.
 - **Jump Boost steps up** - While Jump Boost is active (potion, beacon or command), the step_height attribute is topped up to at least 1 block, so you walk up a full block without jumping.
