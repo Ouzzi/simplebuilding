@@ -44,7 +44,15 @@ public final class SimpleOres {
         // N46/M2: switched-off line devices lose their recipes too (datapack reload), as in SimpleBuilding before the move.
         com.simplelib.api.RecipeFilters.register(MOD_ID, com.simpleores.line.LineBlocks::recipeRemoved);
         OresViewer.register();   // a-fix09b: JEI info pages of Sage Ore, Sage Orb, Dimensional Scrap (were SimpleBuilding's)
-        // Test centre station (framework contract, no import of the test centre): the module's items by id.
+        // N92-2: nothing here may load OresRegistry - its static blocks may only be built inside NeoForge's RegisterEvent.
+    }
+
+    /**
+     * Test centre station (framework contract, no import of the test centre): the module's items by id. Loads
+     * {@link OresRegistry}, so loaders call it where blocks may be built (Fabric: after {@link #init}; NeoForge/Forge: in the
+     * item RegisterEvent).
+     */
+    public static void registerStation() {
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "ores", "simpleores.testcentre.station", OresRegistry.itemIds());
     }
 
@@ -56,7 +64,7 @@ public final class SimpleOres {
     public static synchronized void registerIdMoves() {
         if (movesRegistered) return;
         movesRegistered = true;
-        for (String path : OresRegistry.FROM_SIMPLELIB) {
+        for (String path : FROM_SIMPLELIB) {
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.ITEM, lib(path), id(path));
         }
         com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.BLOCK, lib("enderite_block"), id("enderite_block"));
@@ -64,12 +72,23 @@ public final class SimpleOres {
         moveRetiredOres();
         com.simpleores.line.LineIds.registerIdMoves();   // N47-M2: no class load of the blocks (static id lists)
         com.simpleores.gear.GearIds.registerIdMoves();   // N47-M3: the Enderite gear, the food and the poles (static id lists)
-        OresRegistry.RECIPES_FROM_SIMPLELIB.forEach((path, folder) -> {
+        RECIPES_FROM_SIMPLELIB.forEach((path, folder) -> {
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.RECIPE, lib(path), id(path));
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.ADVANCEMENT, lib("recipes/" + folder + "/" + path),
                     id("recipes/" + folder + "/" + path));
         });
     }
+
+    /**
+     * IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven.
+     * Plain data here, not in {@link OresRegistry} (N92-2: reading them at mod construction must not build the blocks).
+     */
+    public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
+            "enderite_block", "enderite_upgrade_template");
+    /** Recipes SimpleLib had for them -> folder of their recipe advancement (same paths here). */
+    public static final Map<String, String> RECIPES_FROM_SIMPLELIB = Map.of("enderite_nugget_from_ingot", "misc", "enderite_ingot_from_nugget", "misc",
+            "layered_raw_enderite", "misc", "enderite_scrap_from_blasting_layered_raw_enderite", "misc", "enderite_ingot_from_scrap", "misc",
+            "enderite_block", "decorations", "enderite_ingot", "building_blocks", "enderite_upgrade_template", "misc");
 
     /** N23 (b-ores23, 10.11.): the retired ore twins and the item/block/recipe/advancement ids they leave behind -> the remaining variant. */
     public static final Map<String, String> RETIRED_ORES = Map.of("deepslate_lead_ore", "lead_ore", "deepslate_tin_ore", "tin_ore",

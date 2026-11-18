@@ -462,13 +462,6 @@ public final class OresRegistry {
             "brass_ingot", "brass_nugget", "stainless_steel_ingot", "stainless_steel_nugget", "bronze_ingot", "bronze_nugget", "rose_bronze_pressling",
             "rose_bronze_nugget", "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_nugget", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
             "enderite_ingot", "enderite_upgrade_template", "rift_shard", "nether_rift_shard", "end_rift_shard", "terranite_ingot", "terranite_nugget", "infernite_ingot", "infernite_nugget", "zenithite_ingot", "zenithite_nugget", "sage_crystal_shard", "sage_crystal", "sage_orb"};
-    /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
-    public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
-            "enderite_block", "enderite_upgrade_template");
-    /** Recipes SimpleLib had for them -> folder of their recipe advancement (same paths here). */
-    public static final Map<String, String> RECIPES_FROM_SIMPLELIB = Map.of("enderite_nugget_from_ingot", "misc", "enderite_ingot_from_nugget", "misc",
-            "layered_raw_enderite", "misc", "enderite_scrap_from_blasting_layered_raw_enderite", "misc", "enderite_ingot_from_scrap", "misc",
-            "enderite_block", "decorations", "enderite_ingot", "building_blocks", "enderite_upgrade_template", "misc");
     public static final String[] TOOLS = {"rose_bronze_shovel", "rose_bronze_pickaxe", "rose_bronze_axe", "rose_bronze_hoe",
             "rose_gold_shovel", "rose_gold_pickaxe", "rose_gold_axe", "rose_gold_hoe",
             // N47-M3 (b-circ46): the Enderite tools (behind the golden ones, like SimpleBuilding's own tab layout lists them last)
