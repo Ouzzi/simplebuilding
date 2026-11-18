@@ -12,7 +12,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleBuilding** `simplebuilding` [fertig]: Building tools, storage, machines, and enchantments.
   - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels
-  - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs, Simple Layers, Simple Chess
+  - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs
   - **Simple Arrows** `simplearrows` (required) [neu]: Arrows: the Fletching Table (moved from SimpleBuilding on 04.11., ids migrate) builds 4 arrows from a tip, a shaft and a fletching, optionally with a potion; the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla (tips and shafts of other mods appear with them). Fabric only for now.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Ores
@@ -190,10 +190,13 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 Mods mit `releasePhase` in modules.json: gebaut, aber erst nach dem Release (published) freigegeben; bis dahin nicht in SimpleBuildings `bundleOptional`.
 
 - Phase 3: **Simple Chess** `simplechess`
+- Phase 3: **Simple Layers** `simplelayers`
 
 ## Nicht im Release-Paket
 
 Mods mit `"release": false` (oder `example`) in modules.json: Code bleibt, wird gebaut und getestet, aber nicht veröffentlicht (keine Store-Seite, kein Download, keine Landing-Kachel).
 
+- **Simple Chess** `simplechess`
+- **Simple Layers** `simplelayers`
 - **Simple Vault** `simplevault`
 - **Wiring Example** `wiringexample`

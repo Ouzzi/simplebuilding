@@ -60,9 +60,7 @@ window.WIKI_MODULES = [
       "simplemusic",
       "simpleearth",
       "simplechallenges",
-      "simpledinos",
-      "simplelayers",
-      "simplechess"
+      "simpledinos"
     ],
     "stage": "done",
     "overview": {
@@ -2331,6 +2329,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 12
     },
+    "release": false,
     "dataHash": "cd538e429aad"
   },
   {
@@ -2399,6 +2398,7 @@ window.WIKI_MODULES = [
       "recipes": 422,
       "features": 4
     },
+    "release": false,
     "dataHash": "0379ef668eff"
   }
 ];
