@@ -91,5 +91,69 @@ def reopen(s):
             next((ln for ln in log.splitlines() if 'Experimental warning' in ln), 'no decision line (stable world or mixin missing)')[:300])
     s.shot('reopened')
 
+CREATE = 'simplelib/experimental-warning-create'
 
-SCENARIOS = {NAME: reopen}
+
+def create(s):
+    """N92 (EXP52 rest): 'Create New World' on the title screen - the world gets Simple Layers' / Simple Vault's own
+    dimensions (experimental lifecycle), SimpleLib must skip the "experimental settings" question (create path, mixin
+    ExperimentalCreateWorldMixin) and log "Experimental warning skipped (create)". Leaves the shared world: run by name only."""
+    if not _asked_by_name_of(CREATE):
+        s.check('skipped (run with --only ' + CREATE + ')', True, 'leaves the shared world')
+        return
+    s.close()
+    s.key('Escape', 1.0)
+    st = _wait_for(s, 'PauseScreen', 8)
+    if not s.click_widget('Save and Quit'):
+        return
+    st = _wait_for(s, 'TitleScreen', 60)
+    s.check('back on the title screen', 'TitleScreen' in st.get('screen', ''), st.get('screen'))
+    if not s.click_widget('Singleplayer'):
+        return
+    st = _wait_for(s, 'SelectWorldScreen', 20)
+    if not s.click_widget('Create New World'):
+        return
+    st = _wait_for(s, 'CreateWorldScreen', 20)
+    s.check('create world screen open', 'CreateWorldScreen' in st.get('screen', ''), st.get('screen'))
+    time.sleep(0.8)
+    s.shot('create-world-screen')
+    if not s.click_widget('Create New World'):
+        return
+    seen, end, st = [], time.time() + 240, s.st()
+    while time.time() < end:
+        st = s.st()
+        screen = st.get('screen', 'none')
+        if not seen or seen[-1] != screen:
+            seen.append(screen)
+        if 'Confirm' in screen or 'Experimental' in screen:
+            break
+        if screen == 'none' and 'pos' in st:
+            break
+        time.sleep(0.3)
+    warned = [x for x in seen if 'Confirm' in x or 'Experimental' in x]
+    s.check('no experimental question when creating the world', not warned, ' -> '.join(seen))
+    if warned:
+        s.shot('warning')
+        if not s.click_widget('Proceed'):
+            s.click_widget("know what") or s.click_widget('Yes')
+        st = _wait_for(s, 'none', 240)
+    s.check('new world open', st.get('screen') == 'none' and 'pos' in st, st.get('screen'))
+    try:
+        log = (s.out / 'client.log').read_text(errors='replace')
+    except OSError:
+        log = ''
+    line = next((ln for ln in log.splitlines() if 'Experimental warning skipped (create)' in ln), '')
+    s.check('SimpleLib logged the decision (create)', bool(line), (line or 'no create decision line')[:300])
+    time.sleep(2.0)
+    s.shot('new-world')
+
+
+def _asked_by_name_of(name):
+    argv = sys.argv
+    if '--only' in argv:
+        i = argv.index('--only')
+        return i + 1 < len(argv) and name in argv[i + 1].split(',')
+    return any(a.startswith('--only=') and name in a.split('=', 1)[1].split(',') for a in argv)
+
+
+SCENARIOS = {NAME: reopen, CREATE: create}

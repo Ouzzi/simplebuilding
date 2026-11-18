@@ -108,7 +108,9 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
   `precheck --fast` + gezielte Tests auf sb-test, grün → wave1, Zeile „EXPRESS“ in b-fertig; volles Gate im nächsten Bündel.
   **sb-test:** `heavy.sh` lässt jeden Lauf (job/gate/night) in eigener systemd-Scope laufen und hält den Lock, bis die Scope samt
   Kindprozessen weg ist; `sb-memwatch.service` beendet unter 600 MB MemAvailable den jüngsten Java-Prozess (Job vor Gate),
-  Log `/var/log/sb-memwatch.log`.
+  Log `/var/log/sb-memwatch.log`. Seit 18.11. (16 GB, N92): höchstens 2 Jobs parallel (Slot 2 nur bei ≥ 6 GB frei,
+  MemoryMax 7G je Job), mindestens 60 s zwischen zwei Job-Starts; Gate/Nachtlauf exklusiv. `sb-gate.sh` holt `delta_gate.py`/
+  `retry_red.py` bei jedem Lauf aus origin/master (N88). Client-Ziele (`client-*`) nur unter `xvfb-run -a`.
 - Historische Gate-Zahlen stehen in `docs/HANDOFF.md`; Ziele und Testanzahl ändern sich.
   Für jeden aktuellen Lauf die Ausgabe und „alles gruen“ lesen; alte Zahlen sind kein aktueller Beleg.
 
