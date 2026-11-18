@@ -20,6 +20,11 @@ public final class OresForge {
                 OresRegistry.items(r::register);
                 SimpleOres.registerStation();
             });
+            // N92-2: the two own feature types (Fabric: onInitialize), as on NeoForge.
+            if (event.getRegistryKey().equals(Registries.FEATURE_TYPE)) {
+                com.simpleores.RoseGoldVeinFeature.register();
+                com.simpleores.MiniGeodeFeature.register();
+            }
         });
     }
 }
