@@ -148,6 +148,31 @@ class HubCommit(unittest.TestCase):
             with self.assertRaises(tz.SaveError):
                 tz.apply_save(GOOD, "1234567", hub, "claude-wave1")
 
+    def test_pull_remembers_saves_without_branch(self):
+        """N99: the cron pull (tools/tzedit/tz_pull.sh) branches the newest save per area once and never re-reads the rest."""
+        with tempfile.TemporaryDirectory() as tmp:
+            hub, work, saves, seen = Path(tmp) / "hub.git", Path(tmp) / "w", Path(tmp) / "saves", Path(tmp) / "seen"
+            run = lambda *a: subprocess.run(a, check=True, capture_output=True)
+            run("git", "init", "-q", "--bare", str(hub))
+            run("git", "init", "-q", "-b", "claude-wave1", str(work))
+            (work / "README").write_text("x")
+            run("git", "-C", str(work), "add", "README")
+            run("git", "-C", str(work), "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "base")
+            run("git", "-C", str(work), "push", "-q", str(hub), "claude-wave1")
+            saves.mkdir()
+            for sid in ("1000001", "1000002"):
+                (saves / f"{sid}.json").write_text(json.dumps(dict(GOOD, sid=sid)))
+            (saves / "1000003.json").write_text(json.dumps(dict(GOOD, area="bad area")))
+            logs = []
+            made = tz.pull(["env"], str(saves), hub, "claude-wave1", seen=seen, log=logs.append)
+            self.assertEqual(made, ["tz-layout-lines-metals-excerpt-1000002"])
+            self.assertEqual(sorted(seen.read_text().split()), ["1000001", "1000003"])  # superseded + invalid
+            # the invalid one has its own area key (None) and is newest of it -> skipped and remembered
+            self.assertTrue(any("1000003: skipped" in x for x in logs), logs)
+            logs.clear()
+            self.assertEqual(tz.pull(["env"], str(saves), hub, "claude-wave1", seen=seen, log=logs.append), [])
+            self.assertEqual(logs, [])  # nothing read again
+
 
 if __name__ == "__main__":
     unittest.main()
