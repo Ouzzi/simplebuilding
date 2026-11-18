@@ -50,9 +50,6 @@ public final class OresFabric implements ModInitializer {
         if (initialized) return;
         initialized = true;
         SimpleOres.init(FabricLoader.getInstance().getConfigDir());
-        // CMD24: /simpleores config for every option.
-        com.simplelib.api.config.ConfigCommands.server(SimpleOres.MOD_ID).json(com.simpleores.config.OresConfig::toJson, com.simpleores.config.OresConfig::apply)
-                .file(FabricLoader.getInstance().getConfigDir(), com.simpleores.config.OresConfig.FILE).register();
         com.simpleores.RoseGoldVeinFeature.register();
         com.simpleores.MiniGeodeFeature.register();
         OresRegistry.registerAll();

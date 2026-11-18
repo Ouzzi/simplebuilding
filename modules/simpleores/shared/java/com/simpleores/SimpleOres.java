@@ -36,6 +36,8 @@ public final class SimpleOres {
     public static void init(Path configDir) {
         SimpleOres.configDir = configDir;
         OresConfig.load(configDir);
+        // CMD24: /simpleores config for every option (N92-2: here for every loader, was Fabric's entry point only).
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(OresConfig::toJson, OresConfig::apply).file(configDir, OresConfig.FILE).register();
         // IG31-13: Simple Ores owns Enderite now - other mods switch their Enderite variants on through SimpleLib's flag.
         com.simplelib.api.SimpleLibApi.provideMaterial("enderite");
         // N48: the plates of the materials (Diamond, Netherite, Enderite, Emerald) are SimpleLib's group; Simple Ores asks for it.

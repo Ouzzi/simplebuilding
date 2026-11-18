@@ -96,6 +96,10 @@ public final class OresTests {
     }
 
     static {
+        // N92-2: in the shared catalogue (were Fabric adapter only), so NeoForge runs them too.
+        ALL.put("config_command", h -> com.simplelib.test.ConfigCommandTests.module(h, "simpleores", false));
+        // JEI24 (a-fix09b): Sage Ore, Sage Orb and Dimensional Scrap pages, N4 (b-ores13): six deposit pages, N46/M2: +4 End ore pages.
+        ALL.put("jei_info_pages", h -> com.simplelib.test.ViewerInfoTests.infoPages(h, "simpleores", 13));
         com.simpleores.line.test.LineTests.register(ALL, MAX_TICKS);
         com.simpleores.gear.test.GearTests.register(ALL, MAX_TICKS);   // N47-M3
         com.simpleores.circuit.test.CircuitTests.register(ALL, MAX_TICKS);   // N46
