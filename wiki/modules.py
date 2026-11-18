@@ -401,11 +401,13 @@ def sync(g, entries, selected, check=False, strict=False):
         if e['id'] in overview:
             e['overview'] = overview[e['id']]
         # One-sentence intro in EN/DE from the guide books (tools/guides/module_guides.py) for the wiki start page.
-        # Mods without a guide book (e.g. super-mods) may carry the EN/DE intro in their manifest entry.
+        # Mods without a guide book (e.g. super-mods) may carry the EN/DE intro in their wiki manual ("intro").
+        manual_path = g.REPO / (meta[e['id']]['paths']['wikiManual'] or '')
+        manual_intro = g.read_json(manual_path).get('intro') if manual_path.is_file() else None
         if e['id'] in intros:
             e['intro'] = intros[e['id']]
-        elif meta[e['id']].get('intro'):
-            e['intro'] = meta[e['id']]['intro']
+        elif manual_intro:
+            e['intro'] = manual_intro
         # What the module does (EN/DE) and its chat commands, from the module inventory (tools/audit).
         inv = inventory.get(e['id'], {})
         if inv.get('purpose_en') or inv.get('purpose_de'):
