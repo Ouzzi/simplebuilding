@@ -7,8 +7,8 @@ import time
 
 
 def _pos(s):
-    p = s.st().get('pos') or [0, -60, 0]
-    return int(p[0]), int(p[1]), int(p[2])
+    # status 'pos' is a "x, y, z" string (pattern uiprobe_n83); run 1 read it as a list and built in the air
+    return [int(float(v)) for v in s.st()['pos'].replace(',', ' ').split()]
 
 
 def scenes(s):
