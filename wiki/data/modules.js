@@ -60,7 +60,10 @@ window.WIKI_MODULES = [
       "simplemusic",
       "simpleearth",
       "simplechallenges",
-      "simpledinos"
+      "simpledinos",
+      "simplelayers",
+      "simplevault",
+      "simplechess"
     ],
     "stage": "done",
     "overview": {
@@ -112,7 +115,7 @@ window.WIKI_MODULES = [
       "features": 1
     },
     "release": false,
-    "dataHash": "a6c8d95399cc"
+    "dataHash": "b22b94ecf457"
   },
   {
     "id": "simplemoney",
@@ -160,7 +163,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 81
     },
-    "dataHash": "d46113c0aa4a"
+    "dataHash": "9bd71189c08b"
   },
   {
     "id": "simpleriding",
@@ -202,7 +205,7 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 37
     },
-    "dataHash": "815fd41851db"
+    "dataHash": "77b43b934ded"
   },
   {
     "id": "simplemodels",
@@ -240,7 +243,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "d5ec8ddfe216"
+    "dataHash": "14e318c64887"
   },
   {
     "id": "simplefun",
@@ -283,7 +286,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "9ea40cc0d912"
+    "dataHash": "0c46ce494da1"
   },
   {
     "id": "simplevisuals",
@@ -323,7 +326,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 80
     },
-    "dataHash": "0f8ec686d332"
+    "dataHash": "304d70f4883f"
   },
   {
     "id": "simplesounds",
@@ -360,7 +363,7 @@ window.WIKI_MODULES = [
       "config": 18,
       "features": 21
     },
-    "dataHash": "8ad132075e3d"
+    "dataHash": "9b7920c36b4b"
   },
   {
     "id": "simplequalityoflife",
@@ -410,7 +413,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 9
     },
-    "dataHash": "21018c18da38"
+    "dataHash": "7cc48954e9e8"
   },
   {
     "id": "simpletweaks",
@@ -472,7 +475,7 @@ window.WIKI_MODULES = [
       "config": 16,
       "features": 42
     },
-    "dataHash": "c172541aa618"
+    "dataHash": "e9a211096fec"
   },
   {
     "id": "simpledimensions",
@@ -511,7 +514,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 12
     },
-    "dataHash": "4cab641330ef"
+    "dataHash": "5b7652f34104"
   },
   {
     "id": "simplesandwiches",
@@ -552,7 +555,7 @@ window.WIKI_MODULES = [
       "recipes": 16,
       "features": 7
     },
-    "dataHash": "0c15d175b8ab"
+    "dataHash": "37b817efdb95"
   },
   {
     "id": "simplelib",
@@ -592,7 +595,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 9
     },
-    "dataHash": "735107fdb248"
+    "dataHash": "01a2c157424c"
   },
   {
     "id": "simpleinterfaces",
@@ -628,7 +631,7 @@ window.WIKI_MODULES = [
       "config": 48,
       "features": 57
     },
-    "dataHash": "c4f504c4ea1e"
+    "dataHash": "7fb77525f5a5"
   },
   {
     "id": "simplemaps",
@@ -669,7 +672,7 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 11
     },
-    "dataHash": "61053edd957b"
+    "dataHash": "55d0f031ac0f"
   },
   {
     "id": "simplelivemap",
@@ -694,7 +697,7 @@ window.WIKI_MODULES = [
       "config": 17,
       "features": 9
     },
-    "dataHash": "5de489c178f7"
+    "dataHash": "c28ddc30febc"
   },
   {
     "id": "simpletrims",
@@ -733,7 +736,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 7
     },
-    "dataHash": "02b47073cd55"
+    "dataHash": "67ae4a24cfb4"
   },
   {
     "id": "simplemobs",
@@ -770,7 +773,7 @@ window.WIKI_MODULES = [
       "config": 82,
       "features": 25
     },
-    "dataHash": "bb3304fd84fb"
+    "dataHash": "385f56465bcf"
   },
   {
     "id": "simpleweather",
@@ -804,7 +807,7 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 5
     },
-    "dataHash": "58b0e9af4efd"
+    "dataHash": "21278ce20140"
   },
   {
     "id": "simplemovement",
@@ -841,7 +844,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "f12952a347ef"
+    "dataHash": "cf7be5a28325"
   },
   {
     "id": "simpletools",
@@ -879,7 +882,7 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "9fd5459942e0"
+    "dataHash": "28f15046b61f"
   },
   {
     "id": "simplefarming",
@@ -914,7 +917,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 12
     },
-    "dataHash": "db849ba92b38"
+    "dataHash": "96438880115d"
   },
   {
     "id": "simplemobmanners",
@@ -949,7 +952,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 11
     },
-    "dataHash": "1afbc1890574"
+    "dataHash": "676f9ef1588b"
   },
   {
     "id": "simpleloot",
@@ -983,7 +986,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "047492eca963"
+    "dataHash": "af6890b15707"
   },
   {
     "id": "simplequestionary",
@@ -1020,7 +1023,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 5
     },
-    "dataHash": "5e2c3cca266e"
+    "dataHash": "5e934ee61487"
   },
   {
     "id": "simpleaesthetics",
@@ -1046,6 +1049,10 @@ window.WIKI_MODULES = [
       "missing": "Funktionen fertig; offen nur Abnahme im Spiel (Modelle-UI, Stufen/Stärke der Effekte und Sounds) und Stil-Audit-Reste.",
       "asOf": "19.10.2026"
     },
+    "intro": {
+      "en": "Bundles Simple Visuals, Simple Sounds and Simple Models with one switch each: displays and particles, matching sounds and custom item models. It adds no content of its own.",
+      "de": "Bündelt Simple Visuals, Simple Sounds und Simple Models mit je einem Schalter: Anzeigen und Partikel, passende Klänge und eigene Itemmodelle. Eigene Inhalte bringt die Mod nicht mit."
+    },
     "purpose": {
       "en": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
       "de": "Super-Mod ohne eigene Inhalte: bündelt Simple Visuals, Simple Sounds und Simple Models mit je einem Schalter."
@@ -1055,7 +1062,7 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "baf9afb67603"
+    "dataHash": "ef03fdc330b6"
   },
   {
     "id": "simpleenddragonfight",
@@ -1091,7 +1098,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 7
     },
-    "dataHash": "83b246b3278b"
+    "dataHash": "b081653614c8"
   },
   {
     "id": "simpleend",
@@ -1135,7 +1142,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 11
     },
-    "dataHash": "eb1f509afbfd"
+    "dataHash": "49932b9ca6d8"
   },
   {
     "id": "simplerespawn",
@@ -1172,7 +1179,7 @@ window.WIKI_MODULES = [
       "config": 15,
       "features": 6
     },
-    "dataHash": "e67e0a5f5e0d"
+    "dataHash": "a89bed808c23"
   },
   {
     "id": "simplebeacons",
@@ -1212,7 +1219,7 @@ window.WIKI_MODULES = [
       "config": 29,
       "features": 17
     },
-    "dataHash": "912875886413"
+    "dataHash": "aa1c3d4010c9"
   },
   {
     "id": "simpleovens",
@@ -1253,7 +1260,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 9
     },
-    "dataHash": "9512cd895c5d"
+    "dataHash": "5f8de6bba5e3"
   },
   {
     "id": "simplemobheads",
@@ -1300,7 +1307,7 @@ window.WIKI_MODULES = [
       "config": 22,
       "features": 16
     },
-    "dataHash": "8134e3ba9ac9"
+    "dataHash": "e03bb47aac9a"
   },
   {
     "id": "simpleshops",
@@ -1343,7 +1350,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 13
     },
-    "dataHash": "cf756335fb23"
+    "dataHash": "5741260ff27e"
   },
   {
     "id": "simplewanderers",
@@ -1380,7 +1387,7 @@ window.WIKI_MODULES = [
       "items": 2,
       "features": 7
     },
-    "dataHash": "16e067c8bc3b"
+    "dataHash": "f7cfa18e8cf0"
   },
   {
     "id": "simplestats",
@@ -1412,7 +1419,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 10
     },
-    "dataHash": "a7f9bf4c4763"
+    "dataHash": "eef18d9cf307"
   },
   {
     "id": "simpleblocks",
@@ -1451,7 +1458,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 20
     },
-    "dataHash": "04a0c0e0f00b"
+    "dataHash": "f02e8dcc34f8"
   },
   {
     "id": "simplecrucibles",
@@ -1494,7 +1501,7 @@ window.WIKI_MODULES = [
       "config": 37,
       "features": 10
     },
-    "dataHash": "9bf5fa0dfe1e"
+    "dataHash": "219e2f18e86e"
   },
   {
     "id": "simpleoctets",
@@ -1536,7 +1543,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 8
     },
-    "dataHash": "7333f3c5f785"
+    "dataHash": "0ce920d8040e"
   },
   {
     "id": "simplehammers",
@@ -1577,7 +1584,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "3fb814d3ae6f"
+    "dataHash": "9bf3879a8f6d"
   },
   {
     "id": "simpleoptimization",
@@ -1614,7 +1621,7 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "eb32f11d03e5"
+    "dataHash": "219589075e1d"
   },
   {
     "id": "simpleoptrender",
@@ -1642,7 +1649,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 8
     },
-    "dataHash": "f0b8bd6b5eb2"
+    "dataHash": "0aa8285ea136"
   },
   {
     "id": "simpleoptmemory",
@@ -1670,7 +1677,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 3
     },
-    "dataHash": "41f5984bbb9c"
+    "dataHash": "020a18282c89"
   },
   {
     "id": "simpleoptserver",
@@ -1702,7 +1709,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 3
     },
-    "dataHash": "a56feebf32c8"
+    "dataHash": "bc82c549b76b"
   },
   {
     "id": "simplestorage",
@@ -1745,7 +1752,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 16
     },
-    "dataHash": "b39dea0efdfc"
+    "dataHash": "c2a3bc424a99"
   },
   {
     "id": "simplemusic",
@@ -1787,7 +1794,7 @@ window.WIKI_MODULES = [
       "config": 14,
       "features": 16
     },
-    "dataHash": "125dd230f3cf"
+    "dataHash": "41ec2bceab7b"
   },
   {
     "id": "simplelights",
@@ -1818,7 +1825,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 5
     },
-    "dataHash": "1d33a80c2bfc"
+    "dataHash": "7e8a0ef35455"
   },
   {
     "id": "simplegadgets",
@@ -1849,7 +1856,7 @@ window.WIKI_MODULES = [
       "config": 31,
       "features": 9
     },
-    "dataHash": "933c0a1b0b2b"
+    "dataHash": "35ed4d93ba67"
   },
   {
     "id": "simpleearth",
@@ -1878,7 +1885,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 5
     },
-    "dataHash": "a01e334906ce"
+    "dataHash": "40fb0615e6b7"
   },
   {
     "id": "simplechallenges",
@@ -1907,7 +1914,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 16
     },
-    "dataHash": "a229995d1564"
+    "dataHash": "31143ef126d0"
   },
   {
     "id": "simpleanimals",
@@ -1946,7 +1953,7 @@ window.WIKI_MODULES = [
       "config": 15,
       "features": 10
     },
-    "dataHash": "a4070844607e"
+    "dataHash": "c25f4f4a0324"
   },
   {
     "id": "simpledinos",
@@ -1986,7 +1993,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 10
     },
-    "dataHash": "f1893ffbc209"
+    "dataHash": "99b32c113abd"
   },
   {
     "id": "simpleores",
@@ -2025,7 +2032,7 @@ window.WIKI_MODULES = [
       "config": 27,
       "features": 27
     },
-    "dataHash": "3a956d3794dc"
+    "dataHash": "1ddd81bd9442"
   },
   {
     "id": "simplemachines",
@@ -2060,7 +2067,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 10
     },
-    "dataHash": "4040b7045c73"
+    "dataHash": "3483c236c3cf"
   },
   {
     "id": "simplearrows",
@@ -2092,7 +2099,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "8397734e1109"
+    "dataHash": "46f542b9b77e"
   },
   {
     "id": "simpleresonance",
@@ -2127,7 +2134,7 @@ window.WIKI_MODULES = [
       "config": 32,
       "features": 9
     },
-    "dataHash": "0f4d724c38a1"
+    "dataHash": "84b105187b1f"
   },
   {
     "id": "simplefoundry",
@@ -2160,7 +2167,7 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 2
     },
-    "dataHash": "df04a299db5e"
+    "dataHash": "3d324a73ed0d"
   },
   {
     "id": "simpleenchanting",
@@ -2194,7 +2201,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 6
     },
-    "dataHash": "b34ec218bdcb"
+    "dataHash": "98112a33adc8"
   },
   {
     "id": "simplepads",
@@ -2229,7 +2236,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 9
     },
-    "dataHash": "283e44c45cff"
+    "dataHash": "e31fc9da61f0"
   },
   {
     "id": "simplebuildingtools",
@@ -2264,7 +2271,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "ebcd6a0d78a3"
+    "dataHash": "16fe5c20d1db"
   },
   {
     "id": "simplechisels",
@@ -2297,7 +2304,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 8
     },
-    "dataHash": "5e3545a260ba"
+    "dataHash": "96b08005cf38"
   },
   {
     "id": "simplelayers",
@@ -2329,8 +2336,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 12
     },
-    "release": false,
-    "dataHash": "cd538e429aad"
+    "dataHash": "d2333d6b4375"
   },
   {
     "id": "simplevault",
@@ -2366,7 +2372,7 @@ window.WIKI_MODULES = [
       "features": 3
     },
     "release": false,
-    "dataHash": "b17ae3d5a51d"
+    "dataHash": "dc16ae4a514c"
   },
   {
     "id": "simplechess",
@@ -2398,7 +2404,6 @@ window.WIKI_MODULES = [
       "recipes": 422,
       "features": 4
     },
-    "release": false,
-    "dataHash": "0379ef668eff"
+    "dataHash": "74dda3b466e6"
   }
 ];
