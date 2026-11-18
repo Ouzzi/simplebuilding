@@ -225,10 +225,11 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.${modId}]]
+# N92-2: SimpleBuilding 26.3 takes the line blocks and Enderite from Simple Ores (SharedMaterials) in its RegisterEvent.
 modId="simpleores"
 type="optional"
 versionRange="[0,)"
-ordering="NONE"
+ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${modId}]]
