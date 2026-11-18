@@ -11,7 +11,8 @@ Checks, without Gradle:
     0.4.0-beta.1 < 0.4.0, so a forgotten ">=0.4.0" / "[0.4.0,)" would refuse to start): fabric.mod.json depends/recommends/
     suggests, NeoForge/Forge TOML versionRange, and the TOML text the mc26_3 loader builds inject;
   * docs/release/CHANGELOG-<id>.md names exactly that version and says beta; docs/release/pages/<id>.md carries the
-    "Release channel: Beta" block with the version. Example modules (never published) are skipped for the docs.
+    "Release channel: Beta" block with the version. Example modules (never published) are skipped for the docs;
+  * no released mod names an unreleased one ("release": false or example) as optional / suggests / recommends.
 """
 from __future__ import annotations
 
@@ -185,6 +186,21 @@ def main(argv: list[str]) -> int:
         loaders = ", ".join(sorted(m["projects"]))
         ov = ", ".join(overrides.get(mid, [])) or "–"
         rows.append(f"| {mid} | {v} | {loaders} | {ov} | {'ok' if cl_ok else 'FEHLT'} | {'ok' if page_ok else 'FEHLT'} |")
+
+    # N95 (owner 18.11.): an unreleased mod ("release": false, REL75, or an example) is named by no released mod - not in
+    # modules.json "optional" (store relations, store page, changelog) and not in fabric.mod.json suggests/recommends.
+    unreleased = {x for m in mods if m.get("example") or m.get("release") is False for x in (m["id"], m.get("modId", m["id"]))}
+    for m in mods:
+        if m["id"] in unreleased:
+            continue
+        for dep in sorted(set(m.get("optional", [])) & unreleased):
+            bad.append(f"modules.json {m['id']}: optional names the unreleased mod {dep}")
+        fmj = R / ("src/main/resources" if m["id"] == "simplebuilding" else f"{m['paths'].get('fabric', '')}/src/main/resources") / "fabric.mod.json"
+        if m.get("projects", {}).get("fabric") and fmj.is_file():
+            data = json.loads(fmj.read_text(encoding="utf-8"))
+            for section in ("suggests", "recommends"):
+                for dep in sorted(set(data.get(section) or {}) & unreleased):
+                    bad.append(f"{fmj.relative_to(R)}: {section} names the unreleased mod {dep}")
 
     if "--table" in argv:
         print("| Mod | Version | Loader-Projekte | ext.moduleVersion in | Changelog Beta | Store-Seite Beta |")
