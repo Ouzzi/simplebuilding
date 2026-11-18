@@ -395,6 +395,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("woodwork_game_test_woodwork_recipes_exist_for_every_wood", WoodworkTests::woodworkRecipesExistForEveryWood)
                     .build(),
+            GameTestSpec.named("woodwork_game_test_poplar_woodwork_follows_vanilla_poplar", WoodworkTests::poplarWoodworkFollowsVanillaPoplar)
+                    .build(),
             GameTestSpec.named("vehicle_game_test_furnace_carts_burn_longer_and_run_faster", VehicleTests::furnaceCartsBurnLongerAndRunFaster)
                     .build(),
             GameTestSpec.named("vehicle_game_test_enderite_furnace_cart_outruns_vanilla", VehicleTests::enderiteFurnaceCartOutrunsVanilla).maxTicks(VehicleTests.MOVE_MAX_TICKS)

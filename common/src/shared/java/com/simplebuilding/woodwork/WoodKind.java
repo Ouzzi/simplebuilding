@@ -15,6 +15,8 @@ import net.minecraft.world.level.material.MapColor;
  * and its planks. {@code log} is the Vanilla path stem used in block ids ({@code oak_log}, {@code crimson_stem},
  * {@code bamboo_block}); Nether woods do not burn.
  *
+ * <p>Poplar (N89b) is Vanilla from 26.3 on: looked up by id like the End woods, active only where Minecraft has it.
+ *
  * <p>Ashwood and Duskwood belong to Simple End (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): they count only while that
  * mod is loaded ({@link #active()}), and their blocks are looked up by id when first needed - never while registering,
  * since Fabric does not order the mods' entrypoints. Their woodwork blocks take the properties of the oak ones
@@ -30,6 +32,8 @@ public enum WoodKind {
     MANGROVE("mangrove", "mangrove_log", () -> Blocks.MANGROVE_LOG, () -> Blocks.STRIPPED_MANGROVE_LOG, () -> Blocks.MANGROVE_PLANKS, false),
     CHERRY("cherry", "cherry_log", () -> Blocks.CHERRY_LOG, () -> Blocks.STRIPPED_CHERRY_LOG, () -> Blocks.CHERRY_PLANKS, false),
     PALE_OAK("pale_oak", "pale_oak_log", () -> Blocks.PALE_OAK_LOG, () -> Blocks.STRIPPED_PALE_OAK_LOG, () -> Blocks.PALE_OAK_PLANKS, false),
+    /** N89b: Vanilla poplar exists only from 26.3 on; its blocks are looked up by id, the wood counts only where they exist. */
+    POPLAR("poplar"),
     CRIMSON("crimson", "crimson_stem", () -> Blocks.CRIMSON_STEM, () -> Blocks.STRIPPED_CRIMSON_STEM, () -> Blocks.CRIMSON_PLANKS, true),
     WARPED("warped", "warped_stem", () -> Blocks.WARPED_STEM, () -> Blocks.STRIPPED_WARPED_STEM, () -> Blocks.WARPED_PLANKS, true),
     BAMBOO("bamboo", "bamboo_block", () -> Blocks.BAMBOO_BLOCK, () -> Blocks.STRIPPED_BAMBOO_BLOCK, () -> Blocks.BAMBOO_PLANKS, false),
@@ -61,6 +65,19 @@ public enum WoodKind {
         this.woodColor = null;
     }
 
+    /** A Vanilla wood that not every supported Minecraft has (poplar, 26.3+): blocks by id, see {@link #available()}. */
+    WoodKind(String id) {
+        this.id = id;
+        this.log = id + "_log";
+        this.logBlock = () -> lookup("minecraft", id + "_log");
+        this.strippedBlock = () -> lookup("minecraft", "stripped_" + id + "_log");
+        this.planks = () -> lookup("minecraft", id + "_planks");
+        this.nether = false;
+        this.namespace = "minecraft";
+        this.barkColor = null;
+        this.woodColor = null;
+    }
+
     /** A Simple End wood: blocks {@code simpleend:<id>_log}, {@code stripped_<id>_log}, {@code <id>_planks}. */
     WoodKind(String id, MapColor barkColor, MapColor woodColor) {
         this.id = id;
@@ -83,9 +100,12 @@ public enum WoodKind {
         return Arrays.stream(values()).filter(WoodKind::available).toList();
     }
 
-    /** Whether the wood's mod is loaded. */
+    /** Whether the wood's mod is loaded (a Vanilla wood: whether this Minecraft has its log, e.g. poplar only from 26.3 on). */
     public boolean available() {
-        return !this.external() || ModEnvironment.isModLoaded(this.namespace);
+        if (!this.external()) {
+            return BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath("minecraft", this.log));
+        }
+        return ModEnvironment.isModLoaded(this.namespace);
     }
 
     /** {@code minecraft} or {@code simpleend}. */

@@ -38,6 +38,8 @@ WOODS = [
     ("mangrove", "mangrove_log", 0x77362F),
     ("cherry", "cherry_log", 0xD79194),
     ("pale_oak", "pale_oak_log", 0xF5EEEC),
+    # N89b: Vanilla 26.3 poplar (stripped log side average, measured 2026-11-17); the blocks exist only on 26.3+.
+    ("poplar", "poplar_log", 0xA5998C),
     ("crimson", "crimson_stem", 0x89395A),
     ("warped", "warped_stem", 0x399693),
     ("bamboo", "bamboo_block", 0xC1AD50),
@@ -47,8 +49,9 @@ WOODS = [
     ("duskwood", "duskwood_log", 0xB2A493),
 ]
 END_WOODS = ("ashwood", "duskwood")
-# Woods with only a crate (Simple Storage), no SimpleBuilding woodwork: Vanilla 26.3 poplar (PLAN40 simplestorage-2, 12.11.).
-CRATE_ONLY_WOODS = ("poplar",)
+# Woods with only a crate (Simple Storage), no SimpleBuilding woodwork. Poplar (PLAN40 simplestorage-2, 12.11.) has the whole
+# woodwork family since N89b (owner N77 "alles was fehlt": the red poplar sheet cell).
+CRATE_ONLY_WOODS = ()
 MOTIFS = ["angler", "archer", "arms_up", "blade", "brewer", "burn", "danger", "explorer", "flow", "friend",
           "guster", "heart", "heartbreak", "howl", "miner", "mourner", "plenty", "prize", "scrape", "sheaf",
           "shelter", "skull", "snort"]
@@ -74,6 +77,8 @@ CARVE_PAL = {
     "mangrove": (0x5D1C1E, 0x6F2A2D, 0x8B4D3A),
     "cherry": (0x94605C, 0xA27974, 0xE7CAC5),
     "pale_oak": (0x908686, 0x9E9495, 0xFFFBF8),
+    # N89b: poplar planks darkest / third-darkest / lightest (measured 2026-11-17; the lightest equals the stripped log's).
+    "poplar": (0x766665, 0x877974, 0xAAA191),
     "crimson": (0x3F1E2D, 0x4B2737, 0xA04468),
     "warped": (0x113835, 0x1F5752, 0x3DA9A6),
     "bamboo": (0x73652E, 0x96863D, 0xEFD97E),
@@ -209,6 +214,20 @@ CARVINGS = {
         "...######...",
         "...#....#...",
         "..#......#..",
+    ],
+    "poplar": [  # Lombardy poplar: the slim column crown round its trunk, on the ground line (N89b)
+        ".....##.....",
+        "....#..#....",
+        "....#..#....",
+        "...#.##.#...",
+        "...#.##.#...",
+        "...#.##.#...",
+        "...#.##.#...",
+        "...#.##.#...",
+        "....#..#....",
+        ".....##.....",
+        ".....##.....",
+        "...######...",
     ],
     "crimson": [  # crimson fungus with roots
         "...######...",

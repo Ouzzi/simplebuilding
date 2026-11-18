@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": "simplebuilding:hollow_poplar_log",
+    "S": [
+      "simplebuilding:poplar_sheet",
+      "simplebuilding:stripped_poplar_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:poplar_cauldron"
+  }
+}

@@ -284,6 +284,7 @@ public final class BlocksDiscover {
             "simpleblocks:mossy_tuff_bricks",
             "simpleblocks:nature_variants",
             "simpleblocks:nautilus_shell_block",
+            "simpleblocks:nether_brick_fence_gate",
             "simpleblocks:netherrack_slab",
             "simpleblocks:netherrack_stairs",
             "simpleblocks:netherrack_wall",

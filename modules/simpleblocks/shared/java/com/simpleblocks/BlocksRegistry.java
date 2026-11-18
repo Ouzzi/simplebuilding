@@ -21,6 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import com.simpleblocks.nature.IceShapes;
@@ -28,9 +29,10 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 /**
- * Everything Simple Blocks registers: 141 blocks with their block items (+ the 14 aged/waxed copper stages of
+ * Everything Simple Blocks registers: 158 blocks with their block items (+ the 14 aged/waxed copper stages of
  * {@link com.simpleblocks.metal.MetalBlocks}) (plus the 20 nature blocks, 15 of them moved from SimpleBuilding, in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
@@ -126,6 +128,20 @@ public final class BlocksRegistry {
             shapes(color.getName() + "_concrete", Blocks.CONCRETE.pick(color), false, false, true);
         }
     }
+
+    /**
+     * N89b (red cell, owner N77 "alles was fehlt"): the nether brick fence gate Vanilla lacks. Properties of the nether brick fence
+     * (hardness, blast resistance, pickaxe, sound, map colour); open/close sounds of the Nether wood gates. Not in {@code #fence_gates}:
+     * Vanilla puts that tag into {@code mineable/axe}, and the nether brick fence is pickaxe-only too. Fences still connect (by class).
+     */
+    public static final Block NETHER_BRICK_FENCE_GATE = add("nether_brick_fence_gate", Blocks.NETHER_BRICK_FENCE,
+            s -> new FenceGateBlock(WoodType.CRIMSON, s.forceSolidOn()) {
+                // The WoodType constructor sets the Nether wood sound; the gate sounds like nether bricks when placed, broken, walked on.
+                @Override
+                protected net.minecraft.world.level.block.SoundType getSoundType(net.minecraft.world.level.block.state.BlockState state) {
+                    return net.minecraft.world.level.block.SoundType.NETHER_BRICKS;
+                }
+            });
 
     /** Cracked and mossy bricks: full blocks only (no new brick sets); (new path, Vanilla brick it ages). */
     public static final List<String[]> AGED = List.of(
@@ -433,6 +449,7 @@ public final class BlocksRegistry {
         out.add(Placement.after(false, Items.SMOOTH_QUARTZ_SLAB, "smooth_quartz_wall"));
         out.add(Placement.after(false, Items.QUARTZ_BRICKS, "quartz_brick_stairs", "quartz_brick_slab", "quartz_brick_wall"));
         out.add(Placement.after(false, Items.PURPUR_SLAB, "purpur_wall"));
+        out.add(Placement.after(false, Items.NETHER_BRICK_FENCE, "nether_brick_fence_gate")); // N89b
         // N77: each concrete wall right behind its Vanilla concrete slab.
         for (net.minecraft.world.item.DyeColor color : net.minecraft.world.item.DyeColor.values()) {
             out.add(Placement.after(false, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(color.getName() + "_concrete_slab")),

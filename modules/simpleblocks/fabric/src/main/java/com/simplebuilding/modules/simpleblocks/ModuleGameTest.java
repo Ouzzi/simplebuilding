@@ -97,6 +97,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void netherBrickFenceGate(GameTestHelper h) {
+        BlocksTests.ALL.get("nether_brick_fence_gate").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void discoverFirstPickupTips(GameTestHelper h) {
         BlocksTests.ALL.get("discover_first_pickup_tips").accept(h);
     }

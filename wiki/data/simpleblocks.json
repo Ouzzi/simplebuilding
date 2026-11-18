@@ -212,6 +212,7 @@
         "simpleblocks:netherrack_stairs",
         "simpleblocks:netherrack_slab",
         "simpleblocks:netherrack_wall",
+        "simpleblocks:nether_brick_fence_gate",
         "simpleblocks:smooth_basalt_stairs",
         "simpleblocks:smooth_basalt_slab",
         "simpleblocks:smooth_basalt_wall",
@@ -278,7 +279,7 @@
       ],
       "en": {
         "title": "Missing Stairs, Slabs and Walls",
-        "summary": "The stairs, slabs and walls that about twenty Vanilla families lack. Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls; also stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine, and walls of all sixteen concrete colours (N77).",
+        "summary": "The stairs, slabs and walls that about twenty Vanilla families lack. Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls; also stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine, walls of all sixteen concrete colours (N77) and the Nether Brick Fence Gate (N89b: like a wooden gate, crafted from 2 nether bricks and 2 nether brick blocks; mined with a pickaxe like the nether brick fence).",
         "details": [
           "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
           "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
@@ -287,7 +288,7 @@
       },
       "de": {
         "title": "Fehlende Treppen, Stufen und Mauern",
-        "summary": "Die Treppen, Stufen und Mauern, die etwa zwanzig Vanilla-Familien fehlen. Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein; außerdem Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin sowie Mauern aller sechzehn Betonfarben (N77).",
+        "summary": "Die Treppen, Stufen und Mauern, die etwa zwanzig Vanilla-Familien fehlen. Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein; außerdem Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin sowie Mauern aller sechzehn Betonfarben (N77) und das Netherziegelzauntor (N89b: wie ein Holz-Zauntor, aus 2 Netherziegeln und 2 Netherziegelblöcken; abgebaut mit der Spitzhacke wie der Netherziegelzaun).",
         "details": [
           "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
           "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
@@ -12302,6 +12303,42 @@
           {
             "id": "simpleblocks:nautilus_shell_block",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:nether_brick_fence_gate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:nether_brick_fence_gate",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/nether_brick_fence_gate.json",
+      "ingredients": [
+        "minecraft:nether_brick",
+        "minecraft:nether_bricks"
+      ],
+      "pattern": [
+        "#W#",
+        "#W#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:nether_brick"
+        ],
+        "W": [
+          "minecraft:nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 12
           }
         ]
       }
@@ -25205,6 +25242,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/nautilus_shell_block.json"
     },
     {
+      "id": "simpleblocks:blocks/nether_brick_fence_gate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:nether_brick_fence_gate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/nether_brick_fence_gate.json"
+    },
+    {
       "id": "simpleblocks:blocks/netherrack_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -26869,10 +26924,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 33 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 34 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 33 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 34 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -32172,6 +32227,28 @@
       "usedIn": [
         "simpleblocks:nautilus_shell_from_nautilus_shell_block"
       ]
+    },
+    {
+      "id": "simpleblocks:nether_brick_fence_gate",
+      "name": {
+        "en_us": "Nether Brick Fence Gate",
+        "de_de": "Netherziegelzauntor"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java"
+        ],
+        "en": {
+          "summary": "A fence gate of nether bricks, the gate Vanilla's nether brick fence lacks: same hardness and blast resistance as the fence, needs a pickaxe, does not burn, sounds like nether bricks. Opens and closes like a wooden gate and joins nether brick fences."
+        },
+        "de": {
+          "summary": "Ein Zauntor aus Netherziegeln – das Tor, das dem Netherziegelzaun in Vanilla fehlt: gleiche Härte und Explosionsfestigkeit wie der Zaun, braucht eine Spitzhacke, brennt nicht, klingt wie Netherziegel. Öffnet und schließt wie ein Holztor und schließt an Netherziegelzäune an."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:nether_brick_fence_gate"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleblocks:netherrack_slab",
@@ -39981,13 +40058,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 20,
-    "recipes": 730,
-    "lootTables": 282,
+    "recipes": 731,
+    "lootTables": 283,
     "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 284,
+    "blocks": 285,
     "trades": 0,
     "config": 13,
     "quests": 0,
