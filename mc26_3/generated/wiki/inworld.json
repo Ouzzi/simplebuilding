@@ -7411,6 +7411,18 @@
         "table": 3
       },
       {
+        "cooldownTicks": 23,
+        "id": "simplechisels:rose_bronze_chisel",
+        "spatula": false,
+        "table": 0
+      },
+      {
+        "cooldownTicks": 20,
+        "id": "simplechisels:rose_gold_chisel",
+        "spatula": false,
+        "table": 1
+      },
+      {
         "cooldownTicks": 30,
         "id": "simplechisels:stone_chisel",
         "spatula": false,
