@@ -405,14 +405,16 @@ def sided_corner():
 
 def log_corner():
     """N100 (owner 18.11., octet pillar): a log octet shows bark only where the log's skin is - north and west of the base
-    corner (the outside of the block). Its inner faces (south/east, towards the middle of the cell) are cut wood: the end
-    grain texture, the middle rows (v 4-12, no rim above or below) with u at the face's place in the block, so the 1 px rim
-    stays on the outer edge only and the rings run on towards the centre. uvlock turns u with the corner (the band is
-    symmetric in v), so every rotated octet keeps its rim outside."""
+    corner (the outside of the block). Its inner faces (south/east, towards the middle of the cell) are cut wood.
+    N100B (owner 19.11.: "Innenseite zeigt KREISE (Jahresringe), soll LINIEN zeigen (gerade Linien wie Holzmaserung/Stirnseite
+    laengs)"): the inner faces show ONE middle row of the end grain (#up, v 7-8) stretched over the whole octet height - the
+    rings of the top run on as straight lines down the cut, like a log split lengthwise. u stays at the face's place in the
+    block (south u 0-8, east u 8-16), so the row's 1 px bark rim lies on the outer edge only. uvlock mirrors v around the
+    texture centre for the upper octets (x=180): v 8-9, the other middle row - lines there too."""
     corner = sided_corner()
     faces = corner['elements'][0]['faces']
-    faces['south'] = {'texture': '#up', 'uv': [0, 4, 8, 12]}
-    faces['east'] = {'texture': '#up', 'uv': [8, 4, 16, 12]}
+    faces['south'] = {'texture': '#up', 'uv': [0, 7, 8, 8]}
+    faces['east'] = {'texture': '#up', 'uv': [8, 7, 16, 8]}
     return corner
 
 
