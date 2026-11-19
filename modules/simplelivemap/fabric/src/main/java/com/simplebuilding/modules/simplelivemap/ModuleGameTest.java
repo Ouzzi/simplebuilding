@@ -11,6 +11,7 @@ public final class ModuleGameTest {
     @GameTest public void visitPersistence(GameTestHelper h) { LivemapTests.visitPersistence(h); }
     @GameTest public void mapItemsExplore(GameTestHelper h) { LivemapTests.mapItemsExplore(h); }
     @GameTest(structure = "simplelivemap:empty") public void tileColor(GameTestHelper h) { LivemapTests.tileColor(h); }
+    @GameTest(structure = "simplelivemap:empty") public void drawCost(GameTestHelper h) { LivemapTests.drawCost(h); }
     @GameTest public void tileExploredOnly(GameTestHelper h) { LivemapTests.tileExploredOnly(h); }
     @GameTest public void httpDefaultOn(GameTestHelper h) { LivemapTests.httpDefaultOn(h); }
     @GameTest public void httpPortFallback(GameTestHelper h) { LivemapTests.httpPortFallback(h); }

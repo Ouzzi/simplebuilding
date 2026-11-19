@@ -365,6 +365,44 @@ class UploadTests(Base):
         self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM blobs"), 1, "still used by the other map")
 
 
+    def test_manifest_round_drops_tiles_the_mod_no_longer_has(self):
+        import hashlib
+        h = lambda b: hashlib.sha256(b).hexdigest()  # noqa: E731
+        a, b, c = TILE, "minecraft_overworld/4/1/0", "minecraft_overworld.h/4/0/0"
+        self.finish(self.key, {a: png(11), b: png(12), c: png(13)})
+        mid = self.svc.db.value("SELECT id FROM maps")
+        before = self.svc.db.value("SELECT bytes FROM maps")
+        # next start of the server: the mod reports a and c in two chunks; b is gone (e.g. region deleted)
+        self.c.api("POST", "manifest", {"tiles": {a: h(png(11))}, "done": False}, key=self.key)
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM tiles"), 3, "nothing deleted before the round is done")
+        st, d, _ = self.c.api("POST", "manifest", {"tiles": {c: h(png(13))}, "done": True}, key=self.key)
+        self.assertEqual((st, d["need"]), (200, []))
+        self.assertEqual(sorted(r[0] for r in self.svc.db.all("SELECT path FROM tiles")), sorted([a, c]))
+        self.assertEqual(self.svc.db.value("SELECT bytes FROM maps"), before - len(png(12)))
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM blobs"), 2, "blob of b removed")
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM manifest_seen WHERE map_id = ?", mid), 0)
+        # a round that reports nothing never wipes the map
+        self.c.api("POST", "manifest", {"tiles": {}, "done": True}, key=self.key)
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM tiles"), 2)
+
+    def test_interrupted_round_only_adds_up_and_stale_pending_goes(self):
+        import hashlib
+        a, b = TILE, "minecraft_overworld/4/1/0"
+        self.finish(self.key, {a: png(21), b: png(22)})
+        # round 1 breaks off after reporting b (server crash), round 2 reports only a: b was seen in round 1 -> kept
+        self.c.api("POST", "manifest", {"tiles": {b: hashlib.sha256(png(22)).hexdigest()}, "done": False}, key=self.key)
+        self.c.api("POST", "manifest", {"tiles": {a: hashlib.sha256(png(21)).hexdigest()}, "done": True}, key=self.key)
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM tiles"), 2, "interrupted round: union, nothing lost")
+        # a tile asked for in one round that the mod no longer has in the next does not keep the map preparing
+        new = "minecraft_overworld/4/5/5"
+        self.c.api("POST", "manifest", {"tiles": {new: "ab" * 32, a: hashlib.sha256(png(21)).hexdigest()}, "done": True}, key=self.key)
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM pending"), 1)
+        self.c.api("POST", "manifest", {"tiles": {a: hashlib.sha256(png(21)).hexdigest()}, "done": True}, key=self.key)
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM pending"), 0)
+        m = self.svc.db.one("SELECT * FROM maps")
+        self.assertLessEqual(m["done_count"], m["need_count"])
+
+
 class ViewerTests(Base):
     def setUp(self):
         super().setUp()
@@ -412,6 +450,60 @@ class ViewerTests(Base):
         self.svc.share(m, "friend@example.com")
         self.assertEqual(friend.get(base + "/").status, 200, "shared account sees it")
         self.assertEqual(friend.get(base + "/live.json").status, 200)
+
+    def test_link_key_in_own_header(self):
+        """N106/A5: the viewer sends a link map's key as X-Livemap-Token, so basic auth in front of the dev stage still works."""
+        d = self.ready_map("link")
+        key = self.svc.db.value("SELECT view_key FROM maps")
+        anon = Client(self.app, ip="192.0.2.204")
+        base = f"https://livemap.test/m/{d['map']}"
+        self.assertEqual(anon.get(base + "/live.json", headers={"X-Livemap-Token": key, "Authorization": "Basic ZGV2OmRldg=="}).status, 200)
+        self.assertEqual(anon.get(base + f"/tiles/{TILE}.png", headers={"X-Livemap-Token": key}).status, 200)
+        self.assertEqual(anon.get(base + "/live.json", headers={"X-Livemap-Token": "0" * 32}).status, 401)
+        self.assertEqual(anon.get(base + "/live.json", headers={"Authorization": "Basic ZGV2OmRldg=="}).status, 401)
+        page = VIEWER.read_text()
+        self.assertIn('"X-Livemap-Token"', page)
+        self.assertIn('Authorization: "Bearer "', page, "the mod's own server still gets the Authorization header")
+
+    def test_report_link_form_and_admin_decision(self):
+        d = self.ready_map("public")
+        page = VIEWER.read_text()
+        self.assertIn('id="report"', page)
+        self.assertIn('"/report?map="', page)
+        anon = Client(self.app, ip="192.0.2.205")
+        r = anon.get(f"https://livemap.test/report?map={d['map']}")
+        self.assertEqual(r.status, 200)
+        self.assertIn('name="confirm"', r.body.decode())
+        self.assertEqual(anon.get("https://livemap.test/report?map=nope-nope").status, 404)
+        self.assertEqual(anon.get("https://livemap.test/report?map=../x").status, 404)
+        url = f"https://livemap.test/report?map={d['map']}"
+        base = {"map": d["map"], "reason": "illegal", "text": "Hate symbol at x 120 z -40, built from wool.", "confirm": "1"}
+        self.assertEqual(anon.post("https://livemap.test/report", dict(base, confirm=""), page=url).status, 400)
+        self.assertEqual(anon.post("https://livemap.test/report", dict(base, text="short"), page=url).status, 400)
+        self.assertEqual(anon.post("https://livemap.test/report", dict(base, reason="x"), page=url).status, 400)
+        self.assertEqual(anon.post("https://livemap.test/report", dict(base, contact="nope"), page=url).status, 400)
+        r = anon.post("https://livemap.test/report", dict(base, contact="Notifier@Example.com"), page=url)
+        self.assertEqual(r.status, 200, r.body.decode()[:400])
+        self.assertEqual(self.svc.db.value("SELECT contact FROM reports"), "notifier@example.com")
+        self.assertEqual(self.svc.mailer.sent[-1]["to"], "notifier@example.com", "receipt")
+        for _ in range(4):
+            anon.post("https://livemap.test/report", base, page=url)
+        self.assertEqual(anon.post("https://livemap.test/report", base, page=url).status, 429, "5 per hour and address")
+        rid = self.svc.db.value("SELECT MIN(id) FROM reports")
+        self.assertEqual(self.c.post("https://livemap.test/admin", {"action": "report_disconnect", "report": str(rid)}).status, 403)
+        self.assertEqual(self.svc.db.value("SELECT state FROM maps"), "ready", "only developers decide")
+        dev = self.dev()
+        self.assertIn("Hate symbol", dev.get("https://livemap.test/admin").body.decode())
+        dev.post("https://livemap.test/admin", {"action": "report_disconnect", "report": str(rid), "note": "Rule 3"})
+        self.assertEqual(self.svc.db.value("SELECT state FROM maps"), "archived")
+        self.assertEqual(self.svc.db.value("SELECT state FROM reports WHERE id = ?", rid), "actioned")
+        mails = {m["to"]: m for m in self.svc.mailer.sent[-2:]}
+        self.assertIn("alex@example.com", mails, "owner gets the statement of reasons")
+        self.assertIn("Rule 3", mails["alex@example.com"]["text"])
+        self.assertIn("map disconnected", mails["notifier@example.com"]["text"])
+        other = self.svc.db.value("SELECT MAX(id) FROM reports")
+        dev.post("https://livemap.test/admin", {"action": "report_dismiss", "report": str(other)})
+        self.assertEqual(self.svc.db.value("SELECT state FROM reports WHERE id = ?", other), "dismissed")
 
     def test_preparing_page_and_views_limit(self):
         d = connect(self.c, visibility="public")

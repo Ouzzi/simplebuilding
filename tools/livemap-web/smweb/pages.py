@@ -343,6 +343,33 @@ def explore(ctx) -> str:
         "Eine Liste öffentlicher Karten, deren Besitzer zustimmen, kommt nach dem Start."))
 
 
+REASONS = (("illegal", "Illegal content (e.g. hate symbols, threats, criminal material)", "Rechtswidriger Inhalt (z. B. verbotene Symbole, Drohungen, strafbares Material)"),
+           ("privacy", "Personal data or privacy", "Personenbezogene Daten oder Privatsphäre"),
+           ("copyright", "Copyright or trademark", "Urheber- oder Markenrecht"),
+           ("other", "Something else (terms of use)", "Etwas anderes (Nutzungsbedingungen)"))
+
+
+def report_form(ctx, m, f: dict) -> str:
+    """Notice form (legal draft U5, DSA Art. 16): reason, explanation, optional contact, good-faith confirmation."""
+    chosen = f.get("reason", "")
+    opts = "".join(f'<label class="check"><input type="radio" name="reason" value="{k}" required{" checked" if chosen == k else ""}> <span>{ctx.t(en, de)}</span></label>'
+                   for k, en, de in REASONS)
+    contact = f.get("contact", "") or (ctx.user["email"] if ctx.user else "")
+    inner = form(ctx, ctx.url("livemap", "/report"), f"""
+<input type="hidden" name="map" value="{e(m["slug"])}">
+<fieldset><legend>{ctx.t("Reason", "Grund")}</legend>{opts}</fieldset>
+<label>{ctx.t("What is wrong, and where on the map? (coordinates help)", "Was ist nicht in Ordnung, und wo auf der Karte? (Koordinaten helfen)")}<textarea name="text" rows="6" required minlength="10" maxlength="2000">{e(f.get("text", ""))}</textarea></label>
+<label>{ctx.t("Your e-mail (optional - for the receipt and our decision)", "Deine E-Mail (freiwillig – für Eingangsbestätigung und Entscheidung)")}<input type="email" name="contact" value="{e(contact)}" maxlength="254" autocomplete="email"></label>
+<label class="check"><input type="checkbox" name="confirm" value="1" required> <span>{ctx.t(
+        "I am convinced in good faith that the information in this notice is accurate and complete.",
+        "Ich bin in gutem Glauben überzeugt, dass die Angaben in dieser Meldung richtig und vollständig sind.")}</span></label>
+<button class="btn">{ctx.t("Send notice", "Meldung senden")}</button>""", "stack")
+    foot = (f'<p class="mut small">{ctx.t("We store the notice, the map and the time; your address only if you give it. Misuse of the form is not allowed.", "Wir speichern die Meldung, die Karte und die Zeit; deine Adresse nur, wenn du sie angibst. Missbrauch des Formulars ist nicht erlaubt.")}</p>'
+            f'<p class="links"><a href="{e(ctx.url("livemap", "/m/" + m["slug"] + "/"))}">{ctx.t("Back to the map", "Zurück zur Karte")}</a></p>')
+    title = ctx.t("Report a map", "Karte melden")
+    return layout(ctx, title, f'<section class="card narrow auth"><h1>{e(title)}</h1><p>{e(m["name"])} <span class="mut small">/m/{e(m["slug"])}</span></p>{alerts(ctx)}{inner}{foot}</section>')
+
+
 def preparing(ctx, m, progress: int) -> str:
     own = ctx.user is not None and ctx.user["id"] == m["user_id"]
     link = f'<p><a class="btn s" href="{e(ctx.url("livemap", "/app/m/" + str(m["id"])))}">{ctx.t("Open in my maps", "In meinen Karten öffnen")}</a></p>' if own else ""
@@ -602,7 +629,7 @@ def account(ctx, sessions: int, usage: dict) -> str:
 
 
 # -------------------------------------------------------------------- admin
-def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox) -> str:
+def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox, reports=()) -> str:
     order = ctx.cfg.tiers["order"]
     urows = ""
     for u in users:
@@ -626,12 +653,26 @@ def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox) -
     if outbox:
         orows = f'<h2>{ctx.t("Outbox (development)", "Ausgang (Entwicklung)")}</h2><ul class="plain">' + "".join(
             f'<li><b>{e(o["to"])}</b> – {e(o["subject"])}<pre class="mail">{e(o["text"])}</pre></li>' for o in outbox) + "</ul>"
+    names = {k: ctx.t(en, de) for k, en, de in REASONS}
+    rrows = ""
+    for r in reports:
+        hidden = f'<input type="hidden" name="report" value="{r["id"]}">'
+        acts = form(ctx, "/admin", f'{hidden}<input name="note" maxlength="1000" aria-label="{ctx.t("note", "Notiz")}" placeholder="{ctx.t("reason / note", "Begründung / Notiz")}">'
+                    f'<button class="btn small s" name="action" value="report_dismiss">{ctx.t("no action", "keine Maßnahme")}</button>'
+                    f'<button class="btn small" name="action" value="report_disconnect">{ctx.t("disconnect map", "Karte trennen")}</button>', "inline")
+        rrows += (f'<tr><td>{r["id"]}</td><td>{e(when(ctx, r["at"]))}</td><td><a href="/m/{e(r["slug"])}/">{e(r["map_name"] or r["slug"])}</a>'
+                  f'<br><span class="mut small">{e(r["map_state"] or "-")} · {e(owners.get(r["owner_id"], "?"))}</span></td>'
+                  f'<td>{e(names.get(r["reason"], r["reason"]))}</td><td class="small">{e(r["text"])}<br><span class="mut">{e(r["contact"] or "-")}</span></td><td>{acts}</td></tr>')
+    reports_html = (f'<h2>{ctx.t("Notices (open)", "Meldungen (offen)")}</h2>' + (
+        f'<div class="tw"><table class="admin"><thead><tr><th>#</th><th>{ctx.t("Time", "Zeit")}</th><th>{ctx.t("Map", "Karte")}</th><th>{ctx.t("Reason", "Grund")}</th><th>{ctx.t("Notice", "Meldung")}</th><th></th></tr></thead><tbody>{rrows}</tbody></table></div>'
+        if rrows else f'<p class="mut">{ctx.t("No open notices.", "Keine offenen Meldungen.")}</p>'))
     pct = 0 if not storage["quota"] else int(100 * storage["used"] / storage["quota"])
     body = f"""<h1>Admin</h1>{alerts(ctx)}
 <div class="g3"><div class="c"><b>{ctx.t("Storage", "Speicher")}</b><progress max="100" value="{pct}"></progress><p class="small">{size(storage["used"])} / {size(storage["quota"])} · {ctx.t("disk", "Platte")} {storage["disk"]} %</p>
 {form(ctx, "/admin", f'<input type="hidden" name="action" value="maintenance"><button class="btn small s">{ctx.t("Run housekeeping", "Aufräumen")}</button>', "inline")}</div>
 <div class="c"><b>{ctx.t("Queue (preparing)", "Warteschlange (Vorbereitung)")}</b><ol class="plain small">{qrows}</ol><p class="mut small">{ctx.t("upload places", "Upload-Plätze")}: {ctx.cfg["prep_slots"]}</p></div>
 <div class="c"><b>{ctx.t("Noticeable patterns", "Auffällige Muster")}</b><ul class="plain small">{frows}</ul></div></div>
+{reports_html}
 <h2>{ctx.t("Users", "Nutzer")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>E-Mail</th><th>{ctx.t("Role", "Rolle")}</th><th>{ctx.t("Tier", "Stufe")}</th><th>{ctx.t("Maps", "Karten")}</th><th>{ctx.t("Connects", "Verbindungen")}</th><th>{ctx.t("Created", "Erstellt")}</th><th></th></tr></thead><tbody>{urows}</tbody></table></div>
 <h2>{ctx.t("Maps", "Karten")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>{ctx.t("Map", "Karte")}</th><th>{ctx.t("Owner", "Besitzer")}</th><th>{ctx.t("State", "Zustand")}</th><th>{ctx.t("Visibility", "Sichtbarkeit")}</th><th>{ctx.t("Size", "Größe")}</th><th></th></tr></thead><tbody>{mrows}</tbody></table></div>
 {orows}"""

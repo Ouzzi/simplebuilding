@@ -49,7 +49,22 @@ TEXTS = {
                    "Um Spieler zu zeigen, zuerst die Vereinbarung zur Verarbeitung der Spielerdaten annehmen (Kästchen unter dem Schalter)."),
     "coming_soon": ("Paying is coming soon.", "Bezahlen kommt bald."),
     "signature": ("Bad signature.", "Ungültige Signatur."),
+    "report_text": ("Please describe what is wrong (10 to 2000 characters).", "Bitte beschreibe, was nicht in Ordnung ist (10 bis 2000 Zeichen)."),
+    "report_confirm": ("Please confirm that your notice is accurate and complete.", "Bitte bestätige, dass deine Meldung richtig und vollständig ist."),
     # mails
+    "mail_report_subject": ("We received your notice about a Simple Livemap map", "Deine Meldung zu einer Simple-Livemap-Karte ist eingegangen"),
+    "mail_report_body": ("Hello,\n\nwe received your notice about the map {map} (number {id}) and will check it. "
+                         "We will tell you what we decided.\n\nSimple Mods",
+                         "Hallo,\n\nwir haben deine Meldung zur Karte {map} (Nummer {id}) erhalten und prüfen sie. "
+                         "Wir sagen dir, wie wir entschieden haben.\n\nSimple Mods"),
+    "mail_report_done_subject": ("Decision on your notice about a Simple Livemap map", "Entscheidung zu deiner Meldung einer Simple-Livemap-Karte"),
+    "mail_report_done_body": ("Hello,\n\nwe checked your notice number {id} about the map {map}. Decision: {decision}.\n{note}\n\nSimple Mods",
+                              "Hallo,\n\nwir haben deine Meldung Nummer {id} zur Karte {map} geprüft. Entscheidung: {decision}.\n{note}\n\nSimple Mods"),
+    "mail_report_owner_subject": ("Your Simple Livemap map was disconnected", "Deine Simple-Livemap-Karte wurde getrennt"),
+    "mail_report_owner_body": ("Hello,\n\nyour map {map} was disconnected after a notice (reason: {reason}).\n{note}\n"
+                               "The tiles stay in your archive. If you think this is wrong, answer this mail - we check it again.\n\nSimple Mods",
+                               "Hallo,\n\ndeine Karte {map} wurde nach einer Meldung getrennt (Grund: {reason}).\n{note}\n"
+                               "Die Kacheln bleiben in deinem Archiv. Hältst du das für falsch, antworte auf diese Mail – wir prüfen es erneut.\n\nSimple Mods"),
     "mail_verify_subject": ("Confirm your Simple Mods account", "Bestätige dein Simple-Mods-Konto"),
     "mail_verify_body": ("Hello,\n\nplease confirm your e-mail address for your Simple Mods account:\n\n{link}\n\nThe link works for 24 hours. "
                          "If you did not register, ignore this mail.\n\nSimple Mods",

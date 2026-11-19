@@ -3,7 +3,9 @@
 # site's common.conf (CF-Connecting-IP). Access log without query strings, rotated after 7 days (logrotate file of the deploy).
 limit_req_zone $sb_client_ip zone=smweb_auth_@STAGE@:1m rate=10r/m;
 limit_req_zone $sb_client_ip zone=smweb_web_@STAGE@:5m rate=20r/s;
-limit_req_zone $sb_client_ip zone=smweb_api_@STAGE@:5m rate=10r/s;
+# API per address: one host may run up to 13 Ultra maps (live.json every second each + tile bundles) - N106 load test;
+# the per-map upload rate of the tier is enforced in the service.
+limit_req_zone $sb_client_ip zone=smweb_api_@STAGE@:5m rate=40r/s;
 log_format smweb_@STAGE@ '$sb_client_ip [$time_local] "$request_method $uri" $status $body_bytes_sent';
 
 upstream smweb_@STAGE@ { server 127.0.0.1:@PORT@; keepalive 8; }
@@ -21,9 +23,9 @@ server { listen 8081; listen 8084; server_name @LIVEMAP_HOST@;
   access_log /var/log/nginx/smweb-@STAGE@.access.log smweb_@STAGE@;
   client_max_body_size 64k;
   # the mod's upload API has its own key; it stays reachable for game servers also on the dev stage
-  location = /api/v1/tiles { client_max_body_size 9m; limit_req zone=smweb_api_@STAGE@ burst=20 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
-  location = /api/v1/manifest { client_max_body_size 1m; limit_req zone=smweb_api_@STAGE@ burst=20 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
-  location ^~ /api/v1/ { limit_req zone=smweb_api_@STAGE@ burst=20 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
+  location = /api/v1/tiles { client_max_body_size 9m; limit_req zone=smweb_api_@STAGE@ burst=60 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
+  location = /api/v1/manifest { client_max_body_size 1m; limit_req zone=smweb_api_@STAGE@ burst=60 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
+  location ^~ /api/v1/ { limit_req zone=smweb_api_@STAGE@ burst=60 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
   location = /api/stripe/webhook { client_max_body_size 256k; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
   location ^~ /m/ { @DEV_AUTH@ limit_req zone=smweb_web_@STAGE@ burst=200 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
   location / { @DEV_AUTH@ limit_req zone=smweb_web_@STAGE@ burst=40 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; } }

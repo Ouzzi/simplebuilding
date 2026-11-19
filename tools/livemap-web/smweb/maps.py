@@ -16,9 +16,10 @@ from .errors import Problem
 CODE_SECONDS = 15 * 60
 MAX_OPEN_CODES = 3
 VISIBILITIES = ("private", "link", "public")
+REPORT_REASONS = ("illegal", "privacy", "copyright", "other")
 SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{1,30}[a-z0-9])$")
 RESERVED = {"app", "admin", "api", "static", "login", "register", "logout", "pricing", "explore", "self-host", "m", "new",
-            "account", "settings", "simplemods", "livemap", "www", "help", "support", "status"}
+            "account", "settings", "simplemods", "livemap", "www", "help", "support", "status", "report"}
 DEV_TIER = {"name": "Developer", "price_month": 0, "maps": 999, "public": 999, "archive": 999, "archive_days": 3650,
             "views_day": 10**9, "live_seconds": 1, "tile_seconds": 60, "prep_minutes": 0, "priority": 9, "slot_lock_days": 0,
             "shares": -1, "map_mb": 16384, "upload_tiles_min": 50000, "batch_kb": 8192, "custom_name": True}
@@ -180,6 +181,7 @@ class MapsMixin:
                     fields["slug"] = row["slug"]
                 c.execute("UPDATE maps SET " + ", ".join(f"{k} = ?" for k in fields) + " WHERE id = ?", (*fields.values(), old["id"]))
                 c.execute("DELETE FROM pending WHERE map_id = ?", (old["id"],))
+                c.execute("DELETE FROM manifest_seen WHERE map_id = ?", (old["id"],))
                 map_id = old["id"]
             else:
                 fields.update(user_id=user["id"], slug=row["slug"] or self.random_slug(), view_key=secrets.token_hex(16), created_at=now)
@@ -403,6 +405,66 @@ class MapsMixin:
             c.execute("DELETE FROM audit WHERE at < ?", (now - 400 * 86400,))
         for uid in [r[0] for r in self.db.all("SELECT id FROM users")]:
             self.trim_archive(self.user(uid))
+
+    # ---------------------------------------------------------------- notices (legal draft U5, DSA Art. 16/17)
+    def report(self, slug: str, reason: str, text: str, contact: str, confirmed: bool, reporter, ip: str, lang: str) -> int:
+        """Stores a notice about a hosted map (anyone may send one, with or without account); receipt mail when a contact
+        address is given. Rate limited per address (5 per hour) and in total (300 per day)."""
+        m = self.db.one("SELECT * FROM maps WHERE slug = ?", slug or "")
+        if m is None:
+            raise Problem(404, "not_found")
+        if reason not in REPORT_REASONS:
+            raise Problem(400, "bad_request")
+        text = (text or "").strip()
+        if not 10 <= len(text) <= 2000:
+            raise Problem(400, "report_text")
+        if not confirmed:
+            raise Problem(400, "report_confirm")
+        contact = (contact or "").strip()
+        mail = sec.normalize_email(contact) if contact else None
+        if contact and mail is None:
+            raise Problem(400, "email_invalid")
+        if reporter is not None and mail is None:
+            mail = reporter["email"]
+        if not self.limiter.allow(f"report:{ip}", 5, 3600) or not self.limiter.allow("report:all", 300, 86400):
+            raise Problem(429, "too_many")
+        with self.db.tx() as c:
+            rid = c.execute("INSERT INTO reports (at, map_id, slug, reason, text, contact, lang, reporter_id) VALUES (?,?,?,?,?,?,?,?)",
+                            (self.now(), m["id"], m["slug"], reason, text, mail or "", "de" if lang == "de" else "en",
+                             reporter["id"] if reporter else None)).lastrowid
+        if mail:
+            self.mail_text(mail, lang, "mail_report_subject", "mail_report_body", map=m["name"], id=rid)
+        return rid
+
+    def reports(self, state: str = "open", limit: int = 100):
+        return self.db.all("SELECT r.*, m.name AS map_name, m.state AS map_state, m.user_id AS owner_id FROM reports r "
+                           "LEFT JOIN maps m ON m.id = r.map_id WHERE r.state = ? ORDER BY r.at DESC LIMIT ?", state, limit)
+
+    def handle_report(self, rid: int, action: str, actor, note: str = ""):
+        """Developer decision: ``dismiss`` (nothing to do) or ``disconnect`` (map goes to the owner's archive, owner gets
+        the reason - statement of reasons, DSA Art. 17). The notifier hears the decision when a contact is known."""
+        r = self.db.one("SELECT * FROM reports WHERE id = ? AND state = 'open'", rid)
+        if r is None or action not in ("dismiss", "disconnect"):
+            raise Problem(400, "bad_request")
+        note = (note or "").strip()[:1000]
+        m = self.db.one("SELECT * FROM maps WHERE id = ?", r["map_id"]) if r["map_id"] else None
+        if action == "disconnect" and m is not None and m["state"] != "archived":
+            self.disconnect(m, actor["id"])
+            owner = self.user(m["user_id"])
+            if owner:
+                self.mail_text(owner["email"], owner["lang"] or "en", "mail_report_owner_subject", "mail_report_owner_body",
+                               map=m["name"], reason=r["reason"], note=note)
+        with self.db.tx() as c:
+            c.execute("UPDATE reports SET state = ?, handled_at = ?, handled_by = ?, note = ? WHERE id = ?",
+                      ("actioned" if action == "disconnect" else "dismissed", self.now(), actor["id"], note, rid))
+            self.audit(c, actor["id"], "report_" + action, f"report {rid} map {r['map_id']}")
+        if r["contact"]:
+            lang = r["lang"]
+            decision = {"dismiss": ("no action", "keine Maßnahme"), "disconnect": ("map disconnected", "Karte getrennt")}[action]
+            from .i18n import t
+            self.mailer.send(r["contact"], t(lang, "mail_report_done_subject"),
+                             t(lang, "mail_report_done_body", id=r["id"], map=m["name"] if m is not None else r["slug"],
+                               decision=decision[1] if lang == "de" else decision[0], note=note))
 
     def flags(self) -> list[dict]:
         """Admin list 'auffällige Muster' (spec 3): several accounts of one mailbox or one sign-up address, many place changes."""
