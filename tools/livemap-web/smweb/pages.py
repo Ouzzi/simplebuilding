@@ -85,6 +85,7 @@ def layout(ctx, title: str, body: str, wide: bool = False, cls: str = "", brand:
             footer_links.append(f'<a href="{e(legal[key])}">{ctx.t(en, de)}</a>')
     if not any(legal.get(k) for k in ("imprint_url", "privacy_url", "terms_url")):
         footer_links.append(f'<span class="mut">{ctx.t("Legal pages follow before the launch.", "Rechtstexte folgen vor dem Start.")}</span>')
+    footer_links.append(f'<a href="{e(ctx.url("account", "/kontakt"))}">{ctx.t("Contact", "Kontakt")}</a>')
     # section 312k BGB: the cancel button on every page, reachable without login (N108)
     footer_links.append(f'<a href="{e(ctx.url("account", "/kuendigen"))}" class="cancel-link">{ctx.t("Cancel contracts here", "Verträge hier kündigen")}</a>')
     return f"""<!doctype html>
@@ -629,7 +630,7 @@ def account(ctx, sessions: int, usage: dict) -> str:
 
 
 # -------------------------------------------------------------------- admin
-def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox) -> str:
+def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox, coupons=()) -> str:
     order = ctx.cfg.tiers["order"]
     urows = ""
     for u in users:
@@ -662,4 +663,10 @@ def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox) -
 <h2>{ctx.t("Users", "Nutzer")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>E-Mail</th><th>{ctx.t("Role", "Rolle")}</th><th>{ctx.t("Tier", "Stufe")}</th><th>{ctx.t("Maps", "Karten")}</th><th>{ctx.t("Connects", "Verbindungen")}</th><th>{ctx.t("Created", "Erstellt")}</th><th></th></tr></thead><tbody>{urows}</tbody></table></div>
 <h2>{ctx.t("Maps", "Karten")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>{ctx.t("Map", "Karte")}</th><th>{ctx.t("Owner", "Besitzer")}</th><th>{ctx.t("State", "Zustand")}</th><th>{ctx.t("Visibility", "Sichtbarkeit")}</th><th>{ctx.t("Size", "Größe")}</th><th></th></tr></thead><tbody>{mrows}</tbody></table></div>
 {orows}"""
+    # P074: coupons are made in the Stripe dashboard; here only which codes orders used (switch: billing "coupons.enabled")
+    on = ctx.svc.coupons_on()
+    crow = "".join(f"<tr><td>{e(c['coupon'])}</td><td>{c['n']}</td></tr>" for c in coupons)
+    body += (f'<h2>{ctx.t("Coupons", "Gutscheine")}</h2><p class="mut small">{ctx.t("Code field in the checkout:", "Codefeld im Bezahlschritt:")} '
+             f'{ctx.t("on", "an") if on else ctx.t("off", "aus")} · {ctx.t("codes are made in the Stripe dashboard", "Codes werden im Stripe-Dashboard angelegt")}</p>'
+             f'<div class="tw"><table><tr><th>Code</th><th>{ctx.t("Orders", "Bestellungen")}</th></tr>{crow}</table></div>')
     return layout(ctx, "Admin", body, wide=True)

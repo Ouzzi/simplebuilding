@@ -75,8 +75,8 @@ def legal_links(svc, lang: str) -> str:
 
 def render(kind: str, lang: str, svc, **p) -> tuple[str, str]:
     de = lang == "de"
-    contact = svc.cfg.get("contact") or {}
-    sign = ("\n\nSimple Mods" + (f"\nKontakt: {contact['general']}" if de and contact.get("general") else f"\nContact: {contact['general']}" if contact.get("general") else "")
+    addr = svc.contact_address("allgemein")
+    sign = ("\n\nSimple Mods" + ((f"\nKontakt: {addr}" if de else f"\nContact: {addr}") if addr else "")
             + ("\nVerträge hier kündigen: " if de else "\nCancel contracts here: ") + svc.cfg.url("account", "/kuendigen"))
     plans = svc.cfg.plans["plans"]
     name = lambda k: (plans.get(k) or {}).get("name", k)  # noqa: E731
@@ -104,6 +104,22 @@ def render(kind: str, lang: str, svc, **p) -> tuple[str, str]:
                 f"- Term: {interval_text(p['interval'], lang)}\n- Price: {money(p['cents'], lang)} per {'year' if p['interval'] == 'year' else 'month'} ({vat})\n"
                 f"- Order number: {p['order_id']}\n- Contract made: {stamp(p['at'], lang)}\n\n{waiver}\n\nContract text and notices:\n"
                 f"{legal_links(svc, lang)}\n\nManage the subscription: {svc.cfg.url('account', '/pro/manage')}{sign}")
+    if kind == "gift":
+        if de:
+            return (f"Bestellbestätigung Geschenk-Abo Simple Mods Pro {name(p['plan'])}",
+                    f"Hallo,\n\ndanke für dein Geschenk. Vertragsdaten:\n\n- Geschenk: Simple Mods Pro {name(p['plan'])} für {p['months']} "
+                    f"{'Monat' if p['months'] == 1 else 'Monate'} (Einmalzahlung, endet automatisch)\n- Minecraft-Name(n): {p['names']}\n"
+                    f"- Preis: {money(p['cents'], lang)} ({vat})\n- Gültig: {day(p['starts'], lang)} bis {day(p['ends'], lang)}\n"
+                    f"- Bestellnummer: {p['order_id']}\n- Vertragsschluss: {stamp(p['at'], lang)}\n\n"
+                    f"Den Namen kannst du alle {int(svc.gift_cfg()['change_days'])} Tage ändern: {svc.cfg.url('account', '/pro/gifts')}\n\n"
+                    f"{'Du hast den sofortigen Beginn verlangt; dein Widerrufsrecht erlischt nach § 356 Abs. 4/5 BGB.' if p['waiver'] else 'Ohne vorzeitigen Beginn startet das Geschenk nach Ablauf der Widerrufsfrist.'}\n\n"
+                    f"Vertragstext und Belehrungen:\n{legal_links(svc, lang)}{sign}")
+        return (f"Order confirmation gift Simple Mods Pro {name(p['plan'])}",
+                f"Hello,\n\nthank you for your gift. Contract data:\n\n- Gift: Simple Mods Pro {name(p['plan'])} for {p['months']} month(s) "
+                f"(one-off payment, ends by itself)\n- Minecraft name(s): {p['names']}\n- Price: {money(p['cents'], lang)} ({vat})\n"
+                f"- Valid: {day(p['starts'], lang)} to {day(p['ends'], lang)}\n- Order number: {p['order_id']}\n- Contract made: {stamp(p['at'], lang)}\n\n"
+                f"Change the name every {int(svc.gift_cfg()['change_days'])} days: {svc.cfg.url('account', '/pro/gifts')}\n\n"
+                f"Contract text and notices:\n{legal_links(svc, lang)}{sign}")
     if kind == "invoice":
         links = "\n".join(x for x in (p.get("link"), p.get("pdf")) if x) or svc.cfg.url("account", "/pro/manage")
         if de:

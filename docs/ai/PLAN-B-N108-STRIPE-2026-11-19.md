@@ -93,3 +93,36 @@ Arbeitsweise: Plan → Umsetzung → Test. Keine echten Stripe-Aufrufe (alles ge
 | P038 | Social Screen + Chat | Screenshot + Screen innerhalb 30 s → Post-Ansicht; ab Max Upload in Cloud-Galerie; manuell wählen/hochladen; persistente Chat-Komponente (Server-Kommunikation) + Keybind „letzten Chat öffnen“ |
 
 Technische Einordnung: Mod-Vorzüge fragen künftig ein Entitlement-Endpoint des Kontos ab (Perk-Schlüssel wie `cape_iron`, `keybind_cloud_10`); die Perk-Liste je Stufe kommt in `plans.json` `perks`. Bau erst nach Teil 2.
+
+## 7. Nachtrag 2 – Besitzer-Antwort Teil 2 (19.11.2026, `antwort-teil2.md`, Liste vollständig)
+
+Arbeitsweise wie oben. Datenschutz-Regel: Betreiberdaten nur in `/root/.config/sb-betreiber.json` (600) auf dem Zielrechner; wird von
+B **nie geöffnet**. Im Repo nur `{{betreiber.*}}`; Füllung beim Deploy mit `tools/livemap-web/fill_legal.py`.
+
+| # | Punkt | Entwurf (Entscheidung B) |
+|---|---|---|
+| 1 | Stufen | Basic / Max / Ultra endgültig (seit Nachtrag 1 umgesetzt). |
+| 2 | P070 Wechsel ohne Rückzahlung | Stufenwechsel nur über `/pro/manage` → „Wechsel zum Periodenende“: Stripe-Abo-Zeitplan (aktuelle Phase bis Periodenende, danach neuer Preis, `proration_behavior: none`); Jahresabo: neuer Monatspreis nach dem Jahr. Kundenportal: Stufenwechsel AUS (sonst sofortige Proration), Kündigung zum Periodenende, Zahlungsart, Rechnungen. Vorgemerkter Wechsel sichtbar + zurücknehmbar. Gesetzliche Rechte (z. B. außerordentliche Kündigung, Mängel) bleiben – AGB-Hinweis. |
+| 3 | P074 Gutscheine | Checkout `allow_promotion_codes` (Config `coupons.enabled`, Standard an) **oder** Code auf der Bestellseite → Lookup `promotion_codes?code=` → `discounts[0][promotion_code]`; Code wird an der Bestellung gespeichert. Admin-Seite: Liste der zuletzt genutzten Codes (Anzahl). `stripe_setup.py` legt **keine** Codes/Coupons an (Test prüft das). Codes legt der Besitzer später im Stripe-Dashboard an. |
+| 4 | P068 Geschenk-Abo | Einmalzahlung (Checkout `mode=payment`) für Stufe × Monate (Config `gifts.months` [1, 3, 12], Preis = Monatspreis × Monate), gebunden an Minecraft-Namen (3–16 Zeichen `[A-Za-z0-9_]`). Namen je Geschenk: Config `gifts.names` (basic 1, max 1, ultra 2). Wechsel frühestens alle 7 Tage (`gifts.change_days`). Läuft von Bezahlung (bzw. nach Widerrufsfrist ohne Zustimmung) bis + Monate×30 Tage, endet ohne Verlängerung, keine Kündigung nötig. Vorzüge über den Namen: `GET /api/v1/mc/<name>` (für künftige Mod-Vorzüge: Umhänge, Abzeichen …), ratenbegrenzt. Kein Livemap-Tier (Livemap hängt am Konto); optional späteres „einlösen ins Konto“ (Plan). Tabellen `gifts`, `gift_names`. |
+| 5 | Kontaktformular | `account.simplemods.de/kontakt` (simplemods.de verlinkt): Name, E-Mail, Thema (allgemein/Datenschutz/Meldung), Nachricht ≤ 5000; Honeypot-Feld, Mindest-Ausfüllzeit 3 s (signierter Zeitstempel), Ratenlimit je Adresse/E-Mail, CSRF; Versand über den Mail-Hook an `contact.form_to` (Server-Config, nicht im Repo), Reply-To = Absender; keine Kopie an den Absender (kein Spam-Relais). |
+| 6 | Rechtstexte | vollständig selbst geschrieben, nur Betreiberdaten als `{{betreiber.*}}`; Kopfzeile intern „ungeprüft – vor Zahlungsstart anwaltlich prüfen“; Dateien: impressum, datenschutz, agb, widerruf (Belehrung + Muster-Formular), kuendigung (Kündigungsbutton-Text). Zahlungen bleiben AUS bis Prüfung + Gewerbeanmeldung. |
+| 6a | Kontaktadressen | Teil 2 ersetzt Teil 1: verbindlich `{{betreiber.email}}`. Die simplemods-Adressen (kontakt@/datenschutz@/melden@ via Cloudflare Email Routing) sind eine **Option**: Server-Config `contact.mode` = `betreiber` (Standard) \| `simplemods` (+ `contact.addresses`), `fill_legal.py --contact-file`. Die in Teil 1 fest eingetragenen Adressen sind aus Texten und Code entfernt bzw. config-gesteuert. |
+| 7 | P050/P053/P079 | als Flags in `plans.json` (`flags`): Stimmgewicht Basic 1 / Max 2 / Ultra 3 (ohne Abo 1? → 0 = keine Gewichtung über 1 hinaus; Free-Wert `free_flags`), Credits ab Basic, Wiki-Einstellungen ab Basic; Themes für alle (kein Flag). Abfrage `svc.flags(user)`; Nutzung in Wiki/Abstimmung erst mit den jeweiligen Funktionen. |
+
+### Schlüssel der Betreiberdatei (`sb-betreiber.json`, nur auf dem Zielrechner)
+`name` (Pflicht), `anschrift` (Pflicht, mehrzeilig mit `\n`), `email` (Pflicht), `telefon` (optional), `ustid` (optional),
+`kleinunternehmer` (true/false, Pflicht), `wirtschafts_id` (optional). Fehlt ein Pflichtschlüssel oder bleibt ein `{{…}}` stehen, bricht
+`fill_legal.py` ab. Bedingte Blöcke: `{{#wenn betreiber.x}}…{{#sonst}}…{{/wenn}}`.
+
+### Nach dem Release (nur Plan, nicht bauen)
+| ID | Was | Stufe/Zugang |
+|---|---|---|
+| P060 | Rezept-Rechner (Web) | alle, ohne Abo |
+| P061 | Seed-Karte (wie seedbase) | alle, ohne Abo |
+| P062 | Farbpaletten (Web) | alle, ohne Abo |
+| P063 | Modpack-Konfigurator, Loader Fabric/NeoForge/Forge | mit Abo direkter Download, ohne Abo Weg über Modrinth/CurseForge |
+| P021 / P023 / P031 / P036 / P038 | Umhänge, Abzeichen, Recipes-Import, Keybind-Profile, Social Screen + Chat | Stufen wie Abschnitt 6 |
+| P053 | Credits in den Minecraft-Credits (Abspann) | ab Basic (Flag `credits` schon da) |
+| P099 | Statistik-Profil inkl. Vanilla-Statistiken | Stufe offen |
+Mod-Vorzüge lesen künftig `GET /api/v1/mc/<name>` (Geschenk) bzw. ein Konto-Endpoint; Perk-Schlüssel in `plans.json`.

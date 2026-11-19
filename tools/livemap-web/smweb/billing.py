@@ -19,6 +19,7 @@ from __future__ import annotations
 import hashlib
 import hmac
 import json
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -33,6 +34,8 @@ TOLERANCE = 300
 ENTITLED = ("active", "trialing")
 GRACE = ("past_due",)
 RENEWAL_BUFFER = 2 * 86400
+MC_NAME_RE = re.compile(r"^[A-Za-z0-9_]{3,16}$")
+COUPON_RE = re.compile(r"^[A-Za-z0-9_-]{2,40}$")
 API = "https://api.stripe.com/v1/"
 
 
@@ -157,6 +160,23 @@ class BillingMixin:
         v.update(self.bcfg("vat") or {})
         return v
 
+    def contact_address(self, kind: str = "allgemein") -> str:
+        """Public contact address from the server config: the operator's (default) or a forwarding address (mode "addresses")."""
+        c = self.cfg.get("contact") or {}
+        if c.get("mode") == "addresses" and (c.get("addresses") or {}).get(kind):
+            return c["addresses"][kind]
+        return c.get("operator_email") or ""
+
+    def plan_flags(self, user) -> dict:
+        """P050/P053/P079 flags of the account's plan in effect (plans.json "flags"; without plan "free_flags")."""
+        base = dict(self.cfg.plans.get("free_flags") or {})
+        ent = self.entitlement(user) if user is not None else None
+        p = self.plan(ent["plan"]) if ent else None
+        if p is None and ent:     # lite seat: flags of its lite definition
+            p = self.cfg.plans.get("lite", {}).get(ent["plan"])
+        base.update((p or {}).get("flags") or {})
+        return base
+
     def mail_on(self, kind: str) -> bool:
         return bool((self.bcfg("mails") or {}).get(kind, True))
 
@@ -178,7 +198,7 @@ class BillingMixin:
         return self.db.one("SELECT * FROM subscriptions WHERE user_id = ? AND status IN ('active', 'trialing', 'past_due', 'incomplete') "
                            "ORDER BY updated_at DESC LIMIT 1", uid)
 
-    def start_order(self, user, plan: str, interval: str, terms: bool, waiver: bool, lang: str = "de") -> str:
+    def start_order(self, user, plan: str, interval: str, terms: bool, waiver: bool, lang: str = "de", coupon: str = "") -> str:
         """Records the order with its consents and returns the Stripe Checkout URL (subscription mode)."""
         if not self.billing_on():
             raise Problem(503, "coming_soon")
@@ -197,10 +217,12 @@ class BillingMixin:
             raise Problem(429, "too_many")
         now = self.now()
         cents = p["price_month"] if interval == "month" else p["price_year"]
+        discounts = self.coupon_discount(coupon)      # unknown code: error before anything is stored
         with self.db.tx() as c:
-            cur = c.execute("INSERT INTO orders (user_id, plan, interval, price_cents, terms_version, terms_at, waiver, waiver_text, created_at) "
-                            "VALUES (?,?,?,?,?,?,?,?,?)", (user["id"], plan, interval, cents, self.bcfg("terms_version", "draft"), now,
-                                                           1 if waiver else 0, billing_mail.waiver_text(lang) if waiver else "", now))
+            cur = c.execute("INSERT INTO orders (user_id, plan, interval, price_cents, terms_version, terms_at, waiver, waiver_text, created_at, coupon) "
+                            "VALUES (?,?,?,?,?,?,?,?,?,?)", (user["id"], plan, interval, cents, self.bcfg("terms_version", "draft"), now,
+                                                             1 if waiver else 0, billing_mail.waiver_text(lang) if waiver else "", now,
+                                                             (coupon or "").strip()[:40] or None))
             oid = cur.lastrowid
             self.audit(c, user["id"], "order", f"order {oid} {plan}/{interval} waiver={1 if waiver else 0}")
         meta = {"order": str(oid), "plan": plan, "interval": interval, "user": str(user["id"])}
@@ -210,7 +232,11 @@ class BillingMixin:
                 "cancel_url": acc(f"/pro/order?plan={plan}&interval={interval}"),
                 "locale": "de" if lang == "de" else "en", "metadata": meta, "subscription_data": {"metadata": meta},
                 "custom_text": {"submit": {"message": billing_mail.submit_note(lang)}}}
-        if self.bcfg("allow_promotion_codes"):
+        if not waiver:   # legal texts: without the early-start consent the first payment comes when the perks start (trial = withdrawal period)
+            data["subscription_data"]["trial_period_days"] = int(self.bcfg("withdrawal_days", 14))
+        if discounts:
+            data["discounts"] = discounts
+        elif self.coupons_on():
             data["allow_promotion_codes"] = True
         if user["billing_customer"]:
             data["customer"] = user["billing_customer"]
@@ -288,12 +314,18 @@ class BillingMixin:
         return None
 
     def on_checkout_completed(self, obj: dict):
+        meta = obj.get("metadata") or {}
+        if meta.get("kind") == "gift" or obj.get("mode") == "payment":
+            user = self.user_for(obj)
+            order = self.db.one("SELECT * FROM orders WHERE id = ? AND kind = 'gift'", int(meta["order"])) if str(meta.get("order", "")).isdigit() else None
+            if user and order and order["user_id"] == user["id"]:
+                self.on_gift_paid(obj, order, user)
+            return
         if obj.get("mode") not in (None, "subscription"):
             return
         user = self.user_for(obj)
         if user is None:
             return
-        meta = obj.get("metadata") or {}
         order = self.db.one("SELECT * FROM orders WHERE id = ? AND user_id = ?", int(meta["order"]), user["id"]) if str(meta.get("order", "")).isdigit() else None
         sub_id = obj.get("subscription") if isinstance(obj.get("subscription"), str) else None
         if order and sub_id and order["interval"] == "year":
@@ -368,6 +400,7 @@ class BillingMixin:
                        order_id, created, self.now()))
             if user and obj.get("customer") and not user["billing_customer"]:
                 c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (obj["customer"], user["id"]))
+            c.execute("UPDATE subscriptions SET pending_plan = NULL WHERE id = ? AND (pending_plan = ? OR ? = 'canceled')", (sid, plan, status))
         if user:
             self.recompute(user["id"])
 
@@ -488,6 +521,245 @@ class BillingMixin:
         sub = self.db.one("SELECT * FROM subscriptions WHERE user_id = ? ORDER BY updated_at DESC LIMIT 1", user["id"])
         row = self.db.one("SELECT * FROM entitlements WHERE user_id = ?", user["id"])
         return {"sub": dict(sub) if sub else None, "ent": dict(row) if row else None, "effective": self.entitlement(user)}
+
+    # ---------------------------------------------------------------- coupons (P074): Stripe promotion codes, none made by us
+    def coupons_on(self) -> bool:
+        c = self.bcfg("coupons")
+        if isinstance(c, dict):
+            return bool(c.get("enabled", True))
+        return bool(self.bcfg("allow_promotion_codes", True))
+
+    def coupon_discount(self, code: str) -> list | None:
+        """[{"promotion_code": id}] for a code typed on our order page; Problem when unknown/inactive; None without a code."""
+        code = (code or "").strip()
+        if not code:
+            return None
+        if not self.coupons_on() or not COUPON_RE.match(code):
+            raise Problem(400, "coupon_invalid")
+        found = (self.stripe("GET", "promotion_codes", {"code": code, "active": True, "limit": 1}).get("data") or [])
+        if not found:
+            raise Problem(400, "coupon_invalid")
+        return [{"promotion_code": found[0]["id"]}]
+
+    def apply_coupon(self, data: dict, code: str):
+        discounts = self.coupon_discount(code)
+        if discounts:
+            data["discounts"] = discounts           # Stripe: discounts and allow_promotion_codes exclude each other
+        elif self.coupons_on():
+            data["allow_promotion_codes"] = True
+
+    # ---------------------------------------------------------------- plan change at the period end (P070: no refunds)
+    def change_plan(self, user, plan: str) -> dict:
+        """Up- or downgrade takes effect at the end of the paid period, without proration (subscription schedule: current
+        phase until the period end, then the new plan's monthly price). The same call with the current plan undoes a pending change."""
+        if not self.billing_on():
+            raise Problem(503, "coming_soon")
+        plan = PLAN_ALIAS.get(plan, plan)
+        sub = self.active_subscription(user["id"])
+        if sub is None or self.plan(plan) is None or sub["status"] not in ENTITLED:
+            raise Problem(400, "bad_request")
+        current = PLAN_ALIAS.get(sub["plan"], sub["plan"])
+        if plan == current and not sub["pending_plan"]:
+            return {"pending": None}
+        new_price = self.price_id(plan, "month")
+        cur_price = self.price_id(current, sub["interval"] if sub["interval"] in ("month", "year") else "month")
+        if not new_price or not cur_price:
+            raise Problem(400, "bad_request")
+        sched_id = sub["schedule_id"]
+        if sched_id:
+            sched = self.stripe("GET", f"subscription_schedules/{sched_id}")
+        else:
+            sched = self.stripe("POST", "subscription_schedules", {"from_subscription": sub["id"]}, idem=f"sched-change-{sub['id']}-{sub['period_end']}")
+            sched_id = sched["id"]
+        phase = (sched.get("phases") or [{}])[0]
+        self.stripe("POST", f"subscription_schedules/{sched_id}", {
+            "end_behavior": "release", "proration_behavior": "none",
+            "metadata": {"plan": current, "next": plan, "kind": "change_at_period_end"},
+            "phases": [{"items": [{"price": cur_price, "quantity": 1}], "start_date": phase.get("start_date"), "end_date": sub["period_end"] or phase.get("end_date"),
+                        "proration_behavior": "none"},
+                       {"items": [{"price": new_price, "quantity": 1}], "iterations": 1, "proration_behavior": "none",
+                        "metadata": {"plan": plan}}]}, idem=f"change-{sub['id']}-{plan}-{sub['period_end']}")
+        pending = None if plan == current else plan
+        with self.db.tx() as c:
+            c.execute("UPDATE subscriptions SET schedule_id = ?, pending_plan = ? WHERE id = ?", (sched_id, pending, sub["id"]))
+            self.audit(c, user["id"], "plan_change", f"{current} -> {plan} at {sub['period_end']}")
+        return {"pending": pending, "at": sub["period_end"]}
+
+    # ---------------------------------------------------------------- gift subscriptions (P068), bound to a Minecraft name
+    def gift_cfg(self) -> dict:
+        g = {"months": [1, 3, 12], "names": {"basic": 1, "max": 1, "ultra": 2}, "change_days": 7, "days_per_month": 30}
+        g.update(self.cfg.plans.get("gifts") or {})
+        return g
+
+    def clean_names(self, plan: str, names) -> list[str]:
+        out = []
+        for n in names:
+            n = (n or "").strip()
+            if not n:
+                continue
+            if not MC_NAME_RE.match(n):
+                raise Problem(400, "mc_name_invalid")
+            if n.lower() not in [x.lower() for x in out]:
+                out.append(n)
+        if not out or len(out) > int(self.gift_cfg()["names"].get(plan, 1)):
+            raise Problem(400, "mc_name_count", max=int(self.gift_cfg()["names"].get(plan, 1)))
+        return out
+
+    def start_gift(self, user, plan: str, months: int, names, terms: bool, waiver: bool, lang: str = "de", coupon: str = "") -> str:
+        if not self.billing_on():
+            raise Problem(503, "coming_soon")
+        plan = PLAN_ALIAS.get(plan, plan)
+        p = self.plan(plan)
+        if p is None or months not in self.gift_cfg()["months"]:
+            raise Problem(400, "bad_request")
+        names = self.clean_names(plan, names)
+        if not user["verified_at"]:
+            raise Problem(403, "verify_first")
+        if not terms:
+            raise Problem(400, "terms_needed")
+        if not self.limiter.allow(f"order:{user['id']}", 10, 3600):
+            raise Problem(429, "too_many")
+        now = self.now()
+        cents = p["price_month"] * months
+        with self.db.tx() as c:
+            oid = c.execute("INSERT INTO orders (user_id, plan, interval, price_cents, terms_version, terms_at, waiver, waiver_text, created_at, kind, months, coupon) "
+                            "VALUES (?,?,'once',?,?,?,?,?,?,'gift',?,?)", (user["id"], plan, cents, self.bcfg("terms_version", "draft"), now,
+                                                                            1 if waiver else 0, billing_mail.waiver_text(lang) if waiver else "", now,
+                                                                            months, (coupon or "").strip()[:40] or None)).lastrowid
+            gid = c.execute("INSERT INTO gifts (buyer_id, order_id, plan, months, state, created_at) VALUES (?,?,?,?, 'pending', ?)",
+                            (user["id"], oid, plan, months, now)).lastrowid
+            for n in names:
+                c.execute("INSERT INTO gift_names (gift_id, mc_name, mc_lower, set_at) VALUES (?,?,?,?)", (gid, n, n.lower(), now))
+            self.audit(c, user["id"], "order", f"gift order {oid} {plan} x{months}")
+        meta = {"kind": "gift", "order": str(oid), "gift": str(gid), "plan": plan, "months": str(months), "user": str(user["id"])}
+        acc = lambda path: self.cfg.url("account", path)  # noqa: E731
+        label = f"Simple Mods Pro {p['name']} – {'Geschenk' if lang == 'de' else 'gift'} {months} " + (("Monat" if months == 1 else "Monate") if lang == "de" else ("month" if months == 1 else "months"))
+        data = {"mode": "payment", "client_reference_id": str(user["id"]), "locale": "de" if lang == "de" else "en", "metadata": meta,
+                "line_items": [{"quantity": 1, "price_data": {"currency": "eur", "unit_amount": cents, "product_data": {"name": label},
+                                                              "tax_behavior": "inclusive"}}],
+                "payment_intent_data": {"metadata": meta, "statement_descriptor_suffix": "GESCHENK"},
+                "success_url": acc("/pro/gifts?done=1"), "cancel_url": acc(f"/pro/gift?plan={plan}"),
+                "custom_text": {"submit": {"message": billing_mail.submit_note(lang)}}}
+        if user["billing_customer"]:
+            data["customer"] = user["billing_customer"]
+        else:
+            data["customer_email"] = user["email"]
+            data["customer_creation"] = "always"
+        if self.vat()["stripe_tax"]:
+            data["automatic_tax"] = {"enabled": True}
+            data["billing_address_collection"] = "required"
+        self.apply_coupon(data, coupon)
+        session = self.stripe("POST", "checkout/sessions", data, idem=f"order-{oid}")
+        with self.db.tx() as c:
+            c.execute("UPDATE orders SET session_id = ? WHERE id = ?", (session.get("id"), oid))
+        if not session.get("url"):
+            raise Problem(502, "payment_error")
+        return session["url"]
+
+    def on_gift_paid(self, obj: dict, order, user):
+        if obj.get("payment_status") not in (None, "paid", "no_payment_required"):
+            return
+        gift = self.db.one("SELECT * FROM gifts WHERE order_id = ?", order["id"])
+        if gift is None or gift["state"] != "pending":
+            return
+        now = self.now()
+        starts = now if order["waiver"] else now + int(self.bcfg("withdrawal_days", 14)) * 86400
+        ends = starts + gift["months"] * int(self.gift_cfg()["days_per_month"]) * 86400
+        with self.db.tx() as c:
+            c.execute("UPDATE gifts SET state = 'active', starts_at = ?, ends_at = ? WHERE id = ?", (starts, ends, gift["id"]))
+            c.execute("UPDATE orders SET completed_at = ?, session_id = COALESCE(session_id, ?) WHERE id = ?", (now, obj.get("id"), order["id"]))
+            if obj.get("customer") and not user["billing_customer"]:
+                c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (obj["customer"], user["id"]))
+            self.audit(c, user["id"], "gift", f"gift {gift['id']} active until {ends}")
+        names = [r["mc_name"] for r in self.gift_names(gift["id"])]
+        if self.mail_on("order"):
+            self.billing_mail(user, "gift", plan=gift["plan"], months=gift["months"], cents=order["price_cents"], names=", ".join(names),
+                              starts=starts, ends=ends, waiver=bool(order["waiver"]), at=now, order_id=order["id"])
+
+    def gift_names(self, gift_id: int):
+        return self.db.all("SELECT * FROM gift_names WHERE gift_id = ? AND removed_at IS NULL ORDER BY id", gift_id)
+
+    def gifts_of(self, uid: int) -> list[dict]:
+        out = []
+        for g in self.db.all("SELECT * FROM gifts WHERE buyer_id = ? AND state != 'pending' ORDER BY id DESC", uid):
+            names = self.gift_names(g["id"])
+            last = max([n["set_at"] for n in names] or [0])
+            out.append({**dict(g), "names": [n["mc_name"] for n in names],
+                        "change_from": last + int(self.gift_cfg()["change_days"]) * 86400})
+        return out
+
+    def gift_rename(self, user, gift_id: int, names) -> list[str]:
+        g = self.db.one("SELECT * FROM gifts WHERE id = ? AND buyer_id = ?", gift_id, user["id"])
+        now = self.now()
+        if g is None or g["state"] != "active" or (g["ends_at"] or 0) <= now:
+            raise Problem(404, "not_found")
+        names = self.clean_names(g["plan"], names)
+        cur = self.gift_names(g["id"])
+        if sorted(n.lower() for n in names) == sorted(n["mc_lower"] for n in cur):
+            return names
+        last = max([n["set_at"] for n in cur] or [0])
+        wait = last + int(self.gift_cfg()["change_days"]) * 86400
+        if now < wait:
+            raise Problem(429, "mc_name_wait", date=time.strftime("%d.%m.%Y", time.gmtime(wait)))
+        with self.db.tx() as c:
+            c.execute("UPDATE gift_names SET removed_at = ? WHERE gift_id = ? AND removed_at IS NULL", (now, g["id"]))
+            for n in names:
+                c.execute("INSERT INTO gift_names (gift_id, mc_name, mc_lower, set_at) VALUES (?,?,?,?)", (g["id"], n, n.lower(), now))
+            self.audit(c, user["id"], "gift_rename", f"gift {g['id']}")
+        return names
+
+    def mc_entitlement(self, name: str) -> dict:
+        """Perks bound to a Minecraft name by active gifts (for mod perks; public, rate limited at the API)."""
+        if not MC_NAME_RE.match(name or ""):
+            raise Problem(400, "mc_name_invalid")
+        now = self.now()
+        rank = {k: i for i, k in enumerate(self.cfg.plans["order"])}
+        rows = self.db.all("SELECT g.* FROM gift_names n JOIN gifts g ON g.id = n.gift_id WHERE n.mc_lower = ? AND n.removed_at IS NULL "
+                           "AND g.state = 'active' AND g.starts_at <= ? AND g.ends_at > ?", name.lower(), now, now)
+        if not rows:
+            return {"name": name, "plan": None, "perks": [], "flags": dict(self.cfg.plans.get("free_flags") or {})}
+        best = max(rows, key=lambda g: (rank.get(g["plan"], -1), g["ends_at"]))
+        p = self.plan(best["plan"]) or {}
+        flags = dict(self.cfg.plans.get("free_flags") or {})
+        flags.update(p.get("flags") or {})
+        perks = [x for x in p.get("perks", []) if x not in ("livemap", "lite_seats")]   # account-bound perks stay with accounts
+        return {"name": name, "plan": best["plan"], "perks": perks, "flags": flags, "until": max(g["ends_at"] for g in rows if g["plan"] == best["plan"])}
+
+    # ---------------------------------------------------------------- contact form (second contact path, owner part 2)
+    def contact_token(self) -> str:
+        ts = str(self.now())
+        return ts + "." + sec.hmac_hex(self.cfg.secret, "contact", ts)[:24]
+
+    def contact_form(self, f: dict, ip: str) -> bool:
+        """Sends the message to the configured address (Reply-To = sender). Honeypot or a too fast form = silently dropped
+        (True, so bots learn nothing); never a copy to the sender (no spam relay)."""
+        if (f.get("website") or "").strip():
+            return True
+        ts, _, sig = (f.get("t") or "").partition(".")
+        if not ts.isdigit() or not sec.same(sig, sec.hmac_hex(self.cfg.secret, "contact", ts)[:24]):
+            raise Problem(403, "csrf")
+        age = self.now() - int(ts)
+        if age < 3:
+            return True
+        if age > 7200:
+            raise Problem(403, "csrf")
+        email = sec.normalize_email(f.get("email", ""))
+        if not email:
+            raise Problem(400, "email_invalid")
+        name = " ".join((f.get("name") or "").split())[:80]
+        topic = f.get("topic") if f.get("topic") in ("allgemein", "datenschutz", "melden") else "allgemein"
+        message = (f.get("message") or "").strip()
+        if not (10 <= len(message) <= 5000):
+            raise Problem(400, "contact_message")
+        if not self.limiter.allow(f"contact:{ip}", 5, 3600) or not self.limiter.allow(f"contact-mail:{email}", 3, 3600):
+            raise Problem(429, "too_many")
+        to = (self.cfg.get("contact") or {}).get("form_to") or self.contact_address(topic)
+        if not to:
+            raise Problem(503, "contact_off")
+        clean = "".join(ch for ch in message if ch.isprintable() or ch in "\n\t")
+        subject = f"[Kontaktformular/{topic}] {name or email}"[:120]
+        self.mailer.send(to, subject, f"Thema: {topic}\nVon: {name} <{email}>\n\n{clean}\n", reply_to=email)
+        return True
 
     # ---------------------------------------------------------------- fellow-player seats "lite" (P039, owner 19.11.)
     def lite_offer(self, user) -> tuple[str, int] | None:
@@ -626,6 +898,8 @@ class BillingMixin:
     # ---------------------------------------------------------------- housekeeping
     def billing_maintenance(self):
         """Safety net for lost webhooks: start after the withdrawal period, expiry, end of grace; notice before the year ends."""
+        with self.db.tx() as c:
+            c.execute("UPDATE gifts SET state = 'ended' WHERE state = 'active' AND ends_at <= ?", (self.now(),))
         uids = {r[0] for r in self.db.all("SELECT user_id FROM entitlements")} | \
                {r[0] for r in self.db.all("SELECT user_id FROM subscriptions WHERE user_id IS NOT NULL")} | \
                {r[0] for r in self.db.all("SELECT member_id FROM lite_seats WHERE removed_at IS NULL")}

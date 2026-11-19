@@ -35,7 +35,9 @@ DEFAULTS = {
     "plans_file": str(ROOT / "plans.json"),
     "plans": {},
     "early_access": {"dir": "", "accel_prefix": ""},
-    "contact": {"general": "kontakt@simplemods.de", "privacy": "datenschutz@simplemods.de", "abuse": "melden@simplemods.de"},
+    # Owner answer part 2 (19.11.): binding contact = the operator's address (server config only, never in the repo); separate
+    # forwarding addresses (e.g. Cloudflare Email Routing) are an option: mode "addresses". form_to = target of the contact form.
+    "contact": {"mode": "operator", "operator_email": "", "addresses": {"allgemein": "", "datenschutz": "", "melden": ""}, "form_to": ""},
     "legal": {"imprint_url": "", "privacy_url": "", "terms_url": "", "withdrawal_url": "", "withdrawal_form_url": ""},
 }
 

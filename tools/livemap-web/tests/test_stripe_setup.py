@@ -90,6 +90,9 @@ class StripeSetupTests(unittest.TestCase):
         self.assertEqual(posts.count("prices"), 6)
         self.assertEqual(posts.count("webhook_endpoints"), 1)
         self.assertEqual(posts.count("billing_portal/configurations"), 1)
+        self.assertFalse([p for p in posts if p.startswith(("coupons", "promotion_codes"))], "P074: no codes are made")
+        portal = next(d for m, p, d, i in self.fake.calls if p == "billing_portal/configurations" and m == "POST")
+        self.assertFalse(portal["features"]["subscription_update"]["enabled"], "P070: no immediate prorated switch in the portal")
         prods = [d for m, p, d, i in self.fake.calls if p == "products" and m == "POST"]
         self.assertTrue(all(d["statement_descriptor"] == "SIMPLEMODS" for d in prods))
         ep = next(d for m, p, d, i in self.fake.calls if p == "webhook_endpoints" and m == "POST")

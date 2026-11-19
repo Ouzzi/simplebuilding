@@ -9,6 +9,7 @@ Safe by default:
 - The secret key is read at runtime from an env file (default ``/root/.config/sb-keys.env``, variable ``STRIPE_SECRET_KEY``);
   it is never printed, logged or written anywhere (the service reads it the same way: billing ``key_file`` + ``key_var``).
 - Test mode first: a live key (``sk_live_``/``rk_live_``) is refused without ``--live``.
+- Coupons (P074): creates NO coupons or promotion codes; the owner makes them later in the dashboard.
 - Run it again any time: existing objects are found (product ids, price lookup keys, endpoint URL, portal metadata) and reused;
   a changed amount makes a new price and moves the lookup key (prices are immutable at Stripe), the old one is archived.
 
@@ -139,15 +140,14 @@ class Setup:
         return ep["id"], ep.get("secret")
 
     def portal(self, prices: dict) -> str:
-        products = [{"product": f"smpro_{k}", "prices": [prices[k]["month"], prices[k]["year"]]} for k in self.plans["order"]]
         data = {"business_profile": {"headline": "Simple Mods Pro"},
                 "default_return_url": self.return_url,
                 "features": {"customer_update": {"enabled": True, "allowed_updates": ["email", "address", "name", "tax_id"]},
                              "invoice_history": {"enabled": True}, "payment_method_update": {"enabled": True},
                              "subscription_cancel": {"enabled": True, "mode": "at_period_end",
                                                      "cancellation_reason": {"enabled": True, "options": ["too_expensive", "unused", "other"]}},
-                             "subscription_update": {"enabled": True, "default_allowed_updates": ["price"], "proration_behavior": "create_prorations",
-                                                     "products": products}},
+                             # P070 (owner 19.11.): plan changes only on our page, at the period end, without proration -> off here
+                             "subscription_update": {"enabled": False}},
                 "metadata": {"sm_key": PORTAL_KEY}}
         if self.legal.get("privacy_url"):
             data["business_profile"]["privacy_policy_url"] = self.legal["privacy_url"]

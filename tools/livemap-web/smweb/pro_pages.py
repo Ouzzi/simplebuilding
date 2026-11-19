@@ -16,7 +16,7 @@ def page(ctx, title: str, body: str, wide: bool = False) -> str:
 def legal_link(ctx, key: str, en: str, de: str) -> str:
     url = ctx.cfg["legal"].get(key)
     label = ctx.t(en, de)
-    return f'<a href="{e(url)}" target="_blank" rel="noopener">{label}</a>' if url else f'{label} <span class="mut small">({ctx.t("draft, follows before the start", "Entwurf, folgt vor dem Start")})</span>'
+    return f'<a href="{e(url)}" target="_blank" rel="noopener">{label}</a>' if url else f'{label} <span class="mut small">({ctx.t("linked before the start", "wird vor dem Start verlinkt")})</span>'
 
 
 def perk_lines(ctx, plan: dict) -> list[str]:
@@ -79,6 +79,7 @@ def index(ctx) -> str:
 <div class="c"><b>{ctx.t("Early access", "Frühzugang")}</b><p>{ctx.t(
         "New versions are available here first. Modrinth and CurseForge get each version with the next update (always one version behind) - starting with the first update after the release. No promise of dates or content.",
         "Neue Versionen gibt es hier zuerst. Modrinth und CurseForge bekommen jede Version mit dem nächsten Update (immer eine Version zurück) – ab dem ersten Update nach dem Release. Keine Zusage zu Terminen oder Inhalten.")}</p></div>
+<div class="c"><b>{ctx.t("Give as a gift", "Verschenken")}</b><p>{ctx.t("Simple Mods Pro for a fellow player's Minecraft name, 1, 3 or 12 months, ends by itself.", "Simple Mods Pro für den Minecraft-Namen eines Mitspielers, 1, 3 oder 12 Monate, endet automatisch.")}</p><p><a class="btn small s" href="{e(ctx.url("account", "/pro/gift"))}">{ctx.t("Give", "Verschenken")}</a></p></div>
 <div class="c"><b>{ctx.t("Cancel", "Kündigen")}</b><p>{ctx.t(
         "Monthly: any time to the end of the paid month. Yearly: to the end of the 12 months; then monthly. Button “Cancel contracts here” at the bottom of every page.",
         "Monatlich: jederzeit zum Ende des bezahlten Monats. Jährlich: zum Ende der 12 Monate, danach monatlich. Schaltfläche „Verträge hier kündigen“ unten auf jeder Seite.")}</p></div>
@@ -114,6 +115,7 @@ def order(ctx, plan_key: str, interval: str, f: dict | None = None) -> str:
     inner = f"""<input type="hidden" name="plan" value="{e(plan_key)}"><input type="hidden" name="interval" value="{e(interval)}">
 <label class="check"><input type="checkbox" name="terms" value="1" required{chk("terms")}><span>{terms} <b>*</b></span></label>
 <label class="check"><input type="checkbox" name="waiver" value="1"{chk("waiver")}><span>{e(waiver)}<br><span class="mut small">{ctx.t(f"Voluntary. Without it the perks start after the withdrawal period ({days} days); the first payment is due anyway.", f"Freiwillig. Ohne dieses Häkchen starten die Vorzüge erst nach Ablauf der Widerrufsfrist ({days} Tage); die erste Zahlung ist trotzdem fällig.")}</span></span></label>
+<label>{ctx.t("Coupon code (optional)", "Gutscheincode (optional)")}<input name="coupon" maxlength="40" value="{e(f.get("coupon", ""))}"></label>
 <p class="mut small">* {ctx.t("required", "Pflichtfeld")}</p>
 <button class="btn order-button">zahlungspflichtig bestellen</button>"""
     body = f"""<h1>{ctx.t("Your order", "Deine Bestellung")}</h1>{alerts(ctx)}
@@ -166,10 +168,90 @@ def manage(ctx, view: dict) -> str:
         table = "".join(f'<tr><th scope="row">{k}</th><td>{v}</td></tr>' for k, v in lines)
         portal = form(ctx, "/pro/manage", f'<input type="hidden" name="action" value="portal"><button class="btn">{ctx.t("Customer portal (payment method, invoices, change plan)", "Kundenportal (Zahlungsart, Rechnungen, Stufe wechseln)")}</button>', "inline")
         inner = f'<div class="tw"><table class="summary">{table}</table></div>{portal}'
-    body = f"""<h1>{ctx.t("My subscription", "Mein Abo")}</h1>{alerts(ctx)}<section class="c">{inner}</section>{lite_block(ctx)}
+    body = f"""<h1>{ctx.t("My subscription", "Mein Abo")}</h1>{alerts(ctx)}<section class="c">{inner}</section>{change_block(ctx, view)}{lite_block(ctx)}
 <section class="c"><h2>{ctx.t("Cancel", "Kündigen")}</h2><p>{ctx.t("You can cancel any time to the end of the paid period.", "Du kannst jederzeit zum Ende des bezahlten Zeitraums kündigen.")}</p>
 <p><a class="btn s" href="{e(ctx.url("account", "/kuendigen"))}">{ctx.t("Cancel contracts here", "Verträge hier kündigen")}</a></p></section>"""
     return page(ctx, ctx.t("My subscription", "Mein Abo"), body)
+
+
+def change_block(ctx, view: dict) -> str:
+    """P070: change the plan at the end of the paid period (no refund, no proration)."""
+    sub = view["sub"]
+    if not sub or sub["status"] not in ("active", "trialing"):
+        return ""
+    plans = ctx.cfg.plans
+    cur = sub["plan"]
+    pending = sub.get("pending_plan")
+    opts = "".join(f'<option value="{k}"{" selected" if k == (pending or cur) else ""}>{e(plans["plans"][k]["name"])}</option>' for k in plans["order"])
+    note = (ctx.t(f"Change to {plans['plans'][pending]['name']} on {when(ctx, sub['period_end'])}.", f"Wechsel zu {plans['plans'][pending]['name']} am {when(ctx, sub['period_end'])}.")
+            if pending and pending in plans["plans"] else "")
+    inner = (f'<input type="hidden" name="action" value="change"><label>{ctx.t("New plan from the next period", "Neue Stufe ab dem nächsten Zeitraum")}'
+             f'<select name="plan">{opts}</select></label><button class="btn small">{ctx.t("Change at the period end", "Zum Periodenende wechseln")}</button>')
+    return (f'<section class="c"><h2>{ctx.t("Change plan", "Stufe wechseln")}</h2><p>{ctx.t("Up- and downgrades take effect at the end of the paid period; there is no refund or credit for the running period.", "Up- und Downgrades gelten ab dem Ende des bezahlten Zeitraums; für den laufenden Zeitraum gibt es keine Rückzahlung oder Gutschrift.")}</p>'
+            f'{"<p><b>" + e(note) + "</b></p>" if note else ""}{form(ctx, "/pro/manage", inner, "stack")}</section>')
+
+
+def gift_order(ctx, plan_key: str, f: dict | None = None) -> str:
+    svc = ctx.svc
+    f = f or {}
+    plans = ctx.cfg.plans
+    g = svc.gift_cfg()
+    p = plans["plans"][plan_key]
+    vat = vat_note(svc.vat(), ctx.lang)
+    plan_opts = "".join(f'<option value="{k}"{" selected" if k == plan_key else ""}>{e(plans["plans"][k]["name"])} – {euro(ctx, plans["plans"][k]["price_month"])} {ctx.t("per month", "pro Monat")}</option>' for k in plans["order"])
+    month_opts = "".join(f'<option value="{m}"{" selected" if str(m) == f.get("months", "") else ""}>{m} {ctx.t("month(s)", "Monat(e)")}</option>' for m in g["months"])
+    n = int(g["names"].get(plan_key, 1))
+    names = "".join(f'<label>{ctx.t("Minecraft name", "Minecraft-Name")} {i + 1}<input name="mc{i}" maxlength="16" pattern="[A-Za-z0-9_]{{3,16}}" value="{e(f.get(f"mc{i}", ""))}"{" required" if i == 0 else ""}></label>' for i in range(n))
+    terms = (ctx.t("I have read and accept the ", "Ich habe die ") + legal_link(ctx, "terms_url", "terms", "AGB")
+             + ctx.t(" and the ", " und die ") + legal_link(ctx, "withdrawal_url", "withdrawal notice", "Widerrufsbelehrung") + ctx.t(".", " gelesen und akzeptiere sie."))
+    chk = lambda name: " checked" if f.get(name) == "1" else ""  # noqa: E731
+    inner = f"""<label>{ctx.t("Plan", "Stufe")}<select name="plan">{plan_opts}</select></label>
+<label>{ctx.t("Duration (one-off payment, ends by itself)", "Dauer (Einmalzahlung, endet automatisch)")}<select name="months">{month_opts}</select></label>
+{names}<p class="mut small">{ctx.t(f"The gift is bound to the Minecraft name(s); you can change them every {g['change_days']} days. {n} name(s) for {p['name']}.", f"Das Geschenk gilt für den/die Minecraft-Namen; du kannst sie alle {g['change_days']} Tage ändern. {n} Name(n) bei {p['name']}.")}</p>
+<label>{ctx.t("Coupon code (optional)", "Gutscheincode (optional)")}<input name="coupon" maxlength="40" value="{e(f.get("coupon", ""))}"></label>
+<p>{ctx.t("Price:", "Preis:")} {ctx.t("monthly price × months", "Monatspreis × Monate")} <span class="mut small">({e(vat)})</span></p>
+<label class="check"><input type="checkbox" name="terms" value="1" required{chk("terms")}><span>{terms} <b>*</b></span></label>
+<label class="check"><input type="checkbox" name="waiver" value="1"{chk("waiver")}><span>{e(waiver_text(ctx.lang))}</span></label>
+<button class="btn order-button">zahlungspflichtig bestellen</button>"""
+    body = f"""<h1>{ctx.t("Give Simple Mods Pro", "Simple Mods Pro verschenken")}</h1>{alerts(ctx)}
+<p class="sub">{ctx.t("For a fellow player's Minecraft name – perks of the plan that belong to the name (e.g. future in-game perks), early access; no account needed for the receiver.", "Für den Minecraft-Namen eines Mitspielers – die Vorzüge der Stufe, die am Namen hängen (z. B. künftige Vorzüge im Spiel), Frühzugang; der Beschenkte braucht kein Konto.")}</p>
+<section class="c">{form(ctx, "/pro/gift", inner, "stack")}</section>"""
+    return page(ctx, ctx.t("Gift", "Geschenk"), body)
+
+
+def gifts(ctx, items: list[dict]) -> str:
+    rows = ""
+    for g in items:
+        plan = ctx.cfg.plans["plans"].get(g["plan"], {}).get("name", g["plan"])
+        n = int(ctx.svc.gift_cfg()["names"].get(g["plan"], 1))
+        fields = "".join(f'<input name="mc{i}" maxlength="16" aria-label="Minecraft {i + 1}" value="{e(g["names"][i] if i < len(g["names"]) else "")}">' for i in range(n))
+        can = g["state"] == "active" and ctx.svc.now() >= g["change_from"]
+        change = form(ctx, "/pro/gifts", f'<input type="hidden" name="gift" value="{g["id"]}">{fields}<button class="btn small s"{"" if can else " disabled"}>{ctx.t("Change name", "Namen ändern")}</button>', "inline") if g["state"] == "active" else ""
+        wait = "" if can or g["state"] != "active" else f'<span class="mut small">{ctx.t("changeable from", "änderbar ab")} {e(when(ctx, g["change_from"]))}</span>'
+        rows += (f'<li class="c"><b>Simple Mods Pro {e(plan)}</b> · {g["months"]} {ctx.t("month(s)", "Monat(e)")} · {e(", ".join(g["names"]))}'
+                 f'<br><span class="mut small">{e(when(ctx, g["starts_at"]))} – {e(when(ctx, g["ends_at"]))} · {e(g["state"])}</span><br>{change} {wait}</li>')
+    body = f"""<h1>{ctx.t("My gifts", "Meine Geschenke")}</h1>{alerts(ctx)}
+<ul class="plain stack">{rows or f'<li class="c">{ctx.t("No gifts yet.", "Noch keine Geschenke.")}</li>'}</ul>
+<p><a class="btn" href="{e(ctx.url("account", "/pro/gift"))}">{ctx.t("Give Simple Mods Pro", "Simple Mods Pro verschenken")}</a></p>"""
+    return page(ctx, ctx.t("My gifts", "Meine Geschenke"), body)
+
+
+def contact(ctx, f: dict | None = None, sent: bool = False) -> str:
+    if sent:
+        return page(ctx, ctx.t("Message sent", "Nachricht gesendet"), f'<section class="card narrow"><h1>{ctx.t("Thank you", "Danke")}</h1><p>{ctx.t("Your message is on its way. We answer by e-mail.", "Deine Nachricht ist unterwegs. Wir antworten per E-Mail.")}</p></section>')
+    f = f or {}
+    topics = (("allgemein", ctx.t("General", "Allgemein")), ("datenschutz", ctx.t("Privacy", "Datenschutz")), ("melden", ctx.t("Report content", "Inhalt melden")))
+    opts = "".join(f'<option value="{k}"{" selected" if f.get("topic") == k else ""}>{v}</option>' for k, v in topics)
+    inner = f"""<input type="hidden" name="t" value="{e(ctx.svc.contact_token())}">
+<label>{ctx.t("Name (optional)", "Name (optional)")}<input name="name" maxlength="80" value="{e(f.get("name", ""))}" autocomplete="name"></label>
+<label>{ctx.t("Your e-mail address (for the answer)", "Deine E-Mail-Adresse (für die Antwort)")}<input type="email" name="email" required maxlength="254" value="{e(f.get("email", ""))}" autocomplete="email"></label>
+<label>{ctx.t("Topic", "Thema")}<select name="topic">{opts}</select></label>
+<label>{ctx.t("Message", "Nachricht")}<textarea name="message" required minlength="10" maxlength="5000" rows="7">{e(f.get("message", ""))}</textarea></label>
+<div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<p class="mut small">{ctx.t("We use your data only to answer (privacy notice). No copy is sent to you.", "Wir nutzen deine Angaben nur zur Antwort (Datenschutzerklärung). Eine Kopie an dich wird nicht verschickt.")}</p>
+<button class="btn">{ctx.t("Send", "Senden")}</button>"""
+    body = f'<section class="card narrow"><h1>{ctx.t("Contact", "Kontakt")}</h1>{alerts(ctx)}{form(ctx, "/kontakt", inner, "stack")}</section>'
+    return page(ctx, ctx.t("Contact", "Kontakt"), body)
 
 
 def lite_block(ctx) -> str:

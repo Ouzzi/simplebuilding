@@ -168,3 +168,4 @@ pre.mail { white-space: pre-wrap; background: var(--field); border: 1px solid #0
 label.check input[type=checkbox] { width: 20px; height: 20px; flex: none; accent-color: var(--green); }
 .plan .btn { margin-top: 10px; }
 table.summary th { width: 30%; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }

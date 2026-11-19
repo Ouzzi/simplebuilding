@@ -61,6 +61,11 @@ class FakeStripe:
                    "phases": [{"start_date": start, "end_date": start + 365 * 86400}], "end_behavior": "release"}
             self.objects[sid] = obj
             return obj
+        if method == "GET" and parts[0] == "subscription_schedules" and len(parts) == 2:
+            return self.objects[parts[1]]
+        if method == "GET" and path == "promotion_codes":
+            return {"object": "list", "data": [o for o in self.objects.values() if o.get("object") == "promotion_code"
+                                                and o.get("code") == d.get("code") and o.get("active", True)]}
         if method == "POST" and parts[0] == "subscription_schedules" and len(parts) == 3 and parts[2] == "release":
             return {**self.objects.get(parts[1], {"id": parts[1]}), "status": "released"}
         if method == "POST" and parts[0] == "subscription_schedules" and len(parts) == 2:

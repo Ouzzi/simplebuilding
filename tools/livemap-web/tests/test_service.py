@@ -576,8 +576,8 @@ class PricingTests(Base):
                 self.assertIn(f'data-year="{fmt(p * months)}"', page, f"{name}: yearly price")
         self.assertIn("data-show", (ROOT / "static/app.js").read_text(encoding="utf-8"), "the toggle shows the struck price")
         agb = (ROOT.parents[1] / "docs/legal/agb.md").read_text(encoding="utf-8")
-        q = " ".join(agb[agb.index("11.3 **Jahresabo**"):agb.index("11.4 ")].replace("**", "").split())
-        self.assertIn("auf unbestimmte Zeit mit monatlicher Abrechnung zum Monatspreis", q)
+        q = " ".join(agb[agb.index("13.2 **Jahresabo"):agb.index("13.3 ")].replace("**", "").split())   # numbering of the full text (N108 part 2)
+        self.assertIn("auf unbestimmte Zeit mit monatlicher Abrechnung zum dann geltenden Monatspreis", q)
         self.assertIn("jederzeit zum Ende des bezahlten Monats kündbar", q)
         self.assertNotIn("Variante C", q, "Q1 = A decided: no other variants left")
 

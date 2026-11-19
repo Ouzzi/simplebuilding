@@ -29,7 +29,7 @@ MAX_TILES_BODY = 8 * 1024 * 1024 + 1024
 MAX_WEBHOOK = 256 * 1024
 MAX_MANIFEST_BODY = 1024 * 1024
 ACCOUNT_PATHS = {"/login", "/register", "/forgot", "/reset", "/verify", "/logout", "/resend", "/pro", "/pro/order", "/pro/done",
-                 "/pro/manage", "/kuendigen", "/early"}
+                 "/pro/manage", "/kuendigen", "/early", "/kontakt", "/pro/gift", "/pro/gifts"}
 EARLY_F_RE = re.compile(r"^/early/f/([A-Za-z0-9][A-Za-z0-9._+-]{0,150}\.(?:jar|zip))$")
 # Forms may also lead to Stripe (303 after the order/portal POST; browsers apply form-action to the redirect target too).
 STRIPE_FORMS = "https://checkout.stripe.com https://billing.stripe.com"
@@ -304,7 +304,7 @@ class App:
         if path == "/resend" and req.method == "POST" and ctx.user:
             svc.send_verify(ctx.user["id"])
             return self.redirect(ctx.url("livemap", "/app?sent=1"), ctx)
-        if path.startswith("/pro") or path == "/kuendigen" or path.startswith("/early"):
+        if path.startswith("/pro") or path in ("/kuendigen", "/kontakt") or path.startswith("/early"):
             return self.pro_site(ctx)
         raise Problem(404, "not_found")
 
@@ -317,6 +317,15 @@ class App:
         req, svc, path = ctx.req, self.svc, ctx.req.path
         if path == "/pro":
             return self.html(ctx, 200, pro_pages.index(ctx), cache="no-cache")
+        if path == "/kontakt":
+            if req.method == "POST":
+                try:
+                    svc.contact_form(req.form, req.ip)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.contact(ctx, req.form))
+                return self.html(ctx, 200, pro_pages.contact(ctx, sent=True))
+            return self.html(ctx, 200, pro_pages.contact(ctx))
         if path == "/kuendigen":
             if req.method == "POST":
                 f = req.form
@@ -342,12 +351,39 @@ class App:
                 return self.redirect(ctx.url("account", "/pro/manage"), ctx)
             if req.method == "POST":
                 try:
-                    url = svc.start_order(user, plan, interval, req.form.get("terms") == "1", req.form.get("waiver") == "1", ctx.lang)
+                    url = svc.start_order(user, plan, interval, req.form.get("terms") == "1", req.form.get("waiver") == "1", ctx.lang,
+                                          req.form.get("coupon", ""))
                     return self.redirect(url, ctx)
                 except Problem as p:
                     ctx.error = ctx.problem_text(p)
                     return self.html(ctx, p.status, pro_pages.order(ctx, plan, interval, req.form))
             return self.html(ctx, 200, pro_pages.order(ctx, plan, interval))
+        if path == "/pro/gift":
+            plan = PLAN_ALIAS.get(req.form.get("plan") or req.query.get("plan") or "max", req.form.get("plan") or req.query.get("plan") or "max")
+            if svc.plan(plan) is None:
+                plan = svc.cfg.plans["order"][0]
+            if not svc.billing_on():
+                ctx.flash = ctx.problem_text(Problem(503, "coming_soon"))
+            if req.method == "POST":
+                f = req.form
+                try:
+                    names = [f.get(f"mc{i}", "") for i in range(4)]
+                    url = svc.start_gift(user, plan, int_or(f.get("months")) or 0, names, f.get("terms") == "1", f.get("waiver") == "1", ctx.lang, f.get("coupon", ""))
+                    return self.redirect(url, ctx)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.gift_order(ctx, plan, req.form))
+            return self.html(ctx, 200, pro_pages.gift_order(ctx, plan))
+        if path == "/pro/gifts":
+            if req.method == "POST":
+                try:
+                    svc.gift_rename(user, int_or(req.form.get("gift")) or 0, [req.form.get(f"mc{i}", "") for i in range(4)])
+                    ctx.flash = ctx.t("Name changed.", "Name geändert.")
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+            elif req.query.get("done"):
+                ctx.flash = ctx.t("Thank you! The gift is active as soon as the payment is confirmed.", "Danke! Das Geschenk ist aktiv, sobald die Zahlung bestätigt ist.")
+            return self.html(ctx, 200, pro_pages.gifts(ctx, svc.gifts_of(user["id"])))
         if path == "/pro/done":
             return self.html(ctx, 200, pro_pages.done(ctx, svc.subscription_view(user)))
         if path == "/pro/manage":
@@ -355,7 +391,11 @@ class App:
             try:
                 if action == "portal":
                     return self.redirect(svc.portal(user), ctx)
-                if action == "lite_add":
+                if action == "change":
+                    r = svc.change_plan(user, req.form.get("plan", ""))
+                    ctx.flash = ctx.t("Change planned for the end of the period." if r.get("pending") else "No change planned.",
+                                      "Wechsel zum Periodenende vorgemerkt." if r.get("pending") else "Kein Wechsel vorgemerkt.")
+                elif action == "lite_add":
                     svc.lite_add(user, req.form.get("email", ""))
                     ctx.flash = ctx.t("Seat given.", "Platz vergeben.")
                 elif action == "lite_remove":
@@ -680,7 +720,8 @@ class App:
         owners = {u["id"]: u["email"] for u in svc.db.all("SELECT id, email FROM users")}
         storage = {"used": svc.storage_used(), "quota": svc.cfg["storage_quota_gb"] * 1024 ** 3, "disk": svc.disk_percent()}
         return self.html(ctx, 200, pages.admin(ctx, users, maps, owners, svc.queue(), storage, svc.flags(),
-                                               svc.mailer.recent() if svc.mailer.uses_outbox else []))
+                                               svc.mailer.recent() if svc.mailer.uses_outbox else [],
+                                               svc.db.all("SELECT coupon, COUNT(*) AS n FROM orders WHERE coupon IS NOT NULL GROUP BY coupon ORDER BY n DESC LIMIT 50")))
 
     # ---------------------------------------------------------------- API (mod, Stripe)
     def api(self, req: Request, site: str) -> Response:
@@ -695,6 +736,10 @@ class App:
             if not path.startswith("/api/v1/"):
                 raise Problem(404, "not_found")
             name = path[8:]
+            if name.startswith("mc/") and req.method == "GET":     # P068: perks bound to a Minecraft name (gifts), for the mods
+                if not svc.limiter.allow(f"mc:{req.ip}", 60, 60):
+                    raise Problem(429, "too_many", retry_after=60)
+                return self.json(200, svc.mc_entitlement(name[3:]), cache="public, max-age=300")
             if name == "connect" and req.method == "POST":
                 return self.json(200, svc.api_connect(parse_json(req.body), req.ip))
             m = svc.map_by_key(req.headers.get("authorization"))

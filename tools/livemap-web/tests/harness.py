@@ -195,6 +195,7 @@ def billing_mock(svc: Service, app: App, host: str, data: str):
                        "vat": {"mode": "small_business", "rate_percent": 19, "stripe_tax": False}, "grace_days": 7, "withdrawal_days": 14,
                        "terms_version": "entwurf-2026-11-19"}
     svc.stripe_api = fake = fs.FakeStripe(checkout_base=f"http://{host}/_mock/checkout/", now=svc.now)
+    svc.cfg.v["contact"] = {"mode": "operator", "operator_email": "betreiber@example.invalid", "form_to": "", "addresses": {}}
     early = os.path.join(data, "early")
     os.makedirs(os.path.join(early, "files"), exist_ok=True)
     for name in ("simplelib-fabric-26.3-1.4.0.jar", "simplebuilding-fabric-26.3-1.4.0.jar"):

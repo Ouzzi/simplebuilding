@@ -72,3 +72,16 @@ Pictures: `python3 tests/harness.py --port 8797 --billing-mock` (fake Stripe + l
 5. Dev click test (owner/A): `/pro` → order → test card 4242… → `/pro/done` → `/pro/manage` → portal → `/kuendigen`; `stripe trigger`
    or a test clock for renewal/failed payment; check mails in the dev outbox.
 6. Prod only after the lawyer-checked texts: same steps with the live key and `--live`, prod URLs, `enabled: true`.
+
+### Owner answer part 2 (19.11.) – what else is in
+- Plan change only at the period end, no proration (P070): `/pro/manage` „Stufe wechseln“ → subscription schedule; portal switching off.
+- Coupons (P074): Checkout code field (`billing.coupons.enabled`, default on) or a code on the order page; admin page lists used codes;
+  `stripe_setup.py` makes **no** codes.
+- Gift subscriptions (P068): `/pro/gift`, `/pro/gifts`; one-off payment, bound to Minecraft name(s) (`plans.json` `gifts`), name change
+  every 7 days; perks per name: `GET /api/v1/mc/<name>` (livemap host).
+- Contact form: `account.simplemods.de/kontakt` (honeypot, 3-s minimum, rate limits); target = server config `contact.form_to` or the
+  contact address. Contact addresses: `contact.mode` `operator` (default: `operator_email`) or `addresses` (forwarding addresses).
+- Flags P050/P053/P079: `plans.json` `flags`/`free_flags`, `svc.plan_flags(user)`.
+- Legal texts: `docs/legal/*.md` complete with `{{betreiber.*}}`/`{{kontakt.*}}`; render at deploy on the target host:
+  `python3 tools/livemap-web/fill_legal.py --operator /root/.config/sb-betreiber.json --out /srv/legal --strip-internal [--contact-file <json>]`
+  (never prints values; fails on missing keys or leftovers). Billing stays OFF until the owner's review + business registration.

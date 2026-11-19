@@ -60,6 +60,12 @@ TEXTS = {
     "lite_target": ("This account cannot get a seat (it must be another confirmed account without own subscription or seat).",
                     "Dieses Konto kann keinen Platz bekommen (es muss ein anderes bestätigtes Konto ohne eigenes Abo oder Platz sein)."),
     "lite_full": ("All seats are taken. A freed seat can be given again after {days} days.", "Alle Plätze sind vergeben. Ein freigewordener Platz ist erst nach {days} Tagen wieder vergebbar."),
+    "coupon_invalid": ("This coupon code is not valid.", "Dieser Gutscheincode ist nicht gültig."),
+    "mc_name_invalid": ("A Minecraft name has 3-16 characters: letters, digits, _.", "Ein Minecraft-Name hat 3–16 Zeichen: Buchstaben, Ziffern, _."),
+    "mc_name_count": ("This plan allows {max} Minecraft name(s).", "Diese Stufe erlaubt {max} Minecraft-Namen."),
+    "mc_name_wait": ("The name can be changed again on {date} (every 7 days).", "Der Name ist ab {date} wieder änderbar (alle 7 Tage)."),
+    "contact_message": ("Please write a message (10-5000 characters).", "Bitte eine Nachricht schreiben (10–5000 Zeichen)."),
+    "contact_off": ("The contact form is not set up yet.", "Das Kontaktformular ist noch nicht eingerichtet."),
     "early_needed": ("Early access comes with Simple Mods Pro.", "Frühzugang gehört zu Simple Mods Pro."),
     # mails
     "mail_verify_subject": ("Confirm your Simple Mods account", "Bestätige dein Simple-Mods-Konto"),

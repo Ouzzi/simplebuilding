@@ -220,6 +220,34 @@ MIGRATIONS = [
     CREATE UNIQUE INDEX lite_member_active ON lite_seats(member_id) WHERE removed_at IS NULL;
     CREATE INDEX lite_owner ON lite_seats(owner_id, removed_at);
     """,
+    # 4: owner answer part 2 (19.11.2026): plan change at the period end (P070), coupons (P074), gift subscriptions bound to a
+    # Minecraft name (P068), contact form counter-free (mails only).
+    """
+    ALTER TABLE subscriptions ADD COLUMN pending_plan TEXT;
+    ALTER TABLE orders ADD COLUMN kind TEXT NOT NULL DEFAULT 'subscription';
+    ALTER TABLE orders ADD COLUMN months INTEGER;
+    ALTER TABLE orders ADD COLUMN coupon TEXT;
+    CREATE TABLE gifts (
+        id INTEGER PRIMARY KEY,
+        buyer_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        order_id INTEGER NOT NULL UNIQUE,
+        plan TEXT NOT NULL,
+        months INTEGER NOT NULL,
+        state TEXT NOT NULL,
+        starts_at INTEGER,
+        ends_at INTEGER,
+        created_at INTEGER NOT NULL
+    );
+    CREATE TABLE gift_names (
+        id INTEGER PRIMARY KEY,
+        gift_id INTEGER NOT NULL REFERENCES gifts(id) ON DELETE CASCADE,
+        mc_name TEXT NOT NULL,
+        mc_lower TEXT NOT NULL,
+        set_at INTEGER NOT NULL,
+        removed_at INTEGER
+    );
+    CREATE INDEX gift_names_lower ON gift_names(mc_lower, removed_at);
+    """,
 ]
 
 

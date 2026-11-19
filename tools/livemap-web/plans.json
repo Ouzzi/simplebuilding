@@ -1,5 +1,5 @@
 {
- "_comment": "Simple Mods Pro - one account subscription on account.simplemods.de (N108). Placeholders until the owner decides prices/perks (A page 'Pro'). price_month null = the price of the mapped Simple Livemap tier in tiers.json; yearly = tiers.json yearly_months_paid x monthly. The server config may override single values under \"plans\" (and \"perks\"). Owner 19.11. (N109 P001): plans Basic/Max/Ultra (old plan id \"pro\" = max, accepted on read). P039: fellow-player seats ('lite') per plan, fixed count, end with the owner's subscription, no chaining, a freed seat can be given again after lite_rules.reassign_lock_days.",
+ "_comment": "Simple Mods Pro - one account subscription on account.simplemods.de (N108). Placeholders until the owner decides prices/perks (A page 'Pro'). price_month null = the price of the mapped Simple Livemap tier in tiers.json; yearly = tiers.json yearly_months_paid x monthly. The server config may override single values under \"plans\" (and \"perks\"). Owner 19.11. (N109 P001): plans Basic/Max/Ultra (old plan id \"pro\" = max, accepted on read). P039: fellow-player seats ('lite') per plan, fixed count, end with the owner's subscription, no chaining, a freed seat can be given again after lite_rules.reassign_lock_days. Part 2: flags P050 vote_weight (Basic 1/Max 2/Ultra 3), P053 credits and P079 wiki_settings from Basic (themes for all = no flag); gifts P068 (months, names per plan, change_days).",
  "order": [
   "basic",
   "max",
@@ -13,7 +13,12 @@
    "perks": [
     "livemap",
     "early_access"
-   ]
+   ],
+   "flags": {
+    "vote_weight": 1,
+    "credits": true,
+    "wiki_settings": true
+   }
   },
   "max": {
    "name": "Max",
@@ -27,6 +32,11 @@
    "lite": {
     "kind": "max_lite",
     "seats": 1
+   },
+   "flags": {
+    "vote_weight": 2,
+    "credits": true,
+    "wiki_settings": true
    }
   },
   "ultra": {
@@ -41,6 +51,11 @@
    "lite": {
     "kind": "ultra_lite",
     "seats": 2
+   },
+   "flags": {
+    "vote_weight": 3,
+    "credits": true,
+    "wiki_settings": true
    }
   }
  },
@@ -76,5 +91,24 @@
  },
  "lite_rules": {
   "reassign_lock_days": 30
+ },
+ "free_flags": {
+  "vote_weight": 1,
+  "credits": false,
+  "wiki_settings": false
+ },
+ "gifts": {
+  "months": [
+   1,
+   3,
+   12
+  ],
+  "names": {
+   "basic": 1,
+   "max": 1,
+   "ultra": 2
+  },
+  "change_days": 7,
+  "days_per_month": 30
  }
 }

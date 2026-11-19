@@ -335,6 +335,8 @@ class LifecycleTests(ProBase):
         u = self.user()
         self.assertEqual(u["tier"], "free")
         self.assertFalse(self.svc.has_perk(u, "early_access"))
+        order_call = next(d for m, p, d, i in self.fake.calls if p == "checkout/sessions")
+        self.assertEqual(order_call["subscription_data"]["trial_period_days"], 14, "no charge before the perks start")
         text = next(m["text"] for m in self.svc.mailer.sent if "Basic" in m["subject"])
         self.assertTrue("after the withdrawal period" in text or "nach Ablauf der Widerrufsfrist" in text, text)
         self.clock.advance(14 * DAY + 1)
@@ -488,10 +490,16 @@ class OwnerAnswerPart1Tests(ProBase):
         self.assertEqual(d.value("SELECT plan FROM subscriptions"), "max")
         d.close()
 
-    def test_contact_and_descriptor(self):
+    def test_contact_is_config_driven(self):
+        """Part 2 replaces part 1: no address in the code; operator e-mail (default) or forwarding addresses from the config."""
         account(self.c, self.svc)
         self.buy("basic")
-        self.assertIn("kontakt@simplemods.de", self.svc.mailer.sent[-1]["text"])
+        self.assertNotIn("@simplemods.de", self.svc.mailer.sent[-1]["text"])
+        self.svc.cfg.v["contact"] = {"mode": "operator", "operator_email": "op@example.org", "addresses": {"allgemein": "k@example.net"}}
+        self.assertEqual(self.svc.contact_address(), "op@example.org")
+        self.svc.cfg.v["contact"]["mode"] = "addresses"
+        self.assertEqual(self.svc.contact_address(), "k@example.net")
+        self.assertEqual(self.svc.contact_address("melden"), "op@example.org", "falls back to the operator address")
 
 
 class DimensionTests(ProBase):
@@ -631,6 +639,144 @@ class LiteSeatTests(ProBase):
         self.svc.lite_add(self.user(), "friend@example.com")
         self.friend_c.post("https://account.test/pro/manage", {"action": "lite_leave"})
         self.assertEqual(self.user("friend@example.com")["tier"], "free")
+
+
+
+class Part2Tests(ProBase):
+    """Owner answer part 2: P070 change at the period end, P074 coupons, P068 gifts, contact form, flags."""
+
+    def test_plan_change_at_period_end_without_proration(self):
+        account(self.c, self.svc)
+        _, end = self.buy("basic")
+        r = self.c.post("https://account.test/pro/manage", {"action": "change", "plan": "ultra"})
+        self.assertIn("Change planned", r.body.decode())
+        path, upd = self.fake.posts("subscription_schedules/")[-1]
+        self.assertEqual(upd["proration_behavior"], "none")
+        self.assertEqual(upd["phases"][0]["items"][0]["price"], "price_b_m")
+        self.assertEqual(upd["phases"][0]["end_date"], end)
+        self.assertEqual(upd["phases"][1]["items"][0]["price"], "price_u_m")
+        self.assertEqual(self.user()["tier"], "basic", "nothing changes before the period end")
+        self.assertEqual(self.svc.db.value("SELECT pending_plan FROM subscriptions"), "ultra")
+        self.hook(fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_u_m", "active", end + 30 * DAY), int(self.clock()) + 5))
+        self.assertEqual(self.user()["tier"], "ultra")
+        self.assertIsNone(self.svc.db.value("SELECT pending_plan FROM subscriptions"))
+
+    def test_plan_change_undo(self):
+        account(self.c, self.svc)
+        self.buy("max")
+        self.svc.change_plan(self.user(), "basic")
+        self.assertEqual(self.svc.change_plan(self.user(), "max"), {"pending": None, "at": self.svc.db.value("SELECT period_end FROM subscriptions")})
+        self.assertEqual(self.fake.posts("subscription_schedules/")[-1][1]["phases"][1]["items"][0]["price"], "price_p_m")
+
+    def test_coupons(self):
+        account(self.c, self.svc)
+        self.order("basic")
+        self.assertTrue(self.fake.calls[-1][2]["allow_promotion_codes"], "code field at Stripe")
+        r = self.c.post("https://account.test/pro/order", {"plan": "basic", "interval": "month", "terms": "1", "coupon": "NOPE"},
+                        page="https://account.test/pro/order?plan=basic")
+        self.assertEqual(r.status, 400)
+        self.assertIn("coupon code is not valid", r.body.decode())
+        self.fake.objects["promo_1"] = {"id": "promo_1", "object": "promotion_code", "code": "START10", "active": True}
+        r = self.c.post("https://account.test/pro/order", {"plan": "basic", "interval": "month", "terms": "1", "coupon": "START10"},
+                        page="https://account.test/pro/order?plan=basic")
+        self.assertEqual(r.status, 303)
+        data = self.fake.calls[-1][2]
+        self.assertEqual(data["discounts"], [{"promotion_code": "promo_1"}])
+        self.assertNotIn("allow_promotion_codes", data)
+        self.assertEqual(self.svc.db.value("SELECT coupon FROM orders ORDER BY id DESC"), "START10")
+        self.svc.cfg.billing["coupons"] = {"enabled": False}
+        self.svc.order_limiter = None
+        self.svc.limiter.hits.clear()
+        self.order("max")
+        self.assertNotIn("allow_promotion_codes", self.fake.calls[-1][2])
+
+    def gift(self, plan="max", months=3, names=("Steve_01",), waiver=True):
+        form = {"plan": plan, "months": str(months), "terms": "1"}
+        for i, n in enumerate(names):
+            form[f"mc{i}"] = n
+        if waiver:
+            form["waiver"] = "1"
+        r = self.c.post("https://account.test/pro/gift", form, page=f"https://account.test/pro/gift?plan={plan}")
+        self.assertEqual(r.status, 303, r.body[:300])
+        session = self.fake.objects[r.header("location").rsplit("/", 1)[1]]
+        obj = {"id": session["id"], "object": "checkout.session", "mode": "payment", "payment_status": "paid", "customer": "cus_g",
+               "client_reference_id": session["params"]["client_reference_id"], "metadata": session["params"]["metadata"]}
+        self.assertEqual(self.hook(fs.event("checkout.session.completed", obj, int(self.clock())))[0], 200)
+        return session
+
+    def test_gift_for_minecraft_name(self):
+        account(self.c, self.svc)
+        s = self.gift("max", 3, ("Steve_01",))
+        p = s["params"]
+        self.assertEqual(p["mode"], "payment")
+        self.assertEqual(p["line_items"][0]["price_data"]["unit_amount"], 799 * 3)
+        self.assertEqual(self.user()["tier"], "free", "a gift does not change the buyer's account")
+        r = self.app.handle(Request("GET", "livemap.test", "/api/v1/mc/steve_01", {}, {}, b""))
+        data = json.loads(r.body)
+        self.assertEqual((data["plan"], data["flags"]["vote_weight"]), ("max", 2))
+        self.assertIn("early_access", data["perks"])
+        self.assertNotIn("livemap", data["perks"])
+        self.assertTrue(any("Geschenk" in m["subject"] or "gift" in m["subject"] for m in self.svc.mailer.sent))
+        self.clock.advance(90 * DAY + 1)
+        self.svc.maintenance()
+        self.assertIsNone(self.svc.mc_entitlement("Steve_01")["plan"], "ends with the gift period")
+        self.assertEqual(self.svc.db.value("SELECT state FROM gifts"), "ended")
+
+    def test_gift_name_change_every_7_days_and_counts(self):
+        account(self.c, self.svc)
+        self.gift("basic", 1, ("Alex",))
+        gid = self.svc.db.value("SELECT id FROM gifts")
+        r = self.c.post("https://account.test/pro/gifts", {"gift": str(gid), "mc0": "Notch"})
+        self.assertIn("every 7 days", r.body.decode())
+        self.clock.advance(7 * DAY)
+        self.c.post("https://account.test/pro/gifts", {"gift": str(gid), "mc0": "Notch"})
+        self.assertIsNone(self.svc.mc_entitlement("Alex")["plan"])
+        self.assertEqual(self.svc.mc_entitlement("notch")["plan"], "basic")
+        with self.assertRaises(Exception) as cm:
+            self.svc.clean_names("basic", ["A_1", "B_2"])
+        self.assertEqual(cm.exception.key, "mc_name_count")
+        self.assertEqual(self.svc.clean_names("ultra", ["A_1x", "B_2x"]), ["A_1x", "B_2x"], "Ultra: 2 names")
+        with self.assertRaises(Exception):
+            self.svc.clean_names("max", ["bad name!"])
+
+    def test_gift_without_waiver_starts_after_withdrawal_period(self):
+        account(self.c, self.svc)
+        self.gift("ultra", 1, ("Herobrine",), waiver=False)
+        self.assertIsNone(self.svc.mc_entitlement("Herobrine")["plan"])
+        self.clock.advance(14 * DAY + 1)
+        self.assertEqual(self.svc.mc_entitlement("Herobrine")["plan"], "ultra")
+
+    def test_contact_form(self):
+        self.svc.cfg.v["contact"] = {"mode": "operator", "operator_email": "op@example.org", "form_to": ""}
+        page = self.c.get("https://account.test/kontakt").body.decode()
+        self.assertIn('name="website"', page)
+        token = re.search(r'name="t" value="([^"]+)"', page).group(1)
+        form = {"name": "Mia", "email": "mia@example.com", "topic": "datenschutz", "message": "Bitte Auskunft zu meinen Daten.", "t": token}
+        r = self.c.post("https://account.test/kontakt", form)
+        self.assertEqual(r.status, 200)
+        self.assertEqual(self.svc.mailer.sent, [], "too fast (< 3 s) = dropped silently")
+        self.clock.advance(5)
+        r = self.c.post("https://account.test/kontakt", form)
+        self.assertIn("Thank you", r.body.decode())
+        m = self.svc.mailer.sent[-1]
+        self.assertEqual((m["to"], m["reply_to"]), ("op@example.org", "mia@example.com"))
+        self.assertIn("Kontaktformular/datenschutz", m["subject"])
+        n = len(self.svc.mailer.sent)
+        self.c.post("https://account.test/kontakt", {**form, "website": "http://spam"})
+        self.assertEqual(len(self.svc.mailer.sent), n, "honeypot")
+        for _ in range(3):
+            r = self.c.post("https://account.test/kontakt", form)
+        self.assertEqual(r.status, 429)
+        self.svc.cfg.v["contact"] = {"mode": "operator", "operator_email": ""}
+        self.svc.limiter.hits.clear()
+        self.assertEqual(self.c.post("https://account.test/kontakt", form).status, 503)
+
+    def test_flags(self):
+        u = account(self.c, self.svc)
+        self.assertEqual(self.svc.plan_flags(self.user()), {"vote_weight": 1, "credits": False, "wiki_settings": False})
+        self.buy("ultra")
+        self.assertEqual(self.svc.plan_flags(self.user())["vote_weight"], 3)
+        self.assertTrue(self.svc.plan_flags(self.user())["credits"])
 
 
 if __name__ == "__main__":
