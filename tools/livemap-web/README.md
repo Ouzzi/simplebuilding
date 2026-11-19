@@ -32,6 +32,11 @@ CLI: `python3 -m smweb serve|set-role|set-tier|add-user|maintenance --config <fi
   ratio check, content-addressed blobs; per-map and global storage quota, stop at 90 % disk.
 - Live player positions only in memory (latest state), only when the map shows players and the owner accepted the
   processing agreement (legal draft U3); never in the database or a log.
+- A “by link” map's key goes as `X-Livemap-Token` (N106; the mod's own server still reads `Authorization: Bearer`), so the
+  dev stage's basic auth no longer collides with it. Every hosted map has a “Report map” link → `/report` (notice form, legal
+  draft U5, 5 per hour and address; developers decide on `/admin`, the owner gets the reason). A manifest round (chunks up to
+  `done`) drops tiles the mod no longer reports (never on an empty round). Load test: `python3 tests/loadtest.py` (13 Ultra maps,
+  local instance, measuring only).
 - No secrets in the repo: `config.example.json`, `billing.example.json` are templates; the real files live in `/etc/simplemods/`.
 
 ## Tiers
@@ -46,7 +51,4 @@ systemd unit (hardened, 300 MB), nginx server blocks on :8081 with the simplemod
 without query strings (7 days logrotate). Dev stage: `account-dev`/`livemap-dev.simplemods.de` behind nginx basic auth
 (`htpasswd -c -B /etc/nginx/smweb-dev.htpasswd <name>`), the mod API stays reachable. Owner steps: CT bigger (N34-7),
 tunnel hostnames in Cloudflare, SMTP account, legal texts (`docs/legal/`, drafts), Stripe account – then prod.
-A “by link” map sends its key as `X-Livemap-Token` (N106), so basic auth on dev keeps working; the mod's own server still
-reads `Authorization: Bearer`. Every hosted map has a “Report map” link → `/report` (notice form, legal draft U5; developers
-decide on `/admin`). The manifest round (chunks up to `done`) drops tiles the mod no longer reports (N106, A4).
-Load test: `python3 tests/loadtest.py` (13 Ultra maps against a local instance, measuring only).
+Known dev limitation: a “by link” map sends `Authorization: Bearer` for its tiles, which conflicts with basic auth on dev.
