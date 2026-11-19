@@ -176,7 +176,7 @@ P = {
   "Simple Building Tools adds Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with an editor, picture import and cartography table copies.",
   "equipment, utility", "building, wands, blueprint"),
 "simpleslabs": ("Half slabs - 4 pixels thin - of every block with a slab, freely stacked in a cell and upright as side slabs.",
-  "Simple Slabs adds a half slab (half a slab, 4 pixels) for each of the 170 blocks with a slab. Any of the four layers of a block cell can be filled in any combination, so you build 4-pixel ledges, gaps and thin roofs; sneaking puts it upright against a wall as a side half slab or, two layers thick, a side slab. Sand and gravel half slabs fall, grass is tinted by the biome, copper ages. Cut in the Shapecutter (or stonecutter), crafted back into the slab.",
+  "Simple Slabs adds a half slab (half a slab, 4 pixels) for each of the 170 blocks with a slab. Any of the four layers of a block cell can be filled in any combination, so you build 4-pixel ledges, gaps and thin roofs; the side half slab, an item of its own, stands upright against a wall and grows to a side slab at two layers. Sand and gravel half slabs fall, grass is tinted by the biome, copper ages. Cut in the Shapecutter (or stonecutter), crafted back into the slab.",
   "decoration", "building-blocks, slabs, decoration"),
 "simplechisels": ("Seven chisels from Stone to Enderite that step blocks along their family, with the Fast Chiseling enchantment.",
   "Simple Chisels moves blocks one step along their family (stone to chiseled, bricks to cracked, planks to stairs to slabs) and back with sneak. Other mods add chains through data files.",

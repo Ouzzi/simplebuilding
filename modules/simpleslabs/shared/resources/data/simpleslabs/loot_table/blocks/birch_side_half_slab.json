@@ -43,7 +43,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:birch_half_slab"
+          "name": "simpleslabs:birch_side_half_slab"
         }
       ],
       "rolls": 1

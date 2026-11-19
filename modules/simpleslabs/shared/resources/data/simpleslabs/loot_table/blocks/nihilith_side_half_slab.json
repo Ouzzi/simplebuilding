@@ -61,7 +61,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:nihilith_half_slab"
+          "name": "simpleslabs:nihilith_side_half_slab"
         }
       ],
       "rolls": 1

@@ -43,7 +43,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:cut_red_sandstone_half_slab"
+          "name": "simpleslabs:cut_red_sandstone_side_half_slab"
         }
       ],
       "rolls": 1

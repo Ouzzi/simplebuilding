@@ -43,7 +43,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:deepslate_brick_half_slab"
+          "name": "simpleslabs:deepslate_brick_side_half_slab"
         }
       ],
       "rolls": 1

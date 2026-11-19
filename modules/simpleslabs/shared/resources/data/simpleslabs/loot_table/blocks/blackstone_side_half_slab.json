@@ -43,7 +43,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:blackstone_half_slab"
+          "name": "simpleslabs:blackstone_side_half_slab"
         }
       ],
       "rolls": 1

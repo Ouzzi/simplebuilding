@@ -61,7 +61,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:cut_gold_half_slab"
+          "name": "simpleslabs:cut_gold_side_half_slab"
         }
       ],
       "rolls": 1

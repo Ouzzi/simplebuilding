@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
- * Half slab item (N86): places {@link HalfSlabBlock} (sneaking on a side face: the side half slab). On its own real slab
+ * Half slab item (N86): places {@link HalfSlabBlock} (the side form has its own item since N86S). On its own real slab
  * (bottom or top, not double) it adds a layer: the slab becomes the half slab block with layers 0-1 (bottom) or 2-3 (top) plus
  * the clicked layer - owner N86-2 "slab + half slab". The slab itself is not touched as a class (A12): a slab item on a half
  * slab does nothing special. Waxed copper half slabs say so in one grey line (SimpleLib's aging tooltip).
@@ -71,7 +71,12 @@ public class HalfSlabItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
-        var entry = com.simplelib.api.aging.Aging.entry(getBlock());
+        waxedLine(getBlock(), lines);
+    }
+
+    /** The grey "waxed" line of a waxed copper half slab or side half slab (SimpleLib's aging tooltip). */
+    static void waxedLine(net.minecraft.world.level.block.Block block, Consumer<Component> lines) {
+        var entry = com.simplelib.api.aging.Aging.entry(block);
         if (entry != null && entry.waxed()) {
             lines.accept(Component.translatable(com.simplelib.api.aging.AgingChain.WAXED_TOOLTIP).withStyle(ChatFormatting.GRAY));
         }

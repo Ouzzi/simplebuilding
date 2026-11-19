@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:mud_brick_side_half_slab"
+  ],
+  "result": {
+    "id": "simpleslabs:mud_brick_half_slab"
+  }
+}

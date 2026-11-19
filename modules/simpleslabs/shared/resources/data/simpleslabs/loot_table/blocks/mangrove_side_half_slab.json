@@ -43,7 +43,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:mangrove_half_slab"
+          "name": "simpleslabs:mangrove_side_half_slab"
         }
       ],
       "rolls": 1
