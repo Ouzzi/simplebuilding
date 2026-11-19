@@ -2664,7 +2664,10 @@ function idLink(id, hint) {
    dort gibt es data/vanilla-icons.json (N72, sb-web-sync: Id -> Bild ueber Item-Modell -> Textur, auch fuer Modul-Ids ohne
    eigenes Bild dort). Diese Zuordnung geht vor (textureOf, qnFlatTexture, brTex); Ausschnitte ("datei#x,y,w,h") schneidet der load-Handler zu. */
 function devIcon(id) { return DEV_ICONS && typeof id === 'string' ? DEV_ICONS[id.indexOf(':') < 0 ? 'minecraft:' + id : id] || null : null; }
-function vanillaTexture(id) { return devIcon(id) || 'assets/textures/minecraft/' + pathOf(id) + '.png'; }
+/* N107: die flachen Vanilla-Texturen (assets/textures/minecraft/, git-ignoriert) gibt es nur nach einem lokalen generate-Lauf -
+   auf den Hosts (Prod ohne Mojang-Pixel, /dev/ mit vanilla-icons.json) nie. Dort gleich die Textkachel statt ~1000 Anfragen mit 404. */
+var VANILLA_FLAT = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+function vanillaTexture(id) { return devIcon(id) || (VANILLA_FLAT ? 'assets/textures/minecraft/' + pathOf(id) + '.png' : null); }
 /* 3D-Bilder (assets/textures/render/, Vanilla-Bloecke unter minecraft/) zeichnet generate.py
    aus den Block- und Item-Modellen, 128 px gross: verkleinert werden sie geglaettet (Klasse
    r3d), flache 16-px-Texturen bleiben pixelig. */
@@ -3046,7 +3049,7 @@ function tradeCard(tr, opts) {
   h += '</dd>';
   if (tr.offerChance != null) h += '<dt>' + esc(T('kvOfferChance')) + '</dt><dd>' + esc(fmtStat(tr.offerChance * 100) + ' %') + '</dd>';
   var flags = strs(tr.configFlags);
-  h += '<dt>' + esc(T('kvConfig')) + '</dt><dd>' + (flags.length ? flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(' ') : '<span class="muted">' + esc(T('noCondition')) + '</span>') + '</dd>';
+  h += '<dt>' + esc(T('kvConfig')) + '</dt><dd>' + (flags.length ? flags.map(configFlagHtml).join(' ') : '<span class="muted">' + esc(T('noCondition')) + '</span>') + '</dd>';
   h += '</dl>';
   h += poolTable(tr.enchantmentPool);
   h += sourceLine(tr.source);
@@ -4292,7 +4295,7 @@ function pageTrades() {
   arr(D.trades).filter(isObj).forEach(function (tr) { var p = tr.profession || 'unknown'; if (!by.has(p)) by.set(p, new Map()); var lv = tr.level == null ? '' : String(tr.level); if (!by.get(p).has(lv)) by.get(p).set(lv, []); by.get(p).get(lv).push(tr); });
   var flags = Object.keys(IX.tradesWithFlag.size ? Object.fromEntries(IX.tradesWithFlag) : {});
   var h = '<h1>' + esc(T('navTrades')) + ' <span class="muted tiny" style="font-weight:400">' + arr(D.trades).length + '</span></h1>';
-  h += '<p class="muted">' + esc(T('tradesIntro')) + (flags.length ? T('tradesToggle', flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(', ')) : '') + '</p>';
+  h += '<p class="muted">' + esc(T('tradesIntro')) + (flags.length ? T('tradesToggle', flags.map(configFlagHtml).join(', ')) : '') + '</p>';
   if (!by.size) h += '<p class="hint">' + esc(T('noTrades')) + '</p>';
   Array.from(by.keys()).sort().forEach(function (p) {
     var levels = Array.from(by.get(p).keys()).sort(function (a, b) { return num(a, 99) - num(b, 99); });
@@ -4671,7 +4674,18 @@ function srcLabel(s) { return isObj(s.label) ? (LANG === 'de' ? s.label.de || s.
 function srcCountText(s) { var c = arr(s.count); return c.length === 2 && (c[0] !== 1 || c[1] !== 1) ? (c[0] === c[1] ? '×' + c[0] : c[0] + '–' + c[1]) : ''; }
 function srcSortKey(s) { return (s.type === 'mob' ? 0 : 1) * 1000 - num(s.chance, 0); }
 function enchLevelText(s) { return s.enchantment ? displayName(s.enchantment) + ' ' + roman(num(s.level, 1)) : ''; }
-function configNote(s) { return s.configFlag ? ' · <a href="#/config/' + esc(s.configFlag) + '">' + esc(T('obOnlyWith', s.configFlag)) + '</a>' : ''; }
+function configNote(s) { if (!s.configFlag) return ''; var to = configFlagTarget(s.configFlag); return ' · ' + (to ? '<a href="#/config/' + esc(to) + '">' + esc(T('obOnlyWith', s.configFlag)) + '</a>' : esc(T('obOnlyWith', s.configFlag))); }
+/* N107: Schalter, die keine eigene Konfig-Option sind, fuehrten auf "Config not found": "links:<mod>" (Simple Money: Tausch
+   nur, wenn der Mod geladen ist UND links.enabled an ist) zeigt auf links.enabled, Unbekanntes bleibt reiner Text. */
+function configFlagTarget(f) {
+  if (IX.config.has(f)) return f;
+  var m = /^([a-z0-9_]+):[a-z0-9_]+$/.exec(f);
+  return m && IX.config.has(m[1] + '.enabled') ? m[1] + '.enabled' : '';
+}
+function configFlagHtml(f) {
+  var to = configFlagTarget(f), code = '<code>' + esc(f) + '</code>';
+  return to ? '<a href="#/config/' + esc(to) + '">' + code + '</a>' : code;
+}
 /* ------------------------------------------------------------------ */
 /* Beschaffungszeit: Zeit bis zum k-ten Stueck                         */
 /* ------------------------------------------------------------------ */
@@ -4996,7 +5010,9 @@ function tsOverviewTable() {
     TS_SC.map(function () { return ks.map(function (k) { return '<th>' + esc(T('tsPiece', k)) + '</th>'; }).join(''); }).join('') + '</tr></thead><tbody>';
   rows.forEach(function (r) {
     var rt = tsRoute(r.item);
-    h += '<tr><th scope="row"><a href="#/' + (IX.blocks.has(r.item) && !IX.items.has(r.item) ? 'blocks' : 'items') + '/' + esc(r.item) + '">' + esc(displayName(r.item)) + '</a></th><td>' + esc(rt ? (rt.idx < 0 ? T('tsNoReqShort') : tsEraName(rt.id)) : '') + '</td>' +
+    /* N107: Items anderer Mods (z. B. simplelib:iron_core im SimpleBuilding-Bereich) ueber hrefFor in deren Bereich, sonst "nicht gefunden" */
+    var tsHref = hrefFor(r.item);
+    h += '<tr><th scope="row">' + (tsHref ? '<a href="' + esc(tsHref) + '">' + esc(displayName(r.item)) + '</a>' : esc(displayName(r.item))) + '</th><td>' + esc(rt ? (rt.idx < 0 ? T('tsNoReqShort') : tsEraName(rt.id)) : '') + '</td>' +
       r.res.map(function (per) { return per.map(function (st) { return '<td>' + (st ? esc(fmtDur(st.mean)) : '<span class="muted">–</span>') + '</td>'; }).join(''); }).join('') + '</tr>';
   });
   return h + '</tbody></table></div><p class="muted tiny">' + esc(T('tsOverviewNote')) + '</p>';
@@ -6027,15 +6043,17 @@ function isDevSite() {
   return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || DEV_QUERY;
 }
 /* N80: Id -> Bild des Dev-Hosts (siehe devIcon); fehlt die Datei, bleibt alles wie bisher. */
-var DEV_ICONS = null;
-/* nur auf dem Dev-Host (/dev/ bzw. Dev-Overlay), nicht im Test-Harness mit ?dev=1: dort gibt es die Datei nie */
+var DEV_ICONS = null, DEV_ICONS_READY = null, FIRST_RENDER_DONE = false;
+/* nur auf dem Dev-Host (/dev/ bzw. Dev-Overlay), nicht im Test-Harness mit ?dev=1: dort gibt es die Datei nie.
+   N107: der erste Aufbau wartet auf diese Zuordnung (hoechstens 3 s), sonst fragt er erst die nicht vorhandenen
+   eigenen Render-Bilder an (20 x 404 auf assets/textures/render/, N97-Rest) und tauscht sie danach aus. */
 if ((/^\/dev(\/|$)/.test(location.pathname) || window.sbDevHook) && window.fetch) {
-  fetch('data/vanilla-icons.json', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+  DEV_ICONS_READY = fetch('data/vanilla-icons.json', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     var icons = d && isObj(d.icons) ? d.icons : null, out = {};
     if (!icons) return;
     Object.keys(icons).forEach(function (k) { var v = icons[k]; if (typeof v === 'string' && (v.indexOf('#') < 0 || /#\d+,\d+,\d+,\d+$/.test(v))) out[k] = v; });
     DEV_ICONS = out;
-    try { render({ keepScroll: true }); } catch (e) { /* noch nicht gestartet: der erste Aufbau nimmt die Bilder mit */ }
+    if (FIRST_RENDER_DONE) { try { render({ keepScroll: true }); } catch (e) { /* Seite noch im Aufbau */ } }
   }).catch(function () {});
 }
 /* N51 Konverter-Seiten "Bauwerke" (?tab=buildings) und "3D-Modelle" (?tab=models3d): Wiki-Seiten wie die Verzauberungs-Ansicht,
@@ -6909,9 +6927,12 @@ function txSave() { try { window.localStorage.setItem(TX_STORE, JSON.stringify({
 function txLoad() {
   if (window.WIKI_TEXTURES || TX.loading) return;
   TX.loading = true;
-  var pending = 2;
+  /* N107: data/ui-shots.js ist git-ignoriert und liegt nur lokal (generate.py --ui-shots) - auf den Hosts (Prod, /dev/)
+     nicht anfragen, sonst bei jedem Besuch der Texturen-Seite ein 404. */
+  var srcs = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? ['data/textures.js', 'data/ui-shots.js'] : ['data/textures.js'];
+  var pending = srcs.length;
   function done() { if (--pending === 0 && currentRoute().section === 'textures') render({ keepScroll: true }); }
-  ['data/textures.js', 'data/ui-shots.js'].forEach(function (src) {
+  srcs.forEach(function (src) {
     var s = document.createElement('script'); s.src = src;
     s.onload = done; s.onerror = function () { if (src === 'data/textures.js') window.WIKI_TEXTURES = { textures: [], missing: true }; done(); };
     document.head.appendChild(s);
@@ -7915,7 +7936,8 @@ renderMeta();
   } catch (err) { HASHMODE = true; }
   rewriteLinks(document.body);
 })();
-render();
+function firstRender() { if (FIRST_RENDER_DONE) return; FIRST_RENDER_DONE = true; render(); }
+if (DEV_ICONS_READY) { DEV_ICONS_READY.then(firstRender, firstRender); setTimeout(firstRender, 3000); } else firstRender();
 }).catch(function (error) {
   document.getElementById('main').textContent = 'Wiki data could not be loaded / Wiki-Daten konnten nicht geladen werden: ' + error.message;
   console.error(error);
