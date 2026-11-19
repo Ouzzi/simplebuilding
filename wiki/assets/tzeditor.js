@@ -11,7 +11,7 @@
 (function (root) {
   'use strict';
   var STR = {
-    en: { title: 'Test centre editor', intro: 'The order areas of the test centre as config: one file per area, exported from the game (all modules). Drag cells, rows and columns; Ctrl-click selects several; right-click (or Shift+F10) opens the cell menu; Delete empties.',
+    en: { title: 'Test centre editor', intro: 'The order areas of the test centre as config: one file per area, exported from the game (all modules). Drag cells (the whole selection moves as a group, live preview, Esc cancels), rows and columns; Ctrl-click selects several, Shift-click a range, dragging on an empty field (or Alt+drag) a frame; right-click (or Shift+F10) opens the cell menu; Delete empties.',
       area: 'Area', allAreas: 'All areas (overview)', view: 'View', viewA: 'A grid + side panel', viewB: 'B full screen + floating bar', layout: 'Layout', table: 'Table', built: 'As built (lines)',
       undo: 'Undo', redo: 'Redo',
       grey: 'grey', light: 'light grey', red: 'red', frame: 'frame', clear: 'empty', zoom: 'Zoom', search: 'Search', searchPh: 'id/name',
@@ -30,8 +30,12 @@
       compact: 'Compact per mod: not placed', compactOk: 'every mod block of the game plan has a field', exceptions: 'Exceptions (with reason)', linesNew: 'Lines: band "New" of the game',
       planSrc: 'Game plan: {0}', noPlan: 'No game plan (data/testcentre/plan.json) - checks only from the layout files.',
       sideA: 'Side A', sideB: 'Side B', line: 'grey middle line', band: 'Line pair {0}', restRo: 'built by the algorithm (no config file) - read only', builtNote: 'The view follows OrderAreas.families: rows next to each other along the middle line, field 0 next to the path. Families and the rows without a config come from the game plan.',
-      dirty: 'unsaved: {0}', roCell: 'read only (algorithm)' },
-    de: { title: 'Testzentrale-Editor', intro: 'Die geordneten Bereiche der Testzentrale als Config: eine Datei je Bereich, aus dem Spiel exportiert (alle Module). Zellen, Reihen und Spalten ziehen; Strg-Klick wählt mehrere; Rechtsklick (oder Umschalt+F10) öffnet das Zellmenü; Entf leert.',
+      dirty: 'unsaved: {0}', roCell: 'read only (algorithm)',
+      copy: 'Copy', cut: 'Cut', paste: 'Paste', selNone: 'Clear selection', online: 'Show online state', pending: 'saved – not online yet',
+      pendInfo: '{0}: saved – not online yet (no. {1}, {2}, {3})', pendLegend: 'Orange corner = differs from the online state (repo). A saved state that is not online yet is shown first.',
+      unsavedToo: 'plus unsaved changes', moveBad: ' does not fit into the grid', copied: ' {0} fields copied', pasted: ' {0} fields pasted', noClip: ' copy something first',
+      keysHelp: 'Drag = move (selection as a group), Esc cancels · empty field or Alt+drag = frame · Shift-click = range · Ctrl+A/C/X/V · Ctrl+arrows = move · Shift+arrows = extend · Ctrl+Z, Ctrl+Y / Ctrl+Shift+Z' },
+    de: { title: 'Testzentrale-Editor', intro: 'Die geordneten Bereiche der Testzentrale als Config: eine Datei je Bereich, aus dem Spiel exportiert (alle Module). Zellen ziehen (die ganze Auswahl wandert als Gruppe, Live-Vorschau, Esc bricht ab), ebenso Reihen und Spalten; Strg-Klick wählt mehrere, Umschalt-Klick einen Bereich, Ziehen auf leerem Feld (oder Alt+Ziehen) einen Rahmen; Rechtsklick (oder Umschalt+F10) öffnet das Zellmenü; Entf leert.',
       area: 'Bereich', allAreas: 'Alle Bereiche (Gesamtansicht)', view: 'Ansicht', viewA: 'A Raster + Seitenleiste', viewB: 'B Vollbild + schwebende Leiste', layout: 'Anordnung', table: 'Tabelle', built: 'Wie gebaut (Linien)',
       undo: 'Rückgängig', redo: 'Wiederholen',
       grey: 'grau', light: 'hellgrau', red: 'rot', frame: 'Rahmen', clear: 'leeren', zoom: 'Zoom', search: 'Suche', searchPh: 'Id/Name',
@@ -50,7 +54,11 @@
       compact: 'Kompakt je Mod: nicht platziert', compactOk: 'jeder Mod-Block des Spielplans hat einen Platz', exceptions: 'Ausnahmen (mit Begründung)', linesNew: 'Linien: Band „Neu“ des Spiels',
       planSrc: 'Spielplan: {0}', noPlan: 'Kein Spielplan (data/testcentre/plan.json) - Prüfung nur aus den Layout-Dateien.',
       sideA: 'Seite A', sideB: 'Seite B', line: 'graue Mittellinie', band: 'Linien-Paar {0}', restRo: 'vom Algorithmus gebaut (keine Config-Datei) - nur lesen', builtNote: 'Die Ansicht folgt OrderAreas.families: Reihen nebeneinander an der Mittellinie, Feld 0 am Weg. Familien und die Reihen ohne Config kommen aus dem Spielplan.',
-      dirty: 'ungespeichert: {0}', roCell: 'nur lesen (Algorithmus)' }
+      dirty: 'ungespeichert: {0}', roCell: 'nur lesen (Algorithmus)',
+      copy: 'Kopieren', cut: 'Ausschneiden', paste: 'Einfügen', selNone: 'Auswahl aufheben', online: 'Online-Stand zeigen', pending: 'gespeichert – noch nicht online',
+      pendInfo: '{0}: gespeichert – noch nicht online (Nr. {1}, {2}, {3})', pendLegend: 'Orange Ecke = weicht vom Online-Stand (Repo) ab. Eine gespeicherte, noch nicht online Fassung wird zuerst gezeigt.',
+      unsavedToo: 'dazu ungespeicherte Änderungen', moveBad: ' passt nicht ins Raster', copied: ' {0} Felder kopiert', pasted: ' {0} Felder eingefügt', noClip: ' erst etwas kopieren',
+      keysHelp: 'Ziehen = verschieben (Auswahl als Gruppe), Esc bricht ab · leeres Feld oder Alt+Ziehen = Rahmen · Umschalt-Klick = Bereich · Strg+A/C/X/V · Strg+Pfeile = verschieben · Umschalt+Pfeile = erweitern · Strg+Z, Strg+Y / Strg+Umschalt+Z' }
   };
   var CSS = [
     '.tz-page{--z:36px}.tz-bar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.4rem 0 .6rem}',
@@ -66,7 +74,7 @@
     '.tz-c img{width:calc(var(--z) - 8px);height:calc(var(--z) - 8px);image-rendering:pixelated;pointer-events:none}',
     '.tz-c img.tz-t{position:absolute;right:1px;top:1px;width:45%;height:45%;background:var(--panel);outline:1px solid var(--slot-lo)}',
     '.tz-c .tz-n{font-size:8px;line-height:1;word-break:break-all;color:var(--slot-text);text-align:center;pointer-events:none;padding:1px}',
-    '.tz-c.sel{outline:2px solid var(--accent);z-index:1}.tz-c.dim{opacity:.2}.tz-c.hit{outline:2px solid var(--warn-border)}',
+    '.tz-c.sel{outline:2px solid var(--accent);outline-offset:-2px}.tz-c.dim{opacity:.2}.tz-c.hit{outline:2px solid var(--warn-border)}',
     '.tz-c.dup{box-shadow:inset 0 0 0 3px var(--danger-border)}.tz-c.unk{box-shadow:inset 0 0 0 3px var(--warn-border)}.tz-over{outline:2px dashed var(--accent)}',
     '.tz-c[class*=tz-ph-]{box-shadow:none}.tz-ph-grey{background:#777}.tz-ph-light{background:repeating-linear-gradient(45deg,#dcdcdc 0 4px,#c4c4c4 4px 8px)}.tz-ph-red{background:#c33}.tz-ph-frame{box-shadow:inset 0 0 0 3px #8b6b3d}',
     '.tz-c.tz-ro{opacity:.75;cursor:default}.tz-c.tz-fill{background:repeating-linear-gradient(45deg,#dcdcdc 0 4px,#c4c4c4 4px 8px);opacity:.5;box-shadow:none}',
@@ -97,6 +105,16 @@
     '.tz-dlg{position:fixed;z-index:175;width:min(420px,94vw);background:var(--panel);color:var(--text);border:1px solid var(--accent);border-radius:10px;box-shadow:var(--shadow-lg,0 6px 22px rgba(0,0,0,.3));padding:.7rem}',
     '.tz-dlg h3{margin:0 0 .4rem;font-size:1rem}.tz-dlg input{width:100%;box-sizing:border-box}.tz-dlg ul{list-style:none;margin:.4rem 0;padding:0;max-height:260px;overflow:auto}',
     '.tz-dlg li{display:flex;align-items:center;gap:.5rem;padding:.25rem .35rem;border-radius:5px;cursor:pointer;font-size:.85rem}.tz-dlg li.on,.tz-dlg li:hover{background:var(--panel-2);box-shadow:inset 0 0 0 1px var(--accent)}',
+    /* N99: drag preview, frame selection, saved-not-online marker; no z-index on cells (re-stacking ~9k grid items cost ~50 ms a frame) */
+    '.tz-c,.tz-h,.tz-r,.tz-sign{user-select:none;-webkit-user-select:none}.tz-body .tz-c[data-f]:not(.tz-ro),.tz-pool .tz-c{touch-action:none;cursor:grab}',
+    '.tz-c.tz-pv{outline:2px dashed var(--accent);outline-offset:-2px}.tz-c.tz-pvbad{outline:2px solid var(--danger-border);outline-offset:-2px}.tz-c.tz-dsrc{opacity:.4}',
+    '.tz-c.tz-pend::after{content:"";position:absolute;left:0;top:0;border-style:solid;border-width:8px 8px 0 0;border-color:#e8912d transparent transparent transparent;pointer-events:none}',
+    '.tz-bandbox{position:fixed;border:1px dashed var(--accent);background:rgba(80,150,255,.12);pointer-events:none;z-index:150}',
+    '.tz-ghost{position:fixed;pointer-events:none;z-index:165;background:var(--accent);color:#fff;font-size:11px;border-radius:10px;padding:1px 7px;white-space:nowrap}',
+    '.tz-insb{box-shadow:inset 3px 0 0 var(--accent)}.tz-insa{box-shadow:inset -3px 0 0 var(--accent)}.tz-r.tz-insb{box-shadow:inset 0 3px 0 var(--accent)}.tz-r.tz-insa{box-shadow:inset 0 -3px 0 var(--accent)}.tz-h.tz-dsrc,.tz-r.tz-dsrc,.tz-sign.tz-dsrc{opacity:.4}',
+    '.tz-pendbar{border-left:4px solid #e8912d;background:var(--panel);padding:.35rem .6rem;margin:0 0 .5rem;border-radius:4px;font-size:.85rem}.tz-pendbar:empty{display:none}.tz-pendbar div{margin:.1rem 0}',
+    '.tz-pbadge{background:#e8912d;color:#111;border-radius:8px;padding:0 6px;font-size:.72rem;margin-left:.4rem;font-weight:600}.tz-keys{font-size:.75rem;margin:.1rem 0 .4rem}',
+    '.tz-bar .btn:disabled{opacity:.45;cursor:default}',
     '.tz-dlg .tz-c{--z:30px;flex:none}.tz-dlg .tz-row{display:flex;gap:.4rem;justify-content:flex-end}.tz-dlg .tz-pv{display:flex;align-items:center;gap:.5rem;margin:.3rem 0;min-height:30px;font-size:.85rem}'
   ].join('\n');
   var PH = ['#grey', '#light', '#red', '#frame'];
@@ -176,15 +194,61 @@
     return out;
   }
 
+  /* N99: group move by an offset. cells = [{f,r,c}], tf = target area, (dr, dc) = offset; get(f,r,c) reads a field,
+     inside(f,r,c) says whether it exists. The moved values land on their targets; the values they push away fill the fields
+     the group leaves (both in reading order), so nothing is lost and a single cell is a plain swap. null = does not fit. */
+  function keyOf(p) { return p.f + '|' + p.r + '|' + p.c; }
+  function planMove(cells, tf, dr, dc, get, inside) {
+    if (!cells.length) return null;
+    var dst = cells.map(function (s) { return { f: tf, r: s.r + dr, c: s.c + dc }; });
+    if (!dst.every(function (d) { return inside(d.f, d.r, d.c); })) return null;
+    var srcK = {}, dstK = {};
+    cells.forEach(function (s) { srcK[keyOf(s)] = 1; }); dst.forEach(function (d) { dstK[keyOf(d)] = 1; });
+    function order(a, b) { return a.f < b.f ? -1 : a.f > b.f ? 1 : a.r - b.r || a.c - b.c; }
+    var freed = cells.filter(function (s) { return !dstK[keyOf(s)]; }).sort(order);
+    var pushed = dst.filter(function (d) { return !srcK[keyOf(d)]; }).sort(order);
+    var out = dst.map(function (d, i) { return { f: d.f, r: d.r, c: d.c, v: get(cells[i].f, cells[i].r, cells[i].c) }; });
+    pushed.forEach(function (p, i) { out.push({ f: freed[i].f, r: freed[i].r, c: freed[i].c, v: get(p.f, p.r, p.c) }); });
+    return out;
+  }
+  /* the rectangle between two fields of one area (Shift-click) */
+  function rectOf(a, b) {
+    var out = [], r0 = Math.min(a.r, b.r), r1 = Math.max(a.r, b.r), c0 = Math.min(a.c, b.c), c1 = Math.max(a.c, b.c);
+    for (var r = r0; r <= r1; r++) for (var c = c0; c <= c1; c++) out.push({ f: a.f, r: r, c: c });
+    return out;
+  }
+  /* copy = the values relative to the top left corner of the selection; paste puts that pattern at a field (cut off at the edge) */
+  function copyOf(cells, get) {
+    var r0 = Math.min.apply(null, cells.map(function (s) { return s.r; })), c0 = Math.min.apply(null, cells.map(function (s) { return s.c; }));
+    return cells.map(function (s) { return { dr: s.r - r0, dc: s.c - c0, v: get(s.f, s.r, s.c) }; });
+  }
+  function pasteAt(clip, f, r, c, inside) {
+    return clip.filter(function (p) { return inside(f, r + p.dr, c + p.dc); }).map(function (p) { return { f: f, r: r + p.dr, c: c + p.dc, v: p.v }; });
+  }
+  /* saved vs online: same columns, rows (key, label, cells) and octets */
+  function layoutKey(cols, rows) {
+    return JSON.stringify([cols, rows.map(function (r) { var t = r.tops || {}; return [r.key, r.label, r.cells.map(function (v) { return v || null; }), cols.filter(function (c) { return t[c]; }).map(function (c) { return c + '=' + t[c]; })]; })]);
+  }
+  function baseMapOf(cols, rows) { var m = {}; rows.forEach(function (r) { var o = m[r.key] = {}; cols.forEach(function (c, i) { o[c] = r.cells[i] || null; }); }); return m; }
+  /* does field (row key, column) differ from the online state? new rows/columns count only where they hold something */
+  function differs(map, rowKey, col, v) { if (!map) return false; var row = map[rowKey], b = row ? row[col] : undefined; return b === undefined ? v != null : b !== (v || null); }
+  /* the newest save of an area in the list of GET /api/testcentre (newest first, but sorted again by save id) */
+  function newestSave(list, variant, area) {
+    return (list || []).filter(function (x) { return x && x.area === area && (!x.variant || x.variant === variant) && /^[0-9]+$/.test(String(x.sid)); })
+      .sort(function (a, b) { return Number(b.sid) - Number(a.sid); })[0] || null;
+  }
+
+  var IMGC = {};  // N99: id -> working picture (URL or cut-out data URL), false = none; a redraw never walks the fallback chain again
+
   function mount(el, ctx) {
     var lang = ctx.lang === 'de' ? 'de' : 'en', S = STR[lang];
     function tr(k) { return S[k] || STR.en[k] || k; }
     if (!ctx.dev) { el.innerHTML = '<div class="box box-danger">' + esc(tr('devOnly')) + '</div>'; return; }
     var st = ctx.state || (ctx.state = {});
-    var defaults = { idx: null, file: '', areas: {}, plan: null, sel: {}, focus: null, hist: null, dirty: {}, view: 'a', layout: 'built', zoom: 36, q: '', msg: '', history: [], icons: null };
+    var defaults = { idx: null, file: '', areas: {}, plan: null, sel: {}, focus: null, hist: null, dirty: {}, view: 'a', layout: 'built', zoom: 36, q: '', msg: '', history: [], icons: null, anchor: null, clip: null, online: false };
     Object.keys(defaults).forEach(function (k) { if (st[k] === undefined) st[k] = defaults[k]; });
     if (!(st.hist instanceof History)) st.hist = new History(200);
-    var drag = null, zoom = null;
+    var drag = null, zoom = null, nodes = {}, sideOf = {}, sideTimer = 0, qTimer = 0;
     api.dirtyNow = function () { return Object.keys(st.dirty).length > 0; };
     function $(s) { return el.querySelector(s); }
     function msg(t) { st.msg = t; var m = $('.tz-msg'); if (m) m.textContent = t; }
@@ -196,19 +260,62 @@
     function areaMeta(file) { return st.idx.areas.filter(function (a) { return a.file === file; })[0] || {}; }
     function fileOf(variant, area) { var m = st.idx.areas.filter(function (a) { return a.variant === variant && a.area === area; })[0]; return m && m.file; }
 
-    /* ---- edits: every change goes through edit() - one undo step over all touched areas, dirty flags, redraw ---- */
+    /* ---- edits: every change goes through edit() - one undo step over all touched areas, dirty flags, then only the
+       changed cells (or, for rows/columns, that one table) are drawn again (N99: no full redraw per action) ---- */
+    function lite(f) { var a = A(f); return { s: a.cols.join('\u0001') + '\u0002' + a.rows.map(function (r) { return r.key + '\u0003' + r.label; }).join('\u0001'),
+      cells: a.rows.map(function (r) { return r.cells.slice(); }), tops: a.rows.map(function (r) { return JSON.stringify(r.tops || {}); }) }; }
     function edit(files, fn) {
-      var touched = {}; files.forEach(function (f) { if (A(f)) touched[f] = A(f); });
+      var touched = {}, before = {}; files.forEach(function (f) { if (A(f)) touched[f] = A(f); });
       if (!Object.keys(touched).length) return;
-      st.hist.record(touched); fn(); Object.keys(touched).forEach(function (f) { st.dirty[f] = 1; }); draw();
+      Object.keys(touched).forEach(function (f) { before[f] = lite(f); });
+      st.hist.record(touched); fn(); Object.keys(touched).forEach(function (f) { st.dirty[f] = 1; }); refresh(before);
     }
-    function undo() { var f = st.hist.undo(st.areas); if (f) { f.forEach(function (x) { st.dirty[x] = 1; }); st.sel = {}; draw(); } }
-    function redo() { var f = st.hist.redo(st.areas); if (f) { f.forEach(function (x) { st.dirty[x] = 1; }); st.sel = {}; draw(); } }
-    function selList() { return Object.keys(st.sel).map(function (k) { var p = k.split('|'); return { f: p[0], r: +p[1], c: +p[2] }; }).filter(function (s) { return A(s.f) && A(s.f).rows[s.r]; }); }
+    function step(redo) {
+      var stack = redo ? st.hist.future : st.hist.past, top = stack[stack.length - 1]; if (!top) return;
+      var before = {}; Object.keys(top).forEach(function (f) { if (A(f)) before[f] = lite(f); });
+      var f = redo ? st.hist.redo(st.areas) : st.hist.undo(st.areas);
+      if (f) { f.forEach(function (x) { st.dirty[x] = 1; }); select([]); refresh(before); }
+    }
+    function undo() { step(false); }
+    function redo() { step(true); }
+    /* after a change: structure (columns, rows) changed -> that table again (as built: all); else only the changed cells */
+    function refresh(before) {
+      var whole = [], cells = [], ids = {};
+      Object.keys(before).forEach(function (f) {
+        var b = before[f], n = lite(f);
+        if (b.s !== n.s) { whole.push(f); return; }
+        n.cells.forEach(function (row, r) { row.forEach(function (v, c) { var o = b.cells[r][c]; if (o !== v || b.tops[r] !== n.tops[r]) { cells.push(f + '|' + r + '|' + c); if (o) ids[o] = 1; if (v) ids[v] = 1; } }); });
+      });
+      if (whole.length) {
+        if (st.layout === 'built' || whole.some(function (f) { return !el.querySelector('.tz-body .tz-grid[data-f="' + f + '"]'); })) { draw(); return; }
+        whole.forEach(redrawTable);
+      }
+      if (st.layout === 'built' && cells.some(function (k) { var p = k.split('|'), b = before[p[0]].cells[+p[1]]; return !nodes[k] || rowLen(b) !== rowLen(A(p[0]).rows[+p[1]].cells); })) { draw(); return; }
+      if (cells.length) { var pl = placedNow(); cells.forEach(function (k) { repaint(k, pl); }); redecorate(ids, pl); }
+      heads(); sideSoon(150);
+    }
+    function get(f, r, c) { var row = A(f).rows[r], col = A(f).cols[c]; return [row.cells[c] || null, (row.tops && row.tops[col]) || null]; }
+    function inside(f, r, c) { var a = A(f); return !!a && r >= 0 && c >= 0 && r < a.rows.length && c < a.cols.length; }
+    function put(list) {
+      var vals = list.map(function (x) { return x.v; });  // read all first: the list may move values around in a circle
+      list.forEach(function (x, i) { var a = A(x.f), row = a.rows[x.r], col = a.cols[x.c], v = vals[i];
+        row.cells[x.c] = v[0]; row.tops = row.tops || {}; if (v[1]) row.tops[col] = v[1]; else delete row.tops[col]; });
+    }
+    function filesOf(list) { var m = {}; list.forEach(function (x) { m[x.f] = 1; }); return Object.keys(m); }
+    function selList() { return Object.keys(st.sel).map(function (k) { var p = k.split('|'); return { f: p[0], r: +p[1], c: +p[2] }; }).filter(function (s) { return A(s.f) && A(s.f).rows[s.r] && s.c < A(s.f).cols.length; }); }
     function setSel(v) {
       var list = selList(); if (!list.length) { msg(tr('pick')); return; }
-      edit(list.map(function (s) { return s.f; }), function () { list.forEach(function (s) { var row = A(s.f).rows[s.r]; row.cells[s.c] = typeof v === 'function' ? v(row.cells[s.c]) : v; }); });
+      edit(filesOf(list), function () { list.forEach(function (s) { var row = A(s.f).rows[s.r]; row.cells[s.c] = typeof v === 'function' ? v(row.cells[s.c]) : v; }); });
     }
+    /* selection: only the class of the touched nodes changes (N99) */
+    function select(keys, add) {
+      var next = {}; if (add) Object.keys(st.sel).forEach(function (k) { next[k] = 1; });
+      keys.forEach(function (k) { next[typeof k === 'string' ? k : keyOf(k)] = 1; });
+      Object.keys(st.sel).forEach(function (k) { if (!next[k] && nodes[k]) nodes[k].classList.remove('sel'); });
+      Object.keys(next).forEach(function (k) { if (!st.sel[k] && nodes[k]) nodes[k].classList.add('sel'); });
+      st.sel = next;
+    }
+    function toggleSel(k) { var n = nodes[k]; if (st.sel[k]) { delete st.sel[k]; if (n) n.classList.remove('sel'); } else { st.sel[k] = 1; if (n) n.classList.add('sel'); } }
 
     /* ---- pictures (N72) ----
        Candidates in order, each tried when the one before fails to load: 1. the module picture of index.json, 2.
@@ -235,11 +342,14 @@
       src.src = url.slice(0, h);
     }
     function img(id, cls) {
-      var cands = candidates(id);
-      if (!cands.length) return null;
+      if (IMGC[id] === false) return null;
       var i = new Image(), k = 0; i.alt = ''; i.dataset.ownFallback = '1'; if (cls) i.className = cls;
+      if (IMGC[id]) { i.src = IMGC[id]; return i; }
+      var cands = candidates(id);
+      if (!cands.length) { IMGC[id] = false; return null; }
       function load() { if (cands[k].indexOf('#') > 0) crop(i, cands[k]); else i.src = cands[k]; }
-      i.onerror = function () { k++; if (k < cands.length) { load(); return; } var p = i.parentNode; i.remove(); if (p && !cls) name(p, id); };
+      i.onload = function () { if (!IMGC[id]) IMGC[id] = i.src; };
+      i.onerror = function () { k++; if (k < cands.length) { load(); return; } IMGC[id] = false; var p = i.parentNode; i.remove(); if (p && !cls) name(p, id); };
       load();
       return i;
     }
@@ -248,12 +358,16 @@
     function cellEl(id, f, r, c, opt) {
       opt = opt || {};
       var e = document.createElement('div'); e.className = 'tz-c'; e.dataset.f = f; e.dataset.r = r; e.dataset.c = c; e.dataset.id = id || '';
-      if (opt.pool) e.dataset.pool = '1'; else if (opt.ro) { e.classList.add('tz-ro'); e.dataset.ro = '1'; } else e.draggable = true;
+      if (opt.pool) e.dataset.pool = '1'; else if (opt.ro) { e.classList.add('tz-ro'); e.dataset.ro = '1'; }
       if (!id) e.classList.add('tz-nil');
       else if (id.charAt(0) === '#') e.classList.add('tz-ph-' + id.slice(1));
       else { var i = img(id); if (i) e.appendChild(i); else name(e, id); }
       if (opt.top && id) { var t = img(opt.top, 'tz-t'); if (t) e.appendChild(t); }
-      if (!opt.pool && !opt.ro && st.sel[f + '|' + r + '|' + c]) e.classList.add('sel');
+      if (!opt.pool && !opt.ro && f) {
+        var k = f + '|' + r + '|' + c, a = A(f); nodes[k] = e;
+        if (st.sel[k]) e.classList.add('sel');
+        if (a && a.base && a.rows[r] && differs(a.base, a.rows[r].key, a.cols[c], id)) e.classList.add('tz-pend');
+      }
       return e;
     }
     function topOf(a, r, c) { var row = a.rows[r]; return row && row.tops && row.tops[a.cols[c]]; }
@@ -270,14 +384,17 @@
       h += '<button type="button" class="btn" data-act="undo">' + esc(tr('undo')) + '</button><button type="button" class="btn" data-act="redo">' + esc(tr('redo')) + '</button>';
       PH.forEach(function (p) { h += '<button type="button" class="btn" data-ph="' + p + '">' + esc(tr(p.slice(1))) + '</button>'; });
       h += '<button type="button" class="btn" data-act="clear">' + esc(tr('clear')) + '</button>';
+      ['copy', 'cut', 'paste', 'selNone'].forEach(function (k) { h += '<button type="button" class="btn" data-act="' + k.toLowerCase() + '">' + esc(tr(k)) + '</button>'; });
       h += '<label>' + esc(tr('zoom')) + ' <input type="range" min="' + ZMIN + '" max="' + ZMAX + '" value="' + st.zoom + '" data-k="zoom" style="width:80px"></label>';
       h += '<label>' + esc(tr('search')) + ' <input data-k="q" placeholder="' + esc(tr('searchPh')) + '" value="' + esc(st.q) + '"></label>';
       h += '<button type="button" class="btn btn-primary" data-act="save" title="' + esc(tr('saveTip')) + '">' + esc(tr('save')) + '</button>';
+      h += '<label title="' + esc(tr('pendLegend')) + '"><input type="checkbox" data-k="online"' + (st.online ? ' checked' : '') + '> ' + esc(tr('online')) + '</label>';
       h += '<button type="button" class="btn" data-act="dl">' + esc(tr('download')) + '</button><span class="tz-msg" role="status">' + esc(st.msg) + '</span><span class="tz-mini muted"></span></div>';
+      h += '<p class="muted tz-keys">' + esc(tr('keysHelp')) + '</p><div class="tz-pendbar" role="status"></div>';
       h += '<div class="tz-wrap"><div class="tz-main" tabindex="0" aria-label="' + esc(tr('title')) + '"><div class="tz-body"></div></div><div class="tz-side box box-info">';
       h += '<h3>' + esc(tr('check')) + '</h3><div class="tz-chk"></div><div class="tz-plan"></div><h3>' + esc(tr('fresh')) + ' <span class="tz-ncnt"></span></h3><div class="tz-pool"></div>';
       h += '<h3>' + esc(tr('unknownTest')) + '</h3><input class="tz-unk" placeholder="mod:id"> <button type="button" class="btn" data-act="unk">' + esc(tr('setCell')) + '</button>';
-      h += '<h3>' + esc(tr('saved')) + '</h3><ul class="tz-hist"></ul><p class="muted tiny">' + esc(tr('legend')) + '</p></div></div><div class="tz-info"></div></div>';
+      h += '<h3>' + esc(tr('saved')) + '</h3><ul class="tz-hist"></ul><p class="muted tiny">' + esc(tr('legend')) + ' ' + esc(tr('pendLegend')) + '</p></div></div><div class="tz-info"></div></div>';
       el.innerHTML = h;
       wire();
       zoomArea();
@@ -304,9 +421,9 @@
       var a = A(file), g = document.createElement('div'); g.className = 'tz-grid'; g.dataset.f = file;
       g.style.gridTemplateColumns = '120px repeat(' + a.cols.length + ',var(--z))';
       g.appendChild(document.createElement('div'));
-      a.cols.forEach(function (c, ci) { var h = document.createElement('div'); h.className = 'tz-h'; h.textContent = c; h.draggable = true; h.dataset.col = ci; h.dataset.f = file; g.appendChild(h); });
+      a.cols.forEach(function (c, ci) { var h = document.createElement('div'); h.className = 'tz-h'; h.textContent = c; h.dataset.col = ci; h.dataset.f = file; g.appendChild(h); });
       a.rows.forEach(function (row, ri) {
-        var l = document.createElement('div'); l.className = 'tz-r'; l.textContent = row.label; l.title = row.key; l.draggable = true; l.dataset.row = ri; l.dataset.f = file; g.appendChild(l);
+        var l = document.createElement('div'); l.className = 'tz-r'; l.textContent = row.label; l.title = row.key; l.dataset.row = ri; l.dataset.f = file; g.appendChild(l);
         row.cells.forEach(function (id, ci) { var e = cellEl(id, file, ri, ci, { top: topOf(a, ri, ci) }); decorate(e, id, pl, q); g.appendChild(e); });
       });
       return g;
@@ -346,6 +463,7 @@
               put(e, i, gridRow);
             }
             var sg = document.createElement('div'); sg.className = 'tz-sign' + (isA ? ' tz-sa' : ''); sg.textContent = it ? it.label : ''; sg.title = it ? it.key + (it.ro ? ' - ' + tr('restRo') : '') : '';
+            if (it && !it.ro) { sg.dataset.f = it.f; sg.dataset.row = it.r; sideOf[it.f + '|' + it.r] = isA ? 'A' : 'B'; }
             put(sg, i, isA ? dA : dA + 2);
           }
         }
@@ -356,22 +474,75 @@
       return out;
     }
 
+    function shownRows() { var rows = []; shown().forEach(function (f) { if (A(f)) A(f).rows.forEach(function (r) { rows.push(r); }); }); return rows; }
+    function placedNow() { return placedCount(shownRows()); }
+    function headText(f) { var m = areaMeta(f); return m.variant + ' / ' + m.name + (st.dirty[f] ? ' *' : ''); }
     function draw() {
       var body = $('.tz-body'); if (!body) return;
-      var files = shown(), q = st.q.trim().toLowerCase(), rowsAll = [];
-      known = {};
-      files.forEach(function (f) { A(f).rows.forEach(function (r) { rowsAll.push(r); }); (A(f).known || []).forEach(function (k) { known[k] = 1; }); });
-      var pl = placedCount(rowsAll);
+      var files = shown(), q = st.q.trim().toLowerCase();
+      known = {}; nodes = {}; sideOf = {};
+      files.forEach(function (f) { (A(f).known || []).forEach(function (k) { known[k] = 1; }); });
+      var pl = placedNow();
       body.innerHTML = '';
       if (st.layout === 'built') body.appendChild(builtEl(pl, q));
       else if (st.file === ALL) {
         var all = document.createElement('div'); all.className = 'tz-all';
-        files.forEach(function (f) { var box = document.createElement('section'); box.className = 'tz-area'; box.dataset.f = f; var m = areaMeta(f);
-          var h3 = document.createElement('h3'); h3.textContent = m.variant + ' / ' + m.name + (st.dirty[f] ? ' *' : ''); box.appendChild(h3); box.appendChild(tableEl(f, pl, q)); all.appendChild(box); });
+        files.forEach(function (f) { var box = document.createElement('section'); box.className = 'tz-area'; box.dataset.f = f;
+          var h3 = document.createElement('h3'); h3.innerHTML = headHtml(f); box.appendChild(h3); box.appendChild(tableEl(f, pl, q)); all.appendChild(box); });
         body.appendChild(all);
       } else if (files[0] && A(files[0])) body.appendChild(tableEl(files[0], pl, q));
-      drawSide(files, pl, q);
+      heads(); sideSoon(0);
     }
+    function headHtml(f) { var a = A(f); return esc(headText(f)) + (a && a.pending ? '<span class="tz-pbadge" title="' + esc(pendText(f)) + '">' + esc(tr('pending')) + '</span>' : ''); }
+    function pendText(f) { var a = A(f), p = a.pending, m = areaMeta(f);
+      return fmt(tr('pendInfo'), [m.variant + ' / ' + m.name, p.sid, new Date(p.createdAt).toLocaleString(), (p.by || '?') + (p.comment ? ' · „' + p.comment + '“' : '')]) + (st.dirty[f] ? ' · ' + tr('unsavedToo') : ''); }
+    /* area heads, the "saved - not online yet" bar and the undo buttons: small, after every change */
+    function heads() {
+      [].forEach.call(el.querySelectorAll('.tz-area[data-f]'), function (box) { var h = box.querySelector('h3'); if (h && A(box.dataset.f)) h.innerHTML = headHtml(box.dataset.f); });
+      var bar = $('.tz-pendbar');
+      if (bar) bar.innerHTML = Object.keys(st.areas).filter(function (f) { return A(f).pending && shown().indexOf(f) >= 0; }).map(function (f) { return '<div>' + esc(pendText(f)) + '</div>'; }).join('');
+      var u = $('[data-act=undo]'), r = $('[data-act=redo]');
+      if (u) { u.disabled = !st.hist.past.length; u.title = 'Ctrl+Z (' + st.hist.past.length + ')'; }
+      if (r) { r.disabled = !st.hist.future.length; r.title = 'Ctrl+Y / Ctrl+Shift+Z (' + st.hist.future.length + ')'; }
+      var d = Object.keys(st.dirty).map(function (f) { var m = areaMeta(f); return m.variant + '/' + m.area; }), mini = $('.tz-mini');
+      if (mini) mini.textContent = d.length ? fmt(tr('dirty'), [d.join(', ')]) : '';
+    }
+    /* one cell node again from the data (keeps its place in the grid) */
+    function repaint(k, pl, over) {
+      var old = nodes[k]; if (!old || !old.parentNode) return;
+      var p = k.split('|'), f = p[0], r = +p[1], c = +p[2], a = A(f); if (!a || !a.rows[r]) return;
+      var v = over ? over[0] : a.rows[r].cells[c], built = !!old.closest('.tz-bg');
+      var e = cellEl(v, f, r, c, { top: over ? over[1] : topOf(a, r, c) });
+      if (built && !v) e.classList.add('tz-ph-light');
+      decorate(e, v, pl || placedNow(), st.q.trim().toLowerCase());
+      e.style.cssText = old.style.cssText;
+      old.replaceWith(e);
+    }
+    /* duplicate / unknown marks of every node showing one of these ids */
+    function redecorate(ids, pl) {
+      Object.keys(ids).forEach(function (id) {
+        if (id.charAt(0) === '#') return;
+        [].forEach.call(el.querySelectorAll('.tz-body .tz-c[data-id="' + id.replace(/["\\]/g, '\\$&') + '"]'), function (e) {
+          e.classList.toggle('dup', pl[id] > 1); e.classList.toggle('unk', !(pl[id] > 1) && !known[id]);
+        });
+      });
+    }
+    function redrawTable(f) {
+      var g = el.querySelector('.tz-body .tz-grid[data-f="' + f + '"]'); if (!g) return;
+      Object.keys(nodes).forEach(function (k) { if (k.split('|')[0] === f) delete nodes[k]; });
+      g.replaceWith(tableEl(f, placedNow(), st.q.trim().toLowerCase()));
+    }
+    /* search: only classes (N99) */
+    function applySearch() {
+      var q = st.q.trim().toLowerCase();
+      [].forEach.call(el.querySelectorAll('.tz-body .tz-c[data-f], .tz-pool .tz-c'), function (e) {
+        var id = e.dataset.id; if (!e.dataset.f && !e.dataset.pool) return;
+        var hit = q && id && id.toLowerCase().indexOf(q) >= 0;
+        e.classList.toggle('hit', !!(q && hit && !e.dataset.pool)); e.classList.toggle('dim', !!(q && !hit));
+      });
+    }
+    /* the side panel (checks, pool) is not needed within the click: it follows a moment later */
+    function sideSoon(ms) { clearTimeout(sideTimer); sideTimer = setTimeout(function () { if ($('.tz-pool')) drawSide(shown(), placedNow(), st.q.trim().toLowerCase()); }, ms); }
     function drawSide(files, pl, q) {
       var unplacedIds = Object.keys(known).filter(function (k) { return !pl[k]; }).sort();
       var P = $('.tz-pool'); P.innerHTML = '';
@@ -414,7 +585,7 @@
     function openMenu(cell, x, y) {
       closeMenu(); closeDialog();
       var f = cell.dataset.f, r = +cell.dataset.r, c = +cell.dataset.c, k = f + '|' + r + '|' + c;
-      if (!st.sel[k]) { st.sel = {}; st.sel[k] = 1; draw(); }
+      if (!st.sel[k]) select([k]);
       st.focus = k;
       var v = A(f).rows[r].cells[c], item = isItem(v);
       var m = document.createElement('div'); m.className = 'tz-menu'; m.setAttribute('role', 'menu'); m.setAttribute('aria-label', tr('menu'));
@@ -446,8 +617,8 @@
       else if (act === 'absent') setSel('#light');
       else if (act === 'clear') setSel(null);
       else if (act === 'frame') setSel(toggleFrame);
-      else if (act === 'row') { var label = window.prompt(tr('newRowQ'), tr('newRow')); if (label === null) return; edit([f], function () { insertRow(A(f), r, label.trim() || tr('newRow')); }); st.sel = {}; draw(); }
-      else if (act === 'col') { var nm = window.prompt(tr('newColQ'), tr('newCol')); if (nm === null) return; edit([f], function () { insertColumn(A(f), c, nm.trim() || 'new'); }); st.sel = {}; draw(); }
+      else if (act === 'row') { var label = window.prompt(tr('newRowQ'), tr('newRow')); if (label === null) return; select([]); edit([f], function () { insertRow(A(f), r, label.trim() || tr('newRow')); }); }
+      else if (act === 'col') { var nm = window.prompt(tr('newColQ'), tr('newCol')); if (nm === null) return; select([]); edit([f], function () { insertColumn(A(f), c, nm.trim() || 'new'); }); }
       else if (act === 'undo') undo();
       focusCell();
     }
@@ -500,32 +671,185 @@
     }
     function cellNode(k) { if (!k) return null; var p = k.split('|'); return el.querySelector('.tz-body .tz-c[data-f="' + p[0] + '"][data-r="' + p[1] + '"][data-c="' + p[2] + '"]'); }
     function focusCell() { var main = $('.tz-main'); if (main) main.focus({ preventScroll: true }); var n = cellNode(st.focus); if (n) n.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
-    /* keyboard: arrows move the (single) selection inside an area table, Shift+F10 / context menu key opens the menu */
-    function moveFocus(dr, dc) {
+    /* keyboard (N99): arrows move the focus, Shift+arrows extend the selection from the anchor, Ctrl+arrows move the selection
+       (with swap like dragging). In "as built" the arrows follow the picture: left/right = next row, up/down = deeper on side A
+       (up) or side B (down). */
+    function visual(f, r, dr, dc) {
+      if (st.layout !== 'built') return [dr, dc];
+      return [dc, sideOf[f + '|' + r] === 'B' ? dr : -dr];
+    }
+    function moveFocus(dr, dc, extend) {
       var k = st.focus || Object.keys(st.sel)[0];
       if (!k || !A(k.split('|')[0])) { var f0 = shown()[0]; if (!f0 || !A(f0) || !A(f0).rows.length) return; k = f0 + '|0|0'; dr = 0; dc = 0; }
-      var p = k.split('|'), a = A(p[0]);
-      var r = Math.max(0, Math.min(a.rows.length - 1, +p[1] + dr)), c = Math.max(0, Math.min(a.cols.length - 1, +p[2] + dc));
-      st.focus = p[0] + '|' + r + '|' + c; st.sel = {}; st.sel[st.focus] = 1; draw(); focusCell();
+      var p = k.split('|'), a = A(p[0]), v = visual(p[0], +p[1], dr, dc);
+      var r = Math.max(0, Math.min(a.rows.length - 1, +p[1] + v[0])), c = Math.max(0, Math.min(a.cols.length - 1, +p[2] + v[1]));
+      st.focus = p[0] + '|' + r + '|' + c;
+      if (extend) { var an = (st.anchor || k).split('|'); if (an[0] !== p[0]) an = p; st.anchor = an.join('|'); select(rectOf({ f: an[0], r: +an[1], c: +an[2] }, { f: p[0], r: r, c: c })); }
+      else { st.anchor = st.focus; select([st.focus]); }
+      focusCell();
+    }
+    function moveSel(dr, dc) {
+      var list = selList(); if (!list.length) { msg(tr('pick')); return; }
+      var f = list[0].f; if (list.some(function (s) { return s.f !== f; })) { msg(tr('moveBad')); return; }
+      var v = visual(f, list[0].r, dr, dc), plan = planMove(list, f, v[0], v[1], get, inside);
+      if (!plan) { msg(tr('moveBad')); return; }
+      var moved = list.map(function (s) { return f + '|' + (s.r + v[0]) + '|' + (s.c + v[1]); });
+      select([]); edit([f], function () { put(plan); }); select(moved);
+      if (st.focus) { var p = st.focus.split('|'); if (p[0] === f) st.focus = f + '|' + (+p[1] + v[0]) + '|' + (+p[2] + v[1]); }
+      st.anchor = st.focus; focusCell();
+    }
+    function copySel(cut) {
+      var list = selList(); if (!list.length) { msg(tr('pick')); return; }
+      var f = list[0].f; list = list.filter(function (s) { return s.f === f; });
+      st.clip = copyOf(list, get); msg(fmt(tr('copied'), [list.length]));
+      if (cut) setSel(null);
+    }
+    function paste() {
+      if (!st.clip || !st.clip.length) { msg(tr('noClip')); return; }
+      var k = st.focus || Object.keys(st.sel)[0]; if (!k) { msg(tr('pick')); return; }
+      var list = selList(), p = k.split('|'), f = p[0], r = +p[1], c = +p[2];
+      if (list.length > 1 && list[0].f === f) { r = Math.min.apply(null, list.map(function (s) { return s.r; })); c = Math.min.apply(null, list.map(function (s) { return s.c; })); }
+      if (!A(f)) return;
+      var plan = pasteAt(st.clip, f, r, c, inside); if (!plan.length) { msg(tr('moveBad')); return; }
+      edit([f], function () { put(plan); }); select(plan); msg(fmt(tr('pasted'), [plan.length]));
     }
 
     keys = function (e) {
+      if (drag && e.key === 'Escape') { e.preventDefault(); cancelDrag(); return; }
       if (el.querySelector('.tz-dlg') || (e.target && e.target.closest && e.target.closest('.tz-menu'))) return;
       if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
-      var inGrid = e.target && e.target.closest && e.target.closest('.tz-main');
-      if (e.key === 'Delete') setSel(null);
-      else if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
-      else if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
-      else if (inGrid && /^Arrow/.test(e.key) && !e.ctrlKey && !e.altKey) { e.preventDefault(); moveFocus(e.key === 'ArrowUp' ? -1 : e.key === 'ArrowDown' ? 1 : 0, e.key === 'ArrowLeft' ? -1 : e.key === 'ArrowRight' ? 1 : 0); }
+      var inGrid = e.target && e.target.closest && e.target.closest('.tz-main'), mod = e.ctrlKey || e.metaKey, key = (e.key || '').toLowerCase();
+      var arrow = /^Arrow/.test(e.key) ? [e.key === 'ArrowUp' ? -1 : e.key === 'ArrowDown' ? 1 : 0, e.key === 'ArrowLeft' ? -1 : e.key === 'ArrowRight' ? 1 : 0] : null;
+      if (e.key === 'Delete' || (inGrid && e.key === 'Backspace')) { e.preventDefault(); setSel(null); }
+      else if (mod && key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+      else if (mod && (key === 'y' || (key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); }
+      else if (e.key === 'Escape' && Object.keys(st.sel).length) select([]);  // no preventDefault: Esc also leaves the zoom full screen
+      else if (inGrid && mod && key === 'c') { e.preventDefault(); copySel(false); }
+      else if (inGrid && mod && key === 'x') { e.preventDefault(); copySel(true); }
+      else if (inGrid && mod && key === 'v') { e.preventDefault(); paste(); }
+      else if (inGrid && mod && key === 'a') { e.preventDefault(); var f = (st.focus || Object.keys(st.sel)[0] || shown()[0] + '|0|0').split('|')[0], a = A(f); if (a) select(rectOf({ f: f, r: 0, c: 0 }, { f: f, r: a.rows.length - 1, c: a.cols.length - 1 })); }
+      else if (inGrid && arrow && mod && !e.altKey) { e.preventDefault(); moveSel(arrow[0], arrow[1]); }
+      else if (inGrid && arrow && !e.altKey) { e.preventDefault(); moveFocus(arrow[0], arrow[1], e.shiftKey); }
       else if (inGrid && (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10') || e.key === 'Enter')) {
         var n = cellNode(st.focus || Object.keys(st.sel)[0]); if (!n) { moveFocus(0, 0); n = cellNode(st.focus); }
         if (!n) return;
         e.preventDefault();
         st.focus = n.dataset.f + '|' + n.dataset.r + '|' + n.dataset.c;
-        if (e.key === 'Enter') { if (!st.sel[st.focus]) { st.sel = {}; st.sel[st.focus] = 1; } changeDialog(); }
+        if (e.key === 'Enter') { if (!st.sel[st.focus]) select([st.focus]); changeDialog(); }
         else { var rc = n.getBoundingClientRect(); openMenu(n, rc.left + rc.width / 2, rc.bottom); }
       }
     };
+
+    /* ---- dragging with the pointer (N99, replaces HTML5 drag and drop) ----
+       cell: the selection (or the grabbed cell) moves by the offset to the field under the pointer; the result is drawn live
+       on the touched fields (swap included), release = one undo step, Esc = back. Empty field / Alt / background = frame
+       selection. Row label / column head / sign of "as built" = move that row or column, with an insertion line. */
+    function hitAt(x, y) { var t = document.elementFromPoint(x, y); return t && t.closest ? t : null; }
+    function cancelDrag() { if (!drag) return; clearPreview(); endDrag(); msg(''); }
+    function endDrag() {
+      [].forEach.call(el.querySelectorAll('.tz-bandbox,.tz-ghost'), function (n) { n.remove(); });
+      [].forEach.call(el.querySelectorAll('.tz-insa,.tz-insb,.tz-dsrc'), function (n) { n.classList.remove('tz-insa', 'tz-insb', 'tz-dsrc'); });
+      drag = null;
+    }
+    function clearPreview() {
+      if (!drag || !drag.pv) return;
+      var pl = placedNow(); Object.keys(drag.pv).forEach(function (k) { repaint(k, pl); });
+      drag.pv = null; drag.plan = null;
+    }
+    function showPreview(plan, bad) {
+      clearPreview();
+      var pl = placedNow(), pv = {};
+      (plan || []).forEach(function (x) { var k = keyOf(x); pv[k] = 1; repaint(k, pl, x.v); if (nodes[k]) nodes[k].classList.add('tz-pv'); });
+      if (bad && nodes[bad]) { pv[bad] = 1; nodes[bad].classList.add('tz-pvbad'); }
+      drag.pv = pv; drag.plan = plan;
+      (drag.src || []).forEach(function (s) { var k = keyOf(s); if (!pv[k] && nodes[k]) nodes[k].classList.add('tz-dsrc'); });
+    }
+    function ghost(x, y, text) {
+      var g = el.querySelector('.tz-ghost'); if (!g) { g = document.createElement('div'); g.className = 'tz-ghost'; $('.tz-page').appendChild(g); }
+      g.textContent = text; g.style.left = x + 14 + 'px'; g.style.top = y + 10 + 'px';
+    }
+    function autoScroll(x, y) {
+      var m = $('.tz-main'); if (!m) return; var r = m.getBoundingClientRect(), d = 28;
+      if (x < r.left + d) m.scrollLeft -= 14; else if (x > r.right - d) m.scrollLeft += 14;
+      if (y < r.top + d) m.scrollTop -= 14; else if (y > r.bottom - d) m.scrollTop += 14;
+    }
+    function startDrag(e) {
+      var d = drag; d.on = true;
+      if (d.t === 'cell') {
+        if (e.altKey || (!d.v && !st.sel[d.k])) { d.t = 'band'; }
+        else {
+          if (!st.sel[d.k]) { select([d.k]); st.focus = st.anchor = d.k; }
+          var list = selList(); d.src = list.filter(function (s) { return s.f === d.f; });
+          if (d.src.length !== list.length) { d.src = [{ f: d.f, r: d.r, c: d.c }]; select([d.k]); }
+          ghost(e.clientX, e.clientY, d.src.length > 1 ? d.src.length + ' ×' : (d.v || '').replace(/^minecraft:/, ''));
+        }
+      }
+      if (d.t === 'band') {
+        d.add = e.ctrlKey || e.metaKey || e.shiftKey; d.keep = d.add ? Object.keys(st.sel) : [];
+        var m = $('.tz-main'); d.sx = m.scrollLeft; d.sy = m.scrollTop;
+        d.rects = Object.keys(nodes).filter(function (k) { return nodes[k].isConnected; }).map(function (k) { var r = nodes[k].getBoundingClientRect(); return [k, r.left, r.top, r.right, r.bottom]; });
+        var b = document.createElement('div'); b.className = 'tz-bandbox'; $('.tz-page').appendChild(b); d.box = b;
+      }
+      if (d.t === 'row' || d.t === 'col') { d.node.classList.add('tz-dsrc'); ghost(e.clientX, e.clientY, d.node.textContent); }
+    }
+    function moveDrag(e) {
+      var d = drag; autoScroll(e.clientX, e.clientY);
+      if (d.t === 'band') {
+        var m = $('.tz-main'), ox = m.scrollLeft - d.sx, oy = m.scrollTop - d.sy;  // the start point moves with the scrolled grid
+        var x0 = Math.min(d.x - ox, e.clientX), x1 = Math.max(d.x - ox, e.clientX), y0 = Math.min(d.y - oy, e.clientY), y1 = Math.max(d.y - oy, e.clientY);
+        Object.assign(d.box.style, { left: x0 + 'px', top: y0 + 'px', width: x1 - x0 + 'px', height: y1 - y0 + 'px' });
+        var hit = d.rects.filter(function (r) { return r[3] - ox > x0 && r[1] - ox < x1 && r[4] - oy > y0 && r[2] - oy < y1; }).map(function (r) { return r[0]; });
+        select(d.keep.concat(hit));
+        return;
+      }
+      var t = hitAt(e.clientX, e.clientY);
+      if (d.t === 'row' || d.t === 'col') {
+        ghost(e.clientX, e.clientY, d.node.textContent);
+        [].forEach.call(el.querySelectorAll('.tz-insa,.tz-insb'), function (n) { n.classList.remove('tz-insa', 'tz-insb'); });
+        var h = t && t.closest(d.t === 'col' ? '.tz-h[data-col]' : '.tz-r[data-row],.tz-sign[data-row]');
+        d.to = null;
+        if (h && h.dataset.f === d.f) { var to = +(d.t === 'col' ? h.dataset.col : h.dataset.row); d.to = to; if (to !== d.i) h.classList.add(to > d.i ? 'tz-insa' : 'tz-insb'); }
+        return;
+      }
+      var c = t && t.closest('.tz-body .tz-c[data-f]');
+      if (c && (c.dataset.ro || !A(c.dataset.f))) c = null;
+      var k = c ? c.dataset.f + '|' + c.dataset.r + '|' + c.dataset.c : null;
+      if (d.t === 'pool') ghost(e.clientX, e.clientY, d.id.replace(/^minecraft:/, ''));
+      else ghost(e.clientX, e.clientY, d.src.length > 1 ? d.src.length + ' ×' : (d.v || '').replace(/^minecraft:/, ''));
+      if (k === d.over) return;
+      d.over = k;
+      if (!k) { showPreview(null); return; }
+      var tf = c.dataset.f, tr0 = +c.dataset.r, tc = +c.dataset.c, plan;
+      if (d.t === 'pool') plan = [{ f: tf, r: tr0, c: tc, v: [d.id, get(tf, tr0, tc)[1]] }];
+      else plan = planMove(d.src, tf, tr0 - d.r, tc - d.c, get, inside);
+      showPreview(plan, plan ? null : k);
+    }
+    function dropDrag() {
+      var d = drag;
+      if (d.t === 'band') { endDrag(); return; }
+      if (d.t === 'row' || d.t === 'col') {
+        var f = d.f, from = d.i, to = d.to; endDrag();
+        if (to == null || to === from || !A(f)) return;
+        select([]);
+        edit([f], function () { if (d.t === 'col') moveColumn(A(f).cols, A(f).rows, from, to); else { var rs = A(f).rows, r = rs.splice(from, 1)[0]; rs.splice(to, 0, r); } });
+        return;
+      }
+      var plan = d.plan, src = d.src || [], over = d.over;
+      clearPreview(); endDrag();
+      if (!plan) { if (over) msg(tr('moveBad')); return; }
+      edit(filesOf(plan.concat(src)), function () { put(plan); });
+      if (d.t === 'pool') { select([over]); st.focus = st.anchor = over; }
+      else { var p = over.split('|'), dr = +p[1] - d.r, dc = +p[2] - d.c; select(src.map(function (s) { return p[0] + '|' + (s.r + dr) + '|' + (s.c + dc); })); st.focus = st.anchor = over; }
+    }
+    /* a click without moving: select (Ctrl = add/remove, Shift = range from the anchor) */
+    function clickCell(d, e) {
+      var k = d.k;
+      if (e.shiftKey && st.anchor && st.anchor.split('|')[0] === d.f) { var an = st.anchor.split('|'); select(rectOf({ f: d.f, r: +an[1], c: +an[2] }, { f: d.f, r: d.r, c: d.c }), e.ctrlKey || e.metaKey); }
+      else if (e.ctrlKey || e.metaKey || e.shiftKey) { toggleSel(k); st.anchor = k; }
+      else { var only = Object.keys(st.sel).length === 1 && st.sel[k]; select(only ? [] : [k]); st.anchor = k; }
+      st.focus = k;
+      var main = $('.tz-main'); if (main && document.activeElement !== main) main.focus({ preventScroll: true });
+    }
 
     function wire() {
       var page = $('.tz-page'), info = $('.tz-info');
@@ -538,7 +862,8 @@
       page.addEventListener('input', function (e) {
         var k = e.target.dataset.k;
         if (k === 'zoom') { if (zoom) zoom.setZoom(+e.target.value / ZBASE); else { st.zoom = +e.target.value; page.style.setProperty('--z', st.zoom + 'px'); } }
-        else if (k === 'q') { st.q = e.target.value; draw(); }
+        else if (k === 'q') { st.q = e.target.value; clearTimeout(qTimer); qTimer = setTimeout(applySearch, 120); }
+        else if (k === 'online') { if (Object.keys(st.dirty).length && !window.confirm(tr('discard'))) { e.target.checked = st.online; return; } st.online = e.target.checked; st.areas = {}; st.dirty = {}; st.hist = new History(200); choose(st.file); }
       });
       page.addEventListener('click', function (e) {
         if (!e.target.closest('.tz-menu')) closeMenu();
@@ -549,18 +874,15 @@
           else if (a === 'undo') undo();
           else if (a === 'redo') redo();
           else if (a === 'clear') setSel(null);
+          else if (a === 'copy') copySel(false);
+          else if (a === 'cut') copySel(true);
+          else if (a === 'paste') paste();
+          else if (a === 'selnone') select([]);
           else if (a === 'unk') { var v = $('.tz-unk').value.trim(); if (v && Object.keys(st.sel).length) setSel(v); else msg(tr('pick')); }
           else if (a === 'dl') download();
           else if (a === 'save') save();
           return;
         }
-        var t = e.target.closest('.tz-body .tz-c');
-        if (!t || t.dataset.ro || !t.dataset.f || !A(t.dataset.f)) return;
-        var k = t.dataset.f + '|' + t.dataset.r + '|' + t.dataset.c;
-        if (e.ctrlKey || e.shiftKey || e.metaKey) { if (st.sel[k]) delete st.sel[k]; else st.sel[k] = 1; }
-        else { var only = Object.keys(st.sel).length === 1 && st.sel[k]; st.sel = {}; if (!only) st.sel[k] = 1; }
-        st.focus = k;
-        draw();
       });
       /* N72b-1: right-click on a cell opens the editor menu (index.html leaves events the editor took alone) */
       page.addEventListener('contextmenu', function (e) {
@@ -569,27 +891,33 @@
         e.preventDefault();
         openMenu(t, e.clientX, e.clientY);
       });
-      page.addEventListener('dragstart', function (e) {
-        var t = e.target.closest('.tz-c,.tz-h,.tz-r'); if (!t || t.dataset.ro) return;
-        if (t.dataset.col != null) drag = { t: 'col', f: t.dataset.f, i: +t.dataset.col };
-        else if (t.dataset.row != null) drag = { t: 'row', f: t.dataset.f, i: +t.dataset.row };
-        else if (t.dataset.pool) drag = { t: 'pool', id: t.dataset.id };
-        else if (t.dataset.f && A(t.dataset.f)) { var k = t.dataset.f + '|' + t.dataset.r + '|' + t.dataset.c; if (!st.sel[k]) { st.sel = {}; st.sel[k] = 1; } drag = { t: 'cell', f: t.dataset.f, r: +t.dataset.r, c: +t.dataset.c }; }
-        e.dataTransfer.setData('text/plain', 'x');
+      /* N99: pointer dragging (cells as a group, pool, frame selection, rows, columns) */
+      page.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0 || drag || e.target.closest('.tz-menu,.tz-dlg,.tz-bar,.zm-bar')) return;
+        var t = e.target.closest('.tz-c,.tz-h[data-col],.tz-r[data-row],.tz-sign[data-row]'), main = e.target.closest('.tz-main');
+        var d = { x: e.clientX, y: e.clientY, on: false, id0: e.pointerId };
+        if (t && t.classList.contains('tz-c')) {
+          if (t.dataset.pool) { d.t = 'pool'; d.id = t.dataset.id; }
+          else if (t.dataset.ro || !t.dataset.f || !A(t.dataset.f) || !t.closest('.tz-body')) return;
+          else { d.t = 'cell'; d.f = t.dataset.f; d.r = +t.dataset.r; d.c = +t.dataset.c; d.k = d.f + '|' + d.r + '|' + d.c; d.v = A(d.f).rows[d.r].cells[d.c]; }
+        } else if (t && A(t.dataset.f)) { d.t = t.dataset.col != null ? 'col' : 'row'; d.f = t.dataset.f; d.i = +(t.dataset.col != null ? t.dataset.col : t.dataset.row); d.node = t; }
+        else if (main && e.target.closest('.tz-body') && !e.target.closest('.tz-c,.tz-h,.tz-r,.tz-sign')) d.t = 'band';
+        else return;
+        e.preventDefault();
+        drag = d;
+        if (main && document.activeElement !== $('.tz-main')) $('.tz-main').focus({ preventScroll: true });
       });
-      page.addEventListener('dragover', function (e) { if (drag && e.target.closest('.tz-c,.tz-h,.tz-r')) e.preventDefault(); });
-      page.addEventListener('drop', function (e) {
-        var t = e.target.closest('.tz-c,.tz-h,.tz-r'); if (!t || !drag || t.dataset.ro) return; e.preventDefault();
-        var d = drag; drag = null;
-        if (d.t === 'col' && t.dataset.col != null && t.dataset.f === d.f) edit([d.f], function () { moveColumn(A(d.f).cols, A(d.f).rows, d.i, +t.dataset.col); });
-        else if (d.t === 'row' && t.dataset.row != null && t.dataset.f === d.f) edit([d.f], function () { var rs = A(d.f).rows, r = rs.splice(d.i, 1)[0]; rs.splice(+t.dataset.row, 0, r); });
-        else if (t.classList.contains('tz-c') && !t.dataset.pool && t.dataset.f && A(t.dataset.f)) {
-          var f = t.dataset.f, ri = +t.dataset.r, ci = +t.dataset.c;
-          if (d.t === 'pool') edit([f], function () { A(f).rows[ri].cells[ci] = d.id; });
-          else if (d.t === 'cell') edit([d.f, f], function () { var a = A(d.f).rows[d.r].cells, bb = A(f).rows[ri].cells, x = a[d.c]; a[d.c] = bb[ci]; bb[ci] = x; });
-        }
-        st.sel = {}; draw();
-      });
+
+        if (!drag || !el.isConnected) return;
+      if (!drag.on) { if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) < 5) return; startDrag(e); }
+        last = e; if (frame) return;
+        frame = requestAnimationFrame(function () { frame = 0; if (drag && last) moveDrag(last); });
+      }
+      function onUp(e) {
+        if (!drag || !el.isConnected) return;
+        if (frame) { cancelAnimationFrame(frame); frame = 0; if (drag.on) moveDrag(e); }
+        var d = drag;
+        if (!d.on) { drag = null; if (d.t === 'cell') clickCell(d, e); else if (d.t === 'band' && !(e.ctrlKey || e.shiftKey || e.metaKey)) select([]); return; }
       page.addEventListener('mousemove', function (e) {
         var t = e.target.closest('.tz-c');
         if (!t || !t.dataset.id || t.dataset.id.charAt(0) === '#' || el.querySelector('.tz-menu,.tz-dlg')) { info.style.display = 'none'; return; }
@@ -599,6 +927,27 @@
         info.style.display = 'block'; info.style.left = e.clientX + 14 + 'px'; info.style.top = e.clientY + 14 + 'px';
       });
       page.addEventListener('mouseleave', function () { info.style.display = 'none'; });
+    }
+
+    /* move / release on the document (the pointer may leave the grid); once per mount, idle while this editor is not shown */
+    var frame = 0, last = null;
+    function onMove(e) {
+      if (!drag || !el.isConnected) return;
+      if (!drag.on) { if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) < 5) return; startDrag(e); }
+      last = e; if (frame) return;
+      frame = requestAnimationFrame(function () { frame = 0; if (drag && last) moveDrag(last); });
+    }
+    function onUp(e) {
+      if (!drag || !el.isConnected) return;
+      if (frame) { cancelAnimationFrame(frame); frame = 0; if (drag.on) moveDrag(e); }
+      var d = drag;
+      if (!d.on) { drag = null; if (d.t === 'cell') clickCell(d, e); else if (d.t === 'band' && !(e.ctrlKey || e.shiftKey || e.metaKey)) select([]); return; }
+      dropDrag();
+    }
+    if (typeof document !== 'undefined') {
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+      document.addEventListener('pointercancel', function () { if (drag && el.isConnected) cancelDrag(); });
     }
 
     function payload(f) { var a = A(f); return layoutOf(a.D, a.cols, a.rows); }
@@ -623,10 +972,11 @@
             .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) {
               if (!r.ok) { var err = new Error((j.error || r.status) + (r.status === 401 || r.status === 403 ? tr('login') : '')); err.server = true; throw err; }
               done.push(j.sid); delete st.dirty[f];
+              savedNow(f, j, comment);
             }); });
         });
       });
-      chain.then(function () { msg(fmt(tr('okSave'), [done.join(', ')])); loadHistory(); draw(); })
+      chain.then(function () { msg(fmt(tr('okSave'), [done.join(', ')])); loadHistory(); heads(); })
         .catch(function (e) { msg(e && e.server ? tr('badSave') + e.message : tr('offline')); })
         .then(function () { var bb = $('[data-act=save]'); if (bb) bb.disabled = false; });
     }
@@ -636,16 +986,48 @@
       var mine = st.history.filter(function (x) { return areas.some(function (D) { return x.area === D.area && (!x.variant || x.variant === D.variant); }); }).slice(0, 10);
       u.innerHTML = mine.map(function (x) { return '<li>' + esc(new Date(x.createdAt).toLocaleString()) + ' · ' + esc(x.by || '?') + ' · ' + esc(x.variant ? x.variant + '/' : '') + esc(x.area) + ' · ' + esc(x.state) + (x.comment ? ' · ' + esc(x.comment) : '') + '</li>'; }).join('') || '<li>' + esc(tr('none')) + '</li>';
     }
-    function loadHistory() {
-      fetch('/api/testcentre', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : []; })
-        .then(function (a) { st.history = Array.isArray(a) ? a : []; drawHistory(); }).catch(function () {});
+    function loadHistory() { savesP = null; saveList(); }
+    /* N99: "saved - not online yet". The newest save of an area (GET /api/testcentre, full via GET /api/testcentre/<sid>) is
+       shown instead of the repo state when it differs and is younger than the repo file (Last-Modified); cells that differ from
+       the repo carry an orange corner. Without the server list: the local copy of the own last save (localStorage). */
+    var LS = 'sbTzSave:';
+    function localSave(D) { try { return JSON.parse(localStorage.getItem(LS + D.variant + '/' + D.area) || 'null'); } catch (e) { return null; } }
+    function savedNow(f, j, comment) {
+      var a = A(f), p = payload(f);
+      try { localStorage.setItem(LS + a.D.variant + '/' + a.D.area, JSON.stringify({ sid: String(j.sid), createdAt: j.createdAt || Date.now(), by: j.by || '', comment: comment, variant: a.D.variant, area: a.D.area, columns: p.columns, rows: p.rows, excluded: p.excluded })); } catch (e) { /* full or blocked: the server copy counts */ }
+      a.pending = layoutKey(a.cols, a.rows) === a.baseKey ? null : { sid: String(j.sid), createdAt: j.createdAt || Date.now(), by: j.by || '', comment: comment };
     }
+    var savesP = null;
+    function saveList() {
+      if (!savesP) savesP = fetch('/api/testcentre', { credentials: 'same-origin', cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (a) { if (Array.isArray(a)) { st.history = a; drawHistory(); return a; } return null; }).catch(function () { return null; });
+      return savesP;
+    }
+    function saveFull(x) {
+      if (x.rows) return Promise.resolve(x);
+      return fetch('/api/testcentre/' + encodeURIComponent(x.sid), { credentials: 'same-origin', cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    }
+    function rowsCopy(rows) { return rows.map(function (r) { return { key: r.key, label: r.label, cells: r.cells.slice(), tops: Object.assign({}, r.tops || {}) }; }); }
     function loadOne(file) {
       if (A(file)) return Promise.resolve(A(file));
-      return fetch('data/testcentre/' + file, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(file + ' ' + r.status); return r.json(); }).then(function (D) {
-        var a = { file: file, D: D, cols: D.columns.slice(), rows: D.rows.map(function (r) { return { key: r.key, label: r.label, cells: r.cells.slice(), tops: Object.assign({}, r.tops || {}) }; }) };
+      var stamp = 0;
+      return Promise.all([fetch('data/testcentre/' + file, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(file + ' ' + r.status); stamp = Date.parse(r.headers.get('Last-Modified') || '') || 0; return r.json(); }),
+        st.online ? null : saveList()]).then(function (got) {
+        var D = got[0], list = got[1];
+        var a = { file: file, D: D, cols: D.columns.slice(), rows: rowsCopy(D.rows), base: baseMapOf(D.columns, D.rows), baseKey: layoutKey(D.columns, D.rows), pending: null };
         var k = {}; a.rows.forEach(function (r) { r.cells.forEach(function (c) { if (c && c.charAt(0) !== '#') k[c] = 1; }); }); a.known = Object.keys(k);
-        st.areas[file] = a; return a;
+        st.areas[file] = a;
+        if (st.online) return a;
+        var cand = list ? newestSave(list, D.variant, D.area) : localSave(D);
+        if (!cand || (stamp && Number(cand.createdAt) <= stamp)) return a;
+        return saveFull(cand).then(function (S) {
+          if (!S || !Array.isArray(S.columns) || !Array.isArray(S.rows) || layoutKey(S.columns, S.rows) === a.baseKey) return a;
+          a.cols = S.columns.slice(); a.rows = rowsCopy(S.rows);
+          if (Array.isArray(S.excluded)) a.D = Object.assign({}, D, { excluded: S.excluded });
+          a.pending = { sid: String(S.sid || cand.sid), createdAt: S.createdAt || cand.createdAt, by: S.by || cand.by || '', comment: S.comment || cand.comment || '', local: !list };
+          a.rows.forEach(function (r) { r.cells.forEach(function (c) { if (c && c.charAt(0) !== '#') k[c] = 1; }); }); a.known = Object.keys(k);
+          return a;
+        });
       });
     }
     function loadMany(files, then) { Promise.all(files.map(loadOne)).then(then).catch(function (e) { msg(tr('areaFail') + (e && e.message)); }); }
@@ -664,7 +1046,7 @@
       st.idx = got[0]; st.icons = (got[1] && got[1].icons) || {}; st.plan = got[2];
       var want = ctx.area === ALL ? ALL : ctx.area && (st.idx.areas.filter(function (a) { return a.file === ctx.area; })[0] || {}).file;
       choose(want || st.idx.areas[0].file);
-      loadHistory();
+      saveList();
     }).catch(function () { el.innerHTML = '<h1>' + esc(tr('title')) + '</h1><div class="box box-danger">' + esc(tr('noData')) + '</div>'; });
   }
 
@@ -674,6 +1056,7 @@
   if (typeof window !== 'undefined') window.addEventListener('beforeunload', function (e) { var p = document.querySelector('.tz-page'); if (p && api.dirtyNow && api.dirtyNow()) { e.preventDefault(); e.returnValue = ''; } });
 
   var api = { mount: mount, STR: STR, placedCount: placedCount, layoutOf: layoutOf, moveColumn: moveColumn, uniqueName: uniqueName,
+    planMove: planMove, rectOf: rectOf, copyOf: copyOf, pasteAt: pasteAt, layoutKey: layoutKey, baseMapOf: baseMapOf, differs: differs, newestSave: newestSave,
     insertRow: insertRow, insertColumn: insertColumn, toggleFrame: toggleFrame, History: History, builtPlan: builtPlan, unplaced: unplaced,
     dirty: function (ctx) { return !!(ctx && ctx.state && ctx.state.dirty && Object.keys(ctx.state.dirty).length); } };
   if (typeof module === 'object' && module.exports) module.exports = api;
