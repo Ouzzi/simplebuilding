@@ -29,12 +29,15 @@ MAX_TILES_BODY = 8 * 1024 * 1024 + 1024
 MAX_WEBHOOK = 256 * 1024
 MAX_MANIFEST_BODY = 1024 * 1024
 ACCOUNT_PATHS = {"/login", "/register", "/forgot", "/reset", "/verify", "/logout", "/resend", "/pro", "/pro/order", "/pro/done",
-                 "/pro/manage", "/kuendigen", "/early", "/kontakt", "/pro/gift", "/pro/gifts"}
+                 "/pro/manage", "/kuendigen", "/early", "/kontakt", "/pro/gift", "/pro/gifts", "/pro/pay", "/pro/redeem"}
+WEBHOOKS = {"/api/paddle/webhook": "paddle", "/api/stripe/webhook": "stripe"}     # N108 addendum 3/4: one route per provider
 EARLY_F_RE = re.compile(r"^/early/f/([A-Za-z0-9][A-Za-z0-9._+-]{0,150}\.(?:jar|zip))$")
-# Forms may also lead to Stripe (303 after the order/portal POST; browsers apply form-action to the redirect target too).
-STRIPE_FORMS = "https://checkout.stripe.com https://billing.stripe.com"
+# Forms may also lead to the payment provider (303 after the order/portal POST; browsers apply form-action to the redirect target
+# too): the active provider's hosts (payments.*.csp_forms). The Paddle overlay page /pro/pay gets its own CSP (PAY_CSP).
 CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; "
        "frame-ancestors 'none'; form-action 'self' {forms}; base-uri 'none'; object-src 'none'")
+PAY_CSP = ("default-src 'self'; script-src 'self' {script}; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.paddle.com; "
+           "connect-src 'self' https://*.paddle.com; frame-src {frame}; frame-ancestors 'none'; form-action 'self'; base-uri 'none'; object-src 'none'")
 VIEWER_CSP = ("default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' blob:; connect-src 'self'; "
               "base-uri 'none'; form-action 'none'; frame-ancestors 'self'")
 M_RE = re.compile(r"^/m/([a-z0-9-]{3,32})(/.*)?$")
@@ -149,7 +152,7 @@ class App:
         return "; ".join(parts)
 
     def headers(self, ctype: str, csp: str | None, extra: list | None = None, cache: str = "no-store") -> list:
-        forms = " ".join(self.cfg.url(k, "") for k in ("account", "livemap")) + " " + STRIPE_FORMS
+        forms = " ".join(self.cfg.url(k, "") for k in ("account", "livemap")) + " " + self.provider_forms()
         h = [("Content-Type", ctype), ("X-Content-Type-Options", "nosniff"), ("Referrer-Policy", "strict-origin-when-cross-origin"),
              ("Cross-Origin-Opener-Policy", "same-origin"), ("Permissions-Policy", "camera=(), microphone=(), geolocation=()"),
              ("Cache-Control", cache)]
@@ -159,8 +162,14 @@ class App:
             h.append(("Strict-Transport-Security", "max-age=31536000"))
         return h + (extra or [])
 
-    def html(self, ctx: Ctx, status: int, body: str, cache: str = "no-store") -> Response:
-        r = Response(status, body.encode("utf-8"), self.headers("text/html; charset=utf-8", CSP, cache=cache))
+    def provider_forms(self) -> str:
+        try:
+            return self.svc.provider().csp_forms
+        except ValueError:
+            return ""
+
+    def html(self, ctx: Ctx, status: int, body: str, cache: str = "no-store", csp: str = CSP) -> Response:
+        r = Response(status, body.encode("utf-8"), self.headers("text/html; charset=utf-8", csp, cache=cache))
         r.headers += [("Set-Cookie", c) for c in ctx.set_cookies]
         if ctx.req.query.get("lang") in ("en", "de"):
             r.headers.append(("Set-Cookie", self.cookie("sm_lang", ctx.req.query["lang"], 365 * 86400)))
@@ -336,6 +345,18 @@ class App:
                     return self.html(ctx, p.status, pro_pages.cancel(ctx, f))
                 return self.html(ctx, 200, pro_pages.cancel(ctx, f, result))
             return self.html(ctx, 200, pro_pages.cancel(ctx, {}))
+        if path == "/pro/pay":
+            return self.pay_page(ctx)
+        if path == "/pro/redeem":
+            if req.method == "POST":
+                f = req.form
+                try:
+                    result = svc.redeem_gift(f.get("code", ""), [f.get(f"mc{i}", "") for i in range(4)], req.ip, ctx.user)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.redeem(ctx, f))
+                return self.html(ctx, 200, pro_pages.redeem(ctx, f, result))
+            return self.html(ctx, 200, pro_pages.redeem(ctx, {"code": req.query.get("code", "")}))
         if ctx.user is None:
             return self.login_first(ctx)
         user = ctx.user
@@ -426,6 +447,20 @@ class App:
                 return Response(200, b"", self.headers("application/octet-stream", None, extra + [("X-Accel-Redirect", accel + m.group(1))]))
             return Response(200, f.read_bytes(), self.headers("application/java-archive" if f.suffix == ".jar" else "application/zip", None, extra))
         raise Problem(404, "not_found")
+
+    def pay_page(self, ctx: Ctx) -> Response:
+        """Paddle checkout page (the transaction's checkout URL): Paddle.js opens the overlay for ``_ptxn``. Shows nothing from
+        our database except where to go afterwards; Paddle's own checkout checks the transaction (also used by Paddle for
+        payment-method updates of running subscriptions)."""
+        svc = self.svc
+        prov = svc.provider()
+        txn = ctx.req.query.get("_ptxn", "")
+        if prov.name != "paddle" or not prov.configured() or not re.fullmatch(r"txn_[A-Za-z0-9]{1,60}", txn):
+            raise Problem(404, "not_found")
+        order = svc.db.one("SELECT kind FROM orders WHERE session_id = ?", txn)
+        success = ctx.url("account", "/pro/gifts?done=1" if order and order["kind"] == "gift" else "/pro/done" if order else "/pro/manage")
+        csp = PAY_CSP.format(script=prov.csp_script, frame=prov.csp_frame)
+        return self.html(ctx, 200, pro_pages.pay(ctx, txn, success, prov), csp=csp)
 
     # ---------------------------------------------------------------- livemap host
     def need_user(self, ctx: Ctx):
@@ -723,16 +758,16 @@ class App:
                                                svc.mailer.recent() if svc.mailer.uses_outbox else [],
                                                svc.db.all("SELECT coupon, COUNT(*) AS n FROM orders WHERE coupon IS NOT NULL GROUP BY coupon ORDER BY n DESC LIMIT 50")))
 
-    # ---------------------------------------------------------------- API (mod, Stripe)
+    # ---------------------------------------------------------------- API (mod, payment providers)
     def api(self, req: Request, site: str) -> Response:
         svc = self.svc
-        if site == "account" and req.path != "/api/stripe/webhook":
+        if site == "account" and req.path not in WEBHOOKS:
             return self.plain(404, "not found")
         lang = "en"
         try:
             path = req.path
-            if path == "/api/stripe/webhook" and req.method == "POST":
-                return self.json(200, svc.webhook(req.body, req.headers.get("stripe-signature")))
+            if path in WEBHOOKS and req.method == "POST":
+                return self.json(200, svc.webhook(req.body, req.headers, WEBHOOKS[path]))
             if not path.startswith("/api/v1/"):
                 raise Problem(404, "not_found")
             name = path[8:]
@@ -803,7 +838,7 @@ def body_limit(path: str) -> int:
         return MAX_TILES_BODY
     if path == "/api/v1/manifest":
         return MAX_MANIFEST_BODY   # up to 5000 entries of path + SHA-256 (the mod sends 2000 per call)
-    if path == "/api/stripe/webhook":
+    if path in WEBHOOKS:
         return MAX_WEBHOOK
     return MAX_FORM
 

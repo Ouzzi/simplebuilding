@@ -13,8 +13,11 @@ Safe by default:
 - Run it again any time: existing objects are found (product ids, price lookup keys, endpoint URL, portal metadata) and reused;
   a changed amount makes a new price and moves the lookup key (prices are immutable at Stripe), the old one is archived.
 
-    python3 tools/livemap-web/stripe_setup.py --webhook-url https://livemap.simplemods.de/api/stripe/webhook \\
-        --billing-file /etc/simplemods/livemap-billing.json [--apply] [--live]
+    python3 tools/livemap-web/stripe_setup.py --webhook-url https://<livemap host>/api/stripe/webhook \\
+        --return-url https://<account host>/pro/manage --billing-file /etc/simplemods/livemap-billing.json [--apply] [--live]
+
+No fixed host names: the URLs come from the arguments, else from the server config (``--config``, ``hosts``) or the environment
+(``SMWEB_LIVEMAP_HOST`` / ``SMWEB_ACCOUNT_HOST``); ``--apply`` refuses to run without them.
 """
 from __future__ import annotations
 
@@ -53,6 +56,12 @@ def read_env_var(path: Path, var: str) -> str | None:
                 value = value[1:-1]
             return value or None
     return None
+
+
+def host_url(server: dict, which: str, path: str) -> str | None:
+    """https://<host><path> from the server config's hosts or the environment; None when neither names the host."""
+    host = (server.get("hosts") or {}).get(which) or os.environ.get(f"SMWEB_{which.upper()}_HOST", "").strip()
+    return f"{server.get('scheme', 'https')}://{host}{path}" if host else None
 
 
 def key_mode(key: str) -> str:
@@ -197,8 +206,8 @@ def main(argv=None, api_factory=StripeHTTP, out=print) -> int:
     ap.add_argument("--env-file", default="/root/.config/sb-keys.env")
     ap.add_argument("--key-var", default="STRIPE_SECRET_KEY")
     ap.add_argument("--billing-file", default=None, help="billing JSON to update (outside the repo); none = print only")
-    ap.add_argument("--webhook-url", default="https://livemap.simplemods.de/api/stripe/webhook")
-    ap.add_argument("--return-url", default="https://account.simplemods.de/pro/manage")
+    ap.add_argument("--webhook-url", default=None, help="default: https://<livemap host>/api/stripe/webhook (config/env)")
+    ap.add_argument("--return-url", default=None, help="default: https://<account host>/pro/manage (config/env)")
     ap.add_argument("--plans", default=str(HERE / "plans.json"))
     ap.add_argument("--tiers", default=str(HERE / "tiers.json"))
     ap.add_argument("--config", default=None, help="server config (plans/tiers overrides, legal URLs)")
@@ -215,6 +224,8 @@ def main(argv=None, api_factory=StripeHTTP, out=print) -> int:
         except (OSError, ValueError):
             out("config not readable")
             return 2
+    a.webhook_url = a.webhook_url or host_url(server, "livemap", "/api/stripe/webhook")
+    a.return_url = a.return_url or host_url(server, "account", "/pro/manage")
     tiers = load_tiers(Path(a.tiers), server.get("tiers") or {})
     plans = load_plans(Path(a.plans), server.get("plans") or {}, tiers)
     key = read_env_var(Path(a.env_file), a.key_var)
@@ -235,6 +246,9 @@ def main(argv=None, api_factory=StripeHTTP, out=print) -> int:
         return 0
     if not key:
         out(f"no {a.key_var} in {a.env_file}")
+        return 2
+    if not a.webhook_url or not a.return_url:
+        out("webhook/return URL unknown: pass --webhook-url/--return-url, --config with hosts, or set SMWEB_LIVEMAP_HOST/SMWEB_ACCOUNT_HOST")
         return 2
     if mode == "live" and not a.live:
         out("live key refused: run in test mode first, then add --live")

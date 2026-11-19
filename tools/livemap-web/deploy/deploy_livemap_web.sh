@@ -27,8 +27,8 @@ while [ $# -gt 0 ]; do
   esac
 done
 case "$STAGE" in
-  dev)  PORT=8096; ACCOUNT_HOST=account-dev.simplemods.de; LIVEMAP_HOST=livemap-dev.simplemods.de; CHECKOUT=/srv/wiki-dev; COOKIE=__Secure-sm_dev_session; DATA=/srv/livemap-web-dev;;
-  prod) PORT=8095; ACCOUNT_HOST=account.simplemods.de;     LIVEMAP_HOST=livemap.simplemods.de;     CHECKOUT=/srv/wiki-prod; COOKIE=__Secure-sm_session;     DATA=/srv/livemap-web;;
+  dev)  PORT=8096; ACCOUNT_HOST=${SMWEB_ACCOUNT_HOST:-account-dev.simplemods.de}; LIVEMAP_HOST=${SMWEB_LIVEMAP_HOST:-livemap-dev.simplemods.de}; CHECKOUT=/srv/wiki-dev; COOKIE=__Secure-sm_dev_session; DATA=/srv/livemap-web-dev;;
+  prod) PORT=8095; ACCOUNT_HOST=${SMWEB_ACCOUNT_HOST:-account.simplemods.de}; LIVEMAP_HOST=${SMWEB_LIVEMAP_HOST:-livemap.simplemods.de}; CHECKOUT=/srv/wiki-prod; COOKIE=__Secure-sm_session;     DATA=/srv/livemap-web;;
   *) echo "--stage dev|prod" >&2; exit 2;;
 esac
 SRC=${SRC:-$CHECKOUT/tools/livemap-web}

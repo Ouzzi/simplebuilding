@@ -98,7 +98,7 @@ Sommerzeit zwei Stunden.
 
 Sie können außerdem kündigen
 
-- unter „Mein Abo“ (`https://account.simplemods.de/pro/manage`) bzw. im Kundenportal unseres Zahlungsdienstleisters Stripe,
+- unter „Mein Abo“ (`https://account.simplemods.de/pro/manage`) bzw. im Kundenportal des Zahlungsanbieters ({{#wenn zahlung.paddle}}Paddle{{#sonst}}Stripe{{/wenn}}),
 - per E-Mail an {{kontakt.allgemein}},
 - per Brief an {{betreiber.name}}, {{betreiber.anschrift}}, Deutschland.
 

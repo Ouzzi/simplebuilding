@@ -1,3 +1,4 @@
+<!-- intern: Zahlungsanbieter-Varianten Paddle (Standard) / Stripe; Schalter fill_legal.py --provider. -->
 <!-- intern: ungeprüft – vor Zahlungsstart anwaltlich prüfen. Diese Zeile beim Veröffentlichen entfernen. -->
 # Datenschutzerklärung
 
@@ -55,7 +56,7 @@ ausgeführt hat.
 | Mitspieler-Plätze | Vergabe, Missbrauchsschutz | Art. 6 Abs. 1 lit. b, f | bis 30 Tage nach Ende des Platzes |
 | Geschenk-Abos, Minecraft-Namen | Vertrag, Vorzüge im Spiel | Art. 6 Abs. 1 lit. b, f | Namen bis 30 Tage nach Ablauf; Bestellung wie oben |
 | Kündigungen | Bearbeitung, Nachweis (§ 312k BGB) | Art. 6 Abs. 1 lit. b, c, f | 3 Jahre nach Ende des Jahres der Vertragsbeendigung |
-| Zahlungsdaten (bei Stripe) | Zahlungsabwicklung | Art. 6 Abs. 1 lit. b, c | nach den gesetzlichen Fristen |
+| Zahlungsdaten (beim Zahlungsanbieter, 8.2) | Zahlungsabwicklung | Art. 6 Abs. 1 lit. b, c | nach den gesetzlichen Fristen |
 | Kontaktformular und E-Mails | Beantwortung | Art. 6 Abs. 1 lit. b, f | bis Erledigung, höchstens 3 Jahre; Geschäftsbriefe 6 Jahre |
 | Meldungen rechtswidriger Inhalte | Bearbeitung (DSA) | Art. 6 Abs. 1 lit. c, f | 3 Jahre nach Abschluss |
 | Rechnungen und Buchungsbelege | gesetzliche Aufbewahrung | Art. 6 Abs. 1 lit. c | 8 bzw. 10 Jahre |
@@ -222,11 +223,11 @@ Bei einer Bestellung speichern wir in unserer Datenbank:
 
 - **Bestellung:** Konto, Stufe, Laufzeit, Zeitpunkt, Ihre Zustimmungen (AGB und Widerrufsbelehrung; Vereinbarung zu Vorabversionen;
   freiwillig: Beginn vor Ablauf der Widerrufsfrist) jeweils mit Zeitpunkt und Version des Textes, ein eingelöster Gutscheincode und die
-  Kennung der Bezahlsitzung bei Stripe.
-- **Abo:** Stripe-Kunden- und Abo-Kennung, Stufe, Laufzeit, Status (zum Beispiel aktiv, Zahlung offen, gekündigt), Ende des bezahlten
+  Kennung der Bezahlsitzung bzw. Transaktion beim Zahlungsanbieter (8.2).
+- **Abo:** Kunden- und Abo-Kennung beim Zahlungsanbieter, Stufe, Laufzeit, Status (zum Beispiel aktiv, Zahlung offen, gekündigt), Ende des bezahlten
   Zeitraums, vorgemerkte Kündigung oder vorgemerkter Stufenwechsel, beim Jahresabo die Kennung des Zahlungsplans.
 - **Freischaltungen:** Stufe und Vorzüge Ihres Kontos, Beginn und Ende sowie die Quelle (Abo, Mitspieler-Platz oder manuell).
-- **Stripe-Ereignisse:** nur Kennung und Typ jeder Nachricht von Stripe, damit wir sie nicht doppelt verarbeiten.
+- **Ereignisse des Zahlungsanbieters:** nur Kennung und Typ jeder Nachricht, damit wir sie nicht doppelt verarbeiten.
 
 Zahlungsmitteldaten (zum Beispiel Kartennummer, IBAN) speichern wir nicht.
 
@@ -235,7 +236,28 @@ Zahlungsmitteldaten (zum Beispiel Kartennummer, IBAN) speichern wir nicht.
 - Speicherdauer: bis zum Ende des Vertrags und danach drei Jahre ab Ende des Jahres der Vertragsbeendigung (regelmäßige
   Verjährungsfrist); Angaben, die Teil von Rechnungen oder Buchungsbelegen sind, nach Abschnitt 8.3.
 
-### 8.2 Zahlungsabwicklung durch Stripe
+{{#wenn zahlung.paddle}}### 8.2 Zahlungsabwicklung (Paddle als Verkäufer)
+
+Die kostenpflichtigen Produkte verkauft Paddle als Wiederverkäufer (Merchant of Record). Zum Bezahlen öffnet sich auf unserer Seite
+die Bezahlseite von Paddle (Paddle.js, eingebettet von `cdn.paddle.com` bzw. `buy.paddle.com`); Zahlungsart, Rechnungen und Kündigung
+können Sie im Kundenportal von Paddle verwalten.
+
+- **Daten:** Name, E-Mail-Adresse, Land und Postleitzahl bzw. Rechnungsadresse, ggf. Umsatzsteuer-Identifikationsnummer, Stufe,
+  Laufzeit, Betrag, Abo- und Zahlungsstatus, Rechnungsdaten, Zahlungsmitteldaten, Geräte- und Verbindungsdaten zur Betrugsprävention.
+  Wir übermitteln an Paddle eine Kennung Ihres Kontos und der Bestellung, Stufe und Laufzeit sowie einen eingegebenen Gutscheincode
+  (als Rabatt-Kennung); Ihre E-Mail-Adresse geben Sie im Bezahlschritt selbst ein. Von Paddle erhalten wir Kunden-, Abo- und
+  Transaktionskennungen, Abo- und Zahlungsstatus, Beträge und Rechnungsnummern sowie Erstattungen und Rückbuchungen, aber keine
+  Zahlungsmitteldaten.
+- **Anbieter und Rolle:** Paddle.com Market Limited, Judd House, 18–29 Mora Street, London EC1V 8BT, Vereinigtes Königreich. Paddle ist
+  für den Verkauf, die Zahlungsabwicklung, die Rechnungsstellung, die Steuerberechnung, die Betrugsprävention und seine gesetzlichen
+  Pflichten **eigener Verantwortlicher** und damit Empfänger Ihrer Daten. Für die Verarbeitung durch Paddle gilt die
+  Datenschutzerklärung von Paddle: https://www.paddle.com/legal/privacy
+- **Rechtsgrundlage:** Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (gesetzliche Pflichten), lit. f (Abgleich von Zahlung und
+  Freischaltung).
+- **Drittland:** Für das Vereinigte Königreich besteht ein Angemessenheitsbeschluss der EU-Kommission. Paddle kann Daten an
+  Unternehmen der Paddle-Gruppe und Dienstleister außerhalb der EU, insbesondere in den USA, übermitteln; Grundlage sind dort das
+  EU-US Data Privacy Framework bzw. Standardvertragsklauseln.
+- Nachrichten von Paddle an unseren Server (Webhooks) prüfen wir anhand ihrer Signatur.{{#sonst}}### 8.2 Zahlungsabwicklung (Stripe)
 
 Zur Eingabe der Zahlungsdaten leiten wir Sie auf die Bezahlseite von Stripe („Stripe Checkout“) weiter; Zahlungsart, Rechnungen und
 Kündigung können Sie im Kundenportal von Stripe verwalten.
@@ -253,7 +275,7 @@ Kündigung können Sie im Kundenportal von Stripe verwalten.
 - **Drittland:** Stripe kann Daten an Stripe, Inc. in den USA übermitteln. Grundlage ist das EU-US Data Privacy Framework, ergänzend
   Standardvertragsklauseln.
 - **Weitere Informationen:** https://stripe.com/de/privacy
-- Nachrichten von Stripe an unseren Server (Webhooks) prüfen wir anhand ihrer Signatur.
+- Nachrichten von Stripe an unseren Server (Webhooks) prüfen wir anhand ihrer Signatur.{{/wenn}}
 
 ### 8.3 Rechnungen und Aufbewahrung
 
@@ -273,7 +295,10 @@ Audit-Protokoll (5.4).
 ### 8.5 Geschenk-Abos und öffentliche Namensabfrage
 
 Beim Geschenk-Abo speichern wir zusätzlich zu den Bestelldaten (8.1) die Stufe, die Laufzeit, den bzw. die angegebenen
-**Minecraft-Namen**, den Zeitpunkt jeder Namensänderung und das Ende der Laufzeit. Die Zahlung erfolgt einmalig über Stripe (8.2).
+**Minecraft-Namen**, den Zeitpunkt jeder Namensänderung und das Ende der Laufzeit. Die Zahlung erfolgt einmalig über den
+Zahlungsanbieter (8.2). Bleibt der Name bei der Bestellung offen, erzeugen wir einen zufälligen **Geschenkcode**, den wir dem Käufer
+anzeigen und per E-Mail senden; bei der Einlösung speichern wir den Namen, den Zeitpunkt und – falls die einlösende Person angemeldet
+ist – ihr Konto.
 
 Damit unsere Mods die Vorzüge im Spiel erkennen, gibt es eine **öffentliche Abfrage** `https://account.simplemods.de/api/v1/mc/<Name>`.
 Sie antwortet für einen Minecraft-Namen nur, ob und welche Vorzüge (Stufe, Vorzugs-Schlüssel) bis wann gelten; den Käufer, sein Konto oder
@@ -288,7 +313,8 @@ Vorzüge bestehen.
 
 ### 8.6 Gutscheine
 
-Lösen Sie einen Gutscheincode ein, speichern wir den Code an Ihrer Bestellung und übermitteln ihn an Stripe. In der Verwaltung sehen wir,
+Lösen Sie einen Gutscheincode ein, speichern wir den Code an Ihrer Bestellung und übermitteln ihn bzw. die zugehörige Rabatt-Kennung an
+den Zahlungsanbieter (8.2). In der Verwaltung sehen wir,
 welche Codes wie oft genutzt wurden. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO, gegen Missbrauch lit. f.
 
 ### 8.7 Frühzugang
@@ -301,7 +327,7 @@ Pfad einschließlich Dateiname im Server-Log (4.2). Rechtsgrundlage: Art. 6 Abs.
 
 Über „Verträge hier kündigen“ gelangen Sie – auch ohne Anmeldung – zur Kündigungsseite. Wir verarbeiten die angegebene E-Mail-Adresse,
 den Vertrag, die Art der Kündigung, ggf. den Grund, Datum und Uhrzeit des Eingangs, das Ergebnis (zum Beispiel Vertragsende) und die
-Zuordnung zu Konto und Abo. Wir gleichen die E-Mail-Adresse mit unseren Konten ab, setzen die Kündigung bei Stripe um und senden die
+Zuordnung zu Konto und Abo. Wir gleichen die E-Mail-Adresse mit unseren Konten ab, setzen die Kündigung beim Zahlungsanbieter um und senden die
 Eingangsbestätigung an die angegebene Adresse und an die Adresse des zugehörigen Kontos. Die Ergebnisseite verrät nicht, ob ein Konto
 besteht.
 
@@ -357,7 +383,7 @@ Personenbezogene Daten erhalten außer uns nur:
 | Empfänger | Zweck | Ort | Grundlage |
 |---|---|---|---|
 | Cloudflare, Inc. | CDN, Reverse Proxy, Tunnel, DNS, Schutz vor Angriffen, ggf. E-Mail-Weiterleitung | USA, weltweites Netz | Auftragsverarbeitung; Data Privacy Framework, Standardvertragsklauseln |
-| Stripe Payments Europe, Limited (mit Stripe, Inc.) | Zahlungsabwicklung, Abo-Verwaltung, Rechnungen, ggf. Steuerberechnung | Irland, USA | eigener Verantwortlicher bzw. Auftragsverarbeitung; Data Privacy Framework, Standardvertragsklauseln |
+{{#wenn zahlung.paddle}}| Paddle.com Market Limited (Paddle-Gruppe) | Verkauf als Wiederverkäufer (Merchant of Record), Zahlungsabwicklung, Abo-Verwaltung, Rechnungen, Steuerberechnung | Vereinigtes Königreich, USA | eigener Verantwortlicher; Angemessenheitsbeschluss (UK), Data Privacy Framework, Standardvertragsklauseln |{{#sonst}}| Stripe Payments Europe, Limited (mit Stripe, Inc.) | Zahlungsabwicklung, Abo-Verwaltung, Rechnungen, ggf. Steuerberechnung | Irland, USA | eigener Verantwortlicher bzw. Auftragsverarbeitung; Data Privacy Framework, Standardvertragsklauseln |{{/wenn}}
 | SMTP-Dienstleister und E-Mail-Anbieter | Versand und Empfang von E-Mails | EU oder Drittland | Auftragsverarbeitung; bei Drittland Data Privacy Framework oder Standardvertragsklauseln |
 | Steuerberatung (falls beauftragt) | Buchhaltung, Steuererklärungen | Deutschland | Art. 6 Abs. 1 lit. c DSGVO; berufliche Schweigepflicht |
 | Kartenbetrachter, Wiki-Leser | Anzeige von Karten (nach Sichtbarkeit) und freigegebenen Kommentaren | weltweit | nach Ihren Einstellungen bzw. Ihrer Veröffentlichung |
@@ -379,7 +405,8 @@ nicht.
 | `__cf_bm`, `cf_clearance` (Cloudflare) | Bot-Erkennung, Sicherheitsprüfung | 30 Minuten bzw. bis zu 1 Jahr | nur bei Bedarf, siehe 4.3 |
 | lokaler Speicher des Browsers | Design, Sprache, Anzeigeeinstellungen der Karte | bis Sie die Browserdaten löschen | wird nicht an uns übertragen |
 
-Auf der Bezahlseite und im Kundenportal von Stripe setzt Stripe eigene Cookies; dafür gelten die Hinweise von Stripe (8.2). Sie können
+Auf der Bezahlseite und im Kundenportal des Zahlungsanbieters setzt dieser eigene Cookies bzw. lokale Speicherung ein; dafür gelten
+seine Hinweise (8.2). Sie können
 Cookies in Ihrem Browser löschen oder blockieren; ohne das Sitzungs-Cookie ist keine Anmeldung möglich.
 
 ## 14. Datensicherheit

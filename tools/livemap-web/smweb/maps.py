@@ -150,10 +150,10 @@ class MapsMixin:
         row = self.db.one("SELECT * FROM codes WHERE code_hash = ?", sec.sha256(c_norm))
         if not row or row["used_at"] or row["expires_at"] < now:
             self.limiter.add("code-fail:" + ip)
-            raise Problem(404, "code_unknown")
+            raise Problem(404, "code_unknown", host=self.cfg.hosts["livemap"])
         user = self.user(row["user_id"])
         if not user or user["disabled"] or not user["verified_at"]:
-            raise Problem(404, "code_unknown")
+            raise Problem(404, "code_unknown", host=self.cfg.hosts["livemap"])
         t = self.tier(user)
         key = "slm_" + sec.token(32)
         mod_version = (mod_version or "")[:40]
@@ -161,7 +161,7 @@ class MapsMixin:
             # Checked again inside the transaction: a second code for the same place loses.
             idx = self.check_place(user, row["visibility"])
             if c.execute("UPDATE codes SET used_at = ? WHERE code_hash = ? AND used_at IS NULL", (now, row["code_hash"])).rowcount != 1:
-                raise Problem(404, "code_unknown")
+                raise Problem(404, "code_unknown", host=self.cfg.hosts["livemap"])
             first = user["connections_total"] < self.cfg.tiers.get("first_connections_without_wait", 2)
             wait = 0 if first or user["role"] == "developer" else t["prep_minutes"] * 60
             old = None

@@ -26,6 +26,9 @@ def stamp(ts, lang: str) -> str:
 def vat_note(vat: dict, lang: str) -> str:
     """Price note next to every price (PAngV): small business (section 19 UStG) or VAT included; with Stripe Tax the rate
     depends on the buyer's country and is shown in the checkout."""
+    if vat.get("mode") == "merchant_of_record":
+        return ("Endpreis inkl. gesetzlicher USt. Verkäufer ist Paddle.com (Merchant of Record); der Steuersatz richtet sich nach deinem Land."
+                if lang == "de" else "Final price incl. VAT. The seller is Paddle.com (merchant of record); the tax rate depends on your country.")
     if vat.get("mode") == "small_business":
         return ("Gemäß § 19 UStG wird keine Umsatzsteuer berechnet." if lang == "de"
                 else "No VAT is charged (small business, § 19 UStG).")
@@ -45,6 +48,16 @@ WAIVER = {
           "contract is completely fulfilled, that it expires when the provision of digital content (early-access downloads) starts, "
           "and that on withdrawal after the start I pay a fair amount for what was provided.",
 }
+
+
+def gift_code_text(svc, p: dict, lang: str) -> str:
+    """Gift code paragraph (addendum 4) - only while no name is bound yet."""
+    if p.get("names") or not p.get("code"):
+        return ""
+    url = svc.cfg.url("account", "/pro/redeem?code=" + p["code"])
+    if lang == "de":
+        return f"Geschenkcode: {p['code']}\nDer Beschenkte löst ihn hier für seinen Minecraft-Namen ein (einmalig): {url}\n\n"
+    return f"Gift code: {p['code']}\nThe receiver redeems it here for their Minecraft name (once): {url}\n\n"
 
 
 def waiver_text(lang: str) -> str:
@@ -108,17 +121,17 @@ def render(kind: str, lang: str, svc, **p) -> tuple[str, str]:
         if de:
             return (f"Bestellbestätigung Geschenk-Abo Simple Mods Pro {name(p['plan'])}",
                     f"Hallo,\n\ndanke für dein Geschenk. Vertragsdaten:\n\n- Geschenk: Simple Mods Pro {name(p['plan'])} für {p['months']} "
-                    f"{'Monat' if p['months'] == 1 else 'Monate'} (Einmalzahlung, endet automatisch)\n- Minecraft-Name(n): {p['names']}\n"
+                    f"{'Monat' if p['months'] == 1 else 'Monate'} (Einmalzahlung, endet automatisch)\n- Minecraft-Name(n): {p['names'] or 'noch offen – per Geschenkcode'}\n"
                     f"- Preis: {money(p['cents'], lang)} ({vat})\n- Gültig: {day(p['starts'], lang)} bis {day(p['ends'], lang)}\n"
                     f"- Bestellnummer: {p['order_id']}\n- Vertragsschluss: {stamp(p['at'], lang)}\n\n"
-                    f"Den Namen kannst du alle {int(svc.gift_cfg()['change_days'])} Tage ändern: {svc.cfg.url('account', '/pro/gifts')}\n\n"
+                    f"{gift_code_text(svc, p, lang)}Den Namen kannst du alle {int(svc.gift_cfg()['change_days'])} Tage ändern: {svc.cfg.url('account', '/pro/gifts')}\n\n"
                     f"{'Du hast den sofortigen Beginn verlangt; dein Widerrufsrecht erlischt nach § 356 Abs. 4/5 BGB.' if p['waiver'] else 'Ohne vorzeitigen Beginn startet das Geschenk nach Ablauf der Widerrufsfrist.'}\n\n"
                     f"Vertragstext und Belehrungen:\n{legal_links(svc, lang)}{sign}")
         return (f"Order confirmation gift Simple Mods Pro {name(p['plan'])}",
                 f"Hello,\n\nthank you for your gift. Contract data:\n\n- Gift: Simple Mods Pro {name(p['plan'])} for {p['months']} month(s) "
-                f"(one-off payment, ends by itself)\n- Minecraft name(s): {p['names']}\n- Price: {money(p['cents'], lang)} ({vat})\n"
+                f"(one-off payment, ends by itself)\n- Minecraft name(s): {p['names'] or 'open - via gift code'}\n- Price: {money(p['cents'], lang)} ({vat})\n"
                 f"- Valid: {day(p['starts'], lang)} to {day(p['ends'], lang)}\n- Order number: {p['order_id']}\n- Contract made: {stamp(p['at'], lang)}\n\n"
-                f"Change the name every {int(svc.gift_cfg()['change_days'])} days: {svc.cfg.url('account', '/pro/gifts')}\n\n"
+                f"{gift_code_text(svc, p, lang)}Change the name every {int(svc.gift_cfg()['change_days'])} days: {svc.cfg.url('account', '/pro/gifts')}\n\n"
                 f"Contract text and notices:\n{legal_links(svc, lang)}{sign}")
     if kind == "invoice":
         links = "\n".join(x for x in (p.get("link"), p.get("pdf")) if x) or svc.cfg.url("account", "/pro/manage")

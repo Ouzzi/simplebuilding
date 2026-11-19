@@ -1,10 +1,14 @@
 <!-- intern: ungeprüft – vor Zahlungsstart anwaltlich prüfen. Diese Zeile beim Veröffentlichen entfernen. -->
+<!-- intern: Varianten Paddle (Verkäufer = Paddle, Standard) / Stripe (Verkäufer = wir); Schalter fill_legal.py --provider. Paddle-Variante mit der Widerrufsbelehrung in den Paddle Buyer Terms abgleichen. -->
 # Widerrufsbelehrung und Muster-Widerrufsformular
 
 Stand: 19.11.2026
 
-Verbraucherinnen und Verbrauchern (§ 13 BGB) steht bei Verträgen, die sie mit uns über das Internet schließen – Abo „Simple Mods
-Pro“ und Geschenk-Abo –, ein Widerrufsrecht nach Maßgabe der folgenden Belehrung zu. Die Verträge betreffen digitale
+{{#wenn zahlung.paddle}}Verbraucherinnen und Verbrauchern (§ 13 BGB) steht beim Kauf des Abos „Simple Mods Pro“ und des Geschenk-Abos ein Widerrufsrecht
+nach Maßgabe der folgenden Belehrung zu. **Verkäufer ist Paddle.com Market Limited („Paddle“) als Wiederverkäufer (Merchant of
+Record);** der Widerruf richtet sich deshalb an Paddle, und Paddle erstattet die Zahlung. Sie können den Widerruf auch an uns senden;
+wir leiten ihn unverzüglich an Paddle weiter. Ergänzend gelten die Käuferbedingungen von Paddle (Paddle Buyer Terms).{{#sonst}}Verbraucherinnen und Verbrauchern (§ 13 BGB) steht bei Verträgen, die sie mit uns über das Internet schließen – Abo „Simple Mods
+Pro“ und Geschenk-Abo –, ein Widerrufsrecht nach Maßgabe der folgenden Belehrung zu.{{/wenn}} Die Verträge betreffen digitale
 Dienstleistungen (zum Beispiel Simple Livemap, namensgebundene Vorzüge) und die Bereitstellung digitaler Inhalte, die nicht auf
 einem körperlichen Datenträger geliefert werden (Dateien aus dem Frühzugang).
 
@@ -18,9 +22,12 @@ Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertr
 
 Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.
 
-Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
+{{#wenn zahlung.paddle}}Um Ihr Widerrufsrecht auszuüben, müssen Sie Paddle (Paddle.com Market Limited, Judd House, 18–29 Mora Street, London EC1V 8BT,
+Vereinigtes Königreich, über https://paddle.net) oder uns
 
-{{betreiber.name}}
+{{#sonst}}Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
+
+{{/wenn}}{{betreiber.name}}
 
 {{betreiber.anschrift}}
 
@@ -38,13 +45,15 @@ Widerrufsfrist absenden.
 
 **Folgen des Widerrufs**
 
-Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, unverzüglich und spätestens
-binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist.
+{{#wenn zahlung.paddle}}Wenn Sie diesen Vertrag widerrufen, hat Paddle Ihnen alle Zahlungen, die Paddle von Ihnen erhalten hat, unverzüglich und spätestens
+binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei Paddle oder bei uns
+eingegangen ist.{{#sonst}}Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, unverzüglich und spätestens
+binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist.{{/wenn}}
 Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei
 denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte
 berechnet.
 
-Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen sollen, so haben Sie uns einen angemessenen
+Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen sollen, so haben Sie {{#wenn zahlung.paddle}}Paddle{{#sonst}}uns{{/wenn}} einen angemessenen
 Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses
 Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen
 Dienstleistungen entspricht.
@@ -80,7 +89,14 @@ Widerrufsfrist beginnen, schalten wir die Vorzüge sofort frei. Dann gilt:
 
 **3. Unternehmer.** Das Widerrufsrecht besteht nur für Verbraucherinnen und Verbraucher, nicht für Unternehmer (§ 14 BGB).
 
-**4. Kostenlose Leistungen.** Das kostenlose Konto, das Wiki, die Downloads und Simple Livemap in der Stufe Free begründen keine
+**4. Erstattungsregel (Refund Policy).** Über das gesetzliche Widerrufsrecht hinaus gilt: Bei einer Kündigung bleiben die Vorzüge
+bis zum Ende des bezahlten Zeitraums nutzbar; eine anteilige Erstattung erfolgt nicht. Bei einem Stufenwechsel gibt es keine
+Rückzahlung, Gutschrift oder Nachberechnung; der Wechsel gilt ab dem nächsten Abrechnungszeitraum. Geschenk-Abos werden nach Ablauf
+der Widerrufsfrist nicht erstattet. Gesetzliche Rechte (insbesondere bei Mängeln) bleiben unberührt. {{#wenn zahlung.paddle}}Erstattungen führt Paddle
+als Verkäufer auf das ursprüngliche Zahlungsmittel aus; Anfragen an https://paddle.net oder an {{kontakt.allgemein}}.{{#sonst}}Erstattungen erfolgen auf das
+ursprüngliche Zahlungsmittel; Anfragen an {{kontakt.allgemein}}.{{/wenn}}
+
+**5. Kostenlose Leistungen.** Das kostenlose Konto, das Wiki, die Downloads und Simple Livemap in der Stufe Free begründen keine
 Zahlungspflicht. Wir verarbeiten dafür nur die Daten, die zur Erbringung nötig sind; ein Widerrufsrecht ist damit nicht verbunden.
 Sie können diese Leistungen jederzeit durch Löschen Ihres Kontos beenden.
 
@@ -90,7 +106,7 @@ Sie können diese Leistungen jederzeit durch Löschen Ihres Kontos beenden.
 
 (Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)
 
-– An {{betreiber.name}}, {{betreiber.anschrift}}, Deutschland, E-Mail: {{kontakt.allgemein}}:
+– An {{#wenn zahlung.paddle}}Paddle.com Market Limited, Judd House, 18–29 Mora Street, London EC1V 8BT, Vereinigtes Königreich (über https://paddle.net), oder an {{/wenn}}{{betreiber.name}}, {{betreiber.anschrift}}, Deutschland, E-Mail: {{kontakt.allgemein}}:
 
 – Hiermit widerrufe(n) ich/wir (\*) den von mir/uns (\*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (\*)/die
 Erbringung der folgenden Dienstleistung (\*)

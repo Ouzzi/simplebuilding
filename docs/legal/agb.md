@@ -1,11 +1,12 @@
 <!-- intern: ungeprüft – vor Zahlungsstart anwaltlich prüfen. Diese Zeile beim Veröffentlichen entfernen. -->
-# Allgemeine Geschäftsbedingungen (AGB) von Simple Mods
+<!-- intern: Zahlungsanbieter-Varianten Paddle (Merchant of Record, Standard) / Stripe (Blöcke „wenn zahlung.paddle“); Schalter: fill_legal.py --provider. Paddle-Teile gegen die aktuellen Paddle Buyer Terms abgleichen. -->
+# {{#wenn zahlung.paddle}}Nutzungsbedingungen{{#sonst}}Allgemeine Geschäftsbedingungen (AGB){{/wenn}} von Simple Mods
 
 Stand: 19.11.2026
 
 ## 1. Geltungsbereich, Anbieter, Begriffe
 
-1.1 Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge über die Online-Angebote von „Simple Mods“ zwischen
+1.1 Diese {{#wenn zahlung.paddle}}Nutzungsbedingungen („Bedingungen“, im Folgenden auch „AGB“){{#sonst}}Allgemeinen Geschäftsbedingungen{{/wenn}} gelten für alle Verträge über die Online-Angebote von „Simple Mods“ zwischen
 
 {{betreiber.name}}, {{betreiber.anschrift}}, Deutschland, E-Mail: {{kontakt.allgemein}} („wir“, „uns“)
 
@@ -31,6 +32,15 @@ Nutzung gilt die jeweils bei der Mod angegebene Lizenz; diese AGB regeln ergänz
 Betrieb von Simple Livemap ohne unseren gehosteten Dienst („Self-Host“) ist nicht Gegenstand dieser AGB.
 
 1.5 Vertragssprache ist Deutsch. Übersetzungen dienen nur der Information.
+{{#wenn zahlung.paddle}}
+1.6 **Verkauf über Paddle (Merchant of Record).** Die kostenpflichtigen Produkte (Abo „Simple Mods Pro“, Geschenk-Abo) kaufen Sie
+nicht bei uns, sondern bei unserem Wiederverkäufer **Paddle.com Market Limited** („Paddle“) als Verkäufer (Merchant of Record).
+Für den Kauf, die Zahlung, die Rechnung, Erstattungen und das Widerrufsrecht gelten die Käuferbedingungen von Paddle (Paddle Buyer
+Terms), die Ihnen im Bezahlschritt angezeigt werden; Einzelheiten stehen in Abschnitt 12. Wir erbringen die gekauften Leistungen
+(Vorzüge, Simple Livemap, Frühzugang) und stellen das Konto bereit; dafür gelten diese Bedingungen. Wo diese Bedingungen von
+„Vertrag“, „Bestellung“ oder „Abo“ sprechen, ist bei kostenpflichtigen Produkten das Nutzungsverhältnis mit uns gemeint, das mit dem
+Kauf bei Paddle entsteht.
+{{/wenn}}
 
 ## 2. Überblick: kostenlose und kostenpflichtige Leistungen
 
@@ -222,6 +232,10 @@ Mitspieler-Plätze), sind nicht enthalten.
 
 9.3 **Namen.** Ein Geschenk-Abo gilt für einen Minecraft-Namen, in der Stufe Ultra für zwei Namen. Sie können einen Namen frühestens alle
 7 Tage ändern. Geben Sie nur Namen von Personen an, die mit dem Geschenk einverstanden sind. Wir prüfen nicht, wem ein Name gehört.
+Lassen Sie den Namen bei der Bestellung offen, erhalten Sie nach der Zahlung einen **Geschenkcode**: Die beschenkte Person löst ihn
+einmalig unter `https://account.simplemods.de/pro/redeem` für ihren Minecraft-Namen ein (ein Konto ist dafür nicht nötig). Der Code
+ist bis zum Ende der gebuchten Laufzeit einlösbar; die Laufzeit beginnt unabhängig von der Einlösung (Abschnitt 9.4). Behandeln Sie
+den Code wie Bargeld; wer ihn zuerst einlöst, erhält das Geschenk.
 
 9.4 **Laufzeit.** Das Geschenk-Abo beginnt mit der Freischaltung (Abschnitt 14.3) und endet automatisch nach Ablauf der gebuchten
 Laufzeit. Es verlängert sich nicht; eine Kündigung ist nicht nötig. Ein vorzeitiges Ende durch Sie berechtigt nicht zu einer
@@ -248,7 +262,7 @@ Abrechnungszeiträume entfallen lassen; der reguläre Preis gilt dann ab dem nä
 11.2 Die Bestellung läuft so ab:
 
 a) Sie wählen auf der Preisseite Stufe und Laufzeit (monatlich oder jährlich) bzw. beim Geschenk-Abo Stufe, Zahl der Monate und
-Minecraft-Namen.
+Minecraft-Namen (oder lassen den Namen für einen Geschenkcode offen).
 
 b) Auf unserer Zusammenfassungsseite sehen Sie Stufe, Vorzüge, Laufzeit, Abrechnungszeitraum, Endpreis mit Steuerhinweis,
 Zahlungsweise, Kündigungsbedingungen und den Hinweis auf Ihr Widerrufsrecht. Dort können Sie einen Gutscheincode eingeben.
@@ -260,39 +274,51 @@ beginnen (Abschnitt 14.2).
 
 d) Mit Klick auf die Schaltfläche **„zahlungspflichtig bestellen“** geben Sie ein verbindliches Angebot zum Abschluss des Vertrags ab.
 
-e) Anschließend leiten wir Sie zur Bezahlseite unseres Zahlungsdienstleisters Stripe („Stripe Checkout“). Dort geben Sie Ihre
-Zahlungsdaten ein und bestätigen die Zahlungsart.
+e) Anschließend öffnet sich die Bezahlseite des Zahlungsanbieters (Abschnitt 12). Dort geben Sie Ihre Zahlungsdaten ein und bestätigen
+die Zahlungsart.
 
-f) Der Vertrag kommt zustande, wenn wir Ihr Angebot annehmen. Das geschieht durch die Bestätigungs-E-Mail, die wir Ihnen unmittelbar
+{{#wenn zahlung.paddle}}f) Der Kaufvertrag kommt mit Paddle zustande, wenn Sie den Kauf auf der Bezahlseite von Paddle abschließen und Paddle ihn
+bestätigt (Paddle Buyer Terms). Damit kommt zugleich der Nutzungsvertrag mit uns über die gekauften Leistungen zustande; wir bestätigen
+ihn mit einer E-Mail. Brechen Sie den Vorgang auf der Bezahlseite ab oder wird die Zahlungsart abgelehnt, kommt kein Vertrag zustande.{{#sonst}}f) Der Vertrag kommt zustande, wenn wir Ihr Angebot annehmen. Das geschieht durch die Bestätigungs-E-Mail, die wir Ihnen unmittelbar
 nach erfolgreichem Abschluss auf der Bezahlseite senden. Brechen Sie den Vorgang auf der Bezahlseite ab oder wird die Zahlungsart
-abgelehnt, kommt kein Vertrag zustande.
+abgelehnt, kommt kein Vertrag zustande.{{/wenn}}
 
 11.3 **Eingabefehler** können Sie auf der Zusammenfassungsseite erkennen und vor dem Absenden über „Zurück: Stufe ändern“ bzw. „Zu
-jährlich/monatlich wechseln“ berichtigen. Auf der Bezahlseite von Stripe können Sie den Vorgang abbrechen und zur Zusammenfassung
-zurückkehren.
+jährlich/monatlich wechseln“ berichtigen. Auf der Bezahlseite des Zahlungsanbieters können Sie den Vorgang abbrechen und zur
+Zusammenfassung zurückkehren.
 
 11.4 **Vertragstext.** Wir speichern den Vertragstext. Sie erhalten die Vertragsdaten, diese AGB und die Widerrufsbelehrung mit dem
 Muster-Widerrufsformular mit der Bestätigungs-E-Mail; Ihre Bestellungen und Ihr Abo sehen Sie außerdem im Konto unter „Mein Abo“.
 Die jeweils aktuellen AGB können Sie jederzeit auf unseren Seiten abrufen, speichern und ausdrucken. Ihre Zustimmungen aus dem
 Bestellvorgang speichern wir mit Zeitpunkt und der Version des zugestimmten Textes.
 
-## 12. Preise und Zahlung
+## 12. Zahlungsabwicklung, Preise und Zahlung
+
+<!-- intern: Abschnitt „Zahlungsabwicklung“ – ein Anbieterwechsel ändert nur den Schalter fill_legal.py --provider (Nachtrag 3). -->
+{{#wenn zahlung.paddle}}12.0 **Zahlungsabwicklung.** Zahlungsanbieter und Verkäufer der kostenpflichtigen Produkte ist Paddle.com Market Limited, Judd
+House, 18–29 Mora Street, London EC1V 8BT, Vereinigtes Königreich („Paddle“), als Wiederverkäufer (Merchant of Record). Paddle wickelt
+den Kauf ab, zieht die Zahlung ein, berechnet und führt die Umsatzsteuer ab, stellt die Rechnung aus und ist Ansprechpartner für
+Zahlung, Erstattung und Widerruf (https://paddle.net). Es gelten die Käuferbedingungen von Paddle (Paddle Buyer Terms).{{#sonst}}12.0 **Zahlungsabwicklung.** Zahlungsdienstleister ist Stripe Payments Europe, Limited, 1 Grand Canal Street Lower, Grand Canal Dock,
+Dublin, D02 H210, Irland („Stripe“). Vertragspartner und Verkäufer sind wir; Stripe wickelt in unserem Auftrag die Zahlung ab
+(„Stripe Checkout“, Kundenportal).{{/wenn}}
 
 12.1 Es gelten die Preise, die auf der Preisseite `https://account.simplemods.de/pro` und in der Zusammenfassung vor dem Absenden der
 Bestellung angezeigt werden. Beispiele (Stand 19.11.2026): 3,99 € (Basic), 7,99 € (Max), 14,99 € (Ultra) pro Monat; jährlich 12 Monate
-zum Preis von 10. {{#wenn betreiber.kleinunternehmer}}Alle Preise sind Endpreise in Euro. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.{{#sonst}}Alle Preise sind Endpreise in Euro einschließlich der gesetzlichen Umsatzsteuer.{{/wenn}}
+zum Preis von 10. {{#wenn zahlung.paddle}}Alle Preise sind Endpreise in Euro einschließlich der gesetzlichen Umsatzsteuer, die Paddle als Verkäufer berechnet; der Steuersatz richtet sich nach Ihrem Land und wird im Bezahlschritt ausgewiesen.{{/wenn}}{{#wenn zahlung.stripe_ku}}Alle Preise sind Endpreise in Euro. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.{{/wenn}}{{#wenn zahlung.stripe_ust}}Alle Preise sind Endpreise in Euro einschließlich der gesetzlichen Umsatzsteuer.{{/wenn}}
 
 12.2 Wird beim Jahrespreis zum Vergleich der zwölffache Monatspreis durchgestrichen gezeigt, ist das ein Vergleich mit zwölf
 Monatszahlungen, kein früherer Preis.
 
 12.3 **Zahlung.** Sie zahlen im Voraus für den jeweiligen Abrechnungszeitraum (Monat bzw. Jahr), beim Geschenk-Abo einmalig bei der
-Bestellung, über den Zahlungsdienstleister Stripe mit den dort angebotenen Zahlungsarten. Ihre Zahlungsdaten geben Sie direkt bei
-Stripe ein; wir erhalten sie nicht. Die Abbuchung erscheint auf Ihrem Kontoauszug bzw. Ihrer Kartenabrechnung als **„SIMPLEMODS“**.
+Bestellung, über den Zahlungsanbieter (12.0) mit den dort angebotenen Zahlungsarten. Ihre Zahlungsdaten geben Sie direkt beim
+Zahlungsanbieter ein; wir erhalten sie nicht. {{#wenn zahlung.paddle}}Die Abbuchung erscheint auf Ihrem Kontoauszug bzw. Ihrer Kartenabrechnung mit
+dem Namen von Paddle und **„SIMPLEMODS“** (zum Beispiel „PADDLE.NET* SIMPLEMODS“). Die Rechnung stellt Paddle elektronisch aus;
+Zahlungsart, Rechnungen und Abo verwalten Sie unter „Mein Abo“ bzw. im Kundenportal von Paddle.{{#sonst}}Die Abbuchung erscheint auf Ihrem Kontoauszug bzw. Ihrer Kartenabrechnung als **„SIMPLEMODS“**.
 Rechnungen erhalten Sie elektronisch; Rechnungen, Zahlungsart und Abo verwalten Sie unter „Mein Abo“ bzw. im Kundenportal von
-Stripe.
+Stripe.{{/wenn}}
 
 12.4 **Fehlgeschlagene Zahlung.** Schlägt eine Zahlung fehl, informieren wir Sie per E-Mail mit einem Link zum Aktualisieren der
-Zahlungsdaten; Stripe versucht den Einzug erneut. Ihre Vorzüge bleiben bis zum Ende des bezahlten Zeitraums und weitere 7 Tage
+Zahlungsdaten; der Zahlungsanbieter versucht den Einzug erneut. Ihre Vorzüge bleiben bis zum Ende des bezahlten Zeitraums und weitere 7 Tage
 erhalten (Kulanzfrist). Geht die Zahlung bis dahin nicht ein, enden die Vorzüge und Ihr Konto wechselt auf die kostenlosen Leistungen
 (Stufe Free); für Karten gilt Abschnitt 5.8. Geht die Zahlung später ein, schalten wir die Vorzüge wieder frei. Ihre gesetzlichen
 Rechte und unsere Ansprüche auf das vereinbarte Entgelt bleiben unberührt.
@@ -318,8 +344,8 @@ außerordentlich mit Grund) an und kündigen mit der Schaltfläche **„Jetzt k�
 mit Datum und Uhrzeit des Eingangs, dem Vertrag und dem Vertragsende, und zwar an die angegebene Adresse und an die Adresse des
 zugehörigen Kontos. Einzelheiten und die Texte stehen auf unserer Seite „Kündigung“.
 
-13.5 **Andere Wege.** Sie können auch unter „Mein Abo“ bzw. im Kundenportal von Stripe, per E-Mail an {{kontakt.allgemein}} oder per
-Brief kündigen. Textform genügt.
+13.5 **Andere Wege.** Sie können auch unter „Mein Abo“ bzw. im Kundenportal des Zahlungsanbieters (12.0), per E-Mail an
+{{kontakt.allgemein}} oder per Brief kündigen. Textform genügt.
 
 13.6 **Wirkung.** Eine ordentliche Kündigung wirkt zum Ende des bezahlten Abrechnungszeitraums. Bis dahin können Sie sie unter „Mein
 Abo“ zurücknehmen. Eine außerordentliche Kündigung prüfen wir und teilen Ihnen Ergebnis und Zeitpunkt der Beendigung unverzüglich mit.
@@ -346,7 +372,9 @@ Vertragsende entfällt, soweit uns kein Schadensersatzanspruch zusteht.
 
 14.1 Verbraucher haben bei Abo und Geschenk-Abo ein gesetzliches Widerrufsrecht. Einzelheiten stehen in unserer
 **Widerrufsbelehrung** mit dem Muster-Widerrufsformular, die Sie vor der Bestellung abrufen können und mit der Bestätigungs-E-Mail
-erhalten.
+erhalten.{{#wenn zahlung.paddle}} Da Paddle Verkäufer ist, besteht das Widerrufsrecht für den Kauf gegenüber Paddle; Sie können den Widerruf
+an Paddle oder an uns richten (wir leiten ihn unverzüglich weiter), Paddle erstattet die Zahlung. Abschnitte 14.2 und 14.3 gelten
+für den Beginn unserer Leistungen entsprechend.{{/wenn}}
 
 14.2 **Beginn auf Ihr Verlangen.** Verlangen Sie im Bestellvorgang ausdrücklich, dass wir vor Ablauf der Widerrufsfrist beginnen, und
 bestätigen Sie Ihre Kenntnis von den Folgen, schalten wir die Vorzüge sofort frei. Dann gilt: Für die Dienstleistungen zahlen Sie bei

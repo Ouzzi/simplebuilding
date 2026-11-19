@@ -45,6 +45,13 @@ Nur diese Schlüssel sind erlaubt (anderes bricht `fill_legal.py` ab):
 Bedingte Blöcke (nicht verschachteln): `{{#wenn betreiber.telefon}}…{{/wenn}}`, `{{#wenn betreiber.ustid}}…{{/wenn}}`,
 `{{#wenn betreiber.wirtschafts_id}}…{{/wenn}}`, `{{#wenn betreiber.kleinunternehmer}}…{{#sonst}}…{{/wenn}}`.
 
+**Zahlungsanbieter (N108 Nachtrag 3/4).** Ein Schalter für alle Texte: `fill_legal.py --provider paddle` (Standard; Paddle ist
+Verkäufer/Merchant of Record, AGB heißen „Nutzungsbedingungen“, Widerruf/Erstattung/Rechnung über Paddle, Datenschutz: Paddle als
+eigener Verantwortlicher) oder `--provider stripe` (wir verkaufen, Stripe wickelt ab – bisherige Fassung). Blöcke:
+`{{#wenn zahlung.paddle}}…{{#sonst}}…{{/wenn}}`, `{{#wenn zahlung.stripe}}…{{/wenn}}`, `{{#wenn zahlung.stripe_ku}}` (Stripe +
+Kleinunternehmer), `{{#wenn zahlung.stripe_ust}}` (Stripe + USt.). Der Anbieter muss zu `billing.provider` des Servers passen.
+Der zentrale Abschnitt ist AGB 12.0 „Zahlungsabwicklung“; andere Stellen sprechen neutral vom „Zahlungsanbieter (12.0)“.
+
 `{{betreiber.anschrift}}` steht teils auf eigener Zeile (Impressum, Datenschutz, Widerruf), teils im Fließtext (AGB 1.1, Formular,
 Kündigung). Im Fließtext wird die Mehrzeiligkeit von Markdown zu Leerzeichen; wer Kommas möchte, lässt `fill_legal.py` Zeilenumbrüche
 dort durch „, “ ersetzen.
@@ -52,7 +59,7 @@ dort durch „, “ ersetzen.
 ## 3. Füllen beim Deploy
 
 ```
-python3 tools/livemap-web/fill_legal.py --operator <json> --out <dir> [--contact-file <json>]
+python3 tools/livemap-web/fill_legal.py --operator <json> --out <dir> [--contact-file <json>] [--provider paddle|stripe]
 ```
 
 - `--operator`: Betreiberdatei (Schlüssel `name`, `anschrift`, `email`, `telefon`, `ustid`, `wirtschafts_id`, `kleinunternehmer`). Sie
