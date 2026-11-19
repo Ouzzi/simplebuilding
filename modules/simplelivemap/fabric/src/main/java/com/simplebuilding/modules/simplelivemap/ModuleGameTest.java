@@ -19,6 +19,7 @@ public final class ModuleGameTest {
     @GameTest public void httpVisibility(GameTestHelper h) { LivemapTests.httpVisibility(h); }
     @GameTest public void httpTraversal(GameTestHelper h) { LivemapTests.httpTraversal(h); }
     @GameTest public void httpPlayersFields(GameTestHelper h) { LivemapTests.httpPlayersFields(h); }
+    @GameTest public void hiddenPlayersNeverSent(GameTestHelper h) { LivemapTests.hiddenPlayersNeverSent(h); }
     @GameTest public void httpRateLimit(GameTestHelper h) { LivemapTests.httpRateLimit(h); }
     @GameTest public void selfHostLock(GameTestHelper h) { LivemapTests.selfHostLock(h); }
     @GameTest public void selfHostPortProbe(GameTestHelper h) { LivemapTests.selfHostPortProbe(h); }

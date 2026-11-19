@@ -30,7 +30,7 @@
   "text.autoconfig.simplelivemap.option.web.token": "Key",
   "text.autoconfig.simplelivemap.option.web.token.@Tooltip": "Secret key of the private map, made on first start; /simplelivemap link shows the link. Default: random.",
   "text.autoconfig.simplelivemap.option.web.showPlayers": "Show players",
-  "text.autoconfig.simplelivemap.option.web.showPlayers.@Tooltip": "Online players appear with name and position (each can hide with /simplelivemap hide). Default: off.",
+  "text.autoconfig.simplelivemap.option.web.showPlayers.@Tooltip": "Online players appear with name and position (each can hide with /simplelivemap hide; sneaking, invisible players and spectators never appear). Default: off.",
   "text.autoconfig.simplelivemap.option.web.requestsPerMinute": "Requests per minute",
   "text.autoconfig.simplelivemap.option.web.requestsPerMinute.@Tooltip": "Requests one address may make per minute. Range 30-20000. Default: 1200.",
   "text.autoconfig.simplelivemap.option.web.liveSeconds": "Live interval",

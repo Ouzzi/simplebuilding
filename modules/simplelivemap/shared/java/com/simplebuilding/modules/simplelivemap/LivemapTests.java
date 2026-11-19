@@ -498,6 +498,41 @@ public final class LivemapTests {
         h.succeed();
     }
 
+    /**
+     * Owner P041 (N106): sneaking and invisible players (effect or flag) and spectators are never in the player list that the
+     * web map and the hosted upload get - filtered at the source, not in the browser.
+     */
+    public static void hiddenPlayersNeverSent(GameTestHelper h) {
+        var srv = h.getLevel().getServer();
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        String name = player.getGameProfile().name();
+        boolean before = LivemapConfig.showPlayers;
+        try {
+            LivemapConfig.showPlayers = true;
+            int shown = named(srv, name);
+            h.assertTrue(shown >= 1 && LivemapRuntime.shown(player), "a normal player is shown");
+            player.setShiftKeyDown(true);
+            h.assertTrue(!LivemapRuntime.shown(player) && named(srv, name) == shown - 1, "sneaking: not sent");
+            player.setShiftKeyDown(false);
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.INVISIBILITY, 600, 0, false, false));
+            h.assertTrue(!LivemapRuntime.shown(player) && named(srv, name) == shown - 1, "invisibility effect: not sent");
+            player.removeEffect(net.minecraft.world.effect.MobEffects.INVISIBILITY);
+            player.setInvisible(true);
+            h.assertTrue(!LivemapRuntime.shown(player), "invisible flag: not sent");
+            player.setInvisible(false);
+            h.assertTrue(LivemapRuntime.shown(player) && named(srv, name) == shown, "visible again: shown again");
+            player.setGameMode(net.minecraft.world.level.GameType.SPECTATOR);
+            h.assertTrue(!LivemapRuntime.shown(player), "spectator: not sent");
+        } finally {
+            LivemapConfig.showPlayers = before;
+            player.setShiftKeyDown(false);
+            player.setInvisible(false);
+            player.removeEffect(net.minecraft.world.effect.MobEffects.INVISIBILITY);
+        }
+        h.succeed();
+    }
+
     private static int named(net.minecraft.server.MinecraftServer srv, String name) {
         int n = 0;
         for (JsonElement e : JsonParser.parseString(LivemapRuntime.buildLive(srv)).getAsJsonObject().getAsJsonArray("players")) {
