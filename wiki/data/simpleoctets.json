@@ -30,7 +30,8 @@
         "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetMaterials.java",
         "tools/textures/octets_2026_10_09.py",
         "tools/textures/octet_materials.json",
-        "modules/simpleoctets/shared/resources/data/minecraft/tags/block/dampens_vibrations.json"
+        "modules/simpleoctets/shared/resources/data/minecraft/tags/block/dampens_vibrations.json",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/CopperAging.java"
       ],
       "en": {
         "title": "Octets: half-block cubes of every material",
@@ -43,7 +44,8 @@
           "An octet keeps the rules of its block: wool octets and the Hushed Deepslate Tiles octet swallow vibrations like wool (a Sculk Sensor or the Warden does not hear what passes through them), the lead octet muffles sound like a lead block, astral octets glow like their blocks.",
           "Wood octets burn like their planks (not crimson and warped), wool octets like wool, log octets like logs; wood, Simple End log and bamboo mosaic octets are mined fastest with an axe, wool without a tool, all others with a pickaxe.",
           "The creative tab \"Simple Octets\" lists the wood octets, the melon slice and the material octets by group (stone, sandstone, bricks, deepslate and blackstone, tuff, prismarine, quartz and purpur, copper, metal and mineral blocks, logs and stems, wool, concrete, terracotta, blocks of other mods, other); with \"add items to Vanilla tabs\" each octet also sits right after the slab of its block (else after the block).",
-          "The list of materials is generated (tools/textures/octets_2026_10_09.py from tools/textures/octet_materials.json)."
+          "The list of materials is generated (tools/textures/octets_2026_10_09.py from tools/textures/octet_materials.json).",
+          "Unwaxed copper octets age like Vanilla copper (exposed, weathered, oxidized); a honeycomb waxes them, an axe scrapes the wax or one stage off."
         ]
       },
       "de": {
@@ -57,7 +59,8 @@
           "Ein Achtel behält die Regeln seines Blocks: Woll-Achtel und das Achtel der Gedämpften Tiefenschieferfliesen schlucken Vibrationen wie Wolle (ein Sculk-Sensor oder der Wärter hört nicht, was durch sie geht), das Blei-Achtel dämmt Schall wie ein Bleiblock, astrale Achtel leuchten wie ihre Blöcke.",
           "Holz-Achtel brennen wie ihre Bretter (nicht Karmesin und Wirr), Woll-Achtel wie Wolle, Stamm-Achtel wie Stämme; Holz-, Simple-End-Stamm- und Bambusmosaik-Achtel baut die Axt am schnellsten ab, Wolle ohne Werkzeug, alle übrigen die Spitzhacke.",
           "Der Kreativ-Tab \"Simple Octets\" zeigt die Holz-Achtel, die Melonenscheibe und die Material-Achtel nach Gruppen (Stein, Sandstein, Ziegel, Tiefenschiefer und Schwarzstein, Tuff, Prismarin, Quarz und Purpur, Kupfer, Metall- und Mineralblöcke, Stämme und Stängel, Wolle, Beton, Terrakotta, Blöcke anderer Mods, Sonstiges); mit \"Items in Vanilla-Tabs\" steht jedes Achtel zusätzlich direkt hinter der Stufe seines Blocks (sonst hinter dem Block).",
-          "Die Materialliste wird generiert (tools/textures/octets_2026_10_09.py aus tools/textures/octet_materials.json)."
+          "Die Materialliste wird generiert (tools/textures/octets_2026_10_09.py aus tools/textures/octet_materials.json).",
+          "Ungewachste Kupfer-Achtel altern wie Vanilla-Kupfer (angelaufen, verwittert, oxidiert); eine Honigwabe wachst sie, eine Axt kratzt das Wachs oder eine Stufe ab."
         ]
       },
       "related": [

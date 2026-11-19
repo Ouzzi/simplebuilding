@@ -9,7 +9,7 @@ order Simple Chisels applies them (``ChiselTables``: the ``simplechisels`` names
 2. no file silently replaces a link another file already set in the same tier and table (an addition must hang its new
    blocks at the end of a chain or start a new one; the reasoned cases are in ``OVERRIDE_OK``);
 3. every chiseled, cracked or mossy variant of a Simple mod is the target of some link (reachable with a chisel), except
-   the reasoned ``EXEMPT`` blocks, bookshelves and octets. The GameTest ``own_variants_reachable`` checks the same in game;
+   the reasoned ``EXEMPT`` blocks, bookshelves, octets and half slabs (N86, pieces like octets). The GameTest ``own_variants_reachable`` checks the same in game;
 4. no link joins two blocks of different worth (dupe guard): the stonecutter makes 4 Cut Iron from one Block of Iron, so a
    link Block of Iron <-> Cut Iron would turn one block into four (chisel back). Worth = 1/count of a stonecutting recipe from
    a common source block (the repo's 26.3 recipes, plus Vanilla's from the client jar when it is there: ``--jar <jar>``,
@@ -193,7 +193,7 @@ def main(argv):
     sources = {a for fwd in links.values() for a in fwd}
     for b in sorted(blocks):
         ns, path = b.split(":")
-        if not ns.startswith("simple") or not VARIANT.search(path) or path.endswith(("_bookshelf", "_octet")) or b in EXEMPT:
+        if not ns.startswith("simple") or not VARIANT.search(path) or path.endswith(("_bookshelf", "_octet", "_half_slab")) or b in EXEMPT:  # N86: half slabs are pieces like octets
             continue
         if b not in targets:
             errors.append(f"unreachable with a chisel: {b}" + ("" if b in sources else " (in no chain)"))

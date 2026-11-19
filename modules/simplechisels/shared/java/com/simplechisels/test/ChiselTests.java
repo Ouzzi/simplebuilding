@@ -197,7 +197,7 @@ public final class ChiselTests {
                 Identifier id = BuiltInRegistries.BLOCK.getKey(block);
                 String path = id.getPath();
                 if (!id.getNamespace().startsWith("simple") || !path.matches("(chiseled|cracked|mossy)_.*")
-                        || path.endsWith("_bookshelf") || path.endsWith("_octet") || OWN_VARIANTS_EXEMPT.contains(id.toString())) continue;
+                        || path.endsWith("_bookshelf") || path.endsWith("_octet") || path.endsWith("_half_slab") || OWN_VARIANTS_EXEMPT.contains(id.toString())) continue;
                 checked++;
                 if (!targets.contains(block)) unreachable.add(id.toString());
             }

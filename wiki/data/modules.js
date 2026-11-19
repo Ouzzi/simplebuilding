@@ -31,7 +31,8 @@ window.WIKI_MODULES = [
       "simplepads",
       "simplebuildingtools",
       "simpletools",
-      "simplechisels"
+      "simplechisels",
+      "simpleslabs"
     ],
     "optional": [
       "jei",
@@ -1505,7 +1506,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleoctets",
     "displayName": "Simple Octets",
-    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
+    "description": "Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Unwaxed copper octets age like Vanilla copper. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.",
     "version": "0.9.0-beta.1",
     "minecraft": "26.3",
     "loaders": [
@@ -1542,7 +1543,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 8
     },
-    "dataHash": "0ce920d8040e"
+    "dataHash": "24ba13beed2b"
   },
   {
     "id": "simplehammers",
@@ -2404,5 +2405,42 @@ window.WIKI_MODULES = [
       "features": 4
     },
     "dataHash": "74dda3b466e6"
+  },
+  {
+    "id": "simpleslabs",
+    "displayName": "Simple Slabs",
+    "description": "Half slabs (2 pixels) of every block with a slab: stack them freely in the eight 2-pixel layers of a cell, lean them against a wall as side half slab or side slab. Sand, red sand and gravel half slabs fall, grass takes the biome colour, copper ages like Vanilla copper. Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the slab. Half slabs of another mod's block only with that mod; shares SimpleLib's shape core with Simple Octets.",
+    "version": "0.1.0-beta.1",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleblocks",
+      "simpleend",
+      "simpleores",
+      "simpleenchanting",
+      "simplechess",
+      "jei"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Half slabs - 2 pixels, a quarter of a slab - of every block with a slab: any of the eight layers of a cell, upright against a wall as side half slab or side slab, cut in the Shapecutter and crafted back into the slab.",
+      "de": "Halbstufen - 2 Pixel, ein Viertel einer Stufe - jedes Blocks mit Stufe: jede der acht Lagen einer Zelle, aufrecht an einer Wand als Seiten-Halbstufe oder Seiten-Stufe, in der Formsäge geschnitten und zurück zur Stufe gefertigt."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArElEQVR42mMwdPD6TwlmABFrj1zGiuXkVcAYm1zVgh2oBvSuPfT/8JX7YBqmsatrEhjD+CA5EAZpjihuwTQApnDWrEVYMUweZBGKAcg2ghTCbEbHMDmYehQD8vLKUGyDaUBng3BYWBymATBDQBjZRmQXgTTCNKMYgB4GMIOQbUTWSDAQkQ1C1ojTAFyBiB6dwz0QQakLJAHCuAIRJo9hAEwAHcM0YpNDMYASDAAGYzBY640tugAAAABJRU5ErkJggg==",
+    "counts": {
+      "items": 1,
+      "blocks": 340,
+      "recipes": 794,
+      "features": 8
+    },
+    "dataHash": "20fc344520c9"
   }
 ];
