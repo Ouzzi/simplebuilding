@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_6",
-  "textures": {
-    "bottom": "simpleblocks:block/sculk_tiles",
-    "top": "simpleblocks:block/sculk_tiles",
-    "side": "simpleblocks:block/sculk_tiles"
-  }
-}

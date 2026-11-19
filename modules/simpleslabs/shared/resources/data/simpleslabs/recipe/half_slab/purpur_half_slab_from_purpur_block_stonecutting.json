@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:purpur_block",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:purpur_half_slab"
   }
 }

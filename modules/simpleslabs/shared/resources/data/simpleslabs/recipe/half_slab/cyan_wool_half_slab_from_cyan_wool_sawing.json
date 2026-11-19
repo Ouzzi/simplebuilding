@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:cyan_wool",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cyan_wool_half_slab"
   }
 }

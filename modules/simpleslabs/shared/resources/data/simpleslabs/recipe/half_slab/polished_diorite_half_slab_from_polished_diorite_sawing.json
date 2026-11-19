@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:polished_diorite",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_diorite_half_slab"
   }
 }

@@ -1,16 +1,16 @@
 """Usage: python tools/textures/half_slabs_2026_11_17.py [--scan] [--check] [--out DIR]
 
-N86 half slabs - BUILT (owner 18.11., docs/ai/PLAN-N86-BAU-2026-11-19.md): sub-mod Simple Slabs (N86-4), 2-px layers (N86-1),
-any of the eight layers of a cell freely combined (N86-2 B) plus the side half slab / side slab, all 170 blocks with a slab incl.
-dirt, grass, sand, red sand and gravel (N86-5), saw and craft-back recipes (N86-6, volume-true for 2 px).
+N86 half slabs - BUILT (owner 18.11., docs/ai/PLAN-N86-BAU-2026-11-19.md): sub-mod Simple Slabs (N86-4), 4-px layers (N86C, owner 19.11.),
+any of the four layers of a cell freely combined (N86-2 B) plus the side half slab / side slab, all 170 blocks with a slab incl.
+dirt, grass, sand, red sand and gravel (N86-5), saw and craft-back recipes (N86C, volume-true for 4 px: slab -> 2, block -> 4, 2 -> slab).
 
-Per material: simpleslabs:<slab path without _slab>_half_slab (item; block state l0..l7 + waterlogged) and
-simpleslabs:<...>_side_half_slab (no item; facing + thickness 1..8 + waterlogged). The list lives in
+Per material: simpleslabs:<slab path without _slab>_half_slab (item; block state l0..l3 + waterlogged) and
+simpleslabs:<...>_side_half_slab (no item; facing + thickness 1..4 + waterlogged). The list lives in
 tools/textures/half_slab_materials.json (made by --scan from the 26.3 client jar, the module assets and the German lang cache;
 German names already in the list are kept when the cache is missing) and produces:
 
   blockstates/<id>.json, <side>.json             multipart: layer i when l<i>; side form = the same layer models turned
-  models/block/half_slab/_<kind>_<i>.json         templates (kind = slab | checker | grass | dirt), i = layer 0..7
+  models/block/half_slab/_<kind>_<i>.json         templates (kind = slab | checker | grass | dirt), i = layer 0..3
   models/block/half_slab/<id>_<i>[_dirt].json     per material: template + the slab's own texture references
   items/<id>.json + models/item/half_slab/<id>.json   (another mod's material: in that mod's jar, self-contained)
   shared/java/com/simpleslabs/registry/HalfSlabMaterials.java   GENERATED list for the Java side
@@ -42,8 +42,8 @@ JAVA_LIST = os.path.join(MODULE, 'shared', 'java', 'com', NS, 'registry', 'HalfS
 LANG_DIR = os.path.join(ASSETS, 'lang')
 
 # ---------------------------------------------------------------- owner answers (N86, 18.11.)
-# N86-1: one half slab = one layer of 2 px; a cell holds LAYERS layers.
-LAYER_PX = 2
+# N86C (owner 19.11., objection to N86B's 2 px): one half slab = one layer of 4 px; a cell holds LAYERS layers.
+LAYER_PX = 4
 LAYERS = 16 // LAYER_PX
 # N86-3: names. EN: "<slab name without ' Slab'>" + NAME_EN; DE: "...stufe" -> "..." + NAME_DE.
 NAME_EN = ' Half Slab'
@@ -53,7 +53,7 @@ FALLING = {'simpleblocks:sand_slab', 'simpleblocks:red_sand_slab', 'simpleblocks
 SHOVEL = FALLING | {'simpleblocks:dirt_slab', 'simpleblocks:grass_slab'}
 # Always out: petrified_oak_slab has no full block of its own (same exception as the octets, OctetTests.NO_OCTET).
 EXCLUDE = {'minecraft:petrified_oak_slab'}
-# N86-6 (volume-true for 2 px): saw 1 slab -> SLAB_CUT, 1 full block -> BLOCK_CUT; crafting HALVES_PER_SLAB -> 1 slab (shapeless).
+# N86-6 (volume-true, N86C 4 px: 2 / 4 / 2): saw 1 slab -> SLAB_CUT, 1 full block -> BLOCK_CUT; crafting HALVES_PER_SLAB -> 1 slab (shapeless).
 # No "3 slabs -> 6 half slabs" (collides with the 16 vanilla cushion recipes, ###).
 SLAB_CUT = 8 // LAYER_PX
 BLOCK_CUT = 16 // LAYER_PX
@@ -239,7 +239,7 @@ def model_name(mid, layer, dirt=False):
 
 
 def slab_template(layer):
-    """Like minecraft:block/slab, one 2-px layer (auto UV = the matching strip of the side texture, so a full stack looks like the block)."""
+    """Like minecraft:block/slab, one 4-px layer (auto UV = the matching strip of the side texture, so a full stack looks like the block)."""
     y0, y1 = layer * LAYER_PX, (layer + 1) * LAYER_PX
     faces = {d: {'texture': '#side', 'cullface': d} for d in ('north', 'south', 'east', 'west')}
     faces['down'] = {'texture': '#bottom', **({'cullface': 'down'} if y0 == 0 else {})}
@@ -271,8 +271,8 @@ def dirt_template(layer):
 
 
 def checker_template(bottom_cells, top_cells, layer):
-    """The chess checker slab's cells (simplechess:block/checker_cells/<n>, 4 cells 8x8x8) cut to one 2-px layer: layers 0-3 from
-    the bottom slab's cells, 4-7 from the top slab's; side UVs follow the cut, up/down keep the cell's square."""
+    """The chess checker slab's cells (simplechess:block/checker_cells/<n>, 4 cells 8x8x8) cut to one 4-px layer: layers 0-1 from
+    the bottom slab's cells, 2-3 from the top slab's; side UVs follow the cut, up/down keep the cell's square."""
     y0, y1 = layer * LAYER_PX, (layer + 1) * LAYER_PX
     out = json.loads(json.dumps(bottom_cells if layer < LAYERS // 2 else top_cells))
     for e in out['elements']:

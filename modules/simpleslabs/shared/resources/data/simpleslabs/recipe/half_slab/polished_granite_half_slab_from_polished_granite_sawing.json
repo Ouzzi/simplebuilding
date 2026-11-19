@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:polished_granite",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_granite_half_slab"
   }
 }

@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:sulfur",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:sulfur_half_slab"
   }
 }

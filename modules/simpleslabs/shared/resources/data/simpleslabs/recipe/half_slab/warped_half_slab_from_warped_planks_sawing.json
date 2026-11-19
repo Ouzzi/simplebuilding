@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:warped_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:warped_half_slab"
   }
 }

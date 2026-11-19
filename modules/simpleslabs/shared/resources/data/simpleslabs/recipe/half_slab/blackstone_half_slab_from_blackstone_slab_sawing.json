@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:blackstone_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:blackstone_half_slab"
   }
 }

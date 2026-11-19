@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplebuilding:polished_astralit",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_astralit_half_slab"
   }
 }

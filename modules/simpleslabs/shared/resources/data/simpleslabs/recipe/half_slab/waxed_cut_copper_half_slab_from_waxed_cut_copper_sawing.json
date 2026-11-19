@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:waxed_cut_copper",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:waxed_cut_copper_half_slab"
   }
 }

@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:cyan_concrete_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:cyan_concrete_half_slab"
   }
 }

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:white_concrete",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:white_concrete_half_slab"
   }
 }

@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_4",
-  "textures": {
-    "bottom": "minecraft:block/packed_ice",
-    "top": "minecraft:block/packed_ice",
-    "side": "minecraft:block/packed_ice"
-  }
-}

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleblocks:blue_ice_bricks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:blue_ice_brick_half_slab"
   }
 }

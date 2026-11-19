@@ -15,7 +15,7 @@
       "regex:.*_half_slab"
     ],
     "lore": [
-      "{name}: a quarter of a slab, 2 pixels thin."
+      "{name}: half a slab, 4 pixels thin."
     ],
     "use": [
       "Places in the clicked cell layer; the same half slab fills the free layer at the click. Sneak + right-click on a block side: upright, 4 layers = side slab. Cut 4 from a slab, 8 from the block; 4 craft back. Breaking drops one per layer."

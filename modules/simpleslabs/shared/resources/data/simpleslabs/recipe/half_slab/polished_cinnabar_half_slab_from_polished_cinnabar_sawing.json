@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:polished_cinnabar",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_cinnabar_half_slab"
   }
 }

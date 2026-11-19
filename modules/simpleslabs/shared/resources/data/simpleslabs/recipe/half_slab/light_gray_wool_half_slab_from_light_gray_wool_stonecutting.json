@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:light_gray_wool",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:light_gray_wool_half_slab"
   }
 }

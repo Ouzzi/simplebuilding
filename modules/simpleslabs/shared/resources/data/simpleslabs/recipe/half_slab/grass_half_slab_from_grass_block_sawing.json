@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:grass_block",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:grass_half_slab"
   }
 }

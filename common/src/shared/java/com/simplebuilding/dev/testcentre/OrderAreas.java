@@ -740,7 +740,7 @@ public final class OrderAreas {
     }
 
     /**
-     * N86-8: Platzhalter als Beton-Halbstufe von Simple Slabs (unterste 2-px-Lage, per Id, keine Compile-Abhaengigkeit), sonst
+     * N86-8: Platzhalter als Beton-Halbstufe von Simple Slabs (unterste 4-px-Lage, per Id, keine Compile-Abhaengigkeit), sonst
      * {@link #concrete}. Die Mittellinie ({@link #lineState}) bleibt die graue Betonstufe. Die Pruefungen vergleichen per
      * absent/missingState().
      */

@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simpleores:cut_nickel",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cut_nickel_half_slab"
   }
 }

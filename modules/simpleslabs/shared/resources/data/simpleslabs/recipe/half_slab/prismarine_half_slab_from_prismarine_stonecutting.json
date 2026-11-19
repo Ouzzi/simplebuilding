@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:prismarine",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:prismarine_half_slab"
   }
 }

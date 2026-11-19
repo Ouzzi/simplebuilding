@@ -5571,7 +5571,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Slabs",
-      "description": "Half slabs (2 pixels) of every block with a slab: stack them freely in the eight 2-pixel layers of a cell, lean them against a wall as side half slab or side slab. Sand, red sand and gravel half slabs fall, grass takes the biome colour, copper ages like Vanilla copper. Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the slab. Half slabs of another mod's block only with that mod; shares SimpleLib's shape core with Simple Octets.",
+      "description": "Half slabs (4 pixels) of every block with a slab: stack them freely in the four 4-pixel layers of a cell, lean them against a wall as side half slab or side slab. Sand, red sand and gravel half slabs fall, grass takes the biome colour, copper ages like Vanilla copper. Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the slab. Half slabs of another mod's block only with that mod; shares SimpleLib's shape core with Simple Octets.",
       "loaders": [
         "fabric"
       ],

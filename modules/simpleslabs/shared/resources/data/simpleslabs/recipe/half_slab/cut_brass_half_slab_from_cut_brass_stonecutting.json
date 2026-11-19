@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simpleores:cut_brass",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cut_brass_half_slab"
   }
 }

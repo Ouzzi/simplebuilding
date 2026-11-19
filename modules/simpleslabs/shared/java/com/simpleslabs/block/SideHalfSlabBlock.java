@@ -18,10 +18,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Side half slab / side slab (N86-2, owner 18.11.): 2-px layers stacked against one wall of the cell - {@code facing} = the
- * side it leans on, {@code thickness} 1..8 layers (1 = side half slab, 4 = side slab, 8 = a full cell) - 64 states. It has no
+ * Side half slab / side slab (N86-2, owner 18.11.): 4-px layers stacked against one wall of the cell - {@code facing} = the
+ * side it leans on, {@code thickness} 1..4 layers (1 = side half slab, 2 = side slab of 8 px, 4 = a full cell) - 32 states. It has no
  * item of its own: the half slab item places it when the player sneaks on a side face, and grows it from the open side.
- * Breaking drops one half slab per layer. A free mask per axis would cost 3 x 256 x 2 states per material (plan 1.2), the
+ * Breaking drops one half slab per layer. A free mask per axis would cost 3 x 16 x 2 states per material (plan 1.2), the
  * owner names only the side half slab and the side slab.
  */
 public class SideHalfSlabBlock extends LayeredSlabBlock {

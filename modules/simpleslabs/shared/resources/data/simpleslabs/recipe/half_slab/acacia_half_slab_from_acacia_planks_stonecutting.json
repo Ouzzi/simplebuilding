@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:acacia_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:acacia_half_slab"
   }
 }

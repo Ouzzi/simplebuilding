@@ -7,12 +7,12 @@
     {
       "from": [
         0,
-        2,
+        4,
         0
       ],
       "to": [
         8,
-        4,
+        8,
         8
       ],
       "faces": {
@@ -37,9 +37,9 @@
         "north": {
           "uv": [
             8,
-            12.0,
+            8.0,
             16,
-            14.0
+            12.0
           ],
           "texture": "#side_mirror",
           "cullface": "north"
@@ -47,9 +47,9 @@
         "west": {
           "uv": [
             0,
-            12.0,
+            8.0,
             8,
-            14.0
+            12.0
           ],
           "texture": "#side",
           "cullface": "west"
@@ -59,12 +59,12 @@
     {
       "from": [
         8,
-        2,
+        4,
         0
       ],
       "to": [
         16,
-        4,
+        8,
         8
       ],
       "faces": {
@@ -89,9 +89,9 @@
         "north": {
           "uv": [
             0,
-            12.0,
+            8.0,
             8,
-            14.0
+            12.0
           ],
           "texture": "#side_mirror",
           "cullface": "north"
@@ -99,9 +99,9 @@
         "east": {
           "uv": [
             8,
-            12.0,
+            8.0,
             16,
-            14.0
+            12.0
           ],
           "texture": "#side",
           "cullface": "east"
@@ -111,12 +111,12 @@
     {
       "from": [
         0,
-        2,
+        4,
         8
       ],
       "to": [
         8,
-        4,
+        8,
         16
       ],
       "faces": {
@@ -141,9 +141,9 @@
         "south": {
           "uv": [
             0,
-            12.0,
+            8.0,
             8,
-            14.0
+            12.0
           ],
           "texture": "#side_mirror",
           "cullface": "south"
@@ -151,9 +151,9 @@
         "west": {
           "uv": [
             8,
-            12.0,
+            8.0,
             16,
-            14.0
+            12.0
           ],
           "texture": "#side",
           "cullface": "west"
@@ -163,12 +163,12 @@
     {
       "from": [
         8,
-        2,
+        4,
         8
       ],
       "to": [
         16,
-        4,
+        8,
         16
       ],
       "faces": {
@@ -193,9 +193,9 @@
         "south": {
           "uv": [
             8,
-            12.0,
+            8.0,
             16,
-            14.0
+            12.0
           ],
           "texture": "#side_mirror",
           "cullface": "south"
@@ -203,9 +203,9 @@
         "east": {
           "uv": [
             0,
-            12.0,
+            8.0,
             8,
-            14.0
+            12.0
           ],
           "texture": "#side",
           "cullface": "east"

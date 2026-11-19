@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_7",
-  "textures": {
-    "bottom": "simplebuilding:block/polished_astralit",
-    "top": "simplebuilding:block/polished_astralit",
-    "side": "simplebuilding:block/polished_astralit"
-  }
-}

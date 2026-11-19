@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:birch_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:birch_half_slab"
   }
 }

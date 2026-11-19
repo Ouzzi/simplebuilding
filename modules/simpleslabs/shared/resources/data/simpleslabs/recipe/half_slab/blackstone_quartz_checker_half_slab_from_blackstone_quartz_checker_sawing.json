@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplechess:blackstone_quartz_checker",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:blackstone_quartz_checker_half_slab"
   }
 }

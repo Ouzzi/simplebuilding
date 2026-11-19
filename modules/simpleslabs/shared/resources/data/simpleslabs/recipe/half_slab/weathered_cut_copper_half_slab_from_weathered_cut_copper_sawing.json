@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:weathered_cut_copper",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:weathered_cut_copper_half_slab"
   }
 }

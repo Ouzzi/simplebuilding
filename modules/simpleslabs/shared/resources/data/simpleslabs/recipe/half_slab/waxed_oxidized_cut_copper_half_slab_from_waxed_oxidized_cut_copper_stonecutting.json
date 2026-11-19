@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:waxed_oxidized_cut_copper",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:waxed_oxidized_cut_copper_half_slab"
   }
 }

@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:pale_oak_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:pale_oak_half_slab"
   }
 }

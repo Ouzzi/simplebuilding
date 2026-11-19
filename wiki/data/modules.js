@@ -2409,7 +2409,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleslabs",
     "displayName": "Simple Slabs",
-    "description": "Half slabs (2 pixels) of every block with a slab: stack them freely in the eight 2-pixel layers of a cell, lean them against a wall as side half slab or side slab. Sand, red sand and gravel half slabs fall, grass takes the biome colour, copper ages like Vanilla copper. Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the slab. Half slabs of another mod's block only with that mod; shares SimpleLib's shape core with Simple Octets.",
+    "description": "Half slabs (4 pixels) of every block with a slab: stack them freely in the four 4-pixel layers of a cell, lean them against a wall as side half slab or side slab. Sand, red sand and gravel half slabs fall, grass takes the biome colour, copper ages like Vanilla copper. Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the slab. Half slabs of another mod's block only with that mod; shares SimpleLib's shape core with Simple Octets.",
     "version": "0.1.0-beta.1",
     "minecraft": "26.3",
     "loaders": [
@@ -2430,8 +2430,8 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Half slabs - 2 pixels, a quarter of a slab - of every block with a slab: any of the eight layers of a cell, upright against a wall as side half slab or side slab, cut in the Shapecutter and crafted back into the slab.",
-      "de": "Halbstufen - 2 Pixel, ein Viertel einer Stufe - jedes Blocks mit Stufe: jede der acht Lagen einer Zelle, aufrecht an einer Wand als Seiten-Halbstufe oder Seiten-Stufe, in der Formsäge geschnitten und zurück zur Stufe gefertigt."
+      "en": "Half slabs - 4 pixels, half a slab - of every block with a slab: any of the four layers of a cell, upright against a wall as side half slab or side slab, cut in the Shapecutter and crafted back into the slab.",
+      "de": "Halbstufen - 4 Pixel, eine halbe Stufe - jedes Blocks mit Stufe: jede der vier Lagen einer Zelle, aufrecht an einer Wand als Seiten-Halbstufe oder Seiten-Stufe, in der Formsäge geschnitten und zurück zur Stufe gefertigt."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArElEQVR42mMwdPD6TwlmABFrj1zGiuXkVcAYm1zVgh2oBvSuPfT/8JX7YBqmsatrEhjD+CA5EAZpjihuwTQApnDWrEVYMUweZBGKAcg2ghTCbEbHMDmYehQD8vLKUGyDaUBng3BYWBymATBDQBjZRmQXgTTCNKMYgB4GMIOQbUTWSDAQkQ1C1ojTAFyBiB6dwz0QQakLJAHCuAIRJo9hAEwAHcM0YpNDMYASDAAGYzBY640tugAAAABJRU5ErkJggg==",
     "counts": {
@@ -2440,6 +2440,6 @@ window.WIKI_MODULES = [
       "recipes": 794,
       "features": 8
     },
-    "dataHash": "6d2d0d42b549"
+    "dataHash": "cd4124e8d49d"
   }
 ];

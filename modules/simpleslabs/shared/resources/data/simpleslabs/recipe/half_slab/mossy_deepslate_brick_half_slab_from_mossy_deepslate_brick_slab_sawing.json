@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleblocks:mossy_deepslate_brick_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:mossy_deepslate_brick_half_slab"
   }
 }

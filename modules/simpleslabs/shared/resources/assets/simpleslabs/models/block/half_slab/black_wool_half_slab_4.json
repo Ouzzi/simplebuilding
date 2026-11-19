@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_4",
-  "textures": {
-    "bottom": "minecraft:block/black_wool",
-    "top": "minecraft:block/black_wool",
-    "side": "minecraft:block/black_wool"
-  }
-}

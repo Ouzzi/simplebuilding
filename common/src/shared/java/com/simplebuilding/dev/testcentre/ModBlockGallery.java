@@ -128,9 +128,9 @@ public final class ModBlockGallery {
         if (block instanceof SlabBlock || state.is(BlockTags.SLABS)) {
             return Form.SLAB;
         }
-        // N86: Halbstufe von Simple Slabs (Lagen l0..l7, keine SlabBlock-Klasse; per Eigenschaft, keine Compile-Abhaengigkeit)
+        // N86C: Halbstufe von Simple Slabs (Lagen l0..l3 à 4 px, keine SlabBlock-Klasse; per Eigenschaft, keine Compile-Abhaengigkeit)
         if (block.getStateDefinition().getProperty("l0") instanceof BooleanProperty
-                && block.getStateDefinition().getProperty("l7") instanceof BooleanProperty) {
+                && block.getStateDefinition().getProperty("l3") instanceof BooleanProperty) {
             return Form.HALF_SLAB;
         }
         if (block instanceof StairBlock || state.is(BlockTags.STAIRS)) {
