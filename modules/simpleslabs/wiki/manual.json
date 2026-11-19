@@ -175,6 +175,31 @@
       "de": {
         "summary": "Kapitel \"Simple Slabs\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Steinstufe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
+    },
+    "simpleslabs:*_side_half_slab": {
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/SideHalfSlabBlock.java",
+        "modules/simpleslabs/shared/java/com/simpleslabs/registry/SlabRegistry.java"
+      ],
+      "en": {
+        "summary": "Side form of the half slab: 1 to 8 layers upright against one wall of the cell (sneak + right-click on a block side with the half slab). No item of its own; breaking it drops one half slab per layer."
+      },
+      "de": {
+        "summary": "Seitenform der Halbstufe: 1 bis 8 Lagen aufrecht an einer Wand der Zelle (Schleichen + Rechtsklick mit der Halbstufe auf eine Blockseite). Kein eigenes Item; Abbauen droppt je Lage eine Halbstufe."
+      }
+    },
+    "simpleslabs:*_half_slab": {
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/HalfSlabBlock.java",
+        "modules/simpleslabs/shared/java/com/simpleslabs/registry/HalfSlabMaterials.java",
+        "tools/textures/half_slabs_2026_11_17.py"
+      ],
+      "en": {
+        "summary": "Half slab (2 pixels) with the textures of its slab: any of the eight layers of a cell, cut 4 from the slab and 8 from the block in the Shapecutter (stonecutter without Simple Blocks), 4 craft back into the slab; one drops per layer."
+      },
+      "de": {
+        "summary": "Halbstufe (2 Pixel) mit den Texturen ihrer Stufe: jede der acht Lagen einer Zelle, in der Formsäge (ohne Simple Blocks im Steinschneider) 4 aus der Stufe und 8 aus dem Block, 4 ergeben wieder die Stufe; je Lage droppt eine."
+      }
     }
   }
 }
