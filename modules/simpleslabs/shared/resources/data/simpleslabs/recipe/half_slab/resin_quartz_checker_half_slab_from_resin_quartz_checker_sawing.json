@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplechess:resin_quartz_checker",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:resin_quartz_checker_half_slab"
   }
 }

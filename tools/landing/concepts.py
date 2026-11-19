@@ -254,7 +254,7 @@ TXT = {
  'simplebuildingtools': ('Bauwerkzeuge: Muster kopieren, Flächen füllen und Blöcke sauber ersetzen.', 'Building tools: copy patterns, fill areas and replace blocks cleanly.'),
  'simplechisels': ('Meißel in mehreren Materialien, um Blöcke zu formen und zu verzieren.', 'Chisels in several materials to shape and decorate blocks.'),
  'simpleoctets': ('Octets: halbe Würfel aus jedem Holz und Block.', 'Octets: half-block cubes of every wood and block.'),
- 'simpleslabs': ('Halbstufen (2 px) jedes Blocks mit Stufe, frei in acht Lagen kombinierbar, auch als Seiten-Stufe.', 'Half slabs (2 px) of every block with a slab, freely combined in eight layers, also as side slabs.'),
+ 'simpleslabs': ('Halbstufen (4 px) jedes Blocks mit Stufe, frei in vier Lagen kombinierbar, auch als Seiten-Stufe.', 'Half slabs (4 px) of every block with a slab, freely combined in four layers, also as side slabs.'),
  'simplehammers': ('Sieben Vorschlaghämmer, die 3x3 abbauen und Blöcke formen.', 'Seven sledgehammers that mine 3x3 and reshape blocks.'),
  'simpleoptimization': ('Super-Mod für Leistung: Render, Speicher, Server.', 'Super mod for performance: render, memory, server.'),
  'simpleoptrender': ('Client-Optimierungen wie Blätter-Culling und Lichtcache.', 'Client optimizations like leaf culling and a light cache.'),

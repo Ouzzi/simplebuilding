@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleblocks:smooth_basalt_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:smooth_basalt_half_slab"
   }
 }

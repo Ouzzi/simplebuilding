@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:polished_blackstone",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_blackstone_half_slab"
   }
 }

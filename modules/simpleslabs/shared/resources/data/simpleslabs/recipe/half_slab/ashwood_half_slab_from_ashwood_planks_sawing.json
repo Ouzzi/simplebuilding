@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleend:ashwood_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:ashwood_half_slab"
   }
 }

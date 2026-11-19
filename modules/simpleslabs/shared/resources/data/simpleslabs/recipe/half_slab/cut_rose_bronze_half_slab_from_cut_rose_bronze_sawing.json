@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleores:cut_rose_bronze",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cut_rose_bronze_half_slab"
   }
 }

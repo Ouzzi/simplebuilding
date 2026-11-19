@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:tuff_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:tuff_half_slab"
   }
 }

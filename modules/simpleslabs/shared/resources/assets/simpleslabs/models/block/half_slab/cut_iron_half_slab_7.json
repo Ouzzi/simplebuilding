@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_7",
-  "textures": {
-    "bottom": "simpleblocks:block/cut_iron",
-    "top": "simpleblocks:block/cut_iron",
-    "side": "simpleblocks:block/cut_iron"
-  }
-}

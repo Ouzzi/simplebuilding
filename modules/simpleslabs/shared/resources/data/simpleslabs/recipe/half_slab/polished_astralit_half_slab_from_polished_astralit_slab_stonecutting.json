@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simplebuilding:polished_astralit_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:polished_astralit_half_slab"
   }
 }

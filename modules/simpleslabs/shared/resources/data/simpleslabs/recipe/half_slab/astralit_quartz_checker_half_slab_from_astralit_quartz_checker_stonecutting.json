@@ -62,7 +62,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simplechess:astralit_quartz_checker",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:astralit_quartz_checker_half_slab"
   }
 }

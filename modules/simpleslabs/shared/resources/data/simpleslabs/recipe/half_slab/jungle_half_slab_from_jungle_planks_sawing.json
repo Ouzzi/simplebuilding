@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:jungle_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:jungle_half_slab"
   }
 }

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:mangrove_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:mangrove_half_slab"
   }
 }

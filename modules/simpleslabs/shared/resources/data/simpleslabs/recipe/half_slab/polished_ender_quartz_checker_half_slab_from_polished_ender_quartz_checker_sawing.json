@@ -53,7 +53,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplechess:polished_ender_quartz_checker",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_ender_quartz_checker_half_slab"
   }
 }

@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:birch_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:birch_half_slab"
   }
 }

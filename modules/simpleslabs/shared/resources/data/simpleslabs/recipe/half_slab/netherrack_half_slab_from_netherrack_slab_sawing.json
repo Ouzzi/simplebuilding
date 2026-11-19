@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleblocks:netherrack_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:netherrack_half_slab"
   }
 }

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:cut_sandstone",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cut_sandstone_half_slab"
   }
 }

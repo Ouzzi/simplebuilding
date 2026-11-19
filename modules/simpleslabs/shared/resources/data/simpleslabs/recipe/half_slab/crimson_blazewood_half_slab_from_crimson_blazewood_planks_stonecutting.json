@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simpleenchanting:crimson_blazewood_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:crimson_blazewood_half_slab"
   }
 }

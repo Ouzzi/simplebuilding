@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simplebuilding:ender_purpur_block",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:ender_purpur_half_slab"
   }
 }

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:pink_concrete_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:pink_concrete_half_slab"
   }
 }

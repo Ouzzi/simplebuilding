@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simplechess:purpur_quartz_checker",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:purpur_quartz_checker_half_slab"
   }
 }

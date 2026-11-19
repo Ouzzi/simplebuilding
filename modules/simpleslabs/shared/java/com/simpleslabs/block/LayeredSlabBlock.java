@@ -31,12 +31,13 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Common part of the two half slab blocks (N86, docs/ai/PLAN-N86-BAU-2026-11-19.md): a cell of eight 2-px layers.
- * {@link HalfSlabBlock} holds any of the eight horizontal layers (owner N86-2 B: free combination), {@link SideHalfSlabBlock}
- * a stack of layers against one wall (side half slab = 1 layer, side slab = 4). Both are not a {@code SlabBlock} (foreign code
+ * Common part of the two half slab blocks (N86, docs/ai/PLAN-N86-BAU-2026-11-19.md): a cell of four 4-px layers
+ * (owner 19.11., N86C: a half slab is 4 px).
+ * {@link HalfSlabBlock} holds any of the four horizontal layers (owner N86-2 B: free combination), {@link SideHalfSlabBlock}
+ * a stack of layers against one wall (side half slab = 1 layer, side slab = 2, full cell = 4). Both are not a {@code SlabBlock} (foreign code
  * assumes {@code SlabBlock.TYPE}, the sledgehammer reshapes every SlabBlock) and touch no Vanilla block (A12).
  * <ul>
- *   <li>Water: waterlogged like a slab; a full cell (8 layers) takes no water and loses it.</li>
+ *   <li>Water: waterlogged like a slab; a full cell (4 layers) takes no water and loses it.</li>
  *   <li>Falling (sand, red sand, gravel; owner N86-5): free below = it falls as its layers, bottom-aligned; on the ground the
  *       layers settle to the bottom of the cell; landing on the same half slab merges the layers ({@link HalfSlabBlock}).</li>
  *   <li>Drops: one half slab per layer (loot table); broken after a fall: every layer (Vanilla drops one item).</li>
@@ -44,8 +45,8 @@ import org.jspecify.annotations.Nullable;
  */
 public abstract class LayeredSlabBlock extends Block implements SimpleWaterloggedBlock, Fallable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    /** Layers per cell and their height (N86-1: 2 px). */
-    public static final int LAYERS = 8;
+    /** Layers per cell and their height (N86C, owner 19.11.: 4 px). */
+    public static final int LAYERS = 4;
     public static final int LAYER_PX = 16 / LAYERS;
     /** Like Vanilla's falling blocks: two ticks before a placed or disturbed half slab falls. */
     private static final int FALL_DELAY = 2;
@@ -61,7 +62,7 @@ public abstract class LayeredSlabBlock extends Block implements SimpleWaterlogge
     /** The half slab block of this material (the one with the item). */
     public abstract HalfSlabBlock main();
 
-    /** Occupied layers of a state (1..8). */
+    /** Occupied layers of a state (1..4). */
     public abstract int layerCount(BlockState state);
 
     public boolean falls() {

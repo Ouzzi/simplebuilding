@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplebuilding:astral_purpur_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:astral_purpur_half_slab"
   }
 }

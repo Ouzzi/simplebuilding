@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:cherry_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cherry_half_slab"
   }
 }

@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:pink_concrete",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:pink_concrete_half_slab"
   }
 }

@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_5",
-  "textures": {
-    "bottom": "minecraft:block/orange_concrete",
-    "top": "minecraft:block/orange_concrete",
-    "side": "minecraft:block/orange_concrete"
-  }
-}

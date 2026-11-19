@@ -11,21 +11,21 @@
         "tools/textures/half_slab_materials.json"
       ],
       "en": {
-        "title": "Half slabs: 2-pixel layers of every block with a slab",
-        "summary": "A half slab is a quarter of a slab: 2 pixels high. Every block that has a slab (170: Vanilla, SimpleBuilding and its sub-mods, also dirt, grass, sand, red sand and gravel) has its half slab with the textures of its slab. A block cell holds eight layers, and any of them can be filled.",
+        "title": "Half slabs: 4-pixel layers of every block with a slab",
+        "summary": "A half slab is half a slab: 4 pixels high. Every block that has a slab (170: Vanilla, SimpleBuilding and its sub-mods, also dirt, grass, sand, red sand and gravel) has its half slab with the textures of its slab. A block cell holds four layers, and any of them can be filled in any combination.",
         "details": [
           "Right-click on the top of a block puts the half slab at the bottom of the cell above, on the underside of a block at the top of the cell below, on the side of a block at the height you clicked.",
-          "Right-click on a half slab with the same half slab fills the free layer at the click: on its top face the layer above it, on its side the layer at that height. So 0-4 + 12-16 pixels (layers 1, 2, 7, 8) or 0-4 + 8-12 pixels are built with four clicks.",
-          "Eight layers are a full cube; a cell with free layers lets light through at the sides like a slab and carries only on its full faces."
+          "Right-click on a half slab with the same half slab fills the free layer at the click: on its top face the layer above it, on its side the layer at that height. So 0-4 + 12-16 pixels (layers 1 and 4) or 0-4 + 8-12 pixels (layers 1 and 3) are built with two clicks.",
+          "Two layers are as high as a slab, four layers are a full cube; a cell with free layers lets light through at the sides like a slab and carries only on its full faces."
         ]
       },
       "de": {
-        "title": "Halbstufen: 2-Pixel-Lagen jedes Blocks mit Stufe",
-        "summary": "Eine Halbstufe ist ein Viertel einer Stufe: 2 Pixel hoch. Jeder Block mit Stufe (170: Vanilla, SimpleBuilding und seine Sub-Mods, auch Erde, Gras, Sand, Roter Sand und Kies) hat seine Halbstufe mit den Texturen seiner Stufe. Eine Blockzelle hat acht Lagen, jede davon lässt sich belegen.",
+        "title": "Halbstufen: 4-Pixel-Lagen jedes Blocks mit Stufe",
+        "summary": "Eine Halbstufe ist eine halbe Stufe: 4 Pixel hoch. Jeder Block mit Stufe (170: Vanilla, SimpleBuilding und seine Sub-Mods, auch Erde, Gras, Sand, Roter Sand und Kies) hat seine Halbstufe mit den Texturen seiner Stufe. Eine Blockzelle hat vier Lagen, jede davon lässt sich belegen, frei kombinierbar.",
         "details": [
           "Rechtsklick auf die Oberseite eines Blocks setzt die Halbstufe unten in die Zelle darüber, auf die Unterseite oben in die Zelle darunter, auf die Seite eines Blocks in der angeklickten Höhe.",
-          "Rechtsklick mit derselben Halbstufe auf eine Halbstufe füllt die freie Lage an der Klickstelle: auf ihrer Oberseite die Lage darüber, an ihrer Seite die Lage in dieser Höhe. So entstehen 0-4 + 12-16 Pixel (Lagen 1, 2, 7, 8) oder 0-4 + 8-12 Pixel mit vier Klicks.",
-          "Acht Lagen sind ein voller Würfel; eine Zelle mit freien Lagen lässt Licht seitlich durch wie eine Stufe und trägt nur auf ihren vollen Seiten."
+          "Rechtsklick mit derselben Halbstufe auf eine Halbstufe füllt die freie Lage an der Klickstelle: auf ihrer Oberseite die Lage darüber, an ihrer Seite die Lage in dieser Höhe. So entstehen 0-4 + 12-16 Pixel (Lagen 1 und 4) oder 0-4 + 8-12 Pixel (Lagen 1 und 3) mit zwei Klicks.",
+          "Zwei Lagen sind so hoch wie eine Stufe, vier Lagen sind ein voller Würfel; eine Zelle mit freien Lagen lässt Licht seitlich durch wie eine Stufe und trägt nur auf ihren vollen Seiten."
         ]
       }
     },
@@ -37,14 +37,14 @@
       ],
       "en": {
         "title": "Side half slab and side slab",
-        "summary": "Sneak + right-click on the side of a block puts the half slab upright against that side: a side half slab of 2 pixels. Each further sneak click on that block side, or a click on its open face, adds a layer: 4 layers are a side slab of 8 pixels, 8 layers fill the cell.",
+        "summary": "Sneak + right-click on the side of a block puts the half slab upright against that side: a side half slab of 4 pixels. Each further sneak click on that block side, or a click on its open face, adds a layer: 2 layers are a side slab of 8 pixels, 4 layers fill the cell.",
         "details": [
           "The side form has no item of its own: breaking it drops one half slab per layer, pick block gives the half slab."
         ]
       },
       "de": {
         "title": "Seiten-Halbstufe und Seiten-Stufe",
-        "summary": "Schleichen + Rechtsklick auf die Seite eines Blocks stellt die Halbstufe aufrecht an diese Seite: eine Seiten-Halbstufe von 2 Pixeln. Jeder weitere Schleich-Klick auf diese Blockseite oder ein Klick auf ihre offene Fläche fügt eine Lage hinzu: 4 Lagen sind eine Seiten-Stufe von 8 Pixeln, 8 Lagen füllen die Zelle.",
+        "summary": "Schleichen + Rechtsklick auf die Seite eines Blocks stellt die Halbstufe aufrecht an diese Seite: eine Seiten-Halbstufe von 4 Pixeln. Jeder weitere Schleich-Klick auf diese Blockseite oder ein Klick auf ihre offene Fläche fügt eine Lage hinzu: 2 Lagen sind eine Seiten-Stufe von 8 Pixeln, 4 Lagen füllen die Zelle.",
         "details": [
           "Die Seitenform hat kein eigenes Item: Abbauen droppt je Lage eine Halbstufe, Mittelklick gibt die Halbstufe."
         ]
@@ -57,14 +57,14 @@
       ],
       "en": {
         "title": "Slab and half slab in one block",
-        "summary": "A half slab used on its own slab (bottom or top, not double) adds a layer: the slab becomes the half slab block with its four layers and the new one, water stays.",
+        "summary": "A half slab used on its own slab (bottom or top, not double) adds a layer: the slab becomes the half slab block with its two layers and the new one, water stays.",
         "details": [
           "A slab of another material stays as it is; a slab item on a half slab does nothing special."
         ]
       },
       "de": {
         "title": "Stufe und Halbstufe in einem Block",
-        "summary": "Eine Halbstufe auf ihre eigene Stufe (unten oder oben, nicht doppelt) fügt eine Lage hinzu: Die Stufe wird zum Halbstufen-Block mit ihren vier Lagen und der neuen, Wasser bleibt.",
+        "summary": "Eine Halbstufe auf ihre eigene Stufe (unten oder oben, nicht doppelt) fügt eine Lage hinzu: Die Stufe wird zum Halbstufen-Block mit ihren zwei Lagen und der neuen, Wasser bleibt.",
         "details": [
           "Die Stufe eines anderen Materials bleibt, wie sie ist; ein Stufen-Item auf einer Halbstufe tut nichts Besonderes."
         ]
@@ -79,12 +79,12 @@
       ],
       "en": {
         "title": "Breaking and water",
-        "summary": "Breaking a half slab block drops one half slab for every filled layer. Half slabs hold water like a slab; a full cell (8 layers) holds none.",
+        "summary": "Breaking a half slab block drops one half slab for every filled layer. Half slabs hold water like a slab; a full cell (4 layers) holds none.",
         "details": []
       },
       "de": {
         "title": "Abbauen und Wasser",
-        "summary": "Abbauen eines Halbstufen-Blocks droppt für jede belegte Lage eine Halbstufe. Halbstufen halten Wasser wie eine Stufe; eine volle Zelle (8 Lagen) hält keins.",
+        "summary": "Abbauen eines Halbstufen-Blocks droppt für jede belegte Lage eine Halbstufe. Halbstufen halten Wasser wie eine Stufe; eine volle Zelle (4 Lagen) hält keins.",
         "details": []
       }
     },
@@ -135,12 +135,12 @@
       ],
       "en": {
         "title": "Shapecutter and back",
-        "summary": "The Shapecutter of Simple Blocks cuts 4 half slabs from a slab and 8 from its full block; without Simple Blocks the Vanilla stonecutter does it. Four half slabs craft back into one slab (nothing lost).",
+        "summary": "The Shapecutter of Simple Blocks cuts 2 half slabs from a slab and 4 from its full block; without Simple Blocks the Vanilla stonecutter does it. Two half slabs craft back into one slab (nothing lost).",
         "details": []
       },
       "de": {
         "title": "Formsäge und zurück",
-        "summary": "Die Formsäge von Simple Blocks schneidet aus einer Stufe 4 Halbstufen und aus ihrem vollen Block 8; ohne Simple Blocks macht das die Vanilla-Steinsäge. Vier Halbstufen ergeben an der Werkbank wieder eine Stufe (nichts geht verloren).",
+        "summary": "Die Formsäge von Simple Blocks schneidet aus einer Stufe 2 Halbstufen und aus ihrem vollen Block 4; ohne Simple Blocks macht das die Vanilla-Steinsäge. Zwei Halbstufen ergeben an der Werkbank wieder eine Stufe (nichts geht verloren).",
         "details": []
       }
     },
@@ -182,10 +182,10 @@
         "modules/simpleslabs/shared/java/com/simpleslabs/registry/SlabRegistry.java"
       ],
       "en": {
-        "summary": "Side form of the half slab: 1 to 8 layers upright against one wall of the cell (sneak + right-click on a block side with the half slab). No item of its own; breaking it drops one half slab per layer."
+        "summary": "Side form of the half slab: 1 to 4 layers (4 pixels each) upright against one wall of the cell (sneak + right-click on a block side with the half slab). No item of its own; breaking it drops one half slab per layer."
       },
       "de": {
-        "summary": "Seitenform der Halbstufe: 1 bis 8 Lagen aufrecht an einer Wand der Zelle (Schleichen + Rechtsklick mit der Halbstufe auf eine Blockseite). Kein eigenes Item; Abbauen droppt je Lage eine Halbstufe."
+        "summary": "Seitenform der Halbstufe: 1 bis 4 Lagen (je 4 Pixel) aufrecht an einer Wand der Zelle (Schleichen + Rechtsklick mit der Halbstufe auf eine Blockseite). Kein eigenes Item; Abbauen droppt je Lage eine Halbstufe."
       }
     },
     "simpleslabs:*_half_slab": {
@@ -195,10 +195,10 @@
         "tools/textures/half_slabs_2026_11_17.py"
       ],
       "en": {
-        "summary": "Half slab (2 pixels) with the textures of its slab: any of the eight layers of a cell, cut 4 from the slab and 8 from the block in the Shapecutter (stonecutter without Simple Blocks), 4 craft back into the slab; one drops per layer."
+        "summary": "Half slab (4 pixels) with the textures of its slab: any of the four layers of a cell, cut 2 from the slab and 4 from the block in the Shapecutter (stonecutter without Simple Blocks), 2 craft back into the slab; one drops per layer."
       },
       "de": {
-        "summary": "Halbstufe (2 Pixel) mit den Texturen ihrer Stufe: jede der acht Lagen einer Zelle, in der Formsäge (ohne Simple Blocks im Steinschneider) 4 aus der Stufe und 8 aus dem Block, 4 ergeben wieder die Stufe; je Lage droppt eine."
+        "summary": "Halbstufe (4 Pixel) mit den Texturen ihrer Stufe: jede der vier Lagen einer Zelle, in der Formsäge (ohne Simple Blocks im Steinschneider) 2 aus der Stufe und 4 aus dem Block, 2 ergeben wieder die Stufe; je Lage droppt eine."
       }
     }
   }

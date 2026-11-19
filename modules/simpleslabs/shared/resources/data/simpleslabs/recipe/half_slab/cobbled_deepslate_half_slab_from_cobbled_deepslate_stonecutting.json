@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:cobbled_deepslate",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cobbled_deepslate_half_slab"
   }
 }

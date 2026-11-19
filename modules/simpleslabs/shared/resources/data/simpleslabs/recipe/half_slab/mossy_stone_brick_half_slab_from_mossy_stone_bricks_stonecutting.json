@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:mossy_stone_bricks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:mossy_stone_brick_half_slab"
   }
 }

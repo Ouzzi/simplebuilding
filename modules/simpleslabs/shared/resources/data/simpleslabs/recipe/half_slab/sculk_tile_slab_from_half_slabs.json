@@ -21,8 +21,6 @@
   "category": "building",
   "ingredients": [
     "simpleslabs:sculk_tile_half_slab",
-    "simpleslabs:sculk_tile_half_slab",
-    "simpleslabs:sculk_tile_half_slab",
     "simpleslabs:sculk_tile_half_slab"
   ],
   "result": {

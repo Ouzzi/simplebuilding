@@ -31,38 +31,6 @@
       "apply": {
         "model": "simpleslabs:block/half_slab/cut_gold_half_slab_3"
       }
-    },
-    {
-      "when": {
-        "l4": "true"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/cut_gold_half_slab_4"
-      }
-    },
-    {
-      "when": {
-        "l5": "true"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/cut_gold_half_slab_5"
-      }
-    },
-    {
-      "when": {
-        "l6": "true"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/cut_gold_half_slab_6"
-      }
-    },
-    {
-      "when": {
-        "l7": "true"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/cut_gold_half_slab_7"
-      }
     }
   ]
 }

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:tuff",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:tuff_half_slab"
   }
 }

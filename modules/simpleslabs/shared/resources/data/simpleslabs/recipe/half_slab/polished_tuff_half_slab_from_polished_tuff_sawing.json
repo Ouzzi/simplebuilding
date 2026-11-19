@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:polished_tuff",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_tuff_half_slab"
   }
 }

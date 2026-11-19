@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:cherry_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:cherry_half_slab"
   }
 }

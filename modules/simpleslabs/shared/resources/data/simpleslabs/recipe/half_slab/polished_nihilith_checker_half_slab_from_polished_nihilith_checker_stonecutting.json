@@ -62,7 +62,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simplechess:polished_nihilith_checker",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_nihilith_checker_half_slab"
   }
 }

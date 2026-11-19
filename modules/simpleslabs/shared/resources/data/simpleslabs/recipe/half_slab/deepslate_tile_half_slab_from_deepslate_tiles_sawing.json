@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:deepslate_tiles",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:deepslate_tile_half_slab"
   }
 }

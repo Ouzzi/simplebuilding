@@ -23,7 +23,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
  * Half slab item (N86): places {@link HalfSlabBlock} (sneaking on a side face: the side half slab). On its own real slab
- * (bottom or top, not double) it adds a layer: the slab becomes the half slab block with layers 0-3 (bottom) or 4-7 (top) plus
+ * (bottom or top, not double) it adds a layer: the slab becomes the half slab block with layers 0-1 (bottom) or 2-3 (top) plus
  * the clicked layer - owner N86-2 "slab + half slab". The slab itself is not touched as a class (A12): a slab item on a half
  * slab does nothing special. Waxed copper half slabs say so in one grey line (SimpleLib's aging tooltip).
  */
@@ -61,7 +61,8 @@ public class HalfSlabItem extends BlockItem {
         if (context.isSecondaryUseActive() || !clicked.is(block.slab()) || !clicked.hasProperty(SlabBlock.TYPE)) return null;
         SlabType type = clicked.getValue(SlabBlock.TYPE);
         if (type == SlabType.DOUBLE) return null;
-        int slabMask = type == SlabType.BOTTOM ? 0x0F : 0xF0;
+        int half = (1 << HalfSlabBlock.LAYERS / 2) - 1;
+        int slabMask = type == SlabType.BOTTOM ? half : half << HalfSlabBlock.LAYERS / 2;
         int layer = HalfSlabBlock.targetLayer(context, true);
         if (layer < 0 || (slabMask >> layer & 1) != 0) return null;
         boolean water = clicked.hasProperty(SlabBlock.WATERLOGGED) && clicked.getValue(SlabBlock.WATERLOGGED);

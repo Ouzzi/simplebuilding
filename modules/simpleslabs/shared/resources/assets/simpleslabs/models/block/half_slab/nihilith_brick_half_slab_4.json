@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_4",
-  "textures": {
-    "bottom": "simplebuilding:block/nihilith_bricks",
-    "top": "simplebuilding:block/nihilith_bricks",
-    "side": "simplebuilding:block/nihilith_bricks"
-  }
-}

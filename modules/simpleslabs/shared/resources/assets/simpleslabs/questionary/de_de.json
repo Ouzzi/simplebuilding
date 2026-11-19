@@ -15,7 +15,7 @@
       "regex:.*_half_slab"
     ],
     "lore": [
-      "{name}: ein Viertel einer Stufe, 2 Pixel dünn."
+      "{name}: eine halbe Stufe, 4 Pixel dünn."
     ],
     "use": [
       "Setzt sich in die angeklickte Lage; dieselbe Halbstufe füllt die freie Lage. Schleichen + Rechtsklick auf eine Blockseite: aufrecht, 4 Lagen = Seiten-Stufe. 4 aus einer Stufe, 8 aus dem Block; 4 ergeben die Stufe. Abbauen droppt eine je Lage."

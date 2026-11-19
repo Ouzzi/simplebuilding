@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:smooth_quartz_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:smooth_quartz_half_slab"
   }
 }

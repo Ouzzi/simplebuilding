@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simplebuilding:astralit_block",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:astralit_half_slab"
   }
 }
