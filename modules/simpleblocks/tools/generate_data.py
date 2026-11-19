@@ -361,10 +361,13 @@ def models_and_states():
     for name, b in BLOCKS.items():
         kind = b['kind']
         if kind == 'fence_gate':
-            for suffix, parent in (('', 'template_fence_gate'), ('_open', 'template_fence_gate_open'),
-                                   ('_wall', 'template_fence_gate_wall'), ('_wall_open', 'template_fence_gate_wall_open')):
-                put(f'assets/{NS}/models/block/{name}{suffix}.json', {'parent': f'minecraft:block/{parent}', 'textures': {'texture': b['tex']}})
-            put(f'assets/{NS}/blockstates/{name}.json', fence_gate_state(name))
+            # N89C (owner 19.11., T1 "Fallgitter"): the nether brick gate's models + blockstate (own portcullis elements, no
+            # uvlock) come from tools/textures/n89c_2026_11_19.py; only other fence gates use the Vanilla templates here.
+            if name != 'nether_brick_fence_gate':
+                for suffix, parent in (('', 'template_fence_gate'), ('_open', 'template_fence_gate_open'),
+                                       ('_wall', 'template_fence_gate_wall'), ('_wall_open', 'template_fence_gate_wall_open')):
+                    put(f'assets/{NS}/models/block/{name}{suffix}.json', {'parent': f'minecraft:block/{parent}', 'textures': {'texture': b['tex']}})
+                put(f'assets/{NS}/blockstates/{name}.json', fence_gate_state(name))
             put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}'}})
         elif kind == 'pillar':
             put(f'assets/{NS}/models/block/{name}.json', {'parent': 'minecraft:block/cube_column', 'textures': {'end': b['end'], 'side': b['side']}})
