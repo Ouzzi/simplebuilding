@@ -2998,7 +2998,7 @@ function recipeRow(r) {
   var sub = ic.map(function (e) { return (e.n > 1 ? e.n + '× ' : '') + e.ref.map(function (x) { return x.charAt(0) === '#' ? x : displayName(x); }).join('/'); }).join(', ');
   return '<a class="row" href="#/recipes/' + esc(r.id) + '" data-s="' + esc(norm(r.id + ' ' + (res ? displayName(res.id) : '') + ' ' + sub)) + '">' +
     slotHtml(res ? res.id : null, res ? res.count : 1, { noLink: true }) +
-    '<div class="row-main"><div class="row-title">' + esc(res ? displayName(res.id) : '?') + (res && res.count > 1 ? ' <span class="muted">×' + res.count + '</span>' : '') + '</div>' +
+    '<div class="row-main"><div class="row-title">' + esc(res ? displayName(res.id) : prettyFromId(r.id)) + (res && res.count > 1 ? ' <span class="muted">×' + res.count + '</span>' : '') + '</div>' +
     '<div class="row-sub">' + esc(sub || '–') + '</div><div class="row-sub"><code>' + esc(r.id) + '</code></div></div>' +
     '<div class="row-right">' + badge(recipeTypeLabel(r.type)) + '</div></a>';
 }
@@ -3058,7 +3058,7 @@ function tradeCard(tr, opts) {
 function tradeRow(tr) {
   var gives = normStack(tr.gives), wants = normStack(tr.wants);
   return '<a class="row" href="#/trades/' + esc(tr.id) + '">' + slotHtml(gives ? gives.id : null, gives ? gives.count : 1, { noLink: true }) +
-    '<div class="row-main"><div class="row-title">' + esc(gives ? displayName(gives.id) : '?') + (gives && gives.count > 1 ? ' <span class="muted">×' + gives.count + '</span>' : '') + '</div>' +
+    '<div class="row-main"><div class="row-title">' + esc(gives ? displayName(gives.id) : prettyFromId(tr.id || '')) + (gives && gives.count > 1 ? ' <span class="muted">×' + gives.count + '</span>' : '') + '</div>' +
     '<div class="row-sub">' + esc(T('tradeFor')) + ' ' + esc(wants ? wants.count + '× ' + displayName(wants.id) : '?') + ' · ' + esc(professionLabel(tr.profession)) + ', ' + esc(levelLabel(tr.level)) + '</div></div>' +
     '<div class="row-right">' + (arr(tr.enchantmentPool).length ? badge(plural(arr(tr.enchantmentPool).length, 'enchantmentOne', 'enchantmentMany') + ' ' + T('inPool')) : '') + '</div></a>';
 }
