@@ -66,7 +66,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding, Simple Mobs
   - **Simple Slabs** `simpleslabs` (required) [neu]: Half slabs (2 pixels) of every block with a slab: stack them freely in the eight 2-pixel layers of a cell, lean them against a wall as side half slab or side slab. Sand, red sand and gravel half slabs fall, grass takes the biome colour, copper ages like Vanilla copper. Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the slab. Half slabs of another mod's block only with that mod; shares SimpleLib's shape core with Simple Octets.
     - required: SimpleLib
-    - optional: SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting, Simple Chess, jei
+    - optional: SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting, jei
   - **Simple Storage** `simplestorage` (required) [fertig]: Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2). WH26-6: the four barrels (copper to Enderite; docking onto the crucibles of Simple Crucibles) moved here from Simple Crucibles.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple End, trinkets_updated, curios, Simple Ores, Simple Crucibles
