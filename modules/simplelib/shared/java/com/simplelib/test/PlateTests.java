@@ -57,6 +57,48 @@ public final class PlateTests {
         h.succeed();
     }
 
+    /**
+     * N100: the pressed Netherite plate only lights up like the diamond one - blockstate powered=true uses the _down model, that
+     * one the active texture, and the texture (built from the Netherite block, tools/textures/n100_netherite_plate_2026_11_18.py)
+     * has a lighter but grey centre, no orange glow. Without the client jar the build ships a grey placeholder: then only the
+     * references are checked.
+     */
+    public static void netheritePlateHighlightsLikeDiamond(GameTestHelper h) {
+        String state = resource(h, "/assets/simplelib/blockstates/netherite_pressure_plate.json");
+        h.assertTrue(state.contains("simplelib:block/netherite_pressure_plate_down"), "powered=true has no _down model: " + state);
+        String down = resource(h, "/assets/simplelib/models/block/netherite_pressure_plate_down.json");
+        h.assertTrue(down.contains("minecraft:block/pressure_plate_down") && down.contains("simplelib:block/netherite_pressure_plate_active"),
+                "the pressed model does not use the active texture: " + down);
+        String up = resource(h, "/assets/simplelib/models/block/netherite_pressure_plate.json");
+        h.assertTrue(up.contains("minecraft:block/netherite_block"), "the resting plate is the Netherite block: " + up);
+        if (PlateTests.class.getResource("/assets/simplelib/vanilla_derived_placeholders.txt") != null) {
+            h.succeed();
+            return;
+        }
+        try (java.io.InputStream in = PlateTests.class.getResourceAsStream("/assets/simplelib/textures/block/netherite_pressure_plate_active.png")) {
+            h.assertTrue(in != null, "no active texture for the pressed Netherite plate");
+            java.awt.image.BufferedImage img = javax.imageio.ImageIO.read(in);
+            h.assertTrue(img != null && img.getWidth() == 16 && img.getHeight() == 16, "the active texture is not 16x16");
+            int centre = img.getRGB(7, 7), edge = img.getRGB(1, 7);
+            int r = (centre >> 16) & 0xFF, g = (centre >> 8) & 0xFF, b = centre & 0xFF;
+            h.assertTrue(Math.max(r, Math.max(g, b)) - Math.min(r, Math.min(g, b)) < 32, "the centre is coloured (orange?), not a grey highlight: " + Integer.toHexString(centre));
+            int lc = r + g + b, le = ((edge >> 16) & 0xFF) + ((edge >> 8) & 0xFF) + (edge & 0xFF);
+            h.assertTrue(lc > le, "the centre is not lighter than the rim (no highlight)");
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read the active Netherite plate texture", e);
+        }
+        h.succeed();
+    }
+
+    private static String resource(GameTestHelper h, String path) {
+        try (java.io.InputStream in = PlateTests.class.getResourceAsStream(path)) {
+            h.assertTrue(in != null, "no " + path + " on the classpath");
+            return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
+    }
+
     private static Mob mob(GameTestHelper h, net.minecraft.world.entity.EntityType<? extends Mob> type, BlockPos at) {
         Mob mob = h.spawn(type, at);
         mob.setNoAi(true);

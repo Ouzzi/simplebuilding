@@ -1,5 +1,5 @@
 {
-  "parent": "simpleoctets:block/octet/_corner_sided",
+  "parent": "simpleoctets:block/octet/_corner_log",
   "textures": {
     "up": "minecraft:block/jungle_log_top",
     "down": "minecraft:block/jungle_log_top",

@@ -45,6 +45,11 @@ public final class WoodworkGameTest {
     }
 
     @GameTest
+    public void axeStripsWoodwork(GameTestHelper helper) {
+        WoodworkTests.axeStripsWoodwork(helper);
+    }
+
+    @GameTest
     public void poplarWoodworkFollowsVanillaPoplar(GameTestHelper helper) {
         WoodworkTests.poplarWoodworkFollowsVanillaPoplar(helper);
     }

@@ -54,6 +54,7 @@ public final class LibTests {
         ALL.put("rose_cores_share_tags", MaterialRequestTests::roseCoresShareTags);
         ALL.put("strong_upgrade_wither_drop", MaterialRequestTests::strongUpgradeWitherDrop);
         ALL.put("material_plates_registered_and_moved", PlateTests::registeredAndMoved);
+        ALL.put("netherite_plate_highlights_like_diamond", PlateTests::netheritePlateHighlightsLikeDiamond);
         ALL.put("emerald_plate_villagers_only", PlateTests::emeraldPlateVillagersOnly);
         ALL.put("emerald_plate_inverts_when_powered", PlateTests::emeraldPlateInvertsWhenPowered);
         ALL.put("pixel_palette_lab_nearest", PixelArtTests::labNearest);

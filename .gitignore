@@ -2226,3 +2226,13 @@ wiki/assets/textures/sheets/simpleores/simpleores/entity/equipment/humanoid_legg
 modules/simpleenchanting/shared/resources/assets/simpleenchanting/textures/item/blaze_book.png
 wiki/assets/textures/simpleenchanting/item/blaze_book.png
 wiki/assets/textures/sheets/simpleenchanting/simpleenchanting/item/blaze_book.png
+
+# N100 (18.11.): the pressed Netherite Pressure Plate is the Netherite block with the diamond plate's highlight rings
+# (Vanilla-derived, tools/textures/n100_netherite_plate_2026_11_18.py via vanilla_derived.py), built, never committed
+src/main/resources/assets/simplebuilding/textures/block/netherite_pressure_plate_active.png
+modules/simplelib/shared/resources/assets/simplelib/textures/block/netherite_pressure_plate_active.png
+wiki/assets/textures/block/netherite_pressure_plate_active.png
+wiki/assets/textures/simplelib/block/netherite_pressure_plate_active.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/netherite_pressure_plate_active.png
+wiki/assets/textures/sheets/simplelib/simplelib/block/netherite_pressure_plate_active.png
+wiki/assets/textures/sheets/simplebuilding/simplelib/block/netherite_pressure_plate_active.png

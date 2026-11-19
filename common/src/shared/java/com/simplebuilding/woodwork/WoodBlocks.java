@@ -101,9 +101,9 @@ public final class WoodBlocks {
             HollowLogBlock hollowStripped = register(hollowId(wood, true), stripped,
                     s -> new HollowLogBlock(wood, true, tube(wood.external() ? s.mapColor(woodColor) : s)));
             Block sheet = register(sheetId(wood, false), planks,
-                    s -> new IronBarsBlock(s.mapColor(bark).strength(1.0F).noOcclusion()));
+                    s -> new SheetBlock(s.mapColor(bark).strength(1.0F).noOcclusion()));
             Block strippedSheet = register(sheetId(wood, true), planks,
-                    s -> new IronBarsBlock(s.mapColor(woodColor).strength(1.0F).noOcclusion()));
+                    s -> new SheetBlock(s.mapColor(woodColor).strength(1.0F).noOcclusion()));
             WoodenCauldronBlock cauldron = register(cauldronId(wood), planks,
                     s -> new WoodenCauldronBlock(wood, (wood.external() ? s.mapColor(woodColor) : s).strength(2.0F).noOcclusion()));
             WoodenCauldronBlock strippedCauldron = register(strippedCauldronId(wood), planks,
@@ -193,6 +193,47 @@ public final class WoodBlocks {
             }
         }
         return null;
+    }
+
+    /**
+     * N100: what an axe makes of a woodwork block - the hollow log, sheet or cauldron of the same wood stripped, every
+     * property kept (axis, connections, water level); null for stripped ones and everything else.
+     */
+    public static net.minecraft.world.level.block.state.@Nullable BlockState stripped(net.minecraft.world.level.block.state.BlockState state) {
+        Block block = state.getBlock();
+        for (Family family : families()) {
+            Block to = block == family.hollow() ? family.hollowStripped() : block == family.sheet() ? family.strippedSheet()
+                    : block == family.cauldron() ? family.strippedCauldron() : null;
+            if (to != null) {
+                return to.withPropertiesOf(state);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * N100: the axe strips a hollow log, sheet or wooden cauldron like Vanilla strips a log (sound, game event, one durability,
+     * swing): called from the blocks' {@code useItemOn}. Null when this is no axe on an unstripped woodwork block.
+     */
+    public static net.minecraft.world.@Nullable InteractionResult strip(net.minecraft.world.item.ItemStack stack,
+            net.minecraft.world.level.block.state.BlockState state, net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos,
+            net.minecraft.world.entity.player.Player player, net.minecraft.world.InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
+        if (!stack.is(net.minecraft.tags.ItemTags.AXES) || !player.mayUseItemAt(pos, hit.getDirection(), stack)) {
+            return null;
+        }
+        net.minecraft.world.level.block.state.BlockState to = stripped(state);
+        if (to == null) {
+            return null;
+        }
+        if (!level.isClientSide()) {
+            level.setBlock(pos, to, Block.UPDATE_ALL_IMMEDIATE);
+            level.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, net.minecraft.sounds.SoundEvents.AXE_STRIP,
+                    net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.gameEvent(net.minecraft.world.level.gameevent.GameEvent.BLOCK_CHANGE, pos,
+                    net.minecraft.world.level.gameevent.GameEvent.Context.of(player, to));
+            stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+        }
+        return net.minecraft.world.InteractionResult.SUCCESS;
     }
 
     /** Families keyed by wood, for tests and datagen. */

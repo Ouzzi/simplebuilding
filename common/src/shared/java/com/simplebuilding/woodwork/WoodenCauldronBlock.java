@@ -174,6 +174,8 @@ public class WoodenCauldronBlock extends AbstractCauldronBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
             InteractionHand hand, BlockHitResult hit) {
+        InteractionResult stripped = WoodBlocks.strip(stack, state, level, pos, player, hand, hit); // N100: content and level stay
+        if (stripped != null) return stripped;
         // Copper/Enderite/ceramic buckets are not in the Vanilla tables (the Vanilla cauldron takes them through a mixin);
         // they are Simple Crucibles' since split stage 5b, reached through the crucible bridge (26.2: none).
         InteractionResult result = com.simplebuilding.crucible.CrucibleCompat.cauldronBucket(stack, toVanilla(state), level, pos, player, hand);

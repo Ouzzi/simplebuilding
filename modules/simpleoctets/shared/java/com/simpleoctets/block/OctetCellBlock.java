@@ -434,6 +434,34 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         return state;
     }
 
+    /**
+     * N100: an axe strips only the clicked octet of a log (the octets are single cells for the owner): that eighth becomes
+     * the stripped log octet, every other eighth stays (a mixed cell if needed). Sound, game event and durability like
+     * Vanilla's log stripping; SUCCESS swings the arm.
+     */
+    @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+                                          net.minecraft.world.InteractionHand hand, BlockHitResult hit) {
+        if (!stack.is(net.minecraft.tags.ItemTags.AXES) || !player.mayUseItemAt(pos, hit.getDirection(), stack)) {
+            return super.useItemOn(stack, state, level, pos, player, hand, hit);
+        }
+        int index = hitIndex(pos, hit);
+        BlockState[] parts = OctetCells.parts(level, pos, state);
+        BlockState stripped = OctetCells.stripped(parts[index]);
+        if (stripped == null) {
+            return super.useItemOn(stack, state, level, pos, player, hand, hit);
+        }
+        if (!level.isClientSide()) {
+            parts[index] = stripped;
+            OctetCells.set(level, pos, parts, state.getValue(WATERLOGGED), Block.UPDATE_ALL);
+            level.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, net.minecraft.sounds.SoundEvents.AXE_STRIP,
+                    SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+            stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+        }
+        return InteractionResult.SUCCESS;
+    }
+
     /** Schleichen + leere Hand: das angeklickte Achtel (sein Material) kommt in die Hand. */
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {

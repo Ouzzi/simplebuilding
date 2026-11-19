@@ -199,6 +199,24 @@ public class OctetCells {
         return back != null && back.getBlock() == full ? cell : null;
     }
 
+    /**
+     * N100: what an axe makes of one octet - the stripped log octet ({@code stripped_<log>_octet}) of a log octet's material
+     * state; null for every other part (already stripped, no log, its mod not loaded).
+     */
+    public static @Nullable BlockState stripped(@Nullable BlockState part) {
+        if (part == null || !(part.getBlock() instanceof MaterialOctetBlock)) {
+            return null;
+        }
+        net.minecraft.resources.Identifier id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(part.getBlock());
+        String path = id.getPath();
+        if (path.startsWith("stripped_") || !(path.endsWith("_log_octet") || path.endsWith("_stem_octet"))) {
+            return null;
+        }
+        Block to = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath(id.getNamespace(), "stripped_" + path));
+        return to instanceof MaterialOctetBlock ? material(to.defaultBlockState()) : null;
+    }
+
     /** Das Achtel-Item eines Materialzustands. */
     public static ItemStack item(@Nullable BlockState part) {
         if (part == null || !(part.getBlock() instanceof OctetCellBlock cell)) {
