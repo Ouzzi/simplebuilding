@@ -86,6 +86,15 @@ public final class EndTests {
         return n;
     }
 
+    /** Text of a shipped asset of Simple End ("" when missing). */
+    private static String asset(String path) {
+        try (var in = EndTests.class.getResourceAsStream("/assets/simpleend/" + path)) {
+            return in == null ? "" : new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            return "";
+        }
+    }
+
     private static void waitForLight(GameTestHelper h, BlockPos rel, boolean bright, Runnable then) {
         h.succeedWhen(() -> {
             h.assertTrue(EndBudBlock.bright(h.getLevel(), h.absolutePos(rel)) == bright, "light around the bud not settled yet");
@@ -308,6 +317,53 @@ public final class EndTests {
                 h.assertTrue(grown && h.getBlockState(BUD).is(w.sticks), "bone meal in the dark gives End sticks");
                 h.assertTrue(h.getBlockState(BUD).getValue(EndSticksBlock.THICKNESS) == 3, "thick base");
                 h.assertTrue(count(h, w.log, BUD.offset(-1, 0, -1), BUD.offset(1, 14, 1)) == 0, "no tree in the dark");
+            });
+        });
+        // N89C (owner 19.11.): the K1 "Chorus-Kelch" look replaces the bud textures, the ids and the behaviour stay. Both buds sit
+        // on End stone, an empty flower pot takes each bud with a real right click (potted variant), and bone meal from the item
+        // (isBonemealSuccess 45 %, so up to 40 tries) grows a bud - in the dark into End sticks.
+        add("n89c_buds_pot_and_bone_meal", h -> {
+            ServerLevel level = h.getLevel();
+            for (EndWood w : EndWood.ALL) {
+                h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleEnd.id(w.budName)) == w.bud && w.bud.asItem() != Items.AIR, w.budName + " block + item, same id");
+                h.assertTrue(w.pottedBud instanceof net.minecraft.world.level.block.FlowerPotBlock pot && pot.getPotted() == w.bud
+                        && BuiltInRegistries.BLOCK.getValue(SimpleEnd.id("potted_" + w.budName)) == w.pottedBud, "potted_" + w.budName + " holds the bud");
+                String tex = "simpleend:block/" + w.budName;
+                String block = asset("models/block/" + w.budName + ".json"), potted = asset("models/block/potted_" + w.budName + ".json"),
+                        item = asset("models/item/" + w.budName + ".json");
+                h.assertTrue(block.contains("minecraft:block/cross") && block.contains(tex), w.budName + " block model: cross with the K1 texture");
+                h.assertTrue(potted.contains("minecraft:block/flower_pot_cross") && potted.contains(tex), "potted_" + w.budName + " model: flower_pot_cross with the K1 texture");
+                h.assertTrue(item.contains(tex), w.budName + " item model shows the K1 texture");
+                h.assertTrue(EndTests.class.getResource("/assets/simpleend/textures/block/" + w.budName + ".png") != null, w.budName + ".png shipped");
+            }
+            BlockPos[] pots = {new BlockPos(2, 2, 2), new BlockPos(4, 2, 2)};
+            BlockPos[] placed = {new BlockPos(2, 2, 4), new BlockPos(4, 2, 4)};
+            for (int i = 0; i < EndWood.ALL.size(); i++) {
+                EndWood w = EndWood.ALL.get(i);
+                ground(h, placed[i], 0);
+                h.setBlock(placed[i], w.bud);
+                h.assertTrue(h.getBlockState(placed[i]).canSurvive(level, h.absolutePos(placed[i])), w.budName + " stands on End stone");
+                h.setBlock(pots[i].below(), Blocks.STONE);
+                h.setBlock(pots[i], Blocks.FLOWER_POT);
+                Player player = h.makeMockPlayer(GameType.SURVIVAL);
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(w.bud.asItem()));
+                h.useBlock(pots[i], player);
+                h.assertTrue(h.getBlockState(pots[i]).is(w.pottedBud), "a flower pot + " + w.budName + " = potted_" + w.budName + ", got " + h.getBlockState(pots[i]));
+            }
+            EndWood w = EndWood.ASHWOOD;
+            ground(h, BUD, 3);
+            for (BlockPos p : BlockPos.betweenClosed(BUD.offset(-2, -1, -2), BUD.offset(2, 15, 2))) {
+                BlockPos r = p.immutable();
+                boolean shell = Math.abs(r.getX() - BUD.getX()) == 2 || Math.abs(r.getZ() - BUD.getZ()) == 2 || r.getY() == BUD.getY() + 15;
+                if (shell) h.setBlock(r, Blocks.STONE);
+            }
+            h.setBlock(BUD, w.bud);
+            waitForLight(h, BUD, false, () -> {
+                ItemStack meal = new ItemStack(Items.BONE_MEAL, 64);
+                for (int i = 0; i < 40 && h.getBlockState(BUD).is(w.bud); i++)
+                    net.minecraft.world.item.BoneMealItem.applyBonemeal(meal, level, h.absolutePos(BUD), null);
+                h.assertTrue(h.getBlockState(BUD).is(w.sticks), "bone meal grows the dark bud into End sticks, got " + h.getBlockState(BUD));
+                h.assertTrue(meal.getCount() < 64, "bone meal was used");
             });
         });
         add("bud_square_grows_huge_tree", h -> {

@@ -501,6 +501,43 @@ public final class BlocksTests {
         BlockState opened = closed.setValue(net.minecraft.world.level.block.FenceGateBlock.OPEN, true);
         h.assertTrue(!closed.getCollisionShape(level, h.absolutePos(gatePos)).isEmpty() && opened.getCollisionShape(level, h.absolutePos(gatePos)).isEmpty(),
                 "closed it blocks, open it lets through");
+        // N89C (owner 19.11., T1 "Fallgitter"): new look only - the posts, swing, hitbox and collision stay those of a fence gate.
+        h.assertTrue(state.getSoundType() == net.minecraft.world.level.block.SoundType.NETHER_BRICKS, "nether brick sound fix kept");
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        h.useBlock(gatePos, player);
+        h.assertTrue(h.getBlockState(gatePos).getValue(net.minecraft.world.level.block.FenceGateBlock.OPEN), "a right click opens it");
+        h.assertTrue(h.getBlockState(gatePos).getCollisionShape(level, h.absolutePos(gatePos)).isEmpty(), "open: no collision");
+        h.useBlock(gatePos, player);
+        h.assertTrue(!h.getBlockState(gatePos).getValue(net.minecraft.world.level.block.FenceGateBlock.OPEN), "a second right click closes it");
+        h.assertTrue(!h.getBlockState(gatePos).getCollisionShape(level, h.absolutePos(gatePos)).isEmpty(), "closed again: collision");
+        for (net.minecraft.core.Direction facing : net.minecraft.core.Direction.Plane.HORIZONTAL) {
+            for (boolean open : new boolean[] {false, true}) {
+                for (boolean wall : new boolean[] {false, true}) {
+                    BlockState mine = state.setValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING, facing)
+                            .setValue(net.minecraft.world.level.block.FenceGateBlock.OPEN, open).setValue(net.minecraft.world.level.block.FenceGateBlock.IN_WALL, wall);
+                    BlockState oak = Blocks.OAK_FENCE_GATE.defaultBlockState().setValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING, facing)
+                            .setValue(net.minecraft.world.level.block.FenceGateBlock.OPEN, open).setValue(net.minecraft.world.level.block.FenceGateBlock.IN_WALL, wall);
+                    BlockPos at = h.absolutePos(gatePos);
+                    h.assertTrue(sameShape(mine.getShape(level, at), oak.getShape(level, at))
+                            && sameShape(mine.getCollisionShape(level, at), oak.getCollisionShape(level, at)),
+                            "hitbox and collision like a Vanilla fence gate: " + facing + " open=" + open + " in_wall=" + wall);
+                }
+            }
+        }
+        BlockPos wallGate = new BlockPos(2, 1, 4);
+        h.setBlock(new BlockPos(1, 1, 4), Blocks.NETHER_BRICK_WALL);
+        h.setBlock(wallGate, state.setValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING, net.minecraft.core.Direction.NORTH));
+        h.assertTrue(Block.updateFromNeighbourShapes(h.getBlockState(wallGate), level, h.absolutePos(wallGate)).getValue(net.minecraft.world.level.block.FenceGateBlock.IN_WALL),
+                "next to a nether brick wall it sits lower (in_wall)");
+        String gateModel = "simpleblocks:block/nether_brick_fence_gate";
+        String states = blocksAsset("blockstates/nether_brick_fence_gate.json");
+        for (String m : new String[] {"", "_open", "_wall", "_wall_open"}) {
+            String json = blocksAsset("models/block/nether_brick_fence_gate" + m + ".json");
+            int elements = json.split("\"from\"", -1).length - 1;
+            h.assertTrue(json.contains("\"texture\": \"" + gateModel + "\"") && elements > 30 && states.contains("\"" + gateModel + m + "\""),
+                    "Fallgitter model" + m + ": own texture, portcullis elements (" + elements + "), used by the blockstate");
+        }
+        h.assertTrue(BlocksTests.class.getResource("/assets/simpleblocks/textures/block/nether_brick_fence_gate.png") != null, "Fallgitter texture shipped");
         ItemStack brick = new ItemStack(Items.NETHER_BRICK);
         ItemStack bricks = new ItemStack(Items.NETHER_BRICKS);
         expectCraft(h, level, 3, 2, List.of(brick, bricks, brick.copy(), brick.copy(), bricks.copy(), brick.copy()), gate, 1);
@@ -508,6 +545,19 @@ public final class BlocksTests {
                 .flatMap(p -> p.names().stream()).toList();
         h.assertTrue(placed.equals(List.of("nether_brick_fence_gate")), "right behind the nether brick fence in the Vanilla tab: " + placed);
         h.succeed();
+    }
+
+    private static boolean sameShape(net.minecraft.world.phys.shapes.VoxelShape a, net.minecraft.world.phys.shapes.VoxelShape b) {
+        return !net.minecraft.world.phys.shapes.Shapes.joinIsNotEmpty(a, b, net.minecraft.world.phys.shapes.BooleanOp.NOT_SAME);
+    }
+
+    /** Text of a shipped Simple Blocks asset ("" when missing). */
+    private static String blocksAsset(String path) {
+        try (var in = BlocksTests.class.getResourceAsStream("/assets/simpleblocks/" + path)) {
+            return in == null ? "" : new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            return "";
+        }
     }
 
     private static void expectCraft(GameTestHelper h, ServerLevel level, int w, int hgt, List<ItemStack> grid, Block result, int count) {
