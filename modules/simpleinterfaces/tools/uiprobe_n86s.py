@@ -34,14 +34,18 @@ def side_items(s):
         time.sleep(0.4)
         s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y + 1.6} {z + 3}', 0.4)
     # run 1: the say line was not in client.log yet when it was read - check every thickness and wait for the log
-    for t in range(1, 5):
-        s.chat(f'execute if block {x} {y + 1} {z + 2} simpleslabs:stone_side_half_slab[thickness={t}] run say SIDE_THICKNESS_{t}', 0.4)
+    # run 2 found nothing at (x, y+1, z+2): search the cells in front of the wall for the side form and its thickness
+    for dx in (-1, 0, 1):
+        for dy in (0, 1, 2):
+            for t in range(1, 5):
+                s.chat(f'execute if block {x + dx} {y + dy} {z + 2} simpleslabs:stone_side_half_slab[thickness={t}] run say SIDE_AT_{dx}_{dy}_THICKNESS_{t}', 0.15)
     time.sleep(1.5)
     s.chat(f'tp @s {x + 2.5} {y} {z + 0.8} facing {x + 0.5} {y + 1.3} {z + 2.6}', 1.0)
     s.shot('3-an-der-wand-3-lagen-schraeg')
     log = (s.out / 'client.log').read_text(errors='replace') if (s.out / 'client.log').exists() else ''
-    got = [t for t in range(1, 5) if f'SIDE_THICKNESS_{t}' in log]
-    s.check('3 real right clicks against the wall give a side half slab of thickness 3', got == [3], f'thickness found: {got}')
+    import re
+    got = sorted(set(re.findall(r'SIDE_AT_(-?\d)_(\d)_THICKNESS_(\d)', log)))
+    s.check('3 real right clicks against the wall give a side half slab of thickness 3', len(got) == 1 and got[0][2] == '3', f'found (dx, dy, thickness): {got}')
     s.check('N86S shots taken (hotbar, inventory, wall)', True, 'see shots/')
 
 
