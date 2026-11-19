@@ -54,7 +54,7 @@
   "text.autoconfig.simpleenddragonfight.option.rewardFromDragon.@Tooltip": "Defeated dragons (world-wide) needed before the reward appears. Default: 4.",
   "text.autoconfig.simpleenddragonfight.option.rewardItem": "Reward item",
   "text.autoconfig.simpleenddragonfight.option.rewardItem.@Tooltip": "Item id of the reward. Default: simplemobs:ender_heart (nothing happens while that item is not installed).",
-  "text.autoconfig.simpleenddragonfight.option.tintFromDragon": "Chorus-coloured dragon from fight no.",
+  "text.autoconfig.simpleenddragonfight.option.tintFromDragon": "Chorus-colored dragon from fight no.",
   "text.autoconfig.simpleenddragonfight.option.tintFromDragon.@Tooltip": "Dragon of this fight number and later glows chorus violet on the client (the 4th fight on). 0 = off. Default: 4.",
   "text.autoconfig.simpleenddragonfight.option.tintJewelFromDragon": "Soul-blue + chorus dragon from fight no.",
   "text.autoconfig.simpleenddragonfight.option.tintJewelFromDragon.@Tooltip": "Dragon of this fight number and later glows soul blue and chorus violet together, pulsing in turn (the Ender Gem fight, 10th on). 0 = off. Default: 10.",

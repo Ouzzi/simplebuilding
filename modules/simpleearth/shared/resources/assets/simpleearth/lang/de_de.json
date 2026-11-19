@@ -119,7 +119,7 @@
   "text.autoconfig.simpleearth.option.showOthers": "Andere Spieler zeigen",
   "text.autoconfig.simpleearth.option.showOthers.@Tooltip": "E9: andere Spieler im Orbit erscheinen als Punkte (Spieler am Boden nie). Server- und Darstellungs-Option; beide müssen an sein. Standard: an.",
   "text.autoconfig.simpleearth.option.realDistance": "Echte Entfernung",
-  "text.autoconfig.simpleearth.option.realDistance.@Tooltip": "WG26-2: die Erde liegt so weit unter dir wie die Welt (Höhe über dem Meeresspiegel, echte Größe); aus = der frühere Zoom (echte Höhe an der Umschalthöhe, wachsend bis zum Orbit-Abstand an der Deckenhöhe). Standard: an.",
+  "text.autoconfig.simpleearth.option.realDistance.@Tooltip": "Die Erde liegt so weit unter dir wie die Welt (Höhe über dem Meeresspiegel, echte Größe); aus = der frühere Zoom (echte Höhe an der Umschalthöhe, wachsend bis zum Orbit-Abstand an der Deckenhöhe). Standard: an.",
   "text.autoconfig.simpleearth.option.workerThreads": "Abtast-Threads",
   "text.autoconfig.simpleearth.option.workerThreads.@Tooltip": "Server: Hintergrund-Threads, die Terrain aus dem Weltgenerator lesen. Standard: halbe CPU-Kerne, 2 bis 4.",
   "text.autoconfig.simpleearth.option.tilesPerSecond": "Kacheln pro Sekunde",
