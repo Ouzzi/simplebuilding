@@ -32,13 +32,16 @@ def side_items(s):
     for n in range(1, 4):
         s.io.right_click()
         time.sleep(0.4)
-        st = s.chat(f'data get block {x} {y + 1} {z + 2}', 0.5)
         s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y + 1.6} {z + 3}', 0.4)
-    s.chat(f'execute if block {x} {y + 1} {z + 2} simpleslabs:stone_side_half_slab run say SIDE_PLACED', 0.6)
+    # run 1: the say line was not in client.log yet when it was read - check every thickness and wait for the log
+    for t in range(1, 5):
+        s.chat(f'execute if block {x} {y + 1} {z + 2} simpleslabs:stone_side_half_slab[thickness={t}] run say SIDE_THICKNESS_{t}', 0.4)
+    time.sleep(1.5)
     s.chat(f'tp @s {x + 2.5} {y} {z + 0.8} facing {x + 0.5} {y + 1.3} {z + 2.6}', 1.0)
     s.shot('3-an-der-wand-3-lagen-schraeg')
     log = (s.out / 'client.log').read_text(errors='replace') if (s.out / 'client.log').exists() else ''
-    s.check('side half slab placed against the wall by a real right click', 'SIDE_PLACED' in log, 'say SIDE_PLACED in log')
+    got = [t for t in range(1, 5) if f'SIDE_THICKNESS_{t}' in log]
+    s.check('3 real right clicks against the wall give a side half slab of thickness 3', got == [3], f'thickness found: {got}')
     s.check('N86S shots taken (hotbar, inventory, wall)', True, 'see shots/')
 
 
