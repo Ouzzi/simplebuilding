@@ -662,7 +662,7 @@ def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox, r
         hidden = f'<input type="hidden" name="report" value="{r["id"]}">'
         acts = form(ctx, "/admin", f'{hidden}<input name="note" maxlength="1000" aria-label="{ctx.t("note", "Notiz")}" placeholder="{ctx.t("reason / note", "Begründung / Notiz")}">'
                     f'<button class="btn small s" name="action" value="report_dismiss">{ctx.t("no action", "keine Maßnahme")}</button>'
-                    f'<button class="btn small" name="action" value="report_disconnect">{ctx.t("disconnect map", "Karte trennen")}</button>', "inline")
+                    f'<button class="btn small danger" name="action" value="report_disconnect">{ctx.t("disconnect map", "Karte trennen")}</button>', "inline")
         rrows += (f'<tr><td>{r["id"]}</td><td>{e(when(ctx, r["at"]))}</td><td><a href="/m/{e(r["slug"])}/">{e(r["map_name"] or r["slug"])}</a>'
                   f'<br><span class="mut small">{e(r["map_state"] or "-")} · {e(owners.get(r["owner_id"], "?"))}</span></td>'
                   f'<td>{e(names.get(r["reason"], r["reason"]))}</td><td class="small">{e(r["text"])}<br><span class="mut">{e(r["contact"] or "-")}</span></td><td>{acts}</td></tr>')
