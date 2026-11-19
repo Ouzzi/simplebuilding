@@ -1,0 +1,34 @@
+{
+  "values": [
+    "simpleslabs:acacia_half_slab",
+    {
+      "id": "simpleslabs:ashwood_half_slab",
+      "required": false
+    },
+    "simpleslabs:bamboo_half_slab",
+    "simpleslabs:bamboo_mosaic_half_slab",
+    "simpleslabs:birch_half_slab",
+    "simpleslabs:cherry_half_slab",
+    {
+      "id": "simpleslabs:crimson_blazewood_half_slab",
+      "required": false
+    },
+    "simpleslabs:crimson_half_slab",
+    "simpleslabs:dark_oak_half_slab",
+    {
+      "id": "simpleslabs:duskwood_half_slab",
+      "required": false
+    },
+    "simpleslabs:jungle_half_slab",
+    "simpleslabs:mangrove_half_slab",
+    "simpleslabs:oak_half_slab",
+    "simpleslabs:pale_oak_half_slab",
+    "simpleslabs:poplar_half_slab",
+    "simpleslabs:spruce_half_slab",
+    {
+      "id": "simpleslabs:warped_blazewood_half_slab",
+      "required": false
+    },
+    "simpleslabs:warped_half_slab"
+  ]
+}

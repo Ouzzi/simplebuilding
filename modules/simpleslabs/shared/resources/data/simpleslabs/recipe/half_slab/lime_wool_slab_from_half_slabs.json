@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:lime_wool_half_slab",
+    "simpleslabs:lime_wool_half_slab",
+    "simpleslabs:lime_wool_half_slab",
+    "simpleslabs:lime_wool_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:lime_wool_slab"
+  }
+}

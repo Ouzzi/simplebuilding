@@ -1,0 +1,44 @@
+{
+  "values": [
+    "simpleslabs:black_wool_half_slab",
+    "simpleslabs:black_wool_side_half_slab",
+    "simpleslabs:blue_wool_half_slab",
+    "simpleslabs:blue_wool_side_half_slab",
+    "simpleslabs:brown_wool_half_slab",
+    "simpleslabs:brown_wool_side_half_slab",
+    "simpleslabs:cyan_wool_half_slab",
+    "simpleslabs:cyan_wool_side_half_slab",
+    "simpleslabs:gray_wool_half_slab",
+    "simpleslabs:gray_wool_side_half_slab",
+    "simpleslabs:green_wool_half_slab",
+    "simpleslabs:green_wool_side_half_slab",
+    "simpleslabs:light_blue_wool_half_slab",
+    "simpleslabs:light_blue_wool_side_half_slab",
+    "simpleslabs:light_gray_wool_half_slab",
+    "simpleslabs:light_gray_wool_side_half_slab",
+    "simpleslabs:lime_wool_half_slab",
+    "simpleslabs:lime_wool_side_half_slab",
+    "simpleslabs:magenta_wool_half_slab",
+    "simpleslabs:magenta_wool_side_half_slab",
+    "simpleslabs:orange_wool_half_slab",
+    "simpleslabs:orange_wool_side_half_slab",
+    "simpleslabs:pink_wool_half_slab",
+    "simpleslabs:pink_wool_side_half_slab",
+    "simpleslabs:purple_wool_half_slab",
+    "simpleslabs:purple_wool_side_half_slab",
+    "simpleslabs:red_wool_half_slab",
+    "simpleslabs:red_wool_side_half_slab",
+    "simpleslabs:white_wool_half_slab",
+    "simpleslabs:white_wool_side_half_slab",
+    "simpleslabs:yellow_wool_half_slab",
+    "simpleslabs:yellow_wool_side_half_slab",
+    {
+      "id": "simpleslabs:hushed_deepslate_tile_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:hushed_deepslate_tile_side_half_slab",
+      "required": false
+    }
+  ]
+}

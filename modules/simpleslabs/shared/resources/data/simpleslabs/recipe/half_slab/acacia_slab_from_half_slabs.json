@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:acacia_half_slab",
+    "simpleslabs:acacia_half_slab",
+    "simpleslabs:acacia_half_slab",
+    "simpleslabs:acacia_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:acacia_slab"
+  }
+}

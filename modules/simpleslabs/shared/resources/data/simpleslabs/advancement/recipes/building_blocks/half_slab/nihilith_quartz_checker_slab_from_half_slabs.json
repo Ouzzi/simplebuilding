@@ -1,0 +1,69 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplechess"
+      ]
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplechess"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:and",
+    "values": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "simplechess"
+      },
+      {
+        "type": "forge:mod_loaded",
+        "modid": "simplebuilding"
+      }
+    ]
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nihilith_quartz_checker_half_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleslabs:nihilith_quartz_checker_half_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleslabs:half_slab/nihilith_quartz_checker_slab_from_half_slabs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nihilith_quartz_checker_half_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleslabs:half_slab/nihilith_quartz_checker_slab_from_half_slabs"
+    ]
+  }
+}

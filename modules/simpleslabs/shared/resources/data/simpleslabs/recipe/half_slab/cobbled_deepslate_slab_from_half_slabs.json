@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:cobbled_deepslate_half_slab",
+    "simpleslabs:cobbled_deepslate_half_slab",
+    "simpleslabs:cobbled_deepslate_half_slab",
+    "simpleslabs:cobbled_deepslate_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:cobbled_deepslate_slab"
+  }
+}

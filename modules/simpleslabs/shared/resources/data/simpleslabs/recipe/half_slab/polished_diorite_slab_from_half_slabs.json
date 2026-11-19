@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:polished_diorite_half_slab",
+    "simpleslabs:polished_diorite_half_slab",
+    "simpleslabs:polished_diorite_half_slab",
+    "simpleslabs:polished_diorite_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:polished_diorite_slab"
+  }
+}

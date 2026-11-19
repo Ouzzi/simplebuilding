@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mossy_cobblestone_half_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleslabs:mossy_cobblestone_half_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleslabs:half_slab/mossy_cobblestone_slab_from_half_slabs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mossy_cobblestone_half_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleslabs:half_slab/mossy_cobblestone_slab_from_half_slabs"
+    ]
+  }
+}

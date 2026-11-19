@@ -8,7 +8,6 @@ import com.simpleoctets.block.MixedOctetBlockEntity;
 import com.simpleoctets.block.OctetCellBlock;
 import com.simpleoctets.block.OctetCells;
 import com.simpleoctets.item.MaterialOctetItem;
-import com.simpleoctets.registry.HalfSlabRegistry;
 import com.simpleoctets.registry.OctetMaterials;
 import com.simpleoctets.registry.OctetRegistry;
 import java.util.ArrayList;
@@ -80,6 +79,7 @@ public final class OctetTests {
         ALL.put("octets_keep_their_blocks_rules", OctetTests::octetsKeepTheirBlocksRules);
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
         ALL.put("log_octets_mine_with_the_axe", OctetTests::logOctetsMineWithTheAxe);
+        ALL.put("unwaxed_copper_octets_age", OctetTests::unwaxedCopperOctetsAge);
         ALL.put("discover_recipe_unlocks", com.simpleoctets.discover.OctetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleoctets.discover.OctetsDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleoctets.discover.OctetsDiscover::firstPickupTips);
@@ -116,9 +116,8 @@ public final class OctetTests {
         Item netherite = BuiltInRegistries.ITEM.getValue(SimpleOctets.id("netherite_block_octet"));
         if (!new ItemStack(netherite).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT)) problems.add("netherite octet not fire resistant");
         h.assertTrue(problems.isEmpty(), "registration: " + problems);
-        h.assertTrue(OctetRegistry.tabStacks().size() == items.size() + 1 + OctetRegistry.polishedEndStoneShapes().size()
-                        + HalfSlabRegistry.ITEMS.size(),
-                "tab: every octet item, the melon slice, the polished end stone shapes and the half slabs (N86)");
+        h.assertTrue(OctetRegistry.tabStacks().size() == items.size() + 1 + OctetRegistry.polishedEndStoneShapes().size(),
+                "tab: every octet item, the melon slice and the polished end stone shapes");
         h.succeed();
     }
 
@@ -152,8 +151,8 @@ public final class OctetTests {
         for (Block block : BuiltInRegistries.BLOCK) {
             Identifier id = BuiltInRegistries.BLOCK.getKey(block);
             String path = id.getPath();
-            // N86: half slabs (HalfSlabBlock, no SlabBlock) end in "_slab" too - they are pieces like the octets, not a shape
-            // that needs an octet of "<x>_half"; their own coverage is HalfSlabTests (every slab has a half slab or an exception).
+            // N86: half slabs of Simple Slabs (no SlabBlock) end in "_slab" too - they are pieces like the octets, not a shape
+            // that needs an octet of "<x>_half"; their own coverage is SlabTests (every slab has a half slab).
             if (path.endsWith("_half_slab")) continue;
             boolean stairsClass = block instanceof net.minecraft.world.level.block.StairBlock;
             boolean slabClass = block instanceof net.minecraft.world.level.block.SlabBlock;
@@ -436,7 +435,6 @@ public final class OctetTests {
         boolean loaded = SimpleOctets.isLoaded(OctetRegistry.SIMPLE_ENCHANTING);
         List<String> problems = new ArrayList<>();
         var recipes = h.getLevel().getServer().getRecipeManager();
-        var fire = (com.simpleoctets.mixin.FireBlockAccessor) Blocks.FIRE;
         for (String wood : List.of("crimson_blazewood", "warped_blazewood")) {
             Identifier id = SimpleOctets.id(wood + "_octet");
             if (BuiltInRegistries.BLOCK.containsKey(id) != loaded || BuiltInRegistries.ITEM.containsKey(id) != loaded) problems.add(id + " registered with Simple Enchanting loaded=" + loaded);
@@ -447,7 +445,7 @@ public final class OctetTests {
             Block cell = BuiltInRegistries.BLOCK.getValue(id);
             Block planks = BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath(OctetRegistry.SIMPLE_ENCHANTING, wood + "_planks"));
             if (planks == Blocks.AIR || !(cell instanceof MaterialOctetBlock octet) || octet.source() != planks) problems.add("source of " + id);
-            if (fire.simpleoctets$getIgniteOdds(cell.defaultBlockState()) > 0) problems.add(id + " burns (Nether wood)");
+            if (com.simplelib.api.shape.ShapeMaterials.igniteOdds(cell.defaultBlockState()) > 0) problems.add(id + " burns (Nether wood)");
             if (back.isPresent() && back.get().value() instanceof net.minecraft.world.item.crafting.CraftingRecipe recipe) {
                 List<ItemStack> eight = new ArrayList<>();
                 for (int i = 0; i < 8; i++) eight.add(new ItemStack(BuiltInRegistries.ITEM.getValue(id)));
@@ -961,18 +959,40 @@ public final class OctetTests {
         h.succeed();
     }
 
+    /** N86-7 (owner 18.11.): unwaxed copper octets age like Vanilla copper (random ticks, octets kept), waxed ones keep their look. */
+    static void unwaxedCopperOctetsAge(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        Block copper = BuiltInRegistries.BLOCK.getValue(SimpleOctets.id("copper_block_octet"));
+        Block exposed = BuiltInRegistries.BLOCK.getValue(SimpleOctets.id("exposed_copper_octet"));
+        Block waxed = BuiltInRegistries.BLOCK.getValue(SimpleOctets.id("waxed_cut_copper_octet"));
+        var entry = com.simplelib.api.aging.Aging.entry(copper);
+        if (entry == null || !entry.ages()) problems.add("copper octet is no aging stage");
+        if (com.simplelib.api.aging.Aging.entry(waxed) == null || !com.simplelib.api.aging.Aging.entry(waxed).waxed()) problems.add("waxed octet not waxed");
+        BlockState two = OctetCellBlock.withMask(copper.defaultBlockState(), bit(0, 0, 0) | bit(1, 0, 0));
+        h.setBlock(CELL, two);
+        BlockPos pos = h.absolutePos(CELL);
+        var random = net.minecraft.util.RandomSource.create(86L);
+        for (int i = 0; i < 2000 && h.getBlockState(CELL).is(copper); i++) h.getBlockState(CELL).randomTick(h.getLevel(), pos, random);
+        BlockState aged = h.getBlockState(CELL);
+        if (!aged.is(exposed) || OctetCellBlock.mask(aged) != (bit(0, 0, 0) | bit(1, 0, 0))) problems.add("random ticks: " + aged);
+        h.setBlock(CELL.east(), waxed);
+        for (int i = 0; i < 400; i++) h.getBlockState(CELL.east()).randomTick(h.getLevel(), h.absolutePos(CELL.east()), random);
+        if (!h.getBlockState(CELL.east()).is(waxed)) problems.add("waxed octet aged");
+        h.assertTrue(problems.isEmpty(), "copper octets: " + problems);
+        h.succeed();
+    }
+
     /** Wood octets burn like their planks (not Nether wood), wool octets like wool. */
     static void woodAndWoolOctetsBurn(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
-        var fire = (com.simpleoctets.mixin.FireBlockAccessor) Blocks.FIRE;
         for (Block cell : OctetRegistry.WOOD_OCTETS) {
             Block planks = ((MaterialOctetBlock) cell).source();
-            if ((fire.simpleoctets$getIgniteOdds(cell.defaultBlockState()) > 0) != (fire.simpleoctets$getIgniteOdds(planks.defaultBlockState()) > 0)) {
+            if ((com.simplelib.api.shape.ShapeMaterials.igniteOdds(cell.defaultBlockState()) > 0) != (com.simplelib.api.shape.ShapeMaterials.igniteOdds(planks.defaultBlockState()) > 0)) {
                 problems.add("fire of " + BuiltInRegistries.BLOCK.getKey(cell));
             }
         }
-        if (fire.simpleoctets$getIgniteOdds(cell(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("white_wool"))).defaultBlockState()) <= 0) problems.add("wool octet does not burn");
-        if (fire.simpleoctets$getIgniteOdds(cell(Blocks.STONE).defaultBlockState()) > 0) problems.add("stone octet burns");
+        if (com.simplelib.api.shape.ShapeMaterials.igniteOdds(cell(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("white_wool"))).defaultBlockState()) <= 0) problems.add("wool octet does not burn");
+        if (com.simplelib.api.shape.ShapeMaterials.igniteOdds(cell(Blocks.STONE).defaultBlockState()) > 0) problems.add("stone octet burns");
         h.assertTrue(problems.isEmpty(), "fire: " + problems);
         h.succeed();
     }

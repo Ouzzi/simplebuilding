@@ -1,0 +1,8 @@
+{
+  "parent": "simpleslabs:block/half_slab/_slab_4",
+  "textures": {
+    "bottom": "minecraft:block/exposed_cut_copper",
+    "top": "minecraft:block/exposed_cut_copper",
+    "side": "minecraft:block/exposed_cut_copper"
+  }
+}

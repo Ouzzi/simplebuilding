@@ -1,0 +1,7 @@
+{
+  "parent": "simpleslabs:block/half_slab/_checker_3",
+  "textures": {
+    "side": "simplechess:block/nether_brick_quartz_checker",
+    "side_mirror": "simplechess:block/nether_brick_quartz_checker_mirror"
+  }
+}

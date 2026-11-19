@@ -336,10 +336,6 @@
     {
       "id": "simpleoctets:blue_ice_bricks_octet",
       "required": false
-    },
-    {
-      "id": "#simpleoctets:half_slab/mineable/pickaxe",
-      "required": false
     }
   ]
 }

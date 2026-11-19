@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_light_blue_wool_half_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleslabs:light_blue_wool_half_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleslabs:half_slab/light_blue_wool_slab_from_half_slabs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_light_blue_wool_half_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleslabs:half_slab/light_blue_wool_slab_from_half_slabs"
+    ]
+  }
+}

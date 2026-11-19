@@ -70,10 +70,6 @@
       "id": "simpleoctets:stripped_duskwood_log_octet",
       "required": false
     },
-    "simpleoctets:melon_octet",
-    {
-      "id": "#simpleoctets:half_slab/mineable/axe",
-      "required": false
-    }
+    "simpleoctets:melon_octet"
   ]
 }

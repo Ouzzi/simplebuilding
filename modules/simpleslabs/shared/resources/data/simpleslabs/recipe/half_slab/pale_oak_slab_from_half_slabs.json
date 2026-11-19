@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:pale_oak_half_slab",
+    "simpleslabs:pale_oak_half_slab",
+    "simpleslabs:pale_oak_half_slab",
+    "simpleslabs:pale_oak_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:pale_oak_slab"
+  }
+}

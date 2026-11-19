@@ -13,8 +13,7 @@
    "side": "minecraft:block/acacia_planks"
   },
   "tool": "axe",
-  "template": "minecraft:acacia_slab",
-  "light": 0,
+  "falls": false,
   "en": "Acacia Half Slab",
   "de": "Akazienholzhalbstufe"
  },
@@ -34,8 +33,7 @@
    "side": "simpleend:block/ashwood_planks"
   },
   "tool": "axe",
-  "template": "minecraft:oak_planks",
-  "light": 0,
+  "falls": false,
   "en": "Ashwood Half Slab",
   "de": "Aschholzhalbstufe"
  },
@@ -53,8 +51,7 @@
    "side": "minecraft:block/bamboo_planks"
   },
   "tool": "axe",
-  "template": "minecraft:bamboo_slab",
-  "light": 0,
+  "falls": false,
   "en": "Bamboo Half Slab",
   "de": "Bambushalbstufe"
  },
@@ -72,8 +69,7 @@
    "side": "minecraft:block/bamboo_mosaic"
   },
   "tool": "axe",
-  "template": "minecraft:bamboo_mosaic_slab",
-  "light": 0,
+  "falls": false,
   "en": "Bamboo Mosaic Half Slab",
   "de": "Bambusmosaikhalbstufe"
  },
@@ -91,8 +87,7 @@
    "side": "minecraft:block/birch_planks"
   },
   "tool": "axe",
-  "template": "minecraft:birch_slab",
-  "light": 0,
+  "falls": false,
   "en": "Birch Half Slab",
   "de": "Birkenholzhalbstufe"
  },
@@ -110,8 +105,7 @@
    "side": "minecraft:block/cherry_planks"
   },
   "tool": "axe",
-  "template": "minecraft:cherry_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cherry Half Slab",
   "de": "Kirschholzhalbstufe"
  },
@@ -131,8 +125,7 @@
    "side": "simpleenchanting:block/crimson_blazewood_planks"
   },
   "tool": "axe",
-  "template": "minecraft:crimson_planks",
-  "light": 0,
+  "falls": false,
   "en": "Crimson Blazewood Half Slab",
   "de": "Karmesin-Lohenholzhalbstufe"
  },
@@ -150,8 +143,7 @@
    "side": "minecraft:block/crimson_planks"
   },
   "tool": "axe",
-  "template": "minecraft:crimson_slab",
-  "light": 0,
+  "falls": false,
   "en": "Crimson Half Slab",
   "de": "Karmesinhalbstufe"
  },
@@ -169,8 +161,7 @@
    "side": "minecraft:block/dark_oak_planks"
   },
   "tool": "axe",
-  "template": "minecraft:dark_oak_slab",
-  "light": 0,
+  "falls": false,
   "en": "Dark Oak Half Slab",
   "de": "Schwarzeichenholzhalbstufe"
  },
@@ -190,8 +181,7 @@
    "side": "simpleend:block/duskwood_planks"
   },
   "tool": "axe",
-  "template": "minecraft:oak_planks",
-  "light": 0,
+  "falls": false,
   "en": "Duskwood Half Slab",
   "de": "Dämmerholzhalbstufe"
  },
@@ -209,8 +199,7 @@
    "side": "minecraft:block/jungle_planks"
   },
   "tool": "axe",
-  "template": "minecraft:jungle_slab",
-  "light": 0,
+  "falls": false,
   "en": "Jungle Half Slab",
   "de": "Tropenholzhalbstufe"
  },
@@ -228,8 +217,7 @@
    "side": "minecraft:block/mangrove_planks"
   },
   "tool": "axe",
-  "template": "minecraft:mangrove_slab",
-  "light": 0,
+  "falls": false,
   "en": "Mangrove Half Slab",
   "de": "Mangrovenholzhalbstufe"
  },
@@ -247,8 +235,7 @@
    "side": "minecraft:block/oak_planks"
   },
   "tool": "axe",
-  "template": "minecraft:oak_slab",
-  "light": 0,
+  "falls": false,
   "en": "Oak Half Slab",
   "de": "Eichenholzhalbstufe"
  },
@@ -266,8 +253,7 @@
    "side": "minecraft:block/pale_oak_planks"
   },
   "tool": "axe",
-  "template": "minecraft:pale_oak_slab",
-  "light": 0,
+  "falls": false,
   "en": "Pale Oak Half Slab",
   "de": "Blasseichenholzhalbstufe"
  },
@@ -285,8 +271,7 @@
    "side": "minecraft:block/poplar_planks"
   },
   "tool": "axe",
-  "template": "minecraft:poplar_slab",
-  "light": 0,
+  "falls": false,
   "en": "Poplar Half Slab",
   "de": "Pappelholzhalbstufe"
  },
@@ -304,8 +289,7 @@
    "side": "minecraft:block/spruce_planks"
   },
   "tool": "axe",
-  "template": "minecraft:spruce_slab",
-  "light": 0,
+  "falls": false,
   "en": "Spruce Half Slab",
   "de": "Fichtenholzhalbstufe"
  },
@@ -325,8 +309,7 @@
    "side": "simpleenchanting:block/warped_blazewood_planks"
   },
   "tool": "axe",
-  "template": "minecraft:warped_planks",
-  "light": 0,
+  "falls": false,
   "en": "Warped Blazewood Half Slab",
   "de": "Wirr-Lohenholzhalbstufe"
  },
@@ -344,8 +327,7 @@
    "side": "minecraft:block/warped_planks"
   },
   "tool": "axe",
-  "template": "minecraft:warped_slab",
-  "light": 0,
+  "falls": false,
   "en": "Warped Half Slab",
   "de": "Wirrhalbstufe"
  },
@@ -363,8 +345,7 @@
    "side": "minecraft:block/andesite"
   },
   "tool": "pickaxe",
-  "template": "minecraft:andesite_slab",
-  "light": 0,
+  "falls": false,
   "en": "Andesite Half Slab",
   "de": "Andesithalbstufe"
  },
@@ -382,8 +363,7 @@
    "side": "minecraft:block/cobblestone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cobblestone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cobblestone Half Slab",
   "de": "Bruchsteinhalbstufe"
  },
@@ -401,8 +381,7 @@
    "side": "minecraft:block/diorite"
   },
   "tool": "pickaxe",
-  "template": "minecraft:diorite_slab",
-  "light": 0,
+  "falls": false,
   "en": "Diorite Half Slab",
   "de": "Diorithalbstufe"
  },
@@ -420,8 +399,7 @@
    "side": "minecraft:block/granite"
   },
   "tool": "pickaxe",
-  "template": "minecraft:granite_slab",
-  "light": 0,
+  "falls": false,
   "en": "Granite Half Slab",
   "de": "Granithalbstufe"
  },
@@ -439,8 +417,7 @@
    "side": "minecraft:block/mossy_cobblestone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:mossy_cobblestone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Cobblestone Half Slab",
   "de": "Bemooste Bruchsteinhalbstufe"
  },
@@ -458,8 +435,7 @@
    "side": "minecraft:block/polished_andesite"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_andesite_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Andesite Half Slab",
   "de": "Polierte Andesithalbstufe"
  },
@@ -477,8 +453,7 @@
    "side": "minecraft:block/polished_diorite"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_diorite_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Diorite Half Slab",
   "de": "Polierte Diorithalbstufe"
  },
@@ -496,8 +471,7 @@
    "side": "minecraft:block/polished_granite"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_granite_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Granite Half Slab",
   "de": "Polierte Granithalbstufe"
  },
@@ -515,8 +489,7 @@
    "side": "minecraft:block/smooth_stone_slab_side"
   },
   "tool": "pickaxe",
-  "template": "minecraft:smooth_stone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Smooth Stone Half Slab",
   "de": "Glatte Steinhalbstufe"
  },
@@ -534,8 +507,7 @@
    "side": "minecraft:block/stone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:stone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Stone Half Slab",
   "de": "Steinhalbstufe"
  },
@@ -553,8 +525,7 @@
    "side": "minecraft:block/cut_red_sandstone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cut_red_sandstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cut Red Sandstone Half Slab",
   "de": "Geschnittene rote Sandsteinhalbstufe"
  },
@@ -572,8 +543,7 @@
    "side": "minecraft:block/cut_sandstone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cut_sandstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cut Sandstone Half Slab",
   "de": "Geschnittene Sandsteinhalbstufe"
  },
@@ -591,8 +561,7 @@
    "side": "minecraft:block/red_sandstone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:red_sandstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Red Sandstone Half Slab",
   "de": "Rote Sandsteinhalbstufe"
  },
@@ -610,8 +579,7 @@
    "side": "minecraft:block/sandstone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:sandstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Sandstone Half Slab",
   "de": "Sandsteinhalbstufe"
  },
@@ -629,8 +597,7 @@
    "side": "minecraft:block/red_sandstone_top"
   },
   "tool": "pickaxe",
-  "template": "minecraft:smooth_red_sandstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Smooth Red Sandstone Half Slab",
   "de": "Glatte rote Sandsteinhalbstufe"
  },
@@ -648,8 +615,7 @@
    "side": "minecraft:block/sandstone_top"
   },
   "tool": "pickaxe",
-  "template": "minecraft:smooth_sandstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Smooth Sandstone Half Slab",
   "de": "Glatte Sandsteinhalbstufe"
  },
@@ -667,8 +633,7 @@
    "side": "minecraft:block/bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Brick Half Slab",
   "de": "Ziegelhalbstufe"
  },
@@ -686,8 +651,7 @@
    "side": "minecraft:block/cinnabar_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cinnabar_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cinnabar Brick Half Slab",
   "de": "Zinnoberziegelhalbstufe"
  },
@@ -705,8 +669,7 @@
    "side": "minecraft:block/end_stone_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "End Stone Brick Half Slab",
   "de": "Endsteinziegelhalbstufe"
  },
@@ -724,8 +687,7 @@
    "side": "minecraft:block/mossy_stone_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:mossy_stone_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Stone Brick Half Slab",
   "de": "Bemooste Steinziegelhalbstufe"
  },
@@ -743,8 +705,7 @@
    "side": "minecraft:block/mud_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:mud_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Mud Brick Half Slab",
   "de": "Schlammziegelhalbstufe"
  },
@@ -762,8 +723,7 @@
    "side": "minecraft:block/nether_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:nether_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Nether Brick Half Slab",
   "de": "Netherziegelhalbstufe"
  },
@@ -781,8 +741,7 @@
    "side": "minecraft:block/red_nether_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:red_nether_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Red Nether Brick Half Slab",
   "de": "Rote Netherziegelhalbstufe"
  },
@@ -800,8 +759,7 @@
    "side": "minecraft:block/resin_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:resin_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Resin Brick Half Slab",
   "de": "Harzziegelhalbstufe"
  },
@@ -819,8 +777,7 @@
    "side": "minecraft:block/stone_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:stone_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Stone Brick Half Slab",
   "de": "Steinziegelhalbstufe"
  },
@@ -838,8 +795,7 @@
    "side": "minecraft:block/sulfur_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:sulfur_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Sulfur Brick Half Slab",
   "de": "Schwefelziegelhalbstufe"
  },
@@ -857,8 +813,7 @@
    "side": "minecraft:block/blackstone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:blackstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Blackstone Half Slab",
   "de": "Schwarzsteinhalbstufe"
  },
@@ -876,8 +831,7 @@
    "side": "minecraft:block/cobbled_deepslate"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cobbled_deepslate_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cobbled Deepslate Half Slab",
   "de": "Bruchtiefenschieferhalbstufe"
  },
@@ -895,8 +849,7 @@
    "side": "minecraft:block/deepslate_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:deepslate_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Deepslate Brick Half Slab",
   "de": "Tiefenschieferziegelhalbstufe"
  },
@@ -914,8 +867,7 @@
    "side": "minecraft:block/deepslate_tiles"
   },
   "tool": "pickaxe",
-  "template": "minecraft:deepslate_tile_slab",
-  "light": 0,
+  "falls": false,
   "en": "Deepslate Tile Half Slab",
   "de": "Tiefenschieferfliesenhalbstufe"
  },
@@ -933,8 +885,7 @@
    "side": "minecraft:block/polished_blackstone_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_blackstone_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Blackstone Brick Half Slab",
   "de": "Polierte Schwarzsteinziegelhalbstufe"
  },
@@ -952,8 +903,7 @@
    "side": "minecraft:block/polished_blackstone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_blackstone_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Blackstone Half Slab",
   "de": "Polierte Schwarzsteinhalbstufe"
  },
@@ -971,8 +921,7 @@
    "side": "minecraft:block/polished_deepslate"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_deepslate_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Deepslate Half Slab",
   "de": "Polierte Tiefenschieferhalbstufe"
  },
@@ -990,8 +939,7 @@
    "side": "minecraft:block/polished_tuff"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_tuff_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Tuff Half Slab",
   "de": "Polierte Tuffsteinhalbstufe"
  },
@@ -1009,8 +957,7 @@
    "side": "minecraft:block/tuff_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:tuff_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Tuff Brick Half Slab",
   "de": "Tuffsteinziegelhalbstufe"
  },
@@ -1028,8 +975,7 @@
    "side": "minecraft:block/tuff"
   },
   "tool": "pickaxe",
-  "template": "minecraft:tuff_slab",
-  "light": 0,
+  "falls": false,
   "en": "Tuff Half Slab",
   "de": "Tuffsteinhalbstufe"
  },
@@ -1047,8 +993,7 @@
    "side": "minecraft:block/dark_prismarine"
   },
   "tool": "pickaxe",
-  "template": "minecraft:dark_prismarine_slab",
-  "light": 0,
+  "falls": false,
   "en": "Dark Prismarine Half Slab",
   "de": "Dunkle Prismarinhalbstufe"
  },
@@ -1066,8 +1011,7 @@
    "side": "minecraft:block/prismarine_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:prismarine_brick_slab",
-  "light": 0,
+  "falls": false,
   "en": "Prismarine Brick Half Slab",
   "de": "Prismarinziegelhalbstufe"
  },
@@ -1085,8 +1029,7 @@
    "side": "minecraft:block/prismarine"
   },
   "tool": "pickaxe",
-  "template": "minecraft:prismarine_slab",
-  "light": 0,
+  "falls": false,
   "en": "Prismarine Half Slab",
   "de": "Prismarinhalbstufe"
  },
@@ -1104,8 +1047,7 @@
    "side": "minecraft:block/purpur_block"
   },
   "tool": "pickaxe",
-  "template": "minecraft:purpur_slab",
-  "light": 0,
+  "falls": false,
   "en": "Purpur Half Slab",
   "de": "Purpurhalbstufe"
  },
@@ -1123,8 +1065,7 @@
    "side": "minecraft:block/quartz_block_side"
   },
   "tool": "pickaxe",
-  "template": "minecraft:quartz_slab",
-  "light": 0,
+  "falls": false,
   "en": "Quartz Half Slab",
   "de": "Quarzhalbstufe"
  },
@@ -1142,8 +1083,7 @@
    "side": "minecraft:block/quartz_block_bottom"
   },
   "tool": "pickaxe",
-  "template": "minecraft:smooth_quartz_slab",
-  "light": 0,
+  "falls": false,
   "en": "Smooth Quartz Half Slab",
   "de": "Glatte Quarzhalbstufe"
  },
@@ -1161,8 +1101,7 @@
    "side": "minecraft:block/cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cut Copper Half Slab",
   "de": "Geschnittene Kupferhalbstufe"
  },
@@ -1180,8 +1119,7 @@
    "side": "minecraft:block/exposed_cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:exposed_cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Exposed Cut Copper Half Slab",
   "de": "Angelaufene geschnittene Kupferhalbstufe"
  },
@@ -1199,8 +1137,7 @@
    "side": "minecraft:block/oxidized_cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:oxidized_cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Oxidized Cut Copper Half Slab",
   "de": "Oxidierte geschnittene Kupferhalbstufe"
  },
@@ -1218,8 +1155,7 @@
    "side": "minecraft:block/cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:waxed_cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Waxed Cut Copper Half Slab",
   "de": "Gewachste geschnittene Kupferhalbstufe"
  },
@@ -1237,8 +1173,7 @@
    "side": "minecraft:block/exposed_cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:waxed_exposed_cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Waxed Exposed Cut Copper Half Slab",
   "de": "Gewachste angelaufene geschnittene Kupferhalbstufe"
  },
@@ -1256,8 +1191,7 @@
    "side": "minecraft:block/oxidized_cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:waxed_oxidized_cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Waxed Oxidized Cut Copper Half Slab",
   "de": "Gewachste oxidierte geschnittene Kupferhalbstufe"
  },
@@ -1275,8 +1209,7 @@
    "side": "minecraft:block/weathered_cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:waxed_weathered_cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Waxed Weathered Cut Copper Half Slab",
   "de": "Gewachste verwitterte geschnittene Kupferhalbstufe"
  },
@@ -1294,8 +1227,7 @@
    "side": "minecraft:block/weathered_cut_copper"
   },
   "tool": "pickaxe",
-  "template": "minecraft:weathered_cut_copper_slab",
-  "light": 0,
+  "falls": false,
   "en": "Weathered Cut Copper Half Slab",
   "de": "Verwitterte geschnittene Kupferhalbstufe"
  },
@@ -1313,8 +1245,7 @@
    "side": "minecraft:block/black_wool"
   },
   "tool": null,
-  "template": "minecraft:black_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Black Wool Half Slab",
   "de": "Schwarze Wollhalbstufe"
  },
@@ -1332,8 +1263,7 @@
    "side": "minecraft:block/blue_wool"
   },
   "tool": null,
-  "template": "minecraft:blue_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Blue Wool Half Slab",
   "de": "Blaue Wollhalbstufe"
  },
@@ -1351,8 +1281,7 @@
    "side": "minecraft:block/brown_wool"
   },
   "tool": null,
-  "template": "minecraft:brown_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Brown Wool Half Slab",
   "de": "Braune Wollhalbstufe"
  },
@@ -1370,8 +1299,7 @@
    "side": "minecraft:block/cyan_wool"
   },
   "tool": null,
-  "template": "minecraft:cyan_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cyan Wool Half Slab",
   "de": "Türkise Wollhalbstufe"
  },
@@ -1389,8 +1317,7 @@
    "side": "minecraft:block/gray_wool"
   },
   "tool": null,
-  "template": "minecraft:gray_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Gray Wool Half Slab",
   "de": "Graue Wollhalbstufe"
  },
@@ -1408,8 +1335,7 @@
    "side": "minecraft:block/green_wool"
   },
   "tool": null,
-  "template": "minecraft:green_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Green Wool Half Slab",
   "de": "Grüne Wollhalbstufe"
  },
@@ -1427,8 +1353,7 @@
    "side": "minecraft:block/light_blue_wool"
   },
   "tool": null,
-  "template": "minecraft:light_blue_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Light Blue Wool Half Slab",
   "de": "Hellblaue Wollhalbstufe"
  },
@@ -1446,8 +1371,7 @@
    "side": "minecraft:block/light_gray_wool"
   },
   "tool": null,
-  "template": "minecraft:light_gray_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Light Gray Wool Half Slab",
   "de": "Hellgraue Wollhalbstufe"
  },
@@ -1465,8 +1389,7 @@
    "side": "minecraft:block/lime_wool"
   },
   "tool": null,
-  "template": "minecraft:lime_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Lime Wool Half Slab",
   "de": "Hellgrüne Wollhalbstufe"
  },
@@ -1484,8 +1407,7 @@
    "side": "minecraft:block/magenta_wool"
   },
   "tool": null,
-  "template": "minecraft:magenta_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Magenta Wool Half Slab",
   "de": "Magenta Wollhalbstufe"
  },
@@ -1503,8 +1425,7 @@
    "side": "minecraft:block/orange_wool"
   },
   "tool": null,
-  "template": "minecraft:orange_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Orange Wool Half Slab",
   "de": "Orange Wollhalbstufe"
  },
@@ -1522,8 +1443,7 @@
    "side": "minecraft:block/pink_wool"
   },
   "tool": null,
-  "template": "minecraft:pink_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Pink Wool Half Slab",
   "de": "Rosa Wollhalbstufe"
  },
@@ -1541,8 +1461,7 @@
    "side": "minecraft:block/purple_wool"
   },
   "tool": null,
-  "template": "minecraft:purple_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Purple Wool Half Slab",
   "de": "Violette Wollhalbstufe"
  },
@@ -1560,8 +1479,7 @@
    "side": "minecraft:block/red_wool"
   },
   "tool": null,
-  "template": "minecraft:red_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Red Wool Half Slab",
   "de": "Rote Wollhalbstufe"
  },
@@ -1579,8 +1497,7 @@
    "side": "minecraft:block/white_wool"
   },
   "tool": null,
-  "template": "minecraft:white_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "White Wool Half Slab",
   "de": "Weiße Wollhalbstufe"
  },
@@ -1598,8 +1515,7 @@
    "side": "minecraft:block/yellow_wool"
   },
   "tool": null,
-  "template": "minecraft:yellow_wool_slab",
-  "light": 0,
+  "falls": false,
   "en": "Yellow Wool Half Slab",
   "de": "Gelbe Wollhalbstufe"
  },
@@ -1617,8 +1533,7 @@
    "side": "minecraft:block/black_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:black_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Black Concrete Half Slab",
   "de": "Schwarze Betonhalbstufe"
  },
@@ -1636,8 +1551,7 @@
    "side": "minecraft:block/blue_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:blue_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Blue Concrete Half Slab",
   "de": "Blaue Betonhalbstufe"
  },
@@ -1655,8 +1569,7 @@
    "side": "minecraft:block/brown_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:brown_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Brown Concrete Half Slab",
   "de": "Braune Betonhalbstufe"
  },
@@ -1674,8 +1587,7 @@
    "side": "minecraft:block/cyan_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cyan_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cyan Concrete Half Slab",
   "de": "Türkise Betonhalbstufe"
  },
@@ -1693,8 +1605,7 @@
    "side": "minecraft:block/gray_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:gray_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Gray Concrete Half Slab",
   "de": "Graue Betonhalbstufe"
  },
@@ -1712,8 +1623,7 @@
    "side": "minecraft:block/green_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:green_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Green Concrete Half Slab",
   "de": "Grüne Betonhalbstufe"
  },
@@ -1731,8 +1641,7 @@
    "side": "minecraft:block/light_blue_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:light_blue_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Light Blue Concrete Half Slab",
   "de": "Hellblaue Betonhalbstufe"
  },
@@ -1750,8 +1659,7 @@
    "side": "minecraft:block/light_gray_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:light_gray_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Light Gray Concrete Half Slab",
   "de": "Hellgraue Betonhalbstufe"
  },
@@ -1769,8 +1677,7 @@
    "side": "minecraft:block/lime_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:lime_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Lime Concrete Half Slab",
   "de": "Hellgrüne Betonhalbstufe"
  },
@@ -1788,8 +1695,7 @@
    "side": "minecraft:block/magenta_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:magenta_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Magenta Concrete Half Slab",
   "de": "Magenta Betonhalbstufe"
  },
@@ -1807,8 +1713,7 @@
    "side": "minecraft:block/orange_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:orange_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Orange Concrete Half Slab",
   "de": "Orange Betonhalbstufe"
  },
@@ -1826,8 +1731,7 @@
    "side": "minecraft:block/pink_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:pink_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Pink Concrete Half Slab",
   "de": "Rosa Betonhalbstufe"
  },
@@ -1845,8 +1749,7 @@
    "side": "minecraft:block/purple_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:purple_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Purple Concrete Half Slab",
   "de": "Violette Betonhalbstufe"
  },
@@ -1864,8 +1767,7 @@
    "side": "minecraft:block/red_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:red_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Red Concrete Half Slab",
   "de": "Rote Betonhalbstufe"
  },
@@ -1883,8 +1785,7 @@
    "side": "minecraft:block/white_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:white_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "White Concrete Half Slab",
   "de": "Weiße Betonhalbstufe"
  },
@@ -1902,8 +1803,7 @@
    "side": "minecraft:block/yellow_concrete"
   },
   "tool": "pickaxe",
-  "template": "minecraft:yellow_concrete_slab",
-  "light": 0,
+  "falls": false,
   "en": "Yellow Concrete Half Slab",
   "de": "Gelbe Betonhalbstufe"
  },
@@ -1923,8 +1823,7 @@
    "side": "simplebuilding:block/astral_end_stone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 10,
+  "falls": false,
   "en": "Astral End Stone Half Slab",
   "de": "Astral-Endsteinhalbstufe"
  },
@@ -1944,8 +1843,7 @@
    "side": "simplebuilding:block/astral_purpur_block"
   },
   "tool": "pickaxe",
-  "template": "minecraft:purpur_block",
-  "light": 10,
+  "falls": false,
   "en": "Astral Purpur Half Slab",
   "de": "Astral-Purpurhalbstufe"
  },
@@ -1965,8 +1863,7 @@
    "side": "simplebuilding:block/astralit_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 10,
+  "falls": false,
   "en": "Astralit Brick Half Slab",
   "de": "Astralitziegelhalbstufe"
  },
@@ -1986,8 +1883,7 @@
    "side": "simplebuilding:block/astralit_block"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 10,
+  "falls": false,
   "en": "Astralit Half Slab",
   "de": "Astralithalbstufe"
  },
@@ -2011,8 +1907,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 5,
+  "falls": false,
   "en": "Astralit Quartz Checker Half Slab",
   "de": "Astralit-Quarz-Schachbretthalbstufe"
  },
@@ -2035,8 +1930,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Blackstone Quartz Checker Half Slab",
   "de": "Schwarzstein-Quarz-Schachbretthalbstufe"
  },
@@ -2056,8 +1950,7 @@
    "side": "simpleblocks:block/blue_ice_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:blue_ice",
-  "light": 0,
+  "falls": false,
   "en": "Blue Ice Brick Half Slab",
   "de": "Blaueisziegelhalbstufe"
  },
@@ -2077,8 +1970,7 @@
    "side": "minecraft:block/blue_ice"
   },
   "tool": "pickaxe",
-  "template": "minecraft:blue_ice",
-  "light": 0,
+  "falls": false,
   "en": "Blue Ice Half Slab",
   "de": "Blaueishalbstufe"
  },
@@ -2098,8 +1990,7 @@
    "side": "simpleblocks:block/blue_nether_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:red_nether_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Blue Nether Brick Half Slab",
   "de": "Blaue Netherziegelhalbstufe"
  },
@@ -2119,8 +2010,7 @@
    "side": "minecraft:block/calcite"
   },
   "tool": "pickaxe",
-  "template": "minecraft:calcite",
-  "light": 0,
+  "falls": false,
   "en": "Calcite Half Slab",
   "de": "Kalzithalbstufe"
  },
@@ -2140,8 +2030,7 @@
    "side": "simpleores:block/cut_brass"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Brass Half Slab",
   "de": "Geschnittene Messinghalbstufe"
  },
@@ -2161,8 +2050,7 @@
    "side": "simpleores:block/cut_bronze"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Bronze Half Slab",
   "de": "Geschnittene Bronzehalbstufe"
  },
@@ -2182,8 +2070,7 @@
    "side": "simpleblocks:block/cut_gold"
   },
   "tool": "pickaxe",
-  "template": "minecraft:gold_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Gold Half Slab",
   "de": "Geschnittene Goldhalbstufe"
  },
@@ -2203,8 +2090,7 @@
    "side": "simpleblocks:block/cut_iron"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Iron Half Slab",
   "de": "Geschnittene Eisenhalbstufe"
  },
@@ -2224,8 +2110,7 @@
    "side": "simpleores:block/cut_lead"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Lead Half Slab",
   "de": "Geschnittene Bleihalbstufe"
  },
@@ -2245,8 +2130,7 @@
    "side": "simpleores:block/cut_nickel"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Nickel Half Slab",
   "de": "Geschnittene Nickelhalbstufe"
  },
@@ -2266,8 +2150,7 @@
    "side": "simpleores:block/cut_rose_bronze"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Rose Copper Half Slab",
   "de": "Geschnittene Rosenkupferhalbstufe"
  },
@@ -2287,8 +2170,7 @@
    "side": "simpleores:block/cut_rose_gold"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Rose Gold Half Slab",
   "de": "Geschnittene Roségoldhalbstufe"
  },
@@ -2308,8 +2190,7 @@
    "side": "simpleores:block/cut_silver"
   },
   "tool": "pickaxe",
-  "template": "minecraft:gold_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Silver Half Slab",
   "de": "Geschnittene Silberhalbstufe"
  },
@@ -2329,8 +2210,7 @@
    "side": "simpleores:block/cut_stainless_steel"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Stainless Steel Half Slab",
   "de": "Geschnittene Edelstahlhalbstufe"
  },
@@ -2350,8 +2230,7 @@
    "side": "simpleores:block/cut_tin"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Tin Half Slab",
   "de": "Geschnittene Zinnhalbstufe"
  },
@@ -2371,10 +2250,29 @@
    "side": "simpleores:block/cut_zinc"
   },
   "tool": "pickaxe",
-  "template": "minecraft:iron_block",
-  "light": 0,
+  "falls": false,
   "en": "Cut Zinc Half Slab",
   "de": "Geschnittene Zinkhalbstufe"
+ },
+ {
+  "id": "dirt_half_slab",
+  "slab": "simpleblocks:dirt_slab",
+  "base": "minecraft:dirt",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/dirt",
+   "top": "minecraft:block/dirt",
+   "side": "minecraft:block/dirt"
+  },
+  "tool": "shovel",
+  "falls": false,
+  "en": "Dirt Half Slab",
+  "de": "Erdhalbstufe"
  },
  {
   "id": "end_stone_half_slab",
@@ -2392,8 +2290,7 @@
    "side": "minecraft:block/end_stone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "End Stone Half Slab",
   "de": "Endsteinhalbstufe"
  },
@@ -2413,8 +2310,7 @@
    "side": "simplebuilding:block/ender_end_stone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Ender End Stone Half Slab",
   "de": "Ender-Endsteinhalbstufe"
  },
@@ -2434,8 +2330,7 @@
    "side": "simplebuilding:block/ender_purpur_block"
   },
   "tool": "pickaxe",
-  "template": "minecraft:purpur_block",
-  "light": 0,
+  "falls": false,
   "en": "Ender Purpur Half Slab",
   "de": "Ender-Purpurhalbstufe"
  },
@@ -2455,8 +2350,7 @@
    "side": "simplebuilding:block/ender_quartz_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Ender Quartz Brick Half Slab",
   "de": "Enderquarzziegelhalbstufe"
  },
@@ -2480,8 +2374,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Ender Quartz Checker Half Slab",
   "de": "Enderquarz-Schachbretthalbstufe"
  },
@@ -2501,10 +2394,50 @@
    "side": "simplebuilding:block/ender_quartz_block"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Ender Quartz Half Slab",
   "de": "Enderquarzhalbstufe"
+ },
+ {
+  "id": "grass_half_slab",
+  "slab": "simpleblocks:grass_slab",
+  "base": "minecraft:grass_block",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "grass",
+  "tex": {
+   "bottom": "minecraft:block/dirt",
+   "top": "minecraft:block/grass_block_top",
+   "side": "minecraft:block/grass_block_side",
+   "overlay": "minecraft:block/grass_block_side_overlay"
+  },
+  "tool": "shovel",
+  "falls": false,
+  "en": "Grass Half Slab",
+  "de": "Grashalbstufe"
+ },
+ {
+  "id": "gravel_half_slab",
+  "slab": "simpleblocks:gravel_slab",
+  "base": "minecraft:gravel",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/gravel",
+   "top": "minecraft:block/gravel",
+   "side": "minecraft:block/gravel"
+  },
+  "tool": "shovel",
+  "falls": true,
+  "en": "Gravel Half Slab",
+  "de": "Kieshalbstufe"
  },
  {
   "id": "hushed_deepslate_tile_half_slab",
@@ -2522,8 +2455,7 @@
    "side": "simpleblocks:block/hushed_deepslate_tiles"
   },
   "tool": "pickaxe",
-  "template": "minecraft:deepslate_tiles",
-  "light": 0,
+  "falls": false,
   "en": "Hushed Deepslate Tile Half Slab",
   "de": "Gedämpfte Tiefenschieferfliesenhalbstufe"
  },
@@ -2543,8 +2475,7 @@
    "side": "simpleblocks:block/ice_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:ice",
-  "light": 0,
+  "falls": false,
   "en": "Ice Brick Half Slab",
   "de": "Eisziegelhalbstufe"
  },
@@ -2564,8 +2495,7 @@
    "side": "minecraft:block/ice"
   },
   "tool": "pickaxe",
-  "template": "minecraft:ice",
-  "light": 0,
+  "falls": false,
   "en": "Ice Half Slab",
   "de": "Eishalbstufe"
  },
@@ -2588,8 +2518,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Lapis Quartz Checker Half Slab",
   "de": "Lapis-Quarz-Schachbretthalbstufe"
  },
@@ -2609,8 +2538,7 @@
    "side": "simpleblocks:block/mossy_cinnabar_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cinnabar_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Cinnabar Brick Half Slab",
   "de": "Bemooste Zinnoberziegelhalbstufe"
  },
@@ -2630,8 +2558,7 @@
    "side": "simpleblocks:block/mossy_deepslate_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:deepslate_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Deepslate Brick Half Slab",
   "de": "Bemooste Tiefenschieferziegelhalbstufe"
  },
@@ -2651,8 +2578,7 @@
    "side": "simpleblocks:block/mossy_deepslate_tiles"
   },
   "tool": "pickaxe",
-  "template": "minecraft:deepslate_tiles",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Deepslate Tile Half Slab",
   "de": "Bemooste Tiefenschieferfliesenhalbstufe"
  },
@@ -2672,8 +2598,7 @@
    "side": "simpleblocks:block/mossy_end_stone_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Mossy End Stone Brick Half Slab",
   "de": "Bemooste Endsteinziegelhalbstufe"
  },
@@ -2693,8 +2618,7 @@
    "side": "simpleblocks:block/mossy_mud_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:mud_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Mud Brick Half Slab",
   "de": "Bemooste Lehmziegelhalbstufe"
  },
@@ -2714,8 +2638,7 @@
    "side": "simpleblocks:block/mossy_sulfur_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:sulfur_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Sulfur Brick Half Slab",
   "de": "Bemooste Schwefelziegelhalbstufe"
  },
@@ -2735,8 +2658,7 @@
    "side": "simpleblocks:block/mossy_tuff_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:tuff_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Mossy Tuff Brick Half Slab",
   "de": "Bemooste Tuffziegelhalbstufe"
  },
@@ -2759,8 +2681,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Nether Brick Quartz Checker Half Slab",
   "de": "Netherziegel-Quarz-Schachbretthalbstufe"
  },
@@ -2780,8 +2701,7 @@
    "side": "minecraft:block/netherrack"
   },
   "tool": "pickaxe",
-  "template": "minecraft:netherrack",
-  "light": 0,
+  "falls": false,
   "en": "Netherrack Half Slab",
   "de": "Netherrack-Halbstufe"
  },
@@ -2801,8 +2721,7 @@
    "side": "simplebuilding:block/nihil_end_stone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Nihil End Stone Half Slab",
   "de": "Nihil-Endsteinhalbstufe"
  },
@@ -2822,8 +2741,7 @@
    "side": "simplebuilding:block/nihil_purpur_block"
   },
   "tool": "pickaxe",
-  "template": "minecraft:purpur_block",
-  "light": 0,
+  "falls": false,
   "en": "Nihil Purpur Half Slab",
   "de": "Nihil-Purpurhalbstufe"
  },
@@ -2843,8 +2761,7 @@
    "side": "simplebuilding:block/nihilith_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Nihilit Brick Half Slab",
   "de": "Nihilitziegelhalbstufe"
  },
@@ -2864,8 +2781,7 @@
    "side": "simplebuilding:block/nihilith_block"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Nihilit Half Slab",
   "de": "Nihilithalbstufe"
  },
@@ -2889,8 +2805,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Nihilit Quartz Checker Half Slab",
   "de": "Nihilit-Quarz-Schachbretthalbstufe"
  },
@@ -2910,8 +2825,7 @@
    "side": "simpleblocks:block/packed_ice_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:packed_ice",
-  "light": 0,
+  "falls": false,
   "en": "Packed Ice Brick Half Slab",
   "de": "Packeisziegelhalbstufe"
  },
@@ -2931,8 +2845,7 @@
    "side": "minecraft:block/packed_ice"
   },
   "tool": "pickaxe",
-  "template": "minecraft:packed_ice",
-  "light": 0,
+  "falls": false,
   "en": "Packed Ice Half Slab",
   "de": "Packeishalbstufe"
  },
@@ -2956,8 +2869,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 5,
+  "falls": false,
   "en": "Polished Astralit Checker Half Slab",
   "de": "Polierte Astralit-Schachbretthalbstufe"
  },
@@ -2977,8 +2889,7 @@
    "side": "simplebuilding:block/polished_astralit"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 10,
+  "falls": false,
   "en": "Polished Astralit Half Slab",
   "de": "Polierte Astralithalbstufe"
  },
@@ -2996,8 +2907,7 @@
    "side": "simplelib:block/polished_end_stone"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Polished End Stone Half Slab",
   "de": "Polierte Endstein-Halbstufe"
  },
@@ -3021,8 +2931,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Polished Ender Quartz Checker Half Slab",
   "de": "Polierte Enderquarz-Schachbretthalbstufe"
  },
@@ -3042,8 +2951,7 @@
    "side": "simplebuilding:block/polished_ender_quartz"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Polished Ender Quartz Half Slab",
   "de": "Polierte Enderquarzhalbstufe"
  },
@@ -3067,8 +2975,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Polished Nihilit Checker Half Slab",
   "de": "Polierte Nihilit-Schachbretthalbstufe"
  },
@@ -3088,8 +2995,7 @@
    "side": "simplebuilding:block/polished_nihilith"
   },
   "tool": "pickaxe",
-  "template": "minecraft:end_stone",
-  "light": 0,
+  "falls": false,
   "en": "Polished Nihilit Half Slab",
   "de": "Polierte Nihilithalbstufe"
  },
@@ -3112,8 +3018,7 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Purpur Quartz Checker Half Slab",
   "de": "Purpur-Quarz-Schachbretthalbstufe"
  },
@@ -3133,8 +3038,7 @@
    "side": "minecraft:block/quartz_bricks"
   },
   "tool": "pickaxe",
-  "template": "minecraft:quartz_bricks",
-  "light": 0,
+  "falls": false,
   "en": "Quartz Brick Half Slab",
   "de": "Quarzziegelhalbstufe"
  },
@@ -3157,10 +3061,29 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Red Nether Brick Quartz Checker Half Slab",
   "de": "Rote Netherziegel-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "red_sand_half_slab",
+  "slab": "simpleblocks:red_sand_slab",
+  "base": "minecraft:red_sand",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/red_sand",
+   "top": "minecraft:block/red_sand",
+   "side": "minecraft:block/red_sand"
+  },
+  "tool": "shovel",
+  "falls": true,
+  "en": "Red Sand Half Slab",
+  "de": "Rote Sandhalbstufe"
  },
  {
   "id": "resin_quartz_checker_half_slab",
@@ -3181,10 +3104,29 @@
    "simplechess:block/checker_cells/204"
   ],
   "tool": "pickaxe",
-  "template": "minecraft:quartz_block",
-  "light": 0,
+  "falls": false,
   "en": "Resin Quartz Checker Half Slab",
   "de": "Harz-Quarz-Schachbretthalbstufe"
+ },
+ {
+  "id": "sand_half_slab",
+  "slab": "simpleblocks:sand_slab",
+  "base": "minecraft:sand",
+  "ns": "simpleblocks",
+  "mods": [
+   "simpleblocks"
+  ],
+  "group": "mod",
+  "kind": "slab",
+  "tex": {
+   "bottom": "minecraft:block/sand",
+   "top": "minecraft:block/sand",
+   "side": "minecraft:block/sand"
+  },
+  "tool": "shovel",
+  "falls": true,
+  "en": "Sand Half Slab",
+  "de": "Sandhalbstufe"
  },
  {
   "id": "sculk_tile_half_slab",
@@ -3202,8 +3144,7 @@
    "side": "simpleblocks:block/sculk_tiles"
   },
   "tool": "pickaxe",
-  "template": "minecraft:deepslate_tiles",
-  "light": 0,
+  "falls": false,
   "en": "Sculk Tile Half Slab",
   "de": "Sculk-Fliesenhalbstufe"
  },
@@ -3223,8 +3164,7 @@
    "side": "minecraft:block/smooth_basalt"
   },
   "tool": "pickaxe",
-  "template": "minecraft:smooth_basalt",
-  "light": 0,
+  "falls": false,
   "en": "Smooth Basalt Half Slab",
   "de": "Glatte Basalthalbstufe"
  },
@@ -3242,8 +3182,7 @@
    "side": "minecraft:block/cinnabar"
   },
   "tool": "pickaxe",
-  "template": "minecraft:cinnabar_slab",
-  "light": 0,
+  "falls": false,
   "en": "Cinnabar Half Slab",
   "de": "Zinnoberhalbstufe"
  },
@@ -3261,8 +3200,7 @@
    "side": "minecraft:block/polished_cinnabar"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_cinnabar_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Cinnabar Half Slab",
   "de": "Polierte Zinnoberhalbstufe"
  },
@@ -3280,8 +3218,7 @@
    "side": "minecraft:block/polished_sulfur"
   },
   "tool": "pickaxe",
-  "template": "minecraft:polished_sulfur_slab",
-  "light": 0,
+  "falls": false,
   "en": "Polished Sulfur Half Slab",
   "de": "Polierte Schwefelhalbstufe"
  },
@@ -3299,8 +3236,7 @@
    "side": "minecraft:block/sulfur"
   },
   "tool": "pickaxe",
-  "template": "minecraft:sulfur_slab",
-  "light": 0,
+  "falls": false,
   "en": "Sulfur Half Slab",
   "de": "Schwefelhalbstufe"
  }

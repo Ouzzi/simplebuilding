@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleend"
+  },
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:duskwood_half_slab",
+    "simpleslabs:duskwood_half_slab",
+    "simpleslabs:duskwood_half_slab",
+    "simpleslabs:duskwood_half_slab"
+  ],
+  "result": {
+    "id": "simpleend:duskwood_slab"
+  }
+}

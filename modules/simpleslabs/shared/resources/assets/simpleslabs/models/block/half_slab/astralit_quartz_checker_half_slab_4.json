@@ -1,0 +1,7 @@
+{
+  "parent": "simpleslabs:block/half_slab/_checker_4",
+  "textures": {
+    "side": "simplechess:block/astralit_quartz_checker",
+    "side_mirror": "simplechess:block/astralit_quartz_checker_mirror"
+  }
+}

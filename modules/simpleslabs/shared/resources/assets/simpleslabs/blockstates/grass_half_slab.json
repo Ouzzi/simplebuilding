@@ -1,0 +1,138 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "l0": "true",
+        "l1": "false"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_0"
+      }
+    },
+    {
+      "when": {
+        "l0": "true",
+        "l1": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_0_dirt"
+      }
+    },
+    {
+      "when": {
+        "l1": "true",
+        "l2": "false"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_1"
+      }
+    },
+    {
+      "when": {
+        "l1": "true",
+        "l2": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_1_dirt"
+      }
+    },
+    {
+      "when": {
+        "l2": "true",
+        "l3": "false"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_2"
+      }
+    },
+    {
+      "when": {
+        "l2": "true",
+        "l3": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_2_dirt"
+      }
+    },
+    {
+      "when": {
+        "l3": "true",
+        "l4": "false"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_3"
+      }
+    },
+    {
+      "when": {
+        "l3": "true",
+        "l4": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_3_dirt"
+      }
+    },
+    {
+      "when": {
+        "l4": "true",
+        "l5": "false"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_4"
+      }
+    },
+    {
+      "when": {
+        "l4": "true",
+        "l5": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_4_dirt"
+      }
+    },
+    {
+      "when": {
+        "l5": "true",
+        "l6": "false"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_5"
+      }
+    },
+    {
+      "when": {
+        "l5": "true",
+        "l6": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_5_dirt"
+      }
+    },
+    {
+      "when": {
+        "l6": "true",
+        "l7": "false"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_6"
+      }
+    },
+    {
+      "when": {
+        "l6": "true",
+        "l7": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_6_dirt"
+      }
+    },
+    {
+      "when": {
+        "l7": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/grass_half_slab_7"
+      }
+    }
+  ]
+}

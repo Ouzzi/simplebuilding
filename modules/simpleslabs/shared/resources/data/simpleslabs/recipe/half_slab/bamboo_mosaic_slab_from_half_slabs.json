@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:bamboo_mosaic_half_slab",
+    "simpleslabs:bamboo_mosaic_half_slab",
+    "simpleslabs:bamboo_mosaic_half_slab",
+    "simpleslabs:bamboo_mosaic_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:bamboo_mosaic_slab"
+  }
+}

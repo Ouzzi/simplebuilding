@@ -177,6 +177,8 @@ public final class AgingChain {
         private boolean waxEnd;
         private String waxedPrefix = "waxed_";
         private String hint;
+        private List<Block> adoptStages;
+        private List<Block> adoptWaxed = List.of();
 
         private Builder(Identifier id, Block base) {
             this.id = id;
@@ -249,7 +251,25 @@ public final class AgingChain {
             return this;
         }
 
+        /**
+         * N86-7: a chain over blocks that are already registered (the octet and half slab families of Simple Octets / Simple
+         * Slabs register every stage themselves). {@code stages} = the aged stages after the base (end stage last), {@code waxed}
+         * = the waxed copy per stage from 0 (empty: no wax). Nothing is created; {@link AgingChain#registerBlocks} only links the
+         * chain, and the stages that still age get random ticks (their own properties may lack them).
+         */
+        public Builder adopt(List<Block> stages, List<Block> waxed) {
+            if (stages.isEmpty()) throw new IllegalArgumentException(id + ": an adopted chain needs at least one aged stage");
+            this.adoptStages = List.copyOf(stages);
+            this.adoptWaxed = List.copyOf(waxed);
+            return this;
+        }
+
         public AgingChain build() {
+            if (adoptStages != null) {
+                List<Block> stages = new ArrayList<>(List.of(base));
+                stages.addAll(adoptStages);
+                return new AgingChain(this, stages, adoptWaxed, new LinkedHashMap<>());
+            }
             if (names.isEmpty()) throw new IllegalStateException(id + ": an aging chain needs at least one aged stage");
             Function<BlockBehaviour.Properties, Block> make = factory != null ? factory : sameClass(base);
             Map<Block, Identifier> created = new LinkedHashMap<>();

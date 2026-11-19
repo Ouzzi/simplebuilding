@@ -31,6 +31,7 @@
     "AgingStateMixin",
     "AgingTickAccessor",
     "AgingDispenserMixin",
+    "FireOddsAccessor",
     "CauldronBucketMixin",
     "TrackingFilterMixin"
   ],

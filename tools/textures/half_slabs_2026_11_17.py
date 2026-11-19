@@ -1,27 +1,27 @@
 """Usage: python tools/textures/half_slabs_2026_11_17.py [--scan] [--check] [--out DIR]
 
-N86 half slabs (docs/ai/PLAN-N86-HALFSLAB-2026-11-17.md) - DRAFT ("N86 Vorbereitung, nicht buendeln"): the owner has not
-answered N86-1..11 yet. Every place that depends on an answer is a constant below, marked N86-<n>.
+N86 half slabs - BUILT (owner 18.11., docs/ai/PLAN-N86-BAU-2026-11-19.md): sub-mod Simple Slabs (N86-4), 2-px layers (N86-1),
+any of the eight layers of a cell freely combined (N86-2 B) plus the side half slab / side slab, all 170 blocks with a slab incl.
+dirt, grass, sand, red sand and gravel (N86-5), saw and craft-back recipes (N86-6, volume-true for 2 px).
 
-One half slab per block that has a slab (vanilla + the sub-mods), in module simpleoctets (N86-4), id
-simpleoctets:<slab path without _slab>_half_slab. The list lives in tools/textures/half_slab_materials.json (made by --scan
-from the 26.3 client jar, the module assets and the German lang cache) and produces:
+Per material: simpleslabs:<slab path without _slab>_half_slab (item; block state l0..l7 + waterlogged) and
+simpleslabs:<...>_side_half_slab (no item; facing + thickness 1..8 + waterlogged). The list lives in
+tools/textures/half_slab_materials.json (made by --scan from the 26.3 client jar, the module assets and the German lang cache;
+German names already in the list are kept when the cache is missing) and produces:
 
-  blockstates/<id>.json                               half x layers -> model (waterlogged not part of the key)
-  models/block/half_slab/_<kind>_<L>[_top].json       templates (kind = slab | checker), L = layer count
-  models/block/half_slab/<id>_<L>[_top].json          per material: template + the slab's own texture references
+  blockstates/<id>.json, <side>.json             multipart: layer i when l<i>; side form = the same layer models turned
+  models/block/half_slab/_<kind>_<i>.json         templates (kind = slab | checker | grass | dirt), i = layer 0..7
+  models/block/half_slab/<id>_<i>[_dirt].json     per material: template + the slab's own texture references
   items/<id>.json + models/item/half_slab/<id>.json   (another mod's material: in that mod's jar, self-contained)
-  shared/java/com/simpleoctets/registry/HalfSlabMaterials.java   GENERATED list + the N86 constants for the Java side
-  lang en_us/de_de                                    names (generated block after the octet keys)
-  data: loot_table/blocks/<id>.json, recipe/half_slab/*.json (+ advancements), tags simpleoctets:half_slabs,
-        simpleoctets:wooden_half_slabs, simpleoctets:half_slab/mineable/<tool>, .../occludes_vibration_signals|dampens_vibrations
-        (referenced from the Vanilla tag files the octet generator writes, optional entries).
+  shared/java/com/simpleslabs/registry/HalfSlabMaterials.java   GENERATED list for the Java side
+  lang en_us/de_de                                names (generated block after the module's own keys)
+  data: loot_table/blocks/<id>.json (one pool per layer), <side>.json (count = thickness), recipe/half_slab/*.json (+ advancements),
+        tags simpleslabs:half_slabs, simpleslabs:wooden_half_slabs, minecraft:mineable/<tool>, occludes_vibration_signals,
+        dampens_vibrations.
 
-Recipes and advancements sit in a sub-folder (recipe/half_slab/): the octet generator removes every recipe file directly in
-recipe/ it did not write (STALE), and modules/simpleoctets/tools/check_data.py counts them.
-
-No Mojang pixels: models reference vanilla textures by resource location only; nothing is copied. --check compares instead
-of writing; --out DIR writes (or checks) the same tree below DIR instead of the repository (draft/scratch runs).
+The shared helpers (js, groups, saw recipe type, partner jars, client jar, German lang cache) come from the octet generator
+(tools/textures/octets_2026_10_09.py) - one library for both shape mods. No Mojang pixels: models reference textures by resource
+location only; nothing is copied. --check compares instead of writing; --out DIR writes (or checks) below DIR.
 """
 import json
 import os
@@ -30,66 +30,43 @@ import zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import octets_2026_10_09 as octets  # noqa: E402  shared helpers: js, group_of, GROUPS, DYES, COPPER_ORDER, SAW_*, DE_LANG, CLIENT_JAR
+import octets_2026_10_09 as octets  # noqa: E402  shared helpers: js, group_of, GROUPS, SAW_*, DE_LANG, CLIENT_JAR, PARTNER_RES
 
 REPO = octets.REPO
-NS = octets.NS
-MODULE = octets.MODULE
-ASSETS = octets.ASSETS
-DATA = octets.DATA
+NS = 'simpleslabs'
+MODULE = os.path.join(REPO, 'modules', NS)
+ASSETS = os.path.join(MODULE, 'shared', 'resources', 'assets', NS)
+DATA = os.path.join(MODULE, 'shared', 'resources', 'data')
 MATERIALS_JSON = os.path.join(REPO, 'tools', 'textures', 'half_slab_materials.json')
 JAVA_LIST = os.path.join(MODULE, 'shared', 'java', 'com', NS, 'registry', 'HalfSlabMaterials.java')
 LANG_DIR = os.path.join(ASSETS, 'lang')
 
-# ---------------------------------------------------------------- owner answers (N86) - change only here
-# N86-1: height of one half slab in pixels (4 = half a slab). Must divide 8.
-HEIGHT_PX = 4
-# N86-2: stacking. 'A+' = 4-px grid with the real slabs (1 -> +1 = slab -> +1 = 3 layers -> +1 = double slab);
-# 'A' = only 1+1 -> slab; 'B' = own layer block up to 16 px (no slab merge); 'C' = not stackable.
-STACK_MODE = 'A+'
+# ---------------------------------------------------------------- owner answers (N86, 18.11.)
+# N86-1: one half slab = one layer of 2 px; a cell holds LAYERS layers.
+LAYER_PX = 2
+LAYERS = 16 // LAYER_PX
 # N86-3: names. EN: "<slab name without ' Slab'>" + NAME_EN; DE: "...stufe" -> "..." + NAME_DE.
 NAME_EN = ' Half Slab'
 NAME_DE = 'halbstufe'
-# N86-5: scope. Natural slabs (fall, grass colour, dry out) need own classes - out in the first stage like the octets (A4).
-NATURE = {'simpleblocks:dirt_slab', 'simpleblocks:grass_slab', 'simpleblocks:sand_slab', 'simpleblocks:red_sand_slab',
-          'simpleblocks:gravel_slab'}
-INCLUDE_NATURE = False
-VANILLA_ONLY = False
+# N86-5: all slabs incl. the natural ones; sand, red sand and gravel fall, grass has its own model (tint, grass edge on top).
+FALLING = {'simpleblocks:sand_slab', 'simpleblocks:red_sand_slab', 'simpleblocks:gravel_slab'}
+SHOVEL = FALLING | {'simpleblocks:dirt_slab', 'simpleblocks:grass_slab'}
 # Always out: petrified_oak_slab has no full block of its own (same exception as the octets, OctetTests.NO_OCTET).
 EXCLUDE = {'minecraft:petrified_oak_slab'}
-# N86-6: recipes. Saw: 1 slab -> SLAB_CUT, 1 base block -> BLOCK_CUT (both follow from the height); crafting HALVES_PER_SLAB
-# half slabs -> 1 slab. No "3 slabs -> 6 half slabs" (collides with the 16 vanilla cushion recipes, ###).
-SLAB_CUT = 8 // HEIGHT_PX
-BLOCK_CUT = 16 // HEIGHT_PX
-HALVES_PER_SLAB = 8 // HEIGHT_PX
-CRAFT_BACK = True
+# N86-6 (volume-true for 2 px): saw 1 slab -> SLAB_CUT, 1 full block -> BLOCK_CUT; crafting HALVES_PER_SLAB -> 1 slab (shapeless).
+# No "3 slabs -> 6 half slabs" (collides with the 16 vanilla cushion recipes, ###).
+SLAB_CUT = 8 // LAYER_PX
+BLOCK_CUT = 16 // LAYER_PX
+HALVES_PER_SLAB = 8 // LAYER_PX
 STONECUTTER_FALLBACK = True   # A4b: only without Simple Blocks (load condition), like the octets
 # N86-11: never in #minecraft:slabs (foreign code assumes SlabBlock.TYPE there).
 
-
-def layer_plan():
-    """(max own layer count, merge into the real slab at 8 px / double at 16 px, half slab may be put onto a slab)."""
-    per_slab, per_block = 8 // HEIGHT_PX, 16 // HEIGHT_PX
-    if STACK_MODE == 'A+':
-        return per_block - 1, True, True
-    if STACK_MODE == 'A':
-        return per_slab - 1, True, False
-    if STACK_MODE == 'B':
-        return per_block, False, False
-    if STACK_MODE == 'C':
-        return 1, False, False
-    raise ValueError(STACK_MODE)
+# Side form: facing (the wall it leans on) -> y rotation of the layer models turned with x=90 (layer 0 then lies at the south).
+SIDE_Y = {'south': 0, 'west': 90, 'north': 180, 'east': 270}
 
 
-MAX_LAYERS, MERGE_SLAB, ONTO_SLAB = layer_plan()
-assert 8 % HEIGHT_PX == 0 and MAX_LAYERS >= 1
-
-
-def own_layers():
-    """Layer counts a half slab block really holds (A+: 8 px is the real slab, 16 px its double - never set, see Java)."""
-    if not MERGE_SLAB:
-        return list(range(1, MAX_LAYERS + 1))
-    return [n for n in range(1, MAX_LAYERS + 1) if n * HEIGHT_PX not in (8, 16)]
+def side_id(mid):
+    return mid[:-len('half_slab')] + 'side_half_slab'
 
 
 # ---------------------------------------------------------------- scan
@@ -128,44 +105,8 @@ def mod_lang(roots, ns, locale):
     return out
 
 
-# Properties template (vanilla block) of another mod's slab - mirrors OctetRegistry (its block may register after us).
-BLOCK_TEMPLATES = dict({k: 'minecraft:' + v for k, v in {
-    'blue_nether_brick': 'red_nether_bricks', 'hushed_deepslate_tile': 'deepslate_tiles', 'sculk_tile': 'deepslate_tiles',
-    'mossy_deepslate_brick': 'deepslate_bricks', 'mossy_deepslate_tile': 'deepslate_tiles', 'mossy_tuff_brick': 'tuff_bricks',
-    'mossy_mud_brick': 'mud_bricks', 'mossy_end_stone_brick': 'end_stone_bricks', 'mossy_cinnabar_brick': 'cinnabar_bricks',
-    'mossy_sulfur_brick': 'sulfur_bricks', 'ice_brick': 'ice', 'packed_ice_brick': 'packed_ice', 'blue_ice_brick': 'blue_ice',
-    'quartz_brick': 'quartz_bricks', 'cut_gold': 'gold_block', 'cut_iron': 'iron_block', 'polished_end_stone': 'end_stone',
-    'ashwood': 'oak_planks', 'duskwood': 'oak_planks', 'crimson_blazewood': 'crimson_planks', 'warped_blazewood': 'warped_planks',
-}.items()})
-
-
 # Slabs whose stem names a non-full block (bamboo = the plant).
 BASE_OVERRIDE = {'minecraft:bamboo_slab': ['bamboo_planks']}
-
-
-def template_of(ns, stem, van):
-    if ns == 'minecraft':
-        return f'minecraft:{stem}_slab'
-    if stem in BLOCK_TEMPLATES:
-        return BLOCK_TEMPLATES[stem]
-    if ns == 'simpleores':
-        return 'minecraft:gold_block' if 'silver' in stem else 'minecraft:iron_block'
-    if ns == 'simplechess':
-        return 'minecraft:quartz_block'
-    if ns == 'simplebuilding':
-        return 'minecraft:purpur_block' if stem.endswith('_purpur') else 'minecraft:end_stone'
-    if stem in van:
-        return f'minecraft:{stem}'
-    raise SystemExit(f'no property template for {ns}:{stem}_slab - add it to BLOCK_TEMPLATES')
-
-
-def light_of(ns, stem):
-    """Glow of the astral blocks (OctetRegistry: Astralit and astral End stone/purpur 10, chess astralit checkers 5)."""
-    if ns == 'simplebuilding' and ('astralit' in stem or stem.startswith('astral_')):
-        return 10
-    if ns == 'simplechess' and 'astralit' in stem:
-        return 5
-    return 0
 
 
 def german(slab_de, sid):
@@ -188,8 +129,10 @@ def scan():
     van = {n[len('assets/minecraft/blockstates/'):-5] for n in names
            if n.startswith('assets/minecraft/blockstates/') and n.endswith('.json')}
     en_van = json.loads(z.read('assets/minecraft/lang/en_us.json'))
-    with open(octets.DE_LANG, encoding='utf-8') as f:
-        de_van = json.load(f)
+    de_van = {}
+    if os.path.isfile(octets.DE_LANG):
+        with open(octets.DE_LANG, encoding='utf-8') as f:
+            de_van = json.load(f)
     roots = asset_roots()
     slabs = []  # (ns, path, blockstate)
     for p in sorted(van):
@@ -214,9 +157,10 @@ def scan():
                 mod_blocks.setdefault(ns, set()).update(n[:-5] for n in os.listdir(bs) if n.endswith('.json'))
     langs = {}
     out, skipped = [], []
+    known_de = {m['slab']: m['de'] for m in materials()} if os.path.isfile(MATERIALS_JSON) else {}
     for ns, path, state in slabs:
         sid = f'{ns}:{path}'
-        if sid in EXCLUDE or (sid in NATURE and not INCLUDE_NATURE) or (VANILLA_ONLY and ns != 'minecraft'):
+        if sid in EXCLUDE:
             skipped.append(sid)
             continue
         stem = path[:-len('_slab')]
@@ -233,6 +177,8 @@ def scan():
         parent, tex = model.get('parent', ''), model.get('textures', {})
         if parent in ('minecraft:block/slab', 'block/slab') and {'bottom', 'top', 'side'} <= set(tex):
             kind, textures, cells = 'slab', {k: tex[k] for k in ('bottom', 'top', 'side')}, None
+        elif sid == 'simpleblocks:grass_slab' and {'bottom', 'top', 'side', 'overlay'} <= set(tex):
+            kind, textures, cells = 'grass', {k: tex[k] for k in ('bottom', 'top', 'side', 'overlay')}, None
         elif parent.startswith('simplechess:block/checker_cells/') and {'side', 'side_mirror'} <= set(tex):
             kind, textures = 'checker', {'side': tex['side'], 'side_mirror': tex['side_mirror']}
             tmns, tmpath = top.split(':')
@@ -256,6 +202,9 @@ def scan():
                 break
         if ns == 'minecraft':
             en, de = en_van.get(f'block.minecraft.{path}'), de_van.get(f'block.minecraft.{path}')
+            if not de and sid in known_de:   # no German cache here (sb-agent): keep the name the list already has
+                out_de = known_de[sid]
+                de = out_de[:-len(NAME_DE)] + 'stufe' if out_de.endswith(NAME_DE) else None
         else:
             if ns not in langs:
                 langs[ns] = (mod_lang(roots, ns, 'en_us'), mod_lang(roots, ns, 'de_de'))
@@ -265,13 +214,13 @@ def scan():
         bpath = base.split(':')[1] if base else stem
         wood = bpath.endswith('_planks') or bpath == 'bamboo_mosaic'
         group = 'wood' if wood else ('mod' if ns != 'minecraft' else octets.group_of('minecraft', bpath))
-        tool = 'axe' if wood else (None if bpath.endswith('_wool') else 'pickaxe')
+        tool = 'axe' if wood else 'shovel' if sid in SHOVEL else (None if bpath.endswith('_wool') else 'pickaxe')
         mods = [] if ns in ('minecraft', 'simplelib') else [ns]
         if ns == 'simplechess' and any(w in stem for w in ('astralit', 'nihilith', 'ender_quartz')):
             mods.append('simplebuilding')   # ChessColor palette colours exist only with SimpleBuilding (PALETTE_SOURCE)
         out.append({'id': f'{stem}_half_slab', 'slab': sid, 'base': base, 'ns': ns, 'mods': mods, 'group': group,
-                    'kind': kind, 'tex': textures, **({'cells': cells} if cells else {}), 'tool': tool, 'template': template_of(ns, stem, van),
-                    'light': light_of(ns, stem), 'en': english(en, sid), 'de': german(de, sid)})
+                    'kind': kind, 'tex': textures, **({'cells': cells} if cells else {}), 'tool': tool, 'falls': sid in FALLING,
+                    'en': english(en, sid), 'de': german(de, sid)})
     groups = ['wood'] + [g for g, _ in octets.GROUPS]
     out.sort(key=lambda m: (groups.index(m['group']), m['id']))
     with open(MATERIALS_JSON, 'w', encoding='utf-8') as f:
@@ -285,14 +234,13 @@ def materials():
 
 
 # ---------------------------------------------------------------- models
-def model_name(mid, layers, top):
-    return f'{NS}:block/half_slab/{mid}_{layers}' + ('_top' if top else '')
+def model_name(mid, layer, dirt=False):
+    return f'{NS}:block/half_slab/{mid}_{layer}' + ('_dirt' if dirt else '')
 
 
-def slab_template(layers, top):
-    """Like minecraft:block/slab, height layers*HEIGHT_PX at the bottom or the top of the cell (auto UV = the matching strip)."""
-    h = layers * HEIGHT_PX
-    y0, y1 = (16 - h, 16) if top else (0, h)
+def slab_template(layer):
+    """Like minecraft:block/slab, one 2-px layer (auto UV = the matching strip of the side texture, so a full stack looks like the block)."""
+    y0, y1 = layer * LAYER_PX, (layer + 1) * LAYER_PX
     faces = {d: {'texture': '#side', 'cullface': d} for d in ('north', 'south', 'east', 'west')}
     faces['down'] = {'texture': '#bottom', **({'cullface': 'down'} if y0 == 0 else {})}
     faces['up'] = {'texture': '#top', **({'cullface': 'up'} if y1 == 16 else {})}
@@ -300,19 +248,59 @@ def slab_template(layers, top):
             'elements': [{'from': [0, y0, 0], 'to': [16, y1, 16], 'faces': faces}]}
 
 
-def checker_template(cells_model, layers, top):
-    """The chess checker slab's cells (simplechess:block/checker_cells/<n>, 4 cells 8x8x8) cut to the half slab's height."""
-    h = layers * HEIGHT_PX
-    out = json.loads(json.dumps(cells_model))
+def grass_template(layer):
+    """The open top layer of a grass stack: grass top (biome tint), the top strip of the grass side + its tinted overlay, dirt below."""
+    y0, y1 = layer * LAYER_PX, (layer + 1) * LAYER_PX
+    strip = [0, 0, 16, LAYER_PX]
+    base = {d: {'uv': strip, 'texture': '#side', 'cullface': d} for d in ('north', 'south', 'east', 'west')}
+    base['down'] = {'texture': '#bottom', **({'cullface': 'down'} if y0 == 0 else {})}
+    base['up'] = {'texture': '#top', 'tintindex': 0, **({'cullface': 'up'} if y1 == 16 else {})}
+    over = {d: {'uv': strip, 'texture': '#overlay', 'tintindex': 0, 'cullface': d} for d in ('north', 'south', 'east', 'west')}
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#bottom'},
+            'elements': [{'from': [0, y0, 0], 'to': [16, y1, 16], 'faces': base},
+                         {'from': [0, y0, 0], 'to': [16, y1, 16], 'faces': over}]}
+
+
+def dirt_template(layer):
+    """A covered layer of a grass stack: dirt on every face."""
+    t = slab_template(layer)
+    t['textures'] = {'particle': '#bottom'}
+    for f in t['elements'][0]['faces'].values():
+        f['texture'] = '#bottom'
+    return t
+
+
+def checker_template(bottom_cells, top_cells, layer):
+    """The chess checker slab's cells (simplechess:block/checker_cells/<n>, 4 cells 8x8x8) cut to one 2-px layer: layers 0-3 from
+    the bottom slab's cells, 4-7 from the top slab's; side UVs follow the cut, up/down keep the cell's square."""
+    y0, y1 = layer * LAYER_PX, (layer + 1) * LAYER_PX
+    out = json.loads(json.dumps(bottom_cells if layer < LAYERS // 2 else top_cells))
     for e in out['elements']:
-        if top:
-            e['from'][1] = 16 - h
-        else:
-            e['to'][1] = h
+        cy0, cy1 = e['from'][1], e['to'][1]
+        e['from'][1], e['to'][1] = y0, y1
+        faces = {}
         for d, f in e['faces'].items():
+            f = dict(f)
             if d in ('north', 'south', 'east', 'west') and 'uv' in f:
                 u0, v0, u1, v1 = f['uv']
-                f['uv'] = [u0, v0, u1, v0 + h] if top else [u0, v1 - h, u1, v1]
+                k = (v1 - v0) / (cy1 - cy0)
+                f['uv'] = [u0, v0 + (cy1 - y1) * k, u1, v0 + (cy1 - y0) * k]
+            if d == 'up':
+                f.pop('cullface', None)
+                if y1 == 16:
+                    f['cullface'] = 'up'
+            if d == 'down':
+                f.pop('cullface', None)
+                if y0 == 0:
+                    f['cullface'] = 'down'
+            faces[d] = f
+        # a layer needs both cut faces; a source cell without one (inside its block) takes the other's square
+        for d, other in (('up', 'down'), ('down', 'up')):
+            if d not in faces and other in faces:
+                faces[d] = {k: v for k, v in faces[other].items() if k != 'cullface'}
+                if (d == 'up' and y1 == 16) or (d == 'down' and y0 == 0):
+                    faces[d]['cullface'] = d
+        e['faces'] = faces
     return out
 
 
@@ -324,18 +312,12 @@ def checker_cells(roots, ref):
     return m
 
 
-def item_model(m, block_models):
-    """Item model = the 1-layer bottom block model (like a vanilla slab item). Partner materials inline it (no parent from
-    this module: the partner's jar may run without Simple Octets)."""
-    if m['ns'] in octets.PARTNER_RES or m['ns'] in EXTRA_PARTNER_RES:
-        tpl = json.loads(json.dumps(block_models[m['kind']][(1, False)]))
-        tpl['textures'] = dict(tpl['textures'], **m['tex'])
-        return tpl
-    return {'parent': model_name(m['id'], 1, False)}
-
-
 # Simple Chess carries its half slab items like the other partners (octets have no chess partner entry: chess octets are its own).
 EXTRA_PARTNER_RES = {'simplechess': os.path.join(REPO, 'modules', 'simplechess', 'shared', 'resources')}
+
+
+def partner(ns):
+    return ns in octets.PARTNER_RES or ns in EXTRA_PARTNER_RES
 
 
 def item_root(ns):
@@ -343,12 +325,52 @@ def item_root(ns):
     return os.path.join(res[ns], 'assets', NS) if ns in res else ASSETS
 
 
+def item_model(m, templates):
+    """Item model = the bottom layer (layer 0, the grass layer for grass). A partner's jar inlines it (no parent from this module:
+    the partner may run without Simple Slabs)."""
+    if partner(m['ns']):
+        tpl = json.loads(json.dumps(templates[m['kind']][0]))
+        tpl['textures'] = dict(tpl['textures'], **m['tex'])
+        return tpl
+    return {'parent': model_name(m['id'], 0)}
+
+
+def item_definition(m):
+    model = {'type': 'minecraft:model', 'model': f'{NS}:item/half_slab/{m["id"]}'}
+    if m['kind'] == 'grass':   # like Simple Blocks' grass slab item
+        model['tints'] = [{'type': 'minecraft:grass', 'downfall': 1.0, 'temperature': 0.5}]
+    return {'model': model}
+
+
 def blockstate(m):
-    variants = {}
-    for half in ('bottom', 'top'):
-        for n in range(1, MAX_LAYERS + 1):
-            variants[f'half={half},layers={n}'] = {'model': model_name(m['id'], n, half == 'top')}
-    return {'variants': variants}
+    parts = []
+    for i in range(LAYERS):
+        if m['kind'] == 'grass':
+            if i < LAYERS - 1:
+                parts.append({'when': {f'l{i}': 'true', f'l{i + 1}': 'false'}, 'apply': {'model': model_name(m['id'], i)}})
+                parts.append({'when': {f'l{i}': 'true', f'l{i + 1}': 'true'}, 'apply': {'model': model_name(m['id'], i, True)}})
+            else:
+                parts.append({'when': {f'l{i}': 'true'}, 'apply': {'model': model_name(m['id'], i)}})
+        else:
+            parts.append({'when': {f'l{i}': 'true'}, 'apply': {'model': model_name(m['id'], i)}})
+    return {'multipart': parts}
+
+
+def side_blockstate(m):
+    """Side form: layer k exists while thickness > k; the layer models turned with x=90 (lying against the wall of `facing`)."""
+    parts = []
+    for facing, y in SIDE_Y.items():
+        rot = {'x': 90, **({'y': y} if y else {})}
+        for k in range(LAYERS):
+            thick = '|'.join(str(n) for n in range(k + 1, LAYERS + 1))
+            if m['kind'] == 'grass':
+                parts.append({'when': {'facing': facing, 'thickness': str(k + 1)}, 'apply': dict({'model': model_name(m['id'], k)}, **rot)})
+                if k + 2 <= LAYERS:
+                    deeper = '|'.join(str(n) for n in range(k + 2, LAYERS + 1))
+                    parts.append({'when': {'facing': facing, 'thickness': deeper}, 'apply': dict({'model': model_name(m['id'], k, True)}, **rot)})
+            else:
+                parts.append({'when': {'facing': facing, 'thickness': thick}, 'apply': dict({'model': model_name(m['id'], k)}, **rot)})
+    return {'multipart': parts}
 
 
 # ---------------------------------------------------------------- data
@@ -381,32 +403,45 @@ def unlock(recipe, item):
 
 
 def loot(m):
+    """One pool per layer: every occupied layer drops one half slab (owner N86 'Abbau/Drops')."""
     hid = f'{NS}:{m["id"]}'
+    pools = [{'rolls': 1, 'bonus_rolls': 0,
+              'conditions': [{'condition': 'minecraft:block_state_property', 'block': hid, 'properties': {f'l{i}': 'true'}},
+                             {'condition': 'minecraft:survives_explosion'}],
+              'entries': [{'type': 'minecraft:item', 'name': hid}]} for i in range(LAYERS)]
+    return dict(conditions(m['mods']), type='minecraft:block', pools=pools, random_sequence=f'{NS}:blocks/{m["id"]}')
+
+
+def side_loot(m):
+    """Side form: thickness half slabs."""
+    hid, sid = f'{NS}:{m["id"]}', f'{NS}:{side_id(m["id"])}'
     counts = [{'function': 'minecraft:set_count', 'count': n, 'add': False,
-               'conditions': [{'condition': 'minecraft:block_state_property', 'block': hid, 'properties': {'layers': str(n)}}]}
-              for n in range(2, MAX_LAYERS + 1)]
+               'conditions': [{'condition': 'minecraft:block_state_property', 'block': sid, 'properties': {'thickness': str(n)}}]}
+              for n in range(2, LAYERS + 1)]
     return dict(conditions(m['mods']), type='minecraft:block', pools=[{
         'rolls': 1, 'bonus_rolls': 0,
         'entries': [{'type': 'minecraft:item', 'name': hid, 'functions': counts + [{'function': 'minecraft:explosion_decay'}]}]}],
-        random_sequence=f'{NS}:blocks/{m["id"]}')
+        random_sequence=f'{NS}:blocks/{side_id(m["id"])}')
 
 
-def opt(mid, m):
-    return f'{NS}:{mid}' if not m['mods'] else {'id': f'{NS}:{mid}', 'required': False}
+def opt(path, m):
+    return f'{NS}:{path}' if not m['mods'] else {'id': f'{NS}:{path}', 'required': False}
 
 
 VIBRATION_DAMPENING = {'simpleblocks:hushed_deepslate_tile_slab'}
-TAG_REFS = ('mineable/axe', 'mineable/pickaxe', 'occludes_vibration_signals', 'dampens_vibrations')
 
 
 def data_files(mats):
     files = {}
     d = lambda rel, data: files.__setitem__(os.path.join(DATA, *rel.split('/')), octets.js(data))
-    tags = {'half_slabs': [], 'wooden_half_slabs': [], 'half_slab/mineable/axe': [], 'half_slab/mineable/pickaxe': [],
-            'half_slab/occludes_vibration_signals': [], 'half_slab/dampens_vibrations': []}
+    tags = {f'{NS}/tags/block/half_slabs': [], f'{NS}/tags/block/wooden_half_slabs': [], f'{NS}/tags/item/half_slabs': [],
+            f'{NS}/tags/item/wooden_half_slabs': [], 'minecraft/tags/block/mineable/axe': [], 'minecraft/tags/block/mineable/pickaxe': [],
+            'minecraft/tags/block/mineable/shovel': [], 'minecraft/tags/block/occludes_vibration_signals': [],
+            'minecraft/tags/block/dampens_vibrations': []}
     for m in mats:
-        hid, slab = f'{NS}:{m["id"]}', m['slab']
+        hid, slab, sid = f'{NS}:{m["id"]}', m['slab'], side_id(m['id'])
         d(f'{NS}/loot_table/blocks/{m["id"]}.json', loot(m))
+        d(f'{NS}/loot_table/blocks/{sid}.json', side_loot(m))
         sources = [(slab, SLAB_CUT)] + ([(m['base'], BLOCK_CUT)] if m['base'] else [])
         for src, count in sources:
             sp = src.split(':')[1]
@@ -418,28 +453,24 @@ def data_files(mats):
                 fb = conditions(m['mods'], False)
                 d(f'{NS}/recipe/{cut}.json', dict(fb, type='minecraft:stonecutting', ingredient=src, result={'count': count, 'id': hid}))
                 d(f'{NS}/advancement/recipes/building_blocks/{cut}.json', dict(fb, **unlock(cut, src)))
-        if CRAFT_BACK:
-            back = f'half_slab/{slab.split(":")[1]}_from_half_slabs'
-            if HALVES_PER_SLAB == 2:
-                recipe = dict(type='minecraft:crafting_shaped', category='building', pattern=['#', '#'], key={'#': hid},
-                              result={'id': slab})
-            else:
-                recipe = dict(type='minecraft:crafting_shapeless', category='building', ingredients=[hid] * HALVES_PER_SLAB,
-                              result={'id': slab})
-            d(f'{NS}/recipe/{back}.json', dict(conditions(m['mods']), **recipe))
-            d(f'{NS}/advancement/recipes/building_blocks/{back}.json', dict(conditions(m['mods']), **unlock(back, hid)))
-        tags['half_slabs'].append(opt(m['id'], m))
+        back = f'half_slab/{slab.split(":")[1]}_from_half_slabs'
+        recipe = dict(type='minecraft:crafting_shapeless', category='building', ingredients=[hid] * HALVES_PER_SLAB, result={'id': slab})
+        d(f'{NS}/recipe/{back}.json', dict(conditions(m['mods']), **recipe))
+        d(f'{NS}/advancement/recipes/building_blocks/{back}.json', dict(conditions(m['mods']), **unlock(back, hid)))
+        for path in (m['id'], sid):
+            tags[f'{NS}/tags/block/half_slabs'].append(opt(path, m))
+            if m['group'] == 'wood':
+                tags[f'{NS}/tags/block/wooden_half_slabs'].append(opt(path, m))
+            if m['tool']:
+                tags[f'minecraft/tags/block/mineable/{m["tool"]}'].append(opt(path, m))
+            if m['group'] == 'wool' or m['slab'] in VIBRATION_DAMPENING:
+                for t in ('occludes_vibration_signals', 'dampens_vibrations'):
+                    tags[f'minecraft/tags/block/{t}'].append(opt(path, m))
+        tags[f'{NS}/tags/item/half_slabs'].append(opt(m['id'], m))
         if m['group'] == 'wood':
-            tags['wooden_half_slabs'].append(opt(m['id'], m))
-        if m['tool']:
-            tags[f'half_slab/mineable/{m["tool"]}'].append(opt(m['id'], m))
-        if m['group'] == 'wool' or m['slab'] in VIBRATION_DAMPENING:
-            for t in ('occludes_vibration_signals', 'dampens_vibrations'):
-                tags[f'half_slab/{t}'].append(opt(m['id'], m))
+            tags[f'{NS}/tags/item/wooden_half_slabs'].append(opt(m['id'], m))
     for name, values in tags.items():
-        d(f'{NS}/tags/block/{name}.json', {'values': values})
-    d(f'{NS}/tags/item/half_slabs.json', {'values': tags['half_slabs']})
-    d(f'{NS}/tags/item/wooden_half_slabs.json', {'values': tags['wooden_half_slabs']})
+        d(f'{name}.json', {'values': values})
     return files
 
 
@@ -449,6 +480,7 @@ def generated_names(mats, lang):
     for m in mats:
         name = m['en' if lang == 'en_us' else 'de']
         out[f'block.{NS}.{m["id"]}'] = name
+        out[f'block.{NS}.{side_id(m["id"])}'] = name   # the side form is the same half slab, placed against a wall
         out[f'item.{NS}.{m["id"]}'] = name
     return out
 
@@ -469,31 +501,23 @@ def java_str(v):
 
 def java_list(mats):
     rows = ',\n'.join(
-        f'            new Material("{m["id"]}", "{m["slab"]}", {java_str(m["base"])}, "{m["template"]}", '
-        f'List.of({", ".join(chr(34) + x + chr(34) for x in m["mods"])}), "{m["group"]}", {m["light"]})' for m in mats)
+        f'            new Material("{m["id"]}", "{m["slab"]}", {java_str(m["base"])}, '
+        f'List.of({", ".join(chr(34) + x + chr(34) for x in m["mods"])}), "{m["group"]}", {str(m["falls"]).lower()}, '
+        f'{str(m["kind"] == "grass").lower()})' for m in mats)
     groups = ', '.join(f'"{g}"' for g in ['wood'] + [g for g, _ in octets.GROUPS])
-    return f"""package com.simpleoctets.registry;
+    return f"""package com.simpleslabs.registry;
 
 import java.util.List;
 
 /**
  * GENERATED by tools/textures/half_slabs_2026_11_17.py from tools/textures/half_slab_materials.json - do not edit by hand.
- * N86 half slabs (DRAFT): one {{@code <slab path without _slab>_half_slab}} per slab; {{@link HalfSlabRegistry}} registers them
- * in creative-tab order, the ones of another mod's slab only while every mod in {{@code mods}} is loaded.
+ * N86: one {{@code <slab path without _slab>_half_slab}} per slab (plus its side form); {{@link SlabRegistry}} registers them in
+ * creative-tab order, the ones of another mod's slab only while every mod in {{@code mods}} is loaded.
  */
 public final class HalfSlabMaterials {{
-    /** id, the real slab ({{@code ns:path}}), its full block (null = unknown), vanilla block whose properties are copied, mods, tab group, light. */
-    public record Material(String id, String slab, String base, String template, List<String> mods, String group, int light) {{
+    /** id, the real slab ({{@code ns:path}}), its full block (null = unknown), mods, tab group, falls like sand, grass model. */
+    public record Material(String id, String slab, String base, List<String> mods, String group, boolean falls, boolean grass) {{
     }}
-
-    /** N86-1: height of one layer in pixels. */
-    public static final int HEIGHT_PX = {HEIGHT_PX};
-    /** N86-2 ({STACK_MODE}): highest layer count of the block state {{@code layers}}. */
-    public static final int MAX_LAYERS = {MAX_LAYERS};
-    /** N86-2: 8 px becomes the real slab, 16 px its double slab. */
-    public static final boolean MERGE_SLAB = {str(MERGE_SLAB).lower()};
-    /** N86-2: a half slab put onto the matching real slab adds a layer (A+: 8 + 4 = 12 px). */
-    public static final boolean ONTO_SLAB = {str(ONTO_SLAB).lower()};
 
     /** Creative-tab groups in display order. */
     public static final List<String> GROUPS = List.of({groups});
@@ -513,30 +537,28 @@ def outputs():
     a = lambda rel, data: files.__setitem__(os.path.join(ASSETS, *rel.split('/')), octets.js(data))
     mats = materials()
     roots = asset_roots()
-    block_models = {'slab': {}, 'checker': {}}
-    for n in range(1, MAX_LAYERS + 1):
-        for top in (False, True):
-            block_models['slab'][(n, top)] = slab_template(n, top)
-            a(f'models/block/half_slab/_slab_{n}{"_top" if top else ""}.json', slab_template(n, top))
+    templates = {'slab': {}, 'grass': {}, 'dirt': {}, 'checker': {}}
     checker_refs = next((m['cells'] for m in mats if m['kind'] == 'checker'), None)
-    if checker_refs:
-        bottom_cells, top_cells = (checker_cells(roots, r) for r in checker_refs)
-        for n in range(1, MAX_LAYERS + 1):
-            for top in (False, True):
-                tpl = checker_template(top_cells if top else bottom_cells, n, top)
-                block_models['checker'][(n, top)] = tpl
-                a(f'models/block/half_slab/_checker_{n}{"_top" if top else ""}.json', tpl)
+    cells = [checker_cells(roots, r) for r in checker_refs] if checker_refs else None
+    for i in range(LAYERS):
+        templates['slab'][i] = slab_template(i)
+        templates['grass'][i] = grass_template(i)
+        templates['dirt'][i] = dirt_template(i)
+        if cells:
+            templates['checker'][i] = checker_template(cells[0], cells[1], i)
+        for kind, tpl in templates.items():
+            if i in tpl:
+                a(f'models/block/half_slab/_{kind}_{i}.json', tpl[i])
     for m in mats:
-        tex = m['tex']
-        for n in range(1, MAX_LAYERS + 1):
-            for top in (False, True):
-                a(f'models/block/half_slab/{m["id"]}_{n}{"_top" if top else ""}.json',
-                  {'parent': f'{NS}:block/half_slab/_{m["kind"]}_{n}{"_top" if top else ""}', 'textures': tex})
+        for i in range(LAYERS):
+            a(f'models/block/half_slab/{m["id"]}_{i}.json', {'parent': f'{NS}:block/half_slab/_{m["kind"]}_{i}', 'textures': m['tex']})
+            if m['kind'] == 'grass':
+                a(f'models/block/half_slab/{m["id"]}_{i}_dirt.json', {'parent': f'{NS}:block/half_slab/_dirt_{i}', 'textures': m['tex']})
         a(f'blockstates/{m["id"]}.json', blockstate(m))
+        a(f'blockstates/{side_id(m["id"])}.json', side_blockstate(m))
         root = item_root(m['ns'])
-        files[os.path.join(root, 'models', 'item', 'half_slab', m['id'] + '.json')] = octets.js(item_model(m, block_models))
-        files[os.path.join(root, 'items', m['id'] + '.json')] = octets.js(
-            {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/half_slab/{m["id"]}'}})
+        files[os.path.join(root, 'models', 'item', 'half_slab', m['id'] + '.json')] = octets.js(item_model(m, templates))
+        files[os.path.join(root, 'items', m['id'] + '.json')] = octets.js(item_definition(m))
     files[JAVA_LIST] = java_list(mats).encode('utf-8')
     files.update(data_files(mats))
     for lang in ('en_us', 'de_de'):

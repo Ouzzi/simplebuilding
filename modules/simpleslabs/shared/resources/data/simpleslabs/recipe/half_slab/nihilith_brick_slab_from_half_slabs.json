@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:nihilith_brick_half_slab",
+    "simpleslabs:nihilith_brick_half_slab",
+    "simpleslabs:nihilith_brick_half_slab",
+    "simpleslabs:nihilith_brick_half_slab"
+  ],
+  "result": {
+    "id": "simplebuilding:nihilith_brick_slab"
+  }
+}

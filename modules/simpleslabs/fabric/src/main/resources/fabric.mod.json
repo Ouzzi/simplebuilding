@@ -3,7 +3,7 @@
   "id": "simpleslabs",
   "version": "${version}",
   "name": "Simple Slabs",
-  "description": "Simple Slabs module.",
+  "description": "Half slabs (2 pixels) of every block with a slab: stack them freely in the eight layers of a cell, lean them against a wall as side half slab or side slab. Sand and gravel half slabs fall, grass takes the biome colour, copper ages.",
   "authors": [
     "Ouzzi"
   ],
@@ -18,6 +18,9 @@
     "main": [
       "com.simplebuilding.modules.simpleslabs.SlabsFabric"
     ],
+    "client": [
+      "com.simplebuilding.modules.simpleslabs.SlabsFabricClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpleslabs.ModuleGameTest"
     ]
@@ -31,6 +34,12 @@
   },
   "icon": "assets/simpleslabs/icon.png",
   "suggests": {
-    "simplebuilding": "*"
+    "simplebuilding": "*",
+    "simpleblocks": "*",
+    "simpleend": "*",
+    "simpleores": "*",
+    "simpleenchanting": "*",
+    "simplechess": "*",
+    "jei": "*"
   }
 }

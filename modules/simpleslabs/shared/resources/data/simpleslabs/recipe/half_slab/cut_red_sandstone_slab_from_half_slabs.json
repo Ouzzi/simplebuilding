@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:cut_red_sandstone_half_slab",
+    "simpleslabs:cut_red_sandstone_half_slab",
+    "simpleslabs:cut_red_sandstone_half_slab",
+    "simpleslabs:cut_red_sandstone_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:cut_red_sandstone_slab"
+  }
+}

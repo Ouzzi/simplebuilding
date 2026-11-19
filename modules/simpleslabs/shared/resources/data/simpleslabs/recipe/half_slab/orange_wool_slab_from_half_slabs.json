@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:orange_wool_half_slab",
+    "simpleslabs:orange_wool_half_slab",
+    "simpleslabs:orange_wool_half_slab",
+    "simpleslabs:orange_wool_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:orange_wool_slab"
+  }
+}

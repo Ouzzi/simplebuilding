@@ -5,6 +5,7 @@ import com.simpleoctets.block.MaterialOctetBlock;
 import com.simpleoctets.block.MixedOctetBlock;
 import com.simpleoctets.block.MixedOctetBlockEntity;
 import com.simpleoctets.item.MaterialOctetItem;
+import com.simplelib.api.shape.ShapeMaterials;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,21 +52,9 @@ public final class OctetRegistry {
     public static final String SIMPLE_ENCHANTING = "simpleenchanting";
     private static final Set<String> END_WOODS = Set.of("ashwood", "duskwood");
     private static final Set<String> BLAZEWOODS = Set.of("crimson_blazewood", "warped_blazewood");
-    /** Simple Ores' full blocks that copy the gold block (OresRegistry), and the Netherite-like ones (fire resistant items). */
-    private static final Set<String> FULL_GOLD_ORES = Set.of("rose_gold_block", "rose_bronze_block");
-    private static final Set<String> FIRE_RESISTANT_ORES = Set.of("enderite_block", "terranite_block", "infernite_block", "zenithite_block");
+    /** The Netherite-like metals of Simple Ores (fire resistant items); the property rules live in SimpleLib's ShapeMaterials (N86-4). */
+    private static final Set<String> FIRE_RESISTANT_ORES = ShapeMaterials.FIRE_RESISTANT_ORES;
 
-    /** Vanilla template of another mod's block whose properties that mod copies (Simple Blocks, BlocksRegistry). */
-    private static final Map<String, Block> TEMPLATES = Map.ofEntries(Map.entry("blue_nether_bricks", Blocks.RED_NETHER_BRICKS),
-            Map.entry("hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES), Map.entry("sculk_tiles", Blocks.DEEPSLATE_TILES),
-            Map.entry("polished_end_stone", Blocks.END_STONE),
-            // The mossy bricks (a-palette05): the brick they age.
-            Map.entry("mossy_deepslate_bricks", Blocks.DEEPSLATE_BRICKS), Map.entry("mossy_deepslate_tiles", Blocks.DEEPSLATE_TILES),
-            Map.entry("mossy_tuff_bricks", Blocks.TUFF_BRICKS), Map.entry("mossy_mud_bricks", Blocks.MUD_BRICKS),
-            Map.entry("mossy_end_stone_bricks", Blocks.END_STONE_BRICKS), Map.entry("mossy_cinnabar_bricks", Blocks.CINNABAR_BRICKS),
-            Map.entry("mossy_sulfur_bricks", Blocks.SULFUR_BRICKS),
-            // The ice bricks (a-icebricks38): their ice - as slippery, glass sound; like the ice octets they do not melt.
-            Map.entry("ice_bricks", Blocks.ICE), Map.entry("packed_ice_bricks", Blocks.PACKED_ICE), Map.entry("blue_ice_bricks", Blocks.BLUE_ICE));
     /** Octets stack to the engine maximum (owner N18: "128"; item stacks are saved with at most 99). */
     public static final int MAX_STACK = 99;
 
@@ -101,19 +90,11 @@ public final class OctetRegistry {
         for (String wood : activeWoods()) {
             String name = wood + "_octet";
             Identifier planksId = Identifier.fromNamespaceAndPath(woodNamespace(wood), wood + "_planks");
-            if (BLAZEWOODS.contains(wood)) {
-                // Blazewood planks (Simple Enchanting, with SimpleBuilding its planks): Vanilla's crimson/warped planks as the
-                // template (Nether wood, does not burn), the source read late.
-                Block template = wood.startsWith("crimson") ? Blocks.CRIMSON_PLANKS : Blocks.WARPED_PLANKS;
-                WOOD_OCTETS.add(block(name, template, s -> new MaterialOctetBlock(() -> BuiltInRegistries.BLOCK.getValue(planksId),
-                        piece(name), properties(s, template))));
-                continue;
-            }
             if (!"minecraft".equals(planksId.getNamespace())) {
-                // Simple End planks: properties of oak planks (Simple End's own may not be registered yet), source read late.
-                MapColor color = "ashwood".equals(wood) ? MapColor.COLOR_LIGHT_GRAY : MapColor.TERRACOTTA_LIGHT_GRAY;
-                WOOD_OCTETS.add(block(name, Blocks.OAK_PLANKS, s -> new MaterialOctetBlock(() -> BuiltInRegistries.BLOCK.getValue(planksId),
-                        piece(name), properties(s.mapColor(color).lightLevel(state -> 0)))));
+                // Simple End / Simple Enchanting planks: a fixed template (SimpleLib ShapeMaterials), the source read late.
+                ShapeMaterials.Template t = ShapeMaterials.template(planksId.getNamespace(), planksId.getPath());
+                WOOD_OCTETS.add(block(name, t.block(), s -> new MaterialOctetBlock(() -> BuiltInRegistries.BLOCK.getValue(planksId),
+                        piece(name), properties(t.pin().apply(s)))));
                 continue;
             }
             Block planks = BuiltInRegistries.BLOCK.getOptional(planksId).orElse(null);
@@ -130,7 +111,19 @@ public final class OctetRegistry {
         }
         MIXED_OCTET = block("mixed_octet", null, unused -> new MixedOctetBlock(BlockBehaviour.Properties.of().setId(key("mixed_octet"))
                 .mapColor(MapColor.STONE).strength(0.8F).sound(SoundType.STONE).noLootTable().isValidSpawn((state, world, pos, type) -> false)));
-        HalfSlabRegistry.registerBlocks();   // N86-4 (DRAFT): half slabs live in Simple Octets
+        linkCopperAging();
+    }
+
+    /**
+     * N86-7 (owner 18.11.): unwaxed copper octets age like Vanilla copper (exposed, weathered, oxidized), the waxed ones keep
+     * their look; honeycomb and axe work on them. SimpleLib's CopperAging links the registered cells into aging chains.
+     */
+    private static void linkCopperAging() {
+        Map<String, Block> byPath = new java.util.LinkedHashMap<>();
+        for (Block cell : MATERIAL_OCTETS) {
+            if ("copper".equals(GROUPS.get(cell))) byPath.put(BuiltInRegistries.BLOCK.getKey(cell).getPath(), cell);
+        }
+        com.simplelib.api.aging.CopperAging.link(SimpleOctets.MOD_ID, byPath);
     }
 
     private static @Nullable Block materialCell(OctetMaterials.Material material) {
@@ -140,40 +133,8 @@ public final class OctetRegistry {
             // Another mod's block: only with that mod; a fixed template, the source read when used.
             if (!SimpleOctets.isLoaded(material.namespace())) return null;
             Supplier<Block> source = () -> BuiltInRegistries.BLOCK.getValue(sourceId);
-            if (SIMPLE_END.equals(material.namespace())) {
-                boolean stripped = material.base().startsWith("stripped_");
-                boolean ash = material.base().contains("ashwood");
-                MapColor color = ash ? (stripped ? MapColor.COLOR_LIGHT_GRAY : MapColor.COLOR_GRAY)
-                        : (stripped ? MapColor.TERRACOTTA_LIGHT_GRAY : MapColor.TERRACOTTA_GRAY);
-                return block(name, stripped ? Blocks.STRIPPED_OAK_LOG : Blocks.OAK_LOG, s -> new MaterialOctetBlock(source, piece(name),
-                        properties(s.mapColor(color).lightLevel(state -> 0))));
-            }
-            if ("simpleores".equals(material.namespace())) {
-                // Block of lead (owner ORES31-BEXTRA): iron-like cell as sturdy as the lead block; it muffles sound like a whole block (simpleores:soundproofing).
-                if (material.base().contains("lead")) {
-                    return block(name, Blocks.IRON_BLOCK, s -> new MaterialOctetBlock(source, piece(name), properties(s.strength(25.0F, 1000.0F), Blocks.IRON_BLOCK)));
-                }
-                // Cut metal blocks (b-metals14, octet rule): as hard as their block - silver copies gold, the others iron.
-                // PLAN40 simpleoctets-1: the full blocks copy what OresRegistry copies - silver and both rose alloys gold,
-                // Enderite and the rift metals Netherite (fire resistant), every other metal iron.
-                Block metal = material.base().contains("silver") || FULL_GOLD_ORES.contains(material.base()) ? Blocks.GOLD_BLOCK
-                        : FIRE_RESISTANT_ORES.contains(material.base()) ? Blocks.NETHERITE_BLOCK : Blocks.IRON_BLOCK;
-                return block(name, metal, s -> new MaterialOctetBlock(source, piece(name), properties(s, metal)));
-            }
-            Block template = TEMPLATES.get(material.base());
-            if (template != null) {
-                // Simple Blocks (blue nether bricks, hushed deepslate tiles): the Vanilla block it copies itself.
-                return block(name, template, s -> new MaterialOctetBlock(source, piece(name), properties(s, template)));
-            }
-            // SimpleBuilding's palettes (Astralit, Nihilith, Ender Quartz): End stone like the astral/nihil End stone they
-            // are made of, the three purpur blocks Purpur like theirs (PLAN40 simpleoctets-2: they sounded like End stone); every
-            // astral block glows like it (light 10: Astralit and the astral End stone and purpur), the Ender ones are purple.
-            String base = material.base();
-            Block palette = base.endsWith("_purpur_block") ? Blocks.PURPUR_BLOCK : Blocks.END_STONE;
-            int light = base.contains("astralit") || base.startsWith("astral_") ? 10 : 0;
-            MapColor color = base.contains("ender_quartz") || base.startsWith("ender_") ? MapColor.COLOR_PURPLE : palette.defaultMapColor();
-            return block(name, palette, s -> new MaterialOctetBlock(source, piece(name),
-                    properties(s.mapColor(color).lightLevel(state -> light))));
+            ShapeMaterials.Template t = ShapeMaterials.template(material.namespace(), material.base());
+            return block(name, t.block(), s -> new MaterialOctetBlock(source, piece(name), properties(t.pin().apply(s))));
         }
         Block source = BuiltInRegistries.BLOCK.getOptional(sourceId).orElse(null);
         if (source == null) return null;
@@ -194,7 +155,6 @@ public final class OctetRegistry {
             MATERIAL_OCTET_ITEMS.add(item(name, s -> new MaterialOctetItem(() -> cell,
                     netherite ? s.stacksTo(MAX_STACK).rarity(Rarity.UNCOMMON).fireResistant() : s.stacksTo(MAX_STACK))));
         }
-        HalfSlabRegistry.registerItems();   // N86 (DRAFT)
     }
 
     public static void registerBlockEntity(BlockEntityType<MixedOctetBlockEntity> type) {
@@ -203,15 +163,13 @@ public final class OctetRegistry {
 
     /** Wood octets burn like their planks (not Nether wood), wool like wool, logs like logs. */
     public static void registerFlammability() {
-        var fire = (com.simpleoctets.mixin.FireBlockAccessor) Blocks.FIRE;
         for (Block cell : WOOD_OCTETS) {
-            if (cell.defaultBlockState().ignitedByLava()) fire.simpleoctets$setFlammable(cell, 5, 20);
+            if (cell.defaultBlockState().ignitedByLava()) ShapeMaterials.setFlammable(cell, 5, 20);
         }
         for (Block cell : MATERIAL_OCTETS) {
-            if ("wool".equals(GROUPS.get(cell))) fire.simpleoctets$setFlammable(cell, 30, 60);
-            if ("log".equals(GROUPS.get(cell)) && cell.defaultBlockState().ignitedByLava()) fire.simpleoctets$setFlammable(cell, 5, 5);
+            if ("wool".equals(GROUPS.get(cell))) ShapeMaterials.setFlammable(cell, 30, 60);
+            if ("log".equals(GROUPS.get(cell)) && cell.defaultBlockState().ignitedByLava()) ShapeMaterials.setFlammable(cell, 5, 5);
         }
-        HalfSlabRegistry.registerFlammability();   // N86 (DRAFT)
     }
 
     /** The material octets of one group of {@link OctetMaterials#GROUPS}, in list order. */
@@ -256,7 +214,6 @@ public final class OctetRegistry {
             }
         }
         out.addAll(polishedEndStoneShapes());
-        out.addAll(HalfSlabRegistry.tabStacks());   // N86 (DRAFT): behind the octets (plan 3.5)
         return out;
     }
 
@@ -283,8 +240,7 @@ public final class OctetRegistry {
      * the map colour, lit in the light level) would throw: pin both to the source's default state.
      */
     private static BlockBehaviour.Properties properties(BlockBehaviour.Properties s, Block source) {
-        int light = source.defaultBlockState().getLightEmission();
-        return properties(s.mapColor(source.defaultMapColor()).lightLevel(state -> light));
+        return properties(ShapeMaterials.pin(s, source));
     }
 
     private static BlockBehaviour.Properties properties(BlockBehaviour.Properties s) {

@@ -141,4 +141,9 @@ public final class ModuleGameTest {
     public void discoverFirstPickupTips(GameTestHelper h) {
         OctetTests.ALL.get("discover_first_pickup_tips").accept(h);
     }
+
+    @GameTest(structure = "simpleoctets:empty")
+    public void unwaxedCopperOctetsAge(GameTestHelper h) {
+        OctetTests.ALL.get("unwaxed_copper_octets_age").accept(h);
+    }
 }

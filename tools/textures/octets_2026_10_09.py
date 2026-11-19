@@ -554,8 +554,6 @@ def data_files(mats):
         if tool:
             tags[tool].append(octet if ns == 'minecraft' else {'id': octet, 'required': False})
     tags['axe'].append(f'{NS}:melon_octet')
-    for tool in tags:
-        tags[tool].append(half_slab_tag_ref(f'mineable/{tool}'))
     # Recipes (and their advancements) the generator no longer writes, e.g. a stonecutter fallback that cannot apply.
     for sub in ('recipe', os.path.join('advancement', 'recipes', 'building_blocks')):
         folder = os.path.join(DATA, NS, sub)
@@ -569,18 +567,8 @@ def data_files(mats):
     damp = [f'{NS}:{m["key"]}_octet' if m['ns'] == 'minecraft' else {'id': f'{NS}:{m["key"]}_octet', 'required': False}
             for m in mats if m['group'] == 'wool' or (m['ns'], m['base']) in VIBRATION_DAMPENING]
     for tag in ('occludes_vibration_signals', 'dampens_vibrations'):
-        d(f'minecraft/tags/block/{tag}.json', {'values': damp + [half_slab_tag_ref(tag)]})
+        d(f'minecraft/tags/block/{tag}.json', {'values': damp})
     return files
-
-
-# N86 half slabs (tools/textures/half_slabs_2026_11_17.py, DRAFT): this generator owns the Vanilla tag files of the module, so
-# it references the half slabs' own tags (simpleoctets:half_slab/<vanilla tag path>) - optional, so they may be absent.
-HALF_SLAB_TAG_REFS = ('mineable/axe', 'mineable/pickaxe', 'occludes_vibration_signals', 'dampens_vibrations')
-
-
-def half_slab_tag_ref(path):
-    assert path in HALF_SLAB_TAG_REFS, path
-    return {'id': f'#{NS}:half_slab/{path}', 'required': False}
 
 
 # Blocks of other mods that dampen vibrations like wool; their octets get the two Vanilla tags as well (wool: group 'wool').

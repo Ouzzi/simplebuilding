@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:dark_prismarine_half_slab",
+    "simpleslabs:dark_prismarine_half_slab",
+    "simpleslabs:dark_prismarine_half_slab",
+    "simpleslabs:dark_prismarine_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:dark_prismarine_slab"
+  }
+}

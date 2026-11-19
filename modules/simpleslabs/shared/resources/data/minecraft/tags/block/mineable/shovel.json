@@ -1,0 +1,44 @@
+{
+  "values": [
+    {
+      "id": "simpleslabs:dirt_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:dirt_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:grass_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:grass_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:gravel_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:gravel_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:red_sand_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:red_sand_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:sand_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:sand_side_half_slab",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,758 @@
+{
+  "values": [
+    "simpleslabs:acacia_half_slab",
+    "simpleslabs:acacia_side_half_slab",
+    {
+      "id": "simpleslabs:ashwood_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ashwood_side_half_slab",
+      "required": false
+    },
+    "simpleslabs:bamboo_half_slab",
+    "simpleslabs:bamboo_side_half_slab",
+    "simpleslabs:bamboo_mosaic_half_slab",
+    "simpleslabs:bamboo_mosaic_side_half_slab",
+    "simpleslabs:birch_half_slab",
+    "simpleslabs:birch_side_half_slab",
+    "simpleslabs:cherry_half_slab",
+    "simpleslabs:cherry_side_half_slab",
+    {
+      "id": "simpleslabs:crimson_blazewood_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:crimson_blazewood_side_half_slab",
+      "required": false
+    },
+    "simpleslabs:crimson_half_slab",
+    "simpleslabs:crimson_side_half_slab",
+    "simpleslabs:dark_oak_half_slab",
+    "simpleslabs:dark_oak_side_half_slab",
+    {
+      "id": "simpleslabs:duskwood_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:duskwood_side_half_slab",
+      "required": false
+    },
+    "simpleslabs:jungle_half_slab",
+    "simpleslabs:jungle_side_half_slab",
+    "simpleslabs:mangrove_half_slab",
+    "simpleslabs:mangrove_side_half_slab",
+    "simpleslabs:oak_half_slab",
+    "simpleslabs:oak_side_half_slab",
+    "simpleslabs:pale_oak_half_slab",
+    "simpleslabs:pale_oak_side_half_slab",
+    "simpleslabs:poplar_half_slab",
+    "simpleslabs:poplar_side_half_slab",
+    "simpleslabs:spruce_half_slab",
+    "simpleslabs:spruce_side_half_slab",
+    {
+      "id": "simpleslabs:warped_blazewood_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:warped_blazewood_side_half_slab",
+      "required": false
+    },
+    "simpleslabs:warped_half_slab",
+    "simpleslabs:warped_side_half_slab",
+    "simpleslabs:andesite_half_slab",
+    "simpleslabs:andesite_side_half_slab",
+    "simpleslabs:cobblestone_half_slab",
+    "simpleslabs:cobblestone_side_half_slab",
+    "simpleslabs:diorite_half_slab",
+    "simpleslabs:diorite_side_half_slab",
+    "simpleslabs:granite_half_slab",
+    "simpleslabs:granite_side_half_slab",
+    "simpleslabs:mossy_cobblestone_half_slab",
+    "simpleslabs:mossy_cobblestone_side_half_slab",
+    "simpleslabs:polished_andesite_half_slab",
+    "simpleslabs:polished_andesite_side_half_slab",
+    "simpleslabs:polished_diorite_half_slab",
+    "simpleslabs:polished_diorite_side_half_slab",
+    "simpleslabs:polished_granite_half_slab",
+    "simpleslabs:polished_granite_side_half_slab",
+    "simpleslabs:smooth_stone_half_slab",
+    "simpleslabs:smooth_stone_side_half_slab",
+    "simpleslabs:stone_half_slab",
+    "simpleslabs:stone_side_half_slab",
+    "simpleslabs:cut_red_sandstone_half_slab",
+    "simpleslabs:cut_red_sandstone_side_half_slab",
+    "simpleslabs:cut_sandstone_half_slab",
+    "simpleslabs:cut_sandstone_side_half_slab",
+    "simpleslabs:red_sandstone_half_slab",
+    "simpleslabs:red_sandstone_side_half_slab",
+    "simpleslabs:sandstone_half_slab",
+    "simpleslabs:sandstone_side_half_slab",
+    "simpleslabs:smooth_red_sandstone_half_slab",
+    "simpleslabs:smooth_red_sandstone_side_half_slab",
+    "simpleslabs:smooth_sandstone_half_slab",
+    "simpleslabs:smooth_sandstone_side_half_slab",
+    "simpleslabs:brick_half_slab",
+    "simpleslabs:brick_side_half_slab",
+    "simpleslabs:cinnabar_brick_half_slab",
+    "simpleslabs:cinnabar_brick_side_half_slab",
+    "simpleslabs:end_stone_brick_half_slab",
+    "simpleslabs:end_stone_brick_side_half_slab",
+    "simpleslabs:mossy_stone_brick_half_slab",
+    "simpleslabs:mossy_stone_brick_side_half_slab",
+    "simpleslabs:mud_brick_half_slab",
+    "simpleslabs:mud_brick_side_half_slab",
+    "simpleslabs:nether_brick_half_slab",
+    "simpleslabs:nether_brick_side_half_slab",
+    "simpleslabs:red_nether_brick_half_slab",
+    "simpleslabs:red_nether_brick_side_half_slab",
+    "simpleslabs:resin_brick_half_slab",
+    "simpleslabs:resin_brick_side_half_slab",
+    "simpleslabs:stone_brick_half_slab",
+    "simpleslabs:stone_brick_side_half_slab",
+    "simpleslabs:sulfur_brick_half_slab",
+    "simpleslabs:sulfur_brick_side_half_slab",
+    "simpleslabs:blackstone_half_slab",
+    "simpleslabs:blackstone_side_half_slab",
+    "simpleslabs:cobbled_deepslate_half_slab",
+    "simpleslabs:cobbled_deepslate_side_half_slab",
+    "simpleslabs:deepslate_brick_half_slab",
+    "simpleslabs:deepslate_brick_side_half_slab",
+    "simpleslabs:deepslate_tile_half_slab",
+    "simpleslabs:deepslate_tile_side_half_slab",
+    "simpleslabs:polished_blackstone_brick_half_slab",
+    "simpleslabs:polished_blackstone_brick_side_half_slab",
+    "simpleslabs:polished_blackstone_half_slab",
+    "simpleslabs:polished_blackstone_side_half_slab",
+    "simpleslabs:polished_deepslate_half_slab",
+    "simpleslabs:polished_deepslate_side_half_slab",
+    "simpleslabs:polished_tuff_half_slab",
+    "simpleslabs:polished_tuff_side_half_slab",
+    "simpleslabs:tuff_brick_half_slab",
+    "simpleslabs:tuff_brick_side_half_slab",
+    "simpleslabs:tuff_half_slab",
+    "simpleslabs:tuff_side_half_slab",
+    "simpleslabs:dark_prismarine_half_slab",
+    "simpleslabs:dark_prismarine_side_half_slab",
+    "simpleslabs:prismarine_brick_half_slab",
+    "simpleslabs:prismarine_brick_side_half_slab",
+    "simpleslabs:prismarine_half_slab",
+    "simpleslabs:prismarine_side_half_slab",
+    "simpleslabs:purpur_half_slab",
+    "simpleslabs:purpur_side_half_slab",
+    "simpleslabs:quartz_half_slab",
+    "simpleslabs:quartz_side_half_slab",
+    "simpleslabs:smooth_quartz_half_slab",
+    "simpleslabs:smooth_quartz_side_half_slab",
+    "simpleslabs:cut_copper_half_slab",
+    "simpleslabs:cut_copper_side_half_slab",
+    "simpleslabs:exposed_cut_copper_half_slab",
+    "simpleslabs:exposed_cut_copper_side_half_slab",
+    "simpleslabs:oxidized_cut_copper_half_slab",
+    "simpleslabs:oxidized_cut_copper_side_half_slab",
+    "simpleslabs:waxed_cut_copper_half_slab",
+    "simpleslabs:waxed_cut_copper_side_half_slab",
+    "simpleslabs:waxed_exposed_cut_copper_half_slab",
+    "simpleslabs:waxed_exposed_cut_copper_side_half_slab",
+    "simpleslabs:waxed_oxidized_cut_copper_half_slab",
+    "simpleslabs:waxed_oxidized_cut_copper_side_half_slab",
+    "simpleslabs:waxed_weathered_cut_copper_half_slab",
+    "simpleslabs:waxed_weathered_cut_copper_side_half_slab",
+    "simpleslabs:weathered_cut_copper_half_slab",
+    "simpleslabs:weathered_cut_copper_side_half_slab",
+    "simpleslabs:black_wool_half_slab",
+    "simpleslabs:black_wool_side_half_slab",
+    "simpleslabs:blue_wool_half_slab",
+    "simpleslabs:blue_wool_side_half_slab",
+    "simpleslabs:brown_wool_half_slab",
+    "simpleslabs:brown_wool_side_half_slab",
+    "simpleslabs:cyan_wool_half_slab",
+    "simpleslabs:cyan_wool_side_half_slab",
+    "simpleslabs:gray_wool_half_slab",
+    "simpleslabs:gray_wool_side_half_slab",
+    "simpleslabs:green_wool_half_slab",
+    "simpleslabs:green_wool_side_half_slab",
+    "simpleslabs:light_blue_wool_half_slab",
+    "simpleslabs:light_blue_wool_side_half_slab",
+    "simpleslabs:light_gray_wool_half_slab",
+    "simpleslabs:light_gray_wool_side_half_slab",
+    "simpleslabs:lime_wool_half_slab",
+    "simpleslabs:lime_wool_side_half_slab",
+    "simpleslabs:magenta_wool_half_slab",
+    "simpleslabs:magenta_wool_side_half_slab",
+    "simpleslabs:orange_wool_half_slab",
+    "simpleslabs:orange_wool_side_half_slab",
+    "simpleslabs:pink_wool_half_slab",
+    "simpleslabs:pink_wool_side_half_slab",
+    "simpleslabs:purple_wool_half_slab",
+    "simpleslabs:purple_wool_side_half_slab",
+    "simpleslabs:red_wool_half_slab",
+    "simpleslabs:red_wool_side_half_slab",
+    "simpleslabs:white_wool_half_slab",
+    "simpleslabs:white_wool_side_half_slab",
+    "simpleslabs:yellow_wool_half_slab",
+    "simpleslabs:yellow_wool_side_half_slab",
+    "simpleslabs:black_concrete_half_slab",
+    "simpleslabs:black_concrete_side_half_slab",
+    "simpleslabs:blue_concrete_half_slab",
+    "simpleslabs:blue_concrete_side_half_slab",
+    "simpleslabs:brown_concrete_half_slab",
+    "simpleslabs:brown_concrete_side_half_slab",
+    "simpleslabs:cyan_concrete_half_slab",
+    "simpleslabs:cyan_concrete_side_half_slab",
+    "simpleslabs:gray_concrete_half_slab",
+    "simpleslabs:gray_concrete_side_half_slab",
+    "simpleslabs:green_concrete_half_slab",
+    "simpleslabs:green_concrete_side_half_slab",
+    "simpleslabs:light_blue_concrete_half_slab",
+    "simpleslabs:light_blue_concrete_side_half_slab",
+    "simpleslabs:light_gray_concrete_half_slab",
+    "simpleslabs:light_gray_concrete_side_half_slab",
+    "simpleslabs:lime_concrete_half_slab",
+    "simpleslabs:lime_concrete_side_half_slab",
+    "simpleslabs:magenta_concrete_half_slab",
+    "simpleslabs:magenta_concrete_side_half_slab",
+    "simpleslabs:orange_concrete_half_slab",
+    "simpleslabs:orange_concrete_side_half_slab",
+    "simpleslabs:pink_concrete_half_slab",
+    "simpleslabs:pink_concrete_side_half_slab",
+    "simpleslabs:purple_concrete_half_slab",
+    "simpleslabs:purple_concrete_side_half_slab",
+    "simpleslabs:red_concrete_half_slab",
+    "simpleslabs:red_concrete_side_half_slab",
+    "simpleslabs:white_concrete_half_slab",
+    "simpleslabs:white_concrete_side_half_slab",
+    "simpleslabs:yellow_concrete_half_slab",
+    "simpleslabs:yellow_concrete_side_half_slab",
+    {
+      "id": "simpleslabs:astral_end_stone_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astral_end_stone_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astral_purpur_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astral_purpur_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astralit_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astralit_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astralit_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astralit_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astralit_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:astralit_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blackstone_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blackstone_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blue_ice_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blue_ice_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blue_ice_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blue_ice_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blue_nether_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:blue_nether_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:calcite_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:calcite_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_brass_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_brass_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_bronze_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_bronze_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_gold_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_gold_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_iron_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_iron_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_lead_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_lead_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_nickel_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_nickel_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_rose_bronze_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_rose_bronze_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_rose_gold_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_rose_gold_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_silver_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_silver_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_stainless_steel_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_stainless_steel_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_tin_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_tin_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_zinc_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:cut_zinc_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:dirt_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:dirt_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:end_stone_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:end_stone_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_end_stone_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_end_stone_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_purpur_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_purpur_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_quartz_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_quartz_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_quartz_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ender_quartz_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:grass_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:grass_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:gravel_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:gravel_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:hushed_deepslate_tile_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:hushed_deepslate_tile_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ice_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ice_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ice_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:ice_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:lapis_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:lapis_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_cinnabar_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_cinnabar_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_deepslate_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_deepslate_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_deepslate_tile_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_deepslate_tile_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_end_stone_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_end_stone_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_mud_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_mud_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_sulfur_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_sulfur_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_tuff_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:mossy_tuff_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nether_brick_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nether_brick_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:netherrack_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:netherrack_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihil_end_stone_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihil_end_stone_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihil_purpur_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihil_purpur_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihilith_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihilith_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihilith_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihilith_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihilith_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:nihilith_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:packed_ice_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:packed_ice_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:packed_ice_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:packed_ice_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_astralit_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_astralit_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_astralit_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_astralit_side_half_slab",
+      "required": false
+    },
+    "simpleslabs:polished_end_stone_half_slab",
+    "simpleslabs:polished_end_stone_side_half_slab",
+    {
+      "id": "simpleslabs:polished_ender_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_ender_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_ender_quartz_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_ender_quartz_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_nihilith_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_nihilith_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_nihilith_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:polished_nihilith_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:purpur_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:purpur_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:quartz_brick_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:quartz_brick_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:red_nether_brick_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:red_nether_brick_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:red_sand_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:red_sand_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:resin_quartz_checker_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:resin_quartz_checker_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:sand_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:sand_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:sculk_tile_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:sculk_tile_side_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:smooth_basalt_half_slab",
+      "required": false
+    },
+    {
+      "id": "simpleslabs:smooth_basalt_side_half_slab",
+      "required": false
+    },
+    "simpleslabs:cinnabar_half_slab",
+    "simpleslabs:cinnabar_side_half_slab",
+    "simpleslabs:polished_cinnabar_half_slab",
+    "simpleslabs:polished_cinnabar_side_half_slab",
+    "simpleslabs:polished_sulfur_half_slab",
+    "simpleslabs:polished_sulfur_side_half_slab",
+    "simpleslabs:sulfur_half_slab",
+    "simpleslabs:sulfur_side_half_slab"
+  ]
+}

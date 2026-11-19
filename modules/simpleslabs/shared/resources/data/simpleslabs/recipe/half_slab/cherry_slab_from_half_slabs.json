@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:cherry_half_slab",
+    "simpleslabs:cherry_half_slab",
+    "simpleslabs:cherry_half_slab",
+    "simpleslabs:cherry_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:cherry_slab"
+  }
+}

@@ -62,8 +62,11 @@ public final class Aging {
         for (int i = 0; i < chain.waxed().size(); i++) ENTRIES.put(chain.waxed().get(i), new Entry(chain, i, true));
         // Vanilla base blocks (e.g. the pumpkin) do not random-tick: their state caches were built before any mod, so the
         // flag is set on the cached states. Own stages carry randomTicks() in their properties.
-        for (BlockState state : chain.base().getStateDefinition().getPossibleStates()) {
-            if (!state.isRandomlyTicking()) ((com.simplelib.mixin.AgingTickAccessor) (Object) state).simplelib$setRandomlyTicking(true);
+        // Adopted chains (N86-7) may hold registered stages without randomTicks(): every stage that still ages ticks.
+        for (int i = 0; i < chain.endStage(); i++) {
+            for (BlockState state : chain.stages().get(i).getStateDefinition().getPossibleStates()) {
+                if (!state.isRandomlyTicking()) ((com.simplelib.mixin.AgingTickAccessor) (Object) state).simplelib$setRandomlyTicking(true);
+            }
         }
     }
 

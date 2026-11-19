@@ -128,9 +128,6 @@ for tool in ('axe', 'pickaxe'):
     values = json.loads((RES / f'data/minecraft/tags/block/mineable/{tool}.json').read_text(encoding='utf-8'))['values']
     for v in values:
         vid = v if isinstance(v, str) else v['id']
-        if vid == f'#{NS}:half_slab/mineable/{tool}':   # N86: the half slabs' own tool tag (optional reference)
-            assert isinstance(v, dict) and v['required'] is False, ('optional half slab tag reference', tool)
-            continue
         assert vid.split(':')[1] in cells + ['melon_octet'], ('tag entry', tool, vid)
         if vid.split(':')[1] in foreign:
             assert isinstance(v, dict) and v['required'] is False, ('optional tag entry', vid)

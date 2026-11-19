@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:purpur_half_slab",
+    "simpleslabs:purpur_half_slab",
+    "simpleslabs:purpur_half_slab",
+    "simpleslabs:purpur_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:purpur_slab"
+  }
+}

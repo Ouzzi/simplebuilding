@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:weathered_cut_copper_half_slab",
+    "simpleslabs:weathered_cut_copper_half_slab",
+    "simpleslabs:weathered_cut_copper_half_slab",
+    "simpleslabs:weathered_cut_copper_half_slab"
+  ],
+  "result": {
+    "id": "minecraft:weathered_cut_copper_slab"
+  }
+}

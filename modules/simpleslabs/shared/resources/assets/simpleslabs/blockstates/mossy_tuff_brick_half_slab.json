@@ -1,0 +1,68 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "l0": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_0"
+      }
+    },
+    {
+      "when": {
+        "l1": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_1"
+      }
+    },
+    {
+      "when": {
+        "l2": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_2"
+      }
+    },
+    {
+      "when": {
+        "l3": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_3"
+      }
+    },
+    {
+      "when": {
+        "l4": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_4"
+      }
+    },
+    {
+      "when": {
+        "l5": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_5"
+      }
+    },
+    {
+      "when": {
+        "l6": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_6"
+      }
+    },
+    {
+      "when": {
+        "l7": "true"
+      },
+      "apply": {
+        "model": "simpleslabs:block/half_slab/mossy_tuff_brick_half_slab_7"
+      }
+    }
+  ]
+}
