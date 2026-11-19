@@ -1,17 +1,20 @@
-# Impressum – Simple Livemap / Simple Mods (ENTWURF)
+# Impressum – Simple Mods (Konto, Abo „Simple Mods Pro“, Simple Livemap) (ENTWURF)
 
-> **ENTWURF – nicht ausliefern.** Stand 12.11.2026. Keine Rechtsberatung. Vor Veröffentlichung von einer Anwältin,
+> **ENTWURF – nicht ausliefern.** Stand 19.11.2026. Keine Rechtsberatung. Vor Veröffentlichung von einer Anwältin,
 > einem Anwalt (IT-Recht) oder einem geprüften Generator prüfen lassen.
 > Absätze mit „**[Anmerkung Entwurf]**“ sind Hinweise an den Besitzer und werden vor der Veröffentlichung entfernt.
 > Alles in ⟦PLATZHALTER: …⟧ muss der Besitzer eintragen oder entscheiden.
 >
-> Geltung: `account.simplemods.de`, `livemap.simplemods.de` und – falls gewünscht – `simplemods.de`
-> (dort ggf. schon ein eigenes Impressum, dann hier angleichen).
-> Das Impressum muss von **jeder Seite** aus mit einem Klick erreichbar sein (Fußzeile; auch im Bestellvorgang).
+> Geltung: `account.simplemods.de` (Konto, Abo „Simple Mods Pro“ mit Bestellvorgang, Kündigungsseite und Frühzugangs-Download-Bereich),
+> `livemap.simplemods.de` und – falls gewünscht – `simplemods.de` (dort ggf. schon ein eigenes Impressum, dann hier angleichen).
+> Das Impressum muss von **jeder Seite** aus mit einem Klick erreichbar sein (Fußzeile; auch im Bestellvorgang und auf der Kündigungsseite `/kuendigen`).
 
 ---
 
 ## Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)
+
+Diese Angaben gelten für die Online-Angebote von Simple Mods: das Konto und das Abo „Simple Mods Pro“ auf `account.simplemods.de`
+sowie den Dienst „Simple Livemap“ auf `livemap.simplemods.de` ⟦PLATZHALTER: ggf. weitere Seiten (z. B. `simplemods.de`, Wiki) ergänzen⟧.
 
 **Anbieter**
 

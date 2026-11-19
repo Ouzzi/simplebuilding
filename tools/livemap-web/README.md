@@ -47,3 +47,28 @@ without query strings (7 days logrotate). Dev stage: `account-dev`/`livemap-dev.
 (`htpasswd -c -B /etc/nginx/smweb-dev.htpasswd <name>`), the mod API stays reachable. Owner steps: CT bigger (N34-7),
 tunnel hostnames in Cloudflare, SMTP account, legal texts (`docs/legal/`, drafts), Stripe account – then prod.
 Known dev limitation: a “by link” map sends `Authorization: Bearer` for its tiles, which conflicts with basic auth on dev.
+
+## Simple Mods Pro – Abo/Stripe (N108, built, OFF until the owner switches it on)
+Plan: `docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md`. One account subscription on `account.simplemods.de` (Basic/Pro/Ultra →
+livemap tier Pro/Max/Ultra + perk early access; catalogue `plans.json`, prices = placeholders from `tiers.json`, server config
+`plans` overrides everything). Pages: `/pro`, `/pro/order` (summary, terms box, voluntary early-start box § 356 Abs. 4/5 BGB,
+button „zahlungspflichtig bestellen“) → Stripe Checkout → `/pro/done`, `/pro/manage` (portal), `/kuendigen` (§ 312k, footer link
+on every page), `/early` (download area, login + perk). Webhook `/api/stripe/webhook` (signed, each event id once; checkout.session.completed,
+customer.subscription.*, invoice.paid, invoice.payment_failed). Tables (migration 2): orders, subscriptions, entitlements,
+stripe_events, cancellations, notices. Yearly = subscription schedule (year price once, then month price, release).
+Tests: `tests/test_billing.py`, `tests/test_stripe_setup.py` (fake Stripe `tests/fake_stripe.py`), `tools/release/test_early_access.py`.
+Pictures: `python3 tests/harness.py --port 8797 --billing-mock` (fake Stripe + local checkout imitation; never an acceptance).
+
+### Deploy steps (A, after the owner's go; nothing here was run)
+1. Merge `b-stripe108` into the dev line; deploy smweb to the **dev** stage as usual (`deploy_livemap_web.sh install|nginx --stage dev`);
+   the DB migrates itself (user_version 2). With billing `enabled: false` everything paying says “coming soon”.
+2. `mkdir -p /srv/early-access-dev/files` (owner smweb), set `early_access.dir` = `/srv/early-access-dev`, `accel_prefix` = `/_early/`
+   in `/etc/simplemods/livemap-web-dev.json`; `legal.*_url` once the texts are approved.
+3. Owner puts the **test** key into the env file on sb-web (`STRIPE_SECRET_KEY=sk_test_…`, mode 600). Then, on sb-web:
+   `python3 tools/livemap-web/stripe_setup.py --env-file <file> --webhook-url https://livemap-dev.simplemods.de/api/stripe/webhook --return-url https://account-dev.simplemods.de/pro/manage --billing-file /etc/simplemods/livemap-billing-dev.json`
+   (dry run, check the list) → same with `--apply`. It writes prices, portal id, webhook secret and `key_file`/`key_var` (never the key).
+4. Billing file: `"enabled": true`, `vat.mode` (small_business | regular), `vat.stripe_tax`, `mails.invoice` (false if Stripe sends
+   receipts itself); restart smweb. Stripe dashboard (test): Tax settings if used, customer e-mails, branding.
+5. Dev click test (owner/A): `/pro` → order → test card 4242… → `/pro/done` → `/pro/manage` → portal → `/kuendigen`; `stripe trigger`
+   or a test clock for renewal/failed payment; check mails in the dev outbox.
+6. Prod only after the lawyer-checked texts: same steps with the live key and `--live`, prod URLs, `enabled: true`.

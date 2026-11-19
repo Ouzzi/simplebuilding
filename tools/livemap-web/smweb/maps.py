@@ -403,6 +403,7 @@ class MapsMixin:
             c.execute("DELETE FROM audit WHERE at < ?", (now - 400 * 86400,))
         for uid in [r[0] for r in self.db.all("SELECT id FROM users")]:
             self.trim_archive(self.user(uid))
+        self.billing_maintenance()
 
     def flags(self) -> list[dict]:
         """Admin list 'auffällige Muster' (spec 3): several accounts of one mailbox or one sign-up address, many place changes."""

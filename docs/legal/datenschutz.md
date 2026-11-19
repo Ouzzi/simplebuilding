@@ -1,10 +1,11 @@
-# Datenschutzerklärung – Simple Livemap und Simple-Mods-Konto (ENTWURF)
+# Datenschutzerklärung – Simple-Mods-Konto, Abo „Simple Mods Pro“ und Simple Livemap (ENTWURF)
 
-> **ENTWURF – nicht ausliefern.** Stand 12.11.2026. Keine Rechtsberatung. Vor Veröffentlichung von einer Anwältin,
+> **ENTWURF – nicht ausliefern.** Stand 19.11.2026. Keine Rechtsberatung. Vor Veröffentlichung von einer Anwältin,
 > einem Anwalt (IT-/Datenschutzrecht) oder einem geprüften Generator prüfen lassen.
 > Absätze mit „**[Anmerkung Entwurf]**“ sind Hinweise an den Besitzer und werden vor der Veröffentlichung entfernt.
 > Alles in ⟦PLATZHALTER: …⟧ muss der Besitzer eintragen oder entscheiden.
-> Die Beschreibung der Verarbeitung folgt der Spezifikation und dem Plan (`PLAN-A-LIVEMAP34-2026-11-12.md`, D1–D22). Sie ist
+> Die Beschreibung der Verarbeitung folgt der Spezifikation und dem Plan (`PLAN-A-LIVEMAP34-2026-11-12.md`, D1–D22), für das Abo
+> „Simple Mods Pro“ dem Plan `PLAN-B-N108-STRIPE-2026-11-19.md` (E2–E11). Sie ist
 > gegen den **gebauten** Dienst abzugleichen, bevor der Text veröffentlicht wird (Liste im README, Abschnitt „Abgleich mit dem Code“).
 
 ---
@@ -26,6 +27,8 @@ Einen Datenschutzbeauftragten haben wir nicht benannt, weil dies nach Art. 37 DS
 Diese Erklärung gilt für
 
 - das zentrale Konto (`account.simplemods.de`),
+- das Konto-Abo „Simple Mods Pro“ (Bestellung, Abo-Verwaltung, Zahlung, Kündigungsseite) und den anmeldepflichtigen
+  Download-Bereich für den Frühzugang, beide auf `account.simplemods.de` (Abschnitt 9),
 - den gehosteten Kartendienst „Simple Livemap“ (`livemap.simplemods.de`) einschließlich der Schnittstelle, über die die
   Minecraft-Mod „Simple Livemap“ Karten-Daten hochlädt,
 - die Karten-Ansicht (Viewer), mit der Karten betrachtet werden.
@@ -53,6 +56,10 @@ die Abschnitte 3 bis 11 erklären die Einzelheiten.
 | Geteilte Konten (Zuordnung Karte ↔ Konto) | Karten teilen | Art. 6 Abs. 1 lit. b | bis Aufhebung der Freigabe/Löschung |
 | Nutzungszahlen (Aufrufe je Tag, aggregiert, ohne IP) | Stufen-Limits, Hinweise | Art. 6 Abs. 1 lit. b, f | ⟦PLATZHALTER: Dauer, z. B. 13 Monate⟧ |
 | Zahlungsdaten (erst nach Bezahlstart, über Stripe) | Abrechnung | Art. 6 Abs. 1 lit. b, c | gesetzliche Fristen (siehe 9) |
+| Bestellung und Abo (erst nach Bezahlstart): Stufe, Laufzeit, Zustimmungen mit Zeitpunkt und Textversion, Abo-Status, Stripe-Kunden- und Abo-Kennung, Freischaltungen | Vertragsschluss, Nachweis der Zustimmungen, Freischaltung der Vorzüge | Art. 6 Abs. 1 lit. b, c | ⟦PLATZHALTER: Dauer, z. B. Vertragsdauer plus Verjährungsfrist; Rechnungsbezug gesetzliche Fristen⟧ |
+| Stripe-Ereignisse: nur Ereignis-Kennung und -Typ | doppelte Verarbeitung verhindern | Art. 6 Abs. 1 lit. b, f | ⟦PLATZHALTER: Dauer, z. B. 90 Tage⟧ |
+| Kündigungen über die Kündigungsseite: E-Mail, Vertrag, Art, ggf. Grund, Zeitpunkt des Eingangs | Kündigung bearbeiten und bestätigen (§ 312k BGB), Nachweis | Art. 6 Abs. 1 lit. b, c, f | ⟦PLATZHALTER: Dauer, z. B. 3 Jahre nach Vertragsende⟧ |
+| Frühzugang: Prüfung der Berechtigung beim Abruf | Zugriff nur für Berechtigte | Art. 6 Abs. 1 lit. b | keine eigene Speicherung je Download; Server-Logs siehe 3.1 |
 
 ## 3. Server-Logs und Cloudflare
 
@@ -107,7 +114,7 @@ Karten-Verbindungen, letzte Belegung eines Karten-Platzes).
 Zur Bestätigung der E-Mail-Adresse und zum Zurücksetzen des Passworts senden wir Ihnen eine E-Mail mit einem Einmal-Link. Die
 Links sind 24 Stunden (Bestätigung) bzw. 1 Stunde (Zurücksetzen) gültig; auf unserem Server speichern wir die zugehörigen
 Token nur als Hash. Für den Versand setzen wir einen E-Mail-Dienstleister ein (Abschnitt 10). Wir versenden derzeit
-ausschließlich solche Konto-E-Mails, keine Newsletter und keine Werbung. ⟦PLATZHALTER: ggf. Hinweis auf weitere Transaktions-Mails (Rechnung, Kündigungsbestätigung) ab Bezahlstart⟧
+ausschließlich solche Konto-E-Mails und – ab Bezahlstart – E-Mails zum Abo (Abschnitt 9.4), keine Newsletter und keine Werbung. ⟦PLATZHALTER: ggf. Hinweis auf weitere Transaktions-Mails (Rechnung, Kündigungsbestätigung) ab Bezahlstart⟧
 
 - Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag) und lit. f (Sicherheit des Kontos).
 
@@ -253,17 +260,74 @@ bereitstellen können. Es gibt keine Werbe- oder Tracking-Cookies und keine Anal
 
 Sie können Cookies in den Browser-Einstellungen löschen oder blockieren; ohne das Sitzungs-Cookie ist keine Anmeldung möglich.
 
-## 9. Zahlung (Stripe) – derzeit nicht aktiv
+## 9. Abo „Simple Mods Pro“, Zahlung (Stripe), Kündigung und Frühzugang – derzeit nicht aktiv
 
-Bezahlen ist derzeit **nicht möglich** („coming soon“); es werden keine Zahlungsdaten erhoben. Sobald kostenpflichtige Stufen
-eingeschaltet sind, wickeln wir Zahlungen über **Stripe** ab. Dann gilt zusätzlich: ⟦PLATZHALTER: diesen Abschnitt erst mit dem Bezahlstart scharf schalten und mit dem tatsächlichen Stripe-Vertrag abgleichen lassen⟧
+*Variante bis zum Bezahlstart:* Bezahlen ist derzeit **nicht möglich** („coming soon“); es werden keine Zahlungsdaten erhoben. Sobald das Abo
+„Simple Mods Pro“ eingeschaltet ist, wickeln wir Zahlungen über **Stripe** ab. Dann gilt zusätzlich: ⟦PLATZHALTER: diesen Abschnitt erst mit dem Bezahlstart scharf schalten und mit dem tatsächlichen Stripe-Vertrag abgleichen lassen⟧
+
+*Variante ab Bezahlstart:* Die Überschrift lautet dann „9. Abo „Simple Mods Pro“, Zahlung (Stripe), Kündigung und Frühzugang“; der vorstehende Absatz entfällt.
+
+### 9.1 Bestellung und Abo (auf unserem Server)
+
+Wenn Sie das Abo bestellen, speichern wir in unserer Datenbank:
+
+- **Bestellungen:** Konto, gewählte Stufe und Laufzeit, Zeitpunkt, Ihre **Zustimmungen** (AGB; freiwillig: vorzeitiger Beginn) jeweils mit
+  **Zeitpunkt und Version des zugestimmten Textes**, Bezug zur Bezahlsitzung bei Stripe.
+- **Abos:** Spiegel des Abos bei Stripe – Stripe-Kundenkennung, Stripe-Abo-Kennung, Stufe, Laufzeit, Status (z. B. aktiv, Zahlung offen, gekündigt),
+  Ende des bezahlten Zeitraums, Kündigung zum Periodenende ja/nein, beim Jahresabo die Kennung des Zahlungsplans.
+- **Freischaltungen (Entitlements):** welche Stufe und welche Vorzüge Ihr Konto hat, ab wann und bis wann, und ob sie aus dem Abo oder von uns
+  manuell gesetzt sind.
+- **Stripe-Ereignisse:** nur die **Kennung und den Typ** jeder von Stripe gemeldeten Nachricht, damit wir sie nicht doppelt verarbeiten; den Inhalt der
+  Nachricht speichern wir dort nicht.
+
+**Zahlungsmittel-Daten** (z. B. Kartennummer, IBAN) speichern wir **nicht**; Sie geben sie direkt bei Stripe ein.
+
+- Zweck: Vertragsschluss und -durchführung, Freischaltung und Herabstufung der Vorzüge, Nachweis der Zustimmungen (§ 356 Abs. 4/5 BGB, § 312j BGB).
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO; für den Nachweis zusätzlich lit. c und f.
+- Speicherdauer: ⟦PLATZHALTER: Bestellungen/Zustimmungen, Abos und Freischaltungen – z. B. bis zum Ende des Vertrags plus Verjährungsfrist (3 Jahre); Stripe-Ereignisse z. B. 90 Tage; gegen das Löschkonzept prüfen⟧.
+  Die Freischaltung von Vorzügen und die Herabstufung nach dem Zahlungs- bzw. Abo-Status erfolgen automatisch; das dient der Vertragserfüllung (siehe Abschnitt 13).
+
+### 9.2 Zahlungsabwicklung durch Stripe
+
+Für die Eingabe der Zahlungsdaten leiten wir Sie auf die Bezahlseite von Stripe („Stripe Checkout“) weiter; Rechnungen, Zahlungsdaten und das Abo können
+Sie im Kundenportal von Stripe verwalten. Auf diesen Seiten gelten zusätzlich die Datenschutzhinweise von Stripe; Stripe kann dort eigene Cookies setzen
+⟦PLATZHALTER: Link auf die Datenschutzhinweise von Stripe⟧.
 
 - **Daten:** Name, E-Mail, Rechnungsadresse, ausgewählte Stufe und Laufzeit, Abo- und Zahlungsstatus, Rechnungsdaten. Zahlungsmittel-Daten (z. B. Kartennummer) gibt der Nutzer direkt bei Stripe ein; wir erhalten sie nicht, sondern nur eine Referenz und den Status.
+  Wir übermitteln an Stripe Ihre E-Mail-Adresse, eine Kennung Ihres Kontos sowie Stufe und Laufzeit.
+- **Steuerberechnung (optional):** Falls wir Stripe Tax einsetzen ⟦PLATZHALTER: Stripe Tax ja/nein⟧, verarbeitet Stripe zusätzlich Ihre Rechnungsadresse (Land) und ggf. Ihre
+  USt-IdNr., um die Umsatzsteuer zu berechnen.
 - **Anbieter:** ⟦PLATZHALTER: Stripe Payments Europe, Ltd., Irland (und Stripe, Inc., USA) – Vertragspartner laut Stripe-Konto⟧. Stripe verarbeitet Zahlungsdaten teils als eigener Verantwortlicher (z. B. Betrugsprävention, gesetzliche Pflichten), teils in unserem Auftrag. ⟦PLATZHALTER: Rollenverteilung anwaltlich bestätigen lassen⟧
 - **Rechtsgrundlage:** Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (steuer- und handelsrechtliche Aufbewahrung).
 - **Aufbewahrung** von Rechnungen und Buchungsbelegen: nach Handels- und Steuerrecht (§ 257 HGB, § 147 AO) ⟦PLATZHALTER: Fristen (6/8/10 Jahre je Unterlage) bestätigen lassen⟧.
 - **Drittland:** Übermittlungen in die USA auf Basis des Data Privacy Framework bzw. Standardvertragsklauseln ⟦PLATZHALTER: prüfen⟧.
-- Die Webhook-Meldungen von Stripe an unseren Server werden auf ihre Signatur geprüft; wir speichern daraus nur den Abo-Status und die Zuordnung zum Konto.
+- Die Webhook-Meldungen von Stripe an unseren Server werden auf ihre Signatur geprüft; wir speichern daraus nur den Abo-Status, die Zuordnung zum Konto und die in 9.1 genannten Angaben.
+
+### 9.3 Kündigungsseite
+
+Über den Link „Verträge hier kündigen“ in der Fußzeile gelangen Sie – auch ohne Anmeldung – zur Kündigungsseite. Dort verarbeiten wir die von Ihnen
+angegebene **E-Mail-Adresse**, den **Vertrag**, die **Art der Kündigung** (ordentlich/außerordentlich), ggf. den **Grund**, den gewünschten Zeitpunkt sowie
+**Datum und Uhrzeit des Eingangs**. Wir gleichen die E-Mail-Adresse mit unseren Konten ab, setzen bei einem zugeordneten Abo die Kündigung bei Stripe um
+und senden die Eingangsbestätigung an die angegebene Adresse **und** an die Adresse des zugehörigen Kontos (damit eine Kündigung durch Unbefugte auffällt).
+Zum Schutz vor Missbrauch gilt eine Ratenbegrenzung wie in Abschnitt 4.4.
+
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. c DSGVO (§ 312k BGB), lit. b (Vertragsbeendigung), lit. f (Nachweis, Missbrauchsschutz).
+- Speicherdauer: ⟦PLATZHALTER: Dauer der Aufbewahrung von Kündigungen festlegen, z. B. 3 Jahre nach Vertragsende (Nachweis)⟧.
+
+### 9.4 E-Mails zum Abo
+
+Zum Abo senden wir Ihnen Transaktions-E-Mails: Vertragsbestätigung, Rechnung bzw. Zahlungseingang ⟦PLATZHALTER: ob wir selbst oder Stripe die Rechnungs-E-Mails versenden⟧,
+Hinweis auf eine fehlgeschlagene Zahlung, Eingangsbestätigung einer Kündigung, Ende des Abos und beim Jahresabo den Hinweis vor Ablauf der 12 Monate.
+Versand über unseren E-Mail-Dienstleister (Abschnitt 10). Rechtsgrundlage: Art. 6 Abs. 1 lit. b und c DSGVO.
+
+### 9.5 Frühzugang (Download-Bereich)
+
+Der Download-Bereich auf `account.simplemods.de` ist nur nach Anmeldung erreichbar. Bei jedem Aufruf prüfen wir anhand Ihrer Sitzung (Abschnitt 4.3) und
+Ihrer Freischaltungen (9.1), ob Ihr Konto den Vorzug „Frühzugang“ hat. Die Anwendung protokolliert die einzelnen Downloads derzeit **nicht** gesondert
+⟦PLATZHALTER: bestätigen, dass weiterhin keine Download-Protokollierung je Konto erfolgt; falls eingeführt (z. B. zur Missbrauchserkennung), Zweck, Daten und Speicherdauer hier ergänzen⟧.
+Wie bei jedem Aufruf erfasst der Webserver die aufgerufene Adresse (einschließlich Dateiname) im Server-Log (Abschnitt 3.1).
+
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
 
 ## 10. Empfänger, Auftragsverarbeiter und Drittländer
 
@@ -273,7 +337,7 @@ Empfänger oder Auftragsverarbeiter personenbezogener Daten sind – soweit eing
 |---|---|---|---|
 | Cloudflare ⟦PLATZHALTER: Vertragsgesellschaft⟧ | CDN, Schutz, Tunnel, DNS; ab Bezahlstart ggf. Objektspeicher (R2) | USA/weltweit | Auftragsverarbeitungsvertrag, DPF/SCC |
 | E-Mail-Dienstleister ⟦PLATZHALTER: SMTP-Anbieter, Sitz, Land⟧ | Versand der Konto-E-Mails | ⟦PLATZHALTER: Land des Anbieters⟧ | Auftragsverarbeitungsvertrag ⟦PLATZHALTER: abgeschlossen?⟧ |
-| Stripe ⟦PLATZHALTER: Vertragsgesellschaft⟧ (erst ab Bezahlstart) | Zahlungsabwicklung | Irland/USA | siehe Abschnitt 9 |
+| Stripe ⟦PLATZHALTER: Vertragsgesellschaft⟧ (erst ab Bezahlstart) | Zahlungsabwicklung für das Abo „Simple Mods Pro“ (Checkout, Kundenportal, Rechnungen), optional Steuerberechnung (Stripe Tax) | Irland/USA | siehe Abschnitt 9.2 |
 | Hosting-Anbieter | Der Dienst läuft auf **eigenem Server des Betreibers** in Deutschland ⟦PLATZHALTER: Standort bestätigen⟧; kein externer Hoster | Deutschland | — |
 | Backup-Ziel ⟦PLATZHALTER: eigenes Gerät oder externer Anbieter?⟧ | Datensicherung | ⟦PLATZHALTER: Ort des Backups⟧ | ⟦PLATZHALTER: Grundlage, falls extern⟧ |
 
@@ -292,6 +356,7 @@ Wir speichern Daten nur so lange, wie es für den Zweck nötig ist (siehe Tabell
 - **Server-Logs:** ⟦PLATZHALTER: Aufbewahrung, Vorschlag 7 Tage⟧.
 - **Meldungen zu rechtswidrigen Inhalten und Schriftverkehr:** ⟦PLATZHALTER: Dauer, z. B. bis zur Erledigung plus Verjährungsfrist⟧.
 - **Rechnungsdaten (nach Bezahlstart):** gesetzliche Aufbewahrungsfristen.
+- **Bestellungen, Zustimmungen, Abos, Freischaltungen, Stripe-Ereignisse, Kündigungen (nach Bezahlstart):** siehe Abschnitt 9.1 und 9.3.
 - **Backups:** ⟦PLATZHALTER: Intervall und Aufbewahrung⟧.
 
 ## 12. Ihre Rechte
@@ -299,7 +364,7 @@ Wir speichern Daten nur so lange, wie es für den Zweck nötig ist (siehe Tabell
 Sie haben nach der DSGVO folgende Rechte:
 
 - **Auskunft** (Art. 15), **Berichtigung** (Art. 16), **Löschung** (Art. 17), **Einschränkung der Verarbeitung** (Art. 18),
-- **Datenübertragbarkeit** (Art. 20) – den JSON-Export finden Sie in `/app/account`,
+- **Datenübertragbarkeit** (Art. 20) – den JSON-Export finden Sie in `/app/account` ⟦PLATZHALTER: prüfen, ob der Export auch Bestellungen, Abo und Freischaltungen enthält⟧,
 - **Widerspruch** (Art. 21): Soweit wir Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1 lit. f) verarbeiten, können Sie
   aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen. Wir verarbeiten die Daten dann nicht
   mehr, es sei denn, wir weisen zwingende schutzwürdige Gründe nach oder die Verarbeitung dient der Geltendmachung,
@@ -318,6 +383,9 @@ Sie können sich auch an die Aufsichtsbehörde an Ihrem Wohnort wenden.
 Eine ausschließlich automatisierte Entscheidungsfindung einschließlich Profiling im Sinne des Art. 22 DSGVO findet nicht statt.
 Technische Begrenzungen (Ratenbegrenzung, Stufen-Limits, Mindestzeit der Karten-Vorbereitung) gelten für alle Nutzer gleich;
 auffällige Muster werden in einer Verwaltungsliste gesammelt und von uns manuell geprüft.
+Die Freischaltung und Herabstufung von Abo-Vorzügen nach dem Zahlungs- bzw. Abo-Status (Abschnitt 9.1) erfolgt automatisch. Sie setzt nur
+die vereinbarten Vertragsbedingungen um; soweit sie überhaupt unter Art. 22 DSGVO fällt, ist sie für die Erfüllung des Abo-Vertrags erforderlich
+(Art. 22 Abs. 2 lit. a DSGVO, nach bestem Wissen). Bei Fragen oder Einwänden können Sie sich jederzeit an uns wenden.
 ⟦PLATZHALTER: rechtlich prüfen lassen, ob die automatisierten Sperren bei fehlgeschlagenen Anmeldungen unter Art. 22 fallen (nach unserer Einschätzung nein)⟧
 
 ## 14. Datensicherheit

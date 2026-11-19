@@ -521,10 +521,11 @@ class AdminBillingTests(Base):
         def send(event):
             body = json.dumps(event).encode()
             return self.app.handle(Request("POST", "livemap.test", "/api/stripe/webhook", {}, {"stripe-signature": billing.sign(body, "whsec_x", ts)}, body))
-        self.assertEqual(send({"type": "checkout.session.completed", "data": {"object": {"client_reference_id": str(u["id"]), "customer": "cus_1"}}}).status, 200)
-        send({"type": "customer.subscription.updated", "data": {"object": {"customer": "cus_1", "status": "active", "metadata": {"tier": "max"}}}})
+        # N108: events carry ids (idempotency); a pre-N108 subscription with livemap tier metadata maps to the plan with that tier
+        self.assertEqual(send({"id": "evt_1", "type": "checkout.session.completed", "data": {"object": {"client_reference_id": str(u["id"]), "customer": "cus_1"}}}).status, 200)
+        send({"id": "evt_2", "created": ts, "type": "customer.subscription.updated", "data": {"object": {"id": "sub_1", "customer": "cus_1", "status": "active", "metadata": {"tier": "max"}}}})
         self.assertEqual(self.svc.user(u["id"])["tier"], "max")
-        send({"type": "customer.subscription.deleted", "data": {"object": {"customer": "cus_1", "status": "canceled", "metadata": {"tier": "max"}}}})
+        send({"id": "evt_3", "created": ts + 1, "type": "customer.subscription.deleted", "data": {"object": {"id": "sub_1", "customer": "cus_1", "status": "canceled", "metadata": {"tier": "max"}}}})
         self.assertEqual(self.svc.user(u["id"])["tier"], "free")
         bad = self.app.handle(Request("POST", "livemap.test", "/api/stripe/webhook", {}, {"stripe-signature": "t=1,v1=00"}, b"{}"))
         self.assertEqual(bad.status, 400)

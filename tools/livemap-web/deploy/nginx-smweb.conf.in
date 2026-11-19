@@ -13,6 +13,9 @@ server { listen 8081; listen 8084; server_name @ACCOUNT_HOST@;
   access_log /var/log/nginx/smweb-@STAGE@.access.log smweb_@STAGE@;
   client_max_body_size 64k;
   @DEV_AUTH@
+  # N108 early access: smweb checks login + perk, then hands the file to nginx (X-Accel-Redirect); never reachable directly
+  location ^~ /_early/ { internal; alias /srv/early-access-@STAGE@/files/; default_type application/octet-stream; add_header Cache-Control "private, no-store"; }
+  location = /kuendigen { limit_req zone=smweb_auth_@STAGE@ burst=5 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
   location ~ ^/(login|register|forgot|reset|resend)$ { limit_req zone=smweb_auth_@STAGE@ burst=5 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; }
   location / { limit_req zone=smweb_web_@STAGE@ burst=40 nodelay; limit_req_status 429; include /etc/nginx/snippets/smweb-proxy-@STAGE@.conf; } }
 

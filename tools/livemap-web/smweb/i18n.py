@@ -49,6 +49,14 @@ TEXTS = {
                    "Um Spieler zu zeigen, zuerst die Vereinbarung zur Verarbeitung der Spielerdaten annehmen (Kästchen unter dem Schalter)."),
     "coming_soon": ("Paying is coming soon.", "Bezahlen kommt bald."),
     "signature": ("Bad signature.", "Ungültige Signatur."),
+    "payment_error": ("The payment service did not answer. Nothing was charged; please try again later.",
+                      "Der Zahlungsdienst hat nicht geantwortet. Es wurde nichts abgebucht; bitte später noch einmal versuchen."),
+    "terms_needed": ("Please accept the terms and the withdrawal notice (first box).", "Bitte AGB und Widerrufsbelehrung akzeptieren (erstes Kästchen)."),
+    "sub_exists": ("You already have a subscription. Change or cancel it in the customer portal.",
+                   "Du hast schon ein Abo. Wechseln oder kündigen kannst du im Kundenportal."),
+    "sub_active_delete": ("Your subscription is still running. Cancel it first (it ends with the paid period), then delete the account.",
+                          "Dein Abo läuft noch. Kündige es zuerst (es endet mit dem bezahlten Zeitraum), dann kannst du das Konto löschen."),
+    "early_needed": ("Early access comes with Simple Mods Pro.", "Frühzugang gehört zu Simple Mods Pro."),
     # mails
     "mail_verify_subject": ("Confirm your Simple Mods account", "Bestätige dein Simple-Mods-Konto"),
     "mail_verify_body": ("Hello,\n\nplease confirm your e-mail address for your Simple Mods account:\n\n{link}\n\nThe link works for 24 hours. "

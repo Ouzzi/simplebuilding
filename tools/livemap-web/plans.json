@@ -1,0 +1,13 @@
+{
+  "_comment": "Simple Mods Pro - one account subscription on account.simplemods.de (N108). Placeholders until the owner decides prices/perks (A page 'Pro'). price_month null = the price of the mapped Simple Livemap tier in tiers.json; yearly = tiers.json yearly_months_paid x monthly. The server config may override single values under \"plans\" (and \"perks\").",
+  "order": ["basic", "pro", "ultra"],
+  "plans": {
+    "basic": {"name": "Basic", "price_month": null, "livemap_tier": "pro",   "perks": ["livemap", "early_access"]},
+    "pro":   {"name": "Pro",   "price_month": null, "livemap_tier": "max",   "perks": ["livemap", "early_access"]},
+    "ultra": {"name": "Ultra", "price_month": null, "livemap_tier": "ultra", "perks": ["livemap", "early_access"]}
+  },
+  "perks": {
+    "livemap":      {"en": "Simple Livemap tier {livemap}", "de": "Simple-Livemap-Stufe {livemap}"},
+    "early_access": {"en": "Early access: new versions first on simplemods.de", "de": "Frühzugang: neue Versionen zuerst auf simplemods.de"}
+  }
+}

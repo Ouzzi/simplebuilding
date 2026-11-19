@@ -177,10 +177,86 @@ def seed(svc: Service):
     svc.mailer.send("free@example.com", "Bestätige dein Simple-Mods-Konto", "Hallo,\n\nbitte bestätige …\n\nhttp://127.0.0.1/verify?t=…\n\nSimple Mods")
 
 
+MOCK_SECRET = "whsec_harness_local_only"
+MOCK_PRICES = {k: {"month": f"price_{k}_month_mock", "year": f"price_{k}_year_mock"} for k in ("basic", "pro", "ultra")}
+
+
+def billing_mock(svc: Service, app: App, host: str, data: str):
+    """N108 pictures: billing switched on against tests/fake_stripe.FakeStripe; /_mock/checkout/<id> imitates Stripe Checkout in
+    test mode and, on "Abonnieren", sends signed Stripe-CLI-like events to the real webhook route. Never a real Stripe call."""
+    import html
+    import json
+    import os
+    import urllib.parse
+    from smweb.app import Request, Response
+    import fake_stripe as fs
+
+    svc.cfg.billing = {"enabled": True, "mode": "test", "secret_key": "sk_test_harness_mock", "webhook_secret": MOCK_SECRET, "prices": MOCK_PRICES,
+                       "vat": {"mode": "small_business", "rate_percent": 19, "stripe_tax": False}, "grace_days": 7, "withdrawal_days": 14,
+                       "terms_version": "entwurf-2026-11-19"}
+    svc.stripe_api = fake = fs.FakeStripe(checkout_base=f"http://{host}/_mock/checkout/", now=svc.now)
+    early = os.path.join(data, "early")
+    os.makedirs(os.path.join(early, "files"), exist_ok=True)
+    for name in ("simplelib-fabric-26.3-1.4.0.jar", "simplebuilding-fabric-26.3-1.4.0.jar"):
+        with open(os.path.join(early, "files", name), "wb") as f:
+            f.write(b"PK\x03\x04" + os.urandom(2048))
+    with open(os.path.join(early, "index.json"), "w") as f:
+        json.dump({"releases": [{"version": "1.4.0", "date": "2026-12-14", "public": False, "files": [
+            {"name": "simplelib-fabric-26.3-1.4.0.jar", "size": 812345}, {"name": "simplebuilding-fabric-26.3-1.4.0.jar", "size": 23456789}]},
+            {"version": "1.3.0", "date": "2026-12-01", "public": True, "launch": True, "files": [{"name": "simplelib-fabric-26.3-1.4.0.jar", "size": 801234}]}]}, f)
+    svc.cfg.v["early_access"] = {"dir": early, "accel_prefix": ""}
+    inner = app.handle
+    css = ("body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f9fc;color:#30313d}.w{display:flex;min-height:100vh}"
+           ".l{flex:1;padding:48px;background:#fff;border-right:1px solid #e6e6e6}.r{flex:1;padding:48px}.b{display:inline-block;background:#ffde92;color:#a35200;"
+           "font-size:12px;padding:2px 8px;border-radius:4px;font-weight:600}.p{font-size:36px;font-weight:600;margin:8px 0}"
+           "input{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;margin:4px 0 14px;font-size:15px;box-sizing:border-box}"
+           "button{width:100%;padding:14px;background:#0074d4;color:#fff;border:0;border-radius:6px;font-size:16px;font-weight:600}.s{color:#6d6e78;font-size:13px}")
+
+    def handle(req):
+        if req.path.startswith("/_mock/checkout/"):
+            sid = req.path.rsplit("/", 1)[1]
+            sess = fake.objects.get(sid)
+            if not sess:
+                return Response(404, b"no session", [("Content-Type", "text/plain")])
+            p = sess["params"]
+            plan, interval = p["metadata"]["plan"], p["metadata"]["interval"]
+            pl = svc.plan(plan)
+            cents = pl["price_month"] if interval == "month" else pl["price_year"]
+            note = html.escape(p["custom_text"]["submit"]["message"])
+            page = (f"<!doctype html><html lang=de><meta charset=utf-8><title>Stripe Checkout (Testmodus, Nachbildung)</title><style>{css}</style>"
+                    f"<div class=w><div class=l><span class=b>TESTMODUS · lokale Nachbildung</span><p class=s>Simple Mods</p>"
+                    f"<div>Simple Mods Pro {html.escape(pl['name'])} abonnieren</div><div class=p>{cents // 100},{cents % 100:02d} €</div>"
+                    f"<div class=s>pro {'Jahr' if interval == 'year' else 'Monat'}</div></div>"
+                    f"<div class=r><form method=post action='/_mock/pay/{sid}'><label class=s>E-Mail</label><input value='{html.escape(p.get('customer_email') or '')}' readonly>"
+                    f"<label class=s>Kartendaten</label><input value='4242 4242 4242 4242   12/34   123' readonly>"
+                    f"<label class=s>Name auf der Karte</label><input value='Alex Beispiel' readonly><button>Abonnieren</button>"
+                    f"<p class=s>{note}</p></form></div></div></html>")
+            return Response(200, page.encode(), [("Content-Type", "text/html; charset=utf-8")])
+        if req.path.startswith("/_mock/pay/") and req.method == "POST":
+            sid = req.path.rsplit("/", 1)[1]
+            sess = fake.objects[sid]
+            p = sess["params"]
+            now = svc.now()
+            interval = p["metadata"]["interval"]
+            end = now + (365 if interval == "year" else 30) * 86400
+            cus, sub = "cus_mock_" + p["client_reference_id"], "sub_mock_" + sid[-4:]
+            price = MOCK_PRICES[p["metadata"]["plan"]][interval]
+            for evt in (fs.event("checkout.session.completed", fs.checkout_session(sess, cus, sub), now),
+                        fs.event("customer.subscription.created", fs.subscription(sub, cus, price, "active", end, p["subscription_data"]["metadata"]), now),
+                        fs.event("invoice.paid", fs.invoice("in_mock_" + sid[-4:], cus, sub, 399, end), now)):
+                body, sig = fs.signed(evt, MOCK_SECRET, now)
+                inner(Request("POST", host, "/api/stripe/webhook", {}, {"stripe-signature": sig}, body))
+            loc = p["success_url"].replace("{CHECKOUT_SESSION_ID}", urllib.parse.quote(sid))
+            return Response(303, b"", [("Location", loc)])
+        return inner(req)
+    app.handle = handle
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=8790)
     ap.add_argument("--data", default=None)
+    ap.add_argument("--billing-mock", action="store_true", help="N108 pictures: Simple Mods Pro on against a fake Stripe")
     a = ap.parse_args()
     data = a.data or tempfile.mkdtemp(prefix="smweb-harness-")
     host = f"127.0.0.1:{a.port}"
@@ -188,7 +264,10 @@ def main():
                       cookie={"name": "sm_session", "domain": "", "secure": False, "days": 30})
     svc = Service(cfg)
     seed(svc)
-    srv = serve(App(svc), "127.0.0.1", a.port)
+    app = App(svc)
+    if a.billing_mock:
+        billing_mock(svc, app, host, data)
+    srv = serve(app, "127.0.0.1", a.port)
     print(f"harness on http://{host}/ (data {data}); accounts owner@example.com / free@example.com, password: {PW}", flush=True)
     try:
         srv.serve_forever()

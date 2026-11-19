@@ -14,6 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from . import pages
+from . import pro_pages
 from . import security as sec
 from .config import REPO, ROOT
 from .errors import Problem
@@ -26,7 +27,11 @@ MAX_FORM = 64 * 1024
 MAX_TILES_BODY = 8 * 1024 * 1024 + 1024
 MAX_WEBHOOK = 256 * 1024
 MAX_MANIFEST_BODY = 1024 * 1024
-ACCOUNT_PATHS = {"/login", "/register", "/forgot", "/reset", "/verify", "/logout", "/resend"}
+ACCOUNT_PATHS = {"/login", "/register", "/forgot", "/reset", "/verify", "/logout", "/resend", "/pro", "/pro/order", "/pro/done",
+                 "/pro/manage", "/kuendigen", "/early"}
+EARLY_F_RE = re.compile(r"^/early/f/([A-Za-z0-9][A-Za-z0-9._+-]{0,150}\.(?:jar|zip))$")
+# Forms may also lead to Stripe (303 after the order/portal POST; browsers apply form-action to the redirect target too).
+STRIPE_FORMS = "https://checkout.stripe.com https://billing.stripe.com"
 CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; "
        "frame-ancestors 'none'; form-action 'self' {forms}; base-uri 'none'; object-src 'none'")
 VIEWER_CSP = ("default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' blob:; connect-src 'self'; "
@@ -143,7 +148,7 @@ class App:
         return "; ".join(parts)
 
     def headers(self, ctype: str, csp: str | None, extra: list | None = None, cache: str = "no-store") -> list:
-        forms = " ".join(self.cfg.url(k, "") for k in ("account", "livemap"))
+        forms = " ".join(self.cfg.url(k, "") for k in ("account", "livemap")) + " " + STRIPE_FORMS
         h = [("Content-Type", ctype), ("X-Content-Type-Options", "nosniff"), ("Referrer-Policy", "strict-origin-when-cross-origin"),
              ("Cross-Origin-Opener-Policy", "same-origin"), ("Permissions-Policy", "camera=(), microphone=(), geolocation=()"),
              ("Cache-Control", cache)]
@@ -217,7 +222,7 @@ class App:
                 self.check_form(ctx)
             elif req.method not in ("GET", "HEAD"):
                 return self.plain(405, "method not allowed", [("Allow", "GET, HEAD, POST")])
-            if site == "account" or (site == "single" and req.path in ACCOUNT_PATHS):
+            if site == "account" or (site == "single" and (req.path in ACCOUNT_PATHS or EARLY_F_RE.match(req.path))):
                 return self.account_site(ctx)
             return self.livemap_site(ctx)
         except Problem as p:
@@ -298,6 +303,73 @@ class App:
         if path == "/resend" and req.method == "POST" and ctx.user:
             svc.send_verify(ctx.user["id"])
             return self.redirect(ctx.url("livemap", "/app?sent=1"), ctx)
+        if path.startswith("/pro") or path == "/kuendigen" or path.startswith("/early"):
+            return self.pro_site(ctx)
+        raise Problem(404, "not_found")
+
+    # ---------------------------------------------------------------- Simple Mods Pro (N108) on the account host
+    def login_first(self, ctx: Ctx) -> Response:
+        nxt = ctx.url("account", ctx.req.path + ("?" + urllib.parse.urlencode(ctx.req.query) if ctx.req.query else ""))
+        return self.redirect(ctx.url("account", "/login?next=" + urllib.parse.quote(nxt, safe="")), ctx)
+
+    def pro_site(self, ctx: Ctx) -> Response:
+        req, svc, path = ctx.req, self.svc, ctx.req.path
+        if path == "/pro":
+            return self.html(ctx, 200, pro_pages.index(ctx), cache="no-cache")
+        if path == "/kuendigen":
+            if req.method == "POST":
+                f = req.form
+                try:
+                    result = svc.cancel_request(f.get("email", ""), f.get("kind", ""), f.get("reason", ""), ctx.user, req.ip)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.cancel(ctx, f))
+                return self.html(ctx, 200, pro_pages.cancel(ctx, f, result))
+            return self.html(ctx, 200, pro_pages.cancel(ctx, {}))
+        if ctx.user is None:
+            return self.login_first(ctx)
+        user = ctx.user
+        if path == "/pro/order":
+            plan = req.form.get("plan") or req.query.get("plan", "")
+            interval = req.form.get("interval") or req.query.get("interval", "month")
+            if svc.plan(plan) is None or interval not in ("month", "year"):
+                return self.redirect(ctx.url("account", "/pro"), ctx)
+            if not svc.billing_on():
+                ctx.flash = ctx.problem_text(Problem(503, "coming_soon"))
+            if svc.active_subscription(user["id"]):
+                return self.redirect(ctx.url("account", "/pro/manage"), ctx)
+            if req.method == "POST":
+                try:
+                    url = svc.start_order(user, plan, interval, req.form.get("terms") == "1", req.form.get("waiver") == "1", ctx.lang)
+                    return self.redirect(url, ctx)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.order(ctx, plan, interval, req.form))
+            return self.html(ctx, 200, pro_pages.order(ctx, plan, interval))
+        if path == "/pro/done":
+            return self.html(ctx, 200, pro_pages.done(ctx, svc.subscription_view(user)))
+        if path == "/pro/manage":
+            if req.method == "POST" and req.form.get("action") == "portal":
+                try:
+                    return self.redirect(svc.portal(user), ctx)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+            return self.html(ctx, 200, pro_pages.manage(ctx, svc.subscription_view(user)))
+        if path == "/early":
+            allowed = svc.has_perk(user, "early_access")
+            return self.html(ctx, 200, pro_pages.early(ctx, svc.early_releases() if allowed else [], allowed))
+        m = EARLY_F_RE.match(path)
+        if m and req.method == "GET":
+            if not svc.has_perk(user, "early_access"):
+                raise Problem(403, "early_needed")
+            f = svc.early_file(m.group(1))
+            if f is None:
+                raise Problem(404, "not_found")
+            extra = [("Content-Disposition", f'attachment; filename="{m.group(1)}"')]
+            accel = (self.cfg.get("early_access") or {}).get("accel_prefix")
+            if accel:
+                return Response(200, b"", self.headers("application/octet-stream", None, extra + [("X-Accel-Redirect", accel + m.group(1))]))
+            return Response(200, f.read_bytes(), self.headers("application/java-archive" if f.suffix == ".jar" else "application/zip", None, extra))
         raise Problem(404, "not_found")
 
     # ---------------------------------------------------------------- livemap host
@@ -353,11 +425,13 @@ class App:
         if path == "/app/plan":
             user = self.need_user(ctx)
             if req.method == "POST":
-                try:
-                    url = svc.portal(user) if req.form.get("action") == "portal" else svc.checkout(user, req.form.get("tier", ""), req.form.get("interval", ""))
-                    return self.redirect(url, ctx)
-                except Problem as p:
-                    ctx.flash = ctx.problem_text(p)
+                if req.form.get("action") == "portal":
+                    return self.redirect(ctx.url("account", "/pro/manage"), ctx)
+                plan = svc.plan_for_livemap_tier(req.form.get("tier", ""))
+                if svc.billing_on() and plan:
+                    interval = req.form.get("interval") if req.form.get("interval") in ("month", "year") else "month"
+                    return self.redirect(ctx.url("account", f"/pro/order?plan={plan}&interval={interval}"), ctx)
+                ctx.flash = ctx.problem_text(Problem(503, "coming_soon"))
             return self.html(ctx, 200, pages.plan(ctx, svc.usage(user)))
         if path == "/app/account":
             return self.account_settings(ctx)
@@ -594,7 +668,7 @@ class App:
     # ---------------------------------------------------------------- API (mod, Stripe)
     def api(self, req: Request, site: str) -> Response:
         svc = self.svc
-        if site == "account":
+        if site == "account" and req.path != "/api/stripe/webhook":
             return self.plain(404, "not found")
         lang = "en"
         try:

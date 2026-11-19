@@ -1,30 +1,44 @@
-# Nutzungsbedingungen (AGB) für Simple Livemap – gehosteter Dienst (ENTWURF)
+# Nutzungsbedingungen (AGB) für Simple Mods – Konto, Abo „Simple Mods Pro“ und gehosteter Dienst Simple Livemap (ENTWURF)
 
-> **ENTWURF – nicht ausliefern.** Stand 12.11.2026. Keine Rechtsberatung. Vor Veröffentlichung von einer Anwältin,
+> **ENTWURF – nicht ausliefern.** Stand 19.11.2026. Keine Rechtsberatung. Vor Veröffentlichung von einer Anwältin,
 > einem Anwalt (IT-Recht, Verbraucherrecht) oder einem geprüften Generator prüfen lassen.
 > Absätze mit „**[Anmerkung Entwurf]**“ sind Hinweise an den Besitzer und werden vor der Veröffentlichung entfernt.
 > Alles in ⟦PLATZHALTER: …⟧ muss der Besitzer eintragen oder entscheiden. „Variante“ = der Besitzer wählt eine aus.
 >
 > Grundlage: Spezifikation LIVEMAP34 (alle 8 Abschnitte abgenommen, 12.11.2026), `tools/livemap-web/tiers.json`,
-> `docs/ai/PLAN-A-LIVEMAP34-2026-11-12.md`. **Bezahlen ist derzeit „coming soon“.** Die Abschnitte zu Preisen, Laufzeit,
-> Kündigung und Widerruf (9 bis 12, Anlagen 1 bis 3) werden erst mit dem Bezahlstart wirksam; die übrigen gelten schon für die
-> kostenlose Stufe Free.
+> `docs/ai/PLAN-A-LIVEMAP34-2026-11-12.md`; seit 19.11.2026 zusätzlich Auftrag N108 (Konto-Abo „Simple Mods Pro“ mit den Stufen
+> Basic/Pro/Ultra, `tools/livemap-web/plans.json`, `billing.example.json`, `docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md`, E1–E13).
+> **Bezahlen ist derzeit „coming soon“.** Die Abschnitte zum Abo und zum Frühzugang (3.8 bis 3.18), zu Preisen, Vertragsschluss,
+> Laufzeit, Kündigung und Widerruf (9 bis 12, Anlagen 1 bis 3) werden erst mit dem Bezahlstart wirksam; die übrigen gelten schon für
+> das Konto und die kostenlose Stufe Free.
 
 ---
 
 ## 1. Anbieter, Geltungsbereich, Vertragsgegenstand
 
-1.1 Anbieter des Dienstes „Simple Livemap“ (`livemap.simplemods.de`) und des zentralen Kontos (`account.simplemods.de`) ist
+1.1 Anbieter der Online-Angebote von „Simple Mods“ – des zentralen Kontos (`account.simplemods.de`) einschließlich des Konto-Abos
+„Simple Mods Pro“ und des Download-Bereichs für den Frühzugang sowie des gehosteten Dienstes „Simple Livemap“ (`livemap.simplemods.de`) – ist
 ⟦PLATZHALTER: Name/Firma, Anschrift und E-Mail laut Impressum⟧ („Betreiber“, „wir“).
 
-1.2 Diese Bedingungen gelten für die Nutzung des gehosteten Dienstes und des Kontos durch Nutzerinnen und Nutzer („Sie“). Sie
+1.2 Diese Bedingungen gelten für die Nutzung des Kontos, des Abos „Simple Mods Pro“ und aller darüber erreichbaren Dienste
+(zusammen „Dienste“) durch Nutzerinnen und Nutzer („Sie“). Sie
 gelten gegenüber **Verbrauchern** (§ 13 BGB) und **Unternehmern** (§ 14 BGB). Regelungen, die ausdrücklich nur für Verbraucher
-gelten (insbesondere der Kündigungsbutton nach Abschnitt 11.4, der Widerruf nach Abschnitt 12 und die Anlagen 1 bis 3), gelten gegenüber Unternehmern nicht.
+gelten (insbesondere der Kündigungsbutton nach Abschnitt 11.4, der Widerruf nach Abschnitt 12, die Vorschriften über digitale Produkte nach
+Abschnitt 13 und die Anlagen 1 bis 3), gelten gegenüber Unternehmern nicht.
 
-1.3 **Gegenstand.** Der Dienst nimmt von der Minecraft-Mod „Simple Livemap“ Kartenkacheln und – wenn Sie das einschalten –
-Live-Daten entgegen, speichert sie und zeigt die Karte in einem Web-Viewer an. Die **Mod selbst** und der **Self-Host-Betrieb**
-(die Mod startet ihren eigenen Webserver, ohne Konto, ohne unseren Dienst) sind **nicht** Gegenstand dieser Bedingungen;
-dafür gilt die Lizenz der Mod ⟦PLATZHALTER: Lizenz der Mod benennen und verlinken⟧.
+1.3 **Gegenstand.** Die Dienste umfassen:
+
+a) das **Konto** auf `account.simplemods.de` (Abschnitt 2), das für alle Dienste gemeinsam gilt;
+
+b) das kostenpflichtige Konto-Abo **„Simple Mods Pro“** in den Stufen Basic, Pro und Ultra. Es schaltet für Ihr Konto Vorzüge frei,
+derzeit eine Stufe von Simple Livemap und den **Frühzugang** zu neuen Versionen unserer Mods (Abschnitte 3.8 bis 3.18);
+
+c) den gehosteten Dienst **„Simple Livemap“**: Er nimmt von der Minecraft-Mod „Simple Livemap“ Kartenkacheln und – wenn Sie das einschalten –
+Live-Daten entgegen, speichert sie und zeigt die Karte in einem Web-Viewer an.
+
+Die **Mods selbst** (auch Dateien, die Sie über den Frühzugang herunterladen) und der **Self-Host-Betrieb** von Simple Livemap
+(die Mod startet ihren eigenen Webserver, ohne Konto, ohne unseren Dienst) sind **nicht** Gegenstand dieser Bedingungen, soweit
+nicht die Abschnitte 3.13 bis 3.18 etwas Besonderes regeln; für die Nutzung der Mods gilt die Lizenz der jeweiligen Mod ⟦PLATZHALTER: Lizenz der Mod benennen und verlinken⟧.
 
 1.4 Eigene Geschäftsbedingungen von Nutzern gelten nicht, auch wenn wir ihnen nicht ausdrücklich widersprechen.
 
@@ -50,9 +64,15 @@ Konten sperren oder zusammenführen (Abschnitt 6.5).
 
 2.4 Rollen: „Nutzer“ und „Entwickler“. Die Entwickler-Rolle ist dem Betreiber vorbehalten.
 
-## 3. Leistungen und Stufen
+## 3. Leistungen, Stufen und Abo „Simple Mods Pro“
 
-3.1 Der Dienst wird in vier Stufen angeboten. Die Stufe bestimmt Zahl und Größe der Karten sowie Aktualisierungstakt und
+Die Abschnitte 3.1 bis 3.7 beschreiben die Stufen von Simple Livemap, die Abschnitte 3.8 bis 3.12 das Konto-Abo „Simple Mods Pro“ und
+die Abschnitte 3.13 bis 3.18 den Vorzug „Frühzugang“.
+
+### Simple Livemap
+
+3.1 Simple Livemap wird in vier Stufen angeboten. Die Stufe Free ist mit jedem Konto kostenlos nutzbar; die Stufen Pro, Max und Ultra
+erhalten Sie als Vorzug des Abos „Simple Mods Pro“ (Abschnitt 3.8). Die Stufe bestimmt Zahl und Größe der Karten sowie Aktualisierungstakt und
 Priorität. Es gelten folgende Werte (Stand dieses Entwurfs):
 
 | | **Free** | **Pro** | **Max** | **Ultra** |
@@ -65,10 +85,13 @@ Priorität. Es gelten folgende Werte (Stand dieses Entwurfs):
 | Karten-Platz neu belegen | 1× pro 7 Tage | frei | frei | frei |
 | Teilen mit anderen Konten | 2 | 10 | 50 | unbegrenzt |
 | Speicher je Karte | 64 MB | 256 MB | 1 GB | 4 GB |
-| Preis pro Monat | 0 € | 3,99 € | 7,99 € | 14,99 € |
-| Preis bei Jahreszahlung (12 Monate zum Preis von 10; danach monatlich zum Monatspreis, siehe 11.3) | – | 39,90 € | 79,90 € | 149,90 € |
+| Erhältlich über | jedes Konto, kostenlos | Abo-Stufe Basic | Abo-Stufe Pro | Abo-Stufe Ultra |
+| Preis | 0 € | im Preis der Abo-Stufe enthalten (Abschnitt 3.8) | im Preis der Abo-Stufe enthalten | im Preis der Abo-Stufe enthalten |
 
 > **[Anmerkung Entwurf]** Die Zahlen stammen aus der abgenommenen Spezifikation bzw. `tiers.json`; Preise sind dort ausdrücklich „Vorschlag“.
+> Seit N108 werden Pro/Max/Ultra nicht mehr einzeln verkauft, sondern über das Konto-Abo (Basic → Pro, Pro → Max, Ultra → Ultra; Zuordnung
+> in `plans.json` konfigurierbar). Die bisherigen Preiszeilen (3,99 / 7,99 / 14,99 € bzw. 39,90 / 79,90 / 149,90 €) sind deshalb in die Tabelle 3.8 gewandert.
+> Falls die Livemap-Stufen doch zusätzlich einzeln buchbar bleiben sollen, die Preiszeilen hier wieder aufnehmen.
 > Der Speicher je Karte (D17 im Plan) steht in der Spezifikation nur als „begrenzt“ – Werte vom Besitzer bestätigen.
 > Preise müssen im Shop einschließlich Umsatzsteuer als Endpreise ausgewiesen werden (PAngV); bei Kleinunternehmer-Status (§ 19 UStG) mit entsprechendem Hinweis.
 > Tabelle und Zahlen sollten im Dienst aus derselben Quelle (`tiers.json`) erzeugt werden, damit AGB, Preisseite und Technik nicht auseinanderlaufen.
@@ -95,6 +118,84 @@ Uploads vorübergehend abgelehnt werden. Daraus entsteht kein Anspruch auf Mehrs
 Welt oder Ihres Servers.
 
 3.7 Wir dürfen die Werte der Stufen ändern, wenn die Änderung zumutbar ist und die Voraussetzungen von Abschnitt 16 vorliegen.
+
+### Abo „Simple Mods Pro“ (ab Bezahlstart)
+
+3.8 **Stufen und Vorzüge.** Das Abo „Simple Mods Pro“ ist ein Abo für Ihr Konto auf `account.simplemods.de`. Es wird in drei Stufen
+angeboten; jede Stufe schaltet die folgenden Vorzüge frei (Stand dieses Entwurfs):
+
+| | **Basic** | **Pro** | **Ultra** |
+|---|---|---|---|
+| Simple-Livemap-Stufe (Abschnitt 3.1) | Pro | Max | Ultra |
+| Frühzugang zu neuen Mod-Versionen (Abschnitte 3.13 bis 3.18) | ja | ja | ja |
+| Weitere Vorzüge | – | – | – |
+| Preis pro Monat | ⟦PLATZHALTER: Monatspreis Basic – derzeitiger Platzhalterwert im System: 3,99 €⟧ | ⟦PLATZHALTER: Monatspreis Pro – derzeitiger Platzhalterwert: 7,99 €⟧ | ⟦PLATZHALTER: Monatspreis Ultra – derzeitiger Platzhalterwert: 14,99 €⟧ |
+| Preis bei Jahreszahlung (12 Monate zum Preis von 10; danach monatlich zum Monatspreis, siehe 11.3) | ⟦PLATZHALTER: Jahrespreis Basic – Beispiel: 39,90 €⟧ | ⟦PLATZHALTER: Jahrespreis Pro – Beispiel: 79,90 €⟧ | ⟦PLATZHALTER: Jahrespreis Ultra – Beispiel: 149,90 €⟧ |
+
+> **[Anmerkung Entwurf]** Stufen, Zuordnung zur Livemap-Stufe, Vorzüge und Preise sind im System konfigurierbar (`plans.json`, Server-Konfiguration)
+> und werden vom Besitzer über die A-Seite „Pro“ entschieden. Die genannten Beträge sind nur die derzeitigen Platzhalterwerte (= Preise der zugeordneten
+> Livemap-Stufe aus `tiers.json`), **keine** Entscheidung. Tabelle, Preisseite (`/pro`), Bestell-Zusammenfassung und Stripe-Preise müssen aus derselben
+> Quelle stammen. Preisangaben als Endpreise nach Abschnitt 9.1.
+
+3.9 **Vorzüge.** Welche Vorzüge zu Ihrer Stufe gehören, ergibt sich aus der Tabelle in Abschnitt 3.8 und der Beschreibung auf der Preisseite
+zum Zeitpunkt Ihrer Bestellung. ⟦PLATZHALTER: weitere Vorzüge je Stufe (z. B. aus der Funktionsliste der Seite „Pro“) erst eintragen, wenn sie im Dienst verfügbar sind⟧
+Wir dürfen zusätzliche Vorzüge ohne Aufpreis hinzufügen. Vorzüge ändern, einschränken oder entfallen lassen dürfen wir nur nach Abschnitt 16.1;
+beeinträchtigt eine solche Änderung Ihre Nutzung nicht nur unerheblich, können Sie als Verbraucher nach § 327r BGB kostenfrei kündigen.
+Kostenlose Testzugänge, Aktionen oder Zusatzangebote, die ausdrücklich als befristet bezeichnet sind, enden mit Ablauf der genannten Frist.
+
+> **[Anmerkung Entwurf]** Die Zuordnung „Abo-Stufe → Livemap-Stufe“ und die Liste der Vorzüge sind konfigurierbar. Eine Änderung bei **laufenden**
+> Abos ist eine Leistungsänderung (Abschnitt 16.1, § 327r BGB) und muss angekündigt werden; neue Werte daher nur für neue Bestellungen oder nach Ankündigung einspielen.
+
+3.10 **Stufenwechsel.** Sie können die Stufe während der Laufzeit über die Seite „Abo verwalten“ bzw. das Kundenportal unseres
+Zahlungsdienstleisters wechseln. Ein Wechsel in eine höhere Stufe wirkt sofort ⟦PLATZHALTER: Abrechnung beim Wechsel festlegen – anteilige Verrechnung (Stripe „Proration“) ja/nein; gegen die Portal-Konfiguration prüfen⟧.
+Ein Wechsel in eine niedrigere Stufe wirkt ⟦PLATZHALTER: sofort oder zum Ende des laufenden Abrechnungszeitraums – gegen die Portal-Konfiguration prüfen⟧;
+für die Livemap-Karten gilt dann Abschnitt 4.6.
+
+3.11 **Ein Abo je Konto.** Je Konto kann ein Abo bestehen. Die Vorzüge sind an Ihr Konto gebunden und nicht übertragbar.
+
+3.12 **Ohne Abo.** Ohne Abo können Sie Ihr Konto und Simple Livemap in der Stufe Free weiter nutzen; Vorzüge des Abos stehen dann nicht zur Verfügung.
+
+### Frühzugang (Vorzug des Abos, ab Bezahlstart)
+
+3.13 **Inhalt.** Mit dem Vorzug „Frühzugang“ können Sie neue Versionen unserer Mods ⟦PLATZHALTER: erfasste Mods benennen – alle Mods von Simple Mods oder eine Auswahl⟧
+in einem **anmeldepflichtigen Download-Bereich** auf `account.simplemods.de` herunterladen, sobald wir sie dort bereitstellen. Auf
+öffentlichen Plattformen (z. B. Modrinth, CurseForge) veröffentlichen wir eine neue Version in der Regel erst zusammen mit dem
+jeweils nächsten Update; dort ist deshalb in der Regel die vorherige Version verfügbar („eine Version zurück“). Diese Regel gilt ab
+dem ersten Update **nach** dem offiziellen Release der jeweiligen Mod ⟦PLATZHALTER: Release-Termin bzw. Release-Version je Mod⟧; die
+Release-Version selbst erscheint im Download-Bereich und auf den öffentlichen Plattformen gleichzeitig.
+
+3.14 **Keine Zusicherung zu Zeitpunkt, Umfang und Vorsprung.** Wir schulden den Zugang zum Download-Bereich und zu den Versionen, die
+wir dort während Ihrer Abo-Laufzeit bereitstellen. Einen Anspruch darauf, dass, wann, wie oft oder in welchem Umfang neue Versionen
+erscheinen, welchen Inhalt sie haben, dass eine Version für eine bestimmte Minecraft-Version oder einen bestimmten Mod-Loader erscheint
+oder wie groß der zeitliche Vorsprung gegenüber anderen Plattformen ist, haben Sie nicht. Wir sichern insbesondere **nicht** zu, dass
+eine Version zu einem bestimmten Zeitpunkt oder überhaupt auf anderen Plattformen erscheint. Wir dürfen Versionen, etwa
+Sicherheitskorrekturen, auch gleichzeitig überall veröffentlichen und Versionen aus dem Download-Bereich zurückziehen, etwa wenn sie
+schwere Fehler enthalten.
+
+3.15 **Vorabversionen (Beta-Charakter).** Versionen im Frühzugang sind Vorabversionen. Sie können Fehler enthalten, unvollständig sein,
+sich vor der öffentlichen Veröffentlichung noch ändern und mit Welten, Servern oder anderen Mods nicht oder nur eingeschränkt
+zusammenarbeiten. Wir übernehmen keine Gewähr für ihre **Verfügbarkeit, Inhalte oder Stabilität**, soweit gesetzlich zulässig. Bitte
+sichern Sie Ihre Welten, bevor Sie eine Vorabversion verwenden. Abschnitt 13 und die gesetzlichen Rechte von Verbrauchern bleiben unberührt.
+
+> **[Anmerkung Entwurf]** Gegenüber Verbrauchern darf von den objektiven Anforderungen an digitale Produkte (z. B. übliche Beschaffenheit, Stabilität)
+> nur abgewichen werden, wenn der Verbraucher **vor** Abgabe seiner Vertragserklärung eigens darüber in Kenntnis gesetzt wurde und die Abweichung
+> **ausdrücklich und gesondert** vereinbart wird (§ 327h BGB, nach bestem Wissen). Ein Satz in den AGB reicht dafür voraussichtlich nicht. Option: eigenes
+> Kästchen im Bestellvorgang (Anlage 3, Zustimmung 3 – derzeit **nicht** gebaut). Anwaltlich klären.
+
+3.16 **Persönliche Nutzung, keine Weitergabe.** Dateien aus dem Frühzugang sind nur für Ihre eigene Nutzung bestimmt
+⟦PLATZHALTER: Umfang festlegen – z. B. einschließlich Installation auf Servern, die Sie selbst betreiben, und Weitergabe an Mitspieler dieser Server⟧.
+Bis dieselbe Version öffentlich veröffentlicht ist, dürfen Sie Dateien aus dem Frühzugang und die Download-Links **nicht weitergeben**,
+nicht öffentlich zugänglich machen, nicht auf andere Plattformen hochladen und nicht in Modpacks aufnehmen, soweit die Lizenz der Mod
+dies nicht zwingend erlaubt. Ihre Zugangsdaten dürfen Sie nicht teilen (Abschnitt 2.2).
+
+> **[Anmerkung Entwurf]** Das Weitergabeverbot muss zur Lizenz der Mods passen: Steht eine Mod unter einer Lizenz, die die Weitergabe erlaubt
+> (z. B. eine Open-Source-Lizenz), ist ein vertragliches Verbot nur eingeschränkt durchsetzbar. Lizenz der Frühzugangs-Dateien prüfen lassen.
+
+3.17 **Verstöße.** Bei einem Verstoß gegen Abschnitt 3.16 können wir den Frühzugang für Ihr Konto sperren und die Maßnahmen nach den
+Abschnitten 6.3 und 11.6 ergreifen.
+
+3.18 **Ende des Frühzugangs.** Mit dem Ende des Abos oder dem Wegfall des Vorzugs endet der Zugang zum Download-Bereich. Bereits
+heruntergeladene Dateien dürfen Sie nach der Lizenz der jeweiligen Mod weiter nutzen ⟦PLATZHALTER: bestätigen⟧.
 
 ## 4. Karte verbinden, trennen, Puffer, Missbrauchsschutz
 
@@ -195,27 +296,61 @@ Die gesetzlichen Rechte von Verbrauchern bei Mängeln (§§ 327 ff. BGB) bleiben
 
 ## 9. Preise und Zahlung (ab Bezahlstart)
 
-9.1 Die Preise ergeben sich aus Abschnitt 3.1 bzw. der Preisseite. ⟦PLATZHALTER: Variante A – Alle Preise sind Endpreise in Euro einschließlich der gesetzlichen Umsatzsteuer.⟧ ⟦PLATZHALTER: Variante B (Kleinunternehmer) – Alle Preise in Euro; gemäß § 19 UStG wird keine Umsatzsteuer berechnet.⟧
+9.1 Die Preise ergeben sich aus Abschnitt 3.8 bzw. der Preisseite. Es gilt eine der folgenden Varianten:
+⟦PLATZHALTER: Variante A – Alle Preise sind Endpreise in Euro einschließlich der gesetzlichen Umsatzsteuer.⟧ ⟦PLATZHALTER: Variante B (Kleinunternehmer) – Alle Preise in Euro; gemäß § 19 UStG wird keine Umsatzsteuer berechnet.⟧
+Der Endpreis wird Ihnen auf der Preisseite und in der Bestell-Zusammenfassung vor dem Absenden der Bestellung angezeigt.
+
+> **[Anmerkung Entwurf]** Technik: Schalter `vat.mode` – `small_business` (Hinweis „Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.“, derzeitiger
+> Platzhalter-Standard) oder `regular` („inkl. ⟦PLATZHALTER: Steuersatz, z. B. 19⟧ % USt.“). Optional `vat.stripe_tax`: Stripe Tax berechnet die Steuer
+> automatisch und erfasst Rechnungsadresse/USt-IdNr. Bei regulärer Besteuerung können für Verbraucher in anderen EU-Staaten deren Steuersätze gelten
+> (OSS, Lieferschwelle) – dann muss der **Endpreis vor dem Klick auf „zahlungspflichtig bestellen“** feststehen (PAngV, § 312j Abs. 2 BGB); wird
+> die Steuer erst auf der Stripe-Seite berechnet, ist die Zusammenfassung unvollständig. Mit Steuerberatung klären, welche Variante gilt.
 
 9.2 **Abrechnung.** Die Zahlung erfolgt im Voraus für den jeweiligen Abrechnungszeitraum (Monat bzw. Jahr) über den Zahlungsdienst
-Stripe. Zahlungsarten: ⟦PLATZHALTER: von Stripe angebotene Zahlungsarten, z. B. Karte, SEPA-Lastschrift⟧. Sie erhalten eine Rechnung in elektronischer Form.
-Es gelten ergänzend die Bedingungen von Stripe ⟦PLATZHALTER: Link⟧.
+Stripe. Zahlungsarten: ⟦PLATZHALTER: von Stripe angebotene Zahlungsarten, z. B. Karte, SEPA-Lastschrift⟧. Sie erhalten eine Rechnung in elektronischer Form
+per E-Mail; Rechnungen und Zahlungsdaten können Sie zudem über die Seite „Abo verwalten“ (Kundenportal von Stripe) einsehen und ändern.
+Es gelten ergänzend die Bedingungen von Stripe ⟦PLATZHALTER: Link⟧. Ihre Zahlungsmittel-Daten geben Sie unmittelbar bei Stripe ein; wir erhalten sie nicht.
 
-9.3 **Zahlungsverzug.** Bei fehlgeschlagener Zahlung informieren wir Sie und setzen eine angemessene Frist (⟦PLATZHALTER: z. B. 14 Tage⟧). Läuft sie
-ergebnislos ab, können wir die Stufe auf Free zurückstufen (Abschnitt 4.6 gilt). Gesetzliche Verzugsfolgen bleiben unberührt.
+9.3 **Fehlgeschlagene Zahlung.** Schlägt eine Zahlung fehl, informieren wir Sie per E-Mail mit einem Link, über den Sie Ihre Zahlungsdaten
+aktualisieren können. Stripe versucht den Einzug erneut ⟦PLATZHALTER: Wiederholungsplan in Stripe festlegen (z. B. „Smart Retries“) und hier beschreiben⟧.
+Ihre Vorzüge bleiben bis zum Ende des bezahlten Abrechnungszeitraums und einer anschließenden Kulanzfrist von
+⟦PLATZHALTER: Kulanzfrist nach fehlgeschlagener Zahlung, z. B. 14 Tage – im System derzeit 7 Tage (`grace_days`)⟧ erhalten. Geht die Zahlung bis dahin nicht ein oder
+wird das Abo wegen Nichtzahlung beendet, enden die Vorzüge; das Konto wechselt auf die kostenlosen Leistungen (Abschnitt 11.5; für Karten gilt Abschnitt 4.6).
+Gesetzliche Verzugsfolgen bleiben unberührt.
 
-9.4 **Preisänderungen.** Wir ändern Preise für laufende Verträge nur nach Abschnitt 16.4. Für neue Verträge gilt der angegebene Preis.
+9.4 **Preisänderungen.** Wir ändern Preise für laufende Verträge nur nach Abschnitt 16.4. Für neue Verträge gilt der bei der Bestellung angezeigte Preis.
 
-## 10. Vertragsschluss bei kostenpflichtigen Stufen (ab Bezahlstart)
+## 10. Vertragsschluss beim Abo (ab Bezahlstart)
 
-10.1 Das Angebot der Stufen im Dienst ist kein bindendes Angebot. Der Bestellvorgang führt über die Auswahl von Stufe und Laufzeit
-(Monat/Jahr), eine Zusammenfassung mit Gesamtpreis, Laufzeit und Kündigungsbedingungen zu einer Schaltfläche mit der Aufschrift
-„zahlungspflichtig bestellen“ (Anlage 3). Mit Klick geben Sie ein verbindliches Angebot ab. Der Vertrag kommt zustande, wenn wir die
-Bestellung durch Freischaltung der Stufe oder per E-Mail annehmen.
+10.1 **Bestellvorgang.** Die Darstellung der Abo-Stufen auf der Preisseite (`account.simplemods.de/pro`) ist kein bindendes Angebot. Die Bestellung läuft so ab:
 
-10.2 Eingabefehler können Sie vor Absenden in der Zusammenfassung erkennen und über „zurück“ berichtigen.
+a) Sie wählen auf der Preisseite Stufe und Laufzeit (monatlich oder jährlich). Dafür müssen Sie angemeldet sein.
+
+b) Auf unserer **Bestell-Zusammenfassung** sehen Sie Stufe, Vorzüge, Laufzeit, Abrechnungszeitraum, Endpreis (Abschnitt 9.1), die
+Kündigungsbedingungen (Abschnitt 11) und den Hinweis auf Ihr Widerrufsrecht (Abschnitt 12). Dort bestätigen Sie per Kästchen, dass Sie diese
+Bedingungen akzeptieren (Pflicht), und können per zweitem, **freiwilligem** Kästchen verlangen, dass wir vor Ablauf der Widerrufsfrist beginnen
+(Abschnitt 12.2; Texte in Anlage 3).
+
+c) Mit Klick auf die Schaltfläche **„zahlungspflichtig bestellen“** geben Sie ein verbindliches Angebot zum Abschluss des Abos ab.
+
+d) Anschließend leiten wir Sie zur Bezahlseite unseres Zahlungsdienstleisters Stripe („Stripe Checkout“) weiter. Dort geben Sie nur noch Ihre
+Zahlungsdaten ein und bestätigen die Zahlung.
+
+e) Der Vertrag kommt zustande, wenn wir Ihr Angebot annehmen. Die Annahme erfolgt mit der Bestätigungs-E-Mail (Anlage 3) oder mit der Freischaltung
+des Abos, je nachdem, was zuerst geschieht. Brechen Sie die Zahlung bei Stripe ab oder schlägt die erste Zahlung fehl, nehmen wir Ihr Angebot nicht
+an; es entsteht dann weder ein Vertrag noch eine Zahlungspflicht.
+
+> **[Anmerkung Entwurf]** So gebaut (Plan E3): Die Schaltfläche „zahlungspflichtig bestellen“ steht auf **unserer** Zusammenfassungsseite; Stripe Checkout dient nur
+> der Eingabe der Zahlungsdaten, zusätzlich mit einem Hinweistext über Stripes eigener Schaltfläche (`custom_text`). Stripes Schaltfläche trägt eine eigene
+> Beschriftung (z. B. „Abonnieren“), die wir nicht frei wählen können. **Anwaltlich klären:** ob die Bestellung im Sinne von § 312j Abs. 3 BGB schon mit unserer
+> Schaltfläche abgegeben ist und die Stripe-Schaltfläche nur noch die Zahlung autorisiert, oder ob die zweite Schaltfläche die Button-Lösung gefährdet; ebenso,
+> ob der Zeitpunkt des Vertragsschlusses (Buchst. e) so passt.
+
+10.2 Eingabefehler können Sie vor Absenden in der Zusammenfassung erkennen und über „zurück“ bzw. durch Auswahl einer anderen Stufe oder Laufzeit
+berichtigen. Auf der Bezahlseite von Stripe können Sie den Vorgang abbrechen und zur Zusammenfassung zurückkehren.
 
 10.3 **Vertragstext.** Wir speichern den Vertragstext (Bestelldaten, diese AGB) ⟦PLATZHALTER: Speicherung und Zugriff festlegen, z. B. Bestätigungs-E-Mail mit AGB als PDF und Abruf im Konto⟧. Diese AGB können Sie jederzeit unter ⟦PLATZHALTER: URL der AGB⟧ abrufen und speichern.
+Ihre Zustimmungen aus dem Bestellvorgang speichern wir mit Zeitpunkt und der Version des zugestimmten Textes.
 
 ## 11. Laufzeit und Kündigung
 
@@ -223,7 +358,7 @@ Bestellung durch Freischaltung der Stufe oder per E-Mail annehmen.
 (`/app/account`) beenden. Wir können ihn mit einer Frist von ⟦PLATZHALTER: z. B. 14 Tagen⟧ ordentlich kündigen; das Recht zur
 außerordentlichen Kündigung bleibt unberührt.
 
-11.2 **Monatsabo** (Pro, Max, Ultra). Der Vertrag läuft auf unbestimmte Zeit; der Abrechnungszeitraum beträgt einen Monat. Sie können
+11.2 **Monatsabo** (Abo „Simple Mods Pro“ in den Stufen Basic, Pro und Ultra). Der Vertrag läuft auf unbestimmte Zeit; der Abrechnungszeitraum beträgt einen Monat. Sie können
 **jederzeit zum Ende des bezahlten Monats** kündigen. Bis dahin bleibt die gebuchte Stufe nutzbar. Eine anteilige Erstattung für den
 laufenden Monat erfolgt bei ordentlicher Kündigung nicht.
 
@@ -237,42 +372,102 @@ Kündigungsmöglichkeit hin.
 > **[Anmerkung Entwurf]** Entschieden vom Besitzer am 12.11.2026 (LIVEMAP34b Frage 1 = A): nach Ablauf des Jahres monatlich kündbar –
 > vereinbar mit § 309 Nr. 9 BGB (Verlängerung nur auf unbestimmte Zeit mit monatlicher Kündigungsmöglichkeit). Die Varianten B (Ende ohne
 > Verlängerung) und C (Verlängerung um ein weiteres Jahr, gegenüber Verbrauchern unwirksam) sind gestrichen. Technik: Stripe-Abo-Zeitplan
-> (Jahrespreis für 12 Monate, danach Monatspreis), siehe `tools/livemap-web/smweb/billing.py`; Preisseite sagt dasselbe.
+> (Jahrespreis für 12 Monate, danach Monatspreis), siehe `tools/livemap-web/smweb/billing.py`; Preisseite sagt dasselbe. Seit N108 gilt das für das
+> Konto-Abo „Simple Mods Pro“ (Stripe Subscription Schedule nach dem Checkout, Plan E7); Hinweis-Mail im System derzeit 42 Tage vor Ablauf (`year_notice_days`).
 
 11.4 **Kündigungsbutton.** Verbraucher können kostenpflichtige Verträge, die über diese Website geschlossen wurden, jederzeit über die
-dauerhaft sichtbare Schaltfläche „Verträge hier kündigen“ ⟦PLATZHALTER: genaue Beschriftung, § 312k BGB⟧ kündigen. Über die
-Schaltfläche gelangen Sie auf eine Bestätigungsseite, auf der Sie Angaben zu Ihrem Konto/Vertrag machen und die Kündigung mit einer Schaltfläche
-„Jetzt kündigen“ bestätigen. Wir bestätigen den Eingang unverzüglich mit Datum und Uhrzeit auf einem dauerhaften Datenträger (E-Mail).
-Die Schaltfläche ist auf allen Seiten ständig verfügbar und unmittelbar erreichbar ⟦PLATZHALTER: Umsetzung im Dienst – Erreichbarkeit auch ohne Anmeldung, Beschriftung und Ablauf nach § 312k BGB prüfen lassen⟧. Daneben ist Kündigung per E-Mail an die Adresse im Impressum
-möglich.
+dauerhaft sichtbare Schaltfläche „Verträge hier kündigen“ ⟦PLATZHALTER: genaue Beschriftung, § 312k BGB⟧ kündigen. Die Schaltfläche steht
+in der Fußzeile jeder Seite unserer Dienste und führt auf die Kündigungsseite `account.simplemods.de/kuendigen`. Die Seite ist **ohne Anmeldung**
+erreichbar; sind Sie angemeldet, sind Ihre Angaben vorausgefüllt. Dort geben Sie an:
 
-11.5 **Folgen der Beendigung.** Mit dem Ende der bezahlten Laufzeit wechselt das Konto auf die Stufe Free. Überzählige Karten werden nach Abschnitt 4.6
-behandelt. Das Konto bleibt bestehen.
+- die **E-Mail-Adresse**, unter der Sie das Konto führen bzw. unter der wir Sie erreichen,
+- den **Vertrag**, den Sie kündigen möchten,
+- die **Art der Kündigung** und den **Zeitpunkt**: ordentliche Kündigung zum nächstmöglichen Zeitpunkt (voreingestellt) oder außerordentliche
+  Kündigung aus wichtigem Grund mit Angabe des **Grundes**.
+
+Mit der Schaltfläche **„Jetzt kündigen“** geben Sie die Kündigung ab. Die folgende Seite zeigt Datum und Uhrzeit des Eingangs und, soweit bereits
+feststehend, das Vertragsende. Wir bestätigen den Eingang unverzüglich auf einem dauerhaften Datenträger
+per E-Mail mit Inhalt der Kündigung, **Datum und Uhrzeit des Eingangs** und – soweit zuordenbar – dem Zeitpunkt, zu dem der Vertrag endet, und zwar an die angegebene E-Mail-Adresse **und** an die E-Mail-Adresse des
+zugehörigen Kontos. Die Schaltfläche ist auf allen Seiten ständig verfügbar und unmittelbar erreichbar ⟦PLATZHALTER: Umsetzung im Dienst – Erreichbarkeit auch ohne Anmeldung, Beschriftung und Ablauf nach § 312k BGB prüfen lassen⟧.
+Können wir die Angaben keinem Vertrag zuordnen, ⟦PLATZHALTER: Vorgehen festlegen, z. B. Rückfrage per E-Mail an die angegebene Adresse⟧.
+
+**Wirkung.** Eine ordentliche Kündigung wirkt zum Ende des bezahlten Abrechnungszeitraums (Monatsabo: Ende des bezahlten Monats; Jahresabo in den
+ersten 12 Monaten: Ende der bezahlten 12 Monate, Abschnitt 11.3). Bis dahin bleiben alle Vorzüge nutzbar. Eine außerordentliche Kündigung prüfen wir
+und teilen Ihnen das Ergebnis und den Zeitpunkt der Beendigung mit. Daneben können Sie über die Seite „Abo verwalten“ (Kundenportal von Stripe) oder
+per E-Mail an die Adresse im Impressum kündigen.
+
+> **[Anmerkung Entwurf]** So gebaut (Plan E10): Footer-Link auf jeder Seite → `/kuendigen`; Formular wie oben; ordentliche Kündigung setzt bei Stripe
+> „zum Periodenende kündigen“ (im Kundenportal bis dahin rücknehmbar); außerordentliche Kündigung wird nur vermerkt, der Besitzer prüft. Die Ergebnisseite
+> soll nicht verraten, ob ein Konto existiert (sie zeigt aber das Vertragsende an, siehe Anlage 3 Nr. 5); Ratenbegrenzung gegen Missbrauch. Die Eingangsbestätigung
+> nennt Datum/Uhrzeit, Vertrag, Art und Vertragsende (§ 312k Abs. 4 BGB). Anwaltlich prüfen, ob die Kündigung ohne Anmeldung mit Bestätigung an die
+> Konto-Adresse ausreichend vor Missbrauch schützt.
+
+11.5 **Folgen der Beendigung.** Mit dem Ende der bezahlten Laufzeit enden alle Vorzüge des Abos, einschließlich des Frühzugangs (Abschnitt 3.18);
+das Konto wechselt auf die Stufe Free von Simple Livemap. Überzählige Karten werden nach Abschnitt 4.6 behandelt. Das Konto bleibt bestehen.
+Wir informieren Sie per E-Mail, wenn Ihr Abo beendet ist.
 
 11.6 **Außerordentliche Kündigung.** Das Recht zur Kündigung aus wichtigem Grund (§ 314 BGB) bleibt unberührt. Ein wichtiger Grund liegt
-für uns insbesondere vor bei erheblichen oder wiederholten Verstößen gegen Abschnitt 5, bei Missbrauch der Schnittstelle oder bei Zahlungsverzug nach Fristsetzung.
+für uns insbesondere vor bei erheblichen oder wiederholten Verstößen gegen Abschnitt 5 oder 3.16, bei Missbrauch der Schnittstelle oder bei Zahlungsverzug nach Fristsetzung.
 Im Fall einer berechtigten außerordentlichen Kündigung durch uns erstatten wir den auf die Zeit nach der Kündigung entfallenden Anteil des bezahlten Entgelts ⟦PLATZHALTER: festlegen⟧.
+
+11.7 **Herabstufung, Ablauf und Zahlungsausfall – Überblick.** Ihre Vorzüge enden bzw. ändern sich
+
+- bei **ordentlicher Kündigung**: zum Ende des bezahlten Abrechnungszeitraums (Abschnitt 11.4);
+- bei **Wechsel in eine niedrigere Stufe**: nach Abschnitt 3.10;
+- bei **fehlgeschlagener Zahlung**: nach Ablauf der Kulanzfrist nach Abschnitt 9.3;
+- bei **Widerruf**: mit dem Widerruf (Abschnitt 12);
+- bei **außerordentlicher Kündigung**: zum mitgeteilten Zeitpunkt (Abschnitt 11.6).
+
+In allen Fällen gelten die Abschnitte 4.6 (Karten) und 11.5 entsprechend.
 
 ## 12. Widerrufsrecht für Verbraucher (ab Bezahlstart)
 
-12.1 Verbraucher haben bei kostenpflichtigen Verträgen über digitale Dienstleistungen ein gesetzliches Widerrufsrecht nach Maßgabe der
-**Widerrufsbelehrung in Anlage 1**. Ein Muster-Widerrufsformular steht in Anlage 2.
+12.1 Verbraucher haben bei kostenpflichtigen Verträgen ein gesetzliches Widerrufsrecht nach Maßgabe der
+**Widerrufsbelehrung in Anlage 1**. Ein Muster-Widerrufsformular steht in Anlage 2. Das Abo „Simple Mods Pro“ umfasst **digitale
+Dienstleistungen** (z. B. Simple Livemap, Download-Bereich) und die Bereitstellung **digitaler Inhalte**, die nicht auf einem körperlichen
+Datenträger geliefert werden (Dateien aus dem Frühzugang).
 
 12.2 **Beginn der Leistung vor Ablauf der Widerrufsfrist; vorzeitiges Erlöschen.** Wenn Sie wünschen, dass wir mit der Leistung bereits
-vor Ablauf der Widerrufsfrist beginnen, holen wir im Bestellvorgang Ihre **ausdrückliche Zustimmung** und die **Bestätigung** ein, dass
-Ihr Widerrufsrecht bei vollständiger Vertragserfüllung durch uns erlischt (§ 356 Abs. 4 BGB) und dass Sie bei Widerruf nach
-Beginn der Leistung einen angemessenen Betrag für die bis dahin erbrachte Leistung zahlen müssen (§ 357a BGB) – Texte in Anlage 3.
-Ohne diese Zustimmung schalten wir die kostenpflichtige Stufe erst nach Ablauf der Widerrufsfrist frei.
+vor Ablauf der Widerrufsfrist beginnen, holen wir im Bestellvorgang Ihre **ausdrückliche Zustimmung** und die **Bestätigung** Ihrer Kenntnis ein,
+dass Ihr Widerrufsrecht
+
+- bei den **Dienstleistungen** bei vollständiger Vertragserfüllung durch uns erlischt (§ 356 Abs. 4 BGB) und Sie bei einem Widerruf nach
+  Beginn der Leistung einen angemessenen Betrag für die bis dahin erbrachte Leistung zahlen müssen (§ 357a Abs. 2 BGB),
+- bei den **digitalen Inhalten** mit Beginn der Vertragserfüllung erlischt (§ 356 Abs. 5 BGB); die Bestätigung des Vertrags nach § 312f BGB
+  erhalten Sie per E-Mail (Anlage 3).
+
+Texte in Anlage 3. Die Zustimmung ist **freiwillig**. **Ohne diese Zustimmung schalten wir das Abo mit allen Vorzügen erst nach Ablauf der
+14-tägigen Widerrufsfrist frei.**
+
+> **[Anmerkung Entwurf]** So gebaut (Plan E4): Kästchen freiwillig; ohne Häkchen beginnt die Freischaltung erst 14 Tage nach Vertragsschluss
+> (`withdrawal_days`). **Achtung:** Stripe rechnet den ersten Abrechnungszeitraum ab dem Checkout ab. Ohne Zustimmung zahlt der Kunde also für 14 Tage,
+> in denen er das Abo nicht nutzen kann (die Bestellseite weist darauf hin: „die erste Zahlung ist trotzdem fällig“). Klären und entscheiden: Abrechnungsbeginn verschieben (z. B. Abo-Start bzw. kostenlose Anlaufzeit von 14 Tagen bei
+> Stripe) oder die Laufzeit entsprechend verlängern, oder deutlich in der Zusammenfassung ausweisen. Ebenfalls klären: wie das Erlöschen bei einem
+> gemischten Vertrag (Dienstleistung + digitale Inhalte in einem Abo) wirkt und ob für digitale Inhalte ohne körperlichen Datenträger beim Widerruf kein
+> Wertersatz geschuldet ist (§ 357a Abs. 3 BGB, nach bestem Wissen).
 
 12.3 Die kostenlose Stufe Free begründet keine Zahlungspflicht; Anlage 1 und 2 sind dafür nicht erforderlich.
 ⟦PLATZHALTER: anwaltlich bestätigen lassen, ob für die Free-Stufe ein Widerrufsrecht besteht (§ 312 Abs. 1a BGB, Daten als Gegenleistung)⟧
 
-## 13. Mängel und Gewährleistung
+## 13. Digitale Produkte, Aktualisierungen, Mängel
 
-13.1 Für Mängel gelten die gesetzlichen Vorschriften. Gegenüber Verbrauchern gelten für kostenpflichtige Stufen die Vorschriften über Verträge über
+13.1 Für Mängel gelten die gesetzlichen Vorschriften. Gegenüber Verbrauchern gelten für das Abo und die kostenpflichtigen Stufen die Vorschriften über Verträge über
 digitale Produkte (§§ 327 ff. BGB), insbesondere zur Vertragsmäßigkeit und zu Aktualisierungen.
 
 13.2 Mängel melden Sie bitte unverzüglich an ⟦PLATZHALTER: Support-E-Mail⟧ mit Beschreibung und Zeitpunkt. ⟦PLATZHALTER: Gewährleistungsfristen gegenüber Unternehmern festlegen (Vorschlag: 12 Monate)⟧
+
+13.3 **Aktualisierungen.** Während der Laufzeit des Abos stellen wir Ihnen die Aktualisierungen bereit, die erforderlich sind, damit die Dienste
+vertragsgemäß bleiben, insbesondere Sicherheitsaktualisierungen, und informieren Sie darüber (§ 327f BGB, soweit anwendbar). Bei den
+gehosteten Diensten spielen wir Aktualisierungen selbst ein. Bei Dateien aus dem Frühzugang erfolgt die Aktualisierung durch Bereitstellung
+einer neuen Version im Download-Bereich; ob Sie diese installieren, entscheiden Sie selbst. Installieren Sie eine bereitgestellte Aktualisierung nicht,
+haften wir nicht für einen Mangel, der allein auf das Fehlen dieser Aktualisierung zurückgeht, wenn wir Sie über die Aktualisierung und die Folgen der
+Nichtinstallation informiert haben (§ 327f Abs. 2 BGB).
+
+13.4 **Frühzugang.** Für Vorabversionen gilt ergänzend Abschnitt 3.15. Neue Funktionen oder neue Versionen über die Aktualisierungen nach 13.3 hinaus
+schulden wir nicht (Abschnitt 3.14).
+
+> **[Anmerkung Entwurf]** Reichweite der Aktualisierungspflicht bei Mods (lokal installierte Dateien, Abhängigkeit von Minecraft- und Loader-Versionen) und
+> Verhältnis zu § 327h BGB (Abweichung von objektiven Anforderungen bei Vorabversionen, siehe Anmerkung zu 3.15) anwaltlich klären.
 
 ## 14. Haftung
 
@@ -307,14 +502,26 @@ kostenfrei kündigen bzw. die Änderung zurückweisen; hierüber informieren wir
 
 16.2 **Änderungen dieser Bedingungen** teilen wir bestehenden Nutzern mindestens ⟦PLATZHALTER: z. B. 6 Wochen⟧ vor Inkrafttreten per
 E-Mail mit. Gegenüber **Verbrauchern** gelten Änderungen, die Hauptleistungen oder Preise betreffen, nur mit Ihrer **ausdrücklichen Zustimmung**;
-stimmen Sie nicht zu, gilt der Vertrag zu den bisherigen Bedingungen fort, und wir können ihn ordentlich kündigen.
+stimmen Sie nicht zu, gilt der Vertrag zu den bisherigen Bedingungen fort, und wir können ihn ordentlich kündigen. Für Preisänderungen gilt Abschnitt 16.4.
 ⟦PLATZHALTER: Eine stillschweigende Zustimmung (Zustimmungsfiktion) ist im Verbraucherverkehr oft unwirksam – anwaltlich klären⟧
 
 16.3 Gegenüber **Unternehmern** können wir diese Bedingungen mit ⟦PLATZHALTER: Frist⟧ Ankündigung ändern, wenn Sie nicht
 innerhalb der Frist widersprechen und wir Sie auf diese Folge hingewiesen haben.
 
-16.4 **Preisänderungen** für laufende Verträge teilen wir mindestens ⟦PLATZHALTER: z. B. 2 Monate⟧ vorher mit. Sie wirken nur für
-künftige Abrechnungszeiträume. Sie können zum Ende des laufenden Abrechnungszeitraums kündigen. ⟦PLATZHALTER: rechtliche Zulässigkeit einseitiger Preisänderungen im Verbrauchervertrag klären; Alternative: nur mit ausdrücklicher Zustimmung⟧
+16.4 **Preisänderungen** für laufende Abos teilen wir mindestens ⟦PLATZHALTER: z. B. 2 Monate⟧ vorher per E-Mail mit, mit dem neuen Preis,
+dem Zeitpunkt des Wirksamwerdens und Ihren Rechten. Sie wirken nur für künftige Abrechnungszeiträume; einen bereits bezahlten Zeitraum
+(insbesondere die bezahlten 12 Monate eines Jahresabos) betreffen sie nicht. Preissenkungen geben wir ohne Weiteres weiter. Für Preiserhöhungen
+gilt eine der folgenden Varianten:
+
+- ⟦PLATZHALTER: Variante A (Zustimmungslösung, passt zu Abschnitt 16.2) – Gegenüber Verbrauchern wird eine Preiserhöhung nur mit Ihrer ausdrücklichen Zustimmung wirksam. Stimmen Sie nicht zu, läuft das Abo zum bisherigen Preis weiter; wir können es dann mit einer Frist von … zum Ende eines Abrechnungszeitraums ordentlich kündigen.⟧
+- ⟦PLATZHALTER: Variante B (einseitige Änderung mit Sonderkündigungsrecht) – Sie können das Abo bis zum Wirksamwerden der Preiserhöhung kostenfrei zum Ende des laufenden Abrechnungszeitraums kündigen, spätestens zum Zeitpunkt des Wirksamwerdens; darauf weisen wir in der Mitteilung hin. Nur zulässig mit einer transparenten, anlassbezogenen Preisanpassungsklausel.⟧
+
+Unabhängig davon können Sie das Abo jederzeit nach Abschnitt 11 kündigen. ⟦PLATZHALTER: rechtliche Zulässigkeit einseitiger Preisänderungen im Verbrauchervertrag klären; Alternative: nur mit ausdrücklicher Zustimmung⟧
+
+> **[Anmerkung Entwurf]** Der bisherige Text von 16.4 (einseitige Änderung mit Kündigungsrecht) widersprach Abschnitt 16.2 (Preisänderungen gegenüber
+> Verbrauchern nur mit ausdrücklicher Zustimmung). Deshalb jetzt zwei Varianten; Variante A ist die vorsichtigere (nach der Rechtsprechung des BGH zu
+> Zustimmungsfiktionen und Preisanpassungsklauseln, nach bestem Wissen). Technik: Eine Preisänderung bei laufenden Stripe-Abos erfordert das Umstellen der
+> Abos auf den neuen Preis – erst nach Zustimmung bzw. Fristablauf, nie automatisch beim Ändern von `plans.json`.
 
 ## 17. Schlussbestimmungen
 
@@ -335,7 +542,9 @@ Stand: ⟦PLATZHALTER: Datum der Veröffentlichung⟧
 
 ## Anlage 1 – Widerrufsbelehrung (ab Bezahlstart, nur für Verbraucher)
 
-> **[Anmerkung Entwurf]** Orientiert sich am amtlichen Muster (Anlage 1 zu Art. 246a § 1 Abs. 2 Satz 2 EGBGB) für Dienstleistungsverträge.
+> **[Anmerkung Entwurf]** Orientiert sich am amtlichen Muster (Anlage 1 zu Art. 246a § 1 Abs. 2 Satz 2 EGBGB) für Verträge über Dienstleistungen
+> und über digitale Inhalte, die nicht auf einem körperlichen Datenträger geliefert werden (Gestaltungshinweise: Fristbeginn „Tag des Vertragsabschlusses“;
+> Wertersatz-Absatz nur für Dienstleistungen). Das Abo „Simple Mods Pro“ ist ein gemischter Vertrag (Dienstleistung + digitale Inhalte).
 > **Vor Verwendung wortgleich mit der aktuell gültigen amtlichen Fassung abgleichen**; Abweichungen können die Schutzwirkung des Musters beseitigen
 > und die Widerrufsfrist auf bis zu zwölf Monate und 14 Tage verlängern (§ 356 Abs. 3 BGB).
 
@@ -368,7 +577,15 @@ Ihr Widerrufsrecht erlischt bei einem Vertrag zur Erbringung von Dienstleistunge
 Ausführung der Dienstleistung erst begonnen haben, nachdem Sie dazu Ihre ausdrückliche Zustimmung gegeben haben und gleichzeitig Ihre Kenntnis davon
 bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüllung durch uns verlieren.
 
-> **[Anmerkung Entwurf]** Bei Abos (Dauerleistung) ist die Dienstleistung innerhalb der ersten 14 Tage in der Regel noch nicht „vollständig erbracht“. Das Erlöschen
+Ihr Widerrufsrecht erlischt bei einem Vertrag über die Bereitstellung von nicht auf einem körperlichen Datenträger befindlichen digitalen
+Inhalten (hier: Dateien aus dem Frühzugang), wenn wir mit der Vertragserfüllung begonnen haben, nachdem Sie ausdrücklich zugestimmt haben, dass
+wir mit der Vertragserfüllung vor Ablauf der Widerrufsfrist beginnen, Sie Ihre Kenntnis davon bestätigt haben, dass durch Ihre Zustimmung mit Beginn
+der Vertragserfüllung Ihr Widerrufsrecht erlischt, und wir Ihnen eine Bestätigung des Vertrags auf einem dauerhaften Datenträger (E-Mail) zur
+Verfügung gestellt haben.
+
+> **[Anmerkung Entwurf]** Der Absatz zu digitalen Inhalten folgt § 356 Abs. 5 BGB (nach bestem Wissen); das amtliche Muster enthält keine Erlöschens-Absätze,
+> sie sind zulässige Zusätze. Ob das Erlöschen beim gemischten Abo nur für die Frühzugangs-Dateien oder für den ganzen Vertrag wirkt, anwaltlich klären.
+> Bei Abos (Dauerleistung) ist die Dienstleistung innerhalb der ersten 14 Tage in der Regel noch nicht „vollständig erbracht“. Das Erlöschen
 > greift daher praktisch erst, wenn ein befristeter Zeitraum (z. B. Jahresabo) vollständig abgelaufen wäre; im Widerrufsfall nach Leistungsbeginn bleibt der Wertersatz.
 > Wie das für Monats- und Jahresabos genau zu formulieren ist, vom Anwalt bestätigen lassen.
 
@@ -380,7 +597,7 @@ bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüll
 
 - An ⟦PLATZHALTER: Name, Anschrift und E-Mail-Adresse des Betreibers⟧:
 - Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung (*):
-  ⟦PLATZHALTER: Bezeichnung der Leistung, z. B. „Simple Livemap Pro, monatlich“⟧
+  ⟦PLATZHALTER: Bezeichnung der Leistung, z. B. „Simple Mods Pro Basic, monatlich“⟧
 - Bestellt am (*) / erhalten am (*): ______________
 - Name des/der Verbraucher(s): ______________
 - Anschrift des/der Verbraucher(s): ______________
@@ -389,35 +606,77 @@ bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüll
 
 (*) Unzutreffendes streichen.
 
+> **[Anmerkung Entwurf]** Das amtliche Formular nennt nur Waren und Dienstleistungen; beim Abo trifft „Dienstleistung“ zu. Wortlaut des Formulars nicht verändern;
+> ob ein Zusatz „/ die Bereitstellung der folgenden digitalen Inhalte (*)“ sinnvoll ist, anwaltlich klären.
+
 ---
 
-## Anlage 3 – Texte im Bestellvorgang und im Konto (ab Bezahlstart)
+## Anlage 3 – Texte im Bestellvorgang, auf der Kündigungsseite und in E-Mails (ab Bezahlstart)
 
-> **[Anmerkung Entwurf]** Diese Texte sind Vorgaben für die Umsetzung im Dienst. Sie gehören nicht in die veröffentlichten AGB.
-> Wortlaut und Gestaltung (insbesondere Beschriftung der Schaltflächen) anwaltlich prüfen lassen.
+> **[Anmerkung Entwurf]** Diese Texte sind Vorgaben für die Umsetzung im Dienst (Plan N108, E2–E4, E8–E10). Sie gehören nicht in die veröffentlichten AGB.
+> Wortlaut und Gestaltung (insbesondere Beschriftung der Schaltflächen) anwaltlich prüfen lassen. Die Texte der Kästchen müssen im Dienst **wortgleich**
+> verwendet werden; die Version des Textes (`terms_version`, derzeit `entwurf-2026-11-19`) wird mit jeder Zustimmung gespeichert und bei jeder Textänderung erhöht.
+> Ist ein Text im gebauten Dienst abweichend, gilt: Dienst und Anlage angleichen, nicht nur eine Seite.
 
-**Zusammenfassung unmittelbar über der Bestell-Schaltfläche** (Art. 246a § 1 EGBGB, § 312j Abs. 2 BGB)
+**1. Preisseite `account.simplemods.de/pro`**
 
-- Gewählte Stufe, Leistung (Verweis auf Tabelle 3.1), Laufzeit (Monat/Jahr), Gesamtpreis einschließlich Umsatzsteuer bzw. Hinweis auf § 19 UStG,
-  Abrechnungszeitraum, Zahlungsart, Kündigungsbedingungen (Abschnitt 11; beim Jahresabo ausdrücklich: „nach 12 Monaten monatlich zum
-  Monatspreis weiter, jederzeit zum Monatsende kündbar“), Hinweis auf Widerrufsrecht und Fundstelle der Widerrufsbelehrung.
-- Wird beim Jahresabo der Monatspreis × 12 durchgestrichen gezeigt (Preisseite), steht daneben, dass es der Vergleich mit 12 Monatszahlungen
+- Je Stufe: Name, Vorzüge (Tabelle 3.8), Monatspreis und Jahrespreis als Endpreis mit Steuerhinweis – je nach Schalter
+  „inkl. ⟦PLATZHALTER: Steuersatz⟧ % USt.“ oder „Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.“ (Abschnitt 9.1).
+- Wird beim Jahresabo der Monatspreis × 12 durchgestrichen gezeigt, steht daneben, dass es der Vergleich mit 12 Monatszahlungen
   ist, kein früherer Preis.
+- Beim Jahresabo: „12 Monate zum Preis von 10. Danach monatlich zum Monatspreis, jederzeit zum Monatsende kündbar.“
 
-**Zustimmungen** (Kästchen, einzeln, nicht vorangekreuzt)
+**2. Bestell-Zusammenfassung `account.simplemods.de/pro/order`, unmittelbar über der Bestell-Schaltfläche** (Art. 246a § 1 EGBGB, § 312j Abs. 2 BGB)
 
-1. „Ich habe die Nutzungsbedingungen (AGB) und die Widerrufsbelehrung gelesen und akzeptiere sie. Die Datenschutzerklärung habe ich zur Kenntnis genommen.“
-2. „Ich verlange ausdrücklich, dass ⟦PLATZHALTER: Name des Betreibers⟧ mit der Ausführung der Dienstleistung vor Ablauf der Widerrufsfrist beginnt. Mir ist bekannt, dass ich bei
-   vollständiger Vertragserfüllung durch ⟦PLATZHALTER: Name des Betreibers⟧ mein Widerrufsrecht verliere und dass ich bei einem Widerruf nach Beginn der Leistung einen
-   angemessenen Betrag für die bis dahin erbrachte Leistung zahlen muss.“ *(Freiwillig; ohne Zustimmung wird die Stufe erst nach Ablauf der Widerrufsfrist freigeschaltet.)*
+- Gewählte Stufe und ihre Vorzüge (Verweis auf Tabelle 3.8 und 3.1), Laufzeit (Monat/Jahr), Endpreis einschließlich Umsatzsteuer bzw. Hinweis auf § 19 UStG,
+  Abrechnungszeitraum, Zahlung über Stripe, Kündigungsbedingungen (Abschnitt 11; beim Jahresabo ausdrücklich: „nach 12 Monaten monatlich zum
+  Monatspreis weiter, jederzeit zum Monatsende kündbar“), Hinweis auf Widerrufsrecht und Links auf AGB, Widerrufsbelehrung, Muster-Widerrufsformular und Datenschutzerklärung.
+- Hinweis zum Frühzugang: „Frühzugangs-Versionen sind Vorabversionen ohne Zusage zu Zeitpunkt, Inhalt oder Stabilität (AGB 3.13–3.18).“
+- Hinweis zum Ablauf: „Nach dem Klick auf „zahlungspflichtig bestellen“ geben Sie Ihre Zahlungsdaten bei unserem Zahlungsdienstleister Stripe ein.“
 
-**Bestell-Schaltfläche:** „zahlungspflichtig bestellen“ (nichts anderes als diese eindeutige Beschriftung oder eine gleichwertige, § 312j Abs. 3 BGB).
+**3. Zustimmungen** (Kästchen, einzeln, nicht vorangekreuzt)
 
-**Kündigung (§ 312k BGB):** Schaltfläche „Verträge hier kündigen“ im Konto und auf den öffentlichen Seiten; Bestätigungsseite mit Angaben zu Kündigendem, Vertrag,
-Zeitpunkt der Beendigung und Schaltfläche „Jetzt kündigen“; unmittelbar danach Bestätigungs-E-Mail mit Datum und Uhrzeit.
+1. *(Pflicht)* „Ich habe die Nutzungsbedingungen (AGB) und die Widerrufsbelehrung gelesen und akzeptiere sie. Die Datenschutzerklärung habe ich zur Kenntnis genommen.“
+2. *(freiwillig)* „Ich verlange ausdrücklich, dass ⟦PLATZHALTER: Name des Betreibers⟧ mit der Ausführung vor Ablauf der Widerrufsfrist beginnt. Mir ist bekannt, dass ich bei
+   vollständiger Vertragserfüllung durch ⟦PLATZHALTER: Name des Betreibers⟧ mein Widerrufsrecht verliere, dass es mit Beginn der Bereitstellung digitaler Inhalte
+   (Frühzugang-Downloads) erlischt und dass ich bei einem Widerruf nach Beginn einen angemessenen Betrag für die bis dahin erbrachte Leistung zahle.“
+   Darunter (so gebaut): „Freiwillig. Ohne dieses Häkchen starten die Vorzüge erst nach Ablauf der Widerrufsfrist (14 Tage); die erste Zahlung ist trotzdem fällig.“
+3. ⟦PLATZHALTER: optional, derzeit nicht gebaut – Kästchen nach § 327h BGB, z. B. „Mir ist bekannt, dass Frühzugangs-Versionen Vorabversionen sind, die Fehler enthalten und von der üblichen Beschaffenheit abweichen können, und ich vereinbare dies ausdrücklich.“⟧
 
-**Bestätigung des Vertragsschlusses** (§ 312f BGB): E-Mail mit Vertragsinhalt, AGB, Widerrufsbelehrung, Muster-Widerrufsformular und ggf. der Bestätigung der
-Zustimmung zum vorzeitigen Leistungsbeginn.
+> **[Anmerkung Entwurf]** Nr. 1 und Nr. 2 entsprechen dem gebauten Stand (Bestellseite, 19.11.2026); der gebaute Text von Nr. 2 nennt den Betreiber **nicht**
+> namentlich (hier als Platzhalter ergänzt – einfügen oder streichen). Der als Nachweis gespeicherte Text im Code (`WAIVER_TEXT` in `billing.py`) weicht noch
+> leicht vom angezeigten Text ab (mit Paragrafen, „bzw.“) – **angleichen**, damit genau der angezeigte Text mit Version gespeichert wird. Nr. 2 fasst die Erklärungen
+> nach § 356 Abs. 4 und Abs. 5 BGB in einem Kästchen zusammen; prüfen lassen, ob zwei getrennte Kästchen besser sind. Die Bestellseiten sprechen Nutzer mit
+> „du“ an, die Rechtstexte mit „Sie“ – Ansprache vereinheitlichen.
+
+**4. Bestell-Schaltfläche:** „zahlungspflichtig bestellen“ (nichts anderes als diese eindeutige Beschriftung oder eine gleichwertige, § 312j Abs. 3 BGB).
+Auf der Stripe-Bezahlseite zusätzlich ein Hinweistext über Stripes Schaltfläche (so gebaut): „Mit „Abonnieren“ zahlst du die oben bestätigte Bestellung (zahlungspflichtig bestellt auf simplemods.de).“
+⟦PLATZHALTER: Hinweistext bei Stripe (`custom_text`) mit dem gebauten Text abgleichen und anwaltlich prüfen lassen⟧
+
+**5. Kündigung (§ 312k BGB)**
+
+- Fußzeile **jeder** Seite (beide Hosts, auch ohne Anmeldung): Link „Verträge hier kündigen“ → `account.simplemods.de/kuendigen`.
+- Kündigungsseite (so gebaut), Überschrift „Verträge hier kündigen“, Hinweis „Eine Anmeldung ist nicht nötig. Die Kündigung wirkt zum Ende des bezahlten
+  Zeitraums; du bekommst sofort eine Bestätigung per Mail.“; Felder: „Deine E-Mail-Adresse (des Kontos)“ (eingeloggt vorausgefüllt), „Vertrag“ (Auswahl
+  „Simple Mods Pro“), „Art der Kündigung“ mit „Ordentlich, zum nächstmöglichen Zeitpunkt“ (voreingestellt) / „Außerordentlich (aus wichtigem Grund)“,
+  „Grund (nur bei außerordentlicher Kündigung)“; Schaltfläche **„Jetzt kündigen“**.
+- Ergebnisseite „Kündigung eingegangen“: „Eingang am ‹Datum, Uhrzeit›. Vertragsende: ‹Datum bzw. „wir prüfen es und teilen es dir per Mail mit“›.“ und „Eine Bestätigung
+  mit Datum und Uhrzeit ist an die angegebene E-Mail-Adresse unterwegs. Gehört dazu ein Konto mit Abo, endet es zum Ende des bezahlten Zeitraums.“
+  ⟦PLATZHALTER: prüfen lassen, ob die Anzeige eines Vertragsendes ohne Anmeldung Rückschlüsse auf die Existenz eines Kontos zulässt⟧
+
+**6. E-Mails** (Text, Deutsch/Englisch; jede Mail nennt Absender laut Impressum und den Link „Verträge hier kündigen“)
+
+1. **Vertragsbestätigung** (§ 312f BGB), unmittelbar nach Vertragsschluss: Vertragsinhalt (Stufe, Vorzüge, Laufzeit, Preis, Abrechnungszeitraum, Beginn der Freischaltung –
+   sofort oder nach Ablauf der Widerrufsfrist), AGB, Widerrufsbelehrung, Muster-Widerrufsformular (als Text oder Anhang ⟦PLATZHALTER: Form festlegen – Anhang/PDF oder Text in der Mail; ein bloßer Link genügt für den dauerhaften Datenträger voraussichtlich nicht⟧)
+   und ggf. die Bestätigung der Zustimmung zum vorzeitigen Beginn (Zustimmung 2 mit Zeitpunkt).
+2. **Rechnung / Zahlung erhalten**: Betrag, Zeitraum, Link zur Rechnung bei Stripe. *(Abschaltbar, wenn Stripe die Belege selbst verschickt – Doppelversand vermeiden, Schalter `mails.invoice`.)*
+3. **Zahlung fehlgeschlagen**: Hinweis, Link zum Aktualisieren der Zahlungsdaten, Ende der Kulanzfrist (Abschnitt 9.3) und Folgen.
+4. **Eingangsbestätigung der Kündigung** (§ 312k Abs. 4 BGB), unverzüglich, an die angegebene Adresse **und** die Konto-Adresse: Inhalt der Kündigung
+   (Vertrag, Art, ggf. Grund, gewünschter Zeitpunkt), **Datum und Uhrzeit des Eingangs**, bei zugeordnetem Abo das Datum, zu dem der Vertrag endet.
+5. **Abo beendet**: Ende der Vorzüge, Hinweis auf Herabstufung der Karten (Abschnitt 4.6) und Ende des Frühzugangs.
+6. **Hinweis vor Ende der 12 Monate (Jahresabo)**, ⟦PLATZHALTER: 4 bis 6 Wochen – im System derzeit 42 Tage⟧ vor Ablauf: Übergang in die monatliche Laufzeit,
+   dann geltender Monatspreis, Kündigungsmöglichkeit (Abschnitt 11.3).
+7. ⟦PLATZHALTER: Mitteilung von Preis- oder Leistungsänderungen (Abschnitte 16.1, 16.4) – noch nicht gebaut⟧
 
 ---
 

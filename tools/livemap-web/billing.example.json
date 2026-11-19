@@ -1,11 +1,19 @@
 {
-  "_comment": "Stripe, prepared and OFF (spec 6). The real file lives outside the repo (server config 'billing_file', mode 600). Keys/ids below are placeholders; enabled stays false until legal texts + Stripe account exist (owner).",
+  "_comment": "Simple Mods Pro billing (N108). The real file lives outside the repo (server config 'billing_file', mode 600); stripe_setup.py fills prices/webhook_secret. enabled stays false until legal texts + Stripe account exist (owner). mode: 'test' first. Never commit real keys.",
   "enabled": false,
+  "mode": "test",
   "secret_key": "",
   "webhook_secret": "",
   "prices": {
+    "basic": {"month": "price_BASIC_MONTH_PLACEHOLDER", "year": "price_BASIC_YEAR_PLACEHOLDER"},
     "pro":   {"month": "price_PRO_MONTH_PLACEHOLDER",   "year": "price_PRO_YEAR_PLACEHOLDER"},
-    "max":   {"month": "price_MAX_MONTH_PLACEHOLDER",   "year": "price_MAX_YEAR_PLACEHOLDER"},
     "ultra": {"month": "price_ULTRA_MONTH_PLACEHOLDER", "year": "price_ULTRA_YEAR_PLACEHOLDER"}
-  }
+  },
+  "vat": {"mode": "small_business", "rate_percent": 19, "stripe_tax": false},
+  "grace_days": 7,
+  "withdrawal_days": 14,
+  "year_notice_days": 42,
+  "allow_promotion_codes": false,
+  "mails": {"order": true, "invoice": true, "payment_failed": true, "cancel": true, "ended": true, "year_notice": true},
+  "terms_version": "entwurf-2026-11-19"
 }
