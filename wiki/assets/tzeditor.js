@@ -319,14 +319,16 @@
     function toggleSel(k) { var n = nodes[k]; if (st.sel[k]) { delete st.sel[k]; if (n) n.classList.remove('sel'); } else { st.sel[k] = 1; if (n) n.classList.add('sel'); } }
 
     /* ---- pictures (N72) ----
-       Candidates in order, each tried when the one before fails to load: 1. the module picture of index.json, 2.
+       Candidates in order, each tried when the one before fails to load: 1. (N107: swapped with 2) the module picture of index.json, 2.
        data/vanilla-icons.json (dev host only, wiki/vanilla_textures.py --icons: the game's item -> model -> texture walk),
        3. the wiki's picture of the id (ctx.icon), 4. the old guesses by name. "file#x,y,w,h" = crop of a skin. All failing: the name. */
     function candidates(id) {
       var out = [], full = id.indexOf(':') >= 0 ? id : 'minecraft:' + id;
       function add(u) { if (u && out.indexOf(u) < 0) out.push(u); }
-      add(st.idx && st.idx.textures[id]);
+      /* N107: the dev host's mapping first (like textureOf in index.html) - it names module ids only when their own
+         picture is missing there; the other order asked for those missing pictures first (~20 x 404 render/*.png) */
       add(st.icons && (st.icons[id] || st.icons[full]));
+      add(st.idx && st.idx.textures[id]);
       if (ctx.icon) add(ctx.icon(full));
       var names = nsOf(id) === 'minecraft' ? [pathOf(id)] : (st.idx && st.idx.vanilla && st.idx.vanilla[id]) || [];
       names.forEach(function (n) { ['assets/vanilla/block/', 'assets/vanilla/item/'].forEach(function (p) { add(p + n + '.png'); }); });
