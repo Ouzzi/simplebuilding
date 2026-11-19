@@ -41386,6 +41386,7 @@
           "summary": "Kapitel \"Simple Slabs\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Steinstufe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
+      "texture": "assets/textures/simpleslabs/item/guide_book.png",
       "questionary": {
         "en": {
           "lore": [

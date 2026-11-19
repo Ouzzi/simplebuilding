@@ -87,7 +87,7 @@ window.WIKI_MODULES = [
       "items": 344,
       "blocks": 325,
       "recipes": 634,
-      "config": 150,
+      "config": 151,
       "features": 39
     }
   },
@@ -2441,6 +2441,6 @@ window.WIKI_MODULES = [
       "recipes": 794,
       "features": 8
     },
-    "dataHash": "20fc344520c9"
+    "dataHash": "39acf0be6194"
   }
 ];
