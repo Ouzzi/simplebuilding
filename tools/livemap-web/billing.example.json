@@ -1,12 +1,13 @@
 {
   "_comment": "Simple Mods Pro billing (N108). The real file lives outside the repo (server config 'billing_file', mode 600); stripe_setup.py fills prices/webhook_secret. enabled stays false until legal texts + Stripe account exist (owner). mode: 'test' first. Never commit real keys.",
   "enabled": false,
+  "statement_descriptor": "SIMPLEMODS",
   "mode": "test",
   "secret_key": "",
   "webhook_secret": "",
   "prices": {
     "basic": {"month": "price_BASIC_MONTH_PLACEHOLDER", "year": "price_BASIC_YEAR_PLACEHOLDER"},
-    "pro":   {"month": "price_PRO_MONTH_PLACEHOLDER",   "year": "price_PRO_YEAR_PLACEHOLDER"},
+    "max":   {"month": "price_MAX_MONTH_PLACEHOLDER",   "year": "price_MAX_YEAR_PLACEHOLDER"},
     "ultra": {"month": "price_ULTRA_MONTH_PLACEHOLDER", "year": "price_ULTRA_YEAR_PLACEHOLDER"}
   },
   "vat": {"mode": "small_business", "rate_percent": 19, "stripe_tax": false},

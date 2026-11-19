@@ -69,3 +69,27 @@ Arbeitsweise: Plan → Umsetzung → Test. Keine echten Stripe-Aufrufe (alles ge
 - `early_access.py`: Plan-Regel (Launch gleichzeitig, danach eine Version zurück), Trockenlauf, Upload ohne Freigabe abgewiesen.
 - Bestehende 43 Tests bleiben grün. Bilder der Bestellstrecke per Playwright vom lokalen Harness (Mock), nur für die Vorschau.
 - NICHT getestet: echte Stripe-API, echte Mails, Klick-Test auf Dev (nach Deploy durch A/Besitzer).
+
+## 6. Nachtrag Besitzer-Antwort Teil 1 (19.11.2026, `/root/sb-tools-a/pro/antwort-teil1.md`)
+
+| Punkt | Umsetzung (b-stripe108) |
+|---|---|
+| P001 Stufen | Abo **Basic / Max / Ultra** („Pro“ → „Max“), Livemap **Free / Basic / Max / Ultra** (Grenzen wie bisher pro/max/ultra). Marke „Simple Mods Pro“ bleibt (Produkt „Simple Mods Pro Max“ – kein Konflikt in den Texten). Alte IDs: Migration 3 benennt gespeicherte Werte um; beim Lesen gelten `config.LIVEMAP_ALIAS {"pro": "basic"}` / `PLAN_ALIAS {"pro": "max"}` (users.tier, Entitlements, Abos, Billing-Preise, Metadaten, `?plan=pro`-Links, Admin-Eingabe). |
+| Preise | 3,99 / 7,99 / 14,99 € als Start (unverändert Platzhalter aus tiers.json, konfigurierbar). |
+| Kontoauszug | `stripe_setup.py --statement-descriptor SIMPLEMODS` (Standard) setzt den Produkt-Deskriptor (bei Abos maßgeblich); zusätzlich im Stripe-Dashboard als Konto-Deskriptor eintragen (Besitzer). |
+| Kontakt | kontakt@ / datenschutz@ / melden@simplemods.de in Rechtstext-Entwürfen (nur die passenden ⟦…⟧) und Mail-Fußzeile (`contact` in der Server-Config). |
+| P011 Dimensionen | `tiers.json` `dimensions`: Free Oberwelt+Nether, Basic +End, Max/Ultra `*`. Durchgesetzt: Manifest fragt nur erlaubte Dimensionen an, Upload speichert nur erlaubte, live.json filtert Dimensionen + Spieler, Kachel-Auslieferung 204 für nicht erlaubte (auch nach Herabstufung; gespeicherte Kacheln bleiben, kommen nach Upgrade zurück). Preistabelle hat Zeile „Dimensionen“. |
+| P039 Teilen | Mitspieler-Plätze: Max 1× „Max lite“ (Livemap Basic), Ultra 2× „Ultra lite“ (Livemap Max), Vorzüge nur `livemap` (kein Frühzugang: Downloads wären weitergebbar). Regeln: nur aus eigenem bezahltem Entitlement, Inhaber bekommt selbst keine Plätze (keine Kette), Ziel = anderes bestätigtes Konto ohne eigenes Abo/Platz, ein Platz je Konto, freigewordener Platz 30 Tage gesperrt (keine Rotation), Herabstufung beendet überzählige (neueste zuerst), Abo-Ende beendet alle. Tabelle `lite_seats`, Konfig `plans.json` `lite`/`lite_rules`. UI: Abschnitt in /pro/manage (vergeben, entfernen, zurückgeben). |
+| P041 nur sichtbare Spieler | Befund: Mod (`LivemapRuntime.java`) blendet Zuschauer und `/simplelivemap hide` aus, **nicht** schleichende/unsichtbare Spieler. Java-Änderung gehört zu N106/Mod (nicht in diesem Branch) → offen. |
+
+### Geplante Mod-Vorzüge (NICHT gebaut, Teil 2 folgt)
+
+| ID | Vorzug | Stufen laut Antwort |
+|---|---|---|
+| P021 | Umhänge | Kupfer alle (auch Free), Eisen Basic, Gold + Diamant Max, Netherit + Enderit Ultra |
+| P023 | Namensfarbe/Abzeichen in 4 Stufen (je höher desto cooler) | Free/Basic/Max/Ultra; strenge Optik-Abnahme durch den Besitzer vorher |
+| P031 | Simple Recipes: Lesezeichen-Import | nur per ausdrücklichem Import-Knopf (Code → Vorschau + Bestätigung; oder lokale Welt → Vorschau → entscheiden); Stufe in Teil 2 |
+| P036 | Simple Keybinds: Tastatur-Profile | alle: 3 lokale Profile + Import; Basic: Import aus der Cloud; ab Max: bis zu 10 Cloud-Profile |
+| P038 | Social Screen + Chat | Screenshot + Screen innerhalb 30 s → Post-Ansicht; ab Max Upload in Cloud-Galerie; manuell wählen/hochladen; persistente Chat-Komponente (Server-Kommunikation) + Keybind „letzten Chat öffnen“ |
+
+Technische Einordnung: Mod-Vorzüge fragen künftig ein Entitlement-Endpoint des Kontos ab (Perk-Schlüssel wie `cape_iron`, `keybind_cloud_10`); die Perk-Liste je Stufe kommt in `plans.json` `perks`. Bau erst nach Teil 2.

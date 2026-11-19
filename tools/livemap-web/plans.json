@@ -1,13 +1,80 @@
 {
-  "_comment": "Simple Mods Pro - one account subscription on account.simplemods.de (N108). Placeholders until the owner decides prices/perks (A page 'Pro'). price_month null = the price of the mapped Simple Livemap tier in tiers.json; yearly = tiers.json yearly_months_paid x monthly. The server config may override single values under \"plans\" (and \"perks\").",
-  "order": ["basic", "pro", "ultra"],
-  "plans": {
-    "basic": {"name": "Basic", "price_month": null, "livemap_tier": "pro",   "perks": ["livemap", "early_access"]},
-    "pro":   {"name": "Pro",   "price_month": null, "livemap_tier": "max",   "perks": ["livemap", "early_access"]},
-    "ultra": {"name": "Ultra", "price_month": null, "livemap_tier": "ultra", "perks": ["livemap", "early_access"]}
+ "_comment": "Simple Mods Pro - one account subscription on account.simplemods.de (N108). Placeholders until the owner decides prices/perks (A page 'Pro'). price_month null = the price of the mapped Simple Livemap tier in tiers.json; yearly = tiers.json yearly_months_paid x monthly. The server config may override single values under \"plans\" (and \"perks\"). Owner 19.11. (N109 P001): plans Basic/Max/Ultra (old plan id \"pro\" = max, accepted on read). P039: fellow-player seats ('lite') per plan, fixed count, end with the owner's subscription, no chaining, a freed seat can be given again after lite_rules.reassign_lock_days.",
+ "order": [
+  "basic",
+  "max",
+  "ultra"
+ ],
+ "plans": {
+  "basic": {
+   "name": "Basic",
+   "price_month": null,
+   "livemap_tier": "basic",
+   "perks": [
+    "livemap",
+    "early_access"
+   ]
   },
-  "perks": {
-    "livemap":      {"en": "Simple Livemap tier {livemap}", "de": "Simple-Livemap-Stufe {livemap}"},
-    "early_access": {"en": "Early access: new versions first on simplemods.de", "de": "Frühzugang: neue Versionen zuerst auf simplemods.de"}
+  "max": {
+   "name": "Max",
+   "price_month": null,
+   "livemap_tier": "max",
+   "perks": [
+    "livemap",
+    "early_access",
+    "lite_seats"
+   ],
+   "lite": {
+    "kind": "max_lite",
+    "seats": 1
+   }
+  },
+  "ultra": {
+   "name": "Ultra",
+   "price_month": null,
+   "livemap_tier": "ultra",
+   "perks": [
+    "livemap",
+    "early_access",
+    "lite_seats"
+   ],
+   "lite": {
+    "kind": "ultra_lite",
+    "seats": 2
+   }
   }
+ },
+ "perks": {
+  "livemap": {
+   "en": "Simple Livemap tier {livemap}",
+   "de": "Simple-Livemap-Stufe {livemap}"
+  },
+  "early_access": {
+   "en": "Early access: new versions first on simplemods.de",
+   "de": "Frühzugang: neue Versionen zuerst auf simplemods.de"
+  },
+  "lite_seats": {
+   "en": "{seats} fellow-player seat(s) “{lite}”",
+   "de": "{seats} Mitspieler-Platz/Plätze „{lite}“"
+  }
+ },
+ "lite": {
+  "max_lite": {
+   "name": "Max lite",
+   "livemap_tier": "basic",
+   "perks": [
+    "livemap"
+   ]
+  },
+  "ultra_lite": {
+   "name": "Ultra lite",
+   "livemap_tier": "max",
+   "perks": [
+    "livemap"
+   ]
+  }
+ },
+ "lite_rules": {
+  "reassign_lock_days": 30
+ }
 }

@@ -27,7 +27,7 @@ sowie den Dienst „Simple Livemap“ auf `livemap.simplemods.de` ⟦PLATZHALTER
 
 **Kontakt**
 
-- E-Mail: ⟦PLATZHALTER: Kontakt-E-Mail-Adresse, die regelmäßig gelesen wird⟧
+- E-Mail: kontakt@simplemods.de
 - Zweiter schneller Kommunikationsweg: ⟦PLATZHALTER: Telefon ODER Kontaktformular unter https://…/kontakt (mindestens ein weiterer Weg neben der E-Mail; ein reines Formular ohne Telefon ist nach der Rechtsprechung zulässig, wenn Anfragen zügig beantwortet werden – prüfen lassen)⟧
 
 **Umsatzsteuer** *(eine der Varianten wählen, die andere löschen)*
@@ -60,12 +60,12 @@ sowie den Dienst „Simple Livemap“ auf `livemap.simplemods.de` ⟦PLATZHALTER
 
 Für Anfragen von Behörden der Mitgliedstaaten, der Europäischen Kommission und des Gremiums für digitale Dienste sowie für
 Nutzerinnen und Nutzer (Art. 11 und 12 der Verordnung (EU) 2022/2065, „Digital Services Act“) ist die zentrale Kontaktstelle
-erreichbar unter ⟦PLATZHALTER: E-Mail-Adresse der DSA-Kontaktstelle, z. B. recht@…; Sprachen: Deutsch und Englisch⟧.
+erreichbar unter melden@simplemods.de (Sprachen: Deutsch und Englisch).
 
 Rechtswidrige Inhalte auf gehosteten Karten (Kartenname, Bilder, Schilder, Spielernamen) können gemeldet werden
 
 - über den Link „Melden“ auf jeder gehosteten Karte ⟦PLATZHALTER: Melde-Link/Formular – muss im Dienst gebaut sein, siehe README, Umsetzungshinweise⟧ oder
-- per E-Mail an ⟦PLATZHALTER: Melde-E-Mail, z. B. melden@…⟧.
+- per E-Mail an melden@simplemods.de.
 
 Wie Meldungen bearbeitet werden, steht in Abschnitt 6 der Nutzungsbedingungen (AGB).
 

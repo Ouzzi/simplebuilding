@@ -13,6 +13,7 @@ import shutil
 import struct
 import zipfile
 
+from .config import dim_allowed
 from .errors import Problem
 
 TILE_RE = re.compile(r"^[a-z0-9_.-]{1,96}/[0-4]/-?\d{1,7}/-?\d{1,7}$")
@@ -94,7 +95,9 @@ class UploadMixin:
         if tiles:
             have = {r["path"]: r["sha"] for r in self.db.all(
                 "SELECT path, sha FROM tiles WHERE map_id = ? AND path IN (" + ",".join("?" * len(tiles)) + ")", m["id"], *tiles)}
-        need = [p for p, sha in tiles.items() if have.get(p) != sha]
+        t = self.tier(self.user(m["user_id"]))
+        # P011: dimensions outside the tier are not asked for (the mod keeps them locally; after an upgrade they are asked again)
+        need = [p for p, sha in tiles.items() if have.get(p) != sha and dim_allowed(t, p.split("/", 1)[0])]
         with self.db.tx() as c:
             added = 0
             for p in need:
@@ -111,7 +114,7 @@ class UploadMixin:
         t = self.tier(user)
         if len(data) > t["batch_kb"] * 1024:
             raise Problem(413, "too_large")
-        entries = self.read_bundle(data, min(MAX_ENTRIES, t["upload_tiles_min"]))
+        entries = [(p, b) for p, b in self.read_bundle(data, min(MAX_ENTRIES, t["upload_tiles_min"])) if dim_allowed(t, p.split("/", 1)[0])]
         # Upload rate of the tier (tiles per minute), counted per map.
         for _ in entries:
             if not self.limiter.allow(f"tiles:{m['id']}", t["upload_tiles_min"], 60):
@@ -212,6 +215,8 @@ class UploadMixin:
         if not m["show_players"] or self.now() - at > LIVE_FRESH:
             players = []
         t = self.tier(self.user(m["user_id"]))
+        dims = [d for d in dims if isinstance(d, dict) and dim_allowed(t, d.get("folder") or d.get("id") or "")]
+        players = [p for p in players if dim_allowed(t, p["dimension"])]
         return {"dimensions": dims, "players": players, "poll": t["live_seconds"] * (4 if over else 1)}
 
     def tile(self, m, path: str):

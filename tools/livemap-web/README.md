@@ -35,7 +35,7 @@ CLI: `python3 -m smweb serve|set-role|set-tier|add-user|maintenance --config <fi
 - No secrets in the repo: `config.example.json`, `billing.example.json` are templates; the real files live in `/etc/simplemods/`.
 
 ## Tiers
-`tiers.json` (spec section 4): Free/Pro/Max/Ultra – places, public share, archive, views/day, live/tile rhythm, minimum
+`tiers.json` (spec section 4): Free/Basic/Max/Ultra (owner 19.11.: old id "pro" = basic; P011 dimensions per tier) – places, public share, archive, views/day, live/tile rhythm, minimum
 preparation time, place lock (Free 7 days), shares, storage per map, upload rate. First 2 connections of an account
 (lifetime) have no minimum time (owner addition 3). Developer role = unlimited. Test accounts: admin page or `set-tier`.
 
@@ -49,8 +49,8 @@ tunnel hostnames in Cloudflare, SMTP account, legal texts (`docs/legal/`, drafts
 Known dev limitation: a “by link” map sends `Authorization: Bearer` for its tiles, which conflicts with basic auth on dev.
 
 ## Simple Mods Pro – Abo/Stripe (N108, built, OFF until the owner switches it on)
-Plan: `docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md`. One account subscription on `account.simplemods.de` (Basic/Pro/Ultra →
-livemap tier Pro/Max/Ultra + perk early access; catalogue `plans.json`, prices = placeholders from `tiers.json`, server config
+Plan: `docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md`. One account subscription on `account.simplemods.de` (Basic/Max/Ultra →
+livemap tier Basic/Max/Ultra + early access + lite seats for Max/Ultra (P039); catalogue `plans.json`, prices = placeholders from `tiers.json`, server config
 `plans` overrides everything). Pages: `/pro`, `/pro/order` (summary, terms box, voluntary early-start box § 356 Abs. 4/5 BGB,
 button „zahlungspflichtig bestellen“) → Stripe Checkout → `/pro/done`, `/pro/manage` (portal), `/kuendigen` (§ 312k, footer link
 on every page), `/early` (download area, login + perk). Webhook `/api/stripe/webhook` (signed, each event id once; checkout.session.completed,

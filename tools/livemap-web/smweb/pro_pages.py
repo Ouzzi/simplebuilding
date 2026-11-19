@@ -26,9 +26,14 @@ def perk_lines(ctx, plan: dict) -> list[str]:
     for perk in plan.get("perks", []):
         text = (names.get(perk) or {}).get(ctx.lang) or perk
         lt = tiers.get(plan.get("livemap_tier") or "") or {}
-        out.append(text.replace("{livemap}", lt.get("name", "")))
+        lite = plan.get("lite") or {}
+        lite_name = (ctx.cfg.plans.get("lite", {}).get(lite.get("kind") or "") or {}).get("name", "")
+        out.append(text.replace("{livemap}", lt.get("name", "")).replace("{seats}", str(lite.get("seats", 0))).replace("{lite}", lite_name))
         if perk == "livemap" and lt:
-            out.append(ctx.t(f"{lt['maps']} maps, live every {lt['live_seconds']} s", f"{lt['maps']} Karten, live alle {lt['live_seconds']} s"))
+            dims = lt.get("dimensions") or ["*"]
+            dim_text = (ctx.t("all dimensions incl. mods", "alle Dimensionen inkl. Mods") if "*" in dims else
+                        ctx.t("Overworld, Nether, End", "Oberwelt, Nether, End") if len(dims) >= 3 else ctx.t("Overworld, Nether", "Oberwelt, Nether"))
+            out.append(ctx.t(f"{lt['maps']} maps, live every {lt['live_seconds']} s, {dim_text}", f"{lt['maps']} Karten, live alle {lt['live_seconds']} s, {dim_text}"))
     return out
 
 
@@ -161,10 +166,40 @@ def manage(ctx, view: dict) -> str:
         table = "".join(f'<tr><th scope="row">{k}</th><td>{v}</td></tr>' for k, v in lines)
         portal = form(ctx, "/pro/manage", f'<input type="hidden" name="action" value="portal"><button class="btn">{ctx.t("Customer portal (payment method, invoices, change plan)", "Kundenportal (Zahlungsart, Rechnungen, Stufe wechseln)")}</button>', "inline")
         inner = f'<div class="tw"><table class="summary">{table}</table></div>{portal}'
-    body = f"""<h1>{ctx.t("My subscription", "Mein Abo")}</h1>{alerts(ctx)}<section class="c">{inner}</section>
+    body = f"""<h1>{ctx.t("My subscription", "Mein Abo")}</h1>{alerts(ctx)}<section class="c">{inner}</section>{lite_block(ctx)}
 <section class="c"><h2>{ctx.t("Cancel", "Kündigen")}</h2><p>{ctx.t("You can cancel any time to the end of the paid period.", "Du kannst jederzeit zum Ende des bezahlten Zeitraums kündigen.")}</p>
 <p><a class="btn s" href="{e(ctx.url("account", "/kuendigen"))}">{ctx.t("Cancel contracts here", "Verträge hier kündigen")}</a></p></section>"""
     return page(ctx, ctx.t("My subscription", "Mein Abo"), body)
+
+
+def lite_block(ctx) -> str:
+    """P039: fellow-player seats of the owner, or the seat this account holds."""
+    svc, user = ctx.svc, ctx.user
+    owner, seat = svc.lite_holder(user)
+    if owner is not None:
+        name = owner["name"] or ctx.t("a subscriber", "ein Abonnent")
+        leave = form(ctx, "/pro/manage", f'<input type="hidden" name="action" value="lite_leave"><button class="btn small s">{ctx.t("Give the seat back", "Platz zurückgeben")}</button>', "inline")
+        return (f'<section class="c"><h2>{ctx.t("Fellow-player seat", "Mitspieler-Platz")}</h2><p>{ctx.t("You use a seat of", "Du nutzt einen Platz von")} '
+                f'<b>{e(name)}</b> ({ctx.t("since", "seit")} {e(when(ctx, seat["created_at"]))}). {ctx.t("It ends with their subscription.", "Er endet mit dessen Abo.")}</p>{leave}</section>')
+    offer = svc.lite_offer(user)
+    if offer is None:
+        return ""
+    kind, count = offer
+    lite_name = ctx.cfg.plans["lite"][kind]["name"]
+    days = int(ctx.cfg.plans["lite_rules"].get("reassign_lock_days", 30))
+    rows = ""
+    for s in svc.lite_seats(user["id"]):
+        remove = form(ctx, "/pro/manage", f'<input type="hidden" name="action" value="lite_remove"><input type="hidden" name="member" value="{s["member_id"]}">'
+                                          f'<button class="btn small s">{ctx.t("Remove", "Entfernen")}</button>', "inline")
+        rows += f'<li>{e(s["name"] or s["email"])} <span class="mut small">{e(s["email"])}</span> {remove}</li>'
+    free = max(0, count - svc.lite_used(user["id"]))
+    label = ctx.t("E-mail of the fellow player's Simple Mods account", "E-Mail des Simple-Mods-Kontos des Mitspielers")
+    add = form(ctx, "/pro/manage", f'<input type="hidden" name="action" value="lite_add"><label>{label}<input type="email" name="email" required maxlength="254"></label>'
+                                   f'<button class="btn small">{ctx.t("Give seat", "Platz vergeben")}</button>', "stack") if free else ""
+    info = ctx.t(f"{count} seat(s) for other accounts; free now: {free}. A freed seat can be given again after {days} days; seats end with your subscription and cannot be passed on.",
+                 f"{count} Platz/Plätze für andere Konten; jetzt frei: {free}. Ein freigewordener Platz ist erst nach {days} Tagen wieder vergebbar; Plätze enden mit deinem Abo und sind nicht weitergebbar.")
+    return (f'<section class="c"><h2>{ctx.t("Fellow-player seats", "Mitspieler-Plätze")} „{e(lite_name)}“</h2><p>{info}</p>'
+            f'<ul class="plain">{rows}</ul>{add}</section>')
 
 
 def cancel(ctx, f: dict, result: dict | None = None) -> str:

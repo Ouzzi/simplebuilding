@@ -134,7 +134,7 @@ def seed(svc: Service):
                                                       now - 40 * 86400, now - 40 * 86400, "draft", now - 40 * 86400))
         return svc.db.one("SELECT * FROM users WHERE email = ?", email)
 
-    owner = user("owner@example.com", "Ouzzi", "developer", "pro")
+    owner = user("owner@example.com", "Ouzzi", "developer", "basic")
     free = user("free@example.com", "Mia")
     user("mia+second@example.com", "Mia 2")
     worlds = ["0f8a7c1e-2b3d-4c5e-8f90-a1b2c3d4e5f6", "11111111-2222-4333-8444-555555555555",
@@ -178,7 +178,7 @@ def seed(svc: Service):
 
 
 MOCK_SECRET = "whsec_harness_local_only"
-MOCK_PRICES = {k: {"month": f"price_{k}_month_mock", "year": f"price_{k}_year_mock"} for k in ("basic", "pro", "ultra")}
+MOCK_PRICES = {k: {"month": f"price_{k}_month_mock", "year": f"price_{k}_year_mock"} for k in ("basic", "max", "ultra")}
 
 
 def billing_mock(svc: Service, app: App, host: str, data: str):

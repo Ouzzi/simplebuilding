@@ -7,7 +7,9 @@
 >
 > Grundlage: Spezifikation LIVEMAP34 (alle 8 Abschnitte abgenommen, 12.11.2026), `tools/livemap-web/tiers.json`,
 > `docs/ai/PLAN-A-LIVEMAP34-2026-11-12.md`; seit 19.11.2026 zusätzlich Auftrag N108 (Konto-Abo „Simple Mods Pro“ mit den Stufen
-> Basic/Pro/Ultra, `tools/livemap-web/plans.json`, `billing.example.json`, `docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md`, E1–E13).
+> Basic/Max/Ultra, `tools/livemap-web/plans.json`, `billing.example.json`, `docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md`, E1–E13).
+> Besitzer-Antwort Teil 1 (19.11.2026): Abo-Stufe „Pro“ heißt jetzt „Max“, Livemap-Stufen Free/Basic/Max/Ultra (bisher Free/Pro/Max/Ultra, Grenzen unverändert),
+> Startpreise 3,99/7,99/14,99 €, Kontaktadressen, Kontoauszug „SIMPLEMODS“, geplante Vorzüge Dimensionen und Mitspieler-Plätze.
 > **Bezahlen ist derzeit „coming soon“.** Die Abschnitte zum Abo und zum Frühzugang (3.8 bis 3.18), zu Preisen, Vertragsschluss,
 > Laufzeit, Kündigung und Widerruf (9 bis 12, Anlagen 1 bis 3) werden erst mit dem Bezahlstart wirksam; die übrigen gelten schon für
 > das Konto und die kostenlose Stufe Free.
@@ -18,7 +20,7 @@
 
 1.1 Anbieter der Online-Angebote von „Simple Mods“ – des zentralen Kontos (`account.simplemods.de`) einschließlich des Konto-Abos
 „Simple Mods Pro“ und des Download-Bereichs für den Frühzugang sowie des gehosteten Dienstes „Simple Livemap“ (`livemap.simplemods.de`) – ist
-⟦PLATZHALTER: Name/Firma, Anschrift und E-Mail laut Impressum⟧ („Betreiber“, „wir“).
+⟦PLATZHALTER: Name/Firma und Anschrift laut Impressum⟧, E-Mail: kontakt@simplemods.de („Betreiber“, „wir“).
 
 1.2 Diese Bedingungen gelten für die Nutzung des Kontos, des Abos „Simple Mods Pro“ und aller darüber erreichbaren Dienste
 (zusammen „Dienste“) durch Nutzerinnen und Nutzer („Sie“). Sie
@@ -30,7 +32,7 @@ Abschnitt 13 und die Anlagen 1 bis 3), gelten gegenüber Unternehmern nicht.
 
 a) das **Konto** auf `account.simplemods.de` (Abschnitt 2), das für alle Dienste gemeinsam gilt;
 
-b) das kostenpflichtige Konto-Abo **„Simple Mods Pro“** in den Stufen Basic, Pro und Ultra. Es schaltet für Ihr Konto Vorzüge frei,
+b) das kostenpflichtige Konto-Abo **„Simple Mods Pro“** in den Stufen Basic, Max und Ultra. Es schaltet für Ihr Konto Vorzüge frei,
 derzeit eine Stufe von Simple Livemap und den **Frühzugang** zu neuen Versionen unserer Mods (Abschnitte 3.8 bis 3.18);
 
 c) den gehosteten Dienst **„Simple Livemap“**: Er nimmt von der Minecraft-Mod „Simple Livemap“ Kartenkacheln und – wenn Sie das einschalten –
@@ -71,11 +73,11 @@ die Abschnitte 3.13 bis 3.18 den Vorzug „Frühzugang“.
 
 ### Simple Livemap
 
-3.1 Simple Livemap wird in vier Stufen angeboten. Die Stufe Free ist mit jedem Konto kostenlos nutzbar; die Stufen Pro, Max und Ultra
+3.1 Simple Livemap wird in vier Stufen angeboten. Die Stufe Free ist mit jedem Konto kostenlos nutzbar; die Stufen Basic, Max und Ultra
 erhalten Sie als Vorzug des Abos „Simple Mods Pro“ (Abschnitt 3.8). Die Stufe bestimmt Zahl und Größe der Karten sowie Aktualisierungstakt und
 Priorität. Es gelten folgende Werte (Stand dieses Entwurfs):
 
-| | **Free** | **Pro** | **Max** | **Ultra** |
+| | **Free** | **Basic** | **Max** | **Ultra** |
 |---|---|---|---|---|
 | Karten gleichzeitig | 2 (davon höchstens 1 öffentlich) | 4 (davon höchstens 3 öffentlich) | 6 (davon höchstens 5 öffentlich) | 13 (davon höchstens 10 öffentlich) |
 | Puffer (getrennte Karten gespeichert) | 1 Karte · 30 Tage | 10 Karten · 90 Tage | 20 Karten · 180 Tage | 50 Karten · 1 Jahr |
@@ -85,18 +87,21 @@ Priorität. Es gelten folgende Werte (Stand dieses Entwurfs):
 | Karten-Platz neu belegen | 1× pro 7 Tage | frei | frei | frei |
 | Teilen mit anderen Konten | 2 | 10 | 50 | unbegrenzt |
 | Speicher je Karte | 64 MB | 256 MB | 1 GB | 4 GB |
-| Erhältlich über | jedes Konto, kostenlos | Abo-Stufe Basic | Abo-Stufe Pro | Abo-Stufe Ultra |
+| Dimensionen (geplant, keine Zusage – Abschnitt 3.9) | Oberwelt und Nether | zusätzlich das End | alle Dimensionen einschließlich Mod-Dimensionen | alle Dimensionen einschließlich Mod-Dimensionen |
+| Erhältlich über | jedes Konto, kostenlos | Abo-Stufe Basic | Abo-Stufe Max | Abo-Stufe Ultra |
 | Preis | 0 € | im Preis der Abo-Stufe enthalten (Abschnitt 3.8) | im Preis der Abo-Stufe enthalten | im Preis der Abo-Stufe enthalten |
 
 > **[Anmerkung Entwurf]** Die Zahlen stammen aus der abgenommenen Spezifikation bzw. `tiers.json`; Preise sind dort ausdrücklich „Vorschlag“.
-> Seit N108 werden Pro/Max/Ultra nicht mehr einzeln verkauft, sondern über das Konto-Abo (Basic → Pro, Pro → Max, Ultra → Ultra; Zuordnung
-> in `plans.json` konfigurierbar). Die bisherigen Preiszeilen (3,99 / 7,99 / 14,99 € bzw. 39,90 / 79,90 / 149,90 €) sind deshalb in die Tabelle 3.8 gewandert.
+> Seit N108 werden die bezahlten Livemap-Stufen nicht mehr einzeln verkauft, sondern über das Konto-Abo. Seit der Besitzer-Antwort vom 19.11.2026 heißen
+> die Livemap-Stufen Free/Basic/Max/Ultra (bisherige Livemap-Stufe „Pro“ = jetzt „Basic“, Grenzen unverändert) und die Abo-Stufen Basic/Max/Ultra
+> (bisherige Abo-Stufe „Pro“ = jetzt „Max“); Zuordnung Basic → Basic, Max → Max, Ultra → Ultra (in `plans.json` konfigurierbar; `tiers.json`/`plans.json`
+> müssen die neuen Namen ebenfalls führen). Die bisherigen Preiszeilen (3,99 / 7,99 / 14,99 € bzw. 39,90 / 79,90 / 149,90 €) sind deshalb in die Tabelle 3.8 gewandert.
 > Falls die Livemap-Stufen doch zusätzlich einzeln buchbar bleiben sollen, die Preiszeilen hier wieder aufnehmen.
 > Der Speicher je Karte (D17 im Plan) steht in der Spezifikation nur als „begrenzt“ – Werte vom Besitzer bestätigen.
 > Preise müssen im Shop einschließlich Umsatzsteuer als Endpreise ausgewiesen werden (PAngV); bei Kleinunternehmer-Status (§ 19 UStG) mit entsprechendem Hinweis.
 > Tabelle und Zahlen sollten im Dienst aus derselben Quelle (`tiers.json`) erzeugt werden, damit AGB, Preisseite und Technik nicht auseinanderlaufen.
 
-3.2 **Zusatzleistungen** (eigener Kartenname in der Adresse ab Pro; Einbetten per iframe und Verlauf/Schnappschüsse 30 Tage ab Max;
+3.2 **Zusatzleistungen** (eigener Kartenname in der Adresse ab Basic; Einbetten per iframe und Verlauf/Schnappschüsse 30 Tage ab Max;
 eigene Domain, Betrieb ohne Branding, Programmierschnittstelle und Schnappschüsse 1 Jahr ab Ultra) sind ⟦PLATZHALTER: erst Vertragsbestandteil, wenn sie im Dienst freigeschaltet sind; bis dahin hier streichen oder als „geplant, nicht Teil des Leistungsumfangs“ kennzeichnen⟧.
 
 > **[Anmerkung Entwurf]** Laut Spezifikation (Abschnitt 8, „Später“) gehören eigene Domain, Einbetten, API und Schnappschüsse nicht zur ersten Phase.
@@ -124,17 +129,21 @@ Welt oder Ihres Servers.
 3.8 **Stufen und Vorzüge.** Das Abo „Simple Mods Pro“ ist ein Abo für Ihr Konto auf `account.simplemods.de`. Es wird in drei Stufen
 angeboten; jede Stufe schaltet die folgenden Vorzüge frei (Stand dieses Entwurfs):
 
-| | **Basic** | **Pro** | **Ultra** |
+| | **Basic** | **Max** | **Ultra** |
 |---|---|---|---|
-| Simple-Livemap-Stufe (Abschnitt 3.1) | Pro | Max | Ultra |
+| Simple-Livemap-Stufe (Abschnitt 3.1) | Basic | Max | Ultra |
+| Simple-Livemap-Dimensionen (geplant, keine Zusage – Abschnitt 3.9) | Oberwelt, Nether und End | alle Dimensionen einschließlich Mod-Dimensionen | alle Dimensionen einschließlich Mod-Dimensionen |
+| Mitspieler-Plätze (geplant, keine Zusage – Abschnitt 3.11) | – | 1 Platz „Max lite“ (Simple Livemap Basic) | 2 Plätze „Ultra lite“ (Simple Livemap Max) |
 | Frühzugang zu neuen Mod-Versionen (Abschnitte 3.13 bis 3.18) | ja | ja | ja |
 | Weitere Vorzüge | – | – | – |
-| Preis pro Monat | ⟦PLATZHALTER: Monatspreis Basic – derzeitiger Platzhalterwert im System: 3,99 €⟧ | ⟦PLATZHALTER: Monatspreis Pro – derzeitiger Platzhalterwert: 7,99 €⟧ | ⟦PLATZHALTER: Monatspreis Ultra – derzeitiger Platzhalterwert: 14,99 €⟧ |
-| Preis bei Jahreszahlung (12 Monate zum Preis von 10; danach monatlich zum Monatspreis, siehe 11.3) | ⟦PLATZHALTER: Jahrespreis Basic – Beispiel: 39,90 €⟧ | ⟦PLATZHALTER: Jahrespreis Pro – Beispiel: 79,90 €⟧ | ⟦PLATZHALTER: Jahrespreis Ultra – Beispiel: 149,90 €⟧ |
+| Preis pro Monat (Startpreise, Stand 19.11.2026, änderbar ⟦PLATZHALTER: endgültige Monatspreise vor dem Bezahlstart bestätigen⟧) | 3,99 € | 7,99 € | 14,99 € |
+| Preis bei Jahreszahlung (12 Monate zum Preis von 10; danach monatlich zum Monatspreis, siehe 11.3) | ⟦PLATZHALTER: Jahrespreis Basic – Beispiel: 39,90 €⟧ | ⟦PLATZHALTER: Jahrespreis Max – Beispiel: 79,90 €⟧ | ⟦PLATZHALTER: Jahrespreis Ultra – Beispiel: 149,90 €⟧ |
 
 > **[Anmerkung Entwurf]** Stufen, Zuordnung zur Livemap-Stufe, Vorzüge und Preise sind im System konfigurierbar (`plans.json`, Server-Konfiguration)
-> und werden vom Besitzer über die A-Seite „Pro“ entschieden. Die genannten Beträge sind nur die derzeitigen Platzhalterwerte (= Preise der zugeordneten
-> Livemap-Stufe aus `tiers.json`), **keine** Entscheidung. Tabelle, Preisseite (`/pro`), Bestell-Zusammenfassung und Stripe-Preise müssen aus derselben
+> und werden vom Besitzer über die A-Seite „Pro“ entschieden. Die Monatspreise 3,99 / 7,99 / 14,99 € hat der Besitzer am 19.11.2026 als **Startpreise**
+> bestätigt (Antwort Teil 1); vor dem Bezahlstart endgültig bestätigen. Die Jahrespreise sind weiterhin nur Beispielwerte, **keine** Entscheidung.
+> Die Zeilen „Dimensionen“ und „Mitspieler-Plätze“ (Besitzer-Antwort P011, P039) sind geplante, noch nicht gebaute Vorzüge – vor dem Bezahlstart bauen
+> oder als „geplant“ kennzeichnen bzw. streichen (§ 327e BGB, vgl. Anmerkung zu 3.2); Anzahl der Plätze ist konfigurierbar. Tabelle, Preisseite (`/pro`), Bestell-Zusammenfassung und Stripe-Preise müssen aus derselben
 > Quelle stammen. Preisangaben als Endpreise nach Abschnitt 9.1.
 
 3.9 **Vorzüge.** Welche Vorzüge zu Ihrer Stufe gehören, ergibt sich aus der Tabelle in Abschnitt 3.8 und der Beschreibung auf der Preisseite
@@ -142,6 +151,10 @@ zum Zeitpunkt Ihrer Bestellung. ⟦PLATZHALTER: weitere Vorzüge je Stufe (z. B.
 Wir dürfen zusätzliche Vorzüge ohne Aufpreis hinzufügen. Vorzüge ändern, einschränken oder entfallen lassen dürfen wir nur nach Abschnitt 16.1;
 beeinträchtigt eine solche Änderung Ihre Nutzung nicht nur unerheblich, können Sie als Verbraucher nach § 327r BGB kostenfrei kündigen.
 Kostenlose Testzugänge, Aktionen oder Zusatzangebote, die ausdrücklich als befristet bezeichnet sind, enden mit Ablauf der genannten Frist.
+
+**Dimensionen in Simple Livemap (geplant).** Wir planen, die in Simple Livemap darstellbaren Dimensionen nach Stufe zu staffeln: ohne Abo (Stufe Free)
+Oberwelt und Nether, mit Basic zusätzlich das End, ab Max alle Dimensionen einschließlich der Dimensionen anderer Mods. Das ist eine Beschreibung des
+geplanten Umfangs und **keine Zusage**; Vertragsbestandteil wird es erst, wenn es im Dienst verfügbar ist. Für spätere Änderungen gilt Abschnitt 16.1.
 
 > **[Anmerkung Entwurf]** Die Zuordnung „Abo-Stufe → Livemap-Stufe“ und die Liste der Vorzüge sind konfigurierbar. Eine Änderung bei **laufenden**
 > Abos ist eine Leistungsänderung (Abschnitt 16.1, § 327r BGB) und muss angekündigt werden; neue Werte daher nur für neue Bestellungen oder nach Ankündigung einspielen.
@@ -153,7 +166,14 @@ für die Livemap-Karten gilt dann Abschnitt 4.6.
 
 3.11 **Ein Abo je Konto.** Je Konto kann ein Abo bestehen. Die Vorzüge sind an Ihr Konto gebunden und nicht übertragbar.
 
-3.12 **Ohne Abo.** Ohne Abo können Sie Ihr Konto und Simple Livemap in der Stufe Free weiter nutzen; Vorzüge des Abos stehen dann nicht zur Verfügung.
+**Mitspieler-Plätze (geplant).** Wir planen, dass Sie mit der Stufe Max einen Platz „Max lite“ (Simple Livemap in der Stufe Basic für ein anderes Konto)
+und mit der Stufe Ultra zwei Plätze „Ultra lite“ (Simple Livemap in der Stufe Max für je ein anderes Konto) an Mitspielerinnen und Mitspieler vergeben können;
+die Zahl der Plätze legen wir fest und können sie nach Abschnitt 16.1 ändern. Dabei gilt: Ein Platz ist persönlich und gilt nur für das Konto, dem Sie ihn
+zuweisen; er kann vom Mitspieler nicht weitergegeben werden. Er endet automatisch mit Ihrem Abo bzw. wenn Ihre Stufe keine oder weniger Plätze umfasst.
+Ein frei gewordener Platz kann erst 30 Tage nach seiner Freigabe neu vergeben werden. Wer einen Platz nutzt, erhält dadurch selbst keine Plätze.
+Das ist eine Beschreibung des geplanten Umfangs und **keine Zusage**; Vertragsbestandteil wird es erst, wenn es im Dienst verfügbar ist.
+
+3.12 **Ohne Abo.** Ohne Abo können Sie Ihr Konto und Simple Livemap in der Stufe Free (geplant: Oberwelt und Nether, Abschnitt 3.9) weiter nutzen; Vorzüge des Abos stehen dann nicht zur Verfügung.
 
 ### Frühzugang (Vorzug des Abos, ab Bezahlstart)
 
@@ -255,7 +275,7 @@ die Rechtsverletzung zu vertreten haben (§ 276 BGB); gegenüber Verbrauchern nu
 ## 6. Melde- und Abhilfeverfahren, Sperrung
 
 6.1 **Meldung.** Rechtswidrige Inhalte können über den Melde-Link auf der Karte ⟦PLATZHALTER: Link, muss gebaut werden⟧ oder per E-Mail an
-⟦PLATZHALTER: Melde-E-Mail⟧ gemeldet werden (Art. 16 der Verordnung (EU) 2022/2065, DSA). Die Meldung soll enthalten: eine
+melden@simplemods.de gemeldet werden (Art. 16 der Verordnung (EU) 2022/2065, DSA). Die Meldung soll enthalten: eine
 Begründung, warum der Inhalt rechtswidrig ist; die genaue Fundstelle (Adresse der Karte); Name und E-Mail-Adresse der meldenden
 Person (außer bei bestimmten Straftaten); die Erklärung, dass die Angaben nach bestem Wissen richtig und vollständig sind.
 
@@ -310,6 +330,7 @@ Der Endpreis wird Ihnen auf der Preisseite und in der Bestell-Zusammenfassung vo
 Stripe. Zahlungsarten: ⟦PLATZHALTER: von Stripe angebotene Zahlungsarten, z. B. Karte, SEPA-Lastschrift⟧. Sie erhalten eine Rechnung in elektronischer Form
 per E-Mail; Rechnungen und Zahlungsdaten können Sie zudem über die Seite „Abo verwalten“ (Kundenportal von Stripe) einsehen und ändern.
 Es gelten ergänzend die Bedingungen von Stripe ⟦PLATZHALTER: Link⟧. Ihre Zahlungsmittel-Daten geben Sie unmittelbar bei Stripe ein; wir erhalten sie nicht.
+Die Abbuchung erscheint auf Ihrem Kontoauszug bzw. Ihrer Kartenabrechnung als „SIMPLEMODS“.
 
 9.3 **Fehlgeschlagene Zahlung.** Schlägt eine Zahlung fehl, informieren wir Sie per E-Mail mit einem Link, über den Sie Ihre Zahlungsdaten
 aktualisieren können. Stripe versucht den Einzug erneut ⟦PLATZHALTER: Wiederholungsplan in Stripe festlegen (z. B. „Smart Retries“) und hier beschreiben⟧.
@@ -358,7 +379,7 @@ Ihre Zustimmungen aus dem Bestellvorgang speichern wir mit Zeitpunkt und der Ver
 (`/app/account`) beenden. Wir können ihn mit einer Frist von ⟦PLATZHALTER: z. B. 14 Tagen⟧ ordentlich kündigen; das Recht zur
 außerordentlichen Kündigung bleibt unberührt.
 
-11.2 **Monatsabo** (Abo „Simple Mods Pro“ in den Stufen Basic, Pro und Ultra). Der Vertrag läuft auf unbestimmte Zeit; der Abrechnungszeitraum beträgt einen Monat. Sie können
+11.2 **Monatsabo** (Abo „Simple Mods Pro“ in den Stufen Basic, Max und Ultra). Der Vertrag läuft auf unbestimmte Zeit; der Abrechnungszeitraum beträgt einen Monat. Sie können
 **jederzeit zum Ende des bezahlten Monats** kündigen. Bis dahin bleibt die gebuchte Stufe nutzbar. Eine anteilige Erstattung für den
 laufenden Monat erfolgt bei ordentlicher Kündigung nicht.
 
@@ -394,7 +415,7 @@ Können wir die Angaben keinem Vertrag zuordnen, ⟦PLATZHALTER: Vorgehen festle
 **Wirkung.** Eine ordentliche Kündigung wirkt zum Ende des bezahlten Abrechnungszeitraums (Monatsabo: Ende des bezahlten Monats; Jahresabo in den
 ersten 12 Monaten: Ende der bezahlten 12 Monate, Abschnitt 11.3). Bis dahin bleiben alle Vorzüge nutzbar. Eine außerordentliche Kündigung prüfen wir
 und teilen Ihnen das Ergebnis und den Zeitpunkt der Beendigung mit. Daneben können Sie über die Seite „Abo verwalten“ (Kundenportal von Stripe) oder
-per E-Mail an die Adresse im Impressum kündigen.
+per E-Mail an kontakt@simplemods.de kündigen.
 
 > **[Anmerkung Entwurf]** So gebaut (Plan E10): Footer-Link auf jeder Seite → `/kuendigen`; Formular wie oben; ordentliche Kündigung setzt bei Stripe
 > „zum Periodenende kündigen“ (im Kundenportal bis dahin rücknehmbar); außerordentliche Kündigung wird nur vermerkt, der Besitzer prüft. Die Ergebnisseite
@@ -454,7 +475,7 @@ Texte in Anlage 3. Die Zustimmung ist **freiwillig**. **Ohne diese Zustimmung sc
 13.1 Für Mängel gelten die gesetzlichen Vorschriften. Gegenüber Verbrauchern gelten für das Abo und die kostenpflichtigen Stufen die Vorschriften über Verträge über
 digitale Produkte (§§ 327 ff. BGB), insbesondere zur Vertragsmäßigkeit und zu Aktualisierungen.
 
-13.2 Mängel melden Sie bitte unverzüglich an ⟦PLATZHALTER: Support-E-Mail⟧ mit Beschreibung und Zeitpunkt. ⟦PLATZHALTER: Gewährleistungsfristen gegenüber Unternehmern festlegen (Vorschlag: 12 Monate)⟧
+13.2 Mängel melden Sie bitte unverzüglich an kontakt@simplemods.de mit Beschreibung und Zeitpunkt. ⟦PLATZHALTER: Gewährleistungsfristen gegenüber Unternehmern festlegen (Vorschlag: 12 Monate)⟧
 
 13.3 **Aktualisierungen.** Während der Laufzeit des Abos stellen wir Ihnen die Aktualisierungen bereit, die erforderlich sind, damit die Dienste
 vertragsgemäß bleiben, insbesondere Sicherheitsaktualisierungen, und informieren Sie darüber (§ 327f BGB, soweit anwendbar). Bei den
@@ -530,7 +551,7 @@ nicht der durch zwingende Bestimmungen des Rechts des Staates ihres gewöhnliche
 
 17.2 Gerichtsstand für Kaufleute, juristische Personen des öffentlichen Rechts und öffentlich-rechtliche Sondervermögen ist ⟦PLATZHALTER: Sitz des Betreibers⟧.
 
-17.3 Erklärungen können in Textform (E-Mail) an die Adresse im Impressum abgegeben werden.
+17.3 Erklärungen können in Textform (E-Mail) an kontakt@simplemods.de abgegeben werden.
 
 17.4 **Streitbeilegung.** Hinweise zur Verbraucherstreitbeilegung stehen im Impressum.
 
@@ -554,7 +575,7 @@ Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertr
 
 Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.
 
-Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (⟦PLATZHALTER: Name, Anschrift, E-Mail-Adresse und ggf. Telefonnummer des Betreibers⟧) mittels
+Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (⟦PLATZHALTER: Name, Anschrift und ggf. Telefonnummer des Betreibers⟧, E-Mail: kontakt@simplemods.de) mittels
 einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen,
 informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.
 
@@ -595,7 +616,7 @@ Verfügung gestellt haben.
 
 *(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)*
 
-- An ⟦PLATZHALTER: Name, Anschrift und E-Mail-Adresse des Betreibers⟧:
+- An ⟦PLATZHALTER: Name und Anschrift des Betreibers⟧, E-Mail: kontakt@simplemods.de:
 - Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung (*):
   ⟦PLATZHALTER: Bezeichnung der Leistung, z. B. „Simple Mods Pro Basic, monatlich“⟧
 - Bestellt am (*) / erhalten am (*): ______________
@@ -631,6 +652,7 @@ Verfügung gestellt haben.
 - Gewählte Stufe und ihre Vorzüge (Verweis auf Tabelle 3.8 und 3.1), Laufzeit (Monat/Jahr), Endpreis einschließlich Umsatzsteuer bzw. Hinweis auf § 19 UStG,
   Abrechnungszeitraum, Zahlung über Stripe, Kündigungsbedingungen (Abschnitt 11; beim Jahresabo ausdrücklich: „nach 12 Monaten monatlich zum
   Monatspreis weiter, jederzeit zum Monatsende kündbar“), Hinweis auf Widerrufsrecht und Links auf AGB, Widerrufsbelehrung, Muster-Widerrufsformular und Datenschutzerklärung.
+- Hinweis zur Abbuchung: „Die Abbuchung erscheint auf deinem Kontoauszug als „SIMPLEMODS“.“
 - Hinweis zum Frühzugang: „Frühzugangs-Versionen sind Vorabversionen ohne Zusage zu Zeitpunkt, Inhalt oder Stabilität (AGB 3.13–3.18).“
 - Hinweis zum Ablauf: „Nach dem Klick auf „zahlungspflichtig bestellen“ geben Sie Ihre Zahlungsdaten bei unserem Zahlungsdienstleister Stripe ein.“
 
@@ -668,7 +690,7 @@ Auf der Stripe-Bezahlseite zusätzlich ein Hinweistext über Stripes Schaltfläc
 
 1. **Vertragsbestätigung** (§ 312f BGB), unmittelbar nach Vertragsschluss: Vertragsinhalt (Stufe, Vorzüge, Laufzeit, Preis, Abrechnungszeitraum, Beginn der Freischaltung –
    sofort oder nach Ablauf der Widerrufsfrist), AGB, Widerrufsbelehrung, Muster-Widerrufsformular (als Text oder Anhang ⟦PLATZHALTER: Form festlegen – Anhang/PDF oder Text in der Mail; ein bloßer Link genügt für den dauerhaften Datenträger voraussichtlich nicht⟧)
-   und ggf. die Bestätigung der Zustimmung zum vorzeitigen Beginn (Zustimmung 2 mit Zeitpunkt).
+   und ggf. die Bestätigung der Zustimmung zum vorzeitigen Beginn (Zustimmung 2 mit Zeitpunkt); Hinweis, dass die Abbuchung als „SIMPLEMODS“ erscheint.
 2. **Rechnung / Zahlung erhalten**: Betrag, Zeitraum, Link zur Rechnung bei Stripe. *(Abschaltbar, wenn Stripe die Belege selbst verschickt – Doppelversand vermeiden, Schalter `mails.invoice`.)*
 3. **Zahlung fehlgeschlagen**: Hinweis, Link zum Aktualisieren der Zahlungsdaten, Ende der Kulanzfrist (Abschnitt 9.3) und Folgen.
 4. **Eingangsbestätigung der Kündigung** (§ 312k Abs. 4 BGB), unverzüglich, an die angegebene Adresse **und** die Konto-Adresse: Inhalt der Kündigung

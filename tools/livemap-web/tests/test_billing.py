@@ -15,7 +15,7 @@ import fake_stripe as fs
 from smweb.app import Request
 
 SECRET = "whsec_unit_test_only"
-PRICES = {"basic": {"month": "price_b_m", "year": "price_b_y"}, "pro": {"month": "price_p_m", "year": "price_p_y"},
+PRICES = {"basic": {"month": "price_b_m", "year": "price_b_y"}, "max": {"month": "price_p_m", "year": "price_p_y"},
           "ultra": {"month": "price_u_m", "year": "price_u_y"}}
 DAY = 86400
 
@@ -86,11 +86,11 @@ class ProPagesTests(ProBase):
             self.assertIn("/kuendigen", self.c.get(url).body.decode(), url)
 
     def test_order_needs_login_and_shows_summary(self):
-        r = self.c.get("https://account.test/pro/order?plan=pro&interval=year")
+        r = self.c.get("https://account.test/pro/order?plan=max&interval=year")
         self.assertEqual(r.status, 303)
         self.assertIn("/login?next=", r.header("location"))
         account(self.c, self.svc)
-        body = self.c.get("https://account.test/pro/order?plan=pro&interval=year&lang=de").body.decode()
+        body = self.c.get("https://account.test/pro/order?plan=max&interval=year&lang=de").body.decode()
         self.assertIn("zahlungspflichtig bestellen", body)
         self.assertIn("79,90 €", body)
         self.assertIn("danach monatlich zum Monatspreis", body)
@@ -109,7 +109,7 @@ class ProPagesTests(ProBase):
         self.assertIn("/pro/order?plan=basic&amp;interval=month", body)
         account(self.c, self.svc)
         r = self.c.post("https://livemap.test/app/plan", {"tier": "max", "interval": "year"})
-        self.assertEqual(r.header("location"), "https://account.test/pro/order?plan=pro&interval=year")
+        self.assertEqual(r.header("location"), "https://account.test/pro/order?plan=max&interval=year")
 
 
 class OrderTests(ProBase):
@@ -122,7 +122,7 @@ class OrderTests(ProBase):
 
     def test_checkout_parameters(self):
         u = account(self.c, self.svc)
-        r = self.order("pro", "month", waiver=True)
+        r = self.order("max", "month", waiver=True)
         self.assertEqual(r.status, 303)
         self.assertTrue(r.header("location").startswith("https://checkout.stripe.com/"))
         method, path, data, idem = self.fake.calls[-1]
@@ -131,13 +131,13 @@ class OrderTests(ProBase):
         self.assertEqual(data["line_items"][0]["price"], "price_p_m")
         self.assertEqual(data["customer_email"], "alex@example.com")
         self.assertEqual(data["client_reference_id"], str(u["id"]))
-        self.assertEqual(data["subscription_data"]["metadata"]["plan"], "pro")
+        self.assertEqual(data["subscription_data"]["metadata"]["plan"], "max")
         self.assertIn("{CHECKOUT_SESSION_ID}", data["success_url"])
         self.assertIn("zahlungspflichtig", data["custom_text"]["submit"]["message"])
         self.assertNotIn("automatic_tax", data)
         o = self.svc.db.one("SELECT * FROM orders")
         self.assertEqual(idem, f"order-{o['id']}")
-        self.assertEqual((o["plan"], o["interval"], o["price_cents"], o["waiver"], o["terms_version"]), ("pro", "month", 799, 1, "t1"))
+        self.assertEqual((o["plan"], o["interval"], o["price_cents"], o["waiver"], o["terms_version"]), ("max", "month", 799, 1, "t1"))
         self.assertIn("digital content", o["waiver_text"])
 
     def test_stripe_tax_switch(self):
@@ -174,7 +174,7 @@ class WebhookTests(ProBase):
         self.svc.mailer.sent.clear()
         self.buy("basic")
         u = self.user()
-        self.assertEqual(u["tier"], "pro", "Basic unlocks the livemap tier Pro")
+        self.assertEqual(u["tier"], "basic", "Basic unlocks the livemap tier Basic")
         self.assertEqual(u["billing_customer"], "cus_test_1")
         ent = self.svc.entitlement(u)
         self.assertEqual(ent["plan"], "basic")
@@ -226,9 +226,9 @@ class WebhookTests(ProBase):
 
     def test_out_of_order_events(self):
         account(self.c, self.svc)
-        self.buy("pro")
+        self.buy("max")
         now = int(self.clock())
-        meta = {"plan": "pro"}
+        meta = {"plan": "max"}
         late = fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_p_m", "canceled", now, meta), now + 10)
         early = fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_p_m", "active", now + 30 * DAY, meta), now + 5)
         self.hook(late)
@@ -253,7 +253,7 @@ class WebhookTests(ProBase):
 class LifecycleTests(ProBase):
     def test_yearly_schedule_year_then_month(self):
         account(self.c, self.svc)
-        self.buy("pro", "year", sub="sub_test_y")
+        self.buy("max", "year", sub="sub_test_y")
         made = self.fake.posts("subscription_schedules")
         self.assertEqual(made[0], ("subscription_schedules", {"from_subscription": "sub_test_y"}))
         path, upd = made[1]
@@ -276,7 +276,7 @@ class LifecycleTests(ProBase):
         self.assertEqual(self.user()["tier"], "ultra")
         self.assertEqual(self.svc.entitlement(self.user())["plan"], "ultra")
         self.hook(fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_b_m", "active", end), now + 2))
-        self.assertEqual(self.user()["tier"], "pro")
+        self.assertEqual(self.user()["tier"], "basic")
         actions = [r["detail"] for r in self.svc.db.all("SELECT detail FROM audit WHERE action = 'entitlement' ORDER BY id")]
         self.assertEqual(actions, ["- -> basic", "basic -> ultra", "ultra -> basic"])
 
@@ -287,7 +287,7 @@ class LifecycleTests(ProBase):
         self.assertEqual(r.status, 303)
         self.assertTrue(r.header("location").startswith("https://billing.stripe.com/"))
         self.assertEqual(self.fake.calls[-1][2]["customer"], "cus_test_1")
-        r = self.c.post("https://account.test/pro/order", {"plan": "pro", "interval": "month", "terms": "1"}, page="https://account.test/pro/manage")
+        r = self.c.post("https://account.test/pro/order", {"plan": "max", "interval": "month", "terms": "1"}, page="https://account.test/pro/manage")
         self.assertEqual(r.header("location"), "https://account.test/pro/manage", "second subscription: manage instead")
 
     def test_past_due_grace_then_free(self):
@@ -308,7 +308,7 @@ class LifecycleTests(ProBase):
 
     def test_cancel_at_period_end_then_deleted(self):
         account(self.c, self.svc)
-        _, end = self.buy("pro")
+        _, end = self.buy("max")
         now = int(self.clock())
         self.hook(fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_p_m", "active", end, cancel_at_period_end=True), now + 1))
         self.assertEqual(self.user()["tier"], "max", "stays until the end of the paid month")
@@ -324,7 +324,7 @@ class LifecycleTests(ProBase):
         _, end = self.buy("basic")
         self.clock.t = end + 1 * DAY
         self.svc.maintenance()
-        self.assertEqual(self.user()["tier"], "pro", "renewal buffer")
+        self.assertEqual(self.user()["tier"], "basic", "renewal buffer")
         self.clock.t = end + 3 * DAY
         self.svc.maintenance()
         self.assertEqual(self.user()["tier"], "free")
@@ -339,7 +339,7 @@ class LifecycleTests(ProBase):
         self.assertTrue("after the withdrawal period" in text or "nach Ablauf der Widerrufsfrist" in text, text)
         self.clock.advance(14 * DAY + 1)
         self.svc.maintenance()
-        self.assertEqual(self.user()["tier"], "pro")
+        self.assertEqual(self.user()["tier"], "basic")
         self.assertTrue(self.svc.has_perk(self.user(), "early_access"))
 
     def test_admin_tier_kept_without_subscription(self):
@@ -357,7 +357,7 @@ class LifecycleTests(ProBase):
 
     def test_year_notice_before_transition(self):
         account(self.c, self.svc)
-        _, end = self.buy("pro", "year", sub="sub_test_y")
+        _, end = self.buy("max", "year", sub="sub_test_y")
         self.clock.t = end - 40 * DAY
         self.svc.maintenance()
         self.svc.maintenance()
@@ -384,7 +384,7 @@ class CancelButtonTests(ProBase):
 
     def test_cancels_subscription_at_period_end_and_mails_both(self):
         account(self.c, self.svc)
-        _, end = self.buy("pro")
+        _, end = self.buy("max")
         other = Client(self.app, ip="192.0.2.50")
         r = other.post("https://account.test/kuendigen", {"email": "ALEX@example.com", "kind": "ordinary"})
         self.assertEqual(r.status, 200)
@@ -445,6 +445,192 @@ class EarlyAccessTests(ProBase):
         with self.svc.db.tx() as c:
             c.execute("UPDATE users SET role = 'developer' WHERE id = ?", (u["id"],))
         self.assertEqual(self.c.get("https://account.test/early/f/simplelib-fabric-1.2.0.jar").status, 200)
+
+
+
+class OwnerAnswerPart1Tests(ProBase):
+    """Owner answer part 1 (19.11.): Basic/Max/Ultra, old ids readable, P011 dimensions, P039 lite seats, contact, descriptor."""
+
+    def test_names_and_old_ids(self):
+        self.assertEqual(self.svc.cfg.plans["order"], ["basic", "max", "ultra"])
+        self.assertEqual(self.svc.cfg.tiers["order"], ["free", "basic", "max", "ultra"])
+        body = self.c.get("https://account.test/pro").body.decode()
+        self.assertIn("<b>Max</b>", body)
+        self.assertNotIn("<b>Pro</b>", body)
+        self.assertIs(self.svc.plan("pro"), self.svc.plan("max"))
+        self.svc.cfg.billing["prices"] = {"pro": {"month": "price_old_pro"}}          # billing file from before the rename
+        self.assertEqual(self.svc.price_id("max", "month"), "price_old_pro")
+        self.assertEqual(self.svc.plan_for_price("price_old_pro"), ("max", "month"))
+        u = account(self.c, self.svc)
+        with self.svc.db.tx() as c:
+            c.execute("UPDATE users SET tier = 'pro' WHERE id = ?", (u["id"],))
+        self.assertEqual(self.svc.tier(self.user())["name"], "Basic")
+        self.svc.set_tier(self.user(), "pro")
+        self.assertEqual(self.user()["tier"], "basic")
+        r = self.c.get("https://account.test/pro/order?plan=pro&interval=month")
+        self.assertIn("Simple Mods Pro Max", r.body.decode(), "old ?plan=pro link")
+
+    def test_migration_renames_stored_ids(self):
+        import sqlite3
+        from smweb import db as dbmod
+        path = Path(self.dir) / "old.sqlite3"
+        con = sqlite3.connect(path)
+        for i, sql in enumerate(dbmod.MIGRATIONS[:2], start=1):
+            con.executescript("BEGIN;" + sql + f"; PRAGMA user_version = {i}; COMMIT;")
+        con.execute("INSERT INTO users (id, email, email_canon, pw_hash, tier, created_at) VALUES (1, 'a@x.de', 'a@x.de', 'h', 'pro', 1)")
+        con.execute("INSERT INTO entitlements VALUES (1, 'pro', '[]', 'pro', 'stripe', 'sub_1', 1, NULL, 1)")
+        con.execute("INSERT INTO subscriptions (id, user_id, customer, plan, status, updated_at) VALUES ('sub_1', 1, 'cus', 'pro', 'active', 1)")
+        con.commit()
+        con.close()
+        d = dbmod.Database(path)
+        self.assertEqual(d.value("SELECT tier FROM users"), "basic")
+        self.assertEqual(tuple(d.one("SELECT plan, livemap_tier FROM entitlements")), ("max", "basic"))
+        self.assertEqual(d.value("SELECT plan FROM subscriptions"), "max")
+        d.close()
+
+    def test_contact_and_descriptor(self):
+        account(self.c, self.svc)
+        self.buy("basic")
+        self.assertIn("kontakt@simplemods.de", self.svc.mailer.sent[-1]["text"])
+
+
+class DimensionTests(ProBase):
+    """P011: Free = Overworld + Nether, Basic + End, Max/Ultra all mod dimensions."""
+
+    PATHS = {"minecraft_overworld/4/0/0": "a", "minecraft_the_nether/4/0/0": "b", "minecraft_the_end/4/0/0": "c",
+             "twilightforest_twilight_forest/4/0/0": "d", "minecraft_the_end.h/4/0/0": "e"}
+
+    def need(self, tier):
+        from helpers import connect
+        import hashlib
+        u = self.user()
+        self.svc.set_tier(u, tier)
+        key = connect(self.c)["key"] if not hasattr(self, "key") else self.key
+        self.key = key
+        status, data, _ = self.c.api("POST", "manifest", {"tiles": {p: hashlib.sha256((v + tier).encode()).hexdigest() for p, v in self.PATHS.items()}}, key=key)
+        self.assertEqual(status, 200, data)
+        return {p.split("/")[0] for p in data["need"]}
+
+    def test_manifest_asks_only_allowed_dimensions(self):
+        account(self.c, self.svc)
+        self.assertEqual(self.need("free"), {"minecraft_overworld", "minecraft_the_nether"})
+        self.assertEqual(self.need("basic"), {"minecraft_overworld", "minecraft_the_nether", "minecraft_the_end", "minecraft_the_end.h"})
+        self.assertEqual(self.need("max"), {p.split("/")[0] for p in self.PATHS})
+
+    def test_live_and_tiles_filtered(self):
+        from helpers import connect, png, bundle
+        account(self.c, self.svc)
+        key = connect(self.c)["key"]
+        m = self.svc.db.one("SELECT * FROM maps")
+        self.svc.set_tier(self.user(), "max")
+        with self.svc.db.tx() as c:
+            c.execute("UPDATE maps SET show_players = 1, state = 'ready', visibility = 'public' WHERE id = ?", (m["id"],))
+            c.execute("UPDATE users SET dpa_version = 'x', dpa_at = 1")
+        self.svc.api_live(self.svc.db.one("SELECT * FROM maps"), {
+            "dimensions": [{"id": "minecraft:overworld", "folder": "minecraft_overworld"}, {"id": "minecraft:the_end", "folder": "minecraft_the_end"},
+                           {"id": "aether:the_aether", "folder": "aether_the_aether"}],
+            "players": [{"name": "A", "dimension": "minecraft:overworld", "x": 1, "z": 1}, {"name": "B", "dimension": "minecraft:the_end", "x": 1, "z": 1},
+                        {"name": "C", "dimension": "aether:the_aether", "x": 1, "z": 1}]})
+        mm = self.svc.db.one("SELECT * FROM maps")
+        self.assertEqual(len(self.svc.live_json(mm, False)["dimensions"]), 3)
+        self.svc.set_tier(self.user(), "basic")
+        self.svc.set_tier(self.user(), "free")
+        data = self.svc.live_json(self.svc.db.one("SELECT * FROM maps"), False)
+        self.assertEqual([d["folder"] for d in data["dimensions"]], ["minecraft_overworld"])
+        self.assertEqual([p["name"] for p in data["players"]], ["A"])
+        # stored End tile is not served on Free (after a downgrade)
+        self.svc.set_tier(self.user(), "max")
+        status, out, _ = self.c.api("POST", "manifest", {"tiles": {}, "done": True}, key=key)
+        self.svc.api_tiles(self.svc.db.one("SELECT * FROM maps"), bundle({"minecraft_the_end/4/0/0.png": png(1), "minecraft_overworld/4/0/0.png": png(2)}))
+        self.assertEqual(self.svc.db.value("SELECT COUNT(*) FROM tiles"), 2)
+        self.svc.set_tier(self.user(), "free")
+        slug = self.svc.db.value("SELECT slug FROM maps")
+        self.assertEqual(self.c.get(f"https://livemap.test/m/{slug}/tiles/minecraft_the_end/4/0/0.png").status, 204)
+        self.assertEqual(self.c.get(f"https://livemap.test/m/{slug}/tiles/minecraft_overworld/4/0/0.png").status, 200)
+        n = self.svc.api_tiles(self.svc.db.one("SELECT * FROM maps"), bundle({"minecraft_the_end/4/1/1.png": png(3)}))["stored"]
+        self.assertEqual(n, 0, "Free does not store End tiles")
+
+
+class LiteSeatTests(ProBase):
+    """P039: fixed lite seats per plan, end with the owner's subscription, no chaining, no rotation."""
+
+    def setUp(self):
+        super().setUp()
+        self.friend_c = Client(self.app, ip="192.0.2.77")
+        self.friend = account(self.friend_c, self.svc, "friend@example.com")
+        self.third_c = Client(self.app, ip="192.0.2.78")
+        self.third = account(self.third_c, self.svc, "third@example.com")
+        self.owner = account(self.c, self.svc)
+
+    def test_max_gives_one_max_lite_seat(self):
+        _, end = self.buy("max")
+        self.assertEqual(self.svc.lite_offer(self.user()), ("max_lite", 1))
+        r = self.c.post("https://account.test/pro/manage", {"action": "lite_add", "email": "friend@example.com"})
+        self.assertIn("Seat given", r.body.decode())
+        f = self.user("friend@example.com")
+        self.assertEqual(f["tier"], "basic", "Max lite = livemap Basic")
+        ent = self.svc.entitlement(f)
+        self.assertEqual((ent["plan"], ent["source"]), ("max_lite", "lite"))
+        self.assertFalse(self.svc.has_perk(f, "early_access"))
+        self.assertIn("Mitspieler-Platz", self.friend_c.get("https://account.test/pro/manage?lang=de").body.decode())
+        with self.assertRaises(Exception) as cm:
+            self.svc.lite_add(self.user(), "third@example.com")
+        self.assertEqual(cm.exception.key, "lite_full")
+        with self.assertRaises(Exception) as cm:      # no chaining: a seat holder has nothing to give
+            self.svc.lite_add(self.user("friend@example.com"), "third@example.com")
+        self.assertEqual(cm.exception.key, "lite_none")
+
+    def test_seat_ends_with_owner_subscription(self):
+        _, end = self.buy("max")
+        self.svc.lite_add(self.user(), "friend@example.com")
+        self.clock.t = end
+        self.hook(fs.event("customer.subscription.deleted", fs.subscription("sub_test_1", "cus_test_1", "price_p_m", "canceled", end), end))
+        f = self.user("friend@example.com")
+        self.assertEqual(f["tier"], "free")
+        self.assertIsNone(self.svc.entitlement(f))
+
+    def test_freed_seat_locked_against_rotation(self):
+        self.buy("max")
+        self.svc.lite_add(self.user(), "friend@example.com")
+        self.svc.lite_remove(self.owner["id"], self.friend["id"])
+        self.assertEqual(self.user("friend@example.com")["tier"], "free")
+        with self.assertRaises(Exception) as cm:
+            self.svc.lite_add(self.user(), "third@example.com")
+        self.assertEqual(cm.exception.key, "lite_full")
+        self.clock.advance(31 * DAY)
+        self.hook(fs.event("invoice.paid", fs.invoice("in_test_x1", "cus_test_1", "sub_test_1", 799, int(self.clock()) + 30 * DAY), int(self.clock())))
+        self.hook(fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_p_m", "active", int(self.clock()) + 30 * DAY), int(self.clock())))
+        self.svc.lite_add(self.user(), "third@example.com")
+        self.assertEqual(self.user("third@example.com")["tier"], "basic")
+
+    def test_ultra_two_seats_and_downgrade_trims(self):
+        _, end = self.buy("ultra")
+        self.svc.lite_add(self.user(), "friend@example.com")
+        self.svc.lite_add(self.user(), "third@example.com")
+        self.assertEqual(self.user("third@example.com")["tier"], "max", "Ultra lite = livemap Max")
+        self.hook(fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_p_m", "active", end), int(self.clock()) + 1))
+        self.assertEqual(self.user("friend@example.com")["tier"], "basic", "Max now: first seat stays as Max lite")
+        self.assertEqual(self.user("third@example.com")["tier"], "free", "newest seat over the count ended")
+        self.hook(fs.event("customer.subscription.updated", fs.subscription("sub_test_1", "cus_test_1", "price_b_m", "active", end), int(self.clock()) + 2))
+        self.assertEqual(self.user("friend@example.com")["tier"], "free", "Basic has no seats")
+
+    def test_invalid_targets(self):
+        self.buy("max")
+        for email in ("alex@example.com", "nobody@example.com"):
+            with self.assertRaises(Exception) as cm:
+                self.svc.lite_add(self.user(), email)
+            self.assertEqual(cm.exception.key, "lite_target", email)
+        with self.svc.db.tx() as c:
+            c.execute("INSERT INTO subscriptions (id, user_id, customer, plan, status, updated_at) VALUES ('sub_f', ?, 'cus_f', 'basic', 'active', 1)", (self.friend["id"],))
+        with self.assertRaises(Exception) as cm:
+            self.svc.lite_add(self.user(), "friend@example.com")
+        self.assertEqual(cm.exception.key, "lite_target", "has an own subscription")
+
+    def test_member_gives_seat_back(self):
+        self.buy("max")
+        self.svc.lite_add(self.user(), "friend@example.com")
+        self.friend_c.post("https://account.test/pro/manage", {"action": "lite_leave"})
+        self.assertEqual(self.user("friend@example.com")["tier"], "free")
 
 
 if __name__ == "__main__":

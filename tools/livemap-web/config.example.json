@@ -14,6 +14,7 @@
   "billing_file": "/etc/simplemods/livemap-billing.json",
   "tiers": {},
   "plans": {},
+  "contact": {"general": "kontakt@simplemods.de", "privacy": "datenschutz@simplemods.de", "abuse": "melden@simplemods.de"},
   "early_access": {"dir": "/srv/early-access-prod", "accel_prefix": "/_early/"},
   "legal": {"imprint_url": "", "privacy_url": "", "terms_url": "", "withdrawal_url": "", "withdrawal_form_url": ""}
 }

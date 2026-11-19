@@ -69,6 +69,10 @@ class StripeSetupTests(unittest.TestCase):
         self.assertIn("live key refused", out)
         self.assertEqual(self.fake.calls, [])
 
+    def test_bad_descriptor(self):
+        rc, out = self.run_setup("--statement-descriptor", "SM")
+        self.assertEqual(rc, 2)
+
     def test_missing_key(self):
         rc, out = self.run_setup("--apply", env=self.dir / "none.env")
         self.assertEqual(rc, 2)
@@ -86,6 +90,8 @@ class StripeSetupTests(unittest.TestCase):
         self.assertEqual(posts.count("prices"), 6)
         self.assertEqual(posts.count("webhook_endpoints"), 1)
         self.assertEqual(posts.count("billing_portal/configurations"), 1)
+        prods = [d for m, p, d, i in self.fake.calls if p == "products" and m == "POST"]
+        self.assertTrue(all(d["statement_descriptor"] == "SIMPLEMODS" for d in prods))
         ep = next(d for m, p, d, i in self.fake.calls if p == "webhook_endpoints" and m == "POST")
         self.assertIn("invoice.payment_failed", ep["enabled_events"])
         self.assertIn("checkout.session.completed", ep["enabled_events"])
@@ -94,7 +100,7 @@ class StripeSetupTests(unittest.TestCase):
         self.assertNotIn(KEY, self.billing.read_text(), "the secret key is never written")
         self.assertEqual((data["key_file"], data["key_var"], data["mode"]), (str(self.env), "STRIPE_SECRET_KEY", "test"))
         self.assertTrue(data["webhook_secret"].startswith("whsec_"))
-        self.assertEqual(set(data["prices"]), {"basic", "pro", "ultra"})
+        self.assertEqual(set(data["prices"]), {"basic", "max", "ultra"})
         self.assertFalse(data["enabled"], "switching on stays the owner's step")
         first = dict(data)
         # second run: nothing new

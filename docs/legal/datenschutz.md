@@ -16,7 +16,7 @@ Verantwortlich für die Verarbeitung personenbezogener Daten auf `account.simple
 Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
 
 ⟦PLATZHALTER: Name und ladungsfähige Anschrift des Betreibers – identisch mit dem Impressum⟧
-E-Mail: ⟦PLATZHALTER: Datenschutz-Kontakt, z. B. datenschutz@…⟧
+E-Mail: datenschutz@simplemods.de
 
 Einen Datenschutzbeauftragten haben wir nicht benannt, weil dies nach Art. 37 DSGVO und § 38 BDSG nicht erforderlich ist
 (weniger als 20 Personen sind ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt).
@@ -58,6 +58,7 @@ die Abschnitte 3 bis 11 erklären die Einzelheiten.
 | Zahlungsdaten (erst nach Bezahlstart, über Stripe) | Abrechnung | Art. 6 Abs. 1 lit. b, c | gesetzliche Fristen (siehe 9) |
 | Bestellung und Abo (erst nach Bezahlstart): Stufe, Laufzeit, Zustimmungen mit Zeitpunkt und Textversion, Abo-Status, Stripe-Kunden- und Abo-Kennung, Freischaltungen | Vertragsschluss, Nachweis der Zustimmungen, Freischaltung der Vorzüge | Art. 6 Abs. 1 lit. b, c | ⟦PLATZHALTER: Dauer, z. B. Vertragsdauer plus Verjährungsfrist; Rechnungsbezug gesetzliche Fristen⟧ |
 | Stripe-Ereignisse: nur Ereignis-Kennung und -Typ | doppelte Verarbeitung verhindern | Art. 6 Abs. 1 lit. b, f | ⟦PLATZHALTER: Dauer, z. B. 90 Tage⟧ |
+| Mitspieler-Plätze (geplant, erst nach Bezahlstart): Konto des Abo-Inhabers, Konto des Mitspielers, Vergabe-, End- und Sperrfrist-Datum | Vergabe und Verwaltung der Plätze, Missbrauchsschutz | Art. 6 Abs. 1 lit. b, f | siehe Abschnitt 9.6 |
 | Kündigungen über die Kündigungsseite: E-Mail, Vertrag, Art, ggf. Grund, Zeitpunkt des Eingangs | Kündigung bearbeiten und bestätigen (§ 312k BGB), Nachweis | Art. 6 Abs. 1 lit. b, c, f | ⟦PLATZHALTER: Dauer, z. B. 3 Jahre nach Vertragsende⟧ |
 | Frühzugang: Prüfung der Berechtigung beim Abruf | Zugriff nur für Berechtigte | Art. 6 Abs. 1 lit. b | keine eigene Speicherung je Download; Server-Logs siehe 3.1 |
 
@@ -100,7 +101,7 @@ ausgeliefert werden und unser Server entlastet wird.
 ### 4.1 Registrierung und Konto
 
 Für ein Konto verarbeiten wir: E-Mail-Adresse, Anzeigename, Passwort (nur als Hash, Verfahren PBKDF2-SHA256 mit Salz; wir
-können das Passwort nicht im Klartext lesen), Rolle und Stufe (z. B. Nutzer, Free/Pro/Max/Ultra), Zeitpunkt der Erstellung und
+können das Passwort nicht im Klartext lesen), Rolle und Stufe (z. B. Nutzer, Free/Basic/Max/Ultra), Zeitpunkt der Erstellung und
 der E-Mail-Bestätigung sowie – technisch bedingt – Zähler und Zeitstempel zur Anwendung der Nutzungsbedingungen (Anzahl bisheriger
 Karten-Verbindungen, letzte Belegung eines Karten-Platzes).
 
@@ -196,7 +197,7 @@ Der Kartenname kann – je nach Stufe – Teil der öffentlichen Adresse (`/m/<n
 ### 6.4 Trennen, Puffer, Löschung von Karten
 
 Wird eine Karte getrennt oder durch Herabstufen überzählig, bleiben die Daten zunächst gespeichert („Puffer“), damit ein
-Wieder-Verbinden schneller geht. Der Puffer läuft je nach Stufe nach **30 Tagen (Free), 90 Tagen (Pro), 180 Tagen (Max) oder
+Wieder-Verbinden schneller geht. Der Puffer läuft je nach Stufe nach **30 Tagen (Free), 90 Tagen (Basic), 180 Tagen (Max) oder
 einem Jahr (Ultra)** ab; bei Herabstufen bleiben überzählige Karten **30 Tage** im Puffer. Danach löschen wir die Karte und ihre
 Kacheln. Sie können Karten auch vorher selbst löschen. Die Karte wird bei Konto-Löschung mitgelöscht (Abschnitt 11).
 
@@ -329,6 +330,16 @@ Wie bei jedem Aufruf erfasst der Webserver die aufgerufene Adresse (einschließl
 
 - Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
 
+### 9.6 Mitspieler-Plätze (geplant)
+
+Umfasst Ihre Abo-Stufe Mitspieler-Plätze (AGB 3.11), geben Sie zur Vergabe die **E-Mail-Adresse** der Mitspielerin bzw. des Mitspielers ein.
+Wir speichern die **Zuordnung des Platzes**: Konto des Abo-Inhabers, Konto des Mitspielers, Zeitpunkt der Vergabe und des Endes sowie das Ende der
+30-tägigen Sperrfrist für die Neuvergabe. Der Mitspieler sieht den **Anzeigenamen des Abo-Inhabers**, damit er weiß, von wem der Platz stammt.
+⟦PLATZHALTER: Vorgehen festlegen, wenn zur eingegebenen E-Mail-Adresse noch kein Konto besteht (z. B. Einladungs-E-Mail) – bei Umsetzung ergänzen⟧
+
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag mit dem Abo-Inhaber bzw. Nutzungsvertrag des Mitspielers), lit. f (Schutz vor Weitergabe und Missbrauch).
+- Speicherdauer: ⟦PLATZHALTER: z. B. bis zum Ende des Platzes plus Sperrfrist, danach Löschung – gegen das Löschkonzept prüfen⟧.
+
 ## 10. Empfänger, Auftragsverarbeiter und Drittländer
 
 Empfänger oder Auftragsverarbeiter personenbezogener Daten sind – soweit eingesetzt – nur:
@@ -351,7 +362,7 @@ Wir speichern Daten nur so lange, wie es für den Zweck nötig ist (siehe Tabell
 - **Konto und Karten:** bis zur Löschung des Kontos. Unter `/app/account` können Sie Ihre Daten als **JSON exportieren** und Ihr
   **Konto löschen**. Bei der Löschung werden Konto, Sitzungen, Karten (einschließlich der Karten im Puffer) und Freigaben gelöscht
   ⟦PLATZHALTER: Löschung sofort oder mit Frist; Löschung in Backups nach Ablauf der Backup-Aufbewahrung – gegen die Implementierung prüfen⟧.
-- **Puffer:** getrennte Karten bleiben Free 30 Tage, Pro 90 Tage, Max 180 Tage, Ultra 1 Jahr gespeichert, danach Löschung.
+- **Puffer:** getrennte Karten bleiben Free 30 Tage, Basic 90 Tage, Max 180 Tage, Ultra 1 Jahr gespeichert, danach Löschung.
 - **Sitzung:** höchstens 30 Tage. **Signup Tag:** 30 Tage. **Ratenbegrenzung:** höchstens 1 Stunde (nur Arbeitsspeicher).
 - **Server-Logs:** ⟦PLATZHALTER: Aufbewahrung, Vorschlag 7 Tage⟧.
 - **Meldungen zu rechtswidrigen Inhalten und Schriftverkehr:** ⟦PLATZHALTER: Dauer, z. B. bis zur Erledigung plus Verjährungsfrist⟧.

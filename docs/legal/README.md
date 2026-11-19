@@ -4,7 +4,7 @@
 > Vor einer Veröffentlichung müssen alle Texte von einer Anwältin / einem Anwalt (IT-Recht, Datenschutzrecht, Verbraucherrecht)
 > bzw. einem geprüften Generator (mit Prüfung der Ergebnisse) geprüft und freigegeben werden. Die Dateien liegen bewusst **nur** in
 > `docs/legal/` (Plan D21): nicht unter `tools/livemap-web/static`, nicht im Dienst, nicht im Wiki, nicht verlinkt.
-> Stand: 19.11.2026 · Branch `b-stripe108` · N108 (vorher: 12.11.2026 · Branch `a-livemap34` · Auftrag: `/root/b-auftrag-20261109.md` „## N34“, Besitzer-Zusatz 6).
+> Stand: 19.11.2026 · Branch `b-stripe108` · N108 + Besitzer-Antwort Teil 1 (`/root/sb-tools-a/pro/antwort-teil1.md`) (vorher: 12.11.2026 · Branch `a-livemap34` · Auftrag: `/root/b-auftrag-20261109.md` „## N34“, Besitzer-Zusatz 6).
 
 ## 1. Zweck
 
@@ -20,7 +20,7 @@ Auftragsverarbeitungs-Grundlage. Diese Entwürfe sind die **Arbeitsgrundlage fü
 |---|---|---|
 | [`impressum.md`](impressum.md) | Impressum nach § 5 DDG (ersetzt TMG seit 14.05.2024), ggf. § 18 Abs. 2 MStV, DSA-Kontaktstelle (Art. 11/12), Verbraucherstreitbeilegung, Haftungs-/Marken-Hinweise; Geltung für Konto, Abo „Simple Mods Pro“ (`account.simplemods.de`) und Simple Livemap (N108) | Start der öffentlichen Seiten |
 | [`datenschutz.md`](datenschutz.md) | Datenschutzerklärung nach Art. 13/14 DSGVO: Logs, Cloudflare, Konto, Sitzungen, Signup-Tag, Ratenlimits, E-Mail, Karten, Spielernamen/Positionen, Cookies (§ 25 Abs. 2 TDDDG), Empfänger, Drittland, Rechte, Art. 22; **Abschnitt 9 (N108):** Abo „Simple Mods Pro“ – lokale Tabellen (Bestellungen mit Zustimmungen/Textversion, Abos, Freischaltungen, Stripe-Ereignisse, Kündigungen), Stripe/Stripe Tax, Kündigungsseite, Abo-E-Mails, Frühzugang-Download-Bereich | Start der öffentlichen Seiten; Abschnitt 9 mit Bezahlstart |
-| [`agb.md`](agb.md) | Nutzungsbedingungen/AGB für Konto, Abo „Simple Mods Pro“ und Simple Livemap: Livemap-Stufen und Limits, **Abo-Stufen Basic/Pro/Ultra und Vorzüge (3.8–3.12), Frühzugang ohne Zusicherung (3.13–3.18)**, Verbinden/Puffer/Missbrauchsschutz, Inhalte, DSA-Melde- und Abhilfeverfahren, Verfügbarkeit, Preise/USt-Schalter/fehlgeschlagene Zahlung (9), Bestellvorgang mit „zahlungspflichtig bestellen“ + Stripe Checkout (10), Laufzeit/Kündigung inkl. Kündigungsseite (§ 309 Nr. 9, § 312k BGB) und Herabstufung (11), Widerruf (§ 356 Abs. 4/5 BGB, 12), digitale Produkte/Aktualisierungen (§§ 327 ff., 13), Haftung, Preisänderung (16.4, Varianten); Anlagen: Widerrufsbelehrung (Dienstleistung + digitale Inhalte), Muster-Widerrufsformular, Texte für Bestellvorgang, Kündigungsseite und E-Mails | Abschnitte 1–8 (ohne 3.8–3.18), 13–17 mit Free-Start; 3.8–3.18, 9–12 und Anlagen mit Bezahlstart |
+| [`agb.md`](agb.md) | Nutzungsbedingungen/AGB für Konto, Abo „Simple Mods Pro“ und Simple Livemap: Livemap-Stufen und Limits, **Abo-Stufen Basic/Max/Ultra und Vorzüge (3.8–3.12, geplant: Dimensionen, Mitspieler-Plätze), Frühzugang ohne Zusicherung (3.13–3.18)**, Verbinden/Puffer/Missbrauchsschutz, Inhalte, DSA-Melde- und Abhilfeverfahren, Verfügbarkeit, Preise/USt-Schalter/fehlgeschlagene Zahlung (9), Bestellvorgang mit „zahlungspflichtig bestellen“ + Stripe Checkout (10), Laufzeit/Kündigung inkl. Kündigungsseite (§ 309 Nr. 9, § 312k BGB) und Herabstufung (11), Widerruf (§ 356 Abs. 4/5 BGB, 12), digitale Produkte/Aktualisierungen (§§ 327 ff., 13), Haftung, Preisänderung (16.4, Varianten); Anlagen: Widerrufsbelehrung (Dienstleistung + digitale Inhalte), Muster-Widerrufsformular, Texte für Bestellvorgang, Kündigungsseite und E-Mails | Abschnitte 1–8 (ohne 3.8–3.18), 13–17 mit Free-Start; 3.8–3.18, 9–12 und Anlagen mit Bezahlstart |
 | [`auftragsverarbeitung.md`](auftragsverarbeitung.md) | Teil A: Liste der Dienstleister/Auftragsverarbeiter (Cloudflare, Stripe – für das Abo inkl. optional Stripe Tax –, SMTP, Hosting, Backup, R2, Registrar) mit Status, Prüf-Checkliste, TOM-Gerüst. Teil B: Gliederung eines AV-Vertrags (Art. 28 DSGVO) für Kartenbesitzer (Spielerpositionen) mit Mustertext zur Spielerinformation | Teil B vor dem Einschalten von „Spieler zeigen“ |
 
 ## 3. Konventionen
@@ -100,12 +100,12 @@ Offene Befunde nach Runde 3: keine mechanischen; inhaltlich bleiben die Entschei
 
 **Vor Start der öffentlichen Seiten / Free-Stufe (Impressum, Datenschutz, AGB 1–8, 13–17, AV Teil B):**
 
-1. **Identität**: Name/Firma, **ladungsfähige Anschrift** (wird öffentlich), E-Mail und zweiter Kommunikationsweg (Telefon oder Kontaktformular), Datenschutz-Kontakt.
+1. **Identität**: Name/Firma, **ladungsfähige Anschrift** (wird öffentlich), zweiter Kommunikationsweg (Telefon oder Kontaktformular). E-Mail-Adressen entschieden 19.11.2026: kontakt@simplemods.de, datenschutz@simplemods.de, melden@simplemods.de.
 2. **Unternehmerstatus**: Gewerbeanmeldung, Finanzamt (Betriebseröffnung), Handelsregister ja/nein.
 3. **Umsatzsteuer**: Kleinunternehmer (§ 19 UStG) ja/nein; USt-IdNr./Wirtschafts-IdNr.; **Preise inkl. USt** (PAngV); steuerliche Behandlung digitaler Dienste an Verbraucher in anderen EU-Staaten (OSS) – Steuerberater.
 4. **Verbraucherstreitbeilegung** (§ 36 VSBG): bereit/nicht bereit, ggf. Schlichtungsstelle; § 36 Abs. 3 VSBG (≤ 10 Beschäftigte) prüfen.
 5. **§ 18 Abs. 2 MStV**: ob ein Verantwortlicher für redaktionelle Inhalte zu nennen ist.
-6. **DSA/Melde-System**: Kontaktstelle (Art. 11/12 DSA), Melde-E-Mail und Melde-Link (Art. 16), Beschwerde-Frist und -Verfahren (Art. 17), Umfang der Pflichten für Kleinstunternehmen.
+6. **DSA/Melde-System**: Kontaktstelle und Melde-E-Mail (melden@simplemods.de, entschieden 19.11.2026), Melde-Link (Art. 16), Beschwerde-Frist und -Verfahren (Art. 17), Umfang der Pflichten für Kleinstunternehmen.
 7. **Datenschutzbeauftragter**: voraussichtlich nicht nötig (§ 38 BDSG, < 20 Personen) – bestätigen. **Zuständige Aufsichtsbehörde** (Landesdatenschutzbehörde des Betreibersitzes) eintragen.
 8. **SMTP-Anbieter** wählen (Standort, AV-Vertrag, Versandgrenzen); Absenderdomain/SPF/DKIM.
 9. **Log-Aufbewahrung** (Vorschlag 7 Tage, Zugriffs- **und** Fehler-Log), Log-Format (Query/Referrer/User-Agent?), ggf. IP-Kürzung.
@@ -146,8 +146,8 @@ Offene Befunde nach Runde 3: keine mechanischen; inhaltlich bleiben die Entschei
 33. **Steuer-Entscheidung** (Steuerberatung): Kleinunternehmer (§ 19 UStG, Schalter `vat.mode = small_business`, derzeitiger Platzhalter-Standard) oder regulär
     („inkl. USt.“, `regular`, Steuersatz); Stripe Tax ja/nein (`vat.stripe_tax`); OSS bei Verbrauchern in anderen EU-Staaten; Endpreis muss **vor** „zahlungspflichtig
     bestellen“ feststehen (AGB 9.1 Anmerkung). Impressum-Variante A/B und AGB 9.1 entsprechend wählen.
-34. **Rechtliche Angaben** für alle Abo-Texte: Name/Anschrift (Anlage 1/2/3), Abo-Preise je Stufe und Laufzeit (AGB 3.8 – derzeit nur Platzhalterwerte aus
-    `tiers.json`), weitere Vorzüge (3.9), erfasste Mods und Release-Termin für den Frühzugang (3.13), Umfang der persönlichen Nutzung (3.16) und Lizenz der
+34. **Rechtliche Angaben** für alle Abo-Texte: Name/Anschrift (Anlage 1/2/3), Abo-Preise je Stufe und Laufzeit (AGB 3.8 – Monatspreise 3,99/7,99/14,99 € als Startpreise bestätigt 19.11.2026, endgültig bestätigen; Jahrespreise
+    nur Beispielwerte), weitere Vorzüge (3.9), erfasste Mods und Release-Termin für den Frühzugang (3.13), Umfang der persönlichen Nutzung (3.16) und Lizenz der
     Frühzugangs-Dateien, Kulanzfrist (9.3, im System 7 Tage), Hinweisfrist Jahresabo (11.3, im System 42 Tage), Vorgehen bei nicht zuordenbarer Kündigung (11.4),
     Speicherdauern der Abo-Tabellen (Datenschutz 9.1/9.3).
 35. **Anwaltlich klären (N108):** (a) Stripes eigene Schaltfläche („Abonnieren“) nach unserer Schaltfläche „zahlungspflichtig bestellen“ (§ 312j Abs. 3 BGB, AGB 10.1);
@@ -186,7 +186,7 @@ Die Texte beschreiben den **geplanten** Dienst. Beim Bau (oder vor der Veröffen
 - Wortlaut von Widerrufsbelehrung und Muster-Widerrufsformular nicht gegen die amtliche Fassung abgeglichen.
 - Keine Prüfung der aktuellen Verträge/DPAs von Cloudflare und Stripe, der DPF-Zertifizierung oder der Mojang-Richtlinien.
 
-## 10. Platzhalter-Statistik (Runde 3, aktualisiert N108)
+## 10. Platzhalter-Statistik (Runde 3, aktualisiert N108 und 19.11.2026)
 
 Stand nach Runde 3 (12.11.2026): **182 Besitzer-Platzhalter** in den vier Textdateien –
 `impressum.md` 18 · `datenschutz.md` 65 · `agb.md` 48 · `auftragsverarbeitung.md` 51.
@@ -194,6 +194,12 @@ Stand nach Runde 3 (12.11.2026): **182 Besitzer-Platzhalter** in den vier Textda
 Stand nach der Erweiterung auf das Abo „Simple Mods Pro“ (19.11.2026, Branch `b-stripe108`, N108): **219 Besitzer-Platzhalter** –
 `impressum.md` 19 · `datenschutz.md` 75 · `agb.md` 73 · `auftragsverarbeitung.md` 52. Alle bisherigen Platzhalter sind erhalten (einzelne inhaltlich
 präzisiert, z. B. Kulanzfrist mit Systemwert); Klammern balanciert, keine verschachtelten, alle im Format `⟦PLATZHALTER: …⟧`.
+Stand nach Besitzer-Antwort Teil 1 (19.11.2026): **212 Besitzer-Platzhalter** –
+`impressum.md` 16 · `datenschutz.md` 76 · `agb.md` 69 · `auftragsverarbeitung.md` 51. Ausgefüllt: die E-Mail-Platzhalter (kontakt@, datenschutz@,
+melden@simplemods.de; bei kombinierten Platzhaltern bleibt der Rest – Name/Anschrift/Telefon – als Platzhalter), Support-E-Mail (AGB 13.2 → kontakt@),
+Weisungskontakt im AV-Vertrag (§ 3 → datenschutz@) und die drei Monatspreise (AGB 3.8, jetzt ein gemeinsamer Bestätigungs-Platzhalter). Neu: zwei Platzhalter
+in Datenschutz 9.6 (Mitspieler-Plätze: Vorgehen ohne bestehendes Konto, Speicherdauer). Umbenennung der Stufen (Abo Basic/Max/Ultra, Livemap
+Free/Basic/Max/Ultra), Kontoauszug „SIMPLEMODS“ (AGB 9.2, Anlage 3) und geplante Vorzüge (AGB 3.8/3.9/3.11) eingearbeitet.
 (Die Beispiele in diesem README zählen nicht mit.) Vor Veröffentlichung muss jeder einzelne beantwortet oder gestrichen sein; Suche: `grep -n "⟦PLATZHALTER" docs/legal/*.md`.
 
 ---

@@ -17,6 +17,7 @@ from . import pages
 from . import pro_pages
 from . import security as sec
 from .config import REPO, ROOT
+from .config import PLAN_ALIAS, dim_allowed
 from .errors import Problem
 from .i18n import t as tr
 from .upload import TILE_RE
@@ -331,6 +332,7 @@ class App:
         user = ctx.user
         if path == "/pro/order":
             plan = req.form.get("plan") or req.query.get("plan", "")
+            plan = PLAN_ALIAS.get(plan, plan)       # old links (?plan=pro) still work
             interval = req.form.get("interval") or req.query.get("interval", "month")
             if svc.plan(plan) is None or interval not in ("month", "year"):
                 return self.redirect(ctx.url("account", "/pro"), ctx)
@@ -349,11 +351,24 @@ class App:
         if path == "/pro/done":
             return self.html(ctx, 200, pro_pages.done(ctx, svc.subscription_view(user)))
         if path == "/pro/manage":
-            if req.method == "POST" and req.form.get("action") == "portal":
-                try:
+            action = req.form.get("action") if req.method == "POST" else None
+            try:
+                if action == "portal":
                     return self.redirect(svc.portal(user), ctx)
-                except Problem as p:
-                    ctx.error = ctx.problem_text(p)
+                if action == "lite_add":
+                    svc.lite_add(user, req.form.get("email", ""))
+                    ctx.flash = ctx.t("Seat given.", "Platz vergeben.")
+                elif action == "lite_remove":
+                    svc.lite_remove(user["id"], int_or(req.form.get("member")) or 0)
+                    ctx.flash = ctx.t("Seat removed.", "Platz entfernt.")
+                elif action == "lite_leave":
+                    owner, _ = svc.lite_holder(user)
+                    if owner:
+                        svc.lite_remove(owner["id"], user["id"], user["id"])
+                    ctx.flash = ctx.t("Seat given back.", "Platz zurückgegeben.")
+            except Problem as p:
+                ctx.error = ctx.problem_text(p)
+            ctx.user = user = svc.session_user(ctx.sid_token)
             return self.html(ctx, 200, pro_pages.manage(ctx, svc.subscription_view(user)))
         if path == "/early":
             allowed = svc.has_perk(user, "early_access")
@@ -490,6 +505,8 @@ class App:
             cache = f"public, max-age={data['poll']}" if public else "private, no-store"
             return self.json(200, data, cache=cache)
         if rest.startswith("/tiles/") and rest.endswith(".png") and TILE_RE.match(rest[7:-4]):
+            if not dim_allowed(svc.tier(svc.user(m["user_id"])), rest[7:].split("/", 1)[0]):   # P011 (also after a downgrade)
+                return Response(204, b"", self.headers("image/png", None, cache="private, no-store"))
             sha, png = svc.tile(m, rest[7:-4])
             if png is None:
                 return Response(204, b"", self.headers("image/png", None, cache="public, max-age=60" if public else "private, max-age=60"))

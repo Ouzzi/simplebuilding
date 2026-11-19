@@ -202,6 +202,24 @@ MIGRATIONS = [
         PRIMARY KEY (user_id, kind, ref)
     );
     """,
+    # 3: owner 19.11.2026 (N109): "Pro" -> "Max" (plans), livemap tier "pro" -> "basic"; fellow-player seats (P039). The code also
+    # accepts the old ids on read (config.LIVEMAP_ALIAS / PLAN_ALIAS), so a half-migrated copy still works.
+    """
+    UPDATE users SET tier = 'basic' WHERE tier = 'pro';
+    UPDATE entitlements SET livemap_tier = 'basic' WHERE livemap_tier = 'pro';
+    UPDATE entitlements SET plan = 'max' WHERE plan = 'pro';
+    UPDATE subscriptions SET plan = 'max' WHERE plan = 'pro';
+    UPDATE orders SET plan = 'max' WHERE plan = 'pro';
+    CREATE TABLE lite_seats (
+        id INTEGER PRIMARY KEY,
+        owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        member_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        created_at INTEGER NOT NULL,
+        removed_at INTEGER
+    );
+    CREATE UNIQUE INDEX lite_member_active ON lite_seats(member_id) WHERE removed_at IS NULL;
+    CREATE INDEX lite_owner ON lite_seats(owner_id, removed_at);
+    """,
 ]
 
 

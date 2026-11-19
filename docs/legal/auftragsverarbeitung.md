@@ -20,7 +20,7 @@ Stand: 12.11.2026, Dienst im Aufbau (Phase 1; Bezahlen „coming soon“). **Sta
 | Nr. | Dienstleister | Zweck | Daten | Ort / Drittland | Rechtsgrundlage Drittland | Vertrag / DPA | Status |
 |---|---|---|---|---|---|---|---|
 | 1 | **Cloudflare** ⟦PLATZHALTER: Vertragspartner, i. d. R. Cloudflare, Inc., San Francisco, USA⟧ | CDN, Reverse Proxy, Cloudflare Tunnel (Erreichbarkeit des Heimservers ohne offenen Port), DNS, Schutz vor Angriffen, Cache der Kacheln | IP-Adresse der Besucher, Anfrage-Metadaten, **gesamter Datenverkehr einschließlich Anmeldedaten und Karteninhalte** (TLS endet bei Cloudflare), zwischengespeicherte Kacheln | USA und weltweites Netz | EU-US Data Privacy Framework (Beschluss (EU) 2023/1795), soweit zertifiziert; Standardvertragsklauseln (Beschluss (EU) 2021/914) im Cloudflare-DPA ⟦PLATZHALTER: prüfen⟧ | Cloudflare Data Processing Addendum ⟦PLATZHALTER: abgeschlossen? Datum; ggf. im Dashboard bestätigen⟧ | **offen** |
-| 2 | **Stripe** ⟦PLATZHALTER: Stripe Payments Europe, Ltd., Irland; ggf. Stripe, Inc., USA⟧ | Zahlungsabwicklung für das Konto-Abo „Simple Mods Pro“ (Basic/Pro/Ultra): Checkout, Kundenportal, Abo-Zeitplan beim Jahresabo, Rechnungen, Webhooks; optional Steuerberechnung (Stripe Tax ⟦PLATZHALTER: ja/nein⟧) – **erst ab Bezahlstart** | Name, E-Mail, Konto-Kennung, Rechnungsadresse (bei Stripe Tax auch Land/USt-IdNr.), Abo-Stufe/Laufzeit, Abo- und Zahlungsstatus, Rechnungen; Zahlungsmittel-Daten liegen nur bei Stripe | Irland/USA | Stripe-Angaben zu DPF/SCC prüfen | Stripe Data Processing Agreement; Stripe handelt teils als **eigener Verantwortlicher** (z. B. Betrugsprävention, gesetzliche Pflichten) und teils als Auftragsverarbeiter ⟦PLATZHALTER: Rollen anwaltlich bestätigen⟧ | **nicht aktiv; vor Bezahlstart** |
+| 2 | **Stripe** ⟦PLATZHALTER: Stripe Payments Europe, Ltd., Irland; ggf. Stripe, Inc., USA⟧ | Zahlungsabwicklung für das Konto-Abo „Simple Mods Pro“ (Basic/Max/Ultra): Checkout, Kundenportal, Abo-Zeitplan beim Jahresabo, Rechnungen, Webhooks; optional Steuerberechnung (Stripe Tax ⟦PLATZHALTER: ja/nein⟧) – **erst ab Bezahlstart** | Name, E-Mail, Konto-Kennung, Rechnungsadresse (bei Stripe Tax auch Land/USt-IdNr.), Abo-Stufe/Laufzeit, Abo- und Zahlungsstatus, Rechnungen; Zahlungsmittel-Daten liegen nur bei Stripe | Irland/USA | Stripe-Angaben zu DPF/SCC prüfen | Stripe Data Processing Agreement; Stripe handelt teils als **eigener Verantwortlicher** (z. B. Betrugsprävention, gesetzliche Pflichten) und teils als Auftragsverarbeiter ⟦PLATZHALTER: Rollen anwaltlich bestätigen⟧ | **nicht aktiv; vor Bezahlstart** |
 | 3 | **E-Mail-/SMTP-Anbieter** ⟦PLATZHALTER: Anbieter noch zu wählen; EU-Sitz bevorzugt⟧ | Versand von Konto-E-Mails (Bestätigung, Passwort zurücksetzen, später Kündigungs-/Rechnungsmails) | E-Mail-Adresse, Anzeigename, Inhalt der Mail einschließlich Einmal-Link, Versandzeit | ⟦PLATZHALTER: Sitz/Land des Anbieters⟧ | ⟦PLATZHALTER: nur nötig, falls Drittland⟧ | Auftragsverarbeitungsvertrag des Anbieters ⟦PLATZHALTER: abgeschlossen? Datum⟧ | **offen (Anbieter fehlt)** |
 | 4 | **Hosting – eigener Server** des Betreibers (Proxmox-Container, zu Hause) | Betrieb von Dienst, Datenbank (SQLite), Kachelspeicher, nginx | alle Daten des Dienstes | ⟦PLATZHALTER: Standort/Land bestätigen⟧ | — | **kein Auftragsverarbeiter** (Betreiber selbst); Internetanbieter transportiert nur Daten (TOMs siehe A.3) | TOM-Dokument offen |
 | 5 | **Datensicherung (Backup)** ⟦PLATZHALTER: eigenes Gerät oder externer Anbieter? Falls extern: Name⟧ | Wiederherstellung nach Ausfall | Datenbank, ggf. Kacheln | ⟦PLATZHALTER: Ort des Backups⟧ | ⟦PLATZHALTER: Drittland-Grundlage, falls extern⟧ | ⟦PLATZHALTER: AV-Vertrag, falls extern⟧ | **offen** |
@@ -108,7 +108,7 @@ Nutzungsvertrags bzw. bis zum Ausschalten von „Spieler zeigen“ oder dem Tren
 
 ### § 3 Weisungen
 Verarbeitung nur auf dokumentierte Weisung des Kartenbesitzers. Weisungen sind die Einstellungen im Dashboard (Sichtbarkeit, „Spieler zeigen“, Löschen/Trennen) und
-Texte in Textform an ⟦PLATZHALTER: Kontakt⟧. Der Betreiber weist auf Weisungen hin, die er für rechtswidrig hält (Art. 28 Abs. 3 Satz 3).
+Texte in Textform an datenschutz@simplemods.de. Der Betreiber weist auf Weisungen hin, die er für rechtswidrig hält (Art. 28 Abs. 3 Satz 3).
 
 ### § 4 Vertraulichkeit
 Personen, die Zugriff haben, sind zur Vertraulichkeit verpflichtet. ⟦PLATZHALTER: wer außer dem Betreiber Zugriff hat⟧
@@ -126,7 +126,7 @@ angemessenem Umfang. Anfragen Betroffener leitet er unverzüglich an den Kartenb
 
 ### § 8 Löschung und Rückgabe
 Nach Beendigung oder auf Weisung löscht der Betreiber die Live-Daten und – soweit sie personenbezogen sind – die Kachelinhalte; dabei gelten die **Puffer-Fristen** der Stufe
-für getrennte Karten (Free 30 Tage, Pro 90, Max 180, Ultra 1 Jahr) ⟦PLATZHALTER: ob Live-Stand sofort gelöscht wird, mit Implementierung abgleichen⟧. Der Kartenbesitzer kann Daten vorher selbst löschen
+für getrennte Karten (Free 30 Tage, Basic 90, Max 180, Ultra 1 Jahr) ⟦PLATZHALTER: ob Live-Stand sofort gelöscht wird, mit Implementierung abgleichen⟧. Der Kartenbesitzer kann Daten vorher selbst löschen
 und über den JSON-Export abrufen. Gesetzliche Aufbewahrungspflichten bleiben unberührt.
 
 ### § 9 Nachweise und Kontrollen
@@ -151,7 +151,7 @@ Inhalt aus Teil A, Abschnitt A.3 (nach Ausfüllen der offenen Zeilen).
 | ⟦PLATZHALTER: weitere⟧ | | | | |
 
 ### Anlage 4 – Ansprechpartner
-Datenschutz-Kontakt des Betreibers: ⟦PLATZHALTER: E-Mail/Anschrift Datenschutz-Kontakt⟧; Ansprechpartner des Kartenbesitzers: im Konto hinterlegte E-Mail.
+Datenschutz-Kontakt des Betreibers: datenschutz@simplemods.de, ⟦PLATZHALTER: Anschrift laut Impressum⟧; Ansprechpartner des Kartenbesitzers: im Konto hinterlegte E-Mail.
 
 ## B.4 Mustertext für Kartenbesitzer: Information der Spieler (Art. 13 DSGVO)
 

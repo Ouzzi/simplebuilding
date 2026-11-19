@@ -26,6 +26,7 @@ import urllib.request
 
 from . import billing_mail
 from . import security as sec
+from .config import LIVEMAP_ALIAS, PLAN_ALIAS
 from .errors import Problem
 
 TOLERANCE = 300
@@ -133,16 +134,19 @@ class BillingMixin:
         return self.cfg.billing.get(key, default)
 
     def plan(self, name: str) -> dict | None:
-        return self.cfg.plans["plans"].get(name)
+        return self.cfg.plans["plans"].get(PLAN_ALIAS.get(name, name))
 
     def price_id(self, plan: str, interval: str) -> str | None:
-        return ((self.bcfg("prices") or {}).get(plan) or {}).get(interval)
+        prices = self.bcfg("prices") or {}
+        plan = PLAN_ALIAS.get(plan, plan)
+        old = next((k for k, v in PLAN_ALIAS.items() if v == plan), None)    # billing files written before the rename
+        return (prices.get(plan) or prices.get(old) or {}).get(interval)
 
     def plan_for_price(self, price: str | None) -> tuple[str | None, str | None]:
         for plan, ivs in (self.bcfg("prices") or {}).items():
             for interval, pid in (ivs or {}).items():
                 if price and pid == price:
-                    return plan, interval
+                    return PLAN_ALIAS.get(plan, plan), interval
         return None, None
 
     def plan_for_livemap_tier(self, tier: str) -> str | None:
@@ -178,6 +182,7 @@ class BillingMixin:
         """Records the order with its consents and returns the Stripe Checkout URL (subscription mode)."""
         if not self.billing_on():
             raise Problem(503, "coming_soon")
+        plan = PLAN_ALIAS.get(plan, plan)
         p = self.plan(plan)
         price = self.price_id(plan, interval)
         if p is None or interval not in ("month", "year") or not price:
@@ -292,7 +297,7 @@ class BillingMixin:
         order = self.db.one("SELECT * FROM orders WHERE id = ? AND user_id = ?", int(meta["order"]), user["id"]) if str(meta.get("order", "")).isdigit() else None
         sub_id = obj.get("subscription") if isinstance(obj.get("subscription"), str) else None
         if order and sub_id and order["interval"] == "year":
-            self.year_schedule(sub_id, order["plan"])   # first: when it fails, nothing is marked done and Stripe's retry repeats all
+            self.year_schedule(sub_id, PLAN_ALIAS.get(order["plan"], order["plan"]))   # first: when it fails, nothing is marked done and Stripe's retry repeats all
         with self.db.tx() as c:
             if obj.get("customer") and not user["billing_customer"]:
                 c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (obj["customer"], user["id"]))
@@ -338,9 +343,10 @@ class BillingMixin:
         price = ((items[0].get("price") or {}).get("id") if items and isinstance(items[0].get("price"), dict) else None)
         plan, interval = self.plan_for_price(price)
         meta = obj.get("metadata") or {}
-        plan = plan or (meta.get("plan") if self.plan(meta.get("plan") or "") else None)
-        if plan is None and self.cfg.tiers["tiers"].get(meta.get("tier") or ""):   # subscriptions from before N108 (livemap tier)
-            plan = self.plan_for_livemap_tier(meta["tier"])
+        plan = plan or (PLAN_ALIAS.get(meta.get("plan"), meta.get("plan")) if self.plan(meta.get("plan") or "") else None)
+        old_tier = LIVEMAP_ALIAS.get(meta.get("tier") or "", meta.get("tier") or "")
+        if plan is None and self.cfg.tiers["tiers"].get(old_tier):   # subscriptions from before N108 (livemap tier)
+            plan = self.plan_for_livemap_tier(old_tier)
         interval = interval or meta.get("interval") or "month"
         status = "canceled" if kind == "customer.subscription.deleted" else str(obj.get("status") or "")
         period_end = obj.get("current_period_end") or (items[0].get("current_period_end") if items else None)
@@ -348,7 +354,7 @@ class BillingMixin:
         if old and old["event_at"] > created:
             return   # older than what we know (Stripe does not guarantee order)
         if plan is None:
-            plan = old["plan"] if old else ""
+            plan = PLAN_ALIAS.get(old["plan"], old["plan"]) if old else ""
         order_id = int(meta["order"]) if str(meta.get("order", "")).isdigit() else None
         with self.db.tx() as c:
             c.execute("""INSERT INTO subscriptions (id, user_id, customer, plan, interval, status, period_end, cancel_at_period_end, order_id, event_at, updated_at)
@@ -422,14 +428,17 @@ class BillingMixin:
                 best = (sub, until)
         old = self.db.one("SELECT * FROM entitlements WHERE user_id = ?", uid)
         if best is None:
-            if old and old["source"] == "stripe":
+            if self.lite_entitle(user, old):
+                return
+            if old and old["source"] in ("stripe", "lite"):
                 with self.db.tx() as c:
                     c.execute("DELETE FROM entitlements WHERE user_id = ?", (uid,))
                     self.audit(c, uid, "entitlement", f"end {old['plan']}")
-                if user["tier"] != "free":
+                if LIVEMAP_ALIAS.get(user["tier"], user["tier"]) != "free":
                     self.set_tier(user, "free")
-                if self.mail_on("ended") and self.notice_once(uid, "ended", f"{old['subscription_id']}"):
+                if old["source"] == "stripe" and self.mail_on("ended") and self.notice_once(uid, "ended", f"{old['subscription_id']}"):
                     self.billing_mail(user, "ended", plan=old["plan"])
+            self.lite_sync(uid)
             return
         sub, until = best
         p = self.plan(sub["plan"])
@@ -453,8 +462,9 @@ class BillingMixin:
         want = (p.get("livemap_tier") or "free") if starts <= now else "free"
         if want not in self.cfg.tiers["tiers"]:
             want = "free"
-        if user["tier"] != want:
+        if LIVEMAP_ALIAS.get(user["tier"], user["tier"]) != want:
             self.set_tier(user, want)
+        self.lite_sync(uid)
 
     def entitlement(self, user) -> dict | None:
         """The account's plan and perks in effect now (None = no subscription perks)."""
@@ -462,7 +472,7 @@ class BillingMixin:
         now = self.now()
         if row is None or row["starts_at"] > now or (row["valid_until"] is not None and row["valid_until"] < now):
             return None
-        return {"plan": row["plan"], "perks": json.loads(row["perks"]), "livemap_tier": row["livemap_tier"], "until": row["valid_until"],
+        return {"plan": PLAN_ALIAS.get(row["plan"], row["plan"]), "perks": json.loads(row["perks"]), "livemap_tier": row["livemap_tier"], "until": row["valid_until"],
                 "source": row["source"]}
 
     def has_perk(self, user, perk: str) -> bool:
@@ -478,6 +488,101 @@ class BillingMixin:
         sub = self.db.one("SELECT * FROM subscriptions WHERE user_id = ? ORDER BY updated_at DESC LIMIT 1", user["id"])
         row = self.db.one("SELECT * FROM entitlements WHERE user_id = ?", user["id"])
         return {"sub": dict(sub) if sub else None, "ent": dict(row) if row else None, "effective": self.entitlement(user)}
+
+    # ---------------------------------------------------------------- fellow-player seats "lite" (P039, owner 19.11.)
+    def lite_offer(self, user) -> tuple[str, int] | None:
+        """(lite kind, seat count) the account may give - only from its OWN paid entitlement (a seat holder gets none: no chaining)."""
+        row = self.db.one("SELECT * FROM entitlements WHERE user_id = ? AND source = 'stripe'", user["id"])
+        now = self.now()
+        if row is None or row["starts_at"] > now or (row["valid_until"] is not None and row["valid_until"] < now):
+            return None
+        lite = (self.plan(row["plan"]) or {}).get("lite") or {}
+        kind, seats = lite.get("kind"), int(lite.get("seats") or 0)
+        if not kind or seats <= 0 or kind not in self.cfg.plans["lite"]:
+            return None
+        return kind, seats
+
+    def lite_seats(self, owner_id: int):
+        return self.db.all("SELECT s.*, u.email, u.name FROM lite_seats s JOIN users u ON u.id = s.member_id "
+                           "WHERE s.owner_id = ? AND s.removed_at IS NULL ORDER BY s.id", owner_id)
+
+    def lite_used(self, owner_id: int) -> int:
+        """Active seats + seats freed within the lock days (a seat cannot be rotated through many accounts)."""
+        lock = int(self.cfg.plans["lite_rules"].get("reassign_lock_days", 30)) * 86400
+        return self.db.value("SELECT COUNT(*) FROM lite_seats WHERE owner_id = ? AND (removed_at IS NULL OR removed_at > ?)",
+                             owner_id, self.now() - lock, default=0)
+
+    def lite_add(self, owner, email: str):
+        offer = self.lite_offer(owner)
+        if offer is None:
+            raise Problem(403, "lite_none")
+        if not self.limiter.allow(f"lite:{owner['id']}", 10, 3600):
+            raise Problem(429, "too_many")
+        member = self.user_by_email(email)
+        if (member is None or member["id"] == owner["id"] or not member["verified_at"] or member["disabled"]
+                or self.active_subscription(member["id"])
+                or self.db.one("SELECT 1 FROM lite_seats WHERE member_id = ? AND removed_at IS NULL", member["id"])):
+            raise Problem(400, "lite_target")
+        if self.lite_used(owner["id"]) >= offer[1]:
+            raise Problem(409, "lite_full", days=int(self.cfg.plans["lite_rules"].get("reassign_lock_days", 30)))
+        with self.db.tx() as c:
+            c.execute("INSERT INTO lite_seats (owner_id, member_id, created_at) VALUES (?,?,?)", (owner["id"], member["id"], self.now()))
+            self.audit(c, owner["id"], "lite_add", f"member {member['id']}")
+        self.recompute(member["id"])
+
+    def lite_remove(self, owner_id: int, member_id: int, actor_id: int | None = None):
+        with self.db.tx() as c:
+            n = c.execute("UPDATE lite_seats SET removed_at = ? WHERE owner_id = ? AND member_id = ? AND removed_at IS NULL",
+                          (self.now(), owner_id, member_id)).rowcount
+            if n:
+                self.audit(c, actor_id or owner_id, "lite_remove", f"owner {owner_id} member {member_id}")
+        if n:
+            self.recompute(member_id)
+
+    def lite_sync(self, owner_id: int):
+        """After the owner's entitlement changed: seats over the count (newest first) end; every member is recomputed."""
+        seats = self.lite_seats(owner_id)
+        if not seats:
+            return
+        offer = self.lite_offer(self.user(owner_id))
+        keep = offer[1] if offer else 0
+        for s in seats[keep:]:
+            with self.db.tx() as c:
+                c.execute("UPDATE lite_seats SET removed_at = ? WHERE id = ?", (self.now(), s["id"]))
+                self.audit(c, owner_id, "lite_end", f"member {s['member_id']}")
+        for s in seats:
+            self.recompute(s["member_id"])
+
+    def lite_entitle(self, user, old) -> bool:
+        """Entitlement of a seat holder without an own subscription (source 'lite'); valid as long as the owner's own is."""
+        seat = self.db.one("SELECT * FROM lite_seats WHERE member_id = ? AND removed_at IS NULL", user["id"])
+        if seat is None:
+            return False
+        owner = self.user(seat["owner_id"])
+        offer = self.lite_offer(owner) if owner else None
+        if offer is None:
+            return False
+        kind = offer[0]
+        lite = self.cfg.plans["lite"][kind]
+        until = self.db.value("SELECT valid_until FROM entitlements WHERE user_id = ?", owner["id"])
+        now = self.now()
+        with self.db.tx() as c:
+            c.execute("""INSERT INTO entitlements (user_id, plan, perks, livemap_tier, source, subscription_id, starts_at, valid_until, updated_at)
+                         VALUES (?,?,?,?, 'lite', NULL, ?,?,?) ON CONFLICT(user_id) DO UPDATE SET plan = excluded.plan, perks = excluded.perks,
+                         livemap_tier = excluded.livemap_tier, source = 'lite', subscription_id = NULL, valid_until = excluded.valid_until,
+                         updated_at = excluded.updated_at""",
+                      (user["id"], kind, json.dumps(lite.get("perks", [])), lite["livemap_tier"], now, until, now))
+            if not old or old["plan"] != kind:
+                self.audit(c, user["id"], "entitlement", f"{old['plan'] if old else '-'} -> {kind} (seat of {owner['id']})")
+        want = lite["livemap_tier"] if lite["livemap_tier"] in self.cfg.tiers["tiers"] else "free"
+        if LIVEMAP_ALIAS.get(user["tier"], user["tier"]) != want:
+            self.set_tier(user, want)
+        return True
+
+    def lite_holder(self, user):
+        """(owner row, kind) when the account holds a seat."""
+        seat = self.db.one("SELECT * FROM lite_seats WHERE member_id = ? AND removed_at IS NULL", user["id"])
+        return (self.user(seat["owner_id"]), seat) if seat else (None, None)
 
     # ---------------------------------------------------------------- cancel button (section 312k BGB)
     def cancel_request(self, email: str, kind: str, reason: str, user=None, ip: str = "?") -> dict:
@@ -522,7 +627,8 @@ class BillingMixin:
     def billing_maintenance(self):
         """Safety net for lost webhooks: start after the withdrawal period, expiry, end of grace; notice before the year ends."""
         uids = {r[0] for r in self.db.all("SELECT user_id FROM entitlements")} | \
-               {r[0] for r in self.db.all("SELECT user_id FROM subscriptions WHERE user_id IS NOT NULL")}
+               {r[0] for r in self.db.all("SELECT user_id FROM subscriptions WHERE user_id IS NOT NULL")} | \
+               {r[0] for r in self.db.all("SELECT member_id FROM lite_seats WHERE removed_at IS NULL")}
         for uid in sorted(uids):
             self.recompute(uid)
         if not self.mail_on("year_notice"):

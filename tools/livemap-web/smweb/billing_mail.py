@@ -75,7 +75,9 @@ def legal_links(svc, lang: str) -> str:
 
 def render(kind: str, lang: str, svc, **p) -> tuple[str, str]:
     de = lang == "de"
-    sign = "\n\nSimple Mods" + ("\nVerträge hier kündigen: " if de else "\nCancel contracts here: ") + svc.cfg.url("account", "/kuendigen")
+    contact = svc.cfg.get("contact") or {}
+    sign = ("\n\nSimple Mods" + (f"\nKontakt: {contact['general']}" if de and contact.get("general") else f"\nContact: {contact['general']}" if contact.get("general") else "")
+            + ("\nVerträge hier kündigen: " if de else "\nCancel contracts here: ") + svc.cfg.url("account", "/kuendigen"))
     plans = svc.cfg.plans["plans"]
     name = lambda k: (plans.get(k) or {}).get("name", k)  # noqa: E731
     vat = vat_note(svc.vat(), lang)

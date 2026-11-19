@@ -182,6 +182,12 @@ def tier_cells(ctx, tier: dict, key: str) -> str:
         return ctx.t("unlimited", "unbegrenzt") if t["shares"] < 0 else ctx.t(f"{t['shares']} people", f"{t['shares']} Personen")
     if key == "storage":
         return size(t["map_mb"] * 1024 * 1024).replace(".0", "")
+    if key == "dims":
+        d = t.get("dimensions") or ["*"]
+        if "*" in d:
+            return ctx.t("all, incl. mod dimensions", "alle, auch Mod-Dimensionen")
+        names = {"minecraft_overworld": ctx.t("Overworld", "Oberwelt"), "minecraft_the_nether": "Nether", "minecraft_the_end": "End"}
+        return " + ".join(names.get(x, x) for x in d)
     if key == "extra":
         if not t["custom_name"]:
             return "–"
@@ -196,7 +202,7 @@ def maps_line(ctx, t: dict) -> str:
 ROWS = [("maps", "Maps at the same time", "Karten gleichzeitig"), ("archive", "Archive (disconnected maps kept)", "Puffer (getrennte Karten gespeichert)"),
         ("views", "Views per day (all maps)", "Aufrufe pro Tag (alle Karten)"), ("live", "Player live rhythm / tile update", "Spieler-Live-Takt / Kachel-Aktualisierung"),
         ("prep", "Preparation (minimum time)", "Vorbereitung (Mindestzeit)"), ("slot", "Take a place again", "Platz neu belegen"),
-        ("shares", "Share with accounts", "Teilen mit Konten"), ("storage", "Storage per map", "Speicher je Karte"), ("extra", "Extras", "Zusatz")]
+        ("shares", "Share with accounts", "Teilen mit Konten"), ("storage", "Storage per map", "Speicher je Karte"), ("dims", "Dimensions", "Dimensionen"), ("extra", "Extras", "Zusatz")]
 
 
 def tier_table(ctx, buy: bool) -> str:
@@ -314,7 +320,7 @@ def pro_hint(ctx, plan_page: bool = False) -> str:
         return ctx.t("Paid tiers come with the account subscription Simple Mods Pro (Basic, Pro, Ultra) - with early access to new versions.",
                      "Bezahlte Stufen gibt es mit dem Konto-Abo Simple Mods Pro (Basic, Pro, Ultra) – mit Frühzugang zu neuen Versionen.")
     if plan_page:
-        return ctx.t("Buying is coming soon. Test accounts can be set to Pro/Max/Ultra by the developer.", "Kaufen kommt bald. Testkonten setzt der Entwickler manuell auf Pro/Max/Ultra.")
+        return ctx.t("Buying is coming soon. Test accounts can be set to Basic/Max/Ultra by the developer.", "Kaufen kommt bald. Testkonten setzt der Entwickler manuell auf Basic/Max/Ultra.")
     return ctx.t("Buying is coming soon. Every limit already works - start free today.", "Kaufen kommt bald. Alle Grenzen gelten schon jetzt – starte heute kostenlos.")
 
 

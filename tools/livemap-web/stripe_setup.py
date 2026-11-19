@@ -70,9 +70,11 @@ def wanted(plans: dict, currency: str = "eur") -> list[dict]:
 
 
 class Setup:
-    def __init__(self, api, plans: dict, webhook_url: str, return_url: str, legal: dict, api_version: str | None, out=print):
+    def __init__(self, api, plans: dict, webhook_url: str, return_url: str, legal: dict, api_version: str | None, out=print,
+                 descriptor: str = "SIMPLEMODS"):
         self.api, self.plans, self.webhook_url, self.return_url, self.legal = api, plans, webhook_url, return_url, legal
         self.api_version = api_version
+        self.descriptor = descriptor     # owner 19.11.: bank statement shows "SIMPLEMODS" (product-level descriptor for subscriptions)
         self.out = out
         self.created = 0
 
@@ -85,15 +87,15 @@ class Setup:
     def product(self, w: dict) -> str:
         try:
             prod = self.get(f"products/{w['product']}")
-            if prod.get("name") != w["name"] or not prod.get("active", True):
-                self.post(f"products/{w['product']}", {"name": w["name"], "active": True})
+            if prod.get("name") != w["name"] or not prod.get("active", True) or prod.get("statement_descriptor") != self.descriptor:
+                self.post(f"products/{w['product']}", {"name": w["name"], "active": True, "statement_descriptor": self.descriptor})
                 self.out(f"  product {w['product']}: updated")
             else:
                 self.out(f"  product {w['product']}: exists")
         except StripeError as ex:
             if ex.status != 404:
                 raise
-            self.post("products", {"id": w["product"], "name": w["name"], "metadata": {"sm_key": w["product"], "livemap_tier": w["livemap_tier"]}},
+            self.post("products", {"id": w["product"], "name": w["name"], "statement_descriptor": self.descriptor, "metadata": {"sm_key": w["product"], "livemap_tier": w["livemap_tier"]}},
                       idem=f"smpro-product-{w['product']}")
             self.created += 1
             self.out(f"  product {w['product']}: created")
@@ -201,6 +203,7 @@ def main(argv=None, api_factory=StripeHTTP, out=print) -> int:
     ap.add_argument("--tiers", default=str(HERE / "tiers.json"))
     ap.add_argument("--config", default=None, help="server config (plans/tiers overrides, legal URLs)")
     ap.add_argument("--api-version", default=None)
+    ap.add_argument("--statement-descriptor", default="SIMPLEMODS", help="bank statement text (max 22 chars, owner 19.11.: SIMPLEMODS)")
     ap.add_argument("--apply", action="store_true", help="really call Stripe (default: dry run)")
     ap.add_argument("--live", action="store_true", help="allow a live key (only after the test-mode run)")
     a = ap.parse_args(argv)
@@ -219,6 +222,10 @@ def main(argv=None, api_factory=StripeHTTP, out=print) -> int:
     out(f"Simple Mods Pro - Stripe setup ({'APPLY' if a.apply else 'dry run, nothing is sent'})")
     out(f"key: {a.key_var} {'present, ' + mode + ' mode' if key else 'missing'} (value never shown)")
     out(f"webhook: {a.webhook_url}")
+    if not (5 <= len(a.statement_descriptor) <= 22) or any(ch in a.statement_descriptor for ch in "<>\\'\"*"):
+        out("statement descriptor must be 5-22 characters without < > \\ ' \" *")
+        return 2
+    out(f"statement descriptor: {a.statement_descriptor}")
     for w in wanted(plans):
         out(f"  {w['product']}: {w['name']} -> livemap {w['livemap_tier']}; " +
             ", ".join(f"{p['lookup_key']} {p['amount']} ct/{p['interval']}" for p in w["prices"].values()))
@@ -238,7 +245,8 @@ def main(argv=None, api_factory=StripeHTTP, out=print) -> int:
     api = api_factory(key, a.api_version)
     del key
     try:
-        result = Setup(api, plans, a.webhook_url, a.return_url, server.get("legal") or {}, a.api_version, out).run()
+        result = Setup(api, plans, a.webhook_url, a.return_url, server.get("legal") or {}, a.api_version, out,
+                       a.statement_descriptor).run()
     except StripeError as ex:
         out(f"Stripe answered {ex.status} {ex.code}; nothing else changed (run again after fixing)")
         return 1
