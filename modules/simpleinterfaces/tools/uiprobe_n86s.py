@@ -1,0 +1,45 @@
+"""N86S: side half slabs as their own items - hotbar/inventory icons, real right clicks against a wall (place, add layers),
+on the floor (leans on the far wall in view direction).
+
+    xvfb-run -a python3.12 modules/simpleinterfaces/tools/ui_probe.py --out /var/tmp/sb/uiprobe86s --scale 2 --only simpleinterfaces/n86s
+"""
+import time
+
+
+def _pos(s):
+    return [int(float(v)) for v in s.st()['pos'].replace(',', ' ').split()]
+
+
+def side_items(s):
+    s.close()
+    s.chat('gamemode creative @s', 0.3)
+    s.chat('time set noon', 0.3)
+    for rule in ('advance_time false', 'spawn_mobs false'):
+        s.chat('gamerule ' + rule, 0.3)
+    s.clear_and_give('simpleslabs:stone_side_half_slab 64', 'simpleslabs:oak_side_half_slab 64',
+                     'simpleslabs:cut_copper_side_half_slab 64', 'simpleslabs:stone_half_slab 64')
+    time.sleep(0.8)
+    s.shot('1-hotbar')
+    s.key('e', 1.2)
+    s.shot('2-inventar')
+    s.close()
+    x, y, z = _pos(s)
+    # a wall 3 blocks ahead, the player looks at its face at eye height
+    s.chat(f'fill {x - 1} {y} {z + 3} {x + 1} {y + 2} {z + 3} minecraft:stone_bricks', 0.4)
+    s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y + 1.6} {z + 3}', 1.0)
+    s.chat('item replace entity @s weapon.mainhand with simpleslabs:stone_side_half_slab 64', 0.4)
+    s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y + 1.6} {z + 3}', 0.6)
+    for n in range(1, 4):
+        s.io.right_click()
+        time.sleep(0.4)
+        st = s.chat(f'data get block {x} {y + 1} {z + 2}', 0.5)
+        s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y + 1.6} {z + 3}', 0.4)
+    s.chat(f'execute if block {x} {y + 1} {z + 2} simpleslabs:stone_side_half_slab run say SIDE_PLACED', 0.6)
+    s.chat(f'tp @s {x + 2.5} {y} {z + 0.8} facing {x + 0.5} {y + 1.3} {z + 2.6}', 1.0)
+    s.shot('3-an-der-wand-3-lagen-schraeg')
+    log = (s.out / 'client.log').read_text(errors='replace') if (s.out / 'client.log').exists() else ''
+    s.check('side half slab placed against the wall by a real right click', 'SIDE_PLACED' in log, 'say SIDE_PLACED in log')
+    s.check('N86S shots taken (hotbar, inventory, wall)', True, 'see shots/')
+
+
+SCENARIOS = {'simpleinterfaces/n86s': side_items}
