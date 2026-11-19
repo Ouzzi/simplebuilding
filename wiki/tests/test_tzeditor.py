@@ -57,7 +57,8 @@ class TzEditor(unittest.TestCase):
         img = js[js.index('    function img(id, cls) {'):js.index('/* one cell; f/r/c')]
         # every path without a picture ends in the symbol (never null -> never a bare name or a broken image)
         self.assertEqual(img.count('return noPic(id, cls)'), 2)
-        self.assertIn('i.replaceWith(noPic(id, cls))', img)
+        self.assertIn('w.i.replaceWith(noPic(id, w.cls))', img)  # the picture and the ones waiting for its chain
+        self.assertIn('FLY[f].push(load)', img)  # a file in flight is waited for: one request per file
         self.assertIn('BAD[cands[k].split', img)
         self.assertIn("e.appendChild(img(id));", js)
         self.assertIn("e.appendChild(img(opt.top, 'tz-t'));", js)
