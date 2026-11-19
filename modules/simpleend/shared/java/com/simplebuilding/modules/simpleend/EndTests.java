@@ -361,7 +361,7 @@ public final class EndTests {
             waitForLight(h, BUD, false, () -> {
                 ItemStack meal = new ItemStack(Items.BONE_MEAL, 64);
                 for (int i = 0; i < 40 && h.getBlockState(BUD).is(w.bud); i++)
-                    net.minecraft.world.item.BoneMealItem.applyBonemeal(meal, level, h.absolutePos(BUD), null);
+                    net.minecraft.world.item.BoneMealItem.growCrop(meal, level, h.absolutePos(BUD));
                 h.assertTrue(h.getBlockState(BUD).is(w.sticks), "bone meal grows the dark bud into End sticks, got " + h.getBlockState(BUD));
                 h.assertTrue(meal.getCount() < 64, "bone meal was used");
             });
