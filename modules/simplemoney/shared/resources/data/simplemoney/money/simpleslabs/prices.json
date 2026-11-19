@@ -1,0 +1,8 @@
+{
+  "module": "simpleslabs",
+  "derivation": "Placeholder module with a plain token item; nothing is sold yet.",
+  "excluded": {
+    "simpleslabs:token": "Integration token, not a trade good."
+  },
+  "prices": []
+}

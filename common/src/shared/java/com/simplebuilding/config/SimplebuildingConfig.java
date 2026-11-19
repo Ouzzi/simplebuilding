@@ -187,6 +187,10 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleChess = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleSlabs = true;
     // <submods:end fields>
 
     /**
@@ -234,6 +238,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simplelayers", c.enableSimpleLayers);
         setSubMod("simplevault", c.enableSimpleVault);
         setSubMod("simplechess", c.enableSimpleChess);
+        setSubMod("simpleslabs", c.enableSimpleSlabs);
         // <submods:end apply>
     }
 

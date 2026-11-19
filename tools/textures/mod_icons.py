@@ -182,6 +182,24 @@ def challenges_icon():
 
 
 ICONS: dict[str, dict] = {
+    "simpleslabs": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
+                         [("Kontur", "o"), ("Fuellung", "Ff")],
+                         "................",
+                         "......oo........",
+                         ".....oFFo.......",
+                         "....oFfFFo......",
+                         "...oFfFFFFo.....",
+                         "..oFfFFFFFFo....",
+                         ".oFFFFFFFFFFo...",
+                         ".oFFFFFFFFFFo...",
+                         "..oFFFFFFFFo....",
+                         "...oFFFFFFo.....",
+                         "....oFFFFo......",
+                         ".....oFFo.......",
+                         "......oo........",
+                         "................",
+                         "................",
+                         "................"),
     # CHESS47 (N47 M7): a quartz chess knight (the light side of the game) facing left, lit from the top left
     "simplechess": icon("Springer", {"o": "#1a1a20", "F": "#e6e1d8", "f": "#ffffff", "s": "#aaa398"},
                         [("Kontur", "o"), ("Quarz", "Ffs")],
@@ -870,6 +888,7 @@ ITEM_MOTIFS = {
     "simplechisels": "iron_chisel", "simplebuildingtools": "copper_building_wand",  # LOOK10 A (placeholder until the owner picks)
 }
 BG = {
+    "simpleslabs": "#8a9098",
     "simplechess": "#3c5aa6",  # CHESS47: lapis, the lapis checker the quartz pieces stand on
     "simplevault": "#8a9098",
     "simplelayers": "#8a9098",

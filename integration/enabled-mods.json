@@ -63,7 +63,8 @@
     "simplebuildingtools",
     "simplelayers",
     "simplevault",
-    "simplechess"
+    "simplechess",
+    "simpleslabs"
   ],
   "devMods": [
     "jei",

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleslabs",
+  "version": "${version}",
+  "name": "Simple Slabs",
+  "description": "Simple Slabs module.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "LicenseRef-SimpleMods-ARR",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleslabs.SlabsFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleslabs.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.4.0-beta.1"
+  },
+  "icon": "assets/simpleslabs/icon.png",
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

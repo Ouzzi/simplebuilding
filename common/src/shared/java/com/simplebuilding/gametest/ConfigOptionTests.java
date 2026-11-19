@@ -596,6 +596,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleLayers boolean=true",
             "root.enableSimpleVault boolean=true",
             "root.enableSimpleChess boolean=true",
+            "root.enableSimpleSlabs boolean=true",
             // <submods:end expected>
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1242,6 +1243,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleLayers", "simplelayers"},
                 {"enableSimpleVault", "simplevault"},
                 {"enableSimpleChess", "simplechess"},
+                {"enableSimpleSlabs", "simpleslabs"},
                 // <submods:end switches>
         };
         try {

@@ -139,6 +139,7 @@ public final class ConfigOptions {
             "enableSimpleLayers",
             "enableSimpleVault",
             "enableSimpleChess",
+            "enableSimpleSlabs",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

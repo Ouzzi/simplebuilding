@@ -3738,5 +3738,7 @@
   "item.simplebuilding.nihil_obsidian": "Nihil Obsidian",
   "item.simplebuilding.blaze_book": "Blaze Book",
   "text.autoconfig.simplebuilding.option.enableSimpleChess": "Enable Simple Chess",
-  "text.autoconfig.simplebuilding.option.enableSimpleChess.@Tooltip": "Turns the bundled Simple Chess module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on."
+  "text.autoconfig.simplebuilding.option.enableSimpleChess.@Tooltip": "Turns the bundled Simple Chess module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleSlabs": "Enable Simple Slabs",
+  "text.autoconfig.simplebuilding.option.enableSimpleSlabs.@Tooltip": "Turns the bundled Simple Slabs module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on."
 }
