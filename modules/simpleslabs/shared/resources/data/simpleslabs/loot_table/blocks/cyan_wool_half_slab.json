@@ -1,181 +1,136 @@
 {
   "type": "minecraft:block",
+  "modifier": {
+    "type": "minecraft:explosion_decay"
+  },
   "pools": [
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l0": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l0": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l1": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l1": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l2": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l2": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l3": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l3": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l4": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l4": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l5": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l5": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l6": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l6": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simpleslabs:cyan_wool_half_slab",
-          "properties": {
-            "l7": "true"
-          }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simpleslabs:cyan_wool_half_slab",
+        "state": {
+          "l7": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "simpleslabs:cyan_wool_half_slab"
         }
-      ]
+      ],
+      "rolls": 1
     }
   ],
   "random_sequence": "simpleslabs:blocks/cyan_wool_half_slab"

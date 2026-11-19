@@ -1,0 +1,27 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein dünnes Buch über sehr dünne Stufen."
+    ],
+    "use": [
+      "Das Simple-Slabs-Handbuch erklärt Halbstufen, die Seiten-Halbstufe und wie man sie schneidet. Herstellung formlos aus einem Buch und einer Steinstufe."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
+  },
+  "family:half_slab": {
+    "items": [
+      "regex:.*_half_slab"
+    ],
+    "lore": [
+      "{name}: ein Viertel einer Stufe, 2 Pixel dünn."
+    ],
+    "use": [
+      "Setzt sich in die angeklickte Lage; dieselbe Halbstufe füllt die freie Lage. Schleichen + Rechtsklick auf eine Blockseite: aufrecht, 4 Lagen = Seiten-Stufe. 4 aus einer Stufe, 8 aus dem Block; 4 ergeben die Stufe. Abbauen droppt eine je Lage."
+    ],
+    "secret": [
+      "Acht Lagen passen in eine Zelle, in beliebiger Folge: 0-4 plus 12-16 Pixel sind einfach die Lagen 1, 2, 7 und 8. Sand- und Kies-Halbstufen fallen, Kupfer-Halbstufen altern."
+    ]
+  }
+}

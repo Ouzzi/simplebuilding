@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleslabs.guide.chapter",
+  "icon": "minecraft:stone_slab",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleslabs:guide",
+      "title": "simpleslabs.guide.chapter",
+      "icon": "minecraft:stone_slab",
+      "page_key": "simpleslabs.guide.page",
+      "pages": 16,
+      "advancement": "simpleslabs:guide/chapter",
+      "hint": "minecraft:stone_slab"
+    }
+  ]
+}

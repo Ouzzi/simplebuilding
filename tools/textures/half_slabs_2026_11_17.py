@@ -403,24 +403,22 @@ def unlock(recipe, item):
 
 
 def loot(m):
-    """One pool per layer: every occupied layer drops one half slab (owner N86 'Abbau/Drops')."""
+    """One pool per layer: every occupied layer drops one half slab (owner N86 'Abbau/Drops'). 26.x loot format (one
+    "condition", "modifier"; tools/check_loot_format.py) - the old "conditions"/"functions" lists are ignored silently."""
     hid = f'{NS}:{m["id"]}'
-    pools = [{'rolls': 1, 'bonus_rolls': 0,
-              'conditions': [{'condition': 'minecraft:block_state_property', 'block': hid, 'properties': {f'l{i}': 'true'}},
-                             {'condition': 'minecraft:survives_explosion'}],
-              'entries': [{'type': 'minecraft:item', 'name': hid}]} for i in range(LAYERS)]
-    return dict(conditions(m['mods']), type='minecraft:block', pools=pools, random_sequence=f'{NS}:blocks/{m["id"]}')
+    pools = [{'condition': {'type': 'minecraft:match_block', 'blocks': hid, 'state': {f'l{i}': 'true'}},
+              'entries': [{'type': 'minecraft:item', 'name': hid}], 'rolls': 1} for i in range(LAYERS)]
+    return dict(conditions(m['mods']), type='minecraft:block', modifier={'type': 'minecraft:explosion_decay'}, pools=pools,
+                random_sequence=f'{NS}:blocks/{m["id"]}')
 
 
 def side_loot(m):
-    """Side form: thickness half slabs."""
+    """Side form: thickness half slabs (like Vanilla's candle)."""
     hid, sid = f'{NS}:{m["id"]}', f'{NS}:{side_id(m["id"])}'
-    counts = [{'function': 'minecraft:set_count', 'count': n, 'add': False,
-               'conditions': [{'condition': 'minecraft:block_state_property', 'block': sid, 'properties': {'thickness': str(n)}}]}
-              for n in range(2, LAYERS + 1)]
+    counts = [{'type': 'minecraft:set_count', 'condition': {'type': 'minecraft:match_block', 'blocks': sid, 'state': {'thickness': str(n)}},
+               'count': n} for n in range(2, LAYERS + 1)]
     return dict(conditions(m['mods']), type='minecraft:block', pools=[{
-        'rolls': 1, 'bonus_rolls': 0,
-        'entries': [{'type': 'minecraft:item', 'name': hid, 'functions': counts + [{'function': 'minecraft:explosion_decay'}]}]}],
+        'entries': [{'type': 'minecraft:item', 'modifier': counts + [{'type': 'minecraft:explosion_decay'}], 'name': hid}], 'rolls': 1}],
         random_sequence=f'{NS}:blocks/{side_id(m["id"])}')
 
 
@@ -486,12 +484,14 @@ def generated_names(mats, lang):
 
 
 def merged_lang(lang, mats):
-    """Module lang: every other key keeps its place, the half slab names follow at the end (replaced on each run)."""
+    """Module lang: every key keeps its place; new half slab names follow at the end, stale ones are removed."""
     path = os.path.join(LANG_DIR, lang + '.json')
     with open(path, encoding='utf-8') as f:
         data = json.load(f)
-    out = {k: v for k, v in data.items() if not k.endswith('_half_slab')}
-    out.update(generated_names(mats, lang))
+    names = generated_names(mats, lang)
+    # keys keep their place (the guide generator appends its own keys behind them), stale half slab keys go, new ones follow
+    out = {k: v for k, v in data.items() if not k.endswith('_half_slab') or k in names}
+    out.update(names)
     return path, (json.dumps(out, indent=2, ensure_ascii=False) + '\n').encode('utf-8')
 
 

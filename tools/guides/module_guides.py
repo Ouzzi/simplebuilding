@@ -261,6 +261,13 @@ MODULES = [
                 "Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim "
                 "und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, "
                 "Netherit- und Kupfer-Druckplatten und die Enderit-Besitzerplatte.")),
+    dict(module="simpleslabs", ns="simpleslabs", package="com.simpleslabs.guide", cls="SlabsGuide", kind="item",
+         author="Simple Slabs", recipe="minecraft:stone_slab",
+         name=("Simple Slabs Guide", "Simple-Slabs-Handbuch"),
+         intro=("Half slabs - 2 pixels, a quarter of a slab - of every block with a slab: any of the eight layers of a cell, "
+                "upright against a wall as side half slab or side slab, cut in the Shapecutter and crafted back into the slab.",
+                "Halbstufen - 2 Pixel, ein Viertel einer Stufe - jedes Blocks mit Stufe: jede der acht Lagen einer Zelle, aufrecht "
+                "an einer Wand als Seiten-Halbstufe oder Seiten-Stufe, in der Formsäge geschnitten und zurück zur Stufe gefertigt.")),
     dict(module="simplechisels", ns="simplechisels", package="com.simplechisels.guide", cls="ChiselsGuide", kind="item",
          author="Simple Chisels", recipe="minecraft:copper_nugget",
          name=("Simple Chisels Guide", "Simple-Chisels-Handbuch"),
@@ -760,6 +767,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
         "durch Aufheben von: %s. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim "
         "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:stone_slab": ("stone slab", "Steinstufe"),
     "minecraft:quartz_block": ("block of quartz", "Quarzblock"),
     "minecraft:copper_nugget": ("copper nugget", "Kupferklumpen"),
     "minecraft:feather": ("feather", "Feder"),

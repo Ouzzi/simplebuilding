@@ -192,6 +192,8 @@ public final class OrderAreas {
         TRAPDOOR("{p}{m}_trapdoor"), DOOR("{p}{m}_door"),
         OCTET("{p}cut_{m}_octet", "{p}cut_{m}_block_octet"),
         WALL("{p}{m}_bars", "{p}cut_{m}_wall", "{p}{m}_wall"),
+        // N86-8: Halbstufe (Simple Slabs) zwischen Mauer und Stufe - von aussen gelesen Block, Treppe, Stufe, Halbstufe.
+        HALF_SLAB("{p}cut_{m}_half_slab", "{p}{m}_half_slab"),
         SLAB("{p}cut_{m}_slab", "{p}{m}_slab"), STAIRS("{p}cut_{m}_stairs", "{p}{m}_stairs"),
         BLOCK("{p}cut_{m}", "{p}cut_{m}_block"),
         CRACKED("{p}rusty_{m}", "{p}rusted_{m}", "{p}{m}_rust", "{p}cracked_{m}", "{p}cracked_{m}_block"),
@@ -232,7 +234,7 @@ public final class OrderAreas {
 
     /** Kernspalten (Feld 0 = neben dem Abstand zur Mittellinie), fuer Stein-, Rest- und Holz-Reihen. */
     public static final List<Slot> CORE = List.of(Slot.BUTTON, Slot.PLATE, Slot.SHEET, Slot.FENCE, Slot.FENCE_GATE, Slot.TRAPDOOR,
-            Slot.DOOR, Slot.OCTET, Slot.WALL, Slot.SLAB, Slot.STAIRS, Slot.BLOCK, Slot.CRACKED, Slot.CHISELED, Slot.PILLAR);
+            Slot.DOOR, Slot.OCTET, Slot.WALL, Slot.HALF_SLAB, Slot.SLAB, Slot.STAIRS, Slot.BLOCK, Slot.CRACKED, Slot.CHISELED, Slot.PILLAR);
     /** Holz nach dem Kern. */
     public static final List<Slot> WOOD_EXTRA = List.of(Slot.STRIPPED_LOG, Slot.WOOD, Slot.STRIPPED_WOOD, Slot.LEAVES, Slot.SAPLING,
             Slot.SIGN, Slot.HANGING_SIGN, Slot.SHELF, Slot.BOOKSHELF, Slot.BOAT, Slot.CHEST_BOAT);
@@ -253,6 +255,7 @@ public final class OrderAreas {
             Slot.PILLAR, List.of("{m}_log", "{m}_stem", "{m}_block"),
             Slot.WALL, List.of("{m}_wall"),
             Slot.SLAB, List.of("{m}_slab"),
+            Slot.HALF_SLAB, List.of("{m}_half_slab"),
             Slot.STAIRS, List.of("{m}_stairs"));
 
     /** Spalten, die nur Bloecke nehmen (Erze; Dimensions-Schrott ist ein Erz-Block, Netherit-Schrott ein Item). */
@@ -311,8 +314,8 @@ public final class OrderAreas {
             "deepslate_brick", "minecraft:reinforced_deepslate",
             "deepslate_tile", "simpleblocks:sculk_tiles");
 
-    // N86: "_half_slab" vor "_slab" (endet auch auf "_slab"; sonst Reihe "x_half").
-    private static final List<String> ROW_SUFFIXES = List.of("_octet", "_stairs", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence",
+    // N86: "_side_half_slab"/"_half_slab" vor "_slab" (enden auch auf "_slab"; sonst Reihe "x_half").
+    private static final List<String> ROW_SUFFIXES = List.of("_octet", "_stairs", "_side_half_slab", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence",
             "_pressure_plate", "_button", "_pane", "_bars", "_trapdoor", "_door", "_sheet", "_plate");
 
     /**
@@ -372,6 +375,7 @@ public final class OrderAreas {
             return switch (form) {
                 case OCTET -> Slot.OCTET;
                 case SLAB -> Slot.SLAB;
+                case HALF_SLAB -> Slot.HALF_SLAB;
                 case STAIRS -> Slot.STAIRS;
                 // Scheibe und Gitter sind die Mauer-Form von Glas und Metall (TZ38b Ae3); eine echte Mauer geht vor.
                 case WALL, PANE -> Slot.WALL;
@@ -389,9 +393,8 @@ public final class OrderAreas {
         Map<String, Slot> bySuffix = new LinkedHashMap<>();
         bySuffix.put("_octet", Slot.OCTET);
         bySuffix.put("_stairs", Slot.STAIRS);
-        // N86-8: Halbstufe vor "_slab" pruefen. Bis zur Spalte HALF_SLAB (Config-Migration layout_lines_*, eigener Commit)
-        // steht sie unter "weitere" der Reihe; danach hier Slot.HALF_SLAB.
-        bySuffix.put("_half_slab", Slot.OTHER);
+        // N86-8: Halbstufe vor "_slab" pruefen (endet auch auf "_slab").
+        bySuffix.put("_half_slab", Slot.HALF_SLAB);
         bySuffix.put("_slab", Slot.SLAB);
         bySuffix.put("_wall", Slot.WALL);
         bySuffix.put("_pane", Slot.WALL);
@@ -737,11 +740,12 @@ public final class OrderAreas {
     }
 
     /**
-     * N86-8: Platzhalter als Beton-Halbstufe von Simple Octets (per Id, keine Compile-Abhaengigkeit), sonst {@link #concrete}.
-     * Die Mittellinie ({@link #lineState}) bleibt die graue Betonstufe. Die Pruefungen vergleichen per absent/missingState().
+     * N86-8: Platzhalter als Beton-Halbstufe von Simple Slabs (unterste 2-px-Lage, per Id, keine Compile-Abhaengigkeit), sonst
+     * {@link #concrete}. Die Mittellinie ({@link #lineState}) bleibt die graue Betonstufe. Die Pruefungen vergleichen per
+     * absent/missingState().
      */
     private static BlockState halfSlabOr(String colour) {
-        return BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath("simpleoctets", colour + "_concrete_half_slab"))
+        return BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath("simpleslabs", colour + "_concrete_half_slab"))
                 .map(Block::defaultBlockState).orElseGet(() -> concrete(colour));
     }
 

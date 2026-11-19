@@ -21,22 +21,27 @@ public final class TabSort {
     private TabSort() {}
 
     /**
-     * Shape endings in tab order after the block variants (octet last: the eighth pieces of the family). N86: "_half_slab" stands
-     * before "_slab" - the first matching ending wins and a half slab also ends in "_slab" (else its family would be "x_half").
+     * Shape endings in tab order after the block variants (octet last: the eighth pieces of the family). N86 (owner N86-8: block,
+     * stairs, slab, half slab): the half slab follows the slab; its side form (no item) only needs its ending for the family.
      */
-    public static final List<String> SHAPES = List.of("_stairs", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence", "_pane", "_trapdoor", "_door", "_octet");
+    public static final List<String> SHAPES = List.of("_stairs", "_slab", "_half_slab", "_side_half_slab", "_wall", "_fence_gate", "_fence",
+            "_pane", "_trapdoor", "_door", "_octet");
     /** Variant words, order = rank (plain first, then polished ... chiseled, pillar). */
     public static final List<String> VARIANT_WORDS = List.of("planks", "block", "log", "stem", "wood", "hyphae", "stripped",
             "cobbled", "polished", "smooth", "cut", "bricks", "brick", "tiles", "tile", "cracked", "mossy", "chiseled", "pillar",
             "waxed", "exposed", "weathered", "oxidized");
 
-    /** Index of the shape ending of the path, -1 = none (a plain block or a non-block item). */
+    /**
+     * Index of the shape ending of the path, -1 = none (a plain block or a non-block item). The longest matching ending wins:
+     * {@code _half_slab} also ends in {@code _slab} (else the family of a half slab would be "x_half").
+     */
     public static int shapeIndex(String path) {
+        int best = -1;
         for (int i = 0; i < SHAPES.size(); i++) {
             String suffix = SHAPES.get(i);
-            if (path.endsWith(suffix) && path.length() > suffix.length()) return i;
+            if (path.endsWith(suffix) && path.length() > suffix.length() && (best < 0 || suffix.length() > SHAPES.get(best).length())) best = i;
         }
-        return -1;
+        return best;
     }
 
     /** Material key of an id path: shape ending and variant words removed ({@code mossy_stone_brick_wall} -> {@code stone}). */

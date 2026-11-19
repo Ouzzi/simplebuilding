@@ -85,4 +85,9 @@ public final class ModuleGameTest {
     public void creativeTabAndSwitch(GameTestHelper h) {
         SlabTests.ALL.get("creative_tab_and_switch").accept(h);
     }
+
+    @GameTest(structure = "simpleslabs:empty", maxTicks = 100)
+    public void guideBook(GameTestHelper h) {
+        SlabTests.ALL.get("guide_book").accept(h);
+    }
 }

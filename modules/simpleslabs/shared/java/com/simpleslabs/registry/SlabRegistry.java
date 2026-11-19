@@ -108,6 +108,7 @@ public final class SlabRegistry {
     public static synchronized void registerItems() {
         if (items) return;
         items = true;
+        com.simpleslabs.guide.SlabsGuide.register();
         for (HalfSlabBlock block : HALF_SLABS) {
             Identifier id = BuiltInRegistries.BLOCK.getKey(block);
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, id);
@@ -133,7 +134,10 @@ public final class SlabRegistry {
                 CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                         .title(Component.translatable("itemgroup.simpleslabs.half_slabs"))
                         .icon(() -> new ItemStack(ITEMS.isEmpty() ? Items.OAK_SLAB : ITEMS.get(0)))
-                        .displayItems((params, out) -> tabStacks().forEach(out::accept))
+                        .displayItems((params, out) -> {
+                            tabStacks().forEach(out::accept);
+                            if (SimpleSlabs.on()) out.accept(com.simpleslabs.guide.SlabsGuide.stack());
+                        })
                         .build());
     }
 

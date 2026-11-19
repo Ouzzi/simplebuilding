@@ -1,0 +1,27 @@
+{
+  "guide_book": {
+    "lore": [
+      "A thin book about very thin slabs."
+    ],
+    "use": [
+      "The Simple Slabs Guide explains half slabs, the side half slab and how to cut them. Craft it shapeless from a book and a stone slab."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
+  },
+  "family:half_slab": {
+    "items": [
+      "regex:.*_half_slab"
+    ],
+    "lore": [
+      "{name}: a quarter of a slab, 2 pixels thin."
+    ],
+    "use": [
+      "Places in the clicked cell layer; the same half slab fills the free layer at the click. Sneak + right-click on a block side: upright, 4 layers = side slab. Cut 4 from a slab, 8 from the block; 4 craft back. Breaking drops one per layer."
+    ],
+    "secret": [
+      "Eight layers fit into one cell, in any order: 0-4 plus 12-16 pixels is just layers 1, 2, 7 and 8. Sand and gravel half slabs fall, copper ones age."
+    ]
+  }
+}

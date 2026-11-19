@@ -66,6 +66,7 @@ public final class SlabTests {
         ALL.put("recipes_cut_and_craft_back", SlabTests::recipesCutAndCraftBack);
         ALL.put("wood_and_wool_burn", SlabTests::woodAndWoolBurn);
         ALL.put("creative_tab_and_switch", SlabTests::creativeTabAndSwitch);
+        ALL.put("guide_book", com.simpleslabs.guide.SlabsGuide::gameTest);
     }
 
     private SlabTests() {}

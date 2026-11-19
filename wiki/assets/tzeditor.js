@@ -3,7 +3,8 @@
    Edits the layout configs of the test centre order areas (first export from the game: all areas of both variants,
    data/testcentre/index.json + layout_<variant>_<area>.json, written by tools/tzedit/build_editor.py).
    Shown only on the dev site (index.html: isDevSite, dev sidebar group). Styles use the wiki tokens (--panel, --border,
-   --slot-bg ...); the placeholder colours are the in-game blocks (grey line, light grey "none", red "missing").
+   --slot-bg ...); the placeholder colours are the in-game blocks (grey line = concrete slab, light grey "none" and red
+   "missing" = concrete half slabs of Simple Slabs, N86-8/9).
    N72b: own right-click menu per cell (also Shift+F10 / context menu key), "All areas" side by side, view "as built"
    (the real line arrangement of OrderAreas.families: grey middle line, side A metals -> wood -> aging -> rest -> last stone,
    side B stone; families and the algorithmic rows from the game plan data/testcentre/plan.json), checks from the plan.
@@ -22,8 +23,8 @@
       size: '{0} rows x {1} columns, {2} ids', sizeAll: '{0} areas, {1} ids', discard: 'Discard unsaved changes?', commentQ: 'Short: what changed? (optional)', saving: ' saving …',
       okSave: ' saved (no. {0}) - comes as branch tz-layout-* into the next bundle', badSave: ' not saved: ', login: ' (logged in?)', offline: ' not saved: server unreachable (JSON download always works)',
       downloaded: ' downloaded', mod: 'Mod', row: 'Row', column: 'Column', top: 'Octet on top', isNew: 'New', devOnly: 'This page exists only on the dev site.',
-      legend: 'Small picture top right = octet standing on the block. Light grey = placeholder "does not exist", red = missing, empty = no field. Vanilla pictures only on the dev host, found through the block models (data/vanilla-icons.json); without them the name.',
-      menu: 'Cell menu', mChange: 'Change block …', mMissing: 'Mark as missing (red)', mAbsent: 'Does not exist (light grey)', mClear: 'Empty', mFrame: 'Frame on/off',
+      legend: 'Small picture top right = octet standing on the block. Light grey = placeholder "does not exist" (in the game a light grey concrete half slab), red = missing (a red concrete half slab), empty = no field. Column order from the block outwards: block, stairs, slab, half slab. Vanilla pictures only on the dev host, found through the block models (data/vanilla-icons.json); without them the name.',
+      menu: 'Cell menu', mChange: 'Change block …', mMissing: 'Mark as missing (red half slab)', mAbsent: 'Does not exist (light grey half slab)', mClear: 'Empty', mFrame: 'Frame on/off',
       mFrameItem: 'Frame only on empty or placeholder fields', mRow: 'Insert new row here', mCol: 'Insert new column here', mUndo: 'Undo',
       chTitle: 'Change block', chPh: 'id or name, e.g. minecraft:stone', chSet: 'Set', chCancel: 'Cancel', chAny: 'Any id works (mod:name); Enter sets the marked hit or the typed id.', chBad: 'Not an id: ',
       newRowQ: 'Name of the new row', newRow: 'New row', newColQ: 'Name of the new column (letters, digits, _ -)', newCol: 'new',
@@ -46,8 +47,8 @@
       size: '{0} Reihen x {1} Spalten, {2} Ids', sizeAll: '{0} Bereiche, {1} Ids', discard: 'Ungespeicherte Änderungen verwerfen?', commentQ: 'Kurz: was wurde geändert? (optional)', saving: ' speichere …',
       okSave: ' gespeichert (Nr. {0}) - kommt als Branch tz-layout-* ins nächste Bündel', badSave: ' nicht gespeichert: ', login: ' (angemeldet?)', offline: ' nicht gespeichert: Server nicht erreichbar (JSON-Download geht immer)',
       downloaded: ' heruntergeladen', mod: 'Mod', row: 'Reihe', column: 'Spalte', top: 'Achtel darauf', isNew: 'Neu', devOnly: 'Diese Seite gibt es nur im Dev-Bereich.',
-      legend: 'Kleines Bild oben rechts = Achtel auf dem Block. Hellgrau = Platzhalter „gibt es nicht“, rot = fehlt, leer = kein Feld. Vanilla-Bilder nur auf dem Dev-Host, über die Blockmodelle gefunden (data/vanilla-icons.json); ohne sie der Name.',
-      menu: 'Zellmenü', mChange: 'Block ändern …', mMissing: 'Als fehlend markieren (rot)', mAbsent: 'Gibt es nicht (hellgrau)', mClear: 'Leeren', mFrame: 'Rahmen an/aus',
+      legend: 'Kleines Bild oben rechts = Achtel auf dem Block. Hellgrau = Platzhalter „gibt es nicht“ (im Spiel eine hellgraue Beton-Halbstufe), rot = fehlt (rote Beton-Halbstufe), leer = kein Feld. Spalten vom Block nach außen: Block, Treppe, Stufe, Halbstufe. Vanilla-Bilder nur auf dem Dev-Host, über die Blockmodelle gefunden (data/vanilla-icons.json); ohne sie der Name.',
+      menu: 'Zellmenü', mChange: 'Block ändern …', mMissing: 'Als fehlend markieren (rote Halbstufe)', mAbsent: 'Gibt es nicht (hellgraue Halbstufe)', mClear: 'Leeren', mFrame: 'Rahmen an/aus',
       mFrameItem: 'Rahmen nur auf leeren oder Platzhalter-Feldern', mRow: 'Neue Reihe hier einfügen', mCol: 'Neue Spalte hier einfügen', mUndo: 'Rückgängig',
       chTitle: 'Block ändern', chPh: 'Id oder Name, z. B. minecraft:stone', chSet: 'Setzen', chCancel: 'Abbrechen', chAny: 'Jede Id geht (mod:name); Enter setzt den markierten Treffer oder die getippte Id.', chBad: 'Keine Id: ',
       newRowQ: 'Name der neuen Reihe', newRow: 'Neue Reihe', newColQ: 'Name der neuen Spalte (Buchstaben, Ziffern, _ -)', newCol: 'neu',

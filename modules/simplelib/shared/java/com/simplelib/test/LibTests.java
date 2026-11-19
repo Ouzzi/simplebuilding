@@ -574,9 +574,12 @@ public final class LibTests {
                 && com.simplelib.api.TabSort.shapeIndex("x_slab") < com.simplelib.api.TabSort.shapeIndex("x_wall")
                 && com.simplelib.api.TabSort.shapeIndex("x_wall") < com.simplelib.api.TabSort.shapeIndex("x_octet")
                 && com.simplelib.api.TabSort.shapeIndex("x_block") == -1
-                // N86: a half slab is a shape of its own family, not of "x_half"
-                && com.simplelib.api.TabSort.materialKey("stone_brick_half_slab").equals(com.simplelib.api.TabSort.materialKey("stone_brick_slab")),
-                "stairs, slab, wall, octet in this order; half slab in the slab's family");
+                // N86: a half slab is a shape of its own family (not of "x_half"), right after the slab (owner N86-8)
+                && com.simplelib.api.TabSort.materialKey("stone_brick_half_slab").equals(com.simplelib.api.TabSort.materialKey("stone_brick_slab"))
+                && com.simplelib.api.TabSort.materialKey("stone_brick_side_half_slab").equals(com.simplelib.api.TabSort.materialKey("stone_brick_slab"))
+                && com.simplelib.api.TabSort.shapeIndex("x_slab") < com.simplelib.api.TabSort.shapeIndex("x_half_slab")
+                && com.simplelib.api.TabSort.shapeIndex("x_half_slab") < com.simplelib.api.TabSort.shapeIndex("x_wall"),
+                "stairs, slab, half slab, wall, octet in this order; half slab in the slab's family");
         check(h, com.simplelib.api.TabSort.variantRank("stone") < com.simplelib.api.TabSort.variantRank("polished_stone")
                 && com.simplelib.api.TabSort.variantRank("polished_stone") < com.simplelib.api.TabSort.variantRank("chiseled_stone"), "variants: plain, polished, chiseled");
         var libTab = net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB.getValue(com.simplelib.SimpleLib.id("lib"));

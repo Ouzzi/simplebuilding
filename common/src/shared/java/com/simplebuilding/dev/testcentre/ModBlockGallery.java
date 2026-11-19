@@ -59,7 +59,7 @@ public final class ModBlockGallery {
 
     /** Formtyp, Reihenfolge = Zeilen von vorn (Gang) nach hinten. */
     public enum Form {
-        OCTET, SLAB, STAIRS, WALL, FENCE, FENCE_GATE, PANE, TRAPDOOR, DOOR, BLOCK;
+        OCTET, SLAB, HALF_SLAB, STAIRS, WALL, FENCE, FENCE_GATE, PANE, TRAPDOOR, DOOR, BLOCK;
 
         int stack() {
             return this == DOOR ? 1 : STACK;
@@ -128,6 +128,11 @@ public final class ModBlockGallery {
         if (block instanceof SlabBlock || state.is(BlockTags.SLABS)) {
             return Form.SLAB;
         }
+        // N86: Halbstufe von Simple Slabs (Lagen l0..l7, keine SlabBlock-Klasse; per Eigenschaft, keine Compile-Abhaengigkeit)
+        if (block.getStateDefinition().getProperty("l0") instanceof BooleanProperty
+                && block.getStateDefinition().getProperty("l7") instanceof BooleanProperty) {
+            return Form.HALF_SLAB;
+        }
         if (block instanceof StairBlock || state.is(BlockTags.STAIRS)) {
             return Form.STAIRS;
         }
@@ -160,8 +165,8 @@ public final class ModBlockGallery {
     }
 
     // QW11: Regel identisch zu com.simplelib.api.TabSort (SimpleLib sieht Common nicht in allen Loadern); CrossModGameTest prueft die Gleichheit.
-    // N86: "_half_slab" vor "_slab" (endet auch auf "_slab"; sonst Familie "x_half").
-    private static final List<String> FORM_SUFFIXES = List.of("_octet", "_stairs", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence",
+    // N86: "_side_half_slab"/"_half_slab" vor "_slab" (enden auch auf "_slab"; sonst Familie "x_half"/"x_side").
+    private static final List<String> FORM_SUFFIXES = List.of("_octet", "_stairs", "_side_half_slab", "_half_slab", "_slab", "_wall", "_fence_gate", "_fence",
             "_pane", "_trapdoor", "_door");
     /** Varianten-Woerter, Reihenfolge = Rang in der Spalte (Basis zuerst, dann geschliffen ... gemeisselt, Saeule). */
     private static final List<String> VARIANT_WORDS = List.of("planks", "block", "log", "stem", "wood", "hyphae", "stripped",

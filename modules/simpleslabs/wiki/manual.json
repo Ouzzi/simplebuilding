@@ -1,9 +1,180 @@
 {
-  "features": [],
+  "features": [
+    {
+      "id": "half_slabs",
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/HalfSlabBlock.java",
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/LayeredSlabBlock.java",
+        "modules/simpleslabs/shared/java/com/simpleslabs/registry/SlabRegistry.java",
+        "modules/simpleslabs/shared/java/com/simpleslabs/registry/HalfSlabMaterials.java",
+        "tools/textures/half_slabs_2026_11_17.py",
+        "tools/textures/half_slab_materials.json"
+      ],
+      "en": {
+        "title": "Half slabs: 2-pixel layers of every block with a slab",
+        "summary": "A half slab is a quarter of a slab: 2 pixels high. Every block that has a slab (170: Vanilla, SimpleBuilding and its sub-mods, also dirt, grass, sand, red sand and gravel) has its half slab with the textures of its slab. A block cell holds eight layers, and any of them can be filled.",
+        "details": [
+          "Right-click on the top of a block puts the half slab at the bottom of the cell above, on the underside of a block at the top of the cell below, on the side of a block at the height you clicked.",
+          "Right-click on a half slab with the same half slab fills the free layer at the click: on its top face the layer above it, on its side the layer at that height. So 0-4 + 12-16 pixels (layers 1, 2, 7, 8) or 0-4 + 8-12 pixels are built with four clicks.",
+          "Eight layers are a full cube; a cell with free layers lets light through at the sides like a slab and carries only on its full faces."
+        ]
+      },
+      "de": {
+        "title": "Halbstufen: 2-Pixel-Lagen jedes Blocks mit Stufe",
+        "summary": "Eine Halbstufe ist ein Viertel einer Stufe: 2 Pixel hoch. Jeder Block mit Stufe (170: Vanilla, SimpleBuilding und seine Sub-Mods, auch Erde, Gras, Sand, Roter Sand und Kies) hat seine Halbstufe mit den Texturen seiner Stufe. Eine Blockzelle hat acht Lagen, jede davon lässt sich belegen.",
+        "details": [
+          "Rechtsklick auf die Oberseite eines Blocks setzt die Halbstufe unten in die Zelle darüber, auf die Unterseite oben in die Zelle darunter, auf die Seite eines Blocks in der angeklickten Höhe.",
+          "Rechtsklick mit derselben Halbstufe auf eine Halbstufe füllt die freie Lage an der Klickstelle: auf ihrer Oberseite die Lage darüber, an ihrer Seite die Lage in dieser Höhe. So entstehen 0-4 + 12-16 Pixel (Lagen 1, 2, 7, 8) oder 0-4 + 8-12 Pixel mit vier Klicks.",
+          "Acht Lagen sind ein voller Würfel; eine Zelle mit freien Lagen lässt Licht seitlich durch wie eine Stufe und trägt nur auf ihren vollen Seiten."
+        ]
+      }
+    },
+    {
+      "id": "side",
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/SideHalfSlabBlock.java",
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/HalfSlabBlock.java"
+      ],
+      "en": {
+        "title": "Side half slab and side slab",
+        "summary": "Sneak + right-click on the side of a block puts the half slab upright against that side: a side half slab of 2 pixels. Each further sneak click on that block side, or a click on its open face, adds a layer: 4 layers are a side slab of 8 pixels, 8 layers fill the cell.",
+        "details": [
+          "The side form has no item of its own: breaking it drops one half slab per layer, pick block gives the half slab."
+        ]
+      },
+      "de": {
+        "title": "Seiten-Halbstufe und Seiten-Stufe",
+        "summary": "Schleichen + Rechtsklick auf die Seite eines Blocks stellt die Halbstufe aufrecht an diese Seite: eine Seiten-Halbstufe von 2 Pixeln. Jeder weitere Schleich-Klick auf diese Blockseite oder ein Klick auf ihre offene Fläche fügt eine Lage hinzu: 4 Lagen sind eine Seiten-Stufe von 8 Pixeln, 8 Lagen füllen die Zelle.",
+        "details": [
+          "Die Seitenform hat kein eigenes Item: Abbauen droppt je Lage eine Halbstufe, Mittelklick gibt die Halbstufe."
+        ]
+      }
+    },
+    {
+      "id": "slab_and_half_slab",
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/item/HalfSlabItem.java"
+      ],
+      "en": {
+        "title": "Slab and half slab in one block",
+        "summary": "A half slab used on its own slab (bottom or top, not double) adds a layer: the slab becomes the half slab block with its four layers and the new one, water stays.",
+        "details": [
+          "A slab of another material stays as it is; a slab item on a half slab does nothing special."
+        ]
+      },
+      "de": {
+        "title": "Stufe und Halbstufe in einem Block",
+        "summary": "Eine Halbstufe auf ihre eigene Stufe (unten oder oben, nicht doppelt) fügt eine Lage hinzu: Die Stufe wird zum Halbstufen-Block mit ihren vier Lagen und der neuen, Wasser bleibt.",
+        "details": [
+          "Die Stufe eines anderen Materials bleibt, wie sie ist; ein Stufen-Item auf einer Halbstufe tut nichts Besonderes."
+        ]
+      }
+    },
+    {
+      "id": "drops_water",
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/LayeredSlabBlock.java",
+        "modules/simpleslabs/shared/resources/data/simpleslabs/loot_table/blocks/stone_half_slab.json",
+        "modules/simpleslabs/shared/resources/data/simpleslabs/loot_table/blocks/stone_side_half_slab.json"
+      ],
+      "en": {
+        "title": "Breaking and water",
+        "summary": "Breaking a half slab block drops one half slab for every filled layer. Half slabs hold water like a slab; a full cell (8 layers) holds none.",
+        "details": []
+      },
+      "de": {
+        "title": "Abbauen und Wasser",
+        "summary": "Abbauen eines Halbstufen-Blocks droppt für jede belegte Lage eine Halbstufe. Halbstufen halten Wasser wie eine Stufe; eine volle Zelle (8 Lagen) hält keins.",
+        "details": []
+      }
+    },
+    {
+      "id": "nature",
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/LayeredSlabBlock.java",
+        "modules/simpleslabs/shared/java/com/simpleslabs/block/HalfSlabBlock.java",
+        "modules/simpleslabs/fabric/src/main/java/com/simplebuilding/modules/simpleslabs/SlabsFabricClient.java",
+        "tools/textures/half_slabs_2026_11_17.py"
+      ],
+      "en": {
+        "title": "Sand, gravel and grass",
+        "summary": "Sand, red sand and gravel half slabs fall like sand: with nothing below they fall as their layers and land at the bottom of the cell; on the ground their layers settle to the bottom. One falling onto a half slab of the same kind fills it up, the rest goes into the cell above. The grass half slab takes the color of the biome and shows grass on its top layer, dirt below.",
+        "details": [
+          "Dirt, grass, sand, red sand and gravel half slabs need Simple Blocks (their slabs come from there). Grass does not spread onto or from half slabs."
+        ]
+      },
+      "de": {
+        "title": "Sand, Kies und Gras",
+        "summary": "Sand-, Roter-Sand- und Kies-Halbstufen fallen wie Sand: Ist darunter frei, fallen sie als ihre Lagen und landen unten in der Zelle; am Boden setzen sich ihre Lagen nach unten. Fällt eine auf eine Halbstufe derselben Art, füllt sie diese auf, der Rest geht in die Zelle darüber. Die Gras-Halbstufe nimmt die Farbe des Bioms an und zeigt auf ihrer obersten Lage Gras, darunter Erde.",
+        "details": [
+          "Erde-, Gras-, Sand-, Rotsand- und Kies-Halbstufen brauchen Simple Blocks (ihre Stufen kommen von dort). Gras breitet sich nicht auf oder von Halbstufen aus."
+        ]
+      }
+    },
+    {
+      "id": "copper",
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/registry/SlabRegistry.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/CopperAging.java"
+      ],
+      "en": {
+        "title": "Copper half slabs age",
+        "summary": "Unwaxed copper half slabs age like Vanilla copper: exposed, weathered, oxidized. A honeycomb waxes them (they keep their look), an axe scrapes the wax or one stage off; a dispenser with honeycomb waxes too.",
+        "details": []
+      },
+      "de": {
+        "title": "Kupfer-Halbstufen altern",
+        "summary": "Ungewachste Kupfer-Halbstufen altern wie Vanilla-Kupfer: angelaufen, verwittert, oxidiert. Eine Honigwabe wachst sie (sie behalten ihr Aussehen), eine Axt kratzt das Wachs oder eine Stufe ab; ein Werfer mit Honigwabe wachst auch.",
+        "details": []
+      }
+    },
+    {
+      "id": "recipes",
+      "sources": [
+        "tools/textures/half_slabs_2026_11_17.py"
+      ],
+      "en": {
+        "title": "Shapecutter and back",
+        "summary": "The Shapecutter of Simple Blocks cuts 4 half slabs from a slab and 8 from its full block; without Simple Blocks the Vanilla stonecutter does it. Four half slabs craft back into one slab (nothing lost).",
+        "details": []
+      },
+      "de": {
+        "title": "Formsäge und zurück",
+        "summary": "Die Formsäge von Simple Blocks schneidet aus einer Stufe 4 Halbstufen und aus ihrem vollen Block 8; ohne Simple Blocks macht das die Vanilla-Steinsäge. Vier Halbstufen ergeben an der Werkbank wieder eine Stufe (nichts geht verloren).",
+        "details": []
+      }
+    },
+    {
+      "id": "partners",
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/registry/SlabRegistry.java",
+        "modules/simplelib/shared/java/com/simplelib/api/shape/ShapeMaterials.java"
+      ],
+      "en": {
+        "title": "Half slabs of other mods' blocks",
+        "summary": "Half slabs of the blocks of SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting and Simple Chess exist only while that mod is loaded, with their recipes. Their properties come from SimpleLib's shape core, which Simple Octets uses too.",
+        "details": []
+      },
+      "de": {
+        "title": "Halbstufen der Blöcke anderer Mods",
+        "summary": "Halbstufen der Blöcke von SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting und Simple Chess gibt es nur, solange dieser Mod geladen ist, samt Rezepten. Ihre Eigenschaften kommen aus dem Form-Kern von SimpleLib, den auch Simple Octets nutzt.",
+        "details": []
+      }
+    }
+  ],
   "notes": {
-    "simpleslabs:token": {
-      "en": {"summary": "A plain integration token using the Vanilla paper model, without custom behavior or a creative tab."},
-      "de": {"summary": "Eine einfache Integrationstest-Marke mit Vanilla-Papiermodell, ohne eigenes Verhalten oder Kreativtab."}
+    "simpleslabs:guide_book": {
+      "sources": [
+        "modules/simpleslabs/shared/java/com/simpleslabs/guide/SlabsGuide.java",
+        "modules/simpleslabs/shared/resources/assets/simpleslabs/simplelib/modpack_guide.json",
+        "modules/simpleslabs/shared/resources/data/simpleslabs/advancement/guide/chapter.json"
+      ],
+      "en": {
+        "summary": "Chapter \"Simple Slabs\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: stone slab. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+      },
+      "de": {
+        "summary": "Kapitel \"Simple Slabs\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Steinstufe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+      }
     }
   }
 }

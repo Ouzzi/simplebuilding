@@ -56,7 +56,7 @@ const bp2 = T.builtPlan({ metals: mk(5, 'm'), stone: mk(5, 's') }, 3);
 assert.equal(bp2.bands.length, 2);                                          // more rows than a pair holds: further pairs
 // compact: ids of the game plan without a field
 assert.deepEqual(T.unplaced({ x: ['x:1', 'x:9'], y: ['y:1'] }, [{ cells: ['x:1', 'y:1'] }]), ['x:9']);
-assert.equal(T.STR.de.mMissing, 'Als fehlend markieren (rot)');
+assert.equal(T.STR.de.mMissing, 'Als fehlend markieren (rote Halbstufe)');
 console.log('tzeditor N72b core ok');
 
 // N99: group move with push-back (nothing lost), range, copy/paste, saved-vs-online helpers
