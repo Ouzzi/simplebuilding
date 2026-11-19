@@ -180,7 +180,7 @@ public class HalfSlabBlock extends LayeredSlabBlock {
     /**
      * A falling half slab of this material lands in this cell (FallingBlockEntity asks with an empty hand whether it may take the
      * cell; it stands inside this cell because the top layers are free): the layers are added from the bottom, what does not fit
-     * goes into the cell above (or drops), and the entity vanishes without its own drop. Server only.
+     * goes into the cell above (or drops), and the entity vanishes without its own drop, at most once per entity. Server only.
      */
     private void mergeLanding(BlockState state, BlockPlaceContext context) {
         Level level = context.getLevel();
@@ -188,7 +188,10 @@ public class HalfSlabBlock extends LayeredSlabBlock {
         BlockPos pos = context.getClickedPos();
         for (FallingBlockEntity entity : level.getEntitiesOfClass(FallingBlockEntity.class, new AABB(pos),
                 e -> e.isAlive() && e.getBlockState().is(this))) {
+            // Vanilla asks twice per landing tick (BlockPlaceContext's constructor and FallingBlockEntity itself, the second time
+            // with the stale pre-merge state): discarding the entity here makes the merge happen once.
             entity.dropItem = false;
+            entity.discard();
             int total = layerCount(state) + layerCount(entity.getBlockState());
             level.setBlockAndUpdate(pos, water(stack(total), state.getValue(WATERLOGGED)));
             int rest = total - LAYERS;
