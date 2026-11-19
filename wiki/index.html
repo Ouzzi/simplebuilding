@@ -6027,15 +6027,17 @@ function isDevSite() {
   return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || DEV_QUERY;
 }
 /* N80: Id -> Bild des Dev-Hosts (siehe devIcon); fehlt die Datei, bleibt alles wie bisher. */
-var DEV_ICONS = null;
-/* nur auf dem Dev-Host (/dev/ bzw. Dev-Overlay), nicht im Test-Harness mit ?dev=1: dort gibt es die Datei nie */
+var DEV_ICONS = null, DEV_ICONS_READY = null, FIRST_RENDER_DONE = false;
+/* nur auf dem Dev-Host (/dev/ bzw. Dev-Overlay), nicht im Test-Harness mit ?dev=1: dort gibt es die Datei nie.
+   N107: der erste Aufbau wartet auf diese Zuordnung (hoechstens 3 s), sonst fragt er erst die nicht vorhandenen
+   eigenen Render-Bilder an (20 x 404 auf assets/textures/render/, N97-Rest) und tauscht sie danach aus. */
 if ((/^\/dev(\/|$)/.test(location.pathname) || window.sbDevHook) && window.fetch) {
-  fetch('data/vanilla-icons.json', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+  DEV_ICONS_READY = fetch('data/vanilla-icons.json', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     var icons = d && isObj(d.icons) ? d.icons : null, out = {};
     if (!icons) return;
     Object.keys(icons).forEach(function (k) { var v = icons[k]; if (typeof v === 'string' && (v.indexOf('#') < 0 || /#\d+,\d+,\d+,\d+$/.test(v))) out[k] = v; });
     DEV_ICONS = out;
-    try { render({ keepScroll: true }); } catch (e) { /* noch nicht gestartet: der erste Aufbau nimmt die Bilder mit */ }
+    if (FIRST_RENDER_DONE) { try { render({ keepScroll: true }); } catch (e) { /* Seite noch im Aufbau */ } }
   }).catch(function () {});
 }
 /* N51 Konverter-Seiten "Bauwerke" (?tab=buildings) und "3D-Modelle" (?tab=models3d): Wiki-Seiten wie die Verzauberungs-Ansicht,
@@ -7915,7 +7917,8 @@ renderMeta();
   } catch (err) { HASHMODE = true; }
   rewriteLinks(document.body);
 })();
-render();
+function firstRender() { if (FIRST_RENDER_DONE) return; FIRST_RENDER_DONE = true; render(); }
+if (DEV_ICONS_READY) { DEV_ICONS_READY.then(firstRender, firstRender); setTimeout(firstRender, 3000); } else firstRender();
 }).catch(function (error) {
   document.getElementById('main').textContent = 'Wiki data could not be loaded / Wiki-Daten konnten nicht geladen werden: ' + error.message;
   console.error(error);
