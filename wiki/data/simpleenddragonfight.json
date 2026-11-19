@@ -940,7 +940,7 @@
       "categoryDe": "Simple End Dragon Fight",
       "group": null,
       "groupDe": null,
-      "label": "Chorus-coloured dragon from fight no.",
+      "label": "Chorus-colored dragon from fight no.",
       "labelDe": "Chorus-farbener Drache ab Kampf Nr.",
       "tooltip": "Dragon of this fight number and later glows chorus violet on the client (the 4th fight on). 0 = off. Default: 4.",
       "tooltipDe": "Der Drache dieser Kampfnummer und alle späteren leuchten beim Spieler chorus-violett (ab dem 4. Kampf). 0 = aus. Standard: 4."

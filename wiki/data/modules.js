@@ -473,7 +473,7 @@ window.WIKI_MODULES = [
       "config": 16,
       "features": 42
     },
-    "dataHash": "e9a211096fec"
+    "dataHash": "76db140e64b1"
   },
   {
     "id": "simpledimensions",
@@ -593,7 +593,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 9
     },
-    "dataHash": "01a2c157424c"
+    "dataHash": "5608cd200d98"
   },
   {
     "id": "simpleinterfaces",
@@ -1096,7 +1096,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 7
     },
-    "dataHash": "b081653614c8"
+    "dataHash": "8f75160addf1"
   },
   {
     "id": "simpleend",
@@ -1883,7 +1883,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 5
     },
-    "dataHash": "40fb0615e6b7"
+    "dataHash": "06b6595c5278"
   },
   {
     "id": "simplechallenges",

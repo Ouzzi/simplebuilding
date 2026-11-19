@@ -949,8 +949,8 @@
       "groupDe": null,
       "label": "Real distance",
       "labelDe": "Echte Entfernung",
-      "tooltip": "WG26-2: the earth lies as far below as the world would (height above sea level, true size); off = the earlier zoom (real height at the switch, growing to the orbit distance at the ceiling). Default: on.",
-      "tooltipDe": "WG26-2: die Erde liegt so weit unter dir wie die Welt (Höhe über dem Meeresspiegel, echte Größe); aus = der frühere Zoom (echte Höhe an der Umschalthöhe, wachsend bis zum Orbit-Abstand an der Deckenhöhe). Standard: an."
+      "tooltip": "The earth lies as far below as the world would (height above sea level, true size); off = the earlier zoom (real height at the switch, growing to the orbit distance at the ceiling). Default: on.",
+      "tooltipDe": "Die Erde liegt so weit unter dir wie die Welt (Höhe über dem Meeresspiegel, echte Größe); aus = der frühere Zoom (echte Höhe an der Umschalthöhe, wachsend bis zum Orbit-Abstand an der Deckenhöhe). Standard: an."
     },
     {
       "range": null,
