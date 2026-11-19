@@ -6,13 +6,13 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials (building cores, Strong Upgrade with the Wither drop), id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Animals, Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chess, Simple Chisels, Simple Crucibles, Simple Dimensions, Simple Dinosaurs, Simple Earth, Simple Enchanting, Simple End, Simple End Dragon Fight, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Respawn, Simple Riding, Simple Sandwiches, Simple Shops, Simple Slabs, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
+  - required von: Simple Animals, Simple Arrows, Simple Beacons, Simple Blocks, Simple Building Tools, Simple Challenges, Simple Chess, Simple Chisels, Simple Crucibles, Simple Dimensions, Simple Dinosaurs, Simple Earth, Simple Enchanting, Simple End, Simple End Dragon Fight, Simple Fun, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Layers, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Money, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Respawn, Simple Riding, Simple Sandwiches, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, Simple Vault, Simple Wanderers, SimpleBuilding
 
 ## SimpleBuilding
 
 - **SimpleBuilding** `simplebuilding` [fertig]: Building tools, storage, machines, and enchantments.
-  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels, Simple Slabs
-  - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs, Simple Layers, Simple Chess
+  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels
+  - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs
   - **Simple Arrows** `simplearrows` (required) [neu]: Arrows: the Fletching Table (moved from SimpleBuilding on 04.11., ids migrate) builds 4 arrows from a tip, a shaft and a fletching, optionally with a potion; the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla (tips and shafts of other mods appear with them). Fabric only for now.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Ores
@@ -45,7 +45,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding, Simple Mobs, Simple End, Simple End Dragon Fight, jei, modmenu, cloth_config
   - **Simple Mobs** `simplemobs` (required) [neu]: New mobs (Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Dread, Deceiver) and summoned bosses (Void Runner, Brimguard, the armored Blighted and Abyssal Wither). Weathered Trials with the Evil and Void Omen chain (trials, raids, vaults, keys), Wings tiers 1 to 4 with Nether Heart, Red Nether Gem, Ender Heart and Ender Gem, Spawner Fragments and the Makeshift Spawner, Strong Gunpowder, TNT and Rocket, the Trumpet, the Cloak of Deception and Trick Mirror, combat effects, armor trim abilities, the brood hollow with Mob Essence and the Potion of Silence. Requires Simple Resonance.
     - required: SimpleLib, Simple Resonance
-  - **Simple Octets** `simpleoctets` (required) [fertig]: Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Unwaxed copper octets age like Vanilla copper. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.
+  - **Simple Octets** `simpleoctets` (required) [fertig]: Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the block; the sledgehammer of Simple Hammers carves them and breaks one corner off a full block. Melon placing and corner breaking can be switched off (simpleoctets-server.json). Octets of SimpleBuilding's and Simple End's blocks only with that mod.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple End, Simple Ores, Simple Enchanting, jei
   - **Simple Ores** `simpleores` (required) [neu]: Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Copper, soft Rose Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.
@@ -64,9 +64,6 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding, jade
   - **Simple Resonance** `simpleresonance` (required) [neu]: Player value, danger zones and spawn owners: how experienced a player is (playing time, survival, bosses, partial loss on death), how dangerous the land is (soft zones from the spawn), which player a monster spawn belongs to and a newcomer protection. An API for other mods (Simple Mobs gives new monsters status effects by it); works on its own with Vanilla.
     - optional: SimpleBuilding, Simple Mobs
-  - **Simple Slabs** `simpleslabs` (required) [neu]: Half slabs (2 pixels) of every block with a slab: stack them freely in the eight 2-pixel layers of a cell, lean them against a wall as side half slab or side slab. Sand, red sand and gravel half slabs fall, grass takes the biome colour, copper ages like Vanilla copper. Cut in the Shapecutter of Simple Blocks (in the stonecutter without it), crafted back into the slab. Half slabs of another mod's block only with that mod; shares SimpleLib's shape core with Simple Octets.
-    - required: SimpleLib
-    - optional: SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting, Simple Chess, jei
   - **Simple Storage** `simplestorage` (required) [fertig]: Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2). WH26-6: the four barrels (copper to Enderite; docking onto the crucibles of Simple Crucibles) moved here from Simple Crucibles.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple End, trinkets_updated, curios, Simple Ores, Simple Crucibles
@@ -193,10 +190,13 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 Mods mit `releasePhase` in modules.json: gebaut, aber erst nach dem Release (published) freigegeben; bis dahin nicht in SimpleBuildings `bundleOptional`.
 
 - Phase 3: **Simple Chess** `simplechess`
+- Phase 3: **Simple Layers** `simplelayers`
 
 ## Nicht im Release-Paket
 
 Mods mit `"release": false` (oder `example`) in modules.json: Code bleibt, wird gebaut und getestet, aber nicht veröffentlicht (keine Store-Seite, kein Download, keine Landing-Kachel).
 
+- **Simple Chess** `simplechess`
+- **Simple Layers** `simplelayers`
 - **Simple Vault** `simplevault`
 - **Wiring Example** `wiringexample`

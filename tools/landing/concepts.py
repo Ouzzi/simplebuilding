@@ -457,6 +457,9 @@ STAGES = [
              'simplemobs:item/hollow_howler_spawn_egg', 'simplemobs:item/watcher_eye', 'simplepads:block/enderite_spawn_teleporter', 'simplestorage:block/enderite_backpack_front'],
       mods=['simplehammers', 'simpleenchanting', 'simplebeacons', 'simplemobs', 'simplepads', 'simplemobheads']),
 ]
+# N102: release:false mods (Vault, Chess, Layers - Phase 3) are not in MODS; a stage keeps only released mods and is left out
+# when none of its mods is released (it would point the player at content the release does not ship).
+STAGES = [dict(s, mods=[m for m in s['mods'] if m in MODS]) for s in STAGES if any(m in MODS for m in s['mods'])]
 
 
 for _s in STAGES:  # overrides.json "stages": {"<k>": {"de"/"en" (Titel), "tde"/"ten" (Text), "bg", "items", "mods"}}
@@ -593,7 +596,7 @@ def k3():
                'The page shows no list but the eight strongest moments of the mods as big tiles, each with its own texture, one sentence and a way into the wiki. Real numbers and a timeline add how big and alive the project is.')
     body += '<div class="nb">' + ''.join(f'<div><b>{n}</b>{t(de, en)}</div>' for n, de, en in nums) + '</div>'
     body += t('Highlights', 'Highlights', 'h2') + '<div class="sw">'
-    for mid, tde, ten, pde, pen, bg, texs, wiki in SHOW:
+    for mid, tde, ten, pde, pen, bg, texs, wiki in [x for x in SHOW if x[0] in MODS]:  # N102: only released mods
         imgs = ''.join(f'<img class="px" src="{tex(x)}" alt="">' for x in texs) or f'<img class="px ico" src="{ICONS[mid]}" alt="">'
         extra = ''
         if mid == 'simplemusic':

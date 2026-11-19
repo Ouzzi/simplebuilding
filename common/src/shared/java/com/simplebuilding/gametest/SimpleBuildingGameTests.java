@@ -385,6 +385,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("woodwork_game_test_sheets_connect_and_let_light_through", WoodworkTests::sheetsConnectAndLetLightThrough)
                     .build(),
+            GameTestSpec.named("woodwork_game_test_axe_strips_woodwork", WoodworkTests::axeStripsWoodwork)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_wooden_cauldron_holds_water_and_burns_with_lava", WoodworkTests::woodenCauldronHoldsWaterAndBurnsWithLava)
                     .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
                     .build(),

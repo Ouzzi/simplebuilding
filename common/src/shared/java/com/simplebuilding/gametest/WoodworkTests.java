@@ -166,6 +166,53 @@ public final class WoodworkTests {
         finish(helper, fails);
     }
 
+    /**
+     * N100: an axe strips a hollow log, a sheet and a wooden cauldron into their stripped variant like a log - axis,
+     * connections and water level stay, the axe loses one durability each, the strip sound is heard, the click reports
+     * SUCCESS (arm swing); a stripped block stays as it is.
+     */
+    public static void axeStripsWoodwork(GameTestHelper helper) {
+        if (!McVersion.WOODWORK) {
+            helper.succeed();
+            return;
+        }
+        List<String> fails = new ArrayList<>();
+        BlockPos hollowPos = new BlockPos(1, 1, 1);
+        BlockPos sheetPos = new BlockPos(3, 1, 1);
+        BlockPos cauldronPos = new BlockPos(6, 1, 1);
+        helper.setBlock(sheetPos.east(), Blocks.GLASS_PANE);
+        helper.setBlock(hollowPos, oak().hollow().defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X));
+        helper.setBlock(sheetPos, oak().sheet().defaultBlockState().setValue(CrossCollisionBlock.EAST, true));
+        helper.setBlock(cauldronPos, oak().cauldron().with(WoodenCauldronBlock.Content.WATER, 2));
+        List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();
+        ServerPlayer listener = MusicDiscTests.capturingPlayer(helper, sink);
+        Vec3 ear = helper.absoluteVec(new Vec3(3.5, 2.0, 3.5));
+        listener.snapTo(ear.x, ear.y, ear.z, 0.0F, 0.0F);
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, axe);
+        for (BlockPos pos : List.of(hollowPos, sheetPos, cauldronPos)) {
+            var result = helper.getBlockState(pos).useItemOn(axe, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit(helper, pos, Direction.UP));
+            check(result == net.minecraft.world.InteractionResult.SUCCESS, fails, "axe on " + pos.toShortString() + " reports SUCCESS (" + result + ")");
+        }
+        BlockState hollow = helper.getBlockState(hollowPos);
+        check(hollow.is(oak().hollowStripped()) && hollow.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.X, fails,
+                "hollow log stripped, axis kept (" + hollow + ")");
+        BlockState sheet = helper.getBlockState(sheetPos);
+        check(sheet.is(oak().strippedSheet()) && sheet.getValue(CrossCollisionBlock.EAST), fails, "sheet stripped, connection kept (" + sheet + ")");
+        BlockState cauldron = helper.getBlockState(cauldronPos);
+        check(cauldron.is(oak().strippedCauldron()) && cauldron.getValue(WoodenCauldronBlock.CONTENT) == WoodenCauldronBlock.Content.WATER
+                && WoodenCauldronBlock.levelOf(cauldron) == 2, fails, "cauldron stripped, water level 2 kept (" + cauldron + ")");
+        check(axe.getDamageValue() == 3, fails, "the axe lost 1 durability per strip (" + axe.getDamageValue() + ")");
+        long strips = MusicDiscTests.captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class).stream()
+                .filter(p -> p.getSound().value().location().getPath().equals("item.axe.strip")).count();
+        check(strips == 3, fails, "the strip sound is heard 3 times (" + strips + ")");
+        var again = helper.getBlockState(hollowPos).useItemOn(axe, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit(helper, hollowPos, Direction.UP));
+        check(!again.consumesAction() && helper.getBlockState(hollowPos).is(oak().hollowStripped()) && axe.getDamageValue() == 3, fails,
+                "a stripped hollow log stays as it is (" + again + ")");
+        finish(helper, fails);
+    }
+
     public static void woodenCauldronHoldsWaterAndBurnsWithLava(GameTestHelper helper) {
         if (!McVersion.WOODWORK) {
             helper.succeed();

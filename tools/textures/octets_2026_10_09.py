@@ -403,6 +403,19 @@ def sided_corner():
                 'west': face('#side', cullface='west'), 'up': face('#up'), 'down': face('#down', cullface='down')}}]}
 
 
+def log_corner():
+    """N100 (owner 18.11., octet pillar): a log octet shows bark only where the log's skin is - north and west of the base
+    corner (the outside of the block). Its inner faces (south/east, towards the middle of the cell) are cut wood: the end
+    grain texture, the middle rows (v 4-12, no rim above or below) with u at the face's place in the block, so the 1 px rim
+    stays on the outer edge only and the rings run on towards the centre. uvlock turns u with the corner (the band is
+    symmetric in v), so every rotated octet keeps its rim outside."""
+    corner = sided_corner()
+    faces = corner['elements'][0]['faces']
+    faces['south'] = {'texture': '#up', 'uv': [0, 4, 8, 12]}
+    faces['east'] = {'texture': '#up', 'uv': [8, 4, 16, 12]}
+    return corner
+
+
 def java_list(mats):
     rows = ',\n'.join(f'            new Material("{m["ns"]}", "{m["base"]}", "{m["key"]}", "{m["group"]}")' for m in mats)
     groups = ', '.join(f'"{g}"' for g, _ in GROUPS)
@@ -638,13 +651,15 @@ def outputs():
         print('Pillow missing: textures/block/melon_flesh.png left as it is', file=sys.stderr)
     mats = materials()
     a('models/block/octet/_corner_sided.json', js(sided_corner()))
+    a('models/block/octet/_corner_log.json', js(log_corner()))
     a('models/item/octet/_sided.json', js(sided_item_template()))
     for m in mats:
         b = m['key']
         if 'all' in m['tex']:
             blk = {'parent': f'{NS}:block/octet_corner', 'textures': {'all': m['tex']['all']}}
         else:
-            blk = {'parent': f'{NS}:block/octet/_corner_sided', 'textures': m['tex']}
+            corner = '_corner_log' if m['group'] == 'log' else '_corner_sided'
+            blk = {'parent': f'{NS}:block/octet/{corner}', 'textures': m['tex']}
         a(f'models/block/octet/{b}.json', js(blk))
         a(f'blockstates/{b}_octet.json', js(multipart(f'{NS}:block/octet/{b}')))
         item(files, m['ns'], f'{b}_octet', m['tex'], '' if 'all' in m['tex'] else '/_sided')

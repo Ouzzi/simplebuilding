@@ -80,6 +80,7 @@ public final class OctetTests {
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
         ALL.put("log_octets_mine_with_the_axe", OctetTests::logOctetsMineWithTheAxe);
         ALL.put("unwaxed_copper_octets_age", OctetTests::unwaxedCopperOctetsAge);
+        ALL.put("axe_strips_only_the_clicked_octet", OctetTests::axeStripsOnlyTheClickedOctet);
         ALL.put("discover_recipe_unlocks", com.simpleoctets.discover.OctetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleoctets.discover.OctetsDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleoctets.discover.OctetsDiscover::firstPickupTips);
@@ -1015,6 +1016,40 @@ public final class OctetTests {
     }
 
     // ===================================================================================== helpers
+
+    /**
+     * N100: an axe on a cell of log octets strips only the clicked octet (the cell turns mixed: one stripped, three plain),
+     * reports SUCCESS (arm swing) and costs one durability; on the stripped octet it does nothing more.
+     */
+    static void axeStripsOnlyTheClickedOctet(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        BlockPos pos = h.absolutePos(CELL);
+        BlockState log = material(Blocks.OAK_LOG);
+        BlockState stripped = material(Blocks.STRIPPED_OAK_LOG);
+        BlockState[] parts = new BlockState[8];
+        for (int i = 0; i < 8; i++) {
+            parts[i] = OctetCellBlock.y(i) == 0 ? log : null;
+        }
+        OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
+        ServerPlayer player = mockPlayer(h);
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, axe);
+        int clicked = OctetCellBlock.index(1, 0, 0);
+        BlockHitResult hit = new BlockHitResult(new Vec3(pos.getX() + 0.75, pos.getY() + 0.5, pos.getZ() + 0.25), Direction.UP, pos, false);
+        InteractionResult result = h.getBlockState(CELL).useItemOn(axe, level, player, InteractionHand.MAIN_HAND, hit);
+        h.assertTrue(result == InteractionResult.SUCCESS, "the axe reports SUCCESS: " + result);
+        BlockState[] now = OctetCells.parts(level, pos, h.getBlockState(CELL));
+        for (int i = 0; i < 8; i++) {
+            BlockState want = i == clicked ? stripped : parts[i];
+            h.assertTrue(now[i] == want, "octet " + i + " is " + now[i] + ", wanted " + want);
+        }
+        h.assertTrue(h.getBlockState(CELL).is(OctetRegistry.MIXED_OCTET), "log + stripped log make a mixed cell: " + h.getBlockState(CELL));
+        h.assertValueEqual(axe.getDamageValue(), 1, "axe durability");
+        InteractionResult again = h.getBlockState(CELL).useItemOn(axe, level, player, InteractionHand.MAIN_HAND, hit);
+        h.assertFalse(again.consumesAction(), "a stripped octet is not stripped again: " + again);
+        h.assertValueEqual(axe.getDamageValue(), 1, "axe durability after the second click");
+        h.succeed();
+    }
 
     static Block cell(Block full) {
         return com.simplelib.api.OctetCells.cellFor(full);

@@ -51,6 +51,7 @@ public final class PaleTests {
     public static void register(Map<String, Consumer<GameTestHelper>> all, Map<String, Integer> maxTicks) {
         all.put("pale_ages_only_in_pale_garden", PaleTests::agesOnlyInPaleGarden);
         all.put("pale_wax_stops_axe_scrapes", PaleTests::waxStopsAxeScrapes);
+        all.put("pale_axe_on_waxed_swings", PaleTests::axeOnWaxedSwings);
         all.put("pale_chance_zero_never", PaleTests::chanceZeroNever);
         all.put("pale_dispenser_waxes", PaleTests::dispenserWaxes);
         maxTicks.put("pale_dispenser_waxes", 60);
@@ -111,6 +112,38 @@ public final class PaleTests {
         helper.assertValueEqual(axe.getDamageValue(), 2, "the axe lost 2 durability");
         use(helper, player, axe, MID);
         helper.assertTrue(helper.getBlockState(MID).is(Blocks.MELON), "the axe does nothing to a plain melon");
+        helper.succeed();
+    }
+
+    /**
+     * N100: an axe on every waxed pumpkin, carved pumpkin, jack o'lantern, melon and hay bale reports a client-predicted
+     * SUCCESS (that is what swings the arm) and takes the wax off - through the block (normal click) and through the
+     * axe's own block transformer (a sneaking click never asks the block, like Vanilla copper).
+     */
+    public static void axeOnWaxedSwings(GameTestHelper helper) {
+        ServerPlayer player = survivor(helper);
+        BlockPos abs = helper.absolutePos(MID);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), Direction.UP, abs, false);
+        for (AgingChain chain : PaleBlocks.CHAINS) {
+            for (int i = 0; i < chain.waxed().size(); i++) {
+                for (boolean sneaking : new boolean[] {false, true}) {
+                    helper.setBlock(MID, chain.waxed().get(i));
+                    ItemStack axe = new ItemStack(Items.IRON_AXE);
+                    player.setItemInHand(InteractionHand.MAIN_HAND, axe);
+                    player.setShiftKeyDown(sneaking);
+                    String what = chain.waxed().get(i) + (sneaking ? " (sneaking, item way)" : " (block way)");
+                    net.minecraft.world.InteractionResult result = sneaking
+                            ? axe.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit))
+                            : helper.getBlockState(MID).useItemOn(axe, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
+                    helper.assertTrue(result instanceof net.minecraft.world.InteractionResult.Success success
+                            && success.swingSource() == net.minecraft.world.InteractionResult.SwingSource.PREDICTED,
+                            "axe on " + what + " must report a predicted SUCCESS (arm swing), was " + result);
+                    helper.assertTrue(helper.getBlockState(MID).is(chain.stages().get(i)), "wax off on " + what + ", is " + helper.getBlockState(MID));
+                    helper.assertValueEqual(axe.getDamageValue(), 1, "axe durability after " + what);
+                }
+            }
+        }
+        player.setShiftKeyDown(false);
         helper.succeed();
     }
 

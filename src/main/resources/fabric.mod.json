@@ -206,9 +206,6 @@
     "simplepads": "*",
     "simpleenchanting": "*",
     "simpleresonance": "*",
-    "simpledinos": "*",
-    "simplelayers": "*",
-    "simplevault": "*",
-    "simplechess": "*"
+    "simpledinos": "*"
   }
 }

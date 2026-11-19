@@ -70,9 +70,7 @@
         "simplemusic",
         "simpleearth",
         "simplechallenges",
-        "simpledinos",
-        "simplelayers",
-        "simplechess"
+        "simpledinos"
       ],
       "paths": {
         "root": ".",
@@ -5340,6 +5338,8 @@
       "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
+      "release": false,
+      "releasePhase": 3,
       "displayName": "Simple Layers",
       "description": "World layers: the Cloud Sea sky dimension above y 700 and the Backrooms, their own dimension of ten stacked levels (entered through an abandoned house's cellar or a rift in glitched bedrock), with cloud blocks, wallpaper, carpet and neon lights.",
       "loaders": [
@@ -5495,6 +5495,7 @@
       "version": "0.1.0-beta.1",
       "minecraft": "26.3",
       "defaultEnabled": true,
+      "release": false,
       "displayName": "Simple Chess",
       "description": "Chess: 156 pieces (13 materials, six kinds, 3D and flat) that stand up to four on a block, 12 quartz checker boards with stairs and slabs and, with Simple Octets, the chess octets - moved from SimpleBuilding (ids migrate).",
       "loaders": [

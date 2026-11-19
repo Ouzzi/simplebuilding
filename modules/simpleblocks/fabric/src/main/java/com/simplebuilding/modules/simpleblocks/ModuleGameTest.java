@@ -402,6 +402,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void paleAxeOnWaxedSwings(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_axe_on_waxed_swings").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void paleBlocksLikeVanilla(GameTestHelper h) {
         BlocksTests.ALL.get("pale_blocks_like_vanilla").accept(h);
     }

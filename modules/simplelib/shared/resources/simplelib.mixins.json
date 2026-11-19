@@ -29,6 +29,7 @@
     "LegendaryEnchantTableMixin",
     "LegendaryAnvilMixin",
     "AgingStateMixin",
+    "AgingTransformerMixin",
     "AgingTickAccessor",
     "AgingDispenserMixin",
     "FireOddsAccessor",

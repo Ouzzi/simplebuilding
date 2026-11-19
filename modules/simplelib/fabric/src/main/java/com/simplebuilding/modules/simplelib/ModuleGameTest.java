@@ -56,6 +56,11 @@ public final class ModuleGameTest {
         LibTests.ALL.get("material_plates_registered_and_moved").accept(h);
     }
 
+    @GameTest
+    public void netheritePlateHighlightsLikeDiamond(GameTestHelper h) {
+        LibTests.ALL.get("netherite_plate_highlights_like_diamond").accept(h);
+    }
+
     @GameTest(maxTicks = 100)
     public void emeraldPlateVillagersOnly(GameTestHelper h) {
         LibTests.ALL.get("emerald_plate_villagers_only").accept(h);

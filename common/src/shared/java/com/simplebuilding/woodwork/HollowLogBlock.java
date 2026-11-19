@@ -75,6 +75,15 @@ public class HollowLogBlock extends RotatedPillarBlock {
         return shape(state.getValue(AXIS));
     }
 
+    /** N100: an axe strips the tube like a log (axis kept). */
+    @Override
+    protected net.minecraft.world.InteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state,
+            net.minecraft.world.level.Level level, BlockPos pos, net.minecraft.world.entity.player.Player player,
+            net.minecraft.world.InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
+        net.minecraft.world.InteractionResult stripped = WoodBlocks.strip(stack, state, level, pos, player, hand, hit);
+        return stripped != null ? stripped : super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
     /** Small mobs may path through a lying tube. */
     @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {

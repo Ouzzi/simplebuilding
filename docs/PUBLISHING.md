@@ -5,6 +5,14 @@ Modrinth and CurseForge do **not** read dependency relations from the jar. `fabr
 "Dependencies" / "Relations" of every uploaded file have to be entered on the website (or in the
 upload script). This page lists them per file. Checked against the metadata on 2026-09-24.
 
+## First release scope: Fabric 26.3 only (owner decision 18.11.2026)
+
+The first beta release is **Fabric, Minecraft 26.3 only**: every mod in `modules/modules.json` without `"release": false`
+or `"example"` (59 jars: SimpleBuilding, SimpleLib and the sub-mods). Not in it: **Simple Chess, Simple Layers** (releasePhase 3),
+**Simple Vault** and the wiring example (`"release": false`; code stays, built and tested, no store page relation, no
+download). NeoForge, Forge, 26.2, 1.21.11 and 26.4 files follow later; their rows below are for then.
+`python3 tools/release/check_beta.py` fails when a released mod names an unreleased one as optional/suggests/recommends.
+
 ## Release channel: every Simple mod is a Beta (owner decision 15.11.2026)
 
 All Simple mods - SimpleBuilding, SimpleLib and every sub-mod, on every loader and Minecraft line - are first published as
@@ -21,6 +29,10 @@ All Simple mods - SimpleBuilding, SimpleLib and every sub-mod, on every loader a
   release, so `>=0.4.0` would refuse `0.4.0-beta.1` at startup.
 - Check: `python3 tools/release/check_beta.py` (versions, all Simple-mod bounds, changelog headers, store pages);
   `--table` prints the per-mod list.
+- Release jars carry no test code: build them with `-PsbRelease` (gradle/release-strip.gradle drops test classes, gametest
+  adapters, `*.layers.json` and the `fabric-gametest` entrypoint on Fabric; NeoForge/Forge, not in the first release, drop only `*.layers.json` so far),
+  then `python3 tools/release/check_release_jars.py <folder with the jars>` must report `0 findings` (nested jars included).
+  Dev/gate jars (without the flag) keep their tests, so never upload a jar collected from a gate run.
 
 ## Required (upload fails the player at startup without them)
 
