@@ -33,12 +33,10 @@ def buds(s, x, y, z):
     s.chat(f'fill {x - 3} {y - 1} {bz - 1} {x + 3} {y - 1} {bz + 1} minecraft:end_stone', 0.4)
     s.chat(f'setblock {x - 2} {y} {bz} simpleend:ash_bud', 0.3)
     s.chat(f'setblock {x + 1} {y} {bz} simpleend:dusk_bud', 0.3)
-    for px, bud in ((x - 1, 'simpleend:ash_bud'), (x + 2, 'simpleend:dusk_bud')):
-        s.chat(f'setblock {px} {y} {bz} minecraft:flower_pot', 0.3)
-        _hold(s, bud)
-        _look(s, px + 0.5, y, bz - 1.5, px + 0.5, y + 0.3, bz + 0.5, 0.6)
-        s.io.right_click()          # real click: the pot takes the bud
-        time.sleep(0.6)
+    # run 1: the real clicks missed (the probe camera turns after a click), the pots stayed empty - potting by real click is
+    # covered by the gametest n89c_buds_pot_and_bone_meal; here only the look of the potted buds.
+    for px, potted in ((x - 1, 'simpleend:potted_ash_bud'), (x + 2, 'simpleend:potted_dusk_bud')):
+        s.chat(f'setblock {px} {y} {bz} {potted}', 0.3)
     _hold(s, 'minecraft:air')
     _look(s, x + 0.5, y + 1.2, bz - 3.2, x + 0.5, y + 0.4, bz + 0.5)
     s.shot('1a-knospen-und-toepfe')
@@ -55,12 +53,12 @@ def bone_meal(s, x, y, z):
     s.chat(f'setblock {tx} {y} {tz} simpleend:ash_bud', 0.4)
     _look(s, tx + 0.5, y + 0.6, tz - 1.6, tx + 0.5, y + 0.3, tz + 0.5)
     s.shot('2a-knospe-vor-knochenmehl')
-    _hold(s, 'minecraft:bone_meal', 64)
-    for _ in range(12):
-        _look(s, tx + 0.5, y + 0.6, tz - 1.6, tx + 0.5, y + 0.3, tz + 0.5, 0.3)
-        s.io.right_click()
-        time.sleep(0.8)
-    _hold(s, 'minecraft:air')
+    # run 1: the bone meal clicks missed (camera turns) - grow it by the bud's own random ticks instead (bone meal by real click is
+    # covered by the gametest); fast random ticks for a moment, then back to normal.
+    s.chat('gamerule random_tick_speed 4096', 0.4)
+    time.sleep(6.0)
+    s.chat('gamerule random_tick_speed 3', 0.4)
+    s.chat(f'execute unless block {tx} {y} {tz} simpleend:ash_bud run say TREE_GREW', 0.6)
     _look(s, tx + 0.5, y + 12, tz - 34, tx + 0.5, y + 16, tz + 0.5, 1.5)
     time.sleep(1.5)
     s.shot('2b-baum-nach-knochenmehl')
@@ -92,10 +90,8 @@ def gate(s, x, y, z):
     s.shot(f'3c-tor-{tag}-zu-hinten')
     _look(s, gx + 0.5, y + 2.6, gz - 1.0, gx + 0.5, y + 0.4, gz + 0.5)
     s.shot(f'3d-tor-{tag}-zu-oben')
-    _hold(s, 'minecraft:air')
-    _look(s, gx + 0.5, y, gz - 1.6, gx + 0.5, y + 0.6, gz + 0.5, 0.6)
-    s.io.right_click()              # real click opens the gate
-    time.sleep(0.8)
+    # run 1: the real click missed (camera turns) - open it by state; opening by click is covered by the gate gametest.
+    s.chat(f'setblock {gx} {y} {gz} {GATE}[facing=south,open=true,in_wall=false]', 0.6)
     _look(s, gx + 0.5, y + 0.9, gz - 3.2, gx + 0.5, y + 0.5, gz + 0.5)
     s.shot(f'3e-tor-{tag}-offen-vorn')
     _look(s, gx + 3.3, y + 2.4, gz - 2.8, gx + 0.5, y + 0.4, gz + 0.5)
@@ -108,9 +104,7 @@ def gate(s, x, y, z):
     s.shot('4a-tor-mauer-zu-vorn')
     _look(s, gx2 + 3.3, y + 2.4, gz - 2.8, gx2 + 0.5, y + 0.4, gz + 0.5)
     s.shot('4b-tor-mauer-zu-dreiviertel')
-    _look(s, gx2 + 0.5, y, gz - 1.6, gx2 + 0.5, y + 0.6, gz + 0.5, 0.6)
-    s.io.right_click()
-    time.sleep(0.8)
+    s.chat(f'setblock {gx2} {y} {gz} {GATE}[facing=south,open=true,in_wall=true]', 0.6)   # open by state (see above)
     _look(s, gx2 + 3.3, y + 2.4, gz - 2.8, gx2 + 0.5, y + 0.4, gz + 0.5)
     s.shot('4c-tor-mauer-offen-dreiviertel')
     # item in the hand + inventory slot look
@@ -133,7 +127,10 @@ def scenes(s):
     buds(s, x, y, z)
     bone_meal(s, x, y, z)
     gate(s, x, y, z)
-    s.check('N89C shots taken (buds + pots, bone meal tree, gate between fences / walls closed + open)', True, 'see shots/')
+    time.sleep(1.0)
+    log = (s.out / 'client.log').read_text(errors='replace') if (s.out / 'client.log').exists() else ''
+    s.check('the Ash Bud grew into the tree by its own random ticks', 'TREE_GREW' in log, 'say TREE_GREW')
+    s.check('N89C shots taken (buds + pots, grown tree, gate between fences / walls closed + open)', True, 'see shots/')
 
 
 SCENARIOS = {'simpleinterfaces/n89c': scenes}
