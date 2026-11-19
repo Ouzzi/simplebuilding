@@ -345,6 +345,17 @@ for plate in ('lead_plate', 'silver_sheet'):
     assert len(variants) == 6 * 8 and all((RES / f'assets/{NS}/models/block/{v["model"].split("/")[-1]}.json').is_file() for v in variants.values()), plate
     loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{plate}.json').read_text(encoding='utf-8'))
     assert [m['count'] for m in loot['pools'][0]['entries'][0]['modifier']] == list(range(2, 9)), plate
+# N96A (owner 18.11.): every sheet/plate block item (all *_sheet / *_plate with a blockstate, pressure plates excluded) renders like a
+# Vanilla pressure plate: its item definition points to the flat block model, whose parent carries the thin_block display transforms.
+sheet_items = sorted(p.stem for p in (RES / f'assets/{NS}/blockstates').glob('*.json')
+                     if (p.stem.endswith('_sheet') or p.stem.endswith('_plate')) and not p.stem.endswith('pressure_plate'))
+assert {'lead_plate', 'silver_sheet'} <= set(sheet_items), sheet_items
+for plate in sheet_items:
+    ref = json.loads((RES / f'assets/{NS}/items/{plate}.json').read_text(encoding='utf-8'))['model']
+    assert ref == {'type': 'minecraft:model', 'model': f'{NS}:block/{plate}'}, (plate, ref)
+    model = json.loads((RES / f'assets/{NS}/models/block/{plate}.json').read_text(encoding='utf-8'))
+    assert model.get('parent') == 'minecraft:block/thin_block', (plate, model.get('parent'))
+    assert all(e['to'][1] - e['from'][1] < 16 for e in model['elements']), plate
 mirror = json.loads((RES / f'assets/{NS}/blockstates/silver_mirror.json').read_text(encoding='utf-8'))['variants']
 assert {k.split(',')[0] for k in mirror} == {'face=floor', 'face=wall', 'face=ceiling'} and len(mirror) == 12
 bars_tag = json.loads((mc / 'block/bars.json').read_text(encoding='utf-8'))['values']

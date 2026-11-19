@@ -446,12 +446,16 @@ PLATE_ROT = {'up': (0, 0), 'down': (180, 0), 'north': (90, 0), 'east': (90, 90),
 # N25 (owner 10.11.): both stack in layers 1..8 like snow (LeadPlateBlock.LAYERS): lead 2 px a layer (8 = a whole block), silver 1 px.
 # Model <plate> is one layer, <plate>_<n> n layers; the item keeps the one-layer model.
 PLATES = {'lead_plate': ('lead_block', 2), 'silver_sheet': ('silver_sheet', 1)}   # block -> (texture, pixels per layer)
+PLATE_ITEM_PARENT = 'minecraft:block/thin_block'   # N96A: pressure-plate-like item display for every sheet/plate
 
 
 def plate_model(name, tex, h):
     full = h >= 16
     side = {'uv': [0, 16 - h, 16, 16], 'texture': '#plate'}
+    # N96A (owner 18.11.): parent thin_block = the Vanilla pressure plate's display transforms, so the item (it uses the one-layer model)
+    # renders in hand and inventory as a flat 3D plate like a pressure plate instead of an untransformed block model.
     put(ASSETS / f'models/block/{name}.json', {
+        'parent': PLATE_ITEM_PARENT,
         'textures': {'plate': f'{NS}:block/{tex}', 'particle': f'{NS}:block/{tex}'},
         'elements': [{'from': [0, 0, 0], 'to': [16, h, 16],
                       'faces': {'down': {'uv': [0, 0, 16, 16], 'texture': '#plate', 'cullface': 'down'},

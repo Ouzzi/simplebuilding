@@ -19,6 +19,7 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parents[2] / 'tools/textures'))
 import eggs as EG  # noqa: E402
 from optik32_engine import paint, ramp  # noqa: E402
+from PIL import Image  # noqa: E402
 
 N = 7
 SHELL_KINDS = ('triceratops', 'stegosaurus', 'utahraptor', 'parasaurolophus')
@@ -252,14 +253,174 @@ def raptor_feather(rows=None):
     return paint(rows or RAPTOR_FEATHER, ramps, seed=47)
 
 
+# ---------------------------------------------------------------- N96A (owner 18.11.): the armor icons redrawn closer to Vanilla
+# Style model is the Vanilla horse armor icon (principle only, no Mojang pixels): a side view of the animal wearing the armor, head to
+# the right; a few clean tone bands per material instead of noise - light edge where the outline faces top/left, the darkest tone where
+# it faces bottom/right, a shadow band above the bottom edge, a gloss pixel on top-left corners; a trim piece in the tier's trim tone
+# like the Vanilla saddle cloth; uncovered skin, teeth and claws in the dinosaur's own tones so every armor reads as its dinosaur.
+# Regions: a armor, t trim, s strap leather, k skin, w bone (teeth, claws, horns), e eye, p Stegosaurus back plate, x armor with the
+# tier detail (leather stitch, metal rivet, diamond facet).
+SKIN = {'trex': '5f6b3c', 'triceratops': '7d6a4c', 'stegosaurus': '6f7a44', 'parasaurolophus': '6e7a48', 'utahraptor': '7a6448'}
+
+
+def _mix(c, d, t):
+    return tuple(round(a + (b - a) * t) for a, b in zip(c, d))
+
+
+def vramp(hexcol: str) -> list:
+    """Six tones dark -> light: outline, shadow, shade, base, light, gloss. Shadows lean cool, lights warm (Vanilla metal ramps)."""
+    c = tuple(int(hexcol[i:i + 2], 16) for i in (0, 2, 4))
+    cool, warm = (22, 16, 38), (255, 250, 236)
+    return [_mix(c, cool, 0.62), _mix(c, cool, 0.42), _mix(c, cool, 0.2), c, _mix(c, warm, 0.3), _mix(c, warm, 0.58)]
+
+
+def vpaint(rows, ramps, flat=''):
+    h, w = len(rows), len(rows[0])
+    im = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+
+    def at(x, y):
+        c = rows[y][x] if 0 <= x < w and 0 <= y < h else '.'
+        return 'a' if c == 'x' else c
+
+    for y in range(h):
+        for x in range(w):
+            c = at(x, y)
+            if c == '.':
+                continue
+            R = ramps[c]
+            if c in flat:
+                im.putpixel((x, y), R[3] + (255,))
+                continue
+            up, left, down, right = at(x, y - 1), at(x - 1, y), at(x, y + 1), at(x + 1, y)
+            if down == '.' or right == '.':
+                i = 1 if (up == '.' or left == '.') and down != '.' else 0      # outline: darkest bottom/right
+            elif up == '.' and left == '.':
+                i = 5                                                           # gloss corner
+            elif up == '.' or left == '.':
+                i = 4                                                           # light edge top/left
+            elif down != c or right != c:
+                i = 2                                                           # seam towards another region
+            elif at(x, y + 2) == '.':
+                i = 2                                                           # shadow band above the bottom edge
+            elif up != c or left != c:
+                i = 4
+            else:
+                i = 3
+            im.putpixel((x, y), R[i] + (255,))
+    return im
+
+
+TREX_V = ['................',
+          '.........aaaaa..',
+          '........aaaaaaa.',
+          '........aaxeaaaa',
+          '.......taaaaaaaa',
+          '.......tw.w.w.w.',
+          '......atkkkkkkk.',
+          '....aaatt.......',
+          '..aaaaaatttaa...',
+          '.aaaxaaatttaaak.',
+          'aaaaaaaatttaaa..',
+          '..aaaaaaaaaaa...',
+          '....aaa..aaa....',
+          '....aa....aa....',
+          '...waw...waw....',
+          '................']
+TRI_V = ['.......t.t.t....',
+         '......tatatat...',
+         '......taaaaat...',
+         '......taaaaaat.w',
+         '......taaaaaaww.',
+         '......taaaeaaa..',
+         '..aaaaataaaaaakw',
+         '.aaaxaataaaaakk.',
+         'aaaattttaaaaa...',
+         'aaaattttaaxaa...',
+         '.aaattttaaaaa...',
+         '..aaaaaaaaaaa...',
+         '..aaa....aaa....',
+         '..aa......aa....',
+         '..ww......ww....',
+         '................']
+STEGO_V = ['................',
+           '.......p...p....',
+           '....p..pp..pp...',
+           '...pp.ppp.ppp.p.',
+           '..ppaaaaaaaaapp.',
+           '...aaaaaaaaaaaa.',
+           '..aaaattttaaaaa.',
+           'w.aaxatttttaaaak',
+           '.waaaatttttaaakk',
+           '..aaaaaaaaaaaake',
+           '...aaaaaaaxaa.kk',
+           '....aaaaaaaaa...',
+           '....aaa...aaa...',
+           '....aa.....aa...',
+           '....ww.....ww...',
+           '................']
+PARA_V = ['................',
+          '.....ttt........',
+          '......tttt......',
+          '.........tta....',
+          '..........aaa...',
+          '..........axaak.',
+          '..........aeakkk',
+          '......aaaaaaa...',
+          '...aaaaaaaaaa...',
+          '.aaaattttaaaa...',
+          'aaaaatttxaaaak..',
+          '.aaaattttaaa.k..',
+          '..aaaaaaaaaa....',
+          '....aaa..aaa....',
+          '....aa....aa....',
+          '...waw...waw....']
+RAPTOR_V = ['................',
+            '..........aaaa..',
+            '.........aaaeaak',
+            '.........aakkkww',
+            '........taa.....',
+            '........taa.....',
+            '.......taa......',
+            'aa....aaaaaaa...',
+            '.aaaaaaxatttaa..',
+            '..aaaaaaatttaaw.',
+            '....aaaaaatttaa.',
+            '......aaaaaaa...',
+            '.......aaa.aa...',
+            '.......aa..aa...',
+            '......waw..aaw..',
+            '.....w.....w....']
+V_SHAPES = {'trex': TREX_V, 'triceratops': TRI_V, 'stegosaurus': STEGO_V, 'parasaurolophus': PARA_V, 'utahraptor': RAPTOR_V}
+
+
+def vanilla_armor(dino: str, tier: str, rows=None):
+    """N96A armor icon of the dinosaur in the tier (see the style notes above)."""
+    rows = rows or V_SHAPES[dino]
+    main, trim = TIERS[tier]
+    ramps = {'a': vramp(main), 't': vramp(_toward(trim, main, 0.2)), 's': vramp('6a4428'), 'k': vramp(SKIN[dino]), 'w': vramp('e4dcc4'),
+             'e': [(30, 24, 28)] * 6, 'p': vramp('c07444')}
+    img = vpaint(rows, ramps, flat='e')
+    a = ramps['a']
+    detail = {'leather': a[1], 'diamond': a[5]}.get(tier, a[5])
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch == 'x':
+                img.putpixel((x, y), detail + (255,))
+    return img
+
+
+def trex_armor(tier: str):
+    return vanilla_armor('trex', tier)
+
+
 def all_sprites():
     """{name: image} of every sprite this file draws."""
-    out = {f'triceratops_armor_{t}': armor(t) for t in ARMOR_TIERS + METAL_TIERS}
+    out = {f'triceratops_armor_{t}': vanilla_armor('triceratops', t) for t in ARMOR_TIERS + METAL_TIERS}  # N96A
     out.update({f'{k}_eggshell': eggshell(k) for k in SHELL_KINDS})
-    out.update({f'stegosaurus_armor_{t}': stego_armor(t) for t in ARMOR_TIERS + METAL_TIERS})
+    out.update({f'stegosaurus_armor_{t}': vanilla_armor('stegosaurus', t) for t in ARMOR_TIERS + METAL_TIERS})  # N96A
     out['dino_plow'] = plow()
-    out.update({f'parasaurolophus_armor_{t}': para_armor(t) for t in ARMOR_TIERS + METAL_TIERS})
-    out.update({f'utahraptor_armor_{t}': raptor_armor(t) for t in ARMOR_TIERS + METAL_TIERS})
+    out.update({f'parasaurolophus_armor_{t}': vanilla_armor('parasaurolophus', t) for t in ARMOR_TIERS + METAL_TIERS})  # N96A
+    out.update({f'utahraptor_armor_{t}': vanilla_armor('utahraptor', t) for t in ARMOR_TIERS + METAL_TIERS})  # N96A
     out['raptor_feather'] = raptor_feather()
     return out
 
