@@ -252,6 +252,8 @@
 
   var IMGC = {};  // N99: id -> working picture (URL or cut-out data URL), false = none; a redraw never walks the fallback chain again
   var BAD = {};   // N110: picture files that failed once in this session - never asked for again (no second 404)
+  var WAIT = {};  // N110: id -> pictures waiting for the chain of the first picture of that id
+  var FLY = {};   // N110: file -> callbacks of other chains waiting while one picture asks for it (one request per file)
 
   function mount(el, ctx) {
     var lang = ctx.lang === 'de' ? 'de' : 'en', S = STR[lang];
@@ -366,17 +368,30 @@
       if (IMGC[id] === false) return noPic(id, cls);
       var i = new Image(), k = 0; i.alt = ''; i.dataset.ownFallback = '1'; if (cls) i.className = cls;
       if (IMGC[id]) { i.src = IMGC[id]; return i; }
+      /* N110: a second picture of an id whose chain is still running (same id twice, cell + octet on top) waits for it
+         instead of asking for the same files again (each missing file only one 404) */
+      if (WAIT[id]) { WAIT[id].push({ i: i, cls: cls }); return i; }
       var cands = candidates(id);
       if (!cands.length) { IMGC[id] = false; return noPic(id, cls); }
+      WAIT[id] = [];
+      var asking = null;
       function load() {
         while (k < cands.length && BAD[cands[k].split('#')[0]]) k++;  // failed meanwhile for another id
         if (k >= cands.length) { fail(); return; }
+        var f = cands[k].split('#')[0];
+        if (FLY[f]) { FLY[f].push(load); return; }  // another chain is asking for this file: its answer decides
+        FLY[f] = []; asking = f;
         if (cands[k].indexOf('#') > 0) crop(i, cands[k]); else i.src = cands[k];
       }
-      /* N110: every candidate failed -> the "no picture" symbol in place of the image, the list follows a moment later */
-      function fail() { IMGC[id] = false; if (i.parentNode) i.replaceWith(noPic(id, cls)); sideSoon(200); }
-      i.onload = function () { if (!IMGC[id]) IMGC[id] = i.src; };
-      i.onerror = function () { if (k < cands.length) BAD[cands[k].split('#')[0]] = 1; k++; load(); };
+      function answered() { var f = asking, w = f && FLY[f]; asking = null; if (!w) return; delete FLY[f]; w.forEach(function (fn) { fn(); }); }
+      /* N110: every candidate failed -> the "no picture" symbol in place of the image (and of its waiters), the list follows */
+      function fail() {
+        IMGC[id] = false;
+        [{ i: i, cls: cls }].concat(WAIT[id] || []).forEach(function (w) { if (w.i.parentNode) w.i.replaceWith(noPic(id, w.cls)); });
+        delete WAIT[id]; sideSoon(200);
+      }
+      i.onload = function () { answered(); if (!IMGC[id]) IMGC[id] = i.src; (WAIT[id] || []).forEach(function (w) { w.i.src = IMGC[id]; }); delete WAIT[id]; };
+      i.onerror = function () { if (k < cands.length) BAD[cands[k].split('#')[0]] = 1; answered(); k++; load(); };
       load();
       return i;
     }
