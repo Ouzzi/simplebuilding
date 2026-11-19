@@ -521,10 +521,11 @@ class AdminBillingTests(Base):
         def send(event):
             body = json.dumps(event).encode()
             return self.app.handle(Request("POST", "livemap.test", "/api/stripe/webhook", {}, {"stripe-signature": billing.sign(body, "whsec_x", ts)}, body))
-        self.assertEqual(send({"type": "checkout.session.completed", "data": {"object": {"client_reference_id": str(u["id"]), "customer": "cus_1"}}}).status, 200)
-        send({"type": "customer.subscription.updated", "data": {"object": {"customer": "cus_1", "status": "active", "metadata": {"tier": "max"}}}})
+        # N108: events carry ids (idempotency); a pre-N108 subscription with livemap tier metadata maps to the plan with that tier
+        self.assertEqual(send({"id": "evt_1", "type": "checkout.session.completed", "data": {"object": {"client_reference_id": str(u["id"]), "customer": "cus_1"}}}).status, 200)
+        send({"id": "evt_2", "created": ts, "type": "customer.subscription.updated", "data": {"object": {"id": "sub_1", "customer": "cus_1", "status": "active", "metadata": {"tier": "max"}}}})
         self.assertEqual(self.svc.user(u["id"])["tier"], "max")
-        send({"type": "customer.subscription.deleted", "data": {"object": {"customer": "cus_1", "status": "canceled", "metadata": {"tier": "max"}}}})
+        send({"id": "evt_3", "created": ts + 1, "type": "customer.subscription.deleted", "data": {"object": {"id": "sub_1", "customer": "cus_1", "status": "canceled", "metadata": {"tier": "max"}}}})
         self.assertEqual(self.svc.user(u["id"])["tier"], "free")
         bad = self.app.handle(Request("POST", "livemap.test", "/api/stripe/webhook", {}, {"stripe-signature": "t=1,v1=00"}, b"{}"))
         self.assertEqual(bad.status, 400)
@@ -575,8 +576,8 @@ class PricingTests(Base):
                 self.assertIn(f'data-year="{fmt(p * months)}"', page, f"{name}: yearly price")
         self.assertIn("data-show", (ROOT / "static/app.js").read_text(encoding="utf-8"), "the toggle shows the struck price")
         agb = (ROOT.parents[1] / "docs/legal/agb.md").read_text(encoding="utf-8")
-        q = " ".join(agb[agb.index("11.3 **Jahresabo**"):agb.index("11.4 ")].replace("**", "").split())
-        self.assertIn("auf unbestimmte Zeit mit monatlicher Abrechnung zum Monatspreis", q)
+        q = " ".join(agb[agb.index("13.2 **Jahresabo"):agb.index("13.3 ")].replace("**", "").split())   # numbering of the full text (N108 part 2)
+        self.assertIn("auf unbestimmte Zeit mit monatlicher Abrechnung zum dann geltenden Monatspreis", q)
         self.assertIn("jederzeit zum Ende des bezahlten Monats kündbar", q)
         self.assertNotIn("Variante C", q, "Q1 = A decided: no other variants left")
 

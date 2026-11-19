@@ -1,0 +1,128 @@
+# PLAN B-N108 – Stripe + Abo „Simple Mods Pro“ (Basic/Pro/Ultra) – 19.11.2026
+
+Auftrag: `/root/b-auftrag-20261109.md` „## N106–N108“ → „### N108“. Branch `b-stripe108` (Basis `claude-wave1` ea9326b793).
+Arbeitsweise: Plan → Umsetzung → Test. Keine echten Stripe-Aufrufe (alles gemockt), kein Deploy, keine Secrets.
+
+## 1. Ist-Zustand (erhoben)
+
+- `tools/livemap-web/smweb/billing.py`: Signaturprüfung (HMAC-SHA256, 300 s), `checkout()` (Abo, Preis je Livemap-Stufe),
+  `portal()`, `webhook()` (checkout.session.completed → Kunde merken; customer.subscription.* → `users.tier` aus Metadaten).
+  AUS, solange `enabled`/Keys fehlen. Kein Idempotenzschutz, kein Jahres-Zeitplan (TODO a-livemap34c), keine Rechnungs-Events,
+  keine Entitlements, keine Widerrufs-Zustimmung, keine Kündigungsseite.
+- `billing.example.json`: Preis-IDs je **Livemap**-Stufe pro/max/ultra. `tiers.json`: Free/Pro/Max/Ultra, Preise 0/399/799/1499 ct,
+  Jahr = 10 Monate.
+- `pages.py`: `/pricing`, `/app/plan` mit „Coming soon“. CSP `form-action` erlaubt nur eigene Hosts → ein 303 nach
+  `checkout.stripe.com` nach Formular-POST würde vom Browser blockiert (Fehler im Bestand, wird mit behoben).
+- `docs/legal/*`: AGB (Livemap-bezogen, Abschnitte 9–12 + Anlagen 1–3 „ab Bezahlstart“), Datenschutz (§ 9 Stripe „nicht aktiv“),
+  Impressum, AV-Liste. README mit Entwurfs-Hinweis.
+- simplemods.de = statische Landing (nginx `/srv/landing`), öffentliche Downloads `/downloads/`. Kein Login-Bereich.
+- Tests: `tools/livemap-web/tests/test_service.py` (43 Tests, grün), `harness.py` (lokaler Server nur für Bilder).
+
+## 2. Entscheidungen (selbst getroffen, Besitzer kann alles umkonfigurieren)
+
+| # | Entscheidung |
+|---|---|
+| E1 | Neuer Katalog `tools/livemap-web/plans.json`: Abo-Stufen **basic/pro/ultra** → Livemap-Stufe **pro/max/ultra**, Vorzüge `["livemap", "early_access"]`. Preise: Platzhalter = Preis der zugeordneten Livemap-Stufe aus `tiers.json` (399/799/1499 ct), Jahr = `yearly_months_paid` × Monat. Überschreibbar in Server-Config `plans`. |
+| E2 | Konto-Abo lebt auf **account.simplemods.de**: `/pro` (Stufen), `/pro/order` (Zusammenfassung + Häkchen + „zahlungspflichtig bestellen“), `/pro/done`, `/pro/manage` (Status, Portal, Rechnungen), `/kuendigen` (§ 312k), `/early` (Frühzugang). Livemap `/pricing` und `/app/plan` verweisen auf `/pro`. Alte Route `/app/plan` POST (tier=pro/max/ultra) bleibt kompatibel (Mapping Livemap-Stufe → Abo-Stufe). |
+| E3 | Bestell-Button „zahlungspflichtig bestellen“ auf **unserer** Zusammenfassungsseite (§ 312j Abs. 2/3), danach Stripe Checkout nur für Zahlungsdaten; zusätzlich `custom_text[submit]` bei Stripe. Risiko: anwaltlich klären, ob Stripes „Abonnieren“-Knopf zusätzlich reicht/stört (im README §7 vermerkt). |
+| E4 | Widerrufs-Checkbox freiwillig (Anlage 3 Nr. 2): mit Zustimmung sofort freigeschaltet (§ 356 Abs. 4 Dienstleistung, Abs. 5 digitale Inhalte = Frühzugang-Downloads); ohne Zustimmung beginnt das Entitlement erst 14 Tage nach Vertragsschluss (`starts_at`). AGB-Häkchen Pflicht. Zustimmungen + Textversion in Tabelle `orders` gespeichert. |
+| E5 | Entitlements: Tabellen `subscriptions` (Stripe-Abo-Spiegel), `entitlements` (Konto → Abo-Stufe → Vorzüge, livemap_tier, gültig bis, Quelle stripe/admin), `stripe_events` (Idempotenz: Event-ID einmalig), `orders`. `users.tier` wird aus dem Entitlement abgeleitet (`set_tier` mit Herabstufungsregeln); Admin-gesetzte Stufen bleiben (Quelle admin), solange kein Stripe-Abo existiert. |
+| E6 | Status-Regeln: active/trialing → berechtigt; past_due → berechtigt bis Periodenende + Kulanz `grace_days` (Default 7); unpaid/canceled/incomplete/incomplete_expired/deleted → Free. `cancel_at_period_end` → berechtigt bis Periodenende. Out-of-order: Event älter als letzter verarbeiteter Stand des Abos wird ignoriert. Wartung (`maintenance`) setzt abgelaufene Entitlements auf Free (Sicherheitsnetz bei verlorenen Webhooks). |
+| E7 | Jahresabo = **Subscription Schedule** nach Checkout (`from_subscription`, dann Phasen: Jahrespreis 1 Iteration → Monatspreis, `end_behavior=release`), idempotent (Schedule-ID gespeichert, Idempotency-Key). Hinweis-Mail 4–6 Wochen vor Ablauf: Hook vorbereitet (`year_notice_days`, Default 42), in Wartung. |
+| E8 | Mails (Text, DE/EN): Vertragsbestätigung (§ 312f, mit Zustimmungsbestätigung, Links AGB/Widerruf/Formular), Rechnung bezahlt (Link `hosted_invoice_url`), Zahlung fehlgeschlagen (Portal-Link), Kündigungseingang (§ 312k Abs. 4, Datum/Uhrzeit), Abo beendet, Jahres-Übergangshinweis. Schalter `mails.invoice` (Stripe kann eigene Belege schicken → doppelt vermeiden). |
+| E9 | Preisangaben: `vat.mode` = `"small_business"` (Hinweis § 19 UStG) oder `"regular"` („inkl. {rate} % USt.“); `vat.stripe_tax` → `automatic_tax`, Adress-/USt-ID-Erfassung. Default: small_business (Platzhalter, Besitzer entscheidet). |
+| E10 | Kündigungsbutton „Verträge hier kündigen“ im Footer jeder Seite → `/kuendigen` (ohne Login erreichbar; eingeloggt vorausgefüllt). Formular: E-Mail, Vertrag, ordentlich/außerordentlich (+Grund), Zeitpunkt „nächstmöglich“ → „Jetzt kündigen“. Wirkung: passt E-Mail zu einem Konto mit Abo → Stripe `cancel_at_period_end=true` (bzw. sofort bei außerordentlich: nur vermerkt, Besitzer prüft). Bestätigungsmail an die angegebene Adresse **und** an die Konto-Adresse; Ratenlimit. Ergebnisseite nennt nichts über Kontoexistenz. |
+| E11 | Frühzugang: `/early` auf account.simplemods.de, Login + Vorzug `early_access`; Liste aus `<early_dir>/index.json`; Download `/early/f/<datei>` per `X-Accel-Redirect` (nginx-internal, Prod) oder direkt (Dev/Tests). Regel „zu Release gleichzeitig, danach Plattformen eine Version zurück“: Skript `tools/release/early_access.py` (stage/plan/publish, Default Trockenlauf; Upload nur mit `--upload --owner-approved` + Token-Env, nicht ausgeführt). Link auf der Landing folgt mit Besitzer-Freigabe (nicht in diesem Branch, Landing-Deploy = Prod). |
+| E12 | `tools/livemap-web/stripe_setup.py`: liest Key zur Laufzeit aus `/root/.config/sb-keys.env` (`STRIPE_SECRET_KEY` bzw. `--key-var`), nie ausgeben; Default **Trockenlauf** (keine Netzaufrufe, zeigt Plan); `--apply` nötig; `sk_live_` nur mit `--live`; idempotent: Produkte mit fester ID (`smpro_basic` …), Preise über `lookup_key` (bei Betragsänderung neuer Preis + `transfer_lookup_key`), Webhook-Endpunkt per URL-Suche, Portal-Konfiguration per Metadaten; schreibt Preis-IDs + Webhook-Secret in die Billing-Datei (außerhalb Repo, 0600), gibt Secrets nie aus. |
+| E13 | Rechtstexte (`docs/legal/*`): AGB auf Gesamt-Abo „Simple Mods Pro“ (alle Dienste) erweitert: Abo-Stufen/Vorzüge, Laufzeit, Kündigung inkl. § 312k, Preisänderung, Frühzugang (keine Zusicherung), digitale Inhalte (§§ 327 ff., § 356 Abs. 5), Downgrade/Ablauf. Datenschutz § 9 Stripe für Abo, Entitlements, Kündigungsseite, Download-Protokoll; Impressum/Widerrufsbelehrung angepasst. ⟦…⟧ bleiben, Entwurfsstatus + README-Hinweis bleiben. (Parallel durch Subagent, gleiche Arbeitsweise.) |
+
+## 3. Dateien
+
+- `tools/livemap-web/plans.json` (neu), `billing.example.json` (Schema erweitert), `config.example.json` (`plans`, `early_access`).
+- `smweb/config.py` (plans laden), `smweb/db.py` (Migration 2: orders, subscriptions, entitlements, stripe_events, cancellations),
+  `smweb/billing.py` (umgebaut: Katalog, Checkout, Schedule, Portal, Webhook idempotent, Entitlements, Kündigung, Mails, Wartung),
+  `smweb/billing_mail.py` (neu, Mail-Vorlagen), `smweb/pro_pages.py` (neu, Seiten), `smweb/app.py` (Routen, CSP form-action Stripe,
+  API auch auf account host für Webhook), `smweb/pages.py` (Footer-Kündigungslink, Verweise auf /pro), `smweb/maps.py` (Wartung ruft Billing),
+  `smweb/i18n.py` (Fehlertexte).
+- `tools/livemap-web/stripe_setup.py` (neu), `tools/release/early_access.py` (neu).
+- Tests: `tests/test_billing.py` (neu), `tests/test_stripe_setup.py` (neu), `tools/release/tests/test_early_access.py` (neu),
+  `tests/harness.py` (`--billing-mock`: Fake-Stripe + Mock-Checkout-Seite für Bilder).
+- Deploy: `deploy/nginx-smweb.conf.in` (internal `/_early/`), README Abschnitt „Abo/Stripe“ + Deploy-Schritte.
+- Rechtstexte `docs/legal/*`.
+
+## 4. Risiken
+
+- Rechtslage (Button-Beschriftung bei Stripe, § 312k ohne Login, Kleinunternehmer/OSS) → nur Entwurf, Anwalt.
+- Stripe-API-Details (Schedule-Phasen, Portal-Konfig) nur gegen Doku/Erfahrung gebaut, nicht gegen echte API → Testmodus-E2E mit
+  Besitzer-Key nötig (Skript + Checkliste vorbereitet).
+- Doppelte Rechnungsmails (Stripe + wir) → Schalter.
+- Kündigung ohne Login missbrauchbar → nur `cancel_at_period_end` (im Portal rücknehmbar), Mail an Konto-Adresse, Ratenlimit.
+
+## 5. Verifikation
+
+- Unit/Integration (`python3 -I -m unittest`): Signatur (gefälscht, alt, falsches Secret, mehrere v1), Stripe-CLI-artige Payloads
+  (`stripe trigger`-Form: `id`, `object: event`, `api_version`, `created`, `data.object`), Idempotenz (gleiches Event 2×),
+  Reihenfolge, Monat/Jahr inkl. Schedule-Aufrufe (Fake-Transport protokolliert Requests), Up-/Downgrade, past_due/Kulanz, Ablauf per
+  Wartung, Widerruf ohne Zustimmung (14 Tage), Kündigungsseite (mit/ohne Login, Mails), Frühzugang (ohne Login → Login, ohne Vorzug
+  → 403, mit → Datei), CSP form-action, Preisangabe USt/§ 19.
+- `stripe_setup.py`: Trockenlauf ohne Netz, Key nie in Ausgabe, zweiter Lauf legt nichts doppelt an, live-Key ohne `--live` abgewiesen.
+- `early_access.py`: Plan-Regel (Launch gleichzeitig, danach eine Version zurück), Trockenlauf, Upload ohne Freigabe abgewiesen.
+- Bestehende 43 Tests bleiben grün. Bilder der Bestellstrecke per Playwright vom lokalen Harness (Mock), nur für die Vorschau.
+- NICHT getestet: echte Stripe-API, echte Mails, Klick-Test auf Dev (nach Deploy durch A/Besitzer).
+
+## 6. Nachtrag Besitzer-Antwort Teil 1 (19.11.2026, `/root/sb-tools-a/pro/antwort-teil1.md`)
+
+| Punkt | Umsetzung (b-stripe108) |
+|---|---|
+| P001 Stufen | Abo **Basic / Max / Ultra** („Pro“ → „Max“), Livemap **Free / Basic / Max / Ultra** (Grenzen wie bisher pro/max/ultra). Marke „Simple Mods Pro“ bleibt (Produkt „Simple Mods Pro Max“ – kein Konflikt in den Texten). Alte IDs: Migration 3 benennt gespeicherte Werte um; beim Lesen gelten `config.LIVEMAP_ALIAS {"pro": "basic"}` / `PLAN_ALIAS {"pro": "max"}` (users.tier, Entitlements, Abos, Billing-Preise, Metadaten, `?plan=pro`-Links, Admin-Eingabe). |
+| Preise | 3,99 / 7,99 / 14,99 € als Start (unverändert Platzhalter aus tiers.json, konfigurierbar). |
+| Kontoauszug | `stripe_setup.py --statement-descriptor SIMPLEMODS` (Standard) setzt den Produkt-Deskriptor (bei Abos maßgeblich); zusätzlich im Stripe-Dashboard als Konto-Deskriptor eintragen (Besitzer). |
+| Kontakt | kontakt@ / datenschutz@ / melden@simplemods.de in Rechtstext-Entwürfen (nur die passenden ⟦…⟧) und Mail-Fußzeile (`contact` in der Server-Config). |
+| P011 Dimensionen | `tiers.json` `dimensions`: Free Oberwelt+Nether, Basic +End, Max/Ultra `*`. Durchgesetzt: Manifest fragt nur erlaubte Dimensionen an, Upload speichert nur erlaubte, live.json filtert Dimensionen + Spieler, Kachel-Auslieferung 204 für nicht erlaubte (auch nach Herabstufung; gespeicherte Kacheln bleiben, kommen nach Upgrade zurück). Preistabelle hat Zeile „Dimensionen“. |
+| P039 Teilen | Mitspieler-Plätze: Max 1× „Max lite“ (Livemap Basic), Ultra 2× „Ultra lite“ (Livemap Max), Vorzüge nur `livemap` (kein Frühzugang: Downloads wären weitergebbar). Regeln: nur aus eigenem bezahltem Entitlement, Inhaber bekommt selbst keine Plätze (keine Kette), Ziel = anderes bestätigtes Konto ohne eigenes Abo/Platz, ein Platz je Konto, freigewordener Platz 30 Tage gesperrt (keine Rotation), Herabstufung beendet überzählige (neueste zuerst), Abo-Ende beendet alle. Tabelle `lite_seats`, Konfig `plans.json` `lite`/`lite_rules`. UI: Abschnitt in /pro/manage (vergeben, entfernen, zurückgeben). |
+| P041 nur sichtbare Spieler | Befund: Mod (`LivemapRuntime.java`) blendet Zuschauer und `/simplelivemap hide` aus, **nicht** schleichende/unsichtbare Spieler. Java-Änderung gehört zu N106/Mod (nicht in diesem Branch) → offen. |
+
+### Geplante Mod-Vorzüge (NICHT gebaut, Teil 2 folgt)
+
+| ID | Vorzug | Stufen laut Antwort |
+|---|---|---|
+| P021 | Umhänge | Kupfer alle (auch Free), Eisen Basic, Gold + Diamant Max, Netherit + Enderit Ultra |
+| P023 | Namensfarbe/Abzeichen in 4 Stufen (je höher desto cooler) | Free/Basic/Max/Ultra; strenge Optik-Abnahme durch den Besitzer vorher |
+| P031 | Simple Recipes: Lesezeichen-Import | nur per ausdrücklichem Import-Knopf (Code → Vorschau + Bestätigung; oder lokale Welt → Vorschau → entscheiden); Stufe in Teil 2 |
+| P036 | Simple Keybinds: Tastatur-Profile | alle: 3 lokale Profile + Import; Basic: Import aus der Cloud; ab Max: bis zu 10 Cloud-Profile |
+| P038 | Social Screen + Chat | Screenshot + Screen innerhalb 30 s → Post-Ansicht; ab Max Upload in Cloud-Galerie; manuell wählen/hochladen; persistente Chat-Komponente (Server-Kommunikation) + Keybind „letzten Chat öffnen“ |
+
+Technische Einordnung: Mod-Vorzüge fragen künftig ein Entitlement-Endpoint des Kontos ab (Perk-Schlüssel wie `cape_iron`, `keybind_cloud_10`); die Perk-Liste je Stufe kommt in `plans.json` `perks`. Bau erst nach Teil 2.
+
+## 7. Nachtrag 2 – Besitzer-Antwort Teil 2 (19.11.2026, `antwort-teil2.md`, Liste vollständig)
+
+Arbeitsweise wie oben. Datenschutz-Regel: Betreiberdaten nur in `/root/.config/sb-betreiber.json` (600) auf dem Zielrechner; wird von
+B **nie geöffnet**. Im Repo nur `{{betreiber.*}}`; Füllung beim Deploy mit `tools/livemap-web/fill_legal.py`.
+
+| # | Punkt | Entwurf (Entscheidung B) |
+|---|---|---|
+| 1 | Stufen | Basic / Max / Ultra endgültig (seit Nachtrag 1 umgesetzt). |
+| 2 | P070 Wechsel ohne Rückzahlung | Stufenwechsel nur über `/pro/manage` → „Wechsel zum Periodenende“: Stripe-Abo-Zeitplan (aktuelle Phase bis Periodenende, danach neuer Preis, `proration_behavior: none`); Jahresabo: neuer Monatspreis nach dem Jahr. Kundenportal: Stufenwechsel AUS (sonst sofortige Proration), Kündigung zum Periodenende, Zahlungsart, Rechnungen. Vorgemerkter Wechsel sichtbar + zurücknehmbar. Gesetzliche Rechte (z. B. außerordentliche Kündigung, Mängel) bleiben – AGB-Hinweis. |
+| 3 | P074 Gutscheine | Checkout `allow_promotion_codes` (Config `coupons.enabled`, Standard an) **oder** Code auf der Bestellseite → Lookup `promotion_codes?code=` → `discounts[0][promotion_code]`; Code wird an der Bestellung gespeichert. Admin-Seite: Liste der zuletzt genutzten Codes (Anzahl). `stripe_setup.py` legt **keine** Codes/Coupons an (Test prüft das). Codes legt der Besitzer später im Stripe-Dashboard an. |
+| 4 | P068 Geschenk-Abo | Einmalzahlung (Checkout `mode=payment`) für Stufe × Monate (Config `gifts.months` [1, 3, 12], Preis = Monatspreis × Monate), gebunden an Minecraft-Namen (3–16 Zeichen `[A-Za-z0-9_]`). Namen je Geschenk: Config `gifts.names` (basic 1, max 1, ultra 2). Wechsel frühestens alle 7 Tage (`gifts.change_days`). Läuft von Bezahlung (bzw. nach Widerrufsfrist ohne Zustimmung) bis + Monate×30 Tage, endet ohne Verlängerung, keine Kündigung nötig. Vorzüge über den Namen: `GET /api/v1/mc/<name>` (für künftige Mod-Vorzüge: Umhänge, Abzeichen …), ratenbegrenzt. Kein Livemap-Tier (Livemap hängt am Konto); optional späteres „einlösen ins Konto“ (Plan). Tabellen `gifts`, `gift_names`. |
+| 5 | Kontaktformular | `account.simplemods.de/kontakt` (simplemods.de verlinkt): Name, E-Mail, Thema (allgemein/Datenschutz/Meldung), Nachricht ≤ 5000; Honeypot-Feld, Mindest-Ausfüllzeit 3 s (signierter Zeitstempel), Ratenlimit je Adresse/E-Mail, CSRF; Versand über den Mail-Hook an `contact.form_to` (Server-Config, nicht im Repo), Reply-To = Absender; keine Kopie an den Absender (kein Spam-Relais). |
+| 6 | Rechtstexte | vollständig selbst geschrieben, nur Betreiberdaten als `{{betreiber.*}}`; Kopfzeile intern „ungeprüft – vor Zahlungsstart anwaltlich prüfen“; Dateien: impressum, datenschutz, agb, widerruf (Belehrung + Muster-Formular), kuendigung (Kündigungsbutton-Text). Zahlungen bleiben AUS bis Prüfung + Gewerbeanmeldung. |
+| 6a | Kontaktadressen | Teil 2 ersetzt Teil 1: verbindlich `{{betreiber.email}}`. Die simplemods-Adressen (kontakt@/datenschutz@/melden@ via Cloudflare Email Routing) sind eine **Option**: Server-Config `contact.mode` = `betreiber` (Standard) \| `simplemods` (+ `contact.addresses`), `fill_legal.py --contact-file`. Die in Teil 1 fest eingetragenen Adressen sind aus Texten und Code entfernt bzw. config-gesteuert. |
+| 7 | P050/P053/P079 | als Flags in `plans.json` (`flags`): Stimmgewicht Basic 1 / Max 2 / Ultra 3 (ohne Abo 1? → 0 = keine Gewichtung über 1 hinaus; Free-Wert `free_flags`), Credits ab Basic, Wiki-Einstellungen ab Basic; Themes für alle (kein Flag). Abfrage `svc.flags(user)`; Nutzung in Wiki/Abstimmung erst mit den jeweiligen Funktionen. |
+
+### Schlüssel der Betreiberdatei (`sb-betreiber.json`, nur auf dem Zielrechner)
+`name` (Pflicht), `anschrift` (Pflicht, mehrzeilig mit `\n`), `email` (Pflicht), `telefon` (optional), `ustid` (optional),
+`kleinunternehmer` (true/false, Pflicht), `wirtschafts_id` (optional). Fehlt ein Pflichtschlüssel oder bleibt ein `{{…}}` stehen, bricht
+`fill_legal.py` ab. Bedingte Blöcke: `{{#wenn betreiber.x}}…{{#sonst}}…{{/wenn}}`.
+
+### Nach dem Release (nur Plan, nicht bauen)
+| ID | Was | Stufe/Zugang |
+|---|---|---|
+| P060 | Rezept-Rechner (Web) | alle, ohne Abo |
+| P061 | Seed-Karte (wie seedbase) | alle, ohne Abo |
+| P062 | Farbpaletten (Web) | alle, ohne Abo |
+| P063 | Modpack-Konfigurator, Loader Fabric/NeoForge/Forge | mit Abo direkter Download, ohne Abo Weg über Modrinth/CurseForge |
+| P021 / P023 / P031 / P036 / P038 | Umhänge, Abzeichen, Recipes-Import, Keybind-Profile, Social Screen + Chat | Stufen wie Abschnitt 6 |
+| P053 | Credits in den Minecraft-Credits (Abspann) | ab Basic (Flag `credits` schon da) |
+| P099 | Statistik-Profil inkl. Vanilla-Statistiken | Stufe offen |
+Mod-Vorzüge lesen künftig `GET /api/v1/mc/<name>` (Geschenk) bzw. ein Konto-Endpoint; Perk-Schlüssel in `plans.json`.

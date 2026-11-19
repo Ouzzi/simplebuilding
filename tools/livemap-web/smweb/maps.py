@@ -12,6 +12,7 @@ import time
 
 from . import security as sec
 from .errors import Problem
+from .config import LIVEMAP_ALIAS, dim_allowed  # noqa: F401
 
 CODE_SECONDS = 15 * 60
 MAX_OPEN_CODES = 3
@@ -21,7 +22,8 @@ RESERVED = {"app", "admin", "api", "static", "login", "register", "logout", "pri
             "account", "settings", "simplemods", "livemap", "www", "help", "support", "status"}
 DEV_TIER = {"name": "Developer", "price_month": 0, "maps": 999, "public": 999, "archive": 999, "archive_days": 3650,
             "views_day": 10**9, "live_seconds": 1, "tile_seconds": 60, "prep_minutes": 0, "priority": 9, "slot_lock_days": 0,
-            "shares": -1, "map_mb": 16384, "upload_tiles_min": 50000, "batch_kb": 8192, "custom_name": True}
+            "shares": -1, "map_mb": 16384, "upload_tiles_min": 50000, "batch_kb": 8192, "custom_name": True,
+            "dimensions": ["*"]}
 
 
 def day(ts: int) -> str:
@@ -34,7 +36,7 @@ class MapsMixin:
         if user["role"] == "developer":
             return DEV_TIER
         tiers = self.cfg.tiers["tiers"]
-        return tiers.get(user["tier"]) or tiers["free"]
+        return tiers.get(LIVEMAP_ALIAS.get(user["tier"], user["tier"])) or tiers["free"]
 
     def tier_rank(self, user) -> int:
         return self.tier(user)["priority"]
@@ -358,6 +360,7 @@ class MapsMixin:
 
     # ---------------------------------------------------------------- tier changes (admin now, billing later)
     def set_tier(self, user, tier: str, actor_id: int | None = None):
+        tier = LIVEMAP_ALIAS.get(tier, tier)
         if tier not in self.cfg.tiers["tiers"]:
             raise Problem(400, "bad_request")
         with self.db.tx() as c:
@@ -403,6 +406,7 @@ class MapsMixin:
             c.execute("DELETE FROM audit WHERE at < ?", (now - 400 * 86400,))
         for uid in [r[0] for r in self.db.all("SELECT id FROM users")]:
             self.trim_archive(self.user(uid))
+        self.billing_maintenance()
 
     def flags(self) -> list[dict]:
         """Admin list 'auffällige Muster' (spec 3): several accounts of one mailbox or one sign-up address, many place changes."""
