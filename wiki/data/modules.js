@@ -2424,7 +2424,6 @@ window.WIKI_MODULES = [
       "simpleend",
       "simpleores",
       "simpleenchanting",
-      "simplechess",
       "jei"
     ],
     "stage": "new",
