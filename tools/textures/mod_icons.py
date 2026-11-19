@@ -119,6 +119,21 @@ def octets_icon():
                 [("Kontur", "o"), ("Oberseiten", "Pp"), ("Linke Seiten", "l"), ("Rechte Seiten", "r")], *rows_of(g))
 
 
+def slabs_icon():
+    """Simple Slabs (N86): a cell with two thin stone half slab layers (the owner's 0-4 + 8-12 px) - layers with a gap."""
+    g = blank()
+    top = lambda s, t: "t" if (int(s * 4) + int(t * 4)) % 2 else "T"  # noqa: E731
+    cube(g, 1, 6, 14, 2, top, flat("l"), flat("r"))
+    cube(g, 1, 1, 14, 2, top, flat("l"), flat("r"))
+    for r in range(16):
+        g[r][0] = g[r][15] = "."
+    g[0] = ["."] * 16
+    g[15] = ["."] * 16
+    return icon("Zwei dünne Halbstufen-Lagen aus Stein", {"o": "#1e1f24", "T": "#9a9aa2", "t": "#8a8a92", "l": "#6e6e76",
+                                                          "r": "#56565e"},
+                [("Kontur", "o"), ("Oberseiten", "Tt"), ("Linke Seiten", "l"), ("Rechte Seiten", "r")], *rows_of(g))
+
+
 def models_icon():
     """Simple Models: a wireframe model cube (silhouette plus the three front edges)."""
     g = blank()
@@ -182,24 +197,6 @@ def challenges_icon():
 
 
 ICONS: dict[str, dict] = {
-    "simpleslabs": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
-                         [("Kontur", "o"), ("Fuellung", "Ff")],
-                         "................",
-                         "......oo........",
-                         ".....oFFo.......",
-                         "....oFfFFo......",
-                         "...oFfFFFFo.....",
-                         "..oFfFFFFFFo....",
-                         ".oFFFFFFFFFFo...",
-                         ".oFFFFFFFFFFo...",
-                         "..oFFFFFFFFo....",
-                         "...oFFFFFFo.....",
-                         "....oFFFFo......",
-                         ".....oFFo.......",
-                         "......oo........",
-                         "................",
-                         "................",
-                         "................"),
     # CHESS47 (N47 M7): a quartz chess knight (the light side of the game) facing left, lit from the top left
     "simplechess": icon("Springer", {"o": "#1a1a20", "F": "#e6e1d8", "f": "#ffffff", "s": "#aaa398"},
                         [("Kontur", "o"), ("Quarz", "Ffs")],
@@ -862,7 +859,7 @@ ICONS: dict[str, dict] = {
                           ".......oo.......",
                           "................"),
 }
-PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon}
+PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon, "simpleslabs": slabs_icon}
 
 
 def spec(mod_id: str) -> dict | None:
@@ -888,7 +885,7 @@ ITEM_MOTIFS = {
     "simplechisels": "iron_chisel", "simplebuildingtools": "copper_building_wand",  # LOOK10 A (placeholder until the owner picks)
 }
 BG = {
-    "simpleslabs": "#8a9098",
+    "simpleslabs": "#7aa0b8",
     "simplechess": "#3c5aa6",  # CHESS47: lapis, the lapis checker the quartz pieces stand on
     "simplevault": "#8a9098",
     "simplelayers": "#8a9098",
