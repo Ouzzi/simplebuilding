@@ -23,7 +23,8 @@
       size: '{0} rows x {1} columns, {2} ids', sizeAll: '{0} areas, {1} ids', discard: 'Discard unsaved changes?', commentQ: 'Short: what changed? (optional)', saving: ' saving …',
       okSave: ' saved (no. {0}) - comes as branch tz-layout-* into the next bundle', badSave: ' not saved: ', login: ' (logged in?)', offline: ' not saved: server unreachable (JSON download always works)',
       downloaded: ' downloaded', mod: 'Mod', row: 'Row', column: 'Column', top: 'Octet on top', isNew: 'New', devOnly: 'This page exists only on the dev site.',
-      legend: 'Small picture top right = octet standing on the block. Light grey = placeholder "does not exist" (in the game a light grey concrete half slab), red = missing (a red concrete half slab), empty = no field. Column order from the block outwards: block, stairs, slab, half slab. Vanilla pictures only on the dev host, found through the block models (data/vanilla-icons.json); without them the name.',
+      legend: 'Small picture top right = octet standing on the block. Light grey = placeholder "does not exist" (in the game a light grey concrete half slab), red = missing (a red concrete half slab), empty = no field. Column order from the block outwards: block, stairs, slab, half slab. Vanilla pictures only on the dev host, found through the block models (data/vanilla-icons.json). A cell whose picture is missing shows the crossed-out picture symbol and is listed under "without picture".',
+      noPic: 'without picture', noPicNone: 'every shown cell has its picture', noPicTip: 'Click: jump to the cell', noPicCell: 'without picture: {0}', noPicRo: 'built by the algorithm (read only)',
       menu: 'Cell menu', mChange: 'Change block …', mMissing: 'Mark as missing (red half slab)', mAbsent: 'Does not exist (light grey half slab)', mClear: 'Empty', mFrame: 'Frame on/off',
       mFrameItem: 'Frame only on empty or placeholder fields', mRow: 'Insert new row here', mCol: 'Insert new column here', mUndo: 'Undo',
       chTitle: 'Change block', chPh: 'id or name, e.g. minecraft:stone', chSet: 'Set', chCancel: 'Cancel', chAny: 'Any id works (mod:name); Enter sets the marked hit or the typed id.', chBad: 'Not an id: ',
@@ -47,7 +48,8 @@
       size: '{0} Reihen x {1} Spalten, {2} Ids', sizeAll: '{0} Bereiche, {1} Ids', discard: 'Ungespeicherte Änderungen verwerfen?', commentQ: 'Kurz: was wurde geändert? (optional)', saving: ' speichere …',
       okSave: ' gespeichert (Nr. {0}) - kommt als Branch tz-layout-* ins nächste Bündel', badSave: ' nicht gespeichert: ', login: ' (angemeldet?)', offline: ' nicht gespeichert: Server nicht erreichbar (JSON-Download geht immer)',
       downloaded: ' heruntergeladen', mod: 'Mod', row: 'Reihe', column: 'Spalte', top: 'Achtel darauf', isNew: 'Neu', devOnly: 'Diese Seite gibt es nur im Dev-Bereich.',
-      legend: 'Kleines Bild oben rechts = Achtel auf dem Block. Hellgrau = Platzhalter „gibt es nicht“ (im Spiel eine hellgraue Beton-Halbstufe), rot = fehlt (rote Beton-Halbstufe), leer = kein Feld. Spalten vom Block nach außen: Block, Treppe, Stufe, Halbstufe. Vanilla-Bilder nur auf dem Dev-Host, über die Blockmodelle gefunden (data/vanilla-icons.json); ohne sie der Name.',
+      legend: 'Kleines Bild oben rechts = Achtel auf dem Block. Hellgrau = Platzhalter „gibt es nicht“ (im Spiel eine hellgraue Beton-Halbstufe), rot = fehlt (rote Beton-Halbstufe), leer = kein Feld. Spalten vom Block nach außen: Block, Treppe, Stufe, Halbstufe. Vanilla-Bilder nur auf dem Dev-Host, über die Blockmodelle gefunden (data/vanilla-icons.json). Fehlt das Bild einer Zelle, zeigt sie das durchgestrichene Bild-Symbol und steht in der Liste „ohne Bild“.',
+      noPic: 'ohne Bild', noPicNone: 'jede gezeigte Zelle hat ihr Bild', noPicTip: 'Klick: zur Zelle springen', noPicCell: 'ohne Bild: {0}', noPicRo: 'vom Algorithmus gebaut (nur lesen)',
       menu: 'Zellmenü', mChange: 'Block ändern …', mMissing: 'Als fehlend markieren (rote Halbstufe)', mAbsent: 'Gibt es nicht (hellgraue Halbstufe)', mClear: 'Leeren', mFrame: 'Rahmen an/aus',
       mFrameItem: 'Rahmen nur auf leeren oder Platzhalter-Feldern', mRow: 'Neue Reihe hier einfügen', mCol: 'Neue Spalte hier einfügen', mUndo: 'Rückgängig',
       chTitle: 'Block ändern', chPh: 'Id oder Name, z. B. minecraft:stone', chSet: 'Setzen', chCancel: 'Abbrechen', chAny: 'Jede Id geht (mod:name); Enter setzt den markierten Treffer oder die getippte Id.', chBad: 'Keine Id: ',
@@ -61,6 +63,10 @@
       unsavedToo: 'dazu ungespeicherte Änderungen', moveBad: ' passt nicht ins Raster', copied: ' {0} Felder kopiert', pasted: ' {0} Felder eingefügt', noClip: ' erst etwas kopieren',
       keysHelp: 'Ziehen = verschieben (Auswahl als Gruppe), Esc bricht ab · leeres Feld oder Alt+Ziehen = Rahmen · Umschalt-Klick = Bereich · Strg+A/C/X/V · Strg+Pfeile = verschieben · Umschalt+Pfeile = erweitern · Strg+Z, Strg+Y / Strg+Umschalt+Z' }
   };
+  /* N110: the "no picture" symbol (own drawing, no game pixels): a picture frame, crossed out */
+  var NP_BG = 'center/contain no-repeat url("data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">' +
+    '<rect x="1.5" y="2.5" width="13" height="11" rx="1.5" fill="#ececec" stroke="#7d828c"/><circle cx="10.8" cy="5.6" r="1.3" fill="#a9aeb7"/>' +
+    '<path d="M3 12l3.3-4 2.4 2.8 1.6-1.6 2.7 2.8z" fill="#a9aeb7"/><path d="M2.2 14.2L13.8 1.8" stroke="#5f6470" stroke-width="1.4" stroke-linecap="round"/></svg>') + '")';
   var CSS = [
     '.tz-page{--z:36px}.tz-bar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.4rem 0 .6rem}',
     '.tz-bar label{display:inline-flex;gap:.3rem;align-items:center}.tz-wrap{display:flex;gap:.8rem;align-items:flex-start}',
@@ -74,7 +80,6 @@
     '.tz-c.tz-nil{background:transparent;box-shadow:inset 0 0 0 1px var(--border)}',
     '.tz-c img{width:calc(var(--z) - 8px);height:calc(var(--z) - 8px);image-rendering:pixelated;pointer-events:none}',
     '.tz-c img.tz-t{position:absolute;right:1px;top:1px;width:45%;height:45%;background:var(--panel);outline:1px solid var(--slot-lo)}',
-    '.tz-c .tz-n{font-size:8px;line-height:1;word-break:break-all;color:var(--slot-text);text-align:center;pointer-events:none;padding:1px}',
     '.tz-c.sel{outline:2px solid var(--accent);outline-offset:-2px}.tz-c.dim{opacity:.2}.tz-c.hit{outline:2px solid var(--warn-border)}',
     '.tz-c.dup{box-shadow:inset 0 0 0 3px var(--danger-border)}.tz-c.unk{box-shadow:inset 0 0 0 3px var(--warn-border)}.tz-over{outline:2px dashed var(--accent)}',
     '.tz-c[class*=tz-ph-]{box-shadow:none}.tz-ph-grey{background:#777}.tz-ph-light{background:repeating-linear-gradient(45deg,#dcdcdc 0 4px,#c4c4c4 4px 8px)}.tz-ph-red{background:#c33}.tz-ph-frame{box-shadow:inset 0 0 0 3px #8b6b3d}',
@@ -116,6 +121,12 @@
     '.tz-pendbar{border-left:4px solid #e8912d;background:var(--panel);padding:.35rem .6rem;margin:0 0 .5rem;border-radius:4px;font-size:.85rem}.tz-pendbar:empty{display:none}.tz-pendbar div{margin:.1rem 0}',
     '.tz-pbadge{background:#e8912d;color:#111;border-radius:8px;padding:0 6px;font-size:.72rem;margin-left:.4rem;font-weight:600}.tz-keys{font-size:.75rem;margin:.1rem 0 .4rem}',
     '.tz-bar .btn:disabled{opacity:.45;cursor:default}',
+    /* N110 (owner 19.11.: handle missing textures): own "no picture" symbol instead of a broken image or the bare name, list "without picture" */
+    '.tz-c .tz-np{width:calc(var(--z) - 8px);height:calc(var(--z) - 8px);background:' + NP_BG + ';pointer-events:none;flex:none}',
+    '.tz-c .tz-np.tz-t{position:absolute;right:1px;top:1px;width:45%;height:45%;outline:1px solid var(--slot-lo)}',
+    '.tz-nopic ul{max-height:160px}.tz-nopic li{list-style:none;margin-left:-1rem}.tz-nopic button{font:inherit;font-size:.8rem;background:none;border:0;color:var(--link,var(--accent));cursor:pointer;padding:0;text-align:left;word-break:break-all}',
+    '.tz-nopic button:hover,.tz-nopic button:focus-visible{text-decoration:underline}.tz-nopic .tz-npa{font-size:.78rem;font-weight:600;margin:.3rem 0 0}',
+    '.tz-c.tz-flash{outline:3px solid var(--warn-border,#e8912d);outline-offset:-1px}',
     '.tz-dlg .tz-c{--z:30px;flex:none}.tz-dlg .tz-row{display:flex;gap:.4rem;justify-content:flex-end}.tz-dlg .tz-pv{display:flex;align-items:center;gap:.5rem;margin:.3rem 0;min-height:30px;font-size:.85rem}'
   ].join('\n');
   var PH = ['#grey', '#light', '#red', '#frame'];
@@ -240,6 +251,7 @@
   }
 
   var IMGC = {};  // N99: id -> working picture (URL or cut-out data URL), false = none; a redraw never walks the fallback chain again
+  var BAD = {};   // N110: picture files that failed once in this session - never asked for again (no second 404)
 
   function mount(el, ctx) {
     var lang = ctx.lang === 'de' ? 'de' : 'en', S = STR[lang];
@@ -327,12 +339,18 @@
       function add(u) { if (u && out.indexOf(u) < 0) out.push(u); }
       /* N107: the dev host's mapping first (like textureOf in index.html) - it names module ids only when their own
          picture is missing there; the other order asked for those missing pictures first (~20 x 404 render/*.png) */
-      add(st.icons && (st.icons[id] || st.icons[full]));
-      add(st.idx && st.idx.textures[id]);
+      var dev = st.icons && (st.icons[id] || st.icons[full]);
+      add(dev);
+      /* N110 pre-check against the dev host's index: vanilla-icons.json names a module id only when its own picture is
+         missing there (N80, git-ignored Vanilla-derived renders) - then that module picture is known missing: not asked for */
+      if (!(dev && nsOf(full) !== 'minecraft')) add(st.idx && st.idx.textures[id]);
       if (ctx.icon) add(ctx.icon(full));
-      var names = nsOf(id) === 'minecraft' ? [pathOf(id)] : (st.idx && st.idx.vanilla && st.idx.vanilla[id]) || [];
+      /* N110: with the dev host's index loaded it lists every Vanilla item (all 627 Vanilla ids of the layouts are in it): a
+         Vanilla id it does not know (e.g. half typed in "Change block") has no picture there - no name guesses (404s) */
+      var hostIndex = false; for (var any in (st.icons || {})) { hostIndex = true; break; }
+      var names = nsOf(id) === 'minecraft' ? (hostIndex && !dev ? [] : [pathOf(id)]) : (st.idx && st.idx.vanilla && st.idx.vanilla[id]) || [];
       names.forEach(function (n) { ['assets/vanilla/block/', 'assets/vanilla/item/'].forEach(function (p) { add(p + n + '.png'); }); });
-      return out;
+      return out.filter(function (u) { return !BAD[u.split('#')[0]]; });
     }
     function crop(i, url) {
       var h = url.indexOf('#'), r = url.slice(h + 1).split(',').map(Number), src = new Image();
@@ -345,18 +363,28 @@
       src.src = url.slice(0, h);
     }
     function img(id, cls) {
-      if (IMGC[id] === false) return null;
+      if (IMGC[id] === false) return noPic(id, cls);
       var i = new Image(), k = 0; i.alt = ''; i.dataset.ownFallback = '1'; if (cls) i.className = cls;
       if (IMGC[id]) { i.src = IMGC[id]; return i; }
       var cands = candidates(id);
-      if (!cands.length) { IMGC[id] = false; return null; }
-      function load() { if (cands[k].indexOf('#') > 0) crop(i, cands[k]); else i.src = cands[k]; }
+      if (!cands.length) { IMGC[id] = false; return noPic(id, cls); }
+      function load() {
+        while (k < cands.length && BAD[cands[k].split('#')[0]]) k++;  // failed meanwhile for another id
+        if (k >= cands.length) { fail(); return; }
+        if (cands[k].indexOf('#') > 0) crop(i, cands[k]); else i.src = cands[k];
+      }
+      /* N110: every candidate failed -> the "no picture" symbol in place of the image, the list follows a moment later */
+      function fail() { IMGC[id] = false; if (i.parentNode) i.replaceWith(noPic(id, cls)); sideSoon(200); }
       i.onload = function () { if (!IMGC[id]) IMGC[id] = i.src; };
-      i.onerror = function () { k++; if (k < cands.length) { load(); return; } IMGC[id] = false; var p = i.parentNode; i.remove(); if (p && !cls) name(p, id); };
+      i.onerror = function () { if (k < cands.length) BAD[cands[k].split('#')[0]] = 1; k++; load(); };
       load();
       return i;
     }
-    function name(e, id) { var n = document.createElement('span'); n.className = 'tz-n'; n.textContent = pathOf(id).replace(/_/g, ' '); e.appendChild(n); }
+    function noPic(id, cls) {
+      var n = document.createElement('span'); n.className = 'tz-np' + (cls ? ' ' + cls : ''); n.setAttribute('role', 'img');
+      n.setAttribute('aria-label', fmt(tr('noPicCell'), [id])); n.title = fmt(tr('noPicCell'), [id]); n.dataset.np = id;
+      return n;
+    }
     /* one cell; f/r/c = area file, row, column (pool and previews have no file) */
     function cellEl(id, f, r, c, opt) {
       opt = opt || {};
@@ -364,8 +392,8 @@
       if (opt.pool) e.dataset.pool = '1'; else if (opt.ro) { e.classList.add('tz-ro'); e.dataset.ro = '1'; }
       if (!id) e.classList.add('tz-nil');
       else if (id.charAt(0) === '#') e.classList.add('tz-ph-' + id.slice(1));
-      else { var i = img(id); if (i) e.appendChild(i); else name(e, id); }
-      if (opt.top && id) { var t = img(opt.top, 'tz-t'); if (t) e.appendChild(t); }
+      else e.appendChild(img(id));
+      if (opt.top && id) e.appendChild(img(opt.top, 'tz-t'));
       if (!opt.pool && !opt.ro && f) {
         var k = f + '|' + r + '|' + c, a = A(f); nodes[k] = e;
         if (st.sel[k]) e.classList.add('sel');
@@ -395,7 +423,7 @@
       h += '<button type="button" class="btn" data-act="dl">' + esc(tr('download')) + '</button><span class="tz-msg" role="status">' + esc(st.msg) + '</span><span class="tz-mini muted"></span></div>';
       h += '<p class="muted tz-keys">' + esc(tr('keysHelp')) + '</p><div class="tz-pendbar" role="status"></div>';
       h += '<div class="tz-wrap"><div class="tz-main" tabindex="0" aria-label="' + esc(tr('title')) + '"><div class="tz-body"></div></div><div class="tz-side box box-info">';
-      h += '<h3>' + esc(tr('check')) + '</h3><div class="tz-chk"></div><div class="tz-plan"></div><h3>' + esc(tr('fresh')) + ' <span class="tz-ncnt"></span></h3><div class="tz-pool"></div>';
+      h += '<h3>' + esc(tr('check')) + '</h3><div class="tz-chk"></div><div class="tz-nopic"></div><div class="tz-plan"></div><h3>' + esc(tr('fresh')) + ' <span class="tz-ncnt"></span></h3><div class="tz-pool"></div>';
       h += '<h3>' + esc(tr('unknownTest')) + '</h3><input class="tz-unk" placeholder="mod:id"> <button type="button" class="btn" data-act="unk">' + esc(tr('setCell')) + '</button>';
       h += '<h3>' + esc(tr('saved')) + '</h3><ul class="tz-hist"></ul><p class="muted tiny">' + esc(tr('legend')) + ' ' + esc(tr('pendLegend')) + '</p></div></div><div class="tz-info"></div></div>';
       el.innerHTML = h;
@@ -556,11 +584,44 @@
       var reds = []; files.forEach(function (f) { var a = A(f); a.rows.forEach(function (r) { r.cells.forEach(function (c, i) { if (c === '#red') reds.push(r.label + ' / ' + a.cols[i]); }); }); });
       function sec(t, arr) { return '<div class="' + (arr.length ? 'tz-bad' : 'tz-ok') + '">' + esc(t) + ': ' + arr.length + '</div>' + (arr.length ? '<ul>' + arr.slice(0, 300).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : ''); }
       $('.tz-chk').innerHTML = sec(tr('dups'), dups) + sec(tr('missing'), unplacedIds) + sec(tr('unknown'), unk) + sec(tr('reds'), reds);
+      var np = drawNoPic();
       $('.tz-plan').innerHTML = planChecks();
       var ids = Object.keys(pl).length;
       $('.tz-size').textContent = files.length === 1 && st.layout !== 'built' && st.file !== ALL ? fmt(tr('size'), [A(files[0]).rows.length, A(files[0]).cols.length, ids]) : fmt(tr('sizeAll'), [files.length, ids]);
       var d = Object.keys(st.dirty).map(function (f) { var m = areaMeta(f); return m.variant + '/' + m.area; });
-      $('.tz-mini').textContent = (d.length ? fmt(tr('dirty'), [d.join(', ')]) + ' ' : '') + (st.view === 'b' ? [tr('dups') + ': ' + dups.length, tr('missing') + ': ' + unplacedIds.length, tr('unknown') + ': ' + unk.length, tr('reds') + ': ' + reds.length].join(' | ') : '');
+      $('.tz-mini').textContent = (d.length ? fmt(tr('dirty'), [d.join(', ')]) + ' ' : '') + (st.view === 'b' ? [tr('dups') + ': ' + dups.length, tr('missing') + ': ' + unplacedIds.length, tr('unknown') + ': ' + unk.length, tr('reds') + ': ' + reds.length, tr('noPic') + ': ' + np].join(' | ') : '');
+    }
+    /* N110: list "without picture" - every shown cell (grid, octet on top, pool "New") that shows the no-picture symbol,
+       per area, each id once with its count; a click jumps to (selects, scrolls to, flashes) its first cell */
+    var npNodes = [];
+    function drawNoPic() {
+      var box = $('.tz-nopic'); if (!box) return 0;
+      var groups = {}, order = [], total = 0;
+      npNodes = [];
+      [].forEach.call(el.querySelectorAll('.tz-body .tz-np, .tz-pool .tz-np'), function (n) {
+        var c = n.closest('.tz-c'); if (!c) return;
+        var g = c.dataset.pool ? 'pool' : c.dataset.ro ? 'ro' : c.dataset.f || '?', id = n.dataset.np;
+        if (!groups[g]) { groups[g] = { ids: {}, list: [] }; order.push(g); }
+        var e = groups[g].ids[id];
+        if (!e) { e = groups[g].ids[id] = { id: id, n: 0, node: c }; groups[g].list.push(e); total++; }
+        e.n++;
+      });
+      var h = '<h3>' + esc(tr('noPic')) + ' <span class="' + (total ? 'tz-bad' : 'tz-ok') + '">(' + total + ')</span></h3>';
+      if (!total) h += '<p class="muted tiny">' + esc(tr('noPicNone')) + '</p>';
+      order.forEach(function (g) {
+        var label = g === 'pool' ? tr('fresh') : g === 'ro' ? tr('noPicRo') : A(g) ? headText(g) : g;
+        h += '<div class="tz-npa">' + esc(label) + ' (' + groups[g].list.length + ')</div><ul>' + groups[g].list.map(function (e) {
+          npNodes.push(e.node);
+          return '<li><button type="button" data-npj="' + (npNodes.length - 1) + '" title="' + esc(tr('noPicTip')) + '">' + esc(e.id) + (e.n > 1 ? ' ×' + e.n : '') + '</button></li>'; }).join('') + '</ul>';
+      });
+      box.innerHTML = h;
+      return total;
+    }
+    function jumpNoPic(i) {
+      var c = npNodes[i]; if (!c || !c.isConnected) return;
+      if (c.dataset.f && !c.dataset.ro && c.dataset.r !== 'p') { var k = c.dataset.f + '|' + c.dataset.r + '|' + c.dataset.c; select([k]); st.focus = k; st.anchor = k; }
+      c.scrollIntoView({ block: 'center', inline: 'center' });
+      c.classList.add('tz-flash'); setTimeout(function () { c.classList.remove('tz-flash'); }, 1600);
     }
     /* N72b-2: the game plan (integration dump, tools/tzedit/build_editor.py --plan) against the edited layouts, live */
     function planChecks() {
@@ -870,6 +931,7 @@
       });
       page.addEventListener('click', function (e) {
         if (!e.target.closest('.tz-menu')) closeMenu();
+        var j = e.target.closest('.tz-nopic [data-npj]'); if (j) { jumpNoPic(+j.dataset.npj); return; }
         var b = e.target.closest('[data-act],[data-ph]');
         if (b) {
           var a = b.dataset.act;
