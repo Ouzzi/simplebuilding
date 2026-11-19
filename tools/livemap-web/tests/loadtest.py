@@ -54,6 +54,7 @@ def serve(port: int, data: str, maps: int, tier: str):
     keys = []
     for i in range(maps):
         vis = "public" if i < svc.tier(user)["public"] else "private"
+        svc.limiter.hits.clear()          # seeding only: 13 codes at once would hit the per-account code budget
         code, _ = svc.create_code(user, f"Load map {i + 1}", vis)
         m, key = svc.redeem(code, f"00000000-0000-4000-8000-{i:012d}", "1.0.0", "127.0.0.1")
         with svc.db.tx() as c:
