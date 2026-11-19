@@ -2441,6 +2441,6 @@ window.WIKI_MODULES = [
       "recipes": 794,
       "features": 8
     },
-    "dataHash": "39acf0be6194"
+    "dataHash": "6d2d0d42b549"
   }
 ];
