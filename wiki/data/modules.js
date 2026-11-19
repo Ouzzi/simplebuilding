@@ -1140,7 +1140,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 11
     },
-    "dataHash": "49932b9ca6d8"
+    "dataHash": "c8af094d143d"
   },
   {
     "id": "simplerespawn",
@@ -1456,7 +1456,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 20
     },
-    "dataHash": "d9a5106cfb4d"
+    "dataHash": "199de52b3a4b"
   },
   {
     "id": "simplecrucibles",

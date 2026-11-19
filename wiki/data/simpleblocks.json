@@ -32239,12 +32239,13 @@
           "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java"
         ],
         "en": {
-          "summary": "A fence gate of nether bricks, the gate Vanilla's nether brick fence lacks: same hardness and blast resistance as the fence, needs a pickaxe, does not burn, sounds like nether bricks. Opens and closes like a wooden gate and joins nether brick fences."
+          "summary": "A fence gate of nether bricks, the gate Vanilla's nether brick fence lacks: same hardness and blast resistance as the fence, needs a pickaxe, does not burn, sounds like nether bricks. Opens and closes like a wooden gate and joins nether brick fences. Looks like a portcullis: thin dark bars with two riveted straps and spiked points at the bottom."
         },
         "de": {
-          "summary": "Ein Zauntor aus Netherziegeln – das Tor, das dem Netherziegelzaun in Vanilla fehlt: gleiche Härte und Explosionsfestigkeit wie der Zaun, braucht eine Spitzhacke, brennt nicht, klingt wie Netherziegel. Öffnet und schließt wie ein Holztor und schließt an Netherziegelzäune an."
+          "summary": "Ein Zauntor aus Netherziegeln – das Tor, das dem Netherziegelzaun in Vanilla fehlt: gleiche Härte und Explosionsfestigkeit wie der Zaun, braucht eine Spitzhacke, brennt nicht, klingt wie Netherziegel. Öffnet und schließt wie ein Holztor und schließt an Netherziegelzäune an. Sieht aus wie ein Fallgitter: dünne dunkle Stäbe, zwei genietete Querbänder und unten spitze Zinken."
         }
       },
+      "texture": "assets/textures/simpleblocks/block/nether_brick_fence_gate.png",
       "craftedBy": [
         "simpleblocks:nether_brick_fence_gate"
       ],
