@@ -2664,7 +2664,10 @@ function idLink(id, hint) {
    dort gibt es data/vanilla-icons.json (N72, sb-web-sync: Id -> Bild ueber Item-Modell -> Textur, auch fuer Modul-Ids ohne
    eigenes Bild dort). Diese Zuordnung geht vor (textureOf, qnFlatTexture, brTex); Ausschnitte ("datei#x,y,w,h") schneidet der load-Handler zu. */
 function devIcon(id) { return DEV_ICONS && typeof id === 'string' ? DEV_ICONS[id.indexOf(':') < 0 ? 'minecraft:' + id : id] || null : null; }
-function vanillaTexture(id) { return devIcon(id) || 'assets/textures/minecraft/' + pathOf(id) + '.png'; }
+/* N107: die flachen Vanilla-Texturen (assets/textures/minecraft/, git-ignoriert) gibt es nur nach einem lokalen generate-Lauf -
+   auf den Hosts (Prod ohne Mojang-Pixel, /dev/ mit vanilla-icons.json) nie. Dort gleich die Textkachel statt ~1000 Anfragen mit 404. */
+var VANILLA_FLAT = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+function vanillaTexture(id) { return devIcon(id) || (VANILLA_FLAT ? 'assets/textures/minecraft/' + pathOf(id) + '.png' : null); }
 /* 3D-Bilder (assets/textures/render/, Vanilla-Bloecke unter minecraft/) zeichnet generate.py
    aus den Block- und Item-Modellen, 128 px gross: verkleinert werden sie geglaettet (Klasse
    r3d), flache 16-px-Texturen bleiben pixelig. */
@@ -6924,9 +6927,12 @@ function txSave() { try { window.localStorage.setItem(TX_STORE, JSON.stringify({
 function txLoad() {
   if (window.WIKI_TEXTURES || TX.loading) return;
   TX.loading = true;
-  var pending = 2;
+  /* N107: data/ui-shots.js ist git-ignoriert und liegt nur lokal (generate.py --ui-shots) - auf den Hosts (Prod, /dev/)
+     nicht anfragen, sonst bei jedem Besuch der Texturen-Seite ein 404. */
+  var srcs = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? ['data/textures.js', 'data/ui-shots.js'] : ['data/textures.js'];
+  var pending = srcs.length;
   function done() { if (--pending === 0 && currentRoute().section === 'textures') render({ keepScroll: true }); }
-  ['data/textures.js', 'data/ui-shots.js'].forEach(function (src) {
+  srcs.forEach(function (src) {
     var s = document.createElement('script'); s.src = src;
     s.onload = done; s.onerror = function () { if (src === 'data/textures.js') window.WIKI_TEXTURES = { textures: [], missing: true }; done(); };
     document.head.appendChild(s);
