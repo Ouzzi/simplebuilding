@@ -27,13 +27,25 @@ def half_cell(slab: str) -> str:
 
 
 def migrate(data: dict) -> dict:
-    if "half_slab" in data["columns"]:
-        return data
-    at = data["columns"].index("wall") + 1
-    slab = data["columns"].index("slab")
-    data["columns"].insert(at, "half_slab")
+    if "half_slab" not in data["columns"]:
+        at = data["columns"].index("wall") + 1
+        slab = data["columns"].index("slab")
+        data["columns"].insert(at, "half_slab")
+        for row in data["rows"]:
+            row["cells"].insert(at, half_cell(row["cells"][slab]))
+    # a second slab of a row (in a "special_<n>" column, e.g. bamboo mosaic) gets its half slab in a new special column
     for row in data["rows"]:
-        row["cells"].insert(at, half_cell(row["cells"][slab]))
+        cells = row["cells"]
+        extra = [HALF[c] for c in cells if isinstance(c, str) and c in HALF and HALF[c] not in cells]
+        for half in extra:
+            free = next((i for i, c in enumerate(cells) if c is None and data["columns"][i].startswith("special_")), None)
+            if free is None:
+                n = 1 + max(int(c.split("_")[1]) for c in data["columns"] if c.startswith("special_"))
+                data["columns"].append(f"special_{n}")
+                for r in data["rows"]:
+                    r["cells"].append(None)
+                free = len(cells) - 1
+            cells[free] = half
     return data
 
 

@@ -305,6 +305,14 @@ public final class TestCentreLayout {
                 return "Wandvariante von " + base + " (gleiches Item)";
             }
         }
+        if (path.endsWith("_side_half_slab")) {
+            // N86: Seitenform der Halbstufe (Simple Slabs) - dasselbe Item wie die Halbstufe, nur an eine Wand gesetzt
+            net.minecraft.resources.Identifier half = net.minecraft.resources.Identifier.fromNamespaceAndPath(id.getNamespace(),
+                    path.substring(0, path.length() - "side_half_slab".length()) + "half_slab");
+            if (BuiltInRegistries.BLOCK.containsKey(half) && BuiltInRegistries.BLOCK.getValue(half).asItem() != Items.AIR) {
+                return "Seitenform von " + half + " (gleiches Item)";
+            }
+        }
         if (path.startsWith("potted_")) {
             return "Blumentopf mit Pflanze (Topf + Pflanze, kein eigenes Item)";
         }
