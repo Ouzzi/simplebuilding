@@ -76,7 +76,7 @@ def scenario(s):
     s.close()
 
     # 2) the mod's config screen (Simple Livemap settings, SimpleLib) - the "map screen" of the mod
-    s.chat('simplelivemap config', 1.5)
+    s.open_config('simplelivemap', 2.0)  # probe route (as uiprobe config scenes); the chat command opened nothing in run 1
     s.shot('2-config-bildschirm')
     s.check('config screen opened', s.screen() != 'none', s.screen())
     s.close()
