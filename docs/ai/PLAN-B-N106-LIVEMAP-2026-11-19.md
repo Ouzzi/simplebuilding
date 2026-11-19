@@ -56,3 +56,14 @@ Auftrag: `/root/b-auftrag-20261109.md` „## N106–N108“ › N106 (Besitzer 1
   Fehlerseiten, DE/EN, Chromium (+ Firefox/WebKit falls installierbar); Lasttest 13 Karten Ultra (`tests/loadtest.py`);
   echte Welt = Kacheln aus generierten Gametest-Welten auf sb-test (Speicher Farb-/Höhenkacheln, Upload in Dienst).
 - DEV-Klicktest: nicht möglich, solange die Dev-Stufe nicht deployt ist → ehrlich als offen melden + Deploy-Anleitung.
+
+## 6. Nachtrag (Orchestrator, Besitzer P041) und Abweichungen
+
+- **O13 P041:** Livemap/Serverseite zeigt nur sichtbare Spieler – keine schleichenden, unsichtbaren (Effekt/Flag), keine
+  Zuschauer, auch ohne Abo. Umgesetzt an der Quelle `LivemapRuntime.shown()` (speist live.json UND den gehosteten Upload),
+  Gametest `hiddenPlayersNeverSent`. Stufennamen jetzt Free/Basic/Max/Ultra: `tiers.json` heißt noch free/pro/max/ultra –
+  die Umbenennung macht b-stripe108 (Zuordnung), N106 ändert keine Stufennamen.
+- Abweichungen: (1) zusätzlich eigener PNG-Leser im Viewer (Canvas-Rücklesen ist in Safari-Privat/Brave/Firefox-RFP verrauscht;
+  nicht im Plan, Firefox/Safari nicht installierbar → Risiko an der Quelle beseitigt); (2) Kontrast-Fix Anmelde-Knopf (3,9 → 4,9),
+  Checkbox/Radio-Größe; (3) nginx-API-Limit 10 → 40 r/s (Lasttest: 13 Karten = 13–24 r/s je Adresse); (4) Gametest `drawCost`
+  (Messung statt echter Welt); (5) Changelog: Kartenstile, „gehostet kommt später“, nur sichtbare Spieler.
