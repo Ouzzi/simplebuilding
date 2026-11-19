@@ -120,7 +120,7 @@ def scenario(s):
     shutil.rmtree(prof, ignore_errors=True)
     # default style "blocks"; the other two styles need the gear panel (click test on the dev stage / Playwright shots)
     args = [chrome, '--headless=new', '--no-sandbox', '--disable-gpu', f'--user-data-dir={prof}', '--window-size=1280,800',
-            '--virtual-time-budget=6000', f'--screenshot={out}', base + '/' + (f'#t={token}' if token else '')]
+            '--virtual-time-budget=6000', f'--screenshot={out}', base + '/#' + (f't={token}&' if token else '') + f'x={x + 48}&z={z + 24}&s=2']  # the probe explores around 20000/20000, the view opens at 0/0 otherwise
     try:
         subprocess.run(args, timeout=40, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
     except (OSError, subprocess.TimeoutExpired):

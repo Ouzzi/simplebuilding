@@ -93,6 +93,10 @@ let dims = [], players = [], folder = "minecraft_overworld";
 const tiles = new Map();
 let pending = 0, dirty = true, denied = false, following = "", pollMs = 2000, pollTimer = 0, budget = 0;
 try { const v = OPTS.keep && JSON.parse(store.get(VIEW_KEY) || "null"); if (v && isFinite(v.x) && isFinite(v.z) && v.s > 0) { view = { x: v.x, z: v.z, s: v.s }; if (v.f) folder = v.f; } } catch (e) {}
+// N106: optional start position in the link (#x=..&z=..[&s=..], also with #t=token) - wins over the stored view, so a shared
+// link opens where it points; invalid values are ignored.
+{ const h = new URLSearchParams(location.hash.slice(1)), hx = Number(h.get("x")), hz = Number(h.get("z")), hs = Number(h.get("s"));
+  if (h.has("x") && h.has("z") && isFinite(hx) && isFinite(hz)) view = { x: hx + 0.5, z: hz + 0.5, s: hs > 0 && hs <= 16 ? hs : view.s }; }
 
 let layer = null, lctx = null;                // off-screen copy for the block edges (only drawn where tiles are)
 function resize() {
