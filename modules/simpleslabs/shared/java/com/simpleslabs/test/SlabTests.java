@@ -51,7 +51,7 @@ public final class SlabTests {
 
     static {
         ALL.put("registered", SlabTests::registered);
-        ALL.put("every_slab_has_a_half_slab", SlabTests::everySlabHasAHalfSlab);
+        ALL.put("every_slab_has_its_half_slab", SlabTests::everySlabHasItsHalfSlab);
         ALL.put("owner_layer_patterns_by_clicks", SlabTests::ownerLayerPatternsByClicks);
         ALL.put("top_and_bottom_placement", SlabTests::topAndBottomPlacement);
         ALL.put("shapes_follow_the_layers", SlabTests::shapesFollowTheLayers);
@@ -99,7 +99,7 @@ public final class SlabTests {
     }
 
     /** Owner N86-5: every slab of a covered namespace has its half slab (only petrified_oak_slab, without a block of its own, not). */
-    static void everySlabHasAHalfSlab(GameTestHelper h) {
+    static void everySlabHasItsHalfSlab(GameTestHelper h) {
         Set<String> namespaces = HalfSlabMaterials.ALL.stream().map(m -> Identifier.parse(m.slab()).getNamespace()).collect(Collectors.toSet());
         List<String> missing = new ArrayList<>();
         int checked = 0;
@@ -214,19 +214,25 @@ public final class SlabTests {
 
     static void everyLayerDrops(GameTestHelper h) {
         HalfSlabBlock block = half(Blocks.STONE_SLAB);
+        BlockPos pos = h.absolutePos(CELL);
+        List<String> problems = new ArrayList<>();
+        Object[][] cases = {{block.withMask(0b11000011), 4}, {block.withMask(0b1), 1}, {block.withMask(0xFF), 8},
+                {block.side().defaultBlockState().setValue(SideHalfSlabBlock.THICKNESS, 4), 4},
+                {block.side().defaultBlockState(), 1}};
+        for (Object[] c : cases) {
+            int n = Block.getDrops((BlockState) c[0], h.getLevel(), pos, null).stream().filter(s -> s.is(block.asItem())).mapToInt(ItemStack::getCount).sum();
+            if (n != (int) c[1]) problems.add(c[0] + " drops " + n + " instead of " + c[1]);
+        }
+        // in the world: breaking the 4-layer cell puts exactly 4 items next to it
+        clearDrops(h);
         h.setBlock(CELL, block.withMask(0b11000011));
-        h.getLevel().destroyBlock(h.absolutePos(CELL), true);
-        h.assertValueEqual(dropped(h, block.asItem()), 4, "4 layers drop 4 half slabs");
-        clearDrops(h);
-        h.setBlock(CELL, block.side().defaultBlockState().setValue(SideHalfSlabBlock.THICKNESS, 4));
-        h.getLevel().destroyBlock(h.absolutePos(CELL), true);
-        h.assertValueEqual(dropped(h, block.asItem()), 4, "a side slab drops 4 half slabs");
-        clearDrops(h);
-        h.setBlock(CELL, block.withMask(0xFF));
-        h.getLevel().destroyBlock(h.absolutePos(CELL), true);
-        h.assertValueEqual(dropped(h, block.asItem()), 8, "a full cell drops 8");
-        h.assertTrue(block.side().defaultBlockState().getCloneItemStack(h.getLevel(), h.absolutePos(CELL), false).is(block.asItem()),
+        h.getLevel().destroyBlock(pos, true);
+        int world = 0;
+        for (ItemEntity e : h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(1.0))) if (e.getItem().is(block.asItem())) world += e.getItem().getCount();
+        if (world != 4) problems.add("breaking in the world dropped " + world);
+        h.assertTrue(block.side().defaultBlockState().getCloneItemStack(h.getLevel(), pos, false).is(block.asItem()),
                 "pick block on the side form gives the half slab");
+        h.assertTrue(problems.isEmpty(), "drops: " + problems);
         h.succeed();
     }
 
@@ -316,7 +322,11 @@ public final class SlabTests {
             h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(CELL)), 0xFF, "the lower cell is full");
             BlockState above = h.getBlockState(CELL.above());
             h.assertTrue(above.is(sand) && HalfSlabBlock.mask(above) == 0b11, "2 layers in the cell above: " + above);
-            h.assertValueEqual(dropped(h, sand.asItem()), 0, "nothing dropped");
+            int near = 0;
+            for (ItemEntity e : h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(h.absolutePos(CELL)).inflate(1.0))) {
+                if (e.getItem().is(sand.asItem())) near += e.getItem().getCount();
+            }
+            h.assertValueEqual(near, 0, "nothing dropped");
         });
     }
 

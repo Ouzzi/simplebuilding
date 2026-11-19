@@ -12,8 +12,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleslabs:empty", maxTicks = 100)
-    public void everySlabHasAHalfSlab(GameTestHelper h) {
-        SlabTests.ALL.get("every_slab_has_a_half_slab").accept(h);
+    public void everySlabHasItsHalfSlab(GameTestHelper h) {
+        SlabTests.ALL.get("every_slab_has_its_half_slab").accept(h);
     }
 
     @GameTest(structure = "simpleslabs:empty", maxTicks = 100)
