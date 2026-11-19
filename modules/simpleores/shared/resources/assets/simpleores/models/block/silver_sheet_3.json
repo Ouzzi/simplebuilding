@@ -1,4 +1,5 @@
 {
+  "parent": "minecraft:block/thin_block",
   "textures": {
     "plate": "simpleores:block/silver_sheet",
     "particle": "simpleores:block/silver_sheet"

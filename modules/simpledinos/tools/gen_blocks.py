@@ -138,7 +138,7 @@ def saddle_image():
 
 
 def armor_image(tier):
-    return chosen(OI.armor('C', tier), 'Platte')
+    return chosen(DI.trex_armor(tier), 'Platte')   # N96A: Vanilla-near redraw (dino_items.vanilla_armor)
 
 
 def grid_image(rows, colors, groups, base='Grundfarbe'):
