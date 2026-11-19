@@ -475,6 +475,12 @@ class ViewerTests(Base):
         self.assertEqual(r.status, 200)
         self.assertIn('name="confirm"', r.body.decode())
         self.assertEqual(anon.get("https://livemap.test/report?map=nope-nope").status, 404)
+        with self.svc.db.tx() as tx:
+            tx.execute("UPDATE maps SET visibility = 'private'")
+        self.assertNotIn(self.svc.db.value("SELECT name FROM maps"), anon.get(f"https://livemap.test/report?map={d['map']}").body.decode(),
+                         "a private map's name stays hidden")
+        with self.svc.db.tx() as tx:
+            tx.execute("UPDATE maps SET visibility = 'public'")
         self.assertEqual(anon.get("https://livemap.test/report?map=../x").status, 404)
         url = f"https://livemap.test/report?map={d['map']}"
         base = {"map": d["map"], "reason": "illegal", "text": "Hate symbol at x 120 z -40, built from wool.", "confirm": "1"}

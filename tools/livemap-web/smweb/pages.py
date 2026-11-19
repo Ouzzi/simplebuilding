@@ -367,7 +367,10 @@ def report_form(ctx, m, f: dict) -> str:
     foot = (f'<p class="mut small">{ctx.t("We store the notice, the map and the time; your address only if you give it. Misuse of the form is not allowed.", "Wir speichern die Meldung, die Karte und die Zeit; deine Adresse nur, wenn du sie angibst. Missbrauch des Formulars ist nicht erlaubt.")}</p>'
             f'<p class="links"><a href="{e(ctx.url("livemap", "/m/" + m["slug"] + "/"))}">{ctx.t("Back to the map", "Zurück zur Karte")}</a></p>')
     title = ctx.t("Report a map", "Karte melden")
-    return layout(ctx, title, f'<section class="card narrow auth"><h1>{e(title)}</h1><p>{e(m["name"])} <span class="mut small">/m/{e(m["slug"])}</span></p>{alerts(ctx)}{inner}{foot}</section>')
+    # the name only where the visitor may see the map anyway (a private map's name is no public information)
+    shown = m["visibility"] == "public" or ctx.svc.can_view(m, ctx.user, None)
+    name = f'{e(m["name"])} ' if shown else ""
+    return layout(ctx, title, f'<section class="card narrow auth"><h1>{e(title)}</h1><p>{name}<span class="mut small">/m/{e(m["slug"])}</span></p>{alerts(ctx)}{inner}{foot}</section>')
 
 
 def preparing(ctx, m, progress: int) -> str:

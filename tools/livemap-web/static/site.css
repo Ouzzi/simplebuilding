@@ -70,10 +70,11 @@ textarea { resize: vertical; }
 .stack { display: grid; gap: 12px; }
 label { display: grid; gap: 4px; font-weight: 600; }
 label.check, label.radio { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; }
-label.check input, label.radio input { margin-top: 5px; width: auto; }
+label.check input, label.radio input { margin-top: 3px; }
 input, select, textarea { width: 100%; font: inherit; color: var(--ink); background: var(--field); border: 2px solid #000; padding: 8px 10px;
   box-shadow: inset 2px 2px 0 #0a0908; min-width: 0; }
 input[readonly] { color: var(--mut); }
+input[type=checkbox], input[type=radio] { width: 18px; height: 18px; padding: 0; box-shadow: none; flex: none; accent-color: var(--green-hi); }
 fieldset { border: 2px solid #000; padding: 8px 12px 10px; margin: 0; display: grid; gap: 6px; }
 legend { font-weight: 600; padding: 0 4px; }
 .prefix, .copyrow { display: flex; align-items: center; gap: 6px; font-weight: 400; }
