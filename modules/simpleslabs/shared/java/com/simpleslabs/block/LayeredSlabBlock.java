@@ -40,7 +40,8 @@ import org.jspecify.annotations.Nullable;
  *   <li>Water: waterlogged like a slab; a full cell (4 layers) takes no water and loses it.</li>
  *   <li>Falling (sand, red sand, gravel; owner N86-5): free below = it falls as its layers, bottom-aligned; on the ground the
  *       layers settle to the bottom of the cell; landing on the same half slab merges the layers ({@link HalfSlabBlock}).</li>
- *   <li>Drops: one half slab per layer (loot table); broken after a fall: every layer (Vanilla drops one item).</li>
+ *   <li>Drops: one item of the form per layer (loot table; N86S: the side form drops side half slabs); broken after a fall:
+ *       every layer (Vanilla drops one item; a falling side form has become half slab layers).</li>
  * </ul>
  */
 public abstract class LayeredSlabBlock extends Block implements SimpleWaterloggedBlock, Fallable {
@@ -59,7 +60,7 @@ public abstract class LayeredSlabBlock extends Block implements SimpleWaterlogge
         this.falls = falls;
     }
 
-    /** The half slab block of this material (the one with the item). */
+    /** The half slab block of this material (the horizontal form). */
     public abstract HalfSlabBlock main();
 
     /** Occupied layers of a state (1..4). */
@@ -115,7 +116,7 @@ public abstract class LayeredSlabBlock extends Block implements SimpleWaterlogge
 
     @Override
     protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
-        return new ItemStack(main().asItem());
+        return new ItemStack(asItem());
     }
 
     // ------------------------------------------------------------------ falling (sand, red sand, gravel)

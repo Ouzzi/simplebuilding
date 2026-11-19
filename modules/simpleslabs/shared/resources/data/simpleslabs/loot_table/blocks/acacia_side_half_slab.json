@@ -43,7 +43,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:acacia_half_slab"
+          "name": "simpleslabs:acacia_side_half_slab"
         }
       ],
       "rolls": 1

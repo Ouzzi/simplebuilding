@@ -5,6 +5,7 @@ import com.simpleslabs.block.HalfSlabBlock;
 import com.simpleslabs.block.LayeredSlabBlock;
 import com.simpleslabs.block.SideHalfSlabBlock;
 import com.simpleslabs.item.HalfSlabItem;
+import com.simpleslabs.item.SideHalfSlabItem;
 import com.simplelib.api.shape.ShapeMaterials;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,14 +28,18 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Registration from the generated {@link HalfSlabMaterials} (tools/textures/half_slab_materials.json): per material the half
- * slab ({@code <slab path without _slab>_half_slab}, with item) and its side form ({@code <...>_side_half_slab}, no item). Like
+ * slab ({@code <slab path without _slab>_half_slab}) and its side form ({@code <...>_side_half_slab}), each with its own item (the side
+ * item since N86S, owner 19.11.). Like
  * the octets, another mod's half slab exists only while every mod in {@code mods} is loaded; its properties come from SimpleLib's
  * ShapeMaterials template and the real slab is read late.
  */
 public final class SlabRegistry {
     public static final List<HalfSlabBlock> HALF_SLABS = new ArrayList<>();
     public static final List<SideHalfSlabBlock> SIDE_SLABS = new ArrayList<>();
+    /** Half slab items, in material order. */
     public static final List<Item> ITEMS = new ArrayList<>();
+    /** Side half slab items (N86S), same order as {@link #ITEMS}. */
+    public static final List<Item> SIDE_ITEMS = new ArrayList<>();
     /** The grass half slabs (main and side form): tinted by the biome on the client. */
     public static final List<Block> GRASS = new ArrayList<>();
     private static final Map<Block, HalfSlabMaterials.Material> MATERIALS = new HashMap<>();
@@ -113,6 +118,10 @@ public final class SlabRegistry {
             Identifier id = BuiltInRegistries.BLOCK.getKey(block);
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, id);
             ITEMS.add(Registry.register(BuiltInRegistries.ITEM, id, new HalfSlabItem(block, new Item.Properties().setId(key).useBlockDescriptionPrefix())));
+            Identifier sideId = BuiltInRegistries.BLOCK.getKey(block.side());
+            ResourceKey<Item> sideKey = ResourceKey.create(Registries.ITEM, sideId);
+            SIDE_ITEMS.add(Registry.register(BuiltInRegistries.ITEM, sideId,
+                    new SideHalfSlabItem(block.side(), new Item.Properties().setId(sideKey).useBlockDescriptionPrefix())));
         }
     }
 
@@ -141,11 +150,17 @@ public final class SlabRegistry {
                         .build());
     }
 
-    /** Tab order: the material list's order (groups as in Simple Octets: wood, stone ... concrete, terracotta, mod, other). */
+    /**
+     * Tab order: the material list's order (groups as in Simple Octets: wood, stone ... concrete, terracotta, mod, other), each
+     * side half slab right after its half slab (N86S).
+     */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleSlabs.on()) return out;
-        ITEMS.forEach(item -> out.add(new ItemStack(item)));
+        for (int i = 0; i < ITEMS.size(); i++) {
+            out.add(new ItemStack(ITEMS.get(i)));
+            out.add(new ItemStack(SIDE_ITEMS.get(i)));
+        }
         return out;
     }
 

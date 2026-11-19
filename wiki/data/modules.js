@@ -2437,9 +2437,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 340,
-      "recipes": 794,
+      "recipes": 1758,
       "features": 8
     },
-    "dataHash": "cd4124e8d49d"
+    "dataHash": "9196041c0533"
   }
 ];

@@ -61,7 +61,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:netherrack_half_slab"
+          "name": "simpleslabs:netherrack_side_half_slab"
         }
       ],
       "rolls": 1

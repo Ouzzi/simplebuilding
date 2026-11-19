@@ -61,7 +61,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:packed_ice_half_slab"
+          "name": "simpleslabs:packed_ice_side_half_slab"
         }
       ],
       "rolls": 1

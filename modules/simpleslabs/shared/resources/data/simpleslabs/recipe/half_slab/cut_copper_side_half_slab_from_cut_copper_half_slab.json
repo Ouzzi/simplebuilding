@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleslabs:cut_copper_half_slab"
+  ],
+  "result": {
+    "id": "simpleslabs:cut_copper_side_half_slab"
+  }
+}

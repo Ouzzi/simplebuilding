@@ -1,0 +1,59 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simpleblocks"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simpleblocks"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:not",
+    "value": {
+      "type": "forge:mod_loaded",
+      "modid": "simpleblocks"
+    }
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_acacia_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:acacia_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleslabs:half_slab/acacia_side_half_slab_from_acacia_slab_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_acacia_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleslabs:half_slab/acacia_side_half_slab_from_acacia_slab_stonecutting"
+    ]
+  }
+}

@@ -61,7 +61,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:blackstone_quartz_checker_half_slab"
+          "name": "simpleslabs:blackstone_quartz_checker_side_half_slab"
         }
       ],
       "rolls": 1

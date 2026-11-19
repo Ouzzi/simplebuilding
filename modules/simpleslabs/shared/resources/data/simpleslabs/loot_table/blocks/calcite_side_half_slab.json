@@ -61,7 +61,7 @@
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:calcite_half_slab"
+          "name": "simpleslabs:calcite_side_half_slab"
         }
       ],
       "rolls": 1

@@ -1,5 +1,5 @@
 """Simple Slabs data invariants (N86): the generated half slab files are up to date, 170 materials, both lang files name
-every half slab and its side form, the loot tables use the 26.x format, the wiki manual has EN/DE features."""
+every half slab and its side form (N86S: both items), the loot tables use the 26.x format, the wiki manual has EN/DE features."""
 import json
 import subprocess
 import sys
@@ -16,7 +16,7 @@ for locale in ('en_us', 'de_de'):
     lang = json.loads((MODULE / f'shared/resources/assets/simpleslabs/lang/{locale}.json').read_text(encoding='utf-8'))
     for m in mats:
         side = m['id'][:-len('half_slab')] + 'side_half_slab'
-        for key in (f'block.simpleslabs.{m["id"]}', f'item.simpleslabs.{m["id"]}', f'block.simpleslabs.{side}'):
+        for key in (f'block.simpleslabs.{m["id"]}', f'item.simpleslabs.{m["id"]}', f'block.simpleslabs.{side}', f'item.simpleslabs.{side}'):
             assert key in lang, f'{locale}: {key} missing'
     assert 'itemgroup.simpleslabs.half_slabs' in lang
 loot = MODULE / 'shared/resources/data/simpleslabs/loot_table/blocks'

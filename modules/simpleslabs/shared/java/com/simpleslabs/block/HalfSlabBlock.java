@@ -27,8 +27,8 @@ import org.jspecify.annotations.Nullable;
  * ({@code l0} = y 0-4 ... {@code l3} = y 12-16) - 32 states. The owner's examples are layer sets: 0-4 + 12-16 px = {0,3},
  * 0-4 + 8-12 px = {0,2}; two bottom layers are a slab.
  * <ul>
- *   <li>Placing: on a top face layer 0 of the cell above, on a bottom face layer 3, on a side face the layer at the click height;
- *       sneaking on a side face makes a {@link SideHalfSlabBlock} instead. The same item on a half slab fills the free layer at
+ *   <li>Placing: on a top face layer 0 of the cell above, on a bottom face layer 3, on a side face the layer at the click height
+ *       (the upright {@link SideHalfSlabBlock} has its own item since N86S). The same item on a half slab fills the free layer at
  *       the click; on its own slab ({@link com.simpleslabs.item.HalfSlabItem}) the slab becomes layers 0-1 / 2-3 plus one.</li>
  *   <li>Breaking drops one half slab per layer (loot table, one pool per layer).</li>
  * </ul>
@@ -142,18 +142,13 @@ public class HalfSlabBlock extends LayeredSlabBlock {
         return layer < 0 || layer >= LAYERS ? -1 : layer;
     }
 
-    /** Sneaking on a side face: the player wants a side half slab against that block. */
-    public static boolean wantsSide(net.minecraft.world.item.context.UseOnContext context) {
-        return context.isSecondaryUseActive() && context.getClickedFace().getAxis().isHorizontal();
-    }
-
     @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         if (falls && context instanceof DirectionalPlaceContext && context.getItemInHand().isEmpty()) {
             mergeLanding(state, context);
             return false;
         }
-        if (!context.getItemInHand().is(asItem()) || wantsSide(context)) return false;
+        if (!context.getItemInHand().is(asItem())) return false;
         int layer = targetLayer(context, context.replacingClickedOnBlock());
         return layer >= 0 && !state.getValue(LAYER[layer]);
     }
@@ -167,12 +162,7 @@ public class HalfSlabBlock extends LayeredSlabBlock {
             int layer = targetLayer(context, context.replacingClickedOnBlock());
             return layer < 0 || existing.getValue(LAYER[layer]) ? null : withMask(existing, mask(existing) | 1 << layer);
         }
-        if (existing.is(side)) return side.grown(existing);
         boolean water = level.getFluidState(pos).getType() == Fluids.WATER;
-        if (wantsSide(context)) {
-            return water(side.defaultBlockState().setValue(SideHalfSlabBlock.FACING, context.getClickedFace().getOpposite())
-                    .setValue(SideHalfSlabBlock.THICKNESS, 1), water);
-        }
         int layer = targetLayer(context, false);
         return layer < 0 ? null : water(withMask(1 << layer), water);
     }

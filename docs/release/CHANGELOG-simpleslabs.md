@@ -11,12 +11,12 @@ Half slabs (4 pixels, half a slab) of every block with a slab, freely stacked in
 ## Added
 
 - **Half slabs: 4-pixel layers of every block with a slab** - 170 half slabs (Vanilla, SimpleBuilding and its sub-mods, also dirt, grass, sand, red sand and gravel) with the textures of their slab. Any of the four layers of a cell can be filled, in any combination: placed at the clicked height, the same half slab fills the free layer at the click.
-- **Side half slab and side slab** - Sneak + right-click on the side of a block stands the half slab upright against it; two layers are a side slab, four fill the cell.
+- **Side half slab and side slab** - Every material also has a side half slab item: right-click on the side of a block stands it upright against it; two layers are a side slab, four fill the cell. One half slab crafts into one side half slab and back.
 - **Slab and half slab in one block** - A half slab on its own slab adds a layer.
-- **Breaking and water** - Every filled layer drops one half slab; half slabs hold water like a slab.
+- **Breaking and water** - Every filled layer drops one half slab (side forms: one side half slab); half slabs hold water like a slab.
 - **Sand, gravel and grass** - Sand, red sand and gravel half slabs fall and settle; the grass half slab takes the biome color.
 - **Copper half slabs age** - Unwaxed copper half slabs age like Vanilla copper; honeycomb waxes, an axe scrapes.
-- **Shapecutter and back** - 2 half slabs from a slab, 4 from the full block (Shapecutter of Simple Blocks, without it the stonecutter); 2 craft back into the slab.
+- **Shapecutter and back** - 2 half slabs or side half slabs from a slab, 4 from the full block (Shapecutter of Simple Blocks, without it the stonecutter); 2 half slabs craft back into the slab.
 
 ## Requirements
 

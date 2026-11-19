@@ -13,15 +13,16 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
 /**
  * Side half slab / side slab (N86-2, owner 18.11.): 4-px layers stacked against one wall of the cell - {@code facing} = the
- * side it leans on, {@code thickness} 1..4 layers (1 = side half slab, 2 = side slab of 8 px, 4 = a full cell) - 32 states. It has no
- * item of its own: the half slab item places it when the player sneaks on a side face, and grows it from the open side.
- * Breaking drops one half slab per layer. A free mask per axis would cost 3 x 16 x 2 states per material (plan 1.2), the
+ * side it leans on, {@code thickness} 1..4 layers (1 = side half slab, 2 = side slab of 8 px, 4 = a full cell) - 32 states. Since
+ * N86S (owner 19.11.) it has its own item ({@link com.simpleslabs.item.SideHalfSlabItem}): placed against the clicked block face, grown
+ * from the open side. Breaking drops one side half slab per layer. A free mask per axis would cost 3 x 16 x 2 states per material (plan 1.2), the
  * owner names only the side half slab and the side slab.
  */
 public class SideHalfSlabBlock extends LayeredSlabBlock {
@@ -79,15 +80,27 @@ public class SideHalfSlabBlock extends LayeredSlabBlock {
     }
 
     /**
-     * The half slab item grows it from the open side: clicked on it from the side facing away from its wall, or - sneaking - on
-     * the wall block's face next to it. Without sneaking a click on the wall block places a normal half slab elsewhere.
+     * Its own item grows it from the open side: clicked on it from the side facing away from its wall, or on the wall block's face
+     * next to it (both are a click on the face {@code facing.getOpposite()}).
      */
     @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        if (!context.getItemInHand().is(main.asItem()) || state.getValue(THICKNESS) >= LAYERS) return false;
-        Direction open = state.getValue(FACING).getOpposite();
-        if (context.replacingClickedOnBlock()) return context.getClickedFace() == open;
-        return HalfSlabBlock.wantsSide(context) && context.getClickedFace() == open;
+        if (!context.getItemInHand().is(asItem()) || state.getValue(THICKNESS) >= LAYERS) return false;
+        return context.getClickedFace() == state.getValue(FACING).getOpposite();
+    }
+
+    /**
+     * Against the clicked block on a side face (facing = toward that block); on a top or bottom face against the cell's far wall in
+     * the player's view direction. Into its own side form: one layer thicker.
+     */
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState existing = context.getLevel().getBlockState(context.getClickedPos());
+        if (existing.is(this)) return grown(existing);
+        Direction face = context.getClickedFace();
+        Direction facing = face.getAxis().isHorizontal() ? face.getOpposite() : context.getHorizontalDirection();
+        boolean water = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        return water(defaultBlockState().setValue(FACING, facing).setValue(THICKNESS, 1), water);
     }
 
     @Override

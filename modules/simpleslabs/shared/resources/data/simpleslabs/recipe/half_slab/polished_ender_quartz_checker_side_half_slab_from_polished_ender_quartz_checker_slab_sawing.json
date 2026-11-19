@@ -1,0 +1,59 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplechess"
+      ]
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleblocks"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplechess"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleblocks"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:and",
+    "values": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "simplechess"
+      },
+      {
+        "type": "forge:mod_loaded",
+        "modid": "simplebuilding"
+      },
+      {
+        "type": "forge:mod_loaded",
+        "modid": "simpleblocks"
+      }
+    ]
+  },
+  "type": "simpleblocks:sawing",
+  "ingredient": "simplechess:polished_ender_quartz_checker_slab",
+  "result": {
+    "count": 2,
+    "id": "simpleslabs:polished_ender_quartz_checker_side_half_slab"
+  }
+}

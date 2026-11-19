@@ -59,7 +59,7 @@ public final class ModBlockGallery {
 
     /** Formtyp, Reihenfolge = Zeilen von vorn (Gang) nach hinten. */
     public enum Form {
-        OCTET, SLAB, HALF_SLAB, STAIRS, WALL, FENCE, FENCE_GATE, PANE, TRAPDOOR, DOOR, BLOCK;
+        OCTET, SLAB, HALF_SLAB, SIDE_HALF_SLAB, STAIRS, WALL, FENCE, FENCE_GATE, PANE, TRAPDOOR, DOOR, BLOCK;
 
         int stack() {
             return this == DOOR ? 1 : STACK;
@@ -132,6 +132,11 @@ public final class ModBlockGallery {
         if (block.getStateDefinition().getProperty("l0") instanceof BooleanProperty
                 && block.getStateDefinition().getProperty("l3") instanceof BooleanProperty) {
             return Form.HALF_SLAB;
+        }
+        // N86S: Seiten-Halbstufe von Simple Slabs (Dicke 1..4, eigenes Item; per Eigenschaft + Id, keine Compile-Abhaengigkeit)
+        if (block.getStateDefinition().getProperty("thickness") instanceof net.minecraft.world.level.block.state.properties.IntegerProperty
+                && BuiltInRegistries.BLOCK.getKey(block).getPath().endsWith("_side_half_slab")) {
+            return Form.SIDE_HALF_SLAB;
         }
         if (block instanceof StairBlock || state.is(BlockTags.STAIRS)) {
             return Form.STAIRS;

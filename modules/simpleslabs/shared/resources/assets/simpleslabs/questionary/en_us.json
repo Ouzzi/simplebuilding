@@ -10,18 +10,32 @@
       "Its pages open in your language and nothing is consumed."
     ]
   },
+  "family:side_half_slab": {
+    "items": [
+      "regex:.*_side_half_slab"
+    ],
+    "lore": [
+      "{name}: a half slab standing upright, 4 pixels thin."
+    ],
+    "use": [
+      "Right-click on a block side: it stands against that side. Each further click there or on its open face adds a layer; 2 layers = side slab, 4 = full cell. 1:1 from the half slab, or cut 2 from a slab. Breaking drops one per layer."
+    ],
+    "secret": [
+      "On the top of a block it leans on the far wall of the cell, the way you look."
+    ]
+  },
   "family:half_slab": {
     "items": [
-      "regex:.*_half_slab"
+      "regex:(?!.*_side_half_slab$).*_half_slab"
     ],
     "lore": [
       "{name}: half a slab, 4 pixels thin."
     ],
     "use": [
-      "Places in the clicked cell layer; the same half slab fills the free layer at the click. Sneak + right-click on a block side: upright, 4 layers = side slab. Cut 4 from a slab, 8 from the block; 4 craft back. Breaking drops one per layer."
+      "Places in the clicked cell layer; the same half slab fills the free layer at the click. Cut 2 from a slab, 4 from the block; 2 craft back, 1 crafts into a side half slab. Breaking drops one per layer."
     ],
     "secret": [
-      "Eight layers fit into one cell, in any order: 0-4 plus 12-16 pixels is just layers 1, 2, 7 and 8. Sand and gravel half slabs fall, copper ones age."
+      "Four layers fit into one cell, in any order: 0-4 plus 12-16 pixels is just layers 1 and 4. Sand and gravel half slabs fall, copper ones age."
     ]
   }
 }
