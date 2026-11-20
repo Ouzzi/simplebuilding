@@ -5,10 +5,17 @@ Red with a list when an item/block picture of the wiki data or a picture of the 
 - is a file with the placeholder pattern of tools/textures/vanilla_derived.placeholder_png (grey checker, b = a // 2).
 It checks the tree the data was generated from, so ids that only arrive with a later bundle are not in it yet.
 The dev host fills the Vanilla-derived files from the jars of the green gates (fill_from_dist, tested below);
-live: /root/n74dev/n97_placeholders.cjs."""
+live: /root/n74dev/n97_placeholders.cjs.
+
+N113: a picture that is git-ignored (Vanilla-derived texture, sheet copy, 3D render) is missing on the hosts unless their
+fill step wrote it. Every such picture the data names must be in wiki/data/local-only.js, so the page does not ask for it
+there (the 18 renders of the Textures page, the 249 derived pictures on Production); the loader/page logic is tested by
+n113_loader_core.cjs, the production fill (--published-only) below. Live: /root/n74dev/n113_wiki.cjs."""
 import io
 import json
+import shutil
 import struct
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -23,6 +30,7 @@ sys.path.insert(0, str(ROOT / 'tools' / 'textures'))
 import textures as tx  # noqa: E402
 import vanilla_derived as vd  # noqa: E402
 import vanilla_textures as vt  # noqa: E402
+import local_only as lo  # noqa: E402
 
 
 def is_placeholder(path: Path) -> bool:
@@ -117,6 +125,74 @@ class FillFromDistTests(unittest.TestCase):
             self.assertEqual((out / f'assets/{module}/textures/{nested_rel}').read_bytes(), real_nested)
             self.assertIn(f'assets/{vd.NS}/textures/{next(iter(list(vd.OUTPUTS)[1:]))}', left)
             self.assertEqual(vt.fill_from_dist(out, tmp / 'missing.json')[0], 0)  # no published jars: unchanged
+
+
+class LocalOnlyTests(unittest.TestCase):
+    """N113: what the page must not ask the hosts for."""
+
+    def test_list_is_current(self):
+        built = lo.build(WIKI)
+        if built is None:
+            self.skipTest('no git')
+        self.assertEqual(lo.read(WIKI), built, 'wiki/data/local-only.js is stale - python3 wiki/local_only.py (or generate.py)')
+
+    def test_texture_page_renders_listed(self):
+        """The case of the 18 broken pictures per texture page: textures.js names a 3D render (icon) git ignores."""
+        built = lo.build(WIKI)
+        if built is None:
+            self.skipTest('no git')
+        listed = lo.flat(lo.read(WIKI))
+        index = tx.read_js(WIKI / tx.DATA_FILE) or {}
+        pics = {e[k] for e in index.get('textures', []) for k in ('icon', 'file') if isinstance(e.get(k), str)}
+        ignored = lo.ignored(WIKI, pics) or set()
+        renders = {p for p in ignored if '/render/' in p}
+        self.assertTrue(renders, 'textures.js names no git-ignored render any more - adjust this test')
+        self.assertEqual(sorted(ignored - listed), [], 'git-ignored texture-page pictures missing in local-only.js')
+        # every picture that is in no plain checkout and not written by the host fill is in the list
+        missing = sorted(p for p in pics if not (WIKI / p).is_file() and p not in listed and p not in derived_files())
+        self.assertEqual(missing, [], 'texture-page pictures that exist nowhere')
+
+    def test_minecraft_and_tracked_not_listed(self):
+        listed = lo.flat(lo.read(WIKI))
+        self.assertFalse([p for p in listed if p.startswith(lo.SKIP_PREFIX)])
+        tracked = tx.claimed_copies(WIKI, [])
+        if tracked is not None:
+            self.assertEqual(sorted(listed & {p for p in tracked if p.startswith('assets/textures/')}), [])
+
+    @unittest.skipUnless(shutil.which('node'), 'node fehlt')
+    def test_loader_and_texture_page(self):
+        r = subprocess.run(['node', str(Path(__file__).with_name('n113_loader_core.cjs'))], capture_output=True, text=True, timeout=120)
+        out = json.loads((r.stdout.strip().splitlines() or ['{}'])[-1])
+        self.assertEqual(out.get('failures'), [], r.stderr[-2000:])
+        self.assertGreater(out.get('checks', 0), 30)
+
+    def test_published_only_fill(self):
+        """Production host: only pictures from the published jars, no placeholders, and the present list names them."""
+        real = png(b'\x10\x20\x30\xff')
+        layer = tx.SB_LAYERS[-1]
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            wiki = tmp / 'wiki'
+            (wiki / 'data').mkdir(parents=True)
+            entries = [{'id': 'simplebuilding:block/a', 'module': 'simplebuilding', 'file': 'assets/textures/simplebuilding/block/a.png',
+                        'source': f'{layer}/assets/simplebuilding/textures/block/a.png', 'w': 2, 'h': 2},
+                       {'id': 'simplebuilding:block/b', 'module': 'simplebuilding', 'file': 'assets/textures/simplebuilding/block/b.png',
+                        'source': f'{layer}/assets/simplebuilding/textures/block/b.png', 'w': 2, 'h': 2},
+                       {'id': 'simplebuilding:block/own', 'module': 'simplebuilding', 'file': 'assets/textures/simplebuilding/block/own.png',
+                        'source': 'src/main/resources/assets/simplebuilding/textures/block/own.png', 'w': 2, 'h': 2}]
+            (wiki / tx.DATA_FILE).write_text(tx.render_js({'schema': 1, 'modules': [], 'textures': entries}), encoding='utf-8')
+            (tmp / 'files').mkdir()
+            with zipfile.ZipFile(tmp / 'files/super.jar', 'w') as z:
+                z.writestr('assets/simplebuilding/textures/block/a.png', real)
+            (tmp / 'index.json').write_text(json.dumps({'builds': [{'date': '2026-11-20', 'files': [
+                {'minecraft': '26.3', 'loader': 'fabric', 'url': 'files/super.jar'}]}]}), encoding='utf-8')
+            written, left = vt.write_published(tmp, wiki, tmp / 'index.json')
+            self.assertEqual((written, left), (1, 1))
+            self.assertEqual((wiki / 'assets/textures/simplebuilding/block/a.png').read_bytes(), real)
+            self.assertFalse((wiki / 'assets/textures/simplebuilding/block/b.png').exists(), 'no placeholder on production')
+            present = json.loads((wiki / vt.PRESENT_FILE).read_text(encoding='utf-8'))
+            self.assertEqual(present['files'], ['assets/textures/simplebuilding/block/a.png'])
+            self.assertEqual(present['mode'], 'published')
 
 
 if __name__ == '__main__':

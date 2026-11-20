@@ -17,7 +17,12 @@ and the Vanilla-derived copies), so nothing of Mojang's ends up in the repositor
              copied to the wiki paths that wiki/data/textures.js names for them. The wiki checkouts on the web host
              are plain git trees, so without this those cards had no image.
 
-Run on the dev checkout only (tools/zentrale-web/sb-web-sync), or locally:
+  --published-only  (N113, production checkout) only the Vanilla-derived textures found in the published mod jars
+             (index.json of the green gates - the same pixels every player downloads), no client jar, no placeholders.
+  --derived and --published-only also write wiki/data/derived-present.json (git-ignored): the pictures of
+  wiki/data/local-only.js this host really has; the page asks only for those (assets/module-loader.js).
+
+Run on the dev checkout (tools/zentrale-web/sb-web-sync), --published-only on the production checkout, or locally:
     python3 wiki/vanilla_textures.py [--jar client.jar] [--vanilla] [--icons] [--derived]     (default: all)
     python3 wiki/generate.py --with-vanilla                                         (same, after the normal run)
 """
@@ -363,6 +368,59 @@ def fill_from_dist(out_root: Path, index_file: Path) -> tuple[int, list[str]]:
     return len(got), sorted(set(left) - set(got))
 
 
+PRESENT_FILE = "data/derived-present.json"
+
+
+def write_present(files: set[str], mode: str, wiki: Path = WIKI) -> None:
+    """N113: the git-ignored pictures this host really has (wiki/data/local-only.js names all of them); the page
+    (assets/module-loader.js) asks only for these. Ignored by git (wiki/data/.gitignore)."""
+    path = wiki / PRESENT_FILE
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps({"schema": 1, "mode": mode, "files": sorted(files)}, separators=(",", ":")) + "\n"
+    if not path.exists() or path.read_text(encoding="utf-8") != text:
+        tmp = path.with_name(path.name + ".tmp")
+        tmp.write_text(text, encoding="utf-8", newline="\n")
+        os.replace(tmp, path)
+
+
+def derived_entries(repo: Path = REPO, wiki: Path = WIKI) -> list[tuple[str, str]]:
+    """(source below the derived layer, wiki file) of every Vanilla-derived texture textures.js names that git does
+    not track (a tracked file is in every checkout and is never overwritten)."""
+    index = tx.read_js(wiki / tx.DATA_FILE) or {}
+    tracked = tx.claimed_copies(wiki, []) or set()  # what git tracks under assets/textures: never overwritten
+    out = []
+    for entry in index.get("textures", []):
+        source = entry.get("source", "")
+        if not source.startswith(tx.SB_LAYERS[-1] + "/"):
+            continue
+        if not str(entry["file"]).startswith("assets/textures/") or entry["file"] in tracked:
+            continue
+        out.append((source, entry["file"]))
+    return out
+
+
+def write_published(repo: Path = REPO, wiki: Path = WIKI, index_file: Path | None = None) -> tuple[int, int]:
+    """N113, production host: only the Vanilla-derived textures of the published jars (index.json of the green gates,
+    the same files every player downloads) - no client jar, no placeholders. Writes the present list; returns
+    (written, not in a published jar)."""
+    entries = derived_entries(repo, wiki)
+    prefix = tx.SB_LAYERS[-1] + "/"
+    wanted = {source[len(prefix):] for source, _ in entries}  # "assets/<ns>/textures/<rel>"
+    got = dist_textures(Path(index_file or os.environ.get("SB_DIST_INDEX", DIST_INDEX)), wanted)
+    present = set()
+    for source, file in entries:
+        data = got.get(source[len(prefix):])
+        if data is None:
+            continue
+        dst = wiki / file
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        if not dst.exists() or dst.read_bytes() != data:
+            dst.write_bytes(data)
+        present.add(file)
+    write_present(present, "published", wiki)
+    return len(present), len(entries) - len(present)
+
+
 def write_derived(repo: Path = REPO, wiki: Path = WIKI) -> tuple[int, str]:
     """Copy the Vanilla-derived textures to the wiki files textures.js names for them; returns (count, jar|placeholder)."""
     import vanilla_derived
@@ -381,22 +439,27 @@ def write_derived(repo: Path = REPO, wiki: Path = WIKI) -> tuple[int, str]:
         if left:
             print(f"Vanilla-derived placeholders left ({len(left)}, not in a published jar yet): " + ", ".join(left))
             mode += f", {len(left)} placeholders left"
-    index = tx.read_js(wiki / tx.DATA_FILE) or {}
-    tracked = tx.claimed_copies(wiki, []) or set()  # what git tracks under assets/textures: never overwritten
     done = 0
-    for entry in index.get("textures", []):
-        source = entry.get("source", "")
-        if not source.startswith(tx.SB_LAYERS[-1] + "/"):
-            continue
-        src, dst = repo / source, wiki / entry["file"]
-        if not src.is_file() or not str(entry["file"]).startswith("assets/textures/") or entry["file"] in tracked:
+    present = set()
+    for source, file in derived_entries(repo, wiki):
+        src, dst = repo / source, wiki / file
+        if not src.is_file():
             continue
         dst.parent.mkdir(parents=True, exist_ok=True)
         data = src.read_bytes()
         if not dst.exists() or dst.read_bytes() != data:
             dst.write_bytes(data)
+        present.add(file)
         done += 1
+    # N113: 3D renders (assets/textures/render/) need Pillow and the models - present only where generate.py drew them.
+    present.update(p for p in local_only_pictures(wiki) if "/render/" in p and (wiki / p).is_file())
+    write_present(present, "dev", wiki)
     return done, mode
+
+
+def local_only_pictures(wiki: Path = WIKI) -> set[str]:
+    import local_only
+    return local_only.flat(local_only.read(wiki))
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -405,7 +468,15 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--vanilla", action="store_true", help="only the Vanilla index and files")
     p.add_argument("--icons", action="store_true", help="only the id -> picture list of the test centre editor")
     p.add_argument("--derived", action="store_true", help="only the Vanilla-derived copies")
+    p.add_argument("--published-only", action="store_true",
+                   help="production host (N113): only the Vanilla-derived textures of the published jars, no client jar, "
+                        "no placeholders, nothing else")
     a = p.parse_args(argv)
+    if a.published_only:
+        n, left = write_published()
+        print(f"Vanilla-derived copies (published jars only): {n} wiki files, {left} not in a published jar -> "
+              f"wiki/{PRESENT_FILE}")
+        return 0
     both = not a.vanilla and not a.derived and not a.icons
     code = 0
     jar = None
