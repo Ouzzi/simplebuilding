@@ -22,6 +22,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplechisels:empty")
+    public void roseChiselsInWorld(GameTestHelper h) {
+        ChiselTests.ALL.get("rose_chisels_in_world").accept(h);
+    }
+
+    @GameTest(structure = "simplechisels:empty")
     public void tiersInherit(GameTestHelper h) {
         ChiselTests.ALL.get("tiers_inherit").accept(h);
     }

@@ -37,7 +37,7 @@ R = Path(__file__).resolve().parents[1]
 
 CODE = re.compile(
     r"#[0-9A-Fa-f]{6}\b"                                  # hex color: consumed here, filtered below
-    r"|\b[A-Z]{1,5}\d+[a-z]?(?:-[A-Z]?\d+[a-z]?)*(?:-[A-Z]-\d+)?\b"  # N86, WG26-2, IG31-13, PAL35b, REV2-A-1
+    r"|\b[A-Z]{1,5}\d+[A-Za-z]?(?:-[A-Z]?\d+[A-Za-z]?)*(?:-[A-Z]-\d+)?\b"  # N86, WG26-2, IG31-13, PAL35b, REV2-A-1
     r"|\bPLAN[-\w]*|\bdocs/ai/[\w./-]*|\bPRINZIPIEN\b"
     r"|\bsimple[a-z]+-\d+\b"                              # simpleearth-2 (task codes named after the mod)
     r"|\b(?:split stage|Split-Stufe|Stufe) \d+[a-z]-\d+\b"

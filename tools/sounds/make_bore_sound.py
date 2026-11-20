@@ -15,8 +15,9 @@ SR = 44100
 DUR = 0.42
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 FFMPEG = os.environ.get("FFMPEG", r"C:\ProgramData\ffmpeg\bin\ffmpeg.exe")
-#: Both resource trees carry the same files (26.2/26.3/26.4 and 1.21.11).
-TARGETS = [os.path.join(REPO, "src/main/resources/assets/simplebuilding/sounds/block/piston"),
+#: All resource trees carry the same files: Simple Machines (Fabric 26.3) and the SimpleBuilding lines (26.2/26.4, 1.21.11).
+TARGETS = [os.path.join(REPO, "modules/simplemachines/shared/resources/assets/simplemachines/sounds/block/piston"),
+           os.path.join(REPO, "src/main/resources/assets/simplebuilding/sounds/block/piston"),
            os.path.join(REPO, "mc1_21_11/fabric/src/main/resources/assets/simplebuilding/sounds/block/piston")]
 OUT = os.path.join(REPO, "build", "bore_sound")
 os.makedirs(OUT, exist_ok=True)

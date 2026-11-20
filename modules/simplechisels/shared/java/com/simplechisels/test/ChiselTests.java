@@ -139,6 +139,22 @@ public final class ChiselTests {
             h.assertBlockPresent(Blocks.POLISHED_BLACKSTONE, SPOT);
             h.succeed();
         });
+        // N121: the rose chisels work in the world with their parent tables (Rose Copper = iron table, Rose Gold = diamond table).
+        ALL.put("rose_chisels_in_world", h -> {
+            h.setBlock(SPOT, Blocks.STONE);
+            ServerPlayer copper = player(h, new ItemStack(ChiselRegistry.chisel(ChiselTier.ROSE_BRONZE)));
+            h.assertTrue(click(h, copper, false).consumesAction(), "the rose copper chisel acts on stone");
+            h.assertBlockPresent(Blocks.CHISELED_STONE_BRICKS, SPOT);
+            h.setBlock(SPOT, Blocks.POLISHED_BLACKSTONE);
+            copper.getCooldowns().removeCooldown(copper.getCooldowns().getCooldownGroup(copper.getMainHandItem()));
+            h.assertFalse(click(h, copper, false).consumesAction(), "the rose copper chisel (iron table) leaves polished blackstone alone");
+            h.assertBlockPresent(Blocks.POLISHED_BLACKSTONE, SPOT);
+            ServerPlayer gold = player(h, new ItemStack(ChiselRegistry.chisel(ChiselTier.ROSE_GOLD)));
+            h.assertTrue(click(h, gold, false).consumesAction(), "the rose gold chisel (diamond table) acts on polished blackstone");
+            h.assertBlockPresent(Blocks.BLACKSTONE, SPOT);
+            h.assertTrue(gold.getMainHandItem().getDamageValue() == ChiselItem.TRANSFORM_DAMAGE, "one step costs 1");
+            h.succeed();
+        });
         ALL.put("tiers_inherit", h -> {
             List<String> problems = new ArrayList<>();
             Map<Block, Block> stone = ChiselTables.tier("stone").forward();

@@ -19,6 +19,9 @@ class FindingsTest(unittest.TestCase):
     def test_codes_history_british(self):
         self.assertEqual(kinds("simpleearth", "en", "E9: other players appear"), ["code"])
         self.assertEqual(kinds("x", "en", "Coated kinds (PAL14):"), ["code"])
+        # N121: a code ending in a capital letter slipped through ("Rose alloys (N89A): ...", 4 mods)
+        self.assertEqual(kinds("x", "en", "Rose alloys (N89A): the wand"), ["code"])
+        self.assertEqual(kinds("x", "de", "Säule W4C-26B"), ["code"])
         self.assertEqual(kinds("x", "de", "seit dem 27.08.2026 zurückgestellt"), ["history"])
         self.assertEqual(kinds("x", "en", "Enderite 2.0 (3.5 until 2026-09)."), ["history"])
         self.assertEqual(kinds("x", "en", "26.2 keeps it until the port run."), ["history"])
