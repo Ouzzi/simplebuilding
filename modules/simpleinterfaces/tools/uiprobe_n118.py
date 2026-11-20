@@ -338,7 +338,9 @@ def _config_pass(s, loc, en_tips):
             if rp.raw_looking(n) or (n not in texts and n not in modtexts):
                 bad.append(f'{cat}: {n}')
             tip = [rp.plain(x) for x in e.get('tooltip', []) if rp.plain(x).strip()]
-            if not tip:
+            # N118 rerun: Cloth group headings (SubCategoryListEntry, @CollapsibleObject/@TransitiveObject) are section titles,
+            # not options - they have a name but no tooltip of their own
+            if not tip and 'SubCategory' not in e.get('class', ''):
                 no_tip.append(f'{cat}: {n}')
             raw_tip += [f'{cat}: {n}: {x}' for x in tip if 'autoconfig' in x or '@Tooltip' in x or re.fullmatch(r'[a-z0-9_.]+\.[a-z0-9_.]+', x)]
             tips[(cat, i)] = ' '.join(tip)
