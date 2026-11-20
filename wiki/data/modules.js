@@ -1543,7 +1543,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 8
     },
-    "dataHash": "cdfa79268d1c"
+    "dataHash": "5d96cd0c8d4e"
   },
   {
     "id": "simplehammers",
@@ -1752,7 +1752,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 16
     },
-    "dataHash": "da98e7e92f2b"
+    "dataHash": "e8bbc41ec09a"
   },
   {
     "id": "simplemusic",
@@ -2442,6 +2442,6 @@ window.WIKI_MODULES = [
       "recipes": 1758,
       "features": 8
     },
-    "dataHash": "9196041c0533"
+    "dataHash": "6e5495443a71"
   }
 ];

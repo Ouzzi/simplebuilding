@@ -700,7 +700,7 @@
   "simpleslabs.guide.page.8.title": "Breaking and water",
   "simpleslabs.guide.page.8": "Breaking a half slab block drops one half slab for every filled layer, a side form one side half slab per layer. Half slabs hold water like a slab; a full cell (4 layers) holds none.",
   "simpleslabs.guide.page.9.title": "Sand, gravel and grass",
-  "simpleslabs.guide.page.9": "Sand, red sand and gravel half slabs fall like sand: with nothing below they fall as their layers and land at the bottom of the cell; on the ground their layers settle to the bottom.",
+  "simpleslabs.guide.page.9": "Sand, red sand and gravel half slabs fall like sand. With nothing below they fall as their layers and land at the bottom of the cell; on the ground their layers settle to the bottom.",
   "simpleslabs.guide.page.10.title": "Sand, gravel and grass",
   "simpleslabs.guide.page.10": "One falling onto a half slab of the same kind fills it up, the rest goes into the cell above. The grass half slab takes the color of the biome and shows grass on its top layer, dirt below.",
   "simpleslabs.guide.page.11.title": "Copper half slabs age",
@@ -712,7 +712,7 @@
   "simpleslabs.guide.page.14.title": "Shapecutter and back",
   "simpleslabs.guide.page.14": "Two half slabs craft back into one slab (nothing lost); one half slab crafts into one side half slab and back.",
   "simpleslabs.guide.page.15.title": "Half slabs of other mods' blocks",
-  "simpleslabs.guide.page.15": "Half slabs of the blocks of SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting and Simple Chess exist only while that mod is loaded, with their recipes.",
+  "simpleslabs.guide.page.15": "Half slabs of another mod's blocks (SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting) exist only while that mod is loaded, with their recipes.",
   "simpleslabs.guide.page.16.title": "Half slabs of other mods' blocks",
   "simpleslabs.guide.page.16": "Their properties come from SimpleLib's shape core, which Simple Octets uses too."
 }

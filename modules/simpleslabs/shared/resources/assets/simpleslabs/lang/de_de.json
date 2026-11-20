@@ -700,7 +700,7 @@
   "simpleslabs.guide.page.8.title": "Abbauen und Wasser",
   "simpleslabs.guide.page.8": "Abbauen eines Halbstufen-Blocks droppt für jede belegte Lage eine Halbstufe, eine Seitenform je Lage eine Seiten-Halbstufe. Halbstufen halten Wasser wie eine Stufe; eine volle Zelle (4 Lagen) hält keins.",
   "simpleslabs.guide.page.9.title": "Sand, Kies und Gras",
-  "simpleslabs.guide.page.9": "Sand-, Roter-Sand- und Kies-Halbstufen fallen wie Sand: Ist darunter frei, fallen sie als ihre Lagen und landen unten in der Zelle; am Boden setzen sich ihre Lagen nach unten.",
+  "simpleslabs.guide.page.9": "Sand-, Roter-Sand- und Kies-Halbstufen fallen wie Sand. Ist darunter frei, fallen sie als ihre Lagen und landen unten in der Zelle; am Boden setzen sich ihre Lagen nach unten.",
   "simpleslabs.guide.page.10.title": "Sand, Kies und Gras",
   "simpleslabs.guide.page.10": "Fällt eine auf eine Halbstufe derselben Art, füllt sie diese auf, der Rest geht in die Zelle darüber. Die Gras-Halbstufe nimmt die Farbe des Bioms an und zeigt auf ihrer obersten Lage Gras, darunter Erde.",
   "simpleslabs.guide.page.11.title": "Kupfer-Halbstufen altern",
@@ -712,7 +712,7 @@
   "simpleslabs.guide.page.14.title": "Formsäge und zurück",
   "simpleslabs.guide.page.14": "Zwei Halbstufen ergeben an der Werkbank wieder eine Stufe (nichts geht verloren); eine Halbstufe ergibt eine Seiten-Halbstufe und umgekehrt.",
   "simpleslabs.guide.page.15.title": "Halbstufen der Blöcke anderer Mods",
-  "simpleslabs.guide.page.15": "Halbstufen der Blöcke von SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting und Simple Chess gibt es nur, solange dieser Mod geladen ist, samt Rezepten.",
+  "simpleslabs.guide.page.15": "Halbstufen der Blöcke anderer Mods (SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting) gibt es nur, solange dieser Mod geladen ist, samt Rezepten.",
   "simpleslabs.guide.page.16.title": "Halbstufen der Blöcke anderer Mods",
   "simpleslabs.guide.page.16": "Ihre Eigenschaften kommen aus dem Form-Kern von SimpleLib, den auch Simple Octets nutzt."
 }
