@@ -34,7 +34,7 @@
   },
   "sculk_tiles": {
     "lore": [
-      "Deepslate tiles that took on the colour of the sculk around them."
+      "Deepslate tiles that took on the color of the sculk around them."
     ],
     "use": [
       "Craft two from two Deepslate Tiles and two Sculk placed crosswise. A plain building block; it does not dampen vibrations."

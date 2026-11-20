@@ -1,5 +1,6 @@
 """Unit tests of dead_assets_263.py on a tiny fake repository (N114: overlay textures, suffix rule, FORCED, --check;
-N115: name fragments never keep the item textures of moved storage items)."""
+N115: name fragments never keep the item textures of moved storage items; N116: of any item and of the moved storage
+blocks; run-time item texture prefixes)."""
 import io
 import json
 import sys
@@ -90,7 +91,7 @@ class DeadAssetsTest(unittest.TestCase):
             self.write(sb + f'{name}.png', PNG)
         self.write(st + 'items/netherite_bundle.json', json.dumps({'model': {'type': 'minecraft:model',
                                                                              'model': 'simplestorage:item/netherite_bundle'}}))
-        self.write(st + 'items/netherite_ingot_x.json', '{}')     # moved too, but not a storage item: rule not applied
+        self.write(st + 'items/netherite_ingot_x.json', '{}')     # moved too, not a storage item: N116 drops it as well
         self.write('src/main/java/x/Names.java',
                    'class Names { String a = "netherite_"; String b = "_dyed"; String c = "_dyed_overlay"; }')
 
@@ -99,7 +100,7 @@ class DeadAssetsTest(unittest.TestCase):
         dead = d.dead()
         for name in ('netherite_bundle', 'netherite_bundle_dyed', 'netherite_bundle_dyed_overlay'):
             self.assertIn(f'assets/simplebuilding/textures/item/{name}.png', dead)
-        self.assertNotIn('assets/simplebuilding/textures/item/netherite_ingot_x.png', dead)  # "netherite_" keeps it
+        self.assertIn('assets/simplebuilding/textures/item/netherite_ingot_x.png', dead)  # N116: "netherite_" no longer keeps it
 
     def test_moved_storage_item_texture_kept_by_a_real_reference(self):
         self.moved_storage_tree()
@@ -107,13 +108,49 @@ class DeadAssetsTest(unittest.TestCase):
                    json.dumps({'textures': {'layer0': 'simplebuilding:item/netherite_bundle_dyed'}}))
         self.assertNotIn('assets/simplebuilding/textures/item/netherite_bundle_dyed.png', d.dead())
 
-    def test_storage_rule_helpers(self):
-        moved = {'netherite_bundle', 'quiver'}
-        self.assertTrue(d.moved_item_texture('textures/', 'item/netherite_bundle_open_back_dyed_overlay', moved))
-        self.assertTrue(d.moved_item_texture('textures/', 'item/quiver_dyed', moved))
-        self.assertFalse(d.moved_item_texture('textures/', 'block/netherite_bundle_dyed', moved))  # only item/
-        self.assertFalse(d.moved_item_texture('models/', 'item/quiver_dyed', moved))
-        self.assertFalse(d.moved_item_texture('textures/', 'item/quiver_arrow', moved))
+    def test_fragment_proof_rule(self):
+        code = {'guide_book_', 'netherite_'}
+        self.assertTrue(d.fragment_proof('textures/', 'item/netherite_chisel', set(), code))
+        self.assertTrue(d.fragment_proof('textures/', 'item/octant_red', set(), code))
+        self.assertFalse(d.fragment_proof('textures/', 'item/guide_book_tools', set(), code))   # RUNTIME_ITEM_TEXTURES
+        self.assertTrue(d.fragment_proof('textures/', 'item/guide_book_tools', set(), set()))   # prefix gone from code
+        for name in ('backpack_front_dyed', 'netherite_backpack_top_dyed_overlay', 'reinforced_backpack_side',
+                     'placed_bundle_dyed', 'placed_enderite_bundle', 'placed_netherite_bundle_dyed_overlay'):
+            self.assertTrue(d.fragment_proof('textures/', 'block/' + name, set(), code), name)
+        self.assertFalse(d.fragment_proof('textures/', 'block/backpack_front', {'backpack'}, code))  # registered again
+        self.assertFalse(d.fragment_proof('textures/', 'block/placed_blueprint', set(), code))      # other placed_ block
+        self.assertFalse(d.fragment_proof('textures/', 'block/netherite_furnace', set(), code))
+        self.assertFalse(d.fragment_proof('models/', 'item/octant_red', set(), code))
+        self.assertFalse(d.fragment_proof('textures/', 'entity/backpack/backpack_dyed', set(), code))
+
+    def test_moved_item_textures_and_runtime_prefix(self):
+        """N116: a moved octant/chisel item texture dies although SB code holds "octant_"/"_chisel"; a guide book chapter
+        texture stays while 26.3 code builds "guide_book_" + id."""
+        sb = 'src/main/resources/assets/simplebuilding/textures/item/'
+        mod = 'modules/simplebuildingtools/shared/resources/assets/simplebuildingtools/textures/item/'
+        for name in ('octant_red', 'iron_chisel'):
+            self.write(sb + f'{name}.png', PNG)
+            self.write(mod + f'{name}.png', PNG)
+        self.write('mc26_3/overlay/resources/assets/simplebuilding/textures/item/guide_book_tools.png', PNG)
+        self.write('src/main/java/x/Refs.java', 'class Refs { String a = "octant_"; String b = "_chisel"; String c = "guide_book_"; }')
+        dead = d.dead()
+        self.assertIn('assets/simplebuilding/textures/item/octant_red.png', dead)
+        self.assertIn('assets/simplebuilding/textures/item/iron_chisel.png', dead)
+        self.assertNotIn('assets/simplebuilding/textures/item/guide_book_tools.png', dead)
+
+    def test_moved_storage_block_textures_not_kept_by_fragments(self):
+        """N116: SB's placed bundle/backpack block textures (26.3: Simple Storage) die although SB code holds "placed_",
+        "_front", "_dyed"; another block with the same fragments stays."""
+        sb = 'src/main/resources/assets/simplebuilding/textures/block/'
+        st = 'modules/simplestorage/shared/resources/assets/simplestorage/textures/block/'
+        for name in ('placed_bundle_dyed', 'backpack_front', 'backpack_front_dyed', 'oven_front'):
+            self.write(sb + f'{name}.png', PNG)
+            self.write(st + f'{name}.png', PNG)
+        self.write('src/main/java/x/Frags.java', 'class Frags { String a = "placed_"; String b = "_front"; String c = "_dyed"; }')
+        dead = d.dead()
+        for name in ('placed_bundle_dyed', 'backpack_front', 'backpack_front_dyed'):
+            self.assertIn(f'assets/simplebuilding/textures/block/{name}.png', dead)
+        self.assertNotIn('assets/simplebuilding/textures/block/oven_front.png', dead)  # fallback still applies to it
 
 
 if __name__ == '__main__':

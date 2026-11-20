@@ -78,7 +78,7 @@
   },
   "deceiver_cloth": {
     "lore": [
-      "A cloth woven from a trick that never quite stays the same colour."
+      "A cloth woven from a trick that never quite stays the same color."
     ],
     "use": [
       "Dropped by the Deceiver, 2 to 4 at 50%. It is the base of the Cloak of Deception and the Trick Mirror, repairs the cloak, and with an Invisibility Potion brews a Veiled Invisibility."
@@ -254,7 +254,7 @@
       "Hold use: a note every 0.3 s, so the tone carries on while you hold. The look angle sets the pitch: look up for high, down for low, over two octaves in C major (15 steps). Recipe: 5 copper ingots and a gold nugget."
     ],
     "secret": [
-      "Two samples carry the two octaves, so the tone keeps its colour when it climbs."
+      "Two samples carry the two octaves, so the tone keeps its color when it climbs."
     ]
   }
 }

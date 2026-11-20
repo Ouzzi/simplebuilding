@@ -365,6 +365,8 @@ tasks.named('check') { dependsOn 'testLivemapWeb' }
  'checkNotShipped263': 'tools/release/dead_assets_263.py --check',
  // N112: player texts (manual.json + generated guide pages) without internal codes, dev history, British spelling
  'checkPlayerTexts': 'tools/check_player_texts.py',
+ // N116: neutral 26.3 overlay layers of the worn dyed backpack match their 26.2 source; stale -> storage_dye_palette.py --write-only
+ 'checkStorageDyeLayers': 'tools/textures/storage_dye_palette.py --check',
  // b-beta61 (owner W3B 15.11.): every mod ships as <x.y.z>-beta.<n>; Simple-mod lower bounds met, changelogs and store pages say Beta
  'checkBetaRelease': 'tools/release/check_beta.py'].each { taskName, script ->
 	tasks.register(taskName, Exec) {

@@ -145,33 +145,35 @@ FORCED = {
 }
 
 
-# N115: item textures of moved storage items (backpacks, bundles, quivers of every tier; Simple Storage on 26.3). Their variant suffixes (_dyed, _dyed_overlay, _open_back ...) and tier
-# prefixes (netherite_, enderite_) also occur in SimpleBuilding's code, but there as registry/recipe ids and in the
-# 26.2 datagen (ModModelProvider, whose 26.3 output is the generated JSON this script already reads), never as a
-# texture path the 26.3 client asks for. So name fragments never keep such a texture; only a real reference does.
-# Deliberately limited to that family (STORAGE_ITEM): the same fragment flaw keeps more moved item textures (wands,
-# chisels, sledgehammers, cores, octants, enderite tools ...), each to be checked on its own before it is dropped.
-ITEM_VARIANT = re.compile(r'(?:_open_back|_open_front)?(?:_dyed(?:_overlay)?)?$')
-STORAGE_ITEM = re.compile(r'(?:[a-z]+_)?(?:backpack|bundle|quiver)')
+# N115/N116: name fragments of SimpleBuilding's code ("netherite_", "_chisel", "octant_", "_dyed" ...) are registry ids,
+# recipe ids, tag/cooldown checks and 26.2 datagen names (ModModelProvider, whose 26.3 output is the generated JSON this
+# script already reads) - never a texture path the 26.3 client asks for. So they never keep these textures; only a real
+# reference does (a live model/item definition/atlas naming the path, a full path literal in 26.3 code):
+#  * every item texture (textures/item/<name>): items are drawn through item definitions and models, which the
+#    reference walk follows. N115 did this for the storage family; N116 checked the other 75 moved item textures
+#    (wands, chisels, sledgehammers, cores, octants, Enderite tools/materials, trim templates, gadget dials ...) one
+#    by one and dropped the fragment rule for all of them. Item textures that 26.3 code builds from a prefix at run
+#    time are listed in RUNTIME_ITEM_TEXTURES (kept while the prefix literal is still in the 26.3 code).
+#  * the block textures of the moved storage blocks (placed bundles, placed backpacks of every tier, Simple Storage on
+#    26.3, STORAGE_IN_SB = false): their models/blockstates are removed on 26.3, nothing else names them (N116).
+# Other block textures and models still fall back to fragments (the placed-template renderer builds
+# simplebuilding:placed_<item> at run time; open item: check them one by one like the items).
+RUNTIME_ITEM_TEXTURES = {
+    'guide_book_': 'GuideTooltip draws simplebuilding:textures/item/guide_book_<book>.png for every inserted chapter '
+                   '(MEGA_GUIDES on 26.3)',
+}
+STORAGE_BLOCK = re.compile(r'(?:(?:[a-z]+_)?backpack|placed_(?:[a-z]+_)?bundle)(?:_(?:front|back|side|top))?(?:_dyed(?:_overlay)?)?')
+STORAGE_BLOCK_BASE = re.compile(r'(?:_(?:front|back|side|top))?(?:_dyed(?:_overlay)?)?$')
 
 
-def moved_items(modules, regs):
-    """Storage item ids (STORAGE_ITEM) a module ships an item definition for (assets/<ns>/items/<id>.json,
-    ns != simplebuilding) that the 26.3 SimpleBuilding no longer registers: the content moved into that module."""
-    out = set()
-    for rel in modules:
-        parts = rel.split('/')
-        if len(parts) == 4 and parts[0] == 'assets' and parts[1] != NS and parts[2] == 'items' and parts[3].endswith('.json'):
-            if STORAGE_ITEM.fullmatch(parts[3][:-len('.json')]):
-                out.add(parts[3][:-len('.json')])
-    return out - regs
-
-
-def moved_item_texture(kind, path, moved):
-    """True for textures/item/<id><variant> of a moved item id (see ITEM_VARIANT)."""
-    if kind != 'textures/' or not path.startswith('item/') or path.count('/') != 1:
+def fragment_proof(kind, path, regs, code):
+    """True when name fragments of SB's code must not keep this candidate (see above); code = SB 26.3 string literals."""
+    if kind != 'textures/' or path.count('/') != 1:
         return False
-    return ITEM_VARIANT.sub('', path[len('item/'):]) in moved
+    sub, name = path.split('/')
+    if sub == 'item':
+        return not any(name.startswith(pre) and pre in code for pre in RUNTIME_ITEM_TEXTURES)
+    return sub == 'block' and bool(STORAGE_BLOCK.fullmatch(name)) and STORAGE_BLOCK_BASE.sub('', name) not in regs
 
 
 def overlay_textures():
@@ -191,7 +193,6 @@ def dead():
     modules = module_files()
     moved = moved_copies(modules)
     overlay = overlay_textures()
-    moved_ids = moved_items(modules, regs)
     cand = {rel: candidate_key(rel) for rel in files}
     # Moved content (a module ships the same asset path under its own namespace; SB's file is the 26.2 original) and
     # every texture of the 26.3-only overlay (nothing else could need it). Forced entries are listed in any case.
@@ -225,7 +226,8 @@ def dead():
         if kind in ('items/', 'blockstates/') and path in regs:
             live.add(rel)
             todo.append(rel)
-    mark(java_strings(True), True)
+    own_code = java_strings(True)
+    mark(own_code, True)
     mark(java_strings(False), False)
     for rel, p in files.items():
         if rel not in cand and p.suffix == '.json':
@@ -242,10 +244,10 @@ def dead():
     # fragment of SB's own code starts or ends stays, even when no literal names it in full (the 26.3 placed-template
     # renderer still asks for simplebuilding:placed_<template>).
     generic = {'block/', 'item/', 'entity/', 'gui/', 'sprites/', 'textures/', 'models/', 'container/', 'simplebuilding:'}
-    frags = [f.split(':')[-1].removeprefix('textures/') for f in java_strings(True) if re.fullmatch(r'[a-z0-9_/:]{4,}', f)]
+    frags = [f.split(':')[-1].removeprefix('textures/') for f in own_code if re.fullmatch(r'[a-z0-9_/:]{4,}', f)]
     frags = [f for f in frags if f not in generic and len(f) >= 4 and (f.endswith(('_', '/')) or f.startswith('_'))]
     for rel, (kind, path) in cand.items():
-        if rel in live or moved_item_texture(kind, path, moved_ids):
+        if rel in live or fragment_proof(kind, path, regs, own_code):
             continue
         stem = path.rsplit('/', 1)[-1]
         if any((f.endswith('_') and stem.startswith(f.split('/')[-1]) and len(f.split('/')[-1]) >= 4)
@@ -259,7 +261,7 @@ def dead():
     while grew:  # until nothing changes: a base may itself live only through a suffix (trapped_copper_oxidized_left)
         grew = False
         for rel, (kind, path) in cand.items():
-            if rel in live or rel not in overlay or moved_item_texture(kind, path, moved_ids):
+            if rel in live or rel not in overlay or fragment_proof(kind, path, regs, own_code):
                 continue
             for f in frags:
                 if f.startswith('_') and path.endswith(f):

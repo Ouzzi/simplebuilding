@@ -7,7 +7,7 @@
       "{name} builds in planes, because who has time to place single blocks."
     ],
     "use": [
-      "Click a block face and it fills a square plane in front of that face with blocks from your inventory, ring by ring from the centre outwards, each block oriented the way you would place it. The tier sets how big a plane it can build."
+      "Click a block face and it fills a square plane in front of that face with blocks from your inventory, ring by ring from the center outwards, each block oriented the way you would place it. The tier sets how big a plane it can build."
     ],
     "secret": [
       "Blocks come out of your inventory, so bring enough; the Creative Wand does not."
@@ -43,7 +43,7 @@
       "{name} is a tape measure for people who dream in volumes."
     ],
     "use": [
-      "Two clicks mark two corner points; the HUD works out distance, area or volume and coloured outlines show your selection in the world. The 16 dye colours only change the look."
+      "Two clicks mark two corner points; the HUD works out distance, area or volume and colored outlines show your selection in the world. The 16 dye colors only change the look."
     ],
     "secret": [
       "Anyone with the Constructor's Touch enchantment can read the same measurements."

@@ -100,7 +100,7 @@ class RepoScanTest(unittest.TestCase):
         self.write("modules/simplefoo/shared/resources/assets/simplefoo/questionary/de_de.json",
                    {"x": {"lore": ["Ein Gewoelbe"]}})
         self.write("modules/simplefoo/shared/resources/assets/simplefoo/questionary/en_us.json",
-                   {"x": {"lore": ["grey"]}})                                   # English questionary not in scope
+                   {"x": {"lore": ["Grosse grey"]}})               # English questionary: no umlaut check
         self.write("wiki/manual.json", {"features": [{"en": {"title": "Menue"}, "de": {"title": "Menue"}}]})
         rc, out = self.run_main()
         self.assertEqual(rc, 1, out)
@@ -108,7 +108,28 @@ class RepoScanTest(unittest.TestCase):
         self.assertIn("questionary/de_de.json .x.lore[0]: umlaut 'Gewoelbe'", out)
         self.assertIn("wiki/manual.json de.features[0].de.title: umlaut 'Menue'", out)
         self.assertNotIn("en.title", out)
-        self.assertNotIn("grey", out)
+        self.assertNotIn("umlaut 'Grosse'", out)
+
+    def test_english_questionary_checked_for_british(self):
+        """N116: questionary/en_us.json gets the British check (colour, grey, centre, mouldy ...), all bases."""
+        self.write("modules/simplefoo/shared/resources/assets/simplefoo/questionary/en_us.json",
+                   {"x": {"lore": ["A grey, mouldy block"], "use": ["Pick a colour; fills from the centre"]},
+                    "family:y": {"secret": ["Coloured outlines"]}})
+        self.write("mc26_3/overlay/resources/assets/simplebuilding/questionary/en_us.json", {"z": {"lore": ["colours"]}})
+        self.write("modules/simplefoo/shared/resources/assets/simplefoo/questionary/de_de.json",
+                   {"x": {"lore": ["grey colour"]}})                            # German text: no British check
+        rc, out = self.run_main()
+        self.assertEqual(rc, 1, out)
+        for tok in (".x.lore[0]: british 'grey'", ".x.lore[0]: british 'mouldy'", ".x.use[0]: british 'colour'",
+                    ".x.use[0]: british 'centre'", ".family:y.secret[0]: british 'Coloured'"):
+            self.assertIn("questionary/en_us.json " + tok, out)
+        self.assertIn("mc26_3/overlay/resources/assets/simplebuilding/questionary/en_us.json .z.lore[0]: british 'colours'", out)
+        self.assertNotIn("de_de.json", out)
+
+    def test_english_questionary_us_spelling_passes(self):
+        self.write("modules/simplefoo/shared/resources/assets/simplefoo/questionary/en_us.json",
+                   {"x": {"lore": ["A gray, moldy block"], "use": ["Pick a color; fills from the center, colored"]}})
+        self.assertEqual(self.run_main()[0], 0)
 
 
 if __name__ == "__main__":

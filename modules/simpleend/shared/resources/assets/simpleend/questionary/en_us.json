@@ -43,7 +43,7 @@
       "regex:(ashwood|duskwood)_leaves"
     ],
     "lore": [
-      "{name} is no solid block but a see-through star of tendrils around a small crystal, tinted grey-brown by its biome."
+      "{name} is no solid block but a see-through star of tendrils around a small crystal, tinted gray-brown by its biome."
     ],
     "use": [
       "Only a few leaves of each tree carry its bud or fruit, and they always drop it; the rest gives sticks now and then. Shears keep the leaves."
@@ -62,7 +62,7 @@
   },
   "end_grass": {
     "lore": [
-      "Wiry grass that grows on End stone, tinted grey-brown like the leaves around it."
+      "Wiry grass that grows on End stone, tinted gray-brown like the leaves around it."
     ],
     "use": [
       "Shears pick it up. Bone meal spreads a few tufts onto neighboring End stone."
@@ -97,7 +97,7 @@
   },
   "spoiled_drift_fruit": {
     "lore": [
-      "A Drift Fruit that grew outside the End: shrivelled, brown and a little mouldy."
+      "A Drift Fruit that grew outside the End: shrivelled, brown and a little moldy."
     ],
     "use": [
       "Eating it lets you drift for five seconds - almost weightless, pushed about by nothing at all. Slow Falling afterwards makes sure you land softly."

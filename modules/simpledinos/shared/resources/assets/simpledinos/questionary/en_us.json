@@ -23,7 +23,7 @@
   },
   "triceratops_egg": {
     "lore": [
-      "A sand-coloured egg with brown bands."
+      "A sand-colored egg with brown bands."
     ],
     "use": [
       "Place it and sit on it with an empty hand: 5 minutes of sitting broods it, 10 minutes later a tame Triceratops hatchling hatches for the player who sat longest. Three eggshells stay behind."
@@ -34,7 +34,7 @@
   },
   "stegosaurus_egg": {
     "lore": [
-      "A slate-grey egg with a pattern like small plates."
+      "A slate-gray egg with a pattern like small plates."
     ],
     "use": [
       "Place it and sit on it with an empty hand: 5 minutes of sitting broods it, 10 minutes later a tame Stegosaurus hatchling hatches for the player who sat longest. Three eggshells stay behind."
@@ -474,7 +474,7 @@
   },
   "stegosaurus_eggshell": {
     "lore": [
-      "Half a slate-grey shell with plate marks."
+      "Half a slate-gray shell with plate marks."
     ],
     "use": [
       "Falls when a Stegosaurus hatches; one makes three bone meal. Eight leather, iron ingots or diamonds around it make Stegosaurus armor."
