@@ -66,6 +66,8 @@ public final class LineTests {
         maxTicks.put("line_astral_powers_lamp_and_piston", 60);
         all.put("line_bridge_links_all_lines", LineTests::bridgeLinksAllLines);
         maxTicks.put("line_bridge_links_all_lines", 60);
+        all.put("line_line_end_lights_vanilla_lamp_at_power_one", LineTests::lineEndLightsVanillaLampAtPowerOne);
+        maxTicks.put("line_line_end_lights_vanilla_lamp_at_power_one", 80);
         all.put("line_lamps_toggle_on_every_line", LineTests::lampsToggleOnEveryLine);
         maxTicks.put("line_lamps_toggle_on_every_line", 60);
         all.put("line_every_device_takes_redstone", LineTests::everyDeviceTakesRedstone);
@@ -321,6 +323,77 @@ public final class LineTests {
     }
 
 
+
+    /**
+     * N119 probe: a 15-piece line (with a bend) ends right in front of a vanilla redstone lamp - the end piece has one
+     * connection, so like vanilla dust it points both ways and powers the lamp even at power 1, on every line. Built
+     * lamp first, source last (like a player). Then the lamp is set again after the line is powered (the probe's
+     * /setblock order): a set lamp does not check its input - for vanilla dust neither - but the signal is there and the
+     * next neighbour update lights it. Without the source every lamp goes dark.
+     */
+    public static void lineEndLightsVanillaLampAtPowerOne(GameTestHelper helper) {
+        for (int x = 0; x <= 15; x++) for (int z = 0; z <= 15; z++) {
+            helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+            helper.setBlock(new BlockPos(x, 4, z), Blocks.STONE);
+        }
+        Block[] dusts = {Blocks.REDSTONE_WIRE, LineBlocks.ASTRAL_REDSTONE, LineBlocks.NIHIL_REDSTONE, LineBlocks.BRIDGE_REDSTONE};
+        int[][] lanes = {{1, 0}, {1, 8}, {5, 0}, {5, 8}};
+        List<List<BlockPos>> pieces = new ArrayList<>();
+        for (int i = 0; i < lanes.length; i++) {
+            int y = lanes[i][0], z = lanes[i][1];
+            helper.setBlock(new BlockPos(13, y, z + 3), Blocks.REDSTONE_LAMP);
+            List<BlockPos> lane = new ArrayList<>();
+            for (int x = 1; x <= 13; x++) lane.add(new BlockPos(x, y, z));
+            lane.add(new BlockPos(13, y, z + 1));
+            lane.add(new BlockPos(13, y, z + 2));
+            for (BlockPos rel : lane) helper.setBlock(rel, dusts[i]);
+            pieces.add(lane);
+        }
+        for (List<BlockPos> lane : pieces) for (BlockPos rel : lane) {
+            BlockPos pos = helper.absolutePos(rel);
+            helper.getLevel().setBlock(pos, Block.updateFromNeighbourShapes(helper.getBlockState(rel), helper.getLevel(), pos), Block.UPDATE_ALL);
+        }
+        for (int[] lane : lanes) helper.setBlock(new BlockPos(0, lane[0], lane[1]), Blocks.REDSTONE_BLOCK);
+        java.util.function.Consumer<String> expectLit = phase -> {
+            for (int i = 0; i < lanes.length; i++) {
+                BlockPos lamp = new BlockPos(13, lanes[i][0], lanes[i][1] + 3);
+                BlockPos end = pieces.get(i).get(14);
+                String what = phase + ": " + name(dusts[i]);
+                helper.assertTrue(power(helper, end) == 1, what + ": end piece has power " + power(helper, end) + ", wanted 1");
+                helper.assertTrue(helper.getBlockState(end).getValue(SignalDustBlock.SOUTH).isConnected(),
+                        what + ": end piece does not point at the lamp: " + helper.getBlockState(end));
+                helper.assertTrue(helper.getLevel().hasNeighborSignal(helper.absolutePos(lamp)), what + ": the lamp gets no signal");
+                helper.assertTrue(helper.getBlockState(lamp).getValue(RedstoneLampBlock.LIT), what + ": vanilla lamp at the line end is dark");
+            }
+        };
+        helper.startSequence().thenIdle(6)
+                .thenExecute(() -> expectLit.accept("lamp first, source last"))
+                .thenExecute(() -> {
+                    for (int[] lane : lanes) {
+                        helper.setBlock(new BlockPos(13, lane[0], lane[1] + 3), Blocks.AIR);
+                        helper.setBlock(new BlockPos(13, lane[0], lane[1] + 3), Blocks.REDSTONE_LAMP);
+                    }
+                }).thenIdle(2)
+                .thenExecute(() -> {
+                    for (int i = 0; i < lanes.length; i++) {
+                        BlockPos lamp = new BlockPos(13, lanes[i][0], lanes[i][1] + 3);
+                        helper.assertFalse(helper.getBlockState(lamp).getValue(RedstoneLampBlock.LIT),
+                                name(dusts[i]) + ": a set lamp lit by itself (vanilla does not check on setBlock; parity broke)");
+                        helper.getLevel().neighborChanged(helper.absolutePos(lamp), Blocks.AIR, null);
+                    }
+                }).thenIdle(1)
+                .thenExecute(() -> expectLit.accept("lamp set after the line, then a neighbour update"))
+                .thenExecute(() -> {
+                    for (int[] lane : lanes) helper.setBlock(new BlockPos(0, lane[0], lane[1]), Blocks.STONE);
+                }).thenIdle(10)
+                .thenExecute(() -> {
+                    for (int i = 0; i < lanes.length; i++) {
+                        BlockPos lamp = new BlockPos(13, lanes[i][0], lanes[i][1] + 3);
+                        helper.assertTrue(power(helper, pieces.get(i).get(0)) == 0, name(dusts[i]) + ": line kept power without the source");
+                        helper.assertFalse(helper.getBlockState(lamp).getValue(RedstoneLampBlock.LIT), name(dusts[i]) + ": lamp stayed lit without the source");
+                    }
+                }).thenSucceed();
+    }
 
     /**
      * The Astral/Nihilith Lamp takes every line (N51: own line, the other line, redstone dust, Bridge Redstone and a
