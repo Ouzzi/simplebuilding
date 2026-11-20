@@ -81,6 +81,7 @@ public final class OctetTests {
         ALL.put("log_octets_mine_with_the_axe", OctetTests::logOctetsMineWithTheAxe);
         ALL.put("unwaxed_copper_octets_age", OctetTests::unwaxedCopperOctetsAge);
         ALL.put("axe_strips_only_the_clicked_octet", OctetTests::axeStripsOnlyTheClickedOctet);
+        ALL.put("axe_strips_stem_octets_not_stone", OctetTests::axeStripsStemOctetsNotStone);
         ALL.put("discover_recipe_unlocks", com.simpleoctets.discover.OctetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleoctets.discover.OctetsDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simpleoctets.discover.OctetsDiscover::firstPickupTips);
@@ -1048,6 +1049,48 @@ public final class OctetTests {
         InteractionResult again = h.getBlockState(CELL).useItemOn(axe, level, player, InteractionHand.MAIN_HAND, hit);
         h.assertFalse(again.consumesAction(), "a stripped octet is not stripped again: " + again);
         h.assertValueEqual(axe.getDamageValue(), 1, "axe durability after the second click");
+        h.succeed();
+    }
+
+    /**
+     * N120: the strip also works on a side face and on stems (crimson stem octets, a 7-of-8 cell like the probe scene): only the
+     * clicked eighth turns stripped, the gap stays empty; an axe on a stone octet does nothing (no strip, no durability).
+     */
+    static void axeStripsStemOctetsNotStone(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        BlockPos pos = h.absolutePos(CELL);
+        BlockState stem = material(Blocks.CRIMSON_STEM);
+        BlockState stripped = material(Blocks.STRIPPED_CRIMSON_STEM);
+        int gap = OctetCellBlock.index(1, 1, 1);
+        BlockState[] parts = new BlockState[8];
+        for (int i = 0; i < 8; i++) parts[i] = i == gap ? null : stem;
+        OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
+        ServerPlayer player = mockPlayer(h);
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, axe);
+        // north face, upper east quarter: the octet x 1, y 1, z 0
+        int clicked = OctetCellBlock.index(1, 1, 0);
+        BlockHitResult north = new BlockHitResult(new Vec3(pos.getX() + 0.75, pos.getY() + 0.75, pos.getZ()), Direction.NORTH, pos, false);
+        InteractionResult result = h.getBlockState(CELL).useItemOn(axe, level, player, InteractionHand.MAIN_HAND, north);
+        h.assertTrue(result == InteractionResult.SUCCESS, "the axe strips a crimson stem octet: " + result);
+        BlockState[] now = OctetCells.parts(level, pos, h.getBlockState(CELL));
+        for (int i = 0; i < 8; i++) {
+            BlockState want = i == gap ? null : i == clicked ? stripped : stem;
+            h.assertTrue(now[i] == want, "octet " + i + " is " + now[i] + ", wanted " + want);
+        }
+        h.assertTrue(h.getBlockState(CELL).is(OctetRegistry.MIXED_OCTET), "stem + stripped stem make a mixed cell: " + h.getBlockState(CELL));
+        h.assertValueEqual(axe.getDamageValue(), 1, "axe durability after the strip");
+        // a stone octet cell: the axe passes, nothing changes
+        BlockState stone = material(Blocks.STONE);
+        BlockState[] stoneParts = new BlockState[8];
+        for (int i = 0; i < 8; i++) stoneParts[i] = i == gap ? null : stone;
+        OctetCells.set(level, pos, stoneParts, false, Block.UPDATE_ALL);
+        BlockState before = h.getBlockState(CELL);
+        InteractionResult onStone = before.useItemOn(axe, level, player, InteractionHand.MAIN_HAND, north);
+        h.assertFalse(onStone.consumesAction(), "an axe on a stone octet does nothing: " + onStone);
+        h.assertTrue(h.getBlockState(CELL) == before, "the stone cell is unchanged: " + h.getBlockState(CELL));
+        h.assertTrue(OctetCells.parts(level, pos, h.getBlockState(CELL))[clicked] == stone, "the clicked stone octet stays stone");
+        h.assertValueEqual(axe.getDamageValue(), 1, "axe durability after the stone click");
         h.succeed();
     }
 

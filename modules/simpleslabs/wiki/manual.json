@@ -100,14 +100,14 @@
       ],
       "en": {
         "title": "Sand, gravel and grass",
-        "summary": "Sand, red sand and gravel half slabs fall like sand: with nothing below they fall as their layers and land at the bottom of the cell; on the ground their layers settle to the bottom. One falling onto a half slab of the same kind fills it up, the rest goes into the cell above. The grass half slab takes the color of the biome and shows grass on its top layer, dirt below.",
+        "summary": "Sand, red sand and gravel half slabs fall like sand. With nothing below they fall as their layers and land at the bottom of the cell; on the ground their layers settle to the bottom. One falling onto a half slab of the same kind fills it up, the rest goes into the cell above. The grass half slab takes the color of the biome and shows grass on its top layer, dirt below.",
         "details": [
           "Dirt, grass, sand, red sand and gravel half slabs need Simple Blocks (their slabs come from there). Grass does not spread onto or from half slabs."
         ]
       },
       "de": {
         "title": "Sand, Kies und Gras",
-        "summary": "Sand-, Roter-Sand- und Kies-Halbstufen fallen wie Sand: Ist darunter frei, fallen sie als ihre Lagen und landen unten in der Zelle; am Boden setzen sich ihre Lagen nach unten. Fällt eine auf eine Halbstufe derselben Art, füllt sie diese auf, der Rest geht in die Zelle darüber. Die Gras-Halbstufe nimmt die Farbe des Bioms an und zeigt auf ihrer obersten Lage Gras, darunter Erde.",
+        "summary": "Sand-, Roter-Sand- und Kies-Halbstufen fallen wie Sand. Ist darunter frei, fallen sie als ihre Lagen und landen unten in der Zelle; am Boden setzen sich ihre Lagen nach unten. Fällt eine auf eine Halbstufe derselben Art, füllt sie diese auf, der Rest geht in die Zelle darüber. Die Gras-Halbstufe nimmt die Farbe des Bioms an und zeigt auf ihrer obersten Lage Gras, darunter Erde.",
         "details": [
           "Erde-, Gras-, Sand-, Rotsand- und Kies-Halbstufen brauchen Simple Blocks (ihre Stufen kommen von dort). Gras breitet sich nicht auf oder von Halbstufen aus."
         ]
@@ -154,12 +154,12 @@
       ],
       "en": {
         "title": "Half slabs of other mods' blocks",
-        "summary": "Half slabs of the blocks of SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting and Simple Chess exist only while that mod is loaded, with their recipes. Their properties come from SimpleLib's shape core, which Simple Octets uses too.",
+        "summary": "Half slabs of another mod's blocks (SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting) exist only while that mod is loaded, with their recipes. Their properties come from SimpleLib's shape core, which Simple Octets uses too.",
         "details": []
       },
       "de": {
         "title": "Halbstufen der Blöcke anderer Mods",
-        "summary": "Halbstufen der Blöcke von SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting und Simple Chess gibt es nur, solange dieser Mod geladen ist, samt Rezepten. Ihre Eigenschaften kommen aus dem Form-Kern von SimpleLib, den auch Simple Octets nutzt.",
+        "summary": "Halbstufen der Blöcke anderer Mods (SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting) gibt es nur, solange dieser Mod geladen ist, samt Rezepten. Ihre Eigenschaften kommen aus dem Form-Kern von SimpleLib, den auch Simple Octets nutzt.",
         "details": []
       }
     }
