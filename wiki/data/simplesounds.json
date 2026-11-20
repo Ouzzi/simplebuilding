@@ -493,7 +493,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "client",
       "reload": null,
       "source": "modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java",
       "name": "cooldownTicks",
@@ -588,7 +588,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "client",
       "reload": null,
       "source": "modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java",
       "name": "followVisuals",
@@ -626,7 +626,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "client",
       "reload": null,
       "source": "modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java",
       "name": "globalLevel",
@@ -683,6 +683,25 @@
     },
     {
       "range": null,
+      "side": "client",
+      "reload": null,
+      "source": "modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java",
+      "name": "overrides",
+      "shortName": "overrides",
+      "type": "Map",
+      "default": null,
+      "note": null,
+      "category": "Simple Sounds",
+      "categoryDe": "Simple Sounds",
+      "group": null,
+      "groupDe": null,
+      "label": "Overrides",
+      "labelDe": "Overrides",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": null,
       "side": null,
       "reload": null,
       "source": null,
@@ -702,7 +721,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "client",
       "reload": null,
       "source": "modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java",
       "name": "soundsPerPlayer",
@@ -721,7 +740,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "client",
       "reload": null,
       "source": "modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java",
       "name": "soundsPerTick",
@@ -740,7 +759,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "client",
       "reload": null,
       "source": "modules/simplesounds/shared/java/com/simplebuilding/modules/simplesounds/SoundConfig.java",
       "name": "volumeCap",
@@ -817,7 +836,7 @@
     "items": 0,
     "blocks": 0,
     "trades": 0,
-    "config": 18,
+    "config": 19,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

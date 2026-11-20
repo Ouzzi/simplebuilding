@@ -3033,7 +3033,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.appleSparkle",
@@ -3052,7 +3052,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.berryBlush",
@@ -3071,7 +3071,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.breadCrumbs",
@@ -3090,7 +3090,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.brickDamage",
@@ -3109,7 +3109,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.brickSnowballDamage",
@@ -3128,7 +3128,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.bubbleWand",
@@ -3147,7 +3147,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.carrotCrunch",
@@ -3166,7 +3166,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.cookieCrumbs",
@@ -3185,7 +3185,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.diceAndCoin",
@@ -3204,7 +3204,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.enableBrickSnowball",
@@ -3223,7 +3223,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.enableHigherKnockback",
@@ -3242,7 +3242,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.enableNoDamage",
@@ -3261,7 +3261,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.enableNoDamageTrades",
@@ -3280,7 +3280,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.enablePiggyEffect",
@@ -3299,7 +3299,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.enableThrowableBricks",
@@ -3318,7 +3318,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.enableYeet",
@@ -3337,7 +3337,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.flowerSniff",
@@ -3356,7 +3356,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.highFive",
@@ -3375,7 +3375,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.honeyBubbles",
@@ -3394,7 +3394,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.maxKnockback",
@@ -3413,7 +3413,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.melonSplash",
@@ -3432,7 +3432,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.paperPlane",
@@ -3451,7 +3451,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.partyPopper",
@@ -3470,7 +3470,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.petting",
@@ -3489,7 +3489,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.rubberDuck",
@@ -3508,7 +3508,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.skipStones",
@@ -3527,7 +3527,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.snowAngel",
@@ -3546,7 +3546,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.throwableBricksBreakBlocks",
@@ -3565,7 +3565,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.waterBalloon",
@@ -3584,7 +3584,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
       "name": "fun.yeetStrength",

@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void configLabels(GameTestHelper h) {
+        MapsTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest
     public void configBounds(GameTestHelper h) {
         MapsTests.ALL.get("config_bounds").accept(h);
     }

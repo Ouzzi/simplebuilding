@@ -109,7 +109,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/WeatherConfig.java",
       "name": "clientRainParticleDensity",
@@ -128,7 +128,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/WeatherConfig.java",
       "name": "disableWeather",
@@ -147,7 +147,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/WeatherConfig.java",
       "name": "rainFrequencyFactor",
@@ -166,7 +166,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/WeatherConfig.java",
       "name": "thunderFrequencyFactor",

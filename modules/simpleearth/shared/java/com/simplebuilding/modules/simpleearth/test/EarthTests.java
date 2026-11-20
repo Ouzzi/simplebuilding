@@ -41,6 +41,8 @@ public final class EarthTests {
     private EarthTests() {}
 
     static {
+        // N111 (release audit): the config screen names every option in EN and DE (no raw paths).
+        ALL.put("config_labels", h -> com.simplelib.test.ConfigScreenTests.moduleLabels(h, SimpleEarth.MOD_ID));
         ALL.put("config_command", h -> {
             var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleEarth.MOD_ID, false);
             h.assertTrue(spec != null && spec.options().size() >= EarthServerConfig.KEYS.size() - 1, "/simpleearth config not announced");

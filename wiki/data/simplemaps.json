@@ -1195,10 +1195,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Allow combine",
-      "labelDe": "Allow combine",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Allow Combining",
+      "labelDe": "Zusammenlegen erlauben",
+      "tooltip": "Merge two wayfinder maps at the cartography table.",
+      "tooltipDe": "Zwei Wegfinder-Karten am Kartentisch zusammenlegen."
     },
     {
       "range": null,
@@ -1214,10 +1214,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Allow copy",
-      "labelDe": "Allow copy",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Allow Copying",
+      "labelDe": "Kopieren erlauben",
+      "tooltip": "Copy a wayfinder map with an empty map at the cartography table.",
+      "tooltipDe": "Eine Wegfinder-Karte mit einer leeren Karte am Kartentisch kopieren."
     },
     {
       "range": null,
@@ -1233,10 +1233,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Allow extend",
-      "labelDe": "Allow extend",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Allow Extending",
+      "labelDe": "Erweitern erlauben",
+      "tooltip": "Add a Vanilla map to a wayfinder map at the cartography table.",
+      "tooltipDe": "Eine Vanilla-Karte am Kartentisch in eine Wegfinder-Karte übernehmen."
     },
     {
       "range": null,
@@ -1252,10 +1252,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Layers",
-      "labelDe": "Layers",
-      "tooltip": "Map layers (loaded chunks, shops, chunk loaders): the server answers layer requests only when true.",
-      "tooltipDe": "Map layers (loaded chunks, shops, chunk loaders): the server answers layer requests only when true."
+      "label": "Map Layers",
+      "labelDe": "Karten-Ebenen",
+      "tooltip": "The server sends map layers: loaded chunks, shops and chunk loaders.",
+      "tooltipDe": "Der Server schickt Karten-Ebenen: geladene Chunks, Shops und Chunk-Loader."
     },
     {
       "range": [
@@ -1274,10 +1274,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Max tiles per map",
-      "labelDe": "Max tiles per map",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Max Tiles per Map",
+      "labelDe": "Kacheln pro Karte",
+      "tooltip": "Explored 128 x 128 tiles one map may hold.\nA full map stops exploring.",
+      "tooltipDe": "So viele erkundete Kacheln (128 x 128) fasst eine Karte.\nEine volle Karte erkundet nichts mehr."
     },
     {
       "range": null,
@@ -1293,10 +1293,29 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Mega unlock default",
-      "labelDe": "Mega unlock default",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Mega Map Other Dimensions",
+      "labelDe": "Mega-Karte: andere Dimensionen",
+      "tooltip": "Rule for dimensions not listed.\n\"any\" = any block while in that dimension, empty = none.",
+      "tooltipDe": "Regel für nicht genannte Dimensionen.\n\"any\" = ein beliebiger Block in dieser Dimension, leer = keine."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
+      "name": "megaUnlockItems",
+      "shortName": "megaUnlockItems",
+      "type": "object",
+      "default": null,
+      "note": null,
+      "category": "Simple Maps",
+      "categoryDe": "Simple Maps",
+      "group": null,
+      "groupDe": null,
+      "label": "Mega Map Unlock Items",
+      "labelDe": "Mega-Karte: Freischalt-Items",
+      "tooltip": "Item that unlocks a dimension on the mega wayfinder map at the anvil.\nDimension ID -> item ID, or \"any\".",
+      "tooltipDe": "Dieses Item schaltet am Amboss eine Dimension der Mega-Wegfinder-Karte frei.\nDimensions-ID -> Item-ID oder \"any\"."
     },
     {
       "range": [
@@ -1315,10 +1334,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Mega unlock levels",
-      "labelDe": "Mega unlock levels",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Mega Map Level Cost",
+      "labelDe": "Mega-Karte: Stufen-Kosten",
+      "tooltip": "Levels the anvil takes for each unlocked dimension.",
+      "tooltipDe": "So viele Stufen kostet am Amboss jede freigeschaltete Dimension."
     },
     {
       "range": null,
@@ -1334,10 +1353,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Picture map",
-      "labelDe": "Picture map",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Picture Maps",
+      "labelDe": "Bildkarten",
+      "tooltip": "Players may turn a picture into a wall of maps (/simplemaps picture).",
+      "tooltipDe": "Spieler dürfen ein Bild in eine Wand aus Karten verwandeln (/simplemaps picture)."
     },
     {
       "range": null,
@@ -1353,10 +1372,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Picture map costs map",
-      "labelDe": "Picture map costs map",
-      "tooltip": "Each picture map uses up one empty map (owner MAPS8 = C, 12.11.; creative free): no free, endless map files.",
-      "tooltipDe": "Each picture map uses up one empty map (owner MAPS8 = C, 12.11.; creative free): no free, endless map files."
+      "label": "Picture Map Costs a Map",
+      "labelDe": "Bildkarte kostet eine Karte",
+      "tooltip": "Each picture map uses up one empty map.\nCreative mode is free.",
+      "tooltipDe": "Jede Bildkarte verbraucht eine leere Karte.\nIm Kreativmodus kostenlos."
     },
     {
       "range": [
@@ -1375,10 +1394,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Picture map max side",
-      "labelDe": "Picture map max side",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Picture Map Size",
+      "labelDe": "Bildkarten-Größe",
+      "tooltip": "Longest side of a picture, in maps.",
+      "tooltipDe": "Längste Seite eines Bildes, in Karten."
     },
     {
       "range": [
@@ -1397,10 +1416,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Picture map permission",
-      "labelDe": "Picture map permission",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Picture Map Permission",
+      "labelDe": "Bildkarten-Berechtigung",
+      "tooltip": "Permission level a player needs for picture maps.\n0 = everyone, 4 = owner only.",
+      "tooltipDe": "Diese Berechtigungsstufe braucht ein Spieler für Bildkarten.\n0 = alle, 4 = nur der Besitzer."
     },
     {
       "range": [
@@ -1419,10 +1438,29 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Reveal radius",
-      "labelDe": "Reveal radius",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Reveal Radius",
+      "labelDe": "Aufdeck-Radius",
+      "tooltip": "Blocks around the holder that a wayfinder map reveals.",
+      "tooltipDe": "So viele Blöcke um den Spieler deckt eine Wegfinder-Karte auf."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplemaps/shared/java/com/simplemaps/MapsConfig.java",
+      "name": "webAutoOffWith",
+      "shortName": "webAutoOffWith",
+      "type": "list",
+      "default": null,
+      "note": null,
+      "category": "Simple Maps",
+      "categoryDe": "Simple Maps",
+      "group": null,
+      "groupDe": null,
+      "label": "Off with These Mods",
+      "labelDe": "Aus bei diesen Mods",
+      "tooltip": "Mod IDs with a web map of their own.\nIf one is loaded, the export stays off.",
+      "tooltipDe": "Mod-IDs mit eigener Webkarte.\nIst eine davon geladen, bleibt der Export aus."
     },
     {
       "range": [
@@ -1441,10 +1479,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web chunks per tick",
-      "labelDe": "Web chunks per tick",
-      "tooltip": "Chunks read per server tick while exporting; minutes between automatic exports (0 = only by command).",
-      "tooltipDe": "Chunks read per server tick while exporting; minutes between automatic exports (0 = only by command)."
+      "label": "Export Chunks per Tick",
+      "labelDe": "Export-Chunks pro Tick",
+      "tooltip": "Chunks read per server tick while exporting.\nLower = less lag, slower export.",
+      "tooltipDe": "So viele Chunks liest der Export pro Server-Tick.\nWeniger = weniger Ruckeln, langsamerer Export."
     },
     {
       "range": null,
@@ -1460,10 +1498,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web claim style",
-      "labelDe": "Web claim style",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Protected Chunk Style",
+      "labelDe": "Darstellung geschützter Chunks",
+      "tooltip": "How hidden chunks look: hide = empty, pixelate = one color per chunk.",
+      "tooltipDe": "So sehen verborgene Chunks aus: hide = leer, pixelate = eine Farbe pro Chunk."
     },
     {
       "range": null,
@@ -1479,10 +1517,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web enabled",
-      "labelDe": "Web enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Web Map Export",
+      "labelDe": "Webkarte exportieren",
+      "tooltip": "Exports the explored world as a web map.",
+      "tooltipDe": "Exportiert die erkundete Welt als Webkarte."
     },
     {
       "range": null,
@@ -1498,10 +1536,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web export dir",
-      "labelDe": "Web export dir",
-      "tooltip": "Empty = /simplemaps-web; a relative path is relative to the world folder.",
-      "tooltipDe": "Empty = /simplemaps-web; a relative path is relative to the world folder."
+      "label": "Web Map Folder",
+      "labelDe": "Webkarten-Ordner",
+      "tooltip": "Folder of the web map.\nEmpty = simplemaps-web in the world folder.\nA relative path starts at the world folder.",
+      "tooltipDe": "Ordner der Webkarte.\nLeer = simplemaps-web im Weltordner.\nEin relativer Pfad beginnt im Weltordner."
     },
     {
       "range": null,
@@ -1517,10 +1555,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web hide claims",
-      "labelDe": "Web hide claims",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Hide Protected Chunks",
+      "labelDe": "Geschützte Chunks verbergen",
+      "tooltip": "Protected chunks do not show their content on the web map.",
+      "tooltipDe": "Geschützte Chunks zeigen auf der Webkarte nicht ihren Inhalt."
     },
     {
       "range": null,
@@ -1536,10 +1574,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web http bind",
-      "labelDe": "Web http bind",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Web Server Address",
+      "labelDe": "Webserver-Adresse",
+      "tooltip": "Address the web server listens on.\n127.0.0.1 = this computer only.",
+      "tooltipDe": "Auf dieser Adresse lauscht der Webserver.\n127.0.0.1 = nur dieser Rechner."
     },
     {
       "range": null,
@@ -1555,10 +1593,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web http enabled",
-      "labelDe": "Web http enabled",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Built-in Web Server",
+      "labelDe": "Eingebauter Webserver",
+      "tooltip": "Serves the web map over HTTP.\nNeeds the web map export.",
+      "tooltipDe": "Liefert die Webkarte über HTTP aus.\nBraucht den Webkarten-Export."
     },
     {
       "range": [
@@ -1577,10 +1615,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web http port",
-      "labelDe": "Web http port",
-      "tooltip": "Port; requests per minute and client address; seconds between two live.json snapshots (players).",
-      "tooltipDe": "Port; requests per minute and client address; seconds between two live.json snapshots (players)."
+      "label": "Web Server Port",
+      "labelDe": "Webserver-Port",
+      "tooltip": "Port of the built-in web server.",
+      "tooltipDe": "Port des eingebauten Webservers."
     },
     {
       "range": [
@@ -1599,10 +1637,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web http requests per minute",
-      "labelDe": "Web http requests per minute",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Requests per Minute",
+      "labelDe": "Anfragen pro Minute",
+      "tooltip": "Most requests per minute from one address.",
+      "tooltipDe": "Höchstens so viele Anfragen pro Minute von einer Adresse."
     },
     {
       "range": null,
@@ -1618,10 +1656,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web http token",
-      "labelDe": "Web http token",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Web Server Token",
+      "labelDe": "Webserver-Token",
+      "tooltip": "Access token for the web map.\nEmpty = none. A public address gets a random one.",
+      "tooltipDe": "Zugangs-Token für die Webkarte.\nLeer = keins. Eine öffentliche Adresse bekommt ein zufälliges."
     },
     {
       "range": [
@@ -1640,10 +1678,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web interval minutes",
-      "labelDe": "Web interval minutes",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Export Interval (Minutes)",
+      "labelDe": "Export-Abstand (Minuten)",
+      "tooltip": "Minutes between automatic exports.\n0 = only by command.",
+      "tooltipDe": "Minuten zwischen zwei automatischen Exporten.\n0 = nur per Befehl."
     },
     {
       "range": [
@@ -1662,10 +1700,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web live seconds",
-      "labelDe": "Web live seconds",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Live Update (Seconds)",
+      "labelDe": "Live-Abstand (Sekunden)",
+      "tooltip": "Seconds between two player position updates.",
+      "tooltipDe": "Sekunden zwischen zwei Updates der Spielerpositionen."
     },
     {
       "range": null,
@@ -1681,10 +1719,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web shops",
-      "labelDe": "Web shops",
-      "tooltip": "Shops (Simple Shops' map layer) in the web map's markers.json: off by default, owner names are in it (privacy).",
-      "tooltipDe": "Shops (Simple Shops' map layer) in the web map's markers.json: off by default, owner names are in it (privacy)."
+      "label": "Shops on the Web Map",
+      "labelDe": "Shops auf der Webkarte",
+      "tooltip": "Shows shops as markers.\nThe markers name the owners.",
+      "tooltipDe": "Zeigt Shops als Markierungen.\nDie Markierungen nennen die Besitzer."
     },
     {
       "range": null,
@@ -1700,10 +1738,10 @@
       "categoryDe": "Simple Maps",
       "group": null,
       "groupDe": null,
-      "label": "Web waypoints",
-      "labelDe": "Web waypoints",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Shared Waypoints",
+      "labelDe": "Geteilte Wegpunkte",
+      "tooltip": "Shows waypoints that players shared themselves.",
+      "tooltipDe": "Zeigt Wegpunkte, die Spieler selbst geteilt haben."
     }
   ],
   "quests": [],
@@ -1727,7 +1765,7 @@
     "items": 5,
     "blocks": 0,
     "trades": 0,
-    "config": 26,
+    "config": 28,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

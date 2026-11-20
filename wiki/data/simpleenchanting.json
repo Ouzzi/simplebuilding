@@ -2901,13 +2901,13 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
-      "source": null,
+      "source": "modules/simpleenchanting/shared/java/com/simpleenchanting/config/EnchantingConfig.java",
       "name": "features.endgameLevels",
       "shortName": "endgameLevels",
-      "type": null,
-      "default": "on",
+      "type": "boolean",
+      "default": "true",
       "note": null,
       "category": "Features",
       "categoryDe": "Funktionen",

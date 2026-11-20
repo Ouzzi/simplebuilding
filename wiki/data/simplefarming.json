@@ -207,7 +207,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java",
       "name": "enableHoeHarvest",
@@ -226,7 +226,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java",
       "name": "grassCutMinSharpness",
@@ -245,7 +245,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java",
       "name": "grassSweepRadiusPerLevel",
@@ -264,7 +264,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java",
       "name": "grassThroughMaxPercent",
@@ -283,7 +283,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java",
       "name": "grassThroughMinPercent",
@@ -302,7 +302,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java",
       "name": "preventFarmlandTrampleWithFeatherFalling",
@@ -321,7 +321,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java",
       "name": "sharpnessCutsGrass",

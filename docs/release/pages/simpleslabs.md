@@ -17,17 +17,17 @@ Half slabs - 4 pixels thin - of every block with a slab, freely stacked in a cel
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Slabs adds a half slab (half a slab, 4 pixels) for each of the 170 blocks with a slab. Any of the four layers of a block cell can be filled in any combination, so you build 4-pixel ledges, gaps and thin roofs; sneaking puts it upright against a wall as a side half slab or, two layers thick, a side slab. Sand and gravel half slabs fall, grass is tinted by the biome, copper ages. Cut in the Shapecutter (or stonecutter), crafted back into the slab.
+Simple Slabs adds a half slab (half a slab, 4 pixels) for each of the 170 blocks with a slab. Any of the four layers of a block cell can be filled in any combination, so you build 4-pixel ledges, gaps and thin roofs; the side half slab, an item of its own, stands upright against a wall and grows to a side slab at two layers. Sand and gravel half slabs fall, grass is tinted by the biome, copper ages. Cut in the Shapecutter (or stonecutter), crafted back into the slab.
 
 ## Features
 
 - **Half slabs: 4-pixel layers of every block with a slab** - A half slab is half a slab: 4 pixels high.
-- **Side half slab and side slab** - Sneak + right-click on the side of a block puts the half slab upright against that side: a side half slab of 4 pixels.
+- **Side half slab and side slab** - The side half slab is an item of its own for every material: right-click on the side of a block puts it upright against that side, 4 pixels thin.
 - **Slab and half slab in one block** - A half slab used on its own slab (bottom or top, not double) adds a layer: the slab becomes the half slab block with its two layers and the new one, water stays.
-- **Breaking and water** - Breaking a half slab block drops one half slab for every filled layer.
+- **Breaking and water** - Breaking a half slab block drops one half slab for every filled layer, a side form one side half slab per layer.
 - **Sand, gravel and grass**
 - **Copper half slabs age** - Unwaxed copper half slabs age like Vanilla copper: exposed, weathered, oxidized.
-- **Shapecutter and back** - The Shapecutter of Simple Blocks cuts 2 half slabs from a slab and 4 from its full block; without Simple Blocks the Vanilla stonecutter does it.
+- **Shapecutter and back** - The Shapecutter of Simple Blocks cuts 2 half slabs or 2 side half slabs from a slab and 4 from its full block; without Simple Blocks the Vanilla stonecutter does it.
 - **Half slabs of other mods' blocks**
 
 ## Vanilla use

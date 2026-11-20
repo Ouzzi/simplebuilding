@@ -1019,7 +1019,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "boar",
@@ -1038,7 +1038,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "boarAggression",
@@ -1056,8 +1056,11 @@
       "tooltipDe": "An: erwachsene Wildschweine rammen Spieler, die lange nah bleiben oder an Frischlinge kommen. Aus: sie greifen nur an, wenn sie verletzt werden. Standard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        2,
+        30
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "boarCloseSeconds",
@@ -1075,8 +1078,11 @@
       "tooltipDe": "Sekunden, die ein Spieler in der Nähe eines erwachsenen Wildschweins bleiben darf, bevor es rammt. Bereich 2 bis 30. Standard: 6."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "boarTruffleChance",
@@ -1095,7 +1101,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "boarTruffles",
@@ -1114,13 +1120,13 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
-      "source": "modules/simpleanimals/shared/java/com/simpleanimals/client/CrabRenderer.java",
+      "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "crab",
       "shortName": "crab",
-      "type": "CrabModel",
-      "default": "on",
+      "type": "boolean",
+      "default": "true",
       "note": null,
       "category": "Simple Animals",
       "categoryDe": "Simple Animals",
@@ -1133,7 +1139,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "deer",
@@ -1152,7 +1158,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "enabled",
@@ -1171,7 +1177,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "hedgehog",
@@ -1189,8 +1195,11 @@
       "tooltipDe": "An: Igel spawnen natürlich in Wäldern und auf Wiesen. Standard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        2,
+        16
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "hedgehogHuntRadius",
@@ -1209,7 +1218,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "hedgehogHunts",
@@ -1228,7 +1237,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "hedgehogThorns",
@@ -1246,8 +1255,11 @@
       "tooltipDe": "An: ein eingerollter Igel sticht Nahkämpfer. Standard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "spawnScale",
@@ -1266,7 +1278,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "zebra",
@@ -1285,7 +1297,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleanimals/shared/java/com/simpleanimals/config/AnimalsConfig.java",
       "name": "zorse",

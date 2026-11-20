@@ -50,7 +50,7 @@ for m in mods:
     summ, over, cats, tags = P[i]
     req = [nm(x) for x in m.get("requires", [])]
     opt = [nm(x) for x in m.get("optional", [])]
-    parents = [nm(o["id"]) for o in mods if i in o.get("requires", []) and o["id"] != i]
+    parents = [nm(o["id"]) for o in mods if i in o.get("requires", []) and o["id"] != i and o.get("release") is not False and not o.get("example")]  # unreleased mods are no parent on a store page
     simple_req = [x for x in m.get("requires", []) if x in byid]
     if i in SUPERS: rel = f"**Super mod.** It requires its sub-mods ({', '.join(nm(x) for x in simple_req)}); each sub-mod can be switched off in the config (\"Enable Simple XY\") and each can also be installed without the super mod."
     elif parents: rel = f"**Sub-mod** of {', '.join(parents)}. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed."

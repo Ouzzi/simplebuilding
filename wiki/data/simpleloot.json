@@ -109,7 +109,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleloot/shared/java/com/simplebuilding/modules/simpleloot/LootConfig.java",
       "name": "enableVaultCooldown",
@@ -128,7 +128,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleloot/shared/java/com/simplebuilding/modules/simpleloot/LootConfig.java",
       "name": "vaultCooldownDays",
