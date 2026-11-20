@@ -110,6 +110,11 @@ def aim_click(ptr, st, rect, label, log):
     log.append(note)
 
 
+def readable(tab):
+    """A side bookmark that opens a chapter with pages (GuideProbe reports open + pages; older clients: open only)."""
+    return tab['chapter'] >= 0 and tab.get('open', True) and tab.get('pages', 1) > 0
+
+
 def wait(pred, seconds=15):
     end = time.time() + seconds
     st = status()
@@ -172,11 +177,16 @@ def main():
             check(f'{tag}: guide opens at Simple Quality of Life', st.get('screen') == 'ModpackGuideScreen', st.get('screen'))
             command('shot')
             tabs = st.get('tabs', [])
-            first = next((t for t in tabs if t['chapter'] == 0), None)
+            # N118 (W4C "Kapitelnummern"): the chapter to open comes from the status (an open bookmark whose chapter has pages), not
+            # from fixed numbers - the sections' chapter order changes whenever a mod hands in or moves a chapter
+            first = next((t for t in tabs if readable(t)), None)
+            if not first:
+                check(f'{tag}: an open side bookmark with pages exists', False, [(t['chapter'], t.get('open'), t.get('pages')) for t in tabs])
             if first:
-                aim_click(ptr, st, first['rect'], f'{tag} side chapter 1', aims)
-                st = wait(lambda s: s.get('chapter') == 0, 5)
-                check(f'{tag}: side bookmark opens chapter 1', st.get('chapter') == 0, f'chapter {st.get("chapter")}')
+                want = first['chapter']
+                aim_click(ptr, st, first['rect'], f'{tag} side chapter {want + 1}', aims)
+                st = wait(lambda s: s.get('chapter') == want, 5)
+                check(f'{tag}: side bookmark opens chapter {want + 1}', st.get('chapter') == want, f'chapter {st.get("chapter")}, wanted {want}')
                 command('shot')
             # a locked bookmark: GuideProbe reports "open" per tab (chapters without an advancement are always open - a-w4c took chapter 1,
             # which is open, and saw it open at GUI 2)
@@ -202,8 +212,11 @@ def main():
                     check(f'{tag}: "More Simple mods" opens the sub-mod chapters', st.get('section') == 'simplebuilding'
                           and st.get('screen') == 'ModpackGuideScreen', f'{st.get("screen")} {st.get("section")}')
                     command('shot')
-                    target = next((t for t in st.get('tabs', []) if t['chapter'] == 2 and t.get('open', True)), None) \
-                        or next((t for t in st.get('tabs', []) if t['chapter'] > 0 and t.get('open', True)), None)
+                    target = next((t for t in st.get('tabs', []) if t['chapter'] > 0 and readable(t)), None) \
+                        or next((t for t in st.get('tabs', []) if readable(t)), None)
+                    if not target:
+                        check(f'{tag}: an open sub-mod chapter bookmark with pages exists', False,
+                              [(t['chapter'], t.get('open'), t.get('pages')) for t in st.get('tabs', [])])
                     if target:
                         aim_click(ptr, st, target['rect'], f'{tag} sub-mod chapter', aims)
                         want = target['chapter']
