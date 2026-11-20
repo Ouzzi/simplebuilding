@@ -2710,7 +2710,7 @@
             "A slim book that knows every switch of the flat lamps."
           ],
           "use": [
-            "The Simple Lights Guide explains the Light Panes and their colours. Craft it shapeless from a book and a light pane."
+            "The Simple Lights Guide explains the Light Panes and their colors. Craft it shapeless from a book and a light pane."
           ],
           "secret": [
             "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
@@ -4216,10 +4216,10 @@
       "questionary": {
         "en": {
           "lore": [
-            "A pane that talks in colours instead of words."
+            "A pane that talks in colors instead of words."
           ],
           "use": [
-            "Its colour follows the redstone signal strength: each of the 15 strengths shows another dye colour, no signal is dark."
+            "Its color follows the redstone signal strength: each of the 15 strengths shows another dye color, no signal is dark."
           ],
           "secret": [
             "Place it on any side of a block; it is only 1 pixel thick and shines only while powered."

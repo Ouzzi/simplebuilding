@@ -284,7 +284,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "23adea30c1fc"
+    "dataHash": "9664a4a9c851"
   },
   {
     "id": "simplevisuals",
@@ -772,7 +772,7 @@ window.WIKI_MODULES = [
       "config": 82,
       "features": 25
     },
-    "dataHash": "970d0ee689ab"
+    "dataHash": "45a06187fcee"
   },
   {
     "id": "simpleweather",
@@ -1141,7 +1141,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 11
     },
-    "dataHash": "ee1b3f2e064b"
+    "dataHash": "40fd441e3770"
   },
   {
     "id": "simplerespawn",
@@ -1458,7 +1458,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 20
     },
-    "dataHash": "3c12867f04db"
+    "dataHash": "4dab5ed8a741"
   },
   {
     "id": "simplecrucibles",
@@ -1825,7 +1825,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 5
     },
-    "dataHash": "772fa4ccde3a"
+    "dataHash": "39b11a4b74ad"
   },
   {
     "id": "simplegadgets",
@@ -1993,7 +1993,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 10
     },
-    "dataHash": "92274ace7733"
+    "dataHash": "d1b4dcbb2883"
   },
   {
     "id": "simpleores",
@@ -2032,7 +2032,7 @@ window.WIKI_MODULES = [
       "config": 27,
       "features": 27
     },
-    "dataHash": "e9dd5000364d"
+    "dataHash": "9f90940aa278"
   },
   {
     "id": "simplemachines",
