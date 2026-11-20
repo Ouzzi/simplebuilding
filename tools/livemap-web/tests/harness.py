@@ -17,6 +17,7 @@ import zlib
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))      # fake_stripe / fake_paddle also under python3 -I
 
 from smweb import config, security  # noqa: E402
 from smweb.app import App, serve  # noqa: E402
@@ -181,7 +182,101 @@ MOCK_SECRET = "whsec_harness_local_only"
 MOCK_PRICES = {k: {"month": f"price_{k}_month_mock", "year": f"price_{k}_year_mock"} for k in ("basic", "max", "ultra")}
 
 
-def billing_mock(svc: Service, app: App, host: str, data: str):
+PADDLE_MOCK_SECRET = "pdl_ntfset_harness_local_only"
+PADDLE_MOCK_PRICES = {k: {iv: f"pri_{k}_{iv}_mock" for iv in ("month", "year", "month_trial", "year_trial")} for k in ("basic", "max", "ultra")}
+
+PADDLE_JS = """/* LOCAL IMITATION of Paddle.js for preview pictures (harness only; never loads anything from Paddle). */
+(function () {
+  var opts = {};
+  function open(o) {
+    var txn = (o && o.transactionId) || new URLSearchParams(location.search).get('_ptxn');
+    if (!txn || document.getElementById('pm-ov')) { return; }
+    var ov = document.createElement('div'); ov.id = 'pm-ov';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:99';
+    var box = document.createElement('div');
+    box.style.cssText = 'background:#fff;color:#1f2937;width:420px;max-width:94vw;border-radius:12px;padding:28px;font:15px -apple-system,Segoe UI,Roboto,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.35)';
+    fetch('/_mock/paddle/txn/' + encodeURIComponent(txn)).then(function (r) { return r.json(); }).then(function (t) {
+      box.innerHTML = '<div style="display:inline-block;background:#fde68a;color:#92400e;font-size:12px;font-weight:600;padding:2px 8px;border-radius:4px">SANDBOX · lokale Nachbildung</div>' +
+        '<p style="color:#6b7280;margin:14px 0 2px">Paddle Checkout · Verkäufer: Paddle.com (Merchant of Record)</p>' +
+        '<div style="font-size:18px;font-weight:600">' + t.label + '</div>' +
+        '<div style="font-size:30px;font-weight:700;margin:6px 0">' + t.price + '</div><div style="color:#6b7280;font-size:13px">' + t.note + '</div>' +
+        '<form method="post" action="/_mock/paddle/pay/' + encodeURIComponent(txn) + '" style="margin-top:16px">' +
+        '<label style="font-size:13px;color:#6b7280">E-Mail</label><input readonly value="' + t.email + '" style="width:100%;padding:9px;border:1px solid #d1d5db;border-radius:6px;margin:4px 0 10px;box-sizing:border-box">' +
+        '<label style="font-size:13px;color:#6b7280">Land</label><input readonly value="Deutschland" style="width:100%;padding:9px;border:1px solid #d1d5db;border-radius:6px;margin:4px 0 10px;box-sizing:border-box">' +
+        '<label style="font-size:13px;color:#6b7280">Karte (Testkarte)</label><input readonly value="4242 4242 4242 4242   12/34   100" style="width:100%;padding:9px;border:1px solid #d1d5db;border-radius:6px;margin:4px 0 14px;box-sizing:border-box">' +
+        '<button style="width:100%;padding:13px;background:#1d4ed8;color:#fff;border:0;border-radius:6px;font-size:16px;font-weight:600">' + t.button + '</button>' +
+        '<p style="font-size:12px;color:#6b7280">Es gelten die Käuferbedingungen von Paddle (Buyer Terms). Paddle weist die USt. aus und stellt die Rechnung.</p></form>';
+    });
+    ov.appendChild(box); document.body.appendChild(ov);
+  }
+  window.Paddle = { Environment: { set: function () {} }, Initialize: function (o) { opts = o || {}; if (location.search.indexOf('_ptxn=') >= 0) { open({}); } },
+                    Checkout: { open: open } };
+}());
+"""
+
+
+def paddle_mock(svc: Service, app: App, host: str):
+    """N108 addendum 4 pictures: Paddle on against tests/fake_paddle.FakePaddle; /pro/pay gets a LOCAL imitation of Paddle.js
+    (/_mock/paddle.js instead of cdn.paddle.com - nothing is loaded from Paddle); "Jetzt kaufen" sends signed Paddle-like
+    notifications to the real /api/paddle/webhook route. Never a real Paddle call."""
+    import html
+    import json
+    from smweb.app import Request, Response
+    import fake_paddle as fp
+
+    svc.cfg.billing = {"provider": "paddle", "enabled": True, "withdrawal_days": 14, "grace_days": 7, "terms_version": "entwurf-2026-11-19",
+                       "vat": {"mode": "small_business", "rate_percent": 19},
+                       "paddle": {"environment": "sandbox", "api_key": "pdl_sdbx_apikey_harness_mock", "webhook_secret": PADDLE_MOCK_SECRET,
+                                  "client_token": "test_harness_mock_token", "prices": PADDLE_MOCK_PRICES,
+                                  "gift_prices": {k: f"pri_{k}_gift_mock" for k in ("basic", "max", "ultra")}}}
+    svc.paddle_api = fake = fp.FakePaddle(now=svc.now)
+    inner = app.handle
+
+    def handle(req):
+        if req.path == "/_mock/paddle.js":
+            return Response(200, PADDLE_JS.encode(), [("Content-Type", "text/javascript; charset=utf-8")])
+        if req.path.startswith("/_mock/paddle/txn/"):
+            t = fake.objects.get(req.path.rsplit("/", 1)[1]) or {}
+            c = t.get("custom_data") or {}
+            pl = svc.plan(c.get("plan") or "basic")
+            gift = c.get("kind") == "gift"
+            months = int(c.get("months") or 1)
+            cents = pl["price_month"] * months if gift else (pl["price_month"] if c.get("interval") == "month" else pl["price_year"])
+            u = svc.user(int(c.get("user") or 0))
+            label = f"Simple Mods Pro {pl['name']}" + (f" – Geschenk {months} Monat(e)" if gift else (" – jährlich" if c.get("interval") == "year" else " – monatlich"))
+            trial = (t.get("items") or [{}])[0].get("price_id", "").endswith("_trial_mock")
+            note = ("Einmalzahlung inkl. USt." if gift else ("heute 0,00 € – Start nach 14 Tagen Widerrufsfrist, dann " if trial else "") +
+                    f"inkl. USt., {'pro Jahr' if c.get('interval') == 'year' else 'pro Monat'}")
+            return Response(200, json.dumps({"label": html.escape(label), "price": f"{cents // 100},{cents % 100:02d} €", "note": html.escape(note),
+                                             "email": html.escape(u["email"] if u else ""), "button": "Jetzt kaufen" if gift else "Abonnieren"}).encode(),
+                            [("Content-Type", "application/json")])
+        if req.path.startswith("/_mock/paddle/pay/") and req.method == "POST":
+            t = fake.objects[req.path.rsplit("/", 1)[1]]
+            c = t["custom_data"]
+            now = svc.now()
+            cus = "ctm_mock_" + c["user"]
+            if c.get("kind") == "gift":
+                evts = [fp.event("transaction.completed", fp.transaction(t["id"], cus, None, c, 0), now)]
+                loc = svc.cfg.url("account", "/pro/gifts?done=1")
+            else:
+                sub = "sub_mock_" + t["id"][-4:]
+                end = now + (365 if c["interval"] == "year" else 30) * 86400
+                price = t["items"][0]["price_id"]
+                evts = [fp.event("transaction.completed", fp.transaction(t["id"], cus, sub, c, 399, end), now),
+                        fp.event("subscription.created", fp.subscription(sub, cus, price, "trialing" if price.endswith("_trial_mock") else "active", end, c, c["interval"]), now)]
+                loc = svc.cfg.url("account", "/pro/done")
+            for evt in evts:
+                body, sig = fp.signed(evt, PADDLE_MOCK_SECRET, now)
+                inner(Request("POST", host, "/api/paddle/webhook", {}, {"paddle-signature": sig}, body))
+            return Response(303, b"", [("Location", loc)])
+        r = inner(req)
+        if req.path == "/pro/pay" and r.status == 200:      # local imitation instead of Paddle's CDN (pictures only)
+            r.body = r.body.replace(b"https://cdn.paddle.com/paddle/v2/paddle.js", b"/_mock/paddle.js")
+        return r
+    app.handle = handle
+
+
+def billing_mock(svc: Service, app: App, host: str, data: str, provider: str = "stripe"):
     """N108 pictures: billing switched on against tests/fake_stripe.FakeStripe; /_mock/checkout/<id> imitates Stripe Checkout in
     test mode and, on "Abonnieren", sends signed Stripe-CLI-like events to the real webhook route. Never a real Stripe call."""
     import html
@@ -191,7 +286,7 @@ def billing_mock(svc: Service, app: App, host: str, data: str):
     from smweb.app import Request, Response
     import fake_stripe as fs
 
-    svc.cfg.billing = {"enabled": True, "mode": "test", "secret_key": "sk_test_harness_mock", "webhook_secret": MOCK_SECRET, "prices": MOCK_PRICES,
+    svc.cfg.billing = {"provider": "stripe", "enabled": True, "mode": "test", "secret_key": "sk_test_harness_mock", "webhook_secret": MOCK_SECRET, "prices": MOCK_PRICES,
                        "vat": {"mode": "small_business", "rate_percent": 19, "stripe_tax": False}, "grace_days": 7, "withdrawal_days": 14,
                        "terms_version": "entwurf-2026-11-19"}
     svc.stripe_api = fake = fs.FakeStripe(checkout_base=f"http://{host}/_mock/checkout/", now=svc.now)
@@ -251,13 +346,16 @@ def billing_mock(svc: Service, app: App, host: str, data: str):
             return Response(303, b"", [("Location", loc)])
         return inner(req)
     app.handle = handle
+    if provider == "paddle":
+        paddle_mock(svc, app, host)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=8790)
     ap.add_argument("--data", default=None)
-    ap.add_argument("--billing-mock", action="store_true", help="N108 pictures: Simple Mods Pro on against a fake Stripe")
+    ap.add_argument("--billing-mock", nargs="?", const="paddle", choices=["paddle", "stripe"], default=None,
+                    help="N108 pictures: Simple Mods Pro on against a fake Paddle (default) or a fake Stripe")
     a = ap.parse_args()
     data = a.data or tempfile.mkdtemp(prefix="smweb-harness-")
     host = f"127.0.0.1:{a.port}"
@@ -267,7 +365,7 @@ def main():
     seed(svc)
     app = App(svc)
     if a.billing_mock:
-        billing_mock(svc, app, host, data)
+        billing_mock(svc, app, host, data, a.billing_mock)
     srv = serve(app, "127.0.0.1", a.port)
     print(f"harness on http://{host}/ (data {data}); accounts owner@example.com / free@example.com, password: {PW}", flush=True)
     try:

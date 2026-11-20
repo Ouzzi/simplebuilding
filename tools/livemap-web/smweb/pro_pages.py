@@ -13,6 +13,27 @@ def page(ctx, title: str, body: str, wide: bool = False) -> str:
     return layout(ctx, title, body, wide=wide, brand=BRAND)
 
 
+PROVIDER_NAMES = {"paddle": "Paddle", "stripe": "Stripe"}
+
+
+def provider_label(ctx) -> str:
+    return PROVIDER_NAMES.get(ctx.svc.provider_name(), ctx.svc.provider_name().title())
+
+
+def terms_label(ctx) -> tuple[str, str]:
+    """Paddle = merchant of record: our terms are terms of use for account and services (addendum 4); Stripe: AGB."""
+    return ("terms of use", "Nutzungsbedingungen") if ctx.svc.provider_name() == "paddle" else ("terms", "AGB")
+
+
+def payment_row(ctx) -> str:
+    if ctx.svc.provider_name() == "paddle":
+        return ctx.t("in advance for each period, via Paddle: Paddle.com is the seller (merchant of record) and issues the invoice "
+                     "(payment data in the next step; Paddle's buyer terms apply to the purchase)",
+                     "im Voraus je Zeitraum, über Paddle: Verkäufer ist Paddle.com (Merchant of Record) und stellt die Rechnung aus "
+                     "(Zahlungsdaten im nächsten Schritt; für den Kauf gelten die Käuferbedingungen von Paddle)")
+    return ctx.t("in advance for each period, via Stripe (payment data in the next step)", "im Voraus je Zeitraum, über Stripe (Zahlungsdaten im nächsten Schritt)")
+
+
 def legal_link(ctx, key: str, en: str, de: str) -> str:
     url = ctx.cfg["legal"].get(key)
     label = ctx.t(en, de)
@@ -102,11 +123,11 @@ def order(ctx, plan_key: str, interval: str, f: dict | None = None) -> str:
         (ctx.t("Includes", "Leistungen"), f'<ul class="plain">{perks}</ul>'),
         (ctx.t("Term", "Laufzeit"), e(interval_text(interval, ctx.lang))),
         (ctx.t("Price", "Preis"), f'<b>{euro(ctx, cents)}</b> {per}<br><span class="mut small">{e(vat)}</span>'),
-        (ctx.t("Payment", "Zahlung"), ctx.t("in advance for each period, via Stripe (payment data in the next step)", "im Voraus je Zeitraum, über Stripe (Zahlungsdaten im nächsten Schritt)")),
+        (ctx.t("Payment", "Zahlung"), payment_row(ctx)),
         (ctx.t("Withdrawal", "Widerruf"), ctx.t(f"14-day right of withdrawal for consumers – ", f"14 Tage Widerrufsrecht für Verbraucher – ") + legal_link(ctx, "withdrawal_url", "withdrawal notice", "Widerrufsbelehrung")),
     ]
     table = "".join(f'<tr><th scope="row">{k}</th><td>{v}</td></tr>' for k, v in rows)
-    terms = (ctx.t("I have read and accept the ", "Ich habe die ") + legal_link(ctx, "terms_url", "terms", "AGB")
+    terms = (ctx.t("I have read and accept the ", "Ich habe die ") + legal_link(ctx, "terms_url", *terms_label(ctx))
              + ctx.t(" and the ", " und die ") + legal_link(ctx, "withdrawal_url", "withdrawal notice", "Widerrufsbelehrung")
              + ctx.t(". I have taken note of the ", " gelesen und akzeptiere sie. Die ") + legal_link(ctx, "privacy_url", "privacy notice", "Datenschutzerklärung")
              + ctx.t(".", " habe ich zur Kenntnis genommen."))
@@ -119,7 +140,7 @@ def order(ctx, plan_key: str, interval: str, f: dict | None = None) -> str:
 <p class="mut small">* {ctx.t("required", "Pflichtfeld")}</p>
 <button class="btn order-button">zahlungspflichtig bestellen</button>"""
     body = f"""<h1>{ctx.t("Your order", "Deine Bestellung")}</h1>{alerts(ctx)}
-<ol class="steps small"><li>{ctx.t("Choose plan", "Stufe wählen")}</li><li aria-current="step"><b>{ctx.t("Check and order", "Prüfen und bestellen")}</b></li><li>{ctx.t("Pay with Stripe", "Bezahlen mit Stripe")}</li></ol>
+<ol class="steps small"><li>{ctx.t("Choose plan", "Stufe wählen")}</li><li aria-current="step"><b>{ctx.t("Check and order", "Prüfen und bestellen")}</b></li><li>{ctx.t("Pay with " + provider_label(ctx), "Bezahlen mit " + provider_label(ctx))}</li></ol>
 <section class="c"><div class="tw"><table class="summary">{table}</table></div>
 <p class="small"><a href="{e(ctx.url("account", f"/pro/order?plan={plan_key}&interval={other}"))}">{ctx.t("Switch to yearly" if other == "year" else "Switch to monthly", "Zu jährlich wechseln" if other == "year" else "Zu monatlich wechseln")}</a> ·
 <a href="{e(ctx.url("account", "/pro"))}">{ctx.t("Back: change plan", "Zurück: Stufe ändern")}</a></p></section>
@@ -201,13 +222,13 @@ def gift_order(ctx, plan_key: str, f: dict | None = None) -> str:
     plan_opts = "".join(f'<option value="{k}"{" selected" if k == plan_key else ""}>{e(plans["plans"][k]["name"])} – {euro(ctx, plans["plans"][k]["price_month"])} {ctx.t("per month", "pro Monat")}</option>' for k in plans["order"])
     month_opts = "".join(f'<option value="{m}"{" selected" if str(m) == f.get("months", "") else ""}>{m} {ctx.t("month(s)", "Monat(e)")}</option>' for m in g["months"])
     n = int(g["names"].get(plan_key, 1))
-    names = "".join(f'<label>{ctx.t("Minecraft name", "Minecraft-Name")} {i + 1}<input name="mc{i}" maxlength="16" pattern="[A-Za-z0-9_]{{3,16}}" value="{e(f.get(f"mc{i}", ""))}"{" required" if i == 0 else ""}></label>' for i in range(n))
-    terms = (ctx.t("I have read and accept the ", "Ich habe die ") + legal_link(ctx, "terms_url", "terms", "AGB")
+    names = "".join(f'<label>{ctx.t("Minecraft name", "Minecraft-Name")} {i + 1} <span class="mut small">({ctx.t("optional", "optional")})</span><input name="mc{i}" maxlength="16" pattern="[A-Za-z0-9_]{{3,16}}" value="{e(f.get(f"mc{i}", ""))}"></label>' for i in range(n))
+    terms = (ctx.t("I have read and accept the ", "Ich habe die ") + legal_link(ctx, "terms_url", *terms_label(ctx))
              + ctx.t(" and the ", " und die ") + legal_link(ctx, "withdrawal_url", "withdrawal notice", "Widerrufsbelehrung") + ctx.t(".", " gelesen und akzeptiere sie."))
     chk = lambda name: " checked" if f.get(name) == "1" else ""  # noqa: E731
     inner = f"""<label>{ctx.t("Plan", "Stufe")}<select name="plan">{plan_opts}</select></label>
 <label>{ctx.t("Duration (one-off payment, ends by itself)", "Dauer (Einmalzahlung, endet automatisch)")}<select name="months">{month_opts}</select></label>
-{names}<p class="mut small">{ctx.t(f"The gift is bound to the Minecraft name(s); you can change them every {g['change_days']} days. {n} name(s) for {p['name']}.", f"Das Geschenk gilt für den/die Minecraft-Namen; du kannst sie alle {g['change_days']} Tage ändern. {n} Name(n) bei {p['name']}.")}</p>
+{names}<p class="mut small">{ctx.t(f"The gift is bound to the Minecraft name(s); you can change them every {g['change_days']} days. {n} name(s) for {p['name']}. Leave the name empty to get a gift code instead: the receiver redeems it for their Minecraft name.", f"Das Geschenk gilt für den/die Minecraft-Namen; du kannst sie alle {g['change_days']} Tage ändern. {n} Name(n) bei {p['name']}. Lässt du den Namen leer, bekommst du einen Geschenkcode: der Beschenkte löst ihn für seinen Minecraft-Namen ein.")}</p>
 <label>{ctx.t("Coupon code (optional)", "Gutscheincode (optional)")}<input name="coupon" maxlength="40" value="{e(f.get("coupon", ""))}"></label>
 <p>{ctx.t("Price:", "Preis:")} {ctx.t("monthly price × months", "Monatspreis × Monate")} <span class="mut small">({e(vat)})</span></p>
 <label class="check"><input type="checkbox" name="terms" value="1" required{chk("terms")}><span>{terms} <b>*</b></span></label>
@@ -228,7 +249,11 @@ def gifts(ctx, items: list[dict]) -> str:
         can = g["state"] == "active" and ctx.svc.now() >= g["change_from"]
         change = form(ctx, "/pro/gifts", f'<input type="hidden" name="gift" value="{g["id"]}">{fields}<button class="btn small s"{"" if can else " disabled"}>{ctx.t("Change name", "Namen ändern")}</button>', "inline") if g["state"] == "active" else ""
         wait = "" if can or g["state"] != "active" else f'<span class="mut small">{ctx.t("changeable from", "änderbar ab")} {e(when(ctx, g["change_from"]))}</span>'
-        rows += (f'<li class="c"><b>Simple Mods Pro {e(plan)}</b> · {g["months"]} {ctx.t("month(s)", "Monat(e)")} · {e(", ".join(g["names"]))}'
+        code = ""
+        if g["state"] == "active" and g.get("code") and not g["names"]:
+            code = (f'<br>{ctx.t("Gift code (not redeemed yet):", "Geschenkcode (noch nicht eingelöst):")} <code>{e(g["code"])}</code> '
+                    f'<span class="mut small">{ctx.t("redeem at", "einlösen unter")} {e(ctx.url("account", "/pro/redeem"))}</span>')
+        rows += (f'<li class="c"><b>Simple Mods Pro {e(plan)}</b> · {g["months"]} {ctx.t("month(s)", "Monat(e)")} · {e(", ".join(g["names"]))}{code}'
                  f'<br><span class="mut small">{e(when(ctx, g["starts_at"]))} – {e(when(ctx, g["ends_at"]))} · {e(g["state"])}</span><br>{change} {wait}</li>')
     body = f"""<h1>{ctx.t("My gifts", "Meine Geschenke")}</h1>{alerts(ctx)}
 <ul class="plain stack">{rows or f'<li class="c">{ctx.t("No gifts yet.", "Noch keine Geschenke.")}</li>'}</ul>
@@ -327,3 +352,36 @@ def early(ctx, releases: list[dict], allowed: bool) -> str:
                       "Frühe Versionen ohne Zusage zu Terminen, Inhalten oder Stabilität; für deinen eigenen Gebrauch, bitte die Dateien nicht weitergeben.")}</p>
 <ul class="plain stack">{rows or f'<li class="c">{ctx.t("No early version at the moment.", "Gerade gibt es keine frühe Version.")}</li>'}</ul>"""
     return page(ctx, ctx.t("Early access", "Frühzugang"), body)
+
+
+def pay(ctx, txn: str, success: str, prov) -> str:
+    """Paddle checkout page: Paddle.js (cdn.paddle.com) + static/paddle-checkout.js open the overlay for the transaction; the
+    values are data attributes (no inline script). client_token is Paddle's public client-side token."""
+    token = prov.p.get("client_token") or ""
+    data = (f'id="paddle-pay" data-token="{e(token)}" data-env="{e(prov.environment)}" data-txn="{e(txn)}" '
+            f'data-locale="{"de" if ctx.lang == "de" else "en"}" data-success="{e(success)}"')
+    body = f"""<section class="card narrow" {data}><h1>{ctx.t("Payment with Paddle", "Bezahlen mit Paddle")}</h1>
+<p>{ctx.t("The secure Paddle checkout opens over this page. Paddle.com is the seller (merchant of record) of this order and issues the invoice.",
+          "Die sichere Bezahlseite von Paddle öffnet sich über dieser Seite. Verkäufer dieser Bestellung ist Paddle.com (Merchant of Record); Paddle stellt die Rechnung aus.")}</p>
+<p><button type="button" class="btn" id="paddle-open">{ctx.t("Open the payment again", "Bezahlung erneut öffnen")}</button>
+<a class="btn s" href="{e(ctx.url("account", "/pro"))}">{ctx.t("Cancel", "Abbrechen")}</a></p>
+<noscript><p class="alert">{ctx.t("The Paddle checkout needs JavaScript.", "Die Paddle-Bezahlseite braucht JavaScript.")}</p></noscript></section>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script><script src="/static/paddle-checkout.js" defer></script>"""
+    return page(ctx, ctx.t("Payment", "Bezahlung"), body)
+
+
+def redeem(ctx, f: dict, result: dict | None = None) -> str:
+    """Addendum 4: redeem a gift code on a Minecraft name (no account needed)."""
+    if result is not None:
+        plan = ctx.cfg.plans["plans"].get(result["plan"], {}).get("name", result["plan"])
+        body = f"""<section class="card narrow"><h1>{ctx.t("Gift redeemed", "Geschenk eingelöst")}</h1>
+<p>{ctx.t("Simple Mods Pro", "Simple Mods Pro")} <b>{e(plan)}</b> {ctx.t("now belongs to", "gilt jetzt für")} <b>{e(", ".join(result["names"]))}</b>
+({e(when(ctx, result["starts"]))} – {e(when(ctx, result["ends"]))}).</p></section>"""
+        return page(ctx, ctx.t("Gift redeemed", "Geschenk eingelöst"), body)
+    inner = f"""<label>{ctx.t("Gift code", "Geschenkcode")}<input name="code" required maxlength="20" pattern="[A-Za-z0-9-]{{18,20}}" placeholder="SMG-XXXX-XXXX-XXXX" value="{e(f.get("code", ""))}" autocomplete="off"></label>
+<label>{ctx.t("Your Minecraft name", "Dein Minecraft-Name")}<input name="mc0" required maxlength="16" pattern="[A-Za-z0-9_]{{3,16}}" value="{e(f.get("mc0", ""))}"></label>
+<label>{ctx.t("Second Minecraft name (only Ultra, optional)", "Zweiter Minecraft-Name (nur Ultra, optional)")}<input name="mc1" maxlength="16" pattern="[A-Za-z0-9_]{{3,16}}" value="{e(f.get("mc1", ""))}"></label>
+<p class="mut small">{ctx.t("A code can be redeemed once. Later name changes: the giver, every 7 days.", "Ein Code lässt sich einmal einlösen. Spätere Namensänderungen: der Schenkende, alle 7 Tage.")}</p>
+<button class="btn">{ctx.t("Redeem", "Einlösen")}</button>"""
+    body = f'<section class="card narrow"><h1>{ctx.t("Redeem a gift", "Geschenk einlösen")}</h1>{alerts(ctx)}{form(ctx, "/pro/redeem", inner, "stack")}</section>'
+    return page(ctx, ctx.t("Redeem a gift", "Geschenk einlösen"), body)

@@ -18,9 +18,12 @@ VIEWER = REPO / "modules/simplelivemap/shared/resources/assets/simplelivemap/web
 
 DEFAULTS = {
     "data_dir": "/srv/livemap-web",
-    "hosts": {"account": "account.simplemods.de", "livemap": "livemap.simplemods.de"},
+    # No fixed host names in the code (owner 19.11.: dev = *-dev.simplemods.de, the livemap domain may move): the server config
+    # or the environment (SMWEB_ACCOUNT_HOST, SMWEB_LIVEMAP_HOST, SMWEB_COOKIE_DOMAIN) names them; missing = start error.
+    "hosts": {"account": "", "livemap": ""},
     "scheme": "https",
-    "cookie": {"name": "__Secure-sm_session", "domain": "simplemods.de", "secure": True, "days": 30},
+    "cookie": {"name": "__Secure-sm_session", "domain": None, "secure": True, "days": 30},
+    "links": {"site": "", "wiki": ""},          # footer links (main website, wiki); empty = not shown
     "client_ip_header": "X-Client-IP",
     "viewer_path": str(VIEWER),
     "storage_quota_gb": 20,
@@ -73,11 +76,42 @@ def _merge(base: dict, over: dict) -> dict:
     return out
 
 
+class ConfigError(ValueError):
+    pass
+
+
+def env_defaults(environ=None) -> dict:
+    """Host names from the environment (used where the config file has none)."""
+    env = os.environ if environ is None else environ
+    out = {"hosts": {}, "cookie": {}}
+    if env.get("SMWEB_ACCOUNT_HOST"):
+        out["hosts"]["account"] = env["SMWEB_ACCOUNT_HOST"].strip()
+    if env.get("SMWEB_LIVEMAP_HOST"):
+        out["hosts"]["livemap"] = env["SMWEB_LIVEMAP_HOST"].strip()
+    if env.get("SMWEB_COOKIE_DOMAIN"):
+        out["cookie"]["domain"] = env["SMWEB_COOKIE_DOMAIN"].strip()
+    return out
+
+
+def parent_domain(host: str) -> str:
+    """Cookie domain shared by account and livemap host: their common suffix ("account-dev.simplemods.de" +
+    "livemap-dev.simplemods.de" -> "simplemods.de"); "" for IPs/localhost (host-only cookie)."""
+    h = host.split(":")[0]
+    if not h or h.replace(".", "").isdigit() or "." not in h:
+        return ""
+    return h.split(".", 1)[1] if h.count(".") >= 2 else h
+
+
 class Config:
     def __init__(self, values: dict):
         self.v = values
         self.data = Path(values["data_dir"])
         self.hosts = values["hosts"]
+        if not self.hosts.get("account") or not self.hosts.get("livemap"):
+            raise ConfigError("hosts.account and hosts.livemap must be set (server config or SMWEB_ACCOUNT_HOST / SMWEB_LIVEMAP_HOST)")
+        if values["cookie"].get("domain") is None:
+            a, b = parent_domain(self.hosts["account"]), parent_domain(self.hosts["livemap"])
+            values["cookie"]["domain"] = a if a == b else ""
         self.secret = self._secret()
         self.tiers = load_tiers(Path(values["tiers_file"]), values.get("tiers") or {})
         self.billing = load_billing(Path(values["billing_file"])) if values.get("billing_file") else {}
@@ -127,18 +161,31 @@ def load_tiers(path: Path, overrides: dict) -> dict:
     return base
 
 
+def env_value(path: str, var: str) -> str | None:
+    try:
+        for line in Path(path).read_text(encoding="utf-8").splitlines():
+            line = line.strip().removeprefix("export ").strip()
+            name, sep, value = line.partition("=")
+            if sep and name.strip() == var:
+                return value.strip().strip("'\"") or None
+    except OSError:
+        pass
+    return None
+
+
 def load_billing(path: Path) -> dict:
-    """Billing file; the Stripe secret key may instead live in an env file (``key_file`` + ``key_var``), read at start, never logged."""
+    """Billing file; a provider's secret key may instead live in an env file (``key_file`` + ``key_var``; Stripe at the top
+    level -> ``secret_key``, Paddle in ``paddle`` -> ``paddle.api_key``), read at start, never logged."""
     b = load_json(path)
     if not b.get("secret_key") and b.get("key_file") and b.get("key_var"):
-        try:
-            for line in Path(b["key_file"]).read_text(encoding="utf-8").splitlines():
-                line = line.strip().removeprefix("export ").strip()
-                name, sep, value = line.partition("=")
-                if sep and name.strip() == b["key_var"]:
-                    b["secret_key"] = value.strip().strip("'\"")
-        except OSError:
-            pass
+        v = env_value(b["key_file"], b["key_var"])
+        if v:
+            b["secret_key"] = v
+    p = b.get("paddle")
+    if isinstance(p, dict) and not p.get("api_key") and p.get("key_file") and p.get("key_var"):
+        v = env_value(p["key_file"], p["key_var"])
+        if v:
+            p["api_key"] = v
     return b
 
 
@@ -174,6 +221,6 @@ def load_plans(path: Path, overrides: dict, tiers: dict) -> dict:
 
 
 def load(path: str | None = None, **over) -> Config:
-    values = _merge(DEFAULTS, load_json(Path(path)) if path else {})
+    values = _merge(_merge(DEFAULTS, env_defaults()), load_json(Path(path)) if path else {})
     values = _merge(values, over)
     return Config(values)

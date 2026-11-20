@@ -82,6 +82,38 @@ class FillLegalTests(unittest.TestCase):
             self.assertNotIn("⟦", text, n)
             self.assertIn("Erika Testbetrieb", (self.dir / "out" / "impressum.md").read_text())
 
+    def test_provider_variants_of_the_real_texts(self):
+        """N108 addendum 3/4: one switch (--provider) turns all texts between Paddle (merchant of record, default) and Stripe."""
+        src = fill_legal.REPO / "docs" / "legal"
+        out = {}
+        for prov in ("paddle", "stripe"):
+            self.lines.clear()
+            self.assertEqual(fill_legal.main(["--operator", str(self.op), "--src", str(src), "--out", str(self.dir / prov), "--provider", prov, "--strip-internal"],
+                                             out=self.lines.append), 0, self.lines)
+            self.assertIn(f"payment provider variant: {prov}", self.lines[-1])
+            out[prov] = {n: (self.dir / prov / n).read_text() for n in fill_legal.FILES}
+        p, s = out["paddle"], out["stripe"]
+        self.assertTrue(p["agb.md"].startswith("# Nutzungsbedingungen von Simple Mods"), p["agb.md"][:300])
+        self.assertIn("# Allgemeine Geschäftsbedingungen (AGB)", s["agb.md"])
+        for n in ("agb.md", "widerruf.md", "datenschutz.md"):
+            self.assertIn("Paddle.com Market Limited", p[n], n)
+            self.assertNotIn("Paddle", s[n], n)
+        self.assertIn("Merchant of Record", p["agb.md"])
+        self.assertIn("Paddle Buyer Terms", p["widerruf.md"])
+        self.assertIn("hat Paddle Ihnen alle Zahlungen", p["widerruf.md"])
+        self.assertIn("haben wir Ihnen alle Zahlungen", s["widerruf.md"])
+        self.assertIn("Erstattungsregel (Refund Policy)", p["widerruf.md"])
+        self.assertIn("eigener Verantwortlicher", p["datenschutz.md"])
+        self.assertNotIn("Stripe", p["agb.md"] + p["widerruf.md"] + p["datenschutz.md"] + p["kuendigung.md"])
+        self.assertIn("Stripe Checkout", s["agb.md"])
+        self.assertIn("Kundenportal des Zahlungsanbieters (Paddle)", p["kuendigung.md"])
+        self.assertIn("Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.", s["agb.md"], "Stripe + small business")
+        self.assertNotIn("Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.", p["agb.md"], "Paddle sells incl. VAT")
+        self.assertIn("einschließlich der gesetzlichen Umsatzsteuer, die Paddle", p["agb.md"])
+        self.assertIn("Geschenkcode", p["agb.md"])
+        with self.assertRaises(SystemExit):
+            fill_legal.main(["--operator", str(self.op), "--out", str(self.dir / "x"), "--provider", "lemon"], out=self.lines.append)
+
 
 if __name__ == "__main__":
     unittest.main()

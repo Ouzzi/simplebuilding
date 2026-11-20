@@ -10,7 +10,7 @@ One Python service (`smweb`, standard library only: `http.server`, `sqlite3`) fo
   `/m/<name>/` (the mod's own `index.html`, served from the checkout), `/app` (my maps), `/app/connect` (4 steps,
   one-time code 15 min), `/app/m/<id>` (settings, sharing, link, disconnect), `/app/archive`, `/app/plan`, `/app/account`
   (profile, password, sessions, JSON export, delete), `/admin` (developer role: users, tiers, maps, queue, “sofort fertig”,
-  storage, noticeable patterns, dev outbox), upload API `/api/v1/*` for the mod, Stripe webhook `/api/stripe/webhook` (off).
+  storage, noticeable patterns, dev outbox), upload API `/api/v1/*` for the mod, payment webhooks `/api/paddle/webhook` + `/api/stripe/webhook` (off).
 
 ## Run locally (tests and pictures only - acceptance happens on the dev stage)
 ```
@@ -48,6 +48,26 @@ without query strings (7 days logrotate). Dev stage: `account-dev`/`livemap-dev.
 tunnel hostnames in Cloudflare, SMTP account, legal texts (`docs/legal/`, drafts), Stripe account – then prod.
 Known dev limitation: a “by link” map sends `Authorization: Bearer` for its tiles, which conflicts with basic auth on dev.
 
+## Payment provider: Paddle first, Stripe second (N108 addendum 3/4, built, OFF)
+Plan: `docs/ai/PLAN-B-N108-PADDLE-2026-11-19.md`. Narrow interface `smweb/payments/` (`base.py` PaymentProvider + unified events
+subscription_started/changed/ended, payment_succeeded/failed, refund, checkout_completed, gift_paid; `paddle.py`, `stripe.py`);
+`smweb/billing.py` only talks to it. `billing.provider` = `paddle` (default) | `stripe` picks the provider for NEW orders; each provider
+has its own webhook route (`/api/paddle/webhook`, `/api/stripe/webhook`) and secret, so old subscriptions run out after a switch.
+- Paddle Billing v2 (merchant of record): `POST /transactions` → `/pro/pay?_ptxn=…` (Paddle.js overlay, `static/paddle-checkout.js`,
+  own CSP), trial price variants without the early-start consent, discounts = coupons (never created), gift = one-off price × months
+  + **gift code** redeemed on `/pro/redeem` for a Minecraft name, plan change / yearly→monthly noted and set before the period end
+  with `proration_billing_mode: do_not_bill` (hourly maintenance), cancel `effective_from: next_billing_period`, portal sessions,
+  webhooks `Paddle-Signature` (ts + h1, HMAC-SHA256 over `ts:body`, 300 s window, each event id once).
+- Billing file: `"provider": "paddle"`, `"paddle": {"environment": "sandbox", "key_file": …, "key_var": "PADDLE_API_KEY",
+  "webhook_secret": …, "client_token": …, "prices": {plan: {month, year, month_trial, year_trial}}, "gift_prices": {plan: …}}`.
+- Setup: `python3 tools/livemap-web/paddle_setup.py --env-file <file> --webhook-url https://livemap-dev.simplemods.de/api/paddle/webhook
+  --billing-file /etc/simplemods/livemap-billing-dev.json --client-token <public token>` (dry run) → `--apply` (sandbox; production
+  only with `--environment production --live`). Legal texts: `fill_legal.py --provider paddle`.
+- Hosts: no fixed host names in the code – `hosts` in the server config or `SMWEB_ACCOUNT_HOST`/`SMWEB_LIVEMAP_HOST`
+  (`SMWEB_COOKIE_DOMAIN` optional, else the common parent domain); footer links from `links`. Missing hosts = start error.
+- Tests: `tests/test_paddle.py`, `tests/test_paddle_setup.py` (fake `tests/fake_paddle.py`). Pictures:
+  `python3 -I tests/harness.py --port 8798 --billing-mock` (fake Paddle + LOCAL Paddle.js imitation; `--billing-mock stripe` = old pictures).
+
 ## Simple Mods Pro – Abo/Stripe (N108, built, OFF until the owner switches it on)
 Plan: `docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md`. One account subscription on `account.simplemods.de` (Basic/Max/Ultra →
 livemap tier Basic/Max/Ultra + early access + lite seats for Max/Ultra (P039); catalogue `plans.json`, prices = placeholders from `tiers.json`, server config
@@ -57,7 +77,7 @@ on every page), `/early` (download area, login + perk). Webhook `/api/stripe/web
 customer.subscription.*, invoice.paid, invoice.payment_failed). Tables (migration 2): orders, subscriptions, entitlements,
 stripe_events, cancellations, notices. Yearly = subscription schedule (year price once, then month price, release).
 Tests: `tests/test_billing.py`, `tests/test_stripe_setup.py` (fake Stripe `tests/fake_stripe.py`), `tools/release/test_early_access.py`.
-Pictures: `python3 tests/harness.py --port 8797 --billing-mock` (fake Stripe + local checkout imitation; never an acceptance).
+Pictures: `python3 -I tests/harness.py --port 8797 --billing-mock stripe` (fake Stripe + local checkout imitation; never an acceptance).
 
 ### Deploy steps (A, after the owner's go; nothing here was run)
 1. Merge `b-stripe108` into the dev line; deploy smweb to the **dev** stage as usual (`deploy_livemap_web.sh install|nginx --stage dev`);

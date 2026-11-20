@@ -248,6 +248,17 @@ MIGRATIONS = [
     );
     CREATE INDEX gift_names_lower ON gift_names(mc_lower, removed_at);
     """,
+    # 4: N108 addendum 3/4 (19.11.2026): payment provider interface, Paddle first. Changes noted for the period end that the
+    # provider gets shortly before it (Paddle: yearly -> monthly, P070 plan change; applied = already sent), gift codes that the
+    # receiver redeems on a Minecraft name. stripe_events also keeps Paddle event ids (prefix "paddle:").
+    """
+    ALTER TABLE subscriptions ADD COLUMN pending_interval TEXT;
+    ALTER TABLE subscriptions ADD COLUMN pending_applied INTEGER NOT NULL DEFAULT 0;
+    ALTER TABLE gifts ADD COLUMN code TEXT;
+    ALTER TABLE gifts ADD COLUMN redeemed_at INTEGER;
+    ALTER TABLE gifts ADD COLUMN redeemed_by INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    CREATE UNIQUE INDEX gifts_code ON gifts(code) WHERE code IS NOT NULL;
+    """,
 ]
 
 
