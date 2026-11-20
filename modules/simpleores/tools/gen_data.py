@@ -1693,7 +1693,7 @@ FEATURES = [
               'End: End-Silbererz auf den äußeren Inseln (Hochland, Mittelland, Ödland, kleine Inseln), Adern zu 6 im Endstein, je 2 bis 6 Silberklumpen: Silber, das man nach dem Drachen farmen kann, ohne tief zu graben.',
               'Gegenstände: Rohsilber, Silberbarren, Silberklumpen, Blöcke aus Silber und Rohsilber. Ofen und Hochofen schmelzen Rohsilber und jedes Erz.'])),
     feature('rose_gold', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_pressling_c.json', f'{DATAP}/recipe/rose_bronze_ingot_from_blasting_rose_bronze_pressling.json'],
-            ('Rose gold', 'Two alloys of gold, copper and silver: Rose Gold and the stronger-gold Rose Copper, which is made from Rose Gold. Made in two steps: press ingots into pressings, melt them in a blast furnace.',
+            ('Rose gold', 'Two alloys of gold, copper and silver: Rose Gold and Rose Copper, which is made from Rose Gold. Made in two steps: press ingots into pressings, melt them in a blast furnace.',
              ['Pressing (crafting, shapeless, 1 pressing per recipe): Rose Gold (pale pink) 1 gold + 2 copper + 1 silver ingot. Rose Copper (copper-rose) 2 gold + 1 Rose Gold + 1 silver ingot. There are no other pressing recipes.',
               'Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. One pressing costs 4 ingots and gives 1: silver stays the bottleneck.',
               'Rose Copper is a darker copper-rose, Rose Gold a pale pink. Blocks of both are craftable. Repair with the matching ingot.']),
