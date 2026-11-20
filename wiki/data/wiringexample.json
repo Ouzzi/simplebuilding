@@ -36,7 +36,7 @@
       },
       "de": {
         "title": "Wiring Example",
-        "summary": "Ein minimales Beispielmodul registriert einen einfachen Token. Der Integrationsharness prüft das Einlagern und Entnehmen im verstaerkten SimpleBuilding-Trichter."
+        "summary": "Ein minimales Beispielmodul registriert einen einfachen Token. Der Integrationsharness prüft das Einlagern und Entnehmen im verstärkten SimpleBuilding-Trichter."
       }
     }
   ],

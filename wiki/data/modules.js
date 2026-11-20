@@ -113,7 +113,7 @@ window.WIKI_MODULES = [
       "features": 1
     },
     "release": false,
-    "dataHash": "b22b94ecf457"
+    "dataHash": "1540bf56b30e"
   },
   {
     "id": "simplemoney",
@@ -161,7 +161,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 81
     },
-    "dataHash": "d9f13a6e4f4a"
+    "dataHash": "83fd158d8a3a"
   },
   {
     "id": "simpleriding",
@@ -594,7 +594,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 9
     },
-    "dataHash": "76ef659d22e8"
+    "dataHash": "2ee14d2832a0"
   },
   {
     "id": "simpleinterfaces",
@@ -630,7 +630,7 @@ window.WIKI_MODULES = [
       "config": 48,
       "features": 57
     },
-    "dataHash": "f23ed6c317bc"
+    "dataHash": "548f0ddc226e"
   },
   {
     "id": "simplemaps",
@@ -806,7 +806,7 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 5
     },
-    "dataHash": "cb47588bbf20"
+    "dataHash": "38d78d812683"
   },
   {
     "id": "simplemovement",
@@ -843,7 +843,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "35ffae430db2"
+    "dataHash": "3e637a5fcbda"
   },
   {
     "id": "simpletools",
@@ -881,7 +881,7 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "a5b881b56b0e"
+    "dataHash": "5e5992f0e061"
   },
   {
     "id": "simplefarming",
@@ -916,7 +916,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 12
     },
-    "dataHash": "65b95c2885b3"
+    "dataHash": "f757770399f2"
   },
   {
     "id": "simplemobmanners",
@@ -951,7 +951,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 11
     },
-    "dataHash": "7db1c77c30bf"
+    "dataHash": "b97757b52ca8"
   },
   {
     "id": "simpleloot",
@@ -985,7 +985,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "fda398023c01"
+    "dataHash": "61b1d15812b7"
   },
   {
     "id": "simplequestionary",
@@ -1061,7 +1061,7 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "81e5d12b8ea7"
+    "dataHash": "88d45969af3a"
   },
   {
     "id": "simpleenddragonfight",
@@ -1584,7 +1584,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "c92c40cb5fa2"
+    "dataHash": "781ec9abaced"
   },
   {
     "id": "simpleoptimization",
@@ -1885,7 +1885,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 5
     },
-    "dataHash": "f8aaeb25c574"
+    "dataHash": "5d694f7568a5"
   },
   {
     "id": "simplechallenges",
