@@ -1,6 +1,7 @@
 {
   "simpletools.title": "Simple Tools",
   "simpletools.tab.general": "Allgemein",
+  "text.autoconfig.simpletools.title": "Simple Tools",
   "text.autoconfig.simpletools.option.enableFullDurabilityBonus": "Voll-Haltbarkeits-Bonus",
   "text.autoconfig.simpletools.option.enableFullDurabilityBonus.@Tooltip": "Gewährt einen Bonus auf Abbaugeschwindigkeit\nund Schaden, wenn Werkzeuge/Waffen nahezu\nvolle Haltbarkeit haben. Standard: false (aus).",
   "text.autoconfig.simpletools.option.fullDurabilityThreshold": "Haltbarkeitsschwelle (0.8–1.0)",

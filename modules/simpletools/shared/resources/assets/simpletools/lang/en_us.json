@@ -1,6 +1,7 @@
 {
   "simpletools.title": "Simple Tools",
   "simpletools.tab.general": "General",
+  "text.autoconfig.simpletools.title": "Simple Tools",
   "text.autoconfig.simpletools.option.enableFullDurabilityBonus": "Full Durability Bonus",
   "text.autoconfig.simpletools.option.enableFullDurabilityBonus.@Tooltip": "Grants a bonus to mining speed and damage\nwhen tools/weapons are near full durability.\nDefault: false (off).",
   "text.autoconfig.simpletools.option.fullDurabilityThreshold": "Durability Threshold (0.8–1.0)",
