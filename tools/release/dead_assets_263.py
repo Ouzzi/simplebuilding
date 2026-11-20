@@ -145,6 +145,35 @@ FORCED = {
 }
 
 
+# N115: item textures of moved storage items (backpacks, bundles, quivers of every tier; Simple Storage on 26.3). Their variant suffixes (_dyed, _dyed_overlay, _open_back ...) and tier
+# prefixes (netherite_, enderite_) also occur in SimpleBuilding's code, but there as registry/recipe ids and in the
+# 26.2 datagen (ModModelProvider, whose 26.3 output is the generated JSON this script already reads), never as a
+# texture path the 26.3 client asks for. So name fragments never keep such a texture; only a real reference does.
+# Deliberately limited to that family (STORAGE_ITEM): the same fragment flaw keeps more moved item textures (wands,
+# chisels, sledgehammers, cores, octants, enderite tools ...), each to be checked on its own before it is dropped.
+ITEM_VARIANT = re.compile(r'(?:_open_back|_open_front)?(?:_dyed(?:_overlay)?)?$')
+STORAGE_ITEM = re.compile(r'(?:[a-z]+_)?(?:backpack|bundle|quiver)')
+
+
+def moved_items(modules, regs):
+    """Storage item ids (STORAGE_ITEM) a module ships an item definition for (assets/<ns>/items/<id>.json,
+    ns != simplebuilding) that the 26.3 SimpleBuilding no longer registers: the content moved into that module."""
+    out = set()
+    for rel in modules:
+        parts = rel.split('/')
+        if len(parts) == 4 and parts[0] == 'assets' and parts[1] != NS and parts[2] == 'items' and parts[3].endswith('.json'):
+            if STORAGE_ITEM.fullmatch(parts[3][:-len('.json')]):
+                out.add(parts[3][:-len('.json')])
+    return out - regs
+
+
+def moved_item_texture(kind, path, moved):
+    """True for textures/item/<id><variant> of a moved item id (see ITEM_VARIANT)."""
+    if kind != 'textures/' or not path.startswith('item/') or path.count('/') != 1:
+        return False
+    return ITEM_VARIANT.sub('', path[len('item/'):]) in moved
+
+
 def overlay_textures():
     """jar paths of the textures in the 26.3-only overlay (a dead one there is deleted, not excluded)."""
     return {rel for rel in tree(ROOT / 'mc26_3/overlay/resources') if rel.startswith(f'assets/{NS}/textures/')}
@@ -162,6 +191,7 @@ def dead():
     modules = module_files()
     moved = moved_copies(modules)
     overlay = overlay_textures()
+    moved_ids = moved_items(modules, regs)
     cand = {rel: candidate_key(rel) for rel in files}
     # Moved content (a module ships the same asset path under its own namespace; SB's file is the 26.2 original) and
     # every texture of the 26.3-only overlay (nothing else could need it). Forced entries are listed in any case.
@@ -215,7 +245,7 @@ def dead():
     frags = [f.split(':')[-1].removeprefix('textures/') for f in java_strings(True) if re.fullmatch(r'[a-z0-9_/:]{4,}', f)]
     frags = [f for f in frags if f not in generic and len(f) >= 4 and (f.endswith(('_', '/')) or f.startswith('_'))]
     for rel, (kind, path) in cand.items():
-        if rel in live:
+        if rel in live or moved_item_texture(kind, path, moved_ids):
             continue
         stem = path.rsplit('/', 1)[-1]
         if any((f.endswith('_') and stem.startswith(f.split('/')[-1]) and len(f.split('/')[-1]) >= 4)
@@ -229,7 +259,7 @@ def dead():
     while grew:  # until nothing changes: a base may itself live only through a suffix (trapped_copper_oxidized_left)
         grew = False
         for rel, (kind, path) in cand.items():
-            if rel in live or rel not in overlay:
+            if rel in live or rel not in overlay or moved_item_texture(kind, path, moved_ids):
                 continue
             for f in frags:
                 if f.startswith('_') and path.endswith(f):

@@ -1,4 +1,5 @@
-"""Unit tests of dead_assets_263.py on a tiny fake repository (N114: overlay textures, suffix rule, FORCED, --check)."""
+"""Unit tests of dead_assets_263.py on a tiny fake repository (N114: overlay textures, suffix rule, FORCED, --check;
+N115: name fragments never keep the item textures of moved storage items)."""
 import io
 import json
 import sys
@@ -77,6 +78,42 @@ class DeadAssetsTest(unittest.TestCase):
         rc, out = self.check()
         self.assertEqual(rc, 1, out)
         self.assertIn('FORCED', out)
+
+
+    def moved_storage_tree(self):
+        """Simple Storage registers netherite_bundle on 26.3; SB keeps the 26.2 item textures (a moved copy each) and its
+        code holds the fragments "netherite_" and "_dyed" (registry checks, 26.2 datagen)."""
+        st = 'modules/simplestorage/shared/resources/assets/simplestorage/'
+        sb = 'src/main/resources/assets/simplebuilding/textures/item/'
+        for name in ('netherite_bundle', 'netherite_bundle_dyed', 'netherite_bundle_dyed_overlay', 'netherite_ingot_x'):
+            self.write(st + f'textures/item/{name}.png', PNG)
+            self.write(sb + f'{name}.png', PNG)
+        self.write(st + 'items/netherite_bundle.json', json.dumps({'model': {'type': 'minecraft:model',
+                                                                             'model': 'simplestorage:item/netherite_bundle'}}))
+        self.write(st + 'items/netherite_ingot_x.json', '{}')     # moved too, but not a storage item: rule not applied
+        self.write('src/main/java/x/Names.java',
+                   'class Names { String a = "netherite_"; String b = "_dyed"; String c = "_dyed_overlay"; }')
+
+    def test_moved_storage_item_textures_not_kept_by_fragments(self):
+        self.moved_storage_tree()
+        dead = d.dead()
+        for name in ('netherite_bundle', 'netherite_bundle_dyed', 'netherite_bundle_dyed_overlay'):
+            self.assertIn(f'assets/simplebuilding/textures/item/{name}.png', dead)
+        self.assertNotIn('assets/simplebuilding/textures/item/netherite_ingot_x.png', dead)  # "netherite_" keeps it
+
+    def test_moved_storage_item_texture_kept_by_a_real_reference(self):
+        self.moved_storage_tree()
+        self.write('mc26_3/overlay/resources/assets/simplebuilding/models/item/gui_icon.json',
+                   json.dumps({'textures': {'layer0': 'simplebuilding:item/netherite_bundle_dyed'}}))
+        self.assertNotIn('assets/simplebuilding/textures/item/netherite_bundle_dyed.png', d.dead())
+
+    def test_storage_rule_helpers(self):
+        moved = {'netherite_bundle', 'quiver'}
+        self.assertTrue(d.moved_item_texture('textures/', 'item/netherite_bundle_open_back_dyed_overlay', moved))
+        self.assertTrue(d.moved_item_texture('textures/', 'item/quiver_dyed', moved))
+        self.assertFalse(d.moved_item_texture('textures/', 'block/netherite_bundle_dyed', moved))  # only item/
+        self.assertFalse(d.moved_item_texture('models/', 'item/quiver_dyed', moved))
+        self.assertFalse(d.moved_item_texture('textures/', 'item/quiver_arrow', moved))
 
 
 if __name__ == '__main__':

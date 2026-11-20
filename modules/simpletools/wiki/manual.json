@@ -11,7 +11,7 @@
       },
       "de": {
         "title": "Ofen mit Lava füllen",
-        "summary": "Beide Hände können einen Lavaeimer in Ofen, Hochofen oder Räucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Oefen und Schleichen sind ausgeschlossen. Überleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurückgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle."
+        "summary": "Beide Hände können einen Lavaeimer in Ofen, Hochofen oder Räucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Öfen und Schleichen sind ausgeschlossen. Überleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurückgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle."
       }
     },
     {
@@ -98,7 +98,7 @@
       },
       "de": {
         "title": "fullDurabilityBonusMultiplier",
-        "summary": "Servereinstellung. Standard: 1.2 (+20 % sobald der Bonus an ist; 1.0 = kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schlüssel nutzen 1.2. Nicht endliche Werte fallen auf 1.2 zurück; endliche Werte ausserhalb des Bereichs werden begrenzt."
+        "summary": "Servereinstellung. Standard: 1.2 (+20 % sobald der Bonus an ist; 1.0 = kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schlüssel nutzen 1.2. Nicht endliche Werte fallen auf 1.2 zurück; endliche Werte außerhalb des Bereichs werden begrenzt."
       }
     },
     {

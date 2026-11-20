@@ -215,7 +215,7 @@
       },
       "de": {
         "title": "Sub-Mod von Simple QoL",
-        "summary": "Allein spielbar (config/simplemovement.json). In Simple QoL gebuendelt, dort mit \"Simple Movement aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig übernommen."
+        "summary": "Allein spielbar (config/simplemovement.json). In Simple QoL gebündelt, dort mit \"Simple Movement aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig übernommen."
       }
     },
     {

@@ -32,6 +32,31 @@ class FindingsTest(unittest.TestCase):
         self.assertEqual(kinds("x", "en", "Press F3, color #FF0000, OP4"), [])
 
 
+class UmlautTest(unittest.TestCase):
+    """N115: German umlauts/ß written as ASCII (curated TRANSLIT list), German text only."""
+
+    def toks(self, text, lang="de"):
+        return [tok for k, tok in c.findings("x", lang, text) if k == "umlaut"]
+
+    def test_transliterations_found(self):
+        self.assertEqual(self.toks("Das Gewoelbe hat 54 persoenliche Plaetze."), ["Gewoelbe", "persoenliche", "Plaetze"])
+        self.assertEqual(self.toks("fuer alle, ueberall, koennen und muessen"), ["fuer", "ueberall", "koennen", "muessen"])
+        self.assertEqual(self.toks("Die Groesse, so gross wie, Menues, Oeffnen"), ["Groesse", "gross", "Menues", "Oeffnen"])
+        # inside compounds: unambiguous stems match anywhere in the word
+        self.assertEqual(self.toks("Endertruhenplaetze, Wasserfuellung, Nihil-Gewoelbe, Rezeptplaetze 9"),
+                         ["Endertruhenplaetze", "Wasserfuellung", "Gewoelbe", "Rezeptplaetze"])
+        self.assertEqual(self.toks("In Simple QoL gebuendelt (frueher Simple QoL)"), ["gebuendelt", "frueher"])
+
+    def test_real_words_pass(self):
+        real = ("Feuer, Lagerfeuer, Abenteuer, neue, Quelle, aktuell, Steuerung, Mauer, Dauer, Wasser, muss, lassen, "
+                "Blaueis, Zuschauer, Questionary, true, value, Schloss, Kessel, Messing, Rossharnisch, bauen, treue, "
+                "zuerst, Vertrauen, Bauer, Schlüssel, Plätze, Gewölbe, für, über, Größe, groß, Tür, Türkis")
+        self.assertEqual(self.toks(real), [])
+        self.assertEqual(self.toks("Fuer Elise", lang="en"), [])        # English text is not checked
+        self.assertEqual(self.toks("Beispiel fuer_elise"), [])          # ALLOW_TRANSLIT: ids
+        self.assertEqual(self.toks("enableHoeHarvest, fuelEfficiency"), [])  # config keys
+
+
 class RepoScanTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -69,6 +94,21 @@ class RepoScanTest(unittest.TestCase):
         for where in ("modules/simplefoo/", "src/main/resources/", "mc26_3/overlay/", "wiki/manual.json"):
             self.assertIn(where, out)
         self.assertNotIn("N12", out)  # "sources" are not player text
+
+    def test_german_sources_checked_for_umlauts(self):
+        self.write("modules/simplefoo/shared/resources/assets/simplefoo/lang/de_de.json", {"a": "fuer dich"})
+        self.write("modules/simplefoo/shared/resources/assets/simplefoo/questionary/de_de.json",
+                   {"x": {"lore": ["Ein Gewoelbe"]}})
+        self.write("modules/simplefoo/shared/resources/assets/simplefoo/questionary/en_us.json",
+                   {"x": {"lore": ["grey"]}})                                   # English questionary not in scope
+        self.write("wiki/manual.json", {"features": [{"en": {"title": "Menue"}, "de": {"title": "Menue"}}]})
+        rc, out = self.run_main()
+        self.assertEqual(rc, 1, out)
+        self.assertIn("lang/de_de.json a: umlaut 'fuer'", out)
+        self.assertIn("questionary/de_de.json .x.lore[0]: umlaut 'Gewoelbe'", out)
+        self.assertIn("wiki/manual.json de.features[0].de.title: umlaut 'Menue'", out)
+        self.assertNotIn("en.title", out)
+        self.assertNotIn("grey", out)
 
 
 if __name__ == "__main__":

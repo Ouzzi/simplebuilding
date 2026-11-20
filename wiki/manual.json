@@ -2021,12 +2021,12 @@
       },
       "de": {
         "title": "Astralgewölbe",
-        "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+        "summary": "54 persönliche Plätze, darunter die 27 geteilten Vanilla-Endertruhenplätze.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
-          "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
-          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darüber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
-          "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zweimal Astralitstaub. Plätze 1–27 nutzen direkt das persönliche Vanilla-Enderinventar; 28–54 gehören demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plätze.",
+          "Die Zusatzplätze werden in den persönlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein öffentlich geteiltes Lager.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Öffnungs- und Schließsounds, Partikel und Wasserfüllung. Ein fester Block darüber verhindert das Öffnen. Abbau droppt das Gewölbe, nicht den persönlichen Inhalt; Trichter haben keinen Zugriff.",
+          "server.features.astralVault sperrt das Öffnen und bestehende Gewölbe-Menüs; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
     },
@@ -2053,12 +2053,12 @@
       },
       "de": {
         "title": "Nihil-Gewölbe",
-        "summary": "Ein 54-Platz-Inventar für die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "summary": "Ein 54-Platz-Inventar für die ganze Welt: jedes Nihil-Gewölbe zeigt jedem Spieler denselben Inhalt.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe öffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem früheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
-          "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und ändert an jedem Gewoelbe dieselben Gegenstände; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
-          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darüber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
-          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewölbe öffnet ein Menü mit sechs Reihen, so groß wie eine Doppeltruhe und das Astral-Gewölbe; Inhalt aus dem früheren 27-Platz-Gewölbe bleibt in den ersten drei Reihen.",
+          "Alle Nihil-Gewölbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und ändert an jedem Gewölbe dieselben Gegenstände; offene Menüs bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Öffnungs- und Schließsounds, Partikel und Wasserfüllung. Ein fester Block darüber verhindert das Öffnen. Abbau droppt das Gewölbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewölbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+          "server.features.nihilVault sperrt das Öffnen und bestehende Gewölbe-Menüs; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen.",
           "Server mit Grundstücken: in einer geteilten Welt (Dedicated Server oder für LAN geöffnete Welt) mit aktiver Grundstücks-Mod (die Claims von Simple Tweaks oder ein anderer Anbieter des Framework-Schutzvertrags) öffnet ein Gewölbe nur auf geschütztem Land, auf dem du Behälter benutzen darfst; sonst bleibt es zu, mit Hinweis in der Aktionsleiste und dem Klang einer verschlossenen Truhe. Sonst könnte jeder ein eigenes Gewölbe in die Wildnis stellen und den geteilten Inhalt leeren. Im Einzelspieler und auf Servern ohne Grundstücke öffnet es überall und ist dort eine öffentliche Truhe für alle. server.features.nihilVaultClaimOnly (Standard true) schaltet die Regel ab."
         ]
       }
@@ -3426,7 +3426,7 @@
       "de": {
         "summary": "Auf 26.3 ist das SimpleBuilding-Handbuch der Abschnitt SimpleBuilding im Simple-Modpack-Handbuch von SimpleLib: Buch + Werkbank ergibt dieses Handbuch, seine Lesezeichen oben wechseln zwischen den installierten Super-Mods, und ein beim Einloggen getragenes SimpleBuilding-Handbuch wird dazu. Themenbücher sind eingefügte Inhalte. Ältere Spielversionen behalten ihre bisherigen Bücher.",
         "details": [
-          "Simple-Modpack-Handbuch: Buch + Werkbank (das eigene SimpleBuilding-Rezept ist auf 26.3 ausgefiltert). Minecraft-Handbuch: Buch + Holzspitzhacke. Ein letztes Lesezeichen „Weitere Simple Mods“ öffnet die Kapitel der SimpleBuilding-Sub-Mods. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
+          "Simple-Modpack-Handbuch: Buch + Werkbank (das eigene SimpleBuilding-Rezept ist auf 26.3 ausgefiltert). Minecraft-Handbuch: Buch + Holzspitzhacke. Ein letztes Lesezeichen „Weitere Simple Mods“ öffnet die Kapitel der SimpleBuilding-Sub-Mods. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Bücher mit Cover-Texturen bleiben in der Beute.",
           "Jeder Themenreiter öffnet sich von selbst, sobald eines seiner Tor-Rezepte in deinem Rezeptbuch steht - nichts wird verbraucht, nichts muss angeklickt werden. Tore sind das einfachste Rezept der Stufe und das Grund-Item des Themas: Steinmeißel (Werkzeuge), Zaubertisch oder Bücherregal (Verzauberungen), Ziegelsteine, Steinziegel oder Kupfer-Baustab (Bauen), Truhe, Rucksack, Köcher oder Verstärktes Bündel (Lager), Kolben, Verstärkter Trichter, Verstärkter Ofen oder Verstärkter Kolben (Maschinen), Enderitbarren oder die Astralit-/Nihilit-Blöcke aus Endstein (End), Stein-, Eichen-, Wägeplatte (leicht/schwer) oder Kupfer-Druckplatte (Pads), Kupferkern, Messuhr, Detektor oder Attraktor (Geräte) und die pulsierende, leuchtende oder strahlende Besatzvorlage (Besätze); im Minecraft-Regal Werkbank oder Eichenbretter, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone-Fackel, Steinschwert und Brot. Jeder Weg ins Rezeptbuch (Rezept-Erfolge, das Item herstellen, /recipe give) löst die Prüfung aus; sie läuft auch beim Betreten und beim Benutzen eines Handbuchs. Der Tooltip eines gesperrten Reiters nennt das Item, das du herstellen sollst.",
           "Offene Reiter gehören dem Spieler, nicht dem Buch: jeder wird als Spieler-Tag (simplebuilding.guide_tab.<id>) gemerkt, der Tod und Neuanmeldung übersteht; ein Reiter bleibt also offen, auch wenn das Rezept wieder genommen wird. Sein Kapitel-Erfolg wird mit vergeben. Auf alte Art eingefügte Kapitel (simplebuilding:guide_chapters) öffnen sich für den, der das Buch benutzt oder beim Betreten trägt; das Buch verliert danach die Maske. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhält das Thema beim Laden. Der Tooltip zeigt die offenen Reiter des Lesers mit kleinen Buchtexturen und übersetzten Namen.",
           "Der Bildschirm zeigt das geöffnete Regal. Acht Themenreiter stehen rechts, übrige links unter Inhalt und dem anderen Regal (innerhalb von sechs linken Reitern). Gesperrte Themen sind grau. Server-Admin braucht OP-Stufe 2. Lesen pausiert das Spiel nicht.",
@@ -3786,12 +3786,12 @@
       },
       "de": {
         "title": "Astralgewölbe",
-        "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+        "summary": "54 persönliche Plätze, darunter die 27 geteilten Vanilla-Endertruhenplätze.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
-          "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
-          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darüber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
-          "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zweimal Astralitstaub. Plätze 1–27 nutzen direkt das persönliche Vanilla-Enderinventar; 28–54 gehören demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plätze.",
+          "Die Zusatzplätze werden in den persönlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein öffentlich geteiltes Lager.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Öffnungs- und Schließsounds, Partikel und Wasserfüllung. Ein fester Block darüber verhindert das Öffnen. Abbau droppt das Gewölbe, nicht den persönlichen Inhalt; Trichter haben keinen Zugriff.",
+          "server.features.astralVault sperrt das Öffnen und bestehende Gewölbe-Menüs; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
     },
@@ -3814,12 +3814,12 @@
       },
       "de": {
         "title": "Nihil-Gewölbe",
-        "summary": "Ein 54-Platz-Inventar für die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "summary": "Ein 54-Platz-Inventar für die ganze Welt: jedes Nihil-Gewölbe zeigt jedem Spieler denselben Inhalt.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe öffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem früheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
-          "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und ändert an jedem Gewoelbe dieselben Gegenstände; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
-          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darüber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
-          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewölbe öffnet ein Menü mit sechs Reihen, so groß wie eine Doppeltruhe und das Astral-Gewölbe; Inhalt aus dem früheren 27-Platz-Gewölbe bleibt in den ersten drei Reihen.",
+          "Alle Nihil-Gewölbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und ändert an jedem Gewölbe dieselben Gegenstände; offene Menüs bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Öffnungs- und Schließsounds, Partikel und Wasserfüllung. Ein fester Block darüber verhindert das Öffnen. Abbau droppt das Gewölbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewölbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+          "server.features.nihilVault sperrt das Öffnen und bestehende Gewölbe-Menüs; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen.",
           "Server mit Grundstücken: in einer geteilten Welt (Dedicated Server oder für LAN geöffnete Welt) mit aktiver Grundstücks-Mod (die Claims von Simple Tweaks oder ein anderer Anbieter des Framework-Schutzvertrags) öffnet ein Gewölbe nur auf geschütztem Land, auf dem du Behälter benutzen darfst; sonst bleibt es zu, mit Hinweis in der Aktionsleiste und dem Klang einer verschlossenen Truhe. Sonst könnte jeder ein eigenes Gewölbe in die Wildnis stellen und den geteilten Inhalt leeren. Im Einzelspieler und auf Servern ohne Grundstücke öffnet es überall und ist dort eine öffentliche Truhe für alle. server.features.nihilVaultClaimOnly (Standard true) schaltet die Regel ab."
         ]
       }
@@ -4933,9 +4933,9 @@
         ]
       },
       "de": {
-        "summary": "Ein mit Schleichen + Rechtsklick abgestellter Farbkasten: er steht als flacher Koffer auf dem Boden (oder haengt an der Wand) und behaelt seine Farben.",
+        "summary": "Ein mit Schleichen + Rechtsklick abgestellter Farbkasten: er steht als flacher Koffer auf dem Boden (oder hängt an der Wand) und behält seine Farben.",
         "details": [
-          "Blockklasse PlacedPaintBoxBlock mit Block-Entity, die den ganzen Kasten speichert; abgebaut faellt der Kasten samt Inhalt wieder aus."
+          "Blockklasse PlacedPaintBoxBlock mit Block-Entity, die den ganzen Kasten speichert; abgebaut fällt der Kasten samt Inhalt wieder aus."
         ]
       },
       "sources": [

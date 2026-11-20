@@ -79,12 +79,15 @@ def item(name, rgb):
 
 
 def write_neutral_layers(src_root, out_root):
-    """Every *_dyed.png (item, block and the worn backpack entity/backpack) as neutral grey into the 26.3 overlay (same
+    """Every *_dyed.png of block and the worn backpack entity/backpack as neutral grey into the 26.3 overlay (same
     relative path). entity/backpack was missing until 2026-10-14 (oc-missingtex): the worn dyed backpack kept the tier's
-    brown/violet tone, so every dye came out muddy there and differed from the item and the placed block."""
+    brown/violet tone, so every dye came out muddy there and differed from the item and the placed block.
+    item/ is not written (N115): every item *_dyed layer belongs to a backpack, bundle or quiver, which 26.3 registers
+    in Simple Storage with its own neutral layers; SimpleBuilding's copies are not shipped on 26.3
+    (tools/release/dead_assets_263.py lists them in mc26_3/not-shipped-on-26.3.txt)."""
     import re
     count = 0
-    for sub in ('item', 'block', 'entity/backpack'):
+    for sub in ('block', 'entity/backpack'):
         names = sorted(n for n in os.listdir(os.path.join(src_root, sub)) if n.endswith('_dyed.png'))
         group = lambda n: re.sub(r'_(front|back|side|top|open_back|open_front)(?=_dyed)', '', n)
         tops = {}

@@ -22,7 +22,20 @@ ROOT = Path(__file__).resolve().parents[2]
 # 26.2 line keeps the tier-toned layers in src/main. The overlay wins, as in mergeResources263.
 ROOTS = (ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures',
          ROOT / 'src/main/resources/assets/simplebuilding/textures')
-TEX_DIRS = tuple(r / 'item' for r in ROOTS)
+# N115: on 26.3 the backpacks, bundles and quivers are Simple Storage items with their own neutral item layers;
+# SimpleBuilding's item layers are not shipped there (mc26_3/not-shipped-on-26.3.txt). Items read Simple Storage first.
+STORAGE_ITEMS = ROOT / 'modules/simplestorage/shared/resources/assets/simplestorage/textures/item'
+TEX_DIRS = (STORAGE_ITEMS,) + tuple(r / 'item' for r in ROOTS)
+NOT_SHIPPED = ROOT / 'mc26_3/not-shipped-on-26.3.txt'
+
+
+def _not_shipped() -> set[str]:
+    """SimpleBuilding texture names (sub/stem, e.g. item/netherite_bundle_dyed) the 26.3 jar leaves out."""
+    if not NOT_SHIPPED.is_file():
+        return set()
+    pre = 'assets/simplebuilding/textures/'
+    return {l.strip()[len(pre):-len('.png')] for l in NOT_SHIPPED.read_text('utf-8').splitlines()
+            if l.strip().startswith(pre) and l.strip().endswith('.png')}
 def _storage_dyes() -> dict[str, int]:
     """The 26.3 dye table: StorageDyes.COLOURS (measured leather tones of the Vanilla bundle sprites)."""
     import re
@@ -70,14 +83,19 @@ def render(prefix: str, kind: str, rgb: int | None) -> Image.Image:
 
 
 def layers() -> dict[str, Path]:
-    """Effective (overlay wins) *_dyed.png of items, placed blocks and the worn backpack: name -> path."""
+    """Effective (overlay wins) *_dyed.png of items, placed blocks and the worn backpack that 26.3 ships: name -> path.
+    SimpleBuilding layers in the not-shipped list are skipped; Simple Storage's item layers count as simplestorage:item/."""
     out = {}
+    skip = _not_shipped()
     for sub in ('item', 'block', 'entity/backpack'):
         for root in reversed(ROOTS):
             d = root / sub
             if d.is_dir():
                 for f in d.glob('*_dyed.png'):
-                    out[f'{sub}/{f.stem}'] = f
+                    if f'{sub}/{f.stem}' not in skip:
+                        out[f'{sub}/{f.stem}'] = f
+    for f in sorted(STORAGE_ITEMS.glob('*_dyed.png')):
+        out[f'simplestorage:item/{f.stem}'] = f
     return out
 
 
