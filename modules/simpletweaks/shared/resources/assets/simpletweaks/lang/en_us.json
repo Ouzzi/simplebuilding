@@ -265,7 +265,7 @@
   "simpletweaks.admin.restart.seconds": "Server restart in %s s.",
   "simpletweaks.admin.restart.bar": "Server restart in %s",
   "simpletweaks.admin.restart.now": "Server restarts now.",
-  "simpletweaks.admin.restart.cancelled": "The server restart was cancelled.",
+  "simpletweaks.admin.restart.cancelled": "The server restart was canceled.",
   "simpletweaks.admin.restart.none": "No restart is scheduled.",
   "simpletweaks.admin.restart.pending": "Restart in %s.",
   "simpletweaks.admin.backup.started": "World backup started…",

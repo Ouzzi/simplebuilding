@@ -8,13 +8,16 @@ although no 26.3 item, block or code reaches them. This script finds them by rea
 
     python3 tools/release/dead_assets_263.py           write mc26_3/not-shipped-on-26.3.txt
     python3 tools/release/dead_assets_263.py --check   exit 1 when a listed file is reachable again or gone (it would be
-                                                       missing on 26.3); newly dead files only warn (gradle checkNotShipped263)
+                                                       missing on 26.3) or when a file died without being listed (it would
+                                                       ship unused; gradle checkNotShipped263)
 
 Roots (always live): every file of another namespace or kind than SimpleBuilding's textures/models/blockstates/items,
 every module resource tree (any namespace), every string literal of the 26.3 Java sources (SB + modules), the
 item/blockstate files of ids the 26.3 datagen registers (mc26_3/generated/wiki/items.json). A live JSON file makes
 every file live that one of its strings names (namespace optional, with or without textures/ or the extension, also as
 a path suffix for equipment/GUI sprites). Over-keeping is safe; only files nothing names are listed.
+Candidates (N114, release audit item 9): moved content as above, every texture of the 26.3-only overlay
+(mc26_3/overlay/resources), and FORCED (files only name heuristics keep alive, each with its reason).
 The 26.2 line keeps them (it still registers the content until the port run).
 """
 import json
@@ -130,6 +133,23 @@ def candidate_key(rel):
     return None
 
 
+# N114 (release audit N110, item 9): files only name heuristics keep alive (a bare id or a run-time path prefix of
+# 26.2 code that 26.3 never reaches). Always listed; --check fails when one is gone (then drop it here).
+FORCED = {
+    'assets/simplebuilding/textures/item/netherite_chest.png':
+        'no model names it on any line (the 26.2 item is a chest special model); 26.3 has no SB netherite chest',
+    **{f'assets/simplebuilding/textures/gui/container/backpack/{tier}.png':
+        '26.2 BackpackScreen background; on 26.3 the SB backpack menu opens only for SB backpack items (not registered, '
+        'Simple Storage ships its own screen) and draws the panel style instead'
+       for tier in ('basic', 'reinforced', 'netherite', 'enderite')},
+}
+
+
+def overlay_textures():
+    """jar paths of the textures in the 26.3-only overlay (a dead one there is deleted, not excluded)."""
+    return {rel for rel in tree(ROOT / 'mc26_3/overlay/resources') if rel.startswith(f'assets/{NS}/textures/')}
+
+
 def registered():
     data = json.loads((ROOT / 'mc26_3/generated/wiki/items.json').read_text(encoding='utf-8'))
     ids = {e['id'] if isinstance(e, dict) else e for e in data['items']} | {e['id'] if isinstance(e, dict) else e for e in data['blocks']}
@@ -141,9 +161,11 @@ def dead():
     regs = registered()
     modules = module_files()
     moved = moved_copies(modules)
+    overlay = overlay_textures()
     cand = {rel: candidate_key(rel) for rel in files}
-    # Only moved content: a module ships the same asset path under its own namespace (SB's file is the 26.2 original).
-    cand = {rel: k for rel, k in cand.items() if k and rel.split('/', 2)[2] in moved}
+    # Moved content (a module ships the same asset path under its own namespace; SB's file is the 26.2 original) and
+    # every texture of the 26.3-only overlay (nothing else could need it). Forced entries are listed in any case.
+    cand = {rel: k for rel, k in cand.items() if k and (rel.split('/', 2)[2] in moved or rel in overlay) and rel not in FORCED}
     # Index: reference key -> candidate files (exact path and every path suffix after a '/').
     index = {}
     for rel, (kind, path) in cand.items():
@@ -197,14 +219,30 @@ def dead():
             continue
         stem = path.rsplit('/', 1)[-1]
         if any((f.endswith('_') and stem.startswith(f.split('/')[-1]) and len(f.split('/')[-1]) >= 4)
-               or (f.startswith('_') and stem.endswith(f))
+               or (f.startswith('_') and stem.endswith(f) and rel not in overlay)
                or (f.endswith('/') and path.startswith(f)) for f in frags):
             live.add(rel)
+    # 26.3 overlay textures: a suffix fragment ("_active") is appended to a name the code already has, so it keeps a file
+    # only while the file without that suffix is live too (astral_redstone_active died with astral_redstone, N114).
+    by_path = {(kind, path): rel for rel, (kind, path) in cand.items()}
+    grew = True
+    while grew:  # until nothing changes: a base may itself live only through a suffix (trapped_copper_oxidized_left)
+        grew = False
+        for rel, (kind, path) in cand.items():
+            if rel in live or rel not in overlay:
+                continue
+            for f in frags:
+                if f.startswith('_') and path.endswith(f):
+                    base = by_path.get((kind, path[:-len(f)]))
+                    if base is None or base in live:
+                        live.add(rel)
+                        grew = True
+                        break
     # A live texture keeps its animation file and vice versa.
     for rel in list(cand):
         if rel.endswith('.png.mcmeta') and rel[:-len('.mcmeta')] in live:
             live.add(rel)
-    return sorted(rel for rel in cand if rel not in live)
+    return sorted({rel for rel in cand if rel not in live} | set(FORCED))
 
 
 def render(items):
@@ -221,14 +259,21 @@ def main(argv):
         current = OUT.read_text(encoding='utf-8') if OUT.is_file() else ''
         old = {l.strip() for l in current.splitlines() if l.strip() and not l.startswith('#')}
         new = set(items)
+        gone = sorted(set(FORCED) - set(sb_files()))
+        if gone:
+            print(f'tools/release/dead_assets_263.py: FORCED names files that no longer exist: {gone}; drop them from FORCED')
+            return 1
         if old - new:
             # Excluded but now named by 26.3 content (or the file is gone): the 26.3 jar would miss it.
             print(f'{OUT.relative_to(ROOT)}: listed files are used on 26.3 again or gone: {sorted(old - new)[:10]}; '
                   'run python3 tools/release/dead_assets_263.py')
             return 1
         if new - old:
-            print(f'warning: {len(new - old)} more SimpleBuilding files are unused on 26.3 (still shipped): {sorted(new - old)[:5]}; '
-                  'run python3 tools/release/dead_assets_263.py to drop them from the jar')
+            # N114: a newly dead file would ship unused in the release jar - fail, so the list is refreshed with the change.
+            print(f'{OUT.relative_to(ROOT)}: {len(new - old)} more SimpleBuilding files are unused on 26.3 (still shipped): '
+                  f'{sorted(new - old)[:5]}; run python3 tools/release/dead_assets_263.py to drop them from the jar '
+                  '(or delete them when they are 26.3-only overlay files)')
+            return 1
         print(f'ok: {len(old)} SimpleBuilding files not shipped on 26.3')
         return 0
     OUT.write_text(text, encoding='utf-8')

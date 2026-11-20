@@ -391,6 +391,18 @@ tasks.register('testTextureTools', Exec) {
 }
 tasks.named('check') { dependsOn 'testTextureTools' }
 
+// N114: unit tests of tools/release (dead 26.3 assets, release jars, early access) and of the player text check.
+tasks.register('testReleaseTools', Exec) {
+	group = 'verification'
+	description = 'Runs the unit tests of tools/release and of tools/check_player_texts.py.'
+	workingDir = rootDir
+	commandLine wikiPython, '-m', 'unittest', 'tools/release/test_dead_assets_263.py', 'tools/release/test_check_release_jars.py',
+		'tools/release/test_early_access.py', 'tools/test_check_player_texts.py'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'testReleaseTools' }
+
 // End-of-build notice for grey placeholder textures (owner 19.10.): generateVanillaDerived of every 26.3 loader and
 // module project adds a line here when it fell back to placeholders (mc26_3/resources.gradle sbPlaceholderAlarm,
 // gradle/module-vanilla-derived.gradle); the service prints them once more when the build ends, after all other output.

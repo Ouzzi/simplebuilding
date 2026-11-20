@@ -17,6 +17,10 @@ assets/simplebuilding/textures/block/reinforced_furnace_front_on.png
 assets/simplebuilding/textures/block/reinforced_potion_pad.png
 assets/simplebuilding/textures/block/spawn_teleporter.png
 assets/simplebuilding/textures/block/stellar_flypad.png
+assets/simplebuilding/textures/gui/container/backpack/basic.png
+assets/simplebuilding/textures/gui/container/backpack/enderite.png
+assets/simplebuilding/textures/gui/container/backpack/netherite.png
+assets/simplebuilding/textures/gui/container/backpack/reinforced.png
 assets/simplebuilding/textures/gui/sprites/resonance_field.png
 assets/simplebuilding/textures/gui/sprites/resonance_field.png.mcmeta
 assets/simplebuilding/textures/gui/sprites/resonance_field_highlighted.png
@@ -32,6 +36,7 @@ assets/simplebuilding/textures/gui/sprites/resonance_heart_stone.png
 assets/simplebuilding/textures/item/amethyst_lens.png
 assets/simplebuilding/textures/item/astralit_dust.png
 assets/simplebuilding/textures/item/backpack.png
+assets/simplebuilding/textures/item/backpack_dyed.png
 assets/simplebuilding/textures/item/cracked_diamond.png
 assets/simplebuilding/textures/item/creative_blueprint.png
 assets/simplebuilding/textures/item/detector.png
@@ -101,9 +106,12 @@ assets/simplebuilding/textures/item/echo_sounder_30.png
 assets/simplebuilding/textures/item/echo_sounder_31.png
 assets/simplebuilding/textures/item/layered_raw_enderite.png
 assets/simplebuilding/textures/item/magnet.png
+assets/simplebuilding/textures/item/netherite_chest.png
 assets/simplebuilding/textures/item/octant.png
 assets/simplebuilding/textures/item/quiver.png
+assets/simplebuilding/textures/item/quiver_dyed.png
 assets/simplebuilding/textures/item/reinforced_quiver.png
+assets/simplebuilding/textures/item/reinforced_quiver_dyed.png
 assets/simplebuilding/textures/item/rotator.png
 assets/simplebuilding/textures/item/velocity_gauge.png
 assets/simplebuilding/textures/item/velocity_gauge_needle_00.png
