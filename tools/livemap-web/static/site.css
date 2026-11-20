@@ -34,6 +34,7 @@ code { background: var(--field); border: 1px solid #000; padding: 1px 6px; overf
 .nav a, .me a { color: var(--ink); text-decoration: none; }
 .nav a:hover, .me a:hover { color: var(--gold); text-decoration: underline; }
 .me { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.me a.btn, .me a.btn:hover { color: #fff; text-decoration: none; }   /* .me a would make it cream on green = 3.9:1 (N106) */
 .me .who { max-width: 18ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lang { border: 2px solid #000; padding: 0 6px; background: var(--card); font-family: "Courier New", monospace; font-weight: bold; }
 .foot { margin: 56px auto 24px; text-align: center; color: var(--mut); font-size: 14px; }
@@ -64,13 +65,16 @@ code { background: var(--field); border: 1px solid #000; padding: 1px 6px; overf
 button.link { background: none; border: 0; padding: 0; color: var(--gold); text-decoration: underline; cursor: pointer; font: inherit; }
 form.inline { display: inline; }
 form.inline select { width: auto; display: inline-block; padding: 4px 6px; margin-right: 4px; }
+form.inline input[name=note] { width: auto; max-width: 16ch; display: inline-block; padding: 4px 6px; margin: 0 4px 4px 0; }
+textarea { resize: vertical; }
 .stack { display: grid; gap: 12px; }
 label { display: grid; gap: 4px; font-weight: 600; }
 label.check, label.radio { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; }
-label.check input, label.radio input { margin-top: 5px; width: auto; }
-input, select { width: 100%; font: inherit; color: var(--ink); background: var(--field); border: 2px solid #000; padding: 8px 10px;
+label.check input, label.radio input { margin-top: 3px; }
+input, select, textarea { width: 100%; font: inherit; color: var(--ink); background: var(--field); border: 2px solid #000; padding: 8px 10px;
   box-shadow: inset 2px 2px 0 #0a0908; min-width: 0; }
 input[readonly] { color: var(--mut); }
+input[type=checkbox], input[type=radio] { width: 18px; height: 18px; padding: 0; box-shadow: none; flex: none; accent-color: var(--green-hi); }
 fieldset { border: 2px solid #000; padding: 8px 12px 10px; margin: 0; display: grid; gap: 6px; }
 legend { font-weight: 600; padding: 0 4px; }
 .prefix, .copyrow { display: flex; align-items: center; gap: 6px; font-weight: 400; }

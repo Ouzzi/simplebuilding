@@ -486,6 +486,8 @@ class App:
             return self.html(ctx, 200, pages.self_host(ctx), cache="no-cache")
         if path == "/explore":
             return self.html(ctx, 200, pages.explore(ctx), cache="no-cache")
+        if path == "/report":
+            return self.report_route(ctx)
         m = M_RE.match(path)
         if m:
             return self.map_route(ctx, m.group(1), m.group(2))
@@ -534,6 +536,26 @@ class App:
             return self.admin(ctx)
         raise Problem(404, "not_found")
 
+    def report_route(self, ctx: Ctx) -> Response:
+        """Notice form of every hosted map (legal draft U5): reachable without login from the viewer's "Report" link."""
+        req, svc = ctx.req, self.svc
+        f = req.form if req.method == "POST" else {}
+        slug = (f.get("map") if req.method == "POST" else req.query.get("map")) or ""
+        m = svc.db.one("SELECT * FROM maps WHERE slug = ?", slug) if M_RE.match(f"/m/{slug}") else None
+        if m is None:
+            raise Problem(404, "not_found")
+        if req.method == "POST":
+            try:
+                rid = svc.report(slug, f.get("reason", ""), f.get("text", ""), f.get("contact", ""), f.get("confirm") == "1",
+                                 ctx.user, req.ip, ctx.lang)
+                return self.html(ctx, 200, pages.message(ctx, ctx.t("Thank you", "Danke"), ctx.t(
+                    f"Your notice has number {rid}. We check it and decide; with a contact address you hear the result.",
+                    f"Deine Meldung hat die Nummer {rid}. Wir prüfen sie und entscheiden; mit Kontaktadresse erfährst du das Ergebnis.")))
+            except Problem as p:
+                ctx.error = ctx.problem_text(p)
+                return self.html(ctx, p.status, pages.report_form(ctx, m, f))
+        return self.html(ctx, 200, pages.report_form(ctx, m, f))
+
     # ---------------------------------------------------------------- viewer and map data
     def viewer(self) -> bytes | None:
         p = Path(self.cfg["viewer_path"])
@@ -554,8 +576,12 @@ class App:
             return self.html(ctx, 404, pages.message(ctx, ctx.t("Map not found", "Karte nicht gefunden"), ctx.t(
                 "This map does not exist or is not connected at the moment.", "Diese Karte gibt es nicht oder sie ist gerade nicht verbunden.")))
         m = svc.refresh_state(m)
-        bearer = ctx.req.headers.get("authorization", "")
-        bearer = bearer[7:].strip() if bearer.startswith("Bearer ") else None
+        # The viewer sends a link map's key as X-Livemap-Token (keeps a password prompt of the dev stage working);
+        # Authorization: Bearer stays accepted (older viewer pages, scripts).
+        bearer = ctx.req.headers.get("x-livemap-token", "").strip()[:200] or None
+        if bearer is None:
+            auth = ctx.req.headers.get("authorization", "")
+            bearer = auth[7:].strip() if auth.startswith("Bearer ") else None
         if rest == "/":
             if m["visibility"] == "private" and not svc.can_view(m, ctx.user, None):
                 if ctx.user is None:
@@ -744,6 +770,8 @@ class App:
                         svc.disconnect(m, user["id"])
                 elif action == "maintenance":
                     svc.maintenance()
+                elif action in ("report_dismiss", "report_disconnect"):
+                    svc.handle_report(int_or(f.get("report")) or 0, action[7:], user, f.get("note", ""))
                 else:
                     raise Problem(400, "bad_request")
                 ctx.flash = ctx.t("Done.", "Erledigt.")
@@ -756,7 +784,8 @@ class App:
         storage = {"used": svc.storage_used(), "quota": svc.cfg["storage_quota_gb"] * 1024 ** 3, "disk": svc.disk_percent()}
         return self.html(ctx, 200, pages.admin(ctx, users, maps, owners, svc.queue(), storage, svc.flags(),
                                                svc.mailer.recent() if svc.mailer.uses_outbox else [],
-                                               svc.db.all("SELECT coupon, COUNT(*) AS n FROM orders WHERE coupon IS NOT NULL GROUP BY coupon ORDER BY n DESC LIMIT 50")))
+                                               svc.db.all("SELECT coupon, COUNT(*) AS n FROM orders WHERE coupon IS NOT NULL GROUP BY coupon ORDER BY n DESC LIMIT 50"),
+                                               svc.reports()))
 
     # ---------------------------------------------------------------- API (mod, payment providers)
     def api(self, req: Request, site: str) -> Response:

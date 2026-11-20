@@ -11,6 +11,7 @@ public final class ModuleGameTest {
     @GameTest public void visitPersistence(GameTestHelper h) { LivemapTests.visitPersistence(h); }
     @GameTest public void mapItemsExplore(GameTestHelper h) { LivemapTests.mapItemsExplore(h); }
     @GameTest(structure = "simplelivemap:empty") public void tileColor(GameTestHelper h) { LivemapTests.tileColor(h); }
+    @GameTest(structure = "simplelivemap:empty") public void drawCost(GameTestHelper h) { LivemapTests.drawCost(h); }
     @GameTest public void tileExploredOnly(GameTestHelper h) { LivemapTests.tileExploredOnly(h); }
     @GameTest public void httpDefaultOn(GameTestHelper h) { LivemapTests.httpDefaultOn(h); }
     @GameTest public void httpPortFallback(GameTestHelper h) { LivemapTests.httpPortFallback(h); }
@@ -18,6 +19,7 @@ public final class ModuleGameTest {
     @GameTest public void httpVisibility(GameTestHelper h) { LivemapTests.httpVisibility(h); }
     @GameTest public void httpTraversal(GameTestHelper h) { LivemapTests.httpTraversal(h); }
     @GameTest public void httpPlayersFields(GameTestHelper h) { LivemapTests.httpPlayersFields(h); }
+    @GameTest public void hiddenPlayersNeverSent(GameTestHelper h) { LivemapTests.hiddenPlayersNeverSent(h); }
     @GameTest public void httpRateLimit(GameTestHelper h) { LivemapTests.httpRateLimit(h); }
     @GameTest public void selfHostLock(GameTestHelper h) { LivemapTests.selfHostLock(h); }
     @GameTest public void selfHostPortProbe(GameTestHelper h) { LivemapTests.selfHostPortProbe(h); }

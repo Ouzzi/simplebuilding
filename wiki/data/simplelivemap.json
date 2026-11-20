@@ -491,8 +491,8 @@
       "groupDe": null,
       "label": "Show players",
       "labelDe": "Spieler zeigen",
-      "tooltip": "Online players appear with name and position (each can hide with /simplelivemap hide). Default: off.",
-      "tooltipDe": "Online-Spieler erscheinen mit Name und Position (jeder kann sich mit /simplelivemap hide ausblenden). Standard: aus."
+      "tooltip": "Online players appear with name and position (each can hide with /simplelivemap hide; sneaking, invisible players and spectators never appear). Default: off.",
+      "tooltipDe": "Online-Spieler erscheinen mit Name und Position (jeder kann sich mit /simplelivemap hide ausblenden; schleichende, unsichtbare Spieler und Zuschauer erscheinen nie). Standard: aus."
     },
     {
       "range": null,

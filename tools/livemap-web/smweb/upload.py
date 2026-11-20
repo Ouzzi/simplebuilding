@@ -98,13 +98,39 @@ class UploadMixin:
         t = self.tier(self.user(m["user_id"]))
         # P011: dimensions outside the tier are not asked for (the mod keeps them locally; after an upgrade they are asked again)
         need = [p for p, sha in tiles.items() if have.get(p) != sha and dim_allowed(t, p.split("/", 1)[0])]
+        done = bool(body.get("done"))
         with self.db.tx() as c:
             added = 0
             for p in need:
                 added += c.execute("INSERT OR IGNORE INTO pending VALUES (?,?)", (m["id"], p)).rowcount
+            c.executemany("INSERT OR IGNORE INTO manifest_seen VALUES (?,?)", [(m["id"], p) for p in tiles])
             c.execute("UPDATE maps SET need_count = need_count + ?, manifest_done = manifest_done OR ? WHERE id = ?",
-                      (added, 1 if body.get("done") else 0, m["id"]))
+                      (added, 1 if done else 0, m["id"]))
+            if done:
+                self.prune_unreported(c, m["id"])
         return self.answer(m, need=need)
+
+    def prune_unreported(self, c, map_id: int) -> int:
+        """End of a manifest round: tiles the mod no longer has (it sends its whole tile list on every start, in chunks up
+        to ``done``) leave the map. Interrupted rounds only add up (fewer deletions, never more); a round that reported no
+        tile at all deletes nothing (a moved or empty world folder is no reason to wipe a map)."""
+        seen = c.execute("SELECT COUNT(*) FROM manifest_seen WHERE map_id = ?", (map_id,)).fetchone()[0]
+        gone = []
+        if seen:
+            gone = c.execute("SELECT path, sha, size FROM tiles WHERE map_id = ? AND path NOT IN "
+                             "(SELECT path FROM manifest_seen WHERE map_id = ?)", (map_id, map_id)).fetchall()
+        for row in gone:
+            c.execute("DELETE FROM tiles WHERE map_id = ? AND path = ?", (map_id, row["path"]))
+            self.drop_blob_if_unused(c, row["sha"])
+        if gone:
+            c.execute("UPDATE maps SET bytes = MAX(0, bytes - ?) WHERE id = ?", (sum(r["size"] for r in gone), map_id))
+        if seen:  # asked-for tiles the mod no longer has would keep the map "preparing" forever
+            stale = c.execute("DELETE FROM pending WHERE map_id = ? AND path NOT IN (SELECT path FROM manifest_seen WHERE map_id = ?)",
+                              (map_id, map_id)).rowcount
+            if stale:
+                c.execute("UPDATE maps SET need_count = MAX(done_count, need_count - ?) WHERE id = ?", (stale, map_id))
+        c.execute("DELETE FROM manifest_seen WHERE map_id = ?", (map_id,))
+        return len(gone)
 
     def api_tiles(self, m, data: bytes) -> dict:
         ok, pos = self.admitted(m)

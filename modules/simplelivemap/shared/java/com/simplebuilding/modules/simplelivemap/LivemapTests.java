@@ -197,6 +197,49 @@ public final class LivemapTests {
         h.succeed();
     }
 
+    /**
+     * N106 measurement: server-thread cost of drawing one chunk ({@link ChunkSampler#sample} with heights - the only tile work on
+     * the server thread, {@code chunksPerTick} per tick) and the PNG bytes of a colour tile against its height tile. Logs one
+     * line {@code SLM-MEASURE ...}; asserts only a generous ceiling (2 ms per chunk) so slow test machines do not fail.
+     */
+    public static void drawCost(GameTestHelper h) {
+        // A little relief and water in the test area: a 6-deep pool and a stair of stone, so columns walk down like real ground.
+        for (int x = 0; x < 5; x++) {
+            for (int z = 0; z < 5; z++) {
+                h.setBlock(new BlockPos(x, 1 + (x + z) % 4, z), Blocks.STONE);
+            }
+        }
+        BlockPos pos = h.absolutePos(new BlockPos(2, 3, 2));
+        LevelChunk chunk = h.getLevel().getChunkAt(pos);
+        int[] heights = new int[256];
+        for (int i = 0; i < 200; i++) ChunkSampler.sample(h.getLevel(), chunk, true, heights);   // warm-up (JIT)
+        int runs = 2000;
+        long t0 = System.nanoTime();
+        int[] px = null;
+        for (int i = 0; i < runs; i++) px = ChunkSampler.sample(h.getLevel(), chunk, true, heights);
+        double us = (System.nanoTime() - t0) / 1000.0 / runs;
+        Path dir = temp();
+        try (TileStore tiles = new TileStore(dir)) {
+            int cx0 = pos.getX() >> 4 & ~7, cz0 = pos.getZ() >> 4 & ~7;
+            for (int dx = 0; dx < 8; dx++) {
+                for (int dz = 0; dz < 8; dz++) tiles.putChunk("t", cx0 + dx, cz0 + dz, px, heights);   // one full zoom-4 tile
+            }
+            tiles.flushNow();
+            int tx = Math.floorDiv(cx0, 8), tz = Math.floorDiv(cz0, 8);
+            long colour = Files.size(dir.resolve("t/4/" + tx + "/" + tz + ".png"));
+            long height = Files.size(dir.resolve("t" + TileStore.HEIGHTS + "/4/" + tx + "/" + tz + ".png"));
+            SimpleLivemap.LOG.info("SLM-MEASURE sampleMicrosPerChunk={} msptAtDefault={} colourTileBytes={} heightTileBytes={}",
+                    String.format(java.util.Locale.ROOT, "%.1f", us), String.format(java.util.Locale.ROOT, "%.3f", us * LivemapConfig.chunksPerTick / 1000.0),
+                    colour, height);
+            h.assertTrue(us < 2000, "one chunk takes " + us + " microseconds on the server thread");
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            delete(dir);
+        }
+        h.succeed();
+    }
+
     /** Map pictures fill only explored chunks and never overwrite a real chunk picture. */
     public static void tileExploredOnly(GameTestHelper h) {
         Path dir = temp();
@@ -451,6 +494,41 @@ public final class LivemapTests {
         } finally {
             LivemapConfig.showPlayers = before;
             LivemapRuntime.store().setHidden(player.getUUID(), false);
+        }
+        h.succeed();
+    }
+
+    /**
+     * Owner P041 (N106): sneaking and invisible players (effect or flag) and spectators are never in the player list that the
+     * web map and the hosted upload get - filtered at the source, not in the browser.
+     */
+    public static void hiddenPlayersNeverSent(GameTestHelper h) {
+        var srv = h.getLevel().getServer();
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        String name = player.getGameProfile().name();
+        boolean before = LivemapConfig.showPlayers;
+        try {
+            LivemapConfig.showPlayers = true;
+            int shown = named(srv, name);
+            h.assertTrue(shown >= 1 && LivemapRuntime.shown(player), "a normal player is shown");
+            player.setShiftKeyDown(true);
+            h.assertTrue(!LivemapRuntime.shown(player) && named(srv, name) == shown - 1, "sneaking: not sent");
+            player.setShiftKeyDown(false);
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.INVISIBILITY, 600, 0, false, false));
+            h.assertTrue(!LivemapRuntime.shown(player) && named(srv, name) == shown - 1, "invisibility effect: not sent");
+            player.removeEffect(net.minecraft.world.effect.MobEffects.INVISIBILITY);
+            player.setInvisible(true);
+            h.assertTrue(!LivemapRuntime.shown(player), "invisible flag: not sent");
+            player.setInvisible(false);
+            h.assertTrue(LivemapRuntime.shown(player) && named(srv, name) == shown, "visible again: shown again");
+            player.setGameMode(net.minecraft.world.level.GameType.SPECTATOR);
+            h.assertTrue(!LivemapRuntime.shown(player), "spectator: not sent");
+        } finally {
+            LivemapConfig.showPlayers = before;
+            player.setShiftKeyDown(false);
+            player.setInvisible(false);
+            player.removeEffect(net.minecraft.world.effect.MobEffects.INVISIBILITY);
         }
         h.succeed();
     }
