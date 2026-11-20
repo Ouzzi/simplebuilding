@@ -2,6 +2,8 @@ package com.simplelib.api;
 
 import net.minecraft.util.Mth;
 import java.util.Locale;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 /**
  * Free look release rules (IG31-29, owner 31.10.) without client classes, so the plain config readers can fill them on any
@@ -94,5 +96,26 @@ public final class FreeLookRules {
     public static float easeOutRemaining(float t) {
         float u = 1 - Math.max(0f, Math.min(1f, t));
         return u * u * u;
+    }
+
+    /** Camera orientation (camera to world) for a view of {@code yRot}/{@code xRot} degrees, exactly as {@code Camera.setRotation} builds it. */
+    public static Quaternionf orientation(float yRot, float xRot) {
+        return new Quaternionf().rotationYXZ((float) Math.PI - yRot * ((float) Math.PI / 180f), -xRot * ((float) Math.PI / 180f), 0f);
+    }
+
+    /**
+     * QOL34 crosshair: where the body direction is on the screen for a camera turned by {@code yawOffset}/{@code pitchOffset}
+     * degrees from a body looking {@code playerXRot} up/down; {x, y} in GUI pixels of a {@code guiWidth} x {@code guiHeight}
+     * screen drawn with a vertical field of view of {@code fovDegrees}, or null when the body direction is behind the camera.
+     * Pure math (no client classes), so a server gametest checks it; the client's {@code FreeLook} adds the on/off rules.
+     */
+    public static int[] crosshairPoint(float yawOffset, float pitchOffset, float playerXRot, int guiWidth, int guiHeight, double fovDegrees) {
+        Quaternionf cam = orientation(yawOffset, Math.max(-90, Math.min(90, playerXRot + pitchOffset)));
+        Vector3f v = cam.conjugate().transform(orientation(0, playerXRot).transform(new Vector3f(0, 0, -1)));
+        if (v.z >= -1.0e-4f) return null;
+        double focal = guiHeight / 2.0 / Math.tan(Math.toRadians(fovDegrees) / 2);
+        int x = (int) Math.round(guiWidth / 2.0 + v.x / -v.z * focal);
+        int y = (int) Math.round(guiHeight / 2.0 - v.y / -v.z * focal);
+        return new int[]{x, y};
     }
 }

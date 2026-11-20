@@ -97,6 +97,18 @@ public final class SortProbe {
                     // driver's reach (Simple Earth's "#" = SDL NONUSHASH has no Xvfb key)
                     case "screen" -> mc.gui.setScreen((net.minecraft.client.gui.screens.Screen) Class.forName(c.get("value").getAsString())
                             .getConstructor().newInstance());
+                    // N118: switch the game language (config screen texts EN/DE) and reload the resources; the driver waits for the reload
+                    case "lang" -> {
+                        String code = c.get("value").getAsString();
+                        mc.options.languageCode = code;
+                        mc.getLanguageManager().setSelected(code);
+                        mc.options.save();
+                        mc.reloadResourcePacks();
+                    }
+                    // N118: a fixed free-look camera offset (degrees) while the driver holds the real free-look key, so the crosshair
+                    // mark has a known place without relying on the grabbed pointer reaching the game
+                    case "freelook" -> com.simplelib.api.client.FreeLook.set(c.get("yaw").getAsFloat(), c.get("pitch").getAsFloat(),
+                            c.get("held").getAsBoolean());
                     case "quit" -> mc.stop();
                     default -> org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("sort probe: unknown command {}", c);
                 }
@@ -191,6 +203,17 @@ public final class SortProbe {
                         JsonObject e = new JsonObject();
                         e.addProperty("class", widgetClass(child.getClass()));
                         e.addProperty("label", name.getString());
+                        // N118: the entry's tooltip lines (Cloth TooltipListEntry#getTooltip: Optional<Component[]>), for EN/DE checks
+                        try {
+                            if (child.getClass().getMethod("getTooltip").invoke(child) instanceof java.util.Optional<?> tip && tip.isPresent()
+                                    && tip.get() instanceof net.minecraft.network.chat.Component[] lines) {
+                                JsonArray t = new JsonArray();
+                                for (var line : lines) t.add(line.getString());
+                                e.add("tooltip", t);
+                            }
+                        } catch (ReflectiveOperationException | RuntimeException ignored) {
+                            // no tooltip method
+                        }
                         entries.add(e);
                     }
                 } catch (ReflectiveOperationException | RuntimeException ignored) {
@@ -277,7 +300,7 @@ public final class SortProbe {
         // a-w4c: a few well-known state fields of the open screen (page, scroll ... when the screen has them), read by reflection.
         JsonObject fields = new JsonObject();
         if (screen != null) {
-            for (String n : new String[] {"page", "scroll", "selected", "tab", "mode", "index"}) {
+            for (String n : new String[] {"page", "scroll", "selected", "tab", "mode", "index", "spread", "chapter"}) {
                 Object v = field(screen, n);
                 if (v instanceof Number num) fields.addProperty(n, num);
                 else if (v instanceof Boolean b) fields.addProperty(n, b);
@@ -285,6 +308,12 @@ public final class SortProbe {
             }
         }
         o.add("fields", fields);
+        // N118: guide screens (SimpleLib's guide screen, SimpleBuilding's book): bookmarks, chapters, open/locked, pages (SimpleLib's GuideProbe facts)
+        if (screen != null && (screen instanceof com.simplelib.client.guide.GuideProbe.Target || screen.getClass().getSimpleName().contains("Guide"))) {
+            JsonObject guide = new JsonObject();
+            com.simplelib.client.guide.GuideProbe.describe(mc, guide, scale);
+            o.add("guide", guide);
+        }
         JsonArray inv = new JsonArray();
         if (mc.player != null) for (int i = 0; i < 36; i++) inv.add(describe(mc.player.getInventory().getItem(i)));
         o.add("inventory", inv);
@@ -306,6 +335,21 @@ public final class SortProbe {
             o.addProperty("sneaking", mc.player.isShiftKeyDown());
             // N60P r4: the client's view of the held stack's component changes (e.g. bundle contents) for probes that cannot read chat
             o.addProperty("mainhandComponents", String.valueOf(mc.player.getMainHandItem().getComponentsPatch()));
+            // N118: SimpleLib free look - on/off, camera offset and where the grey body-direction crosshair is drawn (window pixels)
+            JsonObject look = new JsonObject();
+            look.addProperty("active", com.simplelib.api.client.FreeLook.active());
+            look.addProperty("yaw", com.simplelib.api.client.FreeLook.yawOffset());
+            look.addProperty("pitch", com.simplelib.api.client.FreeLook.pitchOffset());
+            look.addProperty("crosshairOption", com.simplelib.api.FreeLookRules.crosshair());
+            int[] mark = com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), w.getGuiScaledWidth(), w.getGuiScaledHeight(),
+                    mc.options.fov().get());
+            if (mark != null) {
+                JsonArray m = new JsonArray();
+                m.add(mark[0] * scale);
+                m.add(mark[1] * scale);
+                look.add("crosshair", m);
+            }
+            o.add("freeLook", look);
         }
         Path tmp = dir.resolve("simpleinterfaces-sort-status.tmp");
         Files.writeString(tmp, GSON.toJson(o));

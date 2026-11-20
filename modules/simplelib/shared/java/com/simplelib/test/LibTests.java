@@ -84,6 +84,7 @@ public final class LibTests {
         ALL.put("dev_variants_registry_persistence", DevVariantTests::registryAndPersistence);
         ALL.put("free_look_release_rules", LibTests::freeLookReleaseRules);
         ALL.put("free_look_ease_back", LibTests::freeLookEaseBack);
+        ALL.put("free_look_crosshair", LibTests::freeLookCrosshair);
         ALL.put("enderite_only_with_ores", LibTests::enderiteOnlyWithOres);
         ALL.put("modpack_guide_item", ModpackGuideTests::item);
         ALL.put("modpack_guide_sections", ModpackGuideTests::sections);
@@ -274,6 +275,31 @@ public final class LibTests {
         check(h, Math.abs(com.simplelib.api.FreeLookRules.shortestDelta(350f, 0f) - 10f) < 1e-3f, "350 to 0 must be +10");
         check(h, com.simplelib.api.FreeLookRules.easeOutRemaining(0f) == 1f && com.simplelib.api.FreeLookRules.easeOutRemaining(1f) == 0f, "ease ends wrong");
         check(h, com.simplelib.api.FreeLookRules.easeOutRemaining(0.5f) < 0.2f, "ease-out must be fast at first");
+        h.succeed();
+    }
+
+    /**
+     * N118 (QOL34 crosshair): the grey "real" crosshair marks the body direction while free look turns only the camera. On a 427 x 240
+     * GUI with 70 degrees vertical FOV (focal 171.4 px): no offset = screen centre; camera 30 degrees right = the mark 99 px left of
+     * the centre at the same height (and mirrored); camera 20 degrees further down = the mark 62 px above the centre; camera turned
+     * round (180) = no mark; the camera pitch is clamped at +-90 degrees like the camera itself.
+     */
+    private static void freeLookCrosshair(GameTestHelper h) {
+        int[] c = com.simplelib.api.FreeLookRules.crosshairPoint(0, 0, 0, 427, 240, 70.0);
+        check(h, c != null && Math.abs(c[0] - 213.5) <= 1 && Math.abs(c[1] - 120) <= 1, "no offset is not the centre: " + java.util.Arrays.toString(c));
+        int[] right = com.simplelib.api.FreeLookRules.crosshairPoint(30, 0, 0, 427, 240, 70.0);
+        int[] left = com.simplelib.api.FreeLookRules.crosshairPoint(-30, 0, 0, 427, 240, 70.0);
+        check(h, right != null && Math.abs(right[0] - 115) <= 1 && Math.abs(right[1] - 120) <= 1, "camera 30 right: mark not 99 px left of the centre: " + java.util.Arrays.toString(right));
+        check(h, left != null && Math.abs(left[0] - 312) <= 1 && Math.abs(left[1] - 120) <= 1, "camera 30 left: mark not mirrored: " + java.util.Arrays.toString(left));
+        int[] down = com.simplelib.api.FreeLookRules.crosshairPoint(0, 20, 0, 427, 240, 70.0);
+        check(h, down != null && Math.abs(down[0] - 213.5) <= 1 && Math.abs(down[1] - 58) <= 1, "camera 20 down: mark not 62 px above the centre: " + java.util.Arrays.toString(down));
+        check(h, com.simplelib.api.FreeLookRules.crosshairPoint(180, 0, 0, 427, 240, 70.0) == null, "a mark behind the camera is drawn");
+        int[] clamped = com.simplelib.api.FreeLookRules.crosshairPoint(0, 30, 80, 427, 240, 70.0);
+        int[] limit = com.simplelib.api.FreeLookRules.crosshairPoint(0, 10, 80, 427, 240, 70.0);
+        check(h, clamped != null && limit != null && Math.abs(clamped[0] - limit[0]) <= 1 && Math.abs(clamped[1] - limit[1]) <= 1, "camera pitch not clamped at 90: "
+                + java.util.Arrays.toString(clamped) + " vs " + java.util.Arrays.toString(limit));
+        int[] zoomed = com.simplelib.api.FreeLookRules.crosshairPoint(30, 0, 0, 427, 240, 35.0);
+        check(h, zoomed != null && zoomed[0] < right[0], "a narrower field of view (wheel zoom) must move the mark further out: " + java.util.Arrays.toString(zoomed));
         h.succeed();
     }
 
