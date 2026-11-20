@@ -22530,7 +22530,7 @@
       "questionary": {
         "en": {
           "lore": [
-            "A grey bar, heavier than it looks."
+            "A gray bar, heavier than it looks."
           ],
           "use": [
             "Smelted from raw lead or lead ore. Nine make a block of lead; three in a row make 6 lead plates. Lead builds bars, grates, doors and the soundproof building blocks."
@@ -24769,7 +24769,7 @@
       "questionary": {
         "en": {
           "lore": [
-            "A bluish-grey bar from the heart of a geode."
+            "A bluish-gray bar from the heart of a geode."
           ],
           "use": [
             "Smelted from raw zinc or zinc ore. Nine make a block. Two copper and one zinc ingot, shapeless, make 3 brass: nothing is lost."
@@ -28087,7 +28087,7 @@
       "questionary": {
         "en": {
           "lore": [
-            "{name}: heavy, grey and deaf to the world on the other side."
+            "{name}: heavy, gray and deaf to the world on the other side."
           ],
           "use": [
             "Nine lead ingots make one, and it gives the nine back. Hardness 25, blast resistance 1000 (obsidian 1200), needs an iron pickaxe. Sculk sensors and the Warden do not hear through it, and every lead block on the way muffles sound behind it."

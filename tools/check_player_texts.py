@@ -21,6 +21,7 @@ Findings:
              Menue ...): a curated list of common transliterated words (TRANSLIT). Real words with ae/oe/ue/ss
              (Feuer, neue, Quelle, aktuell, Steuer, Wasser, muss) are not in it; ids and names go to ALLOW_TRANSLIT.
              Checked in every German string, including the questionary texts (assets/<ns>/questionary/de_de.json).
+Questionary texts (assets/<ns>/questionary/en_us.json + de_de.json) get every finding kind; English ones since N116.
 
 Real names stay allowed: keys (F1-F12), hex colors (#FF0000), game versions (V1-V27 of Simple Earth, shown on its
 buttons), GUI labels (P1/P2 of the Octant), operator level OP4, config values (D3 = every 3rd day), see ALLOW.
@@ -134,11 +135,11 @@ def lang_files():
 
 
 def questionaries():
-    """German questionary texts (lore/use/secret lists). Only de_de.json for now: the English ones still hold 25
-    British spellings (colour, grey ...), an open item of N115, not part of this check yet."""
+    """Questionary texts (lore/use/secret lists), German and English (EN since N116: British spelling)."""
     for base in ("modules/*/shared/resources", "src/main/resources", "mc26_3/overlay/resources"):
-        for p in sorted(R.glob(f"{base}/assets/*/questionary/de_de.json")):
-            yield (p.parts[len(R.parts) + 1] if base.startswith("modules") else "simplebuilding"), p
+        for name in ("en_us.json", "de_de.json"):
+            for p in sorted(R.glob(f"{base}/assets/*/questionary/{name}")):
+                yield (p.parts[len(R.parts) + 1] if base.startswith("modules") else "simplebuilding"), p
 
 
 def all_strings(node, path=""):
@@ -173,8 +174,9 @@ def main(argv):
             for kind, tok in findings(mod, lang, text):
                 hits.append(f"{p.relative_to(R)} {key}: {kind} '{tok}'")
     for mod, p in questionaries():
+        lang = "en" if p.name == "en_us.json" else "de"
         for path, text in all_strings(json.loads(p.read_text(encoding="utf-8"))):
-            for kind, tok in findings(mod, "de", text):
+            for kind, tok in findings(mod, lang, text):
                 hits.append(f"{p.relative_to(R)} {path}: {kind} '{tok}'")
     if "--list" in argv or "--all-lang" in argv:
         print("\n".join(hits))
@@ -183,8 +185,8 @@ def main(argv):
               "manual.json or lang files" + ("" if "--list" in argv else "; run with --list") +
               ". Rewrite in plain player language (or add a real name to ALLOW).")
         return 1
-    print("PLAYER_TEXTS_OK: manual.json player fields, all lang values and German questionary texts free of internal "
-          "codes, dev history, British spelling and ASCII umlauts")
+    print("PLAYER_TEXTS_OK: manual.json player fields, all lang values and questionary texts free of internal "
+          "codes, dev history, British spelling and ASCII umlauts (incl. questionary EN/DE)")
     return 0
 
 

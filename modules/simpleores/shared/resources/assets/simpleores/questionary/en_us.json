@@ -89,7 +89,7 @@
   },
   "lead_block": {
     "lore": [
-      "{name}: heavy, grey and deaf to the world on the other side."
+      "{name}: heavy, gray and deaf to the world on the other side."
     ],
     "use": [
       "Nine lead ingots make one, and it gives the nine back. Hardness 25, blast resistance 1000 (obsidian 1200), needs an iron pickaxe. Sculk sensors and the Warden do not hear through it, and every lead block on the way muffles sound behind it."
@@ -144,7 +144,7 @@
   },
   "lead_ingot": {
     "lore": [
-      "A grey bar, heavier than it looks."
+      "A gray bar, heavier than it looks."
     ],
     "use": [
       "Smelted from raw lead or lead ore. Nine make a block of lead; three in a row make 6 lead plates. Lead builds bars, grates, doors and the soundproof building blocks."
@@ -155,7 +155,7 @@
   },
   "zinc_ingot": {
     "lore": [
-      "A bluish-grey bar from the heart of a geode."
+      "A bluish-gray bar from the heart of a geode."
     ],
     "use": [
       "Smelted from raw zinc or zinc ore. Nine make a block. Two copper and one zinc ingot, shapeless, make 3 brass: nothing is lost."
@@ -766,7 +766,7 @@
       "regex:(end_)?zinc_ore"
     ],
     "lore": [
-      "{name}: a grey heart inside a closed stone shell."
+      "{name}: a gray heart inside a closed stone shell."
     ],
     "use": [
       "Zinc has no free veins: it grows only in closed mini geodes, 1 to 8 ores in the core. Overworld geodes (Y -56 to 40) have a geode crust shell and a calcite lining, End ones an End stone shell and a geode crust lining. Stone pickaxe; drops raw zinc."
@@ -1286,7 +1286,7 @@
       "regex:rose_(gold|bronze)_spear"
     ],
     "lore": [
-      "{name}: a long reach in rose-coloured metal."
+      "{name}: a long reach in rose-colored metal."
     ],
     "use": [
       "Crafted like the Vanilla spear from two sticks and an alloy ingot. Rose Copper: copper spear timing, durability 190, enchantability 15. Rose Gold: golden spear timing with the iron damage factor, durability 225, enchantability 22. Repair with the alloy ingot."

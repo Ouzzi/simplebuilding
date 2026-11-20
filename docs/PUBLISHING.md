@@ -33,6 +33,11 @@ All Simple mods - SimpleBuilding, SimpleLib and every sub-mod, on every loader a
   adapters, `*.layers.json` and the `fabric-gametest` entrypoint on Fabric; NeoForge/Forge, not in the first release, drop only `*.layers.json` so far),
   then `python3 tools/release/check_release_jars.py <folder with the jars>` must report `0 findings` (nested jars included).
   Dev/gate jars (without the flag) keep their tests, so never upload a jar collected from a gate run.
+- Nothing the release set references is missing (N117): `python3 tools/release/check_release_assets.py <folder with the jars>
+  --vanilla <minecraft 26.3 client jar>` must report `0 missing`. It reads all jars of the set as one resource pack (nested
+  jars included) and resolves item definitions, blockstates, model parents/textures/`#vars`, atlas sources, equipment layers,
+  particles and the textures/GUI sprites the shipped code names (run-time built paths: `RUNTIME_TEXTURES` in the script).
+  It guards the 26.3 exclusion list `mc26_3/not-shipped-on-26.3.txt`, which dev/gate runs and client probes cannot show.
 
 ## Required (upload fails the player at startup without them)
 
