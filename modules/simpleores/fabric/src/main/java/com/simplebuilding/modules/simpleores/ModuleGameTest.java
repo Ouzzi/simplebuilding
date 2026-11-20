@@ -386,6 +386,11 @@ public final class ModuleGameTest {
         OresTests.ALL.get("line_redstone_recipes_yield_two").accept(h);
     }
 
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineDustLightsFromPowerOne(GameTestHelper h) {
+        OresTests.ALL.get("line_dust_lights_from_power_one").accept(h);
+    }
+
     @GameTest(structure = "simpleores:arena", maxTicks = 220)
     public void lineChannelsStayIsolatedAndStopAtFifteen(GameTestHelper h) {
         OresTests.ALL.get("line_channels_stay_isolated_and_stop_at_fifteen").accept(h);

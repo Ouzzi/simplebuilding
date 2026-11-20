@@ -63,8 +63,7 @@
           "Pulse Shapecutter recipe: the crafter's recipe with the Shapecutter in place of the crafting table (5 iron ingots, the Shapecutter, 2 redstone dust, a dropper). Auto Shapecutter: Pulse Shapecutter, hopper and comparator (shapeless), the same step as from the crafter to the Auto Crafter.",
           "Put blocks into the slot on the left of the screen and click a cut in the middle; the slot on the right shows what one cut makes. The choice stays when the input runs out, so a hopper can refill the same material. Hoppers fill the input from the top, the back and the sides; nothing can be pulled out.",
           "Pulse Shapecutter: each rising redstone edge makes one cut 4 ticks later; a lasting signal makes no second one. The cut goes into the container in front (the side facing you when you place it); what does not fit, or everything without a container, comes out of the front like the crafter's output.",
-          "Auto Shapecutter: one cut every 8 ticks (a hopper's pace), only while a container stands in front and the whole result fits there; a redstone signal stops it. A comparator reads how full the input is.",
-          "The textures are a preview waiting for the owner's choice; the names are provisional too."
+          "Auto Shapecutter: one cut every 8 ticks (a hopper's pace), only while a container stands in front and the whole result fits there; a redstone signal stops it. A comparator reads how full the input is."
         ]
       },
       "de": {
@@ -74,8 +73,7 @@
           "Rezept Takt-Formsäge: das Crafter-Rezept mit der Formsäge statt der Werkbank (5 Eisenbarren, die Formsäge, 2 Redstone-Staub, ein Spender). Auto-Formsäge: Takt-Formsäge, Trichter und Komparator (formlos), derselbe Schritt wie vom Crafter zum Auto-Crafter.",
           "Links im Bildschirm Blöcke einlegen und in der Mitte einen Schnitt anklicken; rechts steht, was ein Schnitt ergibt. Die Wahl bleibt, wenn der Vorrat leer wird, so kann ein Trichter dasselbe Material nachfüllen. Trichter füllen von oben, hinten und den Seiten; herausziehen lässt sich nichts.",
           "Takt-Formsäge: jede steigende Redstone-Flanke macht 4 Ticks später einen Schnitt; ein Dauersignal macht keinen zweiten. Der Schnitt geht in den Behälter vorne (die Seite, die beim Setzen zu dir zeigt); was nicht passt, oder alles ohne Behälter, kommt vorne heraus wie beim Crafter.",
-          "Auto-Formsäge: alle 8 Ticks ein Schnitt (Trichtertempo), nur wenn vorne ein Behälter steht und das ganze Ergebnis hineinpasst; ein Redstone-Signal hält sie an. Ein Komparator liest, wie voll der Vorrat ist.",
-          "Die Texturen sind eine Vorschau und warten auf die Wahl des Besitzers; auch die Namen sind vorläufig."
+          "Auto-Formsäge: alle 8 Ticks ein Schnitt (Trichtertempo), nur wenn vorne ein Behälter steht und das ganze Ergebnis hineinpasst; ein Redstone-Signal hält sie an. Ein Komparator liest, wie voll der Vorrat ist."
         ]
       }
     },

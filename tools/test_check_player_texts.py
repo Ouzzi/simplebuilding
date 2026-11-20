@@ -22,6 +22,10 @@ class FindingsTest(unittest.TestCase):
         self.assertEqual(kinds("x", "de", "seit dem 27.08.2026 zurückgestellt"), ["history"])
         self.assertEqual(kinds("x", "en", "Enderite 2.0 (3.5 until 2026-09)."), ["history"])
         self.assertEqual(kinds("x", "en", "26.2 keeps it until the port run."), ["history"])
+        # N119: a development status left in a player text (simpleblocks Pulse Shapecutter page)
+        self.assertEqual(kinds("x", "en", "The textures are a preview waiting for the owner's choice."), ["history"])
+        self.assertEqual(kinds("x", "de", "Die Texturen warten auf die Wahl des Besitzers."), ["history"])
+        self.assertEqual(kinds("x", "en", "On the owner's own land everybody is reached."), [])  # the block owner in play
         self.assertEqual(kinds("x", "en", "The restart was cancelled; it stays centred."), ["british", "british"])
         self.assertEqual(kinds("x", "de", "Farbe, cancelled"), [])  # British spelling only counts in English text
 

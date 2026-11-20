@@ -87,6 +87,7 @@ public final class LineTests {
         all.put("line_line_torch_recipe_and_drop", LineTests::lineTorchRecipeAndDrop);
         all.put("line_line_block_recipes_round_trip", LineTests::lineBlockRecipesRoundTrip);
         all.put("line_line_blocks_have_own_sounds", LineTests::lineBlocksHaveOwnSounds);
+        all.put("line_dust_lights_from_power_one", LineTests::dustLightsFromPowerOne);
         all.put("line_redstone_recipes_yield_two", LineTests::redstoneRecipesYieldTwo);
         all.put("line_channels_stay_isolated_and_stop_at_fifteen", LineTests::channelsStayIsolatedAndStopAtFifteen);
         maxTicks.put("line_channels_stay_isolated_and_stop_at_fifteen", 220);
@@ -710,6 +711,56 @@ public final class LineTests {
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " line sound problems: " + problems);
         helper.succeed();
+    }
+
+    /**
+     * N119 (release scene "Redstone lines on/off, brightness 1/7/15"): every dust of the three lines shows its lit model from signal 1
+     * up to 15 and its dark model only at 0, in every multipart piece (dot, sides, up); every model it names is in the jar, and a real
+     * line carries 15, 7 and 1 (15 - 8 and 15 - 14 pieces away from a redstone block) with the lit look at each of them.
+     */
+    public static void dustLightsFromPowerOne(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        for (String dust : List.of("astral_redstone", "nihil_redstone", "bridge_redstone")) {
+            JsonObject state = json("/assets/simpleores/blockstates/" + dust + ".json", problems);
+            if (!state.has("multipart")) {
+                problems.add(dust + " has no multipart blockstate");
+                continue;
+            }
+            int lit = 0, dark = 0;
+            for (JsonElement part : state.getAsJsonArray("multipart")) {
+                JsonObject o = part.getAsJsonObject();
+                String model = o.getAsJsonObject("apply").get("model").getAsString();
+                String when = o.get("when").toString();
+                boolean on = model.endsWith("_on");
+                java.util.regex.Matcher m = java.util.regex.Pattern.compile("\"power\":\"([0-9|]+)\"").matcher(when);
+                java.util.Set<String> powers = new java.util.TreeSet<>();
+                while (m.find()) powers.addAll(List.of(m.group(1).split("\\|")));
+                if (powers.isEmpty()) problems.add(dust + ": piece " + model + " does not depend on the power");
+                for (String p : powers) {
+                    if (on == p.equals("0")) problems.add(dust + ": power " + p + " shows " + model);
+                }
+                if (on) lit++; else dark++;
+                Identifier id = Identifier.parse(model);
+                String path = "/assets/" + id.getNamespace() + "/models/" + id.getPath() + ".json";
+                if (LineTests.class.getResource(path) == null) problems.add(dust + ": model " + model + " missing");
+            }
+            if (lit == 0 || lit != dark) problems.add(dust + ": " + lit + " lit and " + dark + " dark pieces");
+        }
+        for (int x = 0; x <= 6; x++) for (int z = 0; z <= 6; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+        // the 15-piece path of channelsStayIsolatedAndStopAtFifteen, fed by a redstone block: piece i carries 15 - i
+        var path = List.of(new BlockPos(1, 1, 1), new BlockPos(2, 1, 1), new BlockPos(3, 1, 1), new BlockPos(4, 1, 1), new BlockPos(5, 1, 1),
+                new BlockPos(5, 1, 2), new BlockPos(5, 1, 3), new BlockPos(4, 1, 3), new BlockPos(3, 1, 3), new BlockPos(2, 1, 3), new BlockPos(1, 1, 3),
+                new BlockPos(1, 1, 4), new BlockPos(1, 1, 5), new BlockPos(2, 1, 5), new BlockPos(3, 1, 5));
+        helper.setBlock(new BlockPos(0, 1, 1), Blocks.REDSTONE_BLOCK);
+        for (BlockPos pos : path) helper.setBlock(pos, LineBlocks.NIHIL_REDSTONE);
+        helper.runAfterDelay(20, () -> {
+            for (int[] want : new int[][]{{0, 15}, {8, 7}, {14, 1}}) {
+                int power = helper.getBlockState(path.get(want[0])).getValue(EndSignalBlock.POWER);
+                if (power != want[1]) problems.add("piece " + (want[0] + 1) + " carries " + power + " instead of " + want[1]);
+            }
+            helper.assertTrue(problems.isEmpty(), String.join("; ", problems));
+            helper.succeed();
+        });
     }
 
     private static JsonObject json(String resource, List<String> problems) {
