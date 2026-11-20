@@ -1324,7 +1324,7 @@
         "summary": "config/simplemoney.json preserves trades.enableVillagerTrades and trades.enableWanderingTrades and adds trades.enableWandererTrades (the 14 price-list heads of the Village Wanderer, Simple Wanderers), all true by default, and trades.enableRareWanderingTrades (false: budding amethyst and diamond ore at the Wandering Trader).",
         "details": [
           "The server config controls datapack loading. Restart or reload after changing it. Client settings cannot change a remote server. Cloth Config screen is available from Mod Menu on Fabric and the Mods screen on NeoForge. No blocks, mobs, keybinds or custom enchantments are registered; the only command is /simplemoney config (permission level 2).",
-          "trades.enableRareWanderingTrades (false): budding amethyst and diamond ore cannot be traded in Vanilla; offering them undoes that scarcity (PRINZIPIEN A12), so the three offers load only when this switch and trades.enableWanderingTrades are on.",
+          "trades.enableRareWanderingTrades (false): budding amethyst and diamond ore cannot be traded in Vanilla; offering them undoes that scarcity, so the three offers load only when this switch and trades.enableWanderingTrades are on.",
           "Unused rocketStackSize and vaultCooldownDays language remnants had no source implementation and are omitted."
         ]
       },
@@ -1333,7 +1333,7 @@
         "summary": "config/simplemoney.json behält trades.enableVillagerTrades und trades.enableWanderingTrades und ergänzt trades.enableWandererTrades (die 14 Kopf-Angebote des Dorf-Wanderers, Simple Wanderers), alle standardmäßig true, sowie trades.enableRareWanderingTrades (false: Knospender Amethyst und Diamanterz beim fahrenden Händler).",
         "details": [
           "Die Serverkonfiguration steuert die Datenladung. Nach Änderungen neu starten oder neu laden. Clienteinstellungen verändern keinen entfernten Server. Cloth-Config-Seite über Mod Menu auf Fabric und die Mods-Seite auf NeoForge. Keine Blöcke, Mobs, Tastenkürzel oder eigenen Verzauberungen; einziger Befehl ist /simplemoney config (Berechtigung 2).",
-          "trades.enableRareWanderingTrades (false): Knospenden Amethyst und Diamanterz gibt es in Vanilla nicht zu kaufen; sie anzubieten hebt diese Knappheit auf (PRINZIPIEN A12), daher laden die drei Angebote nur, wenn dieser Schalter und trades.enableWanderingTrades an sind.",
+          "trades.enableRareWanderingTrades (false): Knospenden Amethyst und Diamanterz gibt es in Vanilla nicht zu kaufen; sie anzubieten hebt diese Knappheit auf, daher laden die drei Angebote nur, wenn dieser Schalter und trades.enableWanderingTrades an sind.",
           "Die unbenutzten Sprachreste rocketStackSize und vaultCooldownDays hatten keine Implementierung und werden ausgelassen."
         ]
       },
@@ -1347,7 +1347,7 @@
       "id": "forge_263",
       "en": {
         "title": "Experimental Forge 26.3",
-        "summary": "Opt-in Forge adapter with shared items, recipes, trades, loot, JSON configuration, and the same server test catalogue.",
+        "summary": "Opt-in Forge adapter with shared items, recipes, trades, loot, JSON configuration, and the same server test catalog.",
         "details": [
           "Enable -Pforge263=true. Cloth Config screens are unavailable on Forge 26.3; use the server JSON file. Forge client display and optional integrations require separate acceptance."
         ]

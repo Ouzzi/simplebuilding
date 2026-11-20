@@ -88,7 +88,7 @@
         "details": [
           "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the map of your land; its Rights button opens the rights editor: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees the map only with a right in that land, otherwise only what they may do.",
           "Cartography table: an empty deed on top (nothing below) gives your own deed, bound to you - always, even when you lost yours. Your deed on top and an empty deed below give a copy; the original stays. Managers (M) of the land may copy too; somebody else's deed or a copy gives nothing. The crafting table copy (deed plus empty deed) still works.",
-          "The map: one tab each for the Overworld, the Nether and the End, plus one for every other dimension where you hold land. Several chunks show as tiles (two by two slots, a 16x16 picture in Vanilla map colours); touching chunks form a group, and groups lie in their real direction from each other with the gap squeezed and labelled, for example 481 blocks NE. Drag or scroll to move, hover a tile for its position and age, click it for the detail map (back with < Overview); a dimension with one chunk opens its detail map directly. The footer shows Rights, Buy (the next land step ahead), Claim here (with a free chunk credit, otherwise Buy + claim) and Done. Give up chunk... asks first: no refund, but you get one chunk credit for a new claim. Pictures are only taken of chunks the server has loaded anyway (at most 4 every 5 seconds, each at most every 5 minutes, at once when you claim); nothing is loaded for them, and they live in their own file simpletweaks-claim-maps.dat apart from the claim data. Without Simple Maps the deed suggests it (hide the tip with its x).",
+          "The map: one tab each for the Overworld, the Nether and the End, plus one for every other dimension where you hold land. Several chunks show as tiles (two by two slots, a 16x16 picture in Vanilla map colors); touching chunks form a group, and groups lie in their real direction from each other with the gap squeezed and labeled, for example 481 blocks NE. Drag or scroll to move, hover a tile for its position and age, click it for the detail map (back with < Overview); a dimension with one chunk opens its detail map directly. The footer shows Rights, Buy (the next land step ahead), Claim here (with a free chunk credit, otherwise Buy + claim) and Done. Give up chunk... asks first: no refund, but you get one chunk credit for a new claim. Pictures are only taken of chunks the server has loaded anyway (at most 4 every 5 seconds, each at most every 5 minutes, at once when you claim); nothing is loaded for them, and they live in their own file simpletweaks-claim-maps.dat apart from the claim data. Without Simple Maps the deed suggests it (hide the tip with its x).",
           "The editor is a rights code like the blueprint editor: names resolve only for online players and for people already in the land (never a lookup over the network), the saved code keeps UUIDs so a renamed player cannot inherit rights. The client previews the code; the server decides. Managers (M) may edit, but only people without M and only rights they hold themselves. Saving is all or nothing and uses the claim cooldown. Without the mod on the client, the empty deed still claims at once.",
           "Packets: opening and answers go from the server, saving and claiming from the client; every save names the version of the land it was opened on and is refused when the land changed meanwhile."
         ]
@@ -579,7 +579,7 @@
           "Only online time counts (Vanilla statistic play_time), so logging out does not use it up. Players who already played longer get none.",
           "Attacking a player ends the protection early (attackEnds, default on), so a protected player cannot attack without risk. An ended protection never comes back.",
           "The player is told in chat when it starts and ends; an attacker sees the time left in the action bar. Fake players and bots never get it.",
-          "Server settings newPlayerShield.enabled (default on), newPlayerShield.minutes (1-1440, default 5) and newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims and personal PvP (T9) still apply; this only forbids more."
+          "Server settings newPlayerShield.enabled (default on), newPlayerShield.minutes (1-1440, default 5) and newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims and personal PvP still apply; this only forbids more."
         ]
       },
       "de": {
@@ -590,7 +590,7 @@
           "Es zählt nur die Online-Zeit (Vanilla-Statistik play_time), Ausloggen verbraucht den Schutz also nicht. Wer schon länger gespielt hat, bekommt keinen.",
           "Greift der Spieler selbst einen Spieler an, endet der Schutz sofort (attackEnds, Standard an), damit niemand gefahrlos angreift. Ein beendeter Schutz kommt nie zurück.",
           "Beginn und Ende stehen im Chat; ein Angreifer sieht die Restzeit in der Aktionsleiste. Fake-Spieler und Bots bekommen keinen Schutz.",
-          "Servereinstellungen newPlayerShield.enabled (Standard an), newPlayerShield.minutes (1-1440, Standard 5) und newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims und persönliches PvP (T9) gelten weiter; der Schutz verbietet nur zusätzlich."
+          "Servereinstellungen newPlayerShield.enabled (Standard an), newPlayerShield.minutes (1-1440, Standard 5) und newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims und persönliches PvP gelten weiter; der Schutz verbietet nur zusätzlich."
         ]
       },
       "sources": [
@@ -965,14 +965,14 @@
         "title": "Creative tabs",
         "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The Simple mods do not sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
         "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Die Simple-Mods sortieren ihre Items nicht in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },

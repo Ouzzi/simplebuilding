@@ -55,7 +55,7 @@
       ],
       "en": {
         "title": "The three riddles",
-        "summary": "Three chambers each hold a riddle; a froglight above the door shows its colour. Light (yellow): five levers switch the lamps above them - each lever its own lamp and the next one; set them so the lamps show the mural above. Sound (violet): strike the four crystals in the order of the frieze, left to right. Path (green): cross the tiles where the lichen glows on the ceiling.",
+        "summary": "Three chambers each hold a riddle; a froglight above the door shows its color. Light (yellow): five levers switch the lamps above them - each lever its own lamp and the next one; set them so the lamps show the mural above. Sound (violet): strike the four crystals in the order of the frieze, left to right. Path (green): cross the tiles where the lichen glows on the ceiling.",
         "details": [
           "Every try answers in the action bar (how many lamps match, how far the frieze got); nothing punishes, everything can be tried again. A solved chamber lights its Seal Pedestal: take the seal part there - again whenever the altar still lacks it, so a lost part never locks you in. Seal parts fit only the vault they come from."
         ]
@@ -434,7 +434,7 @@
           "modules/simplevault/shared/java/com/simplebuilding/modules/simplevault/block/SealPedestalBlock.java"
         ],
         "en": {
-          "summary": "Only generated (no item): glows in its colour once the chamber is solved and hands out the seal part."
+          "summary": "Only generated (no item): glows in its color once the chamber is solved and hands out the seal part."
         },
         "de": {
           "summary": "Nur generiert (kein Item): leuchtet in seiner Farbe, sobald die Kammer gelöst ist, und gibt das Siegelteil heraus."

@@ -38,7 +38,7 @@
         "details": [
           "Z(d) = 0.5 + 4.5 x smoothstep((d - 512) / 5488). 1000 blocks: 0.6, 2000: 1.3, 3000: 2.4, 4000: 3.6, from 6000: 5.",
           "Nether: blocks count eightfold, never below level 2. End: counted from 0,0, never below 3, outer islands (beyond 1000 blocks) add 1. Other dimensions use the Overworld curve. Each dimension can be switched off.",
-          "The centre is the world spawn by default; center can also be 0,0 or fixed coordinates x,z."
+          "The center is the world spawn by default; center can also be 0,0 or fixed coordinates x,z."
         ]
       },
       "de": {
@@ -137,14 +137,14 @@
         "title": "Takeover from SimpleBuilding",
         "summary": "Nothing is lost: on a player's first tick Simple Resonance reads the old tracker block SimpleBuildingData (baselines since the last death, active time, kill totals) and starts the long-term points at 1 per 30 old active minutes. The base multiplier of the trim resonance is taken over from config/simplebuilding.json on the first start.",
         "details": [
-          "Since MOB27-3 R2 SimpleBuilding no longer counts anything itself: it only keeps the old block readable for this one-time takeover, and its trim abilities (in Simple Mobs) get the resonance from here."
+          "SimpleBuilding no longer counts anything itself: it only keeps the old block readable for this one-time takeover, and its trim abilities (in Simple Mobs) get the resonance from here."
         ]
       },
       "de": {
         "title": "Übernahme aus SimpleBuilding",
         "summary": "Nichts geht verloren: beim ersten Tick eines Spielers liest Simple Resonance den alten Tracker-Block SimpleBuildingData (Basiswerte seit dem letzten Tod, aktive Zeit, Kill-Summen) und startet die Langzeitpunkte bei 1 je 30 alten aktiven Minuten. Der Basis-Multiplikator der Besatz-Resonanz wird beim ersten Start aus config/simplebuilding.json übernommen.",
         "details": [
-          "Seit MOB27-3 R2 zählt SimpleBuilding selbst nichts mehr: es hält den alten Block nur für diese einmalige Übernahme lesbar, und die Besatz-Fähigkeiten (in Simple Mobs) bekommen die Resonanz von hier."
+          "SimpleBuilding zählt selbst nichts mehr: es hält den alten Block nur für diese einmalige Übernahme lesbar, und die Besatz-Fähigkeiten (in Simple Mobs) bekommen die Resonanz von hier."
         ]
       }
     },
@@ -161,7 +161,7 @@
         "summary": "A small button right of the player in the inventory shows the trim resonance as a heart in eight tiers, from cobblestone to enderite. Hovering it shows the value (base x mean of experience, survival and combat since the last death), with Shift every factor.",
         "details": [
           "The server sends the numbers once a second (simpleresonance:stats); the button also shows in Simple Storage's backpack.",
-          "SimpleBuilding's armour trims read this resonance through ResonanceBridge; the base is trimBenefitBaseMultiplier in simpleresonance.json (Default: 2.0)."
+          "SimpleBuilding's armor trims read this resonance through ResonanceBridge; the base is trimBenefitBaseMultiplier in simpleresonance.json (Default: 2.0)."
         ]
       },
       "de": {

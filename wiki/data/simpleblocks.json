@@ -279,7 +279,7 @@
       ],
       "en": {
         "title": "Missing Stairs, Slabs and Walls",
-        "summary": "The stairs, slabs and walls that about twenty Vanilla families lack. Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls; also stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine, walls of all sixteen concrete colours (N77) and the Nether Brick Fence Gate (N89b: like a wooden gate, crafted from 2 nether bricks and 2 nether brick blocks; mined with a pickaxe like the nether brick fence).",
+        "summary": "The stairs, slabs and walls that about twenty Vanilla families lack. Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls, Smooth Stone walls; also stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine, walls of all sixteen concrete colors and the Nether Brick Fence Gate (like a wooden gate, crafted from 2 nether bricks and 2 nether brick blocks; mined with a pickaxe like the nether brick fence).",
         "details": [
           "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
           "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
@@ -288,7 +288,7 @@
       },
       "de": {
         "title": "Fehlende Treppen, Stufen und Mauern",
-        "summary": "Die Treppen, Stufen und Mauern, die etwa zwanzig Vanilla-Familien fehlen. Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein; außerdem Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin sowie Mauern aller sechzehn Betonfarben (N77) und das Netherziegelzauntor (N89b: wie ein Holz-Zauntor, aus 2 Netherziegeln und 2 Netherziegelblöcken; abgebaut mit der Spitzhacke wie der Netherziegelzaun).",
+        "summary": "Die Treppen, Stufen und Mauern, die etwa zwanzig Vanilla-Familien fehlen. Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein, Mauern aus Glattem Stein; außerdem Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin sowie Mauern aller sechzehn Betonfarben und das Netherziegelzauntor (wie ein Holz-Zauntor, aus 2 Netherziegeln und 2 Netherziegelblöcken; abgebaut mit der Spitzhacke wie der Netherziegelzaun).",
         "details": [
           "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
           "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
@@ -565,7 +565,7 @@
           "Sand, Red Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
           "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages with the footprints breaking into a star of cracks; after the last stage it breaks away and leaves no water. With nobody on it the cracks stay. Blocks can be placed on and next to it as usual, and next to ice it hides the faces between them like ice next to ice. Otherwise it behaves like ice and drops only with Silk Touch. With SimpleBuilding the stone chisel and the sledgehammer also turn ice into cracked ice, and SimpleBuilding's world generation lays cracked ice fields.",
           "Cracked Packed Ice (stonecutter: one packed ice makes one) and Cracked Blue Ice (one blue ice makes one) work like cracked ice, graded: the harder the ice, the longer it holds, one stage every 1 second (ice), 1.5 seconds (packed ice) and 2 seconds (blue ice). Packed ice shows fine hairlines, blue ice breaks into floes. They do not melt in light, are as slippery as their base block and drop only with Silk Touch.",
-          "Glue (WD25-2/4): a slimeball (or a honeycomb, like Vanilla wax) on cracked ice, cracked packed ice or cracked blue ice freezes its crack stage: nobody cracks it further and light no longer melts it (slime sound or Vanilla wax particles, one item used up). An axe scrapes the glue off again. Mined with Silk Touch, the block drops with its stage and glue and is placed again exactly like that; without glue it cracks as before.",
+          "Glue: a slimeball (or a honeycomb, like Vanilla wax) on cracked ice, cracked packed ice or cracked blue ice freezes its crack stage: nobody cracks it further and light no longer melts it (slime sound or Vanilla wax particles, one item used up). An axe scrapes the glue off again. Mined with Silk Touch, the block drops with its stage and glue and is placed again exactly like that; without glue it cracks as before.",
           "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
           "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
           "Scarlet, Aqua and Azure Froglights: any froglight (tag simpleblocks:froglights) plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
@@ -583,7 +583,7 @@
           "Sand-, Rote Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
           "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen, in denen die Trittstelle zu einem Rissstern aufbricht; nach der letzten bricht es weg und hinterlässt kein Wasser. Steht niemand darauf, bleiben die Risse. Darauf und daneben lässt sich normal bauen, und neben Eis blendet es die gemeinsamen Flächen aus wie Eis neben Eis. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit. Mit SimpleBuilding machen auch der Steinmeißel und der Vorschlaghammer aus Eis rissiges Eis, und SimpleBuildings Weltgenerierung legt Felder aus rissigem Eis an.",
           "Rissiges Packeis (Steinmetz: ein Packeis ergibt eins) und Rissiges Blaueis (ein Blaueis ergibt eins) funktionieren wie rissiges Eis, abgestuft: je härter das Eis, desto länger hält es, eine Stufe alle 1 Sekunde (Eis), 1,5 Sekunden (Packeis) und 2 Sekunden (Blaueis). Packeis zeigt feine Haarrisse, Blaueis bricht in Schollen. Sie schmelzen nicht im Licht, sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
-          "Kleber (WD25-2/4): ein Schleimball (oder eine Honigwabe, wie Vanilla-Wachs) auf rissigem Eis, Packeis oder Blaueis fixiert die Rissstufe: niemand reißt es weiter, Licht schmilzt es nicht mehr (Schleimklang bzw. Vanilla-Wachspartikel, ein Stück wird verbraucht). Eine Axt kratzt den Kleber wieder ab. Mit Behutsamkeit abgebaut, droppt der Block mit Stufe und Kleber und wird genau so wieder gesetzt; ohne Kleber reißt es wie bisher.",
+          "Kleber: ein Schleimball (oder eine Honigwabe, wie Vanilla-Wachs) auf rissigem Eis, Packeis oder Blaueis fixiert die Rissstufe: niemand reißt es weiter, Licht schmilzt es nicht mehr (Schleimklang bzw. Vanilla-Wachspartikel, ein Stück wird verbraucht). Eine Axt kratzt den Kleber wieder ab. Mit Behutsamkeit abgebaut, droppt der Block mit Stufe und Kleber und wird genau so wieder gesetzt; ohne Kleber reißt es wie bisher.",
           "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
           "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
           "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht (Tag simpleblocks:froglights) plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
@@ -618,7 +618,7 @@
         "title": "Suspended and Levitating Sand, Red Sand and Gravel",
         "summary": "Sand, red sand and gravel without gravity (suspended) and with reversed gravity (levitating).",
         "details": [
-          "Recipes: 8 Sand, Red Sand or Gravel around one centre item make 8. With SimpleBuilding the centre is a Nihilith Shard (suspended) or Astralit Dust (levitating); without SimpleBuilding a Phantom Membrane (suspended) or a Breeze Rod (levitating). Only one of the two ways is active at a time.",
+          "Recipes: 8 Sand, Red Sand or Gravel around one center item make 8. With SimpleBuilding the center is a Nihilith Shard (suspended) or Astralit Dust (levitating); without SimpleBuilding a Phantom Membrane (suspended) or a Breeze Rod (levitating). Only one of the two ways is active at a time.",
           "Suspended Sand, Suspended Red Sand and Suspended Gravel are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising levitating block lands underneath them.",
           "Levitating Sand, Levitating Red Sand and Levitating Gravel fall upwards: two ticks after being placed, and again whenever a neighbor changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick), so it starts slowly and accelerates like falling sand.",
           "A rising block that runs into a ceiling turns back into a block in the free space below it. If it cannot be placed there, it drops as an item. Above the build limit it breaks and drops as an item.",
@@ -695,7 +695,7 @@
         "details": [
           "Freezing: chance 1 in 3 per random tick (snow.freezeOneIn), a little faster than grass spreads; thawing: 1 in 6 (snow.thawOneIn). Covered by a solid block it turns to dirt like grass.",
           "It does not spread. Plants, animals, hoe and shovel treat it like a grass block; without Silk Touch it drops dirt.",
-          "Switch: snow.frostGrass in /simpleblocks config (default off since 12.11.2026, A12: it turns snowy biomes into a mod block); off stops freezing, existing Frost Grass still thaws. Before removing the mod, switch it off and let the Frost Grass thaw: blocks of a removed mod are gone from the world."
+          "Switch: snow.frostGrass in /simpleblocks config (default off: it turns snowy biomes into a mod block); off stops freezing, existing Frost Grass still thaws. Before removing the mod, switch it off and let the Frost Grass thaw: blocks of a removed mod are gone from the world."
         ]
       },
       "de": {
@@ -704,7 +704,7 @@
         "details": [
           "Gefrieren: Chance 1 zu 3 je Zufallstick (snow.freezeOneIn), etwas schneller als Gras wächst; Tauen: 1 zu 6 (snow.thawOneIn). Von einem festen Block bedeckt wird es wie Gras zu Erde.",
           "Es breitet sich nicht aus. Pflanzen, Tiere, Hacke und Schaufel behandeln es wie einen Grasblock; ohne Behutsamkeit gibt es Erde.",
-          "Schalter: snow.frostGrass in /simpleblocks config (seit 12.11.2026 Standard aus, A12: er macht verschneite Biome zu einem Mod-Block); aus stoppt das Gefrieren, vorhandenes Frostgras taut weiter. Vor dem Entfernen der Mod ausschalten und das Frostgras tauen lassen: Blöcke einer entfernten Mod fehlen danach in der Welt."
+          "Schalter: snow.frostGrass in /simpleblocks config (Standard aus: er macht verschneite Biome zu einem Mod-Block); aus stoppt das Gefrieren, vorhandenes Frostgras taut weiter. Vor dem Entfernen der Mod ausschalten und das Frostgras tauen lassen: Blöcke einer entfernten Mod fehlen danach in der Welt."
         ]
       }
     },
@@ -821,7 +821,7 @@
       ],
       "en": {
         "title": "Copper, gold, iron and the chiseled ore blocks",
-        "summary": "The metal row of the Vanilla metals (PAL35b): copper tiles and pillar that weather and can be waxed like Vanilla copper, the building family of gold and iron like the Simple Ores metals, and a chiseled block of diamond, emerald, lapis, redstone, coal and netherite.",
+        "summary": "The metal row of the Vanilla metals: copper tiles and pillar that weather and can be waxed like Vanilla copper, the building family of gold and iron like the Simple Ores metals, and a chiseled block of diamond, emerald, lapis, redstone, coal and netherite.",
         "details": [
           "Copper tiles (4 cut copper -> 4) and copper pillar (2 copper blocks upright -> 2), also at the stonecutter. Both weather in the three Vanilla stages (exposed, weathered, oxidized) like copper next to them; a honeycomb waxes every stage (also oxidized), an axe scrapes the wax or one stage off, a dispenser waxes too. Each stage and waxed stage is also crafted from the Vanilla copper of that stage. Stone pickaxe.",
           "Gold and iron: cut block (4 blocks -> 4), cut stairs and slab, tiles (4 cut -> 4), pillar (2 blocks upright -> 2), chiseled block (2 cut slabs upright -> 1); the stonecutter cuts all of them from the block. Tool tier like the block (gold iron, iron stone). Simple Octets adds the cut octet.",
@@ -831,7 +831,7 @@
       },
       "de": {
         "title": "Kupfer, Gold, Eisen und die gemeißelten Erzblöcke",
-        "summary": "Die Metall-Reihe der Vanilla-Metalle (PAL35b): Kupferfliesen und Kupfersäule, die wie Vanilla-Kupfer altern und gewachst werden, die Baufamilie von Gold und Eisen wie bei den Simple-Ores-Metallen und ein gemeißelter Block aus Diamant, Smaragd, Lapislazuli, Redstone, Kohle und Netherit.",
+        "summary": "Die Metall-Reihe der Vanilla-Metalle: Kupferfliesen und Kupfersäule, die wie Vanilla-Kupfer altern und gewachst werden, die Baufamilie von Gold und Eisen wie bei den Simple-Ores-Metallen und ein gemeißelter Block aus Diamant, Smaragd, Lapislazuli, Redstone, Kohle und Netherit.",
         "details": [
           "Kupferfliesen (4 geschnittenes Kupfer -> 4) und Kupfersäule (2 Kupferblöcke senkrecht -> 2), auch in der Steinsäge. Beide altern in den drei Vanilla-Stufen (angelaufen, verwittert, oxidiert) wie Kupfer daneben; eine Honigwabe wachst jede Stufe (auch oxidiert), eine Axt kratzt Wachs oder eine Stufe ab, ein Werfer wachst ebenfalls. Jede Stufe und gewachste Stufe entsteht auch aus dem Vanilla-Kupfer dieser Stufe. Steinspitzhacke.",
           "Gold und Eisen: geschnittener Block (4 Blöcke -> 4), geschnittene Treppe und Stufe, Fliesen (4 geschnittene -> 4), Säule (2 Blöcke senkrecht -> 2), gemeißelter Block (2 geschnittene Stufen senkrecht -> 1); die Steinsäge schneidet alle aus dem Block. Werkzeugstufe wie der Block (Gold Eisen, Eisen Stein). Simple Octets ergänzt das geschnittene Octet.",
@@ -30752,7 +30752,7 @@
           "details": [
             "Freezing: chance 1 in 3 per random tick (snow.freezeOneIn), a little faster than grass spreads; thawing: 1 in 6 (snow.thawOneIn). Covered by a solid block it turns to dirt like grass.",
             "It does not spread. Plants, animals, hoe and shovel treat it like a grass block; without Silk Touch it drops dirt.",
-            "Switch: snow.frostGrass in /simpleblocks config (default off since 12.11.2026, A12: it turns snowy biomes into a mod block); off stops freezing, existing Frost Grass still thaws. Before removing the mod, switch it off and let the Frost Grass thaw: blocks of a removed mod are gone from the world."
+            "Switch: snow.frostGrass in /simpleblocks config (default off: it turns snowy biomes into a mod block); off stops freezing, existing Frost Grass still thaws. Before removing the mod, switch it off and let the Frost Grass thaw: blocks of a removed mod are gone from the world."
           ]
         },
         "de": {
@@ -30761,7 +30761,7 @@
           "details": [
             "Gefrieren: Chance 1 zu 3 je Zufallstick (snow.freezeOneIn), etwas schneller als Gras wächst; Tauen: 1 zu 6 (snow.thawOneIn). Von einem festen Block bedeckt wird es wie Gras zu Erde.",
             "Es breitet sich nicht aus. Pflanzen, Tiere, Hacke und Schaufel behandeln es wie einen Grasblock; ohne Behutsamkeit gibt es Erde.",
-            "Schalter: snow.frostGrass in /simpleblocks config (seit 12.11.2026 Standard aus, A12: er macht verschneite Biome zu einem Mod-Block); aus stoppt das Gefrieren, vorhandenes Frostgras taut weiter. Vor dem Entfernen der Mod ausschalten und das Frostgras tauen lassen: Blöcke einer entfernten Mod fehlen danach in der Welt."
+            "Schalter: snow.frostGrass in /simpleblocks config (Standard aus: er macht verschneite Biome zu einem Mod-Block); aus stoppt das Gefrieren, vorhandenes Frostgras taut weiter. Vor dem Entfernen der Mod ausschalten und das Frostgras tauen lassen: Blöcke einer entfernten Mod fehlen danach in der Welt."
           ]
         }
       },

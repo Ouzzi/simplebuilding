@@ -170,14 +170,14 @@
       ],
       "en": {
         "title": "Copper and soul lava buckets",
-        "summary": "Buckets for the crucible's fluids: the iron bucket breaks on soul lava, copper oxidizes. Split stage 5b: were SimpleBuilding's, old worlds migrate. The Enderite and ceramic buckets are Simple Tools' (WH26-7); with both mods the Enderite bucket takes soul lava and works on the reinforced cauldron.",
+        "summary": "Buckets for the crucible's fluids: the iron bucket breaks on soul lava, copper oxidizes. Split stage 5b: were SimpleBuilding's, old worlds migrate. The Enderite and ceramic buckets are Simple Tools'; with both mods the Enderite bucket takes soul lava and works on the reinforced cauldron.",
         "details": [
           "Buckets: the iron bucket scoops soul lava but breaks when pouring it. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) while carried in the hotbar or off hand or placed in the world (dropped, or in an item frame), not when pouring and not in the rest of the inventory or in containers; honeycomb waxes it (off hand while holding it, or on an item frame) and a waxed one does not weather, but filling it wears the wax: it then weathers at half pace until waxed again (an axe scrapes the wax or one stage off), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. By default, a soul lava bucket burns 10 times as long as a lava bucket. With Simple Tools its Enderite bucket also takes soul lava (two buckets, never breaks) and its buckets pour into and take from the reinforced cauldron."
         ]
       },
       "de": {
         "title": "Kupfer- und Seelen-Lava-Eimer",
-        "summary": "Eimer für die Flüssigkeiten des Tiegels: der Eisen-Eimer zerbricht an Seelen-Lava, Kupfer oxidiert. Aufteilungsstufe 5b: gehörten SimpleBuilding, alte Welten werden übernommen. Enderit- und Keramik-Eimer gehören Simple Tools (WH26-7); mit beiden Mods nimmt der Enderit-Eimer Seelen-Lava und arbeitet am verstärkten Kessel.",
+        "summary": "Eimer für die Flüssigkeiten des Tiegels: der Eisen-Eimer zerbricht an Seelen-Lava, Kupfer oxidiert. Aufteilungsstufe 5b: gehörten SimpleBuilding, alte Welten werden übernommen. Enderit- und Keramik-Eimer gehören Simple Tools; mit beiden Mods nimmt der Enderit-Eimer Seelen-Lava und arbeitet am verstärkten Kessel.",
         "details": [
           "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock), solange er in der Hotbar oder Nebenhand getragen wird oder in der Welt liegt (fallengelassen oder im Rahmen), nicht beim Ausgießen und nicht im übrigen Inventar oder in Behältern; eine Honigwabe wachst ihn (Nebenhand, während man ihn hält, oder am Rahmen), und ein gewachster verwittert nicht, doch Einfüllen greift das Wachs an: er verwittert dann halb so schnell, bis er wieder gewachst wird (eine Axt schabt das Wachs oder eine Stufe ab), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer. Mit Simple Tools nimmt dessen Enderit-Eimer auch Seelen-Lava (zwei Eimer, zerbricht nie), und seine Eimer gießen in den verstärkten Kessel und schöpfen daraus."
         ]
@@ -209,14 +209,14 @@
         "title": "Creative tabs",
         "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The Simple mods do not sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
         "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Die Simple-Mods sortieren ihre Items nicht in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },
