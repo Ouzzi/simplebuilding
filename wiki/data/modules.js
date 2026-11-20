@@ -203,7 +203,7 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 37
     },
-    "dataHash": "5351feef3661"
+    "dataHash": "7384a10bf9a0"
   },
   {
     "id": "simplemodels",
@@ -2032,7 +2032,7 @@ window.WIKI_MODULES = [
       "config": 27,
       "features": 27
     },
-    "dataHash": "f5c0a41b4807"
+    "dataHash": "850d49c7f60b"
   },
   {
     "id": "simplemachines",
@@ -2271,7 +2271,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "62f5557e3a14"
+    "dataHash": "76b6bd55b2ff"
   },
   {
     "id": "simplechisels",
@@ -2304,7 +2304,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 8
     },
-    "dataHash": "11846fec8139"
+    "dataHash": "5e24f1ac3306"
   },
   {
     "id": "simplelayers",
