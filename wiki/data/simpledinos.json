@@ -4672,8 +4672,11 @@
   "trades": [],
   "config": [
     {
-      "range": null,
-      "side": null,
+      "range": [
+        5,
+        600
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "brushSeconds",
@@ -4691,8 +4694,11 @@
       "tooltipDe": "Sekunden Pinseln, bis ein Fossil frei ist. Eine\nPause kostet das Doppelte. 5 bis 600. Standard: 45."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        5,
+        300
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "callCooldownSeconds",
@@ -4711,7 +4717,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "callIgnoreNamed",
@@ -4729,8 +4735,11 @@
       "tooltipDe": "Tiere mit Namensschild folgen dem Ruf nicht.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        64
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "callMaxAnimals",
@@ -4748,8 +4757,11 @@
       "tooltipDe": "Tiere, die ein Ruf höchstens sammelt, die\nnächsten zuerst. 1 bis 64. Standard: 24."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        8,
+        48
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "callRadius",
@@ -4767,8 +4779,11 @@
       "tooltipDe": "Blöcke um einen Parasaurolophus, in denen sein\nKamm-Ruf Nutztiere sammelt. 8 bis 48.\nStandard: 24."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        30,
+        600
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "callSeconds",
@@ -4787,7 +4802,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "enabled",
@@ -4805,8 +4820,11 @@
       "tooltipDe": "Schaltet Simple Dinosaurs an oder aus.\nStandard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        600
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "growMinutes",
@@ -4824,8 +4842,11 @@
       "tooltipDe": "Minuten, die ein Jungtier zum Erwachsenwerden braucht.\n1 bis 600. Standard: 40."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        10,
+        7200
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "hatchSeconds",
@@ -4844,7 +4865,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "hatchWaitsForOwner",
@@ -4862,8 +4883,11 @@
       "tooltipDe": "Ein bebrütetes Ei schlüpft nur, wenn sein Besitzer\n(der längste Sitzer) online, in derselben Dimension\nund in 16 Blöcken ist. Aus: ein Spieler in der Nähe\nbekommt das Jungtier, wenn der Besitzer offline ist.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        10,
+        3600
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "incubateSeconds",
@@ -4881,8 +4905,11 @@
       "tooltipDe": "Sekunden, die ein Spieler auf dem Ei sitzen muss,\nbis es ausgebrütet ist. 10 bis 3600. Standard: 300."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        30
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "ramCooldownSeconds",
@@ -4900,8 +4927,11 @@
       "tooltipDe": "Sekunden zwischen zwei Triceratops-Anläufen (im\nSprungbalken sichtbar). 1 bis 30. Standard: 3."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        10
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "raptorClimbSeconds",
@@ -4919,8 +4949,11 @@
       "tooltipDe": "Sekunden, die ein gerittener Utahraptor eine\nWand hinaufklettert, bevor er abrutscht\n(5 = etwa 12 Blöcke; 0 = er klettert nicht).\n0 bis 10. Standard: 5."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        60
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "raptorFeatherMinutes",
@@ -4938,8 +4971,11 @@
       "tooltipDe": "Minuten zwischen zwei Raptorfedern, die man\nvon einem Utahraptor bürstet. 1 bis 60.\nStandard: 10."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "shakeAppleChance",
@@ -4957,8 +4993,11 @@
       "tooltipDe": "Chance auf einen zusätzlichen Apfel von Eiche und\nSchwarzeiche je Schütteln. 0 bis 1. Standard: 0,35."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "shakeShare",
@@ -4976,8 +5015,11 @@
       "tooltipDe": "Anteil der natürlichen Blätter, deren Hand-Drops\nje Schütteln fallen (höchstens 40 Würfe).\n0 bis 1. Standard: 0,5."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        60,
+        3600
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "shakeTreeCooldownSeconds",
@@ -4995,8 +5037,11 @@
       "tooltipDe": "Sekunden, die ein geschüttelter Baum ruht; so lange\nklopft er nur dumpf. 60 bis 3600. Standard: 600."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        3
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "stegosaurusPlowWidth",
@@ -5015,7 +5060,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "stegosaurusSow",
@@ -5033,8 +5078,11 @@
       "tooltipDe": "Der gesenkte Pflug sät Saatgut aus der Nebenhand\ndes Reiters auf die leeren Felder seines Streifens.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1.0,
+        40.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "trexBiteDamage",
@@ -5053,7 +5101,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java",
       "name": "triceratopsShake",

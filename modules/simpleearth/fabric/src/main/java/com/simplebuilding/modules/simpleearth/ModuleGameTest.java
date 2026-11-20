@@ -7,6 +7,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link EarthTests}, all on simpleearth:empty. */
 public final class ModuleGameTest {
     @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        EarthTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
     public void configDefaults(GameTestHelper h) {
         EarthTests.ALL.get("config_defaults").accept(h);
     }

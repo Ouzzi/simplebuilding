@@ -258,7 +258,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "countCreative",
@@ -277,7 +277,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "countFakePlayers",
@@ -296,7 +296,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "enabled",
@@ -315,7 +315,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "maxBytes",
@@ -334,7 +334,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "trackArmor",
@@ -353,7 +353,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "trackCombat",
@@ -372,7 +372,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "trackDistances",
@@ -391,7 +391,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "trackFishing",
@@ -410,7 +410,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "trackMining",
@@ -429,7 +429,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "trackPlayerKills",
@@ -448,7 +448,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java",
       "name": "trackTools",

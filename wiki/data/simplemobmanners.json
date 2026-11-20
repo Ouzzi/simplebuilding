@@ -240,7 +240,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "mutedEntities",
@@ -259,7 +259,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "nametagBabySuffixes",
@@ -278,7 +278,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "nametagMuteSuffixes",
@@ -297,7 +297,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "piglinsIgnoreGoldTools",
@@ -316,7 +316,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "piglinsIgnoreGoldTrims",

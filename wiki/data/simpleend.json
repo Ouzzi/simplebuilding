@@ -4564,8 +4564,11 @@
   "trades": [],
   "config": [
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "biomeChance",
@@ -4584,7 +4587,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "biomes",
@@ -4603,7 +4606,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "budsGrowAlone",
@@ -4622,7 +4625,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "enableSimpleEndDragonFight",
@@ -4641,7 +4644,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "enabled",
@@ -4659,8 +4662,11 @@
       "tooltipDe": "Schaltet Simple End ein oder aus. Aus behält alle Blöcke und Items, Knospen wachsen aber nicht mehr und die Biome breiten sich nicht mehr in neue Chunks aus."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "forestFogStrength",
@@ -4679,7 +4685,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "forestFogWall",
@@ -4698,7 +4704,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "longerDespawn",
@@ -4717,7 +4723,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java",
       "name": "voidSafeItems",

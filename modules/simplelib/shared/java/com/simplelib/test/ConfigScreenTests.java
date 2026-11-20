@@ -166,12 +166,39 @@ public final class ConfigScreenTests {
         h.succeed();
     }
 
-    /** A module's own test (simplelib-6): its config screen names the title, every category and every option. */
+    /**
+     * A module's own test (simplelib-6): its config screen names the title, every category and every option - in the loaded
+     * language (EN on the test server) and, read from the module's {@code de_de.json}, in German too (N111).
+     */
     public static void moduleLabels(GameTestHelper h, String modId) {
         check(h, ConfigCommands.spec(modId, false) != null || ConfigCommands.spec(modId, true) != null, modId + " announced no config");
         List<String> missing = ConfigScreenModel.missingLabels(modId);
         check(h, missing.isEmpty(), modId + " config screen without a name: " + missing);
+        java.util.Set<String> de = langKeys(modId, "de_de");
+        check(h, !de.isEmpty(), modId + ": no de_de.json on the class path");
+        List<String> missingDe = new java.util.ArrayList<>();
+        for (boolean client : new boolean[] {false, true}) {
+            ConfigCommands.Spec spec = ConfigCommands.spec(modId, client);
+            if (spec != null) missingDe.addAll(ConfigScreenModel.missingLabels(spec, de::contains));
+        }
+        check(h, missingDe.isEmpty(), modId + " config screen without a German name: " + missingDe);
         h.succeed();
+    }
+
+    /** The keys of every {@code assets/<modId>/lang/<locale>.json} on the class path (empty when there is none). */
+    static java.util.Set<String> langKeys(String modId, String locale) {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        try {
+            var urls = ConfigScreenTests.class.getClassLoader().getResources("assets/" + modId + "/lang/" + locale + ".json");
+            while (urls.hasMoreElements()) {
+                try (var in = urls.nextElement().openStream()) {
+                    out.addAll(JsonParser.parseString(new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject().keySet());
+                }
+            }
+        } catch (java.io.IOException | RuntimeException e) {
+            com.simplelib.SimpleLib.LOG.warn("Config screen test: cannot read {} {}: {}", modId, locale, e.toString());
+        }
+        return out;
     }
 
     /** Every announced config (both sides) gives a model with every option, a widget and a default. */

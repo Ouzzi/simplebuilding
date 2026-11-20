@@ -15415,7 +15415,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "links.billsPerHour",
@@ -15429,12 +15429,12 @@
       "groupDe": null,
       "label": "Bills per Model Hour",
       "labelDe": "Scheine pro Modellstunde",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Price weight, 1-2. Default: 1. Server\nsetting. Save a local draft; reload or\nrestart the server. Existing offers keep\ntheir base price and stock.",
+      "tooltipDe": "Preisgewicht, 1-2. Standard: 1.\nServereinstellung. Lokalen Entwurf speichern;\nServer neu laden oder starten. Bestehende\nAngebote behalten Grundpreis und Vorrat."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "links.cooldownTicks",
@@ -15448,12 +15448,12 @@
       "groupDe": null,
       "label": "Linked Purchase Cooldown",
       "labelDe": "Pause zwischen verknüpften Käufen",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Shared player cooldown, 20-1200 game ticks.\nDefault: 100. Server setting. Save a local\ndraft; reload or restart the server. Existing\noffers keep their base price and stock.",
+      "tooltipDe": "Gemeinsame Spielerpause, 20-1200 Spielticks.\nStandard: 100. Servereinstellung. Lokalen\nEntwurf speichern; Server neu laden oder\nstarten. Bestehende Angebote behalten\nGrundpreis und Vorrat."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "links.craftWeight",
@@ -15467,12 +15467,12 @@
       "groupDe": null,
       "label": "Crafting Cost Weight",
       "labelDe": "Materialkosten-Gewicht",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Price weight, 1-4. Default: 1. Server\nsetting. Save a local draft; reload or\nrestart the server. Existing offers keep\ntheir base price and stock.",
+      "tooltipDe": "Preisgewicht, 1-4. Standard: 1.\nServereinstellung. Lokalen Entwurf speichern;\nServer neu laden oder starten. Bestehende\nAngebote behalten Grundpreis und Vorrat."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "links.dailyLimit",
@@ -15486,12 +15486,12 @@
       "groupDe": null,
       "label": "Linked Purchases per Day",
       "labelDe": "Verknüpfte Käufe pro Tag",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Shared player limit, 1-16, over 24000 elapsed\ngame ticks. Default: 8. Server setting. Save\na local draft; reload or restart the server.\nExisting offers keep their base price and\nstock.",
+      "tooltipDe": "Gemeinsames Spielerlimit, 1-16, für 24000\nvergangene Spielticks. Standard: 8.\nServereinstellung. Lokalen Entwurf speichern;\nServer neu laden oder starten. Bestehende\nAngebote behalten Grundpreis und Vorrat."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "links.enabled",
@@ -15505,12 +15505,12 @@
       "groupDe": null,
       "label": "Enable Linked Trades",
       "labelDe": "Verknüpfte Angebote aktivieren",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Adds offers only for loaded mods. Default:\ntrue. Server setting. Save a local draft;\nreload or restart the server. Existing offers\nkeep their base price and stock.",
+      "tooltipDe": "Ergänzt Angebote nur für geladene Mods.\nStandard: true. Servereinstellung. Lokalen\nEntwurf speichern; Server neu laden oder\nstarten. Bestehende Angebote behalten\nGrundpreis und Vorrat."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "links.rarityStep",
@@ -15524,12 +15524,12 @@
       "groupDe": null,
       "label": "Bills per Rarity Tier",
       "labelDe": "Scheine pro Seltenheitsstufe",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Price weight, 2-8. Default: 3. Server\nsetting. Save a local draft; reload or\nrestart the server. Existing offers keep\ntheir base price and stock.",
+      "tooltipDe": "Preisgewicht, 2-8. Standard: 3.\nServereinstellung. Lokalen Entwurf speichern;\nServer neu laden oder starten. Bestehende\nAngebote behalten Grundpreis und Vorrat."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "links.stock",
@@ -15543,12 +15543,12 @@
       "groupDe": null,
       "label": "Maximum Offer Stock",
       "labelDe": "Maximaler Angebotsvorrat",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Uses per offer, 1-4; scarce items may allow\nfewer. Default: 2. Server setting. Save a\nlocal draft; reload or restart the server.\nExisting offers keep their base price and\nstock.",
+      "tooltipDe": "Nutzungen je Angebot, 1-4; seltene Items\nerlauben weniger. Standard: 2.\nServereinstellung. Lokalen Entwurf speichern;\nServer neu laden oder starten. Bestehende\nAngebote behalten Grundpreis und Vorrat."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "trades.enableRareWanderingTrades",
@@ -15562,12 +15562,12 @@
       "groupDe": null,
       "label": "Enable Rare Wandering Offers",
       "labelDe": "Seltene Angebote des fahrenden Händlers",
-      "tooltip": "Budding amethyst and diamond ore at the Wandering Trader (owner E1ANS F7 = B): they undo Vanilla scarcity (A12), so off by default.",
-      "tooltipDe": "Budding amethyst and diamond ore at the Wandering Trader (owner E1ANS F7 = B): they undo Vanilla scarcity (A12), so off by default."
+      "tooltip": "Budding amethyst and diamond ore at the\nWandering Trader (they undo Vanilla\nscarcity). Default: false. Server setting;\nrestart or reload the world.",
+      "tooltipDe": "Knospender Amethyst und Diamanterz beim\nfahrenden Händler (heben die Vanilla-\nKnappheit auf). Standard: false. Server-\nEinstellung; Neustart oder Welt neu laden."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "trades.enableVillagerTrades",
@@ -15581,12 +15581,12 @@
       "groupDe": null,
       "label": "Enable Villager Trades",
       "labelDe": "Dorfbewohner-Handel aktivieren",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Enables or disables custom trades for\nvillagers. Default: true. Server setting;\nrestart or reload the world.",
+      "tooltipDe": "Aktiviert zusätzliche Dorfbewohnerangebote.\nStandard: true. Servereinstellung; nach\nÄnderungen Welt neu laden."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "trades.enableWandererTrades",
@@ -15600,12 +15600,12 @@
       "groupDe": null,
       "label": "Enable Village Wanderer Trades",
       "labelDe": "Dorf-Wanderer aktivieren",
-      "tooltip": "Super-mod switch \"Enable Simple Money\" (framework SubMods): off = items stay registered but inert (no tab entries, loot, trades, link offers). */\n public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID); }\n public static final class Config { public Trades trades=new Trades(); public Links links=new Links(); }\n public static final class Links {\n  public static final int DEFAULT_BILLS_PER_HOUR=1;\n  public static final int DEFAULT_RARITY_COST=3;\n  public static final int DEFAULT_CRAFT_COST=1;\n  public static final int DEFAULT_STOCK_LIMIT=2;\n  public static final int DEFAULT_DAILY_LIMIT=8;\n  public static final int DEFAULT_COOLDOWN_TICKS=100;\n  public boolean enabled=true;\n  public int billsPerHour=DEFAULT_BILLS_PER_HOUR, rarityStep=DEFAULT_RARITY_COST, craftWeight=DEFAULT_CRAFT_COST;\n  public int stock=DEFAULT_STOCK_LIMIT, dailyLimit=DEFAULT_DAILY_LIMIT, cooldownTicks=DEFAULT_COOLDOWN_TICKS;\n  public void normalize() {\n   billsPerHour=Math.clamp(billsPerHour,1,2); rarityStep=Math.clamp(rarityStep,2,8); craftWeight=Math.clamp(craftWeight,1,4);\n   stock=Math.clamp(stock,1,4); dailyLimit=Math.clamp(dailyLimit,1,16); cooldownTicks=Math.clamp(cooldownTicks,20,1200);\n  }\n }\n public static final class Trades { public boolean enableVillagerTrades=true; public boolean enableWanderingTrades=true;\n  /** Price-list links of the Village Wanderer (Simple Wanderers, a-small22): the 14 heads with chance 0.1.",
-      "tooltipDe": "Super-mod switch \"Enable Simple Money\" (framework SubMods): off = items stay registered but inert (no tab entries, loot, trades, link offers). */\n public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID); }\n public static final class Config { public Trades trades=new Trades(); public Links links=new Links(); }\n public static final class Links {\n  public static final int DEFAULT_BILLS_PER_HOUR=1;\n  public static final int DEFAULT_RARITY_COST=3;\n  public static final int DEFAULT_CRAFT_COST=1;\n  public static final int DEFAULT_STOCK_LIMIT=2;\n  public static final int DEFAULT_DAILY_LIMIT=8;\n  public static final int DEFAULT_COOLDOWN_TICKS=100;\n  public boolean enabled=true;\n  public int billsPerHour=DEFAULT_BILLS_PER_HOUR, rarityStep=DEFAULT_RARITY_COST, craftWeight=DEFAULT_CRAFT_COST;\n  public int stock=DEFAULT_STOCK_LIMIT, dailyLimit=DEFAULT_DAILY_LIMIT, cooldownTicks=DEFAULT_COOLDOWN_TICKS;\n  public void normalize() {\n   billsPerHour=Math.clamp(billsPerHour,1,2); rarityStep=Math.clamp(rarityStep,2,8); craftWeight=Math.clamp(craftWeight,1,4);\n   stock=Math.clamp(stock,1,4); dailyLimit=Math.clamp(dailyLimit,1,16); cooldownTicks=Math.clamp(cooldownTicks,20,1200);\n  }\n }\n public static final class Trades { public boolean enableVillagerTrades=true; public boolean enableWanderingTrades=true;\n  /** Price-list links of the Village Wanderer (Simple Wanderers, a-small22): the 14 heads with chance 0.1."
+      "tooltip": "Enables or disables the price-list heads of\nthe Village Wanderer (Simple Wanderers).\nDefault: true. Server setting; restart or\nreload the world.",
+      "tooltipDe": "Aktiviert die Kopf-Angebote des Dorf-Wanderers\n(Simple Wanderers). Standard: true.\nServereinstellung; nach Änderungen Welt neu\nladen."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
       "name": "trades.enableWanderingTrades",
@@ -15619,8 +15619,8 @@
       "groupDe": null,
       "label": "Enable Wandering Trades",
       "labelDe": "Fahrenden Händler aktivieren",
-      "tooltip": null,
-      "tooltipDe": null
+      "tooltip": "Enables or disables custom trades for the\nWandering Trader. Default: true. Server\nsetting; restart or reload the world.",
+      "tooltipDe": "Aktiviert zusätzliche Angebote des fahrenden\nHändlers. Standard: true. Servereinstellung;\nnach Änderungen Welt neu laden."
     }
   ],
   "quests": [],
