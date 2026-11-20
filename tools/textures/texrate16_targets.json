@@ -1339,14 +1339,6 @@
    "after": "orange",
    "after_why": "hart 15.3"
   },
-  "modules/simplemobs/shared/resources/assets/simplemobs/textures/block/nether_heart.png": {
-   "group": "Flaechen (allgemein)",
-   "method": "areas",
-   "light": "rot",
-   "why": "groesste Flaeche 58, in Flaechen>=6 72.3, Hauptton 58.2, hart 21.7",
-   "after": "orange",
-   "after_why": "hart 17.1"
-  },
   "modules/simplemusic/shared/resources/assets/simplemusic/textures/block/black_pocket_jukebox_case.png": {
    "group": "Holz-/Lederflaechen (Modell)",
    "method": "areas",

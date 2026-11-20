@@ -260,5 +260,9 @@
   "simpleearth.guide.page.36.title": "Menü",
   "simpleearth.guide.page.36": "ohne ihn fällt eine gespeicherte andere Version auf V25 zurück); die Liste beginnt mit Kantenlänge, Render-Höhe, Blend-Band und Detailstufe (n = die Kante in n Pixeln).",
   "simpleearth.guide.page.37.title": "Menü",
-  "simpleearth.guide.page.37": "Höhen, Größe und Aussehen gelten für alle Versionen gemeinsam. Linke Alt-Taste halten: freie Sicht (die Maus dreht nur die Kamera)."
+  "simpleearth.guide.page.37": "Höhen, Größe und Aussehen gelten für alle Versionen gemeinsam. Linke Alt-Taste halten: freie Sicht (die Maus dreht nur die Kamera).",
+  "text.autoconfig.simpleearth.option.version": "Erd-Version",
+  "text.autoconfig.simpleearth.option.version.@Tooltip": "Welche Darstellung der Erde gezeigt wird.\nOhne Entwicklermodus nur die veröffentlichten Versionen.",
+  "text.autoconfig.simpleearth.option.developerMode": "Entwicklermodus",
+  "text.autoconfig.simpleearth.option.developerMode.@Tooltip": "Erlaubt jede Erd-Version, auch die unveröffentlichten."
 }

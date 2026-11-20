@@ -8,6 +8,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest(structure = "simpleshops:arena") public void commandAliases(GameTestHelper h) { com.simplelib.test.CommandAliasTests.module(h, "simpleshops"); }
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        ShopsTests.ALL.get("config_labels").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void configDefaults(GameTestHelper h) {
         ShopsTests.ALL.get("config_defaults").accept(h);
     }

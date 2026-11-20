@@ -205,19 +205,38 @@ _HELPER_TYPES = (('bool', 'boolean'), ('int', 'int'), ('long', 'long'), ('dec', 
                  ('double', 'double'), ('real', 'float'), ('percent', 'int'), ('str', 'string'), ('text', 'string'))
 
 
-def json_config_options(cls, consts):
+def _own_code(code):
+    """A class body without the bodies of its nested classes (their toJson/apply are not the outer class's)."""
+    out, i = '', 0
+    for m in re.finditer(r'\b(?:class|record|enum|interface)\s+\w+[^{;]*\{', code):
+        if m.start() < i:
+            continue
+        out += code[i:m.end()]
+        i = _matching(code, m.end() - 1) - 1
+    return out + code[i:]
+
+
+def json_config_options(cls, consts, classes=None, prefix_path=''):
     """
     Options of a JSON config class (ConfigCommands .json(X::toJson, X::apply)): names and groups from toJson's
     addProperty/add calls, default and bounds from apply's reader calls (helper(json, "key", default[, min, max]),
     clamp(...)), type and fallback default from the field, description from the field's Javadoc.
+    A group written by a nested config object (o.add("soulLava", soulLava.toJson())) is read from that object's class;
+    a list or a map of ids (o.add("x", array) / map.forEach(obj::addProperty)) is one option, like ConfigCommands sees it.
     """
-    code, strings = cls['code'], cls['strings']
+    code, strings = _own_code(cls['code']), cls['strings']
     to_json, apply = _method(code, 'toJson'), _method(code, 'apply')
     if not to_json:
         return []
     parent = {}                                  # json var -> (parent var, group key)
     for var, key, child in re.findall(r'(\w+)\.add\(\s*"\u0000(\d+)\u0000"\s*,\s*(\w+)\s*\)', to_json):
         parent[child] = (var, strings[int(key)][1:-1])
+    nested_out = []
+    for var, key, field_name in re.findall(r'(\w+)\.add\(\s*"\u0000(\d+)\u0000"\s*,\s*(\w+)\.toJson\(\)\s*\)', to_json):
+        field = cls['fields'].get(field_name)
+        sub = (classes or {}).get(_simple_type(field[0])) if field else None
+        if sub is not None and sub is not cls:
+            nested_out += json_config_options(sub, consts, classes, prefix_path + strings[int(key)][1:-1] + '.')
 
     def prefix(var, seen=()):
         if var not in parent or var in seen:
@@ -261,10 +280,21 @@ def json_config_options(cls, consts):
         rng = [consts.value(b, cls) for b in bounds] if len(bounds) == 2 else None
         if rng and any(r is None or not re.fullmatch(r'-?[\d.]+', r) for r in rng):
             rng = None
-        out.append({'name': path, 'type': type_name, 'default': default,
+        out.append({'name': prefix_path + path, 'type': type_name, 'default': default,
                     'range': [float(r) if '.' in r else int(r) for r in rng] if rng else None,
                     'doc': cls['docs'].get(field_name)})
-    return out
+    # a JsonArray or an id map filled at run time: one option (a group would need plain keys written here)
+    groups = {p for p, _ in parent.values()}
+    for child, (var, key) in parent.items():
+        array = re.search(r'\bJsonArray\s+' + child + r'\s*=', to_json)
+        id_map = re.search(r'\.forEach\(\s*' + child + r'::addProperty\s*\)', to_json)
+        if child in groups or not (array or id_map):
+            continue
+        path = prefix(var) + key
+        field = cls['fields'].get(key)
+        out.append({'name': prefix_path + path, 'type': 'list' if array else 'object', 'default': None, 'range': None,
+                    'doc': cls['docs'].get(key) if field else None})
+    return out + nested_out
 
 
 def pojo_options(cls, classes, consts, prefix=''):
@@ -279,14 +309,14 @@ def pojo_options(cls, classes, consts, prefix=''):
             out += pojo_options(nested, classes, consts, prefix + name + '.')
             continue
         out.append({'name': prefix + name, 'type': _type_label(type_name), 'default': consts.value(value, cls) if value else None,
-                    'range': None, 'doc': cls['docs'].get(name)})
+                    'range': None, 'doc': cls['docs'].get(name), 'nullDefault': (value or '').strip() == 'null'})
     return out
 
 
-def _config_classes(repo, entry, classes):
-    """[(kind 'json'|'pojo', class, side)] announced to SimpleLib's ConfigCommands in the module's shared code."""
+def _config_classes(repo, entry, classes, roots=None):
+    """[(kind 'json'|'pojo', class, side)] announced to SimpleLib's ConfigCommands in the module's shared code (or `roots`)."""
     found = []
-    for path in sorted((repo / entry['paths']['shared']).rglob('*.java')):
+    for path in [p for root in (roots or [repo / entry['paths']['shared']]) for p in sorted(root.rglob('*.java')) if '/build/' not in p.as_posix()]:
         if '/test/' in path.as_posix():
             continue
         code = _COMMENT.sub(' ', path.read_text(encoding='utf-8', errors='replace'))
@@ -302,22 +332,30 @@ def _pretty(key):
     return ' '.join([words[0][:1].upper() + words[0][1:]] + [w if w.isupper() else w.lower() for w in words[1:]]) if words else key
 
 
-def module_config(repo, entry, lang):
-    """The module's options in the shape of SimpleBuilding's config rows (wiki/generate.py collect_config)."""
-    ns = entry.get('namespace', entry['id'])
-    en, de = lang.get('en_us', {}), lang.get('de_de', {})
-    shared = repo / entry['paths']['shared']
-    files = [p for p in sorted(shared.rglob('*.java')) if '/test/' not in p.as_posix()]  # sorted: same class map on every file system
+def code_options(repo, entry, dirs=('shared',)):
+    """(classes, constants, {path: option}) - the options of the config classes announced to /<ns> config (one source with
+    the command; also read by tools/check_config_lang.py). Options filled at run time only (keys from a loop) are not here."""
+    roots = [repo / entry['paths'][d] for d in dirs if entry['paths'].get(d)]
+    files = [p for root in roots for p in sorted(root.rglob('*.java')) if '/test/' not in p.as_posix() and '/build/' not in p.as_posix()]  # sorted: same class map on every file system
     classes = parse_classes(files)
     consts = _Constants(classes)
-    # 1. Options from code: the config classes announced to /<ns> config (one source with the command).
     code_opts = {}
-    for kind, cls, side in _config_classes(repo, entry, classes):
-        opts = json_config_options(cls, consts) if kind == 'json' else pojo_options(cls, classes, consts)
+    for kind, cls, side in _config_classes(repo, entry, classes, roots):
+        opts = json_config_options(cls, consts, classes) if kind == 'json' else pojo_options(cls, classes, consts)
         for o in opts:
             o['side'] = side
             o['source'] = cls['file'].relative_to(repo).as_posix()
             code_opts.setdefault(o['name'], o)
+    return classes, consts, code_opts
+
+
+def module_config(repo, entry, lang):
+    """The module's options in the shape of SimpleBuilding's config rows (wiki/generate.py collect_config)."""
+    ns = entry.get('namespace', entry['id'])
+    en, de = lang.get('en_us', {}), lang.get('de_de', {})
+    # shared and fabric code: some modules announce their config in the Fabric entry (simplewanderers, simplesandwiches)
+    classes, consts, code_opts = code_options(repo, entry, ('shared', 'fabric'))
+    code_opts = {p: o for p, o in code_opts.items() if not o.get('nullDefault')}   # Gson leaves null fields out of the file
     # 2. Options the config screen labels (Cloth AutoConfig keys or the module's own config.<ns>.* keys).
     schemes = [(f'text.autoconfig.{ns}.option.', '.@Tooltip'), (f'config.{ns}.', '.tooltip')]
     lang_paths = {}
@@ -360,9 +398,11 @@ def module_config(repo, entry, lang):
 
     def text(table, path, suffix=''):
         for pre, tip in schemes:
-            value = table.get(pre + path + (tip if suffix == 'tip' else ''))
-            if value:
-                return value
+            # the Cloth tooltip key ends in .@Tooltip; a module's own screen may read .tooltip under the same prefix (simplemoney)
+            for end in ((tip, '.tooltip') if suffix == 'tip' else ('',)):
+                value = table.get(pre + path + end)
+                if value:
+                    return value
         return None
     title_en = en.get(f'text.autoconfig.{ns}.title') or entry.get('displayName')
     title_de = de.get(f'text.autoconfig.{ns}.title') or title_en
