@@ -25,6 +25,9 @@ class FindingsTest(unittest.TestCase):
         # N119: a development status left in a player text (simpleblocks Pulse Shapecutter page)
         self.assertEqual(kinds("x", "en", "The textures are a preview waiting for the owner's choice."), ["history"])
         self.assertEqual(kinds("x", "de", "Die Texturen warten auf die Wahl des Besitzers."), ["history"])
+        # N120: a design rule of the owner named in a player text (simplestorage pipe filter)
+        self.assertEqual(kinds("x", "en", "Filter (the owner's filter principle, as with the hoppers):"), ["history"])
+        self.assertEqual(kinds("x", "de", "Filter (Filter-Prinzip des Besitzers, wie bei den Trichtern):"), ["history"])
         self.assertEqual(kinds("x", "en", "On the owner's own land everybody is reached."), [])  # the block owner in play
         self.assertEqual(kinds("x", "en", "The restart was cancelled; it stays centred."), ["british", "british"])
         self.assertEqual(kinds("x", "de", "Farbe, cancelled"), [])  # British spelling only counts in English text
