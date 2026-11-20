@@ -95,7 +95,7 @@
         "details": [
           "Plain: 8 ingots of the alloy round an apple. Rose Copper apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Rose Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.",
           "Enchanted (glint): 8 blocks of the alloy round an apple. Rose Copper: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. Rose Gold: Regeneration II 0:35, the same. Like the enchanted golden apple. The tooltip lists every effect.",
-          "Carrots (06.11.): 8 nuggets of the alloy round a carrot, like the Vanilla golden carrot (nuggets, because 8 ingots would make a carrot as dear as an apple). Rose Copper carrot 7 hunger, Rose Gold carrot 8 hunger, both saturation factor 1.2 (golden carrot: 6 hunger); no effects, no enchanted version.",
+          "Carrots: 8 nuggets of the alloy round a carrot, like the Vanilla golden carrot (nuggets, because 8 ingots would make a carrot as dear as an apple). Rose Copper carrot 7 hunger, Rose Gold carrot 8 hunger, both saturation factor 1.2 (golden carrot: 6 hunger); no effects, no enchanted version.",
           "For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Resistance I 1:00 (plain apples have no Fire Resistance). They appear in the Food and Drinks tab behind the enchanted golden apple."
         ]
       },
@@ -105,7 +105,7 @@
         "details": [
           "Normal: 8 Barren der Legierung um einen Apfel. Rosenkupfer-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Roségold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.",
           "Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenkupfer: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Roségold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.",
-          "Karotten (06.11.): 8 Klumpen der Legierung um eine Karotte, wie die goldene Karotte aus Vanilla (Klumpen, weil 8 Barren die Karotte so teuer wie einen Apfel machen würden). Rosenkupfer-Karotte 7 Hunger, Roségold-Karotte 8 Hunger, beide Sättigungsfaktor 1,2 (goldene Karotte: 6 Hunger); keine Effekte, keine verzauberte Version.",
+          "Karotten: 8 Klumpen der Legierung um eine Karotte, wie die goldene Karotte aus Vanilla (Klumpen, weil 8 Barren die Karotte so teuer wie einen Apfel machen würden). Rosenkupfer-Karotte 7 Hunger, Roségold-Karotte 8 Hunger, beide Sättigungsfaktor 1,2 (goldene Karotte: 6 Hunger); keine Effekte, keine verzauberte Version.",
           "Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel."
         ]
       }
@@ -154,7 +154,7 @@
       ],
       "en": {
         "title": "Zinc, nickel, tin and their alloys",
-        "summary": "Three more metals of the Overworld and their plain alloys brass, stainless steel and bronze. Building and decoration metals: no tools, no armor, no change to Vanilla (RG30-2).",
+        "summary": "Three more metals of the Overworld and their plain alloys brass, stainless steel and bronze. Building and decoration metals: no tools, no armor, no change to Vanilla.",
         "details": [
           "Zinc: no free veins. Only closed mini geodes hold it: a 5 x 5 x 5 ball with a shell of geode crust, a calcite lining and 1 to 8 zinc ores in the core, placed only where it is fully enclosed in stone (2 tries per chunk, Y -56 to 40), so it never shows in a cave. End: the same geodes in the End stone of the outer islands (End stone shell, geode crust lining, 1 to 8 End zinc ores, Y 20 to 80). Stone pickaxe.",
           "Nickel: only in deepslate, like diamond ore (10 veins of 6 per chunk, most at Y -64, up to Y 16, half of the blocks at air discarded) - a little more common than diamond, because nickel is an ingredient (1 nickel makes 4 stainless steel), not a gear tier. Iron pickaxe.",
@@ -162,12 +162,12 @@
           "Each ore drops 1 raw metal (Fortune helps, Silk Touch keeps the ore). The deepslate zinc and tin ores and the stone nickel ore no longer generate; old worlds keep them. Switches zincGeodes, endZincGeodes, nickelOre, tinOre, tinPlacers.",
           "Items per metal: raw piece, ingot, nugget, block and raw block; furnace and blast furnace smelt raw pieces and ores; 9 nuggets or ingots craft up and down. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
           "Alloys (shapeless crafting, nothing is lost): 2 copper + 1 zinc = 3 brass; 3 iron + 1 nickel = 4 stainless steel; 3 copper + 1 tin = 4 bronze. Each alloy has an ingot and a block of nine (craftable both ways).",
-          "Use: brass, stainless steel and bronze blocks are decoration and building metals (Vanilla copper oxidises, these do not). Further uses (plates, roofs, lanterns, coins) are listed in docs/ai/PLAN-A-RG08-2026-11-08.md as postponed. Lead and silver are described in their own entries."
+          "Use: brass, stainless steel and bronze blocks are decoration and building metals (Vanilla copper oxidises, these do not). Lead and silver are described in their own entries."
         ]
       },
       "de": {
         "title": "Zink, Nickel, Zinn und ihre Legierungen",
-        "summary": "Drei weitere Metalle der Oberwelt und ihre schlichten Legierungen Messing, Edelstahl und Bronze. Bau- und Dekometalle: keine Werkzeuge, keine Rüstung, kein Eingriff in Vanilla (RG30-2).",
+        "summary": "Drei weitere Metalle der Oberwelt und ihre schlichten Legierungen Messing, Edelstahl und Bronze. Bau- und Dekometalle: keine Werkzeuge, keine Rüstung, kein Eingriff in Vanilla.",
         "details": [
           "Zink: keine freien Adern. Nur geschlossene Mini-Geoden enthalten es: eine Kugel von 5 x 5 x 5 mit einer Hülle aus Geodenkruste, Calcit-Futter und 1 bis 8 Zinkerzen im Kern, nur dort gesetzt, wo sie ganz im Gestein eingeschlossen ist (2 Versuche je Chunk, Y -56 bis 40) - sie zeigt sich nie in einer Höhle. End: dieselben Geoden im Endstein der äußeren Inseln (Endstein-Hülle, Geodenkruste-Futter, 1 bis 8 End-Zinkerze, Y 20 bis 80). Steinspitzhacke.",
           "Nickel: nur im Tiefenschiefer, wie Diamanterz (10 Adern zu 6 je Chunk, am meisten bei Y -64, bis Y 16, die Hälfte der Blöcke an Luft entfällt) - etwas häufiger als Diamant, weil Nickel eine Zutat ist (1 Nickel ergibt 4 Edelstahl), keine Ausrüstungsstufe. Eisenspitzhacke.",
@@ -175,7 +175,7 @@
           "Jedes Erz lässt 1 Rohstück fallen (Glück hilft, Behutsamkeit behält das Erz). Tiefenschiefer-Zink und -Zinn und das Stein-Nickelerz entstehen nicht mehr; alte Welten behalten sie. Schalter zincGeodes, endZincGeodes, nickelOre, tinOre, tinPlacers.",
           "Gegenstände je Metall: Rohstück, Barren, Klumpen, Block und Rohblock; Ofen und Hochofen schmelzen Rohstücke und Erze; 9 Klumpen oder Barren werden auf- und abgewandelt. Tags c:ores, c:ingots, c:nuggets, c:raw_materials, c:storage_blocks.",
           "Legierungen (formlos in der Werkbank, nichts geht verloren): 2 Kupfer + 1 Zink = 3 Messing; 3 Eisen + 1 Nickel = 4 Edelstahl; 3 Kupfer + 1 Zinn = 4 Bronze. Jede Legierung hat einen Barren und einen Block aus neun (in beide Richtungen herstellbar).",
-          "Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Weitere Nutzen (Platten, Dächer, Laternen, Münzen) stehen als zurückgestellt in docs/ai/PLAN-A-RG08-2026-11-08.md. Blei und Silber stehen in eigenen Einträgen."
+          "Nutzen: Messing-, Edelstahl- und Bronzeblöcke sind Deko- und Baumetalle (Vanilla-Kupfer oxidiert, diese nicht). Blei und Silber stehen in eigenen Einträgen."
         ]
       }
     },
@@ -189,7 +189,7 @@
       ],
       "en": {
         "title": "Metal building blocks",
-        "summary": "Silver, lead, zinc, nickel, tin and brass are building metals only - no tools, no armor (owner 09.11.). Each has a family of building blocks behind its storage block.",
+        "summary": "Silver, lead, zinc, nickel, tin and brass are building metals only - no tools, no armor. Each has a family of building blocks behind its storage block.",
         "details": [
           "Per metal: Cut <metal> (with stairs and slab), <metal> Tiles, <metal> Pillar (placed along an axis like the quartz pillar) and Chiseled <metal>. They break and resist like the storage block (lead: hardness 25, blast resistance 1000, its heavy sound) and drop themselves; a double slab drops two.",
           "Workbench like cut copper: 4 blocks in a square make 4 cut blocks; 6 cut blocks make 4 stairs, 3 make 6 slabs; 4 cut blocks in a square make 4 tiles; 2 slabs on top of each other make the chiseled block; 2 blocks on top of each other make 2 pillars.",
@@ -199,7 +199,7 @@
       },
       "de": {
         "title": "Metall-Baublöcke",
-        "summary": "Silber, Blei, Zink, Nickel, Zinn und Messing sind nur Baumetalle - keine Werkzeuge, keine Rüstung (Besitzer 09.11.). Jedes hat hinter seinem Speicherblock eine Familie von Baublöcken.",
+        "summary": "Silber, Blei, Zink, Nickel, Zinn und Messing sind nur Baumetalle - keine Werkzeuge, keine Rüstung. Jedes hat hinter seinem Speicherblock eine Familie von Baublöcken.",
         "details": [
           "Je Metall: geschnittener <Metall>block (mit Treppe und Stufe), <Metall>fliesen, <Metall>säule (entlang einer Achse platziert wie die Quarzsäule) und gemeißelter <Metall>block. Sie brechen und widerstehen wie der Speicherblock (Blei: Härte 25, Explosionswiderstand 1000, sein schwerer Klang) und lassen sich selbst fallen; eine doppelte Stufe gibt zwei.",
           "Werkbank wie geschnittenes Kupfer: 4 Blöcke im Quadrat ergeben 4 geschnittene Blöcke; 6 geschnittene ergeben 4 Treppen, 3 ergeben 6 Stufen; 4 geschnittene im Quadrat ergeben 4 Fliesen; 2 Stufen übereinander ergeben den gemeißelten Block; 2 Blöcke übereinander ergeben 2 Säulen.",
@@ -246,14 +246,14 @@
         "title": "Silver mirror",
         "summary": "A decoration of silver and glass for walls, floors and ceilings.",
         "details": [
-          "Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror is placed like a button: on a wall in the four directions, or lying on the floor or the ceiling (turned the way you look), one pixel thick, and falls off when its support goes. Mirrors placed before 10.11. stay on their wall. It has no function: pure decoration."
+          "Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror is placed like a button: on a wall in the four directions, or lying on the floor or the ceiling (turned the way you look), one pixel thick, and falls off when its support goes. Mirrors placed in an older version stay on their wall. It has no function: pure decoration."
         ]
       },
       "de": {
         "title": "Silberspiegel",
         "summary": "Eine Dekoration aus Silber und Glas für Wände, Böden und Decken.",
         "details": [
-          "Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel wird wie ein Knopf gesetzt: an eine Wand in den vier Richtungen oder liegend auf den Boden oder an die Decke (in Blickrichtung gedreht), ein Pixel dick, und fällt ab, wenn der Halt verschwindet. Vor dem 10.11. gesetzte Spiegel bleiben an ihrer Wand. Er hat keine Funktion: reine Dekoration."
+          "Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel wird wie ein Knopf gesetzt: an eine Wand in den vier Richtungen oder liegend auf den Boden oder an die Decke (in Blickrichtung gedreht), ein Pixel dick, und fällt ab, wenn der Halt verschwindet. In einer älteren Version gesetzte Spiegel bleiben an ihrer Wand. Er hat keine Funktion: reine Dekoration."
         ]
       }
     },
@@ -270,7 +270,7 @@
         "details": [
           "Use a plate on the free side of a plate of the same kind (floor, wall or ceiling) to add a layer, 1 to 8. A lead layer is 2 pixels (8 make a whole block), a silver layer 1 pixel (8 make half a block) - three ingots give 6 plates or 12 sheets, the same metal per pixel.",
           "Shape, collision and the outline follow the layers; breaking gives back one plate per layer. A lead plate muffles sound like half a block of lead at one layer and like a whole block at eight.",
-          "Plates placed before 10.11. are one layer. Plates do not turn into slabs or blocks: 8 lead plates are 4 ingots, a block of lead 9."
+          "Plates placed in an older version are one layer. Plates do not turn into slabs or blocks: 8 lead plates are 4 ingots, a block of lead 9."
         ]
       },
       "de": {
@@ -279,7 +279,7 @@
         "details": [
           "Eine Platte auf die freie Seite einer Platte derselben Art (Boden, Wand oder Decke) gesetzt ergibt eine Lage mehr, 1 bis 8. Eine Bleilage ist 2 Pixel dick (8 ergeben einen ganzen Block), eine Silberlage 1 Pixel (8 ergeben einen halben Block) - drei Barren ergeben 6 Platten oder 12 Bleche, gleich viel Metall je Pixel.",
           "Form, Kollision und Umriss folgen den Lagen; abgebaut gibt es eine Platte je Lage zurück. Eine Bleiplatte dämmt mit einer Lage wie ein halber Bleiblock und mit acht wie ein ganzer.",
-          "Vor dem 10.11. gesetzte Platten haben eine Lage. Platten werden nicht zu Stufen oder Blöcken: 8 Bleiplatten sind 4 Barren, ein Bleiblock 9."
+          "In einer älteren Version gesetzte Platten haben eine Lage. Platten werden nicht zu Stufen oder Blöcken: 8 Bleiplatten sind 4 Barren, ein Bleiblock 9."
         ]
       }
     },
@@ -302,7 +302,7 @@
           "Bars: six ingots in two rows make 16; they join each other, panes and walls like iron bars and count as Vanilla bars. Any pickaxe.",
           "Grate: four blocks of the metal in a diamond make 4, the stonecutter makes 4 from one block, like the copper grate. See-through, holds water, needs a stone pickaxe. They do not age and need no wax (only copper oxidises).",
           "Patterns: lead thick round rods, silver fine tendrils, brass rhombs - every metal looks different.",
-          "Inner sides (N78): the grates and the Vanilla copper grates show their inner sides through the holes. 3D (N78b): the client option \"3D grates\" (config/simpleores-client.json, /simpleclient simpleores; default off) turns them into real models with bars of depth (more faces to draw)."
+          "Inner sides: the grates and the Vanilla copper grates show their inner sides through the holes. 3D: the client option \"3D grates\" (config/simpleores-client.json, /simpleclient simpleores; default off) turns them into real models with bars of depth (more faces to draw)."
         ]
       },
       "de": {
@@ -312,7 +312,7 @@
           "Gitter: sechs Barren in zwei Reihen ergeben 16; sie verbinden sich miteinander, mit Scheiben und Mauern wie Eisengitter und zählen als Vanilla-Gitter. Jede Spitzhacke.",
           "Rost: vier Blöcke des Metalls als Raute ergeben 4, die Steinsäge macht 4 aus einem Block, wie beim Kupferrost. Durchsichtig, kann Wasser halten, braucht eine Steinspitzhacke. Sie altern nicht und brauchen kein Wachs (nur Kupfer oxidiert).",
           "Muster: Blei dicke runde Stäbe, Silber feine Ranken, Messing Rauten - jedes Metall sieht anders aus.",
-          "Innenseiten (N78): die Roste und die Vanilla-Kupferroste zeigen ihre Innenseiten durch die Löcher. 3D (N78b): die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores; Standard aus) macht daraus echte Modelle mit Stäben in der Tiefe (mehr Flächen zu zeichnen)."
+          "Innenseiten: die Roste und die Vanilla-Kupferroste zeigen ihre Innenseiten durch die Löcher. 3D: die Client-Option „3D-Roste“ (config/simpleores-client.json, /simpleclient simpleores; Standard aus) macht daraus echte Modelle mit Stäben in der Tiefe (mehr Flächen zu zeichnen)."
         ]
       }
     },
@@ -410,7 +410,7 @@
       ],
       "en": {
         "title": "Rose gold and rift metal building blocks",
-        "summary": "Rose gold and rose copper have the building family of the other metals; Enderite, Terranite, Infernite and Zenithite a chiseled block (PAL35b).",
+        "summary": "Rose gold and rose copper have the building family of the other metals; Enderite, Terranite, Infernite and Zenithite a chiseled block.",
         "details": [
           "Rose gold, rose copper: cut block (4 blocks -> 4), cut stairs and slab, tiles (4 cut -> 4), pillar (2 blocks upright -> 2), chiseled block (2 cut slabs upright -> 1); the stonecutter cuts all of them from the block. Simple Octets adds the cut octet.",
           "Enderite, Terranite, Infernite, Zenithite: like the Netherite block they have no cut family, only a chiseled block, cut 1:1 from the block at the stonecutter. Fire resistant, diamond pickaxe, no beacon base.",
@@ -419,7 +419,7 @@
       },
       "de": {
         "title": "Bausteine aus Roségold und Riss-Metallen",
-        "summary": "Roségold und Rosenkupfer haben die Baufamilie der anderen Metalle; Enderit, Terranit, Infernit und Zenithit einen gemeißelten Block (PAL35b).",
+        "summary": "Roségold und Rosenkupfer haben die Baufamilie der anderen Metalle; Enderit, Terranit, Infernit und Zenithit einen gemeißelten Block.",
         "details": [
           "Roségold, Rosenkupfer: geschnittener Block (4 Blöcke -> 4), geschnittene Treppe und Stufe, Fliesen (4 geschnittene -> 4), Säule (2 Blöcke senkrecht -> 2), gemeißelter Block (2 geschnittene Stufen senkrecht -> 1); die Steinsäge schneidet alle aus dem Block. Simple Octets ergänzt das geschnittene Octet.",
           "Enderit, Terranit, Infernit, Zenithit: wie der Netheritblock ohne geschnittene Familie, nur ein gemeißelter Block, 1:1 in der Steinsäge aus dem Block. Feuerfest, Diamantspitzhacke, kein Leuchtfeuer-Sockel.",
@@ -437,7 +437,7 @@
       ],
       "en": {
         "title": "Rift metal food",
-        "summary": "Each rift metal has an apple and a carrot with one Vanilla effect of its dimension (PAL35b): Terranite Haste, Infernite Fire Resistance, Zenithite Slow Falling.",
+        "summary": "Each rift metal has an apple and a carrot with one Vanilla effect of its dimension: Terranite Haste, Infernite Fire Resistance, Zenithite Slow Falling.",
         "details": [
           "Apple: a golden apple and an ingot (shapeless). 6 hunger, always edible; Regeneration II 0:05 and Absorption 2:00 like the golden apple, plus the effect for 2:00.",
           "Carrot: eight golden carrots round an ingot make 8. 8 hunger like the Rose Gold carrot, the effect for 1:00.",
@@ -446,7 +446,7 @@
       },
       "de": {
         "title": "Essen aus Riss-Metallen",
-        "summary": "Jedes Riss-Metall hat einen Apfel und eine Karotte mit einem Vanilla-Effekt seiner Dimension (PAL35b): Terranit Eile, Infernit Feuerresistenz, Zenithit Sanfter Fall.",
+        "summary": "Jedes Riss-Metall hat einen Apfel und eine Karotte mit einem Vanilla-Effekt seiner Dimension: Terranit Eile, Infernit Feuerresistenz, Zenithit Sanfter Fall.",
         "details": [
           "Apfel: ein goldener Apfel und ein Barren (formlos). 6 Hunger, immer essbar; Regeneration II 0:05 und Absorption 2:00 wie der goldene Apfel, dazu der Effekt für 2:00.",
           "Karotte: acht goldene Karotten um einen Barren ergeben 8. 8 Hunger wie die Roségold-Karotte, der Effekt für 1:00.",
@@ -486,7 +486,7 @@
       ],
       "en": {
         "title": "Enderite",
-        "summary": "The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.",
+        "summary": "The tier above netherite (formerly part of SimpleLib). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.",
         "details": [
           "On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.",
           "Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.",
@@ -496,7 +496,7 @@
       },
       "de": {
         "title": "Enderit",
-        "summary": "Die Stufe über Netherit (von SimpleLib hierher umgezogen, IG31-13). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.",
+        "summary": "Die Stufe über Netherit (früher Teil von SimpleLib). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.",
         "details": [
           "Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.",
           "Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.",
@@ -565,7 +565,7 @@
       ],
       "en": {
         "title": "Sage Ore and Dimensional Scrap",
-        "summary": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
+        "summary": "Two rare finds that were formerly part of SimpleBuilding: the sage ore with its experience orb, and the scrap of the three dimensions.",
         "details": [
           "Sage ore (and a deepslate twin): as rare as diamond ore, iron pickaxe, drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune). The orb charges 0.3 s and gives 50 to 100 experience.",
           "Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding's pickaxe, Simple Hammers' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. It melts into rift shards (feature Rift alloys).",
@@ -574,7 +574,7 @@
       },
       "de": {
         "title": "Weisheitserz und Dimensionsschrott",
-        "summary": "Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
+        "summary": "Zwei seltene Funde, die früher zu SimpleBuilding gehörten: das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
         "details": [
           "Weisheitserz (und ein Tiefenschiefer-Zwilling): so selten wie Diamanterz, Eisenspitzhacke, lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %). Die Kugel lädt 0,3 s und gibt 50 bis 100 Erfahrung.",
           "Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Er schmilzt zu Riss-Splittern (Abschnitt Riss-Legierungen).",
@@ -594,7 +594,7 @@
       ],
       "en": {
         "title": "Rift alloys",
-        "summary": "The Dimensional Scrap of each dimension melts into rift shards; with a partner ingot they make Terranite, Infernite and Zenithite, a chain through all three dimensions that starts at Enderite (IG31-58).",
+        "summary": "The Dimensional Scrap of each dimension melts into rift shards; with a partner ingot they make Terranite, Infernite and Zenithite, a chain through all three dimensions that starts at Enderite.",
         "details": [
           "Melting: only a blast furnace (Overworld scrap 40 s, Nether 60 s, End 80 s; 2, 3, 4 experience) - a plain furnace refuses. With Simple Crucibles a crucible melts it too, but only at extreme heat (soul lava, tag simplecrucibles:needs_extreme_heat). One scrap gives one shard, no bonus. The faster blast furnaces of Simple Ovens speed it up by their tier.",
           "Chain (shapeless): 4 Rift Shards + 1 Enderite ingot -> Terranite ingot; 4 Nether Rift Shards + 1 Terranite ingot -> Infernite ingot; 4 End Rift Shards + 1 Infernite ingot -> Zenithite ingot. 9 shards <-> block of shards (like the netherite scrap block), 9 ingots <-> showpiece block (like the Enderite block).",
@@ -603,7 +603,7 @@
       },
       "de": {
         "title": "Riss-Legierungen",
-        "summary": "Der Dimensionsschrott jeder Dimension schmilzt zu Riss-Splittern; mit einem Partnerbarren ergeben sie Terranit, Infernit und Zenithit, eine Kette durch alle drei Dimensionen, die bei Enderit beginnt (IG31-58).",
+        "summary": "Der Dimensionsschrott jeder Dimension schmilzt zu Riss-Splittern; mit einem Partnerbarren ergeben sie Terranit, Infernit und Zenithit, eine Kette durch alle drei Dimensionen, die bei Enderit beginnt.",
         "details": [
           "Schmelzen: nur im Hochofen (Oberwelt-Schrott 40 s, Nether 60 s, End 80 s; 2, 3, 4 Erfahrung) - ein normaler Ofen lehnt ab. Mit Simple Crucibles schmilzt ihn auch ein Tiegel, aber nur bei extremer Hitze (Seelenlava, Tag simplecrucibles:needs_extreme_heat). Ein Schrott gibt einen Splitter, kein Bonus. Die schnelleren Hochöfen von Simple Ovens beschleunigen über ihre Stufe.",
           "Kette (formlos): 4 Riss-Splitter + 1 Enderitbarren -> Terranitbarren; 4 Nether-Riss-Splitter + 1 Terranitbarren -> Infernitbarren; 4 End-Riss-Splitter + 1 Infernitbarren -> Zenithitbarren. 9 Splitter <-> Splitter-Block (wie der Netherit-Schrottblock), 9 Barren <-> Prachtblock (wie der Enderitblock).",
@@ -622,9 +622,9 @@
         "details": [
           "enabled (true): off stops new silver, lead, zinc, nickel and tin veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
           "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
-          "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding's config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).",
+          "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (formerly in SimpleBuilding's config). sageOreOtherDimensions (true): Nether and End Sage Ore. roseGoldOreChance (2, range 0 to 10): percent chance per Nether gold block below Y 31 to be rose gold ore (at most one per vein).",
           "Ore deposits (all true, new chunks after the next world start): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (stone, granite and mountain tin), tinPlacers (tin-bearing gravel and sand).",
-          "Astralit/Nihilit line (N46, before in SimpleBuilding's config; on the first start without simpleores-server.json the values of simplebuilding.json are taken over once): endOres, astralitOre, nihilitOre (true, new End veins); endSignals (true): Astral, Nihil and Bridge Redstone conduct; endPistons, endRails (true, only with endSignals); endPistonCooldownTicks (8, range 4 to 100); astralRailMaxSpeed (16, range 8 to 20 blocks per second); astralRailBoost (0.12, range 0.07 to 0.25); nihilRailBrake (0.08, range 0.02 to 0.4). Switched-off devices also lose their recipes (datapack reload).",
+          "Astralit/Nihilit line (formerly in SimpleBuilding's config; on the first start without simpleores-server.json the values of simplebuilding.json are taken over once): endOres, astralitOre, nihilitOre (true, new End veins); endSignals (true): Astral, Nihil and Bridge Redstone conduct; endPistons, endRails (true, only with endSignals); endPistonCooldownTicks (8, range 4 to 100); astralRailMaxSpeed (16, range 8 to 20 blocks per second); astralRailBoost (0.12, range 0.07 to 0.25); nihilRailBrake (0.08, range 0.02 to 0.4). Switched-off devices also lose their recipes (datapack reload).",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
         ]
       },
@@ -634,9 +634,9 @@
         "details": [
           "enabled (true): aus stoppt neue Silber-, Blei-, Zink-, Nickel- und Zinnadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
           "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
-          "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).",
+          "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (früher in der Config von SimpleBuilding). sageOreOtherDimensions (true): Nether- und End-Weisheitserz. roseGoldOreChance (2, Bereich 0 bis 10): Prozent-Chance je Nethergold-Block unter Y 31, Roségolderz zu sein (höchstens eines je Ader).",
           "Erzvorkommen (alle true, neue Chunks nach dem nächsten Weltstart): leadOre, endLeadOre, zincGeodes, endZincGeodes, nickelOre, tinOre (Stein-, Granit- und Berg-Zinn), tinPlacers (Zinnseifen-Kies und -Sand).",
-          "Astralit-/Nihilit-Linie (N46, vorher in der Config von SimpleBuilding; beim ersten Start ohne simpleores-server.json werden die Werte aus simplebuilding.json einmal übernommen): endOres, astralitOre, nihilitOre (true, neue End-Adern); endSignals (true): Astral-, Nihil- und Brücken-Redstone leiten; endPistons, endRails (true, nur mit endSignals); endPistonCooldownTicks (8, Bereich 4 bis 100); astralRailMaxSpeed (16, Bereich 8 bis 20 Blöcke je Sekunde); astralRailBoost (0,12, Bereich 0,07 bis 0,25); nihilRailBrake (0,08, Bereich 0,02 bis 0,4). Abgeschaltete Geräte verlieren auch ihre Rezepte (Datenpaket neu laden).",
+          "Astralit-/Nihilit-Linie (früher in der Config von SimpleBuilding; beim ersten Start ohne simpleores-server.json werden die Werte aus simplebuilding.json einmal übernommen): endOres, astralitOre, nihilitOre (true, neue End-Adern); endSignals (true): Astral-, Nihil- und Brücken-Redstone leiten; endPistons, endRails (true, nur mit endSignals); endPistonCooldownTicks (8, Bereich 4 bis 100); astralRailMaxSpeed (16, Bereich 8 bis 20 Blöcke je Sekunde); astralRailBoost (0,12, Bereich 0,07 bis 0,25); nihilRailBrake (0,08, Bereich 0,02 bis 0,4). Abgeschaltete Geräte verlieren auch ihre Rezepte (Datenpaket neu laden).",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -668,14 +668,14 @@
         "details": [
           "Both ores generate in every End biome in the \"underground_ores\" step (Fabric: BiomeSelectors.foundInTheEnd; NeoForge and Forge: a biome modifier with the biome tag #minecraft:is_end). The Forge biome modifiers are covered by no test: the Forge module is parked and has never been started.",
           "Both ores replace end stone only; veins are not discarded on air exposure (discard_chance_on_air_exposure 0).",
-          "Astralit Ore: vein size 5 (4 before W23-2, 23.10.); one attempt per chunk (count 1, no rarity filter); anchored on the surface heightmap (MOTION_BLOCKING, one block above the topmost motion-blocking block) and only where the block above that anchor is replaceable. The vein can only reach from three blocks below the anchor up to the anchor's own height, so it sits in the top layers of the island.",
-          "Nihilit Ore: vein size 6 (5 before W23-2); 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
+          "Astralit Ore: vein size 5; one attempt per chunk (count 1, no rarity filter); anchored on the surface heightmap (MOTION_BLOCKING, one block above the topmost motion-blocking block) and only where the block above that anchor is replaceable. The vein can only reach from three blocks below the anchor up to the anchor's own height, so it sits in the top layers of the island.",
+          "Nihilit Ore: vein size 6; 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
           "Astralit Ore: hardness 20, blast resistance 1200, emits light level 5, requires a diamond or better pickaxe (tags mineable/pickaxe and needs_diamond_tool), drops 3-7 experience.",
           "Nihilit Ore: hardness 25, blast resistance 1200, requires a diamond or better pickaxe, drops 3-7 experience.",
-          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Silk Touch yields the ore block itself. W24-4 (owner 23.10.2026): the ores hide in the end stone (a few faint crystal splinters) until a brush frees them like an archaeology find: every brush stroke (every 10 ticks of brushing) adds one step to the block state brushed (0-6); after six strokes the ore shows its full crystals with a soft glimmer (animated texture) and the brush loses one durability. Only a freed ore (brushed=6) drops the full amount - one item, raised by Fortune with the ore formula (ore_drops: on average 1, 1.33, 1.75, 2.2 for Fortune 0-III); a hidden or half-brushed ore drops the same with a 70% chance (on average 0.7, 0.93, 1.23, 1.54). Progress stays where brushing stopped; Silk Touch gives the hidden ore block. Dull ores do not react to the brush.",
+          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Silk Touch yields the ore block itself. The ores hide in the end stone (a few faint crystal splinters) until a brush frees them like an archaeology find: every brush stroke (every 10 ticks of brushing) adds one step to the block state brushed (0-6); after six strokes the ore shows its full crystals with a soft glimmer (animated texture) and the brush loses one durability. Only a freed ore (brushed=6) drops the full amount - one item, raised by Fortune with the ore formula (ore_drops: on average 1, 1.33, 1.75, 2.2 for Fortune 0-III); a hidden or half-brushed ore drops the same with a 70% chance (on average 0.7, 0.93, 1.23, 1.54). Progress stays where brushing stopped; Silk Touch gives the hidden ore block. Dull ores do not react to the brush.",
           "The ores also exist as block items (astralit_ore, nihilith_ore) and appear in the creative tab \"SimpleMaterials\" (simplebuilding:materials).",
           "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilit Ore / Nihilit-Erz, Astralit Dust / Astralitstaub, Nihilit Shard / Nihilit-Splitter); every other language falls back to the English names.",
-          "Dull ore (W23-2, owner 23.10.2026): about one ore block in five of every vein is Dull Astralit Ore or Dull Nihilit Ore. The vein has two targets - first a random end stone match with the dull chance (Astralit 0.162, Nihilit 0.194), then one with the real chance (0.773 / 0.966); the rest stays end stone. The bigger veins keep the expected amount of real ore as before (a re-implementation of OreFeature in the placement surroundings: Astralit 1.89, Nihilit 1.58 real blocks per vein; a gametest measures 600 veins each).",
+          "Dull ore: about one ore block in five of every vein is Dull Astralit Ore or Dull Nihilit Ore. The vein has two targets - first a random end stone match with the dull chance (Astralit 0.162, Nihilit 0.194), then one with the real chance (0.773 / 0.966); the rest stays end stone. The bigger veins keep the expected amount of real ore as before (a re-implementation of OreFeature in the placement surroundings: Astralit 1.89, Nihilit 1.58 real blocks per vein; a gametest measures 600 veins each).",
           "Dull ores look alike but unrefined (milky, no glint), need a diamond pickaxe as well, are a little softer (hardness 15 / 20), drop 1-3 experience, Dull Astralit Ore glows at light level 3. They drop Dull Astralit Dust / Dull Nihilit Shard (Fortune like the real ore, Silk Touch the block); four dull pieces craft one real dust / shard. The Ore Detector only finds the real ores."
         ]
       },
@@ -685,14 +685,14 @@
         "details": [
           "Beide Erze werden in allen End-Biomen im Schritt „underground_ores“ erzeugt (Fabric: BiomeSelectors.foundInTheEnd; NeoForge und Forge: Biom-Modifier mit Biom-Tag #minecraft:is_end). Die Forge-Biom-Modifier deckt kein Test ab: Das Forge-Modul ist zurückgestellt und wurde nie gestartet.",
           "Beide Erze ersetzen ausschließlich Endstein; Adern werden bei Luftkontakt nicht verworfen (discard_chance_on_air_exposure 0).",
-          "Astralit Ore: Adergröße 5 (vor W23-2, 23.10.: 4); ein Versuch pro Chunk (count 1, kein Seltenheitsfilter); verankert auf der Oberflächen-Höhenkarte (MOTION_BLOCKING, ein Block über dem obersten bewegungshemmenden Block) und nur dort, wo der Block über diesem Anker ersetzbar ist. Die Ader reicht nur von drei Blöcken unter dem Anker bis auf dessen eigene Höhe, sitzt also in den obersten Schichten der Insel.",
-          "Nihilit Ore: Adergröße 6 (vor W23-2: 5); 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
+          "Astralit Ore: Adergröße 5; ein Versuch pro Chunk (count 1, kein Seltenheitsfilter); verankert auf der Oberflächen-Höhenkarte (MOTION_BLOCKING, ein Block über dem obersten bewegungshemmenden Block) und nur dort, wo der Block über diesem Anker ersetzbar ist. Die Ader reicht nur von drei Blöcken unter dem Anker bis auf dessen eigene Höhe, sitzt also in den obersten Schichten der Insel.",
+          "Nihilit Ore: Adergröße 6; 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
           "Astralit Ore: Härte 20, Explosionswiderstand 1200, leuchtet mit Lichtstärke 5, benötigt eine Spitzhacke aus Diamant oder besser (Tags mineable/pickaxe und needs_diamond_tool), gibt 3–7 Erfahrungspunkte.",
           "Nihilit Ore: Härte 25, Explosionswiderstand 1200, benötigt eine Spitzhacke aus Diamant oder besser, gibt 3–7 Erfahrungspunkte.",
-          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Behutsamkeit liefert den Erzblock selbst. W24-4 (Besitzer 23.10.2026): die Erze verstecken sich im Endstein (nur einzelne blasse Kristallsplitter), bis ein Pinsel sie wie einen Archäologie-Fund freilegt: jeder Pinselstrich (alle 10 Ticks Pinseln) erhöht den Blockzustand brushed (0–6) um eins; nach sechs Strichen zeigt das Erz seine vollen Kristalle mit dezentem Glimmen (animierte Textur) und der Pinsel verliert einen Haltbarkeitspunkt. Nur freigelegtes Erz (brushed=6) gibt die volle Menge – ein Item, mit Glück nach der Erz-Formel erhöht (ore_drops: im Mittel 1; 1,33; 1,75; 2,2 bei Glück 0–III); verstecktes oder halb gepinseltes Erz gibt dasselbe mit 70 % Wahrscheinlichkeit (im Mittel 0,7; 0,93; 1,23; 1,54). Der Fortschritt bleibt stehen, wo das Pinseln aufhörte; Behutsamkeit liefert den versteckten Erzblock. Trübe Erze reagieren nicht auf den Pinsel.",
+          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Behutsamkeit liefert den Erzblock selbst. Die Erze verstecken sich im Endstein (nur einzelne blasse Kristallsplitter), bis ein Pinsel sie wie einen Archäologie-Fund freilegt: jeder Pinselstrich (alle 10 Ticks Pinseln) erhöht den Blockzustand brushed (0–6) um eins; nach sechs Strichen zeigt das Erz seine vollen Kristalle mit dezentem Glimmen (animierte Textur) und der Pinsel verliert einen Haltbarkeitspunkt. Nur freigelegtes Erz (brushed=6) gibt die volle Menge – ein Item, mit Glück nach der Erz-Formel erhöht (ore_drops: im Mittel 1; 1,33; 1,75; 2,2 bei Glück 0–III); verstecktes oder halb gepinseltes Erz gibt dasselbe mit 70 % Wahrscheinlichkeit (im Mittel 0,7; 0,93; 1,23; 1,54). Der Fortschritt bleibt stehen, wo das Pinseln aufhörte; Behutsamkeit liefert den versteckten Erzblock. Trübe Erze reagieren nicht auf den Pinsel.",
           "Die Erze existieren auch als Blockitems (astralit_ore, nihilith_ore) und stehen im Kreativ-Tab „SimpleMaterials“ (simplebuilding:materials).",
           "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilit Ore / Nihiliterz, Astralitstaub / Astralitstaub, Nihilitsplitter / Nihilitsplitter); andere Sprachen fallen auf die englischen Namen zurück.",
-          "Trübes Erz (W23-2, Besitzer 23.10.2026): etwa jeder fünfte Erzblock einer Ader ist Trübes Astraliterz bzw. Trübes Nihiliterz. Die Ader hat zwei Ziele – zuerst ein zufälliger Endstein-Treffer mit der Trüb-Wahrscheinlichkeit (Astralit 0,162, Nihilit 0,194), dann einer mit der Echt-Wahrscheinlichkeit (0,773 / 0,966); der Rest bleibt Endstein. Die größeren Adern halten die erwartete Menge echten Erzes wie vorher (Nachbildung von OreFeature im Platzierungs-Umfeld: Astralit 1,89, Nihilit 1,58 echte Blöcke je Ader; ein Gametest misst je 600 Adern).",
+          "Trübes Erz: etwa jeder fünfte Erzblock einer Ader ist Trübes Astraliterz bzw. Trübes Nihiliterz. Die Ader hat zwei Ziele – zuerst ein zufälliger Endstein-Treffer mit der Trüb-Wahrscheinlichkeit (Astralit 0,162, Nihilit 0,194), dann einer mit der Echt-Wahrscheinlichkeit (0,773 / 0,966); der Rest bleibt Endstein. Die größeren Adern halten die erwartete Menge echten Erzes wie vorher (Nachbildung von OreFeature im Platzierungs-Umfeld: Astralit 1,89, Nihilit 1,58 echte Blöcke je Ader; ein Gametest misst je 600 Adern).",
           "Trübe Erze sehen ähnlich, aber unraffiniert aus (milchig, ohne Glanz), brauchen ebenfalls eine Diamantspitzhacke, sind etwas weicher (Härte 15 / 20), geben 1–3 Erfahrungspunkte, Trübes Astraliterz leuchtet mit Lichtstärke 3. Sie lassen Trüben Astralitstaub bzw. Trüben Nihilitsplitter fallen (Glück wie beim echten Erz, Behutsamkeit den Block); vier trübe Stücke ergeben einen echten Staub bzw. Splitter. Der Erzdetektor findet nur die echten Erze."
         ]
       }
@@ -835,7 +835,7 @@
           "Wall and ceiling: Astral Redstone or Bridge Redstone used on the side or the underside of a block sticks to that face (on top it lies as floor dust). It carries the signal like floor dust (one less per step), connects to floor dust of its line at the edge, goes round the outer edge of its block to the next face or onto the top, and powers its block strongly. Plain redstone dust stays Vanilla.",
           "Repeater, Comparator and Signal Dampener (Simple Machines) go onto a side or the underside of a block where the floor version cannot stand (nothing solid below), or anywhere while sneaking. The output points away from you in the plane of the wall; right click sets the delay, the mode or the stage. They drop the Vanilla item. The wall repeater does not lock; the wall comparator reads a container directly behind it.",
           "Astral Relay: a rising signal edge toggles it (like the copper bulb). While on it lights up and gives redstone strength 15 to every side; a comparator reads 15. Recipe: a copper bulb surrounded by four Astral Redstone.",
-          "Nihil Core: touching cores form one group; a rising edge at any core toggles the whole group. While on every core gives strength 15 to all sides, off nothing. Neighbouring cores draw one surface with a rim only around the outside (connected texture, no extra mod). Recipe: Nihilit Shard, four Nihil Redstone, four End stone bricks give 4 cores.",
+          "Nihil Core: touching cores form one group; a rising edge at any core toggles the whole group. While on every core gives strength 15 to all sides, off nothing. Neighboring cores draw one surface with a rim only around the outside (connected texture, no extra mod). Recipe: Nihilit Shard, four Nihil Redstone, four End stone bricks give 4 cores.",
           "All of it follows the server switch endSignals in simpleores-server.json."
         ]
       },
@@ -2378,10 +2378,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled block of enderite (PAL35b): the stonecutter cuts it 1:1 from the block of enderite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        "summary": "Chiseled block of enderite: the stonecutter cuts it 1:1 from the block of enderite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
       },
       "de": {
-        "summary": "Gemeißelter Enderitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Enderitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        "summary": "Gemeißelter Enderitblock: die Steinsäge schneidet ihn 1:1 aus dem Enderitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
       }
     },
     "simpleores:chiseled_terranite": {
@@ -2389,10 +2389,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled block of terranite (PAL35b): the stonecutter cuts it 1:1 from the block of terranite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        "summary": "Chiseled block of terranite: the stonecutter cuts it 1:1 from the block of terranite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
       },
       "de": {
-        "summary": "Gemeißelter Terranitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Terranitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        "summary": "Gemeißelter Terranitblock: die Steinsäge schneidet ihn 1:1 aus dem Terranitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
       }
     },
     "simpleores:chiseled_infernite": {
@@ -2400,10 +2400,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled block of infernite (PAL35b): the stonecutter cuts it 1:1 from the block of infernite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        "summary": "Chiseled block of infernite: the stonecutter cuts it 1:1 from the block of infernite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
       },
       "de": {
-        "summary": "Gemeißelter Infernitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Infernitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        "summary": "Gemeißelter Infernitblock: die Steinsäge schneidet ihn 1:1 aus dem Infernitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
       }
     },
     "simpleores:chiseled_zenithite": {
@@ -2411,10 +2411,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Chiseled block of zenithite (PAL35b): the stonecutter cuts it 1:1 from the block of zenithite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
+        "summary": "Chiseled block of zenithite: the stonecutter cuts it 1:1 from the block of zenithite. Decoration only, like the block: needs a diamond pickaxe, fire resistant, no beacon base."
       },
       "de": {
-        "summary": "Gemeißelter Zenithitblock (PAL35b): die Steinsäge schneidet ihn 1:1 aus dem Zenithitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
+        "summary": "Gemeißelter Zenithitblock: die Steinsäge schneidet ihn 1:1 aus dem Zenithitblock. Nur Dekoration, wie der Block: braucht eine Diamantspitzhacke, feuerfest, kein Leuchtfeuer-Sockel."
       }
     },
     "simpleores:silver_lamp": {
@@ -4307,7 +4307,7 @@
     },
     "simpleores:diamond_pole": {
       "en": {
-        "summary": "A lightning rod made of diamond (MC 26.3, owner N41): three diamonds stacked give one Diamond Pole.",
+        "summary": "A lightning rod made of diamond (MC 26.3): three diamonds stacked give one Diamond Pole.",
         "details": [
           "It works like the Iron and Gold Pole - placed on any face, a redstone signal when lightning strikes it, no oxidizing - and attracts lightning within 80 blocks (iron: 32, gold: 64, netherite: 96, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
           "One Diamond Pole in the crafting grid gives the three diamonds back. Needs an iron pickaxe or better. At the smithing table it becomes the Netherite Pole.",
@@ -4315,7 +4315,7 @@
         ]
       },
       "de": {
-        "summary": "Ein Blitzableiter aus Diamant (MC 26.3, Besitzer N41): drei Diamanten übereinander ergeben eine Diamantstange.",
+        "summary": "Ein Blitzableiter aus Diamant (MC 26.3): drei Diamanten übereinander ergeben eine Diamantstange.",
         "details": [
           "Sie arbeitet wie Eisen- und Goldstange - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht - und zieht Blitze im Umkreis von 80 Blöcken an (Eisen: 32, Gold: 64, Netherit: 96, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
           "Eine Diamantstange im Handwerksfeld gibt die drei Diamanten zurück. Braucht mindestens eine Eisenspitzhacke. Am Schmiedetisch wird sie zur Netheritstange.",
@@ -4332,7 +4332,7 @@
         "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Pole + Netherite Ingot give the Netherite Pole.",
         "details": [
           "It works like the other metal poles - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, diamond: 80, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
-          "Like netherite items the item does not burn. There is no way back to the Diamond Pole, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
+          "Like netherite items the item does not burn. There is no way back to the Diamond Pole, and it is no arrow shaft. Needs a diamond pickaxe or better, like the netherite block.",
           "At the smithing table it becomes the Enderite Pole.",
           "Formerly the Netherite Rod (renamed in October 2026): old items and placed blocks load as the pole."
         ]
@@ -4341,7 +4341,7 @@
         "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstange + Netheritbarren ergeben die Netheritstange.",
         "details": [
           "Sie arbeitet wie die anderen Metallstangen - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: sie zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Diamant: 80, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
-          "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zur Diamantstange, und sie ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
+          "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zur Diamantstange, und sie ist kein Pfeilschaft. Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
           "Am Schmiedetisch wird sie zur Enderitstange.",
           "Früher Netheritstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
         ]
@@ -4356,7 +4356,7 @@
         "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Pole + Enderite Ingot give the Enderite Pole.",
         "details": [
           "It works like the other metal poles and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal poles reach the strike, the nearest one wins.",
-          "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block.",
+          "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft. Needs a diamond pickaxe or better, like the enderite block.",
           "Formerly the Enderite Rod (renamed in October 2026): old items and placed blocks load as the pole."
         ]
       },
@@ -4364,7 +4364,7 @@
         "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstange + Enderitbarren ergeben die Enderitstange.",
         "details": [
           "Sie arbeitet wie die anderen Metallstangen und reicht so weit wie der Kupfer-Blitzableiter: sie zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
-          "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke.",
+          "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft. Braucht wie der Enderitblock mindestens eine Diamantspitzhacke.",
           "Früher Enderitstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
         ]
       },
@@ -4380,7 +4380,7 @@
       ],
       "en": {
         "title": "Astralit End Rod",
-        "summary": "Vanilla's End rod in the colours of the Astral line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+        "summary": "Vanilla's End rod in the colors of the Astral line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
         "details": [
           "A blaze rod over Astralit Dust crafts four, like the End rod from a blaze rod over popped chorus fruit.",
           "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a white-pink crystal rod, brightest in the middle, on a dark pink base."
@@ -4402,7 +4402,7 @@
       ],
       "en": {
         "title": "Nihilit End Rod",
-        "summary": "Vanilla's End rod in the colours of the Nihil line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
+        "summary": "Vanilla's End rod in the colors of the Nihil line: light 14, the End-rod spark at its tip, placed facing away from the clicked face.",
         "details": [
           "A blaze rod over a Nihilit Shard crafts four, like the End rod from a blaze rod over popped chorus fruit.",
           "Behaves exactly like the End rod (copied block properties): instantly mined, drops itself, turns against an End rod of its kind it is put on. Look: a pale cyan rod around a dark void middle, on a dark teal base."
@@ -5041,7 +5041,7 @@
         "summary": "Touching cores form one group that a rising edge at any core toggles as a whole.",
         "details": [
           "Recipe: Nihilit Shard, four Nihil Redstone and four End stone bricks give 4 cores.",
-          "While on every core gives strength 15 to all sides, off nothing. Neighbouring cores draw one surface with a rim only around the outside.",
+          "While on every core gives strength 15 to all sides, off nothing. Neighboring cores draw one surface with a rim only around the outside.",
           "All of it follows the server switch endSignals in simpleores-server.json."
         ]
       },

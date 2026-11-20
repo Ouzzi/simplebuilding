@@ -123,7 +123,7 @@
         "details": [
           "Door rules: the Lobby's doors work both ways, the Poolrooms' doors are dormant until activated once, from the Archives down every door breaks after a passage and must be repaired. The maintenance box in the frame of such a door activates or repairs it once; later each level has its own repair part.",
           "A door without its full frame does nothing (the action bar says why). Only players go through - no items, animals or carts.",
-          "Each level has its own fog colour and only shows its own players. The levels below the Lobby are still being built (rooms of Vanilla blocks for now)."
+          "Each level has its own fog color and only shows its own players. The levels below the Lobby are still being built (rooms of Vanilla blocks for now)."
         ]
       },
       "de": {
@@ -171,10 +171,10 @@
       ],
       "en": {
         "title": "Chalk",
-        "summary": "Chalk marks your way - in the Backrooms, in caves, in any mine. Use it on a wall, floor or ceiling: click off-centre for an arrow pointing that way, in the middle for a cross, sneak for a circle. White, red, blue and yellow; 64 marks per stick. Crafting: calcite + bone meal = 4 chalk; add a dye (red, blue, yellow) for 4 coloured ones.",
+        "summary": "Chalk marks your way - in the Backrooms, in caves, in any mine. Use it on a wall, floor or ceiling: click off-center for an arrow pointing that way, in the middle for a cross, sneak for a circle. White, red, blue and yellow; 64 marks per stick. Crafting: calcite + bone meal = 4 chalk; add a dye (red, blue, yellow) for 4 colored ones.",
         "details": [
           "Marks have no collision, break at once, drop nothing and give way to any block placed there. A glow ink sac makes a mark glow (light 4), an ink sac puts it out - as on a sign.",
-          "The Chalk Box (2 paper over 3 wooden slabs) holds chalk of all four colours, up to 256 strokes each: click chalk onto it in the inventory. Used on a block it draws with the selected colour; sneak + use in the air picks the next colour. A glow ink sac adds 16 glowing strokes. The bar shows the selected colour, the tooltip all of them.",
+          "The Chalk Box (2 paper over 3 wooden slabs) holds chalk of all four colors, up to 256 strokes each: click chalk onto it in the inventory. Used on a block it draws with the selected color; sneak + use in the air picks the next color. A glow ink sac adds 16 glowing strokes. The bar shows the selected color, the tooltip all of them.",
           "Chalk is found too: in the Warehouse and Lobby storage chests, yellow chalk in the Pipes, red and white chalk in the abandoned house - and sometimes in abandoned mineshaft chests."
         ]
       },
@@ -584,7 +584,7 @@
         "modules/simplelayers/shared/java/com/simplebuilding/modules/simplelayers/LayersRegistry.java"
       ],
       "en": {
-        "summary": "Holds up to 256 strokes of each chalk colour plus glowing strokes; click chalk onto it, sneak + use in the air for the next colour."
+        "summary": "Holds up to 256 strokes of each chalk color plus glowing strokes; click chalk onto it, sneak + use in the air for the next color."
       },
       "de": {
         "summary": "Hält bis 256 Striche je Kreidefarbe und leuchtende Striche; Kreide daraufklicken, Schleichen + Benutzen in die Luft für die nächste Farbe."

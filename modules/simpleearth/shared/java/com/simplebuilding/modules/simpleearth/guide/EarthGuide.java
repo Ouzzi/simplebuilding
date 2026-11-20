@@ -19,7 +19,7 @@ import net.minecraft.network.chat.Component;
  */
 public final class EarthGuide {
     public static final String NAMESPACE = "simpleearth";
-    public static final int PAGES = 37;
+    public static final int PAGES = 36;
 
     private EarthGuide() {
     }
