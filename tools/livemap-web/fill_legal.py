@@ -9,11 +9,13 @@ Keys of the operator file (see docs/legal/README.md):
     name (required), anschrift (required, lines separated by \\n), email (required), kleinunternehmer (required, true/false),
     telefon, ustid, wirtschafts_id (optional)
 Placeholders in the texts: {{betreiber.<key>}}, {{kontakt.allgemein}}, {{kontakt.datenschutz}}, {{kontakt.melden}};
-blocks {{#wenn betreiber.<key>}} ... {{#sonst}} ... {{/wenn}} (not nested). The three contact addresses are the operator
+blocks {{#wenn betreiber.<key>}} ... {{#sonst}} ... {{/wenn}} (not nested).
+Payment provider variant (N108 addendum 3/4, one switch for all texts): --provider paddle (default; Paddle = merchant of record) or
+stripe -> block keys zahlung.paddle, zahlung.stripe, zahlung.stripe_ku (Stripe + small business), zahlung.stripe_ust (Stripe + VAT). The three contact addresses are the operator
 e-mail unless --contact-file names forwarding addresses (owner's option, e.g. Cloudflare Email Routing).
 
     python3 tools/livemap-web/fill_legal.py --operator /root/.config/sb-betreiber.json --out /srv/legal \\
-        [--contact-file /etc/simplemods/contact.json] [--strip-internal]
+        [--contact-file /etc/simplemods/contact.json] [--strip-internal] [--provider paddle|stripe]
 """
 from __future__ import annotations
 
@@ -38,7 +40,10 @@ class FillError(Exception):
     pass
 
 
-def values(operator: dict, contact: dict | None) -> dict:
+PROVIDERS = ("paddle", "stripe")
+
+
+def values(operator: dict, contact: dict | None, provider: str = "paddle") -> dict:
     missing = [k for k in REQUIRED if k not in operator or operator[k] in ("", None)]
     if missing:
         raise FillError("missing required key(s): " + ", ".join(missing))
@@ -50,6 +55,11 @@ def values(operator: dict, contact: dict | None) -> dict:
     v = {f"betreiber.{k}": operator.get(k, "") for k in REQUIRED + OPTIONAL}
     for k in CONTACT:
         v[f"kontakt.{k}"] = (contact or {}).get(k) or operator["email"]
+    if provider not in PROVIDERS:
+        raise FillError("provider must be paddle or stripe")
+    ku = operator["kleinunternehmer"] is True
+    v.update({"zahlung.paddle": provider == "paddle", "zahlung.stripe": provider == "stripe",
+              "zahlung.stripe_ku": provider == "stripe" and ku, "zahlung.stripe_ust": provider == "stripe" and not ku})
     return v
 
 
@@ -82,6 +92,7 @@ def main(argv=None, out=print) -> int:
     ap.add_argument("--out", required=True, help="target folder outside the repository")
     ap.add_argument("--contact-file", default=None, help='optional JSON {"allgemein": ..., "datenschutz": ..., "melden": ...}')
     ap.add_argument("--strip-internal", action="store_true", help="drop the internal '<!-- intern: ... -->' header lines")
+    ap.add_argument("--provider", default="paddle", choices=PROVIDERS, help="payment provider variant of the texts (billing.provider)")
     a = ap.parse_args(argv)
     dest = Path(a.out).resolve()
     if dest == REPO or REPO in dest.parents:
@@ -92,7 +103,7 @@ def main(argv=None, out=print) -> int:
         contact = json.loads(Path(a.contact_file).read_text(encoding="utf-8")) if a.contact_file else None
         if not isinstance(operator, dict) or (contact is not None and not isinstance(contact, dict)):
             raise FillError("operator/contact file must hold a JSON object")
-        v = values(operator, contact)
+        v = values(operator, contact, a.provider)
         rendered = {name: render((Path(a.src) / name).read_text(encoding="utf-8"), v, a.strip_internal) for name in FILES}
     except (OSError, ValueError) as ex:
         out(f"failed: {type(ex).__name__} (file missing or not JSON)")
@@ -107,7 +118,8 @@ def main(argv=None, out=print) -> int:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             f.write(text)
         os.replace(tmp, dest / name)
-    out(f"filled {len(rendered)} texts into {dest} (values not shown; contact addresses: {'forwarding file' if contact else 'operator e-mail'})")
+    out(f"filled {len(rendered)} texts into {dest} (values not shown; contact addresses: {'forwarding file' if contact else 'operator e-mail'}; "
+        f"payment provider variant: {a.provider})")
     return 0
 
 

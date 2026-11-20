@@ -78,7 +78,9 @@ def layout(ctx, title: str, body: str, wide: bool = False, cls: str = "", brand:
         brand_home = ctx.url("account", "/pro")
         nav = (f'<a href="{e(ctx.url("account", "/pro"))}">Pro</a><a href="{L("/")}">Livemap</a>'
                f'<a href="{e(ctx.url("account", "/early"))}">{ctx.t("Early access", "Frühzugang")}</a>')
-    footer_links = [f'<a href="https://simplemods.de/">simplemods.de</a>', f'<a href="https://wiki.simplemods.de/">Wiki</a>']
+    links = ctx.cfg.get("links") or {}      # no fixed host names: website/wiki links come from the server config
+    footer_links = [f'<a href="{e(url)}">{e(label)}</a>' for url, label in ((links.get("site"), links.get("site_label") or "Simple Mods"),
+                                                                            (links.get("wiki"), "Wiki")) if url]
     legal = ctx.cfg["legal"]
     for key, en, de in (("imprint_url", "Imprint", "Impressum"), ("privacy_url", "Privacy", "Datenschutz"), ("terms_url", "Terms", "AGB")):
         if legal.get(key):
@@ -502,7 +504,7 @@ def connect_code(ctx, code: str, until: int, ref: str) -> str:
  data-connected="{ctx.t("Connected! The map is being prepared …", "Verbunden! Die Karte wird vorbereitet …")}">{ctx.t("Waiting for the server …", "Warte auf den Server …")}</p>
 <p><a class="btn s hidden" id="connect-open" href="/app">{ctx.t("Open the map", "Karte öffnen")}</a></p>
 </section>
-<p class="mut small">{ctx.t("Nothing happens? The server needs the Simple Livemap mod and outgoing HTTPS to livemap.simplemods.de.", "Passiert nichts? Der Server braucht die Mod Simple Livemap und ausgehendes HTTPS zu livemap.simplemods.de.")}</p>"""
+<p class="mut small">{ctx.t("Nothing happens? The server needs the Simple Livemap mod and outgoing HTTPS to ", "Passiert nichts? Der Server braucht die Mod Simple Livemap und ausgehendes HTTPS zu ")}{e(ctx.cfg.hosts["livemap"])}.</p>"""
     return layout(ctx, ctx.t("Connect a map", "Karte verbinden"), body)
 
 
@@ -663,10 +665,10 @@ def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox, c
 <h2>{ctx.t("Users", "Nutzer")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>E-Mail</th><th>{ctx.t("Role", "Rolle")}</th><th>{ctx.t("Tier", "Stufe")}</th><th>{ctx.t("Maps", "Karten")}</th><th>{ctx.t("Connects", "Verbindungen")}</th><th>{ctx.t("Created", "Erstellt")}</th><th></th></tr></thead><tbody>{urows}</tbody></table></div>
 <h2>{ctx.t("Maps", "Karten")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>{ctx.t("Map", "Karte")}</th><th>{ctx.t("Owner", "Besitzer")}</th><th>{ctx.t("State", "Zustand")}</th><th>{ctx.t("Visibility", "Sichtbarkeit")}</th><th>{ctx.t("Size", "Größe")}</th><th></th></tr></thead><tbody>{mrows}</tbody></table></div>
 {orows}"""
-    # P074: coupons are made in the Stripe dashboard; here only which codes orders used (switch: billing "coupons.enabled")
+    # P074: coupons are made in the provider's dashboard (Paddle discounts / Stripe promotion codes); here only which codes orders used
     on = ctx.svc.coupons_on()
     crow = "".join(f"<tr><td>{e(c['coupon'])}</td><td>{c['n']}</td></tr>" for c in coupons)
     body += (f'<h2>{ctx.t("Coupons", "Gutscheine")}</h2><p class="mut small">{ctx.t("Code field in the checkout:", "Codefeld im Bezahlschritt:")} '
-             f'{ctx.t("on", "an") if on else ctx.t("off", "aus")} · {ctx.t("codes are made in the Stripe dashboard", "Codes werden im Stripe-Dashboard angelegt")}</p>'
+             f'{ctx.t("on", "an") if on else ctx.t("off", "aus")} · {ctx.t("codes are made in the " + ctx.svc.provider_name().title() + " dashboard", "Codes werden im " + ctx.svc.provider_name().title() + "-Dashboard angelegt")}</p>'
              f'<div class="tw"><table><tr><th>Code</th><th>{ctx.t("Orders", "Bestellungen")}</th></tr>{crow}</table></div>')
     return layout(ctx, "Admin", body, wide=True)

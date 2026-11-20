@@ -594,7 +594,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 9
     },
-    "dataHash": "2ee14d2832a0"
+    "dataHash": "76ef659d22e8"
   },
   {
     "id": "simpleinterfaces",
@@ -1584,7 +1584,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "781ec9abaced"
+    "dataHash": "c92c40cb5fa2"
   },
   {
     "id": "simpleoptimization",
@@ -1885,7 +1885,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 5
     },
-    "dataHash": "5d694f7568a5"
+    "dataHash": "f8aaeb25c574"
   },
   {
     "id": "simplechallenges",

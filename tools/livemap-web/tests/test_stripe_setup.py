@@ -39,7 +39,9 @@ class StripeSetupTests(unittest.TestCase):
 
     def run_setup(self, *args, env=None):
         lines = []
-        rc = stripe_setup.main(["--env-file", str(env or self.env), "--billing-file", str(self.billing), *args],
+        rc = stripe_setup.main(["--env-file", str(env or self.env), "--billing-file", str(self.billing),
+                                "--webhook-url", "https://livemap-dev.example.test/api/stripe/webhook",
+                                "--return-url", "https://account-dev.example.test/pro/manage", *args],
                                api_factory=self.factory, out=lines.append)
         return rc, "\n".join(lines)
 

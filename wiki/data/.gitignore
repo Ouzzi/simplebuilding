@@ -1,0 +1,3 @@
+# N113: which git-ignored pictures the host fill step wrote (wiki/vanilla_textures.py --derived, dev and prod host).
+# Here and not in the root .gitignore so the change stays on the express lane (wiki/ only).
+derived-present.json

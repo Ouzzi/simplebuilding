@@ -26,7 +26,7 @@ class ProBase(unittest.TestCase):
     def setUp(self):
         self.dir = temp()
         self.svc, self.app, self.clock = make(self.dir)
-        self.svc.cfg.billing = {"enabled": self.billing_enabled, "secret_key": "sk_test_unit", "webhook_secret": SECRET, "prices": PRICES,
+        self.svc.cfg.billing = {"provider": "stripe", "enabled": self.billing_enabled, "secret_key": "sk_test_unit", "webhook_secret": SECRET, "prices": PRICES,
                                 "vat": {"mode": "small_business", "rate_percent": 19, "stripe_tax": False}, "grace_days": 7,
                                 "withdrawal_days": 14, "terms_version": "t1"}
         self.fake = fs.FakeStripe(now=lambda: int(self.clock()))

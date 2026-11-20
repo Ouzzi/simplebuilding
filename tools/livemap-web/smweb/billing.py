@@ -1,137 +1,72 @@
-"""Simple Mods Pro (N108): one account subscription (Basic/Pro/Ultra) that unlocks a Simple Livemap tier and further perks
-(early access first). Stripe Checkout for payment data, customer portal, signed + idempotent webhooks, entitlements table
-(account -> plan -> perks), downgrade/cancel/expiry, mails. Plan: docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md.
+"""Simple Mods Pro (N108): one account subscription (Basic/Max/Ultra) that unlocks a Simple Livemap tier and further perks
+(early access first). Orders with the consents, entitlements table (account -> plan -> perks), downgrade/cancel/expiry, gifts,
+fellow-player seats, mails. Plans: docs/ai/PLAN-B-N108-STRIPE-2026-11-19.md, docs/ai/PLAN-B-N108-PADDLE-2026-11-19.md.
 
-Off while ``billing.json`` has no ``enabled: true`` + keys: every paying path answers "coming soon". The HTTP calls to Stripe
-use the standard library only and go through ``self.stripe_api`` (tests and the local harness put a fake there; no real call
-happens without a key in the server's billing file).
+Payment provider (addendum 3/4): this module talks only to the narrow interface in ``smweb/payments`` and handles the unified
+events (``payments.base``); ``billing.provider`` picks the provider for new orders (default ``paddle`` = merchant of record,
+``stripe`` = second connection). Every provider has its own webhook route (``/api/<provider>/webhook``) checked with its own
+secret, so subscriptions of a former provider run out cleanly after a switch.
 
-Order flow (AGB Anlage 3): /pro -> /pro/order (summary, terms box required, early-start box voluntary, button "zahlungspflichtig
-bestellen") -> Stripe Checkout (payment data) -> webhooks. Without the early-start consent (section 356 Abs. 4/5 BGB) the
-entitlement starts only after the withdrawal period (``withdrawal_days``).
+Off while ``billing.json`` has no ``enabled: true`` + the provider's keys: every paying path answers "coming soon". The HTTP
+calls go through ``self.paddle_api`` / ``self.stripe_api`` (tests and the local harness put fakes there; no real call happens
+without a key in the server's billing file).
+
+Order flow (AGB/Nutzungsbedingungen): /pro -> /pro/order (summary, terms box required, early-start box voluntary, button
+"zahlungspflichtig bestellen") -> provider checkout (payment data) -> webhooks. Without the early-start consent (section 356
+Abs. 4/5 BGB) the entitlement starts only after the withdrawal period (``withdrawal_days``).
 
 Yearly plan (owner 12.11.2026, AGB 11.3): 12 months paid in advance, then MONTHLY at the monthly price, cancellable to the end of
-every paid month = a subscription schedule made right after checkout (phase 1: year price, 1 iteration; phase 2: month price,
-``end_behavior: release``).
+every paid month (Stripe: subscription schedule; Paddle: item switched to the month price before the year ends, do_not_bill).
 """
 from __future__ import annotations
 
-import hashlib
-import hmac
 import json
 import re
+import secrets
 import time
-import urllib.error
-import urllib.parse
-import urllib.request
 
 from . import billing_mail
+from . import payments
 from . import security as sec
 from .config import LIVEMAP_ALIAS, PLAN_ALIAS
 from .errors import Problem
+from .payments import base as ev_kinds
+from .payments.stripe import API, TOLERANCE, StripeError, StripeHTTP, flatten, sign, verify_signature  # noqa: F401 (old import path)
 
-TOLERANCE = 300
 ENTITLED = ("active", "trialing")
 GRACE = ("past_due",)
 RENEWAL_BUFFER = 2 * 86400
 MC_NAME_RE = re.compile(r"^[A-Za-z0-9_]{3,16}$")
 COUPON_RE = re.compile(r"^[A-Za-z0-9_-]{2,40}$")
-API = "https://api.stripe.com/v1/"
+GIFT_CODE_RE = re.compile(r"^SMG(-[A-Z2-9]{4}){3}$")
+GIFT_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
 
 
-def verify_signature(payload: bytes, header: str | None, secret: str, now: float | None = None, tolerance: int = TOLERANCE) -> bool:
-    """Stripe's scheme: header ``t=<unix>,v1=<hex>[,v1=<hex>...]``; signed text ``<t>.<raw body>``; any v1 may match."""
-    if not header or not secret or not isinstance(payload, (bytes, bytearray)):
-        return False
-    ts, sigs = None, []
-    for part in header.split(","):
-        k, _, v = part.strip().partition("=")
-        if k == "t" and v.isdigit():
-            ts = int(v)
-        elif k == "v1" and v:
-            sigs.append(v)
-    if ts is None or not sigs:
-        return False
-    if abs((now if now is not None else time.time()) - ts) > tolerance:
-        return False
-    expected = hmac.new(secret.encode("utf-8"), str(ts).encode("ascii") + b"." + bytes(payload), hashlib.sha256).hexdigest()
-    return any(hmac.compare_digest(expected, s) for s in sigs)
-
-
-def sign(payload: bytes, secret: str, ts: int | None = None) -> str:
-    """Header value as Stripe would send it (tests, local webhook replays)."""
-    ts = int(time.time()) if ts is None else ts
-    sig = hmac.new(secret.encode("utf-8"), str(ts).encode("ascii") + b"." + payload, hashlib.sha256).hexdigest()
-    return f"t={ts},v1={sig}"
-
-
-def flatten(data: dict, prefix: str = "") -> list[tuple[str, str]]:
-    """Stripe's form encoding: nested dicts/lists as ``a[b][0][c]=v``; booleans as true/false; None left out."""
-    out = []
-    for k, v in data.items():
-        key = f"{prefix}[{k}]" if prefix else str(k)
-        if isinstance(v, dict):
-            out += flatten(v, key)
-        elif isinstance(v, (list, tuple)):
-            for i, item in enumerate(v):
-                out += flatten(item, f"{key}[{i}]") if isinstance(item, dict) else [(f"{key}[{i}]", str(item))]
-        elif isinstance(v, bool):
-            out.append((key, "true" if v else "false"))
-        elif v is not None:
-            out.append((key, str(v)))
-    return out
-
-
-class StripeError(Exception):
-    def __init__(self, status: int, code: str):
-        super().__init__(f"stripe {status} {code}")
-        self.status, self.code = status, code
-
-
-class StripeHTTP:
-    """Minimal Stripe client (standard library). The key is only used in the Authorization header, never logged."""
-
-    def __init__(self, key: str, version: str | None = None, timeout: int = 20):
-        self._key = key
-        self.version = version
-        self.timeout = timeout
-
-    def __repr__(self):
-        return "StripeHTTP(key=***)"
-
-    def call(self, method: str, path: str, data: dict | None = None, idem: str | None = None) -> dict:
-        query = urllib.parse.urlencode(flatten(data or {}))
-        url, body = API + path, None
-        if method == "GET":
-            url += ("?" + query) if query else ""
-        else:
-            body = query.encode("ascii")
-        headers = {"Authorization": "Bearer " + self._key}
-        if self.version:
-            headers["Stripe-Version"] = self.version
-        if idem and method == "POST":
-            headers["Idempotency-Key"] = idem
-        req = urllib.request.Request(url, data=body, headers=headers, method=method)
-        try:
-            with urllib.request.urlopen(req, timeout=self.timeout) as r:
-                return json.load(r)
-        except urllib.error.HTTPError as ex:
-            try:
-                code = (json.load(ex).get("error") or {}).get("code") or "error"
-            except (ValueError, AttributeError):
-                code = "error"
-            raise StripeError(ex.code, str(code)[:60]) from None
-        except (urllib.error.URLError, OSError, ValueError):
-            raise StripeError(0, "network") from None
+def gift_code() -> str:
+    return "SMG-" + "-".join("".join(secrets.choice(GIFT_ALPHABET) for _ in range(4)) for _ in range(3))
 
 
 class BillingMixin:
     stripe_api = None   # set by tests/harness (fake); else made from the billing file on first use
+    paddle_api = None
 
     # ---------------------------------------------------------------- configuration
+    def provider_name(self) -> str:
+        return str(self.cfg.billing.get("provider") or payments.DEFAULT)
+
+    def provider(self, name: str | None = None):
+        """The provider for new orders (``billing.provider``) or a named one (webhook routes)."""
+        name = name or self.provider_name()
+        cache = self.__dict__.setdefault("_providers", {})
+        if name not in cache:
+            cache[name] = payments.make(self, name)
+        return cache[name]
+
     def billing_on(self) -> bool:
-        b = self.cfg.billing
-        return bool(b.get("enabled")) and bool(b.get("secret_key")) and bool(b.get("webhook_secret"))
+        try:
+            return self.provider().configured()
+        except ValueError:
+            return False
 
     def bcfg(self, key: str, default=None):
         return self.cfg.billing.get(key, default)
@@ -140,24 +75,22 @@ class BillingMixin:
         return self.cfg.plans["plans"].get(PLAN_ALIAS.get(name, name))
 
     def price_id(self, plan: str, interval: str) -> str | None:
-        prices = self.bcfg("prices") or {}
-        plan = PLAN_ALIAS.get(plan, plan)
-        old = next((k for k, v in PLAN_ALIAS.items() if v == plan), None)    # billing files written before the rename
-        return (prices.get(plan) or prices.get(old) or {}).get(interval)
+        return self.provider().price_id(plan, interval)
 
     def plan_for_price(self, price: str | None) -> tuple[str | None, str | None]:
-        for plan, ivs in (self.bcfg("prices") or {}).items():
-            for interval, pid in (ivs or {}).items():
-                if price and pid == price:
-                    return PLAN_ALIAS.get(plan, plan), interval
-        return None, None
+        return self.provider().plan_for_price(price)
 
     def plan_for_livemap_tier(self, tier: str) -> str | None:
         return next((k for k, p in self.cfg.plans["plans"].items() if p.get("livemap_tier") == tier), None)
 
     def vat(self) -> dict:
+        """Price note settings. With Paddle (merchant of record) Paddle is the seller and charges VAT: prices are final prices
+        incl. VAT whatever the operator's own VAT status is (mode "merchant_of_record")."""
         v = {"mode": "small_business", "rate_percent": 19, "stripe_tax": False}
         v.update(self.bcfg("vat") or {})
+        if self.provider_name() == "paddle":
+            v["mode"] = "merchant_of_record"
+            v["stripe_tax"] = False
         return v
 
     def contact_address(self, kind: str = "allgemein") -> str:
@@ -178,20 +111,10 @@ class BillingMixin:
         return base
 
     def mail_on(self, kind: str) -> bool:
-        return bool((self.bcfg("mails") or {}).get(kind, True))
-
-    def api(self):
-        if self.stripe_api is None:
-            if not self.billing_on():
-                raise Problem(503, "coming_soon")
-            self.stripe_api = StripeHTTP(self.bcfg("secret_key"), self.bcfg("api_version"))
-        return self.stripe_api
-
-    def stripe(self, method: str, path: str, data: dict | None = None, idem: str | None = None) -> dict:
-        try:
-            return self.api().call(method, path, data, idem)
-        except StripeError:
-            raise Problem(502, "payment_error")
+        mails = self.bcfg("mails") or {}
+        if kind == "invoice" and kind not in mails and self.provider_name() == "paddle":
+            return False      # Paddle (merchant of record) sends its own invoices/receipts
+        return bool(mails.get(kind, True))
 
     # ---------------------------------------------------------------- order (checkout)
     def active_subscription(self, uid: int):
@@ -199,12 +122,13 @@ class BillingMixin:
                            "ORDER BY updated_at DESC LIMIT 1", uid)
 
     def start_order(self, user, plan: str, interval: str, terms: bool, waiver: bool, lang: str = "de", coupon: str = "") -> str:
-        """Records the order with its consents and returns the Stripe Checkout URL (subscription mode)."""
+        """Records the order with its consents and returns the provider's checkout URL (subscription)."""
         if not self.billing_on():
             raise Problem(503, "coming_soon")
+        prov = self.provider()
         plan = PLAN_ALIAS.get(plan, plan)
         p = self.plan(plan)
-        price = self.price_id(plan, interval)
+        price = prov.price_id(plan, interval)
         if p is None or interval not in ("month", "year") or not price:
             raise Problem(400, "bad_request")
         if not user["verified_at"]:
@@ -217,7 +141,7 @@ class BillingMixin:
             raise Problem(429, "too_many")
         now = self.now()
         cents = p["price_month"] if interval == "month" else p["price_year"]
-        discounts = self.coupon_discount(coupon)      # unknown code: error before anything is stored
+        discount = self.coupon_discount(coupon)      # unknown code: error before anything is stored
         with self.db.tx() as c:
             cur = c.execute("INSERT INTO orders (user_id, plan, interval, price_cents, terms_version, terms_at, waiver, waiver_text, created_at, coupon) "
                             "VALUES (?,?,?,?,?,?,?,?,?,?)", (user["id"], plan, interval, cents, self.bcfg("terms_version", "draft"), now,
@@ -225,117 +149,85 @@ class BillingMixin:
                                                              (coupon or "").strip()[:40] or None))
             oid = cur.lastrowid
             self.audit(c, user["id"], "order", f"order {oid} {plan}/{interval} waiver={1 if waiver else 0}")
-        meta = {"order": str(oid), "plan": plan, "interval": interval, "user": str(user["id"])}
-        acc = lambda path: self.cfg.url("account", path)  # noqa: E731
-        data = {"mode": "subscription", "line_items": [{"price": price, "quantity": 1}], "client_reference_id": str(user["id"]),
-                "success_url": acc("/pro/done?session_id={CHECKOUT_SESSION_ID}"),
-                "cancel_url": acc(f"/pro/order?plan={plan}&interval={interval}"),
-                "locale": "de" if lang == "de" else "en", "metadata": meta, "subscription_data": {"metadata": meta},
-                "custom_text": {"submit": {"message": billing_mail.submit_note(lang)}}}
-        if not waiver:   # legal texts: without the early-start consent the first payment comes when the perks start (trial = withdrawal period)
-            data["subscription_data"]["trial_period_days"] = int(self.bcfg("withdrawal_days", 14))
-        if discounts:
-            data["discounts"] = discounts
-        elif self.coupons_on():
-            data["allow_promotion_codes"] = True
-        if user["billing_customer"]:
-            data["customer"] = user["billing_customer"]
-        else:
-            data["customer_email"] = user["email"]
-        if self.vat()["stripe_tax"]:
-            data["automatic_tax"] = {"enabled": True}
-            data["billing_address_collection"] = "required"
-            data["tax_id_collection"] = {"enabled": True}
-            if user["billing_customer"]:
-                data["customer_update"] = {"address": "auto", "name": "auto"}
-        session = self.stripe("POST", "checkout/sessions", data, idem=f"order-{oid}")
+        ref, url = prov.checkout_url(oid, user, plan, interval, waiver, lang, discount)
         with self.db.tx() as c:
-            c.execute("UPDATE orders SET session_id = ? WHERE id = ?", (session.get("id"), oid))
-        if not session.get("url"):
+            c.execute("UPDATE orders SET session_id = ? WHERE id = ?", (ref, oid))
+        if not url:
             raise Problem(502, "payment_error")
-        return session["url"]
+        return url
 
     def portal(self, user) -> str:
         if not self.billing_on():
             raise Problem(503, "coming_soon")
-        if not user["billing_customer"]:
-            raise Problem(400, "bad_request")
-        data = {"customer": user["billing_customer"], "return_url": self.cfg.url("account", "/pro/manage")}
-        if self.bcfg("portal_configuration"):
-            data["configuration"] = self.bcfg("portal_configuration")
-        return self.stripe("POST", "billing_portal/sessions", data)["url"]
+        return self.provider().portal_url(user)
 
     # ---------------------------------------------------------------- webhook
-    def webhook(self, payload: bytes, header: str | None) -> dict:
-        """Verified events only, each event id once (Stripe retries; duplicates answer 200 without effect)."""
-        if not self.billing_on():
-            raise Problem(503, "coming_soon")
-        if not verify_signature(payload, header, self.bcfg("webhook_secret"), now=self.now()):
-            raise Problem(400, "signature")
+    def webhook(self, payload: bytes, header=None, provider: str = "stripe") -> dict:
+        """Verified events only, each event id once (providers retry; duplicates answer 200 without effect). ``header`` may be
+        the signature header value (old call style, Stripe) or the dict of request headers (lower-case names)."""
+        headers = header if isinstance(header, dict) else {"stripe-signature": header}
         try:
-            event = json.loads(payload)
+            prov = self.provider(provider)
         except ValueError:
-            raise Problem(400, "bad_request")
-        if not isinstance(event, dict):
-            raise Problem(400, "bad_request")
-        eid, kind = str(event.get("id") or ""), str(event.get("type") or "")
-        created = event.get("created") if isinstance(event.get("created"), int) else self.now()
-        obj = (event.get("data") or {}).get("object") or {}
-        if not eid or not isinstance(obj, dict):
-            raise Problem(400, "bad_request")
+            raise Problem(404, "not_found")
+        if not prov.configured():
+            raise Problem(503, "coming_soon")
+        eid, kind, created, events = prov.parse_webhook(payload, headers)
         with self.db.tx() as c:
             if c.execute("SELECT 1 FROM stripe_events WHERE id = ?", (eid,)).fetchone():
                 return {"received": True, "duplicate": True}
             c.execute("INSERT INTO stripe_events (id, type, created, received_at) VALUES (?,?,?,?)", (eid[:100], kind[:80], created, self.now()))
         try:
-            if kind == "checkout.session.completed":
-                self.on_checkout_completed(obj)
-            elif kind.startswith("customer.subscription."):
-                self.on_subscription(obj, kind, created)
-            elif kind == "invoice.paid":
-                self.on_invoice(obj, paid=True)
-            elif kind == "invoice.payment_failed":
-                self.on_invoice(obj, paid=False)
+            for ev in events:
+                self.handle_event(prov, ev)
         except Exception:
-            with self.db.tx() as c:   # not handled: forget the id so Stripe's retry runs it again
+            with self.db.tx() as c:   # not handled: forget the id so the provider's retry runs it again
                 c.execute("DELETE FROM stripe_events WHERE id = ?", (eid,))
             raise
         return {"received": True}
 
-    def user_for(self, obj: dict):
-        meta = obj.get("metadata") or {}
-        uid = meta.get("user") or obj.get("client_reference_id")
+    def handle_event(self, prov, ev):
+        k = ev.kind
+        if k == ev_kinds.CHECKOUT_COMPLETED:
+            self.on_checkout_completed(prov, ev)
+        elif k == ev_kinds.GIFT_PAID:
+            user = self.user_for(ev)
+            order = self.db.one("SELECT * FROM orders WHERE id = ? AND kind = 'gift'", ev.order_id) if ev.order_id is not None else None
+            if user and order and order["user_id"] == user["id"]:
+                self.on_gift_paid(ev, order, user)
+        elif k in (ev_kinds.SUB_STARTED, ev_kinds.SUB_CHANGED, ev_kinds.SUB_ENDED):
+            self.on_subscription(ev)
+        elif k == ev_kinds.PAYMENT_SUCCEEDED:
+            self.on_invoice(ev, paid=True)
+        elif k == ev_kinds.PAYMENT_FAILED:
+            self.on_invoice(ev, paid=False)
+        elif k == ev_kinds.REFUND:
+            self.on_refund(ev)
+
+    def user_for(self, ev):
+        uid = ev.user_hint
         if isinstance(uid, str) and uid.isdigit():
             u = self.user(int(uid))
-            if u and (not u["billing_customer"] or not obj.get("customer") or u["billing_customer"] == obj.get("customer")):
+            if u and (not u["billing_customer"] or not ev.customer or u["billing_customer"] == ev.customer):
                 return u
-        if obj.get("customer"):
-            return self.db.one("SELECT * FROM users WHERE billing_customer = ?", obj["customer"])
+        if ev.customer:
+            return self.db.one("SELECT * FROM users WHERE billing_customer = ?", ev.customer)
         return None
 
-    def on_checkout_completed(self, obj: dict):
-        meta = obj.get("metadata") or {}
-        if meta.get("kind") == "gift" or obj.get("mode") == "payment":
-            user = self.user_for(obj)
-            order = self.db.one("SELECT * FROM orders WHERE id = ? AND kind = 'gift'", int(meta["order"])) if str(meta.get("order", "")).isdigit() else None
-            if user and order and order["user_id"] == user["id"]:
-                self.on_gift_paid(obj, order, user)
-            return
-        if obj.get("mode") not in (None, "subscription"):
-            return
-        user = self.user_for(obj)
+    def on_checkout_completed(self, prov, ev):
+        user = self.user_for(ev)
         if user is None:
             return
-        order = self.db.one("SELECT * FROM orders WHERE id = ? AND user_id = ?", int(meta["order"]), user["id"]) if str(meta.get("order", "")).isdigit() else None
-        sub_id = obj.get("subscription") if isinstance(obj.get("subscription"), str) else None
+        order = self.db.one("SELECT * FROM orders WHERE id = ? AND user_id = ?", ev.order_id, user["id"]) if ev.order_id is not None else None
+        sub_id = ev.sub_id
         if order and sub_id and order["interval"] == "year":
-            self.year_schedule(sub_id, PLAN_ALIAS.get(order["plan"], order["plan"]))   # first: when it fails, nothing is marked done and Stripe's retry repeats all
+            self.year_schedule(prov, sub_id, PLAN_ALIAS.get(order["plan"], order["plan"]))   # first: when it fails, nothing is marked done and the retry repeats all
         with self.db.tx() as c:
-            if obj.get("customer") and not user["billing_customer"]:
-                c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (obj["customer"], user["id"]))
+            if ev.customer and not user["billing_customer"]:
+                c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (ev.customer, user["id"]))
             if order and not order["completed_at"]:
                 c.execute("UPDATE orders SET completed_at = ?, subscription_id = ?, session_id = COALESCE(session_id, ?) WHERE id = ?",
-                          (self.now(), sub_id, obj.get("id"), order["id"]))
+                          (self.now(), sub_id, ev.ref, order["id"]))
             if sub_id:
                 c.execute("UPDATE subscriptions SET order_id = COALESCE(order_id, ?), user_id = COALESCE(user_id, ?) WHERE id = ?",
                           (order["id"] if order else None, user["id"], sub_id))
@@ -345,49 +237,47 @@ class BillingMixin:
                               waiver=bool(order["waiver"]), at=self.now(), order_id=order["id"])
         self.recompute(user["id"])
 
-    def year_schedule(self, sub_id: str, plan: str):
-        """Yearly in advance, then monthly (AGB 11.3): schedule from the subscription, phase 1 = current year price for one
-        iteration, phase 2 = month price, release afterwards (it runs on as a normal monthly subscription)."""
-        row = self.db.one("SELECT schedule_id FROM subscriptions WHERE id = ?", sub_id)
-        if row and row["schedule_id"]:
+    def year_schedule(self, prov, sub_id: str, plan: str):
+        """Yearly in advance, then monthly (AGB 11.3): the provider sets it up (Stripe schedule) or it is noted for later (Paddle)."""
+        row = self.db.one("SELECT schedule_id, pending_interval FROM subscriptions WHERE id = ?", sub_id)
+        if row and (row["schedule_id"] or row["pending_interval"]):
             return row["schedule_id"]
-        month, year = self.price_id(plan, "month"), self.price_id(plan, "year")
-        sched = self.stripe("POST", "subscription_schedules", {"from_subscription": sub_id}, idem=f"sched-{sub_id}")
-        phase = (sched.get("phases") or [{}])[0]
-        self.stripe("POST", f"subscription_schedules/{sched['id']}", {
-            "end_behavior": "release", "proration_behavior": "none",
-            "metadata": {"plan": plan, "kind": "year_then_month"},
-            "phases": [{"items": [{"price": year, "quantity": 1}], "start_date": phase.get("start_date"), "end_date": phase.get("end_date")},
-                       {"items": [{"price": month, "quantity": 1}], "iterations": 1}]}, idem=f"sched-phases-{sub_id}")
+        out = prov.year_then_month(sub_id, plan)
+        cols = out if isinstance(out, dict) else {"schedule_id": out}
+        sched, pend = cols.get("schedule_id"), cols.get("pending_interval")
         with self.db.tx() as c:
-            c.execute("UPDATE subscriptions SET schedule_id = ? WHERE id = ?", (sched["id"], sub_id))
-            if not row:   # the subscription event may come later; keep the schedule id in a stub row
-                c.execute("INSERT OR IGNORE INTO subscriptions (id, customer, plan, interval, status, schedule_id, updated_at) "
-                          "VALUES (?, '', ?, 'year', 'incomplete', ?, ?)", (sub_id, plan, sched["id"], self.now()))
-        return sched["id"]
+            c.execute("UPDATE subscriptions SET schedule_id = COALESCE(?, schedule_id), pending_interval = COALESCE(?, pending_interval) WHERE id = ?",
+                      (sched, pend, sub_id))
+            if not row:   # the subscription event may come later; keep the note in a stub row
+                c.execute("INSERT OR IGNORE INTO subscriptions (id, customer, plan, interval, status, schedule_id, pending_interval, updated_at) "
+                          "VALUES (?, '', ?, 'year', 'incomplete', ?, ?, ?)", (sub_id, plan, sched, pend, self.now()))
+        return sched
 
-    def on_subscription(self, obj: dict, kind: str, created: int):
-        sid = obj.get("id")
+    def on_subscription(self, ev):
+        sid = ev.sub_id
         if not isinstance(sid, str) or not sid:
             return
-        user = self.user_for(obj)
-        items = ((obj.get("items") or {}).get("data") or [])
-        price = ((items[0].get("price") or {}).get("id") if items and isinstance(items[0].get("price"), dict) else None)
-        plan, interval = self.plan_for_price(price)
-        meta = obj.get("metadata") or {}
-        plan = plan or (PLAN_ALIAS.get(meta.get("plan"), meta.get("plan")) if self.plan(meta.get("plan") or "") else None)
-        old_tier = LIVEMAP_ALIAS.get(meta.get("tier") or "", meta.get("tier") or "")
+        user = self.user_for(ev)
+        plan = ev.plan or (PLAN_ALIAS.get(ev.meta_plan, ev.meta_plan) if self.plan(ev.meta_plan or "") else None)
+        old_tier = LIVEMAP_ALIAS.get(ev.meta_tier or "", ev.meta_tier or "")
         if plan is None and self.cfg.tiers["tiers"].get(old_tier):   # subscriptions from before N108 (livemap tier)
             plan = self.plan_for_livemap_tier(old_tier)
-        interval = interval or meta.get("interval") or "month"
-        status = "canceled" if kind == "customer.subscription.deleted" else str(obj.get("status") or "")
-        period_end = obj.get("current_period_end") or (items[0].get("current_period_end") if items else None)
+        interval = ev.interval or "month"
+        status = ev.status or ""
         old = self.db.one("SELECT * FROM subscriptions WHERE id = ?", sid)
-        if old and old["event_at"] > created:
-            return   # older than what we know (Stripe does not guarantee order)
+        if old and old["event_at"] > ev.created:
+            return   # older than what we know (providers do not guarantee order)
         if plan is None:
             plan = PLAN_ALIAS.get(old["plan"], old["plan"]) if old else ""
-        order_id = int(meta["order"]) if str(meta.get("order", "")).isdigit() else None
+        # P070 / yearly-then-monthly: a change sent to the provider before the period end shows up in the same period -> the paid
+        # plan/interval stay until the period really ends (Paddle sets the item early; Stripe changes only with the new period).
+        same_period = bool(old and old["period_end"] and status in ENTITLED and (ev.period_end or 0) <= old["period_end"])
+        hold_plan = same_period and old["pending_plan"] and plan == PLAN_ALIAS.get(old["pending_plan"], old["pending_plan"]) and plan != old["plan"]
+        hold_iv = same_period and old["pending_interval"] and interval == old["pending_interval"] and interval != old["interval"]
+        if hold_plan:
+            plan = old["plan"]
+        if hold_iv:
+            interval = old["interval"]
         with self.db.tx() as c:
             c.execute("""INSERT INTO subscriptions (id, user_id, customer, plan, interval, status, period_end, cancel_at_period_end, order_id, event_at, updated_at)
                          VALUES (?,?,?,?,?,?,?,?,?,?,?)
@@ -395,34 +285,55 @@ class BillingMixin:
                            plan = excluded.plan, interval = excluded.interval, status = excluded.status, period_end = excluded.period_end,
                            cancel_at_period_end = excluded.cancel_at_period_end, order_id = COALESCE(order_id, excluded.order_id),
                            event_at = excluded.event_at, updated_at = excluded.updated_at""",
-                      (sid, user["id"] if user else None, obj.get("customer") or "", plan, interval, status,
-                       period_end if isinstance(period_end, int) else None, 1 if obj.get("cancel_at_period_end") else 0,
-                       order_id, created, self.now()))
-            if user and obj.get("customer") and not user["billing_customer"]:
-                c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (obj["customer"], user["id"]))
-            c.execute("UPDATE subscriptions SET pending_plan = NULL WHERE id = ? AND (pending_plan = ? OR ? = 'canceled')", (sid, plan, status))
+                      (sid, user["id"] if user else None, ev.customer or "", plan, interval, status,
+                       ev.period_end if isinstance(ev.period_end, int) else None, 1 if ev.cancel_at_period_end else 0,
+                       ev.order_id, ev.created, self.now()))
+            if user and ev.customer and not user["billing_customer"]:
+                c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (ev.customer, user["id"]))
+            if not hold_plan:
+                c.execute("UPDATE subscriptions SET pending_plan = NULL WHERE id = ? AND (pending_plan = ? OR ? = 'canceled')", (sid, plan, status))
+            if not hold_iv:
+                c.execute("UPDATE subscriptions SET pending_interval = NULL WHERE id = ? AND (pending_interval = ? OR ? = 'canceled')", (sid, interval, status))
+            c.execute("UPDATE subscriptions SET pending_applied = 0 WHERE id = ? AND pending_plan IS NULL AND pending_interval IS NULL", (sid,))
         if user:
             self.recompute(user["id"])
 
-    def on_invoice(self, obj: dict, paid: bool):
-        user = self.user_for({"customer": obj.get("customer"), "metadata": ((obj.get("subscription_details") or {}).get("metadata") or {})})
+    def on_invoice(self, ev, paid: bool):
+        user = self.user_for(ev)
         if user is None:
             return
-        inv = str(obj.get("id") or "")
+        inv = str(ev.ref or "")
         if paid:
-            sub = obj.get("subscription") if isinstance(obj.get("subscription"), str) else None
-            ends = [(ln.get("period") or {}).get("end") or 0 for ln in ((obj.get("lines") or {}).get("data") or []) if isinstance(ln, dict)]
-            end = max(ends or [0])
+            sub = ev.sub_id
+            end = ev.period_end or 0
             if sub and end:
                 with self.db.tx() as c:
                     c.execute("UPDATE subscriptions SET period_end = MAX(COALESCE(period_end, 0), ?), updated_at = ? WHERE id = ?", (end, self.now(), sub))
             if self.mail_on("invoice") and self.notice_once(user["id"], "invoice", inv):
-                self.billing_mail(user, "invoice", cents=obj.get("amount_paid") or 0, number=obj.get("number") or inv,
-                                  link=obj.get("hosted_invoice_url") or "", pdf=obj.get("invoice_pdf") or "")
+                self.billing_mail(user, "invoice", cents=ev.amount or 0, number=ev.number or inv, link=ev.link or "", pdf=ev.pdf or "")
             self.recompute(user["id"])
-        elif self.mail_on("payment_failed") and self.notice_once(user["id"], "failed", f"{inv}:{obj.get('attempt_count') or 0}"):
-            self.billing_mail(user, "payment_failed", cents=obj.get("amount_due") or 0, grace=int(self.bcfg("grace_days", 7)),
+        elif self.mail_on("payment_failed") and self.notice_once(user["id"], "failed", f"{inv}:{ev.attempt or 0}"):
+            self.billing_mail(user, "payment_failed", cents=ev.amount or 0, grace=int(self.bcfg("grace_days", 7)),
                               link=self.cfg.url("account", "/pro/manage"))
+
+    def on_refund(self, ev):
+        """Refund or chargeback (approved). A refunded gift ends at once; for subscriptions the provider's subscription events
+        carry the state - here only the record."""
+        txn = (ev.extra or {}).get("transaction")
+        order = self.db.one("SELECT * FROM orders WHERE session_id = ?", txn) if txn else None
+        uid = order["user_id"] if order else None
+        if uid is None and ev.customer:
+            uid = self.db.value("SELECT id FROM users WHERE billing_customer = ?", ev.customer)
+        if uid is not None and not self.notice_once(uid, "refund", str(ev.ref or txn or "")):
+            return
+        now = self.now()
+        with self.db.tx() as c:
+            if order is not None and order["kind"] == "gift":
+                c.execute("UPDATE gifts SET state = 'refunded', ends_at = MIN(COALESCE(ends_at, ?), ?) WHERE order_id = ? AND state IN ('pending', 'active')",
+                          (now, now, order["id"]))
+            self.audit(c, uid, "refund", f"{ev.action or 'refund'} {ev.ref or '-'} order {order['id'] if order else '-'} sub {ev.sub_id or '-'}")
+        if uid is not None:
+            self.recompute(uid)
 
     def notice_once(self, uid: int, kind: str, ref: str) -> bool:
         with self.db.tx() as c:
@@ -522,36 +433,26 @@ class BillingMixin:
         row = self.db.one("SELECT * FROM entitlements WHERE user_id = ?", user["id"])
         return {"sub": dict(sub) if sub else None, "ent": dict(row) if row else None, "effective": self.entitlement(user)}
 
-    # ---------------------------------------------------------------- coupons (P074): Stripe promotion codes, none made by us
+    # ---------------------------------------------------------------- coupons (P074): provider codes (Paddle discounts / Stripe promotion codes), none made by us
     def coupons_on(self) -> bool:
         c = self.bcfg("coupons")
         if isinstance(c, dict):
             return bool(c.get("enabled", True))
         return bool(self.bcfg("allow_promotion_codes", True))
 
-    def coupon_discount(self, code: str) -> list | None:
-        """[{"promotion_code": id}] for a code typed on our order page; Problem when unknown/inactive; None without a code."""
+    def coupon_discount(self, code: str):
+        """Provider reference for a code typed on our order page; Problem when unknown/inactive; None without a code."""
         code = (code or "").strip()
         if not code:
             return None
         if not self.coupons_on() or not COUPON_RE.match(code):
             raise Problem(400, "coupon_invalid")
-        found = (self.stripe("GET", "promotion_codes", {"code": code, "active": True, "limit": 1}).get("data") or [])
-        if not found:
-            raise Problem(400, "coupon_invalid")
-        return [{"promotion_code": found[0]["id"]}]
-
-    def apply_coupon(self, data: dict, code: str):
-        discounts = self.coupon_discount(code)
-        if discounts:
-            data["discounts"] = discounts           # Stripe: discounts and allow_promotion_codes exclude each other
-        elif self.coupons_on():
-            data["allow_promotion_codes"] = True
+        return self.provider().check_coupon(code)
 
     # ---------------------------------------------------------------- plan change at the period end (P070: no refunds)
     def change_plan(self, user, plan: str) -> dict:
-        """Up- or downgrade takes effect at the end of the paid period, without proration (subscription schedule: current
-        phase until the period end, then the new plan's monthly price). The same call with the current plan undoes a pending change."""
+        """Up- or downgrade takes effect at the end of the paid period, without proration (Stripe: subscription schedule;
+        Paddle: noted, item set before the period end with do_not_bill). The same call with the current plan undoes a pending change."""
         if not self.billing_on():
             raise Problem(503, "coming_soon")
         plan = PLAN_ALIAS.get(plan, plan)
@@ -561,27 +462,13 @@ class BillingMixin:
         current = PLAN_ALIAS.get(sub["plan"], sub["plan"])
         if plan == current and not sub["pending_plan"]:
             return {"pending": None}
-        new_price = self.price_id(plan, "month")
-        cur_price = self.price_id(current, sub["interval"] if sub["interval"] in ("month", "year") else "month")
-        if not new_price or not cur_price:
+        prov = self.provider()
+        if not prov.price_id(plan, "month"):
             raise Problem(400, "bad_request")
-        sched_id = sub["schedule_id"]
-        if sched_id:
-            sched = self.stripe("GET", f"subscription_schedules/{sched_id}")
-        else:
-            sched = self.stripe("POST", "subscription_schedules", {"from_subscription": sub["id"]}, idem=f"sched-change-{sub['id']}-{sub['period_end']}")
-            sched_id = sched["id"]
-        phase = (sched.get("phases") or [{}])[0]
-        self.stripe("POST", f"subscription_schedules/{sched_id}", {
-            "end_behavior": "release", "proration_behavior": "none",
-            "metadata": {"plan": current, "next": plan, "kind": "change_at_period_end"},
-            "phases": [{"items": [{"price": cur_price, "quantity": 1}], "start_date": phase.get("start_date"), "end_date": sub["period_end"] or phase.get("end_date"),
-                        "proration_behavior": "none"},
-                       {"items": [{"price": new_price, "quantity": 1}], "iterations": 1, "proration_behavior": "none",
-                        "metadata": {"plan": plan}}]}, idem=f"change-{sub['id']}-{plan}-{sub['period_end']}")
+        sched_id = prov.change_at_period_end(sub, current, plan)
         pending = None if plan == current else plan
         with self.db.tx() as c:
-            c.execute("UPDATE subscriptions SET schedule_id = ?, pending_plan = ? WHERE id = ?", (sched_id, pending, sub["id"]))
+            c.execute("UPDATE subscriptions SET schedule_id = COALESCE(?, schedule_id), pending_plan = ? WHERE id = ?", (sched_id, pending, sub["id"]))
             self.audit(c, user["id"], "plan_change", f"{current} -> {plan} at {sub['period_end']}")
         return {"pending": pending, "at": sub["period_end"]}
 
@@ -591,7 +478,7 @@ class BillingMixin:
         g.update(self.cfg.plans.get("gifts") or {})
         return g
 
-    def clean_names(self, plan: str, names) -> list[str]:
+    def clean_names(self, plan: str, names, allow_empty: bool = False) -> list[str]:
         out = []
         for n in names:
             n = (n or "").strip()
@@ -601,24 +488,28 @@ class BillingMixin:
                 raise Problem(400, "mc_name_invalid")
             if n.lower() not in [x.lower() for x in out]:
                 out.append(n)
-        if not out or len(out) > int(self.gift_cfg()["names"].get(plan, 1)):
+        if (not out and not allow_empty) or len(out) > int(self.gift_cfg()["names"].get(plan, 1)):
             raise Problem(400, "mc_name_count", max=int(self.gift_cfg()["names"].get(plan, 1)))
         return out
 
     def start_gift(self, user, plan: str, months: int, names, terms: bool, waiver: bool, lang: str = "de", coupon: str = "") -> str:
+        """One-off purchase. Names are optional (addendum 4: code redemption on a username): without names the paid gift gets a
+        gift code that the receiver redeems on /pro/redeem for a Minecraft name."""
         if not self.billing_on():
             raise Problem(503, "coming_soon")
+        prov = self.provider()
         plan = PLAN_ALIAS.get(plan, plan)
         p = self.plan(plan)
         if p is None or months not in self.gift_cfg()["months"]:
             raise Problem(400, "bad_request")
-        names = self.clean_names(plan, names)
+        names = self.clean_names(plan, names, allow_empty=True)
         if not user["verified_at"]:
             raise Problem(403, "verify_first")
         if not terms:
             raise Problem(400, "terms_needed")
         if not self.limiter.allow(f"order:{user['id']}", 10, 3600):
             raise Problem(429, "too_many")
+        discount = self.coupon_discount(coupon)      # unknown code: error before anything is stored
         now = self.now()
         cents = p["price_month"] * months
         with self.db.tx() as c:
@@ -631,33 +522,15 @@ class BillingMixin:
             for n in names:
                 c.execute("INSERT INTO gift_names (gift_id, mc_name, mc_lower, set_at) VALUES (?,?,?,?)", (gid, n, n.lower(), now))
             self.audit(c, user["id"], "order", f"gift order {oid} {plan} x{months}")
-        meta = {"kind": "gift", "order": str(oid), "gift": str(gid), "plan": plan, "months": str(months), "user": str(user["id"])}
-        acc = lambda path: self.cfg.url("account", path)  # noqa: E731
-        label = f"Simple Mods Pro {p['name']} – {'Geschenk' if lang == 'de' else 'gift'} {months} " + (("Monat" if months == 1 else "Monate") if lang == "de" else ("month" if months == 1 else "months"))
-        data = {"mode": "payment", "client_reference_id": str(user["id"]), "locale": "de" if lang == "de" else "en", "metadata": meta,
-                "line_items": [{"quantity": 1, "price_data": {"currency": "eur", "unit_amount": cents, "product_data": {"name": label},
-                                                              "tax_behavior": "inclusive"}}],
-                "payment_intent_data": {"metadata": meta, "statement_descriptor_suffix": "GESCHENK"},
-                "success_url": acc("/pro/gifts?done=1"), "cancel_url": acc(f"/pro/gift?plan={plan}"),
-                "custom_text": {"submit": {"message": billing_mail.submit_note(lang)}}}
-        if user["billing_customer"]:
-            data["customer"] = user["billing_customer"]
-        else:
-            data["customer_email"] = user["email"]
-            data["customer_creation"] = "always"
-        if self.vat()["stripe_tax"]:
-            data["automatic_tax"] = {"enabled": True}
-            data["billing_address_collection"] = "required"
-        self.apply_coupon(data, coupon)
-        session = self.stripe("POST", "checkout/sessions", data, idem=f"order-{oid}")
+        ref, url = prov.gift_checkout_url(oid, gid, user, plan, months, cents, lang, discount)
         with self.db.tx() as c:
-            c.execute("UPDATE orders SET session_id = ? WHERE id = ?", (session.get("id"), oid))
-        if not session.get("url"):
+            c.execute("UPDATE orders SET session_id = ? WHERE id = ?", (ref, oid))
+        if not url:
             raise Problem(502, "payment_error")
-        return session["url"]
+        return url
 
-    def on_gift_paid(self, obj: dict, order, user):
-        if obj.get("payment_status") not in (None, "paid", "no_payment_required"):
+    def on_gift_paid(self, ev, order, user):
+        if not ev.paid:
             return
         gift = self.db.one("SELECT * FROM gifts WHERE order_id = ?", order["id"])
         if gift is None or gift["state"] != "pending":
@@ -665,16 +538,17 @@ class BillingMixin:
         now = self.now()
         starts = now if order["waiver"] else now + int(self.bcfg("withdrawal_days", 14)) * 86400
         ends = starts + gift["months"] * int(self.gift_cfg()["days_per_month"]) * 86400
+        code = gift_code()
         with self.db.tx() as c:
-            c.execute("UPDATE gifts SET state = 'active', starts_at = ?, ends_at = ? WHERE id = ?", (starts, ends, gift["id"]))
-            c.execute("UPDATE orders SET completed_at = ?, session_id = COALESCE(session_id, ?) WHERE id = ?", (now, obj.get("id"), order["id"]))
-            if obj.get("customer") and not user["billing_customer"]:
-                c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (obj["customer"], user["id"]))
+            c.execute("UPDATE gifts SET state = 'active', starts_at = ?, ends_at = ?, code = ? WHERE id = ?", (starts, ends, code, gift["id"]))
+            c.execute("UPDATE orders SET completed_at = ?, session_id = COALESCE(session_id, ?) WHERE id = ?", (now, ev.ref, order["id"]))
+            if ev.customer and not user["billing_customer"]:
+                c.execute("UPDATE users SET billing_customer = ? WHERE id = ?", (ev.customer, user["id"]))
             self.audit(c, user["id"], "gift", f"gift {gift['id']} active until {ends}")
         names = [r["mc_name"] for r in self.gift_names(gift["id"])]
         if self.mail_on("order"):
             self.billing_mail(user, "gift", plan=gift["plan"], months=gift["months"], cents=order["price_cents"], names=", ".join(names),
-                              starts=starts, ends=ends, waiver=bool(order["waiver"]), at=now, order_id=order["id"])
+                              starts=starts, ends=ends, waiver=bool(order["waiver"]), at=now, order_id=order["id"], code=code)
 
     def gift_names(self, gift_id: int):
         return self.db.all("SELECT * FROM gift_names WHERE gift_id = ? AND removed_at IS NULL ORDER BY id", gift_id)
@@ -707,6 +581,28 @@ class BillingMixin:
                 c.execute("INSERT INTO gift_names (gift_id, mc_name, mc_lower, set_at) VALUES (?,?,?,?)", (g["id"], n, n.lower(), now))
             self.audit(c, user["id"], "gift_rename", f"gift {g['id']}")
         return names
+
+    def redeem_gift(self, code: str, names, ip: str, user=None) -> dict:
+        """Addendum 4: redeems a gift code on Minecraft name(s) - once per gift (later changes: the buyer, every 7 days). No account
+        needed; rate limited per address against guessing (12 random characters from 32)."""
+        if not self.limiter.allow(f"redeem:{ip}", 10, 3600):
+            raise Problem(429, "too_many")
+        code = (code or "").strip().upper()
+        if not GIFT_CODE_RE.match(code):
+            raise Problem(400, "gift_code_invalid")
+        now = self.now()
+        g = self.db.one("SELECT * FROM gifts WHERE code = ?", code)
+        if g is None or g["state"] != "active" or (g["ends_at"] or 0) <= now:
+            raise Problem(400, "gift_code_invalid")
+        if self.gift_names(g["id"]):
+            raise Problem(409, "gift_code_used")
+        names = self.clean_names(g["plan"], names)
+        with self.db.tx() as c:
+            for n in names:
+                c.execute("INSERT INTO gift_names (gift_id, mc_name, mc_lower, set_at) VALUES (?,?,?,?)", (g["id"], n, n.lower(), now))
+            c.execute("UPDATE gifts SET redeemed_at = ?, redeemed_by = ? WHERE id = ?", (now, user["id"] if user else None, g["id"]))
+            self.audit(c, g["buyer_id"], "gift_redeem", f"gift {g['id']}")
+        return {"plan": g["plan"], "names": names, "starts": g["starts_at"], "ends": g["ends_at"]}
 
     def mc_entitlement(self, name: str) -> dict:
         """Perks bound to a Minecraft name by active gifts (for mod perks; public, rate limited at the API)."""
@@ -872,14 +768,13 @@ class BillingMixin:
         sub = self.active_subscription(owner["id"]) if owner else None
         now = self.now()
         effective, state = None, "received"
-        if sub is not None and self.billing_on():
+        if sub is not None and self.provider_for_sub(sub).configured():
             try:
-                if sub["schedule_id"]:   # yearly plan: a subscription under a schedule cannot be cancelled directly
-                    self.stripe("POST", f"subscription_schedules/{sub['schedule_id']}/release", {}, idem=f"release-{sub['id']}")
-                self.stripe("POST", f"subscriptions/{sub['id']}", {"cancel_at_period_end": True}, idem=f"cancel-{sub['id']}-{now // 3600}")
+                self.provider_for_sub(sub).cancel_at_period_end(sub)
                 effective, state = sub["period_end"], "scheduled"
-                with self.db.tx() as c:
-                    c.execute("UPDATE subscriptions SET cancel_at_period_end = 1, schedule_id = NULL WHERE id = ?", (sub["id"],))
+                with self.db.tx() as c:   # a pending plan change / yearly-then-monthly note ends with the cancellation
+                    c.execute("UPDATE subscriptions SET cancel_at_period_end = 1, schedule_id = NULL, pending_plan = NULL, pending_interval = NULL "
+                              "WHERE id = ?", (sub["id"],))
             except Problem:
                 state = "manual"     # owner handles it (admin page); the declaration is still received and confirmed
         with self.db.tx() as c:
@@ -896,8 +791,23 @@ class BillingMixin:
         return {"at": now, "effective": effective}
 
     # ---------------------------------------------------------------- housekeeping
+    def provider_for_sub(self, sub):
+        """The provider a running subscription belongs to (customer id prefix; after a switch old subscriptions stay where they are)."""
+        cus = sub["customer"] or ""
+        for name in payments.PROVIDERS:
+            prov = self.provider(name)
+            if cus and cus.startswith(prov.customer_prefix):
+                return prov
+        return self.provider()
+
     def billing_maintenance(self):
-        """Safety net for lost webhooks: start after the withdrawal period, expiry, end of grace; notice before the year ends."""
+        """Safety net for lost webhooks: start after the withdrawal period, expiry, end of grace; notice before the year ends;
+        provider housekeeping (Paddle: changes due before the period end)."""
+        for name in payments.PROVIDERS:
+            try:
+                self.provider(name).maintenance()
+            except Exception:   # never stop the entitlement pass below
+                pass
         with self.db.tx() as c:
             c.execute("UPDATE gifts SET state = 'ended' WHERE state = 'active' AND ends_at <= ?", (self.now(),))
         uids = {r[0] for r in self.db.all("SELECT user_id FROM entitlements")} | \
@@ -909,7 +819,7 @@ class BillingMixin:
             return
         days = int(self.bcfg("year_notice_days", 42))
         now = self.now()
-        for sub in self.db.all("SELECT * FROM subscriptions WHERE interval = 'year' AND schedule_id IS NOT NULL AND status = 'active' "
+        for sub in self.db.all("SELECT * FROM subscriptions WHERE interval = 'year' AND (schedule_id IS NOT NULL OR pending_interval = 'month') AND status = 'active' "
                                "AND cancel_at_period_end = 0 AND period_end BETWEEN ? AND ?", now, now + days * 86400):
             user = self.user(sub["user_id"]) if sub["user_id"] else None
             if user and self.notice_once(user["id"], "year_notice", f"{sub['id']}:{sub['period_end']}"):
