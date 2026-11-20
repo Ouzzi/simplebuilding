@@ -1069,8 +1069,11 @@
   "trades": [],
   "config": [
     {
-      "range": null,
-      "side": null,
+      "range": [
+        5,
+        60
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.burnSeconds",
@@ -1088,8 +1091,11 @@
       "tooltipDe": "Sekunden, die ein Wesen nach der Berührung von\nSeelen-Lava brennt. Feuerimmune Wesen bleiben\nverschont. Standard: 30. Bereich: 5–60."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        7
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.flowNether",
@@ -1107,8 +1113,11 @@
       "tooltipDe": "Dasselbe im Nether. Standard: 5. Bereich: 1–7."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        4
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.flowOverworld",
@@ -1126,8 +1135,11 @@
       "tooltipDe": "Wie viele Blöcke sich Seelen-Lava in der\nOberwelt von der Quelle aus seitlich\nausbreitet. Standard: 2. Bereich: 1–4."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        0.5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.fortressChance",
@@ -1145,8 +1157,11 @@
       "tooltipDe": "Chance, dass der Lavabrunnen eines\nNetherfestungs-Eingangs zu Seelen-Lava wird\n(0.1 = 10 %). Nur neue Chunks. Standard: 0.1.\nBereich: 0–0.5."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        20
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.fuelMultiplier",
@@ -1164,8 +1179,11 @@
       "tooltipDe": "Brenndauer eines Seelen-Lava-Eimers als\nVielfaches eines Lavaeimers. Clients brauchen\ndenselben Wert. Standard: 10. Bereich: 1–20."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.soulBurnChance",
@@ -1183,8 +1201,11 @@
       "tooltipDe": "Chance je Wurf, dass der Seelenbrand 1\nFeuerschaden verursacht; Feuerresistenz blockt\nihn. 1 = jeder Wurf. Standard: 0.5.\nBereich: 0–1."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        20,
+        200
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.soulBurnIntervalTicks",
@@ -1202,8 +1223,11 @@
       "tooltipDe": "Ticks zwischen zwei Schadenswürfen des\nSeelenbrands (20 = 1 s); auf kaltem Boden\n(Wasser, Eis, Schnee) halb so viele.\nStandard: 60. Bereich: 20–200."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        5,
+        300
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.soulBurnSeconds",
@@ -1221,8 +1245,11 @@
       "tooltipDe": "Sekunden, die der Seelenbrand nach der\nBerührung von Seelen-Lava anhält.\nStandard: 120. Bereich: 5–300."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.0,
+        0.05
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.springChance",
@@ -1240,8 +1267,11 @@
       "tooltipDe": "Anteil der Lavaquellen im Nether, die bei der\nErzeugung zu Seelen-Lava werden\n(0.005 = 0,5 %). Nur neue Chunks.\nStandard: 0.005. Bereich: 0–0.05."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        10,
+        200
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.tickDelayNether",
@@ -1259,8 +1289,11 @@
       "tooltipDe": "Dasselbe im Nether. Standard: 20.\nBereich: 10–200."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        20,
+        200
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "soulLava.tickDelayOverworld",
@@ -1279,9 +1312,9 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
-      "source": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "afterglowEnderite",
       "shortName": "afterglowEnderite",
       "type": null,
@@ -1298,9 +1331,9 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
-      "source": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "afterglowIron",
       "shortName": "afterglowIron",
       "type": null,
@@ -1317,9 +1350,9 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
-      "source": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "afterglowNetherite",
       "shortName": "afterglowNetherite",
       "type": null,
@@ -1336,9 +1369,9 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
-      "source": null,
+      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "afterglowReinforced",
       "shortName": "afterglowReinforced",
       "type": null,
@@ -1355,29 +1388,10 @@
     },
     {
       "range": [
-        5,
-        60
+        0.0,
+        4.0
       ],
       "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "burnSeconds",
-      "shortName": "burnSeconds",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Burn seconds",
-      "labelDe": "Burn seconds",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": null,
-      "side": null,
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "crucibleBurnDamage",
@@ -1395,8 +1409,11 @@
       "tooltipDe": "Schaden je Treffer für Wesen, die in einem\nSchmelztiegel mit hoher oder extremer Hitze\nstehen, wie auf einem Magmablock (1 = halbes\nHerz). Nicht beim Schleichen. 0 = aus.\nStandard: 1.0. Bereich: 0–4."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        16
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "enderiteSpeed",
@@ -1414,8 +1431,11 @@
       "tooltipDe": "Dasselbe für den Enderit-Schmelztiegel.\nStandard: 8. Bereich: 1–16."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.1,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "factorExtreme",
@@ -1433,8 +1453,11 @@
       "tooltipDe": "Dasselbe bei extremer Hitze (Seelen-Lava,\nSeelen-Lava im verstärkten Kessel).\nStandard: 1.0. Bereich: 0.1–1.0."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.1,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "factorHigh",
@@ -1452,8 +1475,11 @@
       "tooltipDe": "Dasselbe bei hoher Hitze (Lava, Lavakessel,\nfließende Seelen-Lava). Schmelz- und\nHochofenrezepte brauchen mindestens hohe\nHitze. Standard: 0.75. Bereich: 0.1–1.0."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.1,
+        1.0
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "factorMedium",
@@ -1472,95 +1498,10 @@
     },
     {
       "range": [
-        1,
-        7
+        5,
+        200
       ],
       "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "flowNether",
-      "shortName": "flowNether",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Flow nether",
-      "labelDe": "Flow nether",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        1,
-        4
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "flowOverworld",
-      "shortName": "flowOverworld",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Flow overworld",
-      "labelDe": "Flow overworld",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        0.0,
-        0.5
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "fortressChance",
-      "shortName": "fortressChance",
-      "type": "double",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Fortress chance",
-      "labelDe": "Fortress chance",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        1,
-        20
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "fuelMultiplier",
-      "shortName": "fuelMultiplier",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Fuel multiplier",
-      "labelDe": "Fuel multiplier",
-      "tooltip": "Soul lava (split stage 5b, was SimpleBuilding's server.soulLava): flow, burning, soul burn, world generation, bucket fuel. */\n    public static final class SoulLavaConfig {\n        public int flowOverworld = 2;\n        public int flowNether = 5;\n        public int tickDelayOverworld = 45;\n        public int tickDelayNether = 20;\n        public int burnSeconds = 30;\n        public int soulBurnSeconds = 120;\n        public int soulBurnIntervalTicks = 60;\n        public double soulBurnChance = 0.5;\n        /** Registration-time value: restart and matching client/server files required.",
-      "tooltipDe": "Soul lava (split stage 5b, was SimpleBuilding's server.soulLava): flow, burning, soul burn, world generation, bucket fuel. */\n    public static final class SoulLavaConfig {\n        public int flowOverworld = 2;\n        public int flowNether = 5;\n        public int tickDelayOverworld = 45;\n        public int tickDelayNether = 20;\n        public int burnSeconds = 30;\n        public int soulBurnSeconds = 120;\n        public int soulBurnIntervalTicks = 60;\n        public double soulBurnChance = 0.5;\n        /** Registration-time value: restart and matching client/server files required."
-    },
-    {
-      "range": null,
-      "side": null,
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "heatRecheckTicks",
@@ -1579,7 +1520,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "netherBonus",
@@ -1597,8 +1538,11 @@
       "tooltipDe": "An: im Nether zählt jede Hitzequelle eine\nStufe heißer, höchstens bis hoch (mittel wird\nhoch). Aus: der Nether heizt wie die Oberwelt.\nStandard: true."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        16
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "netheriteSpeed",
@@ -1616,8 +1560,11 @@
       "tooltipDe": "Dasselbe für den Netherit-Schmelztiegel.\nStandard: 4. Bereich: 1–16."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        16
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "reinforcedSpeed",
@@ -1637,138 +1584,9 @@
     {
       "range": [
         0.0,
-        1.0
+        0.5
       ],
       "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "soulBurnChance",
-      "shortName": "soulBurnChance",
-      "type": "double",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Soul burn chance",
-      "labelDe": "Soul burn chance",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        20,
-        200
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "soulBurnIntervalTicks",
-      "shortName": "soulBurnIntervalTicks",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Soul burn interval ticks",
-      "labelDe": "Soul burn interval ticks",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        5,
-        300
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "soulBurnSeconds",
-      "shortName": "soulBurnSeconds",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Soul burn seconds",
-      "labelDe": "Soul burn seconds",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        0.0,
-        0.05
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "springChance",
-      "shortName": "springChance",
-      "type": "double",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Spring chance",
-      "labelDe": "Spring chance",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        10,
-        200
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "tickDelayNether",
-      "shortName": "tickDelayNether",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Tick delay nether",
-      "labelDe": "Tick delay nether",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": [
-        20,
-        200
-      ],
-      "side": "server",
-      "reload": null,
-      "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
-      "name": "tickDelayOverworld",
-      "shortName": "tickDelayOverworld",
-      "type": "int",
-      "default": null,
-      "note": null,
-      "category": "Simple Crucibles",
-      "categoryDe": "Simple Crucibles",
-      "group": null,
-      "groupDe": null,
-      "label": "Tick delay overworld",
-      "labelDe": "Tick delay overworld",
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "range": null,
-      "side": null,
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "twoBelowPenalty",
@@ -1786,8 +1604,11 @@
       "tooltipDe": "Verlangsamung, wenn die Hitzequelle zwei\nBlöcke unter dem Schmelztiegel liegt\n(dazwischen Luft, Trichter oder ein\nNicht-Vollblock). 0.1 = 10 % langsamer.\nStandard: 0.1. Bereich: 0–0.5."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        10
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java",
       "name": "villageKitchenWeight",
@@ -2033,7 +1854,7 @@
     "items": 5,
     "blocks": 9,
     "trades": 0,
-    "config": 37,
+    "config": 26,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

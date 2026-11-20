@@ -66,7 +66,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleaesthetics/shared/java/com/simplebuilding/modules/simpleaesthetics/SimpleAesthetics.java",
       "name": "enableSimpleModels",
@@ -85,7 +85,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleaesthetics/shared/java/com/simplebuilding/modules/simpleaesthetics/SimpleAesthetics.java",
       "name": "enableSimpleSounds",
@@ -104,7 +104,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleaesthetics/shared/java/com/simplebuilding/modules/simpleaesthetics/SimpleAesthetics.java",
       "name": "enableSimpleVisuals",

@@ -1145,7 +1145,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "accessEnabled",
@@ -1221,7 +1221,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "automaticDestination",
@@ -1335,7 +1335,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "giveGuideOnFirstTravel",
@@ -1449,7 +1449,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "miningEnabled",
@@ -1468,7 +1468,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "nonPlayerTravel",
@@ -1525,7 +1525,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "portalDelayTicks",
@@ -1639,7 +1639,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "shapedNetherPortals",
@@ -1658,7 +1658,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "skyblockEnabled",
@@ -1734,7 +1734,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "teleportCooldownTicks",
@@ -1772,7 +1772,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionSettings.java",
       "name": "travelEnabled",

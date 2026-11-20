@@ -5875,7 +5875,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.enabled",
@@ -5894,7 +5894,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.largeBuildCells",
@@ -5913,7 +5913,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.largeBuildPermission",
@@ -5932,7 +5932,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.maxBlocksPerTick",
@@ -5951,7 +5951,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.pictureImport",
@@ -5970,7 +5970,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.pictureMaxSide",
@@ -5989,7 +5989,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.picturePermission",
@@ -6008,7 +6008,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "blueprint.scanMaxVolume",
@@ -6027,7 +6027,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "wands.hungerCost",
@@ -6046,7 +6046,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplebuildingtools/shared/java/com/simplebuildingtools/config/BtConfig.java",
       "name": "wands.hungerMultiplier",

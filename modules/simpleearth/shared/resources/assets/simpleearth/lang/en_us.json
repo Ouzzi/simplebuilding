@@ -186,6 +186,10 @@
   "text.autoconfig.simpleearth.option.cornerEasing.@Tooltip": "The curve over a corner. Default: 3.",
   "text.autoconfig.simpleearth.option.roundness": "Roundness",
   "text.autoconfig.simpleearth.option.roundness.@Tooltip": "How far the folded cube rounds towards V5's body (1 = fully). Default: 0.6 (V27: 1).",
+  "text.autoconfig.simpleearth.option.version": "Earth Version",
+  "text.autoconfig.simpleearth.option.version.@Tooltip": "Which look of the earth is shown.\nWithout developer mode only the released versions.",
+  "text.autoconfig.simpleearth.option.developerMode": "Developer Mode",
+  "text.autoconfig.simpleearth.option.developerMode.@Tooltip": "Allows every earth version, also the unreleased ones.",
   "simpleearth.guide.chapter": "Simple Earth",
   "simpleearth.guide.page.1.title": "Simple Earth",
   "simpleearth.guide.page.1": "Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
@@ -260,9 +264,5 @@
   "simpleearth.guide.page.36.title": "Menu",
   "simpleearth.guide.page.36": "without it a saved other version falls back to V25); the list starts with edge length, render height, blend-in band and detail level (n = the edge in n pixels). Heights, size and look are one set for all versions.",
   "simpleearth.guide.page.37.title": "Menu",
-  "simpleearth.guide.page.37": "Hold left Alt for free look (the mouse turns only the camera).",
-  "text.autoconfig.simpleearth.option.version": "Earth Version",
-  "text.autoconfig.simpleearth.option.version.@Tooltip": "Which look of the earth is shown.\nWithout developer mode only the released versions.",
-  "text.autoconfig.simpleearth.option.developerMode": "Developer Mode",
-  "text.autoconfig.simpleearth.option.developerMode.@Tooltip": "Allows every earth version, also the unreleased ones."
+  "simpleearth.guide.page.37": "Hold left Alt for free look (the mouse turns only the camera)."
 }

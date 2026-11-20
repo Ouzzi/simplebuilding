@@ -3293,12 +3293,12 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemusic/shared/java/com/simplemusic/config/MusicConfig.java",
       "name": "blockedSounds",
       "shortName": "blockedSounds",
-      "type": "List",
+      "type": "list",
       "default": "music, discs,",
       "note": null,
       "category": "Simple Music",

@@ -362,19 +362,19 @@
       "categoryDe": "Simple Earth",
       "group": null,
       "groupDe": null,
-      "label": "Developer mode",
-      "labelDe": "Developer mode",
-      "tooltip": "Client config config/simpleearth-client.json: the chosen version (standard V25, W2B: only the released ones unless #developerMode), the display settings of all versions (render, EarthSettings#RENDER: detail level, render distance, budgets, E9/E10) and one value set per version (schema EarthSettings). The menu edits it live; every value is clamped to its range. /\npublic final class EarthClientConfig {\n    public static final String FILE = \"simpleearth-client.json\";\n\n    public static int version = EarthSettings.DEFAULT_VERSION;\n    /** W2B (owner 15.11.): hidden developer mode (developerMode in the file or /simpleclient simpleearth set developerMode true, not in the menu). Off: only the EarthSettings#RELEASED versions; a stored other version falls back to the standard on load. On: every version (the others in the menu's drop-down).",
-      "tooltipDe": "Client config config/simpleearth-client.json: the chosen version (standard V25, W2B: only the released ones unless #developerMode), the display settings of all versions (render, EarthSettings#RENDER: detail level, render distance, budgets, E9/E10) and one value set per version (schema EarthSettings). The menu edits it live; every value is clamped to its range. /\npublic final class EarthClientConfig {\n    public static final String FILE = \"simpleearth-client.json\";\n\n    public static int version = EarthSettings.DEFAULT_VERSION;\n    /** W2B (owner 15.11.): hidden developer mode (developerMode in the file or /simpleclient simpleearth set developerMode true, not in the menu). Off: only the EarthSettings#RELEASED versions; a stored other version falls back to the standard on load. On: every version (the others in the menu's drop-down)."
+      "label": "Developer Mode",
+      "labelDe": "Entwicklermodus",
+      "tooltip": "Allows every earth version, also the unreleased ones.",
+      "tooltipDe": "Erlaubt jede Erd-Version, auch die unveröffentlichten."
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleearth/shared/java/com/simplebuilding/modules/simpleearth/config/EarthServerConfig.java",
       "name": "dimensions",
       "shortName": "dimensions",
-      "type": "List",
+      "type": "list",
       "default": "the",
       "note": null,
       "category": "Simple Earth",
@@ -1273,10 +1273,10 @@
       "categoryDe": "Simple Earth",
       "group": null,
       "groupDe": null,
-      "label": "Version",
-      "labelDe": "Version",
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Earth Version",
+      "labelDe": "Erd-Version",
+      "tooltip": "Which look of the earth is shown.\nWithout developer mode only the released versions.",
+      "tooltipDe": "Welche Darstellung der Erde gezeigt wird.\nOhne Entwicklermodus nur die veröffentlichten Versionen."
     },
     {
       "range": null,
