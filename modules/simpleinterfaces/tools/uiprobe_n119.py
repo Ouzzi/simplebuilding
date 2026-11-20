@@ -8,7 +8,11 @@ Simple Ores  "Erze/Platten/Türen/Spiegel im Kreativ-Tab, Redstone-Linien an/aus
   n119-ores-lines     the three lines side by side (Astral fed by an Astral Redstone block, Nihil by a Nihil Redstone block, Bridge by a
                       redstone block), 15 dust each, a lamp of the line at the end: signal 15 / 7 / 1 at piece 1 / 9 / 15 read from
                       the block state, lamps lit; day + night shots, close-ups at 15, 7 and 1; then the sources taken away: every piece
-                      0, lamps dark, shots "aus".
+                      0, the vanilla lamp (Bridge) dark, the Astralit/Nihilith lamps stay lit (copper-bulb toggle, EndSignalLampBlock),
+                      shots "aus"; a second pulse toggles them off (vanilla lamp on again), sources away: all three dark.
+                      Built lamp first, source last: a lamp set by /setblock next to an already powered line does not check its
+                      input (vanilla RedstoneLampBlock has no onPlace; same with vanilla dust) - that, not the dust, kept the
+                      Bridge lamp dark in probe 1 (gametest line_line_end_lights_vanilla_lamp_at_power_one).
   n119-ores-plates    lead plates and silver sheets with 1..8 layers lying on the floor, plates on a wall, the eight metal doors (closed
                       and every second one open), trapdoors, the silver mirror on floor / wall / ceiling; every state read back.
   n119-ores-worldgen  the real configured features placed with /place feature into blocks of host rock, then the front half cut away
@@ -214,12 +218,14 @@ def ores_lines(s):
     x, y, z = _pos(s)
     s.chat(f'fill {x - 2} {y - 1} {z + 2} {x + 20} {y - 1} {z + 10} minecraft:smooth_stone', 0.4)
     s.chat(f'fill {x - 2} {y} {z + 2} {x + 20} {y + 3} {z + 10} minecraft:air', 0.4)
+    # lamp first, source last (a /setblock lamp beside a powered line would not check its input, like vanilla)
     for i, (name, dust, source, lamp) in enumerate(LANES):
         lz = z + 4 + 2 * i
-        s.chat(f'setblock {x + 1} {y} {lz} {source}', 0.25)
+        s.chat(f'setblock {x + 17} {y} {lz} {lamp}', 0.25)
         for k in range(15):
             s.chat(f'setblock {x + 2 + k} {y} {lz} {dust}[east=side,west=side]', 0.12)
-        s.chat(f'setblock {x + 17} {y} {lz} {lamp}', 0.25)
+    for i, (name, dust, source, lamp) in enumerate(LANES):
+        s.chat(f'setblock {x + 1} {y} {z + 4 + 2 * i} {source}', 0.25)
     time.sleep(2.0)
     tags = []
     for i, (name, dust, source, lamp) in enumerate(LANES):
@@ -252,15 +258,41 @@ def ores_lines(s):
         for k in (0, 8, 14):
             _say_if(s, x + 2 + k, y, lz, f'{dust}[power=0]', f'{name}-off{k}')
             tags.append(f'{name}-off{k}')
-        _say_if(s, x + 17, y, lz, f'{lamp}[lit=false]', f'{name}-lamp-off')
-        tags.append(f'{name}-lamp-off')
-    _check_said(s, 'lines off: sources removed, every piece 0, lamps dark', tags)
+        # Astralit/Nihilith lamps toggle like a copper bulb and keep their state; the vanilla lamp follows the signal.
+        keep = name != 'bridge'
+        _say_if(s, x + 17, y, lz, f'{lamp}[lit={"true" if keep else "false"}]', f'{name}-lamp-after-off')
+        tags.append(f'{name}-lamp-after-off')
+    _check_said(s, 'lines off: sources removed, every piece 0, vanilla lamp dark, Astralit/Nihilith lamps stay lit (toggle)', tags)
     _look(s, x + 9.5, y + 6, z - 1.5, x + 9.5, y, z + 6, 1.5)
     s.shot('aus-nacht-uebersicht')
     s.chat('time set noon', 0.4)
     s.chat('effect give @s night_vision 99999 0 true', 0.3)
     _look(s, x + 9.5, y + 6, z - 1.5, x + 9.5, y, z + 6, 1.0)
     s.shot('aus-tag-uebersicht')
+    # second pulse: the rising edge toggles the Astralit/Nihilith lamps off, the vanilla lamp lights again
+    for i, (name, dust, source, lamp) in enumerate(LANES):
+        s.chat(f'setblock {x + 1} {y} {z + 4 + 2 * i} {source}', 0.25)
+    time.sleep(2.0)
+    tags = []
+    for i, (name, dust, source, lamp) in enumerate(LANES):
+        lz = z + 4 + 2 * i
+        _say_if(s, x + 17, y, lz, f'{lamp}[lit={"true" if name == "bridge" else "false"}]', f'{name}-lamp-pulse2')
+        tags.append(f'{name}-lamp-pulse2')
+    _check_said(s, 'second pulse: Astralit/Nihilith lamps toggle off, vanilla lamp lit again', tags)
+    _look(s, x + 9.5, y + 6, z - 1.5, x + 9.5, y, z + 6, 1.0)
+    s.shot('puls2-tag-uebersicht')
+    for i in range(len(LANES)):
+        s.chat(f'setblock {x + 1} {y} {z + 4 + 2 * i} minecraft:smooth_stone', 0.25)
+    time.sleep(2.5)
+    tags = []
+    for i, (name, dust, source, lamp) in enumerate(LANES):
+        lz = z + 4 + 2 * i
+        _say_if(s, x + 2 + 14, y, lz, f'{dust}[power=0]', f'{name}-end-off2')
+        _say_if(s, x + 17, y, lz, f'{lamp}[lit=false]', f'{name}-lamp-dark2')
+        tags += [f'{name}-end-off2', f'{name}-lamp-dark2']
+    _check_said(s, 'sources away again: every lamp dark', tags)
+    _look(s, x + 9.5, y + 6, z - 1.5, x + 9.5, y, z + 6, 1.0)
+    s.shot('aus2-tag-uebersicht')
 
 
 # ---------------------------------------------------------------- Simple Ores: plates, doors, mirrors
@@ -358,8 +390,10 @@ def ores_worldgen(s):
     z0, zc, z1 = z + 6, z + 11, z + 16       # cube depth; cut plane at zc
     cubes = [
         ('overworld', x + 4, [('minecraft:deepslate', 0, 4), ('minecraft:stone', 5, 10)],
-         [('tin_ore', 3, 8), ('lead_ore', 7, 8), ('silver_ore', 5, 6), ('nickel_ore', 3, 2), ('dimensional_scrap', 7, 2),
-          ('zinc_geode', 5, 4)],
+         # the geode first: it is placed only in untouched host rock (radius-3 check ball, no foreign ore) - placed after
+         # the veins (silver 2 above it) it failed in probe 1; first in pure stone/deepslate it always fits.
+         [('zinc_geode', 5, 4), ('tin_ore', 3, 8), ('lead_ore', 7, 8), ('silver_ore', 5, 6), ('nickel_ore', 3, 2),
+          ('dimensional_scrap', 7, 2)],
          ['tin_ore', 'lead_ore', 'silver_ore', 'deepslate_nickel_ore', 'dimensional_scrap', 'zinc_ore', 'geode_crust']),
         ('nether', x + 20, [('minecraft:netherrack', 0, 10)],
          [('nether_dimensional_scrap', 3, 3), ('nether_dimensional_scrap', 5, 6), ('nether_dimensional_scrap', 7, 8)],
