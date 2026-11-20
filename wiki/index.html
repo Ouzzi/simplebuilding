@@ -1598,7 +1598,7 @@ en: {
   arIntro: 'Every way to make something, as cards: crafting, cooking, smithing, the stonecutter and in-world transformations - from this mod and from vanilla, for every Minecraft line. Click any ingredient to see its recipes.',
   arStation: 'Station', arSource: 'Source', arLine: 'Minecraft', arSearch: 'Filter recipes: item, ingredient, id …',
   arAll: 'All', arSrcMod: 'SimpleBuilding', arSrcVanilla: 'Vanilla', arLineBoth: 'All lines',
-  arMerge: 'Merge variants (colours, wood types)',
+  arMerge: 'Merge variants (colors, wood types)',
   arCount: '{0} cards · {1} recipes',
   arMore: 'Show more ({0} left)',
   arLoading: 'Loading the vanilla recipes …',
@@ -1636,7 +1636,7 @@ en: {
   'cat.tools': 'Tools & gear', 'cat.building': 'Building blocks', 'cat.storage': 'Storage',
   'cat.machines': 'Machines', 'cat.gadgets': 'Pads & gadgets', 'cat.end': 'End & enderite',
   'cat.trims': 'Trims & upgrades', 'cat.materials': 'Materials & food', 'cat.misc': 'Guide books & misc',
-  'catd.tools': 'Chisels, sledgehammers, building wands, octants, blueprints and the enderite tools and armour.',
+  'catd.tools': 'Chisels, sledgehammers, building wands, octants, blueprints and the enderite tools and armor.',
   'catd.building': 'Astralit, nihilith and ender quartz blocks, checkers, polished stone and gravity-defying sand and gravel.',
   'catd.storage': 'Backpacks, bundles and quivers in their upgrade tiers.',
   'catd.machines': 'Faster furnaces, smokers, blast furnaces, hoppers and pistons.',
@@ -3311,7 +3311,14 @@ function itemTile(e) {
 function catCard(c) {
   var n = catEntries()[c.key].length;
   return '<a class="cat-card' + (c.end ? ' cat-end' : '') + '" href="#/cat/' + c.key + '">' + slotHtml(catIcon(c), 1, { noLink: true }) +
-    '<div><div class="ct">' + esc(catLabel(c.key)) + '<span class="n">' + n + '</span></div><div class="cd">' + esc(T('catd.' + c.key)) + '</div></div></a>';
+    '<div><div class="ct">' + esc(catLabel(c.key)) + '<span class="n">' + n + '</span></div><div class="cd">' + esc(catDesc(c.key)) + '</div></div></a>';
+}
+/* N119: the catd.* texts describe SimpleBuilding's own catalogue (furnaces, pads, backpacks ...); a sub-mod's page names the
+   first entries of the category in that mod instead (Simple Ores showed "Maschinen: schnellere Öfen ..." for its two items). */
+function catDesc(key) {
+  if (!MODID || MODID === 'simplebuilding') return T('catd.' + key);
+  var list = catEntries()[key] || [];
+  return list.slice(0, 4).map(function (e) { return nameOf(e) || prettyFromId(e.id); }).join(', ') + (list.length > 4 ? ', …' : '');
 }
 /* Items einer Kategorie in Familien/Materialgruppen; Einzelstuecke sammelt "Weitere". */
 function catGroups(key) {
@@ -3335,7 +3342,7 @@ function pageCategory(key) {
   if (!c) return notFound(T('wordSection'), key);
   var h = crumbs([{ label: catLabel(key) }]);
   var n = catEntries()[key].length;
-  h += '<div class="mk-head">' + slotHtml(catIcon(c), 1, { cls: 'slot-result', noLink: true }) + '<div><h1>' + esc(catLabel(key)) + '</h1><p class="muted" style="margin:0">' + esc(T('catd.' + key)) + ' ' + esc(T('catPageIntro', n)) + '</p></div></div>';
+  h += '<div class="mk-head">' + slotHtml(catIcon(c), 1, { cls: 'slot-result', noLink: true }) + '<div><h1>' + esc(catLabel(key)) + '</h1><p class="muted" style="margin:0">' + esc(catDesc(key)) + ' ' + esc(T('catPageIntro', n)) + '</p></div></div>';
   var feats = featuresOfCat(key);
   if (feats.length) h += '<h3>' + esc(T('catGuides')) + '</h3><div class="guide-grid">' + feats.map(guideLink).join('') + '</div>';
   h += '<h3>' + esc(T('catAll')) + '</h3>';
@@ -6902,7 +6909,7 @@ Object.assign(STR.en, {
   txSortName: 'Name', txSortModule: 'Module', txSortKind: 'Kind', txSortSize: 'Size', txSortModified: 'Last changed', txDir: 'Reverse order',
   txCount: '{0} of {1}', txEmpty: 'No texture matches the filters.', txReset: 'Reset filters',
   txUiShotsIntro: 'Screenshots of the mod screens, imported with python wiki/generate.py --ui-shots <folder>.', txUiNoShots: 'No screenshots imported (python wiki/generate.py --ui-shots <folder>), so this shows the GUI textures of the mods.',
-  txZoom: 'Zoom', txZoomCap: '(here at most {0}×)', txOriginal: 'Original', txBg: 'Background', txBgLight: 'Light', txBgDark: 'Dark', txBgSlot: 'Slot grey',
+  txZoom: 'Zoom', txZoomCap: '(here at most {0}×)', txOriginal: 'Original', txBg: 'Background', txBgLight: 'Light', txBgDark: 'Dark', txBgSlot: 'Slot gray',
   txPlay: 'Play', txPause: 'Pause', txFrame: 'Frame {0}/{1}', txFrames: '{0} frames, {1} ticks each', txClose: 'Close', txPrev: 'Previous', txNext: 'Next',
   txSource: 'Source', txFile: 'Wiki file', txSize: 'Size', txFrameSize: 'Frame', txBytes: 'Bytes', txModified: 'Last changed', txMcmeta: '.mcmeta', txOpenEntry: 'Open item page', txOpenFile: 'Open file',
   txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Entity', txKind_gui: 'GUI', txKind_particle: 'Particle', txKind_mob_effect: 'Effect', txKind_trims: 'Armor trim', txKind_palettes: 'Palette', txKind_misc: 'Misc', txKind_painting: 'Painting', txKind_models: 'Armor model', txKind_environment: 'Environment', txKind_shot: 'Screenshot',
