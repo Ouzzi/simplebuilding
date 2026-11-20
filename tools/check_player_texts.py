@@ -38,6 +38,7 @@ R = Path(__file__).resolve().parents[1]
 CODE = re.compile(
     r"#[0-9A-Fa-f]{6}\b"                                  # hex color: consumed here, filtered below
     r"|\b[A-Z]{1,5}\d+[A-Za-z]?(?:-[A-Z]?\d+[A-Za-z]?)*(?:-[A-Z]-\d+)?\b"  # N86, WG26-2, IG31-13, PAL35b, REV2-A-1
+    r"|\b[A-Z]{2,5}-\d+[A-Za-z]?\b(?!\.\d)"             # N122: hyphen between letters and number (FX-1)
     r"|\bPLAN[-\w]*|\bdocs/ai/[\w./-]*|\bPRINZIPIEN\b"
     r"|\bsimple[a-z]+-\d+\b"                              # simpleearth-2 (task codes named after the mod)
     r"|\b(?:split stage|Split-Stufe|Stufe) \d+[a-z]-\d+\b"
@@ -48,6 +49,7 @@ HISTORY = re.compile(
     r"|\bport[- ]run\b"                                                     # "until the port run" (release process)
     r"|\((?:owner|Besitzer)\)|\bowner decision\b|\bBesitzer-?[Ee]ntscheid\w*"
     r"|\b(?:owner|Besitzer)[ ,]+N\d+"
+    r"|\buntil the owner (?:picks|chooses|decides)\b|\bbis der Besitzer (?:\w+ ){0,2}(?:wählt|aussucht|entscheidet)\b"  # N122
     r"|\bowner'?s (?:choice|approval|decision)\b|\bwaiting for the owner\b|\b(?:Wahl|Abnahme|Freigabe|Entscheidung) des Besitzers\b"
     r"|\b(?:the )?owner'?s [\w-]+ principle\b|\b[\w-]*Prinzip des Besitzers\b"  # N120: "(the owner's filter principle)"
     r"|\b(?:since|seit|before|vor|until|bis) (?:bundle|Bündel|Paket) \d+"
@@ -62,7 +64,7 @@ BRITISH = re.compile(
 
 # Real names that look like codes (exact token match). Per mod where the meaning is local.
 ALLOW = {
-    "*": {*(f"F{i}" for i in range(1, 13)), "OP4", "MP3", "UTF8", "RGB"},
+    "*": {*(f"F{i}" for i in range(1, 13)), "OP4", "MP3", "UTF8", "RGB", "SHA-1", "SHA-256", "UTF-8"},
     "simpleearth": {f"V{i}" for i in range(1, 28)},       # version names on the Earth screen buttons ("V25")
     "simplebuildingtools": {"P1", "P2"},                  # Octant GUI labels (simplebuildingtools.gui.label.pos1)
     "simpletweaks": {"D3"},                               # schedule value "D3" = every 3rd day (command syntax)

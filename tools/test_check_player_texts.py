@@ -32,6 +32,12 @@ class FindingsTest(unittest.TestCase):
         self.assertEqual(kinds("x", "en", "Filter (the owner's filter principle, as with the hoppers):"), ["history"])
         self.assertEqual(kinds("x", "de", "Filter (Filter-Prinzip des Besitzers, wie bei den Trichtern):"), ["history"])
         self.assertEqual(kinds("x", "en", "On the owner's own land everybody is reached."), [])  # the block owner in play
+        # N122: a code with a hyphen between letters and number slipped through (simplemobs "Weak extra effects (FX-1, ...)"),
+        # and a texture status naming the owner (simplemobs strong explosives)
+        self.assertEqual(kinds("x", "en", "Weak extra effects (FX-1, levels I-V)"), ["code"])
+        self.assertEqual(kinds("x", "en", "Looks are placeholders until the owner picks a texture."), ["history"])
+        self.assertEqual(kinds("x", "de", "Platzhalter, bis der Besitzer eine Textur wählt."), ["history"])
+        self.assertEqual(kinds("x", "en", "The buyer waits until the owner closes his screen; SHA-1 and UTF-8 checks."), [])
         self.assertEqual(kinds("x", "en", "The restart was cancelled; it stays centred."), ["british", "british"])
         self.assertEqual(kinds("x", "de", "Farbe, cancelled"), [])  # British spelling only counts in English text
 

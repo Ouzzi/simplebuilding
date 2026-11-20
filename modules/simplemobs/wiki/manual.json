@@ -21,7 +21,7 @@
           "Special attacks, each announced by sound and particles, with a 1.5 s pause after each: ground shockwave when you stay close (1 s wind-up, a ring marks 5 blocks; 10 damage - jump or step out), echo shriek every 12 s at 6-10 blocks (1 s wind-up, 8 damage and push - cover in its line of sight blocks it), charge at 6-16 blocks (crouches 0.8 s on a locked line, 12 damage - sidestep; into a wall it staggers 1.5 s), sculk tendrils (marks under and around you pulse 1.5 s, then 4 damage and Slowness II 3 s - step off). Below 50 % it hungers: faster, longer reach and traps around you every 15 s (SimpleBuilding Sculk Jaws for 20 s, otherwise sculk snares). Below 20 % it rages: shrieks every 6 s, other attacks a third more often. It never calls reinforcements.",
           "Drops: 3-5 echo shards, one Echo Core, (with SimpleBuilding) 1-2 Sculk Jaws plus Looting, at most 4 - without SimpleBuilding one more echo shard instead. 50 XP. Never spawns naturally.",
           "Server config simplemobs-server.json: howlerEnabled, howlerMaxLight, howlerSculkTrail, howlerSculkTrailMax, howlerTransformSculk, howlerHunger, howlerRagePulse, howlerPulseInterval, howlerPulseTicks, howlerPulseRadius (rage-only Darkness pulse), howlerDespawnMinutes, howlerAllowDimensions. Client config simplemobs-client.json: reduceMotion (true turns off the camera shake of shockwave and shriek). mobGriefing off: no sculk trail, no sculk ground, Vanilla snares instead of jaw blocks.",
-          "Voice: deep breathing while lurking, a hollow howl, a raging growl, a dull pained grunt and a sinking death wail (ElevenLabs takes, mode eleven, the default); heartbeat, steps, sniffing, noticing and the hunger sound stay as before. Build option -PsbHowlerSounds=synth|vanilla|mix|eleven."
+          "Voice: deep breathing while lurking, a hollow howl, a raging growl, a dull pained grunt and a sinking death wail (ElevenLabs takes, mode eleven, the default); the heartbeat and the steps are synthesized, sniffing, noticing and the hunger sound are built from Vanilla sounds. Build option -PsbHowlerSounds=synth|vanilla|mix|eleven."
         ]
       },
       "de": {
@@ -35,7 +35,7 @@
           "Spezialangriffe, jeweils per Geräusch und Partikeln angekündigt, danach 1,5 s Pause: Boden-Schockwelle, wenn du nah bleibst (1 s Aufladen, ein Ring markiert 5 Blöcke; 10 Schaden – springen oder rausgehen), Echo-Schrei alle 12 s auf 6–10 Blöcke (1 s Aufladen, 8 Schaden und Rückstoß – Deckung in seiner Sichtlinie blockt ihn), Ansturm auf 6–16 Blöcke (duckt sich 0,8 s auf einer festen Linie, 12 Schaden – zur Seite ausweichen; gegen eine Wand taumelt er 1,5 s), Sculk-Ranken (Markierungen unter und neben dir pulsieren 1,5 s, dann 4 Schaden und Langsamkeit II 3 s – runtergehen). Unter 50 % hungert er: schneller, mehr Reichweite und alle 15 s Fallen um dich (SimpleBuilding-Sculk-Kiefer für 20 s, sonst Sculk-Schlingen). Unter 20 % tobt er: Schrei alle 6 s, übrige Angriffe ein Drittel öfter. Er ruft nie Verstärkung.",
           "Beute: 3–5 Echosplitter, ein Echokern, (mit SimpleBuilding) 1–2 Sculk-Kiefer plus Plünderung, höchstens 4 – ohne SimpleBuilding stattdessen ein Echosplitter mehr. 50 EP. Spawnt nie natürlich.",
           "Server-Konfiguration simplemobs-server.json: howlerEnabled, howlerMaxLight, howlerSculkTrail, howlerSculkTrailMax, howlerTransformSculk, howlerHunger, howlerRagePulse, howlerPulseInterval, howlerPulseTicks, howlerPulseRadius (Darkness-Puls nur in der Wut), howlerDespawnMinutes, howlerAllowDimensions. Client-Konfiguration simplemobs-client.json: reduceMotion (true schaltet das Kamerawackeln von Schockwelle und Schrei ab). mobGriefing aus: keine Sculk-Spur, kein Sculk-Boden, Vanilla-Schlingen statt Kiefer-Blöcken.",
-          "Stimme: tiefes Atmen beim Lauern, ein hohles Heulen, wütendes Knurren, ein dumpfer Schmerzlaut und ein immer tiefer sinkender Todesschrei (ElevenLabs-Takes, Modus eleven, Standard); Herzschlag, Schritte, Schnüffeln, Bemerken und Hunger-Laut bleiben wie bisher. Bau-Option -PsbHowlerSounds=synth|vanilla|mix|eleven."
+          "Stimme: tiefes Atmen beim Lauern, ein hohles Heulen, wütendes Knurren, ein dumpfer Schmerzlaut und ein immer tiefer sinkender Todesschrei (ElevenLabs-Takes, Modus eleven, Standard); Herzschlag und Schritte sind synthetisch, Schnüffeln, Bemerken und Hunger-Laut entstehen aus Vanilla-Klängen. Bau-Option -PsbHowlerSounds=synth|vanilla|mix|eleven."
         ]
       }
     },
@@ -134,7 +134,7 @@
           "Volatile: every hit on the bearer sets off a small explosion at the bearer: about 3 hearts at melee distance on level I, falling off to nothing at 4 blocks (+0.5 blocks and +1 heart per level). The bearer is immune to it, no blocks are destroyed. Bystanders are hurt like in any explosion.",
           "Deflection: 10 % per level (50 % at level V) that a hit is negated completely. Fall, fire, void and other damage without an attacker are never deflected.",
           "Mirror: every hit is a coin flip whose chance of reflecting rises with the level, 20 % (I) to 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0.2 and mirrorReflectChance 0.5): either the bearer takes 120 % (I) to 200 % (V) damage, or the attacker takes 20 % (I) to 100 % (V) of the hit back. Reflected damage never kills: the attacker is left at half a heart.",
-          "Weak extra effects (FX-1, levels I-V, same command with simplemobs:leech|frostbite|magnetic|tracer|decay): Leech heals the bearer by 5 % of the damage of its hits per level (at most 25 %). Frostbite freezes the target for 7 s and slows it 3 s (Slowness II from level III). Magnetic pulls dropped items and experience orbs within 3 blocks per level (at most 12) to the bearer. Tracer makes hit targets glow for 5 s (Glowing, visible to everyone as in Vanilla). Decay poisons hit targets (60 ticks plus 40 per level); undead wither for half as long. No potions yet; they change nothing until someone carries them."
+          "Weak extra effects (levels I-V, same command with simplemobs:leech|frostbite|magnetic|tracer|decay): Leech heals the bearer by 5 % of the damage of its hits per level (at most 25 %). Frostbite freezes the target for 7 s and slows it 3 s (Slowness II from level III). Magnetic pulls dropped items and experience orbs within 3 blocks per level (at most 12) to the bearer. Tracer makes hit targets glow for 5 s (Glowing, visible to everyone as in Vanilla). Decay poisons hit targets (60 ticks plus 40 per level); undead wither for half as long. No potions yet; they change nothing until someone carries them."
         ]
       },
       "de": {
@@ -146,7 +146,7 @@
           "Explosiv: jeder Treffer auf den Träger löst am Träger eine kleine Explosion aus: auf Stufe I etwa 3 Herzen auf Nahkampf-Abstand, nach außen abnehmend bis 0 bei 4 Blöcken (je Stufe +0,5 Blöcke und +1 Herz). Der Träger ist immun, es werden keine Blöcke zerstört. Umstehende werden wie bei jeder Explosion verletzt.",
           "Abwehr: 10 % je Stufe (50 % auf Stufe V), dass ein Treffer komplett negiert wird. Fall-, Feuer-, Void- und anderer Schaden ohne Angreifer wird nie abgewehrt.",
           "Spiegel: jeder Treffer ist ein Münzwurf, dessen Rückschlag-Chance mit der Stufe steigt, 20 % (I) bis 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0,2 und mirrorReflectChance 0,5): entweder erleidet der Träger 120 % (I) bis 200 % (V) Schaden, oder der Schläger bekommt 20 % (I) bis 100 % (V) des Treffers zurück. Rückschaden tötet nie: der Schläger bleibt bei einem halben Herz.",
-          "Schwache Zusatz-Effekte (FX-1, Stufe I-V, gleicher Befehl mit simplemobs:leech|frostbite|magnetic|tracer|decay): Blutsauger heilt den Träger je Stufe um 5 % des Schadens seiner Treffer (höchstens 25 %). Frostbiss lässt das Ziel 7 s einfrieren und 3 s verlangsamen (ab Stufe III Langsamkeit II). Magnetisch zieht fallen gelassene Gegenstände und Erfahrungskugeln im Umkreis von 3 Blöcken je Stufe (höchstens 12) zum Träger. Leuchtspur lässt getroffene Ziele 5 s leuchten (Leuchten, für alle sichtbar wie in Vanilla). Zerfall vergiftet getroffene Ziele (60 Ticks plus 40 je Stufe); Untote verdorren halb so lange. Noch keine Tränke; ohne Träger ändern sie nichts."
+          "Schwache Zusatz-Effekte (Stufe I-V, gleicher Befehl mit simplemobs:leech|frostbite|magnetic|tracer|decay): Blutsauger heilt den Träger je Stufe um 5 % des Schadens seiner Treffer (höchstens 25 %). Frostbiss lässt das Ziel 7 s einfrieren und 3 s verlangsamen (ab Stufe III Langsamkeit II). Magnetisch zieht fallen gelassene Gegenstände und Erfahrungskugeln im Umkreis von 3 Blöcken je Stufe (höchstens 12) zum Träger. Leuchtspur lässt getroffene Ziele 5 s leuchten (Leuchten, für alle sichtbar wie in Vanilla). Zerfall vergiftet getroffene Ziele (60 Ticks plus 40 je Stufe); Untote verdorren halb so lange. Noch keine Tränke; ohne Träger ändern sie nichts."
         ]
       }
     },
@@ -408,7 +408,7 @@
         "summary": "The Wither, only stronger: put a Netherite Helmet on the middle skull of the Wither figure before the third skull and the Blighted Wither rises - 600 health, armor 8, three phases, and every special attack is announced before it hits. An Enderite Helmet calls the even stronger Abyssal Wither. Both drop a Nether Heart, the Abyssal Wither also a Red Nether Gem.",
         "details": [
           "Summoning: build the Vanilla T of soul sand or soul soil and place the middle wither skeleton skull. Right-click that skull with a Netherite Helmet: the helmet sits on it. Then place the other skulls as usual; the third one summons the Blighted Wither and uses up the helmet. The helmet must sit before the third skull - on a finished figure the Vanilla Wither has already come. A side skull or a finished figure refuses the helmet (smoke, it stays in your hand); breaking the crowned skull drops the helmet again. Without a helmet the Vanilla Wither comes. Not on Peaceful; server config witherSummonEnabled.",
-          "Changed: the old figure with a Block of Netherite under the foot of the T no longer works - use the helmet on the middle skull instead.",
+          "A Block of Netherite under the foot of the T does not summon it - only the helmet on the middle skull does.",
           "Abyssal Wither (second stage): the same figure with an Enderite Helmet (needs a mod that adds one, e.g. Simple Building; tag simplemobs:abyssal_wither_crowns). 1000 health, armor 14, 200 experience, its volley comes from all three heads, attacks come a quarter sooner and it calls four Wither Skeletons (at most eight near). The warnings stay as long as at the first stage.",
           "Health 600 (Vanilla 300), armor 8 (Vanilla 4), 100 experience. It wakes like the Wither (11 s, then the explosion) and heals to full while waking.",
           "Phase 1 (above half health): the Vanilla skulls, plus a twin volley every 5 s - both side heads burn with soul fire for 1 s, then fire at the target at once.",
@@ -425,7 +425,7 @@
         "summary": "Der Wither, nur stärker: Setz vor dem dritten Schädel einen Netherithelm auf den mittleren Schädel der Wither-Figur, dann erscheint der Verdorrte Wither - 600 Leben, Rüstung 8, drei Phasen, und jeder Spezialangriff wird angekündigt, bevor er trifft. Ein Enderithelm ruft den noch stärkeren Abgrund-Wither. Beide lassen ein Netherherz fallen, der Abgrund-Wither zusätzlich ein Rotes Nether-Juwel.",
         "details": [
           "Beschwörung: Baue das Vanilla-T aus Seelensand oder Seelenerde und setz den mittleren Witherskelettschädel. Rechtsklick mit einem Netherithelm auf diesen Schädel: der Helm sitzt darauf. Dann die übrigen Schädel wie gewohnt; der dritte ruft den Verdorrten Wither und verbraucht den Helm. Der Helm muss vor dem dritten Schädel sitzen - auf einer fertigen Figur ist der Vanilla-Wither schon da. Ein Seitenschädel oder eine fertige Figur nimmt den Helm nicht (Rauch, er bleibt in der Hand); baust du den Schädel mit Helm ab, fällt der Helm wieder heraus. Ohne Helm kommt der Vanilla-Wither. Nicht auf Friedlich; Server-Config witherSummonEnabled.",
-          "Geändert: Die alte Figur mit einem Netheritblock unter dem Fuß des T funktioniert nicht mehr - nimm stattdessen den Helm auf dem mittleren Schädel.",
+          "Ein Netheritblock unter dem Fuß des T beschwört ihn nicht - nur der Helm auf dem mittleren Schädel.",
           "Abgrund-Wither (zweite Stufe): dieselbe Figur mit einem Enderithelm (braucht eine Mod, die ihn hinzufügt, z. B. Simple Building; Tag simplemobs:abyssal_wither_crowns). 1000 Leben, Rüstung 14, 200 Erfahrung, seine Salve kommt aus allen drei Köpfen, Angriffe kommen ein Viertel früher und er ruft vier Witherskelette (höchstens acht in der Nähe). Die Warnungen dauern so lang wie bei der ersten Stufe.",
           "Leben 600 (Vanilla 300), Rüstung 8 (Vanilla 4), 100 Erfahrung. Er erwacht wie der Wither (11 s, dann die Explosion) und heilt sich dabei voll.",
           "Phase 1 (über halbem Leben): die Vanilla-Schädel, dazu alle 5 s eine Doppelsalve - beide Seitenköpfe brennen 1 s mit Seelenfeuer, dann schießen sie gleichzeitig auf das Ziel.",
@@ -491,7 +491,7 @@
           "Only a strong rocket (flight duration 4 or more, see Strong Gunpowder) uses the higher cap of the wings. A normal rocket (flight duration 1-3) gives exactly the Vanilla push with every pair of wings - and pulls a wearer who is faster than Vanilla back to the Vanilla Elytra top speed.",
           "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67, 133, 200 and 267 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
           "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) and voidWingsSpeedFactor (8), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
-          "Ender Heart (stage 3) and Ender Gem (stage 4) have no loot yet: they will drop from a later End boss. Until then they are only given by commands, the creative tab and the test center. Their look is provisional.",
+          "Ender Heart (stage 3) and Ender Gem (stage 4) come from the End bosses you summon: the Void Runner drops the Ender Heart, the Brimguard the Ender Gem (always one each).",
           "576, 768, 960 and 1152 durability (Elytra 432), repaired with phantom membrane, fire-proof like Netherite, Elytra-like shape with an own pattern per stage on the back. The Void Wings are mythic."
         ]
       },
@@ -503,7 +503,7 @@
           "Nur eine starke Rakete (Flugdauer 4 oder mehr, siehe Starkes Schwarzpulver) nutzt die höhere Kappe der Schwingen. Eine normale Rakete (Flugdauer 1-3) gibt mit jeder Schwinge genau den Vanilla-Schub - und zieht einen schnelleren Träger auf das Vanilla-Elytra-Höchsttempo zurück.",
           "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67, 133, 200 und 267 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
           "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) und voidWingsSpeedFactor (8), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
-          "Ender-Herz (Stufe 3) und Ender-Juwel (Stufe 4) haben noch keine Beute-Quelle: sie fallen später von einem neuen End-Boss. Bis dahin nur per Befehl, Kreativ-Reiter und Testzentrale. Ihre Optik ist vorläufig.",
+          "Ender-Herz (Stufe 3) und Ender-Juwel (Stufe 4) kommen von den End-Bossen, die du beschwörst: Der Leerenläufer lässt das Ender-Herz fallen, der Schirmling das Ender-Juwel (immer je eines).",
           "576, 768, 960 bzw. 1152 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, Elytren-nahe Form mit eigenem Muster je Stufe auf dem Rücken. Die Leeren-Schwingen sind mythisch."
         ]
       }
@@ -526,7 +526,7 @@
           "Why: a strong rocket is what the Wither/Nether/End/Void Wings need to fly above the Vanilla top speed; Strong TNT is a bigger blast for mining and tunnels. Both are own items you craft on purpose - no Vanilla recipe or behavior changes.",
           "The strong rocket is a Vanilla firework rocket with flight duration 4, so it also works with the Elytra (longer burn, Vanilla speed) and in dispensers. Its tooltip shows the flight duration.",
           "Strong TNT is lit by flint and steel, fire charge, redstone, burning arrows and other explosions like TNT, is not flammable and drops itself; the game rule tntExplodes applies. Server option strongTntPower in simplemobs-server.json (default 6, 4 to 16).",
-          "Looks are placeholders (Vanilla textures with a tint) until the owner picks a texture."
+          "Strong Gunpowder has its own texture with blaze sparks, Strong TNT is the Vanilla TNT recolored deepslate blue, and the strong rocket looks like a Vanilla rocket with its own name."
         ]
       },
       "de": {
@@ -536,7 +536,7 @@
           "Wozu: eine starke Rakete brauchen Wither-/Nether-/End-/Leeren-Schwingen, um über dem Vanilla-Höchsttempo zu fliegen; Starkes TNT ist die größere Sprengung für Bergbau und Tunnel. Beides sind eigene Items, die man gezielt herstellt - kein Vanilla-Rezept und kein Vanilla-Verhalten ändert sich.",
           "Die starke Rakete ist eine Vanilla-Feuerwerksrakete mit Flugdauer 4, sie geht also auch mit den Elytren (längere Brenndauer, Vanilla-Tempo) und im Werfer. Ihr Tooltip zeigt die Flugdauer.",
           "Starkes TNT zündet wie TNT mit Feuerzeug, Feuerkugel, Redstone, brennenden Pfeilen und anderen Explosionen, ist nicht brennbar und lässt sich selbst fallen; die Spielregel tntExplodes gilt. Server-Option strongTntPower in simplemobs-server.json (Standard 6, 4 bis 16).",
-          "Die Optik ist ein Platzhalter (Vanilla-Texturen mit Tönung), bis der Besitzer eine Textur wählt."
+          "Starkes Schwarzpulver hat eine eigene Textur mit Lohenstaub-Funken, Starkes TNT ist das Vanilla-TNT in Tiefenschiefer-Blau, und die starke Rakete sieht aus wie eine Vanilla-Rakete mit eigenem Namen."
         ]
       }
     },
@@ -650,18 +650,18 @@
       ],
       "en": {
         "title": "Void chain",
-        "summary": "The Evil chain one tier up - Void Potion, Void Omen, Void Trial, Void Vault - switched off by default until the Ender Heart has a source.",
+        "summary": "The Evil chain one tier up - Void Potion, Void Omen, Void Trial, Void Vault - switched off by default (config voidChain).",
         "details": [
           "Same steps as the Evil Omen: Ominous Bottle + Ender Heart in the soul-fueled Brewing Stand = Void Potion I-V, Void Omen, a Weathered Trial or raid turns void (violet particles; life +60 to +100 %, every effect one step higher), the reward is the Void Trial Key of the stage, and a Void Vault is made from an Evil Vault with a netherite block in the off hand and 5 strikes. It pays 3 to 5 draws of netherite, enchanted golden apples, totems, echo shards, heavy cores, phantom membrane and stage V ominous bottles.",
-          "The Ender Heart has no source in the game yet, so the whole chain is off: config voidChain (default false, needs evilOmen). The items stay in the Creative tab and the recipes are shown in the recipe viewer only while it is on. Void mobs darken the air 6 blocks around them (Darkness for players) and Void archers blink away when hit (config voidMobTricks)."
+          "The whole chain is off by default: config voidChain (default false, needs evilOmen); the Ender Heart it needs drops from the Void Runner. The items stay in the Creative tab and the recipes are shown in the recipe viewer only while it is on. Void mobs darken the air 6 blocks around them (Darkness for players) and Void archers blink away when hit (config voidMobTricks)."
         ]
       },
       "de": {
         "title": "Leere-Kette",
-        "summary": "Die Böse Kette eine Stufe höher – Leere-Trank, Leere-Omen, Leere-Prüfung, Leere-Tresor –, standardmäßig aus, bis das Enderherz eine Quelle hat.",
+        "summary": "Die Böse Kette eine Stufe höher – Leere-Trank, Leere-Omen, Leere-Prüfung, Leere-Tresor –, standardmäßig aus (Config voidChain).",
         "details": [
-          "Dieselben Schritte wie beim Bösen Omen: Unheilvolle Flasche + Enderherz im seelenbefeuerten Braustand = Leere-Trank I–V, Leere-Omen, eine Verwitterte Prüfung oder ein Überfall wird zur Leere (violette Partikel; Leben +60 bis +100 %, jeder Effekt eine Stufe höher), Belohnung ist der Leere-Prüfungsschlüssel der Stufe, und ein Leere-Tresor entsteht aus einem Bösen Tresor mit einem Netheritblock in der Nebenhand und 5 Schlägen. Er zahlt 3 bis 5 Züge aus Netherit, Verzauberten Goldäpfeln, Totems, Echosplittern, Schweren Kernen, Phantommembranen und Unheilvollen Flaschen der Stufe V.",
-          "Das Enderherz hat im Spiel noch keine Quelle, deshalb ist die ganze Kette aus: Config voidChain (Standard false, braucht evilOmen). Die Gegenstände bleiben im Kreativ-Tab, die Rezepte erscheinen im Rezeptbetrachter nur bei eingeschalteter Kette. Leere-Mobs verdunkeln die Luft 6 Blöcke um sich (Dunkelheit für Spieler), und Leere-Bogenschützen springen bei Treffern weg (Config voidMobTricks)."
+          "Dieselben Schritte wie beim Bösen Omen: Unheilvolle Flasche + Ender-Herz im seelenbefeuerten Braustand = Leere-Trank I–V, Leere-Omen, eine Verwitterte Prüfung oder ein Überfall wird zur Leere (violette Partikel; Leben +60 bis +100 %, jeder Effekt eine Stufe höher), Belohnung ist der Leere-Prüfungsschlüssel der Stufe, und ein Leere-Tresor entsteht aus einem Bösen Tresor mit einem Netheritblock in der Nebenhand und 5 Schlägen. Er zahlt 3 bis 5 Züge aus Netherit, Verzauberten Goldäpfeln, Totems, Echosplittern, Schweren Kernen, Phantommembranen und Unheilvollen Flaschen der Stufe V.",
+          "Die ganze Kette ist standardmäßig aus: Config voidChain (Standard false, braucht evilOmen); das nötige Ender-Herz lässt der Leerenläufer fallen. Die Gegenstände bleiben im Kreativ-Tab, die Rezepte erscheinen im Rezeptbetrachter nur bei eingeschalteter Kette. Leere-Mobs verdunkeln die Luft 6 Blöcke um sich (Dunkelheit für Spieler), und Leere-Bogenschützen springen bei Treffern weg (Config voidMobTricks)."
         ]
       },
       "related": [
@@ -1041,18 +1041,18 @@
     },
     "simplemobs:ender_heart": {
       "en": {
-        "summary": "Material of the End Wings (stage 3, with the Nether Wings at the smithing table). Dropped by the Void Runner (always one). Provisional look."
+        "summary": "Material of the End Wings (stage 3, with the Nether Wings at the smithing table). Dropped by the Void Runner (always one)."
       },
       "de": {
-        "summary": "Material der End-Schwingen (Stufe 3, mit den Nether-Schwingen am Schmiedetisch). Lässt der Leerenläufer fallen (immer eines). Vorläufige Optik."
+        "summary": "Material der End-Schwingen (Stufe 3, mit den Nether-Schwingen am Schmiedetisch). Lässt der Leerenläufer fallen (immer eines)."
       }
     },
     "simplemobs:ender_gem": {
       "en": {
-        "summary": "Mythic material of the Void Wings (stage 4, with the End Wings at the smithing table). Dropped by the Brimguard (always one). Provisional look."
+        "summary": "Mythic material of the Void Wings (stage 4, with the End Wings at the smithing table). Dropped by the Brimguard (always one)."
       },
       "de": {
-        "summary": "Mythisches Material der Leeren-Schwingen (Stufe 4, mit den End-Schwingen am Schmiedetisch). Lässt der Schirmling fallen (immer eines). Vorläufige Optik."
+        "summary": "Mythisches Material der Leeren-Schwingen (Stufe 4, mit den End-Schwingen am Schmiedetisch). Lässt der Schirmling fallen (immer eines)."
       }
     },
     "simplemobs:strong_gunpowder": {
@@ -1140,7 +1140,7 @@
         "summary": "Void Potion I: an Ominous Bottle (stage I) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen I. Void chain: off by default."
       },
       "de": {
-        "summary": "Leere-Trank I: Unheilvolle Flasche (Stufe I) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen I. Leere-Kette: standardmäßig aus."
+        "summary": "Leere-Trank I: Unheilvolle Flasche (Stufe I) und Ender-Herz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen I. Leere-Kette: standardmäßig aus."
       }
     },
     "simplemobs:evil_trial_key_1": {
@@ -1188,7 +1188,7 @@
         "summary": "Void Potion II: an Ominous Bottle (stage II) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen II. Void chain: off by default."
       },
       "de": {
-        "summary": "Leere-Trank II: Unheilvolle Flasche (Stufe II) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen II. Leere-Kette: standardmäßig aus."
+        "summary": "Leere-Trank II: Unheilvolle Flasche (Stufe II) und Ender-Herz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen II. Leere-Kette: standardmäßig aus."
       }
     },
     "simplemobs:evil_trial_key_2": {
@@ -1236,7 +1236,7 @@
         "summary": "Void Potion III: an Ominous Bottle (stage III) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen III. Void chain: off by default."
       },
       "de": {
-        "summary": "Leere-Trank III: Unheilvolle Flasche (Stufe III) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen III. Leere-Kette: standardmäßig aus."
+        "summary": "Leere-Trank III: Unheilvolle Flasche (Stufe III) und Ender-Herz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen III. Leere-Kette: standardmäßig aus."
       }
     },
     "simplemobs:evil_trial_key_3": {
@@ -1284,7 +1284,7 @@
         "summary": "Void Potion IV: an Ominous Bottle (stage IV) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen IV. Void chain: off by default."
       },
       "de": {
-        "summary": "Leere-Trank IV: Unheilvolle Flasche (Stufe IV) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen IV. Leere-Kette: standardmäßig aus."
+        "summary": "Leere-Trank IV: Unheilvolle Flasche (Stufe IV) und Ender-Herz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen IV. Leere-Kette: standardmäßig aus."
       }
     },
     "simplemobs:evil_trial_key_4": {
@@ -1332,7 +1332,7 @@
         "summary": "Void Potion V: an Ominous Bottle (stage V) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen V. Void chain: off by default."
       },
       "de": {
-        "summary": "Leere-Trank V: Unheilvolle Flasche (Stufe V) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen V. Leere-Kette: standardmäßig aus."
+        "summary": "Leere-Trank V: Unheilvolle Flasche (Stufe V) und Ender-Herz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen V. Leere-Kette: standardmäßig aus."
       }
     },
     "simplemobs:evil_trial_key_5": {
