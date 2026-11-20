@@ -157,8 +157,10 @@ public class TweaksConfig {
 
     public static class Spawn {
         /** Obergrenze der Flugzeit (24 h): {@code flightTimeSeconds * 20} lief frueher ueber (Audit #51). */
+        @ConfigEntry.Gui.Excluded
         public static final int MAX_FLIGHT_SECONDS = 86_400;
         /** Obergrenze der Boosts; mehr Teilstriche passen ohnehin nicht in die 182-Pixel-Leiste. */
+        @ConfigEntry.Gui.Excluded
         public static final int MAX_BOOSTS = 100;
 
         /** Aus in SimpleBuilding standardmaessig aus (Simple Tweaks: an), damit bestehende Welten unveraendert bleiben. */

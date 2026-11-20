@@ -134,6 +134,18 @@ public final class GuideProbe {
         o.addProperty("screenH", w.getScreenHeight());
         o.addProperty("guiW", w.getGuiScaledWidth());
         o.addProperty("guiH", w.getGuiScaledHeight());
+        describe(mc, o, scale);
+        Path tmp = dir.resolve("simplelib-guide-status.tmp");
+        Files.writeString(tmp, GSON.toJson(o));
+        Files.move(tmp, dir.resolve("simplelib-guide-status.json"), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+    }
+
+    /**
+     * N118: the guide part of the status (top bookmarks, "More Simple mods" link, and for SimpleLib's guide screen section,
+     * chapter, spread, side bookmarks with chapter / open / pages / advancement, next arrow), window pixels. Shared with Simple
+     * Interfaces' SortProbe, so the in-world real-mouse probe (ui_probe.py) sees the same guide facts as this title-screen probe.
+     */
+    public static void describe(Minecraft mc, JsonObject o, int scale) {
         JsonArray top = new JsonArray();
         List<String> ids = ModpackGuideBar.ids();
         List<int[]> rects = ModpackGuideBar.rects();
@@ -162,7 +174,13 @@ public final class GuideProbe {
                 int chapter = chapters.get(i);
                 tab.addProperty("chapter", chapter);
                 // whether the bookmark opens (a chapter without advancement is always open), so the probe can pick a really locked one
-                if (shown != null && chapter >= 0 && chapter < shown.chapters().size()) tab.addProperty("open", ModpackGuideScreens.open(shown.chapters().get(chapter)));
+                if (shown != null && chapter >= 0 && chapter < shown.chapters().size()) {
+                    ModpackGuide.Chapter c = shown.chapters().get(chapter);
+                    tab.addProperty("open", ModpackGuideScreens.open(c));
+                    // N118: pages and advancement, so a probe picks a chapter that really has pages and can grant a locked one
+                    tab.addProperty("pages", c.pages());
+                    if (c.advancement() != null) tab.addProperty("advancement", c.advancement().toString());
+                }
                 tab.add("rect", rect(tabRects.get(i), scale));
                 tabs.add(tab);
             }
@@ -172,9 +190,6 @@ public final class GuideProbe {
             o.addProperty("lastClick", click[0] + "," + click[1]);
             o.addProperty("lastHit", t.probeLastHit());
         }
-        Path tmp = dir.resolve("simplelib-guide-status.tmp");
-        Files.writeString(tmp, GSON.toJson(o));
-        Files.move(tmp, dir.resolve("simplelib-guide-status.json"), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
     }
 
     private static JsonArray rect(int[] r, int scale) {
