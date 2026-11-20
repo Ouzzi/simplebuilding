@@ -131,6 +131,18 @@ Ohne Jar zeigt der Editor den Namen. Einrichtung, einmal:
 
 Log: `/var/log/sb-wiki-vanilla.log`. Prüfen: `/dev/data/vanilla-icons.json` liefert 200.
 
+### Abgeleitete Bilder auf Production (N113)
+
+Die aus Vanilla abgeleiteten Mod-Bilder (git-ignoriert) fehlen in jedem reinen Checkout. `wiki/data/local-only.js`
+(von `generate.py` geschrieben) nennt alle, die die Wiki-Daten verwenden; die Seite fragt davon nur an, was
+`wiki/data/derived-present.json` des Hosts nennt (`wiki/assets/module-loader.js`). Diese Liste schreibt:
+- Dev: der bestehende `vanilla_textures.py`-Lauf (`--derived`, inkl. Platzhalter, wenn ein Bild in keinem Jar steckt),
+- Production: `sb-web-sync`-Block „N113“ → `python3 wiki/vanilla_textures.py --published-only` in `/srv/wiki-prod`,
+  nur Bilder aus den veröffentlichten Jars (`/srv/zentrale/downloads/index.json`), kein Client-Jar, keine Platzhalter,
+  neu nur wenn Prod-HEAD oder index.json sich ändern (Merker `/var/lib/sb-web-sync/prod-derived.key`).
+Einspielen wie unten („sb-web-sync“), Prüfen: `https://wiki.simplemods.de/data/derived-present.json` liefert 200 mit
+`"mode":"published"`. Ohne den Schritt bleibt Production fehlerfrei (Textkachel bzw. „nicht veröffentlicht“, 1 × 404 auf die Liste).
+
 ## Ein Host mit Login (a-zw06, Besitzer 06.11.)
 `simplemods-wiki.azarfane.com` trägt alles (ab IG31-55 siehe Abschnitt „Domain-Umzug“: `wiki.simplemods.de`); Cloudflare-Pfadschutz kommt später, bis dahin ein eigener Login.
 
