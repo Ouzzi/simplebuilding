@@ -80,7 +80,7 @@ def _counts(s, queries):
         idx = max((i for i, ln in enumerate(lines) if re.search(r'N122 COUNT ' + re.escape(tag) + r'$', ln.strip())), default=-1)
         n = None
         for ln in lines[idx + 1: idx + 6] if idx >= 0 else []:
-            m = re.search(r'Test passed, count: (\d+)', ln)
+            m = re.search(r'Test passed[.,] [Cc]ount: (\d+)', ln)
             if m:
                 n = int(m.group(1))
                 break
@@ -124,7 +124,8 @@ def _aim_entity(s, ex, ey, ez, want, tag, tries=4):
     hit = None
     for _ in range(tries):
         x, y, z = _pos(s)
-        s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {ex} {ey} {ez}', 0.8)
+        # tp ... facing turns the feet toward the point (as in s.face): subtract the eye height, or the look passes over small mobs
+        s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {ex} {ey - 1.62:.2f} {ez}', 0.8)
         time.sleep(0.5)
         for _ in range(6):
             hit = s.st().get('hitEntity')
@@ -339,8 +340,9 @@ def mobs_trumpet(s):
     x, y, z = _pos(s)
     _clear_area(s, x, y, z)
     s.chat('item replace entity @s weapon.mainhand with simplemobs:trumpet', 0.3)
-    inv = s.st().get('inventory', [])
-    s.check('Trumpet in the main hand', bool(inv) and inv[0].startswith('simplemobs:trumpet'), inv[:1])
+    # weapon.mainhand is the selected hotbar slot, not always slot 0
+    _say_if(s, 'if items entity @s weapon.mainhand simplemobs:trumpet', 'trumpet-held')
+    _check_said(s, 'Trumpet in the main hand', ['trumpet-held'])
     for pitch, name in ((15, 'low-looking-down'), (-15, 'high-looking-up')):
         s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} 0 {pitch}', 1.0)
         got = s.st().get('pitch')
@@ -360,23 +362,23 @@ def mobs_fear(s):
     _prep(s)
     x, y, z = _pos(s)
     _clear_area(s, x, y, z, r=8)
-    _summon(s, 'simplemobs:dread', x - 1.5, y, z + 5.5)
-    _summon(s, 'simplemobs:hollow_watcher', x + 2.5, y, z + 5.5)
+    _summon(s, 'simplemobs:dread', x - 1.5, y, z + 3.5)
+    _summon(s, 'simplemobs:hollow_watcher', x + 2.5, y, z + 3.5)
     time.sleep(1.0)
     _say_if(s, 'if entity @e[type=simplemobs:dread,tag=n122]', 'dread-there')
     _say_if(s, 'if entity @e[type=simplemobs:hollow_watcher,tag=n122]', 'watcher-there')
     _check_said(s, 'Dread and Hollow Watcher stand in the scene (NoAI)', ['dread-there', 'watcher-there'])
-    if _aim_entity(s, x - 1.5, y + 1.2, z + 5.5, 'simplemobs:dread', 'dread'):
+    if _aim_entity(s, x - 1.5, y + 1.2, z + 3.5, 'simplemobs:dread', 'dread'):
         s.check('crosshair reads the Dread', True, 'simplemobs:dread')
-    if _aim_entity(s, x + 2.5, y + 1.2, z + 5.5, 'simplemobs:hollow_watcher', 'watcher'):
+    if _aim_entity(s, x + 2.5, y + 1.2, z + 3.5, 'simplemobs:hollow_watcher', 'watcher'):
         s.check('crosshair reads the Hollow Watcher', True, 'simplemobs:hollow_watcher')
     s.key('F1', 0.4)
     try:
-        _view(s, (x + 0.5, y + 0.5, z - 2.5), (x + 0.5, y + 1.4, z + 5.5))
+        _view(s, (x + 0.5, y + 0.5, z - 2.5), (x + 0.5, y + 1.4, z + 3.5))
         s.shot('fear-both')
-        _view(s, (x - 1.5, y + 0.5, z + 1.5), (x - 1.5, y + 1.6, z + 5.5))
+        _view(s, (x - 1.5, y + 0.5, z + 1.5), (x - 1.5, y + 1.6, z + 3.5))
         s.shot('fear-dread-close')
-        _view(s, (x + 2.5, y + 0.5, z + 1.5), (x + 2.5, y + 1.6, z + 5.5))
+        _view(s, (x + 2.5, y + 0.5, z + 1.5), (x + 2.5, y + 1.6, z + 3.5))
         s.shot('fear-watcher-close')
     finally:
         s.key('F1', 0.4)
