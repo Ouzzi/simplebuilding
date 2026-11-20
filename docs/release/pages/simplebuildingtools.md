@@ -21,7 +21,7 @@ Simple Building Tools adds Building Wands (copper to Enderite and creative), the
 
 ## Features
 
-- **Simple Building Tools: a sub-mod of SimpleBuilding**
+- **Simple Building Tools: a sub-mod of SimpleBuilding** - The Building Wands, the Octant and the Blueprint have their own mod; SimpleBuilding bundles it as a required sub-mod, and it runs on its own with only SimpleLib.
 - **Building Wand: whole areas in one click**
 - **Octant: Measuring and Planning Shapes** - The Octant is SimpleBuilding's tape measure and planning tool.
 - **Blueprint: Writing, Scanning and Building Structures** - A Blueprint stores a whole structure as a short, readable build code.

@@ -27,7 +27,7 @@ Simple Pads adds the Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter
 - **Spawn Teleporters** - Spawn Teleporters take you to your own respawn point, or to the shared spawn target when powered by redstone.
 - **Launchpads** - Launchpads (from Simple Tweaks) are charged with wind charges and launch you after 3 seconds of standing on them; the more charges, the higher.
 - **Chunk Loaders**
-- **Potion Pads** - Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them.
+- **Potion Pads** - Potion Pads store the effects of a thrown potion and give them to every player who steps onto them.
 - **Pressure plates: Diamond, Netherite, Enderite Owner Plate, Copper**
 - **Spawn Elytra**
 

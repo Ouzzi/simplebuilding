@@ -21,7 +21,7 @@ Simple Models lets the server approve custom item models, assign them at the anv
 
 ## Features
 
-- **Experimental Forge 26.3** - Opt-in Forge adapter with server-approved anvil models, catalogue networking, JSON configuration, and server tests.
+- **Experimental Forge 26.3** - Opt-in Forge adapter with server-approved anvil models, catalog networking, JSON configuration, and server tests.
 
 ## Dependencies
 

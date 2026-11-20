@@ -22,7 +22,7 @@ Simple Arrows adds a Fletching Table that builds four arrows from a tip, a shaft
 ## Features
 
 - **Light Arrow** - An arrow that lights the spot where it sticks - until it despawns like any arrow.
-- **Silver Arrow**
+- **Silver Arrow** - An arrow with a silver head that hits the undead harder (formerly part of Simple Ores).
 - **Fletching Table** - Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows.
 - **Commands** - /simplearrows config [list | get | set | reset | help] (operators).
 
