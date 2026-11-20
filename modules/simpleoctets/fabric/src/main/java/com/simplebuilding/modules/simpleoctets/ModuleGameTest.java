@@ -128,6 +128,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void axeStripsStemOctetsNotStone(GameTestHelper h) {
+        OctetTests.ALL.get("axe_strips_stem_octets_not_stone").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void woodAndWoolOctetsBurn(GameTestHelper h) {
         OctetTests.ALL.get("wood_and_wool_octets_burn").accept(h);
     }

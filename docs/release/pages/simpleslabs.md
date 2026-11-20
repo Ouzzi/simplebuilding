@@ -25,10 +25,10 @@ Simple Slabs adds a half slab (half a slab, 4 pixels) for each of the 170 blocks
 - **Side half slab and side slab** - The side half slab is an item of its own for every material: right-click on the side of a block puts it upright against that side, 4 pixels thin.
 - **Slab and half slab in one block** - A half slab used on its own slab (bottom or top, not double) adds a layer: the slab becomes the half slab block with its two layers and the new one, water stays.
 - **Breaking and water** - Breaking a half slab block drops one half slab for every filled layer, a side form one side half slab per layer.
-- **Sand, gravel and grass**
+- **Sand, gravel and grass** - Sand, red sand and gravel half slabs fall like sand.
 - **Copper half slabs age** - Unwaxed copper half slabs age like Vanilla copper: exposed, weathered, oxidized.
 - **Shapecutter and back** - The Shapecutter of Simple Blocks cuts 2 half slabs or 2 side half slabs from a slab and 4 from its full block; without Simple Blocks the Vanilla stonecutter does it.
-- **Half slabs of other mods' blocks**
+- **Half slabs of other mods' blocks** - Half slabs of another mod's blocks (SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting) exist only while that mod is loaded, with their recipes.
 
 ## Vanilla use
 
