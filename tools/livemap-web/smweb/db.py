@@ -259,6 +259,31 @@ MIGRATIONS = [
     ALTER TABLE gifts ADD COLUMN redeemed_by INTEGER REFERENCES users(id) ON DELETE SET NULL;
     CREATE UNIQUE INDEX gifts_code ON gifts(code) WHERE code IS NOT NULL;
     """,
+    # 6: N106 (merged after N108's migrations 2-5): paths of the manifest round in progress (cleared when the mod sends done; tiles it no longer reports go), and
+    # notices from the report link of every hosted map (legal draft U5, DSA Art. 16).
+    """
+    CREATE TABLE manifest_seen (
+        map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE,
+        path TEXT NOT NULL,
+        PRIMARY KEY (map_id, path)
+    );
+    CREATE TABLE reports (
+        id INTEGER PRIMARY KEY,
+        at INTEGER NOT NULL,
+        map_id INTEGER REFERENCES maps(id) ON DELETE SET NULL,
+        slug TEXT NOT NULL,
+        reason TEXT NOT NULL,
+        text TEXT NOT NULL,
+        contact TEXT NOT NULL DEFAULT '',
+        lang TEXT NOT NULL DEFAULT 'en',
+        reporter_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        state TEXT NOT NULL DEFAULT 'open',
+        handled_at INTEGER,
+        handled_by INTEGER,
+        note TEXT NOT NULL DEFAULT ''
+    );
+    CREATE INDEX reports_state ON reports(state, at);
+    """,
 ]
 
 

@@ -320,7 +320,7 @@ public final class LivemapRuntime {
         JsonArray out = new JsonArray();
         if (!LivemapConfig.showPlayers) return out;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
-            if (spectator(p) || store.hidden(p.getUUID())) continue;
+            if (!shown(p)) continue;
             JsonObject e = new JsonObject();
             e.addProperty("name", p.getGameProfile().name());
             e.addProperty("dimension", p.level().dimension().identifier().toString());
@@ -329,6 +329,16 @@ public final class LivemapRuntime {
             out.add(e);
         }
         return out;
+    }
+
+    /**
+     * Whether a player's position may leave the server (live.json of the built-in web map AND the hosted upload, which both
+     * come from {@link #players}): never spectators, never sneaking players, never invisible ones (invisibility effect or
+     * invisible flag), never players who chose {@code /simplelivemap hide} (owner P041, N106 - for every tier, also free).
+     */
+    public static boolean shown(ServerPlayer p) {
+        return !spectator(p) && !store.hidden(p.getUUID()) && !p.isShiftKeyDown() && !p.isCrouching()
+                && !p.isInvisible() && !p.hasEffect(net.minecraft.world.effect.MobEffects.INVISIBILITY);
     }
 
     /** Whether the web server should run: module on and {@code web.enabled}. */

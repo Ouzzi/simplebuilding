@@ -17,6 +17,8 @@ Live web map of the world as the players really explored it (visited chunks and 
 - **Open Livemap in chat** - In single player and on a LAN world the host gets one clickable chat line per session (only the host, can be turned off).
 - **Busy port** - When port 8125 is taken, the map uses the next free port up to 8134 for the session and says so in the log.
 - **Own website** - Guide with nginx and Caddy examples and a static-copy script (docs/deploy/LIVEMAP-SELF-HOST.md).
+- **Only visible players** - Player positions (web map and hosted map) never include sneaking players, invisible players (potion or otherwise) or spectators; each player can also hide with /simplelivemap hide.
+- **Map styles** - Three looks in the view settings of the web map: Blocks (default, block edges when zoomed in), Shaded relief (hillshade and water depth from a height layer) and Cartographer (paper map with contour lines); the choice is kept in the browser.
 
 ## Requirements
 
@@ -25,5 +27,6 @@ Live web map of the world as the players really explored it (visited chunks and 
 
 ## Notes
 
+- The hosted map on livemap.simplemods.de (`/simplelivemap connect <code>`) opens later; until then the command cannot connect. Nothing is uploaded unless a world is connected.
 - All options are in the config screen (Mod Menu / Cloth Config) and in `/simplelivemap config` where available.
 - Back up your world before updating from an older SimpleBuilding build; old ids are migrated automatically.
