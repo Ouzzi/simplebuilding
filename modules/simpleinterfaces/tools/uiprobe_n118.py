@@ -17,7 +17,7 @@ SimpleBuilding
                    (uiprobe_core: shared with the ender chest, astral part only in the vault, contents persist).
   sb118-headslot   survival inventory: extra head slot (menu 46) on the helmet row right of the armor column, refuses dirt, takes a
                    carved pumpkin, shift-click of a mob head lands in a head slot (uiprobe_core).
-  sb118-smithing   smithing table = RecipeBookSmithingScreen, the recipe book button opens the book (search field appears), then a real
+  sb118-smithing   smithing table = RecipeBookSmithingScreen, the recipe book button opens the book (the screen moves right) and closes it, then a real
                    Netherite upgrade (uiprobe_core).
 SimpleLib
   lib118-guide     Simple Modpack guide in SURVIVAL (creative opens every chapter): grey (locked) and unlocked bookmarks side by side,
@@ -423,15 +423,21 @@ def sb_smithing(s):
     st = _open_block(s, 'minecraft:smithing_table', 'SmithingScreen', dx=0, dz=2)
     if st:
         s.check('smithing: the screen is RecipeBookSmithingScreen', st.get('screen', '').endswith('RecipeBookSmithingScreen'), st.get('screen'))
-        before = sum(1 for w in s.widgets(st) if w['class'] == 'EditBox')
-        if s.click_widget(cls='ImageButton', name='smithing recipe book button'):
+        # The book's search field is internal to RecipeBookComponent (no screen child, so not in the widget list); like
+        # AbstractRecipeBookScreen the screen moves right when the book opens (updateScreenPosition), and the button with it.
+        before = s.find_widget(None, 'ImageButton', st)
+        if before and s.click_widget(cls='ImageButton', name='smithing recipe book button'):
             time.sleep(1.0)
             st = s.st()
-            after = sum(1 for w in s.widgets(st) if w['class'] == 'EditBox')
-            s.check('smithing: the recipe book opens (its search field appears)', after > before, f'edit boxes {before} -> {after}')
+            after = s.find_widget(None, 'ImageButton', st)
+            s.check('smithing: the recipe book opens (the screen moves right for it)',
+                    bool(after) and after['x'] > before['x'] + 20, f"button x {before['x']} -> {after and after['x']}")
             s.shot('smithing-recipe-book-open')
             s.click_widget(cls='ImageButton', name='smithing recipe book button (close)')
             time.sleep(0.6)
+            back = s.find_widget(None, 'ImageButton', s.st())
+            s.check('smithing: a second click closes the book (the screen moves back)',
+                    bool(back) and abs(back['x'] - before['x']) <= 2, f"button x {back and back['x']}, before {before['x']}")
     s.close()
     core._smithing(s)
 
