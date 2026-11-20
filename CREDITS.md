@@ -15,8 +15,8 @@ and `docs/ai/PLAN-A-SOUND24-2026-10-23.md`):
 | Simple Animals | `modules/simpleanimals/shared/resources/assets/simpleanimals/sounds/entity` (deer, hedgehog) | deer and hedgehog voices: ambient, hurt, death (deer); ambient, hurt, death, curl up, uncurl (hedgehog); two takes each (PLAN40 simpleanimals-2, W4A, `tools/sounds/eleven_animal_voices.py`) |
 | Simple Lib | `modules/simplelib/shared/resources/assets/simplelib/sounds/legendary1.ogg`, `legendary2.ogg` | legendary choir sounds |
 | Simple Layers | `modules/simplelayers/shared/resources/assets/simplelayers/sounds/ambient` (backrooms_hum, backrooms_knock1-3, cloud_sea_wind, listener_steps1-2), `.../sounds/block` (neon_buzz1-2) | nine layer ambience and block sounds |
-| Simple Ores | `modules/simpleores/shared/resources/assets/simpleores/sounds/block/tin` (cry1-2) | the "tin cry" crackle of the tin blocks (N25, 10.11.2026, `tools/sounds/eleven_tin_cry.py`; all other metal sounds are Vanilla events referenced by name at other pitches) |
-| Simple Building (26.3 overlay) | `mc26_3/overlay/resources/assets/simplebuilding/sounds/records`, `.../sounds/block/astralit_lamp`, `.../sounds/block/nihilith_lamp` | record tracks, lamp sounds |
+| Simple Ores | `modules/simpleores/shared/resources/assets/simpleores/sounds/block/tin` (cry1-2), `.../sounds/block/astralit_lamp`, `.../sounds/block/nihilith_lamp` | the "tin cry" crackle of the tin blocks (10.11.2026, `tools/sounds/eleven_tin_cry.py`), lamp sounds of the Astralit and Nihilith lamps (24.10.2026, moved from Simple Building with the redstone lines); all other metal sounds are Vanilla events referenced by name at other pitches |
+| Simple Building (26.3 overlay) | `mc26_3/overlay/resources/assets/simplebuilding/sounds/records` | record tracks |
 
 All other sounds are procedurally synthesized by scripts in `tools/sounds/` (own work, covered by the project license) or are Minecraft events
 reused by name (no Mojang audio files are included).
