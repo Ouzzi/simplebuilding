@@ -31,7 +31,7 @@
       },
       "de": {
         "title": "Super-Mod für Optik und Klang",
-        "summary": "Simple Aesthetics hat keine eigenen Inhalte: Es buendelt Simple Visuals, Simple Sounds und Simple Models. config/simpleaesthetics.json hat je einen Schalter (enableSimpleVisuals, enableSimpleSounds, enableSimpleModels, Standard true); aus macht die Sub-Mod wirkungslos, ihre eigenen Einstellungen bleiben in ihrer eigenen Config. Jede Sub-Mod ist auch allein spielbar."
+        "summary": "Simple Aesthetics hat keine eigenen Inhalte: Es bündelt Simple Visuals, Simple Sounds und Simple Models. config/simpleaesthetics.json hat je einen Schalter (enableSimpleVisuals, enableSimpleSounds, enableSimpleModels, Standard true); aus macht die Sub-Mod wirkungslos, ihre eigenen Einstellungen bleiben in ihrer eigenen Config. Jede Sub-Mod ist auch allein spielbar."
       }
     },
     {

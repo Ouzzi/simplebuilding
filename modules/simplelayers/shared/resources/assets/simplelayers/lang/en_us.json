@@ -84,7 +84,7 @@
   "item.simplelayers.chalk_box.tooltip": "Click chalk or a glow ink sac",
   "item.simplelayers.chalk_box.tooltip.2": "onto the box to fill it.",
   "item.simplelayers.chalk_box.tooltip.3": "Use on a face to draw;",
-  "item.simplelayers.chalk_box.tooltip.4": "sneak + use in the air: next colour.",
+  "item.simplelayers.chalk_box.tooltip.4": "sneak + use in the air: next color.",
   "item.simplelayers.chalk_box.strokes": "%s: %s / %s strokes",
   "item.simplelayers.chalk_box.glow": "Glowing: %s strokes",
   "item.simplelayers.chalk_box.selected": "Chalk Box: %s (%s strokes)",

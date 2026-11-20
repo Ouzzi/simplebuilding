@@ -55,7 +55,7 @@
       },
       "de": {
         "title": "Sub-Mod von Simple QoL",
-        "summary": "Allein spielbar (config/simpleweather.json). In Simple QoL gebuendelt, dort mit \"Simple Weather aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Wettereinstellungen einmalig übernommen."
+        "summary": "Allein spielbar (config/simpleweather.json). In Simple QoL gebündelt, dort mit \"Simple Weather aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Wettereinstellungen einmalig übernommen."
       }
     },
     {

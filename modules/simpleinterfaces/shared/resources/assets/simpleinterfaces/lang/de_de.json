@@ -216,7 +216,7 @@
   "simpleinterfaces.guide.page.22.title": "Bündel zeigen alles",
   "simpleinterfaces.guide.page.22": "Bündel-Tooltips zeigen jeden Eintrag statt der zwölf von Vanilla, und das Mausrad wählt jeden davon aus.",
   "simpleinterfaces.guide.page.23.title": "Sub-Mod von Simple QoL",
-  "simpleinterfaces.guide.page.23": "Allein spielbar. In Simple QoL gebuendelt, dort mit \"Simple Interfaces aktivieren\" abschaltbar (Vanilla-Bildschirme, keine verknüpften Behälter, keine Easy Shulkers).",
+  "simpleinterfaces.guide.page.23": "Allein spielbar. In Simple QoL gebündelt, dort mit \"Simple Interfaces aktivieren\" abschaltbar (Vanilla-Bildschirme, keine verknüpften Behälter, keine Easy Shulkers).",
   "simpleinterfaces.guide.page.24.title": "Sub-Mod von Simple QoL",
   "simpleinterfaces.guide.page.24": "Beim ersten Start werden die alten Simple-QoL-Behälter-Einstellungen einmalig in config/simpleinterfaces-server.json übernommen.",
   "simpleinterfaces.guide.page.25.title": "Befehle",

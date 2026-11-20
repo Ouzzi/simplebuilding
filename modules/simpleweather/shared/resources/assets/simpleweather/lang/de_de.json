@@ -23,7 +23,7 @@
   "simpleweather.guide.page.6.title": "Regendichte",
   "simpleweather.guide.page.6": "clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 100 wie Vanilla, Grenze 0–100: dünnt Regen in der Luft, Bodenpartikel und Regengeräusche aus; Serverwetter bleibt davon unabhängig.",
   "simpleweather.guide.page.7.title": "Sub-Mod von Simple QoL",
-  "simpleweather.guide.page.7": "Allein spielbar (config/simpleweather.json). In Simple QoL gebuendelt, dort mit \"Simple Weather aktivieren\" abschaltbar.",
+  "simpleweather.guide.page.7": "Allein spielbar (config/simpleweather.json). In Simple QoL gebündelt, dort mit \"Simple Weather aktivieren\" abschaltbar.",
   "simpleweather.guide.page.8.title": "Sub-Mod von Simple QoL",
   "simpleweather.guide.page.8": "Beim ersten Start werden die alten Simple-QoL-Wettereinstellungen einmalig übernommen.",
   "simpleweather.guide.page.9.title": "Befehle",

@@ -243,14 +243,16 @@ public final class TestCentreSections {
             }
             enchanted.add(new TcCanvas.Line(label, max));
         }
-        // Alte Spachtel: nur noch fuer bestehende Welten registriert.
-        List<ItemStack> legacy = new ArrayList<>();
-        for (Item item : sortedModItems()) {
-            if (item instanceof ChiselItem chisel && chisel.isDedicatedSpatula()) {
-                legacy.add(new ItemStack(item));
+        // Alte Spachtel: nur noch fuer bestehende Welten registriert - und nur auf 26.2 (26.3: Simple Chisels, N114).
+        if (com.simplebuilding.version.McVersion.CHISELS_IN_SB) {
+            List<ItemStack> legacy = new ArrayList<>();
+            for (Item item : sortedModItems()) {
+                if (item instanceof ChiselItem chisel && chisel.isDedicatedSpatula()) {
+                    legacy.add(new ItemStack(item));
+                }
             }
+            plain.add(new TcCanvas.Line(TcText.t("tools.legacy", "Legacy spatulas"), legacy));
         }
-        plain.add(new TcCanvas.Line(TcText.t("tools.legacy", "Legacy spatulas"), legacy));
 
         // TZ22-5: je Wand hoechstens vier Familien, weitere auf Regalen dahinter (vorher eine 15 hohe Wand).
         int top = TcCanvas.SHELF_LINES;

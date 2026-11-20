@@ -5,6 +5,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Keys the 26.3 overlay drops on purpose: the 26.2 line still registers the thing, 26.3 does not (N114: the legacy
+# spatulas moved into Simple Chisels' chisels, McVersion.CHISELS_IN_SB = false; their Test Centre shelf is 26.2-only).
+NOT_ON_263 = {*(f"item.simplebuilding.{tier}_spatula" for tier in ("stone", "copper", "iron", "gold", "diamond", "netherite")),
+              "simplebuilding.testcentre.tools.legacy"}
+
 
 def unique_keys(pairs):
     result = {}
@@ -43,7 +48,9 @@ def main():
                     assert files[overlay].get(key) == value, f"Tooltip overlay mismatch: {key}"
             # On 26.3 the overlay file replaces the shared one, so a key only in the shared file is missing in game
             # (audit D-11). The overlay may hold more keys (26.3-only features), never fewer.
-            lost = [] if overlay not in files else sorted(set(data) - set(files[overlay]))
+            lost = [] if overlay not in files else sorted(set(data) - set(files[overlay]) - NOT_ON_263)
+            back = [] if overlay not in files else sorted(NOT_ON_263 & set(files[overlay]))
+            assert not back, f"Key dropped on 26.3 (NOT_ON_263) is back in {overlay.relative_to(ROOT)}: {back}"
             assert not lost, f"Keys only in {path.relative_to(ROOT)}, missing in the 26.3 overlay: {lost[:5]} (+{len(lost)} total)"
     print(f"TOOLTIP_TEXT_OK: {len(files)} JSON files, {checked} tooltip entries; locales, width and overlays valid")
 

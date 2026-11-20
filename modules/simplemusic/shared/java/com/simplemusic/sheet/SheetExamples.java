@@ -19,7 +19,7 @@ public final class SheetExamples {
             new Example("alle_meine_entchen", "Alle meine Entchen", "Traditional"),
             new Example("ode_to_joy", "Ode to Joy", "L. v. Beethoven"),
             new Example("greensleeves", "Greensleeves", "Traditional"),
-            new Example("fuer_elise", "Fuer Elise", "L. v. Beethoven"),
+            new Example("fuer_elise", "Für Elise", "L. v. Beethoven"),
             new Example("redstone_walk", "Redstone Walk", "Simple Music"),
             new Example("prelude_c_major", "Prelude in C major", "J. S. Bach"),
             new Example("canon_in_d", "Canon in D", "J. Pachelbel"),

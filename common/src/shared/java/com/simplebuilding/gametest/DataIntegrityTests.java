@@ -4900,7 +4900,8 @@ public final class DataIntegrityTests {
             keys.add("gui.simplebuilding.trim_stats." + part);
         }
         keys.add("gui.simplebuilding.extra_head_slot");
-        for (String tier : List.of("stone", "copper", "iron", "gold", "diamond", "netherite")) {
+        // N114: the spatula names exist only where the spatulas do (26.2; 26.3: Simple Chisels, McVersion.CHISELS_IN_SB).
+        for (String tier : com.simplebuilding.version.McVersion.CHISELS_IN_SB ? List.of("stone", "copper", "iron", "gold", "diamond", "netherite") : List.<String>of()) {
             keys.add("item.simplebuilding." + tier + "_spatula");
         }
 
