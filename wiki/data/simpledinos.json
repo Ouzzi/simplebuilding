@@ -32,7 +32,7 @@
         "summary": "A very rare find in the underground of deserts, badlands and swamps. Mined with Silk Touch it stays a block; without it, it breaks into up to two bones and the find is lost. Brush it with the Vanilla brush: after about a minute of brushing, a dinosaur egg falls out.",
         "details": [
           "Brushing fills a progress of 45 seconds (setting brushSeconds); ten visible stages show the bones coming out. If you stop for more than a quarter of a second, the progress runs back at twice the speed: a pause of 1 second takes 2 seconds of progress away.",
-          "Which egg is inside follows from the block's position, so stopping and starting again never changes it. A fossil mined with Silk Touch takes its egg along: set down elsewhere it keeps it, so moving it never changes the egg. Only dinosaurs that already hatch are found: the T. rex, the Triceratops, the Stegosaurus and the Parasaurolophus (weights 10 : 25 : 25 : 20). The find site shifts the odds: in deserts the T. rex and the Triceratops count 1.5 times, in badlands the Utahraptor twice and the Stegosaurus 1.5 times, in swamps and mangrove swamps the Parasaurolophus twice.",
+          "Which egg is inside follows from the block's position, so stopping and starting again never changes it. A fossil mined with Silk Touch takes its egg along: set down elsewhere it keeps it, so moving it never changes the egg. All five dinosaurs are found: the T. rex, the Triceratops, the Stegosaurus, the Utahraptor and the Parasaurolophus (weights 10 : 25 : 25 : 20 : 20). The find site shifts the odds: in deserts the T. rex and the Triceratops count 1.5 times, in badlands the Utahraptor twice and the Stegosaurus 1.5 times, in swamps and mangrove swamps the Parasaurolophus twice.",
           "Generation: one cluster of up to 3 blocks in roughly every fourth chunk of desert, badlands, swamp and mangrove swamp, height -10 to 50, in stone and sandstone. After brushing, a sandstone block is left, and sometimes a bone."
         ]
       },
@@ -41,7 +41,7 @@
         "summary": "Ein sehr seltener Fund im Untergrund von Wüsten, Badlands und Sümpfen. Mit Behutsamkeit abgebaut bleibt er ein Block; ohne bricht er in bis zu zwei Knochen und der Fund geht verloren. Mit dem Vanilla-Pinsel freilegen: nach etwa einer Minute Pinseln fällt ein Dinosaurier-Ei heraus.",
         "details": [
           "Das Pinseln füllt einen Fortschritt von 45 Sekunden (Einstellung brushSeconds); zehn sichtbare Stufen zeigen, wie die Knochen herauskommen. Hörst du länger als eine Viertelsekunde auf, läuft der Fortschritt doppelt so schnell zurück: 1 Sekunde Pause nimmt 2 Sekunden Fortschritt weg.",
-          "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. Ein mit Behutsamkeit abgebauter Fossilienblock nimmt sein Ei mit: woanders gesetzt behält er es, Versetzen ändert das Ei also nie. Es stecken nur Dinosaurier darin, die schon schlüpfen: T-Rex, Triceratops, Stegosaurus und Parasaurolophus (Gewichte 10 : 25 : 25 : 20). Der Fundort verschiebt die Chancen: in Wüsten zählen T-Rex und Triceratops 1,5-fach, in Badlands der Utahraptor doppelt und der Stegosaurus 1,5-fach, in Sümpfen und Mangrovensümpfen der Parasaurolophus doppelt.",
+          "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. Ein mit Behutsamkeit abgebauter Fossilienblock nimmt sein Ei mit: woanders gesetzt behält er es, Versetzen ändert das Ei also nie. Alle fünf Dinosaurier stecken darin: T-Rex, Triceratops, Stegosaurus, Utahraptor und Parasaurolophus (Gewichte 10 : 25 : 25 : 20 : 20). Der Fundort verschiebt die Chancen: in Wüsten zählen T-Rex und Triceratops 1,5-fach, in Badlands der Utahraptor doppelt und der Stegosaurus 1,5-fach, in Sümpfen und Mangrovensümpfen der Parasaurolophus doppelt.",
           "Generierung: ein Vorkommen von bis zu 3 Blöcken in etwa jedem vierten Chunk von Wüste, Badlands, Sumpf und Mangrovensumpf, Höhe -10 bis 50, in Stein und Sandstein. Nach dem Pinseln bleibt ein Sandsteinblock übrig, manchmal ein Knochen."
         ]
       }
@@ -87,7 +87,7 @@
           "Adults eat any raw or cooked meat to heal (4 hearts per piece, up to full health). They bite 10 damage (setting trexBiteDamage), only monsters that attack the owner or the dinosaur, follow the owner and never attack players. The T. rex is the only dinosaur that fights. Hatchlings run away when hurt.",
           "A T. rex that was not hatched from an egg (summoned by command) has no owner and cannot be ridden. It does not breed, never spawns on its own and does not break blocks.",
           "Head and tail have their own part hitboxes: the head pulls back over the chest before it would reach into a wall, a player or another animal, the tail bends to the free side. Leaves do not count, they only brush past. It bites from the reach of its head and stops following its owner before the head gets there.",
-          "Sounds are Vanilla sounds (ravager) for now; own recordings come later."
+          "It has its own voice (calls, hurt, death and a roar when angry); its heavy steps are deep Vanilla ravager steps."
         ]
       },
       "de": {
@@ -97,7 +97,7 @@
           "Erwachsene fressen jedes rohe oder gegarte Fleisch zum Heilen (4 Herzen je Stück, bis zur vollen Gesundheit). Sie beißen mit 10 Schaden (Einstellung trexBiteDamage), nur Monster, die den Besitzer oder den Dinosaurier angreifen, folgen dem Besitzer und greifen nie Spieler an. Jungtiere laufen weg, wenn sie verletzt werden. Der T-Rex ist der einzige Dinosaurier, der kämpft.",
           "Ein T-Rex, der nicht aus einem Ei geschlüpft ist (per Befehl gerufen), hat keinen Besitzer und lässt sich nicht reiten. Er züchtet nicht, spawnt nie von selbst und zerstört keine Blöcke.",
           "Kopf und Schwanz haben eigene Teil-Hitboxen: Der Kopf zieht sich über die Brust zurück, bevor er in eine Wand, einen Spieler oder ein anderes Tier reichen würde, der Schwanz biegt zur freien Seite. Blätter zählen nicht, sie streifen nur vorbei. Er beißt aus der Reichweite seines Kopfes und bleibt beim Folgen stehen, bevor der Kopf den Besitzer erreicht.",
-          "Die Geräusche sind vorerst Vanilla-Geräusche (Verwüster); eigene Aufnahmen folgen."
+          "Er hat eine eigene Stimme (Rufe, Schmerz, Tod und ein Brüllen im Zorn); die schweren Schritte sind tiefe Vanilla-Verwüster-Schritte."
         ]
       }
     },
@@ -120,7 +120,7 @@
           "Mobs in the run are pushed aside without damage; players and tamed animals never. A monster that hits a grown Triceratops is pushed away hard. It has no attack.",
           "Food: apple (favorite, heals 4 hearts), wheat, hay bale and carrot (2 hearts); feeding a hatchling speeds its growth up like with Vanilla animals. 100 health, core hitbox 2.6 x 2.6 blocks.",
           "Head and tail have part hitboxes. The head with frill and horns is solid: it stops the walk at walls (leaves and one-block steps excepted) and pushes living things aside; when something stands in front it lifts the head. The tail bends to the free side.",
-          "Large saddle and Triceratops armor (leather, iron, diamond: frill shield, horn caps and chest plate) go on like on a horse. Sounds are Vanilla sounds for now (hoglin, deeper; the hit like a goat ram)."
+          "Large saddle and Triceratops armor (leather, iron, diamond: frill shield, horn caps and chest plate) go on like on a horse. It has its own voice (calls, hurt, death and an angry bellow when it charges); the hit sounds like a Vanilla goat ram."
         ]
       },
       "de": {
@@ -132,7 +132,7 @@
           "Mobs im Lauf werden ohne Schaden weggestoßen; Spieler und gezähmte Tiere nie. Ein Monster, das einen erwachsenen Triceratops trifft, wird kräftig weggestoßen. Einen Angriff hat er nicht.",
           "Futter: Apfel (Lieblingsfutter, heilt 4 Herzen), Weizen, Heuballen und Karotte (2 Herzen); Füttern lässt ein Jungtier schneller wachsen wie bei Vanilla-Tieren. 100 Lebenspunkte, Kern-Hitbox 2,6 x 2,6 Blöcke.",
           "Kopf und Schwanz haben Teil-Hitboxen. Der Kopf mit Kragen und Hörnern ist fest: er hält den Lauf an Wänden an (Blätter und Stufen von einem Block ausgenommen) und schiebt Lebewesen beiseite; steht etwas davor, hebt er den Kopf. Der Schwanz biegt zur freien Seite.",
-          "Großer Sattel und Triceratops-Rüstung (Leder, Eisen, Diamant: Kragenschild, Hornkappen und Brustplatte) legt man wie beim Pferd an. Klänge sind vorerst Vanilla-Klänge (Hoglin, tiefer; der Treffer wie ein Ziegen-Rammstoß)."
+          "Großer Sattel und Triceratops-Rüstung (Leder, Eisen, Diamant: Kragenschild, Hornkappen und Brustplatte) legt man wie beim Pferd an. Er hat eine eigene Stimme (Rufe, Schmerz, Tod und ein zorniges Brüllen beim Ansturm); der Treffer klingt wie ein Vanilla-Ziegen-Rammstoß."
         ]
       }
     },
@@ -155,7 +155,7 @@
           "Sowing: seeds in the rider's off hand (wheat, beetroot, melon, pumpkin and torchflower seeds, pitcher pods, carrots, potatoes; tag simpledinos:plow_seeds) go on every empty field of the strip, one each, where the plant can grow (enough light). Setting stegosaurusSow turns it off. The Stegosaurus never tramples farmland.",
           "A monster that hits a grown Stegosaurus in melee gets 2 damage from the tail spikes (players never); it has no attack. Food: fern and large fern (favorites, heal 4 hearts), wheat, hay bale and sweet berries (2 hearts); feeding a hatchling speeds its growth up. 90 health, core hitbox 2.6 x 3.7 blocks (body, legs and plates).",
           "Head and tail have part hitboxes. The low head is solid: it stops the walk at walls (leaves and one-block steps excepted); when something stands in front, it lowers the head like grazing. The tail with its four spikes bends to the free side.",
-          "Large saddle (the rider sits over the shoulders, in front of the plates) and Stegosaurus armor (leather, iron, diamond: neck guard and flank plates, the back plates stay free) go on like on a horse. Sounds are Vanilla sounds for now (sniffer, deeper)."
+          "Large saddle (the rider sits over the shoulders, in front of the plates) and Stegosaurus armor (leather, iron, diamond: neck guard and flank plates, the back plates stay free) go on like on a horse. It has its own voice (calls, hurt, death); steps and the angry snort are deep Vanilla sniffer sounds."
         ]
       },
       "de": {
@@ -167,7 +167,7 @@
           "Säen: Saatgut in der Nebenhand des Reiters (Weizen-, Rote-Bete-, Melonen-, Kürbis- und Fackellilien-Samen, Kannenpflanzen-Kapseln, Karotten, Kartoffeln; Tag simpledinos:plow_seeds) kommt auf jedes leere Feld des Streifens, je eins, wo die Pflanze wachsen kann (genug Licht). Die Einstellung stegosaurusSow schaltet es aus. Der Stegosaurus zertrampelt nie Ackerboden.",
           "Ein Monster, das einen erwachsenen Stegosaurus im Nahkampf trifft, bekommt 2 Schaden von den Schwanzstacheln (Spieler nie); einen Angriff hat er nicht. Futter: Farn und Großer Farn (Lieblingsfutter, heilen 4 Herzen), Weizen, Heuballen und Süßbeeren (2 Herzen); Füttern lässt ein Jungtier schneller wachsen. 90 Lebenspunkte, Kern-Hitbox 2,6 x 3,7 Blöcke (Rumpf, Beine und Platten).",
           "Kopf und Schwanz haben Teil-Hitboxen. Der tiefe Kopf ist fest: er hält den Lauf an Wänden an (Blätter und Stufen von einem Block ausgenommen); steht etwas davor, senkt er den Kopf wie beim Grasen. Der Schwanz mit seinen vier Stacheln biegt zur freien Seite.",
-          "Großer Sattel (der Reiter sitzt über den Schultern, vor den Platten) und Stegosaurus-Rüstung (Leder, Eisen, Diamant: Halsschutz und Flankenplatten, die Rückenplatten bleiben frei) legt man wie beim Pferd an. Klänge sind vorerst Vanilla-Klänge (Schnüffler, tiefer)."
+          "Großer Sattel (der Reiter sitzt über den Schultern, vor den Platten) und Stegosaurus-Rüstung (Leder, Eisen, Diamant: Halsschutz und Flankenplatten, die Rückenplatten bleiben frei) legt man wie beim Pferd an. Er hat eine eigene Stimme (Rufe, Schmerz, Tod); Schritte und das zornige Schnauben sind tiefe Vanilla-Schnüffler-Klänge."
         ]
       }
     },
@@ -191,7 +191,7 @@
           "Swimming: in deep water it floats with its back out of the water and carries its rider without throwing them off (horses and camels throw their rider off when the rider's head goes under water); it swims at about 0.6 times its land speed (0.24). So it leads a herd across rivers.",
           "It never fights: hurt, it gives a warning call (sound only) and runs away when nobody rides it. Food: sweet berries (favorite, heal 4 hearts), wheat, hay bale and beetroot (2 hearts); feeding a hatchling speeds its growth up. 60 health, core hitbox 2.2 x 2.5 blocks (body, legs and hip ridge).",
           "Head and tail have part hitboxes. The neck base stands in front of the shoulders, so the head is solid: it stops the walk at walls (leaves and one-block steps excepted); when something stands in front, the long neck rises and the head comes back. The tail bends to the free side.",
-          "Large saddle (the rider sits in the middle of the back, clear of the crest) and Parasaurolophus armor (leather, iron, diamond: crest hood and hip blanket) go on like on a horse. Sounds are Vanilla sounds for now (goat horn for the call, camel, deeper)."
+          "Large saddle (the rider sits in the middle of the back, clear of the crest) and Parasaurolophus armor (leather, iron, diamond: crest hood and hip blanket) go on like on a horse. It has its own voice (calls, hurt, death); the crest call is a deep Vanilla goat horn, the steps are camel steps."
         ]
       },
       "de": {
@@ -204,7 +204,7 @@
           "Schwimmen: in tiefem Wasser treibt er mit dem Rücken über Wasser und trägt seinen Reiter, ohne ihn abzuwerfen (Pferde und Kamele werfen ihren Reiter ab, wenn dessen Kopf unter Wasser gerät); er schwimmt mit etwa 0,6-fachem Landtempo (0,24). So führt er eine Herde über Flüsse.",
           "Er kämpft nie: verletzt stößt er einen Warnruf aus (nur Ton) und läuft davon, wenn ihn niemand reitet. Futter: Süßbeeren (Lieblingsfutter, heilen 4 Herzen), Weizen, Heuballen und Rote Bete (2 Herzen); Füttern lässt ein Jungtier schneller wachsen. 60 Lebenspunkte, Kern-Hitbox 2,2 x 2,5 Blöcke (Rumpf, Beine und Hüftkamm).",
           "Kopf und Schwanz haben Teil-Hitboxen. Der Halsansatz steht vor den Schultern, darum ist der Kopf fest: er hält den Lauf an Wänden an (Blätter und Stufen von einem Block ausgenommen); steht etwas davor, hebt sich der lange Hals und der Kopf kommt zurück. Der Schwanz biegt zur freien Seite.",
-          "Großer Sattel (der Reiter sitzt mitten auf dem Rücken, frei vom Kamm) und Parasaurolophus-Rüstung (Leder, Eisen, Diamant: Kammhaube und Hüftdecke) legt man wie beim Pferd an. Klänge sind vorerst Vanilla-Klänge (Ziegenhorn für den Ruf, Kamel, tiefer)."
+          "Großer Sattel (der Reiter sitzt mitten auf dem Rücken, frei vom Kamm) und Parasaurolophus-Rüstung (Leder, Eisen, Diamant: Kammhaube und Hüftdecke) legt man wie beim Pferd an. Er hat eine eigene Stimme (Rufe, Schmerz, Tod); der Kammruf ist ein tiefes Vanilla-Ziegenhorn, die Schritte sind Kamelschritte."
         ]
       }
     },
@@ -4503,10 +4503,10 @@
           "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
         ],
         "en": {
-          "summary": "Egg of the Stegosaurus. Can be placed and brooded; hatches once the Stegosaurus is built (not in stage 1)."
+          "summary": "Egg of the Stegosaurus. Place it and sit on it: a tame Stegosaurus hatches for the player who sat longest."
         },
         "de": {
-          "summary": "Ei des Stegosaurus. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Stegosaurus gebaut ist (nicht in Stufe 1)."
+          "summary": "Ei des Stegosaurus. Platzieren und daraufsetzen: ein zahmer Stegosaurus schlüpft für den Spieler, der am längsten gesessen hat."
         }
       },
       "questionary": {
@@ -4591,10 +4591,10 @@
           "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
         ],
         "en": {
-          "summary": "Egg of the Triceratops. Can be placed and brooded; hatches once the Triceratops is built (not in stage 1)."
+          "summary": "Egg of the Triceratops. Place it and sit on it: a tame Triceratops hatches for the player who sat longest."
         },
         "de": {
-          "summary": "Ei des Triceratops. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Triceratops gebaut ist (nicht in Stufe 1)."
+          "summary": "Ei des Triceratops. Platzieren und daraufsetzen: ein zahmer Triceratops schlüpft für den Spieler, der am längsten gesessen hat."
         }
       },
       "questionary": {
