@@ -19,6 +19,7 @@ a path suffix for equipment/GUI sprites). Over-keeping is safe; only files nothi
 Candidates (N114, release audit item 9): moved content as above, every texture of the 26.3-only overlay
 (mc26_3/overlay/resources), and FORCED (files only name heuristics keep alive, each with its reason).
 The 26.2 line keeps them (it still registers the content until the port run).
+N117: tools/release/check_release_assets.py proves on the built release jar set that nothing they reference is missing.
 """
 import json
 import re
@@ -235,11 +236,16 @@ def dead():
     for p in modules.values():
         if p.suffix == '.json':
             mark(json_strings(p), False)
-    while todo:
-        rel = todo.pop()
-        p = files[rel]
-        if p.suffix == '.json':
-            mark(json_strings(p), True)
+    followed = set()
+
+    def follow():
+        while todo:
+            rel = todo.pop()
+            if rel not in followed and files[rel].suffix == '.json':
+                followed.add(rel)
+                mark(json_strings(files[rel]), True)
+
+    follow()
     # Ids SimpleBuilding builds at run time ("placed_" + item, "chess/" + material ...): a moved file whose name such a
     # fragment of SB's own code starts or ends stays, even when no literal names it in full (the 26.3 placed-template
     # renderer still asks for simplebuilding:placed_<template>).
@@ -270,6 +276,10 @@ def dead():
                         live.add(rel)
                         grew = True
                         break
+    # N117: a file the fragment rules keep is live like any other, so the files its JSON names are live too (a model
+    # kept by a name fragment named an item texture that was listed: simplebuilding:item/enderite_spear).
+    todo.extend(sorted(live - followed))
+    follow()
     # A live texture keeps its animation file and vice versa.
     for rel in list(cand):
         if rel.endswith('.png.mcmeta') and rel[:-len('.mcmeta')] in live:

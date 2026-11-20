@@ -210,7 +210,6 @@ assets/simplebuilding/textures/item/enderite_quiver_dyed_overlay.png
 assets/simplebuilding/textures/item/enderite_scrap.png
 assets/simplebuilding/textures/item/enderite_shovel.png
 assets/simplebuilding/textures/item/enderite_sledgehammer.png
-assets/simplebuilding/textures/item/enderite_spear.png
 assets/simplebuilding/textures/item/enderite_sword.png
 assets/simplebuilding/textures/item/enderite_upgrade_template.png
 assets/simplebuilding/textures/item/glowing_trim_template.png

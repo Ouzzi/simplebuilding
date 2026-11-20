@@ -399,7 +399,7 @@ tasks.register('testReleaseTools', Exec) {
 	description = 'Runs the unit tests of tools/release and of tools/check_player_texts.py.'
 	workingDir = rootDir
 	commandLine wikiPython, '-m', 'unittest', 'tools/release/test_dead_assets_263.py', 'tools/release/test_check_release_jars.py',
-		'tools/release/test_early_access.py', 'tools/test_check_player_texts.py'
+		'tools/release/test_check_release_assets.py', 'tools/release/test_early_access.py', 'tools/test_check_player_texts.py'
 	onlyIf { !project.hasProperty('skipWiki') }
 	outputs.upToDateWhen { false }
 }
