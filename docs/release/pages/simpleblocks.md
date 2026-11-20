@@ -17,7 +17,7 @@ Missing building blocks: Vanilla stair, slab and wall gaps, cracked and mossy va
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Tiles, Sculk Deepslate, missing stairs, slabs and walls and cracked or mossy brick variants, and hosts blocks that have no home elsewhere. The Shapecutter cuts stone and wood into every shape.
+Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Tiles, Sculk Deepslate, missing stairs, slabs and walls and cracked or mossy brick variants, and hosts blocks that have no home elsewhere: ice and blue nether bricks, snowlogging, Pale Garden blocks and compressed blocks. The Shapecutter cuts stone and wood into every shape.
 
 ## Features
 

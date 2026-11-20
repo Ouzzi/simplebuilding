@@ -27,7 +27,7 @@ Simple Mobs adds the Hollow Howler and Hollow Watcher bosses, the Shellker, Soul
 - **High Gravity and the Shellker Helmet** - High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 % and falls hurt 50 % more per level (Feather Falling still helps).
 - **Combat effects: Volatile, Deflection, Mirror**
 - **Danger zones: effects on new monsters**
-- **Armour trim abilities** - Armour trims do more than look good: every trim pattern and trim material gives its wearer a small ability (less damage of one kind, speed, luck, reach, air, experience).
+- **Armor trim abilities** - Armor trims do more than look good: every trim pattern and trim material gives its wearer a small ability (less damage of one kind, speed, luck, reach, air, experience).
 - **Soulfire Blaze** - A Blaze of soul fire, found rarely in Soul Sand Valleys.
 - **Deceiver: cloak, disguise, mirror** - From Deceiver Cloth: a cloak that lets you take any mob's or player's shape, a particle-free invisibility potion and a mirror that sees through deceptions.
 - **Dread** - A fear mob you build yourself: a 2.6 block knight of rusted armor with soul flames in its empty helmet and a chain mace.

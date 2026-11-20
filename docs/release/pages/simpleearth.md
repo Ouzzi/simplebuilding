@@ -22,7 +22,7 @@ Above a very high activation height, Simple Earth turns the world into a slightl
 ## Features
 
 - **Orbit** - World 0 ~ 0 is the middle of the earth's top face (there is no activation height).
-- **Terrain from the world generator** - The faces show Vanilla map colours (grass, leaves, sand, snow, water, terracotta ...) with map-style height shading.
+- **Terrain from the world generator** - The faces show Vanilla map colors (grass, leaves, sand, snow, water, terracotta ...) with map-style height shading.
 - **27 versions** - Behind every edge lies new terrain: four faces north is 4 edge lengths away, never back at the start (tesseract).
 - **Sky**
 - **Menu**

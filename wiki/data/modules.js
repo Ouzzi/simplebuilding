@@ -1458,7 +1458,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 20
     },
-    "dataHash": "4dab5ed8a741"
+    "dataHash": "3de12f9bb116"
   },
   {
     "id": "simplecrucibles",
@@ -2032,7 +2032,7 @@ window.WIKI_MODULES = [
       "config": 27,
       "features": 27
     },
-    "dataHash": "9f90940aa278"
+    "dataHash": "f5c0a41b4807"
   },
   {
     "id": "simplemachines",

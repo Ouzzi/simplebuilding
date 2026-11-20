@@ -321,6 +321,12 @@ public final class ModuleGameTest {
         OresTests.ALL.get("line_bridge_links_all_lines").accept(h);
     }
 
+    /** N119 probe: a 15-piece line of every kind lights a vanilla lamp in front of its end at power 1. */
+    @GameTest(structure = "simpleores:arena", maxTicks = 80)
+    public void lineLineEndLightsVanillaLampAtPowerOne(GameTestHelper h) {
+        OresTests.ALL.get("line_line_end_lights_vanilla_lamp_at_power_one").accept(h);
+    }
+
     @GameTest(structure = "simpleores:arena", maxTicks = 60)
     public void lineLampsToggleOnEveryLine(GameTestHelper h) {
         OresTests.ALL.get("line_lamps_toggle_on_every_line").accept(h);
@@ -384,6 +390,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void lineRedstoneRecipesYieldTwo(GameTestHelper h) {
         OresTests.ALL.get("line_redstone_recipes_yield_two").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void lineDustLightsFromPowerOne(GameTestHelper h) {
+        OresTests.ALL.get("line_dust_lights_from_power_one").accept(h);
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 220)

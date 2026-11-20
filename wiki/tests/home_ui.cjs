@@ -56,6 +56,11 @@ async function check(browser, base, mod, width, scheme) {
   if (mod !== 'simpleweather') assert.ok(hl.length >= 1, tag + ' highlights shown');
   if (mod === 'simplebuilding') assert.equal(await page.locator('.cat-grid').count(), 1, tag + ' categories');
   if (mod === 'simpleweather') assert.equal(await page.locator('.cat-grid').count(), 0, tag + ' no categories without items');
+  // N119: a sub-mod's category cards name its own entries, not SimpleBuilding's catalogue texts (furnaces, pads, backpacks)
+  if (mod === 'simpleblocks') {
+    const cds = await page.locator('.cat-card .cd').allTextContents();
+    assert.ok(cds.length && !cds.some(t => /Backpacks|Rucksäcke|Flypads|Flugpads|Faster furnaces|Schnellere Öfen|Chisels, sledgehammers|Meißel, Vorschlag/.test(t)), tag + ' category texts ' + JSON.stringify(cds));
+  }
   // fact box (b-wiki24): purpose, included in, commands (+ settings when the mod has config), then requires/works with
   const rows = await page.locator('.home-compat .compat-row').count();
   assert.ok(rows >= 5 && rows <= 6, tag + ' compatibility rows ' + rows);

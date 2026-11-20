@@ -14,7 +14,7 @@ Findings:
   * code     internal task/plan codes such as N86, WG26-2, IG31-13, PAL35b, (T4), A12, REV2-A-1, PLAN40, docs/ai/...,
              <mod>-<n> (simpleearth-2), "split stage 8c-1", branch names (b-polish110, claude-wave1), "PRINZIPIEN"
   * history  development dates (30.10., 23.10.2026, 2026-09-28), "owner"/"Besitzer" decisions ("(owner)",
-             "owner decision"), "since bundle 198", "moved here from"/"hierher umgezogen"
+             "owner decision", "waiting for the owner's choice"), "since bundle 198", "moved here from"/"hierher umgezogen"
   * british  British spelling in English text (colour, grey, centre, armour, fuelled, cancelled, -ise verbs ...);
              the house style is American English (owner rule "EN amerikanisch").
   * umlaut   German text with umlauts/ß written as ASCII (fuer, ueber, koennen, muessen, Gewoelbe, groesse, Plaetze,
@@ -48,6 +48,7 @@ HISTORY = re.compile(
     r"|\bport[- ]run\b"                                                     # "until the port run" (release process)
     r"|\((?:owner|Besitzer)\)|\bowner decision\b|\bBesitzer-?[Ee]ntscheid\w*"
     r"|\b(?:owner|Besitzer)[ ,]+N\d+"
+    r"|\bowner'?s (?:choice|approval|decision)\b|\bwaiting for the owner\b|\b(?:Wahl|Abnahme|Freigabe|Entscheidung) des Besitzers\b"
     r"|\b(?:since|seit|before|vor|until|bis) (?:bundle|Bündel|Paket) \d+"
     r"|\bmoved here\b|\bhierher umgezogen\b", re.I)
 BRITISH = re.compile(

@@ -54,7 +54,7 @@
 | [Simple Challenges](simplechallenges.md) | `simplechallenges` | `0.1.0-beta.1` | Beta | Game modes for a world of your choice, starting with the Unlock mode: priced cells you must free to enter. | draft |
 | [Simple Animals](simpleanimals.md) | `simpleanimals` | `0.1.0-beta.1` | Beta | Five new animals: deer, wild boar, hedgehog, crab and zebra, with low spawn rates and no block damage. | draft |
 | [Simple Dinosaurs](simpledinos.md) | `simpledinos` | `0.1.0-beta.1` | Beta | Fossils, brushable dinosaur eggs and the first dinosaur: a rideable T. rex that hatches and grows up. | draft |
-| [Simple Ores](simpleores.md) | `simpleores` | `0.1.0-beta.1` | Beta | Silver, Rose Copper, Rose Gold and Enderite with tools and armor, plus Dimensional Scrap and Sage Ore. | draft |
+| [Simple Ores](simpleores.md) | `simpleores` | `0.1.0-beta.1` | Beta | Silver, lead, tin, rose gold and Enderite with tools, armor and metal blocks, End ores and the Astral and Nihil redstone lines. | draft |
 | [Simple Machines](simplemachines.md) | `simplemachines` | `0.1.0-beta.1` | Beta | Double Piston, Signal Dampener, upgraded pistons, faster filter hoppers and carts, a Smither and an Auto Crafter. | draft |
 | [Simple Arrows](simplearrows.md) | `simplearrows` | `0.1.0-beta.1` | Beta | Fletching Table, Light Arrow and Silver Arrow: build arrows from tip, shaft and fletching. | draft |
 | [Simple Resonance](simpleresonance.md) | `simpleresonance` | `0.1.0-beta.1` | Beta | Player value, danger zones and spawn owners: an API and gameplay layer for experience-aware spawning. | draft |
