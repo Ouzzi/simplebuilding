@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_5",
-  "textures": {
-    "bottom": "simpleores:block/cut_silver",
-    "top": "simpleores:block/cut_silver",
-    "side": "simpleores:block/cut_silver"
-  }
-}

@@ -58,54 +58,10 @@
               "count": 4
             },
             {
-              "type": "minecraft:set_count",
-              "condition": {
-                "type": "minecraft:match_block",
-                "blocks": "simpleslabs:cut_brass_side_half_slab",
-                "state": {
-                  "thickness": "5"
-                }
-              },
-              "count": 5
-            },
-            {
-              "type": "minecraft:set_count",
-              "condition": {
-                "type": "minecraft:match_block",
-                "blocks": "simpleslabs:cut_brass_side_half_slab",
-                "state": {
-                  "thickness": "6"
-                }
-              },
-              "count": 6
-            },
-            {
-              "type": "minecraft:set_count",
-              "condition": {
-                "type": "minecraft:match_block",
-                "blocks": "simpleslabs:cut_brass_side_half_slab",
-                "state": {
-                  "thickness": "7"
-                }
-              },
-              "count": 7
-            },
-            {
-              "type": "minecraft:set_count",
-              "condition": {
-                "type": "minecraft:match_block",
-                "blocks": "simpleslabs:cut_brass_side_half_slab",
-                "state": {
-                  "thickness": "8"
-                }
-              },
-              "count": 8
-            },
-            {
               "type": "minecraft:explosion_decay"
             }
           ],
-          "name": "simpleslabs:cut_brass_half_slab"
+          "name": "simpleslabs:cut_brass_side_half_slab"
         }
       ],
       "rolls": 1

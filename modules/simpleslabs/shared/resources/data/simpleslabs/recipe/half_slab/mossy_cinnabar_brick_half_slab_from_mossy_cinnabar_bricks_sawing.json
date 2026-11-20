@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleblocks:mossy_cinnabar_bricks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:mossy_cinnabar_brick_half_slab"
   }
 }

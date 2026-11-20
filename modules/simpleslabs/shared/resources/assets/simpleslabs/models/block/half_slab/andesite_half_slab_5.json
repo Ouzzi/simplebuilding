@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_5",
-  "textures": {
-    "bottom": "minecraft:block/andesite",
-    "top": "minecraft:block/andesite",
-    "side": "minecraft:block/andesite"
-  }
-}

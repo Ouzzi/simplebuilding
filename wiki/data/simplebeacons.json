@@ -32,7 +32,7 @@
         "title": "Strong Upgrade",
         "summary": "A smithing template you cannot craft from plain materials: it comes from the Wither. It turns a beacon into a Strong Beacon and a conduit into a Strong Conduit.",
         "details": [
-          "The template and its shard belong to SimpleLib (WF25-10), so other mods use them too. The Vanilla Wither drops one Strong Upgrade Shard (it survives explosions) while Simple Mobs is on - 9 shards make one template; without Simple Mobs it drops the whole template instead.",
+          "The template and its shard belong to SimpleLib, so other mods use them too. The Vanilla Wither drops one Strong Upgrade Shard (it survives explosions) while Simple Mobs is on - 9 shards make one template; without Simple Mobs it drops the whole template instead.",
           "With Simple Mobs the heavy Withers drop a Nether Heart: Nether Heart in the middle, four diamonds on the edges and four crying obsidian in the corners make a template.",
           "Duplicate it only with a Nether Heart: the template, 1 crying obsidian, 1 diamond and a Nether Heart (shapeless) give 2 templates - cheaper than crafting the first one.",
           "It is used up by both upgrade ways."
@@ -42,7 +42,7 @@
         "title": "Starke Aufwertungsvorlage",
         "summary": "Eine Schmiedevorlage, die sich nicht aus einfachen Materialien herstellen lässt: sie kommt vom Wither. Sie macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer und aus einem Aquisator einen Starken Aquisator.",
         "details": [
-          "Vorlage und Splitter gehören SimpleLib (WF25-10), damit auch andere Mods sie nutzen. Der Vanilla-Wither lässt einen Splitter der Starken Aufwertung fallen (übersteht Explosionen), solange Simple Mobs an ist - 9 Splitter ergeben eine Vorlage; ohne Simple Mobs lässt er stattdessen die ganze Vorlage fallen.",
+          "Vorlage und Splitter gehören SimpleLib, damit auch andere Mods sie nutzen. Der Vanilla-Wither lässt einen Splitter der Starken Aufwertung fallen (übersteht Explosionen), solange Simple Mobs an ist - 9 Splitter ergeben eine Vorlage; ohne Simple Mobs lässt er stattdessen die ganze Vorlage fallen.",
           "Mit Simple Mobs lassen die schweren Wither ein Netherherz fallen: Netherherz in der Mitte, vier Diamanten an den Kanten und vier Weinender Obsidian in den Ecken ergeben eine Vorlage.",
           "Vervielfältigen nur mit Netherherz: die Vorlage, 1 Weinender Obsidian, 1 Diamant und ein Netherherz (formlos) ergeben 2 Vorlagen - günstiger als die erste.",
           "Beide Aufwertungswege verbrauchen sie."
@@ -202,8 +202,8 @@
         "title": "Beacon screen",
         "summary": "The beacons open a beacon screen in Vanilla's own style: one row taller (Strong, Evil: four primary rows) or two rows taller (Mighty kinds: five rows), three powers per row; every pyramid level has its own marker icon. The pyramid counter (for example Pyramid 0/6), the material factor (for example Material ×1.25) and the current range and duration sit in the right field.",
         "details": [
-          "Rows the pyramid does not reach yet are greyed out; their tooltip names the level and the blocks it needs (level 5: 285, level 6: 454).",
-          "The tooltip of every power says in one line what it does; level II powers of the Mighty kinds carry II. The II button is greyed out for powers that cannot be raised."
+          "Rows the pyramid does not reach yet are grayed out; their tooltip names the level and the blocks it needs (level 5: 285, level 6: 454).",
+          "The tooltip of every power says in one line what it does; level II powers of the Mighty kinds carry II. The II button is grayed out for powers that cannot be raised."
         ]
       },
       "de": {
@@ -232,7 +232,7 @@
           "Only complete levels count, like Vanilla's level count; blocks of an unfinished level below change nothing. Other base blocks (for example from modpacks) count x1.",
           "Both beacon screens show the factor (Material ×1.25) in the right field; the Vanilla screen also shows the range.",
           "Server switches strongBeaconMaterialRange and vanillaBeaconMaterialRange (both true); off gives the plain range.",
-          "The range never exceeds 340 blocks (REV2-A-1: 50 + 20 x 6 = 170 at the highest settings, x2 Netherite). The server looks for players in its short player list, not for every entity in 680 x 680 blocks, so a full Netherite Mighty Beacon is cheap every 4 seconds."
+          "The range never exceeds 340 blocks (50 + 20 x 6 = 170 at the highest settings, x2 Netherite). The server looks for players in its short player list, not for every entity in 680 x 680 blocks, so a full Netherite Mighty Beacon is cheap every 4 seconds."
         ]
       },
       "de": {
@@ -243,7 +243,7 @@
           "Nur vollständige Ebenen zählen, wie bei der Vanilla-Ebenenzählung; Blöcke einer unfertigen Ebene darunter ändern nichts. Andere Basisblöcke (etwa aus Modpacks) zählen x1.",
           "Beide Leuchtfeuer-Bildschirme zeigen den Faktor (Material ×1,25) im rechten Feld; der Vanilla-Bildschirm zusätzlich die Reichweite.",
           "Server-Schalter strongBeaconMaterialRange und vanillaBeaconMaterialRange (beide true); aus ergibt die einfache Reichweite.",
-          "Die Reichweite übersteigt nie 340 Blöcke (REV2-A-1: 50 + 20 x 6 = 170 bei den höchsten Einstellungen, x2 Netherit). Der Server sucht Spieler in seiner kurzen Spielerliste statt alle Wesen in 680 x 680 Blöcken, ein volles Netherit-Mächtiges Leuchtfeuer ist alle 4 Sekunden billig."
+          "Die Reichweite übersteigt nie 340 Blöcke (50 + 20 x 6 = 170 bei den höchsten Einstellungen, x2 Netherit). Der Server sucht Spieler in seiner kurzen Spielerliste statt alle Wesen in 680 x 680 Blöcken, ein volles Netherit-Mächtiges Leuchtfeuer ist alle 4 Sekunden billig."
         ]
       }
     },
@@ -463,14 +463,14 @@
         "title": "Creative tabs",
         "summary": "The module's items sit in its own creative tab only (no Vanilla tabs; Vanilla items do not stand in the module's tab).",
         "details": [
-          "Since 30.10. (IG31-3) the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The Simple mods do not sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
         "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs; Vanilla-Items stehen nicht im Tab des Moduls).",
         "details": [
-          "Seit 30.10. (IG31-3) sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Die Simple-Mods sortieren ihre Items nicht in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },
@@ -2552,6 +2552,25 @@
       "side": "server",
       "reload": null,
       "source": "modules/simplebeacons/shared/java/com/simplebeacons/config/BeaconsConfig.java",
+      "name": "strongBeaconEffects",
+      "shortName": "strongBeaconEffects",
+      "type": "object",
+      "default": null,
+      "note": null,
+      "category": "Simple Beacons",
+      "categoryDe": "Simple Beacons",
+      "group": null,
+      "groupDe": null,
+      "label": "Strong beacon effects",
+      "labelDe": "Strong beacon effects",
+      "tooltip": null,
+      "tooltipDe": null
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": null,
+      "source": "modules/simplebeacons/shared/java/com/simplebeacons/config/BeaconsConfig.java",
       "name": "strongBeaconMaterialRange",
       "shortName": "strongBeaconMaterialRange",
       "type": "boolean",
@@ -2717,7 +2736,7 @@
     "items": 2,
     "blocks": 8,
     "trades": 0,
-    "config": 29,
+    "config": 30,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

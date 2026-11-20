@@ -1,11 +1,11 @@
-"""N86 half slabs (b-half86, Simple Slabs, preview N86B): in the flat world, built with setblock and block states (no clicks
+"""N86 half slabs (b-half105, Simple Slabs, preview N86C - 4 px per layer since the owner's objection 19.11.): in the flat world, built with setblock and block states (no clicks
 needed for the look) - written by the build session, run by the main session (not run here).
 
 Scenes (shot names = German preview blocks):
-  1 Materialproben  12 materials, each as 1 layer (2 px), 4 layers (= slab height) and 8 layers (full cell)
-  2 Kombinationen   the owner's examples 0-4 + 12-16 px (layers 0,1,6,7) and 0-4 + 8-12 px (0,1,4,5), a single top layer,
-                    a 1..8 layer staircase, slab + half slab (layers 0-4)
-  3 Seitenformen    side half slab (1 layer) and side slab (4 layers) against a stone wall in all four directions
+  1 Materialproben  12 materials, each as 1 layer (4 px), 2 layers (= slab height) and 4 layers (full cell)
+  2 Kombinationen   the owner's examples 0-4 + 12-16 px (layers 0,3) and 0-4 + 8-12 px (0,2), a single top layer,
+                    0-8 + 12-16 px (0,1,3), a 1..4 layer staircase, slab + half slab (layers 0-2)
+  3 Seitenformen    side half slab (1 layer, 4 px) and side slab (2 layers, 8 px) against a stone wall in all four directions
   4 Kupfer          cut copper half slabs in the four ageing stages + waxed, and the copper octets next to them
   5 Testzentrale    order block, stairs, slab, half slab (stone bricks, oak) and the light grey / red placeholders
   6 Natur           grass half slab (biome tint, grass edge on the top layer only), dirt; a sand half slab dropped from
@@ -15,7 +15,7 @@ Scenes (shot names = German preview blocks):
 """
 import time
 
-LAYERS = 8
+LAYERS = 4
 MATERIALS = ['oak', 'spruce', 'stone', 'stone_brick', 'deepslate_tile', 'quartz', 'cut_copper', 'white_wool', 'red_concrete',
              'prismarine', 'blackstone', 'mud_brick']
 
@@ -66,41 +66,41 @@ def half_slabs(s):
     s.chat(f'fill {x - 20} {y - 1} {z + 2} {x + 20} {y - 1} {z + 42} minecraft:smooth_stone', 0.8)
     s.chat(f'fill {x - 20} {y} {z + 2} {x + 20} {y + 6} {z + 42} minecraft:air', 0.8)
 
-    # 1 Materialproben: x row, z = 1 / 4 / 8 layers
+    # 1 Materialproben: x row, z = 1 / 2 / 4 layers
     z1 = z + 6
     for i, m in enumerate(MATERIALS):
         mx = x - 12 + 2 * i
         _half(s, mx, y, z1, m, [0])
-        _half(s, mx, y, z1 + 2, m, [0, 1, 2, 3])
+        _half(s, mx, y, z1 + 2, m, [0, 1])
         _half(s, mx, y, z1 + 4, m, list(range(LAYERS)))
-    s.check('stone half slab placed with 4 layers', _sense_block(s, x - 8, y, z1 + 2, 'simpleslabs:stone_half_slab[l3=true,l4=false]'))
+    s.check('stone half slab placed with 2 layers', _sense_block(s, x - 8, y, z1 + 2, 'simpleslabs:stone_half_slab[l1=true,l2=false]'))
 
     # 2 Kombinationen (owner examples) at z + 18
     z2 = z + 18
-    _half(s, x - 6, y, z2, 'stone', [0, 1, 6, 7])          # 0-4 + 12-16 px
-    _half(s, x - 4, y, z2, 'stone', [0, 1, 4, 5])          # 0-4 + 8-12 px
-    _half(s, x - 2, y, z2, 'oak', [7])                     # a single top layer
-    _half(s, x, y, z2, 'quartz', [0, 2, 4, 6])             # every second layer
-    for n in range(1, LAYERS + 1):                         # staircase 1..8 layers
+    _half(s, x - 6, y, z2, 'stone', [0, 3])                # 0-4 + 12-16 px
+    _half(s, x - 4, y, z2, 'stone', [0, 2])                # 0-4 + 8-12 px
+    _half(s, x - 2, y, z2, 'oak', [3])                     # a single top layer
+    _half(s, x, y, z2, 'quartz', [0, 1, 3])                # 0-8 + 12-16 px
+    for n in range(1, LAYERS + 1):                         # staircase 1..4 layers
         _half(s, x + 2 + n, y, z2, 'stone_brick', list(range(n)))
-    _half(s, x - 8, y, z2, 'stone', [0, 1, 2, 3, 4])       # slab + half slab (what a half slab on a stone slab becomes)
+    _half(s, x - 8, y, z2, 'stone', [0, 1, 2])             # slab + half slab (what a half slab on a stone slab becomes)
     s.chat(f'setblock {x - 10} {y} {z2} minecraft:stone_slab[type=bottom]', 0.15)   # the slab next to it for comparison
-    s.check('owner example 0-4 + 12-16 px', _sense_block(s, x - 6, y, z2, 'simpleslabs:stone_half_slab[l0=true,l1=true,l2=false,l5=false,l6=true,l7=true]'))
+    s.check('owner example 0-4 + 12-16 px', _sense_block(s, x - 6, y, z2, 'simpleslabs:stone_half_slab[l0=true,l1=false,l2=false,l3=true]'))
 
-    # 3 Seitenformen: a stone pillar per direction with a side half slab (1) and a side slab (4) leaning on it
+    # 3 Seitenformen: a stone pillar per direction with a side half slab (1) and a side slab (2) leaning on it
     z3 = z + 26
     for i, (facing, dx, dz) in enumerate((('north', 0, 1), ('south', 0, -1), ('west', 1, 0), ('east', -1, 0))):
         px = x - 9 + 6 * i
         s.chat(f'fill {px} {y} {z3} {px} {y + 1} {z3} minecraft:stone', 0.15)
         # facing = the side of the cell the form leans on: the cell next to the pillar leans towards it
         _side(s, px + dx, y, z3 + dz, 'oak', facing, 1)
-        _side(s, px + dx, y + 1, z3 + dz, 'oak', facing, 4)
-    s.check('side slab placed', _sense_block(s, x - 9, y + 1, z3 + 1, 'simpleslabs:oak_side_half_slab[facing=north,thickness=4]'))
+        _side(s, px + dx, y + 1, z3 + dz, 'oak', facing, 2)
+    s.check('side slab placed', _sense_block(s, x - 9, y + 1, z3 + 1, 'simpleslabs:oak_side_half_slab[facing=north,thickness=2]'))
 
-    # 4 Kupfer: stages + waxed (half slabs 2 layers), the copper octets on the right
+    # 4 Kupfer: stages + waxed (half slabs 1 layer), the copper octets on the right
     z4 = z + 32
     for i, p in enumerate(['', 'exposed_', 'weathered_', 'oxidized_', 'waxed_']):
-        _half(s, x - 8 + 2 * i, y, z4, p + 'cut_copper', [0, 1])
+        _half(s, x - 8 + 2 * i, y, z4, p + 'cut_copper', [0])
         s.chat(f'setblock {x + 4 + 2 * i} {y} {z4} simpleoctets:{p}{"copper_block" if p in ("", "waxed_") else "copper"}_octet'
                f'[o000=true,o100=true,o001=true,o101=true]', 0.15)
 
@@ -121,10 +121,10 @@ def half_slabs(s):
     z6 = z + 12
     s.chat(f'fill {x + 14} {y - 1} {z6 - 2} {x + 19} {y - 1} {z6 + 2} minecraft:grass_block', 0.3)
     _half(s, x + 15, y, z6, 'grass', [0])
-    _half(s, x + 16, y, z6, 'grass', [0, 1, 2, 3])
-    _half(s, x + 17, y, z6, 'grass', [0, 1, 6, 7])
-    _half(s, x + 18, y, z6, 'dirt', [0, 1])
-    _half(s, x + 16, y + 4, z6 + 2, 'sand', [5, 7])          # floats: falls as 2 layers onto the grass
+    _half(s, x + 16, y, z6, 'grass', [0, 1])
+    _half(s, x + 17, y, z6, 'grass', [0, 3])
+    _half(s, x + 18, y, z6, 'dirt', [0])
+    _half(s, x + 16, y + 4, z6 + 2, 'sand', [1, 3])          # floats: falls as 2 layers onto the grass
     time.sleep(2.0)
     s.check('sand half slab fell as 2 bottom layers', _sense_block(s, x + 16, y, z6 + 2, 'simpleslabs:sand_half_slab[l0=true,l1=true,l2=false]'))
 

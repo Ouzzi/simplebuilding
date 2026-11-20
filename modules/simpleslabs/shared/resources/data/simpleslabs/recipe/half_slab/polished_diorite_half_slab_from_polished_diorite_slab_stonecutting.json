@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:polished_diorite_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:polished_diorite_half_slab"
   }
 }

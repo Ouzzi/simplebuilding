@@ -12,6 +12,7 @@ import time
 
 from . import security as sec
 from .errors import Problem
+from .config import LIVEMAP_ALIAS, dim_allowed  # noqa: F401
 
 CODE_SECONDS = 15 * 60
 MAX_OPEN_CODES = 3
@@ -22,7 +23,8 @@ RESERVED = {"app", "admin", "api", "static", "login", "register", "logout", "pri
             "account", "settings", "simplemods", "livemap", "www", "help", "support", "status", "report"}
 DEV_TIER = {"name": "Developer", "price_month": 0, "maps": 999, "public": 999, "archive": 999, "archive_days": 3650,
             "views_day": 10**9, "live_seconds": 1, "tile_seconds": 60, "prep_minutes": 0, "priority": 9, "slot_lock_days": 0,
-            "shares": -1, "map_mb": 16384, "upload_tiles_min": 50000, "batch_kb": 8192, "custom_name": True}
+            "shares": -1, "map_mb": 16384, "upload_tiles_min": 50000, "batch_kb": 8192, "custom_name": True,
+            "dimensions": ["*"]}
 
 
 def day(ts: int) -> str:
@@ -35,7 +37,7 @@ class MapsMixin:
         if user["role"] == "developer":
             return DEV_TIER
         tiers = self.cfg.tiers["tiers"]
-        return tiers.get(user["tier"]) or tiers["free"]
+        return tiers.get(LIVEMAP_ALIAS.get(user["tier"], user["tier"])) or tiers["free"]
 
     def tier_rank(self, user) -> int:
         return self.tier(user)["priority"]
@@ -149,10 +151,10 @@ class MapsMixin:
         row = self.db.one("SELECT * FROM codes WHERE code_hash = ?", sec.sha256(c_norm))
         if not row or row["used_at"] or row["expires_at"] < now:
             self.limiter.add("code-fail:" + ip)
-            raise Problem(404, "code_unknown")
+            raise Problem(404, "code_unknown", host=self.cfg.hosts["livemap"])
         user = self.user(row["user_id"])
         if not user or user["disabled"] or not user["verified_at"]:
-            raise Problem(404, "code_unknown")
+            raise Problem(404, "code_unknown", host=self.cfg.hosts["livemap"])
         t = self.tier(user)
         key = "slm_" + sec.token(32)
         mod_version = (mod_version or "")[:40]
@@ -160,7 +162,7 @@ class MapsMixin:
             # Checked again inside the transaction: a second code for the same place loses.
             idx = self.check_place(user, row["visibility"])
             if c.execute("UPDATE codes SET used_at = ? WHERE code_hash = ? AND used_at IS NULL", (now, row["code_hash"])).rowcount != 1:
-                raise Problem(404, "code_unknown")
+                raise Problem(404, "code_unknown", host=self.cfg.hosts["livemap"])
             first = user["connections_total"] < self.cfg.tiers.get("first_connections_without_wait", 2)
             wait = 0 if first or user["role"] == "developer" else t["prep_minutes"] * 60
             old = None
@@ -360,6 +362,7 @@ class MapsMixin:
 
     # ---------------------------------------------------------------- tier changes (admin now, billing later)
     def set_tier(self, user, tier: str, actor_id: int | None = None):
+        tier = LIVEMAP_ALIAS.get(tier, tier)
         if tier not in self.cfg.tiers["tiers"]:
             raise Problem(400, "bad_request")
         with self.db.tx() as c:
@@ -405,6 +408,7 @@ class MapsMixin:
             c.execute("DELETE FROM audit WHERE at < ?", (now - 400 * 86400,))
         for uid in [r[0] for r in self.db.all("SELECT id FROM users")]:
             self.trim_archive(self.user(uid))
+        self.billing_maintenance()
 
     # ---------------------------------------------------------------- notices (legal draft U5, DSA Art. 16/17)
     def report(self, slug: str, reason: str, text: str, contact: str, confirmed: bool, reporter, ip: str, lang: str) -> int:

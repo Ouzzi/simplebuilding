@@ -58,10 +58,16 @@
     }
     bar.hidden = false;
   }
+  /* N107: public visitors of the production wiki have no account - for them the question would only end in a 401
+     (red console line on every page) and an "Anmelden" button they cannot use. Ask only in the dev area or after
+     this browser once was signed in (flag set below); the login itself stays reachable at /login and /dev/. */
+  var FLAG = 'simple-wiki-login-seen';
+  function seen() { try { return window.localStorage.getItem(FLAG) === '1'; } catch (e) { return false; } }
   function check() {
+    if (!dev && !seen()) return;
     fetch('/api/auth/check', { credentials: 'same-origin', cache: 'no-store' }).then(function (r) {
       var json = (r.headers.get('Content-Type') || '').indexOf('application/json') === 0;
-      if (r.status === 200 && json) return r.json().then(render);
+      if (r.status === 200 && json) { try { window.localStorage.setItem(FLAG, '1'); } catch (e) { /* only this visit */ } return r.json().then(render); }
       if (r.status === 401 && json) return render(null);
     }).catch(function () { /* no login on this host */ });
   }

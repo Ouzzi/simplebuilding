@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:black_wool_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:black_wool_half_slab"
   }
 }

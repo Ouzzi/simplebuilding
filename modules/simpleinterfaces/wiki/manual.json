@@ -415,7 +415,7 @@
           "Anvil, grindstone, stonecutter, loom, cartography table, smithing table, villager trading and your own inventory get the Simple style: a box in the block's color, the big result slot, engraved symbols (plus, arrow, grinding wheel, XP) instead of Vanilla's pictures, raised tiles for recipes, patterns and offers. Client only.",
           "Screens whose slots leave little room (loom, cartography table, smithing table, trading, inventory) are one box; the inventory part is a light panel behind a seam.",
           "The anvil shows its cost as an XP symbol with the level count inside the box (red when you cannot pay it or it is too expensive); errors show as a red cross over the arrow.",
-          "SimpleBuilding's smithing screen with recipe book (if installed) gets the same style; it is recognised by its class name only, nothing else is needed."
+          "SimpleBuilding's smithing screen with recipe book (if installed) gets the same style; it is recognized by its class name only, nothing else is needed."
         ]
       },
       "de": {
@@ -1213,7 +1213,7 @@
         "summary": "A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks.",
         "details": [
           "Open it with the Simple Keys button on the Vanilla controls page or with its own key (unbound by default). It uses Vanilla's buttons and list: click a key button, then press the new key or a mouse button (Esc = no key); Reset restores the default. Each group can be folded and reset; Reset all asks once more first.",
-          "The keyboard colours keys green (one action), red (shared by several actions) or grey (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key opens its page: remove an action, move it to the nearest free key, or assign an action here (then click the action in the list). Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt.",
+          "The keyboard colors keys green (one action), red (shared by several actions) or gray (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key opens its page: remove an action, move it to the nearest free key, or assign an action here (then click the action in the list). Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt.",
           "The Layout button of the keyboard switches between US (ANSI), DE (QWERTZ, L-shaped Enter), UK (ISO) and FR (AZERTY) and your own layouts; the choice is kept. Edit builds an own layout from the shown one: click a key and drag it or use the arrow buttons, make it wider or taller (W/H), switch it between rectangle and L shape, change its text, remove it. Press any key that the layout lacks and it appears on a free place by itself; Add key also takes Esc. Keys may not overlap or leave the grid (the editor refuses and says why). Save stores the layout under its name in config/simpleinterfaces-keyboards.json; own layouts have one fixed size."
         ]
       },

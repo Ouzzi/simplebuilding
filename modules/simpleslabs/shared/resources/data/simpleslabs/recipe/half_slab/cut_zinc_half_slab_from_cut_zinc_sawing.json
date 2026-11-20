@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleores:cut_zinc",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cut_zinc_half_slab"
   }
 }

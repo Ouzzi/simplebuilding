@@ -254,7 +254,7 @@ TXT = {
  'simplebuildingtools': ('Bauwerkzeuge: Muster kopieren, Flächen füllen und Blöcke sauber ersetzen.', 'Building tools: copy patterns, fill areas and replace blocks cleanly.'),
  'simplechisels': ('Meißel in mehreren Materialien, um Blöcke zu formen und zu verzieren.', 'Chisels in several materials to shape and decorate blocks.'),
  'simpleoctets': ('Octets: halbe Würfel aus jedem Holz und Block.', 'Octets: half-block cubes of every wood and block.'),
- 'simpleslabs': ('Halbstufen (2 px) jedes Blocks mit Stufe, frei in acht Lagen kombinierbar, auch als Seiten-Stufe.', 'Half slabs (2 px) of every block with a slab, freely combined in eight layers, also as side slabs.'),
+ 'simpleslabs': ('Halbstufen (4 px) jedes Blocks mit Stufe, frei in vier Lagen kombinierbar, auch als Seiten-Stufe.', 'Half slabs (4 px) of every block with a slab, freely combined in four layers, also as side slabs.'),
  'simplehammers': ('Sieben Vorschlaghämmer, die 3x3 abbauen und Blöcke formen.', 'Seven sledgehammers that mine 3x3 and reshape blocks.'),
  'simpleoptimization': ('Super-Mod für Leistung: Render, Speicher, Server.', 'Super mod for performance: render, memory, server.'),
  'simpleoptrender': ('Client-Optimierungen wie Blätter-Culling und Lichtcache.', 'Client optimizations like leaf culling and a light cache.'),
@@ -435,8 +435,8 @@ STAGES = [
       tde='Hitze und Gefahr: im Nether wartet das Roségold-Erz, der Seelenfeuer-Lohe und ein Netherherz. Netherit-Öfen, -Hämmer und -Rucksäcke sind der Lohn.',
       ten='Heat and danger: the Nether hides rose gold ore, the Soulfire Blaze and a Nether Heart. Netherite furnaces, hammers and backpacks are the reward.',
       items=['simplemobs:item/nether_heart', 'simplemobs:item/nether_gem', 'simplemobs:item/soulfire_blaze_spawn_egg', 'simpleenchanting:block/blazing_obsidian',
-             'simpleores:block/nether_dimensional_scrap_side', 'simpleovens:block/netherite_furnace_front_on', 'simplehammers:item/netherite_sledgehammer', 'simplestorage:block/netherite_backpack_front'],
-      named=['simpleores:block/sage_ore'],
+             'simpleores:block/nether_dimensional_scrap_side', 'simpleovens:block/netherite_furnace_front_on', 'simplehammers:item/netherite_sledgehammer', 'simplestorage:block/netherite_backpack_front',
+             'simpleores:block/sage_ore'],  # N107: Textur gibt es jetzt (vorher named = "?"-Kachel)
       mods=['simpleores', 'simplemobs', 'simpleenchanting', 'simpleovens', 'simplestorage']),
  dict(k='end', de='End', en='The End', c='#7b5ea7', bg='simplebuilding:block/astral_end_stone',
       tde='Eine neue Welt aus Stein: Astralit und Nihilit liegen im Endstein, Asch- und Dämmerholz wachsen auf End-Gras, Enderit wird zum stärksten Metall.',
@@ -629,6 +629,37 @@ A11Y = ('.btn{background:#3a7a1f;box-shadow:inset -4px -4px 0 #2a5a16,inset 4px 
 for _f, _v in OUT.items():
     _i = _v.find('</style>')
     OUT[_f] = _v[:_i] + A11Y + _v[_i:]
+# N107 (Release-Check): (1) Schrift Silkscreen (OFL, fonts/OFL.txt) eingebettet statt von Google Fonts geladen - kein
+# Aufruf fremder Server beim Seitenaufruf (DSGVO, LG München I 3 O 17493/20); (2) der Installer (/setup/) liegt hinter dem
+# Login und ist nicht öffentlich: öffentliche Knöpfe und Schritte zeigen auf "Paket zusammenstellen" (paket.html).
+_FONT = base64.b64encode((D / 'fonts' / 'Silkscreen-Regular-latin.woff2').read_bytes()).decode()
+_FONTCSS = ('@font-face{font-family:"Silkscreen";font-style:normal;font-weight:400;font-display:swap;'
+            f'src:url(data:font/woff2;base64,{_FONT}) format("woff2")}}')
+_GF = re.compile(r'<link rel="preconnect" href="https://fonts\.googleapis\.com">'
+                 r'<link rel="preconnect" href="https://fonts\.gstatic\.com" crossorigin>'
+                 r'<link href="https://fonts\.googleapis\.com/css2\?[^"]*" rel="stylesheet">')
+_PUBLIC = [
+    ('href="/setup/" data-en="Get the installer">Installer laden', 'href="paket.html" data-en="Download the mods">Mods herunterladen'),
+    ('<b data-en="Get the installer">Installer laden</b><p data-en="Grab the installer for your system at /setup/.">Auf /setup/ den Installer für dein System holen.</p>',
+     '<b data-en="Install Fabric">Fabric installieren</b><p data-en="Install the Fabric Loader for Minecraft 26.3.">Den Fabric Loader für Minecraft 26.3 installieren.</p>'),
+    ('<p data-en="Everything or only what you like. The installer pulls in dependencies.">Alles oder nur das, was du magst. Abhängigkeiten holt der Installer mit.</p>',
+     '<p data-en="Everything or only what you like under “Build a pack”; dependencies come along by themselves.">Unter „Paket zusammenstellen“ alles oder nur das, was du magst – Abhängigkeiten kommen von selbst mit.</p>'),
+    ('href="/setup/" data-en="Downloads">Downloads', 'href="paket.html" data-en="Downloads">Downloads'),
+    ('data-en="One installer, every stage. Every mod also runs on its own.">Ein Installer, alle Etappen. Jedes Mod läuft auch allein.',
+     'data-en="One pack, every stage. Every mod also runs on its own.">Ein Paket, alle Etappen. Jedes Mod läuft auch allein.'),
+]
+_hit = {a: 0 for a, _ in _PUBLIC}
+for _f, _v in OUT.items():
+    _v, _n = _GF.subn('', _v)
+    if _n:
+        _i = _v.find('</style>')
+        _v = _v[:_i] + _FONTCSS + _v[_i:]
+    for _a, _b in _PUBLIC:
+        _hit[_a] += _v.count(_a)
+        _v = _v.replace(_a, _b)
+    assert 'fonts.googleapis' not in _v and 'fonts.gstatic' not in _v and 'href="/setup/"' not in _v, _f
+    OUT[_f] = _v
+assert all(_hit.values()), [a[:40] for a, n in _hit.items() if not n]
 pages = {'default': OUT['index.html'], 'k1': OUT['paket.html'], 'k2': OUT['reise.html'], 'k3': OUT['discover.html']}
 stale = [f for f, v in OUT.items() if not (D / f).exists() or (D / f).read_text(encoding='utf-8') != v]
 if CHECK:

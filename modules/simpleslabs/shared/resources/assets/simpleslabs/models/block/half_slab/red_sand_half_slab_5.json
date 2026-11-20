@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_5",
-  "textures": {
-    "bottom": "minecraft:block/red_sand",
-    "top": "minecraft:block/red_sand",
-    "side": "minecraft:block/red_sand"
-  }
-}

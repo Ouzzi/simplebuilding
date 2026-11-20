@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:poplar_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:poplar_half_slab"
   }
 }

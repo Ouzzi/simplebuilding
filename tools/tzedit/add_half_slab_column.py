@@ -4,6 +4,8 @@ block outwards: block, stairs, slab, half slab. One-off and idempotent; writes t
 
 Cell = the half slab of the row's slab (simpleslabs:<slab path without _slab>_half_slab, from tools/textures/half_slab_materials.json);
 a missing slab (#red) means a missing half slab too, every other cell is "#light" (does not exist).
+N86S (owner 19.11.): the side half slab is an item of its own - column "side_half_slab" between "wall" and "half_slab"
+(simpleslabs:<...>_side_half_slab of the row's half slab), the same way.
 
   python3 tools/tzedit/add_half_slab_column.py [--check]
 """
@@ -18,12 +20,17 @@ from tzedit_save import check_save, layout_text  # noqa: E402  same writer as th
 DIRS = [ROOT / "src/main/resources/data/simplebuilding/testcentre", ROOT / "wiki/data/testcentre"]
 AREAS = ("stone", "wood", "metals")
 HALF = {m["slab"]: "simpleslabs:" + m["id"] for m in json.loads((ROOT / "tools/textures/half_slab_materials.json").read_text("utf-8"))}
+SIDE = {half: half[:-len("half_slab")] + "side_half_slab" for half in HALF.values()}
 
 
 def half_cell(slab: str) -> str:
     if slab == "#red":
         return "#red"
     return HALF.get(slab, "#light")
+
+
+def side_cell(half: str) -> str:
+    return SIDE.get(half, half if half in ("#red", "#light") else "#light")
 
 
 def migrate(data: dict) -> dict:
@@ -33,10 +40,16 @@ def migrate(data: dict) -> dict:
         data["columns"].insert(at, "half_slab")
         for row in data["rows"]:
             row["cells"].insert(at, half_cell(row["cells"][slab]))
-    # a second slab of a row (in a "special_<n>" column, e.g. bamboo mosaic) gets its half slab in a new special column
+    if "side_half_slab" not in data["columns"]:
+        half = data["columns"].index("half_slab")
+        data["columns"].insert(half, "side_half_slab")
+        for row in data["rows"]:
+            row["cells"].insert(half, side_cell(row["cells"][half]))
+    # a second slab of a row (in a "special_<n>" column, e.g. bamboo mosaic) gets its half slab and side half slab in new special columns
     for row in data["rows"]:
         cells = row["cells"]
         extra = [HALF[c] for c in cells if isinstance(c, str) and c in HALF and HALF[c] not in cells]
+        extra += [SIDE[c] for c in cells + extra if isinstance(c, str) and c in SIDE and SIDE[c] not in cells]
         for half in extra:
             free = next((i for i, c in enumerate(cells) if c is None and data["columns"][i].startswith("special_")), None)
             if free is None:

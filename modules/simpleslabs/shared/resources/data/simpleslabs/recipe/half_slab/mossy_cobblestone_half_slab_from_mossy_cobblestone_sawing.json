@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:mossy_cobblestone",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:mossy_cobblestone_half_slab"
   }
 }

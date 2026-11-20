@@ -1,337 +1,484 @@
-# Datenschutzerklärung – Simple Livemap und Simple-Mods-Konto (ENTWURF)
+<!-- intern: Zahlungsanbieter-Varianten Paddle (Standard) / Stripe; Schalter fill_legal.py --provider. -->
+<!-- intern: ungeprüft – vor Zahlungsstart anwaltlich prüfen. Diese Zeile beim Veröffentlichen entfernen. -->
+# Datenschutzerklärung
 
-> **ENTWURF – nicht ausliefern.** Stand 12.11.2026. Keine Rechtsberatung. Vor Veröffentlichung von einer Anwältin,
-> einem Anwalt (IT-/Datenschutzrecht) oder einem geprüften Generator prüfen lassen.
-> Absätze mit „**[Anmerkung Entwurf]**“ sind Hinweise an den Besitzer und werden vor der Veröffentlichung entfernt.
-> Alles in ⟦PLATZHALTER: …⟧ muss der Besitzer eintragen oder entscheiden.
-> Die Beschreibung der Verarbeitung folgt der Spezifikation und dem Plan (`PLAN-A-LIVEMAP34-2026-11-12.md`, D1–D22). Sie ist
-> gegen den **gebauten** Dienst abzugleichen, bevor der Text veröffentlicht wird (Liste im README, Abschnitt „Abgleich mit dem Code“).
-
----
+Stand: 19.11.2026
 
 ## 1. Verantwortlicher und Kontakt
 
-Verantwortlich für die Verarbeitung personenbezogener Daten auf `account.simplemods.de` und `livemap.simplemods.de` im
-Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
+Verantwortlich für die Verarbeitung personenbezogener Daten im Sinne der Datenschutz-Grundverordnung (DSGVO) auf allen Seiten von
+Simple Mods ist:
 
-⟦PLATZHALTER: Name und ladungsfähige Anschrift des Betreibers – identisch mit dem Impressum⟧
-E-Mail: ⟦PLATZHALTER: Datenschutz-Kontakt, z. B. datenschutz@…⟧
+{{betreiber.name}}
 
-Einen Datenschutzbeauftragten haben wir nicht benannt, weil dies nach Art. 37 DSGVO und § 38 BDSG nicht erforderlich ist
-(weniger als 20 Personen sind ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt).
-⟦PLATZHALTER: bestätigen lassen, ob die Voraussetzungen zutreffen⟧
+{{betreiber.anschrift}}
 
-## 2. Geltungsbereich und Überblick
+Deutschland
+
+E-Mail für Datenschutzanfragen: {{kontakt.datenschutz}}
+
+{{#wenn betreiber.telefon}}Telefon: {{betreiber.telefon}}{{/wenn}}
+
+Weitere Angaben stehen im Impressum. Einen Datenschutzbeauftragten haben wir nicht benannt, weil die gesetzlichen Voraussetzungen
+dafür (Art. 37 DSGVO, § 38 BDSG) nicht vorliegen.
+
+## 2. Geltungsbereich
 
 Diese Erklärung gilt für
 
-- das zentrale Konto (`account.simplemods.de`),
-- den gehosteten Kartendienst „Simple Livemap“ (`livemap.simplemods.de`) einschließlich der Schnittstelle, über die die
-  Minecraft-Mod „Simple Livemap“ Karten-Daten hochlädt,
-- die Karten-Ansicht (Viewer), mit der Karten betrachtet werden.
+- die Website `simplemods.de` (Startseite, öffentliche Downloads),
+- das Wiki `wiki.simplemods.de` (einschließlich Anmeldung, Kommentaren, Designs, Einstellungen und Entwicklerseiten),
+- das Simple-Mods-Konto auf `account.simplemods.de` (Registrierung, Anmeldung, Abo „Simple Mods Pro“, Mitspieler-Plätze,
+  Geschenk-Abos, Gutscheine, Frühzugang, Kontaktformular, Kündigungsseite),
+- den Kartendienst „Simple Livemap“ auf `livemap.simplemods.de` einschließlich der Schnittstelle, über die die Mod „Simple Livemap“
+  Kartendaten hochlädt,
+- E-Mails, die wir im Zusammenhang mit diesen Diensten senden und empfangen.
 
-**Nicht erfasst:** Wenn Sie die Mod ohne unseren gehosteten Dienst betreiben („Self-Host“), werden dadurch keine Daten an uns
-übertragen; die Mod verbindet sich mit dem gehosteten Dienst erst, nachdem ein Spielleiter den Befehl
-`/simplelivemap connect <Code>` ausgeführt hat. ⟦PLATZHALTER: bestätigen, dass die Mod ohne `connect` keinerlei Daten an
-simplemods.de sendet (auch keine Update-Prüfung)⟧ Für andere Angebote von Simple Mods (z. B. Wiki, Landingpage) gilt, bis ein gemeinsamer Text
-besteht, ⟦PLATZHALTER: eigene Datenschutzerklärung der jeweiligen Seite / gemeinsame Erklärung – entscheiden⟧.
+Wenn Sie unsere Mods ohne unsere Online-Dienste nutzen (zum Beispiel Simple Livemap im Self-Host-Betrieb), übertragen die Mods dadurch
+keine Daten an uns. Simple Livemap verbindet sich mit unserem Dienst erst, nachdem ein Spielleiter `/simplelivemap connect <Code>`
+ausgeführt hat.
 
-Wir verarbeiten nur die Daten, die für Konto, Karten und sicheren Betrieb nötig sind. Die folgende Tabelle gibt einen Überblick;
-die Abschnitte 3 bis 11 erklären die Einzelheiten.
+## 3. Überblick
 
-| Daten | Zweck | Rechtsgrundlage | Speicherdauer |
+| Daten | Zweck | Rechtsgrundlage (DSGVO) | Speicherdauer |
 |---|---|---|---|
-| Server-Logs (IP-Adresse, Zeit, aufgerufene Adresse, Status, übertragene Bytes) | Betrieb, Sicherheit, Fehleranalyse | Art. 6 Abs. 1 lit. f | ⟦PLATZHALTER: Vorschlag 7 Tage⟧ |
-| Kontakt per E-Mail, Meldungen zu Inhalten | Beantwortung von Anfragen, Prüfung von Meldungen | Art. 6 Abs. 1 lit. b, c, f | ⟦PLATZHALTER: Dauer⟧ |
-| Konto: E-Mail, Anzeigename, Passwort-Hash, Rolle/Stufe, Erstell- und Bestätigungszeit | Konto, Anmeldung, Vertrag | Art. 6 Abs. 1 lit. b | bis zur Löschung des Kontos |
-| Sitzung: Token-Hash, Ablaufzeit (30 Tage), keine IP-Adresse | angemeldet bleiben | Art. 6 Abs. 1 lit. b; § 25 Abs. 2 Nr. 2 TDDDG | bis Abmeldung/Ablauf, spätestens 30 Tage |
-| Anmelde-Kennzeichen („Signup Tag“): gekürzter HMAC-Wert der IP-Adresse bei der Registrierung | Erkennung von Mehrfach-Konten und Missbrauch | Art. 6 Abs. 1 lit. f | 30 Tage |
-| IP-Adressen und E-Mail-Adressen in Ratenbegrenzungen (nur Arbeitsspeicher) | Schutz vor Brute-Force und Massenanfragen | Art. 6 Abs. 1 lit. f | höchstens 1 Stunde, nur im Arbeitsspeicher |
-| E-Mails (Bestätigung, Passwort zurücksetzen) | Konto-Funktionen | Art. 6 Abs. 1 lit. b | Einmal-Links 24 Stunden bzw. 1 Stunde gültig |
-| Karten: Name, Sichtbarkeit, zufällige Welt-ID, Kartenkacheln, Verbindungsangaben | Karte bereitstellen | Art. 6 Abs. 1 lit. b | bis Trennen, danach Puffer (siehe 6.4), dann Löschung |
-| Live-Daten: Spielername, Dimension, x/z-Position (nur wenn „Spieler zeigen“ aktiv) | Spieler auf der Karte anzeigen | Auftragsverarbeitung für den Kartenbesitzer (Art. 28) | nur letzter Stand, kein Verlauf |
-| Geteilte Konten (Zuordnung Karte ↔ Konto) | Karten teilen | Art. 6 Abs. 1 lit. b | bis Aufhebung der Freigabe/Löschung |
-| Nutzungszahlen (Aufrufe je Tag, aggregiert, ohne IP) | Stufen-Limits, Hinweise | Art. 6 Abs. 1 lit. b, f | ⟦PLATZHALTER: Dauer, z. B. 13 Monate⟧ |
-| Zahlungsdaten (erst nach Bezahlstart, über Stripe) | Abrechnung | Art. 6 Abs. 1 lit. b, c | gesetzliche Fristen (siehe 9) |
+| Server-Logs: IP-Adresse, Zeit, Methode, Pfad ohne Query-Teil, Status, Bytes | Betrieb, Sicherheit, Fehlersuche | Art. 6 Abs. 1 lit. f | 7 Tage |
+| Ratenbegrenzung: IP-Adresse, E-Mail-Adresse, Zähler | Schutz vor Missbrauch | Art. 6 Abs. 1 lit. f | nur Arbeitsspeicher, höchstens 1 Stunde |
+| Konto: E-Mail, Anzeigename, Passwort-Hash, Rolle, Stufe, Sprache, Zeitpunkte | Konto, Anmeldung, Verträge | Art. 6 Abs. 1 lit. b | bis zur Löschung des Kontos |
+| Sitzung: Token-Hash, Ablaufzeit | angemeldet bleiben | Art. 6 Abs. 1 lit. b; § 25 Abs. 2 Nr. 2 TDDDG | höchstens 30 Tage |
+| Anmelde-Kennzeichen (gekürzter HMAC der IP bei Registrierung) | Erkennen von Mehrfach-Konten | Art. 6 Abs. 1 lit. f | 30 Tage |
+| Protokoll wichtiger Konto-Ereignisse (Audit) | Nachweis, Sicherheit, Missbrauchsabwehr | Art. 6 Abs. 1 lit. b, c, f | 400 Tage |
+| Wiki-Kommentare | Kommentarfunktion, Moderation | Art. 6 Abs. 1 lit. b, f | bis zur Löschung |
+| Karten, Kacheln, Freigaben | Simple Livemap | Art. 6 Abs. 1 lit. b | bis zur Löschung, Puffer je Stufe |
+| Live-Daten (Spielername, Dimension, Position) | Anzeige auf der Karte | Auftragsverarbeitung (Art. 28) | nur letzter Stand im Arbeitsspeicher |
+| Aufrufzahlen je Karte und Tag (ohne IP) | Stufen-Grenzen, Statistik für Kartenbesitzer | Art. 6 Abs. 1 lit. b | 400 Tage |
+| Bestellungen, Zustimmungen, Abos, Freischaltungen, Gutscheincode | Vertrag, Nachweis | Art. 6 Abs. 1 lit. b, c, f | Vertragsende + 3 Jahre; steuerlich relevante Teile 8 bzw. 10 Jahre |
+| Mitspieler-Plätze | Vergabe, Missbrauchsschutz | Art. 6 Abs. 1 lit. b, f | bis 30 Tage nach Ende des Platzes |
+| Geschenk-Abos, Minecraft-Namen | Vertrag, Vorzüge im Spiel | Art. 6 Abs. 1 lit. b, f | Namen bis 30 Tage nach Ablauf; Bestellung wie oben |
+| Kündigungen | Bearbeitung, Nachweis (§ 312k BGB) | Art. 6 Abs. 1 lit. b, c, f | 3 Jahre nach Ende des Jahres der Vertragsbeendigung |
+| Zahlungsdaten (beim Zahlungsanbieter, 8.2) | Zahlungsabwicklung | Art. 6 Abs. 1 lit. b, c | nach den gesetzlichen Fristen |
+| Kontaktformular und E-Mails | Beantwortung | Art. 6 Abs. 1 lit. b, f | bis Erledigung, höchstens 3 Jahre; Geschäftsbriefe 6 Jahre |
+| Meldungen rechtswidriger Inhalte | Bearbeitung (DSA) | Art. 6 Abs. 1 lit. c, f | 3 Jahre nach Abschluss |
+| Rechnungen und Buchungsbelege | gesetzliche Aufbewahrung | Art. 6 Abs. 1 lit. c | 8 bzw. 10 Jahre |
 
-## 3. Server-Logs und Cloudflare
+Die Einzelheiten stehen in den folgenden Abschnitten.
 
-### 3.1 Server-Logs (nginx)
+## 4. Bereitstellung der Seiten, Server-Logs, Cloudflare
 
-Bei jedem Aufruf unserer Seiten verarbeitet unser Webserver (nginx) technisch notwendige Daten und speichert sie in
-Log-Dateien: IP-Adresse des Besucher-Geräts (so, wie sie uns über Cloudflare übermittelt wird), Datum und Uhrzeit, die
-aufgerufene Adresse ⟦PLATZHALTER: mit/ohne Query-Teil; Konzept sieht „ohne Query“ vor – prüfen⟧, Statuscode, übertragene
-Datenmenge ⟦PLATZHALTER: Referrer und User-Agent ja/nein – gegen die nginx-Konfiguration prüfen⟧. Im Fehler-Log von nginx können zusätzlich Meldungen
-stehen (z. B. abgelehnte Anfragen wegen Ratenbegrenzung, Abschnitt 4.4), ebenfalls mit IP-Adresse.
+### 4.1 Hosting
 
-- Zweck: Betrieb, Fehlerbehebung, Abwehr von Angriffen und Missbrauch (Sicherheit der Verarbeitung, Art. 32 DSGVO).
+Unsere Dienste laufen auf eigener Hardware des Betreibers in Deutschland. Einen externen Hosting-Anbieter setzen wir nicht ein. Der
+Internetanbieter des Betreibers transportiert die Daten nur.
+
+### 4.2 Server-Logs
+
+Bei jedem Aufruf unserer Seiten speichert unser Webserver (nginx) in Log-Dateien: die IP-Adresse des aufrufenden Geräts (so, wie
+Cloudflare sie uns übermittelt), Datum und Uhrzeit, die Anfragemethode, den aufgerufenen Pfad **ohne** den Query-Teil (also ohne die
+Angaben nach einem „?“), den Statuscode und die übertragene Datenmenge. Referrer und Browserkennung (User-Agent) speichern wir nicht.
+Im Fehler-Log können Meldungen mit IP-Adresse stehen, zum Beispiel über Anfragen, die wegen einer Ratenbegrenzung abgelehnt wurden.
+
+- Zweck: Betrieb, Fehlersuche, Abwehr von Angriffen und Missbrauch.
 - Rechtsgrundlage: berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO.
-- Speicherdauer: ⟦PLATZHALTER: Aufbewahrung der Logs; Vorschlag 7 Tage, danach automatische Löschung/Rotation⟧.
-  ⟦PLATZHALTER: ggf. IP-Kürzung (/24 bzw. /48) vor dem Speichern, falls so umgesetzt⟧
+- Speicherdauer: 7 Tage, danach werden Zugriffs- und Fehler-Logs automatisch gelöscht. Benötigen wir einen Eintrag zur Aufklärung eines
+  konkreten Angriffs, bewahren wir ihn bis zum Abschluss der Aufklärung auf.
 
-### 3.2 Cloudflare (CDN, Schutz, Tunnel)
+### 4.3 Cloudflare
 
-Unsere Seiten sind über Cloudflare erreichbar. Cloudflare arbeitet als vorgeschalteter Dienst (Reverse Proxy, Content Delivery
-Network, Cloudflare Tunnel) und nimmt Ihre Anfragen zuerst entgegen. Dabei verarbeitet Cloudflare technisch bedingt den gesamten
-Datenverkehr zwischen Ihrem Gerät und unserem Server, **einschließlich der Anmeldedaten und Karteninhalte**, weil die
-TLS-Verschlüsselung dort endet. Cloudflare verarbeitet insbesondere IP-Adresse, Zeitpunkt, angefragte Adresse, Browser-Angaben
-und Sicherheitsmerkmale. Cloudflare speichert Karten-Kacheln zwischen (Cache), damit häufig aufgerufene Karten schnell
-ausgeliefert werden und unser Server entlastet wird.
+Unsere Seiten werden über Cloudflare ausgeliefert. Cloudflare ist als Reverse Proxy, Content Delivery Network (CDN), DNS-Anbieter und
+über Cloudflare Tunnel vorgeschaltet und nimmt alle Anfragen zuerst entgegen. Weil die TLS-Verschlüsselung bei Cloudflare endet, verarbeitet
+Cloudflare technisch bedingt den gesamten Datenverkehr zwischen Ihrem Gerät und unserem Server, einschließlich Anmeldedaten,
+Formulareingaben und Karteninhalten, außerdem IP-Adresse, Zeitpunkt, angefragte Adresse, Browserangaben und Sicherheitsmerkmale.
+Cloudflare speichert öffentliche Inhalte wie Kartenkacheln und Downloads zwischen (Cache). Cloudflare kann sicherheitsbezogene Cookies
+setzen (zum Beispiel `__cf_bm` zur Erkennung von Bots, Laufzeit 30 Minuten, oder `cf_clearance` nach einer Sicherheitsprüfung). Cloudflare
+Web Analytics nutzen wir nicht.
 
-- Anbieter: ⟦PLATZHALTER: Vertragspartner laut Cloudflare-Vertrag, i. d. R. Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA – bestätigen⟧
+- Anbieter: Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA.
 - Zweck: schnelle und sichere Auslieferung, Schutz vor Angriffen, Erreichbarkeit des Servers ohne offenen Port.
-- Rechtsgrundlage: berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO.
-- Drittlandübermittlung: Cloudflare kann Daten in den USA und weiteren Ländern verarbeiten. Grundlage ist der
-  Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework (Beschluss (EU) 2023/1795), soweit Cloudflare
-  zertifiziert ist, ergänzend die Standardvertragsklauseln (Beschluss (EU) 2021/914) im Auftragsverarbeitungsvertrag
-  (Data Processing Addendum) von Cloudflare. ⟦PLATZHALTER: Zertifizierung und DPA-Abschluss vom Besitzer prüfen; Stand der Rechtsprechung zum Data Privacy Framework beobachten⟧
-- Cloudflare kann eigene technisch notwendige Cookies setzen (z. B. zur Bot-Erkennung). ⟦PLATZHALTER: tatsächlich gesetzte Cloudflare-Cookies prüfen und in Abschnitt 8 eintragen; Cloudflare Web Analytics/Beacon: nicht aktiviert – bestätigen⟧
-- Weitere Informationen: Datenschutzhinweise von Cloudflare ⟦PLATZHALTER: Link⟧.
+- Rechtsgrundlage: berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO. Cloudflare ist unser Auftragsverarbeiter (Art. 28 DSGVO).
+- Drittland: Cloudflare kann Daten in den USA und anderen Ländern verarbeiten. Grundlage ist der Angemessenheitsbeschluss der
+  EU-Kommission zum EU-US Data Privacy Framework (Durchführungsbeschluss (EU) 2023/1795), da Cloudflare danach zertifiziert ist,
+  ergänzend die Standardvertragsklauseln der EU-Kommission im Auftragsverarbeitungsvertrag von Cloudflare.
+- Weitere Informationen: https://www.cloudflare.com/privacypolicy/
 
-## 4. Konto (account.simplemods.de)
+### 4.4 Schriftarten und externe Inhalte
 
-### 4.1 Registrierung und Konto
+Schriftarten, Skripte und Bilder laden unsere Seiten von unseren eigenen Servern. Verbindungen zu Schriftarten-Diensten Dritter (zum
+Beispiel Google Fonts), Werbe- oder Analyse-Anbietern bestehen nicht. Links zu anderen Websites (zum Beispiel Modrinth, CurseForge)
+führen Sie erst beim Anklicken zu diesen Anbietern; dort gelten deren Datenschutzhinweise.
 
-Für ein Konto verarbeiten wir: E-Mail-Adresse, Anzeigename, Passwort (nur als Hash, Verfahren PBKDF2-SHA256 mit Salz; wir
-können das Passwort nicht im Klartext lesen), Rolle und Stufe (z. B. Nutzer, Free/Pro/Max/Ultra), Zeitpunkt der Erstellung und
-der E-Mail-Bestätigung sowie – technisch bedingt – Zähler und Zeitstempel zur Anwendung der Nutzungsbedingungen (Anzahl bisheriger
-Karten-Verbindungen, letzte Belegung eines Karten-Platzes).
+### 4.5 Website und öffentliche Downloads
 
-- Zweck: Bereitstellung des Kontos und der Karten-Funktionen, Durchführung des Nutzungsvertrags.
+Die Startseite `simplemods.de` ist eine statische Seite. Außer den Server-Logs (4.2) und der Auslieferung über Cloudflare (4.3) verarbeiten
+wir beim Besuch und bei öffentlichen Downloads keine personenbezogenen Daten. Ihre Auswahl von Design oder Sprache speichert die Seite
+nur im lokalen Speicher Ihres Browsers (Abschnitt 13).
+
+## 5. Simple-Mods-Konto
+
+### 5.1 Registrierung und Konto
+
+Für ein Konto verarbeiten wir: E-Mail-Adresse, Anzeigename, Passwort (nur als Hash nach PBKDF2-SHA256 mit Salz; wir kennen Ihr
+Passwort nicht), Rolle (Nutzer oder Entwickler), Stufe, Sprache, Zeitpunkt der Erstellung und der E-Mail-Bestätigung, Einstellungen
+(zum Beispiel Wiki-Einstellungen) sowie Zähler und Zeitstempel zur Anwendung der Stufen-Grenzen (zum Beispiel Anzahl bisheriger
+Karten-Verbindungen).
+
+- Zweck: Bereitstellung des Kontos und der damit verbundenen Dienste.
 - Rechtsgrundlage: Vertragserfüllung, Art. 6 Abs. 1 lit. b DSGVO.
-- Pflicht zur Bereitstellung: Ohne E-Mail-Adresse, Anzeigename und Passwort können wir kein Konto anlegen.
-- Speicherdauer: bis zur Löschung des Kontos (Abschnitt 11). ⟦PLATZHALTER: Löschung inaktiver Konten – Frist festlegen oder streichen; in der Spezifikation nicht geregelt⟧
+- Pflicht: Ohne E-Mail-Adresse, Anzeigename und Passwort können wir kein Konto anlegen.
+- Speicherdauer: bis zur Löschung des Kontos (Abschnitt 16). Konten, mit denen sich drei Jahre lang niemand angemeldet hat, können wir nach
+  Ankündigung per E-Mail mit 30 Tagen Frist löschen.
 
-### 4.2 E-Mail-Bestätigung und Passwort zurücksetzen
+### 5.2 E-Mail-Bestätigung und Passwort zurücksetzen
 
-Zur Bestätigung der E-Mail-Adresse und zum Zurücksetzen des Passworts senden wir Ihnen eine E-Mail mit einem Einmal-Link. Die
-Links sind 24 Stunden (Bestätigung) bzw. 1 Stunde (Zurücksetzen) gültig; auf unserem Server speichern wir die zugehörigen
-Token nur als Hash. Für den Versand setzen wir einen E-Mail-Dienstleister ein (Abschnitt 10). Wir versenden derzeit
-ausschließlich solche Konto-E-Mails, keine Newsletter und keine Werbung. ⟦PLATZHALTER: ggf. Hinweis auf weitere Transaktions-Mails (Rechnung, Kündigungsbestätigung) ab Bezahlstart⟧
+Zur Bestätigung der E-Mail-Adresse und zum Zurücksetzen des Passworts senden wir Ihnen einen Einmal-Link. Er gilt 24 Stunden
+(Bestätigung) bzw. 1 Stunde (Zurücksetzen); auf dem Server speichern wir nur einen Hash des Tokens. Rechtsgrundlage: Art. 6 Abs. 1
+lit. b und f DSGVO.
 
-- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag) und lit. f (Sicherheit des Kontos).
+### 5.3 Anmeldung und Sitzungen
 
-### 4.3 Anmeldung und Sitzungen
+Nach der Anmeldung legen wir eine Sitzung an: Wir erzeugen ein zufälliges Token, speichern davon nur einen Hash und die Ablaufzeit und
+setzen ein Sitzungs-Cookie (Abschnitt 13). Die Sitzung enthält keine IP-Adresse. Sie endet nach 30 Tagen, bei Abmeldung oder beim
+Ändern des Passworts. Das Sitzungs-Cookie gilt für alle Seiten unter `simplemods.de`, damit Sie im Wiki, im Konto und in Simple
+Livemap angemeldet sind. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO; für das Cookie § 25 Abs. 2 Nr. 2 TDDDG.
 
-Nach dem Login legen wir eine Sitzung an. Dazu erzeugen wir ein zufälliges Token, speichern davon **nur den Hash** und setzen
-beim Browser ein Cookie (Abschnitt 8). Die Sitzung läuft nach 30 Tagen ab; bei Abmeldung, Passwortwechsel oder „überall
-abmelden“ werden Sitzungen gelöscht. **Die Sitzung enthält keine IP-Adresse.** Das Sitzungs-Cookie gilt für alle Seiten unter
-`*.simplemods.de` ⟦PLATZHALTER: bestätigen, dass das Cookie auch für das Wiki o. Ä. gilt und dort keine anderen Daten daraus erhoben werden⟧.
+### 5.4 Schutz vor Missbrauch
 
-- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO; für das Cookie § 25 Abs. 2 Nr. 2 TDDDG.
+- **Anmelde-Kennzeichen.** Bei der Registrierung speichern wir aus Ihrer IP-Adresse einen gekürzten HMAC-Wert (mit einem nur uns
+  bekannten Schlüssel gebildet), nicht die IP-Adresse selbst. Damit erkennen wir Häufungen neuer Konten vom selben Anschluss. Wir
+  löschen den Wert nach 30 Tagen.
+- **Ratenbegrenzungen.** Bei Anmeldung, Registrierung, „Passwort vergessen“, Code-Einlösung, Uploads, Kontaktformular,
+  Kündigungsseite und der öffentlichen Abfrage von Minecraft-Namen zählen wir Versuche je IP-Adresse bzw. je E-Mail-Adresse. Diese
+  Zähler liegen nur im Arbeitsspeicher und werden spätestens nach einer Stunde verworfen.
+- **Audit-Protokoll.** Wichtige Ereignisse eines Kontos (zum Beispiel Änderungen der Stufe, Freischaltungen, vergebene Plätze,
+  Kündigungen, Sperren) protokollieren wir mit Zeitpunkt und Konto, ohne IP-Adresse. Wir löschen die Einträge nach 400 Tagen.
+- **Manuelle Prüfung.** Auffällige Muster werden in einer Verwaltungsansicht angezeigt und von uns von Hand geprüft.
+- Rechtsgrundlage: berechtigtes Interesse an Sicherheit und Missbrauchsabwehr, Art. 6 Abs. 1 lit. f DSGVO, für das Audit-Protokoll
+  außerdem lit. b und c.
 
-### 4.4 Schutz vor Missbrauch
+## 6. Wiki
 
-- **Anmelde-Kennzeichen (Signup Tag).** Bei der Registrierung speichern wir aus Ihrer IP-Adresse einen **gekürzten
-  HMAC-Wert** (mit einem nur uns bekannten Schlüssel gebildet), nicht die IP-Adresse selbst. Er dient dazu, auffällige
-  Häufungen (z. B. viele neue Konten vom selben Anschluss) zu erkennen. Aufbewahrung: **30 Tage**, danach wird er gelöscht.
-  Da der Wert mit unserem Schlüssel einer IP-Adresse zugeordnet werden kann, behandeln wir ihn als personenbezogenes Datum
-  (Pseudonym).
-- **Ratenbegrenzungen.** Zum Schutz vor Brute-Force-Angriffen und Massenanfragen (Anmeldung, Registrierung, „Passwort
-  vergessen“, Code-Einlösung, Uploads) zählen wir Versuche je IP-Adresse und je E-Mail-Adresse. Diese Zähler liegen **nur im
-  Arbeitsspeicher** und werden spätestens nach **1 Stunde** verworfen. Abgelehnte Anfragen können als Zeile im Server-Log (Abschnitt 3.1) erscheinen und folgen dessen Aufbewahrungsfrist.
-  ⟦PLATZHALTER: gegen die Implementierung prüfen – Fenster 15 min bzw. 1 h; zusätzlich nginx-Ratenbegrenzung (Zähler nur im Speicher)⟧
-- **Manuelle Prüfung.** Auffällige Muster (z. B. viele Konten, dauernder Austausch von Karten-Plätzen) werden in einer
-  Verwaltungsliste angezeigt und von uns manuell geprüft.
-- Rechtsgrundlage: berechtigtes Interesse an Sicherheit und Missbrauchsabwehr, Art. 6 Abs. 1 lit. f DSGVO; Sie können
-  dem nach Abschnitt 12 widersprechen.
+- **Lesen** ist ohne Konto möglich; es fallen nur Server-Logs und die Auslieferung über Cloudflare an.
+- **Anmeldung** erfolgt mit dem Simple-Mods-Konto (Abschnitt 5). Seiten für Entwickler sind nur für Konten mit Entwickler-Rolle
+  zugänglich; dabei verarbeiten wir keine zusätzlichen Daten.
+- **Kommentare.** Wir speichern den Kommentartext, das Konto, den angezeigten Anzeigenamen, die Wiki-Seite, den Zeitpunkt und den
+  Freigabestatus. Kommentare sind erst sichtbar, nachdem wir sie geprüft und freigegeben haben; danach sieht jeder den Kommentar mit
+  Ihrem Anzeigenamen und dem Zeitpunkt. Nicht freigegebene Kommentare löschen wir spätestens 30 Tage nach der Entscheidung. Freigegebene
+  Kommentare speichern wir, bis Sie oder wir sie löschen oder Ihr Konto gelöscht wird. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO
+  (Kommentarfunktion) und lit. f (Moderation, Schutz vor rechtswidrigen Inhalten).
+- **Designs und Einstellungen.** Das gewählte Design speichert das Wiki im lokalen Speicher Ihres Browsers. Weitere Wiki-Einstellungen,
+  die zu Ihrem Abo gehören, speichern wir in Ihrem Konto, damit sie auf allen Geräten gelten. Rechtsgrundlage: Art. 6 Abs. 1 lit. b
+  DSGVO; § 25 Abs. 2 Nr. 2 TDDDG.
 
-### 4.5 Kontakt und Meldungen
+## 7. Simple Livemap
 
-Wenn Sie uns per E-Mail kontaktieren oder rechtswidrige Inhalte melden (Impressum, AGB Abschnitt 6), verarbeiten wir Ihre E-Mail-Adresse, Ihren Namen (falls angegeben), Ihre Nachricht und die
-zur Bearbeitung nötigen Angaben (z. B. betroffene Karte).
-
-- Zweck: Beantwortung, Prüfung und Dokumentation von Meldungen und Entscheidungen.
-- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (gesetzliche Pflichten, u. a. Verordnung (EU) 2022/2065) und lit. f (Rechtsverteidigung).
-- Speicherdauer: ⟦PLATZHALTER: z. B. bis zur Erledigung plus Verjährungsfrist (3 Jahre) – festlegen⟧.
-
-## 5. Betrachter von Karten (ohne Konto)
-
-Wer eine öffentliche Karte oder eine per Link geteilte Karte ansieht, braucht kein Konto. Dabei fallen die Server-Logs
-(Abschnitt 3) an. Außerdem zählen wir **Seitenaufrufe je Karte bzw. Konto des Kartenbesitzers und Tag** (nur Anzahl, **ohne IP-Adresse** und ohne Wiedererkennung
-einzelner Besucher). Der Link-Schlüssel einer Link-Karte steht in der Adresse hinter dem „#“; wer den Link kennt, kann die Karte ansehen. ⟦PLATZHALTER: Übertragungsweg des Ansichtsschlüssels (bleibt er im Browser oder wird er für Kachel-Anfragen als Header/Parameter gesendet und damit ggf. geloggt?) gegen den gebauten Viewer prüfen⟧
-Ihre Anzeigeeinstellungen im Viewer (z. B. Spieler anzeigen, Ansicht) werden in Ihrem Browser gespeichert (Abschnitt 8).
-
-- Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Bereitstellung der Karten-Ansicht, Einhaltung der Stufen-Limits).
-
-## 6. Karten (livemap.simplemods.de)
-
-### 6.1 Karte verbinden
+### 7.1 Karte verbinden
 
 Zum Verbinden erzeugen Sie im Dashboard einen Einmal-Code (15 Minuten gültig). Ein Spielleiter führt auf dem Minecraft-Server
-oder in der Einzelspieler-Welt `/simplelivemap connect <Code>` aus. Dabei übermittelt die Mod an uns: den Code, eine **zufällige
-Welt-ID** (kein Welten-Seed), die Mod- und die Minecraft-Version. Wir geben der Mod einen Karten-Schlüssel zurück, mit dem sie danach Daten hochlädt. Der Schlüssel liegt auf Ihrem Server in der Datei `hosted.json` der Welt, nicht in der allgemeinen Konfiguration.
-⟦PLATZHALTER: Speicherform des Karten-Schlüssels beim Dienst (Hash?) gegen Implementierung prüfen⟧
+`/simplelivemap connect <Code>` aus. Die Mod übermittelt dabei den Code, eine zufällige Welt-ID (keinen Seed), die Mod- und die
+Minecraft-Version. Wir geben einen Karten-Schlüssel zurück, mit dem die Mod danach Daten hochlädt; er liegt auf dem Server in der Datei
+`hosted.json` der Welt. Die IP-Adresse, von der die Mod Anfragen sendet, erscheint in den Server-Logs (4.2).
 
-Zusätzlich verarbeitet unser Server die IP-Adresse, von der die Anfragen der Mod kommen (Server-Logs, Abschnitt 3.1).
+### 7.2 Kartenkacheln
 
-### 6.2 Kartenkacheln
+Die Mod lädt Bilder (Kacheln) des erkundeten Geländes hoch. Sie enthalten keinen Seed und keine Spielerfiguren, können aber Bauwerke,
+Schilder und Beschriftungen zeigen, die Namen oder andere Angaben enthalten. Wir speichern Kacheln je Karte und liefern sie über
+Cloudflare aus. Kacheln aus Dimensionen, die die Stufe des Kartenbesitzers nicht umfasst, speichern wir beim Upload nicht bzw. liefern sie
+nicht aus. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag mit dem Kartenbesitzer); für Angaben Dritter in Kacheln gilt Abschnitt 7.6.
 
-Die Mod lädt Kartenkacheln hoch: Bilder (128 × 128 Pixel, PNG) des Geländes, das Spielerinnen und Spieler erkundet haben. Die Kacheln
-enthalten **keinen Seed und keine Spielerfiguren**, **können aber Bauwerke, Schilder und Beschriftungen zeigen**, die auch Namen
-oder andere personenbezogene Angaben enthalten können, die Sie selbst im Spiel eingebaut haben. Für den Inhalt der Karte ist
-der Kartenbesitzer verantwortlich (AGB, Abschnitt 5).
+### 7.3 Sichtbarkeit, Teilen, Aufrufzahlen
 
-Zur Entlastung des Servers werden Kacheln dedupliziert gespeichert und über Cloudflare ausgeliefert/zwischengespeichert.
-⟦PLATZHALTER: ab Bezahlstart ggf. Ablage in Cloudflare R2 (Objektspeicher; EU-Jurisdiktion?) – hier und in der AV-Liste ergänzen⟧
+Jede Karte ist privat (nur Besitzer und freigegebene Konten), per Link (wer den geheimen Link kennt) oder öffentlich. Beim Teilen mit
+anderen Konten speichern wir die Zuordnung Karte–Konto. Wir zählen die Aufrufe der Karten-Ansicht je Karte und Tag (nur die Anzahl,
+ohne IP-Adresse oder Gerätekennung); der Kartenbesitzer sieht diese Zahlen. Aufrufzahlen löschen wir nach 400 Tagen. Wer eine Karte nur
+ansieht, braucht kein Konto; seine Anzeigeeinstellungen speichert der Browser lokal (Abschnitt 13). Rechtsgrundlage: Art. 6 Abs. 1
+lit. b DSGVO, für die Aufrufzahlen auch lit. f.
 
-- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag mit dem Kartenbesitzer). Für personenbezogene Daten Dritter im Karteninhalt
-  gilt Abschnitt 7.
+### 7.4 Trennen, Puffer, Löschung
 
-### 6.3 Sichtbarkeit und geteilte Konten
+Getrennte Karten bleiben je nach Stufe 30 Tage (Free), 90 Tage (Basic), 180 Tage (Max) oder ein Jahr (Ultra) im Puffer; überzählige
+Karten nach einer Herabstufung 30 Tage. Danach löschen wir Karte und Kacheln. Sie können Karten jederzeit selbst löschen.
 
-Jede Karte ist **privat** (nur Besitzer und freigegebene Konten), **per Link** (jeder, der den geheimen Link kennt) oder
-**öffentlich** (jeder). Der Kartenbesitzer legt das fest. Bei der Freigabe für andere Konten speichern wir die Zuordnung
-Karte ↔ Konto. ⟦PLATZHALTER: welche Angaben des eingeladenen Kontos (E-Mail? Anzeigename?) dem Kartenbesitzer angezeigt werden – gegen die Implementierung prüfen⟧
-Der Kartenname kann – je nach Stufe – Teil der öffentlichen Adresse (`/m/<name>`) sein. Eine Verzeichnisseite öffentlicher Karten
-(„Explore“) gibt es erst, wenn sie eingeführt ist; Aufnahme nur mit Zustimmung ⟦PLATZHALTER: Einwilligungstext bei Einführung ergänzen⟧.
+### 7.5 Spielernamen und Positionen (Live-Daten)
 
-### 6.4 Trennen, Puffer, Löschung von Karten
+Schaltet der Kartenbesitzer „Spieler zeigen“ ein (Standard: aus), übermittelt die Mod regelmäßig (je nach Stufe alle 1 bis 10
+Sekunden) für die Spielerinnen und Spieler, die gerade online und im Spiel sichtbar sind, den **Minecraft-Namen, die Dimension und die
+x/z-Position**. Zuschauer und Spieler, die sich mit dem Befehl der Mod ausgeblendet haben, werden nicht übermittelt. Wir halten **nur den
+jeweils letzten Stand im Arbeitsspeicher**; wir schreiben Positionen weder in die Datenbank noch in Logs, und es gibt keinen Verlauf. Der
+Stand wird verworfen, wenn „Spieler zeigen“ ausgeschaltet, die Karte getrennt oder der Dienst neu gestartet wird. Je nach Sichtbarkeit der
+Karte sehen die Angaben der Kartenbesitzer, freigegebene Konten, Personen mit dem Link oder – bei öffentlichen Karten – alle.
 
-Wird eine Karte getrennt oder durch Herabstufen überzählig, bleiben die Daten zunächst gespeichert („Puffer“), damit ein
-Wieder-Verbinden schneller geht. Der Puffer läuft je nach Stufe nach **30 Tagen (Free), 90 Tagen (Pro), 180 Tagen (Max) oder
-einem Jahr (Ultra)** ab; bei Herabstufen bleiben überzählige Karten **30 Tage** im Puffer. Danach löschen wir die Karte und ihre
-Kacheln. Sie können Karten auch vorher selbst löschen. Die Karte wird bei Konto-Löschung mitgelöscht (Abschnitt 11).
+### 7.6 Rollen und Hinweise für Spielerinnen und Spieler (Art. 14 DSGVO)
 
-- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
+Für Live-Daten und personenbezogene Angaben in Kacheln ist der **Kartenbesitzer** (Betreiber des Minecraft-Servers) Verantwortlicher; er
+entscheidet, ob und für wen Spieler angezeigt werden. Wir verarbeiten diese Daten in seinem Auftrag (Art. 28 DSGVO; Anlage
+„Auftragsverarbeitung“ unserer AGB). Wenn Ihr Name auf einer Karte erscheint, haben wir die Daten nicht von Ihnen, sondern von der Mod
+auf dem Server des Kartenbesitzers erhalten (Kategorien: Name, Dimension, Position, Zeitpunkt des letzten Standes). Wenden Sie sich für
+Auskunft, Löschung oder Widerspruch zuerst an den Betreiber des Servers; auf dem Server können Sie sich mit dem Befehl der Mod
+ausblenden. Anfragen, die uns erreichen, leiten wir an den Kartenbesitzer weiter.
 
-### 6.5 Nutzungszahlen
+## 8. Abo „Simple Mods Pro“
 
-Für die Anwendung der Stufen-Limits zählen wir die **Aufrufe der Karten-Ansicht je Konto des Kartenbesitzers (und je Karte) und Tag** (Summe, keine IP-Adresse, keine
-Geräte-Kennung). Der Kartenbesitzer sieht die Zahlen „heute“ und „30 Tage“ im Dashboard.
+### 8.1 Bestellung, Abo, Freischaltungen
 
-- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO; Speicherdauer ⟦PLATZHALTER: Dauer festlegen⟧.
+Bei einer Bestellung speichern wir in unserer Datenbank:
 
-## 7. Spielernamen und Positionen (Live-Daten)
+- **Bestellung:** Konto, Stufe, Laufzeit, Zeitpunkt, Ihre Zustimmungen (AGB und Widerrufsbelehrung; Vereinbarung zu Vorabversionen;
+  freiwillig: Beginn vor Ablauf der Widerrufsfrist) jeweils mit Zeitpunkt und Version des Textes, ein eingelöster Gutscheincode und die
+  Kennung der Bezahlsitzung bzw. Transaktion beim Zahlungsanbieter (8.2).
+- **Abo:** Kunden- und Abo-Kennung beim Zahlungsanbieter, Stufe, Laufzeit, Status (zum Beispiel aktiv, Zahlung offen, gekündigt), Ende des bezahlten
+  Zeitraums, vorgemerkte Kündigung oder vorgemerkter Stufenwechsel, beim Jahresabo die Kennung des Zahlungsplans.
+- **Freischaltungen:** Stufe und Vorzüge Ihres Kontos, Beginn und Ende sowie die Quelle (Abo, Mitspieler-Platz oder manuell).
+- **Ereignisse des Zahlungsanbieters:** nur Kennung und Typ jeder Nachricht, damit wir sie nicht doppelt verarbeiten.
 
-### 7.1 Was verarbeitet wird
+Zahlungsmitteldaten (zum Beispiel Kartennummer, IBAN) speichern wir nicht.
 
-Wenn der Kartenbesitzer „**Spieler zeigen**“ einschaltet (Standard: aus), übermittelt die Mod regelmäßig (je nach Stufe alle
-1 bis 10 Sekunden) für die gerade online befindlichen Spielerinnen und Spieler: **Minecraft-Spielername, Dimension, x- und
-z-Position**. Wir speichern **nur den jeweils letzten Stand**; es gibt keinen Verlauf und kein Protokoll der Positionen.
-Ist „Spieler zeigen“ aus, speichern wir keine Spielerangaben. ⟦PLATZHALTER: bestätigen, ob die Mod in diesem Fall Spielerangaben gar nicht erst sendet oder ob der Dienst sie beim Empfang verwirft – Text ggf. anpassen⟧ Je nach Sichtbarkeit der Karte sehen diese Angaben der
-Kartenbesitzer, freigegebene Konten, alle Personen mit dem Link oder – bei öffentlichen Karten – jeder im Internet.
-⟦PLATZHALTER: Zeitpunkt der Löschung des Live-Stands beim Trennen/Ausschalten von „Spieler zeigen“ gegen die Implementierung prüfen⟧
+- Zweck: Vertragsschluss und -durchführung, Freischaltung und Herabstufung, Nachweis der Zustimmungen (§§ 312j, 356 BGB).
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO; für den Nachweis lit. c und f.
+- Speicherdauer: bis zum Ende des Vertrags und danach drei Jahre ab Ende des Jahres der Vertragsbeendigung (regelmäßige
+  Verjährungsfrist); Angaben, die Teil von Rechnungen oder Buchungsbelegen sind, nach Abschnitt 8.3.
 
-### 7.2 Rollen
+{{#wenn zahlung.paddle}}### 8.2 Zahlungsabwicklung (Paddle als Verkäufer)
 
-Für diese Daten ist der **Kartenbesitzer** (Betreiber des Minecraft-Servers) der **Verantwortliche**. Er entscheidet, ob und für
-wen Spieler angezeigt werden, und braucht dafür eine eigene Rechtsgrundlage (z. B. berechtigtes Interesse bei einem Server
-mit Karten-Funktion oder Einwilligung der Spieler) und muss seine Spieler informieren. Wir verarbeiten die Live-Daten **in seinem
-Auftrag und nach seinen Weisungen als Auftragsverarbeiter** (Art. 28 DSGVO). Dazu bieten wir Kartenbesitzern einen
-Auftragsverarbeitungsvertrag an (abrufbar unter ⟦PLATZHALTER: URL des Auftragsverarbeitungsvertrags⟧). Für unsere eigenen Zwecke (Konto, Sicherheit,
-Abrechnung) sind wir selbst Verantwortliche.
+Die kostenpflichtigen Produkte verkauft Paddle als Wiederverkäufer (Merchant of Record). Zum Bezahlen öffnet sich auf unserer Seite
+die Bezahlseite von Paddle (Paddle.js, eingebettet von `cdn.paddle.com` bzw. `buy.paddle.com`); Zahlungsart, Rechnungen und Kündigung
+können Sie im Kundenportal von Paddle verwalten.
 
-### 7.3 Information für Spielerinnen und Spieler (Art. 14 DSGVO)
+- **Daten:** Name, E-Mail-Adresse, Land und Postleitzahl bzw. Rechnungsadresse, ggf. Umsatzsteuer-Identifikationsnummer, Stufe,
+  Laufzeit, Betrag, Abo- und Zahlungsstatus, Rechnungsdaten, Zahlungsmitteldaten, Geräte- und Verbindungsdaten zur Betrugsprävention.
+  Wir übermitteln an Paddle eine Kennung Ihres Kontos und der Bestellung, Stufe und Laufzeit sowie einen eingegebenen Gutscheincode
+  (als Rabatt-Kennung); Ihre E-Mail-Adresse geben Sie im Bezahlschritt selbst ein. Von Paddle erhalten wir Kunden-, Abo- und
+  Transaktionskennungen, Abo- und Zahlungsstatus, Beträge und Rechnungsnummern sowie Erstattungen und Rückbuchungen, aber keine
+  Zahlungsmitteldaten.
+- **Anbieter und Rolle:** Paddle.com Market Limited, Judd House, 18–29 Mora Street, London EC1V 8BT, Vereinigtes Königreich. Paddle ist
+  für den Verkauf, die Zahlungsabwicklung, die Rechnungsstellung, die Steuerberechnung, die Betrugsprävention und seine gesetzlichen
+  Pflichten **eigener Verantwortlicher** und damit Empfänger Ihrer Daten. Für die Verarbeitung durch Paddle gilt die
+  Datenschutzerklärung von Paddle: https://www.paddle.com/legal/privacy
+- **Rechtsgrundlage:** Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (gesetzliche Pflichten), lit. f (Abgleich von Zahlung und
+  Freischaltung).
+- **Drittland:** Für das Vereinigte Königreich besteht ein Angemessenheitsbeschluss der EU-Kommission. Paddle kann Daten an
+  Unternehmen der Paddle-Gruppe und Dienstleister außerhalb der EU, insbesondere in den USA, übermitteln; Grundlage sind dort das
+  EU-US Data Privacy Framework bzw. Standardvertragsklauseln.
+- Nachrichten von Paddle an unseren Server (Webhooks) prüfen wir anhand ihrer Signatur.{{#sonst}}### 8.2 Zahlungsabwicklung (Stripe)
 
-Wenn Ihr Spielername und Ihre Position auf einer Karte erscheinen, haben wir diese Daten **nicht von Ihnen**, sondern vom
-Server bzw. der Mod des Kartenbesitzers erhalten.
+Zur Eingabe der Zahlungsdaten leiten wir Sie auf die Bezahlseite von Stripe („Stripe Checkout“) weiter; Zahlungsart, Rechnungen und
+Kündigung können Sie im Kundenportal von Stripe verwalten.
 
-- **Kategorien:** Spielername, Dimension, x/z-Position, Zeitpunkt des letzten Standes; (nur als Bild) ggf. Beschriftungen in Kacheln.
-- **Verantwortlicher:** der Kartenbesitzer (der Betreiber des Servers). Wenden Sie sich für Auskunft, Löschung und Widerspruch
-  zuerst an ihn. Wir leiten Anfragen, die uns erreichen, an den Kartenbesitzer weiter bzw. unterstützen ihn bei der Erfüllung.
-  ⟦PLATZHALTER: Funktion/Befehl der Mod, mit der einzelne Spieler ausgeblendet werden können, gegen den Ist-Stand der Mod benennen⟧
-- **Unser Kontakt:** siehe Abschnitt 1.
-- **Speicherdauer:** nur der letzte Stand, überschrieben bei der nächsten Übermittlung.
-- **Weitere Informationen** (Zwecke, Rechtsgrundlage, Empfänger) ergeben sich aus der Datenschutzinformation des
-  Kartenbesitzers.
+- **Daten:** Name, E-Mail-Adresse, Rechnungsadresse (soweit abgefragt), Stufe, Laufzeit, Betrag, Abo- und Zahlungsstatus,
+  Rechnungsdaten, Zahlungsmitteldaten, Gerätedaten zur Betrugsprävention. Wir übermitteln an Stripe Ihre E-Mail-Adresse, eine Kennung
+  Ihres Kontos, Stufe und Laufzeit sowie einen eingegebenen Gutscheincode. Von Stripe erhalten wir Abo- und Zahlungsstatus sowie
+  Rechnungsangaben, aber keine vollständigen Zahlungsmitteldaten.
+- **Steuerberechnung:** Setzen wir Stripe Tax ein, verarbeitet Stripe zusätzlich das Land Ihrer Rechnungsadresse und ggf. Ihre
+  Umsatzsteuer-Identifikationsnummer, um die Umsatzsteuer zu berechnen.
+- **Anbieter und Rollen:** Stripe Payments Europe, Limited, 1 Grand Canal Street Lower, Grand Canal Dock, Dublin, D02 H210, Irland.
+  Stripe verarbeitet Zahlungsdaten für die Zahlungsabwicklung, Betrugsprävention und eigene gesetzliche Pflichten als eigener
+  Verantwortlicher; für Abo-Verwaltung, Rechnungen und Kundenportal handelt Stripe als unser Auftragsverarbeiter.
+- **Rechtsgrundlage:** Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (gesetzliche Pflichten).
+- **Drittland:** Stripe kann Daten an Stripe, Inc. in den USA übermitteln. Grundlage ist das EU-US Data Privacy Framework, ergänzend
+  Standardvertragsklauseln.
+- **Weitere Informationen:** https://stripe.com/de/privacy
+- Nachrichten von Stripe an unseren Server (Webhooks) prüfen wir anhand ihrer Signatur.{{/wenn}}
 
-## 8. Cookies und lokale Speicherung
+### 8.3 Rechnungen und Aufbewahrung
 
-Wir setzen **ausschließlich technisch notwendige** Cookies und vergleichbare Technik ein. Sie sind nach § 25 Abs. 2 Nr. 2
-TDDDG ohne Einwilligung zulässig, weil sie erforderlich sind, damit wir einen von Ihnen ausdrücklich gewünschten Dienst
-bereitstellen können. Es gibt keine Werbe- oder Tracking-Cookies und keine Analyse-Werkzeuge von Dritten.
-⟦PLATZHALTER: Aussage zum Zeitpunkt der Veröffentlichung bestätigen⟧
+Rechnungen und Buchungsbelege bewahren wir nach § 147 AO und § 257 HGB acht Jahre auf, Bücher und Jahresabschlüsse zehn Jahre,
+empfangene und versandte Geschäftsbriefe sechs Jahre, jeweils ab Ende des Kalenderjahres. Während dieser Zeit sind die Daten für andere
+Zwecke gesperrt. Rechtsgrundlage: Art. 6 Abs. 1 lit. c DSGVO.
 
-| Name | Zweck | Laufzeit | Besonderheiten |
+### 8.4 Mitspieler-Plätze
+
+Vergeben Sie einen Mitspieler-Platz, geben Sie die E-Mail-Adresse eines anderen Simple-Mods-Kontos ein. Wir prüfen, ob dazu ein
+bestätigtes Konto ohne eigenes Abo und ohne Platz besteht, und speichern die Zuordnung: Konto des Abo-Inhabers, Konto des Mitspielers,
+Art des Platzes, Zeitpunkt der Vergabe und des Endes. Der Mitspieler sieht den Anzeigenamen des Abo-Inhabers, der Abo-Inhaber die
+E-Mail-Adresse, die er eingegeben hat. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO, für die Sperrfrist gegen Weitergabe lit. f. Wir
+löschen die Zuordnung 30 Tage nach dem Ende des Platzes (Ende der Sperrfrist für die Neuvergabe); das Ereignis bleibt im
+Audit-Protokoll (5.4).
+
+### 8.5 Geschenk-Abos und öffentliche Namensabfrage
+
+Beim Geschenk-Abo speichern wir zusätzlich zu den Bestelldaten (8.1) die Stufe, die Laufzeit, den bzw. die angegebenen
+**Minecraft-Namen**, den Zeitpunkt jeder Namensänderung und das Ende der Laufzeit. Die Zahlung erfolgt einmalig über den
+Zahlungsanbieter (8.2). Bleibt der Name bei der Bestellung offen, erzeugen wir einen zufälligen **Geschenkcode**, den wir dem Käufer
+anzeigen und per E-Mail senden; bei der Einlösung speichern wir den Namen, den Zeitpunkt und – falls die einlösende Person angemeldet
+ist – ihr Konto.
+
+Damit unsere Mods die Vorzüge im Spiel erkennen, gibt es eine **öffentliche Abfrage** `https://account.simplemods.de/api/v1/mc/<Name>`.
+Sie antwortet für einen Minecraft-Namen nur, ob und welche Vorzüge (Stufe, Vorzugs-Schlüssel) bis wann gelten; den Käufer, sein Konto oder
+Zahlungsangaben gibt sie nicht preis. Die Abfrage ist ratenbegrenzt. Wer einen Namen kennt, kann damit also sehen, dass für ihn
+Vorzüge bestehen.
+
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO gegenüber dem Käufer; gegenüber der beschenkten Person berechtigtes Interesse an der
+  Erbringung des Geschenks im Spiel, Art. 6 Abs. 1 lit. f DSGVO. Die beschenkte Person kann widersprechen (Abschnitt 17); dann entfernen
+  wir ihren Namen, und der Käufer kann einen anderen Namen angeben.
+- Herkunft: Den Minecraft-Namen hat uns der Käufer genannt (Art. 14 DSGVO).
+- Speicherdauer: Namen bis 30 Tage nach Ablauf des Geschenk-Abos; Bestell- und Rechnungsdaten nach 8.1 und 8.3.
+
+### 8.6 Gutscheine
+
+Lösen Sie einen Gutscheincode ein, speichern wir den Code an Ihrer Bestellung und übermitteln ihn bzw. die zugehörige Rabatt-Kennung an
+den Zahlungsanbieter (8.2). In der Verwaltung sehen wir,
+welche Codes wie oft genutzt wurden. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO, gegen Missbrauch lit. f.
+
+### 8.7 Frühzugang
+
+Der Download-Bereich ist nur nach Anmeldung erreichbar. Bei jedem Aufruf prüfen wir anhand Ihrer Sitzung und Ihrer Freischaltungen, ob Ihr
+Konto den Vorzug „Frühzugang“ hat. Einzelne Downloads protokollieren wir nicht je Konto; der Webserver erfasst wie bei jedem Aufruf den
+Pfad einschließlich Dateiname im Server-Log (4.2). Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
+
+### 8.8 Kündigungsseite
+
+Über „Verträge hier kündigen“ gelangen Sie – auch ohne Anmeldung – zur Kündigungsseite. Wir verarbeiten die angegebene E-Mail-Adresse,
+den Vertrag, die Art der Kündigung, ggf. den Grund, Datum und Uhrzeit des Eingangs, das Ergebnis (zum Beispiel Vertragsende) und die
+Zuordnung zu Konto und Abo. Wir gleichen die E-Mail-Adresse mit unseren Konten ab, setzen die Kündigung beim Zahlungsanbieter um und senden die
+Eingangsbestätigung an die angegebene Adresse und an die Adresse des zugehörigen Kontos. Die Ergebnisseite verrät nicht, ob ein Konto
+besteht.
+
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. c DSGVO (§ 312k BGB), lit. b (Vertragsbeendigung), lit. f (Nachweis, Missbrauchsschutz).
+- Speicherdauer: drei Jahre ab Ende des Jahres, in dem der Vertrag endet bzw. die Kündigung einging.
+
+## 9. E-Mails
+
+Wir senden nur E-Mails, die für Konto und Verträge nötig sind: Bestätigung der E-Mail-Adresse, Passwort zurücksetzen,
+Vertragsbestätigung, Rechnung bzw. Zahlungseingang, fehlgeschlagene Zahlung, Kündigungsbestätigung, Ende des Abos, Hinweis vor Ende der
+12 Monate eines Jahresabos, Mitteilungen über Änderungen sowie Antworten auf Ihre Anfragen. Newsletter und Werbung senden wir nicht.
+
+Für den Versand nutzen wir einen SMTP-Dienstleister, für den Empfang ein E-Mail-Postfach bei einem E-Mail-Anbieter. Diese Anbieter
+verarbeiten Absender, Empfänger, Inhalt und Zeitpunkt der E-Mails in unserem Auftrag (Art. 28 DSGVO). Soweit ein Anbieter Daten in den
+USA oder einem anderen Drittland verarbeitet, erfolgt das auf Grundlage des EU-US Data Privacy Framework oder von
+Standardvertragsklauseln. Nutzen wir für unsere Kontaktadressen eine Weiterleitung über Cloudflare Email Routing, laufen eingehende
+E-Mails über Cloudflare (4.3) zu unserem Postfach; Cloudflare speichert dabei keine Inhalte dauerhaft.
+
+Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (gesetzliche Pflichten, zum Beispiel § 312f, § 312k BGB) und lit. f.
+
+## 10. Kontaktformular und Anfragen
+
+Unter `https://account.simplemods.de/kontakt` können Sie uns schreiben. Wir verarbeiten:
+
+- **Pflichtangaben:** Name, E-Mail-Adresse, Thema (allgemein, Datenschutz, Meldung), Nachricht (höchstens 5000 Zeichen),
+- **technische Angaben:** ein leeres Prüffeld gegen Spam-Programme (Honeypot), einen signierten Zeitstempel (Mindest-Ausfüllzeit
+  von 3 Sekunden), ein Sicherheits-Token gegen Fremdzugriffe (CSRF) und eine Ratenbegrenzung je IP-Adresse und E-Mail-Adresse
+  (nur Arbeitsspeicher, 5.4).
+
+Die Nachricht wird nicht in unserer Datenbank gespeichert, sondern nur als E-Mail an uns gesendet; Ihre E-Mail-Adresse wird als
+Antwortadresse eingetragen. Eine Kopie an Sie senden wir nicht, damit das Formular nicht zum Versand unerwünschter E-Mails an fremde
+Adressen missbraucht werden kann. Dasselbe gilt, wenn Sie uns direkt per E-Mail schreiben.
+
+- Zweck: Bearbeitung und Beantwortung Ihrer Anfrage.
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO, wenn die Anfrage einen Vertrag betrifft, sonst lit. f (Beantwortung von Anfragen);
+  bei Datenschutzanfragen lit. c.
+- Speicherdauer: Wir löschen Anfragen, wenn sie erledigt sind, spätestens drei Jahre nach dem letzten Kontakt. E-Mails, die
+  Geschäftsbriefe sind (zum Beispiel zu einem Vertrag), bewahren wir sechs Jahre auf (8.3).
+
+## 11. Meldungen rechtswidriger Inhalte
+
+Melden Sie Inhalte (per E-Mail an {{kontakt.melden}} oder über das Kontaktformular), verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, die
+Meldung, den gemeldeten Inhalt, unsere Entscheidung und die Mitteilungen an Sie und an den betroffenen Nutzer. Den Namen der meldenden
+Person geben wir an den betroffenen Nutzer nur weiter, wenn das für die Bearbeitung erforderlich ist und Sie zugestimmt haben.
+
+- Rechtsgrundlage: Art. 6 Abs. 1 lit. c DSGVO (Art. 16, 17 der Verordnung (EU) 2022/2065) und lit. f (Schutz der Nutzer, Rechtsverteidigung).
+- Speicherdauer: drei Jahre ab Ende des Jahres, in dem die Bearbeitung abgeschlossen wurde.
+
+## 12. Empfänger und Drittländer
+
+Personenbezogene Daten erhalten außer uns nur:
+
+| Empfänger | Zweck | Ort | Grundlage |
 |---|---|---|---|
-| `__Secure-sm_session` | Anmeldung (Sitzungs-Token) | 30 Tage bzw. bis Abmeldung | HttpOnly, Secure, SameSite=Lax; gilt für `*.simplemods.de` |
-| `sm_csrf` | Schutz vor CSRF-Angriffen bei Formularen vor der Anmeldung | ⟦PLATZHALTER: Laufzeit, z. B. Sitzung/1 Stunde⟧ | ⟦PLATZHALTER: Flags/Domain gegen Implementierung prüfen⟧ |
-| ⟦PLATZHALTER: Name des Sprach-Cookies⟧ | gewählte Sprache | ⟦PLATZHALTER: Laufzeit⟧ | nur Spracheinstellung |
-| lokaler Speicher des Browsers (Viewer-Einstellungen) | gemerkte Ansicht (z. B. Spieler anzeigen/folgen) | bis Sie die Browser-Daten löschen | wird nicht an uns übertragen ⟦PLATZHALTER: bestätigen⟧ |
-| ⟦PLATZHALTER: Cloudflare-Cookies, falls gesetzt (z. B. Bot-Schutz)⟧ | Sicherheit | ⟦PLATZHALTER: Laufzeit laut Cloudflare⟧ | siehe 3.2 |
+| Cloudflare, Inc. | CDN, Reverse Proxy, Tunnel, DNS, Schutz vor Angriffen, ggf. E-Mail-Weiterleitung | USA, weltweites Netz | Auftragsverarbeitung; Data Privacy Framework, Standardvertragsklauseln |
+{{#wenn zahlung.paddle}}| Paddle.com Market Limited (Paddle-Gruppe) | Verkauf als Wiederverkäufer (Merchant of Record), Zahlungsabwicklung, Abo-Verwaltung, Rechnungen, Steuerberechnung | Vereinigtes Königreich, USA | eigener Verantwortlicher; Angemessenheitsbeschluss (UK), Data Privacy Framework, Standardvertragsklauseln |{{#sonst}}| Stripe Payments Europe, Limited (mit Stripe, Inc.) | Zahlungsabwicklung, Abo-Verwaltung, Rechnungen, ggf. Steuerberechnung | Irland, USA | eigener Verantwortlicher bzw. Auftragsverarbeitung; Data Privacy Framework, Standardvertragsklauseln |{{/wenn}}
+| SMTP-Dienstleister und E-Mail-Anbieter | Versand und Empfang von E-Mails | EU oder Drittland | Auftragsverarbeitung; bei Drittland Data Privacy Framework oder Standardvertragsklauseln |
+| Steuerberatung (falls beauftragt) | Buchhaltung, Steuererklärungen | Deutschland | Art. 6 Abs. 1 lit. c DSGVO; berufliche Schweigepflicht |
+| Kartenbetrachter, Wiki-Leser | Anzeige von Karten (nach Sichtbarkeit) und freigegebenen Kommentaren | weltweit | nach Ihren Einstellungen bzw. Ihrer Veröffentlichung |
 
-Sie können Cookies in den Browser-Einstellungen löschen oder blockieren; ohne das Sitzungs-Cookie ist keine Anmeldung möglich.
+Darüber hinaus geben wir Daten nur weiter, wenn wir gesetzlich dazu verpflichtet sind (zum Beispiel auf behördliche oder gerichtliche
+Anordnung, Art. 6 Abs. 1 lit. c DSGVO) oder Sie eingewilligt haben. Wir verkaufen keine Daten.
 
-## 9. Zahlung (Stripe) – derzeit nicht aktiv
+## 13. Cookies und lokale Speicherung
 
-Bezahlen ist derzeit **nicht möglich** („coming soon“); es werden keine Zahlungsdaten erhoben. Sobald kostenpflichtige Stufen
-eingeschaltet sind, wickeln wir Zahlungen über **Stripe** ab. Dann gilt zusätzlich: ⟦PLATZHALTER: diesen Abschnitt erst mit dem Bezahlstart scharf schalten und mit dem tatsächlichen Stripe-Vertrag abgleichen lassen⟧
+Wir verwenden nur technisch notwendige Cookies und vergleichbare Techniken. Sie sind nach § 25 Abs. 2 Nr. 2 TDDDG ohne Einwilligung
+zulässig, weil sie für einen von Ihnen ausdrücklich gewünschten Dienst erforderlich sind. Werbe-, Tracking- und Analyse-Cookies setzen wir
+nicht.
 
-- **Daten:** Name, E-Mail, Rechnungsadresse, ausgewählte Stufe und Laufzeit, Abo- und Zahlungsstatus, Rechnungsdaten. Zahlungsmittel-Daten (z. B. Kartennummer) gibt der Nutzer direkt bei Stripe ein; wir erhalten sie nicht, sondern nur eine Referenz und den Status.
-- **Anbieter:** ⟦PLATZHALTER: Stripe Payments Europe, Ltd., Irland (und Stripe, Inc., USA) – Vertragspartner laut Stripe-Konto⟧. Stripe verarbeitet Zahlungsdaten teils als eigener Verantwortlicher (z. B. Betrugsprävention, gesetzliche Pflichten), teils in unserem Auftrag. ⟦PLATZHALTER: Rollenverteilung anwaltlich bestätigen lassen⟧
-- **Rechtsgrundlage:** Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (steuer- und handelsrechtliche Aufbewahrung).
-- **Aufbewahrung** von Rechnungen und Buchungsbelegen: nach Handels- und Steuerrecht (§ 257 HGB, § 147 AO) ⟦PLATZHALTER: Fristen (6/8/10 Jahre je Unterlage) bestätigen lassen⟧.
-- **Drittland:** Übermittlungen in die USA auf Basis des Data Privacy Framework bzw. Standardvertragsklauseln ⟦PLATZHALTER: prüfen⟧.
-- Die Webhook-Meldungen von Stripe an unseren Server werden auf ihre Signatur geprüft; wir speichern daraus nur den Abo-Status und die Zuordnung zum Konto.
-
-## 10. Empfänger, Auftragsverarbeiter und Drittländer
-
-Empfänger oder Auftragsverarbeiter personenbezogener Daten sind – soweit eingesetzt – nur:
-
-| Empfänger | Zweck | Ort/Drittland | Grundlage |
+| Name | Zweck | Laufzeit | Eigenschaften |
 |---|---|---|---|
-| Cloudflare ⟦PLATZHALTER: Vertragsgesellschaft⟧ | CDN, Schutz, Tunnel, DNS; ab Bezahlstart ggf. Objektspeicher (R2) | USA/weltweit | Auftragsverarbeitungsvertrag, DPF/SCC |
-| E-Mail-Dienstleister ⟦PLATZHALTER: SMTP-Anbieter, Sitz, Land⟧ | Versand der Konto-E-Mails | ⟦PLATZHALTER: Land des Anbieters⟧ | Auftragsverarbeitungsvertrag ⟦PLATZHALTER: abgeschlossen?⟧ |
-| Stripe ⟦PLATZHALTER: Vertragsgesellschaft⟧ (erst ab Bezahlstart) | Zahlungsabwicklung | Irland/USA | siehe Abschnitt 9 |
-| Hosting-Anbieter | Der Dienst läuft auf **eigenem Server des Betreibers** in Deutschland ⟦PLATZHALTER: Standort bestätigen⟧; kein externer Hoster | Deutschland | — |
-| Backup-Ziel ⟦PLATZHALTER: eigenes Gerät oder externer Anbieter?⟧ | Datensicherung | ⟦PLATZHALTER: Ort des Backups⟧ | ⟦PLATZHALTER: Grundlage, falls extern⟧ |
+| `__Secure-sm_session` | Anmeldung (Sitzungs-Token) | 30 Tage bzw. bis zur Abmeldung | HttpOnly, Secure, SameSite=Lax; gilt für alle Seiten unter `simplemods.de` |
+| `sm_csrf` | Schutz von Formularen vor Fremdzugriffen (CSRF), solange Sie nicht angemeldet sind | 2 Stunden | nur für die jeweilige Seite (Host) |
+| `sm_lang` | gewählte Sprache | 1 Jahr | enthält nur den Sprachcode |
+| `__cf_bm`, `cf_clearance` (Cloudflare) | Bot-Erkennung, Sicherheitsprüfung | 30 Minuten bzw. bis zu 1 Jahr | nur bei Bedarf, siehe 4.3 |
+| lokaler Speicher des Browsers | Design, Sprache, Anzeigeeinstellungen der Karte | bis Sie die Browserdaten löschen | wird nicht an uns übertragen |
 
-Eine Weitergabe an sonstige Dritte erfolgt nur, wenn wir dazu gesetzlich verpflichtet sind (z. B. behördliche Anordnung, Art. 6 Abs. 1
-lit. c DSGVO) oder Sie eingewilligt haben. Eine Liste der eingesetzten Dienstleister mit Einzelheiten führen wir intern ⟦PLATZHALTER: ggf. veröffentlichen, z. B. unter …/dienstleister⟧.
-
-## 11. Speicherdauer, Export und Löschung
-
-Wir speichern Daten nur so lange, wie es für den Zweck nötig ist (siehe Tabelle in Abschnitt 2 und die Abschnitte 3 bis 9). Zusammengefasst:
-
-- **Konto und Karten:** bis zur Löschung des Kontos. Unter `/app/account` können Sie Ihre Daten als **JSON exportieren** und Ihr
-  **Konto löschen**. Bei der Löschung werden Konto, Sitzungen, Karten (einschließlich der Karten im Puffer) und Freigaben gelöscht
-  ⟦PLATZHALTER: Löschung sofort oder mit Frist; Löschung in Backups nach Ablauf der Backup-Aufbewahrung – gegen die Implementierung prüfen⟧.
-- **Puffer:** getrennte Karten bleiben Free 30 Tage, Pro 90 Tage, Max 180 Tage, Ultra 1 Jahr gespeichert, danach Löschung.
-- **Sitzung:** höchstens 30 Tage. **Signup Tag:** 30 Tage. **Ratenbegrenzung:** höchstens 1 Stunde (nur Arbeitsspeicher).
-- **Server-Logs:** ⟦PLATZHALTER: Aufbewahrung, Vorschlag 7 Tage⟧.
-- **Meldungen zu rechtswidrigen Inhalten und Schriftverkehr:** ⟦PLATZHALTER: Dauer, z. B. bis zur Erledigung plus Verjährungsfrist⟧.
-- **Rechnungsdaten (nach Bezahlstart):** gesetzliche Aufbewahrungsfristen.
-- **Backups:** ⟦PLATZHALTER: Intervall und Aufbewahrung⟧.
-
-## 12. Ihre Rechte
-
-Sie haben nach der DSGVO folgende Rechte:
-
-- **Auskunft** (Art. 15), **Berichtigung** (Art. 16), **Löschung** (Art. 17), **Einschränkung der Verarbeitung** (Art. 18),
-- **Datenübertragbarkeit** (Art. 20) – den JSON-Export finden Sie in `/app/account`,
-- **Widerspruch** (Art. 21): Soweit wir Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1 lit. f) verarbeiten, können Sie
-  aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen. Wir verarbeiten die Daten dann nicht
-  mehr, es sei denn, wir weisen zwingende schutzwürdige Gründe nach oder die Verarbeitung dient der Geltendmachung,
-  Ausübung oder Verteidigung von Rechtsansprüchen.
-- **Widerruf einer Einwilligung** (Art. 7 Abs. 3) mit Wirkung für die Zukunft, soweit die Verarbeitung auf einer Einwilligung beruht
-  (derzeit holen wir keine Einwilligungen ein ⟦PLATZHALTER: bei Einführung von „Explore“ ergänzen⟧).
-
-Zur Ausübung genügt eine Nachricht an die Adresse in Abschnitt 1. Wir können Sie zur Identifizierung um einen Nachweis bitten.
-
-**Beschwerderecht:** Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Für uns
-zuständig ist ⟦PLATZHALTER: Landesbeauftragte/r für Datenschutz des Bundeslandes, in dem der Betreiber seinen Sitz hat, mit Anschrift⟧.
-Sie können sich auch an die Aufsichtsbehörde an Ihrem Wohnort wenden.
-
-## 13. Automatisierte Entscheidungen
-
-Eine ausschließlich automatisierte Entscheidungsfindung einschließlich Profiling im Sinne des Art. 22 DSGVO findet nicht statt.
-Technische Begrenzungen (Ratenbegrenzung, Stufen-Limits, Mindestzeit der Karten-Vorbereitung) gelten für alle Nutzer gleich;
-auffällige Muster werden in einer Verwaltungsliste gesammelt und von uns manuell geprüft.
-⟦PLATZHALTER: rechtlich prüfen lassen, ob die automatisierten Sperren bei fehlgeschlagenen Anmeldungen unter Art. 22 fallen (nach unserer Einschätzung nein)⟧
+Auf der Bezahlseite und im Kundenportal des Zahlungsanbieters setzt dieser eigene Cookies bzw. lokale Speicherung ein; dafür gelten
+seine Hinweise (8.2). Sie können
+Cookies in Ihrem Browser löschen oder blockieren; ohne das Sitzungs-Cookie ist keine Anmeldung möglich.
 
 ## 14. Datensicherheit
 
-Die Verbindung zu unseren Seiten ist per TLS verschlüsselt. Passwörter speichern wir nur als Hash (PBKDF2-SHA256, 600 000
-Runden, mit Salz), Sitzungs- und Einmal-Token nur als Hash; Sitzungs-Cookies sind als HttpOnly und Secure gesetzt; Formulare sind
-gegen CSRF-Angriffe gesichert; Anmeldeversuche werden begrenzt. Die Schnittstelle für die Mod akzeptiert nur einen Karten-Schlüssel (keine Cookies). Weitere technische und organisatorische Maßnahmen: ⟦PLATZHALTER: Zugriffsschutz auf den Heimserver, Festplattenverschlüsselung, Backups, Update-Prozess – TOM-Dokument (Art. 32 DSGVO) erstellen⟧.
+Die Verbindung zu unseren Seiten ist per TLS verschlüsselt; zwischen Cloudflare und unserem Server läuft der Verkehr über einen
+verschlüsselten Cloudflare Tunnel, ohne offenen Port. Passwörter speichern wir nur als Hash (PBKDF2-SHA256, 600 000 Runden, mit Salz),
+Sitzungs- und Einmal-Token nur als Hash. Formulare sind gegen CSRF geschützt, Anmeldeversuche begrenzt. Die Schnittstelle der Mod
+akzeptiert nur einen Karten-Schlüssel. Zugangsdaten und Schlüssel liegen außerhalb des Programmcodes mit eingeschränkten Dateirechten. Auf
+den Server hat nur der Betreiber Zugriff (Anmeldung nur mit Schlüssel). Wir spielen Sicherheitsupdates zeitnah ein und sichern die Daten
+regelmäßig verschlüsselt auf eigenen Datenträgern des Betreibers in Deutschland; Datensicherungen bewahren wir höchstens 30 Tage auf.
 
-## 15. Änderungen dieser Erklärung
+## 15. Automatisierte Entscheidungen
 
-Wir passen diese Erklärung an, wenn sich der Dienst oder die Rechtslage ändert. Es gilt die jeweils aktuelle Fassung unter
-⟦PLATZHALTER: URL der Datenschutzerklärung, z. B. https://livemap.simplemods.de/datenschutz⟧.
-Stand: ⟦PLATZHALTER: Datum der Veröffentlichung⟧.
+Eine ausschließlich automatisierte Entscheidung einschließlich Profiling im Sinne von Art. 22 DSGVO findet nicht statt. Technische
+Grenzen (Ratenbegrenzung, Stufen-Grenzen) gelten für alle gleich. Die Freischaltung und Herabstufung von Vorzügen nach dem Zahlungs-
+und Abo-Status erfolgt automatisch, setzt aber nur die vereinbarten Vertragsbedingungen um. Auffällige Muster und Meldungen prüfen wir von
+Hand.
 
----
+## 16. Speicherdauer, Export und Löschung
 
-ENTWURF – keine Rechtsberatung. Vor Veröffentlichung prüfen lassen.
+Wir speichern Daten nur, solange es für den jeweiligen Zweck nötig ist oder das Gesetz es verlangt (Übersicht in Abschnitt 3).
+
+- **Export:** Unter „Konto“ in Simple Livemap (`/app/account`) können Sie Ihre Konto- und Kartendaten als JSON-Datei herunterladen.
+  Bestell- und Abo-Daten erhalten Sie auf Anfrage.
+- **Konto löschen:** Unter „Konto“ können Sie Ihr Konto löschen. Wir löschen dann sofort Konto, Sitzungen, Karten (auch im Puffer),
+  Freigaben, Mitspieler-Plätze und Ihre Wiki-Kommentare. Daten, die wir aufbewahren müssen (zum Beispiel Rechnungen, Bestellungen und
+  Kündigungen für die genannten Fristen), sperren wir und löschen sie nach Ablauf der Frist. In Datensicherungen verschwinden gelöschte Daten
+  spätestens nach 30 Tagen.
+
+## 17. Ihre Rechte
+
+Sie haben nach der DSGVO das Recht auf
+
+- **Auskunft** (Art. 15), **Berichtigung** (Art. 16), **Löschung** (Art. 17), **Einschränkung der Verarbeitung** (Art. 18),
+- **Datenübertragbarkeit** (Art. 20),
+- **Widerspruch** (Art. 21): Verarbeiten wir Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO), können Sie aus
+  Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen. Wir verarbeiten die Daten dann nicht mehr, es sei denn,
+  wir weisen zwingende schutzwürdige Gründe nach, die Ihre Interessen überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung
+  oder Verteidigung von Rechtsansprüchen,
+- **Widerruf einer Einwilligung** (Art. 7 Abs. 3) mit Wirkung für die Zukunft, soweit wir eine Einwilligung eingeholt haben.
+
+Eine Nachricht an {{kontakt.datenschutz}} genügt. Zur Identifizierung können wir Sie bitten, die Anfrage von der E-Mail-Adresse Ihres Kontos
+zu senden.
+
+**Beschwerderecht.** Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), insbesondere in dem
+Mitgliedstaat Ihres Aufenthaltsorts oder Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes. Für uns zuständig ist die für den
+Wohnsitz des Betreibers zuständige Landesdatenschutzbehörde. Eine Liste der deutschen Aufsichtsbehörden mit Anschriften führt der
+Bundesbeauftragte für den Datenschutz und die Informationsfreiheit:
+https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html
+
+Die Landesdatenschutzbehörden im Einzelnen:
+
+| Land | Website |
+|---|---|
+| Baden-Württemberg | https://www.baden-wuerttemberg.datenschutz.de |
+| Bayern (nicht-öffentlicher Bereich) | https://www.lda.bayern.de |
+| Berlin | https://www.datenschutz-berlin.de |
+| Brandenburg | https://www.lda.brandenburg.de |
+| Bremen | https://www.datenschutz.bremen.de |
+| Hamburg | https://datenschutz-hamburg.de |
+| Hessen | https://datenschutz.hessen.de |
+| Mecklenburg-Vorpommern | https://www.datenschutz-mv.de |
+| Niedersachsen | https://www.lfd.niedersachsen.de |
+| Nordrhein-Westfalen | https://www.ldi.nrw.de |
+| Rheinland-Pfalz | https://www.datenschutz.rlp.de |
+| Saarland | https://www.datenschutz.saarland.de |
+| Sachsen | https://www.datenschutz.sachsen.de |
+| Sachsen-Anhalt | https://datenschutz.sachsen-anhalt.de |
+| Schleswig-Holstein | https://www.datenschutzzentrum.de |
+| Thüringen | https://www.tlfdi.de |
+
+## 18. Änderungen dieser Erklärung
+
+Wir passen diese Erklärung an, wenn sich unsere Dienste oder die Rechtslage ändern. Es gilt die jeweils auf unseren Seiten
+veröffentlichte Fassung. Über wesentliche Änderungen, die Ihr Konto betreffen, informieren wir Sie zusätzlich per E-Mail.

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:orange_wool_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:orange_wool_half_slab"
   }
 }

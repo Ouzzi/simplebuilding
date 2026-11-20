@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplechess:nether_brick_quartz_checker",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:nether_brick_quartz_checker_half_slab"
   }
 }

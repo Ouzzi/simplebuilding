@@ -130,7 +130,136 @@ MIGRATIONS = [
     );
     CREATE INDEX audit_user ON audit(user_id, action, at);
     """,
-    # N106: paths of the manifest round in progress (cleared when the mod sends done; tiles it no longer reports go), and
+    # 2: Simple Mods Pro (N108): orders with the consents (kept after an account deletion: proof, user_id becomes NULL), mirror of
+    # the Stripe subscriptions, entitlements (account -> plan -> perks), processed webhook events (idempotency), cancellations
+    # via the cancel button (section 312k BGB), sent one-off notices.
+    """
+    CREATE TABLE orders (
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        plan TEXT NOT NULL,
+        interval TEXT NOT NULL,
+        price_cents INTEGER NOT NULL,
+        terms_version TEXT NOT NULL,
+        terms_at INTEGER NOT NULL,
+        waiver INTEGER NOT NULL DEFAULT 0,
+        waiver_text TEXT NOT NULL DEFAULT '',
+        created_at INTEGER NOT NULL,
+        session_id TEXT UNIQUE,
+        subscription_id TEXT,
+        completed_at INTEGER
+    );
+    CREATE INDEX orders_user ON orders(user_id, created_at);
+    CREATE TABLE subscriptions (
+        id TEXT PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        customer TEXT NOT NULL,
+        plan TEXT NOT NULL,
+        interval TEXT NOT NULL DEFAULT 'month',
+        status TEXT NOT NULL,
+        period_end INTEGER,
+        cancel_at_period_end INTEGER NOT NULL DEFAULT 0,
+        schedule_id TEXT,
+        order_id INTEGER,
+        event_at INTEGER NOT NULL DEFAULT 0,
+        updated_at INTEGER NOT NULL
+    );
+    CREATE INDEX subscriptions_user ON subscriptions(user_id);
+    CREATE INDEX subscriptions_customer ON subscriptions(customer);
+    CREATE TABLE entitlements (
+        user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+        plan TEXT NOT NULL,
+        perks TEXT NOT NULL,
+        livemap_tier TEXT NOT NULL,
+        source TEXT NOT NULL,
+        subscription_id TEXT,
+        starts_at INTEGER NOT NULL,
+        valid_until INTEGER,
+        updated_at INTEGER NOT NULL
+    );
+    CREATE TABLE stripe_events (
+        id TEXT PRIMARY KEY,
+        type TEXT NOT NULL,
+        created INTEGER NOT NULL DEFAULT 0,
+        received_at INTEGER NOT NULL
+    );
+    CREATE TABLE cancellations (
+        id INTEGER PRIMARY KEY,
+        at INTEGER NOT NULL,
+        email TEXT NOT NULL,
+        user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        subscription_id TEXT,
+        kind TEXT NOT NULL,
+        reason TEXT NOT NULL DEFAULT '',
+        effective_at INTEGER,
+        state TEXT NOT NULL
+    );
+    CREATE TABLE notices (
+        user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        kind TEXT NOT NULL,
+        ref TEXT NOT NULL,
+        at INTEGER NOT NULL,
+        PRIMARY KEY (user_id, kind, ref)
+    );
+    """,
+    # 3: owner 19.11.2026 (N109): "Pro" -> "Max" (plans), livemap tier "pro" -> "basic"; fellow-player seats (P039). The code also
+    # accepts the old ids on read (config.LIVEMAP_ALIAS / PLAN_ALIAS), so a half-migrated copy still works.
+    """
+    UPDATE users SET tier = 'basic' WHERE tier = 'pro';
+    UPDATE entitlements SET livemap_tier = 'basic' WHERE livemap_tier = 'pro';
+    UPDATE entitlements SET plan = 'max' WHERE plan = 'pro';
+    UPDATE subscriptions SET plan = 'max' WHERE plan = 'pro';
+    UPDATE orders SET plan = 'max' WHERE plan = 'pro';
+    CREATE TABLE lite_seats (
+        id INTEGER PRIMARY KEY,
+        owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        member_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        created_at INTEGER NOT NULL,
+        removed_at INTEGER
+    );
+    CREATE UNIQUE INDEX lite_member_active ON lite_seats(member_id) WHERE removed_at IS NULL;
+    CREATE INDEX lite_owner ON lite_seats(owner_id, removed_at);
+    """,
+    # 4: owner answer part 2 (19.11.2026): plan change at the period end (P070), coupons (P074), gift subscriptions bound to a
+    # Minecraft name (P068), contact form counter-free (mails only).
+    """
+    ALTER TABLE subscriptions ADD COLUMN pending_plan TEXT;
+    ALTER TABLE orders ADD COLUMN kind TEXT NOT NULL DEFAULT 'subscription';
+    ALTER TABLE orders ADD COLUMN months INTEGER;
+    ALTER TABLE orders ADD COLUMN coupon TEXT;
+    CREATE TABLE gifts (
+        id INTEGER PRIMARY KEY,
+        buyer_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        order_id INTEGER NOT NULL UNIQUE,
+        plan TEXT NOT NULL,
+        months INTEGER NOT NULL,
+        state TEXT NOT NULL,
+        starts_at INTEGER,
+        ends_at INTEGER,
+        created_at INTEGER NOT NULL
+    );
+    CREATE TABLE gift_names (
+        id INTEGER PRIMARY KEY,
+        gift_id INTEGER NOT NULL REFERENCES gifts(id) ON DELETE CASCADE,
+        mc_name TEXT NOT NULL,
+        mc_lower TEXT NOT NULL,
+        set_at INTEGER NOT NULL,
+        removed_at INTEGER
+    );
+    CREATE INDEX gift_names_lower ON gift_names(mc_lower, removed_at);
+    """,
+    # 4: N108 addendum 3/4 (19.11.2026): payment provider interface, Paddle first. Changes noted for the period end that the
+    # provider gets shortly before it (Paddle: yearly -> monthly, P070 plan change; applied = already sent), gift codes that the
+    # receiver redeems on a Minecraft name. stripe_events also keeps Paddle event ids (prefix "paddle:").
+    """
+    ALTER TABLE subscriptions ADD COLUMN pending_interval TEXT;
+    ALTER TABLE subscriptions ADD COLUMN pending_applied INTEGER NOT NULL DEFAULT 0;
+    ALTER TABLE gifts ADD COLUMN code TEXT;
+    ALTER TABLE gifts ADD COLUMN redeemed_at INTEGER;
+    ALTER TABLE gifts ADD COLUMN redeemed_by INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    CREATE UNIQUE INDEX gifts_code ON gifts(code) WHERE code IS NOT NULL;
+    """,
+    # 6: N106 (merged after N108's migrations 2-5): paths of the manifest round in progress (cleared when the mod sends done; tiles it no longer reports go), and
     # notices from the report link of every hosted map (legal draft U5, DSA Art. 16).
     """
     CREATE TABLE manifest_seen (

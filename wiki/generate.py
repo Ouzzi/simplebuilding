@@ -2948,6 +2948,15 @@ def main_with_textures() -> int:
             return 1
         if not args.check:
             print(f"Books: wiki/{books.GUIDE_TARGET}, wiki/{books.QUESTIONARY_TARGET} written")
+        # N113: the git-ignored pictures the data names (the page asks the hosts for them only if the fill step wrote them).
+        import local_only
+        problems = local_only.sync(WIKI, check=args.check)
+        for problem in problems:
+            print("PROBLEM:", problem)
+        if problems:
+            return 1
+        if not args.check:
+            print(f"Local-only pictures: wiki/{local_only.TARGET} written")
     if args.all:
         # Release listing icons (128/512 px, tools/textures/mod_icons_large.py): refreshed with every generate run.
         sys.path.insert(0, str(REPO / "tools/textures"))

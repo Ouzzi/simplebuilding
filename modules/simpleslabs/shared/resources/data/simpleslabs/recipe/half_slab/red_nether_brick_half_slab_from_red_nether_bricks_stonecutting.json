@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:red_nether_bricks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:red_nether_brick_half_slab"
   }
 }

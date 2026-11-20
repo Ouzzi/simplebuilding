@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleblocks:red_sand_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:red_sand_half_slab"
   }
 }

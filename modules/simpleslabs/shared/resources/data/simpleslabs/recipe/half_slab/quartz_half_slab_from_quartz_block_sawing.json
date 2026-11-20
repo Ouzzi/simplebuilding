@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:quartz_block",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:quartz_half_slab"
   }
 }

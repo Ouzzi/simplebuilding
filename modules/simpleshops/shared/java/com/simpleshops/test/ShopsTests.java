@@ -75,6 +75,8 @@ public final class ShopsTests {
     private static int counter;
 
     static {
+        // N111 (release audit): the config screen names every option in EN and DE (no raw paths).
+        ALL.put("config_labels", h -> com.simplelib.test.ConfigScreenTests.moduleLabels(h, com.simpleshops.SimpleShops.MOD_ID));
         ALL.put("config_defaults", h -> {
             ShopsConfig.reset();
             h.assertTrue(ShopsConfig.enabled && ShopsConfig.maxShopsPerPlayer == 16 && ShopsConfig.idleTimeoutSeconds == 300 && ShopsConfig.ownerFirst, "defaults");

@@ -14,8 +14,10 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from . import pages
+from . import pro_pages
 from . import security as sec
 from .config import REPO, ROOT
+from .config import PLAN_ALIAS, dim_allowed
 from .errors import Problem
 from .i18n import t as tr
 from .upload import TILE_RE
@@ -26,9 +28,16 @@ MAX_FORM = 64 * 1024
 MAX_TILES_BODY = 8 * 1024 * 1024 + 1024
 MAX_WEBHOOK = 256 * 1024
 MAX_MANIFEST_BODY = 1024 * 1024
-ACCOUNT_PATHS = {"/login", "/register", "/forgot", "/reset", "/verify", "/logout", "/resend"}
+ACCOUNT_PATHS = {"/login", "/register", "/forgot", "/reset", "/verify", "/logout", "/resend", "/pro", "/pro/order", "/pro/done",
+                 "/pro/manage", "/kuendigen", "/early", "/kontakt", "/pro/gift", "/pro/gifts", "/pro/pay", "/pro/redeem"}
+WEBHOOKS = {"/api/paddle/webhook": "paddle", "/api/stripe/webhook": "stripe"}     # N108 addendum 3/4: one route per provider
+EARLY_F_RE = re.compile(r"^/early/f/([A-Za-z0-9][A-Za-z0-9._+-]{0,150}\.(?:jar|zip))$")
+# Forms may also lead to the payment provider (303 after the order/portal POST; browsers apply form-action to the redirect target
+# too): the active provider's hosts (payments.*.csp_forms). The Paddle overlay page /pro/pay gets its own CSP (PAY_CSP).
 CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; "
        "frame-ancestors 'none'; form-action 'self' {forms}; base-uri 'none'; object-src 'none'")
+PAY_CSP = ("default-src 'self'; script-src 'self' {script}; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.paddle.com; "
+           "connect-src 'self' https://*.paddle.com; frame-src {frame}; frame-ancestors 'none'; form-action 'self'; base-uri 'none'; object-src 'none'")
 VIEWER_CSP = ("default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' blob:; connect-src 'self'; "
               "base-uri 'none'; form-action 'none'; frame-ancestors 'self'")
 M_RE = re.compile(r"^/m/([a-z0-9-]{3,32})(/.*)?$")
@@ -143,7 +152,7 @@ class App:
         return "; ".join(parts)
 
     def headers(self, ctype: str, csp: str | None, extra: list | None = None, cache: str = "no-store") -> list:
-        forms = " ".join(self.cfg.url(k, "") for k in ("account", "livemap"))
+        forms = " ".join(self.cfg.url(k, "") for k in ("account", "livemap")) + " " + self.provider_forms()
         h = [("Content-Type", ctype), ("X-Content-Type-Options", "nosniff"), ("Referrer-Policy", "strict-origin-when-cross-origin"),
              ("Cross-Origin-Opener-Policy", "same-origin"), ("Permissions-Policy", "camera=(), microphone=(), geolocation=()"),
              ("Cache-Control", cache)]
@@ -153,8 +162,14 @@ class App:
             h.append(("Strict-Transport-Security", "max-age=31536000"))
         return h + (extra or [])
 
-    def html(self, ctx: Ctx, status: int, body: str, cache: str = "no-store") -> Response:
-        r = Response(status, body.encode("utf-8"), self.headers("text/html; charset=utf-8", CSP, cache=cache))
+    def provider_forms(self) -> str:
+        try:
+            return self.svc.provider().csp_forms
+        except ValueError:
+            return ""
+
+    def html(self, ctx: Ctx, status: int, body: str, cache: str = "no-store", csp: str = CSP) -> Response:
+        r = Response(status, body.encode("utf-8"), self.headers("text/html; charset=utf-8", csp, cache=cache))
         r.headers += [("Set-Cookie", c) for c in ctx.set_cookies]
         if ctx.req.query.get("lang") in ("en", "de"):
             r.headers.append(("Set-Cookie", self.cookie("sm_lang", ctx.req.query["lang"], 365 * 86400)))
@@ -217,7 +232,7 @@ class App:
                 self.check_form(ctx)
             elif req.method not in ("GET", "HEAD"):
                 return self.plain(405, "method not allowed", [("Allow", "GET, HEAD, POST")])
-            if site == "account" or (site == "single" and req.path in ACCOUNT_PATHS):
+            if site == "account" or (site == "single" and (req.path in ACCOUNT_PATHS or EARLY_F_RE.match(req.path))):
                 return self.account_site(ctx)
             return self.livemap_site(ctx)
         except Problem as p:
@@ -298,7 +313,154 @@ class App:
         if path == "/resend" and req.method == "POST" and ctx.user:
             svc.send_verify(ctx.user["id"])
             return self.redirect(ctx.url("livemap", "/app?sent=1"), ctx)
+        if path.startswith("/pro") or path in ("/kuendigen", "/kontakt") or path.startswith("/early"):
+            return self.pro_site(ctx)
         raise Problem(404, "not_found")
+
+    # ---------------------------------------------------------------- Simple Mods Pro (N108) on the account host
+    def login_first(self, ctx: Ctx) -> Response:
+        nxt = ctx.url("account", ctx.req.path + ("?" + urllib.parse.urlencode(ctx.req.query) if ctx.req.query else ""))
+        return self.redirect(ctx.url("account", "/login?next=" + urllib.parse.quote(nxt, safe="")), ctx)
+
+    def pro_site(self, ctx: Ctx) -> Response:
+        req, svc, path = ctx.req, self.svc, ctx.req.path
+        if path == "/pro":
+            return self.html(ctx, 200, pro_pages.index(ctx), cache="no-cache")
+        if path == "/kontakt":
+            if req.method == "POST":
+                try:
+                    svc.contact_form(req.form, req.ip)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.contact(ctx, req.form))
+                return self.html(ctx, 200, pro_pages.contact(ctx, sent=True))
+            return self.html(ctx, 200, pro_pages.contact(ctx))
+        if path == "/kuendigen":
+            if req.method == "POST":
+                f = req.form
+                try:
+                    result = svc.cancel_request(f.get("email", ""), f.get("kind", ""), f.get("reason", ""), ctx.user, req.ip)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.cancel(ctx, f))
+                return self.html(ctx, 200, pro_pages.cancel(ctx, f, result))
+            return self.html(ctx, 200, pro_pages.cancel(ctx, {}))
+        if path == "/pro/pay":
+            return self.pay_page(ctx)
+        if path == "/pro/redeem":
+            if req.method == "POST":
+                f = req.form
+                try:
+                    result = svc.redeem_gift(f.get("code", ""), [f.get(f"mc{i}", "") for i in range(4)], req.ip, ctx.user)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.redeem(ctx, f))
+                return self.html(ctx, 200, pro_pages.redeem(ctx, f, result))
+            return self.html(ctx, 200, pro_pages.redeem(ctx, {"code": req.query.get("code", "")}))
+        if ctx.user is None:
+            return self.login_first(ctx)
+        user = ctx.user
+        if path == "/pro/order":
+            plan = req.form.get("plan") or req.query.get("plan", "")
+            plan = PLAN_ALIAS.get(plan, plan)       # old links (?plan=pro) still work
+            interval = req.form.get("interval") or req.query.get("interval", "month")
+            if svc.plan(plan) is None or interval not in ("month", "year"):
+                return self.redirect(ctx.url("account", "/pro"), ctx)
+            if not svc.billing_on():
+                ctx.flash = ctx.problem_text(Problem(503, "coming_soon"))
+            if svc.active_subscription(user["id"]):
+                return self.redirect(ctx.url("account", "/pro/manage"), ctx)
+            if req.method == "POST":
+                try:
+                    url = svc.start_order(user, plan, interval, req.form.get("terms") == "1", req.form.get("waiver") == "1", ctx.lang,
+                                          req.form.get("coupon", ""))
+                    return self.redirect(url, ctx)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.order(ctx, plan, interval, req.form))
+            return self.html(ctx, 200, pro_pages.order(ctx, plan, interval))
+        if path == "/pro/gift":
+            plan = PLAN_ALIAS.get(req.form.get("plan") or req.query.get("plan") or "max", req.form.get("plan") or req.query.get("plan") or "max")
+            if svc.plan(plan) is None:
+                plan = svc.cfg.plans["order"][0]
+            if not svc.billing_on():
+                ctx.flash = ctx.problem_text(Problem(503, "coming_soon"))
+            if req.method == "POST":
+                f = req.form
+                try:
+                    names = [f.get(f"mc{i}", "") for i in range(4)]
+                    url = svc.start_gift(user, plan, int_or(f.get("months")) or 0, names, f.get("terms") == "1", f.get("waiver") == "1", ctx.lang, f.get("coupon", ""))
+                    return self.redirect(url, ctx)
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+                    return self.html(ctx, p.status, pro_pages.gift_order(ctx, plan, req.form))
+            return self.html(ctx, 200, pro_pages.gift_order(ctx, plan))
+        if path == "/pro/gifts":
+            if req.method == "POST":
+                try:
+                    svc.gift_rename(user, int_or(req.form.get("gift")) or 0, [req.form.get(f"mc{i}", "") for i in range(4)])
+                    ctx.flash = ctx.t("Name changed.", "Name geändert.")
+                except Problem as p:
+                    ctx.error = ctx.problem_text(p)
+            elif req.query.get("done"):
+                ctx.flash = ctx.t("Thank you! The gift is active as soon as the payment is confirmed.", "Danke! Das Geschenk ist aktiv, sobald die Zahlung bestätigt ist.")
+            return self.html(ctx, 200, pro_pages.gifts(ctx, svc.gifts_of(user["id"])))
+        if path == "/pro/done":
+            return self.html(ctx, 200, pro_pages.done(ctx, svc.subscription_view(user)))
+        if path == "/pro/manage":
+            action = req.form.get("action") if req.method == "POST" else None
+            try:
+                if action == "portal":
+                    return self.redirect(svc.portal(user), ctx)
+                if action == "change":
+                    r = svc.change_plan(user, req.form.get("plan", ""))
+                    ctx.flash = ctx.t("Change planned for the end of the period." if r.get("pending") else "No change planned.",
+                                      "Wechsel zum Periodenende vorgemerkt." if r.get("pending") else "Kein Wechsel vorgemerkt.")
+                elif action == "lite_add":
+                    svc.lite_add(user, req.form.get("email", ""))
+                    ctx.flash = ctx.t("Seat given.", "Platz vergeben.")
+                elif action == "lite_remove":
+                    svc.lite_remove(user["id"], int_or(req.form.get("member")) or 0)
+                    ctx.flash = ctx.t("Seat removed.", "Platz entfernt.")
+                elif action == "lite_leave":
+                    owner, _ = svc.lite_holder(user)
+                    if owner:
+                        svc.lite_remove(owner["id"], user["id"], user["id"])
+                    ctx.flash = ctx.t("Seat given back.", "Platz zurückgegeben.")
+            except Problem as p:
+                ctx.error = ctx.problem_text(p)
+            ctx.user = user = svc.session_user(ctx.sid_token)
+            return self.html(ctx, 200, pro_pages.manage(ctx, svc.subscription_view(user)))
+        if path == "/early":
+            allowed = svc.has_perk(user, "early_access")
+            return self.html(ctx, 200, pro_pages.early(ctx, svc.early_releases() if allowed else [], allowed))
+        m = EARLY_F_RE.match(path)
+        if m and req.method == "GET":
+            if not svc.has_perk(user, "early_access"):
+                raise Problem(403, "early_needed")
+            f = svc.early_file(m.group(1))
+            if f is None:
+                raise Problem(404, "not_found")
+            extra = [("Content-Disposition", f'attachment; filename="{m.group(1)}"')]
+            accel = (self.cfg.get("early_access") or {}).get("accel_prefix")
+            if accel:
+                return Response(200, b"", self.headers("application/octet-stream", None, extra + [("X-Accel-Redirect", accel + m.group(1))]))
+            return Response(200, f.read_bytes(), self.headers("application/java-archive" if f.suffix == ".jar" else "application/zip", None, extra))
+        raise Problem(404, "not_found")
+
+    def pay_page(self, ctx: Ctx) -> Response:
+        """Paddle checkout page (the transaction's checkout URL): Paddle.js opens the overlay for ``_ptxn``. Shows nothing from
+        our database except where to go afterwards; Paddle's own checkout checks the transaction (also used by Paddle for
+        payment-method updates of running subscriptions)."""
+        svc = self.svc
+        prov = svc.provider()
+        txn = ctx.req.query.get("_ptxn", "")
+        if prov.name != "paddle" or not prov.configured() or not re.fullmatch(r"txn_[A-Za-z0-9]{1,60}", txn):
+            raise Problem(404, "not_found")
+        order = svc.db.one("SELECT kind FROM orders WHERE session_id = ?", txn)
+        success = ctx.url("account", "/pro/gifts?done=1" if order and order["kind"] == "gift" else "/pro/done" if order else "/pro/manage")
+        csp = PAY_CSP.format(script=prov.csp_script, frame=prov.csp_frame)
+        return self.html(ctx, 200, pro_pages.pay(ctx, txn, success, prov), csp=csp)
 
     # ---------------------------------------------------------------- livemap host
     def need_user(self, ctx: Ctx):
@@ -355,11 +517,13 @@ class App:
         if path == "/app/plan":
             user = self.need_user(ctx)
             if req.method == "POST":
-                try:
-                    url = svc.portal(user) if req.form.get("action") == "portal" else svc.checkout(user, req.form.get("tier", ""), req.form.get("interval", ""))
-                    return self.redirect(url, ctx)
-                except Problem as p:
-                    ctx.flash = ctx.problem_text(p)
+                if req.form.get("action") == "portal":
+                    return self.redirect(ctx.url("account", "/pro/manage"), ctx)
+                plan = svc.plan_for_livemap_tier(req.form.get("tier", ""))
+                if svc.billing_on() and plan:
+                    interval = req.form.get("interval") if req.form.get("interval") in ("month", "year") else "month"
+                    return self.redirect(ctx.url("account", f"/pro/order?plan={plan}&interval={interval}"), ctx)
+                ctx.flash = ctx.problem_text(Problem(503, "coming_soon"))
             return self.html(ctx, 200, pages.plan(ctx, svc.usage(user)))
         if path == "/app/account":
             return self.account_settings(ctx)
@@ -442,6 +606,8 @@ class App:
             cache = f"public, max-age={data['poll']}" if public else "private, no-store"
             return self.json(200, data, cache=cache)
         if rest.startswith("/tiles/") and rest.endswith(".png") and TILE_RE.match(rest[7:-4]):
+            if not dim_allowed(svc.tier(svc.user(m["user_id"])), rest[7:].split("/", 1)[0]):   # P011 (also after a downgrade)
+                return Response(204, b"", self.headers("image/png", None, cache="private, no-store"))
             sha, png = svc.tile(m, rest[7:-4])
             if png is None:
                 return Response(204, b"", self.headers("image/png", None, cache="public, max-age=60" if public else "private, max-age=60"))
@@ -617,21 +783,27 @@ class App:
         owners = {u["id"]: u["email"] for u in svc.db.all("SELECT id, email FROM users")}
         storage = {"used": svc.storage_used(), "quota": svc.cfg["storage_quota_gb"] * 1024 ** 3, "disk": svc.disk_percent()}
         return self.html(ctx, 200, pages.admin(ctx, users, maps, owners, svc.queue(), storage, svc.flags(),
-                                               svc.mailer.recent() if svc.mailer.uses_outbox else [], svc.reports()))
+                                               svc.mailer.recent() if svc.mailer.uses_outbox else [],
+                                               svc.db.all("SELECT coupon, COUNT(*) AS n FROM orders WHERE coupon IS NOT NULL GROUP BY coupon ORDER BY n DESC LIMIT 50"),
+                                               svc.reports()))
 
-    # ---------------------------------------------------------------- API (mod, Stripe)
+    # ---------------------------------------------------------------- API (mod, payment providers)
     def api(self, req: Request, site: str) -> Response:
         svc = self.svc
-        if site == "account":
+        if site == "account" and req.path not in WEBHOOKS:
             return self.plain(404, "not found")
         lang = "en"
         try:
             path = req.path
-            if path == "/api/stripe/webhook" and req.method == "POST":
-                return self.json(200, svc.webhook(req.body, req.headers.get("stripe-signature")))
+            if path in WEBHOOKS and req.method == "POST":
+                return self.json(200, svc.webhook(req.body, req.headers, WEBHOOKS[path]))
             if not path.startswith("/api/v1/"):
                 raise Problem(404, "not_found")
             name = path[8:]
+            if name.startswith("mc/") and req.method == "GET":     # P068: perks bound to a Minecraft name (gifts), for the mods
+                if not svc.limiter.allow(f"mc:{req.ip}", 60, 60):
+                    raise Problem(429, "too_many", retry_after=60)
+                return self.json(200, svc.mc_entitlement(name[3:]), cache="public, max-age=300")
             if name == "connect" and req.method == "POST":
                 return self.json(200, svc.api_connect(parse_json(req.body), req.ip))
             m = svc.map_by_key(req.headers.get("authorization"))
@@ -695,7 +867,7 @@ def body_limit(path: str) -> int:
         return MAX_TILES_BODY
     if path == "/api/v1/manifest":
         return MAX_MANIFEST_BODY   # up to 5000 entries of path + SHA-256 (the mod sends 2000 per call)
-    if path == "/api/stripe/webhook":
+    if path in WEBHOOKS:
         return MAX_WEBHOOK
     return MAX_FORM
 

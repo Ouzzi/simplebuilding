@@ -79,7 +79,7 @@
   "simplelivemap.guide.page.4.title": "Explored chunks",
   "simplelivemap.guide.page.4": "Pre-generated or never visited land stays dark, so the map gives away no seed. The server keeps this per player in the world folder (simplelivemap/visited.bin) and saves it every 5 minutes and on stop.",
   "simplelivemap.guide.page.5.title": "Map tiles",
-  "simplelivemap.guide.page.5": "Explored chunks are drawn from above with the Vanilla map colours of their blocks and the Vanilla map relief (higher ground brighter, lower darker, water by depth; render.shading, default on) – the 2.5D look.",
+  "simplelivemap.guide.page.5": "Explored chunks are drawn from above with the Vanilla map colors of their blocks and the Vanilla map relief (higher ground brighter, lower darker, water by depth; render.shading, default on) – the 2.5D look.",
   "simplelivemap.guide.page.6.title": "Map tiles",
   "simplelivemap.guide.page.6": "Only loaded chunks are read, at most render.chunksPerTick per tick (default 2); a revisited chunk is redrawn after render.refreshMinutes (default 10).",
   "simplelivemap.guide.page.7.title": "Map tiles",
@@ -151,5 +151,5 @@
   "simplelivemap.guide.page.40.title": "Map viewer",
   "simplelivemap.guide.page.40": "the tile pictures, block edges when zoomed in), Shaded relief (hillshade from the height layer, water darker with depth) and Cartographer (paper map with contour lines every 8 and 32 blocks, inked shores and a compass rose);",
   "simplelivemap.guide.page.41.title": "Map viewer",
-  "simplelivemap.guide.page.41": "without heights the last two use the colours alone. Server settings stay in game (/simplelivemap config); the built-in server stays read-only."
+  "simplelivemap.guide.page.41": "without heights the last two use the colors alone. Server settings stay in game (/simplelivemap config); the built-in server stays read-only."
 }

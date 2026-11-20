@@ -54,7 +54,7 @@
       ],
       "en": {
         "title": "Quartz checkers",
-        "summary": "Twelve quartz checker pillar blocks (purpur, lapis, blackstone, resin, nether bricks, red nether bricks and the six End palette checkers) with stairs, slabs and walls (walls: N77); no mob spawns on them.",
+        "summary": "Twelve quartz checker pillar blocks (purpur, lapis, blackstone, resin, nether bricks, red nether bricks and the six End palette checkers) with stairs, slabs and walls; no mob spawns on them.",
         "details": [
           "Two of the material diagonal to two quartz blocks make 4 checkers; stairs and slabs as in Vanilla and in the stonecutter.",
           "The Astralit, Nihilit and Ender Quartz checkers (plain and polished) are made of SimpleBuilding's End palettes: they, their stairs, slabs, octets and pieces only exist while SimpleBuilding is installed.",
@@ -63,7 +63,7 @@
       },
       "de": {
         "title": "Quarz-Schachbretter",
-        "summary": "Zwölf Quarz-Schachbrett-Säulenblöcke (Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel und die sechs Schachbretter der End-Paletten) mit Treppen, Stufen und Mauern (Mauern: N77); darauf spawnen keine Monster.",
+        "summary": "Zwölf Quarz-Schachbrett-Säulenblöcke (Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel und die sechs Schachbretter der End-Paletten) mit Treppen, Stufen und Mauern; darauf spawnen keine Monster.",
         "details": [
           "Zwei des Materials über Eck mit zwei Quarzblöcken ergeben 4 Schachbretter; Treppen und Stufen wie bei Vanilla und im Steinmetz.",
           "Die Astralit-, Nihilit- und Enderquarz-Schachbretter (normal und poliert) bestehen aus SimpleBuildings End-Paletten: sie, ihre Treppen, Stufen, Achtel und Figuren gibt es nur, solange SimpleBuilding installiert ist.",

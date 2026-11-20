@@ -21,8 +21,10 @@ class Mailer:
     def uses_outbox(self) -> bool:
         return not self.smtp.get("host")
 
-    def send(self, to: str, subject: str, text: str):
+    def send(self, to: str, subject: str, text: str, reply_to: str | None = None):
         mail = {"to": to, "subject": subject, "text": text, "at": int(time.time())}
+        if reply_to:
+            mail["reply_to"] = reply_to
         self.sent = (self.sent + [mail])[-50:]
         if self.uses_outbox:
             self.outbox.mkdir(parents=True, exist_ok=True)
@@ -35,6 +37,8 @@ class Mailer:
         msg["From"] = self.smtp.get("from") or "no-reply@simplemods.de"
         msg["To"] = to
         msg["Subject"] = subject
+        if reply_to:
+            msg["Reply-To"] = reply_to
         msg.set_content(text)
         with smtplib.SMTP(self.smtp["host"], int(self.smtp.get("port") or 587), timeout=15) as s:
             if self.smtp.get("starttls", True):

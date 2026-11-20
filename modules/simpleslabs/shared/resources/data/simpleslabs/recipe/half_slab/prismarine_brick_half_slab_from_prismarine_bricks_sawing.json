@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:prismarine_bricks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:prismarine_brick_half_slab"
   }
 }

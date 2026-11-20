@@ -194,11 +194,19 @@ class AccountsMixin:
             "shared_with_me": [r[0] for r in self.db.all("SELECT m.slug FROM shares s JOIN maps m ON m.id = s.map_id WHERE s.user_id = ?", user["id"])],
             "views": [dict(r) for r in self.db.all("SELECT day, SUM(count) AS views FROM views WHERE user_id = ? GROUP BY day ORDER BY day", user["id"])],
             "audit": [dict(r) for r in self.db.all("SELECT at, action FROM audit WHERE user_id = ? ORDER BY id", user["id"])],
+            "orders": [dict(r) for r in self.db.all("SELECT plan, interval, price_cents, terms_version, terms_at, waiver, created_at, completed_at "
+                                                     "FROM orders WHERE user_id = ? ORDER BY id", user["id"])],
+            "subscriptions": [dict(r) for r in self.db.all("SELECT plan, interval, status, period_end, cancel_at_period_end, updated_at "
+                                                            "FROM subscriptions WHERE user_id = ?", user["id"])],
+            "entitlement": (lambda r: dict(r) if r else None)(self.db.one("SELECT plan, perks, livemap_tier, starts_at, valid_until FROM entitlements WHERE user_id = ?", user["id"])),
         }
 
     def delete_account(self, user, password: str):
         if not sec.verify_password(password, user["pw_hash"]):
             raise Problem(400, "pw_wrong")
+        sub = self.active_subscription(user["id"])
+        if sub is not None and not sub["cancel_at_period_end"]:
+            raise Problem(409, "sub_active_delete")
         for m in self.db.all("SELECT id FROM maps WHERE user_id = ?", user["id"]):
             self.delete_map(m["id"])
         with self.db.tx() as c:

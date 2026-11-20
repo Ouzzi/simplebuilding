@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:andesite",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:andesite_half_slab"
   }
 }

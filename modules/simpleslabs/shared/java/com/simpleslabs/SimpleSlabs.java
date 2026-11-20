@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Simple Slabs (N86, owner 18.11.; docs/ai/PLAN-N86-BAU-2026-11-19.md): a 2-px half slab of every block with a slab, freely
- * stacked in the eight layers of a cell, plus the side half slab / side slab. Shares SimpleLib's shape core with Simple Octets
+ * Simple Slabs (N86, owner 18.11.; docs/ai/PLAN-N86-BAU-2026-11-19.md): a 4-px half slab of every block with a slab, freely
+ * stacked in the four layers of a cell, plus the side half slab / side slab. Shares SimpleLib's shape core with Simple Octets
  * (com.simplelib.api.shape.ShapeMaterials: property templates of other mods' blocks, fire table; CopperAging). Loader entry
  * points call {@link #init} once, before registering.
  */

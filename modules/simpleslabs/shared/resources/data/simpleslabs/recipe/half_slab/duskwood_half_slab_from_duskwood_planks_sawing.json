@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleend:duskwood_planks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:duskwood_half_slab"
   }
 }

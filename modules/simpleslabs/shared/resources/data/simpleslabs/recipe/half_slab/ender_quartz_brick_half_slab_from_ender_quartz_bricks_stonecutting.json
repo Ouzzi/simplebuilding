@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simplebuilding:ender_quartz_bricks",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:ender_quartz_brick_half_slab"
   }
 }

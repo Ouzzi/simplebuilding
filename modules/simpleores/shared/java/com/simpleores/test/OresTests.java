@@ -91,6 +91,21 @@ public final class OresTests {
                 .map(recipe -> recipe.value().assemble(input)).orElse(ItemStack.EMPTY);
     }
 
+    /**
+     * Removes a block state property from a tag of {@code NbtUtils.writeBlockState}: 26.3 names the map "properties", 26.2
+     * "Properties" (both tried). True when the property was there - a test that removes nothing proves nothing (N111).
+     */
+    static boolean dropProperty(net.minecraft.nbt.CompoundTag tag, String property) {
+        boolean removed = false;
+        for (String key : new String[] {"properties", "Properties"}) {
+            if (tag.get(key) instanceof net.minecraft.nbt.CompoundTag props && props.get(property) != null) {
+                props.remove(property);
+                removed = true;
+            }
+        }
+        return removed;
+    }
+
     private static void check(GameTestHelper h, boolean ok, String message) {
         h.assertTrue(ok, message);
     }
@@ -707,9 +722,13 @@ public final class OresTests {
                     var shape = block.defaultBlockState().setValue(LeadPlateBlock.FACING, d).setValue(LeadPlateBlock.LAYERS, 4).getShape(level, at);
                     check(h, Math.abs(shape.max(d.getAxis()) - shape.min(d.getAxis()) - px * 4 / 16.0) < 1.0E-9, path + " " + d + ": 4 layers thick");
                 }
-                // old worlds: a palette entry without layers loads as one layer with its facing
-                var tag = net.minecraft.nbt.NbtUtils.writeBlockState(block.defaultBlockState().setValue(LeadPlateBlock.FACING, Direction.NORTH));
-                tag.getCompoundOrEmpty("Properties").remove("layers");
+                // old worlds: a palette entry without layers loads as one layer with its facing. Written with 3 layers, so the
+                // check fails unless the key really goes (N111: 26.3 writes "properties", the old test removed "Properties")
+                var tag = net.minecraft.nbt.NbtUtils.writeBlockState(block.defaultBlockState().setValue(LeadPlateBlock.FACING, Direction.NORTH)
+                        .setValue(LeadPlateBlock.LAYERS, 3));
+                BlockState full = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
+                check(h, full != null && full.getValue(LeadPlateBlock.LAYERS) == 3, path + ": the written state reads back with 3 layers, was " + full);
+                check(h, dropProperty(tag, "layers"), path + ": the written state names its layers, " + tag);
                 BlockState old = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
                 check(h, old != null && old.is(block) && old.getValue(LeadPlateBlock.LAYERS) == 1 && old.getValue(LeadPlateBlock.FACING) == Direction.NORTH,
                         path + ": an old plate without layers loads as one layer facing north, was " + old + " from " + tag);
@@ -757,9 +776,14 @@ public final class OresTests {
             // ceiling
             level.setBlockAndUpdate(at.above(), Blocks.STONE.defaultBlockState());
             check(h, ceiling.canSurvive(level, at), "a ceiling mirror hangs under stone");
-            // old worlds: a palette entry without face loads as a wall mirror
-            var tag = net.minecraft.nbt.NbtUtils.writeBlockState(mirror.setValue(SilverMirrorBlock.FACING, Direction.WEST));
-            tag.getCompoundOrEmpty("Properties").remove("face");
+            // old worlds: a palette entry without face loads as a wall mirror. Written as a floor mirror, so the check fails
+            // unless the key really goes (N111: 26.3 writes "properties", the old test removed "Properties" and tested nothing)
+            var tag = net.minecraft.nbt.NbtUtils.writeBlockState(mirror.setValue(face, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR)
+                    .setValue(SilverMirrorBlock.FACING, Direction.WEST));
+            BlockState full = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
+            check(h, full != null && full.getValue(face) == net.minecraft.world.level.block.state.properties.AttachFace.FLOOR,
+                    "the written floor mirror reads back as a floor mirror, was " + full);
+            check(h, dropProperty(tag, "face"), "the written state names its face, " + tag);
             BlockState old = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
             check(h, old != null && old.is(OresRegistry.SILVER_MIRROR) && old.getValue(face) == net.minecraft.world.level.block.state.properties.AttachFace.WALL
                     && old.getValue(SilverMirrorBlock.FACING) == Direction.WEST, "an old mirror loads on its wall: " + old);

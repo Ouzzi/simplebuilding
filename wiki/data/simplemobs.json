@@ -40,7 +40,7 @@
           "Special attacks, each announced by sound and particles, with a 1.5 s pause after each: ground shockwave when you stay close (1 s wind-up, a ring marks 5 blocks; 10 damage - jump or step out), echo shriek every 12 s at 6-10 blocks (1 s wind-up, 8 damage and push - cover in its line of sight blocks it), charge at 6-16 blocks (crouches 0.8 s on a locked line, 12 damage - sidestep; into a wall it staggers 1.5 s), sculk tendrils (marks under and around you pulse 1.5 s, then 4 damage and Slowness II 3 s - step off). Below 50 % it hungers: faster, longer reach and traps around you every 15 s (SimpleBuilding Sculk Jaws for 20 s, otherwise sculk snares). Below 20 % it rages: shrieks every 6 s, other attacks a third more often. It never calls reinforcements.",
           "Drops: 3-5 echo shards, one Echo Core, (with SimpleBuilding) 1-2 Sculk Jaws plus Looting, at most 4 - without SimpleBuilding one more echo shard instead. 50 XP. Never spawns naturally.",
           "Server config simplemobs-server.json: howlerEnabled, howlerMaxLight, howlerSculkTrail, howlerSculkTrailMax, howlerTransformSculk, howlerHunger, howlerRagePulse, howlerPulseInterval, howlerPulseTicks, howlerPulseRadius (rage-only Darkness pulse), howlerDespawnMinutes, howlerAllowDimensions. Client config simplemobs-client.json: reduceMotion (true turns off the camera shake of shockwave and shriek). mobGriefing off: no sculk trail, no sculk ground, Vanilla snares instead of jaw blocks.",
-          "Voice (W24-3): deep breathing while lurking, a hollow howl, a raging growl, a dull pained grunt and a sinking death wail (ElevenLabs takes, mode eleven, the default); heartbeat, steps, sniffing, noticing and the hunger sound stay as before. Build option -PsbHowlerSounds=synth|vanilla|mix|eleven."
+          "Voice: deep breathing while lurking, a hollow howl, a raging growl, a dull pained grunt and a sinking death wail (ElevenLabs takes, mode eleven, the default); heartbeat, steps, sniffing, noticing and the hunger sound stay as before. Build option -PsbHowlerSounds=synth|vanilla|mix|eleven."
         ]
       },
       "de": {
@@ -54,7 +54,7 @@
           "Spezialangriffe, jeweils per Geräusch und Partikeln angekündigt, danach 1,5 s Pause: Boden-Schockwelle, wenn du nah bleibst (1 s Aufladen, ein Ring markiert 5 Blöcke; 10 Schaden – springen oder rausgehen), Echo-Schrei alle 12 s auf 6–10 Blöcke (1 s Aufladen, 8 Schaden und Rückstoß – Deckung in seiner Sichtlinie blockt ihn), Ansturm auf 6–16 Blöcke (duckt sich 0,8 s auf einer festen Linie, 12 Schaden – zur Seite ausweichen; gegen eine Wand taumelt er 1,5 s), Sculk-Ranken (Markierungen unter und neben dir pulsieren 1,5 s, dann 4 Schaden und Langsamkeit II 3 s – runtergehen). Unter 50 % hungert er: schneller, mehr Reichweite und alle 15 s Fallen um dich (SimpleBuilding-Sculk-Kiefer für 20 s, sonst Sculk-Schlingen). Unter 20 % tobt er: Schrei alle 6 s, übrige Angriffe ein Drittel öfter. Er ruft nie Verstärkung.",
           "Beute: 3–5 Echosplitter, ein Echokern, (mit SimpleBuilding) 1–2 Sculk-Kiefer plus Plünderung, höchstens 4 – ohne SimpleBuilding stattdessen ein Echosplitter mehr. 50 EP. Spawnt nie natürlich.",
           "Server-Konfiguration simplemobs-server.json: howlerEnabled, howlerMaxLight, howlerSculkTrail, howlerSculkTrailMax, howlerTransformSculk, howlerHunger, howlerRagePulse, howlerPulseInterval, howlerPulseTicks, howlerPulseRadius (Darkness-Puls nur in der Wut), howlerDespawnMinutes, howlerAllowDimensions. Client-Konfiguration simplemobs-client.json: reduceMotion (true schaltet das Kamerawackeln von Schockwelle und Schrei ab). mobGriefing aus: keine Sculk-Spur, kein Sculk-Boden, Vanilla-Schlingen statt Kiefer-Blöcken.",
-          "Stimme (W24-3): tiefes Atmen beim Lauern, ein hohles Heulen, wütendes Knurren, ein dumpfer Schmerzlaut und ein immer tiefer sinkender Todesschrei (ElevenLabs-Takes, Modus eleven, Standard); Herzschlag, Schritte, Schnüffeln, Bemerken und Hunger-Laut bleiben wie bisher. Bau-Option -PsbHowlerSounds=synth|vanilla|mix|eleven."
+          "Stimme: tiefes Atmen beim Lauern, ein hohles Heulen, wütendes Knurren, ein dumpfer Schmerzlaut und ein immer tiefer sinkender Todesschrei (ElevenLabs-Takes, Modus eleven, Standard); Herzschlag, Schritte, Schnüffeln, Bemerken und Hunger-Laut bleiben wie bisher. Bau-Option -PsbHowlerSounds=synth|vanilla|mix|eleven."
         ]
       }
     },
@@ -98,7 +98,7 @@
           "It never teleports. Only pistons (and sticky pistons) can push it away - pushing the guards aside is a legitimate way past them.",
           "Every End gateway gets exactly four, in the open cells beside the portal block at portal height, standing on the bedrock below: the dragon-fight ring, the exit gateways on the outer islands and worldgen gateways. Server config simplemobs-server.json: shellkerGatewayGuards.",
           "Its bullets home in like Shulker bullets but fly 1.5x faster and give High Gravity instead of Levitation (30 s; 1 min if you already have it): jumps, Levitation and Elytra lift keep only 10 %, gliding sinks fast. For their first 2 s they can be neither knocked away nor shot down. It fires 1.2x as often as a Shulker and almost at once after opening its shell, so hitting it nonstop does not keep it from shooting.",
-          "Drops 2-3 Shellker Shells (2.5 on average, Looting +0.5 per level). A Shellker bullet that hits an open Shellker can bud a new one into a free neighbour cell (like Shulkers). It never spawns anywhere else - to farm them, right-click a Shulker with a Shellker Shell: it turns into a Shellker (the shell is used up)."
+          "Drops 2-3 Shellker Shells (2.5 on average, Looting +0.5 per level). A Shellker bullet that hits an open Shellker can bud a new one into a free neighbor cell (like Shulkers). It never spawns anywhere else - to farm them, right-click a Shulker with a Shellker Shell: it turns into a Shellker (the shell is used up)."
         ]
       },
       "de": {
@@ -149,7 +149,7 @@
         "summary": "Three status effects, levels I-V, for mobs and players: Volatile answers hits with a small explosion, Deflection negates hits, Mirror flips a coin between more damage for the bearer and damage back to the attacker.",
         "details": [
           "Applied with the command /effect give <target> simplemobs:volatile|deflection|mirror <seconds> <level-1>. Zone mobs of Simple Resonance can carry them (switch zoneMobsEnabled).",
-          "Potions (ZO10): Warped Potion (brewed with Simple Lib) + Fire Charge = Potion of Volatility, + Armadillo Scute = Potion of Deflection, + Amethyst Shard = Potion of the Mirror. 3:00 at level I; redstone 8:00, glowstone 1:30 at level II; gunpowder and dragon breath as usual for splash and lingering potions.",
+          "Potions: Warped Potion (brewed with Simple Lib) + Fire Charge = Potion of Volatility, + Armadillo Scute = Potion of Deflection, + Amethyst Shard = Potion of the Mirror. 3:00 at level I; redstone 8:00, glowstone 1:30 at level II; gunpowder and dragon breath as usual for splash and lingering potions.",
           "Volatile: every hit on the bearer sets off a small explosion at the bearer: about 3 hearts at melee distance on level I, falling off to nothing at 4 blocks (+0.5 blocks and +1 heart per level). The bearer is immune to it, no blocks are destroyed. Bystanders are hurt like in any explosion.",
           "Deflection: 10 % per level (50 % at level V) that a hit is negated completely. Fall, fire, void and other damage without an attacker are never deflected.",
           "Mirror: every hit is a coin flip whose chance of reflecting rises with the level, 20 % (I) to 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0.2 and mirrorReflectChance 0.5): either the bearer takes 120 % (I) to 200 % (V) damage, or the attacker takes 20 % (I) to 100 % (V) of the hit back. Reflected damage never kills: the attacker is left at half a heart.",
@@ -161,7 +161,7 @@
         "summary": "Drei Statuseffekte, Stufe I-V, für Mobs und Spieler: Explosiv antwortet auf Treffer mit einer kleinen Explosion, Abwehr negiert Treffer, Spiegel würfelt zwischen mehr Schaden für den Träger und Schaden zurück an den Schläger.",
         "details": [
           "Anwenden mit dem Befehl /effect give <Ziel> simplemobs:volatile|deflection|mirror <Sekunden> <Stufe-1>. Zonen-Mobs von Simple Resonance können sie tragen (Schalter zoneMobsEnabled).",
-          "Tränke (ZO10): Wirrer Trank (mit Simple Lib gebraut) + Feuerkugel = Trank der Explosivität, + Gürteltier-Panzerplatte = Trank der Abwehr, + Amethystsplitter = Trank des Spiegels. 3:00 auf Stufe I; Redstone 8:00, Glowstone 1:30 auf Stufe II; Schwarzpulver und Drachenatem wie üblich für Wurf- und Verweiltränke.",
+          "Tränke: Wirrer Trank (mit Simple Lib gebraut) + Feuerkugel = Trank der Explosivität, + Gürteltier-Panzerplatte = Trank der Abwehr, + Amethystsplitter = Trank des Spiegels. 3:00 auf Stufe I; Redstone 8:00, Glowstone 1:30 auf Stufe II; Schwarzpulver und Drachenatem wie üblich für Wurf- und Verweiltränke.",
           "Explosiv: jeder Treffer auf den Träger löst am Träger eine kleine Explosion aus: auf Stufe I etwa 3 Herzen auf Nahkampf-Abstand, nach außen abnehmend bis 0 bei 4 Blöcken (je Stufe +0,5 Blöcke und +1 Herz). Der Träger ist immun, es werden keine Blöcke zerstört. Umstehende werden wie bei jeder Explosion verletzt.",
           "Abwehr: 10 % je Stufe (50 % auf Stufe V), dass ein Treffer komplett negiert wird. Fall-, Feuer-, Void- und anderer Schaden ohne Angreifer wird nie abgewehrt.",
           "Spiegel: jeder Treffer ist ein Münzwurf, dessen Rückschlag-Chance mit der Stufe steigt, 20 % (I) bis 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0,2 und mirrorReflectChance 0,5): entweder erleidet der Träger 120 % (I) bis 200 % (V) Schaden, oder der Schläger bekommt 20 % (I) bis 100 % (V) des Treffers zurück. Rückschaden tötet nie: der Schläger bleibt bei einem halben Herz.",
@@ -211,12 +211,12 @@
         "framework/src/main/java/com/simplebuilding/framework/api/TrimContracts.java"
       ],
       "en": {
-        "title": "Armour trim abilities",
-        "summary": "Armour trims do more than look good: every trim pattern and trim material gives its wearer a small ability (less damage of one kind, speed, luck, reach, air, experience). Simple Mobs applies them; they grow with the wearer's resonance from Simple Resonance (required). Cosmetic trim effects (glowing, placed templates) stay in Simple Trims.",
+        "title": "Armor trim abilities",
+        "summary": "Armor trims do more than look good: every trim pattern and trim material gives its wearer a small ability (less damage of one kind, speed, luck, reach, air, experience). Simple Mobs applies them; they grow with the wearer's resonance from Simple Resonance (required). Cosmetic trim effects (glowing, placed templates) stay in Simple Trims.",
         "details": [
           "Per piece at resonance 1.0, for example: Ward 3 % less of every damage, Sentry 5 % less projectile damage, Spire 8 % less fall damage, Bolt 5 % faster walking, Raiser 10 % more experience, Shaper 0.25 blocks reach; materials: Diamond 3 % less physical damage, Enderite 5 % less of every damage, Resin knockback resistance, Amethyst a chance to heal. Netherite pieces count 1.75 and Enderite pieces 2 for their pattern.",
           "Caps: never more than 80 % less damage per hit, the bonuses against every damage together at most 25 %, walking +20 %, experience +50 %, air saving 75 %, half visibility.",
-          "Resonance: with SimpleBuilding its own trim resonance (experience, survival and combat since the last death, 0.2 to 2.0); without it Simple Resonance's trim multiplier; monsters and armour stands always 0.2.",
+          "Resonance: with SimpleBuilding its own trim resonance (experience, survival and combat since the last death, 0.2 to 2.0); without it Simple Resonance's trim multiplier; monsters and armor stands always 0.2.",
           "With SimpleBuilding the server's trim strengths and each player's own trim switch apply; without Simple Mobs (or with it switched off) no trim gives an ability - SimpleBuilding only supplies these settings and the resonance.",
           "Server option trimStrength in simplemobs-server.json (default 1.0, 0 to 2): one factor for every trim bonus, multiplied with SimpleBuilding's per-bonus strengths when present. Without SimpleBuilding it is the only strength setting."
         ]
@@ -281,7 +281,7 @@
           "Any attack attempt - also a swing into the air - or breaking a block ends the disguise; the disguise shows in third person, on the inventory player model and on the first-person hands (a player shape with its skin, a humanoid mob with its own arm, a shape without arms without hands). Hurting a mob reveals you: it and every mob in the 5x5 around it know you for 60 s, all others notice you within 8 blocks for 30 s (still less than vanilla); the cloak loses 10 durability.",
           "Bosses (Wither, Ender Dragon, Elder Guardian), the Warden and the Hollow Howler see through the cloak and cannot be imitated (entity tag simplemobs:sees_through_disguise).",
           "Potion of Veiled Invisibility: Potion of Invisibility + Deceiver Cloth (also splash and lingering), Redstone for 8:00, Gunpowder / Dragon's Breath as usual. Vanilla invisibility without swirl particles.",
-          "Trick Mirror (currently disabled, owner 15.10.: no recipe, no drop, not in the creative tab; it works only when the server option trickMirrorEnabled in simplemobs-server.json is on and then comes from commands only): hold it up for 3 s: in a cone of 20 degrees up to 12 blocks the nearest three fakes, disguised Deceivers or players glow for 2 s and lose their disguise. 60 s cooldown, 64 uses",
+          "Trick Mirror (currently disabled: no recipe, no drop, not in the creative tab; it works only when the server option trickMirrorEnabled in simplemobs-server.json is on and then comes from commands only): hold it up for 3 s: in a cone of 20 degrees up to 12 blocks the nearest three fakes, disguised Deceivers or players glow for 2 s and lose their disguise. 60 s cooldown, 64 uses",
           "The Deceiver has 200 health (280 armored) and turns into one of its wave's mobs, taking its hit box only where there is room. Special attack: after a wave it may double its summons - 5 % at full health, rising with the square of the lost health to 80 % at 20 % health and below; 30 s cooldown, at most 8 copies and never above 24 summons. Copies are always fakes and vanish with it. Fakes (one health, no damage) give no experience; its real summons give Vanilla's.",
           "Drops: Deceiver Cloth 2-4 with a 50 % chance (never doubled), Illusion Shard 1-2 (+Looting). An armored Deceiver (chest plate) has 280 health and 6 armor and drops twice the Illusion Shards.",
           "(With SimpleBuilding) Mirage potions from the Illusion Shard: Warped Potion (Awkward Potion without SimpleLib) + Illusion Shard = Potion of the Mirage (\"hostile\": peaceful mobs look hostile); + Fermented Spider Eye = Potion of the Reverse Mirage (\"peaceful\": hostile mobs look peaceful); Redstone lengthens both to 8:00, Gunpowder / Dragon's Breath make splash and lingering potions. No stronger level: the effect has no strength."
@@ -296,7 +296,7 @@
           "Jeder Angriffsversuch - auch ein Schlag in die Luft - oder Block abbauen beendet die Verwandlung; die Verkleidung sieht man in der Third Person, am Spielermodell im Inventar und an den Händen in der Ego-Ansicht (Spieler-Gestalt mit dessen Skin, humanoider Mob mit eigenem Arm, Gestalt ohne Arme ohne Hände). Verletzt du einen Mob, bist du enttarnt: er und alle Mobs im 5x5-Bereich um ihn erkennen dich 60 s lang, alle anderen bemerken dich 30 s lang im Umkreis von 8 Blöcken (weiter weniger als Vanilla); der Umhang verliert 10 Haltbarkeit.",
           "Bosse (Wither, Enderdrache, Großer Wächter), der Warden und der Hollow Howler durchschauen den Umhang und sind keine Verwandlungsziele (Entity-Tag simplemobs:sees_through_disguise).",
           "Trank der stillen Unsichtbarkeit: Trank der Unsichtbarkeit + Täuscherstoff (auch Wurf- und Verweiltrank), Redstone für 8:00, Schwarzpulver / Drachenatem wie üblich. Vanilla-Unsichtbarkeit ohne Wirbelpartikel.",
-          "Trugbild-Spiegel (vorerst deaktiviert, Besitzer 15.10.: kein Rezept, kein Drop, nicht im Kreativ-Reiter; funktioniert nur mit der Server-Option trickMirrorEnabled in simplemobs-server.json und kommt dann nur per Befehl): 3 s hochhalten: in einem 20-Grad-Kegel bis 12 Blöcke leuchten die drei nächsten Fälschungen, verkleidete Deceiver oder Spieler 2 s lang und verlieren ihre Tarnung. 60 s Abklingzeit, 64 Nutzungen",
+          "Trugbild-Spiegel (vorerst deaktiviert: kein Rezept, kein Drop, nicht im Kreativ-Reiter; funktioniert nur mit der Server-Option trickMirrorEnabled in simplemobs-server.json und kommt dann nur per Befehl): 3 s hochhalten: in einem 20-Grad-Kegel bis 12 Blöcke leuchten die drei nächsten Fälschungen, verkleidete Deceiver oder Spieler 2 s lang und verlieren ihre Tarnung. 60 s Abklingzeit, 64 Nutzungen",
           "Der Deceiver hat 200 Leben (280 mit Platte) und verwandelt sich in einen Mob seiner Welle, mit dessen Hitbox nur wo Platz ist. Spezialangriff: nach einer Welle kann er seine Beschwörungen verdoppeln - 5 % bei vollem Leben, mit dem Quadrat des verlorenen Lebens steigend bis 80 % ab 20 % Leben; 30 s Abklingzeit, höchstens 8 Kopien und nie über 24 Beschwörungen. Kopien sind immer Trugbilder und verschwinden mit ihm. Trugbilder (ein Leben, kein Schaden) geben keine Erfahrung; seine echten Beschwörungen geben die von Vanilla.",
           "Drops: Täuscherstoff 2-4 mit 50 % Chance (nie doppelt), Trugsplitter 1-2 (+Plünderung). Ein Deceiver mit Brustplatte hat 280 Leben und 6 Rüstung und droppt doppelt so viele Trugsplitter.",
           "(Mit SimpleBuilding) Trugbild-Tränke aus dem Trugsplitter: Wirrer Trank (ohne SimpleLib: Seltsamer Trank) + Trugsplitter = Trank des Trugbilds (\"feindlich\": friedliche Mobs wirken feindlich); + Fermentiertes Spinnenauge = Trank des umgekehrten Trugbilds (\"friedlich\": feindliche Mobs wirken friedlich); Redstone verlängert beide auf 8:00, Schwarzpulver / Drachenatem ergeben Wurf- und Verweiltränke. Keine stärkere Stufe: der Effekt hat keine Stärke."
@@ -354,10 +354,10 @@
           "Spawning: rarely, only in the End farther than 1000 blocks from the origin - or, three times as likely and anywhere, in biomes tagged simpleend:watcher_core (Simple End; without the tag nothing changes) - on End stone with room for its height, at most one within 128 blocks, not on Peaceful. Forest rule: a player who stays more than 2 minutes without a break in such a biome may attract one (25 % per 30 s roll while that lasts; several tries per roll). Server config: hollowWatcherSpawns, hollowWatcherChance (per 30 s roll per player, default 0.04), hollowWatcherForestSeconds (default 120), hollowWatcherForestChance (default 0.25).",
           "200 health, armor 8. 50 XP. While any player looks at it (in view, line of sight, not blinded) it stands still and starts no attack; a grip or scream already running goes on.",
           "Looking at it through a spyglass freezes it for 3 seconds: no movement, no attack, a running grip lets go.",
-          "Teleport: unwatched and more than 8 blocks away, portal particles mark a spot 2.5 blocks behind its target for 0.6 s, then it appears there. If someone looks at it meanwhile, the jump is cancelled. Cooldown 6 s.",
+          "Teleport: unwatched and more than 8 blocks away, portal particles mark a spot 2.5 blocks behind its target for 0.6 s, then it appears there. If someone looks at it meanwhile, the jump is canceled. Cooldown 6 s.",
           "Grip, announced by reaching arms for 0.5 s: 6 damage and held in place for 2 s, then 4 damage and thrown away. Cooldown 10 s. Claw: 10 damage after 0.3 s.",
           "Scream, announced for 1 s (head thrown back, low Enderman scream): Shivering II for 10 s and Blindness for 3 s to everyone within 12 blocks. It screams when its target stares at it for 5 s in a row, or unwatched every 20 s when its target is within 12 blocks in sight.",
-          "Camouflage: dim End stone colours, eyes dark and almost silent until it has a target, took a hit or acts. Hit and run: 1 s after it takes a hit it blinks 12-20 blocks away (portal particles and a low stare sound announce it; even a freeze does not stop it).",
+          "Camouflage: dim End stone colors, eyes dark and almost silent until it has a target, took a hit or acts. Hit and run: 1 s after it takes a hit it blinks 12-20 blocks away (portal particles and a low stare sound announce it; even a freeze does not stop it).",
           "Drops 1 Watcher Eye when a player lands the last hit (Looting +1)."
         ]
       },
@@ -483,14 +483,14 @@
         "title": "Creative tabs",
         "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The Simple mods do not sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
         "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Die Simple-Mods sortieren ihre Items nicht in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },
@@ -506,11 +506,11 @@
         "title": "Wither Wings",
         "summary": "Four Elytra stages that raise only the top speed a strong firework rocket reaches: x2 Wither, x4 Nether, x6 End and x8 Void Wings. Normal rockets and gliding without a rocket stay Vanilla.",
         "details": [
-          "Smithing table: Strong Upgrade template (SimpleLib) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings; + Nether Wings + Ender Heart = End Wings; + End Wings + Ender Gem = Void Wings. The Strong Upgrade is SimpleLib's, so this works without Simple Beacons too (WF25-10). Enchantments and wear carry over.",
+          "Smithing table: Strong Upgrade template (SimpleLib) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings; + Nether Wings + Ender Heart = End Wings; + End Wings + Ender Gem = Void Wings. The Strong Upgrade is SimpleLib's, so this works without Simple Beacons too. Enchantments and wear carry over.",
           "Only a strong rocket (flight duration 4 or more, see Strong Gunpowder) uses the higher cap of the wings. A normal rocket (flight duration 1-3) gives exactly the Vanilla push with every pair of wings - and pulls a wearer who is faster than Vanilla back to the Vanilla Elytra top speed.",
           "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67, 133, 200 and 267 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
           "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) and voidWingsSpeedFactor (8), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
-          "Ender Heart (stage 3) and Ender Gem (stage 4) have no loot yet: they will drop from a later End boss. Until then they are only given by commands, the creative tab and the test centre. Their look is provisional.",
+          "Ender Heart (stage 3) and Ender Gem (stage 4) have no loot yet: they will drop from a later End boss. Until then they are only given by commands, the creative tab and the test center. Their look is provisional.",
           "576, 768, 960 and 1152 durability (Elytra 432), repaired with phantom membrane, fire-proof like Netherite, Elytra-like shape with an own pattern per stage on the back. The Void Wings are mythic."
         ]
       },
@@ -518,7 +518,7 @@
         "title": "Wither-Schwingen",
         "summary": "Vier Elytra-Stufen, die nur die Höchstgeschwindigkeit mit starken Feuerwerksraketen anheben: x2 Wither-, x4 Nether-, x6 End- und x8 Leeren-Schwingen. Normale Raketen und Gleiten ohne Rakete bleiben Vanilla.",
         "details": [
-          "Schmiedetisch: Vorlage Starke Aufwertung (SimpleLib) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen; + Nether-Schwingen + Ender-Herz = End-Schwingen; + End-Schwingen + Ender-Juwel = Leeren-Schwingen. Die Starke Aufwertung gehört SimpleLib, das geht also auch ohne Simple Beacons (WF25-10). Verzauberungen und Abnutzung bleiben.",
+          "Schmiedetisch: Vorlage Starke Aufwertung (SimpleLib) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen; + Nether-Schwingen + Ender-Herz = End-Schwingen; + End-Schwingen + Ender-Juwel = Leeren-Schwingen. Die Starke Aufwertung gehört SimpleLib, das geht also auch ohne Simple Beacons. Verzauberungen und Abnutzung bleiben.",
           "Nur eine starke Rakete (Flugdauer 4 oder mehr, siehe Starkes Schwarzpulver) nutzt die höhere Kappe der Schwingen. Eine normale Rakete (Flugdauer 1-3) gibt mit jeder Schwinge genau den Vanilla-Schub - und zieht einen schnelleren Träger auf das Vanilla-Elytra-Höchsttempo zurück.",
           "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67, 133, 200 und 267 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
           "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) und voidWingsSpeedFactor (8), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
@@ -542,7 +542,7 @@
         "title": "Strong Gunpowder, Strong Rocket, Strong TNT",
         "summary": "Strong Gunpowder (3 gunpowder + 1 blaze powder -> 1) makes strong rockets (paper + 1 Strong Gunpowder -> 3, flight duration 4) and Strong TNT (like TNT with Strong Gunpowder, explosion power 6 instead of 4). Vanilla gunpowder, TNT and rockets stay untouched.",
         "details": [
-          "Why: a strong rocket is what the Wither/Nether/End/Void Wings need to fly above the Vanilla top speed; Strong TNT is a bigger blast for mining and tunnels. Both are own items you craft on purpose - no Vanilla recipe or behaviour changes.",
+          "Why: a strong rocket is what the Wither/Nether/End/Void Wings need to fly above the Vanilla top speed; Strong TNT is a bigger blast for mining and tunnels. Both are own items you craft on purpose - no Vanilla recipe or behavior changes.",
           "The strong rocket is a Vanilla firework rocket with flight duration 4, so it also works with the Elytra (longer burn, Vanilla speed) and in dispensers. Its tooltip shows the flight duration.",
           "Strong TNT is lit by flint and steel, fire charge, redstone, burning arrows and other explosions like TNT, is not flammable and drops itself; the game rule tntExplodes applies. Server option strongTntPower in simplemobs-server.json (default 6, 4 to 16).",
           "Looks are placeholders (Vanilla textures with a tint) until the owner picks a texture."
@@ -628,7 +628,7 @@
         "title": "Evil Omen",
         "summary": "A stronger Bad Omen for Netherite-age players: brew the Evil Potion with a Nether Heart, drink it, turn a Weathered Trial or a village raid evil, win Evil Trial Keys and open an Evil Vault.",
         "details": [
-          "Evil Potion I-V: put 1-3 Ominous Bottles into the lower slots of a Brewing Stand and a Nether Heart into the top slot. The stand must be fuelled with Soulfire Powder (the fuel slot accepts it; 1 powder = 20 soul charges, every Evil brew takes one). Each bottle keeps its stage, one heart serves all bottles, so up to 3 potions per heart. Normal brewing and blaze powder stay as they are.",
+          "Evil Potion I-V: put 1-3 Ominous Bottles into the lower slots of a Brewing Stand and a Nether Heart into the top slot. The stand must be fueled with Soulfire Powder (the fuel slot accepts it; 1 powder = 20 soul charges, every Evil brew takes one). Each bottle keeps its stage, one heart serves all bottles, so up to 3 potions per heart. Normal brewing and blaze powder stay as they are.",
           "Drinking it gives Evil Omen I-V for 100 minutes and replaces Bad Omen. Walking into a Weathered Trial Spawner with it turns that trial evil (red particles): mobs get +10 % life per stage and effects - I Strength, II Speed, III Strength II and Resistance, IV Regeneration (and sometimes Volatile), V Strength III, Speed II, Resistance II, Regeneration II and Deflection or Mirror. The omen is used up. Evil Omen in a village starts a Vanilla raid of that stage whose raiders get the same buffs (30 minutes).",
           "Reward: the Evil Trial Key of the stage (always) plus golden apple, diamonds, emeralds and an Ominous Bottle by chance. Evil Trial Keys fit only an Evil Vault and also not Vanilla vaults.",
           "Evil Vault: hold a diamond block in the off hand and strike a Weathered Vault 5 times with a hammer (with no hammer mod an axe does it); it turns into an Evil Vault for good. Only Weathered Vaults - never Vanilla vaults. It opens with an Evil Trial Key of any stage, once per player, and pays by the key stage: 3 draws (4 from stage 4) from diamonds, emeralds, golden apples, enchanted books, netherite scrap and ingots, enchanted golden apple, totem, heavy core; higher stages shift towards netherite and totems.",
@@ -671,7 +671,7 @@
         "title": "Void chain",
         "summary": "The Evil chain one tier up - Void Potion, Void Omen, Void Trial, Void Vault - switched off by default until the Ender Heart has a source.",
         "details": [
-          "Same steps as the Evil Omen: Ominous Bottle + Ender Heart in the soul-fuelled Brewing Stand = Void Potion I-V, Void Omen, a Weathered Trial or raid turns void (violet particles; life +60 to +100 %, every effect one step higher), the reward is the Void Trial Key of the stage, and a Void Vault is made from an Evil Vault with a netherite block in the off hand and 5 strikes. It pays 3 to 5 draws of netherite, enchanted golden apples, totems, echo shards, heavy cores, phantom membrane and stage V ominous bottles.",
+          "Same steps as the Evil Omen: Ominous Bottle + Ender Heart in the soul-fueled Brewing Stand = Void Potion I-V, Void Omen, a Weathered Trial or raid turns void (violet particles; life +60 to +100 %, every effect one step higher), the reward is the Void Trial Key of the stage, and a Void Vault is made from an Evil Vault with a netherite block in the off hand and 5 strikes. It pays 3 to 5 draws of netherite, enchanted golden apples, totems, echo shards, heavy cores, phantom membrane and stage V ominous bottles.",
           "The Ender Heart has no source in the game yet, so the whole chain is off: config voidChain (default false, needs evilOmen). The items stay in the Creative tab and the recipes are shown in the recipe viewer only while it is on. Void mobs darken the air 6 blocks around them (Darkness for players) and Void archers blink away when hit (config voidMobTricks)."
         ]
       },
@@ -5703,7 +5703,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Evil Potion I: brewed from an Ominous Bottle (stage I) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen I."
+          "summary": "Evil Potion I: brewed from an Ominous Bottle (stage I) and a Nether Heart in a Brewing Stand fueled with Soulfire Powder. Drink it for Evil Omen I."
         },
         "de": {
           "summary": "Böser Trank I: gebraut aus einer Unheilvollen Flasche (Stufe I) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen I."
@@ -5725,7 +5725,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Evil Potion II: brewed from an Ominous Bottle (stage II) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen II."
+          "summary": "Evil Potion II: brewed from an Ominous Bottle (stage II) and a Nether Heart in a Brewing Stand fueled with Soulfire Powder. Drink it for Evil Omen II."
         },
         "de": {
           "summary": "Böser Trank II: gebraut aus einer Unheilvollen Flasche (Stufe II) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen II."
@@ -5747,7 +5747,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Evil Potion III: brewed from an Ominous Bottle (stage III) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen III."
+          "summary": "Evil Potion III: brewed from an Ominous Bottle (stage III) and a Nether Heart in a Brewing Stand fueled with Soulfire Powder. Drink it for Evil Omen III."
         },
         "de": {
           "summary": "Böser Trank III: gebraut aus einer Unheilvollen Flasche (Stufe III) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen III."
@@ -5769,7 +5769,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Evil Potion IV: brewed from an Ominous Bottle (stage IV) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen IV."
+          "summary": "Evil Potion IV: brewed from an Ominous Bottle (stage IV) and a Nether Heart in a Brewing Stand fueled with Soulfire Powder. Drink it for Evil Omen IV."
         },
         "de": {
           "summary": "Böser Trank IV: gebraut aus einer Unheilvollen Flasche (Stufe IV) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen IV."
@@ -5791,7 +5791,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Evil Potion V: brewed from an Ominous Bottle (stage V) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen V."
+          "summary": "Evil Potion V: brewed from an Ominous Bottle (stage V) and a Nether Heart in a Brewing Stand fueled with Soulfire Powder. Drink it for Evil Omen V."
         },
         "de": {
           "summary": "Böser Trank V: gebraut aus einer Unheilvollen Flasche (Stufe V) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen V."
@@ -6599,7 +6599,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Void Potion I: an Ominous Bottle (stage I) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen I. Void chain: off by default."
+          "summary": "Void Potion I: an Ominous Bottle (stage I) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen I. Void chain: off by default."
         },
         "de": {
           "summary": "Leere-Trank I: Unheilvolle Flasche (Stufe I) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen I. Leere-Kette: standardmäßig aus."
@@ -6621,7 +6621,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Void Potion II: an Ominous Bottle (stage II) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen II. Void chain: off by default."
+          "summary": "Void Potion II: an Ominous Bottle (stage II) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen II. Void chain: off by default."
         },
         "de": {
           "summary": "Leere-Trank II: Unheilvolle Flasche (Stufe II) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen II. Leere-Kette: standardmäßig aus."
@@ -6643,7 +6643,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Void Potion III: an Ominous Bottle (stage III) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen III. Void chain: off by default."
+          "summary": "Void Potion III: an Ominous Bottle (stage III) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen III. Void chain: off by default."
         },
         "de": {
           "summary": "Leere-Trank III: Unheilvolle Flasche (Stufe III) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen III. Leere-Kette: standardmäßig aus."
@@ -6665,7 +6665,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Void Potion IV: an Ominous Bottle (stage IV) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen IV. Void chain: off by default."
+          "summary": "Void Potion IV: an Ominous Bottle (stage IV) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen IV. Void chain: off by default."
         },
         "de": {
           "summary": "Leere-Trank IV: Unheilvolle Flasche (Stufe IV) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen IV. Leere-Kette: standardmäßig aus."
@@ -6687,7 +6687,7 @@
           "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
         ],
         "en": {
-          "summary": "Void Potion V: an Ominous Bottle (stage V) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen V. Void chain: off by default."
+          "summary": "Void Potion V: an Ominous Bottle (stage V) and an Ender Heart in the soul-fueled Brewing Stand. Drink it for Void Omen V. Void chain: off by default."
         },
         "de": {
           "summary": "Leere-Trank V: Unheilvolle Flasche (Stufe V) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen V. Leere-Kette: standardmäßig aus."
@@ -7742,12 +7742,12 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
       "name": "howlerAllowDimensions",
       "shortName": "howlerAllowDimensions",
-      "type": "List",
+      "type": "list",
       "default": "minecraft:overworld",
       "note": null,
       "category": "Simple Mobs",

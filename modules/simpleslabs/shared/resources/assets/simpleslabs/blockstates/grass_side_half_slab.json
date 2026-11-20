@@ -13,7 +13,7 @@
     {
       "when": {
         "facing": "south",
-        "thickness": "2|3|4|5|6|7|8"
+        "thickness": "2|3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_0_dirt",
@@ -33,7 +33,7 @@
     {
       "when": {
         "facing": "south",
-        "thickness": "3|4|5|6|7|8"
+        "thickness": "3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_1_dirt",
@@ -53,7 +53,7 @@
     {
       "when": {
         "facing": "south",
-        "thickness": "4|5|6|7|8"
+        "thickness": "4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_2_dirt",
@@ -67,86 +67,6 @@
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_3",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "5|6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_3_dirt",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "5"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4_dirt",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "6"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5_dirt",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "7"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6_dirt",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_7",
         "x": 90
       }
     },
@@ -164,7 +84,7 @@
     {
       "when": {
         "facing": "west",
-        "thickness": "2|3|4|5|6|7|8"
+        "thickness": "2|3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_0_dirt",
@@ -186,7 +106,7 @@
     {
       "when": {
         "facing": "west",
-        "thickness": "3|4|5|6|7|8"
+        "thickness": "3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_1_dirt",
@@ -208,7 +128,7 @@
     {
       "when": {
         "facing": "west",
-        "thickness": "4|5|6|7|8"
+        "thickness": "4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_2_dirt",
@@ -223,94 +143,6 @@
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_3",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "5|6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_3_dirt",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "5"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4_dirt",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "6"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5_dirt",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "7"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6_dirt",
-        "x": 90,
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_7",
         "x": 90,
         "y": 90
       }
@@ -329,7 +161,7 @@
     {
       "when": {
         "facing": "north",
-        "thickness": "2|3|4|5|6|7|8"
+        "thickness": "2|3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_0_dirt",
@@ -351,7 +183,7 @@
     {
       "when": {
         "facing": "north",
-        "thickness": "3|4|5|6|7|8"
+        "thickness": "3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_1_dirt",
@@ -373,7 +205,7 @@
     {
       "when": {
         "facing": "north",
-        "thickness": "4|5|6|7|8"
+        "thickness": "4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_2_dirt",
@@ -388,94 +220,6 @@
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_3",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "5|6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_3_dirt",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "5"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4_dirt",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "6"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5_dirt",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "7"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6_dirt",
-        "x": 90,
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_7",
         "x": 90,
         "y": 180
       }
@@ -494,7 +238,7 @@
     {
       "when": {
         "facing": "east",
-        "thickness": "2|3|4|5|6|7|8"
+        "thickness": "2|3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_0_dirt",
@@ -516,7 +260,7 @@
     {
       "when": {
         "facing": "east",
-        "thickness": "3|4|5|6|7|8"
+        "thickness": "3|4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_1_dirt",
@@ -538,7 +282,7 @@
     {
       "when": {
         "facing": "east",
-        "thickness": "4|5|6|7|8"
+        "thickness": "4"
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_2_dirt",
@@ -553,94 +297,6 @@
       },
       "apply": {
         "model": "simpleslabs:block/half_slab/grass_half_slab_3",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "5|6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_3_dirt",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "5"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "6|7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_4_dirt",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "6"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "7|8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_5_dirt",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "7"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_6_dirt",
-        "x": 90,
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "thickness": "8"
-      },
-      "apply": {
-        "model": "simpleslabs:block/half_slab/grass_half_slab_7",
         "x": 90,
         "y": 270
       }

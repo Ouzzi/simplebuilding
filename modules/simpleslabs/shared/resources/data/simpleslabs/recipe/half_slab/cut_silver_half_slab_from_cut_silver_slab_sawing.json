@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleores:cut_silver_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:cut_silver_half_slab"
   }
 }

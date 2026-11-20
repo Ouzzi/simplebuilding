@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_6",
-  "textures": {
-    "bottom": "simplebuilding:block/ender_quartz_bricks",
-    "top": "simplebuilding:block/ender_quartz_bricks",
-    "side": "simplebuilding:block/ender_quartz_bricks"
-  }
-}

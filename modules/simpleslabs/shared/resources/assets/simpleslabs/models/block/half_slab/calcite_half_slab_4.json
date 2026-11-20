@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_4",
-  "textures": {
-    "bottom": "minecraft:block/calcite",
-    "top": "minecraft:block/calcite",
-    "side": "minecraft:block/calcite"
-  }
-}

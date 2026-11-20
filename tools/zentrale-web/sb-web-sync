@@ -45,6 +45,15 @@ if idx=$(ssh -o BatchMode=yes sb-agent "sb-dist index" 2>/dev/null) && [ -n "$id
     ls -d $Z/dl-* | head -n -2 | xargs -r rm -rf
   else rm -rf $n; fi
 fi
+# N113: production wiki - the Vanilla-derived textures from the published jars above (the same pixels every player
+# downloads; no client jar, no placeholders), only when the prod head or the jar index changed. Writes the git-ignored
+# wiki/data/derived-present.json; the page asks only for pictures listed there (wiki/data/local-only.js, module-loader.js).
+if [ -f /srv/wiki-prod/wiki/vanilla_textures.py ] && grep -q -- --published-only /srv/wiki-prod/wiki/vanilla_textures.py && [ -s $Z/downloads/index.json ]; then
+  key="$(git -C /srv/wiki-prod rev-parse HEAD) $(md5sum < $Z/downloads/index.json | cut -c1-16)"
+  if [ "$key" != "$(cat $st/prod-derived.key 2>/dev/null)" ]; then
+    (cd /srv/wiki-prod && SB_DIST_INDEX=$Z/downloads/index.json timeout 600 python3 wiki/vanilla_textures.py --published-only >> /var/log/sb-wiki-vanilla.log 2>&1) && echo "$key" > $st/prod-derived.key
+  fi
+fi
 # landing page simplemods.de (W12): the four pages of the production checkout (master = last green gate) into /srv/landing,
 # only once deploy_dom07.sh "domains" created it and only when a page changed; the public downloads
 # (simplemods.de/downloads/ = $Z/downloads/public/) come with the jar folder swap above

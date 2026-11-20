@@ -179,7 +179,7 @@
         "details": [
           "Only compositions without problems are pressed. The pressed disc waits in the output slot; the next one follows when it is taken.",
           "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe.",
-          "Sheets only go into the press: the Orchestrion that played them directly was removed (owner 23.10.); old Orchestrions turn into a jukebox and keep the disc or sheet they held."
+          "Sheets only go into the press: the Orchestrion that played them directly was removed; old Orchestrions turn into a jukebox and keep the disc or sheet they held."
         ]
       },
       "de": {
@@ -188,7 +188,7 @@
         "details": [
           "Nur fehlerfreie Kompositionen werden gepresst. Die fertige Platte wartet im Ausgang; die nächste folgt, wenn sie herausgenommen ist.",
           "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke.",
-          "Notenblätter kommen nur in die Presse: Das Orchestrion, das sie direkt spielte, ist entfernt (Besitzer 23.10.); alte Orchestrions werden zur Jukebox und behalten die Platte oder das Blatt darin."
+          "Notenblätter kommen nur in die Presse: Das Orchestrion, das sie direkt spielte, ist entfernt; alte Orchestrions werden zur Jukebox und behalten die Platte oder das Blatt darin."
         ]
       }
     },
@@ -411,14 +411,14 @@
         "title": "Creative tabs",
         "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The Simple mods do not sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
         "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Die Simple-Mods sortieren ihre Items nicht in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },
@@ -2838,7 +2838,7 @@
           "details": [
             "Only compositions without problems are pressed. The pressed disc waits in the output slot; the next one follows when it is taken.",
             "Hoppers: from above into the sheet slot, from the sides into the blank slot, out of the bottom only the pressed disc. Comparator: how full it is. Needs a pickaxe.",
-            "Sheets only go into the press: the Orchestrion that played them directly was removed (owner 23.10.); old Orchestrions turn into a jukebox and keep the disc or sheet they held."
+            "Sheets only go into the press: the Orchestrion that played them directly was removed; old Orchestrions turn into a jukebox and keep the disc or sheet they held."
           ]
         },
         "de": {
@@ -2847,7 +2847,7 @@
           "details": [
             "Nur fehlerfreie Kompositionen werden gepresst. Die fertige Platte wartet im Ausgang; die nächste folgt, wenn sie herausgenommen ist.",
             "Trichter: von oben ins Notenblatt-Feld, von der Seite ins Rohling-Feld, unten heraus nur die fertige Platte. Komparator: Füllstand. Braucht eine Spitzhacke.",
-            "Notenblätter kommen nur in die Presse: Das Orchestrion, das sie direkt spielte, ist entfernt (Besitzer 23.10.); alte Orchestrions werden zur Jukebox und behalten die Platte oder das Blatt darin."
+            "Notenblätter kommen nur in die Presse: Das Orchestrion, das sie direkt spielte, ist entfernt; alte Orchestrions werden zur Jukebox und behalten die Platte oder das Blatt darin."
           ]
         }
       },
@@ -3293,12 +3293,12 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemusic/shared/java/com/simplemusic/config/MusicConfig.java",
       "name": "blockedSounds",
       "shortName": "blockedSounds",
-      "type": "List",
+      "type": "list",
       "default": "music, discs,",
       "note": null,
       "category": "Simple Music",

@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:diorite",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:diorite_half_slab"
   }
 }

@@ -70,7 +70,7 @@
       ],
       "en": {
         "title": "Bucket of Frog",
-        "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant (shown by the bucket's colour and tooltip), name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
+        "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant (shown by the bucket's color and tooltip), name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
       },
       "de": {
         "title": "Eimer mit Frosch",
@@ -199,7 +199,7 @@
       "note": {
         "en": {
           "title": "Bucket of Frog",
-          "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant (shown by the bucket's colour and tooltip), name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
+          "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant (shown by the bucket's color and tooltip), name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
         },
         "de": {
           "title": "Eimer mit Frosch",
@@ -240,7 +240,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "mutedEntities",
@@ -259,7 +259,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "nametagBabySuffixes",
@@ -278,7 +278,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "nametagMuteSuffixes",
@@ -297,7 +297,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "piglinsIgnoreGoldTools",
@@ -316,7 +316,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java",
       "name": "piglinsIgnoreGoldTrims",

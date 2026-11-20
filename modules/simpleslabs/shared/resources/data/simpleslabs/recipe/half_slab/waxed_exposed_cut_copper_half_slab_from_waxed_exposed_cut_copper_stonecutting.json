@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:waxed_exposed_cut_copper",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:waxed_exposed_cut_copper_half_slab"
   }
 }

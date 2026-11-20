@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:blue_ice",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:blue_ice_half_slab"
   }
 }

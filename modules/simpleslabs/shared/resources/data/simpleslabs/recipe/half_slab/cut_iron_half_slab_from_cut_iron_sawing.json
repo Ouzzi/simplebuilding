@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleblocks:cut_iron",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cut_iron_half_slab"
   }
 }

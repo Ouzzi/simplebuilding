@@ -10,18 +10,32 @@
       "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
     ]
   },
-  "family:half_slab": {
+  "family:side_half_slab": {
     "items": [
-      "regex:.*_half_slab"
+      "regex:.*_side_half_slab"
     ],
     "lore": [
-      "{name}: ein Viertel einer Stufe, 2 Pixel dünn."
+      "{name}: eine aufrecht stehende Halbstufe, 4 Pixel dünn."
     ],
     "use": [
-      "Setzt sich in die angeklickte Lage; dieselbe Halbstufe füllt die freie Lage. Schleichen + Rechtsklick auf eine Blockseite: aufrecht, 4 Lagen = Seiten-Stufe. 4 aus einer Stufe, 8 aus dem Block; 4 ergeben die Stufe. Abbauen droppt eine je Lage."
+      "Rechtsklick auf eine Blockseite: Sie steht an dieser Seite. Jeder weitere Klick dort oder auf ihre offene Fläche fügt eine Lage hinzu; 2 Lagen = Seiten-Stufe, 4 = volle Zelle. 1:1 aus der Halbstufe oder 2 aus einer Stufe geschnitten. Abbauen droppt eine je Lage."
     ],
     "secret": [
-      "Acht Lagen passen in eine Zelle, in beliebiger Folge: 0-4 plus 12-16 Pixel sind einfach die Lagen 1, 2, 7 und 8. Sand- und Kies-Halbstufen fallen, Kupfer-Halbstufen altern."
+      "Auf der Oberseite eines Blocks lehnt sie an der hinteren Wand der Zelle, in Blickrichtung."
+    ]
+  },
+  "family:half_slab": {
+    "items": [
+      "regex:(?!.*_side_half_slab$).*_half_slab"
+    ],
+    "lore": [
+      "{name}: eine halbe Stufe, 4 Pixel dünn."
+    ],
+    "use": [
+      "Setzt sich in die angeklickte Lage; dieselbe Halbstufe füllt die freie Lage. 2 aus einer Stufe, 4 aus dem Block; 2 ergeben die Stufe, 1 ergibt eine Seiten-Halbstufe. Abbauen droppt eine je Lage."
+    ],
+    "secret": [
+      "Vier Lagen passen in eine Zelle, in beliebiger Folge: 0-4 plus 12-16 Pixel sind einfach die Lagen 1 und 4. Sand- und Kies-Halbstufen fallen, Kupfer-Halbstufen altern."
     ]
   }
 }

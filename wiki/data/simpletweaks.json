@@ -107,7 +107,7 @@
         "details": [
           "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the map of your land; its Rights button opens the rights editor: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees the map only with a right in that land, otherwise only what they may do.",
           "Cartography table: an empty deed on top (nothing below) gives your own deed, bound to you - always, even when you lost yours. Your deed on top and an empty deed below give a copy; the original stays. Managers (M) of the land may copy too; somebody else's deed or a copy gives nothing. The crafting table copy (deed plus empty deed) still works.",
-          "The map: one tab each for the Overworld, the Nether and the End, plus one for every other dimension where you hold land. Several chunks show as tiles (two by two slots, a 16x16 picture in Vanilla map colours); touching chunks form a group, and groups lie in their real direction from each other with the gap squeezed and labelled, for example 481 blocks NE. Drag or scroll to move, hover a tile for its position and age, click it for the detail map (back with < Overview); a dimension with one chunk opens its detail map directly. The footer shows Rights, Buy (the next land step ahead), Claim here (with a free chunk credit, otherwise Buy + claim) and Done. Give up chunk... asks first: no refund, but you get one chunk credit for a new claim. Pictures are only taken of chunks the server has loaded anyway (at most 4 every 5 seconds, each at most every 5 minutes, at once when you claim); nothing is loaded for them, and they live in their own file simpletweaks-claim-maps.dat apart from the claim data. Without Simple Maps the deed suggests it (hide the tip with its x).",
+          "The map: one tab each for the Overworld, the Nether and the End, plus one for every other dimension where you hold land. Several chunks show as tiles (two by two slots, a 16x16 picture in Vanilla map colors); touching chunks form a group, and groups lie in their real direction from each other with the gap squeezed and labeled, for example 481 blocks NE. Drag or scroll to move, hover a tile for its position and age, click it for the detail map (back with < Overview); a dimension with one chunk opens its detail map directly. The footer shows Rights, Buy (the next land step ahead), Claim here (with a free chunk credit, otherwise Buy + claim) and Done. Give up chunk... asks first: no refund, but you get one chunk credit for a new claim. Pictures are only taken of chunks the server has loaded anyway (at most 4 every 5 seconds, each at most every 5 minutes, at once when you claim); nothing is loaded for them, and they live in their own file simpletweaks-claim-maps.dat apart from the claim data. Without Simple Maps the deed suggests it (hide the tip with its x).",
           "The editor is a rights code like the blueprint editor: names resolve only for online players and for people already in the land (never a lookup over the network), the saved code keeps UUIDs so a renamed player cannot inherit rights. The client previews the code; the server decides. Managers (M) may edit, but only people without M and only rights they hold themselves. Saving is all or nothing and uses the claim cooldown. Without the mod on the client, the empty deed still claims at once.",
           "Packets: opening and answers go from the server, saving and claiming from the client; every save names the version of the land it was opened on and is refused when the land changed meanwhile."
         ]
@@ -441,7 +441,7 @@
     {
       "id": "play_coords",
       "en": {
-        "title": "Share coordinates (T4)",
+        "title": "Share coordinates",
         "summary": "/simpletweaks coords [message] shares your position with everybody, /simpletweaks coords to <player> [message] with one player.",
         "details": [
           "The coordinates are green and copy on click; the dimension is named.",
@@ -450,7 +450,7 @@
         ]
       },
       "de": {
-        "title": "Koordinaten teilen (T4)",
+        "title": "Koordinaten teilen",
         "summary": "/simpletweaks coords [Nachricht] teilt deine Position mit allen, /simpletweaks coords to <Spieler> [Nachricht] mit einem Spieler.",
         "details": [
           "Die Koordinaten sind grün und lassen sich anklicken und kopieren; die Dimension wird genannt.",
@@ -466,7 +466,7 @@
     {
       "id": "play_death_hint",
       "en": {
-        "title": "Private death hint (T5)",
+        "title": "Private death hint",
         "summary": "After a real death only you get a line with place (copy on click), dimension, cause and how long your items stay (5 minutes while the area is loaded).",
         "details": [
           "With Simple Respawn a downed player is not dead yet: the hint comes with the real death.",
@@ -475,7 +475,7 @@
         ]
       },
       "de": {
-        "title": "Privater Todes-Hinweis (T5)",
+        "title": "Privater Todes-Hinweis",
         "summary": "Nach einem echten Tod bekommst nur du eine Zeile mit Ort (anklicken kopiert), Dimension, Ursache und wie lange deine Gegenstände liegen bleiben (5 Minuten, solange der Bereich geladen ist).",
         "details": [
           "Mit Simple Respawn ist ein Niedergeschlagener noch nicht tot: der Hinweis kommt mit dem echten Tod.",
@@ -491,7 +491,7 @@
     {
       "id": "play_mentions",
       "en": {
-        "title": "Chat mentions (T6)",
+        "title": "Chat mentions",
         "summary": "@Name in chat is highlighted in yellow for everybody, and the mentioned players hear a soft bell.",
         "details": [
           "Names are matched without case; the sender hears nothing. @everyone and @all ping everybody, only from operators of everyonePermission (default 2).",
@@ -500,7 +500,7 @@
         ]
       },
       "de": {
-        "title": "Chat-Erwähnungen (T6)",
+        "title": "Chat-Erwähnungen",
         "summary": "@Name im Chat wird für alle gelb hervorgehoben, und die Erwähnten hören eine leise Glocke.",
         "details": [
           "Groß-/Kleinschreibung zählt nicht; der Absender hört nichts. @everyone und @all erreichen alle, nur von Operatoren ab everyonePermission (Standard 2).",
@@ -516,7 +516,7 @@
     {
       "id": "play_playtime",
       "en": {
-        "title": "/simpletweaks playtime and /simpletweaks seen (T7)",
+        "title": "/simpletweaks playtime and /simpletweaks seen",
         "summary": "/simpletweaks playtime [player] shows the play time from the Vanilla statistics; /simpletweaks seen <player> says whether a player is online or how long ago they left.",
         "details": [
           "Offline players are read from their statistics file.",
@@ -525,7 +525,7 @@
         ]
       },
       "de": {
-        "title": "/simpletweaks playtime und /simpletweaks seen (T7)",
+        "title": "/simpletweaks playtime und /simpletweaks seen",
         "summary": "/simpletweaks playtime [Spieler] zeigt die Spielzeit aus der Vanilla-Statistik; /simpletweaks seen <Spieler> sagt, ob jemand online ist oder wie lange er schon weg ist.",
         "details": [
           "Offline-Spieler werden aus ihrer Statistikdatei gelesen.",
@@ -541,7 +541,7 @@
     {
       "id": "play_mob_griefing",
       "en": {
-        "title": "Mob griefing per mob (T8)",
+        "title": "Mob griefing per mob",
         "summary": "Listed mobs (blocked, default creeper, enderman, ghast, wither, ravager) cannot change blocks; all other mobs follow the Vanilla rule mob_griefing.",
         "details": [
           "While a listed mob ticks, the Vanilla rule reads false for it; projectiles count as their owner (ghast fireballs).",
@@ -550,7 +550,7 @@
         ]
       },
       "de": {
-        "title": "Mob-Griefing je Mob (T8)",
+        "title": "Mob-Griefing je Mob",
         "summary": "Gelistete Mobs (blocked, Standard Creeper, Enderman, Ghast, Wither, Verwüster) verändern keine Blöcke; alle anderen folgen der Vanilla-Regel mob_griefing.",
         "details": [
           "Während ein gelisteter Mob tickt, liest die Vanilla-Regel für ihn false; Geschosse zählen als ihr Besitzer (Ghast-Feuerbälle).",
@@ -566,7 +566,7 @@
     {
       "id": "play_pvp",
       "en": {
-        "title": "PvP per player (T9)",
+        "title": "PvP per player",
         "summary": "/simpletweaks pvp on|off (no argument: status). A player can hurt another only when both have PvP on.",
         "details": [
           "Everybody starts with PvP on as in Vanilla (defaultOn); arrows and tridents follow the same rule.",
@@ -575,7 +575,7 @@
         ]
       },
       "de": {
-        "title": "PvP je Spieler (T9)",
+        "title": "PvP je Spieler",
         "summary": "/simpletweaks pvp on|off (ohne Argument: Status). Ein Spieler kann einen anderen nur verletzen, wenn beide PvP an haben.",
         "details": [
           "Alle starten wie in Vanilla mit PvP an (defaultOn); Pfeile und Dreizacke folgen derselben Regel.",
@@ -591,25 +591,25 @@
     {
       "id": "play_new_player_shield",
       "en": {
-        "title": "Newcomer protection (T12)",
+        "title": "Newcomer protection",
         "summary": "New players take and deal no PvP damage during their first minutes (default 5) of online play time in this world; then PvP works as usual again.",
         "details": [
           "Covers hits, arrows and tridents of players and harmful potion effects of players, their projectiles and clouds. Mobs, the world and helpful effects stay Vanilla.",
           "Only online time counts (Vanilla statistic play_time), so logging out does not use it up. Players who already played longer get none.",
           "Attacking a player ends the protection early (attackEnds, default on), so a protected player cannot attack without risk. An ended protection never comes back.",
           "The player is told in chat when it starts and ends; an attacker sees the time left in the action bar. Fake players and bots never get it.",
-          "Server settings newPlayerShield.enabled (default on), newPlayerShield.minutes (1-1440, default 5) and newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims and personal PvP (T9) still apply; this only forbids more."
+          "Server settings newPlayerShield.enabled (default on), newPlayerShield.minutes (1-1440, default 5) and newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims and personal PvP still apply; this only forbids more."
         ]
       },
       "de": {
-        "title": "Neulingsschutz (T12)",
+        "title": "Neulingsschutz",
         "summary": "Neue Spieler nehmen und verursachen in ihren ersten Minuten (Standard 5) Online-Spielzeit in dieser Welt keinen PvP-Schaden; danach gilt PvP wieder wie gewohnt.",
         "details": [
           "Gilt für Schläge, Pfeile und Dreizacke von Spielern sowie schädliche Trankwirkungen von Spielern, ihren Geschossen und Wolken. Mobs, die Welt und nützliche Wirkungen bleiben Vanilla.",
           "Es zählt nur die Online-Zeit (Vanilla-Statistik play_time), Ausloggen verbraucht den Schutz also nicht. Wer schon länger gespielt hat, bekommt keinen.",
           "Greift der Spieler selbst einen Spieler an, endet der Schutz sofort (attackEnds, Standard an), damit niemand gefahrlos angreift. Ein beendeter Schutz kommt nie zurück.",
           "Beginn und Ende stehen im Chat; ein Angreifer sieht die Restzeit in der Aktionsleiste. Fake-Spieler und Bots bekommen keinen Schutz.",
-          "Servereinstellungen newPlayerShield.enabled (Standard an), newPlayerShield.minutes (1-1440, Standard 5) und newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims und persönliches PvP (T9) gelten weiter; der Schutz verbietet nur zusätzlich."
+          "Servereinstellungen newPlayerShield.enabled (Standard an), newPlayerShield.minutes (1-1440, Standard 5) und newPlayerShield.attackEnds in config/simpletweaks-play.json. Claims und persönliches PvP gelten weiter; der Schutz verbietet nur zusätzlich."
         ]
       },
       "sources": [
@@ -620,7 +620,7 @@
     {
       "id": "play_welcome",
       "en": {
-        "title": "Welcome and announcements (T19)",
+        "title": "Welcome and announcements",
         "summary": "A welcome line for joining players ({player} is replaced), rotating tips every tipMinutes and own join/leave lines instead of the Vanilla ones.",
         "details": [
           "An empty join or leave line keeps the Vanilla one.",
@@ -628,7 +628,7 @@
         ]
       },
       "de": {
-        "title": "Willkommen und Ankündigungen (T19)",
+        "title": "Willkommen und Ankündigungen",
         "summary": "Eine Willkommenszeile beim Beitritt ({player} wird ersetzt), wechselnde Tipps alle tipMinutes und eigene Beitritts-/Austrittszeilen statt der Vanilla-Zeilen.",
         "details": [
           "Eine leere Beitritts- oder Austrittszeile behält die Vanilla-Zeile.",
@@ -643,7 +643,7 @@
     {
       "id": "play_login_reward",
       "en": {
-        "title": "Daily login reward (T20)",
+        "title": "Daily login reward",
         "summary": "The first join of a day gives the reward items; days in a row build a streak, a gap starts again at 1, and every bonusEvery days (default 7) there are bonus items.",
         "details": [
           "(with Simple Money) billsPerDay money bills per streak day, at most maxBills.",
@@ -651,7 +651,7 @@
         ]
       },
       "de": {
-        "title": "Tägliche Login-Belohnung (T20)",
+        "title": "Tägliche Login-Belohnung",
         "summary": "Der erste Beitritt eines Tages gibt die Belohnung; Tage in Folge bilden eine Serie, eine Lücke beginnt wieder bei 1, und alle bonusEvery Tage (Standard 7) gibt es Bonus-Gegenstände.",
         "details": [
           "(mit Simple Money) billsPerDay Geldscheine je Serientag, höchstens maxBills.",
@@ -666,7 +666,7 @@
     {
       "id": "play_events",
       "en": {
-        "title": "Server events (T21)",
+        "title": "Server events",
         "summary": "Operators start events with /simpletweaks event start <double_xp|more_loot|blood_moon> [minutes], stop and status; one event at a time with a boss bar.",
         "details": [
           "Double XP multiplies every experience award (xpMultiplier, default 2). More loot rolls the loot table of mobs killed by players once more. Blood moon spawns extra monsters near survival players at night in the Overworld and ends at daybreak.",
@@ -675,7 +675,7 @@
         ]
       },
       "de": {
-        "title": "Server-Events (T21)",
+        "title": "Server-Events",
         "summary": "Operatoren starten Events mit /simpletweaks event start <double_xp|more_loot|blood_moon> [Minuten], stop und status; ein Event zur Zeit mit Bossleiste.",
         "details": [
           "Doppelte Erfahrung vervielfacht jede Erfahrung (xpMultiplier, Standard 2). Mehr Beute würfelt die Beutetabelle von Mobs, die Spieler töten, ein weiteres Mal. Der Blutmond lässt nachts in der Oberwelt zusätzliche Monster bei Überlebens-Spielern erscheinen und endet bei Tagesanbruch.",
@@ -691,7 +691,7 @@
     {
       "id": "play_leaderboard",
       "en": {
-        "title": "Leaderboard (T22)",
+        "title": "Leaderboard",
         "summary": "/simpletweaks leaderboard <playtime|deaths|kills|mined> lists the top 10 of every player known to the server.",
         "details": [
           "Values come from the Vanilla statistics (offline players from their files); blocks mined count all blocks.",
@@ -699,7 +699,7 @@
         ]
       },
       "de": {
-        "title": "Bestenliste (T22)",
+        "title": "Bestenliste",
         "summary": "/simpletweaks leaderboard <playtime|deaths|kills|mined> zeigt die besten 10 aller Spieler, die der Server kennt.",
         "details": [
           "Die Werte stammen aus der Vanilla-Statistik (Offline-Spieler aus ihren Dateien); abgebaute Blöcke zählen alle Blöcke.",
@@ -714,7 +714,7 @@
     {
       "id": "play_votes",
       "en": {
-        "title": "Votes (T23)",
+        "title": "Votes",
         "summary": "/simpletweaks vote weather clear and /simpletweaks vote event <name> start a vote with clickable Yes/No; /simpletweaks vote yes|no counts.",
         "details": [
           "A vote passes once percent (default 50) % of the active players (not AFK, not spectating) said yes, otherwise it fails after seconds (default 30); each topic then waits cooldownSeconds (default 300).",
@@ -724,7 +724,7 @@
         ]
       },
       "de": {
-        "title": "Abstimmungen (T23)",
+        "title": "Abstimmungen",
         "summary": "/simpletweaks vote weather clear und /simpletweaks vote event <Name> starten eine Abstimmung mit anklickbarem Ja/Nein; /simpletweaks vote yes|no zählt.",
         "details": [
           "Angenommen ist sie, sobald percent (Standard 50) % der aktiven Spieler (nicht AFK, nicht Zuschauer) Ja gesagt haben, sonst scheitert sie nach seconds (Standard 30); danach wartet das Thema cooldownSeconds (Standard 300).",
@@ -742,7 +742,7 @@
     {
       "id": "play_afk",
       "en": {
-        "title": "AFK detection (T24)",
+        "title": "AFK detection",
         "summary": "After minutes (default 5) without any action, or with /simpletweaks afk, a player is AFK: gray with [AFK] in the tab list and not counted for sleeping.",
         "details": [
           "AFK players do not count for votes either. Any action ends it.",
@@ -751,7 +751,7 @@
         ]
       },
       "de": {
-        "title": "AFK-Erkennung (T24)",
+        "title": "AFK-Erkennung",
         "summary": "Nach minutes (Standard 5) ohne Aktion oder mit /simpletweaks afk ist ein Spieler AFK: grau mit [AFK] in der Tab-Liste und zählt nicht fürs Schlafen.",
         "details": [
           "AFK-Spieler zählen auch nicht für Abstimmungen. Jede Aktion beendet es.",
@@ -767,7 +767,7 @@
     {
       "id": "play_border",
       "en": {
-        "title": "World border per dimension (T25)",
+        "title": "World border per dimension",
         "summary": "Entries in border.dimensions (size and center per dimension) are applied to that dimension's world border at server start; /simpletweaks border lists all borders.",
         "details": [
           "Vanilla 26.3 already keeps one border per dimension, so nothing is duplicated; without entries nothing changes.",
@@ -775,7 +775,7 @@
         ]
       },
       "de": {
-        "title": "Weltgrenze je Dimension (T25)",
+        "title": "Weltgrenze je Dimension",
         "summary": "Einträge in border.dimensions (Größe und Mitte je Dimension) werden beim Serverstart auf die Weltgrenze dieser Dimension angewendet; /simpletweaks border listet alle Grenzen.",
         "details": [
           "Vanilla 26.3 hat schon eine Grenze je Dimension, deshalb wird nichts doppelt gebaut; ohne Einträge ändert sich nichts.",
@@ -790,7 +790,7 @@
     {
       "id": "play_nether_roof",
       "en": {
-        "title": "Nether roof lock (T26)",
+        "title": "Nether roof lock",
         "summary": "Survival and adventure players above Y 127 in the Nether are put back below the roof (last place below it, or a free spot under it).",
         "details": [
           "Creative and spectator players and, with opBypass, operators of bypassPermission (default 2) may stay.",
@@ -798,7 +798,7 @@
         ]
       },
       "de": {
-        "title": "Nether-Dach sperren (T26)",
+        "title": "Nether-Dach sperren",
         "summary": "Überlebens- und Abenteuer-Spieler über Y 127 im Nether werden unter das Dach zurückgesetzt (letzte Stelle darunter oder ein freier Platz).",
         "details": [
           "Kreativ- und Zuschauer-Spieler und mit opBypass Operatoren ab bypassPermission (Standard 2) dürfen bleiben.",
@@ -813,7 +813,7 @@
     {
       "id": "play_keep_inventory",
       "en": {
-        "title": "Partial keep inventory (T27)",
+        "title": "Partial keep inventory",
         "summary": "While the Vanilla rule keep_inventory is off, part of the inventory stays on death: hotbar_armor (hotbar, armor, offhand), xp (experience) or custom (switches per part and keepXpPercent).",
         "details": [
           "Kept stacks go back to the player after respawning; curse of vanishing still destroys its items.",
@@ -821,7 +821,7 @@
         ]
       },
       "de": {
-        "title": "Teil-Keep-Inventory (T27)",
+        "title": "Teil-Keep-Inventory",
         "summary": "Solange die Vanilla-Regel keep_inventory aus ist, bleibt beim Tod ein Teil: hotbar_armor (Schnellleiste, Rüstung, Nebenhand), xp (Erfahrung) oder custom (Schalter je Teil und keepXpPercent).",
         "details": [
           "Behaltene Stapel bekommt der Spieler nach dem Respawn zurück; der Fluch des Verschwindens zerstört seine Gegenstände weiterhin.",
@@ -836,7 +836,7 @@
     {
       "id": "play_dragon_egg",
       "en": {
-        "title": "Dragon egg every fight (T28)",
+        "title": "Dragon egg every fight",
         "summary": "Every later dragon kill puts a new dragon egg on the exit portal; if an egg already lies there, it drops as an item.",
         "details": [
           "Vanilla gives the egg only after the first fight. Works the same with Simple End Dragon Fight.",
@@ -844,7 +844,7 @@
         ]
       },
       "de": {
-        "title": "Drachenei bei jedem Kampf (T28)",
+        "title": "Drachenei bei jedem Kampf",
         "summary": "Jeder weitere Drachen-Kill legt ein neues Drachenei auf das Ausgangsportal; liegt dort schon eines, fällt es als Gegenstand.",
         "details": [
           "Vanilla gibt das Ei nur nach dem ersten Kampf. Funktioniert genauso mit Simple End Dragon Fight.",
@@ -859,7 +859,7 @@
     {
       "id": "play_phantoms",
       "en": {
-        "title": "Phantoms per player (T30)",
+        "title": "Phantoms per player",
         "summary": "/simpletweaks phantoms off stops phantoms from spawning for you; /simpletweaks phantoms on brings them back.",
         "details": [
           "Everybody else keeps Vanilla phantoms; the rule spawn_phantoms still applies to all.",
@@ -867,7 +867,7 @@
         ]
       },
       "de": {
-        "title": "Phantome je Spieler (T30)",
+        "title": "Phantome je Spieler",
         "summary": "/simpletweaks phantoms off verhindert Phantome für dich; /simpletweaks phantoms on bringt sie zurück.",
         "details": [
           "Alle anderen behalten die Vanilla-Phantome; die Regel spawn_phantoms gilt weiter für alle.",
@@ -882,7 +882,7 @@
     {
       "id": "play_entity_limit",
       "en": {
-        "title": "Mob limit per chunk (T31)",
+        "title": "Mob limit per chunk",
         "summary": "Every scanSeconds the mobs per chunk are counted; over perChunk (default 50) the claim owner or nearby players and operators get a message.",
         "details": [
           "With blockSpawns no new mob joins that chunk (breeding, spawners, natural spawns, also /summon) until it is under the limit; nothing is deleted.",
@@ -890,7 +890,7 @@
         ]
       },
       "de": {
-        "title": "Mob-Grenze je Chunk (T31)",
+        "title": "Mob-Grenze je Chunk",
         "summary": "Alle scanSeconds werden die Mobs je Chunk gezählt; über perChunk (Standard 50) bekommen der Claim-Besitzer oder Spieler in der Nähe und Operatoren eine Nachricht.",
         "details": [
           "Mit blockSpawns kommt dort kein neuer Mob dazu (Zucht, Spawner, natürliches Spawnen, auch /summon), bis es wieder darunter ist; gelöscht wird nichts.",
@@ -905,7 +905,7 @@
     {
       "id": "play_cleanup",
       "en": {
-        "title": "Ground item cleanup (T32)",
+        "title": "Ground item cleanup",
         "summary": "Every intervalMinutes (default 15) ground items are cleared after a chat countdown; /simpletweaks cleanup now starts it at once (operators).",
         "details": [
           "Only items lying longer than minAgeSeconds go; renamed items, items of exemptRarity (default rare) or rarer and the exempt list stay.",
@@ -913,7 +913,7 @@
         ]
       },
       "de": {
-        "title": "Bodengegenstände aufräumen (T32)",
+        "title": "Bodengegenstände aufräumen",
         "summary": "Alle intervalMinutes (Standard 15) werden Bodengegenstände nach einem Countdown im Chat entfernt; /simpletweaks cleanup now startet ihn sofort (Operatoren).",
         "details": [
           "Nur Gegenstände, die länger als minAgeSeconds liegen, verschwinden; umbenannte, solche ab exemptRarity (Standard selten) und die exempt-Liste bleiben.",
@@ -928,7 +928,7 @@
     {
       "id": "play_pregen",
       "en": {
-        "title": "Chunk pregeneration (T33)",
+        "title": "Chunk pregeneration",
         "summary": "/simpletweaks pregen start <radius> [dimension] generates every chunk around the world border center; pause, resume, stop and status (operators of level 3).",
         "details": [
           "Requests run in the background with at most parallel (default 8) open at once; progress shows as a boss bar and every 10 % in chat.",
@@ -936,7 +936,7 @@
         ]
       },
       "de": {
-        "title": "Chunk-Vorgenerierung (T33)",
+        "title": "Chunk-Vorgenerierung",
         "summary": "/simpletweaks pregen start <Radius> [Dimension] erzeugt jeden Chunk um die Mitte der Weltgrenze; pause, resume, stop und status (Operatoren ab Stufe 3).",
         "details": [
           "Die Aufträge laufen im Hintergrund, höchstens parallel (Standard 8) gleichzeitig; der Fortschritt steht als Bossleiste und alle 10 % im Chat.",
@@ -984,14 +984,14 @@
         "title": "Creative tabs",
         "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The Simple mods do not sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
         "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Die Simple-Mods sortieren ihre Items nicht in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },

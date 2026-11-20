@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_7",
-  "textures": {
-    "bottom": "minecraft:block/diorite",
-    "top": "minecraft:block/diorite",
-    "side": "minecraft:block/diorite"
-  }
-}

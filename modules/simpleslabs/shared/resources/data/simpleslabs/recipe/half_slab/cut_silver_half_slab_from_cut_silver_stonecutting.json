@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simpleores:cut_silver",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:cut_silver_half_slab"
   }
 }

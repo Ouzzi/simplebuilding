@@ -25,7 +25,7 @@ Adds tools, blocks and gear on top of a normal survival world, but it also reach
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels
+- **Required:** Fabric API, Cloth Config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels, Simple Slabs
 - **Optional:** JEI, Roughly Enough Items, Mod Menu, Jade, AppleSkin, Mouse Tweaks, Trinkets Updated, Curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs
 <!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
 ## Compatibility
@@ -35,7 +35,7 @@ Adds tools, blocks and gear on top of a normal survival world, but it also reach
 
 ## Part of the Simple family
 
-**Super mod.** It requires its sub-mods (SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels); each sub-mod can be switched off in the config ("Enable Simple XY") and each can also be installed without the super mod.
+**Super mod.** It requires its sub-mods (SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Tools, Simple Chisels, Simple Slabs); each sub-mod can be switched off in the config ("Enable Simple XY") and each can also be installed without the super mod.
 
 ## License
 

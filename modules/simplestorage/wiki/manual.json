@@ -122,7 +122,7 @@
           "Double chests form only from equal tiers.",
           "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted; a trapped chest's menu carries the same title as the normal chest of its tier.",
           "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
-          "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
+          "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimization mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
           "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect.",
           "26.3 also adds the trapped copper chest: a copper chest of any stage (waxed too) + tripwire hook. It signals its viewer count like the Vanilla trapped chest, ages through the four copper stages like the copper chest (a pair takes the less oxidized stage), and a plain right-click with honeycomb waxes it or with an axe scrapes wax or one stage off. It pairs only with other trapped copper chests; a hint below the latch marks it."
         ]
@@ -882,7 +882,7 @@
           "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like Vanilla's chest minecart, oversized slots up to the tier's limit.",
           "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
           "Drawn as Vanilla's minecart carrying the tier chest.",
-          "Moved from SimpleBuilding (split stage 8b-2): carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
+          "Moved from SimpleBuilding: carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
         ]
       },
       "de": {
@@ -892,7 +892,7 @@
           "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
           "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
           "Gezeigt als Vanilla-Lore mit der Stufen-Truhe.",
-          "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
+          "Aus SimpleBuilding umgezogen: als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
         ]
       }
     },
@@ -915,7 +915,7 @@
           "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
           "Drawn as Vanilla's boat of the wood carrying the tier chest.",
           "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood.",
-          "Moved from SimpleBuilding (split stage 8b-2): boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
+          "Moved from SimpleBuilding: boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
         ]
       },
       "de": {
@@ -926,7 +926,7 @@
           "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
           "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
           "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz.",
-          "Aus SimpleBuilding umgezogen (Aufteilung Stufe 8b-2): von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
+          "Aus SimpleBuilding umgezogen: von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
         ]
       }
     },
@@ -934,7 +934,7 @@
       "en": {
         "summary": "The Reinforced Bundle is an upgraded bundle with 1.5x the capacity of a vanilla one. In the inventory the mouse wheel picks which entry it hands back, and it is the base item for the bundle enchantments Deep Pockets, Funnel, Drawer, Master Builder and Color Palette.",
         "details": [
-          "Crafted at a crafting table: string in the top middle, a vanilla bundle in the center, a Leather Sheet below the bundle and six Diamond Pebbles filling the left and right columns (pattern \"DSD\" / \"DBD\" / \"DXD\"; six pebbles since 2026-09-29, one before); the recipe unlocks as soon as you own a bundle. The Diamond Pebble only comes from a Sledgehammer crushing a diamond block, the Leather Sheet from nine leather.",
+          "Crafted at a crafting table: string in the top middle, a vanilla bundle in the center, a Leather Sheet below the bundle and six Diamond Pebbles filling the left and right columns (pattern \"DSD\" / \"DBD\" / \"DXD\"); the recipe unlocks as soon as you own a bundle. The Diamond Pebble only comes from a Sledgehammer crushing a diamond block, the Leather Sheet from nine leather.",
           "The recipe has the type simplestorage:reinforced_bundle (class ReinforcedBundleRecipe): the result takes over the whole component patch of the vanilla bundle in the grid - contents, enchantments, custom name - the same way the smithing table does for the netherite upgrade. A filled bundle therefore keeps what it holds when it is upgraded.",
           "Stack size 1.",
           "Base capacity: 1.5x a vanilla bundle (fraction 3/2), so 96 items of stack size 64. On insertion an item weighs 1 / (its maximum stack size), so a non-stackable item takes up as much room as a full stack of 64 - except, as in vanilla, a bundle or quiver, which weighs its own contents plus 1/16 (one holding 16 items weighs 20 items' worth, a full one more than it can hold, so a full bundle never fits into one of its size; a mod bundle that never held anything still counts as a whole stack), and a beehive with bees, which weighs a whole stack.",
@@ -947,7 +947,7 @@
           "The item shows a fill bar as soon as anything is inside; it is 13 pixels wide at full capacity and shifts in color from green (empty) to red (full). Capacity bonuses from Deep Pockets and Drawer are counted in.",
           "The tooltip shows the contents as a bundle tooltip; the fill bar there is scaled by the factor capacity / 64 (see the caveat about rounding down).",
           "Deep Pockets (max level II): level I doubles the capacity (192), level II quadruples it (384).",
-          "Drawer (levels I to VIII): capacity times (16 + level) / 8, so times 2.125 at level I (204) up to times 3 at level VIII (288). In exchange the bundle holds only the one kind of item already inside (since 2026-09-28; before up to 5 kinds): an empty Drawer bundle takes any first kind, after that only more of it (item plus components). Through the tag exclusive_set/builder_group Drawer rules out Master Builder and Color Palette; Funnel can be combined with it.",
+          "Drawer (levels I to VIII): capacity times (16 + level) / 8, so times 2.125 at level I (204) up to times 3 at level VIII (288). In exchange the bundle holds only the one kind of item already inside: an empty Drawer bundle takes any first kind, after that only more of it (item plus components). Through the tag exclusive_set/builder_group Drawer rules out Master Builder and Color Palette; Funnel can be combined with it.",
           "Funnel (max level II): level I only vacuums items lying on the ground into the bundle if the same item (type and components) is already inside (a filter); level II vacuums up everything that is allowed inside container items. The bundles in both hands are checked first, then the rest of the inventory (there only once the drop's pickup delay has run out). Nothing is vacuumed up while sneaking. Vacuumed items count towards the items-picked-up statistic and play the pickup animation; if only part of a stack fits, the rest is picked up the normal way.",
           "Master Builder (level I): right-clicking a block with the bundle places the selected (otherwise topmost) entry straight out of the bundle through the normal block placement code, provided it is a block; outside Creative mode 1 item is used up.",
           "With Master Builder the Pick Block key fetches a targeted block (or the pick result of a targeted entity) out of a Master Builder bundle in your inventory and into your hand, as long as that item is not already somewhere in the inventory: the whole stack moves out of the bundle into the selected hotbar slot, and anything already in that slot is moved to a free slot; with no free slot nothing happens. Only the item type is compared, not the components. Does not work in Creative mode.",
@@ -959,7 +959,7 @@
           "Books from the librarian (only with the enableVillagerTrades option on): the tier 3 book for 25 emeralds can carry Color Palette (a pool shared with Fast Chiseling and Linear); the tier 5 book for 25 emeralds can carry Master Builder or Funnel (a pool shared with Range, Strip Miner and Vein Miner).",
           "The Invert Bundle Clicks config option (invertBundleInteractions in config/simplestorage.json, off by default) swaps left and right click for inserting and removing.",
           "Offered in the mod's creative tab among the storage items; books for all bundle enchantments at max level sit there too.",
-          "Split stage 8c-1: Simple Storage's item (old simplebuilding:reinforced_bundle stacks migrate). The recipe uses Simple Storage's own Leather Sheet (IG31-8); Master Builder and Color Palette exist only with SimpleBuilding."
+          "Simple Storage's item (old simplebuilding:reinforced_bundle stacks migrate). The recipe uses Simple Storage's own Leather Sheet; Master Builder and Color Palette exist only with SimpleBuilding."
         ],
         "controls": [
           "Bundle on the cursor + left-click a slot holding an item: put the item into the bundle",
@@ -976,8 +976,8 @@
           "Deep Pockets, Funnel, Drawer, Master Builder and Color Palette are not entered into the enchanting table list ; they come as books from loot and trades and are applied at the anvil.",
           "Drawer comes as a book from woodland mansions (weight 3) and the level 4 librarian (weight 15); it also sits in the mod's creative tab. The randomly enchanted bundle from abandoned mineshafts uses the unfiltered vanilla random enchantment, and the mod code does not rule out Drawer (or Color Palette without Master Builder) there.",
           "Color Palette on its own does nothing on the bundle: the item code only evaluates it inside the Master Builder branch. The anvil block applies to anvil results only.",
-          "The in-game description (\"only for the one kind of item already inside\") matches the code since 2026-09-28.",
-          "The config option Invert Bundle Clicks (invertBundleInteractions in config/simplestorage.json, taken over once from SimpleBuilding) swaps left and right click permanently; it has nothing to do with sneaking (until 2026-09-28 its tooltip claimed it did).",
+          "The in-game description (\"only for the one kind of item already inside\") matches this behavior.",
+          "The config option Invert Bundle Clicks (invertBundleInteractions in config/simplestorage.json, taken over once from SimpleBuilding) swaps left and right click permanently; it has nothing to do with sneaking.",
           "The tooltip's fill bar truncates the capacity factor to a whole number and does not scale at all at a factor of 1 or less (1.5 becomes 1): on an unenchanted Reinforced Bundle the tooltip bar is therefore left unscaled and already shows full at 64 items. The fill bar on the item itself does the maths correctly.",
           "The tooltip text \"Can hold more items if enchanted.\" sits in the language file but is displayed by no code (appendHoverText only calls super).",
           "Right-click does not drop a selected block; blocks have to be taken out in the inventory or placed with Master Builder.",
@@ -987,7 +987,7 @@
       "de": {
         "summary": "Das Verstärkte Bündel ist ein aufgerüstetes Bündel mit 1,5-facher Kapazität, das im Inventar per Mausrad einen Eintrag auswählen lässt und die Grundlage für die Bündel-Verzauberungen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette bildet.",
         "details": [
-          "Herstellung in der Werkbank: oben mittig Faden, in der Mitte ein Vanilla-Bündel, unter dem Bündel ein Ledertuch und sechs Diamantkiesel in der linken und rechten Spalte (Muster \"DSD\" / \"DBD\" / \"DXD\"; seit 2026-09-29 sechs Kiesel statt einem); das Rezept wird freigeschaltet, sobald man ein Bündel besitzt. Den Diamantkiesel gibt es nur vom Vorschlaghammer, der einen Diamantblock zerkleinert, die Ledertuch aus neun Leder.",
+          "Herstellung in der Werkbank: oben mittig Faden, in der Mitte ein Vanilla-Bündel, unter dem Bündel ein Ledertuch und sechs Diamantkiesel in der linken und rechten Spalte (Muster \"DSD\" / \"DBD\" / \"DXD\"); das Rezept wird freigeschaltet, sobald man ein Bündel besitzt. Den Diamantkiesel gibt es nur vom Vorschlaghammer, der einen Diamantblock zerkleinert, die Ledertuch aus neun Leder.",
           "Das Rezept hat den Typ simplestorage:reinforced_bundle (Klasse ReinforcedBundleRecipe): Das Ergebnis übernimmt den ganzen Komponenten-Patch des Vanilla-Bündels im Raster - Inhalt, Verzauberungen, eigenen Namen -, so wie es der Schmiedetisch bei der Netherit-Aufwertung tut. Ein gefülltes Bündel behält beim Aufwerten also seinen Inhalt.",
           "Stapelgröße 1.",
           "Grundkapazität: das 1,5-fache eines Vanilla-Bündels (Bruch 3/2), also 96 Gegenstände der Stapelgröße 64; beim Einlegen wiegt jeder Gegenstand 1 / (seine Stapelgröße), ein nicht stapelbarer Gegenstand füllt also ein ganzes 64er-Fach - außer, wie in Vanilla, ein Bündel oder Köcher, das seinen eigenen Inhalt plus 1/16 wiegt (mit 16 Gegenständen so viel wie 20, voll mehr, als es fasst, ein volles Bündel passt also nie in eines seiner Größe; ein nie benutztes Bündel der Mod zählt noch als ganzes Fach), und ein Bienenstock mit Bienen, der ein ganzes Fach wiegt.",
@@ -1000,7 +1000,7 @@
           "Am Item erscheint ein Füllbalken, sobald etwas enthalten ist; er ist bei voller Kapazität 13 Pixel breit und wandert farblich von Grün (leer) nach Rot (voll). Kapazitätsboni durch Tiefe Taschen und Schublade sind eingerechnet.",
           "Der Tooltip zeigt den Inhalt als Bündel-Tooltip; die dortige Füllleiste wird um den Faktor Kapazität / 64 skaliert (siehe Einschränkung zur Abrundung).",
           "Verzauberung Tiefe Taschen (max. Stufe II): Stufe I verdoppelt die Kapazität (192), Stufe II vervierfacht sie (384).",
-          "Verzauberung Schublade (Stufe I bis VIII): Kapazität mal (16 + Stufe) / 8, also mal 2,125 bei Stufe I (204) bis mal 3 bei Stufe VIII (288). Dafür hält das Bündel nur die eine Sorte, die schon darin liegt (seit 2026-09-28; vorher bis zu 5 Sorten): ein leeres Schublade-Bündel nimmt jede erste Sorte, danach nur noch mehr davon (Item plus Komponenten). Schublade schließt über das Tag exclusive_set/builder_group Baumeister und Farbpalette aus; Trichter ist mit ihr kombinierbar.",
+          "Verzauberung Schublade (Stufe I bis VIII): Kapazität mal (16 + Stufe) / 8, also mal 2,125 bei Stufe I (204) bis mal 3 bei Stufe VIII (288). Dafür hält das Bündel nur die eine Sorte, die schon darin liegt: ein leeres Schublade-Bündel nimmt jede erste Sorte, danach nur noch mehr davon (Item plus Komponenten). Schublade schließt über das Tag exclusive_set/builder_group Baumeister und Farbpalette aus; Trichter ist mit ihr kombinierbar.",
           "Verzauberung Trichter (max. Stufe II): Stufe I saugt am Boden liegende Gegenstände nur dann ins Bündel, wenn der gleiche Gegenstand (Typ und Komponenten) bereits enthalten ist (Filter); Stufe II saugt alles auf, was in Behälter-Items passt. Zuerst werden die Bündel in beiden Händen geprüft, danach das restliche Inventar (dort nur, wenn die Aufhebeverzögerung des Drops abgelaufen ist). Beim Schleichen wird nichts aufgesaugt. Aufgesaugte Gegenstände zählen in die Statistik Aufgehoben und lösen die Aufhebe-Animation aus; passt nur ein Teil hinein, läuft für den Rest die normale Vanilla-Aufnahme weiter.",
           "Verzauberung Baumeister (Stufe I): Rechtsklick mit dem Bündel auf einen Block platziert den ausgewählten (sonst obersten) Eintrag über den normalen Block-Platzierungscode direkt aus dem Bündel, sofern er ein Block ist; außerhalb des Kreativmodus wird 1 Stück verbraucht.",
           "Mit Baumeister holt die Taste Block auswählen (Vanilla-Pick-Block) einen anvisierten Block (bzw. das Pick-Ergebnis eines anvisierten Wesens) aus einem Baumeister-Bündel im Inventar in die Hand, wenn dieser Gegenstand nicht schon im Inventar liegt: der gesamte Stapel aus dem Bündel wandert in den aktiven Hotbar-Slot; ein dort liegender Gegenstand wird in einen freien Slot verschoben; ohne freien Slot passiert nichts. Verglichen wird nur der Gegenstandstyp, nicht die Komponenten. Funktioniert nicht im Kreativmodus.",
@@ -1012,7 +1012,7 @@
           "Bücher beim Bibliothekar (nur bei aktiver Option enableVillagerTrades): Stufe-3-Buch für 25 Smaragde kann Farbpalette enthalten (Pool mit Schnelles Meißeln und Linear); Stufe-5-Buch für 25 Smaragde kann Baumeister oder Trichter enthalten (Pool mit Reichweite, Streckenschürfer, Adernschürfer).",
           "Konfigurationsoption Bündel-Klicks vertauschen (invertBundleInteractions in config/simplestorage.json, Standard: aus) vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
           "Wird im Kreativ-Reiter der Mod unter den Lagerungs-Items angeboten; dort liegen auch Bücher aller Bündel-Verzauberungen auf Höchststufe.",
-          "Stufe 8c-1 der Aufteilung: ein Item von Simple Storage (alte simplebuilding:reinforced_bundle-Stapel wandern mit). Das Rezept nutzt das eigene Ledertuch von Simple Storage (IG31-8); Meisterbauer und Farbpalette gibt es nur mit SimpleBuilding."
+          "Ein Item von Simple Storage (alte simplebuilding:reinforced_bundle-Stapel wandern mit). Das Rezept nutzt das eigene Ledertuch von Simple Storage; Meisterbauer und Farbpalette gibt es nur mit SimpleBuilding."
         ],
         "controls": [
           "Bündel auf dem Cursor + Linksklick auf einen Slot mit Gegenstand: Gegenstand ins Bündel legen",
@@ -1029,8 +1029,8 @@
           "Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette werden nicht in die Zaubertisch-Liste eingetragen ; sie kommen als Bücher aus Beute und Handel und werden am Amboss angebracht.",
           "Schublade gibt es als Buch aus Waldanwesen (Gewicht 3) und vom Bibliothekar Stufe 4 (Gewicht 15), außerdem im Kreativ-Reiter der Mod. Das zufällig verzauberte Bündel aus verlassenen Minen nutzt die ungefilterte Vanilla-Zufallsverzauberung; der Mod-Code schließt Schublade (oder Farbpalette ohne Baumeister) dort nicht aus.",
           "Farbpalette allein hat auf dem Bündel keine Wirkung: Der Item-Code wertet sie nur innerhalb des Baumeister-Zweigs aus. Die Amboss-Sperre gilt nur für Amboss-Ergebnisse.",
-          "Der Beschreibungstext („nur für die eine Item-Sorte, die schon darin liegt“) stimmt seit 2026-09-28 mit dem Code überein.",
-          "Die Config-Option Bündel-Klicks vertauschen (invertBundleInteractions in config/simplestorage.json, taken over once from SimpleBuilding) vertauscht Links- und Rechtsklick dauerhaft; mit Schleichen hat sie nichts zu tun (bis 2026-09-28 behauptete ihr Tooltip das).",
+          "Der Beschreibungstext („nur für die eine Item-Sorte, die schon darin liegt“) stimmt mit diesem Verhalten überein.",
+          "Die Config-Option Bündel-Klicks vertauschen (invertBundleInteractions in config/simplestorage.json, einmal von SimpleBuilding übernommen) vertauscht Links- und Rechtsklick dauerhaft; mit Schleichen hat sie nichts zu tun.",
           "Die Füllleiste im Tooltip schneidet den Kapazitätsfaktor auf eine ganze Zahl ab und skaliert bei Faktor <= 1 gar nicht (1,5 wird zu 1): Beim unverzauberten Verstärkten Bündel wird die Tooltip-Leiste deshalb nicht skaliert und zeigt schon bei 64 Gegenständen voll an. Der Füllbalken am Item selbst rechnet korrekt.",
           "Der Tooltip-Text Kann mehr Items halten, wenn verzaubert. steht in der Sprachdatei, wird aber von keinem Code angezeigt (appendHoverText ruft nur super auf).",
           "Rechtsklick lässt einen ausgewählten Block nicht fallen; Blöcke müssen im Inventar entnommen oder mit Baumeister platziert werden.",
@@ -1283,7 +1283,7 @@
           "The quiver itself can be put inside container items (canFitInsideContainerItems returns true).",
           "Loot (only with the config option worldGen.enableLootTableChanges on, default: on): Ancient City chests (weight 3, randomly enchanted), Pillager Outpost (weight 5) and Woodland Mansion (weight 3).",
           "Creative tab \"SimpleMachines\" (itemgroup.simplebuilding.functional): in the storage group, directly after the three bundles.",
-          "Split stage 8c-1: a quiver inside a worn container that offers its entries feeds the bow too (SimpleLib CarriedStacks; with SimpleBuilding that is its worn backpack with Master Builder). Accessory slots (Curios, Trinkets) are SimpleLib AccessorySlots; the hooks come from SimpleBuilding."
+          "A quiver inside a worn container that offers its entries feeds the bow too (SimpleLib CarriedStacks; with SimpleBuilding that is its worn backpack with Master Builder). Accessory slots (Curios, Trinkets) are SimpleLib AccessorySlots; the hooks come from SimpleBuilding."
         ],
         "controls": [
           "Inventory: left-click arrows onto the quiver (or the quiver on the cursor onto a slot holding arrows) inserts them; right-click with an empty cursor on the quiver takes the mouse-wheel-selected stack - or the topmost one if nothing is selected - onto the cursor; right-click with the quiver on the cursor onto an empty slot puts that stack down there.",
@@ -1327,7 +1327,7 @@
           "Der Köcher kann selbst in Behälter-Gegenstände gesteckt werden (canFitInsideContainerItems liefert true).",
           "Loot (nur bei eingeschalteter Config-Option worldGen.enableLootTableChanges, Standard: an): Truhen der Antiken Stadt (Gewicht 3, zufällig verzaubert), des Plünderer-Außenpostens (Gewicht 5) und des Waldanwesens (Gewicht 3).",
           "Kreativ-Tab „SimpleMachines“ (itemgroup.simplebuilding.functional): in der Lager-Gruppe direkt hinter den drei Bündeln.",
-          "Stufe 8c-1: ein Köcher in einem getragenen Behälter, der seine Einträge anbietet, versorgt den Bogen ebenfalls (SimpleLib CarriedStacks; mit SimpleBuilding ist das dessen getragener Rucksack mit Meisterbauer). Zubehörplätze (Curios, Trinkets) laufen über SimpleLib AccessorySlots; die Haken bringt SimpleBuilding mit."
+          "Ein Köcher in einem getragenen Behälter, der seine Einträge anbietet, versorgt den Bogen ebenfalls (SimpleLib CarriedStacks; mit SimpleBuilding ist das dessen getragener Rucksack mit Meisterbauer). Zubehörplätze (Curios, Trinkets) laufen über SimpleLib AccessorySlots; die Haken bringt SimpleBuilding mit."
         ],
         "controls": [
           "Inventar: Linksklick mit Pfeilen auf den Köcher (oder mit dem Köcher am Cursor auf einen Pfeil-Slot) legt ein; Rechtsklick mit leerer Hand auf den Köcher nimmt den per Mausrad gewählten, sonst den obersten Stapel an den Cursor; Rechtsklick mit dem Köcher am Cursor auf einen leeren Slot legt diesen Stapel dort ab.",
@@ -1396,7 +1396,7 @@
         "summary": "The Reinforced Quiver is the second quiver tier, between the Quiver and the Netherite Quiver: a QuiverItem with capacity factor 3/2 (96 arrows), crafted from a Quiver at the crafting table without losing its arrows, and the only item the Netherite Quiver is smithed from.",
         "details": [
           "Stack size 1 (stacksTo(1)); ordinary rarity; not fireResistant().",
-          "Crafting table recipe (type simplestorage:reinforced_bundle, 3x3): row 1 \"DSD\", row 2 \"DQD\", row 3 \"DXD\" with S = String (minecraft:string), D = Diamond Pebble, X = Leather Sheet and Q = Quiver - the Reinforced Bundle's pattern with the Quiver where the Bundle goes (six pebbles since 2026-09-29; before, the Quiver's own pattern with one pebble and a copper nugget). The recipe unlocks as soon as you own a Quiver.",
+          "Crafting table recipe (type simplestorage:reinforced_bundle, 3x3): row 1 \"DSD\", row 2 \"DQD\", row 3 \"DXD\" with S = String (minecraft:string), D = Diamond Pebble, X = Leather Sheet and Q = Quiver - the Reinforced Bundle's pattern with the Quiver where the Bundle goes. The recipe unlocks as soon as you own a Quiver.",
           "The upgrade keeps everything on the Quiver: ReinforcedBundleRecipe takes over the whole component patch of the first bundle-type ingredient in the grid (the Quiver is one, through ReinforcedBundleItem) - arrows, enchantments, custom name - as the smithing table does for the netherite upgrade.",
           "Capacity factor 3/2 (QuiverItem.getTierCapacityMultiplier). Quivers use the tier factor as their base capacity without the bundle's extra 3/2, so the Reinforced Quiver holds 96 units, i.e. 96 arrows. By calculation Deep Pockets I and II make that 192 and 384, Drawer I 204 and Drawer VIII 288.",
           "Next tier: Netherite Upgrade + Reinforced Quiver + Netherite Ingot give the Netherite Quiver, which keeps the components as well. The plain Quiver has no smithing recipe any more.",
@@ -1405,7 +1405,7 @@
           "Enchantable at an anvil through the tags bundle_enchantable, extra_inventory_items and constructors_touch_enchantable: Drawer, Deep Pockets, Funnel, Constructor's Touch, Master Builder and Color Palette; Drawer excludes Master Builder and Color Palette. The enchanting table stays shut, because no quiver carries an enchantable component.",
           "Smithing trims: it is the base of the netherite quiver recipe, so the smithing table's base slot takes it, and its equippable component passes the mod's trim check - the Glowing and the Emitting Armor Trim both work on it.",
           "The mod's creative tab: in the Storage section, directly after the Quiver.",
-          "Split stage 8c-1: the recipe takes the Leather Sheet of Simple Storage (IG31-8)."
+          "The recipe takes the Leather Sheet of Simple Storage."
         ],
         "controls": [
           "Handled like the Quiver: left-click inserts arrows, right-click takes a stack out, the mouse wheel picks the stack; drawing and releasing a bow uses arrows from it automatically."
@@ -1422,7 +1422,7 @@
         "summary": "Der Verstärkte Köcher ist die zweite Köcher-Stufe zwischen Köcher und Netheritköcher: ein QuiverItem mit Kapazitätsfaktor 3/2 (96 Pfeile), an der Werkbank aus einem Köcher gebaut, ohne dessen Pfeile zu verlieren, und der einzige Gegenstand, aus dem der Netheritköcher geschmiedet wird.",
         "details": [
           "Stapelgröße 1 (stacksTo(1)); gewöhnliche Seltenheit; nicht fireResistant().",
-          "Rezept an der Werkbank (Typ simplestorage:reinforced_bundle, 3x3): Reihe 1 \"DSD\", Reihe 2 \"DQD\", Reihe 3 \"DXD\" mit S = Faden (minecraft:string), D = Diamantkiesel, X = Ledertuch und Q = Köcher - das Muster des Verstärkten Bündels mit dem Köcher an der Stelle des Bündels (seit 2026-09-29 sechs Kiesel; vorher das Köcher-Muster mit einem Kiesel und einem Kupferklumpen). Das Rezept wird freigeschaltet, sobald man einen Köcher besitzt.",
+          "Rezept an der Werkbank (Typ simplestorage:reinforced_bundle, 3x3): Reihe 1 \"DSD\", Reihe 2 \"DQD\", Reihe 3 \"DXD\" mit S = Faden (minecraft:string), D = Diamantkiesel, X = Ledertuch und Q = Köcher - das Muster des Verstärkten Bündels mit dem Köcher an der Stelle des Bündels. Das Rezept wird freigeschaltet, sobald man einen Köcher besitzt.",
           "Die Aufwertung behält alles, was am Köcher hängt: ReinforcedBundleRecipe übernimmt den ganzen Komponenten-Patch der ersten Bündel-Zutat im Raster (der Köcher ist über ReinforcedBundleItem eine) - Pfeile, Verzauberungen, eigenen Namen -, so wie der Schmiedetisch bei der Netherit-Aufwertung.",
           "Kapazitätsfaktor 3/2 (QuiverItem.getTierCapacityMultiplier). Köcher nehmen den Stufenfaktor als Grundkapazität ohne den zusätzlichen Bündel-Faktor 3/2, der Verstärkte Köcher fasst also 96 Einheiten, d. h. 96 Pfeile. Rechnerisch werden daraus mit Tiefe Taschen I und II 192 und 384, mit Schublade I 204 und mit Schublade VIII 288.",
           "Nächste Stufe: Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren ergeben den Netheritköcher, der die Komponenten ebenfalls behält. Für den einfachen Köcher gibt es kein Schmiederezept mehr.",
@@ -1431,7 +1431,7 @@
           "Am Amboss verzauberbar über die Tags bundle_enchantable, extra_inventory_items und constructors_touch_enchantable: Schublade, Tiefe Taschen, Trichter, Berührung des Konstrukteurs, Baumeister und Farbpalette; Schublade schließt Baumeister und Farbpalette aus. Der Zaubertisch bleibt zu, weil kein Köcher eine Verzauberbarkeit trägt.",
           "Besatz am Schmiedetisch: Er ist Basis des Netheritköcher-Rezepts, der Basis-Slot des Schmiedetischs nimmt ihn also an, und seine Ausrüstungs-Komponente besteht die Besatz-Prüfung der Mod - Leuchtender und Strahlender Rüstungsbesatz wirken beide auf ihn.",
           "Kreativ-Tab der Mod: im Abschnitt Storage direkt hinter dem Köcher.",
-          "Stufe 8c-1: das Rezept nutzt das Ledertuch von Simple Storage (IG31-8)."
+          "Das Rezept nutzt das Ledertuch von Simple Storage."
         ],
         "controls": [
           "Bedienung wie beim Köcher: Linksklick legt Pfeile ein, Rechtsklick nimmt einen Stapel heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile daraus automatisch."
@@ -1488,7 +1488,7 @@
           "Handled like the Quiver: left-click inserts, right-click takes out, the mouse wheel picks the stack; drawing and releasing a bow consumes arrows automatically."
         ],
         "caveats": [
-          "Blast-proof as a dropped item since 2026-09-28 (owner decision): ItemEntityMixin.ignoreExplosion protects it like the Netherite Bundle, the Enderite Bundle and the Enderite Quiver.",
+          "Blast-proof as a dropped item: ItemEntityMixin.ignoreExplosion protects it like the Netherite Bundle, the Enderite Bundle and the Enderite Quiver.",
           "Appears in no loot chest; only the plain Quiver is in the loot tables.",
           "The description line in the language file (tooltip.simplebuilding.netherite_quiver: \"Holds more arrows. Works in Offhand or Chest slot.\") is shown by no code.",
           "All of the Quiver's limits apply as well: there is no crossbow code."
@@ -1510,7 +1510,7 @@
           "Bedienung wie beim Köcher: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile automatisch."
         ],
         "caveats": [
-          "Seit 2026-09-28 (Besitzer-Entscheidung) als fallengelassener Gegenstand explosionsgeschützt: ItemEntityMixin.ignoreExplosion schützt ihn wie Netheritbündel, Enderitbündel und Enderitköcher.",
+          "Als fallengelassener Gegenstand explosionsgeschützt: ItemEntityMixin.ignoreExplosion schützt ihn wie Netheritbündel, Enderitbündel und Enderitköcher.",
           "Kommt in keiner Loot-Truhe vor; nur der einfache Köcher steht in den Loot-Tabellen.",
           "Der Beschreibungstext in der Sprachdatei (tooltip.simplebuilding.netherite_quiver: \"Hält mehr Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.\") wird von keinem Code angezeigt.",
           "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code."
@@ -1643,7 +1643,7 @@
           "A book at max level (II) sits in the creative inventory.",
           "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_deep_pockets, selected through the item property simplebuilding:enchant_type).",
           "A gametest checks that level I holds more than unenchanted and level II more than level I.",
-          "Split stage 8c-1: Simple Storage's enchantment (old simplebuilding:deep_pockets enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
+          "Simple Storage's enchantment (old simplebuilding:deep_pockets enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
         ],
         "controls": [
           "Left-clicking the bundle with an item stack (or the bundle onto a stack) inserts, provided the item is allowed inside container items; right-clicking with an empty cursor (or onto an empty slot) takes out the selected, otherwise topmost, item. With the config option tools.invertBundleInteractions the two clicks are swapped."
@@ -1674,7 +1674,7 @@
           "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
           "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_deep_pockets, Auswahl über die Item-Eigenschaft simplebuilding:enchant_type).",
           "Ein Gametest prüft, dass Stufe I mehr fasst als unverzaubert und Stufe II mehr als Stufe I.",
-          "Stufe 8c-1: eine Verzauberung von Simple Storage (alte simplebuilding:deep_pockets-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
+          "Eine Verzauberung von Simple Storage (alte simplebuilding:deep_pockets-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
         ],
         "controls": [
           "Linksklick mit einem Item-Stapel auf das Bündel (oder mit dem Bündel auf einen Stapel) legt ein, sofern das Item in Behälter-Items passen darf; Rechtsklick mit leerem Cursor (bzw. auf einen leeren Slot) entnimmt das ausgewählte bzw. oberste Item. Mit der Config-Option tools.invertBundleInteractions vertauschen sich beide Klicks."
@@ -1719,7 +1719,7 @@
           "Max level 8, weight 1, anvil cost 8; enchanting cost 25 (+25 per further level) to 75 (+25 per further level).",
           "Capacity formula in the code: base capacity times (16 + level) / 8. Level I gives factor 2.125, level VIII factor 3.0.",
           "By calculation (base value times factor) a Reinforced Bundle with Drawer VIII holds 288 items, a Netherite Bundle 576 and an Enderite Bundle 864.",
-          "Kind lock: if the bundle carries Drawer at any level, it only accepts an item of the kind already inside (an item plus components); an empty bundle takes any first kind. More of the kind inside can be topped up until the capacity is full; a bundle that held several kinds before it got Drawer takes nothing until only one kind is left (since 2026-09-28; before up to 5 kinds).",
+          "Kind lock: if the bundle carries Drawer at any level, it only accepts an item of the kind already inside (an item plus components); an empty bundle takes any first kind. More of the kind inside can be topped up until the capacity is full; a bundle that held several kinds before it got Drawer takes nothing until only one kind is left.",
           "The type limit applies on every insertion path, because everything runs through insertItemIntoBundle: clicking in the inventory and automatic pickup off the ground (Funnel).",
           "On insertion (on every Reinforced Bundle, not only with Drawer) all existing stacks of the same type are merged with the new stack and sorted to the very top in chunks of the maximum stack size; the full chunks lie topmost, the partial remainder below them.",
           "Cannot be combined with Master Builder and Color Palette: Drawer carries the exclusive set simplebuilding:exclusive_set/builder_group (contents: master_builder, color_palette, drawer), and a gametest expects Drawer and Master Builder to be incompatible.",
@@ -1728,7 +1728,7 @@
           "A book at max level (VIII) sits in the creative inventory.",
           "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_drawer).",
           "A gametest checks that a bundle with Drawer I holds more than an unenchanted one.",
-          "Split stage 8c-1: Simple Storage's enchantment (old simplebuilding:drawer enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
+          "Simple Storage's enchantment (old simplebuilding:drawer enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
         ],
         "controls": [
           "Left-clicking the bundle with an item stack inserts, provided the type is already inside or a type slot is still free; right-clicking with an empty cursor takes out. Swapped by tools.invertBundleInteractions."
@@ -1748,7 +1748,7 @@
           "Höchststufe 8, Gewicht 1, Amboss-Kosten 8; Verzauberungskosten 25 (+25 je weiterer Stufe) bis 75 (+25 je weiterer Stufe).",
           "Kapazitätsformel im Code: Grundkapazität mal (16 + Stufe)/8. Stufe I ergibt Faktor 2,125, Stufe VIII Faktor 3,0.",
           "Rechnerisch (Grundwert mal Faktor) fasst ein Verstärktes Bündel mit Schublade VIII 288 Items, ein Netheritbündel 576, ein Enderitbündel 864.",
-          "Sortensperre: Trägt das Bündel Schublade (egal welche Stufe), nimmt es nur Items der Sorte an, die schon darin liegt (Item plus Komponenten); ein leeres Bündel nimmt jede erste Sorte. Die enthaltene Sorte lässt sich nachfüllen, bis die Kapazität voll ist; ein Bündel, das vor der Schublade mehrere Sorten hielt, nimmt nichts mehr an, bis nur noch eine übrig ist (seit 2026-09-28; vorher bis zu 5 Sorten).",
+          "Sortensperre: Trägt das Bündel Schublade (egal welche Stufe), nimmt es nur Items der Sorte an, die schon darin liegt (Item plus Komponenten); ein leeres Bündel nimmt jede erste Sorte. Die enthaltene Sorte lässt sich nachfüllen, bis die Kapazität voll ist; ein Bündel, das vor der Schublade mehrere Sorten hielt, nimmt nichts mehr an, bis nur noch eine übrig ist.",
           "Die Sortenbegrenzung greift auf jedem Einfüllweg, da alles durch insertItemIntoBundle läuft: Klick im Inventar und automatisches Aufheben vom Boden (Trichter).",
           "Beim Einfüllen (bei jedem Verstärkten Bündel, nicht nur mit Schublade) werden alle vorhandenen Stapel derselben Sorte mit dem neuen Stapel zusammengeführt und in Stücken der maximalen Stapelgröße ganz oben einsortiert; die vollen Stücke liegen zuoberst, das angebrochene Reststück darunter.",
           "Nicht kombinierbar mit Baumeister und Farbpalette: Schublade hat das Ausschluss-Set simplebuilding:exclusive_set/builder_group (Inhalt: master_builder, color_palette, drawer); ein Gametest erwartet Schublade/Baumeister als inkompatibel.",
@@ -1757,13 +1757,13 @@
           "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (VIII).",
           "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_drawer).",
           "Ein Gametest prüft, dass ein Bündel mit Schublade I mehr fasst als ein unverzaubertes.",
-          "Stufe 8c-1: eine Verzauberung von Simple Storage (alte simplebuilding:drawer-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
+          "Eine Verzauberung von Simple Storage (alte simplebuilding:drawer-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
         ],
         "controls": [
           "Linksklick mit einem Item-Stapel auf das Bündel legt ein, sofern die Sorte schon enthalten ist oder noch ein Sorten-Platz frei ist; Rechtsklick mit leerem Cursor entnimmt. Mit tools.invertBundleInteractions vertauscht."
         ],
         "caveats": [
-          "Der Beschreibungstext in den Sprachdateien („nur für die eine Item-Sorte, die schon darin liegt“) stimmt seit 2026-09-28 mit dem Code überein.",
+          "Der Beschreibungstext in den Sprachdateien („nur für die eine Item-Sorte, die schon darin liegt“) stimmt mit diesem Verhalten überein.",
           "Für Truhen gibt es keinerlei Code; die Verzauberung wird nur in ReinforcedBundleItem und QuiverItem ausgewertet.",
           "Der Code-Kommentar beschreibt die Formel (8 + Stufe)/8 (Stufe I = 1,125), der ausgeführte Code rechnet aber (16 + Stufe)/8 (Stufe I = 2,125).",
           "Im Code ist keine gezielte Fundquelle hinterlegt: kein Buch im Truhen-Loot, kein Dorfbewohner-Handel, nicht im Tag minecraft:in_enchanting_table. Gezielt hinterlegt ist nur das Kreativ-Inventar; indirekt möglich sind die zufällig verzauberten Köcher (Ancient City) und Verstärkten Bündel (verlassene Mine) im Mod-Loot, die mit randomEnchantment() ohne Verzauberungsliste verzaubert werden.",
@@ -1805,7 +1805,7 @@
           "What happens when you touch an item entity (a mixin in ItemEntity.playerTouch, server-side only): main hand and off hand are checked first, then every inventory slot in order; the first bundle that is allowed to take the item and has room gets it.",
           "Bundles in your hands are checked even during the pickup lock on freshly dropped items; bundles in the rest of the inventory only once that lock (pickupDelay) has run out.",
           "A worn backpack with Funnel comes last: only when no bundle took the item and its pickup delay has run out does the backpack in the chest slot get it, with the same level rules; it fills matching stacks up to the slot limit (Deep Pockets included) before empty slots. A backpack that is not worn vacuums up nothing.",
-          "Vacuuming plays the collection animation (player.take), counts towards the pickup statistic and plays the bundle insert sound. If the item is vacuumed up completely, the entity is removed and the normal pickup is cancelled; if only part of it fits, the rest is picked up the normal way.",
+          "Vacuuming plays the collection animation (player.take), counts towards the pickup statistic and plays the bundle insert sound. If the item is vacuumed up completely, the entity is removed and the normal pickup is canceled; if only part of it fits, the rest is picked up the normal way.",
           "Vacuuming respects the capacity (including Deep Pockets and Drawer) and the Drawer type limit, because the same insertion code runs.",
           "Quivers vacuum up arrows only (tag minecraft:arrows), even at level II.",
           "Chest loot (only with worldGen.enableLootTableChanges): a level I book in bastions (treasure and other chests, weight 5, 0 to 2 rolls), nether fortresses (weight 2, 0 to 2 rolls) and dungeons (weight 8, 0 to 2 rolls).",
@@ -1814,7 +1814,7 @@
           "A book at max level (II) sits in the creative inventory.",
           "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_funnel).",
           "A gametest confirms it: without Funnel nothing is picked up, level I filters (empty bundle: nothing; with stone inside: stone yes, dirt no), level II takes everything.",
-          "Split stage 8c-1: Simple Storage's enchantment (old simplebuilding:funnel enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
+          "Simple Storage's enchantment (old simplebuilding:funnel enchantments migrate). Its book picture comes from SimpleBuilding's enchanted book model; it is sold and found in chests through SimpleBuilding's trades and loot."
         ],
         "controls": [
           "Just walk over items lying on the ground: they land in the bundle.",
@@ -1848,7 +1848,7 @@
           "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
           "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_funnel).",
           "Ein Gametest bestätigt: ohne Trichter kein Aufsaugen, Stufe I filtert (leer: nichts; mit Stein: Stein ja, Erde nein), Stufe II nimmt alles.",
-          "Stufe 8c-1: eine Verzauberung von Simple Storage (alte simplebuilding:funnel-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
+          "Eine Verzauberung von Simple Storage (alte simplebuilding:funnel-Verzauberungen wandern mit). Das Buchbild kommt aus SimpleBuildings Modell des verzauberten Buchs; gehandelt und in Truhen gefunden wird sie über SimpleBuildings Handel und Beute."
         ],
         "controls": [
           "Einfach über liegende Items laufen: Sie landen im Bündel.",
@@ -1957,8 +1957,8 @@
           "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
           "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
           "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-          "Recipes: Leather Sheet from 9 Leather (3x3, Simple Storage's own item since IG31-8). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-          "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplestorage:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+          "Recipes: Leather Sheet from 9 Leather (3x3, Simple Storage's own item). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
+          "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplestorage:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
           "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
           "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
           "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -1969,7 +1969,7 @@
           "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
           "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
           "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Armor Trims work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots).",
-          "Split stage 8c-2: the four backpacks, the placed backpack, its contents component, the backpack key and menu came from SimpleBuilding (simplebuilding:*); old worlds load them under simplestorage:* through SimpleLib's id moves (the key binding moves over once). Master Builder and Constructor's Touch are SimpleBuilding's enchantments: with SimpleBuilding they work on the worn backpack through SimpleLib CarriedStacks. Accessory slots (Curios, Trinkets) are Simple Storage's own hooks; the extra head slot and resonance button in the backpack screen come from SimpleBuilding (SimpleLib InventoryExtras)."
+          "The four backpacks, the placed backpack, its contents component, the backpack key and menu came from SimpleBuilding (simplebuilding:*); old worlds load them under simplestorage:* through SimpleLib's id moves (the key binding moves over once). Master Builder and Constructor's Touch are SimpleBuilding's enchantments: with SimpleBuilding they work on the worn backpack through SimpleLib CarriedStacks. Accessory slots (Curios, Trinkets) are Simple Storage's own hooks; the extra head slot and resonance button in the backpack screen come from SimpleBuilding (SimpleLib InventoryExtras)."
         ],
         "controls": [
           "Right-click with the backpack in hand (not sneaking): put it on.",
@@ -2008,8 +2008,8 @@
           "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
           "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
           "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-          "Rezepte: Ledertuch aus 9 Leder (3x3, seit IG31-8 ein eigenes Item von Simple Storage). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Ledertüchern / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Ledertuch.",
-          "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Ledertüchern (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplestorage:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+          "Rezepte: Ledertuch aus 9 Leder (3x3, ein eigenes Item von Simple Storage). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Ledertüchern / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Ledertuch.",
+          "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Ledertüchern. Ein eigener Rezepttyp simplestorage:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
           "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
           "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
           "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -2020,7 +2020,7 @@
           "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
           "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
           "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots).",
-          "Stufe 8c-2: die vier Rucksäcke, der abgestellte Rucksack, seine Inhaltskomponente, Rucksack-Taste und -Menü kamen aus SimpleBuilding (simplebuilding:*); alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* (die Tastenbelegung zieht einmal mit um). Meisterbauer und Konstrukteurs Hand sind SimpleBuildings Verzauberungen: mit SimpleBuilding wirken sie am getragenen Rucksack über SimpleLib CarriedStacks. Zubehörplätze (Curios, Trinkets) bringt Simple Storage selbst mit; Zusatz-Kopfplatz und Resonanzknopf im Rucksack-Bildschirm kommen von SimpleBuilding (SimpleLib InventoryExtras)."
+          "Die vier Rucksäcke, der abgestellte Rucksack, seine Inhaltskomponente, Rucksack-Taste und -Menü kamen aus SimpleBuilding (simplebuilding:*); alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* (die Tastenbelegung zieht einmal mit um). Meisterbauer und Konstrukteurs Hand sind SimpleBuildings Verzauberungen: mit SimpleBuilding wirken sie am getragenen Rucksack über SimpleLib CarriedStacks. Zubehörplätze (Curios, Trinkets) bringt Simple Storage selbst mit; Zusatz-Kopfplatz und Resonanzknopf im Rucksack-Bildschirm kommen von SimpleBuilding (SimpleLib InventoryExtras)."
         ],
         "controls": [
           "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",

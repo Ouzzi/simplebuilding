@@ -8,13 +8,14 @@ from .accounts import AccountsMixin
 from .billing import BillingMixin
 from .config import Config
 from .db import Database
+from .early import EarlyMixin
 from .mail import Mailer
 from .maps import MapsMixin
 from .security import Limiter
 from .upload import UploadMixin
 
 
-class Service(AccountsMixin, MapsMixin, UploadMixin, BillingMixin):
+class Service(AccountsMixin, MapsMixin, UploadMixin, BillingMixin, EarlyMixin):
     def __init__(self, cfg: Config, clock=time.time):
         self.cfg = cfg
         self.clock = clock

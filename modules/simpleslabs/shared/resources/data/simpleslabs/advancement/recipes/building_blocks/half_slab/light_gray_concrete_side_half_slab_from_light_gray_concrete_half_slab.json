@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_light_gray_concrete_half_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleslabs:light_gray_concrete_half_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleslabs:half_slab/light_gray_concrete_side_half_slab_from_light_gray_concrete_half_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_light_gray_concrete_half_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleslabs:half_slab/light_gray_concrete_side_half_slab_from_light_gray_concrete_half_slab"
+    ]
+  }
+}

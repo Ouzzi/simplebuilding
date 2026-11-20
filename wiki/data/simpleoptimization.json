@@ -64,7 +64,7 @@
   "config": [
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleoptimization/shared/java/com/simplebuilding/modules/simpleoptimization/SimpleOptimization.java",
       "name": "enableSimpleOptMemory",
@@ -83,7 +83,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleoptimization/shared/java/com/simplebuilding/modules/simpleoptimization/SimpleOptimization.java",
       "name": "enableSimpleOptRender",
@@ -102,7 +102,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleoptimization/shared/java/com/simplebuilding/modules/simpleoptimization/SimpleOptimization.java",
       "name": "enableSimpleOptServer",

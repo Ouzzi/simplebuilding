@@ -770,6 +770,8 @@ def main(argv=None):
         for k, im in blocks.items():
             if k == f'{n}_planks':      # a-abn29t: planks A (Vanilla grid), tools/textures/abn29_2026_10_29.py
                 continue
+            if k == s['bud']:           # N89C (owner 19.11.): K1 "Chorus-Kelch" buds, tools/textures/n89c_2026_11_19.py
+                continue
             write(im, TEX / 'block' / f'{k}.png', out)
         items = {
             f'{n}_door': door_item(blocks[f'{n}_door_top'], blocks[f'{n}_door_bottom']),

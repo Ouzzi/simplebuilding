@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:bamboo_mosaic",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:bamboo_mosaic_half_slab"
   }
 }

@@ -33,16 +33,39 @@ class TzEditor(unittest.TestCase):
         self.assertLess(handler.index("hasAttribute('data-own-fallback')"), handler.index('replaceWith'))
         self.assertIn('i.dataset.ownFallback', js)
         self.assertIn("data/vanilla-icons.json", js)
-        # candidates: module picture, model list, wiki picture, name guesses - in that order
+        # candidates (N107 order): the dev host's model list, module picture, wiki picture, name guesses
         body = js[js.index('function candidates(id)'):js.index('function crop(')]
-        order = [body.index(k) for k in ('st.idx.textures[id]', 'st.icons[id]', 'ctx.icon(full)', "'assets/vanilla/block/'")]
+        order = [body.index(k) for k in ('st.icons[id]', 'st.idx.textures[id]', 'ctx.icon(full)', "'assets/vanilla/block/'")]
         self.assertEqual(order, sorted(order))
+        # N110 pre-check: a module id the host's list names -> its module picture is known missing there, never asked for;
+        # a picture file that failed once is never asked for again
+        self.assertIn("if (!(dev && nsOf(full) !== 'minecraft')) add(st.idx && st.idx.textures[id]);", body)
+        self.assertIn("return out.filter(function (u) { return !BAD[u.split('#')[0]]; });", body)
         # one shared zoom component, loaded by the page, used by the editor grid and the big lists
         self.assertIn('<script src="assets/zoomarea.js"></script>', html)
         self.assertIn("Z.attach(main, { key: 'tzeditor'", js)
         for key in ('data-zoom="textures"', 'data-zoom="allrecipes"', 'data-zoom="recipes"', "data-zoom=\"list-", "'table-' + r.section"):
             self.assertIn(key, html)
         self.assertIn('window.SBZoom.scan($main, LANG)', html)
+
+    def test_n110_missing_pictures(self):
+        """Owner 19.11. (N99B): missing pictures get a clean fallback symbol and the list "ohne Bild" / "without picture"."""
+        js = (ROOT / 'wiki' / 'assets' / 'tzeditor.js').read_text(encoding='utf-8')
+        self.assertIn("noPic: 'ohne Bild'", js)
+        self.assertIn("noPic: 'without picture'", js)
+        self.assertNotIn('ohne sie der Name', js)  # old legend: the bare name instead of a picture
+        img = js[js.index('    function img(id, cls) {'):js.index('/* one cell; f/r/c')]
+        # every path without a picture ends in the symbol (never null -> never a bare name or a broken image)
+        self.assertEqual(img.count('return noPic(id, cls)'), 2)
+        self.assertIn('w.i.replaceWith(noPic(id, w.cls))', img)  # the picture and the ones waiting for its chain
+        self.assertIn('FLY[f].push(load)', img)  # a file in flight is waited for: one request per file
+        self.assertIn('BAD[cands[k].split', img)
+        self.assertIn("e.appendChild(img(id));", js)
+        self.assertIn("e.appendChild(img(opt.top, 'tz-t'));", js)
+        # the symbol is an own drawing (SVG), no game pixels; the list jumps to the cell
+        self.assertIn('data:image/svg+xml', js)
+        self.assertIn("closest('.tz-nopic [data-npj]')", js)
+        self.assertIn('function jumpNoPic(i)', js)
 
     def test_n72b_menu_replaces_the_wiki_menu(self):
         html = (ROOT / 'wiki' / 'index.html').read_text(encoding='utf-8')

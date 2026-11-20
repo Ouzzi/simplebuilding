@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplebuilding:nihil_purpur_block",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:nihil_purpur_half_slab"
   }
 }

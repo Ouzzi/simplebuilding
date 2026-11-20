@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simpleenchanting:crimson_blazewood_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:crimson_blazewood_half_slab"
   }
 }

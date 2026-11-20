@@ -59,7 +59,7 @@ def alerts(ctx) -> str:
 
 
 # -------------------------------------------------------------------- layout
-def layout(ctx, title: str, body: str, wide: bool = False, cls: str = "") -> str:
+def layout(ctx, title: str, body: str, wide: bool = False, cls: str = "", brand: str = "Simple Livemap") -> str:
     L = lambda p: ctx.url("livemap", p)  # noqa: E731
     other = "en" if ctx.lang == "de" else "de"
     if ctx.user is not None:
@@ -72,24 +72,34 @@ def layout(ctx, title: str, body: str, wide: bool = False, cls: str = "") -> str
         who = f'<a class="btn small" href="{e(ctx.url("account", "/login"))}">{ctx.t("Log in", "Anmelden")}</a>'
     brand_home = L("/")
     nav = (f'<a href="{L("/pricing")}">{ctx.t("Pricing", "Preise")}</a>'
-           f'<a href="{L("/self-host")}">{ctx.t("Self-host", "Selbst hosten")}</a>')
-    footer_links = [f'<a href="https://simplemods.de/">simplemods.de</a>', f'<a href="https://wiki.simplemods.de/">Wiki</a>']
+           f'<a href="{L("/self-host")}">{ctx.t("Self-host", "Selbst hosten")}</a>'
+           f'<a href="{e(ctx.url("account", "/pro"))}">Pro</a>')
+    if brand != "Simple Livemap":
+        brand_home = ctx.url("account", "/pro")
+        nav = (f'<a href="{e(ctx.url("account", "/pro"))}">Pro</a><a href="{L("/")}">Livemap</a>'
+               f'<a href="{e(ctx.url("account", "/early"))}">{ctx.t("Early access", "Frühzugang")}</a>')
+    links = ctx.cfg.get("links") or {}      # no fixed host names: website/wiki links come from the server config
+    footer_links = [f'<a href="{e(url)}">{e(label)}</a>' for url, label in ((links.get("site"), links.get("site_label") or "Simple Mods"),
+                                                                            (links.get("wiki"), "Wiki")) if url]
     legal = ctx.cfg["legal"]
     for key, en, de in (("imprint_url", "Imprint", "Impressum"), ("privacy_url", "Privacy", "Datenschutz"), ("terms_url", "Terms", "AGB")):
         if legal.get(key):
             footer_links.append(f'<a href="{e(legal[key])}">{ctx.t(en, de)}</a>')
     if not any(legal.get(k) for k in ("imprint_url", "privacy_url", "terms_url")):
         footer_links.append(f'<span class="mut">{ctx.t("Legal pages follow before the launch.", "Rechtstexte folgen vor dem Start.")}</span>')
+    footer_links.append(f'<a href="{e(ctx.url("account", "/kontakt"))}">{ctx.t("Contact", "Kontakt")}</a>')
+    # section 312k BGB: the cancel button on every page, reachable without login (N108)
+    footer_links.append(f'<a href="{e(ctx.url("account", "/kuendigen"))}" class="cancel-link">{ctx.t("Cancel contracts here", "Verträge hier kündigen")}</a>')
     return f"""<!doctype html>
 <html lang="{ctx.lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(title)} · Simple Livemap</title><link rel="stylesheet" href="/static/site.css"><link rel="icon" href="/static/livemap-icon.png">
+<title>{e(title)} · {e(brand)}</title><link rel="stylesheet" href="/static/site.css"><link rel="icon" href="/static/livemap-icon.png">
 <script src="/static/app.js" defer></script></head>
 <body class="{cls}"><header class="top"><div class="w bar">
-<a class="brand" href="{brand_home}"><img src="/static/livemap-icon.png" alt="" width="32" height="32"><span>Simple Livemap</span></a>
+<a class="brand" href="{brand_home}"><img src="/static/livemap-icon.png" alt="" width="32" height="32"><span>{e(brand)}</span></a>
 <nav class="nav">{nav}</nav><div class="me">{who}<a class="lang" href="?lang={other}" hreflang="{other}">{other.upper()}</a></div>
 </div></header>
 <main class="w{' wide' if wide else ''}">{body}</main>
-<footer class="w foot">{' · '.join(footer_links)}<br><span class="mut">Simple Livemap · {ctx.t("a Simple Mods service", "ein Dienst von Simple Mods")}</span></footer>
+<footer class="w foot">{' · '.join(footer_links)}<br><span class="mut">{e(brand)} · {ctx.t("a Simple Mods service", "ein Dienst von Simple Mods")}</span></footer>
 </body></html>"""
 
 
@@ -175,6 +185,12 @@ def tier_cells(ctx, tier: dict, key: str) -> str:
         return ctx.t("unlimited", "unbegrenzt") if t["shares"] < 0 else ctx.t(f"{t['shares']} people", f"{t['shares']} Personen")
     if key == "storage":
         return size(t["map_mb"] * 1024 * 1024).replace(".0", "")
+    if key == "dims":
+        d = t.get("dimensions") or ["*"]
+        if "*" in d:
+            return ctx.t("all, incl. mod dimensions", "alle, auch Mod-Dimensionen")
+        names = {"minecraft_overworld": ctx.t("Overworld", "Oberwelt"), "minecraft_the_nether": "Nether", "minecraft_the_end": "End"}
+        return " + ".join(names.get(x, x) for x in d)
     if key == "extra":
         if not t["custom_name"]:
             return "–"
@@ -189,7 +205,7 @@ def maps_line(ctx, t: dict) -> str:
 ROWS = [("maps", "Maps at the same time", "Karten gleichzeitig"), ("archive", "Archive (disconnected maps kept)", "Puffer (getrennte Karten gespeichert)"),
         ("views", "Views per day (all maps)", "Aufrufe pro Tag (alle Karten)"), ("live", "Player live rhythm / tile update", "Spieler-Live-Takt / Kachel-Aktualisierung"),
         ("prep", "Preparation (minimum time)", "Vorbereitung (Mindestzeit)"), ("slot", "Take a place again", "Platz neu belegen"),
-        ("shares", "Share with accounts", "Teilen mit Konten"), ("storage", "Storage per map", "Speicher je Karte"), ("extra", "Extras", "Zusatz")]
+        ("shares", "Share with accounts", "Teilen mit Konten"), ("storage", "Storage per map", "Speicher je Karte"), ("dims", "Dimensions", "Dimensionen"), ("extra", "Extras", "Zusatz")]
 
 
 def tier_table(ctx, buy: bool) -> str:
@@ -217,6 +233,11 @@ def tier_table(ctx, buy: bool) -> str:
         for k in order:
             if tiers[k]["price_month"] == 0:
                 cells += f'<td><a class="btn small" href="{e(ctx.url("livemap", "/app/connect"))}">{ctx.t("Start free", "Kostenlos starten")}</a></td>'
+            elif ctx.svc.billing_on() and ctx.svc.plan_for_livemap_tier(k):
+                plan = ctx.svc.plan_for_livemap_tier(k)
+                cells += (f'<td><a class="btn small" data-show="month" href="{e(ctx.url("account", f"/pro/order?plan={plan}&interval=month"))}">{ctx.t("Subscribe", "Abonnieren")}</a>'
+                          f'<a class="btn small" data-show="year" hidden href="{e(ctx.url("account", f"/pro/order?plan={plan}&interval=year"))}">{ctx.t("Subscribe", "Abonnieren")}</a>'
+                          f'<span class="mut small">Simple Mods Pro {e(ctx.cfg.plans["plans"][plan]["name"])}</span></td>')
             else:
                 cells += f'<td><button class="btn small soon" disabled aria-disabled="true">{ctx.t("Coming soon", "Coming soon")}</button></td>'
         body += f'<tr><th scope="row"></th>{cells}</tr>'
@@ -297,9 +318,18 @@ def landing(ctx) -> str:
     return layout(ctx, ctx.t("Live map for your Minecraft world", "Live-Karte für deine Minecraft-Welt"), body, cls="landing")
 
 
+def pro_hint(ctx, plan_page: bool = False) -> str:
+    if ctx.svc.billing_on():
+        return ctx.t("Paid tiers come with the account subscription Simple Mods Pro (Basic, Pro, Ultra) - with early access to new versions.",
+                     "Bezahlte Stufen gibt es mit dem Konto-Abo Simple Mods Pro (Basic, Pro, Ultra) – mit Frühzugang zu neuen Versionen.")
+    if plan_page:
+        return ctx.t("Buying is coming soon. Test accounts can be set to Basic/Max/Ultra by the developer.", "Kaufen kommt bald. Testkonten setzt der Entwickler manuell auf Basic/Max/Ultra.")
+    return ctx.t("Buying is coming soon. Every limit already works - start free today.", "Kaufen kommt bald. Alle Grenzen gelten schon jetzt – starte heute kostenlos.")
+
+
 def pricing(ctx) -> str:
     body = f"""<h1>{ctx.t("Pricing", "Preise")}</h1>
-<p class="sub">{ctx.t("Buying is coming soon. Every limit already works - start free today.", "Kaufen kommt bald. Alle Grenzen gelten schon jetzt – starte heute kostenlos.")}</p>
+<p class="sub">{pro_hint(ctx)}</p>
 {interval_toggle(ctx)}
 {tier_table(ctx, True)}
 <div class="g2">
@@ -504,7 +534,7 @@ def connect_code(ctx, code: str, until: int, ref: str) -> str:
  data-connected="{ctx.t("Connected! The map is being prepared …", "Verbunden! Die Karte wird vorbereitet …")}">{ctx.t("Waiting for the server …", "Warte auf den Server …")}</p>
 <p><a class="btn s hidden" id="connect-open" href="/app">{ctx.t("Open the map", "Karte öffnen")}</a></p>
 </section>
-<p class="mut small">{ctx.t("Nothing happens? The server needs the Simple Livemap mod and outgoing HTTPS to livemap.simplemods.de.", "Passiert nichts? Der Server braucht die Mod Simple Livemap und ausgehendes HTTPS zu livemap.simplemods.de.")}</p>"""
+<p class="mut small">{ctx.t("Nothing happens? The server needs the Simple Livemap mod and outgoing HTTPS to ", "Passiert nichts? Der Server braucht die Mod Simple Livemap und ausgehendes HTTPS zu ")}{e(ctx.cfg.hosts["livemap"])}.</p>"""
     return layout(ctx, ctx.t("Connect a map", "Karte verbinden"), body)
 
 
@@ -592,9 +622,9 @@ def plan(ctx, usage: dict) -> str:
 {meter(ctx.t("Views today", "Aufrufe heute"), usage["views_today"], usage["views_max"])}{meter(ctx.t("Archive", "Puffer"), usage["archived"], usage["archive_max"])}
 <p class="mut small">{ctx.t("Views last 30 days:", "Aufrufe der letzten 30 Tage:")} {num(ctx, usage["views_30"])} · {ctx.t("storage", "Speicher")} {size(usage["bytes"])}</p></section>
 <h2>{ctx.t("Change tier", "Stufe wechseln")}</h2>
-<p class="alert warn">{ctx.t("Buying is coming soon. Test accounts can be set to Pro/Max/Ultra by the developer.", "Kaufen kommt bald. Testkonten setzt der Entwickler manuell auf Pro/Max/Ultra.")}</p>
+<p class="alert warn">{pro_hint(ctx, True)}</p>
 {interval_toggle(ctx)}{tier_table(ctx, True)}
-<h2>{ctx.t("Invoices", "Rechnungen")}</h2><p class="mut">{ctx.t("Coming soon.", "Coming soon.")}</p>"""
+<h2>{ctx.t("Subscription and invoices", "Abo und Rechnungen")}</h2><p><a class="btn small s" href="{e(ctx.url("account", "/pro/manage"))}">{ctx.t("Manage Simple Mods Pro", "Simple Mods Pro verwalten")}</a></p>"""
     return layout(ctx, ctx.t("Plan", "Stufe"), body, wide=True)
 
 
@@ -632,7 +662,7 @@ def account(ctx, sessions: int, usage: dict) -> str:
 
 
 # -------------------------------------------------------------------- admin
-def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox, reports=()) -> str:
+def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox, coupons=(), reports=()) -> str:
     order = ctx.cfg.tiers["order"]
     urows = ""
     for u in users:
@@ -679,4 +709,10 @@ def admin(ctx, users, maps, owners: dict, queue, storage: dict, flags, outbox, r
 <h2>{ctx.t("Users", "Nutzer")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>E-Mail</th><th>{ctx.t("Role", "Rolle")}</th><th>{ctx.t("Tier", "Stufe")}</th><th>{ctx.t("Maps", "Karten")}</th><th>{ctx.t("Connects", "Verbindungen")}</th><th>{ctx.t("Created", "Erstellt")}</th><th></th></tr></thead><tbody>{urows}</tbody></table></div>
 <h2>{ctx.t("Maps", "Karten")}</h2><div class="tw"><table class="admin"><thead><tr><th>#</th><th>{ctx.t("Map", "Karte")}</th><th>{ctx.t("Owner", "Besitzer")}</th><th>{ctx.t("State", "Zustand")}</th><th>{ctx.t("Visibility", "Sichtbarkeit")}</th><th>{ctx.t("Size", "Größe")}</th><th></th></tr></thead><tbody>{mrows}</tbody></table></div>
 {orows}"""
+    # P074: coupons are made in the provider's dashboard (Paddle discounts / Stripe promotion codes); here only which codes orders used
+    on = ctx.svc.coupons_on()
+    crow = "".join(f"<tr><td>{e(c['coupon'])}</td><td>{c['n']}</td></tr>" for c in coupons)
+    body += (f'<h2>{ctx.t("Coupons", "Gutscheine")}</h2><p class="mut small">{ctx.t("Code field in the checkout:", "Codefeld im Bezahlschritt:")} '
+             f'{ctx.t("on", "an") if on else ctx.t("off", "aus")} · {ctx.t("codes are made in the " + ctx.svc.provider_name().title() + " dashboard", "Codes werden im " + ctx.svc.provider_name().title() + "-Dashboard angelegt")}</p>'
+             f'<div class="tw"><table><tr><th>Code</th><th>{ctx.t("Orders", "Bestellungen")}</th></tr>{crow}</table></div>')
     return layout(ctx, "Admin", body, wide=True)

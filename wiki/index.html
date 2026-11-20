@@ -1129,6 +1129,7 @@ a.qn-slot:hover { background: #a6a6a6; text-decoration: none; }
 </div>
 <script src="data/simplebuilding.js"></script>
 <script src="data/modules.js"></script>
+<script src="data/local-only.js"></script>
 <script src="assets/module-loader.js"></script>
 <script src="assets/sitebar.js" defer></script>
 <script src="assets/zoomarea.js"></script>
@@ -2311,6 +2312,11 @@ var modParams = new URLSearchParams(location.search);
 /* all | super:<id> | mod:<id> | c:<ids ohne "simple">.               */
 /* ------------------------------------------------------------------ */
 var PACK_HIDDEN = { wiringexample: 1 };
+/* N113: mods the public view leaves out (assets/module-loader.js: "release": false) - with their guide chapters,
+   questionary pages and textures. */
+var UNRELEASED_HIDDEN = {};
+arr(window.WIKI_HIDDEN_MODULES).forEach(function (id) { UNRELEASED_HIDDEN[id] = 1; });
+function modGone(id) { return id === 'wiringexample' || !!UNRELEASED_HIDDEN[id]; }
 var PACK_MODS = MODULES.filter(function (m) { return !PACK_HIDDEN[m.id]; });
 var PACK_BY = {};
 PACK_MODS.forEach(function (m) { PACK_BY[m.id] = m; });
@@ -2664,7 +2670,15 @@ function idLink(id, hint) {
    dort gibt es data/vanilla-icons.json (N72, sb-web-sync: Id -> Bild ueber Item-Modell -> Textur, auch fuer Modul-Ids ohne
    eigenes Bild dort). Diese Zuordnung geht vor (textureOf, qnFlatTexture, brTex); Ausschnitte ("datei#x,y,w,h") schneidet der load-Handler zu. */
 function devIcon(id) { return DEV_ICONS && typeof id === 'string' ? DEV_ICONS[id.indexOf(':') < 0 ? 'minecraft:' + id : id] || null : null; }
-function vanillaTexture(id) { return devIcon(id) || 'assets/textures/minecraft/' + pathOf(id) + '.png'; }
+/* N107: die flachen Vanilla-Texturen (assets/textures/minecraft/, git-ignoriert) gibt es nur nach einem lokalen generate-Lauf -
+   auf den Hosts (Prod ohne Mojang-Pixel, /dev/ mit vanilla-icons.json) nie. Dort gleich die Textkachel statt ~1000 Anfragen mit 404. */
+var VANILLA_FLAT = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+function vanillaTexture(id) { return devIcon(id) || (VANILLA_FLAT ? 'assets/textures/minecraft/' + pathOf(id) + '.png' : null); }
+/* N113: git-ignored pictures (Vanilla-derived textures, sheets, 3D renders; wiki/data/local-only.js) are on a host only if
+   its fill step wrote them (data/derived-present.json) - assets/module-loader.js knows both. What is not there is not
+   asked for (no 404): okTex takes the first usable path, otherwise the caller shows its text tile. */
+function assetOk(p) { return !p || typeof window.WIKI_ASSET_OK !== 'function' || window.WIKI_ASSET_OK(p); }
+function okTex() { for (var i = 0; i < arguments.length; i++) { var p = arguments[i]; if (typeof p === 'string' && p && assetOk(p)) return p; } return null; }
 /* 3D-Bilder (assets/textures/render/, Vanilla-Bloecke unter minecraft/) zeichnet generate.py
    aus den Block- und Item-Modellen, 128 px gross: verkleinert werden sie geglaettet (Klasse
    r3d), flache 16-px-Texturen bleiben pixelig. */
@@ -2702,11 +2716,12 @@ function textureOf(id) {
   var dev = devIcon(id);
   if (dev) return dev;
   var i = IX.items.get(id), b = IX.blocks.get(id);
-  var own = (i && (i.icon || i.texture)) || (b && (b.icon || b.texture)) || null;
+  var own = (i && okTex(i.icon, i.texture)) || (b && okTex(b.icon, b.texture)) || null;
   if (own) return own;
   /* N24: Items anderer Mods (Handbuch, Fragentisch, fremde Zutaten) mit ihrem eigenen Bild */
   var other = !isVanilla(id) && globalEntry(id);
-  if (other && (other.icon || other.texture)) return other.icon || other.texture;
+  var otherTex = other && okTex(other.icon, other.texture);
+  if (otherTex) return otherTex;
   return isVanilla(id) ? vanillaTexture(id) : null;
 }
 function shortTag(ref) { var p = pathOf(ref); return p; }
@@ -2995,7 +3010,7 @@ function recipeRow(r) {
   var sub = ic.map(function (e) { return (e.n > 1 ? e.n + '× ' : '') + e.ref.map(function (x) { return x.charAt(0) === '#' ? x : displayName(x); }).join('/'); }).join(', ');
   return '<a class="row" href="#/recipes/' + esc(r.id) + '" data-s="' + esc(norm(r.id + ' ' + (res ? displayName(res.id) : '') + ' ' + sub)) + '">' +
     slotHtml(res ? res.id : null, res ? res.count : 1, { noLink: true }) +
-    '<div class="row-main"><div class="row-title">' + esc(res ? displayName(res.id) : '?') + (res && res.count > 1 ? ' <span class="muted">×' + res.count + '</span>' : '') + '</div>' +
+    '<div class="row-main"><div class="row-title">' + esc(res ? displayName(res.id) : prettyFromId(r.id)) + (res && res.count > 1 ? ' <span class="muted">×' + res.count + '</span>' : '') + '</div>' +
     '<div class="row-sub">' + esc(sub || '–') + '</div><div class="row-sub"><code>' + esc(r.id) + '</code></div></div>' +
     '<div class="row-right">' + badge(recipeTypeLabel(r.type)) + '</div></a>';
 }
@@ -3046,7 +3061,7 @@ function tradeCard(tr, opts) {
   h += '</dd>';
   if (tr.offerChance != null) h += '<dt>' + esc(T('kvOfferChance')) + '</dt><dd>' + esc(fmtStat(tr.offerChance * 100) + ' %') + '</dd>';
   var flags = strs(tr.configFlags);
-  h += '<dt>' + esc(T('kvConfig')) + '</dt><dd>' + (flags.length ? flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(' ') : '<span class="muted">' + esc(T('noCondition')) + '</span>') + '</dd>';
+  h += '<dt>' + esc(T('kvConfig')) + '</dt><dd>' + (flags.length ? flags.map(configFlagHtml).join(' ') : '<span class="muted">' + esc(T('noCondition')) + '</span>') + '</dd>';
   h += '</dl>';
   h += poolTable(tr.enchantmentPool);
   h += sourceLine(tr.source);
@@ -3055,7 +3070,7 @@ function tradeCard(tr, opts) {
 function tradeRow(tr) {
   var gives = normStack(tr.gives), wants = normStack(tr.wants);
   return '<a class="row" href="#/trades/' + esc(tr.id) + '">' + slotHtml(gives ? gives.id : null, gives ? gives.count : 1, { noLink: true }) +
-    '<div class="row-main"><div class="row-title">' + esc(gives ? displayName(gives.id) : '?') + (gives && gives.count > 1 ? ' <span class="muted">×' + gives.count + '</span>' : '') + '</div>' +
+    '<div class="row-main"><div class="row-title">' + esc(gives ? displayName(gives.id) : prettyFromId(tr.id || '')) + (gives && gives.count > 1 ? ' <span class="muted">×' + gives.count + '</span>' : '') + '</div>' +
     '<div class="row-sub">' + esc(T('tradeFor')) + ' ' + esc(wants ? wants.count + '× ' + displayName(wants.id) : '?') + ' · ' + esc(professionLabel(tr.profession)) + ', ' + esc(levelLabel(tr.level)) + '</div></div>' +
     '<div class="row-right">' + (arr(tr.enchantmentPool).length ? badge(plural(arr(tr.enchantmentPool).length, 'enchantmentOne', 'enchantmentMany') + ' ' + T('inPool')) : '') + '</div></a>';
 }
@@ -3743,7 +3758,7 @@ function entryPage(id, kind) {
   var h = crumbs([{ label: catLabel(primary), href: '#/cat/' + primary }, { label: main }]);
 
   /* 1. Was ist das? Bild, Name, Kategorie, ein Satz. */
-  if (isBlock && (e.icon || e.texture)) tex = e.icon || e.texture;
+  if (isBlock && okTex(e.icon, e.texture)) tex = okTex(e.icon, e.texture);
   h += '<header class="hero-card"><div class="hero"><div class="hero-tex" data-id="' + esc(id) + '">'
      + (tex ? imgHtml(tex, main, false) : T('noTexture'))
      + '</div><div>';
@@ -4292,7 +4307,7 @@ function pageTrades() {
   arr(D.trades).filter(isObj).forEach(function (tr) { var p = tr.profession || 'unknown'; if (!by.has(p)) by.set(p, new Map()); var lv = tr.level == null ? '' : String(tr.level); if (!by.get(p).has(lv)) by.get(p).set(lv, []); by.get(p).get(lv).push(tr); });
   var flags = Object.keys(IX.tradesWithFlag.size ? Object.fromEntries(IX.tradesWithFlag) : {});
   var h = '<h1>' + esc(T('navTrades')) + ' <span class="muted tiny" style="font-weight:400">' + arr(D.trades).length + '</span></h1>';
-  h += '<p class="muted">' + esc(T('tradesIntro')) + (flags.length ? T('tradesToggle', flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(', ')) : '') + '</p>';
+  h += '<p class="muted">' + esc(T('tradesIntro')) + (flags.length ? T('tradesToggle', flags.map(configFlagHtml).join(', ')) : '') + '</p>';
   if (!by.size) h += '<p class="hint">' + esc(T('noTrades')) + '</p>';
   Array.from(by.keys()).sort().forEach(function (p) {
     var levels = Array.from(by.get(p).keys()).sort(function (a, b) { return num(a, 99) - num(b, 99); });
@@ -4331,7 +4346,7 @@ function enchViewLoad() {
 }
 function enchIcon(id) {
   var it = window.WIKI_ENCHANTING && arr(window.WIKI_ENCHANTING.items).filter(function (i) { return i.id === id; })[0];
-  return (it && it.icon) || textureOf(id) || null;
+  return okTex(it && it.icon) || textureOf(id) || null;
 }
 function pageEnchanting() {
   enchViewLoad();
@@ -4671,7 +4686,18 @@ function srcLabel(s) { return isObj(s.label) ? (LANG === 'de' ? s.label.de || s.
 function srcCountText(s) { var c = arr(s.count); return c.length === 2 && (c[0] !== 1 || c[1] !== 1) ? (c[0] === c[1] ? '×' + c[0] : c[0] + '–' + c[1]) : ''; }
 function srcSortKey(s) { return (s.type === 'mob' ? 0 : 1) * 1000 - num(s.chance, 0); }
 function enchLevelText(s) { return s.enchantment ? displayName(s.enchantment) + ' ' + roman(num(s.level, 1)) : ''; }
-function configNote(s) { return s.configFlag ? ' · <a href="#/config/' + esc(s.configFlag) + '">' + esc(T('obOnlyWith', s.configFlag)) + '</a>' : ''; }
+function configNote(s) { if (!s.configFlag) return ''; var to = configFlagTarget(s.configFlag); return ' · ' + (to ? '<a href="#/config/' + esc(to) + '">' + esc(T('obOnlyWith', s.configFlag)) + '</a>' : esc(T('obOnlyWith', s.configFlag))); }
+/* N107: Schalter, die keine eigene Konfig-Option sind, fuehrten auf "Config not found": "links:<mod>" (Simple Money: Tausch
+   nur, wenn der Mod geladen ist UND links.enabled an ist) zeigt auf links.enabled, Unbekanntes bleibt reiner Text. */
+function configFlagTarget(f) {
+  if (IX.config.has(f)) return f;
+  var m = /^([a-z0-9_]+):[a-z0-9_]+$/.exec(f);
+  return m && IX.config.has(m[1] + '.enabled') ? m[1] + '.enabled' : '';
+}
+function configFlagHtml(f) {
+  var to = configFlagTarget(f), code = '<code>' + esc(f) + '</code>';
+  return to ? '<a href="#/config/' + esc(to) + '">' + code + '</a>' : code;
+}
 /* ------------------------------------------------------------------ */
 /* Beschaffungszeit: Zeit bis zum k-ten Stueck                         */
 /* ------------------------------------------------------------------ */
@@ -4996,7 +5022,9 @@ function tsOverviewTable() {
     TS_SC.map(function () { return ks.map(function (k) { return '<th>' + esc(T('tsPiece', k)) + '</th>'; }).join(''); }).join('') + '</tr></thead><tbody>';
   rows.forEach(function (r) {
     var rt = tsRoute(r.item);
-    h += '<tr><th scope="row"><a href="#/' + (IX.blocks.has(r.item) && !IX.items.has(r.item) ? 'blocks' : 'items') + '/' + esc(r.item) + '">' + esc(displayName(r.item)) + '</a></th><td>' + esc(rt ? (rt.idx < 0 ? T('tsNoReqShort') : tsEraName(rt.id)) : '') + '</td>' +
+    /* N107: Items anderer Mods (z. B. simplelib:iron_core im SimpleBuilding-Bereich) ueber hrefFor in deren Bereich, sonst "nicht gefunden" */
+    var tsHref = hrefFor(r.item);
+    h += '<tr><th scope="row">' + (tsHref ? '<a href="' + esc(tsHref) + '">' + esc(displayName(r.item)) + '</a>' : esc(displayName(r.item))) + '</th><td>' + esc(rt ? (rt.idx < 0 ? T('tsNoReqShort') : tsEraName(rt.id)) : '') + '</td>' +
       r.res.map(function (per) { return per.map(function (st) { return '<td>' + (st ? esc(fmtDur(st.mean)) : '<span class="muted">–</span>') + '</td>'; }).join(''); }).join('') + '</tr>';
   });
   return h + '</tbody></table></div><p class="muted tiny">' + esc(T('tsOverviewNote')) + '</p>';
@@ -5655,7 +5683,7 @@ function brEntry(id) {
   return BR_NAMES.get(id) || null;
 }
 function brName(id) { var e = brEntry(id); return (e && nameOf(e)) || prettyFromId(id); }
-function brTex(id) { if (devIcon(id)) return devIcon(id); var e = brEntry(id); var t = e && (e.icon || e.texture); return t || (isVanilla(id) ? vanillaTexture(id) : null); }
+function brTex(id) { if (devIcon(id)) return devIcon(id); var e = brEntry(id); var t = e && okTex(e.icon, e.texture); return t || (isVanilla(id) ? vanillaTexture(id) : null); }
 function brList() {
   var key = PACK.key + '|' + LANG;
   if (BR.cache && BR.cache.key === key) return BR.cache.list;
@@ -5667,8 +5695,8 @@ function brList() {
       var href = inScope(mid) ? '#/' + type + '/' + id : crossModHref(mid, type, id);
       list.push({ type: type, mid: mid, mod: mod, id: id, title: title, sub: sub, tex: tex, href: href, text: norm([title, sub, id, mod, text].join(' ')) });
     }
-    arr(d.items).filter(isObj).forEach(function (e) { add('items', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), e.icon || e.texture); });
-    arr(d.blocks).filter(isObj).forEach(function (e) { add('blocks', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), e.icon || e.texture); });
+    arr(d.items).filter(isObj).forEach(function (e) { add('items', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), okTex(e.icon, e.texture)); });
+    arr(d.blocks).filter(isObj).forEach(function (e) { add('blocks', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), okTex(e.icon, e.texture)); });
     arr(d.recipes).filter(isObj).forEach(function (r) {
       var res = normStack(r.result), rid = res && res.id;
       add('recipes', r.id, (rid ? brName(rid) : prettyFromId(r.id)) + ' · ' + recipeTypeLabel(r.type), r.id, allIngredientRefs(r).map(function (i) { return brName(i) + ' ' + i; }).join(' '), rid ? brTex(rid) : null);
@@ -6027,15 +6055,17 @@ function isDevSite() {
   return /^\/dev(\/|$)/.test(location.pathname) || !!window.sbDevHook || DEV_QUERY;
 }
 /* N80: Id -> Bild des Dev-Hosts (siehe devIcon); fehlt die Datei, bleibt alles wie bisher. */
-var DEV_ICONS = null;
-/* nur auf dem Dev-Host (/dev/ bzw. Dev-Overlay), nicht im Test-Harness mit ?dev=1: dort gibt es die Datei nie */
+var DEV_ICONS = null, DEV_ICONS_READY = null, FIRST_RENDER_DONE = false;
+/* nur auf dem Dev-Host (/dev/ bzw. Dev-Overlay), nicht im Test-Harness mit ?dev=1: dort gibt es die Datei nie.
+   N107: der erste Aufbau wartet auf diese Zuordnung (hoechstens 3 s), sonst fragt er erst die nicht vorhandenen
+   eigenen Render-Bilder an (20 x 404 auf assets/textures/render/, N97-Rest) und tauscht sie danach aus. */
 if ((/^\/dev(\/|$)/.test(location.pathname) || window.sbDevHook) && window.fetch) {
-  fetch('data/vanilla-icons.json', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+  DEV_ICONS_READY = fetch('data/vanilla-icons.json', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     var icons = d && isObj(d.icons) ? d.icons : null, out = {};
     if (!icons) return;
     Object.keys(icons).forEach(function (k) { var v = icons[k]; if (typeof v === 'string' && (v.indexOf('#') < 0 || /#\d+,\d+,\d+,\d+$/.test(v))) out[k] = v; });
     DEV_ICONS = out;
-    try { render({ keepScroll: true }); } catch (e) { /* noch nicht gestartet: der erste Aufbau nimmt die Bilder mit */ }
+    if (FIRST_RENDER_DONE) { try { render({ keepScroll: true }); } catch (e) { /* Seite noch im Aufbau */ } }
   }).catch(function () {});
 }
 /* N51 Konverter-Seiten "Bauwerke" (?tab=buildings) und "3D-Modelle" (?tab=models3d): Wiki-Seiten wie die Verzauberungs-Ansicht,
@@ -6208,7 +6238,7 @@ function gbLoad() {
 function gbSections() {
   var data = gbData();
   if (!data || data.missing) return [];
-  var contribs = arr(data.contributions).filter(function (c) { return inPack(c.module) || !PACK_BY[c.module] && c.module !== 'wiringexample'; });
+  var contribs = arr(data.contributions).filter(function (c) { return inPack(c.module) || !PACK_BY[c.module] && !modGone(c.module); });
   var byNs = {};
   contribs.forEach(function (c) { if (!byNs[c.namespace]) byNs[c.namespace] = c; });
   var groups = {}, order = [];
@@ -6491,7 +6521,7 @@ function qnNamespaces() {
   var data = qnData() || { namespaces: {} };
   return Object.keys(data.namespaces).filter(function (ns) {
     var m = data.namespaces[ns].module;
-    return ns === 'minecraft' || inPack(m) || (!PACK_BY[m] && m !== 'wiringexample');
+    return ns === 'minecraft' || inPack(m) || (!PACK_BY[m] && !modGone(m));
   });
 }
 function qnModLabel(ns) {
@@ -6557,7 +6587,7 @@ function qnFamilyOf(x) {
 function qnFlatTexture(id) {
   if (devIcon(id)) return devIcon(id);
   var e = IX.items.get(id) || IX.blocks.get(id) || (!isVanilla(id) && globalEntry(id)) || null;
-  var t = e && (e.texture || e.icon);
+  var t = e && okTex(e.texture, e.icon);
   return t || (isVanilla(id) ? vanillaTexture(id) : null);
 }
 function qnImg(id) {
@@ -6909,15 +6939,27 @@ function txSave() { try { window.localStorage.setItem(TX_STORE, JSON.stringify({
 function txLoad() {
   if (window.WIKI_TEXTURES || TX.loading) return;
   TX.loading = true;
-  var pending = 2;
+  /* N107: data/ui-shots.js ist git-ignoriert und liegt nur lokal (generate.py --ui-shots) - auf den Hosts (Prod, /dev/)
+     nicht anfragen, sonst bei jedem Besuch der Texturen-Seite ein 404. */
+  var srcs = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? ['data/textures.js', 'data/ui-shots.js'] : ['data/textures.js'];
+  var pending = srcs.length;
   function done() { if (--pending === 0 && currentRoute().section === 'textures') render({ keepScroll: true }); }
-  ['data/textures.js', 'data/ui-shots.js'].forEach(function (src) {
+  srcs.forEach(function (src) {
     var s = document.createElement('script'); s.src = src;
     s.onload = done; s.onerror = function () { if (src === 'data/textures.js') window.WIKI_TEXTURES = { textures: [], missing: true }; done(); };
     document.head.appendChild(s);
   });
 }
-function txAll() { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).filter(isObj) : []; }
+function txAll() { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).filter(function (t) { return isObj(t) && !UNRELEASED_HIDDEN[t.module]; }).map(txHostView) : []; }
+/* N113: a 3D render (icon) the host does not have (git-ignored, drawn only by a local generate run) is dropped, so the
+   card shows the texture itself; a texture file the host does not have gets no request (txSrc) and shows the
+   "not published" box. Kept: iconLocal, for the dev overlay. */
+function txHostView(t) {
+  if (t.icon && !assetOk(t.icon)) { t.iconLocal = t.icon; delete t.icon; }
+  return t;
+}
+/* "data:," fails at once without a request; the error handler below then marks the box as "not published". */
+function txSrc(p) { return assetOk(p) ? p : 'data:,'; }
 /* Vanilla (nur Dev-Wiki): den Index laedt allein das Dev-Overlay der Zentrale (wiki/vanilla_textures.py), nie diese Seite. */
 function txVanilla() { return window.WIKI_VANILLA_TEXTURES ? arr(window.WIKI_VANILLA_TEXTURES.textures).filter(isObj) : []; }
 function txBase() { if (TX.area === 'vanilla' && !txVanilla().length) TX.area = 'all'; return TX.area === 'ui' ? txUiList() : TX.area === 'vanilla' ? txVanilla() : txAll(); }
@@ -7018,7 +7060,7 @@ function txCrop(t, box, frame) {
   var f = txFrame(t), s = box / Math.max(f.w, f.h);
   if (s >= 1) s = Math.floor(s);
   var i = frame || 0, col = i % f.cols, row = Math.floor(i / f.cols);
-  return '<span class="tx-crop" style="width:' + (f.w * s) + 'px;height:' + (f.h * s) + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(t.file) + '" style="width:' + (t.w * s) + 'px;height:' + (t.h * s) + 'px;left:' + (-col * f.w * s) + 'px;top:' + (-row * f.h * s) + 'px"></span>';
+  return '<span class="tx-crop" style="width:' + (f.w * s) + 'px;height:' + (f.h * s) + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(txSrc(t.file)) + '" style="width:' + (t.w * s) + 'px;height:' + (t.h * s) + 'px;left:' + (-col * f.w * s) + 'px;top:' + (-row * f.h * s) + 'px"></span>';
 }
 function txFinal(t, box) {
   if (t.icon) return '<span class="tx-crop" style="width:' + box + 'px;height:' + box + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(t.icon) + '" style="width:' + box + 'px;height:' + box + 'px"></span>';
@@ -7027,7 +7069,7 @@ function txFinal(t, box) {
 function txSheetThumb(t, box) {
   var s = box / Math.max(t.w, t.h);
   if (s >= 1) s = Math.floor(s);
-  return '<span class="tx-crop" style="width:' + Math.max(1, Math.round(t.w * s)) + 'px;height:' + Math.max(1, Math.round(t.h * s)) + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(t.file) + '" style="width:100%;height:100%"></span>';
+  return '<span class="tx-crop" style="width:' + Math.max(1, Math.round(t.w * s)) + 'px;height:' + Math.max(1, Math.round(t.h * s)) + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(txSrc(t.file)) + '" style="width:100%;height:100%"></span>';
 }
 function txTile(t, i) {
   var name = txName(t), body;
@@ -7194,10 +7236,10 @@ function txOpen(i) {
     var finalBox = t.icon ? (z === 1 ? 'natural' : 16 * z) : 0;
     var finalHtml = t.icon
       ? '<img src="' + esc(t.icon) + '" alt=""' + (finalBox === 'natural' ? '' : ' style="width:' + finalBox + 'px;height:' + finalBox + 'px"') + '>'
-      : '<span class="tx-crop tx-anim" style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(t.file) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span>';
-    if (t.icon && t.anim) finalHtml += '<span class="tx-crop tx-anim" style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(t.file) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span>';
+      : '<span class="tx-crop tx-anim" style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(txSrc(t.file)) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span>';
+    if (t.icon && t.anim) finalHtml += '<span class="tx-crop tx-anim" style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(txSrc(t.file)) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span>';
     panes = '<figure class="tx-lb-pane tx-bg-' + TX.bg + '"><figcaption>' + esc(T('txFinal')) + '</figcaption><div class="tx-lb-view">' + finalHtml + '</div></figure>' +
-      '<figure class="tx-lb-pane tx-bg-' + TX.bg + '"><figcaption>' + esc(T('txSheet')) + '</figcaption><div class="tx-lb-view"><img src="' + esc(t.file) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px"></div></figure>';
+      '<figure class="tx-lb-pane tx-bg-' + TX.bg + '"><figcaption>' + esc(T('txSheet')) + '</figcaption><div class="tx-lb-view"><img src="' + esc(txSrc(t.file)) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px"></div></figure>';
   }
   var rows = [[T('txSource'), '<code>' + esc(t.source || '') + '</code>'], [T('txFile'), '<a href="' + esc(t.file) + '" target="_blank" rel="noopener"><code>' + esc(t.file) + '</code></a>'],
     [T('txSize'), esc(t.w + ' × ' + t.h + ' px')]];
@@ -7257,10 +7299,10 @@ function txCdFig(t, i) {
   var f = txFrame(t), z = txFitZoom(f.w, f.h, 160), parts = [];
   if (t.icon) parts.push('<figure><span class="tx-crop" style="width:' + (16 * Math.min(z, 8)) + 'px;height:' + (16 * Math.min(z, 8)) + 'px"><img src="' + esc(t.icon) + '" alt="" style="width:100%;height:100%"></span><small>' + esc(T('txFinal')) + '</small></figure>');
   var order = t.anim ? (t.anim.order || Array.from({ length: t.anim.count }, function (_, k) { return [k, t.anim.frametime]; })) : null;
-  parts.push('<figure><span class="tx-crop' + (order ? ' tx-cd-anim' : '') + '"' + (order ? ' data-order="' + esc(JSON.stringify(order)) + '" data-z="' + z + '" data-i="' + i + '"' : '') + ' style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(t.file) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span><small>' + esc(order ? T('txAnimLabel') : T('txStill')) + '</small></figure>');
+  parts.push('<figure><span class="tx-crop' + (order ? ' tx-cd-anim' : '') + '"' + (order ? ' data-order="' + esc(JSON.stringify(order)) + '" data-z="' + z + '" data-i="' + i + '"' : '') + ' style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(txSrc(t.file)) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span><small>' + esc(order ? T('txAnimLabel') : T('txStill')) + '</small></figure>');
   if (order || t.w !== f.w || t.h !== f.h) {
     var sz = Math.max(1, Math.min(z, Math.floor(320 / Math.max(t.h, 1)), Math.floor(200 / Math.max(t.w, 1))));
-    parts.push('<figure><span class="tx-crop" style="width:' + (t.w * sz) + 'px;height:' + (t.h * sz) + 'px"><img src="' + esc(t.file) + '" alt="" style="width:100%;height:100%"></span><small>' + esc(T('txSheetFull')) + ' ' + t.w + '×' + t.h + '</small></figure>');
+    parts.push('<figure><span class="tx-crop" style="width:' + (t.w * sz) + 'px;height:' + (t.h * sz) + 'px"><img src="' + esc(txSrc(t.file)) + '" alt="" style="width:100%;height:100%"></span><small>' + esc(T('txSheetFull')) + ' ' + t.w + '×' + t.h + '</small></figure>');
   }
   var role = t.role ? t.role.replace(/_/g, ' ') : T('txMain');
   return '<figure class="tx-cd-fig tx-bg-' + TX.bg + '" data-tx-id="' + esc(t.id) + '" data-tx-path="' + esc(t.file) + '" data-tx-label="' + esc(txName(t)) + '"><figcaption><b>' + esc(role) + '</b><span class="muted tiny">' + esc(txRes(t) + (t.anim ? ' · ▶ ' + T('txFrames', t.anim.count, t.anim.frametime) : '') + ' · ' + txKindLabel(t.kind)) + '</span><code>' + esc(t.id) + '</code></figcaption>' +
@@ -7915,7 +7957,8 @@ renderMeta();
   } catch (err) { HASHMODE = true; }
   rewriteLinks(document.body);
 })();
-render();
+function firstRender() { if (FIRST_RENDER_DONE) return; FIRST_RENDER_DONE = true; render(); }
+if (DEV_ICONS_READY) { DEV_ICONS_READY.then(firstRender, firstRender); setTimeout(firstRender, 3000); } else firstRender();
 }).catch(function (error) {
   document.getElementById('main').textContent = 'Wiki data could not be loaded / Wiki-Daten konnten nicht geladen werden: ' + error.message;
   console.error(error);

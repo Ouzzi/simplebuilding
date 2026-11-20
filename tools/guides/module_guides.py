@@ -264,9 +264,9 @@ MODULES = [
     dict(module="simpleslabs", ns="simpleslabs", package="com.simpleslabs.guide", cls="SlabsGuide", kind="item",
          author="Simple Slabs", recipe="minecraft:stone_slab",
          name=("Simple Slabs Guide", "Simple-Slabs-Handbuch"),
-         intro=("Half slabs - 2 pixels, a quarter of a slab - of every block with a slab: any of the eight layers of a cell, "
+         intro=("Half slabs - 4 pixels, half a slab - of every block with a slab: any of the four layers of a cell, "
                 "upright against a wall as side half slab or side slab, cut in the Shapecutter and crafted back into the slab.",
-                "Halbstufen - 2 Pixel, ein Viertel einer Stufe - jedes Blocks mit Stufe: jede der acht Lagen einer Zelle, aufrecht "
+                "Halbstufen - 4 Pixel, eine halbe Stufe - jedes Blocks mit Stufe: jede der vier Lagen einer Zelle, aufrecht "
                 "an einer Wand als Seiten-Halbstufe oder Seiten-Stufe, in der Formsäge geschnitten und zurück zur Stufe gefertigt.")),
     dict(module="simplechisels", ns="simplechisels", package="com.simplechisels.guide", cls="ChiselsGuide", kind="item",
          author="Simple Chisels", recipe="minecraft:copper_nugget",
@@ -345,7 +345,7 @@ MODULES = [
                 "Eigene Mono-Ogg-Dateien auf Rohlinge brennen.")),
     dict(module="simpleearth", icon="minecraft:globe_banner_pattern", ns="simpleearth", package="com.simplebuilding.modules.simpleearth.guide", cls="EarthGuide",
          kind="client", author="Simple Earth",
-         intro=("Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from "
+         intro=("Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colors straight from "
                 "the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
                 "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus "
                 "dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide.")),

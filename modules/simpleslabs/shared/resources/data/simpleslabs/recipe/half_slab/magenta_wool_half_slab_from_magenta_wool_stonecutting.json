@@ -29,7 +29,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:magenta_wool",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:magenta_wool_half_slab"
   }
 }

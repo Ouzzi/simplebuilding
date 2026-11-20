@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplebuilding:polished_nihilith",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:polished_nihilith_half_slab"
   }
 }

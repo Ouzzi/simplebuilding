@@ -39,7 +39,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "simplebuilding:nihil_end_stone",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:nihil_end_stone_half_slab"
   }
 }

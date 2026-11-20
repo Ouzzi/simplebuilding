@@ -57,6 +57,8 @@ public final class MapsTests {
     static {
         ALL.put("registered", MapsTests::registered);
         ALL.put("config_bounds", MapsTests::configBounds);
+        // N111 (release audit): the config screen names every option in EN and DE (no raw paths).
+        ALL.put("config_labels", h -> com.simplelib.test.ConfigScreenTests.moduleLabels(h, com.simplemaps.SimpleMaps.MOD_ID));
         ALL.put("waypoints", MapsTests::waypoints);
         ALL.put("tile_storage", MapsTests::tileStorage);
         ALL.put("reveal_explores", MapsTests::revealExplores);

@@ -6,6 +6,7 @@ import com.simpleslabs.block.HalfSlabBlock;
 import com.simpleslabs.block.LayeredSlabBlock;
 import com.simpleslabs.block.SideHalfSlabBlock;
 import com.simpleslabs.item.HalfSlabItem;
+import com.simpleslabs.item.SideHalfSlabItem;
 import com.simpleslabs.registry.HalfSlabMaterials;
 import com.simpleslabs.registry.SlabRegistry;
 import java.util.ArrayList;
@@ -83,16 +84,21 @@ public final class SlabTests {
             Identifier side = SimpleSlabs.id(SlabRegistry.sidePath(m.id()));
             if (BuiltInRegistries.BLOCK.containsKey(id) != loaded) problems.add(id + " registered=" + !loaded);
             if (BuiltInRegistries.BLOCK.containsKey(side) != loaded) problems.add(side + " registered=" + !loaded);
-            if (BuiltInRegistries.ITEM.containsKey(side)) problems.add(side + " must have no item");
+            if (BuiltInRegistries.ITEM.containsKey(side) != loaded) problems.add(side + " item registered=" + !loaded);
             if (loaded && !(BuiltInRegistries.ITEM.getValue(id) instanceof HalfSlabItem item && item.halfSlab() == BuiltInRegistries.BLOCK.getValue(id))) {
                 problems.add("item of " + id);
+            }
+            // N86S (owner 19.11.): every side half slab is an item of its own
+            if (loaded && !(BuiltInRegistries.ITEM.getValue(side) instanceof SideHalfSlabItem item && item.sideHalfSlab() == BuiltInRegistries.BLOCK.getValue(side))) {
+                problems.add("item of " + side);
             }
         }
         if (HalfSlabMaterials.ALL.size() != 170) problems.add("material list holds " + HalfSlabMaterials.ALL.size() + ", owner N86-5: 170");
         if (SlabRegistry.HALF_SLABS.size() != expected || SlabRegistry.SIDE_SLABS.size() != expected) problems.add("registered " + SlabRegistry.HALF_SLABS.size());
+        if (SlabRegistry.ITEMS.size() != expected || SlabRegistry.SIDE_ITEMS.size() != expected) problems.add("items " + SlabRegistry.ITEMS.size() + "/" + SlabRegistry.SIDE_ITEMS.size());
         for (HalfSlabBlock block : SlabRegistry.HALF_SLABS) {
-            if (block.getStateDefinition().getPossibleStates().size() != 512) problems.add("states of " + block);
-            if (block.side().getStateDefinition().getPossibleStates().size() != 64) problems.add("side states of " + block);
+            if (block.getStateDefinition().getPossibleStates().size() != 32) problems.add("states of " + block);
+            if (block.side().getStateDefinition().getPossibleStates().size() != 32) problems.add("side states of " + block);
             if (block.defaultBlockState().is(net.minecraft.tags.BlockTags.SLABS)) problems.add(block + " in #minecraft:slabs (N86-11)");
         }
         h.assertTrue(problems.isEmpty(), "registration: " + problems);
@@ -117,92 +123,121 @@ public final class SlabTests {
 
     // ===================================================================================== placing
 
-    /** The owner's examples by real clicks: 0-4 + 12-16 px = layers {0,1,6,7}, 0-4 + 8-12 px = {0,1,4,5}. */
+    /** The owner's examples by real clicks (N86C, 4 px): 0-4 + 12-16 px = layers {0,3}, 0-4 + 8-12 px = {0,2}, 0-8 + 12-16 = {0,1,3}. */
     static void ownerLayerPatternsByClicks(GameTestHelper h) {
         ServerPlayer player = mockPlayer(h);
-        int[][] patterns = {{6, 7}, {4, 5}};
-        int[] masks = {0b11000011, 0b00110011};
+        int[][] patterns = {{3}, {2}, {1, 3}};
+        int[] masks = {0b1001, 0b0101, 0b1011};
         for (int p = 0; p < patterns.length; p++) {
             BlockPos cell = CELL.east(p);
             h.setBlock(cell.below(), Blocks.STONE);
             ItemStack stack = new ItemStack(item(Blocks.STONE_SLAB), 8);
             h.assertValueEqual(stack.getItem().useOn(click(h, player, stack, cell.below(), Direction.UP, 0.5, 1.0, 0.5)), InteractionResult.SUCCESS,
                     "first half slab on the floor");
-            // on the half slab's top face (y = 2 px): the next layer
-            stack.getItem().useOn(click(h, player, stack, cell, Direction.UP, 0.5, 2 / 16.0, 0.5));
             for (int layer : patterns[p]) {
                 // on its side at the height of the wanted layer
-                stack.getItem().useOn(click(h, player, stack, cell, Direction.NORTH, 0.5, (layer * 2 + 1) / 16.0, 0.0));
+                stack.getItem().useOn(click(h, player, stack, cell, Direction.NORTH, 0.5, (layer * 4 + 2) / 16.0, 0.0));
             }
             BlockState state = h.getBlockState(cell);
             h.assertTrue(state.is(half(Blocks.STONE_SLAB)) && HalfSlabBlock.mask(state) == masks[p],
                     "pattern " + p + ": mask " + Integer.toBinaryString(state.getBlock() instanceof HalfSlabBlock ? HalfSlabBlock.mask(state) : -1));
-            h.assertValueEqual(stack.getCount(), 4, "one item per layer");
+            h.assertValueEqual(stack.getCount(), 8 - 1 - patterns[p].length, "one item per layer");
         }
+        // on the half slab's top face (y = 4 px): the layer above it
+        ItemStack stack = new ItemStack(item(Blocks.STONE_SLAB), 2);
+        BlockPos cell = CELL.west();
+        h.setBlock(cell, half(Blocks.STONE_SLAB).withMask(0b1));
+        stack.getItem().useOn(click(h, player, stack, cell, Direction.UP, 0.5, 4 / 16.0, 0.5));
+        h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(cell)), 0b11, "top face of layer 0 fills layer 1");
         h.succeed();
     }
 
-    /** A click on a bottom face puts layer 7 under the block; a side face the clicked height (a neighbour cell). */
+    /** A click on a bottom face puts layer 3 under the block; a side face the clicked height (a neighbour cell). */
     static void topAndBottomPlacement(GameTestHelper h) {
         ServerPlayer player = mockPlayer(h);
         h.setBlock(CELL.above(), Blocks.STONE);
         ItemStack stack = new ItemStack(item(Blocks.OAK_SLAB), 4);
         stack.getItem().useOn(click(h, player, stack, CELL.above(), Direction.DOWN, 0.5, 0.0, 0.5));
-        h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(CELL)), 1 << 7, "under a block: layer 7");
+        h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(CELL)), 1 << 3, "under a block: layer 3");
         h.setBlock(CELL.east().east(), Blocks.STONE);
-        stack.getItem().useOn(click(h, player, stack, CELL.east().east(), Direction.WEST, 0.0, 5 / 16.0, 0.5));
+        stack.getItem().useOn(click(h, player, stack, CELL.east().east(), Direction.WEST, 0.0, 9 / 16.0, 0.5));
         BlockState side = h.getBlockState(CELL.east());
-        h.assertTrue(side.is(half(Blocks.OAK_SLAB)) && HalfSlabBlock.mask(side) == 1 << 2, "side face at 5 px: layer 2, got " + side);
+        h.assertTrue(side.is(half(Blocks.OAK_SLAB)) && HalfSlabBlock.mask(side) == 1 << 2, "side face at 9 px: layer 2, got " + side);
         h.succeed();
     }
 
     static void shapesFollowTheLayers(GameTestHelper h) {
         HalfSlabBlock block = half(Blocks.STONE_SLAB);
         BlockPos pos = h.absolutePos(CELL);
-        BlockState bottom = block.withMask(0b11);
+        BlockState bottom = block.withMask(0b1);
         var shape = bottom.getShape(h.getLevel(), pos);
-        h.assertTrue(shape.min(Direction.Axis.Y) == 0 && shape.max(Direction.Axis.Y) == 4 / 16.0, "two bottom layers = 0-4 px");
-        BlockState gap = block.withMask(0b11000011);
+        h.assertTrue(shape.min(Direction.Axis.Y) == 0 && shape.max(Direction.Axis.Y) == 4 / 16.0, "one half slab = 0-4 px (N86C)");
+        h.assertTrue(block.withMask(0b11).getShape(h.getLevel(), pos).max(Direction.Axis.Y) == 0.5, "two layers = a slab (8 px)");
+        BlockState gap = block.withMask(0b1001);
         h.assertTrue(gap.getShape(h.getLevel(), pos).toAabbs().size() == 2, "0-4 + 12-16 px are two boxes");
-        h.assertTrue(block.withMask(0xFF).isCollisionShapeFullBlock(h.getLevel(), pos), "eight layers are a full cube");
+        h.assertTrue(block.withMask(0xF).isCollisionShapeFullBlock(h.getLevel(), pos), "four layers are a full cube");
         h.assertTrue(bottom.isFaceSturdy(h.getLevel(), pos, Direction.DOWN) && !bottom.isFaceSturdy(h.getLevel(), pos, Direction.UP),
                 "bottom layers carry on the floor side only");
         h.succeed();
     }
 
-    /** Sneaking on a side face: side half slab against that block; again and again: thicker, 4 layers = side slab. */
+    /**
+     * N86S: the side half slab item on a side face stands against that block (4 px); again on the wall face: thicker, 2 layers =
+     * side slab, 4 = full cell. No sneaking; the half slab item no longer makes side forms.
+     */
     static void sideHalfSlabAndSideSlab(GameTestHelper h) {
         ServerPlayer player = mockPlayer(h);
-        player.setShiftKeyDown(true);
         BlockPos wall = CELL.west();
         h.setBlock(wall, Blocks.STONE);
-        ItemStack stack = new ItemStack(item(Blocks.STONE_SLAB), 8);
-        for (int i = 1; i <= 4; i++) {
+        ItemStack stack = new ItemStack(sideItem(Blocks.STONE_SLAB), 8);
+        for (int i = 1; i <= 2; i++) {
             stack.getItem().useOn(click(h, player, stack, wall, Direction.EAST, 1.0, 0.5, 0.5));
             BlockState state = h.getBlockState(CELL);
-            h.assertTrue(state.getBlock() instanceof SideHalfSlabBlock && state.getValue(SideHalfSlabBlock.FACING) == Direction.WEST
-                    && state.getValue(SideHalfSlabBlock.THICKNESS) == i, "sneak click " + i + ": " + state);
+            h.assertTrue(state.is(half(Blocks.STONE_SLAB).side()) && state.getValue(SideHalfSlabBlock.FACING) == Direction.WEST
+                    && state.getValue(SideHalfSlabBlock.THICKNESS) == i, "click " + i + ": " + state);
         }
         var shape = h.getBlockState(CELL).getShape(h.getLevel(), h.absolutePos(CELL));
         h.assertTrue(shape.max(Direction.Axis.X) == 0.5 && shape.max(Direction.Axis.Y) == 1.0, "side slab = 8 px against the west wall");
         // a click on its open face (from the east) grows it too
         stack.getItem().useOn(click(h, player, stack, CELL, Direction.EAST, 0.5, 0.5, 0.5));
-        h.assertValueEqual(h.getBlockState(CELL).getValue(SideHalfSlabBlock.THICKNESS), 5, "open face click grows the side form");
-        h.assertValueEqual(stack.getCount(), 3, "one item per layer");
+        h.assertValueEqual(h.getBlockState(CELL).getValue(SideHalfSlabBlock.THICKNESS), 3, "open face click grows the side form");
+        stack.getItem().useOn(click(h, player, stack, CELL, Direction.EAST, 0.5, 0.5, 0.5));
+        h.assertValueEqual(h.getBlockState(CELL).getValue(SideHalfSlabBlock.THICKNESS), 4, "four layers fill the cell");
+        h.assertTrue(h.getBlockState(CELL).isCollisionShapeFullBlock(h.getLevel(), h.absolutePos(CELL)), "thickness 4 = full cube");
+        h.assertValueEqual(stack.getCount(), 4, "one item per layer");
+        h.assertFalse(h.getBlockState(CELL).canBeReplaced(new net.minecraft.world.item.context.BlockPlaceContext(
+                click(h, player, stack, CELL, Direction.EAST, 0.5, 0.5, 0.5))), "a full side form takes no more");
+        // on a top face: against the far wall of the cell above, in the view direction (the mock player looks south)
+        BlockPos floor = CELL.east(2);
+        h.setBlock(floor, Blocks.STONE);
+        stack.getItem().useOn(click(h, player, stack, floor, Direction.UP, 0.5, 1.0, 0.5));
+        BlockState onTop = h.getBlockState(floor.above());
+        h.assertTrue(onTop.is(half(Blocks.STONE_SLAB).side()) && onTop.getValue(SideHalfSlabBlock.FACING) == player.getDirection()
+                && onTop.getValue(SideHalfSlabBlock.THICKNESS) == 1, "on a top face: leans in the view direction, got " + onTop);
+        // the half slab item, even sneaking, puts a half slab (layer at the click height), not a side form, and does not grow one
+        player.setShiftKeyDown(true);
+        BlockPos wall2 = CELL.south(2);
+        h.setBlock(wall2, Blocks.STONE);
+        ItemStack halves = new ItemStack(item(Blocks.STONE_SLAB), 2);
+        halves.getItem().useOn(click(h, player, halves, wall2, Direction.NORTH, 0.5, 0.1, 0.0));
+        BlockState placed = h.getBlockState(wall2.north());
+        h.assertTrue(placed.is(half(Blocks.STONE_SLAB)) && HalfSlabBlock.mask(placed) == 0b1, "sneaking half slab: a half slab, got " + placed);
+        h.assertFalse(h.getBlockState(floor.above()).canBeReplaced(new net.minecraft.world.item.context.BlockPlaceContext(
+                click(h, player, halves, floor.above(), player.getDirection().getOpposite(), 0.5, 0.5, 0.5))), "the half slab item does not grow a side form");
         h.succeed();
     }
 
-    /** Owner N86-2 "slab + half slab": a half slab on its own bottom slab = layers 0-3 + 4. */
+    /** Owner N86-2 "slab + half slab": a half slab on its own bottom slab = layers 0-1 + 2 (12 px). */
     static void halfSlabOntoItsSlab(GameTestHelper h) {
         ServerPlayer player = mockPlayer(h);
         h.setBlock(CELL, Blocks.STONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM));
         ItemStack stack = new ItemStack(item(Blocks.STONE_SLAB), 2);
         h.assertValueEqual(stack.getItem().useOn(click(h, player, stack, CELL, Direction.UP, 0.5, 0.5, 0.5)), InteractionResult.SUCCESS, "onto the slab");
         BlockState state = h.getBlockState(CELL);
-        h.assertTrue(state.is(half(Blocks.STONE_SLAB)) && HalfSlabBlock.mask(state) == 0b11111, "slab + half slab = layers 0-4: " + state);
+        h.assertTrue(state.is(half(Blocks.STONE_SLAB)) && HalfSlabBlock.mask(state) == 0b111, "slab + half slab = layers 0-2: " + state);
         h.setBlock(CELL.east(), Blocks.STONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP));
         stack.getItem().useOn(click(h, player, stack, CELL.east(), Direction.DOWN, 0.5, 0.5, 0.5));
-        h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(CELL.east())), 0b11111000, "top slab + half slab = layers 3-7");
+        h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(CELL.east())), 0b1110, "top slab + half slab = layers 1-3");
         // another material's slab is not merged
         h.setBlock(CELL.west(), Blocks.OAK_SLAB);
         stack = new ItemStack(item(Blocks.STONE_SLAB), 1);
@@ -217,22 +252,27 @@ public final class SlabTests {
         HalfSlabBlock block = half(Blocks.STONE_SLAB);
         BlockPos pos = h.absolutePos(CELL);
         List<String> problems = new ArrayList<>();
-        Object[][] cases = {{block.withMask(0b11000011), 4}, {block.withMask(0b1), 1}, {block.withMask(0xFF), 8},
+        // N86S: a side form of thickness n drops n side half slabs (its own item), no half slabs
+        Object[][] cases = {{block.withMask(0b1001), 2}, {block.withMask(0b1), 1}, {block.withMask(0xF), 4},
                 {block.side().defaultBlockState().setValue(SideHalfSlabBlock.THICKNESS, 4), 4},
+                {block.side().defaultBlockState().setValue(SideHalfSlabBlock.THICKNESS, 2), 2},
                 {block.side().defaultBlockState(), 1}};
         for (Object[] c : cases) {
-            int n = Block.getDrops((BlockState) c[0], h.getLevel(), pos, null).stream().filter(s -> s.is(block.asItem())).mapToInt(ItemStack::getCount).sum();
-            if (n != (int) c[1]) problems.add(c[0] + " drops " + n + " instead of " + c[1]);
+            BlockState state = (BlockState) c[0];
+            List<ItemStack> drops = Block.getDrops(state, h.getLevel(), pos, null);
+            int n = drops.stream().filter(s -> s.is(state.getBlock().asItem())).mapToInt(ItemStack::getCount).sum();
+            int all = drops.stream().mapToInt(ItemStack::getCount).sum();
+            if (n != (int) c[1] || all != n) problems.add(state + " drops " + drops + " instead of " + c[1] + " x " + state.getBlock().asItem());
         }
-        // in the world: breaking the 4-layer cell puts exactly 4 items next to it
+        // in the world: breaking the 3-layer cell puts exactly 3 items next to it
         clearDrops(h);
-        h.setBlock(CELL, block.withMask(0b11000011));
+        h.setBlock(CELL, block.withMask(0b1011));
         h.getLevel().destroyBlock(pos, true);
         int world = 0;
         for (ItemEntity e : h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(1.0))) if (e.getItem().is(block.asItem())) world += e.getItem().getCount();
-        if (world != 4) problems.add("breaking in the world dropped " + world);
-        h.assertTrue(block.side().defaultBlockState().getCloneItemStack(h.getLevel(), pos, false).is(block.asItem()),
-                "pick block on the side form gives the half slab");
+        if (world != 3) problems.add("breaking in the world dropped " + world);
+        h.assertTrue(block.side().defaultBlockState().getCloneItemStack(h.getLevel(), pos, false).is(block.side().asItem()),
+                "pick block on the side form gives the side half slab");
         h.assertTrue(problems.isEmpty(), "drops: " + problems);
         h.succeed();
     }
@@ -246,11 +286,11 @@ public final class SlabTests {
         stack.getItem().useOn(click(h, player, stack, CELL.below(), Direction.UP, 0.5, 1.0, 0.5));
         BlockState wet = h.getBlockState(CELL);
         h.assertTrue(wet.is(block) && wet.getValue(LayeredSlabBlock.WATERLOGGED) && wet.getFluidState().is(Fluids.WATER), "placed into water: waterlogged");
-        BlockState full = block.withMask(wet, 0xFF);
+        BlockState full = block.withMask(wet, 0xF);
         h.assertFalse(full.getValue(LayeredSlabBlock.WATERLOGGED), "a full cell holds no water");
         h.assertFalse(block.canPlaceLiquid(null, h.getLevel(), h.absolutePos(CELL), full, Fluids.WATER), "no water into a full cell");
         h.assertTrue(block.canPlaceLiquid(null, h.getLevel(), h.absolutePos(CELL), block.withMask(0b1), Fluids.WATER), "water into one layer");
-        BlockState side = block.side().defaultBlockState().setValue(SideHalfSlabBlock.THICKNESS, 8).setValue(LayeredSlabBlock.WATERLOGGED, false);
+        BlockState side = block.side().defaultBlockState().setValue(SideHalfSlabBlock.THICKNESS, 4).setValue(LayeredSlabBlock.WATERLOGGED, false);
         h.assertFalse(block.side().canPlaceLiquid(null, h.getLevel(), h.absolutePos(CELL), side, Fluids.WATER), "no water into a full side form");
         h.succeed();
     }
@@ -295,9 +335,9 @@ public final class SlabTests {
         h.setBlock(CELL.below(2), Blocks.STONE);
         h.setBlock(CELL.east().below(2), Blocks.STONE);
         h.setBlock(CELL.west().below(), Blocks.STONE);
-        h.setBlock(CELL, sand.withMask(0b10100000));                       // two floating layers
+        h.setBlock(CELL, sand.withMask(0b1010));                           // two floating layers
         h.setBlock(CELL.east(), gravel.side().defaultBlockState().setValue(SideHalfSlabBlock.THICKNESS, 3));
-        h.setBlock(CELL.west(), sand.withMask(0b1000));                    // on the ground: settles in its cell
+        h.setBlock(CELL.west(), sand.withMask(0b0100));                    // on the ground: settles in its cell
         h.succeedWhen(() -> {
             BlockState landed = h.getBlockState(CELL.below());
             h.assertTrue(landed.is(sand) && HalfSlabBlock.mask(landed) == 0b11, "sand fell and lies bottom-aligned: " + landed);
@@ -317,12 +357,12 @@ public final class SlabTests {
             return;
         }
         h.setBlock(CELL.below(), Blocks.STONE);
-        h.setBlock(CELL, sand.withMask(0b111111));          // 6 layers on the floor
-        h.setBlock(CELL.above(2), sand.withMask(0b1111));   // 4 layers fall onto it: 8 here, 2 in the cell above
+        h.setBlock(CELL, sand.withMask(0b11));              // 2 layers (a slab) on the floor
+        h.setBlock(CELL.above(2), sand.withMask(0b111));    // 3 layers fall onto it: 4 here, 1 in the cell above
         h.succeedWhen(() -> {
-            h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(CELL)), 0xFF, "the lower cell is full");
+            h.assertValueEqual(HalfSlabBlock.mask(h.getBlockState(CELL)), 0xF, "the lower cell is full");
             BlockState above = h.getBlockState(CELL.above());
-            h.assertTrue(above.is(sand) && HalfSlabBlock.mask(above) == 0b11, "2 layers in the cell above: " + above);
+            h.assertTrue(above.is(sand) && HalfSlabBlock.mask(above) == 0b1, "1 layer in the cell above: " + above);
             int near = 0;
             for (ItemEntity e : h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(h.absolutePos(CELL)).inflate(1.0))) {
                 if (e.getItem().is(sand.asItem())) near += e.getItem().getCount();
@@ -347,7 +387,7 @@ public final class SlabTests {
 
     // ===================================================================================== recipes, fire, tab
 
-    /** N86-6 for 2 px: saw 1 slab -> 4, 1 block -> 8 (stonecutter only without Simple Blocks); 4 half slabs -> 1 slab. */
+    /** N86C (4 px, volume-true): saw 1 slab -> 2, 1 block -> 4 (stonecutter only without Simple Blocks); 2 half slabs -> 1 slab. */
     static void recipesCutAndCraftBack(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
         boolean saw = SimpleSlabs.isLoaded("simpleblocks");
@@ -362,10 +402,33 @@ public final class SlabTests {
             if (sawing.isPresent() != saw) problems.add("saw " + m.id() + " present=" + sawing.isPresent());
             if (!ownSaw && cut.isPresent() == saw) problems.add("stonecutter " + m.id() + " present=" + cut.isPresent());
             if (back.isEmpty()) problems.add("no way back from " + m.id());
+            // N86S: half slab <-> side half slab 1:1, and the side half slab is cut like the half slab
+            String side = SlabRegistry.sidePath(m.id());
+            for (String[] conv : new String[][] {{m.id(), side}, {side, m.id()}}) {
+                var r = recipes.byKey(key("half_slab/" + conv[1] + "_from_" + conv[0]));
+                Item in = BuiltInRegistries.ITEM.getValue(SimpleSlabs.id(conv[0])), out = BuiltInRegistries.ITEM.getValue(SimpleSlabs.id(conv[1]));
+                if (r.isEmpty() || !(r.get().value() instanceof net.minecraft.world.item.crafting.CraftingRecipe craft)) {
+                    problems.add("no 1:1 recipe " + conv[0] + " -> " + conv[1]);
+                    continue;
+                }
+                var input = net.minecraft.world.item.crafting.CraftingInput.of(1, 1, List.of(new ItemStack(in)));
+                ItemStack made = craft.matches(input, h.getLevel()) ? craft.assemble(input) : ItemStack.EMPTY;
+                if (made.getCount() != 1 || !made.is(out)) problems.add("1:1 " + conv[0] + " gives " + made);
+            }
+            var sideSaw = recipes.byKey(key("half_slab/" + side + "_from_" + slabPath + "_sawing"));
+            var sideCut = recipes.byKey(key("half_slab/" + side + "_from_" + slabPath + "_stonecutting"));
+            if (sideSaw.isPresent() != saw) problems.add("saw " + side + " present=" + sideSaw.isPresent());
+            if (!ownSaw && sideCut.isPresent() == saw) problems.add("stonecutter " + side + " present=" + sideCut.isPresent());
+            sideCut.ifPresent(r -> {
+                if (r.value() instanceof net.minecraft.world.item.crafting.SingleItemRecipe single) {
+                    ItemStack out = single.assemble(new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(m.slab())))));
+                    if (out.getCount() != 2 || !out.is(block.side().asItem())) problems.add("stonecutter yield of " + side + ": " + out);
+                }
+            });
             cut.ifPresent(r -> {
                 if (r.value() instanceof net.minecraft.world.item.crafting.SingleItemRecipe single) {
                     ItemStack out = single.assemble(new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(m.slab())))));
-                    if (out.getCount() != 4 || !out.is(block.asItem())) problems.add("stonecutter yield of " + m.id() + ": " + out);
+                    if (out.getCount() != 2 || !out.is(block.asItem())) problems.add("stonecutter yield of " + m.id() + ": " + out);
                 }
             });
             if (m.base() != null && !saw && !ownSaw) {
@@ -373,7 +436,7 @@ public final class SlabTests {
                 fromBlock.ifPresent(r -> {
                     if (r.value() instanceof net.minecraft.world.item.crafting.SingleItemRecipe single) {
                         ItemStack out = single.assemble(new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(m.base())))));
-                        if (out.getCount() != 8) problems.add("block yield of " + m.id() + ": " + out.getCount());
+                        if (out.getCount() != 4) problems.add("block yield of " + m.id() + ": " + out.getCount());
                     }
                 });
             }
@@ -393,7 +456,13 @@ public final class SlabTests {
     }
 
     static void creativeTabAndSwitch(GameTestHelper h) {
-        h.assertValueEqual(SlabRegistry.tabStacks().size(), SimpleSlabs.on() ? SlabRegistry.ITEMS.size() : 0, "tab: every half slab item");
+        List<ItemStack> tab = SlabRegistry.tabStacks();
+        h.assertValueEqual(tab.size(), SimpleSlabs.on() ? 2 * SlabRegistry.ITEMS.size() : 0, "tab: every half slab and side half slab item");
+        // N86S: each side half slab right after its half slab
+        for (int i = 0; i + 1 < tab.size(); i += 2) {
+            h.assertTrue(tab.get(i).getItem() instanceof HalfSlabItem half && tab.get(i + 1).getItem() instanceof SideHalfSlabItem side
+                    && side.sideHalfSlab() == half.halfSlab().side(), "tab order at " + i + ": " + tab.get(i) + ", " + tab.get(i + 1));
+        }
         h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleSlabs.id("main")), "own creative tab");
         h.succeed();
     }
@@ -411,6 +480,10 @@ public final class SlabTests {
 
     static Item item(Block slab) {
         return half(slab).asItem();
+    }
+
+    static Item sideItem(Block slab) {
+        return half(slab).side().asItem();
     }
 
     static ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key(String path) {

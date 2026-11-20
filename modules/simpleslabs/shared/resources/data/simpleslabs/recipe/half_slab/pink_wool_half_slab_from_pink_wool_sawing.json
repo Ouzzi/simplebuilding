@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:pink_wool",
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "simpleslabs:pink_wool_half_slab"
   }
 }

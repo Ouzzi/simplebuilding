@@ -1,8 +1,0 @@
-{
-  "parent": "simpleslabs:block/half_slab/_slab_6",
-  "textures": {
-    "bottom": "simpleend:block/ashwood_planks",
-    "top": "simpleend:block/ashwood_planks",
-    "side": "simpleend:block/ashwood_planks"
-  }
-}

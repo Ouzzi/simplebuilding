@@ -79,7 +79,7 @@
         "modules/simplefoundry/shared/java/com/simplefoundry/FoundryScan.java"
       ],
       "en": {
-        "summary": "Hull block of the foundry (tag simplefoundry:hull). Every neighbour of a melting chamber must be a chamber, the desk or a hull block, so the bricks close the tank on all sides."
+        "summary": "Hull block of the foundry (tag simplefoundry:hull). Every neighbor of a melting chamber must be a chamber, the desk or a hull block, so the bricks close the tank on all sides."
       },
       "de": {
         "summary": "Hüllblock der Hütte (Tag simplefoundry:hull). Jeder Nachbar einer Schmelzkammer muss eine Kammer, das Pult oder ein Hüllblock sein; die Ziegel schließen den Tank also rundum."

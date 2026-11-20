@@ -57,7 +57,7 @@
         "details": [
           "Z(d) = 0.5 + 4.5 x smoothstep((d - 512) / 5488). 1000 blocks: 0.6, 2000: 1.3, 3000: 2.4, 4000: 3.6, from 6000: 5.",
           "Nether: blocks count eightfold, never below level 2. End: counted from 0,0, never below 3, outer islands (beyond 1000 blocks) add 1. Other dimensions use the Overworld curve. Each dimension can be switched off.",
-          "The centre is the world spawn by default; center can also be 0,0 or fixed coordinates x,z."
+          "The center is the world spawn by default; center can also be 0,0 or fixed coordinates x,z."
         ]
       },
       "de": {
@@ -156,14 +156,14 @@
         "title": "Takeover from SimpleBuilding",
         "summary": "Nothing is lost: on a player's first tick Simple Resonance reads the old tracker block SimpleBuildingData (baselines since the last death, active time, kill totals) and starts the long-term points at 1 per 30 old active minutes. The base multiplier of the trim resonance is taken over from config/simplebuilding.json on the first start.",
         "details": [
-          "Since MOB27-3 R2 SimpleBuilding no longer counts anything itself: it only keeps the old block readable for this one-time takeover, and its trim abilities (in Simple Mobs) get the resonance from here."
+          "SimpleBuilding no longer counts anything itself: it only keeps the old block readable for this one-time takeover, and its trim abilities (in Simple Mobs) get the resonance from here."
         ]
       },
       "de": {
         "title": "Übernahme aus SimpleBuilding",
         "summary": "Nichts geht verloren: beim ersten Tick eines Spielers liest Simple Resonance den alten Tracker-Block SimpleBuildingData (Basiswerte seit dem letzten Tod, aktive Zeit, Kill-Summen) und startet die Langzeitpunkte bei 1 je 30 alten aktiven Minuten. Der Basis-Multiplikator der Besatz-Resonanz wird beim ersten Start aus config/simplebuilding.json übernommen.",
         "details": [
-          "Seit MOB27-3 R2 zählt SimpleBuilding selbst nichts mehr: es hält den alten Block nur für diese einmalige Übernahme lesbar, und die Besatz-Fähigkeiten (in Simple Mobs) bekommen die Resonanz von hier."
+          "SimpleBuilding zählt selbst nichts mehr: es hält den alten Block nur für diese einmalige Übernahme lesbar, und die Besatz-Fähigkeiten (in Simple Mobs) bekommen die Resonanz von hier."
         ]
       }
     },
@@ -180,7 +180,7 @@
         "summary": "A small button right of the player in the inventory shows the trim resonance as a heart in eight tiers, from cobblestone to enderite. Hovering it shows the value (base x mean of experience, survival and combat since the last death), with Shift every factor.",
         "details": [
           "The server sends the numbers once a second (simpleresonance:stats); the button also shows in Simple Storage's backpack.",
-          "SimpleBuilding's armour trims read this resonance through ResonanceBridge; the base is trimBenefitBaseMultiplier in simpleresonance.json (Default: 2.0)."
+          "SimpleBuilding's armor trims read this resonance through ResonanceBridge; the base is trimBenefitBaseMultiplier in simpleresonance.json (Default: 2.0)."
         ]
       },
       "de": {
@@ -328,8 +328,11 @@
   "trades": [],
   "config": [
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "ahead",
@@ -347,8 +350,11 @@
       "tooltipDe": "Ein Spawn liegt höchstens so viele Stufen\nüber der Stufe seines Besitzers.\nStandard: 1."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "bmax",
@@ -366,8 +372,11 @@
       "tooltipDe": "Ein Spitzenspieler erhöht die Zone um\nhöchstens so viele Stufen.\nStandard: 2."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        10000
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "bossCooldownHours",
@@ -386,7 +395,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "center",
@@ -404,8 +413,11 @@
       "tooltipDe": "world_spawn, 0,0 oder feste Koordinaten x,z.\nStandard: world_spawn."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        100000
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "d1",
@@ -424,7 +436,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "d2",
@@ -442,8 +454,11 @@
       "tooltipDe": "Abstand, an dem die Stufe ihr Maximum erreicht.\nStandard: 6000."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        1
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "deathKeep",
@@ -462,7 +477,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "enabled",
@@ -481,7 +496,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "end",
@@ -499,8 +514,11 @@
       "tooltipDe": "Standard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "endOuterBonus",
@@ -518,8 +536,11 @@
       "tooltipDe": "Wird im End jenseits von 1000 Blöcken\nab 0,0 zur Stufe addiert.\nStandard: 1."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "endZ0",
@@ -537,8 +558,11 @@
       "tooltipDe": "Das End ist nie milder als das.\nStandard: 3."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        1000
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "graceHours",
@@ -556,8 +580,11 @@
       "tooltipDe": "Spielstunden mit Stufe höchstens 1, danach\nlangsam steigend bis 5 über dieselbe Zeit.\nStandard: 6."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        1440
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "ignoreAfkMinutes",
@@ -575,8 +602,11 @@
       "tooltipDe": "Spieler, die länger untätig sind, besitzen\nkeine Spawns (0 = Untätige zählen).\nStandard: 5."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        10
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "killPoints",
@@ -594,8 +624,11 @@
       "tooltipDe": "Punkte je getötetem feindlichem Monster.\nStandard: 0,1."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        1000
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "killPointsPerHour",
@@ -613,8 +646,11 @@
       "tooltipDe": "Farm-Schutz: Kills geben höchstens so viele\nPunkte je gespielter Stunde.\nStandard: 2."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        1
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "lifeWeight",
@@ -633,7 +669,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "nearbyCap",
@@ -651,8 +687,11 @@
       "tooltipDe": "Andere Spieler nahe am Spawn begrenzen seine\nStufe ebenfalls, damit das Monster eines\nStarken keinen Anfänger daneben trifft.\nStandard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        4,
+        128
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "nearbyRadius",
@@ -671,7 +710,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "nether",
@@ -689,8 +728,11 @@
       "tooltipDe": "Standard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        64
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "netherFactor",
@@ -708,8 +750,11 @@
       "tooltipDe": "Nether-Blöcke zählen so viele Male\n(Vanilla-Reise 8:1).\nStandard: 8."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "netherZ0",
@@ -727,8 +772,11 @@
       "tooltipDe": "Der Nether ist nie milder als das.\nStandard: 2."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        2
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "noise",
@@ -747,7 +795,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "otherDimensions",
@@ -766,7 +814,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "overworld",
@@ -784,8 +832,11 @@
       "tooltipDe": "Standard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        16,
+        512
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "ownerRadius",
@@ -803,8 +854,11 @@
       "tooltipDe": "Spieler so nah an einem Spawn-Versuch\nkönnen ihn besitzen.\nStandard: 128."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "ownerlessCap",
@@ -822,8 +876,11 @@
       "tooltipDe": "Spawns ohne Besitzer (Chunk-Erzeugung fern\nvon Spielern) haben höchstens diese Stufe.\nStandard: 2."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        20
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "snapRatio",
@@ -842,7 +899,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "softSnap",
@@ -860,8 +917,11 @@
       "tooltipDe": "Ein weicher statt harter Schritt, wo der\nnächste Spieler übernimmt.\nStandard: aus."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        1000
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "tau",
@@ -879,8 +939,11 @@
       "tooltipDe": "Wie schnell der Langzeitwert wächst: je\nhöher, desto langsamer (1 Punkt je 30 aktive\nMinuten).\nStandard: 30."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        10
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "trimBenefitBaseMultiplier",
@@ -898,8 +961,11 @@
       "tooltipDe": "Basis der alten Besatz-Resonanz (beim ersten\nStart aus der SimpleBuilding-Config übernommen).\nStandard: 2."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "z0",
@@ -917,8 +983,11 @@
       "tooltipDe": "Stufe bis zum inneren Abstand unten.\nStandard: 0,5."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        0.5,
+        5
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java",
       "name": "zmax",

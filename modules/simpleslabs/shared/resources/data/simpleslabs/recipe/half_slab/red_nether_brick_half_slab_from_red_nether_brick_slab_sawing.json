@@ -20,7 +20,7 @@
   "type": "simpleblocks:sawing",
   "ingredient": "minecraft:red_nether_brick_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:red_nether_brick_half_slab"
   }
 }

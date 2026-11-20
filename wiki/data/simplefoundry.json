@@ -662,7 +662,7 @@
           "modules/simplefoundry/shared/java/com/simplefoundry/FoundryScan.java"
         ],
         "en": {
-          "summary": "Hull block of the foundry (tag simplefoundry:hull). Every neighbour of a melting chamber must be a chamber, the desk or a hull block, so the bricks close the tank on all sides."
+          "summary": "Hull block of the foundry (tag simplefoundry:hull). Every neighbor of a melting chamber must be a chamber, the desk or a hull block, so the bricks close the tank on all sides."
         },
         "de": {
           "summary": "Hüllblock der Hütte (Tag simplefoundry:hull). Jeder Nachbar einer Schmelzkammer muss eine Kammer, das Pult oder ein Hüllblock sein; die Ziegel schließen den Tank also rundum."
@@ -850,8 +850,11 @@
   "trades": [],
   "config": [
     {
-      "range": null,
-      "side": null,
+      "range": [
+        20,
+        1200
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
       "name": "castTicks",
@@ -870,7 +873,7 @@
     },
     {
       "range": null,
-      "side": null,
+      "side": "server",
       "reload": null,
       "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
       "name": "enabled",
@@ -888,8 +891,11 @@
       "tooltipDe": "Aus: die Gießerei-Blöcke verschwinden aus dem Kreativ-Tab; gebaute Gießereien arbeiten weiter. Standard: an."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        512
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
       "name": "maxChambers",
@@ -907,8 +913,11 @@
       "tooltipDe": "Höchstzahl Schmelzkammern einer Gießerei (die harte Grenze ist 512, 32 je Achse). Bereich 1 bis 512. Standard: 256."
     },
     {
-      "range": null,
-      "side": null,
+      "range": [
+        1,
+        40
+      ],
+      "side": "server",
       "reload": null,
       "source": "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java",
       "name": "meltTicksPerUnit",

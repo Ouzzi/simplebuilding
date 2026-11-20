@@ -23,13 +23,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Half slab (N86, owner 18.11.): any of the eight horizontal 2-px layers of a cell, one boolean per layer ({@code l0} = y 0-2
- * ... {@code l7} = y 14-16) - 512 states. The owner's examples are layer sets: 0-4 + 12-16 px = {0,1,6,7}, 0-4 + 8-12 px =
- * {0,1,4,5}; a "layer block" of 1-4 four-pixel layers is 2/4/6/8 bottom layers.
+ * Half slab (N86, owner 18.11.): any of the four horizontal 4-px layers of a cell (N86C, owner 19.11.), one boolean per layer
+ * ({@code l0} = y 0-4 ... {@code l3} = y 12-16) - 32 states. The owner's examples are layer sets: 0-4 + 12-16 px = {0,3},
+ * 0-4 + 8-12 px = {0,2}; two bottom layers are a slab.
  * <ul>
- *   <li>Placing: on a top face layer 0 of the cell above, on a bottom face layer 7, on a side face the layer at the click height;
- *       sneaking on a side face makes a {@link SideHalfSlabBlock} instead. The same item on a half slab fills the free layer at
- *       the click; on its own slab ({@link com.simpleslabs.item.HalfSlabItem}) the slab becomes layers 0-3 / 4-7 plus one.</li>
+ *   <li>Placing: on a top face layer 0 of the cell above, on a bottom face layer 3, on a side face the layer at the click height
+ *       (the upright {@link SideHalfSlabBlock} has its own item since N86S). The same item on a half slab fills the free layer at
+ *       the click; on its own slab ({@link com.simpleslabs.item.HalfSlabItem}) the slab becomes layers 0-1 / 2-3 plus one.</li>
  *   <li>Breaking drops one half slab per layer (loot table, one pool per layer).</li>
  * </ul>
  */
@@ -127,7 +127,7 @@ public class HalfSlabBlock extends LayeredSlabBlock {
     /**
      * The layer a click puts the next half slab into, -1 = none. On the block itself ({@code onBlock}): a top face fills the
      * layer above that face, a bottom face the layer below, a side face the layer at the click height. Into a neighbour cell:
-     * top face = layer 0, bottom face = layer 7, side face = the click height.
+     * top face = layer 0, bottom face = layer 3, side face = the click height.
      */
     public static int targetLayer(net.minecraft.world.item.context.UseOnContext context, boolean onBlock) {
         BlockPos pos = context.getClickedPos();
@@ -142,18 +142,13 @@ public class HalfSlabBlock extends LayeredSlabBlock {
         return layer < 0 || layer >= LAYERS ? -1 : layer;
     }
 
-    /** Sneaking on a side face: the player wants a side half slab against that block. */
-    public static boolean wantsSide(net.minecraft.world.item.context.UseOnContext context) {
-        return context.isSecondaryUseActive() && context.getClickedFace().getAxis().isHorizontal();
-    }
-
     @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         if (falls && context instanceof DirectionalPlaceContext && context.getItemInHand().isEmpty()) {
             mergeLanding(state, context);
             return false;
         }
-        if (!context.getItemInHand().is(asItem()) || wantsSide(context)) return false;
+        if (!context.getItemInHand().is(asItem())) return false;
         int layer = targetLayer(context, context.replacingClickedOnBlock());
         return layer >= 0 && !state.getValue(LAYER[layer]);
     }
@@ -167,12 +162,7 @@ public class HalfSlabBlock extends LayeredSlabBlock {
             int layer = targetLayer(context, context.replacingClickedOnBlock());
             return layer < 0 || existing.getValue(LAYER[layer]) ? null : withMask(existing, mask(existing) | 1 << layer);
         }
-        if (existing.is(side)) return side.grown(existing);
         boolean water = level.getFluidState(pos).getType() == Fluids.WATER;
-        if (wantsSide(context)) {
-            return water(side.defaultBlockState().setValue(SideHalfSlabBlock.FACING, context.getClickedFace().getOpposite())
-                    .setValue(SideHalfSlabBlock.THICKNESS, 1), water);
-        }
         int layer = targetLayer(context, false);
         return layer < 0 ? null : water(withMask(1 << layer), water);
     }

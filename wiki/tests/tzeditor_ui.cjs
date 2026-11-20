@@ -41,6 +41,9 @@ const cellId = (page, r, c) => page.locator(cellSel(r, c)).first().getAttribute(
     const page = await ctx.newPage();
     const errors = [];
     page.on('pageerror', e => errors.push(String(e)));
+    const miss = {}, asked = [];  // N110: picture requests that came back 404 (url -> count), all requested urls
+    page.on('request', r => asked.push(r.url()));
+    page.on('response', r => { if (r.status() === 404) miss[r.url()] = (miss[r.url()] || 0) + 1; });
     page.on('dialog', d => d.accept(d.type() === 'prompt' ? (d.message().match(/Spalte|column/i) ? 'probe col' : 'Probe Reihe') : undefined));
     const q = base.startsWith('http://127.0.0.1') ? '&dev=1' : '';
     await page.goto(base + `index.html?mod=simplebuilding&tab=tzeditor&lang=${lang}${q}`);
@@ -157,6 +160,43 @@ const cellId = (page, r, c) => page.locator(cellSel(r, c)).first().getAttribute(
     await page.screenshot({ path: path.join(shots, `tz-built-full-${scheme}.png`) });
     await page.keyboard.press('Escape');
     await page.locator('.tz-side').screenshot({ path: path.join(shots, `tz-side-${scheme}.png`) });
+    // 6b. N110 (owner 19.11.: "fehlende Texturen ... Fallback-Icon + Liste 'ohne Bild'"): no broken image anywhere, every
+    // cell without picture shows the symbol, the side list names them per area and jumps to the cell; an id nothing knows
+    // asks for no file at all
+    await page.waitForTimeout(1500);
+    const npInfo = () => page.evaluate(() => ({
+      np: document.querySelectorAll('.tz-body .tz-np').length,
+      broken: [...document.querySelectorAll('.tz-body img, .tz-pool img')].filter(i => i.complete && !i.naturalWidth).length,
+      head: (document.querySelector('.tz-nopic h3') || {}).textContent || '',
+      buttons: [...document.querySelectorAll('.tz-nopic [data-npj]')].map(b => b.textContent.replace(/ ×\d+$/, '')),
+      symbols: [...new Set([...document.querySelectorAll('.tz-body .tz-np, .tz-pool .tz-np')].map(n => n.dataset.np))] }));
+    let ni = await npInfo();
+    ok(ni.broken === 0, 'N110: no broken image in the grid (' + ni.broken + ')');
+    ok(ni.head.startsWith(L.noPic), 'N110: list "' + L.noPic + '" in the side panel: ' + ni.head);
+    ok(ni.symbols.every(id => ni.buttons.includes(id)), 'N110: every id with the symbol is in the list (' + ni.symbols.length + ')');
+    const ghost = 'simplebuilding:n110_no_such_block';
+    const gCell = page.locator('.tz-bg .tz-c[data-f]:not(.tz-fill):not(.tz-ro)').nth(3);
+    const gKey = await gCell.evaluate(e => [e.dataset.f, e.dataset.r, e.dataset.c]);
+    const gSel = `.tz-body .tz-c[data-f="${gKey[0]}"][data-r="${gKey[1]}"][data-c="${gKey[2]}"]`;
+    await gCell.click();
+    await page.locator('.tz-unk').fill(ghost);
+    await page.locator('[data-act=unk]').click();
+    await page.waitForFunction(id => [...document.querySelectorAll('.tz-nopic [data-npj]')].some(b => b.textContent.startsWith(id)), ghost, { timeout: 10000 });
+    ok(await page.locator(gSel + ' > .tz-np').count() === 1 && await page.locator(gSel + ' > img').count() === 0, 'N110: an id without picture shows the symbol, no image');
+    ok(await page.locator(gSel + ' > .tz-np').getAttribute('aria-label') === L.noPicCell.replace('{0}', ghost), 'N110: symbol says "' + L.noPicCell.replace('{0}', ghost) + '"');
+    ok(!asked.some(u => u.includes('n110_no_such_block')), 'N110: no request for an id nothing knows');
+    await page.locator('.tz-main').evaluate(m => { m.scrollTop = 0; m.scrollLeft = 0; });
+    await page.locator('.tz-nopic [data-npj]', { hasText: ghost }).click();
+    await page.waitForTimeout(400);
+    ok(await page.locator(gSel + '.tz-flash.sel').count() === 1, 'N110: a click in the list selects and flashes the cell');
+    ok(await page.locator(gSel).evaluate(e => { const r = e.getBoundingClientRect(), m = e.closest('.tz-main').getBoundingClientRect(); return r.top >= m.top && r.bottom <= m.bottom && r.left >= m.left && r.right <= m.right; }), 'N110: the cell is scrolled into view');
+    await page.locator('.tz-side').screenshot({ path: path.join(shots, `n110-ohne-bild-${scheme}.png`) });
+    await page.locator('[data-act=undo]').click();
+    await page.waitForFunction(id => ![...document.querySelectorAll('.tz-nopic [data-npj]')].some(b => b.textContent.startsWith(id)), ghost, { timeout: 10000 });
+    ok(true, 'N110: after undo the id is gone from the list');
+    const twice = Object.entries(miss).filter(([u, n]) => n > 1 && /\.png($|\?)/.test(u));
+    ok(!twice.length, 'N110: no picture asked for twice after a 404 ' + twice.slice(0, 3).map(x => x.join(' x')).join(', '));
+
     // 7. N99: timings, group move with live preview, swap + Esc, rows/columns, undo/redo, copy/paste, frame, range, arrows
     if (scheme === 'dark') {
       const r = await N99.run(page, { ok, shot: n => page.screenshot({ path: path.join(shots, n + '.png') }), log: (...a) => console.log(...a) });

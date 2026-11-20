@@ -30,7 +30,7 @@
       ],
       "en": {
         "title": "Simple Modpack guide",
-        "summary": "One guide for every Simple mod, there with any of them installed: craft it from a book and a crafting table (shapeless), or get it from the first FTB Quests quest. Bookmarks along the top pick a super-mod (SimpleBuilding, Simple Quality of Life, Simple Aesthetics ...; a sub-mod alone gets its own), bookmarks at the sides its chapters, one per mod. A chapter opens with its advancement - mostly when you first pick up the item it names; until then its bookmark is grey and says what opens it. In creative mode every chapter is open.",
+        "summary": "One guide for every Simple mod, there with any of them installed: craft it from a book and a crafting table (shapeless), or get it from the first FTB Quests quest. Bookmarks along the top pick a super-mod (SimpleBuilding, Simple Quality of Life, Simple Aesthetics ...; a sub-mod alone gets its own), bookmarks at the sides its chapters, one per mod. A chapter opens with its advancement - mostly when you first pick up the item it names; until then its bookmark is gray and says what opens it. In creative mode every chapter is open.",
         "details": [
           "Each mod hands in its part as data (assets/<mod>/simplelib/modpack_guide.json); SimpleBuilding's own book with its bookmarks is the SimpleBuilding section, its sub-mods' chapters sit behind \"More Simple mods\".",
           "The old single guides stay in old worlds, leave the creative tabs and the recipe viewer and turn into the Simple Modpack guide when used (SimpleBuilding's at login)."
@@ -80,26 +80,26 @@
       ],
       "en": {
         "title": "Shared materials",
-        "summary": "Base materials several Simple mods use: diamond and emerald pebble, cracked diamond and cracked emerald with their blocks, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the building cores (six tiers plus the two rose cores). Enderite belongs to Simple Ores (IG31-13).",
+        "summary": "Base materials several Simple mods use: diamond and emerald pebble, cracked diamond and cracked emerald with their blocks, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the building cores (six tiers plus the two rose cores). Enderite belongs to Simple Ores.",
         "details": [
           "SimpleLib always registers them, so worlds keep them whichever mod is missing. Their recipes and the anvil crushing only exist while a loaded mod asks for the material (with SimpleBuilding: all of them).",
           "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond. Emerald blocks crush the same way into 72 emerald pebbles (cracked emerald, blasts into one emerald).",
           "Netherite nuggets and ingots convert 9:1; the basic upgrade template duplicates like Vanilla templates.",
           "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore. The rose copper and rose gold cores count as copper and gold core in every recipe (tags simplelib:copper_cores, simplelib:gold_cores); Simple Ores refines a base core with 8 alloy ingots into one.",
           "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond, c:storage_blocks/cracked_diamond, c:gems/cracked_emerald and c:storage_blocks/cracked_emerald. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids.",
-          "Strong Upgrade (template and shard, WF25-10, formerly Simple Beacons): upgrades beacons and conduits (Simple Beacons) and the elytra and wings (Simple Mobs). While a mod requests it, the Vanilla Wither drops one shard next to its Nether Star when a mod offers its own way to the first template (Simple Mobs: Nether Heart recipe), otherwise the whole template - never both. Nine shards craft a template. Old worlds load the Simple Beacons items under their new ids."
+          "Strong Upgrade (template and shard, formerly Simple Beacons): upgrades beacons and conduits (Simple Beacons) and the elytra and wings (Simple Mobs). While a mod requests it, the Vanilla Wither drops one shard next to its Nether Star when a mod offers its own way to the first template (Simple Mobs: Nether Heart recipe), otherwise the whole template - never both. Nine shards craft a template. Old worlds load the Simple Beacons items under their new ids."
         ]
       },
       "de": {
         "title": "Gemeinsame Materialien",
-        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamant- und Smaragdkiesel, Rissiger Diamant und Rissiger Smaragd mit ihren Blöcken, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die Baukerne (sechs Stufen und die zwei Rosé-Kerne). Enderit gehört Simple Ores (IG31-13).",
+        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamant- und Smaragdkiesel, Rissiger Diamant und Rissiger Smaragd mit ihren Blöcken, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die Baukerne (sechs Stufen und die zwei Rosé-Kerne). Enderit gehört Simple Ores.",
         "details": [
           "SimpleLib registriert sie immer, damit Welten sie behalten, egal welche Mod fehlt. Ihre Rezepte und das Amboss-Zerschlagen gibt es nur, solange eine geladene Mod das Material anfordert (mit SimpleBuilding: alle).",
           "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird. Smaragdblöcke zerfallen genauso zu 72 Smaragdkieseln (Rissiger Smaragd, wird im Schmelzofen zu einem Smaragd).",
           "Netheritklumpen und -barren tauschen 9:1; die Basis-Aufwertungsvorlage lässt sich wie Vanilla-Vorlagen vervielfältigen.",
           "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz. Rosenkupfer- und Roségoldkern zählen in jedem Rezept als Kupfer- bzw. Goldkern (Tags simplelib:copper_cores, simplelib:gold_cores); Simple Ores veredelt einen Grundkern mit 8 Legierungsbarren zu einem.",
           "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond, c:storage_blocks/cracked_diamond, c:gems/cracked_emerald und c:storage_blocks/cracked_emerald. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids.",
-          "Starke Aufwertung (Vorlage und Splitter, WF25-10, vorher Simple Beacons): wertet Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs) auf. Solange eine Mod sie anfordert, lässt der Vanilla-Wither neben seinem Netherstern einen Splitter fallen, wenn eine Mod einen eigenen Weg zur ersten Vorlage bietet (Simple Mobs: Netherherz-Rezept), sonst die ganze Vorlage - nie beides. Neun Splitter ergeben eine Vorlage. Alte Welten laden die Simple-Beacons-Items unter den neuen IDs."
+          "Starke Aufwertung (Vorlage und Splitter, vorher Simple Beacons): wertet Leuchtfeuer und Aquisatoren (Simple Beacons) sowie Elytren und Schwingen (Simple Mobs) auf. Solange eine Mod sie anfordert, lässt der Vanilla-Wither neben seinem Netherstern einen Splitter fallen, wenn eine Mod einen eigenen Weg zur ersten Vorlage bietet (Simple Mobs: Netherherz-Rezept), sonst die ganze Vorlage - nie beides. Neun Splitter ergeben eine Vorlage. Alte Welten laden die Simple-Beacons-Items unter den neuen IDs."
         ]
       }
     },
@@ -138,7 +138,7 @@
         "title": "Cursed and Mythic rarity",
         "summary": "Two tiers above Epic for every Simple mod: Cursed (radiant red name with a black shadow; in the tooltip the letters burn, orange and gold flames rise into them and run through the name) and Mythic (an opal of aquamarine, azure and lavender moving through the letters with a pearl gloss, a white sheen sweeping across in the tooltip, enchantment glint).",
         "details": [
-          "Stored as the item component simplelib:rarity (cursed or mythic); the Vanilla rarity stays Epic. The tier colours the name in the tooltip, above the hotbar and in chat item links. Only the tooltip is animated and painted pixel row by pixel row; above the hotbar the mythic opal stands still, the cursed name is radiant red, and the server and chat see the plain tier colour.",
+          "Stored as the item component simplelib:rarity (cursed or mythic); the Vanilla rarity stays Epic. The tier colors the name in the tooltip, above the hotbar and in chat item links. Only the tooltip is animated and painted pixel row by pixel row; above the hotbar the mythic opal stands still, the cursed name is radiant red, and the server and chat see the plain tier color.",
           "Cursed: Biome Brush (Simple Tools), Nether Heart and Red Nether Gem (Simple Mobs). Mythic: Strong Upgrade template, Strong Beacon and Strong Conduit (Simple Beacons)."
         ]
       },
@@ -215,7 +215,7 @@
         "summary": "While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal. Two keys: \"Free Look (hold)\" (standard left Alt when a loaded mod asks for Free Look - Simple Quality of Life or Simple Earth -, otherwise unbound) and \"Toggle Free Look\" (unbound, set it in the controls). When it ends, the camera turns back to where you look (standard) or you turn to where the camera looked - freeLookRelease in config/simplelib-client.json or the Free Look tab of the SimpleLib settings. A server can enforce its own choice (freeLookRelease + freeLookEnforce in simplelib-server.json, sent on join). Free Look is always off after joining, a world change and a respawn.",
         "details": [
           "A key that is already down when the world opens (for example left Alt from Alt+Tab) does not switch Free Look on; release it and press again.",
-          "In first person your hand keeps the direction of your body (it does not travel with the camera), and the normal crosshair moves to where you really aim (clamped to the screen edge, hidden behind you); it is not drawn in the centre meanwhile. Switch this off with freeLookCrosshair in config/simplelib-client.json or in the SimpleLib settings (Free Look tab). Standard: on."
+          "In first person your hand keeps the direction of your body (it does not travel with the camera), and the normal crosshair moves to where you really aim (clamped to the screen edge, hidden behind you); it is not drawn in the center meanwhile. Switch this off with freeLookCrosshair in config/simplelib-client.json or in the SimpleLib settings (Free Look tab). Standard: on."
         ]
       },
       "de": {
@@ -2179,10 +2179,10 @@
       },
       "note": {
         "en": {
-          "summary": "The plain Crimson Blazewood Bookshelf (group nether_bookshelves, N48): a building block for Simple Blocks and SimpleBuilding; counts as a strong shelf with Simple Enchanting. Crafted like Vanilla's bookshelf from six crimson planks and three books when a mod asks for the group and Simple Enchanting is absent (with it: blazewood planks). Drops three books without Silk Touch. Old simplebuilding: and simpleenchanting: worlds convert automatically."
+          "summary": "The plain Crimson Blazewood Bookshelf (group nether_bookshelves): a building block for Simple Blocks and SimpleBuilding; counts as a strong shelf with Simple Enchanting. Crafted like Vanilla's bookshelf from six crimson planks and three books when a mod asks for the group and Simple Enchanting is absent (with it: blazewood planks). Drops three books without Silk Touch. Old simplebuilding: and simpleenchanting: worlds convert automatically."
         },
         "de": {
-          "summary": "Das normale Karmesin-Lohen-Bücherregal (Gruppe nether_bookshelves, N48): Baublock für Simple Blocks und SimpleBuilding; mit Simple Enchanting zählt es als starkes Regal. Wie das Vanilla-Regal aus sechs Karmesin-Brettern und drei Büchern herstellbar, wenn ein Mod die Gruppe anfordert und Simple Enchanting fehlt (mit ihm: Lohenholzbretter). Ohne Behutsamkeit drei Bücher. Alte simplebuilding:- und simpleenchanting:-Welten werden automatisch umgewandelt."
+          "summary": "Das normale Karmesin-Lohen-Bücherregal (Gruppe nether_bookshelves): Baublock für Simple Blocks und SimpleBuilding; mit Simple Enchanting zählt es als starkes Regal. Wie das Vanilla-Regal aus sechs Karmesin-Brettern und drei Büchern herstellbar, wenn ein Mod die Gruppe anfordert und Simple Enchanting fehlt (mit ihm: Lohenholzbretter). Ohne Behutsamkeit drei Bücher. Alte simplebuilding:- und simpleenchanting:-Welten werden automatisch umgewandelt."
         }
       },
       "texture": "assets/textures/simplelib/block/crimson_blazewood_bookshelf.png",
@@ -2433,10 +2433,10 @@
       },
       "note": {
         "en": {
-          "summary": "The plain Warped Blazewood Bookshelf (group nether_bookshelves, N48): a building block for Simple Blocks and SimpleBuilding; counts as a strong shelf with Simple Enchanting. Crafted like Vanilla's bookshelf from six warped planks and three books when a mod asks for the group and Simple Enchanting is absent (with it: blazewood planks). Drops three books without Silk Touch. Old simplebuilding: and simpleenchanting: worlds convert automatically."
+          "summary": "The plain Warped Blazewood Bookshelf (group nether_bookshelves): a building block for Simple Blocks and SimpleBuilding; counts as a strong shelf with Simple Enchanting. Crafted like Vanilla's bookshelf from six warped planks and three books when a mod asks for the group and Simple Enchanting is absent (with it: blazewood planks). Drops three books without Silk Touch. Old simplebuilding: and simpleenchanting: worlds convert automatically."
         },
         "de": {
-          "summary": "Das normale Wirr-Lohen-Bücherregal (Gruppe nether_bookshelves, N48): Baublock für Simple Blocks und SimpleBuilding; mit Simple Enchanting zählt es als starkes Regal. Wie das Vanilla-Regal aus sechs Wirr-Brettern und drei Büchern herstellbar, wenn ein Mod die Gruppe anfordert und Simple Enchanting fehlt (mit ihm: Lohenholzbretter). Ohne Behutsamkeit drei Bücher. Alte simplebuilding:- und simpleenchanting:-Welten werden automatisch umgewandelt."
+          "summary": "Das normale Wirr-Lohen-Bücherregal (Gruppe nether_bookshelves): Baublock für Simple Blocks und SimpleBuilding; mit Simple Enchanting zählt es als starkes Regal. Wie das Vanilla-Regal aus sechs Wirr-Brettern und drei Büchern herstellbar, wenn ein Mod die Gruppe anfordert und Simple Enchanting fehlt (mit ihm: Lohenholzbretter). Ohne Behutsamkeit drei Bücher. Alte simplebuilding:- und simpleenchanting:-Welten werden automatisch umgewandelt."
         }
       },
       "texture": "assets/textures/simplelib/block/warped_blazewood_bookshelf.png",
@@ -2526,7 +2526,7 @@
       "groupDe": null,
       "label": "Crosshair Follows Aim While Free Look (this client)",
       "labelDe": "Fadenkreuz folgt dem Zielpunkt bei Free Look (dieser Client)",
-      "tooltip": "Moves the normal crosshair to where you\nactually aim (the direction of your body)\nwhile Free Look is on; it is not drawn in the\nscreen centre then. Off: it stays centred.\nDefault: true.",
+      "tooltip": "Moves the normal crosshair to where you\nactually aim (the direction of your body)\nwhile Free Look is on; it is not drawn in the\nscreen center then. Off: it stays centred.\nDefault: true.",
       "tooltipDe": "Verschiebt das normale Fadenkreuz dorthin, wohin\ndu wirklich zielst (Richtung des Körpers), solange\nFree Look an ist; in der Bildmitte wird es dann\nnicht gezeichnet. Aus: es bleibt mittig.\nStandard: an."
     },
     {

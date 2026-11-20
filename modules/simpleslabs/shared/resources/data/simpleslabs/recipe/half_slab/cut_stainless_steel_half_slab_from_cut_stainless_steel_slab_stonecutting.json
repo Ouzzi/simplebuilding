@@ -48,7 +48,7 @@
   "type": "minecraft:stonecutting",
   "ingredient": "simpleores:cut_stainless_steel_slab",
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "simpleslabs:cut_stainless_steel_half_slab"
   }
 }
