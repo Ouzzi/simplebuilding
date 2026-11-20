@@ -128,7 +128,7 @@
         "title": "Commands",
         "summary": "/simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters. Without the mod in the client, giveup is the only way out.",
         "details": [
-          "down and revive need permission level 2 and are meant for testing (test centre).",
+          "down and revive need permission level 2 and are meant for testing (test center).",
           "/simplerespawn config shows and changes every option of config/simplerespawn.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
           "Server operators: a player whose client does not have the mod sees no downed screen; the only way out for them is the command /simplerespawn giveup (or bleeding out). Players with the mod use the Give up button."
         ]

@@ -345,7 +345,7 @@ MODULES = [
                 "Eigene Mono-Ogg-Dateien auf Rohlinge brennen.")),
     dict(module="simpleearth", icon="minecraft:globe_banner_pattern", ns="simpleearth", package="com.simplebuilding.modules.simpleearth.guide", cls="EarthGuide",
          kind="client", author="Simple Earth",
-         intro=("Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from "
+         intro=("Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colors straight from "
                 "the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
                 "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus "
                 "dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide.")),

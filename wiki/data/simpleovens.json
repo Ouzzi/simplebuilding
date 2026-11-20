@@ -274,7 +274,7 @@
         "details": [
           "enabled (default true): off makes the machines plain Vanilla-speed furnaces, keeps them registered and hides the tab contents; the super-mod switch \"Enable Simple Ovens\" of SimpleBuilding does the same.",
           "enableSimpleFoundry (default true): the switch \"Enable Simple Foundry\" of the sub-mod Simple Foundry; off = its foundry stops working, its blocks stay.",
-          "enableSimpleCrucibles (default true): the switch \"Enable Simple Crucibles\" of the sub-mod Simple Crucibles (a sub-mod of Simple Ovens since IG31-15, still playable alone, own ids); off = no crucibles, buckets or guide book in the tabs, no village kitchen and no axe or hammer ways (build, attach, upgrade); the registrations stay and crucibles already built keep working.",
+          "enableSimpleCrucibles (default true): the switch \"Enable Simple Crucibles\" of the sub-mod Simple Crucibles (a sub-mod of Simple Ovens, still playable alone, own ids); off = no crucibles, buckets or guide book in the tabs, no village kitchen and no axe or hammer ways (build, attach, upgrade); the registrations stay and crucibles already built keep working.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (defaults 2, 4, 8; 1 to 8): the speed against the Vanilla machine; the furnace carts' fuel factor follows it.",
           "fuelEfficiency (default false): off = the fuel burns as fast as the tier cooks (fuel per item as in Vanilla); on = the fuel burns at the Vanilla pace while the tier cooks faster, so each fuel item smelts 2, 4 or 8 times as many items.",
           "On the first start the speeds are taken over from SimpleBuilding's config (server.machines.*FurnaceSpeed in config/simplebuilding.json), which stays unchanged."
@@ -286,7 +286,7 @@
         "details": [
           "enabled (Standard true): aus macht die Maschinen zu einfachen Öfen im Vanilla-Tempo, sie bleiben registriert und der Tab leer; der Super-Mod-Schalter \"Simple Ovens aktivieren\" von SimpleBuilding wirkt genauso.",
           "enableSimpleFoundry (Standard true): der Schalter \"Simple Foundry aktivieren\" des Sub-Mods Simple Foundry; aus = seine Gießerei arbeitet nicht mehr, die Blöcke bleiben.",
-          "enableSimpleCrucibles (Standard true): der Schalter \"Simple Crucibles aktivieren\" des Sub-Mods Simple Crucibles (seit IG31-15 ein Sub-Mod von Simple Ovens, bleibt allein spielbar, eigene IDs); aus = keine Tiegel, Eimer oder Handbuch in den Tabs, keine Dorfküche und keine Axt- oder Hammer-Wege (Bauen, Andocken, Aufwerten); die Registrierungen bleiben, gebaute Tiegel arbeiten weiter.",
+          "enableSimpleCrucibles (Standard true): der Schalter \"Simple Crucibles aktivieren\" des Sub-Mods Simple Crucibles (ein Sub-Mod von Simple Ovens, bleibt allein spielbar, eigene IDs); aus = keine Tiegel, Eimer oder Handbuch in den Tabs, keine Dorfküche und keine Axt- oder Hammer-Wege (Bauen, Andocken, Aufwerten); die Registrierungen bleiben, gebaute Tiegel arbeiten weiter.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (Standard 2, 4, 8; 1 bis 8): das Tempo gegenüber der Vanilla-Maschine; der Brennstofffaktor der Antriebsloren folgt ihm.",
           "fuelEfficiency (Standard false): aus = der Brennstoff brennt so schnell, wie die Stufe gart (Brennstoff je Gegenstand wie in Vanilla); an = der Brennstoff brennt im Vanilla-Tempo, während die Stufe schneller gart, jeder Brennstoff schmilzt also 2-, 4- oder 8-mal so viele Gegenstände.",
           "Beim ersten Start werden die Tempi aus SimpleBuildings Config übernommen (server.machines.*FurnaceSpeed in config/simplebuilding.json), die unverändert bleibt."
@@ -327,14 +327,14 @@
         "title": "Creative tabs",
         "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The Simple mods do not sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
         "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Die Simple-Mods sortieren ihre Items nicht in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },
