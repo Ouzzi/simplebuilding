@@ -45,6 +45,8 @@ TEXTS = {
     "storage_full": ("The service storage is full at the moment.", "Der Speicher des Dienstes ist gerade voll."),
     "share_unknown": ("There is no other account with this e-mail address.", "Es gibt kein anderes Konto mit dieser E-Mail-Adresse."),
     "share_limit": ("Your tier shares a map with at most {max} accounts.", "Deine Stufe teilt eine Karte mit höchstens {max} Konten."),
+    "report_text": ("Please describe what is wrong (10 to 2000 characters).", "Bitte beschreibe, was nicht in Ordnung ist (10 bis 2000 Zeichen)."),
+    "report_confirm": ("Please confirm that your notice is accurate and complete.", "Bitte bestätige, dass deine Meldung richtig und vollständig ist."),
     "dpa_needed": ("To show players, accept the processing agreement for player data first (box below the switch).",
                    "Um Spieler zu zeigen, zuerst die Vereinbarung zur Verarbeitung der Spielerdaten annehmen (Kästchen unter dem Schalter)."),
     "coming_soon": ("Paying is coming soon.", "Bezahlen kommt bald."),
@@ -85,6 +87,19 @@ TEXTS = {
                          "Forgot your password? Reset it here:\n\n{link}\n\nSimple Mods",
                          "Hallo,\n\njemand wollte sich mit dieser Adresse registrieren, sie hat aber schon ein Konto. "
                          "Passwort vergessen? Hier zurücksetzen:\n\n{link}\n\nSimple Mods"),
+    "mail_report_subject": ("We received your notice about a Simple Livemap map", "Deine Meldung zu einer Simple-Livemap-Karte ist eingegangen"),
+    "mail_report_body": ("Hello,\n\nwe received your notice about the map {map} (number {id}) and will check it. "
+                         "We will tell you what we decided.\n\nSimple Mods",
+                         "Hallo,\n\nwir haben deine Meldung zur Karte {map} (Nummer {id}) erhalten und prüfen sie. "
+                         "Wir sagen dir, wie wir entschieden haben.\n\nSimple Mods"),
+    "mail_report_done_subject": ("Decision on your notice about a Simple Livemap map", "Entscheidung zu deiner Meldung einer Simple-Livemap-Karte"),
+    "mail_report_done_body": ("Hello,\n\nwe checked your notice number {id} about the map {map}. Decision: {decision}.\n{note}\n\nSimple Mods",
+                              "Hallo,\n\nwir haben deine Meldung Nummer {id} zur Karte {map} geprüft. Entscheidung: {decision}.\n{note}\n\nSimple Mods"),
+    "mail_report_owner_subject": ("Your Simple Livemap map was disconnected", "Deine Simple-Livemap-Karte wurde getrennt"),
+    "mail_report_owner_body": ("Hello,\n\nyour map {map} was disconnected after a notice (reason: {reason}).\n{note}\n"
+                               "The tiles stay in your archive. If you think this is wrong, answer this mail - we check it again.\n\nSimple Mods",
+                               "Hallo,\n\ndeine Karte {map} wurde nach einer Meldung getrennt (Grund: {reason}).\n{note}\n"
+                               "Die Kacheln bleiben in deinem Archiv. Hältst du das für falsch, antworte auf diese Mail – wir prüfen es erneut.\n\nSimple Mods"),
 }
 
 

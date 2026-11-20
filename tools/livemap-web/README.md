@@ -32,6 +32,11 @@ CLI: `python3 -m smweb serve|set-role|set-tier|add-user|maintenance --config <fi
   ratio check, content-addressed blobs; per-map and global storage quota, stop at 90 % disk.
 - Live player positions only in memory (latest state), only when the map shows players and the owner accepted the
   processing agreement (legal draft U3); never in the database or a log.
+- A “by link” map's key goes as `X-Livemap-Token` (N106; the mod's own server still reads `Authorization: Bearer`), so the
+  dev stage's basic auth no longer collides with it. Every hosted map has a “Report map” link → `/report` (notice form, legal
+  draft U5, 5 per hour and address; developers decide on `/admin`, the owner gets the reason). A manifest round (chunks up to
+  `done`) drops tiles the mod no longer reports (never on an empty round). Load test: `python3 tests/loadtest.py` (13 Ultra maps,
+  local instance, measuring only).
 - No secrets in the repo: `config.example.json`, `billing.example.json` are templates; the real files live in `/etc/simplemods/`.
 
 ## Tiers

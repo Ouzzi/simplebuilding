@@ -30,7 +30,7 @@
   "text.autoconfig.simplelivemap.option.web.token": "Schlüssel",
   "text.autoconfig.simplelivemap.option.web.token.@Tooltip": "Geheimer Schlüssel der privaten Karte, beim ersten Start erzeugt; /simplelivemap link zeigt den Link. Standard: zufällig.",
   "text.autoconfig.simplelivemap.option.web.showPlayers": "Spieler zeigen",
-  "text.autoconfig.simplelivemap.option.web.showPlayers.@Tooltip": "Online-Spieler erscheinen mit Name und Position (jeder kann sich mit /simplelivemap hide ausblenden). Standard: aus.",
+  "text.autoconfig.simplelivemap.option.web.showPlayers.@Tooltip": "Online-Spieler erscheinen mit Name und Position (jeder kann sich mit /simplelivemap hide ausblenden; schleichende, unsichtbare Spieler und Zuschauer erscheinen nie). Standard: aus.",
   "text.autoconfig.simplelivemap.option.web.requestsPerMinute": "Anfragen je Minute",
   "text.autoconfig.simplelivemap.option.web.requestsPerMinute.@Tooltip": "Anfragen, die eine Adresse je Minute stellen darf. Bereich 30–20000. Standard: 1200.",
   "text.autoconfig.simplelivemap.option.web.liveSeconds": "Live-Abstand",
