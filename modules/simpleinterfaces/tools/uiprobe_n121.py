@@ -271,9 +271,11 @@ def bt_wand(s):
             _count(s, 'undo', f'{x - 1} {y} {z + 1} {x + 1} {y} {z + 3}', 'minecraft:stone')
             n = _counts(s, ['undo'])['undo']
             s.check('sneak + real right click into the air undoes the area (0 stones left)', n == 0, n)
+    # rerun: the wand settings open only with Constructor's Touch (BtClient.tick) - enchant the held wand first
+    s.chat('enchant @s simplebuilding:constructors_touch', 0.6)
     s.key('k', 1.2)
     st = _wait_screen(s, 'BuildingWandScreen', 6)
-    s.check('K with the wand opens the wand settings (BuildingWandScreen)', st is not None, s.last.get('screen'))
+    s.check('K with the wand (Constructor\'s Touch) opens the wand settings (BuildingWandScreen)', st is not None, s.last.get('screen'))
     if st:
         s.check('wand settings show widgets', len(s.widgets(st)) >= 2, '; '.join(s.labels(st))[:300])
         _park(s, st)
