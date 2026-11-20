@@ -2526,7 +2526,7 @@
       "groupDe": null,
       "label": "Crosshair Follows Aim While Free Look (this client)",
       "labelDe": "Fadenkreuz folgt dem Zielpunkt bei Free Look (dieser Client)",
-      "tooltip": "Moves the normal crosshair to where you\nactually aim (the direction of your body)\nwhile Free Look is on; it is not drawn in the\nscreen center then. Off: it stays centred.\nDefault: true.",
+      "tooltip": "Moves the normal crosshair to where you\nactually aim (the direction of your body)\nwhile Free Look is on; it is not drawn in the\nscreen center then. Off: it stays centered.\nDefault: true.",
       "tooltipDe": "Verschiebt das normale Fadenkreuz dorthin, wohin\ndu wirklich zielst (Richtung des Körpers), solange\nFree Look an ist; in der Bildmitte wird es dann\nnicht gezeichnet. Aus: es bleibt mittig.\nStandard: an."
     },
     {

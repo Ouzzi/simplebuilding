@@ -854,8 +854,8 @@
       "groupDe": null,
       "label": "Moon phases",
       "labelDe": "Mondphasen",
-      "tooltip": "E10: the cube moon follows Vanilla's moon phase; off = always full moon. Default: on.",
-      "tooltipDe": "E10: der Würfelmond folgt Vanillas Mondphase; aus = immer Vollmond. Standard: an."
+      "tooltip": "The cube moon follows Vanilla's moon phase; off = always full moon. Default: on.",
+      "tooltipDe": "Der Würfelmond folgt Vanillas Mondphase; aus = immer Vollmond. Standard: an."
     },
     {
       "range": null,
@@ -1006,8 +1006,8 @@
       "groupDe": null,
       "label": "Only while flying",
       "labelDe": "Nur im Flug",
-      "tooltip": "Server, E5: off = any way up counts; on = the orbit only starts while flying (creative flight or elytra). Default: off.",
-      "tooltipDe": "Server, E5: aus = jeder Weg nach oben zählt; an = der Orbit beginnt nur im Flug (Kreativflug oder Elytren). Standard: aus."
+      "tooltip": "Server option. Off = any way up counts; on = the orbit only starts while flying (creative flight or elytra). Default: off.",
+      "tooltipDe": "Server-Option. Aus = jeder Weg nach oben zählt; an = der Orbit beginnt nur im Flug (Kreativflug oder Elytren). Standard: aus."
     },
     {
       "range": null,
@@ -1101,8 +1101,8 @@
       "groupDe": null,
       "label": "Show other players",
       "labelDe": "Andere Spieler zeigen",
-      "tooltip": "E9: other players in orbit appear as dots (players on the ground never). A server option and a display option; both must be on. Default: on.",
-      "tooltipDe": "E9: andere Spieler im Orbit erscheinen als Punkte (Spieler am Boden nie). Server- und Darstellungs-Option; beide müssen an sein. Standard: an."
+      "tooltip": "Other players in orbit appear as dots (players on the ground never). A server option and a display option; both must be on. Default: on.",
+      "tooltipDe": "Andere Spieler im Orbit erscheinen als Punkte (Spieler am Boden nie). Server- und Darstellungs-Option; beide müssen an sein. Standard: an."
     },
     {
       "range": null,
