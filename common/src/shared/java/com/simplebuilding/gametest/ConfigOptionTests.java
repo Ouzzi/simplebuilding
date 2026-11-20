@@ -1431,6 +1431,7 @@ public final class ConfigOptionTests {
             }
         }
         helper.assertTrue(tabs.equals(EXPECTED_TABS), "config screen tabs in order: " + tabs + " instead of " + EXPECTED_TABS);
+        clothShownStatics(problems, "", SimplebuildingConfig.class);
         for (String tab : EXPECTED_TABS) {
             requireLang(problems, en, de, prefix + "category." + tab);
         }
@@ -1482,6 +1483,28 @@ public final class ConfigOptionTests {
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " config screen problems:\n" + String.join("\n", problems));
         done(helper);
+    }
+
+    /**
+     * N118: Cloth's AutoConfig also lists static fields inside {@code TransitiveObject}/{@code CollapsibleObject} groups
+     * (TweaksConfig's MAX_* limits showed as twelve raw-keyed entries on "Pads & Tweaks"), while {@code ConfigOptions} and
+     * the wiki skip them. A static field the screen would show needs {@code @ConfigEntry.Gui.Excluded}.
+     */
+    private static void clothShownStatics(List<String> problems, String prefix, Class<?> owner) {
+        for (Field field : owner.getDeclaredFields()) {
+            if (field.isSynthetic()
+                    || field.isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded.class)) {
+                continue;
+            }
+            if (Modifier.isStatic(field.getModifiers())) {
+                problems.add(prefix + field.getName() + " is static without @ConfigEntry.Gui.Excluded, so Cloth shows it as a raw-keyed option");
+                continue;
+            }
+            if (field.isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.TransitiveObject.class)
+                    || field.isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject.class)) {
+                clothShownStatics(problems, prefix + field.getName() + ".", field.getType());
+            }
+        }
     }
 
     /**

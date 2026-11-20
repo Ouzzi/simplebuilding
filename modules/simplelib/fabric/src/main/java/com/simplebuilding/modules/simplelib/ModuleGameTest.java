@@ -316,6 +316,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void freeLookCrosshair(GameTestHelper h) {
+        LibTests.ALL.get("free_look_crosshair").accept(h);
+    }
+
+    @GameTest
     public void freeLookReleaseRules(GameTestHelper h) {
         LibTests.ALL.get("free_look_release_rules").accept(h);
     }

@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 /**
  * Free look (owner 26.10., E29-4; reworked IG31-29, 31.10.): while it is on, the mouse turns only the camera, not the player -
@@ -200,11 +199,6 @@ public final class FreeLook {
         return toggled;
     }
 
-    /** Camera orientation (camera to world) for a view of {@code yRot}/{@code xRot} degrees, exactly as {@code Camera.setRotation} builds it. */
-    private static Quaternionf orientation(float yRot, float xRot) {
-        return new Quaternionf().rotationYXZ((float) Math.PI - yRot * ((float) Math.PI / 180f), -xRot * ((float) Math.PI / 180f), 0f);
-    }
-
     /**
      * First person hand (QOL34, owner 03.11.): the hand is drawn in camera space, so with the camera turned away it travelled
      * along with the camera. This is the rotation that puts it back to the body direction: camera^-1 * body, i.e. the hand
@@ -213,9 +207,9 @@ public final class FreeLook {
      */
     public static Quaternionf handCorrection(float playerYRot, float playerXRot) {
         if (!handFix || (yawOffset() == 0 && pitchOffset() == 0)) return null;
-        Quaternionf body = orientation(playerYRot, playerXRot);
+        Quaternionf body = FreeLookRules.orientation(playerYRot, playerXRot);
         float camPitch = Math.max(-90, Math.min(90, playerXRot + pitch));
-        return orientation(playerYRot + yaw, camPitch).conjugate().mul(body);
+        return FreeLookRules.orientation(playerYRot + yaw, camPitch).conjugate().mul(body);
     }
 
     /**
@@ -229,12 +223,6 @@ public final class FreeLook {
 
     public static int[] crosshairPoint(float playerXRot, int guiWidth, int guiHeight, double fovDegrees) {
         if (!crosshairOn()) return null;
-        Quaternionf cam = orientation(yawOffset(), Math.max(-90, Math.min(90, playerXRot + pitchOffset())));
-        Vector3f v = cam.conjugate().transform(orientation(0, playerXRot).transform(new Vector3f(0, 0, -1)));
-        if (v.z >= -1.0e-4f) return null;
-        double focal = guiHeight / 2.0 / Math.tan(Math.toRadians(fovDegrees) / 2);
-        int x = (int) Math.round(guiWidth / 2.0 + v.x / -v.z * focal);
-        int y = (int) Math.round(guiHeight / 2.0 - v.y / -v.z * focal);
-        return new int[]{x, y};
+        return FreeLookRules.crosshairPoint(yawOffset(), pitchOffset(), playerXRot, guiWidth, guiHeight, fovDegrees);
     }
 }

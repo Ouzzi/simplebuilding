@@ -11,8 +11,11 @@ group's category name (not for a module with its own Mod Menu screen, which name
 needs one in the other. Not required: the title (the screen falls back to the mod's name, not to a path). Not seen here: options
 whose keys only exist at run time (maps filled in a loop: their entries become options of their own) and Gson fields that are
 null by default (Gson does not write them) - the per-module GameTest ``ConfigScreenModel.missingLabels`` covers the loaded EN.
-SimpleBuilding's own Cloth config is checked by the wiki generator (``--check``, undocumented options).
-Usage: check_config_lang.py [module ...]   Exit 1 on a missing key.
+SimpleBuilding's own config (N118): its screen is Cloth AutoConfig, which - unlike ``ConfigOptions`` and the wiki - also lists
+STATIC fields inside TransitiveObject/CollapsibleObject groups (TweaksConfig's MAX_* limits showed as twelve raw keys on
+"Pads & Tweaks"). For every line's ``SimplebuildingConfig`` this walks the fields the way Cloth does (statics included, only
+``@ConfigEntry.Gui.Excluded`` skipped) and requires an EN and DE name for every entry and collapsible group and the tab names.
+Usage: check_config_lang.py [module ...]   Exit 1 on a missing key. ``core`` as module = only SimpleBuilding's own config.
 """
 from __future__ import annotations
 
@@ -85,7 +88,71 @@ def problems_of(entry, tables, opts=None):
     return out
 
 
+# The shipped line(s): config source and the lang directories in precedence order (26.3: an overlay file hides the
+# 26.2 one, mc26_3/resources.gradle). 26.2 / 1.21.11 are ports on request and not checked.
+CORE_LINES = {
+    '26.3': ('common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java',
+             ('mc26_3/overlay/resources/assets/simplebuilding/lang', 'src/main/resources/assets/simplebuilding/lang')),
+}
+
+
+def core_problems(lines=None):
+    """Missing keys of SimpleBuilding's own Cloth screen per line: (line, locale, key, why); and the number of entries."""
+    import generate  # wiki/generate.py: parse_config_classes, CONFIG_CATEGORY
+    out, count = [], 0
+    for line, (config, lang_dirs) in (lines or CORE_LINES).items():
+        path = REPO / config
+        tables = {}
+        for loc in LOCALES:
+            lang = next(REPO / d / f'{loc}.json' for d in lang_dirs if (REPO / d / f'{loc}.json').exists())
+            tables[loc] = json.loads(lang.read_text(encoding='utf-8'))
+        by_file = {f: generate.parse_config_classes(f) for f in (
+            path, path.parent / 'ServerTuningConfig.java', path.parents[1] / 'tweaks' / 'TweaksConfig.java') if f.exists()}
+
+        def resolve(type_name, from_file):
+            for f in [from_file] + list(by_file):
+                if type_name in by_file.get(f, {}):
+                    return f, by_file[f][type_name]
+            return None, None
+
+        base = 'text.autoconfig.simplebuilding.'
+        keys = []  # (key, why)
+
+        def walk(fields, file, prefix):
+            for field in fields:
+                ann = ' '.join(field['annotations'])
+                if 'Gui.Excluded' in ann:
+                    continue
+                tab = generate.CONFIG_CATEGORY.search(ann)
+                if tab:
+                    keys.append((base + 'category.' + tab.group(1), 'tab name'))
+                name = prefix + field['name']
+                sub_file, sub = resolve(field['type'].split('.')[-1], file)
+                if sub is not None and ('TransitiveObject' in ann or 'CollapsibleObject' in ann):
+                    if 'CollapsibleObject' in ann:
+                        keys.append((base + 'option.' + name, 'group name'))
+                    walk(sub, sub_file, name + '.')
+                    continue
+                why = 'static field Cloth shows (exclude it or name it)' if field['static'] else 'option name'
+                keys.append((base + 'option.' + name, why))
+
+        walk(by_file[path].get('SimplebuildingConfig', []), path, '')
+        count += sum(1 for _, why in keys if why != 'tab name')
+        for key, why in dict(keys).items():
+            for loc in LOCALES:
+                if key not in tables[loc]:
+                    out.append((line, loc, key, why))
+    return out, count
+
+
 def main(argv):
+    core_only = argv == ['core']
+    core_bad, core_count = core_problems() if not argv or core_only else ([], 0)
+    for line, loc, key, why in core_bad:
+        print(f'ERROR simplebuilding ({line}): {loc} has no "{key}" ({why})')
+    if core_only:
+        print(f'check_config_lang: {core_count} SimpleBuilding config entries, {len(core_bad)} missing keys')
+        return 1 if core_bad else 0
     entries = json.loads((REPO / 'modules' / 'modules.json').read_text(encoding='utf-8'))
     entries = entries if isinstance(entries, list) else entries['modules']
     entries = [e for e in entries if e['id'] != 'simplebuilding' and (not argv or e['id'] in argv)]
@@ -100,8 +167,9 @@ def main(argv):
         bad += [(entry['id'], *p) for p in problems_of(entry, tables, opts)]
     for mod, loc, key, why in bad:
         print(f'ERROR {mod}: {loc} has no "{key}" ({why})')
-    print(f'check_config_lang: {options} options of {mods} modules, {len(bad)} missing keys')
-    return 1 if bad else 0
+    print(f'check_config_lang: {options} options of {mods} modules + {core_count} SimpleBuilding config entries, '
+          f'{len(bad) + len(core_bad)} missing keys')
+    return 1 if bad or core_bad else 0
 
 
 if __name__ == '__main__':

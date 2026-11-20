@@ -8,19 +8,34 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  * Druckplatten-Familie ein Schalter in {@link Pads} (docs/SIMPLETWEAKS-UEBERNAHME.md, Abschnitt 5).
  */
 public class TweaksConfig {
+    // Fest eingebaute Obergrenzen, keine Optionen (validate/capped begrenzen damit handeditierte Werte). Cloth AutoConfig
+    // zeigt auch static Felder in Abschnitten an (N118: zwoelf Eintraege mit rohem Schluessel), daher Gui.Excluded;
+    // Gson schreibt static Felder nie, alte Dateien sind unberuehrt.
+    @ConfigEntry.Gui.Excluded
     public static final int MAX_TELEPORTER_WARMUP_TICKS = 12000;
+    @ConfigEntry.Gui.Excluded
     public static final double MAX_LAUNCHPAD_STRENGTH_MULTIPLIER = 2.0;
+    @ConfigEntry.Gui.Excluded
     public static final int MAX_POTION_CHARGE_STEP_TICKS = 1200;
+    @ConfigEntry.Gui.Excluded
     public static final double MAX_POTION_COOLDOWN_FACTOR = 10.0;
+    @ConfigEntry.Gui.Excluded
     public static final int MAX_KILL_COMMAND_RADIUS = 256;
+    @ConfigEntry.Gui.Excluded
     public static final double MAX_XP_CLUMP_RADIUS = 8.0;
+    @ConfigEntry.Gui.Excluded
     public static final int MAX_SPAWN_ELYTRA_RADIUS = 256;
+    @ConfigEntry.Gui.Excluded
     public static final float MAX_BOOST_STRENGTH = 1.2f;
+    @ConfigEntry.Gui.Excluded
     public static final int MAX_LASER_RANGE = 1024;
     /** Resonance Rod dot: light amethyst from the texture script's amethyst ramp (owner N11 P7). */
+    @ConfigEntry.Gui.Excluded
     public static final int LASER_DEFAULT_COLOR = 0xB38EF3;
     /** Dot default until 2026-10-07; {@link #validate()} lifts it to {@link #LASER_DEFAULT_COLOR}. */
+    @ConfigEntry.Gui.Excluded
     public static final int LASER_LEGACY_DEFAULT_COLOR = 0xFF0000;
+    @ConfigEntry.Gui.Excluded
     public static final int MAX_ECHO_COOLDOWN_TICKS = 12000;
 
 
@@ -203,8 +218,10 @@ public class TweaksConfig {
 
     public static class Spawn {
         /** Obergrenze der Flugzeit (24 h): {@code flightTimeSeconds * 20} lief frueher ueber (Audit #51). */
+        @ConfigEntry.Gui.Excluded
         public static final int MAX_FLIGHT_SECONDS = 86_400;
         /** Obergrenze der Boosts; mehr Teilstriche passen ohnehin nicht in die 182-Pixel-Leiste. */
+        @ConfigEntry.Gui.Excluded
         public static final int MAX_BOOSTS = 100;
 
         /** Aus in SimpleBuilding standardmaessig aus (Simple Tweaks: an), damit bestehende Welten unveraendert bleiben. */
