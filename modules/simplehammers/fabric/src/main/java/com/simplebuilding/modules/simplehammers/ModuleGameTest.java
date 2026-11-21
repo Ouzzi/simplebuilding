@@ -61,6 +61,11 @@ public final class ModuleGameTest {
         HammerTests.ALL.get("hammer_tempo").accept(h);
     }
 
+    @GameTest(structure = "simplehammers:empty")
+    public void upgradeChargeCracksAndPose(GameTestHelper h) {
+        HammerTests.ALL.get("upgrade_charge_cracks_and_pose").accept(h);
+    }
+
     @GameTest(structure = "simplehammers:empty", maxTicks = 200)
     public void stoneCrush(GameTestHelper h) {
         HammerTests.ALL.get("stone_crush").accept(h);
