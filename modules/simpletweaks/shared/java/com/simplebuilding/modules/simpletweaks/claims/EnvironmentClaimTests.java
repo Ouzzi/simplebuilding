@@ -59,10 +59,10 @@ final class EnvironmentClaimTests {
  static void projectiles(GameTestHelper h){
   // The target chunk lies east of the test structure; until it is entity-visible the arrow's hit query misses the cow.
   var l=h.getLevel();var inside=ToolClaimTests.boundary(h).east(2).above(80);var chunk=ChunkPos.containing(inside);
-  boolean forced=l.setChunkForced(chunk.x(),chunk.z(),true);
+  ClaimTests.entityTicking(h,List.of(chunk));
   var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setNoAi(true);cow.setPos(Vec3.atBottomCenterOf(inside));l.addFreshEntity(cow);
-  h.runBeforeTestEnd(()->{cow.discard();if(forced)l.setChunkForced(chunk.x(),chunk.z(),false);});
-  h.startSequence().thenWaitUntil(()->yes(h,l.getEntitiesOfClass(Entity.class,new net.minecraft.world.phys.AABB(inside).inflate(2)).contains(cow),"Projectile target is not queryable yet"))
+  h.runBeforeTestEnd(()->{cow.discard();});
+  h.startSequence().thenWaitUntil(()->yes(h,ClaimTests.entityTicking(h,List.of(chunk))&&l.getEntitiesOfClass(Entity.class,new net.minecraft.world.phys.AABB(inside).inflate(2)).contains(cow),"Projectile target is not queryable yet"))
    .thenExecute(()->with(h,c->{
   var owner=player(h,inside.west(10));var other=player(h,inside.west(10));
   yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Projectile fixture");

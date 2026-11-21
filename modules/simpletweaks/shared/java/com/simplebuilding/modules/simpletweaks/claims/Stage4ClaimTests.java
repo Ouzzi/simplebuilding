@@ -37,21 +37,19 @@ final class Stage4ClaimTests {
     }
     /**
      * Entity tests on the high workspace: a freshly loaded chunk only lists new entities once its entity section
-     * is ticking (flaky boats/indirect cloud on tick 0). Force-load both sides of the border and wait until a probe
-     * on each side is queryable, as the attractor test does, then run the synchronous modes.
+     * is ticking (flaky boats/indirect cloud on tick 0). Keep both sides of the border loaded and wait until both
+     * chunks are entity-ticking, then run the synchronous modes. Waiting on probe entities instead was flaky
+     * (O2): neighbouring claim tests share this workspace, and their Fixture.close() discards every ItemEntity
+     * around the edge, so a probe could vanish and the wait timed out.
      */
     private static void warmEntityModes(GameTestHelper h,java.util.function.BiConsumer<Fixture,Boolean> test){
-        var edge=ToolClaimTests.boundary(h).above(90);var forced=new ArrayList<ChunkPos>();var probes=new ArrayList<ItemEntity>();
-        for(var chunk:List.of(ChunkPos.containing(edge),ChunkPos.containing(edge.west(16)))){
-            if(h.getLevel().setChunkForced(chunk.x(),chunk.z(),true))forced.add(chunk);h.getLevel().getChunk(chunk.x(),chunk.z());
-        }
-        for(var pos:List.of(edge.west(5),edge.east(3))){
-            var probe=new ItemEntity(h.getLevel(),pos.getX()+.5,pos.getY(),pos.getZ()+.5,new ItemStack(Items.STICK),0,0,0);
-            probe.setNoGravity(true);probe.setNeverPickUp();h.getLevel().addFreshEntity(probe);probes.add(probe);
-        }
-        h.runBeforeTestEnd(()->{probes.forEach(Entity::discard);for(var chunk:forced)h.getLevel().setChunkForced(chunk.x(),chunk.z(),false);});
-        h.startSequence().thenWaitUntil(()->yes(h,h.getLevel().getEntitiesOfClass(ItemEntity.class,new AABB(edge).inflate(8)).containsAll(probes),"Workspace entities are not queryable yet"))
-                .thenExecute(()->{probes.forEach(Entity::discard);modes(h,test);});
+        whenEntityChunksTick(h,"Workspace entities are not queryable yet",()->modes(h,test));
+    }
+    private static void whenEntityChunksTick(GameTestHelper h,String what,Runnable test){
+        var edge=ToolClaimTests.boundary(h).above(90);var l=h.getLevel();
+        var chunks=List.of(ChunkPos.containing(edge),ChunkPos.containing(edge.west(16)));
+        entityTicking(h,chunks);
+        h.startSequence().thenWaitUntil(()->yes(h,entityTicking(h,chunks),what)).thenExecute(test);
     }
     private static final class Fixture implements AutoCloseable {
         final GameTestHelper h;final ServerLevel l;final BlockPos edge;final Claims claims;
@@ -277,33 +275,9 @@ final class Stage4ClaimTests {
         yes(h,enabled?source.getItem(0).is(Items.WATER_BUCKET)&&f.l.getFluidState(p.east()).isEmpty():source.getItem(0).is(Items.BUCKET)&&!f.l.getFluidState(p.east()).isEmpty(),"Dispenser denial preserves its item; disabled and absent providers retain bucket behavior");
     });}
     static void attractor(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims attractor"))return;
-        // getChunk alone does not make new entities visible to the attractor's query.
-        // Await actual query visibility on both sides before creating any claim fixture.
-        var edge=ToolClaimTests.boundary(h).above(90);
-        var chunks=List.of(ChunkPos.containing(edge),ChunkPos.containing(edge.west(16)));
-        var forced=new ArrayList<ChunkPos>();
-        for(var chunk:chunks){
-            if(h.getLevel().setChunkForced(chunk.x(),chunk.z(),true))forced.add(chunk);
-            h.getLevel().getChunk(chunk.x(),chunk.z());
-        }
-        var probes=new ArrayList<ItemEntity>();
-        for(var pos:List.of(edge.west(5),edge.east())){
-            var probe=new ItemEntity(h.getLevel(),pos.getX()+.5,pos.getY(),pos.getZ()+.5,
-                    new ItemStack(Items.APPLE),0,0,0);
-            probe.setNoGravity(true);
-            h.getLevel().addFreshEntity(probe);
-            probes.add(probe);
-        }
-        Runnable release=()->{
-            probes.forEach(Entity::discard);
-            for(var chunk:forced)h.getLevel().setChunkForced(chunk.x(),chunk.z(),false);
-        };
-        h.runBeforeTestEnd(release);
-        h.startSequence().thenWaitUntil(()->{
-            yes(h,h.getLevel().getEntitiesOfClass(ItemEntity.class,new AABB(edge).inflate(8)).containsAll(probes),
-                    "Attractor boundary probes are not queryable yet");
-        }).thenExecute(()->{try {
-        probes.forEach(Entity::discard);
+        // getChunk alone does not make new entities visible to the attractor's query: wait until both sides of the
+        // border are entity-ticking before creating any claim fixture (see whenEntityChunksTick).
+        whenEntityChunksTick(h,"Attractor boundary chunks are not entity-ticking yet",()->
         modes(h,(f,enabled)->{
         var p=f.edge.west(2);
         if(Math.floorMod(f.l.getGameTime()+p.asLong(),2)!=0)p=p.above();
@@ -320,7 +294,7 @@ final class Stage4ClaimTests {
             yes(h,f.claims.create(new ClaimStore.Key(f.l.dimension().identifier().toString(),ChunkPos.pack(p)),f.owner.getUUID(),120),"Adjacent same-owner chunk fixture");
             tick(f.l,p);yes(h,!foreign.getDeltaMovement().equals(Vec3.ZERO),"Attractor works across adjacent same-owner chunks");
         }
-        });}finally{release.run();}});
+        }));
     }
 
     // ---- Completion (2026-10-12): mob griefing, damage policy, vehicles, provenance, positioned wrappers ----

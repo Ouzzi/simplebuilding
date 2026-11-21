@@ -128,10 +128,9 @@ final class VisitorClaimTests {
     static void projectiles(GameTestHelper h) {
         // The targets lie east of the test structure; until they are entity-visible the projectile's hit query misses them.
         var l = h.getLevel(); var inside = ToolClaimTests.boundary(h).east(2).above(80); var chunk = ChunkPos.containing(inside);
-        boolean forced = l.setChunkForced(chunk.x(), chunk.z(), true);
+        ClaimTests.entityTicking(h, List.of(chunk));
         var cow = mob(h, EntityTypes.COW, inside); var zombie = mob(h, EntityTypes.ZOMBIE, inside.south(3));
-        h.runBeforeTestEnd(() -> { if (forced) l.setChunkForced(chunk.x(), chunk.z(), false); });
-        h.startSequence().thenWaitUntil(() -> yes(h, l.getEntitiesOfClass(Entity.class, new AABB(inside).inflate(5)).containsAll(List.of(cow, zombie)), "Projectile targets are not queryable yet"))
+        h.startSequence().thenWaitUntil(() -> yes(h, ClaimTests.entityTicking(h, List.of(chunk)) && l.getEntitiesOfClass(Entity.class, new AABB(inside).inflate(5)).containsAll(List.of(cow, zombie)), "Projectile targets are not queryable yet"))
                 .thenExecute(() -> with(h, c -> {
                     var v = land(h, c, inside).visitor(); var inv = v.getInventory();
                     float ch = cow.getHealth(), zh = zombie.getHealth();

@@ -113,6 +113,18 @@ public final class ClaimTests {
         TESTS.put("claims_visitor_config",VisitorClaimTests::config);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
+    /**
+     * Keeps the chunks entity-ticking and reports whether they are, i.e. whether new entities there are queryable.
+     * Call it from the test's wait condition. Gametests run up to 50 at once on a 5-6 block grid, so neighbouring
+     * claim tests share the chunks east of their structures (boundary() rounds to the same chunk border). Forcing is a
+     * plain set shared with GameTestRunner (which forces the batch's structure chunks): a test that unforced "its" chunk
+     * pulled it from under another test. A timed ticket needs no release: equal tickets only refresh, it expires on its own.
+     */
+    static boolean entityTicking(GameTestHelper h,List<ChunkPos> chunks){
+        var l=h.getLevel();
+        for(var c:chunks)l.getChunkSource().addTicketWithRadius(net.minecraft.server.level.TicketType.PORTAL,c,2);
+        return chunks.stream().allMatch(l::areEntitiesActuallyLoadedAndTicking);
+    }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */
     static boolean simpleBuilding() { return net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding","reinforced_hopper")); }
     static boolean skipWithoutSimpleBuilding(GameTestHelper h,String what) {
