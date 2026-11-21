@@ -4,6 +4,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric runs only @GameTest methods: one wrapper per shared test body in {@link EndTests}. */
 public final class ModuleGameTest {
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleend", false); }
+ /** N123: the Mod Menu settings screen names the title, every category and every option (no raw lang paths), server and client config. */
+ @GameTest(maxTicks=100) public void configLabels(GameTestHelper h){var missing=com.simplelib.api.config.ConfigScreenModel.missingLabels("simpleend"); h.assertTrue(missing.isEmpty(), "config screen without a name: "+missing); h.succeed();}
     /** a-audsb31e2 simpleend-P2-1: /simpleend config enableSimpleEndDragonFight reaches the nested switch at once (Fabric only: the command comes from SimpleLib). */
     @GameTest public void nestedSwitchFollowsConfigCommand(GameTestHelper h) {
         var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleEnd.ID, false);

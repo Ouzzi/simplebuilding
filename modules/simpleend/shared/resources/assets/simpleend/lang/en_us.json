@@ -56,6 +56,7 @@
   "block.simpleend.stripped_ashwood_wood": "Stripped Ashwood",
   "block.simpleend.stripped_duskwood_log": "Stripped Duskwood Log",
   "block.simpleend.stripped_duskwood_wood": "Stripped Duskwood",
+  "text.autoconfig.simpleend.title": "Simple End",
   "text.autoconfig.simpleend.option.biomeChance": "Biome patch chance",
   "text.autoconfig.simpleend.option.biomeChance.@Tooltip": "Share of 72x72-chunk areas on the outer islands that hold one patch, 28-44 chunks across, spanning several islands (0 to 1). Default: 0.4.",
   "text.autoconfig.simpleend.option.biomes": "Ash Valley and Dawnlands",

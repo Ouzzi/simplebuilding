@@ -881,7 +881,7 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "5e5992f0e061"
+    "dataHash": "5fc40711b8b8"
   },
   {
     "id": "simplefarming",
@@ -1141,7 +1141,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 11
     },
-    "dataHash": "40fd441e3770"
+    "dataHash": "af3751e1fd36"
   },
   {
     "id": "simplerespawn",
@@ -1993,7 +1993,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 10
     },
-    "dataHash": "d1b4dcbb2883"
+    "dataHash": "a1502df164fc"
   },
   {
     "id": "simpleores",

@@ -56,6 +56,7 @@
   "block.simpleend.stripped_ashwood_wood": "Entrindetes Aschholz",
   "block.simpleend.stripped_duskwood_log": "Entrindeter Dämmerstamm",
   "block.simpleend.stripped_duskwood_wood": "Entrindetes Dämmerholz",
+  "text.autoconfig.simpleend.title": "Simple End",
   "text.autoconfig.simpleend.option.biomeChance": "Biom-Fleck-Chance",
   "text.autoconfig.simpleend.option.biomeChance.@Tooltip": "Anteil der 72x72-Chunk-Felder auf den äußeren Inseln mit einem Fleck von 28-44 Chunks Durchmesser über mehrere Inseln (0 bis 1). Standard: 0,4.",
   "text.autoconfig.simpleend.option.biomes": "Aschental und Dämmerlande",

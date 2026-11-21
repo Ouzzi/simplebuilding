@@ -8,6 +8,8 @@ public final class ModuleGameTest {
  /** JEI24 (a-fix09b): ceramic and Enderite bucket pages, b-fix09a: Biome Brush, Death Vault; texts in EN and DE. */
  @GameTest(maxTicks=100) public void jeiInfoPages(GameTestHelper h){com.simplelib.test.ViewerInfoTests.infoPages(h, "simpletools", 4);}
  @GameTest(maxTicks=100) public void config(GameTestHelper h){ToolsTests.config(h);}
+ /** N123: the Mod Menu settings screen names the title, every category and every option (no raw lang paths), server and client config. */
+ @GameTest(maxTicks=100) public void configLabels(GameTestHelper h){var missing=com.simplelib.api.config.ConfigScreenModel.missingLabels("simpletools"); h.assertTrue(missing.isEmpty(), "config screen without a name: "+missing); h.succeed();}
  @GameTest(maxTicks=100) public void qolMigration(GameTestHelper h){ToolsTests.qolMigration(h);}
  @GameTest(maxTicks=100) public void superSwitch(GameTestHelper h){ToolsTests.superSwitch(h);}
  @GameTest(maxTicks=100) public void lavaSwitch(GameTestHelper h){ToolsTests.lavaSwitch(h);}

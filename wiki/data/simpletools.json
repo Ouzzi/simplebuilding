@@ -190,7 +190,7 @@
         "title": "Biome Brush",
         "summary": "Brush in the main hand, a biome material in the off hand, right-click a block: the biome around it becomes the material's biome. One material and one durability point per stroke.",
         "details": [
-          "Recipe (shaped): three Nether Stars in the top row, a Netherite Nugget in the middle, a Brush below. With Simple Mobs instead (one column): Nether Heart, Netherite Nugget, Brush. Durability 512, repaired with Netherite Ingots, takes Unbreaking and Mending. Moved from Simple Mobs; old brushes keep working.",
+          "Recipe (shaped): three Nether Stars in the top row, a Netherite Nugget in the middle, a Brush below. With Simple Mobs instead (one column): Nether Heart, Netherite Nugget, Brush. Durability 512, repaired with Netherite Ingots, takes Unbreaking and Mending. Brushes from older worlds (Simple Mobs) keep working.",
           "A stroke sets the 4x4x4 biome cells (Vanilla stores biomes in such cells) around the clicked block: 3x3x3 cells, 12 blocks wide (server config biomeBrushRadius, 0 to 2 cells). The chunks are sent again at once, so grass, leaf and water colors, weather, mob spawns and plant growth follow the new biome. Holding the button keeps painting, one stroke per 5 ticks. Creative uses no material and no durability.",
           "Sneaking paints only the clicked cell (one 4x4x4 cell, the smallest spot a biome can have) - for borders and details.",
           "Materials: Grass Block = Plains, Sand = Desert, Snow Block = Snowy Plains, Mycelium = Mushroom Fields, Cherry Leaves = Cherry Grove, Jungle Log = Jungle, Red Sand = Badlands, Podzol = Taiga, Mangrove Roots = Mangrove Swamp, Pale Moss Block = Pale Garden, Oak Log = Forest, Birch Log = Birch Forest, Dark Oak Log = Dark Forest, Acacia Log = Savanna, Lily Pad = Swamp, Packed Ice = Ice Spikes; Nether: Soul Sand or Soul Soil = Soul Sand Valley, Crimson Nylium = Crimson Forest, Warped Nylium = Warped Forest, Basalt = Basalt Deltas, Netherrack = Nether Wastes; End: Chorus Flower = End Highlands, End Stone = End Barrens. Data packs add more in data/<namespace>/biome_brush/*.json.",
@@ -202,7 +202,7 @@
         "title": "Biom-Pinsel",
         "summary": "Pinsel in der Haupthand, ein Biom-Material in der Nebenhand, Rechtsklick auf einen Block: Das Biom ringsum wird zum Biom des Materials. Ein Material und ein Haltbarkeitspunkt je Strich.",
         "details": [
-          "Rezept (geformt): drei Nethersterne in der oberen Reihe, ein Netheritnugget in der Mitte, ein Pinsel darunter. Mit Simple Mobs stattdessen (eine Spalte): Netherherz, Netheritnugget, Pinsel. Haltbarkeit 512, Reparatur mit Netheritbarren, nimmt Haltbarkeit und Reparatur an. Aus Simple Mobs umgezogen; alte Pinsel bleiben gültig.",
+          "Rezept (geformt): drei Nethersterne in der oberen Reihe, ein Netheritnugget in der Mitte, ein Pinsel darunter. Mit Simple Mobs stattdessen (eine Spalte): Netherherz, Netheritnugget, Pinsel. Haltbarkeit 512, Reparatur mit Netheritbarren, nimmt Haltbarkeit und Reparatur an. Pinsel aus älteren Welten (Simple Mobs) bleiben gültig.",
           "Ein Strich setzt die 4×4×4-Biomzellen (so speichert Vanilla Biome) um den geklickten Block: 3×3×3 Zellen, 12 Blöcke breit (Server-Config biomeBrushRadius, 0 bis 2 Zellen). Die Chunks werden sofort neu gesendet, Gras-, Laub- und Wasserfarbe, Wetter, Mob-Spawns und Pflanzenwachstum folgen dem neuen Biom. Gedrückt halten malt weiter, ein Strich je 5 Ticks. Kreativ verbraucht weder Material noch Haltbarkeit.",
           "Schleichen malt nur die geklickte Zelle (eine 4×4×4-Zelle, die kleinste Stelle, die ein Biom haben kann) – für Ränder und Details.",
           "Materialien: Grasblock = Ebene, Sand = Wüste, Schneeblock = Verschneite Ebene, Myzel = Pilzinsel, Kirschlaub = Kirschhain, Tropenbaumstamm = Dschungel, Roter Sand = Tafelberge, Podsol = Taiga, Mangrovenwurzeln = Mangrovensumpf, Blassmoosblock = Blasser Garten, Eichenstamm = Wald, Birkenstamm = Birkenwald, Schwarzeichenstamm = Dichter Wald, Akazienstamm = Savanne, Seerosenblatt = Sumpf, Packeis = Eiszapfentundra; Nether: Seelensand oder Seelenerde = Seelensandtal, Karmesin-Nyzel = Karmesinwald, Wirr-Nyzel = Wirrwald, Basalt = Basaltdeltas, Netherrack = Netherödland; End: Chorusblüte = End-Hochland, Endstein = Kargland des Ends. Datenpakete ergänzen weitere unter data/<namespace>/biome_brush/*.json.",
@@ -303,7 +303,7 @@
         "title": "Enderite and ceramic buckets",
         "summary": "Enderite holds two, never breaks; ceramic wears out.",
         "details": [
-          "Formerly Simple Crucibles' (before that SimpleBuilding's); old worlds keep every bucket, filled ones included.",
+          "Buckets from older worlds (Simple Crucibles or SimpleBuilding) stay, filled ones included.",
           "The Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets, needs Simple Ores) takes water, lava and milk (from cows, goats and mooshrooms) and, with Simple Crucibles, soul lava; it never breaks and holds two buckets of one fluid: use only scoops while there is room, a full one pours both buckets on use (the second source right beside the first, in your facing), and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace) takes water and lava, wears one stage per pour (chipped, cracked, brittle, shown in its texture) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. Both work on the cauldron and in dispensers like the iron bucket."
         ]
       },
@@ -311,7 +311,7 @@
         "title": "Enderit- und Keramik-Eimer",
         "summary": "Enderit fasst zwei, zerbricht nie; Keramik nutzt sich ab.",
         "details": [
-          "Gehörten früher Simple Crucibles (davor SimpleBuilding); alte Welten behalten jeden Eimer, auch gefüllte.",
+          "Eimer aus älteren Welten (Simple Crucibles oder SimpleBuilding) bleiben erhalten, auch gefüllte.",
           "Der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen, braucht Simple Ores) nimmt Wasser, Lava und Milch (von Kühen, Ziegen und Mooshrooms) und mit Simple Crucibles Seelen-Lava; er zerbricht nie und fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen beide Eimer aus (die zweite Quelle direkt daneben, in Blickrichtung), und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (angeschlagen, rissig, brüchig, an der Textur sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Beide arbeiten am Kessel und im Werfer wie der Eisen-Eimer."
         ]
       }
