@@ -153,7 +153,10 @@ public final class DimensionTests {
    // N135: the travel dimension's floor is a bedrock plane at minY - standing on it (minY+1, on the ground) is no void fall
    var travel=server.getLevel(ResourceKey.create(Registries.DIMENSION,DimensionRegistry.id("travel")));
    if(travel!=null){var t=falling(h,travel,3328,1);t.setOnGround(true);t.fallDistance=0;rt.tickPlayerTest(t);
-    yes(h,t.level()==travel,"travel: standing on the bedrock floor (minY+1) stays in the travel dimension");}
+    yes(h,t.level()==travel,"travel: standing on the bedrock floor (minY+1) stays in the travel dimension");
+    travel.setBlock(new BlockPos(3360,travel.getMinY(),0),Blocks.BEDROCK.defaultBlockState(),3);
+    var f=falling(h,travel,3360,2);f.setOnGround(false);f.fallDistance=2;rt.tickPlayerTest(f);
+    yes(h,f.level()==travel,"travel: dropping the last blocks onto the bedrock floor is no void fall");}
   }finally{def.voidFall=mode;}
   h.succeed();
  });}
