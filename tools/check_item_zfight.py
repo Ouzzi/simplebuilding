@@ -15,7 +15,8 @@ EPS = 1e-4
 def faces(el):
     f, t = el['from'], el['to']
     rot = el.get('rotation')
-    if rot and rot.get('angle', 0) % 90:  # tilted elements never share a plane with axis aligned ones
+    # tilted elements never share a plane with axis aligned ones; 26.x also writes the rotation per axis ({"x": -20, "y": 30, "z": 15})
+    if rot and any(rot.get(k, 0) % 90 for k in ('angle', 'x', 'y', 'z')):
         return
     for name, (ax, sg) in AX.items():
         if name not in el.get('faces', {}):

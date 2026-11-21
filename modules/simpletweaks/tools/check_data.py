@@ -39,7 +39,10 @@ manual=unique(M/'wiki/manual.json')
 assert manual['notes']['simpletweaks:claim_deed']['en']['summary']
 assert manual['notes']['simpletweaks:claim_deed']['de']['summary']
 for f in manual['features']:
- for loc in ('en','de'): assert f[loc]['title'] and f[loc]['summary']
+ for loc in ('en','de'):
+  assert f[loc]['title'] and f[loc]['summary']
+  # N139 (as N136): the wiki shows summary and details; a first detail equal to the summary showed every text twice
+  assert f[loc].get('details',[''])[0].strip()!=f[loc]['summary'].strip(), f"summary repeated as first detail: {f[loc]['title']}"
  for p in f['sources']: assert (R/p).is_file(),p
 inventory=unique(M/'audit/source-inventory.json')
 assert len(inventory['files'])==56 and not inventory['sourceTests']

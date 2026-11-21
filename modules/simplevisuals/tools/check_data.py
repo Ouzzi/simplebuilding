@@ -13,12 +13,23 @@ assert lang['en_us'].keys()==lang['de_de'].keys()
 manual=read(MODULE/'wiki/manual.json');chapters={f['id']:f for f in manual['features']}
 assert manual['notes']=={}, 'No source-mod gameplay items exist'
 assert not list((MODULE/'shared/resources/assets/simplevisuals/items').glob('*.json'))
+def shown(option,locale,data):
+    # N136: the tooltip names the default as the screen shows it (On/Ein, Subtle/Dezent, Count, icon, name), not the raw field value
+    t,d=option['type'],option['default']
+    if t=='boolean':return {'en_us':{'true':'On','false':'Off'},'de_de':{'true':'Ein','false':'Aus'}}[locale][d]
+    if t.endswith('Intensity'):return data['simplevisuals.level.'+d.lower()]
+    if t in ('PickupSide','PickupLayout','DeathCoordsMode'):return data['simplevisuals.enum.'+d]
+    return d+'.0' if t=='float' and '.' not in d else d
 for option in options():
     for locale,data in lang.items():
         key='text.autoconfig.simplevisuals.option.'+option['path']
-        assert data[key] and option['default'] in data[key+'.@Tooltip']
+        word={'en_us':'Default: ','de_de':'Standard: '}[locale]
+        assert data[key] and word+shown(option,locale,data) in data[key+'.@Tooltip'].replace('\n',' '), key
         assert data['simplevisuals.tab.'+option['tab']]
-    assert 'config_'+option['path'].replace('.','_') in chapters
+    chapter=chapters['config_'+option['path'].replace('.','_')]
+    for locale,loc in (('en_us','en'),('de_de','de')):
+        # N136: the wiki entry carries the screen's name (the DE wiki showed English titles such as "Speed lines color")
+        assert chapter[loc]['title']==lang[locale]['text.autoconfig.simplevisuals.option.'+option['path']], (loc,option['path'])
 effects=read(MODULE/'shared/resources/assets/simplevisuals/effects.json')
 assert len(effects)==12 and len({e['id'] for e in effects})==12
 for effect in effects:
@@ -29,7 +40,10 @@ for effect in effects:
         assert data['simplevisuals.category.'+effect['category']]
     assert 'effect_'+effect['id'] in chapters
 for feature in manual['features']:
-    for locale in ('en','de'):assert feature[locale]['title'] and feature[locale]['summary'] and feature[locale]['details']
+    for locale in ('en','de'):
+        assert feature[locale]['title'] and feature[locale]['summary']
+        # N136: the wiki shows summary and details; a first detail equal to the summary showed every text twice
+        assert feature[locale].get('details',[''])[0].strip()!=feature[locale]['summary'].strip(), f"summary repeated as first detail: {feature[locale]['title']}"
 mixins=read(MODULE/'shared/resources/simplevisuals.mixins.json')
 assert mixins['mixins']==['AnvilMenuMixin','ItemFrameChiselMixin'], 'Client classes must not load on a dedicated server'
 for name in mixins['mixins']:

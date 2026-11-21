@@ -19,10 +19,11 @@ constants=dict(re.findall(r'public static final int (\w+) = (\d+);',policy))
 manual=read(M/'wiki/manual.json');ids={f['id'] for f in manual['features']}
 for name,default in fields:
  default=constants.get(default,default)
- for lang,word in [(en,'Default'),(de,'Standard')]:
+ for lang,word,shown in [(en,'Default',{'true':'On','false':'Off'}),(de,'Standard',{'true':'Ein','false':'Aus'})]:
   k='text.autoconfig.simplemodels.option.'+name
   assert all(k+s in lang for s in ('','.@Tooltip'))
-  assert word+': '+default in lang[k+'.@Tooltip']
+  # N136: switches name their default as the policy tab shows it (On/Off, Ein/Aus)
+  assert word+': '+shown.get(default,default)+'.' in lang[k+'.@Tooltip'].replace('\n',' '),k
  assert 'config_'+name in ids
 for f in manual['features']:assert f['en']['summary'] and f['de']['summary']
 tests=(M/'shared/java/com/simplebuilding/modules/simplemodels/ModelTests.java').read_text()

@@ -18,7 +18,10 @@ assert en['enchantment.simplefun.no_damage']=='Damageless'
 assert de['enchantment.simplefun.no_damage']=='Schadlos'
 manual=read(MODULE/'wiki/manual.json');ids=[f['id'] for f in manual['features']];assert len(ids)==len(set(ids))
 for f in manual['features']:
- for lang in ['en','de']:assert f[lang]['title'] and f[lang]['summary'] and f[lang]['details']
+ for lang in ['en','de']:
+  assert f[lang]['title'] and f[lang]['summary']
+  # N139 (as N136): the wiki shows summary and details; a first detail equal to the summary showed every text twice
+  assert f[lang].get('details',[''])[0].strip()!=f[lang]['summary'].strip(), f"summary repeated as first detail: {f[lang]['title']}"
  assert f['sources'] and all((ROOT/p).is_file() for p in f['sources'])
 opts=read(ROOT/'balance/simplefun/options.json')['options']
 for o in opts:

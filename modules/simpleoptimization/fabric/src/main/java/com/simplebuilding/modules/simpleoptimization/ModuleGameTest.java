@@ -7,4 +7,6 @@ public final class ModuleGameTest {
     @GameTest public void configLabels(GameTestHelper helper) { OptimizationTests.configLabels(helper); }
     @GameTest public void configFile(GameTestHelper helper) { OptimizationTests.configFile(helper); }
     @GameTest(maxTicks = OptimizationTests.BENCH_MAX_TICKS) public void benchHeadless(GameTestHelper helper) { OptimizationTests.benchHeadless(helper); }
+    /** N137: every tooltip that names a number or on/off as its default names the real default (EN + DE). */
+    @GameTest public void configTooltipDefaults(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.tooltipDefaults(h, "simpleoptimization"); }
 }

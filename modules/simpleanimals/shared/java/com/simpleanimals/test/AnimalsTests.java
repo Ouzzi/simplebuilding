@@ -401,6 +401,9 @@ public final class AnimalsTests {
                 h.assertTrue(dropped >= 1 && dropped <= 2, "1 to 2 truffles, got " + dropped);
                 h.assertTrue(h.getBlockState(new BlockPos(4, 0, 4)).is(Blocks.DIRT), "the dirt stays");
                 h.assertItemEntityPresent(AnimalsRegistry.TRUFFLE, new BlockPos(4, 1, 4), 3.0);
+                // N138: on 26.3 a grass block is no longer in the dirt tag - the boar must still dig on it
+                h.setBlock(new BlockPos(4, 0, 4), Blocks.GRASS_BLOCK);
+                h.assertTrue(boar.canDig(), "grass block: the boar can dig (grass_blocks tag)");
                 h.succeed();
             });
         });

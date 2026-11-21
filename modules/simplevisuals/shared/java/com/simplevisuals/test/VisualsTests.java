@@ -173,8 +173,18 @@ var fire=net.minecraft.world.level.block.Blocks.CAMPFIRE.defaultBlockState();
    h.assertTrue(input!=null,"Language exists");var object=com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(input,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();json.put(locale,object);
    for(var o:ConfigOptions.all(new SimplevisualsConfig())){
     String key="text.autoconfig.simplevisuals.option."+o.path();h.assertTrue(object.has(key)&&object.has(key+".@Tooltip")&&object.has("simplevisuals.tab."+o.tab()),"Name, tooltip and tab "+key);
-    h.assertTrue(object.get(key+".@Tooltip").getAsString().contains(o.defaultValue().toString()),"Default stated "+key);
+    // N136: the default is named as the screen shows it (On/Ein, Subtle/Dezent, "Count, icon, name"), not as the raw field value
+    Object d=o.defaultValue();boolean en=locale.equals("en_us");
+    String shown=d instanceof Boolean b?(en?(b?"On":"Off"):(b?"Ein":"Aus"))
+     :d instanceof Intensity i?object.get("simplevisuals.level."+i.name().toLowerCase(Locale.ROOT)).getAsString()
+     :d instanceof Enum<?> e?object.get("simplevisuals.enum."+e.name()).getAsString():d.toString();
+    String tip=object.get(key+".@Tooltip").getAsString().replace('\n',' ');
+    h.assertTrue(tip.contains((en?"Default: ":"Standard: ")+shown),"Default stated as shown "+key+" ("+locale+"): "+shown);
    }
+   // N136: the screen title and every enum value have a name (Cloth shows the raw key otherwise)
+   h.assertTrue(object.has("text.autoconfig.simplevisuals.title")&&object.has("simplevisuals.level.inherit"),"Screen title and Global level named");
+   for(Class<?> type:List.of(com.simplevisuals.config.SimplevisualsConfig.PickupSide.class,com.simplevisuals.config.SimplevisualsConfig.PickupLayout.class,com.simplevisuals.config.SimplevisualsConfig.Visuals.DeathCoordsMode.class))
+    for(Object value:type.getEnumConstants())h.assertTrue(object.has("simplevisuals.enum."+((Enum<?>)value).name()),"Enum value named "+value);
    for(var e:EffectRegistry.ALL)h.assertTrue(object.has("simplevisuals.effect."+e.id())&&object.has("simplevisuals.effect."+e.id()+".tooltip")&&object.has("simplevisuals.category."+e.category()),"Effect UI complete");
    for(var level:Intensity.values())h.assertTrue(object.has("simplevisuals.level."+level.name().toLowerCase(Locale.ROOT)),"Named levels");
   }catch(java.io.IOException e){h.fail("Language read failed: "+e);}
@@ -206,7 +216,12 @@ var fire=net.minecraft.world.level.block.Blocks.CAMPFIRE.defaultBlockState();
    c.particles.globalLevel=global;c.particles.overrides.put(id,override);h.assertTrue(EffectRegistry.level(c,id)==override,"Override wins including Off");
    var b=new ParticleBudget();b.begin(0);h.assertTrue(b.claim(0,EffectRegistry.level(c,id).count())==override.ordinal(),"Intensity policy "+id);
   }
-  c.particles.overrides.clear();c.particles.globalLevel=Intensity.OFF;h.assertTrue(EffectRegistry.level(c,id)==Intensity.OFF,"Global Off inherited");h.succeed();
+  c.particles.overrides.clear();c.particles.globalLevel=Intensity.OFF;h.assertTrue(EffectRegistry.level(c,id)==Intensity.OFF,"Global Off inherited");
+  // N136: on 26.3 grass is no longer in the dirt tag - fireflies stood almost nowhere
+  if(id.equals("fireflies"))for(var b:List.of(net.minecraft.world.level.block.Blocks.GRASS_BLOCK,net.minecraft.world.level.block.Blocks.DIRT,net.minecraft.world.level.block.Blocks.PODZOL))
+   h.assertTrue(EffectRegistry.firefliesGround(b.defaultBlockState()),"Fireflies over "+b);
+  if(id.equals("fireflies"))h.assertTrue(!EffectRegistry.firefliesGround(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()),"No fireflies over stone");
+  h.succeed();
  }
  public static void formatting(GameTestHelper h){
   h.assertTrue(Visuals.formatName("&cTest&z",true).equals("§cTest&z"),"Only valid codes converted");

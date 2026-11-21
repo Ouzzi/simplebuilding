@@ -203,7 +203,7 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 37
     },
-    "dataHash": "7384a10bf9a0"
+    "dataHash": "01ef4a70f544"
   },
   {
     "id": "simplemodels",
@@ -241,7 +241,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "7ccd1e223d39"
+    "dataHash": "7883ef2c8e03"
   },
   {
     "id": "simplefun",
@@ -284,7 +284,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "9664a4a9c851"
+    "dataHash": "8a2c848eb259"
   },
   {
     "id": "simplevisuals",
@@ -324,7 +324,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 80
     },
-    "dataHash": "304d70f4883f"
+    "dataHash": "6baf3b471ecf"
   },
   {
     "id": "simplesounds",
@@ -361,7 +361,7 @@ window.WIKI_MODULES = [
       "config": 19,
       "features": 21
     },
-    "dataHash": "c38ccf371193"
+    "dataHash": "0afcd8b2fb4a"
   },
   {
     "id": "simplequalityoflife",
@@ -473,7 +473,7 @@ window.WIKI_MODULES = [
       "config": 182,
       "features": 42
     },
-    "dataHash": "9fe140498581"
+    "dataHash": "34bb14b3a77c"
   },
   {
     "id": "simpledimensions",
@@ -630,7 +630,7 @@ window.WIKI_MODULES = [
       "config": 48,
       "features": 57
     },
-    "dataHash": "548f0ddc226e"
+    "dataHash": "4bc1e6f5f81a"
   },
   {
     "id": "simplemaps",
@@ -1062,7 +1062,7 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "88d45969af3a"
+    "dataHash": "7bd9a9b7462a"
   },
   {
     "id": "simpleenddragonfight",
@@ -1420,7 +1420,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 10
     },
-    "dataHash": "e55f05db484f"
+    "dataHash": "cd36a35d1733"
   },
   {
     "id": "simpleblocks",
@@ -1610,8 +1610,8 @@ window.WIKI_MODULES = [
       "asOf": "19.10.2026"
     },
     "intro": {
-      "en": "Bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one switch each. Each has its own chapter here.",
-      "de": "Bündelt Simple Opt Render, Simple Opt Memory und Simple Opt Server mit je einem Schalter. Jede hat hier ihr eigenes Kapitel."
+      "en": "One switch each turns the three optimization sub-mods on or off. Each has its own chapter here.",
+      "de": "Je ein Schalter schaltet die drei Optimierungs-Sub-Mods ein oder aus. Jede hat hier ihr eigenes Kapitel."
     },
     "purpose": {
       "en": "Super-mod without content of its own: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server with one on/off switch each.",
@@ -1622,7 +1622,7 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "896a63c3b48b"
+    "dataHash": "8b810bc6d972"
   },
   {
     "id": "simpleoptrender",
@@ -1648,9 +1648,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhElEQVR42mMw1PL9TwlmABFrF98gGVdlHUA1oLf+5P/Dex6DaUIYpDnCpwvTAGI1gyzCa4CWlhVWDNIMw1gNgCn88OEDVoxsEIYB6Bqtum6gYHSDUAzApRkEBCQUcBpC0ACQZqIMoNgLVAlE5HgmOxqRFRDCGAaAUhfZBsAESMVwAyjBAB7LeXTJODZuAAAAAElFTkSuQmCC",
     "counts": {
+      "config": 14,
       "features": 8
     },
-    "dataHash": "0aa8285ea136"
+    "dataHash": "4b2e93f48e19"
   },
   {
     "id": "simpleoptmemory",
@@ -1667,8 +1668,8 @@ window.WIKI_MODULES = [
     "parent": "simpleoptimization",
     "bundle": "required",
     "intro": {
-      "en": "Memory optimizations; so far the switch, its config and mod detection.",
-      "de": "Speicher-Optimierungen; bisher der Schalter, seine Einstellungen und die Mod-Erkennung."
+      "en": "Memory optimizations: block states share their tables, so the game needs less memory.",
+      "de": "Speicher-Optimierungen: Blockzustände teilen sich ihre Tabellen, das Spiel braucht weniger Speicher."
     },
     "purpose": {
       "en": "Memory optimizations (block states, models); stage 1 only holds the switch, config and mod detection.",
@@ -1676,9 +1677,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAe0lEQVR42mPwDYj9TwlmABE37n4kGR848QLVgJMXXv9//OwrmCaEQZq7JizHNIBYzSCLUAzgsxIhC6MYoNVlRRLGaoCUlBQYwxTh49PGAIq88OKAw3+5LC2iaQwDKIoF5HQAimdiMNaERKxmrAaAUhfZBsAESMVwAyjBAPycZS9pdCIrAAAAAElFTkSuQmCC",
     "counts": {
+      "config": 2,
       "features": 3
     },
-    "dataHash": "020a18282c89"
+    "dataHash": "7fffe4367e7c"
   },
   {
     "id": "simpleoptserver",
@@ -1695,8 +1697,8 @@ window.WIKI_MODULES = [
     "parent": "simpleoptimization",
     "bundle": "required",
     "intro": {
-      "en": "Server optimizations: the view distance follows the server load within the server.properties bounds.",
-      "de": "Server-Optimierungen: die Sichtweite folgt der Serverlast innerhalb der Grenzen aus server.properties."
+      "en": "Server optimizations: the view distance follows the server load within the server.properties bounds; far mobs can tick less often.",
+      "de": "Server-Optimierungen: Die Sichtweite folgt der Serverlast innerhalb der Grenzen aus server.properties; ferne Mobs können seltener rechnen."
     },
     "purpose": {
       "en": "Server optimizations: view distance follows server load (MSPT) within server.properties bounds; steps back for ServerCore.",
@@ -1707,10 +1709,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mMQEtf6TwlmABG1rYtJxnpWWagGeIfV/5eSUSAKgzQravlgN2DWghV4MUjNwmV78BugpWeCgkFiDg8S4AZQ7AKCBgxOF3w4YDBiwiAqIQMvxmkAKHWRnZRhAqRiuAGUYABjgOz4Wx7bWwAAAABJRU5ErkJggg==",
     "counts": {
-      "config": 1,
+      "config": 10,
       "features": 3
     },
-    "dataHash": "bc82c549b76b"
+    "dataHash": "87cbf93af5cf"
   },
   {
     "id": "simplestorage",

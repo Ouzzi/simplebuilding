@@ -2,6 +2,10 @@ package com.simplebuilding.modules.simplesounds;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ /** N136: every option and the title of the client config have an EN and a DE name (the overrides map and the title had none); tooltips name the real default. */
+ @GameTest(maxTicks=100) public void configLabels(GameTestHelper h){com.simplelib.test.ConfigCommandTests.labels(h,"simplesounds");}
+ @GameTest(maxTicks=100) public void configTooltipDefaults(GameTestHelper h){com.simplelib.test.ConfigCommandTests.tooltipDefaults(h,"simplesounds",true);}
+ @GameTest(structure="simplesounds:empty",maxTicks=100) public void soundTriggers(GameTestHelper h){SoundTests.triggers(h);}
  @GameTest public void configCommand(GameTestHelper h){com.simplelib.test.ConfigCommandTests.module(h,"simplesounds",true);}
  @GameTest public void guideBook(GameTestHelper h){com.simplebuilding.modules.simplesounds.guide.SoundsGuide.gameTest(h);}
  @GameTest public void subModSwitch(GameTestHelper h){SoundTests.subModSwitch(h);}

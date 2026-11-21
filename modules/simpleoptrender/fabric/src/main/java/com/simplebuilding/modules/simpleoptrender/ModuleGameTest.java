@@ -16,4 +16,8 @@ public final class ModuleGameTest {
     @GameTest public void moreCullingRules(GameTestHelper h) { RenderOptTests.moreCullingRules(h); }
     @GameTest public void detailsRules(GameTestHelper h) { RenderOptTests.detailsRules(h); }
     @GameTest public void targetCheck(GameTestHelper h) { RenderOptTests.targetCheck(h); }
+    /** N137: the generic config screen names title, area group and every option in English and German (ConfigCommandTests.labels). */
+    @GameTest public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simpleoptrender"); }
+    /** N137: every tooltip that names a number or on/off as its default names the real default (EN + DE). */
+    @GameTest public void configTooltipDefaults(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.tooltipDefaults(h, "simpleoptrender"); }
 }

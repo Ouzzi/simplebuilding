@@ -45,7 +45,7 @@ public final class Immersion {
                 boolean active = switch (effect.id()) {
                     case "footstep_dust" -> player.onGround() && !player.isInWater() && player.getDeltaMovement().horizontalDistanceSqr() > .015;
                     case "cold_breath" -> !player.isUnderWater() && client.level.getBiome(pos).value().coldEnoughToSnow(pos, client.level.getSeaLevel());
-                    case "fireflies" -> dayTime(client.level) >= 13000 && dayTime(client.level) <= 23000 && client.level.getBlockState(pos.below()).is(BlockTags.DIRT);
+                    case "fireflies" -> dayTime(client.level) >= 13000 && dayTime(client.level) <= 23000 && com.simplevisuals.effects.EffectRegistry.firefliesGround(client.level.getBlockState(pos.below()));
                     case "pollen" -> dayTime(client.level) >= 0 && dayTime(client.level) < 12000 && nearby(client, pos, BlockTags.FLOWERS, null);
                     case "fire_sparks" -> nearby(client, pos, null, Blocks.FIRE) || nearby(client, pos, null, Blocks.LAVA) || nearby(client, pos, null, Blocks.CAMPFIRE);
                     case "water_ripples" -> player.isInWater() && !player.isUnderWater() && player.getDeltaMovement().horizontalDistanceSqr() > .005;
