@@ -118,10 +118,12 @@ def _done(s):
     s.chat('gamemode creative @s', 0.3)
 
 
-def _arena(s, dx, x0=-4, z0=-4, x1=8, z1=8, height=7):
-    """Moves dx blocks east, lays a smooth stone floor under fresh air and returns the feet position."""
+def _arena(s, dx, x0=-4, z0=-4, x1=8, z1=8, height=7, y_abs=None):
+    """Moves dx blocks east (to height y_abs if given), lays a smooth stone floor under fresh air and returns the feet position."""
     x, y, z = _pos(s)
     x += dx
+    if y_abs is not None:
+        y = y_abs
     s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} 0 0', 1.2)
     s.chat(f'fill {x + x0} {y} {z + z0} {x + x1} {y + height} {z + z1} minecraft:air', 0.6)
     s.chat(f'fill {x + x0} {y - 1} {z + z0} {x + x1} {y - 1} {z + z1} {FLOOR}', 0.6)
@@ -314,7 +316,8 @@ IN_OVER = 'if dimension minecraft:overworld'
 
 def dimensions_skyblock(s):
     _prep(s)
-    x, y, z = _arena(s, 80, x0=-6, z0=-6, x1=10, z1=8, height=8)
+    # a normal surface height: on the flat probe world (y -60) the 1:1 arrival lies at Skyblock's floor (min y -64)
+    x, y, z = _arena(s, 80, x0=-6, z0=-6, x1=10, z1=8, height=8, y_abs=64)
     home = (x, y, z)
     s.chat('simpledimensions config set accessEnabled true', 0.6)
     s.chat('simpledimensions config set skyblockEnabled true', 0.6)
