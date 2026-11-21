@@ -22,7 +22,7 @@ public final class SoundTriggers {
   return switch(id){
    case "footstep_dust"->p.onGround()&&!p.isInWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.015;
    case "cold_breath"->!p.isUnderWater()&&level.getBiome(pos).value().coldEnoughToSnow(pos,level.getSeaLevel());
-   case "fireflies"->day>=13000&&day<=23000&&level.getBlockState(pos.below()).is(BlockTags.DIRT);
+   case "fireflies"->day>=13000&&day<=23000&&firefliesGround(level.getBlockState(pos.below()));
    case "pollen"->day>=0&&day<12000&&nearby(level,pos,BlockTags.FLOWERS,null);
    case "fire_sparks"->nearby(level,pos,null,Blocks.FIRE)||nearby(level,pos,null,Blocks.LAVA)||nearby(level,pos,null,Blocks.CAMPFIRE);
    case "water_ripples"->p.isInWater()&&!p.isUnderWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.005;
@@ -35,6 +35,9 @@ public final class SoundTriggers {
    default->false;
   };
  }
+ /** 26.3 split grass, podzol and mycelium out of the dirt tag into grass_blocks (by id: older versions compile too). */
+ private static final TagKey<Block> GRASS_BLOCKS=TagKey.create(net.minecraft.core.registries.Registries.BLOCK,net.minecraft.resources.Identifier.withDefaultNamespace("grass_blocks"));
+ public static boolean firefliesGround(net.minecraft.world.level.block.state.BlockState state){return state.is(BlockTags.DIRT)||state.is(GRASS_BLOCKS);}
  private static boolean nearby(Level level,BlockPos pos,TagKey<Block> tag,Block block){
   for(var d:net.minecraft.core.Direction.values()){var sample=pos.relative(d);if(!level.hasChunkAt(sample))continue;var state=level.getBlockState(sample);if(tag!=null?state.is(tag):state.is(block))return true;}return false;
  }

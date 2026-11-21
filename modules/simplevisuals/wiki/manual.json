@@ -993,11 +993,11 @@
       ],
       "en": {
         "title": "Fireflies",
-        "summary": "Nighttime above blocks in the Vanilla dirt tag. Vanilla type minecraft:firefly; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
+        "summary": "Nighttime above dirt or grass (also podzol, mycelium). Vanilla type minecraft:firefly; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Glühwürmchen",
-        "summary": "Nachts über Blöcken im Vanilla-Erde-Tag. Vanilla-Typ minecraft:firefly; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
+        "summary": "Nachts über Erde oder Gras (auch Podsol, Myzel). Vanilla-Typ minecraft:firefly; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {

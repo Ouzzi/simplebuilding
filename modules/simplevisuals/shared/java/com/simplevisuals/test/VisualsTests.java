@@ -216,7 +216,12 @@ var fire=net.minecraft.world.level.block.Blocks.CAMPFIRE.defaultBlockState();
    c.particles.globalLevel=global;c.particles.overrides.put(id,override);h.assertTrue(EffectRegistry.level(c,id)==override,"Override wins including Off");
    var b=new ParticleBudget();b.begin(0);h.assertTrue(b.claim(0,EffectRegistry.level(c,id).count())==override.ordinal(),"Intensity policy "+id);
   }
-  c.particles.overrides.clear();c.particles.globalLevel=Intensity.OFF;h.assertTrue(EffectRegistry.level(c,id)==Intensity.OFF,"Global Off inherited");h.succeed();
+  c.particles.overrides.clear();c.particles.globalLevel=Intensity.OFF;h.assertTrue(EffectRegistry.level(c,id)==Intensity.OFF,"Global Off inherited");
+  // N136: on 26.3 grass is no longer in the dirt tag - fireflies stood almost nowhere
+  if(id.equals("fireflies"))for(var b:List.of(net.minecraft.world.level.block.Blocks.GRASS_BLOCK,net.minecraft.world.level.block.Blocks.DIRT,net.minecraft.world.level.block.Blocks.PODZOL))
+   h.assertTrue(EffectRegistry.firefliesGround(b.defaultBlockState()),"Fireflies over "+b);
+  if(id.equals("fireflies"))h.assertTrue(!EffectRegistry.firefliesGround(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()),"No fireflies over stone");
+  h.succeed();
  }
  public static void formatting(GameTestHelper h){
   h.assertTrue(Visuals.formatName("&cTest&z",true).equals("§cTest&z"),"Only valid codes converted");
