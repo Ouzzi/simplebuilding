@@ -90,7 +90,9 @@ public final class SoundTests {
   p.setDeltaMovement(.2,0,0);h.assertTrue(due.test("footstep_dust",6000L),"Footstep dust while walking on the ground");
   p.setOnGround(false);h.assertTrue(!due.test("footstep_dust",6000L),"No footstep dust in the air");p.setOnGround(true);p.setDeltaMovement(0,0,0);
   h.setBlock(at.below(),net.minecraft.world.level.block.Blocks.GRASS_BLOCK);
-  h.assertTrue(due.test("fireflies",14000L)&&!due.test("fireflies",6000L)&&!due.test("fireflies",-1L),"Fireflies at night above dirt, not by day or without a day cycle");
+  var under=level.getBlockState(p.blockPosition().below());
+  h.assertTrue(due.test("fireflies",14000L),"Fireflies at night above dirt (feet "+p.blockPosition()+" vs "+h.absolutePos(at)+", under "+under+", dirt tag "+under.is(net.minecraft.tags.BlockTags.DIRT)+")");
+  h.assertTrue(!due.test("fireflies",6000L)&&!due.test("fireflies",-1L),"No fireflies by day or without a day cycle");
   h.setBlock(at.below(),net.minecraft.world.level.block.Blocks.STONE);h.assertTrue(!due.test("fireflies",14000L),"No fireflies above stone");
   h.setBlock(at.east().below(),net.minecraft.world.level.block.Blocks.GRASS_BLOCK);h.setBlock(at.east(),net.minecraft.world.level.block.Blocks.DANDELION);
   h.assertTrue(due.test("pollen",6000L)&&!due.test("pollen",14000L),"Pollen by day beside a flower, not at night");
