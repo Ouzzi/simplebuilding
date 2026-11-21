@@ -234,9 +234,11 @@ def _brood_one(s, kind, x, y, z, shell):
     time.sleep(9.0)
     # brooded = phase 11 right after incubateSeconds (the crack steps 12..14 follow at 25/55/85 % of hatchSeconds), and the
     # egg drops the seat (the player stands up by itself)
-    for ph in (11, 12, 13, 14):
-        _say(s, f'if block {ex} {ey} {ez} {egg}[phase={ph}]', f'{kind}-brooded')
-    _check_said(s, f'{kind}: after incubateSeconds (10) the egg is brooded (phase 11..14)', [f'{kind}-brooded'])
+    for ph in range(15):
+        _say(s, f'if block {ex} {ey} {ez} {egg}[phase={ph}]', f'{kind}-phase-{ph}')
+    seen = _said(s, [f'{kind}-phase-{ph}' for ph in range(15)])
+    phase = next((ph for ph in range(15) if seen[f'{kind}-phase-{ph}']), None)
+    s.check(f'{kind}: after incubateSeconds (10) the egg is brooded (phase 11..14)', phase is not None and phase >= 11, f'phase {phase}')
     _say(s, 'on vehicle if entity @s', f'{kind}-riding-after-brood')
     dropped = not _said(s, [f'{kind}-riding-after-brood'], 0.8)[f'{kind}-riding-after-brood']
     s.check(f'{kind}: the brooded egg drops the seat (the player stands by itself)', dropped, '' if dropped else 'still riding')
