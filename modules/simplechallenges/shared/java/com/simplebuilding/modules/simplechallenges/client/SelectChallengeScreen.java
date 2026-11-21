@@ -195,6 +195,7 @@ public final class SelectChallengeScreen extends Screen {
     private void back() {
         minecraft.gui.setScreen(parent);
         ((ChallengeScreenAccess) parent).simplechallenges$openWorldTab();
+        ChallengeRow.refresh(parent);
     }
 
     @Override

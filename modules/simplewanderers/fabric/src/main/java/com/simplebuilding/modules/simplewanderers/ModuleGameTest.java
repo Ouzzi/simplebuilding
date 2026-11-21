@@ -6,6 +6,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link WandererTests}, all on the 15 x 12 x 15 arena. */
 public final class ModuleGameTest {
+    /** N134: the config screen names its title and options in English and German (ConfigCommandTests.labels). */
+    @GameTest(structure = "simplewanderers:arena") public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simplewanderers"); }
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplewanderers", false); }
     @GameTest(structure = "simplewanderers:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {

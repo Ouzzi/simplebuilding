@@ -3,6 +3,10 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge registers StatsTests.ALL. */
 public final class ModuleGameTest {
+    /** N134: /simplestats config announces every option with a default and round-trips the first switch; the screen names title and options in EN and DE. */
+    @GameTest(maxTicks=100) public void configCommand(GameTestHelper h){com.simplelib.test.ConfigCommandTests.module(h, "simplestats", false);}
+    @GameTest(maxTicks=100) public void configLabelsEnDe(GameTestHelper h){com.simplelib.test.ConfigCommandTests.labels(h, "simplestats");}
+    @GameTest(maxTicks=100) public void rocketsUsed(GameTestHelper h){StatsTests.rocketsUsed(h);}
  @GameTest(maxTicks=100) public void launch(GameTestHelper h){StatsTests.launch(h);}
  @GameTest(maxTicks=100) public void codecRoundtrip(GameTestHelper h){StatsTests.codecRoundtrip(h);}
  @GameTest(maxTicks=100) public void foreignVersion(GameTestHelper h){StatsTests.foreignVersion(h);}
