@@ -191,7 +191,8 @@ def _sneak(s, seconds=0.6):
 def _sneak_click(s):
     s.io.key_down('Shift_L')
     try:
-        time.sleep(0.4)
+        time.sleep(0.8)
+        s.check('client sneaks at the click (real Shift held)', bool(s.st().get('sneaking')), s.last.get('sneaking'))
         s.io.right_click()
     finally:
         s.io.key_up('Shift_L')
@@ -231,9 +232,14 @@ def _brood_one(s, kind, x, y, z, shell):
                 [f'{kind}-seated', f'{kind}-phase-up'])
     s.shot(f'{kind}-sitting')  # no tp while seated: a tp would dismount
     time.sleep(9.0)
-    for ph in (12, 13, 14):
+    # brooded = phase 11 right after incubateSeconds (the crack steps 12..14 follow at 25/55/85 % of hatchSeconds), and the
+    # egg drops the seat (the player stands up by itself)
+    for ph in (11, 12, 13, 14):
         _say(s, f'if block {ex} {ey} {ez} {egg}[phase={ph}]', f'{kind}-brooded')
-    _check_said(s, f'{kind}: after incubateSeconds (10) the egg is brooded (phase 12..14)', [f'{kind}-brooded'])
+    _check_said(s, f'{kind}: after incubateSeconds (10) the egg is brooded (phase 11..14)', [f'{kind}-brooded'])
+    _say(s, 'on vehicle if entity @s', f'{kind}-riding-after-brood')
+    dropped = not _said(s, [f'{kind}-riding-after-brood'], 0.8)[f'{kind}-riding-after-brood']
+    s.check(f'{kind}: the brooded egg drops the seat (the player stands by itself)', dropped, '' if dropped else 'still riding')
     _sneak(s)
     _say(s, 'on vehicle if entity @s', f'{kind}-still-seated')
     stood = not _said(s, [f'{kind}-still-seated'], 0.8)[f'{kind}-still-seated']
@@ -242,14 +248,16 @@ def _brood_one(s, kind, x, y, z, shell):
     s.shot(f'{kind}-brooded')
     time.sleep(13.0)
     _say(s, f'if block {ex} {ey} {ez} minecraft:air', f'{kind}-egg-gone')
-    _say(s, f'positioned {ex} {ey} {ez} if entity @e[type=simpledinos:{kind},distance=..4]', f'{kind}-hatchling')
+    # the hatchling is tamed to the player and walks to them (here 5.5 blocks away): look within 10 blocks
+    _say(s, f'positioned {ex} {ey} {ez} if entity @e[type=simpledinos:{kind},distance=..10]', f'{kind}-hatchling')
     tags = [f'{kind}-egg-gone', f'{kind}-hatchling']
     if shell:
-        _say(s, f'positioned {ex} {ey} {ez} if entity @e[type=minecraft:item,distance=..4,nbt={{Item:{{id:"simpledinos:{kind}_eggshell"}}}}]',
+        _say(s, f'positioned {ex} {ey} {ez} if entity @e[type=minecraft:item,distance=..6,nbt={{Item:{{id:"simpledinos:{kind}_eggshell"}}}}]',
              f'{kind}-shells')
+        _say(s, f'if items entity @s container.* simpledinos:{kind}_eggshell', f'{kind}-shells')  # already picked up
         tags.append(f'{kind}-shells')
     else:
-        _say(s, f'positioned {ex} {ey} {ez} unless entity @e[type=minecraft:item,distance=..4]', f'{kind}-no-shell')
+        _say(s, f'positioned {ex} {ey} {ez} unless entity @e[type=minecraft:item,distance=..6]', f'{kind}-no-shell')
         tags.append(f'{kind}-no-shell')
     _check_said(s, f'{kind}: after hatchSeconds (10) the egg is gone and a hatchling stands there ('
                 + ('eggshells dropped' if shell else 'no eggshell') + ')', tags)
@@ -374,7 +382,7 @@ def end_woodset(s):
     time.sleep(1.0)
     s.shot('boats')
     s.chat(f'tp @s {x - 2.5} {y} {z + 0.5}', 0.6)
-    if _aim_entity(s, x - 3, y - 1, z + 3, 'simpleend:ashwood_boat', 'ashwood boat'):
+    if _aim_entity(s, x - 3, y - 0.2, z + 3, 'simpleend:ashwood_boat', 'ashwood boat'):
         s.io.right_click()
         time.sleep(1.0)
         _say(s, 'on vehicle if entity @s[type=simpleend:ashwood_boat]', 'boat-ride')
@@ -437,14 +445,15 @@ def end_garden(s):
     _prep(s)
     x, y, z = _move(s, 50)
     _floor(s, x - 10, z, x + 10, z + 14, y, 'minecraft:end_stone', clear=6)
+    s.chat('gamerule random_tick_speed 0', 0.3)  # a bud in light grows into a tree by itself (correct, but not for this picture)
     placed = []
     for i in range(20):
         px, pz = x - 9 + (i * 7) % 19, z + 1 + (i * 5) % 12
         plant = GARDEN_PLANTS[i % 4]
         s.chat(f'setblock {px} {y} {pz} {plant}', 0.25)
         placed.append((px, pz, plant))
-    s.chat(f'fill {x + 6} {y} {z + 9} {x + 8} {y + 1} {z + 11} simpleend:ashwood_leaves', 0.3)
-    s.chat(f'fill {x - 8} {y} {z + 9} {x - 6} {y + 1} {z + 11} simpleend:duskwood_leaves', 0.3)
+    s.chat(f'fill {x + 6} {y} {z + 13} {x + 8} {y + 1} {z + 14} simpleend:ashwood_leaves', 0.3)
+    s.chat(f'fill {x - 8} {y} {z + 13} {x - 6} {y + 1} {z + 14} simpleend:duskwood_leaves', 0.3)
     s.chat(f'fill {x - 2} {y - 1} {z + 2} {x + 2} {y - 1} {z + 3} simpleend:burrowed_end_stone', 0.3)
     for i in range(6):
         s.chat(f'summon simpleend:nibblemite {x - 2.5 + i} {y} {z + 2.5 + (i % 2)} '
@@ -480,6 +489,7 @@ def end_garden(s):
         n = _counts(s, ['grass'])['grass']
         s.check('bone meal (REAL right clicks) on End grass spreads tufts (more than the one placed)', n is not None and n > 1, n)
     s.chat('kill @e[type=simpleend:nibblemite,tag=n123mite]', 0.3)
+    s.chat('gamerule random_tick_speed 3', 0.3)
 
 
 def _bonemeal_until(s, bx, by, bz, bud, tag, tries=10):
@@ -604,10 +614,11 @@ def tools_vault(s):
     _prep(s, 'survival')
     x, y, z = _move(s, 60)
     _floor(s, x - 4, z - 4, x + 4, z + 6, y)
-    s.chat('item replace entity @s hotbar.0 with minecraft:iron_ingot 5', 0.3)
-    s.chat('item replace entity @s hotbar.1 with minecraft:gold_ingot 2', 0.3)
-    s.chat('item replace entity @s hotbar.2 with minecraft:diamond_sword', 0.3)
+    s.chat('item replace entity @s inventory.0 with minecraft:iron_ingot 5', 0.3)
+    s.chat('item replace entity @s inventory.1 with minecraft:gold_ingot 2', 0.3)
+    s.chat('item replace entity @s inventory.2 with minecraft:diamond_sword', 0.3)
     s.chat(f'tp @s {x + 0.5} {y} {z + 4.5}', 0.8)  # die 2.5 blocks behind the vault: the drops stay lying (no pickup)
+    # inventory.N, not the hotbar: Simple Tweaks' partial keep inventory (T27, hotbar_armor) keeps the hotbar, so nothing dropped
     s.chat('kill @s', 1.5)
     st = _wait_screen(s, 'DeathScreen', 6)
     s.check('death screen after /kill', st is not None, s.last.get('screen'))
