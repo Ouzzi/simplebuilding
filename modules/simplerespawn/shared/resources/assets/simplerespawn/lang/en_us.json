@@ -17,6 +17,7 @@
   "commands.simplerespawn.revive": "Revived %s players",
   "advancements.simplerespawn.first_aid.title": "First Aid",
   "advancements.simplerespawn.first_aid.description": "Revive a downed player",
+  "text.autoconfig.simplerespawn.title": "Simple Respawn",
   "text.autoconfig.simplerespawn.option.enabled": "Enabled",
   "text.autoconfig.simplerespawn.option.enabled.@Tooltip": "Turns Simple Respawn on or off. Off: lethal damage kills as in Vanilla.",
   "text.autoconfig.simplerespawn.option.onlyWithOtherPlayers": "Only with other players",

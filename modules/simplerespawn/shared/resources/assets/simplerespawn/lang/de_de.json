@@ -17,6 +17,7 @@
   "commands.simplerespawn.revive": "%s Spieler wiederbelebt",
   "advancements.simplerespawn.first_aid.title": "Erste Hilfe",
   "advancements.simplerespawn.first_aid.description": "Belebe einen niedergeschlagenen Spieler wieder",
+  "text.autoconfig.simplerespawn.title": "Simple Respawn",
   "text.autoconfig.simplerespawn.option.enabled": "Aktiv",
   "text.autoconfig.simplerespawn.option.enabled.@Tooltip": "Schaltet Simple Respawn ein oder aus. Aus: tödlicher Schaden tötet wie in Vanilla.",
   "text.autoconfig.simplerespawn.option.onlyWithOtherPlayers": "Nur mit Mitspielern",

@@ -92,7 +92,7 @@
   "simpleenddragonfight.guide.page.6": "Jeder Spieler, der einen laufenden Kampf betritt, bekommt eine 3-Sekunden-Begrüßung: Portalring, der Drache steigt auf und wittert den Neuen, Brüllen mit Schockring, dann regnen Funken herab.",
   "simpleenddragonfight.guide.page.7.title": "Dragonmites",
   "simpleenddragonfight.guide.page.7": "Ab halbem Leben ruft der Drache Dragonmites nahe dem Ausgangsportal: eine erste Welle sofort, dann alle 30 Sekunden eine.",
-  "simpleenddragonfight.guide.page.8.title": "Config",
+  "simpleenddragonfight.guide.page.8.title": "Einstellungen",
   "simpleenddragonfight.guide.page.8": "Server-Datei config/simpleenddragonfight.json; mit SimpleBuilding schaltet zusätzlich \"Simple End Dragon Fight aktivieren\" das Modul.",
   "simpleenddragonfight.guide.page.9.title": "Befehle",
   "simpleenddragonfight.guide.page.9": "/simpleenddragonfight config zeigt und ändert jede Option von config/simpleenddragonfight.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",

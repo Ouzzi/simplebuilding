@@ -147,7 +147,7 @@
         "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/DragonFightConfig.java"
       ],
       "en": {
-        "title": "Config",
+        "title": "Settings",
         "summary": "Server file config/simpleenddragonfight.json; with SimpleBuilding the module is also switched by \"Enable Simple End Dragon Fight\".",
         "details": [
           "enabled, raiseBaseHealth (off = 200 per player as in Vanilla, on = 300), maxPlayers (0 = all), countCreative, leaveGraceSeconds 60, islandRadius 160.",
@@ -157,7 +157,7 @@
         ]
       },
       "de": {
-        "title": "Config",
+        "title": "Einstellungen",
         "summary": "Server-Datei config/simpleenddragonfight.json; mit SimpleBuilding schaltet zusätzlich \"Simple End Dragon Fight aktivieren\" das Modul.",
         "details": [
           "enabled, raiseBaseHealth (aus = 200 je Spieler wie in Vanilla, an = 300), maxPlayers (0 = alle), countCreative, leaveGraceSeconds 60, islandRadius 160.",

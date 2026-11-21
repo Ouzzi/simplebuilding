@@ -3,6 +3,10 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric runs only @GameTest methods: one wrapper per shared test body in {@link RespawnTests}. */
 public final class ModuleGameTest {
+    /** N133: /simplerespawn config round trip (CMD24). */
+    @GameTest(structure = "simplerespawn:empty") public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplerespawn", false); }
+    /** N133: the config screen names its title and options in English and German (ConfigCommandTests.labels). */
+    @GameTest(structure = "simplerespawn:empty") public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simplerespawn"); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void configBounds(GameTestHelper helper) { RespawnTests.ALL.get("config_bounds").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void aloneIsNormalDeath(GameTestHelper helper) { RespawnTests.ALL.get("alone_is_normal_death").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void helperInOtherDimensionDoesNotCount(GameTestHelper helper) { RespawnTests.ALL.get("helper_in_other_dimension_does_not_count").accept(helper); }
