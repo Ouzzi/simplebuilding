@@ -1172,11 +1172,9 @@ public final class EnchantingTests {
 
     // ------------------------------------------------------------------ PLAN40 simpleenchanting-3
 
-    /** The config screen names the title, the category and every option (simplelib-6: no raw paths on screen). */
+    /** The config screen names the title, the category and every option (simplelib-6: no raw paths on screen), in EN and DE (N128). */
     public static void configLabels(GameTestHelper helper) {
-        List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleEnchanting.MOD_ID);
-        helper.assertTrue(missing.isEmpty(), "config screen labels missing (text.autoconfig.simpleenchanting.*): " + missing);
-        helper.succeed();
+        com.simplelib.test.ConfigScreenTests.moduleLabels(helper, SimpleEnchanting.MOD_ID);
     }
 
     private static void eq(GameTestHelper helper, int actual, int expected, String what) {

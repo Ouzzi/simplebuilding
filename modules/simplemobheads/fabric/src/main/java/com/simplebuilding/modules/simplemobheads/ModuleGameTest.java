@@ -11,6 +11,20 @@ public final class ModuleGameTest {
         MobHeadTests.ALL.get("registered").accept(helper);
     }
 
+    /**
+     * N128: every option of the generic config screen (Mod Menu without Cloth Config) has an English and a German name - the 21
+     * fields and the 32 entries of the abilities map (abilities.<id>, filled at run time, so tools/check_config_lang.py misses them).
+     */
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 100)
+    public void configLabels(GameTestHelper helper) {
+        var spec = com.simplelib.api.config.ConfigCommands.spec(com.simplemobheads.SimpleMobHeads.MOD_ID, false);
+        helper.assertTrue(spec != null, "Simple Mobheads announced no server config");
+        long abilities = spec.options().stream().filter(o -> o.path().startsWith("abilities.")).count();
+        helper.assertTrue(abilities == com.simplemobheads.SimpleMobHeads.abilityIds().size() && abilities >= 32,
+                "abilities map options " + abilities + " for " + com.simplemobheads.SimpleMobHeads.abilityIds().size() + " abilities");
+        com.simplelib.test.ConfigScreenTests.moduleLabels(helper, com.simplemobheads.SimpleMobHeads.MOD_ID);
+    }
+
     @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
     public void configCommand(GameTestHelper helper) {
         MobHeadTests.ALL.get("config_command").accept(helper);
