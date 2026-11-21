@@ -234,10 +234,11 @@ def _brood_one(s, kind, x, y, z, shell):
     time.sleep(9.0)
     # brooded = phase 11 right after incubateSeconds (the crack steps 12..14 follow at 25/55/85 % of hatchSeconds), and the
     # egg drops the seat (the player stands up by itself)
-    for ph in range(15):
+    # each chat command takes ~1.5 s: with hatchSeconds 10 the egg hatched while the 15 queries ran -> hatchSeconds 30, phases 9..14
+    for ph in range(9, 15):
         _say(s, f'if block {ex} {ey} {ez} {egg}[phase={ph}]', f'{kind}-phase-{ph}')
-    seen = _said(s, [f'{kind}-phase-{ph}' for ph in range(15)])
-    phase = next((ph for ph in range(15) if seen[f'{kind}-phase-{ph}']), None)
+    seen = _said(s, [f'{kind}-phase-{ph}' for ph in range(9, 15)])
+    phase = next((ph for ph in range(9, 15) if seen[f'{kind}-phase-{ph}']), None)
     s.check(f'{kind}: after incubateSeconds (10) the egg is brooded (phase 11..14)', phase is not None and phase >= 11, f'phase {phase}')
     _say(s, 'on vehicle if entity @s', f'{kind}-riding-after-brood')
     dropped = not _said(s, [f'{kind}-riding-after-brood'], 0.8)[f'{kind}-riding-after-brood']
@@ -248,7 +249,7 @@ def _brood_one(s, kind, x, y, z, shell):
     s.check(f'{kind}: sneak (real Shift) stands up', stood, '' if stood else 'still riding the seat')
     s.chat(f'tp @s {x + 0.5} {y} {z - 3.5} facing {ex + 0.5} {ey} {ez + 0.5}', 0.6)
     s.shot(f'{kind}-brooded')
-    time.sleep(13.0)
+    time.sleep(22.0)
     _say(s, f'if block {ex} {ey} {ez} minecraft:air', f'{kind}-egg-gone')
     # the hatchling is tamed to the player and walks to them (here 5.5 blocks away): look within 10 blocks
     _say(s, f'positioned {ex} {ey} {ez} if entity @e[type=simpledinos:{kind},distance=..10]', f'{kind}-hatchling')
@@ -261,7 +262,7 @@ def _brood_one(s, kind, x, y, z, shell):
     else:
         _say(s, f'positioned {ex} {ey} {ez} unless entity @e[type=minecraft:item,distance=..6]', f'{kind}-no-shell')
         tags.append(f'{kind}-no-shell')
-    _check_said(s, f'{kind}: after hatchSeconds (10) the egg is gone and a hatchling stands there ('
+    _check_said(s, f'{kind}: after hatchSeconds (30) the egg is gone and a hatchling stands there ('
                 + ('eggshells dropped' if shell else 'no eggshell') + ')', tags)
     s.shot(f'{kind}-hatchling')
 
@@ -272,7 +273,7 @@ def dinos_brood(s):
     x, y, z = _move(s, 40)
     _floor(s, x - 4, z - 6, x + 4, z + 6, y)
     s.chat('simpledinos config set incubateSeconds 10', 0.5)
-    s.chat('simpledinos config set hatchSeconds 10', 0.5)
+    s.chat('simpledinos config set hatchSeconds 30', 0.5)
     try:
         _brood_one(s, 'trex', x, y, z, shell=False)
         s.chat('kill @e[type=minecraft:item]', 0.3)
