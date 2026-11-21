@@ -326,7 +326,8 @@ def mobheads_abilities(s):
 
         # ---- giant: 1.5x and steps up whole blocks (REAL W against a 1-block step, control without the head first)
         sx = x + 4
-        s.chat(f'fill {sx} {y} {z + 3} {sx} {y} {z + 8} minecraft:stone', 0.4)
+        # long enough that 1.6 s of walking ends on top (a 6-block strip was crossed and left again: y back to the floor)
+        s.chat(f'fill {sx} {y} {z + 3} {sx} {y} {z + 30} minecraft:stone', 0.4)
         for label, item, want_up in (('without head', None, False), ('giant head', 'simplemobheads:giant_head', True)):
             _wear(s, item)
             s.chat(f'tp @s {sx + 0.5} {y} {z + 1.5} 0 0', 1.2)
