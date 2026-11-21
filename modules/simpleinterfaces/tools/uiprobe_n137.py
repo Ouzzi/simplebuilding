@@ -117,9 +117,22 @@ def config_screens(s):
             continue
         time.sleep(0.8)
         st = s.st()
-        # Cloth Config keeps invisible internal entries labelled with a UUID: not shown, not options
-        entries = [e for e in st.get('entries', []) if _plain(e.get('label')).strip()
-                   and not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', _plain(e.get('label')).strip())]
+
+        def visible(st):
+            # Cloth Config keeps invisible internal entries labelled with a UUID: not shown, not options
+            return [e for e in st.get('entries', []) if _plain(e.get('label')).strip()
+                    and not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', _plain(e.get('label')).strip())]
+
+        # the options of each group sit on their own Cloth tab ("General" holds conflictScan, "Areas" the area modes):
+        # read every tab, not only the open one
+        entries = visible(st)
+        for tab in [w for w in s.widgets(st) if 'Tab' in w['class'] and w.get('label')]:
+            s.click_xy(tab['x'], tab['y'], st)
+            time.sleep(0.6)
+            for e in visible(s.st()):
+                if _plain(e['label']) not in {_plain(x['label']) for x in entries}:
+                    entries.append(e)
+        st = s.st()
         shown = [_plain(e['label']) for e in entries]
         options = [n for n in shown if n not in cats]
         bad = [n for n in options if n not in names]
