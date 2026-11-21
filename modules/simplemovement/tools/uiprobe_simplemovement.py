@@ -1,10 +1,10 @@
 """simplemovement-4: Auto Walk key and the two enchantments Step Height (boots) and Sprint (leggings) with REAL keys
 (a-w4c, scenario for modules/simpleinterfaces/tools/ui_probe.py).
 
-Auto Walk: the key is UNBOUND by default (MovementClient: InputConstants.UNKNOWN). Because the driver starts the client right after loading the
-scenario files, this file binds it to G (and sets autoJump:false) in <run dir>/options.txt at import time (only when that file already holds a
+Auto Walk: the key defaults to arrow up (N78, MovementClient: InputConstants.KEY_UP). Because the driver starts the client right after loading the
+scenario files, this file sets autoJump:false in <run dir>/options.txt at import time (only when that file already holds a
 'version:' line, so the data fixer is not confused; the game writes the lines back itself on exit). '/simplemovement autowalk true' switches the server value on.
-Checks: pressing G makes the position change on its own, pressing G again stops it.
+Checks: pressing arrow up makes the position change on its own, pressing it again stops it.
 Step Height: a 1-block stone step and a 1.5-block fence field (both 9 blocks deep, so the player still stands on them when y is read); real W key held. No boots: blocked; Step Height I: up the stone, not the fence;
 Step Height II: up the fence (checked by the block position's y). Sprint: real Ctrl+W for 3.5 s on the flat world with plain leggings and
 with Sprint III leggings: the distance must be clearly longer (+30 % expected).
@@ -16,12 +16,11 @@ import time
 from pathlib import Path
 
 GAME = Path(__file__).resolve().parents[3] / 'integration/run-fabric-263'
-OPTIONS = {'key_key.simplemovement.autowalk': 'key.keyboard.g', 'autoJump': 'false'}
+OPTIONS = {'key_key.simplemovement.autowalk': 'key.keyboard.up', 'autoJump': 'false'}  # N131: the default key (arrow up), no longer G
 
 
 def _set_options():
-    """The client reads options.txt while it starts, i.e. after this module was loaded by the driver. Binds Auto Walk to G (it is unbound by
-    default) and switches Vanilla's Auto-Jump off (it would jump up the 1-block wall without boots). Only when the file already exists with a
+    """The client reads options.txt while it starts, i.e. after this module was loaded by the driver. Switches Vanilla's Auto-Jump off (it would jump up the 1-block wall without boots). Only when the file already exists with a
     'version:' line (a fresh file would go through the data fixer); the game writes the values back itself on exit."""
     opt = GAME / 'options.txt'
     try:
@@ -73,20 +72,20 @@ def _autowalk(s):
     base = _pos(s)
     s.chat(f'tp @s {base[0] + 0.5} {base[1]} {base[2] + 0.5} 0 0', 1.0)
     start = _pos(s)
-    s.key('g', 0.2)
+    s.key('Up', 0.2)
     time.sleep(3.0)
     mid = _pos(s)
     moved = abs(mid[2] - start[2]) + abs(mid[0] - start[0])
-    s.check('Auto Walk: after pressing G the player walks on its own', moved >= 5, f'{start} -> {mid} ({moved} blocks in ~3 s; key G unbound in options.txt if 0)')
+    s.check('Auto Walk: after pressing arrow up the player walks on its own', moved >= 5, f'{start} -> {mid} ({moved} blocks in ~3 s; key not on arrow up in options.txt if 0)')
     s.key('F1', 0.4)
     s.shot('autowalk-running')
     s.key('F1', 0.4)
-    s.key('g', 0.2)
+    s.key('Up', 0.2)
     time.sleep(1.0)
     stop1 = _pos(s)
     time.sleep(1.2)
     stop2 = _pos(s)
-    s.check('Auto Walk: pressing G again stops', stop1 == stop2, f'{stop1} then {stop2}')
+    s.check('Auto Walk: pressing arrow up again stops', stop1 == stop2, f'{stop1} then {stop2}')
     s.chat('simplemovement autowalk false', 0.6)
 
 

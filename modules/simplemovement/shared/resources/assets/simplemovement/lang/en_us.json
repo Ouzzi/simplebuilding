@@ -1,5 +1,6 @@
 {
   "simplemovement.title": "Simple Movement",
+  "text.autoconfig.simplemovement.title": "Simple Movement",
   "simplemovement.tab.general": "General",
   "text.autoconfig.simplemovement.option.enableManualCrawl": "Manual Crawling",
   "text.autoconfig.simplemovement.option.enableManualCrawl.@Tooltip": "Allow /simplemovement crawl and the crawl key. The server\nvalidates and limits changes. Default: true.",
@@ -32,7 +33,7 @@
   "simplemovement.guide.page.3.title": "Manual crawling",
   "simplemovement.guide.page.3": "Commands are limited to one change per 10 ticks; spectators and passengers are refused.",
   "simplemovement.guide.page.4.title": "Auto-walk",
-  "simplemovement.guide.page.4": "The Auto Walk key (unbound by default) toggles ordinary forward input only when the server enables enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change.",
+  "simplemovement.guide.page.4": "The Auto Walk key (arrow up by default) toggles ordinary forward input only when the server enables enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change.",
   "simplemovement.guide.page.5.title": "Auto-walk",
   "simplemovement.guide.page.5": "It adds no speed or reach. Old Simple QoL keys are taken over once.",
   "simplemovement.guide.page.6.title": "Climbing and sliding",

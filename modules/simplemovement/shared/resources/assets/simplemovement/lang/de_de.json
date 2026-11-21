@@ -1,5 +1,6 @@
 {
   "simplemovement.title": "Simple Movement",
+  "text.autoconfig.simplemovement.title": "Simple Movement",
   "simplemovement.tab.general": "Allgemein",
   "text.autoconfig.simplemovement.option.enableManualCrawl": "Manuelles Kriechen",
   "text.autoconfig.simplemovement.option.enableManualCrawl.@Tooltip": "/simplemovement crawl und die Kriechtaste erlauben. Der\nServer prüft und begrenzt Änderungen.\nStandard: true.",
@@ -32,7 +33,7 @@
   "simplemovement.guide.page.3.title": "Manuelles Kriechen",
   "simplemovement.guide.page.3": "Zuschauer und Passagiere werden abgewiesen.",
   "simplemovement.guide.page.4.title": "Automatisch laufen",
-  "simplemovement.guide.page.4": "Die Autowalk-Taste (Standard unbelegt) schaltet normale Vorwärtseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm öffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Änderung.",
+  "simplemovement.guide.page.4": "Die Autowalk-Taste (Standard: Pfeil hoch) schaltet normale Vorwärtseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm öffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Änderung.",
   "simplemovement.guide.page.5.title": "Automatisch laufen",
   "simplemovement.guide.page.5": "Kein Tempo- oder Reichweitenbonus. Alte Simple-QoL-Tasten werden einmalig übernommen.",
   "simplemovement.guide.page.6.title": "Klettern und Rutschen",

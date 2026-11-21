@@ -3,6 +3,12 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge/Forge register FarmingTests.ALL. */
 public final class ModuleGameTest {
+  /** N131: the config screen names its title, categories and options in English and German (ConfigCommandTests.labels). */
+  @GameTest(maxTicks = 100)
+  public void configLabels(GameTestHelper h) {
+    com.simplelib.test.ConfigCommandTests.labels(h, "simplefarming");
+  }
+
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplefarming", false); }
  @GameTest(maxTicks=100) public void launch(GameTestHelper h){FarmingTests.launch(h);}
  @GameTest(maxTicks=100) public void config(GameTestHelper h){FarmingTests.config(h);}
