@@ -26,11 +26,11 @@
       ],
       "en": {
         "title": "Disable weather",
-        "summary": "disableWeather (default false, server) clears rain and thunder and stops weather progression by setting the Vanilla game rule advance_weather to false (like /gamerule advance_weather false; /weather still works). Switching the option off again does not turn the rule back on."
+        "summary": "disableWeather (default false, server) clears rain and thunder and sets the Vanilla game rule advance_weather to false, so the weather no longer changes by itself. /weather still works. Switching the option off again leaves the rule off. /gamerule advance_weather true turns it back on."
       },
       "de": {
         "title": "Wetter abschalten",
-        "summary": "disableWeather (Standard false, Server) löscht Regen und Gewitter und stoppt den Wetterfortschritt, indem die Vanilla-Spielregel advance_weather auf false gesetzt wird (wie /gamerule advance_weather false; /weather geht weiter). Beim Ausschalten der Option bleibt die Regel unverändert."
+        "summary": "disableWeather (Standard false, Server) beendet Regen und Gewitter und setzt die Vanilla-Spielregel advance_weather auf false, damit sich das Wetter nicht mehr von selbst ändert. /weather wirkt weiter. Beim Ausschalten der Option bleibt die Regel aus. /gamerule advance_weather true schaltet sie wieder ein."
       }
     },
     {
@@ -121,10 +121,10 @@
       "categoryDe": "Simple Weather",
       "group": null,
       "groupDe": null,
-      "label": "Rain Disturbance (Client)",
-      "labelDe": "Regen-Störung (Client)",
-      "tooltip": "Reduces rain particles and sounds. 100 = All\nparticles/sounds 0 = No particles/sounds\n(Silent). Default: 100 (like Vanilla). Allowed range: 0–100.",
-      "tooltipDe": "Reduziert Regen-Partikel und -Geräusche. 100\n= Alle Partikel/Geräusche 0 = Keine\nPartikel/Geräusche (still). Standard: 100 (wie Vanilla).\nErlaubter Bereich: 0–100."
+      "label": "Rain Density (Client)",
+      "labelDe": "Regendichte (Client)",
+      "tooltip": "Share of rain particles and rain sounds on\nthis client: 100 = all (like Vanilla), 0 =\nnone (silent). Default: 100. Range: 0–100.",
+      "tooltipDe": "Anteil der Regenpartikel und -geräusche auf\ndiesem Client: 100 = alle (wie Vanilla), 0 =\nkeine (still). Standard: 100. Bereich: 0–100."
     },
     {
       "range": null,

@@ -3,6 +3,8 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge/Forge register MobMannersTests.ALL. */
 public final class ModuleGameTest {
+ /** N132: every config option, category and the title have an EN and a DE name (configLabels, JSON config). */
+ @GameTest(maxTicks = 100) public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simplemobmanners"); }
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplemobmanners", false); }
  @GameTest(maxTicks=100) public void launch(GameTestHelper h){MobMannersTests.launch(h);}
  @GameTest(maxTicks=100) public void config(GameTestHelper h){MobMannersTests.config(h);}

@@ -806,7 +806,7 @@ window.WIKI_MODULES = [
       "config": 4,
       "features": 5
     },
-    "dataHash": "38d78d812683"
+    "dataHash": "57e09f2f3f1e"
   },
   {
     "id": "simplemovement",
@@ -938,8 +938,8 @@ window.WIKI_MODULES = [
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
-      "en": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools. A sub-mod of Simple Quality of Life, also playable alone.",
-      "de": "Mobs nach Art oder Namensschild stumm schalten, benannte Jungtiere bleiben jung, Piglins übersehen Goldbesatz und -werkzeug. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
+      "en": "Mute mobs by type or name tag, piglins ignore gold trims and tools, and a water bucket catches frogs. A sub-mod of Simple Quality of Life, also playable alone.",
+      "de": "Mobs nach Art oder Namensschild stumm schalten, Piglins übersehen Goldbesatz und -werkzeug, und ein Wassereimer fängt Frösche. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."
     },
     "purpose": {
       "en": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
@@ -951,7 +951,7 @@ window.WIKI_MODULES = [
       "config": 5,
       "features": 11
     },
-    "dataHash": "b97757b52ca8"
+    "dataHash": "3c84fa8b4b01"
   },
   {
     "id": "simpleloot",
@@ -985,7 +985,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "61b1d15812b7"
+    "dataHash": "f8b4f164ba0d"
   },
   {
     "id": "simplequestionary",
