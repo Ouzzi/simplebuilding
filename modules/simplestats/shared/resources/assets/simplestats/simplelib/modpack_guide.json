@@ -9,7 +9,7 @@
       "title": "simplestats.guide.chapter",
       "icon": "minecraft:flint",
       "page_key": "simplestats.guide.page",
-      "pages": 30,
+      "pages": 31,
       "advancement": "simplestats:guide/chapter",
       "hint": "minecraft:flint"
     }

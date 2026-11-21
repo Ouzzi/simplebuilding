@@ -26,7 +26,7 @@ Simple End Dragon Fight adds one health bar per player on the island, a faster d
 - **Harder with every summoning** - Optional (off by default so that farming dragon breath is not punished): every further dragon summoned with End crystals is harder for good, e.g.
 - **Entry animation** - Every player who enters a running fight gets a 3-second greeting: portal ring, the dragon rises and scents the newcomer, a growl with a shock ring, then sparks rain down.
 - **Dragonmites** - From half health on, the dragon calls Dragonmites near the exit portal: a first wave at once, then one every 30 seconds.
-- **Config** - Server file config/simpleenddragonfight.json; with SimpleBuilding the module is also switched by "Enable Simple End Dragon Fight".
+- **Settings** - Server file config/simpleenddragonfight.json; with SimpleBuilding the module is also switched by "Enable Simple End Dragon Fight".
 - **Commands** - /simpleenddragonfight config shows and changes every option of config/simpleenddragonfight.json (list [group], get, set, reset, help; Tab completes options and values).
 
 ## Vanilla use

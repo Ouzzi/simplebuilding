@@ -288,5 +288,7 @@
   "simplestats.guide.page.29.title": "Who counts and who sees",
   "simplestats.guide.page.29": "enabled, trackMining, trackCombat, trackArmor, trackDistances, trackFishing, trackTools, trackPlayerKills and maxBytes in config/simplestats.json.",
   "simplestats.guide.page.30.title": "Commands",
-  "simplestats.guide.page.30": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. Game master permission required."
+  "simplestats.guide.page.30": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. /simplestats config shows and changes every setting (list, get, set, reset), saved at once.",
+  "simplestats.guide.page.31.title": "Commands",
+  "simplestats.guide.page.31": "Game master permission required."
 }

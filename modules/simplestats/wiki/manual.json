@@ -147,11 +147,11 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. Game master permission required."
+        "summary": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. /simplestats config shows and changes every setting (list, get, set, reset), saved at once. Game master permission required."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/simplestats reset löscht die Statistik des gehaltenen Gegenstands, /simplestats show listet die Rohwerte, /simplestats reload liest die Einstellungen neu. Spielleiter-Recht nötig."
+        "summary": "/simplestats reset löscht die Statistik des gehaltenen Gegenstands, /simplestats show listet die Rohwerte, /simplestats reload liest die Einstellungen neu. /simplestats config zeigt und ändert jede Einstellung (list, get, set, reset), sofort gespeichert. Spielleiter-Recht nötig."
       }
     }
   ],
@@ -163,10 +163,10 @@
         "modules/simplestats/shared/resources/data/simplestats/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Stats\" of the Simple Modpack guide (SimpleLib): 30 pages taken from this wiki, shown in your language. Unlocked by picking up: flint. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Stats\" of the Simple Modpack guide (SimpleLib): 31 pages taken from this wiki, shown in your language. Unlocked by picking up: flint. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Stats\" im Simple-Modpack-Handbuch (SimpleLib): 30 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerstein. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Stats\" im Simple-Modpack-Handbuch (SimpleLib): 31 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerstein. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }
