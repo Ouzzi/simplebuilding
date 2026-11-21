@@ -433,8 +433,9 @@ def arrows_flight(s):
     if None not in landed.values():
         s.check('flight: the end rod arrow (half gravity) lands farther than the stick arrow', landed['end_rod'] >= landed['stick'] + 1.5,  # measured 2.8-ish farther from 27 blocks
                 f'stick {landed["stick"]:.1f}, end rod {landed["end_rod"]:.1f}')
-        s.check('flight: the phantom membrane arrow (30 % less gravity) lands farther than the stick arrow', landed['membrane'] >= landed['stick'] + 1,
-                f'stick {landed["stick"]:.1f}, membrane {landed["membrane"]:.1f}')
+        # real bow shots spread (Vanilla inaccuracy): membrane measured 30.1 / 28.7 / 26.1 against stick 24.8 / 27.4 / 26.3 - its
+        # 30 % lower gravity (0.035) is the gametest's exact check; here only reported
+        print(f'NOTE flight: stick {landed["stick"]:.1f}, phantom membrane {landed["membrane"]:.1f} (gravity 0.035 vs 0.05: gametest)', flush=True)
     s.chat(f'tp @s {me[0]} {me[1]} {me[2]} 0 20', 0.8)
     s.shot('3-landed-arrows')
     s.chat(f'kill @e[type={ARROW}]', 0.3)
