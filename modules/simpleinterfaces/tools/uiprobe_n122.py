@@ -520,11 +520,9 @@ def animals_biomes(s):
         s.chat(f'fillbiome {bx - 12} {y - 4} {z - 12} {bx + 12} {y + 8} {z + 12} {biome}', 1.0)
         for row, kind in enumerate(kinds):
             for i in range(PER_KIND):
-                # no NBT: the spawn runs finalizeSpawn and picks the coat from the biome
-                s.chat(f'summon simpleanimals:{kind} {bx - 6.5 + i} {y} {z - 5.5 + 4 * row}', 0.25)
-            s.chat(f'tag @e[type=simpleanimals:{kind},x={bx - 9},y={y - 1},z={z - 9},dx=18,dy=6,dz=18,tag=!n122] add {tag}', 0.3)
-            s.chat(f'tag @e[tag={tag}] add n122', 0.3)
-            s.chat(f'execute as @e[tag={tag}] run data merge entity @s {{NoAI:1b,Silent:1b}}', 0.4)
+                # /summon runs finalizeSpawn also with NBT, and the coat is picked from the biome there (no Variant given);
+                # NoAI + tags at once: boars otherwise run off before they are tagged and stray into the next biome scene
+                s.chat(f'summon simpleanimals:{kind} {bx - 6.5 + i} {y} {z - 5.5 + 4 * row} {{NoAI:1b,Silent:1b,PersistenceRequired:1b,Tags:["{tag}","n122"]}}', 0.25)
         time.sleep(1.0)
         for kind, (home, coats, name) in kinds.items():
             q = {f'{tag}-{kind}-v{v}': f'@e[type=simpleanimals:{kind},tag={tag},nbt={{Variant:{v}}}]' for v in range(coats)}
