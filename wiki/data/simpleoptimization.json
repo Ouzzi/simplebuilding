@@ -78,8 +78,8 @@
       "groupDe": null,
       "label": "Enable Simple Opt Memory",
       "labelDe": "Simple Opt Memory aktivieren",
-      "tooltip": "Turns the Simple Opt Memory sub-mod on or off.\nDefault: true.",
-      "tooltipDe": "Schaltet den Sub-Mod Simple Opt Memory ein oder aus.\nStandard: true."
+      "tooltip": "Turns the Simple Opt Memory sub-mod on or off.\nDefault: On.",
+      "tooltipDe": "Schaltet die Sub-Mod Simple Opt Memory ein oder aus.\nStandard: Ein."
     },
     {
       "range": null,
@@ -97,8 +97,8 @@
       "groupDe": null,
       "label": "Enable Simple Opt Render",
       "labelDe": "Simple Opt Render aktivieren",
-      "tooltip": "Turns the Simple Opt Render sub-mod on or off.\nDefault: true.",
-      "tooltipDe": "Schaltet den Sub-Mod Simple Opt Render ein oder aus.\nStandard: true."
+      "tooltip": "Turns the Simple Opt Render sub-mod on or off.\nDefault: On.",
+      "tooltipDe": "Schaltet die Sub-Mod Simple Opt Render ein oder aus.\nStandard: Ein."
     },
     {
       "range": null,
@@ -116,8 +116,8 @@
       "groupDe": null,
       "label": "Enable Simple Opt Server",
       "labelDe": "Simple Opt Server aktivieren",
-      "tooltip": "Turns the Simple Opt Server sub-mod on or off.\nDefault: true.",
-      "tooltipDe": "Schaltet den Sub-Mod Simple Opt Server ein oder aus.\nStandard: true."
+      "tooltip": "Turns the Simple Opt Server sub-mod on or off.\nDefault: On.",
+      "tooltipDe": "Schaltet die Sub-Mod Simple Opt Server ein oder aus.\nStandard: Ein."
     }
   ],
   "quests": [],
