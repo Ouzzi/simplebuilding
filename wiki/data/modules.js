@@ -843,7 +843,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "3e637a5fcbda"
+    "dataHash": "7256500df765"
   },
   {
     "id": "simpletools",
