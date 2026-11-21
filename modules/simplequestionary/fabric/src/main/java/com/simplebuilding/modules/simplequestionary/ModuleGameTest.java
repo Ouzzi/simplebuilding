@@ -70,6 +70,9 @@ public final class ModuleGameTest {
     public void sheetLayout(GameTestHelper h) {
         QuestionaryTests.ALL.get("sheet_layout").accept(h);
     }
+    /** N135: the config screen title and autoFacts have an EN and a DE name; the tooltip names the real default. */
+    @GameTest(maxTicks = 100) public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simplequestionary"); }
+    @GameTest(maxTicks = 100) public void configTooltipDefaults(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.tooltipDefaults(h, "simplequestionary"); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplequestionary.discover.QuestionaryDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplequestionary.discover.QuestionaryDiscover.behaviourHints(h); }
 }
