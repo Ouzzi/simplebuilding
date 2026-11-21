@@ -72,4 +72,43 @@ public final class SoundTests {
   c.followVisuals=false;h.assertTrue(!gson.fromJson(gson.toJson(c),SoundConfig.class).followVisuals,"Opt-out persists");
   h.succeed();
  }
+
+ /**
+  * N136: when each sound is due (SoundTriggers, the same code as the client tick). The probe client has no audio device (OpenAL fails),
+  * so the trigger of every block/state effect is checked here with a mock player: on its own block, then with the one cause added.
+  * Water ripples/droplets need the entity's fluid state from a real tick and stay with the volume/cooldown tests.
+  */
+ public static void triggers(GameTestHelper h){
+  h.assertTrue(SoundTriggers.IDS.equals(new java.util.HashSet<>(SoundsRegistry.ALL.stream().map(SoundsRegistry.Effect::id).toList())),"Every effect has a trigger condition");
+  var level=h.getLevel();
+  var at=new net.minecraft.core.BlockPos(2,2,2);
+  for(int x=0;x<5;x++)for(int z=0;z<5;z++)h.setBlock(new net.minecraft.core.BlockPos(x,1,z),net.minecraft.world.level.block.Blocks.STONE);
+  var p=h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);p.setPos(net.minecraft.world.phys.Vec3.atCenterOf(h.absolutePos(at)));p.setOnGround(true);p.setDeltaMovement(0,0,0);
+  java.util.function.BiPredicate<String,Long> due=(id,day)->SoundTriggers.active(id,p,level,day,false,false);
+  for(String id:SoundTriggers.IDS)if(!id.equals("cold_breath"))h.assertTrue(!due.test(id,14000L)&&!due.test(id,6000L),"Nothing due on bare stone: "+id);
+  h.assertTrue(due.test("cold_breath",6000L)==level.getBiome(p.blockPosition()).value().coldEnoughToSnow(p.blockPosition(),level.getSeaLevel()),"Cold breath follows the snow biome rule");
+  p.setDeltaMovement(.2,0,0);h.assertTrue(due.test("footstep_dust",6000L),"Footstep dust while walking on the ground");
+  p.setOnGround(false);h.assertTrue(!due.test("footstep_dust",6000L),"No footstep dust in the air");p.setOnGround(true);p.setDeltaMovement(0,0,0);
+  h.setBlock(at.below(),net.minecraft.world.level.block.Blocks.GRASS_BLOCK);
+  var under=level.getBlockState(p.blockPosition().below());
+  h.assertTrue(due.test("fireflies",14000L),"Fireflies at night above grass (26.3: grass_blocks, no longer in the dirt tag) - under "+under);
+  h.assertTrue(!due.test("fireflies",6000L)&&!due.test("fireflies",-1L),"No fireflies by day or without a day cycle");
+  h.setBlock(at.below(),net.minecraft.world.level.block.Blocks.STONE);h.assertTrue(!due.test("fireflies",14000L),"No fireflies above stone");
+  h.setBlock(at.east().below(),net.minecraft.world.level.block.Blocks.GRASS_BLOCK);h.setBlock(at.east(),net.minecraft.world.level.block.Blocks.DANDELION);
+  h.assertTrue(due.test("pollen",6000L)&&!due.test("pollen",14000L),"Pollen by day beside a flower, not at night");
+  h.setBlock(at.east(),net.minecraft.world.level.block.Blocks.AIR);
+  h.setBlock(at.north(),net.minecraft.world.level.block.Blocks.CAMPFIRE);h.assertTrue(due.test("fire_sparks",6000L),"Fire sparks beside a campfire");h.setBlock(at.north(),net.minecraft.world.level.block.Blocks.AIR);
+  h.setBlock(at.above(2).west(),net.minecraft.world.level.block.Blocks.OAK_LEAVES.defaultBlockState().setValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT,true));
+  h.assertTrue(due.test("leaf_fall",6000L),"Leaf fall with leaves beside the spot two blocks above");h.setBlock(at.above(2).west(),net.minecraft.world.level.block.Blocks.AIR);
+  h.setBlock(at.south(),net.minecraft.world.level.block.Blocks.BEACON);h.assertTrue(due.test("beacon_aura",6000L),"Beacon aura beside a beacon");h.setBlock(at.south(),net.minecraft.world.level.block.Blocks.AIR);
+  var sword=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.IRON_SWORD);p.setItemSlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND,sword);
+  h.assertTrue(!due.test("enchanted_items",6000L),"Plain sword is no enchanted item");
+  sword.enchant(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SHARPNESS),1);
+  h.assertTrue(due.test("enchanted_items",6000L),"Enchanted item in the main hand");
+  h.assertTrue(SoundTriggers.active("damage_feedback",p,level,6000L,true,false)&&!SoundTriggers.active("healing_feedback",p,level,6000L,true,false),"Damage sound when health fell");
+  h.assertTrue(SoundTriggers.active("healing_feedback",p,level,6000L,false,true)&&!SoundTriggers.active("damage_feedback",p,level,6000L,false,true),"Healing sound when health rose");
+  var spectator=h.makeMockPlayer(net.minecraft.world.level.GameType.SPECTATOR);spectator.setPos(p.position());
+  for(String id:SoundTriggers.IDS)h.assertTrue(!SoundTriggers.active(id,spectator,level,14000L,true,true),"Spectators hear none: "+id);
+  h.succeed();
+ }
 }

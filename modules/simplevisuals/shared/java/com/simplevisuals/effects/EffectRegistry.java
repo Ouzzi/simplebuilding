@@ -17,5 +17,8 @@ public final class EffectRegistry {
  public static Intensity level(com.simplevisuals.config.SimplevisualsConfig c,String id){
   return c.particles.overrides.getOrDefault(id,c.particles.globalLevel);
  }
+ /** N136: 26.3 split grass, podzol and mycelium out of the dirt tag into grass_blocks; the fireflies stand on both (by id, so older versions without the tag still compile). */
+ public static final net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> GRASS_BLOCKS=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK,net.minecraft.resources.Identifier.withDefaultNamespace("grass_blocks"));
+ public static boolean firefliesGround(net.minecraft.world.level.block.state.BlockState state){return state.is(net.minecraft.tags.BlockTags.DIRT)||state.is(GRASS_BLOCKS);}
  private EffectRegistry(){}
 }

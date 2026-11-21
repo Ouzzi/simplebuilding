@@ -123,7 +123,8 @@ public class Crab extends PathfinderMob {
     public boolean checkSpawnRules(LevelAccessor level, EntitySpawnReason reason) {
         if (AnimalsSpawn.natural(reason)) {
             BlockPos below = blockPosition().below();
-            boolean ground = level.getBlockState(below).is(BlockTags.SAND) || level.getBlockState(below).is(BlockTags.DIRT);
+            var state = level.getBlockState(below);
+            boolean ground = state.is(BlockTags.SAND) || state.is(BlockTags.DIRT) || state.is(Boar.GRASS_BLOCKS);  // 26.3: grass left the dirt tag
             return AnimalsSpawn.allowed(AnimalsConfig.crab, this.random) && ground && AnimalsSpawn.bright(level, blockPosition());
         }
         return super.checkSpawnRules(level, reason);

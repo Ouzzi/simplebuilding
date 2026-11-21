@@ -22,27 +22,15 @@ public final class SoundClient {
   if(mc.level==null||mc.player==null||mc.isPaused())return;
   if(!SoundsRegistry.on()){BUDGET.reset();return;}
   tick++;BUDGET.begin();CONFIG.normalize();
-  var p=mc.player;var pos=p.blockPosition();float current=p.getHealth();
+  var p=mc.player;float current=p.getHealth();
   boolean damage=current<health, healing=current>health;health=current;
   if(p.isSpectator())return;
+  // (Object) casts: an upcast of the client types would make the verifier load them where this class is linked on a server
+  var level=(net.minecraft.world.level.Level)(Object)mc.level;var player=(net.minecraft.world.entity.player.Player)(Object)p;long day=day(mc);
   for(int i=0;i<SoundsRegistry.ALL.size();i++){
    var e=SoundsRegistry.ALL.get((i+(int)(tick%SoundsRegistry.ALL.size()))%SoundsRegistry.ALL.size());
    if(!e.category().equals("reactive")&&tick%e.interval()!=0)continue;
-   boolean active=switch(e.id()){
-    case "footstep_dust"->p.onGround()&&!p.isInWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.015;
-    case "cold_breath"->!p.isUnderWater()&&mc.level.getBiome(pos).value().coldEnoughToSnow(pos,mc.level.getSeaLevel());
-    case "fireflies"->day(mc)>=13000&&day(mc)<=23000&&mc.level.getBlockState(pos.below()).is(BlockTags.DIRT);
-    case "pollen"->day(mc)>=0&&day(mc)<12000&&nearby(mc,pos,BlockTags.FLOWERS,null);
-    case "fire_sparks"->nearby(mc,pos,null,Blocks.FIRE)||nearby(mc,pos,null,Blocks.LAVA)||nearby(mc,pos,null,Blocks.CAMPFIRE);
-    case "water_ripples"->p.isInWater()&&!p.isUnderWater()&&p.getDeltaMovement().horizontalDistanceSqr()>.005;
-    case "water_droplets"->p.isInWater()&&p.getDeltaMovement().lengthSqr()>.01;
-    case "leaf_fall"->nearby(mc,pos.above(2),BlockTags.LEAVES,null);
-    case "enchanted_items"->p.getMainHandItem().isEnchanted()||p.getOffhandItem().isEnchanted();
-    case "beacon_aura"->nearby(mc,pos,null,Blocks.BEACON);
-    case "damage_feedback"->damage;
-    case "healing_feedback"->healing;
-    default->false;
-   };
+   boolean active=SoundTriggers.active(e.id(),player,level,day,damage,healing);
    if(!active)continue; // volume() normalizes the config (allocates): only for effects that are actually due
    float volume=CONFIG.volume(e);
    if(SoundsRegistry.plays(volume)&&BUDGET.claim(p.getId(),e.id(),tick,CONFIG,e.interval())){
@@ -53,7 +41,4 @@ public final class SoundClient {
  }
  /** Like {@link SoundsRegistry#dayTime} but called on the ClientLevel itself: passing it as a Level would make the verifier load the client class on a server (SoundsFabric links this class). */
  private static long day(Minecraft mc){var l=mc.level;return l.dimensionType().defaultClock().isPresent()&&!l.dimensionType().hasFixedTime()?Math.floorMod(l.getDefaultClockTime(),24000L):-1L;}
- private static boolean nearby(Minecraft mc,BlockPos pos,net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> tag,net.minecraft.world.level.block.Block block){
-  for(var d:net.minecraft.core.Direction.values()){var sample=pos.relative(d);if(!mc.level.hasChunkAt(sample))continue;var state=mc.level.getBlockState(sample);if(tag!=null?state.is(tag):state.is(block))return true;}return false;
- }
 }

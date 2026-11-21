@@ -206,9 +206,13 @@ public class Boar extends Animal {
         }
     }
 
-    /** True when the boar stands on ground it can dig in (dirt, grass, podzol, mud ... = the Vanilla dirt tag). */
+    /** 26.3 moved grass, podzol and mycelium out of the dirt tag into grass_blocks (N136/N138): both count as ground to dig in. */
+    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> GRASS_BLOCKS = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, net.minecraft.resources.Identifier.withDefaultNamespace("grass_blocks"));
+
+    /** True when the boar stands on ground it can dig in (dirt, mud ... = the Vanilla dirt tag; grass, podzol, mycelium = grass_blocks). */
     public boolean canDig() {
-        return onGround() && !isInWater() && level().getBlockState(blockPosition().below()).is(BlockTags.DIRT);
+        var ground = level().getBlockState(blockPosition().below());
+        return onGround() && !isInWater() && (ground.is(BlockTags.DIRT) || ground.is(GRASS_BLOCKS));
     }
 
     /**

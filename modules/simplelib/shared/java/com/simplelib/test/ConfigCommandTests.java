@@ -224,8 +224,13 @@ public final class ConfigCommandTests {
      * Render) is checked on that one.
      */
     public static void tooltipDefaults(GameTestHelper h, String modId) {
-        ConfigCommands.Spec spec = ConfigCommands.spec(modId, false) != null ? ConfigCommands.spec(modId, false) : ConfigCommands.spec(modId, true);
-        check(h, spec != null, modId + " announced no config");
+        tooltipDefaults(h, modId, ConfigCommands.spec(modId, false) == null);
+    }
+
+    /** N136: {@link #tooltipDefaults(GameTestHelper, String)} for the client config of a client-only module (Simple Sounds) when {@code client}. */
+    public static void tooltipDefaults(GameTestHelper h, String modId, boolean client) {
+        ConfigCommands.Spec spec = ConfigCommands.spec(modId, client);
+        check(h, spec != null, modId + " announced no " + (client ? "client" : "server") + " config");
         JsonObject de;
         try (var in = ConfigCommandTests.class.getResourceAsStream("/assets/" + modId + "/lang/de_de.json")) {
             check(h, in != null, modId + ": no de_de.json");

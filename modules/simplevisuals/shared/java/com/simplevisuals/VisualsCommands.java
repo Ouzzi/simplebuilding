@@ -13,9 +13,11 @@ public final class VisualsCommands {
      .then(policy("enableAnvilFormatting","simplevisuals.server_formatting",Visuals::serverFormatting,value->{Visuals.setServerFormatting(value);Visuals.CONFIG.visuals.enableAnvilFormatting=value;}))
      .then(policy("allowAnvilObfuscation","simplevisuals.server_obfuscation",Visuals::serverObfuscation,value->{Visuals.setServerObfuscation(value);Visuals.CONFIG.visuals.allowAnvilObfuscation=value;})))));
  }
+ /** N138: a raw boolean argument reaches the client as 1/0 ("Server anvil formatting: 1") - shown as the Vanilla ON/OFF text. */
+ private static Component onOff(boolean value){return Component.translatable(value?"options.on":"options.off");}
  private static LiteralArgumentBuilder<CommandSourceStack> policy(String name,String key,java.util.function.BooleanSupplier get,java.util.function.Consumer<Boolean> set){
   return Commands.literal(name)
-   .executes(ctx->{boolean value=get.getAsBoolean();ctx.getSource().sendSuccess(()->Component.translatable(key,value),false);return 1;})
-   .then(Commands.argument("enabled",BoolArgumentType.bool()).executes(ctx->{boolean value=BoolArgumentType.getBool(ctx,"enabled");set.accept(value);Visuals.save();ctx.getSource().sendSuccess(()->Component.translatable(key,value),true);return 1;}));
+   .executes(ctx->{boolean value=get.getAsBoolean();ctx.getSource().sendSuccess(()->Component.translatable(key,onOff(value)),false);return 1;})
+   .then(Commands.argument("enabled",BoolArgumentType.bool()).executes(ctx->{boolean value=BoolArgumentType.getBool(ctx,"enabled");set.accept(value);Visuals.save();ctx.getSource().sendSuccess(()->Component.translatable(key,onOff(value)),true);return 1;}));
  }
 }

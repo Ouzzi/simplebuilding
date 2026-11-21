@@ -436,7 +436,10 @@ public final class ModelTests {
             for (var f : ModelPolicy.class.getFields()) if (!java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
                 String key = "text.autoconfig.simplemodels.option." + f.getName();
                 for (var lang : List.of(en, de)) for (String suffix : List.of("", ".@Tooltip")) h.assertTrue(lang.containsKey(key + suffix), "Config metadata " + key + suffix);
-                h.assertTrue(en.get(key + ".@Tooltip").contains("Default: " + f.get(defaults)) && de.get(key + ".@Tooltip").contains("Standard: " + f.get(defaults)), "Default in every tooltip");
+                // N136: switches name their default as the browser's policy tab shows it (On/Off, Ein/Aus), not true/false
+                Object d = f.get(defaults);
+                String shownEn = d instanceof Boolean b ? (b ? "On" : "Off") : String.valueOf(d), shownDe = d instanceof Boolean c ? (c ? "Ein" : "Aus") : String.valueOf(d);
+                h.assertTrue(en.get(key + ".@Tooltip").replace('\n', ' ').contains("Default: " + shownEn + ".") && de.get(key + ".@Tooltip").replace('\n', ' ').contains("Standard: " + shownDe + "."), "Default in every tooltip: " + key);
             }
         } catch (Exception e) { throw new AssertionError(e); } h.succeed();
     }

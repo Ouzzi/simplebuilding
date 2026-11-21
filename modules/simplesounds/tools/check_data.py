@@ -18,17 +18,22 @@ if visuals.exists():
 langs=[read(MODULE/f'shared/resources/assets/simplesounds/lang/{l}.json') for l in ('en_us','de_de')]
 assert langs[0].keys()==langs[1].keys()
 for lang in langs:
+ assert lang['text.autoconfig.simplesounds.title'] and lang['text.autoconfig.simplesounds.option.overrides'], 'N136: generic screen title and the overrides map named'
  for level in ('inherit','off','subtle','normal','strong','maximum'):assert lang['simplesounds.level.'+level]
  assert all('?' not in value for value in lang.values()), 'Damaged translated text'
 manual=read(MODULE/'wiki/manual.json');features={f['id'] for f in manual['features']}
 assert manual['notes']=={} and not list((MODULE/'shared/resources/assets/simplesounds/items').glob('*.json'))
-for key,default in [('followVisuals','true'),('globalLevel','SUBTLE'),('volumeCap','0.25'),('soundsPerTick','2'),('soundsPerPlayer','1'),('cooldownTicks','40')]+[(e['id'],'INHERIT') for e in effects]:
- for lang in langs:assert lang['text.autoconfig.simplesounds.option.'+key] and default in lang['text.autoconfig.simplesounds.option.'+key+'.@Tooltip']
+# N136: defaults as the screen shows them (EN, DE), not the raw values true/SUBTLE/INHERIT
+for key,default in [('followVisuals',('On','Ein')),('globalLevel',('Subtle','Dezent')),('volumeCap',('0.25','0,25')),('soundsPerTick',('2',)*2),('soundsPerPlayer',('1',)*2),('cooldownTicks',('40',)*2)]+[(e['id'],('Inherit','Global')) for e in effects]:
+ for lang,word,shown in zip(langs,('Default: ','Standard: '),default):assert lang['text.autoconfig.simplesounds.option.'+key] and word+shown+'.' in lang['text.autoconfig.simplesounds.option.'+key+'.@Tooltip'].replace('\n',' '),key
  assert ('effect_' if key in {e['id'] for e in effects} else 'config_')+key in features
 for e in effects:
  assert e['sound'].startswith('minecraft:') and 20<=e['interval']<=1200 and 0<e['volume']<=.25 and .5<=e['pitch']<=2
  for lang in langs:assert lang['simplesounds.tab.'+e['category']]
 for f in manual['features']:
- for locale in ('en','de'):assert f[locale]['title'] and f[locale]['summary'] and f[locale]['details']
+ for locale in ('en','de'):
+  assert f[locale]['title'] and f[locale]['summary']
+  # N136: the wiki shows summary and details; a first detail equal to the summary showed every text twice
+  assert f[locale].get('details',[''])[0].strip()!=f[locale]['summary'].strip(), f"summary repeated as first detail: {f[locale]['title']}"
 mixins=read(MODULE/'shared/resources/simplesounds.mixins.json');assert not mixins.get('mixins') and mixins['client']==['SoundTickMixin']
 print('simplesounds: 12 complete mappings, 18 bilingual options, bounds, zero-item and client-only data valid')
