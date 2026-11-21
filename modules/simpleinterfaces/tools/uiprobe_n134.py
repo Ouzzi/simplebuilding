@@ -215,7 +215,14 @@ def _shield(s, x, y, z):
     s.chat(f'setblock {x} {y + 1} {z + 3} minecraft:dispenser[facing=north]{{Items:[{{Slot:0b,id:"minecraft:arrow",count:16}}]}}', 0.5)
     if not _hand(s, 0, 'minecraft:shield', 'shield'):
         return
-    if not _aim(s, (x + 0.5, y, z + 0.5), (x + 0.5, y + 1.5, z + 2.95), 'minecraft:dispenser', 'shield', key='hitBlock'):
+    # look ABOVE the dispenser into the open air: a right click on the dispenser opens its window instead of raising the shield
+    s.chat(f'tp @s {x + 0.5} {y} {z + 0.5} facing {x + 0.5} {y + 3.2 - 1.62:.2f} {z + 2.95}', 0.8)
+    for _ in range(8):
+        if not s.st().get('hitBlock'):
+            break
+        time.sleep(0.3)
+    if s.last.get('hitBlock'):
+        s.check('shield: the crosshair is off the dispenser (open air)', False, s.last.get('hitBlock'))
         return
     time.sleep(0.6)
     s.io.button(3, True)
@@ -242,9 +249,19 @@ def _rockets(s, x, y, z):
     s.chat('effect give @s minecraft:resistance 60 4 true', 0.3)
     if not _hand(s, 1, 'minecraft:firework_rocket 3', 'rocket'):
         return
-    s.chat(f'tp @s {x + 0.5} {y + 30} {z + 0.5} 0 0', 0.5)
-    time.sleep(0.3)
-    s.io.key('space', 0.4)  # jump in the air with an elytra: starts gliding
+    # chat commands take ~1.5 s: start high, press jump at once a few times, prove the glide before the rockets (n130 lesson)
+    s.chat(f'tp @s {x + 0.5} {y + 80} {z + 0.5} 0 0', 0.2)
+    time.sleep(0.4)
+    gliding = False
+    for _ in range(3):
+        for _ in range(2):
+            s.io.key('space', 0.12)
+            time.sleep(0.15)
+        _say(s, 'if entity @s[nbt={FallFlying:1b}]', 'gliding')
+        gliding = _said(s, ['gliding'], 0.6)['gliding']
+        if gliding:
+            break
+    print(f'NOTE glide started: {gliding}', flush=True)
     s.io.right_click()
     s.shot('gliding-first-rocket')
     time.sleep(0.5)
@@ -372,7 +389,7 @@ def challenges_select(s):
     if not ok:
         return
     time.sleep(1.0)
-    tab = s.find_widget('World', cls='TabButton', st=s.st(), contains=False)
+    tab = s.find_widget('World', cls='MenuTabButton', st=s.st(), contains=False)  # 26.3 class name
     if not tab:
         s.check('tab button "World" present', False, s.labels(s.st()))
         return
