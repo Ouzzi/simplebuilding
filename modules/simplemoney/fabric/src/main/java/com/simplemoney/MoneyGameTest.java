@@ -3,6 +3,8 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class MoneyGameTest {
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplemoney", false); }
+ /** N126: every config option has an EN and a DE name (configLabels). */
+ @GameTest(maxTicks=100) public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simplemoney"); }
  @GameTest(maxTicks=100) public void launchSmoke(GameTestHelper h) { com.simplemoney.testing.MoneyTests.launchSmoke(h); }
  @GameTest(maxTicks=100) public void guideBook(GameTestHelper h) { com.simplemoney.guide.MoneyGuide.gameTest(h); }
  @GameTest(maxTicks=100) public void recipes(GameTestHelper h) { com.simplemoney.testing.MoneyTests.recipes(h); }
