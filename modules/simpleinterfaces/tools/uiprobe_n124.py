@@ -374,7 +374,8 @@ def tweaks_invsee(s):
     st = _wait_screen(s, 'InvseeScreen', 6)
     s.check(f'"/simpletweaks deaths {name}" opens InvseeScreen (death backup view)', st is not None, s.last.get('screen'))
     if st:
-        s.check(f'title "Death backups of {name}"', rp.plain(st.get('title', '')).startswith(f'Death backups of {name}'), st.get('title'))
+        t = rp.plain(st.get('title', ''))  # the screen shows the heading text "Death backups: <name>"
+        s.check(f'title names the death backups of {name}', t.startswith('Death backups') and name in t, st.get('title'))
         other = [sl.get('stack', '') for sl in st.get('slots', []) if not sl.get('own')]
         s.check('the backup holds the 7 diamonds', any(str(v).startswith('minecraft:diamond x7') for v in other), [v for v in other if v][:8])
         _park(s, st)
@@ -593,8 +594,9 @@ def si_merchant(s):
               '{buy:{id:"minecraft:emerald",count:3},sell:{id:"minecraft:lantern",count:1},maxUses:12}]}')
     s.chat(f'execute positioned {x + 2.5} {y} {z + 0.5} summon minecraft:villager run data merge entity @s {{NoAI:1b,Invulnerable:1b,'
            f'PersistenceRequired:1b,Xp:10,VillagerData:{{profession:"minecraft:librarian",level:2,type:"minecraft:plains"}},Offers:{offers}}}', 1.0)
-    s.chat('give @s minecraft:emerald 8', 0.5)
+    # empty hand first: give fills the selected slot, and clearing the main hand afterwards would take the emeralds away
     s.chat('item replace entity @s weapon.mainhand with minecraft:air', 0.3)
+    s.chat('item replace entity @s inventory.0 with minecraft:emerald 8', 0.5)
     hit = None
     for _ in range(4):
         st = rp.aim(s, x + 2.5, y + 1.2, z + 0.5)
