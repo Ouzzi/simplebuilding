@@ -54,7 +54,9 @@ def check():
     assert len(manual) == 11 + len(options) and any(f['id'] == 'forge_263' for f in manual) and any(f['id'] == 'commands' for f in manual), 'all gameplay/registry/security/horseshoe and creative-tab chapters, config options, the commands (CMD24) and the Forge support chapter'
     for feature in manual:
         for language in ('en', 'de'):
-            assert feature[language]['title'] and feature[language]['summary'] and feature[language]['details']
+            assert feature[language]['title'] and feature[language]['summary']
+            # N139 (as N136): the wiki shows summary and details; a first detail equal to the summary showed every text twice
+            assert feature[language].get('details',[''])[0].strip()!=feature[language]['summary'].strip(), f"summary repeated as first detail: {feature[language]['title']}"
         assert feature['sources'] and all((ROOT / p).is_file() for p in feature['sources'])
     resources = MODULE / 'generated/resources/data'
     for level in (2, 3, 4):

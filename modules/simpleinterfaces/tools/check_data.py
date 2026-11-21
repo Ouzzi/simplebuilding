@@ -39,7 +39,9 @@ for lang in langs:
     assert all('?' not in value for value in lang.values()), 'Damaged translated text'
 for feature in manual['features']:
     for locale in ('en', 'de'):
-        assert feature[locale]['title'] and feature[locale]['summary'] and feature[locale]['details']
+        assert feature[locale]['title'] and feature[locale]['summary']
+        # N139 (as N136): the wiki shows summary and details; a first detail equal to the summary showed every text twice
+        assert feature[locale].get('details',[''])[0].strip()!=feature[locale]['summary'].strip(), f"summary repeated as first detail: {feature[locale]['title']}"
     assert all((MODULE.parents[1] / source).is_file() for source in feature['sources']), feature['id']
 assert manual['notes'] == {} and not (MODULE / 'shared/resources/assets/simpleinterfaces/items').exists()
 mixins = read(MODULE / 'shared/resources/simpleinterfaces.mixins.json')
