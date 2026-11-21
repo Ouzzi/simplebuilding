@@ -28,6 +28,7 @@
   "text.autoconfig.simplemoney.option.trades.enableRareWanderingTrades": "Enable Rare Wandering Offers",
   "text.autoconfig.simplemoney.option.trades.enableRareWanderingTrades.tooltip": "Budding amethyst and diamond ore at the\nWandering Trader (they undo Vanilla\nscarcity). Default: false. Server setting;\nrestart or reload the world.",
   "text.autoconfig.simplemoney.category.links": "Money Links",
+  "text.autoconfig.simplemoney.category.trades": "Trades",
   "text.autoconfig.simplemoney.option.links.enabled": "Enable Linked Trades",
   "text.autoconfig.simplemoney.option.links.enabled.tooltip": "Adds offers only for loaded mods. Default:\ntrue. Server setting. Save a local draft;\nreload or restart the server. Existing offers\nkeep their base price and stock.",
   "text.autoconfig.simplemoney.option.links.billsPerHour": "Bills per Model Hour",

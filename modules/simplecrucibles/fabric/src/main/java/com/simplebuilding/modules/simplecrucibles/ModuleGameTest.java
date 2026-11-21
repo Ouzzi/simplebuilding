@@ -6,6 +6,12 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link CrucibleTests}. Keep in sync with CrucibleTests.ALL. */
 public final class ModuleGameTest {
+    /** N126: every config option has an EN and a DE name (configLabels). */
+    @GameTest(structure = "simplecrucibles:empty")
+    public void configLabels(GameTestHelper h) {
+        com.simplelib.test.ConfigCommandTests.labels(h, "simplecrucibles");
+    }
+
     @GameTest(structure = "simplecrucibles:empty")
     public void configBounds(GameTestHelper h) {
         CrucibleTests.ALL.get("config_bounds").accept(h);
@@ -346,5 +352,15 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplecrucibles:empty")
     public void noRecipeSlotsSearchSeldom(GameTestHelper h) {
         CrucibleTests.ALL.get("no_recipe_slots_search_seldom").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void villageKitchenPlacedHoldsFoodAndMeat(GameTestHelper h) {
+        CrucibleTests.ALL.get("village_kitchen_placed_holds_food_and_meat").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty", maxTicks = 400)
+    public void idleTickCost(GameTestHelper h) {
+        CrucibleTests.ALL.get("idle_tick_cost").accept(h);
     }
 }
