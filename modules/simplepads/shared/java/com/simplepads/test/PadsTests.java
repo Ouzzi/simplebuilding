@@ -41,6 +41,7 @@ public final class PadsTests {
         ALL.put("redstone_switches_launchpads_and_flypads_off_and_comparators_read_them", PadOverhaulTests::redstoneSwitchesLaunchpadsAndFlypadsOffAndComparatorsReadThem);
         ALL.put("hoppers_fill_only_wind_charges_into_the_launchpad", PadOverhaulTests::hoppersFillOnlyWindChargesIntoTheLaunchpad);
         ALL.put("spawn_teleporter_signal_changes_reset_the_entire_warmup", PadOverhaulTests::spawnTeleporterSignalChangesResetTheEntireWarmup);
+        ALL.put("spawn_teleporter_idle_tick_cost", PadOverhaulTests::spawnTeleporterIdleTickCost);
         ALL.put("the_spawn_teleporter_takes_players_to_their_bed_and_with_redstone_to_the_world_spawn", PadOverhaulTests::theSpawnTeleporterTakesPlayersToTheirBedAndWithRedstoneToTheWorldSpawn);
         ALL.put("every_pad_family_shows_whether_it_is_working", PadOverhaulTests::everyPadFamilyShowsWhetherItIsWorking);
         ALL.put("pad_effects_fade_in_and_stop_scheduling_when_settled", PadOverhaulTests::padEffectsFadeInAndStopSchedulingWhenSettled);

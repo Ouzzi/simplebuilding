@@ -103,11 +103,8 @@ ALL.put("config_command", h -> {
             h.succeed();
         });
         // simplebeacons-4 (PLAN40): the config screen names every option (no raw paths).
-        ALL.put("config_labels", h -> {
-            java.util.List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleBeacons.MOD_ID);
-            h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
-            h.succeed();
-        });
+        // N130: also the German names (the module's de_de.json), not only the loaded EN.
+        ALL.put("config_labels", h -> com.simplelib.test.ConfigScreenTests.moduleLabels(h, SimpleBeacons.MOD_ID));
         ALL.put("config_defaults", h -> {
             BeaconsConfig.reset();
             h.assertTrue(BeaconsConfig.enabled && BeaconsConfig.strongBeaconMaxLevels == 6 && BeaconsConfig.strongBeaconRangeBase == 10

@@ -121,6 +121,10 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadS
 
     /** Fortschritt des Spielers, der am laengsten still steht: 0 niemand, sonst 1..15 bis zum Sprung. */
     private int progressSignal(Level level, BlockPos pos, BlockState state) {
+        // Leerlauf (N130): ohne Wartende ist das Signal 0 - spart die Block-Entity-Abfrage der Easter-Stufe in requiredTicks.
+        if (timeStanding.isEmpty()) {
+            return 0;
+        }
         int longest = 0;
         for (int ticks : timeStanding.values()) {
             longest = Math.max(longest, ticks);
