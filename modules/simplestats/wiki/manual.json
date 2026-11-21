@@ -147,11 +147,11 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. Game master permission required."
+        "summary": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again, /simplestats config shows and changes every setting (list, get, set, reset; saved at once). Game master permission required."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/simplestats reset löscht die Statistik des gehaltenen Gegenstands, /simplestats show listet die Rohwerte, /simplestats reload liest die Einstellungen neu. Spielleiter-Recht nötig."
+        "summary": "/simplestats reset löscht die Statistik des gehaltenen Gegenstands, /simplestats show listet die Rohwerte, /simplestats reload liest die Einstellungen neu, /simplestats config zeigt und ändert jede Einstellung (list, get, set, reset; sofort gespeichert). Spielleiter-Recht nötig."
       }
     }
   ],

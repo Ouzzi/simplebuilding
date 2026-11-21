@@ -6,6 +6,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link ChallengeTests}, all on simplechallenges:empty. */
 public final class ModuleGameTest {
+    /** N134: the config screen names its title and options in English and German (ConfigCommandTests.labels). */
+    @GameTest(structure = "simplechallenges:empty") public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simplechallenges"); }
+
     @GameTest(structure = "simplechallenges:empty", maxTicks = 100)
     public void configDefaults(GameTestHelper h) {
         ChallengeTests.ALL.get("config_defaults").accept(h);

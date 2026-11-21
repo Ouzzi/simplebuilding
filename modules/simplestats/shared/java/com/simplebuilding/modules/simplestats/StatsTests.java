@@ -63,6 +63,7 @@ ALL.put("variant_names_german", StatsTests::variantNamesGerman);
         ALL.put("fall_boots", StatsTests::fallBoots);
         ALL.put("shield_blocked", StatsTests::shieldBlocked);
         ALL.put("elytra_and_boots", StatsTests::elytraAndBoots);
+        ALL.put("rockets_used", StatsTests::rocketsUsed);
         ALL.put("fishing", StatsTests::fishing);
         ALL.put("tool_uses", StatsTests::toolUses);
         ALL.put("shearing", StatsTests::shearing);
@@ -419,6 +420,27 @@ public static void launch(GameTestHelper h) {
             eq(h, 1, d.total(StatKeys.ATTACKS_BLOCKED), "attacks blocked");
             eq(h, 400, d.total(StatKeys.DAMAGE_BLOCKED), "damage blocked (hundredths)");
             eq(h, 400, d.detail(StatKeys.L_BLOCKED_BY).entries().get("minecraft:zombie"), "by attacker kind");
+        });
+        h.succeed();
+    }
+
+    /** N134: a real rocket entity stuck to a gliding player counts on the elytra (FireworkRocketEntityMixin, the constructor a used rocket calls); not gliding, nothing counts. */
+    public static void rocketsUsed(GameTestHelper h) {
+        with(h, c -> {}, () -> {
+            ServerPlayer p = player(h);
+            ItemStack elytra = new ItemStack(Items.ELYTRA);
+            p.setItemSlot(EquipmentSlot.CHEST, elytra);
+            new net.minecraft.world.entity.projectile.FireworkRocketEntity(h.getLevel(), new ItemStack(Items.FIREWORK_ROCKET), p);
+            StatsRuntime.flush();
+            eq(h, 0, stats(elytra).total(StatKeys.ROCKETS_USED), "rocket while not gliding");
+            p.startFallFlying();
+            h.assertTrue(p.isFallFlying(), "the player glides");
+            new net.minecraft.world.entity.projectile.FireworkRocketEntity(h.getLevel(), new ItemStack(Items.FIREWORK_ROCKET), p);
+            new net.minecraft.world.entity.projectile.FireworkRocketEntity(h.getLevel(), new ItemStack(Items.FIREWORK_ROCKET), p);
+            StatsRuntime.flush();
+            eq(h, 2, stats(elytra).total(StatKeys.ROCKETS_USED), "rockets used while gliding");
+            eq(h, 1, stats(elytra).total(StatKeys.FLIGHTS), "one flight started");
+            p.stopFallFlying();
         });
         h.succeed();
     }

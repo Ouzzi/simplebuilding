@@ -21,6 +21,7 @@
   "simplechallenges.unlock.nothing_ahead": "Keine gesperrte Zelle am freien Bereich in deiner Blickrichtung.",
   "simplechallenges.border.on": "Grenzlinie an.",
   "simplechallenges.border.off": "Grenzlinie aus.",
+  "text.autoconfig.simplechallenges.title": "Simple Challenges",
   "text.autoconfig.simplechallenges.option.enabled": "Simple Challenges aktivieren",
   "text.autoconfig.simplechallenges.option.enabled.@Tooltip": "Hauptschalter. Auch an ändert die Mod nichts in einer Welt, in der keine Challenge gewählt ist.",
   "text.autoconfig.simplechallenges.option.allowAdminCommands": "Admin-Befehle erlauben",

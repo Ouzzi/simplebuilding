@@ -21,6 +21,7 @@
   "simplechallenges.unlock.nothing_ahead": "No locked cell next to the free area in your line of sight.",
   "simplechallenges.border.on": "Border line on.",
   "simplechallenges.border.off": "Border line off.",
+  "text.autoconfig.simplechallenges.title": "Simple Challenges",
   "text.autoconfig.simplechallenges.option.enabled": "Enable Simple Challenges",
   "text.autoconfig.simplechallenges.option.enabled.@Tooltip": "Master switch. Even when on, the mod changes nothing in a world that has no challenge chosen.",
   "text.autoconfig.simplechallenges.option.allowAdminCommands": "Allow admin commands",
