@@ -481,7 +481,9 @@ def gadgets_magnet(s):
     s.shot('3-death-drops')
     s.io.key('3', 0.5)
     time.sleep(2.0)
-    s.chat(f'tp @s {dx} {dy} {dz - 2.5} 0 20', 2.0)
+    # death drops scatter up to ~3 blocks: stand 1 block before the death spot (pull radius 4 around the player), then give it time
+    s.chat(f'tp @s {dx} {dy} {dz - 1.0} 0 20', 2.0)
+    time.sleep(3.0)
     after = _count(s, 'death-drops-after', near)
     st = s.st()
     dia, cob = _inv_count(st, 'minecraft:diamond'), _inv_count(st, 'minecraft:cobblestone')
