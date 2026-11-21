@@ -114,6 +114,7 @@ def _prep(s, mode='creative'):
     s.chat('ride @s dismount', 0.3)
     s.chat(f'gamemode {mode} @s', 0.3)
     s.chat('time set noon', 0.3)
+    s.chat('difficulty normal', 0.3)  # the probe world starts in Peaceful (hostile piglins, damage)
     for rule in ('advance_time false', 'spawn_mobs false', 'send_command_feedback true', 'keep_inventory false'):
         s.chat('gamerule ' + rule, 0.3)
     s.chat('weather clear', 0.3)
@@ -299,7 +300,9 @@ def config_screens(s):
             continue
         time.sleep(0.8)
         st = s.st()
-        entries = [e for e in st.get('entries', []) if _plain(e.get('label')).strip()]
+        # Cloth Config keeps invisible internal entries labelled with a UUID: not shown, not options
+        entries = [e for e in st.get('entries', []) if _plain(e.get('label')).strip()
+                   and not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', _plain(e.get('label')).strip())]
         shown = [_plain(e['label']) for e in entries]
         options = [n for n in shown if n not in cats]
         bad = [n for n in options if n not in names]
@@ -353,7 +356,9 @@ def loot_vault(s):
         loot = ejected('loot-1')
         s.check('click 1: one trial key used and loot ejected', keys == 2 and loot, f'keys {keys}, loot {loot}')
         s.shot('1-reward')
-        s.check('vault back to active after ejecting', _poll(s, f'if block {vault} minecraft:vault[vault_state=active]', 'active-2', 20))
+        # Vanilla: after the reward the vault goes back to "inactive" for a player it already rewarded (active only for unrewarded ones)
+        s.check('vault done ejecting (back to inactive/active, no longer unlocking/ejecting)',
+                _poll(s, f'unless block {vault} minecraft:vault[vault_state=ejecting] unless block {vault} minecraft:vault[vault_state=unlocking]', 'settled-2', 20))
         s.chat(f'kill @e[type=minecraft:item,distance=..12]', 0.4)
         use(2)
         time.sleep(1.5)
@@ -363,11 +368,11 @@ def loot_vault(s):
         s.shot('2-refused')
         _mark(s, 'times')
         s.chat(f'data get block {vault} SimpleBuildingLootTimes', 0.6)
-        m = _after(s, 'times', r'"([0-9a-f]{8}-[0-9a-f-]{27})"\s*:\s*(-?\d+)L')
+        m = _after(s, 'times', r'\{"?([0-9a-f]{32}|[0-9a-f]{8}-[0-9a-f-]{27})"?\s*:\s*(-?\d+)L')  # 26.3: undashed hex key, no quotes
         s.check('the vault stored the loot time of the player (SimpleBuildingLootTimes)', m is not None)
         _mark(s, 'gametime')
         s.chat('time query gametime', 0.6)
-        g = _after(s, 'gametime', r'The time is (\d+)')
+        g = _after(s, 'gametime', r'The (?:game )?time is (\d+)')
         s.check('game time read back', g is not None)
         if not (m and g):
             return
@@ -403,7 +408,7 @@ def _subtitles(s, want_on):
             return False
         time.sleep(1.0)
         for _ in range(2):
-            w = s.find_widget('Subtitles', st=s.st())
+            w = s.find_widget('Closed Captions', st=s.st())  # 26.3 label
             if not w:
                 break
             on = w['label'].rstrip().endswith('ON')
