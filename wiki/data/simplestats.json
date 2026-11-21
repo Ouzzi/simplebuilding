@@ -272,8 +272,8 @@
       "groupDe": null,
       "label": "Count in Creative and Spectator",
       "labelDe": "Auch in Kreativ und Zuschauer zählen",
-      "tooltip": "Players in Creative or Spectator mode count too.\\nDefault: false.",
-      "tooltipDe": "Spieler im Kreativ- oder Zuschauermodus zählen auch.\\nStandard: false."
+      "tooltip": "Players in Creative or Spectator mode count too.\nDefault: Off.",
+      "tooltipDe": "Spieler im Kreativ- oder Zuschauermodus zählen auch.\nStandard: Aus."
     },
     {
       "range": null,
@@ -291,8 +291,8 @@
       "groupDe": null,
       "label": "Count machine players",
       "labelDe": "Maschinen-Spieler zählen",
-      "tooltip": "Fake players of other mods (machines) count too.\\nDefault: false.",
-      "tooltipDe": "Fake-Spieler anderer Mods (Maschinen) zählen auch.\\nStandard: false."
+      "tooltip": "Fake players of other mods (machines) count too.\nDefault: Off.",
+      "tooltipDe": "Fake-Spieler anderer Mods (Maschinen) zählen auch.\nStandard: Aus."
     },
     {
       "range": null,
@@ -310,8 +310,8 @@
       "groupDe": null,
       "label": "Count statistics",
       "labelDe": "Statistiken zählen",
-      "tooltip": "Master switch. Off: nothing is counted and no statistics appear on new items (existing statistics stay visible).\\nDefault: true.",
-      "tooltipDe": "Hauptschalter. Aus: nichts wird gezählt und neue Items bekommen keine Statistik (vorhandene bleiben sichtbar).\\nStandard: true."
+      "tooltip": "Master switch. Off: nothing is counted and no statistics appear on new items (existing statistics stay visible).\nDefault: On.",
+      "tooltipDe": "Hauptschalter. Aus: nichts wird gezählt und neue Items bekommen keine Statistik (vorhandene bleiben sichtbar).\nStandard: Ein."
     },
     {
       "range": null,
@@ -329,8 +329,8 @@
       "groupDe": null,
       "label": "Size limit per item (bytes)",
       "labelDe": "Größenlimit je Item (Byte)",
-      "tooltip": "Technical protection against oversized item data: the most one item's statistics may take.\\nRange: 2048 to 262144. Default: 32768.",
-      "tooltipDe": "Technischer Schutz vor zu großen Item-Daten: so viel darf die Statistik eines Items höchstens belegen.\\nBereich: 2048 bis 262144. Standard: 32768."
+      "tooltip": "Technical protection against oversized item data: the most one item's statistics may take.\nRange: 2048 to 262144. Default: 32768.",
+      "tooltipDe": "Technischer Schutz vor zu großen Item-Daten: so viel darf die Statistik eines Items höchstens belegen.\nBereich: 2048 bis 262144. Standard: 32768."
     },
     {
       "range": null,
@@ -348,8 +348,8 @@
       "groupDe": null,
       "label": "Count armor",
       "labelDe": "Rüstung zählen",
-      "tooltip": "Time worn and damage absorbed by armor pieces.\nDefault: true.",
-      "tooltipDe": "Tragezeit und von Rüstungsteilen aufgenommener Schaden.\nStandard: true."
+      "tooltip": "Time worn and damage absorbed by armor pieces.\nDefault: On.",
+      "tooltipDe": "Tragezeit und von Rüstungsteilen aufgenommener Schaden.\nStandard: Ein."
     },
     {
       "range": null,
@@ -367,8 +367,8 @@
       "groupDe": null,
       "label": "Count combat",
       "labelDe": "Kampf zählen",
-      "tooltip": "Kills by mob and variant, damage dealt, arrows and trident hits.\\nDefault: true.",
-      "tooltipDe": "Kills nach Mob und Variante, Schaden, Pfeil- und Dreizack-Treffer.\\nStandard: true."
+      "tooltip": "Kills by mob and variant, damage dealt, arrows and trident hits.\nDefault: On.",
+      "tooltipDe": "Kills nach Mob und Variante, Schaden, Pfeil- und Dreizack-Treffer.\nStandard: Ein."
     },
     {
       "range": null,
@@ -386,8 +386,8 @@
       "groupDe": null,
       "label": "Count distances",
       "labelDe": "Strecken zählen",
-      "tooltip": "Distances walked, sprinted, sneaked, swum and flown with boots or a glider.\nDefault: true.",
-      "tooltipDe": "Gelaufene, gesprintete, geschlichene, geschwommene und geflogene Strecken mit Stiefeln oder Gleiter.\nStandard: true."
+      "tooltip": "Distances walked, sprinted, sneaked, swum and flown with boots or a glider.\nDefault: On.",
+      "tooltipDe": "Gelaufene, gesprintete, geschlichene, geschwommene und geflogene Strecken mit Stiefeln oder Gleiter.\nStandard: Ein."
     },
     {
       "range": null,
@@ -405,8 +405,8 @@
       "groupDe": null,
       "label": "Count fishing",
       "labelDe": "Angeln zählen",
-      "tooltip": "Catches with a fishing rod.\\nDefault: true.",
-      "tooltipDe": "Fänge mit der Angel.\\nStandard: true."
+      "tooltip": "Catches with a fishing rod.\nDefault: On.",
+      "tooltipDe": "Fänge mit der Angel.\nStandard: Ein."
     },
     {
       "range": null,
@@ -424,8 +424,8 @@
       "groupDe": null,
       "label": "Count mining",
       "labelDe": "Abbau zählen",
-      "tooltip": "Blocks mined with a tool.\\nDefault: true.",
-      "tooltipDe": "Mit einem Werkzeug abgebaute Blöcke.\\nStandard: true."
+      "tooltip": "Blocks mined with a tool.\nDefault: On.",
+      "tooltipDe": "Mit einem Werkzeug abgebaute Blöcke.\nStandard: Ein."
     },
     {
       "range": null,
@@ -443,8 +443,8 @@
       "groupDe": null,
       "label": "Count player kills",
       "labelDe": "Spieler-Kills zählen",
-      "tooltip": "Player kills are counted as a number only, never a name.\\nDefault: true.",
-      "tooltipDe": "Spieler-Kills werden nur als Zahl gezählt, nie mit Namen.\\nStandard: true."
+      "tooltip": "Player kills are counted as a number only, never a name.\nDefault: On.",
+      "tooltipDe": "Spieler-Kills werden nur als Zahl gezählt, nie mit Namen.\nStandard: Ein."
     },
     {
       "range": null,
@@ -462,8 +462,8 @@
       "groupDe": null,
       "label": "Count tool uses",
       "labelDe": "Werkzeugnutzung zählen",
-      "tooltip": "Uses of shears, brush and other tools.\nDefault: true.",
-      "tooltipDe": "Nutzungen von Schere, Pinsel und anderen Werkzeugen.\nStandard: true."
+      "tooltip": "Uses of shears, brush and other tools.\nDefault: On.",
+      "tooltipDe": "Nutzungen von Schere, Pinsel und anderen Werkzeugen.\nStandard: Ein."
     }
   ],
   "quests": [],

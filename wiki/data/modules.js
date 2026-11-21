@@ -1420,7 +1420,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 10
     },
-    "dataHash": "e55f05db484f"
+    "dataHash": "cd36a35d1733"
   },
   {
     "id": "simpleblocks",
