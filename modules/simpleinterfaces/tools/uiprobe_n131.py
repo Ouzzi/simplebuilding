@@ -226,7 +226,7 @@ def _menu_toggle(s, path, label, want_on):
 
 
 def _subtitles(s, want_on):
-    return _menu_toggle(s, ['Accessibility'], 'Subtitles', want_on)
+    return _menu_toggle(s, ['Accessibility'], 'Closed Captions', want_on)  # 26.3 names the subtitles button "Closed Captions"
 
 
 # ---------------------------------------------------------------- Simple Fun: toys
@@ -337,7 +337,8 @@ def fun_toys(s):
                 _click(s, 0.6)
                 _say(s, f'if block {x} {y} {z + 6} simplefun:rubber_duck', 'duck-water')
             _check_said(s, 'rubber duck: placed on the floor, as pirate duck on soul sand and floating on the water', ['duck-floor', 'duck-pirate', 'duck-water'])
-            _aim(s, me, (x + 1.5, y + 0.2, z + 3.0), None, 'duck view', tries=1)
+            # only the camera for the shot (no check: the view ends on the floor, which is fine)
+            s.chat(f'tp @s {me[0]} {me[1]} {me[2]} facing {x + 1.5} {y + 0.2 - 1.62:.2f} {z + 3.0}', 0.8)
             s.shot('rubber-ducks')
         if _hand(s, 1, 'minecraft:air', 'squeak') and _aim(s, me, (x + 0.5, y + 0.25, z + 2.5), 'simplefun:rubber_duck', 'squeak'):
             _click(s, 0.1)
