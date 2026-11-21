@@ -426,6 +426,10 @@ def respawn_bleedout(s):
         _say(s, 'if items entity @s weapon.mainhand minecraft:iron_sword', 'selected-still-4')
         print('NOTE selected slot after the respawn still 4 (sword in hand):', _said(s, ['selected-still-4'])['selected-still-4'], flush=True)
         dx, dy, dz = x + 0.5, y, z + 0.5
+        # the respawn is at the world spawn, far away: the death spot's chunk is unloaded until the player comes back
+        # (4 blocks beside it - out of pickup reach)
+        s.chat(f'tp @s {dx} {dy} {dz - 4} 0 20', 1.0)
+        time.sleep(2.0)
         s.chat(f'execute as @e[type=minecraft:item,x={dx},y={dy},z={dz},distance=..10] run tp @s {dx} {dy} {dz}', 0.6)
         n = _count(s, 'death-drops', f'@e[type=minecraft:item,x={dx},y={dy},z={dz},distance=..3,nbt={{Item:{{id:"minecraft:diamond"}}}}]')
         s.check('the diamonds lie on the death spot', bool(n), f'{n} diamond stacks')
