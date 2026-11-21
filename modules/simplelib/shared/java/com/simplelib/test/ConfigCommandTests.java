@@ -230,4 +230,28 @@ public final class ConfigCommandTests {
         }
         h.succeed();
     }
+
+    /**
+     * N126 (configLabels, also for JSON configs that tools/check_config_lang.py does not read): every option, category and the title of
+     * the config screen of {@code modId} (server and client spec) has an English name in the loaded language AND a German one in the
+     * module's own {@code assets/<modId>/lang/de_de.json}; the screen would otherwise show a humanized path.
+     */
+    public static void labels(GameTestHelper h, String modId) {
+        check(h, ConfigCommands.spec(modId, false) != null || ConfigCommands.spec(modId, true) != null, modId + " config not announced");
+        List<String> en = com.simplelib.api.config.ConfigScreenModel.missingLabels(modId);
+        check(h, en.isEmpty(), modId + " config screen without an English name: " + en);
+        List<String> de = new java.util.ArrayList<>();
+        try (var in = ConfigCommandTests.class.getResourceAsStream("/assets/" + modId + "/lang/de_de.json")) {
+            check(h, in != null, modId + ": no de_de.json");
+            JsonObject lang = JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            for (boolean client : new boolean[] {false, true}) {
+                var spec = ConfigCommands.spec(modId, client);
+                if (spec != null) de.addAll(com.simplelib.api.config.ConfigScreenModel.missingLabels(spec, lang::has));
+            }
+        } catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        }
+        check(h, de.isEmpty(), modId + " config screen without a German name: " + de);
+        h.succeed();
+    }
 }

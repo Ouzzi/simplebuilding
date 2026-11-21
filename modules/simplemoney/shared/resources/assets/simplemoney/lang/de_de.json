@@ -28,6 +28,7 @@
   "tooltip.simplemoney.resin_fiber.tooltip": "Klebrige und haltbare Faser zum Herstellen.",
   "tooltip.simplemoney.refined_blank_note.tooltip": "Für Haltbarkeit und Qualität behandelt.",
   "text.autoconfig.simplemoney.category.links": "Geld-Verknüpfungen",
+  "text.autoconfig.simplemoney.category.trades": "Handel",
   "text.autoconfig.simplemoney.option.links.enabled": "Verknüpfte Angebote aktivieren",
   "text.autoconfig.simplemoney.option.links.enabled.tooltip": "Ergänzt Angebote nur für geladene Mods.\nStandard: true. Servereinstellung. Lokalen\nEntwurf speichern; Server neu laden oder\nstarten. Bestehende Angebote behalten\nGrundpreis und Vorrat.",
   "text.autoconfig.simplemoney.option.links.billsPerHour": "Scheine pro Modellstunde",

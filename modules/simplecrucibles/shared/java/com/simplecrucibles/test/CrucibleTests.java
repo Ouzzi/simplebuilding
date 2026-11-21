@@ -89,6 +89,8 @@ public final class CrucibleTests {
         ALL.put("oversized_stack_never_leaves_whole", CrucibleTests::oversizedStackNeverLeavesWhole);
         ALL.put("barrel_field_take_pays_experience", CrucibleTests::barrelFieldTakePaysExperience);
         ALL.put("no_recipe_slots_search_seldom", CrucibleTests::noRecipeSlotsSearchSeldom);
+        ALL.put("village_kitchen_placed_holds_food_and_meat", CrucibleTests::villageKitchenPlaced);
+        ALL.put("idle_tick_cost", CrucibleTests::idleTickCost);
         // Split stage 5b: soul lava, the buckets and the JEI/Jade data (were SimpleBuilding's tests).
         BucketTests.register(ALL, MAX_TICKS);
     }
@@ -875,6 +877,93 @@ public final class CrucibleTests {
     }
 
     /** AUDSB31 simplecrucibles-P2-3: a slot without recipe is searched again every 20 ticks, not on every tick; a new item at once. */
+    /**
+     * N126 (Feldküche): every kitchen template placed into the world - unlit campfire, the iron crucible on it holding only cooked food
+     * (the "Contents" of the template load through the crucible's codec), the barrel beside it with the kitchen loot table that rolls raw
+     * meat/potatoes, and stairs as the seat.
+     */
+    private static void villageKitchenPlaced(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        var raw = java.util.Set.of(Items.BEEF, Items.PORKCHOP, Items.MUTTON, Items.CHICKEN, Items.RABBIT, Items.POTATO);
+        var types = com.simplecrucibles.village.VillageKitchen.TYPES;
+        for (int k = 0; k < types.size(); k++) {
+            String type = types.get(k);
+            var template = level.getStructureTemplateManager().get(SimpleCrucibles.id("village/" + type + "/field_kitchen"));
+            check(h, template.isPresent(), type + ": structure file loads");
+            BlockPos origin = h.absolutePos(new BlockPos((k % 2) * 3, 1 + (k / 2) * 2, 1));
+            template.get().placeInWorld(level, origin, origin, new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(),
+                    level.getRandom(), net.minecraft.world.level.block.Block.UPDATE_CLIENTS);
+            BlockState fire = level.getBlockState(origin.offset(1, 0, 2));
+            check(h, fire.is(Blocks.CAMPFIRE) && !fire.getValue(CampfireBlock.LIT), type + ": unlit campfire under the crucible, got " + fire);
+            check(h, level.getBlockEntity(origin.offset(1, 1, 2)) instanceof CrucibleBlockEntity, type + ": crucible block entity on the campfire");
+            CrucibleBlockEntity crucible = (CrucibleBlockEntity) level.getBlockEntity(origin.offset(1, 1, 2));
+            int food = 0;
+            for (int i = 0; i < crucible.getContainerSize(); i++) {
+                ItemStack stack = crucible.getItem(i);
+                if (stack.isEmpty()) continue;
+                check(h, stack.has(net.minecraft.core.component.DataComponents.FOOD), type + ": crucible slot " + i + " holds food, got " + stack);
+                check(h, !raw.contains(stack.getItem()), type + ": crucible slot " + i + " holds cooked food, got " + stack);
+                food += stack.getCount();
+            }
+            check(h, food >= 3, type + ": crucible holds its cooked food (>= 3), got " + food);
+            check(h, level.getBlockEntity(origin.offset(1, 1, 1)) instanceof net.minecraft.world.level.block.entity.BarrelBlockEntity,
+                    type + ": barrel beside the crucible");
+            var barrel = (net.minecraft.world.level.block.entity.BarrelBlockEntity) level.getBlockEntity(origin.offset(1, 1, 1));
+            check(h, barrel.getLootTable() != null && barrel.getLootTable().identifier().equals(SimpleCrucibles.id("chests/village_field_kitchen")),
+                    type + ": barrel uses the kitchen loot table, got " + barrel.getLootTable());
+            barrel.unpackLootTable(null);
+            int meat = 0;
+            for (int i = 0; i < barrel.getContainerSize(); i++) {
+                ItemStack stack = barrel.getItem(i);
+                if (stack.isEmpty()) continue;
+                check(h, raw.contains(stack.getItem()), type + ": barrel holds raw meat or potatoes only, got " + stack);
+                meat += stack.getCount();
+            }
+            check(h, meat > 0, type + ": the kitchen loot table filled the barrel");
+            check(h, level.getBlockState(origin.offset(1, 1, 3)).is(net.minecraft.tags.BlockTags.STAIRS), type + ": stairs as the seat");
+        }
+        h.succeed();
+    }
+
+    /**
+     * N126 (offen-vor-release: "Leerlauf-Tick 5,9 µs"): an empty iron crucible without heat ticked 200 000 times against a Vanilla furnace
+     * without fuel, both through their server ticker; logs CRU-MEASURE and fails only above a generous ceiling (shared test machine).
+     */
+    private static void idleTickCost(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        CrucibleBlockEntity crucible = crucible(h, new BlockPos(1, 2, 1), Blocks.STONE.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);
+        BlockPos furnaceRel = new BlockPos(4, 2, 1);
+        h.setBlock(furnaceRel, Blocks.FURNACE.defaultBlockState());
+        BlockPos furnacePos = h.absolutePos(furnaceRel);
+        var furnace = (net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity) level.getBlockEntity(furnacePos);
+        BlockPos cruciblePos = crucible.getBlockPos();
+        int warm = 50_000;
+        int runs = 200_000;
+        long[] best = {Long.MAX_VALUE, Long.MAX_VALUE};
+        for (int round = 0; round < 3; round++) {
+            for (int i = 0; i < warm; i++) {
+                CrucibleBlockEntity.serverTick(level, cruciblePos, level.getBlockState(cruciblePos), crucible);
+                net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.serverTick(level, furnacePos, level.getBlockState(furnacePos), furnace);
+            }
+            long t0 = System.nanoTime();
+            for (int i = 0; i < runs; i++) CrucibleBlockEntity.serverTick(level, cruciblePos, level.getBlockState(cruciblePos), crucible);
+            long t1 = System.nanoTime();
+            for (int i = 0; i < runs; i++) {
+                net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.serverTick(level, furnacePos, level.getBlockState(furnacePos), furnace);
+            }
+            long t2 = System.nanoTime();
+            best[0] = Math.min(best[0], t1 - t0);
+            best[1] = Math.min(best[1], t2 - t1);
+        }
+        double cru = best[0] / (double) runs;
+        double van = best[1] / (double) runs;
+        org.slf4j.LoggerFactory.getLogger("simplecrucibles").info("CRU-MEASURE idle iron crucible {} ns/tick, vanilla furnace {} ns/tick (best of 3 x {})",
+                String.format(java.util.Locale.ROOT, "%.1f", cru), String.format(java.util.Locale.ROOT, "%.1f", van), runs);
+        check(h, crucible.recipeSearches() == 0, "an empty crucible searches no recipe, got " + crucible.recipeSearches());
+        check(h, cru < 20_000, "idle crucible tick under 20 µs, got " + cru + " ns");
+        h.succeed();
+    }
+
     private static void noRecipeSlotsSearchSeldom(GameTestHelper h) {
         CrucibleBlockEntity be = crucible(h, new BlockPos(1, 2, 1), Blocks.LAVA_CAULDRON.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);
         int n = be.getContainerSize();
