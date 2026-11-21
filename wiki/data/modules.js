@@ -1419,7 +1419,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 10
     },
-    "dataHash": "a872f076c46c"
+    "dataHash": "e55f05db484f"
   },
   {
     "id": "simpleblocks",
@@ -1914,7 +1914,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 16
     },
-    "dataHash": "31143ef126d0"
+    "dataHash": "cf0e360e5a30"
   },
   {
     "id": "simpleanimals",
