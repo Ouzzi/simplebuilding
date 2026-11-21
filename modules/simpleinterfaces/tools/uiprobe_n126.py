@@ -530,7 +530,8 @@ def ovens_boats(s):
         time.sleep(0.8)
         fuel = _data(s, f'FUEL-{label}', f'data get entity @e[type=simpleovens:{kind},limit=1,sort=nearest] Fuel')
         want = 3600 if label == 'plain' else 28800
-        s.check(f'REAL right click with coal on the {label} boat: Fuel {want}', fuel == want, fuel)
+        # a held click repeats after 4 ticks (Vanilla): one or two coal per click, each worth `want`
+        s.check(f'REAL right click with coal on the {label} boat: Fuel {want} per coal', fuel is not None and fuel >= want and fuel % want == 0, fuel)
     # ride the Enderite boat: empty hand, REAL right click
     i = 3
     kind = BOATS[i][0]
@@ -564,8 +565,9 @@ def ovens_boats(s):
             bz1 = _data(s, 'BOAT-Z1', f'data get entity {bsel} Pos[2]')
             s.shot('4-under-way')
             fuel1 = _data(s, 'FUEL-RIDE1', f'data get entity @e[type=simpleovens:{kind},limit=1,sort=nearest] Fuel')
-            dist = (((bx1 - bx0) ** 2 + (bz1 - bz0) ** 2) ** 0.5) if None not in (bx0, bx1, bz0, bz1) else None
-            s.check('REAL W held 1.5 s: the boat moves (>= 2 blocks)', dist is not None and dist >= 2,
+            # the lit boat already pushes while the rider sits (smoke shots): measure from where it was summoned (x + 2.5)
+            dist = (((bx1 - (x + 2.5)) ** 2 + (bz1 - bz) ** 2) ** 0.5) if None not in (bx1, bz1) else None
+            s.check('the ridden lit boat travels east from its spot (>= 2 blocks)', dist is not None and dist >= 2 and bx1 > x + 2.5,
                     f'boat yaw {yaw}, ({bx0}, {bz0}) -> ({bx1}, {bz1}), player {p0} -> {p1}')
             s.check('the fuel burns while somebody sits in the boat', fuel0 is not None and fuel1 is not None and fuel1 < fuel0, f'{fuel0} -> {fuel1}')
             s.key('F5', 0.5)
