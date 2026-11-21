@@ -545,10 +545,11 @@ def challenges_select(s):
         return
     time.sleep(3.0)
     s.shot('challenge-world')
-    _mark(s, 'status')
+    # the new challenge world has no cheats: 'say' (the log mark) is refused there - read the log grown since the command
+    n0 = len(_log(s))
     s.chat('simplechallenges status', 0.5)
-    time.sleep(1.5)
-    log = _log_since(s, 'status')
+    time.sleep(2.0)
+    log = _log(s)[n0:]
     s.check('/simplechallenges status: "Challenge Vanilla Unlock: ... cells free"', 'Challenge Vanilla Unlock' in log, log[-300:])
 
 

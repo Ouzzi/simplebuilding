@@ -53,13 +53,19 @@ public final class ChallengeRow extends GridLayout {
         ChallengeRow row = new ChallengeRow(screen);
         tabLayout.addChild(row, 3, 0, 1, 2);
         screen.getUiState().addListener(row::update);
-        // N134: "Play Challenge" returns to this screen, which builds its tabs (and this row) anew - show the current choice at
-        // once instead of "No challenge chosen" until the next change of the form (the layout is arranged after init)
-        if (CreateChallenge.selected(screen.getUiState())) {
-            row.shown = true;
-            row.setWidgetsVisible(true);
-            row.refresh();
-        }
+        ROWS.put(screen, row);
+    }
+
+    /** The row of each open create-world screen (weak: gone with the screen). */
+    private static final java.util.Map<CreateWorldScreen, ChallengeRow> ROWS = new java.util.WeakHashMap<>();
+
+    /**
+     * N134: "Play Challenge" returns to the create-world screen without rebuilding it, and the choice does not change the form,
+     * so no listener fires - the row kept "No challenge chosen". The select screen calls this on its way back.
+     */
+    public static void refresh(CreateWorldScreen screen) {
+        ChallengeRow row = ROWS.get(screen);
+        if (row != null) row.update(screen.getUiState());
     }
 
     @Override
