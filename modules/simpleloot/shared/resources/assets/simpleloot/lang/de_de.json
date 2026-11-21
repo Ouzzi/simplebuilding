@@ -1,5 +1,6 @@
 {
   "simpleloot.title": "Simple Loot",
+  "text.autoconfig.simpleloot.title": "Simple Loot",
   "simpleloot.tab.general": "Allgemein",
   "text.autoconfig.simpleloot.option.enableVaultCooldown": "Erneute Tresorbelohnungen",
   "text.autoconfig.simpleloot.option.enableVaultCooldown.@Tooltip": "Erneute Tresorbelohnungen nach der\nServerpause erlauben. Abschalten behält\neinmalige Vanilla-Belohnungen. Standard:\ntrue.",

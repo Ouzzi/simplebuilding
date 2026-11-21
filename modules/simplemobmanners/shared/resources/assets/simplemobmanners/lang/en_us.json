@@ -1,5 +1,6 @@
 {
   "simplemobmanners.title": "Simple Mob Manners",
+  "text.autoconfig.simplemobmanners.title": "Simple Mob Manners",
   "simplemobmanners.tab.general": "General",
   "text.autoconfig.simplemobmanners.option.mutedEntities": "Muted Entity Types",
   "text.autoconfig.simplemobmanners.option.mutedEntities.@Tooltip": "List of entity IDs (e.g. minecraft:cow) whose\nsounds are silenced. Default: [].",

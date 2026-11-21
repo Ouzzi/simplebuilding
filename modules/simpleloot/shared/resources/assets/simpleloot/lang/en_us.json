@@ -1,5 +1,6 @@
 {
   "simpleloot.title": "Simple Loot",
+  "text.autoconfig.simpleloot.title": "Simple Loot",
   "simpleloot.tab.general": "General",
   "text.autoconfig.simpleloot.option.enableVaultCooldown": "Repeat Vault Rewards",
   "text.autoconfig.simpleloot.option.enableVaultCooldown.@Tooltip": "Allow repeat vault rewards after the server\ncooldown. Disable to retain Vanilla one-time\nrewards. Default: true.",

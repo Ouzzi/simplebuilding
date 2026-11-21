@@ -1,5 +1,6 @@
 {
   "simpleweather.title": "Simple Weather",
+  "text.autoconfig.simpleweather.title": "Simple Weather",
   "simpleweather.tab.general": "General",
   "text.autoconfig.simpleweather.option.disableWeather": "Disable Weather (Server)",
   "text.autoconfig.simpleweather.option.disableWeather.@Tooltip": "Stops rain and thunder from occurring and\nclears active weather. Server-side. Default:\nfalse.",
