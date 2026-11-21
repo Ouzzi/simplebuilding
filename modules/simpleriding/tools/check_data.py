@@ -98,7 +98,8 @@ def check():
     for tier in tiers:
         assert (assets / f'textures/entity/horseshoe/{tier}.png').is_file(), 'worn hoof texture'
     assert (assets / 'textures/gui/sprites/container/slot/horseshoe.png').is_file()
-    assert (assets / 'textures/gui/container/horseshoe_panel.png').is_file()
+    # N129: the hoof panel is drawn in code (HorseshoeScreenMixin -> UiBoxes); a PNG here would be a dead asset again
+    assert not (assets / 'textures/gui/container/horseshoe_panel.png').exists(), 'dead horseshoe_panel.png is back'
     recipes = resources / 'simpleriding/recipe'
     template = 'simpleriding:horseshoe_smithing_template'
     for tier, base, addition in [('copper', 'minecraft:copper_ingot', 'minecraft:iron_nugget'), ('iron', 'minecraft:iron_ingot', 'minecraft:iron_nugget'),

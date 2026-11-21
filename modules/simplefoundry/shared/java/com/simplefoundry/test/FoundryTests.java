@@ -95,11 +95,8 @@ public final class FoundryTests {
 
     static {
         // SF-3 (PLAN40): the config screen names every option (no raw paths).
-        ALL.put("config_labels", h -> {
-            java.util.List<String> missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleFoundry.MOD_ID);
-            h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
-            h.succeed();
-        });
+        // N129: the shared configLabels check also covers the German names (the JSON config is not read by tools/check_config_lang.py).
+        ALL.put("config_labels", h -> com.simplelib.test.ConfigCommandTests.labels(h, SimpleFoundry.MOD_ID));
         // SF-2 (PLAN40): the built-in melts are in the recipe viewer, and what it shows is what the desk really melts.
         ALL.put("jei_melts", h -> {
             var entries = com.simplelib.api.RecipeViewer.special(SimpleFoundry.MOD_ID);

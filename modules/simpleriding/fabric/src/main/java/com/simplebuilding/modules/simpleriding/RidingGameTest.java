@@ -17,6 +17,8 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void lootAndToggle(GameTestHelper h){com.simpleriding.test.RidingTests.lootAndToggle(h);}
  @GameTest(maxTicks=100) public void subModSwitch(GameTestHelper h){com.simpleriding.test.RidingTests.subModSwitch(h);}
  @GameTest(maxTicks=100) public void vanillaTabPlacement(GameTestHelper h){com.simpleriding.test.RidingTests.vanillaTabPlacement(h);}
+ /** N129: the JSON config (26 options) is not read by tools/check_config_lang.py - every option, category and the screen title has an EN and a DE name. */
+ @GameTest(maxTicks=100) public void configLabels(GameTestHelper h){com.simplelib.test.ConfigCommandTests.labels(h,"simpleriding");}
  @GameTest(maxTicks=100) public void configAndLang(GameTestHelper h){com.simpleriding.test.RidingTests.configAndLang(h);}
  @GameTest(maxTicks=100) public void crossModStorageAndArmor(GameTestHelper h){com.simpleriding.test.RidingTests.crossModStorageAndArmor(h);} @GameTest(maxTicks=100) public void nautilusSpeedAndArmor(GameTestHelper h){com.simpleriding.test.RidingTests.nautilusSpeedAndArmor(h);}
  @GameTest(maxTicks=100) public void nautilusDash(GameTestHelper h){com.simpleriding.test.RidingTests.nautilusDash(h);}

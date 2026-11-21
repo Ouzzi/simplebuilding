@@ -331,7 +331,7 @@ def outputs(item_variant=ITEM_VARIANT, template_variant=TEMPLATE_VARIANT):
         files[f'entity/horseshoe/{m}.png'] = hoof_layer(m)
     files['item/horseshoe_smithing_template.png'] = template_item(template_variant)
     files['gui/sprites/container/slot/horseshoe.png'] = slot_icon()
-    files['gui/container/horseshoe_panel.png'] = panel()
+    # N129: no horseshoe_panel.png any more - the hoof panel is drawn in code (HorseshoeScreenMixin, UiBoxes); panel() only feeds the preview sheet
     return files
 
 

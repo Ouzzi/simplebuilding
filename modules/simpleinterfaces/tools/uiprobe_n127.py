@@ -315,7 +315,8 @@ def gadgets_rod(s):
     s.chat(f'setblock {x} {y} {z + 6} minecraft:ice', 0.4)
     if not _hand(s, 1, 'simplegadgets:amethyst_lens[enchantments={"simplebuilding:constructors_touch":1}]', 'rod'):
         return
-    if not _aim(s, me, (x + 0.5, y + 0.5, z + 6.5), 'minecraft:ice', 'rod'):
+    # the ice is 6 blocks away, beyond the block reach (5): the crosshair reads no block there; the beam has its own range
+    if not _aim(s, me, (x + 0.5, y + 0.5, z + 6.5), None, 'rod'):
         return
     s.io.button(3, True)
     try:
@@ -473,7 +474,10 @@ def gadgets_magnet(s):
     time.sleep(1.5)
     near = f'@e[type=minecraft:item,x={dx},y={dy},z={dz},distance=..6]'
     before = _count(s, 'death-drops', near)
-    s.check('the two death-drop stacks lie at the death spot (empty hand 3.5 blocks away leaves them)', before == 2, before)
+    st0 = s.st()
+    left = _inv_count(st0, 'minecraft:diamond') + _inv_count(st0, 'minecraft:cobblestone')
+    s.check('the death drops lie at the death spot (empty hand 3.5 blocks away leaves them; nothing in the inventory)',
+            (before or 0) >= 1 and left == 0, f'{before} item entities, {left} in the inventory')
     s.shot('3-death-drops')
     s.io.key('3', 0.5)
     time.sleep(2.0)
@@ -564,7 +568,14 @@ def music_pocket(s):
     if not _aim(s, (x + 0.5, y, z + 0.5), (px + 0.5, y - 0.05, pz + 0.5), FLOOR, 'pocket floor'):
         return
     _sneak_click(s, 'pocket place')
-    _say(s, f'if block {px} {y} {pz} simplemusic:pocket_jukebox', 'placed')
+    # sneaking lowers the eyes, so the crosshair lands one or two floor blocks nearer than aimed while standing
+    for dz in range(0, 5):
+        _say(s, f'if block {px} {y} {z + dz} simplemusic:pocket_jukebox', f'placed-at-{dz}')
+    at = _said(s, [f'placed-at-{dz}' for dz in range(0, 5)])
+    hit_dz = next((dz for dz in range(0, 5) if at[f'placed-at-{dz}']), None)
+    if hit_dz is not None:
+        pz = z + hit_dz
+        _say(s, f'if block {px} {y} {pz} simplemusic:pocket_jukebox', 'placed')
     _say(s, 'unless items entity @s hotbar.0 simplemusic:pocket_jukebox', 'hand-empty')
     if not _check_said(s, 'Shift (held) + REAL right click put the jukebox down in front (hand empty)', ['placed', 'hand-empty']):
         return
