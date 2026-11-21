@@ -192,7 +192,8 @@ public final class DimensionRuntime {
   */
  private void rescue(ServerPlayer p,ServerLevel l,Contact c){
   var def=definitionOf(l);var mode=def==null?"home":ConfigLimits.voidFall(def.voidFall);
-  if(def!=null&&p.getY()>=l.getMinY()+3){
+  // N135: a player standing on the floor is not falling into the void (the travel dimension's bedrock plane lies at minY)
+  if(def!=null&&(p.getY()>=l.getMinY()+3||p.onGround())){
    boolean falling=!p.onGround()&&p.fallDistance>1;
    if(!falling)c.preloaded=false;
    else if(!c.preloaded&&p.getY()<l.getMinY()+3+VOID_PRELOAD_ROWS&&!mode.equals("vanilla")){c.preloaded=true;var spot=voidSpot(p,def,mode);spot.level().getChunkSource().addTicketWithRadius(net.minecraft.server.level.TicketType.PORTAL,net.minecraft.world.level.ChunkPos.containing(spot.pos()),2);}

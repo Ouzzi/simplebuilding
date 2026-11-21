@@ -278,7 +278,9 @@ def config_screens(s):
             continue
         time.sleep(0.8)
         st = s.st()
-        entries = [e for e in st.get('entries', []) if _plain(e.get('label')).strip()]
+        # Cloth Config keeps invisible internal entries labelled with a UUID: not shown, not options
+        entries = [e for e in st.get('entries', []) if _plain(e.get('label')).strip()
+                   and not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', _plain(e.get('label')).strip())]
         shown = [_plain(e['label']) for e in entries]
         options = [n for n in shown if n not in cats]
         bad = [n for n in options if n not in names]
