@@ -223,8 +223,13 @@ public final class ConfigCommandTests {
      * ("Default: the Overworld") are skipped; at least one must be checked.
      */
     public static void tooltipDefaults(GameTestHelper h, String modId) {
-        ConfigCommands.Spec spec = ConfigCommands.spec(modId, false);
-        check(h, spec != null, modId + " announced no server config");
+        tooltipDefaults(h, modId, false);
+    }
+
+    /** N136: {@link #tooltipDefaults(GameTestHelper, String)} for the client config of a client-only module (Simple Sounds) when {@code client}. */
+    public static void tooltipDefaults(GameTestHelper h, String modId, boolean client) {
+        ConfigCommands.Spec spec = ConfigCommands.spec(modId, client);
+        check(h, spec != null, modId + " announced no " + (client ? "client" : "server") + " config");
         JsonObject de;
         try (var in = ConfigCommandTests.class.getResourceAsStream("/assets/" + modId + "/lang/de_de.json")) {
             check(h, in != null, modId + ": no de_de.json");
