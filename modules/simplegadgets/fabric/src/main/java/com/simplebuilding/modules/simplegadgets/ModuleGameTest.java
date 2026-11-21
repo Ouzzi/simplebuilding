@@ -10,6 +10,30 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplegadgets:empty")
     public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simplegadgets", 6); }
 
+    /** N127: the JSON config (31 options, ConfigCommands.json) is not seen by tools/check_config_lang.py - every option of the generic config screen has an English and a German name. */
+    @GameTest(structure = "simplegadgets:empty", maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        var missing = com.simplelib.api.config.ConfigScreenModel.missingLabels("simplegadgets");
+        h.assertTrue(missing.isEmpty(), "config screen without an English name: " + missing);
+        java.util.List<String> de = new java.util.ArrayList<>();
+        int options = 0;
+        try (var in = ModuleGameTest.class.getResourceAsStream("/assets/simplegadgets/lang/de_de.json")) {
+            h.assertTrue(in != null, "no de_de.json");
+            var lang = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            for (boolean client : new boolean[] {false, true}) {
+                var spec = com.simplelib.api.config.ConfigCommands.spec("simplegadgets", client);
+                if (spec == null) continue;
+                options += spec.options().size();
+                de.addAll(com.simplelib.api.config.ConfigScreenModel.missingLabels(spec, lang::has));
+            }
+        } catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        }
+        h.assertTrue(options >= 31, "expected the 31 server options in the config spec, got " + options);
+        h.assertTrue(de.isEmpty(), "config screen without a German name: " + de);
+        h.succeed();
+    }
+
     @GameTest(structure = "simplegadgets:empty")
     public void registered(GameTestHelper h) {
         GadgetsTests.ALL.get("registered").accept(h);
