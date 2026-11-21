@@ -1,5 +1,6 @@
 {
   "simplefarming.title": "Simple Farming",
+  "text.autoconfig.simplefarming.title": "Simple Farming",
   "simplefarming.tab.general": "Allgemein",
   "text.autoconfig.simplefarming.option.preventFarmlandTrampleWithFeatherFalling": "Federfall schützt Acker",
   "text.autoconfig.simplefarming.option.preventFarmlandTrampleWithFeatherFalling.@Tooltip": "Federfall-Stiefel verhindern das Zertrampeln\nvon Ackerboden. Standard: true.",

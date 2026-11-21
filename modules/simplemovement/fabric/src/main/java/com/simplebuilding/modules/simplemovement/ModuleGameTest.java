@@ -3,6 +3,12 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge/Forge register MovementTests.ALL. */
 public final class ModuleGameTest {
+  /** N131: the config screen names its title, categories and options in English and German (ConfigCommandTests.labels). */
+  @GameTest(maxTicks = 100)
+  public void configLabels(GameTestHelper h) {
+    com.simplelib.test.ConfigCommandTests.labels(h, "simplemovement");
+  }
+
     @GameTest public void commandAliases(GameTestHelper h) { com.simplelib.test.CommandAliasTests.module(h, "simplemovement"); }
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplemovement", false); }
  @GameTest(maxTicks=100) public void launch(GameTestHelper h){MovementTests.launch(h);}

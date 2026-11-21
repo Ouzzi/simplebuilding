@@ -4,6 +4,12 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 public final class ModuleGameTest {
+  /** N131: the config screen names its title, categories and options in English and German (ConfigCommandTests.labels). */
+  @GameTest(maxTicks = 100)
+  public void configLabels(GameTestHelper h) {
+    com.simplelib.test.ConfigCommandTests.labels(h, "simplefun");
+  }
+
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplefun", false); }
   @GameTest
   public void guideBook(GameTestHelper h) {

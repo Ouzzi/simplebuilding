@@ -25,7 +25,7 @@ Simple Hammers adds seven sledgehammers that mine a 3x3 area, reshape blocks int
 - **Carving and reshaping** - Sneak and hold use on a block: after a short charge the hammer knocks the aimed octet (an eighth) off it.
 - **Crushing diamond and quartz blocks** - Right-click a diamond block or a Cracked Diamond Block nine times with an iron-tier hammer or better: it breaks into 81 Diamond Pebbles (config diamondBlockPebbles).
 - **Crushing stone: Stone, Cobblestone, Gravel, Sand** - Right-click (not sneaking) Stone, Cobblestone or Gravel five times with any sledgehammer: Stone becomes Cobblestone, Cobblestone becomes Gravel, Gravel becomes Sand.
-- **Strike tempo by hammer tier** - Every conversion with a hammer strikes at the tempo of the tier: Netherite every 20 ticks (the old tempo), Enderite 19, Diamond 21, Gold 22, Iron 23, Copper 24, Stone 25.
+- **Strike tempo by hammer tier** - Every conversion with a hammer strikes at the tempo of the tier: Netherite every 20 ticks, Enderite 19, Diamond 21, Gold 22, Iron 23, Copper 24, Stone 25.
 - **In-world upgrades with the hammer**
 - **Hammer enchantments**
 - **A tool in the crafting grid** - A shapeless recipe with a sledgehammer gives the hammer back with 1 durability less instead of using it up; a hammer that breaks doing so is gone.

@@ -1,5 +1,6 @@
 {
   "simplefarming.title": "Simple Farming",
+  "text.autoconfig.simplefarming.title": "Simple Farming",
   "simplefarming.tab.general": "General",
   "text.autoconfig.simplefarming.option.preventFarmlandTrampleWithFeatherFalling": "Feather Falling Protects Farmland",
   "text.autoconfig.simplefarming.option.preventFarmlandTrampleWithFeatherFalling.@Tooltip": "If enabled, players with Feather Falling\nboots will not trample farmland. Default:\ntrue.",
