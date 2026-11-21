@@ -12,6 +12,12 @@ public final class ModuleGameTest {
         com.simplelib.test.ViewerInfoTests.infoPages(h, "simplearrows", 3);
     }
 
+    /** N129: the JSON config (ArrowsConfig) is not read by tools/check_config_lang.py - every option, category and the screen title has an EN and a DE name. */
+    @GameTest(structure = "simplearrows:empty", maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        com.simplelib.test.ConfigCommandTests.labels(h, "simplearrows");
+    }
+
     @GameTest(structure = "simplearrows:empty")
     public void registered(GameTestHelper h) {
         ArrowsTests.ALL.get("registered").accept(h);
