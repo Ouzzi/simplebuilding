@@ -469,6 +469,14 @@ def beacons_conduits(s):
     s.chat(f'fill {x - 6} {y} {z - 6} {x + 48} {y + 12} {z + 8} minecraft:air', 0.8)
     s.chat(f'fill {x - 6} {y - 1} {z - 6} {x + 48} {y - 1} {z + 8} {FLOOR}', 0.6)
     s.chat('simplebeacons config set evilBeaconGraceMinutes 0', 0.8)
+    # Simple Tweaks' newcomer protection (first 5 min of online play) shields from Evil beacons too (EvilGate/HarmShields):
+    # switch it off for the scene, else wait until it has ended (a short probe run starts here within those 5 minutes)
+    s.chat('simpletweaks config set play.newPlayerShield.enabled false', 0.8)
+    time.sleep(1.0)
+    if 'newPlayerShield.enabled set to false' not in _log(s):
+        end = time.time() + 300
+        while time.time() < end and 'newcomer protection has ended' not in _log(s):
+            time.sleep(5)
     # subtitles only help the pictures (the sound is the owner's ear, W4C-08): logged, not a check - the button was not found once
     print('NOTE subtitles switched on through Options/Accessibility:', _subtitles(s, True), flush=True)
     try:
@@ -501,6 +509,7 @@ def beacons_conduits(s):
         s.shot('overview-night')
     finally:
         s.chat('simplebeacons config set evilBeaconGraceMinutes 5', 0.6)
+        s.chat('simpletweaks config set play.newPlayerShield.enabled true', 0.6)
         s.chat('time set noon', 0.3)
         s.chat('effect clear @s', 0.3)
         _subtitles(s, False)
