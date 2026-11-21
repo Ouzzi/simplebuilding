@@ -53,6 +53,13 @@ public final class ChallengeRow extends GridLayout {
         ChallengeRow row = new ChallengeRow(screen);
         tabLayout.addChild(row, 3, 0, 1, 2);
         screen.getUiState().addListener(row::update);
+        // N134: "Play Challenge" returns to this screen, which builds its tabs (and this row) anew - show the current choice at
+        // once instead of "No challenge chosen" until the next change of the form (the layout is arranged after init)
+        if (CreateChallenge.selected(screen.getUiState())) {
+            row.shown = true;
+            row.setWidgetsVisible(true);
+            row.refresh();
+        }
     }
 
     @Override
