@@ -252,8 +252,16 @@ def money_merchant(s):
     s.check('offer tiles on the screen = offers of the trader (up to 7 visible)', len(tiles) == min(offers, 7), f'{len(tiles)} tiles, {offers} offers')
     _park(s, st)
     s.shot('1-wandering-offers')
-    if bills and bills[0] < len(tiles):
-        tile = tiles[bills[0]]
+    idx = bills[0] if bills else None
+    if idx is not None and tiles and idx >= len(tiles):
+        # 7 tiles are visible: scroll the offer list (one offer per wheel click) until the money offer is the last visible one
+        clicks = idx - len(tiles) + 1
+        s.wheel(tiles[0]['x'], tiles[0]['y'], clicks=clicks, down=True, st=st)
+        st = s.st()
+        tiles = sorted([w for w in s.widgets(st) if w['class'] == 'TradeOfferButton'], key=lambda w: w['y'])
+        idx -= clicks
+    if idx is not None and idx < len(tiles):
+        tile = tiles[idx]
         s.io.move(*s.abs(st, tile['x'], tile['y']))
         time.sleep(1.0)
         s.shot('2-money-offer-hover')
@@ -308,8 +316,9 @@ def money_merchant(s):
             time.sleep(1.0)
             st = s.st()
             merch = _merchant_slots(st)
-            s.check('librarian: REAL click on the money offer -> 3 Money Bills paid in, enchanted book in the result',
-                    merch.get(0, '') == 'simplemoney:money_bill x3' and str(merch.get(2, '')).startswith('minecraft:enchanted_book'), merch)
+            # Vanilla fills the payment slot with more than the price when the inventory has it; the price itself is 3 bills
+            s.check('librarian: REAL click on the money offer -> Money Bills paid in, enchanted book in the result',
+                    str(merch.get(0, '')).startswith('simplemoney:money_bill') and str(merch.get(2, '')).startswith('minecraft:enchanted_book'), merch)
             s.io.move(*s.abs(st, tiles[0]['x'], tiles[0]['y']))
             time.sleep(1.0)
             s.shot('5-librarian-money-offer')
@@ -540,6 +549,10 @@ def ovens_boats(s):
             s.check('lit boat: the two frames differ (rising smoke)', changed, rms)
             fuel0 = _data(s, 'FUEL-RIDE0', f'data get entity @e[type=simpleovens:{kind},limit=1,sort=nearest] Fuel')
             p0 = _pos(s)
+            bsel = f'@e[type=simpleovens:{kind},limit=1,sort=nearest]'
+            yaw = _data(s, 'BOAT-YAW', f'data get entity {bsel} Rotation[0]')
+            bx0 = _data(s, 'BOAT-X0', f'data get entity {bsel} Pos[0]')
+            bz0 = _data(s, 'BOAT-Z0', f'data get entity {bsel} Pos[2]')
             s.io.key_down('w')
             try:
                 time.sleep(1.5)
@@ -547,9 +560,13 @@ def ovens_boats(s):
                 s.io.key_up('w')
             time.sleep(0.5)
             p1 = _pos(s)
+            bx1 = _data(s, 'BOAT-X1', f'data get entity {bsel} Pos[0]')
+            bz1 = _data(s, 'BOAT-Z1', f'data get entity {bsel} Pos[2]')
             s.shot('4-under-way')
             fuel1 = _data(s, 'FUEL-RIDE1', f'data get entity @e[type=simpleovens:{kind},limit=1,sort=nearest] Fuel')
-            s.check('REAL W held 1.5 s: the boat moves east', p1[0] - p0[0] >= 2, f'{p0} -> {p1}')
+            dist = (((bx1 - bx0) ** 2 + (bz1 - bz0) ** 2) ** 0.5) if None not in (bx0, bx1, bz0, bz1) else None
+            s.check('REAL W held 1.5 s: the boat moves (>= 2 blocks)', dist is not None and dist >= 2,
+                    f'boat yaw {yaw}, ({bx0}, {bz0}) -> ({bx1}, {bz1}), player {p0} -> {p1}')
             s.check('the fuel burns while somebody sits in the boat', fuel0 is not None and fuel1 is not None and fuel1 < fuel0, f'{fuel0} -> {fuel1}')
             s.key('F5', 0.5)
             s.key('F5', 0.8)
@@ -576,16 +593,23 @@ def ovens_carts(s):
     time.sleep(1.0)
     start = {t: _data(s, f'X0-{t}', f'data get entity @e[type=simpleovens:{t}_furnace_minecart,limit=1] Pos[0]') for t, _ in CARTS}
     s.chat('item replace entity @s weapon.mainhand with minecraft:coal 8', 0.4)
+    lit_at = {}
     for i, (tier, want) in enumerate(CARTS):
         tz = z - 2 + 2 * i + 0.5
         kind = f'simpleovens:{tier}_furnace_minecart'
         if _aim_entity(s, x + 1.5, y, tz, x + 3.5, y + 0.4, tz, kind, f'{tier} cart'):
             s.io.right_click()
+            lit_at[tier] = time.time()
             time.sleep(0.3)
+    # speed right away (the 150-block rails end after ~10 s and then all carts stand alike): distance since lighting / time since lighting
+    early = {}
+    for t, _ in CARTS:
+        xv = _data(s, f'XE-{t}', f'data get entity @e[type=simpleovens:{t}_furnace_minecart,limit=1] Pos[0]')
+        if xv is not None and start.get(t) is not None and t in lit_at:
+            early[t] = round((xv - start[t]) / max(0.5, time.time() - lit_at[t]), 2)
     _look(s, x + 0.5, y + 2, z + 4.5, x + 10, y, z, 0.6)
     s.shot('1-carts-smoke')
     # speed along the rails now (blocks per tick): the tiers' top speeds are 0.625 / 0.75 / 1.0 of a plain cart
-    speed = {t: _data(s, f'V-{t}', f'data get entity @e[type=simpleovens:{t}_furnace_minecart,limit=1] Motion[0]') for t, _ in CARTS}
     # fuel: the Enderite cart burns 1 per tick like every furnace cart, so allow the seconds of the reads
     fuel = {t: _data(s, f'FUEL-{t}', f'data get entity @e[type=simpleovens:{t}_furnace_minecart,limit=1] Fuel') for t, _ in CARTS}
     for tier, want in CARTS:
@@ -595,8 +619,8 @@ def ovens_carts(s):
     end = {t: _data(s, f'X1-{t}', f'data get entity @e[type=simpleovens:{t}_furnace_minecart,limit=1] Pos[0]') for t, _ in CARTS}
     moved = {t: (round(end[t] - start[t], 1) if end.get(t) is not None and start.get(t) is not None else None) for t, _ in CARTS}
     s.check('every fuelled cart drove off east (> 2 blocks)', all(m is not None and m > 2 for m in moved.values()), moved)
-    s.check('the Enderite cart runs faster than the Reinforced one (Motion x)',
-            speed.get('enderite') is not None and speed.get('reinforced') is not None and speed['enderite'] > speed['reinforced'], speed)
+    s.check('the Enderite cart runs faster than the Reinforced one (blocks per second since lighting)',
+            early.get('enderite') is not None and early.get('reinforced') is not None and early['enderite'] > early['reinforced'] * 1.15, early)
     _look(s, x + 0.5, y + 2, z + 4.5, x + 25, y, z, 1.0)
     time.sleep(0.5)
     s.shot('2-carts-under-way')
