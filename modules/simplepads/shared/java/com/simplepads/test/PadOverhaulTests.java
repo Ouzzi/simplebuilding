@@ -317,6 +317,46 @@ public final class PadOverhaulTests {
     // ---- owner decisions 2026-09-29 (begin)
 
     /** Signal edges and strength changes restart the complete warmup, even between server ticks. */
+    /**
+     * N130 (performance cell "Spawn-Teleporter"): an empty Spawn Teleporter (nobody on it, nothing tracked) costs little per tick.
+     * Logs PADS-MEASURE next to a Vanilla furnace without fuel (best of 3 x 200 000 direct serverTick calls) and fails above 20 µs.
+     */
+    public static void spawnTeleporterIdleTickCost(GameTestHelper helper) {
+        BlockPos pad = new BlockPos(2, 1, 2);
+        helper.setBlock(pad, PadsBlocks.SPAWN_TELEPORTER);
+        BlockPos furnaceRel = new BlockPos(4, 1, 2);
+        helper.setBlock(furnaceRel, Blocks.FURNACE);
+        ServerLevel level = helper.getLevel();
+        BlockPos absolute = helper.absolutePos(pad);
+        BlockPos furnacePos = helper.absolutePos(furnaceRel);
+        SpawnTeleporterBlockEntity be = helper.getBlockEntity(pad, SpawnTeleporterBlockEntity.class);
+        var furnace = (net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity) level.getBlockEntity(furnacePos);
+        int warm = 50_000, runs = 200_000;
+        long[] best = {Long.MAX_VALUE, Long.MAX_VALUE};
+        for (int round = 0; round < 3; round++) {
+            for (int i = 0; i < warm; i++) {
+                SpawnTeleporterBlockEntity.serverTick(level, absolute, level.getBlockState(absolute), be);
+                net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.serverTick(level, furnacePos, level.getBlockState(furnacePos), furnace);
+            }
+            long t0 = System.nanoTime();
+            for (int i = 0; i < runs; i++) SpawnTeleporterBlockEntity.serverTick(level, absolute, level.getBlockState(absolute), be);
+            long t1 = System.nanoTime();
+            for (int i = 0; i < runs; i++) {
+                net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.serverTick(level, furnacePos, level.getBlockState(furnacePos), furnace);
+            }
+            long t2 = System.nanoTime();
+            best[0] = Math.min(best[0], t1 - t0);
+            best[1] = Math.min(best[1], t2 - t1);
+        }
+        double pads = best[0] / (double) runs, vanilla = best[1] / (double) runs;
+        SimplePads.LOG.info("PADS-MEASURE idle spawn teleporter {} ns/tick, vanilla furnace {} ns/tick (best of 3 x {})",
+                String.format(java.util.Locale.ROOT, "%.1f", pads), String.format(java.util.Locale.ROOT, "%.1f", vanilla), runs);
+        helper.assertFalse(be.isTracking(), "an empty teleporter tracks nobody");
+        helper.assertValueEqual(be.comparatorSignal(), 0, "an empty teleporter signals 0");
+        helper.assertTrue(pads < 20_000, "idle spawn teleporter tick under 20 µs, got " + pads + " ns");
+        helper.succeed();
+    }
+
     public static void spawnTeleporterSignalChangesResetTheEntireWarmup(GameTestHelper helper) {
         BlockPos pad = new BlockPos(2, 1, 2);
         helper.setBlock(pad, PadsBlocks.ENDERITE_SPAWN_TELEPORTER);
