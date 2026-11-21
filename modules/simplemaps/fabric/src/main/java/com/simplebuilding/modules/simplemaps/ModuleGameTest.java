@@ -151,6 +151,7 @@ public final class ModuleGameTest {
     @GameTest public void webHttpTokenUrlEncoded(GameTestHelper h) { MapsTests.ALL.get("web_http_token_url_encoded").accept(h); }
     @GameTest public void layersUnalignedArea(GameTestHelper h) { MapsTests.ALL.get("layers_unaligned_area").accept(h); }
     @GameTest public void webExportLeavesCache(GameTestHelper h) { MapsTests.ALL.get("web_export_leaves_cache").accept(h); }
+    @GameTest(maxTicks = 400) public void webExportCost(GameTestHelper h) { MapsTests.ALL.get("web_export_cost").accept(h); }
     @GameTest public void coordsMinValueRefused(GameTestHelper h) { MapsTests.ALL.get("coords_min_value_refused").accept(h); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.behaviourHints(h); }

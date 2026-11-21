@@ -384,6 +384,14 @@ public final class LivemapTests {
             String json = net.minecraft.network.chat.ComponentSerialization.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE,
                     LivemapCommands.hintMessage(url)).getOrThrow().toString();
             h.assertTrue(json.contains("open_url") && json.contains(url) && json.contains("/simplelivemap hint off"), "clickable link + off switch: " + json);
+            // N125: /simplelivemap link answers with a clickable line as well (private with #t=, public without), hover text from the hint
+            for (boolean pub : new boolean[]{false, true}) {
+                String address = pub ? "http://127.0.0.1:8125/" : url;
+                String line = net.minecraft.network.chat.ComponentSerialization.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE,
+                        LivemapCommands.linkMessage(address, pub)).getOrThrow().toString();
+                h.assertTrue(line.contains("open_url") && line.contains(address) && line.contains("show_text")
+                        && line.contains(pub ? "commands.simplelivemap.link.public" : "commands.simplelivemap.link.private"), "/simplelivemap link clickable: " + line);
+            }
         } finally {
             LivemapConfig.chatHint = before;
             LivemapConfig.token = token;
