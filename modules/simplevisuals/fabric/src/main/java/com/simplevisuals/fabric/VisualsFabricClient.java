@@ -14,8 +14,11 @@ public final class VisualsFabricClient implements net.fabricmc.api.ClientModInit
     visuals.then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal(policy).executes(c->{com.simplelib.api.client.ServerCommand.send(server);return 1;})
      .then(com.simplelib.api.config.ConfigCommands.<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>forwardToServer(server,com.simplelib.api.client.ServerCommand::send)));
    }
+   // N136 (pattern N134/N135): any other /simplevisuals ... goes to the server too - the client root shares the name and Fabric
+   // does not pass an unknown sub-command on (today the server has only the two policies above; this keeps future ones reachable).
    dispatcher.register(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("simplevisuals")
-    .then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("config").then(visuals)));
+    .then(net.fabricmc.fabric.api.client.command.v2.ClientCommands.literal("config").then(visuals))
+    .then(com.simplelib.api.config.ConfigCommands.<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>forwardToServer("simplevisuals",com.simplelib.api.client.ServerCommand::send)));
   });
  }
 }

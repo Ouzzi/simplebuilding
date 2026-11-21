@@ -16,7 +16,9 @@ Simple Visuals   "Szenen: HUD-Anzeigen, Partikel (W4C-02)", UI "? Amboss-Mixin"
   n136-visuals-particles Immersion particles: campfire, beacon, flower and leaves beside the player, enchanted sword in hand, global
                         level MAXIMUM (client command, read back) -> REAL F5 to third person, shots while standing and walking; level
                         OFF -> shot (no extra particles); level back to Subtle (read back), F5 back to first person.
-  n136-visuals-anvil    UI cell "Amboss-Mixin": anvil, REAL right click (crosshair read back) -> AnvilScreen; REAL clicks put a sword
+  n136-visuals-anvil    First the shared command root: "/simplevisuals config visuals enableAnvilFormatting" and "... allowAnvilObfuscation
+                        false" typed as a client command must reach the server (its answer "Server anvil formatting: true" /
+                        "Server anvil obfuscation (&k): false" in client.log). UI cell "Amboss-Mixin": anvil, REAL right click (crosshair read back) -> AnvilScreen; REAL clicks put a sword
                         with repair cost 3 into the first slot -> shot (the screen shows "Prior anvil uses: 2" while there is no result);
                         the name box (EditBox) cleared and "&cruby" typed with REAL keys -> box value read back; REAL clicks take the
                         result into hotbar slot 2; selected -> main hand components carry the custom name "ruby" in red (server anvil
@@ -346,10 +348,23 @@ def visuals_particles(s):
 
 
 # ---------------------------------------------------------------- Simple Visuals: anvil (UI cell "Amboss-Mixin")
+def _server_says(s, command, pattern, tag):
+    """Sends a command through the client dispatcher (Fabric client commands first) and waits for the server's answer in client.log."""
+    before = len(_log(s))
+    s.chat(command, 1.5)
+    new = _log(s)[before:]
+    ok = re.search(pattern, new) is not None
+    s.check(f'{tag}: "/{command}" reaches the server (answer in the chat)', ok, new[-300:])
+    return ok
+
+
 def visuals_anvil(s):
     _prep(s)
     x, y, z = _arena(s, 280)
     try:
+        # N136: the client root /simplevisuals shares its name with the server's; both server policies must still arrive
+        _server_says(s, 'simplevisuals config visuals enableAnvilFormatting', r'Server anvil formatting: true', 'server policy get')
+        _server_says(s, 'simplevisuals config visuals allowAnvilObfuscation false', r'Server anvil obfuscation \(&k\): false', 'server policy set')
         s.chat(f'setblock {x} {y} {z + 3} minecraft:anvil', 0.6)
         if not _hand(s, 0, 'minecraft:diamond_sword[repair_cost=3]', 'anvil'):
             return
