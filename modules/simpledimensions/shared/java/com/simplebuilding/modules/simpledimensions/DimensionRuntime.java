@@ -192,7 +192,9 @@ public final class DimensionRuntime {
   */
  private void rescue(ServerPlayer p,ServerLevel l,Contact c){
   var def=definitionOf(l);var mode=def==null?"home":ConfigLimits.voidFall(def.voidFall);
-  if(def!=null&&p.getY()>=l.getMinY()+3){
+  // N135: no void fall while a block lies between the player and minY (the travel dimension's bedrock plane is at minY itself:
+  // standing on it, or dropping the last blocks onto it, is no fall into the void)
+  if(def!=null&&(p.getY()>=l.getMinY()+3||p.onGround()||floorBelow(l,p))){
    boolean falling=!p.onGround()&&p.fallDistance>1;
    if(!falling)c.preloaded=false;
    else if(!c.preloaded&&p.getY()<l.getMinY()+3+VOID_PRELOAD_ROWS&&!mode.equals("vanilla")){c.preloaded=true;var spot=voidSpot(p,def,mode);spot.level().getChunkSource().addTicketWithRadius(net.minecraft.server.level.TicketType.PORTAL,net.minecraft.world.level.ChunkPos.containing(spot.pos()),2);}
@@ -201,6 +203,12 @@ public final class DimensionRuntime {
   if(mode.equals("vanilla")||server.getTickCount()<c.rescueAt)return;
   // REV2-A: a failed rescue (chunk loads, ~3000 checks) retries once a second, not every tick
   if(voidFall(p,def,mode))c.preloaded=false;else c.rescueAt=server.getTickCount()+20;
+ }
+ /** A non-air block in the player's column from the feet down to minY (at most 3 rows: the rescue line is minY+3). */
+ private static boolean floorBelow(ServerLevel l,ServerPlayer p){
+  var pos=new BlockPos.MutableBlockPos(p.getBlockX(),p.getBlockY(),p.getBlockZ());
+  for(int y=Math.min(p.getBlockY(),l.getMinY()+3);y>=l.getMinY();y--){pos.setY(y);if(!l.getBlockState(pos).isAir())return true;}
+  return false;
  }
  /** Where a void fall of {@code mode} leads (the chunk that is loaded ahead; "home" without address and "spawn": the overworld spawn). */
  record VoidSpot(ServerLevel level,BlockPos pos){}

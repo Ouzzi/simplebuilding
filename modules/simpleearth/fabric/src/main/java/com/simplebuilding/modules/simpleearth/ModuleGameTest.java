@@ -11,6 +11,12 @@ public final class ModuleGameTest {
         EarthTests.ALL.get("config_labels").accept(h);
     }
 
+    /** N135: the server config tooltips name the real defaults (minEdge/maxEdge/minGrid named stale values), EN and DE. */
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void configTooltipDefaults(GameTestHelper h) {
+        com.simplelib.test.ConfigCommandTests.tooltipDefaults(h, SimpleEarth.MOD_ID);
+    }
+
     @GameTest(structure = "simpleearth:empty", maxTicks = 100)
     public void configDefaults(GameTestHelper h) {
         EarthTests.ALL.get("config_defaults").accept(h);

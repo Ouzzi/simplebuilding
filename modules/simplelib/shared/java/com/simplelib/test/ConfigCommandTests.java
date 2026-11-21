@@ -213,6 +213,58 @@ public final class ConfigCommandTests {
         }
     }
 
+    private static final java.util.regex.Pattern DEFAULT_EN = java.util.regex.Pattern.compile("Default: (-?\\d+(?:\\.\\d+)?(?!\\d|[.,]\\d)|on\\b|off\\b|On\\b|Off\\b|true\\b|false\\b)");
+    private static final java.util.regex.Pattern DEFAULT_DE = java.util.regex.Pattern.compile("Standard: (-?\\d+(?:[.,]\\d+)?(?!\\d|[.,]\\d)|an\\b|aus\\b|Ein\\b|Aus\\b|ein\\b|true\\b|false\\b)");
+
+    /**
+     * N135 (found in Simple Earth: minEdge/maxEdge tooltips named 8192/262144, the code 64/1048576): every tooltip of the server
+     * config of {@code modId} that names a number or on/off as its default ("Default: 24", "Standard: an") names the spec's real
+     * default - English from the loaded language, German from the module's own {@code de_de.json}. Tooltips without such a value
+     * ("Default: the Overworld") are skipped; at least one must be checked.
+     */
+    public static void tooltipDefaults(GameTestHelper h, String modId) {
+        ConfigCommands.Spec spec = ConfigCommands.spec(modId, false);
+        check(h, spec != null, modId + " announced no server config");
+        JsonObject de;
+        try (var in = ConfigCommandTests.class.getResourceAsStream("/assets/" + modId + "/lang/de_de.json")) {
+            check(h, in != null, modId + ": no de_de.json");
+            de = JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+        } catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        }
+        var en = net.minecraft.locale.Language.getInstance();
+        List<String> wrong = new java.util.ArrayList<>();
+        int checked = 0;
+        for (var o : spec.options()) {
+            if (o.kind() != Kind.BOOL && o.kind() != Kind.INT && o.kind() != Kind.DECIMAL) continue;
+            String key = com.simplelib.api.config.ConfigScreenModel.labelKey(modId, o.path()) + ".@Tooltip";
+            String[] texts = {en.has(key) ? en.getOrDefault(key) : null, de.has(key) ? de.get(key).getAsString() : null};
+            java.util.regex.Pattern[] patterns = {DEFAULT_EN, DEFAULT_DE};
+            for (int i = 0; i < 2; i++) {
+                if (texts[i] == null) continue;
+                var m = patterns[i].matcher(texts[i].replace('\n', ' '));
+                if (!m.find()) continue;
+                checked++;
+                String named = m.group(1);
+                boolean ok;
+                if (o.kind() == Kind.BOOL) {
+                    boolean on = List.of("on", "On", "true", "an", "Ein", "ein").contains(named);
+                    ok = !Character.isDigit(named.charAt(named.length() - 1)) && on == o.defaultValue().getAsBoolean();
+                } else {
+                    try {
+                        ok = Math.abs(Double.parseDouble(named.replace(',', '.')) - o.defaultValue().getAsDouble()) < 1e-9;
+                    } catch (NumberFormatException e) {
+                        ok = false;
+                    }
+                }
+                if (!ok) wrong.add((i == 0 ? "en " : "de ") + o.path() + ": tooltip " + named + ", default " + o.defaultValue());
+            }
+        }
+        check(h, checked > 0, modId + ": no tooltip names a default");
+        check(h, wrong.isEmpty(), modId + " tooltips name a wrong default: " + wrong);
+        h.succeed();
+    }
+
     /**
      * For the modules (CMD24-2/3): the config of {@code modId} is announced with options and a default for each; a server
      * config is also run through {@link #roundTrip} with its first switch (set, wrong type refused, reset, level 0 refused).

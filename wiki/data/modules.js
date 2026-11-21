@@ -512,7 +512,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 12
     },
-    "dataHash": "8651fb4e6996"
+    "dataHash": "5dcb059ffd26"
   },
   {
     "id": "simplesandwiches",
@@ -1020,9 +1020,10 @@ window.WIKI_MODULES = [
     "counts": {
       "blocks": 1,
       "recipes": 1,
+      "config": 1,
       "features": 5
     },
-    "dataHash": "5e934ee61487"
+    "dataHash": "1060197c2467"
   },
   {
     "id": "simpleaesthetics",
@@ -1885,7 +1886,7 @@ window.WIKI_MODULES = [
       "config": 63,
       "features": 5
     },
-    "dataHash": "5d694f7568a5"
+    "dataHash": "c8940e52fdc4"
   },
   {
     "id": "simplechallenges",

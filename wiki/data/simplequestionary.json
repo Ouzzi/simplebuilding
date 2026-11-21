@@ -29,23 +29,23 @@
       ],
       "en": {
         "title": "Questionary Table",
-        "summary": "Put an item into the slot on the left: the open book on the right tells its lore, its use and a secret.",
+        "summary": "Put an item into the slot in the middle: the open book around it tells its lore, its use and a secret.",
         "details": [
           "Recipe (shaped): lapis, book, lapis / three planks / plank, obsidian, plank - 2 lapis lazuli, 1 book, 5 planks of any wood, 1 obsidian. Unlocked when you carry a book.",
           "The slot holds one piece; shift-click puts one in, and the item comes back when the table is closed.",
           "Three pages - 1 Lore, 2 Use, 3 Secret - turned with the bookmarks on the book's edge, the page arrows, the mouse wheel, A/D or the arrow keys. The secret is visible at once.",
-          "The Use page ends with a line the server reads from the recipes: what the item is made from and how many recipes make and use it (config autoFacts in simplequestionary.json).",
+          "The Use page ends with a line the server reads from the recipes: what the item is made from and how many recipes make and use it (option Recipe Facts, autoFacts in simplequestionary.json, on by default).",
           "Bundled in SimpleBuilding, the switch \"Enable Simple Questionary\" turns the table off after a restart."
         ]
       },
       "de": {
         "title": "Fragentisch",
-        "summary": "Leg links einen Gegenstand ins Feld: das aufgeschlagene Buch rechts erzählt seine Überlieferung, seinen Nutzen und ein Geheimnis.",
+        "summary": "Leg einen Gegenstand ins Feld in der Mitte: das aufgeschlagene Buch dahinter erzählt seine Überlieferung, seinen Nutzen und ein Geheimnis.",
         "details": [
           "Rezept (geformt): Lapis, Buch, Lapis / drei Bretter / Brett, Obsidian, Brett - 2 Lapislazuli, 1 Buch, 5 Bretter beliebigen Holzes, 1 Obsidian. Freigeschaltet, sobald du ein Buch trägst.",
           "Das Feld nimmt ein Stück; Shift-Klick legt eins hinein, beim Schließen kommt der Gegenstand zurück.",
           "Drei Seiten - 1 Überlieferung, 2 Nutzen, 3 Geheimnis - blätterst du mit den Lesezeichen am Buchrand, den Seitenpfeilen, dem Mausrad, A/D oder den Pfeiltasten. Das Geheimnis ist sofort sichtbar.",
-          "Die Nutzen-Seite endet mit einer Zeile, die der Server aus den Rezepten liest: woraus der Gegenstand entsteht und wie viele Rezepte ihn herstellen und nutzen (Einstellung autoFacts in simplequestionary.json).",
+          "Die Nutzen-Seite endet mit einer Zeile, die der Server aus den Rezepten liest: woraus der Gegenstand entsteht und wie viele Rezepte ihn herstellen und nutzen (Einstellung Rezept-Fakten, autoFacts in simplequestionary.json, standardmäßig an).",
           "In SimpleBuilding gebündelt schaltet „Simple Questionary aktivieren“ den Tisch nach einem Neustart ab."
         ]
       }
@@ -99,7 +99,7 @@
         "details": [
           "Reihenfolge je Seite: der eigene Eintrag des Items, dann ein Familien-Eintrag (ein Tag oder ein Namensmuster für viele Items), dann der Ersatztext; jeweils zuerst in deiner Sprache, dann auf Englisch.",
           "Der Ersatztext ist nur Stimmung. Die Seite 'Nutzen' hängt immer die echten Rezept-Fakten darunter, sodass auch ein Item ohne Text zeigt, wie es hergestellt wird und was man daraus macht.",
-          "Eine Mod kann einen Ersatztext jederzeit ersetzen, indem sie in assets/<namespace>/questionary/<sprache>.json einen Eintrag für das Item ergänzt; Ressourcenpakete können dasselbe."
+          "Eine Mod kann einen Ersatztext jederzeit ersetzen, indem sie in assets/<Namensraum>/questionary/<Sprache>.json einen Eintrag für das Item ergänzt; Ressourcenpakete können dasselbe."
         ]
       }
     },
@@ -110,7 +110,7 @@
         "modules/simplequestionary/shared/java/com/simplequestionary/QuestionaryFacts.java"
       ],
       "en": {
-        "title": "Recipe facts (read recipes)",
+        "title": "Recipe facts",
         "summary": "The book reads the recipes of the world for the item in the slot and lists what it is made from and what it makes, with the crafting station.",
         "details": [
           "The facts are computed by the server when the item is put in and sent to the open book; they follow datapacks and other mods automatically.",
@@ -118,7 +118,7 @@
         ]
       },
       "de": {
-        "title": "Rezept-Fakten (Rezepte lesen)",
+        "title": "Rezept-Fakten",
         "summary": "Das Buch liest die Rezepte der Welt für das Item im Platz und listet auf, woraus es besteht und was man daraus macht, samt Werkbank.",
         "details": [
           "Die Fakten berechnet der Server beim Einlegen und schickt sie an das offene Buch; sie folgen Datenpaketen und anderen Mods automatisch.",
@@ -250,10 +250,10 @@
           "modules/simplequestionary/shared/resources/data/simplequestionary/recipe/questionary_table.json"
         ],
         "en": {
-          "summary": "Obsidian-and-gold lectern cabinet with lapis gems and an open book, glyphs drifting into it like at an enchanting table; opens the questionary book. Shaped: 2 lapis lazuli, 1 book, 5 planks."
+          "summary": "Obsidian-and-gold lectern cabinet with lapis gems and an open book, glyphs drifting into it like at an enchanting table; opens the questionary book. Shaped: 2 lapis lazuli, 1 book, 5 planks, 1 obsidian."
         },
         "de": {
-          "summary": "Schrank aus Obsidian und Gold mit Lapis-Edelsteinen und aufgeschlagenem Buch, in das Zeichen wie am Zaubertisch schweben; öffnet das Fragebuch. Geformt: 2 Lapislazuli, 1 Buch, 5 Bretter."
+          "summary": "Schrank aus Obsidian und Gold mit Lapis-Edelsteinen und aufgeschlagenem Buch, in das Zeichen wie am Zaubertisch schweben; öffnet das Fragebuch. Geformt: 2 Lapislazuli, 1 Buch, 5 Bretter, 1 Obsidian."
         }
       },
       "questionary": {
@@ -262,7 +262,7 @@
             "A desk for questions, and a book that has answers for everything."
           ],
           "use": [
-            "Craft two lapis lazuli, one book and five planks. Put an item on the left; the book on the right opens three pages: Lore, Use and Secret."
+            "Craft two lapis lazuli, one book, five planks and one obsidian. Put an item into the slot in the middle; the open book around it shows three pages: Lore, Use and Secret."
           ],
           "secret": [
             "Items from other mods get a mystical text that depends only on their name, so it stays the same in every world."
@@ -273,7 +273,7 @@
             "Ein Pult für Fragen, und ein Buch mit Antworten auf alles."
           ],
           "use": [
-            "Zwei Lapislazuli, ein Buch und fünf Bretter herstellen. Links ein Item auflegen; das Buch rechts zeigt drei Seiten: Überlieferung, Nutzen und Geheimnis."
+            "Aus zwei Lapislazuli, einem Buch, fünf Brettern und einem Obsidian herstellen. Ein Item ins Feld in der Mitte legen; das aufgeschlagene Buch dahinter zeigt drei Seiten: Überlieferung, Nutzen und Geheimnis."
           ],
           "secret": [
             "Items aus anderen Mods bekommen einen mystischen Text, der nur von ihrem Namen abhängt und in jeder Welt gleich bleibt."
@@ -287,7 +287,27 @@
     }
   ],
   "trades": [],
-  "config": [],
+  "config": [
+    {
+      "range": null,
+      "side": null,
+      "reload": null,
+      "source": "modules/simplequestionary/shared/java/com/simplequestionary/QuestionaryConfig.java",
+      "name": "autoFacts",
+      "shortName": "autoFacts",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Questionary",
+      "categoryDe": "Simple Questionary",
+      "group": null,
+      "groupDe": null,
+      "label": "Recipe Facts",
+      "labelDe": "Rezept-Fakten",
+      "tooltip": "Ends the Use page with a line read from the\nrecipes: what the item is made from and how\nmany recipes make and use it. Default: on.\nServer setting.",
+      "tooltipDe": "Beendet die Nutzen-Seite mit einer Zeile aus\nden Rezepten: woraus der Gegenstand entsteht\nund wie viele Rezepte ihn herstellen und\nnutzen. Standard: an. Servereinstellung."
+    }
+  ],
   "quests": [],
   "recipesOtherLines": [],
   "inWorld": {
@@ -309,7 +329,7 @@
     "items": 0,
     "blocks": 1,
     "trades": 0,
-    "config": 0,
+    "config": 1,
     "quests": 0,
     "recipesOtherLines": 0,
     "undocumented": 0,

@@ -2,6 +2,9 @@ package com.simplebuilding.modules.simpledimensions;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ /** N135: every option, category and the title of the server config have an EN and a DE name; tooltips name the real default. */
+ @GameTest(maxTicks=100) public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simpledimensions"); }
+ @GameTest(maxTicks=100) public void configTooltipDefaults(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.tooltipDefaults(h, "simpledimensions"); }
  @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpledimensions", false); }
  @GameTest(structure="simpledimensions:empty",maxTicks=100) public void defaultDimensions(GameTestHelper h){DimensionsGuideTests.defaultDimensions(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideRecipe(GameTestHelper h){DimensionsGuideTests.guideRecipe(h);}
