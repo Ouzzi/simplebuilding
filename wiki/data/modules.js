@@ -241,7 +241,7 @@ window.WIKI_MODULES = [
       "config": 8,
       "features": 17
     },
-    "dataHash": "7ccd1e223d39"
+    "dataHash": "7883ef2c8e03"
   },
   {
     "id": "simplefun",
@@ -324,7 +324,7 @@ window.WIKI_MODULES = [
       "config": 53,
       "features": 80
     },
-    "dataHash": "304d70f4883f"
+    "dataHash": "6baf3b471ecf"
   },
   {
     "id": "simplesounds",
@@ -361,7 +361,7 @@ window.WIKI_MODULES = [
       "config": 19,
       "features": 21
     },
-    "dataHash": "c38ccf371193"
+    "dataHash": "0afcd8b2fb4a"
   },
   {
     "id": "simplequalityoflife",
@@ -1062,7 +1062,7 @@ window.WIKI_MODULES = [
       "config": 3,
       "features": 2
     },
-    "dataHash": "88d45969af3a"
+    "dataHash": "7bd9a9b7462a"
   },
   {
     "id": "simpleenddragonfight",

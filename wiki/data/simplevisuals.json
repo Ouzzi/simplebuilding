@@ -26,17 +26,11 @@
       ],
       "en": {
         "title": "Speed lines",
-        "summary": "Bounded radial lines at high speed or acceleration; cosmetic only, first-person view.",
-        "details": [
-          "Bounded radial lines at high speed or acceleration; cosmetic only, first-person view."
-        ]
+        "summary": "Bounded radial lines at high speed or acceleration; cosmetic only, first-person view."
       },
       "de": {
         "title": "Geschwindigkeitslinien",
-        "summary": "Begrenzte radiale Linien bei hohem Tempo oder Beschleunigung; rein optisch, in der Egoansicht.",
-        "details": [
-          "Begrenzte radiale Linien bei hohem Tempo oder Beschleunigung; rein optisch, in der Egoansicht."
-        ]
+        "summary": "Begrenzte radiale Linien bei hohem Tempo oder Beschleunigung; rein optisch, in der Egoansicht."
       }
     },
     {
@@ -46,17 +40,11 @@
       ],
       "en": {
         "title": "Pickup notifications",
-        "summary": "Server pickup animations create up to eight short-lived item or XP rows, with four layouts, scale, side, opacity and rarity colors. No inventory mutation.",
-        "details": [
-          "Server pickup animations create up to eight short-lived item or XP rows, with four layouts, scale, side, opacity and rarity colors. No inventory mutation."
-        ]
+        "summary": "Server pickup animations create up to eight short-lived item or XP rows, with four layouts, scale, side, opacity and rarity colors. No inventory mutation."
       },
       "de": {
         "title": "Aufnahmehinweise",
-        "summary": "Server-Aufnahmeanimationen erzeugen bis zu acht kurzlebige Item- oder XP-Zeilen mit vier Anordnungen, Größe, Seite, Deckkraft und Seltenheitsfarben. Keine Inventaränderung.",
-        "details": [
-          "Server-Aufnahmeanimationen erzeugen bis zu acht kurzlebige Item- oder XP-Zeilen mit vier Anordnungen, Größe, Seite, Deckkraft und Seltenheitsfarben. Keine Inventaränderung."
-        ]
+        "summary": "Server-Aufnahmeanimationen erzeugen bis zu acht kurzlebige Item- oder XP-Zeilen mit vier Anordnungen, Größe, Seite, Deckkraft und Seltenheitsfarben. Keine Inventaränderung."
       }
     },
     {
@@ -66,17 +54,11 @@
       ],
       "en": {
         "title": "Elytra pitch helper",
-        "summary": "Two target lines while gliding; defaults -40 and 40 degrees, tolerance 10, sensitivity 4. Does not change flight.",
-        "details": [
-          "Two target lines while gliding; defaults -40 and 40 degrees, tolerance 10, sensitivity 4. Does not change flight."
-        ]
+        "summary": "Two target lines while gliding; defaults -40 and 40 degrees, tolerance 10, sensitivity 4. Does not change flight."
       },
       "de": {
         "title": "Elytra-Neigungshilfe",
-        "summary": "Zwei Ziellinien beim Gleiten; Standard -40 und 40 Grad, Toleranz 10, Empfindlichkeit 4. Verändert den Flug nicht.",
-        "details": [
-          "Zwei Ziellinien beim Gleiten; Standard -40 und 40 Grad, Toleranz 10, Empfindlichkeit 4. Verändert den Flug nicht."
-        ]
+        "summary": "Zwei Ziellinien beim Gleiten; Standard -40 und 40 Grad, Toleranz 10, Empfindlichkeit 4. Verändert den Flug nicht."
       }
     },
     {
@@ -86,17 +68,11 @@
       ],
       "en": {
         "title": "Status effect duration bars",
-        "summary": "HUD and inventory bars compare the current duration with the greatest observed duration of that active effect. Infinite effects have no bar; reconnecting clears history.",
-        "details": [
-          "HUD and inventory bars compare the current duration with the greatest observed duration of that active effect. Infinite effects have no bar; reconnecting clears history."
-        ]
+        "summary": "HUD and inventory bars compare the current duration with the greatest observed duration of that active effect. Infinite effects have no bar; reconnecting clears history."
       },
       "de": {
         "title": "Effekt-Zeitleisten",
-        "summary": "HUD- und Inventarleisten vergleichen die Restdauer mit der größten beobachteten Dauer des aktiven Effekts. Unendliche Effekte haben keine Leiste; erneutes Verbinden löscht den Verlauf.",
-        "details": [
-          "HUD- und Inventarleisten vergleichen die Restdauer mit der größten beobachteten Dauer des aktiven Effekts. Unendliche Effekte haben keine Leiste; erneutes Verbinden löscht den Verlauf."
-        ]
+        "summary": "HUD- und Inventarleisten vergleichen die Restdauer mit der größten beobachteten Dauer des aktiven Effekts. Unendliche Effekte haben keine Leiste; erneutes Verbinden löscht den Verlauf."
       }
     },
     {
@@ -106,17 +82,11 @@
       ],
       "en": {
         "title": "Locator player heads",
-        "summary": "Uses only server-supplied Vanilla waypoints; replaces eligible icons with player heads and keeps Vanilla angles, visibility and elevation arrows. SimpleBuilding contextual bars keep their priority.",
-        "details": [
-          "Uses only server-supplied Vanilla waypoints; replaces eligible icons with player heads and keeps Vanilla angles, visibility and elevation arrows. SimpleBuilding contextual bars keep their priority."
-        ]
+        "summary": "Uses only server-supplied Vanilla waypoints; replaces eligible icons with player heads and keeps Vanilla angles, visibility and elevation arrows. SimpleBuilding contextual bars keep their priority."
       },
       "de": {
         "title": "Spielerköpfe im Locator",
-        "summary": "Verwendet nur serverseitig übermittelte Vanilla-Wegpunkte; ersetzt passende Symbole durch Spielerköpfe und bewahrt Vanilla-Winkel, Sichtbarkeit und Höhenpfeile. SimpleBuilding-Leisten behalten ihre Priorität.",
-        "details": [
-          "Verwendet nur serverseitig übermittelte Vanilla-Wegpunkte; ersetzt passende Symbole durch Spielerköpfe und bewahrt Vanilla-Winkel, Sichtbarkeit und Höhenpfeile. SimpleBuilding-Leisten behalten ihre Priorität."
-        ]
+        "summary": "Verwendet nur serverseitig übermittelte Vanilla-Wegpunkte; ersetzt passende Symbole durch Spielerköpfe und bewahrt Vanilla-Winkel, Sichtbarkeit und Höhenpfeile. SimpleBuilding-Leisten behalten ihre Priorität."
       }
     },
     {
@@ -126,17 +96,11 @@
       ],
       "en": {
         "title": "Chat player heads",
-        "summary": "Faces beside recognizable player messages use cached Vanilla skins. No skin download service or custom chat packets.",
-        "details": [
-          "Faces beside recognizable player messages use cached Vanilla skins. No skin download service or custom chat packets."
-        ]
+        "summary": "Faces beside recognizable player messages use cached Vanilla skins. No skin download service or custom chat packets."
       },
       "de": {
         "title": "Spielerköpfe im Chat",
-        "summary": "Gesichter neben erkennbaren Spielernachrichten verwenden zwischengespeicherte Vanilla-Skins. Kein eigener Skin-Dienst oder Chatpaket.",
-        "details": [
-          "Gesichter neben erkennbaren Spielernachrichten verwenden zwischengespeicherte Vanilla-Skins. Kein eigener Skin-Dienst oder Chatpaket."
-        ]
+        "summary": "Gesichter neben erkennbaren Spielernachrichten verwenden zwischengespeicherte Vanilla-Skins. Kein eigener Skin-Dienst oder Chatpaket."
       }
     },
     {
@@ -146,17 +110,11 @@
       ],
       "en": {
         "title": "Local death coordinates",
-        "summary": "Disabled, appended, or separate local coordinate line for your own death message. Appended is still local, never public; other players' positions are not revealed.",
-        "details": [
-          "Disabled, appended, or separate local coordinate line for your own death message. Appended is still local, never public; other players' positions are not revealed."
-        ]
+        "summary": "Disabled, appended, or separate local coordinate line for your own death message. Appended is still local, never public; other players' positions are not revealed."
       },
       "de": {
         "title": "Lokale Todeskoordinaten",
-        "summary": "Ausgeschaltete, angehängte oder separate lokale Koordinatenzeile für die eigene Todesnachricht. Auch angehängte Angaben bleiben lokal und werden nie öffentlich; fremde Positionen werden nicht verraten.",
-        "details": [
-          "Ausgeschaltete, angehängte oder separate lokale Koordinatenzeile für die eigene Todesnachricht. Auch angehängte Angaben bleiben lokal und werden nie öffentlich; fremde Positionen werden nicht verraten."
-        ]
+        "summary": "Ausgeschaltete, angehängte oder separate lokale Koordinatenzeile für die eigene Todesnachricht. Auch angehängte Angaben bleiben lokal und werden nie öffentlich; fremde Positionen werden nicht verraten."
       }
     },
     {
@@ -166,17 +124,11 @@
       ],
       "en": {
         "title": "Map preview tooltips",
-        "summary": "A 128-pixel map preview, center coordinates and dimension id from map data already available to this client.",
-        "details": [
-          "A 128-pixel map preview, center coordinates and dimension id from map data already available to this client."
-        ]
+        "summary": "A 128-pixel map preview, center coordinates and dimension id from map data already available to this client."
       },
       "de": {
         "title": "Kartenvorschau im Tooltip",
-        "summary": "Eine 128-Pixel-Kartenvorschau, Mittelpunkt und Dimensions-ID aus bereits auf dem Client vorhandenen Kartendaten.",
-        "details": [
-          "Eine 128-Pixel-Kartenvorschau, Mittelpunkt und Dimensions-ID aus bereits auf dem Client vorhandenen Kartendaten."
-        ]
+        "summary": "Eine 128-Pixel-Kartenvorschau, Mittelpunkt und Dimensions-ID aus bereits auf dem Client vorhandenen Kartendaten."
       }
     },
     {
@@ -186,17 +138,11 @@
       ],
       "en": {
         "title": "Held item information",
-        "summary": "Durability and up to eight enchantment lines accompany the Vanilla held-item name. Enchantment changes refresh the notification.",
-        "details": [
-          "Durability and up to eight enchantment lines accompany the Vanilla held-item name. Enchantment changes refresh the notification."
-        ]
+        "summary": "Durability and up to eight enchantment lines accompany the Vanilla held-item name. Enchantment changes refresh the notification."
       },
       "de": {
         "title": "Informationen zum gehaltenen Item",
-        "summary": "Haltbarkeit und bis zu acht Verzauberungszeilen ergänzen den Vanilla-Itemnamen. Verzauberungsänderungen erneuern den Hinweis.",
-        "details": [
-          "Haltbarkeit und bis zu acht Verzauberungszeilen ergänzen den Vanilla-Itemnamen. Verzauberungsänderungen erneuern den Hinweis."
-        ]
+        "summary": "Haltbarkeit und bis zu acht Verzauberungszeilen ergänzen den Vanilla-Itemnamen. Verzauberungsänderungen erneuern den Hinweis."
       }
     },
     {
@@ -206,17 +152,11 @@
       ],
       "en": {
         "title": "Damage indicators",
-        "summary": "Up to 32 short-lived numbers for observed health decreases of nearby visible living entities, on by default. Switch them off in the Damage tab or with /simplevisuals visuals.damageIndicators.enable false. Values above eight use the high-hit color; this does not prove a critical or Smite hit. Solid blocks hide numbers.",
-        "details": [
-          "Up to 32 short-lived numbers for observed health decreases of nearby visible living entities, on by default. Switch them off in the Damage tab or with /simplevisuals visuals.damageIndicators.enable false. Values above eight use the high-hit color; this does not prove a critical or Smite hit. Solid blocks hide numbers."
-        ]
+        "summary": "Up to 32 short-lived numbers for observed health decreases of nearby visible living entities, on by default. Switch them off in the Damage tab or with /simplevisuals visuals damageIndicators enable false. Values above eight use the high-hit color; this does not prove a critical or Smite hit. Solid blocks hide numbers."
       },
       "de": {
         "title": "Schadensanzeigen",
-        "summary": "Bis zu 32 kurzlebige Zahlen für beobachtete Lebensverluste naher sichtbarer Lebewesen, standardmäßig an. Ausschalten im Tab Schaden oder mit /simplevisuals visuals.damageIndicators.enable false. Werte über acht nutzen die Farbe für hohe Treffer; dies beweist keinen kritischen oder Bann-Treffer. Feste Blöcke verbergen die Zahlen.",
-        "details": [
-          "Bis zu 32 kurzlebige Zahlen für beobachtete Lebensverluste naher sichtbarer Lebewesen, standardmäßig an. Ausschalten im Tab Schaden oder mit /simplevisuals visuals.damageIndicators.enable false. Werte über acht nutzen die Farbe für hohe Treffer; dies beweist keinen kritischen oder Bann-Treffer. Feste Blöcke verbergen die Zahlen."
-        ]
+        "summary": "Bis zu 32 kurzlebige Zahlen für beobachtete Lebensverluste naher sichtbarer Lebewesen, standardmäßig an. Ausschalten im Tab Schaden oder mit /simplevisuals visuals damageIndicators enable false. Werte über acht nutzen die Farbe für hohe Treffer; dies beweist keinen kritischen oder Bann-Treffer. Feste Blöcke verbergen die Zahlen."
       }
     },
     {
@@ -226,17 +166,11 @@
       ],
       "en": {
         "title": "Biome notifications",
-        "summary": "Optional biome name on transition, with display duration, offset and re-entry cooldown. Disabled by default.",
-        "details": [
-          "Optional biome name on transition, with display duration, offset and re-entry cooldown. Disabled by default."
-        ]
+        "summary": "Optional biome name on transition, with display duration, offset and re-entry cooldown. Disabled by default."
       },
       "de": {
         "title": "Biomhinweise",
-        "summary": "Optionaler Biomname beim Wechsel mit Anzeigedauer, Versatz und Wiederkehr-Sperre. Standardmäßig aus.",
-        "details": [
-          "Optionaler Biomname beim Wechsel mit Anzeigedauer, Versatz und Wiederkehr-Sperre. Standardmäßig aus."
-        ]
+        "summary": "Optionaler Biomname beim Wechsel mit Anzeigedauer, Versatz und Wiederkehr-Sperre. Standardmäßig aus."
       }
     },
     {
@@ -246,17 +180,11 @@
       ],
       "en": {
         "title": "Anvil formatting and uses",
-        "summary": "Valid & or section-sign color/style codes are accepted only under server formatting policy. The unreadable obfuscated style &k stays locked unless the server allows it. Vanilla anvil costs and 50-character name limit remain. Shows prior work uses from repair cost when no result is present.",
-        "details": [
-          "Valid & or section-sign color/style codes are accepted only under server formatting policy. The unreadable obfuscated style &k stays locked unless the server allows it. Vanilla anvil costs and 50-character name limit remain. Shows prior work uses from repair cost when no result is present."
-        ]
+        "summary": "Valid & or section-sign color/style codes are accepted only under server formatting policy. The unreadable obfuscated style &k stays locked unless the server allows it. Vanilla anvil costs and 50-character name limit remain. Shows prior work uses from repair cost when no result is present."
       },
       "de": {
         "title": "Ambossformatierung und Nutzungen",
-        "summary": "Gültige &- oder Paragraphen-Farb-/Stilcodes werden nur unter der Serverregel akzeptiert. Die unlesbare Zauberschrift &k bleibt gesperrt, solange der Server sie nicht erlaubt. Vanilla-Ambosskosten und die Grenze von 50 Zeichen bleiben. Zeigt vorherige Nutzungen aus den Reparaturkosten, wenn kein Ergebnis vorliegt.",
-        "details": [
-          "Gültige &- oder Paragraphen-Farb-/Stilcodes werden nur unter der Serverregel akzeptiert. Die unlesbare Zauberschrift &k bleibt gesperrt, solange der Server sie nicht erlaubt. Vanilla-Ambosskosten und die Grenze von 50 Zeichen bleiben. Zeigt vorherige Nutzungen aus den Reparaturkosten, wenn kein Ergebnis vorliegt."
-        ]
+        "summary": "Gültige &- oder Paragraphen-Farb-/Stilcodes werden nur unter der Serverregel akzeptiert. Die unlesbare Zauberschrift &k bleibt gesperrt, solange der Server sie nicht erlaubt. Vanilla-Ambosskosten und die Grenze von 50 Zeichen bleiben. Zeigt vorherige Nutzungen aus den Reparaturkosten, wenn kein Ergebnis vorliegt."
       }
     },
     {
@@ -266,17 +194,11 @@
       ],
       "en": {
         "title": "Renamed model compatibility",
-        "summary": "Opt-in CIT JSON under assets/<namespace>/cit and PNG files in config/simplevisuals/textures. Exact custom-name match, item filter, tags, deterministic weight priority, bounded search pages and anvil rename instructions. Generated Vanilla item definitions bridge legacy model paths. At most 128 rules; PNGs at most 1 MiB and 256 pixels per axis. Simple Models, when installed, owns this feature and disables this compatibility handler.",
-        "details": [
-          "Opt-in CIT JSON under assets/<namespace>/cit and PNG files in config/simplevisuals/textures. Exact custom-name match, item filter, tags, deterministic weight priority, bounded search pages and anvil rename instructions. Generated Vanilla item definitions bridge legacy model paths. At most 128 rules; PNGs at most 1 MiB and 256 pixels per axis. Simple Models, when installed, owns this feature and disables this compatibility handler."
-        ]
+        "summary": "Opt-in CIT JSON under assets/<namespace>/cit and PNG files in config/simplevisuals/textures. Exact custom-name match, item filter, tags, deterministic weight priority, bounded search pages and anvil rename instructions. Generated Vanilla item definitions bridge legacy model paths. At most 128 rules; PNGs at most 1 MiB and 256 pixels per axis. Simple Models, when installed, owns this feature and disables this compatibility handler."
       },
       "de": {
         "title": "Kompatibilität umbenannter Modelle",
-        "summary": "Optionale CIT-JSONs unter assets/<namespace>/cit und PNGs in config/simplevisuals/textures. Exakter benutzerdefinierter Name, Itemfilter, Tags, deterministische Gewichtung, begrenzte Suchseiten und Amboss-Anleitung. Erzeugte Vanilla-Itemdefinitionen verbinden alte Modellpfade. Höchstens 128 Regeln; PNGs höchstens 1 MiB und 256 Pixel pro Achse. Bei installiertem Simple Models übernimmt dieses die Funktion und deaktiviert diesen Kompatibilitätshandler.",
-        "details": [
-          "Optionale CIT-JSONs unter assets/<namespace>/cit und PNGs in config/simplevisuals/textures. Exakter benutzerdefinierter Name, Itemfilter, Tags, deterministische Gewichtung, begrenzte Suchseiten und Amboss-Anleitung. Erzeugte Vanilla-Itemdefinitionen verbinden alte Modellpfade. Höchstens 128 Regeln; PNGs höchstens 1 MiB und 256 Pixel pro Achse. Bei installiertem Simple Models übernimmt dieses die Funktion und deaktiviert diesen Kompatibilitätshandler."
-        ]
+        "summary": "Optionale CIT-JSONs unter assets/<namespace>/cit und PNGs in config/simplevisuals/textures. Exakter benutzerdefinierter Name, Itemfilter, Tags, deterministische Gewichtung, begrenzte Suchseiten und Amboss-Anleitung. Erzeugte Vanilla-Itemdefinitionen verbinden alte Modellpfade. Höchstens 128 Regeln; PNGs höchstens 1 MiB und 256 Pixel pro Achse. Bei installiertem Simple Models übernimmt dieses die Funktion und deaktiviert diesen Kompatibilitätshandler."
       }
     },
     {
@@ -286,17 +208,11 @@
       ],
       "en": {
         "title": "Configuration commands",
-        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] and allowAnvilObfuscation [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD.",
-        "details": [
-          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] and allowAnvilObfuscation [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD."
-        ]
+        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] and allowAnvilObfuscation [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD."
       },
       "de": {
         "title": "Konfigurationsbefehle",
-        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] und allowAnvilObfuscation [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD.",
-        "details": [
-          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] und allowAnvilObfuscation [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD."
-        ]
+        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false] und allowAnvilObfuscation [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD."
       }
     },
     {
@@ -306,17 +222,11 @@
       ],
       "en": {
         "title": "Global particle level",
-        "summary": "Setting particles.globalLevel. Local cosmetic setting; changes do not affect gameplay. Default: SUBTLE.",
-        "details": [
-          "Setting particles.globalLevel. Local cosmetic setting; changes do not affect gameplay. Default: SUBTLE."
-        ]
+        "summary": "Setting particles.globalLevel. Particle amount for every effect left on Global level in the effect tabs (Movement, Nature, Water and the others). Vanilla's particle setting Minimal turns them off. Looks only, no effect on gameplay. Default: Subtle."
       },
       "de": {
         "title": "Globale Partikelstufe",
-        "summary": "Einstellung particles.globalLevel. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: SUBTLE.",
-        "details": [
-          "Einstellung particles.globalLevel. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: SUBTLE."
-        ]
+        "summary": "Einstellung particles.globalLevel. Partikelmenge aller Effekte, die in den Effekt-Reitern (Bewegung, Natur, Wasser und die übrigen) auf Globale Stufe stehen. Die Vanilla-Partikeleinstellung Minimal schaltet sie aus. Nur Optik, ohne Einfluss aufs Spiel. Standard: Dezent."
       }
     },
     {
@@ -326,17 +236,11 @@
       ],
       "en": {
         "title": "Player Locator",
-        "summary": "Setting visuals.enablePlayerLocator. Player heads for Vanilla waypoints; server visibility and bar priority remain. Default: true.",
-        "details": [
-          "Setting visuals.enablePlayerLocator. Player heads for Vanilla waypoints; server visibility and bar priority remain. Default: true."
-        ]
+        "summary": "Setting visuals.enablePlayerLocator. Player heads for Vanilla waypoints in the locator bar; server visibility and bar priority remain. Default: On."
       },
       "de": {
         "title": "Spieler-Ortung",
-        "summary": "Einstellung visuals.enablePlayerLocator. Spielerköpfe für Vanilla-Wegpunkte; Server-Sichtbarkeit und Leistenpriorität bleiben erhalten. Standard: true.",
-        "details": [
-          "Einstellung visuals.enablePlayerLocator. Spielerköpfe für Vanilla-Wegpunkte; Server-Sichtbarkeit und Leistenpriorität bleiben erhalten. Standard: true."
-        ]
+        "summary": "Einstellung visuals.enablePlayerLocator. Spielerköpfe für Vanilla-Wegpunkte in der Ortungsleiste; Server-Sichtbarkeit und Leistenpriorität bleiben erhalten. Standard: Ein."
       }
     },
     {
@@ -346,17 +250,11 @@
       ],
       "en": {
         "title": "Chat Heads",
-        "summary": "Setting visuals.enableChatHeads. Displays the player's head next to their chat messages. Default: true.",
-        "details": [
-          "Setting visuals.enableChatHeads. Displays the player's head next to their chat messages. Default: true."
-        ]
+        "summary": "Setting visuals.enableChatHeads. Shows the sender's head beside player chat messages, in the right margin of the chat. Default: On."
       },
       "de": {
         "title": "Chat-Köpfe",
-        "summary": "Einstellung visuals.enableChatHeads. Zeigt den Kopf des Spielers im Chat. Standard: true.",
-        "details": [
-          "Einstellung visuals.enableChatHeads. Zeigt den Kopf des Spielers im Chat. Standard: true."
-        ]
+        "summary": "Einstellung visuals.enableChatHeads. Zeigt den Kopf des Absenders neben Spieler-Chatnachrichten, am rechten Rand des Chats. Standard: Ein."
       }
     },
     {
@@ -366,17 +264,11 @@
       ],
       "en": {
         "title": "Status Effect Bars",
-        "summary": "Setting visuals.enableStatusEffectBars. Shows a duration bar under status effect icons. Default: true.",
-        "details": [
-          "Setting visuals.enableStatusEffectBars. Shows a duration bar under status effect icons. Default: true."
-        ]
+        "summary": "Setting visuals.enableStatusEffectBars. Shows a bar with the remaining duration under status effect icons (HUD and inventory). Effects without an end have no bar. Default: On."
       },
       "de": {
         "title": "Statuseffekt-Balken",
-        "summary": "Einstellung visuals.enableStatusEffectBars. Zeigt Dauerbalken unter Effekt-Icons. Standard: true.",
-        "details": [
-          "Einstellung visuals.enableStatusEffectBars. Zeigt Dauerbalken unter Effekt-Icons. Standard: true."
-        ]
+        "summary": "Einstellung visuals.enableStatusEffectBars. Zeigt unter den Effekt-Symbolen (HUD und Inventar) einen Balken mit der Restdauer. Effekte ohne Ende haben keinen Balken. Standard: Ein."
       }
     },
     {
@@ -386,17 +278,11 @@
       ],
       "en": {
         "title": "Elytra Pitch Helper",
-        "summary": "Setting visuals.enableElytraPitchHelper. Shows guide lines for perfect pitch while gliding. Default: true.",
-        "details": [
-          "Setting visuals.enableElytraPitchHelper. Shows guide lines for perfect pitch while gliding. Default: true."
-        ]
+        "summary": "Setting visuals.enableElytraPitchHelper. While gliding, a line appears as soon as your pitch is close to one of the two target angles. Does not change the flight. Default: On."
       },
       "de": {
         "title": "Elytra-Neigungshilfe",
-        "summary": "Einstellung visuals.enableElytraPitchHelper. Zeigt Hilfslinien für optimales Gleiten. Standard: true.",
-        "details": [
-          "Einstellung visuals.enableElytraPitchHelper. Zeigt Hilfslinien für optimales Gleiten. Standard: true."
-        ]
+        "summary": "Einstellung visuals.enableElytraPitchHelper. Beim Gleiten erscheint eine Linie, sobald deine Neigung nahe an einem der zwei Zielwinkel liegt. Verändert den Flug nicht. Standard: Ein."
       }
     },
     {
@@ -406,17 +292,11 @@
       ],
       "en": {
         "title": "Target Angle Up",
-        "summary": "Setting visuals.elytraTargetAngleUp. Optimal upward pitch angle for Elytra flight. Default: -40.0.",
-        "details": [
-          "Setting visuals.elytraTargetAngleUp. Optimal upward pitch angle for Elytra flight. Default: -40.0."
-        ]
+        "summary": "Setting visuals.elytraTargetAngleUp. Upward target pitch in degrees (negative = nose up), -90 to 90. Default: -40.0."
       },
       "de": {
         "title": "Zielwinkel Oben",
-        "summary": "Einstellung visuals.elytraTargetAngleUp. Optimaler Steigwinkel. Standard: -40.0.",
-        "details": [
-          "Einstellung visuals.elytraTargetAngleUp. Optimaler Steigwinkel. Standard: -40.0."
-        ]
+        "summary": "Einstellung visuals.elytraTargetAngleUp. Ziel-Neigung nach oben in Grad (negativ = Nase hoch), -90 bis 90. Standard: -40.0."
       }
     },
     {
@@ -426,17 +306,11 @@
       ],
       "en": {
         "title": "Target Angle Down",
-        "summary": "Setting visuals.elytraTargetAngleDown. Optimal downward pitch angle for Elytra flight. Default: 40.0.",
-        "details": [
-          "Setting visuals.elytraTargetAngleDown. Optimal downward pitch angle for Elytra flight. Default: 40.0."
-        ]
+        "summary": "Setting visuals.elytraTargetAngleDown. Downward target pitch in degrees, -90 to 90. Default: 40.0."
       },
       "de": {
         "title": "Zielwinkel Unten",
-        "summary": "Einstellung visuals.elytraTargetAngleDown. Optimaler Sinkwinkel. Standard: 40.0.",
-        "details": [
-          "Einstellung visuals.elytraTargetAngleDown. Optimaler Sinkwinkel. Standard: 40.0."
-        ]
+        "summary": "Einstellung visuals.elytraTargetAngleDown. Ziel-Neigung nach unten in Grad, -90 bis 90. Standard: 40.0."
       }
     },
     {
@@ -446,17 +320,11 @@
       ],
       "en": {
         "title": "Pitch Tolerance",
-        "summary": "Setting visuals.elytraPitchTolerance. Acceptable deviation from target angles for optimal Elytra flight. Default: 10.0.",
-        "details": [
-          "Setting visuals.elytraPitchTolerance. Acceptable deviation from target angles for optimal Elytra flight. Default: 10.0."
-        ]
+        "summary": "Setting visuals.elytraPitchTolerance. Up to how many degrees away from a target angle the line is still shown, 0 to 45. Default: 10.0."
       },
       "de": {
         "title": "Toleranz",
-        "summary": "Einstellung visuals.elytraPitchTolerance. Akzeptable Abweichung vom Zielwinkel. Standard: 10.0.",
-        "details": [
-          "Einstellung visuals.elytraPitchTolerance. Akzeptable Abweichung vom Zielwinkel. Standard: 10.0."
-        ]
+        "summary": "Einstellung visuals.elytraPitchTolerance. Bis zu wie vielen Grad Abstand vom Zielwinkel die Linie noch erscheint, 0 bis 45. Standard: 10.0."
       }
     },
     {
@@ -466,17 +334,11 @@
       ],
       "en": {
         "title": "Guide Sensitivity",
-        "summary": "Setting visuals.elytraSensitivity. Responsiveness of the pitch guide lines. Default: 4.0.",
-        "details": [
-          "Setting visuals.elytraSensitivity. Responsiveness of the pitch guide lines. Default: 4.0."
-        ]
+        "summary": "Setting visuals.elytraSensitivity. How far the line moves per degree of difference, 0 to 10. Default: 4.0."
       },
       "de": {
         "title": "Empfindlichkeit",
-        "summary": "Einstellung visuals.elytraSensitivity. Reaktionsstärke der Hilfslinien. Standard: 4.0.",
-        "details": [
-          "Einstellung visuals.elytraSensitivity. Reaktionsstärke der Hilfslinien. Standard: 4.0."
-        ]
+        "summary": "Einstellung visuals.elytraSensitivity. Wie weit sich die Linie je Grad Abweichung verschiebt, 0 bis 10. Standard: 4.0."
       }
     },
     {
@@ -486,17 +348,11 @@
       ],
       "en": {
         "title": "Renamed item model compatibility",
-        "summary": "Setting visuals.enableRenamedItemTextures. Compatibility; automatically disabled with Simple Models. Enables custom textures for renamed items based on the files in the config folder.\n§cRequires a game restart to take effect! Default: false.",
-        "details": [
-          "Setting visuals.enableRenamedItemTextures. Compatibility; automatically disabled with Simple Models. Enables custom textures for renamed items based on the files in the config folder.\n§cRequires a game restart to take effect! Default: false."
-        ]
+        "summary": "Setting visuals.enableRenamedItemTextures. Compatibility; automatically disabled with Simple Models. Enables custom textures for renamed items based on the files in the config folder. Requires a game restart to take effect! Default: Off."
       },
       "de": {
         "title": "Modellkompatibilität umbenannter Items",
-        "summary": "Einstellung visuals.enableRenamedItemTextures. Kompatibilität; bei Simple Models automatisch deaktiviert. Aktiviert eigene Texturen für umbenannte Items basierend auf dem Config-Ordner.\n§cErfordert einen Neustart des Spiels, um wirksam zu werden! Standard: false.",
-        "details": [
-          "Einstellung visuals.enableRenamedItemTextures. Kompatibilität; bei Simple Models automatisch deaktiviert. Aktiviert eigene Texturen für umbenannte Items basierend auf dem Config-Ordner.\n§cErfordert einen Neustart des Spiels, um wirksam zu werden! Standard: false."
-        ]
+        "summary": "Einstellung visuals.enableRenamedItemTextures. Kompatibilität; bei Simple Models automatisch deaktiviert. Aktiviert eigene Texturen für umbenannte Items anhand der Dateien im Config-Ordner. Erfordert einen Neustart des Spiels, um wirksam zu werden! Standard: Aus."
       }
     },
     {
@@ -506,17 +362,11 @@
       ],
       "en": {
         "title": "Enable Anvil Formatting codes",
-        "summary": "Setting visuals.enableAnvilFormatting. The server policy decides; Vanilla costs remain. Allows using '&' as a formatting code in anvils (e.g., &c for red). The obfuscated style &k has its own lock (allowAnvilObfuscation). Default: true.",
-        "details": [
-          "Setting visuals.enableAnvilFormatting. The server policy decides; Vanilla costs remain. Allows using '&' as a formatting code in anvils (e.g., &c for red). The obfuscated style &k has its own lock (allowAnvilObfuscation). Default: true."
-        ]
+        "summary": "Setting visuals.enableAnvilFormatting. The server policy decides; Vanilla costs remain. Allows '&' as a formatting code in anvil names (for example &c for red). The obfuscated style &k has its own lock (allowAnvilObfuscation). Default: On."
       },
       "de": {
         "title": "Amboss-Formatierungscodes (&)",
-        "summary": "Einstellung visuals.enableAnvilFormatting. Serverregel entscheidet; Vanilla-Kosten bleiben erhalten. Erlaubt die Nutzung von '&' für Farben im Amboss (z.B. &c für Rot). Die Zauberschrift &k hat eine eigene Sperre (allowAnvilObfuscation). Standard: true.",
-        "details": [
-          "Einstellung visuals.enableAnvilFormatting. Serverregel entscheidet; Vanilla-Kosten bleiben erhalten. Erlaubt die Nutzung von '&' für Farben im Amboss (z.B. &c für Rot). Die Zauberschrift &k hat eine eigene Sperre (allowAnvilObfuscation). Standard: true."
-        ]
+        "summary": "Einstellung visuals.enableAnvilFormatting. Die Serverregel entscheidet; Vanilla-Kosten bleiben. Erlaubt '&' als Formatierungscode in Ambossnamen (zum Beispiel &c für Rot). Die Zauberschrift &k hat eine eigene Sperre (allowAnvilObfuscation). Standard: Ein."
       }
     },
     {
@@ -526,17 +376,11 @@
       ],
       "en": {
         "title": "Allow obfuscated text (&k)",
-        "summary": "Setting visuals.allowAnvilObfuscation. Server policy (permission 2): allows the unreadable obfuscated style &k in anvil names. Off keeps &k locked and drops it from the name; other codes stay. Default: false.",
-        "details": [
-          "Setting visuals.allowAnvilObfuscation. Server policy (permission 2): allows the unreadable obfuscated style &k in anvil names. Off keeps &k locked and drops it from the name; other codes stay. Default: false."
-        ]
+        "summary": "Setting visuals.allowAnvilObfuscation. Server policy (permission 2): allows the unreadable obfuscated style &k in anvil names. Off keeps &k locked and drops it from the name; other codes stay. Default: Off."
       },
       "de": {
         "title": "Zauberschrift erlauben (&k)",
-        "summary": "Einstellung visuals.allowAnvilObfuscation. Serverregel (Berechtigung 2): erlaubt die unlesbare Zauberschrift &k in Ambossnamen. Aus sperrt &k und entfernt es aus dem Namen; andere Codes bleiben. Standard: false.",
-        "details": [
-          "Einstellung visuals.allowAnvilObfuscation. Serverregel (Berechtigung 2): erlaubt die unlesbare Zauberschrift &k in Ambossnamen. Aus sperrt &k und entfernt es aus dem Namen; andere Codes bleiben. Standard: false."
-        ]
+        "summary": "Einstellung visuals.allowAnvilObfuscation. Serverregel (Berechtigung 2): erlaubt die unlesbare Zauberschrift &k in Ambossnamen. Aus sperrt &k und entfernt es aus dem Namen; andere Codes bleiben. Standard: Aus."
       }
     },
     {
@@ -546,17 +390,11 @@
       ],
       "en": {
         "title": "Enhance own death messages",
-        "summary": "Setting visuals.enhanceDeathMessages. Appends coordinates [x, y, z] to chat death messages if the player is in render distance. Default: true.",
-        "details": [
-          "Setting visuals.enhanceDeathMessages. Appends coordinates [x, y, z] to chat death messages if the player is in render distance. Default: true."
-        ]
+        "summary": "Setting visuals.enhanceDeathMessages. Adds your position to your own death message in your chat. Only you see it; the form is set under Own death coordinates. Default: On."
       },
       "de": {
         "title": "Eigene Todesnachrichten ergänzen",
-        "summary": "Einstellung visuals.enhanceDeathMessages. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.enhanceDeathMessages. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "summary": "Einstellung visuals.enhanceDeathMessages. Ergänzt deine eigene Todesnachricht in deinem Chat um deine Position. Nur du siehst sie; die Form steht unter Eigene Todeskoordinaten. Standard: Ein."
       }
     },
     {
@@ -566,17 +404,11 @@
       ],
       "en": {
         "title": "Own death coordinates",
-        "summary": "Setting visuals.deathCoordsMode. Only your own death coordinates, entirely local. Default: SEPARATE.",
-        "details": [
-          "Setting visuals.deathCoordsMode. Only your own death coordinates, entirely local. Default: SEPARATE."
-        ]
+        "summary": "Setting visuals.deathCoordsMode. Off, appended to the message, or a separate line. Only your own death, entirely local; other players' positions are never shown. Default: Separate local line."
       },
       "de": {
         "title": "Eigene Todeskoordinaten",
-        "summary": "Einstellung visuals.deathCoordsMode. Nur eigene Todeskoordinaten, ausschließlich lokal. Standard: SEPARATE.",
-        "details": [
-          "Einstellung visuals.deathCoordsMode. Nur eigene Todeskoordinaten, ausschließlich lokal. Standard: SEPARATE."
-        ]
+        "summary": "Einstellung visuals.deathCoordsMode. Aus, an die Nachricht angehängt oder als eigene Zeile. Nur der eigene Tod, ausschließlich lokal; fremde Positionen werden nie gezeigt. Standard: Separate lokale Zeile."
       }
     },
     {
@@ -586,17 +418,11 @@
       ],
       "en": {
         "title": "Map Tooltips",
-        "summary": "Setting visuals.enableMapTooltips. Shows coordinates and biome info when hovering over maps in the inventory. Default: true.",
-        "details": [
-          "Setting visuals.enableMapTooltips. Shows coordinates and biome info when hovering over maps in the inventory. Default: true."
-        ]
+        "summary": "Setting visuals.enableMapTooltips. Hovering over a filled map shows a 128-pixel preview, its center coordinates and the dimension. Default: On."
       },
       "de": {
         "title": "Karten-Tooltips",
-        "summary": "Einstellung visuals.enableMapTooltips. Zeigt Koordinaten beim Hovern über Karten. Standard: true.",
-        "details": [
-          "Einstellung visuals.enableMapTooltips. Zeigt Koordinaten beim Hovern über Karten. Standard: true."
-        ]
+        "summary": "Einstellung visuals.enableMapTooltips. Beim Zeigen auf eine Karte erscheinen eine 128-Pixel-Vorschau, ihr Mittelpunkt und die Dimension. Standard: Ein."
       }
     },
     {
@@ -609,17 +435,15 @@
       ],
       "en": {
         "title": "Flat blocks and panes in item frames from above",
-        "summary": "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames as a 3D model seen from above, instead of a thin strip or a flat icon. Default: true.",
+        "summary": "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames as a 3D model seen from above, instead of a thin strip or a flat icon. Sneak with a chisel on the frame to tilt it in 15° steps up to 90° and back (saved per frame). Default: On.",
         "details": [
-          "Setting visuals.enableTiltedFrameItems. Pressure plates, carpets, trapdoors, glass panes and bars lie flat in item frames as a 3D model seen from above, instead of a thin strip or a flat icon. Default: true.",
           "Chisel: sneak and right-click the frame with a chisel (item tag simplevisuals:frame_chisels, SimpleBuilding's chisels) to tilt the item one step: 0°, 15°, 30° ... 90°, then flat again. The angle is saved with the frame and seen by every player; taking the item out lays the frame flat. Works for every item except maps (flat blocks and panes as block models, everything else leans as the normal item); locked (fixed) frames stay unchanged; the chisel is not worn. A tilted frame sends an extra value that a game without this mod does not understand: players need Simple Visuals on their client too (as they already need Simple Building's chisels)."
         ]
       },
       "de": {
         "title": "Flache Blöcke und Scheiben im Rahmen von oben",
-        "summary": "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach als 3D-Modell, von oben gesehen, statt als dünner Strich oder flaches Symbol. Standard: true.",
+        "summary": "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach als 3D-Modell, von oben gesehen, statt als dünner Strich oder flaches Symbol. Schleichen mit einem Meißel auf den Rahmen kippt sie in 15°-Stufen bis 90° und zurück (je Rahmen gespeichert). Standard: Ein.",
         "details": [
-          "Einstellung visuals.enableTiltedFrameItems. Druckplatten, Teppiche, Falltüren, Glasscheiben und Gitter liegen im Rahmen flach als 3D-Modell, von oben gesehen, statt als dünner Strich oder flaches Symbol. Standard: true.",
           "Meißel: Schleichen und mit einem Meißel (Item-Tag simplevisuals:frame_chisels, die Meißel von SimpleBuilding) auf den Rahmen rechtsklicken kippt das Item um eine Stufe: 0°, 15°, 30° … 90°, dann wieder flach. Der Winkel wird mit dem Rahmen gespeichert und ist für alle Spieler gleich; Herausnehmen legt den Rahmen wieder flach. Gilt für jedes Item außer Karten (flache Blöcke und Scheiben als Blockmodell, alles andere lehnt sich als normales Item); fixierte Rahmen bleiben unverändert; der Meißel nutzt sich nicht ab. Ein gekippter Rahmen sendet einen Zusatzwert, den ein Spiel ohne diese Mod nicht versteht: Spieler brauchen Simple Visuals auch auf dem Client (wie sie die Meißel von Simple Building ohnehin brauchen)."
         ]
       }
@@ -633,17 +457,15 @@
       ],
       "en": {
         "title": "Stand under a cauldron on a campfire",
-        "summary": "Setting visuals.cauldronStand. A cauldron standing on a campfire (also a soul campfire, lit or not) is drawn on a small stand in the cauldron's own color: four corner posts from the fire to the cauldron and a frame around the top. Default: true.",
+        "summary": "Setting visuals.cauldronStand. A cauldron standing on a campfire (also a soul campfire, lit or not) is drawn on a small stand in the cauldron's own color: four corner posts and a frame. Looks only, no block and no collision; takes effect when the chunks are rebuilt (F3+A). Default: On.",
         "details": [
-          "Setting visuals.cauldronStand. A cauldron standing on a campfire (also a soul campfire, lit or not) is drawn on a small stand in the cauldron's own color: four corner posts from the fire to the cauldron and a frame around the top. Default: true.",
           "Looks only: there is no stand block, no collision, and fire and cauldron work as in Vanilla. Water, lava and powder snow cauldrons get it too. A change of the setting shows once the chunks are rebuilt (F3+A or rejoining)."
         ]
       },
       "de": {
         "title": "Gerüst unter Kessel auf Lagerfeuer",
-        "summary": "Einstellung visuals.cauldronStand. Ein Kessel auf einem Lagerfeuer (auch Seelenlagerfeuer, an oder aus) bekommt ein kleines Gerüst in Kesselfarbe: vier Eckpfosten vom Feuer bis zum Kessel und oben ein Rahmen. Standard: true.",
+        "summary": "Einstellung visuals.cauldronStand. Ein Kessel auf einem Lagerfeuer (auch Seelenlagerfeuer, an oder aus) bekommt ein kleines Gerüst in Kesselfarbe: vier Eckpfosten und ein Rahmen. Nur Optik, kein Block, keine Kollision; wirkt, sobald die Chunks neu aufgebaut werden (F3+A). Standard: Ein.",
         "details": [
-          "Einstellung visuals.cauldronStand. Ein Kessel auf einem Lagerfeuer (auch Seelenlagerfeuer, an oder aus) bekommt ein kleines Gerüst in Kesselfarbe: vier Eckpfosten vom Feuer bis zum Kessel und oben ein Rahmen. Standard: true.",
           "Nur Optik: Es gibt keinen Gerüst-Block und keine Kollision, Feuer und Kessel arbeiten wie in Vanilla. Wasser-, Lava- und Pulverschneekessel bekommen es auch. Eine Änderung der Einstellung zeigt sich, sobald die Chunks neu aufgebaut werden (F3+A oder neu betreten)."
         ]
       }
@@ -655,17 +477,11 @@
       ],
       "en": {
         "title": "Enable damage numbers",
-        "summary": "Setting visuals.damageIndicators.enable. Local cosmetic setting; changes do not affect gameplay. On by default; switch damage numbers off here. Default: true.",
-        "details": [
-          "Setting visuals.damageIndicators.enable. Local cosmetic setting; changes do not affect gameplay. On by default; switch damage numbers off here. Default: true."
-        ]
+        "summary": "Setting visuals.damageIndicators.enable. Numbers above nearby visible creatures when they lose health (at most 32 at a time). Looks only, no effect on gameplay. Default: On."
       },
       "de": {
         "title": "Schadenszahlen anzeigen",
-        "summary": "Einstellung visuals.damageIndicators.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standardmäßig an; Schadenszahlen hier ausschalten. Standard: true.",
-        "details": [
-          "Einstellung visuals.damageIndicators.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standardmäßig an; Schadenszahlen hier ausschalten. Standard: true."
-        ]
+        "summary": "Einstellung visuals.damageIndicators.enable. Zahlen über nahen sichtbaren Lebewesen, wenn sie Leben verlieren (höchstens 32 gleichzeitig). Nur Optik, ohne Einfluss aufs Spiel. Standard: Ein."
       }
     },
     {
@@ -675,17 +491,11 @@
       ],
       "en": {
         "title": "Scale",
-        "summary": "Setting visuals.damageIndicators.scale. Local cosmetic setting; changes do not affect gameplay. Default: 1.0.",
-        "details": [
-          "Setting visuals.damageIndicators.scale. Local cosmetic setting; changes do not affect gameplay. Default: 1.0."
-        ]
+        "summary": "Setting visuals.damageIndicators.scale. Size of the damage numbers, 0.5 to 2. Default: 1.0."
       },
       "de": {
-        "title": "Scale",
-        "summary": "Einstellung visuals.damageIndicators.scale. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0.",
-        "details": [
-          "Einstellung visuals.damageIndicators.scale. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0."
-        ]
+        "title": "Größe",
+        "summary": "Einstellung visuals.damageIndicators.scale. Größe der Schadenszahlen, 0,5 bis 2. Standard: 1.0."
       }
     },
     {
@@ -695,17 +505,11 @@
       ],
       "en": {
         "title": "Color normal",
-        "summary": "Setting visuals.damageIndicators.colorNormal. Local cosmetic setting; changes do not affect gameplay. Default: 16777215.",
-        "details": [
-          "Setting visuals.damageIndicators.colorNormal. Local cosmetic setting; changes do not affect gameplay. Default: 16777215."
-        ]
+        "summary": "Setting visuals.damageIndicators.colorNormal. Color of normal damage numbers as a decimal RGB number (16711680 = red). Default: 16777215 (white)."
       },
       "de": {
-        "title": "Color normal",
-        "summary": "Einstellung visuals.damageIndicators.colorNormal. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 16777215.",
-        "details": [
-          "Einstellung visuals.damageIndicators.colorNormal. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 16777215."
-        ]
+        "title": "Farbe normal",
+        "summary": "Einstellung visuals.damageIndicators.colorNormal. Farbe normaler Schadenszahlen als dezimale RGB-Zahl (16711680 = Rot). Standard: 16777215 (Weiß)."
       }
     },
     {
@@ -715,17 +519,11 @@
       ],
       "en": {
         "title": "Color high hit (above 8)",
-        "summary": "Setting visuals.damageIndicators.colorSpecial. Local cosmetic setting; changes do not affect gameplay. Color for high hits (damage above 8); not a critical-hit marker. Default: 16766720.",
-        "details": [
-          "Setting visuals.damageIndicators.colorSpecial. Local cosmetic setting; changes do not affect gameplay. Color for high hits (damage above 8); not a critical-hit marker. Default: 16766720."
-        ]
+        "summary": "Setting visuals.damageIndicators.colorSpecial. Color for high hits (damage above 8) as a decimal RGB number; not a critical-hit marker. Default: 16766720 (gold)."
       },
       "de": {
         "title": "Farbe hoher Treffer (über 8)",
-        "summary": "Einstellung visuals.damageIndicators.colorSpecial. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Farbe für hohe Treffer (Schaden über 8); kein Zeichen für kritische Treffer. Standard: 16766720.",
-        "details": [
-          "Einstellung visuals.damageIndicators.colorSpecial. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Farbe für hohe Treffer (Schaden über 8); kein Zeichen für kritische Treffer. Standard: 16766720."
-        ]
+        "summary": "Einstellung visuals.damageIndicators.colorSpecial. Farbe für hohe Treffer (Schaden über 8) als dezimale RGB-Zahl; kein Zeichen für kritische Treffer. Standard: 16766720 (Gold)."
       }
     },
     {
@@ -734,18 +532,12 @@
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
       ],
       "en": {
-        "title": "Show border",
-        "summary": "Setting visuals.damageIndicators.showBorder. Local cosmetic setting; changes do not affect gameplay. Default: true.",
-        "details": [
-          "Setting visuals.damageIndicators.showBorder. Local cosmetic setting; changes do not affect gameplay. Default: true."
-        ]
+        "title": "Text shadow",
+        "summary": "Setting visuals.damageIndicators.showBorder. Draws the damage numbers with a dark shadow so they stay readable on bright ground. Default: On."
       },
       "de": {
-        "title": "Show border",
-        "summary": "Einstellung visuals.damageIndicators.showBorder. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.damageIndicators.showBorder. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "title": "Textschatten",
+        "summary": "Einstellung visuals.damageIndicators.showBorder. Zeichnet die Schadenszahlen mit dunklem Schatten, damit sie auf hellem Grund lesbar bleiben. Standard: Ein."
       }
     },
     {
@@ -755,17 +547,11 @@
       ],
       "en": {
         "title": "Enable",
-        "summary": "Setting visuals.biomeInfo.enable. Local cosmetic setting; changes do not affect gameplay. Default: false.",
-        "details": [
-          "Setting visuals.biomeInfo.enable. Local cosmetic setting; changes do not affect gameplay. Default: false."
-        ]
+        "summary": "Setting visuals.biomeInfo.enable. Shows the biome name at the top of the screen when you enter another biome. Default: Off."
       },
       "de": {
-        "title": "Enable",
-        "summary": "Einstellung visuals.biomeInfo.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: false.",
-        "details": [
-          "Einstellung visuals.biomeInfo.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: false."
-        ]
+        "title": "Aktivieren",
+        "summary": "Einstellung visuals.biomeInfo.enable. Zeigt den Biomnamen oben am Bildschirm, wenn du ein anderes Biom betrittst. Standard: Aus."
       }
     },
     {
@@ -774,18 +560,12 @@
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
       ],
       "en": {
-        "title": "Display duration",
-        "summary": "Setting visuals.biomeInfo.displayDuration. Local cosmetic setting; changes do not affect gameplay. Default: 60.",
-        "details": [
-          "Setting visuals.biomeInfo.displayDuration. Local cosmetic setting; changes do not affect gameplay. Default: 60."
-        ]
+        "title": "Display duration (ticks)",
+        "summary": "Setting visuals.biomeInfo.displayDuration. How long the biome name stays, in ticks (20 = 1 second), 20 to 600. Default: 60."
       },
       "de": {
-        "title": "Display duration",
-        "summary": "Einstellung visuals.biomeInfo.displayDuration. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 60.",
-        "details": [
-          "Einstellung visuals.biomeInfo.displayDuration. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 60."
-        ]
+        "title": "Anzeigedauer (Ticks)",
+        "summary": "Einstellung visuals.biomeInfo.displayDuration. Wie lange der Biomname bleibt, in Ticks (20 = 1 Sekunde), 20 bis 600. Standard: 60."
       }
     },
     {
@@ -795,17 +575,11 @@
       ],
       "en": {
         "title": "Cooldown seconds",
-        "summary": "Setting visuals.biomeInfo.cooldownSeconds. Local cosmetic setting; changes do not affect gameplay. Default: 60.",
-        "details": [
-          "Setting visuals.biomeInfo.cooldownSeconds. Local cosmetic setting; changes do not affect gameplay. Default: 60."
-        ]
+        "summary": "Setting visuals.biomeInfo.cooldownSeconds. After you leave a biome, its name is not shown again for this many seconds, 0 to 3600. Default: 60."
       },
       "de": {
-        "title": "Cooldown seconds",
-        "summary": "Einstellung visuals.biomeInfo.cooldownSeconds. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 60.",
-        "details": [
-          "Einstellung visuals.biomeInfo.cooldownSeconds. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 60."
-        ]
+        "title": "Abklingzeit (Sekunden)",
+        "summary": "Einstellung visuals.biomeInfo.cooldownSeconds. Nach dem Verlassen eines Bioms erscheint sein Name so viele Sekunden lang nicht erneut, 0 bis 3600. Standard: 60."
       }
     },
     {
@@ -815,17 +589,11 @@
       ],
       "en": {
         "title": "Y offset",
-        "summary": "Setting visuals.biomeInfo.yOffset. Local cosmetic setting; changes do not affect gameplay. Default: 50.",
-        "details": [
-          "Setting visuals.biomeInfo.yOffset. Local cosmetic setting; changes do not affect gameplay. Default: 50."
-        ]
+        "summary": "Setting visuals.biomeInfo.yOffset. Distance of the biome name from the top of the screen in pixels. Default: 50."
       },
       "de": {
-        "title": "Y offset",
-        "summary": "Einstellung visuals.biomeInfo.yOffset. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 50.",
-        "details": [
-          "Einstellung visuals.biomeInfo.yOffset. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 50."
-        ]
+        "title": "Y-Versatz",
+        "summary": "Einstellung visuals.biomeInfo.yOffset. Abstand des Biomnamens vom oberen Bildschirmrand in Pixeln. Standard: 50."
       }
     },
     {
@@ -835,17 +603,11 @@
       ],
       "en": {
         "title": "Enable Speed Lines",
-        "summary": "Setting visuals.speedLines.enableSpeedLines. Displays speed lines when moving fast with elytra. Default: true.",
-        "details": [
-          "Setting visuals.speedLines.enableSpeedLines. Displays speed lines when moving fast with elytra. Default: true."
-        ]
+        "summary": "Setting visuals.speedLines.enableSpeedLines. Lines around the screen when you move fast or speed up suddenly (walking, riding or gliding); first-person view only. Default: On."
       },
       "de": {
-        "title": "Enable speed lines",
-        "summary": "Einstellung visuals.speedLines.enableSpeedLines. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.speedLines.enableSpeedLines. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "title": "Geschwindigkeitslinien aktivieren",
+        "summary": "Einstellung visuals.speedLines.enableSpeedLines. Linien rund um den Bildschirm, wenn du schnell bist oder plötzlich beschleunigst (zu Fuß, reitend oder gleitend); nur in der Egoansicht. Standard: Ein."
       }
     },
     {
@@ -854,18 +616,12 @@
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
       ],
       "en": {
-        "title": "Speed Lines Color (Hex)",
-        "summary": "Setting visuals.speedLines.speedLinesColor. Color of the speed lines in hexadecimal format (e.g., #FF0000 for red). Default: 16777215.",
-        "details": [
-          "Setting visuals.speedLines.speedLinesColor. Color of the speed lines in hexadecimal format (e.g., #FF0000 for red). Default: 16777215."
-        ]
+        "title": "Speed Lines Color (RGB)",
+        "summary": "Setting visuals.speedLines.speedLinesColor. Color of the speed lines as a decimal RGB number (16711680 = red). Default: 16777215 (white)."
       },
       "de": {
-        "title": "Speed lines color",
-        "summary": "Einstellung visuals.speedLines.speedLinesColor. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 16777215.",
-        "details": [
-          "Einstellung visuals.speedLines.speedLinesColor. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 16777215."
-        ]
+        "title": "Linienfarbe (RGB)",
+        "summary": "Einstellung visuals.speedLines.speedLinesColor. Farbe der Geschwindigkeitslinien als dezimale RGB-Zahl (16711680 = Rot). Standard: 16777215 (Weiß)."
       }
     },
     {
@@ -874,18 +630,12 @@
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
       ],
       "en": {
-        "title": "Speed Lines Transparency",
-        "summary": "Setting visuals.speedLines.speedLinesAlpha. Transparency of the speed lines (0 = fully transparent, 255 = fully opaque). Default: 0.7.",
-        "details": [
-          "Setting visuals.speedLines.speedLinesAlpha. Transparency of the speed lines (0 = fully transparent, 255 = fully opaque). Default: 0.7."
-        ]
+        "title": "Speed Lines Opacity",
+        "summary": "Setting visuals.speedLines.speedLinesAlpha. Opacity of the speed lines, 0 (invisible) to 1 (strongest). Default: 0.7."
       },
       "de": {
-        "title": "Speed lines alpha",
-        "summary": "Einstellung visuals.speedLines.speedLinesAlpha. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 0.7.",
-        "details": [
-          "Einstellung visuals.speedLines.speedLinesAlpha. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 0.7."
-        ]
+        "title": "Linien-Deckkraft",
+        "summary": "Einstellung visuals.speedLines.speedLinesAlpha. Deckkraft der Geschwindigkeitslinien, 0 (unsichtbar) bis 1 (am stärksten). Standard: 0.7."
       }
     },
     {
@@ -895,17 +645,11 @@
       ],
       "en": {
         "title": "Speed Lines Amount",
-        "summary": "Setting visuals.speedLines.speedLinesAmount. Number of speed lines to display. Default: 1.0.",
-        "details": [
-          "Setting visuals.speedLines.speedLinesAmount. Number of speed lines to display. Default: 1.0."
-        ]
+        "summary": "Setting visuals.speedLines.speedLinesAmount. Multiplier for the number of lines, 0 (none) to 2 (double); never more than 90 lines. Default: 1.0."
       },
       "de": {
-        "title": "Speed lines amount",
-        "summary": "Einstellung visuals.speedLines.speedLinesAmount. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0.",
-        "details": [
-          "Einstellung visuals.speedLines.speedLinesAmount. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0."
-        ]
+        "title": "Linienanzahl",
+        "summary": "Einstellung visuals.speedLines.speedLinesAmount. Faktor für die Zahl der Linien, 0 (keine) bis 2 (doppelt); nie mehr als 90 Linien. Standard: 1.0."
       }
     },
     {
@@ -915,17 +659,11 @@
       ],
       "en": {
         "title": "Speed Lines Tunnel Radius",
-        "summary": "Setting visuals.speedLines.speedLinesRadius. Radius of the speed lines tunnel effect. Default: 0.7.",
-        "details": [
-          "Setting visuals.speedLines.speedLinesRadius. Radius of the speed lines tunnel effect. Default: 0.7."
-        ]
+        "summary": "Setting visuals.speedLines.speedLinesRadius. Size of the free middle as a share of the screen height, 0.2 to 1. Default: 0.7."
       },
       "de": {
-        "title": "Speed lines radius",
-        "summary": "Einstellung visuals.speedLines.speedLinesRadius. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 0.7.",
-        "details": [
-          "Einstellung visuals.speedLines.speedLinesRadius. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 0.7."
-        ]
+        "title": "Tunnelradius",
+        "summary": "Einstellung visuals.speedLines.speedLinesRadius. Größe der freien Mitte als Anteil der Bildschirmhöhe, 0,2 bis 1. Standard: 0.7."
       }
     },
     {
@@ -935,17 +673,11 @@
       ],
       "en": {
         "title": "Speed Lines Width",
-        "summary": "Setting visuals.speedLines.speedLinesWidth. Width of each speed line. Default: 8.0.",
-        "details": [
-          "Setting visuals.speedLines.speedLinesWidth. Width of each speed line. Default: 8.0."
-        ]
+        "summary": "Setting visuals.speedLines.speedLinesWidth. Thickness of each line in pixels, at most 8. Default: 8.0."
       },
       "de": {
-        "title": "Speed lines width",
-        "summary": "Einstellung visuals.speedLines.speedLinesWidth. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 8.0.",
-        "details": [
-          "Einstellung visuals.speedLines.speedLinesWidth. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 8.0."
-        ]
+        "title": "Linienbreite",
+        "summary": "Einstellung visuals.speedLines.speedLinesWidth. Dicke jeder Linie in Pixeln, höchstens 8. Standard: 8.0."
       }
     },
     {
@@ -955,17 +687,11 @@
       ],
       "en": {
         "title": "Speed Lines Animation Speed",
-        "summary": "Setting visuals.speedLines.speedLinesSpeed. Speed of the speed lines animation. Default: 1.0.",
-        "details": [
-          "Setting visuals.speedLines.speedLinesSpeed. Speed of the speed lines animation. Default: 1.0."
-        ]
+        "summary": "Setting visuals.speedLines.speedLinesSpeed. How fast the lines move, 0 (still) to 4. Default: 1.0."
       },
       "de": {
-        "title": "Speed lines speed",
-        "summary": "Einstellung visuals.speedLines.speedLinesSpeed. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0.",
-        "details": [
-          "Einstellung visuals.speedLines.speedLinesSpeed. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0."
-        ]
+        "title": "Animationsgeschwindigkeit",
+        "summary": "Einstellung visuals.speedLines.speedLinesSpeed. Wie schnell die Linien wandern, 0 (still) bis 4. Standard: 1.0."
       }
     },
     {
@@ -975,17 +701,11 @@
       ],
       "en": {
         "title": "Speed Lines Length",
-        "summary": "Setting visuals.speedLines.speedLinesScale. Length of the speed lines. Default: 4.0.",
-        "details": [
-          "Setting visuals.speedLines.speedLinesScale. Length of the speed lines. Default: 4.0."
-        ]
+        "summary": "Setting visuals.speedLines.speedLinesScale. Length of the lines (1 = 30 pixels), 0 to 4. Default: 4.0."
       },
       "de": {
-        "title": "Speed lines scale",
-        "summary": "Einstellung visuals.speedLines.speedLinesScale. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 4.0.",
-        "details": [
-          "Einstellung visuals.speedLines.speedLinesScale. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 4.0."
-        ]
+        "title": "Linienlänge",
+        "summary": "Einstellung visuals.speedLines.speedLinesScale. Länge der Linien (1 = 30 Pixel), 0 bis 4. Standard: 4.0."
       }
     },
     {
@@ -995,17 +715,11 @@
       ],
       "en": {
         "title": "Speed Lines Speed Threshold",
-        "summary": "Setting visuals.speedLines.speedThreshold. Minimum speed required to display speed lines. Default: 0.6.",
-        "details": [
-          "Setting visuals.speedLines.speedThreshold. Minimum speed required to display speed lines. Default: 0.6."
-        ]
+        "summary": "Setting visuals.speedLines.speedThreshold. Speed in blocks per tick from which the lines appear (full speed while gliding, otherwise horizontal), 0.05 to 4. A sudden speed-up shows them too. Default: 0.6."
       },
       "de": {
-        "title": "Speed threshold",
-        "summary": "Einstellung visuals.speedLines.speedThreshold. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 0.6.",
-        "details": [
-          "Einstellung visuals.speedLines.speedThreshold. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 0.6."
-        ]
+        "title": "Geschwindigkeitsschwelle",
+        "summary": "Einstellung visuals.speedLines.speedThreshold. Tempo in Blöcken pro Tick, ab dem die Linien erscheinen (beim Gleiten das volle Tempo, sonst waagerecht), 0,05 bis 4. Plötzliches Beschleunigen zeigt sie ebenfalls. Standard: 0.6."
       }
     },
     {
@@ -1015,17 +729,11 @@
       ],
       "en": {
         "title": "Enable Held Item Tooltips",
-        "summary": "Setting visuals.heldItemTooltips.enable. Local cosmetic setting; changes do not affect gameplay. Default: true.",
-        "details": [
-          "Setting visuals.heldItemTooltips.enable. Local cosmetic setting; changes do not affect gameplay. Default: true."
-        ]
+        "summary": "Setting visuals.heldItemTooltips.enable. Durability and enchantments appear under the item name that shows when you switch items. Default: On."
       },
       "de": {
-        "title": "Aktivieren",
-        "summary": "Einstellung visuals.heldItemTooltips.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.heldItemTooltips.enable. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "title": "Tooltips des gehaltenen Items aktivieren",
+        "summary": "Einstellung visuals.heldItemTooltips.enable. Haltbarkeit und Verzauberungen erscheinen unter dem Itemnamen, der beim Wechseln des Items eingeblendet wird. Standard: Ein."
       }
     },
     {
@@ -1035,17 +743,11 @@
       ],
       "en": {
         "title": "Show Durability",
-        "summary": "Setting visuals.heldItemTooltips.showDurability. Local cosmetic setting; changes do not affect gameplay. Default: true.",
-        "details": [
-          "Setting visuals.heldItemTooltips.showDurability. Local cosmetic setting; changes do not affect gameplay. Default: true."
-        ]
+        "summary": "Setting visuals.heldItemTooltips.showDurability. Shows the durability (left / maximum) of items that wear out. Default: On."
       },
       "de": {
-        "title": "Show Durability",
-        "summary": "Einstellung visuals.heldItemTooltips.showDurability. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.heldItemTooltips.showDurability. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "title": "Haltbarkeit zeigen",
+        "summary": "Einstellung visuals.heldItemTooltips.showDurability. Zeigt die Haltbarkeit (übrig / maximal) von Items, die sich abnutzen. Standard: Ein."
       }
     },
     {
@@ -1055,17 +757,11 @@
       ],
       "en": {
         "title": "Show Enchantments",
-        "summary": "Setting visuals.heldItemTooltips.showEnchantments. Local cosmetic setting; changes do not affect gameplay. Default: true.",
-        "details": [
-          "Setting visuals.heldItemTooltips.showEnchantments. Local cosmetic setting; changes do not affect gameplay. Default: true."
-        ]
+        "summary": "Setting visuals.heldItemTooltips.showEnchantments. Lists the enchantments of the held item. Default: On."
       },
       "de": {
-        "title": "Show Enchantments",
-        "summary": "Einstellung visuals.heldItemTooltips.showEnchantments. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.heldItemTooltips.showEnchantments. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "title": "Verzauberungen zeigen",
+        "summary": "Einstellung visuals.heldItemTooltips.showEnchantments. Listet die Verzauberungen des gehaltenen Items auf. Standard: Ein."
       }
     },
     {
@@ -1075,17 +771,11 @@
       ],
       "en": {
         "title": "Max Enchantments to Show",
-        "summary": "Setting visuals.heldItemTooltips.maxEnchantments. Local cosmetic setting; changes do not affect gameplay. Default: 3.",
-        "details": [
-          "Setting visuals.heldItemTooltips.maxEnchantments. Local cosmetic setting; changes do not affect gameplay. Default: 3."
-        ]
+        "summary": "Setting visuals.heldItemTooltips.maxEnchantments. Enchantment lines shown at most, 0 to 8; the rest is counted as '… and N more'. Default: 3."
       },
       "de": {
-        "title": "Max Enchantments",
-        "summary": "Einstellung visuals.heldItemTooltips.maxEnchantments. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 3.",
-        "details": [
-          "Einstellung visuals.heldItemTooltips.maxEnchantments. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 3."
-        ]
+        "title": "Höchstens gezeigte Verzauberungen",
+        "summary": "Einstellung visuals.heldItemTooltips.maxEnchantments. Höchstens gezeigte Verzauberungszeilen, 0 bis 8; der Rest erscheint als „… und N weitere“. Standard: 3."
       }
     },
     {
@@ -1095,17 +785,11 @@
       ],
       "en": {
         "title": "Enable Pickup Notifier",
-        "summary": "Setting visuals.pickupNotifier.enablePickupNotifier. Displays a notifier on screen when picking up items or XP. Default: true.",
-        "details": [
-          "Setting visuals.pickupNotifier.enablePickupNotifier. Displays a notifier on screen when picking up items or XP. Default: true."
-        ]
+        "summary": "Setting visuals.pickupNotifier.enablePickupNotifier. A short row for every item or experience you pick up (up to eight rows at a time). Default: On."
       },
       "de": {
-        "title": "Enable pickup notifier",
-        "summary": "Einstellung visuals.pickupNotifier.enablePickupNotifier. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.enablePickupNotifier. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "title": "Aufsammel-Anzeige aktivieren",
+        "summary": "Einstellung visuals.pickupNotifier.enablePickupNotifier. Eine kurze Zeile für jedes aufgesammelte Item und jede Erfahrung (bis zu acht Zeilen gleichzeitig). Standard: Ein."
       }
     },
     {
@@ -1115,17 +799,11 @@
       ],
       "en": {
         "title": "Offset X",
-        "summary": "Setting visuals.pickupNotifier.pickupNotifierOffsetX. Horizontal offset of the pickup notifier on the screen. Default: 10.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupNotifierOffsetX. Horizontal offset of the pickup notifier on the screen. Default: 10."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupNotifierOffsetX. Distance of the rows from the chosen screen side in pixels. Default: 10."
       },
       "de": {
-        "title": "Pickup notifier offset x",
-        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierOffsetX. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 10.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupNotifierOffsetX. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 10."
-        ]
+        "title": "Versatz X",
+        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierOffsetX. Abstand der Zeilen von der gewählten Bildschirmseite in Pixeln. Standard: 10."
       }
     },
     {
@@ -1135,17 +813,11 @@
       ],
       "en": {
         "title": "Offset Y",
-        "summary": "Setting visuals.pickupNotifier.pickupNotifierOffsetY. Vertical offset of the pickup notifier on the screen. Default: 10.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupNotifierOffsetY. Vertical offset of the pickup notifier on the screen. Default: 10."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupNotifierOffsetY. Distance of the rows from the bottom of the screen in pixels. Default: 10."
       },
       "de": {
-        "title": "Pickup notifier offset y",
-        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierOffsetY. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 10.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupNotifierOffsetY. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 10."
-        ]
+        "title": "Versatz Y",
+        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierOffsetY. Abstand der Zeilen vom unteren Bildschirmrand in Pixeln. Standard: 10."
       }
     },
     {
@@ -1155,17 +827,11 @@
       ],
       "en": {
         "title": "Scale",
-        "summary": "Setting visuals.pickupNotifier.pickupNotifierScale. Scale of the pickup notifier display. Default: 1.0.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupNotifierScale. Scale of the pickup notifier display. Default: 1.0."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupNotifierScale. Size of the rows, 0.5 to 2. Default: 1.0."
       },
       "de": {
-        "title": "Pickup notifier scale",
-        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierScale. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupNotifierScale. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0."
-        ]
+        "title": "Größe",
+        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierScale. Größe der Zeilen, 0,5 bis 2. Standard: 1.0."
       }
     },
     {
@@ -1174,18 +840,12 @@
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"
       ],
       "en": {
-        "title": "Display Duration",
-        "summary": "Setting visuals.pickupNotifier.pickupNotifierDuration. Duration (in seconds) the pickup notifier remains visible. Default: 120.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupNotifierDuration. Duration (in seconds) the pickup notifier remains visible. Default: 120."
-        ]
+        "title": "Display Duration (ticks)",
+        "summary": "Setting visuals.pickupNotifier.pickupNotifierDuration. How long a row stays, in ticks (20 = 1 second), 20 to 600. Default: 120."
       },
       "de": {
-        "title": "Pickup notifier duration",
-        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierDuration. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 120.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupNotifierDuration. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 120."
-        ]
+        "title": "Anzeigedauer (Ticks)",
+        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierDuration. Wie lange eine Zeile bleibt, in Ticks (20 = 1 Sekunde), 20 bis 600. Standard: 120."
       }
     },
     {
@@ -1195,17 +855,11 @@
       ],
       "en": {
         "title": "Show XP",
-        "summary": "Setting visuals.pickupNotifier.pickupNotifierShowXp. If enabled, the pickup notifier will also display XP pickups. Default: true.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupNotifierShowXp. If enabled, the pickup notifier will also display XP pickups. Default: true."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupNotifierShowXp. Also shows picked-up experience. Default: On."
       },
       "de": {
-        "title": "Pickup notifier show xp",
-        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierShowXp. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupNotifierShowXp. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "title": "EP zeigen",
+        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierShowXp. Zeigt auch aufgesammelte Erfahrung. Standard: Ein."
       }
     },
     {
@@ -1215,17 +869,11 @@
       ],
       "en": {
         "title": "Screen Side",
-        "summary": "Setting visuals.pickupNotifier.pickupNotifierSide. Side of the screen where the pickup notifier appears (Left or Right). Default: RIGHT.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupNotifierSide. Side of the screen where the pickup notifier appears (Left or Right). Default: RIGHT."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupNotifierSide. Screen side of the rows. Default: Right."
       },
       "de": {
-        "title": "Pickup notifier side",
-        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierSide. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: RIGHT.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupNotifierSide. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: RIGHT."
-        ]
+        "title": "Bildschirmseite",
+        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierSide. Bildschirmseite der Zeilen. Standard: Rechts."
       }
     },
     {
@@ -1235,17 +883,11 @@
       ],
       "en": {
         "title": "Content Layout",
-        "summary": "Setting visuals.pickupNotifier.pickupNotifierLayout. Layout of the pickup notifier content (Horizontal or Vertical). Default: COUNT_ICON_NAME.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupNotifierLayout. Layout of the pickup notifier content (Horizontal or Vertical). Default: COUNT_ICON_NAME."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupNotifierLayout. Order of count, icon and name in a row. Default: Count, icon, name."
       },
       "de": {
-        "title": "Pickup notifier layout",
-        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierLayout. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: COUNT_ICON_NAME.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupNotifierLayout. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: COUNT_ICON_NAME."
-        ]
+        "title": "Inhaltsanordnung",
+        "summary": "Einstellung visuals.pickupNotifier.pickupNotifierLayout. Reihenfolge von Anzahl, Symbol und Name in einer Zeile. Standard: Anzahl, Symbol, Name."
       }
     },
     {
@@ -1255,17 +897,11 @@
       ],
       "en": {
         "title": "Show item icon",
-        "summary": "Setting visuals.pickupNotifier.pickupShowItem. Displays the item icon in the pickup notifier. Default: true.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupShowItem. Displays the item icon in the pickup notifier. Default: true."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupShowItem. Shows the item icon in the row. Default: On."
       },
       "de": {
         "title": "Itemsymbol zeigen",
-        "summary": "Einstellung visuals.pickupNotifier.pickupShowItem. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupShowItem. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "summary": "Einstellung visuals.pickupNotifier.pickupShowItem. Zeigt das Itemsymbol in der Zeile. Standard: Ein."
       }
     },
     {
@@ -1275,17 +911,11 @@
       ],
       "en": {
         "title": "Show item name",
-        "summary": "Setting visuals.pickupNotifier.pickupShowName. Displays the item name in the pickup notifier. Default: true.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupShowName. Displays the item name in the pickup notifier. Default: true."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupShowName. Shows the item name in the row. Default: On."
       },
       "de": {
         "title": "Itemnamen zeigen",
-        "summary": "Einstellung visuals.pickupNotifier.pickupShowName. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupShowName. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "summary": "Einstellung visuals.pickupNotifier.pickupShowName. Zeigt den Itemnamen in der Zeile. Standard: Ein."
       }
     },
     {
@@ -1295,17 +925,11 @@
       ],
       "en": {
         "title": "Show item count",
-        "summary": "Setting visuals.pickupNotifier.pickupShowCount. Displays the item count in the pickup notifier. Default: true.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupShowCount. Displays the item count in the pickup notifier. Default: true."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupShowCount. Shows the picked-up count in the row. Default: On."
       },
       "de": {
         "title": "Itemanzahl zeigen",
-        "summary": "Einstellung visuals.pickupNotifier.pickupShowCount. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupShowCount. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "summary": "Einstellung visuals.pickupNotifier.pickupShowCount. Zeigt die aufgesammelte Anzahl in der Zeile. Standard: Ein."
       }
     },
     {
@@ -1315,17 +939,11 @@
       ],
       "en": {
         "title": "Use rarity color",
-        "summary": "Setting visuals.pickupNotifier.pickupUseRarityColor. Colors the item name based on its rarity. Default: true.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupUseRarityColor. Colors the item name based on its rarity. Default: true."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupUseRarityColor. Colors the item name by its rarity (experience in green). Default: On."
       },
       "de": {
         "title": "Seltenheitsfarbe verwenden",
-        "summary": "Einstellung visuals.pickupNotifier.pickupUseRarityColor. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupUseRarityColor. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "summary": "Einstellung visuals.pickupNotifier.pickupUseRarityColor. Färbt den Itemnamen nach seiner Seltenheit (Erfahrung grün). Standard: Ein."
       }
     },
     {
@@ -1335,17 +953,11 @@
       ],
       "en": {
         "title": "Vanilla background style",
-        "summary": "Setting visuals.pickupNotifier.pickupVanillaStyle. Uses the vanilla Minecraft style for the pickup notifier. Default: true.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupVanillaStyle. Uses the vanilla Minecraft style for the pickup notifier. Default: true."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupVanillaStyle. Lighter background, half as dark; off gives a darker one. Default: On."
       },
       "de": {
         "title": "Vanilla-Hintergrundstil",
-        "summary": "Einstellung visuals.pickupNotifier.pickupVanillaStyle. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupVanillaStyle. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: true."
-        ]
+        "summary": "Einstellung visuals.pickupNotifier.pickupVanillaStyle. Hellerer Hintergrund, halb so dunkel; aus ergibt einen dunkleren. Standard: Ein."
       }
     },
     {
@@ -1355,17 +967,11 @@
       ],
       "en": {
         "title": "Background Opacity",
-        "summary": "Setting visuals.pickupNotifier.pickupBackgroundOpacity. Opacity of the pickup notifier background (0.0 - 1.0). Default: 1.0.",
-        "details": [
-          "Setting visuals.pickupNotifier.pickupBackgroundOpacity. Opacity of the pickup notifier background (0.0 - 1.0). Default: 1.0."
-        ]
+        "summary": "Setting visuals.pickupNotifier.pickupBackgroundOpacity. Opacity of the row background, 0 (none) to 1. Default: 1.0."
       },
       "de": {
-        "title": "Pickup background opacity",
-        "summary": "Einstellung visuals.pickupNotifier.pickupBackgroundOpacity. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0.",
-        "details": [
-          "Einstellung visuals.pickupNotifier.pickupBackgroundOpacity. Lokale optische Einstellung; Änderungen betreffen kein Gameplay. Standard: 1.0."
-        ]
+        "title": "Hintergrund-Deckkraft",
+        "summary": "Einstellung visuals.pickupNotifier.pickupBackgroundOpacity. Deckkraft des Zeilenhintergrunds, 0 (keiner) bis 1. Standard: 1.0."
       }
     },
     {
@@ -1376,17 +982,11 @@
       ],
       "en": {
         "title": "Footstep dust",
-        "summary": "Moving on the ground outside water. Vanilla type minecraft:poof; interval 4 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Moving on the ground outside water. Vanilla type minecraft:poof; interval 4 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Moving on the ground outside water. Vanilla type minecraft:poof; interval 4 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Schrittstaub",
-        "summary": "Bewegung am Boden außerhalb des Wassers. Vanilla-Typ minecraft:poof; Intervall 4 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Bewegung am Boden außerhalb des Wassers. Vanilla-Typ minecraft:poof; Intervall 4 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Bewegung am Boden außerhalb des Wassers. Vanilla-Typ minecraft:poof; Intervall 4 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1397,17 +997,11 @@
       ],
       "en": {
         "title": "Cold breath",
-        "summary": "Breath outside water in biomes cold enough for snow. Vanilla type minecraft:white_smoke; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Breath outside water in biomes cold enough for snow. Vanilla type minecraft:white_smoke; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Breath outside water in biomes cold enough for snow. Vanilla type minecraft:white_smoke; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Kalter Atem",
-        "summary": "Atem außerhalb des Wassers in ausreichend kalten Schneebiomen. Vanilla-Typ minecraft:white_smoke; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Atem außerhalb des Wassers in ausreichend kalten Schneebiomen. Vanilla-Typ minecraft:white_smoke; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Atem außerhalb des Wassers in ausreichend kalten Schneebiomen. Vanilla-Typ minecraft:white_smoke; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1418,17 +1012,11 @@
       ],
       "en": {
         "title": "Fireflies",
-        "summary": "Nighttime above blocks in the Vanilla dirt tag. Vanilla type minecraft:firefly; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Nighttime above blocks in the Vanilla dirt tag. Vanilla type minecraft:firefly; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Nighttime above dirt or grass (also podzol, mycelium). Vanilla type minecraft:firefly; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Glühwürmchen",
-        "summary": "Nachts über Blöcken im Vanilla-Erde-Tag. Vanilla-Typ minecraft:firefly; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Nachts über Blöcken im Vanilla-Erde-Tag. Vanilla-Typ minecraft:firefly; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Nachts über Erde oder Gras (auch Podsol, Myzel). Vanilla-Typ minecraft:firefly; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1439,17 +1027,11 @@
       ],
       "en": {
         "title": "Pollen",
-        "summary": "Daytime beside a flower. Vanilla type minecraft:wax_on; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Daytime beside a flower. Vanilla type minecraft:wax_on; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Daytime beside a flower. Vanilla type minecraft:wax_on; interval 40 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Pollen",
-        "summary": "Tagsüber neben einer Blume. Vanilla-Typ minecraft:wax_on; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Tagsüber neben einer Blume. Vanilla-Typ minecraft:wax_on; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Tagsüber neben einer Blume. Vanilla-Typ minecraft:wax_on; Intervall 40 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1460,17 +1042,11 @@
       ],
       "en": {
         "title": "Fire sparks",
-        "summary": "Adjacent fire, lava or campfire. Vanilla type minecraft:small_flame; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Adjacent fire, lava or campfire. Vanilla type minecraft:small_flame; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Adjacent fire, lava or campfire. Vanilla type minecraft:small_flame; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Feuerfunken",
-        "summary": "Angrenzendes Feuer, Lava oder Lagerfeuer. Vanilla-Typ minecraft:small_flame; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Angrenzendes Feuer, Lava oder Lagerfeuer. Vanilla-Typ minecraft:small_flame; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Angrenzendes Feuer, Lava oder Lagerfeuer. Vanilla-Typ minecraft:small_flame; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1481,17 +1057,11 @@
       ],
       "en": {
         "title": "Water ripples",
-        "summary": "Movement at the water surface. Vanilla type minecraft:splash; interval 8 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Movement at the water surface. Vanilla type minecraft:splash; interval 8 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Movement at the water surface. Vanilla type minecraft:splash; interval 8 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Wasserwellen",
-        "summary": "Bewegung an der Wasseroberfläche. Vanilla-Typ minecraft:splash; Intervall 8 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Bewegung an der Wasseroberfläche. Vanilla-Typ minecraft:splash; Intervall 8 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Bewegung an der Wasseroberfläche. Vanilla-Typ minecraft:splash; Intervall 8 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1502,17 +1072,11 @@
       ],
       "en": {
         "title": "Water droplets",
-        "summary": "Movement in water. Vanilla type minecraft:dripping_water; interval 12 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Movement in water. Vanilla type minecraft:dripping_water; interval 12 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Movement in water. Vanilla type minecraft:dripping_water; interval 12 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Wassertropfen",
-        "summary": "Bewegung im Wasser. Vanilla-Typ minecraft:dripping_water; Intervall 12 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Bewegung im Wasser. Vanilla-Typ minecraft:dripping_water; Intervall 12 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Bewegung im Wasser. Vanilla-Typ minecraft:dripping_water; Intervall 12 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1523,17 +1087,11 @@
       ],
       "en": {
         "title": "Falling leaves",
-        "summary": "Leaves next to a sampled position two blocks above the player. Vanilla type minecraft:cherry_leaves; interval 30 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Leaves next to a sampled position two blocks above the player. Vanilla type minecraft:cherry_leaves; interval 30 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Leaves next to a sampled position two blocks above the player. Vanilla type minecraft:cherry_leaves; interval 30 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Fallende Blätter",
-        "summary": "Blätter neben einer geprüften Position zwei Blöcke über dem Spieler. Vanilla-Typ minecraft:cherry_leaves; Intervall 30 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Blätter neben einer geprüften Position zwei Blöcke über dem Spieler. Vanilla-Typ minecraft:cherry_leaves; Intervall 30 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Blätter neben einer geprüften Position zwei Blöcke über dem Spieler. Vanilla-Typ minecraft:cherry_leaves; Intervall 30 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1544,17 +1102,11 @@
       ],
       "en": {
         "title": "Enchanted item hints",
-        "summary": "Enchanted main-hand or off-hand item. Vanilla type minecraft:enchant; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Enchanted main-hand or off-hand item. Vanilla type minecraft:enchant; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Enchanted main-hand or off-hand item. Vanilla type minecraft:enchant; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Verzauberungsschimmer",
-        "summary": "Verzaubertes Item in Haupt- oder Nebenhand. Vanilla-Typ minecraft:enchant; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Verzaubertes Item in Haupt- oder Nebenhand. Vanilla-Typ minecraft:enchant; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Verzaubertes Item in Haupt- oder Nebenhand. Vanilla-Typ minecraft:enchant; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1565,17 +1117,11 @@
       ],
       "en": {
         "title": "Beacon aura",
-        "summary": "Adjacent beacon. Vanilla type minecraft:end_rod; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Adjacent beacon. Vanilla type minecraft:end_rod; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Adjacent beacon. Vanilla type minecraft:end_rod; interval 20 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Leuchtfeueraura",
-        "summary": "Angrenzendes Leuchtfeuer. Vanilla-Typ minecraft:end_rod; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Angrenzendes Leuchtfeuer. Vanilla-Typ minecraft:end_rod; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Angrenzendes Leuchtfeuer. Vanilla-Typ minecraft:end_rod; Intervall 20 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1586,17 +1132,11 @@
       ],
       "en": {
         "title": "Damage feedback",
-        "summary": "Observed decrease in nearby entity health. Vanilla type minecraft:damage_indicator; interval 1 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Observed decrease in nearby entity health. Vanilla type minecraft:damage_indicator; interval 1 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Observed decrease in nearby entity health. Vanilla type minecraft:damage_indicator; every tick. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Schadensrückmeldung",
-        "summary": "Beobachteter Lebensverlust eines nahen Lebewesens. Vanilla-Typ minecraft:damage_indicator; Intervall 1 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Beobachteter Lebensverlust eines nahen Lebewesens. Vanilla-Typ minecraft:damage_indicator; Intervall 1 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Beobachteter Lebensverlust eines nahen Lebewesens. Vanilla-Typ minecraft:damage_indicator; jeden Tick. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1607,17 +1147,11 @@
       ],
       "en": {
         "title": "Healing feedback",
-        "summary": "Observed increase in nearby entity health. Vanilla type minecraft:heart; interval 1 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps.",
-        "details": [
-          "Observed increase in nearby entity health. Vanilla type minecraft:heart; interval 1 ticks. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
-        ]
+        "summary": "Observed increase in nearby entity health. Vanilla type minecraft:heart; every tick. Levels: Off, Subtle, Normal, Strong, Maximum; override inherits global Subtle by default. Counts per opportunity 0/1/2/3/4, subject to shared caps."
       },
       "de": {
         "title": "Heilungsrückmeldung",
-        "summary": "Beobachteter Lebensgewinn eines nahen Lebewesens. Vanilla-Typ minecraft:heart; Intervall 1 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen.",
-        "details": [
-          "Beobachteter Lebensgewinn eines nahen Lebewesens. Vanilla-Typ minecraft:heart; Intervall 1 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
-        ]
+        "summary": "Beobachteter Lebensgewinn eines nahen Lebewesens. Vanilla-Typ minecraft:heart; jeden Tick. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
       }
     },
     {
@@ -1677,7 +1211,7 @@
       "name": "particles.globalLevel",
       "shortName": "globalLevel",
       "type": "Intensity",
-      "default": "SUBTLE",
+      "default": "Subtle",
       "note": null,
       "category": "particles",
       "categoryDe": "particles",
@@ -1685,8 +1219,8 @@
       "groupDe": null,
       "label": "Global particle level",
       "labelDe": "Globale Partikelstufe",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: SUBTLE.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: SUBTLE."
+      "tooltip": "Particle amount for every effect left on Global\nlevel in the effect tabs (Movement, Nature,\nWater and the others). Vanilla's particle\nsetting Minimal turns them off. Looks only, no\neffect on gameplay. Default: Subtle.",
+      "tooltipDe": "Partikelmenge aller Effekte, die in den\nEffekt-Reitern (Bewegung, Natur, Wasser und die\nübrigen) auf Globale Stufe stehen. Die\nVanilla-Partikeleinstellung Minimal schaltet sie\naus. Nur Optik, ohne Einfluss aufs Spiel.\nStandard: Dezent."
     },
     {
       "range": null,
@@ -1696,7 +1230,7 @@
       "name": "visuals.allowAnvilObfuscation",
       "shortName": "allowAnvilObfuscation",
       "type": null,
-      "default": "false",
+      "default": "Off",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -1704,8 +1238,8 @@
       "groupDe": null,
       "label": "Allow obfuscated text (&k)",
       "labelDe": "Zauberschrift erlauben (&k)",
-      "tooltip": "Server policy (permission 2): allows the\nunreadable obfuscated style &k in anvil\nnames. Off keeps &k locked and drops it from\nthe name; other codes stay. Default: false.",
-      "tooltipDe": "Serverregel (Berechtigung 2): erlaubt die\nunlesbare Zauberschrift &k in Ambossnamen.\nAus sperrt &k und entfernt es aus dem Namen;\nandere Codes bleiben. Standard: false."
+      "tooltip": "Server policy (permission 2): allows the\nunreadable obfuscated style &k in anvil names.\nOff keeps &k locked and drops it from the name;\nother codes stay. Default: Off.",
+      "tooltipDe": "Serverregel (Berechtigung 2): erlaubt die\nunlesbare Zauberschrift &k in Ambossnamen. Aus\nsperrt &k und entfernt es aus dem Namen; andere\nCodes bleiben. Standard: Aus."
     },
     {
       "range": null,
@@ -1723,8 +1257,8 @@
       "groupDe": "visuals.biomeInfo",
       "label": "Cooldown seconds",
       "labelDe": "Abklingzeit (Sekunden)",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: 60.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 60."
+      "tooltip": "After you leave a biome, its name is not shown\nagain for this many seconds, 0 to 3600. Default:\n60.",
+      "tooltipDe": "Nach dem Verlassen eines Bioms erscheint sein\nName so viele Sekunden lang nicht erneut, 0 bis\n3600. Standard: 60."
     },
     {
       "range": null,
@@ -1740,10 +1274,10 @@
       "categoryDe": "visuals",
       "group": "visuals.biomeInfo",
       "groupDe": "visuals.biomeInfo",
-      "label": "Display duration",
-      "labelDe": "Anzeigedauer",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: 60.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 60."
+      "label": "Display duration (ticks)",
+      "labelDe": "Anzeigedauer (Ticks)",
+      "tooltip": "How long the biome name stays, in ticks (20 = 1\nsecond), 20 to 600. Default: 60.",
+      "tooltipDe": "Wie lange der Biomname bleibt, in Ticks (20 = 1\nSekunde), 20 bis 600. Standard: 60."
     },
     {
       "range": null,
@@ -1753,7 +1287,7 @@
       "name": "visuals.biomeInfo.enable",
       "shortName": "enable",
       "type": null,
-      "default": "false",
+      "default": "Off",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -1761,8 +1295,8 @@
       "groupDe": "visuals.biomeInfo",
       "label": "Enable",
       "labelDe": "Aktivieren",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: false.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: false."
+      "tooltip": "Shows the biome name at the top of the screen\nwhen you enter another biome. Default: Off.",
+      "tooltipDe": "Zeigt den Biomnamen oben am Bildschirm, wenn du\nein anderes Biom betrittst. Standard: Aus."
     },
     {
       "range": null,
@@ -1780,8 +1314,8 @@
       "groupDe": "visuals.biomeInfo",
       "label": "Y offset",
       "labelDe": "Y-Versatz",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: 50.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 50."
+      "tooltip": "Distance of the biome name from the top of the\nscreen in pixels. Default: 50.",
+      "tooltipDe": "Abstand des Biomnamens vom oberen Bildschirmrand\nin Pixeln. Standard: 50."
     },
     {
       "range": null,
@@ -1791,7 +1325,7 @@
       "name": "visuals.cauldronStand",
       "shortName": "cauldronStand",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -1799,8 +1333,8 @@
       "groupDe": null,
       "label": "Stand under a cauldron on a campfire",
       "labelDe": "Gerüst unter Kessel auf Lagerfeuer",
-      "tooltip": "A cauldron standing on a campfire is drawn\non a small stand in its own color: four\ncorner posts and a frame. Looks only, no\nblock and no collision; takes effect when\nthe chunks are rebuilt (F3+A). Default: true.",
-      "tooltipDe": "Ein Kessel auf einem Lagerfeuer bekommt ein\nkleines Gerüst in Kesselfarbe: vier Eckpfosten\nund ein Rahmen. Nur Optik, kein Block, keine\nKollision; wirkt, sobald die Chunks neu\naufgebaut werden (F3+A). Standard: true."
+      "tooltip": "A cauldron standing on a campfire (also a soul\ncampfire, lit or not) is drawn on a small stand\nin the cauldron's own color: four corner posts\nand a frame. Looks only, no block and no\ncollision; takes effect when the chunks are\nrebuilt (F3+A). Default: On.",
+      "tooltipDe": "Ein Kessel auf einem Lagerfeuer (auch\nSeelenlagerfeuer, an oder aus) bekommt ein\nkleines Gerüst in Kesselfarbe: vier Eckpfosten\nund ein Rahmen. Nur Optik, kein Block, keine\nKollision; wirkt, sobald die Chunks neu\naufgebaut werden (F3+A). Standard: Ein."
     },
     {
       "range": null,
@@ -1810,7 +1344,7 @@
       "name": "visuals.damageIndicators.colorNormal",
       "shortName": "colorNormal",
       "type": null,
-      "default": "16777215",
+      "default": "16777215 (white)",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -1818,8 +1352,8 @@
       "groupDe": "visuals.damageIndicators",
       "label": "Color normal",
       "labelDe": "Farbe normal",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: 16777215.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 16777215."
+      "tooltip": "Color of normal damage numbers as a decimal RGB\nnumber (16711680 = red). Default: 16777215\n(white).",
+      "tooltipDe": "Farbe normaler Schadenszahlen als dezimale\nRGB-Zahl (16711680 = Rot). Standard: 16777215\n(Weiß)."
     },
     {
       "range": null,
@@ -1829,7 +1363,7 @@
       "name": "visuals.damageIndicators.colorSpecial",
       "shortName": "colorSpecial",
       "type": null,
-      "default": "16766720",
+      "default": "16766720 (gold)",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -1837,8 +1371,8 @@
       "groupDe": "visuals.damageIndicators",
       "label": "Color high hit (above 8)",
       "labelDe": "Farbe hoher Treffer (über 8)",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Color for high hits (damage above\n8); not a critical-hit marker. Default:\n16766720.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Farbe für hohe\nTreffer (Schaden über 8); kein Zeichen für\nkritische Treffer. Standard: 16766720."
+      "tooltip": "Color for high hits (damage above 8) as a\ndecimal RGB number; not a critical-hit marker.\nDefault: 16766720 (gold).",
+      "tooltipDe": "Farbe für hohe Treffer (Schaden über 8) als\ndezimale RGB-Zahl; kein Zeichen für kritische\nTreffer. Standard: 16766720 (Gold)."
     },
     {
       "range": null,
@@ -1848,7 +1382,7 @@
       "name": "visuals.damageIndicators.enable",
       "shortName": "enable",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -1856,8 +1390,8 @@
       "groupDe": "visuals.damageIndicators",
       "label": "Enable damage numbers",
       "labelDe": "Schadenszahlen anzeigen",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. On by default; switch damage\nnumbers off here. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standardmäßig an;\nSchadenszahlen hier ausschalten. Standard:\ntrue."
+      "tooltip": "Numbers above nearby visible creatures when they\nlose health (at most 32 at a time). Looks only,\nno effect on gameplay. Default: On.",
+      "tooltipDe": "Zahlen über nahen sichtbaren Lebewesen, wenn sie\nLeben verlieren (höchstens 32 gleichzeitig). Nur\nOptik, ohne Einfluss aufs Spiel. Standard: Ein."
     },
     {
       "range": null,
@@ -1875,8 +1409,8 @@
       "groupDe": "visuals.damageIndicators",
       "label": "Scale",
       "labelDe": "Größe",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: 1.0.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 1.0."
+      "tooltip": "Size of the damage numbers, 0.5 to 2. Default:\n1.0.",
+      "tooltipDe": "Größe der Schadenszahlen, 0,5 bis 2. Standard:\n1.0."
     },
     {
       "range": null,
@@ -1886,16 +1420,16 @@
       "name": "visuals.damageIndicators.showBorder",
       "shortName": "showBorder",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
       "group": "visuals.damageIndicators",
       "groupDe": "visuals.damageIndicators",
-      "label": "Show border",
-      "labelDe": "Rand zeigen",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "label": "Text shadow",
+      "labelDe": "Textschatten",
+      "tooltip": "Draws the damage numbers with a dark shadow so\nthey stay readable on bright ground. Default:\nOn.",
+      "tooltipDe": "Zeichnet die Schadenszahlen mit dunklem\nSchatten, damit sie auf hellem Grund lesbar\nbleiben. Standard: Ein."
     },
     {
       "range": null,
@@ -1905,7 +1439,7 @@
       "name": "visuals.deathCoordsMode",
       "shortName": "deathCoordsMode",
       "type": null,
-      "default": "SEPARATE",
+      "default": "Separate local line",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -1913,8 +1447,8 @@
       "groupDe": null,
       "label": "Own death coordinates",
       "labelDe": "Eigene Todeskoordinaten",
-      "tooltip": "Only your own death coordinates, entirely\nlocal. Default: SEPARATE.",
-      "tooltipDe": "Nur eigene Todeskoordinaten, ausschließlich\nlokal. Standard: SEPARATE."
+      "tooltip": "Off, appended to the message, or a separate\nline. Only your own death, entirely local; other\nplayers' positions are never shown. Default:\nSeparate local line.",
+      "tooltipDe": "Aus, an die Nachricht angehängt oder als eigene\nZeile. Nur der eigene Tod, ausschließlich lokal;\nfremde Positionen werden nie gezeigt. Standard:\nSeparate lokale Zeile."
     },
     {
       "range": null,
@@ -1932,8 +1466,8 @@
       "groupDe": null,
       "label": "Pitch Tolerance",
       "labelDe": "Toleranz",
-      "tooltip": "Acceptable deviation from target angles for\noptimal Elytra flight. Default: 10.0.",
-      "tooltipDe": "Akzeptable Abweichung vom Zielwinkel.\nStandard: 10.0."
+      "tooltip": "Up to how many degrees away from a target angle\nthe line is still shown, 0 to 45. Default: 10.0.",
+      "tooltipDe": "Bis zu wie vielen Grad Abstand vom Zielwinkel\ndie Linie noch erscheint, 0 bis 45. Standard:\n10.0."
     },
     {
       "range": null,
@@ -1951,8 +1485,8 @@
       "groupDe": null,
       "label": "Guide Sensitivity",
       "labelDe": "Empfindlichkeit",
-      "tooltip": "Responsiveness of the pitch guide lines.\nDefault: 4.0.",
-      "tooltipDe": "Reaktionsstärke der Hilfslinien. Standard:\n4.0."
+      "tooltip": "How far the line moves per degree of difference,\n0 to 10. Default: 4.0.",
+      "tooltipDe": "Wie weit sich die Linie je Grad Abweichung\nverschiebt, 0 bis 10. Standard: 4.0."
     },
     {
       "range": null,
@@ -1970,8 +1504,8 @@
       "groupDe": null,
       "label": "Target Angle Down",
       "labelDe": "Zielwinkel Unten",
-      "tooltip": "Optimal downward pitch angle for Elytra\nflight. Default: 40.0.",
-      "tooltipDe": "Optimaler Sinkwinkel. Standard: 40.0."
+      "tooltip": "Downward target pitch in degrees, -90 to 90.\nDefault: 40.0.",
+      "tooltipDe": "Ziel-Neigung nach unten in Grad, -90 bis 90.\nStandard: 40.0."
     },
     {
       "range": null,
@@ -1989,8 +1523,8 @@
       "groupDe": null,
       "label": "Target Angle Up",
       "labelDe": "Zielwinkel Oben",
-      "tooltip": "Optimal upward pitch angle for Elytra flight.\nDefault: -40.0.",
-      "tooltipDe": "Optimaler Steigwinkel. Standard: -40.0."
+      "tooltip": "Upward target pitch in degrees (negative = nose\nup), -90 to 90. Default: -40.0.",
+      "tooltipDe": "Ziel-Neigung nach oben in Grad (negativ = Nase\nhoch), -90 bis 90. Standard: -40.0."
     },
     {
       "range": null,
@@ -2000,7 +1534,7 @@
       "name": "visuals.enableAnvilFormatting",
       "shortName": "enableAnvilFormatting",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2008,8 +1542,8 @@
       "groupDe": null,
       "label": "Enable Anvil Formatting codes",
       "labelDe": "Amboss-Formatierungscodes (&)",
-      "tooltip": "The server policy decides; Vanilla costs\nremain. Allows using '&' as a formatting code\nin anvils (e.g., &c for red). The obfuscated\nstyle &k has its own lock\n(allowAnvilObfuscation). Default: true.",
-      "tooltipDe": "Serverregel entscheidet; Vanilla-Kosten\nbleiben erhalten. Erlaubt die Nutzung von '&'\nfür Farben im Amboss (z.B. &c für Rot). Die\nZauberschrift &k hat eine eigene Sperre\n(allowAnvilObfuscation). Standard: true."
+      "tooltip": "The server policy decides; Vanilla costs remain.\nAllows '&' as a formatting code in anvil names\n(for example &c for red). The obfuscated style\n&k has its own lock (allowAnvilObfuscation).\nDefault: On.",
+      "tooltipDe": "Die Serverregel entscheidet; Vanilla-Kosten\nbleiben. Erlaubt '&' als Formatierungscode in\nAmbossnamen (zum Beispiel &c für Rot). Die\nZauberschrift &k hat eine eigene Sperre\n(allowAnvilObfuscation). Standard: Ein."
     },
     {
       "range": null,
@@ -2019,7 +1553,7 @@
       "name": "visuals.enableChatHeads",
       "shortName": "enableChatHeads",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2027,8 +1561,8 @@
       "groupDe": null,
       "label": "Chat Heads",
       "labelDe": "Chat-Köpfe",
-      "tooltip": "Displays the player's head next to their chat\nmessages. Default: true.",
-      "tooltipDe": "Zeigt den Kopf des Spielers im Chat.\nStandard: true."
+      "tooltip": "Shows the sender's head beside player chat\nmessages, in the right margin of the chat.\nDefault: On.",
+      "tooltipDe": "Zeigt den Kopf des Absenders neben\nSpieler-Chatnachrichten, am rechten Rand des\nChats. Standard: Ein."
     },
     {
       "range": null,
@@ -2038,7 +1572,7 @@
       "name": "visuals.enableElytraPitchHelper",
       "shortName": "enableElytraPitchHelper",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2046,8 +1580,8 @@
       "groupDe": null,
       "label": "Elytra Pitch Helper",
       "labelDe": "Elytra-Neigungshilfe",
-      "tooltip": "Shows guide lines for perfect pitch while\ngliding. Default: true.",
-      "tooltipDe": "Zeigt Hilfslinien für optimales Gleiten.\nStandard: true."
+      "tooltip": "While gliding, a line appears as soon as your\npitch is close to one of the two target angles.\nDoes not change the flight. Default: On.",
+      "tooltipDe": "Beim Gleiten erscheint eine Linie, sobald deine\nNeigung nahe an einem der zwei Zielwinkel liegt.\nVerändert den Flug nicht. Standard: Ein."
     },
     {
       "range": null,
@@ -2057,7 +1591,7 @@
       "name": "visuals.enableMapTooltips",
       "shortName": "enableMapTooltips",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2065,8 +1599,8 @@
       "groupDe": null,
       "label": "Map Tooltips",
       "labelDe": "Karten-Tooltips",
-      "tooltip": "Shows coordinates and biome info when\nhovering over maps in the inventory. Default:\ntrue.",
-      "tooltipDe": "Zeigt Koordinaten beim Hovern über Karten.\nStandard: true."
+      "tooltip": "Hovering over a filled map shows a 128-pixel\npreview, its center coordinates and the\ndimension. Default: On.",
+      "tooltipDe": "Beim Zeigen auf eine Karte erscheinen eine\n128-Pixel-Vorschau, ihr Mittelpunkt und die\nDimension. Standard: Ein."
     },
     {
       "range": null,
@@ -2076,7 +1610,7 @@
       "name": "visuals.enablePlayerLocator",
       "shortName": "enablePlayerLocator",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2084,8 +1618,8 @@
       "groupDe": null,
       "label": "Player Locator",
       "labelDe": "Spieler-Ortung",
-      "tooltip": "Player heads for Vanilla waypoints; server\nvisibility and bar priority remain. Default:\ntrue.",
-      "tooltipDe": "Spielerköpfe für Vanilla-Wegpunkte;\nServer-Sichtbarkeit und Leistenpriorität\nbleiben erhalten. Standard: true."
+      "tooltip": "Player heads for Vanilla waypoints in the\nlocator bar; server visibility and bar priority\nremain. Default: On.",
+      "tooltipDe": "Spielerköpfe für Vanilla-Wegpunkte in der\nOrtungsleiste; Server-Sichtbarkeit und\nLeistenpriorität bleiben erhalten. Standard:\nEin."
     },
     {
       "range": null,
@@ -2095,7 +1629,7 @@
       "name": "visuals.enableRenamedItemTextures",
       "shortName": "enableRenamedItemTextures",
       "type": null,
-      "default": "false",
+      "default": "Off",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2103,8 +1637,8 @@
       "groupDe": null,
       "label": "Renamed item model compatibility",
       "labelDe": "Modellkompatibilität umbenannter Items",
-      "tooltip": "Compatibility; automatically disabled with\nSimple Models. Enables custom textures for\nrenamed items based on the files in the\nconfig folder. §cRequires a game restart to\ntake effect! Default: false.",
-      "tooltipDe": "Kompatibilität; bei Simple Models automatisch\ndeaktiviert. Aktiviert eigene Texturen für\numbenannte Items basierend auf dem\nConfig-Ordner. §cErfordert einen Neustart des\nSpiels, um wirksam zu werden! Standard:\nfalse."
+      "tooltip": "Compatibility; automatically disabled with\nSimple Models. Enables custom textures for\nrenamed items based on the files in the config\nfolder. §cRequires a game restart to take\neffect! Default: Off.",
+      "tooltipDe": "Kompatibilität; bei Simple Models automatisch\ndeaktiviert. Aktiviert eigene Texturen für\numbenannte Items anhand der Dateien im\nConfig-Ordner. §cErfordert einen Neustart des\nSpiels, um wirksam zu werden! Standard: Aus."
     },
     {
       "range": null,
@@ -2114,7 +1648,7 @@
       "name": "visuals.enableStatusEffectBars",
       "shortName": "enableStatusEffectBars",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2122,8 +1656,8 @@
       "groupDe": null,
       "label": "Status Effect Bars",
       "labelDe": "Statuseffekt-Balken",
-      "tooltip": "Shows a duration bar under status effect\nicons. Default: true.",
-      "tooltipDe": "Zeigt Dauerbalken unter Effekt-Icons.\nStandard: true."
+      "tooltip": "Shows a bar with the remaining duration under\nstatus effect icons (HUD and inventory). Effects\nwithout an end have no bar. Default: On.",
+      "tooltipDe": "Zeigt unter den Effekt-Symbolen (HUD und\nInventar) einen Balken mit der Restdauer.\nEffekte ohne Ende haben keinen Balken. Standard:\nEin."
     },
     {
       "range": null,
@@ -2133,7 +1667,7 @@
       "name": "visuals.enableTiltedFrameItems",
       "shortName": "enableTiltedFrameItems",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2141,8 +1675,8 @@
       "groupDe": null,
       "label": "Flat blocks and panes in item frames from above",
       "labelDe": "Flache Blöcke und Scheiben im Rahmen von oben",
-      "tooltip": "Pressure plates, carpets, trapdoors, glass panes\nand bars lie flat in item frames as a 3D model\nseen from above. Sneak with a chisel on the\nframe to tilt it in 15° steps up to 90° and\nback (saved per frame). Default: true.",
-      "tooltipDe": "Druckplatten, Teppiche, Falltüren, Glasscheiben\nund Gitter liegen im Rahmen flach als 3D-Modell,\nvon oben gesehen. Schleichen mit einem Meißel\nauf den Rahmen kippt sie in 15°-Stufen bis 90°\nund zurück (je Rahmen gespeichert). Standard: true."
+      "tooltip": "Pressure plates, carpets, trapdoors, glass panes\nand bars lie flat in item frames as a 3D model\nseen from above, instead of a thin strip or a\nflat icon. Sneak with a chisel on the frame to\ntilt it in 15° steps up to 90° and back (saved\nper frame). Default: On.",
+      "tooltipDe": "Druckplatten, Teppiche, Falltüren, Glasscheiben\nund Gitter liegen im Rahmen flach als 3D-Modell,\nvon oben gesehen, statt als dünner Strich oder\nflaches Symbol. Schleichen mit einem Meißel auf\nden Rahmen kippt sie in 15°-Stufen bis 90° und\nzurück (je Rahmen gespeichert). Standard: Ein."
     },
     {
       "range": null,
@@ -2152,7 +1686,7 @@
       "name": "visuals.enhanceDeathMessages",
       "shortName": "enhanceDeathMessages",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2160,8 +1694,8 @@
       "groupDe": null,
       "label": "Enhance own death messages",
       "labelDe": "Eigene Todesnachrichten ergänzen",
-      "tooltip": "Appends coordinates [x, y, z] to chat death\nmessages if the player is in render distance.\nDefault: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Adds your position to your own death message in\nyour chat. Only you see it; the form is set\nunder Own death coordinates. Default: On.",
+      "tooltipDe": "Ergänzt deine eigene Todesnachricht in deinem\nChat um deine Position. Nur du siehst sie; die\nForm steht unter Eigene Todeskoordinaten.\nStandard: Ein."
     },
     {
       "range": null,
@@ -2171,7 +1705,7 @@
       "name": "visuals.heldItemTooltips.enable",
       "shortName": "enable",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2179,8 +1713,8 @@
       "groupDe": "visuals.heldItemTooltips",
       "label": "Enable Held Item Tooltips",
       "labelDe": "Tooltips des gehaltenen Items aktivieren",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Durability and enchantments appear under the\nitem name that shows when you switch items.\nDefault: On.",
+      "tooltipDe": "Haltbarkeit und Verzauberungen erscheinen unter\ndem Itemnamen, der beim Wechseln des Items\neingeblendet wird. Standard: Ein."
     },
     {
       "range": null,
@@ -2198,8 +1732,8 @@
       "groupDe": "visuals.heldItemTooltips",
       "label": "Max Enchantments to Show",
       "labelDe": "Höchstens gezeigte Verzauberungen",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: 3.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 3."
+      "tooltip": "Enchantment lines shown at most, 0 to 8; the\nrest is counted as '… and N more'. Default: 3.",
+      "tooltipDe": "Höchstens gezeigte Verzauberungszeilen, 0 bis 8;\nder Rest erscheint als „… und N weitere“.\nStandard: 3."
     },
     {
       "range": null,
@@ -2209,7 +1743,7 @@
       "name": "visuals.heldItemTooltips.showDurability",
       "shortName": "showDurability",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2217,8 +1751,8 @@
       "groupDe": "visuals.heldItemTooltips",
       "label": "Show Durability",
       "labelDe": "Haltbarkeit zeigen",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Shows the durability (left / maximum) of items\nthat wear out. Default: On.",
+      "tooltipDe": "Zeigt die Haltbarkeit (übrig / maximal) von\nItems, die sich abnutzen. Standard: Ein."
     },
     {
       "range": null,
@@ -2228,7 +1762,7 @@
       "name": "visuals.heldItemTooltips.showEnchantments",
       "shortName": "showEnchantments",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2236,8 +1770,8 @@
       "groupDe": "visuals.heldItemTooltips",
       "label": "Show Enchantments",
       "labelDe": "Verzauberungen zeigen",
-      "tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Lists the enchantments of the held item.\nDefault: On.",
+      "tooltipDe": "Listet die Verzauberungen des gehaltenen Items\nauf. Standard: Ein."
     },
     {
       "range": null,
@@ -2247,7 +1781,7 @@
       "name": "visuals.pickupNotifier.enablePickupNotifier",
       "shortName": "enablePickupNotifier",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2255,8 +1789,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Enable Pickup Notifier",
       "labelDe": "Aufsammel-Anzeige aktivieren",
-      "tooltip": "Displays a notifier on screen when picking up\nitems or XP. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "A short row for every item or experience you\npick up (up to eight rows at a time). Default:\nOn.",
+      "tooltipDe": "Eine kurze Zeile für jedes aufgesammelte Item\nund jede Erfahrung (bis zu acht Zeilen\ngleichzeitig). Standard: Ein."
     },
     {
       "range": null,
@@ -2274,8 +1808,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Background Opacity",
       "labelDe": "Hintergrund-Deckkraft",
-      "tooltip": "Opacity of the pickup notifier background\n(0.0 - 1.0). Default: 1.0.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 1.0."
+      "tooltip": "Opacity of the row background, 0 (none) to 1.\nDefault: 1.0.",
+      "tooltipDe": "Deckkraft des Zeilenhintergrunds, 0 (keiner) bis\n1. Standard: 1.0."
     },
     {
       "range": null,
@@ -2291,10 +1825,10 @@
       "categoryDe": "visuals",
       "group": "visuals.pickupNotifier",
       "groupDe": "visuals.pickupNotifier",
-      "label": "Display Duration",
-      "labelDe": "Anzeigedauer",
-      "tooltip": "Duration (in seconds) the pickup notifier\nremains visible. Default: 120.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 120."
+      "label": "Display Duration (ticks)",
+      "labelDe": "Anzeigedauer (Ticks)",
+      "tooltip": "How long a row stays, in ticks (20 = 1 second),\n20 to 600. Default: 120.",
+      "tooltipDe": "Wie lange eine Zeile bleibt, in Ticks (20 = 1\nSekunde), 20 bis 600. Standard: 120."
     },
     {
       "range": null,
@@ -2304,7 +1838,7 @@
       "name": "visuals.pickupNotifier.pickupNotifierLayout",
       "shortName": "pickupNotifierLayout",
       "type": null,
-      "default": "COUNT_ICON_NAME",
+      "default": "Count, icon, name",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2312,8 +1846,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Content Layout",
       "labelDe": "Inhaltsanordnung",
-      "tooltip": "Layout of the pickup notifier content\n(Horizontal or Vertical). Default:\nCOUNT_ICON_NAME.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard:\nCOUNT_ICON_NAME."
+      "tooltip": "Order of count, icon and name in a row. Default:\nCount, icon, name.",
+      "tooltipDe": "Reihenfolge von Anzahl, Symbol und Name in einer\nZeile. Standard: Anzahl, Symbol, Name."
     },
     {
       "range": null,
@@ -2331,8 +1865,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Offset X",
       "labelDe": "Versatz X",
-      "tooltip": "Horizontal offset of the pickup notifier on\nthe screen. Default: 10.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 10."
+      "tooltip": "Distance of the rows from the chosen screen side\nin pixels. Default: 10.",
+      "tooltipDe": "Abstand der Zeilen von der gewählten\nBildschirmseite in Pixeln. Standard: 10."
     },
     {
       "range": null,
@@ -2350,8 +1884,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Offset Y",
       "labelDe": "Versatz Y",
-      "tooltip": "Vertical offset of the pickup notifier on the\nscreen. Default: 10.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 10."
+      "tooltip": "Distance of the rows from the bottom of the\nscreen in pixels. Default: 10.",
+      "tooltipDe": "Abstand der Zeilen vom unteren Bildschirmrand in\nPixeln. Standard: 10."
     },
     {
       "range": null,
@@ -2369,8 +1903,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Scale",
       "labelDe": "Größe",
-      "tooltip": "Scale of the pickup notifier display.\nDefault: 1.0.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 1.0."
+      "tooltip": "Size of the rows, 0.5 to 2. Default: 1.0.",
+      "tooltipDe": "Größe der Zeilen, 0,5 bis 2. Standard: 1.0."
     },
     {
       "range": null,
@@ -2380,7 +1914,7 @@
       "name": "visuals.pickupNotifier.pickupNotifierShowXp",
       "shortName": "pickupNotifierShowXp",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2388,8 +1922,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Show XP",
       "labelDe": "EP zeigen",
-      "tooltip": "If enabled, the pickup notifier will also\ndisplay XP pickups. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Also shows picked-up experience. Default: On.",
+      "tooltipDe": "Zeigt auch aufgesammelte Erfahrung. Standard:\nEin."
     },
     {
       "range": null,
@@ -2399,7 +1933,7 @@
       "name": "visuals.pickupNotifier.pickupNotifierSide",
       "shortName": "pickupNotifierSide",
       "type": null,
-      "default": "RIGHT",
+      "default": "Right",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2407,8 +1941,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Screen Side",
       "labelDe": "Bildschirmseite",
-      "tooltip": "Side of the screen where the pickup notifier\nappears (Left or Right). Default: RIGHT.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: RIGHT."
+      "tooltip": "Screen side of the rows. Default: Right.",
+      "tooltipDe": "Bildschirmseite der Zeilen. Standard: Rechts."
     },
     {
       "range": null,
@@ -2418,7 +1952,7 @@
       "name": "visuals.pickupNotifier.pickupShowCount",
       "shortName": "pickupShowCount",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2426,8 +1960,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Show item count",
       "labelDe": "Itemanzahl zeigen",
-      "tooltip": "Displays the item count in the pickup\nnotifier. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Shows the picked-up count in the row. Default:\nOn.",
+      "tooltipDe": "Zeigt die aufgesammelte Anzahl in der Zeile.\nStandard: Ein."
     },
     {
       "range": null,
@@ -2437,7 +1971,7 @@
       "name": "visuals.pickupNotifier.pickupShowItem",
       "shortName": "pickupShowItem",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2445,8 +1979,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Show item icon",
       "labelDe": "Itemsymbol zeigen",
-      "tooltip": "Displays the item icon in the pickup\nnotifier. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Shows the item icon in the row. Default: On.",
+      "tooltipDe": "Zeigt das Itemsymbol in der Zeile. Standard:\nEin."
     },
     {
       "range": null,
@@ -2456,7 +1990,7 @@
       "name": "visuals.pickupNotifier.pickupShowName",
       "shortName": "pickupShowName",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2464,8 +1998,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Show item name",
       "labelDe": "Itemnamen zeigen",
-      "tooltip": "Displays the item name in the pickup\nnotifier. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Shows the item name in the row. Default: On.",
+      "tooltipDe": "Zeigt den Itemnamen in der Zeile. Standard: Ein."
     },
     {
       "range": null,
@@ -2475,7 +2009,7 @@
       "name": "visuals.pickupNotifier.pickupUseRarityColor",
       "shortName": "pickupUseRarityColor",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2483,8 +2017,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Use rarity color",
       "labelDe": "Seltenheitsfarbe verwenden",
-      "tooltip": "Colors the item name based on its rarity.\nDefault: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Colors the item name by its rarity (experience\nin green). Default: On.",
+      "tooltipDe": "Färbt den Itemnamen nach seiner Seltenheit\n(Erfahrung grün). Standard: Ein."
     },
     {
       "range": null,
@@ -2494,7 +2028,7 @@
       "name": "visuals.pickupNotifier.pickupVanillaStyle",
       "shortName": "pickupVanillaStyle",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2502,8 +2036,8 @@
       "groupDe": "visuals.pickupNotifier",
       "label": "Vanilla background style",
       "labelDe": "Vanilla-Hintergrundstil",
-      "tooltip": "Uses the vanilla Minecraft style for the\npickup notifier. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Lighter background, half as dark; off gives a\ndarker one. Default: On.",
+      "tooltipDe": "Hellerer Hintergrund, halb so dunkel; aus ergibt\neinen dunkleren. Standard: Ein."
     },
     {
       "range": null,
@@ -2513,7 +2047,7 @@
       "name": "visuals.speedLines.enableSpeedLines",
       "shortName": "enableSpeedLines",
       "type": null,
-      "default": "true",
+      "default": "On",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
@@ -2521,8 +2055,8 @@
       "groupDe": "visuals.speedLines",
       "label": "Enable Speed Lines",
       "labelDe": "Geschwindigkeitslinien aktivieren",
-      "tooltip": "Displays speed lines when moving fast with\nelytra. Default: true.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: true."
+      "tooltip": "Lines around the screen when you move fast or\nspeed up suddenly (walking, riding or gliding);\nfirst-person view only. Default: On.",
+      "tooltipDe": "Linien rund um den Bildschirm, wenn du schnell\nbist oder plötzlich beschleunigst (zu Fuß,\nreitend oder gleitend); nur in der Egoansicht.\nStandard: Ein."
     },
     {
       "range": null,
@@ -2538,10 +2072,10 @@
       "categoryDe": "visuals",
       "group": "visuals.speedLines",
       "groupDe": "visuals.speedLines",
-      "label": "Speed Lines Transparency",
-      "labelDe": "Linien-Transparenz",
-      "tooltip": "Transparency of the speed lines (0 = fully\ntransparent, 255 = fully opaque). Default:\n0.7.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 0.7."
+      "label": "Speed Lines Opacity",
+      "labelDe": "Linien-Deckkraft",
+      "tooltip": "Opacity of the speed lines, 0 (invisible) to 1\n(strongest). Default: 0.7.",
+      "tooltipDe": "Deckkraft der Geschwindigkeitslinien, 0\n(unsichtbar) bis 1 (am stärksten). Standard:\n0.7."
     },
     {
       "range": null,
@@ -2559,8 +2093,8 @@
       "groupDe": "visuals.speedLines",
       "label": "Speed Lines Amount",
       "labelDe": "Linienanzahl",
-      "tooltip": "Number of speed lines to display. Default:\n1.0.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 1.0."
+      "tooltip": "Multiplier for the number of lines, 0 (none) to\n2 (double); never more than 90 lines. Default:\n1.0.",
+      "tooltipDe": "Faktor für die Zahl der Linien, 0 (keine) bis 2\n(doppelt); nie mehr als 90 Linien. Standard:\n1.0."
     },
     {
       "range": null,
@@ -2570,16 +2104,16 @@
       "name": "visuals.speedLines.speedLinesColor",
       "shortName": "speedLinesColor",
       "type": null,
-      "default": "16777215",
+      "default": "16777215 (white)",
       "note": null,
       "category": "visuals",
       "categoryDe": "visuals",
       "group": "visuals.speedLines",
       "groupDe": "visuals.speedLines",
-      "label": "Speed Lines Color (Hex)",
-      "labelDe": "Linienfarbe (Hex)",
-      "tooltip": "Color of the speed lines in hexadecimal\nformat (e.g., #FF0000 for red). Default:\n16777215.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 16777215."
+      "label": "Speed Lines Color (RGB)",
+      "labelDe": "Linienfarbe (RGB)",
+      "tooltip": "Color of the speed lines as a decimal RGB number\n(16711680 = red). Default: 16777215 (white).",
+      "tooltipDe": "Farbe der Geschwindigkeitslinien als dezimale\nRGB-Zahl (16711680 = Rot). Standard: 16777215\n(Weiß)."
     },
     {
       "range": null,
@@ -2597,8 +2131,8 @@
       "groupDe": "visuals.speedLines",
       "label": "Speed Lines Tunnel Radius",
       "labelDe": "Tunnelradius",
-      "tooltip": "Radius of the speed lines tunnel effect.\nDefault: 0.7.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 0.7."
+      "tooltip": "Size of the free middle as a share of the screen\nheight, 0.2 to 1. Default: 0.7.",
+      "tooltipDe": "Größe der freien Mitte als Anteil der\nBildschirmhöhe, 0,2 bis 1. Standard: 0.7."
     },
     {
       "range": null,
@@ -2616,8 +2150,8 @@
       "groupDe": "visuals.speedLines",
       "label": "Speed Lines Length",
       "labelDe": "Linienlänge",
-      "tooltip": "Length of the speed lines. Default: 4.0.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 4.0."
+      "tooltip": "Length of the lines (1 = 30 pixels), 0 to 4.\nDefault: 4.0.",
+      "tooltipDe": "Länge der Linien (1 = 30 Pixel), 0 bis 4.\nStandard: 4.0."
     },
     {
       "range": null,
@@ -2635,8 +2169,8 @@
       "groupDe": "visuals.speedLines",
       "label": "Speed Lines Animation Speed",
       "labelDe": "Animationsgeschwindigkeit",
-      "tooltip": "Speed of the speed lines animation. Default:\n1.0.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 1.0."
+      "tooltip": "How fast the lines move, 0 (still) to 4.\nDefault: 1.0.",
+      "tooltipDe": "Wie schnell die Linien wandern, 0 (still) bis 4.\nStandard: 1.0."
     },
     {
       "range": null,
@@ -2654,8 +2188,8 @@
       "groupDe": "visuals.speedLines",
       "label": "Speed Lines Width",
       "labelDe": "Linienbreite",
-      "tooltip": "Width of each speed line. Default: 8.0.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 8.0."
+      "tooltip": "Thickness of each line in pixels, at most 8.\nDefault: 8.0.",
+      "tooltipDe": "Dicke jeder Linie in Pixeln, höchstens 8.\nStandard: 8.0."
     },
     {
       "range": null,
@@ -2673,8 +2207,8 @@
       "groupDe": "visuals.speedLines",
       "label": "Speed Lines Speed Threshold",
       "labelDe": "Geschwindigkeitsschwelle",
-      "tooltip": "Minimum speed required to display speed\nlines. Default: 0.6.",
-      "tooltipDe": "Lokale optische Einstellung; Änderungen\nbetreffen kein Gameplay. Standard: 0.6."
+      "tooltip": "Speed in blocks per tick from which the lines\nappear (full speed while gliding, otherwise\nhorizontal), 0.05 to 4. A sudden speed-up shows\nthem too. Default: 0.6.",
+      "tooltipDe": "Tempo in Blöcken pro Tick, ab dem die Linien\nerscheinen (beim Gleiten das volle Tempo, sonst\nwaagerecht), 0,05 bis 4. Plötzliches\nBeschleunigen zeigt sie ebenfalls. Standard:\n0.6."
     }
   ],
   "quests": [],

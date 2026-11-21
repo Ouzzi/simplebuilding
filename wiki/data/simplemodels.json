@@ -107,23 +107,23 @@
         "de": "Mehrspielersicherheit"
       },
       "en": {
-        "summary": "The server owns the catalog and policy. It syncs definitions to clients; clients cannot upload models or select an arbitrary item_model. Default operator-only assignment. Disabling assignment refuses new changes; existing saved cosmetic components remain. No hidden item identity, automatic downloads, arbitrary file paths, or gameplay stats."
+        "summary": "The server owns the catalog and policy. It syncs definitions to clients; clients cannot upload models or select an arbitrary item_model. By default only operators may assign models. Disabling assignment refuses new changes; existing saved cosmetic components remain. No hidden item identity, automatic downloads, arbitrary file paths, or gameplay stats."
       },
       "de": {
-        "summary": "Der Server verwaltet Katalog und Regeln und synchronisiert Definitionen. Clients können keine Modelle hochladen oder beliebige item_model-Werte setzen. Standard: nur Operatoren. Abschalten verweigert neue Änderungen; gespeicherte kosmetische Komponenten bleiben. Keine versteckte Itemidentität, automatischen Downloads, beliebigen Dateipfade oder Spielwerte."
+        "summary": "Der Server verwaltet Katalog und Regeln und synchronisiert Definitionen. Clients können keine Modelle hochladen oder beliebige item_model-Werte setzen. Standardmäßig dürfen nur Operatoren Modelle zuweisen. Abschalten verweigert neue Änderungen; gespeicherte kosmetische Komponenten bleiben. Keine versteckte Itemidentität, automatischen Downloads, beliebigen Dateipfade oder Spielwerte."
       }
     },
     {
       "id": "compatibility",
       "title": {
-        "en": "Legacy renamed Compatibility",
-        "de": "Kompatibilität zu renamed"
+        "en": "Compatibility with the Renamed mod",
+        "de": "Kompatibilität mit der Mod Renamed"
       },
       "en": {
-        "summary": "No item/block/entity/enchantment registries existed in renamed. Definition fields id, base_item, match_name, model, tags, author remain readable; bare ids use the renamed namespace. Optional exact legacy anvil name matching preserves custom names. The old unsafe bracket-hiding/render mixins are replaced by item_model. No new items, blocks, mobs, recipes, loot, advancements, or keybinds are added. Block-item appearances are supported; placed block geometry is not changed."
+        "summary": "Simple Models takes over from the older Renamed mod. Renamed added no items, blocks, entities or enchantments, so worlds need no conversion. Its definition fields id, base_item, match_name, model, tags and author stay readable; ids without a namespace use renamed. The optional Legacy Names setting also accepts the exact old anvil name, and custom names are kept. Simple Models adds no items, blocks, mobs, recipes, loot, advancements or key bindings. Block items can get a model; placed blocks keep their shape."
       },
       "de": {
-        "summary": "renamed hatte keine Item-/Block-/Entity-/Verzauberungsregistrierungen. Die Felder id, base_item, match_name, model, tags, author bleiben lesbar; einfache IDs nutzen renamed. Optional exakte alte Namenszuweisung am Amboss; eigene Namen bleiben erhalten. Unsichere Klammer-/Render-Mixins sind durch item_model ersetzt. Keine neuen Items, Blöcke, Mobs, Rezepte, Beute, Erfolge oder Tasten. Blockitems sind unterstützt; gesetzte Blockgeometrie bleibt unverändert."
+        "summary": "Simple Models löst die ältere Mod Renamed ab. Renamed hatte keine eigenen Items, Blöcke, Entities oder Verzauberungen, Welten brauchen also keine Umstellung. Ihre Definitionsfelder id, base_item, match_name, model, tags und author bleiben lesbar; IDs ohne Namensraum nutzen renamed. Die Option Alte Namenszuweisung erkennt auch den exakten alten Ambossnamen, eigene Namen bleiben erhalten. Simple Models fügt keine Items, Blöcke, Mobs, Rezepte, Beute, Erfolge oder Tastenbelegungen hinzu. Blockitems können ein Modell bekommen; gesetzte Blöcke behalten ihre Form."
       }
     },
     {
@@ -146,10 +146,10 @@
         "de": "Zuweisung erlauben"
       },
       "en": {
-        "summary": "Allow cosmetic model changes at anvils. Default: true."
+        "summary": "Allow cosmetic model changes at anvils. Default: On."
       },
       "de": {
-        "summary": "Kosmetische Modellwechsel am Amboss erlauben. Standard: true."
+        "summary": "Kosmetische Modellwechsel am Amboss erlauben. Standard: Ein."
       }
     },
     {
@@ -159,10 +159,10 @@
         "de": "Nur Operatoren"
       },
       "en": {
-        "summary": "Only operators with game master permission may assign or remove models; in a single-player world its owner always may, cheats or not. Default: true."
+        "summary": "Only operators with game master permission may assign or remove models; in a single-player world its owner always may, cheats or not. Default: On."
       },
       "de": {
-        "summary": "Nur Operatoren mit Spielleiterrechten dürfen Modelle zuweisen oder entfernen; in einer Einzelspielerwelt darf es der Besitzer immer, auch ohne Cheats. Standard: true."
+        "summary": "Nur Operatoren mit Spielleiterrechten dürfen Modelle zuweisen oder entfernen; in einer Einzelspielerwelt darf es der Besitzer immer, auch ohne Cheats. Standard: Ein."
       }
     },
     {
@@ -172,10 +172,10 @@
         "de": "Mod-Items erlauben"
       },
       "en": {
-        "summary": "Allow explicitly approved mod items; gameplay components remain unchanged. Default: false."
+        "summary": "Allow explicitly approved mod items; gameplay components remain unchanged. Default: Off."
       },
       "de": {
-        "summary": "Ausdrücklich freigegebene Mod-Items erlauben; Spielkomponenten bleiben unverändert. Standard: false."
+        "summary": "Ausdrücklich freigegebene Mod-Items erlauben; Spielkomponenten bleiben unverändert. Standard: Aus."
       }
     },
     {
@@ -185,10 +185,10 @@
         "de": "Alte Namenszuweisung"
       },
       "en": {
-        "summary": "Also accept exact match_name text at anvils. No suffix matching or hidden identity. Default: false."
+        "summary": "Also accept exact match_name text at anvils. No suffix matching or hidden identity. Default: Off."
       },
       "de": {
-        "summary": "Auch exakten match_name-Text am Amboss akzeptieren. Keine Suffixsuche oder versteckte Identität. Standard: false."
+        "summary": "Auch exakten match_name-Text am Amboss akzeptieren. Keine Suffixsuche oder versteckte Identität. Standard: Aus."
       }
     },
     {
@@ -237,10 +237,10 @@
         "de": "Eingebaute Beispiele"
       },
       "en": {
-        "summary": "Offer the six example models shipped with Simple Models (stool, lantern, mailbox ...). Default: true."
+        "summary": "Offer the six example models shipped with Simple Models (stool, lantern, mailbox ...). Default: On."
       },
       "de": {
-        "summary": "Die sechs mitgelieferten Beispielmodelle anbieten (Hocker, Laterne, Briefkasten ...). Standard: true."
+        "summary": "Die sechs mitgelieferten Beispielmodelle anbieten (Hocker, Laterne, Briefkasten ...). Standard: Ein."
       }
     },
     {
@@ -309,10 +309,10 @@
           "modules/simplemodels/shared/resources/data/simplemodels/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 34 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 35 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 34 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 35 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplemodels/item/guide_book.png",
@@ -363,8 +363,8 @@
       "groupDe": null,
       "label": "Allow Mod Items",
       "labelDe": "Mod-Items erlauben",
-      "tooltip": "Allow explicitly approved mod items; gameplay\ncomponents remain unchanged. Default: false.",
-      "tooltipDe": "Ausdrücklich freigegebene Mod-Items erlauben;\nSpielkomponenten bleiben unverändert.\nStandard: false."
+      "tooltip": "Allow explicitly approved mod items; gameplay\ncomponents remain unchanged. Default: Off.",
+      "tooltipDe": "Ausdrücklich freigegebene Mod-Items erlauben;\nSpielkomponenten bleiben unverändert.\nStandard: Aus."
     },
     {
       "range": null,
@@ -382,8 +382,8 @@
       "groupDe": null,
       "label": "Built-in Examples",
       "labelDe": "Eingebaute Beispiele",
-      "tooltip": "Offer the six example models shipped with\nSimple Models (stool, lantern, mailbox ...).\nDefault: true.",
-      "tooltipDe": "Die sechs mitgelieferten Beispielmodelle\nanbieten (Hocker, Laterne, Briefkasten ...).\nStandard: true."
+      "tooltip": "Offer the six example models shipped with\nSimple Models (stool, lantern, mailbox ...).\nDefault: On.",
+      "tooltipDe": "Die sechs mitgelieferten Beispielmodelle\nanbieten (Hocker, Laterne, Briefkasten ...).\nStandard: Ein."
     },
     {
       "range": null,
@@ -401,8 +401,8 @@
       "groupDe": null,
       "label": "Enable Assignment",
       "labelDe": "Zuweisung erlauben",
-      "tooltip": "Allow cosmetic model changes at anvils.\nDefault: true.",
-      "tooltipDe": "Kosmetische Modellwechsel am Amboss erlauben.\nStandard: true."
+      "tooltip": "Allow cosmetic model changes at anvils.\nDefault: On.",
+      "tooltipDe": "Kosmetische Modellwechsel am Amboss erlauben.\nStandard: Ein."
     },
     {
       "range": null,
@@ -420,8 +420,8 @@
       "groupDe": null,
       "label": "Legacy Names",
       "labelDe": "Alte Namenszuweisung",
-      "tooltip": "Also accept exact match_name text at anvils.\nNo suffix matching or hidden identity.\nDefault: false.",
-      "tooltipDe": "Auch exakten match_name-Text am Amboss\nakzeptieren. Keine Suffixsuche oder\nversteckte Identität. Standard: false."
+      "tooltip": "Also accept exact match_name text at anvils.\nNo suffix matching or hidden identity.\nDefault: Off.",
+      "tooltipDe": "Auch exakten match_name-Text am Amboss\nakzeptieren. Keine Suffixsuche oder\nversteckte Identität. Standard: Aus."
     },
     {
       "range": null,
@@ -496,8 +496,8 @@
       "groupDe": null,
       "label": "Operators Only",
       "labelDe": "Nur Operatoren",
-      "tooltip": "Only operators with game master permission\nmay assign or remove models (and the owner\nof a single-player world). Default: true.",
-      "tooltipDe": "Nur Operatoren mit Spielleiterrechten dürfen\nModelle zuweisen oder entfernen (und der Besitzer\neiner Einzelspielerwelt). Standard: true."
+      "tooltip": "Only operators with game master permission\nmay assign or remove models (and the owner\nof a single-player world). Default: On.",
+      "tooltipDe": "Nur Operatoren mit Spielleiterrechten dürfen\nModelle zuweisen oder entfernen (und der Besitzer\neiner Einzelspielerwelt). Standard: Ein."
     }
   ],
   "quests": [],
