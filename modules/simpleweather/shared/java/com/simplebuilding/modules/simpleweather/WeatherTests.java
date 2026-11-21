@@ -55,15 +55,28 @@ public final class WeatherTests {
 
     /** The real server hook clears rain and thunder when switched on. */
     public static void weather(GameTestHelper h) {
+        var rules = h.getLevel().getGameRules();
+        var server = h.getLevel().getServer();
         configured(() -> {
-            rain(h);
-            SimpleWeather.CONFIG.disableWeather = true;
-            advance(h);
-            var data = h.getLevel().getWeatherData();
-            h.assertTrue(!data.isRaining() && !data.isThundering(), "server weather hook clears both");
-            var rules = h.getLevel().getGameRules();
-            h.assertTrue(!rules.get(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER), "simpleweather-2: switch sets the Vanilla advance_weather rule");
-            rules.set(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER, true, h.getLevel().getServer());
+            try {
+                rules.set(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER, true, server);
+                rain(h);
+                SimpleWeather.CONFIG.disableWeather = true;
+                advance(h);
+                var data = h.getLevel().getWeatherData();
+                h.assertTrue(!data.isRaining() && !data.isThundering(), "server weather hook clears both");
+                h.assertTrue(!rules.get(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER), "simpleweather-2: switch sets the Vanilla advance_weather rule");
+                // N132: afterwards the rule holds the weather - /weather rain (data raining, a rain time) is not cleared again
+                data.setRaining(true); data.setRainTime(6000);
+                advance(h);
+                advance(h);
+                h.assertTrue(data.isRaining(), "/weather rain still works while disableWeather is on (rule off, no second clearing)");
+            } finally {
+                var data = h.getLevel().getWeatherData();
+                data.setRaining(false); data.setThundering(false); data.setRainTime(0); data.setThunderTime(0);
+                h.getLevel().setRainLevel(0); h.getLevel().setThunderLevel(0);
+                rules.set(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER, true, server);
+            }
         });
         h.succeed();
     }
