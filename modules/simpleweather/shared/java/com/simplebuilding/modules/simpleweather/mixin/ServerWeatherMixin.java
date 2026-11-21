@@ -7,21 +7,23 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** "Disable weather": sets the Vanilla game rule advance_weather=false, clears active rain/thunder and skips the weather cycle. */
+/**
+ * "Disable weather": turns the Vanilla game rule advance_weather off and clears active rain/thunder once. After that Vanilla
+ * holds the weather (the rule is off), so /weather still works; turning the rule back on while the option is on repeats this.
+ */
 @Mixin(ServerLevel.class)
 public class ServerWeatherMixin {
     @Inject(method = "advanceWeatherCycle", at = @At("HEAD"), cancellable = true)
     private void simpleweather$disable(CallbackInfo ci) {
         if (!SimpleWeather.active() || !SimpleWeather.config().disableWeather) return;
         ServerLevel world = (ServerLevel) (Object) this;
-        // simpleweather-2: the switch drives the Vanilla game rule instead of a second weather logic.
+        // simpleweather-2: the switch drives the Vanilla game rule instead of a second weather logic. N132: only on the tick the
+        // rule flips - clearing every tick also swallowed /weather rain, which the handbook promises keeps working.
         var rules = world.getGameRules();
-        if (rules.get(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER)) {
-            rules.set(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER, false, world.getServer());
-        }
-        // Only touch the data when it actually rains: no needless writes or packets.
-        if (world.isRaining() || world.isThundering()) {
-            var weather = world.getWeatherData();
+        if (!rules.get(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER)) return;
+        rules.set(net.minecraft.world.level.gamerules.GameRules.ADVANCE_WEATHER, false, world.getServer());
+        var weather = world.getWeatherData();
+        if (weather.isRaining() || weather.isThundering() || world.isRaining() || world.isThundering()) {
             weather.setRaining(false); weather.setThundering(false); weather.setRainTime(0); weather.setThunderTime(0);
             world.setRainLevel(0); world.setThunderLevel(0);
         }

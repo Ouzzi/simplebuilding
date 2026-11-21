@@ -406,10 +406,10 @@ MODULES += [
           "Tresor-Belohnungen kommen nach einer Wartezeit in Tagen wieder statt nur einmal je Spieler. Eine Sub-Mod von Simple "
           "Quality of Life, auch allein spielbar."),
     _data("simplemobmanners", "Simple Mob Manners", "minecraft:name_tag",
-          "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools. A sub-mod of Simple "
-          "Quality of Life, also playable alone.",
-          "Mobs nach Art oder Namensschild stumm schalten, benannte Jungtiere bleiben jung, Piglins übersehen Goldbesatz und "
-          "-werkzeug. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."),
+          "Mute mobs by type or name tag, piglins ignore gold trims and tools, and a water bucket catches frogs. A sub-mod of "
+          "Simple Quality of Life, also playable alone.",
+          "Mobs nach Art oder Namensschild stumm schalten, Piglins übersehen Goldbesatz und -werkzeug, und ein Wassereimer "
+          "fängt Frösche. Eine Sub-Mod von Simple Quality of Life, auch allein spielbar."),
     _data("simplefarming", "Simple Farming", "minecraft:wheat",
           "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops. A sub-mod of Simple "
           "Quality of Life, also playable alone.",
