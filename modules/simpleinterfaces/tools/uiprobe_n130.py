@@ -436,7 +436,7 @@ def _subtitles(s, want_on):
             return False
         time.sleep(1.0)
         for _ in range(2):
-            w = s.find_widget('Subtitles', st=s.st())
+            w = s.find_widget('Closed Captions', st=s.st())  # 26.3 label of the subtitles button
             if not w:
                 break
             on = w['label'].rstrip().endswith('ON')
