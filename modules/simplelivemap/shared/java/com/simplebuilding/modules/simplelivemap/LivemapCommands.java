@@ -192,11 +192,26 @@ public final class LivemapCommands {
             source.sendFailure(text("status.web_off", "Web map server: off (web.enabled in %s).", LivemapConfig.FILE));
             return 0;
         }
-        String url = url(web);
         // Only to this source: sendSystemMessage does not echo to other operators or the server log like sendSuccess(.., true).
-        source.sendSystemMessage(text(LivemapConfig.isPublic() ? "link.public" : "link.private",
-                LivemapConfig.isPublic() ? "Public web map: %s" : "Private web map (keep this link secret): %s", url).copy().withStyle(ChatFormatting.AQUA));
+        source.sendSystemMessage(linkMessage(url(web), LivemapConfig.isPublic()));
         return 1;
+    }
+
+    /**
+     * The answer of {@code /simplelivemap link} (N125): the address as one clickable line like the chat hint's "[Open Livemap]"
+     * (Vanilla does not turn addresses in system messages into links; before N125 the line was text only).
+     */
+    public static Component linkMessage(String url, boolean isPublic) {
+        net.minecraft.network.chat.MutableComponent line = text(isPublic ? "link.public" : "link.private",
+                isPublic ? "Public web map: %s" : "Private web map (keep this link secret): %s", url).copy().withStyle(ChatFormatting.AQUA);
+        try {
+            java.net.URI uri = java.net.URI.create(url);
+            line.withStyle(style -> style.withUnderlined(true).withClickEvent(new net.minecraft.network.chat.ClickEvent.OpenUrl(uri))
+                    .withHoverEvent(new net.minecraft.network.chat.HoverEvent.ShowText(text("hint.open.hover", "Opens the map of this world in your browser."))));
+        } catch (IllegalArgumentException ignored) {
+            // an address the URI parser refuses stays plain text
+        }
+        return line;
     }
 
     /**

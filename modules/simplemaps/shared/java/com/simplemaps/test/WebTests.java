@@ -47,6 +47,7 @@ final class WebTests {
         all.put("web_command_permissions", WebTests::commandPermissions);
         all.put("web_shops", WebTests::shops);
         all.put("web_export_leaves_cache", WebTests::exportLeavesCache);
+        all.put("web_export_cost", WebTests::exportCost);
         WebHttpTests.register(all);
         WebStage3Tests.register(all);
     }
@@ -227,6 +228,61 @@ final class WebTests {
         h.assertTrue(!MapsConfig.webEnabled && !MapsConfig.webHideClaims && MapsConfig.webIntervalMinutes == 0
                 && MapsConfig.webChunksPerTick == MapsConfig.WEB_CHUNKS_DEFAULT, "defaults: export off, no claims hiding, no periodic export");
         h.succeed();
+    }
+
+    /**
+     * N125 measurement (release list "Performance: Web-Export"): server-thread time of the export steps at the default budget
+     * ({@link MapsConfig#WEB_CHUNKS_DEFAULT} chunks per tick) for 4 x 4 fully explored far tiles (chunks not loaded: the map's own
+     * pixels) and one tile around the test area (loaded chunks are read fresh). Logs one line {@code SMW-MEASURE ...}; asserts only
+     * a generous ceiling (50 ms for the slowest step) so slow test machines do not fail.
+     */
+    private static void exportCost(GameTestHelper h) {
+        int grass = MapColor.GRASS.getPackedId(MapColor.Brightness.NORMAL) & 0xFF, side = 4 * WebExport.TILE, b = FAR_TILE * WebExport.TILE;
+        WayfinderData far = new WayfinderData();
+        far.bind(Level.OVERWORLD);
+        for (int x = 0; x < side; x++) {
+            for (int z = 0; z < side; z++) far.set(b + x, b + z, grass, 64 + ((x ^ z) & 7), true);
+        }
+        BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+        int nx = Math.floorDiv(pos.getX(), WebExport.TILE) * WebExport.TILE, nz = Math.floorDiv(pos.getZ(), WebExport.TILE) * WebExport.TILE;
+        WayfinderData near = new WayfinderData();
+        near.bind(h.getLevel().dimension());
+        for (int x = 0; x < WebExport.TILE; x++) {
+            for (int z = 0; z < WebExport.TILE; z++) near.set(nx + x, nz + z, grass, pos.getY(), true);
+        }
+        double[] f = measure(h, far), n = measure(h, near);
+        SimpleMaps.LOG.info("SMW-MEASURE budget={} far16Tiles steps={} totalMs={} meanMs={} maxMs={} | nearTile steps={} totalMs={} meanMs={} maxMs={}",
+                MapsConfig.WEB_CHUNKS_DEFAULT, (int) f[0], ms(f[1]), ms(f[1] / f[0]), ms(f[2]), (int) n[0], ms(n[1]), ms(n[1] / n[0]), ms(n[2]));
+        h.assertTrue(f[2] < 50 && n[2] < 50, "slowest export step " + ms(Math.max(f[2], n[2])) + " ms (ceiling 50 ms)");
+        h.succeed();
+    }
+
+    /** {steps, total ms, slowest step ms} of a whole export of {@code map} at the default budget (after a warm-up export). */
+    private static double[] measure(GameTestHelper h, WayfinderData map) {
+        Path warm = temp(), dir = temp();
+        try {
+            run(WebExport.of(h.getLevel().getServer(), warm, false, List.of(map)));
+            WebExport job = WebExport.of(h.getLevel().getServer(), dir, false, List.of(map));
+            double total = 0, max = 0;
+            int steps = 0;
+            while (!job.done() && steps < 100000) {
+                long t0 = System.nanoTime();
+                job.step(MapsConfig.WEB_CHUNKS_DEFAULT);
+                double dt = (System.nanoTime() - t0) / 1e6;
+                total += dt;
+                max = Math.max(max, dt);
+                steps++;
+            }
+            h.assertTrue(job.done() && job.tilesWritten() > 0, "measured export finished with tiles");
+            return new double[]{steps, total, max};
+        } finally {
+            delete(warm);
+            delete(dir);
+        }
+    }
+
+    private static String ms(double v) {
+        return String.format(java.util.Locale.ROOT, "%.3f", v);
     }
 
     private static void exploredOnly(GameTestHelper h) {
