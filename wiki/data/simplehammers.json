@@ -164,17 +164,17 @@
       ],
       "en": {
         "title": "Strike tempo by hammer tier",
-        "summary": "Every conversion with a hammer strikes at the tempo of the tier: Netherite every 20 ticks (the old tempo), Enderite 19, Diamond 21, Gold 22, Iron 23, Copper 24, Stone 25.",
+        "summary": "Every conversion with a hammer strikes at the tempo of the tier: Netherite every 20 ticks, Enderite 19, Diamond 21, Gold 22, Iron 23, Copper 24, Stone 25.",
         "details": [
-          "Holding use (machine, chest, crucible, enchanter upgrades) and single right-click strikes (quartz block, diamond block, chips, placed smithing templates, Strong upgrades, stone crushing) follow the same gap, so a quartz block is no longer crushed in a blink.",
+          "Holding use (machine, chest, crucible, enchanter upgrades) and single right-click strikes (quartz block, diamond block, chips, placed smithing templates, Strong upgrades, stone crushing) follow the same gap, so even a quartz block takes a few strikes.",
           "An upgrade takes strikes x gap ticks: five strikes are 100 ticks with a Netherite hammer, 125 with a Stone hammer. Axe ways without a hammer mod keep their own pace."
         ]
       },
       "de": {
         "title": "Schlagtempo je Hammerstufe",
-        "summary": "Jede Umwandlung mit dem Hammer schlägt im Takt der Stufe: Netherit alle 20 Ticks (das alte Tempo), Enderit 19, Diamant 21, Gold 22, Eisen 23, Kupfer 24, Stein 25.",
+        "summary": "Jede Umwandlung mit dem Hammer schlägt im Takt der Stufe: Netherit alle 20 Ticks, Enderit 19, Diamant 21, Gold 22, Eisen 23, Kupfer 24, Stein 25.",
         "details": [
-          "Gehaltenes Benutzen (Aufwertungen von Maschinen, Truhen, Tiegeln, Verzauberer) und einzelne Rechtsklick-Schläge (Quarzblock, Diamantblock, Späne, abgelegte Schmiedevorlagen, Starke Aufwertungen, Stein zerkleinern) folgen demselben Abstand, ein Quarzblock zerspringt also nicht mehr im Nu.",
+          "Gehaltenes Benutzen (Aufwertungen von Maschinen, Truhen, Tiegeln, Verzauberer) und einzelne Rechtsklick-Schläge (Quarzblock, Diamantblock, Späne, abgelegte Schmiedevorlagen, Starke Aufwertungen, Stein zerkleinern) folgen demselben Abstand, auch ein Quarzblock braucht also einige Schläge.",
           "Eine Aufwertung dauert Schläge x Abstand Ticks: fünf Schläge sind 100 Ticks mit einem Netherit-Hammer, 125 mit einem Steinhammer. Axt-Wege ohne Hammer-Mod behalten ihr eigenes Tempo."
         ]
       }

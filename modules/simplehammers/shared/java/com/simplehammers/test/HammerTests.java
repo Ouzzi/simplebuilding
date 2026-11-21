@@ -7,6 +7,7 @@ import com.simplehammers.config.HammerConfig;
 import com.simplehammers.engine.HammerCorners;
 import com.simplehammers.engine.HammerEnchantments;
 import com.simplehammers.engine.SledgehammerCrafting;
+import com.simplehammers.engine.SledgehammerProgress;
 import com.simplehammers.engine.SledgehammerUpgrades;
 import com.simplehammers.engine.SledgehammerUtils;
 import com.simplehammers.item.SledgehammerItem;
@@ -442,6 +443,41 @@ public final class HammerTests {
             if (item.getDestroySpeed(two, dirt) <= 1.0F || item.getDestroySpeed(hammer, dirt) > 1.0F) problems.add("Override II speed on dirt "
                     + item.getDestroySpeed(two, dirt) + " / plain " + item.getDestroySpeed(hammer, dirt));
             h.assertTrue(problems.isEmpty(), "override: " + problems);
+            h.succeed();
+        });
+        ALL.put("upgrade_charge_cracks_and_pose", h -> {
+            // N122 (release polish, scenes "Ladeanzeige, Armhaltung"): the in-world upgrade shows its charge only as cracks in the
+            // block (stage 2/4/6/8 after strikes 1-4, spread over all strikes for factor 2) that persist per block and expire when the
+            // block changes; the hand draws back like a bow until STRIKE_PHASE, then rushes forward; nobody hammering = no pose.
+            h.assertTrue(SledgehammerProgress.crackStage(0) == -1, "no strike, no cracks");
+            for (int hits = 1; hits <= 4; hits++) h.assertTrue(SledgehammerProgress.crackStage(hits) == hits * 2,
+                    "strike " + hits + " -> stage " + SledgehammerProgress.crackStage(hits));
+            for (int hits = 1; hits <= 10; hits++) h.assertTrue(SledgehammerProgress.crackStage(hits, 2) == Math.min(9, hits),
+                    "factor 2, strike " + hits + " -> stage " + SledgehammerProgress.crackStage(hits, 2));
+            BlockPos at = h.absolutePos(SPOT);
+            h.setBlock(SPOT, Blocks.FURNACE);
+            SledgehammerProgress.record(h.getLevel(), at, Blocks.FURNACE, 2);
+            h.assertTrue(SledgehammerProgress.hits(h.getLevel(), at, Blocks.FURNACE) == 2, "two strikes kept on the furnace");
+            h.assertTrue(SledgehammerProgress.hits(h.getLevel(), at, Blocks.BLAST_FURNACE) == 0, "an entry for another block does not count");
+            SledgehammerProgress.record(h.getLevel(), at, Blocks.FURNACE, 3);
+            h.setBlock(SPOT, Blocks.STONE);
+            h.assertTrue(SledgehammerProgress.hits(h.getLevel(), at, Blocks.FURNACE) == 0, "the block changed: the progress expired");
+            SledgehammerProgress.record(h.getLevel(), at, Blocks.STONE, 1);
+            SledgehammerProgress.clear(h.getLevel(), at);
+            h.assertTrue(SledgehammerProgress.hits(h.getLevel(), at, Blocks.STONE) == 0, "clear forgets the strikes");
+            h.assertTrue(SledgehammerUpgrades.drawBack(-1.0F) == 0.0F && SledgehammerUpgrades.drawBack(0.0F) == 0.0F, "rest pose outside/at the start");
+            float last = 0.0F;
+            for (float p = 0.05F; p < SledgehammerUpgrades.STRIKE_PHASE; p += 0.05F) {
+                float d = SledgehammerUpgrades.drawBack(p);
+                h.assertTrue(d > last && d <= 1.0F, "draws back further until the strike phase (" + p + ": " + d + ")");
+                last = d;
+            }
+            h.assertTrue(last > 0.95F, "fully drawn back before the strike (" + last + ")");
+            h.assertTrue(SledgehammerUpgrades.drawBack(0.999F) < 0.05F, "back at the block at the strike");
+            ServerPlayer idle = lookingDown(h, new ItemStack(HammerRegistry.hammer(HammerTiers.DIAMOND)));
+            h.assertFalse(SledgehammerUpgrades.isHammering(idle), "holding a hammer is not hammering");
+            h.assertTrue(SledgehammerUpgrades.blowPhase(idle, 0.0F) == -1.0F && !SledgehammerUpgrades.isDrawingBack(idle, 0.0F),
+                    "no pose without an upgrade");
             h.succeed();
         });
         ALL.put("hammer_tempo", h -> {
