@@ -41,13 +41,11 @@ public final class OptimizationTests {
 
     /** Fabric only (the SimpleLib spec is announced there). simpleoptimization-3 (PLAN40): the Mod Menu screen (SimpleLib) names the title and every switch, and the switches are marked "restart needed". */
     public static void configLabels(GameTestHelper h) {
-        var missing = com.simplelib.api.config.ConfigScreenModel.missingLabels(SimpleOptimization.MOD_ID);
-        h.assertTrue(missing.isEmpty(), "config screen without a name: " + missing);
         var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleOptimization.MOD_ID, false);
         h.assertTrue(spec != null, "config announced");
         for (String path : new String[] {"enableSimpleOptRender", "enableSimpleOptMemory", "enableSimpleOptServer"})
             h.assertTrue(spec.restart(path), "restart hint on " + path);
-        h.succeed();
+        com.simplelib.test.ConfigCommandTests.labels(h, SimpleOptimization.MOD_ID); // N137: English and German names, succeeds
     }
 
     /** The config file is created complete, a broken file is quarantined, and an edited switch is read back. */

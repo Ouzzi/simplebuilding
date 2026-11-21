@@ -9,4 +9,8 @@ public final class ModuleGameTest {
     @GameTest public void mixinGuardMissing(GameTestHelper h) { com.simplebuilding.modules.simpleoptmemory.fabric.MixinGuardTests.missingHandlers(h); }
     @GameTest public void mixinGuardSwitchesOff(GameTestHelper h) { com.simplebuilding.modules.simpleoptmemory.fabric.MixinGuardTests.failureSwitchesAreaOff(h); }
     @GameTest public void sharedStates(GameTestHelper h) { MemoryOptTests.sharedStates(h); }
+    /** N137: the generic config screen names title, area group and every option in English and German (ConfigCommandTests.labels). */
+    @GameTest public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.labels(h, "simpleoptmemory"); }
+    /** N137: every tooltip that names a number or on/off as its default names the real default (EN + DE). */
+    @GameTest public void configTooltipDefaults(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.tooltipDefaults(h, "simpleoptmemory"); }
 }

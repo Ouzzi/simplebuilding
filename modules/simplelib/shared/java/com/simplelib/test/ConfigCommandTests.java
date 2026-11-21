@@ -220,11 +220,12 @@ public final class ConfigCommandTests {
      * N135 (found in Simple Earth: minEdge/maxEdge tooltips named 8192/262144, the code 64/1048576): every tooltip of the server
      * config of {@code modId} that names a number or on/off as its default ("Default: 24", "Standard: an") names the spec's real
      * default - English from the loaded language, German from the module's own {@code de_de.json}. Tooltips without such a value
-     * ("Default: the Overworld") are skipped; at least one must be checked.
+     * ("Default: the Overworld") are skipped; at least one must be checked. N137: a mod with only a client config (Simple Opt
+     * Render) is checked on that one.
      */
     public static void tooltipDefaults(GameTestHelper h, String modId) {
-        ConfigCommands.Spec spec = ConfigCommands.spec(modId, false);
-        check(h, spec != null, modId + " announced no server config");
+        ConfigCommands.Spec spec = ConfigCommands.spec(modId, false) != null ? ConfigCommands.spec(modId, false) : ConfigCommands.spec(modId, true);
+        check(h, spec != null, modId + " announced no config");
         JsonObject de;
         try (var in = ConfigCommandTests.class.getResourceAsStream("/assets/" + modId + "/lang/de_de.json")) {
             check(h, in != null, modId + ": no de_de.json");
