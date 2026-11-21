@@ -469,6 +469,9 @@ def gadgets_magnet(s):
     _say(s, 'if items entity @s hotbar.2 simplegadgets:magnet', 'magnet-kept')
     _say(s, 'unless items entity @s inventory.* minecraft:diamond', 'diamond-dropped')
     _check_said(s, 'T27: the attractor in the hotbar is kept, the main-inventory diamonds dropped', ['magnet-kept', 'diamond-dropped'])
+    # death drops scatter randomly (once a stack rolled to where the player stands next and was picked up the plain way):
+    # gather them on the death spot first - the probe's arrangement, the attractor's rule (own death drops) is unchanged
+    s.chat(f'execute as @e[type=minecraft:item,x={dx},y={dy},z={dz},distance=..8] run tp @s {dx} {dy} {dz}', 0.6)
     s.chat(f'tp @s {dx} {dy} {dz - 3.5} 0 20', 2.0)
     s.io.key('1', 0.4)
     time.sleep(1.5)
@@ -480,8 +483,13 @@ def gadgets_magnet(s):
             (before or 0) >= 1 and left == 0, f'{before} item entities, {left} in the inventory')
     s.shot('3-death-drops')
     s.io.key('3', 0.5)
+    time.sleep(1.0)
+    _say(s, 'if items entity @s weapon.mainhand simplegadgets:magnet', 'magnet-held')
+    if not _said(s, ['magnet-held'])['magnet-held']:
+        s.io.key('3', 0.8)  # the hotbar key once went unseen right after the respawn
+        _say(s, 'if items entity @s weapon.mainhand simplegadgets:magnet', 'magnet-held-2')
+    s.chat(f'tp @s {dx} {dy} {dz - 2.5} 0 20', 2.0)  # pull radius 4 around the player, the drops lie on the death spot
     time.sleep(2.0)
-    s.chat(f'tp @s {dx} {dy} {dz - 2.5} 0 20', 2.0)
     after = _count(s, 'death-drops-after', near)
     st = s.st()
     dia, cob = _inv_count(st, 'minecraft:diamond'), _inv_count(st, 'minecraft:cobblestone')
