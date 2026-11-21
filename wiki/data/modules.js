@@ -470,10 +470,10 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 2,
-      "config": 16,
+      "config": 182,
       "features": 42
     },
-    "dataHash": "2dee9a3da081"
+    "dataHash": "9fe140498581"
   },
   {
     "id": "simpledimensions",

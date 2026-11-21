@@ -109,6 +109,18 @@ public final class SortProbe {
                     // mark has a known place without relying on the grabbed pointer reaching the game
                     case "freelook" -> com.simplelib.api.client.FreeLook.set(c.get("yaw").getAsFloat(), c.get("pitch").getAsFloat(),
                             c.get("held").getAsBoolean());
+                    // N124: GUI scale during a run (key page at GUI 3), the same steps as the start request
+                    case "guiscale" -> {
+                        mc.options.guiScale().set(c.get("value").getAsInt());
+                        mc.resizeGui();
+                    }
+                    // N124: one local option of Simple Interfaces in memory only (e.g. zoomHotkey), not saved to the file
+                    case "siclient" -> {
+                        var cfg = ContainersClient.config();
+                        Field f = cfg.getClass().getField(c.get("field").getAsString());
+                        if (f.getType() == boolean.class) f.setBoolean(cfg, c.get("value").getAsBoolean());
+                        else if (f.getType() == int.class) f.setInt(cfg, c.get("value").getAsInt());
+                    }
                     case "quit" -> mc.stop();
                     default -> org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("sort probe: unknown command {}", c);
                 }
@@ -350,6 +362,33 @@ public final class SortProbe {
                 look.add("crosshair", m);
             }
             o.add("freeLook", look);
+        }
+        // N124: zoom key / spyglass state of Simple Interfaces (factor = field-of-view factor, smaller = closer)
+        if (mc.player != null) {
+            JsonObject zoom = new JsonObject();
+            zoom.addProperty("scoping", mc.player.isScoping());
+            zoom.addProperty("key", ZoomState.keyZoom());
+            zoom.addProperty("zooming", ZoomState.zooming(mc.player));
+            zoom.addProperty("overridesFov", ZoomState.overridesFov(mc.player));
+            zoom.addProperty("factor", ZoomState.fov());
+            zoom.addProperty("hideHud", ZoomState.hideHud());
+            o.add("zoom", zoom);
+        }
+        // N124: the slot under the pointer of a container screen and the container preview its tooltip draws (shulker/ender grid or note)
+        if (screen instanceof AbstractContainerScreen<?> cs && field(cs, "hoveredSlot") instanceof net.minecraft.world.inventory.Slot hs) {
+            JsonObject hover = new JsonObject();
+            hover.addProperty("index", hs.index);
+            hover.addProperty("stack", describe(hs.getItem()));
+            hover.addProperty("shift", com.simplelib.api.client.ui.UiShiftTooltip.held());
+            var preview = ContainerPreviewTooltip.of(hs.getItem());
+            if (preview != null) {
+                hover.addProperty("grid", preview.grid());
+                hover.addProperty("rows", preview.rows());
+                hover.addProperty("filled", preview.slots().stream().filter(x -> !x.isEmpty()).count());
+                hover.addProperty("more", preview.more());
+                if (preview.note() != null) hover.addProperty("note", preview.note().getString());
+            }
+            o.add("hover", hover);
         }
         Path tmp = dir.resolve("simpleinterfaces-sort-status.tmp");
         Files.writeString(tmp, GSON.toJson(o));
