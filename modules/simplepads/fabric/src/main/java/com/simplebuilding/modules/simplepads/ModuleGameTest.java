@@ -13,6 +13,10 @@ public final class ModuleGameTest {
     @GameTest
     public void jeiInfoPages(GameTestHelper h) { com.simplelib.test.ViewerInfoTests.infoPages(h, "simplepads", 11); }
 
+    /** N130: the 34 options of the JSON config (generic config screen without Cloth) are named in English and German. */
+    @GameTest(maxTicks = 100)
+    public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigScreenTests.moduleLabels(h, "simplepads"); }
+
     @GameTest
     public void registered(GameTestHelper h) {
         PadsTests.ALL.get("registered").accept(h);
@@ -81,6 +85,12 @@ public final class ModuleGameTest {
     @GameTest
     public void spawnTeleporterSignalChangesResetTheEntireWarmup(GameTestHelper h) {
         PadsTests.ALL.get("spawn_teleporter_signal_changes_reset_the_entire_warmup").accept(h);
+    }
+
+    /** N130: idle Spawn Teleporter tick measured against a Vanilla furnace (PADS-MEASURE in the log). */
+    @GameTest(maxTicks = 400)
+    public void spawnTeleporterIdleTickCost(GameTestHelper h) {
+        PadsTests.ALL.get("spawn_teleporter_idle_tick_cost").accept(h);
     }
 
     @GameTest(maxTicks = com.simplepads.test.PadOverhaulTests.DESTINATION_MAX_TICKS)

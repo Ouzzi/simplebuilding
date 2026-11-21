@@ -6,6 +6,10 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link SandwichTests}. */
 public final class ModuleGameTest {
+    /** N130: the server config (JSON, generic config screen) names title and every option in English and German. */
+    @GameTest(maxTicks = 100)
+    public void configLabels(GameTestHelper h) { com.simplelib.test.ConfigScreenTests.moduleLabels(h, "simplesandwiches"); }
+
     @GameTest
     public void guideBook(GameTestHelper h) {
         SandwichTests.ALL.get("guide_book").accept(h);
