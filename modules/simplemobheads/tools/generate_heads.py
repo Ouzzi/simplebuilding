@@ -285,6 +285,10 @@ def lang(locale):
             keys[f"ability.{NS}.{h['ability']}"] = name
             # Tooltip lines stay within 48 characters (tools/check_tooltip_text.py); the secret/wiki text keeps one line.
             keys[f"ability.{NS}.{h['ability']}.tooltip"] = "\n".join(textwrap.wrap(ABILITIES[h["ability"]][i], 48))
+            # N128: SimpleLib's generic config screen (Mod Menu without Cloth Config) lists the abilities map as options
+            # abilities.<id> and names them by the Cloth key schema; without these keys it showed English raw names.
+            keys[f"text.autoconfig.{NS}.option.abilities.{h['ability']}"] = name
+            keys[f"text.autoconfig.{NS}.option.abilities.{h['ability']}.@Tooltip"] = ABILITIES[h["ability"]][i]
     return keys
 
 
@@ -437,7 +441,7 @@ def main():
         generated = lang(locale)
         # Keep the file's order (other tools, e.g. tools/guides/module_guides.py, own keys too): generated keys are
         # replaced in place, new ones appended, stale generated ones dropped.
-        owned = (f"block.{NS}.", f"variant.{NS}.", f"ability.{NS}.")
+        owned = (f"block.{NS}.", f"variant.{NS}.", f"ability.{NS}.", f"text.autoconfig.{NS}.option.abilities.")
         merged = {k: generated.get(k, v) for k, v in current.items() if not k.startswith(owned) or k in generated}
         merged.update({k: v for k, v in generated.items() if k not in merged})
         write(path, json.dumps(merged, indent=2, ensure_ascii=False) + "\n", check, stale)
