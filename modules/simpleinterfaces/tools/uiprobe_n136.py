@@ -363,8 +363,8 @@ def visuals_anvil(s):
     x, y, z = _arena(s, 280)
     try:
         # N136: the client root /simplevisuals shares its name with the server's; both server policies must still arrive
-        _server_says(s, 'simplevisuals config visuals enableAnvilFormatting', r'Server anvil formatting: true', 'server policy get')
-        _server_says(s, 'simplevisuals config visuals allowAnvilObfuscation false', r'Server anvil obfuscation \(&k\): false', 'server policy set')
+        _server_says(s, 'simplevisuals config visuals enableAnvilFormatting', r'Server anvil formatting: ON', 'server policy get')
+        _server_says(s, 'simplevisuals config visuals allowAnvilObfuscation false', r'Server anvil obfuscation \(&k\): OFF', 'server policy set')
         s.chat(f'setblock {x} {y} {z + 3} minecraft:anvil', 0.6)
         if not _hand(s, 0, 'minecraft:diamond_sword[repair_cost=3]', 'anvil'):
             return
@@ -394,7 +394,11 @@ def visuals_anvil(s):
         s.io.key('a', 0.3)
         s.io.key_up('Control_L')
         s.io.key('BackSpace', 0.3)
-        for k in ('ampersand', 'c', 'r', 'u', 'b', 'y'):
+        # '&' is Shift+7 on the X server's US layout (the keysym alone maps to the 7 key and typed "7")
+        s.io.key_down('Shift_L')
+        s.io.key('7', 0.2)
+        s.io.key_up('Shift_L')
+        for k in ('c', 'r', 'u', 'b', 'y'):
             s.io.key(k, 0.2)
         time.sleep(0.8)
         st = s.st()
