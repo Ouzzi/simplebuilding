@@ -203,7 +203,7 @@ window.WIKI_MODULES = [
       "config": 26,
       "features": 37
     },
-    "dataHash": "7384a10bf9a0"
+    "dataHash": "01ef4a70f544"
   },
   {
     "id": "simplemodels",
@@ -284,7 +284,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 58
     },
-    "dataHash": "9664a4a9c851"
+    "dataHash": "8a2c848eb259"
   },
   {
     "id": "simplevisuals",
@@ -473,7 +473,7 @@ window.WIKI_MODULES = [
       "config": 182,
       "features": 42
     },
-    "dataHash": "9fe140498581"
+    "dataHash": "34bb14b3a77c"
   },
   {
     "id": "simpledimensions",
@@ -630,7 +630,7 @@ window.WIKI_MODULES = [
       "config": 48,
       "features": 57
     },
-    "dataHash": "548f0ddc226e"
+    "dataHash": "4bc1e6f5f81a"
   },
   {
     "id": "simplemaps",
@@ -1420,7 +1420,7 @@ window.WIKI_MODULES = [
       "config": 11,
       "features": 10
     },
-    "dataHash": "e55f05db484f"
+    "dataHash": "cd36a35d1733"
   },
   {
     "id": "simpleblocks",
