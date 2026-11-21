@@ -1303,10 +1303,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 194,
-      "config": 22,
+      "config": 54,
       "features": 16
     },
-    "dataHash": "97aaa17314c6"
+    "dataHash": "9ae93dd7f7a8"
   },
   {
     "id": "simpleshops",

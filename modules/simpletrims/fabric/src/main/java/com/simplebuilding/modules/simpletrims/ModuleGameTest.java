@@ -6,6 +6,12 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link TrimsTests}. */
 public final class ModuleGameTest {
+    /** N128: the config screen names its option ("enabled") in English and German (ConfigScreenTests.moduleLabels). */
+    @GameTest(maxTicks = 100)
+    public void configLabels(GameTestHelper h) {
+        com.simplelib.test.ConfigScreenTests.moduleLabels(h, "simpletrims");
+    }
+
     @GameTest
     public void configDefaults(GameTestHelper h) {
         TrimsTests.ALL.get("config_defaults").accept(h);
