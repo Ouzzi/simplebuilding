@@ -156,6 +156,7 @@ def stage(out: Path, data: dict) -> None:
     html = html.replace('src="assets/module-loader.js"', 'src="assets/module-loader.js?v=' + loader_hash + '"')
     (out / 'index.html').write_text(html, encoding='utf-8', newline='\n')
     shutil.copyfile(WIKI / 'data/modules.js', out / 'data/modules.js')
+    shutil.copyfile(WIKI / 'data/index.js', out / 'data/index.js')  # O6b: cross-mod index (mods load on demand)
     (out / 'assets').mkdir(exist_ok=True)
     shutil.copyfile(WIKI / 'assets/module-loader.js', out / 'assets/module-loader.js')
     shutil.copyfile(WIKI / 'assets/sitebar.js', out / 'assets/sitebar.js')  # login bar; inert without /api/auth

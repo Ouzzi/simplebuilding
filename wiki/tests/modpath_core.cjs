@@ -36,7 +36,7 @@ for (const m of data.window.WIKI_MODULES) {
 const MODULE_DATA = Object.assign({}, data.window.WIKI_MODULE_DATA);
 if (!MODULE_DATA.simplebuilding && data.window.WIKI_DATA) MODULE_DATA.simplebuilding = data.window.WIKI_DATA;
 
-const FUNCS = ['arr', 'isObj', 'nsOf', 'wikiMod', 'modMetaRaw', 'pathParts', 'relPath', 'ownerOf', 'routeParams', 'readableQuery', 'urlFor',
+const FUNCS = ['arr', 'isObj', 'nsOf', 'hasData', 'wikiMod', 'modMetaRaw', 'pathParts', 'relPath', 'ownerOf', 'routeParams', 'readableQuery', 'urlFor',
   'pathToRoute', 'paramsToRoute', 'hashToRoute', 'urlMod'];
 const src = [
   varSource('ROUTE_PARAM', ';'), varSource('PARAM_ROUTE', ';'), varSource('NS_SECTIONS', ';'),
@@ -49,7 +49,7 @@ const src = [
 function sandbox(loc, modpath) {
   const u = new URL(loc, 'http://wiki.test/');
   const ctx = {
-    URL, URLSearchParams, MODULES: data.window.WIKI_MODULES, MODULE_DATA, PACK_HIDDEN: { wiringexample: 1 },
+    URL, URLSearchParams, MODULES: data.window.WIKI_MODULES, MODULE_DATA, WIDX: {}, PACK_HIDDEN: { wiringexample: 1 },
     PACK: { key: 'all' }, LANG: 'en', MODPATH: modpath, BASE: modpath ? '/' : '',
     location: { pathname: u.pathname, search: u.search, hash: u.hash, href: u.href, protocol: 'http:' }
   };

@@ -79,20 +79,102 @@
   }
   window.WIKI_PRUNE_HIDDEN = pruneHidden;
 
-  window.WIKI_MODULE_DATA = { simplebuilding: window.WIKI_DATA };
-  window.WIKI_READY = Promise.all((window.WIKI_MODULES || []).map(function (module) {
-    if (module.id !== 'simplebuilding' && /^[a-z][a-z0-9_-]*$/.test(module.id)) {
-      return new Promise(function (resolve, reject) {
-        var script = document.createElement('script');
-        script.src = 'data/' + module.id + '.js' + (module.dataHash ? '?v=' + module.dataHash : '');
-        script.onload = resolve;
-        script.onerror = function () { reject(new Error('Missing wiki data: ' + module.id)); };
-        document.head.appendChild(script);
+  /* O6b: data per mod on demand. data/index.js (wiki/wiki_index.py: counts, names, pictures of every mod) always;
+     the full data/<mod>.js only for what the address shows: a mod area (<base><mod>/... or ?mod=) its mod with the
+     sub-mods, the root start page nothing (WIKI_LIGHT), every other address all mods (as before). The page asks for
+     more with WIKI_LOAD_MODS(ids) / WIKI_LOAD_ALL(); before it reloads a light start page into a full one it sets
+     sessionStorage "wiki-load-all" (honoured once here, so a reload can never loop). */
+  var MODS = window.WIKI_MODULES || [], BY = {};
+  MODS.forEach(function (m) { if (m && /^[a-z][a-z0-9_-]*$/.test(m.id)) BY[m.id] = m; });
+  var DATA = window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};
+  if (window.WIKI_DATA && !DATA.simplebuilding) DATA.simplebuilding = window.WIKI_DATA;
+  var hiddenList = window.WIKI_HIDDEN_MODULES, pruned = {}, loading = {};
+  function prune(id) {
+    if (pruned[id] || !DATA[id]) return;
+    pruned[id] = 1;
+    if (hiddenList.length) { var one = {}; one[id] = DATA[id]; pruneHidden(one, hiddenList); }
+  }
+  function script(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = src; s.onload = resolve;
+      s.onerror = function () { reject(new Error('Missing wiki data: ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function loadMod(id) {
+    if (!BY[id]) return Promise.resolve();
+    if (DATA[id]) { prune(id); return Promise.resolve(); }
+    if (!loading[id]) {
+      loading[id] = script('data/' + id + '.js' + (BY[id].dataHash ? '?v=' + BY[id].dataHash : '')).then(function () {
+        if (id === 'simplebuilding' && window.WIKI_DATA) DATA.simplebuilding = window.WIKI_DATA;
+        if (!DATA[id]) throw new Error('Missing wiki data: ' + id);
+        prune(id);
       });
+      loading[id].catch(function () { delete loading[id]; });
     }
-    return Promise.resolve();
-  }).concat([presentReady])).then(function (v) {
-    if (window.WIKI_HIDDEN_MODULES.length) pruneHidden(window.WIKI_MODULE_DATA, window.WIKI_HIDDEN_MODULES);
-    return v;
+    return loading[id];
+  }
+  window.WIKI_LOAD_MODS = function (ids) { return Promise.all((ids || []).map(loadMod)).then(function () { return DATA; }); };
+  window.WIKI_LOAD_ALL = function () { return window.WIKI_LOAD_MODS(Object.keys(BY)); };
+  window.WIKI_HAS_ALL = function () { return Object.keys(BY).every(function (id) { return !!DATA[id]; }); };
+
+  /* The index in the public view: no hidden mods, no entries that exist only with one (needsMods), public counts. */
+  function prepareIndex() {
+    var ix = window.WIKI_INDEX;
+    if (!ix || typeof ix !== 'object' || !ix.mods) { window.WIKI_INDEX = null; return; }
+    var hid = {};
+    hiddenList.forEach(function (id) { hid[id] = 1; });
+    Object.keys(ix.mods).forEach(function (id) {
+      var m = ix.mods[id];
+      if (!BY[id] || !m) { delete ix.mods[id]; return; }
+      if (publicView && m.countsPublic) m.counts = m.countsPublic;
+      if (hiddenList.length) ['items', 'blocks'].forEach(function (k) {
+        m[k] = (m[k] || []).filter(function (e) { return !(Array.isArray(e[5]) && e[5].some(function (x) { return hid[x]; })); });
+      });
+    });
+  }
+
+  function family(id) {
+    var out = [id];
+    MODS.forEach(function (c) { if (c && c.parent === id && c.id !== id && BY[c.id]) out = out.concat(family(c.id)); });
+    return out;
+  }
+  /* Mirrors the mod choice of index.html (START): path first, "#/allmods" / tab=allmods = root, then ?mod=.
+     wiringexample is never a wiki mod there (PACK_HIDDEN). null = all mods. */
+  function startSet() {
+    var params = new URLSearchParams(loc.search), rest = loc.pathname;
+    var baseEl = document.querySelector('base[data-modpath]');
+    if (baseEl && /^https?:$/.test(loc.protocol)) {
+      var b = baseEl.getAttribute('href') || '/';
+      if (b.charAt(b.length - 1) !== '/') b += '/';
+      if (loc.pathname.indexOf(b) === 0) {
+        rest = loc.pathname.slice(b.length);
+        var seg = rest.split('/')[0];
+        if (BY[seg] && seg !== 'wiringexample') return family(seg);
+      }
+    }
+    var hash = loc.hash || '', mod = params.get('mod');
+    var allmods = /^#\/allmods/.test(hash) || params.get('tab') === 'allmods';
+    if (!allmods && BY[mod] && mod !== 'wiringexample') return family(mod);
+    /* light: the root start page without any route (only language, pack filter or ?release=1 in the query) */
+    var bare = /(^|\/)(index\.html)?$/.test(rest) && (hash === '' || hash === '#' || hash === '#/');
+    params.forEach(function (v, k) { if (k !== 'lang' && k !== 'pack' && k !== 'release') bare = false; });
+    return bare ? [] : null;
+  }
+  var forceAll = false, canStore = false;
+  try { forceAll = window.sessionStorage.getItem('wiki-load-all') === '1'; window.sessionStorage.removeItem('wiki-load-all'); canStore = true; } catch (e) { /* no storage: never light */ }
+  var start = forceAll ? null : startSet();
+  if (start && !start.length && !canStore) start = null;
+  window.WIKI_LIGHT = !!start && !start.length;
+  window.WIKI_START_MODS = start || Object.keys(BY);
+
+  window.WIKI_READY = Promise.all([
+    script('data/index.js').then(prepareIndex, function () { window.WIKI_INDEX = null; }),
+    window.WIKI_LOAD_MODS(window.WIKI_START_MODS),
+    presentReady
+  ]).then(function () {
+    /* without the index a light start page has nothing to take its numbers from: everything, as before */
+    if (window.WIKI_LIGHT && !window.WIKI_INDEX) { window.WIKI_LIGHT = false; window.WIKI_START_MODS = Object.keys(BY); return window.WIKI_LOAD_ALL(); }
   });
 })();

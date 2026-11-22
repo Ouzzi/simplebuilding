@@ -32,10 +32,13 @@ async function run(href, presentFiles) {
     fetch: (url) => { fetched.push(url); return Promise.resolve(presentFiles ? { ok: true, json: () => Promise.resolve({ files: presentFiles }) } : { ok: false }); }
   };
   // O5b: data/simpleslabs.js runs like in the page (fills WIKI_MODULE_DATA) - with the chess half slabs and their recipes
-  const doc = { createElement: () => { const s = {}; scripts.push(s); return s; }, head: { appendChild: s => setImmediate(() => {
-    if (/^data\/simpleslabs\.js/.test(s.src)) win.WIKI_MODULE_DATA.simpleslabs = JSON.parse(JSON.stringify(slabs));
+  // O6b: every data/<mod>.js fills its entry (the loader checks it); no sessionStorage here = the loader is never light
+  const doc = { querySelector: () => null, createElement: () => { const s = {}; scripts.push(s); return s; }, head: { appendChild: s => setImmediate(() => {
+    const m = /^data\/([a-z0-9_-]+)\.js/.exec(s.src);
+    if (m && m[1] === 'simpleslabs') win.WIKI_MODULE_DATA.simpleslabs = JSON.parse(JSON.stringify(slabs));
+    else if (m && m[1] !== 'index') { win.WIKI_MODULE_DATA = win.WIKI_MODULE_DATA || {}; win.WIKI_MODULE_DATA[m[1]] = win.WIKI_MODULE_DATA[m[1]] || {}; }
     if (s.onload) s.onload(); }) } };
-  const ctx = { window: win, document: doc, Promise, setTimeout, Object, Array };
+  const ctx = { window: win, document: doc, Promise, setTimeout, Object, Array, URLSearchParams };
   vm.createContext(ctx);
   vm.runInContext(loader, ctx);
   await win.WIKI_READY;
@@ -50,7 +53,7 @@ async function run(href, presentFiles) {
     check(!prod.scripts.includes('data/' + id + '.js'), 'prod loads data/' + id + '.js');
     check(prod.win.WIKI_HIDDEN_MODULES.includes(id), 'prod hidden list lacks ' + id);
   }
-  check(prod.scripts.length === catalogue.length - 1 - unreleased.length, 'prod loads every released mod: ' + prod.scripts.length);
+  check(prod.scripts.filter(s => s !== 'data/index.js').length === catalogue.length - 1 - unreleased.length, 'prod loads every released mod: ' + prod.scripts.length);
   check(prod.fetched.includes('data/derived-present.json'), 'prod asks for the present list');
   check(someLocal.every(p => !prod.win.WIKI_ASSET_OK(p)), 'prod without a fill step: no local-only picture is "there"');
   check(prod.win.WIKI_ASSET_OK('assets/textures/simplechisels/item/iron_chisel.png'), 'committed pictures stay');
