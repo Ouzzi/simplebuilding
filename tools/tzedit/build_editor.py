@@ -7,8 +7,10 @@ and writes
   wiki/data/testcentre/layout_<variant>_<area>.json  copies the page fetches (the wiki serves only wiki/),
   wiki/data/testcentre/index.json                    the areas (variant, area, name, size) and id -> texture path
                                                      (module textures the wiki already holds under assets/textures/;
-                                                     Vanilla ids get none - the page tries the dev-only assets/vanilla/
-                                                     copy at runtime and otherwise shows the name).
+                                                     Vanilla ids get none - the page looks them up in the dev host's
+                                                     data/vanilla-icons.json at runtime and otherwise shows the name;
+                                                     "vanilla" = base names of module ids without a picture, looked up
+                                                     the same way, never guessed as file paths).
 
   wiki/data/testcentre/plan.json                     N72b: the game plan of the editor checks and the view "as built", from
                                                      the integration dump (--plan DIR, see plan_from_dump); kept as it is

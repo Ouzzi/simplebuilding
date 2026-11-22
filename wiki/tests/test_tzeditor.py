@@ -33,10 +33,13 @@ class TzEditor(unittest.TestCase):
         self.assertLess(handler.index("hasAttribute('data-own-fallback')"), handler.index('replaceWith'))
         self.assertIn('i.dataset.ownFallback', js)
         self.assertIn("data/vanilla-icons.json", js)
-        # candidates (N107 order): the dev host's model list, module picture, wiki picture, name guesses
+        # candidates (N107 order): the dev host's model list, module picture, wiki picture, index pictures of the base names
         body = js[js.index('function candidates(id)'):js.index('function crop(')]
-        order = [body.index(k) for k in ('st.icons[id]', 'st.idx.textures[id]', 'ctx.icon(full)', "'assets/vanilla/block/'")]
+        order = [body.index(k) for k in ('st.icons[id]', 'st.idx.textures[id]', 'ctx.icon(full)', "st.icons['minecraft:' + n]")]
         self.assertEqual(order, sorted(order))
+        # O5b: no picture path guessed by name (thousands of 404s on Dev): only paths the host's index names
+        self.assertNotIn("'assets/vanilla/block/'", body)
+        self.assertNotIn("'assets/vanilla/item/'", body)
         # N110 pre-check: a module id the host's list names -> its module picture is known missing there, never asked for;
         # a picture file that failed once is never asked for again
         self.assertIn("if (!(dev && nsOf(full) !== 'minecraft')) add(st.idx && st.idx.textures[id]);", body)

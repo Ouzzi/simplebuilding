@@ -335,7 +335,7 @@
     /* ---- pictures (N72) ----
        Candidates in order, each tried when the one before fails to load: 1. (N107: swapped with 2) the module picture of index.json, 2.
        data/vanilla-icons.json (dev host only, wiki/vanilla_textures.py --icons: the game's item -> model -> texture walk),
-       3. the wiki's picture of the id (ctx.icon), 4. the old guesses by name. "file#x,y,w,h" = crop of a skin. All failing: the name. */
+       3. the wiki's picture of the id (ctx.icon), 4. the index pictures of its base names (O5b: no guesses by name). "file#x,y,w,h" = crop of a skin. All failing: the name. */
     function candidates(id) {
       var out = [], full = id.indexOf(':') >= 0 ? id : 'minecraft:' + id;
       function add(u) { if (u && out.indexOf(u) < 0) out.push(u); }
@@ -347,11 +347,13 @@
          missing there (N80, git-ignored Vanilla-derived renders) - then that module picture is known missing: not asked for */
       if (!(dev && nsOf(full) !== 'minecraft')) add(st.idx && st.idx.textures[id]);
       if (ctx.icon) add(ctx.icon(full));
-      /* N110: with the dev host's index loaded it lists every Vanilla item (all 627 Vanilla ids of the layouts are in it): a
-         Vanilla id it does not know (e.g. half typed in "Change block") has no picture there - no name guesses (404s) */
-      var hostIndex = false; for (var any in (st.icons || {})) { hostIndex = true; break; }
-      var names = nsOf(id) === 'minecraft' ? (hostIndex && !dev ? [] : [pathOf(id)]) : (st.idx && st.idx.vanilla && st.idx.vanilla[id]) || [];
-      names.forEach(function (n) { ['assets/vanilla/block/', 'assets/vanilla/item/'].forEach(function (p) { add(p + n + '.png'); }); });
+      /* O5b: no name guesses any more. vanilla_textures.py writes the Vanilla pictures and their index (vanilla-icons.json)
+         together, so the index knows every Vanilla picture a host has: a Vanilla id is covered by "dev" above, and the
+         base names of a module id without its own picture (index.json "vanilla": X_slab -> X, Xs, X_block ...) count only
+         when the index names that Vanilla id - its known path, never assets/vanilla/{block,item}/<name>.png blindly.
+         (The guesses 404ed by the thousand on Dev, also whenever a real file failed under load and the chain moved on.) */
+      var names = nsOf(id) === 'minecraft' ? [] : (st.idx && st.idx.vanilla && st.idx.vanilla[id]) || [];
+      names.forEach(function (n) { add(st.icons && st.icons['minecraft:' + n]); });
       return out.filter(function (u) { return !BAD[u.split('#')[0]]; });
     }
     function crop(i, url) {
