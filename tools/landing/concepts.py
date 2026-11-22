@@ -140,6 +140,17 @@ NAVCSS = ('.tn{display:flex;flex-wrap:wrap;gap:6px;padding:8px 118px 8px 8px;fon
           '@media(max-width:600px){.tn{padding-right:104px}.tn a{font-size:12px;padding:5px 7px}}')
 i = v2.rfind('</style>')
 base = v2[:i] + SIZES + NAVCSS + v2[i:]
+# O5a: Favicon = Mod-Icon von SimpleBuilding (Besitzer-Icon aus tools/textures/mod_icons.py OWNER, keine Mojang-Pixel).
+# Jede Seite trägt es als eingebettetes PNG (<link rel="icon">), damit fragt der Browser /favicon.ico gar nicht erst an;
+# favicon.ico (16/32/48 px, Pixel unverändert vergrößert) liegt daneben für Abrufe von /favicon.ico (sb-web liefert es aus).
+_ICON16 = Image.open(R / 'src/main/resources/assets/simplebuilding/icon.png').convert('RGBA')
+assert _ICON16.size == (16, 16), _ICON16.size
+_FAV = [_ICON16.resize((n, n), Image.NEAREST) for n in (16, 32, 48)]
+_b = io.BytesIO(); _FAV[1].save(_b, 'PNG', optimize=True)
+base = base.replace('</head>', '<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,'
+                    + base64.b64encode(_b.getvalue()).decode() + '"></head>', 1)
+_b = io.BytesIO(); _FAV[2].save(_b, 'ICO', sizes=[(16, 16), (32, 32), (48, 48)], append_images=_FAV[:2])
+BIN = {'favicon.ico': _b.getvalue()}
 
 NAVITEMS = [('index.html', 'Start', 'Start'), ('paket.html', 'Paket zusammenstellen', 'Build your pack'),
             ('reise.html', 'Reise', 'Journey'), ('discover.html', 'Discover', 'Discover')]
@@ -213,77 +224,97 @@ def counts():
     return dict(mods=len(MODS), sup=len(SUP), blocks=blocks, items=items, tex=texs)
 
 
-# Kurztexte je Mod (DE, EN); Quelle: modules.json-Beschreibungen, gekuerzt
+# Kurztexte je Mod (DE, EN); Quelle: modules.json-Beschreibungen, gekuerzt. Sie stehen im Baukasten (paket.html) und, für jede
+# Mod ohne handgeschriebene Karte in vorschlag-2.html, als Karte unter "Die Mods" (O5a). Jeder Satz muss für die Mod stimmen:
+# geprüft gegen Store-Seite (tools/release_pages/pages_data.py) und modules/<id>/wiki/manual.json, DE-Begriffe aus manual/Lang.
 TXT = {
  'simplebuilding': ('Der Kern: Bauwerkzeuge, Speicher, Maschinen und Verzauberungen; bündelt viele Sub-Mods.', 'The core: building tools, storage, machines and enchantments; bundles many sub mods.'),
- 'simplelib': ('Gemeinsame Basis: Materialien, Upgrades in der Welt, Handbuch und UI-Bausteine.', 'Shared base: materials, in-world upgrades, the guide and UI building blocks.'),
+ 'simplelib': ('Gemeinsame Basis der Simple-Familie: ein Handbuch für alle Simple-Mods, warmes Essen, gemeinsame Grundstoffe und UI-Bausteine.', 'Shared base of the Simple family: one guide book for every Simple mod, warm food, shared materials and UI building blocks.'),
  'simplemoney': ('Geldscheine, gewichtete Dorfbewohner-Händel und Schatz-Beute.', 'Bank notes, weighted villager trades and treasure loot.'),
- 'simpleriding': ('Schnellere Sättel, Pferdesprünge, Nautilus-Sprints und Reittier-Rüstung.', 'Faster saddles, horse jumps, nautilus dashes and mount armor.'),
- 'simplemodels': ('Eigene Item-Modelle, vom Server freigegeben, am Amboss zuweisen.', 'Custom item models approved by the server, assigned at the anvil.'),
- 'simplefun': ('Verspielte Mechaniken: werfbare Ziegel und kosmetische Verwandlungen.', 'Playful mechanics: throwable bricks and cosmetic transformations.'),
- 'simplevisuals': ('HUD, Tooltips und mehr Vanilla-Stimmung am Client.', 'HUD, tooltips and more Vanilla immersion on the client.'),
- 'simplesounds': ('Passende Klänge zu den Effekten von Simple Visuals.', 'Matching sounds for the Simple Visuals effects.'),
+ 'simpleriding': ('Schnellere Sättel, höhere Pferdesprünge, Nautilus-Sprints, Hufeisen und Reittier-Rüstungen, dazu Beute und Handel.', 'Faster saddles, higher horse jumps, nautilus dashes, horseshoes and mount armor utilities, plus loot and trades.'),
+ 'simplemodels': ('Vom Server freigegebene eigene Item-Modelle, am Amboss zugewiesen, mit durchsuchbarem Modell-Browser.', 'Server-approved custom item models, assigned at the anvil, with a searchable model browser.'),
+ 'simplefun': ('Kleine Spaß-Mechaniken wie Wurfziegel und kosmetische Verwandlungen, begrenzt, damit sie im Überleben sicher bleiben.', 'Small playful mechanics such as throwable bricks and cosmetic transformations, bounded so they stay safe for survival.'),
+ 'simplevisuals': ('Clientseitig: HUD, Tooltips und Amboss-Formatierung, dazu Immersionspartikel im Vanilla-Stil, alles abschaltbar.', 'Client-side HUD, tooltip and anvil formatting plus Vanilla-style immersion particles, all optional.'),
+ 'simplesounds': ('Vanilla-Klänge, lokal gespielt, passend zu den zwölf Immersionseffekten von Simple Visuals.', 'Vanilla sounds played locally for the twelve immersion effects of Simple Visuals.'),
  'simplequalityoflife': ('Super-Mod für Komfort: Wetter, Oberflächen, Beute, Mob-Manieren, Farm, Werkzeuge, Bewegung.', 'Super mod for comfort: weather, screens, loot, mob manners, farming, tools, movement.'),
- 'simpletweaks': ('Kompatibilität und Grundstücks-Schutz (Claims), serverseitig.', 'Compatibility and server-side land claims.'),
- 'simpledimensions': ('Einstellbare Dimensionen, Lichtbögen und sichere verknüpfte Portale.', 'Configurable dimensions, light arches and safe linked portals.'),
+ 'simpletweaks': ('Für Server: Claims schützen Bauten, Admin-Werkzeuge (Block-Log, Backups, Anti-X-Ray) und Spieler-Tweaks; ältere Welten laden weiter.', 'For servers: claims that protect builds, admin tools (block log, backups, anti-X-ray) and player tweaks; older worlds keep loading.'),
+ 'simpledimensions': ('Einstellbare Dimensionen (Skyblock, Abbau- und Reisedimension), Leuchtstein-Portale als Rechteck oder Bogen und sichere Reise mit Rückweg.', 'Configurable dimensions (Skyblock, a mining and a travel dimension), glowstone portals as rectangles or arches and safe travel with a way back.'),
  'simplesandwiches': ('Sandwiches auf dem Schneidebrett, Messer, Käse und Butter.', 'Sandwiches on a cutting board, a knife, cheese and butter.'),
- 'simpleinterfaces': ('Neuer Look für Vanilla-Behälter: farbiger Kasten je Block.', 'A new look for Vanilla containers: a coloured box per block.'),
+ 'simpleinterfaces': ('Neu gestaltete Vanilla-Behälter-Bildschirme, verknüpfte Behälter und einfacher Zugriff auf Shulkerkisten und Endertruhen.', 'Restyled Vanilla container screens, linked containers and easy access to shulker boxes and ender chests.'),
  'simplemaps': ('Wegfinder-Karten: endlos je Dimension, Zoom und Wegpunkte.', 'Wayfinder maps: endless per dimension, zoom and waypoints.'),
- 'simplelivemap': ('Live-Webkarte der Welt, so wie die Spieler sie erkundet haben.', 'Live web map of the world as players really explored it.'),
- 'simpletrims': ('Leuchtende, strahlende und pulsierende Rüstungsbesätze.', 'Glowing, emitting and pulsating armor trims.'),
+ 'simplelivemap': ('Live-Webkarte deiner Welt, so wie die Spieler sie erkundet haben, mit eingebautem Webserver, standardmäßig nur auf deinem Computer.', 'Live web map of your world as players explored it, with a built-in web server that runs only on your own computer by default.'),
+ 'simpletrims': ('Rüstungsbesätze Leuchtend, Strahlend, Pulsierend und Invertierend, platzierbare Besatzvorlagen und Besatz-Aufwertungen am Schmiedetisch.', 'Glowing, Emitting, Pulsating and Inverting armor trims, placeable trim templates and trim upgrades at the smithing table.'),
  'simplemobs': ('Bosse wie Hollow Howler und Hollow Watcher und neue Mobs.', 'Bosses like the Hollow Howler and Hollow Watcher and new mobs.'),
- 'simpleweather': ('Wetter-Schalter am Server und Regendichte am Client.', 'Weather switch on the server and rain density on the client.'),
- 'simplemovement': ('Free Look, Kriechen, Autowalk und schnellere Leitern.', 'Free Look, crawling, autowalk and faster ladders.'),
- 'simpletools': ('Sparsamkeit, Seelenbindung, Todes-Tresor, Biom-Pinsel und Amboss-Reparaturen ohne Aufpreis.', 'Thrift, Soulbound, the Death Vault, the Biome Brush and anvil repairs at no extra cost.'),
- 'simplefarming': ('Federfall schützt Ackerboden, Hacke erntet in der Fläche.', 'Feather Falling protects farmland, the hoe harvests an area.'),
- 'simplemobmanners': ('Mobs stummschalten, Babys jung halten, friedlichere Piglins.', 'Mute mobs, keep babies young, calmer piglins.'),
- 'simpleloot': ('Tresor-Abklingzeit in Tagen statt einmal je Spieler.', 'Vault cooldown in days instead of once per player.'),
- 'simplequestionary': ('Der Fragetisch: Item hineinlegen, Herkunft und Nutzen lesen.', 'The Questionary Table: put an item in, read its lore and use.'),
+ 'simpleweather': ('Wetter am Server abschalten, Häufigkeit von Regen und Gewitter einstellen und die Regendichte am Client wählen.', 'Switch weather off on the server, set how often rain and thunder come and choose the rain density on the client.'),
+ 'simplemovement': ('Kriechen per Taste, vom Server erlaubtes Autowalk, schnellere Leitern, Frostläufer auf Pulverschnee und die Verzauberungen Stufenhöhe und Sprint.', 'Manual crawling, server-allowed autowalk, faster ladders, Frost Walker on powder snow and the Step Height and Sprint enchantments.'),
+ 'simpletools': ('Die Verzauberungen Sparsamkeit und Seelengebunden, das Todesgewölbe, der Biom-Pinsel, ein Bonus bei voller Haltbarkeit und Amboss-Reparaturen ohne Aufpreis.', 'The Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, a full-durability bonus and anvil repairs at no extra cost.'),
+ 'simplefarming': ('Federfall schützt Ackerboden, Schärfe mäht durch Gras, und die Hacke erntet reife Feldfrüchte und pflanzt sie neu.', 'Feather Falling protects farmland, Sharpness cuts through grass, and a hoe harvests and replants ripe crops.'),
+ 'simplemobmanners': ('Mobs nach Typ oder Namensschild stummschalten, Piglins ignorieren Goldbesatz und goldene Werkzeuge, ein Wassereimer fängt Frösche.', 'Mute mobs by type or name tag, piglins ignore gold trims and golden tools, and a water bucket catches frogs.'),
+ 'simpleloot': ('Tresore öffnen sich nach einer Abklingzeit in Tagen wieder, statt nur einmal je Spieler.', 'Vaults open again after a cooldown in days instead of only once per player.'),
+ 'simplequestionary': ('Der Fragentisch: ein beliebiges Item hineinlegen und in einem offenen Buch seine Geschichte, seinen Nutzen und ein Geheimnis lesen.', 'The Questionary Table: put in any item and read its lore, its use and a secret in an open book.'),
  'simpleaesthetics': ('Super-Mod für Optik: Visuals, Sounds und Models.', 'Super mod for looks: Visuals, Sounds and Models.'),
- 'simpleenddragonfight': ('Drachenkampf, der mit der Zahl der Spieler mitwächst.', 'An Ender Dragon fight that scales with the players.'),
+ 'simpleenddragonfight': ('Ein härterer Drachenkampf: eine Lebensleiste mehr je Spieler, ein schnellerer Drache, Auftritts-Animationen und Dragonmites.', 'A tougher Ender Dragon fight: one more health bar per player, a faster dragon, entry animations and Dragonmites.'),
  'simpleend': ('Zwei End-Hölzer, End-Gras, Bäume und Früchte.', 'Two End woods, End grass, trees and fruit.'),
- 'simplerespawn': ('Niedergeschlagen statt tot: Mitspieler können dich retten.', 'Downed instead of dead: teammates can revive you.'),
- 'simplebeacons': ('Starkes Leuchtfeuer mit 6 Stufen und 10 weiteren Effekten.', 'Strong Beacon with 6 levels and 10 more effects.'),
+ 'simplerespawn': ('Niedergeschlagen statt tot: Mitspieler können dich rechtzeitig wiederbeleben, mit eigenem Bildschirm zum Zuschauen oder Aufgeben.', 'Downed instead of dead: teammates can revive you in time, with a downed screen to spectate or give up.'),
+ 'simplebeacons': ('Starke und Mächtige Leuchtfeuer mit mehr Pyramidenebenen und neuen Kräften, Böse Leuchtfeuer, die schwächen, und Aquisatoren mit größerer Reichweite.', 'Strong and Mighty beacons with more pyramid levels and new powers, Evil beacons that weaken, and conduits with a bigger range.'),
  'simpleovens': ('Verstärkte, Netherit- und Enderit-Öfen, Räucher- und Schmelzöfen.', 'Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces.'),
  'simplemobheads': ('Ein Kopf für jeden Mob, zum Aufstellen und Tragen.', 'A head for every mob, to place and to wear.'),
- 'simpleshops': ('Spieler-Läden: Verkaufsblock mit eigenem Preis.', 'Player shops: a sales block with your own price.'),
- 'simplewanderers': ('Ein Wanderhändler je Dorf, mit Pferd an der Leine.', 'One wandering trader per village, with a leashed horse.'),
- 'simplestats': ('Jedes Werkzeug zählt seine eigene Statistik.', 'Every tool keeps its own statistics.'),
+ 'simpleshops': ('Spieler-Läden mit Verkaufsblock und Vitrine, geschützt vor Fremden, Explosionen, Kolben und Trichtern.', 'Player shops with a Sales Block and a Display Case, protected from strangers, explosions, pistons and hoppers.'),
+ 'simplewanderers': ('Ein Fahrender Händler je Dorf mit angeleintem Pferd, eigenem Sortiment und regelmäßigem Nachschub.', 'One wandering trader per village with a leashed horse, its own goods and regular restocks.'),
+ 'simplestats': ('Jedes Werkzeug, jede Waffe und jedes Rüstungsteil führt eigene Statistiken, mit eigenem Statistik-Bildschirm.', 'Every tool, weapon and armor piece keeps its own statistics, shown in its own statistics screen.'),
  'simpleblocks': ('Fehlende Baublöcke, Formsäge und kompakte Blöcke.', 'Missing building blocks, the shapecutter and compact blocks.'),
  'simplecrucibles': ('Tiegel kochen alle Plätze zugleich, beheizt vom Block darunter.', 'Crucibles cook every slot at once, heated from below.'),
- 'simplebuildingtools': ('Bauwerkzeuge: Muster kopieren, Flächen füllen und Blöcke sauber ersetzen.', 'Building tools: copy patterns, fill areas and replace blocks cleanly.'),
- 'simplechisels': ('Meißel in mehreren Materialien, um Blöcke zu formen und zu verzieren.', 'Chisels in several materials to shape and decorate blocks.'),
- 'simpleoctets': ('Octets: halbe Würfel aus jedem Holz und Block.', 'Octets: half-block cubes of every wood and block.'),
+ 'simplebuildingtools': ('Baustäbe in mehreren Stufen, der Oktant in 17 Farben und die Blaupause mit Editor und Bild-Import.', 'Building Wands in several tiers, the Octant in 17 colors and the Blueprint with editor and picture import.'),
+ 'simplechisels': ('Meißel von Stein bis Netherit (Enderit mit Simple Ores), die Blöcke einen Schritt in ihrer Familie weiterschalten, mit der Verzauberung Schnelles Meißeln.', 'Chisels from stone to Netherite (Enderite with Simple Ores) that step blocks along their family, with the Fast Chiseling enchantment.'),
+ 'simpleoctets': ('Achtelblöcke: halbe Würfel aus jedem Holz und jedem Block mit Treppe und Stufe, mischbar in einer Zelle.', 'Octets: half-block cubes of every wood and every block with stairs and slabs, which mix in a single cell.'),
  'simpleslabs': ('Halbstufen (4 px) jedes Blocks mit Stufe, frei in vier Lagen kombinierbar, auch als Seiten-Stufe.', 'Half slabs (4 px) of every block with a slab, freely combined in four layers, also as side slabs.'),
  'simplehammers': ('Sieben Vorschlaghämmer, die 3x3 abbauen und Blöcke formen.', 'Seven sledgehammers that mine 3x3 and reshape blocks.'),
  'simpleoptimization': ('Super-Mod für Leistung: Render, Speicher, Server.', 'Super mod for performance: render, memory, server.'),
- 'simpleoptrender': ('Client-Optimierungen wie Blätter-Culling und Lichtcache.', 'Client optimizations like leaf culling and a light cache.'),
- 'simpleoptmemory': ('Speicher-Optimierungen für Blockzustände und Modelle.', 'Memory optimizations for block states and models.'),
- 'simpleoptserver': ('Sichtweite folgt der Serverlast.', 'View distance follows the server load.'),
+ 'simpleoptrender': ('Client-Optimierungen: Laub-Culling, Lightmap-Cache, schneller IP-Ping und Telemetrie aus; tritt zurück, wo ein bekannter Optimierungsmod den Bereich abdeckt.', 'Client optimizations: leaf culling, a light-map cache, fast IP ping and telemetry off; steps back where a known optimization mod covers it.'),
+ 'simpleoptmemory': ('Speicher-Optimierung: Blockzustände mit gleichen Werten teilen sich ihre Tabellen; tritt vor bekannten Optimierungsmods zurück.', 'Memory optimization: block states with the same values share their tables; steps back for known optimization mods.'),
+ 'simpleoptserver': ('Server-Optimierung: Die Sichtweite folgt der Serverlast in den Grenzen der server.properties.', 'Server optimization: view distance follows the server load within the server.properties bounds.'),
  'simplestorage': ('Kisten, Rucksäcke, Fässer, Rohre und Truhen-Netzwerk.', 'Crates, backpacks, barrels, pipes and a chest network.'),
  'simplemusic': ('Notenblätter, Plattenpresse und eigene Schallplatten.', 'Sheet music, the disc press and your own records.'),
- 'simplelights': ('Lichtscheiben: flache Lampen auf jeder Blockseite.', 'Light panes: flat lamps on any block side.'),
+ 'simplelights': ('Lichtscheiben: flache Lampen auf jeder Blockseite, schlicht, durchsichtig, in sechzehn Farben und als Redstone- und Kupfer-Scheiben.', 'Light Panes: flat lamps on any block side, plain, transparent, in sixteen colors and as redstone and copper panes.'),
  'simplegadgets': ('Geräte für die Hand: Messuhr mit Fallwarnung, Transponierer, Detektor, Attraktor, Echolot und Resonanzstab.', 'Gadgets for your hand: the Gauge with a fall warning, Transposer, Detector, Attractor, Echo Sounder and Resonance Rod.'),
- 'simpleearth': ('Die Oberwelt von oben gesehen, aus der Umlaufbahn.', 'The Overworld seen from orbit.'),
+ 'simpleearth': ('Die Oberwelt aus der Umlaufbahn: aus großer Höhe wird die Welt zu einem abgerundeten Würfel in Vanilla-Kartenfarben.', 'The Overworld seen from orbit: from a great height the world becomes a rounded cube in Vanilla map colors.'),
  'simplechallenges': ('Spielmodi für eine Welt deiner Wahl.', 'Game modes for a world of your choice.'),
- 'simpleanimals': ('Hirsch, Wildschwein, Igel, Krabbe und Zebra.', 'Deer, wild boar, hedgehog, crab and zebra.'),
- 'simpledinos': ('Fossilien, Dino-Eier zum Ausbrüten und reitbare Dinos.', 'Fossils, dino eggs to hatch and rideable dinos.'),
+ 'simpleanimals': ('Fünf neue Tiere: Hirsch, Wildschwein, Igel, Krebs und Zebra, selten gespawnt und ohne Blockschaden.', 'Five new animals: deer, wild boar, hedgehog, crab and zebra, with low spawn rates and no block damage.'),
+ 'simpledinos': ('Fossilien, Dinosaurier-Eier zum Ausbrüten und fünf reitbare Dinosaurier, vom T-Rex bis zum Utahraptor.', 'Fossils, dinosaur eggs to brood and five rideable dinosaurs, from the T. rex to the Utahraptor.'),
  'simpleores': ('Silber und zwei Roségold-Legierungen mit eigenen Werkzeugen, Enderit über Netherit, Dimensionsschrott und Weisheitserz.', 'Silver and two rose gold alloys with their own tools, Enderite above Netherite, Dimensional Scrap and Sage Ore.'),
- 'simplemachines': ('Doppelkolben, Signaldämpfer, stärkere Kolben, schnelle Filter-Trichter, Schmied und Auto-Crafter.', 'Double Piston, Signal Dampener, stronger pistons, fast filter hoppers, the Smither and the Auto Crafter.'),
- 'simplearrows': ('Pfeiltisch, Licht- und Silberpfeil.', 'Fletching table, light and silver arrows.'),
- 'simpleresonance': ('Spielerwert, Gefahrenzonen und Spawn-Besitzer.', 'Player value, danger zones and spawn owners.'),
- 'simplefoundry': ('Gießerei als Multiblock: Schmelzkammern und Gussformen.', 'A multiblock foundry: melting chambers and casts.'),
- 'simpleenchanting': ('Dunkler und Astral-Verzauberer über dem Vanilla-Tisch.', 'Dark and Astral Enchanter above the Vanilla table.'),
+ 'simplemachines': ('Doppelkolben, Signaldämpfer, verbesserte Kolben, schnellere Filter-Trichter und Trichterloren, der Schmied und der Auto-Crafter.', 'Double Piston, Signal Dampener, upgraded pistons, faster filter hoppers and hopper minecarts, the Smither and the Auto Crafter.'),
+ 'simplearrows': ('Der Befiederungstisch baut Pfeile aus Spitze, Schaft und Befiederung; dazu der Lichtpfeil und, mit Simple Ores, der Silberpfeil.', 'The Fletching Table builds arrows from a tip, a shaft and a fletching; plus the Light Arrow and, with Simple Ores, the Silver Arrow.'),
+ 'simpleresonance': ('Spielerwert, Gefahrenzonen und Spawn-Besitzer mit Anfängerschutz; eine Schnittstelle, auf der andere Mods wie Simple Mobs aufbauen.', 'Player value, danger zones and spawn owners with newcomer protection; an interface other mods such as Simple Mobs build on.'),
+ 'simplefoundry': ('Eine Mehrblock-Gießerei für Simple Ovens: Gold, Kupfer und Eisen schmelzen und in Gussschalen gießen.', 'A multiblock foundry for Simple Ovens: melt gold, copper and iron and pour it into casting trays.'),
+ 'simpleenchanting': ('Dark Enchanter und, mit Simple Ores, Astral Enchanter über dem Vanilla-Tisch: Schieberegler, höhere Stufen, Schutz V und Federfall V.', 'The Dark Enchanter and, with Simple Ores, the Astral Enchanter above the Vanilla table: sliders, higher tiers, Protection V and Feather Falling V.'),
  'simplelayers': ('Welt-Ebenen: das Wolkenmeer über y 700 und die Backrooms mit Tapete, Neonlicht und Kreide unter dem Grundgestein.', 'World layers: the Cloud Sea above y 700 and the Backrooms with wallpaper, neon lights and chalk below the bedrock.'),
  'simplevault': ('Das Grundgewölbe: ein Spalt im Grundgestein führt in stille Hallen, drei Rätsel und ein Aufstiegsaltar sind der einzige Weg hinaus.', 'The Bedrock Vault: a gap in the bedrock leads into quiet halls, three riddles and an ascent altar are the only way out.'),
- 'simplechess': ('Schachfiguren in 13 Farben, 3D und flach, zu viert auf einem Block, Quarz-Schachbretter und mit Simple Octets Schach-Achtel.', 'Chess pieces in 13 colours, 3D and flat, four to a block, quartz checker boards and, with Simple Octets, chess octets.'),
- 'simplepads': ('Startrampen, Elytra-Pads, Druckplatten und Spawn-Teleporter.', 'Launchpads, elytra pads, pressure plates and a spawn teleporter.'),
+ 'simplechess': ('Schachfiguren in 13 Farben, 3D und flach, zu viert auf einem Block, Quarz-Schachbretter und mit Simple Octets Schach-Achtel.', 'Chess pieces in 13 colors, 3D and flat, four to a block, quartz checker boards and, with Simple Octets, chess octets.'),
+ 'simplepads': ('Startrampe, Elytra-Pad, Flugpad, Trank-Pad, Spawn-Teleporter, Chunk-Lader und verbesserte Druckplatten.', 'Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter, Chunk Loader and upgraded pressure plates.'),
 }
 for _k, _o in (OVR.get('mods') or {}).items():  # overrides.json: Kurztext je Mod
     if not _k.startswith('_') and _k in TXT:
         TXT[_k] = (_o.get('de', TXT[_k][0]), _o.get('en', TXT[_k][1]))
 missing = [k for k in MODS if k not in TXT]
 assert not missing, missing
+
+
+def all_cards(h):
+    """O5a: jede veröffentlichte Mod bekommt eine Karte unter "Die Mods". Die handgeschriebenen Karten der Basis bleiben,
+    dahinter folgen die übrigen Mods in der Reihenfolge der Galerie (Super-Mod-Familien, dann Weitere Mods) mit TXT als Text."""
+    i = h.find('<h2 data-en="The Mods">')
+    j = h.find('<h2 data-en="Install', i)
+    k = h.rfind('</div>', i, j)  # Ende des Karten-Rasters .g
+    assert 0 < i < k < j, 'Karten-Raster der Basis nicht gefunden'
+    have = set(re.findall(r'<div class="c"><img data-ico="([a-z0-9_]+)"', h[i:j]))
+    order = re.findall(r'<img data-ico="([a-z0-9_]+)" src="[^"]*" title=', h)  # Galerie "Alle N Module"
+    order = list(dict.fromkeys(['simplebuilding'] + order))
+    add = ''.join(f'<div class="c"><img data-ico="{m}" src="{ICONS.get(m, "")}" alt=""><b>{E(MODS[m]["name"])}</b>'
+                  f'<p data-en="{E(TXT[m][1])}">{E(TXT[m][0])}</p></div>' for m in order if m in MODS and m not in have)
+    return h[:k] + add + h[k:]
+
+
+OUT['index.html'] = all_cards(OUT['index.html'])
 EXT = {'cloth_config': 'Cloth Config', 'cloth-config': 'Cloth Config'}
 VER = re.search(r'^mod_version=(.+)$', (R / 'gradle.properties').read_text(), re.M).group(1).strip()
 
@@ -662,14 +693,17 @@ for _f, _v in OUT.items():
 assert all(_hit.values()), [a[:40] for a, n in _hit.items() if not n]
 pages = {'default': OUT['index.html'], 'k1': OUT['paket.html'], 'k2': OUT['reise.html'], 'k3': OUT['discover.html']}
 stale = [f for f, v in OUT.items() if not (D / f).exists() or (D / f).read_text(encoding='utf-8') != v]
+stale_bin = [f for f, v in BIN.items() if not (D / f).exists() or (D / f).read_bytes() != v]
 if CHECK:
-    if stale:  # Hinweis, kein Abbruch: die Landing ist kein Gate-Inhalt, der gen-Schritt jedes Buendels schreibt sie neu
-        print('landing: veraltet (python3 tools/landing/concepts.py):', ', '.join(stale))
+    if stale or stale_bin:  # Hinweis, kein Abbruch: die Landing ist kein Gate-Inhalt, der gen-Schritt jedes Buendels schreibt sie neu
+        print('landing: veraltet (python3 tools/landing/concepts.py):', ', '.join(stale + stale_bin))
     else:
         print('landing: aktuell')
     sys.exit(0)
 for f in stale:
     (D / f).write_text(OUT[f], encoding='utf-8')
+for f in stale_bin:
+    (D / f).write_bytes(BIN[f])
 print('Zahlen:', C, '| Groessen:', {k: len(v.encode()) for k, v in pages.items()})
 
 # ---------------------------------------------------------------- Vorschau (LAND10)

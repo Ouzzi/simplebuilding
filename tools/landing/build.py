@@ -3,7 +3,7 @@
 
   python3 tools/landing/build.py          alle vier Seiten (index/paket/reise/discover.html) über concepts.py neu schreiben
   python3 tools/landing/build.py --check  schreibt nichts, braucht kein ffmpeg:
-      Exit 2 = Mod aus modules/modules.json ohne Landing-Kachel (Kurztext, Icon, Baukasten-Eintrag, Galerie-Bild)
+      Exit 2 = Mod aus modules/modules.json ohne Landing-Kachel (Kurztext, Icon, Baukasten-Eintrag, Galerie-Bild, Karte)
                oder ein Mod zeigt ein fremdes bzw. ein mit einer anderen Mod geteiltes Icon (früherer Fehler: alle Kacheln
                mit dem SimpleBuilding-Icon; Simple Layers und Simple Pads hatten dieselbe Platzhalter-Raute)
       Exit 1 = Seiten passen nicht zum Generator-Stand (python3 tools/landing/build.py laufen lassen)
@@ -27,6 +27,7 @@ def tiles():
     data = json.loads(m.group(1)) if m else {'mods': {}, 'icons': {}}
     idx = page('index.html')
     gallery = dict(re.findall(r'<img data-ico="([a-z0-9_]+)" src="([^"]*)" title=', idx))
+    cards = set(re.findall(r'<div class="c"><img data-ico="([a-z0-9_]+)"', idx))  # O5a: Karte unter "Die Mods"
     errs = []
     for i in mods:
         own = glob.glob(str(R / f'modules/{i}/shared/resources/assets/*/icon_128.png')) if i != 'simplebuilding' else \
@@ -40,6 +41,8 @@ def tiles():
             errs.append(f'{i}: kein Icon im Baukasten')
         elif want and i not in ovr and data['icons'][i] != want:
             errs.append(f'{i}: Baukasten zeigt ein fremdes Icon')
+        if i not in cards:
+            errs.append(f'{i}: keine Karte unter "Die Mods" (index.html)')
         if i != 'simplebuilding':  # die Galerie zeigt SimpleBuilding als Gruppe, nicht als Bild
             if not gallery.get(i):
                 errs.append(f'{i}: fehlt in der Galerie (index.html)')

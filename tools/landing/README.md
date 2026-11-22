@@ -49,3 +49,14 @@ Daten: modules.json/modtree.py, Lang-Dateien, git-verfolgte Mod-Texturen (nie bu
   Damit läuft der gen-Schritt der Bündel (wiki/generate.py --all) auch auf sb-test ohne ffmpeg.
 - Galerie-Gruppen tragen das Icon ihrer Super-Mod (bzw. SimpleLib bei „Weitere Mods“) vor dem Namen.
 - Downloads bleiben „coming soon“ bis zur Freigabe (public_downloads/Paket-ZIP unverändert).
+
+## O5a (22.11.): Karte für jede Mod, ?lang=, Favicon
+- „Die Mods“ auf `index.html` zeigt jetzt alle veröffentlichten Mods: die handgeschriebenen Karten aus `vorschlag-2.html` bleiben,
+  `concepts.py` (`all_cards`) hängt für jede übrige Mod eine Karte an (Reihenfolge der Galerie, Text = `TXT` DE/EN, derselbe Text wie
+  im Baukasten). `build.py --check` meldet eine Mod ohne Karte mit Exit 2. Neue Mod: Kurztext in `TXT` – jeder Satz muss gegen
+  Store-Seite (`tools/release_pages/pages_data.py`) und `modules/<id>/wiki/manual.json` stimmen.
+- `?lang=de` / `?lang=en` in der Adresse wählt die Sprache (vor localStorage und Browsersprache, wird nicht gespeichert). Klick-Skripte
+  sollten den DE-Lauf mit `?lang=de` laden: Headless-Chromium meldet `en-US`, ohne Parameter zeigte der „DE“-Lauf die EN-Seite.
+- Favicon: SimpleBuilding-Mod-Icon (Besitzer-Icon, keine Mojang-Pixel). Jede Seite bettet es als 32-px-PNG ein (`<link rel="icon">`),
+  daneben `favicon.ico` (16/32/48 px), beides von `concepts.py` aus `src/main/resources/assets/simplebuilding/icon.png` erzeugt.
+  Auslieferung von `/favicon.ico`: `sb-web-sync` kopiert bisher nur die vier HTML-Seiten (A: `favicon.ico` in die Liste aufnehmen).
