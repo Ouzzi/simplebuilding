@@ -505,22 +505,22 @@
       ],
       "en": {
         "title": "Enderite",
-        "summary": "The tier above netherite (formerly part of SimpleLib). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.",
+        "summary": "The tier above netherite. The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.",
         "details": [
           "On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.",
           "Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.",
           "Other mods ask for Enderite through SimpleLib (it is \"provided\" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them.",
-          "What it is for: on its own (Vanilla + Simple Ores) Enderite is a rare treasure for building - the Block of Enderite (also a beacon base), the chiseled block, the weighted pressure plate - and the first step of the rift alloys (a Terranite ingot needs an Enderite ingot). Its gear lives in the other Simple mods: tools, armor, apples and the smithing upgrade in SimpleBuilding, the sledgehammer in Simple Hammers, chests, backpacks, bundles, furnaces, pistons and hoppers in Simple Storage, Ovens and Machines. Without them Enderite is a material, not a tier."
+          "What it is for: Simple Ores makes the Enderite gear itself - sword, spear, pickaxe, axe, shovel, hoe, armor, horse and nautilus armor (smithing table: the Netherite piece, the Enderite upgrade and an Enderite ingot), the Enderite apples and carrot - plus the Block of Enderite (also a beacon base), the chiseled block, the weighted pressure plate and the first step of the rift alloys (a Terranite ingot needs an Enderite ingot). The other Simple mods add their own Enderite tier: the sledgehammer in Simple Hammers, chests, backpacks and bundles in Simple Storage, furnaces in Simple Ovens, pistons and hoppers in Simple Machines."
         ]
       },
       "de": {
         "title": "Enderit",
-        "summary": "Die Stufe über Netherit (früher Teil von SimpleLib). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.",
+        "summary": "Die Stufe über Netherit. Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.",
         "details": [
           "Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.",
           "Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.",
           "Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie.",
-          "Wozu es dient: allein (Vanilla + Simple Ores) ist Enderit ein seltener Schatz zum Bauen - der Enderitblock (auch als Leuchtfeuer-Sockel), der gemeißelte Block, die Wägeplatte - und der erste Schritt der Riss-Legierungen (ein Terranitbarren braucht einen Enderitbarren). Die Ausrüstung liegt in den anderen Simple-Mods: Werkzeuge, Rüstung, Äpfel und die Schmiede-Aufwertung in SimpleBuilding, der Vorschlaghammer in Simple Hammers, Truhen, Rucksäcke, Bündel, Öfen, Kolben und Trichter in Simple Storage, Ovens und Machines. Ohne sie ist Enderit ein Material, keine Ausrüstungsstufe."
+          "Wozu es dient: Simple Ores macht die Enderit-Ausrüstung selbst - Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Rüstung, Pferde- und Nautilusrüstung (Schmiedetisch: das Netheritteil, die Enderit-Aufwertung und ein Enderitbarren), die Enderit-Äpfel und die Karotte - dazu den Enderitblock (auch als Leuchtfeuer-Sockel), den gemeißelten Block, die Wägeplatte und den ersten Schritt der Riss-Legierungen (ein Terranitbarren braucht einen Enderitbarren). Die anderen Simple-Mods bringen ihre eigene Enderit-Stufe: den Vorschlaghammer in Simple Hammers, Truhen, Rucksäcke und Bündel in Simple Storage, Öfen in Simple Ovens, Kolben und Trichter in Simple Machines."
         ]
       }
     },
@@ -584,19 +584,19 @@
       ],
       "en": {
         "title": "Sage Ore and Dimensional Scrap",
-        "summary": "Two rare finds that were formerly part of SimpleBuilding: the sage ore with its experience orb, and the scrap of the three dimensions.",
+        "summary": "Two rare finds: the sage ore with its experience orb, and the scrap of the three dimensions.",
         "details": [
           "Sage ore (and a deepslate twin): as rare as diamond ore, iron pickaxe, drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune). The orb charges 0.3 s and gives 50 to 100 experience.",
-          "Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding's pickaxe, Simple Hammers' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. It melts into rift shards (feature Rift alloys).",
+          "Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (the Enderite pickaxe, Simple Hammers' Enderite sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. It melts into rift shards (feature Rift alloys).",
           "Switches sageOre and dimensionalScrap (server config) stop new veins; existing blocks stay."
         ]
       },
       "de": {
         "title": "Weisheitserz und Dimensionsschrott",
-        "summary": "Zwei seltene Funde, die früher zu SimpleBuilding gehörten: das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
+        "summary": "Zwei seltene Funde: das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
         "details": [
           "Weisheitserz (und ein Tiefenschiefer-Zwilling): so selten wie Diamanterz, Eisenspitzhacke, lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %). Die Kugel lädt 0,3 s und gibt 50 bis 100 Erfahrung.",
-          "Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Er schmilzt zu Riss-Splittern (Abschnitt Riss-Legierungen).",
+          "Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (die Enderit-Spitzhacke, der Enderit-Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Er schmilzt zu Riss-Splittern (Abschnitt Riss-Legierungen).",
           "Die Schalter sageOre und dimensionalScrap (Server-Config) stoppen neue Adern; vorhandene Blöcke bleiben."
         ]
       }
@@ -20825,6 +20825,10 @@
       "id": "simpleores:item/breaks_dimensional_scrap",
       "replace": false,
       "values": [
+        {
+          "id": "simpleores:enderite_pickaxe",
+          "required": true
+        },
         {
           "id": "simplebuilding:enderite_pickaxe",
           "required": false

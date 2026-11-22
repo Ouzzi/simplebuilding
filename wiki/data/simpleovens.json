@@ -300,20 +300,18 @@
         "mc26_3/overlay/java/com/simplebuilding/gametest/MigrationWorldTests.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The furnaces, their block entities, the furnace carts, their 8 recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simpleovens:* through SimpleLib's id moves and save the new ids.",
+        "title": "Older worlds",
+        "summary": "Furnaces, smokers, blast furnaces and furnace carts from worlds of earlier SimpleBuilding versions keep working as Simple Ovens' blocks, contents included. Timers, stored experience, recipes and recipe unlocks carry over too.",
         "details": [
-          "Items and blocks keep their paths; the block entity types simplebuilding:mod_furnace, mod_smoker and mod_blast_furnace become simpleovens:furnace, smoker and blast_furnace; contents, timers and stored experience stay.",
-          "Furnace carts keep their fuel and push; recipe books and recipe advancements follow the move.",
+          "Furnace carts keep their fuel and push; recipe books and recipe advancements carry over.",
           "SimpleBuilding needs Simple Ovens and bundles it; Simple Ovens runs on its own with SimpleLib, which it bundles."
         ]
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die Öfen, ihre Block-Entities, die Antriebsloren, ihre 8 Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simpleovens:* und speichern die neuen Ids.",
+        "title": "Ältere Welten",
+        "summary": "Öfen, Räucheröfen, Hochöfen und Antriebsloren aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Blöcke von Simple Ovens, samt Inhalt. Zeiten, gespeicherte Erfahrung, Rezepte und Rezeptfreischaltungen gehen mit über.",
         "details": [
-          "Items und Blöcke behalten ihre Pfade; die Block-Entity-Typen simplebuilding:mod_furnace, mod_smoker und mod_blast_furnace werden zu simpleovens:furnace, smoker und blast_furnace; Inhalte, Zeiten und gespeicherte Erfahrung bleiben.",
-          "Antriebsloren behalten Brennstoff und Schub; Rezeptbücher und Rezept-Advancements ziehen mit.",
+          "Antriebsloren behalten Brennstoff und Schub; Rezeptbücher und Rezept-Advancements gehen mit über.",
           "SimpleBuilding braucht Simple Ovens und bündelt es; Simple Ovens läuft allein mit SimpleLib, das es mitbringt."
         ]
       }

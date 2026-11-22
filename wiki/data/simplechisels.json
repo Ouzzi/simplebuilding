@@ -157,18 +157,18 @@
         "modules/simplechisels/shared/java/com/simplechisels/SimpleChisels.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The seven chisels, Fast Chiseling, the ten chisel recipes and their recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplechisels:* through SimpleLib's id moves and save the new ids; the six legacy spatulas become the chisel of their tier, in chests and unloaded chunks too.",
+        "title": "Older worlds",
+        "summary": "Chisels from worlds of earlier SimpleBuilding versions keep working as Simple Chisels' chisels, with their enchantments, damage and names. The old spatulas turn into the chisel of their tier, in chests and unloaded chunks too.",
         "details": [
-          "Enchantments, damage and names on the items stay. The 'last target' line of an old chisel comes back with its next step.",
+          "Fast Chiseling and the chisel recipes with their recipe unlocks carry over too. The 'last target' line of an old chisel comes back with its next step.",
           "SimpleBuilding needs Simple Chisels and bundles it; Simple Chisels runs on its own with SimpleLib, which it bundles."
         ]
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die sieben Meißel, Schnelles Meißeln, die zehn Meißel-Rezepte und ihre Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplechisels:* und speichern die neuen Ids; die sechs alten Spachtel werden zum Meißel ihrer Stufe, auch in Truhen und ungeladenen Chunks.",
+        "title": "Ältere Welten",
+        "summary": "Meißel aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Meißel von Simple Chisels, mit Verzauberungen, Schaden und Namen. Die alten Spachtel werden zum Meißel ihrer Stufe, auch in Truhen und ungeladenen Chunks.",
         "details": [
-          "Verzauberungen, Schaden und Namen auf den Items bleiben. Die Zeile 'Letztes Ziel' eines alten Meißels kommt mit dem nächsten Schritt zurück.",
+          "Schnelles Meißeln und die Meißel-Rezepte mit ihren Rezeptfreischaltungen gehen mit über. Die Zeile 'Letztes Ziel' eines alten Meißels kommt mit dem nächsten Schritt zurück.",
           "SimpleBuilding braucht Simple Chisels und bündelt es; Simple Chisels läuft allein mit SimpleLib, das es mitbringt."
         ]
       }

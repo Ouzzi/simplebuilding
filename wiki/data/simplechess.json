@@ -99,12 +99,12 @@
         "modules/simplechess/shared/java/com/simplechess/SimpleChess.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "Chess lived in SimpleBuilding before; the old simplebuilding: ids of the pieces, checkers, octets, the pieces cell and their recipes turn into the simplechess: ones when a world loads (SimpleLib id moves)."
+        "title": "Older worlds",
+        "summary": "Chess pieces, checker boards, chess octets and the pieces cell from worlds of earlier SimpleBuilding versions keep working as Simple Chess blocks, with their recipes."
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Schach war früher Teil von SimpleBuilding; die alten simplebuilding:-Ids der Figuren, Schachbretter, Achtel, des Figurenblocks und ihrer Rezepte werden beim Laden einer Welt zu den simplechess:-Ids (SimpleLib-Id-Umzüge)."
+        "title": "Ältere Welten",
+        "summary": "Schachfiguren, Schachbretter, Schach-Achtel und der Figurenblock aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Blöcke von Simple Chess, mit ihren Rezepten."
       }
     }
   ],
@@ -18299,10 +18299,10 @@
           "modules/simplechess/shared/resources/data/simplechess/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Chess\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: block of quartz. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Chess\" of the Simple Modpack guide (SimpleLib): 8 pages taken from this wiki, shown in your language. Unlocked by picking up: block of quartz. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Chess\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Quarzblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Chess\" im Simple-Modpack-Handbuch (SimpleLib): 8 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Quarzblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplechess/item/guide_book.png",

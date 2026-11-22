@@ -310,18 +310,16 @@
         "mc26_3/overlay/java/com/simplebuilding/gametest/MigrationWorldTests.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The seven sledgehammers, the enchantments Break Through, Override and Radius, the ten hammer recipes and their recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplehammers:* through SimpleLib's id moves and save the new ids.",
+        "title": "Older worlds",
+        "summary": "Sledgehammers from worlds of earlier SimpleBuilding versions keep working as Simple Hammers' hammers, with their enchantments and begun upgrades. Break Through, Override and Radius, the hammer recipes and their recipe unlocks carry over too.",
         "details": [
-          "Enchantments on items and stored progress of begun upgrades stay.",
           "SimpleBuilding needs Simple Hammers and bundles it; Simple Hammers runs on its own with SimpleLib, which it bundles. The Enderite hammer (smithing from the Netherite hammer with Enderite ingot and template) needs Simple Ores, which brings Enderite; without it the recipe and the creative tab entry are left out."
         ]
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die sieben Vorschlaghämmer, die Verzauberungen Durchbruch, Übersteuerung und Radius, die zehn Hammer-Rezepte und ihre Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplehammers:* und speichern die neuen Ids.",
+        "title": "Ältere Welten",
+        "summary": "Vorschlaghämmer aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Hämmer von Simple Hammers, mit Verzauberungen und angefangenen Aufwertungen. Durchbruch, Übersteuerung und Radius, die Hammer-Rezepte und ihre Rezeptfreischaltungen gehen mit über.",
         "details": [
-          "Verzauberungen auf Items und gespeicherter Fortschritt angefangener Aufwertungen bleiben.",
           "SimpleBuilding braucht Simple Hammers und bündelt es; Simple Hammers läuft allein mit SimpleLib, das es mitbringt. Der Enderit-Hammer (Schmieden aus dem Netherit-Hammer mit Enderit-Barren und Vorlage) braucht Simple Ores, das Enderit mitbringt; ohne es fehlen Rezept und Kreativ-Tab-Eintrag."
         ]
       }

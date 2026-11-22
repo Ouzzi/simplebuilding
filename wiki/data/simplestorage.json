@@ -790,17 +790,17 @@
         "modules/simplestorage/shared/java/com/simplestorage/test/StorageTests.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The crates of every wood and the Storage Crafting Table, their block entities, recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplestorage:* through SimpleLib's id moves and save the new ids; placed crates keep their food and tables their grid.",
+        "title": "Older worlds",
+        "summary": "Crates and Storage Crafting Tables from worlds of earlier SimpleBuilding versions keep working as Simple Storage's, with their food and grid. Tiered chests, shulker boxes, bundles, quivers, backpacks, chest minecarts and chest boats carry over the same way.",
         "details": [
-          "SimpleBuilding needs Simple Storage and bundles it; Simple Storage runs on its own with SimpleLib, which it bundles. Tiered chests and shulker boxes (stage 8b), bundles and quivers (8c-1) and the backpacks (8c-2) followed."
+          "SimpleBuilding needs Simple Storage and bundles it; Simple Storage runs on its own with SimpleLib, which it bundles."
         ]
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die Kisten aller Hölzer und die Werkbank mit Lager, ihre Block-Entities, Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* und speichern die neuen Ids; gesetzte Kisten behalten ihr Essen, Werkbänke ihr Raster.",
+        "title": "Ältere Welten",
+        "summary": "Kisten und Werkbänke mit Lager aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als die von Simple Storage, mit Essen und Raster. Stufen-Truhen, Shulker-Kisten, Bündel, Köcher, Rucksäcke, Truhenloren und Truhenboote gehen genauso mit über.",
         "details": [
-          "SimpleBuilding braucht Simple Storage und bündelt es; Simple Storage läuft allein mit SimpleLib, das es mitbringt. Stufen-Truhen und Shulker-Kisten (Stufe 8b), Bündel und Köcher (8c-1) und die Rucksäcke (8c-2) folgten."
+          "SimpleBuilding braucht Simple Storage und bündelt es; Simple Storage läuft allein mit SimpleLib, das es mitbringt."
         ]
       }
     }
@@ -9224,7 +9224,7 @@
             "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
             "Drawn as Vanilla's boat of the wood carrying the tier chest.",
             "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood.",
-            "Moved from SimpleBuilding: boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
+            "Worlds of earlier SimpleBuilding versions keep their tier chest boats and boat items, wood and contents included."
           ]
         },
         "de": {
@@ -9235,7 +9235,7 @@
             "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
             "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
             "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz.",
-            "Aus SimpleBuilding umgezogen: von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
+            "Welten früherer SimpleBuilding-Versionen behalten ihre Stufen-Truhenboote und Boot-Items, mit Holzart und Inhalt."
           ]
         }
       },
@@ -9305,7 +9305,7 @@
             "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like Vanilla's chest minecart, oversized slots up to the tier's limit.",
             "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
             "Drawn as Vanilla's minecart carrying the tier chest.",
-            "Moved from SimpleBuilding: carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
+            "Worlds of earlier SimpleBuilding versions keep their tier chest minecarts with their contents."
           ]
         },
         "de": {
@@ -9315,7 +9315,7 @@
             "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
             "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
             "Gezeigt als Vanilla-Lore mit der Stufen-Truhe.",
-            "Aus SimpleBuilding umgezogen: als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
+            "Welten früherer SimpleBuilding-Versionen behalten ihre Stufen-Truhenloren mit Inhalt."
           ]
         }
       },
@@ -9738,7 +9738,7 @@
             "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
             "Drawn as Vanilla's boat of the wood carrying the tier chest.",
             "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood.",
-            "Moved from SimpleBuilding: boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
+            "Worlds of earlier SimpleBuilding versions keep their tier chest boats and boat items, wood and contents included."
           ]
         },
         "de": {
@@ -9749,7 +9749,7 @@
             "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
             "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
             "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz.",
-            "Aus SimpleBuilding umgezogen: von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
+            "Welten früherer SimpleBuilding-Versionen behalten ihre Stufen-Truhenboote und Boot-Items, mit Holzart und Inhalt."
           ]
         }
       },
@@ -9821,7 +9821,7 @@
             "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like Vanilla's chest minecart, oversized slots up to the tier's limit.",
             "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
             "Drawn as Vanilla's minecart carrying the tier chest.",
-            "Moved from SimpleBuilding: carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
+            "Worlds of earlier SimpleBuilding versions keep their tier chest minecarts with their contents."
           ]
         },
         "de": {
@@ -9831,7 +9831,7 @@
             "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
             "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
             "Gezeigt als Vanilla-Lore mit der Stufen-Truhe.",
-            "Aus SimpleBuilding umgezogen: als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
+            "Welten früherer SimpleBuilding-Versionen behalten ihre Stufen-Truhenloren mit Inhalt."
           ]
         }
       },
@@ -10425,7 +10425,7 @@
             "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
             "Drawn as Vanilla's boat of the wood carrying the tier chest.",
             "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood.",
-            "Moved from SimpleBuilding: boats and boat items saved by SimpleBuilding load as Simple Storage's, wood and contents kept."
+            "Worlds of earlier SimpleBuilding versions keep their tier chest boats and boat items, wood and contents included."
           ]
         },
         "de": {
@@ -10436,7 +10436,7 @@
             "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
             "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
             "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz.",
-            "Aus SimpleBuilding umgezogen: von SimpleBuilding gespeicherte Boote und Boot-Items laden als die von Simple Storage, Holzart und Inhalt bleiben."
+            "Welten früherer SimpleBuilding-Versionen behalten ihre Stufen-Truhenboote und Boot-Items, mit Holzart und Inhalt."
           ]
         }
       },
@@ -10507,7 +10507,7 @@
             "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like Vanilla's chest minecart, oversized slots up to the tier's limit.",
             "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
             "Drawn as Vanilla's minecart carrying the tier chest.",
-            "Moved from SimpleBuilding: carts saved as simplebuilding:<tier>_chest_minecart load as simplestorage:<tier>_chest_minecart with their contents."
+            "Worlds of earlier SimpleBuilding versions keep their tier chest minecarts with their contents."
           ]
         },
         "de": {
@@ -10517,7 +10517,7 @@
             "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
             "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
             "Gezeigt als Vanilla-Lore mit der Stufen-Truhe.",
-            "Aus SimpleBuilding umgezogen: als simplebuilding:<stufe>_chest_minecart gespeicherte Loren laden als simplestorage:<stufe>_chest_minecart mit Inhalt."
+            "Welten früherer SimpleBuilding-Versionen behalten ihre Stufen-Truhenloren mit Inhalt."
           ]
         }
       },

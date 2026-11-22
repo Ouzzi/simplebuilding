@@ -26,11 +26,11 @@
       ],
       "en": {
         "title": "Disable weather",
-        "summary": "disableWeather (default false, server) clears rain and thunder and sets the Vanilla game rule advance_weather to false, so the weather no longer changes by itself. /weather still works. Switching the option off again leaves the rule off. /gamerule advance_weather true turns it back on."
+        "summary": "Stops the weather from changing by itself: rain and thunder end and the Vanilla game rule advance_weather is set to false (server setting disableWeather, default off). /weather still works. Switching the option off again leaves the rule off; /gamerule advance_weather true turns it back on."
       },
       "de": {
         "title": "Wetter abschalten",
-        "summary": "disableWeather (Standard false, Server) beendet Regen und Gewitter und setzt die Vanilla-Spielregel advance_weather auf false, damit sich das Wetter nicht mehr von selbst ändert. /weather wirkt weiter. Beim Ausschalten der Option bleibt die Regel aus. /gamerule advance_weather true schaltet sie wieder ein."
+        "summary": "Hält das Wetter an, damit es sich nicht mehr von selbst ändert: Regen und Gewitter enden und die Vanilla-Spielregel advance_weather wird auf false gesetzt (Server-Einstellung disableWeather, Standard aus). /weather wirkt weiter. Beim Ausschalten der Option bleibt die Regel aus; /gamerule advance_weather true schaltet sie wieder ein."
       }
     },
     {
@@ -40,11 +40,11 @@
       ],
       "en": {
         "title": "Rain and thunder frequency",
-        "summary": "rainFrequencyFactor and thunderFrequencyFactor (default 1 = Vanilla, bounded 0.25–4, server) speed up or slow down the countdown between two rains or storms: 2 = the dry spell is half as long, 0.25 = four times as long. Rain and storm length stay Vanilla; /weather clear <time> stays exact. Change with /simpleweather config set rainFrequencyFactor 2."
+        "summary": "Makes rain and thunderstorms come more or less often. rainFrequencyFactor and thunderFrequencyFactor (server, default 1 = Vanilla, from 0.25 to 4) speed up or slow down the countdown between two rains or storms: 2 = the dry spell is half as long, 0.25 = four times as long. Rain and storm length stay Vanilla; /weather clear <time> stays exact. Change with /simpleweather config set rainFrequencyFactor 2."
       },
       "de": {
         "title": "Regen- und Gewitterhäufigkeit",
-        "summary": "rainFrequencyFactor und thunderFrequencyFactor (Standard 1 = Vanilla, Grenze 0,25–4, Server) beschleunigen oder bremsen den Zähler zwischen zwei Regen bzw. Gewittern: 2 = Trockenzeit halb so lang, 0,25 = viermal so lang. Regen- und Gewitterdauer bleiben Vanilla; /weather clear <Zeit> bleibt exakt. Ändern mit /simpleweather config set rainFrequencyFactor 2."
+        "summary": "Lässt Regen und Gewitter öfter oder seltener kommen. rainFrequencyFactor und thunderFrequencyFactor (Server, Standard 1 = Vanilla, von 0,25 bis 4) beschleunigen oder bremsen den Zähler zwischen zwei Regen bzw. Gewittern: 2 = Trockenzeit halb so lang, 0,25 = viermal so lang. Regen- und Gewitterdauer bleiben Vanilla; /weather clear <Zeit> bleibt exakt. Ändern mit /simpleweather config set rainFrequencyFactor 2."
       }
     },
     {
@@ -55,11 +55,11 @@
       ],
       "en": {
         "title": "Rain density",
-        "summary": "clientRainParticleDensity is a local visual preference, default 100 like Vanilla, bounded 0–100: thins rain in the air, ground particles and rain sounds; it never changes server weather."
+        "summary": "Thins out rain on your own screen: less rain in the air, fewer ground particles and fewer rain sounds. clientRainParticleDensity is a local visual setting, default 100 like Vanilla, from 0 to 100; it never changes server weather."
       },
       "de": {
         "title": "Regendichte",
-        "summary": "clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 100 wie Vanilla, Grenze 0–100: dünnt Regen in der Luft, Bodenpartikel und Regengeräusche aus; Serverwetter bleibt davon unabhängig."
+        "summary": "Dünnt den Regen auf dem eigenen Bildschirm aus: weniger Regen in der Luft, weniger Bodenpartikel und weniger Regengeräusche. clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 100 wie Vanilla, von 0 bis 100; das Serverwetter bleibt davon unabhängig."
       }
     },
     {
