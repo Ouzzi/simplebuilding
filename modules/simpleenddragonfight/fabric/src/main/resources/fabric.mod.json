@@ -40,5 +40,5 @@
   "mixins": [
     "simpleenddragonfight.mixins.json"
   ],
-  "description": "Ender Dragon fight: +1 health bar per player, a faster dragon, entry animations and Dragonmites."
+  "description": "Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health."
 }

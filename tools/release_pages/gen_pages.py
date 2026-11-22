@@ -7,6 +7,9 @@ import pages_data
 LINKS = getattr(pages_data, "LINKS", {})
 G = getattr(pages_data, "G", {})
 FEATURE_TEXT = getattr(pages_data, "FEATURE_TEXT", {})
+# External mods a feature of the jar uses only when present, not named in modules.json (its "optional" must equal the jar's
+# suggests, tools/multimod.py): Simple Visuals and Simple Sounds open their Mod Menu config screen only with Cloth Config.
+OPT_EXTRA = {"simplevisuals": ["cloth_config"], "simplesounds": ["cloth_config"]}
 from check_pages import FORBIDDEN
 R = pathlib.Path(__file__).resolve().parents[2]
 mods = json.load(open(R / "modules/modules.json"))["modules"]
@@ -75,7 +78,7 @@ for m in mods:
     need = jar_requires(i)
     req = [nm(x) for x in sorted(need - inc, key=lambda x: (x in byid, nm(x)))]  # separate downloads: external mods first
     incl = [nm(x) for x in dict.fromkeys(["simplelib"] + m.get("requires", []) + sorted(inc)) if x in inc]  # SimpleLib first
-    opt = [nm(x) for x in dict.fromkeys(m.get("optional", []) + [x for x in m.get("requires", []) if canon(x) not in need]) if x not in inc]
+    opt = [nm(x) for x in dict.fromkeys(m.get("optional", []) + [x for x in m.get("requires", []) if canon(x) not in need] + OPT_EXTRA.get(i, [])) if x not in inc]
     released = lambda o: o.get("release") is not False and not o.get("example") and o["id"] != i
     supers = [nm(o["id"]) for o in mods if o["id"] in SUPERS and released(o) and i in nested(o["id"])]
     needed_by = [nm(o["id"]) for o in mods if released(o) and o["id"] not in SUPERS and i in jar_requires(o["id"]) and i not in nested(o["id"])]

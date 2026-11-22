@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Mob manners: muted mobs, named babies that stay young and piglins that accept gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
+  "description": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
   "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {

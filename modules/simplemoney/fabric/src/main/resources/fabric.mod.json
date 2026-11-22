@@ -30,7 +30,7 @@
     "java": ">=25",
     "fabric-api": "*"
   },
-  "description": "Currency production, villager trades and treasure loot.",
+  "description": "Currency production, weighted villager trades and treasure loot.",
   "authors": [
     "Oussama Azarfane"
   ],

@@ -3,7 +3,7 @@
   "id": "simplechess",
   "version": "${version}",
   "name": "Simple Chess",
-  "description": "Chess: 156 pieces (13 colors, six kinds, 3D and flat) that stand up to four on a block, 12 quartz checker boards with stairs and slabs and, with Simple Octets, the chess octets - moved from SimpleBuilding (ids migrate).",
+  "description": "Chess: 156 pieces (13 colors, six kinds, 3D and flat) that stand up to four on a block, 12 quartz checker boards with stairs and slabs and, with Simple Octets, the chess octets.",
   "authors": [
     "Ouzzi"
   ],

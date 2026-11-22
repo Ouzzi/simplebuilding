@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer of Simple Hammers.",
+  "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts. Upgrades in the world with the axe on its own, with the sledgehammer of Simple Hammers.",
   "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {

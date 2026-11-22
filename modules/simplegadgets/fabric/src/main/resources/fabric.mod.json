@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Gadgets you hold and use: the Gauge (speed dial, altimeter with fall-damage warning, auto-walk) and the Transposer (turns and swaps blocks in place). Moved from SimpleBuilding (ids migrate); more gadgets follow.",
+  "description": "Gadgets you hold and use: the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), the Transposer (turns and swaps blocks in place), the Resonance Rod, the Detector, the Attractor and the Echo Sounder; the Octant lives in Simple Building Tools.",
   "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {

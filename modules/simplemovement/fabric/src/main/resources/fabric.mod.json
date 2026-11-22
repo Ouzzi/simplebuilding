@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
+  "description": "Manual crawling, server-allowed autowalk, faster ladders (Vanilla 0.2, default 0.4) and Frost Walker on powder snow, plus the Step Height (I-II) and Sprint (I-III) treasure enchantments and a Jump Boost step-up; a sub-mod of Simple QoL, also playable alone.",
   "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {

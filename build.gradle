@@ -368,7 +368,9 @@ tasks.named('check') { dependsOn 'testLivemapWeb' }
  // N116: neutral 26.3 overlay layers of the worn dyed backpack match their 26.2 source; stale -> storage_dye_palette.py --write-only
  'checkStorageDyeLayers': 'tools/textures/storage_dye_palette.py --check',
  // b-beta61 (owner W3B 15.11.): every mod ships as <x.y.z>-beta.<n>; Simple-mod lower bounds met, changelogs and store pages say Beta
- 'checkBetaRelease': 'tools/release/check_beta.py'].each { taskName, script ->
+ 'checkBetaRelease': 'tools/release/check_beta.py',
+ // O6a: modules.json requires/description = each fabric.mod.json (jar truth); descriptions without codes, history, British spelling
+ 'checkModuleMeta': 'tools/check_module_meta.py'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."
@@ -399,7 +401,8 @@ tasks.register('testReleaseTools', Exec) {
 	description = 'Runs the unit tests of tools/release and of tools/check_player_texts.py.'
 	workingDir = rootDir
 	commandLine wikiPython, '-m', 'unittest', 'tools/release/test_dead_assets_263.py', 'tools/release/test_check_release_jars.py',
-		'tools/release/test_check_release_assets.py', 'tools/release/test_early_access.py', 'tools/test_check_player_texts.py'
+		'tools/release/test_check_release_assets.py', 'tools/release/test_early_access.py', 'tools/test_check_player_texts.py',
+		'tools/test_check_module_meta.py'
 	onlyIf { !project.hasProperty('skipWiki') }
 	outputs.upToDateWhen { false }
 }

@@ -35,5 +35,5 @@
   "mixins": [
     "simplerespawn.mixins.json"
   ],
-  "description": "Downed instead of dead: a teammate can revive you before you bleed out (then 3 hearts, no food)."
+  "description": "Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up."
 }

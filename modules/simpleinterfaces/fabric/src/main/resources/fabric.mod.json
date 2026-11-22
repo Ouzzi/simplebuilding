@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
+  "description": "Restyle of the Vanilla container screens (a colored box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
   "license": "LicenseRef-SimpleMods-ARR",
   "environment": "*",
   "entrypoints": {
