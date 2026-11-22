@@ -26,7 +26,7 @@ Simple Ovens adds faster furnace, smoker and blast furnace tiers (Netherite and 
 - **Furnace Minecarts**
 - **Furnace Boats** - A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes.
 - **Long Cook Times in the Menu** - Furnace menus send their timers as shorts; cook times above 32767 ticks are divided before sending, so the arrow and the flame keep the right ratio.
-- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
+- **Older worlds** - Furnaces, smokers, blast furnaces and furnace carts from worlds of earlier SimpleBuilding versions keep working as Simple Ovens' blocks, contents included.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpleovens config shows and changes every option of config/simpleovens-server.json (list [group], get, set, reset, help; Tab completes options and values).
 

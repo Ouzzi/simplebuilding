@@ -28,7 +28,7 @@ Simple Gadgets collects tools you hold and use: the Gauge (speed, altimeter, aut
 - **Echo Sounder** - Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels.
 - **Resonance Rod** - The Resonance Rod projects a light amethyst aiming dot while held in use.
 - **Readout box**
-- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
+- **Older worlds** - The gadgets from worlds of earlier SimpleBuilding versions keep working as Simple Gadgets' items, in inventories, chests and on the ground alike.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 
 ## Vanilla use

@@ -25,7 +25,7 @@ Simple Chisels moves blocks one step along their family (stone to chiseled, bric
 - **Fast Chiseling**
 - **Chisel tables as data**
 - **Chains of the Simple blocks** - Every chiseled, cracked and mossy block of the Simple mods sits in a chain, shipped by the mod that owns the block, so the chisel reaches it.
-- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
+- **Older worlds** - Chisels from worlds of earlier SimpleBuilding versions keep working as Simple Chisels' chisels, with their enchantments, damage and names.
 - **Creative tab** - The chisels and the Fast Chiseling books sit in the tab Simple Chisels only (no Vanilla tabs).
 - **Commands** - /simplechisels config shows and changes every option of config/simplechisels-server.json (list [group], get, set, reset, help; Tab completes options and values).
 

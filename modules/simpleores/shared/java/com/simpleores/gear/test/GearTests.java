@@ -82,6 +82,8 @@ public final class GearTests {
         var pick = stack("enderite_pickaxe");
         check(h, pick.isCorrectToolForDrops(Blocks.ANCIENT_DEBRIS.defaultBlockState()) && !pick.isCorrectToolForDrops(Blocks.BEDROCK.defaultBlockState()),
                 "the pickaxe mines like netherite");
+        // O6a: the tag named only simplebuilding:enderite_pickaxe (gone on 26.3), so the own pickaxe could not break the scrap
+        check(h, pick.is(com.simpleores.block.DimensionalScrapBlock.BREAKERS), "the Enderite pickaxe breaks Dimensional Scrap (tag simpleores:breaks_dimensional_scrap)");
         check(h, stack("enderite_horse_armor").has(DataComponents.EQUIPPABLE) && stack("enderite_nautilus_armor").has(DataComponents.EQUIPPABLE),
                 "horse and nautilus armor are equippable");
         check(h, EnderiteGear.IRON_POLE == BuiltInRegistries.BLOCK.getValue(SimpleOres.id("iron_pole")), "the poles are registered");

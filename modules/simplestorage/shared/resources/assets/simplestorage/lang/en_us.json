@@ -287,8 +287,8 @@
   "simplestorage.guide.page.33": "Without SimpleBuilding the table also sits behind the crafting table and the crates behind the barrel in the Vanilla functional blocks tab (switch addItemsToVanillaTabs); with SimpleBuilding its tabs list them in their old places.",
   "simplestorage.guide.page.34.title": "Creative tabs",
   "simplestorage.guide.page.34": "Switched off (SimpleBuilding's Enable Simple Storage), the tab and the Vanilla tab entries are empty; the blocks keep working.",
-  "simplestorage.guide.page.35.title": "Moved from SimpleBuilding",
-  "simplestorage.guide.page.35": "The crates of every wood and the Storage Crafting Table, their block entities, recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).",
-  "simplestorage.guide.page.36.title": "Moved from SimpleBuilding",
-  "simplestorage.guide.page.36": "Old worlds load them under simplestorage:* through SimpleLib's id moves and save the new ids; placed crates keep their food and tables their grid."
+  "simplestorage.guide.page.35.title": "Older worlds",
+  "simplestorage.guide.page.35": "Crates and Storage Crafting Tables from worlds of earlier SimpleBuilding versions keep working as Simple Storage's, with their food and grid.",
+  "simplestorage.guide.page.36.title": "Older worlds",
+  "simplestorage.guide.page.36": "Tiered chests, shulker boxes, bundles, quivers, backpacks, chest minecarts and chest boats carry over the same way."
 }

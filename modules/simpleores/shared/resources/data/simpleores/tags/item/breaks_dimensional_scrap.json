@@ -1,5 +1,6 @@
 {
   "values": [
+    "simpleores:enderite_pickaxe",
     {
       "id": "simplebuilding:enderite_pickaxe",
       "required": false

@@ -299,8 +299,6 @@
   "simplechess.guide.page.6": "Mit Simple Octets hat jede Farbe ein Achtel - einen Halbblock-Würfel; der Steinmetz schneidet 8 aus ihrem Schachbrett (Quarz: aus einem Quarzblock).",
   "simplechess.guide.page.7.title": "Schach-Achtel (mit Simple Octets)",
   "simplechess.guide.page.7": "Sie mischen sich in einer Zelle mit den Material-Achteln von Simple Octets.",
-  "simplechess.guide.page.8.title": "Aus SimpleBuilding umgezogen",
-  "simplechess.guide.page.8": "Schach war früher Teil von SimpleBuilding;",
-  "simplechess.guide.page.9.title": "Aus SimpleBuilding umgezogen",
-  "simplechess.guide.page.9": "die alten simplebuilding:-Ids der Figuren, Schachbretter, Achtel, des Figurenblocks und ihrer Rezepte werden beim Laden einer Welt zu den simplechess:-Ids (SimpleLib-Id-Umzüge)."
+  "simplechess.guide.page.8.title": "Ältere Welten",
+  "simplechess.guide.page.8": "Schachfiguren, Schachbretter, Schach-Achtel und der Figurenblock aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Blöcke von Simple Chess, mit ihren Rezepten."
 }

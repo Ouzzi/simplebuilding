@@ -25,7 +25,7 @@ Simple Trims adds four new armor trim templates (glowing, emitting, pulsating, i
 - **Trim upgrades at the smithing table**
 - **Placed trim templates** - Sneak + use with any armor trim template lays it flat on the floor, against a wall or under a ceiling.
 - **Forging templates: axe or sledgehammer**
-- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
+- **Older worlds** - Trim templates and their upgrades from worlds of earlier SimpleBuilding versions keep working as Simple Trims' items; radiance keeps its stored value.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpletrims config shows and changes every option of config/simpletrims-server.json (list [group], get, set, reset, help; Tab completes options and values).
 

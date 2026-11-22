@@ -59,12 +59,14 @@
   "simpletrims.guide.page.8": "A placed Vanilla armor trim template becomes the Glowing one (Glow Ink Sac in the off hand) or the Emitting one (Glowstone Dust):",
   "simpletrims.guide.page.9.title": "Forging templates: axe or sledgehammer",
   "simpletrims.guide.page.9": "5 right clicks with the tool, then 2 of the off-hand material, 4 diamonds and 2 glowstone (Glowing) or 2 blaze powder (Emitting) from the inventory.",
-  "simpletrims.guide.page.10.title": "Moved from SimpleBuilding",
-  "simpletrims.guide.page.10": "The templates, their upgrade data, recipes and advancements used to be simplebuilding:*. Old worlds load them as simpletrims:* (SimpleLib id moves); radiance keeps its stored value.",
-  "simpletrims.guide.page.11.title": "Creative tabs",
-  "simpletrims.guide.page.11": "The module's items sit in its own creative tab only (no Vanilla tabs).",
-  "simpletrims.guide.page.12.title": "Commands",
-  "simpletrims.guide.page.12": "/simpletrims config shows and changes every option of config/simpletrims-server.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simpletrims.guide.page.10.title": "Older worlds",
+  "simpletrims.guide.page.10": "Trim templates and their upgrades from worlds of earlier SimpleBuilding versions keep working as Simple Trims' items; radiance keeps its stored value.",
+  "simpletrims.guide.page.11.title": "Older worlds",
+  "simpletrims.guide.page.11": "Their recipes and advancements carry over too.",
+  "simpletrims.guide.page.12.title": "Creative tabs",
+  "simpletrims.guide.page.12": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simpletrims.guide.page.13.title": "Commands",
-  "simpletrims.guide.page.13": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
+  "simpletrims.guide.page.13": "/simpletrims config shows and changes every option of config/simpletrims-server.json (list [group], get, set, reset, help; Tab completes options and values).",
+  "simpletrims.guide.page.14.title": "Commands",
+  "simpletrims.guide.page.14": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
 }

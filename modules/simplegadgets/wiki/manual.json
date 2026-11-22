@@ -316,20 +316,18 @@
         "modules/simplegadgets/shared/java/com/simplegadgets/test/GadgetsTests.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The Gauge, the Transposer and the Resonance Rod, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplegadgets:* through SimpleLib's id moves and save the new ids - in inventories, chests and on the ground alike.",
+        "title": "Older worlds",
+        "summary": "The gadgets from worlds of earlier SimpleBuilding versions keep working as Simple Gadgets' items, in inventories, chests and on the ground alike. Their recipes and recipe unlocks carry over too.",
         "details": [
           "SimpleBuilding needs Simple Gadgets and bundles it on Fabric; Simple Gadgets runs on its own with SimpleLib, which it bundles. SimpleBuilding's enchantments Range and Constructor's Touch still work on the Gauge when SimpleBuilding is there; alone they do not exist.",
-          "More gadgets follow stage by stage (Detector, Attractor, Echo Sounder, Color Brush, Octant).",
           "For now Simple Gadgets exists for Fabric only (NeoForge and Forge follow with the port)."
         ]
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die Messuhr, der Transponierer und der Resonanzstab, ihre Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplegadgets:* und speichern die neuen Ids - im Inventar, in Truhen und auf dem Boden.",
+        "title": "Ältere Welten",
+        "summary": "Die Geräte aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Gegenstände von Simple Gadgets, im Inventar, in Truhen und auf dem Boden. Ihre Rezepte und Rezeptfreischaltungen gehen mit über.",
         "details": [
           "SimpleBuilding braucht Simple Gadgets und bündelt es auf Fabric; Simple Gadgets läuft allein mit SimpleLib, das es mitbringt. SimpleBuildings Verzauberungen Reichweite und Berührung des Konstrukteurs wirken auf der Messuhr weiter, wenn SimpleBuilding da ist; allein gibt es sie nicht.",
-          "Weitere Geräte folgen Stufe für Stufe (Detektor, Attractor, Echolot, Farbpinsel, Oktant).",
           "Simple Gadgets gibt es vorerst nur für Fabric (NeoForge und Forge folgen mit dem Port)."
         ]
       }
@@ -364,10 +362,10 @@
         "modules/simplegadgets/shared/resources/data/simplegadgets/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Gadgets\" of the Simple Modpack guide (SimpleLib): 25 pages taken from this wiki, shown in your language. Unlocked by picking up: clock. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Gadgets\" of the Simple Modpack guide (SimpleLib): 24 pages taken from this wiki, shown in your language. Unlocked by picking up: clock. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Gadgets\" im Simple-Modpack-Handbuch (SimpleLib): 25 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Uhr. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Gadgets\" im Simple-Modpack-Handbuch (SimpleLib): 24 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Uhr. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplegadgets:echo_sounder": {

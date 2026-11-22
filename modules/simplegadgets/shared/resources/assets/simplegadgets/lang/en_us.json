@@ -179,10 +179,8 @@
   "simplegadgets.guide.page.21": "With SimpleBuilding the box stacks with the Octant's and the Resonance Rod's boxes (Octant on top, then Gauge,",
   "simplegadgets.guide.page.22.title": "Readout box",
   "simplegadgets.guide.page.22": "then Rod) and follows SimpleBuilding's HUD position, size and HUD key; alone it sits at the left edge in the middle of the screen.",
-  "simplegadgets.guide.page.23.title": "Moved from SimpleBuilding",
-  "simplegadgets.guide.page.23": "The Gauge, the Transposer and the Resonance Rod, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).",
-  "simplegadgets.guide.page.24.title": "Moved from SimpleBuilding",
-  "simplegadgets.guide.page.24": "Old worlds load them under simplegadgets:* through SimpleLib's id moves and save the new ids - in inventories, chests and on the ground alike.",
-  "simplegadgets.guide.page.25.title": "Creative tabs",
-  "simplegadgets.guide.page.25": "The module's items sit in its own creative tab only (no Vanilla tabs)."
+  "simplegadgets.guide.page.23.title": "Older worlds",
+  "simplegadgets.guide.page.23": "The gadgets from worlds of earlier SimpleBuilding versions keep working as Simple Gadgets' items, in inventories, chests and on the ground alike. Their recipes and recipe unlocks carry over too.",
+  "simplegadgets.guide.page.24.title": "Creative tabs",
+  "simplegadgets.guide.page.24": "The module's items sit in its own creative tab only (no Vanilla tabs)."
 }

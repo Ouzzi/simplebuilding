@@ -21,9 +21,9 @@ Simple Weather lets the server switch weather and lets each player change rain d
 
 ## Features
 
-- **Disable weather** - disableWeather (default false, server) clears rain and thunder and sets the Vanilla game rule advance_weather to false, so the weather no longer changes by itself.
-- **Rain and thunder frequency**
-- **Rain density**
+- **Disable weather** - Stops the weather from changing by itself: rain and thunder end and the Vanilla game rule advance_weather is set to false (server setting disableWeather, default off).
+- **Rain and thunder frequency** - Makes rain and thunderstorms come more or less often.
+- **Rain density** - Thins out rain on your own screen: less rain in the air, fewer ground particles and fewer rain sounds.
 - **Sub-mod of Simple QoL** - Playable alone (config/simpleweather.json).
 - **Commands** - /simpleweather config shows and changes every option of config/simpleweather.json (list [group], get, set, reset, help; Tab completes options and values).
 

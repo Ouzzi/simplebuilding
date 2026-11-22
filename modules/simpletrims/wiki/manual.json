@@ -109,15 +109,15 @@
         "modules/simpletrims/shared/java/com/simpletrims/SimpleTrims.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The templates, their upgrade data, recipes and advancements used to be simplebuilding:*. Old worlds load them as simpletrims:* (SimpleLib id moves); radiance keeps its stored value.",
+        "title": "Older worlds",
+        "summary": "Trim templates and their upgrades from worlds of earlier SimpleBuilding versions keep working as Simple Trims' items; radiance keeps its stored value. Their recipes and advancements carry over too.",
         "details": [
           "Advancements Glow Up, Bright Idea and Full Radiance now hang below the Vanilla trim advancement; earned progress carries over."
         ]
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die Vorlagen, ihre Aufwertungsdaten, Rezepte und Fortschritte hießen früher simplebuilding:*. Alte Welten laden sie als simpletrims:* (SimpleLib-ID-Umzug); die Strahlkraft behält ihren Wert.",
+        "title": "Ältere Welten",
+        "summary": "Vorlagen und ihre Aufwertungen aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Gegenstände von Simple Trims; die Strahlkraft behält ihren Wert. Ihre Rezepte und Fortschritte gehen mit über.",
         "details": [
           "Die Fortschritte Glanzleistung, Geistesblitz und Volle Strahlkraft hängen jetzt unter dem Vanilla-Besatzfortschritt; erreichter Fortschritt bleibt."
         ]
@@ -172,10 +172,10 @@
         "modules/simpletrims/shared/resources/data/simpletrims/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Trims\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: glow ink sac. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Trims\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: glow ink sac. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Trims\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Leuchttintenbeutel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Trims\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Leuchttintenbeutel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpletrims:glowing_trim_template": {

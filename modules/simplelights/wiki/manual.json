@@ -94,16 +94,16 @@
         "modules/simplelights/shared/java/com/simplelights/test/LightsTests.java"
       ],
       "en": {
-        "title": "Moved from SimpleBuilding",
-        "summary": "The 37 Light Panes, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplelights:* through SimpleLib's id moves and save the new ids; placed panes keep their facing, light and color state.",
+        "title": "Older worlds",
+        "summary": "Light Panes from worlds of earlier SimpleBuilding versions keep working as Simple Lights' panes; placed panes keep their facing, light and color state. Their recipes and recipe unlocks carry over too.",
         "details": [
           "SimpleBuilding needs Simple Lights and bundles it on Fabric; Simple Lights runs on its own with SimpleLib, which it bundles. The sulfur torch, lantern and campfire stay in SimpleBuilding with the sulfur fire.",
           "For now Simple Lights exists for Fabric only (NeoForge and Forge follow with the port)."
         ]
       },
       "de": {
-        "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die 37 Lichtscheiben, ihre Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplelights:* und speichern die neuen Ids; gesetzte Scheiben behalten Ausrichtung, Licht und Farbzustand.",
+        "title": "Ältere Welten",
+        "summary": "Lichtscheiben aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Scheiben von Simple Lights; gesetzte Scheiben behalten Ausrichtung, Licht und Farbzustand. Ihre Rezepte und Rezeptfreischaltungen gehen mit über.",
         "details": [
           "SimpleBuilding braucht Simple Lights und bündelt es auf Fabric; Simple Lights läuft allein mit SimpleLib, das es mitbringt. Schwefelfackel, -laterne und -lagerfeuer bleiben mit dem Schwefelfeuer in SimpleBuilding.",
           "Simple Lights gibt es vorerst nur für Fabric (NeoForge und Forge folgen mit dem Port)."

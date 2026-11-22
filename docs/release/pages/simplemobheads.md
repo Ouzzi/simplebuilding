@@ -29,7 +29,7 @@ Simple Mobheads gives every mob a head. Heads drop when a charged creeper's expl
 - **Greeting** - Sneaking with a mob head on plays its mob's voice quietly with a few notes, at most every five seconds (server switch).
 - **Player Heads** - A player killed by another player drops their own head with their skin (server switch, default on).
 - **Server Commands** - Permission level 2: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.
-- **Older worlds** - The animal heads of earlier Simple Fun versions and the mob heads of earlier SimpleBuilding versions keep working as Simple Mobheads heads.
+- **Older worlds** - Animal heads of earlier Simple Fun versions and mob heads of earlier SimpleBuilding versions keep working as Simple Mobheads heads.
 - **Simple Mods' Mobs**
 - **Creative Tab** - Own tab "Simple Mob Heads" with every head and variant; no Vanilla tabs, the search tab finds the heads through it.
 - **He Was Never Removed** - A secret head that no mob drops.

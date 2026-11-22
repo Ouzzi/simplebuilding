@@ -299,8 +299,6 @@
   "simplechess.guide.page.6": "With Simple Octets installed, every color has an octet - a half-block cube; the stonecutter cuts 8 from its checker (quartz:",
   "simplechess.guide.page.7.title": "Chess octets (with Simple Octets)",
   "simplechess.guide.page.7": "from a quartz block). They mix with Simple Octets' material octets in one cell.",
-  "simplechess.guide.page.8.title": "Moved from SimpleBuilding",
-  "simplechess.guide.page.8": "Chess lived in SimpleBuilding before; the old simplebuilding:",
-  "simplechess.guide.page.9.title": "Moved from SimpleBuilding",
-  "simplechess.guide.page.9": "ids of the pieces, checkers, octets, the pieces cell and their recipes turn into the simplechess: ones when a world loads (SimpleLib id moves)."
+  "simplechess.guide.page.8.title": "Older worlds",
+  "simplechess.guide.page.8": "Chess pieces, checker boards, chess octets and the pieces cell from worlds of earlier SimpleBuilding versions keep working as Simple Chess blocks, with their recipes."
 }

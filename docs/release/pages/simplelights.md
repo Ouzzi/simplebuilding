@@ -24,7 +24,7 @@ Simple Lights adds 1 px lamps for any block side: plain, transparent, sixteen co
 - **Light Panes** - A flat 1 px lamp for any side of a block - plain, transparent or in the 16 dye colors - that shines only while it gets a redstone signal.
 - **Redstone Pane** - A Light Pane whose color follows the redstone signal strength: each of the 15 strengths shows another dye color, no signal is dark.
 - **Copper Light Panes** - Light Panes with the Copper Bulb switch: every redstone pulse turns them on or off, and they keep that state without a signal.
-- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
+- **Older worlds** - Light Panes from worlds of earlier SimpleBuilding versions keep working as Simple Lights' panes; placed panes keep their facing, light and color state.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 
 ## Vanilla use

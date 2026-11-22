@@ -30,7 +30,7 @@ Simple Hammers adds seven sledgehammers (Enderite with Simple Ores) that mine a 
 - **Hammer enchantments**
 - **A tool in the crafting grid** - A shapeless recipe with a sledgehammer gives the hammer back with 1 durability less instead of using it up; a hammer that breaks doing so is gone.
 - **Sledgehammers at the anvil** - Two sledgehammers combine for 1 level: both durabilities plus 12 % of the maximum, enchantments merged like vanilla (incompatible ones from the right hammer are dropped).
-- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
+- **Older worlds** - Sledgehammers from worlds of earlier SimpleBuilding versions keep working as Simple Hammers' hammers, with their enchantments and begun upgrades.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simplehammers config shows and changes every option of config/simplehammers-server.json (list [group], get, set, reset, help; Tab completes options and values).
 

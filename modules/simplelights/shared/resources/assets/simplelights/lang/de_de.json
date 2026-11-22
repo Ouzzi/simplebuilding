@@ -88,10 +88,10 @@
   "simplelights.guide.page.4": "Eine Lichtscheibe, deren Farbe der Redstone-Signalstärke folgt: jede der 15 Stärken zeigt eine andere Farbstofffarbe, ohne Signal ist sie dunkel.",
   "simplelights.guide.page.5.title": "Kupfer-Lichtscheiben",
   "simplelights.guide.page.5": "Lichtscheiben mit dem Schalter der Kupferbirne: jeder Redstone-Puls schaltet sie an oder aus, und ohne Signal behalten sie diesen Zustand.",
-  "simplelights.guide.page.6.title": "Aus SimpleBuilding umgezogen",
-  "simplelights.guide.page.6": "Die 37 Lichtscheiben, ihre Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplelights:* und speichern die neuen Ids;",
-  "simplelights.guide.page.7.title": "Aus SimpleBuilding umgezogen",
-  "simplelights.guide.page.7": "gesetzte Scheiben behalten Ausrichtung, Licht und Farbzustand.",
+  "simplelights.guide.page.6.title": "Ältere Welten",
+  "simplelights.guide.page.6": "Lichtscheiben aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als Scheiben von Simple Lights; gesetzte Scheiben behalten Ausrichtung, Licht und Farbzustand.",
+  "simplelights.guide.page.7.title": "Ältere Welten",
+  "simplelights.guide.page.7": "Ihre Rezepte und Rezeptfreischaltungen gehen mit über.",
   "simplelights.guide.page.8.title": "Kreativ-Tabs",
   "simplelights.guide.page.8": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs)."
 }

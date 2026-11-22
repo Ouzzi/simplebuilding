@@ -9,7 +9,7 @@
       "title": "simplechess.guide.chapter",
       "icon": "minecraft:quartz_block",
       "page_key": "simplechess.guide.page",
-      "pages": 9,
+      "pages": 8,
       "advancement": "simplechess:guide/chapter",
       "hint": "minecraft:quartz_block"
     }

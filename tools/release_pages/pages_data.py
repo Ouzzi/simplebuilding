@@ -193,15 +193,9 @@ P = {
 }
 
 # Store wording for single manual.json features (key: (mod id, feature id)); None leaves the feature off the store page.
-# Used where the manual's first sentence is development history, raw ids or a developer switch (the manual stays as it is).
-_OLD = ("Older worlds", "Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids")
+# Used where the manual's first sentence is a raw matrix or a developer switch (the manual stays as it is). O6a: the "Older
+# worlds" (migration) and Simple Mobheads entries are gone - the manuals now say it in player words themselves.
 FEATURE_TEXT = {
-("simplechisels", "migration"): _OLD, ("simplegadgets", "migration"): _OLD, ("simplehammers", "migration"): _OLD,
-("simplelights", "migration"): _OLD, ("simpleovens", "migration"): _OLD, ("simplestorage", "migration"): _OLD,
-("simpletrims", "trims_migration"): _OLD,
-("simplemobheads", "migration"): ("Older worlds", "The animal heads of earlier Simple Fun versions and the mob heads of earlier SimpleBuilding versions keep working as Simple Mobheads heads"),
-("simplemobheads", "heads"): ("A Head for Every Mob", "97 heads: every mob of 26.3 that has no Vanilla head, the mobs of the Simple mods and more, plus four secret heads"),
-("simplemobheads", "player_heads"): ("Player Heads", "A player killed by another player drops their own head with their skin (server switch, default on)"),
 ("simpledimensions", "mining"): ("Mining Dimension", "A deep stone resource world, reached through a portal of deepslate bricks with diamond and emerald ore"),
 ("simpledimensions", "travel"): ("Travel Dimension", "A flat plane for fast travel: ten blocks at home are one block there"),
 ("simpledimensions", "portal_shapes"): ("Portal Shapes", "Six glowstone arch sizes, along both horizontal axes"),

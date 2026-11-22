@@ -287,8 +287,8 @@
   "simplestorage.guide.page.33": "Ohne SimpleBuilding steht die Werkbank zusätzlich hinter der Werkbank und stehen die Kisten hinter dem Fass im Vanilla-Tab Gebrauchsblöcke (Schalter addItemsToVanillaTabs);",
   "simplestorage.guide.page.34.title": "Kreativ-Tabs",
   "simplestorage.guide.page.34": "mit SimpleBuilding führen dessen Tabs sie an ihren alten Plätzen. Ausgeschaltet (SimpleBuildings Simple Storage aktivieren) bleiben Tab und Vanilla-Tab-Einträge leer; die Blöcke funktionieren weiter.",
-  "simplestorage.guide.page.35.title": "Aus SimpleBuilding umgezogen",
-  "simplestorage.guide.page.35": "Die Kisten aller Hölzer und die Werkbank mit Lager, ihre Block-Entities, Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*).",
-  "simplestorage.guide.page.36.title": "Aus SimpleBuilding umgezogen",
-  "simplestorage.guide.page.36": "Alte Welten laden sie über SimpleLibs Id-Umzüge als simplestorage:* und speichern die neuen Ids; gesetzte Kisten behalten ihr Essen, Werkbänke ihr Raster."
+  "simplestorage.guide.page.35.title": "Ältere Welten",
+  "simplestorage.guide.page.35": "Kisten und Werkbänke mit Lager aus Welten früherer SimpleBuilding-Versionen funktionieren weiter als die von Simple Storage, mit Essen und Raster.",
+  "simplestorage.guide.page.36.title": "Ältere Welten",
+  "simplestorage.guide.page.36": "Stufen-Truhen, Shulker-Kisten, Bündel, Köcher, Rucksäcke, Truhenloren und Truhenboote gehen genauso mit über."
 }

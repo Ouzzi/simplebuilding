@@ -88,10 +88,10 @@
   "simplelights.guide.page.4": "A Light Pane whose color follows the redstone signal strength: each of the 15 strengths shows another dye color, no signal is dark.",
   "simplelights.guide.page.5.title": "Copper Light Panes",
   "simplelights.guide.page.5": "Light Panes with the Copper Bulb switch: every redstone pulse turns them on or off, and they keep that state without a signal.",
-  "simplelights.guide.page.6.title": "Moved from SimpleBuilding",
-  "simplelights.guide.page.6": "The 37 Light Panes, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplelights:* through SimpleLib's id moves and save the new ids;",
-  "simplelights.guide.page.7.title": "Moved from SimpleBuilding",
-  "simplelights.guide.page.7": "placed panes keep their facing, light and color state.",
+  "simplelights.guide.page.6.title": "Older worlds",
+  "simplelights.guide.page.6": "Light Panes from worlds of earlier SimpleBuilding versions keep working as Simple Lights' panes; placed panes keep their facing, light and color state.",
+  "simplelights.guide.page.7.title": "Older worlds",
+  "simplelights.guide.page.7": "Their recipes and recipe unlocks carry over too.",
   "simplelights.guide.page.8.title": "Creative tabs",
   "simplelights.guide.page.8": "The module's items sit in its own creative tab only (no Vanilla tabs)."
 }
