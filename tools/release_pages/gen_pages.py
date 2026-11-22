@@ -107,13 +107,16 @@ def clean(t, lang):
 # German abbreviations that end with ". " inside a sentence (z. B., u. a., d. h., bzw., ca., usw.): never a sentence end.
 DE_ABBR = re.compile(r"(?:\b(?:z|B|u|a|d|h|s|o|bzw|ca|usw|etc|evtl|ggf|inkl|max|min|Nr|vgl|bspw|sog|zB)\.)$")
 
+# English abbreviations that end with ". " inside a sentence (e.g., i.e., etc., vs.): never a sentence end (the Dragon Fight
+# page was cut at "e.g.").
+EN_ABBR = re.compile(r"(?:\b(?:e\.g|i\.e|etc|vs|approx|incl|min|max|No)\.)$")
+
 def first_sentence(text, lang):
-    if lang == "en":
-        return text.split(". ")[0]
+    abbr = DE_ABBR if lang == "de" else EN_ABBR
     parts, cur = text.split(". "), ""
     for p in parts:
         cur = f"{cur}. {p}" if cur else p
-        if not DE_ABBR.search(cur + "."):
+        if not abbr.search(cur + "."):
             return cur
     return cur
 
