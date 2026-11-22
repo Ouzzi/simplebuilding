@@ -696,7 +696,7 @@ window.WIKI_MODULES = [
       "config": 17,
       "features": 9
     },
-    "dataHash": "a9f170bc3970"
+    "dataHash": "d1951ff01c86"
   },
   {
     "id": "simpletrims",
@@ -2239,7 +2239,7 @@ window.WIKI_MODULES = [
       "config": 34,
       "features": 9
     },
-    "dataHash": "7cb316f3575d"
+    "dataHash": "eac9865a2b8a"
   },
   {
     "id": "simplebuildingtools",
@@ -2274,7 +2274,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "5a84ba20a7b2"
+    "dataHash": "4bfdcf5f3d89"
   },
   {
     "id": "simplechisels",
