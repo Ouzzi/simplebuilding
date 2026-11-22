@@ -42,7 +42,8 @@ class FindingsTest(unittest.TestCase):
         self.assertEqual(kinds("x", "en", "tools/questionary/check_data.py reports which items still lack a text"), ["repopath"])
         self.assertEqual(kinds("x", "de", "python3 tools/deploy/livemap/selfhost/livemap_static_sync.py --world <Weltordner>"), ["repopath"])
         self.assertEqual(kinds("x", "en", "see wiki/generate.py"), ["repopath"])
-        # word pairs, resource-pack paths, URLs and the source repository's docs stay allowed
+        self.assertEqual(kinds("x", "en", "see docs/TRANK-PADS.md"), ["repopath"])  # O5d: docs/ counts too
+        # word pairs, resource-pack paths and URLs stay allowed
         self.assertEqual(kinds("x", "en", "when tools/weapons are near full durability; common/rare trial chamber vault"), [])
         self.assertEqual(kinds("x", "en", "Every mod describes its items in assets/<namespace>/questionary/<language>.json"), [])
         self.assertEqual(kinds("x", "en", "Open https://wiki.simplemods.de/simplelivemap/features/x for more."), [])
