@@ -111,7 +111,7 @@
   "simplelivemap.guide.page.20.title": "Own website",
   "simplelivemap.guide.page.20": "You can show the map on your own website: a reverse proxy (nginx or Caddy) in front of the built-in server, or a static copy of the tiles uploaded to any web space.",
   "simplelivemap.guide.page.21.title": "Own website",
-  "simplelivemap.guide.page.21": "The full guide with examples is docs/deploy/LIVEMAP-SELF-HOST.md in the source repository.",
+  "simplelivemap.guide.page.21": "The full guide with examples comes with the mod's source code (self-hosting guide).",
   "simplelivemap.guide.page.22.title": "One map per installation",
   "simplelivemap.guide.page.22": "Self-hosting serves exactly one live map per installation and server: one web server, one world.",
   "simplelivemap.guide.page.23.title": "One map per installation",

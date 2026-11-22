@@ -102,7 +102,7 @@
   "text.autoconfig.simplepads.option.padTuning.potionPadChargeStepTicks": "Potion Pad Charge Step (Ticks)",
   "text.autoconfig.simplepads.option.padTuning.potionPadChargeStepTicks.@Tooltip": "A player standing on a potion pad gets 25 %,\n50 % and then 100 % of the effect duration in\nthree steps; this is the length of one step\nin ticks. Default: 20 (1 s, full after 3 s).\nRange: 1–1200.",
   "text.autoconfig.simplepads.option.padTuning.potionPadCooldownFactor": "Potion Pad Cooldown Factor",
-  "text.autoconfig.simplepads.option.padTuning.potionPadCooldownFactor.@Tooltip": "After a full charge the potion pad cools down\nfor this many times the granted effect\nduration, times the effect's own multiplier\n(Healing and Harming 2, Night Vision 0.5, see\ndocs/TRANK-PADS.md). 0 = no cooldown.\nDefault: 2.0. Range: 0–10.0.",
+  "text.autoconfig.simplepads.option.padTuning.potionPadCooldownFactor.@Tooltip": "After a full charge the potion pad cools down\nfor this many times the granted effect\nduration, times the effect's own multiplier\n(Healing and Harming 2, Night Vision 0.5).\n0 = no cooldown.\nDefault: 2.0. Range: 0–10.0.",
   "text.autoconfig.simplepads.option.padTuning.teleporterTier1WarmupTicks": "Teleporter I Warm-up (Ticks)",
   "text.autoconfig.simplepads.option.padTuning.teleporterTier1WarmupTicks.@Tooltip": "How long a player has to stand still on a\nspawn teleporter I before it teleports, in\nticks (20 = 1 s). Default: 1000 (50 s).\nRange: 1–12000.",
   "text.autoconfig.simplepads.option.padTuning.teleporterTier2WarmupTicks": "Teleporter II Warm-up (Ticks)",

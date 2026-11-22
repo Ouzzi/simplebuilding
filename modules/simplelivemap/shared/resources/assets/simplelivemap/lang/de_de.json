@@ -111,7 +111,7 @@
   "simplelivemap.guide.page.20.title": "Eigene Webseite",
   "simplelivemap.guide.page.20": "Die Karte lässt sich auf einer eigenen Webseite zeigen: ein Reverse-Proxy (nginx oder Caddy) vor dem eingebauten Server oder eine statische Kopie der Kacheln auf beliebigem Webspace.",
   "simplelivemap.guide.page.21.title": "Eigene Webseite",
-  "simplelivemap.guide.page.21": "Die ganze Anleitung mit Beispielen steht in docs/deploy/LIVEMAP-SELF-HOST.md im Quell-Repository.",
+  "simplelivemap.guide.page.21": "Die ganze Anleitung mit Beispielen liegt dem Quellcode der Mod bei (Anleitung zum Selbst-Hosten).",
   "simplelivemap.guide.page.22.title": "Eine Karte je Installation",
   "simplelivemap.guide.page.22": "Selbst hosten liefert genau eine Live-Karte je Installation und Server: ein Webserver, eine Welt.",
   "simplelivemap.guide.page.23.title": "Eine Karte je Installation",

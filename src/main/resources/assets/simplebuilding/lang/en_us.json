@@ -2138,7 +2138,7 @@
   "text.autoconfig.simplebuilding.option.tweaks.padTuning.potionPadChargeStepTicks": "Potion Pad Charge Step (Ticks)",
   "text.autoconfig.simplebuilding.option.tweaks.padTuning.potionPadChargeStepTicks.@Tooltip": "A player standing on a potion pad gets 25 %,\n50 % and then 100 % of the effect duration in\nthree steps; this is the length of one step\nin ticks. Default: 20 (1 s, full after 3 s).\nRange: 1–1200.",
   "text.autoconfig.simplebuilding.option.tweaks.padTuning.potionPadCooldownFactor": "Potion Pad Cooldown Factor",
-  "text.autoconfig.simplebuilding.option.tweaks.padTuning.potionPadCooldownFactor.@Tooltip": "After a full charge the potion pad cools down\nfor this many times the granted effect\nduration, times the effect's own multiplier\n(Healing and Harming 2, Night Vision 0.5, see\ndocs/TRANK-PADS.md). 0 = no cooldown.\nDefault: 2.0. Range: 0–10.0.",
+  "text.autoconfig.simplebuilding.option.tweaks.padTuning.potionPadCooldownFactor.@Tooltip": "After a full charge the potion pad cools down\nfor this many times the granted effect\nduration, times the effect's own multiplier\n(Healing and Harming 2, Night Vision 0.5).\n0 = no cooldown.\nDefault: 2.0. Range: 0–10.0.",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.effectCost": "Charge per Effect",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.effectCost.@Tooltip": "Server-side. On 26.3: 0 to 2560.\nCharge used up each time the beam melts,\nlights, dries or ignites something. 0 =\neffects are free. Default: 5.",
   "text.autoconfig.simplebuilding.option.tweaks.balancing.rocketStackSize.@Tooltip": "How many firework rockets fit in one stack (1\nto 64); 16 nerfs elytra flight. Server-side,\nsent to clients. Default: 64.",

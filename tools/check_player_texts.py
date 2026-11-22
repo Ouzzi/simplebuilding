@@ -17,7 +17,7 @@ Findings:
              "owner decision", "waiting for the owner's choice", "the owner's filter principle"), "since bundle 198", "moved here from"/"hierher umgezogen"
   * repopath repository paths of developer tools (tools/questionary/check_data.py, tools/deploy/livemap/..., modules/...,
              src/..., wiki/generate.py): a player has no checkout; say what to use instead (O5b). Resource-pack paths
-             (assets/<namespace>/...) and word pairs ("tools/weapons") stay allowed; docs/ is not checked (see REPOPATH).
+             (assets/<namespace>/...) and word pairs ("tools/weapons") stay allowed (see REPOPATH).
   * british  British spelling in English text (colour, grey, centre, armour, fuelled, cancelled, -ise verbs ...);
              the house style is American English (owner rule "EN amerikanisch").
   * umlaut   German text with umlauts/ß written as ASCII (fuer, ueber, koennen, muessen, Gewoelbe, groesse, Plaetze,
@@ -59,11 +59,11 @@ HISTORY = re.compile(
     r"|\bmoved here\b|\bhierher umgezogen\b", re.I)
 # O5b: repository paths of developer tools in player text (tools/questionary/check_data.py, tools/deploy/livemap/...):
 # a player has no checkout. A path = known repo root + at least two more parts or a file name with extension, so word
-# pairs ("tools/weapons", "common/rare") stay allowed; resource-pack paths (assets/<namespace>/...) too. docs/ is not
-# checked: those texts point to the published source repository on purpose ("... in the source repository").
+# pairs ("tools/weapons", "common/rare") stay allowed; resource-pack paths (assets/<namespace>/...) too. O5d: docs/ is
+# checked as well - the last player texts naming docs/*.md were rewritten ("comes with the mod's source code").
 REPOPATH = re.compile(
-    r"(?<![\w./:<-])(?:tools|modules|wiki|src|common|mc26_3|build-logic|integration|gradle|scripts)"
-    r"(?:/[\w<>*-]+){2,}(?:\.[a-z0-9]+)?|(?<![\w./:<-])(?:tools|modules|wiki|src|common|mc26_3|build-logic|integration|gradle|scripts)"
+    r"(?<![\w./:<-])(?:tools|modules|wiki|src|common|mc26_3|build-logic|integration|gradle|scripts|docs)"
+    r"(?:/[\w<>*-]+){2,}(?:\.[a-z0-9]+)?|(?<![\w./:<-])(?:tools|modules|wiki|src|common|mc26_3|build-logic|integration|gradle|scripts|docs)"
     r"/[\w<>*-]+\.(?:py|sh|js|cjs|json|md|java|gradle|kts|toml|conf|example|txt|html)\b")
 BRITISH = re.compile(
     r"\b(?:colour|armour|grey|favourite|neighbour|behaviour|catalogue|centre|metre|litre|honour|harbour|odour|vapour"

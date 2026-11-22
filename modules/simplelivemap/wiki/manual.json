@@ -93,7 +93,7 @@
       ],
       "en": {
         "title": "Own website",
-        "summary": "You can show the map on your own website: a reverse proxy (nginx or Caddy) in front of the built-in server, or a static copy of the tiles uploaded to any web space. The full guide with examples is docs/deploy/LIVEMAP-SELF-HOST.md in the source repository.",
+        "summary": "You can show the map on your own website: a reverse proxy (nginx or Caddy) in front of the built-in server, or a static copy of the tiles uploaded to any web space. The full guide with examples comes with the mod's source code (self-hosting guide).",
         "details": [
           "Reverse proxy (live, with players): keep web.bind 127.0.0.1 when the proxy runs on the same machine (otherwise the server's network address plus a firewall rule for the proxy only) and web.visibility private. Either visitors use the link with #t=<key> (the proxy passes the Authorization header through), or the proxy has its own login (basic auth) and adds the key itself, so the browser never knows it. Ready-made example setups for nginx and Caddy are in the self-hosting folder of the mod's source code.",
           "Only GET and HEAD and the three routes of the mod (/, live.json, tiles/<dimension>/<zoom>/<x>/<y>.png) should reach the game server; anything else the proxy answers itself with 404. Limit requests per visitor at the proxy (nginx limit_req, e.g. 10 per second with burst 80) and raise web.requestsPerMinute (e.g. 6000), because all requests now come from the proxy's address.",
@@ -103,7 +103,7 @@
       },
       "de": {
         "title": "Eigene Webseite",
-        "summary": "Die Karte lässt sich auf einer eigenen Webseite zeigen: ein Reverse-Proxy (nginx oder Caddy) vor dem eingebauten Server oder eine statische Kopie der Kacheln auf beliebigem Webspace. Die ganze Anleitung mit Beispielen steht in docs/deploy/LIVEMAP-SELF-HOST.md im Quell-Repository.",
+        "summary": "Die Karte lässt sich auf einer eigenen Webseite zeigen: ein Reverse-Proxy (nginx oder Caddy) vor dem eingebauten Server oder eine statische Kopie der Kacheln auf beliebigem Webspace. Die ganze Anleitung mit Beispielen liegt dem Quellcode der Mod bei (Anleitung zum Selbst-Hosten).",
         "details": [
           "Reverse-Proxy (live, mit Spielern): web.bind 127.0.0.1 lassen, wenn der Proxy auf demselben Rechner läuft (sonst die Netzadresse des Servers plus Firewall-Regel nur für den Proxy), web.visibility privat. Entweder benutzen Besucher den Link mit #t=<Schlüssel> (der Proxy reicht den Authorization-Header durch), oder der Proxy hat ein eigenes Login (Basic Auth) und setzt den Schlüssel selbst, der Browser kennt ihn dann nie. Fertige Beispiel-Einrichtungen für nginx und Caddy liegen im Self-Hosting-Ordner des Quellcodes der Mod.",
           "Nur GET und HEAD und die drei Routen der Mod (/, live.json, tiles/<Dimension>/<Zoom>/<x>/<y>.png) sollen den Spielserver erreichen; alles andere beantwortet der Proxy selbst mit 404. Anfragen je Besucher am Proxy begrenzen (nginx limit_req, z. B. 10 pro Sekunde, Burst 80) und web.requestsPerMinute erhöhen (z. B. 6000), weil alle Anfragen jetzt von der Adresse des Proxys kommen.",

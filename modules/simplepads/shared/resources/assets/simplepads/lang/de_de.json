@@ -102,7 +102,7 @@
   "text.autoconfig.simplepads.option.padTuning.potionPadChargeStepTicks": "Trank-Pad-Ladeschritt (Ticks)",
   "text.autoconfig.simplepads.option.padTuning.potionPadChargeStepTicks.@Tooltip": "Wer auf einem Trank-Pad steht, bekommt in\ndrei Schritten 25 %, 50 % und dann 100 % der\nWirkdauer; das ist die Länge eines Schritts\nin Ticks. Standard: 20 (1 s, voll nach 3 s).\nBereich: 1–1200,",
   "text.autoconfig.simplepads.option.padTuning.potionPadCooldownFactor": "Trank-Pad-Abklingfaktor",
-  "text.autoconfig.simplepads.option.padTuning.potionPadCooldownFactor.@Tooltip": "Nach einer vollen Ladung kühlt das Trank-Pad\nso viele Male die gegebene Wirkdauer lang ab,\nmal dem eigenen Faktor der Wirkung\n(Direktheilung und Direktschaden 2,\nNachtsicht 0,5, siehe docs/TRANK-PADS.md). 0\n= keine Abklingzeit. Standard: 2,0. Bereich:\n0–10,0,",
+  "text.autoconfig.simplepads.option.padTuning.potionPadCooldownFactor.@Tooltip": "Nach einer vollen Ladung kühlt das Trank-Pad\nso viele Male die gegebene Wirkdauer lang ab,\nmal dem eigenen Faktor der Wirkung\n(Direktheilung und Direktschaden 2,\nNachtsicht 0,5).\n0 = keine Abklingzeit. Standard: 2,0. Bereich:\n0–10,0,",
   "text.autoconfig.simplepads.option.padTuning.teleporterTier1WarmupTicks": "Teleporter-I-Wartezeit (Ticks)",
   "text.autoconfig.simplepads.option.padTuning.teleporterTier1WarmupTicks.@Tooltip": "Wie lange ein Spieler still auf einem\nSpawn-Teleporter I stehen muss, bis er\nspringt, in Ticks (20 = 1 s). Standard: 1000\n(50 s). Bereich: 1–12000,",
   "text.autoconfig.simplepads.option.padTuning.teleporterTier2WarmupTicks": "Teleporter-II-Wartezeit (Ticks)",
