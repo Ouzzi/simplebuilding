@@ -307,7 +307,10 @@
         "ingredient": [
           "minecraft:acacia_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:acacia_log_octet_from_acacia_log_stonecutting",
@@ -354,7 +357,10 @@
         "ingredient": [
           "minecraft:acacia_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:acacia_octet_from_acacia_planks_stonecutting",
@@ -499,7 +505,10 @@
         "ingredient": [
           "minecraft:amethyst_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:amethyst_block_octet_from_amethyst_block_stonecutting",
@@ -595,7 +604,10 @@
         "ingredient": [
           "minecraft:andesite"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:andesite_octet_from_andesite_stonecutting",
@@ -668,6 +680,9 @@
           "simpleoctets:ashwood_log_octet"
         ]
       ],
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -695,7 +710,11 @@
         "ingredient": [
           "simpleend:ashwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleend"
+      ]
     },
     {
       "id": "simpleoctets:ashwood_log_octet_from_ashwood_log_stonecutting",
@@ -715,6 +734,9 @@
           "simpleend:ashwood_log"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -742,7 +764,11 @@
         "ingredient": [
           "simpleend:ashwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleend"
+      ]
     },
     {
       "id": "simpleoctets:ashwood_octet_from_ashwood_planks_stonecutting",
@@ -762,6 +788,9 @@
           "simpleend:ashwood_planks"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -810,6 +839,9 @@
         [
           "simpleoctets:ashwood_octet"
         ]
+      ],
+      "needsMods": [
+        "simpleend"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -860,6 +892,9 @@
           "simpleoctets:astral_end_stone_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -887,7 +922,11 @@
         "ingredient": [
           "simplebuilding:astral_end_stone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:astral_end_stone_octet_from_astral_end_stone_stonecutting",
@@ -907,6 +946,9 @@
           "simplebuilding:astral_end_stone"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -956,6 +998,9 @@
           "simpleoctets:astral_purpur_block_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -983,7 +1028,11 @@
         "ingredient": [
           "simplebuilding:astral_purpur_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:astral_purpur_block_octet_from_astral_purpur_block_stonecutting",
@@ -1003,6 +1052,9 @@
           "simplebuilding:astral_purpur_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -1052,6 +1104,9 @@
           "simpleoctets:astralit_block_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1079,7 +1134,11 @@
         "ingredient": [
           "simplebuilding:astralit_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:astralit_block_octet_from_astralit_block_stonecutting",
@@ -1099,6 +1158,9 @@
           "simplebuilding:astralit_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -1148,6 +1210,9 @@
           "simpleoctets:astralit_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1175,7 +1240,11 @@
         "ingredient": [
           "simplebuilding:astralit_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:astralit_bricks_octet_from_astralit_bricks_stonecutting",
@@ -1195,6 +1264,9 @@
           "simplebuilding:astralit_bricks"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -1271,7 +1343,10 @@
         "ingredient": [
           "minecraft:bamboo_mosaic"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:bamboo_mosaic_octet_from_bamboo_mosaic_stonecutting",
@@ -1318,7 +1393,10 @@
         "ingredient": [
           "minecraft:bamboo_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:bamboo_octet_from_bamboo_planks_stonecutting",
@@ -1463,7 +1541,10 @@
         "ingredient": [
           "minecraft:birch_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:birch_log_octet_from_birch_log_stonecutting",
@@ -1510,7 +1591,10 @@
         "ingredient": [
           "minecraft:birch_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:birch_octet_from_birch_planks_stonecutting",
@@ -1655,7 +1739,10 @@
         "ingredient": [
           "minecraft:black_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:black_concrete_octet_from_black_concrete_stonecutting",
@@ -1751,7 +1838,10 @@
         "ingredient": [
           "minecraft:black_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:black_terracotta_octet_from_black_terracotta_stonecutting",
@@ -1851,7 +1941,10 @@
         "ingredient": [
           "minecraft:black_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:black_wool_octet_from_black_wool_stonecutting",
@@ -1902,7 +1995,10 @@
         "ingredient": [
           "minecraft:blackstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:blackstone_block_octet_from_blackstone_stonecutting",
@@ -2047,7 +2143,10 @@
         "ingredient": [
           "minecraft:blue_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:blue_concrete_octet_from_blue_concrete_stonecutting",
@@ -2116,6 +2215,9 @@
           "simpleoctets:blue_ice_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2143,7 +2245,10 @@
         "ingredient": [
           "simpleblocks:blue_ice_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:blue_ice_from_octets",
@@ -2211,7 +2316,10 @@
         "ingredient": [
           "minecraft:blue_ice"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:blue_ice_octet_from_blue_ice_stonecutting",
@@ -2280,6 +2388,9 @@
           "simpleoctets:blue_nether_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2307,7 +2418,10 @@
         "ingredient": [
           "simpleblocks:blue_nether_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:blue_terracotta_from_octets",
@@ -2375,7 +2489,10 @@
         "ingredient": [
           "minecraft:blue_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:blue_terracotta_octet_from_blue_terracotta_stonecutting",
@@ -2475,7 +2592,10 @@
         "ingredient": [
           "minecraft:blue_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:blue_wool_octet_from_blue_wool_stonecutting",
@@ -2575,7 +2695,10 @@
         "ingredient": [
           "minecraft:bone_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:bone_block_octet_from_bone_block_stonecutting",
@@ -2644,6 +2767,9 @@
           "simpleoctets:brass_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2671,7 +2797,11 @@
         "ingredient": [
           "simpleores:brass_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:brass_block_octet_from_brass_block_stonecutting",
@@ -2691,6 +2821,9 @@
           "simpleores:brass_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2767,7 +2900,10 @@
         "ingredient": [
           "minecraft:bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:bricks_octet_from_bricks_stonecutting",
@@ -2836,6 +2972,9 @@
           "simpleoctets:bronze_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2863,7 +3002,11 @@
         "ingredient": [
           "simpleores:bronze_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:bronze_block_octet_from_bronze_block_stonecutting",
@@ -2883,6 +3026,9 @@
           "simpleores:bronze_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2959,7 +3105,10 @@
         "ingredient": [
           "minecraft:brown_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:brown_concrete_octet_from_brown_concrete_stonecutting",
@@ -3055,7 +3204,10 @@
         "ingredient": [
           "minecraft:brown_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:brown_terracotta_octet_from_brown_terracotta_stonecutting",
@@ -3155,7 +3307,10 @@
         "ingredient": [
           "minecraft:brown_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:brown_wool_octet_from_brown_wool_stonecutting",
@@ -3255,7 +3410,10 @@
         "ingredient": [
           "minecraft:calcite"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:calcite_octet_from_calcite_stonecutting",
@@ -3351,7 +3509,10 @@
         "ingredient": [
           "minecraft:cherry_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cherry_log_octet_from_cherry_log_stonecutting",
@@ -3398,7 +3559,10 @@
         "ingredient": [
           "minecraft:cherry_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cherry_octet_from_cherry_planks_stonecutting",
@@ -3543,7 +3707,10 @@
         "ingredient": [
           "minecraft:cinnabar_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cinnabar_bricks_octet_from_cinnabar_bricks_stonecutting",
@@ -3639,7 +3806,10 @@
         "ingredient": [
           "minecraft:cinnabar"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cinnabar_octet_from_cinnabar_stonecutting",
@@ -3735,7 +3905,10 @@
         "ingredient": [
           "minecraft:coal_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:coal_block_octet_from_coal_block_stonecutting",
@@ -3831,7 +4004,10 @@
         "ingredient": [
           "minecraft:cobbled_deepslate"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cobbled_deepslate_octet_from_cobbled_deepslate_stonecutting",
@@ -3927,7 +4103,10 @@
         "ingredient": [
           "minecraft:cobblestone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cobblestone_octet_from_cobblestone_stonecutting",
@@ -4023,7 +4202,10 @@
         "ingredient": [
           "minecraft:copper_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:copper_block_octet_from_copper_block_stonecutting",
@@ -4070,7 +4252,11 @@
         "ingredient": [
           "simpleenchanting:crimson_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleenchanting"
+      ]
     },
     {
       "id": "simpleoctets:crimson_blazewood_octet_from_crimson_blazewood_planks_stonecutting",
@@ -4090,6 +4276,9 @@
           "simpleenchanting:crimson_blazewood_planks"
         ]
       },
+      "needsMods": [
+        "simpleenchanting"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -4139,6 +4328,9 @@
           "simpleoctets:crimson_blazewood_octet"
         ]
       ],
+      "needsMods": [
+        "simpleenchanting"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4166,7 +4358,10 @@
         "ingredient": [
           "minecraft:crimson_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:crimson_octet_from_crimson_planks_stonecutting",
@@ -4311,7 +4506,10 @@
         "ingredient": [
           "minecraft:crimson_stem"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:crimson_stem_octet_from_crimson_stem_stonecutting",
@@ -4380,6 +4578,9 @@
           "simpleoctets:cut_brass_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4407,7 +4608,11 @@
         "ingredient": [
           "simpleores:cut_brass"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_brass_octet_from_cut_brass_stonecutting",
@@ -4427,6 +4632,9 @@
           "simpleores:cut_brass"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -4476,6 +4684,9 @@
           "simpleoctets:cut_bronze_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4503,7 +4714,11 @@
         "ingredient": [
           "simpleores:cut_bronze"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_bronze_octet_from_cut_bronze_stonecutting",
@@ -4523,6 +4738,9 @@
           "simpleores:cut_bronze"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -4599,7 +4817,10 @@
         "ingredient": [
           "minecraft:cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cut_copper_octet_from_cut_copper_stonecutting",
@@ -4668,6 +4889,9 @@
           "simpleoctets:cut_gold_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4695,7 +4919,10 @@
         "ingredient": [
           "simpleblocks:cut_gold"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cut_iron_from_octets",
@@ -4736,6 +4963,9 @@
           "simpleoctets:cut_iron_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4763,7 +4993,10 @@
         "ingredient": [
           "simpleblocks:cut_iron"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cut_lead_from_octets",
@@ -4804,6 +5037,9 @@
           "simpleoctets:cut_lead_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4831,7 +5067,11 @@
         "ingredient": [
           "simpleores:cut_lead"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_lead_octet_from_cut_lead_stonecutting",
@@ -4851,6 +5091,9 @@
           "simpleores:cut_lead"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -4900,6 +5143,9 @@
           "simpleoctets:cut_nickel_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4927,7 +5173,11 @@
         "ingredient": [
           "simpleores:cut_nickel"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_nickel_octet_from_cut_nickel_stonecutting",
@@ -4947,6 +5197,9 @@
           "simpleores:cut_nickel"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5023,7 +5276,10 @@
         "ingredient": [
           "minecraft:cut_red_sandstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cut_red_sandstone_octet_from_cut_red_sandstone_stonecutting",
@@ -5092,6 +5348,9 @@
           "simpleoctets:cut_rose_bronze_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5119,7 +5378,11 @@
         "ingredient": [
           "simpleores:cut_rose_bronze"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_rose_bronze_octet_from_cut_rose_bronze_stonecutting",
@@ -5139,6 +5402,9 @@
           "simpleores:cut_rose_bronze"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5188,6 +5454,9 @@
           "simpleoctets:cut_rose_gold_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5215,7 +5484,11 @@
         "ingredient": [
           "simpleores:cut_rose_gold"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_rose_gold_octet_from_cut_rose_gold_stonecutting",
@@ -5235,6 +5508,9 @@
           "simpleores:cut_rose_gold"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5311,7 +5587,10 @@
         "ingredient": [
           "minecraft:cut_sandstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cut_sandstone_octet_from_cut_sandstone_stonecutting",
@@ -5380,6 +5659,9 @@
           "simpleoctets:cut_silver_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5407,7 +5689,11 @@
         "ingredient": [
           "simpleores:cut_silver"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_silver_octet_from_cut_silver_stonecutting",
@@ -5427,6 +5713,9 @@
           "simpleores:cut_silver"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5476,6 +5765,9 @@
           "simpleoctets:cut_stainless_steel_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5503,7 +5795,11 @@
         "ingredient": [
           "simpleores:cut_stainless_steel"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_stainless_steel_octet_from_cut_stainless_steel_stonecutting",
@@ -5523,6 +5819,9 @@
           "simpleores:cut_stainless_steel"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5572,6 +5871,9 @@
           "simpleoctets:cut_tin_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5599,7 +5901,11 @@
         "ingredient": [
           "simpleores:cut_tin"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_tin_octet_from_cut_tin_stonecutting",
@@ -5619,6 +5925,9 @@
           "simpleores:cut_tin"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5668,6 +5977,9 @@
           "simpleoctets:cut_zinc_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5695,7 +6007,11 @@
         "ingredient": [
           "simpleores:cut_zinc"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:cut_zinc_octet_from_cut_zinc_stonecutting",
@@ -5715,6 +6031,9 @@
           "simpleores:cut_zinc"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5791,7 +6110,10 @@
         "ingredient": [
           "minecraft:cyan_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cyan_concrete_octet_from_cyan_concrete_stonecutting",
@@ -5887,7 +6209,10 @@
         "ingredient": [
           "minecraft:cyan_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cyan_terracotta_octet_from_cyan_terracotta_stonecutting",
@@ -5991,7 +6316,10 @@
         "ingredient": [
           "minecraft:cyan_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:cyan_wool_octet_from_cyan_wool_stonecutting",
@@ -6095,7 +6423,10 @@
         "ingredient": [
           "minecraft:dark_oak_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:dark_oak_log_octet_from_dark_oak_log_stonecutting",
@@ -6142,7 +6473,10 @@
         "ingredient": [
           "minecraft:dark_oak_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:dark_oak_octet_from_dark_oak_planks_stonecutting",
@@ -6287,7 +6621,10 @@
         "ingredient": [
           "minecraft:dark_prismarine"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:dark_prismarine_octet_from_dark_prismarine_stonecutting",
@@ -6387,7 +6724,10 @@
         "ingredient": [
           "minecraft:deepslate_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:deepslate_bricks_octet_from_deepslate_bricks_stonecutting",
@@ -6483,7 +6823,10 @@
         "ingredient": [
           "minecraft:deepslate_tiles"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:deepslate_tiles_octet_from_deepslate_tiles_stonecutting",
@@ -6579,7 +6922,10 @@
         "ingredient": [
           "minecraft:diamond_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:diamond_block_octet_from_diamond_block_stonecutting",
@@ -6675,7 +7021,10 @@
         "ingredient": [
           "minecraft:diorite"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:diorite_octet_from_diorite_stonecutting",
@@ -6748,6 +7097,9 @@
           "simpleoctets:duskwood_log_octet"
         ]
       ],
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6775,7 +7127,11 @@
         "ingredient": [
           "simpleend:duskwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleend"
+      ]
     },
     {
       "id": "simpleoctets:duskwood_log_octet_from_duskwood_log_stonecutting",
@@ -6795,6 +7151,9 @@
           "simpleend:duskwood_log"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6822,7 +7181,11 @@
         "ingredient": [
           "simpleend:duskwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleend"
+      ]
     },
     {
       "id": "simpleoctets:duskwood_octet_from_duskwood_planks_stonecutting",
@@ -6842,6 +7205,9 @@
           "simpleend:duskwood_planks"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6890,6 +7256,9 @@
         [
           "simpleoctets:duskwood_octet"
         ]
+      ],
+      "needsMods": [
+        "simpleend"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -6967,7 +7336,10 @@
         "ingredient": [
           "minecraft:emerald_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:emerald_block_octet_from_emerald_block_stonecutting",
@@ -7063,7 +7435,10 @@
         "ingredient": [
           "minecraft:end_stone_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:end_stone_bricks_octet_from_end_stone_bricks_stonecutting",
@@ -7159,7 +7534,10 @@
         "ingredient": [
           "minecraft:end_stone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:end_stone_octet_from_end_stone_stonecutting",
@@ -7228,6 +7606,9 @@
           "simpleoctets:ender_end_stone_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7255,7 +7636,11 @@
         "ingredient": [
           "simplebuilding:ender_end_stone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:ender_end_stone_octet_from_ender_end_stone_stonecutting",
@@ -7275,6 +7660,9 @@
           "simplebuilding:ender_end_stone"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7324,6 +7712,9 @@
           "simpleoctets:ender_purpur_block_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7351,7 +7742,11 @@
         "ingredient": [
           "simplebuilding:ender_purpur_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:ender_purpur_block_octet_from_ender_purpur_block_stonecutting",
@@ -7371,6 +7766,9 @@
           "simplebuilding:ender_purpur_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7420,6 +7818,9 @@
           "simpleoctets:ender_quartz_block_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7447,7 +7848,11 @@
         "ingredient": [
           "simplebuilding:ender_quartz_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:ender_quartz_block_octet_from_ender_quartz_block_stonecutting",
@@ -7467,6 +7872,9 @@
           "simplebuilding:ender_quartz_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7516,6 +7924,9 @@
           "simpleoctets:ender_quartz_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7543,7 +7954,11 @@
         "ingredient": [
           "simplebuilding:ender_quartz_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:ender_quartz_bricks_octet_from_ender_quartz_bricks_stonecutting",
@@ -7563,6 +7978,9 @@
           "simplebuilding:ender_quartz_bricks"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7612,6 +8030,9 @@
           "simpleoctets:enderite_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7639,7 +8060,11 @@
         "ingredient": [
           "simpleores:enderite_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:enderite_block_octet_from_enderite_block_stonecutting",
@@ -7659,6 +8084,9 @@
           "simpleores:enderite_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7735,7 +8163,10 @@
         "ingredient": [
           "minecraft:exposed_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:exposed_copper_octet_from_exposed_copper_stonecutting",
@@ -7831,7 +8262,10 @@
         "ingredient": [
           "minecraft:exposed_cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:exposed_cut_copper_octet_from_exposed_cut_copper_stonecutting",
@@ -7927,7 +8361,10 @@
         "ingredient": [
           "minecraft:gold_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:gold_block_octet_from_gold_block_stonecutting",
@@ -8023,7 +8460,10 @@
         "ingredient": [
           "minecraft:granite"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:granite_octet_from_granite_stonecutting",
@@ -8123,7 +8563,10 @@
         "ingredient": [
           "minecraft:gray_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:gray_concrete_octet_from_gray_concrete_stonecutting",
@@ -8219,7 +8662,10 @@
         "ingredient": [
           "minecraft:gray_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:gray_terracotta_octet_from_gray_terracotta_stonecutting",
@@ -8323,7 +8769,10 @@
         "ingredient": [
           "minecraft:gray_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:gray_wool_octet_from_gray_wool_stonecutting",
@@ -8427,7 +8876,10 @@
         "ingredient": [
           "minecraft:green_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:green_concrete_octet_from_green_concrete_stonecutting",
@@ -8523,7 +8975,10 @@
         "ingredient": [
           "minecraft:green_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:green_terracotta_octet_from_green_terracotta_stonecutting",
@@ -8623,7 +9078,10 @@
         "ingredient": [
           "minecraft:green_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:green_wool_octet_from_green_wool_stonecutting",
@@ -8696,6 +9154,9 @@
           "simpleoctets:hushed_deepslate_tiles_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8723,7 +9184,10 @@
         "ingredient": [
           "simpleblocks:hushed_deepslate_tiles"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:ice_bricks_from_octets",
@@ -8764,6 +9228,9 @@
           "simpleoctets:ice_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8791,7 +9258,10 @@
         "ingredient": [
           "simpleblocks:ice_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:ice_from_octets",
@@ -8859,7 +9329,10 @@
         "ingredient": [
           "minecraft:ice"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:ice_octet_from_ice_stonecutting",
@@ -8928,6 +9401,9 @@
           "simpleoctets:infernite_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8955,7 +9431,11 @@
         "ingredient": [
           "simpleores:infernite_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:infernite_block_octet_from_infernite_block_stonecutting",
@@ -8975,6 +9455,9 @@
           "simpleores:infernite_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9051,7 +9534,10 @@
         "ingredient": [
           "minecraft:iron_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:iron_block_octet_from_iron_block_stonecutting",
@@ -9147,7 +9633,10 @@
         "ingredient": [
           "minecraft:jungle_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:jungle_log_octet_from_jungle_log_stonecutting",
@@ -9194,7 +9683,10 @@
         "ingredient": [
           "minecraft:jungle_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:jungle_octet_from_jungle_planks_stonecutting",
@@ -9339,7 +9831,10 @@
         "ingredient": [
           "minecraft:lapis_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:lapis_block_octet_from_lapis_block_stonecutting",
@@ -9408,6 +9903,9 @@
           "simpleoctets:lead_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9435,7 +9933,11 @@
         "ingredient": [
           "simpleores:lead_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:lead_block_octet_from_lead_block_stonecutting",
@@ -9455,6 +9957,9 @@
           "simpleores:lead_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9531,7 +10036,10 @@
         "ingredient": [
           "minecraft:light_blue_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:light_blue_concrete_octet_from_light_blue_concrete_stonecutting",
@@ -9627,7 +10135,10 @@
         "ingredient": [
           "minecraft:light_blue_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:light_blue_terracotta_octet_from_light_blue_terracotta_stonecutting",
@@ -9727,7 +10238,10 @@
         "ingredient": [
           "minecraft:light_blue_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:light_blue_wool_octet_from_light_blue_wool_stonecutting",
@@ -9827,7 +10341,10 @@
         "ingredient": [
           "minecraft:light_gray_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:light_gray_concrete_octet_from_light_gray_concrete_stonecutting",
@@ -9923,7 +10440,10 @@
         "ingredient": [
           "minecraft:light_gray_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:light_gray_terracotta_octet_from_light_gray_terracotta_stonecutting",
@@ -10023,7 +10543,10 @@
         "ingredient": [
           "minecraft:light_gray_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:light_gray_wool_octet_from_light_gray_wool_stonecutting",
@@ -10123,7 +10646,10 @@
         "ingredient": [
           "minecraft:lime_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:lime_concrete_octet_from_lime_concrete_stonecutting",
@@ -10219,7 +10745,10 @@
         "ingredient": [
           "minecraft:lime_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:lime_terracotta_octet_from_lime_terracotta_stonecutting",
@@ -10323,7 +10852,10 @@
         "ingredient": [
           "minecraft:lime_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:lime_wool_octet_from_lime_wool_stonecutting",
@@ -10427,7 +10959,10 @@
         "ingredient": [
           "minecraft:magenta_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:magenta_concrete_octet_from_magenta_concrete_stonecutting",
@@ -10523,7 +11058,10 @@
         "ingredient": [
           "minecraft:magenta_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:magenta_terracotta_octet_from_magenta_terracotta_stonecutting",
@@ -10623,7 +11161,10 @@
         "ingredient": [
           "minecraft:magenta_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:magenta_wool_octet_from_magenta_wool_stonecutting",
@@ -10723,7 +11264,10 @@
         "ingredient": [
           "minecraft:mangrove_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mangrove_log_octet_from_mangrove_log_stonecutting",
@@ -10770,7 +11314,10 @@
         "ingredient": [
           "minecraft:mangrove_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mangrove_octet_from_mangrove_planks_stonecutting",
@@ -10888,6 +11435,9 @@
           "simpleoctets:mossy_cinnabar_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10915,7 +11465,10 @@
         "ingredient": [
           "simpleblocks:mossy_cinnabar_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_cobblestone_from_octets",
@@ -10983,7 +11536,10 @@
         "ingredient": [
           "minecraft:mossy_cobblestone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_cobblestone_octet_from_mossy_cobblestone_stonecutting",
@@ -11056,6 +11612,9 @@
           "simpleoctets:mossy_deepslate_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11083,7 +11642,10 @@
         "ingredient": [
           "simpleblocks:mossy_deepslate_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_deepslate_tiles_from_octets",
@@ -11124,6 +11686,9 @@
           "simpleoctets:mossy_deepslate_tiles_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11151,7 +11716,10 @@
         "ingredient": [
           "simpleblocks:mossy_deepslate_tiles"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_end_stone_bricks_from_octets",
@@ -11192,6 +11760,9 @@
           "simpleoctets:mossy_end_stone_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11219,7 +11790,10 @@
         "ingredient": [
           "simpleblocks:mossy_end_stone_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_mud_bricks_from_octets",
@@ -11260,6 +11834,9 @@
           "simpleoctets:mossy_mud_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11287,7 +11864,10 @@
         "ingredient": [
           "simpleblocks:mossy_mud_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_stone_bricks_from_octets",
@@ -11355,7 +11935,10 @@
         "ingredient": [
           "minecraft:mossy_stone_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_stone_bricks_octet_from_mossy_stone_bricks_stonecutting",
@@ -11428,6 +12011,9 @@
           "simpleoctets:mossy_sulfur_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11455,7 +12041,10 @@
         "ingredient": [
           "simpleblocks:mossy_sulfur_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mossy_tuff_bricks_from_octets",
@@ -11496,6 +12085,9 @@
           "simpleoctets:mossy_tuff_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11523,7 +12115,10 @@
         "ingredient": [
           "simpleblocks:mossy_tuff_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mud_bricks_from_octets",
@@ -11591,7 +12186,10 @@
         "ingredient": [
           "minecraft:mud_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:mud_bricks_octet_from_mud_bricks_stonecutting",
@@ -11691,7 +12289,10 @@
         "ingredient": [
           "minecraft:nether_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:nether_bricks_octet_from_nether_bricks_stonecutting",
@@ -11787,7 +12388,10 @@
         "ingredient": [
           "minecraft:netherite_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:netherite_block_octet_from_netherite_block_stonecutting",
@@ -11883,7 +12487,10 @@
         "ingredient": [
           "minecraft:netherrack"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:netherrack_octet_from_netherrack_stonecutting",
@@ -11952,6 +12559,9 @@
           "simpleoctets:nickel_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11979,7 +12589,11 @@
         "ingredient": [
           "simpleores:nickel_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:nickel_block_octet_from_nickel_block_stonecutting",
@@ -11999,6 +12613,9 @@
           "simpleores:nickel_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -12048,6 +12665,9 @@
           "simpleoctets:nihil_end_stone_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12075,7 +12695,11 @@
         "ingredient": [
           "simplebuilding:nihil_end_stone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:nihil_end_stone_octet_from_nihil_end_stone_stonecutting",
@@ -12095,6 +12719,9 @@
           "simplebuilding:nihil_end_stone"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -12144,6 +12771,9 @@
           "simpleoctets:nihil_purpur_block_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12171,7 +12801,11 @@
         "ingredient": [
           "simplebuilding:nihil_purpur_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:nihil_purpur_block_octet_from_nihil_purpur_block_stonecutting",
@@ -12191,6 +12825,9 @@
           "simplebuilding:nihil_purpur_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -12240,6 +12877,9 @@
           "simpleoctets:nihilith_block_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12267,7 +12907,11 @@
         "ingredient": [
           "simplebuilding:nihilith_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:nihilith_block_octet_from_nihilith_block_stonecutting",
@@ -12287,6 +12931,9 @@
           "simplebuilding:nihilith_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -12336,6 +12983,9 @@
           "simpleoctets:nihilith_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12363,7 +13013,11 @@
         "ingredient": [
           "simplebuilding:nihilith_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:nihilith_bricks_octet_from_nihilith_bricks_stonecutting",
@@ -12383,6 +13037,9 @@
           "simplebuilding:nihilith_bricks"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -12459,7 +13116,10 @@
         "ingredient": [
           "minecraft:oak_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:oak_log_octet_from_oak_log_stonecutting",
@@ -12506,7 +13166,10 @@
         "ingredient": [
           "minecraft:oak_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:oak_octet_from_oak_planks_stonecutting",
@@ -12651,7 +13314,10 @@
         "ingredient": [
           "minecraft:obsidian"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:obsidian_octet_from_obsidian_stonecutting",
@@ -12747,7 +13413,10 @@
         "ingredient": [
           "minecraft:orange_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:orange_concrete_octet_from_orange_concrete_stonecutting",
@@ -12843,7 +13512,10 @@
         "ingredient": [
           "minecraft:orange_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:orange_terracotta_octet_from_orange_terracotta_stonecutting",
@@ -12943,7 +13615,10 @@
         "ingredient": [
           "minecraft:orange_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:orange_wool_octet_from_orange_wool_stonecutting",
@@ -13043,7 +13718,10 @@
         "ingredient": [
           "minecraft:oxidized_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:oxidized_copper_octet_from_oxidized_copper_stonecutting",
@@ -13139,7 +13817,10 @@
         "ingredient": [
           "minecraft:oxidized_cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:oxidized_cut_copper_octet_from_oxidized_cut_copper_stonecutting",
@@ -13208,6 +13889,9 @@
           "simpleoctets:packed_ice_bricks_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13235,7 +13919,10 @@
         "ingredient": [
           "simpleblocks:packed_ice_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:packed_ice_from_octets",
@@ -13303,7 +13990,10 @@
         "ingredient": [
           "minecraft:packed_ice"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:packed_ice_octet_from_packed_ice_stonecutting",
@@ -13399,7 +14089,10 @@
         "ingredient": [
           "minecraft:pale_oak_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:pale_oak_log_octet_from_pale_oak_log_stonecutting",
@@ -13446,7 +14139,10 @@
         "ingredient": [
           "minecraft:pale_oak_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:pale_oak_octet_from_pale_oak_planks_stonecutting",
@@ -13591,7 +14287,10 @@
         "ingredient": [
           "minecraft:pink_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:pink_concrete_octet_from_pink_concrete_stonecutting",
@@ -13687,7 +14386,10 @@
         "ingredient": [
           "minecraft:pink_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:pink_terracotta_octet_from_pink_terracotta_stonecutting",
@@ -13787,7 +14489,10 @@
         "ingredient": [
           "minecraft:pink_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:pink_wool_octet_from_pink_wool_stonecutting",
@@ -13887,7 +14592,10 @@
         "ingredient": [
           "minecraft:polished_andesite"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_andesite_octet_from_polished_andesite_stonecutting",
@@ -13938,7 +14646,11 @@
         "ingredient": [
           "simplebuilding:polished_astralit"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:polished_astralit_block_octet_from_polished_astralit_stonecutting",
@@ -13958,6 +14670,9 @@
           "simplebuilding:polished_astralit"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -14006,6 +14721,9 @@
         [
           "simpleoctets:polished_astralit_block_octet"
         ]
+      ],
+      "needsMods": [
+        "simplebuilding"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -14083,7 +14801,10 @@
         "ingredient": [
           "minecraft:polished_blackstone_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_blackstone_bricks_octet_from_polished_blackstone_bricks_stonecutting",
@@ -14179,7 +14900,10 @@
         "ingredient": [
           "minecraft:polished_blackstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_blackstone_octet_from_polished_blackstone_stonecutting",
@@ -14275,7 +14999,10 @@
         "ingredient": [
           "minecraft:polished_cinnabar"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_cinnabar_octet_from_polished_cinnabar_stonecutting",
@@ -14371,7 +15098,10 @@
         "ingredient": [
           "minecraft:polished_deepslate"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_deepslate_octet_from_polished_deepslate_stonecutting",
@@ -14467,7 +15197,10 @@
         "ingredient": [
           "minecraft:polished_diorite"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_diorite_octet_from_polished_diorite_stonecutting",
@@ -14567,7 +15300,10 @@
         "ingredient": [
           "simplelib:polished_end_stone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_end_stone_octet_from_polished_end_stone_stonecutting",
@@ -14614,7 +15350,11 @@
         "ingredient": [
           "simplebuilding:polished_ender_quartz"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:polished_ender_quartz_block_octet_from_polished_ender_quartz_stonecutting",
@@ -14634,6 +15374,9 @@
           "simplebuilding:polished_ender_quartz"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -14682,6 +15425,9 @@
         [
           "simpleoctets:polished_ender_quartz_block_octet"
         ]
+      ],
+      "needsMods": [
+        "simplebuilding"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -14759,7 +15505,10 @@
         "ingredient": [
           "minecraft:polished_granite"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_granite_octet_from_polished_granite_stonecutting",
@@ -14810,7 +15559,11 @@
         "ingredient": [
           "simplebuilding:polished_nihilith"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding"
+      ]
     },
     {
       "id": "simpleoctets:polished_nihilith_block_octet_from_polished_nihilith_stonecutting",
@@ -14830,6 +15583,9 @@
           "simplebuilding:polished_nihilith"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -14878,6 +15634,9 @@
         [
           "simpleoctets:polished_nihilith_block_octet"
         ]
+      ],
+      "needsMods": [
+        "simplebuilding"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -14955,7 +15714,10 @@
         "ingredient": [
           "minecraft:polished_sulfur"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_sulfur_octet_from_polished_sulfur_stonecutting",
@@ -15051,7 +15813,10 @@
         "ingredient": [
           "minecraft:polished_tuff"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:polished_tuff_octet_from_polished_tuff_stonecutting",
@@ -15147,7 +15912,10 @@
         "ingredient": [
           "minecraft:poplar_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:poplar_log_octet_from_poplar_log_stonecutting",
@@ -15194,7 +15962,10 @@
         "ingredient": [
           "minecraft:poplar_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:poplar_octet_from_poplar_planks_stonecutting",
@@ -15339,7 +16110,10 @@
         "ingredient": [
           "minecraft:prismarine_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:prismarine_bricks_octet_from_prismarine_bricks_stonecutting",
@@ -15435,7 +16209,10 @@
         "ingredient": [
           "minecraft:prismarine"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:prismarine_octet_from_prismarine_stonecutting",
@@ -15531,7 +16308,10 @@
         "ingredient": [
           "minecraft:purple_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:purple_concrete_octet_from_purple_concrete_stonecutting",
@@ -15627,7 +16407,10 @@
         "ingredient": [
           "minecraft:purple_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:purple_terracotta_octet_from_purple_terracotta_stonecutting",
@@ -15731,7 +16514,10 @@
         "ingredient": [
           "minecraft:purple_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:purple_wool_octet_from_purple_wool_stonecutting",
@@ -15835,7 +16621,10 @@
         "ingredient": [
           "minecraft:purpur_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:purpur_block_octet_from_purpur_block_stonecutting",
@@ -15931,7 +16720,10 @@
         "ingredient": [
           "minecraft:quartz_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:quartz_block_octet_from_quartz_block_stonecutting",
@@ -16027,7 +16819,10 @@
         "ingredient": [
           "minecraft:quartz_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:quartz_bricks_octet_from_quartz_bricks_stonecutting",
@@ -16123,7 +16918,10 @@
         "ingredient": [
           "minecraft:raw_copper_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:raw_copper_block_octet_from_raw_copper_block_stonecutting",
@@ -16219,7 +17017,10 @@
         "ingredient": [
           "minecraft:raw_gold_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:raw_gold_block_octet_from_raw_gold_block_stonecutting",
@@ -16315,7 +17116,10 @@
         "ingredient": [
           "minecraft:raw_iron_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:raw_iron_block_octet_from_raw_iron_block_stonecutting",
@@ -16411,7 +17215,10 @@
         "ingredient": [
           "minecraft:red_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:red_concrete_octet_from_red_concrete_stonecutting",
@@ -16507,7 +17314,10 @@
         "ingredient": [
           "minecraft:red_nether_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:red_nether_bricks_octet_from_red_nether_bricks_stonecutting",
@@ -16607,7 +17417,10 @@
         "ingredient": [
           "minecraft:red_sandstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:red_sandstone_octet_from_red_sandstone_stonecutting",
@@ -16703,7 +17516,10 @@
         "ingredient": [
           "minecraft:red_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:red_terracotta_octet_from_red_terracotta_stonecutting",
@@ -16803,7 +17619,10 @@
         "ingredient": [
           "minecraft:red_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:red_wool_octet_from_red_wool_stonecutting",
@@ -16903,7 +17722,10 @@
         "ingredient": [
           "minecraft:redstone_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:redstone_block_octet_from_redstone_block_stonecutting",
@@ -16999,7 +17821,10 @@
         "ingredient": [
           "minecraft:resin_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:resin_bricks_octet_from_resin_bricks_stonecutting",
@@ -17068,6 +17893,9 @@
           "simpleoctets:rose_bronze_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -17095,7 +17923,11 @@
         "ingredient": [
           "simpleores:rose_bronze_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:rose_bronze_block_octet_from_rose_bronze_block_stonecutting",
@@ -17115,6 +17947,9 @@
           "simpleores:rose_bronze_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -17164,6 +17999,9 @@
           "simpleoctets:rose_gold_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -17191,7 +18029,11 @@
         "ingredient": [
           "simpleores:rose_gold_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:rose_gold_block_octet_from_rose_gold_block_stonecutting",
@@ -17211,6 +18053,9 @@
           "simpleores:rose_gold_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -17287,7 +18132,10 @@
         "ingredient": [
           "minecraft:sandstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:sandstone_octet_from_sandstone_stonecutting",
@@ -17356,6 +18204,9 @@
           "simpleoctets:sculk_tiles_octet"
         ]
       ],
+      "needsMods": [
+        "simpleblocks"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -17383,7 +18234,10 @@
         "ingredient": [
           "simpleblocks:sculk_tiles"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:silver_block_from_octets",
@@ -17424,6 +18278,9 @@
           "simpleoctets:silver_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -17451,7 +18308,11 @@
         "ingredient": [
           "simpleores:silver_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:silver_block_octet_from_silver_block_stonecutting",
@@ -17471,6 +18332,9 @@
           "simpleores:silver_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -17547,7 +18411,10 @@
         "ingredient": [
           "minecraft:smooth_basalt"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:smooth_basalt_octet_from_smooth_basalt_stonecutting",
@@ -17643,7 +18510,10 @@
         "ingredient": [
           "minecraft:smooth_quartz"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:smooth_quartz_octet_from_smooth_quartz_stonecutting",
@@ -17739,7 +18609,10 @@
         "ingredient": [
           "minecraft:smooth_red_sandstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:smooth_red_sandstone_octet_from_smooth_red_sandstone_stonecutting",
@@ -17835,7 +18708,10 @@
         "ingredient": [
           "minecraft:smooth_sandstone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:smooth_sandstone_octet_from_smooth_sandstone_stonecutting",
@@ -17931,7 +18807,10 @@
         "ingredient": [
           "minecraft:smooth_stone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:smooth_stone_octet_from_smooth_stone_stonecutting",
@@ -18027,7 +18906,10 @@
         "ingredient": [
           "minecraft:spruce_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:spruce_log_octet_from_spruce_log_stonecutting",
@@ -18074,7 +18956,10 @@
         "ingredient": [
           "minecraft:spruce_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:spruce_octet_from_spruce_planks_stonecutting",
@@ -18192,6 +19077,9 @@
           "simpleoctets:stainless_steel_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -18219,7 +19107,11 @@
         "ingredient": [
           "simpleores:stainless_steel_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:stainless_steel_block_octet_from_stainless_steel_block_stonecutting",
@@ -18239,6 +19131,9 @@
           "simpleores:stainless_steel_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -18315,7 +19210,10 @@
         "ingredient": [
           "minecraft:stone_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stone_bricks_octet_from_stone_bricks_stonecutting",
@@ -18411,7 +19309,10 @@
         "ingredient": [
           "minecraft:stone"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stone_octet_from_stone_stonecutting",
@@ -18507,7 +19408,10 @@
         "ingredient": [
           "minecraft:stripped_acacia_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_acacia_log_octet_from_stripped_acacia_log_stonecutting",
@@ -18576,6 +19480,9 @@
           "simpleoctets:stripped_ashwood_log_octet"
         ]
       ],
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -18603,7 +19510,11 @@
         "ingredient": [
           "simpleend:stripped_ashwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleend"
+      ]
     },
     {
       "id": "simpleoctets:stripped_ashwood_log_octet_from_stripped_ashwood_log_stonecutting",
@@ -18623,6 +19534,9 @@
           "simpleend:stripped_ashwood_log"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -18699,7 +19613,10 @@
         "ingredient": [
           "minecraft:stripped_birch_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_birch_log_octet_from_stripped_birch_log_stonecutting",
@@ -18795,7 +19712,10 @@
         "ingredient": [
           "minecraft:stripped_cherry_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_cherry_log_octet_from_stripped_cherry_log_stonecutting",
@@ -18891,7 +19811,10 @@
         "ingredient": [
           "minecraft:stripped_crimson_stem"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_crimson_stem_octet_from_stripped_crimson_stem_stonecutting",
@@ -18987,7 +19910,10 @@
         "ingredient": [
           "minecraft:stripped_dark_oak_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_dark_oak_log_octet_from_stripped_dark_oak_log_stonecutting",
@@ -19056,6 +19982,9 @@
           "simpleoctets:stripped_duskwood_log_octet"
         ]
       ],
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -19083,7 +20012,11 @@
         "ingredient": [
           "simpleend:stripped_duskwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleend"
+      ]
     },
     {
       "id": "simpleoctets:stripped_duskwood_log_octet_from_stripped_duskwood_log_stonecutting",
@@ -19103,6 +20036,9 @@
           "simpleend:stripped_duskwood_log"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -19179,7 +20115,10 @@
         "ingredient": [
           "minecraft:stripped_jungle_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_jungle_log_octet_from_stripped_jungle_log_stonecutting",
@@ -19275,7 +20214,10 @@
         "ingredient": [
           "minecraft:stripped_mangrove_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_mangrove_log_octet_from_stripped_mangrove_log_stonecutting",
@@ -19371,7 +20313,10 @@
         "ingredient": [
           "minecraft:stripped_oak_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_oak_log_octet_from_stripped_oak_log_stonecutting",
@@ -19467,7 +20412,10 @@
         "ingredient": [
           "minecraft:stripped_pale_oak_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_pale_oak_log_octet_from_stripped_pale_oak_log_stonecutting",
@@ -19563,7 +20511,10 @@
         "ingredient": [
           "minecraft:stripped_poplar_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_poplar_log_octet_from_stripped_poplar_log_stonecutting",
@@ -19659,7 +20610,10 @@
         "ingredient": [
           "minecraft:stripped_spruce_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_spruce_log_octet_from_stripped_spruce_log_stonecutting",
@@ -19755,7 +20709,10 @@
         "ingredient": [
           "minecraft:stripped_warped_stem"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:stripped_warped_stem_octet_from_stripped_warped_stem_stonecutting",
@@ -19851,7 +20808,10 @@
         "ingredient": [
           "minecraft:sulfur_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:sulfur_bricks_octet_from_sulfur_bricks_stonecutting",
@@ -19947,7 +20907,10 @@
         "ingredient": [
           "minecraft:sulfur"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:sulfur_octet_from_sulfur_stonecutting",
@@ -20043,7 +21006,10 @@
         "ingredient": [
           "minecraft:terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:terracotta_octet_from_terracotta_stonecutting",
@@ -20112,6 +21078,9 @@
           "simpleoctets:terranite_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -20139,7 +21108,11 @@
         "ingredient": [
           "simpleores:terranite_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:terranite_block_octet_from_terranite_block_stonecutting",
@@ -20159,6 +21132,9 @@
           "simpleores:terranite_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -20208,6 +21184,9 @@
           "simpleoctets:tin_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -20235,7 +21214,11 @@
         "ingredient": [
           "simpleores:tin_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:tin_block_octet_from_tin_block_stonecutting",
@@ -20255,6 +21238,9 @@
           "simpleores:tin_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -20331,7 +21317,10 @@
         "ingredient": [
           "minecraft:tuff_bricks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:tuff_bricks_octet_from_tuff_bricks_stonecutting",
@@ -20427,7 +21416,10 @@
         "ingredient": [
           "minecraft:tuff"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:tuff_octet_from_tuff_stonecutting",
@@ -20474,7 +21466,11 @@
         "ingredient": [
           "simpleenchanting:warped_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleenchanting"
+      ]
     },
     {
       "id": "simpleoctets:warped_blazewood_octet_from_warped_blazewood_planks_stonecutting",
@@ -20494,6 +21490,9 @@
           "simpleenchanting:warped_blazewood_planks"
         ]
       },
+      "needsMods": [
+        "simpleenchanting"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -20543,6 +21542,9 @@
           "simpleoctets:warped_blazewood_octet"
         ]
       ],
+      "needsMods": [
+        "simpleenchanting"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -20570,7 +21572,10 @@
         "ingredient": [
           "minecraft:warped_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:warped_octet_from_warped_planks_stonecutting",
@@ -20715,7 +21720,10 @@
         "ingredient": [
           "minecraft:warped_stem"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:warped_stem_octet_from_warped_stem_stonecutting",
@@ -20811,7 +21819,10 @@
         "ingredient": [
           "minecraft:waxed_copper_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_copper_block_octet_from_waxed_copper_block_stonecutting",
@@ -20911,7 +21922,10 @@
         "ingredient": [
           "minecraft:waxed_cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_cut_copper_octet_from_waxed_cut_copper_stonecutting",
@@ -21011,7 +22025,10 @@
         "ingredient": [
           "minecraft:waxed_exposed_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_exposed_copper_octet_from_waxed_exposed_copper_stonecutting",
@@ -21111,7 +22128,10 @@
         "ingredient": [
           "minecraft:waxed_exposed_cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_stonecutting",
@@ -21211,7 +22231,10 @@
         "ingredient": [
           "minecraft:waxed_oxidized_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_oxidized_copper_octet_from_waxed_oxidized_copper_stonecutting",
@@ -21311,7 +22334,10 @@
         "ingredient": [
           "minecraft:waxed_oxidized_cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_oxidized_cut_copper_octet_from_waxed_oxidized_cut_copper_stonecutting",
@@ -21411,7 +22437,10 @@
         "ingredient": [
           "minecraft:waxed_weathered_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_weathered_copper_octet_from_waxed_weathered_copper_stonecutting",
@@ -21511,7 +22540,10 @@
         "ingredient": [
           "minecraft:waxed_weathered_cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_stonecutting",
@@ -21611,7 +22643,10 @@
         "ingredient": [
           "minecraft:weathered_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:weathered_copper_octet_from_weathered_copper_stonecutting",
@@ -21707,7 +22742,10 @@
         "ingredient": [
           "minecraft:weathered_cut_copper"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:weathered_cut_copper_octet_from_weathered_cut_copper_stonecutting",
@@ -21803,7 +22841,10 @@
         "ingredient": [
           "minecraft:white_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:white_concrete_octet_from_white_concrete_stonecutting",
@@ -21899,7 +22940,10 @@
         "ingredient": [
           "minecraft:white_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:white_terracotta_octet_from_white_terracotta_stonecutting",
@@ -21999,7 +23043,10 @@
         "ingredient": [
           "minecraft:white_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:white_wool_octet_from_white_wool_stonecutting",
@@ -22095,7 +23142,10 @@
         "ingredient": [
           "minecraft:yellow_concrete"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:yellow_concrete_octet_from_yellow_concrete_stonecutting",
@@ -22191,7 +23241,10 @@
         "ingredient": [
           "minecraft:yellow_terracotta"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:yellow_terracotta_octet_from_yellow_terracotta_stonecutting",
@@ -22291,7 +23344,10 @@
         "ingredient": [
           "minecraft:yellow_wool"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleoctets:yellow_wool_octet_from_yellow_wool_stonecutting",
@@ -22364,6 +23420,9 @@
           "simpleoctets:zenithite_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -22391,7 +23450,11 @@
         "ingredient": [
           "simpleores:zenithite_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:zenithite_block_octet_from_zenithite_block_stonecutting",
@@ -22411,6 +23474,9 @@
           "simpleores:zenithite_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -22460,6 +23526,9 @@
           "simpleoctets:zinc_block_octet"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -22487,7 +23556,11 @@
         "ingredient": [
           "simpleores:zinc_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleores"
+      ]
     },
     {
       "id": "simpleoctets:zinc_block_octet_from_zinc_block_stonecutting",
@@ -22507,6 +23580,9 @@
           "simpleores:zinc_block"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -22740,6 +23816,9 @@
       ],
       "usedIn": [
         "simpleoctets:ashwood_log_from_octets"
+      ],
+      "needsMods": [
+        "simpleend"
       ]
     },
     {
@@ -22769,6 +23848,9 @@
       ],
       "usedIn": [
         "simpleoctets:ashwood_planks_from_octets"
+      ],
+      "needsMods": [
+        "simpleend"
       ]
     },
     {
@@ -22798,6 +23880,9 @@
       ],
       "usedIn": [
         "simpleoctets:astral_end_stone_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -22827,6 +23912,9 @@
       ],
       "usedIn": [
         "simpleoctets:astral_purpur_block_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -22856,6 +23944,9 @@
       ],
       "usedIn": [
         "simpleoctets:astralit_block_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -22885,6 +23976,9 @@
       ],
       "usedIn": [
         "simpleoctets:astralit_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -23174,6 +24268,9 @@
       ],
       "usedIn": [
         "simpleoctets:blue_ice_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -23231,6 +24328,9 @@
       ],
       "usedIn": [
         "simpleoctets:blue_nether_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -23347,6 +24447,9 @@
       ],
       "usedIn": [
         "simpleoctets:brass_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -23405,6 +24508,9 @@
       ],
       "usedIn": [
         "simpleoctets:bronze_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -23782,6 +24888,9 @@
       ],
       "usedIn": [
         "simpleoctets:crimson_blazewood_planks_from_octets"
+      ],
+      "needsMods": [
+        "simpleenchanting"
       ]
     },
     {
@@ -23869,6 +24978,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_brass_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -23898,6 +25010,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_bronze_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -23955,6 +25070,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_gold_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -23983,6 +25101,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_iron_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -24012,6 +25133,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_lead_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24041,6 +25165,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_nickel_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24099,6 +25226,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_rose_bronze_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24128,6 +25258,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_rose_gold_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24186,6 +25319,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_silver_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24215,6 +25351,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_stainless_steel_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24244,6 +25383,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_tin_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24273,6 +25415,9 @@
       ],
       "usedIn": [
         "simpleoctets:cut_zinc_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -24592,6 +25737,9 @@
       ],
       "usedIn": [
         "simpleoctets:duskwood_log_from_octets"
+      ],
+      "needsMods": [
+        "simpleend"
       ]
     },
     {
@@ -24621,6 +25769,9 @@
       ],
       "usedIn": [
         "simpleoctets:duskwood_planks_from_octets"
+      ],
+      "needsMods": [
+        "simpleend"
       ]
     },
     {
@@ -24737,6 +25888,9 @@
       ],
       "usedIn": [
         "simpleoctets:ender_end_stone_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -24766,6 +25920,9 @@
       ],
       "usedIn": [
         "simpleoctets:ender_purpur_block_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -24795,6 +25952,9 @@
       ],
       "usedIn": [
         "simpleoctets:ender_quartz_block_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -24824,6 +25984,9 @@
       ],
       "usedIn": [
         "simpleoctets:ender_quartz_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -24853,6 +26016,9 @@
       ],
       "usedIn": [
         "simpleoctets:enderite_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -25171,6 +26337,9 @@
       ],
       "usedIn": [
         "simpleoctets:hushed_deepslate_tiles_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -25199,6 +26368,9 @@
       ],
       "usedIn": [
         "simpleoctets:ice_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -25257,6 +26429,9 @@
       ],
       "usedIn": [
         "simpleoctets:infernite_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -25402,6 +26577,9 @@
       ],
       "usedIn": [
         "simpleoctets:lead_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -25902,6 +27080,9 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_cinnabar_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -25959,6 +27140,9 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_deepslate_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -25987,6 +27171,9 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_deepslate_tiles_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -26015,6 +27202,9 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_end_stone_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -26043,6 +27233,9 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_mud_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -26100,6 +27293,9 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_sulfur_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -26128,6 +27324,9 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_tuff_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -26273,6 +27472,9 @@
       ],
       "usedIn": [
         "simpleoctets:nickel_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -26302,6 +27504,9 @@
       ],
       "usedIn": [
         "simpleoctets:nihil_end_stone_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -26331,6 +27536,9 @@
       ],
       "usedIn": [
         "simpleoctets:nihil_purpur_block_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -26360,6 +27568,9 @@
       ],
       "usedIn": [
         "simpleoctets:nihilith_block_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -26389,6 +27600,9 @@
       ],
       "usedIn": [
         "simpleoctets:nihilith_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -26649,6 +27863,9 @@
       ],
       "usedIn": [
         "simpleoctets:packed_ice_bricks_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -26881,6 +28098,9 @@
       ],
       "usedIn": [
         "simpleoctets:polished_astralit_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -27084,6 +28304,9 @@
       ],
       "usedIn": [
         "simpleoctets:polished_ender_quartz_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -27142,6 +28365,9 @@
       ],
       "usedIn": [
         "simpleoctets:polished_nihilith_from_octets"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -27809,6 +29035,9 @@
       ],
       "usedIn": [
         "simpleoctets:rose_bronze_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -27838,6 +29067,9 @@
       ],
       "usedIn": [
         "simpleoctets:rose_gold_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -27895,6 +29127,9 @@
       ],
       "usedIn": [
         "simpleoctets:sculk_tiles_from_octets"
+      ],
+      "needsMods": [
+        "simpleblocks"
       ]
     },
     {
@@ -27924,6 +29159,9 @@
       ],
       "usedIn": [
         "simpleoctets:silver_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -28156,6 +29394,9 @@
       ],
       "usedIn": [
         "simpleoctets:stainless_steel_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -28272,6 +29513,9 @@
       ],
       "usedIn": [
         "simpleoctets:stripped_ashwood_log_from_octets"
+      ],
+      "needsMods": [
+        "simpleend"
       ]
     },
     {
@@ -28417,6 +29661,9 @@
       ],
       "usedIn": [
         "simpleoctets:stripped_duskwood_log_from_octets"
+      ],
+      "needsMods": [
+        "simpleend"
       ]
     },
     {
@@ -28736,6 +29983,9 @@
       ],
       "usedIn": [
         "simpleoctets:terranite_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -28765,6 +30015,9 @@
       ],
       "usedIn": [
         "simpleoctets:tin_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -28852,6 +30105,9 @@
       ],
       "usedIn": [
         "simpleoctets:warped_blazewood_planks_from_octets"
+      ],
+      "needsMods": [
+        "simpleenchanting"
       ]
     },
     {
@@ -29403,6 +30659,9 @@
       ],
       "usedIn": [
         "simpleoctets:zenithite_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     },
     {
@@ -29432,6 +30691,9 @@
       ],
       "usedIn": [
         "simpleoctets:zinc_block_from_octets"
+      ],
+      "needsMods": [
+        "simpleores"
       ]
     }
   ],

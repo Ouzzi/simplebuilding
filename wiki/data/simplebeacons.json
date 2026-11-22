@@ -522,6 +522,9 @@
           "simplemobs:nether_gem"
         ]
       },
+      "needsMods": [
+        "simplemobs"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -582,6 +585,9 @@
           "simplemobs:nether_gem"
         ]
       },
+      "needsMods": [
+        "simplemobs"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -641,6 +647,9 @@
         [
           "simplemobs:nether_gem"
         ]
+      ],
+      "needsMods": [
+        "simplemobs"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -714,7 +723,10 @@
         "U": [
           "simplelib:strong_upgrade_template"
         ]
-      }
+      },
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplebeacons:mighty_beacon_without_simplebuilding",
@@ -867,7 +879,10 @@
         "e": [
           "simplelib:enderite_core"
         ]
-      }
+      },
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplebeacons:mighty_conduit_without_simplebuilding",
@@ -1016,7 +1031,10 @@
         "U": [
           "simplelib:strong_upgrade_template"
         ]
-      }
+      },
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplebeacons:mighty_evil_beacon_without_simplebuilding",
@@ -1177,7 +1195,10 @@
         "e": [
           "simplelib:enderite_core"
         ]
-      }
+      },
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplebeacons:mighty_evil_conduit_without_simplebuilding",
@@ -1310,6 +1331,9 @@
           "simplemobs:nether_heart"
         ]
       },
+      "needsMods": [
+        "simplemobs"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1362,6 +1386,9 @@
           "simplemobs:nether_heart"
         ]
       },
+      "needsMods": [
+        "simplemobs"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1608,6 +1635,9 @@
       "usedIn": [
         "simplebeacons:evil_beacon_smithing",
         "simplebeacons:evil_conduit_smithing"
+      ],
+      "needsMods": [
+        "simplemobs"
       ]
     },
     {
@@ -1696,6 +1726,9 @@
       "usedIn": [
         "simplebeacons:mighty_evil_beacon",
         "simplebeacons:mighty_evil_beacon_without_simplebuilding"
+      ],
+      "needsMods": [
+        "simplemobs"
       ]
     },
     {
@@ -1758,6 +1791,9 @@
       "usedIn": [
         "simplebeacons:mighty_evil_conduit",
         "simplebeacons:mighty_evil_conduit_without_simplebuilding"
+      ],
+      "needsMods": [
+        "simplemobs"
       ]
     },
     {
@@ -2057,6 +2093,9 @@
       "usedIn": [
         "simplebeacons:mighty_beacon",
         "simplebeacons:mighty_beacon_without_simplebuilding"
+      ],
+      "needsMods": [
+        "simplemobs"
       ]
     },
     {
@@ -2121,6 +2160,9 @@
       "usedIn": [
         "simplebeacons:mighty_conduit",
         "simplebeacons:mighty_conduit_without_simplebuilding"
+      ],
+      "needsMods": [
+        "simplemobs"
       ]
     }
   ],

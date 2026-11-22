@@ -261,6 +261,9 @@
           "simpleend:ashwood_slab"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -507,6 +510,9 @@
           "simpleend:duskwood_slab"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1933,7 +1939,10 @@
       "craftedBy": [
         "simplesandwiches:ashwood_cutting_board"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simplesandwiches:bamboo_cutting_board",
@@ -2217,7 +2226,10 @@
       "craftedBy": [
         "simplesandwiches:duskwood_cutting_board"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simplesandwiches:jungle_cutting_board",

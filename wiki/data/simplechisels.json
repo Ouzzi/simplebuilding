@@ -335,6 +335,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -550,6 +553,9 @@
           "minecraft:stick"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -599,6 +605,9 @@
           "minecraft:stick"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -693,6 +702,9 @@
         ]
       },
       "addition_count": 2,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -742,6 +754,9 @@
         ]
       },
       "addition_count": 2,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -795,6 +810,9 @@
         ]
       },
       "addition_count": 2,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1165,7 +1183,10 @@
       "craftedBy": [
         "simplechisels:rose_bronze_chisel"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplechisels:rose_gold_chisel",
@@ -1189,7 +1210,10 @@
       "craftedBy": [
         "simplechisels:rose_gold_chisel"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplechisels:stone_chisel",

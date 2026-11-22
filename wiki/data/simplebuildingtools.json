@@ -440,6 +440,9 @@
           "minecraft:glow_ink_sac"
         ]
       ],
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -597,6 +600,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1467,6 +1473,9 @@
         ]
       },
       "addition_count": 1,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1512,6 +1521,9 @@
         ]
       },
       "addition_count": 1,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1556,7 +1568,10 @@
           "#simplelib:gold_cores"
         ]
       },
-      "addition_count": 1
+      "addition_count": 1,
+      "needsMods": [
+        "simplebuilding"
+      ]
     }
   ],
   "lootTables": [],
@@ -3103,7 +3118,10 @@
       "craftedBy": [
         "simplebuildingtools:enderite_building_wand_smithing"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplebuildingtools:gold_building_wand",

@@ -2161,6 +2161,9 @@
           "minecraft:nether_brick"
         ]
       },
+      "needsMods": [
+        "simplelib"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10050,6 +10053,9 @@
           "simplebuilding:astralit_dust"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -10132,6 +10138,9 @@
           "simplebuilding:astralit_dust"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -10214,6 +10223,9 @@
           "simplebuilding:astralit_dust"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -14869,7 +14881,10 @@
         "ingredient": [
           "simpleend:ashwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/ashwood_planks_from_ashwood_log",
@@ -14888,7 +14903,10 @@
         "ingredient": [
           "simpleend:ashwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/ashwood_planks_from_ashwood_wood",
@@ -14907,7 +14925,10 @@
         "ingredient": [
           "simpleend:ashwood_wood"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/ashwood_planks_from_stripped_ashwood_log",
@@ -14926,7 +14947,10 @@
         "ingredient": [
           "simpleend:stripped_ashwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/ashwood_planks_from_stripped_ashwood_wood",
@@ -14945,7 +14969,10 @@
         "ingredient": [
           "simpleend:stripped_ashwood_wood"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/ashwood_slab_from_ashwood_planks",
@@ -14964,7 +14991,10 @@
         "ingredient": [
           "simpleend:ashwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/ashwood_stairs_from_ashwood_planks",
@@ -14983,7 +15013,10 @@
         "ingredient": [
           "simpleend:ashwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/ashwood_wood_from_ashwood_log",
@@ -15002,7 +15035,10 @@
         "ingredient": [
           "simpleend:ashwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/bamboo_fence_from_bamboo_planks",
@@ -15952,7 +15988,10 @@
         "ingredient": [
           "simpleend:duskwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/duskwood_planks_from_duskwood_log",
@@ -15971,7 +16010,10 @@
         "ingredient": [
           "simpleend:duskwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/duskwood_planks_from_duskwood_wood",
@@ -15990,7 +16032,10 @@
         "ingredient": [
           "simpleend:duskwood_wood"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/duskwood_planks_from_stripped_duskwood_log",
@@ -16009,7 +16054,10 @@
         "ingredient": [
           "simpleend:stripped_duskwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/duskwood_planks_from_stripped_duskwood_wood",
@@ -16028,7 +16076,10 @@
         "ingredient": [
           "simpleend:stripped_duskwood_wood"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/duskwood_slab_from_duskwood_planks",
@@ -16047,7 +16098,10 @@
         "ingredient": [
           "simpleend:duskwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/duskwood_stairs_from_duskwood_planks",
@@ -16066,7 +16120,10 @@
         "ingredient": [
           "simpleend:duskwood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/duskwood_wood_from_duskwood_log",
@@ -16085,7 +16142,10 @@
         "ingredient": [
           "simpleend:duskwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/grass_slab_from_grass_block",
@@ -17567,7 +17627,10 @@
         "ingredient": [
           "simpleend:ashwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/stripped_ashwood_wood_from_ashwood_wood",
@@ -17586,7 +17649,10 @@
         "ingredient": [
           "simpleend:ashwood_wood"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/stripped_ashwood_wood_from_stripped_ashwood_log",
@@ -17605,7 +17671,10 @@
         "ingredient": [
           "simpleend:stripped_ashwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/stripped_bamboo_block_from_bamboo_block",
@@ -17871,7 +17940,10 @@
         "ingredient": [
           "simpleend:duskwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/stripped_duskwood_wood_from_duskwood_wood",
@@ -17890,7 +17962,10 @@
         "ingredient": [
           "simpleend:duskwood_wood"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/stripped_duskwood_wood_from_stripped_duskwood_log",
@@ -17909,7 +17984,10 @@
         "ingredient": [
           "simpleend:stripped_duskwood_log"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simpleblocks:sawing/stripped_jungle_log_from_jungle_log",
@@ -18944,7 +19022,10 @@
         "P": [
           "#minecraft:planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simplehammers"
+      ]
     },
     {
       "id": "simpleblocks:smooth_basalt_slab",
@@ -19570,6 +19651,9 @@
           "simplebuilding:nihilith_shard"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -19652,6 +19736,9 @@
           "simplebuilding:nihilith_shard"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -19734,6 +19821,9 @@
           "simplebuilding:nihilith_shard"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [

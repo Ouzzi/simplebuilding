@@ -546,7 +546,10 @@
         "ingredient": [
           "#simpleenchanting:crimson_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleenchanting:crimson_blazewood_fence_from_crimson_blazewood_planks_stonecutting",
@@ -764,7 +767,10 @@
         "ingredient": [
           "#simpleenchanting:crimson_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleenchanting:crimson_blazewood_slab_from_crimson_blazewood_planks_stonecutting",
@@ -858,7 +864,10 @@
         "ingredient": [
           "#simpleenchanting:crimson_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleenchanting:crimson_blazewood_stairs_from_crimson_blazewood_planks_stonecutting",
@@ -961,6 +970,9 @@
           "minecraft:crying_obsidian"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1204,7 +1216,10 @@
         "ingredient": [
           "#simpleenchanting:warped_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleenchanting:warped_blazewood_fence_from_warped_blazewood_planks_stonecutting",
@@ -1422,7 +1437,10 @@
         "ingredient": [
           "#simpleenchanting:warped_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleenchanting:warped_blazewood_slab_from_warped_blazewood_planks_stonecutting",
@@ -1516,7 +1534,10 @@
         "ingredient": [
           "#simpleenchanting:warped_blazewood_planks"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks"
+      ]
     },
     {
       "id": "simpleenchanting:warped_blazewood_stairs_from_warped_blazewood_planks_stonecutting",

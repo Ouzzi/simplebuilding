@@ -562,6 +562,9 @@
           "simpleovens:enderite_furnace"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -597,6 +600,9 @@
         [
           "simpleovens:enderite_furnace"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -634,6 +640,9 @@
           "simpleovens:enderite_furnace"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -669,6 +678,9 @@
         [
           "simpleovens:enderite_furnace"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -706,6 +718,9 @@
           "simpleovens:enderite_furnace"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -741,6 +756,9 @@
         [
           "minecraft:minecart"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -782,6 +800,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -826,6 +847,9 @@
           "simpleovens:enderite_furnace"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -861,6 +885,9 @@
         [
           "simpleovens:enderite_furnace"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -898,6 +925,9 @@
           "simpleovens:enderite_furnace"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -933,6 +963,9 @@
         [
           "simpleovens:enderite_furnace"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -970,6 +1003,9 @@
           "simpleovens:enderite_furnace"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1005,6 +1041,9 @@
         [
           "simpleovens:enderite_furnace"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2681,7 +2720,10 @@
       "craftedBy": [
         "simpleovens:enderite_acacia_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_bamboo_furnace_raft",
@@ -2704,7 +2746,10 @@
       "craftedBy": [
         "simpleovens:enderite_bamboo_furnace_raft"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_birch_furnace_boat",
@@ -2727,7 +2772,10 @@
       "craftedBy": [
         "simpleovens:enderite_birch_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_cherry_furnace_boat",
@@ -2750,7 +2798,10 @@
       "craftedBy": [
         "simpleovens:enderite_cherry_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_dark_oak_furnace_boat",
@@ -2773,7 +2824,10 @@
       "craftedBy": [
         "simpleovens:enderite_dark_oak_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_furnace_minecart",
@@ -2822,7 +2876,10 @@
         "simpleovens:enderite_furnace_minecart",
         "simpleovens:enderite_furnace_minecart_smithing"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_jungle_furnace_boat",
@@ -2845,7 +2902,10 @@
       "craftedBy": [
         "simpleovens:enderite_jungle_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_mangrove_furnace_boat",
@@ -2868,7 +2928,10 @@
       "craftedBy": [
         "simpleovens:enderite_mangrove_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_oak_furnace_boat",
@@ -2891,7 +2954,10 @@
       "craftedBy": [
         "simpleovens:enderite_oak_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_pale_oak_furnace_boat",
@@ -2914,7 +2980,10 @@
       "craftedBy": [
         "simpleovens:enderite_pale_oak_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_poplar_furnace_boat",
@@ -2937,7 +3006,10 @@
       "craftedBy": [
         "simpleovens:enderite_poplar_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:enderite_spruce_furnace_boat",
@@ -2960,7 +3032,10 @@
       "craftedBy": [
         "simpleovens:enderite_spruce_furnace_boat"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpleovens:guide_book",

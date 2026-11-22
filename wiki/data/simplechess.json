@@ -127,6 +127,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -159,6 +163,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -191,6 +198,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -223,6 +234,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -255,6 +269,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -287,6 +305,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -319,6 +340,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -351,6 +376,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -383,6 +411,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -415,6 +447,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -447,6 +482,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -479,6 +518,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -511,6 +553,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -543,6 +589,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -575,6 +624,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -607,6 +660,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -639,6 +695,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -671,6 +731,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -703,6 +766,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -735,6 +802,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -767,6 +837,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -799,6 +873,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -831,6 +908,10 @@
           "simplechess:astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -863,6 +944,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -894,7 +978,12 @@
         "ingredient": [
           "simplechess:astralit_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:astralit_octet_from_astralit_quartz_checker_stonecutting",
@@ -914,6 +1003,10 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -954,6 +1047,10 @@
           "minecraft:quartz_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -989,6 +1086,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -1021,6 +1121,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 2,
         "materials": [
@@ -1058,6 +1161,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -1090,6 +1196,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1126,6 +1235,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -1158,6 +1270,9 @@
           "simplechess:astralit_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1190,6 +1305,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1254,6 +1372,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1318,6 +1439,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1382,6 +1506,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1446,6 +1573,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1510,6 +1640,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1574,6 +1707,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1638,6 +1774,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1702,6 +1841,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1766,6 +1908,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1830,6 +1975,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1894,6 +2042,9 @@
           "simplechess:blackstone_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1957,7 +2108,11 @@
         "ingredient": [
           "simplechess:blackstone_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:blackstone_octet_from_blackstone_quartz_checker_stonecutting",
@@ -1977,6 +2132,9 @@
           "simplechess:blackstone_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2261,6 +2419,9 @@
           "minecraft:quartz_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -2296,6 +2457,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -2328,6 +2492,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 2,
         "materials": [
@@ -2365,6 +2532,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -2397,6 +2567,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2433,6 +2606,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -2465,6 +2641,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2497,6 +2676,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2529,6 +2711,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2561,6 +2747,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2593,6 +2782,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2625,6 +2818,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2657,6 +2853,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2689,6 +2889,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2721,6 +2924,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2753,6 +2960,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2785,6 +2995,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2817,6 +3031,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2849,6 +3066,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2881,6 +3102,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2913,6 +3137,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2945,6 +3173,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -2977,6 +3208,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3009,6 +3244,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -3041,6 +3279,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3073,6 +3315,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -3105,6 +3350,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3137,6 +3386,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -3169,6 +3421,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3201,6 +3457,9 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -3233,6 +3492,10 @@
           "simplechess:ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3264,7 +3527,12 @@
         "ingredient": [
           "simplechess:ender_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_octet_from_ender_quartz_checker_stonecutting",
@@ -3284,6 +3552,10 @@
           "simplechess:ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -3316,6 +3588,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3380,6 +3655,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3444,6 +3722,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3508,6 +3789,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3572,6 +3856,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3636,6 +3923,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3700,6 +3990,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3764,6 +4057,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3828,6 +4124,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3892,6 +4191,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3956,6 +4258,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4020,6 +4325,9 @@
           "simplechess:lapis_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4083,7 +4391,11 @@
         "ingredient": [
           "simplechess:lapis_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:lapis_octet_from_lapis_quartz_checker_stonecutting",
@@ -4103,6 +4415,9 @@
           "simplechess:lapis_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -4379,6 +4694,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4443,6 +4761,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4507,6 +4828,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4571,6 +4895,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4635,6 +4962,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4699,6 +5029,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4763,6 +5096,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4827,6 +5163,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4891,6 +5230,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -4955,6 +5297,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5019,6 +5364,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5083,6 +5431,9 @@
           "simplechess:nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5146,7 +5497,11 @@
         "ingredient": [
           "simplechess:nether_brick_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:nether_brick_octet_from_nether_brick_quartz_checker_stonecutting",
@@ -5166,6 +5521,9 @@
           "simplechess:nether_brick_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5442,6 +5800,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5474,6 +5836,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5506,6 +5871,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5538,6 +5907,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5570,6 +5942,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5602,6 +5978,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5634,6 +6013,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5666,6 +6049,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5698,6 +6084,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5730,6 +6120,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5762,6 +6155,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5794,6 +6191,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5826,6 +6226,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5858,6 +6262,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5890,6 +6297,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5922,6 +6333,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -5954,6 +6368,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5986,6 +6404,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6018,6 +6439,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6050,6 +6475,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6082,6 +6510,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6114,6 +6546,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6146,6 +6581,10 @@
           "simplechess:nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6178,6 +6617,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6209,7 +6651,12 @@
         "ingredient": [
           "simplechess:nihilith_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:nihilith_octet_from_nihilith_quartz_checker_stonecutting",
@@ -6229,6 +6676,10 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6269,6 +6720,10 @@
           "minecraft:quartz_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -6304,6 +6759,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -6336,6 +6794,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 2,
         "materials": [
@@ -6373,6 +6834,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -6405,6 +6869,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6441,6 +6908,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -6473,6 +6943,9 @@
           "simplechess:nihilith_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6513,6 +6986,9 @@
           "minecraft:quartz_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -6548,6 +7024,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -6580,6 +7059,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 2,
         "materials": [
@@ -6617,6 +7099,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -6649,6 +7134,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6685,6 +7173,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -6717,6 +7208,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6749,6 +7243,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6781,6 +7278,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6813,6 +7314,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6845,6 +7349,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6877,6 +7385,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6909,6 +7420,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -6941,6 +7456,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -6973,6 +7491,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7005,6 +7527,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7037,6 +7562,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7069,6 +7598,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7101,6 +7633,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7133,6 +7669,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7165,6 +7704,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7197,6 +7740,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7229,6 +7775,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7261,6 +7811,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7293,6 +7846,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7325,6 +7882,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7357,6 +7917,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7389,6 +7953,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7421,6 +7988,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7453,6 +8024,9 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7485,6 +8059,10 @@
           "simplechess:polished_astralit_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7516,7 +8094,12 @@
         "ingredient": [
           "simplechess:polished_astralit_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_octet_from_polished_astralit_checker_stonecutting",
@@ -7536,6 +8119,10 @@
           "simplechess:polished_astralit_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7576,6 +8163,9 @@
           "minecraft:quartz_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -7611,6 +8201,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -7643,6 +8236,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 2,
         "materials": [
@@ -7680,6 +8276,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -7712,6 +8311,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7748,6 +8350,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -7780,6 +8385,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7812,6 +8420,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7844,6 +8455,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7876,6 +8491,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7908,6 +8526,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -7940,6 +8562,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -7972,6 +8597,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8004,6 +8633,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8036,6 +8668,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8068,6 +8704,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8100,6 +8739,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8132,6 +8775,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8164,6 +8810,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8196,6 +8846,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8228,6 +8881,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8260,6 +8917,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8292,6 +8952,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8324,6 +8988,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8356,6 +9023,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8388,6 +9059,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8420,6 +9094,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8452,6 +9130,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8484,6 +9165,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8516,6 +9201,9 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8548,6 +9236,10 @@
           "simplechess:polished_ender_quartz_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8579,7 +9271,12 @@
         "ingredient": [
           "simplechess:polished_ender_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting",
@@ -8599,6 +9296,10 @@
           "simplechess:polished_ender_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8639,6 +9340,9 @@
           "minecraft:quartz_block"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -8674,6 +9378,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -8706,6 +9413,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 2,
         "materials": [
@@ -8743,6 +9453,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -8775,6 +9488,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8811,6 +9527,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 6,
         "materials": [
@@ -8843,6 +9562,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8875,6 +9597,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8907,6 +9632,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -8939,6 +9668,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -8971,6 +9703,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9003,6 +9739,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9035,6 +9774,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9067,6 +9810,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9099,6 +9845,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9131,6 +9881,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9163,6 +9916,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9195,6 +9952,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9227,6 +9987,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9259,6 +10023,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9291,6 +10058,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9323,6 +10094,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9355,6 +10129,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9387,6 +10165,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9419,6 +10200,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9451,6 +10236,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9483,6 +10271,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9515,6 +10307,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9547,6 +10342,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9579,6 +10378,9 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9611,6 +10413,10 @@
           "simplechess:polished_nihilith_octet"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9642,7 +10448,12 @@
         "ingredient": [
           "simplechess:polished_nihilith_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simplebuilding",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_octet_from_polished_nihilith_checker_stonecutting",
@@ -9662,6 +10473,10 @@
           "simplechess:polished_nihilith_checker"
         ]
       },
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -9694,6 +10509,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9758,6 +10576,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9822,6 +10643,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9886,6 +10710,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9950,6 +10777,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10014,6 +10844,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10078,6 +10911,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10142,6 +10978,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10206,6 +11045,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10270,6 +11112,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10334,6 +11179,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10398,6 +11246,9 @@
           "simplechess:purpur_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10461,7 +11312,11 @@
         "ingredient": [
           "simplechess:purpur_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:purpur_octet_from_purpur_quartz_checker_stonecutting",
@@ -10481,6 +11336,9 @@
           "simplechess:purpur_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -10785,6 +11643,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10841,6 +11702,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10897,6 +11761,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -10953,6 +11820,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11009,6 +11879,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11065,6 +11938,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11121,6 +11997,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11177,6 +12056,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11233,6 +12115,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11289,6 +12174,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11345,6 +12233,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11401,6 +12292,9 @@
           "simplechess:quartz_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11428,7 +12322,11 @@
         "ingredient": [
           "minecraft:quartz_block"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:quartz_octet_from_quartz_block_stonecutting",
@@ -11448,6 +12346,9 @@
           "minecraft:quartz_block"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -11476,6 +12377,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11548,6 +12452,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11620,6 +12527,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11692,6 +12602,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11764,6 +12677,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11836,6 +12752,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11908,6 +12827,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -11980,6 +12902,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12052,6 +12977,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12124,6 +13052,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12196,6 +13127,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12268,6 +13202,9 @@
           "simplechess:red_nether_brick_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12339,7 +13276,11 @@
         "ingredient": [
           "simplechess:red_nether_brick_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:red_nether_brick_octet_from_red_nether_brick_quartz_checker_stonecutting",
@@ -12359,6 +13300,9 @@
           "simplechess:red_nether_brick_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -12667,6 +13611,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12731,6 +13678,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12795,6 +13745,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12859,6 +13812,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12923,6 +13879,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -12987,6 +13946,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13051,6 +14013,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13115,6 +14080,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13179,6 +14147,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13243,6 +14214,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13307,6 +14281,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13371,6 +14348,9 @@
           "simplechess:resin_octet"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -13434,7 +14414,11 @@
         "ingredient": [
           "simplechess:resin_quartz_checker"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleblocks",
+        "simpleoctets"
+      ]
     },
     {
       "id": "simplechess:resin_octet_from_resin_quartz_checker_stonecutting",
@@ -13454,6 +14438,9 @@
           "simplechess:resin_quartz_checker"
         ]
       },
+      "needsMods": [
+        "simpleoctets"
+      ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
@@ -15491,7 +16478,10 @@
         "simplechess:astralit_chess_bishop_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_bishop_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_bishop_flat",
@@ -15535,7 +16525,10 @@
         "simplechess:astralit_chess_bishop_flat_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_bishop_flat_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_king",
@@ -15579,7 +16572,10 @@
         "simplechess:astralit_chess_king_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_king_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_king_flat",
@@ -15623,7 +16619,10 @@
         "simplechess:astralit_chess_king_flat_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_king_flat_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_knight",
@@ -15667,7 +16666,10 @@
         "simplechess:astralit_chess_knight_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_knight_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_knight_flat",
@@ -15711,7 +16713,10 @@
         "simplechess:astralit_chess_knight_flat_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_knight_flat_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_pawn",
@@ -15755,7 +16760,10 @@
         "simplechess:astralit_chess_pawn_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_pawn_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_pawn_flat",
@@ -15799,7 +16807,10 @@
         "simplechess:astralit_chess_pawn_flat_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_pawn_flat_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_queen",
@@ -15843,7 +16854,10 @@
         "simplechess:astralit_chess_queen_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_queen_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_queen_flat",
@@ -15887,7 +16901,10 @@
         "simplechess:astralit_chess_queen_flat_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_queen_flat_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_rook",
@@ -15931,7 +16948,10 @@
         "simplechess:astralit_chess_rook_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_rook_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_chess_rook_flat",
@@ -15975,7 +16995,10 @@
         "simplechess:astralit_chess_rook_flat_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_rook_flat_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_octet",
@@ -16036,6 +17059,10 @@
         "simplechess:astralit_chess_queen_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_rook_flat_from_astralit_octet_stonecutting",
         "simplechess:astralit_chess_rook_from_astralit_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
       ]
     },
     {
@@ -16625,6 +17652,9 @@
         "simplechess:blackstone_chess_queen_from_blackstone_octet_stonecutting",
         "simplechess:blackstone_chess_rook_flat_from_blackstone_octet_stonecutting",
         "simplechess:blackstone_chess_rook_from_blackstone_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simpleoctets"
       ]
     },
     {
@@ -16669,7 +17699,10 @@
         "simplechess:ender_quartz_chess_bishop_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_bishop_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_bishop_flat",
@@ -16713,7 +17746,10 @@
         "simplechess:ender_quartz_chess_bishop_flat_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_bishop_flat_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_king",
@@ -16757,7 +17793,10 @@
         "simplechess:ender_quartz_chess_king_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_king_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_king_flat",
@@ -16801,7 +17840,10 @@
         "simplechess:ender_quartz_chess_king_flat_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_king_flat_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_knight",
@@ -16845,7 +17887,10 @@
         "simplechess:ender_quartz_chess_knight_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_knight_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_knight_flat",
@@ -16889,7 +17934,10 @@
         "simplechess:ender_quartz_chess_knight_flat_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_knight_flat_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_pawn",
@@ -16933,7 +17981,10 @@
         "simplechess:ender_quartz_chess_pawn_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_pawn_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_pawn_flat",
@@ -16977,7 +18028,10 @@
         "simplechess:ender_quartz_chess_pawn_flat_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_pawn_flat_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_queen",
@@ -17021,7 +18075,10 @@
         "simplechess:ender_quartz_chess_queen_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_queen_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_queen_flat",
@@ -17065,7 +18122,10 @@
         "simplechess:ender_quartz_chess_queen_flat_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_queen_flat_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_rook",
@@ -17109,7 +18169,10 @@
         "simplechess:ender_quartz_chess_rook_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_rook_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_chess_rook_flat",
@@ -17153,7 +18216,10 @@
         "simplechess:ender_quartz_chess_rook_flat_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_chess_rook_flat_from_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_octet",
@@ -17214,6 +18280,10 @@
         "simplechess:ender_quartz_chess_queen_from_ender_quartz_octet_stonecutting",
         "simplechess:ender_quartz_chess_rook_flat_from_ender_quartz_octet_stonecutting",
         "simplechess:ender_quartz_chess_rook_from_ender_quartz_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
       ]
     },
     {
@@ -17826,6 +18896,9 @@
         "simplechess:lapis_chess_queen_from_lapis_octet_stonecutting",
         "simplechess:lapis_chess_rook_flat_from_lapis_octet_stonecutting",
         "simplechess:lapis_chess_rook_from_lapis_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simpleoctets"
       ]
     },
     {
@@ -18415,6 +19488,9 @@
         "simplechess:nether_brick_chess_queen_from_nether_brick_octet_stonecutting",
         "simplechess:nether_brick_chess_rook_flat_from_nether_brick_octet_stonecutting",
         "simplechess:nether_brick_chess_rook_from_nether_brick_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simpleoctets"
       ]
     },
     {
@@ -18459,7 +19535,10 @@
         "simplechess:nihilith_chess_bishop_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_bishop_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_bishop_flat",
@@ -18503,7 +19582,10 @@
         "simplechess:nihilith_chess_bishop_flat_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_bishop_flat_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_king",
@@ -18547,7 +19629,10 @@
         "simplechess:nihilith_chess_king_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_king_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_king_flat",
@@ -18591,7 +19676,10 @@
         "simplechess:nihilith_chess_king_flat_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_king_flat_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_knight",
@@ -18635,7 +19723,10 @@
         "simplechess:nihilith_chess_knight_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_knight_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_knight_flat",
@@ -18679,7 +19770,10 @@
         "simplechess:nihilith_chess_knight_flat_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_knight_flat_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_pawn",
@@ -18723,7 +19817,10 @@
         "simplechess:nihilith_chess_pawn_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_pawn_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_pawn_flat",
@@ -18767,7 +19864,10 @@
         "simplechess:nihilith_chess_pawn_flat_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_pawn_flat_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_queen",
@@ -18811,7 +19911,10 @@
         "simplechess:nihilith_chess_queen_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_queen_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_queen_flat",
@@ -18855,7 +19958,10 @@
         "simplechess:nihilith_chess_queen_flat_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_queen_flat_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_rook",
@@ -18899,7 +20005,10 @@
         "simplechess:nihilith_chess_rook_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_rook_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_chess_rook_flat",
@@ -18943,7 +20052,10 @@
         "simplechess:nihilith_chess_rook_flat_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_rook_flat_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_octet",
@@ -19004,6 +20116,10 @@
         "simplechess:nihilith_chess_queen_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_rook_flat_from_nihilith_octet_stonecutting",
         "simplechess:nihilith_chess_rook_from_nihilith_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
       ]
     },
     {
@@ -19048,7 +20164,10 @@
         "simplechess:polished_astralit_chess_bishop_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_bishop_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_bishop_flat",
@@ -19092,7 +20211,10 @@
         "simplechess:polished_astralit_chess_bishop_flat_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_bishop_flat_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_king",
@@ -19136,7 +20258,10 @@
         "simplechess:polished_astralit_chess_king_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_king_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_king_flat",
@@ -19180,7 +20305,10 @@
         "simplechess:polished_astralit_chess_king_flat_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_king_flat_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_knight",
@@ -19224,7 +20352,10 @@
         "simplechess:polished_astralit_chess_knight_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_knight_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_knight_flat",
@@ -19268,7 +20399,10 @@
         "simplechess:polished_astralit_chess_knight_flat_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_knight_flat_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_pawn",
@@ -19312,7 +20446,10 @@
         "simplechess:polished_astralit_chess_pawn_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_pawn_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_pawn_flat",
@@ -19356,7 +20493,10 @@
         "simplechess:polished_astralit_chess_pawn_flat_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_pawn_flat_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_queen",
@@ -19400,7 +20540,10 @@
         "simplechess:polished_astralit_chess_queen_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_queen_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_queen_flat",
@@ -19444,7 +20587,10 @@
         "simplechess:polished_astralit_chess_queen_flat_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_queen_flat_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_rook",
@@ -19488,7 +20634,10 @@
         "simplechess:polished_astralit_chess_rook_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_rook_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_chess_rook_flat",
@@ -19532,7 +20681,10 @@
         "simplechess:polished_astralit_chess_rook_flat_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_chess_rook_flat_from_polished_astralit_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_octet",
@@ -19593,6 +20745,10 @@
         "simplechess:polished_astralit_chess_queen_from_polished_astralit_octet_stonecutting",
         "simplechess:polished_astralit_chess_rook_flat_from_polished_astralit_octet_stonecutting",
         "simplechess:polished_astralit_chess_rook_from_polished_astralit_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
       ]
     },
     {
@@ -19637,7 +20793,10 @@
         "simplechess:polished_ender_quartz_chess_bishop_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_bishop_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_bishop_flat",
@@ -19681,7 +20840,10 @@
         "simplechess:polished_ender_quartz_chess_bishop_flat_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_bishop_flat_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_king",
@@ -19725,7 +20887,10 @@
         "simplechess:polished_ender_quartz_chess_king_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_king_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_king_flat",
@@ -19769,7 +20934,10 @@
         "simplechess:polished_ender_quartz_chess_king_flat_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_king_flat_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_knight",
@@ -19813,7 +20981,10 @@
         "simplechess:polished_ender_quartz_chess_knight_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_knight_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_knight_flat",
@@ -19857,7 +21028,10 @@
         "simplechess:polished_ender_quartz_chess_knight_flat_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_knight_flat_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_pawn",
@@ -19901,7 +21075,10 @@
         "simplechess:polished_ender_quartz_chess_pawn_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_pawn_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_pawn_flat",
@@ -19945,7 +21122,10 @@
         "simplechess:polished_ender_quartz_chess_pawn_flat_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_pawn_flat_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_queen",
@@ -19989,7 +21169,10 @@
         "simplechess:polished_ender_quartz_chess_queen_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_queen_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_queen_flat",
@@ -20033,7 +21216,10 @@
         "simplechess:polished_ender_quartz_chess_queen_flat_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_queen_flat_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_rook",
@@ -20077,7 +21263,10 @@
         "simplechess:polished_ender_quartz_chess_rook_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_rook_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_chess_rook_flat",
@@ -20121,7 +21310,10 @@
         "simplechess:polished_ender_quartz_chess_rook_flat_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_chess_rook_flat_from_polished_ender_quartz_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_octet",
@@ -20182,6 +21374,10 @@
         "simplechess:polished_ender_quartz_chess_queen_from_polished_ender_quartz_octet_stonecutting",
         "simplechess:polished_ender_quartz_chess_rook_flat_from_polished_ender_quartz_octet_stonecutting",
         "simplechess:polished_ender_quartz_chess_rook_from_polished_ender_quartz_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
       ]
     },
     {
@@ -20226,7 +21422,10 @@
         "simplechess:polished_nihilith_chess_bishop_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_bishop_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_bishop_flat",
@@ -20270,7 +21469,10 @@
         "simplechess:polished_nihilith_chess_bishop_flat_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_bishop_flat_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_king",
@@ -20314,7 +21516,10 @@
         "simplechess:polished_nihilith_chess_king_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_king_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_king_flat",
@@ -20358,7 +21563,10 @@
         "simplechess:polished_nihilith_chess_king_flat_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_king_flat_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_knight",
@@ -20402,7 +21610,10 @@
         "simplechess:polished_nihilith_chess_knight_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_knight_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_knight_flat",
@@ -20446,7 +21657,10 @@
         "simplechess:polished_nihilith_chess_knight_flat_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_knight_flat_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_pawn",
@@ -20490,7 +21704,10 @@
         "simplechess:polished_nihilith_chess_pawn_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_pawn_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_pawn_flat",
@@ -20534,7 +21751,10 @@
         "simplechess:polished_nihilith_chess_pawn_flat_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_pawn_flat_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_queen",
@@ -20578,7 +21798,10 @@
         "simplechess:polished_nihilith_chess_queen_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_queen_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_queen_flat",
@@ -20622,7 +21845,10 @@
         "simplechess:polished_nihilith_chess_queen_flat_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_queen_flat_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_rook",
@@ -20666,7 +21892,10 @@
         "simplechess:polished_nihilith_chess_rook_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_rook_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_chess_rook_flat",
@@ -20710,7 +21939,10 @@
         "simplechess:polished_nihilith_chess_rook_flat_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_chess_rook_flat_from_polished_nihilith_octet_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_octet",
@@ -20771,6 +22003,10 @@
         "simplechess:polished_nihilith_chess_queen_from_polished_nihilith_octet_stonecutting",
         "simplechess:polished_nihilith_chess_rook_flat_from_polished_nihilith_octet_stonecutting",
         "simplechess:polished_nihilith_chess_rook_from_polished_nihilith_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleoctets"
       ]
     },
     {
@@ -21360,6 +22596,9 @@
         "simplechess:purpur_chess_queen_from_purpur_octet_stonecutting",
         "simplechess:purpur_chess_rook_flat_from_purpur_octet_stonecutting",
         "simplechess:purpur_chess_rook_from_purpur_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simpleoctets"
       ]
     },
     {
@@ -21949,6 +23188,9 @@
         "simplechess:quartz_chess_queen_from_quartz_octet_stonecutting",
         "simplechess:quartz_chess_rook_flat_from_quartz_octet_stonecutting",
         "simplechess:quartz_chess_rook_from_quartz_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simpleoctets"
       ]
     },
     {
@@ -22538,6 +23780,9 @@
         "simplechess:red_nether_brick_chess_queen_from_red_nether_brick_octet_stonecutting",
         "simplechess:red_nether_brick_chess_rook_flat_from_red_nether_brick_octet_stonecutting",
         "simplechess:red_nether_brick_chess_rook_from_red_nether_brick_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simpleoctets"
       ]
     },
     {
@@ -23127,6 +24372,9 @@
         "simplechess:resin_chess_queen_from_resin_octet_stonecutting",
         "simplechess:resin_chess_rook_flat_from_resin_octet_stonecutting",
         "simplechess:resin_chess_rook_from_resin_octet_stonecutting"
+      ],
+      "needsMods": [
+        "simpleoctets"
       ]
     }
   ],
@@ -23191,6 +24439,10 @@
         "simplechess:astralit_quartz_checker_stairs_from_astralit_quartz_checker_stonecutting",
         "simplechess:astralit_quartz_checker_wall",
         "simplechess:astralit_quartz_checker_wall_from_astralit_quartz_checker_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleores"
       ]
     },
     {
@@ -23226,7 +24478,10 @@
         "simplechess:astralit_quartz_checker_slab",
         "simplechess:astralit_quartz_checker_slab_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_quartz_checker_stairs",
@@ -23261,7 +24516,10 @@
         "simplechess:astralit_quartz_checker_stairs",
         "simplechess:astralit_quartz_checker_stairs_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:astralit_quartz_checker_wall",
@@ -23296,7 +24554,10 @@
         "simplechess:astralit_quartz_checker_wall",
         "simplechess:astralit_quartz_checker_wall_from_astralit_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:blackstone_quartz_checker",
@@ -23598,6 +24859,9 @@
         "simplechess:ender_quartz_chess_rook_from_ender_quartz_checker_stonecutting",
         "simplechess:ender_quartz_octet_from_ender_quartz_checker_sawing",
         "simplechess:ender_quartz_octet_from_ender_quartz_checker_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -23633,7 +24897,10 @@
         "simplechess:ender_quartz_checker_slab",
         "simplechess:ender_quartz_checker_slab_from_ender_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_checker_stairs",
@@ -23668,7 +24935,10 @@
         "simplechess:ender_quartz_checker_stairs",
         "simplechess:ender_quartz_checker_stairs_from_ender_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:ender_quartz_checker_wall",
@@ -23703,7 +24973,10 @@
         "simplechess:ender_quartz_checker_wall",
         "simplechess:ender_quartz_checker_wall_from_ender_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:lapis_quartz_checker",
@@ -24099,6 +25372,10 @@
         "simplechess:nihilith_quartz_checker_stairs_from_nihilith_quartz_checker_stonecutting",
         "simplechess:nihilith_quartz_checker_wall",
         "simplechess:nihilith_quartz_checker_wall_from_nihilith_quartz_checker_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding",
+        "simpleores"
       ]
     },
     {
@@ -24134,7 +25411,10 @@
         "simplechess:nihilith_quartz_checker_slab",
         "simplechess:nihilith_quartz_checker_slab_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_quartz_checker_stairs",
@@ -24169,7 +25449,10 @@
         "simplechess:nihilith_quartz_checker_stairs",
         "simplechess:nihilith_quartz_checker_stairs_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:nihilith_quartz_checker_wall",
@@ -24204,7 +25487,10 @@
         "simplechess:nihilith_quartz_checker_wall",
         "simplechess:nihilith_quartz_checker_wall_from_nihilith_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_checker",
@@ -24255,6 +25541,9 @@
         "simplechess:polished_astralit_chess_rook_from_polished_astralit_checker_stonecutting",
         "simplechess:polished_astralit_octet_from_polished_astralit_checker_sawing",
         "simplechess:polished_astralit_octet_from_polished_astralit_checker_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -24290,7 +25579,10 @@
         "simplechess:polished_astralit_checker_slab",
         "simplechess:polished_astralit_checker_slab_from_polished_astralit_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_checker_stairs",
@@ -24325,7 +25617,10 @@
         "simplechess:polished_astralit_checker_stairs",
         "simplechess:polished_astralit_checker_stairs_from_polished_astralit_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_astralit_checker_wall",
@@ -24360,7 +25655,10 @@
         "simplechess:polished_astralit_checker_wall",
         "simplechess:polished_astralit_checker_wall_from_polished_astralit_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_checker",
@@ -24422,6 +25720,9 @@
         "simplechess:polished_ender_quartz_chess_rook_from_polished_ender_quartz_checker_stonecutting",
         "simplechess:polished_ender_quartz_octet_from_polished_ender_quartz_checker_sawing",
         "simplechess:polished_ender_quartz_octet_from_polished_ender_quartz_checker_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -24457,7 +25758,10 @@
         "simplechess:polished_ender_quartz_checker_slab",
         "simplechess:polished_ender_quartz_checker_slab_from_polished_ender_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_checker_stairs",
@@ -24492,7 +25796,10 @@
         "simplechess:polished_ender_quartz_checker_stairs",
         "simplechess:polished_ender_quartz_checker_stairs_from_polished_ender_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_ender_quartz_checker_wall",
@@ -24527,7 +25834,10 @@
         "simplechess:polished_ender_quartz_checker_wall",
         "simplechess:polished_ender_quartz_checker_wall_from_polished_ender_quartz_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_checker",
@@ -24578,6 +25888,9 @@
         "simplechess:polished_nihilith_chess_rook_from_polished_nihilith_checker_stonecutting",
         "simplechess:polished_nihilith_octet_from_polished_nihilith_checker_sawing",
         "simplechess:polished_nihilith_octet_from_polished_nihilith_checker_stonecutting"
+      ],
+      "needsMods": [
+        "simplebuilding"
       ]
     },
     {
@@ -24613,7 +25926,10 @@
         "simplechess:polished_nihilith_checker_slab",
         "simplechess:polished_nihilith_checker_slab_from_polished_nihilith_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_checker_stairs",
@@ -24648,7 +25964,10 @@
         "simplechess:polished_nihilith_checker_stairs",
         "simplechess:polished_nihilith_checker_stairs_from_polished_nihilith_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:polished_nihilith_checker_wall",
@@ -24683,7 +26002,10 @@
         "simplechess:polished_nihilith_checker_wall",
         "simplechess:polished_nihilith_checker_wall_from_polished_nihilith_checker_stonecutting"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplechess:purpur_quartz_checker",

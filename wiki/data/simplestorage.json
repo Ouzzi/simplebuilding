@@ -862,6 +862,9 @@
           "simpleend:ashwood_planks"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1046,7 +1049,10 @@
         "material": [
           "minecraft:black_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:black_netherite_shulker_box",
@@ -1151,7 +1157,10 @@
         "material": [
           "minecraft:blue_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:blue_netherite_shulker_box",
@@ -1256,7 +1265,10 @@
         "material": [
           "minecraft:brown_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:brown_netherite_shulker_box",
@@ -1581,7 +1593,10 @@
         "material": [
           "minecraft:cyan_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:cyan_netherite_shulker_box",
@@ -1691,6 +1706,9 @@
           "simpleend:duskwood_planks"
         ]
       },
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1727,6 +1745,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1779,6 +1800,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1830,6 +1854,9 @@
           "minecraft:acacia_boat"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1868,6 +1895,9 @@
         [
           "simpleend:ashwood_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleend"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -1908,6 +1938,9 @@
           "minecraft:bamboo_raft"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1946,6 +1979,9 @@
         [
           "minecraft:birch_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -1986,6 +2022,9 @@
           "minecraft:cherry_boat"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2024,6 +2063,9 @@
         [
           "minecraft:dark_oak_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2064,6 +2106,9 @@
           "simpleend:duskwood_boat"
         ]
       ],
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2102,6 +2147,9 @@
         [
           "minecraft:jungle_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2142,6 +2190,9 @@
           "minecraft:mangrove_boat"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2180,6 +2231,9 @@
         [
           "minecraft:oak_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2220,6 +2274,9 @@
           "minecraft:pale_oak_boat"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2258,6 +2315,9 @@
         [
           "minecraft:poplar_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2299,6 +2359,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2346,6 +2409,9 @@
           "minecraft:spruce_boat"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2381,6 +2447,9 @@
         [
           "minecraft:minecart"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2422,6 +2491,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2473,6 +2545,9 @@
         [
           "minecraft:ender_pearl"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2553,6 +2628,9 @@
           "simpleores:enderite_nugget"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2605,6 +2683,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2657,6 +2738,9 @@
           "minecraft:shulker_shell"
         ]
       ],
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2703,6 +2787,9 @@
         [
           "minecraft:tripwire_hook"
         ]
+      ],
+      "needsMods": [
+        "simpleores"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -2813,7 +2900,10 @@
         "material": [
           "minecraft:gray_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:gray_netherite_shulker_box",
@@ -2918,7 +3008,10 @@
         "material": [
           "minecraft:green_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:green_netherite_shulker_box",
@@ -3089,7 +3182,10 @@
         "material": [
           "minecraft:light_blue_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:light_blue_netherite_shulker_box",
@@ -3194,7 +3290,10 @@
         "material": [
           "minecraft:light_gray_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:light_gray_netherite_shulker_box",
@@ -3299,7 +3398,10 @@
         "material": [
           "minecraft:lime_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:lime_netherite_shulker_box",
@@ -3404,7 +3506,10 @@
         "material": [
           "minecraft:magenta_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:magenta_netherite_shulker_box",
@@ -3643,6 +3748,9 @@
           "simpleend:ashwood_boat"
         ]
       ],
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3837,6 +3945,9 @@
         [
           "simpleend:duskwood_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleend"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -4584,7 +4695,10 @@
         "material": [
           "minecraft:orange_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:orange_netherite_shulker_box",
@@ -4762,7 +4876,10 @@
         "material": [
           "minecraft:pink_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:pink_netherite_shulker_box",
@@ -4941,7 +5058,10 @@
         "material": [
           "minecraft:purple_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:purple_netherite_shulker_box",
@@ -5099,7 +5219,10 @@
         "material": [
           "minecraft:red_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:red_netherite_shulker_box",
@@ -5345,6 +5468,9 @@
           "simpleend:ashwood_boat"
         ]
       ],
+      "needsMods": [
+        "simpleend"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -5579,6 +5705,9 @@
         [
           "simpleend:duskwood_boat"
         ]
+      ],
+      "needsMods": [
+        "simpleend"
       ],
       "baseMaterials": {
         "yield": 1,
@@ -7206,7 +7335,10 @@
         "material": [
           "minecraft:white_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:white_netherite_shulker_box",
@@ -7391,7 +7523,10 @@
         "material": [
           "minecraft:yellow_dye"
         ]
-      }
+      },
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:yellow_netherite_shulker_box",
@@ -9059,7 +9194,10 @@
       "craftedBy": [
         "simplestorage:enderite_bundle_smithing"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:enderite_chest_boat",
@@ -9210,7 +9348,10 @@
         "simplestorage:enderite_chest_minecart",
         "simplestorage:enderite_chest_minecart_smithing"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:enderite_quiver",
@@ -9313,7 +9454,10 @@
       "craftedBy": [
         "simplestorage:enderite_quiver_smithing"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:enderite_shulker_shell",
@@ -10649,7 +10793,10 @@
       "craftedBy": [
         "simplestorage:ashwood_crate"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simplestorage:backpack",
@@ -11123,7 +11270,10 @@
       "craftedBy": [
         "simplestorage:duskwood_crate"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleend"
+      ]
     },
     {
       "id": "simplestorage:enderite_backpack",
@@ -11314,7 +11464,10 @@
       "craftedBy": [
         "simplestorage:enderite_backpack_smithing"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:enderite_barrel",
@@ -11425,7 +11578,10 @@
       "craftedBy": [
         "simplestorage:enderite_controller_chest"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplestorage:enderite_pipe",

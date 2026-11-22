@@ -209,7 +209,10 @@
         "count": 1
       },
       "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/shaft/diamond_rod.json",
-      "ingredients": []
+      "ingredients": [],
+      "needsMods": [
+        "simplebuilding"
+      ]
     },
     {
       "id": "simplearrows:fletching/shaft/end_rod",
@@ -281,7 +284,10 @@
         "count": 1
       },
       "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/enderite.json",
-      "ingredients": []
+      "ingredients": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplearrows:fletching/tip/flint",
@@ -329,7 +335,10 @@
         "count": 1
       },
       "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/lead.json",
-      "ingredients": []
+      "ingredients": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplearrows:fletching/tip/netherite",
@@ -435,6 +444,9 @@
           "minecraft:feather"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 4,
         "materials": [
@@ -787,7 +799,10 @@
       "craftedBy": [
         "simplearrows:silver_arrow"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     }
   ],
   "blocks": [],

@@ -601,7 +601,10 @@
         "B": [
           "minecraft:brush"
         ]
-      }
+      },
+      "needsMods": [
+        "simplemobs"
+      ]
     },
     {
       "id": "simpletools:ceramic_bucket_from_smelting_raw_ceramic_bucket",
@@ -724,6 +727,9 @@
           "simpleores:enderite_nugget"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1259,7 +1265,10 @@
       "craftedBy": [
         "simpletools:enderite_bucket"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpletools:enderite_lava_bucket",

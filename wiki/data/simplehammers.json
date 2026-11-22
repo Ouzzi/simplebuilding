@@ -484,6 +484,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -683,6 +686,9 @@
           "minecraft:stick"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -732,6 +738,9 @@
           "minecraft:stick"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -829,6 +838,9 @@
         ]
       },
       "addition_count": 22,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -878,6 +890,9 @@
         ]
       },
       "addition_count": 22,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -927,6 +942,9 @@
         ]
       },
       "addition_count": 22,
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -1416,7 +1434,10 @@
       "craftedBy": [
         "simplehammers:enderite_sledgehammer_smithing"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplehammers:gold_sledgehammer",
@@ -1567,7 +1588,10 @@
       "craftedBy": [
         "simplehammers:rose_bronze_sledgehammer"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplehammers:rose_gold_sledgehammer",
@@ -1591,7 +1615,10 @@
       "craftedBy": [
         "simplehammers:rose_gold_sledgehammer"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simplehammers:stone_sledgehammer",

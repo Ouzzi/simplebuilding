@@ -319,9 +319,38 @@ def extract(entry, g, check=False):
     for kind in data['inWorld'].get('kinds', []):
         record('inWorld:' + kind['id'], kind.get('note'))
     data['undocumented'] = sorted(set(undocumented))
+    mark_needs_mods(data, {ns, mid})
     data['counts'] = {key: len(value) for key, value in data.items() if isinstance(value, list)}
     data['counts'].update(inWorld=len(data['inWorld']['entries']), incompleteProse=len(incomplete))
     return data, problems
+
+
+def mark_needs_mods(data, own):
+    """O5b: an item/block that only recipes make, all of them loading only with the same other mod (load conditions,
+    generate.load_condition_mods), exists only with that mod - Simple Slabs registers its chess half slabs only with
+    Simple Chess. It gets "needsMods"; the public wiki (assets/module-loader.js) leaves it out with its recipes when that
+    mod is not in the release. Anything with another way to get it (trade, foreign loot, in-world) is never marked."""
+    needs = {r['id']: set(r.get('needsMods') or ()) - set(own) for r in data.get('recipes') or []}
+    other = set()
+    for trade in data.get('trades') or []:
+        for key in ('wants', 'alsoWants', 'gives'):
+            stack = trade.get(key)
+            if isinstance(stack, dict) and stack.get('id'):
+                other.add(stack['id'])
+    for table in data.get('lootTables') or []:
+        for pool in table.get('pools') or []:
+            for item in pool.get('items') or []:
+                if table.get('id', '').split(':', 1)[-1] != 'blocks/' + str(item).split(':', 1)[-1]:
+                    other.add(item)
+    other |= set(re.findall(r'"([a-z0-9_]+:[a-z0-9_/]+)"', json.dumps(data.get('inWorld') or {})))
+    for kind in ('items', 'blocks'):
+        for value in data.get(kind) or []:
+            made = value.get('craftedBy') or []
+            if not made or value['id'] in other:
+                continue
+            common = set.intersection(*(needs.get(r, set()) for r in made))
+            if common:
+                value['needsMods'] = sorted(common)
 
 
 def module_inventory(repo):

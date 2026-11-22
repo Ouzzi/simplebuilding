@@ -1105,6 +1105,9 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "needsMods": [
+        "simpleores"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -3443,7 +3446,10 @@
       "craftedBy": [
         "simpledinos:trex_armor_enderite"
       ],
-      "usedIn": []
+      "usedIn": [],
+      "needsMods": [
+        "simpleores"
+      ]
     },
     {
       "id": "simpledinos:trex_armor_gold",

@@ -834,6 +834,29 @@ def ingredient_ids(value) -> list[str]:
 FURNACE_HALVED_TYPES = ("minecraft:blasting", "minecraft:smoking")
 
 
+def load_condition_mods(data: dict) -> list[str]:
+    """O5b: mods a data file needs to load at all (fabric:all_mods_loaded, neoforge:mod_loaded, forge:mod_loaded, also
+    inside forge:and). Simple Slabs' chess half slabs, for example: without Simple Chess the recipe does not exist."""
+    mods: set[str] = set()
+
+    def walk(node):
+        if isinstance(node, list):
+            for child in node:
+                walk(child)
+        elif isinstance(node, dict):
+            kind = node.get("condition") or node.get("type")
+            if kind == "fabric:all_mods_loaded":
+                mods.update(v for v in node.get("values") or [] if isinstance(v, str))
+            elif kind in ("neoforge:mod_loaded", "forge:mod_loaded") and isinstance(node.get("modid"), str):
+                mods.add(node["modid"])
+            elif kind in ("forge:and", "fabric:and", "neoforge:and"):
+                walk(node.get("values") or node.get("conditions") or [])
+
+    for key in ("fabric:load_conditions", "neoforge:conditions", "forge:condition", "forge:conditions"):
+        walk(data.get(key))
+    return sorted(mods)
+
+
 def recipe_entry(data: dict, recipe_id: str, source: str | None, furnace_cooking_time: bool = False) -> dict:
     """
     One recipe file in the wiki's shape. Shared by the mod's recipes and the vanilla export.
@@ -900,6 +923,9 @@ def recipe_entry(data: dict, recipe_id: str, source: str | None, furnace_cooking
         else:
             entry["guideCombine"] = True
     entry["ingredients"] = sorted(set(entry["ingredients"]))
+    needs = load_condition_mods(data)
+    if needs:
+        entry["needsMods"] = needs
     return entry
 
 
@@ -2372,7 +2398,7 @@ def cross_line_presence(line: str, recipes: list[dict], in_world: dict, manual: 
 
 
 # category only picks the recipe book tab (1.21.11 writes "misc" where 26.2 writes none).
-RECIPE_IGNORED_KEYS = ("source", "lines", "variants", "storedCookingtime", "category", "baseMaterials")
+RECIPE_IGNORED_KEYS = ("source", "lines", "variants", "storedCookingtime", "category", "baseMaterials", "needsMods")
 
 # 26.2 leaves the default cooking time out of the file, 1.21.11 and 26.3 write it.
 COOKING_DEFAULT_TICKS = {"minecraft:smelting": 200, "minecraft:blasting": 100,

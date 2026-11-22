@@ -903,6 +903,9 @@
           "simpleores:astral_redstone"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -9921,6 +9924,9 @@
           "simpleores:nihil_redstone"
         ]
       },
+      "needsMods": [
+        "simplebuilding"
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [

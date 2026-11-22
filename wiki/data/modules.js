@@ -554,7 +554,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 7
     },
-    "dataHash": "a3d2b6f1f454"
+    "dataHash": "ad3f05604bdf"
   },
   {
     "id": "simplelib",
@@ -696,7 +696,7 @@ window.WIKI_MODULES = [
       "config": 17,
       "features": 9
     },
-    "dataHash": "6ac9aa2eea3e"
+    "dataHash": "a9f170bc3970"
   },
   {
     "id": "simpletrims",
@@ -772,7 +772,7 @@ window.WIKI_MODULES = [
       "config": 82,
       "features": 25
     },
-    "dataHash": "0a8b96565996"
+    "dataHash": "1eaa3a252d21"
   },
   {
     "id": "simpleweather",
@@ -881,7 +881,7 @@ window.WIKI_MODULES = [
       "config": 23,
       "features": 32
     },
-    "dataHash": "5fc40711b8b8"
+    "dataHash": "5733adc823ba"
   },
   {
     "id": "simplefarming",
@@ -1023,7 +1023,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 5
     },
-    "dataHash": "1060197c2467"
+    "dataHash": "1a32e7f54405"
   },
   {
     "id": "simpleaesthetics",
@@ -1219,7 +1219,7 @@ window.WIKI_MODULES = [
       "config": 30,
       "features": 17
     },
-    "dataHash": "8f6e064c661d"
+    "dataHash": "815064a511a8"
   },
   {
     "id": "simpleovens",
@@ -1260,7 +1260,7 @@ window.WIKI_MODULES = [
       "config": 7,
       "features": 9
     },
-    "dataHash": "18fdb3745fe2"
+    "dataHash": "b39eba0c72d2"
   },
   {
     "id": "simplemobheads",
@@ -1459,7 +1459,7 @@ window.WIKI_MODULES = [
       "config": 13,
       "features": 20
     },
-    "dataHash": "3de12f9bb116"
+    "dataHash": "1e9b39d9ab3e"
   },
   {
     "id": "simplecrucibles",
@@ -1544,7 +1544,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 8
     },
-    "dataHash": "5d96cd0c8d4e"
+    "dataHash": "2d30c38b02a4"
   },
   {
     "id": "simplehammers",
@@ -1585,7 +1585,7 @@ window.WIKI_MODULES = [
       "config": 6,
       "features": 13
     },
-    "dataHash": "359087999f80"
+    "dataHash": "0ce1efb84c1f"
   },
   {
     "id": "simpleoptimization",
@@ -1755,7 +1755,7 @@ window.WIKI_MODULES = [
       "config": 9,
       "features": 16
     },
-    "dataHash": "e8bbc41ec09a"
+    "dataHash": "72ff0ff7a1b0"
   },
   {
     "id": "simplemusic",
@@ -1859,7 +1859,7 @@ window.WIKI_MODULES = [
       "config": 31,
       "features": 9
     },
-    "dataHash": "c33ef8fda9e3"
+    "dataHash": "054f37d3683c"
   },
   {
     "id": "simpleearth",
@@ -1996,7 +1996,7 @@ window.WIKI_MODULES = [
       "config": 21,
       "features": 10
     },
-    "dataHash": "a1502df164fc"
+    "dataHash": "4d6bd34d4c73"
   },
   {
     "id": "simpleores",
@@ -2035,7 +2035,7 @@ window.WIKI_MODULES = [
       "config": 27,
       "features": 27
     },
-    "dataHash": "850d49c7f60b"
+    "dataHash": "8a6573e1b51b"
   },
   {
     "id": "simplemachines",
@@ -2070,7 +2070,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 10
     },
-    "dataHash": "2ff390763211"
+    "dataHash": "1b69cddfa549"
   },
   {
     "id": "simplearrows",
@@ -2102,7 +2102,7 @@ window.WIKI_MODULES = [
       "config": 2,
       "features": 5
     },
-    "dataHash": "c706e236a7c5"
+    "dataHash": "07530294555e"
   },
   {
     "id": "simpleresonance",
@@ -2204,7 +2204,7 @@ window.WIKI_MODULES = [
       "config": 1,
       "features": 6
     },
-    "dataHash": "f1c0daa82368"
+    "dataHash": "65923e955559"
   },
   {
     "id": "simplepads",
@@ -2274,7 +2274,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 6
     },
-    "dataHash": "76b6bd55b2ff"
+    "dataHash": "5a84ba20a7b2"
   },
   {
     "id": "simplechisels",
@@ -2307,7 +2307,7 @@ window.WIKI_MODULES = [
       "config": 10,
       "features": 8
     },
-    "dataHash": "5e24f1ac3306"
+    "dataHash": "45ba5e8a0a0f"
   },
   {
     "id": "simplelayers",
@@ -2409,7 +2409,7 @@ window.WIKI_MODULES = [
       "features": 4
     },
     "release": false,
-    "dataHash": "ffee48aa1dcf"
+    "dataHash": "34b2e30f8b48"
   },
   {
     "id": "simpleslabs",
@@ -2445,6 +2445,6 @@ window.WIKI_MODULES = [
       "recipes": 1758,
       "features": 8
     },
-    "dataHash": "6e5495443a71"
+    "dataHash": "60287351c876"
   }
 ];

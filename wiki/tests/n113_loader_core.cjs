@@ -22,6 +22,7 @@ const someLocal = Object.keys(localOnly).map(k => k + localOnly[k][0] + '.png');
 const render = Object.keys(localOnly).filter(k => k.includes('/render/')).map(k => k + localOnly[k][0] + '.png')[0];
 check(!!render, 'local-only.js lists the git-ignored 3D renders');
 
+const slabs = JSON.parse(fs.readFileSync(path.join(WIKI, 'data/simpleslabs.json'), 'utf8'));
 async function run(href, presentFiles) {
   const u = new URL(href);
   const scripts = [], fetched = [];
@@ -30,7 +31,10 @@ async function run(href, presentFiles) {
     location: { protocol: u.protocol, hostname: u.hostname, pathname: u.pathname, search: u.search },
     fetch: (url) => { fetched.push(url); return Promise.resolve(presentFiles ? { ok: true, json: () => Promise.resolve({ files: presentFiles }) } : { ok: false }); }
   };
-  const doc = { createElement: () => { const s = {}; scripts.push(s); return s; }, head: { appendChild: s => setImmediate(() => s.onload && s.onload()) } };
+  // O5b: data/simpleslabs.js runs like in the page (fills WIKI_MODULE_DATA) - with the chess half slabs and their recipes
+  const doc = { createElement: () => { const s = {}; scripts.push(s); return s; }, head: { appendChild: s => setImmediate(() => {
+    if (/^data\/simpleslabs\.js/.test(s.src)) win.WIKI_MODULE_DATA.simpleslabs = JSON.parse(JSON.stringify(slabs));
+    if (s.onload) s.onload(); }) } };
   const ctx = { window: win, document: doc, Promise, setTimeout, Object, Array };
   vm.createContext(ctx);
   vm.runInContext(loader, ctx);
@@ -59,6 +63,28 @@ async function run(href, presentFiles) {
   for (const id of unreleased) check(dev.scripts.includes('data/' + id + '.js') || id === 'simplebuilding', 'dev loads ' + id);
   check(dev.win.WIKI_HIDDEN_MODULES.length === 0, 'dev hides nothing');
   check(!dev.win.WIKI_ASSET_OK(render), 'dev: render missing unless written');
+  // O5b: Simple Slabs' chess half slabs load only with Simple Chess (recipe load conditions, SlabRegistry): the public view
+  // leaves out those recipes and blocks with their block loot, the lists and counts follow; the dev view keeps all
+  const chessRecipes = slabs.recipes.filter(r => (r.needsMods || []).includes('simplechess') || JSON.stringify(r).includes('simplechess:'));
+  const chessBlocks = slabs.blocks.filter(b => (b.needsMods || []).includes('simplechess'));
+  check(chessRecipes.length >= 100 && chessBlocks.length === 24, 'generator marks the chess half slabs: ' + chessRecipes.length + ' recipes, ' + chessBlocks.length + ' blocks');
+  check(chessRecipes.every(r => (r.needsMods || []).includes('simplechess')), 'every recipe with a chess id carries needsMods simplechess');
+  const ps = prod.win.WIKI_MODULE_DATA.simpleslabs;
+  check(!JSON.stringify(ps.recipes).includes('simplechess'), 'prod: no slabs recipe with a chess id or condition left');
+  check(!ps.blocks.some(b => /quartz_checker|_checker_/.test(b.id)), 'prod: chess half slabs gone');
+  check(ps.blocks.length === slabs.blocks.length - 24 && ps.counts.blocks === ps.blocks.length && ps.counts.recipes === ps.recipes.length, 'prod: counts follow');
+  const ids = new Set(ps.recipes.map(r => r.id));
+  check(ps.blocks.every(b => b.craftedBy.concat(b.usedIn).every(id => ids.has(id))), 'prod: craftedBy/usedIn name only recipes that are there');
+  check(!ps.lootTables.some(t => /checker/.test(t.id)) && ps.lootTables.length === slabs.lootTables.length - 24, 'prod: their block loot gone');
+  check(ps.blocks.some(b => b.id === 'simpleslabs:oak_half_slab') && ps.recipes.length > slabs.recipes.length - chessRecipes.length - 1, 'prod: the rest stays');
+  const ds = dev.win.WIKI_MODULE_DATA.simpleslabs;
+  check(ds.blocks.length === slabs.blocks.length && ds.recipes.length === slabs.recipes.length, 'dev keeps the chess half slabs');
+  // a slot that another (released) item can fill keeps the recipe; a slot only a hidden mod fills drops it
+  const t = { x: { recipes: [{ id: 'x:a', result: { id: 'x:a' }, ingredients: ['simplechess:p', 'minecraft:stone'], slots: { ingredient: ['simplechess:p', 'minecraft:stone'] } },
+    { id: 'x:b', result: { id: 'x:b' }, ingredients: ['simplechess:p'], key: { A: ['simplechess:p'] } }, { id: 'x:c', result: { id: 'simplechess:q' }, ingredients: [] }],
+    items: [{ id: 'x:a', craftedBy: ['x:a'], usedIn: ['x:b'] }], counts: {} } };
+  prod.win.WIKI_PRUNE_HIDDEN(t, ['simplechess']);
+  check(t.x.recipes.map(r => r.id).join() === 'x:a' && t.x.items[0].usedIn.length === 0 && t.x.counts.recipes === 1, 'slot rule: ' + JSON.stringify(t.x.recipes.map(r => r.id)));
   // ?release=1 = public view on the dev wiki
   const devRel = await run('https://wiki.example/dev/?release=1', []);
   check(unreleased.every(id => !devRel.win.WIKI_MODULES.some(m => m.id === id)), '?release=1 hides unreleased on dev');
