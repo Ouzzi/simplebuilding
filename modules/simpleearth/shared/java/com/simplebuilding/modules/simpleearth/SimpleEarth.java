@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Simple Earth (plan docs/ai/PLAN-B-EARTH24-2026-10-24.md, concept KONZEPT-SIMPLE-EARTH-2026-10-23.md): far above the
- * world the Overworld becomes a slightly rounded cube whose faces show Vanilla map colours sampled from the world generator.
- * Below the activation height nothing changes. The Fabric entry fills the network hooks.
+ * world the Overworld folds into a cube (standard V25; only some display versions round the edges) whose faces show
+ * Vanilla map colors sampled from the world generator. Below the render height nothing changes. The Fabric entry fills the network hooks.
  */
 public final class SimpleEarth {
     public static final String MOD_ID = "simpleearth";
