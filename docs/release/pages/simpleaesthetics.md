@@ -26,7 +26,8 @@ Simple Aesthetics has no content of its own. It bundles Simple Visuals, Simple S
 
 ## Dependencies
 
-- **Required:** Fabric API, Simple Visuals, Simple Sounds, Simple Models
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib, Simple Visuals, Simple Sounds, Simple Models
 - **Optional:** none
 
 ## Compatibility
@@ -36,7 +37,7 @@ Simple Aesthetics has no content of its own. It bundles Simple Visuals, Simple S
 
 ## Part of the Simple family
 
-**Super mod.** It requires its sub-mods (Simple Visuals, Simple Sounds, Simple Models); each sub-mod can be switched off in the config ("Enable Simple XY") and each can also be installed without the super mod.
+**Super mod.** Its sub-mods (Simple Visuals, Simple Sounds, Simple Models) are included in this download; each can be switched off in the config ("Enable Simple XY") and each is also available on its own.
 
 ## License
 

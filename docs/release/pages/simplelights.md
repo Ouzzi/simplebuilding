@@ -24,7 +24,7 @@ Simple Lights adds 1 px lamps for any block side: plain, transparent, sixteen co
 - **Light Panes** - A flat 1 px lamp for any side of a block - plain, transparent or in the 16 dye colors - that shines only while it gets a redstone signal.
 - **Redstone Pane** - A Light Pane whose color follows the redstone signal strength: each of the 15 strengths shows another dye color, no signal is dark.
 - **Copper Light Panes** - Light Panes with the Copper Bulb switch: every redstone pulse turns them on or off, and they keep that state without a signal.
-- **Moved from SimpleBuilding** - The 37 Light Panes, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).
+- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 
 ## Vanilla use
@@ -33,7 +33,8 @@ Adds thin lamps that can sit on any block side so builders can light rooms neatl
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding
 
 ## Compatibility
@@ -43,7 +44,7 @@ Adds thin lamps that can sit on any block side so builders can light rooms neatl
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

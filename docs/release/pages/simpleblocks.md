@@ -36,11 +36,12 @@ Simple Blocks fills gaps in Vanilla building blocks, such as Hushed Deepslate Ti
 
 ## Vanilla use
 
-Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need; no Vanilla block changes how it works. Falling snow leaves a thin snow cap on fences, walls, stairs and slabs, and pumpkins, melons and hay age in the Pale Garden; both can be switched off, and Frost Grass, which would turn snowy grass into a mod block, is off by default.
+Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants) so builders find the shape they need. Only a few Vanilla behaviors change: falling snow leaves a thin snow cap on fences, walls, stairs and slabs, and pumpkins, melons and hay age in the Pale Garden; both can be switched off, and Frost Grass, which would turn snowy grass into a mod block, is off by default.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, JEI
 
 ## Compatibility
@@ -50,7 +51,7 @@ Fills gaps in Vanilla building blocks (missing stairs, slabs, walls and variants
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

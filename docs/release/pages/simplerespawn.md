@@ -17,7 +17,7 @@ Downed instead of dead: teammates can revive you in time, with a downed screen f
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-With Simple Respawn you are downed first. A teammate can revive you within the bleed-out time, and you return with three hearts and no food. A downed screen offers spectating, an inventory view and giving up.
+With Simple Respawn you are downed first whenever another player is near enough to help. A teammate can revive you within the bleed-out time, and you return with three hearts and no food. A downed screen offers spectating, an inventory view and giving up.
 
 ## Features
 
@@ -29,11 +29,12 @@ With Simple Respawn you are downed first. A teammate can revive you within the b
 
 ## Vanilla use
 
-Replaces instant death with a downed state a teammate can revive; this is a clear change to how death works in multiplayer.
+When another player is near, replaces instant death with a downed state a teammate can revive; this is a clear change to how death works in multiplayer.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** none
 
 ## Compatibility
@@ -43,7 +44,7 @@ Replaces instant death with a downed state a teammate can revive; this is a clea
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

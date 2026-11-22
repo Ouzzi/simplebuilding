@@ -33,6 +33,7 @@ Simple Resonance tracks how experienced a player is, how dangerous the land is, 
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Mobs
 
 ## Compatibility
@@ -42,7 +43,7 @@ Simple Resonance tracks how experienced a player is, how dangerous the land is, 
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding, Simple Mobs. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above. Simple mods that need it as a separate download: Simple Mobs.
 
 ## License
 

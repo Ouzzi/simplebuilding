@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Configurable dimensions, light arches and safe linked portals with optional claim-mod support.
+Configurable dimensions, light arches and linked portals with checked destinations; Simple Tweaks claims are respected.
 
 ## Release channel: Beta
 
@@ -17,15 +17,15 @@ Configurable dimensions, light arches and safe linked portals with optional clai
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Dimensions lets you configure dimensions, build light arches and use linked portals that avoid unsafe destinations. It can cooperate with common claim mods.
+Simple Dimensions lets you configure dimensions, build light arches and use linked portals that check their destinations before you travel. It respects Simple Tweaks claims; while another claim mod (Flan, FTB Chunks, Open Parties and Claims, GriefDefender, ClaimChunk) is loaded, lighting portals and entering its dimensions stay locked, and the way back always stays open.
 
 ## Features
 
 - **Default Dimensions**
 - **Skyblock** - Build one of six glowstone arches and place a separate emitting block within three blocks of the interior.
-- **Mining Dimension** - Portal rows: DXXD / D..D / D..D / D..D / DEED.
-- **Travel Dimension** - Portal rows: KRRK / O..O / O..O / O..O / SSSS.
-- **Portal Shapes**
+- **Mining Dimension** - A deep stone resource world, reached through a portal of deepslate bricks with diamond and emerald ore.
+- **Travel Dimension** - A flat plane for fast travel: ten blocks at home are one block there.
+- **Portal Shapes** - Six glowstone arch sizes, along both horizontal axes.
 - **Nether Portals in Arch Shape** - Nether portals no longer have to be rectangles: an obsidian frame may also be an arch - round, pointed, stepped or a double arch.
 - **Safe Travel and Return** - Only unmounted players travel.
 - **Configuration and Data Packs** - Server JSON: config/simpledimensions/server.json.
@@ -36,11 +36,12 @@ Simple Dimensions lets you configure dimensions, build light arches and use link
 
 ## Vanilla use
 
-Lets server owners add and tune extra dimensions and safe portals; the three Vanilla dimensions stay untouched.
+Lets server owners add and tune extra dimensions and portals with checked destinations; the Vanilla dimensions keep their terrain, and Nether portals may also be built as arches (on by default).
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Mod Menu, Cloth Config
 
 ## Compatibility
@@ -50,7 +51,7 @@ Lets server owners add and tune extra dimensions and safe portals; the three Van
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

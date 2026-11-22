@@ -40,7 +40,8 @@ Lets players write sheet music, press discs and carry a pocket jukebox; Vanilla 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Mobheads
 
 ## Compatibility
@@ -50,7 +51,7 @@ Lets players write sheet music, press discs and carry a pocket jukebox; Vanilla 
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

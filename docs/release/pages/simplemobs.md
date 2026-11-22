@@ -17,7 +17,7 @@ New monsters and bosses: Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Mobs adds the Hollow Howler and Hollow Watcher bosses, the Shellker, Soulfire Blaze, Dread and Deceiver mobs, the Blighted and Abyssal Wither with the Nether Heart and Red Nether Gem, and the Potion of Silence.
+Simple Mobs adds the Hollow Howler boss, the Hollow Watcher, the Shellker, Soulfire Blaze, Dread and Deceiver mobs, the Blighted Wither with the Nether Heart (with Simple Ores' Enderite Helmet also the Abyssal Wither and its Red Nether Gem), and the Potion of Silence.
 
 ## Features
 
@@ -36,7 +36,8 @@ Simple Mobs adds the Hollow Howler and Hollow Watcher bosses, the Shellker, Soul
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib, Simple Resonance
+- **Required:** Fabric API, Simple Resonance
+- **Included in this download:** SimpleLib
 - **Optional:** none
 
 ## Compatibility
@@ -46,7 +47,7 @@ Simple Mobs adds the Hollow Howler and Hollow Watcher bosses, the Shellker, Soul
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

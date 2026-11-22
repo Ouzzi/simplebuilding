@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-See the Overworld from orbit: above a very high height the world becomes a rounded cube drawn from Vanilla map colors.
+See the Overworld from orbit: from a very high render height the world becomes a cube drawn from Vanilla map colors.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ See the Overworld from orbit: above a very high height the world becomes a round
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Above a very high activation height, Simple Earth turns the world into a slightly rounded cube whose faces show Vanilla map colors sampled from the world generator, with a flat sun, a cube moon and stars. Below that height everything stays Vanilla.
+From a very high render height (default 1536), Simple Earth turns the world into a cube whose faces show Vanilla map colors sampled from the world generator, with a flat sun, a cube moon and stars. Below that height everything stays Vanilla.
 
 ## Features
 
@@ -29,11 +29,12 @@ Above a very high activation height, Simple Earth turns the world into a slightl
 
 ## Vanilla use
 
-Turns a very high flight into a view of the world as a rounded cube; below that height the game is Vanilla, and it hooks the client sky, clouds and weather rendering.
+Turns a very high flight into a view of the world as a cube; below that height the game is Vanilla, and it hooks the client sky, clouds and weather rendering.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding
 
 ## Compatibility
@@ -43,7 +44,7 @@ Turns a very high flight into a view of the world as a rounded cube; below that 
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

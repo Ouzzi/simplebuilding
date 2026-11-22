@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Silver, lead, tin, rose gold and Enderite with tools, armor and metal blocks, End ores and the Astral and Nihil redstone lines.
+Silver, lead, tin and more metal blocks, rose gold and Enderite tools and armor, End ores and the Astral and Nihil redstone lines.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Silver, lead, tin, rose gold and Enderite with tools, armor and metal blocks, En
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Ores adds silver ore in the Overworld and the End, two gold-copper-silver alloys (hard Rose Copper, soft Rose Gold), pressings, tools and armor of their own, Enderite (the tier above Netherite), Dimensional Scrap and Sage Ore, building blocks, doors, lamps and plates of eight building metals, and in the End the Astralit and Nihilit ores with two redstone lines of their own (Astral and Nihil Redstone, rails, pistons and lamps).
+Simple Ores adds silver ore in the Overworld and the End, two gold-copper-silver alloys (Rose Copper and the stronger Rose Gold), presslings, tools and armor of their own, Enderite (the tier above Netherite), Dimensional Scrap and Sage Ore, building blocks, doors, lamps and plates of eight building metals, and in the End the Astralit and Nihilit ores with two redstone lines of their own (Astral and Nihil Redstone, rails, pistons and lamps).
 
 ## Features
 
@@ -36,7 +36,8 @@ Simple Ores adds silver ore in the Overworld and the End, two gold-copper-silver
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Hammers
 
 ## Compatibility
@@ -46,7 +47,7 @@ Simple Ores adds silver ore in the Overworld and the End, two gold-copper-silver
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding, Simple Pads. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above. Simple mods that need it as a separate download: Simple Pads.
 
 ## License
 

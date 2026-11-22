@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Game modes for a world of your choice, starting with the Unlock mode: priced cells you must free to enter.
+Game modes for a world of your choice: Unlock cells, Skyblock, Sky Grid, Lucky Block, Skyline and more, 16 presets in all.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Game modes for a world of your choice, starting with the Unlock mode: priced cel
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Challenges adds the Unlock mode: the world is cut into cells (a block column, a chunk or three chunks) and only freed cells can be entered. Each cell has a price from the world, with deadlock protection and an emergency unlock. Without a chosen challenge the mod changes nothing.
+Simple Challenges adds the Unlock mode: the world is cut into cells (from a single block column up to three chunks) and only freed cells can be entered. Each cell has a price from the world, with deadlock protection and an emergency unlock. Skyblock, Sky One Block, Sky Grid, Lucky Block and Skyline modes come as presets too (16 in all). Without a chosen challenge the mod changes nothing.
 
 ## Features
 
@@ -40,7 +40,8 @@ Offers an optional world mode with free and locked areas for players who want a 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding
 
 ## Compatibility
@@ -50,7 +51,7 @@ Offers an optional world mode with free and locked areas for players who want a 
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

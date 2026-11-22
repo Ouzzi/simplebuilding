@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Fletching Table, Light Arrow and Silver Arrow: build arrows from tip, shaft and fletching.
+Fletching Table, Light Arrow and, with Simple Ores, Silver Arrow: build arrows from tip, shaft and fletching.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Fletching Table, Light Arrow and Silver Arrow: build arrows from tip, shaft and 
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Arrows adds a Fletching Table that builds four arrows from a tip, a shaft and a fletching (optionally with a potion), the Light Arrow that lights the air where it sticks, and the Silver Arrow that hits undead harder.
+Simple Arrows turns the Vanilla Fletching Table into a workbench that builds four arrows from a tip, a shaft and a fletching (optionally with a potion), and adds the Light Arrow that lights the air where it sticks and, with Simple Ores' silver, the Silver Arrow that hits undead harder.
 
 ## Features
 
@@ -28,11 +28,12 @@ Simple Arrows adds a Fletching Table that builds four arrows from a tip, a shaft
 
 ## Vanilla use
 
-Gives archers a new arrow workbench plus a light and a silver arrow; Vanilla arrows, bows and the Vanilla fletching table keep working unchanged.
+Gives archers a use for the Vanilla Fletching Table (right-click opens an arrow workbench) plus a light arrow and, with Simple Ores, a silver arrow; Vanilla arrows and bows keep working unchanged.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Ores
 
 ## Compatibility
@@ -42,7 +43,7 @@ Gives archers a new arrow workbench plus a light and a silver arrow; Vanilla arr
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Building Wands from copper to Enderite, the Octant in 17 colors and the Blueprint with editor and picture import.
+Building Wands from copper to Enderite (with Simple Ores), the Octant in 17 colors and the Blueprint with editor and picture import.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Building Wands from copper to Enderite, the Octant in 17 colors and the Blueprin
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Building Tools adds Building Wands (copper to Enderite and creative), the Octant in 17 colors and the Blueprint with an editor, picture import and cartography table copies.
+Simple Building Tools adds Building Wands (copper to Enderite, Enderite with Simple Ores, plus a creative wand), the Octant in 17 colors and the Blueprint with an editor, picture import and cartography table copies.
 
 ## Features
 
@@ -33,7 +33,8 @@ Speeds up large builds with wands, colored octants and the Blueprint; it only ac
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Ores, Simple Storage, Simple Hammers, Simple Octets
 
 ## Compatibility
@@ -43,7 +44,7 @@ Speeds up large builds with wands, colored octants and the Blueprint; it only ac
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

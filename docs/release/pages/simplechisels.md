@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Seven chisels from Stone to Enderite that step blocks along their family, with the Fast Chiseling enchantment.
+Seven chisels from Stone to Enderite (Enderite with Simple Ores) that step blocks along their family, with Fast Chiseling.
 
 ## Release channel: Beta
 
@@ -25,7 +25,7 @@ Simple Chisels moves blocks one step along their family (stone to chiseled, bric
 - **Fast Chiseling**
 - **Chisel tables as data**
 - **Chains of the Simple blocks** - Every chiseled, cracked and mossy block of the Simple mods sits in a chain, shipped by the mod that owns the block, so the chisel reaches it.
-- **Moved from SimpleBuilding** - The seven chisels, Fast Chiseling, the ten chisel recipes and their recipe unlocks were SimpleBuilding's (simplebuilding:*).
+- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
 - **Creative tab** - The chisels and the Fast Chiseling books sit in the tab Simple Chisels only (no Vanilla tabs).
 - **Commands** - /simplechisels config shows and changes every option of config/simplechisels-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
@@ -35,7 +35,8 @@ Lets you step a block along its family (stone, chiseled, cracked, stairs, slabs)
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Ores, JEI
 
 ## Compatibility
@@ -45,7 +46,7 @@ Lets you step a block along its family (stone, chiseled, cracked, stairs, slabs)
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

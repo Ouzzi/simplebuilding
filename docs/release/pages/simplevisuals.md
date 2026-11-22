@@ -36,13 +36,14 @@ Simple Visuals tweaks how the game looks on the client: HUD, tooltips, anvil tex
 
 ## Good to know
 
-- **Needed on the client too:** chiselled (tilted) item frames send an extra value that a game without Simple Visuals does not understand. The chisels need Simple Building on the client anyway, so this only means: install Simple Visuals there as well.
+- **Needed on the client too:** chiseled (tilted) item frames send an extra value that a game without Simple Visuals does not understand. The chisels come from Simple Chisels, which is needed on the client anyway, so this only means: install Simple Visuals there as well.
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
-- **Optional:** SimpleBuilding, Simple Models, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
+- **Optional:** SimpleBuilding, Simple Models, Mod Menu, Cloth Config
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25
@@ -50,7 +51,7 @@ Simple Visuals tweaks how the game looks on the client: HUD, tooltips, anvil tex
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Aesthetics. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Aesthetics: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Fossils, brushable dinosaur eggs and the first dinosaur: a rideable T. rex that hatches and grows up.
+Fossils, brushable dinosaur eggs and five rideable dinosaurs, from T. rex to Utahraptor, that hatch and grow up.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Fossils, brushable dinosaur eggs and the first dinosaur: a rideable T. rex that 
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by sitting on them, and a rideable T. rex that hatches as a hatchling and grows up.
+Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by sitting on them, and five rideable dinosaurs (T. rex, Triceratops, Stegosaurus, Utahraptor and Parasaurolophus) that hatch as hatchlings and grow up.
 
 ## Features
 
@@ -33,7 +33,8 @@ Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Money, Simple Mobheads
 
 ## Compatibility
@@ -43,7 +44,7 @@ Simple Dinosaurs adds a fossil block, dinosaur eggs you brush free and brood by 
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

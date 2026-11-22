@@ -17,7 +17,7 @@ Super mod for small survival conveniences: weather, interfaces, loot, mob manner
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Quality of Life bundles seven sub-mods with one switch each, plus a guide book and a start quest. Every sub-mod also runs on its own.
+Simple Quality of Life bundles seven sub-mods with one switch each, plus its own section in the Simple Modpack guide. Every sub-mod also runs on its own.
 
 ## Features
 
@@ -26,7 +26,8 @@ Simple Quality of Life bundles seven sub-mods with one switch each, plus a guide
 
 ## Dependencies
 
-- **Required:** Fabric API, Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib, Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement
 - **Optional:** SimpleBuilding, Mod Menu
 
 ## Compatibility
@@ -36,7 +37,7 @@ Simple Quality of Life bundles seven sub-mods with one switch each, plus a guide
 
 ## Part of the Simple family
 
-**Super mod.** It requires its sub-mods (Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement); each sub-mod can be switched off in the config ("Enable Simple XY") and each can also be installed without the super mod.
+**Super mod.** Its sub-mods (Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools, Simple Movement) are included in this download; each can be switched off in the config ("Enable Simple XY") and each is also available on its own.
 
 ## License
 

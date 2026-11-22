@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Server optimization: view distance follows server load within server.properties bounds.
+Server optimization: view distance follows server load, never above the server.properties value.
 
 ## Release channel: Beta
 
@@ -19,7 +19,7 @@ Server optimization: view distance follows server load within server.properties 
 
 > No performance promises: the effect has not been measured across computers and mod packs yet, so this page names no FPS, memory or tick-time figures. Results depend on your hardware and the other mods you run.
 
-Simple Opt Server adapts view distance to the server's tick time (MSPT) within the bounds of server.properties, and steps back for ServerCore.
+On dedicated servers, Simple Opt Server adapts view distance to the server's tick time (MSPT), never above the server.properties value, and steps back for ServerCore.
 
 ## Features
 
@@ -30,6 +30,7 @@ Simple Opt Server adapts view distance to the server's tick time (MSPT) within t
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** none
 
 ## Compatibility
@@ -39,7 +40,7 @@ Simple Opt Server adapts view distance to the server's tick time (MSPT) within t
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Optimization. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Optimization: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

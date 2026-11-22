@@ -17,7 +17,7 @@ Half slabs - 4 pixels thin - of every block with a slab, freely stacked in a cel
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Slabs adds a half slab (half a slab, 4 pixels) for each of the 170 blocks with a slab. Any of the four layers of a block cell can be filled in any combination, so you build 4-pixel ledges, gaps and thin roofs; the side half slab, an item of its own, stands upright against a wall and grows to a side slab at two layers. Sand and gravel half slabs fall, grass is tinted by the biome, copper ages. Cut in the Shapecutter (or stonecutter), crafted back into the slab.
+Simple Slabs adds a half slab (half a slab, 4 pixels) for every Vanilla block with a slab, plus the slabs of other Simple mods while those are installed. Any of the four layers of a block cell can be filled in any combination, so you build 4-pixel ledges, gaps and thin roofs; the side half slab, an item of its own, stands upright against a wall and grows to a side slab at two layers. Sand and gravel half slabs fall and grass is tinted by the biome (both with Simple Blocks); copper ages. Cut in the Shapecutter (or stonecutter), crafted back into the slab.
 
 ## Features
 
@@ -36,7 +36,8 @@ Adds thin building pieces cut from blocks that already have a slab, for finer de
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Blocks, Simple End, Simple Ores, Simple Enchanting, JEI
 
 ## Compatibility
@@ -46,7 +47,7 @@ Adds thin building pieces cut from blocks that already have a slab, for finer de
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

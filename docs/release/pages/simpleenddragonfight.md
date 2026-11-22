@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Tougher Ender Dragon fight: more health bars per player, a faster dragon, entry animations and Dragonmites.
+Tougher Ender Dragon fight: a health bar per player, a dragon that speeds up in groups, entry animations and Dragonmites.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Tougher Ender Dragon fight: more health bars per player, a faster dragon, entry 
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple End Dragon Fight adds one health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.
+Simple End Dragon Fight adds one health bar per player on the island, a dragon that flies faster with every further player, entry animations and Dragonmites from half health.
 
 ## Features
 
@@ -35,7 +35,8 @@ Makes the Vanilla dragon fight tougher and fairer for groups (a health bar per p
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Simple Mobs
 
 ## Compatibility
@@ -45,7 +46,7 @@ Makes the Vanilla dragon fight tougher and fairer for groups (a health bar per p
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

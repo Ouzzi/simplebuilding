@@ -47,7 +47,7 @@ Shared base of the Simple mods with a modpack guide and warped wart (found in ba
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding, Simple Money, Simple Riding, Simple Fun, Simple Tweaks, Simple Dimensions, Simple Sandwiches, Simple Interfaces, Simple Maps, Simple Trims, Simple Mobs, Simple Questionary, Simple End Dragon Fight, Simple End, Simple Respawn, Simple Beacons, Simple Ovens, Simple Mobheads, Simple Shops, Simple Wanderers, Simple Blocks, Simple Crucibles, Simple Octets, Simple Hammers, Simple Storage, Simple Music, Simple Lights, Simple Gadgets, Simple Earth, Simple Challenges, Simple Animals, Simple Dinosaurs, Simple Ores, Simple Machines, Simple Arrows, Simple Enchanting, Simple Pads, Simple Building Tools, Simple Chisels, Simple Slabs. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Library.** Every Simple mod includes SimpleLib in its own download, so you never have to install it by hand.
 
 ## License
 

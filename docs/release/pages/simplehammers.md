@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Seven sledgehammers from Stone to Enderite for 3x3 mining, reshaping blocks and in-world upgrades.
+Seven sledgehammers from Stone to Enderite (with Simple Ores) for 3x3 mining, reshaping blocks and in-world upgrades.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Seven sledgehammers from Stone to Enderite for 3x3 mining, reshaping blocks and 
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Hammers adds seven sledgehammers that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets, crush diamond and quartz blocks, and upgrade blocks in the world. Enchantments: Break Through, Override and Radius.
+Simple Hammers adds seven sledgehammers (Enderite with Simple Ores) that mine a 3x3 area, reshape blocks into stairs and slabs, carve octets (with Simple Octets), crush diamond and quartz blocks, and upgrade blocks in the world. Enchantments: Break Through, Override and Radius.
 
 ## Features
 
@@ -30,7 +30,7 @@ Simple Hammers adds seven sledgehammers that mine a 3x3 area, reshape blocks int
 - **Hammer enchantments**
 - **A tool in the crafting grid** - A shapeless recipe with a sledgehammer gives the hammer back with 1 durability less instead of using it up; a hammer that breaks doing so is gone.
 - **Sledgehammers at the anvil** - Two sledgehammers combine for 1 level: both durabilities plus 12 % of the maximum, enchantments merged like vanilla (incompatible ones from the right hammer are dropped).
-- **Moved from SimpleBuilding** - The seven sledgehammers, the enchantments Break Through, Override and Radius, the ten hammer recipes and their recipe unlocks were SimpleBuilding's (simplebuilding:*).
+- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simplehammers config shows and changes every option of config/simplehammers-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
@@ -40,7 +40,8 @@ Adds sledgehammers that mine 3x3, reshape and upgrade blocks; they are tools and
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Octets, Simple Crucibles, Simple Ores, JEI
 
 ## Compatibility
@@ -50,7 +51,7 @@ Adds sledgehammers that mine 3x3, reshape and upgrade blocks; they are tools and
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

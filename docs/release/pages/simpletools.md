@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Full-durability bonus, Thrift and Soulbound enchantments, Death Vault, Biome Brush and cheaper anvil repairs.
+Thrift and Soulbound enchantments, Death Vault, Biome Brush, anvil repairs that stay cheap and an optional full-durability bonus.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Full-durability bonus, Thrift and Soulbound enchantments, Death Vault, Biome Bru
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Tools adds a bonus for full-durability tools, the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs without extra cost and lava buckets as furnace fuel.
+Simple Tools adds an optional bonus for full-durability tools (off by default), the Thrift and Soulbound enchantments, the Death Vault, the Biome Brush, anvil repairs that no longer raise the repair cost and lava buckets you put straight into a furnace with a right-click.
 
 ## Features
 
@@ -37,6 +37,7 @@ Simple Tools adds a bonus for full-durability tools, the Thrift and Soulbound en
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Quality of Life, Mod Menu
 
 ## Compatibility
@@ -46,7 +47,7 @@ Simple Tools adds a bonus for full-durability tools, the Thrift and Soulbound en
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding, Simple Quality of Life. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding, Simple Quality of Life: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

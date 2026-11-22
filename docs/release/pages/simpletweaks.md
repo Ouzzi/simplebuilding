@@ -17,7 +17,7 @@ Server claims, admin tools (block log, backups, anti-X-ray) and player tweaks, o
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Tweaks keeps older worlds compatible and gives servers three groups of tools, all on by default and each switchable: claims that protect builds, admin tools (block and container log, inventory backups, world backups, vanish, freeze, restart announcements, lag finder, anti-X-ray) and player tweaks (death hint, partial keep inventory, newcomer protection, AFK handling, votes, server events, welcome messages).
+Simple Tweaks keeps older worlds compatible and gives servers three groups of tools, each switchable and almost all on by default: claims that protect builds, admin tools (block and container log, inventory backups, world backups, vanish, freeze, restart announcements, lag finder, anti-X-ray) and player tweaks (death hint, partial keep inventory, newcomer protection, AFK handling, votes, server events, and welcome messages that are off by default).
 
 ## Features
 
@@ -40,7 +40,8 @@ Keeps older worlds loading and adds server claims that are on by default; the cl
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Simple Dimensions, SimpleBuilding, Simple Money, Simple Weather, Simple Maps
 
 ## Compatibility
@@ -50,7 +51,7 @@ Keeps older worlds loading and adds server claims that are on by default; the cl
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

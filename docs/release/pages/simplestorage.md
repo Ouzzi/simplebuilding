@@ -17,7 +17,7 @@ Crates, tiered chests, shulker boxes and barrels, chest carts and boats, bundles
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Storage adds crates, the Storage Crafting Table, tiered and trapped chests, tier shulker boxes and barrels with more slots and bigger stacks, chest carts and chest boats, bundles, quivers, backpacks, item pipes, a chest network with a controller chest, and the Drawer, Deep Pockets and Funnel enchantments. New structures sometimes hold a better chest or a rare tiered shulker. Ids from older versions migrate.
+Simple Storage adds crates, the Storage Crafting Table, tiered and trapped chests, tier shulker boxes and barrels with more slots and bigger stacks, chest carts and chest boats, bundles, quivers, backpacks, item pipes, a chest network with a controller chest, and the Drawer, Deep Pockets and Funnel enchantments. New structures sometimes hold a better chest or a rare tiered shulker. Worlds from earlier SimpleBuilding versions keep their crates and Storage Crafting Tables.
 
 ## Features
 
@@ -40,7 +40,8 @@ Gives players more storage (crates, tiered chests and shulker boxes, bundles, qu
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple End, Trinkets Updated, Curios, Simple Ores, Simple Crucibles
 
 ## Compatibility
@@ -50,7 +51,7 @@ Gives players more storage (crates, tiered chests and shulker boxes, bundles, qu
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

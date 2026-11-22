@@ -35,6 +35,7 @@ Simple Stats records blocks mined, kills by mob and variant, damage absorbed, di
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding
 
 ## Compatibility
@@ -44,7 +45,7 @@ Simple Stats records blocks mined, kills by mob and variant, damage absorbed, di
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

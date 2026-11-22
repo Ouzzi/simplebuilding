@@ -36,9 +36,10 @@ Simple Sounds plays Vanilla sounds locally to go with the twelve immersion effec
 
 ## Dependencies
 
-- **Required:** Fabric API, Cloth Config
-- **Optional:** Simple Visuals, SimpleBuilding, Mod Menu
-<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
+- **Optional:** Simple Visuals, SimpleBuilding, Mod Menu, Cloth Config
+
 ## Compatibility
 
 - Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25
@@ -46,7 +47,7 @@ Simple Sounds plays Vanilla sounds locally to go with the twelve immersion effec
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Aesthetics. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Aesthetics: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

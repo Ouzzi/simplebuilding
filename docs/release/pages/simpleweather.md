@@ -21,7 +21,7 @@ Simple Weather lets the server switch weather and lets each player change rain d
 
 ## Features
 
-- **Disable weather**
+- **Disable weather** - disableWeather (default false, server) clears rain and thunder and sets the Vanilla game rule advance_weather to false, so the weather no longer changes by itself.
 - **Rain and thunder frequency**
 - **Rain density**
 - **Sub-mod of Simple QoL** - Playable alone (config/simpleweather.json).
@@ -30,6 +30,7 @@ Simple Weather lets the server switch weather and lets each player change rain d
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Simple Quality of Life, Mod Menu
 
 ## Compatibility
@@ -39,7 +40,7 @@ Simple Weather lets the server switch weather and lets each player change rain d
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Quality of Life. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Quality of Life: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

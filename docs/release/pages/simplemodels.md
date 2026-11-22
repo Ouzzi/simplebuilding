@@ -26,6 +26,7 @@ Simple Models lets the server approve custom item models, assign them at the anv
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Mod Menu
 
 ## Compatibility
@@ -35,7 +36,7 @@ Simple Models lets the server approve custom item models, assign them at the anv
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Aesthetics. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Aesthetics: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Fuel-free crucibles from Iron to Enderite, the reinforced cauldron and village field kitchens.
+Fuel-free crucibles from Iron to Enderite (top tier with Simple Ores), the reinforced cauldron and village field kitchens.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Fuel-free crucibles from Iron to Enderite, the reinforced cauldron and village f
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel, heated by the block below), the reinforced cauldron, copper and soul lava buckets, soul lava in the Nether and village field kitchens. Barrels of Simple Storage dock onto a crucible. Ids from older versions migrate.
+Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cooking station without fuel, heated by the block below; the Enderite tier needs Simple Ores), the reinforced cauldron, copper and soul lava buckets, soul lava in the Nether and village field kitchens. Barrels of Simple Storage dock onto a crucible.
 
 ## Features
 
@@ -33,11 +33,12 @@ Simple Crucibles adds Iron, Reinforced, Netherite and Enderite crucibles (a cook
 
 ## Vanilla use
 
-Adds a fuel-free cooking station for the mid game, a sturdier cauldron and soul lava, a rare Nether fluid in the world generation (can be switched off); the iron bucket breaks on soul lava, so copper buckets carry it, and they also work on the Vanilla cauldron.
+Adds a fuel-free cooking station for the mid game, a sturdier cauldron and soul lava, a rare Nether fluid in the world generation (can be switched off); the iron bucket breaks when it pours soul lava, and copper buckets carry water and lava (never soul lava) and also work on the Vanilla cauldron.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, JEI, Jade, Simple Storage, Simple Ores, Simple Tools
 
 ## Compatibility
@@ -47,7 +48,7 @@ Adds a fuel-free cooking station for the mid game, a sturdier cauldron and soul 
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

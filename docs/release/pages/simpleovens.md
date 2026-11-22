@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces with 2x, 4x and 8x speed, plus furnace minecarts.
+Reinforced, Netherite and Enderite (with Simple Ores) furnaces, smokers and blast furnaces with 2x, 4x and 8x speed, plus furnace minecarts.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces with 2x,
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Ovens adds faster furnace, smoker and blast furnace tiers (Netherite doubles experience) and furnace minecarts, upgraded in the world with an axe. Ids from older SimpleBuilding versions migrate.
+Simple Ovens adds faster furnace, smoker and blast furnace tiers (Netherite and Enderite double experience; Enderite needs Simple Ores) and furnace minecarts. The upper tiers are upgraded in the world with an axe, or with a sledgehammer when Simple Hammers is installed. Worlds from earlier SimpleBuilding versions keep their furnaces.
 
 ## Features
 
@@ -26,7 +26,7 @@ Simple Ovens adds faster furnace, smoker and blast furnace tiers (Netherite doub
 - **Furnace Minecarts**
 - **Furnace Boats** - A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes.
 - **Long Cook Times in the Menu** - Furnace menus send their timers as shorts; cook times above 32767 ticks are divided before sending, so the arrow and the flame keep the right ratio.
-- **Moved from SimpleBuilding** - The furnaces, their block entities, the furnace carts, their 8 recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).
+- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpleovens config shows and changes every option of config/simpleovens-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
@@ -36,8 +36,9 @@ Gives smelting-heavy players faster furnace, smoker and blast furnace tiers and 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
-- **Optional:** SimpleBuilding, Simple Foundry, Simple Crucibles, Simple Ores
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib, Simple Crucibles
+- **Optional:** SimpleBuilding, Simple Foundry, Simple Ores
 
 ## Compatibility
 
@@ -46,7 +47,7 @@ Gives smelting-heavy players faster furnace, smoker and blast furnace tiers and 
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

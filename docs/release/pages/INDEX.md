@@ -4,63 +4,63 @@
 
 | Mod | Id | Version | Channel | Summary | Status |
 |---|---|---|---|---|---|
-| [SimpleBuilding](simplebuilding.md) | `simplebuilding` | `2.0.0-beta.1` | Beta | Super mod of the Simple family: bundles the required sub-mods for building, storage and tools, plus End blocks, Enderite gear, loot and trades. | draft |
+| [SimpleBuilding](simplebuilding.md) | `simplebuilding` | `2.0.0-beta.1` | Beta | Super mod of the Simple family: bundles the required sub-mods for building, storage, ores and tools, plus End blocks, music discs, loot and trades. | draft |
 | [Simple Money](simplemoney.md) | `simplemoney` | `0.9.0-beta.1` | Beta | Currency production, weighted villager trades and treasure loot for survival worlds. | draft |
 | [Simple Riding](simpleriding.md) | `simpleriding` | `0.9.0-beta.1` | Beta | Faster saddles, higher horse jumps, nautilus dashes, mount armor utilities, loot and trades. | draft |
 | [Simple Models](simplemodels.md) | `simplemodels` | `1.0.0-beta.1` | Beta | Server-approved custom item models, anvil assignment and a searchable model browser. | draft |
-| [Simple Fun](simplefun.md) | `simplefun` | `0.9.0-beta.1` | Beta | Bounded playful mechanics: throwable bricks and cosmetic transformations that stay safe for survival. | draft |
+| [Simple Fun](simplefun.md) | `simplefun` | `0.9.0-beta.1` | Beta | Playful mechanics for survival: throwable bricks, toys and cosmetic transformations, each capped and switchable by the server. | draft |
 | [Simple Visuals](simplevisuals.md) | `simplevisuals` | `1.0.0-beta.1` | Beta | Client HUD, tooltip and anvil formatting plus Vanilla-style immersion particles, all bounded and optional. | draft |
 | [Simple Sounds](simplesounds.md) | `simplesounds` | `1.0.0-beta.1` | Beta | Local Vanilla-sound counterparts for the twelve Simple Visuals immersion effects. | draft |
 | [Simple Quality of Life](simplequalityoflife.md) | `simplequalityoflife` | `1.0.0-beta.1` | Beta | Super mod for small survival conveniences: weather, interfaces, loot, mob manners, farming, tools and movement. | draft |
 | [Simple Tweaks](simpletweaks.md) | `simpletweaks` | `0.9.0-beta.1` | Beta | Server claims, admin tools (block log, backups, anti-X-ray) and player tweaks, on by default; older worlds keep loading. | draft |
-| [Simple Dimensions](simpledimensions.md) | `simpledimensions` | `0.1.0-beta.1` | Beta | Configurable dimensions, light arches and safe linked portals with optional claim-mod support. | draft |
+| [Simple Dimensions](simpledimensions.md) | `simpledimensions` | `0.1.0-beta.1` | Beta | Configurable dimensions, light arches and linked portals with checked destinations; Simple Tweaks claims are respected. | draft |
 | [Simple Sandwiches](simplesandwiches.md) | `simplesandwiches` | `0.1.0-beta.1` | Beta | Build sandwiches on a cutting board, cut with a kitchen knife, make butter and cheese, eat from bundles. | draft |
 | [SimpleLib](simplelib.md) | `simplelib` | `0.4.0-beta.1` | Beta | Shared base of the Simple family: modpack guide, warm food, shared materials, rarity tiers and UI building blocks. | draft |
 | [Simple Interfaces](simpleinterfaces.md) | `simpleinterfaces` | `1.0.0-beta.1` | Beta | Restyled Vanilla container screens, linked containers and easy Shulker and Ender Chest access. | draft |
-| [Simple Maps](simplemaps.md) | `simplemaps` | `0.1.0-beta.1` | Beta | Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar and cartography upgrades. | draft |
+| [Simple Maps](simplemaps.md) | `simplemaps` | `0.1.0-beta.1` | Beta | Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar and cartography table copies and merges. | draft |
 | [Simple Livemap](simplelivemap.md) | `simplelivemap` | `1.0.0-beta.1` | Beta | Live web map of your world as players explored it, with a built-in web server that works out of the box, only on your own computer. | draft |
 | [Simple Trims](simpletrims.md) | `simpletrims` | `0.1.0-beta.1` | Beta | Glowing, Emitting, Pulsating and Inverting armor trims, placeable trim templates and trim upgrades. | draft |
 | [Simple Mobs](simplemobs.md) | `simplemobs` | `0.1.0-beta.1` | Beta | New monsters and bosses: Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Blighted and Abyssal Wither and more. | draft |
 | [Simple Weather](simpleweather.md) | `simpleweather` | `1.0.0-beta.1` | Beta | Server weather switch and client rain density option; a sub-mod of Simple Quality of Life. | draft |
 | [Simple Movement](simplemovement.md) | `simplemovement` | `1.0.0-beta.1` | Beta | Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow. | draft |
-| [Simple Tools](simpletools.md) | `simpletools` | `1.0.0-beta.1` | Beta | Full-durability bonus, Thrift and Soulbound enchantments, Death Vault, Biome Brush and cheaper anvil repairs. | draft |
+| [Simple Tools](simpletools.md) | `simpletools` | `1.0.0-beta.1` | Beta | Thrift and Soulbound enchantments, Death Vault, Biome Brush, anvil repairs that stay cheap and an optional full-durability bonus. | draft |
 | [Simple Farming](simplefarming.md) | `simplefarming` | `1.0.0-beta.1` | Beta | Feather Falling protects farmland, Sharpness cuts grass, and a hoe harvests and replants ripe crops. | draft |
-| [Simple Mob Manners](simplemobmanners.md) | `simplemobmanners` | `1.0.0-beta.1` | Beta | Mute mobs by type or name tag, keep named babies young and let piglins ignore gold trims and tools. | draft |
+| [Simple Mob Manners](simplemobmanners.md) | `simplemobmanners` | `1.0.0-beta.1` | Beta | Mute mobs by type or name tag, catch frogs in a bucket and let piglins ignore gold trims and tools. | draft |
 | [Simple Loot](simpleloot.md) | `simpleloot` | `1.0.0-beta.1` | Beta | Vault cooldown measured in days instead of once per player; a sub-mod of Simple Quality of Life. | draft |
 | [Simple Questionary](simplequestionary.md) | `simplequestionary` | `0.1.0-beta.1` | Beta | The Questionary Table: put in any item and read its lore, its use and a secret in an open book. | draft |
 | [Simple Aesthetics](simpleaesthetics.md) | `simpleaesthetics` | `1.0.0-beta.1` | Beta | Super mod for looks and sound: bundles Simple Visuals, Simple Sounds and Simple Models. | draft |
-| [Simple End Dragon Fight](simpleenddragonfight.md) | `simpleenddragonfight` | `0.1.0-beta.1` | Beta | Tougher Ender Dragon fight: more health bars per player, a faster dragon, entry animations and Dragonmites. | draft |
+| [Simple End Dragon Fight](simpleenddragonfight.md) | `simpleenddragonfight` | `0.1.0-beta.1` | Beta | Tougher Ender Dragon fight: a health bar per player, a dragon that speeds up in groups, entry animations and Dragonmites. | draft |
 | [Simple End](simpleend.md) | `simpleend` | `0.1.0-beta.1` | Beta | End wood, End grass and two new outer-island biomes, Ash Valley and Dawnlands; includes Simple End Dragon Fight. | draft |
 | [Simple Respawn](simplerespawn.md) | `simplerespawn` | `0.1.0-beta.1` | Beta | Downed instead of dead: teammates can revive you in time, with a downed screen for spectating and giving up. | draft |
-| [Simple Beacons](simplebeacons.md) | `simplebeacons` | `0.1.0-beta.1` | Beta | Strong Beacon and Strong Conduit with more pyramid levels, extra effects and bigger ranges. | draft |
-| [Simple Ovens](simpleovens.md) | `simpleovens` | `0.9.0-beta.1` | Beta | Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces with 2x, 4x and 8x speed, plus furnace minecarts. | draft |
+| [Simple Beacons](simplebeacons.md) | `simplebeacons` | `0.1.0-beta.1` | Beta | Strong, Mighty and Evil beacons and conduits with more pyramid levels, extra effects and bigger ranges. | draft |
+| [Simple Ovens](simpleovens.md) | `simpleovens` | `0.9.0-beta.1` | Beta | Reinforced, Netherite and Enderite (with Simple Ores) furnaces, smokers and blast furnaces with 2x, 4x and 8x speed, plus furnace minecarts. | draft |
 | [Simple Mobheads](simplemobheads.md) | `simplemobheads` | `0.9.0-beta.1` | Beta | A head for every mob: charged creeper drops, wearable, placeable and playable on a note block. | draft |
 | [Simple Shops](simpleshops.md) | `simpleshops` | `0.1.0-beta.1` | Beta | Player shops with a Sales Block and a Display Case, protected from strangers, explosions, pistons and hoppers. | draft |
 | [Simple Wanderers](simplewanderers.md) | `simplewanderers` | `0.1.0-beta.1` | Beta | One Village Wanderer per village with a leashed horse, split from the traveling trader, with regular restocks. | draft |
 | [Simple Stats](simplestats.md) | `simplestats` | `1.0.0-beta.1` | Beta | Every tool, weapon and armor piece keeps its own statistics with an item-specific statistics screen. | draft |
 | [Simple Blocks](simpleblocks.md) | `simpleblocks` | `0.9.0-beta.1` | Beta | Missing building blocks: Vanilla stair, slab and wall gaps, cracked and mossy variants, and the Shapecutter. | draft |
-| [Simple Crucibles](simplecrucibles.md) | `simplecrucibles` | `0.9.0-beta.1` | Beta | Fuel-free crucibles from Iron to Enderite, the reinforced cauldron and village field kitchens. | draft |
+| [Simple Crucibles](simplecrucibles.md) | `simplecrucibles` | `0.9.0-beta.1` | Beta | Fuel-free crucibles from Iron to Enderite (top tier with Simple Ores), the reinforced cauldron and village field kitchens. | draft |
 | [Simple Octets](simpleoctets.md) | `simpleoctets` | `0.9.0-beta.1` | Beta | Octets: half-block cubes of every wood and block with stairs and slabs that mix in a single cell. | draft |
-| [Simple Hammers](simplehammers.md) | `simplehammers` | `0.9.0-beta.1` | Beta | Seven sledgehammers from Stone to Enderite for 3x3 mining, reshaping blocks and in-world upgrades. | draft |
+| [Simple Hammers](simplehammers.md) | `simplehammers` | `0.9.0-beta.1` | Beta | Seven sledgehammers from Stone to Enderite (with Simple Ores) for 3x3 mining, reshaping blocks and in-world upgrades. | draft |
 | [Simple Optimization](simpleoptimization.md) | `simpleoptimization` | `1.0.0-beta.1` | Beta | Super mod for optimization tweaks: bundles Simple Opt Render, Simple Opt Memory and Simple Opt Server. | draft |
 | [Simple Opt Render](simpleoptrender.md) | `simpleoptrender` | `1.0.0-beta.1` | Beta | Client optimizations: leaf culling, light-map cache, fast IP ping and telemetry off, stepping back for other mods. | draft |
-| [Simple Opt Memory](simpleoptmemory.md) | `simpleoptmemory` | `1.0.0-beta.1` | Beta | Memory optimizations for block states and models; currently holds the switch, config and mod detection. | draft |
-| [Simple Opt Server](simpleoptserver.md) | `simpleoptserver` | `1.0.0-beta.1` | Beta | Server optimization: view distance follows server load within server.properties bounds. | draft |
+| [Simple Opt Memory](simpleoptmemory.md) | `simpleoptmemory` | `1.0.0-beta.1` | Beta | Memory optimization for block states: shares their property and face tables, with switch, config and mod detection. | draft |
+| [Simple Opt Server](simpleoptserver.md) | `simpleoptserver` | `1.0.0-beta.1` | Beta | Server optimization: view distance follows server load, never above the server.properties value. | draft |
 | [Simple Storage](simplestorage.md) | `simplestorage` | `0.9.0-beta.1` | Beta | Crates, tiered chests, shulker boxes and barrels, chest carts and boats, bundles, quivers and backpacks. | draft |
 | [Simple Music](simplemusic.md) | `simplemusic` | `0.1.0-beta.1` | Beta | Write sheet music in a text note code, press it onto discs and play uploaded Ogg discs in jukeboxes. | draft |
 | [Simple Lights](simplelights.md) | `simplelights` | `0.9.0-beta.1` | Beta | Light Panes: flat lamps on any block side in plain, transparent, sixteen colors and redstone variants. | draft |
 | [Simple Gadgets](simplegadgets.md) | `simplegadgets` | `0.9.0-beta.1` | Beta | Six held gadgets: Gauge, Transposer, Resonance Rod, Detector, Attractor and an Echo Sounder that jumps back to a lodestone. | draft |
-| [Simple Earth](simpleearth.md) | `simpleearth` | `0.1.0-beta.1` | Beta | See the Overworld from orbit: above a very high height the world becomes a rounded cube drawn from Vanilla map colors. | draft |
-| [Simple Challenges](simplechallenges.md) | `simplechallenges` | `0.1.0-beta.1` | Beta | Game modes for a world of your choice, starting with the Unlock mode: priced cells you must free to enter. | draft |
+| [Simple Earth](simpleearth.md) | `simpleearth` | `0.1.0-beta.1` | Beta | See the Overworld from orbit: from a very high render height the world becomes a cube drawn from Vanilla map colors. | draft |
+| [Simple Challenges](simplechallenges.md) | `simplechallenges` | `0.1.0-beta.1` | Beta | Game modes for a world of your choice: Unlock cells, Skyblock, Sky Grid, Lucky Block, Skyline and more, 16 presets in all. | draft |
 | [Simple Animals](simpleanimals.md) | `simpleanimals` | `0.1.0-beta.1` | Beta | Five new animals: deer, wild boar, hedgehog, crab and zebra, with low spawn rates and no block damage. | draft |
-| [Simple Dinosaurs](simpledinos.md) | `simpledinos` | `0.1.0-beta.1` | Beta | Fossils, brushable dinosaur eggs and the first dinosaur: a rideable T. rex that hatches and grows up. | draft |
-| [Simple Ores](simpleores.md) | `simpleores` | `0.1.0-beta.1` | Beta | Silver, lead, tin, rose gold and Enderite with tools, armor and metal blocks, End ores and the Astral and Nihil redstone lines. | draft |
+| [Simple Dinosaurs](simpledinos.md) | `simpledinos` | `0.1.0-beta.1` | Beta | Fossils, brushable dinosaur eggs and five rideable dinosaurs, from T. rex to Utahraptor, that hatch and grow up. | draft |
+| [Simple Ores](simpleores.md) | `simpleores` | `0.1.0-beta.1` | Beta | Silver, lead, tin and more metal blocks, rose gold and Enderite tools and armor, End ores and the Astral and Nihil redstone lines. | draft |
 | [Simple Machines](simplemachines.md) | `simplemachines` | `0.1.0-beta.1` | Beta | Double Piston, Signal Dampener, upgraded pistons, faster filter hoppers and carts, a Smither and an Auto Crafter. | draft |
-| [Simple Arrows](simplearrows.md) | `simplearrows` | `0.1.0-beta.1` | Beta | Fletching Table, Light Arrow and Silver Arrow: build arrows from tip, shaft and fletching. | draft |
+| [Simple Arrows](simplearrows.md) | `simplearrows` | `0.1.0-beta.1` | Beta | Fletching Table, Light Arrow and, with Simple Ores, Silver Arrow: build arrows from tip, shaft and fletching. | draft |
 | [Simple Resonance](simpleresonance.md) | `simpleresonance` | `0.1.0-beta.1` | Beta | Player value, danger zones and spawn owners: an API and gameplay layer for experience-aware spawning. | draft |
 | [Simple Foundry](simplefoundry.md) | `simplefoundry` | `0.1.0-beta.1` | Beta | A multiblock foundry for Simple Ovens: melt gold, copper and iron and pour it into casting trays. | draft |
-| [Simple Enchanting](simpleenchanting.md) | `simpleenchanting` | `0.1.0-beta.1` | Beta | Dark and Astral Enchanters above Vanilla's table: sliders, higher tiers and Protection V and Feather Falling V. | draft |
+| [Simple Enchanting](simpleenchanting.md) | `simpleenchanting` | `0.1.0-beta.1` | Beta | Dark and Astral Enchanters above Vanilla's table: sliders, higher tiers, Protection V and Feather Falling V (Astral needs Simple Ores). | draft |
 | [Simple Pads](simplepads.md) | `simplepads` | `0.1.0-beta.1` | Beta | Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter, Chunk Loader and upgraded pressure plates. | draft |
-| [Simple Building Tools](simplebuildingtools.md) | `simplebuildingtools` | `0.1.0-beta.1` | Beta | Building Wands from copper to Enderite, the Octant in 17 colors and the Blueprint with editor and picture import. | draft |
-| [Simple Chisels](simplechisels.md) | `simplechisels` | `0.1.0-beta.1` | Beta | Seven chisels from Stone to Enderite that step blocks along their family, with the Fast Chiseling enchantment. | draft |
+| [Simple Building Tools](simplebuildingtools.md) | `simplebuildingtools` | `0.1.0-beta.1` | Beta | Building Wands from copper to Enderite (with Simple Ores), the Octant in 17 colors and the Blueprint with editor and picture import. | draft |
+| [Simple Chisels](simplechisels.md) | `simplechisels` | `0.1.0-beta.1` | Beta | Seven chisels from Stone to Enderite (Enderite with Simple Ores) that step blocks along their family, with Fast Chiseling. | draft |
 | [Simple Slabs](simpleslabs.md) | `simpleslabs` | `0.1.0-beta.1` | Beta | Half slabs - 4 pixels thin - of every block with a slab, freely stacked in a cell and upright as side slabs. | draft |

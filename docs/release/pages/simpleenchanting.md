@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Dark and Astral Enchanters above Vanilla's table: sliders, higher tiers and Protection V and Feather Falling V.
+Dark and Astral Enchanters above Vanilla's table: sliders, higher tiers, Protection V and Feather Falling V (Astral needs Simple Ores).
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Dark and Astral Enchanters above Vanilla's table: sliders, higher tiers and Prot
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Enchanting adds the Dark Enchanter (three random enchantments with sliders up to Vanilla's maximum) and the Astral Enchanter (higher tier, Protection V and Feather Falling V). Both are made in the world with a hammer and nuggets.
+Simple Enchanting adds the Dark Enchanter (three random enchantments with sliders up to Vanilla's maximum) and, with Simple Ores, the Astral Enchanter (higher tier, Protection V and Feather Falling V). Both are made in the world with a sledgehammer (an axe without a hammer mod) and nuggets.
 
 ## Features
 
@@ -29,11 +29,12 @@ Simple Enchanting adds the Dark Enchanter (three random enchantments with slider
 
 ## Vanilla use
 
-Gives players two upgraded enchanting tables for higher tiers; the Vanilla enchanting table works as before.
+Gives players two upgraded enchanting tables for higher tiers (the second needs Simple Ores); the Vanilla enchanting table works as before.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Ores, Simple Hammers
 
 ## Compatibility
@@ -43,7 +44,7 @@ Gives players two upgraded enchanting tables for higher tiers; the Vanilla encha
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 
