@@ -22,7 +22,6 @@ Simple Quality of Life bundles seven sub-mods with one switch each, plus its own
 ## Features
 
 - **Commands**
-- **Experimental Forge 26.3** - Opt-in Forge adapter for the same server-controlled utilities.
 
 ## Dependencies
 

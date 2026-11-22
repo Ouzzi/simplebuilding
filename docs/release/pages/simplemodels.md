@@ -21,7 +21,13 @@ Simple Models lets the server approve custom item models, assign them at the anv
 
 ## Features
 
-- **Experimental Forge 26.3** - Opt-in Forge adapter with server-approved anvil models, catalog networking, JSON configuration, and server tests.
+- **Anvil Assignment** - Put an approved base item in the left anvil slot, leave the second slot empty, choose Models, then Assign and take the result.
+- **Model Browser** - The Models bookmark on the inventory, the creative inventory and the anvil opens the browser; while the recipe book is open it sits on the top edge.
+- **Folder Catalog and Resource Packs** - Add or remove JSON definitions in config/simplemodels/catalog on the server, then run /simplemodels reload.
+- **Example Models**
+- **Model Editor (preview)**
+- **Multiplayer Safety** - The server owns the catalog and policy.
+- **Compatibility with the Renamed mod** - Simple Models takes over from the older Renamed mod.
 
 ## Dependencies
 

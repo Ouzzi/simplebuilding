@@ -31,8 +31,8 @@ Simple Money adds a currency you can produce, weighted villager trades and money
 - **One price logic** - All 47 own offers follow one rule: one money bill is worth 3 diamonds or 16 emeralds (making a bill costs two diamonds plus gold, iron, resin and blast furnace time).
 - **Treasure currency** - One independent roll per chest.
 - **Server configuration**
-- **Experimental Forge 26.3** - Opt-in Forge adapter with shared items, recipes, trades, loot, JSON configuration, and the same server test catalog.
 - **Money Links: Add-on Trades** - Adds buy-only money offers for loaded mods without removing their original trades.
+- **Commands** - /simplemoney config shows and changes every option of config/simplemoney.json (list [group], get, set, reset, help; Tab completes options and values).
 
 ## Vanilla use
 
