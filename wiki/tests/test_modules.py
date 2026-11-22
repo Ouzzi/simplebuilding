@@ -266,5 +266,21 @@ class ModuleWikiTests(unittest.TestCase):
         self.assertEqual(inv['wiringexample']['commands'], ['b', 'a'])
         self.assertEqual(module_wiki.module_inventory(self.root / 'missing'), {})
 
+
+class MainDataNeedsModsTests(unittest.TestCase):
+    def test_simplebuilding_marks_what_exists_only_with_another_mod(self):
+        """O6a: SimpleBuilding's own wiki data marks items/blocks like the module wikis (generate.build -> mark_needs_mods)."""
+        data = json.loads((g.WIKI / 'data/simplebuilding.json').read_text(encoding='utf-8'))
+        recipes = {r['id']: r for r in data['recipes']}
+        marked = {(kind, e['id']): e['needsMods'] for kind in ('items', 'blocks') for e in data[kind] if e.get('needsMods')}
+        self.assertEqual(marked.get(('blocks', 'simplebuilding:brass_door_2x2')), ['simpleores'])
+        self.assertEqual(marked.get(('items', 'simplebuilding:ashwood_door_2x3')), ['simpleend'])
+        for (kind, identifier), needs in marked.items():
+            entry = next(e for e in data[kind] if e['id'] == identifier)
+            for recipe in entry['craftedBy']:
+                self.assertTrue(set(needs) <= set(recipes[recipe].get('needsMods', [])), (identifier, recipe))
+        self.assertFalse(any('simplebuilding' in needs for needs in marked.values()))
+
+
 if __name__ == '__main__':
     unittest.main()

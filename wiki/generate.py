@@ -2767,6 +2767,9 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
         "undocumented": undocumented,
         "incompleteProse": incomplete,
     }
+    # O6a: items/blocks made only by recipes that all load only with the same other mod get "needsMods" here too (the module
+    # wikis do it in modules.py build); the public wiki (assets/module-loader.js pruneHidden) drops them while that mod is hidden.
+    module_wiki.mark_needs_mods(data, {NS})
     return data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems
 
 
