@@ -1864,7 +1864,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleearth",
     "displayName": "Simple Earth",
-    "description": "The Overworld seen from orbit: from the render height (default 1536) the world becomes a slightly rounded cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colors sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below it everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+    "description": "The Overworld seen from orbit: from the render height (default 1536) the world folds into a cube (27 display versions, standard V25 folding world) whose faces show Vanilla map colors sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below it everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
     "version": "0.1.0-beta.1",
     "minecraft": "26.3",
     "loaders": [
