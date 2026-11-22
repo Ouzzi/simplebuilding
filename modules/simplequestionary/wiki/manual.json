@@ -45,7 +45,7 @@
           "An entry has the pages lore, use and secret, each a list of paragraphs. Placeholders: {name}, {mod}, {item:namespace:id}.",
           "Families (\"family:<name>\" with items by tag \"#ns:tag\" or \"regex:<path>\") describe many items at once; an item's own entry wins.",
           "Items without a text get one of 8 fallback variants per page and item class (block, tool, armor, food, other), chosen by a stable hash of the item id - the same in every world.",
-          "tools/questionary/check_data.py reports which items still lack a text; the coverage game test counts the same."
+          "An item without its own text still gets full pages from these fallback variants, so no questionary page stays empty."
         ]
       },
       "de": {
@@ -55,7 +55,7 @@
           "Ein Eintrag hat die Seiten lore, use und secret, je eine Liste von Absätzen. Platzhalter: {name}, {mod}, {item:Namensraum:ID}.",
           "Familien („family:<Name>“ mit Gegenständen per Tag „#ns:tag“ oder „regex:<Pfad>“) beschreiben viele Gegenstände auf einmal; ein eigener Eintrag gewinnt.",
           "Gegenstände ohne Text bekommen eine von 8 Ersatz-Varianten je Seite und Klasse (Block, Werkzeug, Rüstung, Essen, Sonstiges), gewählt über einen stabilen Hash der ID - in jeder Welt dieselbe.",
-          "tools/questionary/check_data.py meldet, welchen Gegenständen noch Text fehlt; der Abdeckungs-Spieltest zählt dasselbe."
+          "Auch ein Gegenstand ohne eigenen Text bekommt über diese Ersatz-Varianten volle Seiten, keine Fragentisch-Seite bleibt leer."
         ]
       }
     },

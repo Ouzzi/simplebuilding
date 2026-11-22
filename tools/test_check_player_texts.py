@@ -38,6 +38,14 @@ class FindingsTest(unittest.TestCase):
         self.assertEqual(kinds("x", "en", "Looks are placeholders until the owner picks a texture."), ["history"])
         self.assertEqual(kinds("x", "de", "Platzhalter, bis der Besitzer eine Textur wählt."), ["history"])
         self.assertEqual(kinds("x", "en", "The buyer waits until the owner closes his screen; SHA-1 and UTF-8 checks."), [])
+        # O5b: repo paths of developer tools in player text (simplequestionary + simplelivemap manuals had them)
+        self.assertEqual(kinds("x", "en", "tools/questionary/check_data.py reports which items still lack a text"), ["repopath"])
+        self.assertEqual(kinds("x", "de", "python3 tools/deploy/livemap/selfhost/livemap_static_sync.py --world <Weltordner>"), ["repopath"])
+        self.assertEqual(kinds("x", "en", "see wiki/generate.py"), ["repopath"])
+        # word pairs, resource-pack paths, URLs and the source repository's docs stay allowed
+        self.assertEqual(kinds("x", "en", "when tools/weapons are near full durability; common/rare trial chamber vault"), [])
+        self.assertEqual(kinds("x", "en", "Every mod describes its items in assets/<namespace>/questionary/<language>.json"), [])
+        self.assertEqual(kinds("x", "en", "Open https://wiki.simplemods.de/simplelivemap/features/x for more."), [])
         self.assertEqual(kinds("x", "en", "The restart was cancelled; it stays centred."), ["british", "british"])
         self.assertEqual(kinds("x", "de", "Farbe, cancelled"), [])  # British spelling only counts in English text
 

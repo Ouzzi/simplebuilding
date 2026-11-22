@@ -15,6 +15,9 @@ Findings:
              <mod>-<n> (simpleearth-2), "split stage 8c-1", branch names (b-polish110, claude-wave1), "PRINZIPIEN"
   * history  development dates (30.10., 23.10.2026, 2026-09-28), "owner"/"Besitzer" decisions ("(owner)",
              "owner decision", "waiting for the owner's choice", "the owner's filter principle"), "since bundle 198", "moved here from"/"hierher umgezogen"
+  * repopath repository paths of developer tools (tools/questionary/check_data.py, tools/deploy/livemap/..., modules/...,
+             src/..., wiki/generate.py): a player has no checkout; say what to use instead (O5b). Resource-pack paths
+             (assets/<namespace>/...) and word pairs ("tools/weapons") stay allowed; docs/ is not checked (see REPOPATH).
   * british  British spelling in English text (colour, grey, centre, armour, fuelled, cancelled, -ise verbs ...);
              the house style is American English (owner rule "EN amerikanisch").
   * umlaut   German text with umlauts/ß written as ASCII (fuer, ueber, koennen, muessen, Gewoelbe, groesse, Plaetze,
@@ -54,6 +57,14 @@ HISTORY = re.compile(
     r"|\b(?:the )?owner'?s [\w-]+ principle\b|\b[\w-]*Prinzip des Besitzers\b"  # N120: "(the owner's filter principle)"
     r"|\b(?:since|seit|before|vor|until|bis) (?:bundle|Bündel|Paket) \d+"
     r"|\bmoved here\b|\bhierher umgezogen\b", re.I)
+# O5b: repository paths of developer tools in player text (tools/questionary/check_data.py, tools/deploy/livemap/...):
+# a player has no checkout. A path = known repo root + at least two more parts or a file name with extension, so word
+# pairs ("tools/weapons", "common/rare") stay allowed; resource-pack paths (assets/<namespace>/...) too. docs/ is not
+# checked: those texts point to the published source repository on purpose ("... in the source repository").
+REPOPATH = re.compile(
+    r"(?<![\w./:<-])(?:tools|modules|wiki|src|common|mc26_3|build-logic|integration|gradle|scripts)"
+    r"(?:/[\w<>*-]+){2,}(?:\.[a-z0-9]+)?|(?<![\w./:<-])(?:tools|modules|wiki|src|common|mc26_3|build-logic|integration|gradle|scripts)"
+    r"/[\w<>*-]+\.(?:py|sh|js|cjs|json|md|java|gradle|kts|toml|conf|example|txt|html)\b")
 BRITISH = re.compile(
     r"\b(?:colour|armour|grey|favourite|neighbour|behaviour|catalogue|centre|metre|litre|honour|harbour|odour|vapour"
     r"|flavour|labour|defence|licence|travell|cancell|fuell|labell|modell|levell|dialogue|programme|jeweller"
@@ -118,6 +129,8 @@ def findings(mod: str, lang: str, text: str):
         yield "code", tok
     for m in HISTORY.finditer(text):
         yield "history", m.group(0)
+    for m in REPOPATH.finditer(text):
+        yield "repopath", m.group(0)
     if lang == "en":
         for m in BRITISH.finditer(text):
             yield "british", m.group(0)
@@ -185,12 +198,12 @@ def main(argv):
     if "--list" in argv or "--all-lang" in argv:
         print("\n".join(hits))
     if hits:
-        print(f"PLAYER_TEXTS FAIL: {len(hits)} internal code / development history / British spelling finding(s) in "
+        print(f"PLAYER_TEXTS FAIL: {len(hits)} internal code / development history / repo path / British spelling finding(s) in "
               "manual.json or lang files" + ("" if "--list" in argv else "; run with --list") +
               ". Rewrite in plain player language (or add a real name to ALLOW).")
         return 1
     print("PLAYER_TEXTS_OK: manual.json player fields, all lang values and questionary texts free of internal "
-          "codes, dev history, British spelling and ASCII umlauts (incl. questionary EN/DE)")
+          "codes, dev history, repo paths, British spelling and ASCII umlauts (incl. questionary EN/DE)")
     return 0
 
 
