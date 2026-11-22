@@ -22,7 +22,7 @@ Simple Arrows turns the Vanilla Fletching Table into a workbench that builds fou
 ## Features
 
 - **Light Arrow** - An arrow that lights the spot where it sticks - until it despawns like any arrow.
-- **Silver Arrow** - An arrow with a silver head that hits the undead harder (formerly part of Simple Ores).
+- **Silver Arrow** - An arrow with a silver head that hits the undead harder.
 - **Fletching Table** - Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows.
 - **Commands** - /simplearrows config [list | get | set | reset | help] (operators).
 
