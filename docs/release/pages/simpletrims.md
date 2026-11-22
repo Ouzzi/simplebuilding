@@ -17,7 +17,7 @@ Glowing, Emitting, Pulsating and Inverting armor trims, placeable trim templates
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Trims adds four new armor trim templates (glowing, emitting, pulsating, inverting), trim templates you can place in the world and trim upgrades. Ids from older SimpleBuilding versions migrate.
+Simple Trims adds four new armor trim templates (glowing, emitting, pulsating, inverting), trim templates you can place in the world and trim upgrades. Worlds from earlier SimpleBuilding versions keep their templates.
 
 ## Features
 
@@ -25,17 +25,18 @@ Simple Trims adds four new armor trim templates (glowing, emitting, pulsating, i
 - **Trim upgrades at the smithing table**
 - **Placed trim templates** - Sneak + use with any armor trim template lays it flat on the floor, against a wall or under a ceiling.
 - **Forging templates: axe or sledgehammer**
-- **Moved from SimpleBuilding** - The templates, their upgrade data, recipes and advancements used to be simplebuilding:*.
+- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 - **Commands** - /simpletrims config shows and changes every option of config/simpletrims-server.json (list [group], get, set, reset, help; Tab completes options and values).
 
 ## Vanilla use
 
-Adds four armor trim templates (glowing, emitting, pulsating, inverting), placeable templates and trim upgrades for players who like armor looks; Vanilla trims are unchanged. Glowing armor and held torches place invisible light blocks in the world (the hand light can be switched off in the config).
+Adds four armor trim templates (glowing, emitting, pulsating, inverting), placeable templates and trim upgrades for players who like armor looks; Vanilla trims are unchanged. Armor with the Radiance upgrade and held torches, lanterns and lava buckets place invisible light blocks in the world (only the mod's main switch turns this light off).
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, JEI
 
 ## Compatibility
@@ -45,7 +46,7 @@ Adds four armor trim templates (glowing, emitting, pulsating, inverting), placea
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

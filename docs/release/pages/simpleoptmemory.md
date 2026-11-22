@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Memory optimizations for block states and models; currently holds the switch, config and mod detection.
+Memory optimization for block states: shares their property and face tables, with switch, config and mod detection.
 
 ## Release channel: Beta
 
@@ -19,7 +19,7 @@ Memory optimizations for block states and models; currently holds the switch, co
 
 > No performance promises: the effect has not been measured across computers and mod packs yet, so this page names no FPS, memory or tick-time figures. Results depend on your hardware and the other mods you run.
 
-Simple Opt Memory is the home for memory optimizations. At the moment it provides the switch, the config and detection of other optimization mods.
+Simple Opt Memory is the home for memory optimizations. It shares the property, key and face-support tables of block states that hold the same values, and provides a switch, a config and detection of other optimization mods (it steps aside for FerriteCore).
 
 ## Features
 
@@ -30,6 +30,7 @@ Simple Opt Memory is the home for memory optimizations. At the moment it provide
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** none
 
 ## Compatibility
@@ -39,7 +40,7 @@ Simple Opt Memory is the home for memory optimizations. At the moment it provide
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Optimization. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Optimization: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

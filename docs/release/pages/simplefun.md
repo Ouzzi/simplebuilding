@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Bounded playful mechanics: throwable bricks and cosmetic transformations that stay safe for survival.
+Playful mechanics for survival: throwable bricks, toys and cosmetic transformations, each capped and switchable by the server.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Bounded playful mechanics: throwable bricks and cosmetic transformations that st
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Fun collects small playful mechanics, such as throwable bricks and cosmetic transformations. Every effect is bounded so it cannot break a world. The animal heads moved to Simple Mobheads.
+Simple Fun collects small playful mechanics, such as throwable bricks, toys and cosmetic transformations. Every effect is capped by the server, and bricks breaking glass is off by default.
 
 ## Features
 
@@ -36,11 +36,12 @@ Simple Fun collects small playful mechanics, such as throwable bricks and cosmet
 
 ## Vanilla use
 
-Adds small playful items and toys, each bounded so it cannot damage a world. On by default and each switchable: throwing items while sneaking, throwing bricks with right click, turning into a pig after eating pork (milk undoes it) and Knockback IV; breaking glass with bricks is off by default.
+Adds small playful items and toys, each capped by the server. On by default and each switchable: throwing items far while sneaking, throwing bricks with right click, a pig head after eating pork (milk undoes it) and Knockback IV; breaking glass with bricks is off by default.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Mod Menu, JEI, Jade
 
 ## Compatibility
@@ -50,7 +51,7 @@ Adds small playful items and toys, each bounded so it cannot damage a world. On 
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

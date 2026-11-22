@@ -30,6 +30,7 @@ Simple Farming makes common farming chores smoother: Feather Falling protects fa
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Quality of Life, Mod Menu
 
 ## Compatibility
@@ -39,7 +40,7 @@ Simple Farming makes common farming chores smoother: Feather Falling protects fa
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Quality of Life. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Quality of Life: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

@@ -6,6 +6,7 @@ from pages_data import P, V
 import pages_data
 LINKS = getattr(pages_data, "LINKS", {})
 G = getattr(pages_data, "G", {})
+FEATURE_TEXT = getattr(pages_data, "FEATURE_TEXT", {})
 from check_pages import FORBIDDEN
 R = pathlib.Path(__file__).resolve().parents[2]
 mods = json.load(open(R / "modules/modules.json"))["modules"]
@@ -20,11 +21,30 @@ SUPERS = {"simplebuilding", "simplequalityoflife", "simpleaesthetics", "simpleop
 # gradle.properties mod_version), release channel Beta on Modrinth and CurseForge, no performance promises.
 MOD_VERSION = re.search(r"^mod_version=(.+)$", (R / "gradle.properties").read_text(), re.M).group(1).strip()
 version = lambda m: MOD_VERSION if m["version"] == "${mod_version}" else m["version"]
+# Super-mod sub-mods without their own switch in the super mod's config (checked in SimplebuildingConfig / OvensConfig).
+NO_SWITCH = {"simplebuilding": ", except Simple Crucibles (switched in the Simple Ovens config) and Simple Tools,"}
 OPT = {"simpleoptimization", "simpleoptrender", "simpleoptmemory", "simpleoptserver"}
 BETA_NOTE = ("> **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, "
              "and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.")
 OPT_NOTE = ("> No performance promises: the effect has not been measured across computers and mod packs yet, so this page names "
             "no FPS, memory or tick-time figures. Results depend on your hardware and the other mods you run.")
+
+PLATFORM = {"fabricloader", "minecraft", "java", "fabric-api"}
+canon = lambda d: "cloth-config" if d == "cloth_config" else d
+
+def nested(i):
+    """Simple mods packed into this mod's Fabric jar (jar-in-jar), so a player never downloads them separately."""
+    if i == "simplebuilding":  # mc26_3/fabric/build.gradle: the release jar nests the required sub-mods (+ bundleOptional)
+        e = byid[i]
+        return {x for x in e.get("requires", []) + e.get("bundleOptional", []) if x in byid}
+    g = R / f"modules/{i}/fabric/build.gradle"
+    return set(re.findall(r"include project\(':modules:([a-z0-9]+):fabric'\)", g.read_text())) if g.exists() else set()
+
+def jar_requires(i):
+    """Hard dependencies of the Fabric jar: fabric.mod.json "depends" (SimpleBuilding: modules.json, the 26.3 build injects them)."""
+    if i == "simplebuilding": return {canon(x) for x in byid[i].get("requires", [])}
+    f = R / f"modules/{i}/fabric/src/main/resources/fabric.mod.json"
+    return {canon(x) for x in json.load(open(f)).get("depends", {})} - PLATFORM
 
 def clean(t):
     t = t.strip()
@@ -40,6 +60,9 @@ def features(i):
             t = clean(en.get("title", ""))
             if not t or t.startswith("Trade: "): continue  # raw trade ids read badly; the Vanilla-use text describes the offers
             s = clean((en.get("summary", "").split(". ")[0]).rstrip("."))
+            if (i, x.get("id")) in FEATURE_TEXT:  # store wording for a manual feature (None = not on the store page)
+                if FEATURE_TEXT[(i, x.get("id"))] is None: continue
+                t, s = FEATURE_TEXT[(i, x.get("id"))]
             out.append(f"- **{t}**" + (f" - {s}." if s and len(s) <= 170 else ""))
     return out[:12]
 
@@ -48,13 +71,19 @@ for m in mods:
     i = m["id"]
     if i not in P or m.get("example") or m.get("release") is False: continue  # examples and "release": false (REL75) get no store page
     summ, over, cats, tags = P[i]
-    req = [nm(x) for x in m.get("requires", [])]
-    opt = [nm(x) for x in m.get("optional", [])]
-    parents = [nm(o["id"]) for o in mods if i in o.get("requires", []) and o["id"] != i and o.get("release") is not False and not o.get("example")]  # unreleased mods are no parent on a store page
-    simple_req = [x for x in m.get("requires", []) if x in byid]
-    if i in SUPERS: rel = f"**Super mod.** It requires its sub-mods ({', '.join(nm(x) for x in simple_req)}); each sub-mod can be switched off in the config (\"Enable Simple XY\") and each can also be installed without the super mod."
-    elif parents: rel = f"**Sub-mod** of {', '.join(parents)}. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed."
-    else: rel = "**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together."
+    inc = nested(i)
+    need = jar_requires(i)
+    req = [nm(x) for x in sorted(need - inc, key=lambda x: (x in byid, nm(x)))]  # separate downloads: external mods first
+    incl = [nm(x) for x in dict.fromkeys(["simplelib"] + m.get("requires", []) + sorted(inc)) if x in inc]  # SimpleLib first
+    opt = [nm(x) for x in dict.fromkeys(m.get("optional", []) + [x for x in m.get("requires", []) if canon(x) not in need]) if x not in inc]
+    released = lambda o: o.get("release") is not False and not o.get("example") and o["id"] != i
+    supers = [nm(o["id"]) for o in mods if o["id"] in SUPERS and released(o) and i in nested(o["id"])]
+    needed_by = [nm(o["id"]) for o in mods if released(o) and o["id"] not in SUPERS and i in jar_requires(o["id"]) and i not in nested(o["id"])]
+    by = f" Simple mods that need it as a separate download: {', '.join(needed_by)}." if needed_by else ""
+    if i in SUPERS: rel = f"**Super mod.** Its sub-mods ({', '.join(x for x in incl if x != 'SimpleLib')}) are included in this download; each can be switched off in the config (\"Enable Simple XY\"){NO_SWITCH.get(i, '')} and each is also available on its own."
+    elif i == "simplelib": rel = "**Library.** Every Simple mod includes SimpleLib in its own download, so you never have to install it by hand."
+    elif supers: rel = f"**Sub-mod** of {', '.join(supers)}: included in that download, and it also runs on its own with the required mods above.{by}"
+    else: rel = f"**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.{by}"
     lines = [f"# {m['name']} - store page draft", "", "Status: **draft**", "",
         "## Summary (Modrinth, max 150 characters)", "", summ, "",
         "## Release channel: Beta", "", f"- Version number: `{version(m)}`",
@@ -66,8 +95,8 @@ for m in mods:
     if i in G: lines += ["## Good to know", "", f"- {G[i]}", ""]
     lines += ["## Dependencies", "",
         "- **Required:** Fabric API" + "".join(f", {x}" for x in req) + ("" if req else " (no other mods)"),
-        "- **Optional:** " + (", ".join(opt) if opt else "none"),
-        "<!-- Cloth Config moves from required to optional once the optional-Cloth change lands; adjust then. -->" if "Cloth Config" in req else "",
+        *([f"- **Included in this download:** {', '.join(incl)}"] if incl else []),
+        "- **Optional:** " + (", ".join(opt) if opt else "none"), "",
         "## Compatibility", "", "- Minecraft 26.3, Fabric Loader 0.19.5 or newer, Java 25",
         "- Fabric only for now.", "", "## Part of the Simple family", "", rel, "",
         "## License", "", "All Rights Reserved with source-available code. Contributions need the contributor license agreement (CLA). Earlier SimpleBuilding versions stay CC0.", "",

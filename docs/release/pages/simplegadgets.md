@@ -17,7 +17,7 @@ Six held gadgets: Gauge, Transposer, Resonance Rod, Detector, Attractor and an E
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Gadgets collects tools you hold and use: the Gauge (speed, altimeter, auto-walk), the Transposer that turns blocks and poses armor stands, the Resonance Rod with its aiming dot that melts and lights, the Detector that points to ores, the Attractor that pulls loose items, and the Echo Sounder that jumps you back to a linked lodestone. They tell you things with sounds, particles and the item itself, never with text on the screen.
+Simple Gadgets collects tools you hold and use: the Gauge (speed, altimeter, auto-walk), the Transposer that turns blocks and poses armor stands, the Resonance Rod with its aiming dot that melts and lights, the Detector that points to ores, the Attractor that pulls loose items, and the Echo Sounder that jumps you back to a linked lodestone. Apart from the Gauge's readout box, they tell you things with sounds, particles and the item itself, not with text on the screen.
 
 ## Features
 
@@ -28,16 +28,17 @@ Simple Gadgets collects tools you hold and use: the Gauge (speed, altimeter, aut
 - **Echo Sounder** - Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels.
 - **Resonance Rod** - The Resonance Rod projects a light amethyst aiming dot while held in use.
 - **Readout box**
-- **Moved from SimpleBuilding** - The Gauge, the Transposer and the Resonance Rod, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*).
+- **Older worlds** - Items and blocks from worlds of earlier SimpleBuilding versions keep working and are saved under this mod's ids.
 - **Creative tabs** - The module's items sit in its own creative tab only (no Vanilla tabs).
 
 ## Vanilla use
 
-Gives builders and miners hand-held helpers (gauge, transposer, detector, attractor, rod); they only work while held, and a few client mixins add HUD and view effects.
+Gives builders and miners hand-held helpers (gauge, transposer, detector, attractor, rod); they work while held (the Detector and Attractor also when placed), and a few client mixins add HUD and view effects.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding
 
 ## Compatibility
@@ -47,7 +48,7 @@ Gives builders and miners hand-held helpers (gauge, transposer, detector, attrac
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

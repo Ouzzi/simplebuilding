@@ -21,7 +21,6 @@ Simple Interfaces restyles the Vanilla container screens with a colored box per 
 
 ## Features
 
-- **Style comparison switch** - In development, or when showStyleToggle is enabled, the button and unbound key toggle all SimpleLib-based screens between the Simple style and Vanilla.
 - **Simple container style**
 - **Simple style for workstations** - Crafting table, furnace, blast furnace, smoker, brewing stand, beacon and enchanting table screens get the Simple style in the block's color.
 - **Simple style for anvil, loom & co.**
@@ -33,10 +32,12 @@ Simple Interfaces restyles the Vanilla container screens with a colored box per 
 - **Commands** - /simpleinterfaces config shows and changes every option of config/simpleinterfaces-server.json (list [group], get, set, reset, help; Tab completes options and values).
 - **Spyglass and zoom** - The spyglass darkens only the screen edge, hides the HUD (crosshair stays) and zooms steplessly with the mouse wheel.
 - **Clearer slot highlight** - The highlight of the hovered slot is drawn only behind the item, so the item stays fully visible.
+- **Leggings fix** - The missing underside of the leggings legs is filled when the textures load, so legs are no longer open from below.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Mod Menu
 
 ## Compatibility
@@ -46,7 +47,7 @@ Simple Interfaces restyles the Vanilla container screens with a colored box per 
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Quality of Life. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Quality of Life: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

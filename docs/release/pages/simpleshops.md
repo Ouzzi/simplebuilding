@@ -40,7 +40,8 @@ Lets players sell goods from a block and a display case on a server; Vanilla vil
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Money, Simple Tweaks
 
 ## Compatibility
@@ -50,7 +51,7 @@ Lets players sell goods from a block and a display case on a server; Vanilla vil
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

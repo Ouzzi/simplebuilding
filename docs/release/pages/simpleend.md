@@ -35,12 +35,13 @@ Simple End adds Ashwood and Duskwood with buds, trees and stick scrub, End grass
 
 ## Vanilla use
 
-Adds new wood, plants and two biomes on the outer End islands for players who explore past the dragon; the main island and the Vanilla End are unchanged.
+Adds new wood, plants and two biomes on the outer End islands for players who explore past the dragon; the biomes replace only rare patches of the outer islands and never touch the dragon island, and the bundled Simple End Dragon Fight (switchable) scales the dragon fight with the number of players.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
-- **Optional:** Simple End Dragon Fight
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib, Simple End Dragon Fight
+- **Optional:** none
 
 ## Compatibility
 
@@ -49,7 +50,7 @@ Adds new wood, plants and two biomes on the outer End islands for players who ex
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

@@ -30,6 +30,7 @@ Lets you melt gold, copper and iron and cast it again in a multiblock, one ingot
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Simple Ovens
 
 ## Compatibility
@@ -39,7 +40,7 @@ Lets you melt gold, copper and iron and cast it again in a multiblock, one ingot
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

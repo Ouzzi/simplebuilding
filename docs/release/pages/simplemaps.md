@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar and cartography upgrades.
+Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar and cartography table copies and merges.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator b
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Maps adds endless maps per dimension with zoom, waypoints shown in the locator bar, framed views and cartography table upgrades.
+Simple Maps adds endless maps per dimension with zoom, waypoints shown in the locator bar, framed views, and copying, extending and combining at the cartography table.
 
 ## Features
 
@@ -39,7 +39,8 @@ Gives explorers endless maps per dimension with waypoints and picture maps; Vani
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Simple Money, Simple Ores
 
 ## Compatibility
@@ -49,7 +50,7 @@ Gives explorers endless maps per dimension with waypoints and picture maps; Vani
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

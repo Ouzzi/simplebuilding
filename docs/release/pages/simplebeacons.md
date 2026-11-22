@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Strong Beacon and Strong Conduit with more pyramid levels, extra effects and bigger ranges.
+Strong, Mighty and Evil beacons and conduits with more pyramid levels, extra effects and bigger ranges.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Strong Beacon and Strong Conduit with more pyramid levels, extra effects and big
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Beacons adds the Strong Beacon (six pyramid levels, ten more effects, range by pyramid material) and the Strong Conduit (up to 216 blocks under water, Dolphin's Grace), both upgraded with the Strong Upgrade template from SimpleLib.
+Simple Beacons adds the Strong Beacon (five pyramid levels, five more effects, range by pyramid material), the Mighty Beacon (six levels), Evil beacons that weaken (their template is crafted with Simple Mobs), and stronger conduits (the Strong Conduit reaches up to 216 blocks under water and gives Dolphin's Grace), upgraded with the Strong Upgrade template from SimpleLib.
 
 ## Features
 
@@ -36,11 +36,12 @@ Simple Beacons adds the Strong Beacon (six pyramid levels, ten more effects, ran
 
 ## Vanilla use
 
-Gives late-game players a stronger beacon and conduit to build towards; the Vanilla beacon and conduit stay as they are.
+Gives late-game players stronger beacons and conduits to build towards; the Vanilla conduit stays as it is, and the Vanilla beacon only gains range from Gold, Emerald, Diamond and Netherite pyramid blocks (switchable).
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Ores, Simple Mobs
 
 ## Compatibility
@@ -50,7 +51,7 @@ Gives late-game players a stronger beacon and conduit to build towards; the Vani
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

@@ -31,12 +31,13 @@ Simple Sandwiches adds a cutting board, a kitchen knife, cheese and butter from 
 
 ## Vanilla use
 
-Adds sandwiches, butter and cheese as food built on a cutting board; Vanilla food is not changed.
+Adds sandwiches built on a cutting board, with butter and cheese from a milk cauldron; Vanilla food is not changed.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
-- **Optional:** SimpleBuilding, Simple End, Simple Crucibles, Simple Ores, Simple Animals
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib, Simple Crucibles
+- **Optional:** SimpleBuilding, Simple End, Simple Ores, Simple Animals
 
 ## Compatibility
 
@@ -45,7 +46,7 @@ Adds sandwiches, butter and cheese as food built on a cutting board; Vanilla foo
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

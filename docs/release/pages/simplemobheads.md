@@ -17,19 +17,19 @@ A head for every mob: charged creeper drops, wearable, placeable and playable on
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Mobheads gives every mob a head. Heads drop when a charged creeper's explosion kills the mob, can be worn for a small secret, placed, or played on a note block.
+Simple Mobheads gives every mob a head. Heads drop when a charged creeper's explosion kills the mob and can be placed, played on a note block or worn, and some hide a small secret.
 
 ## Features
 
-- **A Head for Every Mob** - 97 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding, plus four secret heads.
+- **A Head for Every Mob** - 97 heads: every mob of 26.3 that has no Vanilla head, the mobs of the Simple mods and more, plus four secret heads.
 - **Charged Creeper Drops** - Only a charged creeper's explosion drops a mob's head, like Vanilla's creeper, zombie and skeleton heads: one head per explosion.
 - **Variants** - A head keeps its mob's variant: a Siamese cat drops a Siamese cat head, a red sheep a red sheep head.
 - **Wearing, Placing, Note Blocks** - Worn on the head, a mob's head makes that mob see you only half as far (like Vanilla's zombie head).
 - **Head Abilities** - 28 heads hide a small, harmless ability while worn, each with its own server switch.
 - **Greeting** - Sneaking with a mob head on plays its mob's voice quietly with a few notes, at most every five seconds (server switch).
-- **Player Heads** - A player killed by another player drops their own head with their skin (server switch, default on; moved in from Simple Fun).
+- **Player Heads** - A player killed by another player drops their own head with their skin (server switch, default on).
 - **Server Commands** - Permission level 2: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.
-- **Moved In** - Simple Fun's four animal heads and SimpleBuilding's twelve mob heads are Simple Mobheads heads now; old worlds keep them.
+- **Older worlds** - The animal heads of earlier Simple Fun versions and the mob heads of earlier SimpleBuilding versions keep working as Simple Mobheads heads.
 - **Simple Mods' Mobs**
 - **Creative Tab** - Own tab "Simple Mob Heads" with every head and variant; no Vanilla tabs, the search tab finds the heads through it.
 - **He Was Never Removed** - A secret head that no mob drops.
@@ -40,7 +40,8 @@ Gives every mob a collectible head for decoration and note blocks, dropped when 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Mobs, Simple End, Simple End Dragon Fight, JEI, Mod Menu, Cloth Config
 
 ## Compatibility
@@ -50,7 +51,7 @@ Gives every mob a collectible head for decoration and note blocks, dropped when 
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding, Simple Pads. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above. Simple mods that need it as a separate download: Simple Pads.
 
 ## License
 

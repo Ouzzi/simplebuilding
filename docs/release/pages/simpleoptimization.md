@@ -28,7 +28,8 @@ Simple Optimization has no content of its own. It bundles three optimization sub
 
 ## Dependencies
 
-- **Required:** Fabric API, Simple Opt Render, Simple Opt Memory, Simple Opt Server
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib, Simple Opt Render, Simple Opt Memory, Simple Opt Server
 - **Optional:** none
 
 ## Compatibility
@@ -38,7 +39,7 @@ Simple Optimization has no content of its own. It bundles three optimization sub
 
 ## Part of the Simple family
 
-**Super mod.** It requires its sub-mods (Simple Opt Render, Simple Opt Memory, Simple Opt Server); each sub-mod can be switched off in the config ("Enable Simple XY") and each can also be installed without the super mod.
+**Super mod.** Its sub-mods (Simple Opt Render, Simple Opt Memory, Simple Opt Server) are included in this download; each can be switched off in the config ("Enable Simple XY") and each is also available on its own.
 
 ## License
 

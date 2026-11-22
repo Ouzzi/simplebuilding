@@ -21,10 +21,10 @@ Simple Questionary adds a table that explains any item you put in, in an open bo
 
 ## Features
 
-- **Questionary Table** - Put an item into the slot on the left: the open book on the right tells its lore, its use and a secret.
+- **Questionary Table** - Put an item into the slot in the middle: the open book around it tells its lore, its use and a secret.
 - **Questionary texts** - Every mod describes its own items in assets/<namespace>/questionary/<language>.json; resource packs can add or replace entries.
 - **Placeholder texts** - Items without their own text still get a page: a short mood text picked from eight variants per item class, so the same item reads the same in every world.
-- **Recipe facts (read recipes)** - The book reads the recipes of the world for the item in the slot and lists what it is made from and what it makes, with the crafting station.
+- **Recipe facts** - The book reads the recipes of the world for the item in the slot and lists what it is made from and what it makes, with the crafting station.
 - **Commands** - /simplequestionary config shows and changes every option of config/simplequestionary.json (list [group], get, set, reset, help; Tab completes options and values).
 
 ## Vanilla use
@@ -33,7 +33,8 @@ Explains any item you put in a table, for newcomers; it adds no gameplay of its 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** none
 
 ## Compatibility
@@ -43,7 +44,7 @@ Explains any item you put in a table, for newcomers; it adds no gameplay of its 
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

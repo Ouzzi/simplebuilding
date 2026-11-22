@@ -30,11 +30,12 @@ Simple Wanderers adds one Wandering Trader per village with a leashed horse. Goo
 
 ## Vanilla use
 
-Gives every village a wandering trader with a horse and, in return, moves the everyday half (47 of 78) of the Vanilla Wandering Trader's goods to him; the traveling trader keeps the rest, plus anything other mods add to the Vanilla trade lists. Off in the config, the Vanilla trader is untouched.
+Gives every village a wandering trader with a horse and, in return, moves the everyday half of the Vanilla Wandering Trader's goods (47 of his 78 common goods) to him; the traveling trader keeps the rest, plus anything other mods add to the Vanilla trade lists. Off in the config, the Vanilla trader is untouched.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Simple Money, Simple Mobheads
 
 ## Compatibility
@@ -44,7 +45,7 @@ Gives every village a wandering trader with a horse and, in return, moves the ev
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

@@ -4,7 +4,7 @@ Status: **draft**
 
 ## Summary (Modrinth, max 150 characters)
 
-Mute mobs by type or name tag, keep named babies young and let piglins ignore gold trims and tools.
+Mute mobs by type or name tag, catch frogs in a bucket and let piglins ignore gold trims and tools.
 
 ## Release channel: Beta
 
@@ -17,7 +17,7 @@ Mute mobs by type or name tag, keep named babies young and let piglins ignore go
 
 > **Beta.** This mod is released as a beta: features, balance and config options can still change between versions, and bugs are possible. Back up your world before you install or update it, and report problems on the issue tracker.
 
-Simple Mob Manners gives you control over annoying mob behavior: mute mobs, keep named babies young and make piglins ignore gold trims and tools.
+Simple Mob Manners gives you control over annoying mob behavior: mute mobs, make piglins ignore gold trims and tools, and catch frogs in a bucket.
 
 ## Features
 
@@ -31,6 +31,7 @@ Simple Mob Manners gives you control over annoying mob behavior: mute mobs, keep
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Simple Quality of Life, Mod Menu
 
 ## Compatibility
@@ -40,7 +41,7 @@ Simple Mob Manners gives you control over annoying mob behavior: mute mobs, keep
 
 ## Part of the Simple family
 
-**Sub-mod** of Simple Quality of Life. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of Simple Quality of Life: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

@@ -36,11 +36,12 @@ Simple Money adds a currency you can produce, weighted villager trades and money
 
 ## Vanilla use
 
-Adds a currency, weighted villager trades and treasure loot so survival worlds get an economy. Making a bill is deliberately expensive (about 3 diamonds each), so money is a sink for diamonds and gold, not a loophole. Villagers and the wandering trader get extra offers (a few Vanilla goods for bills, goods of other Simple mods for bills, bills for diamonds); Vanilla offers stay in the pool and no Vanilla loot table is replaced. Offers that remove Vanilla scarcity (budding amethyst, diamond ore) are off by default.
+Adds a currency, weighted villager trades and treasure loot so survival worlds get an economy. Making a bill is deliberately expensive (two diamonds plus gold, iron and resin each), so money is a sink for diamonds and gold, not a loophole. Villagers and the wandering trader get extra offers (a few Vanilla goods for bills, goods of other Simple mods for bills, bills for diamonds); Vanilla offers stay in the pool and no Vanilla loot table is replaced. Offers that remove Vanilla scarcity (budding amethyst, diamond ore) are off by default.
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib
+- **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** JEI, Mod Menu, SimpleBuilding, Simple Fun, Simple Models, Simple Quality of Life, Simple Riding, Simple Sandwiches, Simple Sounds, Simple Tweaks, Simple Visuals, Simple Ores
 
 ## Compatibility
@@ -50,7 +51,7 @@ Adds a currency, weighted villager trades and treasure loot so survival worlds g
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 

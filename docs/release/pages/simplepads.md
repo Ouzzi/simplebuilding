@@ -37,7 +37,8 @@ Adds launch, flight, potion and teleport pads plus stronger pressure plates for 
 
 ## Dependencies
 
-- **Required:** Fabric API, SimpleLib, Simple Ores, Simple Mobheads
+- **Required:** Fabric API, Simple Mobheads, Simple Ores
+- **Included in this download:** SimpleLib
 - **Optional:** SimpleBuilding, Jade
 
 ## Compatibility
@@ -47,7 +48,7 @@ Adds launch, flight, potion and teleport pads plus stronger pressure plates for 
 
 ## Part of the Simple family
 
-**Sub-mod** of SimpleBuilding. It is a required part of the super mod, and it loads without it as long as its own required mods above are installed.
+**Sub-mod** of SimpleBuilding: included in that download, and it also runs on its own with the required mods above.
 
 ## License
 

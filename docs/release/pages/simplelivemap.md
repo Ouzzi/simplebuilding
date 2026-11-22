@@ -34,6 +34,7 @@ Simple Livemap draws a web map from the chunks players visited and the maps they
 ## Dependencies
 
 - **Required:** Fabric API (no other mods)
+- **Included in this download:** SimpleLib
 - **Optional:** Simple Maps
 
 ## Compatibility
@@ -43,7 +44,7 @@ Simple Livemap draws a web map from the chunks players visited and the maps they
 
 ## Part of the Simple family
 
-**Standalone mod.** It works on its own; other Simple mods add optional extras when installed together.
+**Standalone mod.** It is not part of a super mod; install it on its own with the required mods above.
 
 ## License
 
