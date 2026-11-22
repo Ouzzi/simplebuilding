@@ -2954,6 +2954,13 @@ def main_with_textures() -> int:
     import modules as module_wiki
     import textures
     entries = module_wiki.discover(REPO)
+    # O6b: the cross-mod index (counts, names, pictures) - the page loads a mod's full data only when it shows it.
+    import wiki_index
+    problems = wiki_index.sync(WIKI, check=args.check)
+    for problem in problems:
+        print("PROBLEM:", problem)
+    if problems:
+        return 1
     if args.ui_shots:
         if not args.ui_shots.is_dir():
             print(f"PROBLEM: --ui-shots {args.ui_shots} is not a folder")

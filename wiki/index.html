@@ -1127,7 +1127,6 @@ a.qn-slot:hover { background: #a6a6a6; text-decoration: none; }
     <main id="main" tabindex="-1"></main>
   </div>
 </div>
-<script src="data/simplebuilding.js"></script>
 <script src="data/modules.js"></script>
 <script src="data/local-only.js"></script>
 <script src="assets/module-loader.js"></script>
@@ -1513,7 +1512,7 @@ en: {
   noDataTitle: 'No data',
   noDataBody: '<p><code>wiki/data/simplebuilding.js</code> was not loaded, or it does not set <code>window.WIKI_DATA</code>.</p><p>Generate it with <code>python wiki/generate.py</code> in the repository root, then reload this page.</p>',
   docTitleNoData: 'SimpleBuilding Wiki – no data',
-  renderError: 'Error while building the page',
+  renderError: 'Error while building the page', lazyLoading: 'Loading the data of all mods …', lazyFailed: 'The data of the other mods could not be loaded: {0}',
   titleError: 'Error',
   titleNotFound: 'Not found',
   emptyPage: 'This page is empty – <a href="#/">back to the overview</a>.',
@@ -2056,7 +2055,7 @@ de: {
   noDataTitle: 'Keine Daten',
   noDataBody: '<p><code>wiki/data/simplebuilding.js</code> wurde nicht geladen oder setzt <code>window.WIKI_DATA</code> nicht.</p><p>Erzeugen mit <code>python wiki/generate.py</code> im Repo-Wurzelverzeichnis, dann diese Seite neu laden.</p>',
   docTitleNoData: 'SimpleBuilding Wiki – keine Daten',
-  renderError: 'Fehler beim Aufbau der Seite',
+  renderError: 'Fehler beim Aufbau der Seite', lazyLoading: 'Daten aller Mods werden geladen …', lazyFailed: 'Die Daten der anderen Mods konnten nicht geladen werden: {0}',
   titleError: 'Fehler',
   titleNotFound: 'Nicht gefunden',
   emptyPage: 'Diese Seite ist leer – <a href="#/">zur Übersicht</a>.',
@@ -2303,6 +2302,67 @@ function fmtStat(x) { return Number(x).toLocaleString(LANG === 'de' ? 'de-DE' : 
 /* ------------------------------------------------------------------ */
 var MODULES = arr(window.WIKI_MODULES);
 var MODULE_DATA = window.WIKI_MODULE_DATA || { simplebuilding: window.WIKI_DATA };
+/* O6b: mod data on demand (assets/module-loader.js). MODULE_DATA holds the mods loaded so far (the shown mod with its
+   sub-mods; everything on root pages); WIDX = data/index.js (wiki/wiki_index.py): counts, names and pictures of every
+   mod. LIGHT = the root start page, which loads no mod data and takes its numbers from the index. Data of other mods
+   never enters D (the scope is fixed per page load), so a late load only refreshes the lists that read foreign data. */
+var WIDX = (window.WIKI_INDEX && window.WIKI_INDEX.mods) || {};
+var LIGHT = !!window.WIKI_LIGHT;
+function hasData(id) { return !!MODULE_DATA[id] || !!WIDX[id]; }
+function allLoaded() { return !window.WIKI_HAS_ALL || window.WIKI_HAS_ALL(); }
+var LAZY = { state: 0, error: '' }; // 0 = not asked, 1 = loading, 2 = done, 3 = failed
+var LAZY_ROUTES = { guidebook: 1, browse: 1, search: 1 };
+/* true when the data of every mod is there; otherwise starts loading it once and refreshes the page when it arrives */
+function needAll() {
+  if (allLoaded()) return true;
+  if (LAZY.state === 0 && window.WIKI_LOAD_ALL) {
+    LAZY.state = 1;
+    window.WIKI_LOAD_ALL().then(function () { LAZY.state = 2; lazyArrived(); },
+      function (err) { LAZY.state = 3; LAZY.error = err && err.message ? err.message : String(err); lazyArrived(); });
+  }
+  return false;
+}
+function lazyArrived() {
+  GX = null; BR_NAMES = null; BR.cache = null; SEARCH_MODS = {}; FAM_COUNTS = {}; GB_ALIAS = {};
+  if (LAZY_ROUTES[currentRoute().section]) render({ keepScroll: true });
+  if (!$qs.hidden) renderQs();
+}
+function lazyHint() {
+  return LAZY.state === 3 ? '<div class="box box-danger" role="alert">' + esc(T('lazyFailed', LAZY.error)) + '</div>'
+    : '<p class="hint wiki-loading" role="status">' + esc(T('lazyLoading')) + '</p>';
+}
+/* A page needs data this page load does not have (the light start page, or an address the loader read differently):
+   reload with the flag that makes the loader take every mod (once - it clears the flag). */
+function goFull() {
+  try { window.sessionStorage.setItem('wiki-load-all', '1'); } catch (err) { /* without storage the loader is never light */ }
+  location.reload();
+}
+/* Index entry as a stand-in for a data entry: [id, name en, name de, icon, texture, needsMods] */
+function stubEntry(e) { return { id: e[0], name: { en_us: e[1] || '', de_de: e[2] || '' }, icon: e[3] || null, texture: e[4] || null, stub: true }; }
+var WIDX_SETS = {};
+/* Page of a foreign id from the index (the mod's data is not loaded): [section, id] as hrefFor would find it */
+function indexHit(mid, id) {
+  var m = WIDX[mid];
+  if (!m) return null;
+  var sets = WIDX_SETS[mid];
+  if (!sets) {
+    sets = WIDX_SETS[mid] = {};
+    var first = function (e) { return Array.isArray(e) ? e[0] : e; };
+    [['items', 'items'], ['blocks', 'blocks'], ['enchantments', 'ench'], ['features', 'features'], ['tags', 'tags']].forEach(function (k) {
+      sets[k[0]] = {}; arr(m[k[1]]).forEach(function (e) { sets[k[0]][first(e)] = 1; });
+    });
+    sets.recipes = {};
+    arr(m.recipes).forEach(function (r) { sets.recipes[r.indexOf(':') < 0 ? mid + ':' + r : r] = 1; });
+  }
+  var order = ['items', 'blocks', 'enchantments', 'recipes', 'features', 'tags'];
+  for (var i = 0; i < order.length; i++) {
+    var want = order[i] === 'features' ? [id, pathOf(id)] : [id];
+    for (var j = 0; j < want.length; j++) if (sets[order[i]][want[j]]) return [order[i], want[j]];
+  }
+  return null;
+}
+/* Sum of an index count over mods (light start page sidebar) */
+function indexCount(ids, key) { return ids.reduce(function (n, id) { var m = WIDX[id]; return n + (m && m.counts ? num(m.counts[key], 0) : 0); }, 0); }
 var modParams = new URLSearchParams(location.search);
 /* ------------------------------------------------------------------ */
 /* Modpack-Auswahl (b-site01): welcher Teil der Simple-Mods gezeigt   */
@@ -2352,8 +2412,8 @@ var PACK = packParse(modParams.get('pack') || (function () { try { return localS
 function inPack(id) { return !!PACK.set[id]; }
 /* Startmod eines Packs: sein Kopf (Super-Mod/Mod), sonst der erste Pack-Mod mit Wiki-Daten. */
 function packHome() {
-  if (PACK.root && MODULE_DATA[PACK.root]) return PACK.root;
-  var have = PACK.ids.filter(function (id) { return MODULE_DATA[id]; });
+  if (PACK.root && hasData(PACK.root)) return PACK.root;
+  var have = PACK.ids.filter(hasData);
   return have.filter(packIsSuper)[0] || have.filter(function (id) { return id !== 'simplelib'; })[0] || have[0] || 'simplebuilding';
 }
 /* ------------------------------------------------------------------ */
@@ -2370,7 +2430,7 @@ var BASE = MODPATH ? (BASE_EL.getAttribute('href') || '/') : '';
 if (MODPATH && BASE.charAt(BASE.length - 1) !== '/') BASE += '/';
 /* Abschnitte, deren Ids einen Namespace tragen: im Pfad ohne den eigenen ("/simpleend/items/ashwood_boat"). */
 var NS_SECTIONS = { items: 1, blocks: 1, recipes: 1, loot: 1, trades: 1, enchantments: 1, tags: 1, make: 1, use: 1, tree: 1 };
-function wikiMod(id) { return !!id && !!MODULE_DATA[id] && !PACK_HIDDEN[id] && !!modMetaRaw(id); }
+function wikiMod(id) { return !!id && hasData(id) && !PACK_HIDDEN[id] && !!modMetaRaw(id); }
 function modMetaRaw(id) { for (var i = 0; i < MODULES.length; i++) if (MODULES[i].id === id) return MODULES[i]; return null; }
 /* Pfad relativ zur Basis: "simpleend/items/ashwood_boat" -> { mod, section, id } */
 function pathParts(path) {
@@ -2472,6 +2532,14 @@ function scopeData(ids) {
 }
 function originOf(kind, id) { return ORIGIN.get(kind + '|' + id) || null; }
 var D = scopeData(SCOPE);
+/* O6b: the light start page has no mod data - a stand-in with the first scope mod's head and empty lists. */
+if (!D && LIGHT && SCOPE.length) D = (function () {
+  var h = (WIDX[SCOPE[0]] || {}).head || {}, out = { mod: h.mod || {}, generatedFrom: h.generatedFrom || {} };
+  SCOPE_ARRAYS.forEach(function (k) { out[k] = []; });
+  out.inWorld = { kinds: [], entries: [] }; out.obtain = { sources: [], timeStreams: [] }; out.incompleteProse = {}; out.counts = {};
+  return out;
+})();
+var SCOPE_MISSING = !LIGHT && SCOPE.some(function (id) { return !MODULE_DATA[id]; });
 function modChildren(id) { return MODULES.filter(function (c) { return c.parent === id && !PACK_HIDDEN[c.id]; }); }
 function modMeta(id) { return MODULES.find(function (e) { return e.id === id; }) || null; }
 function modIntro(m) { var i = m && isObj(m.intro) ? m.intro : null; return (i && (i[LANG] || i.en)) || (m && m.description) || ''; }
@@ -2643,6 +2711,9 @@ function hrefFor(id, hint) {
       var hit = arr(data[sections[i]]).find(function (e) { return want.indexOf(e.id) >= 0; });
       if (hit) return crossModHref(foreign.id, sections[i], hit.id);
     }
+  } else if (foreign) {
+    var ih = indexHit(foreign.id, id);
+    if (ih) return crossModHref(foreign.id, ih[0], ih[1]);
   }
   return null;
 }
@@ -3403,6 +3474,10 @@ function famCounts(ids) {
   var key = ids.join(',');
   if (FAM_COUNTS[key]) return FAM_COUNTS[key];
   var c = { entries: 0, recipes: 0, guides: 0, config: 0 };
+  if (!ids.every(function (id) { return MODULE_DATA[id] || !WIDX[id]; })) {
+    c = { entries: indexCount(ids, 'entries'), recipes: indexCount(ids, 'recipes'), guides: indexCount(ids, 'features'), config: indexCount(ids, 'config') };
+    return (FAM_COUNTS[key] = c);
+  }
   ids.forEach(function (id) {
     var d = MODULE_DATA[id]; if (!isObj(d)) return;
     var items = {};
@@ -5440,6 +5515,19 @@ function searchEntriesOf(m) {
   var k = m.id + '|' + LANG;
   if (SEARCH_MODS[k]) return SEARCH_MODS[k];
   var data = MODULE_DATA[m.id], out = [];
+  if (!data) {
+    /* O6b: not loaded yet - names from the index (not cached; the full entries replace them when the data arrives) */
+    var ix = WIDX[m.id] || {};
+    var stub = function (section, id, en, de) {
+      var title = (LANG === 'de' ? de || en : en || de) || prettyFromId(id);
+      out.push({ section: section, id: id, title: title, sub: id, text: norm([id, en, de].join(' ')), ntitle: norm(title), nid: norm(id), modBadge: m.displayName, href: crossModHref(m.id, section, id) });
+    };
+    arr(ix.features).forEach(function (f) { stub('features', f[0], f[1], f[2]); });
+    arr(ix.items).forEach(function (e) { stub('items', e[0], e[1], e[2]); });
+    arr(ix.blocks).forEach(function (e) { stub('blocks', e[0], e[1], e[2]); });
+    arr(ix.ench).forEach(function (e) { stub('enchantments', e[0], e[1], e[2]); });
+    return out;
+  }
   ['features', 'items', 'blocks', 'recipes', 'enchantments', 'tags', 'config', 'lootTables', 'trades'].forEach(function (key) {
     var section = key === 'lootTables' ? 'loot' : key;
     arr(data[key]).forEach(function (e) {
@@ -5457,9 +5545,10 @@ function search(q, wide) {
   var out = [];
   var pool = SEARCH.map(function (entry) { return Object.assign({}, entry); });
   if (SCOPE.length > 1) pool.forEach(function (e) { var o = searchOrigin(e); if (o && o !== selectedMod) e.modBadge = modShort(o); });
-  if (wide) {
+  if (wide || LIGHT) {
+    needAll();
     MODULES.forEach(function (m) {
-      if (inScope(m.id) || !wikiMod(m.id)) return;
+      if (LIGHT ? !inScope(m.id) : inScope(m.id) || !wikiMod(m.id)) return;
       pool = pool.concat(searchEntriesOf(m));
     });
   }
@@ -5738,6 +5827,7 @@ function brFill() {
     (hits.length > shown.length ? '<p><button type="button" class="btn" data-br-more>' + esc(T('brMore')) + '</button></p>' : '');
 }
 function pageBrowse() {
+  if (!needAll()) return '<div class="listhead"><h1>' + esc(T('navBrowse')) + '</h1></div>' + lazyHint();
   if (BR.mod && !inPack(BR.mod)) BR.mod = '';
   var all = brList(), counts = {};
   all.forEach(function (e) { if (!BR.mod || e.mid === BR.mod) { counts[e.type] = (counts[e.type] || 0) + 1; counts.all = (counts.all || 0) + 1; } });
@@ -5746,7 +5836,7 @@ function pageBrowse() {
     return '<button type="button" role="tab" class="chip' + (BR.type === t[0] ? ' chip-on' : '') + '" aria-selected="' + (BR.type === t[0]) + '" data-br-type="' + t[0] + '">' + esc(T(t[1])) + ' <span class="n">' + counts[t[0]] + '</span></button>';
   }).join('') + '</div>';
   h += '<div class="br-filter"><input id="br-q" type="search" placeholder="' + esc(T('brFilter')) + '" aria-label="' + esc(T('brFilter')) + '" value="' + esc(BR.q) + '">' +
-    '<select id="br-mod" aria-label="Mod"><option value="">' + esc(T('brAnyMod')) + '</option>' + PACK.ids.filter(function (id) { return MODULE_DATA[id]; }).map(function (id) { return '<option value="' + esc(id) + '"' + (BR.mod === id ? ' selected' : '') + '>' + esc(packName(id)) + '</option>'; }).join('') + '</select></div>';
+    '<select id="br-mod" aria-label="Mod"><option value="">' + esc(T('brAnyMod')) + '</option>' + PACK.ids.filter(hasData).map(function (id) { return '<option value="' + esc(id) + '"' + (BR.mod === id ? ' selected' : '') + '>' + esc(packName(id)) + '</option>'; }).join('') + '</select></div>';
   return h + '<div id="br-results"></div>';
 }
 
@@ -5766,7 +5856,7 @@ function pageStructure() {
       '<strong>' + esc(m.displayName) + '</strong> <code class="tiny">' + esc(m.id) + '</code> ' + bundle + stage +
       '<span class="st-acts"><label class="st-chk"><input type="checkbox" data-pack-mod="' + esc(m.id) + '"' + (inPack(m.id) ? ' checked' : '') + '> ' + esc(T('stInPack')) + '</label>' +
       '<button type="button" class="btn" data-pack-set="' + esc(key) + '">' + esc(T('stUse')) + '</button>' +
-      (MODULE_DATA[m.id] ? '<a class="btn" href="' + esc(crossModHref(m.id, '', '')) + '">' + esc(T('stWiki')) + '</a>' : '') + '</span></div>' +
+      (hasData(m.id) ? '<a class="btn" href="' + esc(crossModHref(m.id, '', '')) + '">' + esc(T('stWiki')) + '</a>' : '') + '</span></div>' +
       '<div class="st-desc">' + esc(modPurpose(m) || m.description || '') + '</div>' +
       (needs.length ? '<div class="st-rel"><span class="muted">' + esc(T('stNeeds')) + ':</span> ' + chips(needs) + '</div>' : '') +
       (arr(used[m.id]).length ? '<div class="st-rel"><span class="muted">' + esc(T('stUsedBy')) + ':</span> ' + chips(used[m.id]) + '</div>' : '');
@@ -6160,10 +6250,14 @@ var GX = null, EXTRA_NAMES = {};
 function globalEntry(id) {
   if (!GX) {
     GX = new Map();
-    Object.keys(MODULE_DATA).forEach(function (m) {
+    /* O6b: in catalogue order; a mod whose data is not loaded gives its index entries (name, picture) */
+    var seenMods = {};
+    MODULES.map(function (m) { return m.id; }).concat(Object.keys(MODULE_DATA)).forEach(function (m) {
+      if (seenMods[m]) return; seenMods[m] = 1;
       var d = MODULE_DATA[m];
-      if (!d) return;
-      arr(d.items).concat(arr(d.blocks)).forEach(function (e) { if (isObj(e) && e.id && !GX.has(e.id)) GX.set(e.id, e); });
+      if (d) { arr(d.items).concat(arr(d.blocks)).forEach(function (e) { if (isObj(e) && e.id && !GX.has(e.id)) GX.set(e.id, e); }); return; }
+      var ix = WIDX[m];
+      if (ix) arr(ix.items).concat(arr(ix.blocks)).forEach(function (e) { if (e && e[0] && !GX.has(e[0])) GX.set(e[0], stubEntry(e)); });
     });
   }
   return GX.get(id) || null;
@@ -6344,13 +6438,13 @@ function gbLockText(c) { return c.advancement ? T('gbLocked', c.hint ? T('gbLock
 function gbLockNote(c) { var t = gbLockText(c); return t ? '<p class="gb-lock">' + esc(t) + '</p>' : ''; }
 function gbRecipeHtml(id) {
   /* "ns:pfad" = Rezept-Id, sonst das Ergebnis-Item: das erste Rezept aller Mods, das es herstellt. */
-  var found = null, alias = gbResolve(id);
-  Object.keys(MODULE_DATA).some(function (m) {
+  var found = null, alias = gbResolve(id), mods = MODULES.map(function (m) { return m.id; }).filter(function (m) { return MODULE_DATA[m]; });
+  mods.some(function (m) {
     var d = MODULE_DATA[m];
     found = d && arr(d.recipes).find(function (r) { return isObj(r) && r.id === id; }) || null;
     return !!found;
   });
-  if (!found) Object.keys(MODULE_DATA).some(function (m) {
+  if (!found) mods.some(function (m) {
     var d = MODULE_DATA[m];
     found = d && arr(d.recipes).find(function (r) { var res = isObj(r) && normStack(r.result); return res && (res.id === id || res.id === alias); }) || null;
     return !!found;
@@ -6422,7 +6516,9 @@ function gbSideTabs(built, page) {
 function pageGuidebook(id) {
   var h = '<h1>' + esc(T('navGuidebook')) + '</h1><p class="muted">' + esc(T('gbIntro')) + '</p>';
   var data = gbData();
-  if (!data) { gbLoad(); return h + '<p class="hint" role="status">' + esc(T('gbLoading')) + '</p>'; }
+  if (!data) { gbLoad(); needAll(); return h + '<p class="hint wiki-loading" role="status">' + esc(T('gbLoading')) + '</p>'; }
+  /* O6b: its recipes come from every mod */
+  if (!needAll()) return h + lazyHint();
   if (data.missing) return h + '<p class="hint">' + esc(T('gbMissing')) + '</p>';
   Object.assign(EXTRA_NAMES, data.names || {});
   var secs = gbSections();
@@ -6761,24 +6857,24 @@ $main.addEventListener('change', function (ev) {
 function navInWorldCount() { return IW.entries.length; }
 var NAV_GROUPS = [
   { key: 'browse', labelKey: 'sbCategories', items: [
-    { key: 'start', labelKey: 'navStart', glyph: '✎', count: function () { return arr(D.features).length || null; }, always: true },
+    { key: 'start', labelKey: 'navStart', glyph: '✎', count: function () { return (LIGHT ? indexCount(SCOPE, 'features') : arr(D.features).length) || null; }, always: true },
     { key: 'submods', labelKey: 'navSubmods', glyph: '⊢', count: function () { return PACK.ids.length; }, always: true },
     { key: 'guidebook', labelKey: 'navGuidebook', glyph: '❡', count: null, always: true },
     { key: 'questionary', labelKey: 'navQuestionary', glyph: '?', count: null, always: true }
   ] },
   { key: 'reference', labelKey: 'sbReference', items: [
-    { key: 'items', labelKey: 'navBlocksItems', glyph: '◆', count: function () { return arr(D.items).length + arr(D.blocks).filter(function (b) { return isObj(b) && !IX.items.has(b.id); }).length; } },
-    { key: 'allrecipes', labelKey: 'navRecipesAll', glyph: '⊞', count: function () { return arr(D.recipes).length + navInWorldCount(); } },
-    { key: 'enchantments', labelKey: 'navEnchantments', glyph: '✦', count: function () { return arr(D.enchantments).length; } },
-    { key: 'trades', labelKey: 'navTrades', glyph: '⇄', count: function () { return arr(D.trades).length; } },
-    { key: 'loot', labelKey: 'navLootables', glyph: '❖', count: function () { return arr(D.lootTables).length; } }
+    { key: 'items', labelKey: 'navBlocksItems', glyph: '◆', count: function () { return LIGHT ? indexCount(SCOPE, 'entries') : arr(D.items).length + arr(D.blocks).filter(function (b) { return isObj(b) && !IX.items.has(b.id); }).length; } },
+    { key: 'allrecipes', labelKey: 'navRecipesAll', glyph: '⊞', count: function () { return LIGHT ? indexCount(SCOPE, 'recipes') + indexCount(SCOPE, 'inworld') : arr(D.recipes).length + navInWorldCount(); } },
+    { key: 'enchantments', labelKey: 'navEnchantments', glyph: '✦', count: function () { return LIGHT ? indexCount(SCOPE, 'enchantments') : arr(D.enchantments).length; } },
+    { key: 'trades', labelKey: 'navTrades', glyph: '⇄', count: function () { return LIGHT ? indexCount(SCOPE, 'trades') : arr(D.trades).length; } },
+    { key: 'loot', labelKey: 'navLootables', glyph: '❖', count: function () { return LIGHT ? indexCount(SCOPE, 'lootTables') : arr(D.lootTables).length; } }
   ] },
   { key: 'progress', labelKey: 'sbProgress', items: [
-    { key: 'advancements', labelKey: 'navAdvancements', glyph: '★', count: function () { return arr(D.advancements).length; } },
-    { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return arr(D.config).length; } },
+    { key: 'advancements', labelKey: 'navAdvancements', glyph: '★', count: function () { return LIGHT ? indexCount(SCOPE, 'advancements') : arr(D.advancements).length; } },
+    { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return LIGHT ? indexCount(SCOPE, 'config') : arr(D.config).length; } },
     { key: 'commands', labelKey: 'navCommands', glyph: '/', count: function () { return allCommandCount() || null; }, always: true },
     { key: 'textures', labelKey: 'navTextures', glyph: '▦', count: function () { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).length : null; }, always: true },
-    { key: 'tags', labelKey: 'navTags', glyph: '#', count: function () { return arr(D.tags).length; } }
+    { key: 'tags', labelKey: 'navTags', glyph: '#', count: function () { return LIGHT ? indexCount(SCOPE, 'tags') : arr(D.tags).length; } }
   ] },
   { key: 'dev', labelKey: 'sbDev', dev: true, items: [
     { key: 'enchanting', labelKey: 'navEnchanting', glyph: '✧', count: null, always: true },
@@ -7427,6 +7523,12 @@ function render(opts) {
     return;
   }
   var r = currentRoute();
+  /* O6b: any page but the start page needs the data of the whole scope - the light start page reloads as a full one */
+  if (SCOPE_MISSING || (LIGHT && r.section !== 'overview' && r.section !== '' && r.section !== 'allmods')) {
+    $main.innerHTML = lazyHint();
+    goFull();
+    return;
+  }
   var html = '', title = '', active = r.section;
   try {
     switch (r.section) {
