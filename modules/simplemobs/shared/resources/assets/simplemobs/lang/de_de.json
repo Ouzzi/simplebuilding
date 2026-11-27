@@ -127,7 +127,7 @@
   "text.autoconfig.simplemobs.option.trimStrength": "Stärke der Besatz-Fähigkeiten",
   "text.autoconfig.simplemobs.option.trimStrength.@Tooltip": "Gesamtfaktor aller Rüstungsbesatz-Boni:\n0 = aus, 1 = wie geplant, 2 = doppelt. Mit\nSimpleBuilding multipliziert er dessen\nStärken je Bonus.\nStandard: 1,0. Bereich: 0–2.",
   "text.autoconfig.simplemobs.option.zoneMobsEnabled": "Gefahrenzonen-Effekte",
-  "text.autoconfig.simplemobs.option.zoneMobsEnabled.@Tooltip": "Neue Monster bekommen Statuseffekte nach\nder Simple-Resonance-Stufe ihres Spawn-Orts\n(nie mehr Leben). Braucht Simple Resonance.\nStandard: aus.",
+  "text.autoconfig.simplemobs.option.zoneMobsEnabled.@Tooltip": "Neue Monster bekommen Statuseffekte nach\nder Simple-Resonance-Stufe ihres Spawn-Orts\n(nie mehr Leben). Braucht Simple Resonance.\nStandard: an.",
   "text.autoconfig.simplemobs.option.zoneMaxEffects": "Gefahrenzonen: höchstens Effekte",
   "text.autoconfig.simplemobs.option.zoneMaxEffects.@Tooltip": "Höchstens so viele Zonen-Effekte je Monster.\nStandard: 3. Bereich: 0–8.",
   "text.autoconfig.simplemobs.option.zoneSpawnReasons": "Gefahrenzonen: Spawn-Gründe",

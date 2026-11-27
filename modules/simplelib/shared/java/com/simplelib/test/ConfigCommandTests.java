@@ -385,7 +385,9 @@ public final class ConfigCommandTests {
                     ok = !Character.isDigit(named.charAt(named.length() - 1)) && on == o.defaultValue().getAsBoolean();
                 } else {
                     try {
-                        ok = Math.abs(Double.parseDouble(named.replace(',', '.')) - o.defaultValue().getAsDouble()) < 1e-9;
+                        double d = o.defaultValue().getAsDouble();
+                        // float options (0.2f = 0.20000000298...) compare within float precision
+                        ok = Math.abs(Double.parseDouble(named.replace(',', '.')) - d) <= 1e-6 * Math.max(1.0, Math.abs(d));
                     } catch (NumberFormatException e) {
                         ok = false;
                     }

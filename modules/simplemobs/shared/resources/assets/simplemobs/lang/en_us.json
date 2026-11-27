@@ -127,7 +127,7 @@
   "text.autoconfig.simplemobs.option.trimStrength": "Trim Ability Strength",
   "text.autoconfig.simplemobs.option.trimStrength.@Tooltip": "Overall factor of every armor trim bonus:\n0 = off, 1 = as designed, 2 = double. With\nSimpleBuilding it multiplies its own\nper-bonus strengths.\nDefault: 1.0. Range: 0–2.",
   "text.autoconfig.simplemobs.option.zoneMobsEnabled": "Danger Zone Effects",
-  "text.autoconfig.simplemobs.option.zoneMobsEnabled.@Tooltip": "New monsters get status effects by the\nSimple Resonance level of their spawn place\n(never more health). Needs Simple Resonance.\nDefault: off.",
+  "text.autoconfig.simplemobs.option.zoneMobsEnabled.@Tooltip": "New monsters get status effects by the\nSimple Resonance level of their spawn place\n(never more health). Needs Simple Resonance.\nDefault: on.",
   "text.autoconfig.simplemobs.option.zoneMaxEffects": "Danger Zones: Max Effects",
   "text.autoconfig.simplemobs.option.zoneMaxEffects.@Tooltip": "At most this many zone effects per monster.\nDefault: 3. Range: 0–8.",
   "text.autoconfig.simplemobs.option.zoneSpawnReasons": "Danger Zones: Spawn Reasons",
