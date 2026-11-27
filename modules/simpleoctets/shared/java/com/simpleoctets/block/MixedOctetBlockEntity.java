@@ -63,8 +63,24 @@ public class MixedOctetBlockEntity extends BlockEntity {
         int[] octets = input.getIntArray(OCTETS_TAG).orElse(new int[0]);
         for (int i = 0; i < 8 && i < octets.length; i++) {
             int at = octets[i];
-            this.parts[i] = at >= 0 && at < palette.size() ? OctetCells.material(BlockState.CODEC.parse(palette.get(at)).result().orElse(null)) : null;
+            this.parts[i] = at >= 0 && at < palette.size() ? OctetCells.material(readPart(palette.get(at))) : null;
         }
+    }
+
+    /**
+     * One palette entry. The game writes every property; an entry typed by hand (/setblock, /data, a datapack or another
+     * tool: only {@code Name}, or some properties) fails the strict codec - O8 audit 2: the cell came out empty and the
+     * ghost-bit check then removed it. Such entries are read leniently (missing properties = defaults); an unknown block
+     * reads as air, which is no material, so a removed mod's entry still stays empty.
+     */
+    private static @Nullable BlockState readPart(com.mojang.serialization.Dynamic<?> entry) {
+        BlockState strict = BlockState.CODEC.parse(entry).result().orElse(null);
+        if (strict != null) {
+            return strict;
+        }
+        net.minecraft.nbt.Tag tag = entry.convert(net.minecraft.nbt.NbtOps.INSTANCE).getValue();
+        return tag instanceof CompoundTag compound
+                ? net.minecraft.nbt.NbtUtils.readBlockState(net.minecraft.core.registries.BuiltInRegistries.BLOCK, compound) : null;
     }
 
     /**
