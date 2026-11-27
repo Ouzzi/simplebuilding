@@ -87,6 +87,11 @@ public final class ConfigOptionGameTest {
     }
 
     @GameTest
+    public void everyOptionFlips(GameTestHelper helper) {
+        ConfigOptionTests.everyOptionFlips(helper);
+    }
+
+    @GameTest
     public void newToolOptionsChangeWhatTheToolsDo(GameTestHelper helper) {
         ConfigOptionTests.newToolOptionsChangeWhatTheToolsDo(helper);
     }

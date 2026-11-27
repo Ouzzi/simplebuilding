@@ -251,6 +251,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void configCommandEveryOptionFlip(GameTestHelper h) {
+        LibTests.ALL.get("config_command_every_option_flip").accept(h);
+    }
+
+    @GameTest
     public void configScreenModel(GameTestHelper h) {
         LibTests.ALL.get("config_screen_model").accept(h);
     }
