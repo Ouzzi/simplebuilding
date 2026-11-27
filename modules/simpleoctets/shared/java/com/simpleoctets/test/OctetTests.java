@@ -61,7 +61,7 @@ public final class OctetTests {
         ALL.put("foreign_materials_only_with_their_mod", OctetTests::foreignMaterialsOnlyWithTheirMod);
         ALL.put("blazewood_octets_only_with_simple_enchanting", OctetTests::blazewoodOctetsOnlyWithSimpleEnchanting);
         ALL.put("mixed_cell_keeps_readable_materials", OctetTests::mixedCellKeepsReadableMaterials);
-        ALL.put("mixed_cell_loads_block_entity_data_into_a_placed_cell", OctetTests::mixedCellLoadsBlockEntityDataIntoAPlacedCell);
+        ALL.put("mixed_cell_loads_block_entity_data_after_placing", OctetTests::mixedCellLoadsBlockEntityDataAfterPlacing);
         ALL.put("recipes_cut_and_craft_back", OctetTests::recipesCutAndCraftBack);
         ALL.put("cells_for_carving_tools", OctetTests::cellsForCarvingTools);
         ALL.put("octets_place_into_the_sub_grid", OctetTests::octetsPlaceIntoTheSubGrid);
@@ -394,7 +394,7 @@ public final class OctetTests {
      * after the queued ghost-bit check of {@code setLevel} ran. On a dedicated server a cell set by
      * {@code setblock ... simpleoctets:mixed_octet[...]{Palette:[...],Octets:[I;...]}} read back {@code Palette: []}.
      */
-    static void mixedCellLoadsBlockEntityDataIntoAPlacedCell(GameTestHelper h) {
+    static void mixedCellLoadsBlockEntityDataAfterPlacing(GameTestHelper h) {
         ServerLevel level = h.getLevel();
         BlockState oak = material(Blocks.OAK_PLANKS), stone = material(Blocks.STONE);
         BlockState[] parts = new BlockState[8];
@@ -418,9 +418,18 @@ public final class OctetTests {
         String commanded = describe(level, command);
         h.assertTrue(level.getBlockEntity(command) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
                 "/setblock with the saved data keeps both materials: " + commanded + " after " + cmd);
-        // the queued ghost-bit check (setLevel) must not empty either cell afterwards
+        // a hand-written command (names only, no Properties): what an admin or a datapack would type
+        BlockPos typed = h.absolutePos(CELL.north(2));
+        String oakId = BuiltInRegistries.BLOCK.getKey(oak.getBlock()).toString(), stoneId = BuiltInRegistries.BLOCK.getKey(stone.getBlock()).toString();
+        String handCmd = "setblock " + typed.getX() + " " + typed.getY() + " " + typed.getZ() + " "
+                + net.minecraft.commands.arguments.blocks.BlockStateParser.serialize(mixed)
+                + "{Palette:[{Name:\"" + oakId + "\"},{Name:\"" + stoneId + "\"}],Octets:[I;0,1,-1,-1,-1,-1,-1,-1]}";
+        level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack().withLevel(level).withSuppressedOutput(), handCmd);
+        h.assertTrue(level.getBlockEntity(typed) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
+                "a typed /setblock keeps both materials: " + describe(level, typed) + " after " + handCmd);
+        // the queued ghost-bit check (setLevel) must not empty any cell afterwards
         h.runAfterDelay(5, () -> {
-            for (BlockPos at : new BlockPos[] {copy, command}) {
+            for (BlockPos at : new BlockPos[] {copy, command, typed}) {
                 h.assertTrue(level.getBlockEntity(at) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone
                         && OctetCellBlock.mask(level.getBlockState(at)) == 0b11, "still both materials after the queued check: " + describe(level, at));
             }
