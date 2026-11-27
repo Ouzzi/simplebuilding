@@ -60,6 +60,8 @@ def prepare = tasks.register('prepareIntegrationMods') {
         }
         // This directory is exclusively generated. Sync removes stale disabled jars, never saves.
         project.sync { from jars; into rootProject.file('integration/run-fabric-263/mods') }
+        // O4 follow-up: a fresh mirror without any selected jar left no run folder behind the sync (FileNotFoundException).
+        rootProject.file('integration/run-fabric-263').mkdirs()
         rootProject.file('integration/run-fabric-263/eula.txt').text = 'eula=true\n'
     }
 }
@@ -77,6 +79,8 @@ loom {
             if (project.hasProperty('benchSb')) vmArg '-Dsb.bench=true'
             if (project.hasProperty('benchSbProfile')) vmArg '-Dsb.bench.profile=true'
             if (project.hasProperty('benchSb')) vmArg "-Xmx${project.findProperty('benchXmx') ?: '4G'}"
+            // O8-B audit 6: -PbenchProps=sb.bench.load=true;sb.bench.soak=30 passes system properties to SbLoadBenchGameTest.
+            if (project.hasProperty('benchProps')) project.property('benchProps').toString().tokenize(';').each { vmArg "-D${it}" }
         }
     }
 }
