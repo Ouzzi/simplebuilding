@@ -644,6 +644,10 @@ public final class LivemapTests {
                 h.assertTrue(java.nio.file.Files.getPosixFilePermissions(dir.resolve(HostedLink.FILE)).equals(java.nio.file.attribute.PosixFilePermissions.fromString("rw-------")),
                         "link file only for the owner");
             }
+            h.assertTrue(HostedLink.trusted(back, "https://livemap.simplemods.de/") == back, "link to the configured service is used");
+            HostedLink foreign = new HostedLink("https://maps.example.org", "abc", "", key);
+            h.assertTrue(HostedLink.trusted(foreign, "https://livemap.simplemods.de") == null && HostedLink.trusted(null, "https://livemap.simplemods.de") == null,
+                    "a world's link to another service is not used (O8 audit 4: downloaded worlds)");
             HostedLink.delete(dir);
             h.assertTrue(HostedLink.load(dir) == null, "disconnect forgets it");
             Path tiles = dir.resolve("tiles");

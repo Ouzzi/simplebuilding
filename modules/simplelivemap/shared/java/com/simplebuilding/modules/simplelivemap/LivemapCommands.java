@@ -165,6 +165,11 @@ public final class LivemapCommands {
             return 0;
         }
         LivemapRuntime.stopHosted(true);
+        // a link to another service (world from elsewhere, O8 audit 4) is only forgotten, nothing is sent there
+        if (HostedLink.trusted(link, LivemapConfig.hostedEndpoint) == null) {
+            source.sendSuccess(() -> text("disconnect.done", "Disconnected: the map %s moved to the archive on livemap.simplemods.de.", link.map()), false);
+            return 1;
+        }
         Thread t = new Thread(() -> {
             try {
                 new HostedClient(link.endpoint(), link.key()).disconnect();

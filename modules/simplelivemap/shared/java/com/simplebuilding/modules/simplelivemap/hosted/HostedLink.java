@@ -17,6 +17,17 @@ import java.nio.file.attribute.PosixFilePermissions;
 public record HostedLink(String endpoint, String map, String viewer, String key) {
     public static final String FILE = "hosted.json";
 
+    /**
+     * O8 audit 4: {@code link} only when it points to the configured service ({@code hosted.endpoint} of the server config);
+     * else null. The link lives in the world folder, so a downloaded world could otherwise make the mod upload its tiles
+     * (and with {@code web.showPlayers} the players) to any https address its author wrote into {@code hosted.json}.
+     */
+    public static HostedLink trusted(HostedLink link, String configuredEndpoint) {
+        if (link == null) return null;
+        String configured = HostedClient.checkEndpoint(configuredEndpoint);
+        return configured != null && configured.equalsIgnoreCase(link.endpoint()) ? link : null;
+    }
+
     public static HostedLink load(Path livemapRoot) {
         try {
             JsonObject o = JsonParser.parseString(Files.readString(livemapRoot.resolve(FILE), StandardCharsets.UTF_8)).getAsJsonObject();
