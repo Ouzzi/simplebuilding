@@ -32,7 +32,7 @@ import java.util.List;
  * system property is set (tools/bench/headless_bench.py --test load|endgen, soak via -PbenchProps):
  * <ul>
  * <li>{@code load} ({@code -Dsb.bench.load=true}): 32x32 pen with 120 cows, 60 sheep, 40 chickens, 20 villagers, 10 iron
- * golems; 16 observer clocks each driving a piston, an 8-long dust line and a lamp; 16 loops of 4 hoppers with items
+ * golems; 16 observer clocks each driving a sticky piston (block moves back and forth), an 8-long dust line and a lamp; 16 loops of 4 hoppers with items
  * circulating; 32 furnaces smelting. MSPT avg/p95 over 400 ticks after 100 warmup (phase A, compared). Phase B then adds
  * the modded machines that exist in this server (Simple Machines hoppers, Simple Ovens furnaces) and measures 200 more
  * ticks ({@code mspt_b_avg}); in a vanilla server phase B is the unchanged scene.</li>
@@ -178,7 +178,7 @@ public final class SbLoadBenchGameTest {
             int z = r * 2;
             for (int x = 33; x < 48; x++) h.setBlock(x, 0, z, stone);
             h.setBlock(34, 1, z, Blocks.STONE.defaultBlockState());
-            h.setBlock(35, 1, z, Blocks.PISTON.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
+            h.setBlock(35, 1, z, Blocks.STICKY_PISTON.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
             h.setBlock(36, 1, z, Blocks.OBSERVER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST));
             h.setBlock(37, 1, z, Blocks.OBSERVER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
             for (int x = 38; x < 46; x++) h.setBlock(x, 1, z, Blocks.REDSTONE_WIRE.defaultBlockState());
