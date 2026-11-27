@@ -246,6 +246,9 @@ def load_scenarios(only):
         if missing:
             print('unknown scenarios (ignored): ' + ', '.join(missing), flush=True)
         found = {n: found[n] for n in wanted if n in found}
+    else:
+        # O8 audit 1: the two-client sides wait for each other and only run under tools/testrunner/two_client_probe.py
+        found = {n: fn for n, fn in found.items() if not n.startswith('twoclient-')}
     return found
 
 
@@ -300,6 +303,10 @@ def main():
     ap.add_argument('--scale', type=int, default=2)
     ap.add_argument('--only', default='')
     ap.add_argument('--list', action='store_true')
+    # O8 audit 1 (tools/testrunner/two_client_probe.py): join a dedicated server as this player; the game directory is SB_PROBE_RUN
+    ap.add_argument('--server', default='', help='host:port to join instead of creating a flat world')
+    ap.add_argument('--username', default='', help='offline player name (needs --server)')
+    ap.add_argument('--bare', action='store_true', help='no per-scenario reset (gamemode/clear/tp): scenarios own the player state')
     args = ap.parse_args()
     scenarios = load_scenarios([x.strip() for x in args.only.split(',')] if args.only else [])
     if args.list:
@@ -311,11 +318,17 @@ def main():
     RUN.mkdir(parents=True, exist_ok=True)
     for f in (sp.STATUS, sp.COMMAND):
         (RUN / f).unlink(missing_ok=True)
-    (RUN / sp.REQUEST).write_text(json.dumps({'width': 1280, 'height': 720, 'guiScale': args.scale}))
+    request = {'width': 1280, 'height': 720, 'guiScale': args.scale}
+    if args.server:
+        request['server'] = args.server
+    (RUN / sp.REQUEST).write_text(json.dumps(request))
     started = time.time()
     log = open(out / 'client.log', 'w')
     # one client per heavy lock (A 15.11.): no Gradle daemon outliving the run, and SIGTERM/SIGHUP from sbt end the client too
-    game = subprocess.Popen(['./gradlew', '--no-daemon', ':integration:runIntegrationClient'], cwd=REPO, stdout=log,
+    gradle = ['./gradlew', '--no-daemon', ':integration:runIntegrationClient']
+    if args.username:
+        gradle.append(f'--args=--username {args.username} --gameDir {RUN}')
+    game = subprocess.Popen(gradle, cwd=REPO, stdout=log,
                             stderr=subprocess.STDOUT, start_new_session=True)
 
     def stop(signum, frame):
@@ -361,6 +374,9 @@ def main():
                     if w:
                         s.click_xy(w['x'], w['y'])
                     s.wait_screen('none', 10)
+                if args.bare:
+                    fn(s)
+                    continue
                 s.chat('gamemode creative @s', 0.5)
                 s.close()
                 s.chat('clear @s', 0.3)

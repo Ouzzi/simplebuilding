@@ -57,6 +57,16 @@ public final class SortProbe {
                 if (!worldRequested) {
                     if (mc.level != null || mc.gui.overlay() != null || mc.gui.screen() == null || ticks < 60) return;
                     worldRequested = true;
+                    // O8 audit 1 (two clients on one dedicated server): "server": "host:port" joins that server instead of a new world
+                    JsonObject join = GSON.fromJson(Files.readString(dir.resolve(REQUEST)), JsonObject.class);
+                    if (join.has("server")) {
+                        String address = join.get("server").getAsString();
+                        net.minecraft.client.gui.screens.ConnectScreen.startConnecting(mc.gui.screen(), mc,
+                                net.minecraft.client.multiplayer.resolver.ServerAddress.parseString(address),
+                                new net.minecraft.client.multiplayer.ServerData("sb-probe", address, net.minecraft.client.multiplayer.ServerData.Type.OTHER),
+                                false, null);
+                        return;
+                    }
                     String name = "sb-sort-probe-" + System.nanoTime();
                     LevelSettings settings = new LevelSettings(name, GameType.CREATIVE,
                             new LevelSettings.DifficultySettings(Difficulty.PEACEFUL, false, true), true, WorldDataConfiguration.DEFAULT);
@@ -66,8 +76,10 @@ public final class SortProbe {
                     return;
                 }
                 var server = mc.getSingleplayerServer();
-                if (mc.level == null || mc.player == null || mc.gameMode == null || server == null || !server.isReady() || mc.gui.screen() != null) return;
                 JsonObject req = GSON.fromJson(Files.readString(dir.resolve(REQUEST)), JsonObject.class);
+                boolean remote = req.has("server");
+                if (mc.level == null || mc.player == null || mc.gameMode == null || !remote && (server == null || !server.isReady())
+                        || mc.gui.screen() != null) return;
                 mc.getWindow().setWindowed(req.get("width").getAsInt(), req.get("height").getAsInt());
                 mc.options.guiScale().set(req.get("guiScale").getAsInt());
                 mc.resizeGui();
