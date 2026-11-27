@@ -256,6 +256,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void configCommandEveryTooltipDefault(GameTestHelper h) {
+        LibTests.ALL.get("config_command_every_tooltip_default").accept(h);
+    }
+
+    @GameTest
     public void configScreenModel(GameTestHelper h) {
         LibTests.ALL.get("config_screen_model").accept(h);
     }

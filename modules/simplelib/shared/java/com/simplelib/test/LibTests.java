@@ -72,6 +72,7 @@ public final class LibTests {
         ALL.put("config_command_lib", ConfigCommandTests::lib);
         ALL.put("config_command_every_option", ConfigCommandTests::everyOption);
         ALL.put("config_command_every_option_flip", ConfigCommandTests::everyOptionFlip);
+        ALL.put("config_command_every_tooltip_default", ConfigCommandTests::everyTooltipDefault);
         ALL.put("config_screen_model", ConfigScreenTests::model);
         ALL.put("config_screen_save", ConfigScreenTests::save);
         ALL.put("config_screen_access", ConfigScreenTests::access);

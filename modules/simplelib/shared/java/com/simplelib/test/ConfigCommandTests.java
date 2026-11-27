@@ -345,15 +345,28 @@ public final class ConfigCommandTests {
     public static void tooltipDefaults(GameTestHelper h, String modId, boolean client) {
         ConfigCommands.Spec spec = ConfigCommands.spec(modId, client);
         check(h, spec != null, modId + " announced no " + (client ? "client" : "server") + " config");
+        List<String> wrong = new java.util.ArrayList<>();
+        int checked = tooltipDefaultProblems(spec, wrong);
+        check(h, checked >= 0, modId + ": no de_de.json");
+        check(h, checked > 0, modId + ": no tooltip names a default");
+        check(h, wrong.isEmpty(), modId + " tooltips name a wrong default: " + wrong);
+        h.succeed();
+    }
+
+    /**
+     * The tooltip-default comparison of {@link #tooltipDefaults} for one spec: adds "en|de path: tooltip X, default Y" to
+     * {@code wrong}; returns how many tooltips named a default, -1 without the module's de_de.json.
+     */
+    static int tooltipDefaultProblems(ConfigCommands.Spec spec, List<String> wrong) {
+        String modId = spec.modId();
         JsonObject de;
         try (var in = ConfigCommandTests.class.getResourceAsStream("/assets/" + modId + "/lang/de_de.json")) {
-            check(h, in != null, modId + ": no de_de.json");
+            if (in == null) return -1;
             de = JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (java.io.IOException e) {
             throw new RuntimeException(e);
         }
         var en = net.minecraft.locale.Language.getInstance();
-        List<String> wrong = new java.util.ArrayList<>();
         int checked = 0;
         for (var o : spec.options()) {
             if (o.kind() != Kind.BOOL && o.kind() != Kind.INT && o.kind() != Kind.DECIMAL) continue;
@@ -377,11 +390,35 @@ public final class ConfigCommandTests {
                         ok = false;
                     }
                 }
-                if (!ok) wrong.add((i == 0 ? "en " : "de ") + o.path() + ": tooltip " + named + ", default " + o.defaultValue());
+                if (!ok) wrong.add((i == 0 ? "en " : "de ") + modId + " " + o.path() + ": tooltip " + named + ", default " + o.defaultValue());
             }
         }
-        check(h, checked > 0, modId + ": no tooltip names a default");
-        check(h, wrong.isEmpty(), modId + " tooltips name a wrong default: " + wrong);
+        return checked;
+    }
+
+    /**
+     * O8 audit 7: {@link #tooltipDefaults} for EVERY announced server config of the loaded mods at once (only ten modules
+     * call it themselves). One line {@code SB-CONFIG-TOOLTIPS {json}}; a tooltip that names a wrong default fails.
+     */
+    static void everyTooltipDefault(GameTestHelper h) {
+        List<String> wrong = new java.util.ArrayList<>(), noDe = new java.util.ArrayList<>();
+        int checked = 0;
+        for (var spec : ConfigCommands.specs(false)) {
+            int n = tooltipDefaultProblems(spec, wrong);
+            if (n < 0) noDe.add(spec.modId());
+            else checked += n;
+        }
+        JsonObject out = new JsonObject();
+        out.addProperty("configs", ConfigCommands.specs(false).size());
+        out.addProperty("checked", checked);
+        JsonArray w = new JsonArray(), d = new JsonArray();
+        wrong.forEach(w::add);
+        noDe.forEach(d::add);
+        out.add("wrong", w);
+        out.add("no_de_de", d);
+        System.out.println("SB-CONFIG-TOOLTIPS " + out);
+        check(h, checked > 0, "no tooltip names a default");
+        check(h, wrong.isEmpty(), wrong.size() + " tooltips name a wrong default: " + wrong.subList(0, Math.min(10, wrong.size())));
         h.succeed();
     }
 
