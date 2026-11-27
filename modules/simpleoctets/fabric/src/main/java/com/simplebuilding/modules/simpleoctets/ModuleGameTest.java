@@ -31,6 +31,12 @@ public final class ModuleGameTest {
         OctetTests.ALL.get("mixed_cell_keeps_readable_materials").accept(h);
     }
 
+    /** O8 audit 2: /setblock with NBT and structure-style loading into a placed mixed cell keep the materials. */
+    @GameTest(structure = "simpleoctets:empty")
+    public void mixedCellLoadsBlockEntityDataIntoAPlacedCell(GameTestHelper h) {
+        OctetTests.ALL.get("mixed_cell_loads_block_entity_data_into_a_placed_cell").accept(h);
+    }
+
     @GameTest(structure = "simpleoctets:empty")
     public void foreignMaterialsOnlyWithTheirMod(GameTestHelper h) {
         OctetTests.ALL.get("foreign_materials_only_with_their_mod").accept(h);

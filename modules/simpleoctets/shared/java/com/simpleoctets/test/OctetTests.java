@@ -61,6 +61,7 @@ public final class OctetTests {
         ALL.put("foreign_materials_only_with_their_mod", OctetTests::foreignMaterialsOnlyWithTheirMod);
         ALL.put("blazewood_octets_only_with_simple_enchanting", OctetTests::blazewoodOctetsOnlyWithSimpleEnchanting);
         ALL.put("mixed_cell_keeps_readable_materials", OctetTests::mixedCellKeepsReadableMaterials);
+        ALL.put("mixed_cell_loads_block_entity_data_into_a_placed_cell", OctetTests::mixedCellLoadsBlockEntityDataIntoAPlacedCell);
         ALL.put("recipes_cut_and_craft_back", OctetTests::recipesCutAndCraftBack);
         ALL.put("cells_for_carving_tools", OctetTests::cellsForCarvingTools);
         ALL.put("octets_place_into_the_sub_grid", OctetTests::octetsPlaceIntoTheSubGrid);
@@ -387,6 +388,51 @@ public final class OctetTests {
      * REV2-B: a mixed cell whose saved palette names a block of a removed mod keeps every other material (before, the strict
      * list codec dropped the whole palette and left an invisible cell without drops).
      */
+    /**
+     * O8 audit 2: block entity data loaded into an already placed cell (what /setblock with NBT, structure templates and
+     * build tools do: place the state, then {@code loadWithComponents} on the new block entity) keeps its materials, also
+     * after the queued ghost-bit check of {@code setLevel} ran. On a dedicated server a cell set by
+     * {@code setblock ... simpleoctets:mixed_octet[...]{Palette:[...],Octets:[I;...]}} read back {@code Palette: []}.
+     */
+    static void mixedCellLoadsBlockEntityDataIntoAPlacedCell(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        BlockState oak = material(Blocks.OAK_PLANKS), stone = material(Blocks.STONE);
+        BlockState[] parts = new BlockState[8];
+        parts[0] = oak;
+        parts[1] = stone;
+        BlockPos source = h.absolutePos(CELL), copy = h.absolutePos(CELL.east(2)), command = h.absolutePos(CELL.east(4));
+        OctetCells.set(level, source, parts, false, Block.UPDATE_ALL);
+        BlockState mixed = level.getBlockState(source);
+        CompoundTag saved = level.getBlockEntity(source).saveWithoutMetadata(level.registryAccess());
+        // structure-template path: place the state, then load the data into the block entity the placement made
+        level.setBlock(copy, mixed, Block.UPDATE_CLIENTS);
+        level.getBlockEntity(copy).loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(
+                net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), saved));
+        String copied = describe(level, copy);
+        h.assertTrue(level.getBlockEntity(copy) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
+                "data loaded into a placed cell keeps both materials: " + copied + " from " + saved);
+        // the command itself
+        String cmd = "setblock " + command.getX() + " " + command.getY() + " " + command.getZ() + " "
+                + net.minecraft.commands.arguments.blocks.BlockStateParser.serialize(mixed) + saved;
+        level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack().withLevel(level).withSuppressedOutput(), cmd);
+        String commanded = describe(level, command);
+        h.assertTrue(level.getBlockEntity(command) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
+                "/setblock with the saved data keeps both materials: " + commanded + " after " + cmd);
+        // the queued ghost-bit check (setLevel) must not empty either cell afterwards
+        h.runAfterDelay(5, () -> {
+            for (BlockPos at : new BlockPos[] {copy, command}) {
+                h.assertTrue(level.getBlockEntity(at) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone
+                        && OctetCellBlock.mask(level.getBlockState(at)) == 0b11, "still both materials after the queued check: " + describe(level, at));
+            }
+            h.succeed();
+        });
+    }
+
+    private static String describe(ServerLevel level, BlockPos at) {
+        return level.getBlockState(at) + " " + (level.getBlockEntity(at) instanceof MixedOctetBlockEntity be
+                ? java.util.Arrays.toString(be.parts()) : String.valueOf(level.getBlockEntity(at)));
+    }
+
     static void mixedCellKeepsReadableMaterials(GameTestHelper h) {
         BlockState[] parts = new BlockState[8];
         parts[0] = material(Blocks.OAK_PLANKS);
