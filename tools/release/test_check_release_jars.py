@@ -25,7 +25,7 @@ def mod_json(**entrypoints) -> str:
 
 CLEAN = {'fabric.mod.json': mod_json(), 'com/x/X.class': b'', 'com/x/Contest$Inner.class': b'',
          'com/simplelib/test/IdMovesTests.class': b'', 'com/simplelib/test/IdMovesTests$1.class': b'',
-         'assets/x/textures/block/a.png': b''}
+         'assets/x/textures/block/a.png': b'', 'LICENSE_x': 'license'}
 
 
 class CheckReleaseJarsTest(unittest.TestCase):
@@ -55,10 +55,20 @@ class CheckReleaseJarsTest(unittest.TestCase):
         self.assertIn('layers.json', out)
 
     def test_nested_jar_is_scanned(self):
-        inner = jar_bytes({'fabric.mod.json': mod_json(), 'com/z/ZTests.class': b''})
+        inner = jar_bytes({'fabric.mod.json': mod_json(), 'com/z/ZTests.class': b'', 'LICENSE': 'license'})
         code, out = self.run_dir({'outer.jar': {**CLEAN, 'META-INF/jars/z-1.0.jar': inner}})
         self.assertEqual(code, 1)
         self.assertIn('z-1.0.jar!com/z/ZTests.class', out)
+
+    def test_jar_or_nested_jar_without_license_is_found(self):
+        # O8 audit 5: the jar-in-jar framework library carried no license file
+        no_license = {k: v for k, v in CLEAN.items() if not k.startswith('LICENSE')}
+        inner = jar_bytes({'fabric.mod.json': mod_json(), 'com/f/F.class': b''})
+        code, out = self.run_dir({'outer.jar': {**CLEAN, 'META-INF/jars/framework-0.1.16.jar': inner}, 'bare.jar': no_license})
+        self.assertEqual(code, 1)
+        self.assertIn('no license file: framework-0.1.16.jar!', out)
+        self.assertIn('no license file: jar root', out)
+        self.assertIn('2 findings', out)
 
     def test_empty_dir_is_an_error(self):
         code, _ = self.run_dir({})
