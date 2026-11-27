@@ -1666,7 +1666,8 @@ public final class ConfigOptionTests {
 
     /**
      * O8 audit 7: every visible server option of SimpleBuilding's own config once to a non-default valid value through
-     * {@code /simplebuilding config set} and back with {@code reset}: no exception, the command answers 1 and the live config
+     * {@code /simplebuilding config set} from the server console (no player, permission level 4 - it was refused before
+     * the audit) and back with {@code reset}: no exception, the command answers 1 and the live config
      * holds the value (switches flip, numbers move one step, text options are left out), reset brings the default back.
      * Saving is counted instead of written. All values are restored at the end. One line {@code SB-CONFIG-FLIP-CORE {json}};
      * an exception, a refused set or a broken reset fails, a value clamped back to the old one is only reported.
@@ -1719,6 +1720,14 @@ public final class ConfigOptionTests {
                 } finally {
                     option.set(config, was);
                 }
+            }
+            // the console reaches the command (above); a source without permission level 2 still does not
+            try {
+                dispatcher.execute("simplebuilding config get giveGuideBookOnFirstJoin",
+                        source.withPermission(net.minecraft.server.permissions.LevelBasedPermissionSet.ALL));
+                hard.add("a level-0 source may use /simplebuilding config");
+            } catch (com.mojang.brigadier.exceptions.CommandSyntaxException expected) {
+                // refused: unknown command for it
             }
         } finally {
             restore.run();
