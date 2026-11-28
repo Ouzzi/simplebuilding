@@ -45,6 +45,8 @@ final class HangTests {
         h.assertTrue(!HangWatchdog.due(29 * s, 30, 0) && HangWatchdog.due(30 * s, 30, 0), "first dump at the limit");
         h.assertTrue(!HangWatchdog.due(119 * s, 30, 1) && HangWatchdog.due(120 * s, 30, 1), "second dump at four times the limit");
         h.assertTrue(!HangWatchdog.due(3600 * s, 30, HangWatchdog.MAX_DUMPS), "no more dumps in the same stall");
+        h.assertTrue(HangWatchdog.pausedWhenEmpty(0, 60) && !HangWatchdog.pausedWhenEmpty(1, 60) && !HangWatchdog.pausedWhenEmpty(0, 0)
+                && !HangWatchdog.pausedWhenEmpty(0, null), "an empty dedicated server paused by Vanilla is no hang (O8 audit 6)");
         Thread serverThread = h.getLevel().getServer().getRunningThread();
         Path dir = null, file = null;
         try {
