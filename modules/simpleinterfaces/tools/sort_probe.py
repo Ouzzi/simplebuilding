@@ -22,7 +22,8 @@ import time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
-RUN = REPO / 'integration/run-fabric-263'
+# O8 audit 1: a second client (two_client_probe.py) talks to the probe in its own game directory
+RUN = Path(os.environ['SB_PROBE_RUN']) if os.environ.get('SB_PROBE_RUN') else REPO / 'integration/run-fabric-263'
 REQUEST, STATUS, COMMAND = 'simpleinterfaces-sort-probe.json', 'simpleinterfaces-sort-status.json', 'simpleinterfaces-sort-command.json'
 
 _spec = importlib.util.spec_from_file_location('menu_probe', REPO / 'modules/simpleearth/tools/menu_probe.py')
