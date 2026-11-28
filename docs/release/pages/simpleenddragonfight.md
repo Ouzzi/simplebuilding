@@ -22,8 +22,8 @@ Simple End Dragon Fight adds one health bar per player on the island, a dragon t
 ## Features
 
 - **One health bar per player** - Every player on the main End island adds one full dragon health bar: 200 health per player as in Vanilla (200, 400, 600 ...), or 300 per player with "raiseBaseHealth" on.
-- **Faster dragon** - Alone the dragon flies at Vanilla speed; every further player adds 1.5 %, at most 35 % (setting speedMultiplier raises the base, e.g.
-- **Harder with every summoning** - Optional (off by default so that farming dragon breath is not punished): every further dragon summoned with End crystals is harder for good, e.g.
+- **Faster dragon** - Alone the dragon flies at Vanilla speed; every further player adds 1.5 %, at most 35 % (setting speedMultiplier raises the base, e.g. 1.2 = 20 % faster).
+- **Harder with every summoning**
 - **Entry animation** - Every player who enters a running fight gets a 3-second greeting: portal ring, the dragon rises and scents the newcomer, a growl with a shock ring, then sparks rain down.
 - **Dragonmites** - From half health on, the dragon calls Dragonmites near the exit portal: a first wave at once, then one every 30 seconds.
 - **Settings** - Server file config/simpleenddragonfight.json; with SimpleBuilding the module is also switched by "Enable Simple End Dragon Fight".

@@ -195,12 +195,16 @@ P = {
 # Store wording for single manual.json features (key: (mod id, feature id)); None leaves the feature off the store page.
 # Used where the manual's first sentence is a raw matrix or a developer switch (the manual stays as it is). O6a: the "Older
 # worlds" (migration) and Simple Mobheads entries are gone - the manuals now say it in player words themselves.
+# German wording for every key: pages_data_de.FEATURE_TEXT_DE.
 FEATURE_TEXT = {
 ("simpledimensions", "mining"): ("Mining Dimension", "A deep stone resource world, reached through a portal of deepslate bricks with diamond and emerald ore"),
 ("simpledimensions", "travel"): ("Travel Dimension", "A flat plane for fast travel: ten blocks at home are one block there"),
 ("simpledimensions", "portal_shapes"): ("Portal Shapes", "Six glowstone arch sizes, along both horizontal axes"),
 ("simpleriding", "registry"): None,
 ("simpleinterfaces", "style_toggle"): None,
+("simplemodels", "command_reload"): None,  # an operator command, listed in the wiki
+("simplearrows", "silver_arrow"): ("Silver Arrow", "An arrow with a silver head that hits the undead harder"),  # manual adds history
+("simplemusic", "note_code"): ("Note code", "Text lines set the tempo (ticks per step, 1-20), aliases for instruments and sounds, and the notes of each track"),
 }
 
 # Optional "Good to know" note per mod (store page): things a player or server owner must know before installing.
