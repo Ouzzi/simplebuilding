@@ -425,8 +425,21 @@ public final class OctetTests {
                 + net.minecraft.commands.arguments.blocks.BlockStateParser.serialize(mixed)
                 + "{Palette:[{Name:\"" + oakId + "\"},{Name:\"" + stoneId + "\"}],Octets:[I;0,1,-1,-1,-1,-1,-1,-1]}";
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack().withLevel(level).withSuppressedOutput(), handCmd);
+        String probe;
+        try {
+            CompoundTag typedTag = net.minecraft.nbt.TagParser.parseCompoundFully(
+                    "{Palette:[{Name:\"" + oakId + "\"},{Name:\"" + stoneId + "\"}],Octets:[I;0,1,-1,-1,-1,-1,-1,-1]}");
+            BlockEntity direct = BlockEntity.loadStatic(typed, mixed, typedTag, level.registryAccess());
+            CompoundTag entry = typedTag.getListOrEmpty("Palette").getCompoundOrEmpty(0);
+            probe = " | loadStatic: " + (direct instanceof MixedOctetBlockEntity d ? java.util.Arrays.toString(d.parts()) : String.valueOf(direct))
+                    + " | strict: " + BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, entry)
+                    + " | lenient: " + net.minecraft.nbt.NbtUtils.readBlockState(BuiltInRegistries.BLOCK, entry)
+                    + " | be now: " + level.getBlockEntity(typed).saveWithoutMetadata(level.registryAccess());
+        } catch (Exception e) {
+            probe = " | probe failed: " + e;
+        }
         h.assertTrue(level.getBlockEntity(typed) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
-                "a typed /setblock keeps both materials: " + describe(level, typed) + " after " + handCmd);
+                "a typed /setblock keeps both materials: " + describe(level, typed) + " after " + handCmd + probe);
         // the queued ghost-bit check (setLevel) must not empty any cell afterwards
         h.runAfterDelay(5, () -> {
             for (BlockPos at : new BlockPos[] {copy, command, typed}) {
