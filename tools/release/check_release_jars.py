@@ -8,6 +8,7 @@ Findings (same rule as gradle/release-strip.gradle, which strips them with -PsbR
   (ModuleGameTest, ModuleNeoTests, ModuleForgeTests ...); SimpleLib's IdMovesTests is allowed (runtime, SimpleLib.init)
 - *.layers.json (texture editor sources)
 - a "fabric-gametest" entrypoint in fabric.mod.json
+- no license file (LICENSE* at the jar root) in a jar or a nested jar (O8 audit 5: the jar-in-jar framework had none)
 """
 from __future__ import annotations
 
@@ -33,6 +34,8 @@ def test_class(name: str) -> bool:
 def scan(z: zipfile.ZipFile, where: str = '') -> list[str]:
     """Findings of one jar (and its nested jars) as 'kind: path'."""
     out = []
+    if not any('/' not in n and n.upper().startswith(('LICENSE', 'LICENCE', 'COPYING')) for n in z.namelist()):
+        out.append(f'no license file: {where or "jar root"}')
     for name in z.namelist():
         if name.endswith('/'):
             continue

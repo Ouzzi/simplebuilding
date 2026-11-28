@@ -11,3 +11,5 @@ dependencies {
     testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 test { useJUnitPlatform() }
+// O8 audit 5: the framework jar is nested in 58 release jars (jar-in-jar) and carried no license file of its own.
+jar { from(rootProject.file('LICENSE')) { rename { 'LICENSE_framework' } } }
