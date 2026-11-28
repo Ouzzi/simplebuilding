@@ -142,7 +142,11 @@ public final class LivemapRuntime {
         tick = 0;
         webRetryTick = 0;
         syncWeb(s);
-        startHosted(HostedLink.load(root));
+        HostedLink saved = HostedLink.load(root), link = HostedLink.trusted(saved, LivemapConfig.hostedEndpoint);
+        if (saved != null && link == null)
+            SimpleLivemap.LOG.warn("Simple Livemap: this world's hosted link points to {}, not to the configured service {}; not uploading "
+                    + "(connect again with /simplelivemap connect)", saved.endpoint(), LivemapConfig.hostedEndpoint);
+        startHosted(link);
     }
 
     public static void stopping(MinecraftServer s) {
