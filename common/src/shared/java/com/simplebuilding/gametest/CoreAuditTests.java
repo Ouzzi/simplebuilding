@@ -30,7 +30,8 @@ public final class CoreAuditTests {
      * simplebuilding-P2-1: the {@code /simplebuilding ...} commands (server config set/reset, kill boats/carts, world spawn)
      * need an operator player of level 2 like Vanilla's {@code /gamerule} and SimpleLib's config command. Before, any entry
      * in the op list passed ({@code PlayerList#isOp}), also level 1, which Vanilla only lets bypass spawn protection.
-     * The console and command blocks stay outside (no player), as before.
+     * O8 audit 7 / O10: sources without a player (server console, RCON, functions, command blocks) pass with permission
+     * level 2 like every other mod's {@code /<mod> config}; before, the console was locked out of the whole command.
      */
     public static void operatorOnlyNeedsGamemasterLevel(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
@@ -46,7 +47,9 @@ public final class CoreAuditTests {
                     "a level-1 operator (spawn protection bypass only) passes OPERATOR_ONLY and may set the server config");
             players.op(player.nameAndId(), Optional.of(LevelBasedPermissionSet.GAMEMASTER), Optional.empty());
             helper.assertTrue(SimplebuildingCommand.OPERATOR_ONLY.test(player.createCommandSourceStack()), "a level-2 operator is refused");
-            helper.assertFalse(SimplebuildingCommand.OPERATOR_ONLY.test(server.createCommandSourceStack()), "the console passes OPERATOR_ONLY");
+            helper.assertTrue(SimplebuildingCommand.OPERATOR_ONLY.test(server.createCommandSourceStack()), "the server console is refused (O8 audit 7: it may use /simplebuilding)");
+            helper.assertFalse(SimplebuildingCommand.OPERATOR_ONLY.test(server.createCommandSourceStack().withPermission(net.minecraft.server.permissions.LevelBasedPermissionSet.MODERATOR)),
+                    "a level-1 source without a player passes OPERATOR_ONLY");
         } finally {
             players.deop(player.nameAndId());
             if (wasOp) {
