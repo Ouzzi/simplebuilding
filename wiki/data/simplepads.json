@@ -4329,8 +4329,8 @@
       "groupDe": null,
       "label": "Potion Pad Cooldown Factor",
       "labelDe": "Trank-Pad-Abklingfaktor",
-      "tooltip": "After a full charge the potion pad cools down\nfor this many times the granted effect\nduration, times the effect's own multiplier\n(Healing and Harming 2, Night Vision 0.5).\n0 = no cooldown.\nDefault: 2.0. Range: 0–10.0.",
-      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad\nso viele Male die gegebene Wirkdauer lang ab,\nmal dem eigenen Faktor der Wirkung\n(Direktheilung und Direktschaden 2,\nNachtsicht 0,5).\n0 = keine Abklingzeit. Standard: 2,0. Bereich:\n0–10,0,"
+      "tooltip": "After a full charge the potion pad cools down\nfor this many times the granted effect\nduration, times the effect's own multiplier\n(Healing and Harming 2, Night Vision 0.5).\n0 = no cooldown.\nDefault: 1.5. Range: 0–10.0.",
+      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad\nso viele Male die gegebene Wirkdauer lang ab,\nmal dem eigenen Faktor der Wirkung\n(Direktheilung und Direktschaden 2,\nNachtsicht 0,5).\n0 = keine Abklingzeit. Standard: 1,5. Bereich:\n0–10,0."
     },
     {
       "range": null,

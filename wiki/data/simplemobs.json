@@ -8744,8 +8744,8 @@
       "groupDe": null,
       "label": "Danger Zone Effects",
       "labelDe": "Gefahrenzonen-Effekte",
-      "tooltip": "New monsters get status effects by the\nSimple Resonance level of their spawn place\n(never more health). Needs Simple Resonance.\nDefault: off.",
-      "tooltipDe": "Neue Monster bekommen Statuseffekte nach\nder Simple-Resonance-Stufe ihres Spawn-Orts\n(nie mehr Leben). Braucht Simple Resonance.\nStandard: aus."
+      "tooltip": "New monsters get status effects by the\nSimple Resonance level of their spawn place\n(never more health). Needs Simple Resonance.\nDefault: on.",
+      "tooltipDe": "Neue Monster bekommen Statuseffekte nach\nder Simple-Resonance-Stufe ihres Spawn-Orts\n(nie mehr Leben). Braucht Simple Resonance.\nStandard: an."
     },
     {
       "range": null,
