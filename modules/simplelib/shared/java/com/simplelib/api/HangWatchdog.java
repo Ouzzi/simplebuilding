@@ -73,6 +73,20 @@ public final class HangWatchdog {
         if (t != null) t.interrupt();
     }
 
+    /**
+     * O8 audit 6: a dedicated server with {@code pause-when-empty-seconds} (Vanilla default 60) stops ticking while nobody is
+     * online ("Server empty for 60 seconds, pausing") - that is no hang; the watchdog wrote ERROR lines and thread dumps for
+     * every empty server. Trade-off: a real hang while the server is empty is not reported.
+     */
+    static boolean emptyPaused(MinecraftServer s) {
+        return s instanceof net.minecraft.server.dedicated.DedicatedServer d
+                && pausedWhenEmpty(s.getPlayerCount(), d.getProperties().pauseWhenEmptySeconds.get());
+    }
+
+    public static boolean pausedWhenEmpty(int players, Integer pauseWhenEmptySeconds) {
+        return players == 0 && pauseWhenEmptySeconds != null && pauseWhenEmptySeconds > 0;
+    }
+
     /** Is a dump due? {@code stalledNanos} since the last tick, {@code done} dumps of this stall so far. */
     public static boolean due(long stalledNanos, int limitSeconds, int done) {
         if (done >= MAX_DUMPS) return false;
@@ -90,7 +104,7 @@ public final class HangWatchdog {
             if (server != s) return;
             long now = System.nanoTime();
             // off, or a paused singleplayer game (the integrated server skips its ticks then): no stall
-            if (!LibConfig.hangWatchdog || !stopping && s.isPaused()) {
+            if (!LibConfig.hangWatchdog || !stopping && (s.isPaused() || emptyPaused(s))) {
                 lastBeat = now;
                 continue;
             }
