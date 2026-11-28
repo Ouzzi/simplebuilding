@@ -142,6 +142,9 @@ public final class CreditTests {
             yes(h, saved.contains("simpledimensions:farm") && !saved.contains("simpledimension:farm"), "Renamed allowlist written back");
             yes(h, ClaimConfig.load(p).dimensions().equals(c.dimensions()) && Files.readString(p).equals(saved), "Second load: nothing left to rewrite");
             yes(h, "minecraft:overworld".equals(ClaimConfig.migrateDimension("minecraft:overworld")) && "simpledimensions:a".equals(ClaimConfig.migrateDimension("simpledimensions:a")), "Other ids stay");
+            for (int i = 0; i < 2; i++) // O8 audit 6: remembered answers stay the same answers
+                yes(h, ClaimConfig.validDimension("minecraft:overworld") && ClaimConfig.validDimension("a:b/c") && !ClaimConfig.validDimension("a:b/../c")
+                        && !ClaimConfig.validDimension("nocolon") && !ClaimConfig.validDimension("a:/x") && !ClaimConfig.validDimension(null), "Dimension id check (cached)");
 
             UUID old = UUID.randomUUID(), fresh = UUID.randomUUID();
             long a = ChunkPos.pack(1, 1), b = ChunkPos.pack(2, 2);

@@ -136,7 +136,18 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
         deedTrades = List.copyOf(deedTrades);
         if (visitors == null) visitors = Visitors.DEFAULT;
     }
+    /** O8 audit 6: every protection check builds a ClaimStore.Key and validated the id anew (parse + split + stream, ~2.5 % of
+     *  the server thread with the 60 mods); dimension ids are few, so the answer is remembered (bounded). */
+    private static final java.util.concurrent.ConcurrentHashMap<String, Boolean> VALID = new java.util.concurrent.ConcurrentHashMap<>();
     static boolean validDimension(String id) {
+        if (id == null) return false;
+        Boolean known = VALID.get(id);
+        if (known != null) return known;
+        boolean ok = checkDimension(id);
+        if (VALID.size() < 1024) VALID.put(id, ok);
+        return ok;
+    }
+    private static boolean checkDimension(String id) {
         if (id==null || id.length()>128 || Identifier.tryParse(id)==null || !id.contains(":")) return false;
         String path=Identifier.parse(id).getPath();
         return !path.startsWith("/") && Arrays.stream(path.split("/",-1)).noneMatch(s->s.isEmpty()||s.equals(".")||s.equals(".."));
