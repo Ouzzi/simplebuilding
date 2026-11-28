@@ -50,15 +50,23 @@ AREAS = {
 SWITCHES = {"simpleoptrender": "enableSimpleOptRender", "simpleoptmemory": "enableSimpleOptMemory",
             "simpleoptserver": "enableSimpleOptServer"}
 SCENARIOS = ("off", "default", "all")
-SB_SCENARIOS = ("vanilla", "sb")
+SB_SCENARIOS = ("vanilla", "sb", "sbnoend")
 SB_TASK = ":integration:runIntegrationGameTest"
 SB_TEST = "sbintegration:sb_bench_game_test_measure"
 SB_LIMIT_PCT = 10.0
 PROFILES = {"opt": SCENARIOS, "sb": SB_SCENARIOS}
+# O8-B audit 6: --test load|endgen picks SbLoadBenchGameTest (system property switches it on), --sb-mods the selection of "sb"
+# (default the 21 mods of L9; integration/bench-sb-all.json = the 60 release mods); "sbnoend" = bench-sb-noend.json.
+SB_TESTS = {"measure": (SB_TEST, ""), "load": ("sbintegration:sb_load_bench_game_test_load", "sb.bench.load=true"),
+            "endgen": ("sbintegration:sb_load_bench_game_test_endgen", "sb.bench.endgen=true")}
+OPTS = {"test": "measure", "sb_mods": "integration/bench-sb-full.json"}
 # metric -> (label, lower is better)
 METRICS = {"mspt_avg": ("MSPT Mittel ms", True), "mspt_p95": ("MSPT p95 ms", True), "heap_mb": ("Heap nach GC MB", True),
            "state_tables_shared": ("O4 geteilte Arrays", False), "state_tables_saved_kib": ("O4 gespart KiB", False),
-           "leaf_faces_ours": ("O1 Blattflächen (Vanilla s. u.)", True), "mods": ("Mods geladen", False)}
+           "leaf_faces_ours": ("O1 Blattflächen (Vanilla s. u.)", True), "mods": ("Mods geladen", False),
+           "mspt_b_avg": ("MSPT Phase B (+Mod-Maschinen) ms", True), "modded_machines": ("Mod-Maschinen Phase B", False),
+           "endgen_ms_per_chunk": ("End-Chunk ms (Mittel)", True), "endgen_worst_ms": ("End-Chunk ms (max)", True),
+           "endgen_already_loaded": ("End-Chunks schon geladen", True)}
 
 
 def write_config(scenario: str, cfg: Path = RUN_DIR / "config") -> None:
@@ -84,8 +92,10 @@ def sb_command(scenario: str, hot: bool) -> list[str]:
     run = REPO / "integration" / "run-fabric-263"
     shutil.rmtree(run / "config", ignore_errors=True)  # defaults as a player gets them, never leftovers of other suites
     shutil.rmtree(run / "world", ignore_errors=True)   # same fresh world/seed
-    return gradlew() + [SB_TASK, f"-PintegrationMods=integration/bench-sb-{'full' if scenario == 'sb' else 'vanilla'}.json",
-                        "-PbenchSb", f"-PgametestFilter={SB_TEST}", "--console=plain"] + (["-PbenchSbProfile"] if hot else [])
+    mods = {"sb": OPTS["sb_mods"], "sbnoend": "integration/bench-sb-noend.json"}.get(scenario, "integration/bench-sb-vanilla.json")
+    test, props = SB_TESTS[OPTS["test"]]
+    return gradlew() + [SB_TASK, f"-PintegrationMods={mods}", "-PbenchSb", f"-PgametestFilter={test}", "--console=plain"] \
+        + ([f"-PbenchProps={props}"] if props else []) + (["-PbenchSbProfile"] if hot else [])
 
 
 def run_once(scenario: str, rep: int, out_dir: Path, timeout: int, hot: bool = False) -> dict:
@@ -152,9 +162,10 @@ def sb_markdown(results: dict) -> str:
     summ, ver = results["summary"], results.get("verdict")
     cols = [sc for sc in SB_SCENARIOS if sc in summ]
     lines = [f"# SimpleBuilding gegen Vanilla headless ({results['date']}, {results['machine']})", "",
-             f"Runs je Setup: {results['runs_per_scenario']}; Median (± Std.-Abw.). vanilla = Fabric API + Messmod; sb = SimpleBuilding + 20 "
-             "Pflicht-Mods (Welle 1) + Cloth Config. Szene: 120 Kühe, 64 Trichter, 32 Öfen, 6³ Blätter, 400 Server-Ticks nach 100 Ticks "
-             "Warmup, frische Welt. Kein Client.", "", "| Kennzahl | " + " | ".join(cols) + " |", "|---|" + "---|" * len(cols)]
+             f"Runs je Setup: {results['runs_per_scenario']}; Median (± Std.-Abw.). vanilla = Fabric API + Messmod; sb = "
+             f"{results.get('sb_mods', 'integration/bench-sb-full.json')} + Cloth Config; sbnoend = bench-sb-noend.json. Test: "
+             f"{results.get('sb_test', 'measure')} (measure: 120 Kühe, 64 Trichter, 32 Öfen, 6³ Blätter; load/endgen: SbLoadBenchGameTest). "
+             "Frische Welt je JVM. Kein Client.", "", "| Kennzahl | " + " | ".join(cols) + " |", "|---|" + "---|" * len(cols)]
     for m, (label, _) in METRICS.items():
         if not any(m in summ[c] for c in cols) or m.startswith(("state_", "leaf_")):
             continue
@@ -229,7 +240,7 @@ def run(runs: int, scenarios: list[str], out_dir: Path, timeout: int, profile: s
         write_config("default")  # leave the instance as a player gets it
     results = dict(date=dt.date.today().isoformat(), machine=os.uname().nodename if hasattr(os, "uname") else "",
                    profile=profile, runs_per_scenario=runs, test=SB_TEST if profile == "sb" else TEST, runs=entries,
-                   summary=summ, verdict=ver)
+                   summary=summ, verdict=ver, sb_test=OPTS["test"], sb_mods=OPTS["sb_mods"])
     (out_dir / "results.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
     (out_dir / "results.md").write_text(markdown(results), encoding="utf-8")
     return results
@@ -244,6 +255,8 @@ def main() -> int:
     p.add_argument("--out", type=Path, default=None)
     p.add_argument("--timeout", type=int, default=1800, help="seconds per run")
     p.add_argument("--report", type=Path, default=None, help="rebuild results.md from a results.json")
+    p.add_argument("--test", choices=sorted(SB_TESTS), default="measure", help="profile sb: which gametest (O8-B audit 6)")
+    p.add_argument("--sb-mods", default="integration/bench-sb-full.json", help="profile sb: mod selection of scenario sb")
     a = p.parse_args()
     if a.report:
         res = json.loads(a.report.read_text(encoding="utf-8"))
@@ -252,8 +265,9 @@ def main() -> int:
             res["verdict"] = verdict(res["summary"])
         a.report.with_suffix(".md").write_text(markdown(res), encoding="utf-8")
         return 0
+    OPTS.update(test=a.test, sb_mods=a.sb_mods)
     allowed = PROFILES[a.profile]
-    scs = [s for s in (a.scenarios or ",".join(allowed)).split(",") if s]
+    scs = [s for s in (a.scenarios or ",".join(allowed if a.profile != "sb" else ("vanilla", "sb"))).split(",") if s]
     unknown = set(scs) - set(allowed)
     if unknown:
         raise SystemExit(f"unknown scenarios {sorted(unknown)}; possible: {', '.join(allowed)}")
