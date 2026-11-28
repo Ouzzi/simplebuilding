@@ -391,8 +391,8 @@ public final class OctetTests {
     /**
      * O8 audit 2: block entity data loaded into an already placed cell (what /setblock with NBT, structure templates and
      * build tools do: place the state, then {@code loadWithComponents} on the new block entity) keeps its materials, also
-     * after the queued ghost-bit check of {@code setLevel} ran. On a dedicated server a cell set by
-     * {@code setblock ... simpleoctets:mixed_octet[...]{Palette:[...],Octets:[I;...]}} read back {@code Palette: []}.
+     * after the queued ghost-bit check of {@code setLevel} ran - and so does a palette in the 26.2 form {@code {Name, Properties}}:
+     * before the fix such a cell read back {@code Palette: []} and the ghost-bit check removed it (26.2 worlds with mixed cells).
      */
     static void mixedCellLoadsBlockEntityDataAfterPlacing(GameTestHelper h) {
         ServerLevel level = h.getLevel();
@@ -418,28 +418,17 @@ public final class OctetTests {
         String commanded = describe(level, command);
         h.assertTrue(level.getBlockEntity(command) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
                 "/setblock with the saved data keeps both materials: " + commanded + " after " + cmd);
-        // a hand-written command (names only, no Properties): what an admin or a datapack would type
+        // an entry in the 26.2 form {Name, Properties} (SimpleBuilding 1.3 / the 1.3.2 bridge on 26.2; vanilla's fixers leave
+        // this palette alone), typed as a command: 26.3's block state codec only reads a string or {id}
         BlockPos typed = h.absolutePos(CELL.north(2));
         String oakId = BuiltInRegistries.BLOCK.getKey(oak.getBlock()).toString(), stoneId = BuiltInRegistries.BLOCK.getKey(stone.getBlock()).toString();
         String handCmd = "setblock " + typed.getX() + " " + typed.getY() + " " + typed.getZ() + " "
                 + net.minecraft.commands.arguments.blocks.BlockStateParser.serialize(mixed)
-                + "{Palette:[{Name:\"" + oakId + "\"},{Name:\"" + stoneId + "\"}],Octets:[I;0,1,-1,-1,-1,-1,-1,-1]}";
+                + "{Palette:[{Name:\"" + oakId + "\"},{Name:\"" + stoneId + "\",Properties:{waterlogged:\"true\",o000:\"true\",nonsense:\"1\"}}],"
+                + "Octets:[I;0,1,-1,-1,-1,-1,-1,-1]}";
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack().withLevel(level).withSuppressedOutput(), handCmd);
-        String probe;
-        try {
-            CompoundTag typedTag = net.minecraft.nbt.TagParser.parseCompoundFully(
-                    "{Palette:[{Name:\"" + oakId + "\"},{Name:\"" + stoneId + "\"}],Octets:[I;0,1,-1,-1,-1,-1,-1,-1]}");
-            BlockEntity direct = BlockEntity.loadStatic(typed, mixed, typedTag, level.registryAccess());
-            CompoundTag entry = typedTag.getListOrEmpty("Palette").getCompoundOrEmpty(0);
-            probe = " | loadStatic: " + (direct instanceof MixedOctetBlockEntity d ? java.util.Arrays.toString(d.parts()) : String.valueOf(direct))
-                    + " | strict: " + BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, entry)
-                    + " | lenient: " + net.minecraft.nbt.NbtUtils.readBlockState(BuiltInRegistries.BLOCK, entry)
-                    + " | be now: " + level.getBlockEntity(typed).saveWithoutMetadata(level.registryAccess());
-        } catch (Exception e) {
-            probe = " | probe failed: " + e;
-        }
         h.assertTrue(level.getBlockEntity(typed) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
-                "a typed /setblock keeps both materials: " + describe(level, typed) + " after " + handCmd + probe);
+                "a palette in the 26.2 form {Name, Properties} keeps both materials: " + describe(level, typed) + " after " + handCmd);
         // the queued ghost-bit check (setLevel) must not empty any cell afterwards
         h.runAfterDelay(5, () -> {
             for (BlockPos at : new BlockPos[] {copy, command, typed}) {

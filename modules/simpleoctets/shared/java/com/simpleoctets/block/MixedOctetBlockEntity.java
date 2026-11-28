@@ -68,19 +68,41 @@ public class MixedOctetBlockEntity extends BlockEntity {
     }
 
     /**
-     * One palette entry. The game writes every property; an entry typed by hand (/setblock, /data, a datapack or another
-     * tool: only {@code Name}, or some properties) fails the strict codec - O8 audit 2: the cell came out empty and the
-     * ghost-bit check then removed it. Such entries are read leniently (missing properties = defaults); an unknown block
-     * reads as air, which is no material, so a removed mod's entry still stays empty.
+     * One palette entry. 26.3 writes a block state as a string or a map with {@code id}; 26.2 (SimpleBuilding 1.3, also the
+     * 1.3.2 bridge on 26.2) wrote {@code {Name, Properties}}. Vanilla's data fixers convert their own fields, not this palette,
+     * so such an entry failed the codec - O8 audit 2: the cell of an upgraded world loaded without materials and the
+     * ghost-bit check removed it. Old entries (and hand-typed ones in that form) are read by name; missing or unknown
+     * properties keep their defaults. An unknown block is no material, so a removed mod's entry still stays empty.
      */
     private static @Nullable BlockState readPart(com.mojang.serialization.Dynamic<?> entry) {
-        BlockState strict = BlockState.CODEC.parse(entry).result().orElse(null);
-        if (strict != null) {
-            return strict;
+        BlockState state = BlockState.CODEC.parse(entry).result().orElse(null);
+        if (state != null) {
+            return state;
         }
-        net.minecraft.nbt.Tag tag = entry.convert(net.minecraft.nbt.NbtOps.INSTANCE).getValue();
-        return tag instanceof CompoundTag compound
-                ? net.minecraft.nbt.NbtUtils.readBlockState(net.minecraft.core.registries.BuiltInRegistries.BLOCK, compound) : null;
+        if (!(entry.convert(net.minecraft.nbt.NbtOps.INSTANCE).getValue() instanceof CompoundTag old)) {
+            return null;
+        }
+        net.minecraft.resources.Identifier id = net.minecraft.resources.Identifier.tryParse(old.getStringOr("Name", ""));
+        if (id == null) {
+            return null;
+        }
+        // getValue follows registry aliases (IdMoves: simplebuilding:*_octet of 1.3 -> simpleoctets); unknown = air = no material
+        Block block = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(id);
+        state = block.defaultBlockState();
+        CompoundTag properties = old.getCompoundOrEmpty("Properties");
+        for (String key : properties.keySet()) {
+            net.minecraft.world.level.block.state.properties.Property<?> property = block.getStateDefinition().getProperty(key);
+            String value = properties.getStringOr(key, "");
+            if (property != null) {
+                state = withValue(state, property, value);
+            }
+        }
+        return state;
+    }
+
+    private static <T extends Comparable<T>> BlockState withValue(BlockState state,
+            net.minecraft.world.level.block.state.properties.Property<T> property, String value) {
+        return property.getValue(value).map(v -> state.setValue(property, v)).orElse(state);
     }
 
     /**
