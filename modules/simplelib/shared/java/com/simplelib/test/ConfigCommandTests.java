@@ -178,6 +178,120 @@ public final class ConfigCommandTests {
     }
 
     /**
+     * O8 audit 7: every option of every announced server config (all mods of the integration run) once to a non-default valid
+     * value through {@code /<modid> config set} and back with {@code reset}: no exception, the command answers 1, the value is
+     * taken (not clamped back to the old one), the written file holds it, reset brings the default back (file too). Switches
+     * flip, numbers move one step inside their range, choices take another choice; free text, lists, objects and secrets are
+     * left out (a typed value would mean something else per option). The old value is restored at once. One line
+     * {@code SB-CONFIG-FLIP {json}} lists every problem; exceptions, refused sets and broken resets fail the test, a value
+     * that stays unchanged is only reported (an option may depend on another one).
+     */
+    static void everyOptionFlip(GameTestHelper h) {
+        var d = h.getLevel().getServer().getCommands().getDispatcher();
+        CommandSourceStack op = source(h);
+        List<String> hard = new java.util.ArrayList<>(), soft = new java.util.ArrayList<>();
+        int flipped = 0, skipped = 0;
+        for (var spec : ConfigCommands.specs(false)) {
+            for (var o : spec.options()) {
+                String value = flipValue(spec, o);
+                if (value == null) {
+                    skipped++;
+                    continue;
+                }
+                String id = spec.modId() + " " + o.path();
+                String before = ConfigCommands.show(spec.value(o.path()));
+                try {
+                    int r = run(d, spec.modId() + " config set " + o.path() + " " + value, op);
+                    String stored = ConfigCommands.show(spec.value(o.path()));
+                    if (r != 1) hard.add(id + ": set " + value + " answered " + r);
+                    else if (stored.equals(before) && !value.equals(before)) soft.add(id + ": set " + value + " kept " + stored);
+                    String inFile = fileValue(spec, o.path());
+                    if (r == 1 && inFile != null && !inFile.equals(stored)) hard.add(id + ": file has " + inFile + ", live " + stored);
+                    int rr = run(d, spec.modId() + " config reset " + o.path(), op);
+                    String def = ConfigCommands.show(o.defaultValue());
+                    String after = ConfigCommands.show(spec.value(o.path()));
+                    if (rr != 1 || !after.equals(def)) hard.add(id + ": reset answered " + rr + ", value " + after + ", default " + def);
+                    String fileAfter = fileValue(spec, o.path());
+                    if (rr == 1 && fileAfter != null && !fileAfter.equals(after)) hard.add(id + ": file after reset " + fileAfter);
+                    flipped++;
+                } catch (Throwable t) {
+                    hard.add(id + ": " + t);
+                } finally {
+                    try {
+                        spec.set(o.path(), before);
+                    } catch (Throwable t) {
+                        hard.add(id + ": restore " + t);
+                    }
+                }
+            }
+        }
+        JsonObject out = new JsonObject();
+        out.addProperty("configs", ConfigCommands.specs(false).size());
+        out.addProperty("flipped", flipped);
+        out.addProperty("skipped", skipped);
+        JsonArray ha = new JsonArray(), sa = new JsonArray();
+        hard.forEach(ha::add);
+        soft.forEach(sa::add);
+        out.add("hard", ha);
+        out.add("soft", sa);
+        System.out.println("SB-CONFIG-FLIP " + out);
+        check(h, flipped > 0, "no option flipped");
+        check(h, hard.isEmpty(), hard.size() + " config options failed the flip: " + hard.subList(0, Math.min(10, hard.size())));
+        h.succeed();
+    }
+
+    /** A valid non-default value for {@link #everyOptionFlip}, or null when the option is left out. */
+    static String flipValue(ConfigCommands.Spec spec, ConfigCommands.Option o) {
+        if (spec.secret(o.path()) || o.defaultValue() == null || o.defaultValue().isJsonNull()) return null;
+        List<String> choices = spec.choices(o.path());
+        String def = ConfigCommands.show(o.defaultValue());
+        if (!choices.isEmpty()) {
+            for (String c : choices) if (!c.equalsIgnoreCase(def)) return c;
+            return null;
+        }
+        double[] range = spec.range(o.path());
+        switch (o.kind()) {
+            case BOOL -> {
+                return Boolean.toString(!o.defaultValue().getAsBoolean());
+            }
+            case INT -> {
+                long v = o.defaultValue().getAsLong();
+                long next = v + 1;
+                if ((range != null && next > range[1]) || next > Integer.MAX_VALUE) next = v - 1;
+                if (range != null && next < range[0]) return null;
+                return Long.toString(next);
+            }
+            case DECIMAL -> {
+                double v = o.defaultValue().getAsDouble();
+                double step = range != null ? (range[1] - range[0]) / 10.0 : (v == 0 ? 0.5 : Math.abs(v) / 2);
+                double next = v + step;
+                if (range != null && next > range[1]) next = v - step;
+                if (range != null && next < range[0]) return null;
+                return Double.toString(Math.round(next * 1e6) / 1e6);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    /** The value of {@code path} in the spec's file as shown, or null without a file (or when unreadable/missing there). */
+    private static String fileValue(ConfigCommands.Spec spec, String path) {
+        if (spec.file() == null || !Files.isRegularFile(spec.file())) return null;
+        try {
+            JsonObject cur = JsonParser.parseString(Files.readString(spec.file())).getAsJsonObject();
+            String[] parts = path.split("\\.");
+            for (int i = 0; i < parts.length - 1; i++) {
+                if (!cur.has(parts[i]) || !cur.get(parts[i]).isJsonObject()) return null;
+                cur = cur.getAsJsonObject(parts[i]);
+            }
+            return cur.has(parts[parts.length - 1]) ? ConfigCommands.show(cur.get(parts[parts.length - 1])) : null;
+        } catch (Exception e) {
+            return "unreadable: " + e;
+        }
+    }
+
+    /**
      * For module tests: {@code /<modid> config set <path> <value>} stores {@code expected} (file too, when the spec writes
      * one), {@code invalid} is refused without a change, reset brings the default back; the old value is restored at the end.
      */
@@ -231,15 +345,28 @@ public final class ConfigCommandTests {
     public static void tooltipDefaults(GameTestHelper h, String modId, boolean client) {
         ConfigCommands.Spec spec = ConfigCommands.spec(modId, client);
         check(h, spec != null, modId + " announced no " + (client ? "client" : "server") + " config");
+        List<String> wrong = new java.util.ArrayList<>();
+        int checked = tooltipDefaultProblems(spec, wrong);
+        check(h, checked >= 0, modId + ": no de_de.json");
+        check(h, checked > 0, modId + ": no tooltip names a default");
+        check(h, wrong.isEmpty(), modId + " tooltips name a wrong default: " + wrong);
+        h.succeed();
+    }
+
+    /**
+     * The tooltip-default comparison of {@link #tooltipDefaults} for one spec: adds "en|de path: tooltip X, default Y" to
+     * {@code wrong}; returns how many tooltips named a default, -1 without the module's de_de.json.
+     */
+    static int tooltipDefaultProblems(ConfigCommands.Spec spec, List<String> wrong) {
+        String modId = spec.modId();
         JsonObject de;
         try (var in = ConfigCommandTests.class.getResourceAsStream("/assets/" + modId + "/lang/de_de.json")) {
-            check(h, in != null, modId + ": no de_de.json");
+            if (in == null) return -1;
             de = JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (java.io.IOException e) {
             throw new RuntimeException(e);
         }
         var en = net.minecraft.locale.Language.getInstance();
-        List<String> wrong = new java.util.ArrayList<>();
         int checked = 0;
         for (var o : spec.options()) {
             if (o.kind() != Kind.BOOL && o.kind() != Kind.INT && o.kind() != Kind.DECIMAL) continue;
@@ -258,16 +385,42 @@ public final class ConfigCommandTests {
                     ok = !Character.isDigit(named.charAt(named.length() - 1)) && on == o.defaultValue().getAsBoolean();
                 } else {
                     try {
-                        ok = Math.abs(Double.parseDouble(named.replace(',', '.')) - o.defaultValue().getAsDouble()) < 1e-9;
+                        double d = o.defaultValue().getAsDouble();
+                        // float options (0.2f = 0.20000000298...) compare within float precision
+                        ok = Math.abs(Double.parseDouble(named.replace(',', '.')) - d) <= 1e-6 * Math.max(1.0, Math.abs(d));
                     } catch (NumberFormatException e) {
                         ok = false;
                     }
                 }
-                if (!ok) wrong.add((i == 0 ? "en " : "de ") + o.path() + ": tooltip " + named + ", default " + o.defaultValue());
+                if (!ok) wrong.add((i == 0 ? "en " : "de ") + modId + " " + o.path() + ": tooltip " + named + ", default " + o.defaultValue());
             }
         }
-        check(h, checked > 0, modId + ": no tooltip names a default");
-        check(h, wrong.isEmpty(), modId + " tooltips name a wrong default: " + wrong);
+        return checked;
+    }
+
+    /**
+     * O8 audit 7: {@link #tooltipDefaults} for EVERY announced server config of the loaded mods at once (only ten modules
+     * call it themselves). One line {@code SB-CONFIG-TOOLTIPS {json}}; a tooltip that names a wrong default fails.
+     */
+    static void everyTooltipDefault(GameTestHelper h) {
+        List<String> wrong = new java.util.ArrayList<>(), noDe = new java.util.ArrayList<>();
+        int checked = 0;
+        for (var spec : ConfigCommands.specs(false)) {
+            int n = tooltipDefaultProblems(spec, wrong);
+            if (n < 0) noDe.add(spec.modId());
+            else checked += n;
+        }
+        JsonObject out = new JsonObject();
+        out.addProperty("configs", ConfigCommands.specs(false).size());
+        out.addProperty("checked", checked);
+        JsonArray w = new JsonArray(), d = new JsonArray();
+        wrong.forEach(w::add);
+        noDe.forEach(d::add);
+        out.add("wrong", w);
+        out.add("no_de_de", d);
+        System.out.println("SB-CONFIG-TOOLTIPS " + out);
+        check(h, checked > 0, "no tooltip names a default");
+        check(h, wrong.isEmpty(), wrong.size() + " tooltips name a wrong default: " + wrong.subList(0, Math.min(10, wrong.size())));
         h.succeed();
     }
 

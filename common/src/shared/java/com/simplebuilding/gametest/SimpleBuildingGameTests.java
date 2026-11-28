@@ -962,6 +962,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("config_option_game_test_the_config_command_reaches_every_option", ConfigOptionTests::theConfigCommandReachesEveryOption)
                     .build(),
+            GameTestSpec.named("config_option_game_test_every_option_flips", ConfigOptionTests::everyOptionFlips)
+                    .build(),
             GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
                     .build(),
             GameTestSpec.named("config_option_game_test_wave_two_options_have_hard_bounds", ConfigOptionTests::waveTwoOptionsHaveHardBounds)

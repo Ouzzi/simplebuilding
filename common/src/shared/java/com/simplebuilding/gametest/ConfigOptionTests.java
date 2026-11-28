@@ -1665,6 +1665,88 @@ public final class ConfigOptionTests {
     }
 
     /**
+     * O8 audit 7: every visible server option of SimpleBuilding's own config once to a non-default valid value through
+     * {@code /simplebuilding config set} from the server console (no player, permission level 4 - it was refused before
+     * the audit) and back with {@code reset}: no exception, the command answers 1 and the live config
+     * holds the value (switches flip, numbers move one step, text options are left out), reset brings the default back.
+     * Saving is counted instead of written. All values are restored at the end. One line {@code SB-CONFIG-FLIP-CORE {json}};
+     * an exception, a refused set or a broken reset fails, a value clamped back to the old one is only reported.
+     */
+    public static void everyOptionFlips(GameTestHelper helper) {
+        SimplebuildingConfig config = liveConfig(helper);
+        Runnable installedSaver = com.simplebuilding.config.ConfigSaving.saver();
+        java.util.Map<com.simplebuilding.config.ConfigOptions.Option, Object> before = new java.util.LinkedHashMap<>();
+        for (var option : com.simplebuilding.config.ConfigOptions.visible()) before.put(option, option.get(config));
+        Runnable restore = () -> {
+            SimplebuildingConfig live = Simplebuilding.getConfig();
+            before.forEach((option, value) -> option.set(live, value));
+            com.simplebuilding.config.ConfigSaving.setSaver(installedSaver);
+        };
+        restoreAtEnd(helper, restore);
+        List<String> hard = new ArrayList<>(), soft = new ArrayList<>();
+        int flipped = 0, skipped = 0;
+        try {
+            com.simplebuilding.config.ConfigSaving.setSaver(() -> { });
+            var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
+            var source = helper.getLevel().getServer().createCommandSourceStack().withSuppressedOutput();
+            for (var option : before.keySet()) {
+                if (option.clientSide()) {
+                    skipped++;
+                    continue;
+                }
+                Object def = option.defaultValue();
+                String value = def instanceof Boolean b ? Boolean.toString(!b)
+                        : def instanceof Integer i ? Integer.toString(i == Integer.MAX_VALUE ? i - 1 : i + 1)
+                        : def instanceof Long l ? Long.toString(l + 1)
+                        : def instanceof Double d ? Double.toString(d == 0 ? 0.5 : d * 1.5)
+                        : def instanceof Float f ? Float.toString(f == 0 ? 0.5f : f * 1.5f) : null;
+                if (value == null) {
+                    skipped++;
+                    continue;
+                }
+                Object was = option.get(config);
+                try {
+                    int r = dispatcher.execute("simplebuilding config set " + option.path() + " " + value, source);
+                    Object now = option.get(config);
+                    if (r != 1) hard.add(option.path() + ": set " + value + " answered " + r);
+                    else if (java.util.Objects.equals(now, was) && !java.util.Objects.equals(option.parse(value), was))
+                        soft.add(option.path() + ": set " + value + " kept " + now);
+                    int rr = dispatcher.execute("simplebuilding config reset " + option.path(), source);
+                    Object after = option.get(config);
+                    if (rr != 1 || !java.util.Objects.equals(after, def)) hard.add(option.path() + ": reset answered " + rr + ", value " + after + ", default " + def);
+                    flipped++;
+                } catch (Throwable t) {
+                    hard.add(option.path() + ": " + t);
+                } finally {
+                    option.set(config, was);
+                }
+            }
+            // the console reaches the command (above); a source without permission level 2 still does not
+            try {
+                dispatcher.execute("simplebuilding config get giveGuideBookOnFirstJoin",
+                        source.withPermission(net.minecraft.server.permissions.LevelBasedPermissionSet.ALL));
+                hard.add("a level-0 source may use /simplebuilding config");
+            } catch (com.mojang.brigadier.exceptions.CommandSyntaxException expected) {
+                // refused: unknown command for it
+            }
+        } finally {
+            restore.run();
+        }
+        com.google.gson.JsonObject out = new com.google.gson.JsonObject();
+        out.addProperty("flipped", flipped);
+        out.addProperty("skipped", skipped);
+        com.google.gson.JsonArray ha = new com.google.gson.JsonArray(), sa = new com.google.gson.JsonArray();
+        hard.forEach(ha::add);
+        soft.forEach(sa::add);
+        out.add("hard", ha);
+        out.add("soft", sa);
+        System.out.println("SB-CONFIG-FLIP-CORE " + out);
+        helper.assertTrue(flipped > 0, "no option flipped");
+        helper.assertTrue(hard.isEmpty(), hard.size() + " options failed the flip: " + hard.subList(0, Math.min(10, hard.size())));
+        done(helper);
+    }
+
+    /**
      * The three new tool options change what the tools do: the hunger multiplier scales the
      * exhaustion of a paid wand block (0 = free), the magnet multiplier decides whether an item six
      * blocks away is pulled, and the rotator cost is what one real turn takes off the charge.

@@ -41,8 +41,11 @@ public final class SimplebuildingCommand {
      * Stufe 1 (darf in Vanilla nur den Spawnschutz umgehen) durfte die ganze Server-Config setzen, Boote und Loren
      * entfernen und den Weltspawn setzen (Audit simplebuilding-P2-1).
      */
+    // O8 audit 7: the server console (and RCON, functions) has no player but permission level 4; it was locked out of
+    // /simplebuilding (config included), while every other mod's /<mod> config only asks for level 2.
     public static final Predicate<CommandSourceStack> OPERATOR_ONLY = source -> source.getPlayer() != null
-            && com.simplebuilding.guide.GuideBooks.isOperator(source.getPlayer());
+            ? com.simplebuilding.guide.GuideBooks.isOperator(source.getPlayer())
+            : Commands.hasPermission(Commands.LEVEL_GAMEMASTERS).test(source);
 
     private SimplebuildingCommand() {
     }
