@@ -419,12 +419,13 @@ public final class OctetTests {
         h.assertTrue(level.getBlockEntity(command) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
                 "/setblock with the saved data keeps both materials: " + commanded + " after " + cmd);
         // an entry in the 26.2 form {Name, Properties} (SimpleBuilding 1.3 / the 1.3.2 bridge on 26.2; vanilla's fixers leave
-        // this palette alone), typed as a command: 26.3's block state codec only reads a string or {id}
+        // this palette alone; 1.3 named the octets simplebuilding:*, IdMoves resolve them), typed as a command: 26.3's block state
+        // codec only reads a string or {id}
         BlockPos typed = h.absolutePos(CELL.north(2));
-        String oakId = BuiltInRegistries.BLOCK.getKey(oak.getBlock()).toString(), stoneId = BuiltInRegistries.BLOCK.getKey(stone.getBlock()).toString();
+        String stoneId = BuiltInRegistries.BLOCK.getKey(stone.getBlock()).toString();
         String handCmd = "setblock " + typed.getX() + " " + typed.getY() + " " + typed.getZ() + " "
                 + net.minecraft.commands.arguments.blocks.BlockStateParser.serialize(mixed)
-                + "{Palette:[{Name:\"" + oakId + "\"},{Name:\"" + stoneId + "\",Properties:{waterlogged:\"true\",o000:\"true\",nonsense:\"1\"}}],"
+                + "{Palette:[{Name:\"simplebuilding:" + BuiltInRegistries.BLOCK.getKey(oak.getBlock()).getPath() + "\"},{Name:\"" + stoneId + "\",Properties:{waterlogged:\"true\",o000:\"true\",nonsense:\"1\"}}],"
                 + "Octets:[I;0,1,-1,-1,-1,-1,-1,-1]}";
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack().withLevel(level).withSuppressedOutput(), handCmd);
         h.assertTrue(level.getBlockEntity(typed) instanceof MixedOctetBlockEntity be && be.part(0) == oak && be.part(1) == stone,
